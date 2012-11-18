@@ -1,5 +1,9 @@
 package quickfixgo
 
+import(
+    "quickfixgo/message"
+    )
+
 type sessionRegistry struct {
 
 }
@@ -10,6 +14,6 @@ func init() {
   sessions=new(sessionRegistry)
 }
 
-func SendToTarget(msgBuilder MessageBuilder, sessionID SessionID) (bool, SessionNotFound) {
+func SendToTarget(msgBuilder message.Builder, sessionID SessionID) (bool, SessionNotFound) {
   return false, nil
 }

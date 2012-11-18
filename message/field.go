@@ -1,4 +1,4 @@
-package quickfixgo
+package message
 
 // Field is the common interface implemented by all field types
 type Field interface {

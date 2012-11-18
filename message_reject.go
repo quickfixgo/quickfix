@@ -1,10 +1,14 @@
 package quickfixgo
 
+import(
+    "quickfixgo/message"
+    )
+
 type MessageReject interface {
-  RejectedMessage() Message
+  RejectedMessage() message.Message
   RejectReason() int
   IsBusinessReject() bool
-  RefTagID() Tag
+  RefTagID() message.Tag
   error
 }
 
