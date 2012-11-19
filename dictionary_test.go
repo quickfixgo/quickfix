@@ -12,7 +12,7 @@ type DictionaryTests struct {dict Dictionary}
 var _ = Suite(&DictionaryTests{})
 
 func (s *DictionaryTests) SetUpTest(c *C) {
-  s.dict=newDictionary()
+  s.dict=NewDictionary()
 }
 
 func (s * DictionaryTests) TestStringSettings(c *C) {

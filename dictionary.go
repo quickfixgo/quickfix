@@ -34,7 +34,7 @@ func (d * dictionary) SetInt(setting SessionSetting, val int) {
 }
 
 
-func newDictionary() Dictionary {
+func NewDictionary() Dictionary {
   d:=dictionary{}
   d.stringSettings=make(map[SessionSetting] string)
   d.intSettings=make(map[SessionSetting] int)

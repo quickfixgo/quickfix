@@ -32,10 +32,11 @@ func main() {
   app:=new(EchoApplication)
 
   settings:=quickfixgo.NewSessionSettings()
-  settings.GetGlobalSettings().SetString(quickfixgo.BeginString,"FIX.4.2")
-  settings.GetGlobalSettings().SetString(quickfixgo.SenderCompID, "ISLD")
-  settings.GetGlobalSettings().SetString(quickfixgo.TargetCompID, "TW")
   settings.GetGlobalSettings().SetInt(quickfixgo.SocketAcceptPort, 5000)
+  
+  sessionDict:=quickfixgo.NewDictionary()
+  sessionID:=quickfixgo.SessionID{BeginString: "FIX.4.2", SenderCompID: "ISLD", TargetCompID: "TW"}
+  settings.SetSessionSettings(sessionID, sessionDict)
 
   acceptor,err:=quickfixgo.NewAcceptor(app,settings,log.ScreenLogFactory{})
   if acceptor == nil {

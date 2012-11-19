@@ -54,48 +54,54 @@ func (m *FieldMap) Remove(tag message.Tag) {
 }
 
 
-func (m *FieldMap) StringField(tag message.Tag) (message.StringField, bool) {
+func (m *FieldMap) StringField(tag message.Tag) (message.StringField, error) {
   message_field,ok:=m.Get(tag)
-  if !ok {return nil, ok}
+  if !ok {
+    return nil, message.FieldNotFoundError{tag}
+  }
 
   switch typeField:=message_field.(type) {
     case message.StringField:
-      return typeField, true
+      return typeField, nil
   }
 
-  panic("NOT A STRING")
+  return NewStringField(tag, message_field.Value()), nil
 }
 
-func (m *FieldMap) IntField(tag message.Tag) (message.IntField, bool) {
+func (m *FieldMap) IntField(tag message.Tag) (message.IntField, error) {
   message_field,ok:=m.Get(tag)
-  if !ok {return nil, ok}
+  if !ok {
+    return nil, message.FieldNotFoundError{tag} 
+  }
 
   switch typeField:=message_field.(type) {
     case message.IntField:
-      return typeField, true
+      return typeField, nil
   }
 
   if intField,err:=ToIntField(message_field); err==nil {
-    return intField, true
+    return intField, nil
   }
 
-  panic("NOT A INT")
+  return nil, message.FieldConvertError{Tag: tag, Value: message_field.Value()}
 }
 
-func (m *FieldMap) UTCTimestampField(tag message.Tag) (message.UTCTimestampField, bool) {
+func (m *FieldMap) UTCTimestampField(tag message.Tag) (message.UTCTimestampField, error) {
   message_field,ok:=m.Get(tag)
-  if !ok {return nil, ok}
+  if !ok {
+    return nil, message.FieldNotFoundError{tag}
+  }
 
   switch typeField:=message_field.(type) {
     case message.UTCTimestampField:
-      return typeField, true
+      return typeField, nil
   }
 
   if utcTimestampField,err:=ToUTCTimestampField(message_field); err==nil {
-    return utcTimestampField, true
+    return utcTimestampField, nil
   }
 
-  panic("NOT A UTC TIMESTAMP")
+  return nil,message.FieldConvertError{Tag: tag, Value: message_field.Value()}
 }
 
 func (m FieldMap) sortedTags() []message.Tag {

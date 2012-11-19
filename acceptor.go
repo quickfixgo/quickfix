@@ -83,18 +83,21 @@ func (a * acceptor) handleConnection(connection net.Conn) {
   }
 
   var sessID SessionID
-  if beginString,ok:=msg.Header().StringField(fix.BeginString); ok {
+  if beginString,err:=msg.Header().StringField(fix.BeginString); err!=nil {
     sessID.BeginString=beginString.Value()
   }
 
-  if senderCompID,ok:=msg.Header().StringField(fix.SenderCompID); ok {
+  if senderCompID,err:=msg.Header().StringField(fix.SenderCompID); err!=nil {
     sessID.SenderCompID=senderCompID.Value()
   }
 
-  if targetCompID,ok:=msg.Header().StringField(fix.TargetCompID); ok {
+  if targetCompID,err:=msg.Header().StringField(fix.TargetCompID); err!=nil {
     sessID.TargetCompID=targetCompID.Value()
   }
 
+  if defaultApplVerID,err:= msg.Body().StringField(fix.DefaultApplVerID); err!=nil {
+    sessID.DefaultApplVerID = defaultApplVerID.Value()
+  }
 
 
 
