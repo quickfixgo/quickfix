@@ -2,6 +2,8 @@ package main
 
 import(
     "fmt"
+    "os"
+    "os/signal"
     "quickfixgo"
     "quickfixgo/log"
     "quickfixgo/message"
@@ -29,11 +31,12 @@ func (e EchoApplication) FromApp(msg message.Message, sessionID quickfixgo.Sessi
 
 
 func main() {
+  fmt.Println("starting...")
   app:=new(EchoApplication)
 
   settings:=quickfixgo.NewSessionSettings()
-  settings.GetGlobalSettings().SetInt(quickfixgo.SocketAcceptPort, 5000)
-  
+  settings.GetGlobalSettings().SetInt(quickfixgo.SocketAcceptPort, 5001)
+
   sessionDict:=quickfixgo.NewDictionary()
   sessionID:=quickfixgo.SessionID{BeginString: "FIX.4.2", SenderCompID: "ISLD", TargetCompID: "TW"}
   settings.SetSessionSettings(sessionID, sessionDict)
@@ -49,8 +52,9 @@ func main() {
     return
   }
 
-  var i int
-  fmt.Scanf("%d", &i)
+  interrupt:=make(chan os.Signal)
+  signal.Notify(interrupt)
+  <-interrupt
 
   acceptor.Stop()
 }

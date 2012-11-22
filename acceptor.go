@@ -87,20 +87,19 @@ func (a * acceptor) handleConnection(connection net.Conn) {
     sessID.BeginString=beginString.Value()
   }
 
-  if senderCompID,err:=msg.Header().StringField(fix.SenderCompID); err!=nil {
+  if senderCompID,err:=msg.Header().StringField(fix.SenderCompID); err==nil {
     sessID.SenderCompID=senderCompID.Value()
   }
 
-  if targetCompID,err:=msg.Header().StringField(fix.TargetCompID); err!=nil {
+  if targetCompID,err:=msg.Header().StringField(fix.TargetCompID); err==nil {
     sessID.TargetCompID=targetCompID.Value()
   }
 
-  if defaultApplVerID,err:= msg.Body().StringField(fix.DefaultApplVerID); err!=nil {
+  if defaultApplVerID,err:= msg.Body().StringField(fix.DefaultApplVerID); err==nil {
     sessID.DefaultApplVerID = defaultApplVerID.Value()
   }
 
-
-
+  connection.Close()
 
 }
 

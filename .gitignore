@@ -1,3 +1,5 @@
-*.swp
 *~
+*.swp
+*.swo
 test/test
+test/echo_server
