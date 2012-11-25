@@ -14,22 +14,25 @@ type connection struct {
   session *session
   nextMessage chan []byte
   writerShutDown chan int
+  readerShutDown chan int
 }
 
 func (c * connection) cleanup() {
   c.netConn.Close()
   c.writerShutDown<-1
+  c.readerShutDown<-1
 
   deactivate(c.session.ID)
 }
 
-func newConnection(netConn net.Conn, s *session) *connection {
+func newConnection(netConn net.Conn, s *session, parser *parser) *connection {
   c:=new(connection)
   c.netConn=netConn
   c.nextMessage=make(chan []byte)
   c.session = s
 
   c.writerShutDown=writeLoop(netConn, s.MessageOut)
+  c.readerShutDown=readLoop(parser, c.nextMessage)
 
   return c
 }
@@ -102,7 +105,7 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
     return
   }
 
-  connection:=newConnection(netConn, s)
+  connection:=newConnection(netConn, s, parser)
   go func() { connection.nextMessage <- msgBytes}()
 
   connection.sessionLoop()
@@ -124,3 +127,33 @@ func writeLoop(connection net.Conn, messageOut chan message.Buffer) (shutDown ch
 
   return
 }
+
+func readLoop(parser *parser, fixMessage chan []byte) (shutDown chan int) {
+  shutDown=make(chan int,1)
+
+  go func() {
+    for {
+      select {
+        case <-shutDown:
+          return
+        default:
+          if msg, err:=parser.readMessage(); err!=nil {
+            switch err.(type){
+              //ignore message parser errors
+              case message.ParseError:
+                continue
+              default:
+                close(fixMessage)
+                return
+            }
+          } else {
+            fixMessage<-msg
+          }
+      }
+    }
+  }()
+
+  return
+}
+
+
