@@ -1,4 +1,4 @@
-package quickfixgo
+package session
 
 import(
   . "launchpad.net/gocheck"

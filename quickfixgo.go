@@ -2,8 +2,9 @@ package quickfixgo
 
 import(
     "quickfixgo/message"
+    "quickfixgo/session"
     )
 
-func SendToTarget(msgBuilder message.Builder, sessionID SessionID) (bool, SessionNotFound) {
+func SendToTarget(msgBuilder message.Builder, sessionID session.ID) (bool, SessionNotFound) {
   return false, nil
 }

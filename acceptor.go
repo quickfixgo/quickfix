@@ -4,10 +4,9 @@ import(
     "net"
     "errors"
     "strconv"
-    "bufio"
     "quickfixgo/log"
-    "quickfixgo/fix"
-    "quickfixgo/message/basic"
+    "quickfixgo/session"
+    "quickfixgo/settings"
     )
 
 type Acceptor interface {
@@ -20,13 +19,13 @@ type Acceptor interface {
 
 type acceptor struct {
   app Application
-  settings SessionSettings
+  settings settings.ApplicationSettings
   logFactory log.LogFactory
   globalLog log.Log
 }
 
 func (a * acceptor) Start() (e error) {
-  port,hasPort:=a.settings.GetGlobalSettings().GetInt(SocketAcceptPort)
+  port,hasPort:=a.settings.GetGlobalSettings().GetInt(settings.SocketAcceptPort)
   if !hasPort {
     return errors.New("Config Error: Must Provide SocketAcceptPort")
   }
@@ -40,7 +39,7 @@ func (a * acceptor) Start() (e error) {
   go func() {
     for {
       cxn := <-connections
-      go a.handleConnection(cxn)
+      go session.HandleAcceptorConnection(cxn, a.globalLog)
     }
   }()
 
@@ -49,58 +48,20 @@ func (a * acceptor) Start() (e error) {
 
 func (a acceptor) Stop() {}
 
-func NewAcceptor(app Application, settings SessionSettings, logFactory log.LogFactory) (Acceptor, error) {
+func NewAcceptor(app Application, settings settings.ApplicationSettings, logFactory log.LogFactory) (Acceptor, error) {
   a:=new(acceptor)
   a.app=app
   a.settings=settings
   a.logFactory=logFactory
   a.globalLog=logFactory.Create()
 
+  for _,s:=range settings.GetSessionSettings() {
+    if err:=session.Create(s,logFactory); err!=nil {
+      return nil, err
+    }
+  }
+
   return a,nil
-}
-
-func (a * acceptor) handleConnection(connection net.Conn) {
-  defer func() {
-     if err := recover(); err != nil {
-       connection.Close()
-     }
-   }()
-
-  reader := bufio.NewReader(connection)
-  parser := newParser(reader)
-
-  msgBytes,err:=parser.readMessage()
-  if err !=nil {
-    connection.Close()
-    return
-  }
-
-  msg,err:=basic.MessageFromParsedBytes(msgBytes)
-  if err != nil {
-    a.globalLog.OnEvent("Invalid message: " + string(msgBytes) + err.Error())
-    connection.Close()
-    return
-  }
-
-  var sessID SessionID
-  if beginString,err:=msg.Header().StringField(fix.BeginString); err!=nil {
-    sessID.BeginString=beginString.Value()
-  }
-
-  if senderCompID,err:=msg.Header().StringField(fix.SenderCompID); err==nil {
-    sessID.SenderCompID=senderCompID.Value()
-  }
-
-  if targetCompID,err:=msg.Header().StringField(fix.TargetCompID); err==nil {
-    sessID.TargetCompID=targetCompID.Value()
-  }
-
-  if defaultApplVerID,err:= msg.Body().StringField(fix.DefaultApplVerID); err==nil {
-    sessID.DefaultApplVerID = defaultApplVerID.Value()
-  }
-
-  connection.Close()
-
 }
 
 func (a * acceptor) listenForConnections(listener net.Listener) (ch chan net.Conn) {
