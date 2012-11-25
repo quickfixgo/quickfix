@@ -5,25 +5,31 @@ import(
   "bufio"
   "quickfixgo/log"
   "quickfixgo/fix"
+  "quickfixgo/message"
   "quickfixgo/message/basic"
     )
 
 type connection struct {
   netConn net.Conn
-  session *Session
+  session *session
   nextMessage chan []byte
+  writerShutDown chan int
 }
 
 func (c * connection) cleanup() {
   c.netConn.Close()
-  Deactivate(c.session.ID)
+  c.writerShutDown<-1
+
+  deactivate(c.session.ID)
 }
 
-func newConnection(netConn net.Conn, s *Session) *connection {
+func newConnection(netConn net.Conn, s *session) *connection {
   c:=new(connection)
   c.netConn=netConn
   c.nextMessage=make(chan []byte)
   c.session = s
+
+  c.writerShutDown=writeLoop(netConn, s.MessageOut)
 
   return c
 }
@@ -31,20 +37,18 @@ func newConnection(netConn net.Conn, s *Session) *connection {
 func (c * connection) sessionLoop() {
   defer c.cleanup()
 
-  disconnect:=false
-
   for {
     select {
       case msgBytes,ok:= <-c.nextMessage:
         if ok {
-          disconnect=c.session.fixMsgIn(msgBytes)
+          if disconnect:=c.session.fixMsgIn(msgBytes); disconnect {
+            return
+          }
         } else {
           c.session.onDisconnect()
           return
         }
     }
-
-    if disconnect {return}
   }
 }
 
@@ -102,4 +106,21 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
   go func() { connection.nextMessage <- msgBytes}()
 
   connection.sessionLoop()
+}
+
+func writeLoop(connection net.Conn, messageOut chan message.Buffer) (shutDown chan int) {
+  shutDown=make(chan int,1)
+  go func() {
+    for {
+      select {
+        case <-shutDown:
+          return
+        case msg:=<-messageOut:
+          connection.Write(msg.Bytes())
+          msg.Free()
+      }
+    }
+  }()
+
+  return
 }

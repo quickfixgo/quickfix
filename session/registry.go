@@ -2,42 +2,42 @@ package session
 
 type sessionActivate struct {
   ID
-  reply chan *Session
+  reply chan *session
 }
 
 type sessionResource struct {
-  session *Session
+  session *session
   active bool
 }
 
-type Registry struct {
-  newSession chan *Session
+type registry struct {
+  newSession chan *session
   activate chan sessionActivate
   deactivate chan ID
 }
 
-var Sessions *Registry
+var sessions *registry
 
 func init() {
-  Sessions=new(Registry)
-  Sessions.newSession = make(chan *Session)
-  Sessions.activate = make(chan sessionActivate)
-  Sessions.deactivate = make(chan ID)
+  sessions=new(registry)
+  sessions.newSession = make(chan *session)
+  sessions.activate = make(chan sessionActivate)
+  sessions.deactivate = make(chan ID)
 
-  go Sessions.sessionResourceServerLoop()
+  go sessions.sessionResourceServerLoop()
 }
 
-func Activate(sessionID ID) *Session {
-  response:=make(chan *Session)
-  Sessions.activate<-sessionActivate{sessionID, response}
+func Activate(sessionID ID) *session {
+  response:=make(chan *session)
+  sessions.activate<-sessionActivate{sessionID, response}
   return <- response
 }
 
-func Deactivate(sessionID ID) {
-  Sessions.deactivate<-sessionID
+func deactivate(sessionID ID) {
+  sessions.deactivate<-sessionID
 }
 
-func (r *Registry) sessionResourceServerLoop() {
+func (r *registry) sessionResourceServerLoop() {
   sessions:=make(map[ID] sessionResource)
 
   for{
