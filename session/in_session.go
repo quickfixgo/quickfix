@@ -24,6 +24,9 @@ func (state inSession) OnFixMsgIn(session *session, msg message.Message) (nextSt
 }
 
 func (state inSession) handleLogout(session *session, msg message.Message) (nextState state){
+  session.log.OnEvent("Received logout request")
   session.generateLogout()
+  session.callback.OnLogout(session.ID)
+
   return latentState{}
 }

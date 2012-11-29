@@ -27,7 +27,7 @@ func init() {
   go sessions.sessionResourceServerLoop()
 }
 
-func Activate(sessionID ID) *session {
+func activate(sessionID ID) *session {
   response:=make(chan *session)
   sessions.activate<-sessionActivate{sessionID, response}
   return <- response

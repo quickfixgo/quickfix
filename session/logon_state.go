@@ -7,21 +7,19 @@ import(
     "quickfixgo/message/basic"
     )
 
-type logonState struct {
-
-}
+type logonState struct {}
 
 func (s logonState) OnFixMsgIn(session *session, msg message.Message) (nextState state) {
   if msgType, err:=msg.Header().StringField(fix.MsgType); err==nil && msgType.Value() =="A" {
     if err=s.handleLogon(session, msg); err!=nil {
-      session.Log.OnEvent(err.Error())
+      session.log.OnEvent(err.Error())
       return latentState{}
     } else {
       return inSession{}
     }
   }
 
-  session.Log.OnEventf("Invalid Session State: Received Msg %v while waiting for Logon", msg)
+  session.log.OnEventf("Invalid Session State: Received Msg %v while waiting for Logon", msg)
   return latentState{}
 }
 
@@ -46,8 +44,11 @@ func (s logonState) handleLogon(session *session, msg message.Message) error {
     reply.MsgTrailer.Set(basic.NewStringField(fix.DefaultApplVerID, session.DefaultApplVerID))
   }
 
+  session.log.OnEvent("Received logon request")
   session.send(reply)
+  session.log.OnEvent("Responding to logon request")
 
+  session.callback.OnLogon(session.ID)
 
   return nil
 }

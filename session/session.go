@@ -11,19 +11,19 @@ import(
     )
 
 type session struct {
+  stateData
+
+  log log.Log
   ID
+
   MessageOut chan message.Buffer
-  sessionEvent chan event
-  log.Log
-  Callback
+  SessionEvent chan event
+  callback Callback
   state
-  expectedSeqNum int
-  seqNum int
-  heartBtInt time.Duration
-  heartBeatTimeout time.Duration
   stateTimer eventTimer
 }
 
+//Creates Session, associates with internal session registry
 func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callback) error {
   session:=new(session)
 
@@ -46,11 +46,11 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
   }
 
   session.MessageOut=make(chan message.Buffer)
-  session.Log=logFactory.CreateSessionLog(session.ID.String())
-  session.Callback=callback
+  session.SessionEvent=make(chan event)
+  session.log=logFactory.CreateSessionLog(session.ID.String())
+  session.callback=callback
   session.state=logonState{}
-  session.sessionEvent=make(chan event)
-  session.stateTimer=eventTimer{Task:func(){session.sessionEvent<-needHeartbeat}}
+  session.stateTimer=eventTimer{Task:func(){session.SessionEvent<-needHeartbeat}}
 
   callback.OnCreate(session.ID)
   sessions.newSession<-session
@@ -59,17 +59,17 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 }
 
 func (s * session) onDisconnect() {
-  s.Log.OnEvent("Disconnected")
+  s.log.OnEvent("Disconnected")
 }
 
-func (s * session) fixMsgIn(msgBytes []byte) (disconnect bool) {
-  s.Log.OnIncoming(string(msgBytes))
+func (s * session) FixMsgIn(msgBytes []byte) (disconnect bool) {
+  s.log.OnIncoming(string(msgBytes))
   msg,err:=basic.MessageFromParsedBytes(msgBytes)
 
   if err == nil {
     s.state = s.state.OnFixMsgIn(s, msg)
   } else {
-    s.Log.OnEventf("Msg Parse Error: %s, %s", err.Error(), msgBytes)
+    s.log.OnEventf("Msg Parse Error: %s, %s", err.Error(), msgBytes)
   }
 
   switch s.state.(type) {
@@ -78,6 +78,11 @@ func (s * session) fixMsgIn(msgBytes []byte) (disconnect bool) {
   }
 
   return false
+}
+
+func (s * session) OnTimeout(e event) (disconnect bool) {
+
+  return
 }
 
 func (s * session) generateLogout() {
@@ -96,7 +101,7 @@ func (s *session) generateLogoutWithReason(reason string) {
   }
 
   s.send(reply)
-  s.Log.OnEvent("Sending logout response")
+  s.log.OnEvent("Sending logout response")
 }
 
 func (s * session) send(builder message.Builder) {
@@ -115,7 +120,7 @@ func (s * session) send(builder message.Builder) {
 
   //FIXME -log in message out receiver
   buf:=builder.Build()
-  s.Log.OnOutgoing(string(buf.Bytes()))
+  s.log.OnOutgoing(string(buf.Bytes()))
   s.MessageOut <-buf
 
   s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))

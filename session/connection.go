@@ -44,11 +44,16 @@ func (c * connection) sessionLoop() {
     select {
       case msgBytes,ok:= <-c.nextMessage:
         if ok {
-          if disconnect:=c.session.fixMsgIn(msgBytes); disconnect {
+          if disconnect:=c.session.FixMsgIn(msgBytes); disconnect {
             return
           }
         } else {
           c.session.onDisconnect()
+          return
+        }
+
+      case evt:=<-c.session.SessionEvent:
+        if disconnect:=c.session.OnTimeout(evt); disconnect {
           return
         }
     }
@@ -56,7 +61,7 @@ func (c * connection) sessionLoop() {
 }
 
 
-
+//Picks up session from net.Conn Acceptor
 func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
   defer func() {
      if err := recover(); err != nil {
@@ -97,7 +102,7 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
     sessID.DefaultApplVerID = defaultApplVerID.Value()
   }
 
-  s:=Activate(sessID)
+  s:=activate(sessID)
 
   if s == nil {
     log.OnEvent("Session not found for incoming message: " + msg.String())
