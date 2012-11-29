@@ -1,6 +1,7 @@
 package quickfixgo
 
 import(
+    "quickfixgo/reject"
     "quickfixgo/session"
     "quickfixgo/message"
     )
@@ -22,8 +23,8 @@ type Application interface {
   ToApp(msgBuilder message.Builder, sessionID session.ID) error
 
   //Notification of admin message being received from target. 
-  FromAdmin(msg message.Message, sessionID session.ID) MessageReject
+  FromAdmin(msg message.Message, sessionID session.ID) reject.MessageReject
 
   //Notification of app message being received from target. 
-  FromApp(msg message.Message, sessionID session.ID) MessageReject
+  FromApp(msg message.Message, sessionID session.ID) reject.MessageReject
 }

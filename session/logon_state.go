@@ -3,6 +3,7 @@ package session
 import(
     "time"
     "quickfixgo/fix"
+    "quickfixgo/reject"
     "quickfixgo/message"
     "quickfixgo/message/basic"
     )
@@ -50,5 +51,13 @@ func (s logonState) handleLogon(session *session, msg message.Message) error {
 
   session.callback.OnLogon(session.ID)
 
+  if err:=session.checkTargetTooHigh(msg); err!=nil {
+    switch TypedError:=err.(type) {
+      case reject.TargetTooHigh:
+        session.DoTargetTooHigh(TypedError)
+    }
+  }
+
+  session.expectedSeqNum++
   return nil
 }

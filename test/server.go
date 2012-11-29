@@ -7,6 +7,7 @@ import(
     "quickfixgo"
     "quickfixgo/log"
     "quickfixgo/settings"
+    "quickfixgo/reject"
     "quickfixgo/message"
     "quickfixgo/session"
     )
@@ -30,10 +31,10 @@ func (e EchoApplication) ToApp(msgBuilder message.Builder, sessionID session.ID)
   return
 }
 
-func (e EchoApplication) FromAdmin(msg message.Message, sessionID session.ID) (reject quickfixgo.MessageReject) {
+func (e EchoApplication) FromAdmin(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
   return
 }
-func (e EchoApplication) FromApp(msg message.Message, sessionID session.ID) (reject quickfixgo.MessageReject) {
+func (e EchoApplication) FromApp(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
   return
 }
 

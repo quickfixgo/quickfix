@@ -105,7 +105,7 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
   s:=activate(sessID)
 
   if s == nil {
-    log.OnEvent("Session not found for incoming message: " + msg.String())
+    log.OnEventf("Session not found for incoming message: %v", msg.String())
     netConn.Close()
     return
   }
@@ -113,6 +113,8 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
   connection:=newConnection(netConn, s, parser)
   go func() { connection.nextMessage <- msgBytes}()
 
+
+  connection.session.state=logonState{}
   connection.sessionLoop()
 }
 

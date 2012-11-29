@@ -5,6 +5,7 @@ import(
     "time"
     "quickfixgo/fix"
     "quickfixgo/log"
+    "quickfixgo/reject"
     "quickfixgo/settings"
     "quickfixgo/message"
     "quickfixgo/message/basic"
@@ -43,6 +44,14 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
     session.ID.SenderCompID=senderCompID
   } else {
     return settings.RequiredConfigurationMissing(settings.SenderCompID)
+  }
+
+  if session.ID.BeginString == "FIXT.1.1" {
+    if defaultApplVerID,ok:=dict.GetString(settings.DefaultApplVerID); ok {
+      session.ID.DefaultApplVerID=defaultApplVerID
+    } else {
+      return settings.RequiredConfigurationMissing(settings.DefaultApplVerID)
+    }
   }
 
   session.MessageOut=make(chan message.Buffer)
@@ -126,4 +135,18 @@ func (s * session) send(builder message.Builder) {
   s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 
   s.seqNum++
+}
+
+func (s *session) DoTargetTooHigh(reject reject.TargetTooHigh) {
+  resend:=basic.NewMessage()
+  resend.MsgHeader.Set(basic.NewStringField(fix.MsgType, "2"))
+  resend.MsgBody.Set(basic.NewIntField(fix.BeginSeqNo,reject.ExpectedTarget))
+
+  var endSeqNum=0
+  if s.ID.BeginString < "FIX.4.2" {
+    endSeqNum=999999
+  }
+  resend.MsgBody.Set(basic.NewIntField(fix.EndSeqNo,endSeqNum))
+
+  s.send(resend)
 }
