@@ -7,11 +7,16 @@ import(
 
 const(
   RequiredTagMissing RejectReason = 1
+  SendingTimeAccuracyProblem RejectReason = 10
     )
 
 func NewRequiredTagMissing(msg message.Message, tag message.Tag) MessageReject {
   return messageRejectBase{rejectedMessage: msg, text: "Required tag missing", rejectReason:RequiredTagMissing,
     refTagID: tag}
+}
+
+func NewSendingTimeAccuracyProblem(msg message.Message) MessageReject {
+  return messageRejectBase{rejectedMessage: msg, text: "SendingTime accuracy problem", rejectReason:SendingTimeAccuracyProblem}
 }
 
 type TargetTooHigh struct {

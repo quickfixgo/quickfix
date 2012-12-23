@@ -38,12 +38,12 @@ func deactivate(sessionID ID) {
 }
 
 func (r *registry) sessionResourceServerLoop() {
-  sessions:=make(map[ID] sessionResource)
+  sessions:=make(map[ID] *sessionResource)
 
   for{
     select {
       case session:=<-r.newSession:
-        sessions[session.ID]=sessionResource{session,false}
+        sessions[session.ID]=&sessionResource{session,false}
 
       case deactivatedID:=<-r.deactivate:
         if resource, ok:=sessions[deactivatedID]; ok {

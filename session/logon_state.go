@@ -29,6 +29,8 @@ func (s logonState) handleLogon(session *session, msg message.Message) error {
   session.expectedSeqNum=1
   session.seqNum=1
 
+  if err:=session.verifyIgnoreSeqNumTooHigh(msg); err!=nil { return err }
+
   reply:=basic.NewMessage()
   reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "A"))
   reply.MsgHeader.Set(basic.NewStringField(fix.BeginString, session.BeginString))
