@@ -13,15 +13,31 @@ type stateData struct {
   heartBeatTimeout time.Duration
 }
 
+func (s * stateData) verify(msg message.Message) reject.MessageReject {
+  return s.verifySelect(msg, true)
+}
+
 func (s * stateData) verifyIgnoreSeqNumTooHigh(msg message.Message) reject.MessageReject {
   return s.verifySelect(msg, false)
 }
 
 func (s * stateData) verifySelect(msg message.Message, checkTooHigh bool) reject.MessageReject {
   if err:=s.checkSendingTime(msg); err!=nil {return err}
+  if err:=s.checkTargetTooLow(msg); err!=nil {return err}
 
   if checkTooHigh {
     if err:=s.checkTargetTooHigh(msg); err!=nil {return err}
+  }
+
+  return nil
+}
+
+func (s * stateData) checkTargetTooLow(msg message.Message) reject.MessageReject {
+  switch seqNum,err:=msg.Header().IntField(fix.MsgSeqNum); {
+    case err!=nil:
+      return reject.NewRequiredTagMissing(msg, fix.MsgSeqNum)
+    case seqNum.IntValue() < s.expectedSeqNum:
+      return reject.NewTargetTooLow(msg, seqNum.IntValue(), s.expectedSeqNum)
   }
 
   return nil

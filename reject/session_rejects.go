@@ -25,11 +25,26 @@ type TargetTooHigh struct {
   ExpectedTarget int
 }
 
+type TargetTooLow struct {
+  MessageReject
+  ReceivedTarget int
+  ExpectedTarget int
+}
+
 func NewTargetTooHigh(msg message.Message, receivedTarget, expectedTarget int) TargetTooHigh {
   return TargetTooHigh{
     MessageReject: messageRejectBase{
       rejectedMessage: msg,
       text: fmt.Sprintf("MsgSeqNum too high, expecting %d but received %d", expectedTarget, receivedTarget)},
+    ReceivedTarget: receivedTarget,
+    ExpectedTarget: expectedTarget}
+}
+
+func NewTargetTooLow(msg message.Message, receivedTarget, expectedTarget int) TargetTooLow {
+  return TargetTooLow{
+    MessageReject: messageRejectBase{
+      rejectedMessage: msg,
+      text: fmt.Sprintf("MsgSeqNum too low, expecting %d but received %d", expectedTarget, receivedTarget)},
     ReceivedTarget: receivedTarget,
     ExpectedTarget: expectedTarget}
 }

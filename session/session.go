@@ -81,17 +81,30 @@ func (s * session) FixMsgIn(msgBytes []byte) (disconnect bool) {
     s.log.OnEventf("Msg Parse Error: %s, %s", err.Error(), msgBytes)
   }
 
-  switch s.state.(type) {
+  switch nextState:=s.state.(type) {
     case latentState:
       return true
+    case logoutState:
+      s.initiateLogout(nextState.reason)
   }
 
   return false
 }
 
-func (s * session) OnTimeout(e event) (disconnect bool) {
+func (s * session) OnTimeout(event event) (disconnect bool) {
+  s.state = s.state.OnSessionEvent(s, event)
+
+  switch s.state.(type) {
+    case latentState:
+      return true
+  }
 
   return
+}
+
+func (s * session) initiateLogout(reason string) {
+  s.generateLogoutWithReason(reason)
+  time.AfterFunc(time.Duration(2)*time.Second, func() {s.SessionEvent<-logoutTimeout})
 }
 
 func (s * session) generateLogout() {

@@ -24,6 +24,15 @@ func (s logonState) OnFixMsgIn(session *session, msg message.Message) (nextState
   return latentState{}
 }
 
+func (s logonState) OnSessionEvent(session *session, e event) (nextState state) {
+  if e == logonTimeout {
+    session.log.OnEvent("Timed out waiting for logon response")
+    return latentState{}
+  }
+
+  return s
+}
+
 func (s logonState) handleLogon(session *session, msg message.Message) error {
   //reset on logon
   session.expectedSeqNum=1

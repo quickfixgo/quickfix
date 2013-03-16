@@ -63,5 +63,27 @@ func (s *StateDataTests) TestCheckSendingTime(c *C) {
   c.Check(err, IsNil)
 }
 
+func (s *StateDataTests) TestCheckTargetTooLow(c *C) {
+  msg:=basic.NewMessage()
+  s.stateData.expectedSeqNum=45
+
+  //missing seq number
+  err:=s.stateData.checkTargetTooLow(msg)
+  c.Check(err, NotNil)
+  c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
+
+  //too low
+  msg.MsgHeader.Set(basic.NewIntField(fix.MsgSeqNum, 43))
+  err=s.stateData.checkTargetTooLow(msg)
+  c.Check(err, NotNil)
+  c.Check(err, FitsTypeOf, reject.TargetTooLow{})
+
+  //spot on
+  msg.MsgHeader.Set(basic.NewIntField(fix.MsgSeqNum, 45))
+  err=s.stateData.checkTargetTooLow(msg)
+  c.Check(err, IsNil)
+}
+
+
 
 

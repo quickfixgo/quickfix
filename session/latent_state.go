@@ -10,3 +10,9 @@ func (state latentState) OnFixMsgIn(session *session, msg message.Message) (next
   session.log.OnEventf("Invalid Session State: Unexpected Msg %v while in Latent state", msg)
   return state
 }
+
+func (state latentState) OnSessionEvent(*session, event) (nextState state) {
+  return state
+}
+
+
