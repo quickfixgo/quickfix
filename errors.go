@@ -1,3 +1,5 @@
 package quickfixgo
 
-type SessionNotFound interface { error }
+type SessionNotFound interface {
+	error
+}

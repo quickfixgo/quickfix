@@ -1,15 +1,15 @@
 package basic
 
-import(
-    "quickfixgo/message"
-    )
+import (
+	"quickfixgo/message"
+)
 
 type StringField struct {
-  FieldBase
+	FieldBase
 }
 
 func NewStringField(tag message.Tag, value string) *StringField {
-  f:=new(StringField)
-  f.init(tag, value)
-  return f
+	f := new(StringField)
+	f.init(tag, value)
+	return f
 }

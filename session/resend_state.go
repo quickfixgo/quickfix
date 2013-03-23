@@ -1,15 +1,13 @@
 package session
 
-import(
-  "quickfixgo/message"
-    )
+import (
+	"quickfixgo/message"
+)
 
 type resendState struct {
-  inSession
+	inSession
 }
-
 
 func (state resendState) FixMsgIn(session *session, msg message.Message) (nextState state) {
-  return state.inSession.FixMsgIn(session, msg)
+	return state.inSession.FixMsgIn(session, msg)
 }
-

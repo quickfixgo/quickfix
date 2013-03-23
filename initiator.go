@@ -1,9 +1,9 @@
 package quickfixgo
 
 type Initiator interface {
-  //Start Initiator.
-  Start() (bool, error)
+	//Start Initiator.
+	Start() (bool, error)
 
-  //Stop Initiator.
-  Stop()
+	//Stop Initiator.
+	Stop()
 }

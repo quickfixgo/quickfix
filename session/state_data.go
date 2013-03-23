@@ -1,11 +1,11 @@
 package session
 
-import(
-    "time"
-    )
+import (
+	"time"
+)
 
 type stateData struct {
-  expectedSeqNum int
-  seqNum int
-  heartBeatTimeout time.Duration
+	expectedSeqNum   int
+	seqNum           int
+	heartBeatTimeout time.Duration
 }

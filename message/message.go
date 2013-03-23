@@ -2,9 +2,9 @@
 package message
 
 type Message interface {
-  Header() FieldMap
-  Trailer() FieldMap
-  Body() FieldMap
-  Length() int
-  String() string
+	Header() FieldMap
+	Trailer() FieldMap
+	Body() FieldMap
+	Length() int
+	String() string
 }
