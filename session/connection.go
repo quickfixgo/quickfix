@@ -9,64 +9,14 @@ import(
   "quickfixgo/message/basic"
     )
 
-type connection struct {
-  netConn net.Conn
-  session *session
-  nextMessage chan []byte
-  writerShutDown chan int
-  readerShutDown chan int
-}
-
-func (c * connection) cleanup() {
-  c.netConn.Close()
-  c.writerShutDown<-1
-  c.readerShutDown<-1
-
-  deactivate(c.session.ID)
-}
-
-func newConnection(netConn net.Conn, s *session, parser *parser) *connection {
-  c:=new(connection)
-  c.netConn=netConn
-  c.nextMessage=make(chan []byte)
-  c.session = s
-
-  c.writerShutDown=writeLoop(netConn, s.MessageOut)
-  c.readerShutDown=readLoop(parser, c.nextMessage)
-
-  return c
-}
-
-func (c * connection) sessionLoop() {
-  defer c.cleanup()
-
-  for {
-    select {
-      case msgBytes,ok:= <-c.nextMessage:
-        if ok {
-          if disconnect:=c.session.FixMsgIn(msgBytes); disconnect {
-            return
-          }
-        } else {
-          c.session.onDisconnect()
-          return
-        }
-
-      case evt:=<-c.session.SessionEvent:
-        if disconnect:=c.session.OnTimeout(evt); disconnect {
-          return
-        }
-    }
-  }
-}
-
-
 //Picks up session from net.Conn Acceptor
 func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
   defer func() {
      if err := recover(); err != nil {
-       netConn.Close()
+       log.OnEventf("Connection Terminated: %v",err)
      }
+
+     netConn.Close()
    }()
 
   reader := bufio.NewReader(netConn)
@@ -74,14 +24,12 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
 
   msgBytes,err:=parser.readMessage()
   if err !=nil {
-    netConn.Close()
     return
   }
 
   msg,err:=basic.MessageFromParsedBytes(msgBytes)
   if err != nil {
     log.OnEvent("Invalid message: " + string(msgBytes) + err.Error())
-    netConn.Close()
     return
   }
 
@@ -102,65 +50,61 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
     sessID.DefaultApplVerID = defaultApplVerID.Value()
   }
 
-  s:=activate(sessID)
+  session:=activate(sessID)
 
-  if s == nil {
+  if session == nil {
     log.OnEventf("Session not found for incoming message: %v", msg.String())
-    netConn.Close()
     return
+  } else {
+    defer func() {
+      deactivate(sessID)
+    }()
   }
 
-  connection:=newConnection(netConn, s, parser)
-  go func() { connection.nextMessage <- msgBytes}()
+  if msgOut,err:=session.accept(); err!=nil {
+    log.OnEventf("Session cannot accept: %v", err)
+    return
+  } else {
 
+    msgIn:=make(chan []byte)
+    go writeLoop(netConn, msgOut)
+    go func() {
+      msgIn<-msgBytes
+      readLoop(parser, msgIn)
+    }()
 
-  connection.session.state=logonState{}
-  connection.sessionLoop()
+    session.run(msgIn)
+  }
 }
 
-func writeLoop(connection net.Conn, messageOut chan message.Buffer) (shutDown chan int) {
-  shutDown=make(chan int,1)
-  go func() {
-    for {
-      select {
-        case <-shutDown:
-          return
-        case msg:=<-messageOut:
-          connection.Write(msg.Bytes())
-          msg.Free()
-      }
+func writeLoop(connection net.Conn, messageOut chan message.Buffer) {
+  for {
+    msg,ok:=<-messageOut
+    if ok {
+      connection.Write(msg.Bytes())
+      msg.Free()
+    } else {
+      return
     }
+  }
+}
+
+func readLoop(parser *parser, msgIn chan[]byte) {
+  defer func() {
+    close(msgIn)
   }()
 
-  return
-}
-
-func readLoop(parser *parser, fixMessage chan []byte) (shutDown chan int) {
-  shutDown=make(chan int,1)
-
-  go func() {
-    for {
-      select {
-        case <-shutDown:
-          return
+  for {
+    if msg, err:=parser.readMessage(); err!=nil {
+      switch err.(type){
+        //ignore message parser errors
+        case message.ParseError:
+          continue
         default:
-          if msg, err:=parser.readMessage(); err!=nil {
-            switch err.(type){
-              //ignore message parser errors
-              case message.ParseError:
-                continue
-              default:
-                close(fixMessage)
-                return
-            }
-          } else {
-            fixMessage<-msg
-          }
+          return
       }
+    } else {
+      msgIn<-msg
     }
-  }()
-
-  return
+  }
 }
-
-

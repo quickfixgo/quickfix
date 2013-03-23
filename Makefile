@@ -2,8 +2,10 @@ all:
 	go build
 	cd test; go build -o echo_server
 
-check:
+unit:
 	go test ./...
 
 accept:
 	cd test; ./runat.sh
+
+check: unit accept

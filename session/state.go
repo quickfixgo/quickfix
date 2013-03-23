@@ -5,6 +5,6 @@ import(
     )
 
 type state interface {
-  OnFixMsgIn(*session, message.Message) (nextState state)
-  OnSessionEvent(*session, event) (nextState state)
+  FixMsgIn(*session, message.Message) (nextState state)
+  Timeout(*session, event) (nextState state)
 }

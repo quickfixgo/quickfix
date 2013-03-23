@@ -10,7 +10,7 @@ import(
 
 type logonState struct {}
 
-func (s logonState) OnFixMsgIn(session *session, msg message.Message) (nextState state) {
+func (s logonState) FixMsgIn(session *session, msg message.Message) (nextState state) {
   if msgType, err:=msg.Header().StringField(fix.MsgType); err==nil && msgType.Value() =="A" {
     if err=s.handleLogon(session, msg); err!=nil {
       session.log.OnEvent(err.Error())
@@ -24,7 +24,7 @@ func (s logonState) OnFixMsgIn(session *session, msg message.Message) (nextState
   return latentState{}
 }
 
-func (s logonState) OnSessionEvent(session *session, e event) (nextState state) {
+func (s logonState) Timeout(session *session, e event) (nextState state) {
   if e == logonTimeout {
     session.log.OnEvent("Timed out waiting for logon response")
     return latentState{}

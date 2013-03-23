@@ -17,10 +17,12 @@ type session struct {
   log log.Log
   ID
 
-  MessageOut chan message.Buffer
-  SessionEvent chan event
+  messageOut chan message.Buffer
+  toSend chan message.Builder
+
+  sessionEvent chan event
   callback Callback
-  state
+  currentState state
   stateTimer eventTimer
 }
 
@@ -54,12 +56,12 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
     }
   }
 
-  session.MessageOut=make(chan message.Buffer)
-  session.SessionEvent=make(chan event)
+  session.toSend=make(chan message.Builder)
+
+  session.sessionEvent=make(chan event)
   session.log=logFactory.CreateSessionLog(session.ID.String())
   session.callback=callback
-  session.state=logonState{}
-  session.stateTimer=eventTimer{Task:func(){session.SessionEvent<-needHeartbeat}}
+  session.stateTimer=eventTimer{Task:func(){session.sessionEvent<-needHeartbeat}}
 
   callback.OnCreate(session.ID)
   sessions.newSession<-session
@@ -67,44 +69,20 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
   return nil
 }
 
+func (s * session) accept() (chan message.Buffer, error) {
+  s.currentState=logonState{}
+  s.messageOut=make(chan message.Buffer)
+
+  return s.messageOut, nil
+}
+
 func (s * session) onDisconnect() {
   s.log.OnEvent("Disconnected")
 }
 
-func (s * session) FixMsgIn(msgBytes []byte) (disconnect bool) {
-  s.log.OnIncoming(string(msgBytes))
-  msg,err:=basic.MessageFromParsedBytes(msgBytes)
-
-  if err == nil {
-    s.state = s.state.OnFixMsgIn(s, msg)
-  } else {
-    s.log.OnEventf("Msg Parse Error: %s, %s", err.Error(), msgBytes)
-  }
-
-  switch nextState:=s.state.(type) {
-    case latentState:
-      return true
-    case logoutState:
-      s.initiateLogout(nextState.reason)
-  }
-
-  return false
-}
-
-func (s * session) OnTimeout(event event) (disconnect bool) {
-  s.state = s.state.OnSessionEvent(s, event)
-
-  switch s.state.(type) {
-    case latentState:
-      return true
-  }
-
-  return
-}
-
 func (s * session) initiateLogout(reason string) {
   s.generateLogoutWithReason(reason)
-  time.AfterFunc(time.Duration(2)*time.Second, func() {s.SessionEvent<-logoutTimeout})
+  time.AfterFunc(time.Duration(2)*time.Second, func() {s.sessionEvent<-logoutTimeout})
 }
 
 func (s * session) generateLogout() {
@@ -143,10 +121,9 @@ func (s * session) send(builder message.Builder) {
   //FIXME -log in message out receiver
   buf:=builder.Build()
   s.log.OnOutgoing(string(buf.Bytes()))
-  s.MessageOut <-buf
+  s.messageOut <-buf
 
   s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
-
   s.seqNum++
 }
 
@@ -162,4 +139,102 @@ func (s *session) DoTargetTooHigh(reject reject.TargetTooHigh) {
   resend.MsgBody.Set(basic.NewIntField(fix.EndSeqNo,endSeqNum))
 
   s.send(resend)
+}
+
+func (s * session) verify(msg message.Message) reject.MessageReject {
+  return s.verifySelect(msg, true)
+}
+
+func (s * session) verifyIgnoreSeqNumTooHigh(msg message.Message) reject.MessageReject {
+  return s.verifySelect(msg, false)
+}
+
+func (s * session) verifySelect(msg message.Message, checkTooHigh bool) reject.MessageReject {
+  if err:=s.checkSendingTime(msg); err!=nil {return err}
+  if err:=s.checkTargetTooLow(msg); err!=nil {return err}
+
+  if checkTooHigh {
+    if err:=s.checkTargetTooHigh(msg); err!=nil {return err}
+  }
+
+  return s.fromCallback(msg)
+}
+
+func (s *session) fromCallback(msg message.Message) (reject.MessageReject) {
+  msgType, _:=msg.Header().StringField(fix.MsgType)
+  switch(msgType.Value()) {
+    case "0","A","1","2","3","4","5":
+      return s.callback.FromAdmin(msg, s.ID)
+  }
+  return s.callback.FromApp(msg, s.ID)
+}
+
+func (s * session) checkTargetTooLow(msg message.Message) reject.MessageReject {
+  switch seqNum,err:=msg.Header().IntField(fix.MsgSeqNum); {
+    case err!=nil:
+      return reject.NewRequiredTagMissing(msg, fix.MsgSeqNum)
+    case seqNum.IntValue() < s.expectedSeqNum:
+      return reject.NewTargetTooLow(msg, seqNum.IntValue(), s.expectedSeqNum)
+  }
+
+  return nil
+}
+
+func (s * session) checkTargetTooHigh(msg message.Message) reject.MessageReject {
+  switch seqNum,err:=msg.Header().IntField(fix.MsgSeqNum); {
+    case err!=nil:
+      return reject.NewRequiredTagMissing(msg, fix.MsgSeqNum)
+    case seqNum.IntValue() > s.expectedSeqNum:
+      return reject.NewTargetTooHigh(msg, seqNum.IntValue(), s.expectedSeqNum)
+  }
+
+  return nil
+}
+
+func (s * session) checkSendingTime(msg message.Message) reject.MessageReject {
+  if sendingTime,err:=msg.Header().UTCTimestampField(fix.SendingTime); err!=nil {
+    return reject.NewRequiredTagMissing(msg, fix.SendingTime)
+  } else {
+    if delta:=time.Since(sendingTime.UTCTimestampValue());
+      delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
+      return reject.NewSendingTimeAccuracyProblem(msg)
+    }
+  }
+
+  return nil
+}
+
+func (s * session) run(msgIn chan[]byte) {
+  defer func() {
+    close(s.messageOut)
+  }()
+
+  for {
+
+    switch s.currentState.(type) {
+      case latentState:
+        return
+    }
+
+    select {
+      case msgBytes,ok:=<-msgIn:
+        if ok {
+          s.log.OnIncoming(string(msgBytes))
+          if msg,err:=basic.MessageFromParsedBytes(msgBytes); err!=nil {
+            s.log.OnEventf("Msg Parse Error: %s, %s", err.Error(), msgBytes)
+          } else {
+            s.currentState=s.currentState.FixMsgIn(s,msg)
+          }
+        } else {
+          s.onDisconnect()
+          return
+        }
+
+      case msg:=<-s.toSend:
+        s.send(msg)
+
+      case evt:=<-s.sessionEvent:
+        s.currentState=s.currentState.Timeout(s,evt)
+    }
+  }
 }

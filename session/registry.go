@@ -1,5 +1,16 @@
 package session
 
+import(
+    "quickfixgo/message"
+    )
+
+func SendToTarget(msgBuilder message.Builder, sessionID ID) (err error) {
+  session:=lookup(sessionID)
+  session.send(msgBuilder)
+
+  return
+}
+
 type sessionActivate struct {
   ID
   reply chan *session
@@ -10,10 +21,16 @@ type sessionResource struct {
   active bool
 }
 
+type sessionLookup struct {
+  ID
+  reply chan *session
+}
+
 type registry struct {
   newSession chan *session
   activate chan sessionActivate
   deactivate chan ID
+  lookup chan sessionLookup
 }
 
 var sessions *registry
@@ -23,6 +40,7 @@ func init() {
   sessions.newSession = make(chan *session)
   sessions.activate = make(chan sessionActivate)
   sessions.deactivate = make(chan ID)
+  sessions.lookup = make(chan sessionLookup)
 
   go sessions.sessionResourceServerLoop()
 }
@@ -37,6 +55,12 @@ func deactivate(sessionID ID) {
   sessions.deactivate<-sessionID
 }
 
+func lookup(sessionID ID) *session {
+  response:=make(chan *session)
+  sessions.lookup<-sessionLookup{sessionID, response}
+  return <- response
+}
+
 func (r *registry) sessionResourceServerLoop() {
   sessions:=make(map[ID] *sessionResource)
 
@@ -48,6 +72,13 @@ func (r *registry) sessionResourceServerLoop() {
       case deactivatedID:=<-r.deactivate:
         if resource, ok:=sessions[deactivatedID]; ok {
           resource.active = false
+        }
+
+      case lookup:=<-r.lookup:
+        if resource, ok:=sessions[lookup.ID]; ok {
+          lookup.reply<-resource.session
+        } else {
+          lookup.reply<-nil
         }
 
       case request:=<-r.activate:

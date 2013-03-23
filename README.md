@@ -8,12 +8,7 @@ FIX versions 4.0-5.0
 Build
 -----
 
-The unit tests depend on [gocheck](http://labix.org/gocheck).
+The unit tests depend on [gocheck](http://labix.org/gocheck). Acceptance tests depend on ruby in path.
 
     make
     make check
-
-Acceptance Tests
-----------------
-
-    make accept

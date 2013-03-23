@@ -9,7 +9,7 @@ type resendState struct {
 }
 
 
-func (state resendState) OnFixMsgIn(session *session, msg message.Message) (nextState state) {
-  return state.inSession.OnFixMsgIn(session, msg)
+func (state resendState) FixMsgIn(session *session, msg message.Message) (nextState state) {
+  return state.inSession.FixMsgIn(session, msg)
 }
 

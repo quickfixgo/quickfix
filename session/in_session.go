@@ -10,7 +10,7 @@ type inSession struct {
 
 }
 
-func (state inSession) OnFixMsgIn(session *session, msg message.Message) (nextState state) {
+func (state inSession) FixMsgIn(session *session, msg message.Message) (nextState state) {
   if msgType, err:=msg.Header().StringField(fix.MsgType); err==nil {
     switch msgType.Value() {
       //logout
@@ -28,7 +28,7 @@ func (state inSession) OnFixMsgIn(session *session, msg message.Message) (nextSt
   return state
 }
 
-func (state inSession) OnSessionEvent(*session, event) (nextState state) {
+func (state inSession) Timeout(*session, event) (nextState state) {
   return state
 }
 
@@ -46,14 +46,16 @@ func (state inSession) processReject(session * session, rej reject.MessageReject
       session.DoTargetTooHigh(TypedError)
         return resendState{}
     case reject.TargetTooLow:
-      return state.doTargetTooLow(TypedError)
+      return state.doTargetTooLow(session,TypedError)
   }
 
+  session.initiateLogout("")
   return logoutState{}
 }
 
-func (state inSession) doTargetTooLow(rej reject.TargetTooLow) (nextState state) {
-  return logoutState{rej.Error()}
+func (state inSession) doTargetTooLow(session * session, rej reject.TargetTooLow) (nextState state) {
+  session.initiateLogout(rej.Error())
+  return logoutState{}
 }
 
 

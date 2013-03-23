@@ -5,10 +5,12 @@ import(
     "os"
     "os/signal"
     "quickfixgo"
+    "quickfixgo/fix"
     "quickfixgo/log"
     "quickfixgo/settings"
     "quickfixgo/reject"
     "quickfixgo/message"
+    "quickfixgo/message/basic"
     "quickfixgo/session"
     )
 
@@ -35,6 +37,19 @@ func (e EchoApplication) FromAdmin(msg message.Message, sessionID session.ID) (r
   return
 }
 func (e EchoApplication) FromApp(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
+  fmt.Println("Got Message ", msg)
+  reply:=basic.NewMessage()
+  msgType,_:=msg.Header().Get(fix.MsgType)
+  reply.MsgHeader.Set(msgType)
+
+  for _,tag:=range msg.Body().Tags() {
+    if field,ok:=msg.Body().Get(tag); ok {
+      reply.MsgBody.Set(field)
+    }
+  }
+
+  session.SendToTarget(reply, sessionID)
+
   return
 }
 
