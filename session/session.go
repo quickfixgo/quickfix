@@ -2,6 +2,7 @@
 package session
 
 import (
+	"fmt"
 	"quickfixgo/fix"
 	"quickfixgo/log"
 	"quickfixgo/message"
@@ -24,6 +25,7 @@ type session struct {
 	callback     Callback
 	currentState state
 	stateTimer   eventTimer
+	peerTimer    eventTimer
 }
 
 //Creates Session, associates with internal session registry
@@ -62,6 +64,7 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 	session.log = logFactory.CreateSessionLog(session.ID.String())
 	session.callback = callback
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
+	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
 
 	callback.OnCreate(session.ID)
 	sessions.newSession <- session
@@ -209,6 +212,47 @@ func (s *session) checkSendingTime(msg message.Message) reject.MessageReject {
 	return nil
 }
 
+func (s *session) doReject(rej reject.MessageReject) {
+	reply := basic.NewMessage()
+
+	if s.BeginString >= "FIX.4.2" {
+
+		if rej.IsBusinessReject() {
+			reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "j"))
+			reply.MsgBody.Set(basic.NewIntField(fix.BusinessRejectReason, int(rej.RejectReason())))
+		} else {
+			reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "3"))
+			reply.MsgBody.Set(basic.NewIntField(fix.SessionRejectReason, int(rej.RejectReason())))
+		}
+		reply.MsgBody.Set(basic.NewStringField(fix.Text, rej.Error()))
+
+		if MsgType, err := rej.RejectedMessage().Header().StringField(fix.MsgType); err == nil {
+			reply.MsgBody.Set(basic.NewStringField(fix.RefMsgType, MsgType.Value()))
+		}
+
+		switch rej.RejectReason() {
+		case reject.RequiredTagMissing:
+			reply.MsgBody.Set(basic.NewIntField(fix.RefTagID, int(rej.RefTagID())))
+		}
+	} else {
+		reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "3"))
+
+		switch rej.RejectReason() {
+		case reject.RequiredTagMissing:
+			reply.MsgBody.Set(basic.NewStringField(fix.Text, fmt.Sprintf("%s (%d)", rej.Error(), rej.RefTagID())))
+		default:
+			reply.MsgBody.Set(basic.NewStringField(fix.Text, rej.Error()))
+		}
+	}
+
+	if SeqNum, err := rej.RejectedMessage().Header().IntField(fix.MsgSeqNum); err == nil {
+		reply.MsgBody.Set(basic.NewIntField(fix.RefSeqNum, SeqNum.IntValue()))
+	}
+
+	s.send(reply)
+	s.log.OnEventf("Message Rejected: %s", rej.Error())
+}
+
 func (s *session) run(msgIn chan []byte) {
 	defer func() {
 		close(s.messageOut)
@@ -234,6 +278,7 @@ func (s *session) run(msgIn chan []byte) {
 				s.onDisconnect()
 				return
 			}
+			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
 
 		case msg := <-s.toSend:
 			s.send(msg)
