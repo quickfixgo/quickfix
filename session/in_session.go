@@ -50,7 +50,7 @@ func (state inSession) Timeout(session *session, event event) (nextState state) 
 
 func (state inSession) handleLogout(session *session, msg message.Message) (nextState state) {
 	session.log.OnEvent("Received logout request")
-	session.generateLogout()
+	state.generateLogout(session)
 	session.callback.OnLogout(session.ID)
 
 	return latentState{}
@@ -82,11 +82,12 @@ func (state inSession) processReject(session *session, rej reject.MessageReject)
 		return resendState{}
 	case reject.TargetTooLow:
 		return state.doTargetTooLow(session, TypedError)
+	case reject.IncorrectBeginString:
+		return state.initiateLogout(session, rej.Error())
 	}
 
 	session.doReject(rej)
-	session.initiateLogout("")
-	return logoutState{}
+	return state.initiateLogout(session, "")
 }
 
 func (state inSession) doTargetTooLow(session *session, rej reject.TargetTooLow) (nextState state) {
@@ -100,20 +101,43 @@ func (state inSession) doTargetTooLow(session *session, rej reject.TargetTooLow)
 
 			if sendingTime.UTCTimestampValue().Before(origSendingTime.UTCTimestampValue()) {
 				session.doReject(reject.NewSendingTimeAccuracyProblem(rej.RejectedMessage()))
-				session.initiateLogout("")
-				return logoutState{}
+				return state.initiateLogout(session, "")
 			}
 		}
 
 		if appReject := session.fromCallback(rej.RejectedMessage()); appReject != nil {
 			session.doReject(appReject)
-			session.initiateLogout("")
-			return logoutState{}
+			return state.initiateLogout(session, "")
 		}
 	} else {
-		session.initiateLogout(rej.Error())
-		return logoutState{}
+		return state.initiateLogout(session, rej.Error())
 	}
 
 	return state
+}
+
+func (state *inSession) initiateLogout(session *session, reason string) (nextState logoutState) {
+	state.generateLogoutWithReason(session, reason)
+	time.AfterFunc(time.Duration(2)*time.Second, func() { session.sessionEvent <- logoutTimeout })
+
+	return
+}
+
+func (state *inSession) generateLogout(session *session) {
+	state.generateLogoutWithReason(session, "")
+}
+
+func (state *inSession) generateLogoutWithReason(session *session, reason string) {
+	reply := basic.NewMessage()
+	reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "5"))
+	reply.MsgHeader.Set(basic.NewStringField(fix.BeginString, session.BeginString))
+	reply.MsgHeader.Set(basic.NewStringField(fix.TargetCompID, session.TargetCompID))
+	reply.MsgHeader.Set(basic.NewStringField(fix.SenderCompID, session.SenderCompID))
+
+	if reason != "" {
+		reply.MsgBody.Set(basic.NewStringField(fix.Text, reason))
+	}
+
+	session.send(reply)
+	session.log.OnEvent("Sending logout response")
 }

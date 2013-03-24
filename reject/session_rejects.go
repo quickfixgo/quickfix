@@ -15,6 +15,12 @@ func NewRequiredTagMissing(msg message.Message, tag message.Tag) MessageReject {
 		refTagID: tag}
 }
 
+type IncorrectBeginString struct{ MessageReject }
+
+func NewIncorrectBeginString(msg message.Message) IncorrectBeginString {
+	return IncorrectBeginString{messageRejectBase{rejectedMessage: msg, text: "Incorrect BeginString"}}
+}
+
 func NewSendingTimeAccuracyProblem(msg message.Message) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "SendingTime accuracy problem", rejectReason: SendingTimeAccuracyProblem}
 }

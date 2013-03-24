@@ -14,6 +14,26 @@ type SessionTests struct {
 	session
 }
 
+func (s *SessionTests) TestCheckBeginString(c *C) {
+	s.session.ID.BeginString = "FIX.4.2"
+	msg := basic.NewMessage()
+
+	//missing begin string
+	err := s.session.checkBeginString(msg)
+	c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
+
+	//wrong value
+	msg.MsgHeader.Set(basic.NewStringField(fix.BeginString, "FIX.4.4"))
+	err = s.session.checkBeginString(msg)
+	c.Check(err, NotNil)
+	c.Check(err, FitsTypeOf, reject.IncorrectBeginString{})
+
+	msg.MsgHeader.Set(basic.NewStringField(fix.BeginString, s.session.ID.BeginString))
+	err = s.session.checkBeginString(msg)
+	c.Check(err, IsNil)
+
+}
+
 func (s *SessionTests) TestCheckTargetTooHigh(c *C) {
 	msg := basic.NewMessage()
 	s.session.expectedSeqNum = 45

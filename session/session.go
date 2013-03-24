@@ -83,30 +83,6 @@ func (s *session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *session) initiateLogout(reason string) {
-	s.generateLogoutWithReason(reason)
-	time.AfterFunc(time.Duration(2)*time.Second, func() { s.sessionEvent <- logoutTimeout })
-}
-
-func (s *session) generateLogout() {
-	s.generateLogoutWithReason("")
-}
-
-func (s *session) generateLogoutWithReason(reason string) {
-	reply := basic.NewMessage()
-	reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "5"))
-	reply.MsgHeader.Set(basic.NewStringField(fix.BeginString, s.BeginString))
-	reply.MsgHeader.Set(basic.NewStringField(fix.TargetCompID, s.TargetCompID))
-	reply.MsgHeader.Set(basic.NewStringField(fix.SenderCompID, s.SenderCompID))
-
-	if reason != "" {
-		reply.MsgBody.Set(basic.NewStringField(fix.Text, reason))
-	}
-
-	s.send(reply)
-	s.log.OnEvent("Sending logout response")
-}
-
 func (s *session) send(builder message.Builder) {
 	sendingTime := time.Now().UTC()
 
@@ -153,9 +129,14 @@ func (s *session) verifyIgnoreSeqNumTooHigh(msg message.Message) reject.MessageR
 }
 
 func (s *session) verifySelect(msg message.Message, checkTooHigh bool) reject.MessageReject {
+	if err := s.checkBeginString(msg); err != nil {
+		return err
+	}
+
 	if err := s.checkSendingTime(msg); err != nil {
 		return err
 	}
+
 	if err := s.checkTargetTooLow(msg); err != nil {
 		return err
 	}
@@ -207,6 +188,17 @@ func (s *session) checkSendingTime(msg message.Message) reject.MessageReject {
 		if delta := time.Since(sendingTime.UTCTimestampValue()); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
 			return reject.NewSendingTimeAccuracyProblem(msg)
 		}
+	}
+
+	return nil
+}
+
+func (s *session) checkBeginString(msg message.Message) reject.MessageReject {
+	switch BeginString, err := msg.Header().StringField(fix.BeginString); {
+	case err != nil:
+		return reject.NewRequiredTagMissing(msg, fix.BeginString)
+	case s.BeginString != BeginString.Value():
+		return reject.NewIncorrectBeginString(msg)
 	}
 
 	return nil
