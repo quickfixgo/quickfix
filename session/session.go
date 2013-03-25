@@ -133,6 +133,10 @@ func (s *session) verifySelect(msg message.Message, checkTooHigh bool) reject.Me
 		return err
 	}
 
+	if err := s.checkCompID(msg); err != nil {
+		return err
+	}
+
 	if err := s.checkSendingTime(msg); err != nil {
 		return err
 	}
@@ -176,6 +180,22 @@ func (s *session) checkTargetTooHigh(msg message.Message) reject.MessageReject {
 		return reject.NewRequiredTagMissing(msg, fix.MsgSeqNum)
 	case seqNum.IntValue() > s.expectedSeqNum:
 		return reject.NewTargetTooHigh(msg, seqNum.IntValue(), s.expectedSeqNum)
+	}
+
+	return nil
+}
+
+func (s *session) checkCompID(msg message.Message) reject.MessageReject {
+	SenderCompID, haveSender := msg.Header().Get(fix.SenderCompID)
+	TargetCompID, haveTarget := msg.Header().Get(fix.TargetCompID)
+
+	switch {
+	case !haveSender:
+		return reject.NewRequiredTagMissing(msg, fix.SenderCompID)
+	case !haveTarget:
+		return reject.NewRequiredTagMissing(msg, fix.TargetCompID)
+	case s.ID.SenderCompID != TargetCompID.Value() || s.ID.TargetCompID != SenderCompID.Value():
+		return reject.NewCompIDProblem(msg)
 	}
 
 	return nil

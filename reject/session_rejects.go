@@ -7,6 +7,7 @@ import (
 
 const (
 	RequiredTagMissing         RejectReason = 1
+	CompIDProblem              RejectReason = 9
 	SendingTimeAccuracyProblem RejectReason = 10
 )
 
@@ -19,6 +20,10 @@ type IncorrectBeginString struct{ MessageReject }
 
 func NewIncorrectBeginString(msg message.Message) IncorrectBeginString {
 	return IncorrectBeginString{messageRejectBase{rejectedMessage: msg, text: "Incorrect BeginString"}}
+}
+
+func NewCompIDProblem(msg message.Message) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "CompID problem", rejectReason: CompIDProblem}
 }
 
 func NewSendingTimeAccuracyProblem(msg message.Message) MessageReject {

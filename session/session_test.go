@@ -14,6 +14,39 @@ type SessionTests struct {
 	session
 }
 
+func (s *SessionTests) TestCheckCorrectCompID(c *C) {
+	s.session.ID.TargetCompID = "TAR"
+	s.session.ID.SenderCompID = "SND"
+
+	msg := basic.NewMessage()
+	//missing target comp id or sender comp id
+	err := s.session.checkCompID(msg)
+	c.Check(err, NotNil)
+	c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
+
+	msg.MsgHeader.Set(basic.NewStringField(fix.SenderCompID, "TAR"))
+	err = s.session.checkCompID(msg)
+	c.Check(err, NotNil)
+	c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
+
+	//comp wrong
+	msg.MsgHeader.Set(basic.NewStringField(fix.TargetCompID, "JCD"))
+	err = s.session.checkCompID(msg)
+	c.Check(err, NotNil)
+	c.Check(err.RejectReason(), Equals, reject.CompIDProblem)
+
+	msg.MsgHeader.Set(basic.NewStringField(fix.TargetCompID, "SND"))
+	msg.MsgHeader.Set(basic.NewStringField(fix.SenderCompID, "JCD"))
+	err = s.session.checkCompID(msg)
+	c.Check(err, NotNil)
+	c.Check(err.RejectReason(), Equals, reject.CompIDProblem)
+
+	msg.MsgHeader.Set(basic.NewStringField(fix.TargetCompID, "SND"))
+	msg.MsgHeader.Set(basic.NewStringField(fix.SenderCompID, "TAR"))
+	err = s.session.checkCompID(msg)
+	c.Check(err, IsNil)
+}
+
 func (s *SessionTests) TestCheckBeginString(c *C) {
 	s.session.ID.BeginString = "FIX.4.2"
 	msg := basic.NewMessage()
