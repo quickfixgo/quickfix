@@ -44,6 +44,7 @@ func (state inSession) Timeout(session *session, event event) (nextState state) 
 		testReq.MsgBody.Set(basic.NewStringField(fix.TestReqID, "TEST"))
 		session.send(testReq)
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
+		return pendingTimeout{}
 	}
 	return state
 }
