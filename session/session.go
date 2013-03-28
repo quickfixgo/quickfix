@@ -26,6 +26,7 @@ type session struct {
 	currentState state
 	stateTimer   eventTimer
 	peerTimer    eventTimer
+	messageStash map[int]message.Message
 }
 
 //Creates Session, associates with internal session registry
@@ -75,6 +76,7 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 func (s *session) accept() (chan message.Buffer, error) {
 	s.currentState = logonState{}
 	s.messageOut = make(chan message.Buffer)
+  s.messageStash=make(map[int] message.Message)
 
 	return s.messageOut, nil
 }

@@ -79,6 +79,7 @@ func (state inSession) processReject(session *session, rej reject.MessageReject)
 	switch TypedError := rej.(type) {
 	case reject.TargetTooHigh:
 		session.DoTargetTooHigh(TypedError)
+		session.messageStash[TypedError.ReceivedTarget] = rej.RejectedMessage()
 		return resendState{}
 	case reject.TargetTooLow:
 		return state.doTargetTooLow(session, TypedError)
