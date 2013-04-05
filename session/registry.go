@@ -1,7 +1,7 @@
 package session
 
 import (
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 )
 
 func SendToTarget(msgBuilder message.Builder, sessionID ID) (err error) {

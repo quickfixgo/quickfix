@@ -1,8 +1,8 @@
 package basic
 
 import (
-	"quickfixgo/fix"
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/fix"
+	"github.com/cbusbey/quickfixgo/message"
 )
 
 //Message Trailer type. TrailerOrder FieldOrder.

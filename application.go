@@ -1,9 +1,9 @@
 package quickfixgo
 
 import (
-	"quickfixgo/message"
-	"quickfixgo/reject"
-	"quickfixgo/session"
+	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/reject"
+	"github.com/cbusbey/quickfixgo/session"
 )
 
 type Application interface {

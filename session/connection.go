@@ -3,10 +3,10 @@ package session
 import (
 	"bufio"
 	"net"
-	"quickfixgo/fix"
-	"quickfixgo/log"
-	"quickfixgo/message"
-	"quickfixgo/message/basic"
+	"github.com/cbusbey/quickfixgo/fix"
+	"github.com/cbusbey/quickfixgo/log"
+	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message/basic"
 )
 
 //Picks up session from net.Conn Acceptor

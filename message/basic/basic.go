@@ -4,8 +4,8 @@ package basic
 import (
 	"bytes"
 	"fmt"
-	"quickfixgo/fix"
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/fix"
+	"github.com/cbusbey/quickfixgo/message"
 )
 
 //Message implements the message.Message and message.Builder interface.

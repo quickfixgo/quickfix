@@ -2,7 +2,7 @@ package basic
 
 import (
 	"bytes"
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 	"sort"
 )
 

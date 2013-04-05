@@ -1,10 +1,10 @@
 package session
 
 import (
-	"quickfixgo/fix"
-	"quickfixgo/message"
-	"quickfixgo/message/basic"
-	"quickfixgo/reject"
+	"github.com/cbusbey/quickfixgo/fix"
+	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message/basic"
+	"github.com/cbusbey/quickfixgo/reject"
 	"time"
 )
 

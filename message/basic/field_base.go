@@ -3,7 +3,7 @@ package basic
 import (
 	"bytes"
 	"fmt"
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 	"strconv"
 )
 

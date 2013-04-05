@@ -1,7 +1,7 @@
 package fix
 
 import (
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 )
 
 const (

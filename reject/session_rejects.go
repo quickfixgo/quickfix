@@ -2,7 +2,7 @@ package reject
 
 import (
 	"fmt"
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 )
 
 const (

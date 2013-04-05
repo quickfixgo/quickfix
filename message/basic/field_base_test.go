@@ -2,7 +2,7 @@ package basic
 
 import (
 	. "launchpad.net/gocheck"
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 	"testing"
 )
 

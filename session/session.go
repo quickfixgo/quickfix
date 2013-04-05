@@ -3,12 +3,12 @@ package session
 
 import (
 	"fmt"
-	"quickfixgo/fix"
-	"quickfixgo/log"
-	"quickfixgo/message"
-	"quickfixgo/message/basic"
-	"quickfixgo/reject"
-	"quickfixgo/settings"
+	"github.com/cbusbey/quickfixgo/fix"
+	"github.com/cbusbey/quickfixgo/log"
+	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message/basic"
+	"github.com/cbusbey/quickfixgo/reject"
+	"github.com/cbusbey/quickfixgo/settings"
 	"time"
 )
 

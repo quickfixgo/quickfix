@@ -2,9 +2,9 @@ package session
 
 import (
 	. "launchpad.net/gocheck"
-	"quickfixgo/fix"
-	"quickfixgo/message/basic"
-	"quickfixgo/reject"
+	"github.com/cbusbey/quickfixgo/fix"
+	"github.com/cbusbey/quickfixgo/message/basic"
+	"github.com/cbusbey/quickfixgo/reject"
 	"time"
 )
 

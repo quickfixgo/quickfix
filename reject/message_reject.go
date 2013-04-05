@@ -1,7 +1,7 @@
 package reject
 
 import (
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 )
 
 type RejectReason int

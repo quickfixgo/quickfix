@@ -3,9 +3,9 @@ package quickfixgo
 import (
 	"errors"
 	"net"
-	"quickfixgo/log"
-	"quickfixgo/session"
-	"quickfixgo/settings"
+	"github.com/cbusbey/quickfixgo/log"
+	"github.com/cbusbey/quickfixgo/session"
+	"github.com/cbusbey/quickfixgo/settings"
 	"strconv"
 )
 

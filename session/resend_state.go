@@ -1,7 +1,7 @@
 package session
 
 import (
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 )
 
 type resendState struct {

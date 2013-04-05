@@ -1,8 +1,8 @@
 package session
 
 import (
-	"quickfixgo/message"
-	"quickfixgo/reject"
+	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/reject"
 )
 
 //Callback interface for receiving session events

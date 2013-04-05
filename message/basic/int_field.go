@@ -1,7 +1,7 @@
 package basic
 
 import (
-	"quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/message"
 	"strconv"
 )
 

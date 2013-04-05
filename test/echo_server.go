@@ -4,14 +4,14 @@ import(
     "fmt"
     "os"
     "os/signal"
-    "quickfixgo"
-    "quickfixgo/fix"
-    "quickfixgo/log"
-    "quickfixgo/settings"
-    "quickfixgo/reject"
-    "quickfixgo/message"
-    "quickfixgo/message/basic"
-    "quickfixgo/session"
+    "github.com/cbusbey/quickfixgo"
+    "github.com/cbusbey/quickfixgo/fix"
+    "github.com/cbusbey/quickfixgo/log"
+    "github.com/cbusbey/quickfixgo/settings"
+    "github.com/cbusbey/quickfixgo/reject"
+    "github.com/cbusbey/quickfixgo/message"
+    "github.com/cbusbey/quickfixgo/message/basic"
+    "github.com/cbusbey/quickfixgo/session"
     )
 
 type EchoApplication struct {
