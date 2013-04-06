@@ -1,10 +1,10 @@
 package session
 
 import (
-	. "launchpad.net/gocheck"
 	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/message/basic"
 	"github.com/cbusbey/quickfixgo/reject"
+	. "launchpad.net/gocheck"
 	"time"
 )
 

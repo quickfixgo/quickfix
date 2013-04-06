@@ -2,10 +2,10 @@ package quickfixgo
 
 import (
 	"errors"
-	"net"
 	"github.com/cbusbey/quickfixgo/log"
 	"github.com/cbusbey/quickfixgo/session"
 	"github.com/cbusbey/quickfixgo/settings"
+	"net"
 	"strconv"
 )
 

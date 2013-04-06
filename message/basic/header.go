@@ -1,9 +1,9 @@
 package basic
 
 import (
-	"math"
 	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/message"
+	"math"
 )
 
 //Header implements the MutableFieldMap interface and correctly orders fields as specified by FIX header order

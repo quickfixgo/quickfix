@@ -1,8 +1,8 @@
 package basic
 
 import (
-	. "launchpad.net/gocheck"
 	"github.com/cbusbey/quickfixgo/message"
+	. "launchpad.net/gocheck"
 )
 
 var _ = Suite(&IntFieldTests{})
