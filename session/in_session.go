@@ -23,6 +23,9 @@ func (state inSession) FixMsgIn(session *session, msg message.Message) (nextStat
 		//resend request
 		case "2":
 			return state.handleResendRequest(session, msg)
+		//sequence reset
+		case "4":
+			return state.handleSequenceReset(session, msg)
 		default:
 			if err := session.verify(msg); err != nil {
 				return state.processReject(session, err)
@@ -58,6 +61,31 @@ func (state inSession) handleLogout(session *session, msg message.Message) (next
 	session.callback.OnLogout(session.ID)
 
 	return latentState{}
+}
+
+func (state inSession) handleSequenceReset(session *session, msg message.Message) (nextState state) {
+	isGapFill := false
+
+	if gapFillFlag, ok := msg.Body().Get(fix.GapFillFlag); ok {
+		isGapFill = gapFillFlag.Value() == "Y"
+	}
+
+	if err := session.verifySelect(msg, isGapFill, isGapFill); err != nil {
+		return state.processReject(session, err)
+	}
+
+	if newSeqNo, err := msg.Body().IntField(fix.NewSeqNo); err == nil {
+		session.log.OnEventf("Received SequenceReset FROM: %v TO: %v", session.expectedSeqNum, newSeqNo.IntValue())
+
+		switch {
+		case newSeqNo.IntValue() > session.expectedSeqNum:
+			session.expectedSeqNum = newSeqNo.IntValue()
+		case newSeqNo.IntValue() < session.expectedSeqNum:
+			session.doReject(reject.NewValueIsIncorrect(msg, fix.NewSeqNo))
+		}
+	}
+
+	return state
 }
 
 func (state inSession) handleResendRequest(session *session, msg message.Message) (nextState state) {
@@ -149,9 +177,16 @@ func (state inSession) handleTestRequest(session *session, msg message.Message) 
 func (state inSession) processReject(session *session, rej reject.MessageReject) (nextState state) {
 	switch TypedError := rej.(type) {
 	case reject.TargetTooHigh:
-		session.DoTargetTooHigh(TypedError)
+
+		switch session.currentState.(type) {
+		default:
+			session.DoTargetTooHigh(TypedError)
+		case resendState:
+			//assumes target too high reject already sent
+		}
 		session.messageStash[TypedError.ReceivedTarget] = rej.RejectedMessage()
 		return resendState{}
+
 	case reject.TargetTooLow:
 		return state.doTargetTooLow(session, TypedError)
 	case reject.IncorrectBeginString:

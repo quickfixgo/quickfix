@@ -7,12 +7,18 @@ import (
 
 const (
 	RequiredTagMissing         RejectReason = 1
+	ValueIsIncorrect           RejectReason = 5
 	CompIDProblem              RejectReason = 9
 	SendingTimeAccuracyProblem RejectReason = 10
 )
 
 func NewRequiredTagMissing(msg message.Message, tag message.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Required tag missing", rejectReason: RequiredTagMissing,
+		refTagID: tag}
+}
+
+func NewValueIsIncorrect(msg message.Message, tag message.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Value is incorrect (out of range) for this tag", rejectReason: ValueIsIncorrect,
 		refTagID: tag}
 }
 
