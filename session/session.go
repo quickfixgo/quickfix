@@ -8,12 +8,14 @@ import (
 	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/message/basic"
 	"github.com/cbusbey/quickfixgo/reject"
+	"github.com/cbusbey/quickfixgo/session/store"
 	"github.com/cbusbey/quickfixgo/settings"
 	"time"
 )
 
 type session struct {
 	stateData
+	store store.MessageStore
 
 	log log.Log
 	ID
@@ -77,6 +79,7 @@ func (s *session) accept() (chan message.Buffer, error) {
 	s.currentState = logonState{}
 	s.messageOut = make(chan message.Buffer)
 	s.messageStash = make(map[int]message.Message)
+	s.store = store.NewMemoryStore()
 
 	return s.messageOut, nil
 }
@@ -85,27 +88,51 @@ func (s *session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *session) send(builder message.Builder) {
+func (s *session) insertSendingTime(builder message.Builder) {
 	sendingTime := time.Now().UTC()
 
-	//FIXME
-	builder.SetHeaderField(basic.NewIntField(fix.MsgSeqNum, s.seqNum))
-	builder.SetHeaderField(basic.NewStringField(fix.BeginString, s.BeginString))
-	builder.SetHeaderField(basic.NewStringField(fix.SenderCompID, s.SenderCompID))
-	builder.SetHeaderField(basic.NewStringField(fix.TargetCompID, s.TargetCompID))
 	if s.BeginString >= "FIX.4.2" {
 		builder.SetHeaderField(basic.NewUTCTimestampField(fix.SendingTime, sendingTime))
 	} else {
 		builder.SetHeaderField(basic.NewUTCTimestampFieldNoMillis(fix.SendingTime, sendingTime))
 	}
+}
 
-	//FIXME -log in message out receiver
-	buf := builder.Build()
-	s.log.OnOutgoing(string(buf.Bytes()))
-	s.messageOut <- buf
+func (s *session) fillDefaultHeader(builder message.Builder) {
+	builder.SetHeaderField(basic.NewStringField(fix.BeginString, s.BeginString))
+	builder.SetHeaderField(basic.NewStringField(fix.SenderCompID, s.SenderCompID))
+	builder.SetHeaderField(basic.NewStringField(fix.TargetCompID, s.TargetCompID))
 
-	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
+	s.insertSendingTime(builder)
+}
+
+func (s *session) resend(message *basic.Message) {
+	message.SetHeaderField(basic.NewStringField(fix.PossDupFlag, "Y"))
+
+	if origSendingTime, ok := message.MsgHeader.Get(fix.SendingTime); ok {
+		message.SetHeaderField(basic.NewStringField(fix.OrigSendingTime, origSendingTime.Value()))
+	}
+
+	s.insertSendingTime(message)
+
+	buffer := message.Build()
+	s.sendBuffer(buffer)
+}
+
+func (s *session) send(builder message.Builder) {
+	s.fillDefaultHeader(builder)
+	builder.SetHeaderField(basic.NewIntField(fix.MsgSeqNum, s.seqNum))
+
+	buffer := builder.Build()
+	s.store.SaveMessage(s.seqNum, buffer)
+	s.sendBuffer(buffer)
 	s.seqNum++
+}
+
+func (s *session) sendBuffer(buffer message.Buffer) {
+	s.log.OnOutgoing(string(buffer.Bytes()))
+	s.messageOut <- buffer
+	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 }
 
 func (s *session) DoTargetTooHigh(reject reject.TargetTooHigh) {
@@ -123,14 +150,18 @@ func (s *session) DoTargetTooHigh(reject reject.TargetTooHigh) {
 }
 
 func (s *session) verify(msg message.Message) reject.MessageReject {
-	return s.verifySelect(msg, true)
+	return s.verifySelect(msg, true, true)
 }
 
 func (s *session) verifyIgnoreSeqNumTooHigh(msg message.Message) reject.MessageReject {
-	return s.verifySelect(msg, false)
+	return s.verifySelect(msg, false, true)
 }
 
-func (s *session) verifySelect(msg message.Message, checkTooHigh bool) reject.MessageReject {
+func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg message.Message) reject.MessageReject {
+	return s.verifySelect(msg, false, false)
+}
+
+func (s *session) verifySelect(msg message.Message, checkTooHigh bool, checkTooLow bool) reject.MessageReject {
 	if err := s.checkBeginString(msg); err != nil {
 		return err
 	}
@@ -143,8 +174,10 @@ func (s *session) verifySelect(msg message.Message, checkTooHigh bool) reject.Me
 		return err
 	}
 
-	if err := s.checkTargetTooLow(msg); err != nil {
-		return err
+	if checkTooLow {
+		if err := s.checkTargetTooLow(msg); err != nil {
+			return err
+		}
 	}
 
 	if checkTooHigh {
@@ -156,12 +189,20 @@ func (s *session) verifySelect(msg message.Message, checkTooHigh bool) reject.Me
 	return s.fromCallback(msg)
 }
 
-func (s *session) fromCallback(msg message.Message) reject.MessageReject {
-	msgType, _ := msg.Header().StringField(fix.MsgType)
-	switch msgType.Value() {
+func IsAdminMessageType(msgType string) bool {
+	switch msgType {
 	case "0", "A", "1", "2", "3", "4", "5":
+		return true
+	}
+
+	return false
+}
+
+func (s *session) fromCallback(msg message.Message) reject.MessageReject {
+	if msgType, _ := msg.Header().StringField(fix.MsgType); IsAdminMessageType(msgType.Value()) {
 		return s.callback.FromAdmin(msg, s.ID)
 	}
+
 	return s.callback.FromApp(msg, s.ID)
 }
 

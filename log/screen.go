@@ -39,5 +39,5 @@ func (l screenLog) OnEvent(s string) {
 }
 
 func (l screenLog) OnEventf(format string, a ...interface{}) {
-	l.OnEvent(fmt.Sprintf(format, a))
+	l.OnEvent(fmt.Sprintf(format, a...))
 }

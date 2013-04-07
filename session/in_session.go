@@ -20,6 +20,9 @@ func (state inSession) FixMsgIn(session *session, msg message.Message) (nextStat
 		//test request
 		case "1":
 			return state.handleTestRequest(session, msg)
+		//resend request
+		case "2":
+			return state.handleResendRequest(session, msg)
 		default:
 			if err := session.verify(msg); err != nil {
 				return state.processReject(session, err)
@@ -55,6 +58,73 @@ func (state inSession) handleLogout(session *session, msg message.Message) (next
 	session.callback.OnLogout(session.ID)
 
 	return latentState{}
+}
+
+func (state inSession) handleResendRequest(session *session, msg message.Message) (nextState state) {
+	if err := session.verifyIgnoreSeqNumTooHighOrLow(msg); err != nil {
+		return state.processReject(session, err)
+	}
+
+	var beginSeqNo, endSeqNo int
+	if beginSeqNoField, err := msg.Body().IntField(fix.BeginSeqNo); err != nil {
+		return state.processReject(session, reject.NewRequiredTagMissing(msg, fix.BeginSeqNo))
+	} else {
+		beginSeqNo = beginSeqNoField.IntValue()
+	}
+
+	if endSeqNoField, err := msg.Body().IntField(fix.EndSeqNo); err != nil {
+		return state.processReject(session, reject.NewRequiredTagMissing(msg, fix.EndSeqNo))
+	} else {
+		endSeqNo = endSeqNoField.IntValue()
+	}
+
+	session.log.OnEventf("Received ResendRequest FROM: %d TO: %d", beginSeqNo, endSeqNo)
+
+	if (session.BeginString >= "FIX.4.2" && endSeqNo == 0) ||
+		(session.BeginString <= "FIX.4.2" && endSeqNo == 999999) ||
+		(endSeqNo >= session.expectedSeqNum) {
+		endSeqNo = session.expectedSeqNum - 1
+	}
+
+	state.resendMessages(session, beginSeqNo, endSeqNo)
+	session.expectedSeqNum++
+	return state
+}
+
+func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int) {
+	buffers := session.store.GetMessages(beginSeqNo, endSeqNo)
+
+	seqNum := beginSeqNo
+	nextSeqNum := seqNum
+
+	for {
+		if buf, ok := <-buffers; !ok {
+			//gapfill for catch-up
+			if seqNum != nextSeqNum {
+				state.generateSequenceReset(session, seqNum, nextSeqNum)
+			}
+
+			return
+		} else {
+
+			message, _ := basic.MessageFromParsedBytes(buf.Bytes())
+			msgType, _ := message.MsgHeader.Get(fix.MsgType)
+			sentMessageSeqNum, _ := message.MsgHeader.IntField(fix.MsgSeqNum)
+
+			if IsAdminMessageType(msgType.Value()) {
+				nextSeqNum = sentMessageSeqNum.IntValue() + 1
+			} else {
+
+				if seqNum != sentMessageSeqNum.IntValue() {
+					state.generateSequenceReset(session, seqNum, sentMessageSeqNum.IntValue())
+				}
+
+				session.resend(message)
+				seqNum = sentMessageSeqNum.IntValue() + 1
+				nextSeqNum = seqNum
+			}
+		}
+	}
 }
 
 func (state inSession) handleTestRequest(session *session, msg message.Message) (nextState state) {
@@ -123,6 +193,24 @@ func (state *inSession) initiateLogout(session *session, reason string) (nextSta
 	time.AfterFunc(time.Duration(2)*time.Second, func() { session.sessionEvent <- logoutTimeout })
 
 	return
+}
+
+func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, endSeqNo int) {
+	sequenceReset := basic.NewMessage()
+	session.fillDefaultHeader(sequenceReset)
+
+	sequenceReset.MsgHeader.Set(basic.NewStringField(fix.MsgType, "4"))
+	sequenceReset.MsgHeader.Set(basic.NewIntField(fix.MsgSeqNum, beginSeqNo))
+	sequenceReset.MsgHeader.Set(basic.NewStringField(fix.PossDupFlag, "Y"))
+	sequenceReset.MsgBody.Set(basic.NewIntField(fix.NewSeqNo, endSeqNo))
+	sequenceReset.MsgBody.Set(basic.NewStringField(fix.GapFillFlag, "Y"))
+
+	if origSendingTime, ok := sequenceReset.MsgHeader.Get(fix.SendingTime); ok {
+		sequenceReset.SetHeaderField(basic.NewStringField(fix.OrigSendingTime, origSendingTime.Value()))
+	}
+
+	buffer := sequenceReset.Build()
+	session.sendBuffer(buffer)
 }
 
 func (state *inSession) generateLogout(session *session) {

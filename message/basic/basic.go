@@ -131,7 +131,7 @@ func (m *Message) Build() message.Buffer {
 	m.MsgBody.Write(&b)
 	m.MsgTrailer.Write(&b)
 
-	return Buffer{b.Bytes()}
+	return Buffer(b.Bytes())
 }
 
 func (m *Message) cook() {
