@@ -108,8 +108,8 @@ func (state inSession) handleResendRequest(session *session, msg message.Message
 
 	session.log.OnEventf("Received ResendRequest FROM: %d TO: %d", beginSeqNo, endSeqNo)
 
-	if (session.BeginString >= "FIX.4.2" && endSeqNo == 0) ||
-		(session.BeginString <= "FIX.4.2" && endSeqNo == 999999) ||
+	if (session.BeginString >= fix.BeginString_FIX42 && endSeqNo == 0) ||
+		(session.BeginString <= fix.BeginString_FIX42 && endSeqNo == 999999) ||
 		(endSeqNo >= session.expectedSeqNum) {
 		endSeqNo = session.expectedSeqNum - 1
 	}

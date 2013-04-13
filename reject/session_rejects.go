@@ -7,9 +7,11 @@ import (
 
 const (
 	RequiredTagMissing         RejectReason = 1
+	UnsupportedMessageType     RejectReason = 3
 	ValueIsIncorrect           RejectReason = 5
 	CompIDProblem              RejectReason = 9
 	SendingTimeAccuracyProblem RejectReason = 10
+	InvalidMsgType             RejectReason = 11
 )
 
 func NewRequiredTagMissing(msg message.Message, tag message.Tag) MessageReject {
@@ -20,6 +22,14 @@ func NewRequiredTagMissing(msg message.Message, tag message.Tag) MessageReject {
 func NewValueIsIncorrect(msg message.Message, tag message.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Value is incorrect (out of range) for this tag", rejectReason: ValueIsIncorrect,
 		refTagID: tag}
+}
+
+func NewInvalidMessageType(msg message.Message) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Invalid MsgType", rejectReason: InvalidMsgType}
+}
+
+func NewUnsupportedMessageType(msg message.Message) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Unsupported Message Type", rejectReason: UnsupportedMessageType, businessReject: true}
 }
 
 type IncorrectBeginString struct{ MessageReject }

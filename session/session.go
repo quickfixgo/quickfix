@@ -53,7 +53,7 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 		return settings.RequiredConfigurationMissing(settings.SenderCompID)
 	}
 
-	if session.ID.BeginString == "FIXT.1.1" {
+	if session.ID.BeginString == fix.BeginString_FIXT11 {
 		if defaultApplVerID, ok := dict.GetString(settings.DefaultApplVerID); ok {
 			session.ID.DefaultApplVerID = defaultApplVerID
 		} else {
@@ -91,7 +91,7 @@ func (s *session) onDisconnect() {
 func (s *session) insertSendingTime(builder message.Builder) {
 	sendingTime := time.Now().UTC()
 
-	if s.BeginString >= "FIX.4.2" {
+	if s.BeginString >= fix.BeginString_FIX42 {
 		builder.SetHeaderField(basic.NewUTCTimestampField(fix.SendingTime, sendingTime))
 	} else {
 		builder.SetHeaderField(basic.NewUTCTimestampFieldNoMillis(fix.SendingTime, sendingTime))
@@ -141,7 +141,7 @@ func (s *session) DoTargetTooHigh(reject reject.TargetTooHigh) {
 	resend.MsgBody.Set(basic.NewIntField(fix.BeginSeqNo, reject.ExpectedTarget))
 
 	var endSeqNum = 0
-	if s.ID.BeginString < "FIX.4.2" {
+	if s.ID.BeginString < fix.BeginString_FIX42 {
 		endSeqNum = 999999
 	}
 	resend.MsgBody.Set(basic.NewIntField(fix.EndSeqNo, endSeqNum))
@@ -270,7 +270,7 @@ func (s *session) checkBeginString(msg message.Message) reject.MessageReject {
 func (s *session) doReject(rej reject.MessageReject) {
 	reply := basic.NewMessage()
 
-	if s.BeginString >= "FIX.4.2" {
+	if s.BeginString >= fix.BeginString_FIX42 {
 
 		if rej.IsBusinessReject() {
 			reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "j"))
