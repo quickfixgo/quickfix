@@ -5,11 +5,13 @@ all:
 fmt:
 	go fmt ./...
 
-GEN = go run gen/generate-fix/main.go
+GEN_MESSAGES = go run gen/generate-messages/main.go
+GEN_FIELDS = go run gen/generate-fields/main.go
 FIXVERS = FIX40 FIX41 FIX42 FIX43 FIX44 FIX50 FIX50SP1 FIX50SP2 FIXT11
 
 generate:
-	$(foreach vers, $(FIXVERS), $(GEN) spec/$(vers).xml;)
+	$(GEN_FIELDS) $(foreach vers, $(FIXVERS), spec/$(vers).xml)
+	$(foreach vers, $(FIXVERS), $(GEN_MESSAGES) spec/$(vers).xml;)
 
 unit:
 	go test ./...

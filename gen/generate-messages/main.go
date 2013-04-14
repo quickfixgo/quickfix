@@ -1,40 +1,35 @@
 package main
 
 import (
-	"encoding/xml"
 	"flag"
 	"fmt"
 	"github.com/cbusbey/quickfixgo/gen"
-	"go/ast"
-	"go/parser"
-	"go/printer"
-	"go/token"
 	"os"
 	"strconv"
 	"strings"
 )
 
 var (
-	pkg  string
-	spec gen.FixSpec
+	pkg     string
+	fixSpec *gen.FixSpec
 )
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "usage: generate-fix [flags] <path to data dictionary>\n")
+	fmt.Fprintf(os.Stderr, "usage: generate-messages [flags] <path to data dictionary>\n")
 	flag.PrintDefaults()
 	os.Exit(2)
 }
 
 func initPackage() {
-	pkg = strings.ToLower(spec.FixType) + strconv.Itoa(spec.Major) + strconv.Itoa(spec.Minor)
+	pkg = strings.ToLower(fixSpec.FixType) + strconv.Itoa(fixSpec.Major) + strconv.Itoa(fixSpec.Minor)
 
-	if spec.ServicePack != 0 {
-		pkg += "sp" + strconv.Itoa(spec.ServicePack)
+	if fixSpec.ServicePack != 0 {
+		pkg += "sp" + strconv.Itoa(fixSpec.ServicePack)
 	}
 }
 
 func genMessages() {
-	for _, m := range spec.Messages {
+	for _, m := range fixSpec.Messages {
 		genMessage(m)
 	}
 }
@@ -47,7 +42,7 @@ func genCracker() {
 	fileOut += buildMessageCracker()
 
 	filePath := pkg + "/message_cracker.go"
-	writeFile(filePath, fileOut)
+	gen.WriteFile(filePath, fileOut)
 }
 
 func buildCrackerImports() string {
@@ -65,7 +60,7 @@ func buildCrack() (out string) {
 	out += "func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {\n"
 	out += "switch msgType, _ := msg.Header().StringField(fix.MsgType); msgType.Value() {"
 
-	for _, m := range spec.Messages {
+	for _, m := range fixSpec.Messages {
 		out += fmt.Sprintf("case \"%v\":\n", m.MsgType)
 		out += fmt.Sprintf("return router.On%v%v(%v{msg},sessionID)\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
@@ -79,7 +74,7 @@ func buildCrack() (out string) {
 func buildMessageRouter() (out string) {
 	out += "type MessageRouter interface {\n"
 
-	for _, m := range spec.Messages {
+	for _, m := range fixSpec.Messages {
 		out += fmt.Sprintf("On%v%v(msg %v, sessionID session.ID) reject.MessageReject\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
 
@@ -91,7 +86,7 @@ func buildMessageRouter() (out string) {
 func buildMessageCracker() (out string) {
 	out += fmt.Sprintf("type %vMessageCracker struct {}\n", strings.ToUpper(pkg))
 
-	for _, m := range spec.Messages {
+	for _, m := range fixSpec.Messages {
 		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId session.ID) reject.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
 		out += "return reject.NewUnsupportedMessageType(msg)\n}\n"
 	}
@@ -105,25 +100,7 @@ func genMessage(msg gen.Message) {
 	fileOut += fmt.Sprintf("type %v struct {\n message.Message}", msg.Name)
 
 	filePath := pkg + "/" + msg.Name + ".go"
-	writeFile(filePath, fileOut)
-}
-
-func writeFile(filePath, fileOut string) {
-	fset := token.NewFileSet()
-	f, err := parser.ParseFile(fset, "", fileOut, 0)
-	if err != nil {
-		fmt.Println("Failed to parse:\n", fileOut)
-		panic(err)
-	}
-
-	ast.SortImports(fset, f)
-
-	if file, err := os.Create(filePath); err == nil {
-		defer file.Close()
-		printer.Fprint(file, fset, f)
-	} else {
-		panic(err)
-	}
+	gen.WriteFile(filePath, fileOut)
 }
 
 func main() {
@@ -136,15 +113,11 @@ func main() {
 
 	dataDict := flag.Arg(0)
 
-	xmlFile, err := os.Open(dataDict)
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return
+	if spec, err := gen.ParseFixSpec(dataDict); err != nil {
+		panic(err)
+	} else {
+		fixSpec = spec
 	}
-	defer xmlFile.Close()
-
-	decoder := xml.NewDecoder(xmlFile)
-	decoder.Decode(&spec)
 
 	initPackage()
 

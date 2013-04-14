@@ -1,5 +1,10 @@
 package gen
 
+import (
+	"encoding/xml"
+	"os"
+)
+
 type Field struct {
 	Name     string `xml:"name,attr"`
 	Required string `xml:"required,attr"`
@@ -55,4 +60,20 @@ type FixSpec struct {
 	Trailer        []Field         `xml:"trailer>field"`
 	FieldTypes     []FieldType     `xml:"fields>field"`
 	ComponentTypes []ComponentType `xml:"components>component"`
+}
+
+func ParseFixSpec(path string) (*FixSpec, error) {
+	xmlFile, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer xmlFile.Close()
+
+	var spec FixSpec
+	decoder := xml.NewDecoder(xmlFile)
+	if err := decoder.Decode(&spec); err != nil {
+		return nil, err
+	}
+
+	return &spec, nil
 }
