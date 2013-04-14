@@ -107,7 +107,7 @@ func (s *session) fillDefaultHeader(builder message.Builder) {
 }
 
 func (s *session) resend(message *basic.Message) {
-	message.SetHeaderField(basic.NewStringField(fix.PossDupFlag, "Y"))
+	message.SetHeaderField(basic.NewBooleanField(fix.PossDupFlag, true))
 
 	if origSendingTime, ok := message.MsgHeader.Get(fix.SendingTime); ok {
 		message.SetHeaderField(basic.NewStringField(fix.OrigSendingTime, origSendingTime.Value()))

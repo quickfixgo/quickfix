@@ -21,3 +21,10 @@ type UTCTimestampField interface {
 	//field value as timestamp
 	UTCTimestampValue() time.Time
 }
+
+type BooleanField interface {
+	Field
+
+	//field value as a bool
+	BooleanValue() bool
+}

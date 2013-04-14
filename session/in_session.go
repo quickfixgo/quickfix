@@ -66,8 +66,8 @@ func (state inSession) handleLogout(session *session, msg message.Message) (next
 func (state inSession) handleSequenceReset(session *session, msg message.Message) (nextState state) {
 	isGapFill := false
 
-	if gapFillFlag, ok := msg.Body().Get(fix.GapFillFlag); ok {
-		isGapFill = gapFillFlag.Value() == "Y"
+	if gapFillFlag, err := msg.Body().BooleanField(fix.GapFillFlag); err == nil {
+		isGapFill = gapFillFlag.BooleanValue()
 	}
 
 	if err := session.verifySelect(msg, isGapFill, isGapFill); err != nil {
@@ -198,7 +198,7 @@ func (state inSession) processReject(session *session, rej reject.MessageReject)
 }
 
 func (state inSession) doTargetTooLow(session *session, rej reject.TargetTooLow) (nextState state) {
-	if posDupFlag, ok := rej.RejectedMessage().Header().Get(fix.PossDupFlag); ok && posDupFlag.Value() == "Y" {
+	if posDupFlag, err := rej.RejectedMessage().Header().BooleanField(fix.PossDupFlag); err == nil && posDupFlag.BooleanValue() {
 
 		if origSendingTime, err := rej.RejectedMessage().Header().UTCTimestampField(fix.OrigSendingTime); err != nil {
 			session.doReject(reject.NewRequiredTagMissing(rej.RejectedMessage(), fix.OrigSendingTime))
@@ -236,9 +236,9 @@ func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, 
 
 	sequenceReset.MsgHeader.Set(basic.NewStringField(fix.MsgType, "4"))
 	sequenceReset.MsgHeader.Set(basic.NewIntField(fix.MsgSeqNum, beginSeqNo))
-	sequenceReset.MsgHeader.Set(basic.NewStringField(fix.PossDupFlag, "Y"))
+	sequenceReset.MsgHeader.Set(basic.NewBooleanField(fix.PossDupFlag, true))
 	sequenceReset.MsgBody.Set(basic.NewIntField(fix.NewSeqNo, endSeqNo))
-	sequenceReset.MsgBody.Set(basic.NewStringField(fix.GapFillFlag, "Y"))
+	sequenceReset.MsgBody.Set(basic.NewBooleanField(fix.GapFillFlag, true))
 
 	if origSendingTime, ok := sequenceReset.MsgHeader.Get(fix.SendingTime); ok {
 		sequenceReset.SetHeaderField(basic.NewStringField(fix.OrigSendingTime, origSendingTime.Value()))

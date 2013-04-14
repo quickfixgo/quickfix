@@ -60,7 +60,7 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID session.ID) 
 
 	reply := basic.NewMessage()
 	sessionOrderId := sessionID.String() + OrderId.Value()
-	if PossResend, ok := msg.Header().Get(fix.PossResend); ok && PossResend.Value() == "Y" {
+	if PossResend, err := msg.Header().BooleanField(fix.PossResend); err == nil && PossResend.BooleanValue() {
 		if e.OrderIds[sessionOrderId] {
 			return
 		}

@@ -104,6 +104,21 @@ func (m *FieldMap) UTCTimestampField(tag message.Tag) (message.UTCTimestampField
 	return nil, message.FieldConvertError{Tag: tag, Value: message_field.Value()}
 }
 
+func (m *FieldMap) BooleanField(tag message.Tag) (message.BooleanField, error) {
+	message_field, ok := m.Get(tag)
+	if !ok {
+		return nil, message.FieldNotFoundError{tag}
+	}
+
+	switch typeField := message_field.(type) {
+	case message.BooleanField:
+		return typeField, nil
+	}
+
+	boolField, err := ToBooleanField(message_field)
+	return boolField, err
+}
+
 func (m FieldMap) sortedTags() []message.Tag {
 	tags := m.Tags()
 	sort.Sort(fieldSort{tags, m.fieldOrder})

@@ -22,5 +22,8 @@ type FieldMap interface {
 	//check error for FieldNotFoundError, FieldConvertError
 	UTCTimestampField(tag Tag) (timeField UTCTimestampField, err error)
 
+	//check error for FieldNotFoundError, FieldConvertError
+	BooleanField(tag Tag) (boolField BooleanField, err error)
+
 	Write(b *bytes.Buffer)
 }
