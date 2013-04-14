@@ -24,6 +24,7 @@ import (
 
 type EchoApplication struct {
 	quickfixgo.MessageCracker
+	OrderIds map[string]bool
 }
 
 func (e EchoApplication) OnCreate(sessionID session.ID) {
@@ -31,8 +32,9 @@ func (e EchoApplication) OnCreate(sessionID session.ID) {
 }
 func (e EchoApplication) OnLogon(sessionID session.ID) {
 	fmt.Printf("OnLogon %v\n", sessionID.String())
+	e.OrderIds = make(map[string]bool)
 }
-func (e EchoApplication) OnLogout(sessionID session.ID) {
+func (e *EchoApplication) OnLogout(sessionID session.ID) {
 	fmt.Printf("OnLogout %v\n", sessionID.String())
 }
 func (e EchoApplication) ToAdmin(msgBuilder message.Builder, sessionID session.ID) {}
@@ -50,8 +52,24 @@ func (e *EchoApplication) FromApp(msg message.Message, sessionID session.ID) (re
 	return quickfixgo.Crack(msg, sessionID, e)
 }
 
-func (e EchoApplication) processMsg(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
+func (e *EchoApplication) processMsg(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
+	OrderId, err := msg.Body().StringField(fix.ClOrdID)
+	if err != nil {
+		return
+	}
+
 	reply := basic.NewMessage()
+	sessionOrderId := sessionID.String() + OrderId.Value()
+	if PossResend, ok := msg.Header().Get(fix.PossResend); ok && PossResend.Value() == "Y" {
+		if e.OrderIds[sessionOrderId] {
+			return
+		}
+
+		reply.MsgHeader.Set(PossResend)
+	}
+
+	e.OrderIds[sessionOrderId] = true
+
 	msgType, _ := msg.Header().Get(fix.MsgType)
 	reply.MsgHeader.Set(msgType)
 

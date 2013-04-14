@@ -5,10 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"github.com/cbusbey/quickfixgo/gen"
+	"go/ast"
 	"go/parser"
 	"go/printer"
 	"go/token"
-	"go/ast"
 	"os"
 	"strconv"
 	"strings"
@@ -116,7 +116,7 @@ func writeFile(filePath, fileOut string) {
 		panic(err)
 	}
 
-  ast.SortImports(fset, f)
+	ast.SortImports(fset, f)
 
 	if file, err := os.Create(filePath); err == nil {
 		defer file.Close()
