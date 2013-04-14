@@ -30,7 +30,7 @@ type EchoApplication struct {
 func (e EchoApplication) OnCreate(sessionID session.ID) {
 	fmt.Printf("OnCreate %v\n", sessionID.String())
 }
-func (e EchoApplication) OnLogon(sessionID session.ID) {
+func (e *EchoApplication) OnLogon(sessionID session.ID) {
 	fmt.Printf("OnLogon %v\n", sessionID.String())
 	e.OrderIds = make(map[string]bool)
 }
