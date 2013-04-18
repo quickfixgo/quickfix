@@ -34,19 +34,19 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	if field, rawMessage, err = extractSpecificField(fix.BeginString, rawMessage); err != nil {
 		return nil, err
 	} else {
-		msg.MsgHeader.Set(field)
+		msg.MsgHeader.SetField(field)
 	}
 
 	if field, rawMessage, err = extractSpecificField(fix.BodyLength, rawMessage); err != nil {
 		return nil, err
 	} else {
-		msg.MsgHeader.Set(field)
+		msg.MsgHeader.SetField(field)
 	}
 
 	if field, rawMessage, err = extractSpecificField(fix.MsgType, rawMessage); err != nil {
 		return nil, err
 	} else {
-		msg.MsgHeader.Set(field)
+		msg.MsgHeader.SetField(field)
 	}
 
 	for {
@@ -56,11 +56,11 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 		case err != nil:
 			return nil, err
 		case fix.IsHeader(field.Tag()):
-			msg.MsgHeader.Set(field)
+			msg.MsgHeader.SetField(field)
 		case fix.IsTrailer(field.Tag()):
-			msg.MsgTrailer.Set(field)
+			msg.MsgTrailer.SetField(field)
 		default:
-			msg.MsgBody.Set(field)
+			msg.MsgBody.SetField(field)
 		}
 		if field.Tag() == fix.CheckSum {
 			break
@@ -68,9 +68,9 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	}
 
 	msg.length = msg.MsgHeader.Length() + msg.MsgBody.Length() + msg.MsgTrailer.Length()
-	msgLength, _ := msg.MsgHeader.IntField(fix.BodyLength)
-	if msgLength.IntValue() != msg.length {
-		return msg, message.ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", msgLength.IntValue(), msg.length)}
+	msgLength, _ := msg.MsgHeader.IntValue(fix.BodyLength)
+	if msgLength != msg.length {
+		return msg, message.ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", msgLength, msg.length)}
 	}
 
 	return msg, nil
@@ -137,7 +137,7 @@ func (m *Message) Build() message.Buffer {
 func (m *Message) cook() {
 	bodyLength := m.MsgHeader.Length() + m.MsgBody.Length() + m.MsgTrailer.Length()
 	checkSum := (m.MsgHeader.Total() + m.MsgBody.Total() + m.MsgTrailer.Total()) % 256
-	m.MsgHeader.Set(NewIntField(fix.BodyLength, bodyLength))
+	m.MsgHeader.SetField(NewIntField(fix.BodyLength, bodyLength))
 	m.MsgTrailer.setCheckSum(newCheckSum(checkSum))
 }
 
@@ -146,5 +146,5 @@ func newCheckSum(value int) *StringField {
 }
 
 func (message *Message) SetHeaderField(field message.Field) {
-	message.MsgHeader.Set(field)
+	message.MsgHeader.SetField(field)
 }

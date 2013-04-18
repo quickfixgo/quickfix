@@ -53,29 +53,29 @@ func (e *EchoApplication) FromApp(msg message.Message, sessionID session.ID) (re
 }
 
 func (e *EchoApplication) processMsg(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
-	OrderId, err := msg.Body().StringField(fix.ClOrdID)
-	if err != nil {
+	OrderId, ok := msg.Body().StringValue(fix.ClOrdID)
+	if !ok {
 		return
 	}
 
 	reply := basic.NewMessage()
-	sessionOrderId := sessionID.String() + OrderId.Value()
-	if PossResend, err := msg.Header().BooleanField(fix.PossResend); err == nil && PossResend.BooleanValue() {
+	sessionOrderId := sessionID.String() + OrderId
+	if PossResend, err := msg.Header().BooleanValue(fix.PossResend); err == nil && PossResend {
 		if e.OrderIds[sessionOrderId] {
 			return
 		}
 
-		reply.MsgHeader.Set(PossResend)
+		reply.MsgHeader.SetField(basic.NewBooleanField(fix.PossResend, PossResend))
 	}
 
 	e.OrderIds[sessionOrderId] = true
 
-	msgType, _ := msg.Header().Get(fix.MsgType)
-	reply.MsgHeader.Set(msgType)
+	msgType, _ := msg.Header().Field(fix.MsgType)
+	reply.MsgHeader.SetField(msgType)
 
 	for _, tag := range msg.Body().Tags() {
-		if field, ok := msg.Body().Get(tag); ok {
-			reply.MsgBody.Set(field)
+		if field, ok := msg.Body().Field(tag); ok {
+			reply.MsgBody.SetField(field)
 		}
 	}
 

@@ -34,20 +34,20 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
 	}
 
 	var sessID ID
-	if beginString, err := msg.Header().StringField(fix.BeginString); err == nil {
-		sessID.BeginString = beginString.Value()
+	if beginString, ok := msg.Header().StringValue(fix.BeginString); ok {
+		sessID.BeginString = beginString
 	}
 
-	if senderCompID, err := msg.Header().StringField(fix.SenderCompID); err == nil {
-		sessID.TargetCompID = senderCompID.Value()
+	if senderCompID, ok := msg.Header().StringValue(fix.SenderCompID); ok {
+		sessID.TargetCompID = senderCompID
 	}
 
-	if targetCompID, err := msg.Header().StringField(fix.TargetCompID); err == nil {
-		sessID.SenderCompID = targetCompID.Value()
+	if targetCompID, ok := msg.Header().StringValue(fix.TargetCompID); ok {
+		sessID.SenderCompID = targetCompID
 	}
 
-	if defaultApplVerID, err := msg.Body().StringField(fix.DefaultApplVerID); err == nil {
-		sessID.DefaultApplVerID = defaultApplVerID.Value()
+	if defaultApplVerID, ok := msg.Body().StringValue(fix.DefaultApplVerID); ok {
+		sessID.DefaultApplVerID = defaultApplVerID
 	}
 
 	session := activate(sessID)

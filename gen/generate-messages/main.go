@@ -58,7 +58,7 @@ import(
 
 func buildCrack() (out string) {
 	out += "func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {\n"
-	out += "switch msgType, _ := msg.Header().StringField(fix.MsgType); msgType.Value() {"
+	out += "switch msgType, _ := msg.Header().StringValue(fix.MsgType); msgType {"
 
 	for _, m := range fixSpec.Messages {
 		out += fmt.Sprintf("case \"%v\":\n", m.MsgType)

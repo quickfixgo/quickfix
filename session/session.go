@@ -109,7 +109,7 @@ func (s *session) fillDefaultHeader(builder message.Builder) {
 func (s *session) resend(message *basic.Message) {
 	message.SetHeaderField(basic.NewBooleanField(fix.PossDupFlag, true))
 
-	if origSendingTime, ok := message.MsgHeader.Get(fix.SendingTime); ok {
+	if origSendingTime, ok := message.MsgHeader.Field(fix.SendingTime); ok {
 		message.SetHeaderField(basic.NewStringField(fix.OrigSendingTime, origSendingTime.Value()))
 	}
 
@@ -137,14 +137,14 @@ func (s *session) sendBuffer(buffer message.Buffer) {
 
 func (s *session) DoTargetTooHigh(reject reject.TargetTooHigh) {
 	resend := basic.NewMessage()
-	resend.MsgHeader.Set(basic.NewStringField(fix.MsgType, "2"))
-	resend.MsgBody.Set(basic.NewIntField(fix.BeginSeqNo, reject.ExpectedTarget))
+	resend.MsgHeader.SetField(basic.NewStringField(fix.MsgType, "2"))
+	resend.MsgBody.SetField(basic.NewIntField(fix.BeginSeqNo, reject.ExpectedTarget))
 
 	var endSeqNum = 0
 	if s.ID.BeginString < fix.BeginString_FIX42 {
 		endSeqNum = 999999
 	}
-	resend.MsgBody.Set(basic.NewIntField(fix.EndSeqNo, endSeqNum))
+	resend.MsgBody.SetField(basic.NewIntField(fix.EndSeqNo, endSeqNum))
 
 	s.send(resend)
 }
@@ -199,7 +199,7 @@ func IsAdminMessageType(msgType string) bool {
 }
 
 func (s *session) fromCallback(msg message.Message) reject.MessageReject {
-	if msgType, _ := msg.Header().StringField(fix.MsgType); IsAdminMessageType(msgType.Value()) {
+	if msgType, _ := msg.Header().StringValue(fix.MsgType); IsAdminMessageType(msgType) {
 		return s.callback.FromAdmin(msg, s.ID)
 	}
 
@@ -207,30 +207,30 @@ func (s *session) fromCallback(msg message.Message) reject.MessageReject {
 }
 
 func (s *session) checkTargetTooLow(msg message.Message) reject.MessageReject {
-	switch seqNum, err := msg.Header().IntField(fix.MsgSeqNum); {
+	switch seqNum, err := msg.Header().IntValue(fix.MsgSeqNum); {
 	case err != nil:
 		return reject.NewRequiredTagMissing(msg, fix.MsgSeqNum)
-	case seqNum.IntValue() < s.expectedSeqNum:
-		return reject.NewTargetTooLow(msg, seqNum.IntValue(), s.expectedSeqNum)
+	case seqNum < s.expectedSeqNum:
+		return reject.NewTargetTooLow(msg, seqNum, s.expectedSeqNum)
 	}
 
 	return nil
 }
 
 func (s *session) checkTargetTooHigh(msg message.Message) reject.MessageReject {
-	switch seqNum, err := msg.Header().IntField(fix.MsgSeqNum); {
+	switch seqNum, err := msg.Header().IntValue(fix.MsgSeqNum); {
 	case err != nil:
 		return reject.NewRequiredTagMissing(msg, fix.MsgSeqNum)
-	case seqNum.IntValue() > s.expectedSeqNum:
-		return reject.NewTargetTooHigh(msg, seqNum.IntValue(), s.expectedSeqNum)
+	case seqNum > s.expectedSeqNum:
+		return reject.NewTargetTooHigh(msg, seqNum, s.expectedSeqNum)
 	}
 
 	return nil
 }
 
 func (s *session) checkCompID(msg message.Message) reject.MessageReject {
-	SenderCompID, haveSender := msg.Header().Get(fix.SenderCompID)
-	TargetCompID, haveTarget := msg.Header().Get(fix.TargetCompID)
+	SenderCompID, haveSender := msg.Header().Field(fix.SenderCompID)
+	TargetCompID, haveTarget := msg.Header().Field(fix.TargetCompID)
 
 	switch {
 	case !haveSender:
@@ -245,10 +245,10 @@ func (s *session) checkCompID(msg message.Message) reject.MessageReject {
 }
 
 func (s *session) checkSendingTime(msg message.Message) reject.MessageReject {
-	if sendingTime, err := msg.Header().UTCTimestampField(fix.SendingTime); err != nil {
+	if sendingTime, err := msg.Header().UTCTimestampValue(fix.SendingTime); err != nil {
 		return reject.NewRequiredTagMissing(msg, fix.SendingTime)
 	} else {
-		if delta := time.Since(sendingTime.UTCTimestampValue()); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
+		if delta := time.Since(sendingTime); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
 			return reject.NewSendingTimeAccuracyProblem(msg)
 		}
 	}
@@ -257,10 +257,10 @@ func (s *session) checkSendingTime(msg message.Message) reject.MessageReject {
 }
 
 func (s *session) checkBeginString(msg message.Message) reject.MessageReject {
-	switch BeginString, err := msg.Header().StringField(fix.BeginString); {
-	case err != nil:
+	switch BeginString, ok := msg.Header().StringValue(fix.BeginString); {
+	case !ok:
 		return reject.NewRequiredTagMissing(msg, fix.BeginString)
-	case s.BeginString != BeginString.Value():
+	case s.BeginString != BeginString:
 		return reject.NewIncorrectBeginString(msg)
 	}
 
@@ -273,35 +273,35 @@ func (s *session) doReject(rej reject.MessageReject) {
 	if s.BeginString >= fix.BeginString_FIX42 {
 
 		if rej.IsBusinessReject() {
-			reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "j"))
-			reply.MsgBody.Set(basic.NewIntField(fix.BusinessRejectReason, int(rej.RejectReason())))
+			reply.MsgHeader.SetField(basic.NewStringField(fix.MsgType, "j"))
+			reply.MsgBody.SetField(basic.NewIntField(fix.BusinessRejectReason, int(rej.RejectReason())))
 		} else {
-			reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "3"))
-			reply.MsgBody.Set(basic.NewIntField(fix.SessionRejectReason, int(rej.RejectReason())))
+			reply.MsgHeader.SetField(basic.NewStringField(fix.MsgType, "3"))
+			reply.MsgBody.SetField(basic.NewIntField(fix.SessionRejectReason, int(rej.RejectReason())))
 		}
-		reply.MsgBody.Set(basic.NewStringField(fix.Text, rej.Error()))
+		reply.MsgBody.SetField(basic.NewStringField(fix.Text, rej.Error()))
 
-		if MsgType, err := rej.RejectedMessage().Header().StringField(fix.MsgType); err == nil {
-			reply.MsgBody.Set(basic.NewStringField(fix.RefMsgType, MsgType.Value()))
+		if MsgType, ok := rej.RejectedMessage().Header().StringValue(fix.MsgType); ok {
+			reply.MsgBody.SetField(basic.NewStringField(fix.RefMsgType, MsgType))
 		}
 
 		switch rej.RejectReason() {
 		case reject.RequiredTagMissing:
-			reply.MsgBody.Set(basic.NewIntField(fix.RefTagID, int(rej.RefTagID())))
+			reply.MsgBody.SetField(basic.NewIntField(fix.RefTagID, int(rej.RefTagID())))
 		}
 	} else {
-		reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "3"))
+		reply.MsgHeader.SetField(basic.NewStringField(fix.MsgType, "3"))
 
 		switch rej.RejectReason() {
 		case reject.RequiredTagMissing:
-			reply.MsgBody.Set(basic.NewStringField(fix.Text, fmt.Sprintf("%s (%d)", rej.Error(), rej.RefTagID())))
+			reply.MsgBody.SetField(basic.NewStringField(fix.Text, fmt.Sprintf("%s (%d)", rej.Error(), rej.RefTagID())))
 		default:
-			reply.MsgBody.Set(basic.NewStringField(fix.Text, rej.Error()))
+			reply.MsgBody.SetField(basic.NewStringField(fix.Text, rej.Error()))
 		}
 	}
 
-	if SeqNum, err := rej.RejectedMessage().Header().IntField(fix.MsgSeqNum); err == nil {
-		reply.MsgBody.Set(basic.NewIntField(fix.RefSeqNum, SeqNum.IntValue()))
+	if SeqNum, err := rej.RejectedMessage().Header().IntValue(fix.MsgSeqNum); err == nil {
+		reply.MsgBody.SetField(basic.NewIntField(fix.RefSeqNum, SeqNum))
 	}
 
 	s.send(reply)

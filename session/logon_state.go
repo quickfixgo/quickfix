@@ -11,8 +11,8 @@ import (
 type logonState struct{}
 
 func (s logonState) FixMsgIn(session *session, msg message.Message) (nextState state) {
-	if msgType, err := msg.Header().StringField(fix.MsgType); err == nil && msgType.Value() == "A" {
-		if err = s.handleLogon(session, msg); err != nil {
+	if msgType, ok := msg.Header().StringValue(fix.MsgType); ok && msgType == "A" {
+		if err := s.handleLogon(session, msg); err != nil {
 			session.log.OnEvent(err.Error())
 			return latentState{}
 		} else {
@@ -43,19 +43,19 @@ func (s logonState) handleLogon(session *session, msg message.Message) error {
 	}
 
 	reply := basic.NewMessage()
-	reply.MsgHeader.Set(basic.NewStringField(fix.MsgType, "A"))
-	reply.MsgHeader.Set(basic.NewStringField(fix.BeginString, session.BeginString))
-	reply.MsgHeader.Set(basic.NewStringField(fix.TargetCompID, session.TargetCompID))
-	reply.MsgHeader.Set(basic.NewStringField(fix.SenderCompID, session.SenderCompID))
-	reply.MsgBody.Set(basic.NewIntField(fix.EncryptMethod, 0))
+	reply.MsgHeader.SetField(basic.NewStringField(fix.MsgType, "A"))
+	reply.MsgHeader.SetField(basic.NewStringField(fix.BeginString, session.BeginString))
+	reply.MsgHeader.SetField(basic.NewStringField(fix.TargetCompID, session.TargetCompID))
+	reply.MsgHeader.SetField(basic.NewStringField(fix.SenderCompID, session.SenderCompID))
+	reply.MsgBody.SetField(basic.NewIntField(fix.EncryptMethod, 0))
 
-	if HeartBtInt, err := msg.Body().IntField(fix.HeartBtInt); err == nil {
-		session.heartBeatTimeout = time.Duration(HeartBtInt.IntValue()) * time.Second
-		reply.MsgBody.Set(HeartBtInt)
+	if HeartBtInt, err := msg.Body().IntValue(fix.HeartBtInt); err == nil {
+		session.heartBeatTimeout = time.Duration(HeartBtInt) * time.Second
+		reply.MsgBody.SetField(basic.NewIntField(fix.HeartBtInt, HeartBtInt))
 	}
 
 	if session.DefaultApplVerID != "" {
-		reply.MsgTrailer.Set(basic.NewStringField(fix.DefaultApplVerID, session.DefaultApplVerID))
+		reply.MsgTrailer.SetField(basic.NewStringField(fix.DefaultApplVerID, session.DefaultApplVerID))
 	}
 
 	session.log.OnEvent("Received logon request")

@@ -1,6 +1,7 @@
 package basic
 
 import (
+	"errors"
 	"github.com/cbusbey/quickfixgo/message"
 )
 
@@ -34,5 +35,5 @@ func ToBooleanField(f message.Field) (*BooleanField, error) {
 		return NewBooleanField(f.Tag(), false), nil
 	}
 
-	return nil, message.FieldConvertError{f.Tag(), f.Value()}
+	return nil, errors.New("Invalid Value for bool: " + f.Value())
 }

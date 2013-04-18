@@ -8,7 +8,7 @@ import (
 )
 
 func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
-	switch msgType, _ := msg.Header().StringField(fix.MsgType); msgType.Value() {
+	switch msgType, _ := msg.Header().StringValue(fix.MsgType); msgType {
 	case "6":
 		return router.OnFIX50SP1IOI(IOI{msg}, sessionID)
 	case "7":

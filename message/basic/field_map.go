@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"github.com/cbusbey/quickfixgo/message"
 	"sort"
+	"time"
 )
 
 type fieldSort struct {
@@ -41,12 +42,13 @@ func (m *FieldMap) Tags() []message.Tag {
 	return tags
 }
 
-func (m *FieldMap) Set(field message.Field) {
+func (m *FieldMap) SetField(field message.Field) {
 	m.fields[field.Tag()] = field
 }
 
-func (m *FieldMap) Get(tag message.Tag) (field message.Field, ok bool) {
+func (m *FieldMap) Field(tag message.Tag) (field message.Field, ok bool) {
 	field, ok = m.fields[tag]
+
 	return
 }
 
@@ -54,69 +56,71 @@ func (m *FieldMap) Remove(tag message.Tag) {
 	delete(m.fields, tag)
 }
 
-func (m *FieldMap) StringField(tag message.Tag) (message.StringField, error) {
-	message_field, ok := m.Get(tag)
+func (m *FieldMap) StringValue(tag message.Tag) (string, bool) {
+	message_field, ok := m.Field(tag)
 	if !ok {
-		return nil, message.FieldNotFoundError{tag}
+		return "", false
 	}
 
-	switch typeField := message_field.(type) {
-	case message.StringField:
-		return typeField, nil
-	}
-
-	return NewStringField(tag, message_field.Value()), nil
+	return message_field.Value(), true
 }
 
-func (m *FieldMap) IntField(tag message.Tag) (message.IntField, error) {
-	message_field, ok := m.Get(tag)
+func (m *FieldMap) IntValue(tag message.Tag) (int, error) {
+	message_field, ok := m.Field(tag)
 	if !ok {
-		return nil, message.FieldNotFoundError{tag}
+		return 0, message.FieldNotFoundError{tag}
 	}
 
 	switch typeField := message_field.(type) {
 	case message.IntField:
-		return typeField, nil
+		return typeField.IntValue(), nil
 	}
 
-	if intField, err := ToIntField(message_field); err == nil {
-		return intField, nil
+	intField, err := ToIntField(message_field)
+	if err != nil {
+		return 0, err
 	}
 
-	return nil, message.FieldConvertError{Tag: tag, Value: message_field.Value()}
+	return intField.IntValue(), nil
 }
 
-func (m *FieldMap) UTCTimestampField(tag message.Tag) (message.UTCTimestampField, error) {
-	message_field, ok := m.Get(tag)
+func (m *FieldMap) UTCTimestampValue(tag message.Tag) (time.Time, error) {
+	message_field, ok := m.Field(tag)
 	if !ok {
-		return nil, message.FieldNotFoundError{tag}
+		return time.Time{}, message.FieldNotFoundError{tag}
 	}
 
 	switch typeField := message_field.(type) {
 	case message.UTCTimestampField:
-		return typeField, nil
+		return typeField.UTCTimestampValue(), nil
 	}
 
-	if utcTimestampField, err := ToUTCTimestampField(message_field); err == nil {
-		return utcTimestampField, nil
+	utcTimestampField, err := ToUTCTimestampField(message_field)
+	if err != nil {
+		return time.Time{}, message.FieldConvertError{tag, message_field.Value()}
 	}
 
-	return nil, message.FieldConvertError{Tag: tag, Value: message_field.Value()}
+	return utcTimestampField.UTCTimestampValue(), nil
 }
 
-func (m *FieldMap) BooleanField(tag message.Tag) (message.BooleanField, error) {
-	message_field, ok := m.Get(tag)
+func (m *FieldMap) BooleanValue(tag message.Tag) (bool, error) {
+
+	field, ok := m.Field(tag)
 	if !ok {
-		return nil, message.FieldNotFoundError{tag}
+		return false, message.FieldNotFoundError{tag}
 	}
 
-	switch typeField := message_field.(type) {
+	switch typeField := field.(type) {
 	case message.BooleanField:
-		return typeField, nil
+		return typeField.BooleanValue(), nil
 	}
 
-	boolField, err := ToBooleanField(message_field)
-	return boolField, err
+	boolField, err := ToBooleanField(field)
+	if err != nil {
+		return false, message.FieldConvertError{tag, field.Value()}
+	}
+
+	return boolField.BooleanValue(), nil
 }
 
 func (m FieldMap) sortedTags() []message.Tag {

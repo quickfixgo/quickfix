@@ -2,6 +2,7 @@ package message
 
 import (
 	"bytes"
+	"time"
 )
 
 //FieldMap maps tags to Fields. This interface is used by the Message type.
@@ -11,19 +12,19 @@ type FieldMap interface {
 	Total() int
 
 	//ok will be 'true' if field exists in map
-	Get(tag Tag) (field Field, ok bool)
+	Field(tag Tag) (field Field, ok bool)
+
+	//ok will be 'true' if field exists in map
+	StringValue(tag Tag) (stringField string, ok bool)
 
 	//check error for FieldNotFoundError, FieldConvertError
-	IntField(tag Tag) (intField IntField, err error)
+	IntValue(tag Tag) (intField int, err error)
 
 	//check error for FieldNotFoundError, FieldConvertError
-	StringField(tag Tag) (stringField StringField, err error)
+	UTCTimestampValue(tag Tag) (timeField time.Time, err error)
 
 	//check error for FieldNotFoundError, FieldConvertError
-	UTCTimestampField(tag Tag) (timeField UTCTimestampField, err error)
-
-	//check error for FieldNotFoundError, FieldConvertError
-	BooleanField(tag Tag) (boolField BooleanField, err error)
+	BooleanValue(tag Tag) (boolField bool, err error)
 
 	Write(b *bytes.Buffer)
 }

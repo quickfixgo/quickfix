@@ -37,9 +37,9 @@ type MessageCracker struct {
 }
 
 func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
-	BeginString, _ := msg.Header().StringField(fix.BeginString)
+	BeginString, _ := msg.Header().StringValue(fix.BeginString)
 
-	return tryCrack(BeginString.Value(), msg, sessionID, router)
+	return tryCrack(BeginString, msg, sessionID, router)
 }
 
 func tryCrack(beginString string, msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
@@ -58,13 +58,13 @@ func tryCrack(beginString string, msg message.Message, sessionID session.ID, rou
 		return fix50.Crack(msg, sessionID, router)
 	case fix.BeginString_FIXT11:
 
-		if msgType, _ := msg.Header().StringField(fix.MsgType); session.IsAdminMessageType(msgType.Value()) {
+		if msgType, _ := msg.Header().StringValue(fix.MsgType); session.IsAdminMessageType(msgType) {
 			return fixt11.Crack(msg, sessionID, router)
 		} else {
 
 			applVerId := sessionID.DefaultApplVerID
-			if ApplVerIdField, err := msg.Header().StringField(fix.ApplVerID); err == nil {
-				applVerId = ApplVerIdField.Value()
+			if ApplVerIdField, ok := msg.Header().StringValue(fix.ApplVerID); ok {
+				applVerId = ApplVerIdField
 			}
 
 			switch applVerId {
