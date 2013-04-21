@@ -8,7 +8,7 @@ import (
 )
 
 func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
-	switch msgType, _ := msg.Header().StringValue(tag.MsgType); msgType {
+	switch msgType, _ := msg.Header.StringValue(tag.MsgType); msgType {
 	case "0":
 		return router.OnFIX42Heartbeat(Heartbeat{msg}, sessionID)
 	case "1":
@@ -156,140 +156,140 @@ type MessageRouter interface {
 type FIX42MessageCracker struct{}
 
 func (c *FIX42MessageCracker) OnFIX42Heartbeat(msg Heartbeat, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42TestRequest(msg TestRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42ResendRequest(msg ResendRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42Reject(msg Reject, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42SequenceReset(msg SequenceReset, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42Logout(msg Logout, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42IndicationofInterest(msg IndicationofInterest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42Advertisement(msg Advertisement, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42ExecutionReport(msg ExecutionReport, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42OrderCancelReject(msg OrderCancelReject, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42Logon(msg Logon, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42News(msg News, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42Email(msg Email, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42NewOrderSingle(msg NewOrderSingle, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42NewOrderList(msg NewOrderList, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42OrderCancelRequest(msg OrderCancelRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42OrderStatusRequest(msg OrderStatusRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42Allocation(msg Allocation, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42ListCancelRequest(msg ListCancelRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42ListExecute(msg ListExecute, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42ListStatusRequest(msg ListStatusRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42ListStatus(msg ListStatus, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42AllocationACK(msg AllocationACK, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42DontKnowTrade(msg DontKnowTrade, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42QuoteRequest(msg QuoteRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42Quote(msg Quote, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42SettlementInstructions(msg SettlementInstructions, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42MarketDataRequest(msg MarketDataRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42MarketDataSnapshotFullRefresh(msg MarketDataSnapshotFullRefresh, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42MarketDataIncrementalRefresh(msg MarketDataIncrementalRefresh, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42MarketDataRequestReject(msg MarketDataRequestReject, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42QuoteCancel(msg QuoteCancel, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42QuoteStatusRequest(msg QuoteStatusRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42QuoteAcknowledgement(msg QuoteAcknowledgement, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42SecurityDefinitionRequest(msg SecurityDefinitionRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42SecurityDefinition(msg SecurityDefinition, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42SecurityStatusRequest(msg SecurityStatusRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42SecurityStatus(msg SecurityStatus, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42TradingSessionStatusRequest(msg TradingSessionStatusRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42TradingSessionStatus(msg TradingSessionStatus, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42MassQuote(msg MassQuote, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42BusinessMessageReject(msg BusinessMessageReject, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42BidRequest(msg BidRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42BidResponse(msg BidResponse, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIX42MessageCracker) OnFIX42ListStrikePrice(msg ListStrikePrice, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }

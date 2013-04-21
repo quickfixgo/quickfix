@@ -58,7 +58,7 @@ import(
 
 func buildCrack() (out string) {
 	out += "func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {\n"
-	out += "switch msgType, _ := msg.Header().StringValue(tag.MsgType); msgType {"
+	out += "switch msgType, _ := msg.Header.StringValue(tag.MsgType); msgType {"
 
 	for _, m := range fixSpec.Messages {
 		out += fmt.Sprintf("case \"%v\":\n", m.MsgType)
@@ -88,7 +88,7 @@ func buildMessageCracker() (out string) {
 
 	for _, m := range fixSpec.Messages {
 		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId session.ID) reject.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
-		out += "return reject.NewUnsupportedMessageType(msg)\n}\n"
+		out += "return reject.NewUnsupportedMessageType(msg.Message)\n}\n"
 	}
 
 	return

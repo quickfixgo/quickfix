@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"github.com/cbusbey/quickfixgo/log"
 	"github.com/cbusbey/quickfixgo/message"
-	"github.com/cbusbey/quickfixgo/message/basic"
 	"github.com/cbusbey/quickfixgo/tag"
 	"net"
 )
@@ -27,26 +26,26 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
 		return
 	}
 
-	msg, err := basic.MessageFromParsedBytes(msgBytes)
+	msg, err := message.MessageFromParsedBytes(msgBytes)
 	if err != nil {
 		log.OnEvent("Invalid message: " + string(msgBytes) + err.Error())
 		return
 	}
 
 	var sessID ID
-	if beginString, ok := msg.Header().StringValue(tag.BeginString); ok {
+	if beginString, ok := msg.Header.StringValue(tag.BeginString); ok {
 		sessID.BeginString = beginString
 	}
 
-	if senderCompID, ok := msg.Header().StringValue(tag.SenderCompID); ok {
+	if senderCompID, ok := msg.Header.StringValue(tag.SenderCompID); ok {
 		sessID.TargetCompID = senderCompID
 	}
 
-	if targetCompID, ok := msg.Header().StringValue(tag.TargetCompID); ok {
+	if targetCompID, ok := msg.Header.StringValue(tag.TargetCompID); ok {
 		sessID.SenderCompID = targetCompID
 	}
 
-	if defaultApplVerID, ok := msg.Body().StringValue(tag.DefaultApplVerID); ok {
+	if defaultApplVerID, ok := msg.Body.StringValue(tag.DefaultApplVerID); ok {
 		sessID.DefaultApplVerID = defaultApplVerID
 	}
 

@@ -14,7 +14,6 @@ import (
 	"github.com/cbusbey/quickfixgo/fix50sp2"
 	"github.com/cbusbey/quickfixgo/log"
 	"github.com/cbusbey/quickfixgo/message"
-	"github.com/cbusbey/quickfixgo/message/basic"
 	"github.com/cbusbey/quickfixgo/reject"
 	"github.com/cbusbey/quickfixgo/session"
 	"github.com/cbusbey/quickfixgo/settings"
@@ -54,29 +53,29 @@ func (e *EchoApplication) FromApp(msg message.Message, sessionID session.ID) (re
 }
 
 func (e *EchoApplication) processMsg(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
-	OrderId, ok := msg.Body().StringValue(tag.ClOrdID)
+	OrderId, ok := msg.Body.StringValue(tag.ClOrdID)
 	if !ok {
 		return
 	}
 
-	reply := basic.NewMessage()
+	reply := message.NewMessage()
 	sessionOrderId := sessionID.String() + OrderId
-	if PossResend, err := msg.Header().BooleanValue(tag.PossResend); err == nil && PossResend {
+	if PossResend, err := msg.Header.BooleanValue(tag.PossResend); err == nil && PossResend {
 		if e.OrderIds[sessionOrderId] {
 			return
 		}
 
-		reply.MsgHeader.SetField(basic.NewBooleanField(tag.PossResend, PossResend))
+		reply.Header.SetField(message.NewBooleanField(tag.PossResend, PossResend))
 	}
 
 	e.OrderIds[sessionOrderId] = true
 
-	msgType, _ := msg.Header().Field(tag.MsgType)
-	reply.MsgHeader.SetField(msgType)
+	msgType, _ := msg.Header.Field(tag.MsgType)
+	reply.Header.SetField(msgType)
 
-	for _, tag := range msg.Body().Tags() {
-		if field, ok := msg.Body().Field(tag); ok {
-			reply.MsgBody.SetField(field)
+	for _, tag := range msg.Body.Tags() {
+		if field, ok := msg.Body.Field(tag); ok {
+			reply.Body.SetField(field)
 		}
 	}
 
@@ -86,35 +85,35 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID session.ID) 
 }
 
 func (e EchoApplication) OnFIX40NewOrderSingle(msg fix40.NewOrderSingle, sessionID session.ID) reject.MessageReject {
-	return e.processMsg(msg, sessionID)
+	return e.processMsg(msg.Message, sessionID)
 }
 
 func (e EchoApplication) OnFIX41NewOrderSingle(msg fix41.NewOrderSingle, sessionID session.ID) reject.MessageReject {
-	return e.processMsg(msg, sessionID)
+	return e.processMsg(msg.Message, sessionID)
 }
 
 func (e EchoApplication) OnFIX42NewOrderSingle(msg fix42.NewOrderSingle, sessionID session.ID) reject.MessageReject {
-	return e.processMsg(msg, sessionID)
+	return e.processMsg(msg.Message, sessionID)
 }
 
 func (e EchoApplication) OnFIX43NewOrderSingle(msg fix43.NewOrderSingle, sessionID session.ID) reject.MessageReject {
-	return e.processMsg(msg, sessionID)
+	return e.processMsg(msg.Message, sessionID)
 }
 
 func (e EchoApplication) OnFIX44NewOrderSingle(msg fix44.NewOrderSingle, sessionID session.ID) reject.MessageReject {
-	return e.processMsg(msg, sessionID)
+	return e.processMsg(msg.Message, sessionID)
 }
 
 func (e EchoApplication) OnFIX50NewOrderSingle(msg fix50.NewOrderSingle, sessionID session.ID) reject.MessageReject {
-	return e.processMsg(msg, sessionID)
+	return e.processMsg(msg.Message, sessionID)
 }
 
 func (e EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1.NewOrderSingle, sessionID session.ID) reject.MessageReject {
-	return e.processMsg(msg, sessionID)
+	return e.processMsg(msg.Message, sessionID)
 }
 
 func (e EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2.NewOrderSingle, sessionID session.ID) reject.MessageReject {
-	return e.processMsg(msg, sessionID)
+	return e.processMsg(msg.Message, sessionID)
 }
 
 func main() {

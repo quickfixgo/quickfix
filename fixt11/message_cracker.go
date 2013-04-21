@@ -8,7 +8,7 @@ import (
 )
 
 func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
-	switch msgType, _ := msg.Header().StringValue(tag.MsgType); msgType {
+	switch msgType, _ := msg.Header.StringValue(tag.MsgType); msgType {
 	case "0":
 		return router.OnFIXT11Heartbeat(Heartbeat{msg}, sessionID)
 	case "1":
@@ -39,23 +39,23 @@ type MessageRouter interface {
 type FIXT11MessageCracker struct{}
 
 func (c *FIXT11MessageCracker) OnFIXT11Heartbeat(msg Heartbeat, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIXT11MessageCracker) OnFIXT11TestRequest(msg TestRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIXT11MessageCracker) OnFIXT11ResendRequest(msg ResendRequest, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIXT11MessageCracker) OnFIXT11Reject(msg Reject, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIXT11MessageCracker) OnFIXT11SequenceReset(msg SequenceReset, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIXT11MessageCracker) OnFIXT11Logout(msg Logout, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }
 func (c *FIXT11MessageCracker) OnFIXT11Logon(msg Logon, sessionId session.ID) reject.MessageReject {
-	return reject.NewUnsupportedMessageType(msg)
+	return reject.NewUnsupportedMessageType(msg.Message)
 }

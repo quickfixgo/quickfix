@@ -1,4 +1,4 @@
-package basic
+package message
 
 import (
 	. "launchpad.net/gocheck"

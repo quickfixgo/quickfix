@@ -1,7 +1,6 @@
-package basic
+package message
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/tag"
 	"strconv"
 )
@@ -22,7 +21,7 @@ func NewIntField(tag tag.Tag, value int) *IntField {
 
 //Converts a generic field to an IntField.
 //Check error for convert errors.
-func ToIntField(f message.Field) (*IntField, error) {
+func ToIntField(f Field) (*IntField, error) {
 	value, err := strconv.Atoi(f.Value())
 
 	if err != nil {

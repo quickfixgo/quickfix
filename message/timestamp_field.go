@@ -1,7 +1,6 @@
-package basic
+package message
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/tag"
 	"time"
 )
@@ -37,7 +36,7 @@ func NewUTCTimestampFieldNoMillis(tag tag.Tag, value time.Time) *UTCTimestampFie
 
 //converts a generic field to a utc timestamp field
 //check error for convert errors
-func ToUTCTimestampField(f message.Field) (*UTCTimestampField, error) {
+func ToUTCTimestampField(f Field) (*UTCTimestampField, error) {
 	//with millisecs
 	value, err := time.Parse(utcTimestampFormat, f.Value())
 	if err == nil {

@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/cbusbey/quickfixgo/message/basic"
+	"github.com/cbusbey/quickfixgo/message"
 	. "launchpad.net/gocheck"
 	"testing"
 )
@@ -23,7 +23,7 @@ func (s *StoreTests) TestGetMessages(c *C) {
 	msg, ok := <-messages
 	c.Assert(ok, Equals, false)
 
-	buf1 := basic.Buffer("hello")
+	buf1 := message.BasicBuffer("hello")
 	s.store.SaveMessage(1, buf1)
 
 	messages = s.store.GetMessages(1, 2)
@@ -33,10 +33,10 @@ func (s *StoreTests) TestGetMessages(c *C) {
 	msg, ok = <-messages
 	c.Assert(ok, Equals, false)
 
-	buf2 := basic.Buffer("cruel")
+	buf2 := message.BasicBuffer("cruel")
 	s.store.SaveMessage(2, buf2)
 
-	buf3 := basic.Buffer("world")
+	buf3 := message.BasicBuffer("world")
 	s.store.SaveMessage(3, buf3)
 
 	messages = s.store.GetMessages(1, 2)

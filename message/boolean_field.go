@@ -1,8 +1,7 @@
-package basic
+package message
 
 import (
 	"errors"
-	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
@@ -27,7 +26,7 @@ func NewBooleanField(tag tag.Tag, value bool) *BooleanField {
 
 //Converts a generic field to a BooleanField.
 //Check error for convert errors.
-func ToBooleanField(f message.Field) (*BooleanField, error) {
+func ToBooleanField(f Field) (*BooleanField, error) {
 
 	switch f.Value() {
 	case "Y":
