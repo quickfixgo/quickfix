@@ -1,9 +1,9 @@
 package fix41
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo"
 )
 
 type SettlementInstructions struct {
-	message.Message
+	quickfixgo.Message
 }

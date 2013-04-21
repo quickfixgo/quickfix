@@ -1,10 +1,8 @@
-//message package contains types and functions specific to generic fix messages
-package message
+package quickfixgo
 
 import (
 	"bytes"
 	"fmt"
-	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
@@ -54,9 +52,9 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 		switch {
 		case err != nil:
 			return nil, err
-		case fix.IsHeader(field.Tag()):
+		case IsHeader(field.Tag()):
 			msg.Header.SetField(field)
-		case fix.IsTrailer(field.Tag()):
+		case IsTrailer(field.Tag()):
 			msg.Trailer.SetField(field)
 		default:
 			msg.Body.SetField(field)

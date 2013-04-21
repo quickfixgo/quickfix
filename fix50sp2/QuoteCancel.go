@@ -1,9 +1,9 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo"
 )
 
 type QuoteCancel struct {
-	message.Message
+	quickfixgo.Message
 }

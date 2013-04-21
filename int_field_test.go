@@ -1,4 +1,4 @@
-package message
+package quickfixgo
 
 import (
 	"github.com/cbusbey/quickfixgo/tag"

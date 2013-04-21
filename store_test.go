@@ -1,12 +1,8 @@
-package store
+package quickfixgo
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
 	. "launchpad.net/gocheck"
-	"testing"
 )
-
-func Test(t *testing.T) { TestingT(t) }
 
 type StoreTests struct {
 	store MemoryStore
@@ -23,7 +19,7 @@ func (s *StoreTests) TestGetMessages(c *C) {
 	msg, ok := <-messages
 	c.Assert(ok, Equals, false)
 
-	buf1 := message.BasicBuffer("hello")
+	buf1 := BasicBuffer("hello")
 	s.store.SaveMessage(1, buf1)
 
 	messages = s.store.GetMessages(1, 2)
@@ -33,10 +29,10 @@ func (s *StoreTests) TestGetMessages(c *C) {
 	msg, ok = <-messages
 	c.Assert(ok, Equals, false)
 
-	buf2 := message.BasicBuffer("cruel")
+	buf2 := BasicBuffer("cruel")
 	s.store.SaveMessage(2, buf2)
 
-	buf3 := message.BasicBuffer("world")
+	buf3 := BasicBuffer("world")
 	s.store.SaveMessage(3, buf3)
 
 	messages = s.store.GetMessages(1, 2)

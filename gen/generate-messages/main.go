@@ -49,15 +49,13 @@ func buildCrackerImports() string {
 	return `
 import(
 	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/message"
-	"github.com/cbusbey/quickfixgo/reject"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 `
 }
 
 func buildCrack() (out string) {
-	out += "func Crack(msg message.Message, sessionID quickfixgo.SessionID, router MessageRouter) reject.MessageReject {\n"
+	out += "func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {\n"
 	out += "switch msgType, _ := msg.Header.StringValue(tag.MsgType); msgType {"
 
 	for _, m := range fixSpec.Messages {
@@ -65,7 +63,7 @@ func buildCrack() (out string) {
 		out += fmt.Sprintf("return router.On%v%v(%v{msg},sessionID)\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
 	out += "}\n"
-	out += "return reject.NewInvalidMessageType(msg)\n"
+	out += "return quickfixgo.NewInvalidMessageType(msg)\n"
 	out += "}\n"
 
 	return
@@ -75,7 +73,7 @@ func buildMessageRouter() (out string) {
 	out += "type MessageRouter interface {\n"
 
 	for _, m := range fixSpec.Messages {
-		out += fmt.Sprintf("On%v%v(msg %v, sessionID quickfixgo.SessionID) reject.MessageReject\n", strings.ToUpper(pkg), m.Name, m.Name)
+		out += fmt.Sprintf("On%v%v(msg %v, sessionID quickfixgo.SessionID) quickfixgo.MessageReject\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
 
 	out += "}\n"
@@ -87,8 +85,8 @@ func buildMessageCracker() (out string) {
 	out += fmt.Sprintf("type %vMessageCracker struct {}\n", strings.ToUpper(pkg))
 
 	for _, m := range fixSpec.Messages {
-		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId quickfixgo.SessionID) reject.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
-		out += "return reject.NewUnsupportedMessageType(msg.Message)\n}\n"
+		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
+		out += "return quickfixgo.NewUnsupportedMessageType(msg.Message)\n}\n"
 	}
 
 	return
@@ -96,8 +94,12 @@ func buildMessageCracker() (out string) {
 
 func genMessage(msg gen.Message) {
 	fileOut := fmt.Sprintf("package %v\n", pkg)
-	fileOut += "import(\"github.com/cbusbey/quickfixgo/message\")\n"
-	fileOut += fmt.Sprintf("type %v struct {\n message.Message}", msg.Name)
+  fileOut += `
+import( 
+  "github.com/cbusbey/quickfixgo"
+)
+`
+	fileOut += fmt.Sprintf("type %v struct {\n quickfixgo.Message}", msg.Name)
 
 	filePath := pkg + "/" + msg.Name + ".go"
 	gen.WriteFile(filePath, fileOut)

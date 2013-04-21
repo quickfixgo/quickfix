@@ -1,9 +1,9 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo"
 )
 
 type TestRequest struct {
-	message.Message
+	quickfixgo.Message
 }

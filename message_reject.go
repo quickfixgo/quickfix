@@ -1,14 +1,13 @@
-package reject
+package quickfixgo
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
 type RejectReason int
 
 type MessageReject interface {
-	RejectedMessage() message.Message
+	RejectedMessage() Message
 	RejectReason() RejectReason
 	IsBusinessReject() bool
 	RefTagID() tag.Tag
@@ -16,14 +15,14 @@ type MessageReject interface {
 }
 
 type messageRejectBase struct {
-	rejectedMessage message.Message
+	rejectedMessage Message
 	rejectReason    RejectReason
 	text            string
 	businessReject  bool
 	refTagID        tag.Tag
 }
 
-func (reject messageRejectBase) RejectedMessage() message.Message { return reject.rejectedMessage }
+func (reject messageRejectBase) RejectedMessage() Message { return reject.rejectedMessage }
 func (reject messageRejectBase) RejectReason() RejectReason       { return reject.rejectReason }
 func (reject messageRejectBase) Error() string                    { return reject.text }
 func (reject messageRejectBase) IsBusinessReject() bool           { return reject.businessReject }

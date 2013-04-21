@@ -1,9 +1,9 @@
 package fixt11
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo"
 )
 
 type SequenceReset struct {
-	message.Message
+	quickfixgo.Message
 }

@@ -1,4 +1,4 @@
-package message
+package quickfixgo
 
 //Simple implementation of message.Buffer 
 type BasicBuffer []byte

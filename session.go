@@ -2,11 +2,7 @@ package quickfixgo
 
 import (
 	"fmt"
-	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/log"
-	"github.com/cbusbey/quickfixgo/message"
-	"github.com/cbusbey/quickfixgo/reject"
-	"github.com/cbusbey/quickfixgo/session/store"
 	"github.com/cbusbey/quickfixgo/settings"
 	"github.com/cbusbey/quickfixgo/tag"
 	"time"
@@ -14,20 +10,20 @@ import (
 
 type session struct {
 	stateData
-	store store.MessageStore
+	store MessageStore
 
 	log log.Log
 	SessionID
 
-	messageOut chan message.Buffer
-	toSend     chan message.Builder
+	messageOut chan Buffer
+	toSend     chan MessageBuilder
 
 	sessionEvent chan event
 	callback     Callback
-	currentState state
+	currentState sessionState
 	stateTimer   eventTimer
 	peerTimer    eventTimer
-	messageStash map[int]message.Message
+	messageStash map[int]Message
 }
 
 //Creates Session, associates with internal session registry
@@ -52,7 +48,7 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 		return settings.RequiredConfigurationMissing(settings.SenderCompID)
 	}
 
-	if session.SessionID.BeginString == fix.BeginString_FIXT11 {
+	if session.SessionID.BeginString == BeginString_FIXT11 {
 		if defaultApplVerID, ok := dict.GetString(settings.DefaultApplVerID); ok {
 			session.SessionID.DefaultApplVerID = defaultApplVerID
 		} else {
@@ -60,7 +56,7 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 		}
 	}
 
-	session.toSend = make(chan message.Builder)
+	session.toSend = make(chan MessageBuilder)
 
 	session.sessionEvent = make(chan event)
 	session.log = logFactory.CreateSessionLog(session.SessionID.String())
@@ -74,11 +70,11 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 	return nil
 }
 
-func (s *session) accept() (chan message.Buffer, error) {
+func (s *session) accept() (chan Buffer, error) {
 	s.currentState = logonState{}
-	s.messageOut = make(chan message.Buffer)
-	s.messageStash = make(map[int]message.Message)
-	s.store = store.NewMemoryStore()
+	s.messageOut = make(chan Buffer)
+	s.messageStash = make(map[int]Message)
+	s.store = NewMemoryStore()
 
 	return s.messageOut, nil
 }
@@ -87,29 +83,29 @@ func (s *session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *session) insertSendingTime(builder message.Builder) {
+func (s *session) insertSendingTime(builder MessageBuilder) {
 	sendingTime := time.Now().UTC()
 
-	if s.BeginString >= fix.BeginString_FIX42 {
-		builder.SetHeaderField(message.NewUTCTimestampField(tag.SendingTime, sendingTime))
+	if s.BeginString >= BeginString_FIX42 {
+		builder.SetHeaderField(NewUTCTimestampField(tag.SendingTime, sendingTime))
 	} else {
-		builder.SetHeaderField(message.NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
+		builder.SetHeaderField(NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
 	}
 }
 
-func (s *session) fillDefaultHeader(builder message.Builder) {
-	builder.SetHeaderField(message.NewStringField(tag.BeginString, s.BeginString))
-	builder.SetHeaderField(message.NewStringField(tag.SenderCompID, s.SenderCompID))
-	builder.SetHeaderField(message.NewStringField(tag.TargetCompID, s.TargetCompID))
+func (s *session) fillDefaultHeader(builder MessageBuilder) {
+	builder.SetHeaderField(NewStringField(tag.BeginString, s.BeginString))
+	builder.SetHeaderField(NewStringField(tag.SenderCompID, s.SenderCompID))
+	builder.SetHeaderField(NewStringField(tag.TargetCompID, s.TargetCompID))
 
 	s.insertSendingTime(builder)
 }
 
-func (s *session) resend(m *message.Message) {
-	m.SetHeaderField(message.NewBooleanField(tag.PossDupFlag, true))
+func (s *session) resend(m *Message) {
+	m.SetHeaderField(NewBooleanField(tag.PossDupFlag, true))
 
 	if origSendingTime, ok := m.Header.Field(tag.SendingTime); ok {
-		m.SetHeaderField(message.NewStringField(tag.OrigSendingTime, origSendingTime.Value()))
+		m.SetHeaderField(NewStringField(tag.OrigSendingTime, origSendingTime.Value()))
 	}
 
 	s.insertSendingTime(m)
@@ -118,9 +114,9 @@ func (s *session) resend(m *message.Message) {
 	s.sendBuffer(buffer)
 }
 
-func (s *session) send(builder message.Builder) {
+func (s *session) send(builder MessageBuilder) {
 	s.fillDefaultHeader(builder)
-	builder.SetHeaderField(message.NewIntField(tag.MsgSeqNum, s.seqNum))
+	builder.SetHeaderField(NewIntField(tag.MsgSeqNum, s.seqNum))
 
 	buffer := builder.Build()
 	s.store.SaveMessage(s.seqNum, buffer)
@@ -128,39 +124,39 @@ func (s *session) send(builder message.Builder) {
 	s.seqNum++
 }
 
-func (s *session) sendBuffer(buffer message.Buffer) {
+func (s *session) sendBuffer(buffer Buffer) {
 	s.log.OnOutgoing(string(buffer.Bytes()))
 	s.messageOut <- buffer
 	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 }
 
-func (s *session) DoTargetTooHigh(reject reject.TargetTooHigh) {
-	resend := message.NewMessage()
-	resend.Header.SetField(message.NewStringField(tag.MsgType, "2"))
-	resend.Body.SetField(message.NewIntField(tag.BeginSeqNo, reject.ExpectedTarget))
+func (s *session) DoTargetTooHigh(reject TargetTooHigh) {
+	resend := NewMessage()
+	resend.Header.SetField(NewStringField(tag.MsgType, "2"))
+	resend.Body.SetField(NewIntField(tag.BeginSeqNo, reject.ExpectedTarget))
 
 	var endSeqNum = 0
-	if s.BeginString < fix.BeginString_FIX42 {
+	if s.BeginString < BeginString_FIX42 {
 		endSeqNum = 999999
 	}
-	resend.Body.SetField(message.NewIntField(tag.EndSeqNo, endSeqNum))
+	resend.Body.SetField(NewIntField(tag.EndSeqNo, endSeqNum))
 
 	s.send(resend)
 }
 
-func (s *session) verify(msg message.Message) reject.MessageReject {
+func (s *session) verify(msg Message) MessageReject {
 	return s.verifySelect(msg, true, true)
 }
 
-func (s *session) verifyIgnoreSeqNumTooHigh(msg message.Message) reject.MessageReject {
+func (s *session) verifyIgnoreSeqNumTooHigh(msg Message) MessageReject {
 	return s.verifySelect(msg, false, true)
 }
 
-func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg message.Message) reject.MessageReject {
+func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg Message) MessageReject {
 	return s.verifySelect(msg, false, false)
 }
 
-func (s *session) verifySelect(msg message.Message, checkTooHigh bool, checkTooLow bool) reject.MessageReject {
+func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool) MessageReject {
 	if err := s.checkBeginString(msg); err != nil {
 		return err
 	}
@@ -197,7 +193,7 @@ func IsAdminMessageType(msgType string) bool {
 	return false
 }
 
-func (s *session) fromCallback(msg message.Message) reject.MessageReject {
+func (s *session) fromCallback(msg Message) MessageReject {
 	if msgType, _ := msg.Header.StringValue(tag.MsgType); IsAdminMessageType(msgType) {
 		return s.callback.FromAdmin(msg, s.SessionID)
 	}
@@ -205,102 +201,102 @@ func (s *session) fromCallback(msg message.Message) reject.MessageReject {
 	return s.callback.FromApp(msg, s.SessionID)
 }
 
-func (s *session) checkTargetTooLow(msg message.Message) reject.MessageReject {
+func (s *session) checkTargetTooLow(msg Message) MessageReject {
 	switch seqNum, err := msg.Header.IntValue(tag.MsgSeqNum); {
 	case err != nil:
-		return reject.NewRequiredTagMissing(msg, tag.MsgSeqNum)
+		return NewRequiredTagMissing(msg, tag.MsgSeqNum)
 	case seqNum < s.expectedSeqNum:
-		return reject.NewTargetTooLow(msg, seqNum, s.expectedSeqNum)
+		return NewTargetTooLow(msg, seqNum, s.expectedSeqNum)
 	}
 
 	return nil
 }
 
-func (s *session) checkTargetTooHigh(msg message.Message) reject.MessageReject {
+func (s *session) checkTargetTooHigh(msg Message) MessageReject {
 	switch seqNum, err := msg.Header.IntValue(tag.MsgSeqNum); {
 	case err != nil:
-		return reject.NewRequiredTagMissing(msg, tag.MsgSeqNum)
+		return NewRequiredTagMissing(msg, tag.MsgSeqNum)
 	case seqNum > s.expectedSeqNum:
-		return reject.NewTargetTooHigh(msg, seqNum, s.expectedSeqNum)
+		return NewTargetTooHigh(msg, seqNum, s.expectedSeqNum)
 	}
 
 	return nil
 }
 
-func (s *session) checkCompID(msg message.Message) reject.MessageReject {
+func (s *session) checkCompID(msg Message) MessageReject {
 	SenderCompID, haveSender := msg.Header.Field(tag.SenderCompID)
 	TargetCompID, haveTarget := msg.Header.Field(tag.TargetCompID)
 
 	switch {
 	case !haveSender:
-		return reject.NewRequiredTagMissing(msg, tag.SenderCompID)
+		return NewRequiredTagMissing(msg, tag.SenderCompID)
 	case !haveTarget:
-		return reject.NewRequiredTagMissing(msg, tag.TargetCompID)
+		return NewRequiredTagMissing(msg, tag.TargetCompID)
 	case s.SenderCompID != TargetCompID.Value() || s.TargetCompID != SenderCompID.Value():
-		return reject.NewCompIDProblem(msg)
+		return NewCompIDProblem(msg)
 	}
 
 	return nil
 }
 
-func (s *session) checkSendingTime(msg message.Message) reject.MessageReject {
+func (s *session) checkSendingTime(msg Message) MessageReject {
 	if sendingTime, err := msg.Header.UTCTimestampValue(tag.SendingTime); err != nil {
-		return reject.NewRequiredTagMissing(msg, tag.SendingTime)
+		return NewRequiredTagMissing(msg, tag.SendingTime)
 	} else {
 		if delta := time.Since(sendingTime); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
-			return reject.NewSendingTimeAccuracyProblem(msg)
+			return NewSendingTimeAccuracyProblem(msg)
 		}
 	}
 
 	return nil
 }
 
-func (s *session) checkBeginString(msg message.Message) reject.MessageReject {
+func (s *session) checkBeginString(msg Message) MessageReject {
 	switch BeginString, ok := msg.Header.StringValue(tag.BeginString); {
 	case !ok:
-		return reject.NewRequiredTagMissing(msg, tag.BeginString)
+		return NewRequiredTagMissing(msg, tag.BeginString)
 	case s.BeginString != BeginString:
-		return reject.NewIncorrectBeginString(msg)
+		return NewIncorrectBeginString(msg)
 	}
 
 	return nil
 }
 
-func (s *session) doReject(rej reject.MessageReject) {
-	reply := message.NewMessage()
+func (s *session) doReject(rej MessageReject) {
+	reply := NewMessage()
 
-	if s.BeginString >= fix.BeginString_FIX42 {
+	if s.BeginString >= BeginString_FIX42 {
 
 		if rej.IsBusinessReject() {
-			reply.Header.SetField(message.NewStringField(tag.MsgType, "j"))
-			reply.Body.SetField(message.NewIntField(tag.BusinessRejectReason, int(rej.RejectReason())))
+			reply.Header.SetField(NewStringField(tag.MsgType, "j"))
+			reply.Body.SetField(NewIntField(tag.BusinessRejectReason, int(rej.RejectReason())))
 		} else {
-			reply.Header.SetField(message.NewStringField(tag.MsgType, "3"))
-			reply.Body.SetField(message.NewIntField(tag.SessionRejectReason, int(rej.RejectReason())))
+			reply.Header.SetField(NewStringField(tag.MsgType, "3"))
+			reply.Body.SetField(NewIntField(tag.SessionRejectReason, int(rej.RejectReason())))
 		}
-		reply.Body.SetField(message.NewStringField(tag.Text, rej.Error()))
+		reply.Body.SetField(NewStringField(tag.Text, rej.Error()))
 
 		if MsgType, ok := rej.RejectedMessage().Header.StringValue(tag.MsgType); ok {
-			reply.Body.SetField(message.NewStringField(tag.RefMsgType, MsgType))
+			reply.Body.SetField(NewStringField(tag.RefMsgType, MsgType))
 		}
 
 		switch rej.RejectReason() {
-		case reject.RequiredTagMissing:
-			reply.Body.SetField(message.NewIntField(tag.RefTagID, int(rej.RefTagID())))
+		case RequiredTagMissing:
+			reply.Body.SetField(NewIntField(tag.RefTagID, int(rej.RefTagID())))
 		}
 	} else {
-		reply.Header.SetField(message.NewStringField(tag.MsgType, "3"))
+		reply.Header.SetField(NewStringField(tag.MsgType, "3"))
 
 		switch rej.RejectReason() {
-		case reject.RequiredTagMissing:
-			reply.Body.SetField(message.NewStringField(tag.Text, fmt.Sprintf("%s (%d)", rej.Error(), rej.RefTagID())))
+		case RequiredTagMissing:
+			reply.Body.SetField(NewStringField(tag.Text, fmt.Sprintf("%s (%d)", rej.Error(), rej.RefTagID())))
 		default:
-			reply.Body.SetField(message.NewStringField(tag.Text, rej.Error()))
+			reply.Body.SetField(NewStringField(tag.Text, rej.Error()))
 		}
 	}
 
 	if SeqNum, err := rej.RejectedMessage().Header.IntValue(tag.MsgSeqNum); err == nil {
-		reply.Body.SetField(message.NewIntField(tag.RefSeqNum, SeqNum))
+		reply.Body.SetField(NewIntField(tag.RefSeqNum, SeqNum))
 	}
 
 	s.send(reply)
@@ -323,7 +319,7 @@ func (s *session) run(msgIn chan []byte) {
 		case msgBytes, ok := <-msgIn:
 			if ok {
 				s.log.OnIncoming(string(msgBytes))
-				if msg, err := message.MessageFromParsedBytes(msgBytes); err != nil {
+				if msg, err := MessageFromParsedBytes(msgBytes); err != nil {
 					s.log.OnEventf("Msg Parse Error: %s, %s", err.Error(), msgBytes)
 				} else {
 					s.currentState = s.currentState.FixMsgIn(s, *msg)

@@ -1,9 +1,9 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo"
 )
 
 type DerivativeSecurityListRequest struct {
-	message.Message
+	quickfixgo.Message
 }

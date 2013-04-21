@@ -1,10 +1,6 @@
 package quickfixgo
 
-import (
-	"github.com/cbusbey/quickfixgo/message"
-)
-
-func SendToTarget(msgBuilder message.Builder, sessionID SessionID) (err error) {
+func SendToTarget(msgBuilder MessageBuilder, sessionID SessionID) (err error) {
 	session := lookup(sessionID)
 	session.send(msgBuilder)
 

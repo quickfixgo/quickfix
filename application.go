@@ -1,10 +1,5 @@
 package quickfixgo
 
-import (
-	"github.com/cbusbey/quickfixgo/message"
-	"github.com/cbusbey/quickfixgo/reject"
-)
-
 type Application interface {
 	//Notification of a session begin created. 
 	OnCreate(sessionID SessionID)
@@ -16,14 +11,14 @@ type Application interface {
 	OnLogout(sessionID SessionID)
 
 	//Notification of admin message being sent to target. 
-	ToAdmin(msgBuilder message.Builder, sessionID SessionID)
+	ToAdmin(msgBuilder MessageBuilder, sessionID SessionID)
 
 	//Notification of app message being sent to target. 
-	ToApp(msgBuilder message.Builder, sessionID SessionID) error
+	ToApp(msgBuilder MessageBuilder, sessionID SessionID) error
 
 	//Notification of admin message being received from target. 
-	FromAdmin(msg message.Message, sessionID SessionID) reject.MessageReject
+	FromAdmin(msg Message, sessionID SessionID) MessageReject
 
 	//Notification of app message being received from target. 
-	FromApp(msg message.Message, sessionID SessionID) reject.MessageReject
+	FromApp(msg Message, sessionID SessionID) MessageReject
 }

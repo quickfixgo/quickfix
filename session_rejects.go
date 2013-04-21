@@ -1,8 +1,7 @@
-package reject
+package quickfixgo
 
 import (
 	"fmt"
-	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
@@ -15,35 +14,35 @@ const (
 	InvalidMsgType             RejectReason = 11
 )
 
-func NewRequiredTagMissing(msg message.Message, tag tag.Tag) MessageReject {
+func NewRequiredTagMissing(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Required tag missing", rejectReason: RequiredTagMissing,
 		refTagID: tag}
 }
 
-func NewValueIsIncorrect(msg message.Message, tag tag.Tag) MessageReject {
+func NewValueIsIncorrect(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Value is incorrect (out of range) for this tag", rejectReason: ValueIsIncorrect,
 		refTagID: tag}
 }
 
-func NewInvalidMessageType(msg message.Message) MessageReject {
+func NewInvalidMessageType(msg Message) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Invalid MsgType", rejectReason: InvalidMsgType}
 }
 
-func NewUnsupportedMessageType(msg message.Message) MessageReject {
+func NewUnsupportedMessageType(msg Message) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Unsupported Message Type", rejectReason: UnsupportedMessageType, businessReject: true}
 }
 
 type IncorrectBeginString struct{ MessageReject }
 
-func NewIncorrectBeginString(msg message.Message) IncorrectBeginString {
+func NewIncorrectBeginString(msg Message) IncorrectBeginString {
 	return IncorrectBeginString{messageRejectBase{rejectedMessage: msg, text: "Incorrect BeginString"}}
 }
 
-func NewCompIDProblem(msg message.Message) MessageReject {
+func NewCompIDProblem(msg Message) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "CompID problem", rejectReason: CompIDProblem}
 }
 
-func NewSendingTimeAccuracyProblem(msg message.Message) MessageReject {
+func NewSendingTimeAccuracyProblem(msg Message) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "SendingTime accuracy problem", rejectReason: SendingTimeAccuracyProblem}
 }
 
@@ -59,7 +58,7 @@ type TargetTooLow struct {
 	ExpectedTarget int
 }
 
-func NewTargetTooHigh(msg message.Message, receivedTarget, expectedTarget int) TargetTooHigh {
+func NewTargetTooHigh(msg Message, receivedTarget, expectedTarget int) TargetTooHigh {
 	return TargetTooHigh{
 		MessageReject: messageRejectBase{
 			rejectedMessage: msg,
@@ -68,7 +67,7 @@ func NewTargetTooHigh(msg message.Message, receivedTarget, expectedTarget int) T
 		ExpectedTarget: expectedTarget}
 }
 
-func NewTargetTooLow(msg message.Message, receivedTarget, expectedTarget int) TargetTooLow {
+func NewTargetTooLow(msg Message, receivedTarget, expectedTarget int) TargetTooLow {
 	return TargetTooLow{
 		MessageReject: messageRejectBase{
 			rejectedMessage: msg,

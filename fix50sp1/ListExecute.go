@@ -1,9 +1,9 @@
 package fix50sp1
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo"
 )
 
 type ListExecute struct {
-	message.Message
+	quickfixgo.Message
 }

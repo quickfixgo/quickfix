@@ -1,4 +1,4 @@
-package message
+package quickfixgo
 
 import (
 	. "launchpad.net/gocheck"

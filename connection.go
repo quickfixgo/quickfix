@@ -3,7 +3,6 @@ package quickfixgo
 import (
 	"bufio"
 	"github.com/cbusbey/quickfixgo/log"
-	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/tag"
 	"net"
 )
@@ -26,7 +25,7 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
 		return
 	}
 
-	msg, err := message.MessageFromParsedBytes(msgBytes)
+	msg, err := MessageFromParsedBytes(msgBytes)
 	if err != nil {
 		log.OnEvent("Invalid message: " + string(msgBytes) + err.Error())
 		return
@@ -76,7 +75,7 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
 	}
 }
 
-func writeLoop(connection net.Conn, messageOut chan message.Buffer) {
+func writeLoop(connection net.Conn, messageOut chan Buffer) {
 	for {
 		msg, ok := <-messageOut
 		if ok {
@@ -97,7 +96,7 @@ func readLoop(parser *parser, msgIn chan []byte) {
 		if msg, err := parser.readMessage(); err != nil {
 			switch err.(type) {
 			//ignore message parser errors
-			case message.ParseError:
+			case ParseError:
 				continue
 			default:
 				return

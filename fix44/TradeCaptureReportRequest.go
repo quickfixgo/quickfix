@@ -1,9 +1,9 @@
 package fix44
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo"
 )
 
 type TradeCaptureReportRequest struct {
-	message.Message
+	quickfixgo.Message
 }
