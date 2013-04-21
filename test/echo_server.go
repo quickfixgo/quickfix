@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/cbusbey/quickfixgo"
+	"github.com/cbusbey/quickfixgo/cracker"
 	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/fix40"
 	"github.com/cbusbey/quickfixgo/fix41"
@@ -15,7 +16,6 @@ import (
 	"github.com/cbusbey/quickfixgo/log"
 	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/reject"
-	"github.com/cbusbey/quickfixgo/session"
 	"github.com/cbusbey/quickfixgo/settings"
 	"github.com/cbusbey/quickfixgo/tag"
 	"os"
@@ -23,36 +23,36 @@ import (
 )
 
 type EchoApplication struct {
-	quickfixgo.MessageCracker
+	cracker.MessageCracker
 	OrderIds map[string]bool
 }
 
-func (e EchoApplication) OnCreate(sessionID session.ID) {
+func (e EchoApplication) OnCreate(sessionID quickfixgo.SessionID) {
 	fmt.Printf("OnCreate %v\n", sessionID.String())
 }
-func (e *EchoApplication) OnLogon(sessionID session.ID) {
+func (e *EchoApplication) OnLogon(sessionID quickfixgo.SessionID) {
 	fmt.Printf("OnLogon %v\n", sessionID.String())
 	e.OrderIds = make(map[string]bool)
 }
-func (e *EchoApplication) OnLogout(sessionID session.ID) {
+func (e *EchoApplication) OnLogout(sessionID quickfixgo.SessionID) {
 	fmt.Printf("OnLogout %v\n", sessionID.String())
 }
-func (e EchoApplication) ToAdmin(msgBuilder message.Builder, sessionID session.ID) {}
+func (e EchoApplication) ToAdmin(msgBuilder message.Builder, sessionID quickfixgo.SessionID) {}
 
-func (e EchoApplication) ToApp(msgBuilder message.Builder, sessionID session.ID) (err error) {
+func (e EchoApplication) ToApp(msgBuilder message.Builder, sessionID quickfixgo.SessionID) (err error) {
 	return
 }
 
-func (e EchoApplication) FromAdmin(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
+func (e EchoApplication) FromAdmin(msg message.Message, sessionID quickfixgo.SessionID) (reject reject.MessageReject) {
 	return
 }
 
-func (e *EchoApplication) FromApp(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
+func (e *EchoApplication) FromApp(msg message.Message, sessionID quickfixgo.SessionID) (reject reject.MessageReject) {
 	fmt.Println("Got Message ", msg)
-	return quickfixgo.Crack(msg, sessionID, e)
+	return cracker.Crack(msg, sessionID, e)
 }
 
-func (e *EchoApplication) processMsg(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
+func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfixgo.SessionID) (reject reject.MessageReject) {
 	OrderId, ok := msg.Body.StringValue(tag.ClOrdID)
 	if !ok {
 		return
@@ -79,40 +79,40 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID session.ID) 
 		}
 	}
 
-	session.SendToTarget(reply, sessionID)
+	quickfixgo.SendToTarget(reply, sessionID)
 
 	return
 }
 
-func (e EchoApplication) OnFIX40NewOrderSingle(msg fix40.NewOrderSingle, sessionID session.ID) reject.MessageReject {
+func (e EchoApplication) OnFIX40NewOrderSingle(msg fix40.NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX41NewOrderSingle(msg fix41.NewOrderSingle, sessionID session.ID) reject.MessageReject {
+func (e EchoApplication) OnFIX41NewOrderSingle(msg fix41.NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX42NewOrderSingle(msg fix42.NewOrderSingle, sessionID session.ID) reject.MessageReject {
+func (e EchoApplication) OnFIX42NewOrderSingle(msg fix42.NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX43NewOrderSingle(msg fix43.NewOrderSingle, sessionID session.ID) reject.MessageReject {
+func (e EchoApplication) OnFIX43NewOrderSingle(msg fix43.NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX44NewOrderSingle(msg fix44.NewOrderSingle, sessionID session.ID) reject.MessageReject {
+func (e EchoApplication) OnFIX44NewOrderSingle(msg fix44.NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50NewOrderSingle(msg fix50.NewOrderSingle, sessionID session.ID) reject.MessageReject {
+func (e EchoApplication) OnFIX50NewOrderSingle(msg fix50.NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1.NewOrderSingle, sessionID session.ID) reject.MessageReject {
+func (e EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1.NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2.NewOrderSingle, sessionID session.ID) reject.MessageReject {
+func (e EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2.NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
 }
 

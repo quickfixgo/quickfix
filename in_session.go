@@ -1,4 +1,4 @@
-package session
+package quickfixgo
 
 import (
 	"github.com/cbusbey/quickfixgo/fix"
@@ -58,7 +58,7 @@ func (state inSession) Timeout(session *session, event event) (nextState state) 
 func (state inSession) handleLogout(session *session, msg message.Message) (nextState state) {
 	session.log.OnEvent("Received logout request")
 	state.generateLogout(session)
-	session.callback.OnLogout(session.ID)
+	session.callback.OnLogout(session.SessionID)
 
 	return latentState{}
 }

@@ -1,4 +1,4 @@
-package session
+package quickfixgo
 
 import (
 	"github.com/cbusbey/quickfixgo/message"
@@ -15,8 +15,8 @@ type SessionTests struct {
 }
 
 func (s *SessionTests) TestCheckCorrectCompID(c *C) {
-	s.session.ID.TargetCompID = "TAR"
-	s.session.ID.SenderCompID = "SND"
+	s.session.SessionID.TargetCompID = "TAR"
+	s.session.SessionID.SenderCompID = "SND"
 
 	msg := message.NewMessage()
 	//missing target comp id or sender comp id
@@ -48,7 +48,7 @@ func (s *SessionTests) TestCheckCorrectCompID(c *C) {
 }
 
 func (s *SessionTests) TestCheckBeginString(c *C) {
-	s.session.ID.BeginString = "FIX.4.2"
+	s.session.SessionID.BeginString = "FIX.4.2"
 	msg := message.NewMessage()
 
 	//missing begin string
@@ -61,7 +61,7 @@ func (s *SessionTests) TestCheckBeginString(c *C) {
 	c.Check(err, NotNil)
 	c.Check(err, FitsTypeOf, reject.IncorrectBeginString{})
 
-	msg.Header.SetField(message.NewStringField(tag.BeginString, s.session.ID.BeginString))
+	msg.Header.SetField(message.NewStringField(tag.BeginString, s.session.SessionID.BeginString))
 	err = s.session.checkBeginString(*msg)
 	c.Check(err, IsNil)
 

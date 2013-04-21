@@ -1,5 +1,4 @@
-//fix session specific package 
-package session
+package quickfixgo
 
 import (
 	"fmt"
@@ -18,7 +17,7 @@ type session struct {
 	store store.MessageStore
 
 	log log.Log
-	ID
+	SessionID
 
 	messageOut chan message.Buffer
 	toSend     chan message.Builder
@@ -36,26 +35,26 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 	session := new(session)
 
 	if beginString, ok := dict.GetString(settings.BeginString); ok {
-		session.ID.BeginString = beginString
+		session.SessionID.BeginString = beginString
 	} else {
 		return settings.RequiredConfigurationMissing(settings.BeginString)
 	}
 
 	if targetCompID, ok := dict.GetString(settings.TargetCompID); ok {
-		session.ID.TargetCompID = targetCompID
+		session.SessionID.TargetCompID = targetCompID
 	} else {
 		return settings.RequiredConfigurationMissing(settings.TargetCompID)
 	}
 
 	if senderCompID, ok := dict.GetString(settings.SenderCompID); ok {
-		session.ID.SenderCompID = senderCompID
+		session.SessionID.SenderCompID = senderCompID
 	} else {
 		return settings.RequiredConfigurationMissing(settings.SenderCompID)
 	}
 
-	if session.ID.BeginString == fix.BeginString_FIXT11 {
+	if session.SessionID.BeginString == fix.BeginString_FIXT11 {
 		if defaultApplVerID, ok := dict.GetString(settings.DefaultApplVerID); ok {
-			session.ID.DefaultApplVerID = defaultApplVerID
+			session.SessionID.DefaultApplVerID = defaultApplVerID
 		} else {
 			return settings.RequiredConfigurationMissing(settings.DefaultApplVerID)
 		}
@@ -64,12 +63,12 @@ func Create(dict settings.Dictionary, logFactory log.LogFactory, callback Callba
 	session.toSend = make(chan message.Builder)
 
 	session.sessionEvent = make(chan event)
-	session.log = logFactory.CreateSessionLog(session.ID.String())
+	session.log = logFactory.CreateSessionLog(session.SessionID.String())
 	session.callback = callback
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
 
-	callback.OnCreate(session.ID)
+	callback.OnCreate(session.SessionID)
 	sessions.newSession <- session
 
 	return nil
@@ -141,7 +140,7 @@ func (s *session) DoTargetTooHigh(reject reject.TargetTooHigh) {
 	resend.Body.SetField(message.NewIntField(tag.BeginSeqNo, reject.ExpectedTarget))
 
 	var endSeqNum = 0
-	if s.ID.BeginString < fix.BeginString_FIX42 {
+	if s.BeginString < fix.BeginString_FIX42 {
 		endSeqNum = 999999
 	}
 	resend.Body.SetField(message.NewIntField(tag.EndSeqNo, endSeqNum))
@@ -200,10 +199,10 @@ func IsAdminMessageType(msgType string) bool {
 
 func (s *session) fromCallback(msg message.Message) reject.MessageReject {
 	if msgType, _ := msg.Header.StringValue(tag.MsgType); IsAdminMessageType(msgType) {
-		return s.callback.FromAdmin(msg, s.ID)
+		return s.callback.FromAdmin(msg, s.SessionID)
 	}
 
-	return s.callback.FromApp(msg, s.ID)
+	return s.callback.FromApp(msg, s.SessionID)
 }
 
 func (s *session) checkTargetTooLow(msg message.Message) reject.MessageReject {
@@ -237,7 +236,7 @@ func (s *session) checkCompID(msg message.Message) reject.MessageReject {
 		return reject.NewRequiredTagMissing(msg, tag.SenderCompID)
 	case !haveTarget:
 		return reject.NewRequiredTagMissing(msg, tag.TargetCompID)
-	case s.ID.SenderCompID != TargetCompID.Value() || s.ID.TargetCompID != SenderCompID.Value():
+	case s.SenderCompID != TargetCompID.Value() || s.TargetCompID != SenderCompID.Value():
 		return reject.NewCompIDProblem(msg)
 	}
 

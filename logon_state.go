@@ -1,4 +1,4 @@
-package session
+package quickfixgo
 
 import (
 	"github.com/cbusbey/quickfixgo/message"
@@ -61,7 +61,7 @@ func (s logonState) handleLogon(session *session, msg message.Message) error {
 	session.send(reply)
 	session.log.OnEvent("Responding to logon request")
 
-	session.callback.OnLogon(session.ID)
+	session.callback.OnLogon(session.SessionID)
 
 	if err := session.checkTargetTooHigh(msg); err != nil {
 		switch TypedError := err.(type) {

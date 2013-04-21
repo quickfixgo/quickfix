@@ -3,7 +3,6 @@ package quickfixgo
 import (
 	"errors"
 	"github.com/cbusbey/quickfixgo/log"
-	"github.com/cbusbey/quickfixgo/session"
 	"github.com/cbusbey/quickfixgo/settings"
 	"net"
 	"strconv"
@@ -39,7 +38,7 @@ func (a *acceptor) Start() (e error) {
 	go func() {
 		for {
 			cxn := <-connections
-			go session.HandleAcceptorConnection(cxn, a.globalLog)
+			go HandleAcceptorConnection(cxn, a.globalLog)
 		}
 	}()
 
@@ -56,7 +55,7 @@ func NewAcceptor(app Application, settings settings.ApplicationSettings, logFact
 	a.globalLog = logFactory.Create()
 
 	for _, s := range settings.GetSessionSettings() {
-		if err := session.Create(s, logFactory, app); err != nil {
+		if err := Create(s, logFactory, app); err != nil {
 			return nil, err
 		}
 	}

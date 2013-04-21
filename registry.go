@@ -1,10 +1,10 @@
-package session
+package quickfixgo
 
 import (
 	"github.com/cbusbey/quickfixgo/message"
 )
 
-func SendToTarget(msgBuilder message.Builder, sessionID ID) (err error) {
+func SendToTarget(msgBuilder message.Builder, sessionID SessionID) (err error) {
 	session := lookup(sessionID)
 	session.send(msgBuilder)
 
@@ -12,7 +12,7 @@ func SendToTarget(msgBuilder message.Builder, sessionID ID) (err error) {
 }
 
 type sessionActivate struct {
-	ID
+	SessionID
 	reply chan *session
 }
 
@@ -22,14 +22,14 @@ type sessionResource struct {
 }
 
 type sessionLookup struct {
-	ID
+	SessionID
 	reply chan *session
 }
 
 type registry struct {
 	newSession chan *session
 	activate   chan sessionActivate
-	deactivate chan ID
+	deactivate chan SessionID
 	lookup     chan sessionLookup
 }
 
@@ -39,35 +39,35 @@ func init() {
 	sessions = new(registry)
 	sessions.newSession = make(chan *session)
 	sessions.activate = make(chan sessionActivate)
-	sessions.deactivate = make(chan ID)
+	sessions.deactivate = make(chan SessionID)
 	sessions.lookup = make(chan sessionLookup)
 
 	go sessions.sessionResourceServerLoop()
 }
 
-func activate(sessionID ID) *session {
+func activate(sessionID SessionID) *session {
 	response := make(chan *session)
 	sessions.activate <- sessionActivate{sessionID, response}
 	return <-response
 }
 
-func deactivate(sessionID ID) {
+func deactivate(sessionID SessionID) {
 	sessions.deactivate <- sessionID
 }
 
-func lookup(sessionID ID) *session {
+func lookup(sessionID SessionID) *session {
 	response := make(chan *session)
 	sessions.lookup <- sessionLookup{sessionID, response}
 	return <-response
 }
 
 func (r *registry) sessionResourceServerLoop() {
-	sessions := make(map[ID]*sessionResource)
+	sessions := make(map[SessionID]*sessionResource)
 
 	for {
 		select {
 		case session := <-r.newSession:
-			sessions[session.ID] = &sessionResource{session, false}
+			sessions[session.SessionID] = &sessionResource{session, false}
 
 		case deactivatedID := <-r.deactivate:
 			if resource, ok := sessions[deactivatedID]; ok {
@@ -75,14 +75,14 @@ func (r *registry) sessionResourceServerLoop() {
 			}
 
 		case lookup := <-r.lookup:
-			if resource, ok := sessions[lookup.ID]; ok {
+			if resource, ok := sessions[lookup.SessionID]; ok {
 				lookup.reply <- resource.session
 			} else {
 				lookup.reply <- nil
 			}
 
 		case request := <-r.activate:
-			resource, ok := sessions[request.ID]
+			resource, ok := sessions[request.SessionID]
 
 			switch {
 			case !ok:

@@ -48,16 +48,16 @@ func genCracker() {
 func buildCrackerImports() string {
 	return `
 import(
+	"github.com/cbusbey/quickfixgo"
 	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/reject"
-	"github.com/cbusbey/quickfixgo/session"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 `
 }
 
 func buildCrack() (out string) {
-	out += "func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {\n"
+	out += "func Crack(msg message.Message, sessionID quickfixgo.SessionID, router MessageRouter) reject.MessageReject {\n"
 	out += "switch msgType, _ := msg.Header.StringValue(tag.MsgType); msgType {"
 
 	for _, m := range fixSpec.Messages {
@@ -75,7 +75,7 @@ func buildMessageRouter() (out string) {
 	out += "type MessageRouter interface {\n"
 
 	for _, m := range fixSpec.Messages {
-		out += fmt.Sprintf("On%v%v(msg %v, sessionID session.ID) reject.MessageReject\n", strings.ToUpper(pkg), m.Name, m.Name)
+		out += fmt.Sprintf("On%v%v(msg %v, sessionID quickfixgo.SessionID) reject.MessageReject\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
 
 	out += "}\n"
@@ -87,7 +87,7 @@ func buildMessageCracker() (out string) {
 	out += fmt.Sprintf("type %vMessageCracker struct {}\n", strings.ToUpper(pkg))
 
 	for _, m := range fixSpec.Messages {
-		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId session.ID) reject.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
+		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId quickfixgo.SessionID) reject.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
 		out += "return reject.NewUnsupportedMessageType(msg.Message)\n}\n"
 	}
 

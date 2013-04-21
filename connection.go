@@ -1,4 +1,4 @@
-package session
+package quickfixgo
 
 import (
 	"bufio"
@@ -32,7 +32,7 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
 		return
 	}
 
-	var sessID ID
+	var sessID SessionID
 	if beginString, ok := msg.Header.StringValue(tag.BeginString); ok {
 		sessID.BeginString = beginString
 	}

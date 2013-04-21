@@ -1,6 +1,7 @@
-package quickfixgo
+package cracker
 
 import (
+	"github.com/cbusbey/quickfixgo"
 	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/tag"
 
@@ -14,7 +15,6 @@ import (
 
 	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/reject"
-	"github.com/cbusbey/quickfixgo/session"
 )
 
 type MessageRouter interface {
@@ -37,13 +37,13 @@ type MessageCracker struct {
 	fixt11.FIXT11MessageCracker
 }
 
-func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
+func Crack(msg message.Message, sessionID quickfixgo.SessionID, router MessageRouter) reject.MessageReject {
 	BeginString, _ := msg.Header.StringValue(tag.BeginString)
 
 	return tryCrack(BeginString, msg, sessionID, router)
 }
 
-func tryCrack(beginString string, msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
+func tryCrack(beginString string, msg message.Message, sessionID quickfixgo.SessionID, router MessageRouter) reject.MessageReject {
 	switch beginString {
 	case fix.BeginString_FIX40:
 		return fix40.Crack(msg, sessionID, router)
@@ -59,7 +59,7 @@ func tryCrack(beginString string, msg message.Message, sessionID session.ID, rou
 		return fix50.Crack(msg, sessionID, router)
 	case fix.BeginString_FIXT11:
 
-		if msgType, _ := msg.Header.StringValue(tag.MsgType); session.IsAdminMessageType(msgType) {
+		if msgType, _ := msg.Header.StringValue(tag.MsgType); quickfixgo.IsAdminMessageType(msgType) {
 			return fixt11.Crack(msg, sessionID, router)
 		} else {
 

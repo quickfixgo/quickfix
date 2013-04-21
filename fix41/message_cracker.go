@@ -1,13 +1,13 @@
 package fix41
 
 import (
+	"github.com/cbusbey/quickfixgo"
 	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/reject"
-	"github.com/cbusbey/quickfixgo/session"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
-func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
+func Crack(msg message.Message, sessionID quickfixgo.SessionID, router MessageRouter) reject.MessageReject {
 	switch msgType, _ := msg.Header.StringValue(tag.MsgType); msgType {
 	case "0":
 		return router.OnFIX41Heartbeat(Heartbeat{msg}, sessionID)
@@ -70,118 +70,118 @@ func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reje
 }
 
 type MessageRouter interface {
-	OnFIX41Heartbeat(msg Heartbeat, sessionID session.ID) reject.MessageReject
-	OnFIX41TestRequest(msg TestRequest, sessionID session.ID) reject.MessageReject
-	OnFIX41ResendRequest(msg ResendRequest, sessionID session.ID) reject.MessageReject
-	OnFIX41Reject(msg Reject, sessionID session.ID) reject.MessageReject
-	OnFIX41SequenceReset(msg SequenceReset, sessionID session.ID) reject.MessageReject
-	OnFIX41Logout(msg Logout, sessionID session.ID) reject.MessageReject
-	OnFIX41IndicationofInterest(msg IndicationofInterest, sessionID session.ID) reject.MessageReject
-	OnFIX41Advertisement(msg Advertisement, sessionID session.ID) reject.MessageReject
-	OnFIX41ExecutionReport(msg ExecutionReport, sessionID session.ID) reject.MessageReject
-	OnFIX41OrderCancelReject(msg OrderCancelReject, sessionID session.ID) reject.MessageReject
-	OnFIX41Logon(msg Logon, sessionID session.ID) reject.MessageReject
-	OnFIX41News(msg News, sessionID session.ID) reject.MessageReject
-	OnFIX41Email(msg Email, sessionID session.ID) reject.MessageReject
-	OnFIX41NewOrderSingle(msg NewOrderSingle, sessionID session.ID) reject.MessageReject
-	OnFIX41NewOrderList(msg NewOrderList, sessionID session.ID) reject.MessageReject
-	OnFIX41OrderCancelRequest(msg OrderCancelRequest, sessionID session.ID) reject.MessageReject
-	OnFIX41OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionID session.ID) reject.MessageReject
-	OnFIX41OrderStatusRequest(msg OrderStatusRequest, sessionID session.ID) reject.MessageReject
-	OnFIX41Allocation(msg Allocation, sessionID session.ID) reject.MessageReject
-	OnFIX41ListCancelRequest(msg ListCancelRequest, sessionID session.ID) reject.MessageReject
-	OnFIX41ListExecute(msg ListExecute, sessionID session.ID) reject.MessageReject
-	OnFIX41ListStatusRequest(msg ListStatusRequest, sessionID session.ID) reject.MessageReject
-	OnFIX41ListStatus(msg ListStatus, sessionID session.ID) reject.MessageReject
-	OnFIX41AllocationACK(msg AllocationACK, sessionID session.ID) reject.MessageReject
-	OnFIX41DontKnowTrade(msg DontKnowTrade, sessionID session.ID) reject.MessageReject
-	OnFIX41QuoteRequest(msg QuoteRequest, sessionID session.ID) reject.MessageReject
-	OnFIX41Quote(msg Quote, sessionID session.ID) reject.MessageReject
-	OnFIX41SettlementInstructions(msg SettlementInstructions, sessionID session.ID) reject.MessageReject
+	OnFIX41Heartbeat(msg Heartbeat, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41TestRequest(msg TestRequest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41ResendRequest(msg ResendRequest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41Reject(msg Reject, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41SequenceReset(msg SequenceReset, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41Logout(msg Logout, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41IndicationofInterest(msg IndicationofInterest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41Advertisement(msg Advertisement, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41ExecutionReport(msg ExecutionReport, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41OrderCancelReject(msg OrderCancelReject, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41Logon(msg Logon, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41News(msg News, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41Email(msg Email, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41NewOrderSingle(msg NewOrderSingle, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41NewOrderList(msg NewOrderList, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41OrderCancelRequest(msg OrderCancelRequest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41OrderStatusRequest(msg OrderStatusRequest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41Allocation(msg Allocation, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41ListCancelRequest(msg ListCancelRequest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41ListExecute(msg ListExecute, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41ListStatusRequest(msg ListStatusRequest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41ListStatus(msg ListStatus, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41AllocationACK(msg AllocationACK, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41DontKnowTrade(msg DontKnowTrade, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41QuoteRequest(msg QuoteRequest, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41Quote(msg Quote, sessionID quickfixgo.SessionID) reject.MessageReject
+	OnFIX41SettlementInstructions(msg SettlementInstructions, sessionID quickfixgo.SessionID) reject.MessageReject
 }
 type FIX41MessageCracker struct{}
 
-func (c *FIX41MessageCracker) OnFIX41Heartbeat(msg Heartbeat, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41Heartbeat(msg Heartbeat, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41TestRequest(msg TestRequest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41TestRequest(msg TestRequest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41ResendRequest(msg ResendRequest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41ResendRequest(msg ResendRequest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41Reject(msg Reject, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41Reject(msg Reject, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41SequenceReset(msg SequenceReset, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41SequenceReset(msg SequenceReset, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41Logout(msg Logout, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41Logout(msg Logout, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41IndicationofInterest(msg IndicationofInterest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41IndicationofInterest(msg IndicationofInterest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41Advertisement(msg Advertisement, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41Advertisement(msg Advertisement, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41ExecutionReport(msg ExecutionReport, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41ExecutionReport(msg ExecutionReport, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41OrderCancelReject(msg OrderCancelReject, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41OrderCancelReject(msg OrderCancelReject, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41Logon(msg Logon, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41Logon(msg Logon, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41News(msg News, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41News(msg News, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41Email(msg Email, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41Email(msg Email, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41NewOrderSingle(msg NewOrderSingle, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41NewOrderSingle(msg NewOrderSingle, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41NewOrderList(msg NewOrderList, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41NewOrderList(msg NewOrderList, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41OrderCancelRequest(msg OrderCancelRequest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41OrderCancelRequest(msg OrderCancelRequest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41OrderStatusRequest(msg OrderStatusRequest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41OrderStatusRequest(msg OrderStatusRequest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41Allocation(msg Allocation, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41Allocation(msg Allocation, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41ListCancelRequest(msg ListCancelRequest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41ListCancelRequest(msg ListCancelRequest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41ListExecute(msg ListExecute, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41ListExecute(msg ListExecute, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41ListStatusRequest(msg ListStatusRequest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41ListStatusRequest(msg ListStatusRequest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41ListStatus(msg ListStatus, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41ListStatus(msg ListStatus, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41AllocationACK(msg AllocationACK, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41AllocationACK(msg AllocationACK, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41DontKnowTrade(msg DontKnowTrade, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41DontKnowTrade(msg DontKnowTrade, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41QuoteRequest(msg QuoteRequest, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41QuoteRequest(msg QuoteRequest, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41Quote(msg Quote, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41Quote(msg Quote, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIX41MessageCracker) OnFIX41SettlementInstructions(msg SettlementInstructions, sessionId session.ID) reject.MessageReject {
+func (c *FIX41MessageCracker) OnFIX41SettlementInstructions(msg SettlementInstructions, sessionId quickfixgo.SessionID) reject.MessageReject {
 	return reject.NewUnsupportedMessageType(msg.Message)
 }
