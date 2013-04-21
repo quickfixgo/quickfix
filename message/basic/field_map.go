@@ -3,20 +3,21 @@ package basic
 import (
 	"bytes"
 	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 	"sort"
 	"time"
 )
 
 type fieldSort struct {
-	tags    []message.Tag
+	tags    []tag.Tag
 	compare fieldOrder
 }
 
 // fieldOrder true if tag i should occur before tag j
-type fieldOrder func(i, j message.Tag) bool
+type fieldOrder func(i, j tag.Tag) bool
 
 // Normal FieldOrder (ascending tags)
-func normalFieldOrder(i, j message.Tag) bool { return i < j }
+func normalFieldOrder(i, j tag.Tag) bool { return i < j }
 
 func (t fieldSort) Len() int           { return len(t.tags) }
 func (t fieldSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tags[i] }
@@ -24,17 +25,17 @@ func (t fieldSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) 
 
 //Basic implementation of message.FieldMap. Is mutable.
 type FieldMap struct {
-	fields map[message.Tag]message.Field
+	fields map[tag.Tag]message.Field
 	fieldOrder
 }
 
 func (fieldMap *FieldMap) init(ordering fieldOrder) {
-	fieldMap.fields = make(map[message.Tag]message.Field)
+	fieldMap.fields = make(map[tag.Tag]message.Field)
 	fieldMap.fieldOrder = ordering
 }
 
-func (m *FieldMap) Tags() []message.Tag {
-	tags := make([]message.Tag, 0, len(m.fields))
+func (m *FieldMap) Tags() []tag.Tag {
+	tags := make([]tag.Tag, 0, len(m.fields))
 	for tag := range m.fields {
 		tags = append(tags, tag)
 	}
@@ -46,17 +47,17 @@ func (m *FieldMap) SetField(field message.Field) {
 	m.fields[field.Tag()] = field
 }
 
-func (m *FieldMap) Field(tag message.Tag) (field message.Field, ok bool) {
+func (m *FieldMap) Field(tag tag.Tag) (field message.Field, ok bool) {
 	field, ok = m.fields[tag]
 
 	return
 }
 
-func (m *FieldMap) Remove(tag message.Tag) {
+func (m *FieldMap) Remove(tag tag.Tag) {
 	delete(m.fields, tag)
 }
 
-func (m *FieldMap) StringValue(tag message.Tag) (string, bool) {
+func (m *FieldMap) StringValue(tag tag.Tag) (string, bool) {
 	message_field, ok := m.Field(tag)
 	if !ok {
 		return "", false
@@ -65,7 +66,7 @@ func (m *FieldMap) StringValue(tag message.Tag) (string, bool) {
 	return message_field.Value(), true
 }
 
-func (m *FieldMap) IntValue(tag message.Tag) (int, error) {
+func (m *FieldMap) IntValue(tag tag.Tag) (int, error) {
 	message_field, ok := m.Field(tag)
 	if !ok {
 		return 0, message.FieldNotFoundError{tag}
@@ -84,7 +85,7 @@ func (m *FieldMap) IntValue(tag message.Tag) (int, error) {
 	return intField.IntValue(), nil
 }
 
-func (m *FieldMap) UTCTimestampValue(tag message.Tag) (time.Time, error) {
+func (m *FieldMap) UTCTimestampValue(tag tag.Tag) (time.Time, error) {
 	message_field, ok := m.Field(tag)
 	if !ok {
 		return time.Time{}, message.FieldNotFoundError{tag}
@@ -103,7 +104,7 @@ func (m *FieldMap) UTCTimestampValue(tag message.Tag) (time.Time, error) {
 	return utcTimestampField.UTCTimestampValue(), nil
 }
 
-func (m *FieldMap) BooleanValue(tag message.Tag) (bool, error) {
+func (m *FieldMap) BooleanValue(tag tag.Tag) (bool, error) {
 
 	field, ok := m.Field(tag)
 	if !ok {
@@ -123,7 +124,7 @@ func (m *FieldMap) BooleanValue(tag message.Tag) (bool, error) {
 	return boolField.BooleanValue(), nil
 }
 
-func (m FieldMap) sortedTags() []message.Tag {
+func (m FieldMap) sortedTags() []tag.Tag {
 	tags := m.Tags()
 	sort.Sort(fieldSort{tags, m.fieldOrder})
 	return tags

@@ -2,6 +2,7 @@ package quickfixgo
 
 import (
 	"github.com/cbusbey/quickfixgo/fix"
+	"github.com/cbusbey/quickfixgo/tag"
 
 	"github.com/cbusbey/quickfixgo/fix40"
 	"github.com/cbusbey/quickfixgo/fix41"
@@ -37,7 +38,7 @@ type MessageCracker struct {
 }
 
 func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
-	BeginString, _ := msg.Header().StringValue(fix.BeginString)
+	BeginString, _ := msg.Header().StringValue(tag.BeginString)
 
 	return tryCrack(BeginString, msg, sessionID, router)
 }
@@ -58,12 +59,12 @@ func tryCrack(beginString string, msg message.Message, sessionID session.ID, rou
 		return fix50.Crack(msg, sessionID, router)
 	case fix.BeginString_FIXT11:
 
-		if msgType, _ := msg.Header().StringValue(fix.MsgType); session.IsAdminMessageType(msgType) {
+		if msgType, _ := msg.Header().StringValue(tag.MsgType); session.IsAdminMessageType(msgType) {
 			return fixt11.Crack(msg, sessionID, router)
 		} else {
 
 			applVerId := sessionID.DefaultApplVerID
-			if ApplVerIdField, ok := msg.Header().StringValue(fix.ApplVerID); ok {
+			if ApplVerIdField, ok := msg.Header().StringValue(tag.ApplVerID); ok {
 				applVerId = ApplVerIdField
 			}
 

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 )
 
 //Message implements the message.Message and message.Builder interface.
@@ -31,19 +32,19 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	var field message.Field
 	var err error
 
-	if field, rawMessage, err = extractSpecificField(fix.BeginString, rawMessage); err != nil {
+	if field, rawMessage, err = extractSpecificField(tag.BeginString, rawMessage); err != nil {
 		return nil, err
 	} else {
 		msg.MsgHeader.SetField(field)
 	}
 
-	if field, rawMessage, err = extractSpecificField(fix.BodyLength, rawMessage); err != nil {
+	if field, rawMessage, err = extractSpecificField(tag.BodyLength, rawMessage); err != nil {
 		return nil, err
 	} else {
 		msg.MsgHeader.SetField(field)
 	}
 
-	if field, rawMessage, err = extractSpecificField(fix.MsgType, rawMessage); err != nil {
+	if field, rawMessage, err = extractSpecificField(tag.MsgType, rawMessage); err != nil {
 		return nil, err
 	} else {
 		msg.MsgHeader.SetField(field)
@@ -62,13 +63,13 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 		default:
 			msg.MsgBody.SetField(field)
 		}
-		if field.Tag() == fix.CheckSum {
+		if field.Tag() == tag.CheckSum {
 			break
 		}
 	}
 
 	msg.length = msg.MsgHeader.Length() + msg.MsgBody.Length() + msg.MsgTrailer.Length()
-	msgLength, _ := msg.MsgHeader.IntValue(fix.BodyLength)
+	msgLength, _ := msg.MsgHeader.IntValue(tag.BodyLength)
 	if msgLength != msg.length {
 		return msg, message.ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", msgLength, msg.length)}
 	}
@@ -76,7 +77,7 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	return msg, nil
 }
 
-func extractSpecificField(expectedTag message.Tag, buffer []byte) (field message.Field, remBuffer []byte, err error) {
+func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field message.Field, remBuffer []byte, err error) {
 	field, remBuffer, err = extractField(buffer)
 	switch {
 	case err != nil:
@@ -137,12 +138,12 @@ func (m *Message) Build() message.Buffer {
 func (m *Message) cook() {
 	bodyLength := m.MsgHeader.Length() + m.MsgBody.Length() + m.MsgTrailer.Length()
 	checkSum := (m.MsgHeader.Total() + m.MsgBody.Total() + m.MsgTrailer.Total()) % 256
-	m.MsgHeader.SetField(NewIntField(fix.BodyLength, bodyLength))
+	m.MsgHeader.SetField(NewIntField(tag.BodyLength, bodyLength))
 	m.MsgTrailer.setCheckSum(newCheckSum(checkSum))
 }
 
 func newCheckSum(value int) *StringField {
-	return NewStringField(fix.CheckSum, fmt.Sprintf("%03d", value))
+	return NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
 func (message *Message) SetHeaderField(field message.Field) {

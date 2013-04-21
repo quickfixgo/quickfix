@@ -1,7 +1,7 @@
 package basic
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 	. "launchpad.net/gocheck"
 )
 
@@ -14,6 +14,6 @@ func (s *StringFieldTests) SetUpTest(c *C) {
 }
 
 func (s *StringFieldTests) TestTagValue(c *C) {
-	c.Check(s.field.Tag(), Equals, message.Tag(1))
+	c.Check(s.field.Tag(), Equals, tag.Tag(1))
 	c.Check(s.field.Value(), Equals, "CWB")
 }

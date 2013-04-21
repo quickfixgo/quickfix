@@ -18,6 +18,7 @@ import (
 	"github.com/cbusbey/quickfixgo/reject"
 	"github.com/cbusbey/quickfixgo/session"
 	"github.com/cbusbey/quickfixgo/settings"
+	"github.com/cbusbey/quickfixgo/tag"
 	"os"
 	"os/signal"
 )
@@ -53,24 +54,24 @@ func (e *EchoApplication) FromApp(msg message.Message, sessionID session.ID) (re
 }
 
 func (e *EchoApplication) processMsg(msg message.Message, sessionID session.ID) (reject reject.MessageReject) {
-	OrderId, ok := msg.Body().StringValue(fix.ClOrdID)
+	OrderId, ok := msg.Body().StringValue(tag.ClOrdID)
 	if !ok {
 		return
 	}
 
 	reply := basic.NewMessage()
 	sessionOrderId := sessionID.String() + OrderId
-	if PossResend, err := msg.Header().BooleanValue(fix.PossResend); err == nil && PossResend {
+	if PossResend, err := msg.Header().BooleanValue(tag.PossResend); err == nil && PossResend {
 		if e.OrderIds[sessionOrderId] {
 			return
 		}
 
-		reply.MsgHeader.SetField(basic.NewBooleanField(fix.PossResend, PossResend))
+		reply.MsgHeader.SetField(basic.NewBooleanField(tag.PossResend, PossResend))
 	}
 
 	e.OrderIds[sessionOrderId] = true
 
-	msgType, _ := msg.Header().Field(fix.MsgType)
+	msgType, _ := msg.Header().Field(tag.MsgType)
 	reply.MsgHeader.SetField(msgType)
 
 	for _, tag := range msg.Body().Tags() {

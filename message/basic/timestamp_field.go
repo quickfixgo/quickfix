@@ -2,6 +2,7 @@ package basic
 
 import (
 	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 	"time"
 )
 
@@ -18,7 +19,7 @@ const (
 )
 
 //returns utc timestamp field in the format YYYYMMDD-HH:MM:SS.sss 
-func NewUTCTimestampField(tag message.Tag, value time.Time) *UTCTimestampField {
+func NewUTCTimestampField(tag tag.Tag, value time.Time) *UTCTimestampField {
 	f := new(UTCTimestampField)
 	f.init(tag, value.UTC().Format(utcTimestampFormat))
 	f.timeValue = value
@@ -27,7 +28,7 @@ func NewUTCTimestampField(tag message.Tag, value time.Time) *UTCTimestampField {
 }
 
 //returns utc timestamp field in the format YYYYMMDD-HH:MM:SS
-func NewUTCTimestampFieldNoMillis(tag message.Tag, value time.Time) *UTCTimestampField {
+func NewUTCTimestampFieldNoMillis(tag tag.Tag, value time.Time) *UTCTimestampField {
 	f := new(UTCTimestampField)
 	f.init(tag, value.UTC().Format(utcTimestampNoMillisFormat))
 	f.timeValue = value

@@ -1,8 +1,7 @@
 package basic
 
 import (
-	"github.com/cbusbey/quickfixgo/fix"
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 	"math"
 )
 
@@ -16,14 +15,14 @@ func (header *Header) init() {
 }
 
 //The first 3 fields in the message header must be 8,9,35
-func headerFieldOrder(i, j message.Tag) bool {
-	var ordering = func(t message.Tag) uint32 {
+func headerFieldOrder(i, j tag.Tag) bool {
+	var ordering = func(t tag.Tag) uint32 {
 		switch t {
-		case fix.BeginString:
+		case tag.BeginString:
 			return 1
-		case fix.BodyLength:
+		case tag.BodyLength:
 			return 2
-		case fix.MsgType:
+		case tag.MsgType:
 			return 3
 		}
 

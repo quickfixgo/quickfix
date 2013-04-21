@@ -3,6 +3,7 @@ package reject
 import (
 	"fmt"
 	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 )
 
 const (
@@ -14,12 +15,12 @@ const (
 	InvalidMsgType             RejectReason = 11
 )
 
-func NewRequiredTagMissing(msg message.Message, tag message.Tag) MessageReject {
+func NewRequiredTagMissing(msg message.Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Required tag missing", rejectReason: RequiredTagMissing,
 		refTagID: tag}
 }
 
-func NewValueIsIncorrect(msg message.Message, tag message.Tag) MessageReject {
+func NewValueIsIncorrect(msg message.Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Value is incorrect (out of range) for this tag", rejectReason: ValueIsIncorrect,
 		refTagID: tag}
 }

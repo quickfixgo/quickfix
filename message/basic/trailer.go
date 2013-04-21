@@ -1,8 +1,8 @@
 package basic
 
 import (
-	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 )
 
 //Message Trailer type. TrailerOrder FieldOrder.
@@ -21,11 +21,11 @@ func (t *Trailer) init() {
 }
 
 //Field 10 must be last in the trailer
-func trailerFieldOrder(i, j message.Tag) bool {
+func trailerFieldOrder(i, j tag.Tag) bool {
 	switch {
-	case i == fix.CheckSum:
+	case i == tag.CheckSum:
 		return false
-	case j == fix.CheckSum:
+	case j == tag.CheckSum:
 		return true
 	}
 

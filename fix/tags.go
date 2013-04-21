@@ -1,7 +1,7 @@
 package fix
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 )
 
 const (
@@ -28,46 +28,46 @@ const (
 )
 
 //Returns true if tag belongs in the message trailer
-func IsTrailer(t message.Tag) bool {
+func IsTrailer(t tag.Tag) bool {
 	switch t {
-	case SignatureLength, Signature, CheckSum:
+	case tag.SignatureLength, tag.Signature, tag.CheckSum:
 		return true
 	}
 	return false
 }
 
 //Returns true if tag belongs in the message header
-func IsHeader(t message.Tag) bool {
+func IsHeader(t tag.Tag) bool {
 	switch t {
-	case BeginString,
-		BodyLength,
-		MsgType,
-		SenderCompID,
-		TargetCompID,
-		OnBehalfOfCompID,
-		DeliverToCompID,
-		SecureDataLen,
-		MsgSeqNum,
-		SenderSubID,
-		SenderLocationID,
-		TargetSubID,
-		TargetLocationID,
-		OnBehalfOfSubID,
-		OnBehalfOfLocationID,
-		DeliverToSubID,
-		DeliverToLocationID,
-		PossDupFlag,
-		PossResend,
-		SendingTime,
-		OrigSendingTime,
-		XmlDataLen,
-		XmlData,
-		MessageEncoding,
-		LastMsgSeqNumProcessed,
-		OnBehalfOfSendingTime,
-		ApplVerID,
-		CstmApplVerID,
-		NoHops:
+	case tag.BeginString,
+		tag.BodyLength,
+		tag.MsgType,
+		tag.SenderCompID,
+		tag.TargetCompID,
+		tag.OnBehalfOfCompID,
+		tag.DeliverToCompID,
+		tag.SecureDataLen,
+		tag.MsgSeqNum,
+		tag.SenderSubID,
+		tag.SenderLocationID,
+		tag.TargetSubID,
+		tag.TargetLocationID,
+		tag.OnBehalfOfSubID,
+		tag.OnBehalfOfLocationID,
+		tag.DeliverToSubID,
+		tag.DeliverToLocationID,
+		tag.PossDupFlag,
+		tag.PossResend,
+		tag.SendingTime,
+		tag.OrigSendingTime,
+		tag.XmlDataLen,
+		tag.XmlData,
+		tag.MessageEncoding,
+		tag.LastMsgSeqNumProcessed,
+		tag.OnBehalfOfSendingTime,
+		tag.ApplVerID,
+		tag.CstmApplVerID,
+		tag.NoHops:
 		return true
 	}
 

@@ -2,6 +2,7 @@ package basic
 
 import (
 	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 	"strconv"
 )
 
@@ -12,7 +13,7 @@ type IntField struct {
 
 func (f *IntField) IntValue() int { return f.intValue }
 
-func NewIntField(tag message.Tag, value int) *IntField {
+func NewIntField(tag tag.Tag, value int) *IntField {
 	f := new(IntField)
 	f.init(tag, strconv.Itoa(value))
 	f.intValue = value

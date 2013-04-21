@@ -1,14 +1,14 @@
 package basic
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 )
 
 type StringField struct {
 	FieldBase
 }
 
-func NewStringField(tag message.Tag, value string) *StringField {
+func NewStringField(tag tag.Tag, value string) *StringField {
 	f := new(StringField)
 	f.init(tag, value)
 	return f

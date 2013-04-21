@@ -1,14 +1,14 @@
 package fixt11
 
 import (
-	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/reject"
 	"github.com/cbusbey/quickfixgo/session"
+	"github.com/cbusbey/quickfixgo/tag"
 )
 
 func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {
-	switch msgType, _ := msg.Header().StringValue(fix.MsgType); msgType {
+	switch msgType, _ := msg.Header().StringValue(tag.MsgType); msgType {
 	case "0":
 		return router.OnFIXT11Heartbeat(Heartbeat{msg}, sessionID)
 	case "1":

@@ -51,14 +51,14 @@ import(
 	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/reject"
 	"github.com/cbusbey/quickfixgo/session"
-	"github.com/cbusbey/quickfixgo/fix"
+	"github.com/cbusbey/quickfixgo/tag"
 )
 `
 }
 
 func buildCrack() (out string) {
 	out += "func Crack(msg message.Message, sessionID session.ID, router MessageRouter) reject.MessageReject {\n"
-	out += "switch msgType, _ := msg.Header().StringValue(fix.MsgType); msgType {"
+	out += "switch msgType, _ := msg.Header().StringValue(tag.MsgType); msgType {"
 
 	for _, m := range fixSpec.Messages {
 		out += fmt.Sprintf("case \"%v\":\n", m.MsgType)

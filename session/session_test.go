@@ -1,9 +1,9 @@
 package session
 
 import (
-	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/message/basic"
 	"github.com/cbusbey/quickfixgo/reject"
+	"github.com/cbusbey/quickfixgo/tag"
 	. "launchpad.net/gocheck"
 	"time"
 )
@@ -24,25 +24,25 @@ func (s *SessionTests) TestCheckCorrectCompID(c *C) {
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
 
-	msg.MsgHeader.SetField(basic.NewStringField(fix.SenderCompID, "TAR"))
+	msg.MsgHeader.SetField(basic.NewStringField(tag.SenderCompID, "TAR"))
 	err = s.session.checkCompID(msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
 
 	//comp wrong
-	msg.MsgHeader.SetField(basic.NewStringField(fix.TargetCompID, "JCD"))
+	msg.MsgHeader.SetField(basic.NewStringField(tag.TargetCompID, "JCD"))
 	err = s.session.checkCompID(msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, reject.CompIDProblem)
 
-	msg.MsgHeader.SetField(basic.NewStringField(fix.TargetCompID, "SND"))
-	msg.MsgHeader.SetField(basic.NewStringField(fix.SenderCompID, "JCD"))
+	msg.MsgHeader.SetField(basic.NewStringField(tag.TargetCompID, "SND"))
+	msg.MsgHeader.SetField(basic.NewStringField(tag.SenderCompID, "JCD"))
 	err = s.session.checkCompID(msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, reject.CompIDProblem)
 
-	msg.MsgHeader.SetField(basic.NewStringField(fix.TargetCompID, "SND"))
-	msg.MsgHeader.SetField(basic.NewStringField(fix.SenderCompID, "TAR"))
+	msg.MsgHeader.SetField(basic.NewStringField(tag.TargetCompID, "SND"))
+	msg.MsgHeader.SetField(basic.NewStringField(tag.SenderCompID, "TAR"))
 	err = s.session.checkCompID(msg)
 	c.Check(err, IsNil)
 }
@@ -56,12 +56,12 @@ func (s *SessionTests) TestCheckBeginString(c *C) {
 	c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
 
 	//wrong value
-	msg.MsgHeader.SetField(basic.NewStringField(fix.BeginString, "FIX.4.4"))
+	msg.MsgHeader.SetField(basic.NewStringField(tag.BeginString, "FIX.4.4"))
 	err = s.session.checkBeginString(msg)
 	c.Check(err, NotNil)
 	c.Check(err, FitsTypeOf, reject.IncorrectBeginString{})
 
-	msg.MsgHeader.SetField(basic.NewStringField(fix.BeginString, s.session.ID.BeginString))
+	msg.MsgHeader.SetField(basic.NewStringField(tag.BeginString, s.session.ID.BeginString))
 	err = s.session.checkBeginString(msg)
 	c.Check(err, IsNil)
 
@@ -77,13 +77,13 @@ func (s *SessionTests) TestCheckTargetTooHigh(c *C) {
 	c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
 
 	//too low
-	msg.MsgHeader.SetField(basic.NewIntField(fix.MsgSeqNum, 47))
+	msg.MsgHeader.SetField(basic.NewIntField(tag.MsgSeqNum, 47))
 	err = s.session.checkTargetTooHigh(msg)
 	c.Check(err, NotNil)
 	c.Check(err, FitsTypeOf, reject.TargetTooHigh{})
 
 	//spot on
-	msg.MsgHeader.SetField(basic.NewIntField(fix.MsgSeqNum, 45))
+	msg.MsgHeader.SetField(basic.NewIntField(tag.MsgSeqNum, 45))
 	err = s.session.checkTargetTooHigh(msg)
 	c.Check(err, IsNil)
 }
@@ -98,21 +98,21 @@ func (s *SessionTests) TestCheckSendingTime(c *C) {
 
 	//sending time too late
 	sendingTime := time.Now().Add(time.Duration(-200) * time.Second)
-	msg.MsgHeader.SetField(basic.NewUTCTimestampField(fix.SendingTime, sendingTime))
+	msg.MsgHeader.SetField(basic.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	err = s.session.checkSendingTime(msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, reject.SendingTimeAccuracyProblem)
 
 	//future sending time
 	sendingTime = time.Now().Add(time.Duration(200) * time.Second)
-	msg.MsgHeader.SetField(basic.NewUTCTimestampField(fix.SendingTime, sendingTime))
+	msg.MsgHeader.SetField(basic.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	err = s.session.checkSendingTime(msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, reject.SendingTimeAccuracyProblem)
 
 	//sending time ok
 	sendingTime = time.Now()
-	msg.MsgHeader.SetField(basic.NewUTCTimestampField(fix.SendingTime, sendingTime))
+	msg.MsgHeader.SetField(basic.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	err = s.session.checkSendingTime(msg)
 	c.Check(err, IsNil)
 }
@@ -127,13 +127,13 @@ func (s *SessionTests) TestCheckTargetTooLow(c *C) {
 	c.Check(err.RejectReason(), Equals, reject.RequiredTagMissing)
 
 	//too low
-	msg.MsgHeader.SetField(basic.NewIntField(fix.MsgSeqNum, 43))
+	msg.MsgHeader.SetField(basic.NewIntField(tag.MsgSeqNum, 43))
 	err = s.session.checkTargetTooLow(msg)
 	c.Check(err, NotNil)
 	c.Check(err, FitsTypeOf, reject.TargetTooLow{})
 
 	//spot on
-	msg.MsgHeader.SetField(basic.NewIntField(fix.MsgSeqNum, 45))
+	msg.MsgHeader.SetField(basic.NewIntField(tag.MsgSeqNum, 45))
 	err = s.session.checkTargetTooLow(msg)
 	c.Check(err, IsNil)
 }

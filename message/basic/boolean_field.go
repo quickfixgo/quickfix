@@ -3,6 +3,7 @@ package basic
 import (
 	"errors"
 	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 )
 
 type BooleanField struct {
@@ -12,7 +13,7 @@ type BooleanField struct {
 
 func (f *BooleanField) BooleanValue() bool { return f.boolValue }
 
-func NewBooleanField(tag message.Tag, value bool) *BooleanField {
+func NewBooleanField(tag tag.Tag, value bool) *BooleanField {
 	f := new(BooleanField)
 	if value {
 		f.init(tag, "Y")

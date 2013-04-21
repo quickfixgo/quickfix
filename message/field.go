@@ -1,8 +1,12 @@
 package message
 
+import (
+	"github.com/cbusbey/quickfixgo/tag"
+)
+
 // Field is the common interface implemented by all field types
 type Field interface {
-	Tag() Tag
+	Tag() tag.Tag
 
 	//the value for this field
 	Value() string

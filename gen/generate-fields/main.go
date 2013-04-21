@@ -20,11 +20,7 @@ func usage() {
 }
 
 func genTags() {
-	fileOut := fmt.Sprintf("package %v\n", pkg)
-	fileOut += `import(
-	"github.com/cbusbey/quickfixgo/message"
-)
-`
+	fileOut := "package tag\n"
 
 	fileOut += "const (\n"
 	sortedTags := make([]string, len(fieldMap))
@@ -36,11 +32,11 @@ func genTags() {
 	sort.Strings(sortedTags)
 
 	for _, tag := range sortedTags {
-		fileOut += fmt.Sprintf("%v message.Tag = %v\n", tag, fieldMap[tag])
+		fileOut += fmt.Sprintf("%v Tag = %v\n", tag, fieldMap[tag])
 	}
 	fileOut += ")\n"
 
-	gen.WriteFile("fix/tag_numbers.go", fileOut)
+	gen.WriteFile("tag/tag_numbers.go", fileOut)
 }
 
 func main() {

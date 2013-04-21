@@ -1,7 +1,7 @@
 package basic
 
 import (
-	"github.com/cbusbey/quickfixgo/message"
+	"github.com/cbusbey/quickfixgo/tag"
 	. "launchpad.net/gocheck"
 	"testing"
 )
@@ -18,7 +18,7 @@ func (s *FieldBaseTests) TestParseField(c *C) {
 	parsed_field, err := ParseField([]byte(stringField))
 	c.Check(parsed_field, NotNil)
 	c.Check(err, IsNil)
-	c.Check(parsed_field.Tag(), Equals, message.Tag(8))
+	c.Check(parsed_field.Tag(), Equals, tag.Tag(8))
 	c.Check(parsed_field.Value(), Equals, "FIX.4.0")
 
 	//no equals?!
@@ -37,7 +37,7 @@ func (s *FieldBaseTests) SetUpTest(c *C) {
 }
 
 func (s *FieldBaseTests) TestTagValue(c *C) {
-	c.Check(s.field.Tag(), Equals, message.Tag(1))
+	c.Check(s.field.Tag(), Equals, tag.Tag(1))
 	c.Check(s.field.Value(), Equals, "hello")
 }
 

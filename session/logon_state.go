@@ -1,17 +1,17 @@
 package session
 
 import (
-	"github.com/cbusbey/quickfixgo/fix"
 	"github.com/cbusbey/quickfixgo/message"
 	"github.com/cbusbey/quickfixgo/message/basic"
 	"github.com/cbusbey/quickfixgo/reject"
+	"github.com/cbusbey/quickfixgo/tag"
 	"time"
 )
 
 type logonState struct{}
 
 func (s logonState) FixMsgIn(session *session, msg message.Message) (nextState state) {
-	if msgType, ok := msg.Header().StringValue(fix.MsgType); ok && msgType == "A" {
+	if msgType, ok := msg.Header().StringValue(tag.MsgType); ok && msgType == "A" {
 		if err := s.handleLogon(session, msg); err != nil {
 			session.log.OnEvent(err.Error())
 			return latentState{}
@@ -43,19 +43,19 @@ func (s logonState) handleLogon(session *session, msg message.Message) error {
 	}
 
 	reply := basic.NewMessage()
-	reply.MsgHeader.SetField(basic.NewStringField(fix.MsgType, "A"))
-	reply.MsgHeader.SetField(basic.NewStringField(fix.BeginString, session.BeginString))
-	reply.MsgHeader.SetField(basic.NewStringField(fix.TargetCompID, session.TargetCompID))
-	reply.MsgHeader.SetField(basic.NewStringField(fix.SenderCompID, session.SenderCompID))
-	reply.MsgBody.SetField(basic.NewIntField(fix.EncryptMethod, 0))
+	reply.MsgHeader.SetField(basic.NewStringField(tag.MsgType, "A"))
+	reply.MsgHeader.SetField(basic.NewStringField(tag.BeginString, session.BeginString))
+	reply.MsgHeader.SetField(basic.NewStringField(tag.TargetCompID, session.TargetCompID))
+	reply.MsgHeader.SetField(basic.NewStringField(tag.SenderCompID, session.SenderCompID))
+	reply.MsgBody.SetField(basic.NewIntField(tag.EncryptMethod, 0))
 
-	if HeartBtInt, err := msg.Body().IntValue(fix.HeartBtInt); err == nil {
+	if HeartBtInt, err := msg.Body().IntValue(tag.HeartBtInt); err == nil {
 		session.heartBeatTimeout = time.Duration(HeartBtInt) * time.Second
-		reply.MsgBody.SetField(basic.NewIntField(fix.HeartBtInt, HeartBtInt))
+		reply.MsgBody.SetField(basic.NewIntField(tag.HeartBtInt, HeartBtInt))
 	}
 
 	if session.DefaultApplVerID != "" {
-		reply.MsgTrailer.SetField(basic.NewStringField(fix.DefaultApplVerID, session.DefaultApplVerID))
+		reply.MsgTrailer.SetField(basic.NewStringField(tag.DefaultApplVerID, session.DefaultApplVerID))
 	}
 
 	session.log.OnEvent("Received logon request")
