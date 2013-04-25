@@ -7,13 +7,27 @@ import (
 
 var _ = Suite(&StringFieldTests{})
 
-type StringFieldTests struct{ field *StringField }
+type StringFieldTests struct{}
 
 func (s *StringFieldTests) SetUpTest(c *C) {
-	s.field = NewStringField(1, "CWB")
 }
 
-func (s *StringFieldTests) TestTagValue(c *C) {
-	c.Check(s.field.Tag(), Equals, tag.Tag(1))
-	c.Check(s.field.Value(), Equals, "CWB")
+func (s *StringFieldTests) TestNewField(c *C) {
+	field := NewStringField(1, "CWB")
+	c.Check(field.Tag(), Equals, tag.Tag(1))
+	c.Check(field.Value, Equals, "CWB")
+}
+
+func (s *StringFieldTests) TestConvertValueToBytes(c *C) {
+	field := NewStringField(1, "CWB")
+	bytes := field.ConvertValueToBytes()
+	c.Check(string(bytes), Equals, "CWB")
+}
+
+func (s *StringFieldTests) TestConvertValueFromBytes(c *C) {
+	field := new(StringField)
+	err := field.ConvertValueFromBytes([]byte("blah"))
+
+	c.Check(err, IsNil)
+	c.Check(field.Value, Equals, "blah")
 }

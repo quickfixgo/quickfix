@@ -5,35 +5,45 @@ import (
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
-type BooleanField struct {
-	FieldBase
-	boolValue bool
+//Container for bool, knows part of FieldConverter interface
+type BooleanValue struct {
+	Value bool
 }
 
-func (f *BooleanField) BooleanValue() bool { return f.boolValue }
+func (f *BooleanValue) ConvertValueFromBytes(bytes []byte) error {
+	switch string(bytes) {
+	case "Y":
+		f.Value = true
+	case "N":
+		f.Value = false
+	default:
+		return errors.New("Invalid Value for bool: " + string(bytes))
+	}
+
+	return nil
+}
+
+func (f BooleanValue) ConvertValueToBytes() []byte {
+	if f.Value {
+		return []byte("Y")
+	}
+
+	return []byte("N")
+}
+
+//Generic boolean Field Type. Implements FieldConverter
+type BooleanField struct {
+	FieldTag tag.Tag
+	BooleanValue
+}
+
+func (f BooleanField) Tag() tag.Tag {
+	return f.FieldTag
+}
 
 func NewBooleanField(tag tag.Tag, value bool) *BooleanField {
-	f := new(BooleanField)
-	if value {
-		f.init(tag, "Y")
-	} else {
-		f.init(tag, "N")
-	}
+	f := BooleanField{FieldTag: tag}
+	f.Value = value
 
-	f.boolValue = value
-	return f
-}
-
-//Converts a generic field to a BooleanField.
-//Check error for convert errors.
-func ToBooleanField(f Field) (*BooleanField, error) {
-
-	switch f.Value() {
-	case "Y":
-		return NewBooleanField(f.Tag(), true), nil
-	case "N":
-		return NewBooleanField(f.Tag(), false), nil
-	}
-
-	return nil, errors.New("Invalid Value for bool: " + f.Value())
+	return &f
 }

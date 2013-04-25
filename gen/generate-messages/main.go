@@ -49,14 +49,16 @@ func buildCrackerImports() string {
 	return `
 import(
 	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/tag"
 )
 `
 }
 
 func buildCrack() (out string) {
 	out += "func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {\n"
-	out += "switch msgType, _ := msg.Header.StringValue(tag.MsgType); msgType {"
+	out += `
+  msgType:=new(quickfixgo.MsgType)
+switch msg.Header.Get(msgType); msgType.Value {
+`
 
 	for _, m := range fixSpec.Messages {
 		out += fmt.Sprintf("case \"%v\":\n", m.MsgType)
@@ -94,7 +96,7 @@ func buildMessageCracker() (out string) {
 
 func genMessage(msg gen.Message) {
 	fileOut := fmt.Sprintf("package %v\n", pkg)
-  fileOut += `
+	fileOut += `
 import( 
   "github.com/cbusbey/quickfixgo"
 )

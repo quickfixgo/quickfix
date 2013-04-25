@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-//Header implements the MutableFieldMap interface and correctly orders fields as specified by FIX header order
+//Collection of fields representing the header of a FIX message 
 type Header struct {
 	FieldMap
 }

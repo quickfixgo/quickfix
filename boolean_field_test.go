@@ -9,46 +9,37 @@ var _ = Suite(&BooleanFieldTests{})
 
 type BooleanFieldTests struct{}
 
-func (s *BooleanFieldTests) TestNewFieldTrue(c *C) {
+func (s *BooleanFieldTests) TestNewField(c *C) {
 	field := NewBooleanField(tag.Tag(1), true)
 	c.Check(field.Tag(), Equals, tag.Tag(1))
-	c.Check(field.Value(), Equals, "Y")
-	c.Check(field.BooleanValue(), Equals, true)
-}
+	c.Check(field.Value, Equals, true)
 
-func (s *BooleanFieldTests) TestNewFieldFalse(c *C) {
-	field := NewBooleanField(tag.Tag(2), false)
+	field = NewBooleanField(tag.Tag(2), false)
 	c.Check(field.Tag(), Equals, tag.Tag(2))
-	c.Check(field.Value(), Equals, "N")
-	c.Check(field.BooleanValue(), Equals, false)
+	c.Check(field.Value, Equals, false)
 }
 
-func (s *BooleanFieldTests) TestToBooleanFieldTrue(c *C) {
-	f := FieldBase{}
-	f.init(tag.Tag(1), "Y")
-	booleanField, err := ToBooleanField(f)
+func (s *BooleanFieldTests) TestConvertValueToBytes(c *C) {
+	field := NewBooleanField(tag.Tag(1), true)
+	bytes := field.ConvertValueToBytes()
+	c.Check(string(bytes), Equals, "Y")
 
+	field = NewBooleanField(tag.Tag(1), false)
+	bytes = field.ConvertValueToBytes()
+
+	c.Check(string(bytes), Equals, "N")
+}
+
+func (s *BooleanFieldTests) TestConvertValueFromBytes(c *C) {
+	field := NewBooleanField(tag.Tag(1), false)
+	err := field.ConvertValueFromBytes([]byte("Y"))
 	c.Check(err, IsNil)
-	c.Check(booleanField.Tag(), Equals, tag.Tag(1))
-	c.Check(booleanField.Value(), Equals, "Y")
-	c.Check(booleanField.BooleanValue(), Equals, true)
-}
+	c.Check(field.Value, Equals, true)
 
-func (s *BooleanFieldTests) TestToBooleanFieldFalse(c *C) {
-	f := FieldBase{}
-	f.init(tag.Tag(1), "N")
-	booleanField, err := ToBooleanField(f)
-
+	err = field.ConvertValueFromBytes([]byte("N"))
 	c.Check(err, IsNil)
-	c.Check(booleanField.Tag(), Equals, tag.Tag(1))
-	c.Check(booleanField.Value(), Equals, "N")
-	c.Check(booleanField.BooleanValue(), Equals, false)
-}
+	c.Check(field.Value, Equals, false)
 
-func (s *BooleanFieldTests) TestToBooleanFieldInvalid(c *C) {
-	f := FieldBase{}
-	f.init(tag.Tag(1), "blah")
-	_, err := ToBooleanField(f)
-
-	c.Check(err, Not(IsNil))
+	err = field.ConvertValueFromBytes([]byte("blah"))
+	c.Check(err, NotNil)
 }

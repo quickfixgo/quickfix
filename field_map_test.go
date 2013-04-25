@@ -19,16 +19,19 @@ func (s *FieldMapTests) TestSetAndGet(c *C) {
 	s.fieldMap.SetField(field1)
 	s.fieldMap.SetField(field2)
 
-	retField, ok := s.fieldMap.Field(field1.Tag())
-	c.Check(ok, Equals, true)
-	c.Check(retField, Equals, field1)
+	testField := NewStringField(1, "")
+	err := s.fieldMap.Get(testField)
+	c.Check(err, IsNil)
+	c.Check(testField.Value, Equals, "hello")
 
-	retField, ok = s.fieldMap.Field(field2.Tag())
-	c.Check(ok, Equals, true)
-	c.Check(retField, Equals, field2)
+	testField = NewStringField(2, "")
+	err = s.fieldMap.Get(testField)
+	c.Check(err, IsNil)
+	c.Check(testField.Value, Equals, "world")
 
-	retField, ok = s.fieldMap.Field(44)
-	c.Check(ok, Equals, false)
+	testField = NewStringField(44, "")
+	err = s.fieldMap.Get(testField)
+	c.Check(err, NotNil)
 }
 
 func (s *FieldMapTests) TestLength(c *C) {
@@ -45,7 +48,7 @@ func (s *FieldMapTests) TestLength(c *C) {
 	s.fieldMap.SetField(bodyLength)
 	s.fieldMap.SetField(checkSum)
 
-	c.Check(s.fieldMap.Length(), Equals, f1.Length()+f2.Length(),
+	c.Check(s.fieldMap.length(), Equals, 16,
 		Commentf("Length includes all fields but beginString, bodyLength, and checkSum"))
 }
 
@@ -63,6 +66,6 @@ func (s *FieldMapTests) TestTotal(c *C) {
 	s.fieldMap.SetField(bodyLength)
 	s.fieldMap.SetField(checkSum)
 
-	c.Check(s.fieldMap.Total(), Equals, f1.Total()+f2.Total()+beginString.Total()+bodyLength.Total(),
+	c.Check(s.fieldMap.total(), Equals, 2116,
 		Commentf("Total includes all fields but checkSum"))
 }

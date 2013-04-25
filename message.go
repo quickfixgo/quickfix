@@ -25,74 +25,80 @@ func NewMessage() *Message {
 func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	//message must start with begin string, body length, msg type
 	msg := NewMessage()
-	var field Field
+	var parsedFieldBytes *field
 	var err error
 
-	if field, rawMessage, err = extractSpecificField(tag.BeginString, rawMessage); err != nil {
+	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BeginString, rawMessage); err != nil {
 		return nil, err
 	} else {
-		msg.Header.SetField(field)
+		msg.Header.fields[tag.BeginString] = parsedFieldBytes
 	}
 
-	if field, rawMessage, err = extractSpecificField(tag.BodyLength, rawMessage); err != nil {
+	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BodyLength, rawMessage); err != nil {
 		return nil, err
 	} else {
-		msg.Header.SetField(field)
+		msg.Header.fields[tag.BodyLength] = parsedFieldBytes
 	}
 
-	if field, rawMessage, err = extractSpecificField(tag.MsgType, rawMessage); err != nil {
+	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.MsgType, rawMessage); err != nil {
 		return nil, err
 	} else {
-		msg.Header.SetField(field)
+		msg.Header.fields[tag.MsgType] = parsedFieldBytes
 	}
 
+	var fieldTag tag.Tag
 	for {
-		field, rawMessage, err = extractField(rawMessage)
+		fieldTag, parsedFieldBytes, rawMessage, err = extractField(rawMessage)
 
 		switch {
 		case err != nil:
 			return nil, err
-		case IsHeader(field.Tag()):
-			msg.Header.SetField(field)
-		case IsTrailer(field.Tag()):
-			msg.Trailer.SetField(field)
+		case fieldTag.IsHeader():
+			msg.Header.fields[fieldTag] = parsedFieldBytes
+		case fieldTag.IsTrailer():
+			msg.Trailer.fields[fieldTag] = parsedFieldBytes
 		default:
-			msg.Body.SetField(field)
+			msg.Body.fields[fieldTag] = parsedFieldBytes
 		}
-		if field.Tag() == tag.CheckSum {
+		if fieldTag == tag.CheckSum {
 			break
 		}
 	}
 
-	msg.length = msg.Header.Length() + msg.Body.Length() + msg.Trailer.Length()
-	msgLength, _ := msg.Header.IntValue(tag.BodyLength)
-	if msgLength != msg.length {
-		return msg, ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", msgLength, msg.length)}
+	msg.length = msg.Header.length() + msg.Body.length() + msg.Trailer.length()
+	bodyLength := new(BodyLength)
+	msg.Header.Get(bodyLength)
+	if bodyLength.Value != msg.length {
+		return msg, ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, msg.length)}
 	}
 
 	return msg, nil
 }
 
-func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field Field, remBuffer []byte, err error) {
-	field, remBuffer, err = extractField(buffer)
+func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field *field, remBuffer []byte, err error) {
+	var tag tag.Tag
+	tag, field, remBuffer, err = extractField(buffer)
 	switch {
 	case err != nil:
 		return
-	case field.Tag() != expectedTag:
-		return field, remBuffer, ParseError{fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag())}
+	case tag != expectedTag:
+		err = ParseError{fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, tag)}
+		return
 	}
 
 	return
 }
 
-func extractField(buffer []byte) (Field, []byte, error) {
+func extractField(buffer []byte) (tag tag.Tag, parsedFieldBytes *field, remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
-		return nil, buffer, ParseError{"extractField: No Trailing Delim in " + string(buffer)}
+		err = ParseError{"extractField: No Trailing Delim in " + string(buffer)}
+		remBytes = buffer
+		return
 	}
 
-	field, err := ParseField(buffer[:endIndex+1])
-	return field, buffer[(endIndex + 1):], err
+	tag, parsedFieldBytes, err = parseField(buffer[:endIndex+1])
+	return tag, parsedFieldBytes, buffer[(endIndex + 1):], err
 }
 
 func (m *Message) Length() int {
@@ -120,16 +126,16 @@ func (m *Message) Build() Buffer {
 }
 
 func (m *Message) cook() {
-	bodyLength := m.Header.Length() + m.Body.Length() + m.Trailer.Length()
-	checkSum := (m.Header.Total() + m.Body.Total() + m.Trailer.Total()) % 256
+	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
+	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
 	m.Header.SetField(NewIntField(tag.BodyLength, bodyLength))
-	m.Trailer.setCheckSum(*newCheckSum(checkSum))
+	m.Trailer.setCheckSum(newCheckSum(checkSum))
 }
 
 func newCheckSum(value int) *StringField {
 	return NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
-func (message *Message) SetHeaderField(field Field) {
+func (message *Message) SetHeaderField(field FieldConverter) {
 	message.Header.SetField(field)
 }

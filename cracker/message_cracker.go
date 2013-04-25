@@ -1,8 +1,8 @@
+//Package cracker provides message routing utilities 
 package cracker
 
 import (
 	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/tag"
 
 	"github.com/cbusbey/quickfixgo/fix40"
 	"github.com/cbusbey/quickfixgo/fix41"
@@ -34,9 +34,9 @@ type MessageCracker struct {
 }
 
 func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
-	BeginString, _ := msg.Header.StringValue(tag.BeginString)
-
-	return tryCrack(BeginString, msg, sessionID, router)
+	beginString := new(quickfixgo.BeginString)
+	msg.Header.Get(beginString)
+	return tryCrack(beginString.Value, msg, sessionID, router)
 }
 
 func tryCrack(beginString string, msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
@@ -55,13 +55,15 @@ func tryCrack(beginString string, msg quickfixgo.Message, sessionID quickfixgo.S
 		return fix50.Crack(msg, sessionID, router)
 	case quickfixgo.BeginString_FIXT11:
 
-		if msgType, _ := msg.Header.StringValue(tag.MsgType); quickfixgo.IsAdminMessageType(msgType) {
+		msgType := new(quickfixgo.MsgType)
+		if msg.Header.Get(msgType); msgType.IsAdminMessageType() {
 			return fixt11.Crack(msg, sessionID, router)
 		} else {
 
 			applVerId := sessionID.DefaultApplVerID
-			if ApplVerIdField, ok := msg.Header.StringValue(tag.ApplVerID); ok {
-				applVerId = ApplVerIdField
+			applVerIDField := new(quickfixgo.ApplVerID)
+			if err := msg.Header.Get(applVerIDField); err == nil {
+				applVerId = applVerIDField.Value
 			}
 
 			switch applVerId {

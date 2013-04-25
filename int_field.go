@@ -5,28 +5,33 @@ import (
 	"strconv"
 )
 
-type IntField struct {
-	FieldBase
-	intValue int
+//Container for int, knows part of FieldConverter interface
+type IntValue struct {
+	Value int
 }
 
-func (f *IntField) IntValue() int { return f.intValue }
+func (f *IntValue) ConvertValueFromBytes(bytes []byte) (err error) {
+	f.Value, err = strconv.Atoi(string(bytes))
+
+	return
+}
+
+func (f IntValue) ConvertValueToBytes() []byte {
+	return []byte(strconv.Itoa(f.Value))
+}
+
+//Generic int Field Type. Implements FieldConverter. 
+type IntField struct {
+	FieldTag tag.Tag
+	IntValue
+}
+
+func (f IntField) Tag() tag.Tag {
+	return f.FieldTag
+}
 
 func NewIntField(tag tag.Tag, value int) *IntField {
-	f := new(IntField)
-	f.init(tag, strconv.Itoa(value))
-	f.intValue = value
-	return f
-}
-
-//Converts a generic field to an IntField.
-//Check error for convert errors.
-func ToIntField(f Field) (*IntField, error) {
-	value, err := strconv.Atoi(f.Value())
-
-	if err != nil {
-		return nil, err
-	}
-
-	return NewIntField(f.Tag(), value), nil
+	f := IntField{FieldTag: tag}
+	f.Value = value
+	return &f
 }

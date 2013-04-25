@@ -1,22 +1,68 @@
 package quickfixgo
 
 import (
+	"bytes"
+	"fmt"
 	"github.com/cbusbey/quickfixgo/tag"
+	"strconv"
 )
 
-// Field is the common interface implemented by all field types
-type Field interface {
-	Tag() tag.Tag
+type field struct {
+	Data  []byte
+	Value []byte
+}
 
-	//the value for this field
-	Value() string
+func newField(tag tag.Tag, value []byte) *field {
+	var buf bytes.Buffer
+	buf.WriteString(strconv.Itoa(int(tag)))
+	buf.WriteString("=")
+	buf.Write(value)
+	buf.WriteString("")
 
-	//the string representation of the field (tag=value\001)
-	String() string
+	f := new(field)
+	f.Data = buf.Bytes()
+	f.Value = value
 
-	//the length of the field in bytes
-	Length() int
+	return f
+}
 
-	//the sum of the bytes in the field
-	Total() int
+func parseField(rawFieldBytes []byte) (t tag.Tag, f *field, err error) {
+	sepIndex := bytes.IndexByte(rawFieldBytes, '=')
+
+	if sepIndex == -1 {
+		err = fmt.Errorf("field.Parse: No '=' in '%s'", rawFieldBytes)
+		return
+	}
+
+	parsed_tag, err := strconv.Atoi(string(rawFieldBytes[:sepIndex]))
+
+	if err != nil {
+		err = fmt.Errorf("field.Parse: %s", err.Error())
+		return
+	}
+
+	t = tag.Tag(parsed_tag)
+	f = new(field)
+	f.Value = rawFieldBytes[(sepIndex + 1):(len(rawFieldBytes) - 1)]
+	f.Data = rawFieldBytes
+
+	return
+}
+
+func (f *field) String() string {
+	return string(f.Data)
+}
+
+func (f *field) Total() int {
+	total := 0
+
+	for _, b := range []byte(f.Data) {
+		total += int(b)
+	}
+
+	return total
+}
+
+func (f *field) Length() int {
+	return len(f.Data)
 }

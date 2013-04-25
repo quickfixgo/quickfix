@@ -4,13 +4,13 @@ import (
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
-//Message Trailer type. TrailerOrder FieldOrder.
+//Collection of fields representing the trailer of a FIX message 
 type Trailer struct {
 	FieldMap
 }
 
 //CheckSum is a required field of the trailer
-func (t *Trailer) setCheckSum(checkSum StringField) {
+func (t *Trailer) setCheckSum(checkSum *StringField) {
 	t.SetField(checkSum)
 }
 

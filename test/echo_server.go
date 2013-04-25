@@ -14,7 +14,6 @@ import (
 	"github.com/cbusbey/quickfixgo/fix50sp2"
 	"github.com/cbusbey/quickfixgo/log"
 	"github.com/cbusbey/quickfixgo/settings"
-	"github.com/cbusbey/quickfixgo/tag"
 	"os"
 	"os/signal"
 )
@@ -34,7 +33,8 @@ func (e *EchoApplication) OnLogon(sessionID quickfixgo.SessionID) {
 func (e *EchoApplication) OnLogout(sessionID quickfixgo.SessionID) {
 	fmt.Printf("OnLogout %v\n", sessionID.String())
 }
-func (e EchoApplication) ToAdmin(msgBuilder quickfixgo.MessageBuilder, sessionID quickfixgo.SessionID) {}
+func (e EchoApplication) ToAdmin(msgBuilder quickfixgo.MessageBuilder, sessionID quickfixgo.SessionID) {
+}
 
 func (e EchoApplication) ToApp(msgBuilder quickfixgo.MessageBuilder, sessionID quickfixgo.SessionID) (err error) {
 	return
@@ -50,28 +50,32 @@ func (e *EchoApplication) FromApp(msg quickfixgo.Message, sessionID quickfixgo.S
 }
 
 func (e *EchoApplication) processMsg(msg quickfixgo.Message, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
-	OrderId, ok := msg.Body.StringValue(tag.ClOrdID)
-	if !ok {
+	orderId := new(quickfixgo.ClOrdID)
+	if err := msg.Body.Get(orderId); err != nil {
 		return
 	}
 
 	reply := quickfixgo.NewMessage()
-	sessionOrderId := sessionID.String() + OrderId
-	if PossResend, err := msg.Header.BooleanValue(tag.PossResend); err == nil && PossResend {
+	sessionOrderId := sessionID.String() + orderId.Value
+	possResend := new(quickfixgo.PossResend)
+	if err := msg.Header.Get(possResend); err == nil && possResend.Value {
 		if e.OrderIds[sessionOrderId] {
 			return
 		}
 
-		reply.Header.SetField(quickfixgo.NewBooleanField(tag.PossResend, PossResend))
+		reply.Header.SetField(possResend)
 	}
 
 	e.OrderIds[sessionOrderId] = true
 
-	msgType, _ := msg.Header.Field(tag.MsgType)
+	msgType := new(quickfixgo.MsgType)
+	msg.Header.Get(msgType)
 	reply.Header.SetField(msgType)
 
 	for _, tag := range msg.Body.Tags() {
-		if field, ok := msg.Body.Field(tag); ok {
+		//FIXME
+		field := quickfixgo.NewStringField(tag, "")
+		if err := msg.Body.Get(field); err == nil {
 			reply.Body.SetField(field)
 		}
 	}

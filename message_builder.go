@@ -8,6 +8,6 @@ type Buffer interface {
 }
 
 type MessageBuilder interface {
-	SetHeaderField(Field)
+	SetHeaderField(FieldConverter)
 	Build() Buffer
 }

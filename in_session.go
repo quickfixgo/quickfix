@@ -9,8 +9,9 @@ type inSession struct {
 }
 
 func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessionState) {
-	if msgType, ok := msg.Header.StringValue(tag.MsgType); ok {
-		switch msgType {
+	msgType := new(MsgType)
+	if err := msg.Header.Get(msgType); err == nil {
+		switch msgType.Value {
 		//logout
 		case "5":
 			return state.handleLogout(session, msg)
@@ -55,29 +56,27 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 func (state inSession) handleLogout(session *session, msg Message) (nextState sessionState) {
 	session.log.OnEvent("Received logout request")
 	state.generateLogout(session)
-	session.callback.OnLogout(session.SessionID)
+	session.application.OnLogout(session.SessionID)
 
 	return latentState{}
 }
 
 func (state inSession) handleSequenceReset(session *session, msg Message) (nextState sessionState) {
-	isGapFill := false
+	gapFillFlag := new(GapFillFlag)
+	msg.Body.Get(gapFillFlag)
 
-	if gapFillFlag, err := msg.Body.BooleanValue(tag.GapFillFlag); err == nil {
-		isGapFill = gapFillFlag
-	}
-
-	if err := session.verifySelect(msg, isGapFill, isGapFill); err != nil {
+	if err := session.verifySelect(msg, gapFillFlag.Value, gapFillFlag.Value); err != nil {
 		return state.processReject(session, err)
 	}
 
-	if newSeqNo, err := msg.Body.IntValue(tag.NewSeqNo); err == nil {
-		session.log.OnEventf("Received SequenceReset FROM: %v TO: %v", session.expectedSeqNum, newSeqNo)
+	newSeqNo := new(NewSeqNo)
+	if err := msg.Body.Get(newSeqNo); err == nil {
+		session.log.OnEventf("Received SequenceReset FROM: %v TO: %v", session.expectedSeqNum, newSeqNo.Value)
 
 		switch {
-		case newSeqNo > session.expectedSeqNum:
-			session.expectedSeqNum = newSeqNo
-		case newSeqNo < session.expectedSeqNum:
+		case newSeqNo.Value > session.expectedSeqNum:
+			session.expectedSeqNum = newSeqNo.Value
+		case newSeqNo.Value < session.expectedSeqNum:
 			session.doReject(NewValueIsIncorrect(msg, tag.NewSeqNo))
 		}
 	}
@@ -91,16 +90,18 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 	}
 
 	var beginSeqNo, endSeqNo int
-	if beginSeqNoField, err := msg.Body.IntValue(tag.BeginSeqNo); err != nil {
+	beginSeqNoField := new(BeginSeqNo)
+	if err := msg.Body.Get(beginSeqNoField); err != nil {
 		return state.processReject(session, NewRequiredTagMissing(msg, tag.BeginSeqNo))
 	} else {
-		beginSeqNo = beginSeqNoField
+		beginSeqNo = beginSeqNoField.Value
 	}
 
-	if endSeqNoField, err := msg.Body.IntValue(tag.EndSeqNo); err != nil {
+	endSeqNoField := new(EndSeqNo)
+	if err := msg.Body.Get(endSeqNoField); err != nil {
 		return state.processReject(session, NewRequiredTagMissing(msg, tag.EndSeqNo))
 	} else {
-		endSeqNo = endSeqNoField
+		endSeqNo = endSeqNoField.Value
 	}
 
 	session.log.OnEventf("Received ResendRequest FROM: %d TO: %d", beginSeqNo, endSeqNo)
@@ -133,19 +134,23 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 		} else {
 
 			message, _ := MessageFromParsedBytes(buf.Bytes())
-			msgType, _ := message.Header.StringValue(tag.MsgType)
-			sentMessageSeqNum, _ := message.Header.IntValue(tag.MsgSeqNum)
 
-			if IsAdminMessageType(msgType) {
-				nextSeqNum = sentMessageSeqNum + 1
+			msgType := new(MsgType)
+			message.Header.Get(msgType)
+
+			sentMessageSeqNum := new(MsgSeqNum)
+			message.Header.Get(sentMessageSeqNum)
+
+			if msgType.IsAdminMessageType() {
+				nextSeqNum = sentMessageSeqNum.Value + 1
 			} else {
 
-				if seqNum != sentMessageSeqNum {
-					state.generateSequenceReset(session, seqNum, sentMessageSeqNum)
+				if seqNum != sentMessageSeqNum.Value {
+					state.generateSequenceReset(session, seqNum, sentMessageSeqNum.Value)
 				}
 
 				session.resend(message)
-				seqNum = sentMessageSeqNum + 1
+				seqNum = sentMessageSeqNum.Value + 1
 				nextSeqNum = seqNum
 			}
 		}
@@ -157,7 +162,8 @@ func (state inSession) handleTestRequest(session *session, msg Message) (nextSta
 		return state.processReject(session, err)
 	}
 
-	if testReq, ok := msg.Body.Field(tag.TestReqID); !ok {
+	testReq := new(TestReqID)
+	if err := msg.Body.Get(testReq); err != nil {
 		session.log.OnEvent("Test Request with no testRequestID")
 	} else {
 		heartBt := NewMessage()
@@ -195,15 +201,18 @@ func (state inSession) processReject(session *session, rej MessageReject) (nextS
 }
 
 func (state inSession) doTargetTooLow(session *session, rej TargetTooLow) (nextState sessionState) {
-	if posDupFlag, err := rej.RejectedMessage().Header.BooleanValue(tag.PossDupFlag); err == nil && posDupFlag {
+	posDupFlag := new(PossDupFlag)
+	if err := rej.RejectedMessage().Header.Get(posDupFlag); err == nil && posDupFlag.Value {
 
-		if origSendingTime, err := rej.RejectedMessage().Header.UTCTimestampValue(tag.OrigSendingTime); err != nil {
+		origSendingTime := new(OrigSendingTime)
+		if err := rej.RejectedMessage().Header.Get(origSendingTime); err != nil {
 			session.doReject(NewRequiredTagMissing(rej.RejectedMessage(), tag.OrigSendingTime))
 			return state
 		} else {
-			sendingTime, _ := rej.RejectedMessage().Header.UTCTimestampValue(tag.SendingTime)
+			sendingTime := new(SendingTime)
+			rej.RejectedMessage().Header.Get(sendingTime)
 
-			if sendingTime.Before(origSendingTime) {
+			if sendingTime.Value.Before(origSendingTime.Value) {
 				session.doReject(NewSendingTimeAccuracyProblem(rej.RejectedMessage()))
 				return state.initiateLogout(session, "")
 			}
@@ -237,8 +246,10 @@ func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, 
 	sequenceReset.Body.SetField(NewIntField(tag.NewSeqNo, endSeqNo))
 	sequenceReset.Body.SetField(NewBooleanField(tag.GapFillFlag, true))
 
-	if origSendingTime, ok := sequenceReset.Header.Field(tag.SendingTime); ok {
-		sequenceReset.SetHeaderField(NewStringField(tag.OrigSendingTime, origSendingTime.Value()))
+	//FIXME
+	origSendingTime := NewStringField(tag.SendingTime, "")
+	if err := sequenceReset.Header.Get(origSendingTime); err == nil {
+		sequenceReset.SetHeaderField(NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
 	buffer := sequenceReset.Build()

@@ -3,12 +3,11 @@ package quickfixgo
 import (
 	"bufio"
 	"github.com/cbusbey/quickfixgo/log"
-	"github.com/cbusbey/quickfixgo/tag"
 	"net"
 )
 
 //Picks up session from net.Conn Acceptor
-func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
+func handleAcceptorConnection(netConn net.Conn, log log.Log) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.OnEventf("Connection Terminated: %v", err)
@@ -32,20 +31,24 @@ func HandleAcceptorConnection(netConn net.Conn, log log.Log) {
 	}
 
 	var sessID SessionID
-	if beginString, ok := msg.Header.StringValue(tag.BeginString); ok {
-		sessID.BeginString = beginString
+	beginString := new(BeginString)
+	if err := msg.Header.Get(beginString); err == nil {
+		sessID.BeginString = beginString.Value
 	}
 
-	if senderCompID, ok := msg.Header.StringValue(tag.SenderCompID); ok {
-		sessID.TargetCompID = senderCompID
+	senderCompID := new(SenderCompID)
+	if err := msg.Header.Get(senderCompID); err == nil {
+		sessID.TargetCompID = senderCompID.Value
 	}
 
-	if targetCompID, ok := msg.Header.StringValue(tag.TargetCompID); ok {
-		sessID.SenderCompID = targetCompID
+	targetCompID := new(TargetCompID)
+	if err := msg.Header.Get(targetCompID); err == nil {
+		sessID.SenderCompID = targetCompID.Value
 	}
 
-	if defaultApplVerID, ok := msg.Body.StringValue(tag.DefaultApplVerID); ok {
-		sessID.DefaultApplVerID = defaultApplVerID
+	defaultApplVerID := new(DefaultApplVerID)
+	if err := msg.Body.Get(defaultApplVerID); err == nil {
+		sessID.DefaultApplVerID = defaultApplVerID.Value
 	}
 
 	session := activate(sessID)

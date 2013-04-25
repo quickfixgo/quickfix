@@ -2,11 +2,12 @@ package fixt11
 
 import (
 	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/tag"
 )
 
 func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
-	switch msgType, _ := msg.Header.StringValue(tag.MsgType); msgType {
+
+	msgType := new(quickfixgo.MsgType)
+	switch msg.Header.Get(msgType); msgType.Value {
 	case "0":
 		return router.OnFIXT11Heartbeat(Heartbeat{msg}, sessionID)
 	case "1":

@@ -8,7 +8,8 @@ import (
 type logonState struct{}
 
 func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
-	if msgType, ok := msg.Header.StringValue(tag.MsgType); ok && msgType == "A" {
+	msgType := new(MsgType)
+	if err := msg.Header.Get(msgType); err == nil && msgType.Value == "A" {
 		if err := s.handleLogon(session, msg); err != nil {
 			session.log.OnEvent(err.Error())
 			return latentState{}
@@ -46,9 +47,10 @@ func (s logonState) handleLogon(session *session, msg Message) error {
 	reply.Header.SetField(NewStringField(tag.SenderCompID, session.SenderCompID))
 	reply.Body.SetField(NewIntField(tag.EncryptMethod, 0))
 
-	if HeartBtInt, err := msg.Body.IntValue(tag.HeartBtInt); err == nil {
-		session.heartBeatTimeout = time.Duration(HeartBtInt) * time.Second
-		reply.Body.SetField(NewIntField(tag.HeartBtInt, HeartBtInt))
+	heartBtInt := new(HeartBtInt)
+	if err := msg.Body.Get(heartBtInt); err == nil {
+		session.heartBeatTimeout = time.Duration(heartBtInt.Value) * time.Second
+		reply.Body.SetField(heartBtInt)
 	}
 
 	if session.DefaultApplVerID != "" {
@@ -59,7 +61,7 @@ func (s logonState) handleLogon(session *session, msg Message) error {
 	session.send(reply)
 	session.log.OnEvent("Responding to logon request")
 
-	session.callback.OnLogon(session.SessionID)
+	session.application.OnLogon(session.SessionID)
 
 	if err := session.checkTargetTooHigh(msg); err != nil {
 		switch TypedError := err.(type) {
