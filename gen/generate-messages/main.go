@@ -100,9 +100,17 @@ func genMessage(msg gen.Message) {
 	fileOut += `
 import( 
   "github.com/cbusbey/quickfixgo"
+  "github.com/cbusbey/quickfixgo/field"
 )
 `
-	fileOut += fmt.Sprintf("type %v struct {\n quickfixgo.Message}", msg.Name)
+	fileOut += fmt.Sprintf("type %v struct {\n quickfixgo.Message}\n", msg.Name)
+
+	for _, field := range msg.Fields {
+		fileOut += fmt.Sprintf("func (m * %v) %v() (*field.%v, error) {\n", msg.Name, field.Name, field.Name)
+		fileOut += fmt.Sprintf("f:=new(field.%v)\n", field.Name)
+		fileOut += "err:=m.Body.Get(f)\n"
+		fileOut += "return f, err\n}\n"
+	}
 
 	filePath := pkg + "/" + msg.Name + ".go"
 	gen.WriteFile(filePath, fileOut)

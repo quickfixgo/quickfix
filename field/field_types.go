@@ -27,4 +27,3 @@ type PriceValue struct{ FloatValue }
 type PriceOffsetValue struct{ FloatValue }
 type AmtValue struct{ FloatValue }
 type PercentageValue struct{ FloatValue }
-
