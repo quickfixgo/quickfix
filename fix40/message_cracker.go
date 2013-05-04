@@ -2,11 +2,12 @@ package fix40
 
 import (
 	"github.com/cbusbey/quickfixgo"
+	"github.com/cbusbey/quickfixgo/field"
 )
 
 func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
 
-	msgType := new(quickfixgo.MsgType)
+	msgType := new(field.MsgType)
 	switch msg.Header.Get(msgType); msgType.Value {
 	case "0":
 		return router.OnFIX40Heartbeat(Heartbeat{msg}, sessionID)

@@ -2,11 +2,12 @@ package fix50sp1
 
 import (
 	"github.com/cbusbey/quickfixgo"
+	"github.com/cbusbey/quickfixgo/field"
 )
 
 func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
 
-	msgType := new(quickfixgo.MsgType)
+	msgType := new(field.MsgType)
 	switch msg.Header.Get(msgType); msgType.Value {
 	case "6":
 		return router.OnFIX50SP1IOI(IOI{msg}, sessionID)

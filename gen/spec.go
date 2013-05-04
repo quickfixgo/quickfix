@@ -60,6 +60,16 @@ type FixSpec struct {
 	Trailer        []Field         `xml:"trailer>field"`
 	FieldTypes     []FieldType     `xml:"fields>field"`
 	ComponentTypes []ComponentType `xml:"components>component"`
+
+	FieldTypeMap map[string]FieldType
+}
+
+func (spec *FixSpec) init() {
+	spec.FieldTypeMap = make(map[string]FieldType)
+
+	for _, f := range spec.FieldTypes {
+		spec.FieldTypeMap[f.Name] = f
+	}
 }
 
 func ParseFixSpec(path string) (*FixSpec, error) {
@@ -74,6 +84,8 @@ func ParseFixSpec(path string) (*FixSpec, error) {
 	if err := decoder.Decode(&spec); err != nil {
 		return nil, err
 	}
+
+	spec.init()
 
 	return &spec, nil
 }

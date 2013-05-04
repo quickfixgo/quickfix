@@ -14,7 +14,7 @@ func normalFieldOrder(i, j tag.Tag) bool { return i < j }
 
 //Collection of fix fields that make up a fix message 
 type FieldMap struct {
-	fields map[tag.Tag]*field
+	fields map[tag.Tag]*fieldValue
 	fieldOrder
 }
 
@@ -28,7 +28,7 @@ func (t fieldSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tag
 func (t fieldSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
 func (fieldMap *FieldMap) init(ordering fieldOrder) {
-	fieldMap.fields = make(map[tag.Tag]*field)
+	fieldMap.fields = make(map[tag.Tag]*fieldValue)
 	fieldMap.fieldOrder = ordering
 }
 

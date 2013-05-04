@@ -3,6 +3,7 @@ package quickfixgo
 import (
 	"bytes"
 	"fmt"
+	"github.com/cbusbey/quickfixgo/field"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
@@ -25,7 +26,7 @@ func NewMessage() *Message {
 func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	//message must start with begin string, body length, msg type
 	msg := NewMessage()
-	var parsedFieldBytes *field
+	var parsedFieldBytes *fieldValue
 	var err error
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BeginString, rawMessage); err != nil {
@@ -66,7 +67,7 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	}
 
 	msg.length = msg.Header.length() + msg.Body.length() + msg.Trailer.length()
-	bodyLength := new(BodyLength)
+	bodyLength := new(field.BodyLength)
 	msg.Header.Get(bodyLength)
 	if bodyLength.Value != msg.length {
 		return msg, ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, msg.length)}
@@ -75,7 +76,7 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	return msg, nil
 }
 
-func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field *field, remBuffer []byte, err error) {
+func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field *fieldValue, remBuffer []byte, err error) {
 	var tag tag.Tag
 	tag, field, remBuffer, err = extractField(buffer)
 	switch {
@@ -89,7 +90,7 @@ func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field *field, rem
 	return
 }
 
-func extractField(buffer []byte) (tag tag.Tag, parsedFieldBytes *field, remBytes []byte, err error) {
+func extractField(buffer []byte) (tag tag.Tag, parsedFieldBytes *fieldValue, remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
 		err = ParseError{"extractField: No Trailing Delim in " + string(buffer)}
@@ -128,12 +129,12 @@ func (m *Message) Build() Buffer {
 func (m *Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
-	m.Header.SetField(NewIntField(tag.BodyLength, bodyLength))
+	m.Header.SetField(field.NewIntField(tag.BodyLength, bodyLength))
 	m.Trailer.setCheckSum(newCheckSum(checkSum))
 }
 
-func newCheckSum(value int) *StringField {
-	return NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
+func newCheckSum(value int) *field.StringField {
+	return field.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
 func (message *Message) SetHeaderField(field FieldConverter) {

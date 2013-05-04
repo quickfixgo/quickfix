@@ -2,6 +2,7 @@ package quickfixgo
 
 import (
 	"bufio"
+	"github.com/cbusbey/quickfixgo/field"
 	"github.com/cbusbey/quickfixgo/log"
 	"net"
 )
@@ -31,22 +32,22 @@ func handleAcceptorConnection(netConn net.Conn, log log.Log) {
 	}
 
 	var sessID SessionID
-	beginString := new(BeginString)
+	beginString := new(field.BeginString)
 	if err := msg.Header.Get(beginString); err == nil {
 		sessID.BeginString = beginString.Value
 	}
 
-	senderCompID := new(SenderCompID)
+	senderCompID := new(field.SenderCompID)
 	if err := msg.Header.Get(senderCompID); err == nil {
 		sessID.TargetCompID = senderCompID.Value
 	}
 
-	targetCompID := new(TargetCompID)
+	targetCompID := new(field.TargetCompID)
 	if err := msg.Header.Get(targetCompID); err == nil {
 		sessID.SenderCompID = targetCompID.Value
 	}
 
-	defaultApplVerID := new(DefaultApplVerID)
+	defaultApplVerID := new(field.DefaultApplVerID)
 	if err := msg.Body.Get(defaultApplVerID); err == nil {
 		sessID.DefaultApplVerID = defaultApplVerID.Value
 	}

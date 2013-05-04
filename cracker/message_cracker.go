@@ -3,6 +3,7 @@ package cracker
 
 import (
 	"github.com/cbusbey/quickfixgo"
+	"github.com/cbusbey/quickfixgo/field"
 
 	"github.com/cbusbey/quickfixgo/fix40"
 	"github.com/cbusbey/quickfixgo/fix41"
@@ -34,7 +35,7 @@ type MessageCracker struct {
 }
 
 func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
-	beginString := new(quickfixgo.BeginString)
+	beginString := new(field.BeginString)
 	msg.Header.Get(beginString)
 	return tryCrack(beginString.Value, msg, sessionID, router)
 }
@@ -55,13 +56,13 @@ func tryCrack(beginString string, msg quickfixgo.Message, sessionID quickfixgo.S
 		return fix50.Crack(msg, sessionID, router)
 	case quickfixgo.BeginString_FIXT11:
 
-		msgType := new(quickfixgo.MsgType)
+		msgType := new(field.MsgType)
 		if msg.Header.Get(msgType); msgType.IsAdminMessageType() {
 			return fixt11.Crack(msg, sessionID, router)
 		} else {
 
 			applVerId := sessionID.DefaultApplVerID
-			applVerIDField := new(quickfixgo.ApplVerID)
+			applVerIDField := new(field.ApplVerID)
 			if err := msg.Header.Get(applVerIDField); err == nil {
 				applVerId = applVerIDField.Value
 			}

@@ -49,6 +49,7 @@ func buildCrackerImports() string {
 	return `
 import(
 	"github.com/cbusbey/quickfixgo"
+	"github.com/cbusbey/quickfixgo/field"
 )
 `
 }
@@ -56,7 +57,7 @@ import(
 func buildCrack() (out string) {
 	out += "func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {\n"
 	out += `
-  msgType:=new(quickfixgo.MsgType)
+  msgType:=new(field.MsgType)
 switch msg.Header.Get(msgType); msgType.Value {
 `
 

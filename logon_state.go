@@ -1,6 +1,7 @@
 package quickfixgo
 
 import (
+	"github.com/cbusbey/quickfixgo/field"
 	"github.com/cbusbey/quickfixgo/tag"
 	"time"
 )
@@ -8,7 +9,7 @@ import (
 type logonState struct{}
 
 func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
-	msgType := new(MsgType)
+	msgType := new(field.MsgType)
 	if err := msg.Header.Get(msgType); err == nil && msgType.Value == "A" {
 		if err := s.handleLogon(session, msg); err != nil {
 			session.log.OnEvent(err.Error())
@@ -41,20 +42,20 @@ func (s logonState) handleLogon(session *session, msg Message) error {
 	}
 
 	reply := NewMessage()
-	reply.Header.SetField(NewStringField(tag.MsgType, "A"))
-	reply.Header.SetField(NewStringField(tag.BeginString, session.BeginString))
-	reply.Header.SetField(NewStringField(tag.TargetCompID, session.TargetCompID))
-	reply.Header.SetField(NewStringField(tag.SenderCompID, session.SenderCompID))
-	reply.Body.SetField(NewIntField(tag.EncryptMethod, 0))
+	reply.Header.SetField(field.NewStringField(tag.MsgType, "A"))
+	reply.Header.SetField(field.NewStringField(tag.BeginString, session.BeginString))
+	reply.Header.SetField(field.NewStringField(tag.TargetCompID, session.TargetCompID))
+	reply.Header.SetField(field.NewStringField(tag.SenderCompID, session.SenderCompID))
+	reply.Body.SetField(field.NewIntField(tag.EncryptMethod, 0))
 
-	heartBtInt := new(HeartBtInt)
+	heartBtInt := new(field.HeartBtInt)
 	if err := msg.Body.Get(heartBtInt); err == nil {
 		session.heartBeatTimeout = time.Duration(heartBtInt.Value) * time.Second
 		reply.Body.SetField(heartBtInt)
 	}
 
 	if session.DefaultApplVerID != "" {
-		reply.Trailer.SetField(NewStringField(tag.DefaultApplVerID, session.DefaultApplVerID))
+		reply.Trailer.SetField(field.NewStringField(tag.DefaultApplVerID, session.DefaultApplVerID))
 	}
 
 	session.log.OnEvent("Received logon request")

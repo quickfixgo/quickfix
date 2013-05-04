@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/cbusbey/quickfixgo"
 	"github.com/cbusbey/quickfixgo/cracker"
+	"github.com/cbusbey/quickfixgo/field"
 	"github.com/cbusbey/quickfixgo/fix40"
 	"github.com/cbusbey/quickfixgo/fix41"
 	"github.com/cbusbey/quickfixgo/fix42"
@@ -50,14 +51,14 @@ func (e *EchoApplication) FromApp(msg quickfixgo.Message, sessionID quickfixgo.S
 }
 
 func (e *EchoApplication) processMsg(msg quickfixgo.Message, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
-	orderId := new(quickfixgo.ClOrdID)
+	orderId := new(field.ClOrdID)
 	if err := msg.Body.Get(orderId); err != nil {
 		return
 	}
 
 	reply := quickfixgo.NewMessage()
 	sessionOrderId := sessionID.String() + orderId.Value
-	possResend := new(quickfixgo.PossResend)
+	possResend := new(field.PossResend)
 	if err := msg.Header.Get(possResend); err == nil && possResend.Value {
 		if e.OrderIds[sessionOrderId] {
 			return
@@ -68,13 +69,13 @@ func (e *EchoApplication) processMsg(msg quickfixgo.Message, sessionID quickfixg
 
 	e.OrderIds[sessionOrderId] = true
 
-	msgType := new(quickfixgo.MsgType)
+	msgType := new(field.MsgType)
 	msg.Header.Get(msgType)
 	reply.Header.SetField(msgType)
 
 	for _, tag := range msg.Body.Tags() {
 		//FIXME
-		field := quickfixgo.NewStringField(tag, "")
+		field := field.NewStringField(tag, "")
 		if err := msg.Body.Get(field); err == nil {
 			reply.Body.SetField(field)
 		}
