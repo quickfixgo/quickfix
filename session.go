@@ -200,6 +200,8 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 				return NewInvalidTagNumber(msg, TypedError.Tag)
 			case FieldNotFoundError:
 				return NewRequiredTagMissing(msg, TypedError.Tag)
+			case TagNotDefinedForThisMessageTypeError:
+				return NewTagNotDefinedForThisMessageType(msg, TypedError.Tag)
 			default:
 				s.log.OnEventf("Error validating : %s", err.Error())
 			}

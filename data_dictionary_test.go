@@ -64,6 +64,31 @@ func (s *DataDictionaryTests) TestValidateInvalidTagNumber(c *C) {
 	c.Check(err.(InvalidTagNumberError).Tag, Equals, tag.Tag(9999))
 }
 
+func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessage(c *C) {
+	dict, _ := NewDataDictionary("spec/FIX40.xml")
+
+	msg := s.createNewOrderSingle()
+	msg.Body.SetField(field.NewStringField(41, "hello"))
+
+	err := dict.validate(*msg)
+	c.Check(err, NotNil)
+	c.Check(err.(TagNotDefinedForThisMessageTypeError).Tag, Equals, tag.Tag(41))
+
+	msg = s.createNewOrderSingle()
+	msg.Header.SetField(field.NewStringField(41, "hello"))
+
+	err = dict.validate(*msg)
+	c.Check(err, NotNil)
+	c.Check(err.(TagNotDefinedForThisMessageTypeError).Tag, Equals, tag.Tag(41))
+
+	msg = s.createNewOrderSingle()
+	msg.Trailer.SetField(field.NewStringField(41, "hello"))
+
+	err = dict.validate(*msg)
+	c.Check(err, NotNil)
+	c.Check(err.(TagNotDefinedForThisMessageTypeError).Tag, Equals, tag.Tag(41))
+}
+
 func (s *DataDictionaryTests) TestValidateFieldNotFound(c *C) {
 	dict, _ := NewDataDictionary("spec/FIX40.xml")
 

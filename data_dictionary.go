@@ -8,7 +8,8 @@ import (
 )
 
 type DataDictionary struct {
-	fields         map[string]map[tag.Tag]struct{}
+	allFields      map[tag.Tag]struct{}
+	messageFields  map[string]map[tag.Tag]struct{}
 	requiredFields map[string]map[tag.Tag]struct{}
 
 	headerFields         map[tag.Tag]struct{}
@@ -26,12 +27,14 @@ func NewDataDictionary(path string) (*DataDictionary, error) {
 
 	d := DataDictionary{}
 
+	d.allFields = make(map[tag.Tag]struct{})
 	fieldNameLookup := make(map[string]tag.Tag)
 	for _, fieldType := range fixSpec.FieldTypeMap {
+		d.allFields[tag.Tag(fieldType.Number)] = struct{}{}
 		fieldNameLookup[fieldType.Name] = tag.Tag(fieldType.Number)
 	}
 
-	d.fields = make(map[string]map[tag.Tag]struct{})
+	d.messageFields = make(map[string]map[tag.Tag]struct{})
 	d.requiredFields = make(map[string]map[tag.Tag]struct{})
 
 	assignFields := func(fieldSpecs []spec.Field, allFields map[tag.Tag]struct{}, requiredFields map[tag.Tag]struct{}) error {
@@ -50,10 +53,10 @@ func NewDataDictionary(path string) (*DataDictionary, error) {
 	}
 
 	for _, msg := range fixSpec.Messages {
-		d.fields[msg.MsgType] = make(map[tag.Tag]struct{})
+		d.messageFields[msg.MsgType] = make(map[tag.Tag]struct{})
 		d.requiredFields[msg.MsgType] = make(map[tag.Tag]struct{})
 
-		if err := assignFields(msg.Fields, d.fields[msg.MsgType], d.requiredFields[msg.MsgType]); err != nil {
+		if err := assignFields(msg.Fields, d.messageFields[msg.MsgType], d.requiredFields[msg.MsgType]); err != nil {
 			return nil, err
 		}
 	}
@@ -122,7 +125,7 @@ func (d *DataDictionary) iterate(msgType string, message Message) (err error) {
 	if err = d.iterateFieldMap(d.headerFields, message.Header.FieldMap); err != nil {
 		return
 	}
-	if err = d.iterateFieldMap(d.fields[msgType], message.Body); err != nil {
+	if err = d.iterateFieldMap(d.messageFields[msgType], message.Body); err != nil {
 		return
 	}
 	if err = d.iterateFieldMap(d.trailerFields, message.Trailer.FieldMap); err != nil {
@@ -134,8 +137,12 @@ func (d *DataDictionary) iterate(msgType string, message Message) (err error) {
 
 func (d *DataDictionary) iterateFieldMap(validFields map[tag.Tag]struct{}, fieldMap FieldMap) error {
 	for tag := range fieldMap.fields {
-		if _, valid := validFields[tag]; !valid {
+		if _, valid := d.allFields[tag]; !valid {
 			return InvalidTagNumberError{tag}
+		}
+
+		if _, valid := validFields[tag]; !valid {
+			return TagNotDefinedForThisMessageTypeError{tag}
 		}
 	}
 

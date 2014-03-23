@@ -6,17 +6,23 @@ import (
 )
 
 const (
-	InvalidTagNumber           RejectReason = 0
-	RequiredTagMissing         RejectReason = 1
-	UnsupportedMessageType     RejectReason = 3
-	ValueIsIncorrect           RejectReason = 5
-	CompIDProblem              RejectReason = 9
-	SendingTimeAccuracyProblem RejectReason = 10
-	InvalidMsgType             RejectReason = 11
+	InvalidTagNumber                RejectReason = 0
+	RequiredTagMissing              RejectReason = 1
+	TagNotDefinedForThisMessageType RejectReason = 2
+	UnsupportedMessageType          RejectReason = 3
+	ValueIsIncorrect                RejectReason = 5
+	CompIDProblem                   RejectReason = 9
+	SendingTimeAccuracyProblem      RejectReason = 10
+	InvalidMsgType                  RejectReason = 11
 )
 
 func NewInvalidTagNumber(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Invalid tag number", rejectReason: InvalidTagNumber,
+		refTagID: &tag}
+}
+
+func NewTagNotDefinedForThisMessageType(msg Message, tag tag.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Tag not defined for this message type", rejectReason: TagNotDefinedForThisMessageType,
 		refTagID: &tag}
 }
 
