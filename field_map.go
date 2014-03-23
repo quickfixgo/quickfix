@@ -12,7 +12,7 @@ type fieldOrder func(i, j tag.Tag) bool
 // Normal FieldOrder (ascending tags)
 func normalFieldOrder(i, j tag.Tag) bool { return i < j }
 
-//Collection of fix fields that make up a fix message 
+//Collection of fix fields that make up a fix message
 type FieldMap struct {
 	fields map[tag.Tag]*fieldValue
 	fieldOrder

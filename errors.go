@@ -23,7 +23,7 @@ type FieldConvertError struct {
 func (f FieldConvertError) Error() string { return "Field Convert Error" }
 
 type FieldNotFoundError struct {
-	tag.Tag //Tag for field missing 
+	tag.Tag //Tag for field missing
 }
 
 func (f FieldNotFoundError) Error() string { return "Field Not Found" }

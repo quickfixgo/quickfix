@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-//Collection of fields representing the header of a FIX message 
+//Collection of fields representing the header of a FIX message
 type Header struct {
 	FieldMap
 }

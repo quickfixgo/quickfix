@@ -1,6 +1,6 @@
 package quickfixgo
 
-//Simple implementation of message.Buffer 
+//Simple implementation of message.Buffer
 type BasicBuffer []byte
 
 func (buffer BasicBuffer) Bytes() []byte {

@@ -80,13 +80,16 @@ func handleAcceptorConnection(netConn net.Conn, log log.Log) {
 }
 
 func writeLoop(connection net.Conn, messageOut chan Buffer) {
+	defer func() {
+		close(messageOut)
+	}()
+
 	for {
-		msg, ok := <-messageOut
-		if ok {
+		if msg := <-messageOut; msg == nil {
+			return
+		} else {
 			connection.Write(msg.Bytes())
 			msg.Free()
-		} else {
-			return
 		}
 	}
 }

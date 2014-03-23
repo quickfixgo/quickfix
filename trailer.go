@@ -5,7 +5,7 @@ import (
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
-//Collection of fields representing the trailer of a FIX message 
+//Collection of fields representing the trailer of a FIX message
 type Trailer struct {
 	FieldMap
 }

@@ -308,7 +308,7 @@ func (s *session) doReject(rej MessageReject) {
 
 func (s *session) run(msgIn chan []byte) {
 	defer func() {
-		close(s.messageOut)
+		s.messageOut <- nil
 	}()
 
 	for {
