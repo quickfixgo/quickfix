@@ -4,13 +4,14 @@ import (
 	"flag"
 	"fmt"
 	"github.com/cbusbey/quickfixgo/gen"
+	"github.com/cbusbey/quickfixgo/spec"
 	"os"
 	"sort"
 )
 
 var (
 	fieldMap     map[string]int
-	fieldTypeMap map[string]gen.FieldType
+	fieldTypeMap map[string]spec.FieldType
 	sortedTags   []string
 	pkg          = "fix"
 )
@@ -120,10 +121,10 @@ func main() {
 	}
 
 	fieldMap = make(map[string]int)
-	fieldTypeMap = make(map[string]gen.FieldType)
+	fieldTypeMap = make(map[string]spec.FieldType)
 
 	for _, dataDict := range flag.Args() {
-		spec, err := gen.ParseFixSpec(dataDict)
+		spec, err := spec.ParseFixSpec(dataDict)
 
 		if err != nil {
 			panic(err)

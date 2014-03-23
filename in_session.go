@@ -78,7 +78,8 @@ func (state inSession) handleSequenceReset(session *session, msg Message) (nextS
 		case newSeqNo.Value > session.expectedSeqNum:
 			session.expectedSeqNum = newSeqNo.Value
 		case newSeqNo.Value < session.expectedSeqNum:
-			session.doReject(NewValueIsIncorrect(msg, tag.NewSeqNo))
+			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
+			session.doReject(NewValueIsIncorrect(msg, nil))
 		}
 	}
 
@@ -197,8 +198,15 @@ func (state inSession) processReject(session *session, rej MessageReject) (nextS
 		return state.initiateLogout(session, rej.Error())
 	}
 
-	session.doReject(rej)
-	return state.initiateLogout(session, "")
+	switch rej.RejectReason() {
+	case CompIDProblem, SendingTimeAccuracyProblem:
+		session.doReject(rej)
+		return state.initiateLogout(session, "")
+	default:
+		session.doReject(rej)
+		session.expectedSeqNum++
+		return state
+	}
 }
 
 func (state inSession) doTargetTooLow(session *session, rej TargetTooLow) (nextState sessionState) {

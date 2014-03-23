@@ -1,4 +1,4 @@
-//Package cracker provides message routing utilities 
+//Package cracker provides message routing utilities
 package cracker
 
 import (

@@ -6,6 +6,7 @@ import (
 )
 
 const (
+	InvalidTagNumber           RejectReason = 0
 	RequiredTagMissing         RejectReason = 1
 	UnsupportedMessageType     RejectReason = 3
 	ValueIsIncorrect           RejectReason = 5
@@ -14,14 +15,19 @@ const (
 	InvalidMsgType             RejectReason = 11
 )
 
-func NewRequiredTagMissing(msg Message, tag tag.Tag) MessageReject {
-	return messageRejectBase{rejectedMessage: msg, text: "Required tag missing", rejectReason: RequiredTagMissing,
-		refTagID: tag}
+func NewInvalidTagNumber(msg Message, tag tag.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Invalid tag number", rejectReason: InvalidTagNumber,
+		refTagID: &tag}
 }
 
-func NewValueIsIncorrect(msg Message, tag tag.Tag) MessageReject {
-	return messageRejectBase{rejectedMessage: msg, text: "Value is incorrect (out of range) for this tag", rejectReason: ValueIsIncorrect,
-		refTagID: tag}
+func NewRequiredTagMissing(msg Message, tag tag.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Required tag missing", rejectReason: RequiredTagMissing,
+		refTagID: &tag}
+}
+
+//FIXME: to be compliant with legacy tests, for certain value issues, do not include reftag? (11c_NewSeqNoLess)
+func NewValueIsIncorrect(msg Message, tag *tag.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Value is incorrect (out of range) for this tag", rejectReason: ValueIsIncorrect, refTagID: tag}
 }
 
 func NewInvalidMessageType(msg Message) MessageReject {

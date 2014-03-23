@@ -18,7 +18,7 @@ func (f StringValue) ConvertValueToBytes() []byte {
 	return []byte(f.Value)
 }
 
-//Generic string Field Type. Implements FieldConverter. 
+//Generic string Field Type. Implements FieldConverter.
 type StringField struct {
 	FieldTag tag.Tag
 	StringValue

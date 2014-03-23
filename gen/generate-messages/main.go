@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/cbusbey/quickfixgo/gen"
+	"github.com/cbusbey/quickfixgo/spec"
 	"os"
 	"strconv"
 	"strings"
@@ -11,7 +12,7 @@ import (
 
 var (
 	pkg     string
-	fixSpec *gen.FixSpec
+	fixSpec *spec.FixSpec
 )
 
 func usage() {
@@ -95,7 +96,7 @@ func buildMessageCracker() (out string) {
 	return
 }
 
-func genMessage(msg gen.Message) {
+func genMessage(msg spec.Message) {
 	fileOut := fmt.Sprintf("package %v\n", pkg)
 	fileOut += `
 import( 
@@ -126,7 +127,7 @@ func main() {
 
 	dataDict := flag.Arg(0)
 
-	if spec, err := gen.ParseFixSpec(dataDict); err != nil {
+	if spec, err := spec.ParseFixSpec(dataDict); err != nil {
 		panic(err)
 	} else {
 		fixSpec = spec

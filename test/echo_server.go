@@ -127,17 +127,41 @@ func main() {
 	globalSettings.SetString(settings.TargetCompID, "TW")
 
 	appSettings := settings.NewApplicationSettings(globalSettings)
-	appSettings.AddSession("FIX40", settings.NewDictionary().SetString(settings.BeginString, quickfixgo.BeginString_FIX40))
-	appSettings.AddSession("FIX41", settings.NewDictionary().SetString(settings.BeginString, quickfixgo.BeginString_FIX41))
-	appSettings.AddSession("FIX42", settings.NewDictionary().SetString(settings.BeginString, quickfixgo.BeginString_FIX42))
-	appSettings.AddSession("FIX43", settings.NewDictionary().SetString(settings.BeginString, quickfixgo.BeginString_FIX43))
-	appSettings.AddSession("FIX44", settings.NewDictionary().SetString(settings.BeginString, quickfixgo.BeginString_FIX44))
-	appSettings.AddSession("FIX50", settings.NewDictionary().SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50))
-	appSettings.AddSession("FIX50SP1", settings.NewDictionary().SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50SP1))
-	appSettings.AddSession("FIX50SP2", settings.NewDictionary().SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50SP2))
+
+	appSettings.AddSession("FIX40", settings.NewDictionary().
+		SetString(settings.BeginString, quickfixgo.BeginString_FIX40).
+		SetString(settings.DataDictionary, "../spec/FIX40.xml"))
+
+	appSettings.AddSession("FIX41", settings.NewDictionary().
+		SetString(settings.BeginString, quickfixgo.BeginString_FIX41).
+		SetString(settings.DataDictionary, "../spec/FIX41.xml"))
+
+	appSettings.AddSession("FIX42", settings.NewDictionary().
+		SetString(settings.BeginString, quickfixgo.BeginString_FIX42).
+		SetString(settings.DataDictionary, "../spec/FIX42.xml"))
+
+	appSettings.AddSession("FIX43", settings.NewDictionary().
+		SetString(settings.BeginString, quickfixgo.BeginString_FIX43).
+		SetString(settings.DataDictionary, "../spec/FIX43.xml"))
+
+	appSettings.AddSession("FIX44", settings.NewDictionary().
+		SetString(settings.BeginString, quickfixgo.BeginString_FIX44).
+		SetString(settings.DataDictionary, "../spec/FIX44.xml"))
+
+	appSettings.AddSession("FIX50", settings.NewDictionary().
+		SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
+		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50).
+		SetString(settings.DataDictionary, "../spec/FIX50.xml"))
+
+	appSettings.AddSession("FIX50SP1", settings.NewDictionary().
+		SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
+		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50SP1).
+		SetString(settings.DataDictionary, "../spec/FIX50SP1.xml"))
+
+	appSettings.AddSession("FIX50SP2", settings.NewDictionary().
+		SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
+		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50SP2).
+		SetString(settings.DataDictionary, "../spec/FIX50SP2.xml"))
 
 	acceptor, err := quickfixgo.NewAcceptor(app, appSettings, log.ScreenLogFactory{})
 	if err != nil {

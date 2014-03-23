@@ -18,4 +18,5 @@ const (
 	SocketAcceptPort  Setting = "SocketAcceptPort"
 	SocketConnectPort Setting = "SocketConnectPort"
 	DefaultApplVerID  Setting = "DefaultApplVerID"
+	DataDictionary    Setting = "DataDictionary"
 )

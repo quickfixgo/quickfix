@@ -2,7 +2,7 @@
 package tag
 
 //Abstract type representing a fix tag
-type Tag uint
+type Tag int
 
 //Returns true if tag belongs in the message trailer
 func (t Tag) IsTrailer() bool {

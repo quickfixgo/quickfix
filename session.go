@@ -25,6 +25,7 @@ type session struct {
 	stateTimer   eventTimer
 	peerTimer    eventTimer
 	messageStash map[int]Message
+	*DataDictionary
 }
 
 //Creates Session, associates with internal session registry
@@ -47,6 +48,14 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 		session.SessionID.SenderCompID = senderCompID
 	} else {
 		return settings.RequiredConfigurationMissing(settings.SenderCompID)
+	}
+
+	if dataDictionaryPath, ok := dict.GetString(settings.DataDictionary); ok {
+		if dataDictionary, err := NewDataDictionary(dataDictionaryPath); err != nil {
+			return err
+		} else {
+			session.DataDictionary = dataDictionary
+		}
 	}
 
 	if session.SessionID.BeginString == BeginString_FIXT11 {
@@ -184,6 +193,17 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 		}
 	}
 
+	if s.DataDictionary != nil {
+		if err := s.DataDictionary.validate(msg); err != nil {
+			switch TypedError := err.(type) {
+			case InvalidTagNumberError:
+				return NewInvalidTagNumber(msg, TypedError.Tag)
+			default:
+				s.log.OnEventf("Error validating : %s", err.Error())
+			}
+		}
+	}
+
 	return s.fromCallback(msg)
 }
 
@@ -282,17 +302,15 @@ func (s *session) doReject(rej MessageReject) {
 			reply.Body.SetField(field.NewStringField(tag.RefMsgType, msgType.Value))
 		}
 
-		switch rej.RejectReason() {
-		case RequiredTagMissing:
-			reply.Body.SetField(field.NewIntField(tag.RefTagID, int(rej.RefTagID())))
+		if refTagId := rej.RefTagID(); refTagId != nil {
+			reply.Body.SetField(field.NewIntField(tag.RefTagID, int(*rej.RefTagID())))
 		}
 	} else {
 		reply.Header.SetField(field.NewStringField(tag.MsgType, "3"))
 
-		switch rej.RejectReason() {
-		case RequiredTagMissing:
-			reply.Body.SetField(field.NewStringField(tag.Text, fmt.Sprintf("%s (%d)", rej.Error(), rej.RefTagID())))
-		default:
+		if refTagId := rej.RefTagID(); refTagId != nil {
+			reply.Body.SetField(field.NewStringField(tag.Text, fmt.Sprintf("%s (%d)", rej.Error(), *refTagId)))
+		} else {
 			reply.Body.SetField(field.NewStringField(tag.Text, rej.Error()))
 		}
 	}

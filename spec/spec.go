@@ -1,4 +1,4 @@
-package gen
+package spec
 
 import (
 	"encoding/xml"

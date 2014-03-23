@@ -20,7 +20,7 @@ func (f IntValue) ConvertValueToBytes() []byte {
 	return []byte(strconv.Itoa(f.Value))
 }
 
-//Generic int Field Type. Implements FieldConverter. 
+//Generic int Field Type. Implements FieldConverter.
 type IntField struct {
 	FieldTag tag.Tag
 	IntValue
