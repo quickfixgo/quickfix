@@ -150,18 +150,15 @@ func main() {
 
 	appSettings.AddSession("FIX50", settings.NewDictionary().
 		SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50).
-		SetString(settings.DataDictionary, "../spec/FIX50.xml"))
+		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50))
 
 	appSettings.AddSession("FIX50SP1", settings.NewDictionary().
 		SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50SP1).
-		SetString(settings.DataDictionary, "../spec/FIX50SP1.xml"))
+		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50SP1))
 
 	appSettings.AddSession("FIX50SP2", settings.NewDictionary().
 		SetString(settings.BeginString, quickfixgo.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50SP2).
-		SetString(settings.DataDictionary, "../spec/FIX50SP2.xml"))
+		SetString(settings.DefaultApplVerID, quickfixgo.ApplVerID_FIX50SP2))
 
 	acceptor, err := quickfixgo.NewAcceptor(app, appSettings, log.ScreenLogFactory{})
 	if err != nil {
