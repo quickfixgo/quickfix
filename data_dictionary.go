@@ -76,73 +76,86 @@ func NewDataDictionary(path string) (*DataDictionary, error) {
 	return &d, nil
 }
 
-func (d *DataDictionary) validate(message Message) error {
+func (d *DataDictionary) validate(message Message) (reject MessageReject) {
 	msgType := new(field.MsgType)
 	if err := message.Header.Get(msgType); err != nil {
-		return err
+		switch err.(type) {
+		case FieldNotFoundError:
+			return NewRequiredTagMissing(message, tag.MsgType)
+		default:
+			panic(fmt.Sprintf("Unhandled error: %v", err))
+		}
 	}
 
-	if err := d.checkRequired(msgType.Value, message); err != nil {
-		return err
-	}
-
-	if err := d.iterate(msgType.Value, message); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (d *DataDictionary) checkRequired(msgType string, message Message) (err error) {
-	if err = d.checkRequiredFieldMap(d.headerRequiredFields, message.Header.FieldMap); err != nil {
+	if reject = d.checkRequired(msgType.Value, message); reject != nil {
 		return
 	}
 
-	if err = d.checkRequiredFieldMap(d.requiredFields[msgType], message.Body); err != nil {
-		return
-	}
-
-	if err = d.checkRequiredFieldMap(d.trailerRequiredFields, message.Trailer.FieldMap); err != nil {
+	if reject = d.iterate(msgType.Value, message); reject != nil {
 		return
 	}
 
 	return
 }
 
-func (d *DataDictionary) checkRequiredFieldMap(requiredFields map[tag.Tag]struct{}, fieldMap FieldMap) (err error) {
+func (d *DataDictionary) checkRequired(msgType string, message Message) (reject MessageReject) {
+	if reject = d.checkRequiredFieldMap(message, d.headerRequiredFields, message.Header.FieldMap); reject != nil {
+		return
+	}
+
+	if reject = d.checkRequiredFieldMap(message, d.requiredFields[msgType], message.Body); reject != nil {
+		return
+	}
+
+	if reject = d.checkRequiredFieldMap(message, d.trailerRequiredFields, message.Trailer.FieldMap); reject != nil {
+		return
+	}
+
+	return
+}
+
+func (d *DataDictionary) checkRequiredFieldMap(msg Message, requiredFields map[tag.Tag]struct{}, fieldMap FieldMap) (reject MessageReject) {
 	for required := range requiredFields {
 		//FIXME ugly...
 		field := field.NewStringField(required, "")
-		if err = fieldMap.Get(field); err != nil {
-			return err
+		if err := fieldMap.Get(field); err != nil {
+			switch e := err.(type) {
+			case FieldNotFoundError:
+				return NewRequiredTagMissing(msg, e.Tag)
+			default:
+				panic(fmt.Sprintf("Unhandled error: %v", err))
+			}
 		}
 	}
 
 	return
 }
 
-func (d *DataDictionary) iterate(msgType string, message Message) (err error) {
-	if err = d.iterateFieldMap(d.headerFields, message.Header.FieldMap); err != nil {
+func (d *DataDictionary) iterate(msgType string, message Message) (reject MessageReject) {
+	if reject = d.iterateFieldMap(message, d.headerFields, message.Header.FieldMap); reject != nil {
 		return
 	}
-	if err = d.iterateFieldMap(d.messageFields[msgType], message.Body); err != nil {
+	if reject = d.iterateFieldMap(message, d.messageFields[msgType], message.Body); reject != nil {
 		return
 	}
-	if err = d.iterateFieldMap(d.trailerFields, message.Trailer.FieldMap); err != nil {
+	if reject = d.iterateFieldMap(message, d.trailerFields, message.Trailer.FieldMap); reject != nil {
 		return
 	}
 
 	return
 }
 
-func (d *DataDictionary) iterateFieldMap(validFields map[tag.Tag]struct{}, fieldMap FieldMap) error {
-	for tag := range fieldMap.fields {
+func (d *DataDictionary) iterateFieldMap(message Message, validFields map[tag.Tag]struct{}, fieldMap FieldMap) MessageReject {
+	for tag, fieldValue := range fieldMap.fields {
+		if len(fieldValue.Value) == 0 {
+			return NewTagSpecifiedWithoutAValue(message, tag)
+		}
 		if _, valid := d.allFields[tag]; !valid {
-			return InvalidTagNumberError{tag}
+			return NewInvalidTagNumber(message, tag)
 		}
 
 		if _, valid := validFields[tag]; !valid {
-			return TagNotDefinedForThisMessageTypeError{tag}
+			return NewTagNotDefinedForThisMessageType(message, tag)
 		}
 	}
 

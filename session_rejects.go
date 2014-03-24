@@ -10,6 +10,7 @@ const (
 	RequiredTagMissing              RejectReason = 1
 	TagNotDefinedForThisMessageType RejectReason = 2
 	UnsupportedMessageType          RejectReason = 3
+	TagSpecifiedWithoutAValue       RejectReason = 4
 	ValueIsIncorrect                RejectReason = 5
 	CompIDProblem                   RejectReason = 9
 	SendingTimeAccuracyProblem      RejectReason = 10
@@ -28,6 +29,11 @@ func NewTagNotDefinedForThisMessageType(msg Message, tag tag.Tag) MessageReject 
 
 func NewRequiredTagMissing(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Required tag missing", rejectReason: RequiredTagMissing,
+		refTagID: &tag}
+}
+
+func NewTagSpecifiedWithoutAValue(msg Message, tag tag.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Tag specified without a value", rejectReason: TagSpecifiedWithoutAValue,
 		refTagID: &tag}
 }
 

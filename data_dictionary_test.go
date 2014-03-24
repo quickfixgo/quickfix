@@ -46,22 +46,25 @@ func (s *DataDictionaryTests) TestValidateInvalidTagNumber(c *C) {
 
 	msg := s.createNewOrderSingle()
 	msg.Header.FieldMap.SetField(field.NewStringField(9999, "hello"))
-	err := dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(InvalidTagNumberError).Tag, Equals, tag.Tag(9999))
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, InvalidTagNumber)
+	c.Check(*reject.RefTagID(), Equals, tag.Tag(9999))
 
 	msg = s.createNewOrderSingle()
 	msg.Trailer.FieldMap.SetField(field.NewStringField(9999, "hello"))
-	err = dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(InvalidTagNumberError).Tag, Equals, tag.Tag(9999))
+	reject = dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, InvalidTagNumber)
+	c.Check(*reject.RefTagID(), Equals, tag.Tag(9999))
 
 	msg = NewMessage()
 	msg = s.createNewOrderSingle()
 	msg.Body.SetField(field.NewStringField(9999, "hello"))
-	err = dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(InvalidTagNumberError).Tag, Equals, tag.Tag(9999))
+	reject = dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, InvalidTagNumber)
+	c.Check(*reject.RefTagID(), Equals, tag.Tag(9999))
 }
 
 func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessage(c *C) {
@@ -70,23 +73,26 @@ func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessage(c *C) {
 	msg := s.createNewOrderSingle()
 	msg.Body.SetField(field.NewStringField(41, "hello"))
 
-	err := dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(TagNotDefinedForThisMessageTypeError).Tag, Equals, tag.Tag(41))
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, TagNotDefinedForThisMessageType)
+	c.Check(*reject.RefTagID(), Equals, tag.Tag(41))
 
 	msg = s.createNewOrderSingle()
 	msg.Header.SetField(field.NewStringField(41, "hello"))
 
-	err = dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(TagNotDefinedForThisMessageTypeError).Tag, Equals, tag.Tag(41))
+	reject = dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, TagNotDefinedForThisMessageType)
+	c.Check(*reject.RefTagID(), Equals, tag.Tag(41))
 
 	msg = s.createNewOrderSingle()
 	msg.Trailer.SetField(field.NewStringField(41, "hello"))
 
-	err = dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(TagNotDefinedForThisMessageTypeError).Tag, Equals, tag.Tag(41))
+	reject = dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, TagNotDefinedForThisMessageType)
+	c.Check(*reject.RefTagID(), Equals, tag.Tag(41))
 }
 
 func (s *DataDictionaryTests) TestValidateFieldNotFound(c *C) {
@@ -103,9 +109,10 @@ func (s *DataDictionaryTests) TestValidateFieldNotFound(c *C) {
 	//ord type is required
 	//msg.Body.SetField(field.NewStringField(tag.OrdType, "A"))
 
-	err := dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(FieldNotFoundError).Tag, Equals, tag.OrdType)
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, RequiredTagMissing)
+	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
 
 	msg = s.createNewOrderSingle()
 	msg.Header.init()
@@ -118,14 +125,26 @@ func (s *DataDictionaryTests) TestValidateFieldNotFound(c *C) {
 	//sending time is required
 	//msg.Header.FieldMap.SetField(field.NewStringField(tag.SendingTime, "0"))
 
-	err = dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(FieldNotFoundError).Tag, Equals, tag.SendingTime)
+	reject = dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, RequiredTagMissing)
+	c.Check(*reject.RefTagID(), Equals, tag.SendingTime)
 
 	msg = s.createNewOrderSingle()
 	msg.Trailer.init()
 
-	err = dict.validate(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.(FieldNotFoundError).Tag, Equals, tag.CheckSum)
+	reject = dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, RequiredTagMissing)
+	c.Check(*reject.RefTagID(), Equals, tag.CheckSum)
+}
+
+func (s *DataDictionaryTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
+	dict, _ := NewDataDictionary("spec/FIX40.xml")
+	msg := s.createNewOrderSingle()
+	msg.Body.SetField(field.NewStringField(tag.ClientID, ""))
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, TagSpecifiedWithoutAValue)
+	c.Check(*reject.RefTagID(), Equals, tag.ClientID)
 }

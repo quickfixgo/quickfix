@@ -195,16 +195,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 
 	if s.DataDictionary != nil {
 		if err := s.DataDictionary.validate(msg); err != nil {
-			switch TypedError := err.(type) {
-			case InvalidTagNumberError:
-				return NewInvalidTagNumber(msg, TypedError.Tag)
-			case FieldNotFoundError:
-				return NewRequiredTagMissing(msg, TypedError.Tag)
-			case TagNotDefinedForThisMessageTypeError:
-				return NewTagNotDefinedForThisMessageType(msg, TypedError.Tag)
-			default:
-				s.log.OnEventf("Error validating : %s", err.Error())
-			}
+			return err
 		}
 	}
 
@@ -255,6 +246,10 @@ func (s *session) checkCompID(msg Message) MessageReject {
 		return NewRequiredTagMissing(msg, tag.SenderCompID)
 	case haveTarget != nil:
 		return NewRequiredTagMissing(msg, tag.TargetCompID)
+	case len(targetCompID.Value) == 0:
+		return NewTagSpecifiedWithoutAValue(msg, tag.TargetCompID)
+	case len(senderCompID.Value) == 0:
+		return NewTagSpecifiedWithoutAValue(msg, tag.SenderCompID)
 	case s.SenderCompID != targetCompID.Value || s.TargetCompID != senderCompID.Value:
 		return NewCompIDProblem(msg)
 	}

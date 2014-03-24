@@ -27,17 +27,3 @@ type FieldNotFoundError struct {
 }
 
 func (f FieldNotFoundError) Error() string { return "Field Not Found" }
-
-type InvalidTagNumberError struct {
-	tag.Tag
-}
-
-func (f InvalidTagNumberError) Error() string { return fmt.Sprintf("Invalid tag number: %v", f.Tag) }
-
-type TagNotDefinedForThisMessageTypeError struct {
-	tag.Tag
-}
-
-func (f TagNotDefinedForThisMessageTypeError) Error() string {
-	return fmt.Sprintf("Tag not defined for message: %v", f.Tag)
-}
