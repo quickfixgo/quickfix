@@ -108,6 +108,10 @@ func (d *DataDictionary) validate(message Message) (reject MessageReject) {
 		}
 	}
 
+	if _, validMsgType := d.messageTags[msgType.Value]; validMsgType == false {
+		return NewInvalidMessageType(message)
+	}
+
 	if reject = d.checkRequired(msgType.Value, message); reject != nil {
 		return
 	}

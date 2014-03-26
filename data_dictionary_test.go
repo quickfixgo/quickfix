@@ -180,6 +180,17 @@ func (s *DataDictionaryTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.ClientID)
 }
 
+func (s *DataDictionaryTests) TestValidateInvalidMsgType(c *C) {
+	dict, _ := NewDataDictionary("spec/FIX40.xml")
+
+	msg := s.createFIX40NewOrderSingle()
+	msg.Header.SetField(field.NewStringField(tag.MsgType, "z"))
+
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, InvalidMsgType)
+}
+
 func (s *DataDictionaryTests) TestValidateValueIsIncorrect(c *C) {
 	dict, _ := NewDataDictionary("spec/FIX40.xml")
 	msg := s.createFIX40NewOrderSingle()
