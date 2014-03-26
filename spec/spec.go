@@ -28,6 +28,7 @@ type FieldType struct {
 }
 
 type ComponentType struct {
+	Name       string      `xml:"name,attr"`
 	Fields     []Field     `xml:"field"`
 	Components []Component `xml:"component"`
 	Groups     []Group     `xml:"group"`
@@ -61,7 +62,8 @@ type FixSpec struct {
 	FieldTypes     []FieldType     `xml:"fields>field"`
 	ComponentTypes []ComponentType `xml:"components>component"`
 
-	FieldTypeMap map[string]FieldType
+	FieldTypeMap     map[string]FieldType
+	ComponentTypeMap map[string]ComponentType
 }
 
 func (spec *FixSpec) init() {
@@ -70,6 +72,12 @@ func (spec *FixSpec) init() {
 	for _, f := range spec.FieldTypes {
 		spec.FieldTypeMap[f.Name] = f
 	}
+
+	spec.ComponentTypeMap = make(map[string]ComponentType)
+	for _, c := range spec.ComponentTypes {
+		spec.ComponentTypeMap[c.Name] = c
+	}
+
 }
 
 func ParseFixSpec(path string) (*FixSpec, error) {

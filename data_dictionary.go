@@ -7,16 +7,29 @@ import (
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
+type tagSet map[tag.Tag]struct{}
+
+func (t tagSet) add(tag tag.Tag) {
+	t[tag] = struct{}{}
+}
+
+type enumSet map[string]struct{}
+
+func (e enumSet) add(enum string) {
+	e[enum] = struct{}{}
+}
+
 type DataDictionary struct {
-	allFields      map[tag.Tag]struct{}
-	messageFields  map[string]map[tag.Tag]struct{}
-	requiredFields map[string]map[tag.Tag]struct{}
+	allFields map[tag.Tag]enumSet
 
-	headerFields         map[tag.Tag]struct{}
-	headerRequiredFields map[tag.Tag]struct{}
+	messageTags  map[string]tagSet
+	requiredTags map[string]tagSet
 
-	trailerFields         map[tag.Tag]struct{}
-	trailerRequiredFields map[tag.Tag]struct{}
+	headerTags         tagSet
+	requiredHeaderTags tagSet
+
+	trailerTags         tagSet
+	requiredTrailerTags tagSet
 }
 
 func NewDataDictionary(path string) (*DataDictionary, error) {
@@ -25,55 +38,63 @@ func NewDataDictionary(path string) (*DataDictionary, error) {
 		return nil, err
 	}
 
-	d := DataDictionary{}
+	d := new(DataDictionary)
 
-	d.allFields = make(map[tag.Tag]struct{})
-	fieldNameLookup := make(map[string]tag.Tag)
+	d.allFields = make(map[tag.Tag]enumSet)
 	for _, fieldType := range fixSpec.FieldTypeMap {
-		d.allFields[tag.Tag(fieldType.Number)] = struct{}{}
-		fieldNameLookup[fieldType.Name] = tag.Tag(fieldType.Number)
+		d.allFields[tag.Tag(fieldType.Number)] = make(enumSet)
+		for _, value := range fieldType.FieldValues {
+			d.allFields[tag.Tag(fieldType.Number)].add(value.Enum)
+		}
 	}
 
-	d.messageFields = make(map[string]map[tag.Tag]struct{})
-	d.requiredFields = make(map[string]map[tag.Tag]struct{})
+	d.messageTags = make(map[string]tagSet)
+	d.requiredTags = make(map[string]tagSet)
 
-	assignFields := func(fieldSpecs []spec.Field, allFields map[tag.Tag]struct{}, requiredFields map[tag.Tag]struct{}) error {
-		for _, field := range fieldSpecs {
-			if tag, ok := fieldNameLookup[field.Name]; ok {
-				allFields[tag] = struct{}{}
-				if field.Required == "Y" {
-					requiredFields[tag] = struct{}{}
-				}
+	collectTags := func(fieldSpecs []spec.Field, components []spec.Component) (allTags tagSet, requiredTags tagSet, err error) {
+		allTags = make(tagSet)
+		requiredTags = make(tagSet)
+
+		for _, component := range components {
+			if componentType, ok := fixSpec.ComponentTypeMap[component.Name]; ok {
+				fieldSpecs = append(fieldSpecs, componentType.Fields...)
 			} else {
-				return fmt.Errorf("Field %q not given in fields section", field.Name)
+				err = fmt.Errorf("Component %q not given in components section", component.Name)
+				return
 			}
 		}
 
-		return nil
+		for _, field := range fieldSpecs {
+			if fieldType, ok := fixSpec.FieldTypeMap[field.Name]; ok {
+				tag := tag.Tag(fieldType.Number)
+				allTags.add(tag)
+				if field.Required == "Y" {
+					requiredTags.add(tag)
+				}
+			} else {
+				err = fmt.Errorf("Field %q not given in fields section", field.Name)
+				return
+			}
+		}
+
+		return
 	}
 
 	for _, msg := range fixSpec.Messages {
-		d.messageFields[msg.MsgType] = make(map[tag.Tag]struct{})
-		d.requiredFields[msg.MsgType] = make(map[tag.Tag]struct{})
-
-		if err := assignFields(msg.Fields, d.messageFields[msg.MsgType], d.requiredFields[msg.MsgType]); err != nil {
+		if d.messageTags[msg.MsgType], d.requiredTags[msg.MsgType], err = collectTags(msg.Fields, msg.Components); err != nil {
 			return nil, err
 		}
 	}
 
-	d.headerFields = make(map[tag.Tag]struct{})
-	d.headerRequiredFields = make(map[tag.Tag]struct{})
-	if err := assignFields(fixSpec.Header, d.headerFields, d.headerRequiredFields); err != nil {
+	if d.headerTags, d.requiredHeaderTags, err = collectTags(fixSpec.Header, []spec.Component{}); err != nil {
 		return nil, err
 	}
 
-	d.trailerFields = make(map[tag.Tag]struct{})
-	d.trailerRequiredFields = make(map[tag.Tag]struct{})
-	if err := assignFields(fixSpec.Trailer, d.trailerFields, d.trailerRequiredFields); err != nil {
+	if d.trailerTags, d.requiredTrailerTags, err = collectTags(fixSpec.Trailer, []spec.Component{}); err != nil {
 		return nil, err
 	}
 
-	return &d, nil
+	return d, nil
 }
 
 func (d *DataDictionary) validate(message Message) (reject MessageReject) {
@@ -99,23 +120,23 @@ func (d *DataDictionary) validate(message Message) (reject MessageReject) {
 }
 
 func (d *DataDictionary) checkRequired(msgType string, message Message) (reject MessageReject) {
-	if reject = d.checkRequiredFieldMap(message, d.headerRequiredFields, message.Header.FieldMap); reject != nil {
+	if reject = d.checkRequiredFieldMap(message, d.requiredHeaderTags, message.Header.FieldMap); reject != nil {
 		return
 	}
 
-	if reject = d.checkRequiredFieldMap(message, d.requiredFields[msgType], message.Body); reject != nil {
+	if reject = d.checkRequiredFieldMap(message, d.requiredTags[msgType], message.Body); reject != nil {
 		return
 	}
 
-	if reject = d.checkRequiredFieldMap(message, d.trailerRequiredFields, message.Trailer.FieldMap); reject != nil {
+	if reject = d.checkRequiredFieldMap(message, d.requiredTrailerTags, message.Trailer.FieldMap); reject != nil {
 		return
 	}
 
 	return
 }
 
-func (d *DataDictionary) checkRequiredFieldMap(msg Message, requiredFields map[tag.Tag]struct{}, fieldMap FieldMap) (reject MessageReject) {
-	for required := range requiredFields {
+func (d *DataDictionary) checkRequiredFieldMap(msg Message, requiredTags map[tag.Tag]struct{}, fieldMap FieldMap) (reject MessageReject) {
+	for required := range requiredTags {
 		//FIXME ugly...
 		field := field.NewStringField(required, "")
 		if err := fieldMap.Get(field); err != nil {
@@ -132,28 +153,42 @@ func (d *DataDictionary) checkRequiredFieldMap(msg Message, requiredFields map[t
 }
 
 func (d *DataDictionary) iterate(msgType string, message Message) (reject MessageReject) {
-	if reject = d.iterateFieldMap(message, d.headerFields, message.Header.FieldMap); reject != nil {
+	if reject = d.iterateFieldMap(message, d.headerTags, message.Header.FieldMap); reject != nil {
 		return
 	}
-	if reject = d.iterateFieldMap(message, d.messageFields[msgType], message.Body); reject != nil {
+	if reject = d.iterateFieldMap(message, d.messageTags[msgType], message.Body); reject != nil {
 		return
 	}
-	if reject = d.iterateFieldMap(message, d.trailerFields, message.Trailer.FieldMap); reject != nil {
+	if reject = d.iterateFieldMap(message, d.trailerTags, message.Trailer.FieldMap); reject != nil {
 		return
 	}
 
 	return
 }
 
-func (d *DataDictionary) iterateFieldMap(message Message, validFields map[tag.Tag]struct{}, fieldMap FieldMap) MessageReject {
+func (d *DataDictionary) iterateFieldMap(message Message, validFields tagSet, fieldMap FieldMap) MessageReject {
 	for tag, fieldValue := range fieldMap.fields {
 		if len(fieldValue.Value) == 0 {
 			return NewTagSpecifiedWithoutAValue(message, tag)
 		}
+	}
+
+	for tag := range fieldMap.fields {
 		if _, valid := d.allFields[tag]; !valid {
 			return NewInvalidTagNumber(message, tag)
 		}
+	}
 
+	for tag, fieldValue := range fieldMap.fields {
+		allowedValues := d.allFields[tag]
+		if len(allowedValues) != 0 {
+			if _, validValue := allowedValues[string(fieldValue.Value)]; !validValue {
+				return NewValueIsIncorrect(message, &tag)
+			}
+		}
+	}
+
+	for tag := range fieldMap.fields {
 		if _, valid := validFields[tag]; !valid {
 			return NewTagNotDefinedForThisMessageType(message, tag)
 		}
