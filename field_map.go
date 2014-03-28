@@ -55,6 +55,14 @@ func (m FieldMap) Get(parser FieldConverter) error {
 	return parser.ConvertValueFromBytes(field.Value)
 }
 
+func (m FieldMap) GetField(tag tag.Tag, field FieldValue) error {
+	if f, ok := m.fields[tag]; ok {
+		return field.ConvertValueFromBytes(f.Value)
+	} else {
+		return FieldNotFoundError{tag}
+	}
+}
+
 func (m *FieldMap) Remove(tag tag.Tag) {
 	delete(m.fields, tag)
 }

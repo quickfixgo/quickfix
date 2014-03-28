@@ -3,7 +3,6 @@ package quickfixgo
 import (
 	"bytes"
 	"fmt"
-	"github.com/cbusbey/quickfixgo/field"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
@@ -67,8 +66,8 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	}
 
 	msg.length = msg.Header.length() + msg.Body.length() + msg.Trailer.length()
-	bodyLength := new(field.BodyLength)
-	msg.Header.Get(bodyLength)
+	bodyLength := new(IntValue)
+	msg.Header.GetField(tag.BodyLength, bodyLength)
 	if bodyLength.Value != msg.length {
 		return msg, ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, msg.length)}
 	}
@@ -129,12 +128,12 @@ func (m *Message) Build() Buffer {
 func (m *Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
-	m.Header.SetField(field.NewIntField(tag.BodyLength, bodyLength))
+	m.Header.SetField(NewIntField(tag.BodyLength, bodyLength))
 	m.Trailer.setCheckSum(newCheckSum(checkSum))
 }
 
-func newCheckSum(value int) *field.StringField {
-	return field.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
+func newCheckSum(value int) *StringField {
+	return NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
 func (message *Message) SetHeaderField(field FieldConverter) {

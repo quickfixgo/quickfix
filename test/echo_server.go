@@ -75,7 +75,7 @@ func (e *EchoApplication) processMsg(msg quickfixgo.Message, sessionID quickfixg
 
 	for _, tag := range msg.Body.Tags() {
 		//FIXME
-		field := field.NewStringField(tag, "")
+		field := quickfixgo.NewStringField(tag, "")
 		if err := msg.Body.Get(field); err == nil {
 			reply.Body.SetField(field)
 		}

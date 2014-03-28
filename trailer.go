@@ -1,7 +1,6 @@
 package quickfixgo
 
 import (
-	"github.com/cbusbey/quickfixgo/field"
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
@@ -11,7 +10,7 @@ type Trailer struct {
 }
 
 //CheckSum is a required field of the trailer
-func (t *Trailer) setCheckSum(checkSum *field.StringField) {
+func (t *Trailer) setCheckSum(checkSum *StringField) {
 	t.SetField(checkSum)
 }
 

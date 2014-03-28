@@ -4,6 +4,7 @@ package cracker
 import (
 	"github.com/cbusbey/quickfixgo"
 	"github.com/cbusbey/quickfixgo/field"
+	"github.com/cbusbey/quickfixgo/tag"
 
 	"github.com/cbusbey/quickfixgo/fix40"
 	"github.com/cbusbey/quickfixgo/fix41"
@@ -56,8 +57,8 @@ func tryCrack(beginString string, msg quickfixgo.Message, sessionID quickfixgo.S
 		return fix50.Crack(msg, sessionID, router)
 	case quickfixgo.BeginString_FIXT11:
 
-		msgType := new(field.MsgType)
-		if msg.Header.Get(msgType); msgType.IsAdminMessageType() {
+		msgType := new(quickfixgo.StringValue)
+		if msg.Header.GetField(tag.MsgType, msgType); quickfixgo.IsAdminMessageType(msgType.Value) {
 			return fixt11.Crack(msg, sessionID, router)
 		} else {
 

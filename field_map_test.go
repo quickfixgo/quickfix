@@ -1,7 +1,6 @@
 package quickfixgo
 
 import (
-	"github.com/cbusbey/quickfixgo/field"
 	. "launchpad.net/gocheck"
 )
 
@@ -14,34 +13,34 @@ func (s *FieldMapTests) SetUpTest(c *C) {
 }
 
 func (s *FieldMapTests) TestSetAndGet(c *C) {
-	field1 := field.NewStringField(1, "hello")
-	field2 := field.NewStringField(2, "world")
+	field1 := NewStringField(1, "hello")
+	field2 := NewStringField(2, "world")
 
 	s.fieldMap.SetField(field1)
 	s.fieldMap.SetField(field2)
 
-	testField := field.NewStringField(1, "")
+	testField := NewStringField(1, "")
 	err := s.fieldMap.Get(testField)
 	c.Check(err, IsNil)
 	c.Check(testField.Value, Equals, "hello")
 
-	testField = field.NewStringField(2, "")
+	testField = NewStringField(2, "")
 	err = s.fieldMap.Get(testField)
 	c.Check(err, IsNil)
 	c.Check(testField.Value, Equals, "world")
 
-	testField = field.NewStringField(44, "")
+	testField = NewStringField(44, "")
 	err = s.fieldMap.Get(testField)
 	c.Check(err, NotNil)
 }
 
 func (s *FieldMapTests) TestLength(c *C) {
-	f1 := field.NewStringField(1, "hello")
-	f2 := field.NewStringField(2, "world")
+	f1 := NewStringField(1, "hello")
+	f2 := NewStringField(2, "world")
 
-	beginString := field.NewStringField(8, "FIX.4.4")
-	bodyLength := field.NewIntField(9, 100)
-	checkSum := field.NewStringField(10, "100")
+	beginString := NewStringField(8, "FIX.4.4")
+	bodyLength := NewIntField(9, 100)
+	checkSum := NewStringField(10, "100")
 
 	s.fieldMap.SetField(f1)
 	s.fieldMap.SetField(f2)
@@ -54,12 +53,12 @@ func (s *FieldMapTests) TestLength(c *C) {
 }
 
 func (s *FieldMapTests) TestTotal(c *C) {
-	f1 := field.NewStringField(1, "hello")
-	f2 := field.NewStringField(2, "world")
+	f1 := NewStringField(1, "hello")
+	f2 := NewStringField(2, "world")
 
-	beginString := field.NewStringField(8, "FIX.4.4")
-	bodyLength := field.NewIntField(9, 100)
-	checkSum := field.NewStringField(10, "100")
+	beginString := NewStringField(8, "FIX.4.4")
+	bodyLength := NewIntField(9, 100)
+	checkSum := NewStringField(10, "100")
 
 	s.fieldMap.SetField(f1)
 	s.fieldMap.SetField(f2)

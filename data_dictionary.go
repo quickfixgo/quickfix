@@ -2,7 +2,6 @@ package quickfixgo
 
 import (
 	"fmt"
-	"github.com/cbusbey/quickfixgo/field"
 	"github.com/cbusbey/quickfixgo/spec"
 	"github.com/cbusbey/quickfixgo/tag"
 )
@@ -98,8 +97,8 @@ func NewDataDictionary(path string) (*DataDictionary, error) {
 }
 
 func (d *DataDictionary) validate(message Message) (reject MessageReject) {
-	msgType := new(field.MsgType)
-	if err := message.Header.Get(msgType); err != nil {
+	msgType := new(StringField)
+	if err := message.Header.GetField(tag.MsgType, msgType); err != nil {
 		switch err.(type) {
 		case FieldNotFoundError:
 			return NewRequiredTagMissing(message, tag.MsgType)
@@ -142,8 +141,8 @@ func (d *DataDictionary) checkRequired(msgType string, message Message) (reject 
 func (d *DataDictionary) checkRequiredFieldMap(msg Message, requiredTags map[tag.Tag]struct{}, fieldMap FieldMap) (reject MessageReject) {
 	for required := range requiredTags {
 		//FIXME ugly...
-		field := field.NewStringField(required, "")
-		if err := fieldMap.Get(field); err != nil {
+		field := new(StringField)
+		if err := fieldMap.GetField(required, field); err != nil {
 			switch e := err.(type) {
 			case FieldNotFoundError:
 				return NewRequiredTagMissing(msg, e.Tag)
