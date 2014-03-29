@@ -27,19 +27,19 @@ func (m FieldMap) Tags() []tag.Tag {
 	return tagsCopy
 }
 
-func (m FieldMap) Get(parser FieldConverter) error {
+func (m FieldMap) Get(parser Field) error {
 	field, ok := m.fields[parser.Tag()]
 
 	if !ok {
 		return FieldNotFoundError{parser.Tag()}
 	}
 
-	return parser.ConvertValueFromBytes(field.Value)
+	return parser.Read(field.Value)
 }
 
 func (m FieldMap) GetField(tag tag.Tag, field FieldValue) error {
 	if f, ok := m.fields[tag]; ok {
-		return field.ConvertValueFromBytes(f.Value)
+		return field.Read(f.Value)
 	} else {
 		return FieldNotFoundError{tag}
 	}

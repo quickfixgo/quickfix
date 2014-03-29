@@ -16,8 +16,8 @@ func (s *FieldMapBuilderTests) TestSetAndGet(c *C) {
 	field1 := NewStringField(1, "hello")
 	field2 := NewStringField(2, "world")
 
-	s.fieldMap.SetField(field1)
-	s.fieldMap.SetField(field2)
+	s.fieldMap.Set(field1)
+	s.fieldMap.Set(field2)
 
 	testField := NewStringField(1, "")
 	err := s.fieldMap.Get(testField)
@@ -42,11 +42,11 @@ func (s *FieldMapBuilderTests) TestLength(c *C) {
 	bodyLength := NewIntField(9, 100)
 	checkSum := NewStringField(10, "100")
 
-	s.fieldMap.SetField(f1)
-	s.fieldMap.SetField(f2)
-	s.fieldMap.SetField(beginString)
-	s.fieldMap.SetField(bodyLength)
-	s.fieldMap.SetField(checkSum)
+	s.fieldMap.Set(f1)
+	s.fieldMap.Set(f2)
+	s.fieldMap.Set(beginString)
+	s.fieldMap.Set(bodyLength)
+	s.fieldMap.Set(checkSum)
 
 	c.Check(s.fieldMap.length(), Equals, 16,
 		Commentf("Length includes all fields but beginString, bodyLength, and checkSum"))
@@ -60,11 +60,11 @@ func (s *FieldMapBuilderTests) TestTotal(c *C) {
 	bodyLength := NewIntField(9, 100)
 	checkSum := NewStringField(10, "100")
 
-	s.fieldMap.SetField(f1)
-	s.fieldMap.SetField(f2)
-	s.fieldMap.SetField(beginString)
-	s.fieldMap.SetField(bodyLength)
-	s.fieldMap.SetField(checkSum)
+	s.fieldMap.Set(f1)
+	s.fieldMap.Set(f2)
+	s.fieldMap.Set(beginString)
+	s.fieldMap.Set(bodyLength)
+	s.fieldMap.Set(checkSum)
 
 	c.Check(s.fieldMap.total(), Equals, 2116,
 		Commentf("Total includes all fields but checkSum"))

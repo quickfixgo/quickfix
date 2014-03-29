@@ -15,18 +15,18 @@ func (s *IntFieldTests) TestNewField(c *C) {
 	c.Check(field.Value, Equals, 5)
 }
 
-func (s *IntFieldTests) TestConvertValueToBytes(c *C) {
+func (s *IntFieldTests) TestWrite(c *C) {
 	field := NewIntField(tag.Tag(1), 5)
-	bytes := field.ConvertValueToBytes()
+	bytes := field.Write()
 	c.Check(string(bytes), Equals, "5")
 }
 
-func (s *IntFieldTests) TestConvertValueFromBytes(c *C) {
+func (s *IntFieldTests) TestRead(c *C) {
 	field := new(IntField)
-	err := field.ConvertValueFromBytes([]byte("15"))
+	err := field.Read([]byte("15"))
 	c.Check(err, IsNil)
 	c.Check(field.Value, Equals, 15)
 
-	err = field.ConvertValueFromBytes([]byte("blah"))
+	err = field.Read([]byte("blah"))
 	c.Check(err, NotNil)
 }

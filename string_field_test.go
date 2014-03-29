@@ -18,15 +18,15 @@ func (s *StringFieldTests) TestNewField(c *C) {
 	c.Check(field.Value, Equals, "CWB")
 }
 
-func (s *StringFieldTests) TestConvertValueToBytes(c *C) {
+func (s *StringFieldTests) TestWrite(c *C) {
 	field := NewStringField(1, "CWB")
-	bytes := field.ConvertValueToBytes()
+	bytes := field.Write()
 	c.Check(string(bytes), Equals, "CWB")
 }
 
-func (s *StringFieldTests) TestConvertValueFromBytes(c *C) {
+func (s *StringFieldTests) TestRead(c *C) {
 	field := new(StringField)
-	err := field.ConvertValueFromBytes([]byte("blah"))
+	err := field.Read([]byte("blah"))
 
 	c.Check(err, IsNil)
 	c.Check(field.Value, Equals, "blah")

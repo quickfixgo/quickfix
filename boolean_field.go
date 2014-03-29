@@ -5,12 +5,12 @@ import (
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
-//Container for bool, knows part of FieldConverter interface
+//Container for bool, implements FieldValue
 type BooleanValue struct {
 	Value bool
 }
 
-func (f *BooleanValue) ConvertValueFromBytes(bytes []byte) error {
+func (f *BooleanValue) Read(bytes []byte) error {
 	switch string(bytes) {
 	case "Y":
 		f.Value = true
@@ -23,7 +23,7 @@ func (f *BooleanValue) ConvertValueFromBytes(bytes []byte) error {
 	return nil
 }
 
-func (f BooleanValue) ConvertValueToBytes() []byte {
+func (f BooleanValue) Write() []byte {
 	if f.Value {
 		return []byte("Y")
 	}
@@ -31,18 +31,15 @@ func (f BooleanValue) ConvertValueToBytes() []byte {
 	return []byte("N")
 }
 
-//Generic boolean Field Type. Implements FieldConverter
+//Generic boolean Field Type. Implements Field
 type BooleanField struct {
-	FieldTag tag.Tag
+	tagContainer
 	BooleanValue
 }
 
-func (f BooleanField) Tag() tag.Tag {
-	return f.FieldTag
-}
-
 func NewBooleanField(tag tag.Tag, value bool) *BooleanField {
-	f := BooleanField{FieldTag: tag}
+	var f BooleanField
+	f.tag = tag
 	f.Value = value
 
 	return &f

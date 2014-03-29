@@ -32,8 +32,12 @@ func (fieldMap *FieldMapBuilder) init(ordering fieldOrder) {
 	fieldMap.fieldOrder = ordering
 }
 
-func (m FieldMapBuilder) SetField(field FieldConverter) {
-	m.fields[field.Tag()] = newFieldBytes(field.Tag(), field.ConvertValueToBytes())
+func (m FieldMapBuilder) SetField(tag tag.Tag, field FieldValue) {
+	m.fields[tag] = newFieldBytes(tag, field.Write())
+}
+
+func (m FieldMapBuilder) Set(field Field) {
+	m.fields[field.Tag()] = newFieldBytes(field.Tag(), field.Write())
 }
 
 func (m FieldMapBuilder) sortedTags() []tag.Tag {

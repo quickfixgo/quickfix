@@ -19,27 +19,27 @@ func (s *BooleanFieldTests) TestNewField(c *C) {
 	c.Check(field.Value, Equals, false)
 }
 
-func (s *BooleanFieldTests) TestConvertValueToBytes(c *C) {
+func (s *BooleanFieldTests) TestWrite(c *C) {
 	field := NewBooleanField(tag.Tag(1), true)
-	bytes := field.ConvertValueToBytes()
+	bytes := field.Write()
 	c.Check(string(bytes), Equals, "Y")
 
 	field = NewBooleanField(tag.Tag(1), false)
-	bytes = field.ConvertValueToBytes()
+	bytes = field.Write()
 
 	c.Check(string(bytes), Equals, "N")
 }
 
-func (s *BooleanFieldTests) TestConvertValueFromBytes(c *C) {
+func (s *BooleanFieldTests) TestRead(c *C) {
 	field := NewBooleanField(tag.Tag(1), false)
-	err := field.ConvertValueFromBytes([]byte("Y"))
+	err := field.Read([]byte("Y"))
 	c.Check(err, IsNil)
 	c.Check(field.Value, Equals, true)
 
-	err = field.ConvertValueFromBytes([]byte("N"))
+	err = field.Read([]byte("N"))
 	c.Check(err, IsNil)
 	c.Check(field.Value, Equals, false)
 
-	err = field.ConvertValueFromBytes([]byte("blah"))
+	err = field.Read([]byte("blah"))
 	c.Check(err, NotNil)
 }

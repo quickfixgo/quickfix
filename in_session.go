@@ -40,12 +40,12 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 	switch event {
 	case needHeartbeat:
 		heartBt := NewMessageBuilder()
-		heartBt.Header.SetField(NewStringField(tag.MsgType, "0"))
+		heartBt.Header.Set(NewStringField(tag.MsgType, "0"))
 		session.send(heartBt)
 	case peerTimeout:
 		testReq := NewMessageBuilder()
-		testReq.Header.SetField(NewStringField(tag.MsgType, "1"))
-		testReq.Body.SetField(NewStringField(tag.TestReqID, "TEST"))
+		testReq.Header.Set(NewStringField(tag.MsgType, "1"))
+		testReq.Body.Set(NewStringField(tag.TestReqID, "TEST"))
 		session.send(testReq)
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
 		return pendingTimeout{}
@@ -168,8 +168,8 @@ func (state inSession) handleTestRequest(session *session, msg Message) (nextSta
 		session.log.OnEvent("Test Request with no testRequestID")
 	} else {
 		heartBt := NewMessageBuilder()
-		heartBt.Header.SetField(NewStringField(tag.MsgType, "0"))
-		heartBt.Body.SetField(NewStringField(tag.TestReqID, testReq.Value))
+		heartBt.Header.Set(NewStringField(tag.MsgType, "0"))
+		heartBt.Body.Set(NewStringField(tag.TestReqID, testReq.Value))
 		session.send(heartBt)
 	}
 
@@ -248,19 +248,18 @@ func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, 
 	sequenceReset := NewMessageBuilder()
 	session.fillDefaultHeader(sequenceReset)
 
-	sequenceReset.Header.SetField(NewStringField(tag.MsgType, "4"))
-	sequenceReset.Header.SetField(NewIntField(tag.MsgSeqNum, beginSeqNo))
-	sequenceReset.Header.SetField(NewBooleanField(tag.PossDupFlag, true))
-	sequenceReset.Body.SetField(NewIntField(tag.NewSeqNo, endSeqNo))
-	sequenceReset.Body.SetField(NewBooleanField(tag.GapFillFlag, true))
+	sequenceReset.Header.Set(NewStringField(tag.MsgType, "4"))
+	sequenceReset.Header.Set(NewIntField(tag.MsgSeqNum, beginSeqNo))
+	sequenceReset.Header.Set(NewBooleanField(tag.PossDupFlag, true))
+	sequenceReset.Body.Set(NewIntField(tag.NewSeqNo, endSeqNo))
+	sequenceReset.Body.Set(NewBooleanField(tag.GapFillFlag, true))
 
-	//FIXME
-	origSendingTime := NewStringField(tag.SendingTime, "")
-	if err := sequenceReset.Header.Get(origSendingTime); err == nil {
-		sequenceReset.Header.SetField(NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+	origSendingTime := new(StringValue)
+	if err := sequenceReset.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
+		sequenceReset.Header.Set(NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
-	//FIXME
+	//FIXME error check?
 	buffer, _ := sequenceReset.Build()
 	session.sendBuffer(buffer)
 }
@@ -271,13 +270,13 @@ func (state *inSession) generateLogout(session *session) {
 
 func (state *inSession) generateLogoutWithReason(session *session, reason string) {
 	reply := NewMessageBuilder()
-	reply.Header.SetField(NewStringField(tag.MsgType, "5"))
-	reply.Header.SetField(NewStringField(tag.BeginString, session.BeginString))
-	reply.Header.SetField(NewStringField(tag.TargetCompID, session.TargetCompID))
-	reply.Header.SetField(NewStringField(tag.SenderCompID, session.SenderCompID))
+	reply.Header.Set(NewStringField(tag.MsgType, "5"))
+	reply.Header.Set(NewStringField(tag.BeginString, session.BeginString))
+	reply.Header.Set(NewStringField(tag.TargetCompID, session.TargetCompID))
+	reply.Header.Set(NewStringField(tag.SenderCompID, session.SenderCompID))
 
 	if reason != "" {
-		reply.Body.SetField(NewStringField(tag.Text, reason))
+		reply.Body.Set(NewStringField(tag.Text, reason))
 	}
 
 	session.send(reply)

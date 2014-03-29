@@ -11,7 +11,7 @@ type Trailer struct {
 
 //CheckSum is a required field of the trailer
 func (t *Trailer) setCheckSum(checkSum *StringField) {
-	t.SetField(checkSum)
+	t.Set(checkSum)
 }
 
 //Must be called before use

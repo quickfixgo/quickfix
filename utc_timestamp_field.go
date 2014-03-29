@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-//Container for utctimestamp, knows part of FieldConverter interface
+//Container for utctimestamp, implements FieldValue
 type UTCTimestampValue struct {
 	Value    time.Time
 	NoMillis bool
@@ -16,7 +16,7 @@ const (
 	utcTimestampNoMillisFormat = "20060102-15:04:05"
 )
 
-func (f *UTCTimestampValue) ConvertValueFromBytes(bytes []byte) (err error) {
+func (f *UTCTimestampValue) Read(bytes []byte) (err error) {
 	//with millisecs
 	if f.Value, err = time.Parse(utcTimestampFormat, string(bytes)); err == nil {
 		return
@@ -28,7 +28,7 @@ func (f *UTCTimestampValue) ConvertValueFromBytes(bytes []byte) (err error) {
 	return
 }
 
-func (f UTCTimestampValue) ConvertValueToBytes() []byte {
+func (f UTCTimestampValue) Write() []byte {
 	if f.NoMillis {
 		return []byte(f.Value.UTC().Format(utcTimestampNoMillisFormat))
 	}
@@ -36,25 +36,23 @@ func (f UTCTimestampValue) ConvertValueToBytes() []byte {
 	return []byte(f.Value.UTC().Format(utcTimestampFormat))
 }
 
-//Generic utctimestamp Field Type. Implements FieldConverter
+//Generic utctimestamp Field Type. Implements Field
 type UTCTimestampField struct {
-	FieldTag tag.Tag
+	tagContainer
 	UTCTimestampValue
 }
 
-func (f UTCTimestampField) Tag() tag.Tag {
-	return f.FieldTag
-}
-
 func NewUTCTimestampField(tag tag.Tag, value time.Time) *UTCTimestampField {
-	field := UTCTimestampField{FieldTag: tag}
+	var field UTCTimestampField
+	field.tag = tag
 	field.Value = value
 
 	return &field
 }
 
 func NewUTCTimestampFieldNoMillis(tag tag.Tag, value time.Time) *UTCTimestampField {
-	field := UTCTimestampField{FieldTag: tag}
+	var field UTCTimestampField
+	field.tag = tag
 	field.Value = value
 	field.NoMillis = true
 

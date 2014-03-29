@@ -221,8 +221,7 @@ func (d *DataDictionary) checkRequired(msgType string, message Message) (reject 
 
 func (d *DataDictionary) checkRequiredFieldMap(msg Message, requiredTags map[tag.Tag]struct{}, fieldMap FieldMap) (reject MessageReject) {
 	for required := range requiredTags {
-		//FIXME ugly...
-		field := new(StringField)
+		field := new(StringValue)
 		if err := fieldMap.GetField(required, field); err != nil {
 			switch e := err.(type) {
 			case FieldNotFoundError:

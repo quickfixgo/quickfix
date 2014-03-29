@@ -4,32 +4,29 @@ import (
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
-//Container for int, knows part of FieldConverter interface
+//Container for int, implements FieldValue
 type StringValue struct {
 	Value string
 }
 
-func (f *StringValue) ConvertValueFromBytes(bytes []byte) error {
+func (f *StringValue) Read(bytes []byte) error {
 	f.Value = string(bytes)
 	return nil
 }
 
-func (f StringValue) ConvertValueToBytes() []byte {
+func (f StringValue) Write() []byte {
 	return []byte(f.Value)
 }
 
-//Generic string Field Type. Implements FieldConverter.
+//Generic string Field Type. Implements Field.
 type StringField struct {
-	FieldTag tag.Tag
+	tagContainer
 	StringValue
 }
 
-func (f StringField) Tag() tag.Tag {
-	return f.FieldTag
-}
-
 func NewStringField(tag tag.Tag, value string) *StringField {
-	f := StringField{FieldTag: tag}
+	var f StringField
+	f.tag = tag
 	f.Value = value
 
 	return &f

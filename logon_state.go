@@ -41,20 +41,20 @@ func (s logonState) handleLogon(session *session, msg Message) error {
 	}
 
 	reply := NewMessageBuilder()
-	reply.Header.SetField(NewStringField(tag.MsgType, "A"))
-	reply.Header.SetField(NewStringField(tag.BeginString, session.BeginString))
-	reply.Header.SetField(NewStringField(tag.TargetCompID, session.TargetCompID))
-	reply.Header.SetField(NewStringField(tag.SenderCompID, session.SenderCompID))
-	reply.Body.SetField(NewIntField(tag.EncryptMethod, 0))
+	reply.Header.Set(NewStringField(tag.MsgType, "A"))
+	reply.Header.Set(NewStringField(tag.BeginString, session.BeginString))
+	reply.Header.Set(NewStringField(tag.TargetCompID, session.TargetCompID))
+	reply.Header.Set(NewStringField(tag.SenderCompID, session.SenderCompID))
+	reply.Body.Set(NewIntField(tag.EncryptMethod, 0))
 
 	heartBtInt := NewIntField(tag.HeartBtInt, 0)
 	if err := msg.Body.Get(heartBtInt); err == nil {
 		session.heartBeatTimeout = time.Duration(heartBtInt.Value) * time.Second
-		reply.Body.SetField(heartBtInt)
+		reply.Body.Set(heartBtInt)
 	}
 
 	if session.DefaultApplVerID != "" {
-		reply.Trailer.SetField(NewStringField(tag.DefaultApplVerID, session.DefaultApplVerID))
+		reply.Trailer.Set(NewStringField(tag.DefaultApplVerID, session.DefaultApplVerID))
 	}
 
 	session.log.OnEvent("Received logon request")
