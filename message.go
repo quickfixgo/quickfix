@@ -12,6 +12,9 @@ type Message struct {
 	Body    FieldMap
 
 	rawMessage []byte
+
+	//tags as they appear in the raw message
+	tags []tag.Tag
 }
 
 func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
@@ -21,6 +24,9 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	msg.Body.init()
 	msg.rawMessage = rawMessage
 
+	//BeginString, BodyLength, MsgType, CheckSum - at least 4
+	msg.tags = make([]tag.Tag, 0, 4)
+
 	var parsedFieldBytes *fieldBytes
 	var err error
 
@@ -29,27 +35,33 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 		return nil, err
 	} else {
 		msg.Header.append(tag.BeginString, parsedFieldBytes)
+		msg.tags = append(msg.tags, tag.BeginString)
 	}
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BodyLength, rawMessage); err != nil {
 		return nil, err
 	} else {
 		msg.Header.append(tag.BodyLength, parsedFieldBytes)
+		msg.tags = append(msg.tags, tag.BodyLength)
 	}
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.MsgType, rawMessage); err != nil {
 		return nil, err
 	} else {
 		msg.Header.append(tag.MsgType, parsedFieldBytes)
+		msg.tags = append(msg.tags, tag.MsgType)
 	}
 
 	var fieldTag tag.Tag
 	for {
 		fieldTag, parsedFieldBytes, rawMessage, err = extractField(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+
+		msg.tags = append(msg.tags, fieldTag)
 
 		switch {
-		case err != nil:
-			return nil, err
 		case fieldTag.IsHeader():
 			msg.Header.append(fieldTag, parsedFieldBytes)
 		case fieldTag.IsTrailer():

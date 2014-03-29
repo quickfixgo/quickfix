@@ -16,6 +16,7 @@ const (
 	CompIDProblem                   RejectReason = 9
 	SendingTimeAccuracyProblem      RejectReason = 10
 	InvalidMsgType                  RejectReason = 11
+	TagSpecifiedOutOfRequiredOrder  RejectReason = 14
 )
 
 func NewInvalidTagNumber(msg Message, tag tag.Tag) MessageReject {
@@ -45,6 +46,10 @@ func NewValueIsIncorrect(msg Message, tag *tag.Tag) MessageReject {
 
 func NewIncorrectDataFormatForValue(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Incorrect data format for value", rejectReason: IncorrectDataFormatForValue, refTagID: &tag}
+}
+
+func NewTagSpecifiedOutOfRequiredOrder(msg Message, tag tag.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Tag specified out of required order", rejectReason: TagSpecifiedOutOfRequiredOrder, refTagID: &tag}
 }
 
 func NewInvalidMessageType(msg Message) MessageReject {

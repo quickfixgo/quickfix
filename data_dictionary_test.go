@@ -218,3 +218,16 @@ func (s *DataDictionaryTests) TestValidateIncorrectDataFormatForValue(c *C) {
 	c.Check(reject.RejectReason(), Equals, IncorrectDataFormatForValue)
 	c.Check(*reject.RefTagID(), Equals, tag.OrderQty)
 }
+
+func (s *DataDictionaryTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
+	dict, _ := NewDataDictionary("spec/FIX40.xml")
+	builder := s.createFIX40NewOrderSingle()
+	//should be in header
+	builder.Body.Set(NewStringField(tag.OnBehalfOfCompID, "CWB"))
+	msg, _ := builder.Build()
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, TagSpecifiedOutOfRequiredOrder)
+	c.Check(*reject.RefTagID(), Equals, tag.OnBehalfOfCompID)
+
+}

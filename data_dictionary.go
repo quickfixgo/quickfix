@@ -200,7 +200,31 @@ func (d *DataDictionary) validate(message Message) (reject MessageReject) {
 		return
 	}
 
+	if reject = d.checkOrder(message); reject != nil {
+		return
+	}
+
 	return
+}
+
+func (d *DataDictionary) checkOrder(message Message) (reject MessageReject) {
+	inHeader := true
+	inTrailer := false
+	for _, tag := range message.tags {
+		switch {
+		case inHeader && tag.IsHeader():
+		case inHeader && !tag.IsHeader():
+			inHeader = false
+		case !inHeader && tag.IsHeader():
+			return NewTagSpecifiedOutOfRequiredOrder(message, tag)
+		case tag.IsTrailer():
+			inTrailer = true
+		case inTrailer && !tag.IsTrailer():
+			return NewTagSpecifiedOutOfRequiredOrder(message, tag)
+		}
+	}
+
+	return nil
 }
 
 func (d *DataDictionary) checkRequired(msgType string, message Message) (reject MessageReject) {
