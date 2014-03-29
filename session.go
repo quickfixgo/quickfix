@@ -288,7 +288,7 @@ func (s *session) checkBeginString(msg Message) MessageReject {
 }
 
 func (s *session) doReject(rej MessageReject) {
-	reply := NewMessageBuilder()
+	reply := rej.RejectedMessage().ReverseRoute()
 
 	if s.BeginString >= BeginString_FIX42 {
 

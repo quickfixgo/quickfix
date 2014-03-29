@@ -88,6 +88,41 @@ func (m Message) Bytes() []byte {
 	return m.rawMessage
 }
 
+func (m Message) ReverseRoute() *MessageBuilder {
+	reverseBuilder := NewMessageBuilder()
+
+	copy := func(src tag.Tag, dest tag.Tag) {
+		if field := new(StringValue); m.Header.GetField(src, field) == nil {
+			if len(field.Value) != 0 {
+				reverseBuilder.Header.SetField(dest, field)
+			}
+		}
+	}
+
+	copy(tag.SenderCompID, tag.TargetCompID)
+	copy(tag.SenderSubID, tag.TargetSubID)
+	copy(tag.SenderLocationID, tag.TargetLocationID)
+
+	copy(tag.TargetCompID, tag.SenderCompID)
+	copy(tag.TargetSubID, tag.SenderSubID)
+	copy(tag.TargetLocationID, tag.SenderLocationID)
+
+	copy(tag.OnBehalfOfCompID, tag.DeliverToCompID)
+	copy(tag.OnBehalfOfSubID, tag.DeliverToSubID)
+	copy(tag.DeliverToCompID, tag.OnBehalfOfCompID)
+	copy(tag.DeliverToSubID, tag.OnBehalfOfSubID)
+
+	//tags added in 4.1
+	if beginString := new(StringValue); m.Header.GetField(tag.BeginString, beginString) == nil {
+		if beginString.Value != BeginString_FIX40 {
+			copy(tag.OnBehalfOfLocationID, tag.DeliverToLocationID)
+			copy(tag.DeliverToLocationID, tag.OnBehalfOfLocationID)
+		}
+	}
+
+	return reverseBuilder
+}
+
 func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field *fieldBytes, remBuffer []byte, err error) {
 	var tag tag.Tag
 	tag, field, remBuffer, err = extractField(buffer)
