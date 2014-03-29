@@ -103,24 +103,6 @@ func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessage(c *C) {
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, TagNotDefinedForThisMessageType)
 	c.Check(*reject.RefTagID(), Equals, tag.Tag(41))
-
-	builder = s.createFIX40NewOrderSingle()
-	builder.Header.Set(NewStringField(41, "hello"))
-	msg, _ = builder.Build()
-
-	reject = dict.validate(*msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, TagNotDefinedForThisMessageType)
-	c.Check(*reject.RefTagID(), Equals, tag.Tag(41))
-
-	builder = s.createFIX40NewOrderSingle()
-	builder.Trailer.Set(NewStringField(41, "hello"))
-	msg, _ = builder.Build()
-
-	reject = dict.validate(*msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, TagNotDefinedForThisMessageType)
-	c.Check(*reject.RefTagID(), Equals, tag.Tag(41))
 }
 
 func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessageComponent(c *C) {

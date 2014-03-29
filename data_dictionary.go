@@ -196,11 +196,11 @@ func (d *DataDictionary) validate(message Message) (reject MessageReject) {
 		return
 	}
 
-	if reject = d.iterate(msgType.Value, message); reject != nil {
+	if reject = d.checkOrder(message); reject != nil {
 		return
 	}
 
-	if reject = d.checkOrder(message); reject != nil {
+	if reject = d.iterate(msgType.Value, message); reject != nil {
 		return
 	}
 
