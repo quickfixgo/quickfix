@@ -297,7 +297,12 @@ func (s *session) doReject(rej MessageReject) {
 			reply.Body.Set(NewIntField(tag.BusinessRejectReason, int(rej.RejectReason())))
 		} else {
 			reply.Header.Set(NewStringField(tag.MsgType, "3"))
-			reply.Body.Set(NewIntField(tag.SessionRejectReason, int(rej.RejectReason())))
+			switch {
+			default:
+				reply.Body.Set(NewIntField(tag.SessionRejectReason, int(rej.RejectReason())))
+			case rej.RejectReason() > InvalidMsgType && s.BeginString == BeginString_FIX42:
+				//fix42 knows up to invalid msg type
+			}
 		}
 		reply.Body.Set(NewStringField(tag.Text, rej.Error()))
 

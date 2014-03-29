@@ -21,7 +21,6 @@ type UTCDateOnlyValue struct{ StringValue }
 type TZTimeOnlyValue struct{ StringValue }
 type TZTimestampValue struct{ StringValue }
 
-type FloatValue struct{ StringValue }
 type QtyValue struct{ FloatValue }
 type PriceValue struct{ FloatValue }
 type PriceOffsetValue struct{ FloatValue }

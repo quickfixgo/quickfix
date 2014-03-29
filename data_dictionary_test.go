@@ -215,12 +215,22 @@ func (s *DataDictionaryTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 
 func (s *DataDictionaryTests) TestValidateTagAppearsMoreThanOnce(c *C) {
 
-	msg, err := MessageFromParsedBytes([]byte("8=FIX.4.09=8035=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
-	c.Check(err, NotNil)
+	msg, err := MessageFromParsedBytes([]byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
+	c.Check(err, IsNil)
 
 	dict, _ := NewDataDictionary("spec/FIX40.xml")
 	reject := dict.validate(*msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, TagAppearsMoreThanOnce)
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
+}
+
+func (s *DataDictionaryTests) TestFloatValidation(c *C) {
+	msg, err := MessageFromParsedBytes([]byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"))
+	c.Check(err, IsNil)
+
+	dict, _ := NewDataDictionary("spec/FIX42.xml")
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, IncorrectDataFormatForValue)
 }
