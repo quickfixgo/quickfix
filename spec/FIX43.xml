@@ -3720,7 +3720,7 @@
   <field number='457' name='NoUnderlyingSecurityAltID' type='NUMINGROUP' />
   <field number='458' name='UnderlyingSecurityAltID' type='STRING' />
   <field number='459' name='UnderlyingSecurityAltIDSource' type='STRING' />
-  <field number='460' name='Product' type='INT '>
+  <field number='460' name='Product' type='INT'>
    <value enum='8' description='LOAN' />
    <value enum='12' description='OTHER' />
    <value enum='11' description='MUNICIPAL' />
@@ -4000,7 +4000,7 @@
   <field number='533' name='TotalAffectedOrders' type='INT' />
   <field number='534' name='NoAffectedOrders' type='INT' />
   <field number='535' name='AffectedOrderID' type='STRING' />
-  <field number='536' name='AffectedSecondaryOrderID' type='STIRNG' />
+  <field number='536' name='AffectedSecondaryOrderID' type='STRING' />
   <field number='537' name='QuoteType' type='INT'>
    <value enum='0' description='INDICATIVE' />
    <value enum='1' description='TRADEABLE' />

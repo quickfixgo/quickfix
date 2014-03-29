@@ -3,6 +3,7 @@ package quickfixgo
 import (
 	"github.com/cbusbey/quickfixgo/tag"
 	. "launchpad.net/gocheck"
+	"time"
 )
 
 var _ = Suite(&DataDictionaryTests{})
@@ -26,14 +27,14 @@ func (s *DataDictionaryTests) createFIX40NewOrderSingle() *MessageBuilder {
 	msg.Header.SetField(NewStringField(tag.SenderCompID, "0"))
 	msg.Header.SetField(NewStringField(tag.TargetCompID, "0"))
 	msg.Header.SetField(NewStringField(tag.MsgSeqNum, "0"))
-	msg.Header.SetField(NewStringField(tag.SendingTime, "0"))
+	msg.Header.SetField(NewUTCTimestampField(tag.SendingTime, time.Now()))
 
 	msg.Body.SetField(NewStringField(tag.ClOrdID, "A"))
 	msg.Body.SetField(NewStringField(tag.HandlInst, "1"))
 	msg.Body.SetField(NewStringField(tag.Symbol, "A"))
 	msg.Body.SetField(NewStringField(tag.Side, "1"))
-	msg.Body.SetField(NewStringField(tag.OrderQty, "A"))
 	msg.Body.SetField(NewStringField(tag.OrdType, "1"))
+	msg.Body.SetField(NewIntField(tag.OrderQty, 5))
 
 	msg.Trailer.SetField(NewStringField(tag.CheckSum, "000"))
 
@@ -48,15 +49,15 @@ func (s *DataDictionaryTests) createFIX43NewOrderSingle() *MessageBuilder {
 	msg.Header.SetField(NewStringField(tag.SenderCompID, "0"))
 	msg.Header.SetField(NewStringField(tag.TargetCompID, "0"))
 	msg.Header.SetField(NewStringField(tag.MsgSeqNum, "0"))
-	msg.Header.SetField(NewStringField(tag.SendingTime, "0"))
+	msg.Header.SetField(NewUTCTimestampField(tag.SendingTime, time.Now()))
 
 	msg.Body.SetField(NewStringField(tag.ClOrdID, "A"))
 	msg.Body.SetField(NewStringField(tag.HandlInst, "1"))
 	msg.Body.SetField(NewStringField(tag.Symbol, "A"))
 	msg.Body.SetField(NewStringField(tag.Side, "1"))
-	msg.Body.SetField(NewStringField(tag.OrderQty, "A"))
+	msg.Body.SetField(NewIntField(tag.OrderQty, 5))
 	msg.Body.SetField(NewStringField(tag.OrdType, "1"))
-	msg.Body.SetField(NewStringField(tag.TransactTime, "1"))
+	msg.Body.SetField(NewUTCTimestampField(tag.TransactTime, time.Now()))
 
 	msg.Trailer.SetField(NewStringField(tag.CheckSum, "000"))
 
@@ -123,9 +124,9 @@ func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessage(c *C) {
 }
 
 func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessageComponent(c *C) {
-	dict, _ := NewDataDictionary("spec/FIX43.xml")
+	dict, err := NewDataDictionary("spec/FIX43.xml")
+	c.Check(err, IsNil)
 	builder := s.createFIX43NewOrderSingle()
-
 	msg, _ := builder.Build()
 
 	reject := dict.validate(*msg)
@@ -205,4 +206,15 @@ func (s *DataDictionaryTests) TestValidateValueIsIncorrect(c *C) {
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, ValueIsIncorrect)
 	c.Check(*reject.RefTagID(), Equals, tag.HandlInst)
+}
+
+func (s *DataDictionaryTests) TestValidateIncorrectDataFormatForValue(c *C) {
+	dict, _ := NewDataDictionary("spec/FIX40.xml")
+	builder := s.createFIX40NewOrderSingle()
+	builder.Body.SetField(NewStringField(tag.OrderQty, "+200.00"))
+	msg, _ := builder.Build()
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, IncorrectDataFormatForValue)
+	c.Check(*reject.RefTagID(), Equals, tag.OrderQty)
 }

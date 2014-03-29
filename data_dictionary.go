@@ -18,8 +18,87 @@ func (e enumSet) add(enum string) {
 	e[enum] = struct{}{}
 }
 
+type fieldDefinition struct {
+	enums     enumSet
+	prototype FieldValue
+}
+
+func newFieldDefinition(fieldType spec.FieldType) (fieldDef fieldDefinition, err error) {
+	fieldDef.enums = make(enumSet)
+
+	switch fieldType.Type {
+	case "STRING":
+		fieldDef.prototype = new(StringValue)
+	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
+		fieldDef.prototype = new(MultipleStringValue)
+	case "MULTIPLECHARVALUE":
+		fieldDef.prototype = new(MultipleCharValue)
+	case "CHAR":
+		fieldDef.prototype = new(CharValue)
+	case "CURRENCY":
+		fieldDef.prototype = new(CurrencyValue)
+	case "DATA":
+		fieldDef.prototype = new(DataValue)
+	case "MONTHYEAR":
+		fieldDef.prototype = new(MonthYearValue)
+	case "LOCALMKTDATE", "DATE":
+		fieldDef.prototype = new(LocalMktDateValue)
+	case "EXCHANGE":
+		fieldDef.prototype = new(ExchangeValue)
+	case "LANGUAGE":
+		fieldDef.prototype = new(LanguageValue)
+	case "XMLDATA":
+		fieldDef.prototype = new(XMLDataValue)
+	case "COUNTRY":
+		fieldDef.prototype = new(CountryValue)
+	case "UTCTIMEONLY":
+		fieldDef.prototype = new(UTCTimeOnlyValue)
+	case "UTCDATEONLY", "UTCDATE":
+		fieldDef.prototype = new(UTCDateOnlyValue)
+	case "TZTIMEONLY":
+		fieldDef.prototype = new(TZTimeOnlyValue)
+	case "TZTIMESTAMP":
+		fieldDef.prototype = new(TZTimestampValue)
+	case "BOOLEAN":
+		fieldDef.prototype = new(BooleanValue)
+	case "INT":
+		fieldDef.prototype = new(IntValue)
+	case "LENGTH":
+		fieldDef.prototype = new(LengthValue)
+	case "DAYOFMONTH":
+		fieldDef.prototype = new(DayOfMonthValue)
+	case "NUMINGROUP":
+		fieldDef.prototype = new(NumInGroupValue)
+	case "SEQNUM":
+		fieldDef.prototype = new(SeqNumValue)
+	case "UTCTIMESTAMP", "TIME":
+		fieldDef.prototype = new(UTCTimestampValue)
+	case "FLOAT":
+		fieldDef.prototype = new(FloatValue)
+	case "QTY", "QUANTITY":
+		fieldDef.prototype = new(QtyValue)
+	case "AMT":
+		fieldDef.prototype = new(AmtValue)
+	case "PRICE":
+		fieldDef.prototype = new(PriceValue)
+	case "PRICEOFFSET":
+		fieldDef.prototype = new(PriceOffsetValue)
+	case "PERCENTAGE":
+		fieldDef.prototype = new(PercentageValue)
+	default:
+		err = fmt.Errorf("Unknown type '%v' for tag '%v'", fieldType.Type, fieldType.Number)
+		return
+	}
+
+	for _, value := range fieldType.FieldValues {
+		fieldDef.enums.add(value.Enum)
+	}
+
+	return
+}
+
 type DataDictionary struct {
-	allFields map[tag.Tag]enumSet
+	allFields map[tag.Tag]fieldDefinition
 
 	messageTags  map[string]tagSet
 	requiredTags map[string]tagSet
@@ -39,11 +118,13 @@ func NewDataDictionary(path string) (*DataDictionary, error) {
 
 	d := new(DataDictionary)
 
-	d.allFields = make(map[tag.Tag]enumSet)
+	d.allFields = make(map[tag.Tag]fieldDefinition)
+
 	for _, fieldType := range fixSpec.FieldTypeMap {
-		d.allFields[tag.Tag(fieldType.Number)] = make(enumSet)
-		for _, value := range fieldType.FieldValues {
-			d.allFields[tag.Tag(fieldType.Number)].add(value.Enum)
+		if fieldDef, err := newFieldDefinition(fieldType); err != nil {
+			return nil, err
+		} else {
+			d.allFields[tag.Tag(fieldType.Number)] = fieldDef
 		}
 	}
 
@@ -183,11 +264,18 @@ func (d *DataDictionary) iterateFieldMap(message Message, validFields tagSet, fi
 	}
 
 	for tag, fieldValue := range fieldMap.fields {
-		allowedValues := d.allFields[tag]
+		allowedValues := d.allFields[tag].enums
 		if len(allowedValues) != 0 {
 			if _, validValue := allowedValues[string(fieldValue.Value)]; !validValue {
 				return NewValueIsIncorrect(message, &tag)
 			}
+		}
+	}
+
+	for tag, _ := range fieldMap.fields {
+		prototype := d.allFields[tag].prototype
+		if err := fieldMap.GetField(tag, prototype); err != nil {
+			return NewIncorrectDataFormatForValue(message, tag)
 		}
 	}
 

@@ -12,6 +12,7 @@ const (
 	UnsupportedMessageType          RejectReason = 3
 	TagSpecifiedWithoutAValue       RejectReason = 4
 	ValueIsIncorrect                RejectReason = 5
+	IncorrectDataFormatForValue     RejectReason = 6
 	CompIDProblem                   RejectReason = 9
 	SendingTimeAccuracyProblem      RejectReason = 10
 	InvalidMsgType                  RejectReason = 11
@@ -40,6 +41,10 @@ func NewTagSpecifiedWithoutAValue(msg Message, tag tag.Tag) MessageReject {
 //FIXME: to be compliant with legacy tests, for certain value issues, do not include reftag? (11c_NewSeqNoLess)
 func NewValueIsIncorrect(msg Message, tag *tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Value is incorrect (out of range) for this tag", rejectReason: ValueIsIncorrect, refTagID: tag}
+}
+
+func NewIncorrectDataFormatForValue(msg Message, tag tag.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Incorrect data format for value", rejectReason: IncorrectDataFormatForValue, refTagID: &tag}
 }
 
 func NewInvalidMessageType(msg Message) MessageReject {

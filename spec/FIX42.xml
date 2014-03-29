@@ -2037,7 +2037,7 @@
    <value enum='Y' description='YES' />
   </field>
   <field number='124' name='NoExecs' type='INT' />
-  <field number='125' name='CxlType' type=' CHAR' />
+  <field number='125' name='CxlType' type='CHAR' />
   <field number='126' name='ExpireTime' type='UTCTIMESTAMP' />
   <field number='127' name='DKReason' type='CHAR'>
    <value enum='A' description='UNKNOWN_SYMBOL' />
