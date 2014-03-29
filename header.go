@@ -7,11 +7,11 @@ import (
 
 //Collection of fields representing the header of a FIX message
 type Header struct {
-	FieldMap
+	FieldMapBuilder
 }
 
 func (header *Header) init() {
-	header.FieldMap.init(headerFieldOrder)
+	header.FieldMapBuilder.init(headerFieldOrder)
 }
 
 //The first 3 fields in the message header must be 8,9,35

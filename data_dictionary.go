@@ -123,7 +123,7 @@ func (d *DataDictionary) validate(message Message) (reject MessageReject) {
 }
 
 func (d *DataDictionary) checkRequired(msgType string, message Message) (reject MessageReject) {
-	if reject = d.checkRequiredFieldMap(message, d.requiredHeaderTags, message.Header.FieldMap); reject != nil {
+	if reject = d.checkRequiredFieldMap(message, d.requiredHeaderTags, message.Header); reject != nil {
 		return
 	}
 
@@ -131,7 +131,7 @@ func (d *DataDictionary) checkRequired(msgType string, message Message) (reject 
 		return
 	}
 
-	if reject = d.checkRequiredFieldMap(message, d.requiredTrailerTags, message.Trailer.FieldMap); reject != nil {
+	if reject = d.checkRequiredFieldMap(message, d.requiredTrailerTags, message.Trailer); reject != nil {
 		return
 	}
 
@@ -156,13 +156,13 @@ func (d *DataDictionary) checkRequiredFieldMap(msg Message, requiredTags map[tag
 }
 
 func (d *DataDictionary) iterate(msgType string, message Message) (reject MessageReject) {
-	if reject = d.iterateFieldMap(message, d.headerTags, message.Header.FieldMap); reject != nil {
+	if reject = d.iterateFieldMap(message, d.headerTags, message.Header); reject != nil {
 		return
 	}
 	if reject = d.iterateFieldMap(message, d.messageTags[msgType], message.Body); reject != nil {
 		return
 	}
-	if reject = d.iterateFieldMap(message, d.trailerTags, message.Trailer.FieldMap); reject != nil {
+	if reject = d.iterateFieldMap(message, d.trailerTags, message.Trailer); reject != nil {
 		return
 	}
 

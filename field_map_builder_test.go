@@ -4,15 +4,15 @@ import (
 	. "launchpad.net/gocheck"
 )
 
-var _ = Suite(&FieldMapTests{})
+var _ = Suite(&FieldMapBuilderTests{})
 
-type FieldMapTests struct{ fieldMap FieldMap }
+type FieldMapBuilderTests struct{ fieldMap FieldMapBuilder }
 
-func (s *FieldMapTests) SetUpTest(c *C) {
+func (s *FieldMapBuilderTests) SetUpTest(c *C) {
 	s.fieldMap.init(normalFieldOrder)
 }
 
-func (s *FieldMapTests) TestSetAndGet(c *C) {
+func (s *FieldMapBuilderTests) TestSetAndGet(c *C) {
 	field1 := NewStringField(1, "hello")
 	field2 := NewStringField(2, "world")
 
@@ -34,7 +34,7 @@ func (s *FieldMapTests) TestSetAndGet(c *C) {
 	c.Check(err, NotNil)
 }
 
-func (s *FieldMapTests) TestLength(c *C) {
+func (s *FieldMapBuilderTests) TestLength(c *C) {
 	f1 := NewStringField(1, "hello")
 	f2 := NewStringField(2, "world")
 
@@ -52,7 +52,7 @@ func (s *FieldMapTests) TestLength(c *C) {
 		Commentf("Length includes all fields but beginString, bodyLength, and checkSum"))
 }
 
-func (s *FieldMapTests) TestTotal(c *C) {
+func (s *FieldMapBuilderTests) TestTotal(c *C) {
 	f1 := NewStringField(1, "hello")
 	f2 := NewStringField(2, "world")
 

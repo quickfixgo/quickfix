@@ -6,7 +6,7 @@ import (
 
 //Collection of fields representing the trailer of a FIX message
 type Trailer struct {
-	FieldMap
+	FieldMapBuilder
 }
 
 //CheckSum is a required field of the trailer
@@ -16,7 +16,7 @@ func (t *Trailer) setCheckSum(checkSum *StringField) {
 
 //Must be called before use
 func (t *Trailer) init() {
-	t.FieldMap.init(trailerFieldOrder)
+	t.FieldMapBuilder.init(trailerFieldOrder)
 }
 
 //Field 10 must be last in the trailer

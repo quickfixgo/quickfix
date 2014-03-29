@@ -12,61 +12,72 @@ type SessionTests struct {
 	session
 }
 
+func getBuilder() *MessageBuilder {
+	builder := NewMessageBuilder()
+	builder.Header.SetField(NewStringField(tag.BeginString, BeginString_FIX40))
+	builder.Header.SetField(NewStringField(tag.MsgType, "D"))
+	return builder
+}
+
 func (s *SessionTests) TestCheckCorrectCompID(c *C) {
 	s.session.SessionID.TargetCompID = "TAR"
 	s.session.SessionID.SenderCompID = "SND"
 
-	msg := NewMessage()
+	builder := getBuilder()
+	msg, _ := builder.Build()
 	//missing target comp id or sender comp id
 	err := s.session.checkCompID(*msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, RequiredTagMissing)
 
-	msg.Header.SetField(NewStringField(tag.SenderCompID, "TAR"))
+	builder.Header.SetField(NewStringField(tag.SenderCompID, "TAR"))
+	msg, _ = builder.Build()
 	err = s.session.checkCompID(*msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, RequiredTagMissing)
 
 	//comp wrong
-	msg.Header.SetField(NewStringField(tag.TargetCompID, "JCD"))
+	builder.Header.SetField(NewStringField(tag.TargetCompID, "JCD"))
+	msg, _ = builder.Build()
 	err = s.session.checkCompID(*msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, CompIDProblem)
 
-	msg.Header.SetField(NewStringField(tag.TargetCompID, "SND"))
-	msg.Header.SetField(NewStringField(tag.SenderCompID, "JCD"))
+	builder.Header.SetField(NewStringField(tag.TargetCompID, "SND"))
+	builder.Header.SetField(NewStringField(tag.SenderCompID, "JCD"))
+	msg, _ = builder.Build()
 	err = s.session.checkCompID(*msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, CompIDProblem)
 
-	msg.Header.SetField(NewStringField(tag.TargetCompID, "SND"))
-	msg.Header.SetField(NewStringField(tag.SenderCompID, "TAR"))
+	builder.Header.SetField(NewStringField(tag.TargetCompID, "SND"))
+	builder.Header.SetField(NewStringField(tag.SenderCompID, "TAR"))
+	msg, _ = builder.Build()
 	err = s.session.checkCompID(*msg)
 	c.Check(err, IsNil)
 }
 
 func (s *SessionTests) TestCheckBeginString(c *C) {
 	s.session.SessionID.BeginString = "FIX.4.2"
-	msg := NewMessage()
-
-	//missing begin string
-	err := s.session.checkBeginString(*msg)
-	c.Check(err.RejectReason(), Equals, RequiredTagMissing)
+	builder := getBuilder()
 
 	//wrong value
-	msg.Header.SetField(NewStringField(tag.BeginString, "FIX.4.4"))
-	err = s.session.checkBeginString(*msg)
+	builder.Header.SetField(NewStringField(tag.BeginString, "FIX.4.4"))
+	msg, _ := builder.Build()
+	err := s.session.checkBeginString(*msg)
 	c.Check(err, NotNil)
 	c.Check(err, FitsTypeOf, IncorrectBeginString{})
 
-	msg.Header.SetField(NewStringField(tag.BeginString, s.session.SessionID.BeginString))
+	builder.Header.SetField(NewStringField(tag.BeginString, s.session.SessionID.BeginString))
+	msg, _ = builder.Build()
 	err = s.session.checkBeginString(*msg)
 	c.Check(err, IsNil)
 
 }
 
 func (s *SessionTests) TestCheckTargetTooHigh(c *C) {
-	msg := NewMessage()
+	builder := getBuilder()
+	msg, _ := builder.Build()
 	s.session.expectedSeqNum = 45
 
 	//missing seq number
@@ -75,19 +86,22 @@ func (s *SessionTests) TestCheckTargetTooHigh(c *C) {
 	c.Check(err.RejectReason(), Equals, RequiredTagMissing)
 
 	//too low
-	msg.Header.SetField(NewIntField(tag.MsgSeqNum, 47))
+	builder.Header.SetField(NewIntField(tag.MsgSeqNum, 47))
+	msg, _ = builder.Build()
 	err = s.session.checkTargetTooHigh(*msg)
 	c.Check(err, NotNil)
 	c.Check(err, FitsTypeOf, TargetTooHigh{})
 
 	//spot on
-	msg.Header.SetField(NewIntField(tag.MsgSeqNum, 45))
+	builder.Header.SetField(NewIntField(tag.MsgSeqNum, 45))
+	msg, _ = builder.Build()
 	err = s.session.checkTargetTooHigh(*msg)
 	c.Check(err, IsNil)
 }
 
 func (s *SessionTests) TestCheckSendingTime(c *C) {
-	msg := NewMessage()
+	builder := getBuilder()
+	msg, _ := builder.Build()
 
 	//missing sending time
 	err := s.session.checkSendingTime(*msg)
@@ -96,27 +110,31 @@ func (s *SessionTests) TestCheckSendingTime(c *C) {
 
 	//sending time too late
 	sendingTime := time.Now().Add(time.Duration(-200) * time.Second)
-	msg.Header.SetField(NewUTCTimestampField(tag.SendingTime, sendingTime))
+	builder.Header.SetField(NewUTCTimestampField(tag.SendingTime, sendingTime))
+	msg, _ = builder.Build()
 	err = s.session.checkSendingTime(*msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, SendingTimeAccuracyProblem)
 
 	//future sending time
 	sendingTime = time.Now().Add(time.Duration(200) * time.Second)
-	msg.Header.SetField(NewUTCTimestampField(tag.SendingTime, sendingTime))
+	builder.Header.SetField(NewUTCTimestampField(tag.SendingTime, sendingTime))
+	msg, _ = builder.Build()
 	err = s.session.checkSendingTime(*msg)
 	c.Check(err, NotNil)
 	c.Check(err.RejectReason(), Equals, SendingTimeAccuracyProblem)
 
 	//sending time ok
 	sendingTime = time.Now()
-	msg.Header.SetField(NewUTCTimestampField(tag.SendingTime, sendingTime))
+	builder.Header.SetField(NewUTCTimestampField(tag.SendingTime, sendingTime))
+	msg, _ = builder.Build()
 	err = s.session.checkSendingTime(*msg)
 	c.Check(err, IsNil)
 }
 
 func (s *SessionTests) TestCheckTargetTooLow(c *C) {
-	msg := NewMessage()
+	builder := getBuilder()
+	msg, _ := builder.Build()
 	s.session.expectedSeqNum = 45
 
 	//missing seq number
@@ -125,13 +143,15 @@ func (s *SessionTests) TestCheckTargetTooLow(c *C) {
 	c.Check(err.RejectReason(), Equals, RequiredTagMissing)
 
 	//too low
-	msg.Header.SetField(NewIntField(tag.MsgSeqNum, 43))
+	builder.Header.SetField(NewIntField(tag.MsgSeqNum, 43))
+	msg, _ = builder.Build()
 	err = s.session.checkTargetTooLow(*msg)
 	c.Check(err, NotNil)
 	c.Check(err, FitsTypeOf, TargetTooLow{})
 
 	//spot on
-	msg.Header.SetField(NewIntField(tag.MsgSeqNum, 45))
+	builder.Header.SetField(NewIntField(tag.MsgSeqNum, 45))
+	msg, _ = builder.Build()
 	err = s.session.checkTargetTooLow(*msg)
 	c.Check(err, IsNil)
 }

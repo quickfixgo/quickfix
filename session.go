@@ -16,7 +16,7 @@ type session struct {
 	SessionID
 
 	messageOut chan Buffer
-	toSend     chan MessageBuilder
+	toSend     chan *MessageBuilder
 
 	sessionEvent chan event
 	application  Application
@@ -65,7 +65,7 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 		}
 	}
 
-	session.toSend = make(chan MessageBuilder)
+	session.toSend = make(chan *MessageBuilder)
 
 	session.sessionEvent = make(chan event)
 	session.log = logFactory.CreateSessionLog(session.SessionID.String())
@@ -92,57 +92,64 @@ func (s *session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *session) insertSendingTime(builder MessageBuilder) {
+func (s *session) insertSendingTime(builder *MessageBuilder) {
 	sendingTime := time.Now().UTC()
 
 	if s.BeginString >= BeginString_FIX42 {
-		builder.SetHeaderField(NewUTCTimestampField(tag.SendingTime, sendingTime))
+		builder.Header.SetField(NewUTCTimestampField(tag.SendingTime, sendingTime))
 	} else {
-		builder.SetHeaderField(NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
+		builder.Header.SetField(NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
 	}
 }
 
-func (s *session) fillDefaultHeader(builder MessageBuilder) {
-	builder.SetHeaderField(NewStringField(tag.BeginString, s.BeginString))
-	builder.SetHeaderField(NewStringField(tag.SenderCompID, s.SenderCompID))
-	builder.SetHeaderField(NewStringField(tag.TargetCompID, s.TargetCompID))
+func (s *session) fillDefaultHeader(builder *MessageBuilder) {
+	builder.Header.SetField(NewStringField(tag.BeginString, s.BeginString))
+	builder.Header.SetField(NewStringField(tag.SenderCompID, s.SenderCompID))
+	builder.Header.SetField(NewStringField(tag.TargetCompID, s.TargetCompID))
 
 	s.insertSendingTime(builder)
 }
 
-func (s *session) resend(m *Message) {
-	m.SetHeaderField(NewBooleanField(tag.PossDupFlag, true))
+func (s *session) resend(m *MessageBuilder) {
+	m.Header.SetField(NewBooleanField(tag.PossDupFlag, true))
 
 	//FIXME
 	origSendingTime := NewStringField(tag.SendingTime, "")
 	if err := m.Header.Get(origSendingTime); err == nil {
-		m.SetHeaderField(NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+		m.Header.SetField(NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
 	s.insertSendingTime(m)
 
-	buffer := m.Build()
-	s.sendBuffer(buffer)
+	if buffer, err := m.Build(); err != nil {
+		panic(err)
+	} else {
+		s.sendBuffer(buffer)
+	}
 }
 
-func (s *session) send(builder MessageBuilder) {
+func (s *session) send(builder *MessageBuilder) {
 	s.fillDefaultHeader(builder)
-	builder.SetHeaderField(NewIntField(tag.MsgSeqNum, s.seqNum))
+	builder.Header.SetField(NewIntField(tag.MsgSeqNum, s.seqNum))
 
-	buffer := builder.Build()
-	s.store.SaveMessage(s.seqNum, buffer)
-	s.sendBuffer(buffer)
-	s.seqNum++
+	if buffer, err := builder.Build(); err != nil {
+		panic(err)
+	} else {
+		s.store.SaveMessage(s.seqNum, buffer)
+		s.sendBuffer(buffer)
+		s.seqNum++
+	}
 }
 
 func (s *session) sendBuffer(buffer Buffer) {
+
 	s.log.OnOutgoing(string(buffer.Bytes()))
 	s.messageOut <- buffer
 	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 }
 
 func (s *session) DoTargetTooHigh(reject TargetTooHigh) {
-	resend := NewMessage()
+	resend := NewMessageBuilder()
 	resend.Header.SetField(NewStringField(tag.MsgType, "2"))
 	resend.Body.SetField(NewIntField(tag.BeginSeqNo, reject.ExpectedTarget))
 
@@ -282,7 +289,7 @@ func (s *session) checkBeginString(msg Message) MessageReject {
 }
 
 func (s *session) doReject(rej MessageReject) {
-	reply := NewMessage()
+	reply := NewMessageBuilder()
 
 	if s.BeginString >= BeginString_FIX42 {
 

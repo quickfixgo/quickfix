@@ -40,7 +40,7 @@ func (s logonState) handleLogon(session *session, msg Message) error {
 		return err
 	}
 
-	reply := NewMessage()
+	reply := NewMessageBuilder()
 	reply.Header.SetField(NewStringField(tag.MsgType, "A"))
 	reply.Header.SetField(NewStringField(tag.BeginString, session.BeginString))
 	reply.Header.SetField(NewStringField(tag.TargetCompID, session.TargetCompID))
