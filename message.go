@@ -118,18 +118,19 @@ func (m Message) String() string {
 	return string(m.rawMessage)
 }
 
+//FIXME: not safe with repeated groups
 func (m Message) ToBuilder() *MessageBuilder {
 	builder := NewMessageBuilder()
-	for tag := range m.Header.fields {
-		builder.Header.fields[tag] = m.Header.fields[tag]
+	for tag := range m.Header.lookup {
+		builder.Header.fields[tag] = m.Header.lookup[tag]
 	}
 
-	for tag := range m.Body.fields {
-		builder.Body.fields[tag] = m.Body.fields[tag]
+	for tag := range m.Body.lookup {
+		builder.Body.fields[tag] = m.Body.lookup[tag]
 	}
 
-	for tag := range m.Trailer.fields {
-		builder.Trailer.fields[tag] = m.Trailer.fields[tag]
+	for tag := range m.Trailer.lookup {
+		builder.Trailer.fields[tag] = m.Trailer.lookup[tag]
 	}
 
 	return builder

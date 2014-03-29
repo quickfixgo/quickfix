@@ -16,6 +16,7 @@ const (
 	CompIDProblem                   RejectReason = 9
 	SendingTimeAccuracyProblem      RejectReason = 10
 	InvalidMsgType                  RejectReason = 11
+	TagAppearsMoreThanOnce          RejectReason = 13
 	TagSpecifiedOutOfRequiredOrder  RejectReason = 14
 )
 
@@ -50,6 +51,9 @@ func NewIncorrectDataFormatForValue(msg Message, tag tag.Tag) MessageReject {
 
 func NewTagSpecifiedOutOfRequiredOrder(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Tag specified out of required order", rejectReason: TagSpecifiedOutOfRequiredOrder, refTagID: &tag}
+}
+func NewTagAppearsMoreThanOnce(msg Message, tag tag.Tag) MessageReject {
+	return messageRejectBase{rejectedMessage: msg, text: "Tag appears more than once", rejectReason: TagAppearsMoreThanOnce, refTagID: &tag}
 }
 
 func NewInvalidMessageType(msg Message) MessageReject {

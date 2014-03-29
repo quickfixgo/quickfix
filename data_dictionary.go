@@ -208,6 +208,7 @@ func (d *DataDictionary) validate(message Message) (reject MessageReject) {
 }
 
 func (d *DataDictionary) checkOrder(message Message) (reject MessageReject) {
+
 	inHeader := true
 	inTrailer := false
 	for _, tag := range message.tags {
@@ -274,19 +275,27 @@ func (d *DataDictionary) iterate(msgType string, message Message) (reject Messag
 }
 
 func (d *DataDictionary) iterateFieldMap(message Message, validFields tagSet, fieldMap FieldMap) MessageReject {
-	for tag, fieldValue := range fieldMap.fields {
+	for tag, fieldValue := range fieldMap.lookup {
 		if len(fieldValue.Value) == 0 {
 			return NewTagSpecifiedWithoutAValue(message, tag)
 		}
 	}
 
-	for tag := range fieldMap.fields {
+	iteratedTags := make(tagSet)
+	for _, tag := range fieldMap.tags {
+		if _, duplicate := iteratedTags[tag]; duplicate {
+			return NewTagAppearsMoreThanOnce(message, tag)
+		}
+		iteratedTags.add(tag)
+	}
+
+	for tag := range fieldMap.lookup {
 		if _, valid := d.allFields[tag]; !valid {
 			return NewInvalidTagNumber(message, tag)
 		}
 	}
 
-	for tag, fieldValue := range fieldMap.fields {
+	for tag, fieldValue := range fieldMap.lookup {
 		allowedValues := d.allFields[tag].enums
 		if len(allowedValues) != 0 {
 			if _, validValue := allowedValues[string(fieldValue.Value)]; !validValue {
@@ -295,14 +304,14 @@ func (d *DataDictionary) iterateFieldMap(message Message, validFields tagSet, fi
 		}
 	}
 
-	for tag, _ := range fieldMap.fields {
+	for tag, _ := range fieldMap.lookup {
 		prototype := d.allFields[tag].prototype
 		if err := fieldMap.GetField(tag, prototype); err != nil {
 			return NewIncorrectDataFormatForValue(message, tag)
 		}
 	}
 
-	for tag := range fieldMap.fields {
+	for tag := range fieldMap.lookup {
 		if _, valid := validFields[tag]; !valid {
 			return NewTagNotDefinedForThisMessageType(message, tag)
 		}

@@ -137,7 +137,7 @@ func (s *DataDictionaryTests) TestValidateFieldNotFound(c *C) {
 	dict, _ := NewDataDictionary("spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
-	builder.Body.fields = make(map[tag.Tag]*fieldBytes)
+	builder.Body.init(normalFieldOrder)
 	builder.Body.Set(NewStringField(tag.ClOrdID, "A"))
 	builder.Body.Set(NewStringField(tag.HandlInst, "A"))
 	builder.Body.Set(NewStringField(tag.Symbol, "A"))
@@ -229,5 +229,16 @@ func (s *DataDictionaryTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, TagSpecifiedOutOfRequiredOrder)
 	c.Check(*reject.RefTagID(), Equals, tag.OnBehalfOfCompID)
+}
 
+func (s *DataDictionaryTests) TestValidateTagAppearsMoreThanOnce(c *C) {
+
+	msg, err := MessageFromParsedBytes([]byte("8=FIX.4.09=8035=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
+	c.Check(err, NotNil)
+
+	dict, _ := NewDataDictionary("spec/FIX40.xml")
+	reject := dict.validate(*msg)
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, TagAppearsMoreThanOnce)
+	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
 }

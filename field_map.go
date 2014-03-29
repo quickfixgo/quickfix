@@ -6,18 +6,22 @@ import (
 
 //Collection of fix fields that make up a fix message
 type FieldMap struct {
-	fields map[tag.Tag]*fieldBytes
+	lookup map[tag.Tag]*fieldBytes
+
 	tags   []tag.Tag
+	fields []*fieldBytes
 }
 
 func (fieldMap *FieldMap) init() {
-	fieldMap.fields = make(map[tag.Tag]*fieldBytes)
+	fieldMap.lookup = make(map[tag.Tag]*fieldBytes)
 	fieldMap.tags = make([]tag.Tag, 0)
+	fieldMap.fields = make([]*fieldBytes, 0)
 }
 
 func (fieldMap *FieldMap) append(tag tag.Tag, field *fieldBytes) {
 	fieldMap.tags = append(fieldMap.tags, tag)
-	fieldMap.fields[tag] = field
+	fieldMap.fields = append(fieldMap.fields, field)
+	fieldMap.lookup[tag] = field
 }
 
 func (m FieldMap) Tags() []tag.Tag {
@@ -28,7 +32,7 @@ func (m FieldMap) Tags() []tag.Tag {
 }
 
 func (m FieldMap) Get(parser Field) error {
-	field, ok := m.fields[parser.Tag()]
+	field, ok := m.lookup[parser.Tag()]
 
 	if !ok {
 		return FieldNotFoundError{parser.Tag()}
@@ -38,7 +42,7 @@ func (m FieldMap) Get(parser Field) error {
 }
 
 func (m FieldMap) GetField(tag tag.Tag, field FieldValue) error {
-	if f, ok := m.fields[tag]; ok {
+	if f, ok := m.lookup[tag]; ok {
 		return field.Read(f.Value)
 	} else {
 		return FieldNotFoundError{tag}
@@ -47,11 +51,11 @@ func (m FieldMap) GetField(tag tag.Tag, field FieldValue) error {
 
 func (m FieldMap) length() int {
 	length := 0
-	for t, field := range m.fields {
+	for i, t := range m.tags {
 		switch t {
 		case tag.BeginString, tag.BodyLength, tag.CheckSum: //tags do not contribute to length
 		default:
-			length += field.Length()
+			length += m.fields[i].Length()
 		}
 	}
 
