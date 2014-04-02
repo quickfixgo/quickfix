@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/cbusbey/quickfixgo/datadictionary"
 	"github.com/cbusbey/quickfixgo/gen"
-	"github.com/cbusbey/quickfixgo/spec"
 	"os"
 	"strconv"
 	"strings"
@@ -12,7 +12,7 @@ import (
 
 var (
 	pkg     string
-	fixSpec *spec.FixSpec
+	fixSpec *datadictionary.DataDictionary
 )
 
 func usage() {
@@ -127,7 +127,7 @@ func main() {
 
 	dataDict := flag.Arg(0)
 
-	if spec, err := spec.ParseFixSpec(dataDict); err != nil {
+	if spec, err := datadictionary.ParseFile(dataDict); err != nil {
 		panic(err)
 	} else {
 		fixSpec = spec

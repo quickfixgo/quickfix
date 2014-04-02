@@ -2,6 +2,7 @@ package quickfixgo
 
 import (
 	"fmt"
+	"github.com/cbusbey/quickfixgo/datadictionary"
 	"github.com/cbusbey/quickfixgo/log"
 	"github.com/cbusbey/quickfixgo/settings"
 	"github.com/cbusbey/quickfixgo/tag"
@@ -24,7 +25,7 @@ type session struct {
 	stateTimer   eventTimer
 	peerTimer    eventTimer
 	messageStash map[int]Message
-	*DataDictionary
+	*datadictionary.DataDictionary
 }
 
 //Creates Session, associates with internal session registry
@@ -50,7 +51,7 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 	}
 
 	if dataDictionaryPath, ok := dict.GetString(settings.DataDictionary); ok {
-		if dataDictionary, err := NewDataDictionary(dataDictionaryPath); err != nil {
+		if dataDictionary, err := datadictionary.Parse(dataDictionaryPath); err != nil {
 			return err
 		} else {
 			session.DataDictionary = dataDictionary
@@ -199,7 +200,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 	}
 
 	if s.DataDictionary != nil {
-		if err := s.DataDictionary.validate(msg); err != nil {
+		if err := Validate(s.DataDictionary, msg); err != nil {
 			return err
 		}
 	}

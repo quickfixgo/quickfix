@@ -3,15 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/cbusbey/quickfixgo/datadictionary"
 	"github.com/cbusbey/quickfixgo/gen"
-	"github.com/cbusbey/quickfixgo/spec"
 	"os"
 	"sort"
 )
 
 var (
 	fieldMap     map[string]int
-	fieldTypeMap map[string]spec.FieldType
+	fieldTypeMap map[string]datadictionary.Field
 	sortedTags   []string
 	pkg          = "fix"
 )
