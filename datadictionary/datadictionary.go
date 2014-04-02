@@ -17,7 +17,7 @@ type DataDictionary struct {
 }
 
 type Component struct {
-	Fields []FieldInterface
+	Fields []Field
 }
 
 type TagSet map[tag.Tag]struct{}
@@ -26,54 +26,54 @@ func (t TagSet) Add(tag tag.Tag) {
 	t[tag] = struct{}{}
 }
 
-type FieldInterface interface {
-	Tag() tag.Tag
-	Required() bool
-	MemberTags() []tag.Tag
-	RequiredMemberTags() []tag.Tag
+type Field interface {
+	tag() tag.Tag
+	required() bool
+	memberTags() []tag.Tag
+	requiredMemberTags() []tag.Tag
 }
 
-type Field struct {
-	FieldType *FieldType
-	required  bool
+type MessageField struct {
+	*FieldType
+	Required bool
 }
 
-func (f Field) Tag() tag.Tag {
+func (f MessageField) tag() tag.Tag {
 	return f.FieldType.Tag
 }
 
-func (f Field) Required() bool {
-	return f.required
+func (f MessageField) required() bool {
+	return f.Required
 }
 
-func (f Field) MemberTags() []tag.Tag {
+func (f MessageField) memberTags() []tag.Tag {
 	return []tag.Tag{}
 }
-func (f Field) RequiredMemberTags() []tag.Tag {
+func (f MessageField) requiredMemberTags() []tag.Tag {
 	return []tag.Tag{}
 }
 
 type GroupField struct {
 	*FieldType
-	required bool
+	Required bool
 
-	Fields []FieldInterface
+	Fields []Field
 }
 
-func (f GroupField) Tag() tag.Tag {
+func (f GroupField) tag() tag.Tag {
 	return f.FieldType.Tag
 }
 
-func (f GroupField) Required() bool {
-	return f.required
+func (f GroupField) required() bool {
+	return f.Required
 }
 
-func (f GroupField) MemberTags() []tag.Tag {
+func (f GroupField) memberTags() []tag.Tag {
 	tags := make([]tag.Tag, len(f.Fields))
 
 	for _, f := range f.Fields {
-		tags = append(tags, f.Tag())
-		for _, t := range f.MemberTags() {
+		tags = append(tags, f.tag())
+		for _, t := range f.memberTags() {
 			tags = append(tags, t)
 		}
 	}
@@ -81,16 +81,16 @@ func (f GroupField) MemberTags() []tag.Tag {
 	return tags
 }
 
-func (f GroupField) RequiredMemberTags() []tag.Tag {
+func (f GroupField) requiredMemberTags() []tag.Tag {
 	tags := make([]tag.Tag, 0)
 
 	for _, f := range f.Fields {
-		if !f.Required() {
+		if !f.required() {
 			continue
 		}
 
-		tags = append(tags, f.Tag())
-		for _, t := range f.RequiredMemberTags() {
+		tags = append(tags, f.tag())
+		for _, t := range f.requiredMemberTags() {
 			tags = append(tags, t)
 		}
 	}
@@ -113,7 +113,7 @@ type Enum struct {
 }
 
 type Message struct {
-	Fields []FieldInterface
+	Fields map[tag.Tag]Field
 
 	RequiredTags TagSet
 	Tags         TagSet
@@ -136,5 +136,11 @@ func Parse(path string) (*DataDictionary, error) {
 		return nil, err
 	}
 
-	return build(doc)
+	b := new(builder)
+	var dict *DataDictionary
+	if dict, err = b.build(doc); err != nil {
+		return nil, err
+	}
+
+	return dict, nil
 }

@@ -24,6 +24,12 @@ func (s *DataDictionaryTests) TestParseBadPath(c *C) {
 	c.Check(err, NotNil)
 }
 
+func (s *DataDictionaryTests) TestParseRecursiveComponents(c *C) {
+	dict, err := Parse("../spec/FIX44.xml")
+	c.Check(err, IsNil)
+	c.Check(dict, NotNil)
+}
+
 func (s *DataDictionaryTests) TestComponents(c *C) {
 	_, ok := s.dict.Components["SpreadOrBenchmarkCurveData"]
 	c.Check(ok, Equals, true)
