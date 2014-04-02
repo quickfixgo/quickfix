@@ -53,7 +53,7 @@ func findOrBuildComponent(xmlMember *XMLComponentMember, xmlCompByName map[strin
 }
 
 func buildComponent(xmlComponent *XMLComponent, xmlCompByName map[string]*XMLComponent, dict *DataDictionary) (*Component, error) {
-	c := &Component{Fields: make([]*Field, 0)}
+	c := &Component{Fields: make([]FieldInterface, 0)}
 
 	for _, member := range xmlComponent.Members {
 		if member.XMLName.Local == "component" {
@@ -67,7 +67,7 @@ func buildComponent(xmlComponent *XMLComponent, xmlCompByName map[string]*XMLCom
 				c.Fields = append(c.Fields, childField)
 			}
 		} else {
-			if field, err := buildField(member, dict); err != nil {
+			if field, err := buildFieldInterface(member, dict); err != nil {
 				return nil, err
 			} else {
 				c.Fields = append(c.Fields, field)
@@ -114,7 +114,7 @@ func buildMessages(messages []*XMLComponent, dict *DataDictionary) error {
 
 func buildMessage(xmlMessage *XMLComponent, dict *DataDictionary) (*Message, error) {
 	m := new(Message)
-	m.Fields = make([]*Field, 0)
+	m.Fields = make([]FieldInterface, 0)
 	m.RequiredTags = make(TagSet)
 	m.Tags = make(TagSet)
 
@@ -129,9 +129,9 @@ func buildMessage(xmlMessage *XMLComponent, dict *DataDictionary) (*Message, err
 				m.Fields = append(m.Fields, f)
 			}
 		} else {
-			var field *Field
+			var field FieldInterface
 			var err error
-			if field, err = buildField(member, dict); err != nil {
+			if field, err = buildFieldInterface(member, dict); err != nil {
 				return nil, err
 			}
 			m.Fields = append(m.Fields, field)
@@ -139,17 +139,50 @@ func buildMessage(xmlMessage *XMLComponent, dict *DataDictionary) (*Message, err
 	}
 
 	for _, f := range m.Fields {
-		m.Tags.Add(f.Tag)
+		m.Tags.Add(f.Tag())
+		for _, t := range f.MemberTags() {
+			m.Tags.Add(t)
+		}
 
-		if f.Required {
-			m.RequiredTags.Add(f.Tag)
+		if f.Required() {
+			m.RequiredTags.Add(f.Tag())
+			for _, t := range f.RequiredMemberTags() {
+				m.RequiredTags.Add(t)
+			}
 		}
 	}
 
 	return m, nil
 }
 
-func buildField(xmlField *XMLComponentMember, dict *DataDictionary) (*Field, error) {
+func buildGroupField(xmlField *XMLComponentMember, groupFieldType *FieldType, dict *DataDictionary) (*GroupField, error) {
+	fields := make([]FieldInterface, 0, len(xmlField.Members))
+
+	for _, member := range xmlField.Members {
+		if member.XMLName.Local == "component" {
+			var component *Component
+			var ok bool
+
+			if component, ok = dict.Components[member.Name]; !ok {
+				return nil, newUnknownComponent(member.Name)
+			}
+
+			for _, f := range component.Fields {
+				fields = append(fields, f)
+			}
+		} else {
+			if f, err := buildFieldInterface(member, dict); err != nil {
+				return nil, err
+			} else {
+				fields = append(fields, f)
+			}
+		}
+	}
+
+	return &GroupField{FieldType: groupFieldType, required: (xmlField.Required == "Y"), Fields: fields}, nil
+}
+
+func buildFieldInterface(xmlField *XMLComponentMember, dict *DataDictionary) (FieldInterface, error) {
 	var fieldType *FieldType
 	var ok bool
 
@@ -157,7 +190,12 @@ func buildField(xmlField *XMLComponentMember, dict *DataDictionary) (*Field, err
 		return nil, newUnknownField(xmlField.Name)
 	}
 
-	return &Field{FieldType: fieldType, Required: (xmlField.Required == "Y")}, nil
+	if xmlField.XMLName.Local == "group" {
+		f, err := buildGroupField(xmlField, fieldType, dict)
+		return f, err
+	}
+
+	return &Field{FieldType: fieldType, required: (xmlField.Required == "Y")}, nil
 }
 
 func buildFieldTypes(xmlFields []*XMLField, dict *DataDictionary) {

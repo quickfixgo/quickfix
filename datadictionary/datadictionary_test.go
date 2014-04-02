@@ -105,5 +105,4 @@ func (s *DataDictionaryTests) TestMessageTags(c *C) {
 
 	_, known = s.dict.Trailer.Tags[tag.Signature]
 	c.Check(known, Equals, true)
-
 }
