@@ -6,6 +6,7 @@ import (
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
+//Message is a FIX Message abstraction.
 type Message struct {
 	Header  FieldMap
 	Trailer FieldMap
@@ -17,6 +18,7 @@ type Message struct {
 	tags []tag.Tag
 }
 
+//MessageFromParsedBytes constructs a Message from a byte slice wrapping a FIX message
 func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	msg := new(Message)
 	msg.Header.init()
@@ -33,43 +35,42 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	//message must start with begin string, body length, msg type
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BeginString, rawMessage); err != nil {
 		return nil, err
-	} else {
-		msg.Header.append(tag.BeginString, parsedFieldBytes)
-		msg.tags = append(msg.tags, tag.BeginString)
 	}
+
+	msg.Header.append(parsedFieldBytes)
+	msg.tags = append(msg.tags, tag.BeginString)
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BodyLength, rawMessage); err != nil {
 		return nil, err
-	} else {
-		msg.Header.append(tag.BodyLength, parsedFieldBytes)
-		msg.tags = append(msg.tags, tag.BodyLength)
 	}
+
+	msg.Header.append(parsedFieldBytes)
+	msg.tags = append(msg.tags, tag.BodyLength)
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.MsgType, rawMessage); err != nil {
 		return nil, err
-	} else {
-		msg.Header.append(tag.MsgType, parsedFieldBytes)
-		msg.tags = append(msg.tags, tag.MsgType)
 	}
 
-	var fieldTag tag.Tag
+	msg.Header.append(parsedFieldBytes)
+	msg.tags = append(msg.tags, tag.MsgType)
+
 	for {
-		fieldTag, parsedFieldBytes, rawMessage, err = extractField(rawMessage)
+		parsedFieldBytes, rawMessage, err = extractField(rawMessage)
 		if err != nil {
 			return nil, err
 		}
 
-		msg.tags = append(msg.tags, fieldTag)
+		msg.tags = append(msg.tags, parsedFieldBytes.Tag)
 
 		switch {
-		case fieldTag.IsHeader():
-			msg.Header.append(fieldTag, parsedFieldBytes)
-		case fieldTag.IsTrailer():
-			msg.Trailer.append(fieldTag, parsedFieldBytes)
+		case parsedFieldBytes.Tag.IsHeader():
+			msg.Header.append(parsedFieldBytes)
+		case parsedFieldBytes.Tag.IsTrailer():
+			msg.Trailer.append(parsedFieldBytes)
 		default:
-			msg.Body.append(fieldTag, parsedFieldBytes)
+			msg.Body.append(parsedFieldBytes)
 		}
-		if fieldTag == tag.CheckSum {
+		if parsedFieldBytes.Tag == tag.CheckSum {
 			break
 		}
 	}
@@ -84,10 +85,12 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	return msg, nil
 }
 
+//Bytes returns the raw bytes of the Message
 func (m Message) Bytes() []byte {
 	return m.rawMessage
 }
 
+//ReverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
 func (m Message) ReverseRoute() *MessageBuilder {
 	reverseBuilder := NewMessageBuilder()
 
@@ -124,20 +127,19 @@ func (m Message) ReverseRoute() *MessageBuilder {
 }
 
 func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field *fieldBytes, remBuffer []byte, err error) {
-	var tag tag.Tag
-	tag, field, remBuffer, err = extractField(buffer)
+	field, remBuffer, err = extractField(buffer)
 	switch {
 	case err != nil:
 		return
-	case tag != expectedTag:
-		err = ParseError{fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, tag)}
+	case field.Tag != expectedTag:
+		err = ParseError{fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag)}
 		return
 	}
 
 	return
 }
 
-func extractField(buffer []byte) (tag tag.Tag, parsedFieldBytes *fieldBytes, remBytes []byte, err error) {
+func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
 		err = ParseError{"extractField: No Trailing Delim in " + string(buffer)}
@@ -145,14 +147,15 @@ func extractField(buffer []byte) (tag tag.Tag, parsedFieldBytes *fieldBytes, rem
 		return
 	}
 
-	tag, parsedFieldBytes, err = parseField(buffer[:endIndex+1])
-	return tag, parsedFieldBytes, buffer[(endIndex + 1):], err
+	parsedFieldBytes, err = parseField(buffer[:endIndex+1])
+	return parsedFieldBytes, buffer[(endIndex + 1):], err
 }
 
 func (m Message) String() string {
 	return string(m.rawMessage)
 }
 
+//ToBuilder returns a writable message builder initialized with the fields in the message
 //FIXME: not safe with repeated groups
 func (m Message) ToBuilder() *MessageBuilder {
 	builder := NewMessageBuilder()
@@ -175,6 +178,7 @@ func newCheckSum(value int) *StringField {
 	return NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
-func (m *Message) Free() {
+//Free is required for Buffer interface FIXME
+func (m Message) Free() {
 
 }

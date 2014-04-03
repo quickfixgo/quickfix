@@ -10,6 +10,7 @@ type FieldValue interface {
 	Read([]byte) error
 }
 
+//Field is the interface implemented by all typed Fields in a Message
 type Field interface {
 	Tag() tag.Tag
 	FieldValue

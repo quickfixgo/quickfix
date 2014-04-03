@@ -8,6 +8,7 @@ import (
 )
 
 type fieldBytes struct {
+	tag.Tag
 	Data  []byte
 	Value []byte
 }
@@ -19,14 +20,10 @@ func newFieldBytes(tag tag.Tag, value []byte) *fieldBytes {
 	buf.Write(value)
 	buf.WriteString("")
 
-	f := new(fieldBytes)
-	f.Data = buf.Bytes()
-	f.Value = value
-
-	return f
+	return &fieldBytes{Tag: tag, Data: buf.Bytes(), Value: value}
 }
 
-func parseField(rawFieldBytes []byte) (t tag.Tag, f *fieldBytes, err error) {
+func parseField(rawFieldBytes []byte) (f *fieldBytes, err error) {
 	sepIndex := bytes.IndexByte(rawFieldBytes, '=')
 
 	if sepIndex == -1 {
@@ -34,15 +31,15 @@ func parseField(rawFieldBytes []byte) (t tag.Tag, f *fieldBytes, err error) {
 		return
 	}
 
-	parsed_tag, err := strconv.Atoi(string(rawFieldBytes[:sepIndex]))
+	parsedTag, err := strconv.Atoi(string(rawFieldBytes[:sepIndex]))
 
 	if err != nil {
 		err = fmt.Errorf("fieldBytes.Parse: %s", err.Error())
 		return
 	}
 
-	t = tag.Tag(parsed_tag)
 	f = new(fieldBytes)
+	f.Tag = tag.Tag(parsedTag)
 	f.Value = rawFieldBytes[(sepIndex + 1):(len(rawFieldBytes) - 1)]
 	f.Data = rawFieldBytes
 

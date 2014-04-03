@@ -6,6 +6,7 @@ import (
 	"github.com/cbusbey/quickfixgo/tag"
 )
 
+//Validate tests the message against the provided data dictionary.
 func Validate(d *datadictionary.DataDictionary, message Message) (reject MessageReject) {
 	msgType := new(StringField)
 	if err := message.Header.GetField(tag.MsgType, msgType); err != nil {
@@ -21,22 +22,22 @@ func Validate(d *datadictionary.DataDictionary, message Message) (reject Message
 		return NewInvalidMessageType(message)
 	}
 
-	if reject = ValidateRequired(d, msgType.Value, message); reject != nil {
+	if reject = validateRequired(d, msgType.Value, message); reject != nil {
 		return
 	}
 
-	if reject = ValidateOrder(message); reject != nil {
+	if reject = validateOrder(message); reject != nil {
 		return
 	}
 
-	if reject = validateStructure(d, msgType.Value, message); reject != nil {
+	if reject = validateFields(d, msgType.Value, message); reject != nil {
 		return
 	}
 
 	return nil
 }
 
-func ValidateOrder(message Message) (reject MessageReject) {
+func validateOrder(message Message) (reject MessageReject) {
 
 	inHeader := true
 	inTrailer := false
@@ -57,7 +58,7 @@ func ValidateOrder(message Message) (reject MessageReject) {
 	return nil
 }
 
-func ValidateRequired(d *datadictionary.DataDictionary, msgType string, message Message) (reject MessageReject) {
+func validateRequired(d *datadictionary.DataDictionary, msgType string, message Message) (reject MessageReject) {
 	if reject = validateRequiredFieldMap(message, d.Header.RequiredTags, message.Header); reject != nil {
 		return
 	}
@@ -89,21 +90,21 @@ func validateRequiredFieldMap(msg Message, requiredTags map[tag.Tag]struct{}, fi
 	return
 }
 
-func validateStructure(d *datadictionary.DataDictionary, msgType string, message Message) (reject MessageReject) {
-	if reject = validateFieldMapStructure(d, message, d.Header.Tags, message.Header); reject != nil {
+func validateFields(d *datadictionary.DataDictionary, msgType string, message Message) (reject MessageReject) {
+	if reject = validateFieldMapFields(d, message, d.Header.Tags, message.Header); reject != nil {
 		return
 	}
-	if reject = validateFieldMapStructure(d, message, d.Messages[msgType].Tags, message.Body); reject != nil {
+	if reject = validateFieldMapFields(d, message, d.Messages[msgType].Tags, message.Body); reject != nil {
 		return
 	}
-	if reject = validateFieldMapStructure(d, message, d.Trailer.Tags, message.Trailer); reject != nil {
+	if reject = validateFieldMapFields(d, message, d.Trailer.Tags, message.Trailer); reject != nil {
 		return
 	}
 
 	return
 }
 
-func validateFieldMapStructure(d *datadictionary.DataDictionary, message Message, validFields datadictionary.TagSet, fieldMap FieldMap) MessageReject {
+func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, validFields datadictionary.TagSet, fieldMap FieldMap) MessageReject {
 	for tag, fieldValue := range fieldMap.lookup {
 		if len(fieldValue.Value) == 0 {
 			return NewTagSpecifiedWithoutAValue(message, tag)
@@ -111,11 +112,11 @@ func validateFieldMapStructure(d *datadictionary.DataDictionary, message Message
 	}
 
 	iteratedTags := make(datadictionary.TagSet)
-	for _, tag := range fieldMap.tags {
-		if _, duplicate := iteratedTags[tag]; duplicate {
-			return NewTagAppearsMoreThanOnce(message, tag)
+	for _, field := range fieldMap.fields {
+		if _, duplicate := iteratedTags[field.Tag]; duplicate {
+			return NewTagAppearsMoreThanOnce(message, field.Tag)
 		}
-		iteratedTags.Add(tag)
+		iteratedTags.Add(field.Tag)
 	}
 
 	for tag := range fieldMap.lookup {
@@ -133,7 +134,7 @@ func validateFieldMapStructure(d *datadictionary.DataDictionary, message Message
 		}
 	}
 
-	for tag, _ := range fieldMap.lookup {
+	for tag := range fieldMap.lookup {
 		fieldType := d.FieldTypeByTag[tag]
 		var prototype FieldValue
 		switch fieldType.Type {
