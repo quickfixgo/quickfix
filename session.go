@@ -19,14 +19,16 @@ type session struct {
 	messageOut chan Buffer
 	toSend     chan *MessageBuilder
 
-	sessionEvent chan event
-	application  Application
-	currentState sessionState
-	stateTimer   eventTimer
-	peerTimer    eventTimer
-	messageStash map[int]Message
-	*datadictionary.DataDictionary
-	resetOnLogon bool
+	sessionEvent            chan event
+	application             Application
+	currentState            sessionState
+	stateTimer              eventTimer
+	peerTimer               eventTimer
+	messageStash            map[int]Message
+	dataDictionary          *datadictionary.DataDictionary
+	transportDataDictionary *datadictionary.DataDictionary
+	appDataDictionary       *datadictionary.DataDictionary
+	resetOnLogon            bool
 }
 
 //Creates Session, associates with internal session registry
@@ -53,7 +55,22 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 
 	if dataDictionaryPath, ok := dict.GetString(settings.DataDictionary); ok {
 		var err error
-		if session.DataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
+		if session.dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
+			return err
+		}
+	}
+
+	if transportDataDictionaryPath, ok := dict.GetString(settings.TransportDataDictionary); ok {
+		var err error
+		if session.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
+			return err
+		}
+	}
+
+	//FIXME: tDictionary w/o appDictionary and vice versa should throw config error
+	if appDataDictionaryPath, ok := dict.GetString(settings.AppDataDictionary); ok {
+		var err error
+		if session.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
 			return err
 		}
 	}
@@ -262,9 +279,23 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 		}
 	}
 
-	if s.DataDictionary != nil {
-		if err := Validate(s.DataDictionary, msg); err != nil {
+	if s.dataDictionary != nil {
+		if err := Validate(s.dataDictionary, msg); err != nil {
 			return err
+		}
+	}
+
+	if s.transportDataDictionary != nil {
+		msgType := new(StringValue)
+		msg.Header.GetField(tag.MsgType, msgType)
+		if IsAdminMessageType(msgType.Value) {
+			if err := Validate(s.transportDataDictionary, msg); err != nil {
+				return err
+			}
+		} else {
+			if err := ValidateFIXTApp(s.transportDataDictionary, s.appDataDictionary, msg); err != nil {
+				return err
+			}
 		}
 	}
 

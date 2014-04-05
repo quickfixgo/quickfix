@@ -14,12 +14,14 @@ func RequiredConfigurationMissing(setting Setting) error {
 
 //QuickFIX/Go settings.
 const (
-	BeginString       Setting = "BeginString"
-	SenderCompID      Setting = "SenderCompID"
-	TargetCompID      Setting = "TargetCompID"
-	SocketAcceptPort  Setting = "SocketAcceptPort"
-	SocketConnectPort Setting = "SocketConnectPort"
-	DefaultApplVerID  Setting = "DefaultApplVerID"
-	DataDictionary    Setting = "DataDictionary"
-	ResetOnLogon      Setting = "ResetOnLogon"
+	BeginString             Setting = "BeginString"
+	SenderCompID            Setting = "SenderCompID"
+	TargetCompID            Setting = "TargetCompID"
+	SocketAcceptPort        Setting = "SocketAcceptPort"
+	SocketConnectPort       Setting = "SocketConnectPort"
+	DefaultApplVerID        Setting = "DefaultApplVerID"
+	DataDictionary          Setting = "DataDictionary"
+	TransportDataDictionary Setting = "TransportDataDictionary"
+	AppDataDictionary       Setting = "AppDataDictionary"
+	ResetOnLogon            Setting = "ResetOnLogon"
 )

@@ -22,7 +22,7 @@ func Validate(d *datadictionary.DataDictionary, message Message) (reject Message
 		return NewInvalidMessageType(message)
 	}
 
-	if reject = validateRequired(d, msgType.Value, message); reject != nil {
+	if reject = validateRequired(d, d, msgType.Value, message); reject != nil {
 		return
 	}
 
@@ -30,33 +30,68 @@ func Validate(d *datadictionary.DataDictionary, message Message) (reject Message
 		return
 	}
 
-	if reject = validateFields(d, msgType.Value, message); reject != nil {
+	if reject = validateFields(d, d, msgType.Value, message); reject != nil {
 		return
 	}
 
-	if reject = validateWalk(d, message); reject != nil {
+	if reject = validateWalk(d, d, message); reject != nil {
 		return
 	}
 
 	return nil
 }
 
-func validateWalk(d *datadictionary.DataDictionary, message Message) (reject MessageReject) {
+//Validate tests the message against the provided data dictionary.
+func ValidateFIXTApp(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, message Message) (reject MessageReject) {
+	msgType := new(StringField)
+	if err := message.Header.GetField(tag.MsgType, msgType); err != nil {
+		switch err.(type) {
+		case FieldNotFoundError:
+			return NewRequiredTagMissing(message, tag.MsgType)
+		default:
+			panic(fmt.Sprintf("Unhandled error: %v", err))
+		}
+	}
+
+	if _, validMsgType := appDD.Messages[msgType.Value]; validMsgType == false {
+		return NewInvalidMessageType(message)
+	}
+
+	if reject = validateRequired(transportDD, appDD, msgType.Value, message); reject != nil {
+		return
+	}
+
+	if reject = validateOrder(message); reject != nil {
+		return
+	}
+
+	if reject = validateFields(transportDD, appDD, msgType.Value, message); reject != nil {
+		return
+	}
+
+	if reject = validateWalk(transportDD, appDD, message); reject != nil {
+		return
+	}
+
+	return nil
+}
+
+func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, message Message) (reject MessageReject) {
 	remainingFields := message.fields
 	var err MessageReject
 
-	if remainingFields, err = validateWalkComponent(d.Header, remainingFields, message); err != nil {
+	if remainingFields, err = validateWalkComponent(transportDD.Header, remainingFields, message); err != nil {
 		return err
 	}
 
 	msgType := new(StringField)
 	message.Header.GetField(tag.MsgType, msgType)
 
-	if remainingFields, err = validateWalkComponent(d.Messages[msgType.Value], remainingFields, message); err != nil {
+	if remainingFields, err = validateWalkComponent(appDD.Messages[msgType.Value], remainingFields, message); err != nil {
 		return err
 	}
 
-	if remainingFields, err = validateWalkComponent(d.Trailer, remainingFields, message); err != nil {
+	if remainingFields, err = validateWalkComponent(transportDD.Trailer, remainingFields, message); err != nil {
 		return err
 	}
 
@@ -174,16 +209,16 @@ func validateOrder(message Message) (reject MessageReject) {
 	return nil
 }
 
-func validateRequired(d *datadictionary.DataDictionary, msgType string, message Message) (reject MessageReject) {
-	if reject = validateRequiredFieldMap(message, d.Header.RequiredTags, message.Header); reject != nil {
+func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message Message) (reject MessageReject) {
+	if reject = validateRequiredFieldMap(message, transportDD.Header.RequiredTags, message.Header); reject != nil {
 		return
 	}
 
-	if reject = validateRequiredFieldMap(message, d.Messages[msgType].RequiredTags, message.Body); reject != nil {
+	if reject = validateRequiredFieldMap(message, appDD.Messages[msgType].RequiredTags, message.Body); reject != nil {
 		return
 	}
 
-	if reject = validateRequiredFieldMap(message, d.Trailer.RequiredTags, message.Trailer); reject != nil {
+	if reject = validateRequiredFieldMap(message, transportDD.Trailer.RequiredTags, message.Trailer); reject != nil {
 		return
 	}
 
@@ -206,14 +241,14 @@ func validateRequiredFieldMap(msg Message, requiredTags map[tag.Tag]struct{}, fi
 	return
 }
 
-func validateFields(d *datadictionary.DataDictionary, msgType string, message Message) (reject MessageReject) {
-	if reject = validateFieldMapFields(d, message, d.Header.Tags, message.Header); reject != nil {
+func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message Message) (reject MessageReject) {
+	if reject = validateFieldMapFields(transportDD, message, transportDD.Header.Tags, message.Header); reject != nil {
 		return
 	}
-	if reject = validateFieldMapFields(d, message, d.Messages[msgType].Tags, message.Body); reject != nil {
+	if reject = validateFieldMapFields(appDD, message, appDD.Messages[msgType].Tags, message.Body); reject != nil {
 		return
 	}
-	if reject = validateFieldMapFields(d, message, d.Trailer.Tags, message.Trailer); reject != nil {
+	if reject = validateFieldMapFields(transportDD, message, transportDD.Trailer.Tags, message.Trailer); reject != nil {
 		return
 	}
 
