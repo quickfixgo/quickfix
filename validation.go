@@ -65,11 +65,11 @@ func ValidateFIXTApp(transportDD *datadictionary.DataDictionary, appDD *datadict
 		return
 	}
 
-	if reject = validateFields(transportDD, appDD, msgType.Value, message); reject != nil {
+	if reject = validateWalk(transportDD, appDD, message); reject != nil {
 		return
 	}
 
-	if reject = validateWalk(transportDD, appDD, message); reject != nil {
+	if reject = validateFields(transportDD, appDD, msgType.Value, message); reject != nil {
 		return
 	}
 
