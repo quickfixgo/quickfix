@@ -160,6 +160,7 @@ func main() {
 	globalSettings.SetInt(settings.SocketAcceptPort, 5001)
 	globalSettings.SetString(settings.SenderCompID, "ISLD")
 	globalSettings.SetString(settings.TargetCompID, "TW")
+	globalSettings.SetBool(settings.ResetOnLogon, true)
 
 	appSettings := settings.NewApplicationSettings(globalSettings)
 

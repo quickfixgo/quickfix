@@ -26,6 +26,7 @@ type session struct {
 	peerTimer    eventTimer
 	messageStash map[int]Message
 	*datadictionary.DataDictionary
+	resetOnLogon bool
 }
 
 //Creates Session, associates with internal session registry
@@ -51,10 +52,9 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 	}
 
 	if dataDictionaryPath, ok := dict.GetString(settings.DataDictionary); ok {
-		if dataDictionary, err := datadictionary.Parse(dataDictionaryPath); err != nil {
+		var err error
+		if session.DataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
 			return err
-		} else {
-			session.DataDictionary = dataDictionary
 		}
 	}
 
@@ -64,6 +64,12 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 		} else {
 			return settings.RequiredConfigurationMissing(settings.DefaultApplVerID)
 		}
+	}
+
+	if resetOnLogon, ok := dict.GetBool(settings.ResetOnLogon); ok {
+		session.resetOnLogon = resetOnLogon
+	} else {
+		session.resetOnLogon = false
 	}
 
 	session.toSend = make(chan *MessageBuilder)
@@ -160,6 +166,63 @@ func (s *session) DoTargetTooHigh(reject TargetTooHigh) {
 	resend.Body.Set(NewIntField(tag.EndSeqNo, endSeqNum))
 
 	s.send(resend)
+}
+
+func (s *session) handleLogon(msg Message) error {
+	s.log.OnEvent("Received logon request")
+	if s.resetOnLogon {
+		s.expectedSeqNum = 1
+		s.seqNum = 1
+	}
+
+	resetSeqNumFlag := new(BooleanValue)
+	if err := msg.Body.GetField(tag.ResetSeqNumFlag, resetSeqNumFlag); err == nil {
+		if resetSeqNumFlag.Value {
+			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
+			s.seqNum = 1
+			s.expectedSeqNum = 1
+		}
+	}
+
+	if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
+		return err
+	}
+
+	reply := NewMessageBuilder()
+	reply.Header.Set(NewStringField(tag.MsgType, "A"))
+	reply.Header.Set(NewStringField(tag.BeginString, s.BeginString))
+	reply.Header.Set(NewStringField(tag.TargetCompID, s.TargetCompID))
+	reply.Header.Set(NewStringField(tag.SenderCompID, s.SenderCompID))
+	reply.Body.Set(NewIntField(tag.EncryptMethod, 0))
+
+	heartBtInt := NewIntField(tag.HeartBtInt, 0)
+	if err := msg.Body.Get(heartBtInt); err == nil {
+		s.heartBeatTimeout = time.Duration(heartBtInt.Value) * time.Second
+		reply.Body.Set(heartBtInt)
+	}
+
+	if resetSeqNumFlag.Value {
+		reply.Body.Set(NewBooleanField(tag.ResetSeqNumFlag, resetSeqNumFlag.Value))
+	}
+
+	if s.DefaultApplVerID != "" {
+		reply.Trailer.Set(NewStringField(tag.DefaultApplVerID, s.DefaultApplVerID))
+	}
+
+	s.log.OnEvent("Responding to logon request")
+	s.send(reply)
+
+	s.application.OnLogon(s.SessionID)
+
+	if err := s.checkTargetTooHigh(msg); err != nil {
+		switch TypedError := err.(type) {
+		case TargetTooHigh:
+			s.DoTargetTooHigh(TypedError)
+		}
+	}
+
+	s.expectedSeqNum++
+	return nil
 }
 
 func (s *session) verify(msg Message) MessageReject {
@@ -267,10 +330,10 @@ func (s *session) checkSendingTime(msg Message) MessageReject {
 	sendingTime := new(UTCTimestampValue)
 	if err := msg.Header.GetField(tag.SendingTime, sendingTime); err != nil {
 		return NewRequiredTagMissing(msg, tag.SendingTime)
-	} else {
-		if delta := time.Since(sendingTime.Value); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
-			return NewSendingTimeAccuracyProblem(msg)
-		}
+	}
+
+	if delta := time.Since(sendingTime.Value); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
+		return NewSendingTimeAccuracyProblem(msg)
 	}
 
 	return nil
@@ -312,14 +375,14 @@ func (s *session) doReject(rej MessageReject) {
 			reply.Body.Set(NewStringField(tag.RefMsgType, msgType.Value))
 		}
 
-		if refTagId := rej.RefTagID(); refTagId != nil {
-			reply.Body.Set(NewIntField(tag.RefTagID, int(*rej.RefTagID())))
+		if refTagID := rej.RefTagID(); refTagID != nil {
+			reply.Body.Set(NewIntField(tag.RefTagID, int(*refTagID)))
 		}
 	} else {
 		reply.Header.Set(NewStringField(tag.MsgType, "3"))
 
-		if refTagId := rej.RefTagID(); refTagId != nil {
-			reply.Body.Set(NewStringField(tag.Text, fmt.Sprintf("%s (%d)", rej.Error(), *refTagId)))
+		if refTagID := rej.RefTagID(); refTagID != nil {
+			reply.Body.Set(NewStringField(tag.Text, fmt.Sprintf("%s (%d)", rej.Error(), *refTagID)))
 		} else {
 			reply.Body.Set(NewStringField(tag.Text, rej.Error()))
 		}

@@ -38,20 +38,39 @@ func (s *DictionaryTests) TestIntSettings(c *C) {
 	c.Check(ok, Equals, false)
 }
 
+func (s *DictionaryTests) TestBoolSettings(c *C) {
+	s.dict.SetBool(ResetOnLogon, true)
+
+	val, ok := s.dict.GetBool(ResetOnLogon)
+	c.Check(ok, Equals, true)
+	c.Check(val, Equals, true)
+
+	val, ok = s.dict.GetBool(Setting("RefreshOnLogon"))
+	c.Check(ok, Equals, false)
+}
+
 func (s *DictionaryTests) testClone(c *C) {
 	s.dict.SetInt(SocketAcceptPort, 101)
 	s.dict.SetString(BeginString, "foo")
+	s.dict.SetBool(ResetOnLogon, false)
 
 	clone := CloneDictionary(s.dict)
-	if val, ok := clone.GetInt(SocketAcceptPort); ok {
-		c.Check(val, Equals, 101)
-	} else {
-		c.Check(ok, Equals, true)
-	}
 
-	val, ok := clone.GetString(BeginString)
+	var intVal int
+	var ok bool
+	intVal, ok = clone.GetInt(SocketAcceptPort)
+	c.Check(intVal, Equals, 101)
 	c.Check(ok, Equals, true)
-	c.Check(val, Equals, "foo")
+
+	var stringVal string
+	stringVal, ok = clone.GetString(BeginString)
+	c.Check(ok, Equals, true)
+	c.Check(stringVal, Equals, "foo")
+
+	var boolVal bool
+	boolVal, ok = clone.GetBool(ResetOnLogon)
+	c.Check(ok, Equals, true)
+	c.Check(boolVal, Equals, false)
 }
 
 func (s *DictionaryTests) TestOverlay(c *C) {

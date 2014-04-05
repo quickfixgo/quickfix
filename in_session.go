@@ -12,6 +12,9 @@ func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessio
 	msgType := new(StringField)
 	if err := msg.Header.GetField(tag.MsgType, msgType); err == nil {
 		switch msgType.Value {
+		//logon
+		case "A":
+			return state.handleLogon(session, msg)
 		//logout
 		case "5":
 			return state.handleLogout(session, msg)
@@ -53,6 +56,14 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 	return state
 }
 
+func (state inSession) handleLogon(session *session, msg Message) (nextState sessionState) {
+	if err := session.handleLogon(msg); err != nil {
+		return state.initiateLogout(session, "")
+	}
+
+	return state
+}
+
 func (state inSession) handleLogout(session *session, msg Message) (nextState sessionState) {
 	session.log.OnEvent("Received logout request")
 	state.generateLogout(session)
@@ -90,20 +101,20 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 		return state.processReject(session, err)
 	}
 
-	var beginSeqNo, endSeqNo int
+	var err error
 	beginSeqNoField := new(IntValue)
-	if err := msg.Body.GetField(tag.BeginSeqNo, beginSeqNoField); err != nil {
+	if err = msg.Body.GetField(tag.BeginSeqNo, beginSeqNoField); err != nil {
 		return state.processReject(session, NewRequiredTagMissing(msg, tag.BeginSeqNo))
-	} else {
-		beginSeqNo = beginSeqNoField.Value
 	}
 
+	beginSeqNo := beginSeqNoField.Value
+
 	endSeqNoField := new(IntField)
-	if err := msg.Body.GetField(tag.EndSeqNo, endSeqNoField); err != nil {
+	if err = msg.Body.GetField(tag.EndSeqNo, endSeqNoField); err != nil {
 		return state.processReject(session, NewRequiredTagMissing(msg, tag.EndSeqNo))
-	} else {
-		endSeqNo = endSeqNoField.Value
 	}
+
+	endSeqNo := endSeqNoField.Value
 
 	session.log.OnEventf("Received ResendRequest FROM: %d TO: %d", beginSeqNo, endSeqNo)
 
@@ -124,36 +135,37 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	seqNum := beginSeqNo
 	nextSeqNum := seqNum
 
+	var buf Buffer
+	var ok bool
 	for {
-		if buf, ok := <-buffers; !ok {
+		if buf, ok = <-buffers; !ok {
 			//gapfill for catch-up
 			if seqNum != nextSeqNum {
 				state.generateSequenceReset(session, seqNum, nextSeqNum)
 			}
 
 			return
+		}
+
+		message, _ := MessageFromParsedBytes(buf.Bytes())
+
+		msgType := new(StringValue)
+		message.Header.GetField(tag.MsgType, msgType)
+
+		sentMessageSeqNum := new(IntValue)
+		message.Header.GetField(tag.MsgSeqNum, sentMessageSeqNum)
+
+		if IsAdminMessageType(msgType.Value) {
+			nextSeqNum = sentMessageSeqNum.Value + 1
 		} else {
 
-			message, _ := MessageFromParsedBytes(buf.Bytes())
-
-			msgType := new(StringValue)
-			message.Header.GetField(tag.MsgType, msgType)
-
-			sentMessageSeqNum := new(IntValue)
-			message.Header.GetField(tag.MsgSeqNum, sentMessageSeqNum)
-
-			if IsAdminMessageType(msgType.Value) {
-				nextSeqNum = sentMessageSeqNum.Value + 1
-			} else {
-
-				if seqNum != sentMessageSeqNum.Value {
-					state.generateSequenceReset(session, seqNum, sentMessageSeqNum.Value)
-				}
-
-				session.resend(message.ToBuilder())
-				seqNum = sentMessageSeqNum.Value + 1
-				nextSeqNum = seqNum
+			if seqNum != sentMessageSeqNum.Value {
+				state.generateSequenceReset(session, seqNum, sentMessageSeqNum.Value)
 			}
+
+			session.resend(message.ToBuilder())
+			seqNum = sentMessageSeqNum.Value + 1
+			nextSeqNum = seqNum
 		}
 	}
 }
@@ -213,17 +225,17 @@ func (state inSession) doTargetTooLow(session *session, rej TargetTooLow) (nextS
 	if err := rej.RejectedMessage().Header.GetField(tag.PossDupFlag, posDupFlag); err == nil && posDupFlag.Value {
 
 		origSendingTime := new(UTCTimestampValue)
-		if err := rej.RejectedMessage().Header.GetField(tag.OrigSendingTime, origSendingTime); err != nil {
+		if err = rej.RejectedMessage().Header.GetField(tag.OrigSendingTime, origSendingTime); err != nil {
 			session.doReject(NewRequiredTagMissing(rej.RejectedMessage(), tag.OrigSendingTime))
 			return state
-		} else {
-			sendingTime := new(UTCTimestampValue)
-			rej.RejectedMessage().Header.GetField(tag.SendingTime, sendingTime)
+		}
 
-			if sendingTime.Value.Before(origSendingTime.Value) {
-				session.doReject(NewSendingTimeAccuracyProblem(rej.RejectedMessage()))
-				return state.initiateLogout(session, "")
-			}
+		sendingTime := new(UTCTimestampValue)
+		rej.RejectedMessage().Header.GetField(tag.SendingTime, sendingTime)
+
+		if sendingTime.Value.Before(origSendingTime.Value) {
+			session.doReject(NewSendingTimeAccuracyProblem(rej.RejectedMessage()))
+			return state.initiateLogout(session, "")
 		}
 
 		if appReject := session.fromCallback(rej.RejectedMessage()); appReject != nil {
