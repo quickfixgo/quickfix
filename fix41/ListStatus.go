@@ -29,3 +29,8 @@ func (m *ListStatus) RptSeq() (*field.RptSeq, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ListStatus) NoOrders() (*field.NoOrders, error) {
+	f := new(field.NoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}

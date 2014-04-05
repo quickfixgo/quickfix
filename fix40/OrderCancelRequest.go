@@ -9,11 +9,6 @@ type OrderCancelRequest struct {
 	quickfixgo.Message
 }
 
-func (m *OrderCancelRequest) OrigClOrdID() (*field.OrigClOrdID, error) {
-	f := new(field.OrigClOrdID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *OrderCancelRequest) OrderID() (*field.OrderID, error) {
 	f := new(field.OrderID)
 	err := m.Body.Get(f)
@@ -24,8 +19,23 @@ func (m *OrderCancelRequest) ClOrdID() (*field.ClOrdID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelRequest) ListID() (*field.ListID, error) {
-	f := new(field.ListID)
+func (m *OrderCancelRequest) SecurityDesc() (*field.SecurityDesc, error) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderCancelRequest) OrderQty() (*field.OrderQty, error) {
+	f := new(field.OrderQty)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderCancelRequest) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderCancelRequest) OrigClOrdID() (*field.OrigClOrdID, error) {
+	f := new(field.OrigClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,6 +59,16 @@ func (m *OrderCancelRequest) Symbol() (*field.Symbol, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *OrderCancelRequest) ListID() (*field.ListID, error) {
+	f := new(field.ListID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderCancelRequest) Issuer() (*field.Issuer, error) {
+	f := new(field.Issuer)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *OrderCancelRequest) SymbolSfx() (*field.SymbolSfx, error) {
 	f := new(field.SymbolSfx)
 	err := m.Body.Get(f)
@@ -64,28 +84,8 @@ func (m *OrderCancelRequest) IDSource() (*field.IDSource, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelRequest) Issuer() (*field.Issuer, error) {
-	f := new(field.Issuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderCancelRequest) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *OrderCancelRequest) Side() (*field.Side, error) {
 	f := new(field.Side)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderCancelRequest) OrderQty() (*field.OrderQty, error) {
-	f := new(field.OrderQty)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderCancelRequest) Text() (*field.Text, error) {
-	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }

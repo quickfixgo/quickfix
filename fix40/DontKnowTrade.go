@@ -9,18 +9,8 @@ type DontKnowTrade struct {
 	quickfixgo.Message
 }
 
-func (m *DontKnowTrade) OrderID() (*field.OrderID, error) {
-	f := new(field.OrderID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *DontKnowTrade) ExecID() (*field.ExecID, error) {
 	f := new(field.ExecID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DontKnowTrade) DKReason() (*field.DKReason, error) {
-	f := new(field.DKReason)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,13 +19,23 @@ func (m *DontKnowTrade) Symbol() (*field.Symbol, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DontKnowTrade) Side() (*field.Side, error) {
-	f := new(field.Side)
+func (m *DontKnowTrade) OrderQty() (*field.OrderQty, error) {
+	f := new(field.OrderQty)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DontKnowTrade) OrderQty() (*field.OrderQty, error) {
-	f := new(field.OrderQty)
+func (m *DontKnowTrade) OrderID() (*field.OrderID, error) {
+	f := new(field.OrderID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DontKnowTrade) DKReason() (*field.DKReason, error) {
+	f := new(field.DKReason)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DontKnowTrade) Side() (*field.Side, error) {
+	f := new(field.Side)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -9,8 +9,18 @@ type PartyDetailsListRequest struct {
 	quickfixgo.Message
 }
 
-func (m *PartyDetailsListRequest) PartyDetailsListRequestID() (*field.PartyDetailsListRequestID, error) {
-	f := new(field.PartyDetailsListRequestID)
+func (m *PartyDetailsListRequest) NoPartyListResponseTypes() (*field.NoPartyListResponseTypes, error) {
+	f := new(field.NoPartyListResponseTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListRequest) NoPartyRelationships() (*field.NoPartyRelationships, error) {
+	f := new(field.NoPartyRelationships)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -19,13 +29,23 @@ func (m *PartyDetailsListRequest) SubscriptionRequestType() (*field.Subscription
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *PartyDetailsListRequest) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *PartyDetailsListRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *PartyDetailsListRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *PartyDetailsListRequest) PartyDetailsListRequestID() (*field.PartyDetailsListRequestID, error) {
+	f := new(field.PartyDetailsListRequestID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListRequest) NoRequestedPartyRoles() (*field.NoRequestedPartyRoles, error) {
+	f := new(field.NoRequestedPartyRoles)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListRequest) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }

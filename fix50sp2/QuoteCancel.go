@@ -9,13 +9,23 @@ type QuoteCancel struct {
 	quickfixgo.Message
 }
 
-func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
+func (m *QuoteCancel) AccountType() (*field.AccountType, error) {
+	f := new(field.AccountType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
-	f := new(field.QuoteID)
+func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
+	f := new(field.TradingSessionID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) NoTargetPartyIDs() (*field.NoTargetPartyIDs, error) {
+	f := new(field.NoTargetPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,18 +49,13 @@ func (m *QuoteCancel) AcctIDSource() (*field.AcctIDSource, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) AccountType() (*field.AccountType, error) {
-	f := new(field.AccountType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
-	f := new(field.TradingSessionID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) {
 	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
+	f := new(field.NoQuoteEntries)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -61,6 +66,16 @@ func (m *QuoteCancel) QuoteMsgID() (*field.QuoteMsgID, error) {
 }
 func (m *QuoteCancel) QuoteType() (*field.QuoteType, error) {
 	f := new(field.QuoteType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
+	f := new(field.QuoteID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

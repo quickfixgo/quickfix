@@ -9,11 +9,6 @@ type Email struct {
 	quickfixgo.Message
 }
 
-func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
-	f := new(field.EmailThreadID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *Email) EmailType() (*field.EmailType, error) {
 	f := new(field.EmailType)
 	err := m.Body.Get(f)
@@ -21,6 +16,26 @@ func (m *Email) EmailType() (*field.EmailType, error) {
 }
 func (m *Email) OrigTime() (*field.OrigTime, error) {
 	f := new(field.OrigTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) OrderID() (*field.OrderID, error) {
+	f := new(field.OrderID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) LinesOfText() (*field.LinesOfText, error) {
+	f := new(field.LinesOfText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
+	f := new(field.EmailThreadID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,13 +54,13 @@ func (m *Email) EncodedSubject() (*field.EncodedSubject, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) OrderID() (*field.OrderID, error) {
-	f := new(field.OrderID)
+func (m *Email) NoRoutingIDs() (*field.NoRoutingIDs, error) {
+	f := new(field.NoRoutingIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
+func (m *Email) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }

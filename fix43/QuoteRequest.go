@@ -19,6 +19,11 @@ func (m *QuoteRequest) RFQReqID() (*field.RFQReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteRequest) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)

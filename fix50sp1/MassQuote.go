@@ -29,18 +29,8 @@ func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) Account() (*field.Account, error) {
-	f := new(field.Account)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *MassQuote) AcctIDSource() (*field.AcctIDSource, error) {
 	f := new(field.AcctIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MassQuote) AccountType() (*field.AccountType, error) {
-	f := new(field.AccountType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -51,6 +41,26 @@ func (m *MassQuote) DefBidSize() (*field.DefBidSize, error) {
 }
 func (m *MassQuote) DefOfferSize() (*field.DefOfferSize, error) {
 	f := new(field.DefOfferSize)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) Account() (*field.Account, error) {
+	f := new(field.Account)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) AccountType() (*field.AccountType, error) {
+	f := new(field.AccountType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) NoQuoteSets() (*field.NoQuoteSets, error) {
+	f := new(field.NoQuoteSets)
 	err := m.Body.Get(f)
 	return f, err
 }

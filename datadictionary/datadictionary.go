@@ -9,6 +9,10 @@ import (
 
 //DataDictionary models FIX messages, components, and fields.
 type DataDictionary struct {
+	FIXType         string
+	Major           int
+	Minor           int
+	ServicePack     int
 	FieldTypeByTag  map[tag.Tag]*FieldType
 	FieldTypeByName map[string]*FieldType
 	Messages        map[string]*MessageDef
@@ -90,7 +94,9 @@ type Enum struct {
 
 //MessageDef can apply to header, trailer, or body of a FIX Message.
 type MessageDef struct {
-	Fields map[tag.Tag]*FieldDef
+	Name    string
+	MsgType string
+	Fields  map[tag.Tag]*FieldDef
 
 	RequiredTags TagSet
 	Tags         TagSet

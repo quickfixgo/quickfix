@@ -9,16 +9,6 @@ type BusinessMessageReject struct {
 	quickfixgo.Message
 }
 
-func (m *BusinessMessageReject) RefSeqNum() (*field.RefSeqNum, error) {
-	f := new(field.RefSeqNum)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *BusinessMessageReject) RefMsgType() (*field.RefMsgType, error) {
-	f := new(field.RefMsgType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *BusinessMessageReject) BusinessRejectRefID() (*field.BusinessRejectRefID, error) {
 	f := new(field.BusinessRejectRefID)
 	err := m.Body.Get(f)
@@ -29,13 +19,23 @@ func (m *BusinessMessageReject) BusinessRejectReason() (*field.BusinessRejectRea
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *BusinessMessageReject) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *BusinessMessageReject) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *BusinessMessageReject) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *BusinessMessageReject) RefSeqNum() (*field.RefSeqNum, error) {
+	f := new(field.RefSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *BusinessMessageReject) RefMsgType() (*field.RefMsgType, error) {
+	f := new(field.RefMsgType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *BusinessMessageReject) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }

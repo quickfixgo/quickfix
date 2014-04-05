@@ -9,23 +9,13 @@ type RegistrationInstructionsResponse struct {
 	quickfixgo.Message
 }
 
-func (m *RegistrationInstructionsResponse) RegistID() (*field.RegistID, error) {
-	f := new(field.RegistID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructionsResponse) RegistTransType() (*field.RegistTransType, error) {
-	f := new(field.RegistTransType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *RegistrationInstructionsResponse) RegistRefID() (*field.RegistRefID, error) {
 	f := new(field.RegistRefID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
+func (m *RegistrationInstructionsResponse) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -41,6 +31,21 @@ func (m *RegistrationInstructionsResponse) AcctIDSource() (*field.AcctIDSource, 
 }
 func (m *RegistrationInstructionsResponse) RegistStatus() (*field.RegistStatus, error) {
 	f := new(field.RegistStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) RegistID() (*field.RegistID, error) {
+	f := new(field.RegistID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) RegistTransType() (*field.RegistTransType, error) {
+	f := new(field.RegistTransType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }

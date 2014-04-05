@@ -9,11 +9,6 @@ type TradingSessionStatusRequest struct {
 	quickfixgo.Message
 }
 
-func (m *TradingSessionStatusRequest) TradSesReqID() (*field.TradSesReqID, error) {
-	f := new(field.TradSesReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *TradingSessionStatusRequest) TradingSessionID() (*field.TradingSessionID, error) {
 	f := new(field.TradingSessionID)
 	err := m.Body.Get(f)
@@ -51,6 +46,11 @@ func (m *TradingSessionStatusRequest) MarketID() (*field.MarketID, error) {
 }
 func (m *TradingSessionStatusRequest) MarketSegmentID() (*field.MarketSegmentID, error) {
 	f := new(field.MarketSegmentID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *TradingSessionStatusRequest) TradSesReqID() (*field.TradSesReqID, error) {
+	f := new(field.TradSesReqID)
 	err := m.Body.Get(f)
 	return f, err
 }

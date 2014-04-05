@@ -44,6 +44,11 @@ func (m *UserRequest) RawData() (*field.RawData, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *UserRequest) EncryptedNewPasswordLen() (*field.EncryptedNewPasswordLen, error) {
+	f := new(field.EncryptedNewPasswordLen)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *UserRequest) EncryptedPasswordMethod() (*field.EncryptedPasswordMethod, error) {
 	f := new(field.EncryptedPasswordMethod)
 	err := m.Body.Get(f)
@@ -56,11 +61,6 @@ func (m *UserRequest) EncryptedPasswordLen() (*field.EncryptedPasswordLen, error
 }
 func (m *UserRequest) EncryptedPassword() (*field.EncryptedPassword, error) {
 	f := new(field.EncryptedPassword)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *UserRequest) EncryptedNewPasswordLen() (*field.EncryptedNewPasswordLen, error) {
-	f := new(field.EncryptedNewPasswordLen)
 	err := m.Body.Get(f)
 	return f, err
 }

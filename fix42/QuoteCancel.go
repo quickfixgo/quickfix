@@ -34,3 +34,8 @@ func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
+	f := new(field.NoQuoteEntries)
+	err := m.Body.Get(f)
+	return f, err
+}

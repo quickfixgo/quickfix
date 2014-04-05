@@ -14,6 +14,21 @@ func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Email) Subject() (*field.Subject, error) {
+	f := new(field.Subject)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) LinesOfText() (*field.LinesOfText, error) {
+	f := new(field.LinesOfText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) RawData() (*field.RawData, error) {
+	f := new(field.RawData)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Email) EmailType() (*field.EmailType, error) {
 	f := new(field.EmailType)
 	err := m.Body.Get(f)
@@ -24,8 +39,8 @@ func (m *Email) OrigTime() (*field.OrigTime, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) Subject() (*field.Subject, error) {
-	f := new(field.Subject)
+func (m *Email) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -41,11 +56,6 @@ func (m *Email) ClOrdID() (*field.ClOrdID, error) {
 }
 func (m *Email) RawDataLength() (*field.RawDataLength, error) {
 	f := new(field.RawDataLength)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }

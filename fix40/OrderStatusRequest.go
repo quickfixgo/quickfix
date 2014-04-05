@@ -19,11 +19,6 @@ func (m *OrderStatusRequest) ClOrdID() (*field.ClOrdID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) ClientID() (*field.ClientID, error) {
-	f := new(field.ClientID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *OrderStatusRequest) ExecBroker() (*field.ExecBroker, error) {
 	f := new(field.ExecBroker)
 	err := m.Body.Get(f)
@@ -31,11 +26,6 @@ func (m *OrderStatusRequest) ExecBroker() (*field.ExecBroker, error) {
 }
 func (m *OrderStatusRequest) Symbol() (*field.Symbol, error) {
 	f := new(field.Symbol)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -51,6 +41,16 @@ func (m *OrderStatusRequest) SecurityDesc() (*field.SecurityDesc, error) {
 }
 func (m *OrderStatusRequest) Side() (*field.Side, error) {
 	f := new(field.Side)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) ClientID() (*field.ClientID, error) {
+	f := new(field.ClientID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
 	err := m.Body.Get(f)
 	return f, err
 }

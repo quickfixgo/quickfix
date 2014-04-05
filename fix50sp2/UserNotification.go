@@ -9,6 +9,11 @@ type UserNotification struct {
 	quickfixgo.Message
 }
 
+func (m *UserNotification) Username() (*field.Username, error) {
+	f := new(field.Username)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *UserNotification) UserStatus() (*field.UserStatus, error) {
 	f := new(field.UserStatus)
 	err := m.Body.Get(f)

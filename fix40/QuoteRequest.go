@@ -9,11 +9,6 @@ type QuoteRequest struct {
 	quickfixgo.Message
 }
 
-func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteRequest) Symbol() (*field.Symbol, error) {
 	f := new(field.Symbol)
 	err := m.Body.Get(f)
@@ -29,6 +24,16 @@ func (m *QuoteRequest) SecurityID() (*field.SecurityID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteRequest) PrevClosePx() (*field.PrevClosePx, error) {
+	f := new(field.PrevClosePx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteRequest) IDSource() (*field.IDSource, error) {
 	f := new(field.IDSource)
 	err := m.Body.Get(f)
@@ -41,11 +46,6 @@ func (m *QuoteRequest) Issuer() (*field.Issuer, error) {
 }
 func (m *QuoteRequest) SecurityDesc() (*field.SecurityDesc, error) {
 	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) PrevClosePx() (*field.PrevClosePx, error) {
-	f := new(field.PrevClosePx)
 	err := m.Body.Get(f)
 	return f, err
 }

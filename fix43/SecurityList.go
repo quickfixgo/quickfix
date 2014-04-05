@@ -29,3 +29,8 @@ func (m *SecurityList) TotalNumSecurities() (*field.TotalNumSecurities, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SecurityList) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}

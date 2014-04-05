@@ -19,3 +19,8 @@ func (m *StreamAssignmentRequest) StreamAsgnReqType() (*field.StreamAsgnReqType,
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *StreamAssignmentRequest) NoAsgnReqs() (*field.NoAsgnReqs, error) {
+	f := new(field.NoAsgnReqs)
+	err := m.Body.Get(f)
+	return f, err
+}

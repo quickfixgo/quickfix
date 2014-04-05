@@ -9,8 +9,38 @@ type PartyDetailsListReport struct {
 	quickfixgo.Message
 }
 
+func (m *PartyDetailsListReport) ApplID() (*field.ApplID, error) {
+	f := new(field.ApplID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) ApplSeqNum() (*field.ApplSeqNum, error) {
+	f := new(field.ApplSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) ApplLastSeqNum() (*field.ApplLastSeqNum, error) {
+	f := new(field.ApplLastSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) ApplResendFlag() (*field.ApplResendFlag, error) {
+	f := new(field.ApplResendFlag)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *PartyDetailsListReport) PartyDetailsListReportID() (*field.PartyDetailsListReportID, error) {
 	f := new(field.PartyDetailsListReportID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,18 +64,13 @@ func (m *PartyDetailsListReport) LastFragment() (*field.LastFragment, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *PartyDetailsListReport) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *PartyDetailsListReport) NoPartyList() (*field.NoPartyList, error) {
+	f := new(field.NoPartyList)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *PartyDetailsListReport) EncodedTextLen() (*field.EncodedTextLen, error) {
 	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *PartyDetailsListReport) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }

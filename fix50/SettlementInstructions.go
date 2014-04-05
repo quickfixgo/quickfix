@@ -9,6 +9,16 @@ type SettlementInstructions struct {
 	quickfixgo.Message
 }
 
+func (m *SettlementInstructions) SettlInstReqRejCode() (*field.SettlInstReqRejCode, error) {
+	f := new(field.SettlInstReqRejCode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructions) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SettlementInstructions) SettlInstMsgID() (*field.SettlInstMsgID, error) {
 	f := new(field.SettlInstMsgID)
 	err := m.Body.Get(f)
@@ -21,11 +31,6 @@ func (m *SettlementInstructions) SettlInstReqID() (*field.SettlInstReqID, error)
 }
 func (m *SettlementInstructions) SettlInstMode() (*field.SettlInstMode, error) {
 	f := new(field.SettlInstMode)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementInstructions) SettlInstReqRejCode() (*field.SettlInstReqRejCode, error) {
-	f := new(field.SettlInstReqRejCode)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +54,8 @@ func (m *SettlementInstructions) ClOrdID() (*field.ClOrdID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructions) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *SettlementInstructions) NoSettlInst() (*field.NoSettlInst, error) {
+	f := new(field.NoSettlInst)
 	err := m.Body.Get(f)
 	return f, err
 }

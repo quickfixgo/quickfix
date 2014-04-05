@@ -24,6 +24,16 @@ func (m *News) Headline() (*field.Headline, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *News) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *News) LinesOfText() (*field.LinesOfText, error) {
+	f := new(field.LinesOfText)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *News) URLLink() (*field.URLLink, error) {
 	f := new(field.URLLink)
 	err := m.Body.Get(f)

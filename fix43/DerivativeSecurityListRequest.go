@@ -19,18 +19,33 @@ func (m *DerivativeSecurityListRequest) SecurityListRequestType() (*field.Securi
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *DerivativeSecurityListRequest) UnderlyingIssueDate() (*field.UnderlyingIssueDate, error) {
+	f := new(field.UnderlyingIssueDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingRepoCollateralSecurityType() (*field.UnderlyingRepoCollateralSecurityType, error) {
+	f := new(field.UnderlyingRepoCollateralSecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingFactor() (*field.UnderlyingFactor, error) {
+	f := new(field.UnderlyingFactor)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingStrikePrice() (*field.UnderlyingStrikePrice, error) {
+	f := new(field.UnderlyingStrikePrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchange, error) {
+	f := new(field.UnderlyingSecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *DerivativeSecurityListRequest) Currency() (*field.Currency, error) {
 	f := new(field.Currency)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityListRequest) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityListRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,8 +54,78 @@ func (m *DerivativeSecurityListRequest) EncodedText() (*field.EncodedText, error
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityListRequest) TradingSessionID() (*field.TradingSessionID, error) {
-	f := new(field.TradingSessionID)
+func (m *DerivativeSecurityListRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
+	f := new(field.SubscriptionRequestType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYear, error) {
+	f := new(field.UnderlyingMaturityMonthYear)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLen, error) {
+	f := new(field.EncodedUnderlyingSecurityDescLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingSecurityType() (*field.UnderlyingSecurityType, error) {
+	f := new(field.UnderlyingSecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTerm, error) {
+	f := new(field.UnderlyingRepurchaseTerm)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingOptAttribute() (*field.UnderlyingOptAttribute, error) {
+	f := new(field.UnderlyingOptAttribute)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingSymbol() (*field.UnderlyingSymbol, error) {
+	f := new(field.UnderlyingSymbol)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltID, error) {
+	f := new(field.NoUnderlyingSecurityAltID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingMaturityDate() (*field.UnderlyingMaturityDate, error) {
+	f := new(field.UnderlyingMaturityDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssue, error) {
+	f := new(field.UnderlyingCountryOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDate, error) {
+	f := new(field.UnderlyingRedemptionDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingContractMultiplier() (*field.UnderlyingContractMultiplier, error) {
+	f := new(field.UnderlyingContractMultiplier)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) EncodedUnderlyingSecurityDesc() (*field.EncodedUnderlyingSecurityDesc, error) {
+	f := new(field.EncodedUnderlyingSecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +134,88 @@ func (m *DerivativeSecurityListRequest) TradingSessionSubID() (*field.TradingSes
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityListRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
-	f := new(field.SubscriptionRequestType)
+func (m *DerivativeSecurityListRequest) UnderlyingRepurchaseRate() (*field.UnderlyingRepurchaseRate, error) {
+	f := new(field.UnderlyingRepurchaseRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingCreditRating() (*field.UnderlyingCreditRating, error) {
+	f := new(field.UnderlyingCreditRating)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingStateOrProvinceOfIssue() (*field.UnderlyingStateOrProvinceOfIssue, error) {
+	f := new(field.UnderlyingStateOrProvinceOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDesc, error) {
+	f := new(field.UnderlyingSecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingSecurityID() (*field.UnderlyingSecurityID, error) {
+	f := new(field.UnderlyingSecurityID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingCFICode() (*field.UnderlyingCFICode, error) {
+	f := new(field.UnderlyingCFICode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDate, error) {
+	f := new(field.UnderlyingCouponPaymentDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLen, error) {
+	f := new(field.EncodedUnderlyingIssuerLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) EncodedUnderlyingIssuer() (*field.EncodedUnderlyingIssuer, error) {
+	f := new(field.EncodedUnderlyingIssuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingSecurityIDSource() (*field.UnderlyingSecurityIDSource, error) {
+	f := new(field.UnderlyingSecurityIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingProduct() (*field.UnderlyingProduct, error) {
+	f := new(field.UnderlyingProduct)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingLocaleOfIssue() (*field.UnderlyingLocaleOfIssue, error) {
+	f := new(field.UnderlyingLocaleOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingCouponRate() (*field.UnderlyingCouponRate, error) {
+	f := new(field.UnderlyingCouponRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingIssuer() (*field.UnderlyingIssuer, error) {
+	f := new(field.UnderlyingIssuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) TradingSessionID() (*field.TradingSessionID, error) {
+	f := new(field.TradingSessionID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfx, error) {
+	f := new(field.UnderlyingSymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityListRequest) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistry, error) {
+	f := new(field.UnderlyingInstrRegistry)
 	err := m.Body.Get(f)
 	return f, err
 }

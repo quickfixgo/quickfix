@@ -24,6 +24,16 @@ func (m *SecurityTypeRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SecurityTypeRequest) Product() (*field.Product, error) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypeRequest) MarketSegmentID() (*field.MarketSegmentID, error) {
+	f := new(field.MarketSegmentID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SecurityTypeRequest) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
 	err := m.Body.Get(f)
@@ -39,11 +49,6 @@ func (m *SecurityTypeRequest) TradingSessionSubID() (*field.TradingSessionSubID,
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypeRequest) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SecurityTypeRequest) SecurityType() (*field.SecurityType, error) {
 	f := new(field.SecurityType)
 	err := m.Body.Get(f)
@@ -56,11 +61,6 @@ func (m *SecurityTypeRequest) SecuritySubType() (*field.SecuritySubType, error) 
 }
 func (m *SecurityTypeRequest) MarketID() (*field.MarketID, error) {
 	f := new(field.MarketID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypeRequest) MarketSegmentID() (*field.MarketSegmentID, error) {
-	f := new(field.MarketSegmentID)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -44,3 +44,8 @@ func (m *QuoteAcknowledgement) Text() (*field.Text, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteAcknowledgement) NoQuoteSets() (*field.NoQuoteSets, error) {
+	f := new(field.NoQuoteSets)
+	err := m.Body.Get(f)
+	return f, err
+}

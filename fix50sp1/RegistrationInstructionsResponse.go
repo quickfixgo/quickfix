@@ -29,13 +29,18 @@ func (m *RegistrationInstructionsResponse) ClOrdID() (*field.ClOrdID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) Account() (*field.Account, error) {
-	f := new(field.Account)
+func (m *RegistrationInstructionsResponse) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
+func (m *RegistrationInstructionsResponse) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) Account() (*field.Account, error) {
+	f := new(field.Account)
 	err := m.Body.Get(f)
 	return f, err
 }

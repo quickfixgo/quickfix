@@ -9,23 +9,8 @@ type ConfirmationAck struct {
 	quickfixgo.Message
 }
 
-func (m *ConfirmationAck) ConfirmID() (*field.ConfirmID, error) {
-	f := new(field.ConfirmID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationAck) TradeDate() (*field.TradeDate, error) {
 	f := new(field.TradeDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationAck) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationAck) AffirmStatus() (*field.AffirmStatus, error) {
-	f := new(field.AffirmStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -41,6 +26,21 @@ func (m *ConfirmationAck) MatchStatus() (*field.MatchStatus, error) {
 }
 func (m *ConfirmationAck) Text() (*field.Text, error) {
 	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationAck) ConfirmID() (*field.ConfirmID, error) {
+	f := new(field.ConfirmID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationAck) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationAck) AffirmStatus() (*field.AffirmStatus, error) {
+	f := new(field.AffirmStatus)
 	err := m.Body.Get(f)
 	return f, err
 }

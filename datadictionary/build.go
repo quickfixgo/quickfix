@@ -19,7 +19,7 @@ func (b *builder) build(doc *XMLDoc) (*DataDictionary, error) {
 		b.componentByName[c.Name] = c
 	}
 
-	b.dict = new(DataDictionary)
+	b.dict = &DataDictionary{FIXType: doc.Type, Major: doc.Major, Minor: doc.Minor, ServicePack: doc.ServicePack}
 	b.buildFieldTypes()
 
 	if err := b.buildComponents(); err != nil {
@@ -123,7 +123,7 @@ func (b builder) buildMessageDefs() error {
 }
 
 func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) {
-	m := new(MessageDef)
+	m := &MessageDef{Name: xmlMessage.Name, MsgType: xmlMessage.MsgType}
 	m.Fields = make(map[tag.Tag]*FieldDef)
 	m.RequiredTags = make(TagSet)
 	m.Tags = make(TagSet)

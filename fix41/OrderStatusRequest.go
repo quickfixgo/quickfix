@@ -9,23 +9,43 @@ type OrderStatusRequest struct {
 	quickfixgo.Message
 }
 
+func (m *OrderStatusRequest) MaturityMonthYear() (*field.MaturityMonthYear, error) {
+	f := new(field.MaturityMonthYear)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) OptAttribute() (*field.OptAttribute, error) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *OrderStatusRequest) OrderID() (*field.OrderID, error) {
 	f := new(field.OrderID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
+func (m *OrderStatusRequest) SecurityType() (*field.SecurityType, error) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) StrikePrice() (*field.StrikePrice, error) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) SecurityDesc() (*field.SecurityDesc, error) {
+	f := new(field.SecurityDesc)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *OrderStatusRequest) ClientID() (*field.ClientID, error) {
 	f := new(field.ClientID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) ExecBroker() (*field.ExecBroker, error) {
-	f := new(field.ExecBroker)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,13 +69,18 @@ func (m *OrderStatusRequest) IDSource() (*field.IDSource, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
+func (m *OrderStatusRequest) PutOrCall() (*field.PutOrCall, error) {
+	f := new(field.PutOrCall)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) MaturityMonthYear() (*field.MaturityMonthYear, error) {
-	f := new(field.MaturityMonthYear)
+func (m *OrderStatusRequest) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) ExecBroker() (*field.ExecBroker, error) {
+	f := new(field.ExecBroker)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,33 +89,8 @@ func (m *OrderStatusRequest) MaturityDay() (*field.MaturityDay, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) PutOrCall() (*field.PutOrCall, error) {
-	f := new(field.PutOrCall)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) StrikePrice() (*field.StrikePrice, error) {
-	f := new(field.StrikePrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) OptAttribute() (*field.OptAttribute, error) {
-	f := new(field.OptAttribute)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *OrderStatusRequest) Issuer() (*field.Issuer, error) {
 	f := new(field.Issuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
 	err := m.Body.Get(f)
 	return f, err
 }

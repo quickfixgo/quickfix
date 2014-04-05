@@ -9,6 +9,21 @@ type MassQuote struct {
 	quickfixgo.Message
 }
 
+func (m *MassQuote) QuoteType() (*field.QuoteType, error) {
+	f := new(field.QuoteType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) NoQuoteSets() (*field.NoQuoteSets, error) {
+	f := new(field.NoQuoteSets)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MassQuote) QuoteReqID() (*field.QuoteReqID, error) {
 	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
@@ -16,11 +31,6 @@ func (m *MassQuote) QuoteReqID() (*field.QuoteReqID, error) {
 }
 func (m *MassQuote) QuoteID() (*field.QuoteID, error) {
 	f := new(field.QuoteID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MassQuote) QuoteType() (*field.QuoteType, error) {
-	f := new(field.QuoteType)
 	err := m.Body.Get(f)
 	return f, err
 }

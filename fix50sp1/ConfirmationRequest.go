@@ -9,28 +9,8 @@ type ConfirmationRequest struct {
 	quickfixgo.Message
 }
 
-func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
-	f := new(field.ConfirmReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) ConfirmType() (*field.ConfirmType, error) {
-	f := new(field.ConfirmType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationRequest) AllocID() (*field.AllocID, error) {
 	f := new(field.AllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error) {
-	f := new(field.SecondaryAllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, error) {
-	f := new(field.IndividualAllocID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -41,6 +21,31 @@ func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
 }
 func (m *ConfirmationRequest) AllocAccount() (*field.AllocAccount, error) {
 	f := new(field.AllocAccount)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
+	f := new(field.ConfirmReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) ConfirmType() (*field.ConfirmType, error) {
+	f := new(field.ConfirmType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) NoOrders() (*field.NoOrders, error) {
+	f := new(field.NoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error) {
+	f := new(field.SecondaryAllocID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, error) {
+	f := new(field.IndividualAllocID)
 	err := m.Body.Get(f)
 	return f, err
 }

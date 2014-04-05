@@ -34,3 +34,8 @@ func (m *SecurityList) LastFragment() (*field.LastFragment, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SecurityList) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}

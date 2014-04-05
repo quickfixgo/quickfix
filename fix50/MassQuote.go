@@ -24,13 +24,23 @@ func (m *MassQuote) QuoteType() (*field.QuoteType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
+func (m *MassQuote) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *MassQuote) Account() (*field.Account, error) {
 	f := new(field.Account)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) NoQuoteSets() (*field.NoQuoteSets, error) {
+	f := new(field.NoQuoteSets)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
 	err := m.Body.Get(f)
 	return f, err
 }

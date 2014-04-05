@@ -44,3 +44,8 @@ func (m *ListCancelRequest) EncodedText() (*field.EncodedText, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ListCancelRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}

@@ -11,7 +11,7 @@ import (
 
 var (
 	fieldMap     map[string]int
-	fieldTypeMap map[string]datadictionary.Field
+	fieldTypeMap map[string]*datadictionary.FieldType
 	sortedTags   []string
 	pkg          = "fix"
 )
@@ -122,17 +122,17 @@ func main() {
 	}
 
 	fieldMap = make(map[string]int)
-	fieldTypeMap = make(map[string]spec.FieldType)
+	fieldTypeMap = make(map[string]*datadictionary.FieldType)
 
 	for _, dataDict := range flag.Args() {
-		spec, err := spec.ParseFixSpec(dataDict)
+		spec, err := datadictionary.Parse(dataDict)
 
 		if err != nil {
 			panic(err)
 		}
 
-		for _, field := range spec.FieldTypes {
-			fieldMap[field.Name] = field.Number
+		for _, field := range spec.FieldTypeByTag {
+			fieldMap[field.Name] = int(field.Tag)
 			fieldTypeMap[field.Name] = field
 		}
 	}

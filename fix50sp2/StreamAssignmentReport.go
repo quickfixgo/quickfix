@@ -24,3 +24,8 @@ func (m *StreamAssignmentReport) StreamAsgnReqID() (*field.StreamAsgnReqID, erro
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *StreamAssignmentReport) NoAsgnReqs() (*field.NoAsgnReqs, error) {
+	f := new(field.NoAsgnReqs)
+	err := m.Body.Get(f)
+	return f, err
+}

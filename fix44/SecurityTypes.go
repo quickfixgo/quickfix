@@ -9,11 +9,6 @@ type SecurityTypes struct {
 	quickfixgo.Message
 }
 
-func (m *SecurityTypes) SecurityReqID() (*field.SecurityReqID, error) {
-	f := new(field.SecurityReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SecurityTypes) SecurityResponseID() (*field.SecurityResponseID, error) {
 	f := new(field.SecurityResponseID)
 	err := m.Body.Get(f)
@@ -21,16 +16,6 @@ func (m *SecurityTypes) SecurityResponseID() (*field.SecurityResponseID, error) 
 }
 func (m *SecurityTypes) SecurityResponseType() (*field.SecurityResponseType, error) {
 	f := new(field.SecurityResponseType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) TotNoSecurityTypes() (*field.TotNoSecurityTypes, error) {
-	f := new(field.TotNoSecurityTypes)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) LastFragment() (*field.LastFragment, error) {
-	f := new(field.LastFragment)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -56,6 +41,26 @@ func (m *SecurityTypes) TradingSessionID() (*field.TradingSessionID, error) {
 }
 func (m *SecurityTypes) TradingSessionSubID() (*field.TradingSessionSubID, error) {
 	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) SecurityReqID() (*field.SecurityReqID, error) {
+	f := new(field.SecurityReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) TotNoSecurityTypes() (*field.TotNoSecurityTypes, error) {
+	f := new(field.TotNoSecurityTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) LastFragment() (*field.LastFragment, error) {
+	f := new(field.LastFragment)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) NoSecurityTypes() (*field.NoSecurityTypes, error) {
+	f := new(field.NoSecurityTypes)
 	err := m.Body.Get(f)
 	return f, err
 }

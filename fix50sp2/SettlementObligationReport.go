@@ -14,11 +14,6 @@ func (m *SettlementObligationReport) ClearingBusinessDate() (*field.ClearingBusi
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementObligationReport) SettlementCycleNo() (*field.SettlementCycleNo, error) {
-	f := new(field.SettlementCycleNo)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SettlementObligationReport) SettlObligMsgID() (*field.SettlObligMsgID, error) {
 	f := new(field.SettlObligMsgID)
 	err := m.Body.Get(f)
@@ -44,8 +39,38 @@ func (m *SettlementObligationReport) EncodedText() (*field.EncodedText, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SettlementObligationReport) ApplSeqNum() (*field.ApplSeqNum, error) {
+	f := new(field.ApplSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) SettlementCycleNo() (*field.SettlementCycleNo, error) {
+	f := new(field.SettlementCycleNo)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SettlementObligationReport) TransactTime() (*field.TransactTime, error) {
 	f := new(field.TransactTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) NoSettlOblig() (*field.NoSettlOblig, error) {
+	f := new(field.NoSettlOblig)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) ApplID() (*field.ApplID, error) {
+	f := new(field.ApplID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) ApplLastSeqNum() (*field.ApplLastSeqNum, error) {
+	f := new(field.ApplLastSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) ApplResendFlag() (*field.ApplResendFlag, error) {
+	f := new(field.ApplResendFlag)
 	err := m.Body.Get(f)
 	return f, err
 }

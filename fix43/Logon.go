@@ -9,11 +9,6 @@ type Logon struct {
 	quickfixgo.Message
 }
 
-func (m *Logon) EncryptMethod() (*field.EncryptMethod, error) {
-	f := new(field.EncryptMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *Logon) HeartBtInt() (*field.HeartBtInt, error) {
 	f := new(field.HeartBtInt)
 	err := m.Body.Get(f)
@@ -39,6 +34,21 @@ func (m *Logon) MaxMessageSize() (*field.MaxMessageSize, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Logon) Password() (*field.Password, error) {
+	f := new(field.Password)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Logon) EncryptMethod() (*field.EncryptMethod, error) {
+	f := new(field.EncryptMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Logon) NoMsgTypes() (*field.NoMsgTypes, error) {
+	f := new(field.NoMsgTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Logon) TestMessageIndicator() (*field.TestMessageIndicator, error) {
 	f := new(field.TestMessageIndicator)
 	err := m.Body.Get(f)
@@ -46,11 +56,6 @@ func (m *Logon) TestMessageIndicator() (*field.TestMessageIndicator, error) {
 }
 func (m *Logon) Username() (*field.Username, error) {
 	f := new(field.Username)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Logon) Password() (*field.Password, error) {
-	f := new(field.Password)
 	err := m.Body.Get(f)
 	return f, err
 }

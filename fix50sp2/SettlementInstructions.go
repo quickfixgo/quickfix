@@ -19,11 +19,6 @@ func (m *SettlementInstructions) SettlInstReqID() (*field.SettlInstReqID, error)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructions) SettlInstMode() (*field.SettlInstMode, error) {
-	f := new(field.SettlInstMode)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SettlementInstructions) SettlInstReqRejCode() (*field.SettlInstReqRejCode, error) {
 	f := new(field.SettlInstReqRejCode)
 	err := m.Body.Get(f)
@@ -39,11 +34,6 @@ func (m *SettlementInstructions) EncodedTextLen() (*field.EncodedTextLen, error)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructions) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SettlementInstructions) ClOrdID() (*field.ClOrdID, error) {
 	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
@@ -51,6 +41,21 @@ func (m *SettlementInstructions) ClOrdID() (*field.ClOrdID, error) {
 }
 func (m *SettlementInstructions) TransactTime() (*field.TransactTime, error) {
 	f := new(field.TransactTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructions) NoSettlInst() (*field.NoSettlInst, error) {
+	f := new(field.NoSettlInst)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructions) SettlInstMode() (*field.SettlInstMode, error) {
+	f := new(field.SettlInstMode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructions) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }

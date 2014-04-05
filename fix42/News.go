@@ -24,13 +24,18 @@ func (m *News) Headline() (*field.Headline, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) EncodedHeadlineLen() (*field.EncodedHeadlineLen, error) {
-	f := new(field.EncodedHeadlineLen)
+func (m *News) EncodedHeadline() (*field.EncodedHeadline, error) {
+	f := new(field.EncodedHeadline)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) EncodedHeadline() (*field.EncodedHeadline, error) {
-	f := new(field.EncodedHeadline)
+func (m *News) NoRoutingIDs() (*field.NoRoutingIDs, error) {
+	f := new(field.NoRoutingIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *News) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,13 +44,23 @@ func (m *News) URLLink() (*field.URLLink, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) RawDataLength() (*field.RawDataLength, error) {
-	f := new(field.RawDataLength)
+func (m *News) RawData() (*field.RawData, error) {
+	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
+func (m *News) EncodedHeadlineLen() (*field.EncodedHeadlineLen, error) {
+	f := new(field.EncodedHeadlineLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *News) LinesOfText() (*field.LinesOfText, error) {
+	f := new(field.LinesOfText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *News) RawDataLength() (*field.RawDataLength, error) {
+	f := new(field.RawDataLength)
 	err := m.Body.Get(f)
 	return f, err
 }

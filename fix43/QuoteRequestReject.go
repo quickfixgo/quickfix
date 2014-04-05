@@ -24,6 +24,11 @@ func (m *QuoteRequestReject) QuoteRequestRejectReason() (*field.QuoteRequestReje
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteRequestReject) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteRequestReject) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)

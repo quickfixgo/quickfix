@@ -14,6 +14,11 @@ func (m *MarketDataIncrementalRefresh) MDReqID() (*field.MDReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MarketDataIncrementalRefresh) NoMDEntries() (*field.NoMDEntries, error) {
+	f := new(field.NoMDEntries)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MarketDataIncrementalRefresh) ApplQueueDepth() (*field.ApplQueueDepth, error) {
 	f := new(field.ApplQueueDepth)
 	err := m.Body.Get(f)
@@ -36,6 +41,11 @@ func (m *MarketDataIncrementalRefresh) MDFeedType() (*field.MDFeedType, error) {
 }
 func (m *MarketDataIncrementalRefresh) TradeDate() (*field.TradeDate, error) {
 	f := new(field.TradeDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataIncrementalRefresh) NoRoutingIDs() (*field.NoRoutingIDs, error) {
+	f := new(field.NoRoutingIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

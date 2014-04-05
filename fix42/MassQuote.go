@@ -34,3 +34,8 @@ func (m *MassQuote) DefOfferSize() (*field.DefOfferSize, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MassQuote) NoQuoteSets() (*field.NoQuoteSets, error) {
+	f := new(field.NoQuoteSets)
+	err := m.Body.Get(f)
+	return f, err
+}

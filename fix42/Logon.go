@@ -39,3 +39,8 @@ func (m *Logon) MaxMessageSize() (*field.MaxMessageSize, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Logon) NoMsgTypes() (*field.NoMsgTypes, error) {
+	f := new(field.NoMsgTypes)
+	err := m.Body.Get(f)
+	return f, err
+}

@@ -19,3 +19,8 @@ func (m *ListStrikePrice) TotNoStrikes() (*field.TotNoStrikes, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ListStrikePrice) NoStrikes() (*field.NoStrikes, error) {
+	f := new(field.NoStrikes)
+	err := m.Body.Get(f)
+	return f, err
+}

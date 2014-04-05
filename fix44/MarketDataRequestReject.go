@@ -19,6 +19,11 @@ func (m *MarketDataRequestReject) MDReqRejReason() (*field.MDReqRejReason, error
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MarketDataRequestReject) NoAltMDSource() (*field.NoAltMDSource, error) {
+	f := new(field.NoAltMDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MarketDataRequestReject) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)

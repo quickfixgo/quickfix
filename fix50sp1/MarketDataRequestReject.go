@@ -19,6 +19,11 @@ func (m *MarketDataRequestReject) MDReqRejReason() (*field.MDReqRejReason, error
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MarketDataRequestReject) NoAltMDSource() (*field.NoAltMDSource, error) {
+	f := new(field.NoAltMDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MarketDataRequestReject) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)
@@ -31,6 +36,11 @@ func (m *MarketDataRequestReject) EncodedTextLen() (*field.EncodedTextLen, error
 }
 func (m *MarketDataRequestReject) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequestReject) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

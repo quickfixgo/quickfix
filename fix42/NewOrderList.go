@@ -14,13 +14,33 @@ func (m *NewOrderList) ListID() (*field.ListID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) BidID() (*field.BidID, error) {
-	f := new(field.BidID)
+func (m *NewOrderList) ClientBidID() (*field.ClientBidID, error) {
+	f := new(field.ClientBidID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) ClientBidID() (*field.ClientBidID, error) {
-	f := new(field.ClientBidID)
+func (m *NewOrderList) ListExecInstType() (*field.ListExecInstType, error) {
+	f := new(field.ListExecInstType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) ListExecInst() (*field.ListExecInst, error) {
+	f := new(field.ListExecInst)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) EncodedListExecInst() (*field.EncodedListExecInst, error) {
+	f := new(field.EncodedListExecInst)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) NoOrders() (*field.NoOrders, error) {
+	f := new(field.NoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) BidID() (*field.BidID, error) {
+	f := new(field.BidID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,23 +59,8 @@ func (m *NewOrderList) ProgPeriodInterval() (*field.ProgPeriodInterval, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) ListExecInstType() (*field.ListExecInstType, error) {
-	f := new(field.ListExecInstType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) ListExecInst() (*field.ListExecInst, error) {
-	f := new(field.ListExecInst)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *NewOrderList) EncodedListExecInstLen() (*field.EncodedListExecInstLen, error) {
 	f := new(field.EncodedListExecInstLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) EncodedListExecInst() (*field.EncodedListExecInst, error) {
-	f := new(field.EncodedListExecInst)
 	err := m.Body.Get(f)
 	return f, err
 }

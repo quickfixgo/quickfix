@@ -9,13 +9,28 @@ type NewOrderList struct {
 	quickfixgo.Message
 }
 
-func (m *NewOrderList) ListID() (*field.ListID, error) {
-	f := new(field.ListID)
+func (m *NewOrderList) BidID() (*field.BidID, error) {
+	f := new(field.BidID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) BidID() (*field.BidID, error) {
-	f := new(field.BidID)
+func (m *NewOrderList) ProgPeriodInterval() (*field.ProgPeriodInterval, error) {
+	f := new(field.ProgPeriodInterval)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) RegistID() (*field.RegistID, error) {
+	f := new(field.RegistID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) ListExecInst() (*field.ListExecInst, error) {
+	f := new(field.ListExecInst)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) ListID() (*field.ListID, error) {
+	f := new(field.ListID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,18 +39,8 @@ func (m *NewOrderList) ClientBidID() (*field.ClientBidID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) ProgRptReqs() (*field.ProgRptReqs, error) {
-	f := new(field.ProgRptReqs)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *NewOrderList) BidType() (*field.BidType, error) {
 	f := new(field.BidType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) ProgPeriodInterval() (*field.ProgPeriodInterval, error) {
-	f := new(field.ProgPeriodInterval)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,33 +54,8 @@ func (m *NewOrderList) MoneyLaunderingStatus() (*field.MoneyLaunderingStatus, er
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) RegistID() (*field.RegistID, error) {
-	f := new(field.RegistID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *NewOrderList) ListExecInstType() (*field.ListExecInstType, error) {
 	f := new(field.ListExecInstType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) ListExecInst() (*field.ListExecInst, error) {
-	f := new(field.ListExecInst)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) EncodedListExecInstLen() (*field.EncodedListExecInstLen, error) {
-	f := new(field.EncodedListExecInstLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) EncodedListExecInst() (*field.EncodedListExecInst, error) {
-	f := new(field.EncodedListExecInst)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) AllowableOneSidednessPct() (*field.AllowableOneSidednessPct, error) {
-	f := new(field.AllowableOneSidednessPct)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -84,13 +64,38 @@ func (m *NewOrderList) AllowableOneSidednessValue() (*field.AllowableOneSidednes
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) AllowableOneSidednessCurr() (*field.AllowableOneSidednessCurr, error) {
-	f := new(field.AllowableOneSidednessCurr)
+func (m *NewOrderList) TotNoOrders() (*field.TotNoOrders, error) {
+	f := new(field.TotNoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) TotNoOrders() (*field.TotNoOrders, error) {
-	f := new(field.TotNoOrders)
+func (m *NewOrderList) NoOrders() (*field.NoOrders, error) {
+	f := new(field.NoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) EncodedListExecInstLen() (*field.EncodedListExecInstLen, error) {
+	f := new(field.EncodedListExecInstLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) AllowableOneSidednessPct() (*field.AllowableOneSidednessPct, error) {
+	f := new(field.AllowableOneSidednessPct)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) ProgRptReqs() (*field.ProgRptReqs, error) {
+	f := new(field.ProgRptReqs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) EncodedListExecInst() (*field.EncodedListExecInst, error) {
+	f := new(field.EncodedListExecInst)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) AllowableOneSidednessCurr() (*field.AllowableOneSidednessCurr, error) {
+	f := new(field.AllowableOneSidednessCurr)
 	err := m.Body.Get(f)
 	return f, err
 }

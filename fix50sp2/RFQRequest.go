@@ -14,6 +14,11 @@ func (m *RFQRequest) RFQReqID() (*field.RFQReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *RFQRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *RFQRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
 	f := new(field.SubscriptionRequestType)
 	err := m.Body.Get(f)
@@ -21,6 +26,11 @@ func (m *RFQRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, 
 }
 func (m *RFQRequest) PrivateQuote() (*field.PrivateQuote, error) {
 	f := new(field.PrivateQuote)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RFQRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -9,23 +9,73 @@ type QuoteResponse struct {
 	quickfixgo.Message
 }
 
+func (m *QuoteResponse) StrikeCurrency() (*field.StrikeCurrency, error) {
+	f := new(field.StrikeCurrency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) MktOfferPx() (*field.MktOfferPx, error) {
+	f := new(field.MktOfferPx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SecurityType() (*field.SecurityType, error) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) AgreementDate() (*field.AgreementDate, error) {
+	f := new(field.AgreementDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) RoundingDirection() (*field.RoundingDirection, error) {
+	f := new(field.RoundingDirection)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) BidSize() (*field.BidSize, error) {
+	f := new(field.BidSize)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) YieldType() (*field.YieldType, error) {
+	f := new(field.YieldType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) YieldRedemptionPriceType() (*field.YieldRedemptionPriceType, error) {
+	f := new(field.YieldRedemptionPriceType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) EndDate() (*field.EndDate, error) {
+	f := new(field.EndDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) ContractSettlMonth() (*field.ContractSettlMonth, error) {
+	f := new(field.ContractSettlMonth)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) InterestAccrualDate() (*field.InterestAccrualDate, error) {
+	f := new(field.InterestAccrualDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) NoLegs() (*field.NoLegs, error) {
+	f := new(field.NoLegs)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteResponse) QuoteRespID() (*field.QuoteRespID, error) {
 	f := new(field.QuoteRespID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) QuoteID() (*field.QuoteID, error) {
-	f := new(field.QuoteID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) QuoteRespType() (*field.QuoteRespType, error) {
-	f := new(field.QuoteRespType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,8 +84,18 @@ func (m *QuoteResponse) OrderCapacity() (*field.OrderCapacity, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) IOIID() (*field.IOIID, error) {
-	f := new(field.IOIID)
+func (m *QuoteResponse) DatedDate() (*field.DatedDate, error) {
+	f := new(field.DatedDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) NoUnderlyings() (*field.NoUnderlyings, error) {
+	f := new(field.NoUnderlyings)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Commission() (*field.Commission, error) {
+	f := new(field.Commission)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,18 +104,28 @@ func (m *QuoteResponse) QuoteType() (*field.QuoteType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) TradingSessionID() (*field.TradingSessionID, error) {
-	f := new(field.TradingSessionID)
+func (m *QuoteResponse) Issuer() (*field.Issuer, error) {
+	f := new(field.Issuer)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
+func (m *QuoteResponse) TerminationType() (*field.TerminationType, error) {
+	f := new(field.TerminationType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) Side() (*field.Side, error) {
-	f := new(field.Side)
+func (m *QuoteResponse) DeliveryType() (*field.DeliveryType, error) {
+	f := new(field.DeliveryType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) BenchmarkPriceType() (*field.BenchmarkPriceType, error) {
+	f := new(field.BenchmarkPriceType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SecuritySubType() (*field.SecuritySubType, error) {
+	f := new(field.SecuritySubType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,38 +134,128 @@ func (m *QuoteResponse) SettlType() (*field.SettlType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) SettlDate() (*field.SettlDate, error) {
-	f := new(field.SettlDate)
+func (m *QuoteResponse) BidSpotRate() (*field.BidSpotRate, error) {
+	f := new(field.BidSpotRate)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) SettlDate2() (*field.SettlDate2, error) {
-	f := new(field.SettlDate2)
+func (m *QuoteResponse) MidPx() (*field.MidPx, error) {
+	f := new(field.MidPx)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) OrderQty2() (*field.OrderQty2, error) {
-	f := new(field.OrderQty2)
+func (m *QuoteResponse) CustOrderCapacity() (*field.CustOrderCapacity, error) {
+	f := new(field.CustOrderCapacity)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) Currency() (*field.Currency, error) {
-	f := new(field.Currency)
+func (m *QuoteResponse) BenchmarkCurveCurrency() (*field.BenchmarkCurveCurrency, error) {
+	f := new(field.BenchmarkCurveCurrency)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) Account() (*field.Account, error) {
-	f := new(field.Account)
+func (m *QuoteResponse) CountryOfIssue() (*field.CountryOfIssue, error) {
+	f := new(field.CountryOfIssue)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
+func (m *QuoteResponse) LocaleOfIssue() (*field.LocaleOfIssue, error) {
+	f := new(field.LocaleOfIssue)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) AccountType() (*field.AccountType, error) {
-	f := new(field.AccountType)
+func (m *QuoteResponse) StartDate() (*field.StartDate, error) {
+	f := new(field.StartDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) NoStipulations() (*field.NoStipulations, error) {
+	f := new(field.NoStipulations)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) RoundingModulus() (*field.RoundingModulus, error) {
+	f := new(field.RoundingModulus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) MaturityDate() (*field.MaturityDate, error) {
+	f := new(field.MaturityDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, error) {
+	f := new(field.EncodedSecurityDescLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) OrderQty() (*field.OrderQty, error) {
+	f := new(field.OrderQty)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SettlCurrOfferFxRate() (*field.SettlCurrOfferFxRate, error) {
+	f := new(field.SettlCurrOfferFxRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Yield() (*field.Yield, error) {
+	f := new(field.Yield)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) YieldCalcDate() (*field.YieldCalcDate, error) {
+	f := new(field.YieldCalcDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
+	f := new(field.RepoCollateralSecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) EncodedSecurityDesc() (*field.EncodedSecurityDesc, error) {
+	f := new(field.EncodedSecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) OfferSpotRate() (*field.OfferSpotRate, error) {
+	f := new(field.OfferSpotRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) YieldRedemptionPrice() (*field.YieldRedemptionPrice, error) {
+	f := new(field.YieldRedemptionPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) RepurchaseRate() (*field.RepurchaseRate, error) {
+	f := new(field.RepurchaseRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) InstrRegistry() (*field.InstrRegistry, error) {
+	f := new(field.InstrRegistry)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) ContractMultiplier() (*field.ContractMultiplier, error) {
+	f := new(field.ContractMultiplier)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -109,53 +269,18 @@ func (m *QuoteResponse) OfferPx() (*field.OfferPx, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) MktBidPx() (*field.MktBidPx, error) {
-	f := new(field.MktBidPx)
+func (m *QuoteResponse) MaturityMonthYear() (*field.MaturityMonthYear, error) {
+	f := new(field.MaturityMonthYear)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) MktOfferPx() (*field.MktOfferPx, error) {
-	f := new(field.MktOfferPx)
+func (m *QuoteResponse) RedemptionDate() (*field.RedemptionDate, error) {
+	f := new(field.RedemptionDate)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) MinBidSize() (*field.MinBidSize, error) {
-	f := new(field.MinBidSize)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) BidSize() (*field.BidSize, error) {
-	f := new(field.BidSize)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) MinOfferSize() (*field.MinOfferSize, error) {
-	f := new(field.MinOfferSize)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) OfferSize() (*field.OfferSize, error) {
-	f := new(field.OfferSize)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) ValidUntilTime() (*field.ValidUntilTime, error) {
-	f := new(field.ValidUntilTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) BidSpotRate() (*field.BidSpotRate, error) {
-	f := new(field.BidSpotRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) OfferSpotRate() (*field.OfferSpotRate, error) {
-	f := new(field.OfferSpotRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) BidForwardPoints() (*field.BidForwardPoints, error) {
-	f := new(field.BidForwardPoints)
+func (m *QuoteResponse) OptAttribute() (*field.OptAttribute, error) {
+	f := new(field.OptAttribute)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -164,8 +289,53 @@ func (m *QuoteResponse) OfferForwardPoints() (*field.OfferForwardPoints, error) 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) MidPx() (*field.MidPx, error) {
-	f := new(field.MidPx)
+func (m *QuoteResponse) OfferForwardPoints2() (*field.OfferForwardPoints2, error) {
+	f := new(field.OfferForwardPoints2)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) NoQuoteQualifiers() (*field.NoQuoteQualifiers, error) {
+	f := new(field.NoQuoteQualifiers)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) CPRegType() (*field.CPRegType, error) {
+	f := new(field.CPRegType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) OrderPercent() (*field.OrderPercent, error) {
+	f := new(field.OrderPercent)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SettlDate2() (*field.SettlDate2, error) {
+	f := new(field.SettlDate2)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) PriceType() (*field.PriceType, error) {
+	f := new(field.PriceType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) RepurchaseTerm() (*field.RepurchaseTerm, error) {
+	f := new(field.RepurchaseTerm)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -179,28 +349,38 @@ func (m *QuoteResponse) MidYield() (*field.MidYield, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) OfferYield() (*field.OfferYield, error) {
-	f := new(field.OfferYield)
+func (m *QuoteResponse) BenchmarkSecurityIDSource() (*field.BenchmarkSecurityIDSource, error) {
+	f := new(field.BenchmarkSecurityIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *QuoteResponse) SecurityIDSource() (*field.SecurityIDSource, error) {
+	f := new(field.SecurityIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) OrdType() (*field.OrdType, error) {
-	f := new(field.OrdType)
+func (m *QuoteResponse) CouponPaymentDate() (*field.CouponPaymentDate, error) {
+	f := new(field.CouponPaymentDate)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) BidForwardPoints2() (*field.BidForwardPoints2, error) {
-	f := new(field.BidForwardPoints2)
+func (m *QuoteResponse) MarginRatio() (*field.MarginRatio, error) {
+	f := new(field.MarginRatio)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) OfferForwardPoints2() (*field.OfferForwardPoints2, error) {
-	f := new(field.OfferForwardPoints2)
+func (m *QuoteResponse) CashOrderQty() (*field.CashOrderQty, error) {
+	f := new(field.CashOrderQty)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) MinBidSize() (*field.MinBidSize, error) {
+	f := new(field.MinBidSize)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) BidForwardPoints() (*field.BidForwardPoints, error) {
+	f := new(field.BidForwardPoints)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -209,18 +389,8 @@ func (m *QuoteResponse) SettlCurrBidFxRate() (*field.SettlCurrBidFxRate, error) 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) SettlCurrOfferFxRate() (*field.SettlCurrOfferFxRate, error) {
-	f := new(field.SettlCurrOfferFxRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) SettlCurrFxRateCalc() (*field.SettlCurrFxRateCalc, error) {
-	f := new(field.SettlCurrFxRateCalc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) Commission() (*field.Commission, error) {
-	f := new(field.Commission)
+func (m *QuoteResponse) Side() (*field.Side, error) {
+	f := new(field.Side)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -229,28 +399,48 @@ func (m *QuoteResponse) CommType() (*field.CommType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) CustOrderCapacity() (*field.CustOrderCapacity, error) {
-	f := new(field.CustOrderCapacity)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) ExDestination() (*field.ExDestination, error) {
-	f := new(field.ExDestination)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteResponse) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteResponse) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) QuoteRespType() (*field.QuoteRespType, error) {
+	f := new(field.QuoteRespType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Product() (*field.Product, error) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
+	f := new(field.EncodedIssuerLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) OrderQty2() (*field.OrderQty2, error) {
+	f := new(field.OrderQty2)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) BenchmarkPrice() (*field.BenchmarkPrice, error) {
+	f := new(field.BenchmarkPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) IssueDate() (*field.IssueDate, error) {
+	f := new(field.IssueDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) CouponRate() (*field.CouponRate, error) {
+	f := new(field.CouponRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -259,8 +449,193 @@ func (m *QuoteResponse) Price() (*field.Price, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteResponse) PriceType() (*field.PriceType, error) {
-	f := new(field.PriceType)
+func (m *QuoteResponse) StrikePrice() (*field.StrikePrice, error) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) AgreementID() (*field.AgreementID, error) {
+	f := new(field.AgreementID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) YieldRedemptionDate() (*field.YieldRedemptionDate, error) {
+	f := new(field.YieldRedemptionDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) QuoteID() (*field.QuoteID, error) {
+	f := new(field.QuoteID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) MinOfferSize() (*field.MinOfferSize, error) {
+	f := new(field.MinOfferSize)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) AccountType() (*field.AccountType, error) {
+	f := new(field.AccountType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) BenchmarkCurveName() (*field.BenchmarkCurveName, error) {
+	f := new(field.BenchmarkCurveName)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) NoSecurityAltID() (*field.NoSecurityAltID, error) {
+	f := new(field.NoSecurityAltID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
+	f := new(field.StateOrProvinceOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) EncodedIssuer() (*field.EncodedIssuer, error) {
+	f := new(field.EncodedIssuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) AgreementCurrency() (*field.AgreementCurrency, error) {
+	f := new(field.AgreementCurrency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Currency() (*field.Currency, error) {
+	f := new(field.Currency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Spread() (*field.Spread, error) {
+	f := new(field.Spread)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) CFICode() (*field.CFICode, error) {
+	f := new(field.CFICode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Pool() (*field.Pool, error) {
+	f := new(field.Pool)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) TradingSessionID() (*field.TradingSessionID, error) {
+	f := new(field.TradingSessionID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) CPProgram() (*field.CPProgram, error) {
+	f := new(field.CPProgram)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) BenchmarkCurvePoint() (*field.BenchmarkCurvePoint, error) {
+	f := new(field.BenchmarkCurvePoint)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) BenchmarkSecurityID() (*field.BenchmarkSecurityID, error) {
+	f := new(field.BenchmarkSecurityID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Factor() (*field.Factor, error) {
+	f := new(field.Factor)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SettlDate() (*field.SettlDate, error) {
+	f := new(field.SettlDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) BidForwardPoints2() (*field.BidForwardPoints2, error) {
+	f := new(field.BidForwardPoints2)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SecurityDesc() (*field.SecurityDesc, error) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) IOIID() (*field.IOIID, error) {
+	f := new(field.IOIID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) ValidUntilTime() (*field.ValidUntilTime, error) {
+	f := new(field.ValidUntilTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) OrdType() (*field.OrdType, error) {
+	f := new(field.OrdType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SettlCurrFxRateCalc() (*field.SettlCurrFxRateCalc, error) {
+	f := new(field.SettlCurrFxRateCalc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) OfferYield() (*field.OfferYield, error) {
+	f := new(field.OfferYield)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) ExDestination() (*field.ExDestination, error) {
+	f := new(field.ExDestination)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) CreditRating() (*field.CreditRating, error) {
+	f := new(field.CreditRating)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Symbol() (*field.Symbol, error) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) NoEvents() (*field.NoEvents, error) {
+	f := new(field.NoEvents)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) AgreementDesc() (*field.AgreementDesc, error) {
+	f := new(field.AgreementDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) Account() (*field.Account, error) {
+	f := new(field.Account)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) MktBidPx() (*field.MktBidPx, error) {
+	f := new(field.MktBidPx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteResponse) OfferSize() (*field.OfferSize, error) {
+	f := new(field.OfferSize)
 	err := m.Body.Get(f)
 	return f, err
 }

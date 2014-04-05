@@ -19,3 +19,8 @@ func (m *NetworkCounterpartySystemStatusRequest) NetworkRequestID() (*field.Netw
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *NetworkCounterpartySystemStatusRequest) NoCompIDs() (*field.NoCompIDs, error) {
+	f := new(field.NoCompIDs)
+	err := m.Body.Get(f)
+	return f, err
+}

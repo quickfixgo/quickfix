@@ -14,3 +14,8 @@ func (m *MarketDataIncrementalRefresh) MDReqID() (*field.MDReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MarketDataIncrementalRefresh) NoMDEntries() (*field.NoMDEntries, error) {
+	f := new(field.NoMDEntries)
+	err := m.Body.Get(f)
+	return f, err
+}

@@ -9,13 +9,28 @@ type AdjustedPositionReport struct {
 	quickfixgo.Message
 }
 
-func (m *AdjustedPositionReport) PosMaintRptID() (*field.PosMaintRptID, error) {
-	f := new(field.PosMaintRptID)
+func (m *AdjustedPositionReport) PosReqType() (*field.PosReqType, error) {
+	f := new(field.PosReqType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AdjustedPositionReport) PosReqType() (*field.PosReqType, error) {
-	f := new(field.PosReqType)
+func (m *AdjustedPositionReport) NoPositions() (*field.NoPositions, error) {
+	f := new(field.NoPositions)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) SettlPrice() (*field.SettlPrice, error) {
+	f := new(field.SettlPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) PriorSettlPrice() (*field.PriorSettlPrice, error) {
+	f := new(field.PriorSettlPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) PosMaintRptID() (*field.PosMaintRptID, error) {
+	f := new(field.PosMaintRptID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,13 +44,13 @@ func (m *AdjustedPositionReport) SettlSessID() (*field.SettlSessID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AdjustedPositionReport) SettlPrice() (*field.SettlPrice, error) {
-	f := new(field.SettlPrice)
+func (m *AdjustedPositionReport) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AdjustedPositionReport) PriorSettlPrice() (*field.PriorSettlPrice, error) {
-	f := new(field.PriorSettlPrice)
+func (m *AdjustedPositionReport) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }

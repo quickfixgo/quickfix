@@ -19,3 +19,8 @@ func (m *BidResponse) ClientBidID() (*field.ClientBidID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *BidResponse) NoBidComponents() (*field.NoBidComponents, error) {
+	f := new(field.NoBidComponents)
+	err := m.Body.Get(f)
+	return f, err
+}

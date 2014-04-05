@@ -9,6 +9,26 @@ type SettlementInstructionRequest struct {
 	quickfixgo.Message
 }
 
+func (m *SettlementInstructionRequest) CFICode() (*field.CFICode, error) {
+	f := new(field.CFICode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructionRequest) LastUpdateTime() (*field.LastUpdateTime, error) {
+	f := new(field.LastUpdateTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructionRequest) StandInstDbName() (*field.StandInstDbName, error) {
+	f := new(field.StandInstDbName)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructionRequest) StandInstDbID() (*field.StandInstDbID, error) {
+	f := new(field.StandInstDbID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SettlementInstructionRequest) SettlInstReqID() (*field.SettlInstReqID, error) {
 	f := new(field.SettlInstReqID)
 	err := m.Body.Get(f)
@@ -19,13 +39,8 @@ func (m *SettlementInstructionRequest) TransactTime() (*field.TransactTime, erro
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) AllocAccount() (*field.AllocAccount, error) {
-	f := new(field.AllocAccount)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementInstructionRequest) AllocAcctIDSource() (*field.AllocAcctIDSource, error) {
-	f := new(field.AllocAcctIDSource)
+func (m *SettlementInstructionRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,13 +54,18 @@ func (m *SettlementInstructionRequest) Product() (*field.Product, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
+func (m *SettlementInstructionRequest) AllocAccount() (*field.AllocAccount, error) {
+	f := new(field.AllocAccount)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) CFICode() (*field.CFICode, error) {
-	f := new(field.CFICode)
+func (m *SettlementInstructionRequest) AllocAcctIDSource() (*field.AllocAcctIDSource, error) {
+	f := new(field.AllocAcctIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructionRequest) SecurityType() (*field.SecurityType, error) {
+	f := new(field.SecurityType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,23 +79,8 @@ func (m *SettlementInstructionRequest) ExpireTime() (*field.ExpireTime, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) LastUpdateTime() (*field.LastUpdateTime, error) {
-	f := new(field.LastUpdateTime)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SettlementInstructionRequest) StandInstDbType() (*field.StandInstDbType, error) {
 	f := new(field.StandInstDbType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementInstructionRequest) StandInstDbName() (*field.StandInstDbName, error) {
-	f := new(field.StandInstDbName)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementInstructionRequest) StandInstDbID() (*field.StandInstDbID, error) {
-	f := new(field.StandInstDbID)
 	err := m.Body.Get(f)
 	return f, err
 }

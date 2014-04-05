@@ -19,6 +19,11 @@ func (m *ApplicationMessageRequest) ApplReqType() (*field.ApplReqType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ApplicationMessageRequest) NoApplIDs() (*field.NoApplIDs, error) {
+	f := new(field.NoApplIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ApplicationMessageRequest) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)

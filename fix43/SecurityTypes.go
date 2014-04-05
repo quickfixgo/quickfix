@@ -9,23 +9,8 @@ type SecurityTypes struct {
 	quickfixgo.Message
 }
 
-func (m *SecurityTypes) SecurityReqID() (*field.SecurityReqID, error) {
-	f := new(field.SecurityReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) SecurityResponseID() (*field.SecurityResponseID, error) {
-	f := new(field.SecurityResponseID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SecurityTypes) SecurityResponseType() (*field.SecurityResponseType, error) {
 	f := new(field.SecurityResponseType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) TotalNumSecurityTypes() (*field.TotalNumSecurityTypes, error) {
-	f := new(field.TotalNumSecurityTypes)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,13 +34,33 @@ func (m *SecurityTypes) TradingSessionID() (*field.TradingSessionID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
+func (m *SecurityTypes) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
+	f := new(field.SubscriptionRequestType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
-	f := new(field.SubscriptionRequestType)
+func (m *SecurityTypes) SecurityReqID() (*field.SecurityReqID, error) {
+	f := new(field.SecurityReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) SecurityResponseID() (*field.SecurityResponseID, error) {
+	f := new(field.SecurityResponseID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) TotalNumSecurityTypes() (*field.TotalNumSecurityTypes, error) {
+	f := new(field.TotalNumSecurityTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) NoSecurityTypes() (*field.NoSecurityTypes, error) {
+	f := new(field.NoSecurityTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
 	err := m.Body.Get(f)
 	return f, err
 }

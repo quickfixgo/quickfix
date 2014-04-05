@@ -49,3 +49,13 @@ func (m *MarketDataRequest) MDImplicitDelete() (*field.MDImplicitDelete, error) 
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MarketDataRequest) NoMDEntryTypes() (*field.NoMDEntryTypes, error) {
+	f := new(field.NoMDEntryTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}

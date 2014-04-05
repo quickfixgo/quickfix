@@ -19,6 +19,11 @@ func (m *ApplicationMessageReport) ApplReportType() (*field.ApplReportType, erro
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ApplicationMessageReport) NoApplIDs() (*field.NoApplIDs, error) {
+	f := new(field.NoApplIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ApplicationMessageReport) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)

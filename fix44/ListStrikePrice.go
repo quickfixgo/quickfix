@@ -24,3 +24,13 @@ func (m *ListStrikePrice) LastFragment() (*field.LastFragment, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ListStrikePrice) NoStrikes() (*field.NoStrikes, error) {
+	f := new(field.NoStrikes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStrikePrice) NoUnderlyings() (*field.NoUnderlyings, error) {
+	f := new(field.NoUnderlyings)
+	err := m.Body.Get(f)
+	return f, err
+}

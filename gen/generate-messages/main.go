@@ -22,7 +22,7 @@ func usage() {
 }
 
 func initPackage() {
-	pkg = strings.ToLower(fixSpec.FixType) + strconv.Itoa(fixSpec.Major) + strconv.Itoa(fixSpec.Minor)
+	pkg = strings.ToLower(fixSpec.FIXType) + strconv.Itoa(fixSpec.Major) + strconv.Itoa(fixSpec.Minor)
 
 	if fixSpec.ServicePack != 0 {
 		pkg += "sp" + strconv.Itoa(fixSpec.ServicePack)
@@ -62,8 +62,8 @@ func buildCrack() (out string) {
 switch msg.Header.Get(msgType); msgType.Value {
 `
 
-	for _, m := range fixSpec.Messages {
-		out += fmt.Sprintf("case \"%v\":\n", m.MsgType)
+	for msgType, m := range fixSpec.Messages {
+		out += fmt.Sprintf("case \"%v\":\n", msgType)
 		out += fmt.Sprintf("return router.On%v%v(%v{msg},sessionID)\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
 	out += "}\n"
@@ -96,7 +96,7 @@ func buildMessageCracker() (out string) {
 	return
 }
 
-func genMessage(msg spec.Message) {
+func genMessage(msg *datadictionary.MessageDef) {
 	fileOut := fmt.Sprintf("package %v\n", pkg)
 	fileOut += `
 import( 
@@ -127,7 +127,7 @@ func main() {
 
 	dataDict := flag.Arg(0)
 
-	if spec, err := datadictionary.ParseFile(dataDict); err != nil {
+	if spec, err := datadictionary.Parse(dataDict); err != nil {
 		panic(err)
 	} else {
 		fixSpec = spec
