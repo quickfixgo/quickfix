@@ -7,73 +7,47 @@ import (
 	"os"
 )
 
+//DataDictionary models FIX messages, components, and fields.
 type DataDictionary struct {
 	FieldTypeByTag  map[tag.Tag]*FieldType
 	FieldTypeByName map[string]*FieldType
-	Messages        map[string]*Message
+	Messages        map[string]*MessageDef
 	Components      map[string]*Component
-	Header          *Message
-	Trailer         *Message
+	Header          *MessageDef
+	Trailer         *MessageDef
 }
 
+//Component is a grouping of fields.
 type Component struct {
-	Fields []Field
+	Fields []*FieldDef
 }
 
+//TagSet is set for tags.
 type TagSet map[tag.Tag]struct{}
 
+//Add adds a tag to the tagset.
 func (t TagSet) Add(tag tag.Tag) {
 	t[tag] = struct{}{}
 }
 
-type Field interface {
-	tag() tag.Tag
-	required() bool
-	memberTags() []tag.Tag
-	requiredMemberTags() []tag.Tag
-}
-
-type MessageField struct {
+//FieldDef models a field belonging to a message.
+type FieldDef struct {
 	*FieldType
-	Required bool
+	Required    bool
+	ChildFields []*FieldDef
 }
 
-func (f MessageField) tag() tag.Tag {
-	return f.FieldType.Tag
+//IsGroup is true if the field is a repeating group.
+func (f FieldDef) IsGroup() bool {
+	return len(f.ChildFields) > 0
 }
 
-func (f MessageField) required() bool {
-	return f.Required
-}
+func (f FieldDef) childTags() []tag.Tag {
+	tags := make([]tag.Tag, 0, len(f.ChildFields))
 
-func (f MessageField) memberTags() []tag.Tag {
-	return []tag.Tag{}
-}
-func (f MessageField) requiredMemberTags() []tag.Tag {
-	return []tag.Tag{}
-}
-
-type GroupField struct {
-	*FieldType
-	Required bool
-
-	Fields []Field
-}
-
-func (f GroupField) tag() tag.Tag {
-	return f.FieldType.Tag
-}
-
-func (f GroupField) required() bool {
-	return f.Required
-}
-
-func (f GroupField) memberTags() []tag.Tag {
-	tags := make([]tag.Tag, len(f.Fields))
-
-	for _, f := range f.Fields {
-		tags = append(tags, f.tag())
-		for _, t := range f.memberTags() {
+	for _, f := range f.ChildFields {
+		tags = append(tags, f.Tag)
+		for _, t := range f.childTags() {
 			tags = append(tags, t)
 		}
 	}
@@ -81,16 +55,16 @@ func (f GroupField) memberTags() []tag.Tag {
 	return tags
 }
 
-func (f GroupField) requiredMemberTags() []tag.Tag {
+func (f FieldDef) requiredChildTags() []tag.Tag {
 	tags := make([]tag.Tag, 0)
 
-	for _, f := range f.Fields {
-		if !f.required() {
+	for _, f := range f.ChildFields {
+		if !f.Required {
 			continue
 		}
 
-		tags = append(tags, f.tag())
-		for _, t := range f.requiredMemberTags() {
+		tags = append(tags, f.Tag)
+		for _, t := range f.requiredChildTags() {
 			tags = append(tags, t)
 		}
 	}
@@ -100,6 +74,7 @@ func (f GroupField) requiredMemberTags() []tag.Tag {
 	return []tag.Tag{}
 }
 
+//FieldType holds information relating to a field.  Includes Tag, type, and enums, if defined.
 type FieldType struct {
 	Name  string
 	Tag   tag.Tag
@@ -107,21 +82,21 @@ type FieldType struct {
 	Enums map[string]Enum
 }
 
+//Enum is a container for value and description.
 type Enum struct {
 	Value       string
 	Description string
 }
 
-type Message struct {
-	Fields map[tag.Tag]Field
+//MessageDef can apply to header, trailer, or body of a FIX Message.
+type MessageDef struct {
+	Fields map[tag.Tag]*FieldDef
 
 	RequiredTags TagSet
 	Tags         TagSet
 }
 
-type Header Message
-type Trailer Message
-
+//Parse loads and and build a datadictionary instance from an xml file.
 func Parse(path string) (*DataDictionary, error) {
 	var xmlFile *os.File
 	xmlFile, err := os.Open(path)

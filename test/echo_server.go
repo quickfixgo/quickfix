@@ -51,23 +51,23 @@ func (e *EchoApplication) FromApp(msg quickfixgo.Message, sessionID quickfixgo.S
 }
 
 func (e *EchoApplication) processMsg(msg quickfixgo.Message, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
-	orderId := new(field.ClOrdID)
-	if err := msg.Body.Get(orderId); err != nil {
+	orderID := new(field.ClOrdID)
+	if err := msg.Body.Get(orderID); err != nil {
 		return
 	}
 
 	reply := quickfixgo.NewMessageBuilder()
-	sessionOrderId := sessionID.String() + orderId.Value
+	sessionOrderID := sessionID.String() + orderID.Value
 	possResend := new(field.PossResend)
 	if err := msg.Header.Get(possResend); err == nil && possResend.Value {
-		if e.OrderIds[sessionOrderId] {
+		if e.OrderIds[sessionOrderID] {
 			return
 		}
 
 		reply.Header.Set(possResend)
 	}
 
-	e.OrderIds[sessionOrderId] = true
+	e.OrderIds[sessionOrderID] = true
 
 	msgType := new(field.MsgType)
 	msg.Header.Get(msgType)
@@ -115,6 +115,42 @@ func (e EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1.NewOrderSingle, s
 
 func (e EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2.NewOrderSingle, sessionID quickfixgo.SessionID) quickfixgo.MessageReject {
 	return e.processMsg(msg.Message, sessionID)
+}
+
+func (e EchoApplication) OnFIX42SecurityDefinition(msg fix42.SecurityDefinition, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
+	reply := msg.ToBuilder()
+	quickfixgo.SendToTarget(reply, sessionID)
+	return
+}
+
+func (e EchoApplication) OnFIX43SecurityDefinition(msg fix43.SecurityDefinition, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
+	reply := msg.ToBuilder()
+	quickfixgo.SendToTarget(reply, sessionID)
+	return
+}
+
+func (e EchoApplication) OnFIX44SecurityDefinition(msg fix44.SecurityDefinition, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
+	reply := msg.ToBuilder()
+	quickfixgo.SendToTarget(reply, sessionID)
+	return
+}
+
+func (e EchoApplication) OnFIX50SecurityDefinition(msg fix50.SecurityDefinition, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
+	reply := msg.ToBuilder()
+	quickfixgo.SendToTarget(reply, sessionID)
+	return
+}
+
+func (e EchoApplication) OnFIX50SP1SecurityDefinition(msg fix50sp1.SecurityDefinition, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
+	reply := msg.ToBuilder()
+	quickfixgo.SendToTarget(reply, sessionID)
+	return
+}
+
+func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefinition, sessionID quickfixgo.SessionID) (reject quickfixgo.MessageReject) {
+	reply := msg.ToBuilder()
+	quickfixgo.SendToTarget(reply, sessionID)
+	return
 }
 
 func main() {

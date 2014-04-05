@@ -18,10 +18,11 @@ func (s *BuildTests) TestBuildField(c *C) {
 	dict := &DataDictionary{FieldTypeByName: fieldTypeByName}
 
 	b := &builder{doc: nil, dict: dict}
-	f, err := b.buildField(xmlField)
+	f, err := b.buildFieldDef(xmlField)
 	c.Check(err, IsNil)
 
-	c.Check(f.tag(), Equals, tag.ClOrdID)
+	c.Check(f.Tag, Equals, tag.ClOrdID)
+	c.Check(len(f.childTags()), Equals, 0)
 }
 
 func (s *BuildTests) TestBuildFieldGroup(c *C) {
@@ -32,9 +33,9 @@ func (s *BuildTests) TestBuildFieldGroup(c *C) {
 	dict := &DataDictionary{FieldTypeByName: fieldTypeByName}
 
 	b := &builder{doc: nil, dict: dict}
-	f, err := b.buildField(xmlField)
+	f, err := b.buildFieldDef(xmlField)
 	c.Check(err, IsNil)
 
-	c.Check(f.tag(), Equals, tag.ClOrdID)
-	c.Check(len(f.memberTags()), Equals, 0)
+	c.Check(f.Tag, Equals, tag.ClOrdID)
+	c.Check(len(f.childTags()), Equals, 0)
 }

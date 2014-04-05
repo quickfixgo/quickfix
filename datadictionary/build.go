@@ -26,15 +26,15 @@ func (b *builder) build(doc *XMLDoc) (*DataDictionary, error) {
 		return nil, err
 	}
 
-	if err := b.buildMessages(); err != nil {
+	if err := b.buildMessageDefs(); err != nil {
 		return nil, err
 	}
 
 	var err error
-	if b.dict.Header, err = b.buildMessage(b.doc.Header); err != nil {
+	if b.dict.Header, err = b.buildMessageDef(b.doc.Header); err != nil {
 		return nil, err
 	}
-	if b.dict.Trailer, err = b.buildMessage(b.doc.Trailer); err != nil {
+	if b.dict.Trailer, err = b.buildMessageDef(b.doc.Trailer); err != nil {
 		return nil, err
 	}
 
@@ -66,7 +66,7 @@ func (b builder) findOrBuildComponent(xmlMember *XMLComponentMember) (*Component
 }
 
 func (b builder) buildComponent(xmlComponent *XMLComponent) (*Component, error) {
-	c := &Component{Fields: make([]Field, 0)}
+	c := &Component{Fields: make([]*FieldDef, 0)}
 
 	for _, member := range xmlComponent.Members {
 		if member.XMLName.Local == "component" {
@@ -80,11 +80,12 @@ func (b builder) buildComponent(xmlComponent *XMLComponent) (*Component, error) 
 				c.Fields = append(c.Fields, childField)
 			}
 		} else {
-			if field, err := b.buildField(member); err != nil {
+			var field *FieldDef
+			var err error
+			if field, err = b.buildFieldDef(member); err != nil {
 				return nil, err
-			} else {
-				c.Fields = append(c.Fields, field)
 			}
+			c.Fields = append(c.Fields, field)
 		}
 	}
 
@@ -96,23 +97,24 @@ func (b builder) buildComponents() error {
 
 	for _, c := range b.doc.Components {
 		if _, allReadyBuilt := b.dict.Components[c.Name]; !allReadyBuilt {
-			if built, err := b.buildComponent(c); err != nil {
+			var builtComponent *Component
+			var err error
+			if builtComponent, err = b.buildComponent(c); err != nil {
 				return err
-			} else {
-				b.dict.Components[c.Name] = built
 			}
+			b.dict.Components[c.Name] = builtComponent
 		}
 	}
 
 	return nil
 }
 
-func (b builder) buildMessages() error {
-	b.dict.Messages = make(map[string]*Message)
+func (b builder) buildMessageDefs() error {
+	b.dict.Messages = make(map[string]*MessageDef)
 
 	var err error
 	for _, m := range b.doc.Messages {
-		if b.dict.Messages[m.MsgType], err = b.buildMessage(m); err != nil {
+		if b.dict.Messages[m.MsgType], err = b.buildMessageDef(m); err != nil {
 			break
 		}
 	}
@@ -120,9 +122,9 @@ func (b builder) buildMessages() error {
 	return err
 }
 
-func (b builder) buildMessage(xmlMessage *XMLComponent) (*Message, error) {
-	m := new(Message)
-	m.Fields = make(map[tag.Tag]Field)
+func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) {
+	m := new(MessageDef)
+	m.Fields = make(map[tag.Tag]*FieldDef)
 	m.RequiredTags = make(TagSet)
 	m.Tags = make(TagSet)
 
@@ -134,27 +136,27 @@ func (b builder) buildMessage(xmlMessage *XMLComponent) (*Message, error) {
 				return nil, newUnknownComponent(member.Name)
 			}
 			for _, f := range comp.Fields {
-				m.Fields[f.tag()] = f
+				m.Fields[f.Tag] = f
 			}
 		} else {
-			var field Field
+			var field *FieldDef
 			var err error
-			if field, err = b.buildField(member); err != nil {
+			if field, err = b.buildFieldDef(member); err != nil {
 				return nil, err
 			}
-			m.Fields[field.tag()] = field
+			m.Fields[field.Tag] = field
 		}
 	}
 
 	for _, f := range m.Fields {
-		m.Tags.Add(f.tag())
-		for _, t := range f.memberTags() {
+		m.Tags.Add(f.Tag)
+		for _, t := range f.childTags() {
 			m.Tags.Add(t)
 		}
 
-		if f.required() {
-			m.RequiredTags.Add(f.tag())
-			for _, t := range f.requiredMemberTags() {
+		if f.Required {
+			m.RequiredTags.Add(f.Tag)
+			for _, t := range f.requiredChildTags() {
 				m.RequiredTags.Add(t)
 			}
 		}
@@ -163,8 +165,8 @@ func (b builder) buildMessage(xmlMessage *XMLComponent) (*Message, error) {
 	return m, nil
 }
 
-func (b builder) buildGroupField(xmlField *XMLComponentMember, groupFieldType *FieldType) (*GroupField, error) {
-	fields := make([]Field, 0, len(xmlField.Members))
+func (b builder) buildGroupFieldDef(xmlField *XMLComponentMember, groupFieldType *FieldType) (*FieldDef, error) {
+	fields := make([]*FieldDef, 0, len(xmlField.Members))
 
 	for _, member := range xmlField.Members {
 		if member.XMLName.Local == "component" {
@@ -179,18 +181,19 @@ func (b builder) buildGroupField(xmlField *XMLComponentMember, groupFieldType *F
 				fields = append(fields, f)
 			}
 		} else {
-			if f, err := b.buildField(member); err != nil {
+			var f *FieldDef
+			var err error
+			if f, err = b.buildFieldDef(member); err != nil {
 				return nil, err
-			} else {
-				fields = append(fields, f)
 			}
+			fields = append(fields, f)
 		}
 	}
 
-	return &GroupField{FieldType: groupFieldType, Required: (xmlField.Required == "Y"), Fields: fields}, nil
+	return &FieldDef{FieldType: groupFieldType, Required: (xmlField.Required == "Y"), ChildFields: fields}, nil
 }
 
-func (b builder) buildField(xmlField *XMLComponentMember) (Field, error) {
+func (b builder) buildFieldDef(xmlField *XMLComponentMember) (*FieldDef, error) {
 	var fieldType *FieldType
 	var ok bool
 
@@ -199,11 +202,11 @@ func (b builder) buildField(xmlField *XMLComponentMember) (Field, error) {
 	}
 
 	if xmlField.XMLName.Local == "group" {
-		f, err := b.buildGroupField(xmlField, fieldType)
+		f, err := b.buildGroupFieldDef(xmlField, fieldType)
 		return f, err
 	}
 
-	return &MessageField{FieldType: fieldType, Required: (xmlField.Required == "Y")}, nil
+	return &FieldDef{FieldType: fieldType, Required: (xmlField.Required == "Y"), ChildFields: make([]*FieldDef, 0)}, nil
 }
 
 func (b builder) buildFieldTypes() {

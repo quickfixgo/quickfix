@@ -7,11 +7,11 @@ import (
 	"time"
 )
 
-var _ = Suite(&DataDictionaryTests{})
+var _ = Suite(&ValidationTests{})
 
-type DataDictionaryTests struct{}
+type ValidationTests struct{}
 
-func (s *DataDictionaryTests) createFIX40NewOrderSingle() *MessageBuilder {
+func (s *ValidationTests) createFIX40NewOrderSingle() *MessageBuilder {
 	msg := NewMessageBuilder()
 	msg.Header.Set(NewStringField(tag.MsgType, "D"))
 	msg.Header.Set(NewStringField(tag.BeginString, "FIX.4.0"))
@@ -33,7 +33,7 @@ func (s *DataDictionaryTests) createFIX40NewOrderSingle() *MessageBuilder {
 	return msg
 }
 
-func (s *DataDictionaryTests) createFIX43NewOrderSingle() *MessageBuilder {
+func (s *ValidationTests) createFIX43NewOrderSingle() *MessageBuilder {
 	msg := NewMessageBuilder()
 	msg.Header.Set(NewStringField(tag.MsgType, "D"))
 	msg.Header.Set(NewStringField(tag.BeginString, "FIX.4.3"))
@@ -56,7 +56,7 @@ func (s *DataDictionaryTests) createFIX43NewOrderSingle() *MessageBuilder {
 	return msg
 }
 
-func (s *DataDictionaryTests) TestValidateInvalidTagNumber(c *C) {
+func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
@@ -84,7 +84,7 @@ func (s *DataDictionaryTests) TestValidateInvalidTagNumber(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.Tag(9999))
 }
 
-func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessage(c *C) {
+func (s *ValidationTests) TestValidateTagNotDefinedForMessage(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
@@ -97,7 +97,7 @@ func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessage(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.Tag(41))
 }
 
-func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessageComponent(c *C) {
+func (s *ValidationTests) TestValidateTagNotDefinedForMessageComponent(c *C) {
 	dict, err := datadictionary.Parse("spec/FIX43.xml")
 	c.Check(err, IsNil)
 	builder := s.createFIX43NewOrderSingle()
@@ -107,7 +107,7 @@ func (s *DataDictionaryTests) TestValidateTagNotDefinedForMessageComponent(c *C)
 	c.Check(reject, IsNil)
 }
 
-func (s *DataDictionaryTests) TestValidateFieldNotFound(c *C) {
+func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
@@ -146,7 +146,7 @@ func (s *DataDictionaryTests) TestValidateFieldNotFound(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.SendingTime)
 }
 
-func (s *DataDictionaryTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
+func (s *ValidationTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body.Set(NewStringField(tag.ClientID, ""))
@@ -158,7 +158,7 @@ func (s *DataDictionaryTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.ClientID)
 }
 
-func (s *DataDictionaryTests) TestValidateInvalidMsgType(c *C) {
+func (s *ValidationTests) TestValidateInvalidMsgType(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
@@ -170,7 +170,7 @@ func (s *DataDictionaryTests) TestValidateInvalidMsgType(c *C) {
 	c.Check(reject.RejectReason(), Equals, InvalidMsgType)
 }
 
-func (s *DataDictionaryTests) TestValidateValueIsIncorrect(c *C) {
+func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body.Set(NewStringField(tag.HandlInst, "4"))
@@ -182,7 +182,7 @@ func (s *DataDictionaryTests) TestValidateValueIsIncorrect(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.HandlInst)
 }
 
-func (s *DataDictionaryTests) TestValidateIncorrectDataFormatForValue(c *C) {
+func (s *ValidationTests) TestValidateIncorrectDataFormatForValue(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body.Set(NewStringField(tag.OrderQty, "+200.00"))
@@ -193,7 +193,7 @@ func (s *DataDictionaryTests) TestValidateIncorrectDataFormatForValue(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.OrderQty)
 }
 
-func (s *DataDictionaryTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
+func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	//should be in header
@@ -205,7 +205,7 @@ func (s *DataDictionaryTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.OnBehalfOfCompID)
 }
 
-func (s *DataDictionaryTests) TestValidateTagAppearsMoreThanOnce(c *C) {
+func (s *ValidationTests) TestValidateTagAppearsMoreThanOnce(c *C) {
 
 	msg, err := MessageFromParsedBytes([]byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
 	c.Check(err, IsNil)
@@ -217,7 +217,7 @@ func (s *DataDictionaryTests) TestValidateTagAppearsMoreThanOnce(c *C) {
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
 }
 
-func (s *DataDictionaryTests) TestFloatValidation(c *C) {
+func (s *ValidationTests) TestFloatValidation(c *C) {
 	msg, err := MessageFromParsedBytes([]byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"))
 	c.Check(err, IsNil)
 
@@ -225,4 +225,80 @@ func (s *DataDictionaryTests) TestFloatValidation(c *C) {
 	reject := Validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, IncorrectDataFormatForValue)
+}
+
+func (s *ValidationTests) TestValidateVisitField(c *C) {
+	fieldType := &datadictionary.FieldType{Name: "myfield", Tag: tag.ClOrdID, Type: "STRING"}
+	fieldDef := &datadictionary.FieldDef{FieldType: fieldType}
+
+	fields := []*fieldBytes{newFieldBytes(tag.ClOrdID, []byte("value"))}
+	remFields, reject := validateVisitField(fieldDef, fields, Message{})
+	c.Check(len(remFields), Equals, 0)
+	c.Check(reject, IsNil)
+}
+
+func (s *ValidationTests) TestValidateVisitFieldGroup(c *C) {
+	fieldType1 := &datadictionary.FieldType{Name: "myfield", Tag: tag.Tag(2), Type: "STRING"}
+	fieldDef1 := &datadictionary.FieldDef{FieldType: fieldType1, ChildFields: []*datadictionary.FieldDef{}}
+
+	fieldType2 := &datadictionary.FieldType{Name: "myfield", Tag: tag.Tag(3), Type: "STRING"}
+	fieldDef2 := &datadictionary.FieldDef{FieldType: fieldType2, ChildFields: []*datadictionary.FieldDef{}}
+
+	groupFieldType := &datadictionary.FieldType{Name: "mygroupfield", Tag: tag.Tag(1), Type: "INT"}
+	groupFieldDef := &datadictionary.FieldDef{FieldType: groupFieldType, ChildFields: []*datadictionary.FieldDef{fieldDef1, fieldDef2}}
+
+	repField1 := newFieldBytes(tag.Tag(2), []byte("a"))
+	repField2 := newFieldBytes(tag.Tag(3), []byte("a"))
+
+	//non-repeating
+	groupID := newFieldBytes(tag.Tag(1), []byte("1"))
+	fields := []*fieldBytes{groupID, repField1}
+	remFields, reject := validateVisitGroupField(groupFieldDef, fields, Message{})
+	c.Check(len(remFields), Equals, 0)
+	c.Check(reject, IsNil)
+
+	fields = []*fieldBytes{groupID, repField1, repField2}
+	remFields, reject = validateVisitGroupField(groupFieldDef, fields, Message{})
+	c.Check(len(remFields), Equals, 0)
+	c.Check(reject, IsNil)
+
+	//test with trailing tag not in group
+	otherField := newFieldBytes(tag.Tag(500), []byte("blah"))
+	fields = []*fieldBytes{groupID, repField1, repField2, otherField}
+	remFields, reject = validateVisitGroupField(groupFieldDef, fields, Message{})
+	c.Check(len(remFields), Equals, 1)
+	c.Check(reject, IsNil)
+
+	//repeats
+	groupID = newFieldBytes(tag.Tag(1), []byte("2"))
+	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, otherField}
+	remFields, reject = validateVisitGroupField(groupFieldDef, fields, Message{})
+	c.Check(len(remFields), Equals, 1)
+	c.Check(reject, IsNil)
+
+	groupID = newFieldBytes(tag.Tag(1), []byte("3"))
+	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, repField1, repField2, otherField}
+	remFields, reject = validateVisitGroupField(groupFieldDef, fields, Message{})
+	c.Check(len(remFields), Equals, 1)
+	c.Check(reject, IsNil)
+
+	//REJECT: group size declared > actual group size
+	groupID = newFieldBytes(tag.Tag(1), []byte("3"))
+	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, otherField}
+	remFields, reject = validateVisitGroupField(groupFieldDef, fields, Message{})
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, IncorrectNumInGroupCountForRepeatingGroup)
+
+	groupID = newFieldBytes(tag.Tag(1), []byte("3"))
+	fields = []*fieldBytes{groupID, repField1, repField1, otherField}
+	remFields, reject = validateVisitGroupField(groupFieldDef, fields, Message{})
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, IncorrectNumInGroupCountForRepeatingGroup)
+
+	//REJECT: group size declared < actual group size
+	groupID = newFieldBytes(tag.Tag(1), []byte("1"))
+	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, otherField}
+	remFields, reject = validateVisitGroupField(groupFieldDef, fields, Message{})
+	c.Check(reject, NotNil)
+	c.Check(reject.RejectReason(), Equals, IncorrectNumInGroupCountForRepeatingGroup)
 }

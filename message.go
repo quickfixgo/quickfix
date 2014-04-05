@@ -14,8 +14,8 @@ type Message struct {
 
 	rawMessage []byte
 
-	//tags as they appear in the raw message
-	tags []tag.Tag
+	//field bytes as they appear in the raw message
+	fields []*fieldBytes
 }
 
 //MessageFromParsedBytes constructs a Message from a byte slice wrapping a FIX message
@@ -27,7 +27,7 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	msg.rawMessage = rawMessage
 
 	//BeginString, BodyLength, MsgType, CheckSum - at least 4
-	msg.tags = make([]tag.Tag, 0, 4)
+	msg.fields = make([]*fieldBytes, 0, 4)
 
 	var parsedFieldBytes *fieldBytes
 	var err error
@@ -38,21 +38,21 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	}
 
 	msg.Header.append(parsedFieldBytes)
-	msg.tags = append(msg.tags, tag.BeginString)
+	msg.fields = append(msg.fields, parsedFieldBytes)
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BodyLength, rawMessage); err != nil {
 		return nil, err
 	}
 
 	msg.Header.append(parsedFieldBytes)
-	msg.tags = append(msg.tags, tag.BodyLength)
+	msg.fields = append(msg.fields, parsedFieldBytes)
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.MsgType, rawMessage); err != nil {
 		return nil, err
 	}
 
 	msg.Header.append(parsedFieldBytes)
-	msg.tags = append(msg.tags, tag.MsgType)
+	msg.fields = append(msg.fields, parsedFieldBytes)
 
 	for {
 		parsedFieldBytes, rawMessage, err = extractField(rawMessage)
@@ -60,7 +60,7 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 			return nil, err
 		}
 
-		msg.tags = append(msg.tags, parsedFieldBytes.Tag)
+		msg.fields = append(msg.fields, parsedFieldBytes)
 
 		switch {
 		case parsedFieldBytes.Tag.IsHeader():

@@ -34,14 +34,130 @@ func Validate(d *datadictionary.DataDictionary, message Message) (reject Message
 		return
 	}
 
+	if reject = validateWalk(d, message); reject != nil {
+		return
+	}
+
 	return nil
+}
+
+func validateWalk(d *datadictionary.DataDictionary, message Message) (reject MessageReject) {
+	remainingFields := message.fields
+	var err MessageReject
+
+	if remainingFields, err = validateWalkComponent(d.Header, remainingFields, message); err != nil {
+		return err
+	}
+
+	msgType := new(StringField)
+	message.Header.GetField(tag.MsgType, msgType)
+
+	if remainingFields, err = validateWalkComponent(d.Messages[msgType.Value], remainingFields, message); err != nil {
+		return err
+	}
+
+	if remainingFields, err = validateWalkComponent(d.Trailer, remainingFields, message); err != nil {
+		return err
+	}
+
+	if len(remainingFields) != 0 {
+		return NewTagNotDefinedForThisMessageType(message, remainingFields[0].Tag)
+	}
+
+	return nil
+}
+
+func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []*fieldBytes, msg Message) ([]*fieldBytes, MessageReject) {
+	var fieldDef *datadictionary.FieldDef
+	var ok bool
+	var err MessageReject
+	iteratedTags := make(datadictionary.TagSet)
+
+	for len(fields) > 0 {
+		field := fields[0]
+		//field not defined for this component
+		if fieldDef, ok = messageDef.Fields[field.Tag]; !ok {
+			break
+		}
+
+		if _, duplicate := iteratedTags[field.Tag]; duplicate {
+			return nil, NewTagAppearsMoreThanOnce(msg, field.Tag)
+		}
+		iteratedTags.Add(field.Tag)
+
+		if fields, err = validateVisitField(fieldDef, fields, msg); err != nil {
+			return nil, err
+		}
+	}
+
+	return fields, nil
+}
+
+func validateVisitField(fieldDef *datadictionary.FieldDef, fields []*fieldBytes, message Message) ([]*fieldBytes, MessageReject) {
+	var err MessageReject
+
+	if fieldDef.IsGroup() {
+		if fields, err = validateVisitGroupField(fieldDef, fields, message); err != nil {
+			return nil, err
+		}
+	}
+
+	return fields[1:], nil
+}
+
+func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []*fieldBytes, message Message) ([]*fieldBytes, MessageReject) {
+	numInGroupTag := fieldStack[0].Tag
+	numInGroup := new(IntValue)
+
+	if err := numInGroup.Read(fieldStack[0].Value); err != nil {
+		return nil, NewValueIsIncorrect(message, &numInGroupTag)
+	}
+
+	fieldStack = fieldStack[1:]
+
+	var childDefs []*datadictionary.FieldDef
+	groupCount := 0
+
+	for len(fieldStack) > 0 {
+
+		//start of repeating group
+		if fieldStack[0].Tag == fieldDef.ChildFields[0].Tag {
+			childDefs = fieldDef.ChildFields
+			groupCount++
+		}
+
+		//group complete
+		if len(childDefs) == 0 {
+			break
+		}
+
+		if fieldStack[0].Tag == childDefs[0].Tag {
+			var reject MessageReject
+			if fieldStack, reject = validateVisitField(childDefs[0], fieldStack, message); reject != nil {
+				return fieldStack, reject
+			}
+		} else {
+			if childDefs[0].Required {
+				return fieldStack, NewRequiredTagMissing(message, childDefs[0].Tag)
+			}
+		}
+
+		childDefs = childDefs[1:]
+	}
+
+	if groupCount != numInGroup.Value {
+		return fieldStack, NewIncorrectNumInGroupCountForRepeatingGroup(message, numInGroupTag)
+	}
+
+	return fieldStack, nil
 }
 
 func validateOrder(message Message) (reject MessageReject) {
 
 	inHeader := true
 	inTrailer := false
-	for _, tag := range message.tags {
+	for _, field := range message.fields {
+		tag := field.Tag
 		switch {
 		case inHeader && tag.IsHeader():
 		case inHeader && !tag.IsHeader():
@@ -109,14 +225,6 @@ func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, v
 		if len(fieldValue.Value) == 0 {
 			return NewTagSpecifiedWithoutAValue(message, tag)
 		}
-	}
-
-	iteratedTags := make(datadictionary.TagSet)
-	for _, field := range fieldMap.fields {
-		if _, duplicate := iteratedTags[field.Tag]; duplicate {
-			return NewTagAppearsMoreThanOnce(message, field.Tag)
-		}
-		iteratedTags.Add(field.Tag)
 	}
 
 	for tag := range fieldMap.lookup {
@@ -196,20 +304,10 @@ func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, v
 			prototype = new(PriceOffsetValue)
 		case "PERCENTAGE":
 			prototype = new(PercentageValue)
-		default:
-			//FIXME
-			//err := fmt.Errorf("Unknown type '%v' for tag '%v'", fieldType.Type, fieldType.Tag)
-			//			return
 		}
 
 		if err := fieldMap.GetField(tag, prototype); err != nil {
 			return NewIncorrectDataFormatForValue(message, tag)
-		}
-	}
-
-	for tag := range fieldMap.lookup {
-		if _, valid := validFields[tag]; !valid {
-			return NewTagNotDefinedForThisMessageType(message, tag)
 		}
 	}
 
