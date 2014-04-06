@@ -1,8 +1,8 @@
-package quickfixgo
+package quickfix
 
 import (
-	"github.com/cbusbey/quickfixgo/datadictionary"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/tag"
 	. "launchpad.net/gocheck"
 	"time"
 )

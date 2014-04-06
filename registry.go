@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 func SendToTarget(msgBuilder *MessageBuilder, sessionID SessionID) (err error) {
 	session := lookup(sessionID)

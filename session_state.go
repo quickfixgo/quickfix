@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 type sessionState interface {
 	FixMsgIn(*session, Message) (nextState sessionState)

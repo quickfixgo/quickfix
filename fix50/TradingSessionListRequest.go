@@ -1,12 +1,12 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type TradingSessionListRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *TradingSessionListRequest) TradSesReqID() (*field.TradSesReqID, error) {

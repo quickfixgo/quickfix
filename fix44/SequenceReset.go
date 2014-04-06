@@ -1,12 +1,12 @@
 package fix44
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SequenceReset struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *SequenceReset) GapFillFlag() (*field.GapFillFlag, error) {

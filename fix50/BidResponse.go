@@ -1,12 +1,12 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type BidResponse struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *BidResponse) BidID() (*field.BidID, error) {

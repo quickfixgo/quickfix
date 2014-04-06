@@ -1,21 +1,16 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type RegistrationInstructions struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *RegistrationInstructions) RegistRefID() (*field.RegistRefID, error) {
 	f := new(field.RegistRefID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructions) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,8 +24,8 @@ func (m *RegistrationInstructions) Account() (*field.Account, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructions) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
+func (m *RegistrationInstructions) RegistAcctType() (*field.RegistAcctType, error) {
+	f := new(field.RegistAcctType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,8 +54,13 @@ func (m *RegistrationInstructions) RegistTransType() (*field.RegistTransType, er
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructions) RegistAcctType() (*field.RegistAcctType, error) {
-	f := new(field.RegistAcctType)
+func (m *RegistrationInstructions) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructions) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }

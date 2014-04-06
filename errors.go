@@ -1,8 +1,8 @@
-package quickfixgo
+package quickfix
 
 import (
 	"fmt"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 type SessionNotFound interface {

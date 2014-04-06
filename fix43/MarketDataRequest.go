@@ -1,16 +1,26 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type MarketDataRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
+func (m *MarketDataRequest) MDReqID() (*field.MDReqID, error) {
+	f := new(field.MDReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MarketDataRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
 	f := new(field.SubscriptionRequestType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequest) MarketDepth() (*field.MarketDepth, error) {
+	f := new(field.MarketDepth)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,8 +34,8 @@ func (m *MarketDataRequest) AggregatedBook() (*field.AggregatedBook, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataRequest) OpenCloseSettleFlag() (*field.OpenCloseSettleFlag, error) {
-	f := new(field.OpenCloseSettleFlag)
+func (m *MarketDataRequest) Scope() (*field.Scope, error) {
+	f := new(field.Scope)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,18 +44,13 @@ func (m *MarketDataRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataRequest) MDReqID() (*field.MDReqID, error) {
-	f := new(field.MDReqID)
+func (m *MarketDataRequest) NoTradingSessions() (*field.NoTradingSessions, error) {
+	f := new(field.NoTradingSessions)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataRequest) MarketDepth() (*field.MarketDepth, error) {
-	f := new(field.MarketDepth)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MarketDataRequest) Scope() (*field.Scope, error) {
-	f := new(field.Scope)
+func (m *MarketDataRequest) OpenCloseSettleFlag() (*field.OpenCloseSettleFlag, error) {
+	f := new(field.OpenCloseSettleFlag)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -56,11 +61,6 @@ func (m *MarketDataRequest) MDImplicitDelete() (*field.MDImplicitDelete, error) 
 }
 func (m *MarketDataRequest) NoMDEntryTypes() (*field.NoMDEntryTypes, error) {
 	f := new(field.NoMDEntryTypes)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MarketDataRequest) NoTradingSessions() (*field.NoTradingSessions, error) {
-	f := new(field.NoTradingSessions)
 	err := m.Body.Get(f)
 	return f, err
 }

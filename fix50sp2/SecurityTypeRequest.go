@@ -1,14 +1,34 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SecurityTypeRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
+func (m *SecurityTypeRequest) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypeRequest) Product() (*field.Product, error) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypeRequest) SecurityType() (*field.SecurityType, error) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypeRequest) MarketSegmentID() (*field.MarketSegmentID, error) {
+	f := new(field.MarketSegmentID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SecurityTypeRequest) SecurityReqID() (*field.SecurityReqID, error) {
 	f := new(field.SecurityReqID)
 	err := m.Body.Get(f)
@@ -24,16 +44,6 @@ func (m *SecurityTypeRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypeRequest) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypeRequest) MarketSegmentID() (*field.MarketSegmentID, error) {
-	f := new(field.MarketSegmentID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SecurityTypeRequest) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
 	err := m.Body.Get(f)
@@ -41,16 +51,6 @@ func (m *SecurityTypeRequest) EncodedText() (*field.EncodedText, error) {
 }
 func (m *SecurityTypeRequest) TradingSessionID() (*field.TradingSessionID, error) {
 	f := new(field.TradingSessionID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypeRequest) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypeRequest) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
 	err := m.Body.Get(f)
 	return f, err
 }

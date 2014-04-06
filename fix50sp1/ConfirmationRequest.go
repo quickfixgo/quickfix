@@ -1,26 +1,26 @@
 package fix50sp1
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type ConfirmationRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *ConfirmationRequest) AllocID() (*field.AllocID, error) {
-	f := new(field.AllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationRequest) AllocAccount() (*field.AllocAccount, error) {
 	f := new(field.AllocAccount)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,6 +39,11 @@ func (m *ConfirmationRequest) NoOrders() (*field.NoOrders, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ConfirmationRequest) AllocID() (*field.AllocID, error) {
+	f := new(field.AllocID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error) {
 	f := new(field.SecondaryAllocID)
 	err := m.Body.Get(f)
@@ -46,6 +51,11 @@ func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error
 }
 func (m *ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, error) {
 	f := new(field.IndividualAllocID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,18 +69,8 @@ func (m *ConfirmationRequest) AllocAccountType() (*field.AllocAccountType, error
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
 	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -1,16 +1,36 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type TradingSessionStatusRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
+func (m *TradingSessionStatusRequest) TradSesReqID() (*field.TradSesReqID, error) {
+	f := new(field.TradSesReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *TradingSessionStatusRequest) TradingSessionID() (*field.TradingSessionID, error) {
 	f := new(field.TradingSessionID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *TradingSessionStatusRequest) TradSesMode() (*field.TradSesMode, error) {
+	f := new(field.TradSesMode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *TradingSessionStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *TradingSessionStatusRequest) MarketSegmentID() (*field.MarketSegmentID, error) {
+	f := new(field.MarketSegmentID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,33 +44,13 @@ func (m *TradingSessionStatusRequest) TradSesMethod() (*field.TradSesMethod, err
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatusRequest) TradSesMode() (*field.TradSesMode, error) {
-	f := new(field.TradSesMode)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *TradingSessionStatusRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
 	f := new(field.SubscriptionRequestType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *TradingSessionStatusRequest) MarketID() (*field.MarketID, error) {
 	f := new(field.MarketID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *TradingSessionStatusRequest) MarketSegmentID() (*field.MarketSegmentID, error) {
-	f := new(field.MarketSegmentID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *TradingSessionStatusRequest) TradSesReqID() (*field.TradSesReqID, error) {
-	f := new(field.TradSesReqID)
 	err := m.Body.Get(f)
 	return f, err
 }

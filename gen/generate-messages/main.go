@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/cbusbey/quickfixgo/datadictionary"
-	"github.com/cbusbey/quickfixgo/gen"
+	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/gen"
 	"os"
 	"strconv"
 	"strings"
@@ -49,14 +49,14 @@ func genCracker() {
 func buildCrackerImports() string {
 	return `
 import(
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 `
 }
 
 func buildCrack() (out string) {
-	out += "func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {\n"
+	out += "func Crack(msg quickfix.Message, sessionID quickfix.SessionID, router MessageRouter) quickfix.MessageReject {\n"
 	out += `
   msgType:=new(field.MsgType)
 switch msg.Header.Get(msgType); msgType.Value {
@@ -67,7 +67,7 @@ switch msg.Header.Get(msgType); msgType.Value {
 		out += fmt.Sprintf("return router.On%v%v(%v{msg},sessionID)\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
 	out += "}\n"
-	out += "return quickfixgo.NewInvalidMessageType(msg)\n"
+	out += "return quickfix.NewInvalidMessageType(msg)\n"
 	out += "}\n"
 
 	return
@@ -77,7 +77,7 @@ func buildMessageRouter() (out string) {
 	out += "type MessageRouter interface {\n"
 
 	for _, m := range fixSpec.Messages {
-		out += fmt.Sprintf("On%v%v(msg %v, sessionID quickfixgo.SessionID) quickfixgo.MessageReject\n", strings.ToUpper(pkg), m.Name, m.Name)
+		out += fmt.Sprintf("On%v%v(msg %v, sessionID quickfix.SessionID) quickfix.MessageReject\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
 
 	out += "}\n"
@@ -89,8 +89,8 @@ func buildMessageCracker() (out string) {
 	out += fmt.Sprintf("type %vMessageCracker struct {}\n", strings.ToUpper(pkg))
 
 	for _, m := range fixSpec.Messages {
-		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
-		out += "return quickfixgo.NewUnsupportedMessageType(msg.Message)\n}\n"
+		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId quickfix.SessionID) quickfix.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
+		out += "return quickfix.NewUnsupportedMessageType(msg.Message)\n}\n"
 	}
 
 	return
@@ -100,11 +100,11 @@ func genMessage(msg *datadictionary.MessageDef) {
 	fileOut := fmt.Sprintf("package %v\n", pkg)
 	fileOut += `
 import( 
-  "github.com/cbusbey/quickfixgo"
-  "github.com/cbusbey/quickfixgo/field"
+  "github.com/quickfixgo/quickfix"
+  "github.com/quickfixgo/quickfix/field"
 )
 `
-	fileOut += fmt.Sprintf("type %v struct {\n quickfixgo.Message}\n", msg.Name)
+	fileOut += fmt.Sprintf("type %v struct {\n quickfix.Message}\n", msg.Name)
 
 	for _, field := range msg.Fields {
 		fileOut += fmt.Sprintf("func (m * %v) %v() (*field.%v, error) {\n", msg.Name, field.Name, field.Name)

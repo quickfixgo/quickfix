@@ -1,19 +1,14 @@
 package fix44
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type MarketDataRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *MarketDataRequest) MDReqID() (*field.MDReqID, error) {
-	f := new(field.MDReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *MarketDataRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
 	f := new(field.SubscriptionRequestType)
 	err := m.Body.Get(f)
@@ -41,6 +36,11 @@ func (m *MarketDataRequest) OpenCloseSettlFlag() (*field.OpenCloseSettlFlag, err
 }
 func (m *MarketDataRequest) Scope() (*field.Scope, error) {
 	f := new(field.Scope)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequest) MDReqID() (*field.MDReqID, error) {
+	f := new(field.MDReqID)
 	err := m.Body.Get(f)
 	return f, err
 }

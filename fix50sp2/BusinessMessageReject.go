@@ -1,14 +1,19 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type BusinessMessageReject struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
+func (m *BusinessMessageReject) RefMsgType() (*field.RefMsgType, error) {
+	f := new(field.RefMsgType)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *BusinessMessageReject) BusinessRejectRefID() (*field.BusinessRejectRefID, error) {
 	f := new(field.BusinessRejectRefID)
 	err := m.Body.Get(f)
@@ -19,8 +24,8 @@ func (m *BusinessMessageReject) BusinessRejectReason() (*field.BusinessRejectRea
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *BusinessMessageReject) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *BusinessMessageReject) RefApplVerID() (*field.RefApplVerID, error) {
+	f := new(field.RefApplVerID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,23 +34,18 @@ func (m *BusinessMessageReject) RefSeqNum() (*field.RefSeqNum, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *BusinessMessageReject) RefMsgType() (*field.RefMsgType, error) {
-	f := new(field.RefMsgType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *BusinessMessageReject) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *BusinessMessageReject) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
+func (m *BusinessMessageReject) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *BusinessMessageReject) RefApplVerID() (*field.RefApplVerID, error) {
-	f := new(field.RefApplVerID)
+func (m *BusinessMessageReject) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }

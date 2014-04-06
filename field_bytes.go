@@ -1,9 +1,9 @@
-package quickfixgo
+package quickfix
 
 import (
 	"bytes"
 	"fmt"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 	"strconv"
 )
 

@@ -1,21 +1,21 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SettlementInstructionRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *SettlementInstructionRequest) AllocAccount() (*field.AllocAccount, error) {
-	f := new(field.AllocAccount)
+func (m *SettlementInstructionRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
+func (m *SettlementInstructionRequest) AllocAccount() (*field.AllocAccount, error) {
+	f := new(field.AllocAccount)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,8 +24,13 @@ func (m *SettlementInstructionRequest) AllocAcctIDSource() (*field.AllocAcctIDSo
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) Product() (*field.Product, error) {
-	f := new(field.Product)
+func (m *SettlementInstructionRequest) Side() (*field.Side, error) {
+	f := new(field.Side)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructionRequest) CFICode() (*field.CFICode, error) {
+	f := new(field.CFICode)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,18 +44,8 @@ func (m *SettlementInstructionRequest) StandInstDbType() (*field.StandInstDbType
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) StandInstDbName() (*field.StandInstDbName, error) {
-	f := new(field.StandInstDbName)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SettlementInstructionRequest) StandInstDbID() (*field.StandInstDbID, error) {
 	f := new(field.StandInstDbID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementInstructionRequest) SettlCurrency() (*field.SettlCurrency, error) {
-	f := new(field.SettlCurrency)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,23 +54,23 @@ func (m *SettlementInstructionRequest) TransactTime() (*field.TransactTime, erro
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) SettlInstReqID() (*field.SettlInstReqID, error) {
-	f := new(field.SettlInstReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementInstructionRequest) Side() (*field.Side, error) {
-	f := new(field.Side)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SettlementInstructionRequest) SecurityType() (*field.SecurityType, error) {
 	f := new(field.SecurityType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructionRequest) CFICode() (*field.CFICode, error) {
-	f := new(field.CFICode)
+func (m *SettlementInstructionRequest) SettlCurrency() (*field.SettlCurrency, error) {
+	f := new(field.SettlCurrency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructionRequest) SettlInstReqID() (*field.SettlInstReqID, error) {
+	f := new(field.SettlInstReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructionRequest) Product() (*field.Product, error) {
+	f := new(field.Product)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -86,6 +81,11 @@ func (m *SettlementInstructionRequest) EffectiveTime() (*field.EffectiveTime, er
 }
 func (m *SettlementInstructionRequest) ExpireTime() (*field.ExpireTime, error) {
 	f := new(field.ExpireTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructionRequest) StandInstDbName() (*field.StandInstDbName, error) {
+	f := new(field.StandInstDbName)
 	err := m.Body.Get(f)
 	return f, err
 }

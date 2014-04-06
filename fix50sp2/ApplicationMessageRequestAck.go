@@ -1,12 +1,12 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type ApplicationMessageRequestAck struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *ApplicationMessageRequestAck) ApplResponseID() (*field.ApplResponseID, error) {
@@ -19,23 +19,18 @@ func (m *ApplicationMessageRequestAck) ApplReqType() (*field.ApplReqType, error)
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ApplicationMessageRequestAck) ApplTotalMessageCount() (*field.ApplTotalMessageCount, error) {
+	f := new(field.ApplTotalMessageCount)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ApplicationMessageRequestAck) NoApplIDs() (*field.NoApplIDs, error) {
 	f := new(field.NoApplIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ApplicationMessageRequestAck) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ApplicationMessageRequestAck) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ApplicationMessageRequestAck) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,13 +44,18 @@ func (m *ApplicationMessageRequestAck) ApplResponseType() (*field.ApplResponseTy
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ApplicationMessageRequestAck) ApplTotalMessageCount() (*field.ApplTotalMessageCount, error) {
-	f := new(field.ApplTotalMessageCount)
+func (m *ApplicationMessageRequestAck) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ApplicationMessageRequestAck) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *ApplicationMessageRequestAck) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ApplicationMessageRequestAck) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

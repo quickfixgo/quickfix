@@ -1,6632 +1,6632 @@
 package field
 
 import (
-	"github.com/cbusbey/quickfixgo"
+	"github.com/quickfixgo/quickfix"
 )
 import (
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-type Account struct{ quickfixgo.StringValue }
+type Account struct{ quickfix.StringValue }
 
 func (f Account) Tag() tag.Tag { return tag.Account }
 
-type AccountType struct{ quickfixgo.IntValue }
+type AccountType struct{ quickfix.IntValue }
 
 func (f AccountType) Tag() tag.Tag { return tag.AccountType }
 
-type AccruedInterestAmt struct{ quickfixgo.AmtValue }
+type AccruedInterestAmt struct{ quickfix.AmtValue }
 
 func (f AccruedInterestAmt) Tag() tag.Tag { return tag.AccruedInterestAmt }
 
-type AccruedInterestRate struct{ quickfixgo.PercentageValue }
+type AccruedInterestRate struct{ quickfix.PercentageValue }
 
 func (f AccruedInterestRate) Tag() tag.Tag { return tag.AccruedInterestRate }
 
-type AcctIDSource struct{ quickfixgo.IntValue }
+type AcctIDSource struct{ quickfix.IntValue }
 
 func (f AcctIDSource) Tag() tag.Tag { return tag.AcctIDSource }
 
-type Adjustment struct{ quickfixgo.IntValue }
+type Adjustment struct{ quickfix.IntValue }
 
 func (f Adjustment) Tag() tag.Tag { return tag.Adjustment }
 
-type AdjustmentType struct{ quickfixgo.IntValue }
+type AdjustmentType struct{ quickfix.IntValue }
 
 func (f AdjustmentType) Tag() tag.Tag { return tag.AdjustmentType }
 
-type AdvId struct{ quickfixgo.StringValue }
+type AdvId struct{ quickfix.StringValue }
 
 func (f AdvId) Tag() tag.Tag { return tag.AdvId }
 
-type AdvRefID struct{ quickfixgo.StringValue }
+type AdvRefID struct{ quickfix.StringValue }
 
 func (f AdvRefID) Tag() tag.Tag { return tag.AdvRefID }
 
-type AdvSide struct{ quickfixgo.CharValue }
+type AdvSide struct{ quickfix.CharValue }
 
 func (f AdvSide) Tag() tag.Tag { return tag.AdvSide }
 
-type AdvTransType struct{ quickfixgo.StringValue }
+type AdvTransType struct{ quickfix.StringValue }
 
 func (f AdvTransType) Tag() tag.Tag { return tag.AdvTransType }
 
-type AffectedOrderID struct{ quickfixgo.StringValue }
+type AffectedOrderID struct{ quickfix.StringValue }
 
 func (f AffectedOrderID) Tag() tag.Tag { return tag.AffectedOrderID }
 
-type AffectedSecondaryOrderID struct{ quickfixgo.StringValue }
+type AffectedSecondaryOrderID struct{ quickfix.StringValue }
 
 func (f AffectedSecondaryOrderID) Tag() tag.Tag { return tag.AffectedSecondaryOrderID }
 
-type AffirmStatus struct{ quickfixgo.IntValue }
+type AffirmStatus struct{ quickfix.IntValue }
 
 func (f AffirmStatus) Tag() tag.Tag { return tag.AffirmStatus }
 
-type AggregatedBook struct{ quickfixgo.BooleanValue }
+type AggregatedBook struct{ quickfix.BooleanValue }
 
 func (f AggregatedBook) Tag() tag.Tag { return tag.AggregatedBook }
 
-type AggressorIndicator struct{ quickfixgo.BooleanValue }
+type AggressorIndicator struct{ quickfix.BooleanValue }
 
 func (f AggressorIndicator) Tag() tag.Tag { return tag.AggressorIndicator }
 
-type AgreementCurrency struct{ quickfixgo.CurrencyValue }
+type AgreementCurrency struct{ quickfix.CurrencyValue }
 
 func (f AgreementCurrency) Tag() tag.Tag { return tag.AgreementCurrency }
 
-type AgreementDate struct{ quickfixgo.LocalMktDateValue }
+type AgreementDate struct{ quickfix.LocalMktDateValue }
 
 func (f AgreementDate) Tag() tag.Tag { return tag.AgreementDate }
 
-type AgreementDesc struct{ quickfixgo.StringValue }
+type AgreementDesc struct{ quickfix.StringValue }
 
 func (f AgreementDesc) Tag() tag.Tag { return tag.AgreementDesc }
 
-type AgreementID struct{ quickfixgo.StringValue }
+type AgreementID struct{ quickfix.StringValue }
 
 func (f AgreementID) Tag() tag.Tag { return tag.AgreementID }
 
-type AllocAccount struct{ quickfixgo.StringValue }
+type AllocAccount struct{ quickfix.StringValue }
 
 func (f AllocAccount) Tag() tag.Tag { return tag.AllocAccount }
 
-type AllocAccountType struct{ quickfixgo.IntValue }
+type AllocAccountType struct{ quickfix.IntValue }
 
 func (f AllocAccountType) Tag() tag.Tag { return tag.AllocAccountType }
 
-type AllocAccruedInterestAmt struct{ quickfixgo.AmtValue }
+type AllocAccruedInterestAmt struct{ quickfix.AmtValue }
 
 func (f AllocAccruedInterestAmt) Tag() tag.Tag { return tag.AllocAccruedInterestAmt }
 
-type AllocAcctIDSource struct{ quickfixgo.IntValue }
+type AllocAcctIDSource struct{ quickfix.IntValue }
 
 func (f AllocAcctIDSource) Tag() tag.Tag { return tag.AllocAcctIDSource }
 
-type AllocAvgPx struct{ quickfixgo.PriceValue }
+type AllocAvgPx struct{ quickfix.PriceValue }
 
 func (f AllocAvgPx) Tag() tag.Tag { return tag.AllocAvgPx }
 
-type AllocCancReplaceReason struct{ quickfixgo.IntValue }
+type AllocCancReplaceReason struct{ quickfix.IntValue }
 
 func (f AllocCancReplaceReason) Tag() tag.Tag { return tag.AllocCancReplaceReason }
 
-type AllocClearingFeeIndicator struct{ quickfixgo.StringValue }
+type AllocClearingFeeIndicator struct{ quickfix.StringValue }
 
 func (f AllocClearingFeeIndicator) Tag() tag.Tag { return tag.AllocClearingFeeIndicator }
 
-type AllocCustomerCapacity struct{ quickfixgo.StringValue }
+type AllocCustomerCapacity struct{ quickfix.StringValue }
 
 func (f AllocCustomerCapacity) Tag() tag.Tag { return tag.AllocCustomerCapacity }
 
-type AllocHandlInst struct{ quickfixgo.IntValue }
+type AllocHandlInst struct{ quickfix.IntValue }
 
 func (f AllocHandlInst) Tag() tag.Tag { return tag.AllocHandlInst }
 
-type AllocID struct{ quickfixgo.StringValue }
+type AllocID struct{ quickfix.StringValue }
 
 func (f AllocID) Tag() tag.Tag { return tag.AllocID }
 
-type AllocInterestAtMaturity struct{ quickfixgo.AmtValue }
+type AllocInterestAtMaturity struct{ quickfix.AmtValue }
 
 func (f AllocInterestAtMaturity) Tag() tag.Tag { return tag.AllocInterestAtMaturity }
 
-type AllocIntermedReqType struct{ quickfixgo.IntValue }
+type AllocIntermedReqType struct{ quickfix.IntValue }
 
 func (f AllocIntermedReqType) Tag() tag.Tag { return tag.AllocIntermedReqType }
 
-type AllocLinkID struct{ quickfixgo.StringValue }
+type AllocLinkID struct{ quickfix.StringValue }
 
 func (f AllocLinkID) Tag() tag.Tag { return tag.AllocLinkID }
 
-type AllocLinkType struct{ quickfixgo.IntValue }
+type AllocLinkType struct{ quickfix.IntValue }
 
 func (f AllocLinkType) Tag() tag.Tag { return tag.AllocLinkType }
 
-type AllocMethod struct{ quickfixgo.IntValue }
+type AllocMethod struct{ quickfix.IntValue }
 
 func (f AllocMethod) Tag() tag.Tag { return tag.AllocMethod }
 
-type AllocNetMoney struct{ quickfixgo.AmtValue }
+type AllocNetMoney struct{ quickfix.AmtValue }
 
 func (f AllocNetMoney) Tag() tag.Tag { return tag.AllocNetMoney }
 
-type AllocNoOrdersType struct{ quickfixgo.IntValue }
+type AllocNoOrdersType struct{ quickfix.IntValue }
 
 func (f AllocNoOrdersType) Tag() tag.Tag { return tag.AllocNoOrdersType }
 
-type AllocPositionEffect struct{ quickfixgo.CharValue }
+type AllocPositionEffect struct{ quickfix.CharValue }
 
 func (f AllocPositionEffect) Tag() tag.Tag { return tag.AllocPositionEffect }
 
-type AllocPrice struct{ quickfixgo.PriceValue }
+type AllocPrice struct{ quickfix.PriceValue }
 
 func (f AllocPrice) Tag() tag.Tag { return tag.AllocPrice }
 
-type AllocQty struct{ quickfixgo.QtyValue }
+type AllocQty struct{ quickfix.QtyValue }
 
 func (f AllocQty) Tag() tag.Tag { return tag.AllocQty }
 
-type AllocRejCode struct{ quickfixgo.IntValue }
+type AllocRejCode struct{ quickfix.IntValue }
 
 func (f AllocRejCode) Tag() tag.Tag { return tag.AllocRejCode }
 
-type AllocReportID struct{ quickfixgo.StringValue }
+type AllocReportID struct{ quickfix.StringValue }
 
 func (f AllocReportID) Tag() tag.Tag { return tag.AllocReportID }
 
-type AllocReportRefID struct{ quickfixgo.StringValue }
+type AllocReportRefID struct{ quickfix.StringValue }
 
 func (f AllocReportRefID) Tag() tag.Tag { return tag.AllocReportRefID }
 
-type AllocReportType struct{ quickfixgo.IntValue }
+type AllocReportType struct{ quickfix.IntValue }
 
 func (f AllocReportType) Tag() tag.Tag { return tag.AllocReportType }
 
-type AllocSettlCurrAmt struct{ quickfixgo.AmtValue }
+type AllocSettlCurrAmt struct{ quickfix.AmtValue }
 
 func (f AllocSettlCurrAmt) Tag() tag.Tag { return tag.AllocSettlCurrAmt }
 
-type AllocSettlCurrency struct{ quickfixgo.CurrencyValue }
+type AllocSettlCurrency struct{ quickfix.CurrencyValue }
 
 func (f AllocSettlCurrency) Tag() tag.Tag { return tag.AllocSettlCurrency }
 
-type AllocSettlInstType struct{ quickfixgo.IntValue }
+type AllocSettlInstType struct{ quickfix.IntValue }
 
 func (f AllocSettlInstType) Tag() tag.Tag { return tag.AllocSettlInstType }
 
-type AllocShares struct{ quickfixgo.QtyValue }
+type AllocShares struct{ quickfix.QtyValue }
 
 func (f AllocShares) Tag() tag.Tag { return tag.AllocShares }
 
-type AllocStatus struct{ quickfixgo.IntValue }
+type AllocStatus struct{ quickfix.IntValue }
 
 func (f AllocStatus) Tag() tag.Tag { return tag.AllocStatus }
 
-type AllocText struct{ quickfixgo.StringValue }
+type AllocText struct{ quickfix.StringValue }
 
 func (f AllocText) Tag() tag.Tag { return tag.AllocText }
 
-type AllocTransType struct{ quickfixgo.CharValue }
+type AllocTransType struct{ quickfix.CharValue }
 
 func (f AllocTransType) Tag() tag.Tag { return tag.AllocTransType }
 
-type AllocType struct{ quickfixgo.IntValue }
+type AllocType struct{ quickfix.IntValue }
 
 func (f AllocType) Tag() tag.Tag { return tag.AllocType }
 
-type AllowableOneSidednessCurr struct{ quickfixgo.CurrencyValue }
+type AllowableOneSidednessCurr struct{ quickfix.CurrencyValue }
 
 func (f AllowableOneSidednessCurr) Tag() tag.Tag { return tag.AllowableOneSidednessCurr }
 
-type AllowableOneSidednessPct struct{ quickfixgo.PercentageValue }
+type AllowableOneSidednessPct struct{ quickfix.PercentageValue }
 
 func (f AllowableOneSidednessPct) Tag() tag.Tag { return tag.AllowableOneSidednessPct }
 
-type AllowableOneSidednessValue struct{ quickfixgo.AmtValue }
+type AllowableOneSidednessValue struct{ quickfix.AmtValue }
 
 func (f AllowableOneSidednessValue) Tag() tag.Tag { return tag.AllowableOneSidednessValue }
 
-type AltMDSourceID struct{ quickfixgo.StringValue }
+type AltMDSourceID struct{ quickfix.StringValue }
 
 func (f AltMDSourceID) Tag() tag.Tag { return tag.AltMDSourceID }
 
-type ApplBegSeqNum struct{ quickfixgo.SeqNumValue }
+type ApplBegSeqNum struct{ quickfix.SeqNumValue }
 
 func (f ApplBegSeqNum) Tag() tag.Tag { return tag.ApplBegSeqNum }
 
-type ApplEndSeqNum struct{ quickfixgo.SeqNumValue }
+type ApplEndSeqNum struct{ quickfix.SeqNumValue }
 
 func (f ApplEndSeqNum) Tag() tag.Tag { return tag.ApplEndSeqNum }
 
-type ApplExtID struct{ quickfixgo.IntValue }
+type ApplExtID struct{ quickfix.IntValue }
 
 func (f ApplExtID) Tag() tag.Tag { return tag.ApplExtID }
 
-type ApplID struct{ quickfixgo.StringValue }
+type ApplID struct{ quickfix.StringValue }
 
 func (f ApplID) Tag() tag.Tag { return tag.ApplID }
 
-type ApplLastSeqNum struct{ quickfixgo.SeqNumValue }
+type ApplLastSeqNum struct{ quickfix.SeqNumValue }
 
 func (f ApplLastSeqNum) Tag() tag.Tag { return tag.ApplLastSeqNum }
 
-type ApplNewSeqNum struct{ quickfixgo.SeqNumValue }
+type ApplNewSeqNum struct{ quickfix.SeqNumValue }
 
 func (f ApplNewSeqNum) Tag() tag.Tag { return tag.ApplNewSeqNum }
 
-type ApplQueueAction struct{ quickfixgo.IntValue }
+type ApplQueueAction struct{ quickfix.IntValue }
 
 func (f ApplQueueAction) Tag() tag.Tag { return tag.ApplQueueAction }
 
-type ApplQueueDepth struct{ quickfixgo.IntValue }
+type ApplQueueDepth struct{ quickfix.IntValue }
 
 func (f ApplQueueDepth) Tag() tag.Tag { return tag.ApplQueueDepth }
 
-type ApplQueueMax struct{ quickfixgo.IntValue }
+type ApplQueueMax struct{ quickfix.IntValue }
 
 func (f ApplQueueMax) Tag() tag.Tag { return tag.ApplQueueMax }
 
-type ApplQueueResolution struct{ quickfixgo.IntValue }
+type ApplQueueResolution struct{ quickfix.IntValue }
 
 func (f ApplQueueResolution) Tag() tag.Tag { return tag.ApplQueueResolution }
 
-type ApplReportID struct{ quickfixgo.StringValue }
+type ApplReportID struct{ quickfix.StringValue }
 
 func (f ApplReportID) Tag() tag.Tag { return tag.ApplReportID }
 
-type ApplReportType struct{ quickfixgo.IntValue }
+type ApplReportType struct{ quickfix.IntValue }
 
 func (f ApplReportType) Tag() tag.Tag { return tag.ApplReportType }
 
-type ApplReqID struct{ quickfixgo.StringValue }
+type ApplReqID struct{ quickfix.StringValue }
 
 func (f ApplReqID) Tag() tag.Tag { return tag.ApplReqID }
 
-type ApplReqType struct{ quickfixgo.IntValue }
+type ApplReqType struct{ quickfix.IntValue }
 
 func (f ApplReqType) Tag() tag.Tag { return tag.ApplReqType }
 
-type ApplResendFlag struct{ quickfixgo.BooleanValue }
+type ApplResendFlag struct{ quickfix.BooleanValue }
 
 func (f ApplResendFlag) Tag() tag.Tag { return tag.ApplResendFlag }
 
-type ApplResponseError struct{ quickfixgo.IntValue }
+type ApplResponseError struct{ quickfix.IntValue }
 
 func (f ApplResponseError) Tag() tag.Tag { return tag.ApplResponseError }
 
-type ApplResponseID struct{ quickfixgo.StringValue }
+type ApplResponseID struct{ quickfix.StringValue }
 
 func (f ApplResponseID) Tag() tag.Tag { return tag.ApplResponseID }
 
-type ApplResponseType struct{ quickfixgo.IntValue }
+type ApplResponseType struct{ quickfix.IntValue }
 
 func (f ApplResponseType) Tag() tag.Tag { return tag.ApplResponseType }
 
-type ApplSeqNum struct{ quickfixgo.SeqNumValue }
+type ApplSeqNum struct{ quickfix.SeqNumValue }
 
 func (f ApplSeqNum) Tag() tag.Tag { return tag.ApplSeqNum }
 
-type ApplTotalMessageCount struct{ quickfixgo.IntValue }
+type ApplTotalMessageCount struct{ quickfix.IntValue }
 
 func (f ApplTotalMessageCount) Tag() tag.Tag { return tag.ApplTotalMessageCount }
 
-type ApplVerID struct{ quickfixgo.StringValue }
+type ApplVerID struct{ quickfix.StringValue }
 
 func (f ApplVerID) Tag() tag.Tag { return tag.ApplVerID }
 
-type AsOfIndicator struct{ quickfixgo.CharValue }
+type AsOfIndicator struct{ quickfix.CharValue }
 
 func (f AsOfIndicator) Tag() tag.Tag { return tag.AsOfIndicator }
 
-type AsgnReqID struct{ quickfixgo.StringValue }
+type AsgnReqID struct{ quickfix.StringValue }
 
 func (f AsgnReqID) Tag() tag.Tag { return tag.AsgnReqID }
 
-type AsgnRptID struct{ quickfixgo.StringValue }
+type AsgnRptID struct{ quickfix.StringValue }
 
 func (f AsgnRptID) Tag() tag.Tag { return tag.AsgnRptID }
 
-type AssignmentMethod struct{ quickfixgo.CharValue }
+type AssignmentMethod struct{ quickfix.CharValue }
 
 func (f AssignmentMethod) Tag() tag.Tag { return tag.AssignmentMethod }
 
-type AssignmentUnit struct{ quickfixgo.QtyValue }
+type AssignmentUnit struct{ quickfix.QtyValue }
 
 func (f AssignmentUnit) Tag() tag.Tag { return tag.AssignmentUnit }
 
-type AttachmentPoint struct{ quickfixgo.PercentageValue }
+type AttachmentPoint struct{ quickfix.PercentageValue }
 
 func (f AttachmentPoint) Tag() tag.Tag { return tag.AttachmentPoint }
 
-type AutoAcceptIndicator struct{ quickfixgo.BooleanValue }
+type AutoAcceptIndicator struct{ quickfix.BooleanValue }
 
 func (f AutoAcceptIndicator) Tag() tag.Tag { return tag.AutoAcceptIndicator }
 
-type AvgParPx struct{ quickfixgo.PriceValue }
+type AvgParPx struct{ quickfix.PriceValue }
 
 func (f AvgParPx) Tag() tag.Tag { return tag.AvgParPx }
 
-type AvgPrxPrecision struct{ quickfixgo.IntValue }
+type AvgPrxPrecision struct{ quickfix.IntValue }
 
 func (f AvgPrxPrecision) Tag() tag.Tag { return tag.AvgPrxPrecision }
 
-type AvgPx struct{ quickfixgo.PriceValue }
+type AvgPx struct{ quickfix.PriceValue }
 
 func (f AvgPx) Tag() tag.Tag { return tag.AvgPx }
 
-type AvgPxIndicator struct{ quickfixgo.IntValue }
+type AvgPxIndicator struct{ quickfix.IntValue }
 
 func (f AvgPxIndicator) Tag() tag.Tag { return tag.AvgPxIndicator }
 
-type AvgPxPrecision struct{ quickfixgo.IntValue }
+type AvgPxPrecision struct{ quickfix.IntValue }
 
 func (f AvgPxPrecision) Tag() tag.Tag { return tag.AvgPxPrecision }
 
-type BasisFeatureDate struct{ quickfixgo.LocalMktDateValue }
+type BasisFeatureDate struct{ quickfix.LocalMktDateValue }
 
 func (f BasisFeatureDate) Tag() tag.Tag { return tag.BasisFeatureDate }
 
-type BasisFeaturePrice struct{ quickfixgo.PriceValue }
+type BasisFeaturePrice struct{ quickfix.PriceValue }
 
 func (f BasisFeaturePrice) Tag() tag.Tag { return tag.BasisFeaturePrice }
 
-type BasisPxType struct{ quickfixgo.CharValue }
+type BasisPxType struct{ quickfix.CharValue }
 
 func (f BasisPxType) Tag() tag.Tag { return tag.BasisPxType }
 
-type BeginSeqNo struct{ quickfixgo.SeqNumValue }
+type BeginSeqNo struct{ quickfix.SeqNumValue }
 
 func (f BeginSeqNo) Tag() tag.Tag { return tag.BeginSeqNo }
 
-type BeginString struct{ quickfixgo.StringValue }
+type BeginString struct{ quickfix.StringValue }
 
 func (f BeginString) Tag() tag.Tag { return tag.BeginString }
 
-type Benchmark struct{ quickfixgo.CharValue }
+type Benchmark struct{ quickfix.CharValue }
 
 func (f Benchmark) Tag() tag.Tag { return tag.Benchmark }
 
-type BenchmarkCurveCurrency struct{ quickfixgo.CurrencyValue }
+type BenchmarkCurveCurrency struct{ quickfix.CurrencyValue }
 
 func (f BenchmarkCurveCurrency) Tag() tag.Tag { return tag.BenchmarkCurveCurrency }
 
-type BenchmarkCurveName struct{ quickfixgo.StringValue }
+type BenchmarkCurveName struct{ quickfix.StringValue }
 
 func (f BenchmarkCurveName) Tag() tag.Tag { return tag.BenchmarkCurveName }
 
-type BenchmarkCurvePoint struct{ quickfixgo.StringValue }
+type BenchmarkCurvePoint struct{ quickfix.StringValue }
 
 func (f BenchmarkCurvePoint) Tag() tag.Tag { return tag.BenchmarkCurvePoint }
 
-type BenchmarkPrice struct{ quickfixgo.PriceValue }
+type BenchmarkPrice struct{ quickfix.PriceValue }
 
 func (f BenchmarkPrice) Tag() tag.Tag { return tag.BenchmarkPrice }
 
-type BenchmarkPriceType struct{ quickfixgo.IntValue }
+type BenchmarkPriceType struct{ quickfix.IntValue }
 
 func (f BenchmarkPriceType) Tag() tag.Tag { return tag.BenchmarkPriceType }
 
-type BenchmarkSecurityID struct{ quickfixgo.StringValue }
+type BenchmarkSecurityID struct{ quickfix.StringValue }
 
 func (f BenchmarkSecurityID) Tag() tag.Tag { return tag.BenchmarkSecurityID }
 
-type BenchmarkSecurityIDSource struct{ quickfixgo.StringValue }
+type BenchmarkSecurityIDSource struct{ quickfix.StringValue }
 
 func (f BenchmarkSecurityIDSource) Tag() tag.Tag { return tag.BenchmarkSecurityIDSource }
 
-type BidDescriptor struct{ quickfixgo.StringValue }
+type BidDescriptor struct{ quickfix.StringValue }
 
 func (f BidDescriptor) Tag() tag.Tag { return tag.BidDescriptor }
 
-type BidDescriptorType struct{ quickfixgo.IntValue }
+type BidDescriptorType struct{ quickfix.IntValue }
 
 func (f BidDescriptorType) Tag() tag.Tag { return tag.BidDescriptorType }
 
-type BidForwardPoints struct{ quickfixgo.PriceOffsetValue }
+type BidForwardPoints struct{ quickfix.PriceOffsetValue }
 
 func (f BidForwardPoints) Tag() tag.Tag { return tag.BidForwardPoints }
 
-type BidForwardPoints2 struct{ quickfixgo.PriceOffsetValue }
+type BidForwardPoints2 struct{ quickfix.PriceOffsetValue }
 
 func (f BidForwardPoints2) Tag() tag.Tag { return tag.BidForwardPoints2 }
 
-type BidID struct{ quickfixgo.StringValue }
+type BidID struct{ quickfix.StringValue }
 
 func (f BidID) Tag() tag.Tag { return tag.BidID }
 
-type BidPx struct{ quickfixgo.PriceValue }
+type BidPx struct{ quickfix.PriceValue }
 
 func (f BidPx) Tag() tag.Tag { return tag.BidPx }
 
-type BidRequestTransType struct{ quickfixgo.CharValue }
+type BidRequestTransType struct{ quickfix.CharValue }
 
 func (f BidRequestTransType) Tag() tag.Tag { return tag.BidRequestTransType }
 
-type BidSize struct{ quickfixgo.QtyValue }
+type BidSize struct{ quickfix.QtyValue }
 
 func (f BidSize) Tag() tag.Tag { return tag.BidSize }
 
-type BidSpotRate struct{ quickfixgo.PriceValue }
+type BidSpotRate struct{ quickfix.PriceValue }
 
 func (f BidSpotRate) Tag() tag.Tag { return tag.BidSpotRate }
 
-type BidSwapPoints struct{ quickfixgo.PriceOffsetValue }
+type BidSwapPoints struct{ quickfix.PriceOffsetValue }
 
 func (f BidSwapPoints) Tag() tag.Tag { return tag.BidSwapPoints }
 
-type BidTradeType struct{ quickfixgo.CharValue }
+type BidTradeType struct{ quickfix.CharValue }
 
 func (f BidTradeType) Tag() tag.Tag { return tag.BidTradeType }
 
-type BidType struct{ quickfixgo.IntValue }
+type BidType struct{ quickfix.IntValue }
 
 func (f BidType) Tag() tag.Tag { return tag.BidType }
 
-type BidYield struct{ quickfixgo.PercentageValue }
+type BidYield struct{ quickfix.PercentageValue }
 
 func (f BidYield) Tag() tag.Tag { return tag.BidYield }
 
-type BodyLength struct{ quickfixgo.LengthValue }
+type BodyLength struct{ quickfix.LengthValue }
 
 func (f BodyLength) Tag() tag.Tag { return tag.BodyLength }
 
-type BookingRefID struct{ quickfixgo.StringValue }
+type BookingRefID struct{ quickfix.StringValue }
 
 func (f BookingRefID) Tag() tag.Tag { return tag.BookingRefID }
 
-type BookingType struct{ quickfixgo.IntValue }
+type BookingType struct{ quickfix.IntValue }
 
 func (f BookingType) Tag() tag.Tag { return tag.BookingType }
 
-type BookingUnit struct{ quickfixgo.CharValue }
+type BookingUnit struct{ quickfix.CharValue }
 
 func (f BookingUnit) Tag() tag.Tag { return tag.BookingUnit }
 
-type BrokerOfCredit struct{ quickfixgo.StringValue }
+type BrokerOfCredit struct{ quickfix.StringValue }
 
 func (f BrokerOfCredit) Tag() tag.Tag { return tag.BrokerOfCredit }
 
-type BusinessRejectReason struct{ quickfixgo.IntValue }
+type BusinessRejectReason struct{ quickfix.IntValue }
 
 func (f BusinessRejectReason) Tag() tag.Tag { return tag.BusinessRejectReason }
 
-type BusinessRejectRefID struct{ quickfixgo.StringValue }
+type BusinessRejectRefID struct{ quickfix.StringValue }
 
 func (f BusinessRejectRefID) Tag() tag.Tag { return tag.BusinessRejectRefID }
 
-type BuyVolume struct{ quickfixgo.QtyValue }
+type BuyVolume struct{ quickfix.QtyValue }
 
 func (f BuyVolume) Tag() tag.Tag { return tag.BuyVolume }
 
-type CFICode struct{ quickfixgo.StringValue }
+type CFICode struct{ quickfix.StringValue }
 
 func (f CFICode) Tag() tag.Tag { return tag.CFICode }
 
-type CPProgram struct{ quickfixgo.IntValue }
+type CPProgram struct{ quickfix.IntValue }
 
 func (f CPProgram) Tag() tag.Tag { return tag.CPProgram }
 
-type CPRegType struct{ quickfixgo.StringValue }
+type CPRegType struct{ quickfix.StringValue }
 
 func (f CPRegType) Tag() tag.Tag { return tag.CPRegType }
 
-type CalculatedCcyLastQty struct{ quickfixgo.QtyValue }
+type CalculatedCcyLastQty struct{ quickfix.QtyValue }
 
 func (f CalculatedCcyLastQty) Tag() tag.Tag { return tag.CalculatedCcyLastQty }
 
-type CancellationRights struct{ quickfixgo.CharValue }
+type CancellationRights struct{ quickfix.CharValue }
 
 func (f CancellationRights) Tag() tag.Tag { return tag.CancellationRights }
 
-type CapPrice struct{ quickfixgo.PriceValue }
+type CapPrice struct{ quickfix.PriceValue }
 
 func (f CapPrice) Tag() tag.Tag { return tag.CapPrice }
 
-type CardExpDate struct{ quickfixgo.LocalMktDateValue }
+type CardExpDate struct{ quickfix.LocalMktDateValue }
 
 func (f CardExpDate) Tag() tag.Tag { return tag.CardExpDate }
 
-type CardHolderName struct{ quickfixgo.StringValue }
+type CardHolderName struct{ quickfix.StringValue }
 
 func (f CardHolderName) Tag() tag.Tag { return tag.CardHolderName }
 
-type CardIssNo struct{ quickfixgo.StringValue }
+type CardIssNo struct{ quickfix.StringValue }
 
 func (f CardIssNo) Tag() tag.Tag { return tag.CardIssNo }
 
-type CardIssNum struct{ quickfixgo.StringValue }
+type CardIssNum struct{ quickfix.StringValue }
 
 func (f CardIssNum) Tag() tag.Tag { return tag.CardIssNum }
 
-type CardNumber struct{ quickfixgo.StringValue }
+type CardNumber struct{ quickfix.StringValue }
 
 func (f CardNumber) Tag() tag.Tag { return tag.CardNumber }
 
-type CardStartDate struct{ quickfixgo.LocalMktDateValue }
+type CardStartDate struct{ quickfix.LocalMktDateValue }
 
 func (f CardStartDate) Tag() tag.Tag { return tag.CardStartDate }
 
-type CashDistribAgentAcctName struct{ quickfixgo.StringValue }
+type CashDistribAgentAcctName struct{ quickfix.StringValue }
 
 func (f CashDistribAgentAcctName) Tag() tag.Tag { return tag.CashDistribAgentAcctName }
 
-type CashDistribAgentAcctNumber struct{ quickfixgo.StringValue }
+type CashDistribAgentAcctNumber struct{ quickfix.StringValue }
 
 func (f CashDistribAgentAcctNumber) Tag() tag.Tag { return tag.CashDistribAgentAcctNumber }
 
-type CashDistribAgentCode struct{ quickfixgo.StringValue }
+type CashDistribAgentCode struct{ quickfix.StringValue }
 
 func (f CashDistribAgentCode) Tag() tag.Tag { return tag.CashDistribAgentCode }
 
-type CashDistribAgentName struct{ quickfixgo.StringValue }
+type CashDistribAgentName struct{ quickfix.StringValue }
 
 func (f CashDistribAgentName) Tag() tag.Tag { return tag.CashDistribAgentName }
 
-type CashDistribCurr struct{ quickfixgo.CurrencyValue }
+type CashDistribCurr struct{ quickfix.CurrencyValue }
 
 func (f CashDistribCurr) Tag() tag.Tag { return tag.CashDistribCurr }
 
-type CashDistribPayRef struct{ quickfixgo.StringValue }
+type CashDistribPayRef struct{ quickfix.StringValue }
 
 func (f CashDistribPayRef) Tag() tag.Tag { return tag.CashDistribPayRef }
 
-type CashMargin struct{ quickfixgo.CharValue }
+type CashMargin struct{ quickfix.CharValue }
 
 func (f CashMargin) Tag() tag.Tag { return tag.CashMargin }
 
-type CashOrderQty struct{ quickfixgo.QtyValue }
+type CashOrderQty struct{ quickfix.QtyValue }
 
 func (f CashOrderQty) Tag() tag.Tag { return tag.CashOrderQty }
 
-type CashOutstanding struct{ quickfixgo.AmtValue }
+type CashOutstanding struct{ quickfix.AmtValue }
 
 func (f CashOutstanding) Tag() tag.Tag { return tag.CashOutstanding }
 
-type CashSettlAgentAcctName struct{ quickfixgo.StringValue }
+type CashSettlAgentAcctName struct{ quickfix.StringValue }
 
 func (f CashSettlAgentAcctName) Tag() tag.Tag { return tag.CashSettlAgentAcctName }
 
-type CashSettlAgentAcctNum struct{ quickfixgo.StringValue }
+type CashSettlAgentAcctNum struct{ quickfix.StringValue }
 
 func (f CashSettlAgentAcctNum) Tag() tag.Tag { return tag.CashSettlAgentAcctNum }
 
-type CashSettlAgentCode struct{ quickfixgo.StringValue }
+type CashSettlAgentCode struct{ quickfix.StringValue }
 
 func (f CashSettlAgentCode) Tag() tag.Tag { return tag.CashSettlAgentCode }
 
-type CashSettlAgentContactName struct{ quickfixgo.StringValue }
+type CashSettlAgentContactName struct{ quickfix.StringValue }
 
 func (f CashSettlAgentContactName) Tag() tag.Tag { return tag.CashSettlAgentContactName }
 
-type CashSettlAgentContactPhone struct{ quickfixgo.StringValue }
+type CashSettlAgentContactPhone struct{ quickfix.StringValue }
 
 func (f CashSettlAgentContactPhone) Tag() tag.Tag { return tag.CashSettlAgentContactPhone }
 
-type CashSettlAgentName struct{ quickfixgo.StringValue }
+type CashSettlAgentName struct{ quickfix.StringValue }
 
 func (f CashSettlAgentName) Tag() tag.Tag { return tag.CashSettlAgentName }
 
-type CcyAmt struct{ quickfixgo.AmtValue }
+type CcyAmt struct{ quickfix.AmtValue }
 
 func (f CcyAmt) Tag() tag.Tag { return tag.CcyAmt }
 
-type CheckSum struct{ quickfixgo.StringValue }
+type CheckSum struct{ quickfix.StringValue }
 
 func (f CheckSum) Tag() tag.Tag { return tag.CheckSum }
 
-type ClOrdID struct{ quickfixgo.StringValue }
+type ClOrdID struct{ quickfix.StringValue }
 
 func (f ClOrdID) Tag() tag.Tag { return tag.ClOrdID }
 
-type ClOrdLinkID struct{ quickfixgo.StringValue }
+type ClOrdLinkID struct{ quickfix.StringValue }
 
 func (f ClOrdLinkID) Tag() tag.Tag { return tag.ClOrdLinkID }
 
-type ClearingAccount struct{ quickfixgo.StringValue }
+type ClearingAccount struct{ quickfix.StringValue }
 
 func (f ClearingAccount) Tag() tag.Tag { return tag.ClearingAccount }
 
-type ClearingBusinessDate struct{ quickfixgo.LocalMktDateValue }
+type ClearingBusinessDate struct{ quickfix.LocalMktDateValue }
 
 func (f ClearingBusinessDate) Tag() tag.Tag { return tag.ClearingBusinessDate }
 
-type ClearingFeeIndicator struct{ quickfixgo.StringValue }
+type ClearingFeeIndicator struct{ quickfix.StringValue }
 
 func (f ClearingFeeIndicator) Tag() tag.Tag { return tag.ClearingFeeIndicator }
 
-type ClearingFirm struct{ quickfixgo.StringValue }
+type ClearingFirm struct{ quickfix.StringValue }
 
 func (f ClearingFirm) Tag() tag.Tag { return tag.ClearingFirm }
 
-type ClearingInstruction struct{ quickfixgo.IntValue }
+type ClearingInstruction struct{ quickfix.IntValue }
 
 func (f ClearingInstruction) Tag() tag.Tag { return tag.ClearingInstruction }
 
-type ClientBidID struct{ quickfixgo.StringValue }
+type ClientBidID struct{ quickfix.StringValue }
 
 func (f ClientBidID) Tag() tag.Tag { return tag.ClientBidID }
 
-type ClientID struct{ quickfixgo.StringValue }
+type ClientID struct{ quickfix.StringValue }
 
 func (f ClientID) Tag() tag.Tag { return tag.ClientID }
 
-type CollAction struct{ quickfixgo.IntValue }
+type CollAction struct{ quickfix.IntValue }
 
 func (f CollAction) Tag() tag.Tag { return tag.CollAction }
 
-type CollApplType struct{ quickfixgo.IntValue }
+type CollApplType struct{ quickfix.IntValue }
 
 func (f CollApplType) Tag() tag.Tag { return tag.CollApplType }
 
-type CollAsgnID struct{ quickfixgo.StringValue }
+type CollAsgnID struct{ quickfix.StringValue }
 
 func (f CollAsgnID) Tag() tag.Tag { return tag.CollAsgnID }
 
-type CollAsgnReason struct{ quickfixgo.IntValue }
+type CollAsgnReason struct{ quickfix.IntValue }
 
 func (f CollAsgnReason) Tag() tag.Tag { return tag.CollAsgnReason }
 
-type CollAsgnRefID struct{ quickfixgo.StringValue }
+type CollAsgnRefID struct{ quickfix.StringValue }
 
 func (f CollAsgnRefID) Tag() tag.Tag { return tag.CollAsgnRefID }
 
-type CollAsgnRejectReason struct{ quickfixgo.IntValue }
+type CollAsgnRejectReason struct{ quickfix.IntValue }
 
 func (f CollAsgnRejectReason) Tag() tag.Tag { return tag.CollAsgnRejectReason }
 
-type CollAsgnRespType struct{ quickfixgo.IntValue }
+type CollAsgnRespType struct{ quickfix.IntValue }
 
 func (f CollAsgnRespType) Tag() tag.Tag { return tag.CollAsgnRespType }
 
-type CollAsgnTransType struct{ quickfixgo.IntValue }
+type CollAsgnTransType struct{ quickfix.IntValue }
 
 func (f CollAsgnTransType) Tag() tag.Tag { return tag.CollAsgnTransType }
 
-type CollInquiryID struct{ quickfixgo.StringValue }
+type CollInquiryID struct{ quickfix.StringValue }
 
 func (f CollInquiryID) Tag() tag.Tag { return tag.CollInquiryID }
 
-type CollInquiryQualifier struct{ quickfixgo.IntValue }
+type CollInquiryQualifier struct{ quickfix.IntValue }
 
 func (f CollInquiryQualifier) Tag() tag.Tag { return tag.CollInquiryQualifier }
 
-type CollInquiryResult struct{ quickfixgo.IntValue }
+type CollInquiryResult struct{ quickfix.IntValue }
 
 func (f CollInquiryResult) Tag() tag.Tag { return tag.CollInquiryResult }
 
-type CollInquiryStatus struct{ quickfixgo.IntValue }
+type CollInquiryStatus struct{ quickfix.IntValue }
 
 func (f CollInquiryStatus) Tag() tag.Tag { return tag.CollInquiryStatus }
 
-type CollReqID struct{ quickfixgo.StringValue }
+type CollReqID struct{ quickfix.StringValue }
 
 func (f CollReqID) Tag() tag.Tag { return tag.CollReqID }
 
-type CollRespID struct{ quickfixgo.StringValue }
+type CollRespID struct{ quickfix.StringValue }
 
 func (f CollRespID) Tag() tag.Tag { return tag.CollRespID }
 
-type CollRptID struct{ quickfixgo.StringValue }
+type CollRptID struct{ quickfix.StringValue }
 
 func (f CollRptID) Tag() tag.Tag { return tag.CollRptID }
 
-type CollStatus struct{ quickfixgo.IntValue }
+type CollStatus struct{ quickfix.IntValue }
 
 func (f CollStatus) Tag() tag.Tag { return tag.CollStatus }
 
-type CommCurrency struct{ quickfixgo.CurrencyValue }
+type CommCurrency struct{ quickfix.CurrencyValue }
 
 func (f CommCurrency) Tag() tag.Tag { return tag.CommCurrency }
 
-type CommType struct{ quickfixgo.CharValue }
+type CommType struct{ quickfix.CharValue }
 
 func (f CommType) Tag() tag.Tag { return tag.CommType }
 
-type Commission struct{ quickfixgo.AmtValue }
+type Commission struct{ quickfix.AmtValue }
 
 func (f Commission) Tag() tag.Tag { return tag.Commission }
 
-type ComplexEventCondition struct{ quickfixgo.IntValue }
+type ComplexEventCondition struct{ quickfix.IntValue }
 
 func (f ComplexEventCondition) Tag() tag.Tag { return tag.ComplexEventCondition }
 
-type ComplexEventEndDate struct{ quickfixgo.UTCTimestampValue }
+type ComplexEventEndDate struct{ quickfix.UTCTimestampValue }
 
 func (f ComplexEventEndDate) Tag() tag.Tag { return tag.ComplexEventEndDate }
 
-type ComplexEventEndTime struct{ quickfixgo.UTCTimeOnlyValue }
+type ComplexEventEndTime struct{ quickfix.UTCTimeOnlyValue }
 
 func (f ComplexEventEndTime) Tag() tag.Tag { return tag.ComplexEventEndTime }
 
-type ComplexEventPrice struct{ quickfixgo.PriceValue }
+type ComplexEventPrice struct{ quickfix.PriceValue }
 
 func (f ComplexEventPrice) Tag() tag.Tag { return tag.ComplexEventPrice }
 
-type ComplexEventPriceBoundaryMethod struct{ quickfixgo.IntValue }
+type ComplexEventPriceBoundaryMethod struct{ quickfix.IntValue }
 
 func (f ComplexEventPriceBoundaryMethod) Tag() tag.Tag { return tag.ComplexEventPriceBoundaryMethod }
 
-type ComplexEventPriceBoundaryPrecision struct{ quickfixgo.PercentageValue }
+type ComplexEventPriceBoundaryPrecision struct{ quickfix.PercentageValue }
 
 func (f ComplexEventPriceBoundaryPrecision) Tag() tag.Tag {
 	return tag.ComplexEventPriceBoundaryPrecision
 }
 
-type ComplexEventPriceTimeType struct{ quickfixgo.IntValue }
+type ComplexEventPriceTimeType struct{ quickfix.IntValue }
 
 func (f ComplexEventPriceTimeType) Tag() tag.Tag { return tag.ComplexEventPriceTimeType }
 
-type ComplexEventStartDate struct{ quickfixgo.UTCTimestampValue }
+type ComplexEventStartDate struct{ quickfix.UTCTimestampValue }
 
 func (f ComplexEventStartDate) Tag() tag.Tag { return tag.ComplexEventStartDate }
 
-type ComplexEventStartTime struct{ quickfixgo.UTCTimeOnlyValue }
+type ComplexEventStartTime struct{ quickfix.UTCTimeOnlyValue }
 
 func (f ComplexEventStartTime) Tag() tag.Tag { return tag.ComplexEventStartTime }
 
-type ComplexEventType struct{ quickfixgo.IntValue }
+type ComplexEventType struct{ quickfix.IntValue }
 
 func (f ComplexEventType) Tag() tag.Tag { return tag.ComplexEventType }
 
-type ComplexOptPayoutAmount struct{ quickfixgo.AmtValue }
+type ComplexOptPayoutAmount struct{ quickfix.AmtValue }
 
 func (f ComplexOptPayoutAmount) Tag() tag.Tag { return tag.ComplexOptPayoutAmount }
 
-type ComplianceID struct{ quickfixgo.StringValue }
+type ComplianceID struct{ quickfix.StringValue }
 
 func (f ComplianceID) Tag() tag.Tag { return tag.ComplianceID }
 
-type Concession struct{ quickfixgo.AmtValue }
+type Concession struct{ quickfix.AmtValue }
 
 func (f Concession) Tag() tag.Tag { return tag.Concession }
 
-type ConfirmID struct{ quickfixgo.StringValue }
+type ConfirmID struct{ quickfix.StringValue }
 
 func (f ConfirmID) Tag() tag.Tag { return tag.ConfirmID }
 
-type ConfirmRefID struct{ quickfixgo.StringValue }
+type ConfirmRefID struct{ quickfix.StringValue }
 
 func (f ConfirmRefID) Tag() tag.Tag { return tag.ConfirmRefID }
 
-type ConfirmRejReason struct{ quickfixgo.IntValue }
+type ConfirmRejReason struct{ quickfix.IntValue }
 
 func (f ConfirmRejReason) Tag() tag.Tag { return tag.ConfirmRejReason }
 
-type ConfirmReqID struct{ quickfixgo.StringValue }
+type ConfirmReqID struct{ quickfix.StringValue }
 
 func (f ConfirmReqID) Tag() tag.Tag { return tag.ConfirmReqID }
 
-type ConfirmStatus struct{ quickfixgo.IntValue }
+type ConfirmStatus struct{ quickfix.IntValue }
 
 func (f ConfirmStatus) Tag() tag.Tag { return tag.ConfirmStatus }
 
-type ConfirmTransType struct{ quickfixgo.IntValue }
+type ConfirmTransType struct{ quickfix.IntValue }
 
 func (f ConfirmTransType) Tag() tag.Tag { return tag.ConfirmTransType }
 
-type ConfirmType struct{ quickfixgo.IntValue }
+type ConfirmType struct{ quickfix.IntValue }
 
 func (f ConfirmType) Tag() tag.Tag { return tag.ConfirmType }
 
-type ContAmtCurr struct{ quickfixgo.CurrencyValue }
+type ContAmtCurr struct{ quickfix.CurrencyValue }
 
 func (f ContAmtCurr) Tag() tag.Tag { return tag.ContAmtCurr }
 
-type ContAmtType struct{ quickfixgo.IntValue }
+type ContAmtType struct{ quickfix.IntValue }
 
 func (f ContAmtType) Tag() tag.Tag { return tag.ContAmtType }
 
-type ContAmtValue struct{ quickfixgo.FloatValue }
+type ContAmtValue struct{ quickfix.FloatValue }
 
 func (f ContAmtValue) Tag() tag.Tag { return tag.ContAmtValue }
 
-type ContIntRptID struct{ quickfixgo.StringValue }
+type ContIntRptID struct{ quickfix.StringValue }
 
 func (f ContIntRptID) Tag() tag.Tag { return tag.ContIntRptID }
 
-type ContextPartyID struct{ quickfixgo.StringValue }
+type ContextPartyID struct{ quickfix.StringValue }
 
 func (f ContextPartyID) Tag() tag.Tag { return tag.ContextPartyID }
 
-type ContextPartyIDSource struct{ quickfixgo.CharValue }
+type ContextPartyIDSource struct{ quickfix.CharValue }
 
 func (f ContextPartyIDSource) Tag() tag.Tag { return tag.ContextPartyIDSource }
 
-type ContextPartyRole struct{ quickfixgo.IntValue }
+type ContextPartyRole struct{ quickfix.IntValue }
 
 func (f ContextPartyRole) Tag() tag.Tag { return tag.ContextPartyRole }
 
-type ContextPartySubID struct{ quickfixgo.StringValue }
+type ContextPartySubID struct{ quickfix.StringValue }
 
 func (f ContextPartySubID) Tag() tag.Tag { return tag.ContextPartySubID }
 
-type ContextPartySubIDType struct{ quickfixgo.IntValue }
+type ContextPartySubIDType struct{ quickfix.IntValue }
 
 func (f ContextPartySubIDType) Tag() tag.Tag { return tag.ContextPartySubIDType }
 
-type ContingencyType struct{ quickfixgo.IntValue }
+type ContingencyType struct{ quickfix.IntValue }
 
 func (f ContingencyType) Tag() tag.Tag { return tag.ContingencyType }
 
-type ContraBroker struct{ quickfixgo.StringValue }
+type ContraBroker struct{ quickfix.StringValue }
 
 func (f ContraBroker) Tag() tag.Tag { return tag.ContraBroker }
 
-type ContraLegRefID struct{ quickfixgo.StringValue }
+type ContraLegRefID struct{ quickfix.StringValue }
 
 func (f ContraLegRefID) Tag() tag.Tag { return tag.ContraLegRefID }
 
-type ContraTradeQty struct{ quickfixgo.QtyValue }
+type ContraTradeQty struct{ quickfix.QtyValue }
 
 func (f ContraTradeQty) Tag() tag.Tag { return tag.ContraTradeQty }
 
-type ContraTradeTime struct{ quickfixgo.UTCTimestampValue }
+type ContraTradeTime struct{ quickfix.UTCTimestampValue }
 
 func (f ContraTradeTime) Tag() tag.Tag { return tag.ContraTradeTime }
 
-type ContraTrader struct{ quickfixgo.StringValue }
+type ContraTrader struct{ quickfix.StringValue }
 
 func (f ContraTrader) Tag() tag.Tag { return tag.ContraTrader }
 
-type ContractMultiplier struct{ quickfixgo.FloatValue }
+type ContractMultiplier struct{ quickfix.FloatValue }
 
 func (f ContractMultiplier) Tag() tag.Tag { return tag.ContractMultiplier }
 
-type ContractMultiplierUnit struct{ quickfixgo.IntValue }
+type ContractMultiplierUnit struct{ quickfix.IntValue }
 
 func (f ContractMultiplierUnit) Tag() tag.Tag { return tag.ContractMultiplierUnit }
 
-type ContractSettlMonth struct{ quickfixgo.MonthYearValue }
+type ContractSettlMonth struct{ quickfix.MonthYearValue }
 
 func (f ContractSettlMonth) Tag() tag.Tag { return tag.ContractSettlMonth }
 
-type ContraryInstructionIndicator struct{ quickfixgo.BooleanValue }
+type ContraryInstructionIndicator struct{ quickfix.BooleanValue }
 
 func (f ContraryInstructionIndicator) Tag() tag.Tag { return tag.ContraryInstructionIndicator }
 
-type CopyMsgIndicator struct{ quickfixgo.BooleanValue }
+type CopyMsgIndicator struct{ quickfix.BooleanValue }
 
 func (f CopyMsgIndicator) Tag() tag.Tag { return tag.CopyMsgIndicator }
 
-type CorporateAction struct{ quickfixgo.MultipleCharValue }
+type CorporateAction struct{ quickfix.MultipleCharValue }
 
 func (f CorporateAction) Tag() tag.Tag { return tag.CorporateAction }
 
-type Country struct{ quickfixgo.CountryValue }
+type Country struct{ quickfix.CountryValue }
 
 func (f Country) Tag() tag.Tag { return tag.Country }
 
-type CountryOfIssue struct{ quickfixgo.CountryValue }
+type CountryOfIssue struct{ quickfix.CountryValue }
 
 func (f CountryOfIssue) Tag() tag.Tag { return tag.CountryOfIssue }
 
-type CouponPaymentDate struct{ quickfixgo.LocalMktDateValue }
+type CouponPaymentDate struct{ quickfix.LocalMktDateValue }
 
 func (f CouponPaymentDate) Tag() tag.Tag { return tag.CouponPaymentDate }
 
-type CouponRate struct{ quickfixgo.PercentageValue }
+type CouponRate struct{ quickfix.PercentageValue }
 
 func (f CouponRate) Tag() tag.Tag { return tag.CouponRate }
 
-type CoveredOrUncovered struct{ quickfixgo.IntValue }
+type CoveredOrUncovered struct{ quickfix.IntValue }
 
 func (f CoveredOrUncovered) Tag() tag.Tag { return tag.CoveredOrUncovered }
 
-type CreditRating struct{ quickfixgo.StringValue }
+type CreditRating struct{ quickfix.StringValue }
 
 func (f CreditRating) Tag() tag.Tag { return tag.CreditRating }
 
-type CrossID struct{ quickfixgo.StringValue }
+type CrossID struct{ quickfix.StringValue }
 
 func (f CrossID) Tag() tag.Tag { return tag.CrossID }
 
-type CrossPercent struct{ quickfixgo.PercentageValue }
+type CrossPercent struct{ quickfix.PercentageValue }
 
 func (f CrossPercent) Tag() tag.Tag { return tag.CrossPercent }
 
-type CrossPrioritization struct{ quickfixgo.IntValue }
+type CrossPrioritization struct{ quickfix.IntValue }
 
 func (f CrossPrioritization) Tag() tag.Tag { return tag.CrossPrioritization }
 
-type CrossType struct{ quickfixgo.IntValue }
+type CrossType struct{ quickfix.IntValue }
 
 func (f CrossType) Tag() tag.Tag { return tag.CrossType }
 
-type CstmApplVerID struct{ quickfixgo.StringValue }
+type CstmApplVerID struct{ quickfix.StringValue }
 
 func (f CstmApplVerID) Tag() tag.Tag { return tag.CstmApplVerID }
 
-type CumQty struct{ quickfixgo.QtyValue }
+type CumQty struct{ quickfix.QtyValue }
 
 func (f CumQty) Tag() tag.Tag { return tag.CumQty }
 
-type Currency struct{ quickfixgo.CurrencyValue }
+type Currency struct{ quickfix.CurrencyValue }
 
 func (f Currency) Tag() tag.Tag { return tag.Currency }
 
-type CurrencyRatio struct{ quickfixgo.FloatValue }
+type CurrencyRatio struct{ quickfix.FloatValue }
 
 func (f CurrencyRatio) Tag() tag.Tag { return tag.CurrencyRatio }
 
-type CustDirectedOrder struct{ quickfixgo.BooleanValue }
+type CustDirectedOrder struct{ quickfix.BooleanValue }
 
 func (f CustDirectedOrder) Tag() tag.Tag { return tag.CustDirectedOrder }
 
-type CustOrderCapacity struct{ quickfixgo.IntValue }
+type CustOrderCapacity struct{ quickfix.IntValue }
 
 func (f CustOrderCapacity) Tag() tag.Tag { return tag.CustOrderCapacity }
 
-type CustOrderHandlingInst struct{ quickfixgo.MultipleStringValue }
+type CustOrderHandlingInst struct{ quickfix.MultipleStringValue }
 
 func (f CustOrderHandlingInst) Tag() tag.Tag { return tag.CustOrderHandlingInst }
 
-type CustomerOrFirm struct{ quickfixgo.IntValue }
+type CustomerOrFirm struct{ quickfix.IntValue }
 
 func (f CustomerOrFirm) Tag() tag.Tag { return tag.CustomerOrFirm }
 
-type CxlQty struct{ quickfixgo.QtyValue }
+type CxlQty struct{ quickfix.QtyValue }
 
 func (f CxlQty) Tag() tag.Tag { return tag.CxlQty }
 
-type CxlRejReason struct{ quickfixgo.IntValue }
+type CxlRejReason struct{ quickfix.IntValue }
 
 func (f CxlRejReason) Tag() tag.Tag { return tag.CxlRejReason }
 
-type CxlRejResponseTo struct{ quickfixgo.CharValue }
+type CxlRejResponseTo struct{ quickfix.CharValue }
 
 func (f CxlRejResponseTo) Tag() tag.Tag { return tag.CxlRejResponseTo }
 
-type CxlType struct{ quickfixgo.CharValue }
+type CxlType struct{ quickfix.CharValue }
 
 func (f CxlType) Tag() tag.Tag { return tag.CxlType }
 
-type DKReason struct{ quickfixgo.CharValue }
+type DKReason struct{ quickfix.CharValue }
 
 func (f DKReason) Tag() tag.Tag { return tag.DKReason }
 
-type DateOfBirth struct{ quickfixgo.LocalMktDateValue }
+type DateOfBirth struct{ quickfix.LocalMktDateValue }
 
 func (f DateOfBirth) Tag() tag.Tag { return tag.DateOfBirth }
 
-type DatedDate struct{ quickfixgo.LocalMktDateValue }
+type DatedDate struct{ quickfix.LocalMktDateValue }
 
 func (f DatedDate) Tag() tag.Tag { return tag.DatedDate }
 
-type DayAvgPx struct{ quickfixgo.PriceValue }
+type DayAvgPx struct{ quickfix.PriceValue }
 
 func (f DayAvgPx) Tag() tag.Tag { return tag.DayAvgPx }
 
-type DayBookingInst struct{ quickfixgo.CharValue }
+type DayBookingInst struct{ quickfix.CharValue }
 
 func (f DayBookingInst) Tag() tag.Tag { return tag.DayBookingInst }
 
-type DayCumQty struct{ quickfixgo.QtyValue }
+type DayCumQty struct{ quickfix.QtyValue }
 
 func (f DayCumQty) Tag() tag.Tag { return tag.DayCumQty }
 
-type DayOrderQty struct{ quickfixgo.QtyValue }
+type DayOrderQty struct{ quickfix.QtyValue }
 
 func (f DayOrderQty) Tag() tag.Tag { return tag.DayOrderQty }
 
-type DealingCapacity struct{ quickfixgo.CharValue }
+type DealingCapacity struct{ quickfix.CharValue }
 
 func (f DealingCapacity) Tag() tag.Tag { return tag.DealingCapacity }
 
-type DefBidSize struct{ quickfixgo.QtyValue }
+type DefBidSize struct{ quickfix.QtyValue }
 
 func (f DefBidSize) Tag() tag.Tag { return tag.DefBidSize }
 
-type DefOfferSize struct{ quickfixgo.QtyValue }
+type DefOfferSize struct{ quickfix.QtyValue }
 
 func (f DefOfferSize) Tag() tag.Tag { return tag.DefOfferSize }
 
-type DefaultApplExtID struct{ quickfixgo.IntValue }
+type DefaultApplExtID struct{ quickfix.IntValue }
 
 func (f DefaultApplExtID) Tag() tag.Tag { return tag.DefaultApplExtID }
 
-type DefaultApplVerID struct{ quickfixgo.StringValue }
+type DefaultApplVerID struct{ quickfix.StringValue }
 
 func (f DefaultApplVerID) Tag() tag.Tag { return tag.DefaultApplVerID }
 
-type DefaultCstmApplVerID struct{ quickfixgo.StringValue }
+type DefaultCstmApplVerID struct{ quickfix.StringValue }
 
 func (f DefaultCstmApplVerID) Tag() tag.Tag { return tag.DefaultCstmApplVerID }
 
-type DefaultVerIndicator struct{ quickfixgo.BooleanValue }
+type DefaultVerIndicator struct{ quickfix.BooleanValue }
 
 func (f DefaultVerIndicator) Tag() tag.Tag { return tag.DefaultVerIndicator }
 
-type DeleteReason struct{ quickfixgo.CharValue }
+type DeleteReason struct{ quickfix.CharValue }
 
 func (f DeleteReason) Tag() tag.Tag { return tag.DeleteReason }
 
-type DeliverToCompID struct{ quickfixgo.StringValue }
+type DeliverToCompID struct{ quickfix.StringValue }
 
 func (f DeliverToCompID) Tag() tag.Tag { return tag.DeliverToCompID }
 
-type DeliverToLocationID struct{ quickfixgo.StringValue }
+type DeliverToLocationID struct{ quickfix.StringValue }
 
 func (f DeliverToLocationID) Tag() tag.Tag { return tag.DeliverToLocationID }
 
-type DeliverToSubID struct{ quickfixgo.StringValue }
+type DeliverToSubID struct{ quickfix.StringValue }
 
 func (f DeliverToSubID) Tag() tag.Tag { return tag.DeliverToSubID }
 
-type DeliveryDate struct{ quickfixgo.LocalMktDateValue }
+type DeliveryDate struct{ quickfix.LocalMktDateValue }
 
 func (f DeliveryDate) Tag() tag.Tag { return tag.DeliveryDate }
 
-type DeliveryForm struct{ quickfixgo.IntValue }
+type DeliveryForm struct{ quickfix.IntValue }
 
 func (f DeliveryForm) Tag() tag.Tag { return tag.DeliveryForm }
 
-type DeliveryType struct{ quickfixgo.IntValue }
+type DeliveryType struct{ quickfix.IntValue }
 
 func (f DeliveryType) Tag() tag.Tag { return tag.DeliveryType }
 
-type DerivFlexProductEligibilityIndicator struct{ quickfixgo.BooleanValue }
+type DerivFlexProductEligibilityIndicator struct{ quickfix.BooleanValue }
 
 func (f DerivFlexProductEligibilityIndicator) Tag() tag.Tag {
 	return tag.DerivFlexProductEligibilityIndicator
 }
 
-type DerivativeCFICode struct{ quickfixgo.StringValue }
+type DerivativeCFICode struct{ quickfix.StringValue }
 
 func (f DerivativeCFICode) Tag() tag.Tag { return tag.DerivativeCFICode }
 
-type DerivativeCapPrice struct{ quickfixgo.PriceValue }
+type DerivativeCapPrice struct{ quickfix.PriceValue }
 
 func (f DerivativeCapPrice) Tag() tag.Tag { return tag.DerivativeCapPrice }
 
-type DerivativeContractMultiplier struct{ quickfixgo.FloatValue }
+type DerivativeContractMultiplier struct{ quickfix.FloatValue }
 
 func (f DerivativeContractMultiplier) Tag() tag.Tag { return tag.DerivativeContractMultiplier }
 
-type DerivativeContractMultiplierUnit struct{ quickfixgo.IntValue }
+type DerivativeContractMultiplierUnit struct{ quickfix.IntValue }
 
 func (f DerivativeContractMultiplierUnit) Tag() tag.Tag { return tag.DerivativeContractMultiplierUnit }
 
-type DerivativeContractSettlMonth struct{ quickfixgo.MonthYearValue }
+type DerivativeContractSettlMonth struct{ quickfix.MonthYearValue }
 
 func (f DerivativeContractSettlMonth) Tag() tag.Tag { return tag.DerivativeContractSettlMonth }
 
-type DerivativeCountryOfIssue struct{ quickfixgo.CountryValue }
+type DerivativeCountryOfIssue struct{ quickfix.CountryValue }
 
 func (f DerivativeCountryOfIssue) Tag() tag.Tag { return tag.DerivativeCountryOfIssue }
 
-type DerivativeEncodedIssuer struct{ quickfixgo.DataValue }
+type DerivativeEncodedIssuer struct{ quickfix.DataValue }
 
 func (f DerivativeEncodedIssuer) Tag() tag.Tag { return tag.DerivativeEncodedIssuer }
 
-type DerivativeEncodedIssuerLen struct{ quickfixgo.LengthValue }
+type DerivativeEncodedIssuerLen struct{ quickfix.LengthValue }
 
 func (f DerivativeEncodedIssuerLen) Tag() tag.Tag { return tag.DerivativeEncodedIssuerLen }
 
-type DerivativeEncodedSecurityDesc struct{ quickfixgo.DataValue }
+type DerivativeEncodedSecurityDesc struct{ quickfix.DataValue }
 
 func (f DerivativeEncodedSecurityDesc) Tag() tag.Tag { return tag.DerivativeEncodedSecurityDesc }
 
-type DerivativeEncodedSecurityDescLen struct{ quickfixgo.LengthValue }
+type DerivativeEncodedSecurityDescLen struct{ quickfix.LengthValue }
 
 func (f DerivativeEncodedSecurityDescLen) Tag() tag.Tag { return tag.DerivativeEncodedSecurityDescLen }
 
-type DerivativeEventDate struct{ quickfixgo.LocalMktDateValue }
+type DerivativeEventDate struct{ quickfix.LocalMktDateValue }
 
 func (f DerivativeEventDate) Tag() tag.Tag { return tag.DerivativeEventDate }
 
-type DerivativeEventPx struct{ quickfixgo.PriceValue }
+type DerivativeEventPx struct{ quickfix.PriceValue }
 
 func (f DerivativeEventPx) Tag() tag.Tag { return tag.DerivativeEventPx }
 
-type DerivativeEventText struct{ quickfixgo.StringValue }
+type DerivativeEventText struct{ quickfix.StringValue }
 
 func (f DerivativeEventText) Tag() tag.Tag { return tag.DerivativeEventText }
 
-type DerivativeEventTime struct{ quickfixgo.UTCTimestampValue }
+type DerivativeEventTime struct{ quickfix.UTCTimestampValue }
 
 func (f DerivativeEventTime) Tag() tag.Tag { return tag.DerivativeEventTime }
 
-type DerivativeEventType struct{ quickfixgo.IntValue }
+type DerivativeEventType struct{ quickfix.IntValue }
 
 func (f DerivativeEventType) Tag() tag.Tag { return tag.DerivativeEventType }
 
-type DerivativeExerciseStyle struct{ quickfixgo.CharValue }
+type DerivativeExerciseStyle struct{ quickfix.CharValue }
 
 func (f DerivativeExerciseStyle) Tag() tag.Tag { return tag.DerivativeExerciseStyle }
 
-type DerivativeFloorPrice struct{ quickfixgo.PriceValue }
+type DerivativeFloorPrice struct{ quickfix.PriceValue }
 
 func (f DerivativeFloorPrice) Tag() tag.Tag { return tag.DerivativeFloorPrice }
 
-type DerivativeFlowScheduleType struct{ quickfixgo.IntValue }
+type DerivativeFlowScheduleType struct{ quickfix.IntValue }
 
 func (f DerivativeFlowScheduleType) Tag() tag.Tag { return tag.DerivativeFlowScheduleType }
 
-type DerivativeFuturesValuationMethod struct{ quickfixgo.StringValue }
+type DerivativeFuturesValuationMethod struct{ quickfix.StringValue }
 
 func (f DerivativeFuturesValuationMethod) Tag() tag.Tag { return tag.DerivativeFuturesValuationMethod }
 
-type DerivativeInstrAttribType struct{ quickfixgo.IntValue }
+type DerivativeInstrAttribType struct{ quickfix.IntValue }
 
 func (f DerivativeInstrAttribType) Tag() tag.Tag { return tag.DerivativeInstrAttribType }
 
-type DerivativeInstrAttribValue struct{ quickfixgo.StringValue }
+type DerivativeInstrAttribValue struct{ quickfix.StringValue }
 
 func (f DerivativeInstrAttribValue) Tag() tag.Tag { return tag.DerivativeInstrAttribValue }
 
-type DerivativeInstrRegistry struct{ quickfixgo.StringValue }
+type DerivativeInstrRegistry struct{ quickfix.StringValue }
 
 func (f DerivativeInstrRegistry) Tag() tag.Tag { return tag.DerivativeInstrRegistry }
 
-type DerivativeInstrmtAssignmentMethod struct{ quickfixgo.CharValue }
+type DerivativeInstrmtAssignmentMethod struct{ quickfix.CharValue }
 
 func (f DerivativeInstrmtAssignmentMethod) Tag() tag.Tag { return tag.DerivativeInstrmtAssignmentMethod }
 
-type DerivativeInstrumentPartyID struct{ quickfixgo.StringValue }
+type DerivativeInstrumentPartyID struct{ quickfix.StringValue }
 
 func (f DerivativeInstrumentPartyID) Tag() tag.Tag { return tag.DerivativeInstrumentPartyID }
 
-type DerivativeInstrumentPartyIDSource struct{ quickfixgo.StringValue }
+type DerivativeInstrumentPartyIDSource struct{ quickfix.StringValue }
 
 func (f DerivativeInstrumentPartyIDSource) Tag() tag.Tag { return tag.DerivativeInstrumentPartyIDSource }
 
-type DerivativeInstrumentPartyRole struct{ quickfixgo.IntValue }
+type DerivativeInstrumentPartyRole struct{ quickfix.IntValue }
 
 func (f DerivativeInstrumentPartyRole) Tag() tag.Tag { return tag.DerivativeInstrumentPartyRole }
 
-type DerivativeInstrumentPartySubID struct{ quickfixgo.StringValue }
+type DerivativeInstrumentPartySubID struct{ quickfix.StringValue }
 
 func (f DerivativeInstrumentPartySubID) Tag() tag.Tag { return tag.DerivativeInstrumentPartySubID }
 
-type DerivativeInstrumentPartySubIDType struct{ quickfixgo.IntValue }
+type DerivativeInstrumentPartySubIDType struct{ quickfix.IntValue }
 
 func (f DerivativeInstrumentPartySubIDType) Tag() tag.Tag {
 	return tag.DerivativeInstrumentPartySubIDType
 }
 
-type DerivativeIssueDate struct{ quickfixgo.LocalMktDateValue }
+type DerivativeIssueDate struct{ quickfix.LocalMktDateValue }
 
 func (f DerivativeIssueDate) Tag() tag.Tag { return tag.DerivativeIssueDate }
 
-type DerivativeIssuer struct{ quickfixgo.StringValue }
+type DerivativeIssuer struct{ quickfix.StringValue }
 
 func (f DerivativeIssuer) Tag() tag.Tag { return tag.DerivativeIssuer }
 
-type DerivativeListMethod struct{ quickfixgo.IntValue }
+type DerivativeListMethod struct{ quickfix.IntValue }
 
 func (f DerivativeListMethod) Tag() tag.Tag { return tag.DerivativeListMethod }
 
-type DerivativeLocaleOfIssue struct{ quickfixgo.StringValue }
+type DerivativeLocaleOfIssue struct{ quickfix.StringValue }
 
 func (f DerivativeLocaleOfIssue) Tag() tag.Tag { return tag.DerivativeLocaleOfIssue }
 
-type DerivativeMaturityDate struct{ quickfixgo.LocalMktDateValue }
+type DerivativeMaturityDate struct{ quickfix.LocalMktDateValue }
 
 func (f DerivativeMaturityDate) Tag() tag.Tag { return tag.DerivativeMaturityDate }
 
-type DerivativeMaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type DerivativeMaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f DerivativeMaturityMonthYear) Tag() tag.Tag { return tag.DerivativeMaturityMonthYear }
 
-type DerivativeMaturityTime struct{ quickfixgo.TZTimeOnlyValue }
+type DerivativeMaturityTime struct{ quickfix.TZTimeOnlyValue }
 
 func (f DerivativeMaturityTime) Tag() tag.Tag { return tag.DerivativeMaturityTime }
 
-type DerivativeMinPriceIncrement struct{ quickfixgo.FloatValue }
+type DerivativeMinPriceIncrement struct{ quickfix.FloatValue }
 
 func (f DerivativeMinPriceIncrement) Tag() tag.Tag { return tag.DerivativeMinPriceIncrement }
 
-type DerivativeMinPriceIncrementAmount struct{ quickfixgo.AmtValue }
+type DerivativeMinPriceIncrementAmount struct{ quickfix.AmtValue }
 
 func (f DerivativeMinPriceIncrementAmount) Tag() tag.Tag { return tag.DerivativeMinPriceIncrementAmount }
 
-type DerivativeNTPositionLimit struct{ quickfixgo.IntValue }
+type DerivativeNTPositionLimit struct{ quickfix.IntValue }
 
 func (f DerivativeNTPositionLimit) Tag() tag.Tag { return tag.DerivativeNTPositionLimit }
 
-type DerivativeOptAttribute struct{ quickfixgo.CharValue }
+type DerivativeOptAttribute struct{ quickfix.CharValue }
 
 func (f DerivativeOptAttribute) Tag() tag.Tag { return tag.DerivativeOptAttribute }
 
-type DerivativeOptPayAmount struct{ quickfixgo.AmtValue }
+type DerivativeOptPayAmount struct{ quickfix.AmtValue }
 
 func (f DerivativeOptPayAmount) Tag() tag.Tag { return tag.DerivativeOptPayAmount }
 
-type DerivativePositionLimit struct{ quickfixgo.IntValue }
+type DerivativePositionLimit struct{ quickfix.IntValue }
 
 func (f DerivativePositionLimit) Tag() tag.Tag { return tag.DerivativePositionLimit }
 
-type DerivativePriceQuoteMethod struct{ quickfixgo.StringValue }
+type DerivativePriceQuoteMethod struct{ quickfix.StringValue }
 
 func (f DerivativePriceQuoteMethod) Tag() tag.Tag { return tag.DerivativePriceQuoteMethod }
 
-type DerivativePriceUnitOfMeasure struct{ quickfixgo.StringValue }
+type DerivativePriceUnitOfMeasure struct{ quickfix.StringValue }
 
 func (f DerivativePriceUnitOfMeasure) Tag() tag.Tag { return tag.DerivativePriceUnitOfMeasure }
 
-type DerivativePriceUnitOfMeasureQty struct{ quickfixgo.QtyValue }
+type DerivativePriceUnitOfMeasureQty struct{ quickfix.QtyValue }
 
 func (f DerivativePriceUnitOfMeasureQty) Tag() tag.Tag { return tag.DerivativePriceUnitOfMeasureQty }
 
-type DerivativeProduct struct{ quickfixgo.IntValue }
+type DerivativeProduct struct{ quickfix.IntValue }
 
 func (f DerivativeProduct) Tag() tag.Tag { return tag.DerivativeProduct }
 
-type DerivativeProductComplex struct{ quickfixgo.StringValue }
+type DerivativeProductComplex struct{ quickfix.StringValue }
 
 func (f DerivativeProductComplex) Tag() tag.Tag { return tag.DerivativeProductComplex }
 
-type DerivativePutOrCall struct{ quickfixgo.IntValue }
+type DerivativePutOrCall struct{ quickfix.IntValue }
 
 func (f DerivativePutOrCall) Tag() tag.Tag { return tag.DerivativePutOrCall }
 
-type DerivativeSecurityAltID struct{ quickfixgo.StringValue }
+type DerivativeSecurityAltID struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityAltID) Tag() tag.Tag { return tag.DerivativeSecurityAltID }
 
-type DerivativeSecurityAltIDSource struct{ quickfixgo.StringValue }
+type DerivativeSecurityAltIDSource struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityAltIDSource) Tag() tag.Tag { return tag.DerivativeSecurityAltIDSource }
 
-type DerivativeSecurityDesc struct{ quickfixgo.StringValue }
+type DerivativeSecurityDesc struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityDesc) Tag() tag.Tag { return tag.DerivativeSecurityDesc }
 
-type DerivativeSecurityExchange struct{ quickfixgo.ExchangeValue }
+type DerivativeSecurityExchange struct{ quickfix.ExchangeValue }
 
 func (f DerivativeSecurityExchange) Tag() tag.Tag { return tag.DerivativeSecurityExchange }
 
-type DerivativeSecurityGroup struct{ quickfixgo.StringValue }
+type DerivativeSecurityGroup struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityGroup) Tag() tag.Tag { return tag.DerivativeSecurityGroup }
 
-type DerivativeSecurityID struct{ quickfixgo.StringValue }
+type DerivativeSecurityID struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityID) Tag() tag.Tag { return tag.DerivativeSecurityID }
 
-type DerivativeSecurityIDSource struct{ quickfixgo.StringValue }
+type DerivativeSecurityIDSource struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityIDSource) Tag() tag.Tag { return tag.DerivativeSecurityIDSource }
 
-type DerivativeSecurityListRequestType struct{ quickfixgo.IntValue }
+type DerivativeSecurityListRequestType struct{ quickfix.IntValue }
 
 func (f DerivativeSecurityListRequestType) Tag() tag.Tag { return tag.DerivativeSecurityListRequestType }
 
-type DerivativeSecurityStatus struct{ quickfixgo.StringValue }
+type DerivativeSecurityStatus struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityStatus) Tag() tag.Tag { return tag.DerivativeSecurityStatus }
 
-type DerivativeSecuritySubType struct{ quickfixgo.StringValue }
+type DerivativeSecuritySubType struct{ quickfix.StringValue }
 
 func (f DerivativeSecuritySubType) Tag() tag.Tag { return tag.DerivativeSecuritySubType }
 
-type DerivativeSecurityType struct{ quickfixgo.StringValue }
+type DerivativeSecurityType struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityType) Tag() tag.Tag { return tag.DerivativeSecurityType }
 
-type DerivativeSecurityXML struct{ quickfixgo.DataValue }
+type DerivativeSecurityXML struct{ quickfix.DataValue }
 
 func (f DerivativeSecurityXML) Tag() tag.Tag { return tag.DerivativeSecurityXML }
 
-type DerivativeSecurityXMLLen struct{ quickfixgo.LengthValue }
+type DerivativeSecurityXMLLen struct{ quickfix.LengthValue }
 
 func (f DerivativeSecurityXMLLen) Tag() tag.Tag { return tag.DerivativeSecurityXMLLen }
 
-type DerivativeSecurityXMLSchema struct{ quickfixgo.StringValue }
+type DerivativeSecurityXMLSchema struct{ quickfix.StringValue }
 
 func (f DerivativeSecurityXMLSchema) Tag() tag.Tag { return tag.DerivativeSecurityXMLSchema }
 
-type DerivativeSettlMethod struct{ quickfixgo.CharValue }
+type DerivativeSettlMethod struct{ quickfix.CharValue }
 
 func (f DerivativeSettlMethod) Tag() tag.Tag { return tag.DerivativeSettlMethod }
 
-type DerivativeSettleOnOpenFlag struct{ quickfixgo.StringValue }
+type DerivativeSettleOnOpenFlag struct{ quickfix.StringValue }
 
 func (f DerivativeSettleOnOpenFlag) Tag() tag.Tag { return tag.DerivativeSettleOnOpenFlag }
 
-type DerivativeStateOrProvinceOfIssue struct{ quickfixgo.StringValue }
+type DerivativeStateOrProvinceOfIssue struct{ quickfix.StringValue }
 
 func (f DerivativeStateOrProvinceOfIssue) Tag() tag.Tag { return tag.DerivativeStateOrProvinceOfIssue }
 
-type DerivativeStrikeCurrency struct{ quickfixgo.CurrencyValue }
+type DerivativeStrikeCurrency struct{ quickfix.CurrencyValue }
 
 func (f DerivativeStrikeCurrency) Tag() tag.Tag { return tag.DerivativeStrikeCurrency }
 
-type DerivativeStrikeMultiplier struct{ quickfixgo.FloatValue }
+type DerivativeStrikeMultiplier struct{ quickfix.FloatValue }
 
 func (f DerivativeStrikeMultiplier) Tag() tag.Tag { return tag.DerivativeStrikeMultiplier }
 
-type DerivativeStrikePrice struct{ quickfixgo.PriceValue }
+type DerivativeStrikePrice struct{ quickfix.PriceValue }
 
 func (f DerivativeStrikePrice) Tag() tag.Tag { return tag.DerivativeStrikePrice }
 
-type DerivativeStrikeValue struct{ quickfixgo.FloatValue }
+type DerivativeStrikeValue struct{ quickfix.FloatValue }
 
 func (f DerivativeStrikeValue) Tag() tag.Tag { return tag.DerivativeStrikeValue }
 
-type DerivativeSymbol struct{ quickfixgo.StringValue }
+type DerivativeSymbol struct{ quickfix.StringValue }
 
 func (f DerivativeSymbol) Tag() tag.Tag { return tag.DerivativeSymbol }
 
-type DerivativeSymbolSfx struct{ quickfixgo.StringValue }
+type DerivativeSymbolSfx struct{ quickfix.StringValue }
 
 func (f DerivativeSymbolSfx) Tag() tag.Tag { return tag.DerivativeSymbolSfx }
 
-type DerivativeTimeUnit struct{ quickfixgo.StringValue }
+type DerivativeTimeUnit struct{ quickfix.StringValue }
 
 func (f DerivativeTimeUnit) Tag() tag.Tag { return tag.DerivativeTimeUnit }
 
-type DerivativeUnitOfMeasure struct{ quickfixgo.StringValue }
+type DerivativeUnitOfMeasure struct{ quickfix.StringValue }
 
 func (f DerivativeUnitOfMeasure) Tag() tag.Tag { return tag.DerivativeUnitOfMeasure }
 
-type DerivativeUnitOfMeasureQty struct{ quickfixgo.QtyValue }
+type DerivativeUnitOfMeasureQty struct{ quickfix.QtyValue }
 
 func (f DerivativeUnitOfMeasureQty) Tag() tag.Tag { return tag.DerivativeUnitOfMeasureQty }
 
-type DerivativeValuationMethod struct{ quickfixgo.StringValue }
+type DerivativeValuationMethod struct{ quickfix.StringValue }
 
 func (f DerivativeValuationMethod) Tag() tag.Tag { return tag.DerivativeValuationMethod }
 
-type Designation struct{ quickfixgo.StringValue }
+type Designation struct{ quickfix.StringValue }
 
 func (f Designation) Tag() tag.Tag { return tag.Designation }
 
-type DeskID struct{ quickfixgo.StringValue }
+type DeskID struct{ quickfix.StringValue }
 
 func (f DeskID) Tag() tag.Tag { return tag.DeskID }
 
-type DeskOrderHandlingInst struct{ quickfixgo.MultipleStringValue }
+type DeskOrderHandlingInst struct{ quickfix.MultipleStringValue }
 
 func (f DeskOrderHandlingInst) Tag() tag.Tag { return tag.DeskOrderHandlingInst }
 
-type DeskType struct{ quickfixgo.StringValue }
+type DeskType struct{ quickfix.StringValue }
 
 func (f DeskType) Tag() tag.Tag { return tag.DeskType }
 
-type DeskTypeSource struct{ quickfixgo.IntValue }
+type DeskTypeSource struct{ quickfix.IntValue }
 
 func (f DeskTypeSource) Tag() tag.Tag { return tag.DeskTypeSource }
 
-type DetachmentPoint struct{ quickfixgo.PercentageValue }
+type DetachmentPoint struct{ quickfix.PercentageValue }
 
 func (f DetachmentPoint) Tag() tag.Tag { return tag.DetachmentPoint }
 
-type DiscretionInst struct{ quickfixgo.CharValue }
+type DiscretionInst struct{ quickfix.CharValue }
 
 func (f DiscretionInst) Tag() tag.Tag { return tag.DiscretionInst }
 
-type DiscretionLimitType struct{ quickfixgo.IntValue }
+type DiscretionLimitType struct{ quickfix.IntValue }
 
 func (f DiscretionLimitType) Tag() tag.Tag { return tag.DiscretionLimitType }
 
-type DiscretionMoveType struct{ quickfixgo.IntValue }
+type DiscretionMoveType struct{ quickfix.IntValue }
 
 func (f DiscretionMoveType) Tag() tag.Tag { return tag.DiscretionMoveType }
 
-type DiscretionOffset struct{ quickfixgo.PriceOffsetValue }
+type DiscretionOffset struct{ quickfix.PriceOffsetValue }
 
 func (f DiscretionOffset) Tag() tag.Tag { return tag.DiscretionOffset }
 
-type DiscretionOffsetType struct{ quickfixgo.IntValue }
+type DiscretionOffsetType struct{ quickfix.IntValue }
 
 func (f DiscretionOffsetType) Tag() tag.Tag { return tag.DiscretionOffsetType }
 
-type DiscretionOffsetValue struct{ quickfixgo.FloatValue }
+type DiscretionOffsetValue struct{ quickfix.FloatValue }
 
 func (f DiscretionOffsetValue) Tag() tag.Tag { return tag.DiscretionOffsetValue }
 
-type DiscretionPrice struct{ quickfixgo.PriceValue }
+type DiscretionPrice struct{ quickfix.PriceValue }
 
 func (f DiscretionPrice) Tag() tag.Tag { return tag.DiscretionPrice }
 
-type DiscretionRoundDirection struct{ quickfixgo.IntValue }
+type DiscretionRoundDirection struct{ quickfix.IntValue }
 
 func (f DiscretionRoundDirection) Tag() tag.Tag { return tag.DiscretionRoundDirection }
 
-type DiscretionScope struct{ quickfixgo.IntValue }
+type DiscretionScope struct{ quickfix.IntValue }
 
 func (f DiscretionScope) Tag() tag.Tag { return tag.DiscretionScope }
 
-type DisplayHighQty struct{ quickfixgo.QtyValue }
+type DisplayHighQty struct{ quickfix.QtyValue }
 
 func (f DisplayHighQty) Tag() tag.Tag { return tag.DisplayHighQty }
 
-type DisplayLowQty struct{ quickfixgo.QtyValue }
+type DisplayLowQty struct{ quickfix.QtyValue }
 
 func (f DisplayLowQty) Tag() tag.Tag { return tag.DisplayLowQty }
 
-type DisplayMethod struct{ quickfixgo.CharValue }
+type DisplayMethod struct{ quickfix.CharValue }
 
 func (f DisplayMethod) Tag() tag.Tag { return tag.DisplayMethod }
 
-type DisplayMinIncr struct{ quickfixgo.QtyValue }
+type DisplayMinIncr struct{ quickfix.QtyValue }
 
 func (f DisplayMinIncr) Tag() tag.Tag { return tag.DisplayMinIncr }
 
-type DisplayQty struct{ quickfixgo.QtyValue }
+type DisplayQty struct{ quickfix.QtyValue }
 
 func (f DisplayQty) Tag() tag.Tag { return tag.DisplayQty }
 
-type DisplayWhen struct{ quickfixgo.CharValue }
+type DisplayWhen struct{ quickfix.CharValue }
 
 func (f DisplayWhen) Tag() tag.Tag { return tag.DisplayWhen }
 
-type DistribPaymentMethod struct{ quickfixgo.IntValue }
+type DistribPaymentMethod struct{ quickfix.IntValue }
 
 func (f DistribPaymentMethod) Tag() tag.Tag { return tag.DistribPaymentMethod }
 
-type DistribPercentage struct{ quickfixgo.PercentageValue }
+type DistribPercentage struct{ quickfix.PercentageValue }
 
 func (f DistribPercentage) Tag() tag.Tag { return tag.DistribPercentage }
 
-type DividendYield struct{ quickfixgo.PercentageValue }
+type DividendYield struct{ quickfix.PercentageValue }
 
 func (f DividendYield) Tag() tag.Tag { return tag.DividendYield }
 
-type DlvyInst struct{ quickfixgo.StringValue }
+type DlvyInst struct{ quickfix.StringValue }
 
 func (f DlvyInst) Tag() tag.Tag { return tag.DlvyInst }
 
-type DlvyInstType struct{ quickfixgo.CharValue }
+type DlvyInstType struct{ quickfix.CharValue }
 
 func (f DlvyInstType) Tag() tag.Tag { return tag.DlvyInstType }
 
-type DueToRelated struct{ quickfixgo.BooleanValue }
+type DueToRelated struct{ quickfix.BooleanValue }
 
 func (f DueToRelated) Tag() tag.Tag { return tag.DueToRelated }
 
-type EFPTrackingError struct{ quickfixgo.PercentageValue }
+type EFPTrackingError struct{ quickfix.PercentageValue }
 
 func (f EFPTrackingError) Tag() tag.Tag { return tag.EFPTrackingError }
 
-type EffectiveTime struct{ quickfixgo.UTCTimestampValue }
+type EffectiveTime struct{ quickfix.UTCTimestampValue }
 
 func (f EffectiveTime) Tag() tag.Tag { return tag.EffectiveTime }
 
-type EmailThreadID struct{ quickfixgo.StringValue }
+type EmailThreadID struct{ quickfix.StringValue }
 
 func (f EmailThreadID) Tag() tag.Tag { return tag.EmailThreadID }
 
-type EmailType struct{ quickfixgo.CharValue }
+type EmailType struct{ quickfix.CharValue }
 
 func (f EmailType) Tag() tag.Tag { return tag.EmailType }
 
-type EncodedAllocText struct{ quickfixgo.DataValue }
+type EncodedAllocText struct{ quickfix.DataValue }
 
 func (f EncodedAllocText) Tag() tag.Tag { return tag.EncodedAllocText }
 
-type EncodedAllocTextLen struct{ quickfixgo.LengthValue }
+type EncodedAllocTextLen struct{ quickfix.LengthValue }
 
 func (f EncodedAllocTextLen) Tag() tag.Tag { return tag.EncodedAllocTextLen }
 
-type EncodedHeadline struct{ quickfixgo.DataValue }
+type EncodedHeadline struct{ quickfix.DataValue }
 
 func (f EncodedHeadline) Tag() tag.Tag { return tag.EncodedHeadline }
 
-type EncodedHeadlineLen struct{ quickfixgo.LengthValue }
+type EncodedHeadlineLen struct{ quickfix.LengthValue }
 
 func (f EncodedHeadlineLen) Tag() tag.Tag { return tag.EncodedHeadlineLen }
 
-type EncodedIssuer struct{ quickfixgo.DataValue }
+type EncodedIssuer struct{ quickfix.DataValue }
 
 func (f EncodedIssuer) Tag() tag.Tag { return tag.EncodedIssuer }
 
-type EncodedIssuerLen struct{ quickfixgo.LengthValue }
+type EncodedIssuerLen struct{ quickfix.LengthValue }
 
 func (f EncodedIssuerLen) Tag() tag.Tag { return tag.EncodedIssuerLen }
 
-type EncodedLegIssuer struct{ quickfixgo.DataValue }
+type EncodedLegIssuer struct{ quickfix.DataValue }
 
 func (f EncodedLegIssuer) Tag() tag.Tag { return tag.EncodedLegIssuer }
 
-type EncodedLegIssuerLen struct{ quickfixgo.LengthValue }
+type EncodedLegIssuerLen struct{ quickfix.LengthValue }
 
 func (f EncodedLegIssuerLen) Tag() tag.Tag { return tag.EncodedLegIssuerLen }
 
-type EncodedLegSecurityDesc struct{ quickfixgo.DataValue }
+type EncodedLegSecurityDesc struct{ quickfix.DataValue }
 
 func (f EncodedLegSecurityDesc) Tag() tag.Tag { return tag.EncodedLegSecurityDesc }
 
-type EncodedLegSecurityDescLen struct{ quickfixgo.LengthValue }
+type EncodedLegSecurityDescLen struct{ quickfix.LengthValue }
 
 func (f EncodedLegSecurityDescLen) Tag() tag.Tag { return tag.EncodedLegSecurityDescLen }
 
-type EncodedListExecInst struct{ quickfixgo.DataValue }
+type EncodedListExecInst struct{ quickfix.DataValue }
 
 func (f EncodedListExecInst) Tag() tag.Tag { return tag.EncodedListExecInst }
 
-type EncodedListExecInstLen struct{ quickfixgo.LengthValue }
+type EncodedListExecInstLen struct{ quickfix.LengthValue }
 
 func (f EncodedListExecInstLen) Tag() tag.Tag { return tag.EncodedListExecInstLen }
 
-type EncodedListStatusText struct{ quickfixgo.DataValue }
+type EncodedListStatusText struct{ quickfix.DataValue }
 
 func (f EncodedListStatusText) Tag() tag.Tag { return tag.EncodedListStatusText }
 
-type EncodedListStatusTextLen struct{ quickfixgo.LengthValue }
+type EncodedListStatusTextLen struct{ quickfix.LengthValue }
 
 func (f EncodedListStatusTextLen) Tag() tag.Tag { return tag.EncodedListStatusTextLen }
 
-type EncodedMktSegmDesc struct{ quickfixgo.DataValue }
+type EncodedMktSegmDesc struct{ quickfix.DataValue }
 
 func (f EncodedMktSegmDesc) Tag() tag.Tag { return tag.EncodedMktSegmDesc }
 
-type EncodedMktSegmDescLen struct{ quickfixgo.LengthValue }
+type EncodedMktSegmDescLen struct{ quickfix.LengthValue }
 
 func (f EncodedMktSegmDescLen) Tag() tag.Tag { return tag.EncodedMktSegmDescLen }
 
-type EncodedSecurityDesc struct{ quickfixgo.DataValue }
+type EncodedSecurityDesc struct{ quickfix.DataValue }
 
 func (f EncodedSecurityDesc) Tag() tag.Tag { return tag.EncodedSecurityDesc }
 
-type EncodedSecurityDescLen struct{ quickfixgo.LengthValue }
+type EncodedSecurityDescLen struct{ quickfix.LengthValue }
 
 func (f EncodedSecurityDescLen) Tag() tag.Tag { return tag.EncodedSecurityDescLen }
 
-type EncodedSecurityListDesc struct{ quickfixgo.DataValue }
+type EncodedSecurityListDesc struct{ quickfix.DataValue }
 
 func (f EncodedSecurityListDesc) Tag() tag.Tag { return tag.EncodedSecurityListDesc }
 
-type EncodedSecurityListDescLen struct{ quickfixgo.LengthValue }
+type EncodedSecurityListDescLen struct{ quickfix.LengthValue }
 
 func (f EncodedSecurityListDescLen) Tag() tag.Tag { return tag.EncodedSecurityListDescLen }
 
-type EncodedSubject struct{ quickfixgo.DataValue }
+type EncodedSubject struct{ quickfix.DataValue }
 
 func (f EncodedSubject) Tag() tag.Tag { return tag.EncodedSubject }
 
-type EncodedSubjectLen struct{ quickfixgo.LengthValue }
+type EncodedSubjectLen struct{ quickfix.LengthValue }
 
 func (f EncodedSubjectLen) Tag() tag.Tag { return tag.EncodedSubjectLen }
 
-type EncodedSymbol struct{ quickfixgo.DataValue }
+type EncodedSymbol struct{ quickfix.DataValue }
 
 func (f EncodedSymbol) Tag() tag.Tag { return tag.EncodedSymbol }
 
-type EncodedSymbolLen struct{ quickfixgo.LengthValue }
+type EncodedSymbolLen struct{ quickfix.LengthValue }
 
 func (f EncodedSymbolLen) Tag() tag.Tag { return tag.EncodedSymbolLen }
 
-type EncodedText struct{ quickfixgo.DataValue }
+type EncodedText struct{ quickfix.DataValue }
 
 func (f EncodedText) Tag() tag.Tag { return tag.EncodedText }
 
-type EncodedTextLen struct{ quickfixgo.LengthValue }
+type EncodedTextLen struct{ quickfix.LengthValue }
 
 func (f EncodedTextLen) Tag() tag.Tag { return tag.EncodedTextLen }
 
-type EncodedUnderlyingIssuer struct{ quickfixgo.DataValue }
+type EncodedUnderlyingIssuer struct{ quickfix.DataValue }
 
 func (f EncodedUnderlyingIssuer) Tag() tag.Tag { return tag.EncodedUnderlyingIssuer }
 
-type EncodedUnderlyingIssuerLen struct{ quickfixgo.LengthValue }
+type EncodedUnderlyingIssuerLen struct{ quickfix.LengthValue }
 
 func (f EncodedUnderlyingIssuerLen) Tag() tag.Tag { return tag.EncodedUnderlyingIssuerLen }
 
-type EncodedUnderlyingSecurityDesc struct{ quickfixgo.DataValue }
+type EncodedUnderlyingSecurityDesc struct{ quickfix.DataValue }
 
 func (f EncodedUnderlyingSecurityDesc) Tag() tag.Tag { return tag.EncodedUnderlyingSecurityDesc }
 
-type EncodedUnderlyingSecurityDescLen struct{ quickfixgo.LengthValue }
+type EncodedUnderlyingSecurityDescLen struct{ quickfix.LengthValue }
 
 func (f EncodedUnderlyingSecurityDescLen) Tag() tag.Tag { return tag.EncodedUnderlyingSecurityDescLen }
 
-type EncryptMethod struct{ quickfixgo.IntValue }
+type EncryptMethod struct{ quickfix.IntValue }
 
 func (f EncryptMethod) Tag() tag.Tag { return tag.EncryptMethod }
 
-type EncryptedNewPassword struct{ quickfixgo.DataValue }
+type EncryptedNewPassword struct{ quickfix.DataValue }
 
 func (f EncryptedNewPassword) Tag() tag.Tag { return tag.EncryptedNewPassword }
 
-type EncryptedNewPasswordLen struct{ quickfixgo.LengthValue }
+type EncryptedNewPasswordLen struct{ quickfix.LengthValue }
 
 func (f EncryptedNewPasswordLen) Tag() tag.Tag { return tag.EncryptedNewPasswordLen }
 
-type EncryptedPassword struct{ quickfixgo.DataValue }
+type EncryptedPassword struct{ quickfix.DataValue }
 
 func (f EncryptedPassword) Tag() tag.Tag { return tag.EncryptedPassword }
 
-type EncryptedPasswordLen struct{ quickfixgo.LengthValue }
+type EncryptedPasswordLen struct{ quickfix.LengthValue }
 
 func (f EncryptedPasswordLen) Tag() tag.Tag { return tag.EncryptedPasswordLen }
 
-type EncryptedPasswordMethod struct{ quickfixgo.IntValue }
+type EncryptedPasswordMethod struct{ quickfix.IntValue }
 
 func (f EncryptedPasswordMethod) Tag() tag.Tag { return tag.EncryptedPasswordMethod }
 
-type EndAccruedInterestAmt struct{ quickfixgo.AmtValue }
+type EndAccruedInterestAmt struct{ quickfix.AmtValue }
 
 func (f EndAccruedInterestAmt) Tag() tag.Tag { return tag.EndAccruedInterestAmt }
 
-type EndCash struct{ quickfixgo.AmtValue }
+type EndCash struct{ quickfix.AmtValue }
 
 func (f EndCash) Tag() tag.Tag { return tag.EndCash }
 
-type EndDate struct{ quickfixgo.LocalMktDateValue }
+type EndDate struct{ quickfix.LocalMktDateValue }
 
 func (f EndDate) Tag() tag.Tag { return tag.EndDate }
 
-type EndMaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type EndMaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f EndMaturityMonthYear) Tag() tag.Tag { return tag.EndMaturityMonthYear }
 
-type EndSeqNo struct{ quickfixgo.SeqNumValue }
+type EndSeqNo struct{ quickfix.SeqNumValue }
 
 func (f EndSeqNo) Tag() tag.Tag { return tag.EndSeqNo }
 
-type EndStrikePxRange struct{ quickfixgo.PriceValue }
+type EndStrikePxRange struct{ quickfix.PriceValue }
 
 func (f EndStrikePxRange) Tag() tag.Tag { return tag.EndStrikePxRange }
 
-type EndTickPriceRange struct{ quickfixgo.PriceValue }
+type EndTickPriceRange struct{ quickfix.PriceValue }
 
 func (f EndTickPriceRange) Tag() tag.Tag { return tag.EndTickPriceRange }
 
-type EventDate struct{ quickfixgo.LocalMktDateValue }
+type EventDate struct{ quickfix.LocalMktDateValue }
 
 func (f EventDate) Tag() tag.Tag { return tag.EventDate }
 
-type EventPx struct{ quickfixgo.PriceValue }
+type EventPx struct{ quickfix.PriceValue }
 
 func (f EventPx) Tag() tag.Tag { return tag.EventPx }
 
-type EventText struct{ quickfixgo.StringValue }
+type EventText struct{ quickfix.StringValue }
 
 func (f EventText) Tag() tag.Tag { return tag.EventText }
 
-type EventTime struct{ quickfixgo.UTCTimestampValue }
+type EventTime struct{ quickfix.UTCTimestampValue }
 
 func (f EventTime) Tag() tag.Tag { return tag.EventTime }
 
-type EventType struct{ quickfixgo.IntValue }
+type EventType struct{ quickfix.IntValue }
 
 func (f EventType) Tag() tag.Tag { return tag.EventType }
 
-type ExDate struct{ quickfixgo.LocalMktDateValue }
+type ExDate struct{ quickfix.LocalMktDateValue }
 
 func (f ExDate) Tag() tag.Tag { return tag.ExDate }
 
-type ExDestination struct{ quickfixgo.ExchangeValue }
+type ExDestination struct{ quickfix.ExchangeValue }
 
 func (f ExDestination) Tag() tag.Tag { return tag.ExDestination }
 
-type ExDestinationIDSource struct{ quickfixgo.CharValue }
+type ExDestinationIDSource struct{ quickfix.CharValue }
 
 func (f ExDestinationIDSource) Tag() tag.Tag { return tag.ExDestinationIDSource }
 
-type ExchangeForPhysical struct{ quickfixgo.BooleanValue }
+type ExchangeForPhysical struct{ quickfix.BooleanValue }
 
 func (f ExchangeForPhysical) Tag() tag.Tag { return tag.ExchangeForPhysical }
 
-type ExchangeRule struct{ quickfixgo.StringValue }
+type ExchangeRule struct{ quickfix.StringValue }
 
 func (f ExchangeRule) Tag() tag.Tag { return tag.ExchangeRule }
 
-type ExchangeSpecialInstructions struct{ quickfixgo.StringValue }
+type ExchangeSpecialInstructions struct{ quickfix.StringValue }
 
 func (f ExchangeSpecialInstructions) Tag() tag.Tag { return tag.ExchangeSpecialInstructions }
 
-type ExecAckStatus struct{ quickfixgo.CharValue }
+type ExecAckStatus struct{ quickfix.CharValue }
 
 func (f ExecAckStatus) Tag() tag.Tag { return tag.ExecAckStatus }
 
-type ExecBroker struct{ quickfixgo.StringValue }
+type ExecBroker struct{ quickfix.StringValue }
 
 func (f ExecBroker) Tag() tag.Tag { return tag.ExecBroker }
 
-type ExecID struct{ quickfixgo.StringValue }
+type ExecID struct{ quickfix.StringValue }
 
 func (f ExecID) Tag() tag.Tag { return tag.ExecID }
 
-type ExecInst struct{ quickfixgo.MultipleCharValue }
+type ExecInst struct{ quickfix.MultipleCharValue }
 
 func (f ExecInst) Tag() tag.Tag { return tag.ExecInst }
 
-type ExecInstValue struct{ quickfixgo.CharValue }
+type ExecInstValue struct{ quickfix.CharValue }
 
 func (f ExecInstValue) Tag() tag.Tag { return tag.ExecInstValue }
 
-type ExecPriceAdjustment struct{ quickfixgo.FloatValue }
+type ExecPriceAdjustment struct{ quickfix.FloatValue }
 
 func (f ExecPriceAdjustment) Tag() tag.Tag { return tag.ExecPriceAdjustment }
 
-type ExecPriceType struct{ quickfixgo.CharValue }
+type ExecPriceType struct{ quickfix.CharValue }
 
 func (f ExecPriceType) Tag() tag.Tag { return tag.ExecPriceType }
 
-type ExecRefID struct{ quickfixgo.StringValue }
+type ExecRefID struct{ quickfix.StringValue }
 
 func (f ExecRefID) Tag() tag.Tag { return tag.ExecRefID }
 
-type ExecRestatementReason struct{ quickfixgo.IntValue }
+type ExecRestatementReason struct{ quickfix.IntValue }
 
 func (f ExecRestatementReason) Tag() tag.Tag { return tag.ExecRestatementReason }
 
-type ExecTransType struct{ quickfixgo.CharValue }
+type ExecTransType struct{ quickfix.CharValue }
 
 func (f ExecTransType) Tag() tag.Tag { return tag.ExecTransType }
 
-type ExecType struct{ quickfixgo.CharValue }
+type ExecType struct{ quickfix.CharValue }
 
 func (f ExecType) Tag() tag.Tag { return tag.ExecType }
 
-type ExecValuationPoint struct{ quickfixgo.UTCTimestampValue }
+type ExecValuationPoint struct{ quickfix.UTCTimestampValue }
 
 func (f ExecValuationPoint) Tag() tag.Tag { return tag.ExecValuationPoint }
 
-type ExerciseMethod struct{ quickfixgo.CharValue }
+type ExerciseMethod struct{ quickfix.CharValue }
 
 func (f ExerciseMethod) Tag() tag.Tag { return tag.ExerciseMethod }
 
-type ExerciseStyle struct{ quickfixgo.IntValue }
+type ExerciseStyle struct{ quickfix.IntValue }
 
 func (f ExerciseStyle) Tag() tag.Tag { return tag.ExerciseStyle }
 
-type ExpQty struct{ quickfixgo.QtyValue }
+type ExpQty struct{ quickfix.QtyValue }
 
 func (f ExpQty) Tag() tag.Tag { return tag.ExpQty }
 
-type ExpType struct{ quickfixgo.IntValue }
+type ExpType struct{ quickfix.IntValue }
 
 func (f ExpType) Tag() tag.Tag { return tag.ExpType }
 
-type ExpirationCycle struct{ quickfixgo.IntValue }
+type ExpirationCycle struct{ quickfix.IntValue }
 
 func (f ExpirationCycle) Tag() tag.Tag { return tag.ExpirationCycle }
 
-type ExpirationQtyType struct{ quickfixgo.IntValue }
+type ExpirationQtyType struct{ quickfix.IntValue }
 
 func (f ExpirationQtyType) Tag() tag.Tag { return tag.ExpirationQtyType }
 
-type ExpireDate struct{ quickfixgo.LocalMktDateValue }
+type ExpireDate struct{ quickfix.LocalMktDateValue }
 
 func (f ExpireDate) Tag() tag.Tag { return tag.ExpireDate }
 
-type ExpireTime struct{ quickfixgo.UTCTimestampValue }
+type ExpireTime struct{ quickfix.UTCTimestampValue }
 
 func (f ExpireTime) Tag() tag.Tag { return tag.ExpireTime }
 
-type Factor struct{ quickfixgo.FloatValue }
+type Factor struct{ quickfix.FloatValue }
 
 func (f Factor) Tag() tag.Tag { return tag.Factor }
 
-type FairValue struct{ quickfixgo.AmtValue }
+type FairValue struct{ quickfix.AmtValue }
 
 func (f FairValue) Tag() tag.Tag { return tag.FairValue }
 
-type FeeMultiplier struct{ quickfixgo.FloatValue }
+type FeeMultiplier struct{ quickfix.FloatValue }
 
 func (f FeeMultiplier) Tag() tag.Tag { return tag.FeeMultiplier }
 
-type FillExecID struct{ quickfixgo.StringValue }
+type FillExecID struct{ quickfix.StringValue }
 
 func (f FillExecID) Tag() tag.Tag { return tag.FillExecID }
 
-type FillLiquidityInd struct{ quickfixgo.IntValue }
+type FillLiquidityInd struct{ quickfix.IntValue }
 
 func (f FillLiquidityInd) Tag() tag.Tag { return tag.FillLiquidityInd }
 
-type FillPx struct{ quickfixgo.PriceValue }
+type FillPx struct{ quickfix.PriceValue }
 
 func (f FillPx) Tag() tag.Tag { return tag.FillPx }
 
-type FillQty struct{ quickfixgo.QtyValue }
+type FillQty struct{ quickfix.QtyValue }
 
 func (f FillQty) Tag() tag.Tag { return tag.FillQty }
 
-type FinancialStatus struct{ quickfixgo.MultipleCharValue }
+type FinancialStatus struct{ quickfix.MultipleCharValue }
 
 func (f FinancialStatus) Tag() tag.Tag { return tag.FinancialStatus }
 
-type FirmTradeID struct{ quickfixgo.StringValue }
+type FirmTradeID struct{ quickfix.StringValue }
 
 func (f FirmTradeID) Tag() tag.Tag { return tag.FirmTradeID }
 
-type FirstPx struct{ quickfixgo.PriceValue }
+type FirstPx struct{ quickfix.PriceValue }
 
 func (f FirstPx) Tag() tag.Tag { return tag.FirstPx }
 
-type FlexProductEligibilityIndicator struct{ quickfixgo.BooleanValue }
+type FlexProductEligibilityIndicator struct{ quickfix.BooleanValue }
 
 func (f FlexProductEligibilityIndicator) Tag() tag.Tag { return tag.FlexProductEligibilityIndicator }
 
-type FlexibleIndicator struct{ quickfixgo.BooleanValue }
+type FlexibleIndicator struct{ quickfix.BooleanValue }
 
 func (f FlexibleIndicator) Tag() tag.Tag { return tag.FlexibleIndicator }
 
-type FloorPrice struct{ quickfixgo.PriceValue }
+type FloorPrice struct{ quickfix.PriceValue }
 
 func (f FloorPrice) Tag() tag.Tag { return tag.FloorPrice }
 
-type FlowScheduleType struct{ quickfixgo.IntValue }
+type FlowScheduleType struct{ quickfix.IntValue }
 
 func (f FlowScheduleType) Tag() tag.Tag { return tag.FlowScheduleType }
 
-type ForexReq struct{ quickfixgo.BooleanValue }
+type ForexReq struct{ quickfix.BooleanValue }
 
 func (f ForexReq) Tag() tag.Tag { return tag.ForexReq }
 
-type FundRenewWaiv struct{ quickfixgo.CharValue }
+type FundRenewWaiv struct{ quickfix.CharValue }
 
 func (f FundRenewWaiv) Tag() tag.Tag { return tag.FundRenewWaiv }
 
-type FutSettDate struct{ quickfixgo.LocalMktDateValue }
+type FutSettDate struct{ quickfix.LocalMktDateValue }
 
 func (f FutSettDate) Tag() tag.Tag { return tag.FutSettDate }
 
-type FutSettDate2 struct{ quickfixgo.LocalMktDateValue }
+type FutSettDate2 struct{ quickfix.LocalMktDateValue }
 
 func (f FutSettDate2) Tag() tag.Tag { return tag.FutSettDate2 }
 
-type FuturesValuationMethod struct{ quickfixgo.StringValue }
+type FuturesValuationMethod struct{ quickfix.StringValue }
 
 func (f FuturesValuationMethod) Tag() tag.Tag { return tag.FuturesValuationMethod }
 
-type GTBookingInst struct{ quickfixgo.IntValue }
+type GTBookingInst struct{ quickfix.IntValue }
 
 func (f GTBookingInst) Tag() tag.Tag { return tag.GTBookingInst }
 
-type GapFillFlag struct{ quickfixgo.BooleanValue }
+type GapFillFlag struct{ quickfix.BooleanValue }
 
 func (f GapFillFlag) Tag() tag.Tag { return tag.GapFillFlag }
 
-type GrossTradeAmt struct{ quickfixgo.AmtValue }
+type GrossTradeAmt struct{ quickfix.AmtValue }
 
 func (f GrossTradeAmt) Tag() tag.Tag { return tag.GrossTradeAmt }
 
-type HaltReasonChar struct{ quickfixgo.CharValue }
+type HaltReasonChar struct{ quickfix.CharValue }
 
 func (f HaltReasonChar) Tag() tag.Tag { return tag.HaltReasonChar }
 
-type HaltReasonInt struct{ quickfixgo.IntValue }
+type HaltReasonInt struct{ quickfix.IntValue }
 
 func (f HaltReasonInt) Tag() tag.Tag { return tag.HaltReasonInt }
 
-type HandlInst struct{ quickfixgo.CharValue }
+type HandlInst struct{ quickfix.CharValue }
 
 func (f HandlInst) Tag() tag.Tag { return tag.HandlInst }
 
-type Headline struct{ quickfixgo.StringValue }
+type Headline struct{ quickfix.StringValue }
 
 func (f Headline) Tag() tag.Tag { return tag.Headline }
 
-type HeartBtInt struct{ quickfixgo.IntValue }
+type HeartBtInt struct{ quickfix.IntValue }
 
 func (f HeartBtInt) Tag() tag.Tag { return tag.HeartBtInt }
 
-type HighLimitPrice struct{ quickfixgo.PriceValue }
+type HighLimitPrice struct{ quickfix.PriceValue }
 
 func (f HighLimitPrice) Tag() tag.Tag { return tag.HighLimitPrice }
 
-type HighPx struct{ quickfixgo.PriceValue }
+type HighPx struct{ quickfix.PriceValue }
 
 func (f HighPx) Tag() tag.Tag { return tag.HighPx }
 
-type HopCompID struct{ quickfixgo.StringValue }
+type HopCompID struct{ quickfix.StringValue }
 
 func (f HopCompID) Tag() tag.Tag { return tag.HopCompID }
 
-type HopRefID struct{ quickfixgo.SeqNumValue }
+type HopRefID struct{ quickfix.SeqNumValue }
 
 func (f HopRefID) Tag() tag.Tag { return tag.HopRefID }
 
-type HopSendingTime struct{ quickfixgo.UTCTimestampValue }
+type HopSendingTime struct{ quickfix.UTCTimestampValue }
 
 func (f HopSendingTime) Tag() tag.Tag { return tag.HopSendingTime }
 
-type HostCrossID struct{ quickfixgo.StringValue }
+type HostCrossID struct{ quickfix.StringValue }
 
 func (f HostCrossID) Tag() tag.Tag { return tag.HostCrossID }
 
-type IDSource struct{ quickfixgo.StringValue }
+type IDSource struct{ quickfix.StringValue }
 
 func (f IDSource) Tag() tag.Tag { return tag.IDSource }
 
-type IOIID struct{ quickfixgo.StringValue }
+type IOIID struct{ quickfix.StringValue }
 
 func (f IOIID) Tag() tag.Tag { return tag.IOIID }
 
-type IOINaturalFlag struct{ quickfixgo.BooleanValue }
+type IOINaturalFlag struct{ quickfix.BooleanValue }
 
 func (f IOINaturalFlag) Tag() tag.Tag { return tag.IOINaturalFlag }
 
-type IOIOthSvc struct{ quickfixgo.CharValue }
+type IOIOthSvc struct{ quickfix.CharValue }
 
 func (f IOIOthSvc) Tag() tag.Tag { return tag.IOIOthSvc }
 
-type IOIQltyInd struct{ quickfixgo.CharValue }
+type IOIQltyInd struct{ quickfix.CharValue }
 
 func (f IOIQltyInd) Tag() tag.Tag { return tag.IOIQltyInd }
 
-type IOIQty struct{ quickfixgo.StringValue }
+type IOIQty struct{ quickfix.StringValue }
 
 func (f IOIQty) Tag() tag.Tag { return tag.IOIQty }
 
-type IOIQualifier struct{ quickfixgo.CharValue }
+type IOIQualifier struct{ quickfix.CharValue }
 
 func (f IOIQualifier) Tag() tag.Tag { return tag.IOIQualifier }
 
-type IOIRefID struct{ quickfixgo.StringValue }
+type IOIRefID struct{ quickfix.StringValue }
 
 func (f IOIRefID) Tag() tag.Tag { return tag.IOIRefID }
 
-type IOIShares struct{ quickfixgo.StringValue }
+type IOIShares struct{ quickfix.StringValue }
 
 func (f IOIShares) Tag() tag.Tag { return tag.IOIShares }
 
-type IOITransType struct{ quickfixgo.CharValue }
+type IOITransType struct{ quickfix.CharValue }
 
 func (f IOITransType) Tag() tag.Tag { return tag.IOITransType }
 
-type IOIid struct{ quickfixgo.StringValue }
+type IOIid struct{ quickfix.StringValue }
 
 func (f IOIid) Tag() tag.Tag { return tag.IOIid }
 
-type ImpliedMarketIndicator struct{ quickfixgo.IntValue }
+type ImpliedMarketIndicator struct{ quickfix.IntValue }
 
 func (f ImpliedMarketIndicator) Tag() tag.Tag { return tag.ImpliedMarketIndicator }
 
-type InViewOfCommon struct{ quickfixgo.BooleanValue }
+type InViewOfCommon struct{ quickfix.BooleanValue }
 
 func (f InViewOfCommon) Tag() tag.Tag { return tag.InViewOfCommon }
 
-type IncTaxInd struct{ quickfixgo.IntValue }
+type IncTaxInd struct{ quickfix.IntValue }
 
 func (f IncTaxInd) Tag() tag.Tag { return tag.IncTaxInd }
 
-type IndividualAllocID struct{ quickfixgo.StringValue }
+type IndividualAllocID struct{ quickfix.StringValue }
 
 func (f IndividualAllocID) Tag() tag.Tag { return tag.IndividualAllocID }
 
-type IndividualAllocRejCode struct{ quickfixgo.IntValue }
+type IndividualAllocRejCode struct{ quickfix.IntValue }
 
 func (f IndividualAllocRejCode) Tag() tag.Tag { return tag.IndividualAllocRejCode }
 
-type IndividualAllocType struct{ quickfixgo.IntValue }
+type IndividualAllocType struct{ quickfix.IntValue }
 
 func (f IndividualAllocType) Tag() tag.Tag { return tag.IndividualAllocType }
 
-type InputSource struct{ quickfixgo.StringValue }
+type InputSource struct{ quickfix.StringValue }
 
 func (f InputSource) Tag() tag.Tag { return tag.InputSource }
 
-type InstrAttribType struct{ quickfixgo.IntValue }
+type InstrAttribType struct{ quickfix.IntValue }
 
 func (f InstrAttribType) Tag() tag.Tag { return tag.InstrAttribType }
 
-type InstrAttribValue struct{ quickfixgo.StringValue }
+type InstrAttribValue struct{ quickfix.StringValue }
 
 func (f InstrAttribValue) Tag() tag.Tag { return tag.InstrAttribValue }
 
-type InstrRegistry struct{ quickfixgo.StringValue }
+type InstrRegistry struct{ quickfix.StringValue }
 
 func (f InstrRegistry) Tag() tag.Tag { return tag.InstrRegistry }
 
-type InstrmtAssignmentMethod struct{ quickfixgo.CharValue }
+type InstrmtAssignmentMethod struct{ quickfix.CharValue }
 
 func (f InstrmtAssignmentMethod) Tag() tag.Tag { return tag.InstrmtAssignmentMethod }
 
-type InstrumentPartyID struct{ quickfixgo.StringValue }
+type InstrumentPartyID struct{ quickfix.StringValue }
 
 func (f InstrumentPartyID) Tag() tag.Tag { return tag.InstrumentPartyID }
 
-type InstrumentPartyIDSource struct{ quickfixgo.CharValue }
+type InstrumentPartyIDSource struct{ quickfix.CharValue }
 
 func (f InstrumentPartyIDSource) Tag() tag.Tag { return tag.InstrumentPartyIDSource }
 
-type InstrumentPartyRole struct{ quickfixgo.IntValue }
+type InstrumentPartyRole struct{ quickfix.IntValue }
 
 func (f InstrumentPartyRole) Tag() tag.Tag { return tag.InstrumentPartyRole }
 
-type InstrumentPartySubID struct{ quickfixgo.StringValue }
+type InstrumentPartySubID struct{ quickfix.StringValue }
 
 func (f InstrumentPartySubID) Tag() tag.Tag { return tag.InstrumentPartySubID }
 
-type InstrumentPartySubIDType struct{ quickfixgo.IntValue }
+type InstrumentPartySubIDType struct{ quickfix.IntValue }
 
 func (f InstrumentPartySubIDType) Tag() tag.Tag { return tag.InstrumentPartySubIDType }
 
-type InterestAccrualDate struct{ quickfixgo.LocalMktDateValue }
+type InterestAccrualDate struct{ quickfix.LocalMktDateValue }
 
 func (f InterestAccrualDate) Tag() tag.Tag { return tag.InterestAccrualDate }
 
-type InterestAtMaturity struct{ quickfixgo.AmtValue }
+type InterestAtMaturity struct{ quickfix.AmtValue }
 
 func (f InterestAtMaturity) Tag() tag.Tag { return tag.InterestAtMaturity }
 
-type InvestorCountryOfResidence struct{ quickfixgo.CountryValue }
+type InvestorCountryOfResidence struct{ quickfix.CountryValue }
 
 func (f InvestorCountryOfResidence) Tag() tag.Tag { return tag.InvestorCountryOfResidence }
 
-type IssueDate struct{ quickfixgo.LocalMktDateValue }
+type IssueDate struct{ quickfix.LocalMktDateValue }
 
 func (f IssueDate) Tag() tag.Tag { return tag.IssueDate }
 
-type Issuer struct{ quickfixgo.StringValue }
+type Issuer struct{ quickfix.StringValue }
 
 func (f Issuer) Tag() tag.Tag { return tag.Issuer }
 
-type LanguageCode struct{ quickfixgo.LanguageValue }
+type LanguageCode struct{ quickfix.LanguageValue }
 
 func (f LanguageCode) Tag() tag.Tag { return tag.LanguageCode }
 
-type LastCapacity struct{ quickfixgo.CharValue }
+type LastCapacity struct{ quickfix.CharValue }
 
 func (f LastCapacity) Tag() tag.Tag { return tag.LastCapacity }
 
-type LastForwardPoints struct{ quickfixgo.PriceOffsetValue }
+type LastForwardPoints struct{ quickfix.PriceOffsetValue }
 
 func (f LastForwardPoints) Tag() tag.Tag { return tag.LastForwardPoints }
 
-type LastForwardPoints2 struct{ quickfixgo.PriceOffsetValue }
+type LastForwardPoints2 struct{ quickfix.PriceOffsetValue }
 
 func (f LastForwardPoints2) Tag() tag.Tag { return tag.LastForwardPoints2 }
 
-type LastFragment struct{ quickfixgo.BooleanValue }
+type LastFragment struct{ quickfix.BooleanValue }
 
 func (f LastFragment) Tag() tag.Tag { return tag.LastFragment }
 
-type LastLiquidityInd struct{ quickfixgo.IntValue }
+type LastLiquidityInd struct{ quickfix.IntValue }
 
 func (f LastLiquidityInd) Tag() tag.Tag { return tag.LastLiquidityInd }
 
-type LastMkt struct{ quickfixgo.ExchangeValue }
+type LastMkt struct{ quickfix.ExchangeValue }
 
 func (f LastMkt) Tag() tag.Tag { return tag.LastMkt }
 
-type LastMsgSeqNumProcessed struct{ quickfixgo.SeqNumValue }
+type LastMsgSeqNumProcessed struct{ quickfix.SeqNumValue }
 
 func (f LastMsgSeqNumProcessed) Tag() tag.Tag { return tag.LastMsgSeqNumProcessed }
 
-type LastNetworkResponseID struct{ quickfixgo.StringValue }
+type LastNetworkResponseID struct{ quickfix.StringValue }
 
 func (f LastNetworkResponseID) Tag() tag.Tag { return tag.LastNetworkResponseID }
 
-type LastParPx struct{ quickfixgo.PriceValue }
+type LastParPx struct{ quickfix.PriceValue }
 
 func (f LastParPx) Tag() tag.Tag { return tag.LastParPx }
 
-type LastPx struct{ quickfixgo.PriceValue }
+type LastPx struct{ quickfix.PriceValue }
 
 func (f LastPx) Tag() tag.Tag { return tag.LastPx }
 
-type LastQty struct{ quickfixgo.QtyValue }
+type LastQty struct{ quickfix.QtyValue }
 
 func (f LastQty) Tag() tag.Tag { return tag.LastQty }
 
-type LastRptRequested struct{ quickfixgo.BooleanValue }
+type LastRptRequested struct{ quickfix.BooleanValue }
 
 func (f LastRptRequested) Tag() tag.Tag { return tag.LastRptRequested }
 
-type LastShares struct{ quickfixgo.QtyValue }
+type LastShares struct{ quickfix.QtyValue }
 
 func (f LastShares) Tag() tag.Tag { return tag.LastShares }
 
-type LastSpotRate struct{ quickfixgo.PriceValue }
+type LastSpotRate struct{ quickfix.PriceValue }
 
 func (f LastSpotRate) Tag() tag.Tag { return tag.LastSpotRate }
 
-type LastSwapPoints struct{ quickfixgo.PriceOffsetValue }
+type LastSwapPoints struct{ quickfix.PriceOffsetValue }
 
 func (f LastSwapPoints) Tag() tag.Tag { return tag.LastSwapPoints }
 
-type LastUpdateTime struct{ quickfixgo.UTCTimestampValue }
+type LastUpdateTime struct{ quickfix.UTCTimestampValue }
 
 func (f LastUpdateTime) Tag() tag.Tag { return tag.LastUpdateTime }
 
-type LateIndicator struct{ quickfixgo.BooleanValue }
+type LateIndicator struct{ quickfix.BooleanValue }
 
 func (f LateIndicator) Tag() tag.Tag { return tag.LateIndicator }
 
-type LeavesQty struct{ quickfixgo.QtyValue }
+type LeavesQty struct{ quickfix.QtyValue }
 
 func (f LeavesQty) Tag() tag.Tag { return tag.LeavesQty }
 
-type LegAllocAccount struct{ quickfixgo.StringValue }
+type LegAllocAccount struct{ quickfix.StringValue }
 
 func (f LegAllocAccount) Tag() tag.Tag { return tag.LegAllocAccount }
 
-type LegAllocAcctIDSource struct{ quickfixgo.StringValue }
+type LegAllocAcctIDSource struct{ quickfix.StringValue }
 
 func (f LegAllocAcctIDSource) Tag() tag.Tag { return tag.LegAllocAcctIDSource }
 
-type LegAllocID struct{ quickfixgo.StringValue }
+type LegAllocID struct{ quickfix.StringValue }
 
 func (f LegAllocID) Tag() tag.Tag { return tag.LegAllocID }
 
-type LegAllocQty struct{ quickfixgo.QtyValue }
+type LegAllocQty struct{ quickfix.QtyValue }
 
 func (f LegAllocQty) Tag() tag.Tag { return tag.LegAllocQty }
 
-type LegAllocSettlCurrency struct{ quickfixgo.CurrencyValue }
+type LegAllocSettlCurrency struct{ quickfix.CurrencyValue }
 
 func (f LegAllocSettlCurrency) Tag() tag.Tag { return tag.LegAllocSettlCurrency }
 
-type LegBenchmarkCurveCurrency struct{ quickfixgo.CurrencyValue }
+type LegBenchmarkCurveCurrency struct{ quickfix.CurrencyValue }
 
 func (f LegBenchmarkCurveCurrency) Tag() tag.Tag { return tag.LegBenchmarkCurveCurrency }
 
-type LegBenchmarkCurveName struct{ quickfixgo.StringValue }
+type LegBenchmarkCurveName struct{ quickfix.StringValue }
 
 func (f LegBenchmarkCurveName) Tag() tag.Tag { return tag.LegBenchmarkCurveName }
 
-type LegBenchmarkCurvePoint struct{ quickfixgo.StringValue }
+type LegBenchmarkCurvePoint struct{ quickfix.StringValue }
 
 func (f LegBenchmarkCurvePoint) Tag() tag.Tag { return tag.LegBenchmarkCurvePoint }
 
-type LegBenchmarkPrice struct{ quickfixgo.PriceValue }
+type LegBenchmarkPrice struct{ quickfix.PriceValue }
 
 func (f LegBenchmarkPrice) Tag() tag.Tag { return tag.LegBenchmarkPrice }
 
-type LegBenchmarkPriceType struct{ quickfixgo.IntValue }
+type LegBenchmarkPriceType struct{ quickfix.IntValue }
 
 func (f LegBenchmarkPriceType) Tag() tag.Tag { return tag.LegBenchmarkPriceType }
 
-type LegBidForwardPoints struct{ quickfixgo.PriceOffsetValue }
+type LegBidForwardPoints struct{ quickfix.PriceOffsetValue }
 
 func (f LegBidForwardPoints) Tag() tag.Tag { return tag.LegBidForwardPoints }
 
-type LegBidPx struct{ quickfixgo.PriceValue }
+type LegBidPx struct{ quickfix.PriceValue }
 
 func (f LegBidPx) Tag() tag.Tag { return tag.LegBidPx }
 
-type LegCFICode struct{ quickfixgo.StringValue }
+type LegCFICode struct{ quickfix.StringValue }
 
 func (f LegCFICode) Tag() tag.Tag { return tag.LegCFICode }
 
-type LegCalculatedCcyLastQty struct{ quickfixgo.QtyValue }
+type LegCalculatedCcyLastQty struct{ quickfix.QtyValue }
 
 func (f LegCalculatedCcyLastQty) Tag() tag.Tag { return tag.LegCalculatedCcyLastQty }
 
-type LegContractMultiplier struct{ quickfixgo.FloatValue }
+type LegContractMultiplier struct{ quickfix.FloatValue }
 
 func (f LegContractMultiplier) Tag() tag.Tag { return tag.LegContractMultiplier }
 
-type LegContractMultiplierUnit struct{ quickfixgo.IntValue }
+type LegContractMultiplierUnit struct{ quickfix.IntValue }
 
 func (f LegContractMultiplierUnit) Tag() tag.Tag { return tag.LegContractMultiplierUnit }
 
-type LegContractSettlMonth struct{ quickfixgo.MonthYearValue }
+type LegContractSettlMonth struct{ quickfix.MonthYearValue }
 
 func (f LegContractSettlMonth) Tag() tag.Tag { return tag.LegContractSettlMonth }
 
-type LegCountryOfIssue struct{ quickfixgo.CountryValue }
+type LegCountryOfIssue struct{ quickfix.CountryValue }
 
 func (f LegCountryOfIssue) Tag() tag.Tag { return tag.LegCountryOfIssue }
 
-type LegCouponPaymentDate struct{ quickfixgo.LocalMktDateValue }
+type LegCouponPaymentDate struct{ quickfix.LocalMktDateValue }
 
 func (f LegCouponPaymentDate) Tag() tag.Tag { return tag.LegCouponPaymentDate }
 
-type LegCouponRate struct{ quickfixgo.PercentageValue }
+type LegCouponRate struct{ quickfix.PercentageValue }
 
 func (f LegCouponRate) Tag() tag.Tag { return tag.LegCouponRate }
 
-type LegCoveredOrUncovered struct{ quickfixgo.IntValue }
+type LegCoveredOrUncovered struct{ quickfix.IntValue }
 
 func (f LegCoveredOrUncovered) Tag() tag.Tag { return tag.LegCoveredOrUncovered }
 
-type LegCreditRating struct{ quickfixgo.StringValue }
+type LegCreditRating struct{ quickfix.StringValue }
 
 func (f LegCreditRating) Tag() tag.Tag { return tag.LegCreditRating }
 
-type LegCurrency struct{ quickfixgo.CurrencyValue }
+type LegCurrency struct{ quickfix.CurrencyValue }
 
 func (f LegCurrency) Tag() tag.Tag { return tag.LegCurrency }
 
-type LegCurrencyRatio struct{ quickfixgo.FloatValue }
+type LegCurrencyRatio struct{ quickfix.FloatValue }
 
 func (f LegCurrencyRatio) Tag() tag.Tag { return tag.LegCurrencyRatio }
 
-type LegDatedDate struct{ quickfixgo.LocalMktDateValue }
+type LegDatedDate struct{ quickfix.LocalMktDateValue }
 
 func (f LegDatedDate) Tag() tag.Tag { return tag.LegDatedDate }
 
-type LegDividendYield struct{ quickfixgo.PercentageValue }
+type LegDividendYield struct{ quickfix.PercentageValue }
 
 func (f LegDividendYield) Tag() tag.Tag { return tag.LegDividendYield }
 
-type LegExecInst struct{ quickfixgo.MultipleCharValue }
+type LegExecInst struct{ quickfix.MultipleCharValue }
 
 func (f LegExecInst) Tag() tag.Tag { return tag.LegExecInst }
 
-type LegExerciseStyle struct{ quickfixgo.IntValue }
+type LegExerciseStyle struct{ quickfix.IntValue }
 
 func (f LegExerciseStyle) Tag() tag.Tag { return tag.LegExerciseStyle }
 
-type LegFactor struct{ quickfixgo.FloatValue }
+type LegFactor struct{ quickfix.FloatValue }
 
 func (f LegFactor) Tag() tag.Tag { return tag.LegFactor }
 
-type LegFlowScheduleType struct{ quickfixgo.IntValue }
+type LegFlowScheduleType struct{ quickfix.IntValue }
 
 func (f LegFlowScheduleType) Tag() tag.Tag { return tag.LegFlowScheduleType }
 
-type LegFutSettDate struct{ quickfixgo.LocalMktDateValue }
+type LegFutSettDate struct{ quickfix.LocalMktDateValue }
 
 func (f LegFutSettDate) Tag() tag.Tag { return tag.LegFutSettDate }
 
-type LegGrossTradeAmt struct{ quickfixgo.AmtValue }
+type LegGrossTradeAmt struct{ quickfix.AmtValue }
 
 func (f LegGrossTradeAmt) Tag() tag.Tag { return tag.LegGrossTradeAmt }
 
-type LegIOIQty struct{ quickfixgo.StringValue }
+type LegIOIQty struct{ quickfix.StringValue }
 
 func (f LegIOIQty) Tag() tag.Tag { return tag.LegIOIQty }
 
-type LegIndividualAllocID struct{ quickfixgo.StringValue }
+type LegIndividualAllocID struct{ quickfix.StringValue }
 
 func (f LegIndividualAllocID) Tag() tag.Tag { return tag.LegIndividualAllocID }
 
-type LegInstrRegistry struct{ quickfixgo.StringValue }
+type LegInstrRegistry struct{ quickfix.StringValue }
 
 func (f LegInstrRegistry) Tag() tag.Tag { return tag.LegInstrRegistry }
 
-type LegInterestAccrualDate struct{ quickfixgo.LocalMktDateValue }
+type LegInterestAccrualDate struct{ quickfix.LocalMktDateValue }
 
 func (f LegInterestAccrualDate) Tag() tag.Tag { return tag.LegInterestAccrualDate }
 
-type LegIssueDate struct{ quickfixgo.LocalMktDateValue }
+type LegIssueDate struct{ quickfix.LocalMktDateValue }
 
 func (f LegIssueDate) Tag() tag.Tag { return tag.LegIssueDate }
 
-type LegIssuer struct{ quickfixgo.StringValue }
+type LegIssuer struct{ quickfix.StringValue }
 
 func (f LegIssuer) Tag() tag.Tag { return tag.LegIssuer }
 
-type LegLastForwardPoints struct{ quickfixgo.PriceOffsetValue }
+type LegLastForwardPoints struct{ quickfix.PriceOffsetValue }
 
 func (f LegLastForwardPoints) Tag() tag.Tag { return tag.LegLastForwardPoints }
 
-type LegLastPx struct{ quickfixgo.PriceValue }
+type LegLastPx struct{ quickfix.PriceValue }
 
 func (f LegLastPx) Tag() tag.Tag { return tag.LegLastPx }
 
-type LegLastQty struct{ quickfixgo.QtyValue }
+type LegLastQty struct{ quickfix.QtyValue }
 
 func (f LegLastQty) Tag() tag.Tag { return tag.LegLastQty }
 
-type LegLocaleOfIssue struct{ quickfixgo.StringValue }
+type LegLocaleOfIssue struct{ quickfix.StringValue }
 
 func (f LegLocaleOfIssue) Tag() tag.Tag { return tag.LegLocaleOfIssue }
 
-type LegMaturityDate struct{ quickfixgo.LocalMktDateValue }
+type LegMaturityDate struct{ quickfix.LocalMktDateValue }
 
 func (f LegMaturityDate) Tag() tag.Tag { return tag.LegMaturityDate }
 
-type LegMaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type LegMaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f LegMaturityMonthYear) Tag() tag.Tag { return tag.LegMaturityMonthYear }
 
-type LegMaturityTime struct{ quickfixgo.TZTimeOnlyValue }
+type LegMaturityTime struct{ quickfix.TZTimeOnlyValue }
 
 func (f LegMaturityTime) Tag() tag.Tag { return tag.LegMaturityTime }
 
-type LegNumber struct{ quickfixgo.IntValue }
+type LegNumber struct{ quickfix.IntValue }
 
 func (f LegNumber) Tag() tag.Tag { return tag.LegNumber }
 
-type LegOfferForwardPoints struct{ quickfixgo.PriceOffsetValue }
+type LegOfferForwardPoints struct{ quickfix.PriceOffsetValue }
 
 func (f LegOfferForwardPoints) Tag() tag.Tag { return tag.LegOfferForwardPoints }
 
-type LegOfferPx struct{ quickfixgo.PriceValue }
+type LegOfferPx struct{ quickfix.PriceValue }
 
 func (f LegOfferPx) Tag() tag.Tag { return tag.LegOfferPx }
 
-type LegOptAttribute struct{ quickfixgo.CharValue }
+type LegOptAttribute struct{ quickfix.CharValue }
 
 func (f LegOptAttribute) Tag() tag.Tag { return tag.LegOptAttribute }
 
-type LegOptionRatio struct{ quickfixgo.FloatValue }
+type LegOptionRatio struct{ quickfix.FloatValue }
 
 func (f LegOptionRatio) Tag() tag.Tag { return tag.LegOptionRatio }
 
-type LegOrderQty struct{ quickfixgo.QtyValue }
+type LegOrderQty struct{ quickfix.QtyValue }
 
 func (f LegOrderQty) Tag() tag.Tag { return tag.LegOrderQty }
 
-type LegPool struct{ quickfixgo.StringValue }
+type LegPool struct{ quickfix.StringValue }
 
 func (f LegPool) Tag() tag.Tag { return tag.LegPool }
 
-type LegPositionEffect struct{ quickfixgo.CharValue }
+type LegPositionEffect struct{ quickfix.CharValue }
 
 func (f LegPositionEffect) Tag() tag.Tag { return tag.LegPositionEffect }
 
-type LegPrice struct{ quickfixgo.PriceValue }
+type LegPrice struct{ quickfix.PriceValue }
 
 func (f LegPrice) Tag() tag.Tag { return tag.LegPrice }
 
-type LegPriceType struct{ quickfixgo.IntValue }
+type LegPriceType struct{ quickfix.IntValue }
 
 func (f LegPriceType) Tag() tag.Tag { return tag.LegPriceType }
 
-type LegPriceUnitOfMeasure struct{ quickfixgo.StringValue }
+type LegPriceUnitOfMeasure struct{ quickfix.StringValue }
 
 func (f LegPriceUnitOfMeasure) Tag() tag.Tag { return tag.LegPriceUnitOfMeasure }
 
-type LegPriceUnitOfMeasureQty struct{ quickfixgo.QtyValue }
+type LegPriceUnitOfMeasureQty struct{ quickfix.QtyValue }
 
 func (f LegPriceUnitOfMeasureQty) Tag() tag.Tag { return tag.LegPriceUnitOfMeasureQty }
 
-type LegProduct struct{ quickfixgo.IntValue }
+type LegProduct struct{ quickfix.IntValue }
 
 func (f LegProduct) Tag() tag.Tag { return tag.LegProduct }
 
-type LegPutOrCall struct{ quickfixgo.IntValue }
+type LegPutOrCall struct{ quickfix.IntValue }
 
 func (f LegPutOrCall) Tag() tag.Tag { return tag.LegPutOrCall }
 
-type LegQty struct{ quickfixgo.QtyValue }
+type LegQty struct{ quickfix.QtyValue }
 
 func (f LegQty) Tag() tag.Tag { return tag.LegQty }
 
-type LegRatioQty struct{ quickfixgo.FloatValue }
+type LegRatioQty struct{ quickfix.FloatValue }
 
 func (f LegRatioQty) Tag() tag.Tag { return tag.LegRatioQty }
 
-type LegRedemptionDate struct{ quickfixgo.LocalMktDateValue }
+type LegRedemptionDate struct{ quickfix.LocalMktDateValue }
 
 func (f LegRedemptionDate) Tag() tag.Tag { return tag.LegRedemptionDate }
 
-type LegRefID struct{ quickfixgo.StringValue }
+type LegRefID struct{ quickfix.StringValue }
 
 func (f LegRefID) Tag() tag.Tag { return tag.LegRefID }
 
-type LegRepoCollateralSecurityType struct{ quickfixgo.IntValue }
+type LegRepoCollateralSecurityType struct{ quickfix.IntValue }
 
 func (f LegRepoCollateralSecurityType) Tag() tag.Tag { return tag.LegRepoCollateralSecurityType }
 
-type LegReportID struct{ quickfixgo.StringValue }
+type LegReportID struct{ quickfix.StringValue }
 
 func (f LegReportID) Tag() tag.Tag { return tag.LegReportID }
 
-type LegRepurchaseRate struct{ quickfixgo.PercentageValue }
+type LegRepurchaseRate struct{ quickfix.PercentageValue }
 
 func (f LegRepurchaseRate) Tag() tag.Tag { return tag.LegRepurchaseRate }
 
-type LegRepurchaseTerm struct{ quickfixgo.IntValue }
+type LegRepurchaseTerm struct{ quickfix.IntValue }
 
 func (f LegRepurchaseTerm) Tag() tag.Tag { return tag.LegRepurchaseTerm }
 
-type LegSecurityAltID struct{ quickfixgo.StringValue }
+type LegSecurityAltID struct{ quickfix.StringValue }
 
 func (f LegSecurityAltID) Tag() tag.Tag { return tag.LegSecurityAltID }
 
-type LegSecurityAltIDSource struct{ quickfixgo.StringValue }
+type LegSecurityAltIDSource struct{ quickfix.StringValue }
 
 func (f LegSecurityAltIDSource) Tag() tag.Tag { return tag.LegSecurityAltIDSource }
 
-type LegSecurityDesc struct{ quickfixgo.StringValue }
+type LegSecurityDesc struct{ quickfix.StringValue }
 
 func (f LegSecurityDesc) Tag() tag.Tag { return tag.LegSecurityDesc }
 
-type LegSecurityExchange struct{ quickfixgo.ExchangeValue }
+type LegSecurityExchange struct{ quickfix.ExchangeValue }
 
 func (f LegSecurityExchange) Tag() tag.Tag { return tag.LegSecurityExchange }
 
-type LegSecurityID struct{ quickfixgo.StringValue }
+type LegSecurityID struct{ quickfix.StringValue }
 
 func (f LegSecurityID) Tag() tag.Tag { return tag.LegSecurityID }
 
-type LegSecurityIDSource struct{ quickfixgo.StringValue }
+type LegSecurityIDSource struct{ quickfix.StringValue }
 
 func (f LegSecurityIDSource) Tag() tag.Tag { return tag.LegSecurityIDSource }
 
-type LegSecuritySubType struct{ quickfixgo.StringValue }
+type LegSecuritySubType struct{ quickfix.StringValue }
 
 func (f LegSecuritySubType) Tag() tag.Tag { return tag.LegSecuritySubType }
 
-type LegSecurityType struct{ quickfixgo.StringValue }
+type LegSecurityType struct{ quickfix.StringValue }
 
 func (f LegSecurityType) Tag() tag.Tag { return tag.LegSecurityType }
 
-type LegSettlCurrency struct{ quickfixgo.CurrencyValue }
+type LegSettlCurrency struct{ quickfix.CurrencyValue }
 
 func (f LegSettlCurrency) Tag() tag.Tag { return tag.LegSettlCurrency }
 
-type LegSettlDate struct{ quickfixgo.LocalMktDateValue }
+type LegSettlDate struct{ quickfix.LocalMktDateValue }
 
 func (f LegSettlDate) Tag() tag.Tag { return tag.LegSettlDate }
 
-type LegSettlType struct{ quickfixgo.CharValue }
+type LegSettlType struct{ quickfix.CharValue }
 
 func (f LegSettlType) Tag() tag.Tag { return tag.LegSettlType }
 
-type LegSettlmntTyp struct{ quickfixgo.CharValue }
+type LegSettlmntTyp struct{ quickfix.CharValue }
 
 func (f LegSettlmntTyp) Tag() tag.Tag { return tag.LegSettlmntTyp }
 
-type LegSide struct{ quickfixgo.CharValue }
+type LegSide struct{ quickfix.CharValue }
 
 func (f LegSide) Tag() tag.Tag { return tag.LegSide }
 
-type LegStateOrProvinceOfIssue struct{ quickfixgo.StringValue }
+type LegStateOrProvinceOfIssue struct{ quickfix.StringValue }
 
 func (f LegStateOrProvinceOfIssue) Tag() tag.Tag { return tag.LegStateOrProvinceOfIssue }
 
-type LegStipulationType struct{ quickfixgo.StringValue }
+type LegStipulationType struct{ quickfix.StringValue }
 
 func (f LegStipulationType) Tag() tag.Tag { return tag.LegStipulationType }
 
-type LegStipulationValue struct{ quickfixgo.StringValue }
+type LegStipulationValue struct{ quickfix.StringValue }
 
 func (f LegStipulationValue) Tag() tag.Tag { return tag.LegStipulationValue }
 
-type LegStrikeCurrency struct{ quickfixgo.CurrencyValue }
+type LegStrikeCurrency struct{ quickfix.CurrencyValue }
 
 func (f LegStrikeCurrency) Tag() tag.Tag { return tag.LegStrikeCurrency }
 
-type LegStrikePrice struct{ quickfixgo.PriceValue }
+type LegStrikePrice struct{ quickfix.PriceValue }
 
 func (f LegStrikePrice) Tag() tag.Tag { return tag.LegStrikePrice }
 
-type LegSwapType struct{ quickfixgo.IntValue }
+type LegSwapType struct{ quickfix.IntValue }
 
 func (f LegSwapType) Tag() tag.Tag { return tag.LegSwapType }
 
-type LegSymbol struct{ quickfixgo.StringValue }
+type LegSymbol struct{ quickfix.StringValue }
 
 func (f LegSymbol) Tag() tag.Tag { return tag.LegSymbol }
 
-type LegSymbolSfx struct{ quickfixgo.StringValue }
+type LegSymbolSfx struct{ quickfix.StringValue }
 
 func (f LegSymbolSfx) Tag() tag.Tag { return tag.LegSymbolSfx }
 
-type LegTimeUnit struct{ quickfixgo.StringValue }
+type LegTimeUnit struct{ quickfix.StringValue }
 
 func (f LegTimeUnit) Tag() tag.Tag { return tag.LegTimeUnit }
 
-type LegUnitOfMeasure struct{ quickfixgo.StringValue }
+type LegUnitOfMeasure struct{ quickfix.StringValue }
 
 func (f LegUnitOfMeasure) Tag() tag.Tag { return tag.LegUnitOfMeasure }
 
-type LegUnitOfMeasureQty struct{ quickfixgo.QtyValue }
+type LegUnitOfMeasureQty struct{ quickfix.QtyValue }
 
 func (f LegUnitOfMeasureQty) Tag() tag.Tag { return tag.LegUnitOfMeasureQty }
 
-type LegVolatility struct{ quickfixgo.FloatValue }
+type LegVolatility struct{ quickfix.FloatValue }
 
 func (f LegVolatility) Tag() tag.Tag { return tag.LegVolatility }
 
-type LegalConfirm struct{ quickfixgo.BooleanValue }
+type LegalConfirm struct{ quickfix.BooleanValue }
 
 func (f LegalConfirm) Tag() tag.Tag { return tag.LegalConfirm }
 
-type LinesOfText struct{ quickfixgo.NumInGroupValue }
+type LinesOfText struct{ quickfix.NumInGroupValue }
 
 func (f LinesOfText) Tag() tag.Tag { return tag.LinesOfText }
 
-type LiquidityIndType struct{ quickfixgo.IntValue }
+type LiquidityIndType struct{ quickfix.IntValue }
 
 func (f LiquidityIndType) Tag() tag.Tag { return tag.LiquidityIndType }
 
-type LiquidityNumSecurities struct{ quickfixgo.IntValue }
+type LiquidityNumSecurities struct{ quickfix.IntValue }
 
 func (f LiquidityNumSecurities) Tag() tag.Tag { return tag.LiquidityNumSecurities }
 
-type LiquidityPctHigh struct{ quickfixgo.PercentageValue }
+type LiquidityPctHigh struct{ quickfix.PercentageValue }
 
 func (f LiquidityPctHigh) Tag() tag.Tag { return tag.LiquidityPctHigh }
 
-type LiquidityPctLow struct{ quickfixgo.PercentageValue }
+type LiquidityPctLow struct{ quickfix.PercentageValue }
 
 func (f LiquidityPctLow) Tag() tag.Tag { return tag.LiquidityPctLow }
 
-type LiquidityValue struct{ quickfixgo.AmtValue }
+type LiquidityValue struct{ quickfix.AmtValue }
 
 func (f LiquidityValue) Tag() tag.Tag { return tag.LiquidityValue }
 
-type ListExecInst struct{ quickfixgo.StringValue }
+type ListExecInst struct{ quickfix.StringValue }
 
 func (f ListExecInst) Tag() tag.Tag { return tag.ListExecInst }
 
-type ListExecInstType struct{ quickfixgo.CharValue }
+type ListExecInstType struct{ quickfix.CharValue }
 
 func (f ListExecInstType) Tag() tag.Tag { return tag.ListExecInstType }
 
-type ListID struct{ quickfixgo.StringValue }
+type ListID struct{ quickfix.StringValue }
 
 func (f ListID) Tag() tag.Tag { return tag.ListID }
 
-type ListMethod struct{ quickfixgo.IntValue }
+type ListMethod struct{ quickfix.IntValue }
 
 func (f ListMethod) Tag() tag.Tag { return tag.ListMethod }
 
-type ListName struct{ quickfixgo.StringValue }
+type ListName struct{ quickfix.StringValue }
 
 func (f ListName) Tag() tag.Tag { return tag.ListName }
 
-type ListNoOrds struct{ quickfixgo.IntValue }
+type ListNoOrds struct{ quickfix.IntValue }
 
 func (f ListNoOrds) Tag() tag.Tag { return tag.ListNoOrds }
 
-type ListOrderStatus struct{ quickfixgo.IntValue }
+type ListOrderStatus struct{ quickfix.IntValue }
 
 func (f ListOrderStatus) Tag() tag.Tag { return tag.ListOrderStatus }
 
-type ListRejectReason struct{ quickfixgo.IntValue }
+type ListRejectReason struct{ quickfix.IntValue }
 
 func (f ListRejectReason) Tag() tag.Tag { return tag.ListRejectReason }
 
-type ListSeqNo struct{ quickfixgo.IntValue }
+type ListSeqNo struct{ quickfix.IntValue }
 
 func (f ListSeqNo) Tag() tag.Tag { return tag.ListSeqNo }
 
-type ListStatusText struct{ quickfixgo.StringValue }
+type ListStatusText struct{ quickfix.StringValue }
 
 func (f ListStatusText) Tag() tag.Tag { return tag.ListStatusText }
 
-type ListStatusType struct{ quickfixgo.IntValue }
+type ListStatusType struct{ quickfix.IntValue }
 
 func (f ListStatusType) Tag() tag.Tag { return tag.ListStatusType }
 
-type ListUpdateAction struct{ quickfixgo.CharValue }
+type ListUpdateAction struct{ quickfix.CharValue }
 
 func (f ListUpdateAction) Tag() tag.Tag { return tag.ListUpdateAction }
 
-type LocaleOfIssue struct{ quickfixgo.StringValue }
+type LocaleOfIssue struct{ quickfix.StringValue }
 
 func (f LocaleOfIssue) Tag() tag.Tag { return tag.LocaleOfIssue }
 
-type LocateReqd struct{ quickfixgo.BooleanValue }
+type LocateReqd struct{ quickfix.BooleanValue }
 
 func (f LocateReqd) Tag() tag.Tag { return tag.LocateReqd }
 
-type LocationID struct{ quickfixgo.StringValue }
+type LocationID struct{ quickfix.StringValue }
 
 func (f LocationID) Tag() tag.Tag { return tag.LocationID }
 
-type LongQty struct{ quickfixgo.QtyValue }
+type LongQty struct{ quickfix.QtyValue }
 
 func (f LongQty) Tag() tag.Tag { return tag.LongQty }
 
-type LotType struct{ quickfixgo.CharValue }
+type LotType struct{ quickfix.CharValue }
 
 func (f LotType) Tag() tag.Tag { return tag.LotType }
 
-type LowLimitPrice struct{ quickfixgo.PriceValue }
+type LowLimitPrice struct{ quickfix.PriceValue }
 
 func (f LowLimitPrice) Tag() tag.Tag { return tag.LowLimitPrice }
 
-type LowPx struct{ quickfixgo.PriceValue }
+type LowPx struct{ quickfix.PriceValue }
 
 func (f LowPx) Tag() tag.Tag { return tag.LowPx }
 
-type MDBookType struct{ quickfixgo.IntValue }
+type MDBookType struct{ quickfix.IntValue }
 
 func (f MDBookType) Tag() tag.Tag { return tag.MDBookType }
 
-type MDEntryBuyer struct{ quickfixgo.StringValue }
+type MDEntryBuyer struct{ quickfix.StringValue }
 
 func (f MDEntryBuyer) Tag() tag.Tag { return tag.MDEntryBuyer }
 
-type MDEntryDate struct{ quickfixgo.UTCDateOnlyValue }
+type MDEntryDate struct{ quickfix.UTCDateOnlyValue }
 
 func (f MDEntryDate) Tag() tag.Tag { return tag.MDEntryDate }
 
-type MDEntryForwardPoints struct{ quickfixgo.PriceOffsetValue }
+type MDEntryForwardPoints struct{ quickfix.PriceOffsetValue }
 
 func (f MDEntryForwardPoints) Tag() tag.Tag { return tag.MDEntryForwardPoints }
 
-type MDEntryID struct{ quickfixgo.StringValue }
+type MDEntryID struct{ quickfix.StringValue }
 
 func (f MDEntryID) Tag() tag.Tag { return tag.MDEntryID }
 
-type MDEntryOriginator struct{ quickfixgo.StringValue }
+type MDEntryOriginator struct{ quickfix.StringValue }
 
 func (f MDEntryOriginator) Tag() tag.Tag { return tag.MDEntryOriginator }
 
-type MDEntryPositionNo struct{ quickfixgo.IntValue }
+type MDEntryPositionNo struct{ quickfix.IntValue }
 
 func (f MDEntryPositionNo) Tag() tag.Tag { return tag.MDEntryPositionNo }
 
-type MDEntryPx struct{ quickfixgo.PriceValue }
+type MDEntryPx struct{ quickfix.PriceValue }
 
 func (f MDEntryPx) Tag() tag.Tag { return tag.MDEntryPx }
 
-type MDEntryRefID struct{ quickfixgo.StringValue }
+type MDEntryRefID struct{ quickfix.StringValue }
 
 func (f MDEntryRefID) Tag() tag.Tag { return tag.MDEntryRefID }
 
-type MDEntrySeller struct{ quickfixgo.StringValue }
+type MDEntrySeller struct{ quickfix.StringValue }
 
 func (f MDEntrySeller) Tag() tag.Tag { return tag.MDEntrySeller }
 
-type MDEntrySize struct{ quickfixgo.QtyValue }
+type MDEntrySize struct{ quickfix.QtyValue }
 
 func (f MDEntrySize) Tag() tag.Tag { return tag.MDEntrySize }
 
-type MDEntrySpotRate struct{ quickfixgo.FloatValue }
+type MDEntrySpotRate struct{ quickfix.FloatValue }
 
 func (f MDEntrySpotRate) Tag() tag.Tag { return tag.MDEntrySpotRate }
 
-type MDEntryTime struct{ quickfixgo.UTCTimeOnlyValue }
+type MDEntryTime struct{ quickfix.UTCTimeOnlyValue }
 
 func (f MDEntryTime) Tag() tag.Tag { return tag.MDEntryTime }
 
-type MDEntryType struct{ quickfixgo.CharValue }
+type MDEntryType struct{ quickfix.CharValue }
 
 func (f MDEntryType) Tag() tag.Tag { return tag.MDEntryType }
 
-type MDFeedType struct{ quickfixgo.StringValue }
+type MDFeedType struct{ quickfix.StringValue }
 
 func (f MDFeedType) Tag() tag.Tag { return tag.MDFeedType }
 
-type MDImplicitDelete struct{ quickfixgo.BooleanValue }
+type MDImplicitDelete struct{ quickfix.BooleanValue }
 
 func (f MDImplicitDelete) Tag() tag.Tag { return tag.MDImplicitDelete }
 
-type MDMkt struct{ quickfixgo.ExchangeValue }
+type MDMkt struct{ quickfix.ExchangeValue }
 
 func (f MDMkt) Tag() tag.Tag { return tag.MDMkt }
 
-type MDOriginType struct{ quickfixgo.IntValue }
+type MDOriginType struct{ quickfix.IntValue }
 
 func (f MDOriginType) Tag() tag.Tag { return tag.MDOriginType }
 
-type MDPriceLevel struct{ quickfixgo.IntValue }
+type MDPriceLevel struct{ quickfix.IntValue }
 
 func (f MDPriceLevel) Tag() tag.Tag { return tag.MDPriceLevel }
 
-type MDQuoteType struct{ quickfixgo.IntValue }
+type MDQuoteType struct{ quickfix.IntValue }
 
 func (f MDQuoteType) Tag() tag.Tag { return tag.MDQuoteType }
 
-type MDReportID struct{ quickfixgo.IntValue }
+type MDReportID struct{ quickfix.IntValue }
 
 func (f MDReportID) Tag() tag.Tag { return tag.MDReportID }
 
-type MDReqID struct{ quickfixgo.StringValue }
+type MDReqID struct{ quickfix.StringValue }
 
 func (f MDReqID) Tag() tag.Tag { return tag.MDReqID }
 
-type MDReqRejReason struct{ quickfixgo.CharValue }
+type MDReqRejReason struct{ quickfix.CharValue }
 
 func (f MDReqRejReason) Tag() tag.Tag { return tag.MDReqRejReason }
 
-type MDSecSize struct{ quickfixgo.QtyValue }
+type MDSecSize struct{ quickfix.QtyValue }
 
 func (f MDSecSize) Tag() tag.Tag { return tag.MDSecSize }
 
-type MDSecSizeType struct{ quickfixgo.IntValue }
+type MDSecSizeType struct{ quickfix.IntValue }
 
 func (f MDSecSizeType) Tag() tag.Tag { return tag.MDSecSizeType }
 
-type MDStreamID struct{ quickfixgo.StringValue }
+type MDStreamID struct{ quickfix.StringValue }
 
 func (f MDStreamID) Tag() tag.Tag { return tag.MDStreamID }
 
-type MDSubBookType struct{ quickfixgo.IntValue }
+type MDSubBookType struct{ quickfix.IntValue }
 
 func (f MDSubBookType) Tag() tag.Tag { return tag.MDSubBookType }
 
-type MDUpdateAction struct{ quickfixgo.CharValue }
+type MDUpdateAction struct{ quickfix.CharValue }
 
 func (f MDUpdateAction) Tag() tag.Tag { return tag.MDUpdateAction }
 
-type MDUpdateType struct{ quickfixgo.IntValue }
+type MDUpdateType struct{ quickfix.IntValue }
 
 func (f MDUpdateType) Tag() tag.Tag { return tag.MDUpdateType }
 
-type MailingDtls struct{ quickfixgo.StringValue }
+type MailingDtls struct{ quickfix.StringValue }
 
 func (f MailingDtls) Tag() tag.Tag { return tag.MailingDtls }
 
-type MailingInst struct{ quickfixgo.StringValue }
+type MailingInst struct{ quickfix.StringValue }
 
 func (f MailingInst) Tag() tag.Tag { return tag.MailingInst }
 
-type ManualOrderIndicator struct{ quickfixgo.BooleanValue }
+type ManualOrderIndicator struct{ quickfix.BooleanValue }
 
 func (f ManualOrderIndicator) Tag() tag.Tag { return tag.ManualOrderIndicator }
 
-type MarginExcess struct{ quickfixgo.AmtValue }
+type MarginExcess struct{ quickfix.AmtValue }
 
 func (f MarginExcess) Tag() tag.Tag { return tag.MarginExcess }
 
-type MarginRatio struct{ quickfixgo.PercentageValue }
+type MarginRatio struct{ quickfix.PercentageValue }
 
 func (f MarginRatio) Tag() tag.Tag { return tag.MarginRatio }
 
-type MarketDepth struct{ quickfixgo.IntValue }
+type MarketDepth struct{ quickfix.IntValue }
 
 func (f MarketDepth) Tag() tag.Tag { return tag.MarketDepth }
 
-type MarketID struct{ quickfixgo.ExchangeValue }
+type MarketID struct{ quickfix.ExchangeValue }
 
 func (f MarketID) Tag() tag.Tag { return tag.MarketID }
 
-type MarketReportID struct{ quickfixgo.StringValue }
+type MarketReportID struct{ quickfix.StringValue }
 
 func (f MarketReportID) Tag() tag.Tag { return tag.MarketReportID }
 
-type MarketReqID struct{ quickfixgo.StringValue }
+type MarketReqID struct{ quickfix.StringValue }
 
 func (f MarketReqID) Tag() tag.Tag { return tag.MarketReqID }
 
-type MarketSegmentDesc struct{ quickfixgo.StringValue }
+type MarketSegmentDesc struct{ quickfix.StringValue }
 
 func (f MarketSegmentDesc) Tag() tag.Tag { return tag.MarketSegmentDesc }
 
-type MarketSegmentID struct{ quickfixgo.StringValue }
+type MarketSegmentID struct{ quickfix.StringValue }
 
 func (f MarketSegmentID) Tag() tag.Tag { return tag.MarketSegmentID }
 
-type MarketUpdateAction struct{ quickfixgo.CharValue }
+type MarketUpdateAction struct{ quickfix.CharValue }
 
 func (f MarketUpdateAction) Tag() tag.Tag { return tag.MarketUpdateAction }
 
-type MassActionRejectReason struct{ quickfixgo.IntValue }
+type MassActionRejectReason struct{ quickfix.IntValue }
 
 func (f MassActionRejectReason) Tag() tag.Tag { return tag.MassActionRejectReason }
 
-type MassActionReportID struct{ quickfixgo.StringValue }
+type MassActionReportID struct{ quickfix.StringValue }
 
 func (f MassActionReportID) Tag() tag.Tag { return tag.MassActionReportID }
 
-type MassActionResponse struct{ quickfixgo.IntValue }
+type MassActionResponse struct{ quickfix.IntValue }
 
 func (f MassActionResponse) Tag() tag.Tag { return tag.MassActionResponse }
 
-type MassActionScope struct{ quickfixgo.IntValue }
+type MassActionScope struct{ quickfix.IntValue }
 
 func (f MassActionScope) Tag() tag.Tag { return tag.MassActionScope }
 
-type MassActionType struct{ quickfixgo.IntValue }
+type MassActionType struct{ quickfix.IntValue }
 
 func (f MassActionType) Tag() tag.Tag { return tag.MassActionType }
 
-type MassCancelRejectReason struct{ quickfixgo.IntValue }
+type MassCancelRejectReason struct{ quickfix.IntValue }
 
 func (f MassCancelRejectReason) Tag() tag.Tag { return tag.MassCancelRejectReason }
 
-type MassCancelRequestType struct{ quickfixgo.CharValue }
+type MassCancelRequestType struct{ quickfix.CharValue }
 
 func (f MassCancelRequestType) Tag() tag.Tag { return tag.MassCancelRequestType }
 
-type MassCancelResponse struct{ quickfixgo.CharValue }
+type MassCancelResponse struct{ quickfix.CharValue }
 
 func (f MassCancelResponse) Tag() tag.Tag { return tag.MassCancelResponse }
 
-type MassStatusReqID struct{ quickfixgo.StringValue }
+type MassStatusReqID struct{ quickfix.StringValue }
 
 func (f MassStatusReqID) Tag() tag.Tag { return tag.MassStatusReqID }
 
-type MassStatusReqType struct{ quickfixgo.IntValue }
+type MassStatusReqType struct{ quickfix.IntValue }
 
 func (f MassStatusReqType) Tag() tag.Tag { return tag.MassStatusReqType }
 
-type MatchAlgorithm struct{ quickfixgo.StringValue }
+type MatchAlgorithm struct{ quickfix.StringValue }
 
 func (f MatchAlgorithm) Tag() tag.Tag { return tag.MatchAlgorithm }
 
-type MatchIncrement struct{ quickfixgo.QtyValue }
+type MatchIncrement struct{ quickfix.QtyValue }
 
 func (f MatchIncrement) Tag() tag.Tag { return tag.MatchIncrement }
 
-type MatchStatus struct{ quickfixgo.CharValue }
+type MatchStatus struct{ quickfix.CharValue }
 
 func (f MatchStatus) Tag() tag.Tag { return tag.MatchStatus }
 
-type MatchType struct{ quickfixgo.StringValue }
+type MatchType struct{ quickfix.StringValue }
 
 func (f MatchType) Tag() tag.Tag { return tag.MatchType }
 
-type MaturityDate struct{ quickfixgo.LocalMktDateValue }
+type MaturityDate struct{ quickfix.LocalMktDateValue }
 
 func (f MaturityDate) Tag() tag.Tag { return tag.MaturityDate }
 
-type MaturityDay struct{ quickfixgo.DayOfMonthValue }
+type MaturityDay struct{ quickfix.DayOfMonthValue }
 
 func (f MaturityDay) Tag() tag.Tag { return tag.MaturityDay }
 
-type MaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type MaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f MaturityMonthYear) Tag() tag.Tag { return tag.MaturityMonthYear }
 
-type MaturityMonthYearFormat struct{ quickfixgo.IntValue }
+type MaturityMonthYearFormat struct{ quickfix.IntValue }
 
 func (f MaturityMonthYearFormat) Tag() tag.Tag { return tag.MaturityMonthYearFormat }
 
-type MaturityMonthYearIncrement struct{ quickfixgo.IntValue }
+type MaturityMonthYearIncrement struct{ quickfix.IntValue }
 
 func (f MaturityMonthYearIncrement) Tag() tag.Tag { return tag.MaturityMonthYearIncrement }
 
-type MaturityMonthYearIncrementUnits struct{ quickfixgo.IntValue }
+type MaturityMonthYearIncrementUnits struct{ quickfix.IntValue }
 
 func (f MaturityMonthYearIncrementUnits) Tag() tag.Tag { return tag.MaturityMonthYearIncrementUnits }
 
-type MaturityNetMoney struct{ quickfixgo.AmtValue }
+type MaturityNetMoney struct{ quickfix.AmtValue }
 
 func (f MaturityNetMoney) Tag() tag.Tag { return tag.MaturityNetMoney }
 
-type MaturityRuleID struct{ quickfixgo.StringValue }
+type MaturityRuleID struct{ quickfix.StringValue }
 
 func (f MaturityRuleID) Tag() tag.Tag { return tag.MaturityRuleID }
 
-type MaturityTime struct{ quickfixgo.TZTimeOnlyValue }
+type MaturityTime struct{ quickfix.TZTimeOnlyValue }
 
 func (f MaturityTime) Tag() tag.Tag { return tag.MaturityTime }
 
-type MaxFloor struct{ quickfixgo.QtyValue }
+type MaxFloor struct{ quickfix.QtyValue }
 
 func (f MaxFloor) Tag() tag.Tag { return tag.MaxFloor }
 
-type MaxMessageSize struct{ quickfixgo.LengthValue }
+type MaxMessageSize struct{ quickfix.LengthValue }
 
 func (f MaxMessageSize) Tag() tag.Tag { return tag.MaxMessageSize }
 
-type MaxPriceLevels struct{ quickfixgo.IntValue }
+type MaxPriceLevels struct{ quickfix.IntValue }
 
 func (f MaxPriceLevels) Tag() tag.Tag { return tag.MaxPriceLevels }
 
-type MaxPriceVariation struct{ quickfixgo.FloatValue }
+type MaxPriceVariation struct{ quickfix.FloatValue }
 
 func (f MaxPriceVariation) Tag() tag.Tag { return tag.MaxPriceVariation }
 
-type MaxShow struct{ quickfixgo.QtyValue }
+type MaxShow struct{ quickfix.QtyValue }
 
 func (f MaxShow) Tag() tag.Tag { return tag.MaxShow }
 
-type MaxTradeVol struct{ quickfixgo.QtyValue }
+type MaxTradeVol struct{ quickfix.QtyValue }
 
 func (f MaxTradeVol) Tag() tag.Tag { return tag.MaxTradeVol }
 
-type MessageEncoding struct{ quickfixgo.StringValue }
+type MessageEncoding struct{ quickfix.StringValue }
 
 func (f MessageEncoding) Tag() tag.Tag { return tag.MessageEncoding }
 
-type MessageEventSource struct{ quickfixgo.StringValue }
+type MessageEventSource struct{ quickfix.StringValue }
 
 func (f MessageEventSource) Tag() tag.Tag { return tag.MessageEventSource }
 
-type MidPx struct{ quickfixgo.PriceValue }
+type MidPx struct{ quickfix.PriceValue }
 
 func (f MidPx) Tag() tag.Tag { return tag.MidPx }
 
-type MidYield struct{ quickfixgo.PercentageValue }
+type MidYield struct{ quickfix.PercentageValue }
 
 func (f MidYield) Tag() tag.Tag { return tag.MidYield }
 
-type MinBidSize struct{ quickfixgo.QtyValue }
+type MinBidSize struct{ quickfix.QtyValue }
 
 func (f MinBidSize) Tag() tag.Tag { return tag.MinBidSize }
 
-type MinLotSize struct{ quickfixgo.QtyValue }
+type MinLotSize struct{ quickfix.QtyValue }
 
 func (f MinLotSize) Tag() tag.Tag { return tag.MinLotSize }
 
-type MinOfferSize struct{ quickfixgo.QtyValue }
+type MinOfferSize struct{ quickfix.QtyValue }
 
 func (f MinOfferSize) Tag() tag.Tag { return tag.MinOfferSize }
 
-type MinPriceIncrement struct{ quickfixgo.FloatValue }
+type MinPriceIncrement struct{ quickfix.FloatValue }
 
 func (f MinPriceIncrement) Tag() tag.Tag { return tag.MinPriceIncrement }
 
-type MinPriceIncrementAmount struct{ quickfixgo.AmtValue }
+type MinPriceIncrementAmount struct{ quickfix.AmtValue }
 
 func (f MinPriceIncrementAmount) Tag() tag.Tag { return tag.MinPriceIncrementAmount }
 
-type MinQty struct{ quickfixgo.QtyValue }
+type MinQty struct{ quickfix.QtyValue }
 
 func (f MinQty) Tag() tag.Tag { return tag.MinQty }
 
-type MinTradeVol struct{ quickfixgo.QtyValue }
+type MinTradeVol struct{ quickfix.QtyValue }
 
 func (f MinTradeVol) Tag() tag.Tag { return tag.MinTradeVol }
 
-type MiscFeeAmt struct{ quickfixgo.AmtValue }
+type MiscFeeAmt struct{ quickfix.AmtValue }
 
 func (f MiscFeeAmt) Tag() tag.Tag { return tag.MiscFeeAmt }
 
-type MiscFeeBasis struct{ quickfixgo.IntValue }
+type MiscFeeBasis struct{ quickfix.IntValue }
 
 func (f MiscFeeBasis) Tag() tag.Tag { return tag.MiscFeeBasis }
 
-type MiscFeeCurr struct{ quickfixgo.CurrencyValue }
+type MiscFeeCurr struct{ quickfix.CurrencyValue }
 
 func (f MiscFeeCurr) Tag() tag.Tag { return tag.MiscFeeCurr }
 
-type MiscFeeType struct{ quickfixgo.StringValue }
+type MiscFeeType struct{ quickfix.StringValue }
 
 func (f MiscFeeType) Tag() tag.Tag { return tag.MiscFeeType }
 
-type MktBidPx struct{ quickfixgo.PriceValue }
+type MktBidPx struct{ quickfix.PriceValue }
 
 func (f MktBidPx) Tag() tag.Tag { return tag.MktBidPx }
 
-type MktOfferPx struct{ quickfixgo.PriceValue }
+type MktOfferPx struct{ quickfix.PriceValue }
 
 func (f MktOfferPx) Tag() tag.Tag { return tag.MktOfferPx }
 
-type ModelType struct{ quickfixgo.IntValue }
+type ModelType struct{ quickfix.IntValue }
 
 func (f ModelType) Tag() tag.Tag { return tag.ModelType }
 
-type MoneyLaunderingStatus struct{ quickfixgo.CharValue }
+type MoneyLaunderingStatus struct{ quickfix.CharValue }
 
 func (f MoneyLaunderingStatus) Tag() tag.Tag { return tag.MoneyLaunderingStatus }
 
-type MsgDirection struct{ quickfixgo.CharValue }
+type MsgDirection struct{ quickfix.CharValue }
 
 func (f MsgDirection) Tag() tag.Tag { return tag.MsgDirection }
 
-type MsgSeqNum struct{ quickfixgo.SeqNumValue }
+type MsgSeqNum struct{ quickfix.SeqNumValue }
 
 func (f MsgSeqNum) Tag() tag.Tag { return tag.MsgSeqNum }
 
-type MsgType struct{ quickfixgo.StringValue }
+type MsgType struct{ quickfix.StringValue }
 
 func (f MsgType) Tag() tag.Tag { return tag.MsgType }
 
-type MultiLegReportingType struct{ quickfixgo.CharValue }
+type MultiLegReportingType struct{ quickfix.CharValue }
 
 func (f MultiLegReportingType) Tag() tag.Tag { return tag.MultiLegReportingType }
 
-type MultiLegRptTypeReq struct{ quickfixgo.IntValue }
+type MultiLegRptTypeReq struct{ quickfix.IntValue }
 
 func (f MultiLegRptTypeReq) Tag() tag.Tag { return tag.MultiLegRptTypeReq }
 
-type MultilegModel struct{ quickfixgo.IntValue }
+type MultilegModel struct{ quickfix.IntValue }
 
 func (f MultilegModel) Tag() tag.Tag { return tag.MultilegModel }
 
-type MultilegPriceMethod struct{ quickfixgo.IntValue }
+type MultilegPriceMethod struct{ quickfix.IntValue }
 
 func (f MultilegPriceMethod) Tag() tag.Tag { return tag.MultilegPriceMethod }
 
-type NTPositionLimit struct{ quickfixgo.IntValue }
+type NTPositionLimit struct{ quickfix.IntValue }
 
 func (f NTPositionLimit) Tag() tag.Tag { return tag.NTPositionLimit }
 
-type Nested2PartyID struct{ quickfixgo.StringValue }
+type Nested2PartyID struct{ quickfix.StringValue }
 
 func (f Nested2PartyID) Tag() tag.Tag { return tag.Nested2PartyID }
 
-type Nested2PartyIDSource struct{ quickfixgo.CharValue }
+type Nested2PartyIDSource struct{ quickfix.CharValue }
 
 func (f Nested2PartyIDSource) Tag() tag.Tag { return tag.Nested2PartyIDSource }
 
-type Nested2PartyRole struct{ quickfixgo.IntValue }
+type Nested2PartyRole struct{ quickfix.IntValue }
 
 func (f Nested2PartyRole) Tag() tag.Tag { return tag.Nested2PartyRole }
 
-type Nested2PartySubID struct{ quickfixgo.StringValue }
+type Nested2PartySubID struct{ quickfix.StringValue }
 
 func (f Nested2PartySubID) Tag() tag.Tag { return tag.Nested2PartySubID }
 
-type Nested2PartySubIDType struct{ quickfixgo.IntValue }
+type Nested2PartySubIDType struct{ quickfix.IntValue }
 
 func (f Nested2PartySubIDType) Tag() tag.Tag { return tag.Nested2PartySubIDType }
 
-type Nested3PartyID struct{ quickfixgo.StringValue }
+type Nested3PartyID struct{ quickfix.StringValue }
 
 func (f Nested3PartyID) Tag() tag.Tag { return tag.Nested3PartyID }
 
-type Nested3PartyIDSource struct{ quickfixgo.CharValue }
+type Nested3PartyIDSource struct{ quickfix.CharValue }
 
 func (f Nested3PartyIDSource) Tag() tag.Tag { return tag.Nested3PartyIDSource }
 
-type Nested3PartyRole struct{ quickfixgo.IntValue }
+type Nested3PartyRole struct{ quickfix.IntValue }
 
 func (f Nested3PartyRole) Tag() tag.Tag { return tag.Nested3PartyRole }
 
-type Nested3PartySubID struct{ quickfixgo.StringValue }
+type Nested3PartySubID struct{ quickfix.StringValue }
 
 func (f Nested3PartySubID) Tag() tag.Tag { return tag.Nested3PartySubID }
 
-type Nested3PartySubIDType struct{ quickfixgo.IntValue }
+type Nested3PartySubIDType struct{ quickfix.IntValue }
 
 func (f Nested3PartySubIDType) Tag() tag.Tag { return tag.Nested3PartySubIDType }
 
-type Nested4PartyID struct{ quickfixgo.StringValue }
+type Nested4PartyID struct{ quickfix.StringValue }
 
 func (f Nested4PartyID) Tag() tag.Tag { return tag.Nested4PartyID }
 
-type Nested4PartyIDSource struct{ quickfixgo.CharValue }
+type Nested4PartyIDSource struct{ quickfix.CharValue }
 
 func (f Nested4PartyIDSource) Tag() tag.Tag { return tag.Nested4PartyIDSource }
 
-type Nested4PartyRole struct{ quickfixgo.IntValue }
+type Nested4PartyRole struct{ quickfix.IntValue }
 
 func (f Nested4PartyRole) Tag() tag.Tag { return tag.Nested4PartyRole }
 
-type Nested4PartySubID struct{ quickfixgo.StringValue }
+type Nested4PartySubID struct{ quickfix.StringValue }
 
 func (f Nested4PartySubID) Tag() tag.Tag { return tag.Nested4PartySubID }
 
-type Nested4PartySubIDType struct{ quickfixgo.IntValue }
+type Nested4PartySubIDType struct{ quickfix.IntValue }
 
 func (f Nested4PartySubIDType) Tag() tag.Tag { return tag.Nested4PartySubIDType }
 
-type NestedInstrAttribType struct{ quickfixgo.IntValue }
+type NestedInstrAttribType struct{ quickfix.IntValue }
 
 func (f NestedInstrAttribType) Tag() tag.Tag { return tag.NestedInstrAttribType }
 
-type NestedInstrAttribValue struct{ quickfixgo.StringValue }
+type NestedInstrAttribValue struct{ quickfix.StringValue }
 
 func (f NestedInstrAttribValue) Tag() tag.Tag { return tag.NestedInstrAttribValue }
 
-type NestedPartyID struct{ quickfixgo.StringValue }
+type NestedPartyID struct{ quickfix.StringValue }
 
 func (f NestedPartyID) Tag() tag.Tag { return tag.NestedPartyID }
 
-type NestedPartyIDSource struct{ quickfixgo.CharValue }
+type NestedPartyIDSource struct{ quickfix.CharValue }
 
 func (f NestedPartyIDSource) Tag() tag.Tag { return tag.NestedPartyIDSource }
 
-type NestedPartyRole struct{ quickfixgo.IntValue }
+type NestedPartyRole struct{ quickfix.IntValue }
 
 func (f NestedPartyRole) Tag() tag.Tag { return tag.NestedPartyRole }
 
-type NestedPartySubID struct{ quickfixgo.StringValue }
+type NestedPartySubID struct{ quickfix.StringValue }
 
 func (f NestedPartySubID) Tag() tag.Tag { return tag.NestedPartySubID }
 
-type NestedPartySubIDType struct{ quickfixgo.IntValue }
+type NestedPartySubIDType struct{ quickfix.IntValue }
 
 func (f NestedPartySubIDType) Tag() tag.Tag { return tag.NestedPartySubIDType }
 
-type NetChgPrevDay struct{ quickfixgo.PriceOffsetValue }
+type NetChgPrevDay struct{ quickfix.PriceOffsetValue }
 
 func (f NetChgPrevDay) Tag() tag.Tag { return tag.NetChgPrevDay }
 
-type NetGrossInd struct{ quickfixgo.IntValue }
+type NetGrossInd struct{ quickfix.IntValue }
 
 func (f NetGrossInd) Tag() tag.Tag { return tag.NetGrossInd }
 
-type NetMoney struct{ quickfixgo.AmtValue }
+type NetMoney struct{ quickfix.AmtValue }
 
 func (f NetMoney) Tag() tag.Tag { return tag.NetMoney }
 
-type NetworkRequestID struct{ quickfixgo.StringValue }
+type NetworkRequestID struct{ quickfix.StringValue }
 
 func (f NetworkRequestID) Tag() tag.Tag { return tag.NetworkRequestID }
 
-type NetworkRequestType struct{ quickfixgo.IntValue }
+type NetworkRequestType struct{ quickfix.IntValue }
 
 func (f NetworkRequestType) Tag() tag.Tag { return tag.NetworkRequestType }
 
-type NetworkResponseID struct{ quickfixgo.StringValue }
+type NetworkResponseID struct{ quickfix.StringValue }
 
 func (f NetworkResponseID) Tag() tag.Tag { return tag.NetworkResponseID }
 
-type NetworkStatusResponseType struct{ quickfixgo.IntValue }
+type NetworkStatusResponseType struct{ quickfix.IntValue }
 
 func (f NetworkStatusResponseType) Tag() tag.Tag { return tag.NetworkStatusResponseType }
 
-type NewPassword struct{ quickfixgo.StringValue }
+type NewPassword struct{ quickfix.StringValue }
 
 func (f NewPassword) Tag() tag.Tag { return tag.NewPassword }
 
-type NewSeqNo struct{ quickfixgo.SeqNumValue }
+type NewSeqNo struct{ quickfix.SeqNumValue }
 
 func (f NewSeqNo) Tag() tag.Tag { return tag.NewSeqNo }
 
-type NewsCategory struct{ quickfixgo.IntValue }
+type NewsCategory struct{ quickfix.IntValue }
 
 func (f NewsCategory) Tag() tag.Tag { return tag.NewsCategory }
 
-type NewsID struct{ quickfixgo.StringValue }
+type NewsID struct{ quickfix.StringValue }
 
 func (f NewsID) Tag() tag.Tag { return tag.NewsID }
 
-type NewsRefID struct{ quickfixgo.StringValue }
+type NewsRefID struct{ quickfix.StringValue }
 
 func (f NewsRefID) Tag() tag.Tag { return tag.NewsRefID }
 
-type NewsRefType struct{ quickfixgo.IntValue }
+type NewsRefType struct{ quickfix.IntValue }
 
 func (f NewsRefType) Tag() tag.Tag { return tag.NewsRefType }
 
-type NextExpectedMsgSeqNum struct{ quickfixgo.SeqNumValue }
+type NextExpectedMsgSeqNum struct{ quickfix.SeqNumValue }
 
 func (f NextExpectedMsgSeqNum) Tag() tag.Tag { return tag.NextExpectedMsgSeqNum }
 
-type NoAffectedOrders struct{ quickfixgo.NumInGroupValue }
+type NoAffectedOrders struct{ quickfix.NumInGroupValue }
 
 func (f NoAffectedOrders) Tag() tag.Tag { return tag.NoAffectedOrders }
 
-type NoAllocs struct{ quickfixgo.NumInGroupValue }
+type NoAllocs struct{ quickfix.NumInGroupValue }
 
 func (f NoAllocs) Tag() tag.Tag { return tag.NoAllocs }
 
-type NoAltMDSource struct{ quickfixgo.NumInGroupValue }
+type NoAltMDSource struct{ quickfix.NumInGroupValue }
 
 func (f NoAltMDSource) Tag() tag.Tag { return tag.NoAltMDSource }
 
-type NoApplIDs struct{ quickfixgo.NumInGroupValue }
+type NoApplIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoApplIDs) Tag() tag.Tag { return tag.NoApplIDs }
 
-type NoAsgnReqs struct{ quickfixgo.NumInGroupValue }
+type NoAsgnReqs struct{ quickfix.NumInGroupValue }
 
 func (f NoAsgnReqs) Tag() tag.Tag { return tag.NoAsgnReqs }
 
-type NoBidComponents struct{ quickfixgo.NumInGroupValue }
+type NoBidComponents struct{ quickfix.NumInGroupValue }
 
 func (f NoBidComponents) Tag() tag.Tag { return tag.NoBidComponents }
 
-type NoBidDescriptors struct{ quickfixgo.NumInGroupValue }
+type NoBidDescriptors struct{ quickfix.NumInGroupValue }
 
 func (f NoBidDescriptors) Tag() tag.Tag { return tag.NoBidDescriptors }
 
-type NoCapacities struct{ quickfixgo.NumInGroupValue }
+type NoCapacities struct{ quickfix.NumInGroupValue }
 
 func (f NoCapacities) Tag() tag.Tag { return tag.NoCapacities }
 
-type NoClearingInstructions struct{ quickfixgo.NumInGroupValue }
+type NoClearingInstructions struct{ quickfix.NumInGroupValue }
 
 func (f NoClearingInstructions) Tag() tag.Tag { return tag.NoClearingInstructions }
 
-type NoCollInquiryQualifier struct{ quickfixgo.NumInGroupValue }
+type NoCollInquiryQualifier struct{ quickfix.NumInGroupValue }
 
 func (f NoCollInquiryQualifier) Tag() tag.Tag { return tag.NoCollInquiryQualifier }
 
-type NoCompIDs struct{ quickfixgo.NumInGroupValue }
+type NoCompIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoCompIDs) Tag() tag.Tag { return tag.NoCompIDs }
 
-type NoComplexEventDates struct{ quickfixgo.NumInGroupValue }
+type NoComplexEventDates struct{ quickfix.NumInGroupValue }
 
 func (f NoComplexEventDates) Tag() tag.Tag { return tag.NoComplexEventDates }
 
-type NoComplexEventTimes struct{ quickfixgo.NumInGroupValue }
+type NoComplexEventTimes struct{ quickfix.NumInGroupValue }
 
 func (f NoComplexEventTimes) Tag() tag.Tag { return tag.NoComplexEventTimes }
 
-type NoComplexEvents struct{ quickfixgo.NumInGroupValue }
+type NoComplexEvents struct{ quickfix.NumInGroupValue }
 
 func (f NoComplexEvents) Tag() tag.Tag { return tag.NoComplexEvents }
 
-type NoContAmts struct{ quickfixgo.NumInGroupValue }
+type NoContAmts struct{ quickfix.NumInGroupValue }
 
 func (f NoContAmts) Tag() tag.Tag { return tag.NoContAmts }
 
-type NoContextPartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoContextPartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoContextPartyIDs) Tag() tag.Tag { return tag.NoContextPartyIDs }
 
-type NoContextPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoContextPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoContextPartySubIDs) Tag() tag.Tag { return tag.NoContextPartySubIDs }
 
-type NoContraBrokers struct{ quickfixgo.NumInGroupValue }
+type NoContraBrokers struct{ quickfix.NumInGroupValue }
 
 func (f NoContraBrokers) Tag() tag.Tag { return tag.NoContraBrokers }
 
-type NoDates struct{ quickfixgo.IntValue }
+type NoDates struct{ quickfix.IntValue }
 
 func (f NoDates) Tag() tag.Tag { return tag.NoDates }
 
-type NoDerivativeEvents struct{ quickfixgo.NumInGroupValue }
+type NoDerivativeEvents struct{ quickfix.NumInGroupValue }
 
 func (f NoDerivativeEvents) Tag() tag.Tag { return tag.NoDerivativeEvents }
 
-type NoDerivativeInstrAttrib struct{ quickfixgo.NumInGroupValue }
+type NoDerivativeInstrAttrib struct{ quickfix.NumInGroupValue }
 
 func (f NoDerivativeInstrAttrib) Tag() tag.Tag { return tag.NoDerivativeInstrAttrib }
 
-type NoDerivativeInstrumentParties struct{ quickfixgo.NumInGroupValue }
+type NoDerivativeInstrumentParties struct{ quickfix.NumInGroupValue }
 
 func (f NoDerivativeInstrumentParties) Tag() tag.Tag { return tag.NoDerivativeInstrumentParties }
 
-type NoDerivativeInstrumentPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoDerivativeInstrumentPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoDerivativeInstrumentPartySubIDs) Tag() tag.Tag { return tag.NoDerivativeInstrumentPartySubIDs }
 
-type NoDerivativeSecurityAltID struct{ quickfixgo.NumInGroupValue }
+type NoDerivativeSecurityAltID struct{ quickfix.NumInGroupValue }
 
 func (f NoDerivativeSecurityAltID) Tag() tag.Tag { return tag.NoDerivativeSecurityAltID }
 
-type NoDistribInsts struct{ quickfixgo.NumInGroupValue }
+type NoDistribInsts struct{ quickfix.NumInGroupValue }
 
 func (f NoDistribInsts) Tag() tag.Tag { return tag.NoDistribInsts }
 
-type NoDlvyInst struct{ quickfixgo.NumInGroupValue }
+type NoDlvyInst struct{ quickfix.NumInGroupValue }
 
 func (f NoDlvyInst) Tag() tag.Tag { return tag.NoDlvyInst }
 
-type NoEvents struct{ quickfixgo.NumInGroupValue }
+type NoEvents struct{ quickfix.NumInGroupValue }
 
 func (f NoEvents) Tag() tag.Tag { return tag.NoEvents }
 
-type NoExecInstRules struct{ quickfixgo.NumInGroupValue }
+type NoExecInstRules struct{ quickfix.NumInGroupValue }
 
 func (f NoExecInstRules) Tag() tag.Tag { return tag.NoExecInstRules }
 
-type NoExecs struct{ quickfixgo.NumInGroupValue }
+type NoExecs struct{ quickfix.NumInGroupValue }
 
 func (f NoExecs) Tag() tag.Tag { return tag.NoExecs }
 
-type NoExpiration struct{ quickfixgo.NumInGroupValue }
+type NoExpiration struct{ quickfix.NumInGroupValue }
 
 func (f NoExpiration) Tag() tag.Tag { return tag.NoExpiration }
 
-type NoFills struct{ quickfixgo.NumInGroupValue }
+type NoFills struct{ quickfix.NumInGroupValue }
 
 func (f NoFills) Tag() tag.Tag { return tag.NoFills }
 
-type NoHops struct{ quickfixgo.NumInGroupValue }
+type NoHops struct{ quickfix.NumInGroupValue }
 
 func (f NoHops) Tag() tag.Tag { return tag.NoHops }
 
-type NoIOIQualifiers struct{ quickfixgo.NumInGroupValue }
+type NoIOIQualifiers struct{ quickfix.NumInGroupValue }
 
 func (f NoIOIQualifiers) Tag() tag.Tag { return tag.NoIOIQualifiers }
 
-type NoInstrAttrib struct{ quickfixgo.NumInGroupValue }
+type NoInstrAttrib struct{ quickfix.NumInGroupValue }
 
 func (f NoInstrAttrib) Tag() tag.Tag { return tag.NoInstrAttrib }
 
-type NoInstrumentParties struct{ quickfixgo.NumInGroupValue }
+type NoInstrumentParties struct{ quickfix.NumInGroupValue }
 
 func (f NoInstrumentParties) Tag() tag.Tag { return tag.NoInstrumentParties }
 
-type NoInstrumentPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoInstrumentPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoInstrumentPartySubIDs) Tag() tag.Tag { return tag.NoInstrumentPartySubIDs }
 
-type NoLegAllocs struct{ quickfixgo.NumInGroupValue }
+type NoLegAllocs struct{ quickfix.NumInGroupValue }
 
 func (f NoLegAllocs) Tag() tag.Tag { return tag.NoLegAllocs }
 
-type NoLegSecurityAltID struct{ quickfixgo.StringValue }
+type NoLegSecurityAltID struct{ quickfix.StringValue }
 
 func (f NoLegSecurityAltID) Tag() tag.Tag { return tag.NoLegSecurityAltID }
 
-type NoLegStipulations struct{ quickfixgo.NumInGroupValue }
+type NoLegStipulations struct{ quickfix.NumInGroupValue }
 
 func (f NoLegStipulations) Tag() tag.Tag { return tag.NoLegStipulations }
 
-type NoLegs struct{ quickfixgo.NumInGroupValue }
+type NoLegs struct{ quickfix.NumInGroupValue }
 
 func (f NoLegs) Tag() tag.Tag { return tag.NoLegs }
 
-type NoLinesOfText struct{ quickfixgo.NumInGroupValue }
+type NoLinesOfText struct{ quickfix.NumInGroupValue }
 
 func (f NoLinesOfText) Tag() tag.Tag { return tag.NoLinesOfText }
 
-type NoLotTypeRules struct{ quickfixgo.NumInGroupValue }
+type NoLotTypeRules struct{ quickfix.NumInGroupValue }
 
 func (f NoLotTypeRules) Tag() tag.Tag { return tag.NoLotTypeRules }
 
-type NoMDEntries struct{ quickfixgo.NumInGroupValue }
+type NoMDEntries struct{ quickfix.NumInGroupValue }
 
 func (f NoMDEntries) Tag() tag.Tag { return tag.NoMDEntries }
 
-type NoMDEntryTypes struct{ quickfixgo.NumInGroupValue }
+type NoMDEntryTypes struct{ quickfix.NumInGroupValue }
 
 func (f NoMDEntryTypes) Tag() tag.Tag { return tag.NoMDEntryTypes }
 
-type NoMDFeedTypes struct{ quickfixgo.NumInGroupValue }
+type NoMDFeedTypes struct{ quickfix.NumInGroupValue }
 
 func (f NoMDFeedTypes) Tag() tag.Tag { return tag.NoMDFeedTypes }
 
-type NoMarketSegments struct{ quickfixgo.NumInGroupValue }
+type NoMarketSegments struct{ quickfix.NumInGroupValue }
 
 func (f NoMarketSegments) Tag() tag.Tag { return tag.NoMarketSegments }
 
-type NoMatchRules struct{ quickfixgo.NumInGroupValue }
+type NoMatchRules struct{ quickfix.NumInGroupValue }
 
 func (f NoMatchRules) Tag() tag.Tag { return tag.NoMatchRules }
 
-type NoMaturityRules struct{ quickfixgo.NumInGroupValue }
+type NoMaturityRules struct{ quickfix.NumInGroupValue }
 
 func (f NoMaturityRules) Tag() tag.Tag { return tag.NoMaturityRules }
 
-type NoMiscFees struct{ quickfixgo.NumInGroupValue }
+type NoMiscFees struct{ quickfix.NumInGroupValue }
 
 func (f NoMiscFees) Tag() tag.Tag { return tag.NoMiscFees }
 
-type NoMsgTypes struct{ quickfixgo.NumInGroupValue }
+type NoMsgTypes struct{ quickfix.NumInGroupValue }
 
 func (f NoMsgTypes) Tag() tag.Tag { return tag.NoMsgTypes }
 
-type NoNested2PartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoNested2PartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNested2PartyIDs) Tag() tag.Tag { return tag.NoNested2PartyIDs }
 
-type NoNested2PartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoNested2PartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNested2PartySubIDs) Tag() tag.Tag { return tag.NoNested2PartySubIDs }
 
-type NoNested3PartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoNested3PartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNested3PartyIDs) Tag() tag.Tag { return tag.NoNested3PartyIDs }
 
-type NoNested3PartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoNested3PartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNested3PartySubIDs) Tag() tag.Tag { return tag.NoNested3PartySubIDs }
 
-type NoNested4PartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoNested4PartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNested4PartyIDs) Tag() tag.Tag { return tag.NoNested4PartyIDs }
 
-type NoNested4PartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoNested4PartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNested4PartySubIDs) Tag() tag.Tag { return tag.NoNested4PartySubIDs }
 
-type NoNestedInstrAttrib struct{ quickfixgo.NumInGroupValue }
+type NoNestedInstrAttrib struct{ quickfix.NumInGroupValue }
 
 func (f NoNestedInstrAttrib) Tag() tag.Tag { return tag.NoNestedInstrAttrib }
 
-type NoNestedPartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoNestedPartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNestedPartyIDs) Tag() tag.Tag { return tag.NoNestedPartyIDs }
 
-type NoNestedPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoNestedPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNestedPartySubIDs) Tag() tag.Tag { return tag.NoNestedPartySubIDs }
 
-type NoNewsRefIDs struct{ quickfixgo.NumInGroupValue }
+type NoNewsRefIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoNewsRefIDs) Tag() tag.Tag { return tag.NoNewsRefIDs }
 
-type NoNotAffectedOrders struct{ quickfixgo.NumInGroupValue }
+type NoNotAffectedOrders struct{ quickfix.NumInGroupValue }
 
 func (f NoNotAffectedOrders) Tag() tag.Tag { return tag.NoNotAffectedOrders }
 
-type NoOfLegUnderlyings struct{ quickfixgo.NumInGroupValue }
+type NoOfLegUnderlyings struct{ quickfix.NumInGroupValue }
 
 func (f NoOfLegUnderlyings) Tag() tag.Tag { return tag.NoOfLegUnderlyings }
 
-type NoOfSecSizes struct{ quickfixgo.NumInGroupValue }
+type NoOfSecSizes struct{ quickfix.NumInGroupValue }
 
 func (f NoOfSecSizes) Tag() tag.Tag { return tag.NoOfSecSizes }
 
-type NoOrdTypeRules struct{ quickfixgo.NumInGroupValue }
+type NoOrdTypeRules struct{ quickfix.NumInGroupValue }
 
 func (f NoOrdTypeRules) Tag() tag.Tag { return tag.NoOrdTypeRules }
 
-type NoOrders struct{ quickfixgo.NumInGroupValue }
+type NoOrders struct{ quickfix.NumInGroupValue }
 
 func (f NoOrders) Tag() tag.Tag { return tag.NoOrders }
 
-type NoPartyAltIDs struct{ quickfixgo.NumInGroupValue }
+type NoPartyAltIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoPartyAltIDs) Tag() tag.Tag { return tag.NoPartyAltIDs }
 
-type NoPartyAltSubIDs struct{ quickfixgo.NumInGroupValue }
+type NoPartyAltSubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoPartyAltSubIDs) Tag() tag.Tag { return tag.NoPartyAltSubIDs }
 
-type NoPartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoPartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoPartyIDs) Tag() tag.Tag { return tag.NoPartyIDs }
 
-type NoPartyList struct{ quickfixgo.NumInGroupValue }
+type NoPartyList struct{ quickfix.NumInGroupValue }
 
 func (f NoPartyList) Tag() tag.Tag { return tag.NoPartyList }
 
-type NoPartyListResponseTypes struct{ quickfixgo.NumInGroupValue }
+type NoPartyListResponseTypes struct{ quickfix.NumInGroupValue }
 
 func (f NoPartyListResponseTypes) Tag() tag.Tag { return tag.NoPartyListResponseTypes }
 
-type NoPartyRelationships struct{ quickfixgo.NumInGroupValue }
+type NoPartyRelationships struct{ quickfix.NumInGroupValue }
 
 func (f NoPartyRelationships) Tag() tag.Tag { return tag.NoPartyRelationships }
 
-type NoPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoPartySubIDs) Tag() tag.Tag { return tag.NoPartySubIDs }
 
-type NoPosAmt struct{ quickfixgo.NumInGroupValue }
+type NoPosAmt struct{ quickfix.NumInGroupValue }
 
 func (f NoPosAmt) Tag() tag.Tag { return tag.NoPosAmt }
 
-type NoPositions struct{ quickfixgo.NumInGroupValue }
+type NoPositions struct{ quickfix.NumInGroupValue }
 
 func (f NoPositions) Tag() tag.Tag { return tag.NoPositions }
 
-type NoQuoteEntries struct{ quickfixgo.NumInGroupValue }
+type NoQuoteEntries struct{ quickfix.NumInGroupValue }
 
 func (f NoQuoteEntries) Tag() tag.Tag { return tag.NoQuoteEntries }
 
-type NoQuoteQualifiers struct{ quickfixgo.NumInGroupValue }
+type NoQuoteQualifiers struct{ quickfix.NumInGroupValue }
 
 func (f NoQuoteQualifiers) Tag() tag.Tag { return tag.NoQuoteQualifiers }
 
-type NoQuoteSets struct{ quickfixgo.NumInGroupValue }
+type NoQuoteSets struct{ quickfix.NumInGroupValue }
 
 func (f NoQuoteSets) Tag() tag.Tag { return tag.NoQuoteSets }
 
-type NoRateSources struct{ quickfixgo.NumInGroupValue }
+type NoRateSources struct{ quickfix.NumInGroupValue }
 
 func (f NoRateSources) Tag() tag.Tag { return tag.NoRateSources }
 
-type NoRegistDtls struct{ quickfixgo.NumInGroupValue }
+type NoRegistDtls struct{ quickfix.NumInGroupValue }
 
 func (f NoRegistDtls) Tag() tag.Tag { return tag.NoRegistDtls }
 
-type NoRelatedContextPartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoRelatedContextPartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRelatedContextPartyIDs) Tag() tag.Tag { return tag.NoRelatedContextPartyIDs }
 
-type NoRelatedContextPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoRelatedContextPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRelatedContextPartySubIDs) Tag() tag.Tag { return tag.NoRelatedContextPartySubIDs }
 
-type NoRelatedPartyAltIDs struct{ quickfixgo.NumInGroupValue }
+type NoRelatedPartyAltIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRelatedPartyAltIDs) Tag() tag.Tag { return tag.NoRelatedPartyAltIDs }
 
-type NoRelatedPartyAltSubIDs struct{ quickfixgo.NumInGroupValue }
+type NoRelatedPartyAltSubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRelatedPartyAltSubIDs) Tag() tag.Tag { return tag.NoRelatedPartyAltSubIDs }
 
-type NoRelatedPartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoRelatedPartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRelatedPartyIDs) Tag() tag.Tag { return tag.NoRelatedPartyIDs }
 
-type NoRelatedPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoRelatedPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRelatedPartySubIDs) Tag() tag.Tag { return tag.NoRelatedPartySubIDs }
 
-type NoRelatedSym struct{ quickfixgo.NumInGroupValue }
+type NoRelatedSym struct{ quickfix.NumInGroupValue }
 
 func (f NoRelatedSym) Tag() tag.Tag { return tag.NoRelatedSym }
 
-type NoRelationshipRiskInstruments struct{ quickfixgo.NumInGroupValue }
+type NoRelationshipRiskInstruments struct{ quickfix.NumInGroupValue }
 
 func (f NoRelationshipRiskInstruments) Tag() tag.Tag { return tag.NoRelationshipRiskInstruments }
 
-type NoRelationshipRiskLimits struct{ quickfixgo.NumInGroupValue }
+type NoRelationshipRiskLimits struct{ quickfix.NumInGroupValue }
 
 func (f NoRelationshipRiskLimits) Tag() tag.Tag { return tag.NoRelationshipRiskLimits }
 
-type NoRelationshipRiskSecurityAltID struct{ quickfixgo.NumInGroupValue }
+type NoRelationshipRiskSecurityAltID struct{ quickfix.NumInGroupValue }
 
 func (f NoRelationshipRiskSecurityAltID) Tag() tag.Tag { return tag.NoRelationshipRiskSecurityAltID }
 
-type NoRelationshipRiskWarningLevels struct{ quickfixgo.NumInGroupValue }
+type NoRelationshipRiskWarningLevels struct{ quickfix.NumInGroupValue }
 
 func (f NoRelationshipRiskWarningLevels) Tag() tag.Tag { return tag.NoRelationshipRiskWarningLevels }
 
-type NoRequestedPartyRoles struct{ quickfixgo.NumInGroupValue }
+type NoRequestedPartyRoles struct{ quickfix.NumInGroupValue }
 
 func (f NoRequestedPartyRoles) Tag() tag.Tag { return tag.NoRequestedPartyRoles }
 
-type NoRiskInstruments struct{ quickfixgo.NumInGroupValue }
+type NoRiskInstruments struct{ quickfix.NumInGroupValue }
 
 func (f NoRiskInstruments) Tag() tag.Tag { return tag.NoRiskInstruments }
 
-type NoRiskLimits struct{ quickfixgo.NumInGroupValue }
+type NoRiskLimits struct{ quickfix.NumInGroupValue }
 
 func (f NoRiskLimits) Tag() tag.Tag { return tag.NoRiskLimits }
 
-type NoRiskSecurityAltID struct{ quickfixgo.NumInGroupValue }
+type NoRiskSecurityAltID struct{ quickfix.NumInGroupValue }
 
 func (f NoRiskSecurityAltID) Tag() tag.Tag { return tag.NoRiskSecurityAltID }
 
-type NoRiskWarningLevels struct{ quickfixgo.NumInGroupValue }
+type NoRiskWarningLevels struct{ quickfix.NumInGroupValue }
 
 func (f NoRiskWarningLevels) Tag() tag.Tag { return tag.NoRiskWarningLevels }
 
-type NoRootPartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoRootPartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRootPartyIDs) Tag() tag.Tag { return tag.NoRootPartyIDs }
 
-type NoRootPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoRootPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRootPartySubIDs) Tag() tag.Tag { return tag.NoRootPartySubIDs }
 
-type NoRoutingIDs struct{ quickfixgo.NumInGroupValue }
+type NoRoutingIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoRoutingIDs) Tag() tag.Tag { return tag.NoRoutingIDs }
 
-type NoRpts struct{ quickfixgo.IntValue }
+type NoRpts struct{ quickfix.IntValue }
 
 func (f NoRpts) Tag() tag.Tag { return tag.NoRpts }
 
-type NoSecurityAltID struct{ quickfixgo.NumInGroupValue }
+type NoSecurityAltID struct{ quickfix.NumInGroupValue }
 
 func (f NoSecurityAltID) Tag() tag.Tag { return tag.NoSecurityAltID }
 
-type NoSecurityTypes struct{ quickfixgo.NumInGroupValue }
+type NoSecurityTypes struct{ quickfix.NumInGroupValue }
 
 func (f NoSecurityTypes) Tag() tag.Tag { return tag.NoSecurityTypes }
 
-type NoSettlDetails struct{ quickfixgo.NumInGroupValue }
+type NoSettlDetails struct{ quickfix.NumInGroupValue }
 
 func (f NoSettlDetails) Tag() tag.Tag { return tag.NoSettlDetails }
 
-type NoSettlInst struct{ quickfixgo.NumInGroupValue }
+type NoSettlInst struct{ quickfix.NumInGroupValue }
 
 func (f NoSettlInst) Tag() tag.Tag { return tag.NoSettlInst }
 
-type NoSettlOblig struct{ quickfixgo.NumInGroupValue }
+type NoSettlOblig struct{ quickfix.NumInGroupValue }
 
 func (f NoSettlOblig) Tag() tag.Tag { return tag.NoSettlOblig }
 
-type NoSettlPartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoSettlPartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoSettlPartyIDs) Tag() tag.Tag { return tag.NoSettlPartyIDs }
 
-type NoSettlPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoSettlPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoSettlPartySubIDs) Tag() tag.Tag { return tag.NoSettlPartySubIDs }
 
-type NoSideTrdRegTS struct{ quickfixgo.NumInGroupValue }
+type NoSideTrdRegTS struct{ quickfix.NumInGroupValue }
 
 func (f NoSideTrdRegTS) Tag() tag.Tag { return tag.NoSideTrdRegTS }
 
-type NoSides struct{ quickfixgo.NumInGroupValue }
+type NoSides struct{ quickfix.NumInGroupValue }
 
 func (f NoSides) Tag() tag.Tag { return tag.NoSides }
 
-type NoStatsIndicators struct{ quickfixgo.NumInGroupValue }
+type NoStatsIndicators struct{ quickfix.NumInGroupValue }
 
 func (f NoStatsIndicators) Tag() tag.Tag { return tag.NoStatsIndicators }
 
-type NoStipulations struct{ quickfixgo.NumInGroupValue }
+type NoStipulations struct{ quickfix.NumInGroupValue }
 
 func (f NoStipulations) Tag() tag.Tag { return tag.NoStipulations }
 
-type NoStrategyParameters struct{ quickfixgo.NumInGroupValue }
+type NoStrategyParameters struct{ quickfix.NumInGroupValue }
 
 func (f NoStrategyParameters) Tag() tag.Tag { return tag.NoStrategyParameters }
 
-type NoStrikeRules struct{ quickfixgo.NumInGroupValue }
+type NoStrikeRules struct{ quickfix.NumInGroupValue }
 
 func (f NoStrikeRules) Tag() tag.Tag { return tag.NoStrikeRules }
 
-type NoStrikes struct{ quickfixgo.NumInGroupValue }
+type NoStrikes struct{ quickfix.NumInGroupValue }
 
 func (f NoStrikes) Tag() tag.Tag { return tag.NoStrikes }
 
-type NoTargetPartyIDs struct{ quickfixgo.NumInGroupValue }
+type NoTargetPartyIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoTargetPartyIDs) Tag() tag.Tag { return tag.NoTargetPartyIDs }
 
-type NoTickRules struct{ quickfixgo.NumInGroupValue }
+type NoTickRules struct{ quickfix.NumInGroupValue }
 
 func (f NoTickRules) Tag() tag.Tag { return tag.NoTickRules }
 
-type NoTimeInForceRules struct{ quickfixgo.NumInGroupValue }
+type NoTimeInForceRules struct{ quickfix.NumInGroupValue }
 
 func (f NoTimeInForceRules) Tag() tag.Tag { return tag.NoTimeInForceRules }
 
-type NoTrades struct{ quickfixgo.NumInGroupValue }
+type NoTrades struct{ quickfix.NumInGroupValue }
 
 func (f NoTrades) Tag() tag.Tag { return tag.NoTrades }
 
-type NoTradingSessionRules struct{ quickfixgo.NumInGroupValue }
+type NoTradingSessionRules struct{ quickfix.NumInGroupValue }
 
 func (f NoTradingSessionRules) Tag() tag.Tag { return tag.NoTradingSessionRules }
 
-type NoTradingSessions struct{ quickfixgo.NumInGroupValue }
+type NoTradingSessions struct{ quickfix.NumInGroupValue }
 
 func (f NoTradingSessions) Tag() tag.Tag { return tag.NoTradingSessions }
 
-type NoTrdRegTimestamps struct{ quickfixgo.NumInGroupValue }
+type NoTrdRegTimestamps struct{ quickfix.NumInGroupValue }
 
 func (f NoTrdRegTimestamps) Tag() tag.Tag { return tag.NoTrdRegTimestamps }
 
-type NoTrdRepIndicators struct{ quickfixgo.NumInGroupValue }
+type NoTrdRepIndicators struct{ quickfix.NumInGroupValue }
 
 func (f NoTrdRepIndicators) Tag() tag.Tag { return tag.NoTrdRepIndicators }
 
-type NoUnderlyingAmounts struct{ quickfixgo.NumInGroupValue }
+type NoUnderlyingAmounts struct{ quickfix.NumInGroupValue }
 
 func (f NoUnderlyingAmounts) Tag() tag.Tag { return tag.NoUnderlyingAmounts }
 
-type NoUnderlyingLegSecurityAltID struct{ quickfixgo.NumInGroupValue }
+type NoUnderlyingLegSecurityAltID struct{ quickfix.NumInGroupValue }
 
 func (f NoUnderlyingLegSecurityAltID) Tag() tag.Tag { return tag.NoUnderlyingLegSecurityAltID }
 
-type NoUnderlyingSecurityAltID struct{ quickfixgo.NumInGroupValue }
+type NoUnderlyingSecurityAltID struct{ quickfix.NumInGroupValue }
 
 func (f NoUnderlyingSecurityAltID) Tag() tag.Tag { return tag.NoUnderlyingSecurityAltID }
 
-type NoUnderlyingStips struct{ quickfixgo.NumInGroupValue }
+type NoUnderlyingStips struct{ quickfix.NumInGroupValue }
 
 func (f NoUnderlyingStips) Tag() tag.Tag { return tag.NoUnderlyingStips }
 
-type NoUnderlyings struct{ quickfixgo.NumInGroupValue }
+type NoUnderlyings struct{ quickfix.NumInGroupValue }
 
 func (f NoUnderlyings) Tag() tag.Tag { return tag.NoUnderlyings }
 
-type NoUndlyInstrumentParties struct{ quickfixgo.NumInGroupValue }
+type NoUndlyInstrumentParties struct{ quickfix.NumInGroupValue }
 
 func (f NoUndlyInstrumentParties) Tag() tag.Tag { return tag.NoUndlyInstrumentParties }
 
-type NoUndlyInstrumentPartySubIDs struct{ quickfixgo.NumInGroupValue }
+type NoUndlyInstrumentPartySubIDs struct{ quickfix.NumInGroupValue }
 
 func (f NoUndlyInstrumentPartySubIDs) Tag() tag.Tag { return tag.NoUndlyInstrumentPartySubIDs }
 
-type NotAffOrigClOrdID struct{ quickfixgo.StringValue }
+type NotAffOrigClOrdID struct{ quickfix.StringValue }
 
 func (f NotAffOrigClOrdID) Tag() tag.Tag { return tag.NotAffOrigClOrdID }
 
-type NotAffectedOrderID struct{ quickfixgo.StringValue }
+type NotAffectedOrderID struct{ quickfix.StringValue }
 
 func (f NotAffectedOrderID) Tag() tag.Tag { return tag.NotAffectedOrderID }
 
-type NotifyBrokerOfCredit struct{ quickfixgo.BooleanValue }
+type NotifyBrokerOfCredit struct{ quickfix.BooleanValue }
 
 func (f NotifyBrokerOfCredit) Tag() tag.Tag { return tag.NotifyBrokerOfCredit }
 
-type NotionalPercentageOutstanding struct{ quickfixgo.PercentageValue }
+type NotionalPercentageOutstanding struct{ quickfix.PercentageValue }
 
 func (f NotionalPercentageOutstanding) Tag() tag.Tag { return tag.NotionalPercentageOutstanding }
 
-type NumBidders struct{ quickfixgo.IntValue }
+type NumBidders struct{ quickfix.IntValue }
 
 func (f NumBidders) Tag() tag.Tag { return tag.NumBidders }
 
-type NumDaysInterest struct{ quickfixgo.IntValue }
+type NumDaysInterest struct{ quickfix.IntValue }
 
 func (f NumDaysInterest) Tag() tag.Tag { return tag.NumDaysInterest }
 
-type NumTickets struct{ quickfixgo.IntValue }
+type NumTickets struct{ quickfix.IntValue }
 
 func (f NumTickets) Tag() tag.Tag { return tag.NumTickets }
 
-type NumberOfOrders struct{ quickfixgo.IntValue }
+type NumberOfOrders struct{ quickfix.IntValue }
 
 func (f NumberOfOrders) Tag() tag.Tag { return tag.NumberOfOrders }
 
-type OddLot struct{ quickfixgo.BooleanValue }
+type OddLot struct{ quickfix.BooleanValue }
 
 func (f OddLot) Tag() tag.Tag { return tag.OddLot }
 
-type OfferForwardPoints struct{ quickfixgo.PriceOffsetValue }
+type OfferForwardPoints struct{ quickfix.PriceOffsetValue }
 
 func (f OfferForwardPoints) Tag() tag.Tag { return tag.OfferForwardPoints }
 
-type OfferForwardPoints2 struct{ quickfixgo.PriceOffsetValue }
+type OfferForwardPoints2 struct{ quickfix.PriceOffsetValue }
 
 func (f OfferForwardPoints2) Tag() tag.Tag { return tag.OfferForwardPoints2 }
 
-type OfferPx struct{ quickfixgo.PriceValue }
+type OfferPx struct{ quickfix.PriceValue }
 
 func (f OfferPx) Tag() tag.Tag { return tag.OfferPx }
 
-type OfferSize struct{ quickfixgo.QtyValue }
+type OfferSize struct{ quickfix.QtyValue }
 
 func (f OfferSize) Tag() tag.Tag { return tag.OfferSize }
 
-type OfferSpotRate struct{ quickfixgo.PriceValue }
+type OfferSpotRate struct{ quickfix.PriceValue }
 
 func (f OfferSpotRate) Tag() tag.Tag { return tag.OfferSpotRate }
 
-type OfferSwapPoints struct{ quickfixgo.PriceOffsetValue }
+type OfferSwapPoints struct{ quickfix.PriceOffsetValue }
 
 func (f OfferSwapPoints) Tag() tag.Tag { return tag.OfferSwapPoints }
 
-type OfferYield struct{ quickfixgo.PercentageValue }
+type OfferYield struct{ quickfix.PercentageValue }
 
 func (f OfferYield) Tag() tag.Tag { return tag.OfferYield }
 
-type OnBehalfOfCompID struct{ quickfixgo.StringValue }
+type OnBehalfOfCompID struct{ quickfix.StringValue }
 
 func (f OnBehalfOfCompID) Tag() tag.Tag { return tag.OnBehalfOfCompID }
 
-type OnBehalfOfLocationID struct{ quickfixgo.StringValue }
+type OnBehalfOfLocationID struct{ quickfix.StringValue }
 
 func (f OnBehalfOfLocationID) Tag() tag.Tag { return tag.OnBehalfOfLocationID }
 
-type OnBehalfOfSendingTime struct{ quickfixgo.UTCTimestampValue }
+type OnBehalfOfSendingTime struct{ quickfix.UTCTimestampValue }
 
 func (f OnBehalfOfSendingTime) Tag() tag.Tag { return tag.OnBehalfOfSendingTime }
 
-type OnBehalfOfSubID struct{ quickfixgo.StringValue }
+type OnBehalfOfSubID struct{ quickfix.StringValue }
 
 func (f OnBehalfOfSubID) Tag() tag.Tag { return tag.OnBehalfOfSubID }
 
-type OpenClose struct{ quickfixgo.CharValue }
+type OpenClose struct{ quickfix.CharValue }
 
 func (f OpenClose) Tag() tag.Tag { return tag.OpenClose }
 
-type OpenCloseSettlFlag struct{ quickfixgo.MultipleCharValue }
+type OpenCloseSettlFlag struct{ quickfix.MultipleCharValue }
 
 func (f OpenCloseSettlFlag) Tag() tag.Tag { return tag.OpenCloseSettlFlag }
 
-type OpenCloseSettleFlag struct{ quickfixgo.MultipleStringValue }
+type OpenCloseSettleFlag struct{ quickfix.MultipleStringValue }
 
 func (f OpenCloseSettleFlag) Tag() tag.Tag { return tag.OpenCloseSettleFlag }
 
-type OpenInterest struct{ quickfixgo.AmtValue }
+type OpenInterest struct{ quickfix.AmtValue }
 
 func (f OpenInterest) Tag() tag.Tag { return tag.OpenInterest }
 
-type OptAttribute struct{ quickfixgo.CharValue }
+type OptAttribute struct{ quickfix.CharValue }
 
 func (f OptAttribute) Tag() tag.Tag { return tag.OptAttribute }
 
-type OptPayAmount struct{ quickfixgo.AmtValue }
+type OptPayAmount struct{ quickfix.AmtValue }
 
 func (f OptPayAmount) Tag() tag.Tag { return tag.OptPayAmount }
 
-type OptPayoutAmount struct{ quickfixgo.AmtValue }
+type OptPayoutAmount struct{ quickfix.AmtValue }
 
 func (f OptPayoutAmount) Tag() tag.Tag { return tag.OptPayoutAmount }
 
-type OptPayoutType struct{ quickfixgo.IntValue }
+type OptPayoutType struct{ quickfix.IntValue }
 
 func (f OptPayoutType) Tag() tag.Tag { return tag.OptPayoutType }
 
-type OrdRejReason struct{ quickfixgo.IntValue }
+type OrdRejReason struct{ quickfix.IntValue }
 
 func (f OrdRejReason) Tag() tag.Tag { return tag.OrdRejReason }
 
-type OrdStatus struct{ quickfixgo.CharValue }
+type OrdStatus struct{ quickfix.CharValue }
 
 func (f OrdStatus) Tag() tag.Tag { return tag.OrdStatus }
 
-type OrdStatusReqID struct{ quickfixgo.StringValue }
+type OrdStatusReqID struct{ quickfix.StringValue }
 
 func (f OrdStatusReqID) Tag() tag.Tag { return tag.OrdStatusReqID }
 
-type OrdType struct{ quickfixgo.CharValue }
+type OrdType struct{ quickfix.CharValue }
 
 func (f OrdType) Tag() tag.Tag { return tag.OrdType }
 
-type OrderAvgPx struct{ quickfixgo.PriceValue }
+type OrderAvgPx struct{ quickfix.PriceValue }
 
 func (f OrderAvgPx) Tag() tag.Tag { return tag.OrderAvgPx }
 
-type OrderBookingQty struct{ quickfixgo.QtyValue }
+type OrderBookingQty struct{ quickfix.QtyValue }
 
 func (f OrderBookingQty) Tag() tag.Tag { return tag.OrderBookingQty }
 
-type OrderCapacity struct{ quickfixgo.CharValue }
+type OrderCapacity struct{ quickfix.CharValue }
 
 func (f OrderCapacity) Tag() tag.Tag { return tag.OrderCapacity }
 
-type OrderCapacityQty struct{ quickfixgo.QtyValue }
+type OrderCapacityQty struct{ quickfix.QtyValue }
 
 func (f OrderCapacityQty) Tag() tag.Tag { return tag.OrderCapacityQty }
 
-type OrderCategory struct{ quickfixgo.CharValue }
+type OrderCategory struct{ quickfix.CharValue }
 
 func (f OrderCategory) Tag() tag.Tag { return tag.OrderCategory }
 
-type OrderDelay struct{ quickfixgo.IntValue }
+type OrderDelay struct{ quickfix.IntValue }
 
 func (f OrderDelay) Tag() tag.Tag { return tag.OrderDelay }
 
-type OrderDelayUnit struct{ quickfixgo.IntValue }
+type OrderDelayUnit struct{ quickfix.IntValue }
 
 func (f OrderDelayUnit) Tag() tag.Tag { return tag.OrderDelayUnit }
 
-type OrderHandlingInstSource struct{ quickfixgo.IntValue }
+type OrderHandlingInstSource struct{ quickfix.IntValue }
 
 func (f OrderHandlingInstSource) Tag() tag.Tag { return tag.OrderHandlingInstSource }
 
-type OrderID struct{ quickfixgo.StringValue }
+type OrderID struct{ quickfix.StringValue }
 
 func (f OrderID) Tag() tag.Tag { return tag.OrderID }
 
-type OrderInputDevice struct{ quickfixgo.StringValue }
+type OrderInputDevice struct{ quickfix.StringValue }
 
 func (f OrderInputDevice) Tag() tag.Tag { return tag.OrderInputDevice }
 
-type OrderPercent struct{ quickfixgo.PercentageValue }
+type OrderPercent struct{ quickfix.PercentageValue }
 
 func (f OrderPercent) Tag() tag.Tag { return tag.OrderPercent }
 
-type OrderQty struct{ quickfixgo.QtyValue }
+type OrderQty struct{ quickfix.QtyValue }
 
 func (f OrderQty) Tag() tag.Tag { return tag.OrderQty }
 
-type OrderQty2 struct{ quickfixgo.QtyValue }
+type OrderQty2 struct{ quickfix.QtyValue }
 
 func (f OrderQty2) Tag() tag.Tag { return tag.OrderQty2 }
 
-type OrderRestrictions struct{ quickfixgo.MultipleCharValue }
+type OrderRestrictions struct{ quickfix.MultipleCharValue }
 
 func (f OrderRestrictions) Tag() tag.Tag { return tag.OrderRestrictions }
 
-type OrigClOrdID struct{ quickfixgo.StringValue }
+type OrigClOrdID struct{ quickfix.StringValue }
 
 func (f OrigClOrdID) Tag() tag.Tag { return tag.OrigClOrdID }
 
-type OrigCrossID struct{ quickfixgo.StringValue }
+type OrigCrossID struct{ quickfix.StringValue }
 
 func (f OrigCrossID) Tag() tag.Tag { return tag.OrigCrossID }
 
-type OrigCustOrderCapacity struct{ quickfixgo.IntValue }
+type OrigCustOrderCapacity struct{ quickfix.IntValue }
 
 func (f OrigCustOrderCapacity) Tag() tag.Tag { return tag.OrigCustOrderCapacity }
 
-type OrigOrdModTime struct{ quickfixgo.UTCTimestampValue }
+type OrigOrdModTime struct{ quickfix.UTCTimestampValue }
 
 func (f OrigOrdModTime) Tag() tag.Tag { return tag.OrigOrdModTime }
 
-type OrigPosReqRefID struct{ quickfixgo.StringValue }
+type OrigPosReqRefID struct{ quickfix.StringValue }
 
 func (f OrigPosReqRefID) Tag() tag.Tag { return tag.OrigPosReqRefID }
 
-type OrigSecondaryTradeID struct{ quickfixgo.StringValue }
+type OrigSecondaryTradeID struct{ quickfix.StringValue }
 
 func (f OrigSecondaryTradeID) Tag() tag.Tag { return tag.OrigSecondaryTradeID }
 
-type OrigSendingTime struct{ quickfixgo.UTCTimestampValue }
+type OrigSendingTime struct{ quickfix.UTCTimestampValue }
 
 func (f OrigSendingTime) Tag() tag.Tag { return tag.OrigSendingTime }
 
-type OrigTime struct{ quickfixgo.UTCTimestampValue }
+type OrigTime struct{ quickfix.UTCTimestampValue }
 
 func (f OrigTime) Tag() tag.Tag { return tag.OrigTime }
 
-type OrigTradeDate struct{ quickfixgo.LocalMktDateValue }
+type OrigTradeDate struct{ quickfix.LocalMktDateValue }
 
 func (f OrigTradeDate) Tag() tag.Tag { return tag.OrigTradeDate }
 
-type OrigTradeHandlingInstr struct{ quickfixgo.CharValue }
+type OrigTradeHandlingInstr struct{ quickfix.CharValue }
 
 func (f OrigTradeHandlingInstr) Tag() tag.Tag { return tag.OrigTradeHandlingInstr }
 
-type OrigTradeID struct{ quickfixgo.StringValue }
+type OrigTradeID struct{ quickfix.StringValue }
 
 func (f OrigTradeID) Tag() tag.Tag { return tag.OrigTradeID }
 
-type OriginalNotionalPercentageOutstanding struct{ quickfixgo.PercentageValue }
+type OriginalNotionalPercentageOutstanding struct{ quickfix.PercentageValue }
 
 func (f OriginalNotionalPercentageOutstanding) Tag() tag.Tag {
 	return tag.OriginalNotionalPercentageOutstanding
 }
 
-type OutMainCntryUIndex struct{ quickfixgo.AmtValue }
+type OutMainCntryUIndex struct{ quickfix.AmtValue }
 
 func (f OutMainCntryUIndex) Tag() tag.Tag { return tag.OutMainCntryUIndex }
 
-type OutsideIndexPct struct{ quickfixgo.PercentageValue }
+type OutsideIndexPct struct{ quickfix.PercentageValue }
 
 func (f OutsideIndexPct) Tag() tag.Tag { return tag.OutsideIndexPct }
 
-type OwnerType struct{ quickfixgo.IntValue }
+type OwnerType struct{ quickfix.IntValue }
 
 func (f OwnerType) Tag() tag.Tag { return tag.OwnerType }
 
-type OwnershipType struct{ quickfixgo.CharValue }
+type OwnershipType struct{ quickfix.CharValue }
 
 func (f OwnershipType) Tag() tag.Tag { return tag.OwnershipType }
 
-type ParentMktSegmID struct{ quickfixgo.StringValue }
+type ParentMktSegmID struct{ quickfix.StringValue }
 
 func (f ParentMktSegmID) Tag() tag.Tag { return tag.ParentMktSegmID }
 
-type ParticipationRate struct{ quickfixgo.PercentageValue }
+type ParticipationRate struct{ quickfix.PercentageValue }
 
 func (f ParticipationRate) Tag() tag.Tag { return tag.ParticipationRate }
 
-type PartyAltID struct{ quickfixgo.StringValue }
+type PartyAltID struct{ quickfix.StringValue }
 
 func (f PartyAltID) Tag() tag.Tag { return tag.PartyAltID }
 
-type PartyAltIDSource struct{ quickfixgo.CharValue }
+type PartyAltIDSource struct{ quickfix.CharValue }
 
 func (f PartyAltIDSource) Tag() tag.Tag { return tag.PartyAltIDSource }
 
-type PartyAltSubID struct{ quickfixgo.StringValue }
+type PartyAltSubID struct{ quickfix.StringValue }
 
 func (f PartyAltSubID) Tag() tag.Tag { return tag.PartyAltSubID }
 
-type PartyAltSubIDType struct{ quickfixgo.IntValue }
+type PartyAltSubIDType struct{ quickfix.IntValue }
 
 func (f PartyAltSubIDType) Tag() tag.Tag { return tag.PartyAltSubIDType }
 
-type PartyDetailsListReportID struct{ quickfixgo.StringValue }
+type PartyDetailsListReportID struct{ quickfix.StringValue }
 
 func (f PartyDetailsListReportID) Tag() tag.Tag { return tag.PartyDetailsListReportID }
 
-type PartyDetailsListRequestID struct{ quickfixgo.StringValue }
+type PartyDetailsListRequestID struct{ quickfix.StringValue }
 
 func (f PartyDetailsListRequestID) Tag() tag.Tag { return tag.PartyDetailsListRequestID }
 
-type PartyDetailsRequestResult struct{ quickfixgo.IntValue }
+type PartyDetailsRequestResult struct{ quickfix.IntValue }
 
 func (f PartyDetailsRequestResult) Tag() tag.Tag { return tag.PartyDetailsRequestResult }
 
-type PartyID struct{ quickfixgo.StringValue }
+type PartyID struct{ quickfix.StringValue }
 
 func (f PartyID) Tag() tag.Tag { return tag.PartyID }
 
-type PartyIDSource struct{ quickfixgo.CharValue }
+type PartyIDSource struct{ quickfix.CharValue }
 
 func (f PartyIDSource) Tag() tag.Tag { return tag.PartyIDSource }
 
-type PartyListResponseType struct{ quickfixgo.IntValue }
+type PartyListResponseType struct{ quickfix.IntValue }
 
 func (f PartyListResponseType) Tag() tag.Tag { return tag.PartyListResponseType }
 
-type PartyRelationship struct{ quickfixgo.IntValue }
+type PartyRelationship struct{ quickfix.IntValue }
 
 func (f PartyRelationship) Tag() tag.Tag { return tag.PartyRelationship }
 
-type PartyRole struct{ quickfixgo.IntValue }
+type PartyRole struct{ quickfix.IntValue }
 
 func (f PartyRole) Tag() tag.Tag { return tag.PartyRole }
 
-type PartySubID struct{ quickfixgo.StringValue }
+type PartySubID struct{ quickfix.StringValue }
 
 func (f PartySubID) Tag() tag.Tag { return tag.PartySubID }
 
-type PartySubIDType struct{ quickfixgo.IntValue }
+type PartySubIDType struct{ quickfix.IntValue }
 
 func (f PartySubIDType) Tag() tag.Tag { return tag.PartySubIDType }
 
-type Password struct{ quickfixgo.StringValue }
+type Password struct{ quickfix.StringValue }
 
 func (f Password) Tag() tag.Tag { return tag.Password }
 
-type PaymentDate struct{ quickfixgo.LocalMktDateValue }
+type PaymentDate struct{ quickfix.LocalMktDateValue }
 
 func (f PaymentDate) Tag() tag.Tag { return tag.PaymentDate }
 
-type PaymentMethod struct{ quickfixgo.IntValue }
+type PaymentMethod struct{ quickfix.IntValue }
 
 func (f PaymentMethod) Tag() tag.Tag { return tag.PaymentMethod }
 
-type PaymentRef struct{ quickfixgo.StringValue }
+type PaymentRef struct{ quickfix.StringValue }
 
 func (f PaymentRef) Tag() tag.Tag { return tag.PaymentRef }
 
-type PaymentRemitterID struct{ quickfixgo.StringValue }
+type PaymentRemitterID struct{ quickfix.StringValue }
 
 func (f PaymentRemitterID) Tag() tag.Tag { return tag.PaymentRemitterID }
 
-type PctAtRisk struct{ quickfixgo.PercentageValue }
+type PctAtRisk struct{ quickfix.PercentageValue }
 
 func (f PctAtRisk) Tag() tag.Tag { return tag.PctAtRisk }
 
-type PegDifference struct{ quickfixgo.PriceOffsetValue }
+type PegDifference struct{ quickfix.PriceOffsetValue }
 
 func (f PegDifference) Tag() tag.Tag { return tag.PegDifference }
 
-type PegLimitType struct{ quickfixgo.IntValue }
+type PegLimitType struct{ quickfix.IntValue }
 
 func (f PegLimitType) Tag() tag.Tag { return tag.PegLimitType }
 
-type PegMoveType struct{ quickfixgo.IntValue }
+type PegMoveType struct{ quickfix.IntValue }
 
 func (f PegMoveType) Tag() tag.Tag { return tag.PegMoveType }
 
-type PegOffsetType struct{ quickfixgo.IntValue }
+type PegOffsetType struct{ quickfix.IntValue }
 
 func (f PegOffsetType) Tag() tag.Tag { return tag.PegOffsetType }
 
-type PegOffsetValue struct{ quickfixgo.FloatValue }
+type PegOffsetValue struct{ quickfix.FloatValue }
 
 func (f PegOffsetValue) Tag() tag.Tag { return tag.PegOffsetValue }
 
-type PegPriceType struct{ quickfixgo.IntValue }
+type PegPriceType struct{ quickfix.IntValue }
 
 func (f PegPriceType) Tag() tag.Tag { return tag.PegPriceType }
 
-type PegRoundDirection struct{ quickfixgo.IntValue }
+type PegRoundDirection struct{ quickfix.IntValue }
 
 func (f PegRoundDirection) Tag() tag.Tag { return tag.PegRoundDirection }
 
-type PegScope struct{ quickfixgo.IntValue }
+type PegScope struct{ quickfix.IntValue }
 
 func (f PegScope) Tag() tag.Tag { return tag.PegScope }
 
-type PegSecurityDesc struct{ quickfixgo.StringValue }
+type PegSecurityDesc struct{ quickfix.StringValue }
 
 func (f PegSecurityDesc) Tag() tag.Tag { return tag.PegSecurityDesc }
 
-type PegSecurityID struct{ quickfixgo.StringValue }
+type PegSecurityID struct{ quickfix.StringValue }
 
 func (f PegSecurityID) Tag() tag.Tag { return tag.PegSecurityID }
 
-type PegSecurityIDSource struct{ quickfixgo.StringValue }
+type PegSecurityIDSource struct{ quickfix.StringValue }
 
 func (f PegSecurityIDSource) Tag() tag.Tag { return tag.PegSecurityIDSource }
 
-type PegSymbol struct{ quickfixgo.StringValue }
+type PegSymbol struct{ quickfix.StringValue }
 
 func (f PegSymbol) Tag() tag.Tag { return tag.PegSymbol }
 
-type PeggedPrice struct{ quickfixgo.PriceValue }
+type PeggedPrice struct{ quickfix.PriceValue }
 
 func (f PeggedPrice) Tag() tag.Tag { return tag.PeggedPrice }
 
-type PeggedRefPrice struct{ quickfixgo.PriceValue }
+type PeggedRefPrice struct{ quickfix.PriceValue }
 
 func (f PeggedRefPrice) Tag() tag.Tag { return tag.PeggedRefPrice }
 
-type Pool struct{ quickfixgo.StringValue }
+type Pool struct{ quickfix.StringValue }
 
 func (f Pool) Tag() tag.Tag { return tag.Pool }
 
-type PosAmt struct{ quickfixgo.AmtValue }
+type PosAmt struct{ quickfix.AmtValue }
 
 func (f PosAmt) Tag() tag.Tag { return tag.PosAmt }
 
-type PosAmtType struct{ quickfixgo.StringValue }
+type PosAmtType struct{ quickfix.StringValue }
 
 func (f PosAmtType) Tag() tag.Tag { return tag.PosAmtType }
 
-type PosMaintAction struct{ quickfixgo.IntValue }
+type PosMaintAction struct{ quickfix.IntValue }
 
 func (f PosMaintAction) Tag() tag.Tag { return tag.PosMaintAction }
 
-type PosMaintResult struct{ quickfixgo.IntValue }
+type PosMaintResult struct{ quickfix.IntValue }
 
 func (f PosMaintResult) Tag() tag.Tag { return tag.PosMaintResult }
 
-type PosMaintRptID struct{ quickfixgo.StringValue }
+type PosMaintRptID struct{ quickfix.StringValue }
 
 func (f PosMaintRptID) Tag() tag.Tag { return tag.PosMaintRptID }
 
-type PosMaintRptRefID struct{ quickfixgo.StringValue }
+type PosMaintRptRefID struct{ quickfix.StringValue }
 
 func (f PosMaintRptRefID) Tag() tag.Tag { return tag.PosMaintRptRefID }
 
-type PosMaintStatus struct{ quickfixgo.IntValue }
+type PosMaintStatus struct{ quickfix.IntValue }
 
 func (f PosMaintStatus) Tag() tag.Tag { return tag.PosMaintStatus }
 
-type PosQtyStatus struct{ quickfixgo.IntValue }
+type PosQtyStatus struct{ quickfix.IntValue }
 
 func (f PosQtyStatus) Tag() tag.Tag { return tag.PosQtyStatus }
 
-type PosReqID struct{ quickfixgo.StringValue }
+type PosReqID struct{ quickfix.StringValue }
 
 func (f PosReqID) Tag() tag.Tag { return tag.PosReqID }
 
-type PosReqResult struct{ quickfixgo.IntValue }
+type PosReqResult struct{ quickfix.IntValue }
 
 func (f PosReqResult) Tag() tag.Tag { return tag.PosReqResult }
 
-type PosReqStatus struct{ quickfixgo.IntValue }
+type PosReqStatus struct{ quickfix.IntValue }
 
 func (f PosReqStatus) Tag() tag.Tag { return tag.PosReqStatus }
 
-type PosReqType struct{ quickfixgo.IntValue }
+type PosReqType struct{ quickfix.IntValue }
 
 func (f PosReqType) Tag() tag.Tag { return tag.PosReqType }
 
-type PosTransType struct{ quickfixgo.IntValue }
+type PosTransType struct{ quickfix.IntValue }
 
 func (f PosTransType) Tag() tag.Tag { return tag.PosTransType }
 
-type PosType struct{ quickfixgo.StringValue }
+type PosType struct{ quickfix.StringValue }
 
 func (f PosType) Tag() tag.Tag { return tag.PosType }
 
-type PositionCurrency struct{ quickfixgo.StringValue }
+type PositionCurrency struct{ quickfix.StringValue }
 
 func (f PositionCurrency) Tag() tag.Tag { return tag.PositionCurrency }
 
-type PositionEffect struct{ quickfixgo.CharValue }
+type PositionEffect struct{ quickfix.CharValue }
 
 func (f PositionEffect) Tag() tag.Tag { return tag.PositionEffect }
 
-type PositionLimit struct{ quickfixgo.IntValue }
+type PositionLimit struct{ quickfix.IntValue }
 
 func (f PositionLimit) Tag() tag.Tag { return tag.PositionLimit }
 
-type PossDupFlag struct{ quickfixgo.BooleanValue }
+type PossDupFlag struct{ quickfix.BooleanValue }
 
 func (f PossDupFlag) Tag() tag.Tag { return tag.PossDupFlag }
 
-type PossResend struct{ quickfixgo.BooleanValue }
+type PossResend struct{ quickfix.BooleanValue }
 
 func (f PossResend) Tag() tag.Tag { return tag.PossResend }
 
-type PreTradeAnonymity struct{ quickfixgo.BooleanValue }
+type PreTradeAnonymity struct{ quickfix.BooleanValue }
 
 func (f PreTradeAnonymity) Tag() tag.Tag { return tag.PreTradeAnonymity }
 
-type PreallocMethod struct{ quickfixgo.CharValue }
+type PreallocMethod struct{ quickfix.CharValue }
 
 func (f PreallocMethod) Tag() tag.Tag { return tag.PreallocMethod }
 
-type PrevClosePx struct{ quickfixgo.PriceValue }
+type PrevClosePx struct{ quickfix.PriceValue }
 
 func (f PrevClosePx) Tag() tag.Tag { return tag.PrevClosePx }
 
-type PreviouslyReported struct{ quickfixgo.BooleanValue }
+type PreviouslyReported struct{ quickfix.BooleanValue }
 
 func (f PreviouslyReported) Tag() tag.Tag { return tag.PreviouslyReported }
 
-type Price struct{ quickfixgo.PriceValue }
+type Price struct{ quickfix.PriceValue }
 
 func (f Price) Tag() tag.Tag { return tag.Price }
 
-type Price2 struct{ quickfixgo.PriceValue }
+type Price2 struct{ quickfix.PriceValue }
 
 func (f Price2) Tag() tag.Tag { return tag.Price2 }
 
-type PriceDelta struct{ quickfixgo.FloatValue }
+type PriceDelta struct{ quickfix.FloatValue }
 
 func (f PriceDelta) Tag() tag.Tag { return tag.PriceDelta }
 
-type PriceImprovement struct{ quickfixgo.PriceOffsetValue }
+type PriceImprovement struct{ quickfix.PriceOffsetValue }
 
 func (f PriceImprovement) Tag() tag.Tag { return tag.PriceImprovement }
 
-type PriceLimitType struct{ quickfixgo.IntValue }
+type PriceLimitType struct{ quickfix.IntValue }
 
 func (f PriceLimitType) Tag() tag.Tag { return tag.PriceLimitType }
 
-type PriceProtectionScope struct{ quickfixgo.CharValue }
+type PriceProtectionScope struct{ quickfix.CharValue }
 
 func (f PriceProtectionScope) Tag() tag.Tag { return tag.PriceProtectionScope }
 
-type PriceQuoteMethod struct{ quickfixgo.StringValue }
+type PriceQuoteMethod struct{ quickfix.StringValue }
 
 func (f PriceQuoteMethod) Tag() tag.Tag { return tag.PriceQuoteMethod }
 
-type PriceType struct{ quickfixgo.IntValue }
+type PriceType struct{ quickfix.IntValue }
 
 func (f PriceType) Tag() tag.Tag { return tag.PriceType }
 
-type PriceUnitOfMeasure struct{ quickfixgo.StringValue }
+type PriceUnitOfMeasure struct{ quickfix.StringValue }
 
 func (f PriceUnitOfMeasure) Tag() tag.Tag { return tag.PriceUnitOfMeasure }
 
-type PriceUnitOfMeasureQty struct{ quickfixgo.QtyValue }
+type PriceUnitOfMeasureQty struct{ quickfix.QtyValue }
 
 func (f PriceUnitOfMeasureQty) Tag() tag.Tag { return tag.PriceUnitOfMeasureQty }
 
-type PriorSettlPrice struct{ quickfixgo.PriceValue }
+type PriorSettlPrice struct{ quickfix.PriceValue }
 
 func (f PriorSettlPrice) Tag() tag.Tag { return tag.PriorSettlPrice }
 
-type PriorSpreadIndicator struct{ quickfixgo.BooleanValue }
+type PriorSpreadIndicator struct{ quickfix.BooleanValue }
 
 func (f PriorSpreadIndicator) Tag() tag.Tag { return tag.PriorSpreadIndicator }
 
-type PriorityIndicator struct{ quickfixgo.IntValue }
+type PriorityIndicator struct{ quickfix.IntValue }
 
 func (f PriorityIndicator) Tag() tag.Tag { return tag.PriorityIndicator }
 
-type PrivateQuote struct{ quickfixgo.BooleanValue }
+type PrivateQuote struct{ quickfix.BooleanValue }
 
 func (f PrivateQuote) Tag() tag.Tag { return tag.PrivateQuote }
 
-type ProcessCode struct{ quickfixgo.CharValue }
+type ProcessCode struct{ quickfix.CharValue }
 
 func (f ProcessCode) Tag() tag.Tag { return tag.ProcessCode }
 
-type Product struct{ quickfixgo.IntValue }
+type Product struct{ quickfix.IntValue }
 
 func (f Product) Tag() tag.Tag { return tag.Product }
 
-type ProductComplex struct{ quickfixgo.StringValue }
+type ProductComplex struct{ quickfix.StringValue }
 
 func (f ProductComplex) Tag() tag.Tag { return tag.ProductComplex }
 
-type ProgPeriodInterval struct{ quickfixgo.IntValue }
+type ProgPeriodInterval struct{ quickfix.IntValue }
 
 func (f ProgPeriodInterval) Tag() tag.Tag { return tag.ProgPeriodInterval }
 
-type ProgRptReqs struct{ quickfixgo.IntValue }
+type ProgRptReqs struct{ quickfix.IntValue }
 
 func (f ProgRptReqs) Tag() tag.Tag { return tag.ProgRptReqs }
 
-type PublishTrdIndicator struct{ quickfixgo.BooleanValue }
+type PublishTrdIndicator struct{ quickfix.BooleanValue }
 
 func (f PublishTrdIndicator) Tag() tag.Tag { return tag.PublishTrdIndicator }
 
-type PutOrCall struct{ quickfixgo.IntValue }
+type PutOrCall struct{ quickfix.IntValue }
 
 func (f PutOrCall) Tag() tag.Tag { return tag.PutOrCall }
 
-type QtyType struct{ quickfixgo.IntValue }
+type QtyType struct{ quickfix.IntValue }
 
 func (f QtyType) Tag() tag.Tag { return tag.QtyType }
 
-type Quantity struct{ quickfixgo.QtyValue }
+type Quantity struct{ quickfix.QtyValue }
 
 func (f Quantity) Tag() tag.Tag { return tag.Quantity }
 
-type QuantityDate struct{ quickfixgo.LocalMktDateValue }
+type QuantityDate struct{ quickfix.LocalMktDateValue }
 
 func (f QuantityDate) Tag() tag.Tag { return tag.QuantityDate }
 
-type QuantityType struct{ quickfixgo.IntValue }
+type QuantityType struct{ quickfix.IntValue }
 
 func (f QuantityType) Tag() tag.Tag { return tag.QuantityType }
 
-type QuoteAckStatus struct{ quickfixgo.IntValue }
+type QuoteAckStatus struct{ quickfix.IntValue }
 
 func (f QuoteAckStatus) Tag() tag.Tag { return tag.QuoteAckStatus }
 
-type QuoteCancelType struct{ quickfixgo.IntValue }
+type QuoteCancelType struct{ quickfix.IntValue }
 
 func (f QuoteCancelType) Tag() tag.Tag { return tag.QuoteCancelType }
 
-type QuoteCondition struct{ quickfixgo.MultipleStringValue }
+type QuoteCondition struct{ quickfix.MultipleStringValue }
 
 func (f QuoteCondition) Tag() tag.Tag { return tag.QuoteCondition }
 
-type QuoteEntryID struct{ quickfixgo.StringValue }
+type QuoteEntryID struct{ quickfix.StringValue }
 
 func (f QuoteEntryID) Tag() tag.Tag { return tag.QuoteEntryID }
 
-type QuoteEntryRejectReason struct{ quickfixgo.IntValue }
+type QuoteEntryRejectReason struct{ quickfix.IntValue }
 
 func (f QuoteEntryRejectReason) Tag() tag.Tag { return tag.QuoteEntryRejectReason }
 
-type QuoteEntryStatus struct{ quickfixgo.IntValue }
+type QuoteEntryStatus struct{ quickfix.IntValue }
 
 func (f QuoteEntryStatus) Tag() tag.Tag { return tag.QuoteEntryStatus }
 
-type QuoteID struct{ quickfixgo.StringValue }
+type QuoteID struct{ quickfix.StringValue }
 
 func (f QuoteID) Tag() tag.Tag { return tag.QuoteID }
 
-type QuoteMsgID struct{ quickfixgo.StringValue }
+type QuoteMsgID struct{ quickfix.StringValue }
 
 func (f QuoteMsgID) Tag() tag.Tag { return tag.QuoteMsgID }
 
-type QuotePriceType struct{ quickfixgo.IntValue }
+type QuotePriceType struct{ quickfix.IntValue }
 
 func (f QuotePriceType) Tag() tag.Tag { return tag.QuotePriceType }
 
-type QuoteQualifier struct{ quickfixgo.CharValue }
+type QuoteQualifier struct{ quickfix.CharValue }
 
 func (f QuoteQualifier) Tag() tag.Tag { return tag.QuoteQualifier }
 
-type QuoteRejectReason struct{ quickfixgo.IntValue }
+type QuoteRejectReason struct{ quickfix.IntValue }
 
 func (f QuoteRejectReason) Tag() tag.Tag { return tag.QuoteRejectReason }
 
-type QuoteReqID struct{ quickfixgo.StringValue }
+type QuoteReqID struct{ quickfix.StringValue }
 
 func (f QuoteReqID) Tag() tag.Tag { return tag.QuoteReqID }
 
-type QuoteRequestRejectReason struct{ quickfixgo.IntValue }
+type QuoteRequestRejectReason struct{ quickfix.IntValue }
 
 func (f QuoteRequestRejectReason) Tag() tag.Tag { return tag.QuoteRequestRejectReason }
 
-type QuoteRequestType struct{ quickfixgo.IntValue }
+type QuoteRequestType struct{ quickfix.IntValue }
 
 func (f QuoteRequestType) Tag() tag.Tag { return tag.QuoteRequestType }
 
-type QuoteRespID struct{ quickfixgo.StringValue }
+type QuoteRespID struct{ quickfix.StringValue }
 
 func (f QuoteRespID) Tag() tag.Tag { return tag.QuoteRespID }
 
-type QuoteRespType struct{ quickfixgo.IntValue }
+type QuoteRespType struct{ quickfix.IntValue }
 
 func (f QuoteRespType) Tag() tag.Tag { return tag.QuoteRespType }
 
-type QuoteResponseLevel struct{ quickfixgo.IntValue }
+type QuoteResponseLevel struct{ quickfix.IntValue }
 
 func (f QuoteResponseLevel) Tag() tag.Tag { return tag.QuoteResponseLevel }
 
-type QuoteSetID struct{ quickfixgo.StringValue }
+type QuoteSetID struct{ quickfix.StringValue }
 
 func (f QuoteSetID) Tag() tag.Tag { return tag.QuoteSetID }
 
-type QuoteSetValidUntilTime struct{ quickfixgo.UTCTimestampValue }
+type QuoteSetValidUntilTime struct{ quickfix.UTCTimestampValue }
 
 func (f QuoteSetValidUntilTime) Tag() tag.Tag { return tag.QuoteSetValidUntilTime }
 
-type QuoteStatus struct{ quickfixgo.IntValue }
+type QuoteStatus struct{ quickfix.IntValue }
 
 func (f QuoteStatus) Tag() tag.Tag { return tag.QuoteStatus }
 
-type QuoteStatusReqID struct{ quickfixgo.StringValue }
+type QuoteStatusReqID struct{ quickfix.StringValue }
 
 func (f QuoteStatusReqID) Tag() tag.Tag { return tag.QuoteStatusReqID }
 
-type QuoteType struct{ quickfixgo.IntValue }
+type QuoteType struct{ quickfix.IntValue }
 
 func (f QuoteType) Tag() tag.Tag { return tag.QuoteType }
 
-type RFQReqID struct{ quickfixgo.StringValue }
+type RFQReqID struct{ quickfix.StringValue }
 
 func (f RFQReqID) Tag() tag.Tag { return tag.RFQReqID }
 
-type RateSource struct{ quickfixgo.IntValue }
+type RateSource struct{ quickfix.IntValue }
 
 func (f RateSource) Tag() tag.Tag { return tag.RateSource }
 
-type RateSourceType struct{ quickfixgo.IntValue }
+type RateSourceType struct{ quickfix.IntValue }
 
 func (f RateSourceType) Tag() tag.Tag { return tag.RateSourceType }
 
-type RatioQty struct{ quickfixgo.QtyValue }
+type RatioQty struct{ quickfix.QtyValue }
 
 func (f RatioQty) Tag() tag.Tag { return tag.RatioQty }
 
-type RawData struct{ quickfixgo.DataValue }
+type RawData struct{ quickfix.DataValue }
 
 func (f RawData) Tag() tag.Tag { return tag.RawData }
 
-type RawDataLength struct{ quickfixgo.LengthValue }
+type RawDataLength struct{ quickfix.LengthValue }
 
 func (f RawDataLength) Tag() tag.Tag { return tag.RawDataLength }
 
-type ReceivedDeptID struct{ quickfixgo.StringValue }
+type ReceivedDeptID struct{ quickfix.StringValue }
 
 func (f ReceivedDeptID) Tag() tag.Tag { return tag.ReceivedDeptID }
 
-type RedemptionDate struct{ quickfixgo.LocalMktDateValue }
+type RedemptionDate struct{ quickfix.LocalMktDateValue }
 
 func (f RedemptionDate) Tag() tag.Tag { return tag.RedemptionDate }
 
-type RefAllocID struct{ quickfixgo.StringValue }
+type RefAllocID struct{ quickfix.StringValue }
 
 func (f RefAllocID) Tag() tag.Tag { return tag.RefAllocID }
 
-type RefApplExtID struct{ quickfixgo.IntValue }
+type RefApplExtID struct{ quickfix.IntValue }
 
 func (f RefApplExtID) Tag() tag.Tag { return tag.RefApplExtID }
 
-type RefApplID struct{ quickfixgo.StringValue }
+type RefApplID struct{ quickfix.StringValue }
 
 func (f RefApplID) Tag() tag.Tag { return tag.RefApplID }
 
-type RefApplLastSeqNum struct{ quickfixgo.SeqNumValue }
+type RefApplLastSeqNum struct{ quickfix.SeqNumValue }
 
 func (f RefApplLastSeqNum) Tag() tag.Tag { return tag.RefApplLastSeqNum }
 
-type RefApplReqID struct{ quickfixgo.StringValue }
+type RefApplReqID struct{ quickfix.StringValue }
 
 func (f RefApplReqID) Tag() tag.Tag { return tag.RefApplReqID }
 
-type RefApplVerID struct{ quickfixgo.StringValue }
+type RefApplVerID struct{ quickfix.StringValue }
 
 func (f RefApplVerID) Tag() tag.Tag { return tag.RefApplVerID }
 
-type RefCompID struct{ quickfixgo.StringValue }
+type RefCompID struct{ quickfix.StringValue }
 
 func (f RefCompID) Tag() tag.Tag { return tag.RefCompID }
 
-type RefCstmApplVerID struct{ quickfixgo.StringValue }
+type RefCstmApplVerID struct{ quickfix.StringValue }
 
 func (f RefCstmApplVerID) Tag() tag.Tag { return tag.RefCstmApplVerID }
 
-type RefMsgType struct{ quickfixgo.StringValue }
+type RefMsgType struct{ quickfix.StringValue }
 
 func (f RefMsgType) Tag() tag.Tag { return tag.RefMsgType }
 
-type RefOrdIDReason struct{ quickfixgo.IntValue }
+type RefOrdIDReason struct{ quickfix.IntValue }
 
 func (f RefOrdIDReason) Tag() tag.Tag { return tag.RefOrdIDReason }
 
-type RefOrderID struct{ quickfixgo.StringValue }
+type RefOrderID struct{ quickfix.StringValue }
 
 func (f RefOrderID) Tag() tag.Tag { return tag.RefOrderID }
 
-type RefOrderIDSource struct{ quickfixgo.CharValue }
+type RefOrderIDSource struct{ quickfix.CharValue }
 
 func (f RefOrderIDSource) Tag() tag.Tag { return tag.RefOrderIDSource }
 
-type RefSeqNum struct{ quickfixgo.SeqNumValue }
+type RefSeqNum struct{ quickfix.SeqNumValue }
 
 func (f RefSeqNum) Tag() tag.Tag { return tag.RefSeqNum }
 
-type RefSubID struct{ quickfixgo.StringValue }
+type RefSubID struct{ quickfix.StringValue }
 
 func (f RefSubID) Tag() tag.Tag { return tag.RefSubID }
 
-type RefTagID struct{ quickfixgo.IntValue }
+type RefTagID struct{ quickfix.IntValue }
 
 func (f RefTagID) Tag() tag.Tag { return tag.RefTagID }
 
-type ReferencePage struct{ quickfixgo.StringValue }
+type ReferencePage struct{ quickfix.StringValue }
 
 func (f ReferencePage) Tag() tag.Tag { return tag.ReferencePage }
 
-type RefreshIndicator struct{ quickfixgo.BooleanValue }
+type RefreshIndicator struct{ quickfix.BooleanValue }
 
 func (f RefreshIndicator) Tag() tag.Tag { return tag.RefreshIndicator }
 
-type RefreshQty struct{ quickfixgo.QtyValue }
+type RefreshQty struct{ quickfix.QtyValue }
 
 func (f RefreshQty) Tag() tag.Tag { return tag.RefreshQty }
 
-type RegistAcctType struct{ quickfixgo.StringValue }
+type RegistAcctType struct{ quickfix.StringValue }
 
 func (f RegistAcctType) Tag() tag.Tag { return tag.RegistAcctType }
 
-type RegistDetls struct{ quickfixgo.StringValue }
+type RegistDetls struct{ quickfix.StringValue }
 
 func (f RegistDetls) Tag() tag.Tag { return tag.RegistDetls }
 
-type RegistDtls struct{ quickfixgo.StringValue }
+type RegistDtls struct{ quickfix.StringValue }
 
 func (f RegistDtls) Tag() tag.Tag { return tag.RegistDtls }
 
-type RegistEmail struct{ quickfixgo.StringValue }
+type RegistEmail struct{ quickfix.StringValue }
 
 func (f RegistEmail) Tag() tag.Tag { return tag.RegistEmail }
 
-type RegistID struct{ quickfixgo.StringValue }
+type RegistID struct{ quickfix.StringValue }
 
 func (f RegistID) Tag() tag.Tag { return tag.RegistID }
 
-type RegistRefID struct{ quickfixgo.StringValue }
+type RegistRefID struct{ quickfix.StringValue }
 
 func (f RegistRefID) Tag() tag.Tag { return tag.RegistRefID }
 
-type RegistRejReasonCode struct{ quickfixgo.IntValue }
+type RegistRejReasonCode struct{ quickfix.IntValue }
 
 func (f RegistRejReasonCode) Tag() tag.Tag { return tag.RegistRejReasonCode }
 
-type RegistRejReasonText struct{ quickfixgo.StringValue }
+type RegistRejReasonText struct{ quickfix.StringValue }
 
 func (f RegistRejReasonText) Tag() tag.Tag { return tag.RegistRejReasonText }
 
-type RegistStatus struct{ quickfixgo.CharValue }
+type RegistStatus struct{ quickfix.CharValue }
 
 func (f RegistStatus) Tag() tag.Tag { return tag.RegistStatus }
 
-type RegistTransType struct{ quickfixgo.CharValue }
+type RegistTransType struct{ quickfix.CharValue }
 
 func (f RegistTransType) Tag() tag.Tag { return tag.RegistTransType }
 
-type RejectText struct{ quickfixgo.StringValue }
+type RejectText struct{ quickfix.StringValue }
 
 func (f RejectText) Tag() tag.Tag { return tag.RejectText }
 
-type RelSymTransactTime struct{ quickfixgo.UTCTimestampValue }
+type RelSymTransactTime struct{ quickfix.UTCTimestampValue }
 
 func (f RelSymTransactTime) Tag() tag.Tag { return tag.RelSymTransactTime }
 
-type RelatdSym struct{ quickfixgo.StringValue }
+type RelatdSym struct{ quickfix.StringValue }
 
 func (f RelatdSym) Tag() tag.Tag { return tag.RelatdSym }
 
-type RelatedContextPartyID struct{ quickfixgo.StringValue }
+type RelatedContextPartyID struct{ quickfix.StringValue }
 
 func (f RelatedContextPartyID) Tag() tag.Tag { return tag.RelatedContextPartyID }
 
-type RelatedContextPartyIDSource struct{ quickfixgo.CharValue }
+type RelatedContextPartyIDSource struct{ quickfix.CharValue }
 
 func (f RelatedContextPartyIDSource) Tag() tag.Tag { return tag.RelatedContextPartyIDSource }
 
-type RelatedContextPartyRole struct{ quickfixgo.IntValue }
+type RelatedContextPartyRole struct{ quickfix.IntValue }
 
 func (f RelatedContextPartyRole) Tag() tag.Tag { return tag.RelatedContextPartyRole }
 
-type RelatedContextPartySubID struct{ quickfixgo.StringValue }
+type RelatedContextPartySubID struct{ quickfix.StringValue }
 
 func (f RelatedContextPartySubID) Tag() tag.Tag { return tag.RelatedContextPartySubID }
 
-type RelatedContextPartySubIDType struct{ quickfixgo.IntValue }
+type RelatedContextPartySubIDType struct{ quickfix.IntValue }
 
 func (f RelatedContextPartySubIDType) Tag() tag.Tag { return tag.RelatedContextPartySubIDType }
 
-type RelatedPartyAltID struct{ quickfixgo.StringValue }
+type RelatedPartyAltID struct{ quickfix.StringValue }
 
 func (f RelatedPartyAltID) Tag() tag.Tag { return tag.RelatedPartyAltID }
 
-type RelatedPartyAltIDSource struct{ quickfixgo.CharValue }
+type RelatedPartyAltIDSource struct{ quickfix.CharValue }
 
 func (f RelatedPartyAltIDSource) Tag() tag.Tag { return tag.RelatedPartyAltIDSource }
 
-type RelatedPartyAltSubID struct{ quickfixgo.StringValue }
+type RelatedPartyAltSubID struct{ quickfix.StringValue }
 
 func (f RelatedPartyAltSubID) Tag() tag.Tag { return tag.RelatedPartyAltSubID }
 
-type RelatedPartyAltSubIDType struct{ quickfixgo.IntValue }
+type RelatedPartyAltSubIDType struct{ quickfix.IntValue }
 
 func (f RelatedPartyAltSubIDType) Tag() tag.Tag { return tag.RelatedPartyAltSubIDType }
 
-type RelatedPartyID struct{ quickfixgo.StringValue }
+type RelatedPartyID struct{ quickfix.StringValue }
 
 func (f RelatedPartyID) Tag() tag.Tag { return tag.RelatedPartyID }
 
-type RelatedPartyIDSource struct{ quickfixgo.CharValue }
+type RelatedPartyIDSource struct{ quickfix.CharValue }
 
 func (f RelatedPartyIDSource) Tag() tag.Tag { return tag.RelatedPartyIDSource }
 
-type RelatedPartyRole struct{ quickfixgo.IntValue }
+type RelatedPartyRole struct{ quickfix.IntValue }
 
 func (f RelatedPartyRole) Tag() tag.Tag { return tag.RelatedPartyRole }
 
-type RelatedPartySubID struct{ quickfixgo.StringValue }
+type RelatedPartySubID struct{ quickfix.StringValue }
 
 func (f RelatedPartySubID) Tag() tag.Tag { return tag.RelatedPartySubID }
 
-type RelatedPartySubIDType struct{ quickfixgo.IntValue }
+type RelatedPartySubIDType struct{ quickfix.IntValue }
 
 func (f RelatedPartySubIDType) Tag() tag.Tag { return tag.RelatedPartySubIDType }
 
-type RelationshipRiskCFICode struct{ quickfixgo.StringValue }
+type RelationshipRiskCFICode struct{ quickfix.StringValue }
 
 func (f RelationshipRiskCFICode) Tag() tag.Tag { return tag.RelationshipRiskCFICode }
 
-type RelationshipRiskCouponRate struct{ quickfixgo.PercentageValue }
+type RelationshipRiskCouponRate struct{ quickfix.PercentageValue }
 
 func (f RelationshipRiskCouponRate) Tag() tag.Tag { return tag.RelationshipRiskCouponRate }
 
-type RelationshipRiskEncodedSecurityDesc struct{ quickfixgo.DataValue }
+type RelationshipRiskEncodedSecurityDesc struct{ quickfix.DataValue }
 
 func (f RelationshipRiskEncodedSecurityDesc) Tag() tag.Tag {
 	return tag.RelationshipRiskEncodedSecurityDesc
 }
 
-type RelationshipRiskEncodedSecurityDescLen struct{ quickfixgo.LengthValue }
+type RelationshipRiskEncodedSecurityDescLen struct{ quickfix.LengthValue }
 
 func (f RelationshipRiskEncodedSecurityDescLen) Tag() tag.Tag {
 	return tag.RelationshipRiskEncodedSecurityDescLen
 }
 
-type RelationshipRiskFlexibleIndicator struct{ quickfixgo.BooleanValue }
+type RelationshipRiskFlexibleIndicator struct{ quickfix.BooleanValue }
 
 func (f RelationshipRiskFlexibleIndicator) Tag() tag.Tag { return tag.RelationshipRiskFlexibleIndicator }
 
-type RelationshipRiskInstrumentMultiplier struct{ quickfixgo.FloatValue }
+type RelationshipRiskInstrumentMultiplier struct{ quickfix.FloatValue }
 
 func (f RelationshipRiskInstrumentMultiplier) Tag() tag.Tag {
 	return tag.RelationshipRiskInstrumentMultiplier
 }
 
-type RelationshipRiskInstrumentOperator struct{ quickfixgo.IntValue }
+type RelationshipRiskInstrumentOperator struct{ quickfix.IntValue }
 
 func (f RelationshipRiskInstrumentOperator) Tag() tag.Tag {
 	return tag.RelationshipRiskInstrumentOperator
 }
 
-type RelationshipRiskInstrumentSettlType struct{ quickfixgo.StringValue }
+type RelationshipRiskInstrumentSettlType struct{ quickfix.StringValue }
 
 func (f RelationshipRiskInstrumentSettlType) Tag() tag.Tag {
 	return tag.RelationshipRiskInstrumentSettlType
 }
 
-type RelationshipRiskLimitAmount struct{ quickfixgo.AmtValue }
+type RelationshipRiskLimitAmount struct{ quickfix.AmtValue }
 
 func (f RelationshipRiskLimitAmount) Tag() tag.Tag { return tag.RelationshipRiskLimitAmount }
 
-type RelationshipRiskLimitCurrency struct{ quickfixgo.CurrencyValue }
+type RelationshipRiskLimitCurrency struct{ quickfix.CurrencyValue }
 
 func (f RelationshipRiskLimitCurrency) Tag() tag.Tag { return tag.RelationshipRiskLimitCurrency }
 
-type RelationshipRiskLimitPlatform struct{ quickfixgo.StringValue }
+type RelationshipRiskLimitPlatform struct{ quickfix.StringValue }
 
 func (f RelationshipRiskLimitPlatform) Tag() tag.Tag { return tag.RelationshipRiskLimitPlatform }
 
-type RelationshipRiskLimitType struct{ quickfixgo.IntValue }
+type RelationshipRiskLimitType struct{ quickfix.IntValue }
 
 func (f RelationshipRiskLimitType) Tag() tag.Tag { return tag.RelationshipRiskLimitType }
 
-type RelationshipRiskMaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type RelationshipRiskMaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f RelationshipRiskMaturityMonthYear) Tag() tag.Tag { return tag.RelationshipRiskMaturityMonthYear }
 
-type RelationshipRiskMaturityTime struct{ quickfixgo.TZTimeOnlyValue }
+type RelationshipRiskMaturityTime struct{ quickfix.TZTimeOnlyValue }
 
 func (f RelationshipRiskMaturityTime) Tag() tag.Tag { return tag.RelationshipRiskMaturityTime }
 
-type RelationshipRiskProduct struct{ quickfixgo.IntValue }
+type RelationshipRiskProduct struct{ quickfix.IntValue }
 
 func (f RelationshipRiskProduct) Tag() tag.Tag { return tag.RelationshipRiskProduct }
 
-type RelationshipRiskProductComplex struct{ quickfixgo.StringValue }
+type RelationshipRiskProductComplex struct{ quickfix.StringValue }
 
 func (f RelationshipRiskProductComplex) Tag() tag.Tag { return tag.RelationshipRiskProductComplex }
 
-type RelationshipRiskPutOrCall struct{ quickfixgo.IntValue }
+type RelationshipRiskPutOrCall struct{ quickfix.IntValue }
 
 func (f RelationshipRiskPutOrCall) Tag() tag.Tag { return tag.RelationshipRiskPutOrCall }
 
-type RelationshipRiskRestructuringType struct{ quickfixgo.StringValue }
+type RelationshipRiskRestructuringType struct{ quickfix.StringValue }
 
 func (f RelationshipRiskRestructuringType) Tag() tag.Tag { return tag.RelationshipRiskRestructuringType }
 
-type RelationshipRiskSecurityAltID struct{ quickfixgo.StringValue }
+type RelationshipRiskSecurityAltID struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSecurityAltID) Tag() tag.Tag { return tag.RelationshipRiskSecurityAltID }
 
-type RelationshipRiskSecurityAltIDSource struct{ quickfixgo.StringValue }
+type RelationshipRiskSecurityAltIDSource struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSecurityAltIDSource) Tag() tag.Tag {
 	return tag.RelationshipRiskSecurityAltIDSource
 }
 
-type RelationshipRiskSecurityDesc struct{ quickfixgo.StringValue }
+type RelationshipRiskSecurityDesc struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSecurityDesc) Tag() tag.Tag { return tag.RelationshipRiskSecurityDesc }
 
-type RelationshipRiskSecurityExchange struct{ quickfixgo.ExchangeValue }
+type RelationshipRiskSecurityExchange struct{ quickfix.ExchangeValue }
 
 func (f RelationshipRiskSecurityExchange) Tag() tag.Tag { return tag.RelationshipRiskSecurityExchange }
 
-type RelationshipRiskSecurityGroup struct{ quickfixgo.StringValue }
+type RelationshipRiskSecurityGroup struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSecurityGroup) Tag() tag.Tag { return tag.RelationshipRiskSecurityGroup }
 
-type RelationshipRiskSecurityID struct{ quickfixgo.StringValue }
+type RelationshipRiskSecurityID struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSecurityID) Tag() tag.Tag { return tag.RelationshipRiskSecurityID }
 
-type RelationshipRiskSecurityIDSource struct{ quickfixgo.StringValue }
+type RelationshipRiskSecurityIDSource struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSecurityIDSource) Tag() tag.Tag { return tag.RelationshipRiskSecurityIDSource }
 
-type RelationshipRiskSecuritySubType struct{ quickfixgo.StringValue }
+type RelationshipRiskSecuritySubType struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSecuritySubType) Tag() tag.Tag { return tag.RelationshipRiskSecuritySubType }
 
-type RelationshipRiskSecurityType struct{ quickfixgo.StringValue }
+type RelationshipRiskSecurityType struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSecurityType) Tag() tag.Tag { return tag.RelationshipRiskSecurityType }
 
-type RelationshipRiskSeniority struct{ quickfixgo.StringValue }
+type RelationshipRiskSeniority struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSeniority) Tag() tag.Tag { return tag.RelationshipRiskSeniority }
 
-type RelationshipRiskSymbol struct{ quickfixgo.StringValue }
+type RelationshipRiskSymbol struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSymbol) Tag() tag.Tag { return tag.RelationshipRiskSymbol }
 
-type RelationshipRiskSymbolSfx struct{ quickfixgo.StringValue }
+type RelationshipRiskSymbolSfx struct{ quickfix.StringValue }
 
 func (f RelationshipRiskSymbolSfx) Tag() tag.Tag { return tag.RelationshipRiskSymbolSfx }
 
-type RelationshipRiskWarningLevelName struct{ quickfixgo.StringValue }
+type RelationshipRiskWarningLevelName struct{ quickfix.StringValue }
 
 func (f RelationshipRiskWarningLevelName) Tag() tag.Tag { return tag.RelationshipRiskWarningLevelName }
 
-type RelationshipRiskWarningLevelPercent struct{ quickfixgo.PercentageValue }
+type RelationshipRiskWarningLevelPercent struct{ quickfix.PercentageValue }
 
 func (f RelationshipRiskWarningLevelPercent) Tag() tag.Tag {
 	return tag.RelationshipRiskWarningLevelPercent
 }
 
-type RepoCollateralSecurityType struct{ quickfixgo.IntValue }
+type RepoCollateralSecurityType struct{ quickfix.IntValue }
 
 func (f RepoCollateralSecurityType) Tag() tag.Tag { return tag.RepoCollateralSecurityType }
 
-type ReportToExch struct{ quickfixgo.BooleanValue }
+type ReportToExch struct{ quickfix.BooleanValue }
 
 func (f ReportToExch) Tag() tag.Tag { return tag.ReportToExch }
 
-type ReportedPx struct{ quickfixgo.PriceValue }
+type ReportedPx struct{ quickfix.PriceValue }
 
 func (f ReportedPx) Tag() tag.Tag { return tag.ReportedPx }
 
-type ReportedPxDiff struct{ quickfixgo.BooleanValue }
+type ReportedPxDiff struct{ quickfix.BooleanValue }
 
 func (f ReportedPxDiff) Tag() tag.Tag { return tag.ReportedPxDiff }
 
-type RepurchaseRate struct{ quickfixgo.PercentageValue }
+type RepurchaseRate struct{ quickfix.PercentageValue }
 
 func (f RepurchaseRate) Tag() tag.Tag { return tag.RepurchaseRate }
 
-type RepurchaseTerm struct{ quickfixgo.IntValue }
+type RepurchaseTerm struct{ quickfix.IntValue }
 
 func (f RepurchaseTerm) Tag() tag.Tag { return tag.RepurchaseTerm }
 
-type RequestedPartyRole struct{ quickfixgo.IntValue }
+type RequestedPartyRole struct{ quickfix.IntValue }
 
 func (f RequestedPartyRole) Tag() tag.Tag { return tag.RequestedPartyRole }
 
-type ResetSeqNumFlag struct{ quickfixgo.BooleanValue }
+type ResetSeqNumFlag struct{ quickfix.BooleanValue }
 
 func (f ResetSeqNumFlag) Tag() tag.Tag { return tag.ResetSeqNumFlag }
 
-type RespondentType struct{ quickfixgo.IntValue }
+type RespondentType struct{ quickfix.IntValue }
 
 func (f RespondentType) Tag() tag.Tag { return tag.RespondentType }
 
-type ResponseDestination struct{ quickfixgo.StringValue }
+type ResponseDestination struct{ quickfix.StringValue }
 
 func (f ResponseDestination) Tag() tag.Tag { return tag.ResponseDestination }
 
-type ResponseTransportType struct{ quickfixgo.IntValue }
+type ResponseTransportType struct{ quickfix.IntValue }
 
 func (f ResponseTransportType) Tag() tag.Tag { return tag.ResponseTransportType }
 
-type RestructuringType struct{ quickfixgo.StringValue }
+type RestructuringType struct{ quickfix.StringValue }
 
 func (f RestructuringType) Tag() tag.Tag { return tag.RestructuringType }
 
-type ReversalIndicator struct{ quickfixgo.BooleanValue }
+type ReversalIndicator struct{ quickfix.BooleanValue }
 
 func (f ReversalIndicator) Tag() tag.Tag { return tag.ReversalIndicator }
 
-type RiskCFICode struct{ quickfixgo.StringValue }
+type RiskCFICode struct{ quickfix.StringValue }
 
 func (f RiskCFICode) Tag() tag.Tag { return tag.RiskCFICode }
 
-type RiskCouponRate struct{ quickfixgo.PercentageValue }
+type RiskCouponRate struct{ quickfix.PercentageValue }
 
 func (f RiskCouponRate) Tag() tag.Tag { return tag.RiskCouponRate }
 
-type RiskEncodedSecurityDesc struct{ quickfixgo.DataValue }
+type RiskEncodedSecurityDesc struct{ quickfix.DataValue }
 
 func (f RiskEncodedSecurityDesc) Tag() tag.Tag { return tag.RiskEncodedSecurityDesc }
 
-type RiskEncodedSecurityDescLen struct{ quickfixgo.LengthValue }
+type RiskEncodedSecurityDescLen struct{ quickfix.LengthValue }
 
 func (f RiskEncodedSecurityDescLen) Tag() tag.Tag { return tag.RiskEncodedSecurityDescLen }
 
-type RiskFlexibleIndicator struct{ quickfixgo.BooleanValue }
+type RiskFlexibleIndicator struct{ quickfix.BooleanValue }
 
 func (f RiskFlexibleIndicator) Tag() tag.Tag { return tag.RiskFlexibleIndicator }
 
-type RiskFreeRate struct{ quickfixgo.FloatValue }
+type RiskFreeRate struct{ quickfix.FloatValue }
 
 func (f RiskFreeRate) Tag() tag.Tag { return tag.RiskFreeRate }
 
-type RiskInstrumentMultiplier struct{ quickfixgo.FloatValue }
+type RiskInstrumentMultiplier struct{ quickfix.FloatValue }
 
 func (f RiskInstrumentMultiplier) Tag() tag.Tag { return tag.RiskInstrumentMultiplier }
 
-type RiskInstrumentOperator struct{ quickfixgo.IntValue }
+type RiskInstrumentOperator struct{ quickfix.IntValue }
 
 func (f RiskInstrumentOperator) Tag() tag.Tag { return tag.RiskInstrumentOperator }
 
-type RiskInstrumentSettlType struct{ quickfixgo.StringValue }
+type RiskInstrumentSettlType struct{ quickfix.StringValue }
 
 func (f RiskInstrumentSettlType) Tag() tag.Tag { return tag.RiskInstrumentSettlType }
 
-type RiskLimitAmount struct{ quickfixgo.AmtValue }
+type RiskLimitAmount struct{ quickfix.AmtValue }
 
 func (f RiskLimitAmount) Tag() tag.Tag { return tag.RiskLimitAmount }
 
-type RiskLimitCurrency struct{ quickfixgo.CurrencyValue }
+type RiskLimitCurrency struct{ quickfix.CurrencyValue }
 
 func (f RiskLimitCurrency) Tag() tag.Tag { return tag.RiskLimitCurrency }
 
-type RiskLimitPlatform struct{ quickfixgo.StringValue }
+type RiskLimitPlatform struct{ quickfix.StringValue }
 
 func (f RiskLimitPlatform) Tag() tag.Tag { return tag.RiskLimitPlatform }
 
-type RiskLimitType struct{ quickfixgo.IntValue }
+type RiskLimitType struct{ quickfix.IntValue }
 
 func (f RiskLimitType) Tag() tag.Tag { return tag.RiskLimitType }
 
-type RiskMaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type RiskMaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f RiskMaturityMonthYear) Tag() tag.Tag { return tag.RiskMaturityMonthYear }
 
-type RiskMaturityTime struct{ quickfixgo.TZTimeOnlyValue }
+type RiskMaturityTime struct{ quickfix.TZTimeOnlyValue }
 
 func (f RiskMaturityTime) Tag() tag.Tag { return tag.RiskMaturityTime }
 
-type RiskProduct struct{ quickfixgo.IntValue }
+type RiskProduct struct{ quickfix.IntValue }
 
 func (f RiskProduct) Tag() tag.Tag { return tag.RiskProduct }
 
-type RiskProductComplex struct{ quickfixgo.StringValue }
+type RiskProductComplex struct{ quickfix.StringValue }
 
 func (f RiskProductComplex) Tag() tag.Tag { return tag.RiskProductComplex }
 
-type RiskPutOrCall struct{ quickfixgo.IntValue }
+type RiskPutOrCall struct{ quickfix.IntValue }
 
 func (f RiskPutOrCall) Tag() tag.Tag { return tag.RiskPutOrCall }
 
-type RiskRestructuringType struct{ quickfixgo.StringValue }
+type RiskRestructuringType struct{ quickfix.StringValue }
 
 func (f RiskRestructuringType) Tag() tag.Tag { return tag.RiskRestructuringType }
 
-type RiskSecurityAltID struct{ quickfixgo.StringValue }
+type RiskSecurityAltID struct{ quickfix.StringValue }
 
 func (f RiskSecurityAltID) Tag() tag.Tag { return tag.RiskSecurityAltID }
 
-type RiskSecurityAltIDSource struct{ quickfixgo.StringValue }
+type RiskSecurityAltIDSource struct{ quickfix.StringValue }
 
 func (f RiskSecurityAltIDSource) Tag() tag.Tag { return tag.RiskSecurityAltIDSource }
 
-type RiskSecurityDesc struct{ quickfixgo.StringValue }
+type RiskSecurityDesc struct{ quickfix.StringValue }
 
 func (f RiskSecurityDesc) Tag() tag.Tag { return tag.RiskSecurityDesc }
 
-type RiskSecurityExchange struct{ quickfixgo.ExchangeValue }
+type RiskSecurityExchange struct{ quickfix.ExchangeValue }
 
 func (f RiskSecurityExchange) Tag() tag.Tag { return tag.RiskSecurityExchange }
 
-type RiskSecurityGroup struct{ quickfixgo.StringValue }
+type RiskSecurityGroup struct{ quickfix.StringValue }
 
 func (f RiskSecurityGroup) Tag() tag.Tag { return tag.RiskSecurityGroup }
 
-type RiskSecurityID struct{ quickfixgo.StringValue }
+type RiskSecurityID struct{ quickfix.StringValue }
 
 func (f RiskSecurityID) Tag() tag.Tag { return tag.RiskSecurityID }
 
-type RiskSecurityIDSource struct{ quickfixgo.StringValue }
+type RiskSecurityIDSource struct{ quickfix.StringValue }
 
 func (f RiskSecurityIDSource) Tag() tag.Tag { return tag.RiskSecurityIDSource }
 
-type RiskSecuritySubType struct{ quickfixgo.StringValue }
+type RiskSecuritySubType struct{ quickfix.StringValue }
 
 func (f RiskSecuritySubType) Tag() tag.Tag { return tag.RiskSecuritySubType }
 
-type RiskSecurityType struct{ quickfixgo.StringValue }
+type RiskSecurityType struct{ quickfix.StringValue }
 
 func (f RiskSecurityType) Tag() tag.Tag { return tag.RiskSecurityType }
 
-type RiskSeniority struct{ quickfixgo.StringValue }
+type RiskSeniority struct{ quickfix.StringValue }
 
 func (f RiskSeniority) Tag() tag.Tag { return tag.RiskSeniority }
 
-type RiskSymbol struct{ quickfixgo.StringValue }
+type RiskSymbol struct{ quickfix.StringValue }
 
 func (f RiskSymbol) Tag() tag.Tag { return tag.RiskSymbol }
 
-type RiskSymbolSfx struct{ quickfixgo.StringValue }
+type RiskSymbolSfx struct{ quickfix.StringValue }
 
 func (f RiskSymbolSfx) Tag() tag.Tag { return tag.RiskSymbolSfx }
 
-type RiskWarningLevelName struct{ quickfixgo.StringValue }
+type RiskWarningLevelName struct{ quickfix.StringValue }
 
 func (f RiskWarningLevelName) Tag() tag.Tag { return tag.RiskWarningLevelName }
 
-type RiskWarningLevelPercent struct{ quickfixgo.PercentageValue }
+type RiskWarningLevelPercent struct{ quickfix.PercentageValue }
 
 func (f RiskWarningLevelPercent) Tag() tag.Tag { return tag.RiskWarningLevelPercent }
 
-type RndPx struct{ quickfixgo.PriceValue }
+type RndPx struct{ quickfix.PriceValue }
 
 func (f RndPx) Tag() tag.Tag { return tag.RndPx }
 
-type RootPartyID struct{ quickfixgo.StringValue }
+type RootPartyID struct{ quickfix.StringValue }
 
 func (f RootPartyID) Tag() tag.Tag { return tag.RootPartyID }
 
-type RootPartyIDSource struct{ quickfixgo.CharValue }
+type RootPartyIDSource struct{ quickfix.CharValue }
 
 func (f RootPartyIDSource) Tag() tag.Tag { return tag.RootPartyIDSource }
 
-type RootPartyRole struct{ quickfixgo.IntValue }
+type RootPartyRole struct{ quickfix.IntValue }
 
 func (f RootPartyRole) Tag() tag.Tag { return tag.RootPartyRole }
 
-type RootPartySubID struct{ quickfixgo.StringValue }
+type RootPartySubID struct{ quickfix.StringValue }
 
 func (f RootPartySubID) Tag() tag.Tag { return tag.RootPartySubID }
 
-type RootPartySubIDType struct{ quickfixgo.IntValue }
+type RootPartySubIDType struct{ quickfix.IntValue }
 
 func (f RootPartySubIDType) Tag() tag.Tag { return tag.RootPartySubIDType }
 
-type RoundLot struct{ quickfixgo.QtyValue }
+type RoundLot struct{ quickfix.QtyValue }
 
 func (f RoundLot) Tag() tag.Tag { return tag.RoundLot }
 
-type RoundingDirection struct{ quickfixgo.CharValue }
+type RoundingDirection struct{ quickfix.CharValue }
 
 func (f RoundingDirection) Tag() tag.Tag { return tag.RoundingDirection }
 
-type RoundingModulus struct{ quickfixgo.FloatValue }
+type RoundingModulus struct{ quickfix.FloatValue }
 
 func (f RoundingModulus) Tag() tag.Tag { return tag.RoundingModulus }
 
-type RoutingID struct{ quickfixgo.StringValue }
+type RoutingID struct{ quickfix.StringValue }
 
 func (f RoutingID) Tag() tag.Tag { return tag.RoutingID }
 
-type RoutingType struct{ quickfixgo.IntValue }
+type RoutingType struct{ quickfix.IntValue }
 
 func (f RoutingType) Tag() tag.Tag { return tag.RoutingType }
 
-type RptSeq struct{ quickfixgo.IntValue }
+type RptSeq struct{ quickfix.IntValue }
 
 func (f RptSeq) Tag() tag.Tag { return tag.RptSeq }
 
-type RptSys struct{ quickfixgo.StringValue }
+type RptSys struct{ quickfix.StringValue }
 
 func (f RptSys) Tag() tag.Tag { return tag.RptSys }
 
-type Rule80A struct{ quickfixgo.CharValue }
+type Rule80A struct{ quickfix.CharValue }
 
 func (f Rule80A) Tag() tag.Tag { return tag.Rule80A }
 
-type Scope struct{ quickfixgo.MultipleCharValue }
+type Scope struct{ quickfix.MultipleCharValue }
 
 func (f Scope) Tag() tag.Tag { return tag.Scope }
 
-type SecDefStatus struct{ quickfixgo.IntValue }
+type SecDefStatus struct{ quickfix.IntValue }
 
 func (f SecDefStatus) Tag() tag.Tag { return tag.SecDefStatus }
 
-type SecondaryAllocID struct{ quickfixgo.StringValue }
+type SecondaryAllocID struct{ quickfix.StringValue }
 
 func (f SecondaryAllocID) Tag() tag.Tag { return tag.SecondaryAllocID }
 
-type SecondaryClOrdID struct{ quickfixgo.StringValue }
+type SecondaryClOrdID struct{ quickfix.StringValue }
 
 func (f SecondaryClOrdID) Tag() tag.Tag { return tag.SecondaryClOrdID }
 
-type SecondaryDisplayQty struct{ quickfixgo.QtyValue }
+type SecondaryDisplayQty struct{ quickfix.QtyValue }
 
 func (f SecondaryDisplayQty) Tag() tag.Tag { return tag.SecondaryDisplayQty }
 
-type SecondaryExecID struct{ quickfixgo.StringValue }
+type SecondaryExecID struct{ quickfix.StringValue }
 
 func (f SecondaryExecID) Tag() tag.Tag { return tag.SecondaryExecID }
 
-type SecondaryFirmTradeID struct{ quickfixgo.StringValue }
+type SecondaryFirmTradeID struct{ quickfix.StringValue }
 
 func (f SecondaryFirmTradeID) Tag() tag.Tag { return tag.SecondaryFirmTradeID }
 
-type SecondaryHighLimitPrice struct{ quickfixgo.PriceValue }
+type SecondaryHighLimitPrice struct{ quickfix.PriceValue }
 
 func (f SecondaryHighLimitPrice) Tag() tag.Tag { return tag.SecondaryHighLimitPrice }
 
-type SecondaryIndividualAllocID struct{ quickfixgo.StringValue }
+type SecondaryIndividualAllocID struct{ quickfix.StringValue }
 
 func (f SecondaryIndividualAllocID) Tag() tag.Tag { return tag.SecondaryIndividualAllocID }
 
-type SecondaryLowLimitPrice struct{ quickfixgo.PriceValue }
+type SecondaryLowLimitPrice struct{ quickfix.PriceValue }
 
 func (f SecondaryLowLimitPrice) Tag() tag.Tag { return tag.SecondaryLowLimitPrice }
 
-type SecondaryOrderID struct{ quickfixgo.StringValue }
+type SecondaryOrderID struct{ quickfix.StringValue }
 
 func (f SecondaryOrderID) Tag() tag.Tag { return tag.SecondaryOrderID }
 
-type SecondaryPriceLimitType struct{ quickfixgo.IntValue }
+type SecondaryPriceLimitType struct{ quickfix.IntValue }
 
 func (f SecondaryPriceLimitType) Tag() tag.Tag { return tag.SecondaryPriceLimitType }
 
-type SecondaryTradeID struct{ quickfixgo.StringValue }
+type SecondaryTradeID struct{ quickfix.StringValue }
 
 func (f SecondaryTradeID) Tag() tag.Tag { return tag.SecondaryTradeID }
 
-type SecondaryTradeReportID struct{ quickfixgo.StringValue }
+type SecondaryTradeReportID struct{ quickfix.StringValue }
 
 func (f SecondaryTradeReportID) Tag() tag.Tag { return tag.SecondaryTradeReportID }
 
-type SecondaryTradeReportRefID struct{ quickfixgo.StringValue }
+type SecondaryTradeReportRefID struct{ quickfix.StringValue }
 
 func (f SecondaryTradeReportRefID) Tag() tag.Tag { return tag.SecondaryTradeReportRefID }
 
-type SecondaryTradingReferencePrice struct{ quickfixgo.PriceValue }
+type SecondaryTradingReferencePrice struct{ quickfix.PriceValue }
 
 func (f SecondaryTradingReferencePrice) Tag() tag.Tag { return tag.SecondaryTradingReferencePrice }
 
-type SecondaryTrdType struct{ quickfixgo.IntValue }
+type SecondaryTrdType struct{ quickfix.IntValue }
 
 func (f SecondaryTrdType) Tag() tag.Tag { return tag.SecondaryTrdType }
 
-type SecureData struct{ quickfixgo.DataValue }
+type SecureData struct{ quickfix.DataValue }
 
 func (f SecureData) Tag() tag.Tag { return tag.SecureData }
 
-type SecureDataLen struct{ quickfixgo.LengthValue }
+type SecureDataLen struct{ quickfix.LengthValue }
 
 func (f SecureDataLen) Tag() tag.Tag { return tag.SecureDataLen }
 
-type SecurityAltID struct{ quickfixgo.StringValue }
+type SecurityAltID struct{ quickfix.StringValue }
 
 func (f SecurityAltID) Tag() tag.Tag { return tag.SecurityAltID }
 
-type SecurityAltIDSource struct{ quickfixgo.StringValue }
+type SecurityAltIDSource struct{ quickfix.StringValue }
 
 func (f SecurityAltIDSource) Tag() tag.Tag { return tag.SecurityAltIDSource }
 
-type SecurityDesc struct{ quickfixgo.StringValue }
+type SecurityDesc struct{ quickfix.StringValue }
 
 func (f SecurityDesc) Tag() tag.Tag { return tag.SecurityDesc }
 
-type SecurityExchange struct{ quickfixgo.ExchangeValue }
+type SecurityExchange struct{ quickfix.ExchangeValue }
 
 func (f SecurityExchange) Tag() tag.Tag { return tag.SecurityExchange }
 
-type SecurityGroup struct{ quickfixgo.StringValue }
+type SecurityGroup struct{ quickfix.StringValue }
 
 func (f SecurityGroup) Tag() tag.Tag { return tag.SecurityGroup }
 
-type SecurityID struct{ quickfixgo.StringValue }
+type SecurityID struct{ quickfix.StringValue }
 
 func (f SecurityID) Tag() tag.Tag { return tag.SecurityID }
 
-type SecurityIDSource struct{ quickfixgo.StringValue }
+type SecurityIDSource struct{ quickfix.StringValue }
 
 func (f SecurityIDSource) Tag() tag.Tag { return tag.SecurityIDSource }
 
-type SecurityListDesc struct{ quickfixgo.StringValue }
+type SecurityListDesc struct{ quickfix.StringValue }
 
 func (f SecurityListDesc) Tag() tag.Tag { return tag.SecurityListDesc }
 
-type SecurityListID struct{ quickfixgo.StringValue }
+type SecurityListID struct{ quickfix.StringValue }
 
 func (f SecurityListID) Tag() tag.Tag { return tag.SecurityListID }
 
-type SecurityListRefID struct{ quickfixgo.StringValue }
+type SecurityListRefID struct{ quickfix.StringValue }
 
 func (f SecurityListRefID) Tag() tag.Tag { return tag.SecurityListRefID }
 
-type SecurityListRequestType struct{ quickfixgo.IntValue }
+type SecurityListRequestType struct{ quickfix.IntValue }
 
 func (f SecurityListRequestType) Tag() tag.Tag { return tag.SecurityListRequestType }
 
-type SecurityListType struct{ quickfixgo.IntValue }
+type SecurityListType struct{ quickfix.IntValue }
 
 func (f SecurityListType) Tag() tag.Tag { return tag.SecurityListType }
 
-type SecurityListTypeSource struct{ quickfixgo.IntValue }
+type SecurityListTypeSource struct{ quickfix.IntValue }
 
 func (f SecurityListTypeSource) Tag() tag.Tag { return tag.SecurityListTypeSource }
 
-type SecurityReportID struct{ quickfixgo.IntValue }
+type SecurityReportID struct{ quickfix.IntValue }
 
 func (f SecurityReportID) Tag() tag.Tag { return tag.SecurityReportID }
 
-type SecurityReqID struct{ quickfixgo.StringValue }
+type SecurityReqID struct{ quickfix.StringValue }
 
 func (f SecurityReqID) Tag() tag.Tag { return tag.SecurityReqID }
 
-type SecurityRequestResult struct{ quickfixgo.IntValue }
+type SecurityRequestResult struct{ quickfix.IntValue }
 
 func (f SecurityRequestResult) Tag() tag.Tag { return tag.SecurityRequestResult }
 
-type SecurityRequestType struct{ quickfixgo.IntValue }
+type SecurityRequestType struct{ quickfix.IntValue }
 
 func (f SecurityRequestType) Tag() tag.Tag { return tag.SecurityRequestType }
 
-type SecurityResponseID struct{ quickfixgo.StringValue }
+type SecurityResponseID struct{ quickfix.StringValue }
 
 func (f SecurityResponseID) Tag() tag.Tag { return tag.SecurityResponseID }
 
-type SecurityResponseType struct{ quickfixgo.IntValue }
+type SecurityResponseType struct{ quickfix.IntValue }
 
 func (f SecurityResponseType) Tag() tag.Tag { return tag.SecurityResponseType }
 
-type SecuritySettlAgentAcctName struct{ quickfixgo.StringValue }
+type SecuritySettlAgentAcctName struct{ quickfix.StringValue }
 
 func (f SecuritySettlAgentAcctName) Tag() tag.Tag { return tag.SecuritySettlAgentAcctName }
 
-type SecuritySettlAgentAcctNum struct{ quickfixgo.StringValue }
+type SecuritySettlAgentAcctNum struct{ quickfix.StringValue }
 
 func (f SecuritySettlAgentAcctNum) Tag() tag.Tag { return tag.SecuritySettlAgentAcctNum }
 
-type SecuritySettlAgentCode struct{ quickfixgo.StringValue }
+type SecuritySettlAgentCode struct{ quickfix.StringValue }
 
 func (f SecuritySettlAgentCode) Tag() tag.Tag { return tag.SecuritySettlAgentCode }
 
-type SecuritySettlAgentContactName struct{ quickfixgo.StringValue }
+type SecuritySettlAgentContactName struct{ quickfix.StringValue }
 
 func (f SecuritySettlAgentContactName) Tag() tag.Tag { return tag.SecuritySettlAgentContactName }
 
-type SecuritySettlAgentContactPhone struct{ quickfixgo.StringValue }
+type SecuritySettlAgentContactPhone struct{ quickfix.StringValue }
 
 func (f SecuritySettlAgentContactPhone) Tag() tag.Tag { return tag.SecuritySettlAgentContactPhone }
 
-type SecuritySettlAgentName struct{ quickfixgo.StringValue }
+type SecuritySettlAgentName struct{ quickfix.StringValue }
 
 func (f SecuritySettlAgentName) Tag() tag.Tag { return tag.SecuritySettlAgentName }
 
-type SecurityStatus struct{ quickfixgo.StringValue }
+type SecurityStatus struct{ quickfix.StringValue }
 
 func (f SecurityStatus) Tag() tag.Tag { return tag.SecurityStatus }
 
-type SecurityStatusReqID struct{ quickfixgo.StringValue }
+type SecurityStatusReqID struct{ quickfix.StringValue }
 
 func (f SecurityStatusReqID) Tag() tag.Tag { return tag.SecurityStatusReqID }
 
-type SecuritySubType struct{ quickfixgo.StringValue }
+type SecuritySubType struct{ quickfix.StringValue }
 
 func (f SecuritySubType) Tag() tag.Tag { return tag.SecuritySubType }
 
-type SecurityTradingEvent struct{ quickfixgo.IntValue }
+type SecurityTradingEvent struct{ quickfix.IntValue }
 
 func (f SecurityTradingEvent) Tag() tag.Tag { return tag.SecurityTradingEvent }
 
-type SecurityTradingStatus struct{ quickfixgo.IntValue }
+type SecurityTradingStatus struct{ quickfix.IntValue }
 
 func (f SecurityTradingStatus) Tag() tag.Tag { return tag.SecurityTradingStatus }
 
-type SecurityType struct{ quickfixgo.StringValue }
+type SecurityType struct{ quickfix.StringValue }
 
 func (f SecurityType) Tag() tag.Tag { return tag.SecurityType }
 
-type SecurityUpdateAction struct{ quickfixgo.CharValue }
+type SecurityUpdateAction struct{ quickfix.CharValue }
 
 func (f SecurityUpdateAction) Tag() tag.Tag { return tag.SecurityUpdateAction }
 
-type SecurityXML struct{ quickfixgo.XMLDataValue }
+type SecurityXML struct{ quickfix.XMLDataValue }
 
 func (f SecurityXML) Tag() tag.Tag { return tag.SecurityXML }
 
-type SecurityXMLLen struct{ quickfixgo.LengthValue }
+type SecurityXMLLen struct{ quickfix.LengthValue }
 
 func (f SecurityXMLLen) Tag() tag.Tag { return tag.SecurityXMLLen }
 
-type SecurityXMLSchema struct{ quickfixgo.StringValue }
+type SecurityXMLSchema struct{ quickfix.StringValue }
 
 func (f SecurityXMLSchema) Tag() tag.Tag { return tag.SecurityXMLSchema }
 
-type SellVolume struct{ quickfixgo.QtyValue }
+type SellVolume struct{ quickfix.QtyValue }
 
 func (f SellVolume) Tag() tag.Tag { return tag.SellVolume }
 
-type SellerDays struct{ quickfixgo.IntValue }
+type SellerDays struct{ quickfix.IntValue }
 
 func (f SellerDays) Tag() tag.Tag { return tag.SellerDays }
 
-type SenderCompID struct{ quickfixgo.StringValue }
+type SenderCompID struct{ quickfix.StringValue }
 
 func (f SenderCompID) Tag() tag.Tag { return tag.SenderCompID }
 
-type SenderLocationID struct{ quickfixgo.StringValue }
+type SenderLocationID struct{ quickfix.StringValue }
 
 func (f SenderLocationID) Tag() tag.Tag { return tag.SenderLocationID }
 
-type SenderSubID struct{ quickfixgo.StringValue }
+type SenderSubID struct{ quickfix.StringValue }
 
 func (f SenderSubID) Tag() tag.Tag { return tag.SenderSubID }
 
-type SendingDate struct{ quickfixgo.LocalMktDateValue }
+type SendingDate struct{ quickfix.LocalMktDateValue }
 
 func (f SendingDate) Tag() tag.Tag { return tag.SendingDate }
 
-type SendingTime struct{ quickfixgo.UTCTimestampValue }
+type SendingTime struct{ quickfix.UTCTimestampValue }
 
 func (f SendingTime) Tag() tag.Tag { return tag.SendingTime }
 
-type Seniority struct{ quickfixgo.StringValue }
+type Seniority struct{ quickfix.StringValue }
 
 func (f Seniority) Tag() tag.Tag { return tag.Seniority }
 
-type SessionRejectReason struct{ quickfixgo.IntValue }
+type SessionRejectReason struct{ quickfix.IntValue }
 
 func (f SessionRejectReason) Tag() tag.Tag { return tag.SessionRejectReason }
 
-type SessionStatus struct{ quickfixgo.IntValue }
+type SessionStatus struct{ quickfix.IntValue }
 
 func (f SessionStatus) Tag() tag.Tag { return tag.SessionStatus }
 
-type SettlBrkrCode struct{ quickfixgo.StringValue }
+type SettlBrkrCode struct{ quickfix.StringValue }
 
 func (f SettlBrkrCode) Tag() tag.Tag { return tag.SettlBrkrCode }
 
-type SettlCurrAmt struct{ quickfixgo.AmtValue }
+type SettlCurrAmt struct{ quickfix.AmtValue }
 
 func (f SettlCurrAmt) Tag() tag.Tag { return tag.SettlCurrAmt }
 
-type SettlCurrBidFxRate struct{ quickfixgo.FloatValue }
+type SettlCurrBidFxRate struct{ quickfix.FloatValue }
 
 func (f SettlCurrBidFxRate) Tag() tag.Tag { return tag.SettlCurrBidFxRate }
 
-type SettlCurrFxRate struct{ quickfixgo.FloatValue }
+type SettlCurrFxRate struct{ quickfix.FloatValue }
 
 func (f SettlCurrFxRate) Tag() tag.Tag { return tag.SettlCurrFxRate }
 
-type SettlCurrFxRateCalc struct{ quickfixgo.CharValue }
+type SettlCurrFxRateCalc struct{ quickfix.CharValue }
 
 func (f SettlCurrFxRateCalc) Tag() tag.Tag { return tag.SettlCurrFxRateCalc }
 
-type SettlCurrOfferFxRate struct{ quickfixgo.FloatValue }
+type SettlCurrOfferFxRate struct{ quickfix.FloatValue }
 
 func (f SettlCurrOfferFxRate) Tag() tag.Tag { return tag.SettlCurrOfferFxRate }
 
-type SettlCurrency struct{ quickfixgo.CurrencyValue }
+type SettlCurrency struct{ quickfix.CurrencyValue }
 
 func (f SettlCurrency) Tag() tag.Tag { return tag.SettlCurrency }
 
-type SettlDate struct{ quickfixgo.LocalMktDateValue }
+type SettlDate struct{ quickfix.LocalMktDateValue }
 
 func (f SettlDate) Tag() tag.Tag { return tag.SettlDate }
 
-type SettlDate2 struct{ quickfixgo.LocalMktDateValue }
+type SettlDate2 struct{ quickfix.LocalMktDateValue }
 
 func (f SettlDate2) Tag() tag.Tag { return tag.SettlDate2 }
 
-type SettlDeliveryType struct{ quickfixgo.IntValue }
+type SettlDeliveryType struct{ quickfix.IntValue }
 
 func (f SettlDeliveryType) Tag() tag.Tag { return tag.SettlDeliveryType }
 
-type SettlDepositoryCode struct{ quickfixgo.StringValue }
+type SettlDepositoryCode struct{ quickfix.StringValue }
 
 func (f SettlDepositoryCode) Tag() tag.Tag { return tag.SettlDepositoryCode }
 
-type SettlInstCode struct{ quickfixgo.StringValue }
+type SettlInstCode struct{ quickfix.StringValue }
 
 func (f SettlInstCode) Tag() tag.Tag { return tag.SettlInstCode }
 
-type SettlInstID struct{ quickfixgo.StringValue }
+type SettlInstID struct{ quickfix.StringValue }
 
 func (f SettlInstID) Tag() tag.Tag { return tag.SettlInstID }
 
-type SettlInstMode struct{ quickfixgo.CharValue }
+type SettlInstMode struct{ quickfix.CharValue }
 
 func (f SettlInstMode) Tag() tag.Tag { return tag.SettlInstMode }
 
-type SettlInstMsgID struct{ quickfixgo.StringValue }
+type SettlInstMsgID struct{ quickfix.StringValue }
 
 func (f SettlInstMsgID) Tag() tag.Tag { return tag.SettlInstMsgID }
 
-type SettlInstRefID struct{ quickfixgo.StringValue }
+type SettlInstRefID struct{ quickfix.StringValue }
 
 func (f SettlInstRefID) Tag() tag.Tag { return tag.SettlInstRefID }
 
-type SettlInstReqID struct{ quickfixgo.StringValue }
+type SettlInstReqID struct{ quickfix.StringValue }
 
 func (f SettlInstReqID) Tag() tag.Tag { return tag.SettlInstReqID }
 
-type SettlInstReqRejCode struct{ quickfixgo.IntValue }
+type SettlInstReqRejCode struct{ quickfix.IntValue }
 
 func (f SettlInstReqRejCode) Tag() tag.Tag { return tag.SettlInstReqRejCode }
 
-type SettlInstSource struct{ quickfixgo.CharValue }
+type SettlInstSource struct{ quickfix.CharValue }
 
 func (f SettlInstSource) Tag() tag.Tag { return tag.SettlInstSource }
 
-type SettlInstTransType struct{ quickfixgo.CharValue }
+type SettlInstTransType struct{ quickfix.CharValue }
 
 func (f SettlInstTransType) Tag() tag.Tag { return tag.SettlInstTransType }
 
-type SettlLocation struct{ quickfixgo.StringValue }
+type SettlLocation struct{ quickfix.StringValue }
 
 func (f SettlLocation) Tag() tag.Tag { return tag.SettlLocation }
 
-type SettlMethod struct{ quickfixgo.CharValue }
+type SettlMethod struct{ quickfix.CharValue }
 
 func (f SettlMethod) Tag() tag.Tag { return tag.SettlMethod }
 
-type SettlObligID struct{ quickfixgo.StringValue }
+type SettlObligID struct{ quickfix.StringValue }
 
 func (f SettlObligID) Tag() tag.Tag { return tag.SettlObligID }
 
-type SettlObligMode struct{ quickfixgo.IntValue }
+type SettlObligMode struct{ quickfix.IntValue }
 
 func (f SettlObligMode) Tag() tag.Tag { return tag.SettlObligMode }
 
-type SettlObligMsgID struct{ quickfixgo.StringValue }
+type SettlObligMsgID struct{ quickfix.StringValue }
 
 func (f SettlObligMsgID) Tag() tag.Tag { return tag.SettlObligMsgID }
 
-type SettlObligRefID struct{ quickfixgo.StringValue }
+type SettlObligRefID struct{ quickfix.StringValue }
 
 func (f SettlObligRefID) Tag() tag.Tag { return tag.SettlObligRefID }
 
-type SettlObligSource struct{ quickfixgo.CharValue }
+type SettlObligSource struct{ quickfix.CharValue }
 
 func (f SettlObligSource) Tag() tag.Tag { return tag.SettlObligSource }
 
-type SettlObligTransType struct{ quickfixgo.CharValue }
+type SettlObligTransType struct{ quickfix.CharValue }
 
 func (f SettlObligTransType) Tag() tag.Tag { return tag.SettlObligTransType }
 
-type SettlPartyID struct{ quickfixgo.StringValue }
+type SettlPartyID struct{ quickfix.StringValue }
 
 func (f SettlPartyID) Tag() tag.Tag { return tag.SettlPartyID }
 
-type SettlPartyIDSource struct{ quickfixgo.CharValue }
+type SettlPartyIDSource struct{ quickfix.CharValue }
 
 func (f SettlPartyIDSource) Tag() tag.Tag { return tag.SettlPartyIDSource }
 
-type SettlPartyRole struct{ quickfixgo.IntValue }
+type SettlPartyRole struct{ quickfix.IntValue }
 
 func (f SettlPartyRole) Tag() tag.Tag { return tag.SettlPartyRole }
 
-type SettlPartySubID struct{ quickfixgo.StringValue }
+type SettlPartySubID struct{ quickfix.StringValue }
 
 func (f SettlPartySubID) Tag() tag.Tag { return tag.SettlPartySubID }
 
-type SettlPartySubIDType struct{ quickfixgo.IntValue }
+type SettlPartySubIDType struct{ quickfix.IntValue }
 
 func (f SettlPartySubIDType) Tag() tag.Tag { return tag.SettlPartySubIDType }
 
-type SettlPrice struct{ quickfixgo.PriceValue }
+type SettlPrice struct{ quickfix.PriceValue }
 
 func (f SettlPrice) Tag() tag.Tag { return tag.SettlPrice }
 
-type SettlPriceType struct{ quickfixgo.IntValue }
+type SettlPriceType struct{ quickfix.IntValue }
 
 func (f SettlPriceType) Tag() tag.Tag { return tag.SettlPriceType }
 
-type SettlSessID struct{ quickfixgo.StringValue }
+type SettlSessID struct{ quickfix.StringValue }
 
 func (f SettlSessID) Tag() tag.Tag { return tag.SettlSessID }
 
-type SettlSessSubID struct{ quickfixgo.StringValue }
+type SettlSessSubID struct{ quickfix.StringValue }
 
 func (f SettlSessSubID) Tag() tag.Tag { return tag.SettlSessSubID }
 
-type SettlType struct{ quickfixgo.StringValue }
+type SettlType struct{ quickfix.StringValue }
 
 func (f SettlType) Tag() tag.Tag { return tag.SettlType }
 
-type SettleOnOpenFlag struct{ quickfixgo.StringValue }
+type SettleOnOpenFlag struct{ quickfix.StringValue }
 
 func (f SettleOnOpenFlag) Tag() tag.Tag { return tag.SettleOnOpenFlag }
 
-type SettlementCycleNo struct{ quickfixgo.IntValue }
+type SettlementCycleNo struct{ quickfix.IntValue }
 
 func (f SettlementCycleNo) Tag() tag.Tag { return tag.SettlementCycleNo }
 
-type SettlmntTyp struct{ quickfixgo.CharValue }
+type SettlmntTyp struct{ quickfix.CharValue }
 
 func (f SettlmntTyp) Tag() tag.Tag { return tag.SettlmntTyp }
 
-type SharedCommission struct{ quickfixgo.AmtValue }
+type SharedCommission struct{ quickfix.AmtValue }
 
 func (f SharedCommission) Tag() tag.Tag { return tag.SharedCommission }
 
-type Shares struct{ quickfixgo.QtyValue }
+type Shares struct{ quickfix.QtyValue }
 
 func (f Shares) Tag() tag.Tag { return tag.Shares }
 
-type ShortQty struct{ quickfixgo.QtyValue }
+type ShortQty struct{ quickfix.QtyValue }
 
 func (f ShortQty) Tag() tag.Tag { return tag.ShortQty }
 
-type ShortSaleReason struct{ quickfixgo.IntValue }
+type ShortSaleReason struct{ quickfix.IntValue }
 
 func (f ShortSaleReason) Tag() tag.Tag { return tag.ShortSaleReason }
 
-type Side struct{ quickfixgo.CharValue }
+type Side struct{ quickfix.CharValue }
 
 func (f Side) Tag() tag.Tag { return tag.Side }
 
-type SideComplianceID struct{ quickfixgo.StringValue }
+type SideComplianceID struct{ quickfix.StringValue }
 
 func (f SideComplianceID) Tag() tag.Tag { return tag.SideComplianceID }
 
-type SideCurrency struct{ quickfixgo.CurrencyValue }
+type SideCurrency struct{ quickfix.CurrencyValue }
 
 func (f SideCurrency) Tag() tag.Tag { return tag.SideCurrency }
 
-type SideExecID struct{ quickfixgo.StringValue }
+type SideExecID struct{ quickfix.StringValue }
 
 func (f SideExecID) Tag() tag.Tag { return tag.SideExecID }
 
-type SideFillStationCd struct{ quickfixgo.StringValue }
+type SideFillStationCd struct{ quickfix.StringValue }
 
 func (f SideFillStationCd) Tag() tag.Tag { return tag.SideFillStationCd }
 
-type SideGrossTradeAmt struct{ quickfixgo.AmtValue }
+type SideGrossTradeAmt struct{ quickfix.AmtValue }
 
 func (f SideGrossTradeAmt) Tag() tag.Tag { return tag.SideGrossTradeAmt }
 
-type SideLastQty struct{ quickfixgo.IntValue }
+type SideLastQty struct{ quickfix.IntValue }
 
 func (f SideLastQty) Tag() tag.Tag { return tag.SideLastQty }
 
-type SideLiquidityInd struct{ quickfixgo.IntValue }
+type SideLiquidityInd struct{ quickfix.IntValue }
 
 func (f SideLiquidityInd) Tag() tag.Tag { return tag.SideLiquidityInd }
 
-type SideMultiLegReportingType struct{ quickfixgo.IntValue }
+type SideMultiLegReportingType struct{ quickfix.IntValue }
 
 func (f SideMultiLegReportingType) Tag() tag.Tag { return tag.SideMultiLegReportingType }
 
-type SideQty struct{ quickfixgo.IntValue }
+type SideQty struct{ quickfix.IntValue }
 
 func (f SideQty) Tag() tag.Tag { return tag.SideQty }
 
-type SideReasonCd struct{ quickfixgo.StringValue }
+type SideReasonCd struct{ quickfix.StringValue }
 
 func (f SideReasonCd) Tag() tag.Tag { return tag.SideReasonCd }
 
-type SideSettlCurrency struct{ quickfixgo.CurrencyValue }
+type SideSettlCurrency struct{ quickfix.CurrencyValue }
 
 func (f SideSettlCurrency) Tag() tag.Tag { return tag.SideSettlCurrency }
 
-type SideTimeInForce struct{ quickfixgo.UTCTimestampValue }
+type SideTimeInForce struct{ quickfix.UTCTimestampValue }
 
 func (f SideTimeInForce) Tag() tag.Tag { return tag.SideTimeInForce }
 
-type SideTradeReportID struct{ quickfixgo.StringValue }
+type SideTradeReportID struct{ quickfix.StringValue }
 
 func (f SideTradeReportID) Tag() tag.Tag { return tag.SideTradeReportID }
 
-type SideTrdRegTimestamp struct{ quickfixgo.UTCTimestampValue }
+type SideTrdRegTimestamp struct{ quickfix.UTCTimestampValue }
 
 func (f SideTrdRegTimestamp) Tag() tag.Tag { return tag.SideTrdRegTimestamp }
 
-type SideTrdRegTimestampSrc struct{ quickfixgo.StringValue }
+type SideTrdRegTimestampSrc struct{ quickfix.StringValue }
 
 func (f SideTrdRegTimestampSrc) Tag() tag.Tag { return tag.SideTrdRegTimestampSrc }
 
-type SideTrdRegTimestampType struct{ quickfixgo.IntValue }
+type SideTrdRegTimestampType struct{ quickfix.IntValue }
 
 func (f SideTrdRegTimestampType) Tag() tag.Tag { return tag.SideTrdRegTimestampType }
 
-type SideTrdSubTyp struct{ quickfixgo.IntValue }
+type SideTrdSubTyp struct{ quickfix.IntValue }
 
 func (f SideTrdSubTyp) Tag() tag.Tag { return tag.SideTrdSubTyp }
 
-type SideValue1 struct{ quickfixgo.AmtValue }
+type SideValue1 struct{ quickfix.AmtValue }
 
 func (f SideValue1) Tag() tag.Tag { return tag.SideValue1 }
 
-type SideValue2 struct{ quickfixgo.AmtValue }
+type SideValue2 struct{ quickfix.AmtValue }
 
 func (f SideValue2) Tag() tag.Tag { return tag.SideValue2 }
 
-type SideValueInd struct{ quickfixgo.IntValue }
+type SideValueInd struct{ quickfix.IntValue }
 
 func (f SideValueInd) Tag() tag.Tag { return tag.SideValueInd }
 
-type Signature struct{ quickfixgo.DataValue }
+type Signature struct{ quickfix.DataValue }
 
 func (f Signature) Tag() tag.Tag { return tag.Signature }
 
-type SignatureLength struct{ quickfixgo.LengthValue }
+type SignatureLength struct{ quickfix.LengthValue }
 
 func (f SignatureLength) Tag() tag.Tag { return tag.SignatureLength }
 
-type SolicitedFlag struct{ quickfixgo.BooleanValue }
+type SolicitedFlag struct{ quickfix.BooleanValue }
 
 func (f SolicitedFlag) Tag() tag.Tag { return tag.SolicitedFlag }
 
-type Spread struct{ quickfixgo.PriceOffsetValue }
+type Spread struct{ quickfix.PriceOffsetValue }
 
 func (f Spread) Tag() tag.Tag { return tag.Spread }
 
-type SpreadToBenchmark struct{ quickfixgo.PriceOffsetValue }
+type SpreadToBenchmark struct{ quickfix.PriceOffsetValue }
 
 func (f SpreadToBenchmark) Tag() tag.Tag { return tag.SpreadToBenchmark }
 
-type StandInstDbID struct{ quickfixgo.StringValue }
+type StandInstDbID struct{ quickfix.StringValue }
 
 func (f StandInstDbID) Tag() tag.Tag { return tag.StandInstDbID }
 
-type StandInstDbName struct{ quickfixgo.StringValue }
+type StandInstDbName struct{ quickfix.StringValue }
 
 func (f StandInstDbName) Tag() tag.Tag { return tag.StandInstDbName }
 
-type StandInstDbType struct{ quickfixgo.IntValue }
+type StandInstDbType struct{ quickfix.IntValue }
 
 func (f StandInstDbType) Tag() tag.Tag { return tag.StandInstDbType }
 
-type StartCash struct{ quickfixgo.AmtValue }
+type StartCash struct{ quickfix.AmtValue }
 
 func (f StartCash) Tag() tag.Tag { return tag.StartCash }
 
-type StartDate struct{ quickfixgo.LocalMktDateValue }
+type StartDate struct{ quickfix.LocalMktDateValue }
 
 func (f StartDate) Tag() tag.Tag { return tag.StartDate }
 
-type StartMaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type StartMaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f StartMaturityMonthYear) Tag() tag.Tag { return tag.StartMaturityMonthYear }
 
-type StartStrikePxRange struct{ quickfixgo.PriceValue }
+type StartStrikePxRange struct{ quickfix.PriceValue }
 
 func (f StartStrikePxRange) Tag() tag.Tag { return tag.StartStrikePxRange }
 
-type StartTickPriceRange struct{ quickfixgo.PriceValue }
+type StartTickPriceRange struct{ quickfix.PriceValue }
 
 func (f StartTickPriceRange) Tag() tag.Tag { return tag.StartTickPriceRange }
 
-type StateOrProvinceOfIssue struct{ quickfixgo.StringValue }
+type StateOrProvinceOfIssue struct{ quickfix.StringValue }
 
 func (f StateOrProvinceOfIssue) Tag() tag.Tag { return tag.StateOrProvinceOfIssue }
 
-type StatsType struct{ quickfixgo.IntValue }
+type StatsType struct{ quickfix.IntValue }
 
 func (f StatsType) Tag() tag.Tag { return tag.StatsType }
 
-type StatusText struct{ quickfixgo.StringValue }
+type StatusText struct{ quickfix.StringValue }
 
 func (f StatusText) Tag() tag.Tag { return tag.StatusText }
 
-type StatusValue struct{ quickfixgo.IntValue }
+type StatusValue struct{ quickfix.IntValue }
 
 func (f StatusValue) Tag() tag.Tag { return tag.StatusValue }
 
-type StipulationType struct{ quickfixgo.StringValue }
+type StipulationType struct{ quickfix.StringValue }
 
 func (f StipulationType) Tag() tag.Tag { return tag.StipulationType }
 
-type StipulationValue struct{ quickfixgo.StringValue }
+type StipulationValue struct{ quickfix.StringValue }
 
 func (f StipulationValue) Tag() tag.Tag { return tag.StipulationValue }
 
-type StopPx struct{ quickfixgo.PriceValue }
+type StopPx struct{ quickfix.PriceValue }
 
 func (f StopPx) Tag() tag.Tag { return tag.StopPx }
 
-type StrategyParameterName struct{ quickfixgo.StringValue }
+type StrategyParameterName struct{ quickfix.StringValue }
 
 func (f StrategyParameterName) Tag() tag.Tag { return tag.StrategyParameterName }
 
-type StrategyParameterType struct{ quickfixgo.IntValue }
+type StrategyParameterType struct{ quickfix.IntValue }
 
 func (f StrategyParameterType) Tag() tag.Tag { return tag.StrategyParameterType }
 
-type StrategyParameterValue struct{ quickfixgo.StringValue }
+type StrategyParameterValue struct{ quickfix.StringValue }
 
 func (f StrategyParameterValue) Tag() tag.Tag { return tag.StrategyParameterValue }
 
-type StreamAsgnAckType struct{ quickfixgo.IntValue }
+type StreamAsgnAckType struct{ quickfix.IntValue }
 
 func (f StreamAsgnAckType) Tag() tag.Tag { return tag.StreamAsgnAckType }
 
-type StreamAsgnRejReason struct{ quickfixgo.IntValue }
+type StreamAsgnRejReason struct{ quickfix.IntValue }
 
 func (f StreamAsgnRejReason) Tag() tag.Tag { return tag.StreamAsgnRejReason }
 
-type StreamAsgnReqID struct{ quickfixgo.StringValue }
+type StreamAsgnReqID struct{ quickfix.StringValue }
 
 func (f StreamAsgnReqID) Tag() tag.Tag { return tag.StreamAsgnReqID }
 
-type StreamAsgnReqType struct{ quickfixgo.IntValue }
+type StreamAsgnReqType struct{ quickfix.IntValue }
 
 func (f StreamAsgnReqType) Tag() tag.Tag { return tag.StreamAsgnReqType }
 
-type StreamAsgnRptID struct{ quickfixgo.StringValue }
+type StreamAsgnRptID struct{ quickfix.StringValue }
 
 func (f StreamAsgnRptID) Tag() tag.Tag { return tag.StreamAsgnRptID }
 
-type StreamAsgnType struct{ quickfixgo.IntValue }
+type StreamAsgnType struct{ quickfix.IntValue }
 
 func (f StreamAsgnType) Tag() tag.Tag { return tag.StreamAsgnType }
 
-type StrikeCurrency struct{ quickfixgo.CurrencyValue }
+type StrikeCurrency struct{ quickfix.CurrencyValue }
 
 func (f StrikeCurrency) Tag() tag.Tag { return tag.StrikeCurrency }
 
-type StrikeExerciseStyle struct{ quickfixgo.IntValue }
+type StrikeExerciseStyle struct{ quickfix.IntValue }
 
 func (f StrikeExerciseStyle) Tag() tag.Tag { return tag.StrikeExerciseStyle }
 
-type StrikeIncrement struct{ quickfixgo.FloatValue }
+type StrikeIncrement struct{ quickfix.FloatValue }
 
 func (f StrikeIncrement) Tag() tag.Tag { return tag.StrikeIncrement }
 
-type StrikeMultiplier struct{ quickfixgo.FloatValue }
+type StrikeMultiplier struct{ quickfix.FloatValue }
 
 func (f StrikeMultiplier) Tag() tag.Tag { return tag.StrikeMultiplier }
 
-type StrikePrice struct{ quickfixgo.PriceValue }
+type StrikePrice struct{ quickfix.PriceValue }
 
 func (f StrikePrice) Tag() tag.Tag { return tag.StrikePrice }
 
-type StrikePriceBoundaryMethod struct{ quickfixgo.IntValue }
+type StrikePriceBoundaryMethod struct{ quickfix.IntValue }
 
 func (f StrikePriceBoundaryMethod) Tag() tag.Tag { return tag.StrikePriceBoundaryMethod }
 
-type StrikePriceBoundaryPrecision struct{ quickfixgo.PercentageValue }
+type StrikePriceBoundaryPrecision struct{ quickfix.PercentageValue }
 
 func (f StrikePriceBoundaryPrecision) Tag() tag.Tag { return tag.StrikePriceBoundaryPrecision }
 
-type StrikePriceDeterminationMethod struct{ quickfixgo.IntValue }
+type StrikePriceDeterminationMethod struct{ quickfix.IntValue }
 
 func (f StrikePriceDeterminationMethod) Tag() tag.Tag { return tag.StrikePriceDeterminationMethod }
 
-type StrikeRuleID struct{ quickfixgo.StringValue }
+type StrikeRuleID struct{ quickfix.StringValue }
 
 func (f StrikeRuleID) Tag() tag.Tag { return tag.StrikeRuleID }
 
-type StrikeTime struct{ quickfixgo.UTCTimestampValue }
+type StrikeTime struct{ quickfix.UTCTimestampValue }
 
 func (f StrikeTime) Tag() tag.Tag { return tag.StrikeTime }
 
-type StrikeValue struct{ quickfixgo.FloatValue }
+type StrikeValue struct{ quickfix.FloatValue }
 
 func (f StrikeValue) Tag() tag.Tag { return tag.StrikeValue }
 
-type Subject struct{ quickfixgo.StringValue }
+type Subject struct{ quickfix.StringValue }
 
 func (f Subject) Tag() tag.Tag { return tag.Subject }
 
-type SubscriptionRequestType struct{ quickfixgo.CharValue }
+type SubscriptionRequestType struct{ quickfix.CharValue }
 
 func (f SubscriptionRequestType) Tag() tag.Tag { return tag.SubscriptionRequestType }
 
-type SwapPoints struct{ quickfixgo.PriceOffsetValue }
+type SwapPoints struct{ quickfix.PriceOffsetValue }
 
 func (f SwapPoints) Tag() tag.Tag { return tag.SwapPoints }
 
-type Symbol struct{ quickfixgo.StringValue }
+type Symbol struct{ quickfix.StringValue }
 
 func (f Symbol) Tag() tag.Tag { return tag.Symbol }
 
-type SymbolSfx struct{ quickfixgo.StringValue }
+type SymbolSfx struct{ quickfix.StringValue }
 
 func (f SymbolSfx) Tag() tag.Tag { return tag.SymbolSfx }
 
-type TZTransactTime struct{ quickfixgo.TZTimestampValue }
+type TZTransactTime struct{ quickfix.TZTimestampValue }
 
 func (f TZTransactTime) Tag() tag.Tag { return tag.TZTransactTime }
 
-type TargetCompID struct{ quickfixgo.StringValue }
+type TargetCompID struct{ quickfix.StringValue }
 
 func (f TargetCompID) Tag() tag.Tag { return tag.TargetCompID }
 
-type TargetLocationID struct{ quickfixgo.StringValue }
+type TargetLocationID struct{ quickfix.StringValue }
 
 func (f TargetLocationID) Tag() tag.Tag { return tag.TargetLocationID }
 
-type TargetPartyID struct{ quickfixgo.StringValue }
+type TargetPartyID struct{ quickfix.StringValue }
 
 func (f TargetPartyID) Tag() tag.Tag { return tag.TargetPartyID }
 
-type TargetPartyIDSource struct{ quickfixgo.CharValue }
+type TargetPartyIDSource struct{ quickfix.CharValue }
 
 func (f TargetPartyIDSource) Tag() tag.Tag { return tag.TargetPartyIDSource }
 
-type TargetPartyRole struct{ quickfixgo.IntValue }
+type TargetPartyRole struct{ quickfix.IntValue }
 
 func (f TargetPartyRole) Tag() tag.Tag { return tag.TargetPartyRole }
 
-type TargetStrategy struct{ quickfixgo.IntValue }
+type TargetStrategy struct{ quickfix.IntValue }
 
 func (f TargetStrategy) Tag() tag.Tag { return tag.TargetStrategy }
 
-type TargetStrategyParameters struct{ quickfixgo.StringValue }
+type TargetStrategyParameters struct{ quickfix.StringValue }
 
 func (f TargetStrategyParameters) Tag() tag.Tag { return tag.TargetStrategyParameters }
 
-type TargetStrategyPerformance struct{ quickfixgo.FloatValue }
+type TargetStrategyPerformance struct{ quickfix.FloatValue }
 
 func (f TargetStrategyPerformance) Tag() tag.Tag { return tag.TargetStrategyPerformance }
 
-type TargetSubID struct{ quickfixgo.StringValue }
+type TargetSubID struct{ quickfix.StringValue }
 
 func (f TargetSubID) Tag() tag.Tag { return tag.TargetSubID }
 
-type TaxAdvantageType struct{ quickfixgo.IntValue }
+type TaxAdvantageType struct{ quickfix.IntValue }
 
 func (f TaxAdvantageType) Tag() tag.Tag { return tag.TaxAdvantageType }
 
-type TerminationType struct{ quickfixgo.IntValue }
+type TerminationType struct{ quickfix.IntValue }
 
 func (f TerminationType) Tag() tag.Tag { return tag.TerminationType }
 
-type TestMessageIndicator struct{ quickfixgo.BooleanValue }
+type TestMessageIndicator struct{ quickfix.BooleanValue }
 
 func (f TestMessageIndicator) Tag() tag.Tag { return tag.TestMessageIndicator }
 
-type TestReqID struct{ quickfixgo.StringValue }
+type TestReqID struct{ quickfix.StringValue }
 
 func (f TestReqID) Tag() tag.Tag { return tag.TestReqID }
 
-type Text struct{ quickfixgo.StringValue }
+type Text struct{ quickfix.StringValue }
 
 func (f Text) Tag() tag.Tag { return tag.Text }
 
-type ThresholdAmount struct{ quickfixgo.PriceOffsetValue }
+type ThresholdAmount struct{ quickfix.PriceOffsetValue }
 
 func (f ThresholdAmount) Tag() tag.Tag { return tag.ThresholdAmount }
 
-type TickDirection struct{ quickfixgo.CharValue }
+type TickDirection struct{ quickfix.CharValue }
 
 func (f TickDirection) Tag() tag.Tag { return tag.TickDirection }
 
-type TickIncrement struct{ quickfixgo.PriceValue }
+type TickIncrement struct{ quickfix.PriceValue }
 
 func (f TickIncrement) Tag() tag.Tag { return tag.TickIncrement }
 
-type TickRuleType struct{ quickfixgo.IntValue }
+type TickRuleType struct{ quickfix.IntValue }
 
 func (f TickRuleType) Tag() tag.Tag { return tag.TickRuleType }
 
-type TierCode struct{ quickfixgo.StringValue }
+type TierCode struct{ quickfix.StringValue }
 
 func (f TierCode) Tag() tag.Tag { return tag.TierCode }
 
-type TimeBracket struct{ quickfixgo.StringValue }
+type TimeBracket struct{ quickfix.StringValue }
 
 func (f TimeBracket) Tag() tag.Tag { return tag.TimeBracket }
 
-type TimeInForce struct{ quickfixgo.CharValue }
+type TimeInForce struct{ quickfix.CharValue }
 
 func (f TimeInForce) Tag() tag.Tag { return tag.TimeInForce }
 
-type TimeToExpiration struct{ quickfixgo.FloatValue }
+type TimeToExpiration struct{ quickfix.FloatValue }
 
 func (f TimeToExpiration) Tag() tag.Tag { return tag.TimeToExpiration }
 
-type TimeUnit struct{ quickfixgo.StringValue }
+type TimeUnit struct{ quickfix.StringValue }
 
 func (f TimeUnit) Tag() tag.Tag { return tag.TimeUnit }
 
-type TotNoAccQuotes struct{ quickfixgo.IntValue }
+type TotNoAccQuotes struct{ quickfix.IntValue }
 
 func (f TotNoAccQuotes) Tag() tag.Tag { return tag.TotNoAccQuotes }
 
-type TotNoAllocs struct{ quickfixgo.IntValue }
+type TotNoAllocs struct{ quickfix.IntValue }
 
 func (f TotNoAllocs) Tag() tag.Tag { return tag.TotNoAllocs }
 
-type TotNoCxldQuotes struct{ quickfixgo.IntValue }
+type TotNoCxldQuotes struct{ quickfix.IntValue }
 
 func (f TotNoCxldQuotes) Tag() tag.Tag { return tag.TotNoCxldQuotes }
 
-type TotNoFills struct{ quickfixgo.IntValue }
+type TotNoFills struct{ quickfix.IntValue }
 
 func (f TotNoFills) Tag() tag.Tag { return tag.TotNoFills }
 
-type TotNoOrders struct{ quickfixgo.IntValue }
+type TotNoOrders struct{ quickfix.IntValue }
 
 func (f TotNoOrders) Tag() tag.Tag { return tag.TotNoOrders }
 
-type TotNoPartyList struct{ quickfixgo.IntValue }
+type TotNoPartyList struct{ quickfix.IntValue }
 
 func (f TotNoPartyList) Tag() tag.Tag { return tag.TotNoPartyList }
 
-type TotNoQuoteEntries struct{ quickfixgo.IntValue }
+type TotNoQuoteEntries struct{ quickfix.IntValue }
 
 func (f TotNoQuoteEntries) Tag() tag.Tag { return tag.TotNoQuoteEntries }
 
-type TotNoRejQuotes struct{ quickfixgo.IntValue }
+type TotNoRejQuotes struct{ quickfix.IntValue }
 
 func (f TotNoRejQuotes) Tag() tag.Tag { return tag.TotNoRejQuotes }
 
-type TotNoRelatedSym struct{ quickfixgo.IntValue }
+type TotNoRelatedSym struct{ quickfix.IntValue }
 
 func (f TotNoRelatedSym) Tag() tag.Tag { return tag.TotNoRelatedSym }
 
-type TotNoSecurityTypes struct{ quickfixgo.IntValue }
+type TotNoSecurityTypes struct{ quickfix.IntValue }
 
 func (f TotNoSecurityTypes) Tag() tag.Tag { return tag.TotNoSecurityTypes }
 
-type TotNoStrikes struct{ quickfixgo.IntValue }
+type TotNoStrikes struct{ quickfix.IntValue }
 
 func (f TotNoStrikes) Tag() tag.Tag { return tag.TotNoStrikes }
 
-type TotNumAssignmentReports struct{ quickfixgo.IntValue }
+type TotNumAssignmentReports struct{ quickfix.IntValue }
 
 func (f TotNumAssignmentReports) Tag() tag.Tag { return tag.TotNumAssignmentReports }
 
-type TotNumReports struct{ quickfixgo.IntValue }
+type TotNumReports struct{ quickfix.IntValue }
 
 func (f TotNumReports) Tag() tag.Tag { return tag.TotNumReports }
 
-type TotNumTradeReports struct{ quickfixgo.IntValue }
+type TotNumTradeReports struct{ quickfix.IntValue }
 
 func (f TotNumTradeReports) Tag() tag.Tag { return tag.TotNumTradeReports }
 
-type TotQuoteEntries struct{ quickfixgo.IntValue }
+type TotQuoteEntries struct{ quickfix.IntValue }
 
 func (f TotQuoteEntries) Tag() tag.Tag { return tag.TotQuoteEntries }
 
-type TotalAccruedInterestAmt struct{ quickfixgo.AmtValue }
+type TotalAccruedInterestAmt struct{ quickfix.AmtValue }
 
 func (f TotalAccruedInterestAmt) Tag() tag.Tag { return tag.TotalAccruedInterestAmt }
 
-type TotalAffectedOrders struct{ quickfixgo.IntValue }
+type TotalAffectedOrders struct{ quickfix.IntValue }
 
 func (f TotalAffectedOrders) Tag() tag.Tag { return tag.TotalAffectedOrders }
 
-type TotalNetValue struct{ quickfixgo.AmtValue }
+type TotalNetValue struct{ quickfix.AmtValue }
 
 func (f TotalNetValue) Tag() tag.Tag { return tag.TotalNetValue }
 
-type TotalNumPosReports struct{ quickfixgo.IntValue }
+type TotalNumPosReports struct{ quickfix.IntValue }
 
 func (f TotalNumPosReports) Tag() tag.Tag { return tag.TotalNumPosReports }
 
-type TotalNumSecurities struct{ quickfixgo.IntValue }
+type TotalNumSecurities struct{ quickfix.IntValue }
 
 func (f TotalNumSecurities) Tag() tag.Tag { return tag.TotalNumSecurities }
 
-type TotalNumSecurityTypes struct{ quickfixgo.IntValue }
+type TotalNumSecurityTypes struct{ quickfix.IntValue }
 
 func (f TotalNumSecurityTypes) Tag() tag.Tag { return tag.TotalNumSecurityTypes }
 
-type TotalTakedown struct{ quickfixgo.AmtValue }
+type TotalTakedown struct{ quickfix.AmtValue }
 
 func (f TotalTakedown) Tag() tag.Tag { return tag.TotalTakedown }
 
-type TotalVolumeTraded struct{ quickfixgo.QtyValue }
+type TotalVolumeTraded struct{ quickfix.QtyValue }
 
 func (f TotalVolumeTraded) Tag() tag.Tag { return tag.TotalVolumeTraded }
 
-type TotalVolumeTradedDate struct{ quickfixgo.UTCDateOnlyValue }
+type TotalVolumeTradedDate struct{ quickfix.UTCDateOnlyValue }
 
 func (f TotalVolumeTradedDate) Tag() tag.Tag { return tag.TotalVolumeTradedDate }
 
-type TotalVolumeTradedTime struct{ quickfixgo.UTCTimeOnlyValue }
+type TotalVolumeTradedTime struct{ quickfix.UTCTimeOnlyValue }
 
 func (f TotalVolumeTradedTime) Tag() tag.Tag { return tag.TotalVolumeTradedTime }
 
-type TradSesCloseTime struct{ quickfixgo.UTCTimestampValue }
+type TradSesCloseTime struct{ quickfix.UTCTimestampValue }
 
 func (f TradSesCloseTime) Tag() tag.Tag { return tag.TradSesCloseTime }
 
-type TradSesEndTime struct{ quickfixgo.UTCTimestampValue }
+type TradSesEndTime struct{ quickfix.UTCTimestampValue }
 
 func (f TradSesEndTime) Tag() tag.Tag { return tag.TradSesEndTime }
 
-type TradSesEvent struct{ quickfixgo.IntValue }
+type TradSesEvent struct{ quickfix.IntValue }
 
 func (f TradSesEvent) Tag() tag.Tag { return tag.TradSesEvent }
 
-type TradSesMethod struct{ quickfixgo.IntValue }
+type TradSesMethod struct{ quickfix.IntValue }
 
 func (f TradSesMethod) Tag() tag.Tag { return tag.TradSesMethod }
 
-type TradSesMode struct{ quickfixgo.IntValue }
+type TradSesMode struct{ quickfix.IntValue }
 
 func (f TradSesMode) Tag() tag.Tag { return tag.TradSesMode }
 
-type TradSesOpenTime struct{ quickfixgo.UTCTimestampValue }
+type TradSesOpenTime struct{ quickfix.UTCTimestampValue }
 
 func (f TradSesOpenTime) Tag() tag.Tag { return tag.TradSesOpenTime }
 
-type TradSesPreCloseTime struct{ quickfixgo.UTCTimestampValue }
+type TradSesPreCloseTime struct{ quickfix.UTCTimestampValue }
 
 func (f TradSesPreCloseTime) Tag() tag.Tag { return tag.TradSesPreCloseTime }
 
-type TradSesReqID struct{ quickfixgo.StringValue }
+type TradSesReqID struct{ quickfix.StringValue }
 
 func (f TradSesReqID) Tag() tag.Tag { return tag.TradSesReqID }
 
-type TradSesStartTime struct{ quickfixgo.UTCTimestampValue }
+type TradSesStartTime struct{ quickfix.UTCTimestampValue }
 
 func (f TradSesStartTime) Tag() tag.Tag { return tag.TradSesStartTime }
 
-type TradSesStatus struct{ quickfixgo.IntValue }
+type TradSesStatus struct{ quickfix.IntValue }
 
 func (f TradSesStatus) Tag() tag.Tag { return tag.TradSesStatus }
 
-type TradSesStatusRejReason struct{ quickfixgo.IntValue }
+type TradSesStatusRejReason struct{ quickfix.IntValue }
 
 func (f TradSesStatusRejReason) Tag() tag.Tag { return tag.TradSesStatusRejReason }
 
-type TradSesUpdateAction struct{ quickfixgo.CharValue }
+type TradSesUpdateAction struct{ quickfix.CharValue }
 
 func (f TradSesUpdateAction) Tag() tag.Tag { return tag.TradSesUpdateAction }
 
-type TradeAllocIndicator struct{ quickfixgo.IntValue }
+type TradeAllocIndicator struct{ quickfix.IntValue }
 
 func (f TradeAllocIndicator) Tag() tag.Tag { return tag.TradeAllocIndicator }
 
-type TradeCondition struct{ quickfixgo.MultipleStringValue }
+type TradeCondition struct{ quickfix.MultipleStringValue }
 
 func (f TradeCondition) Tag() tag.Tag { return tag.TradeCondition }
 
-type TradeDate struct{ quickfixgo.LocalMktDateValue }
+type TradeDate struct{ quickfix.LocalMktDateValue }
 
 func (f TradeDate) Tag() tag.Tag { return tag.TradeDate }
 
-type TradeHandlingInstr struct{ quickfixgo.CharValue }
+type TradeHandlingInstr struct{ quickfix.CharValue }
 
 func (f TradeHandlingInstr) Tag() tag.Tag { return tag.TradeHandlingInstr }
 
-type TradeID struct{ quickfixgo.StringValue }
+type TradeID struct{ quickfix.StringValue }
 
 func (f TradeID) Tag() tag.Tag { return tag.TradeID }
 
-type TradeInputDevice struct{ quickfixgo.StringValue }
+type TradeInputDevice struct{ quickfix.StringValue }
 
 func (f TradeInputDevice) Tag() tag.Tag { return tag.TradeInputDevice }
 
-type TradeInputSource struct{ quickfixgo.StringValue }
+type TradeInputSource struct{ quickfix.StringValue }
 
 func (f TradeInputSource) Tag() tag.Tag { return tag.TradeInputSource }
 
-type TradeLegRefID struct{ quickfixgo.StringValue }
+type TradeLegRefID struct{ quickfix.StringValue }
 
 func (f TradeLegRefID) Tag() tag.Tag { return tag.TradeLegRefID }
 
-type TradeLinkID struct{ quickfixgo.StringValue }
+type TradeLinkID struct{ quickfix.StringValue }
 
 func (f TradeLinkID) Tag() tag.Tag { return tag.TradeLinkID }
 
-type TradeOriginationDate struct{ quickfixgo.LocalMktDateValue }
+type TradeOriginationDate struct{ quickfix.LocalMktDateValue }
 
 func (f TradeOriginationDate) Tag() tag.Tag { return tag.TradeOriginationDate }
 
-type TradePublishIndicator struct{ quickfixgo.IntValue }
+type TradePublishIndicator struct{ quickfix.IntValue }
 
 func (f TradePublishIndicator) Tag() tag.Tag { return tag.TradePublishIndicator }
 
-type TradeReportID struct{ quickfixgo.StringValue }
+type TradeReportID struct{ quickfix.StringValue }
 
 func (f TradeReportID) Tag() tag.Tag { return tag.TradeReportID }
 
-type TradeReportRefID struct{ quickfixgo.StringValue }
+type TradeReportRefID struct{ quickfix.StringValue }
 
 func (f TradeReportRefID) Tag() tag.Tag { return tag.TradeReportRefID }
 
-type TradeReportRejectReason struct{ quickfixgo.IntValue }
+type TradeReportRejectReason struct{ quickfix.IntValue }
 
 func (f TradeReportRejectReason) Tag() tag.Tag { return tag.TradeReportRejectReason }
 
-type TradeReportTransType struct{ quickfixgo.IntValue }
+type TradeReportTransType struct{ quickfix.IntValue }
 
 func (f TradeReportTransType) Tag() tag.Tag { return tag.TradeReportTransType }
 
-type TradeReportType struct{ quickfixgo.IntValue }
+type TradeReportType struct{ quickfix.IntValue }
 
 func (f TradeReportType) Tag() tag.Tag { return tag.TradeReportType }
 
-type TradeRequestID struct{ quickfixgo.StringValue }
+type TradeRequestID struct{ quickfix.StringValue }
 
 func (f TradeRequestID) Tag() tag.Tag { return tag.TradeRequestID }
 
-type TradeRequestResult struct{ quickfixgo.IntValue }
+type TradeRequestResult struct{ quickfix.IntValue }
 
 func (f TradeRequestResult) Tag() tag.Tag { return tag.TradeRequestResult }
 
-type TradeRequestStatus struct{ quickfixgo.IntValue }
+type TradeRequestStatus struct{ quickfix.IntValue }
 
 func (f TradeRequestStatus) Tag() tag.Tag { return tag.TradeRequestStatus }
 
-type TradeRequestType struct{ quickfixgo.IntValue }
+type TradeRequestType struct{ quickfix.IntValue }
 
 func (f TradeRequestType) Tag() tag.Tag { return tag.TradeRequestType }
 
-type TradeType struct{ quickfixgo.CharValue }
+type TradeType struct{ quickfix.CharValue }
 
 func (f TradeType) Tag() tag.Tag { return tag.TradeType }
 
-type TradeVolume struct{ quickfixgo.QtyValue }
+type TradeVolume struct{ quickfix.QtyValue }
 
 func (f TradeVolume) Tag() tag.Tag { return tag.TradeVolume }
 
-type TradedFlatSwitch struct{ quickfixgo.BooleanValue }
+type TradedFlatSwitch struct{ quickfix.BooleanValue }
 
 func (f TradedFlatSwitch) Tag() tag.Tag { return tag.TradedFlatSwitch }
 
-type TradingCurrency struct{ quickfixgo.CurrencyValue }
+type TradingCurrency struct{ quickfix.CurrencyValue }
 
 func (f TradingCurrency) Tag() tag.Tag { return tag.TradingCurrency }
 
-type TradingReferencePrice struct{ quickfixgo.PriceValue }
+type TradingReferencePrice struct{ quickfix.PriceValue }
 
 func (f TradingReferencePrice) Tag() tag.Tag { return tag.TradingReferencePrice }
 
-type TradingSessionDesc struct{ quickfixgo.StringValue }
+type TradingSessionDesc struct{ quickfix.StringValue }
 
 func (f TradingSessionDesc) Tag() tag.Tag { return tag.TradingSessionDesc }
 
-type TradingSessionID struct{ quickfixgo.StringValue }
+type TradingSessionID struct{ quickfix.StringValue }
 
 func (f TradingSessionID) Tag() tag.Tag { return tag.TradingSessionID }
 
-type TradingSessionSubID struct{ quickfixgo.StringValue }
+type TradingSessionSubID struct{ quickfix.StringValue }
 
 func (f TradingSessionSubID) Tag() tag.Tag { return tag.TradingSessionSubID }
 
-type TransBkdTime struct{ quickfixgo.UTCTimestampValue }
+type TransBkdTime struct{ quickfix.UTCTimestampValue }
 
 func (f TransBkdTime) Tag() tag.Tag { return tag.TransBkdTime }
 
-type TransactTime struct{ quickfixgo.UTCTimestampValue }
+type TransactTime struct{ quickfix.UTCTimestampValue }
 
 func (f TransactTime) Tag() tag.Tag { return tag.TransactTime }
 
-type TransferReason struct{ quickfixgo.StringValue }
+type TransferReason struct{ quickfix.StringValue }
 
 func (f TransferReason) Tag() tag.Tag { return tag.TransferReason }
 
-type TrdMatchID struct{ quickfixgo.StringValue }
+type TrdMatchID struct{ quickfix.StringValue }
 
 func (f TrdMatchID) Tag() tag.Tag { return tag.TrdMatchID }
 
-type TrdRegTimestamp struct{ quickfixgo.UTCTimestampValue }
+type TrdRegTimestamp struct{ quickfix.UTCTimestampValue }
 
 func (f TrdRegTimestamp) Tag() tag.Tag { return tag.TrdRegTimestamp }
 
-type TrdRegTimestampOrigin struct{ quickfixgo.StringValue }
+type TrdRegTimestampOrigin struct{ quickfix.StringValue }
 
 func (f TrdRegTimestampOrigin) Tag() tag.Tag { return tag.TrdRegTimestampOrigin }
 
-type TrdRegTimestampType struct{ quickfixgo.IntValue }
+type TrdRegTimestampType struct{ quickfix.IntValue }
 
 func (f TrdRegTimestampType) Tag() tag.Tag { return tag.TrdRegTimestampType }
 
-type TrdRepIndicator struct{ quickfixgo.BooleanValue }
+type TrdRepIndicator struct{ quickfix.BooleanValue }
 
 func (f TrdRepIndicator) Tag() tag.Tag { return tag.TrdRepIndicator }
 
-type TrdRepPartyRole struct{ quickfixgo.IntValue }
+type TrdRepPartyRole struct{ quickfix.IntValue }
 
 func (f TrdRepPartyRole) Tag() tag.Tag { return tag.TrdRepPartyRole }
 
-type TrdRptStatus struct{ quickfixgo.IntValue }
+type TrdRptStatus struct{ quickfix.IntValue }
 
 func (f TrdRptStatus) Tag() tag.Tag { return tag.TrdRptStatus }
 
-type TrdSubType struct{ quickfixgo.IntValue }
+type TrdSubType struct{ quickfix.IntValue }
 
 func (f TrdSubType) Tag() tag.Tag { return tag.TrdSubType }
 
-type TrdType struct{ quickfixgo.IntValue }
+type TrdType struct{ quickfix.IntValue }
 
 func (f TrdType) Tag() tag.Tag { return tag.TrdType }
 
-type TriggerAction struct{ quickfixgo.CharValue }
+type TriggerAction struct{ quickfix.CharValue }
 
 func (f TriggerAction) Tag() tag.Tag { return tag.TriggerAction }
 
-type TriggerNewPrice struct{ quickfixgo.PriceValue }
+type TriggerNewPrice struct{ quickfix.PriceValue }
 
 func (f TriggerNewPrice) Tag() tag.Tag { return tag.TriggerNewPrice }
 
-type TriggerNewQty struct{ quickfixgo.QtyValue }
+type TriggerNewQty struct{ quickfix.QtyValue }
 
 func (f TriggerNewQty) Tag() tag.Tag { return tag.TriggerNewQty }
 
-type TriggerOrderType struct{ quickfixgo.CharValue }
+type TriggerOrderType struct{ quickfix.CharValue }
 
 func (f TriggerOrderType) Tag() tag.Tag { return tag.TriggerOrderType }
 
-type TriggerPrice struct{ quickfixgo.PriceValue }
+type TriggerPrice struct{ quickfix.PriceValue }
 
 func (f TriggerPrice) Tag() tag.Tag { return tag.TriggerPrice }
 
-type TriggerPriceDirection struct{ quickfixgo.CharValue }
+type TriggerPriceDirection struct{ quickfix.CharValue }
 
 func (f TriggerPriceDirection) Tag() tag.Tag { return tag.TriggerPriceDirection }
 
-type TriggerPriceType struct{ quickfixgo.CharValue }
+type TriggerPriceType struct{ quickfix.CharValue }
 
 func (f TriggerPriceType) Tag() tag.Tag { return tag.TriggerPriceType }
 
-type TriggerPriceTypeScope struct{ quickfixgo.CharValue }
+type TriggerPriceTypeScope struct{ quickfix.CharValue }
 
 func (f TriggerPriceTypeScope) Tag() tag.Tag { return tag.TriggerPriceTypeScope }
 
-type TriggerSecurityDesc struct{ quickfixgo.StringValue }
+type TriggerSecurityDesc struct{ quickfix.StringValue }
 
 func (f TriggerSecurityDesc) Tag() tag.Tag { return tag.TriggerSecurityDesc }
 
-type TriggerSecurityID struct{ quickfixgo.StringValue }
+type TriggerSecurityID struct{ quickfix.StringValue }
 
 func (f TriggerSecurityID) Tag() tag.Tag { return tag.TriggerSecurityID }
 
-type TriggerSecurityIDSource struct{ quickfixgo.StringValue }
+type TriggerSecurityIDSource struct{ quickfix.StringValue }
 
 func (f TriggerSecurityIDSource) Tag() tag.Tag { return tag.TriggerSecurityIDSource }
 
-type TriggerSymbol struct{ quickfixgo.StringValue }
+type TriggerSymbol struct{ quickfix.StringValue }
 
 func (f TriggerSymbol) Tag() tag.Tag { return tag.TriggerSymbol }
 
-type TriggerTradingSessionID struct{ quickfixgo.StringValue }
+type TriggerTradingSessionID struct{ quickfix.StringValue }
 
 func (f TriggerTradingSessionID) Tag() tag.Tag { return tag.TriggerTradingSessionID }
 
-type TriggerTradingSessionSubID struct{ quickfixgo.StringValue }
+type TriggerTradingSessionSubID struct{ quickfix.StringValue }
 
 func (f TriggerTradingSessionSubID) Tag() tag.Tag { return tag.TriggerTradingSessionSubID }
 
-type TriggerType struct{ quickfixgo.CharValue }
+type TriggerType struct{ quickfix.CharValue }
 
 func (f TriggerType) Tag() tag.Tag { return tag.TriggerType }
 
-type URLLink struct{ quickfixgo.StringValue }
+type URLLink struct{ quickfix.StringValue }
 
 func (f URLLink) Tag() tag.Tag { return tag.URLLink }
 
-type UnderlyingAdjustedQuantity struct{ quickfixgo.QtyValue }
+type UnderlyingAdjustedQuantity struct{ quickfix.QtyValue }
 
 func (f UnderlyingAdjustedQuantity) Tag() tag.Tag { return tag.UnderlyingAdjustedQuantity }
 
-type UnderlyingAllocationPercent struct{ quickfixgo.PercentageValue }
+type UnderlyingAllocationPercent struct{ quickfix.PercentageValue }
 
 func (f UnderlyingAllocationPercent) Tag() tag.Tag { return tag.UnderlyingAllocationPercent }
 
-type UnderlyingAttachmentPoint struct{ quickfixgo.PercentageValue }
+type UnderlyingAttachmentPoint struct{ quickfix.PercentageValue }
 
 func (f UnderlyingAttachmentPoint) Tag() tag.Tag { return tag.UnderlyingAttachmentPoint }
 
-type UnderlyingCFICode struct{ quickfixgo.StringValue }
+type UnderlyingCFICode struct{ quickfix.StringValue }
 
 func (f UnderlyingCFICode) Tag() tag.Tag { return tag.UnderlyingCFICode }
 
-type UnderlyingCPProgram struct{ quickfixgo.StringValue }
+type UnderlyingCPProgram struct{ quickfix.StringValue }
 
 func (f UnderlyingCPProgram) Tag() tag.Tag { return tag.UnderlyingCPProgram }
 
-type UnderlyingCPRegType struct{ quickfixgo.StringValue }
+type UnderlyingCPRegType struct{ quickfix.StringValue }
 
 func (f UnderlyingCPRegType) Tag() tag.Tag { return tag.UnderlyingCPRegType }
 
-type UnderlyingCapValue struct{ quickfixgo.AmtValue }
+type UnderlyingCapValue struct{ quickfix.AmtValue }
 
 func (f UnderlyingCapValue) Tag() tag.Tag { return tag.UnderlyingCapValue }
 
-type UnderlyingCashAmount struct{ quickfixgo.AmtValue }
+type UnderlyingCashAmount struct{ quickfix.AmtValue }
 
 func (f UnderlyingCashAmount) Tag() tag.Tag { return tag.UnderlyingCashAmount }
 
-type UnderlyingCashType struct{ quickfixgo.StringValue }
+type UnderlyingCashType struct{ quickfix.StringValue }
 
 func (f UnderlyingCashType) Tag() tag.Tag { return tag.UnderlyingCashType }
 
-type UnderlyingCollectAmount struct{ quickfixgo.AmtValue }
+type UnderlyingCollectAmount struct{ quickfix.AmtValue }
 
 func (f UnderlyingCollectAmount) Tag() tag.Tag { return tag.UnderlyingCollectAmount }
 
-type UnderlyingContractMultiplier struct{ quickfixgo.FloatValue }
+type UnderlyingContractMultiplier struct{ quickfix.FloatValue }
 
 func (f UnderlyingContractMultiplier) Tag() tag.Tag { return tag.UnderlyingContractMultiplier }
 
-type UnderlyingContractMultiplierUnit struct{ quickfixgo.IntValue }
+type UnderlyingContractMultiplierUnit struct{ quickfix.IntValue }
 
 func (f UnderlyingContractMultiplierUnit) Tag() tag.Tag { return tag.UnderlyingContractMultiplierUnit }
 
-type UnderlyingCountryOfIssue struct{ quickfixgo.CountryValue }
+type UnderlyingCountryOfIssue struct{ quickfix.CountryValue }
 
 func (f UnderlyingCountryOfIssue) Tag() tag.Tag { return tag.UnderlyingCountryOfIssue }
 
-type UnderlyingCouponPaymentDate struct{ quickfixgo.LocalMktDateValue }
+type UnderlyingCouponPaymentDate struct{ quickfix.LocalMktDateValue }
 
 func (f UnderlyingCouponPaymentDate) Tag() tag.Tag { return tag.UnderlyingCouponPaymentDate }
 
-type UnderlyingCouponRate struct{ quickfixgo.PercentageValue }
+type UnderlyingCouponRate struct{ quickfix.PercentageValue }
 
 func (f UnderlyingCouponRate) Tag() tag.Tag { return tag.UnderlyingCouponRate }
 
-type UnderlyingCreditRating struct{ quickfixgo.StringValue }
+type UnderlyingCreditRating struct{ quickfix.StringValue }
 
 func (f UnderlyingCreditRating) Tag() tag.Tag { return tag.UnderlyingCreditRating }
 
-type UnderlyingCurrency struct{ quickfixgo.CurrencyValue }
+type UnderlyingCurrency struct{ quickfix.CurrencyValue }
 
 func (f UnderlyingCurrency) Tag() tag.Tag { return tag.UnderlyingCurrency }
 
-type UnderlyingCurrentValue struct{ quickfixgo.AmtValue }
+type UnderlyingCurrentValue struct{ quickfix.AmtValue }
 
 func (f UnderlyingCurrentValue) Tag() tag.Tag { return tag.UnderlyingCurrentValue }
 
-type UnderlyingDeliveryAmount struct{ quickfixgo.AmtValue }
+type UnderlyingDeliveryAmount struct{ quickfix.AmtValue }
 
 func (f UnderlyingDeliveryAmount) Tag() tag.Tag { return tag.UnderlyingDeliveryAmount }
 
-type UnderlyingDetachmentPoint struct{ quickfixgo.PercentageValue }
+type UnderlyingDetachmentPoint struct{ quickfix.PercentageValue }
 
 func (f UnderlyingDetachmentPoint) Tag() tag.Tag { return tag.UnderlyingDetachmentPoint }
 
-type UnderlyingDirtyPrice struct{ quickfixgo.PriceValue }
+type UnderlyingDirtyPrice struct{ quickfix.PriceValue }
 
 func (f UnderlyingDirtyPrice) Tag() tag.Tag { return tag.UnderlyingDirtyPrice }
 
-type UnderlyingEndPrice struct{ quickfixgo.PriceValue }
+type UnderlyingEndPrice struct{ quickfix.PriceValue }
 
 func (f UnderlyingEndPrice) Tag() tag.Tag { return tag.UnderlyingEndPrice }
 
-type UnderlyingEndValue struct{ quickfixgo.AmtValue }
+type UnderlyingEndValue struct{ quickfix.AmtValue }
 
 func (f UnderlyingEndValue) Tag() tag.Tag { return tag.UnderlyingEndValue }
 
-type UnderlyingExerciseStyle struct{ quickfixgo.IntValue }
+type UnderlyingExerciseStyle struct{ quickfix.IntValue }
 
 func (f UnderlyingExerciseStyle) Tag() tag.Tag { return tag.UnderlyingExerciseStyle }
 
-type UnderlyingFXRate struct{ quickfixgo.FloatValue }
+type UnderlyingFXRate struct{ quickfix.FloatValue }
 
 func (f UnderlyingFXRate) Tag() tag.Tag { return tag.UnderlyingFXRate }
 
-type UnderlyingFXRateCalc struct{ quickfixgo.CharValue }
+type UnderlyingFXRateCalc struct{ quickfix.CharValue }
 
 func (f UnderlyingFXRateCalc) Tag() tag.Tag { return tag.UnderlyingFXRateCalc }
 
-type UnderlyingFactor struct{ quickfixgo.FloatValue }
+type UnderlyingFactor struct{ quickfix.FloatValue }
 
 func (f UnderlyingFactor) Tag() tag.Tag { return tag.UnderlyingFactor }
 
-type UnderlyingFlowScheduleType struct{ quickfixgo.IntValue }
+type UnderlyingFlowScheduleType struct{ quickfix.IntValue }
 
 func (f UnderlyingFlowScheduleType) Tag() tag.Tag { return tag.UnderlyingFlowScheduleType }
 
-type UnderlyingIDSource struct{ quickfixgo.StringValue }
+type UnderlyingIDSource struct{ quickfix.StringValue }
 
 func (f UnderlyingIDSource) Tag() tag.Tag { return tag.UnderlyingIDSource }
 
-type UnderlyingInstrRegistry struct{ quickfixgo.StringValue }
+type UnderlyingInstrRegistry struct{ quickfix.StringValue }
 
 func (f UnderlyingInstrRegistry) Tag() tag.Tag { return tag.UnderlyingInstrRegistry }
 
-type UnderlyingInstrumentPartyID struct{ quickfixgo.StringValue }
+type UnderlyingInstrumentPartyID struct{ quickfix.StringValue }
 
 func (f UnderlyingInstrumentPartyID) Tag() tag.Tag { return tag.UnderlyingInstrumentPartyID }
 
-type UnderlyingInstrumentPartyIDSource struct{ quickfixgo.CharValue }
+type UnderlyingInstrumentPartyIDSource struct{ quickfix.CharValue }
 
 func (f UnderlyingInstrumentPartyIDSource) Tag() tag.Tag { return tag.UnderlyingInstrumentPartyIDSource }
 
-type UnderlyingInstrumentPartyRole struct{ quickfixgo.IntValue }
+type UnderlyingInstrumentPartyRole struct{ quickfix.IntValue }
 
 func (f UnderlyingInstrumentPartyRole) Tag() tag.Tag { return tag.UnderlyingInstrumentPartyRole }
 
-type UnderlyingInstrumentPartySubID struct{ quickfixgo.StringValue }
+type UnderlyingInstrumentPartySubID struct{ quickfix.StringValue }
 
 func (f UnderlyingInstrumentPartySubID) Tag() tag.Tag { return tag.UnderlyingInstrumentPartySubID }
 
-type UnderlyingInstrumentPartySubIDType struct{ quickfixgo.IntValue }
+type UnderlyingInstrumentPartySubIDType struct{ quickfix.IntValue }
 
 func (f UnderlyingInstrumentPartySubIDType) Tag() tag.Tag {
 	return tag.UnderlyingInstrumentPartySubIDType
 }
 
-type UnderlyingIssueDate struct{ quickfixgo.LocalMktDateValue }
+type UnderlyingIssueDate struct{ quickfix.LocalMktDateValue }
 
 func (f UnderlyingIssueDate) Tag() tag.Tag { return tag.UnderlyingIssueDate }
 
-type UnderlyingIssuer struct{ quickfixgo.StringValue }
+type UnderlyingIssuer struct{ quickfix.StringValue }
 
 func (f UnderlyingIssuer) Tag() tag.Tag { return tag.UnderlyingIssuer }
 
-type UnderlyingLastPx struct{ quickfixgo.PriceValue }
+type UnderlyingLastPx struct{ quickfix.PriceValue }
 
 func (f UnderlyingLastPx) Tag() tag.Tag { return tag.UnderlyingLastPx }
 
-type UnderlyingLastQty struct{ quickfixgo.QtyValue }
+type UnderlyingLastQty struct{ quickfix.QtyValue }
 
 func (f UnderlyingLastQty) Tag() tag.Tag { return tag.UnderlyingLastQty }
 
-type UnderlyingLegCFICode struct{ quickfixgo.StringValue }
+type UnderlyingLegCFICode struct{ quickfix.StringValue }
 
 func (f UnderlyingLegCFICode) Tag() tag.Tag { return tag.UnderlyingLegCFICode }
 
-type UnderlyingLegMaturityDate struct{ quickfixgo.LocalMktDateValue }
+type UnderlyingLegMaturityDate struct{ quickfix.LocalMktDateValue }
 
 func (f UnderlyingLegMaturityDate) Tag() tag.Tag { return tag.UnderlyingLegMaturityDate }
 
-type UnderlyingLegMaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type UnderlyingLegMaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f UnderlyingLegMaturityMonthYear) Tag() tag.Tag { return tag.UnderlyingLegMaturityMonthYear }
 
-type UnderlyingLegMaturityTime struct{ quickfixgo.TZTimeOnlyValue }
+type UnderlyingLegMaturityTime struct{ quickfix.TZTimeOnlyValue }
 
 func (f UnderlyingLegMaturityTime) Tag() tag.Tag { return tag.UnderlyingLegMaturityTime }
 
-type UnderlyingLegOptAttribute struct{ quickfixgo.CharValue }
+type UnderlyingLegOptAttribute struct{ quickfix.CharValue }
 
 func (f UnderlyingLegOptAttribute) Tag() tag.Tag { return tag.UnderlyingLegOptAttribute }
 
-type UnderlyingLegPutOrCall struct{ quickfixgo.IntValue }
+type UnderlyingLegPutOrCall struct{ quickfix.IntValue }
 
 func (f UnderlyingLegPutOrCall) Tag() tag.Tag { return tag.UnderlyingLegPutOrCall }
 
-type UnderlyingLegSecurityAltID struct{ quickfixgo.StringValue }
+type UnderlyingLegSecurityAltID struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSecurityAltID) Tag() tag.Tag { return tag.UnderlyingLegSecurityAltID }
 
-type UnderlyingLegSecurityAltIDSource struct{ quickfixgo.StringValue }
+type UnderlyingLegSecurityAltIDSource struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSecurityAltIDSource) Tag() tag.Tag { return tag.UnderlyingLegSecurityAltIDSource }
 
-type UnderlyingLegSecurityDesc struct{ quickfixgo.StringValue }
+type UnderlyingLegSecurityDesc struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSecurityDesc) Tag() tag.Tag { return tag.UnderlyingLegSecurityDesc }
 
-type UnderlyingLegSecurityExchange struct{ quickfixgo.StringValue }
+type UnderlyingLegSecurityExchange struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSecurityExchange) Tag() tag.Tag { return tag.UnderlyingLegSecurityExchange }
 
-type UnderlyingLegSecurityID struct{ quickfixgo.StringValue }
+type UnderlyingLegSecurityID struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSecurityID) Tag() tag.Tag { return tag.UnderlyingLegSecurityID }
 
-type UnderlyingLegSecurityIDSource struct{ quickfixgo.StringValue }
+type UnderlyingLegSecurityIDSource struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSecurityIDSource) Tag() tag.Tag { return tag.UnderlyingLegSecurityIDSource }
 
-type UnderlyingLegSecuritySubType struct{ quickfixgo.StringValue }
+type UnderlyingLegSecuritySubType struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSecuritySubType) Tag() tag.Tag { return tag.UnderlyingLegSecuritySubType }
 
-type UnderlyingLegSecurityType struct{ quickfixgo.StringValue }
+type UnderlyingLegSecurityType struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSecurityType) Tag() tag.Tag { return tag.UnderlyingLegSecurityType }
 
-type UnderlyingLegStrikePrice struct{ quickfixgo.PriceValue }
+type UnderlyingLegStrikePrice struct{ quickfix.PriceValue }
 
 func (f UnderlyingLegStrikePrice) Tag() tag.Tag { return tag.UnderlyingLegStrikePrice }
 
-type UnderlyingLegSymbol struct{ quickfixgo.StringValue }
+type UnderlyingLegSymbol struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSymbol) Tag() tag.Tag { return tag.UnderlyingLegSymbol }
 
-type UnderlyingLegSymbolSfx struct{ quickfixgo.StringValue }
+type UnderlyingLegSymbolSfx struct{ quickfix.StringValue }
 
 func (f UnderlyingLegSymbolSfx) Tag() tag.Tag { return tag.UnderlyingLegSymbolSfx }
 
-type UnderlyingLocaleOfIssue struct{ quickfixgo.StringValue }
+type UnderlyingLocaleOfIssue struct{ quickfix.StringValue }
 
 func (f UnderlyingLocaleOfIssue) Tag() tag.Tag { return tag.UnderlyingLocaleOfIssue }
 
-type UnderlyingMaturityDate struct{ quickfixgo.LocalMktDateValue }
+type UnderlyingMaturityDate struct{ quickfix.LocalMktDateValue }
 
 func (f UnderlyingMaturityDate) Tag() tag.Tag { return tag.UnderlyingMaturityDate }
 
-type UnderlyingMaturityDay struct{ quickfixgo.DayOfMonthValue }
+type UnderlyingMaturityDay struct{ quickfix.DayOfMonthValue }
 
 func (f UnderlyingMaturityDay) Tag() tag.Tag { return tag.UnderlyingMaturityDay }
 
-type UnderlyingMaturityMonthYear struct{ quickfixgo.MonthYearValue }
+type UnderlyingMaturityMonthYear struct{ quickfix.MonthYearValue }
 
 func (f UnderlyingMaturityMonthYear) Tag() tag.Tag { return tag.UnderlyingMaturityMonthYear }
 
-type UnderlyingMaturityTime struct{ quickfixgo.TZTimeOnlyValue }
+type UnderlyingMaturityTime struct{ quickfix.TZTimeOnlyValue }
 
 func (f UnderlyingMaturityTime) Tag() tag.Tag { return tag.UnderlyingMaturityTime }
 
-type UnderlyingNotionalPercentageOutstanding struct{ quickfixgo.PercentageValue }
+type UnderlyingNotionalPercentageOutstanding struct{ quickfix.PercentageValue }
 
 func (f UnderlyingNotionalPercentageOutstanding) Tag() tag.Tag {
 	return tag.UnderlyingNotionalPercentageOutstanding
 }
 
-type UnderlyingOptAttribute struct{ quickfixgo.CharValue }
+type UnderlyingOptAttribute struct{ quickfix.CharValue }
 
 func (f UnderlyingOptAttribute) Tag() tag.Tag { return tag.UnderlyingOptAttribute }
 
-type UnderlyingOriginalNotionalPercentageOutstanding struct{ quickfixgo.PercentageValue }
+type UnderlyingOriginalNotionalPercentageOutstanding struct{ quickfix.PercentageValue }
 
 func (f UnderlyingOriginalNotionalPercentageOutstanding) Tag() tag.Tag {
 	return tag.UnderlyingOriginalNotionalPercentageOutstanding
 }
 
-type UnderlyingPayAmount struct{ quickfixgo.AmtValue }
+type UnderlyingPayAmount struct{ quickfix.AmtValue }
 
 func (f UnderlyingPayAmount) Tag() tag.Tag { return tag.UnderlyingPayAmount }
 
-type UnderlyingPriceDeterminationMethod struct{ quickfixgo.IntValue }
+type UnderlyingPriceDeterminationMethod struct{ quickfix.IntValue }
 
 func (f UnderlyingPriceDeterminationMethod) Tag() tag.Tag {
 	return tag.UnderlyingPriceDeterminationMethod
 }
 
-type UnderlyingPriceUnitOfMeasure struct{ quickfixgo.StringValue }
+type UnderlyingPriceUnitOfMeasure struct{ quickfix.StringValue }
 
 func (f UnderlyingPriceUnitOfMeasure) Tag() tag.Tag { return tag.UnderlyingPriceUnitOfMeasure }
 
-type UnderlyingPriceUnitOfMeasureQty struct{ quickfixgo.QtyValue }
+type UnderlyingPriceUnitOfMeasureQty struct{ quickfix.QtyValue }
 
 func (f UnderlyingPriceUnitOfMeasureQty) Tag() tag.Tag { return tag.UnderlyingPriceUnitOfMeasureQty }
 
-type UnderlyingProduct struct{ quickfixgo.IntValue }
+type UnderlyingProduct struct{ quickfix.IntValue }
 
 func (f UnderlyingProduct) Tag() tag.Tag { return tag.UnderlyingProduct }
 
-type UnderlyingPutOrCall struct{ quickfixgo.IntValue }
+type UnderlyingPutOrCall struct{ quickfix.IntValue }
 
 func (f UnderlyingPutOrCall) Tag() tag.Tag { return tag.UnderlyingPutOrCall }
 
-type UnderlyingPx struct{ quickfixgo.PriceValue }
+type UnderlyingPx struct{ quickfix.PriceValue }
 
 func (f UnderlyingPx) Tag() tag.Tag { return tag.UnderlyingPx }
 
-type UnderlyingQty struct{ quickfixgo.QtyValue }
+type UnderlyingQty struct{ quickfix.QtyValue }
 
 func (f UnderlyingQty) Tag() tag.Tag { return tag.UnderlyingQty }
 
-type UnderlyingRedemptionDate struct{ quickfixgo.LocalMktDateValue }
+type UnderlyingRedemptionDate struct{ quickfix.LocalMktDateValue }
 
 func (f UnderlyingRedemptionDate) Tag() tag.Tag { return tag.UnderlyingRedemptionDate }
 
-type UnderlyingRepoCollateralSecurityType struct{ quickfixgo.IntValue }
+type UnderlyingRepoCollateralSecurityType struct{ quickfix.IntValue }
 
 func (f UnderlyingRepoCollateralSecurityType) Tag() tag.Tag {
 	return tag.UnderlyingRepoCollateralSecurityType
 }
 
-type UnderlyingRepurchaseRate struct{ quickfixgo.PercentageValue }
+type UnderlyingRepurchaseRate struct{ quickfix.PercentageValue }
 
 func (f UnderlyingRepurchaseRate) Tag() tag.Tag { return tag.UnderlyingRepurchaseRate }
 
-type UnderlyingRepurchaseTerm struct{ quickfixgo.IntValue }
+type UnderlyingRepurchaseTerm struct{ quickfix.IntValue }
 
 func (f UnderlyingRepurchaseTerm) Tag() tag.Tag { return tag.UnderlyingRepurchaseTerm }
 
-type UnderlyingRestructuringType struct{ quickfixgo.StringValue }
+type UnderlyingRestructuringType struct{ quickfix.StringValue }
 
 func (f UnderlyingRestructuringType) Tag() tag.Tag { return tag.UnderlyingRestructuringType }
 
-type UnderlyingSecurityAltID struct{ quickfixgo.StringValue }
+type UnderlyingSecurityAltID struct{ quickfix.StringValue }
 
 func (f UnderlyingSecurityAltID) Tag() tag.Tag { return tag.UnderlyingSecurityAltID }
 
-type UnderlyingSecurityAltIDSource struct{ quickfixgo.StringValue }
+type UnderlyingSecurityAltIDSource struct{ quickfix.StringValue }
 
 func (f UnderlyingSecurityAltIDSource) Tag() tag.Tag { return tag.UnderlyingSecurityAltIDSource }
 
-type UnderlyingSecurityDesc struct{ quickfixgo.StringValue }
+type UnderlyingSecurityDesc struct{ quickfix.StringValue }
 
 func (f UnderlyingSecurityDesc) Tag() tag.Tag { return tag.UnderlyingSecurityDesc }
 
-type UnderlyingSecurityExchange struct{ quickfixgo.ExchangeValue }
+type UnderlyingSecurityExchange struct{ quickfix.ExchangeValue }
 
 func (f UnderlyingSecurityExchange) Tag() tag.Tag { return tag.UnderlyingSecurityExchange }
 
-type UnderlyingSecurityID struct{ quickfixgo.StringValue }
+type UnderlyingSecurityID struct{ quickfix.StringValue }
 
 func (f UnderlyingSecurityID) Tag() tag.Tag { return tag.UnderlyingSecurityID }
 
-type UnderlyingSecurityIDSource struct{ quickfixgo.StringValue }
+type UnderlyingSecurityIDSource struct{ quickfix.StringValue }
 
 func (f UnderlyingSecurityIDSource) Tag() tag.Tag { return tag.UnderlyingSecurityIDSource }
 
-type UnderlyingSecuritySubType struct{ quickfixgo.StringValue }
+type UnderlyingSecuritySubType struct{ quickfix.StringValue }
 
 func (f UnderlyingSecuritySubType) Tag() tag.Tag { return tag.UnderlyingSecuritySubType }
 
-type UnderlyingSecurityType struct{ quickfixgo.StringValue }
+type UnderlyingSecurityType struct{ quickfix.StringValue }
 
 func (f UnderlyingSecurityType) Tag() tag.Tag { return tag.UnderlyingSecurityType }
 
-type UnderlyingSeniority struct{ quickfixgo.StringValue }
+type UnderlyingSeniority struct{ quickfix.StringValue }
 
 func (f UnderlyingSeniority) Tag() tag.Tag { return tag.UnderlyingSeniority }
 
-type UnderlyingSettlMethod struct{ quickfixgo.StringValue }
+type UnderlyingSettlMethod struct{ quickfix.StringValue }
 
 func (f UnderlyingSettlMethod) Tag() tag.Tag { return tag.UnderlyingSettlMethod }
 
-type UnderlyingSettlPrice struct{ quickfixgo.PriceValue }
+type UnderlyingSettlPrice struct{ quickfix.PriceValue }
 
 func (f UnderlyingSettlPrice) Tag() tag.Tag { return tag.UnderlyingSettlPrice }
 
-type UnderlyingSettlPriceType struct{ quickfixgo.IntValue }
+type UnderlyingSettlPriceType struct{ quickfix.IntValue }
 
 func (f UnderlyingSettlPriceType) Tag() tag.Tag { return tag.UnderlyingSettlPriceType }
 
-type UnderlyingSettlementDate struct{ quickfixgo.LocalMktDateValue }
+type UnderlyingSettlementDate struct{ quickfix.LocalMktDateValue }
 
 func (f UnderlyingSettlementDate) Tag() tag.Tag { return tag.UnderlyingSettlementDate }
 
-type UnderlyingSettlementStatus struct{ quickfixgo.StringValue }
+type UnderlyingSettlementStatus struct{ quickfix.StringValue }
 
 func (f UnderlyingSettlementStatus) Tag() tag.Tag { return tag.UnderlyingSettlementStatus }
 
-type UnderlyingSettlementType struct{ quickfixgo.IntValue }
+type UnderlyingSettlementType struct{ quickfix.IntValue }
 
 func (f UnderlyingSettlementType) Tag() tag.Tag { return tag.UnderlyingSettlementType }
 
-type UnderlyingStartValue struct{ quickfixgo.AmtValue }
+type UnderlyingStartValue struct{ quickfix.AmtValue }
 
 func (f UnderlyingStartValue) Tag() tag.Tag { return tag.UnderlyingStartValue }
 
-type UnderlyingStateOrProvinceOfIssue struct{ quickfixgo.StringValue }
+type UnderlyingStateOrProvinceOfIssue struct{ quickfix.StringValue }
 
 func (f UnderlyingStateOrProvinceOfIssue) Tag() tag.Tag { return tag.UnderlyingStateOrProvinceOfIssue }
 
-type UnderlyingStipType struct{ quickfixgo.StringValue }
+type UnderlyingStipType struct{ quickfix.StringValue }
 
 func (f UnderlyingStipType) Tag() tag.Tag { return tag.UnderlyingStipType }
 
-type UnderlyingStipValue struct{ quickfixgo.StringValue }
+type UnderlyingStipValue struct{ quickfix.StringValue }
 
 func (f UnderlyingStipValue) Tag() tag.Tag { return tag.UnderlyingStipValue }
 
-type UnderlyingStrikeCurrency struct{ quickfixgo.CurrencyValue }
+type UnderlyingStrikeCurrency struct{ quickfix.CurrencyValue }
 
 func (f UnderlyingStrikeCurrency) Tag() tag.Tag { return tag.UnderlyingStrikeCurrency }
 
-type UnderlyingStrikePrice struct{ quickfixgo.PriceValue }
+type UnderlyingStrikePrice struct{ quickfix.PriceValue }
 
 func (f UnderlyingStrikePrice) Tag() tag.Tag { return tag.UnderlyingStrikePrice }
 
-type UnderlyingSymbol struct{ quickfixgo.StringValue }
+type UnderlyingSymbol struct{ quickfix.StringValue }
 
 func (f UnderlyingSymbol) Tag() tag.Tag { return tag.UnderlyingSymbol }
 
-type UnderlyingSymbolSfx struct{ quickfixgo.StringValue }
+type UnderlyingSymbolSfx struct{ quickfix.StringValue }
 
 func (f UnderlyingSymbolSfx) Tag() tag.Tag { return tag.UnderlyingSymbolSfx }
 
-type UnderlyingTimeUnit struct{ quickfixgo.StringValue }
+type UnderlyingTimeUnit struct{ quickfix.StringValue }
 
 func (f UnderlyingTimeUnit) Tag() tag.Tag { return tag.UnderlyingTimeUnit }
 
-type UnderlyingTradingSessionID struct{ quickfixgo.StringValue }
+type UnderlyingTradingSessionID struct{ quickfix.StringValue }
 
 func (f UnderlyingTradingSessionID) Tag() tag.Tag { return tag.UnderlyingTradingSessionID }
 
-type UnderlyingTradingSessionSubID struct{ quickfixgo.StringValue }
+type UnderlyingTradingSessionSubID struct{ quickfix.StringValue }
 
 func (f UnderlyingTradingSessionSubID) Tag() tag.Tag { return tag.UnderlyingTradingSessionSubID }
 
-type UnderlyingUnitOfMeasure struct{ quickfixgo.StringValue }
+type UnderlyingUnitOfMeasure struct{ quickfix.StringValue }
 
 func (f UnderlyingUnitOfMeasure) Tag() tag.Tag { return tag.UnderlyingUnitOfMeasure }
 
-type UnderlyingUnitOfMeasureQty struct{ quickfixgo.QtyValue }
+type UnderlyingUnitOfMeasureQty struct{ quickfix.QtyValue }
 
 func (f UnderlyingUnitOfMeasureQty) Tag() tag.Tag { return tag.UnderlyingUnitOfMeasureQty }
 
-type UndlyInstrumentPartyID struct{ quickfixgo.StringValue }
+type UndlyInstrumentPartyID struct{ quickfix.StringValue }
 
 func (f UndlyInstrumentPartyID) Tag() tag.Tag { return tag.UndlyInstrumentPartyID }
 
-type UndlyInstrumentPartyIDSource struct{ quickfixgo.CharValue }
+type UndlyInstrumentPartyIDSource struct{ quickfix.CharValue }
 
 func (f UndlyInstrumentPartyIDSource) Tag() tag.Tag { return tag.UndlyInstrumentPartyIDSource }
 
-type UndlyInstrumentPartyRole struct{ quickfixgo.IntValue }
+type UndlyInstrumentPartyRole struct{ quickfix.IntValue }
 
 func (f UndlyInstrumentPartyRole) Tag() tag.Tag { return tag.UndlyInstrumentPartyRole }
 
-type UndlyInstrumentPartySubID struct{ quickfixgo.StringValue }
+type UndlyInstrumentPartySubID struct{ quickfix.StringValue }
 
 func (f UndlyInstrumentPartySubID) Tag() tag.Tag { return tag.UndlyInstrumentPartySubID }
 
-type UndlyInstrumentPartySubIDType struct{ quickfixgo.IntValue }
+type UndlyInstrumentPartySubIDType struct{ quickfix.IntValue }
 
 func (f UndlyInstrumentPartySubIDType) Tag() tag.Tag { return tag.UndlyInstrumentPartySubIDType }
 
-type UnitOfMeasure struct{ quickfixgo.StringValue }
+type UnitOfMeasure struct{ quickfix.StringValue }
 
 func (f UnitOfMeasure) Tag() tag.Tag { return tag.UnitOfMeasure }
 
-type UnitOfMeasureQty struct{ quickfixgo.QtyValue }
+type UnitOfMeasureQty struct{ quickfix.QtyValue }
 
 func (f UnitOfMeasureQty) Tag() tag.Tag { return tag.UnitOfMeasureQty }
 
-type UnsolicitedIndicator struct{ quickfixgo.BooleanValue }
+type UnsolicitedIndicator struct{ quickfix.BooleanValue }
 
 func (f UnsolicitedIndicator) Tag() tag.Tag { return tag.UnsolicitedIndicator }
 
-type Urgency struct{ quickfixgo.CharValue }
+type Urgency struct{ quickfix.CharValue }
 
 func (f Urgency) Tag() tag.Tag { return tag.Urgency }
 
-type UserRequestID struct{ quickfixgo.StringValue }
+type UserRequestID struct{ quickfix.StringValue }
 
 func (f UserRequestID) Tag() tag.Tag { return tag.UserRequestID }
 
-type UserRequestType struct{ quickfixgo.IntValue }
+type UserRequestType struct{ quickfix.IntValue }
 
 func (f UserRequestType) Tag() tag.Tag { return tag.UserRequestType }
 
-type UserStatus struct{ quickfixgo.IntValue }
+type UserStatus struct{ quickfix.IntValue }
 
 func (f UserStatus) Tag() tag.Tag { return tag.UserStatus }
 
-type UserStatusText struct{ quickfixgo.StringValue }
+type UserStatusText struct{ quickfix.StringValue }
 
 func (f UserStatusText) Tag() tag.Tag { return tag.UserStatusText }
 
-type Username struct{ quickfixgo.StringValue }
+type Username struct{ quickfix.StringValue }
 
 func (f Username) Tag() tag.Tag { return tag.Username }
 
-type ValidUntilTime struct{ quickfixgo.UTCTimestampValue }
+type ValidUntilTime struct{ quickfix.UTCTimestampValue }
 
 func (f ValidUntilTime) Tag() tag.Tag { return tag.ValidUntilTime }
 
-type ValuationMethod struct{ quickfixgo.StringValue }
+type ValuationMethod struct{ quickfix.StringValue }
 
 func (f ValuationMethod) Tag() tag.Tag { return tag.ValuationMethod }
 
-type ValueOfFutures struct{ quickfixgo.AmtValue }
+type ValueOfFutures struct{ quickfix.AmtValue }
 
 func (f ValueOfFutures) Tag() tag.Tag { return tag.ValueOfFutures }
 
-type VenueType struct{ quickfixgo.CharValue }
+type VenueType struct{ quickfix.CharValue }
 
 func (f VenueType) Tag() tag.Tag { return tag.VenueType }
 
-type Volatility struct{ quickfixgo.FloatValue }
+type Volatility struct{ quickfix.FloatValue }
 
 func (f Volatility) Tag() tag.Tag { return tag.Volatility }
 
-type WaveNo struct{ quickfixgo.StringValue }
+type WaveNo struct{ quickfix.StringValue }
 
 func (f WaveNo) Tag() tag.Tag { return tag.WaveNo }
 
-type WorkingIndicator struct{ quickfixgo.BooleanValue }
+type WorkingIndicator struct{ quickfix.BooleanValue }
 
 func (f WorkingIndicator) Tag() tag.Tag { return tag.WorkingIndicator }
 
-type WtAverageLiquidity struct{ quickfixgo.PercentageValue }
+type WtAverageLiquidity struct{ quickfix.PercentageValue }
 
 func (f WtAverageLiquidity) Tag() tag.Tag { return tag.WtAverageLiquidity }
 
-type XmlData struct{ quickfixgo.DataValue }
+type XmlData struct{ quickfix.DataValue }
 
 func (f XmlData) Tag() tag.Tag { return tag.XmlData }
 
-type XmlDataLen struct{ quickfixgo.LengthValue }
+type XmlDataLen struct{ quickfix.LengthValue }
 
 func (f XmlDataLen) Tag() tag.Tag { return tag.XmlDataLen }
 
-type Yield struct{ quickfixgo.PercentageValue }
+type Yield struct{ quickfix.PercentageValue }
 
 func (f Yield) Tag() tag.Tag { return tag.Yield }
 
-type YieldCalcDate struct{ quickfixgo.LocalMktDateValue }
+type YieldCalcDate struct{ quickfix.LocalMktDateValue }
 
 func (f YieldCalcDate) Tag() tag.Tag { return tag.YieldCalcDate }
 
-type YieldRedemptionDate struct{ quickfixgo.LocalMktDateValue }
+type YieldRedemptionDate struct{ quickfix.LocalMktDateValue }
 
 func (f YieldRedemptionDate) Tag() tag.Tag { return tag.YieldRedemptionDate }
 
-type YieldRedemptionPrice struct{ quickfixgo.PriceValue }
+type YieldRedemptionPrice struct{ quickfix.PriceValue }
 
 func (f YieldRedemptionPrice) Tag() tag.Tag { return tag.YieldRedemptionPrice }
 
-type YieldRedemptionPriceType struct{ quickfixgo.IntValue }
+type YieldRedemptionPriceType struct{ quickfix.IntValue }
 
 func (f YieldRedemptionPriceType) Tag() tag.Tag { return tag.YieldRedemptionPriceType }
 
-type YieldType struct{ quickfixgo.StringValue }
+type YieldType struct{ quickfix.StringValue }
 
 func (f YieldType) Tag() tag.Tag { return tag.YieldType }

@@ -1,16 +1,41 @@
 package fix50sp1
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type AdjustedPositionReport struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
+func (m *AdjustedPositionReport) PosMaintRptID() (*field.PosMaintRptID, error) {
+	f := new(field.PosMaintRptID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) ClearingBusinessDate() (*field.ClearingBusinessDate, error) {
+	f := new(field.ClearingBusinessDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *AdjustedPositionReport) PosReqType() (*field.PosReqType, error) {
 	f := new(field.PosReqType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) SettlSessID() (*field.SettlSessID, error) {
+	f := new(field.SettlSessID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -26,31 +51,6 @@ func (m *AdjustedPositionReport) SettlPrice() (*field.SettlPrice, error) {
 }
 func (m *AdjustedPositionReport) PriorSettlPrice() (*field.PriorSettlPrice, error) {
 	f := new(field.PriorSettlPrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AdjustedPositionReport) PosMaintRptID() (*field.PosMaintRptID, error) {
-	f := new(field.PosMaintRptID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AdjustedPositionReport) ClearingBusinessDate() (*field.ClearingBusinessDate, error) {
-	f := new(field.ClearingBusinessDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AdjustedPositionReport) SettlSessID() (*field.SettlSessID, error) {
-	f := new(field.SettlSessID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AdjustedPositionReport) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AdjustedPositionReport) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }

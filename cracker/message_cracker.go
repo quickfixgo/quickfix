@@ -2,17 +2,17 @@
 package cracker
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/tag"
 
-	"github.com/cbusbey/quickfixgo/fix40"
-	"github.com/cbusbey/quickfixgo/fix41"
-	"github.com/cbusbey/quickfixgo/fix42"
-	"github.com/cbusbey/quickfixgo/fix43"
-	"github.com/cbusbey/quickfixgo/fix44"
-	"github.com/cbusbey/quickfixgo/fix50"
-	"github.com/cbusbey/quickfixgo/fixt11"
+	"github.com/quickfixgo/quickfix/fix40"
+	"github.com/quickfixgo/quickfix/fix41"
+	"github.com/quickfixgo/quickfix/fix42"
+	"github.com/quickfixgo/quickfix/fix43"
+	"github.com/quickfixgo/quickfix/fix44"
+	"github.com/quickfixgo/quickfix/fix50"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
 type MessageRouter interface {
@@ -35,30 +35,30 @@ type MessageCracker struct {
 	fixt11.FIXT11MessageCracker
 }
 
-func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
+func Crack(msg quickfix.Message, sessionID quickfix.SessionID, router MessageRouter) quickfix.MessageReject {
 	beginString := new(field.BeginString)
 	msg.Header.Get(beginString)
 	return tryCrack(beginString.Value, msg, sessionID, router)
 }
 
-func tryCrack(beginString string, msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
+func tryCrack(beginString string, msg quickfix.Message, sessionID quickfix.SessionID, router MessageRouter) quickfix.MessageReject {
 	switch beginString {
-	case quickfixgo.BeginString_FIX40:
+	case quickfix.BeginString_FIX40:
 		return fix40.Crack(msg, sessionID, router)
-	case quickfixgo.BeginString_FIX41:
+	case quickfix.BeginString_FIX41:
 		return fix41.Crack(msg, sessionID, router)
-	case quickfixgo.BeginString_FIX42:
+	case quickfix.BeginString_FIX42:
 		return fix42.Crack(msg, sessionID, router)
-	case quickfixgo.BeginString_FIX43:
+	case quickfix.BeginString_FIX43:
 		return fix43.Crack(msg, sessionID, router)
-	case quickfixgo.BeginString_FIX44:
+	case quickfix.BeginString_FIX44:
 		return fix44.Crack(msg, sessionID, router)
-	case quickfixgo.BeginString_FIX50:
+	case quickfix.BeginString_FIX50:
 		return fix50.Crack(msg, sessionID, router)
-	case quickfixgo.BeginString_FIXT11:
+	case quickfix.BeginString_FIXT11:
 
-		msgType := new(quickfixgo.StringValue)
-		if msg.Header.GetField(tag.MsgType, msgType); quickfixgo.IsAdminMessageType(msgType.Value) {
+		msgType := new(quickfix.StringValue)
+		if msg.Header.GetField(tag.MsgType, msgType); quickfix.IsAdminMessageType(msgType.Value) {
 			return fixt11.Crack(msg, sessionID, router)
 		} else {
 
@@ -69,18 +69,18 @@ func tryCrack(beginString string, msg quickfixgo.Message, sessionID quickfixgo.S
 			}
 
 			switch applVerId {
-			case quickfixgo.ApplVerID_FIX40:
-				beginString = quickfixgo.BeginString_FIX40
-			case quickfixgo.ApplVerID_FIX41:
-				beginString = quickfixgo.BeginString_FIX41
-			case quickfixgo.ApplVerID_FIX42:
-				beginString = quickfixgo.BeginString_FIX42
-			case quickfixgo.ApplVerID_FIX43:
-				beginString = quickfixgo.BeginString_FIX43
-			case quickfixgo.ApplVerID_FIX44:
-				beginString = quickfixgo.BeginString_FIX44
-			case quickfixgo.ApplVerID_FIX50, quickfixgo.ApplVerID_FIX50SP1, quickfixgo.ApplVerID_FIX50SP2:
-				beginString = quickfixgo.BeginString_FIX50
+			case quickfix.ApplVerID_FIX40:
+				beginString = quickfix.BeginString_FIX40
+			case quickfix.ApplVerID_FIX41:
+				beginString = quickfix.BeginString_FIX41
+			case quickfix.ApplVerID_FIX42:
+				beginString = quickfix.BeginString_FIX42
+			case quickfix.ApplVerID_FIX43:
+				beginString = quickfix.BeginString_FIX43
+			case quickfix.ApplVerID_FIX44:
+				beginString = quickfix.BeginString_FIX44
+			case quickfix.ApplVerID_FIX50, quickfix.ApplVerID_FIX50SP1, quickfix.ApplVerID_FIX50SP2:
+				beginString = quickfix.BeginString_FIX50
 			default:
 				beginString = ""
 			}

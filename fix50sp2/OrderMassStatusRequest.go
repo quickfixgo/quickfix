@@ -1,356 +1,16 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type OrderMassStatusRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *OrderMassStatusRequest) OptAttribute() (*field.OptAttribute, error) {
-	f := new(field.OptAttribute)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) CouponRate() (*field.CouponRate, error) {
-	f := new(field.CouponRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SecurityXMLLen() (*field.SecurityXMLLen, error) {
-	f := new(field.SecurityXMLLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) OptPayoutAmount() (*field.OptPayoutAmount, error) {
-	f := new(field.OptPayoutAmount)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDate, error) {
-	f := new(field.UnderlyingCouponPaymentDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingEndPrice() (*field.UnderlyingEndPrice, error) {
-	f := new(field.UnderlyingEndPrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingFlowScheduleType() (*field.UnderlyingFlowScheduleType, error) {
-	f := new(field.UnderlyingFlowScheduleType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) LocaleOfIssue() (*field.LocaleOfIssue, error) {
-	f := new(field.LocaleOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethod, error) {
-	f := new(field.StrikePriceDeterminationMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchange, error) {
-	f := new(field.UnderlyingSecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingNotionalPercentageOutstanding() (*field.UnderlyingNotionalPercentageOutstanding, error) {
-	f := new(field.UnderlyingNotionalPercentageOutstanding)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) RepurchaseRate() (*field.RepurchaseRate, error) {
-	f := new(field.RepurchaseRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) CountryOfIssue() (*field.CountryOfIssue, error) {
-	f := new(field.CountryOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) StrikeCurrency() (*field.StrikeCurrency, error) {
-	f := new(field.StrikeCurrency)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) PositionLimit() (*field.PositionLimit, error) {
-	f := new(field.PositionLimit)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) PutOrCall() (*field.PutOrCall, error) {
-	f := new(field.PutOrCall)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingFactor() (*field.UnderlyingFactor, error) {
-	f := new(field.UnderlyingFactor)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingStrikeCurrency() (*field.UnderlyingStrikeCurrency, error) {
-	f := new(field.UnderlyingStrikeCurrency)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingContractMultiplier() (*field.UnderlyingContractMultiplier, error) {
-	f := new(field.UnderlyingContractMultiplier)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingMaturityTime() (*field.UnderlyingMaturityTime, error) {
-	f := new(field.UnderlyingMaturityTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingContractMultiplierUnit() (*field.UnderlyingContractMultiplierUnit, error) {
-	f := new(field.UnderlyingContractMultiplierUnit)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *OrderMassStatusRequest) SecurityType() (*field.SecurityType, error) {
 	f := new(field.SecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) ExerciseStyle() (*field.ExerciseStyle, error) {
-	f := new(field.ExerciseStyle)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) CapPrice() (*field.CapPrice, error) {
-	f := new(field.CapPrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingEndValue() (*field.UnderlyingEndValue, error) {
-	f := new(field.UnderlyingEndValue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingAdjustedQuantity() (*field.UnderlyingAdjustedQuantity, error) {
-	f := new(field.UnderlyingAdjustedQuantity)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingFXRateCalc() (*field.UnderlyingFXRateCalc, error) {
-	f := new(field.UnderlyingFXRateCalc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingAttachmentPoint() (*field.UnderlyingAttachmentPoint, error) {
-	f := new(field.UnderlyingAttachmentPoint)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) StrikeValue() (*field.StrikeValue, error) {
-	f := new(field.StrikeValue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SecurityXMLSchema() (*field.SecurityXMLSchema, error) {
-	f := new(field.SecurityXMLSchema)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) ProductComplex() (*field.ProductComplex, error) {
-	f := new(field.ProductComplex)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) RestructuringType() (*field.RestructuringType, error) {
-	f := new(field.RestructuringType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingLocaleOfIssue() (*field.UnderlyingLocaleOfIssue, error) {
-	f := new(field.UnderlyingLocaleOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingAllocationPercent() (*field.UnderlyingAllocationPercent, error) {
-	f := new(field.UnderlyingAllocationPercent)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingRestructuringType() (*field.UnderlyingRestructuringType, error) {
-	f := new(field.UnderlyingRestructuringType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) CPRegType() (*field.CPRegType, error) {
-	f := new(field.CPRegType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicator, error) {
-	f := new(field.FlexProductEligibilityIndicator)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingRepurchaseRate() (*field.UnderlyingRepurchaseRate, error) {
-	f := new(field.UnderlyingRepurchaseRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SecurityIDSource() (*field.SecurityIDSource, error) {
-	f := new(field.SecurityIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) MaturityDate() (*field.MaturityDate, error) {
-	f := new(field.MaturityDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) CPProgram() (*field.CPProgram, error) {
-	f := new(field.CPProgram)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) ContractMultiplierUnit() (*field.ContractMultiplierUnit, error) {
-	f := new(field.ContractMultiplierUnit)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) AttachmentPoint() (*field.AttachmentPoint, error) {
-	f := new(field.AttachmentPoint)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NoUndlyInstrumentParties() (*field.NoUndlyInstrumentParties, error) {
-	f := new(field.NoUndlyInstrumentParties)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) FlowScheduleType() (*field.FlowScheduleType, error) {
-	f := new(field.FlowScheduleType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) EncodedUnderlyingIssuer() (*field.EncodedUnderlyingIssuer, error) {
-	f := new(field.EncodedUnderlyingIssuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDesc, error) {
-	f := new(field.UnderlyingSecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) Side() (*field.Side, error) {
-	f := new(field.Side)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethod, error) {
-	f := new(field.UnderlyingPriceDeterminationMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCurrency() (*field.UnderlyingCurrency, error) {
-	f := new(field.UnderlyingCurrency)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingPx() (*field.UnderlyingPx, error) {
-	f := new(field.UnderlyingPx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NoUnderlyingStips() (*field.NoUnderlyingStips, error) {
-	f := new(field.NoUnderlyingStips)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingPriceUnitOfMeasure() (*field.UnderlyingPriceUnitOfMeasure, error) {
-	f := new(field.UnderlyingPriceUnitOfMeasure)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) EncodedIssuer() (*field.EncodedIssuer, error) {
-	f := new(field.EncodedIssuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) DatedDate() (*field.DatedDate, error) {
-	f := new(field.DatedDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingRepoCollateralSecurityType() (*field.UnderlyingRepoCollateralSecurityType, error) {
-	f := new(field.UnderlyingRepoCollateralSecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) MinPriceIncrement() (*field.MinPriceIncrement, error) {
-	f := new(field.MinPriceIncrement)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NoInstrumentParties() (*field.NoInstrumentParties, error) {
-	f := new(field.NoInstrumentParties)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) FloorPrice() (*field.FloorPrice, error) {
-	f := new(field.FloorPrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) ValuationMethod() (*field.ValuationMethod, error) {
-	f := new(field.ValuationMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYear, error) {
-	f := new(field.UnderlyingMaturityMonthYear)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingSettlementType() (*field.UnderlyingSettlementType, error) {
-	f := new(field.UnderlyingSettlementType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingExerciseStyle() (*field.UnderlyingExerciseStyle, error) {
-	f := new(field.UnderlyingExerciseStyle)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) MaturityTime() (*field.MaturityTime, error) {
-	f := new(field.MaturityTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCFICode() (*field.UnderlyingCFICode, error) {
-	f := new(field.UnderlyingCFICode)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCashAmount() (*field.UnderlyingCashAmount, error) {
-	f := new(field.UnderlyingCashAmount)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -359,13 +19,118 @@ func (m *OrderMassStatusRequest) SecuritySubType() (*field.SecuritySubType, erro
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
-	f := new(field.EncodedIssuerLen)
+func (m *OrderMassStatusRequest) UnderlyingSecurityID() (*field.UnderlyingSecurityID, error) {
+	f := new(field.UnderlyingSecurityID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) Pool() (*field.Pool, error) {
-	f := new(field.Pool)
+func (m *OrderMassStatusRequest) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltID, error) {
+	f := new(field.NoUnderlyingSecurityAltID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCouponRate() (*field.UnderlyingCouponRate, error) {
+	f := new(field.UnderlyingCouponRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingDetachmentPoint() (*field.UnderlyingDetachmentPoint, error) {
+	f := new(field.UnderlyingDetachmentPoint)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) CFICode() (*field.CFICode, error) {
+	f := new(field.CFICode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) Seniority() (*field.Seniority, error) {
+	f := new(field.Seniority)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethod, error) {
+	f := new(field.StrikePriceDeterminationMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCurrentValue() (*field.UnderlyingCurrentValue, error) {
+	f := new(field.UnderlyingCurrentValue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) IssueDate() (*field.IssueDate, error) {
+	f := new(field.IssueDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SettleOnOpenFlag() (*field.SettleOnOpenFlag, error) {
+	f := new(field.SettleOnOpenFlag)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) PriceQuoteMethod() (*field.PriceQuoteMethod, error) {
+	f := new(field.PriceQuoteMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingContractMultiplier() (*field.UnderlyingContractMultiplier, error) {
+	f := new(field.UnderlyingContractMultiplier)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
+	f := new(field.RepoCollateralSecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) CountryOfIssue() (*field.CountryOfIssue, error) {
+	f := new(field.CountryOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) StrikePrice() (*field.StrikePrice, error) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) InterestAccrualDate() (*field.InterestAccrualDate, error) {
+	f := new(field.InterestAccrualDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) MaturityTime() (*field.MaturityTime, error) {
+	f := new(field.MaturityTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) ValuationMethod() (*field.ValuationMethod, error) {
+	f := new(field.ValuationMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCurrency() (*field.UnderlyingCurrency, error) {
+	f := new(field.UnderlyingCurrency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingRestructuringType() (*field.UnderlyingRestructuringType, error) {
+	f := new(field.UnderlyingRestructuringType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingOriginalNotionalPercentageOutstanding() (*field.UnderlyingOriginalNotionalPercentageOutstanding, error) {
+	f := new(field.UnderlyingOriginalNotionalPercentageOutstanding)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) EncodedIssuer() (*field.EncodedIssuer, error) {
+	f := new(field.EncodedIssuer)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -374,8 +139,73 @@ func (m *OrderMassStatusRequest) ContractSettlMonth() (*field.ContractSettlMonth
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) UnderlyingSymbol() (*field.UnderlyingSymbol, error) {
-	f := new(field.UnderlyingSymbol)
+func (m *OrderMassStatusRequest) NoInstrumentParties() (*field.NoInstrumentParties, error) {
+	f := new(field.NoInstrumentParties)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SecurityXML() (*field.SecurityXML, error) {
+	f := new(field.SecurityXML)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SettlMethod() (*field.SettlMethod, error) {
+	f := new(field.SettlMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) ListMethod() (*field.ListMethod, error) {
+	f := new(field.ListMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCPRegType() (*field.UnderlyingCPRegType, error) {
+	f := new(field.UnderlyingCPRegType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingQty() (*field.UnderlyingQty, error) {
+	f := new(field.UnderlyingQty)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingEndPrice() (*field.UnderlyingEndPrice, error) {
+	f := new(field.UnderlyingEndPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) RedemptionDate() (*field.RedemptionDate, error) {
+	f := new(field.RedemptionDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethod, error) {
+	f := new(field.UnderlyingPriceDeterminationMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NoComplexEvents() (*field.NoComplexEvents, error) {
+	f := new(field.NoComplexEvents)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingRepurchaseRate() (*field.UnderlyingRepurchaseRate, error) {
+	f := new(field.UnderlyingRepurchaseRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingSettlementType() (*field.UnderlyingSettlementType, error) {
+	f := new(field.UnderlyingSettlementType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingPriceUnitOfMeasure() (*field.UnderlyingPriceUnitOfMeasure, error) {
+	f := new(field.UnderlyingPriceUnitOfMeasure)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) CouponRate() (*field.CouponRate, error) {
+	f := new(field.CouponRate)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -384,68 +214,13 @@ func (m *OrderMassStatusRequest) UnderlyingSecurityIDSource() (*field.Underlying
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) UnderlyingStrikePrice() (*field.UnderlyingStrikePrice, error) {
-	f := new(field.UnderlyingStrikePrice)
+func (m *OrderMassStatusRequest) EncodedUnderlyingSecurityDesc() (*field.EncodedUnderlyingSecurityDesc, error) {
+	f := new(field.EncodedUnderlyingSecurityDesc)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) Factor() (*field.Factor, error) {
-	f := new(field.Factor)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NoEvents() (*field.NoEvents, error) {
-	f := new(field.NoEvents)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethod, error) {
-	f := new(field.StrikePriceBoundaryMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingIssueDate() (*field.UnderlyingIssueDate, error) {
-	f := new(field.UnderlyingIssueDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
-	f := new(field.StateOrProvinceOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLen, error) {
-	f := new(field.EncodedUnderlyingSecurityDescLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCashType() (*field.UnderlyingCashType, error) {
-	f := new(field.UnderlyingCashType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) MassStatusReqType() (*field.MassStatusReqType, error) {
-	f := new(field.MassStatusReqType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) RepurchaseTerm() (*field.RepurchaseTerm, error) {
-	f := new(field.RepurchaseTerm)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDate, error) {
-	f := new(field.UnderlyingRedemptionDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingFXRate() (*field.UnderlyingFXRate, error) {
-	f := new(field.UnderlyingFXRate)
+func (m *OrderMassStatusRequest) Symbol() (*field.Symbol, error) {
+	f := new(field.Symbol)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -459,48 +234,8 @@ func (m *OrderMassStatusRequest) StrikePriceBoundaryPrecision() (*field.StrikePr
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfx, error) {
-	f := new(field.UnderlyingSymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingSecurityType() (*field.UnderlyingSecurityType, error) {
-	f := new(field.UnderlyingSecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) MaturityMonthYear() (*field.MaturityMonthYear, error) {
-	f := new(field.MaturityMonthYear)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCapValue() (*field.UnderlyingCapValue, error) {
-	f := new(field.UnderlyingCapValue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingSeniority() (*field.UnderlyingSeniority, error) {
-	f := new(field.UnderlyingSeniority)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SettleOnOpenFlag() (*field.SettleOnOpenFlag, error) {
-	f := new(field.SettleOnOpenFlag)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NTPositionLimit() (*field.NTPositionLimit, error) {
-	f := new(field.NTPositionLimit)
+func (m *OrderMassStatusRequest) TimeUnit() (*field.TimeUnit, error) {
+	f := new(field.TimeUnit)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -509,223 +244,8 @@ func (m *OrderMassStatusRequest) SecurityGroup() (*field.SecurityGroup, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) OptPayoutType() (*field.OptPayoutType, error) {
-	f := new(field.OptPayoutType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingUnitOfMeasureQty() (*field.UnderlyingUnitOfMeasureQty, error) {
-	f := new(field.UnderlyingUnitOfMeasureQty)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) IssueDate() (*field.IssueDate, error) {
-	f := new(field.IssueDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) ContractMultiplier() (*field.ContractMultiplier, error) {
-	f := new(field.ContractMultiplier)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) Issuer() (*field.Issuer, error) {
-	f := new(field.Issuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SecurityXML() (*field.SecurityXML, error) {
-	f := new(field.SecurityXML)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) PriceUnitOfMeasure() (*field.PriceUnitOfMeasure, error) {
-	f := new(field.PriceUnitOfMeasure)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQty, error) {
-	f := new(field.PriceUnitOfMeasureQty)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) Seniority() (*field.Seniority, error) {
-	f := new(field.Seniority)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingMaturityDate() (*field.UnderlyingMaturityDate, error) {
-	f := new(field.UnderlyingMaturityDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLen, error) {
-	f := new(field.EncodedUnderlyingIssuerLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingQty() (*field.UnderlyingQty, error) {
-	f := new(field.UnderlyingQty)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) MassStatusReqID() (*field.MassStatusReqID, error) {
-	f := new(field.MassStatusReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) ListMethod() (*field.ListMethod, error) {
-	f := new(field.ListMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCreditRating() (*field.UnderlyingCreditRating, error) {
-	f := new(field.UnderlyingCreditRating)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssue, error) {
-	f := new(field.UnderlyingCountryOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCouponRate() (*field.UnderlyingCouponRate, error) {
-	f := new(field.UnderlyingCouponRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) EncodedUnderlyingSecurityDesc() (*field.EncodedUnderlyingSecurityDesc, error) {
-	f := new(field.EncodedUnderlyingSecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCurrentValue() (*field.UnderlyingCurrentValue, error) {
-	f := new(field.UnderlyingCurrentValue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingSettlMethod() (*field.UnderlyingSettlMethod, error) {
-	f := new(field.UnderlyingSettlMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingDetachmentPoint() (*field.UnderlyingDetachmentPoint, error) {
-	f := new(field.UnderlyingDetachmentPoint)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) CouponPaymentDate() (*field.CouponPaymentDate, error) {
-	f := new(field.CouponPaymentDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) EncodedSecurityDesc() (*field.EncodedSecurityDesc, error) {
-	f := new(field.EncodedSecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) InterestAccrualDate() (*field.InterestAccrualDate, error) {
-	f := new(field.InterestAccrualDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) MinPriceIncrementAmount() (*field.MinPriceIncrementAmount, error) {
-	f := new(field.MinPriceIncrementAmount)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingOptAttribute() (*field.UnderlyingOptAttribute, error) {
-	f := new(field.UnderlyingOptAttribute)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingDirtyPrice() (*field.UnderlyingDirtyPrice, error) {
-	f := new(field.UnderlyingDirtyPrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingUnitOfMeasure() (*field.UnderlyingUnitOfMeasure, error) {
-	f := new(field.UnderlyingUnitOfMeasure)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NoTargetPartyIDs() (*field.NoTargetPartyIDs, error) {
-	f := new(field.NoTargetPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) RedemptionDate() (*field.RedemptionDate, error) {
-	f := new(field.RedemptionDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) DetachmentPoint() (*field.DetachmentPoint, error) {
-	f := new(field.DetachmentPoint)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NoComplexEvents() (*field.NoComplexEvents, error) {
-	f := new(field.NoComplexEvents)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistry, error) {
-	f := new(field.UnderlyingInstrRegistry)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingOriginalNotionalPercentageOutstanding() (*field.UnderlyingOriginalNotionalPercentageOutstanding, error) {
-	f := new(field.UnderlyingOriginalNotionalPercentageOutstanding)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, error) {
-	f := new(field.InstrmtAssignmentMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) TimeUnit() (*field.TimeUnit, error) {
-	f := new(field.TimeUnit)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstanding, error) {
-	f := new(field.NotionalPercentageOutstanding)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *OrderMassStatusRequest) UnderlyingSecuritySubType() (*field.UnderlyingSecuritySubType, error) {
 	f := new(field.UnderlyingSecuritySubType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) Account() (*field.Account, error) {
-	f := new(field.Account)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) StrikeMultiplier() (*field.StrikeMultiplier, error) {
-	f := new(field.StrikeMultiplier)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstanding, error) {
-	f := new(field.OriginalNotionalPercentageOutstanding)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCPProgram() (*field.UnderlyingCPProgram, error) {
-	f := new(field.UnderlyingCPProgram)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingStartValue() (*field.UnderlyingStartValue, error) {
-	f := new(field.UnderlyingStartValue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingPutOrCall() (*field.UnderlyingPutOrCall, error) {
-	f := new(field.UnderlyingPutOrCall)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -734,103 +254,28 @@ func (m *OrderMassStatusRequest) TradingSessionID() (*field.TradingSessionID, er
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) NoSecurityAltID() (*field.NoSecurityAltID, error) {
-	f := new(field.NoSecurityAltID)
+func (m *OrderMassStatusRequest) ContractMultiplierUnit() (*field.ContractMultiplierUnit, error) {
+	f := new(field.ContractMultiplierUnit)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) InstrRegistry() (*field.InstrRegistry, error) {
-	f := new(field.InstrRegistry)
+func (m *OrderMassStatusRequest) AttachmentPoint() (*field.AttachmentPoint, error) {
+	f := new(field.AttachmentPoint)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) StrikePrice() (*field.StrikePrice, error) {
-	f := new(field.StrikePrice)
+func (m *OrderMassStatusRequest) UnderlyingSecurityType() (*field.UnderlyingSecurityType, error) {
+	f := new(field.UnderlyingSecurityType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) SecurityStatus() (*field.SecurityStatus, error) {
-	f := new(field.SecurityStatus)
+func (m *OrderMassStatusRequest) Factor() (*field.Factor, error) {
+	f := new(field.Factor)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) UnderlyingTimeUnit() (*field.UnderlyingTimeUnit, error) {
-	f := new(field.UnderlyingTimeUnit)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) SettlMethod() (*field.SettlMethod, error) {
-	f := new(field.SettlMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, error) {
-	f := new(field.EncodedSecurityDescLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTerm, error) {
-	f := new(field.UnderlyingRepurchaseTerm)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingCPRegType() (*field.UnderlyingCPRegType, error) {
-	f := new(field.UnderlyingCPRegType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingIssuer() (*field.UnderlyingIssuer, error) {
-	f := new(field.UnderlyingIssuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
-	f := new(field.RepoCollateralSecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnitOfMeasure() (*field.UnitOfMeasure, error) {
-	f := new(field.UnitOfMeasure)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnitOfMeasureQty() (*field.UnitOfMeasureQty, error) {
-	f := new(field.UnitOfMeasureQty)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) PriceQuoteMethod() (*field.PriceQuoteMethod, error) {
-	f := new(field.PriceQuoteMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) FlexibleIndicator() (*field.FlexibleIndicator, error) {
-	f := new(field.FlexibleIndicator)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingSecurityID() (*field.UnderlyingSecurityID, error) {
-	f := new(field.UnderlyingSecurityID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) UnderlyingPriceUnitOfMeasureQty() (*field.UnderlyingPriceUnitOfMeasureQty, error) {
-	f := new(field.UnderlyingPriceUnitOfMeasureQty)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) CreditRating() (*field.CreditRating, error) {
-	f := new(field.CreditRating)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderMassStatusRequest) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltID, error) {
-	f := new(field.NoUnderlyingSecurityAltID)
+func (m *OrderMassStatusRequest) SecurityDesc() (*field.SecurityDesc, error) {
+	f := new(field.SecurityDesc)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -839,18 +284,573 @@ func (m *OrderMassStatusRequest) UnderlyingProduct() (*field.UnderlyingProduct, 
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *OrderMassStatusRequest) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLen, error) {
+	f := new(field.EncodedUnderlyingIssuerLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingEndValue() (*field.UnderlyingEndValue, error) {
+	f := new(field.UnderlyingEndValue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) CouponPaymentDate() (*field.CouponPaymentDate, error) {
+	f := new(field.CouponPaymentDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingStartValue() (*field.UnderlyingStartValue, error) {
+	f := new(field.UnderlyingStartValue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingPriceUnitOfMeasureQty() (*field.UnderlyingPriceUnitOfMeasureQty, error) {
+	f := new(field.UnderlyingPriceUnitOfMeasureQty)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) ProductComplex() (*field.ProductComplex, error) {
+	f := new(field.ProductComplex)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) FlowScheduleType() (*field.FlowScheduleType, error) {
+	f := new(field.FlowScheduleType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingAllocationPercent() (*field.UnderlyingAllocationPercent, error) {
+	f := new(field.UnderlyingAllocationPercent)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) CPProgram() (*field.CPProgram, error) {
+	f := new(field.CPProgram)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) PositionLimit() (*field.PositionLimit, error) {
+	f := new(field.PositionLimit)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SecurityXMLSchema() (*field.SecurityXMLSchema, error) {
+	f := new(field.SecurityXMLSchema)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstanding, error) {
+	f := new(field.OriginalNotionalPercentageOutstanding)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingFlowScheduleType() (*field.UnderlyingFlowScheduleType, error) {
+	f := new(field.UnderlyingFlowScheduleType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NoSecurityAltID() (*field.NoSecurityAltID, error) {
+	f := new(field.NoSecurityAltID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) MaturityMonthYear() (*field.MaturityMonthYear, error) {
+	f := new(field.MaturityMonthYear)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) DetachmentPoint() (*field.DetachmentPoint, error) {
+	f := new(field.DetachmentPoint)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) OptPayoutType() (*field.OptPayoutType, error) {
+	f := new(field.OptPayoutType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistry, error) {
+	f := new(field.UnderlyingInstrRegistry)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingFXRateCalc() (*field.UnderlyingFXRateCalc, error) {
+	f := new(field.UnderlyingFXRateCalc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingMaturityTime() (*field.UnderlyingMaturityTime, error) {
+	f := new(field.UnderlyingMaturityTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) MassStatusReqID() (*field.MassStatusReqID, error) {
+	f := new(field.MassStatusReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) Issuer() (*field.Issuer, error) {
+	f := new(field.Issuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) MinPriceIncrement() (*field.MinPriceIncrement, error) {
+	f := new(field.MinPriceIncrement)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicator, error) {
+	f := new(field.FlexProductEligibilityIndicator)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingStrikePrice() (*field.UnderlyingStrikePrice, error) {
+	f := new(field.UnderlyingStrikePrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) StrikeCurrency() (*field.StrikeCurrency, error) {
+	f := new(field.StrikeCurrency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) CapPrice() (*field.CapPrice, error) {
+	f := new(field.CapPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCapValue() (*field.UnderlyingCapValue, error) {
+	f := new(field.UnderlyingCapValue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingContractMultiplierUnit() (*field.UnderlyingContractMultiplierUnit, error) {
+	f := new(field.UnderlyingContractMultiplierUnit)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) InstrRegistry() (*field.InstrRegistry, error) {
+	f := new(field.InstrRegistry)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnitOfMeasureQty() (*field.UnitOfMeasureQty, error) {
+	f := new(field.UnitOfMeasureQty)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) FloorPrice() (*field.FloorPrice, error) {
+	f := new(field.FloorPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingFactor() (*field.UnderlyingFactor, error) {
+	f := new(field.UnderlyingFactor)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingIssuer() (*field.UnderlyingIssuer, error) {
+	f := new(field.UnderlyingIssuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NoTargetPartyIDs() (*field.NoTargetPartyIDs, error) {
+	f := new(field.NoTargetPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, error) {
+	f := new(field.EncodedSecurityDescLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) EncodedSecurityDesc() (*field.EncodedSecurityDesc, error) {
+	f := new(field.EncodedSecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) CPRegType() (*field.CPRegType, error) {
+	f := new(field.CPRegType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NoEvents() (*field.NoEvents, error) {
+	f := new(field.NoEvents)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) FlexibleIndicator() (*field.FlexibleIndicator, error) {
+	f := new(field.FlexibleIndicator)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingAdjustedQuantity() (*field.UnderlyingAdjustedQuantity, error) {
+	f := new(field.UnderlyingAdjustedQuantity)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingExerciseStyle() (*field.UnderlyingExerciseStyle, error) {
+	f := new(field.UnderlyingExerciseStyle)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) Pool() (*field.Pool, error) {
+	f := new(field.Pool)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) PriceUnitOfMeasure() (*field.PriceUnitOfMeasure, error) {
+	f := new(field.PriceUnitOfMeasure)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) PutOrCall() (*field.PutOrCall, error) {
+	f := new(field.PutOrCall)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *OrderMassStatusRequest) UnderlyingStateOrProvinceOfIssue() (*field.UnderlyingStateOrProvinceOfIssue, error) {
 	f := new(field.UnderlyingStateOrProvinceOfIssue)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
+func (m *OrderMassStatusRequest) UnderlyingLocaleOfIssue() (*field.UnderlyingLocaleOfIssue, error) {
+	f := new(field.UnderlyingLocaleOfIssue)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderMassStatusRequest) CFICode() (*field.CFICode, error) {
-	f := new(field.CFICode)
+func (m *OrderMassStatusRequest) UnderlyingCPProgram() (*field.UnderlyingCPProgram, error) {
+	f := new(field.UnderlyingCPProgram)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingSettlMethod() (*field.UnderlyingSettlMethod, error) {
+	f := new(field.UnderlyingSettlMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) Side() (*field.Side, error) {
+	f := new(field.Side)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) RepurchaseTerm() (*field.RepurchaseTerm, error) {
+	f := new(field.RepurchaseTerm)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnitOfMeasure() (*field.UnitOfMeasure, error) {
+	f := new(field.UnitOfMeasure)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQty, error) {
+	f := new(field.PriceUnitOfMeasureQty)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYear, error) {
+	f := new(field.UnderlyingMaturityMonthYear)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingStrikeCurrency() (*field.UnderlyingStrikeCurrency, error) {
+	f := new(field.UnderlyingStrikeCurrency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDesc, error) {
+	f := new(field.UnderlyingSecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingTimeUnit() (*field.UnderlyingTimeUnit, error) {
+	f := new(field.UnderlyingTimeUnit)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingPutOrCall() (*field.UnderlyingPutOrCall, error) {
+	f := new(field.UnderlyingPutOrCall)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingSeniority() (*field.UnderlyingSeniority, error) {
+	f := new(field.UnderlyingSeniority)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) ContractMultiplier() (*field.ContractMultiplier, error) {
+	f := new(field.ContractMultiplier)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) DatedDate() (*field.DatedDate, error) {
+	f := new(field.DatedDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NTPositionLimit() (*field.NTPositionLimit, error) {
+	f := new(field.NTPositionLimit)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingSymbol() (*field.UnderlyingSymbol, error) {
+	f := new(field.UnderlyingSymbol)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLen, error) {
+	f := new(field.EncodedUnderlyingSecurityDescLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingDirtyPrice() (*field.UnderlyingDirtyPrice, error) {
+	f := new(field.UnderlyingDirtyPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingAttachmentPoint() (*field.UnderlyingAttachmentPoint, error) {
+	f := new(field.UnderlyingAttachmentPoint)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) MassStatusReqType() (*field.MassStatusReqType, error) {
+	f := new(field.MassStatusReqType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) Product() (*field.Product, error) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) EncodedUnderlyingIssuer() (*field.EncodedUnderlyingIssuer, error) {
+	f := new(field.EncodedUnderlyingIssuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SecurityIDSource() (*field.SecurityIDSource, error) {
+	f := new(field.SecurityIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) MinPriceIncrementAmount() (*field.MinPriceIncrementAmount, error) {
+	f := new(field.MinPriceIncrementAmount)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SecurityXMLLen() (*field.SecurityXMLLen, error) {
+	f := new(field.SecurityXMLLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) OptPayoutAmount() (*field.OptPayoutAmount, error) {
+	f := new(field.OptPayoutAmount)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchange, error) {
+	f := new(field.UnderlyingSecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingPx() (*field.UnderlyingPx, error) {
+	f := new(field.UnderlyingPx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NoUndlyInstrumentParties() (*field.NoUndlyInstrumentParties, error) {
+	f := new(field.NoUndlyInstrumentParties)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
+	f := new(field.StateOrProvinceOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) StrikeValue() (*field.StrikeValue, error) {
+	f := new(field.StrikeValue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfx, error) {
+	f := new(field.UnderlyingSymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingIssueDate() (*field.UnderlyingIssueDate, error) {
+	f := new(field.UnderlyingIssueDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTerm, error) {
+	f := new(field.UnderlyingRepurchaseTerm)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) RepurchaseRate() (*field.RepurchaseRate, error) {
+	f := new(field.RepurchaseRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCFICode() (*field.UnderlyingCFICode, error) {
+	f := new(field.UnderlyingCFICode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingRepoCollateralSecurityType() (*field.UnderlyingRepoCollateralSecurityType, error) {
+	f := new(field.UnderlyingRepoCollateralSecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingNotionalPercentageOutstanding() (*field.UnderlyingNotionalPercentageOutstanding, error) {
+	f := new(field.UnderlyingNotionalPercentageOutstanding)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) StrikeMultiplier() (*field.StrikeMultiplier, error) {
+	f := new(field.StrikeMultiplier)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstanding, error) {
+	f := new(field.NotionalPercentageOutstanding)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDate, error) {
+	f := new(field.UnderlyingCouponPaymentDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) RestructuringType() (*field.RestructuringType, error) {
+	f := new(field.RestructuringType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssue, error) {
+	f := new(field.UnderlyingCountryOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCashType() (*field.UnderlyingCashType, error) {
+	f := new(field.UnderlyingCashType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingFXRate() (*field.UnderlyingFXRate, error) {
+	f := new(field.UnderlyingFXRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, error) {
+	f := new(field.InstrmtAssignmentMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingMaturityDate() (*field.UnderlyingMaturityDate, error) {
+	f := new(field.UnderlyingMaturityDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCreditRating() (*field.UnderlyingCreditRating, error) {
+	f := new(field.UnderlyingCreditRating)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) NoUnderlyingStips() (*field.NoUnderlyingStips, error) {
+	f := new(field.NoUnderlyingStips)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) Account() (*field.Account, error) {
+	f := new(field.Account)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) OptAttribute() (*field.OptAttribute, error) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethod, error) {
+	f := new(field.StrikePriceBoundaryMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingOptAttribute() (*field.UnderlyingOptAttribute, error) {
+	f := new(field.UnderlyingOptAttribute)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingUnitOfMeasure() (*field.UnderlyingUnitOfMeasure, error) {
+	f := new(field.UnderlyingUnitOfMeasure)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingUnitOfMeasureQty() (*field.UnderlyingUnitOfMeasureQty, error) {
+	f := new(field.UnderlyingUnitOfMeasureQty)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) CreditRating() (*field.CreditRating, error) {
+	f := new(field.CreditRating)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
+	f := new(field.EncodedIssuerLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SecurityStatus() (*field.SecurityStatus, error) {
+	f := new(field.SecurityStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDate, error) {
+	f := new(field.UnderlyingRedemptionDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) MaturityDate() (*field.MaturityDate, error) {
+	f := new(field.MaturityDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) LocaleOfIssue() (*field.LocaleOfIssue, error) {
+	f := new(field.LocaleOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) ExerciseStyle() (*field.ExerciseStyle, error) {
+	f := new(field.ExerciseStyle)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderMassStatusRequest) UnderlyingCashAmount() (*field.UnderlyingCashAmount, error) {
+	f := new(field.UnderlyingCashAmount)
 	err := m.Body.Get(f)
 	return f, err
 }

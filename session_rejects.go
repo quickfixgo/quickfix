@@ -1,8 +1,8 @@
-package quickfixgo
+package quickfix
 
 import (
 	"fmt"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //RejectReason (tag 373) enum values.

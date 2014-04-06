@@ -1,12 +1,12 @@
 package fix41
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type News struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *News) OrigTime() (*field.OrigTime, error) {

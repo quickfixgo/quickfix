@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 type MessageStore interface {
 	SaveMessage(seqNum int, buf Buffer)

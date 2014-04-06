@@ -1,12 +1,12 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type MassQuote struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *MassQuote) QuoteReqID() (*field.QuoteReqID, error) {
@@ -24,6 +24,11 @@ func (m *MassQuote) QuoteType() (*field.QuoteType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MassQuote) NoPartyIDs() (*field.NoPartyIDs, error) {
 	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
@@ -34,13 +39,8 @@ func (m *MassQuote) Account() (*field.Account, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) NoQuoteSets() (*field.NoQuoteSets, error) {
-	f := new(field.NoQuoteSets)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
+func (m *MassQuote) DefOfferSize() (*field.DefOfferSize, error) {
+	f := new(field.DefOfferSize)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,8 +59,8 @@ func (m *MassQuote) DefBidSize() (*field.DefBidSize, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) DefOfferSize() (*field.DefOfferSize, error) {
-	f := new(field.DefOfferSize)
+func (m *MassQuote) NoQuoteSets() (*field.NoQuoteSets, error) {
+	f := new(field.NoQuoteSets)
 	err := m.Body.Get(f)
 	return f, err
 }

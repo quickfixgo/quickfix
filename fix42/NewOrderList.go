@@ -1,12 +1,12 @@
 package fix42
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type NewOrderList struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *NewOrderList) ListID() (*field.ListID, error) {
@@ -16,6 +16,11 @@ func (m *NewOrderList) ListID() (*field.ListID, error) {
 }
 func (m *NewOrderList) ClientBidID() (*field.ClientBidID, error) {
 	f := new(field.ClientBidID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) ProgPeriodInterval() (*field.ProgPeriodInterval, error) {
+	f := new(field.ProgPeriodInterval)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,8 +34,13 @@ func (m *NewOrderList) ListExecInst() (*field.ListExecInst, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) EncodedListExecInst() (*field.EncodedListExecInst, error) {
-	f := new(field.EncodedListExecInst)
+func (m *NewOrderList) EncodedListExecInstLen() (*field.EncodedListExecInstLen, error) {
+	f := new(field.EncodedListExecInstLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) TotNoOrders() (*field.TotNoOrders, error) {
+	f := new(field.TotNoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -54,18 +64,8 @@ func (m *NewOrderList) BidType() (*field.BidType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) ProgPeriodInterval() (*field.ProgPeriodInterval, error) {
-	f := new(field.ProgPeriodInterval)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) EncodedListExecInstLen() (*field.EncodedListExecInstLen, error) {
-	f := new(field.EncodedListExecInstLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) TotNoOrders() (*field.TotNoOrders, error) {
-	f := new(field.TotNoOrders)
+func (m *NewOrderList) EncodedListExecInst() (*field.EncodedListExecInst, error) {
+	f := new(field.EncodedListExecInst)
 	err := m.Body.Get(f)
 	return f, err
 }

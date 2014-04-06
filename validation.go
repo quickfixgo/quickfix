@@ -1,9 +1,9 @@
-package quickfixgo
+package quickfix
 
 import (
 	"fmt"
-	"github.com/cbusbey/quickfixgo/datadictionary"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //Validate tests the message against the provided data dictionary.

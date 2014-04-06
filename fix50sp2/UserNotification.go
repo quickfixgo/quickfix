@@ -1,12 +1,12 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type UserNotification struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *UserNotification) Username() (*field.Username, error) {

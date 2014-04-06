@@ -1,12 +1,12 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type News struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *News) OrigTime() (*field.OrigTime, error) {
@@ -19,13 +19,18 @@ func (m *News) Headline() (*field.Headline, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) EncodedHeadlineLen() (*field.EncodedHeadlineLen, error) {
-	f := new(field.EncodedHeadlineLen)
+func (m *News) EncodedHeadline() (*field.EncodedHeadline, error) {
+	f := new(field.EncodedHeadline)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) NoRoutingIDs() (*field.NoRoutingIDs, error) {
-	f := new(field.NoRoutingIDs)
+func (m *News) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *News) URLLink() (*field.URLLink, error) {
+	f := new(field.URLLink)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,23 +49,18 @@ func (m *News) Urgency() (*field.Urgency, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) EncodedHeadline() (*field.EncodedHeadline, error) {
-	f := new(field.EncodedHeadline)
+func (m *News) EncodedHeadlineLen() (*field.EncodedHeadlineLen, error) {
+	f := new(field.EncodedHeadlineLen)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
+func (m *News) NoRoutingIDs() (*field.NoRoutingIDs, error) {
+	f := new(field.NoRoutingIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *News) LinesOfText() (*field.LinesOfText, error) {
 	f := new(field.LinesOfText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *News) URLLink() (*field.URLLink, error) {
-	f := new(field.URLLink)
 	err := m.Body.Get(f)
 	return f, err
 }

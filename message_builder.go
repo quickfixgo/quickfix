@@ -1,8 +1,8 @@
-package quickfixgo
+package quickfix
 
 import (
 	"bytes"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //Buffer is a container for message bytes.  The interface provides a Free() method that will be called after the buffer is consumed.

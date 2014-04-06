@@ -1,7 +1,7 @@
-package quickfixgo
+package quickfix
 
 import (
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //Collection of fields representing the trailer of a FIX message

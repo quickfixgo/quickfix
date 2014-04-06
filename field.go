@@ -1,7 +1,7 @@
-package quickfixgo
+package quickfix
 
 import (
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //The FieldValue interface is used to write/extract typed field values to/from raw bytes

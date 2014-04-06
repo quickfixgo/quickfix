@@ -1,21 +1,26 @@
 package fix50sp1
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SecurityList struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *SecurityList) SecurityRequestResult() (*field.SecurityRequestResult, error) {
-	f := new(field.SecurityRequestResult)
+func (m *SecurityList) TotNoRelatedSym() (*field.TotNoRelatedSym, error) {
+	f := new(field.TotNoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityList) MarketSegmentID() (*field.MarketSegmentID, error) {
-	f := new(field.MarketSegmentID)
+func (m *SecurityList) ApplID() (*field.ApplID, error) {
+	f := new(field.ApplID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityList) ApplLastSeqNum() (*field.ApplLastSeqNum, error) {
+	f := new(field.ApplLastSeqNum)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,13 +29,38 @@ func (m *SecurityList) ApplResendFlag() (*field.ApplResendFlag, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityList) TotNoRelatedSym() (*field.TotNoRelatedSym, error) {
-	f := new(field.TotNoRelatedSym)
+func (m *SecurityList) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityList) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
+func (m *SecurityList) MarketSegmentID() (*field.MarketSegmentID, error) {
+	f := new(field.MarketSegmentID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityList) SecurityResponseID() (*field.SecurityResponseID, error) {
+	f := new(field.SecurityResponseID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityList) SecurityRequestResult() (*field.SecurityRequestResult, error) {
+	f := new(field.SecurityRequestResult)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityList) LastFragment() (*field.LastFragment, error) {
+	f := new(field.LastFragment)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityList) ApplSeqNum() (*field.ApplSeqNum, error) {
+	f := new(field.ApplSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityList) SecurityReqID() (*field.SecurityReqID, error) {
+	f := new(field.SecurityReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,38 +74,8 @@ func (m *SecurityList) ClearingBusinessDate() (*field.ClearingBusinessDate, erro
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityList) SecurityResponseID() (*field.SecurityResponseID, error) {
-	f := new(field.SecurityResponseID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityList) LastFragment() (*field.LastFragment, error) {
-	f := new(field.LastFragment)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SecurityList) MarketID() (*field.MarketID, error) {
 	f := new(field.MarketID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityList) ApplLastSeqNum() (*field.ApplLastSeqNum, error) {
-	f := new(field.ApplLastSeqNum)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityList) SecurityReqID() (*field.SecurityReqID, error) {
-	f := new(field.SecurityReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityList) ApplID() (*field.ApplID, error) {
-	f := new(field.ApplID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityList) ApplSeqNum() (*field.ApplSeqNum, error) {
-	f := new(field.ApplSeqNum)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -1,8 +1,8 @@
-package quickfixgo
+package quickfix
 
 import (
 	"errors"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //Container for bool, implements FieldValue

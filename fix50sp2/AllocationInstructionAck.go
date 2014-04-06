@@ -1,16 +1,26 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type AllocationInstructionAck struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *AllocationInstructionAck) AllocID() (*field.AllocID, error) {
 	f := new(field.AllocID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationInstructionAck) AllocStatus() (*field.AllocStatus, error) {
+	f := new(field.AllocStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationInstructionAck) AllocIntermedReqType() (*field.AllocIntermedReqType, error) {
+	f := new(field.AllocIntermedReqType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,33 +39,13 @@ func (m *AllocationInstructionAck) EncodedText() (*field.EncodedText, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationInstructionAck) NoAllocs() (*field.NoAllocs, error) {
-	f := new(field.NoAllocs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationInstructionAck) SecondaryAllocID() (*field.SecondaryAllocID, error) {
-	f := new(field.SecondaryAllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationInstructionAck) TradeDate() (*field.TradeDate, error) {
-	f := new(field.TradeDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationInstructionAck) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *AllocationInstructionAck) NoPartyIDs() (*field.NoPartyIDs, error) {
 	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationInstructionAck) AllocStatus() (*field.AllocStatus, error) {
-	f := new(field.AllocStatus)
+func (m *AllocationInstructionAck) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -69,11 +59,6 @@ func (m *AllocationInstructionAck) AllocType() (*field.AllocType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationInstructionAck) AllocIntermedReqType() (*field.AllocIntermedReqType, error) {
-	f := new(field.AllocIntermedReqType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *AllocationInstructionAck) SecurityType() (*field.SecurityType, error) {
 	f := new(field.SecurityType)
 	err := m.Body.Get(f)
@@ -84,8 +69,23 @@ func (m *AllocationInstructionAck) EncodedTextLen() (*field.EncodedTextLen, erro
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationInstructionAck) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *AllocationInstructionAck) TradeDate() (*field.TradeDate, error) {
+	f := new(field.TradeDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationInstructionAck) Product() (*field.Product, error) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationInstructionAck) NoAllocs() (*field.NoAllocs, error) {
+	f := new(field.NoAllocs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationInstructionAck) SecondaryAllocID() (*field.SecondaryAllocID, error) {
+	f := new(field.SecondaryAllocID)
 	err := m.Body.Get(f)
 	return f, err
 }

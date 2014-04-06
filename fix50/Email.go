@@ -1,21 +1,51 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type Email struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *Email) EmailType() (*field.EmailType, error) {
-	f := new(field.EmailType)
+func (m *Email) NoUnderlyings() (*field.NoUnderlyings, error) {
+	f := new(field.NoUnderlyings)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) OrigTime() (*field.OrigTime, error) {
-	f := new(field.OrigTime)
+func (m *Email) NoLegs() (*field.NoLegs, error) {
+	f := new(field.NoLegs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) RawData() (*field.RawData, error) {
+	f := new(field.RawData)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
+	f := new(field.EmailThreadID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) NoRoutingIDs() (*field.NoRoutingIDs, error) {
+	f := new(field.NoRoutingIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) NoLinesOfText() (*field.NoLinesOfText, error) {
+	f := new(field.NoLinesOfText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) EmailType() (*field.EmailType, error) {
+	f := new(field.EmailType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,8 +54,8 @@ func (m *Email) Subject() (*field.Subject, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
-	f := new(field.EmailThreadID)
+func (m *Email) EncodedSubjectLen() (*field.EncodedSubjectLen, error) {
+	f := new(field.EncodedSubjectLen)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,43 +69,13 @@ func (m *Email) NoRelatedSym() (*field.NoRelatedSym, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Email) OrigTime() (*field.OrigTime, error) {
+	f := new(field.OrigTime)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Email) OrderID() (*field.OrderID, error) {
 	f := new(field.OrderID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) EncodedSubjectLen() (*field.EncodedSubjectLen, error) {
-	f := new(field.EncodedSubjectLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) NoUnderlyings() (*field.NoUnderlyings, error) {
-	f := new(field.NoUnderlyings)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) NoLegs() (*field.NoLegs, error) {
-	f := new(field.NoLegs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) NoLinesOfText() (*field.NoLinesOfText, error) {
-	f := new(field.NoLinesOfText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) NoRoutingIDs() (*field.NoRoutingIDs, error) {
-	f := new(field.NoRoutingIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

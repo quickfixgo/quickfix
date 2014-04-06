@@ -1,11 +1,11 @@
-package quickfixgo
+package quickfix
 
 import (
 	"fmt"
-	"github.com/cbusbey/quickfixgo/datadictionary"
-	"github.com/cbusbey/quickfixgo/log"
-	"github.com/cbusbey/quickfixgo/settings"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/log"
+	"github.com/quickfixgo/quickfix/settings"
+	"github.com/quickfixgo/quickfix/tag"
 	"time"
 )
 

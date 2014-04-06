@@ -1,26 +1,16 @@
 package fix44
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SettlementInstructions struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *SettlementInstructions) SettlInstReqRejCode() (*field.SettlInstReqRejCode, error) {
 	f := new(field.SettlInstReqRejCode)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementInstructions) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementInstructions) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,8 +19,8 @@ func (m *SettlementInstructions) ClOrdID() (*field.ClOrdID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructions) NoSettlInst() (*field.NoSettlInst, error) {
-	f := new(field.NoSettlInst)
+func (m *SettlementInstructions) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,13 +39,23 @@ func (m *SettlementInstructions) SettlInstMode() (*field.SettlInstMode, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SettlementInstructions) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementInstructions) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SettlementInstructions) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementInstructions) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *SettlementInstructions) NoSettlInst() (*field.NoSettlInst, error) {
+	f := new(field.NoSettlInst)
 	err := m.Body.Get(f)
 	return f, err
 }

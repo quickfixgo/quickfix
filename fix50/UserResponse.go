@@ -1,12 +1,12 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type UserResponse struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *UserResponse) UserRequestID() (*field.UserRequestID, error) {

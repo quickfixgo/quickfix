@@ -1,16 +1,26 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SecurityTypes struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *SecurityTypes) SecurityReqID() (*field.SecurityReqID, error) {
-	f := new(field.SecurityReqID)
+func (m *SecurityTypes) TotNoSecurityTypes() (*field.TotNoSecurityTypes, error) {
+	f := new(field.TotNoSecurityTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) ApplSeqNum() (*field.ApplSeqNum, error) {
+	f := new(field.ApplSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) ApplLastSeqNum() (*field.ApplLastSeqNum, error) {
+	f := new(field.ApplLastSeqNum)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -21,6 +31,11 @@ func (m *SecurityTypes) SecurityResponseID() (*field.SecurityResponseID, error) 
 }
 func (m *SecurityTypes) LastFragment() (*field.LastFragment, error) {
 	f := new(field.LastFragment)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,23 +54,18 @@ func (m *SecurityTypes) MarketSegmentID() (*field.MarketSegmentID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) ApplLastSeqNum() (*field.ApplLastSeqNum, error) {
-	f := new(field.ApplLastSeqNum)
+func (m *SecurityTypes) ApplID() (*field.ApplID, error) {
+	f := new(field.ApplID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) SecurityResponseType() (*field.SecurityResponseType, error) {
-	f := new(field.SecurityResponseType)
+func (m *SecurityTypes) ApplResendFlag() (*field.ApplResendFlag, error) {
+	f := new(field.ApplResendFlag)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
-	f := new(field.SubscriptionRequestType)
+func (m *SecurityTypes) SecurityReqID() (*field.SecurityReqID, error) {
+	f := new(field.SecurityReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,8 +74,13 @@ func (m *SecurityTypes) NoSecurityTypes() (*field.NoSecurityTypes, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *SecurityTypes) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) SecurityResponseType() (*field.SecurityResponseType, error) {
+	f := new(field.SecurityResponseType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -79,23 +94,8 @@ func (m *SecurityTypes) TradingSessionID() (*field.TradingSessionID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) ApplID() (*field.ApplID, error) {
-	f := new(field.ApplID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) ApplSeqNum() (*field.ApplSeqNum, error) {
-	f := new(field.ApplSeqNum)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) TotNoSecurityTypes() (*field.TotNoSecurityTypes, error) {
-	f := new(field.TotNoSecurityTypes)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) ApplResendFlag() (*field.ApplResendFlag, error) {
-	f := new(field.ApplResendFlag)
+func (m *SecurityTypes) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
+	f := new(field.SubscriptionRequestType)
 	err := m.Body.Get(f)
 	return f, err
 }

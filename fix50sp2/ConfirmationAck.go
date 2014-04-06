@@ -1,34 +1,14 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type ConfirmationAck struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *ConfirmationAck) TradeDate() (*field.TradeDate, error) {
-	f := new(field.TradeDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationAck) ConfirmRejReason() (*field.ConfirmRejReason, error) {
-	f := new(field.ConfirmRejReason)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationAck) MatchStatus() (*field.MatchStatus, error) {
-	f := new(field.MatchStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationAck) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationAck) ConfirmID() (*field.ConfirmID, error) {
 	f := new(field.ConfirmID)
 	err := m.Body.Get(f)
@@ -41,6 +21,26 @@ func (m *ConfirmationAck) TransactTime() (*field.TransactTime, error) {
 }
 func (m *ConfirmationAck) AffirmStatus() (*field.AffirmStatus, error) {
 	f := new(field.AffirmStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationAck) MatchStatus() (*field.MatchStatus, error) {
+	f := new(field.MatchStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationAck) TradeDate() (*field.TradeDate, error) {
+	f := new(field.TradeDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationAck) ConfirmRejReason() (*field.ConfirmRejReason, error) {
+	f := new(field.ConfirmRejReason)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationAck) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }

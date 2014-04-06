@@ -1,16 +1,16 @@
 package fix40
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type Advertisement struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *Advertisement) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
+func (m *Advertisement) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -19,28 +19,18 @@ func (m *Advertisement) Issuer() (*field.Issuer, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Advertisement) Price() (*field.Price, error) {
-	f := new(field.Price)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Advertisement) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Advertisement) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *Advertisement) AdvId() (*field.AdvId, error) {
 	f := new(field.AdvId)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Advertisement) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
+func (m *Advertisement) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Advertisement) IDSource() (*field.IDSource, error) {
+	f := new(field.IDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +39,8 @@ func (m *Advertisement) SecurityDesc() (*field.SecurityDesc, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Advertisement) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *Advertisement) Price() (*field.Price, error) {
+	f := new(field.Price)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,13 +49,8 @@ func (m *Advertisement) AdvTransType() (*field.AdvTransType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Advertisement) AdvRefID() (*field.AdvRefID, error) {
-	f := new(field.AdvRefID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Advertisement) IDSource() (*field.IDSource, error) {
-	f := new(field.IDSource)
+func (m *Advertisement) Symbol() (*field.Symbol, error) {
+	f := new(field.Symbol)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -76,6 +61,21 @@ func (m *Advertisement) AdvSide() (*field.AdvSide, error) {
 }
 func (m *Advertisement) Shares() (*field.Shares, error) {
 	f := new(field.Shares)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Advertisement) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Advertisement) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Advertisement) AdvRefID() (*field.AdvRefID, error) {
+	f := new(field.AdvRefID)
 	err := m.Body.Get(f)
 	return f, err
 }

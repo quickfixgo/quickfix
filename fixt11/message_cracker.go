@@ -1,11 +1,11 @@
 package fixt11
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
-func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router MessageRouter) quickfixgo.MessageReject {
+func Crack(msg quickfix.Message, sessionID quickfix.SessionID, router MessageRouter) quickfix.MessageReject {
 
 	msgType := new(field.MsgType)
 	switch msg.Header.Get(msgType); msgType.Value {
@@ -24,38 +24,38 @@ func Crack(msg quickfixgo.Message, sessionID quickfixgo.SessionID, router Messag
 	case "A":
 		return router.OnFIXT11Logon(Logon{msg}, sessionID)
 	}
-	return quickfixgo.NewInvalidMessageType(msg)
+	return quickfix.NewInvalidMessageType(msg)
 }
 
 type MessageRouter interface {
-	OnFIXT11Heartbeat(msg Heartbeat, sessionID quickfixgo.SessionID) quickfixgo.MessageReject
-	OnFIXT11TestRequest(msg TestRequest, sessionID quickfixgo.SessionID) quickfixgo.MessageReject
-	OnFIXT11ResendRequest(msg ResendRequest, sessionID quickfixgo.SessionID) quickfixgo.MessageReject
-	OnFIXT11Reject(msg Reject, sessionID quickfixgo.SessionID) quickfixgo.MessageReject
-	OnFIXT11SequenceReset(msg SequenceReset, sessionID quickfixgo.SessionID) quickfixgo.MessageReject
-	OnFIXT11Logout(msg Logout, sessionID quickfixgo.SessionID) quickfixgo.MessageReject
-	OnFIXT11Logon(msg Logon, sessionID quickfixgo.SessionID) quickfixgo.MessageReject
+	OnFIXT11Heartbeat(msg Heartbeat, sessionID quickfix.SessionID) quickfix.MessageReject
+	OnFIXT11TestRequest(msg TestRequest, sessionID quickfix.SessionID) quickfix.MessageReject
+	OnFIXT11ResendRequest(msg ResendRequest, sessionID quickfix.SessionID) quickfix.MessageReject
+	OnFIXT11Reject(msg Reject, sessionID quickfix.SessionID) quickfix.MessageReject
+	OnFIXT11SequenceReset(msg SequenceReset, sessionID quickfix.SessionID) quickfix.MessageReject
+	OnFIXT11Logout(msg Logout, sessionID quickfix.SessionID) quickfix.MessageReject
+	OnFIXT11Logon(msg Logon, sessionID quickfix.SessionID) quickfix.MessageReject
 }
 type FIXT11MessageCracker struct{}
 
-func (c *FIXT11MessageCracker) OnFIXT11Heartbeat(msg Heartbeat, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {
-	return quickfixgo.NewUnsupportedMessageType(msg.Message)
+func (c *FIXT11MessageCracker) OnFIXT11Heartbeat(msg Heartbeat, sessionId quickfix.SessionID) quickfix.MessageReject {
+	return quickfix.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIXT11MessageCracker) OnFIXT11TestRequest(msg TestRequest, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {
-	return quickfixgo.NewUnsupportedMessageType(msg.Message)
+func (c *FIXT11MessageCracker) OnFIXT11TestRequest(msg TestRequest, sessionId quickfix.SessionID) quickfix.MessageReject {
+	return quickfix.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIXT11MessageCracker) OnFIXT11ResendRequest(msg ResendRequest, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {
-	return quickfixgo.NewUnsupportedMessageType(msg.Message)
+func (c *FIXT11MessageCracker) OnFIXT11ResendRequest(msg ResendRequest, sessionId quickfix.SessionID) quickfix.MessageReject {
+	return quickfix.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIXT11MessageCracker) OnFIXT11Reject(msg Reject, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {
-	return quickfixgo.NewUnsupportedMessageType(msg.Message)
+func (c *FIXT11MessageCracker) OnFIXT11Reject(msg Reject, sessionId quickfix.SessionID) quickfix.MessageReject {
+	return quickfix.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIXT11MessageCracker) OnFIXT11SequenceReset(msg SequenceReset, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {
-	return quickfixgo.NewUnsupportedMessageType(msg.Message)
+func (c *FIXT11MessageCracker) OnFIXT11SequenceReset(msg SequenceReset, sessionId quickfix.SessionID) quickfix.MessageReject {
+	return quickfix.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIXT11MessageCracker) OnFIXT11Logout(msg Logout, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {
-	return quickfixgo.NewUnsupportedMessageType(msg.Message)
+func (c *FIXT11MessageCracker) OnFIXT11Logout(msg Logout, sessionId quickfix.SessionID) quickfix.MessageReject {
+	return quickfix.NewUnsupportedMessageType(msg.Message)
 }
-func (c *FIXT11MessageCracker) OnFIXT11Logon(msg Logon, sessionId quickfixgo.SessionID) quickfixgo.MessageReject {
-	return quickfixgo.NewUnsupportedMessageType(msg.Message)
+func (c *FIXT11MessageCracker) OnFIXT11Logon(msg Logon, sessionId quickfix.SessionID) quickfix.MessageReject {
+	return quickfix.NewUnsupportedMessageType(msg.Message)
 }

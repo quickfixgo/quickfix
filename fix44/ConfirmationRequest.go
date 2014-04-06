@@ -1,34 +1,14 @@
 package fix44
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type ConfirmationRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
-	f := new(field.ConfirmReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error) {
-	f := new(field.SecondaryAllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationRequest) ConfirmType() (*field.ConfirmType, error) {
 	f := new(field.ConfirmType)
 	err := m.Body.Get(f)
@@ -44,8 +24,38 @@ func (m *ConfirmationRequest) AllocID() (*field.AllocID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ConfirmationRequest) AllocAccountType() (*field.AllocAccountType, error) {
+	f := new(field.AllocAccountType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
+	f := new(field.ConfirmReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error) {
+	f := new(field.SecondaryAllocID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, error) {
 	f := new(field.IndividualAllocID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,18 +69,8 @@ func (m *ConfirmationRequest) AllocAcctIDSource() (*field.AllocAcctIDSource, err
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) AllocAccountType() (*field.AllocAccountType, error) {
-	f := new(field.AllocAccountType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *ConfirmationRequest) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }

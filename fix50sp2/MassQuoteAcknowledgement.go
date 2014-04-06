@@ -1,16 +1,16 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type MassQuoteAcknowledgement struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *MassQuoteAcknowledgement) QuoteType() (*field.QuoteType, error) {
-	f := new(field.QuoteType)
+func (m *MassQuoteAcknowledgement) QuoteStatus() (*field.QuoteStatus, error) {
+	f := new(field.QuoteStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,6 +29,16 @@ func (m *MassQuoteAcknowledgement) NoQuoteSets() (*field.NoQuoteSets, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MassQuoteAcknowledgement) QuoteRejectReason() (*field.QuoteRejectReason, error) {
+	f := new(field.QuoteRejectReason)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuoteAcknowledgement) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MassQuoteAcknowledgement) NoPartyIDs() (*field.NoPartyIDs, error) {
 	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
@@ -39,8 +49,8 @@ func (m *MassQuoteAcknowledgement) AcctIDSource() (*field.AcctIDSource, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuoteAcknowledgement) NoTargetPartyIDs() (*field.NoTargetPartyIDs, error) {
-	f := new(field.NoTargetPartyIDs)
+func (m *MassQuoteAcknowledgement) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,13 +59,8 @@ func (m *MassQuoteAcknowledgement) QuoteReqID() (*field.QuoteReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuoteAcknowledgement) QuoteStatus() (*field.QuoteStatus, error) {
-	f := new(field.QuoteStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MassQuoteAcknowledgement) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
+func (m *MassQuoteAcknowledgement) QuoteType() (*field.QuoteType, error) {
+	f := new(field.QuoteType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,8 +69,8 @@ func (m *MassQuoteAcknowledgement) Account() (*field.Account, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuoteAcknowledgement) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *MassQuoteAcknowledgement) QuoteCancelType() (*field.QuoteCancelType, error) {
+	f := new(field.QuoteCancelType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -74,18 +79,13 @@ func (m *MassQuoteAcknowledgement) QuoteID() (*field.QuoteID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuoteAcknowledgement) QuoteRejectReason() (*field.QuoteRejectReason, error) {
-	f := new(field.QuoteRejectReason)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *MassQuoteAcknowledgement) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuoteAcknowledgement) QuoteCancelType() (*field.QuoteCancelType, error) {
-	f := new(field.QuoteCancelType)
+func (m *MassQuoteAcknowledgement) NoTargetPartyIDs() (*field.NoTargetPartyIDs, error) {
+	f := new(field.NoTargetPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

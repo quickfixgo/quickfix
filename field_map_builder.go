@@ -1,8 +1,8 @@
-package quickfixgo
+package quickfix
 
 import (
 	"bytes"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 	"sort"
 )
 

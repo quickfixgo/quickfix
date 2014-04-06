@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 type resendState struct {
 	inSession

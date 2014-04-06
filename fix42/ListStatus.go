@@ -1,12 +1,12 @@
 package fix42
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type ListStatus struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *ListStatus) ListStatusType() (*field.ListStatusType, error) {

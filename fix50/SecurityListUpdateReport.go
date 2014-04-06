@@ -1,36 +1,16 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SecurityListUpdateReport struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *SecurityListUpdateReport) SecurityReportID() (*field.SecurityReportID, error) {
 	f := new(field.SecurityReportID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityListUpdateReport) TotNoRelatedSym() (*field.TotNoRelatedSym, error) {
-	f := new(field.TotNoRelatedSym)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityListUpdateReport) ClearingBusinessDate() (*field.ClearingBusinessDate, error) {
-	f := new(field.ClearingBusinessDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityListUpdateReport) CorporateAction() (*field.CorporateAction, error) {
-	f := new(field.CorporateAction)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityListUpdateReport) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,13 +29,33 @@ func (m *SecurityListUpdateReport) SecurityRequestResult() (*field.SecurityReque
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SecurityListUpdateReport) TotNoRelatedSym() (*field.TotNoRelatedSym, error) {
+	f := new(field.TotNoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityListUpdateReport) ClearingBusinessDate() (*field.ClearingBusinessDate, error) {
+	f := new(field.ClearingBusinessDate)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SecurityListUpdateReport) SecurityUpdateAction() (*field.SecurityUpdateAction, error) {
 	f := new(field.SecurityUpdateAction)
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SecurityListUpdateReport) CorporateAction() (*field.CorporateAction, error) {
+	f := new(field.CorporateAction)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SecurityListUpdateReport) LastFragment() (*field.LastFragment, error) {
 	f := new(field.LastFragment)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityListUpdateReport) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }

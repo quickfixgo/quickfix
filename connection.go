@@ -1,9 +1,9 @@
-package quickfixgo
+package quickfix
 
 import (
 	"bufio"
-	"github.com/cbusbey/quickfixgo/log"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/log"
+	"github.com/quickfixgo/quickfix/tag"
 	"net"
 )
 

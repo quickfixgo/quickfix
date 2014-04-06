@@ -1,21 +1,16 @@
 package fix41
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type OrderCancelReject struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *OrderCancelReject) SecondaryOrderID() (*field.SecondaryOrderID, error) {
-	f := new(field.SecondaryOrderID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderCancelReject) OrigClOrdID() (*field.OrigClOrdID, error) {
-	f := new(field.OrigClOrdID)
+func (m *OrderCancelReject) OrderID() (*field.OrderID, error) {
+	f := new(field.OrderID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,13 +19,18 @@ func (m *OrderCancelReject) OrdStatus() (*field.OrdStatus, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *OrderCancelReject) ExecBroker() (*field.ExecBroker, error) {
+	f := new(field.ExecBroker)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *OrderCancelReject) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) OrderID() (*field.OrderID, error) {
-	f := new(field.OrderID)
+func (m *OrderCancelReject) SecondaryOrderID() (*field.SecondaryOrderID, error) {
+	f := new(field.SecondaryOrderID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,13 +39,13 @@ func (m *OrderCancelReject) ClOrdID() (*field.ClOrdID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) ClientID() (*field.ClientID, error) {
-	f := new(field.ClientID)
+func (m *OrderCancelReject) OrigClOrdID() (*field.OrigClOrdID, error) {
+	f := new(field.OrigClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) ExecBroker() (*field.ExecBroker, error) {
-	f := new(field.ExecBroker)
+func (m *OrderCancelReject) ClientID() (*field.ClientID, error) {
+	f := new(field.ClientID)
 	err := m.Body.Get(f)
 	return f, err
 }

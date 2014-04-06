@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/cbusbey/quickfixgo/datadictionary"
-	"github.com/cbusbey/quickfixgo/gen"
+	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/gen"
 	"os"
 	"sort"
 )
@@ -24,8 +24,8 @@ func usage() {
 
 func genFields() {
 	fileOut := "package field\n"
-	fileOut += "import(\"github.com/cbusbey/quickfixgo\")\n"
-	fileOut += "import(\"github.com/cbusbey/quickfixgo/tag\")\n"
+	fileOut += "import(\"github.com/quickfixgo/quickfix\")\n"
+	fileOut += "import(\"github.com/quickfixgo/quickfix/tag\")\n"
 
 	for _, tag := range sortedTags {
 		field := fieldTypeMap[tag]
@@ -94,7 +94,7 @@ func genFields() {
 			fmt.Printf("Unknown type '%v' for tag '%v'\n", field.Type, tag)
 		}
 
-		fileOut += fmt.Sprintf("type %v struct { quickfixgo.%v }\n", field.Name, baseType)
+		fileOut += fmt.Sprintf("type %v struct { quickfix.%v }\n", field.Name, baseType)
 		fileOut += fmt.Sprintf("func (f %v) Tag() tag.Tag {return tag.%v}\n", field.Name, field.Name)
 	}
 

@@ -1,12 +1,12 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type MarketDataIncrementalRefresh struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *MarketDataIncrementalRefresh) MDReqID() (*field.MDReqID, error) {

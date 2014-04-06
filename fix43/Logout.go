@@ -1,12 +1,12 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type Logout struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *Logout) Text() (*field.Text, error) {

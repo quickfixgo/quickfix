@@ -1,46 +1,16 @@
 package fix50sp2
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SettlementObligationReport struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *SettlementObligationReport) ClearingBusinessDate() (*field.ClearingBusinessDate, error) {
 	f := new(field.ClearingBusinessDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementObligationReport) SettlObligMsgID() (*field.SettlObligMsgID, error) {
-	f := new(field.SettlObligMsgID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementObligationReport) SettlObligMode() (*field.SettlObligMode, error) {
-	f := new(field.SettlObligMode)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementObligationReport) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementObligationReport) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementObligationReport) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SettlementObligationReport) ApplSeqNum() (*field.ApplSeqNum, error) {
-	f := new(field.ApplSeqNum)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +19,13 @@ func (m *SettlementObligationReport) SettlementCycleNo() (*field.SettlementCycle
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementObligationReport) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *SettlementObligationReport) SettlObligMode() (*field.SettlObligMode, error) {
+	f := new(field.SettlObligMode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,6 +39,11 @@ func (m *SettlementObligationReport) ApplID() (*field.ApplID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SettlementObligationReport) ApplSeqNum() (*field.ApplSeqNum, error) {
+	f := new(field.ApplSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SettlementObligationReport) ApplLastSeqNum() (*field.ApplLastSeqNum, error) {
 	f := new(field.ApplLastSeqNum)
 	err := m.Body.Get(f)
@@ -71,6 +51,26 @@ func (m *SettlementObligationReport) ApplLastSeqNum() (*field.ApplLastSeqNum, er
 }
 func (m *SettlementObligationReport) ApplResendFlag() (*field.ApplResendFlag, error) {
 	f := new(field.ApplResendFlag)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) SettlObligMsgID() (*field.SettlObligMsgID, error) {
+	f := new(field.SettlObligMsgID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SettlementObligationReport) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }

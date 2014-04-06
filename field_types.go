@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 type SeqNumValue struct{ IntValue }
 type LengthValue struct{ IntValue }

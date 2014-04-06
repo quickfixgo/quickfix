@@ -1,12 +1,12 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SecurityTypeRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *SecurityTypeRequest) SecurityReqID() (*field.SecurityReqID, error) {

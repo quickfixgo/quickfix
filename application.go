@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 type Application interface {
 	//Notification of a session begin created.

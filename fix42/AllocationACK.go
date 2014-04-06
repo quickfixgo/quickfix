@@ -1,26 +1,21 @@
 package fix42
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type AllocationACK struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *AllocationACK) ExecBroker() (*field.ExecBroker, error) {
-	f := new(field.ExecBroker)
+func (m *AllocationACK) ClientID() (*field.ClientID, error) {
+	f := new(field.ClientID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationACK) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationACK) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *AllocationACK) AllocStatus() (*field.AllocStatus, error) {
+	f := new(field.AllocStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,8 +24,8 @@ func (m *AllocationACK) EncodedTextLen() (*field.EncodedTextLen, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationACK) ClientID() (*field.ClientID, error) {
-	f := new(field.ClientID)
+func (m *AllocationACK) ExecBroker() (*field.ExecBroker, error) {
+	f := new(field.ExecBroker)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,13 +39,18 @@ func (m *AllocationACK) TradeDate() (*field.TradeDate, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationACK) AllocStatus() (*field.AllocStatus, error) {
-	f := new(field.AllocStatus)
+func (m *AllocationACK) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *AllocationACK) AllocRejCode() (*field.AllocRejCode, error) {
 	f := new(field.AllocRejCode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationACK) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }

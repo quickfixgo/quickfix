@@ -1,26 +1,46 @@
 package fix50sp1
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type QuoteRequestReject struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
+func (m *QuoteRequestReject) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequestReject) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequestReject) RespondentType() (*field.RespondentType, error) {
+	f := new(field.RespondentType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequestReject) PreTradeAnonymity() (*field.PreTradeAnonymity, error) {
+	f := new(field.PreTradeAnonymity)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteRequestReject) QuoteReqID() (*field.QuoteReqID, error) {
 	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequestReject) QuoteRequestRejectReason() (*field.QuoteRequestRejectReason, error) {
-	f := new(field.QuoteRequestRejectReason)
+func (m *QuoteRequestReject) RFQReqID() (*field.RFQReqID, error) {
+	f := new(field.RFQReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequestReject) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
+func (m *QuoteRequestReject) QuoteRequestRejectReason() (*field.QuoteRequestRejectReason, error) {
+	f := new(field.QuoteRequestRejectReason)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -41,26 +61,6 @@ func (m *QuoteRequestReject) NoRootPartyIDs() (*field.NoRootPartyIDs, error) {
 }
 func (m *QuoteRequestReject) PrivateQuote() (*field.PrivateQuote, error) {
 	f := new(field.PrivateQuote)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequestReject) RespondentType() (*field.RespondentType, error) {
-	f := new(field.RespondentType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequestReject) RFQReqID() (*field.RFQReqID, error) {
-	f := new(field.RFQReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequestReject) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequestReject) PreTradeAnonymity() (*field.PreTradeAnonymity, error) {
-	f := new(field.PreTradeAnonymity)
 	err := m.Body.Get(f)
 	return f, err
 }

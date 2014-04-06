@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 func IsAdminMessageType(m string) bool {
 	switch m {

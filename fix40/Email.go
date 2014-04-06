@@ -1,12 +1,12 @@
 package fix40
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type Email struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *Email) RelatdSym() (*field.RelatdSym, error) {
@@ -19,8 +19,8 @@ func (m *Email) OrderID() (*field.OrderID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
+func (m *Email) RawDataLength() (*field.RawDataLength, error) {
+	f := new(field.RawDataLength)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +49,8 @@ func (m *Email) Text() (*field.Text, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) RawDataLength() (*field.RawDataLength, error) {
-	f := new(field.RawDataLength)
+func (m *Email) RawData() (*field.RawData, error) {
+	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }

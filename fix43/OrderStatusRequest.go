@@ -1,21 +1,26 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type OrderStatusRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *OrderStatusRequest) ClOrdLinkID() (*field.ClOrdLinkID, error) {
-	f := new(field.ClOrdLinkID)
+func (m *OrderStatusRequest) CountryOfIssue() (*field.CountryOfIssue, error) {
+	f := new(field.CountryOfIssue)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
+func (m *OrderStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) EncodedIssuer() (*field.EncodedIssuer, error) {
+	f := new(field.EncodedIssuer)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,8 +29,8 @@ func (m *OrderStatusRequest) CFICode() (*field.CFICode, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
-	f := new(field.RepoCollateralSecurityType)
+func (m *OrderStatusRequest) MaturityDate() (*field.MaturityDate, error) {
+	f := new(field.MaturityDate)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,23 +39,18 @@ func (m *OrderStatusRequest) CreditRating() (*field.CreditRating, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
+func (m *OrderStatusRequest) OptAttribute() (*field.OptAttribute, error) {
+	f := new(field.OptAttribute)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) SecondaryClOrdID() (*field.SecondaryClOrdID, error) {
-	f := new(field.SecondaryClOrdID)
+func (m *OrderStatusRequest) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) MaturityDate() (*field.MaturityDate, error) {
-	f := new(field.MaturityDate)
+func (m *OrderStatusRequest) NoSecurityAltID() (*field.NoSecurityAltID, error) {
+	f := new(field.NoSecurityAltID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,28 +64,23 @@ func (m *OrderStatusRequest) IssueDate() (*field.IssueDate, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) CountryOfIssue() (*field.CountryOfIssue, error) {
-	f := new(field.CountryOfIssue)
+func (m *OrderStatusRequest) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
+	f := new(field.RepoCollateralSecurityType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) RedemptionDate() (*field.RedemptionDate, error) {
-	f := new(field.RedemptionDate)
+func (m *OrderStatusRequest) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
+	f := new(field.EncodedIssuerLen)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) CouponRate() (*field.CouponRate, error) {
-	f := new(field.CouponRate)
+func (m *OrderStatusRequest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, error) {
+	f := new(field.EncodedSecurityDescLen)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) EncodedIssuer() (*field.EncodedIssuer, error) {
-	f := new(field.EncodedIssuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) Side() (*field.Side, error) {
-	f := new(field.Side)
+func (m *OrderStatusRequest) Symbol() (*field.Symbol, error) {
+	f := new(field.Symbol)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -94,78 +89,13 @@ func (m *OrderStatusRequest) RepurchaseRate() (*field.RepurchaseRate, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) ContractMultiplier() (*field.ContractMultiplier, error) {
-	f := new(field.ContractMultiplier)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) NoSecurityAltID() (*field.NoSecurityAltID, error) {
-	f := new(field.NoSecurityAltID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) InstrRegistry() (*field.InstrRegistry, error) {
-	f := new(field.InstrRegistry)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) RepurchaseTerm() (*field.RepurchaseTerm, error) {
-	f := new(field.RepurchaseTerm)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) LocaleOfIssue() (*field.LocaleOfIssue, error) {
-	f := new(field.LocaleOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) SecurityIDSource() (*field.SecurityIDSource, error) {
-	f := new(field.SecurityIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) MaturityMonthYear() (*field.MaturityMonthYear, error) {
-	f := new(field.MaturityMonthYear)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m *OrderStatusRequest) RedemptionDate() (*field.RedemptionDate, error) {
+	f := new(field.RedemptionDate)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *OrderStatusRequest) StrikePrice() (*field.StrikePrice, error) {
 	f := new(field.StrikePrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
-	f := new(field.EncodedIssuerLen)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -179,8 +109,28 @@ func (m *OrderStatusRequest) EncodedSecurityDesc() (*field.EncodedSecurityDesc, 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) OrderID() (*field.OrderID, error) {
-	f := new(field.OrderID)
+func (m *OrderStatusRequest) SecondaryClOrdID() (*field.SecondaryClOrdID, error) {
+	f := new(field.SecondaryClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) ClOrdLinkID() (*field.ClOrdLinkID, error) {
+	f := new(field.ClOrdLinkID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) Product() (*field.Product, error) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) SecurityType() (*field.SecurityType, error) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) MaturityMonthYear() (*field.MaturityMonthYear, error) {
+	f := new(field.MaturityMonthYear)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -189,13 +139,23 @@ func (m *OrderStatusRequest) Factor() (*field.Factor, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) Issuer() (*field.Issuer, error) {
-	f := new(field.Issuer)
+func (m *OrderStatusRequest) InstrRegistry() (*field.InstrRegistry, error) {
+	f := new(field.InstrRegistry)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, error) {
-	f := new(field.EncodedSecurityDescLen)
+func (m *OrderStatusRequest) LocaleOfIssue() (*field.LocaleOfIssue, error) {
+	f := new(field.LocaleOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) ContractMultiplier() (*field.ContractMultiplier, error) {
+	f := new(field.ContractMultiplier)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) Issuer() (*field.Issuer, error) {
+	f := new(field.Issuer)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -204,8 +164,48 @@ func (m *OrderStatusRequest) Account() (*field.Account, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) OptAttribute() (*field.OptAttribute, error) {
-	f := new(field.OptAttribute)
+func (m *OrderStatusRequest) RepurchaseTerm() (*field.RepurchaseTerm, error) {
+	f := new(field.RepurchaseTerm)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
+	f := new(field.StateOrProvinceOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) CouponRate() (*field.CouponRate, error) {
+	f := new(field.CouponRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) SecurityIDSource() (*field.SecurityIDSource, error) {
+	f := new(field.SecurityIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) OrderID() (*field.OrderID, error) {
+	f := new(field.OrderID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) Side() (*field.Side, error) {
+	f := new(field.Side)
 	err := m.Body.Get(f)
 	return f, err
 }

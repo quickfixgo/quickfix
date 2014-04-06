@@ -1,19 +1,14 @@
 package fix44
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type RegistrationInstructions struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *RegistrationInstructions) RegistTransType() (*field.RegistTransType, error) {
-	f := new(field.RegistTransType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *RegistrationInstructions) RegistRefID() (*field.RegistRefID, error) {
 	f := new(field.RegistRefID)
 	err := m.Body.Get(f)
@@ -21,6 +16,11 @@ func (m *RegistrationInstructions) RegistRefID() (*field.RegistRefID, error) {
 }
 func (m *RegistrationInstructions) ClOrdID() (*field.ClOrdID, error) {
 	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructions) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,8 +34,18 @@ func (m *RegistrationInstructions) AcctIDSource() (*field.AcctIDSource, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *RegistrationInstructions) RegistAcctType() (*field.RegistAcctType, error) {
+	f := new(field.RegistAcctType)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *RegistrationInstructions) TaxAdvantageType() (*field.TaxAdvantageType, error) {
 	f := new(field.TaxAdvantageType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructions) NoRegistDtls() (*field.NoRegistDtls, error) {
+	f := new(field.NoRegistDtls)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,23 +54,13 @@ func (m *RegistrationInstructions) RegistID() (*field.RegistID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructions) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructions) RegistAcctType() (*field.RegistAcctType, error) {
-	f := new(field.RegistAcctType)
+func (m *RegistrationInstructions) RegistTransType() (*field.RegistTransType, error) {
+	f := new(field.RegistTransType)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *RegistrationInstructions) OwnershipType() (*field.OwnershipType, error) {
 	f := new(field.OwnershipType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructions) NoRegistDtls() (*field.NoRegistDtls, error) {
-	f := new(field.NoRegistDtls)
 	err := m.Body.Get(f)
 	return f, err
 }

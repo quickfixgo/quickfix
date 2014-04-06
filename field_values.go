@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 const (
 	ApplVerID_FIX50SP1 = "8"

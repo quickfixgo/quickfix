@@ -1,12 +1,12 @@
 package fix40
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type TestRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *TestRequest) TestReqID() (*field.TestReqID, error) {

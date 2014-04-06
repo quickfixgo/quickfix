@@ -1,21 +1,16 @@
 package fix40
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type QuoteRequest struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *QuoteRequest) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
+func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,13 +19,13 @@ func (m *QuoteRequest) SecurityID() (*field.SecurityID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) PrevClosePx() (*field.PrevClosePx, error) {
-	f := new(field.PrevClosePx)
+func (m *QuoteRequest) Symbol() (*field.Symbol, error) {
+	f := new(field.Symbol)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
+func (m *QuoteRequest) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -46,6 +41,11 @@ func (m *QuoteRequest) Issuer() (*field.Issuer, error) {
 }
 func (m *QuoteRequest) SecurityDesc() (*field.SecurityDesc, error) {
 	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) PrevClosePx() (*field.PrevClosePx, error) {
+	f := new(field.PrevClosePx)
 	err := m.Body.Get(f)
 	return f, err
 }

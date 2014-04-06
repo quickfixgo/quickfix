@@ -2,7 +2,7 @@ package datadictionary
 
 import (
 	"fmt"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 type builder struct {

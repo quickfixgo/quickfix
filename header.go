@@ -1,7 +1,7 @@
-package quickfixgo
+package quickfix
 
 import (
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 	"math"
 )
 

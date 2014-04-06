@@ -1,12 +1,12 @@
 package fix50
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type BusinessMessageReject struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *BusinessMessageReject) RefSeqNum() (*field.RefSeqNum, error) {

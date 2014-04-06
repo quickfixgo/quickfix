@@ -1,41 +1,26 @@
 package fix44
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type ListStatus struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *ListStatus) ListID() (*field.ListID, error) {
-	f := new(field.ListID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ListStatus) RptSeq() (*field.RptSeq, error) {
 	f := new(field.RptSeq)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) EncodedListStatusText() (*field.EncodedListStatusText, error) {
-	f := new(field.EncodedListStatusText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) TotNoOrders() (*field.TotNoOrders, error) {
-	f := new(field.TotNoOrders)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) LastFragment() (*field.LastFragment, error) {
-	f := new(field.LastFragment)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ListStatus) NoOrders() (*field.NoOrders, error) {
 	f := new(field.NoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) ListID() (*field.ListID, error) {
+	f := new(field.ListID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,8 +49,23 @@ func (m *ListStatus) EncodedListStatusTextLen() (*field.EncodedListStatusTextLen
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ListStatus) EncodedListStatusText() (*field.EncodedListStatusText, error) {
+	f := new(field.EncodedListStatusText)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ListStatus) TransactTime() (*field.TransactTime, error) {
 	f := new(field.TransactTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) TotNoOrders() (*field.TotNoOrders, error) {
+	f := new(field.TotNoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) LastFragment() (*field.LastFragment, error) {
+	f := new(field.LastFragment)
 	err := m.Body.Get(f)
 	return f, err
 }

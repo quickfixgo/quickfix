@@ -2,7 +2,7 @@ package datadictionary
 
 import (
 	"encoding/xml"
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 	. "launchpad.net/gocheck"
 )
 

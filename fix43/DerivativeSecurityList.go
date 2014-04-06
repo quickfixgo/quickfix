@@ -1,31 +1,16 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type DerivativeSecurityList struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *DerivativeSecurityList) SecurityReqID() (*field.SecurityReqID, error) {
-	f := new(field.SecurityReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLen, error) {
-	f := new(field.EncodedUnderlyingIssuerLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingSecurityID() (*field.UnderlyingSecurityID, error) {
-	f := new(field.UnderlyingSecurityID)
+func (m *DerivativeSecurityList) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltID, error) {
+	f := new(field.NoUnderlyingSecurityAltID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,43 +19,13 @@ func (m *DerivativeSecurityList) UnderlyingSecurityType() (*field.UnderlyingSecu
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingIssueDate() (*field.UnderlyingIssueDate, error) {
-	f := new(field.UnderlyingIssueDate)
+func (m *DerivativeSecurityList) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssue, error) {
+	f := new(field.UnderlyingCountryOfIssue)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingFactor() (*field.UnderlyingFactor, error) {
-	f := new(field.UnderlyingFactor)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingCouponRate() (*field.UnderlyingCouponRate, error) {
-	f := new(field.UnderlyingCouponRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingIssuer() (*field.UnderlyingIssuer, error) {
-	f := new(field.UnderlyingIssuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfx, error) {
-	f := new(field.UnderlyingSymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingSecurityIDSource() (*field.UnderlyingSecurityIDSource, error) {
-	f := new(field.UnderlyingSecurityIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingStrikePrice() (*field.UnderlyingStrikePrice, error) {
-	f := new(field.UnderlyingStrikePrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) SecurityRequestResult() (*field.SecurityRequestResult, error) {
-	f := new(field.SecurityRequestResult)
+func (m *DerivativeSecurityList) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchange, error) {
+	f := new(field.UnderlyingSecurityExchange)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -79,13 +34,8 @@ func (m *DerivativeSecurityList) UnderlyingSymbol() (*field.UnderlyingSymbol, er
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingCFICode() (*field.UnderlyingCFICode, error) {
-	f := new(field.UnderlyingCFICode)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingMaturityDate() (*field.UnderlyingMaturityDate, error) {
-	f := new(field.UnderlyingMaturityDate)
+func (m *DerivativeSecurityList) UnderlyingIssueDate() (*field.UnderlyingIssueDate, error) {
+	f := new(field.UnderlyingIssueDate)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -94,13 +44,8 @@ func (m *DerivativeSecurityList) UnderlyingCreditRating() (*field.UnderlyingCred
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssue, error) {
-	f := new(field.UnderlyingCountryOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingStateOrProvinceOfIssue() (*field.UnderlyingStateOrProvinceOfIssue, error) {
-	f := new(field.UnderlyingStateOrProvinceOfIssue)
+func (m *DerivativeSecurityList) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistry, error) {
+	f := new(field.UnderlyingInstrRegistry)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -109,23 +54,8 @@ func (m *DerivativeSecurityList) UnderlyingOptAttribute() (*field.UnderlyingOptA
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLen, error) {
-	f := new(field.EncodedUnderlyingSecurityDescLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltID, error) {
-	f := new(field.NoUnderlyingSecurityAltID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYear, error) {
-	f := new(field.UnderlyingMaturityMonthYear)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDate, error) {
-	f := new(field.UnderlyingCouponPaymentDate)
+func (m *DerivativeSecurityList) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDesc, error) {
+	f := new(field.UnderlyingSecurityDesc)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -134,8 +64,8 @@ func (m *DerivativeSecurityList) TotalNumSecurities() (*field.TotalNumSecurities
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingProduct() (*field.UnderlyingProduct, error) {
-	f := new(field.UnderlyingProduct)
+func (m *DerivativeSecurityList) UnderlyingMaturityDate() (*field.UnderlyingMaturityDate, error) {
+	f := new(field.UnderlyingMaturityDate)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -144,8 +74,43 @@ func (m *DerivativeSecurityList) UnderlyingRepoCollateralSecurityType() (*field.
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTerm, error) {
-	f := new(field.UnderlyingRepurchaseTerm)
+func (m *DerivativeSecurityList) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDate, error) {
+	f := new(field.UnderlyingRedemptionDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLen, error) {
+	f := new(field.EncodedUnderlyingIssuerLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) SecurityResponseID() (*field.SecurityResponseID, error) {
+	f := new(field.SecurityResponseID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfx, error) {
+	f := new(field.UnderlyingSymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingCFICode() (*field.UnderlyingCFICode, error) {
+	f := new(field.UnderlyingCFICode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDate, error) {
+	f := new(field.UnderlyingCouponPaymentDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingStateOrProvinceOfIssue() (*field.UnderlyingStateOrProvinceOfIssue, error) {
+	f := new(field.UnderlyingStateOrProvinceOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingStrikePrice() (*field.UnderlyingStrikePrice, error) {
+	f := new(field.UnderlyingStrikePrice)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -159,8 +124,38 @@ func (m *DerivativeSecurityList) EncodedUnderlyingSecurityDesc() (*field.Encoded
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) SecurityResponseID() (*field.SecurityResponseID, error) {
-	f := new(field.SecurityResponseID)
+func (m *DerivativeSecurityList) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) SecurityReqID() (*field.SecurityReqID, error) {
+	f := new(field.SecurityReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingSecurityIDSource() (*field.UnderlyingSecurityIDSource, error) {
+	f := new(field.UnderlyingSecurityIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingFactor() (*field.UnderlyingFactor, error) {
+	f := new(field.UnderlyingFactor)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingCouponRate() (*field.UnderlyingCouponRate, error) {
+	f := new(field.UnderlyingCouponRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingSecurityID() (*field.UnderlyingSecurityID, error) {
+	f := new(field.UnderlyingSecurityID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingProduct() (*field.UnderlyingProduct, error) {
+	f := new(field.UnderlyingProduct)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -169,18 +164,28 @@ func (m *DerivativeSecurityList) UnderlyingRepurchaseRate() (*field.UnderlyingRe
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistry, error) {
-	f := new(field.UnderlyingInstrRegistry)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *DerivativeSecurityList) UnderlyingLocaleOfIssue() (*field.UnderlyingLocaleOfIssue, error) {
 	f := new(field.UnderlyingLocaleOfIssue)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDate, error) {
-	f := new(field.UnderlyingRedemptionDate)
+func (m *DerivativeSecurityList) UnderlyingIssuer() (*field.UnderlyingIssuer, error) {
+	f := new(field.UnderlyingIssuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) SecurityRequestResult() (*field.SecurityRequestResult, error) {
+	f := new(field.SecurityRequestResult)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYear, error) {
+	f := new(field.UnderlyingMaturityMonthYear)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DerivativeSecurityList) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTerm, error) {
+	f := new(field.UnderlyingRepurchaseTerm)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -189,13 +194,8 @@ func (m *DerivativeSecurityList) UnderlyingContractMultiplier() (*field.Underlyi
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *DerivativeSecurityList) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchange, error) {
-	f := new(field.UnderlyingSecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DerivativeSecurityList) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDesc, error) {
-	f := new(field.UnderlyingSecurityDesc)
+func (m *DerivativeSecurityList) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLen, error) {
+	f := new(field.EncodedUnderlyingSecurityDescLen)
 	err := m.Body.Get(f)
 	return f, err
 }

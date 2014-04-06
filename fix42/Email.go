@@ -1,16 +1,36 @@
 package fix42
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type Email struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
 func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
 	f := new(field.EmailThreadID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) LinesOfText() (*field.LinesOfText, error) {
+	f := new(field.LinesOfText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) RawData() (*field.RawData, error) {
+	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,16 +59,6 @@ func (m *Email) EncodedSubject() (*field.EncodedSubject, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *Email) NoRoutingIDs() (*field.NoRoutingIDs, error) {
 	f := new(field.NoRoutingIDs)
 	err := m.Body.Get(f)
@@ -59,18 +69,8 @@ func (m *Email) OrderID() (*field.OrderID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) LinesOfText() (*field.LinesOfText, error) {
-	f := new(field.LinesOfText)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *Email) RawDataLength() (*field.RawDataLength, error) {
 	f := new(field.RawDataLength)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }

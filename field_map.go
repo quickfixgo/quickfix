@@ -1,7 +1,7 @@
-package quickfixgo
+package quickfix
 
 import (
-	"github.com/cbusbey/quickfixgo/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //FieldMap is a collection of fix fields that make up a fix message.

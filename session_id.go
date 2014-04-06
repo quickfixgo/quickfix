@@ -1,4 +1,4 @@
-package quickfixgo
+package quickfix
 
 import (
 	"fmt"

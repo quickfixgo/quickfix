@@ -1,31 +1,26 @@
 package fix43
 
 import (
-	"github.com/cbusbey/quickfixgo"
-	"github.com/cbusbey/quickfixgo/field"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 type SecurityTypes struct {
-	quickfixgo.Message
+	quickfix.Message
 }
 
-func (m *SecurityTypes) SecurityResponseType() (*field.SecurityResponseType, error) {
-	f := new(field.SecurityResponseType)
+func (m *SecurityTypes) SecurityReqID() (*field.SecurityReqID, error) {
+	f := new(field.SecurityReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *SecurityTypes) TotalNumSecurityTypes() (*field.TotalNumSecurityTypes, error) {
+	f := new(field.TotalNumSecurityTypes)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *SecurityTypes) EncodedTextLen() (*field.EncodedTextLen, error) {
 	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypes) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,23 +34,28 @@ func (m *SecurityTypes) SubscriptionRequestType() (*field.SubscriptionRequestTyp
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) SecurityReqID() (*field.SecurityReqID, error) {
-	f := new(field.SecurityReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SecurityTypes) SecurityResponseID() (*field.SecurityResponseID, error) {
 	f := new(field.SecurityResponseID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypes) TotalNumSecurityTypes() (*field.TotalNumSecurityTypes, error) {
-	f := new(field.TotalNumSecurityTypes)
+func (m *SecurityTypes) SecurityResponseType() (*field.SecurityResponseType, error) {
+	f := new(field.SecurityResponseType)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *SecurityTypes) NoSecurityTypes() (*field.NoSecurityTypes, error) {
 	f := new(field.NoSecurityTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypes) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }
