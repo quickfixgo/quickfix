@@ -1,16 +1,17 @@
 package quickfix
 
 import (
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/tag"
 )
 
-//Collection of fields representing the trailer of a FIX message
+//Trailer is a collection of fields representing the trailer of a FIX message.
 type Trailer struct {
 	FieldMapBuilder
 }
 
-//CheckSum is a required field of the trailer
-func (t *Trailer) setCheckSum(checkSum *StringField) {
+//CheckSum is a required field of the trailer.
+func (t *Trailer) setCheckSum(checkSum *field.StringField) {
 	t.Set(checkSum)
 }
 

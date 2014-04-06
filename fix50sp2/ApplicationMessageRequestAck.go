@@ -9,13 +9,8 @@ type ApplicationMessageRequestAck struct {
 	quickfix.Message
 }
 
-func (m *ApplicationMessageRequestAck) ApplResponseID() (*field.ApplResponseID, error) {
-	f := new(field.ApplResponseID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ApplicationMessageRequestAck) ApplReqType() (*field.ApplReqType, error) {
-	f := new(field.ApplReqType)
+func (m *ApplicationMessageRequestAck) ApplReqID() (*field.ApplReqID, error) {
+	f := new(field.ApplReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,23 +24,28 @@ func (m *ApplicationMessageRequestAck) NoApplIDs() (*field.NoApplIDs, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ApplicationMessageRequestAck) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ApplicationMessageRequestAck) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ApplicationMessageRequestAck) ApplReqID() (*field.ApplReqID, error) {
-	f := new(field.ApplReqID)
+func (m *ApplicationMessageRequestAck) ApplResponseID() (*field.ApplResponseID, error) {
+	f := new(field.ApplResponseID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ApplicationMessageRequestAck) ApplReqType() (*field.ApplReqType, error) {
+	f := new(field.ApplReqType)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *ApplicationMessageRequestAck) ApplResponseType() (*field.ApplResponseType, error) {
 	f := new(field.ApplResponseType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ApplicationMessageRequestAck) Text() (*field.Text, error) {
-	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }

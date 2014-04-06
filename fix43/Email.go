@@ -19,23 +19,18 @@ func (m *Email) EmailType() (*field.EmailType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) EncodedSubject() (*field.EncodedSubject, error) {
-	f := new(field.EncodedSubject)
+func (m *Email) OrigTime() (*field.OrigTime, error) {
+	f := new(field.OrigTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) EncodedSubjectLen() (*field.EncodedSubjectLen, error) {
+	f := new(field.EncodedSubjectLen)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *Email) NoRoutingIDs() (*field.NoRoutingIDs, error) {
 	f := new(field.NoRoutingIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) OrderID() (*field.OrderID, error) {
-	f := new(field.OrderID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +44,8 @@ func (m *Email) RawDataLength() (*field.RawDataLength, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) OrigTime() (*field.OrigTime, error) {
-	f := new(field.OrigTime)
+func (m *Email) RawData() (*field.RawData, error) {
+	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,18 +54,23 @@ func (m *Email) Subject() (*field.Subject, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) EncodedSubjectLen() (*field.EncodedSubjectLen, error) {
-	f := new(field.EncodedSubjectLen)
+func (m *Email) EncodedSubject() (*field.EncodedSubject, error) {
+	f := new(field.EncodedSubject)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) OrderID() (*field.OrderID, error) {
+	f := new(field.OrderID)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *Email) LinesOfText() (*field.LinesOfText, error) {
 	f := new(field.LinesOfText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }

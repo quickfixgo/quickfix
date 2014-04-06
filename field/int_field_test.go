@@ -1,4 +1,4 @@
-package quickfix
+package field
 
 import (
 	"github.com/quickfixgo/quickfix/tag"

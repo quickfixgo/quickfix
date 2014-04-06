@@ -1,4 +1,4 @@
-package quickfix
+package field
 
 type SeqNumValue struct{ IntValue }
 type LengthValue struct{ IntValue }

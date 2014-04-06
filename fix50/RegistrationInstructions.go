@@ -9,6 +9,11 @@ type RegistrationInstructions struct {
 	quickfix.Message
 }
 
+func (m *RegistrationInstructions) RegistID() (*field.RegistID, error) {
+	f := new(field.RegistID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *RegistrationInstructions) RegistRefID() (*field.RegistRefID, error) {
 	f := new(field.RegistRefID)
 	err := m.Body.Get(f)
@@ -34,18 +39,8 @@ func (m *RegistrationInstructions) TaxAdvantageType() (*field.TaxAdvantageType, 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructions) OwnershipType() (*field.OwnershipType, error) {
-	f := new(field.OwnershipType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *RegistrationInstructions) NoRegistDtls() (*field.NoRegistDtls, error) {
 	f := new(field.NoRegistDtls)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructions) RegistID() (*field.RegistID, error) {
-	f := new(field.RegistID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -61,6 +56,11 @@ func (m *RegistrationInstructions) ClOrdID() (*field.ClOrdID, error) {
 }
 func (m *RegistrationInstructions) AcctIDSource() (*field.AcctIDSource, error) {
 	f := new(field.AcctIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructions) OwnershipType() (*field.OwnershipType, error) {
+	f := new(field.OwnershipType)
 	err := m.Body.Get(f)
 	return f, err
 }

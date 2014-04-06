@@ -9,8 +9,8 @@ type QuoteRequestReject struct {
 	quickfix.Message
 }
 
-func (m *QuoteRequestReject) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
+func (m *QuoteRequestReject) RFQReqID() (*field.RFQReqID, error) {
+	f := new(field.RFQReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -19,8 +19,8 @@ func (m *QuoteRequestReject) EncodedText() (*field.EncodedText, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequestReject) RespondentType() (*field.RespondentType, error) {
-	f := new(field.RespondentType)
+func (m *QuoteRequestReject) PrivateQuote() (*field.PrivateQuote, error) {
+	f := new(field.PrivateQuote)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,13 +34,13 @@ func (m *QuoteRequestReject) QuoteReqID() (*field.QuoteReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequestReject) RFQReqID() (*field.RFQReqID, error) {
-	f := new(field.RFQReqID)
+func (m *QuoteRequestReject) QuoteRequestRejectReason() (*field.QuoteRequestRejectReason, error) {
+	f := new(field.QuoteRequestRejectReason)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequestReject) QuoteRequestRejectReason() (*field.QuoteRequestRejectReason, error) {
-	f := new(field.QuoteRequestRejectReason)
+func (m *QuoteRequestReject) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,8 +59,8 @@ func (m *QuoteRequestReject) NoRootPartyIDs() (*field.NoRootPartyIDs, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequestReject) PrivateQuote() (*field.PrivateQuote, error) {
-	f := new(field.PrivateQuote)
+func (m *QuoteRequestReject) RespondentType() (*field.RespondentType, error) {
+	f := new(field.RespondentType)
 	err := m.Body.Get(f)
 	return f, err
 }

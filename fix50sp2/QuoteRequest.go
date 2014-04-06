@@ -9,23 +9,8 @@ type QuoteRequest struct {
 	quickfix.Message
 }
 
-func (m *QuoteRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) OrderRestrictions() (*field.OrderRestrictions, error) {
-	f := new(field.OrderRestrictions)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) RFQReqID() (*field.RFQReqID, error) {
-	f := new(field.RFQReqID)
+func (m *QuoteRequest) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,23 +24,33 @@ func (m *QuoteRequest) NoRootPartyIDs() (*field.NoRootPartyIDs, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) BookingType() (*field.BookingType, error) {
-	f := new(field.BookingType)
+func (m *QuoteRequest) OrderRestrictions() (*field.OrderRestrictions, error) {
+	f := new(field.OrderRestrictions)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) RFQReqID() (*field.RFQReqID, error) {
+	f := new(field.RFQReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) PreTradeAnonymity() (*field.PreTradeAnonymity, error) {
+	f := new(field.PreTradeAnonymity)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *QuoteRequest) OrderCapacity() (*field.OrderCapacity, error) {
 	f := new(field.OrderCapacity)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -69,13 +64,18 @@ func (m *QuoteRequest) PrivateQuote() (*field.PrivateQuote, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteRequest) RespondentType() (*field.RespondentType, error) {
 	f := new(field.RespondentType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) PreTradeAnonymity() (*field.PreTradeAnonymity, error) {
-	f := new(field.PreTradeAnonymity)
+func (m *QuoteRequest) BookingType() (*field.BookingType, error) {
+	f := new(field.BookingType)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -24,7 +24,6 @@ func usage() {
 
 func genFields() {
 	fileOut := "package field\n"
-	fileOut += "import(\"github.com/quickfixgo/quickfix\")\n"
 	fileOut += "import(\"github.com/quickfixgo/quickfix/tag\")\n"
 
 	for _, tag := range sortedTags {
@@ -94,7 +93,7 @@ func genFields() {
 			fmt.Printf("Unknown type '%v' for tag '%v'\n", field.Type, tag)
 		}
 
-		fileOut += fmt.Sprintf("type %v struct { quickfix.%v }\n", field.Name, baseType)
+		fileOut += fmt.Sprintf("type %v struct { %v }\n", field.Name, baseType)
 		fileOut += fmt.Sprintf("func (f %v) Tag() tag.Tag {return tag.%v}\n", field.Name, field.Name)
 	}
 

@@ -24,8 +24,13 @@ func (m *RegistrationInstructionsResponse) Account() (*field.Account, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) RegistRejReasonCode() (*field.RegistRejReasonCode, error) {
-	f := new(field.RegistRejReasonCode)
+func (m *RegistrationInstructionsResponse) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) RegistRejReasonText() (*field.RegistRejReasonText, error) {
+	f := new(field.RegistRejReasonText)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,18 +49,13 @@ func (m *RegistrationInstructionsResponse) NoPartyIDs() (*field.NoPartyIDs, erro
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *RegistrationInstructionsResponse) RegistStatus() (*field.RegistStatus, error) {
 	f := new(field.RegistStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) RegistRejReasonText() (*field.RegistRejReasonText, error) {
-	f := new(field.RegistRejReasonText)
+func (m *RegistrationInstructionsResponse) RegistRejReasonCode() (*field.RegistRejReasonCode, error) {
+	f := new(field.RegistRejReasonCode)
 	err := m.Body.Get(f)
 	return f, err
 }

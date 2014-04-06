@@ -14,13 +14,18 @@ func (m *MassQuote) QuoteReqID() (*field.QuoteReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) QuoteID() (*field.QuoteID, error) {
-	f := new(field.QuoteID)
+func (m *MassQuote) QuoteType() (*field.QuoteType, error) {
+	f := new(field.QuoteType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) QuoteType() (*field.QuoteType, error) {
-	f := new(field.QuoteType)
+func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,8 +34,8 @@ func (m *MassQuote) NoQuoteSets() (*field.NoQuoteSets, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
+func (m *MassQuote) QuoteID() (*field.QuoteID, error) {
+	f := new(field.QuoteID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -41,11 +46,6 @@ func (m *MassQuote) NoPartyIDs() (*field.NoPartyIDs, error) {
 }
 func (m *MassQuote) Account() (*field.Account, error) {
 	f := new(field.Account)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MassQuote) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }

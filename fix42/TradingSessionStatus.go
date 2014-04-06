@@ -9,16 +9,6 @@ type TradingSessionStatus struct {
 	quickfix.Message
 }
 
-func (m *TradingSessionStatus) TotalVolumeTraded() (*field.TotalVolumeTraded, error) {
-	f := new(field.TotalVolumeTraded)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *TradingSessionStatus) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *TradingSessionStatus) TradSesReqID() (*field.TradSesReqID, error) {
 	f := new(field.TradSesReqID)
 	err := m.Body.Get(f)
@@ -29,13 +19,23 @@ func (m *TradingSessionStatus) TradSesMode() (*field.TradSesMode, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatus) TradSesStartTime() (*field.TradSesStartTime, error) {
-	f := new(field.TradSesStartTime)
+func (m *TradingSessionStatus) TradSesCloseTime() (*field.TradSesCloseTime, error) {
+	f := new(field.TradSesCloseTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatus) TradSesPreCloseTime() (*field.TradSesPreCloseTime, error) {
-	f := new(field.TradSesPreCloseTime)
+func (m *TradingSessionStatus) TotalVolumeTraded() (*field.TotalVolumeTraded, error) {
+	f := new(field.TotalVolumeTraded)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *TradingSessionStatus) TradSesStatus() (*field.TradSesStatus, error) {
+	f := new(field.TradSesStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *TradingSessionStatus) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,23 +49,13 @@ func (m *TradingSessionStatus) TradSesMethod() (*field.TradSesMethod, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatus) UnsolicitedIndicator() (*field.UnsolicitedIndicator, error) {
-	f := new(field.UnsolicitedIndicator)
+func (m *TradingSessionStatus) TradSesStartTime() (*field.TradSesStartTime, error) {
+	f := new(field.TradSesStartTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatus) TradSesStatus() (*field.TradSesStatus, error) {
-	f := new(field.TradSesStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *TradingSessionStatus) TradSesCloseTime() (*field.TradSesCloseTime, error) {
-	f := new(field.TradSesCloseTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *TradingSessionStatus) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *TradingSessionStatus) TradSesEndTime() (*field.TradSesEndTime, error) {
+	f := new(field.TradSesEndTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -74,13 +64,23 @@ func (m *TradingSessionStatus) EncodedText() (*field.EncodedText, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *TradingSessionStatus) UnsolicitedIndicator() (*field.UnsolicitedIndicator, error) {
+	f := new(field.UnsolicitedIndicator)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *TradingSessionStatus) TradSesOpenTime() (*field.TradSesOpenTime, error) {
 	f := new(field.TradSesOpenTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatus) TradSesEndTime() (*field.TradSesEndTime, error) {
-	f := new(field.TradSesEndTime)
+func (m *TradingSessionStatus) TradSesPreCloseTime() (*field.TradSesPreCloseTime, error) {
+	f := new(field.TradSesPreCloseTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *TradingSessionStatus) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }

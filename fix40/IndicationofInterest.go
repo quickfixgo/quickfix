@@ -9,8 +9,8 @@ type IndicationofInterest struct {
 	quickfix.Message
 }
 
-func (m *IndicationofInterest) IOIid() (*field.IOIid, error) {
-	f := new(field.IOIid)
+func (m *IndicationofInterest) IOITransType() (*field.IOITransType, error) {
+	f := new(field.IOITransType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -19,8 +19,18 @@ func (m *IndicationofInterest) IOIRefID() (*field.IOIRefID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *IndicationofInterest) Issuer() (*field.Issuer, error) {
-	f := new(field.Issuer)
+func (m *IndicationofInterest) Symbol() (*field.Symbol, error) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *IndicationofInterest) IOINaturalFlag() (*field.IOINaturalFlag, error) {
+	f := new(field.IOINaturalFlag)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *IndicationofInterest) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,48 +44,23 @@ func (m *IndicationofInterest) IOIOthSvc() (*field.IOIOthSvc, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *IndicationofInterest) IOINaturalFlag() (*field.IOINaturalFlag, error) {
-	f := new(field.IOINaturalFlag)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *IndicationofInterest) IOITransType() (*field.IOITransType, error) {
-	f := new(field.IOITransType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *IndicationofInterest) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *IndicationofInterest) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *IndicationofInterest) ValidUntilTime() (*field.ValidUntilTime, error) {
-	f := new(field.ValidUntilTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *IndicationofInterest) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *IndicationofInterest) Side() (*field.Side, error) {
-	f := new(field.Side)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *IndicationofInterest) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
+func (m *IndicationofInterest) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *IndicationofInterest) IDSource() (*field.IDSource, error) {
 	f := new(field.IDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *IndicationofInterest) Issuer() (*field.Issuer, error) {
+	f := new(field.Issuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *IndicationofInterest) Side() (*field.Side, error) {
+	f := new(field.Side)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -94,13 +79,28 @@ func (m *IndicationofInterest) Currency() (*field.Currency, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *IndicationofInterest) IOIQualifier() (*field.IOIQualifier, error) {
-	f := new(field.IOIQualifier)
+func (m *IndicationofInterest) IOIid() (*field.IOIid, error) {
+	f := new(field.IOIid)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *IndicationofInterest) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *IndicationofInterest) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *IndicationofInterest) SecurityDesc() (*field.SecurityDesc, error) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *IndicationofInterest) ValidUntilTime() (*field.ValidUntilTime, error) {
+	f := new(field.ValidUntilTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *IndicationofInterest) IOIQualifier() (*field.IOIQualifier, error) {
+	f := new(field.IOIQualifier)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	. "github.com/quickfixgo/quickfix/field"
 	. "launchpad.net/gocheck"
 )
 

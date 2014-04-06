@@ -9,28 +9,8 @@ type RegistrationInstructions struct {
 	quickfix.Message
 }
 
-func (m *RegistrationInstructions) RegistID() (*field.RegistID, error) {
-	f := new(field.RegistID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *RegistrationInstructions) RegistTransType() (*field.RegistTransType, error) {
 	f := new(field.RegistTransType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructions) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructions) Account() (*field.Account, error) {
-	f := new(field.Account)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructions) RegistRefID() (*field.RegistRefID, error) {
-	f := new(field.RegistRefID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,8 +19,28 @@ func (m *RegistrationInstructions) ClOrdID() (*field.ClOrdID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *RegistrationInstructions) Account() (*field.Account, error) {
+	f := new(field.Account)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *RegistrationInstructions) AcctIDSource() (*field.AcctIDSource, error) {
 	f := new(field.AcctIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructions) RegistID() (*field.RegistID, error) {
+	f := new(field.RegistID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructions) RegistRefID() (*field.RegistRefID, error) {
+	f := new(field.RegistRefID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructions) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

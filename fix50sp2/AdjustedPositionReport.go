@@ -14,13 +14,33 @@ func (m *AdjustedPositionReport) PosMaintRptID() (*field.PosMaintRptID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AdjustedPositionReport) PosReqType() (*field.PosReqType, error) {
-	f := new(field.PosReqType)
+func (m *AdjustedPositionReport) ClearingBusinessDate() (*field.ClearingBusinessDate, error) {
+	f := new(field.ClearingBusinessDate)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *AdjustedPositionReport) SettlSessID() (*field.SettlSessID, error) {
 	f := new(field.SettlSessID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) NoPositions() (*field.NoPositions, error) {
+	f := new(field.NoPositions)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) PriorSettlPrice() (*field.PriorSettlPrice, error) {
+	f := new(field.PriorSettlPrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) PosReqType() (*field.PosReqType, error) {
+	f := new(field.PosReqType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AdjustedPositionReport) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,28 +54,8 @@ func (m *AdjustedPositionReport) SettlPrice() (*field.SettlPrice, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AdjustedPositionReport) PriorSettlPrice() (*field.PriorSettlPrice, error) {
-	f := new(field.PriorSettlPrice)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *AdjustedPositionReport) PosMaintRptRefID() (*field.PosMaintRptRefID, error) {
 	f := new(field.PosMaintRptRefID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AdjustedPositionReport) ClearingBusinessDate() (*field.ClearingBusinessDate, error) {
-	f := new(field.ClearingBusinessDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AdjustedPositionReport) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AdjustedPositionReport) NoPositions() (*field.NoPositions, error) {
-	f := new(field.NoPositions)
 	err := m.Body.Get(f)
 	return f, err
 }

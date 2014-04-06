@@ -24,23 +24,13 @@ func (m *MarketDataRequest) MarketDepth() (*field.MarketDepth, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataRequest) MDUpdateType() (*field.MDUpdateType, error) {
-	f := new(field.MDUpdateType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *MarketDataRequest) AggregatedBook() (*field.AggregatedBook, error) {
 	f := new(field.AggregatedBook)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataRequest) Scope() (*field.Scope, error) {
-	f := new(field.Scope)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MarketDataRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
+func (m *MarketDataRequest) OpenCloseSettleFlag() (*field.OpenCloseSettleFlag, error) {
+	f := new(field.OpenCloseSettleFlag)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +39,13 @@ func (m *MarketDataRequest) NoTradingSessions() (*field.NoTradingSessions, error
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataRequest) OpenCloseSettleFlag() (*field.OpenCloseSettleFlag, error) {
-	f := new(field.OpenCloseSettleFlag)
+func (m *MarketDataRequest) MDUpdateType() (*field.MDUpdateType, error) {
+	f := new(field.MDUpdateType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequest) Scope() (*field.Scope, error) {
+	f := new(field.Scope)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -61,6 +56,11 @@ func (m *MarketDataRequest) MDImplicitDelete() (*field.MDImplicitDelete, error) 
 }
 func (m *MarketDataRequest) NoMDEntryTypes() (*field.NoMDEntryTypes, error) {
 	f := new(field.NoMDEntryTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }

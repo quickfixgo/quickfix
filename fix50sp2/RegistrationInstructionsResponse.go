@@ -9,8 +9,8 @@ type RegistrationInstructionsResponse struct {
 	quickfix.Message
 }
 
-func (m *RegistrationInstructionsResponse) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
+func (m *RegistrationInstructionsResponse) RegistID() (*field.RegistID, error) {
+	f := new(field.RegistID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,11 +34,6 @@ func (m *RegistrationInstructionsResponse) RegistRejReasonText() (*field.RegistR
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) RegistID() (*field.RegistID, error) {
-	f := new(field.RegistID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *RegistrationInstructionsResponse) RegistTransType() (*field.RegistTransType, error) {
 	f := new(field.RegistTransType)
 	err := m.Body.Get(f)
@@ -46,6 +41,11 @@ func (m *RegistrationInstructionsResponse) RegistTransType() (*field.RegistTrans
 }
 func (m *RegistrationInstructionsResponse) RegistRefID() (*field.RegistRefID, error) {
 	f := new(field.RegistRefID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }

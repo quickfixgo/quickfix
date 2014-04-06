@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/datadictionary"
+	. "github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/tag"
 	. "launchpad.net/gocheck"
 	"time"

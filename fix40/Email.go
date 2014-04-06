@@ -9,6 +9,16 @@ type Email struct {
 	quickfix.Message
 }
 
+func (m *Email) EmailType() (*field.EmailType, error) {
+	f := new(field.EmailType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) OrigTime() (*field.OrigTime, error) {
+	f := new(field.OrigTime)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Email) RelatdSym() (*field.RelatdSym, error) {
 	f := new(field.RelatdSym)
 	err := m.Body.Get(f)
@@ -21,16 +31,6 @@ func (m *Email) OrderID() (*field.OrderID, error) {
 }
 func (m *Email) RawDataLength() (*field.RawDataLength, error) {
 	f := new(field.RawDataLength)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) EmailType() (*field.EmailType, error) {
-	f := new(field.EmailType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) OrigTime() (*field.OrigTime, error) {
-	f := new(field.OrigTime)
 	err := m.Body.Get(f)
 	return f, err
 }

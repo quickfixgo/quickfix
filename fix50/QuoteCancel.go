@@ -14,13 +14,8 @@ func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
-	f := new(field.QuoteID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
+func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
+	f := new(field.QuoteCancelType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,23 +29,18 @@ func (m *QuoteCancel) Account() (*field.Account, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
+	f := new(field.QuoteID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteCancel) AcctIDSource() (*field.AcctIDSource, error) {
 	f := new(field.AcctIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
-	f := new(field.NoQuoteEntries)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
-	f := new(field.QuoteCancelType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -61,6 +51,16 @@ func (m *QuoteCancel) AccountType() (*field.AccountType, error) {
 }
 func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
 	f := new(field.TradingSessionID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
+	f := new(field.NoQuoteEntries)
 	err := m.Body.Get(f)
 	return f, err
 }

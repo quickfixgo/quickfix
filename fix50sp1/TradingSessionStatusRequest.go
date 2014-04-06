@@ -14,18 +14,13 @@ func (m *TradingSessionStatusRequest) TradingSessionID() (*field.TradingSessionI
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *TradingSessionStatusRequest) TradSesMode() (*field.TradSesMode, error) {
+	f := new(field.TradSesMode)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *TradingSessionStatusRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
 	f := new(field.SubscriptionRequestType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *TradingSessionStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *TradingSessionStatusRequest) MarketID() (*field.MarketID, error) {
-	f := new(field.MarketID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +44,13 @@ func (m *TradingSessionStatusRequest) TradSesMethod() (*field.TradSesMethod, err
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatusRequest) TradSesMode() (*field.TradSesMode, error) {
-	f := new(field.TradSesMode)
+func (m *TradingSessionStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *TradingSessionStatusRequest) MarketID() (*field.MarketID, error) {
+	f := new(field.MarketID)
 	err := m.Body.Get(f)
 	return f, err
 }

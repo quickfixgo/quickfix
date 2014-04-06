@@ -3,12 +3,13 @@ package quickfix
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/tag"
 )
 
 //Validate tests the message against the provided data dictionary.
 func Validate(d *datadictionary.DataDictionary, message Message) (reject MessageReject) {
-	msgType := new(StringField)
+	msgType := new(field.StringField)
 	if err := message.Header.GetField(tag.MsgType, msgType); err != nil {
 		switch err.(type) {
 		case FieldNotFoundError:
@@ -43,7 +44,7 @@ func Validate(d *datadictionary.DataDictionary, message Message) (reject Message
 
 //Validate tests the message against the provided data dictionary.
 func ValidateFIXTApp(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, message Message) (reject MessageReject) {
-	msgType := new(StringField)
+	msgType := new(field.StringField)
 	if err := message.Header.GetField(tag.MsgType, msgType); err != nil {
 		switch err.(type) {
 		case FieldNotFoundError:
@@ -84,7 +85,7 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 		return err
 	}
 
-	msgType := new(StringField)
+	msgType := new(field.StringField)
 	message.Header.GetField(tag.MsgType, msgType)
 
 	if remainingFields, err = validateWalkComponent(appDD.Messages[msgType.Value], remainingFields, message); err != nil {
@@ -142,7 +143,7 @@ func validateVisitField(fieldDef *datadictionary.FieldDef, fields []*fieldBytes,
 
 func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []*fieldBytes, message Message) ([]*fieldBytes, MessageReject) {
 	numInGroupTag := fieldStack[0].Tag
-	numInGroup := new(IntValue)
+	numInGroup := new(field.IntValue)
 
 	if err := numInGroup.Read(fieldStack[0].Value); err != nil {
 		return nil, NewValueIsIncorrect(message, &numInGroupTag)
@@ -227,7 +228,7 @@ func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadic
 
 func validateRequiredFieldMap(msg Message, requiredTags map[tag.Tag]struct{}, fieldMap FieldMap) (reject MessageReject) {
 	for required := range requiredTags {
-		field := new(StringValue)
+		field := new(field.StringValue)
 		if err := fieldMap.GetField(required, field); err != nil {
 			switch e := err.(type) {
 			case FieldNotFoundError:
@@ -282,63 +283,63 @@ func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, v
 		var prototype FieldValue
 		switch fieldType.Type {
 		case "STRING":
-			prototype = new(StringValue)
+			prototype = new(field.StringValue)
 		case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
-			prototype = new(MultipleStringValue)
+			prototype = new(field.MultipleStringValue)
 		case "MULTIPLECHARVALUE":
-			prototype = new(MultipleCharValue)
+			prototype = new(field.MultipleCharValue)
 		case "CHAR":
-			prototype = new(CharValue)
+			prototype = new(field.CharValue)
 		case "CURRENCY":
-			prototype = new(CurrencyValue)
+			prototype = new(field.CurrencyValue)
 		case "DATA":
-			prototype = new(DataValue)
+			prototype = new(field.DataValue)
 		case "MONTHYEAR":
-			prototype = new(MonthYearValue)
+			prototype = new(field.MonthYearValue)
 		case "LOCALMKTDATE", "DATE":
-			prototype = new(LocalMktDateValue)
+			prototype = new(field.LocalMktDateValue)
 		case "EXCHANGE":
-			prototype = new(ExchangeValue)
+			prototype = new(field.ExchangeValue)
 		case "LANGUAGE":
-			prototype = new(LanguageValue)
+			prototype = new(field.LanguageValue)
 		case "XMLDATA":
-			prototype = new(XMLDataValue)
+			prototype = new(field.XMLDataValue)
 		case "COUNTRY":
-			prototype = new(CountryValue)
+			prototype = new(field.CountryValue)
 		case "UTCTIMEONLY":
-			prototype = new(UTCTimeOnlyValue)
+			prototype = new(field.UTCTimeOnlyValue)
 		case "UTCDATEONLY", "UTCDATE":
-			prototype = new(UTCDateOnlyValue)
+			prototype = new(field.UTCDateOnlyValue)
 		case "TZTIMEONLY":
-			prototype = new(TZTimeOnlyValue)
+			prototype = new(field.TZTimeOnlyValue)
 		case "TZTIMESTAMP":
-			prototype = new(TZTimestampValue)
+			prototype = new(field.TZTimestampValue)
 		case "BOOLEAN":
-			prototype = new(BooleanValue)
+			prototype = new(field.BooleanValue)
 		case "INT":
-			prototype = new(IntValue)
+			prototype = new(field.IntValue)
 		case "LENGTH":
-			prototype = new(LengthValue)
+			prototype = new(field.LengthValue)
 		case "DAYOFMONTH":
-			prototype = new(DayOfMonthValue)
+			prototype = new(field.DayOfMonthValue)
 		case "NUMINGROUP":
-			prototype = new(NumInGroupValue)
+			prototype = new(field.NumInGroupValue)
 		case "SEQNUM":
-			prototype = new(SeqNumValue)
+			prototype = new(field.SeqNumValue)
 		case "UTCTIMESTAMP", "TIME":
-			prototype = new(UTCTimestampValue)
+			prototype = new(field.UTCTimestampValue)
 		case "FLOAT":
-			prototype = new(FloatValue)
+			prototype = new(field.FloatValue)
 		case "QTY", "QUANTITY":
-			prototype = new(QtyValue)
+			prototype = new(field.QtyValue)
 		case "AMT":
-			prototype = new(AmtValue)
+			prototype = new(field.AmtValue)
 		case "PRICE":
-			prototype = new(PriceValue)
+			prototype = new(field.PriceValue)
 		case "PRICEOFFSET":
-			prototype = new(PriceOffsetValue)
+			prototype = new(field.PriceOffsetValue)
 		case "PERCENTAGE":
-			prototype = new(PercentageValue)
+			prototype = new(field.PercentageValue)
 		}
 
 		if err := fieldMap.GetField(tag, prototype); err != nil {

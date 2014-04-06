@@ -19,16 +19,6 @@ func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
-	f := new(field.TradingSessionID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
 	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
@@ -39,6 +29,11 @@ func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteCancel) Account() (*field.Account, error) {
 	f := new(field.Account)
 	err := m.Body.Get(f)
@@ -46,6 +41,11 @@ func (m *QuoteCancel) Account() (*field.Account, error) {
 }
 func (m *QuoteCancel) AccountType() (*field.AccountType, error) {
 	f := new(field.AccountType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
+	f := new(field.TradingSessionID)
 	err := m.Body.Get(f)
 	return f, err
 }

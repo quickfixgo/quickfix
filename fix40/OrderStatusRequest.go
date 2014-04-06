@@ -9,18 +9,13 @@ type OrderStatusRequest struct {
 	quickfix.Message
 }
 
-func (m *OrderStatusRequest) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
+func (m *OrderStatusRequest) ExecBroker() (*field.ExecBroker, error) {
+	f := new(field.ExecBroker)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) ClientID() (*field.ClientID, error) {
-	f := new(field.ClientID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *OrderStatusRequest) Issuer() (*field.Issuer, error) {
-	f := new(field.Issuer)
+func (m *OrderStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,8 +29,13 @@ func (m *OrderStatusRequest) OrderID() (*field.OrderID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) ExecBroker() (*field.ExecBroker, error) {
-	f := new(field.ExecBroker)
+func (m *OrderStatusRequest) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderStatusRequest) ClientID() (*field.ClientID, error) {
+	f := new(field.ClientID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,8 +44,8 @@ func (m *OrderStatusRequest) Symbol() (*field.Symbol, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
+func (m *OrderStatusRequest) Issuer() (*field.Issuer, error) {
+	f := new(field.Issuer)
 	err := m.Body.Get(f)
 	return f, err
 }

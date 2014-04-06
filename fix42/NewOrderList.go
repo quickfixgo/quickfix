@@ -24,11 +24,6 @@ func (m *NewOrderList) ProgPeriodInterval() (*field.ProgPeriodInterval, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *NewOrderList) ListExecInstType() (*field.ListExecInstType, error) {
-	f := new(field.ListExecInstType)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *NewOrderList) ListExecInst() (*field.ListExecInst, error) {
 	f := new(field.ListExecInst)
 	err := m.Body.Get(f)
@@ -36,11 +31,6 @@ func (m *NewOrderList) ListExecInst() (*field.ListExecInst, error) {
 }
 func (m *NewOrderList) EncodedListExecInstLen() (*field.EncodedListExecInstLen, error) {
 	f := new(field.EncodedListExecInstLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *NewOrderList) TotNoOrders() (*field.TotNoOrders, error) {
-	f := new(field.TotNoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,8 +54,18 @@ func (m *NewOrderList) BidType() (*field.BidType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *NewOrderList) ListExecInstType() (*field.ListExecInstType, error) {
+	f := new(field.ListExecInstType)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *NewOrderList) EncodedListExecInst() (*field.EncodedListExecInst, error) {
 	f := new(field.EncodedListExecInst)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *NewOrderList) TotNoOrders() (*field.TotNoOrders, error) {
+	f := new(field.TotNoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }

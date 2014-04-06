@@ -9,6 +9,11 @@ type QuoteRequest struct {
 	quickfix.Message
 }
 
+func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteRequest) RFQReqID() (*field.RFQReqID, error) {
 	f := new(field.RFQReqID)
 	err := m.Body.Get(f)
@@ -29,18 +34,13 @@ func (m *QuoteRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteRequest) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteRequest) PrivateQuote() (*field.PrivateQuote, error) {
 	f := new(field.PrivateQuote)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) RespondentType() (*field.RespondentType, error) {
-	f := new(field.RespondentType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -54,13 +54,13 @@ func (m *QuoteRequest) OrderCapacity() (*field.OrderCapacity, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
+func (m *QuoteRequest) NoRootPartyIDs() (*field.NoRootPartyIDs, error) {
+	f := new(field.NoRootPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) NoRootPartyIDs() (*field.NoRootPartyIDs, error) {
-	f := new(field.NoRootPartyIDs)
+func (m *QuoteRequest) RespondentType() (*field.RespondentType, error) {
+	f := new(field.RespondentType)
 	err := m.Body.Get(f)
 	return f, err
 }

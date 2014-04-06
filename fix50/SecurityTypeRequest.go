@@ -9,6 +9,21 @@ type SecurityTypeRequest struct {
 	quickfix.Message
 }
 
+func (m *SecurityTypeRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypeRequest) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypeRequest) SecuritySubType() (*field.SecuritySubType, error) {
+	f := new(field.SecuritySubType)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SecurityTypeRequest) SecurityReqID() (*field.SecurityReqID, error) {
 	f := new(field.SecurityReqID)
 	err := m.Body.Get(f)
@@ -29,16 +44,6 @@ func (m *SecurityTypeRequest) TradingSessionID() (*field.TradingSessionID, error
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypeRequest) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypeRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SecurityTypeRequest) Product() (*field.Product, error) {
 	f := new(field.Product)
 	err := m.Body.Get(f)
@@ -46,11 +51,6 @@ func (m *SecurityTypeRequest) Product() (*field.Product, error) {
 }
 func (m *SecurityTypeRequest) SecurityType() (*field.SecurityType, error) {
 	f := new(field.SecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypeRequest) SecuritySubType() (*field.SecuritySubType, error) {
-	f := new(field.SecuritySubType)
 	err := m.Body.Get(f)
 	return f, err
 }

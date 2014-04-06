@@ -14,13 +14,13 @@ func (m *Quote) QuoteReqID() (*field.QuoteReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
+func (m *Quote) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) IDSource() (*field.IDSource, error) {
-	f := new(field.IDSource)
+func (m *Quote) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,13 +29,13 @@ func (m *Quote) SecurityDesc() (*field.SecurityDesc, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) OfferPx() (*field.OfferPx, error) {
-	f := new(field.OfferPx)
+func (m *Quote) BidSize() (*field.BidSize, error) {
+	f := new(field.BidSize)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) OfferSize() (*field.OfferSize, error) {
-	f := new(field.OfferSize)
+func (m *Quote) ValidUntilTime() (*field.ValidUntilTime, error) {
+	f := new(field.ValidUntilTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +49,8 @@ func (m *Quote) Symbol() (*field.Symbol, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
+func (m *Quote) IDSource() (*field.IDSource, error) {
+	f := new(field.IDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,13 +64,13 @@ func (m *Quote) BidPx() (*field.BidPx, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) BidSize() (*field.BidSize, error) {
-	f := new(field.BidSize)
+func (m *Quote) OfferPx() (*field.OfferPx, error) {
+	f := new(field.OfferPx)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) ValidUntilTime() (*field.ValidUntilTime, error) {
-	f := new(field.ValidUntilTime)
+func (m *Quote) OfferSize() (*field.OfferSize, error) {
+	f := new(field.OfferSize)
 	err := m.Body.Get(f)
 	return f, err
 }

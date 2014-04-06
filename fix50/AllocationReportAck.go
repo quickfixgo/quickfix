@@ -19,38 +19,13 @@ func (m *AllocationReportAck) SecondaryAllocID() (*field.SecondaryAllocID, error
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *AllocationReportAck) AllocReportType() (*field.AllocReportType, error) {
+	f := new(field.AllocReportType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) AvgPxIndicator() (*field.AvgPxIndicator, error) {
-	f := new(field.AvgPxIndicator)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) Quantity() (*field.Quantity, error) {
-	f := new(field.Quantity)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) TradeDate() (*field.TradeDate, error) {
-	f := new(field.TradeDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) AllocRejCode() (*field.AllocRejCode, error) {
-	f := new(field.AllocRejCode)
+func (m *AllocationReportAck) MatchStatus() (*field.MatchStatus, error) {
+	f := new(field.MatchStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -61,6 +36,11 @@ func (m *AllocationReportAck) Product() (*field.Product, error) {
 }
 func (m *AllocationReportAck) SecurityType() (*field.SecurityType, error) {
 	f := new(field.SecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) Quantity() (*field.Quantity, error) {
+	f := new(field.Quantity)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -79,18 +59,28 @@ func (m *AllocationReportAck) NoPartyIDs() (*field.NoPartyIDs, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) AllocReportType() (*field.AllocReportType, error) {
-	f := new(field.AllocReportType)
+func (m *AllocationReportAck) TradeDate() (*field.TradeDate, error) {
+	f := new(field.TradeDate)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) AllocIntermedReqType() (*field.AllocIntermedReqType, error) {
-	f := new(field.AllocIntermedReqType)
+func (m *AllocationReportAck) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) MatchStatus() (*field.MatchStatus, error) {
-	f := new(field.MatchStatus)
+func (m *AllocationReportAck) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) NoAllocs() (*field.NoAllocs, error) {
+	f := new(field.NoAllocs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -99,8 +89,18 @@ func (m *AllocationReportAck) ClearingBusinessDate() (*field.ClearingBusinessDat
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) AllocStatus() (*field.AllocStatus, error) {
-	f := new(field.AllocStatus)
+func (m *AllocationReportAck) AvgPxIndicator() (*field.AvgPxIndicator, error) {
+	f := new(field.AvgPxIndicator)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) AllocRejCode() (*field.AllocRejCode, error) {
+	f := new(field.AllocRejCode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) AllocIntermedReqType() (*field.AllocIntermedReqType, error) {
+	f := new(field.AllocIntermedReqType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -109,8 +109,8 @@ func (m *AllocationReportAck) Text() (*field.Text, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) NoAllocs() (*field.NoAllocs, error) {
-	f := new(field.NoAllocs)
+func (m *AllocationReportAck) AllocStatus() (*field.AllocStatus, error) {
+	f := new(field.AllocStatus)
 	err := m.Body.Get(f)
 	return f, err
 }

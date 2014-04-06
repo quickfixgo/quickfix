@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bytes"
 	"fmt"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/tag"
 )
 
@@ -76,7 +77,7 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	}
 
 	length := msg.Header.length() + msg.Body.length() + msg.Trailer.length()
-	bodyLength := new(IntValue)
+	bodyLength := new(field.IntValue)
 	msg.Header.GetField(tag.BodyLength, bodyLength)
 	if bodyLength.Value != length {
 		return msg, ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
@@ -95,7 +96,7 @@ func (m Message) ReverseRoute() *MessageBuilder {
 	reverseBuilder := NewMessageBuilder()
 
 	copy := func(src tag.Tag, dest tag.Tag) {
-		if field := new(StringValue); m.Header.GetField(src, field) == nil {
+		if field := new(field.StringValue); m.Header.GetField(src, field) == nil {
 			if len(field.Value) != 0 {
 				reverseBuilder.Header.SetField(dest, field)
 			}
@@ -116,7 +117,7 @@ func (m Message) ReverseRoute() *MessageBuilder {
 	copy(tag.DeliverToSubID, tag.OnBehalfOfSubID)
 
 	//tags added in 4.1
-	if beginString := new(StringValue); m.Header.GetField(tag.BeginString, beginString) == nil {
+	if beginString := new(field.StringValue); m.Header.GetField(tag.BeginString, beginString) == nil {
 		if beginString.Value != BeginString_FIX40 {
 			copy(tag.OnBehalfOfLocationID, tag.DeliverToLocationID)
 			copy(tag.DeliverToLocationID, tag.OnBehalfOfLocationID)
@@ -174,8 +175,8 @@ func (m Message) ToBuilder() *MessageBuilder {
 	return builder
 }
 
-func newCheckSum(value int) *StringField {
-	return NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
+func newCheckSum(value int) *field.StringField {
+	return field.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
 //Free is required for Buffer interface FIXME

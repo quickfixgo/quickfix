@@ -14,8 +14,13 @@ func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
+func (m *QuoteRequest) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) OrderQty() (*field.OrderQty, error) {
+	f := new(field.OrderQty)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,8 +29,8 @@ func (m *QuoteRequest) Symbol() (*field.Symbol, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
+func (m *QuoteRequest) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -51,11 +56,6 @@ func (m *QuoteRequest) PrevClosePx() (*field.PrevClosePx, error) {
 }
 func (m *QuoteRequest) Side() (*field.Side, error) {
 	f := new(field.Side)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) OrderQty() (*field.OrderQty, error) {
-	f := new(field.OrderQty)
 	err := m.Body.Get(f)
 	return f, err
 }

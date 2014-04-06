@@ -19,33 +19,8 @@ func (m *ListStatus) ListStatusType() (*field.ListStatusType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) NoRpts() (*field.NoRpts, error) {
-	f := new(field.NoRpts)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) RptSeq() (*field.RptSeq, error) {
-	f := new(field.RptSeq)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) EncodedListStatusText() (*field.EncodedListStatusText, error) {
-	f := new(field.EncodedListStatusText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ListStatus) ListOrderStatus() (*field.ListOrderStatus, error) {
 	f := new(field.ListOrderStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) ListStatusText() (*field.ListStatusText, error) {
-	f := new(field.ListStatusText)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -56,6 +31,31 @@ func (m *ListStatus) EncodedListStatusTextLen() (*field.EncodedListStatusTextLen
 }
 func (m *ListStatus) TotNoOrders() (*field.TotNoOrders, error) {
 	f := new(field.TotNoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) NoRpts() (*field.NoRpts, error) {
+	f := new(field.NoRpts)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) RptSeq() (*field.RptSeq, error) {
+	f := new(field.RptSeq)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) ListStatusText() (*field.ListStatusText, error) {
+	f := new(field.ListStatusText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) EncodedListStatusText() (*field.EncodedListStatusText, error) {
+	f := new(field.EncodedListStatusText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }

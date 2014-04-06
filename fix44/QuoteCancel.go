@@ -9,23 +9,13 @@ type QuoteCancel struct {
 	quickfix.Message
 }
 
-func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
-	f := new(field.QuoteID)
+func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
+	f := new(field.QuoteCancelType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) Account() (*field.Account, error) {
-	f := new(field.Account)
+func (m *QuoteCancel) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -54,13 +44,23 @@ func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
-	f := new(field.QuoteCancelType)
+func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
+	f := new(field.QuoteID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
+func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) Account() (*field.Account, error) {
+	f := new(field.Account)
 	err := m.Body.Get(f)
 	return f, err
 }

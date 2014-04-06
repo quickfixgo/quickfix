@@ -57,7 +57,7 @@ func tryCrack(beginString string, msg quickfix.Message, sessionID quickfix.Sessi
 		return fix50.Crack(msg, sessionID, router)
 	case quickfix.BeginString_FIXT11:
 
-		msgType := new(quickfix.StringValue)
+		msgType := new(field.StringValue)
 		if msg.Header.GetField(tag.MsgType, msgType); quickfix.IsAdminMessageType(msgType.Value) {
 			return fixt11.Crack(msg, sessionID, router)
 		} else {

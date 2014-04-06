@@ -14,33 +14,33 @@ func (m *OrderCancelReject) SecondaryOrderID() (*field.SecondaryOrderID, error) 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *OrderCancelReject) ListID() (*field.ListID, error) {
 	f := new(field.ListID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
+func (m *OrderCancelReject) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) TradeOriginationDate() (*field.TradeOriginationDate, error) {
-	f := new(field.TradeOriginationDate)
+func (m *OrderCancelReject) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) TradeDate() (*field.TradeDate, error) {
-	f := new(field.TradeDate)
+func (m *OrderCancelReject) OrigClOrdID() (*field.OrigClOrdID, error) {
+	f := new(field.OrigClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) WorkingIndicator() (*field.WorkingIndicator, error) {
-	f := new(field.WorkingIndicator)
+func (m *OrderCancelReject) OrigOrdModTime() (*field.OrigOrdModTime, error) {
+	f := new(field.OrigOrdModTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderCancelReject) CxlRejResponseTo() (*field.CxlRejResponseTo, error) {
+	f := new(field.CxlRejResponseTo)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,28 +59,23 @@ func (m *OrderCancelReject) SecondaryClOrdID() (*field.SecondaryClOrdID, error) 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) OrigClOrdID() (*field.OrigClOrdID, error) {
-	f := new(field.OrigClOrdID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *OrderCancelReject) OrdStatus() (*field.OrdStatus, error) {
 	f := new(field.OrdStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) Account() (*field.Account, error) {
-	f := new(field.Account)
+func (m *OrderCancelReject) WorkingIndicator() (*field.WorkingIndicator, error) {
+	f := new(field.WorkingIndicator)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) AccountType() (*field.AccountType, error) {
-	f := new(field.AccountType)
+func (m *OrderCancelReject) TradeDate() (*field.TradeDate, error) {
+	f := new(field.TradeDate)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *OrderCancelReject) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -99,18 +94,23 @@ func (m *OrderCancelReject) ClOrdLinkID() (*field.ClOrdLinkID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) OrigOrdModTime() (*field.OrigOrdModTime, error) {
-	f := new(field.OrigOrdModTime)
+func (m *OrderCancelReject) Account() (*field.Account, error) {
+	f := new(field.Account)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) CxlRejResponseTo() (*field.CxlRejResponseTo, error) {
-	f := new(field.CxlRejResponseTo)
+func (m *OrderCancelReject) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *OrderCancelReject) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *OrderCancelReject) AccountType() (*field.AccountType, error) {
+	f := new(field.AccountType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *OrderCancelReject) TradeOriginationDate() (*field.TradeOriginationDate, error) {
+	f := new(field.TradeOriginationDate)
 	err := m.Body.Get(f)
 	return f, err
 }

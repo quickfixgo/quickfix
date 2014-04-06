@@ -74,7 +74,7 @@ func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.Se
 	reply.Header.Set(msgType)
 
 	for _, tag := range msg.Body.Tags() {
-		field := new(quickfix.StringValue)
+		field := new(field.StringValue)
 		if err := msg.Body.GetField(tag, field); err == nil {
 			reply.Body.SetField(tag, field)
 		}

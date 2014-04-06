@@ -14,16 +14,6 @@ func (m *RegistrationInstructionsResponse) RegistID() (*field.RegistID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) RegistRefID() (*field.RegistRefID, error) {
-	f := new(field.RegistRefID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructionsResponse) Account() (*field.Account, error) {
-	f := new(field.Account)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *RegistrationInstructionsResponse) RegistTransType() (*field.RegistTransType, error) {
 	f := new(field.RegistTransType)
 	err := m.Body.Get(f)
@@ -39,8 +29,8 @@ func (m *RegistrationInstructionsResponse) NoPartyIDs() (*field.NoPartyIDs, erro
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *RegistrationInstructionsResponse) RegistStatus() (*field.RegistStatus, error) {
-	f := new(field.RegistStatus)
+func (m *RegistrationInstructionsResponse) Account() (*field.Account, error) {
+	f := new(field.Account)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -51,6 +41,16 @@ func (m *RegistrationInstructionsResponse) RegistRejReasonCode() (*field.RegistR
 }
 func (m *RegistrationInstructionsResponse) RegistRejReasonText() (*field.RegistRejReasonText, error) {
 	f := new(field.RegistRejReasonText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) RegistRefID() (*field.RegistRefID, error) {
+	f := new(field.RegistRefID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) RegistStatus() (*field.RegistStatus, error) {
+	f := new(field.RegistStatus)
 	err := m.Body.Get(f)
 	return f, err
 }

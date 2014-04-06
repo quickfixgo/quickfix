@@ -3,6 +3,7 @@ package quickfix
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/log"
 	"github.com/quickfixgo/quickfix/settings"
 	"github.com/quickfixgo/quickfix/tag"
@@ -120,26 +121,26 @@ func (s *session) insertSendingTime(builder *MessageBuilder) {
 	sendingTime := time.Now().UTC()
 
 	if s.BeginString >= BeginString_FIX42 {
-		builder.Header.Set(NewUTCTimestampField(tag.SendingTime, sendingTime))
+		builder.Header.Set(field.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	} else {
-		builder.Header.Set(NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
+		builder.Header.Set(field.NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
 	}
 }
 
 func (s *session) fillDefaultHeader(builder *MessageBuilder) {
-	builder.Header.Set(NewStringField(tag.BeginString, s.BeginString))
-	builder.Header.Set(NewStringField(tag.SenderCompID, s.SenderCompID))
-	builder.Header.Set(NewStringField(tag.TargetCompID, s.TargetCompID))
+	builder.Header.Set(field.NewStringField(tag.BeginString, s.BeginString))
+	builder.Header.Set(field.NewStringField(tag.SenderCompID, s.SenderCompID))
+	builder.Header.Set(field.NewStringField(tag.TargetCompID, s.TargetCompID))
 
 	s.insertSendingTime(builder)
 }
 
 func (s *session) resend(m *MessageBuilder) {
-	m.Header.Set(NewBooleanField(tag.PossDupFlag, true))
+	m.Header.Set(field.NewBooleanField(tag.PossDupFlag, true))
 
-	origSendingTime := new(StringValue)
+	origSendingTime := new(field.StringValue)
 	if err := m.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
-		m.Header.Set(NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+		m.Header.Set(field.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
 	s.insertSendingTime(m)
@@ -153,7 +154,7 @@ func (s *session) resend(m *MessageBuilder) {
 
 func (s *session) send(builder *MessageBuilder) {
 	s.fillDefaultHeader(builder)
-	builder.Header.Set(NewIntField(tag.MsgSeqNum, s.seqNum))
+	builder.Header.Set(field.NewIntField(tag.MsgSeqNum, s.seqNum))
 
 	if buffer, err := builder.Build(); err != nil {
 		panic(err)
@@ -173,14 +174,14 @@ func (s *session) sendBuffer(buffer Buffer) {
 
 func (s *session) DoTargetTooHigh(reject TargetTooHigh) {
 	resend := NewMessageBuilder()
-	resend.Header.Set(NewStringField(tag.MsgType, "2"))
-	resend.Body.Set(NewIntField(tag.BeginSeqNo, reject.ExpectedTarget))
+	resend.Header.Set(field.NewStringField(tag.MsgType, "2"))
+	resend.Body.Set(field.NewIntField(tag.BeginSeqNo, reject.ExpectedTarget))
 
 	var endSeqNum = 0
 	if s.BeginString < BeginString_FIX42 {
 		endSeqNum = 999999
 	}
-	resend.Body.Set(NewIntField(tag.EndSeqNo, endSeqNum))
+	resend.Body.Set(field.NewIntField(tag.EndSeqNo, endSeqNum))
 
 	s.send(resend)
 }
@@ -192,7 +193,7 @@ func (s *session) handleLogon(msg Message) error {
 		s.seqNum = 1
 	}
 
-	resetSeqNumFlag := new(BooleanValue)
+	resetSeqNumFlag := new(field.BooleanValue)
 	if err := msg.Body.GetField(tag.ResetSeqNumFlag, resetSeqNumFlag); err == nil {
 		if resetSeqNumFlag.Value {
 			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
@@ -206,24 +207,24 @@ func (s *session) handleLogon(msg Message) error {
 	}
 
 	reply := NewMessageBuilder()
-	reply.Header.Set(NewStringField(tag.MsgType, "A"))
-	reply.Header.Set(NewStringField(tag.BeginString, s.BeginString))
-	reply.Header.Set(NewStringField(tag.TargetCompID, s.TargetCompID))
-	reply.Header.Set(NewStringField(tag.SenderCompID, s.SenderCompID))
-	reply.Body.Set(NewIntField(tag.EncryptMethod, 0))
+	reply.Header.Set(field.NewStringField(tag.MsgType, "A"))
+	reply.Header.Set(field.NewStringField(tag.BeginString, s.BeginString))
+	reply.Header.Set(field.NewStringField(tag.TargetCompID, s.TargetCompID))
+	reply.Header.Set(field.NewStringField(tag.SenderCompID, s.SenderCompID))
+	reply.Body.Set(field.NewIntField(tag.EncryptMethod, 0))
 
-	heartBtInt := NewIntField(tag.HeartBtInt, 0)
+	heartBtInt := field.NewIntField(tag.HeartBtInt, 0)
 	if err := msg.Body.Get(heartBtInt); err == nil {
 		s.heartBeatTimeout = time.Duration(heartBtInt.Value) * time.Second
 		reply.Body.Set(heartBtInt)
 	}
 
 	if resetSeqNumFlag.Value {
-		reply.Body.Set(NewBooleanField(tag.ResetSeqNumFlag, resetSeqNumFlag.Value))
+		reply.Body.Set(field.NewBooleanField(tag.ResetSeqNumFlag, resetSeqNumFlag.Value))
 	}
 
 	if s.DefaultApplVerID != "" {
-		reply.Trailer.Set(NewStringField(tag.DefaultApplVerID, s.DefaultApplVerID))
+		reply.Trailer.Set(field.NewStringField(tag.DefaultApplVerID, s.DefaultApplVerID))
 	}
 
 	s.log.OnEvent("Responding to logon request")
@@ -286,7 +287,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 	}
 
 	if s.transportDataDictionary != nil {
-		msgType := new(StringValue)
+		msgType := new(field.StringValue)
 		msg.Header.GetField(tag.MsgType, msgType)
 		if IsAdminMessageType(msgType.Value) {
 			if err := Validate(s.transportDataDictionary, msg); err != nil {
@@ -303,7 +304,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 }
 
 func (s *session) fromCallback(msg Message) MessageReject {
-	msgType := new(StringValue)
+	msgType := new(field.StringValue)
 	if msg.Header.GetField(tag.MsgType, msgType); IsAdminMessageType(msgType.Value) {
 		return s.application.FromAdmin(msg, s.SessionID)
 	}
@@ -312,7 +313,7 @@ func (s *session) fromCallback(msg Message) MessageReject {
 }
 
 func (s *session) checkTargetTooLow(msg Message) MessageReject {
-	seqNum := new(IntField)
+	seqNum := new(field.IntField)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
 		return NewRequiredTagMissing(msg, tag.MsgSeqNum)
@@ -324,7 +325,7 @@ func (s *session) checkTargetTooLow(msg Message) MessageReject {
 }
 
 func (s *session) checkTargetTooHigh(msg Message) MessageReject {
-	seqNum := new(IntValue)
+	seqNum := new(field.IntValue)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
 		return NewRequiredTagMissing(msg, tag.MsgSeqNum)
@@ -336,8 +337,8 @@ func (s *session) checkTargetTooHigh(msg Message) MessageReject {
 }
 
 func (s *session) checkCompID(msg Message) MessageReject {
-	senderCompID := new(StringValue)
-	targetCompID := new(StringValue)
+	senderCompID := new(field.StringValue)
+	targetCompID := new(field.StringValue)
 	haveSender := msg.Header.GetField(tag.SenderCompID, senderCompID)
 	haveTarget := msg.Header.GetField(tag.TargetCompID, targetCompID)
 
@@ -358,7 +359,7 @@ func (s *session) checkCompID(msg Message) MessageReject {
 }
 
 func (s *session) checkSendingTime(msg Message) MessageReject {
-	sendingTime := new(UTCTimestampValue)
+	sendingTime := new(field.UTCTimestampValue)
 	if err := msg.Header.GetField(tag.SendingTime, sendingTime); err != nil {
 		return NewRequiredTagMissing(msg, tag.SendingTime)
 	}
@@ -371,7 +372,7 @@ func (s *session) checkSendingTime(msg Message) MessageReject {
 }
 
 func (s *session) checkBeginString(msg Message) MessageReject {
-	beginString := new(StringValue)
+	beginString := new(field.StringValue)
 	switch err := msg.Header.GetField(tag.BeginString, beginString); {
 	case err != nil:
 		return NewRequiredTagMissing(msg, tag.BeginString)
@@ -388,40 +389,40 @@ func (s *session) doReject(rej MessageReject) {
 	if s.BeginString >= BeginString_FIX42 {
 
 		if rej.IsBusinessReject() {
-			reply.Header.Set(NewStringField(tag.MsgType, "j"))
-			reply.Body.Set(NewIntField(tag.BusinessRejectReason, int(rej.RejectReason())))
+			reply.Header.Set(field.NewStringField(tag.MsgType, "j"))
+			reply.Body.Set(field.NewIntField(tag.BusinessRejectReason, int(rej.RejectReason())))
 		} else {
-			reply.Header.Set(NewStringField(tag.MsgType, "3"))
+			reply.Header.Set(field.NewStringField(tag.MsgType, "3"))
 			switch {
 			default:
-				reply.Body.Set(NewIntField(tag.SessionRejectReason, int(rej.RejectReason())))
+				reply.Body.Set(field.NewIntField(tag.SessionRejectReason, int(rej.RejectReason())))
 			case rej.RejectReason() > InvalidMsgType && s.BeginString == BeginString_FIX42:
 				//fix42 knows up to invalid msg type
 			}
 		}
-		reply.Body.Set(NewStringField(tag.Text, rej.Error()))
+		reply.Body.Set(field.NewStringField(tag.Text, rej.Error()))
 
-		msgType := new(StringValue)
+		msgType := new(field.StringValue)
 		if err := rej.RejectedMessage().Header.GetField(tag.MsgType, msgType); err == nil {
-			reply.Body.Set(NewStringField(tag.RefMsgType, msgType.Value))
+			reply.Body.Set(field.NewStringField(tag.RefMsgType, msgType.Value))
 		}
 
 		if refTagID := rej.RefTagID(); refTagID != nil {
-			reply.Body.Set(NewIntField(tag.RefTagID, int(*refTagID)))
+			reply.Body.Set(field.NewIntField(tag.RefTagID, int(*refTagID)))
 		}
 	} else {
-		reply.Header.Set(NewStringField(tag.MsgType, "3"))
+		reply.Header.Set(field.NewStringField(tag.MsgType, "3"))
 
 		if refTagID := rej.RefTagID(); refTagID != nil {
-			reply.Body.Set(NewStringField(tag.Text, fmt.Sprintf("%s (%d)", rej.Error(), *refTagID)))
+			reply.Body.Set(field.NewStringField(tag.Text, fmt.Sprintf("%s (%d)", rej.Error(), *refTagID)))
 		} else {
-			reply.Body.Set(NewStringField(tag.Text, rej.Error()))
+			reply.Body.Set(field.NewStringField(tag.Text, rej.Error()))
 		}
 	}
 
-	seqNum := new(IntValue)
+	seqNum := new(field.IntValue)
 	if err := rej.RejectedMessage().Header.GetField(tag.MsgSeqNum, seqNum); err == nil {
-		reply.Body.Set(NewIntField(tag.RefSeqNum, seqNum.Value))
+		reply.Body.Set(field.NewIntField(tag.RefSeqNum, seqNum.Value))
 	}
 
 	s.send(reply)

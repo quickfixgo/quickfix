@@ -14,8 +14,13 @@ func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) NoOrders() (*field.NoOrders, error) {
-	f := new(field.NoOrders)
+func (m *ConfirmationRequest) AllocID() (*field.AllocID, error) {
+	f := new(field.AllocID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error) {
+	f := new(field.SecondaryAllocID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,13 +29,18 @@ func (m *ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, err
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ConfirmationRequest) AllocAccount() (*field.AllocAccount, error) {
 	f := new(field.AllocAccount)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) AllocAccountType() (*field.AllocAccountType, error) {
-	f := new(field.AllocAccountType)
+func (m *ConfirmationRequest) AllocAcctIDSource() (*field.AllocAcctIDSource, error) {
+	f := new(field.AllocAcctIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,23 +54,13 @@ func (m *ConfirmationRequest) ConfirmType() (*field.ConfirmType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) AllocID() (*field.AllocID, error) {
-	f := new(field.AllocID)
+func (m *ConfirmationRequest) NoOrders() (*field.NoOrders, error) {
+	f := new(field.NoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error) {
-	f := new(field.SecondaryAllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) AllocAcctIDSource() (*field.AllocAcctIDSource, error) {
-	f := new(field.AllocAcctIDSource)
+func (m *ConfirmationRequest) AllocAccountType() (*field.AllocAccountType, error) {
+	f := new(field.AllocAccountType)
 	err := m.Body.Get(f)
 	return f, err
 }

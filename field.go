@@ -15,11 +15,3 @@ type Field interface {
 	Tag() tag.Tag
 	FieldValue
 }
-
-type tagContainer struct {
-	tag tag.Tag
-}
-
-func (c tagContainer) Tag() tag.Tag {
-	return c.tag
-}

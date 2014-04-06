@@ -9,13 +9,8 @@ type MarketDataIncrementalRefresh struct {
 	quickfix.Message
 }
 
-func (m *MarketDataIncrementalRefresh) NoMDEntries() (*field.NoMDEntries, error) {
-	f := new(field.NoMDEntries)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MarketDataIncrementalRefresh) MDFeedType() (*field.MDFeedType, error) {
-	f := new(field.MDFeedType)
+func (m *MarketDataIncrementalRefresh) ApplQueueResolution() (*field.ApplQueueResolution, error) {
+	f := new(field.ApplQueueResolution)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,8 +19,18 @@ func (m *MarketDataIncrementalRefresh) ApplLastSeqNum() (*field.ApplLastSeqNum, 
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MarketDataIncrementalRefresh) ApplResendFlag() (*field.ApplResendFlag, error) {
+	f := new(field.ApplResendFlag)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MarketDataIncrementalRefresh) MDReqID() (*field.MDReqID, error) {
 	f := new(field.MDReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataIncrementalRefresh) NoMDEntries() (*field.NoMDEntries, error) {
+	f := new(field.NoMDEntries)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,13 +39,13 @@ func (m *MarketDataIncrementalRefresh) ApplQueueDepth() (*field.ApplQueueDepth, 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataIncrementalRefresh) ApplQueueResolution() (*field.ApplQueueResolution, error) {
-	f := new(field.ApplQueueResolution)
+func (m *MarketDataIncrementalRefresh) MDBookType() (*field.MDBookType, error) {
+	f := new(field.MDBookType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataIncrementalRefresh) MDBookType() (*field.MDBookType, error) {
-	f := new(field.MDBookType)
+func (m *MarketDataIncrementalRefresh) MDFeedType() (*field.MDFeedType, error) {
+	f := new(field.MDFeedType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -61,11 +66,6 @@ func (m *MarketDataIncrementalRefresh) ApplID() (*field.ApplID, error) {
 }
 func (m *MarketDataIncrementalRefresh) ApplSeqNum() (*field.ApplSeqNum, error) {
 	f := new(field.ApplSeqNum)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MarketDataIncrementalRefresh) ApplResendFlag() (*field.ApplResendFlag, error) {
-	f := new(field.ApplResendFlag)
 	err := m.Body.Get(f)
 	return f, err
 }

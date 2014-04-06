@@ -14,23 +14,23 @@ func (m *ListStatus) NoRpts() (*field.NoRpts, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) ListOrderStatus() (*field.ListOrderStatus, error) {
-	f := new(field.ListOrderStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ListStatus) RptSeq() (*field.RptSeq, error) {
 	f := new(field.RptSeq)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) ListStatusText() (*field.ListStatusText, error) {
-	f := new(field.ListStatusText)
+func (m *ListStatus) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) EncodedListStatusText() (*field.EncodedListStatusText, error) {
-	f := new(field.EncodedListStatusText)
+func (m *ListStatus) TotNoOrders() (*field.TotNoOrders, error) {
+	f := new(field.TotNoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) LastFragment() (*field.LastFragment, error) {
+	f := new(field.LastFragment)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,23 +49,23 @@ func (m *ListStatus) ListStatusType() (*field.ListStatusType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ListStatus) ListOrderStatus() (*field.ListOrderStatus, error) {
+	f := new(field.ListOrderStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) ListStatusText() (*field.ListStatusText, error) {
+	f := new(field.ListStatusText)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ListStatus) EncodedListStatusTextLen() (*field.EncodedListStatusTextLen, error) {
 	f := new(field.EncodedListStatusTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) TotNoOrders() (*field.TotNoOrders, error) {
-	f := new(field.TotNoOrders)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) LastFragment() (*field.LastFragment, error) {
-	f := new(field.LastFragment)
+func (m *ListStatus) EncodedListStatusText() (*field.EncodedListStatusText, error) {
+	f := new(field.EncodedListStatusText)
 	err := m.Body.Get(f)
 	return f, err
 }
