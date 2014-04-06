@@ -5,15 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/tag"
 )
 
-type SessionNotFound interface {
-	error
-}
-
-type ParseError struct {
+type parseError struct {
 	OrigError string
 }
 
-func (e ParseError) Error() string { return fmt.Sprintf("Error parsing message: %s", e.OrigError) }
+func (e parseError) Error() string { return fmt.Sprintf("Error parsing message: %s", e.OrigError) }
 
 type FieldConvertError struct {
 	tag.Tag        //Tag for field that failed conversion

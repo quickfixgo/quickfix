@@ -12,12 +12,12 @@ import (
 
 type session struct {
 	stateData
-	store MessageStore
+	store messageStore
 
 	log log.Log
 	SessionID
 
-	messageOut chan Buffer
+	messageOut chan buffer
 	toSend     chan *MessageBuilder
 
 	sessionEvent            chan event
@@ -104,11 +104,11 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 	return nil
 }
 
-func (s *session) accept() (chan Buffer, error) {
+func (s *session) accept() (chan buffer, error) {
 	s.currentState = logonState{}
-	s.messageOut = make(chan Buffer)
+	s.messageOut = make(chan buffer)
 	s.messageStash = make(map[int]Message)
-	s.store = NewMemoryStore()
+	s.store = newMemoryStore()
 
 	return s.messageOut, nil
 }
@@ -165,14 +165,14 @@ func (s *session) send(builder *MessageBuilder) {
 	}
 }
 
-func (s *session) sendBuffer(buffer Buffer) {
+func (s *session) sendBuffer(buffer buffer) {
 
 	s.log.OnOutgoing(string(buffer.Bytes()))
 	s.messageOut <- buffer
 	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 }
 
-func (s *session) DoTargetTooHigh(reject TargetTooHigh) {
+func (s *session) DoTargetTooHigh(reject targetTooHigh) {
 	resend := NewMessageBuilder()
 	resend.Header.Set(field.NewStringField(tag.MsgType, "2"))
 	resend.Body.Set(field.NewIntField(tag.BeginSeqNo, reject.ExpectedTarget))
@@ -234,7 +234,7 @@ func (s *session) handleLogon(msg Message) error {
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		switch TypedError := err.(type) {
-		case TargetTooHigh:
+		case targetTooHigh:
 			s.DoTargetTooHigh(TypedError)
 		}
 	}
@@ -281,7 +281,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 	}
 
 	if s.dataDictionary != nil {
-		if err := Validate(s.dataDictionary, msg); err != nil {
+		if err := validate(s.dataDictionary, msg); err != nil {
 			return err
 		}
 	}
@@ -290,11 +290,11 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 		msgType := new(field.StringValue)
 		msg.Header.GetField(tag.MsgType, msgType)
 		if IsAdminMessageType(msgType.Value) {
-			if err := Validate(s.transportDataDictionary, msg); err != nil {
+			if err := validate(s.transportDataDictionary, msg); err != nil {
 				return err
 			}
 		} else {
-			if err := ValidateFIXTApp(s.transportDataDictionary, s.appDataDictionary, msg); err != nil {
+			if err := validateFIXTApp(s.transportDataDictionary, s.appDataDictionary, msg); err != nil {
 				return err
 			}
 		}
@@ -316,9 +316,9 @@ func (s *session) checkTargetTooLow(msg Message) MessageReject {
 	seqNum := new(field.IntField)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
-		return NewRequiredTagMissing(msg, tag.MsgSeqNum)
+		return newRequiredTagMissing(msg, tag.MsgSeqNum)
 	case seqNum.Value < s.expectedSeqNum:
-		return NewTargetTooLow(msg, seqNum.Value, s.expectedSeqNum)
+		return newTargetTooLow(msg, seqNum.Value, s.expectedSeqNum)
 	}
 
 	return nil
@@ -328,9 +328,9 @@ func (s *session) checkTargetTooHigh(msg Message) MessageReject {
 	seqNum := new(field.IntValue)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
-		return NewRequiredTagMissing(msg, tag.MsgSeqNum)
+		return newRequiredTagMissing(msg, tag.MsgSeqNum)
 	case seqNum.Value > s.expectedSeqNum:
-		return NewTargetTooHigh(msg, seqNum.Value, s.expectedSeqNum)
+		return newTargetTooHigh(msg, seqNum.Value, s.expectedSeqNum)
 	}
 
 	return nil
@@ -344,15 +344,15 @@ func (s *session) checkCompID(msg Message) MessageReject {
 
 	switch {
 	case haveSender != nil:
-		return NewRequiredTagMissing(msg, tag.SenderCompID)
+		return newRequiredTagMissing(msg, tag.SenderCompID)
 	case haveTarget != nil:
-		return NewRequiredTagMissing(msg, tag.TargetCompID)
+		return newRequiredTagMissing(msg, tag.TargetCompID)
 	case len(targetCompID.Value) == 0:
-		return NewTagSpecifiedWithoutAValue(msg, tag.TargetCompID)
+		return newTagSpecifiedWithoutAValue(msg, tag.TargetCompID)
 	case len(senderCompID.Value) == 0:
-		return NewTagSpecifiedWithoutAValue(msg, tag.SenderCompID)
+		return newTagSpecifiedWithoutAValue(msg, tag.SenderCompID)
 	case s.SenderCompID != targetCompID.Value || s.TargetCompID != senderCompID.Value:
-		return NewCompIDProblem(msg)
+		return newCompIDProblem(msg)
 	}
 
 	return nil
@@ -361,11 +361,11 @@ func (s *session) checkCompID(msg Message) MessageReject {
 func (s *session) checkSendingTime(msg Message) MessageReject {
 	sendingTime := new(field.UTCTimestampValue)
 	if err := msg.Header.GetField(tag.SendingTime, sendingTime); err != nil {
-		return NewRequiredTagMissing(msg, tag.SendingTime)
+		return newRequiredTagMissing(msg, tag.SendingTime)
 	}
 
 	if delta := time.Since(sendingTime.Value); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
-		return NewSendingTimeAccuracyProblem(msg)
+		return newSendingTimeAccuracyProblem(msg)
 	}
 
 	return nil
@@ -375,9 +375,9 @@ func (s *session) checkBeginString(msg Message) MessageReject {
 	beginString := new(field.StringValue)
 	switch err := msg.Header.GetField(tag.BeginString, beginString); {
 	case err != nil:
-		return NewRequiredTagMissing(msg, tag.BeginString)
+		return newRequiredTagMissing(msg, tag.BeginString)
 	case s.BeginString != beginString.Value:
-		return NewIncorrectBeginString(msg)
+		return newIncorrectBeginString(msg)
 	}
 
 	return nil

@@ -90,7 +90,7 @@ func (state inSession) handleSequenceReset(session *session, msg Message) (nextS
 			session.expectedSeqNum = newSeqNo.Value
 		case newSeqNo.Value < session.expectedSeqNum:
 			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
-			session.doReject(NewValueIsIncorrect(msg, nil))
+			session.doReject(newValueIsIncorrect(msg, nil))
 		}
 	}
 
@@ -105,14 +105,14 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 	var err error
 	beginSeqNoField := new(field.IntValue)
 	if err = msg.Body.GetField(tag.BeginSeqNo, beginSeqNoField); err != nil {
-		return state.processReject(session, NewRequiredTagMissing(msg, tag.BeginSeqNo))
+		return state.processReject(session, newRequiredTagMissing(msg, tag.BeginSeqNo))
 	}
 
 	beginSeqNo := beginSeqNoField.Value
 
 	endSeqNoField := new(field.IntField)
 	if err = msg.Body.GetField(tag.EndSeqNo, endSeqNoField); err != nil {
-		return state.processReject(session, NewRequiredTagMissing(msg, tag.EndSeqNo))
+		return state.processReject(session, newRequiredTagMissing(msg, tag.EndSeqNo))
 	}
 
 	endSeqNo := endSeqNoField.Value
@@ -136,7 +136,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	seqNum := beginSeqNo
 	nextSeqNum := seqNum
 
-	var buf Buffer
+	var buf buffer
 	var ok bool
 	for {
 		if buf, ok = <-buffers; !ok {
@@ -193,7 +193,7 @@ func (state inSession) handleTestRequest(session *session, msg Message) (nextSta
 
 func (state inSession) processReject(session *session, rej MessageReject) (nextState sessionState) {
 	switch TypedError := rej.(type) {
-	case TargetTooHigh:
+	case targetTooHigh:
 
 		switch session.currentState.(type) {
 		default:
@@ -204,9 +204,9 @@ func (state inSession) processReject(session *session, rej MessageReject) (nextS
 		session.messageStash[TypedError.ReceivedTarget] = rej.RejectedMessage()
 		return resendState{}
 
-	case TargetTooLow:
+	case targetTooLow:
 		return state.doTargetTooLow(session, TypedError)
-	case IncorrectBeginString:
+	case incorrectBeginString:
 		return state.initiateLogout(session, rej.Error())
 	}
 
@@ -221,13 +221,13 @@ func (state inSession) processReject(session *session, rej MessageReject) (nextS
 	}
 }
 
-func (state inSession) doTargetTooLow(session *session, rej TargetTooLow) (nextState sessionState) {
+func (state inSession) doTargetTooLow(session *session, rej targetTooLow) (nextState sessionState) {
 	posDupFlag := new(field.BooleanValue)
 	if err := rej.RejectedMessage().Header.GetField(tag.PossDupFlag, posDupFlag); err == nil && posDupFlag.Value {
 
 		origSendingTime := new(field.UTCTimestampValue)
 		if err = rej.RejectedMessage().Header.GetField(tag.OrigSendingTime, origSendingTime); err != nil {
-			session.doReject(NewRequiredTagMissing(rej.RejectedMessage(), tag.OrigSendingTime))
+			session.doReject(newRequiredTagMissing(rej.RejectedMessage(), tag.OrigSendingTime))
 			return state
 		}
 
@@ -235,7 +235,7 @@ func (state inSession) doTargetTooLow(session *session, rej TargetTooLow) (nextS
 		rej.RejectedMessage().Header.GetField(tag.SendingTime, sendingTime)
 
 		if sendingTime.Value.Before(origSendingTime.Value) {
-			session.doReject(NewSendingTimeAccuracyProblem(rej.RejectedMessage()))
+			session.doReject(newSendingTimeAccuracyProblem(rej.RejectedMessage()))
 			return state.initiateLogout(session, "")
 		}
 

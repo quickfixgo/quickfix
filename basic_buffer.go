@@ -1,10 +1,10 @@
 package quickfix
 
 //Simple implementation of message.Buffer
-type BasicBuffer []byte
+type basicBuffer []byte
 
-func (buffer BasicBuffer) Bytes() []byte {
+func (buffer basicBuffer) Bytes() []byte {
 	return buffer
 }
 
-func (buffer BasicBuffer) Free() {}
+func (buffer basicBuffer) free() {}

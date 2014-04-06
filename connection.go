@@ -80,7 +80,7 @@ func handleAcceptorConnection(netConn net.Conn, log log.Log) {
 	}
 }
 
-func writeLoop(connection net.Conn, messageOut chan Buffer) {
+func writeLoop(connection net.Conn, messageOut chan buffer) {
 	defer func() {
 		close(messageOut)
 	}()
@@ -90,7 +90,7 @@ func writeLoop(connection net.Conn, messageOut chan Buffer) {
 			return
 		} else {
 			connection.Write(msg.Bytes())
-			msg.Free()
+			msg.free()
 		}
 	}
 }
@@ -104,7 +104,7 @@ func readLoop(parser *parser, msgIn chan []byte) {
 		if msg, err := parser.readMessage(); err != nil {
 			switch err.(type) {
 			//ignore message parser errors
-			case ParseError:
+			case parseError:
 				continue
 			default:
 				return

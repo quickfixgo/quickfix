@@ -22,53 +22,53 @@ const (
 	IncorrectNumInGroupCountForRepeatingGroup RejectReason = 16
 )
 
-//NewInvalidTagNumber creates a reject for tag in message.
-func NewInvalidTagNumber(msg Message, tag tag.Tag) MessageReject {
+//newInvalidTagNumber creates a reject for tag in message.
+func newInvalidTagNumber(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Invalid tag number", rejectReason: InvalidTagNumber,
 		refTagID: &tag}
 }
 
-//NewTagNotDefinedForThisMessageType creates a reject for tag in message.
-func NewTagNotDefinedForThisMessageType(msg Message, tag tag.Tag) MessageReject {
+//newTagNotDefinedForThisMessageType creates a reject for tag in message.
+func newTagNotDefinedForThisMessageType(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Tag not defined for this message type", rejectReason: TagNotDefinedForThisMessageType,
 		refTagID: &tag}
 }
 
-//NewRequiredTagMissing creates a reject for tag in message.
-func NewRequiredTagMissing(msg Message, tag tag.Tag) MessageReject {
+//newRequiredTagMissing creates a reject for tag in message.
+func newRequiredTagMissing(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Required tag missing", rejectReason: RequiredTagMissing,
 		refTagID: &tag}
 }
 
-//NewTagSpecifiedWithoutAValue creates a reject for tag in message.
-func NewTagSpecifiedWithoutAValue(msg Message, tag tag.Tag) MessageReject {
+//newTagSpecifiedWithoutAValue creates a reject for tag in message.
+func newTagSpecifiedWithoutAValue(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Tag specified without a value", rejectReason: TagSpecifiedWithoutAValue,
 		refTagID: &tag}
 }
 
-//NewValueIsIncorrect creates reject for tag in message.
+//newValueIsIncorrect creates reject for tag in message.
 //FIXME: to be compliant with legacy tests, for certain value issues, do not include reftag? (11c_NewSeqNoLess)
-func NewValueIsIncorrect(msg Message, tag *tag.Tag) MessageReject {
+func newValueIsIncorrect(msg Message, tag *tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Value is incorrect (out of range) for this tag", rejectReason: ValueIsIncorrect, refTagID: tag}
 }
 
-//NewIncorrectDataFormatForValue creates reject for tag in message.
-func NewIncorrectDataFormatForValue(msg Message, tag tag.Tag) MessageReject {
+//newIncorrectDataFormatForValue creates reject for tag in message.
+func newIncorrectDataFormatForValue(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Incorrect data format for value", rejectReason: IncorrectDataFormatForValue, refTagID: &tag}
 }
 
-//NewTagSpecifiedOutOfRequiredOrder creates reject for tag in message.
-func NewTagSpecifiedOutOfRequiredOrder(msg Message, tag tag.Tag) MessageReject {
+//newTagSpecifiedOutOfRequiredOrder creates reject for tag in message.
+func newTagSpecifiedOutOfRequiredOrder(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Tag specified out of required order", rejectReason: TagSpecifiedOutOfRequiredOrder, refTagID: &tag}
 }
 
-//NewTagAppearsMoreThanOnce creates reject for tag in message.
-func NewTagAppearsMoreThanOnce(msg Message, tag tag.Tag) MessageReject {
+//newTagAppearsMoreThanOnce creates reject for tag in message.
+func newTagAppearsMoreThanOnce(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Tag appears more than once", rejectReason: TagAppearsMoreThanOnce, refTagID: &tag}
 }
 
-//NewIncorrectNumInGroupCountForRepeatingGroup creates reject for tag in message.
-func NewIncorrectNumInGroupCountForRepeatingGroup(msg Message, tag tag.Tag) MessageReject {
+//newIncorrectNumInGroupCountForRepeatingGroup creates reject for tag in message.
+func newIncorrectNumInGroupCountForRepeatingGroup(msg Message, tag tag.Tag) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Incorrect NumInGroup count for repeating group", rejectReason: IncorrectNumInGroupCountForRepeatingGroup, refTagID: &tag}
 }
 
@@ -82,41 +82,41 @@ func NewUnsupportedMessageType(msg Message) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "Unsupported Message Type", rejectReason: UnsupportedMessageType, businessReject: true}
 }
 
-//IncorrectBeginString is a message reject specific to incorrect begin strings.
-type IncorrectBeginString struct{ MessageReject }
+//incorrectBeginString is a message reject specific to incorrect begin strings.
+type incorrectBeginString struct{ MessageReject }
 
-//NewIncorrectBeginString creates an IncorrectBeginString reject for msg.
-func NewIncorrectBeginString(msg Message) IncorrectBeginString {
-	return IncorrectBeginString{messageRejectBase{rejectedMessage: msg, text: "Incorrect BeginString"}}
+//newIncorrectBeginString creates an IncorrectBeginString reject for msg.
+func newIncorrectBeginString(msg Message) incorrectBeginString {
+	return incorrectBeginString{messageRejectBase{rejectedMessage: msg, text: "Incorrect BeginString"}}
 }
 
-//NewCompIDProblem creates a reject for msg where msg has invalid comp id values.
-func NewCompIDProblem(msg Message) MessageReject {
+//newCompIDProblem creates a reject for msg where msg has invalid comp id values.
+func newCompIDProblem(msg Message) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "CompID problem", rejectReason: CompIDProblem}
 }
 
-//NewSendingTimeAccuracyProblem creates a reject for a msg with stale or invalid sending time.
-func NewSendingTimeAccuracyProblem(msg Message) MessageReject {
+//newSendingTimeAccuracyProblem creates a reject for a msg with stale or invalid sending time.
+func newSendingTimeAccuracyProblem(msg Message) MessageReject {
 	return messageRejectBase{rejectedMessage: msg, text: "SendingTime accuracy problem", rejectReason: SendingTimeAccuracyProblem}
 }
 
-//TargetTooHigh is a MessageReject where the sequence number is larger than expected.
-type TargetTooHigh struct {
+//targetTooHigh is a MessageReject where the sequence number is larger than expected.
+type targetTooHigh struct {
 	MessageReject
 	ReceivedTarget int
 	ExpectedTarget int
 }
 
-//TargetTooLow is a MessageReject where the sequence number is less than expected.
-type TargetTooLow struct {
+//targetTooLow is a MessageReject where the sequence number is less than expected.
+type targetTooLow struct {
 	MessageReject
 	ReceivedTarget int
 	ExpectedTarget int
 }
 
-//NewTargetTooHigh creates a TargetTooHigh Instance with the specified expected and actual target numbers.
-func NewTargetTooHigh(msg Message, receivedTarget, expectedTarget int) TargetTooHigh {
-	return TargetTooHigh{
+//newTargetTooHigh creates a TargetTooHigh Instance with the specified expected and actual target numbers.
+func newTargetTooHigh(msg Message, receivedTarget, expectedTarget int) targetTooHigh {
+	return targetTooHigh{
 		MessageReject: messageRejectBase{
 			rejectedMessage: msg,
 			text:            fmt.Sprintf("MsgSeqNum too high, expecting %d but received %d", expectedTarget, receivedTarget)},
@@ -124,9 +124,9 @@ func NewTargetTooHigh(msg Message, receivedTarget, expectedTarget int) TargetToo
 		ExpectedTarget: expectedTarget}
 }
 
-//NewTargetTooLow creates a TargetTooLow Instance with the specified expected and actual target numbers.
-func NewTargetTooLow(msg Message, receivedTarget, expectedTarget int) TargetTooLow {
-	return TargetTooLow{
+//newTargetTooLow creates a TargetTooLow Instance with the specified expected and actual target numbers.
+func newTargetTooLow(msg Message, receivedTarget, expectedTarget int) targetTooLow {
+	return targetTooLow{
 		MessageReject: messageRejectBase{
 			rejectedMessage: msg,
 			text:            fmt.Sprintf("MsgSeqNum too low, expecting %d but received %d", expectedTarget, receivedTarget)},

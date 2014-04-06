@@ -80,7 +80,7 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	bodyLength := new(field.IntValue)
 	msg.Header.GetField(tag.BodyLength, bodyLength)
 	if bodyLength.Value != length {
-		return msg, ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
+		return msg, parseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
 	}
 
 	return msg, nil
@@ -133,7 +133,7 @@ func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field *fieldBytes
 	case err != nil:
 		return
 	case field.Tag != expectedTag:
-		err = ParseError{fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag)}
+		err = parseError{fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag)}
 		return
 	}
 
@@ -143,7 +143,7 @@ func extractSpecificField(expectedTag tag.Tag, buffer []byte) (field *fieldBytes
 func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
-		err = ParseError{"extractField: No Trailing Delim in " + string(buffer)}
+		err = parseError{"extractField: No Trailing Delim in " + string(buffer)}
 		remBytes = buffer
 		return
 	}
@@ -179,7 +179,7 @@ func newCheckSum(value int) *field.StringField {
 	return field.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
-//Free is required for Buffer interface FIXME
-func (m Message) Free() {
+//free is required for Buffer interface FIXME
+func (m Message) free() {
 
 }

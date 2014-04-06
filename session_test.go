@@ -67,7 +67,7 @@ func (s *SessionTests) TestCheckBeginString(c *C) {
 	msg, _ := builder.Build()
 	err := s.session.checkBeginString(*msg)
 	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, IncorrectBeginString{})
+	c.Check(err, FitsTypeOf, incorrectBeginString{})
 
 	builder.Header.Set(NewStringField(tag.BeginString, s.session.SessionID.BeginString))
 	msg, _ = builder.Build()
@@ -91,7 +91,7 @@ func (s *SessionTests) TestCheckTargetTooHigh(c *C) {
 	msg, _ = builder.Build()
 	err = s.session.checkTargetTooHigh(*msg)
 	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, TargetTooHigh{})
+	c.Check(err, FitsTypeOf, targetTooHigh{})
 
 	//spot on
 	builder.Header.Set(NewIntField(tag.MsgSeqNum, 45))
@@ -148,7 +148,7 @@ func (s *SessionTests) TestCheckTargetTooLow(c *C) {
 	msg, _ = builder.Build()
 	err = s.session.checkTargetTooLow(*msg)
 	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, TargetTooLow{})
+	c.Check(err, FitsTypeOf, targetTooLow{})
 
 	//spot on
 	builder.Header.Set(NewIntField(tag.MsgSeqNum, 45))

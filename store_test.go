@@ -5,13 +5,13 @@ import (
 )
 
 type StoreTests struct {
-	store MemoryStore
+	store memoryStore
 }
 
 var _ = Suite(&StoreTests{})
 
 func (s *StoreTests) SetUpTest(c *C) {
-	s.store = NewMemoryStore()
+	s.store = newMemoryStore()
 }
 
 func (s *StoreTests) TestGetMessages(c *C) {
@@ -19,7 +19,7 @@ func (s *StoreTests) TestGetMessages(c *C) {
 	msg, ok := <-messages
 	c.Assert(ok, Equals, false)
 
-	buf1 := BasicBuffer("hello")
+	buf1 := basicBuffer("hello")
 	s.store.SaveMessage(1, buf1)
 
 	messages = s.store.GetMessages(1, 2)
@@ -29,10 +29,10 @@ func (s *StoreTests) TestGetMessages(c *C) {
 	msg, ok = <-messages
 	c.Assert(ok, Equals, false)
 
-	buf2 := BasicBuffer("cruel")
+	buf2 := basicBuffer("cruel")
 	s.store.SaveMessage(2, buf2)
 
-	buf3 := BasicBuffer("world")
+	buf3 := basicBuffer("world")
 	s.store.SaveMessage(3, buf3)
 
 	messages = s.store.GetMessages(1, 2)

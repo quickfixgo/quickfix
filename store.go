@@ -1,26 +1,26 @@
 package quickfix
 
-type MessageStore interface {
-	SaveMessage(seqNum int, buf Buffer)
-	GetMessages(beginSeqNum, endSeqNum int) chan Buffer
+type messageStore interface {
+	SaveMessage(seqNum int, buf buffer)
+	GetMessages(beginSeqNum, endSeqNum int) chan buffer
 }
 
-type MemoryStore struct {
-	messageMap map[int]Buffer
+type memoryStore struct {
+	messageMap map[int]buffer
 }
 
-func NewMemoryStore() MemoryStore {
-	store := MemoryStore{}
-	store.messageMap = make(map[int]Buffer)
+func newMemoryStore() memoryStore {
+	store := memoryStore{}
+	store.messageMap = make(map[int]buffer)
 	return store
 }
 
-func (store MemoryStore) SaveMessage(seqNum int, buf Buffer) {
+func (store memoryStore) SaveMessage(seqNum int, buf buffer) {
 	store.messageMap[seqNum] = buf
 }
 
-func (store MemoryStore) GetMessages(beginSeqNum, endSeqNum int) chan Buffer {
-	buffers := make(chan Buffer)
+func (store memoryStore) GetMessages(beginSeqNum, endSeqNum int) chan buffer {
+	buffers := make(chan buffer)
 
 	go func() {
 		for seqNum := beginSeqNum; seqNum <= endSeqNum; seqNum++ {
