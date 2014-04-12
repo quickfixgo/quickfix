@@ -1,7 +1,7 @@
 package datadictionary
 
 import (
-	"github.com/quickfixgo/quickfix/tag"
+	"github.com/quickfixgo/quickfix/fix/tag"
 	. "launchpad.net/gocheck"
 )
 

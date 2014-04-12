@@ -2,9 +2,9 @@ package quickfix
 
 import (
 	"bufio"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/tag"
 	"github.com/quickfixgo/quickfix/log"
-	"github.com/quickfixgo/quickfix/tag"
+	"github.com/quickfixgo/quickfix/message"
 	"net"
 )
 
@@ -26,29 +26,29 @@ func handleAcceptorConnection(netConn net.Conn, log log.Log) {
 		return
 	}
 
-	msg, err := MessageFromParsedBytes(msgBytes)
+	msg, err := message.MessageFromParsedBytes(msgBytes)
 	if err != nil {
 		log.OnEvent("Invalid message: " + string(msgBytes) + err.Error())
 		return
 	}
 
 	var sessID SessionID
-	beginString := new(field.StringValue)
+	beginString := new(message.StringValue)
 	if err := msg.Header.GetField(tag.BeginString, beginString); err == nil {
 		sessID.BeginString = beginString.Value
 	}
 
-	senderCompID := new(field.StringValue)
+	senderCompID := new(message.StringValue)
 	if err := msg.Header.GetField(tag.SenderCompID, senderCompID); err == nil {
 		sessID.TargetCompID = senderCompID.Value
 	}
 
-	targetCompID := new(field.StringValue)
+	targetCompID := new(message.StringValue)
 	if err := msg.Header.GetField(tag.TargetCompID, targetCompID); err == nil {
 		sessID.SenderCompID = targetCompID.Value
 	}
 
-	defaultApplVerID := new(field.StringValue)
+	defaultApplVerID := new(message.StringValue)
 	if err := msg.Body.GetField(tag.DefaultApplVerID, defaultApplVerID); err == nil {
 		sessID.DefaultApplVerID = defaultApplVerID.Value
 	}
@@ -58,26 +58,25 @@ func handleAcceptorConnection(netConn net.Conn, log log.Log) {
 	if session == nil {
 		log.OnEventf("Session not found for incoming message: %v", msg.String())
 		return
-	} else {
-		defer func() {
-			deactivate(sessID)
-		}()
 	}
+	defer func() {
+		deactivate(sessID)
+	}()
 
-	if msgOut, err := session.accept(); err != nil {
+	var msgOut chan buffer
+	if msgOut, err = session.accept(); err != nil {
 		log.OnEventf("Session cannot accept: %v", err)
 		return
-	} else {
-
-		msgIn := make(chan []byte)
-		go writeLoop(netConn, msgOut)
-		go func() {
-			msgIn <- msgBytes
-			readLoop(parser, msgIn)
-		}()
-
-		session.run(msgIn)
 	}
+
+	msgIn := make(chan []byte)
+	go writeLoop(netConn, msgOut)
+	go func() {
+		msgIn <- msgBytes
+		readLoop(parser, msgIn)
+	}()
+
+	session.run(msgIn)
 }
 
 func writeLoop(connection net.Conn, messageOut chan buffer) {
@@ -85,13 +84,13 @@ func writeLoop(connection net.Conn, messageOut chan buffer) {
 		close(messageOut)
 	}()
 
+	var msg buffer
 	for {
-		if msg := <-messageOut; msg == nil {
+		if msg = <-messageOut; msg == nil {
 			return
-		} else {
-			connection.Write(msg.Bytes())
-			msg.free()
 		}
+		connection.Write(msg.Bytes())
+		msg.Free()
 	}
 }
 
@@ -104,7 +103,7 @@ func readLoop(parser *parser, msgIn chan []byte) {
 		if msg, err := parser.readMessage(); err != nil {
 			switch err.(type) {
 			//ignore message parser errors
-			case parseError:
+			case message.ParseError:
 				continue
 			default:
 				return

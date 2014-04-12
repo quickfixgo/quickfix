@@ -1,12 +1,12 @@
 package fix44
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type ResendRequest struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *ResendRequest) BeginSeqNo() (*field.BeginSeqNo, error) {

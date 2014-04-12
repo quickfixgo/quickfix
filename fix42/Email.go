@@ -1,19 +1,14 @@
 package fix42
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type Email struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
-	f := new(field.EmailThreadID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *Email) EmailType() (*field.EmailType, error) {
 	f := new(field.EmailType)
 	err := m.Body.Get(f)
@@ -29,13 +24,23 @@ func (m *Email) Subject() (*field.Subject, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Email) EncodedSubjectLen() (*field.EncodedSubjectLen, error) {
+	f := new(field.EncodedSubjectLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) EncodedSubject() (*field.EncodedSubject, error) {
+	f := new(field.EncodedSubject)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Email) NoRoutingIDs() (*field.NoRoutingIDs, error) {
 	f := new(field.NoRoutingIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) OrderID() (*field.OrderID, error) {
-	f := new(field.OrderID)
+func (m *Email) LinesOfText() (*field.LinesOfText, error) {
+	f := new(field.LinesOfText)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,13 +54,8 @@ func (m *Email) RawData() (*field.RawData, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) EncodedSubjectLen() (*field.EncodedSubjectLen, error) {
-	f := new(field.EncodedSubjectLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) EncodedSubject() (*field.EncodedSubject, error) {
-	f := new(field.EncodedSubject)
+func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
+	f := new(field.EmailThreadID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,13 +64,13 @@ func (m *Email) NoRelatedSym() (*field.NoRelatedSym, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
+func (m *Email) OrderID() (*field.OrderID, error) {
+	f := new(field.OrderID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Email) LinesOfText() (*field.LinesOfText, error) {
-	f := new(field.LinesOfText)
+func (m *Email) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }

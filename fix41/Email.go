@@ -1,21 +1,16 @@
 package fix41
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type Email struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *Email) EmailThreadID() (*field.EmailThreadID, error) {
 	f := new(field.EmailThreadID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) EmailType() (*field.EmailType, error) {
-	f := new(field.EmailType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,6 +39,16 @@ func (m *Email) RawDataLength() (*field.RawDataLength, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Email) RawData() (*field.RawData, error) {
+	f := new(field.RawData)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Email) EmailType() (*field.EmailType, error) {
+	f := new(field.EmailType)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Email) OrigTime() (*field.OrigTime, error) {
 	f := new(field.OrigTime)
 	err := m.Body.Get(f)
@@ -51,11 +56,6 @@ func (m *Email) OrigTime() (*field.OrigTime, error) {
 }
 func (m *Email) LinesOfText() (*field.LinesOfText, error) {
 	f := new(field.LinesOfText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Email) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }

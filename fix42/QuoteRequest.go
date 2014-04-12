@@ -1,12 +1,12 @@
 package fix42
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type QuoteRequest struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {

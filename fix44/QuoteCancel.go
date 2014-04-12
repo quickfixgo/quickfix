@@ -1,16 +1,21 @@
 package fix44
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type QuoteCancel struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
-	f := new(field.QuoteCancelType)
+func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,18 +34,8 @@ func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
 	f := new(field.NoQuoteEntries)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,8 +44,8 @@ func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
+func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
+	f := new(field.QuoteCancelType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -61,6 +56,11 @@ func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
 }
 func (m *QuoteCancel) Account() (*field.Account, error) {
 	f := new(field.Account)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
 	err := m.Body.Get(f)
 	return f, err
 }

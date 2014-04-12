@@ -1,14 +1,19 @@
 package fix44
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type MarketDataRequest struct {
-	quickfix.Message
+	message.Message
 }
 
+func (m *MarketDataRequest) MarketDepth() (*field.MarketDepth, error) {
+	f := new(field.MarketDepth)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MarketDataRequest) MDUpdateType() (*field.MDUpdateType, error) {
 	f := new(field.MDUpdateType)
 	err := m.Body.Get(f)
@@ -19,28 +24,8 @@ func (m *MarketDataRequest) AggregatedBook() (*field.AggregatedBook, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataRequest) OpenCloseSettlFlag() (*field.OpenCloseSettlFlag, error) {
-	f := new(field.OpenCloseSettlFlag)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MarketDataRequest) Scope() (*field.Scope, error) {
-	f := new(field.Scope)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *MarketDataRequest) MDImplicitDelete() (*field.MDImplicitDelete, error) {
 	f := new(field.MDImplicitDelete)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MarketDataRequest) NoMDEntryTypes() (*field.NoMDEntryTypes, error) {
-	f := new(field.NoMDEntryTypes)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MarketDataRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -54,8 +39,23 @@ func (m *MarketDataRequest) SubscriptionRequestType() (*field.SubscriptionReques
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MarketDataRequest) MarketDepth() (*field.MarketDepth, error) {
-	f := new(field.MarketDepth)
+func (m *MarketDataRequest) OpenCloseSettlFlag() (*field.OpenCloseSettlFlag, error) {
+	f := new(field.OpenCloseSettlFlag)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequest) Scope() (*field.Scope, error) {
+	f := new(field.Scope)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequest) NoMDEntryTypes() (*field.NoMDEntryTypes, error) {
+	f := new(field.NoMDEntryTypes)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MarketDataRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
 	err := m.Body.Get(f)
 	return f, err
 }

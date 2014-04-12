@@ -1,12 +1,12 @@
 package fix50sp2
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type NetworkCounterpartySystemStatusRequest struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *NetworkCounterpartySystemStatusRequest) NetworkRequestType() (*field.NetworkRequestType, error) {

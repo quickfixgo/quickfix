@@ -1,12 +1,12 @@
 package fix43
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type News struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *News) Urgency() (*field.Urgency, error) {
@@ -24,8 +24,13 @@ func (m *News) NoRoutingIDs() (*field.NoRoutingIDs, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
+func (m *News) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *News) LinesOfText() (*field.LinesOfText, error) {
+	f := new(field.LinesOfText)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,16 +49,6 @@ func (m *News) EncodedHeadlineLen() (*field.EncodedHeadlineLen, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *News) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *News) LinesOfText() (*field.LinesOfText, error) {
-	f := new(field.LinesOfText)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *News) URLLink() (*field.URLLink, error) {
 	f := new(field.URLLink)
 	err := m.Body.Get(f)
@@ -61,6 +56,11 @@ func (m *News) URLLink() (*field.URLLink, error) {
 }
 func (m *News) RawDataLength() (*field.RawDataLength, error) {
 	f := new(field.RawDataLength)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *News) RawData() (*field.RawData, error) {
+	f := new(field.RawData)
 	err := m.Body.Get(f)
 	return f, err
 }

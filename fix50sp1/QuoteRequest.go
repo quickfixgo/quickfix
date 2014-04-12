@@ -1,21 +1,16 @@
 package fix50sp1
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type QuoteRequest struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) RFQReqID() (*field.RFQReqID, error) {
-	f := new(field.RFQReqID)
+func (m *QuoteRequest) ClOrdID() (*field.ClOrdID, error) {
+	f := new(field.ClOrdID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,28 +24,8 @@ func (m *QuoteRequest) Text() (*field.Text, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteRequest) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) PrivateQuote() (*field.PrivateQuote, error) {
-	f := new(field.PrivateQuote)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequest) OrderCapacity() (*field.OrderCapacity, error) {
-	f := new(field.OrderCapacity)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,8 +34,33 @@ func (m *QuoteRequest) NoRootPartyIDs() (*field.NoRootPartyIDs, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteRequest) PrivateQuote() (*field.PrivateQuote, error) {
+	f := new(field.PrivateQuote)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteRequest) RespondentType() (*field.RespondentType, error) {
 	f := new(field.RespondentType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) RFQReqID() (*field.RFQReqID, error) {
+	f := new(field.RFQReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) OrderCapacity() (*field.OrderCapacity, error) {
+	f := new(field.OrderCapacity)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }

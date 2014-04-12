@@ -1,39 +1,14 @@
 package fix50sp2
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type PartyDetailsListReport struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *PartyDetailsListReport) ApplSeqNum() (*field.ApplSeqNum, error) {
-	f := new(field.ApplSeqNum)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *PartyDetailsListReport) PartyDetailsListReportID() (*field.PartyDetailsListReportID, error) {
-	f := new(field.PartyDetailsListReportID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *PartyDetailsListReport) PartyDetailsListRequestID() (*field.PartyDetailsListRequestID, error) {
-	f := new(field.PartyDetailsListRequestID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *PartyDetailsListReport) TotNoPartyList() (*field.TotNoPartyList, error) {
-	f := new(field.TotNoPartyList)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *PartyDetailsListReport) NoPartyList() (*field.NoPartyList, error) {
-	f := new(field.NoPartyList)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *PartyDetailsListReport) ApplID() (*field.ApplID, error) {
 	f := new(field.ApplID)
 	err := m.Body.Get(f)
@@ -49,13 +24,38 @@ func (m *PartyDetailsListReport) ApplResendFlag() (*field.ApplResendFlag, error)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *PartyDetailsListReport) PartyDetailsRequestResult() (*field.PartyDetailsRequestResult, error) {
-	f := new(field.PartyDetailsRequestResult)
+func (m *PartyDetailsListReport) TotNoPartyList() (*field.TotNoPartyList, error) {
+	f := new(field.TotNoPartyList)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *PartyDetailsListReport) LastFragment() (*field.LastFragment, error) {
 	f := new(field.LastFragment)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) ApplSeqNum() (*field.ApplSeqNum, error) {
+	f := new(field.ApplSeqNum)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) PartyDetailsListReportID() (*field.PartyDetailsListReportID, error) {
+	f := new(field.PartyDetailsListReportID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) PartyDetailsListRequestID() (*field.PartyDetailsListRequestID, error) {
+	f := new(field.PartyDetailsListRequestID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) PartyDetailsRequestResult() (*field.PartyDetailsRequestResult, error) {
+	f := new(field.PartyDetailsRequestResult)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *PartyDetailsListReport) NoPartyList() (*field.NoPartyList, error) {
+	f := new(field.NoPartyList)
 	err := m.Body.Get(f)
 	return f, err
 }

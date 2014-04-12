@@ -1,8 +1,12 @@
 package quickfix
 
+import (
+	"github.com/quickfixgo/quickfix/message"
+)
+
 type latentState struct{}
 
-func (state latentState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
+func (state latentState) FixMsgIn(session *session, msg message.Message) (nextState sessionState) {
 	session.log.OnEventf("Invalid Session State: Unexpected Msg %v while in Latent state", msg)
 	return state
 }

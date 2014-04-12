@@ -1,12 +1,12 @@
 package fix43
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type ListCancelRequest struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *ListCancelRequest) ListID() (*field.ListID, error) {

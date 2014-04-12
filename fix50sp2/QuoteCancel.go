@@ -1,31 +1,16 @@
 package fix50sp2
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type QuoteCancel struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
-	f := new(field.NoQuoteEntries)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) NoTargetPartyIDs() (*field.NoTargetPartyIDs, error) {
-	f := new(field.NoTargetPartyIDs)
+func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,13 +19,18 @@ func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
-	f := new(field.QuoteCancelType)
+func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) Account() (*field.Account, error) {
-	f := new(field.Account)
+func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -54,18 +44,13 @@ func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteType() (*field.QuoteType, error) {
-	f := new(field.QuoteType)
+func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
+	f := new(field.NoQuoteEntries)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
+func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
+	f := new(field.QuoteCancelType)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -76,6 +61,21 @@ func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
 }
 func (m *QuoteCancel) QuoteMsgID() (*field.QuoteMsgID, error) {
 	f := new(field.QuoteMsgID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) Account() (*field.Account, error) {
+	f := new(field.Account)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) QuoteType() (*field.QuoteType, error) {
+	f := new(field.QuoteType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) NoTargetPartyIDs() (*field.NoTargetPartyIDs, error) {
+	f := new(field.NoTargetPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }

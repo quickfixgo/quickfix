@@ -1,36 +1,21 @@
 package fix44
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type ConfirmationRequest struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
-	f := new(field.ConfirmReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationRequest) ConfirmType() (*field.ConfirmType, error) {
 	f := new(field.ConfirmType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) NoOrders() (*field.NoOrders, error) {
-	f := new(field.NoOrders)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) AllocID() (*field.AllocID, error) {
-	f := new(field.AllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, error) {
-	f := new(field.IndividualAllocID)
+func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,13 +34,28 @@ func (m *ConfirmationRequest) AllocAccountType() (*field.AllocAccountType, error
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
+	f := new(field.ConfirmReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) NoOrders() (*field.NoOrders, error) {
+	f := new(field.NoOrders)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) AllocID() (*field.AllocID, error) {
+	f := new(field.AllocID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error) {
 	f := new(field.SecondaryAllocID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
+func (m *ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, error) {
+	f := new(field.IndividualAllocID)
 	err := m.Body.Get(f)
 	return f, err
 }

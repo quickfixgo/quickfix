@@ -1,41 +1,16 @@
 package fix40
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type Quote struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *Quote) QuoteReqID() (*field.QuoteReqID, error) {
 	f := new(field.QuoteReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) BidSize() (*field.BidSize, error) {
-	f := new(field.BidSize)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) ValidUntilTime() (*field.ValidUntilTime, error) {
-	f := new(field.ValidUntilTime)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -69,8 +44,33 @@ func (m *Quote) OfferPx() (*field.OfferPx, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Quote) BidSize() (*field.BidSize, error) {
+	f := new(field.BidSize)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Quote) OfferSize() (*field.OfferSize, error) {
 	f := new(field.OfferSize)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) SecurityDesc() (*field.SecurityDesc, error) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) ValidUntilTime() (*field.ValidUntilTime, error) {
+	f := new(field.ValidUntilTime)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -1,12 +1,12 @@
 package fix44
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type ConfirmationAck struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *ConfirmationAck) ConfirmID() (*field.ConfirmID, error) {
@@ -19,23 +19,13 @@ func (m *ConfirmationAck) TradeDate() (*field.TradeDate, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationAck) AffirmStatus() (*field.AffirmStatus, error) {
-	f := new(field.AffirmStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationAck) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationAck) TransactTime() (*field.TransactTime, error) {
 	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationAck) ConfirmRejReason() (*field.ConfirmRejReason, error) {
-	f := new(field.ConfirmRejReason)
+func (m *ConfirmationAck) AffirmStatus() (*field.AffirmStatus, error) {
+	f := new(field.AffirmStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,13 +34,23 @@ func (m *ConfirmationAck) MatchStatus() (*field.MatchStatus, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ConfirmationAck) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationAck) ConfirmRejReason() (*field.ConfirmRejReason, error) {
+	f := new(field.ConfirmRejReason)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ConfirmationAck) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationAck) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *ConfirmationAck) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -24,7 +24,11 @@ func usage() {
 
 func genFields() {
 	fileOut := "package field\n"
-	fileOut += "import(\"github.com/quickfixgo/quickfix/tag\")\n"
+	fileOut += "import(\n"
+	fileOut += "\"github.com/quickfixgo/quickfix/fix\"\n"
+	fileOut += "\"github.com/quickfixgo/quickfix/message\"\n"
+	fileOut += "\"github.com/quickfixgo/quickfix/fix/tag\"\n"
+	fileOut += ")\n"
 
 	for _, tag := range sortedTags {
 		field := fieldTypeMap[tag]
@@ -93,23 +97,24 @@ func genFields() {
 			fmt.Printf("Unknown type '%v' for tag '%v'\n", field.Type, tag)
 		}
 
-		fileOut += fmt.Sprintf("type %v struct { %v }\n", field.Name, baseType)
-		fileOut += fmt.Sprintf("func (f %v) Tag() tag.Tag {return tag.%v}\n", field.Name, field.Name)
+		fileOut += fmt.Sprintf("type %v struct { message.%v }\n", field.Name, baseType)
+		fileOut += fmt.Sprintf("func (f %v) Tag() fix.Tag {return tag.%v}\n", field.Name, field.Name)
 	}
 
-	gen.WriteFile("field/fields.go", fileOut)
+	gen.WriteFile("fix/field/fields.go", fileOut)
 }
 
 func genTags() {
 	fileOut := "package tag\n"
+	fileOut += "import(\"github.com/quickfixgo/quickfix/fix\")\n"
 
 	fileOut += "const (\n"
 	for _, tag := range sortedTags {
-		fileOut += fmt.Sprintf("%v Tag = %v\n", tag, fieldMap[tag])
+		fileOut += fmt.Sprintf("%v fix.Tag = %v\n", tag, fieldMap[tag])
 	}
 	fileOut += ")\n"
 
-	gen.WriteFile("tag/tag_numbers.go", fileOut)
+	gen.WriteFile("fix/tag/tag_numbers.go", fileOut)
 }
 
 func main() {
@@ -138,7 +143,7 @@ func main() {
 
 	sortedTags = make([]string, len(fieldMap))
 	i := 0
-	for f, _ := range fieldMap {
+	for f := range fieldMap {
 		sortedTags[i] = f
 		i++
 	}

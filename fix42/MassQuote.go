@@ -1,12 +1,12 @@
 package fix42
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type MassQuote struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *MassQuote) QuoteReqID() (*field.QuoteReqID, error) {

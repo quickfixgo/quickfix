@@ -1,12 +1,12 @@
 package fix50
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type SecurityList struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *SecurityList) SecurityReqID() (*field.SecurityReqID, error) {

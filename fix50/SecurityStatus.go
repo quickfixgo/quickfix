@@ -1,56 +1,21 @@
 package fix50
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type SecurityStatus struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *SecurityStatus) CFICode() (*field.CFICode, error) {
-	f := new(field.CFICode)
+func (m *SecurityStatus) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
+	f := new(field.StateOrProvinceOfIssue)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) StrikePrice() (*field.StrikePrice, error) {
-	f := new(field.StrikePrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) NoInstrumentParties() (*field.NoInstrumentParties, error) {
-	f := new(field.NoInstrumentParties)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) PctAtRisk() (*field.PctAtRisk, error) {
-	f := new(field.PctAtRisk)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) HaltReasonChar() (*field.HaltReasonChar, error) {
-	f := new(field.HaltReasonChar)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) HighPx() (*field.HighPx, error) {
-	f := new(field.HighPx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) LowPx() (*field.LowPx, error) {
-	f := new(field.LowPx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) RepurchaseTerm() (*field.RepurchaseTerm, error) {
-	f := new(field.RepurchaseTerm)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) DatedDate() (*field.DatedDate, error) {
-	f := new(field.DatedDate)
+func (m *SecurityStatus) SettleOnOpenFlag() (*field.SettleOnOpenFlag, error) {
+	f := new(field.SettleOnOpenFlag)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -59,8 +24,13 @@ func (m *SecurityStatus) StrikeMultiplier() (*field.StrikeMultiplier, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) Adjustment() (*field.Adjustment, error) {
-	f := new(field.Adjustment)
+func (m *SecurityStatus) EncodedSecurityDesc() (*field.EncodedSecurityDesc, error) {
+	f := new(field.EncodedSecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) SecurityStatusReqID() (*field.SecurityStatusReqID, error) {
+	f := new(field.SecurityStatusReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -69,8 +39,18 @@ func (m *SecurityStatus) NoSecurityAltID() (*field.NoSecurityAltID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) SecuritySubType() (*field.SecuritySubType, error) {
-	f := new(field.SecuritySubType)
+func (m *SecurityStatus) StrikeCurrency() (*field.StrikeCurrency, error) {
+	f := new(field.StrikeCurrency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) CPRegType() (*field.CPRegType, error) {
+	f := new(field.CPRegType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) NoEvents() (*field.NoEvents, error) {
+	f := new(field.NoEvents)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -79,8 +59,58 @@ func (m *SecurityStatus) MaturityMonthYear() (*field.MaturityMonthYear, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) MaturityDate() (*field.MaturityDate, error) {
-	f := new(field.MaturityDate)
+func (m *SecurityStatus) CreditRating() (*field.CreditRating, error) {
+	f := new(field.CreditRating)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) InterestAccrualDate() (*field.InterestAccrualDate, error) {
+	f := new(field.InterestAccrualDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) FinancialStatus() (*field.FinancialStatus, error) {
+	f := new(field.FinancialStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) CountryOfIssue() (*field.CountryOfIssue, error) {
+	f := new(field.CountryOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) LocaleOfIssue() (*field.LocaleOfIssue, error) {
+	f := new(field.LocaleOfIssue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) OptAttribute() (*field.OptAttribute, error) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) TimeUnit() (*field.TimeUnit, error) {
+	f := new(field.TimeUnit)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) MaturityTime() (*field.MaturityTime, error) {
+	f := new(field.MaturityTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) StrikePrice() (*field.StrikePrice, error) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) ContractMultiplier() (*field.ContractMultiplier, error) {
+	f := new(field.ContractMultiplier)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -99,168 +129,28 @@ func (m *SecurityStatus) CPProgram() (*field.CPProgram, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) CorporateAction() (*field.CorporateAction, error) {
-	f := new(field.CorporateAction)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SellVolume() (*field.SellVolume, error) {
-	f := new(field.SellVolume)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) IssueDate() (*field.IssueDate, error) {
-	f := new(field.IssueDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) EncodedSecurityDesc() (*field.EncodedSecurityDesc, error) {
-	f := new(field.EncodedSecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) MinPriceIncrement() (*field.MinPriceIncrement, error) {
-	f := new(field.MinPriceIncrement)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) NoLegs() (*field.NoLegs, error) {
-	f := new(field.NoLegs)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SettleOnOpenFlag() (*field.SettleOnOpenFlag, error) {
-	f := new(field.SettleOnOpenFlag)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) PositionLimit() (*field.PositionLimit, error) {
-	f := new(field.PositionLimit)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) Factor() (*field.Factor, error) {
-	f := new(field.Factor)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) CreditRating() (*field.CreditRating, error) {
-	f := new(field.CreditRating)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) StrikeCurrency() (*field.StrikeCurrency, error) {
-	f := new(field.StrikeCurrency)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, error) {
-	f := new(field.InstrmtAssignmentMethod)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) MaturityTime() (*field.MaturityTime, error) {
-	f := new(field.MaturityTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) Currency() (*field.Currency, error) {
-	f := new(field.Currency)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SecurityIDSource() (*field.SecurityIDSource, error) {
-	f := new(field.SecurityIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) FinancialStatus() (*field.FinancialStatus, error) {
-	f := new(field.FinancialStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) DueToRelated() (*field.DueToRelated, error) {
-	f := new(field.DueToRelated)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) InViewOfCommon() (*field.InViewOfCommon, error) {
-	f := new(field.InViewOfCommon)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
-	f := new(field.RepoCollateralSecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) LocaleOfIssue() (*field.LocaleOfIssue, error) {
-	f := new(field.LocaleOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) EncodedIssuer() (*field.EncodedIssuer, error) {
-	f := new(field.EncodedIssuer)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) CPRegType() (*field.CPRegType, error) {
-	f := new(field.CPRegType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) InterestAccrualDate() (*field.InterestAccrualDate, error) {
-	f := new(field.InterestAccrualDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SecurityStatus() (*field.SecurityStatus, error) {
-	f := new(field.SecurityStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) TimeUnit() (*field.TimeUnit, error) {
-	f := new(field.TimeUnit)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) DeliveryForm() (*field.DeliveryForm, error) {
-	f := new(field.DeliveryForm)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) NoInstrAttrib() (*field.NoInstrAttrib, error) {
-	f := new(field.NoInstrAttrib)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *SecurityStatus) StrikeValue() (*field.StrikeValue, error) {
 	f := new(field.StrikeValue)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) NoInstrumentParties() (*field.NoInstrumentParties, error) {
+	f := new(field.NoInstrumentParties)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) LowPx() (*field.LowPx, error) {
+	f := new(field.LowPx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) LastPx() (*field.LastPx, error) {
+	f := new(field.LastPx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) InstrRegistry() (*field.InstrRegistry, error) {
+	f := new(field.InstrRegistry)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -269,28 +159,68 @@ func (m *SecurityStatus) NTPositionLimit() (*field.NTPositionLimit, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *SecurityStatus) FirstPx() (*field.FirstPx, error) {
+	f := new(field.FirstPx)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) OptAttribute() (*field.OptAttribute, error) {
-	f := new(field.OptAttribute)
+func (m *SecurityStatus) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
-	f := new(field.EncodedIssuerLen)
+func (m *SecurityStatus) SecurityType() (*field.SecurityType, error) {
+	f := new(field.SecurityType)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) NoEvents() (*field.NoEvents, error) {
-	f := new(field.NoEvents)
+func (m *SecurityStatus) DeliveryForm() (*field.DeliveryForm, error) {
+	f := new(field.DeliveryForm)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) SecurityTradingStatus() (*field.SecurityTradingStatus, error) {
-	f := new(field.SecurityTradingStatus)
+func (m *SecurityStatus) SellVolume() (*field.SellVolume, error) {
+	f := new(field.SellVolume)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) Symbol() (*field.Symbol, error) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) CFICode() (*field.CFICode, error) {
+	f := new(field.CFICode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) IssueDate() (*field.IssueDate, error) {
+	f := new(field.IssueDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) RepurchaseRate() (*field.RepurchaseRate, error) {
+	f := new(field.RepurchaseRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) DatedDate() (*field.DatedDate, error) {
+	f := new(field.DatedDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) SecurityStatus() (*field.SecurityStatus, error) {
+	f := new(field.SecurityStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) NoUnderlyings() (*field.NoUnderlyings, error) {
+	f := new(field.NoUnderlyings)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) HaltReasonChar() (*field.HaltReasonChar, error) {
+	f := new(field.HaltReasonChar)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -299,13 +229,163 @@ func (m *SecurityStatus) BuyVolume() (*field.BuyVolume, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *SecurityStatus) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) SecuritySubType() (*field.SecuritySubType, error) {
+	f := new(field.SecuritySubType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) CouponPaymentDate() (*field.CouponPaymentDate, error) {
+	f := new(field.CouponPaymentDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) RepurchaseTerm() (*field.RepurchaseTerm, error) {
+	f := new(field.RepurchaseTerm)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *SecurityStatus) CouponRate() (*field.CouponRate, error) {
 	f := new(field.CouponRate)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) NoUnderlyings() (*field.NoUnderlyings, error) {
-	f := new(field.NoUnderlyings)
+func (m *SecurityStatus) SecurityDesc() (*field.SecurityDesc, error) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) PctAtRisk() (*field.PctAtRisk, error) {
+	f := new(field.PctAtRisk)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) Currency() (*field.Currency, error) {
+	f := new(field.Currency)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) DueToRelated() (*field.DueToRelated, error) {
+	f := new(field.DueToRelated)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) UnitOfMeasure() (*field.UnitOfMeasure, error) {
+	f := new(field.UnitOfMeasure)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) TradingSessionID() (*field.TradingSessionID, error) {
+	f := new(field.TradingSessionID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) HighPx() (*field.HighPx, error) {
+	f := new(field.HighPx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) Adjustment() (*field.Adjustment, error) {
+	f := new(field.Adjustment)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) SecurityIDSource() (*field.SecurityIDSource, error) {
+	f := new(field.SecurityIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) RedemptionDate() (*field.RedemptionDate, error) {
+	f := new(field.RedemptionDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, error) {
+	f := new(field.InstrmtAssignmentMethod)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) PositionLimit() (*field.PositionLimit, error) {
+	f := new(field.PositionLimit)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) SecurityTradingStatus() (*field.SecurityTradingStatus, error) {
+	f := new(field.SecurityTradingStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) EncodedText() (*field.EncodedText, error) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) Product() (*field.Product, error) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) MaturityDate() (*field.MaturityDate, error) {
+	f := new(field.MaturityDate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
+	f := new(field.RepoCollateralSecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) EncodedIssuer() (*field.EncodedIssuer, error) {
+	f := new(field.EncodedIssuer)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) CorporateAction() (*field.CorporateAction, error) {
+	f := new(field.CorporateAction)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) InViewOfCommon() (*field.InViewOfCommon, error) {
+	f := new(field.InViewOfCommon)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
+	f := new(field.EncodedIssuerLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) ContractSettlMonth() (*field.ContractSettlMonth, error) {
+	f := new(field.ContractSettlMonth)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) NoInstrAttrib() (*field.NoInstrAttrib, error) {
+	f := new(field.NoInstrAttrib)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityStatus) NoLegs() (*field.NoLegs, error) {
+	f := new(field.NoLegs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -319,18 +399,8 @@ func (m *SecurityStatus) TransactTime() (*field.TransactTime, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) CouponPaymentDate() (*field.CouponPaymentDate, error) {
-	f := new(field.CouponPaymentDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) CountryOfIssue() (*field.CountryOfIssue, error) {
-	f := new(field.CountryOfIssue)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m *SecurityStatus) Factor() (*field.Factor, error) {
+	f := new(field.Factor)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -339,78 +409,8 @@ func (m *SecurityStatus) Issuer() (*field.Issuer, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityStatus) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) RepurchaseRate() (*field.RepurchaseRate, error) {
-	f := new(field.RepurchaseRate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) InstrRegistry() (*field.InstrRegistry, error) {
-	f := new(field.InstrRegistry)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) ContractMultiplier() (*field.ContractMultiplier, error) {
-	f := new(field.ContractMultiplier)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) ContractSettlMonth() (*field.ContractSettlMonth, error) {
-	f := new(field.ContractSettlMonth)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) TradingSessionID() (*field.TradingSessionID, error) {
-	f := new(field.TradingSessionID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) FirstPx() (*field.FirstPx, error) {
-	f := new(field.FirstPx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SecurityStatusReqID() (*field.SecurityStatusReqID, error) {
-	f := new(field.SecurityStatusReqID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) RedemptionDate() (*field.RedemptionDate, error) {
-	f := new(field.RedemptionDate)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) UnitOfMeasure() (*field.UnitOfMeasure, error) {
-	f := new(field.UnitOfMeasure)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityStatus) LastPx() (*field.LastPx, error) {
-	f := new(field.LastPx)
+func (m *SecurityStatus) MinPriceIncrement() (*field.MinPriceIncrement, error) {
+	f := new(field.MinPriceIncrement)
 	err := m.Body.Get(f)
 	return f, err
 }

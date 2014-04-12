@@ -1,12 +1,12 @@
 package fix40
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type Heartbeat struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *Heartbeat) TestReqID() (*field.TestReqID, error) {

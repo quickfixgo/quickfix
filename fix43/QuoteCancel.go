@@ -1,36 +1,21 @@
 package fix43
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type QuoteCancel struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
-	f := new(field.QuoteID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
 	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
-	f := new(field.QuoteCancelType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
+func (m *QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,11 +29,6 @@ func (m *QuoteCancel) AccountType() (*field.AccountType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
-	f := new(field.TradingSessionID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) {
 	f := new(field.TradingSessionSubID)
 	err := m.Body.Get(f)
@@ -56,6 +36,26 @@ func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) 
 }
 func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
 	f := new(field.NoQuoteEntries)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) QuoteID() (*field.QuoteID, error) {
+	f := new(field.QuoteID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, error) {
+	f := new(field.QuoteCancelType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
+	f := new(field.TradingSessionID)
 	err := m.Body.Get(f)
 	return f, err
 }

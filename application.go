@@ -1,5 +1,9 @@
 package quickfix
 
+import (
+	"github.com/quickfixgo/quickfix/message"
+)
+
 type Application interface {
 	//Notification of a session begin created.
 	OnCreate(sessionID SessionID)
@@ -11,14 +15,14 @@ type Application interface {
 	OnLogout(sessionID SessionID)
 
 	//Notification of admin message being sent to target.
-	ToAdmin(msgBuilder MessageBuilder, sessionID SessionID)
+	ToAdmin(msgBuilder message.MessageBuilder, sessionID SessionID)
 
 	//Notification of app message being sent to target.
-	ToApp(msgBuilder MessageBuilder, sessionID SessionID) error
+	ToApp(msgBuilder message.MessageBuilder, sessionID SessionID) error
 
 	//Notification of admin message being received from target.
-	FromAdmin(msg Message, sessionID SessionID) MessageReject
+	FromAdmin(msg message.Message, sessionID SessionID) message.MessageReject
 
 	//Notification of app message being received from target.
-	FromApp(msg Message, sessionID SessionID) MessageReject
+	FromApp(msg message.Message, sessionID SessionID) message.MessageReject
 }

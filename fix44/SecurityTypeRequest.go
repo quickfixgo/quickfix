@@ -1,26 +1,16 @@
 package fix44
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type SecurityTypeRequest struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *SecurityTypeRequest) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypeRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *SecurityTypeRequest) TradingSessionID() (*field.TradingSessionID, error) {
-	f := new(field.TradingSessionID)
+func (m *SecurityTypeRequest) SecurityReqID() (*field.SecurityReqID, error) {
+	f := new(field.SecurityReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,13 +29,23 @@ func (m *SecurityTypeRequest) SecuritySubType() (*field.SecuritySubType, error) 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SecurityTypeRequest) SecurityReqID() (*field.SecurityReqID, error) {
-	f := new(field.SecurityReqID)
+func (m *SecurityTypeRequest) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypeRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *SecurityTypeRequest) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *SecurityTypeRequest) TradingSessionID() (*field.TradingSessionID, error) {
+	f := new(field.TradingSessionID)
 	err := m.Body.Get(f)
 	return f, err
 }

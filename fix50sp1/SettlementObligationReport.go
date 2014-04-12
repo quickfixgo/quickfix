@@ -1,12 +1,12 @@
 package fix50sp1
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type SettlementObligationReport struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *SettlementObligationReport) ClearingBusinessDate() (*field.ClearingBusinessDate, error) {
@@ -14,8 +14,8 @@ func (m *SettlementObligationReport) ClearingBusinessDate() (*field.ClearingBusi
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementObligationReport) SettlementCycleNo() (*field.SettlementCycleNo, error) {
-	f := new(field.SettlementCycleNo)
+func (m *SettlementObligationReport) SettlObligMsgID() (*field.SettlObligMsgID, error) {
+	f := new(field.SettlObligMsgID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,8 +24,8 @@ func (m *SettlementObligationReport) SettlObligMode() (*field.SettlObligMode, er
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementObligationReport) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *SettlementObligationReport) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -54,13 +54,13 @@ func (m *SettlementObligationReport) ApplSeqNum() (*field.ApplSeqNum, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementObligationReport) SettlObligMsgID() (*field.SettlObligMsgID, error) {
-	f := new(field.SettlObligMsgID)
+func (m *SettlementObligationReport) SettlementCycleNo() (*field.SettlementCycleNo, error) {
+	f := new(field.SettlementCycleNo)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *SettlementObligationReport) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *SettlementObligationReport) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
 	return f, err
 }

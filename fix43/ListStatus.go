@@ -1,12 +1,12 @@
 package fix43
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type ListStatus struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *ListStatus) ListID() (*field.ListID, error) {
@@ -19,8 +19,8 @@ func (m *ListStatus) ListStatusType() (*field.ListStatusType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) ListOrderStatus() (*field.ListOrderStatus, error) {
-	f := new(field.ListOrderStatus)
+func (m *ListStatus) RptSeq() (*field.RptSeq, error) {
+	f := new(field.RptSeq)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -29,8 +29,13 @@ func (m *ListStatus) EncodedListStatusTextLen() (*field.EncodedListStatusTextLen
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) TotNoOrders() (*field.TotNoOrders, error) {
-	f := new(field.TotNoOrders)
+func (m *ListStatus) TransactTime() (*field.TransactTime, error) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ListStatus) NoOrders() (*field.NoOrders, error) {
+	f := new(field.NoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,8 +44,8 @@ func (m *ListStatus) NoRpts() (*field.NoRpts, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) RptSeq() (*field.RptSeq, error) {
-	f := new(field.RptSeq)
+func (m *ListStatus) ListOrderStatus() (*field.ListOrderStatus, error) {
+	f := new(field.ListOrderStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -54,13 +59,8 @@ func (m *ListStatus) EncodedListStatusText() (*field.EncodedListStatusText, erro
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ListStatus) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ListStatus) NoOrders() (*field.NoOrders, error) {
-	f := new(field.NoOrders)
+func (m *ListStatus) TotNoOrders() (*field.TotNoOrders, error) {
+	f := new(field.TotNoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }

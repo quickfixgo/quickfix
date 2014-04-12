@@ -1,16 +1,16 @@
 package fix50sp1
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type MassQuote struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *MassQuote) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
+func (m *MassQuote) QuoteID() (*field.QuoteID, error) {
+	f := new(field.QuoteID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -19,13 +19,8 @@ func (m *MassQuote) QuoteType() (*field.QuoteType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
-	f := new(field.QuoteResponseLevel)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MassQuote) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
+func (m *MassQuote) DefOfferSize() (*field.DefOfferSize, error) {
+	f := new(field.DefOfferSize)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,8 +29,13 @@ func (m *MassQuote) NoQuoteSets() (*field.NoQuoteSets, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuote) QuoteID() (*field.QuoteID, error) {
-	f := new(field.QuoteID)
+func (m *MassQuote) QuoteReqID() (*field.QuoteReqID, error) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *MassQuote) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
+	f := new(field.QuoteResponseLevel)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -49,6 +49,11 @@ func (m *MassQuote) Account() (*field.Account, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *MassQuote) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *MassQuote) AccountType() (*field.AccountType, error) {
 	f := new(field.AccountType)
 	err := m.Body.Get(f)
@@ -56,11 +61,6 @@ func (m *MassQuote) AccountType() (*field.AccountType, error) {
 }
 func (m *MassQuote) DefBidSize() (*field.DefBidSize, error) {
 	f := new(field.DefBidSize)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *MassQuote) DefOfferSize() (*field.DefOfferSize, error) {
-	f := new(field.DefOfferSize)
 	err := m.Body.Get(f)
 	return f, err
 }

@@ -1,16 +1,26 @@
 package fix50sp2
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type QuoteRequestReject struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *QuoteRequestReject) PrivateQuote() (*field.PrivateQuote, error) {
-	f := new(field.PrivateQuote)
+func (m *QuoteRequestReject) NoRelatedSym() (*field.NoRelatedSym, error) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequestReject) Text() (*field.Text, error) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteRequestReject) NoRootPartyIDs() (*field.NoRootPartyIDs, error) {
+	f := new(field.NoRootPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -39,16 +49,6 @@ func (m *QuoteRequestReject) QuoteRequestRejectReason() (*field.QuoteRequestReje
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequestReject) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteRequestReject) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *QuoteRequestReject) EncodedTextLen() (*field.EncodedTextLen, error) {
 	f := new(field.EncodedTextLen)
 	err := m.Body.Get(f)
@@ -59,8 +59,8 @@ func (m *QuoteRequestReject) EncodedText() (*field.EncodedText, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteRequestReject) NoRootPartyIDs() (*field.NoRootPartyIDs, error) {
-	f := new(field.NoRootPartyIDs)
+func (m *QuoteRequestReject) PrivateQuote() (*field.PrivateQuote, error) {
+	f := new(field.PrivateQuote)
 	err := m.Body.Get(f)
 	return f, err
 }

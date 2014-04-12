@@ -1,16 +1,31 @@
 package fix50sp2
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type UserRequest struct {
-	quickfix.Message
+	message.Message
 }
 
+func (m *UserRequest) UserRequestID() (*field.UserRequestID, error) {
+	f := new(field.UserRequestID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *UserRequest) UserRequestType() (*field.UserRequestType, error) {
 	f := new(field.UserRequestType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *UserRequest) Username() (*field.Username, error) {
+	f := new(field.Username)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *UserRequest) Password() (*field.Password, error) {
+	f := new(field.Password)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -34,8 +49,13 @@ func (m *UserRequest) EncryptedPasswordMethod() (*field.EncryptedPasswordMethod,
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *UserRequest) EncryptedPasswordLen() (*field.EncryptedPasswordLen, error) {
-	f := new(field.EncryptedPasswordLen)
+func (m *UserRequest) EncryptedPassword() (*field.EncryptedPassword, error) {
+	f := new(field.EncryptedPassword)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *UserRequest) EncryptedNewPasswordLen() (*field.EncryptedNewPasswordLen, error) {
+	f := new(field.EncryptedNewPasswordLen)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,28 +64,8 @@ func (m *UserRequest) EncryptedNewPassword() (*field.EncryptedNewPassword, error
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *UserRequest) UserRequestID() (*field.UserRequestID, error) {
-	f := new(field.UserRequestID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *UserRequest) Username() (*field.Username, error) {
-	f := new(field.Username)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *UserRequest) Password() (*field.Password, error) {
-	f := new(field.Password)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *UserRequest) EncryptedPassword() (*field.EncryptedPassword, error) {
-	f := new(field.EncryptedPassword)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *UserRequest) EncryptedNewPasswordLen() (*field.EncryptedNewPasswordLen, error) {
-	f := new(field.EncryptedNewPasswordLen)
+func (m *UserRequest) EncryptedPasswordLen() (*field.EncryptedPasswordLen, error) {
+	f := new(field.EncryptedPasswordLen)
 	err := m.Body.Get(f)
 	return f, err
 }

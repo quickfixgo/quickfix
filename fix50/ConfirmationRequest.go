@@ -1,16 +1,21 @@
 package fix50
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type ConfirmationRequest struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
-	f := new(field.ConfirmReqID)
+func (m *ConfirmationRequest) ConfirmType() (*field.ConfirmType, error) {
+	f := new(field.ConfirmType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) NoOrders() (*field.NoOrders, error) {
+	f := new(field.NoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -24,6 +29,21 @@ func (m *ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, error
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *ConfirmationRequest) AllocAccount() (*field.AllocAccount, error) {
+	f := new(field.AllocAccount)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, error) {
+	f := new(field.ConfirmReqID)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, error) {
 	f := new(field.IndividualAllocID)
 	err := m.Body.Get(f)
@@ -34,28 +54,8 @@ func (m *ConfirmationRequest) TransactTime() (*field.TransactTime, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *ConfirmationRequest) AllocAccount() (*field.AllocAccount, error) {
-	f := new(field.AllocAccount)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *ConfirmationRequest) AllocAcctIDSource() (*field.AllocAcctIDSource, error) {
 	f := new(field.AllocAcctIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) ConfirmType() (*field.ConfirmType, error) {
-	f := new(field.ConfirmType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *ConfirmationRequest) NoOrders() (*field.NoOrders, error) {
-	f := new(field.NoOrders)
 	err := m.Body.Get(f)
 	return f, err
 }

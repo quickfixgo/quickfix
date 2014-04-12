@@ -1,12 +1,12 @@
 package fix50sp1
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type TradingSessionStatusRequest struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *TradingSessionStatusRequest) TradingSessionID() (*field.TradingSessionID, error) {
@@ -19,8 +19,8 @@ func (m *TradingSessionStatusRequest) TradSesMode() (*field.TradSesMode, error) 
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatusRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
-	f := new(field.SubscriptionRequestType)
+func (m *TradingSessionStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,8 +44,8 @@ func (m *TradingSessionStatusRequest) TradSesMethod() (*field.TradSesMethod, err
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *TradingSessionStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
+func (m *TradingSessionStatusRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
+	f := new(field.SubscriptionRequestType)
 	err := m.Body.Get(f)
 	return f, err
 }

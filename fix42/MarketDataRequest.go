@@ -1,12 +1,12 @@
 package fix42
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type MarketDataRequest struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *MarketDataRequest) MDReqID() (*field.MDReqID, error) {

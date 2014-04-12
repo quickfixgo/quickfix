@@ -1,12 +1,12 @@
 package fix50sp1
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type QuoteCancel struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *QuoteCancel) QuoteReqID() (*field.QuoteReqID, error) {
@@ -24,18 +24,8 @@ func (m *QuoteCancel) Account() (*field.Account, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) AccountType() (*field.AccountType, error) {
-	f := new(field.AccountType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
-	f := new(field.NoQuoteEntries)
+func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) {
+	f := new(field.TradingSessionSubID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -54,13 +44,23 @@ func (m *QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *QuoteCancel) AcctIDSource() (*field.AcctIDSource, error) {
+	f := new(field.AcctIDSource)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *QuoteCancel) AccountType() (*field.AccountType, error) {
+	f := new(field.AccountType)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *QuoteCancel) TradingSessionID() (*field.TradingSessionID, error) {
 	f := new(field.TradingSessionID)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
+func (m *QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, error) {
+	f := new(field.NoQuoteEntries)
 	err := m.Body.Get(f)
 	return f, err
 }

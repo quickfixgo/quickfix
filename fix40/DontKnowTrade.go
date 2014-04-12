@@ -1,26 +1,16 @@
 package fix40
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type DontKnowTrade struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *DontKnowTrade) OrderID() (*field.OrderID, error) {
 	f := new(field.OrderID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DontKnowTrade) OrderQty() (*field.OrderQty, error) {
-	f := new(field.OrderQty)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *DontKnowTrade) LastPx() (*field.LastPx, error) {
-	f := new(field.LastPx)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -44,8 +34,18 @@ func (m *DontKnowTrade) Side() (*field.Side, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *DontKnowTrade) OrderQty() (*field.OrderQty, error) {
+	f := new(field.OrderQty)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *DontKnowTrade) LastShares() (*field.LastShares, error) {
 	f := new(field.LastShares)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *DontKnowTrade) LastPx() (*field.LastPx, error) {
+	f := new(field.LastPx)
 	err := m.Body.Get(f)
 	return f, err
 }

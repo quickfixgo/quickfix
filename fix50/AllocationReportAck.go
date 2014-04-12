@@ -1,61 +1,16 @@
 package fix50
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type AllocationReportAck struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *AllocationReportAck) AllocReportID() (*field.AllocReportID, error) {
-	f := new(field.AllocReportID)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *AllocationReportAck) SecondaryAllocID() (*field.SecondaryAllocID, error) {
 	f := new(field.SecondaryAllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) AllocReportType() (*field.AllocReportType, error) {
-	f := new(field.AllocReportType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) MatchStatus() (*field.MatchStatus, error) {
-	f := new(field.MatchStatus)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) Quantity() (*field.Quantity, error) {
-	f := new(field.Quantity)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) AllocTransType() (*field.AllocTransType, error) {
-	f := new(field.AllocTransType)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) AllocID() (*field.AllocID, error) {
-	f := new(field.AllocID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -64,23 +19,38 @@ func (m *AllocationReportAck) TradeDate() (*field.TradeDate, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *AllocationReportAck) AllocRejCode() (*field.AllocRejCode, error) {
+	f := new(field.AllocRejCode)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) SecurityType() (*field.SecurityType, error) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) NoPartyIDs() (*field.NoPartyIDs, error) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *AllocationReportAck) TransactTime() (*field.TransactTime, error) {
 	f := new(field.TransactTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
+func (m *AllocationReportAck) AllocReportType() (*field.AllocReportType, error) {
+	f := new(field.AllocReportType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) Text() (*field.Text, error) {
+	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *AllocationReportAck) EncodedText() (*field.EncodedText, error) {
 	f := new(field.EncodedText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *AllocationReportAck) NoAllocs() (*field.NoAllocs, error) {
-	f := new(field.NoAllocs)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -94,8 +64,8 @@ func (m *AllocationReportAck) AvgPxIndicator() (*field.AvgPxIndicator, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) AllocRejCode() (*field.AllocRejCode, error) {
-	f := new(field.AllocRejCode)
+func (m *AllocationReportAck) Quantity() (*field.Quantity, error) {
+	f := new(field.Quantity)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -104,13 +74,43 @@ func (m *AllocationReportAck) AllocIntermedReqType() (*field.AllocIntermedReqTyp
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *AllocationReportAck) Text() (*field.Text, error) {
-	f := new(field.Text)
+func (m *AllocationReportAck) MatchStatus() (*field.MatchStatus, error) {
+	f := new(field.MatchStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) NoAllocs() (*field.NoAllocs, error) {
+	f := new(field.NoAllocs)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) AllocReportID() (*field.AllocReportID, error) {
+	f := new(field.AllocReportID)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) AllocID() (*field.AllocID, error) {
+	f := new(field.AllocID)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *AllocationReportAck) AllocStatus() (*field.AllocStatus, error) {
 	f := new(field.AllocStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) Product() (*field.Product, error) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) EncodedTextLen() (*field.EncodedTextLen, error) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *AllocationReportAck) AllocTransType() (*field.AllocTransType, error) {
+	f := new(field.AllocTransType)
 	err := m.Body.Get(f)
 	return f, err
 }

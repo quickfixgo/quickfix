@@ -1,61 +1,26 @@
 package fix41
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type Quote struct {
-	quickfix.Message
+	message.Message
 }
 
-func (m *Quote) BidSize() (*field.BidSize, error) {
-	f := new(field.BidSize)
+func (m *Quote) Issuer() (*field.Issuer, error) {
+	f := new(field.Issuer)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) MaturityMonthYear() (*field.MaturityMonthYear, error) {
-	f := new(field.MaturityMonthYear)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) OfferSpotRate() (*field.OfferSpotRate, error) {
-	f := new(field.OfferSpotRate)
+func (m *Quote) OfferPx() (*field.OfferPx, error) {
+	f := new(field.OfferPx)
 	err := m.Body.Get(f)
 	return f, err
 }
 func (m *Quote) TransactTime() (*field.TransactTime, error) {
 	f := new(field.TransactTime)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) MaturityDay() (*field.MaturityDay, error) {
-	f := new(field.MaturityDay)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) BidPx() (*field.BidPx, error) {
-	f := new(field.BidPx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) BidSpotRate() (*field.BidSpotRate, error) {
-	f := new(field.BidSpotRate)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -69,33 +34,28 @@ func (m *Quote) QuoteReqID() (*field.QuoteReqID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) OptAttribute() (*field.OptAttribute, error) {
-	f := new(field.OptAttribute)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
-	return f, err
-}
 func (m *Quote) PutOrCall() (*field.PutOrCall, error) {
 	f := new(field.PutOrCall)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) Issuer() (*field.Issuer, error) {
-	f := new(field.Issuer)
+func (m *Quote) BidPx() (*field.BidPx, error) {
+	f := new(field.BidPx)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) OfferSize() (*field.OfferSize, error) {
-	f := new(field.OfferSize)
+func (m *Quote) OrdType() (*field.OrdType, error) {
+	f := new(field.OrdType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) Symbol() (*field.Symbol, error) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) StrikePrice() (*field.StrikePrice, error) {
+	f := new(field.StrikePrice)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -104,8 +64,38 @@ func (m *Quote) QuoteID() (*field.QuoteID, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Quote) MaturityDay() (*field.MaturityDay, error) {
+	f := new(field.MaturityDay)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) OptAttribute() (*field.OptAttribute, error) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Quote) FutSettDate2() (*field.FutSettDate2, error) {
 	f := new(field.FutSettDate2)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) BidSize() (*field.BidSize, error) {
+	f := new(field.BidSize)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) OfferSize() (*field.OfferSize, error) {
+	f := new(field.OfferSize)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) BidSpotRate() (*field.BidSpotRate, error) {
+	f := new(field.BidSpotRate)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) SecurityID() (*field.SecurityID, error) {
+	f := new(field.SecurityID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -119,18 +109,33 @@ func (m *Quote) SecurityType() (*field.SecurityType, error) {
 	err := m.Body.Get(f)
 	return f, err
 }
+func (m *Quote) MaturityMonthYear() (*field.MaturityMonthYear, error) {
+	f := new(field.MaturityMonthYear)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) SymbolSfx() (*field.SymbolSfx, error) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) SecurityExchange() (*field.SecurityExchange, error) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *Quote) SecurityDesc() (*field.SecurityDesc, error) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
+	return f, err
+}
 func (m *Quote) ValidUntilTime() (*field.ValidUntilTime, error) {
 	f := new(field.ValidUntilTime)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *Quote) StrikePrice() (*field.StrikePrice, error) {
-	f := new(field.StrikePrice)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) OfferPx() (*field.OfferPx, error) {
-	f := new(field.OfferPx)
+func (m *Quote) OfferSpotRate() (*field.OfferSpotRate, error) {
+	f := new(field.OfferSpotRate)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -141,11 +146,6 @@ func (m *Quote) BidForwardPoints() (*field.BidForwardPoints, error) {
 }
 func (m *Quote) OfferForwardPoints() (*field.OfferForwardPoints, error) {
 	f := new(field.OfferForwardPoints)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *Quote) OrdType() (*field.OrdType, error) {
-	f := new(field.OrdType)
 	err := m.Body.Get(f)
 	return f, err
 }

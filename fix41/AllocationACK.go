@@ -1,12 +1,12 @@
 package fix41
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type AllocationACK struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *AllocationACK) ClientID() (*field.ClientID, error) {

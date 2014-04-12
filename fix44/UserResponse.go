@@ -1,12 +1,12 @@
 package fix44
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type UserResponse struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *UserResponse) UserRequestID() (*field.UserRequestID, error) {

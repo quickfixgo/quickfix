@@ -1,12 +1,12 @@
 package fix43
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type RegistrationInstructionsResponse struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *RegistrationInstructionsResponse) RegistID() (*field.RegistID, error) {
@@ -16,6 +16,16 @@ func (m *RegistrationInstructionsResponse) RegistID() (*field.RegistID, error) {
 }
 func (m *RegistrationInstructionsResponse) RegistTransType() (*field.RegistTransType, error) {
 	f := new(field.RegistTransType)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) RegistStatus() (*field.RegistStatus, error) {
+	f := new(field.RegistStatus)
+	err := m.Body.Get(f)
+	return f, err
+}
+func (m *RegistrationInstructionsResponse) RegistRefID() (*field.RegistRefID, error) {
+	f := new(field.RegistRefID)
 	err := m.Body.Get(f)
 	return f, err
 }
@@ -41,16 +51,6 @@ func (m *RegistrationInstructionsResponse) RegistRejReasonCode() (*field.RegistR
 }
 func (m *RegistrationInstructionsResponse) RegistRejReasonText() (*field.RegistRejReasonText, error) {
 	f := new(field.RegistRejReasonText)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructionsResponse) RegistRefID() (*field.RegistRefID, error) {
-	f := new(field.RegistRefID)
-	err := m.Body.Get(f)
-	return f, err
-}
-func (m *RegistrationInstructionsResponse) RegistStatus() (*field.RegistStatus, error) {
-	f := new(field.RegistStatus)
 	err := m.Body.Get(f)
 	return f, err
 }

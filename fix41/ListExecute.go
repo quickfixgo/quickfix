@@ -1,12 +1,12 @@
 package fix41
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/message"
 )
 
 type ListExecute struct {
-	quickfix.Message
+	message.Message
 }
 
 func (m *ListExecute) ListID() (*field.ListID, error) {
