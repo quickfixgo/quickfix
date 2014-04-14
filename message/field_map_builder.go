@@ -36,7 +36,7 @@ func (b FieldMapBuilder) SetField(tag fix.Tag, field FieldValue) {
 	b.fields[tag] = newFieldBytes(tag, field.Write())
 }
 
-func (b FieldMapBuilder) Set(field Field) {
+func (b FieldMapBuilder) Set(field FieldWriter) {
 	b.fields[field.Tag()] = newFieldBytes(field.Tag(), field.Write())
 }
 

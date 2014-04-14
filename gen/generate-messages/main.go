@@ -105,9 +105,42 @@ import(
   "github.com/quickfixgo/quickfix/fix/field"
 )
 `
+	fileOut += fmt.Sprintf("//%v msg type = %v.\n", msg.Name, msg.MsgType)
 	fileOut += fmt.Sprintf("type %v struct {\n message.Message}\n", msg.Name)
 
-	for _, field := range msg.Fields {
+	fileOut += fmt.Sprintf("//%vBuilder builds %v messages.\n", msg.Name, msg.Name)
+	fileOut += fmt.Sprintf("type %vBuilder struct {\n message.MessageBuilder}\n", msg.Name)
+
+	requiredFields := make([]*datadictionary.FieldDef, 0, len(msg.FieldsInDeclarationOrder))
+	for _, field := range msg.FieldsInDeclarationOrder {
+		if field.Required {
+			requiredFields = append(requiredFields, field)
+		}
+	}
+
+	fileOut += fmt.Sprintf("//New%vBuilder returns an initialized %vBuilder with specified required fields.\n", msg.Name, msg.Name)
+	fileOut += fmt.Sprintf("func New%vBuilder(\n", msg.Name)
+	builderArgs := make([]string, len(requiredFields))
+	for i, field := range requiredFields {
+		builderArgs[i] = fmt.Sprintf("%v field.%v", strings.ToLower(field.Name), field.Name)
+	}
+	fileOut += strings.Join(builderArgs, ",\n")
+	fileOut += fmt.Sprintf(") *%vBuilder {\n", msg.Name)
+	fileOut += fmt.Sprintf("builder:=new(%vBuilder)\n", msg.Name)
+
+	for _, field := range requiredFields {
+		fileOut += fmt.Sprintf("builder.Body.Set(%v)\n", strings.ToLower(field.Name))
+	}
+
+	fileOut += "return builder\n"
+	fileOut += "}\n"
+
+	for _, field := range msg.FieldsInDeclarationOrder {
+		if field.Required {
+			fileOut += fmt.Sprintf("//%v is a required field for %v.\n", field.Name, msg.Name)
+		} else {
+			fileOut += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, msg.Name)
+		}
 		fileOut += fmt.Sprintf("func (m * %v) %v() (*field.%v, error) {\n", msg.Name, field.Name, field.Name)
 		fileOut += fmt.Sprintf("f:=new(field.%v)\n", field.Name)
 		fileOut += "err:=m.Body.Get(f)\n"

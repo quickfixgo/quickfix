@@ -24,7 +24,7 @@ func initPrinterMode() {
 
 func WriteFile(filePath, fileOut string) {
 	fset := token.NewFileSet()
-	f, err := parser.ParseFile(fset, "", fileOut, 0)
+	f, err := parser.ParseFile(fset, "", fileOut, parser.ParseComments)
 	if err != nil {
 		fmt.Println("Failed to parse:\n", fileOut)
 		panic(err)

@@ -8,25 +8,19 @@ import (
 	"strconv"
 )
 
-type Acceptor interface {
-	//Start Acceptor.
-	Start() error
-
-	//Stop Acceptor.
-	Stop()
-}
-
-type acceptor struct {
+//Acceptor accepts connections from FIX clients and manages the associated sessions.
+type Acceptor struct {
 	app        Application
 	settings   settings.ApplicationSettings
 	logFactory log.LogFactory
 	globalLog  log.Log
 }
 
-func (a *acceptor) Start() (e error) {
+//Start accepting connections.
+func (a *Acceptor) Start() (e error) {
 	port, hasPort := a.settings.GetGlobalSettings().GetInt(settings.SocketAcceptPort)
 	if !hasPort {
-		return errors.New("Config Error: Must Provide SocketAcceptPort")
+		return errors.New("config error: must provide socketAcceptPort")
 	}
 
 	server, err := net.Listen("tcp", ":"+strconv.Itoa(port))
@@ -45,10 +39,12 @@ func (a *acceptor) Start() (e error) {
 	return
 }
 
-func (a acceptor) Stop() {}
+//Stop logs out existing sessions, close their connections, and stop accepting new connections.
+func (a *Acceptor) Stop() {}
 
-func NewAcceptor(app Application, settings settings.ApplicationSettings, logFactory log.LogFactory) (Acceptor, error) {
-	a := new(acceptor)
+//NewAcceptor creates and initializes a new Acceptor.
+func NewAcceptor(app Application, settings settings.ApplicationSettings, logFactory log.LogFactory) (*Acceptor, error) {
+	a := new(Acceptor)
 	a.app = app
 	a.settings = settings
 	a.logFactory = logFactory
@@ -63,7 +59,7 @@ func NewAcceptor(app Application, settings settings.ApplicationSettings, logFact
 	return a, nil
 }
 
-func (a *acceptor) listenForConnections(listener net.Listener) (ch chan net.Conn) {
+func (a *Acceptor) listenForConnections(listener net.Listener) (ch chan net.Conn) {
 	ch = make(chan net.Conn)
 
 	go func() {

@@ -92,9 +92,10 @@ type Enum struct {
 
 //MessageDef can apply to header, trailer, or body of a FIX Message.
 type MessageDef struct {
-	Name    string
-	MsgType string
-	Fields  map[fix.Tag]*FieldDef
+	Name                     string
+	MsgType                  string
+	Fields                   map[fix.Tag]*FieldDef
+	FieldsInDeclarationOrder []*FieldDef
 
 	RequiredTags TagSet
 	Tags         TagSet

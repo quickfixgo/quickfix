@@ -125,6 +125,7 @@ func (b builder) buildMessageDefs() error {
 func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) {
 	m := &MessageDef{Name: xmlMessage.Name, MsgType: xmlMessage.MsgType}
 	m.Fields = make(map[fix.Tag]*FieldDef)
+	m.FieldsInDeclarationOrder = make([]*FieldDef, 0)
 	m.RequiredTags = make(TagSet)
 	m.Tags = make(TagSet)
 
@@ -137,6 +138,7 @@ func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) 
 			}
 			for _, f := range comp.Fields {
 				m.Fields[f.Tag] = f
+				m.FieldsInDeclarationOrder = append(m.FieldsInDeclarationOrder, f)
 			}
 		} else {
 			var field *FieldDef
@@ -145,6 +147,7 @@ func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) 
 				return nil, err
 			}
 			m.Fields[field.Tag] = field
+			m.FieldsInDeclarationOrder = append(m.FieldsInDeclarationOrder, field)
 		}
 	}
 

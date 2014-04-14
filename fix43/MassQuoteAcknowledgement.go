@@ -5,60 +5,95 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+//MassQuoteAcknowledgement msg type = b.
 type MassQuoteAcknowledgement struct {
 	message.Message
 }
 
+//MassQuoteAcknowledgementBuilder builds MassQuoteAcknowledgement messages.
+type MassQuoteAcknowledgementBuilder struct {
+	message.MessageBuilder
+}
+
+//NewMassQuoteAcknowledgementBuilder returns an initialized MassQuoteAcknowledgementBuilder with specified required fields.
+func NewMassQuoteAcknowledgementBuilder(
+	quotestatus field.QuoteStatus) *MassQuoteAcknowledgementBuilder {
+	builder := new(MassQuoteAcknowledgementBuilder)
+	builder.Body.Set(quotestatus)
+	return builder
+}
+
+//QuoteReqID is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) QuoteReqID() (*field.QuoteReqID, error) {
 	f := new(field.QuoteReqID)
 	err := m.Body.Get(f)
 	return f, err
 }
+
+//QuoteID is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) QuoteID() (*field.QuoteID, error) {
 	f := new(field.QuoteID)
 	err := m.Body.Get(f)
 	return f, err
 }
+
+//QuoteStatus is a required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) QuoteStatus() (*field.QuoteStatus, error) {
 	f := new(field.QuoteStatus)
 	err := m.Body.Get(f)
 	return f, err
 }
-func (m *MassQuoteAcknowledgement) AccountType() (*field.AccountType, error) {
-	f := new(field.AccountType)
-	err := m.Body.Get(f)
-	return f, err
-}
+
+//QuoteRejectReason is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) QuoteRejectReason() (*field.QuoteRejectReason, error) {
 	f := new(field.QuoteRejectReason)
 	err := m.Body.Get(f)
 	return f, err
 }
+
+//QuoteResponseLevel is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) QuoteResponseLevel() (*field.QuoteResponseLevel, error) {
 	f := new(field.QuoteResponseLevel)
 	err := m.Body.Get(f)
 	return f, err
 }
+
+//QuoteType is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) QuoteType() (*field.QuoteType, error) {
 	f := new(field.QuoteType)
 	err := m.Body.Get(f)
 	return f, err
 }
+
+//NoPartyIDs is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) NoPartyIDs() (*field.NoPartyIDs, error) {
 	f := new(field.NoPartyIDs)
 	err := m.Body.Get(f)
 	return f, err
 }
+
+//Account is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) Account() (*field.Account, error) {
 	f := new(field.Account)
 	err := m.Body.Get(f)
 	return f, err
 }
+
+//AccountType is a non-required field for MassQuoteAcknowledgement.
+func (m *MassQuoteAcknowledgement) AccountType() (*field.AccountType, error) {
+	f := new(field.AccountType)
+	err := m.Body.Get(f)
+	return f, err
+}
+
+//Text is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) Text() (*field.Text, error) {
 	f := new(field.Text)
 	err := m.Body.Get(f)
 	return f, err
 }
+
+//NoQuoteSets is a non-required field for MassQuoteAcknowledgement.
 func (m *MassQuoteAcknowledgement) NoQuoteSets() (*field.NoQuoteSets, error) {
 	f := new(field.NoQuoteSets)
 	err := m.Body.Get(f)
