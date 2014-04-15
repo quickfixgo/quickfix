@@ -4,7 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
-func SendToTarget(msgBuilder *message.MessageBuilder, sessionID SessionID) (err error) {
+func SendToTarget(msgBuilder message.MessageBuilder, sessionID SessionID) (err error) {
 	session := lookup(sessionID)
 	session.send(msgBuilder)
 

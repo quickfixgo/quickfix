@@ -1,4 +1,4 @@
-//log package for logging fix messages and events
+//Package log implements logging of FIX messages and events.
 package log
 
 type Log interface {

@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/cracker"
 	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix40"
 	"github.com/quickfixgo/quickfix/fix41"
@@ -58,7 +59,7 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.Ses
 		return
 	}
 
-	reply := message.NewMessageBuilder()
+	reply := message.CreateMessageBuilder()
 	sessionOrderID := sessionID.String() + orderID.Value
 	possResend := new(field.PossResend)
 	if err := msg.Header.Get(possResend); err == nil && possResend.Value {
@@ -188,19 +189,19 @@ func main() {
 
 	appSettings.AddSession("FIX50", settings.NewDictionary().
 		SetString(settings.BeginString, fix.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, fix.ApplVerID_FIX50).
+		SetString(settings.DefaultApplVerID, enum.ApplVerID_FIX50).
 		SetString(settings.TransportDataDictionary, "../spec/FIXT11.xml").
 		SetString(settings.AppDataDictionary, "../spec/FIX50.xml"))
 
 	appSettings.AddSession("FIX50SP1", settings.NewDictionary().
 		SetString(settings.BeginString, fix.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, fix.ApplVerID_FIX50SP1).
+		SetString(settings.DefaultApplVerID, enum.ApplVerID_FIX50SP1).
 		SetString(settings.TransportDataDictionary, "../spec/FIXT11.xml").
 		SetString(settings.AppDataDictionary, "../spec/FIX50SP1.xml"))
 
 	appSettings.AddSession("FIX50SP2", settings.NewDictionary().
 		SetString(settings.BeginString, fix.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, fix.ApplVerID_FIX50SP2).
+		SetString(settings.DefaultApplVerID, enum.ApplVerID_FIX50SP2).
 		SetString(settings.TransportDataDictionary, "../spec/FIXT11.xml").
 		SetString(settings.AppDataDictionary, "../spec/FIX50SP2.xml"))
 

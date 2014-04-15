@@ -15,117 +15,118 @@ type SettlementInstructionRequestBuilder struct {
 	message.MessageBuilder
 }
 
-//NewSettlementInstructionRequestBuilder returns an initialized SettlementInstructionRequestBuilder with specified required fields.
-func NewSettlementInstructionRequestBuilder(
+//CreateSettlementInstructionRequestBuilder returns an initialized SettlementInstructionRequestBuilder with specified required fields.
+func CreateSettlementInstructionRequestBuilder(
 	settlinstreqid field.SettlInstReqID,
-	transacttime field.TransactTime) *SettlementInstructionRequestBuilder {
-	builder := new(SettlementInstructionRequestBuilder)
+	transacttime field.TransactTime) SettlementInstructionRequestBuilder {
+	var builder SettlementInstructionRequestBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(settlinstreqid)
 	builder.Body.Set(transacttime)
 	return builder
 }
 
 //SettlInstReqID is a required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) SettlInstReqID() (*field.SettlInstReqID, error) {
-	f := new(field.SettlInstReqID)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) SettlInstReqID() (field.SettlInstReqID, error) {
+	var f field.SettlInstReqID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) TransactTime() (field.TransactTime, error) {
+	var f field.TransactTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) NoPartyIDs() (field.NoPartyIDs, error) {
+	var f field.NoPartyIDs
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AllocAccount is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) AllocAccount() (*field.AllocAccount, error) {
-	f := new(field.AllocAccount)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) AllocAccount() (field.AllocAccount, error) {
+	var f field.AllocAccount
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AllocAcctIDSource is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) AllocAcctIDSource() (*field.AllocAcctIDSource, error) {
-	f := new(field.AllocAcctIDSource)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) AllocAcctIDSource() (field.AllocAcctIDSource, error) {
+	var f field.AllocAcctIDSource
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Side is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) Side() (*field.Side, error) {
-	f := new(field.Side)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) Side() (field.Side, error) {
+	var f field.Side
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) Product() (field.Product, error) {
+	var f field.Product
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) SecurityType() (field.SecurityType, error) {
+	var f field.SecurityType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) CFICode() (*field.CFICode, error) {
-	f := new(field.CFICode)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) CFICode() (field.CFICode, error) {
+	var f field.CFICode
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EffectiveTime is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) EffectiveTime() (*field.EffectiveTime, error) {
-	f := new(field.EffectiveTime)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) EffectiveTime() (field.EffectiveTime, error) {
+	var f field.EffectiveTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExpireTime is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) ExpireTime() (*field.ExpireTime, error) {
-	f := new(field.ExpireTime)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) ExpireTime() (field.ExpireTime, error) {
+	var f field.ExpireTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LastUpdateTime is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) LastUpdateTime() (*field.LastUpdateTime, error) {
-	f := new(field.LastUpdateTime)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) LastUpdateTime() (field.LastUpdateTime, error) {
+	var f field.LastUpdateTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StandInstDbType is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) StandInstDbType() (*field.StandInstDbType, error) {
-	f := new(field.StandInstDbType)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) StandInstDbType() (field.StandInstDbType, error) {
+	var f field.StandInstDbType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StandInstDbName is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) StandInstDbName() (*field.StandInstDbName, error) {
-	f := new(field.StandInstDbName)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) StandInstDbName() (field.StandInstDbName, error) {
+	var f field.StandInstDbName
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StandInstDbID is a non-required field for SettlementInstructionRequest.
-func (m *SettlementInstructionRequest) StandInstDbID() (*field.StandInstDbID, error) {
-	f := new(field.StandInstDbID)
-	err := m.Body.Get(f)
+func (m SettlementInstructionRequest) StandInstDbID() (field.StandInstDbID, error) {
+	var f field.StandInstDbID
+	err := m.Body.Get(&f)
 	return f, err
 }

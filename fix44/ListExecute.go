@@ -15,61 +15,62 @@ type ListExecuteBuilder struct {
 	message.MessageBuilder
 }
 
-//NewListExecuteBuilder returns an initialized ListExecuteBuilder with specified required fields.
-func NewListExecuteBuilder(
+//CreateListExecuteBuilder returns an initialized ListExecuteBuilder with specified required fields.
+func CreateListExecuteBuilder(
 	listid field.ListID,
-	transacttime field.TransactTime) *ListExecuteBuilder {
-	builder := new(ListExecuteBuilder)
+	transacttime field.TransactTime) ListExecuteBuilder {
+	var builder ListExecuteBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(listid)
 	builder.Body.Set(transacttime)
 	return builder
 }
 
 //ListID is a required field for ListExecute.
-func (m *ListExecute) ListID() (*field.ListID, error) {
-	f := new(field.ListID)
-	err := m.Body.Get(f)
+func (m ListExecute) ListID() (field.ListID, error) {
+	var f field.ListID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClientBidID is a non-required field for ListExecute.
-func (m *ListExecute) ClientBidID() (*field.ClientBidID, error) {
-	f := new(field.ClientBidID)
-	err := m.Body.Get(f)
+func (m ListExecute) ClientBidID() (field.ClientBidID, error) {
+	var f field.ClientBidID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BidID is a non-required field for ListExecute.
-func (m *ListExecute) BidID() (*field.BidID, error) {
-	f := new(field.BidID)
-	err := m.Body.Get(f)
+func (m ListExecute) BidID() (field.BidID, error) {
+	var f field.BidID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for ListExecute.
-func (m *ListExecute) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
+func (m ListExecute) TransactTime() (field.TransactTime, error) {
+	var f field.TransactTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ListExecute.
-func (m *ListExecute) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
+func (m ListExecute) Text() (field.Text, error) {
+	var f field.Text
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for ListExecute.
-func (m *ListExecute) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
+func (m ListExecute) EncodedTextLen() (field.EncodedTextLen, error) {
+	var f field.EncodedTextLen
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for ListExecute.
-func (m *ListExecute) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
+func (m ListExecute) EncodedText() (field.EncodedText, error) {
+	var f field.EncodedText
+	err := m.Body.Get(&f)
 	return f, err
 }

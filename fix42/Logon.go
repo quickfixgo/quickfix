@@ -15,61 +15,62 @@ type LogonBuilder struct {
 	message.MessageBuilder
 }
 
-//NewLogonBuilder returns an initialized LogonBuilder with specified required fields.
-func NewLogonBuilder(
+//CreateLogonBuilder returns an initialized LogonBuilder with specified required fields.
+func CreateLogonBuilder(
 	encryptmethod field.EncryptMethod,
-	heartbtint field.HeartBtInt) *LogonBuilder {
-	builder := new(LogonBuilder)
+	heartbtint field.HeartBtInt) LogonBuilder {
+	var builder LogonBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(encryptmethod)
 	builder.Body.Set(heartbtint)
 	return builder
 }
 
 //EncryptMethod is a required field for Logon.
-func (m *Logon) EncryptMethod() (*field.EncryptMethod, error) {
-	f := new(field.EncryptMethod)
-	err := m.Body.Get(f)
+func (m Logon) EncryptMethod() (field.EncryptMethod, error) {
+	var f field.EncryptMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //HeartBtInt is a required field for Logon.
-func (m *Logon) HeartBtInt() (*field.HeartBtInt, error) {
-	f := new(field.HeartBtInt)
-	err := m.Body.Get(f)
+func (m Logon) HeartBtInt() (field.HeartBtInt, error) {
+	var f field.HeartBtInt
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawDataLength is a non-required field for Logon.
-func (m *Logon) RawDataLength() (*field.RawDataLength, error) {
-	f := new(field.RawDataLength)
-	err := m.Body.Get(f)
+func (m Logon) RawDataLength() (field.RawDataLength, error) {
+	var f field.RawDataLength
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawData is a non-required field for Logon.
-func (m *Logon) RawData() (*field.RawData, error) {
-	f := new(field.RawData)
-	err := m.Body.Get(f)
+func (m Logon) RawData() (field.RawData, error) {
+	var f field.RawData
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ResetSeqNumFlag is a non-required field for Logon.
-func (m *Logon) ResetSeqNumFlag() (*field.ResetSeqNumFlag, error) {
-	f := new(field.ResetSeqNumFlag)
-	err := m.Body.Get(f)
+func (m Logon) ResetSeqNumFlag() (field.ResetSeqNumFlag, error) {
+	var f field.ResetSeqNumFlag
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaxMessageSize is a non-required field for Logon.
-func (m *Logon) MaxMessageSize() (*field.MaxMessageSize, error) {
-	f := new(field.MaxMessageSize)
-	err := m.Body.Get(f)
+func (m Logon) MaxMessageSize() (field.MaxMessageSize, error) {
+	var f field.MaxMessageSize
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoMsgTypes is a non-required field for Logon.
-func (m *Logon) NoMsgTypes() (*field.NoMsgTypes, error) {
-	f := new(field.NoMsgTypes)
-	err := m.Body.Get(f)
+func (m Logon) NoMsgTypes() (field.NoMsgTypes, error) {
+	var f field.NoMsgTypes
+	err := m.Body.Get(&f)
 	return f, err
 }

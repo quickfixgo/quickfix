@@ -15,33 +15,34 @@ type NetworkCounterpartySystemStatusRequestBuilder struct {
 	message.MessageBuilder
 }
 
-//NewNetworkCounterpartySystemStatusRequestBuilder returns an initialized NetworkCounterpartySystemStatusRequestBuilder with specified required fields.
-func NewNetworkCounterpartySystemStatusRequestBuilder(
+//CreateNetworkCounterpartySystemStatusRequestBuilder returns an initialized NetworkCounterpartySystemStatusRequestBuilder with specified required fields.
+func CreateNetworkCounterpartySystemStatusRequestBuilder(
 	networkrequesttype field.NetworkRequestType,
-	networkrequestid field.NetworkRequestID) *NetworkCounterpartySystemStatusRequestBuilder {
-	builder := new(NetworkCounterpartySystemStatusRequestBuilder)
+	networkrequestid field.NetworkRequestID) NetworkCounterpartySystemStatusRequestBuilder {
+	var builder NetworkCounterpartySystemStatusRequestBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(networkrequesttype)
 	builder.Body.Set(networkrequestid)
 	return builder
 }
 
 //NetworkRequestType is a required field for NetworkCounterpartySystemStatusRequest.
-func (m *NetworkCounterpartySystemStatusRequest) NetworkRequestType() (*field.NetworkRequestType, error) {
-	f := new(field.NetworkRequestType)
-	err := m.Body.Get(f)
+func (m NetworkCounterpartySystemStatusRequest) NetworkRequestType() (field.NetworkRequestType, error) {
+	var f field.NetworkRequestType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NetworkRequestID is a required field for NetworkCounterpartySystemStatusRequest.
-func (m *NetworkCounterpartySystemStatusRequest) NetworkRequestID() (*field.NetworkRequestID, error) {
-	f := new(field.NetworkRequestID)
-	err := m.Body.Get(f)
+func (m NetworkCounterpartySystemStatusRequest) NetworkRequestID() (field.NetworkRequestID, error) {
+	var f field.NetworkRequestID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoCompIDs is a non-required field for NetworkCounterpartySystemStatusRequest.
-func (m *NetworkCounterpartySystemStatusRequest) NoCompIDs() (*field.NoCompIDs, error) {
-	f := new(field.NoCompIDs)
-	err := m.Body.Get(f)
+func (m NetworkCounterpartySystemStatusRequest) NoCompIDs() (field.NoCompIDs, error) {
+	var f field.NoCompIDs
+	err := m.Body.Get(&f)
 	return f, err
 }

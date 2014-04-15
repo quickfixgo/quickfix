@@ -14,8 +14,8 @@ type SessionTests struct {
 	session
 }
 
-func getBuilder() *message.MessageBuilder {
-	builder := message.NewMessageBuilder()
+func getBuilder() message.MessageBuilder {
+	builder := message.CreateMessageBuilder()
 	builder.Header.Set(message.NewStringField(tag.BeginString, fix.BeginString_FIX40))
 	builder.Header.Set(message.NewStringField(tag.MsgType, "D"))
 	return builder

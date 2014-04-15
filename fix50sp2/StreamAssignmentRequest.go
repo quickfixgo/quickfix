@@ -15,33 +15,34 @@ type StreamAssignmentRequestBuilder struct {
 	message.MessageBuilder
 }
 
-//NewStreamAssignmentRequestBuilder returns an initialized StreamAssignmentRequestBuilder with specified required fields.
-func NewStreamAssignmentRequestBuilder(
+//CreateStreamAssignmentRequestBuilder returns an initialized StreamAssignmentRequestBuilder with specified required fields.
+func CreateStreamAssignmentRequestBuilder(
 	streamasgnreqid field.StreamAsgnReqID,
-	streamasgnreqtype field.StreamAsgnReqType) *StreamAssignmentRequestBuilder {
-	builder := new(StreamAssignmentRequestBuilder)
+	streamasgnreqtype field.StreamAsgnReqType) StreamAssignmentRequestBuilder {
+	var builder StreamAssignmentRequestBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(streamasgnreqid)
 	builder.Body.Set(streamasgnreqtype)
 	return builder
 }
 
 //StreamAsgnReqID is a required field for StreamAssignmentRequest.
-func (m *StreamAssignmentRequest) StreamAsgnReqID() (*field.StreamAsgnReqID, error) {
-	f := new(field.StreamAsgnReqID)
-	err := m.Body.Get(f)
+func (m StreamAssignmentRequest) StreamAsgnReqID() (field.StreamAsgnReqID, error) {
+	var f field.StreamAsgnReqID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StreamAsgnReqType is a required field for StreamAssignmentRequest.
-func (m *StreamAssignmentRequest) StreamAsgnReqType() (*field.StreamAsgnReqType, error) {
-	f := new(field.StreamAsgnReqType)
-	err := m.Body.Get(f)
+func (m StreamAssignmentRequest) StreamAsgnReqType() (field.StreamAsgnReqType, error) {
+	var f field.StreamAsgnReqType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoAsgnReqs is a non-required field for StreamAssignmentRequest.
-func (m *StreamAssignmentRequest) NoAsgnReqs() (*field.NoAsgnReqs, error) {
-	f := new(field.NoAsgnReqs)
-	err := m.Body.Get(f)
+func (m StreamAssignmentRequest) NoAsgnReqs() (field.NoAsgnReqs, error) {
+	var f field.NoAsgnReqs
+	err := m.Body.Get(&f)
 	return f, err
 }

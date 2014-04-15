@@ -15,31 +15,32 @@ type ListExecuteBuilder struct {
 	message.MessageBuilder
 }
 
-//NewListExecuteBuilder returns an initialized ListExecuteBuilder with specified required fields.
-func NewListExecuteBuilder(
-	listid field.ListID) *ListExecuteBuilder {
-	builder := new(ListExecuteBuilder)
+//CreateListExecuteBuilder returns an initialized ListExecuteBuilder with specified required fields.
+func CreateListExecuteBuilder(
+	listid field.ListID) ListExecuteBuilder {
+	var builder ListExecuteBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(listid)
 	return builder
 }
 
 //ListID is a required field for ListExecute.
-func (m *ListExecute) ListID() (*field.ListID, error) {
-	f := new(field.ListID)
-	err := m.Body.Get(f)
+func (m ListExecute) ListID() (field.ListID, error) {
+	var f field.ListID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //WaveNo is a non-required field for ListExecute.
-func (m *ListExecute) WaveNo() (*field.WaveNo, error) {
-	f := new(field.WaveNo)
-	err := m.Body.Get(f)
+func (m ListExecute) WaveNo() (field.WaveNo, error) {
+	var f field.WaveNo
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ListExecute.
-func (m *ListExecute) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
+func (m ListExecute) Text() (field.Text, error) {
+	var f field.Text
+	err := m.Body.Get(&f)
 	return f, err
 }

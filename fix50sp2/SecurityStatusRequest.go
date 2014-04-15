@@ -15,712 +15,713 @@ type SecurityStatusRequestBuilder struct {
 	message.MessageBuilder
 }
 
-//NewSecurityStatusRequestBuilder returns an initialized SecurityStatusRequestBuilder with specified required fields.
-func NewSecurityStatusRequestBuilder(
+//CreateSecurityStatusRequestBuilder returns an initialized SecurityStatusRequestBuilder with specified required fields.
+func CreateSecurityStatusRequestBuilder(
 	securitystatusreqid field.SecurityStatusReqID,
-	subscriptionrequesttype field.SubscriptionRequestType) *SecurityStatusRequestBuilder {
-	builder := new(SecurityStatusRequestBuilder)
+	subscriptionrequesttype field.SubscriptionRequestType) SecurityStatusRequestBuilder {
+	var builder SecurityStatusRequestBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(securitystatusreqid)
 	builder.Body.Set(subscriptionrequesttype)
 	return builder
 }
 
 //SecurityStatusReqID is a required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityStatusReqID() (*field.SecurityStatusReqID, error) {
-	f := new(field.SecurityStatusReqID)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityStatusReqID() (field.SecurityStatusReqID, error) {
+	var f field.SecurityStatusReqID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) Symbol() (field.Symbol, error) {
+	var f field.Symbol
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SymbolSfx() (field.SymbolSfx, error) {
+	var f field.SymbolSfx
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityID() (field.SecurityID, error) {
+	var f field.SecurityID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityIDSource is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityIDSource() (*field.SecurityIDSource, error) {
-	f := new(field.SecurityIDSource)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityIDSource() (field.SecurityIDSource, error) {
+	var f field.SecurityIDSource
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityAltID is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NoSecurityAltID() (*field.NoSecurityAltID, error) {
-	f := new(field.NoSecurityAltID)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NoSecurityAltID() (field.NoSecurityAltID, error) {
+	var f field.NoSecurityAltID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) Product() (field.Product, error) {
+	var f field.Product
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) CFICode() (*field.CFICode, error) {
-	f := new(field.CFICode)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) CFICode() (field.CFICode, error) {
+	var f field.CFICode
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityType() (field.SecurityType, error) {
+	var f field.SecurityType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecuritySubType is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecuritySubType() (*field.SecuritySubType, error) {
-	f := new(field.SecuritySubType)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecuritySubType() (field.SecuritySubType, error) {
+	var f field.SecuritySubType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityMonthYear is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) MaturityMonthYear() (*field.MaturityMonthYear, error) {
-	f := new(field.MaturityMonthYear)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) MaturityMonthYear() (field.MaturityMonthYear, error) {
+	var f field.MaturityMonthYear
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityDate is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) MaturityDate() (*field.MaturityDate, error) {
-	f := new(field.MaturityDate)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) MaturityDate() (field.MaturityDate, error) {
+	var f field.MaturityDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponPaymentDate is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) CouponPaymentDate() (*field.CouponPaymentDate, error) {
-	f := new(field.CouponPaymentDate)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) CouponPaymentDate() (field.CouponPaymentDate, error) {
+	var f field.CouponPaymentDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IssueDate is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) IssueDate() (*field.IssueDate, error) {
-	f := new(field.IssueDate)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) IssueDate() (field.IssueDate, error) {
+	var f field.IssueDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepoCollateralSecurityType is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
-	f := new(field.RepoCollateralSecurityType)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, error) {
+	var f field.RepoCollateralSecurityType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseTerm is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) RepurchaseTerm() (*field.RepurchaseTerm, error) {
-	f := new(field.RepurchaseTerm)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) RepurchaseTerm() (field.RepurchaseTerm, error) {
+	var f field.RepurchaseTerm
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseRate is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) RepurchaseRate() (*field.RepurchaseRate, error) {
-	f := new(field.RepurchaseRate)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) RepurchaseRate() (field.RepurchaseRate, error) {
+	var f field.RepurchaseRate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Factor is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) Factor() (*field.Factor, error) {
-	f := new(field.Factor)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) Factor() (field.Factor, error) {
+	var f field.Factor
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CreditRating is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) CreditRating() (*field.CreditRating, error) {
-	f := new(field.CreditRating)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) CreditRating() (field.CreditRating, error) {
+	var f field.CreditRating
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrRegistry is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) InstrRegistry() (*field.InstrRegistry, error) {
-	f := new(field.InstrRegistry)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) InstrRegistry() (field.InstrRegistry, error) {
+	var f field.InstrRegistry
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CountryOfIssue is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) CountryOfIssue() (*field.CountryOfIssue, error) {
-	f := new(field.CountryOfIssue)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) CountryOfIssue() (field.CountryOfIssue, error) {
+	var f field.CountryOfIssue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StateOrProvinceOfIssue is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
-	f := new(field.StateOrProvinceOfIssue)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, error) {
+	var f field.StateOrProvinceOfIssue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocaleOfIssue is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) LocaleOfIssue() (*field.LocaleOfIssue, error) {
-	f := new(field.LocaleOfIssue)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) LocaleOfIssue() (field.LocaleOfIssue, error) {
+	var f field.LocaleOfIssue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RedemptionDate is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) RedemptionDate() (*field.RedemptionDate, error) {
-	f := new(field.RedemptionDate)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) RedemptionDate() (field.RedemptionDate, error) {
+	var f field.RedemptionDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePrice is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) StrikePrice() (*field.StrikePrice, error) {
-	f := new(field.StrikePrice)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) StrikePrice() (field.StrikePrice, error) {
+	var f field.StrikePrice
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeCurrency is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) StrikeCurrency() (*field.StrikeCurrency, error) {
-	f := new(field.StrikeCurrency)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) StrikeCurrency() (field.StrikeCurrency, error) {
+	var f field.StrikeCurrency
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptAttribute is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) OptAttribute() (*field.OptAttribute, error) {
-	f := new(field.OptAttribute)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) OptAttribute() (field.OptAttribute, error) {
+	var f field.OptAttribute
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplier is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) ContractMultiplier() (*field.ContractMultiplier, error) {
-	f := new(field.ContractMultiplier)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) ContractMultiplier() (field.ContractMultiplier, error) {
+	var f field.ContractMultiplier
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponRate is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) CouponRate() (*field.CouponRate, error) {
-	f := new(field.CouponRate)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) CouponRate() (field.CouponRate, error) {
+	var f field.CouponRate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityExchange is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityExchange() (field.SecurityExchange, error) {
+	var f field.SecurityExchange
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) Issuer() (*field.Issuer, error) {
-	f := new(field.Issuer)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) Issuer() (field.Issuer, error) {
+	var f field.Issuer
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuerLen is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
-	f := new(field.EncodedIssuerLen)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) EncodedIssuerLen() (field.EncodedIssuerLen, error) {
+	var f field.EncodedIssuerLen
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuer is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) EncodedIssuer() (*field.EncodedIssuer, error) {
-	f := new(field.EncodedIssuer)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) EncodedIssuer() (field.EncodedIssuer, error) {
+	var f field.EncodedIssuer
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityDesc() (field.SecurityDesc, error) {
+	var f field.SecurityDesc
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDescLen is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, error) {
-	f := new(field.EncodedSecurityDescLen)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, error) {
+	var f field.EncodedSecurityDescLen
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDesc is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) EncodedSecurityDesc() (*field.EncodedSecurityDesc, error) {
-	f := new(field.EncodedSecurityDesc)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) EncodedSecurityDesc() (field.EncodedSecurityDesc, error) {
+	var f field.EncodedSecurityDesc
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Pool is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) Pool() (*field.Pool, error) {
-	f := new(field.Pool)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) Pool() (field.Pool, error) {
+	var f field.Pool
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractSettlMonth is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) ContractSettlMonth() (*field.ContractSettlMonth, error) {
-	f := new(field.ContractSettlMonth)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) ContractSettlMonth() (field.ContractSettlMonth, error) {
+	var f field.ContractSettlMonth
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPProgram is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) CPProgram() (*field.CPProgram, error) {
-	f := new(field.CPProgram)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) CPProgram() (field.CPProgram, error) {
+	var f field.CPProgram
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPRegType is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) CPRegType() (*field.CPRegType, error) {
-	f := new(field.CPRegType)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) CPRegType() (field.CPRegType, error) {
+	var f field.CPRegType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoEvents is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NoEvents() (*field.NoEvents, error) {
-	f := new(field.NoEvents)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NoEvents() (field.NoEvents, error) {
+	var f field.NoEvents
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DatedDate is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) DatedDate() (*field.DatedDate, error) {
-	f := new(field.DatedDate)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) DatedDate() (field.DatedDate, error) {
+	var f field.DatedDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InterestAccrualDate is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) InterestAccrualDate() (*field.InterestAccrualDate, error) {
-	f := new(field.InterestAccrualDate)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) InterestAccrualDate() (field.InterestAccrualDate, error) {
+	var f field.InterestAccrualDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityStatus is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityStatus() (*field.SecurityStatus, error) {
-	f := new(field.SecurityStatus)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityStatus() (field.SecurityStatus, error) {
+	var f field.SecurityStatus
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettleOnOpenFlag is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SettleOnOpenFlag() (*field.SettleOnOpenFlag, error) {
-	f := new(field.SettleOnOpenFlag)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SettleOnOpenFlag() (field.SettleOnOpenFlag, error) {
+	var f field.SettleOnOpenFlag
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrmtAssignmentMethod is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, error) {
-	f := new(field.InstrmtAssignmentMethod)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) InstrmtAssignmentMethod() (field.InstrmtAssignmentMethod, error) {
+	var f field.InstrmtAssignmentMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeMultiplier is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) StrikeMultiplier() (*field.StrikeMultiplier, error) {
-	f := new(field.StrikeMultiplier)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) StrikeMultiplier() (field.StrikeMultiplier, error) {
+	var f field.StrikeMultiplier
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeValue is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) StrikeValue() (*field.StrikeValue, error) {
-	f := new(field.StrikeValue)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) StrikeValue() (field.StrikeValue, error) {
+	var f field.StrikeValue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinPriceIncrement is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) MinPriceIncrement() (*field.MinPriceIncrement, error) {
-	f := new(field.MinPriceIncrement)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) MinPriceIncrement() (field.MinPriceIncrement, error) {
+	var f field.MinPriceIncrement
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PositionLimit is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) PositionLimit() (*field.PositionLimit, error) {
-	f := new(field.PositionLimit)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) PositionLimit() (field.PositionLimit, error) {
+	var f field.PositionLimit
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NTPositionLimit is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NTPositionLimit() (*field.NTPositionLimit, error) {
-	f := new(field.NTPositionLimit)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NTPositionLimit() (field.NTPositionLimit, error) {
+	var f field.NTPositionLimit
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoInstrumentParties is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NoInstrumentParties() (*field.NoInstrumentParties, error) {
-	f := new(field.NoInstrumentParties)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NoInstrumentParties() (field.NoInstrumentParties, error) {
+	var f field.NoInstrumentParties
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnitOfMeasure is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) UnitOfMeasure() (*field.UnitOfMeasure, error) {
-	f := new(field.UnitOfMeasure)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) UnitOfMeasure() (field.UnitOfMeasure, error) {
+	var f field.UnitOfMeasure
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TimeUnit is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) TimeUnit() (*field.TimeUnit, error) {
-	f := new(field.TimeUnit)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) TimeUnit() (field.TimeUnit, error) {
+	var f field.TimeUnit
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityTime is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) MaturityTime() (*field.MaturityTime, error) {
-	f := new(field.MaturityTime)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) MaturityTime() (field.MaturityTime, error) {
+	var f field.MaturityTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityGroup is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityGroup() (*field.SecurityGroup, error) {
-	f := new(field.SecurityGroup)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityGroup() (field.SecurityGroup, error) {
+	var f field.SecurityGroup
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinPriceIncrementAmount is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) MinPriceIncrementAmount() (*field.MinPriceIncrementAmount, error) {
-	f := new(field.MinPriceIncrementAmount)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) MinPriceIncrementAmount() (field.MinPriceIncrementAmount, error) {
+	var f field.MinPriceIncrementAmount
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnitOfMeasureQty is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) UnitOfMeasureQty() (*field.UnitOfMeasureQty, error) {
-	f := new(field.UnitOfMeasureQty)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) UnitOfMeasureQty() (field.UnitOfMeasureQty, error) {
+	var f field.UnitOfMeasureQty
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXMLLen is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityXMLLen() (*field.SecurityXMLLen, error) {
-	f := new(field.SecurityXMLLen)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityXMLLen() (field.SecurityXMLLen, error) {
+	var f field.SecurityXMLLen
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXML is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityXML() (*field.SecurityXML, error) {
-	f := new(field.SecurityXML)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityXML() (field.SecurityXML, error) {
+	var f field.SecurityXML
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXMLSchema is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SecurityXMLSchema() (*field.SecurityXMLSchema, error) {
-	f := new(field.SecurityXMLSchema)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SecurityXMLSchema() (field.SecurityXMLSchema, error) {
+	var f field.SecurityXMLSchema
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProductComplex is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) ProductComplex() (*field.ProductComplex, error) {
-	f := new(field.ProductComplex)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) ProductComplex() (field.ProductComplex, error) {
+	var f field.ProductComplex
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceUnitOfMeasure is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) PriceUnitOfMeasure() (*field.PriceUnitOfMeasure, error) {
-	f := new(field.PriceUnitOfMeasure)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) PriceUnitOfMeasure() (field.PriceUnitOfMeasure, error) {
+	var f field.PriceUnitOfMeasure
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceUnitOfMeasureQty is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQty, error) {
-	f := new(field.PriceUnitOfMeasureQty)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) PriceUnitOfMeasureQty() (field.PriceUnitOfMeasureQty, error) {
+	var f field.PriceUnitOfMeasureQty
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlMethod is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SettlMethod() (*field.SettlMethod, error) {
-	f := new(field.SettlMethod)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SettlMethod() (field.SettlMethod, error) {
+	var f field.SettlMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExerciseStyle is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) ExerciseStyle() (*field.ExerciseStyle, error) {
-	f := new(field.ExerciseStyle)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) ExerciseStyle() (field.ExerciseStyle, error) {
+	var f field.ExerciseStyle
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptPayoutAmount is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) OptPayoutAmount() (*field.OptPayoutAmount, error) {
-	f := new(field.OptPayoutAmount)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) OptPayoutAmount() (field.OptPayoutAmount, error) {
+	var f field.OptPayoutAmount
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceQuoteMethod is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) PriceQuoteMethod() (*field.PriceQuoteMethod, error) {
-	f := new(field.PriceQuoteMethod)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) PriceQuoteMethod() (field.PriceQuoteMethod, error) {
+	var f field.PriceQuoteMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListMethod is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) ListMethod() (*field.ListMethod, error) {
-	f := new(field.ListMethod)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) ListMethod() (field.ListMethod, error) {
+	var f field.ListMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CapPrice is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) CapPrice() (*field.CapPrice, error) {
-	f := new(field.CapPrice)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) CapPrice() (field.CapPrice, error) {
+	var f field.CapPrice
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FloorPrice is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) FloorPrice() (*field.FloorPrice, error) {
-	f := new(field.FloorPrice)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) FloorPrice() (field.FloorPrice, error) {
+	var f field.FloorPrice
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PutOrCall is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) PutOrCall() (*field.PutOrCall, error) {
-	f := new(field.PutOrCall)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) PutOrCall() (field.PutOrCall, error) {
+	var f field.PutOrCall
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlexibleIndicator is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) FlexibleIndicator() (*field.FlexibleIndicator, error) {
-	f := new(field.FlexibleIndicator)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) FlexibleIndicator() (field.FlexibleIndicator, error) {
+	var f field.FlexibleIndicator
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlexProductEligibilityIndicator is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicator, error) {
-	f := new(field.FlexProductEligibilityIndicator)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) FlexProductEligibilityIndicator() (field.FlexProductEligibilityIndicator, error) {
+	var f field.FlexProductEligibilityIndicator
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ValuationMethod is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) ValuationMethod() (*field.ValuationMethod, error) {
-	f := new(field.ValuationMethod)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) ValuationMethod() (field.ValuationMethod, error) {
+	var f field.ValuationMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplierUnit is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) ContractMultiplierUnit() (*field.ContractMultiplierUnit, error) {
-	f := new(field.ContractMultiplierUnit)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) ContractMultiplierUnit() (field.ContractMultiplierUnit, error) {
+	var f field.ContractMultiplierUnit
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlowScheduleType is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) FlowScheduleType() (*field.FlowScheduleType, error) {
-	f := new(field.FlowScheduleType)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) FlowScheduleType() (field.FlowScheduleType, error) {
+	var f field.FlowScheduleType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RestructuringType is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) RestructuringType() (*field.RestructuringType, error) {
-	f := new(field.RestructuringType)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) RestructuringType() (field.RestructuringType, error) {
+	var f field.RestructuringType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Seniority is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) Seniority() (*field.Seniority, error) {
-	f := new(field.Seniority)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) Seniority() (field.Seniority, error) {
+	var f field.Seniority
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NotionalPercentageOutstanding is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstanding, error) {
-	f := new(field.NotionalPercentageOutstanding)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NotionalPercentageOutstanding() (field.NotionalPercentageOutstanding, error) {
+	var f field.NotionalPercentageOutstanding
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OriginalNotionalPercentageOutstanding is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstanding, error) {
-	f := new(field.OriginalNotionalPercentageOutstanding)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) OriginalNotionalPercentageOutstanding() (field.OriginalNotionalPercentageOutstanding, error) {
+	var f field.OriginalNotionalPercentageOutstanding
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AttachmentPoint is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) AttachmentPoint() (*field.AttachmentPoint, error) {
-	f := new(field.AttachmentPoint)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) AttachmentPoint() (field.AttachmentPoint, error) {
+	var f field.AttachmentPoint
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DetachmentPoint is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) DetachmentPoint() (*field.DetachmentPoint, error) {
-	f := new(field.DetachmentPoint)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) DetachmentPoint() (field.DetachmentPoint, error) {
+	var f field.DetachmentPoint
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceDeterminationMethod is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethod, error) {
-	f := new(field.StrikePriceDeterminationMethod)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) StrikePriceDeterminationMethod() (field.StrikePriceDeterminationMethod, error) {
+	var f field.StrikePriceDeterminationMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceBoundaryMethod is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethod, error) {
-	f := new(field.StrikePriceBoundaryMethod)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) StrikePriceBoundaryMethod() (field.StrikePriceBoundaryMethod, error) {
+	var f field.StrikePriceBoundaryMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceBoundaryPrecision is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) StrikePriceBoundaryPrecision() (*field.StrikePriceBoundaryPrecision, error) {
-	f := new(field.StrikePriceBoundaryPrecision)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) StrikePriceBoundaryPrecision() (field.StrikePriceBoundaryPrecision, error) {
+	var f field.StrikePriceBoundaryPrecision
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnderlyingPriceDeterminationMethod is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethod, error) {
-	f := new(field.UnderlyingPriceDeterminationMethod)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) UnderlyingPriceDeterminationMethod() (field.UnderlyingPriceDeterminationMethod, error) {
+	var f field.UnderlyingPriceDeterminationMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptPayoutType is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) OptPayoutType() (*field.OptPayoutType, error) {
-	f := new(field.OptPayoutType)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) OptPayoutType() (field.OptPayoutType, error) {
+	var f field.OptPayoutType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoComplexEvents is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NoComplexEvents() (*field.NoComplexEvents, error) {
-	f := new(field.NoComplexEvents)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NoComplexEvents() (field.NoComplexEvents, error) {
+	var f field.NoComplexEvents
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DeliveryForm is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) DeliveryForm() (*field.DeliveryForm, error) {
-	f := new(field.DeliveryForm)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) DeliveryForm() (field.DeliveryForm, error) {
+	var f field.DeliveryForm
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PctAtRisk is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) PctAtRisk() (*field.PctAtRisk, error) {
-	f := new(field.PctAtRisk)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) PctAtRisk() (field.PctAtRisk, error) {
+	var f field.PctAtRisk
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoInstrAttrib is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NoInstrAttrib() (*field.NoInstrAttrib, error) {
-	f := new(field.NoInstrAttrib)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NoInstrAttrib() (field.NoInstrAttrib, error) {
+	var f field.NoInstrAttrib
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoUnderlyings is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NoUnderlyings() (*field.NoUnderlyings, error) {
-	f := new(field.NoUnderlyings)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NoUnderlyings() (field.NoUnderlyings, error) {
+	var f field.NoUnderlyings
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLegs is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) NoLegs() (*field.NoLegs, error) {
-	f := new(field.NoLegs)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) NoLegs() (field.NoLegs, error) {
+	var f field.NoLegs
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Currency is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) Currency() (*field.Currency, error) {
-	f := new(field.Currency)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) Currency() (field.Currency, error) {
+	var f field.Currency
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SubscriptionRequestType is a required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
-	f := new(field.SubscriptionRequestType)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) SubscriptionRequestType() (field.SubscriptionRequestType, error) {
+	var f field.SubscriptionRequestType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionID is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) TradingSessionID() (*field.TradingSessionID, error) {
-	f := new(field.TradingSessionID)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) TradingSessionID() (field.TradingSessionID, error) {
+	var f field.TradingSessionID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionSubID is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) TradingSessionSubID() (*field.TradingSessionSubID, error) {
-	f := new(field.TradingSessionSubID)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) TradingSessionSubID() (field.TradingSessionSubID, error) {
+	var f field.TradingSessionSubID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarketID is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) MarketID() (*field.MarketID, error) {
-	f := new(field.MarketID)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) MarketID() (field.MarketID, error) {
+	var f field.MarketID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarketSegmentID is a non-required field for SecurityStatusRequest.
-func (m *SecurityStatusRequest) MarketSegmentID() (*field.MarketSegmentID, error) {
-	f := new(field.MarketSegmentID)
-	err := m.Body.Get(f)
+func (m SecurityStatusRequest) MarketSegmentID() (field.MarketSegmentID, error) {
+	var f field.MarketSegmentID
+	err := m.Body.Get(&f)
 	return f, err
 }

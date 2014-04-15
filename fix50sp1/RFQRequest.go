@@ -15,47 +15,48 @@ type RFQRequestBuilder struct {
 	message.MessageBuilder
 }
 
-//NewRFQRequestBuilder returns an initialized RFQRequestBuilder with specified required fields.
-func NewRFQRequestBuilder(
+//CreateRFQRequestBuilder returns an initialized RFQRequestBuilder with specified required fields.
+func CreateRFQRequestBuilder(
 	rfqreqid field.RFQReqID,
-	norelatedsym field.NoRelatedSym) *RFQRequestBuilder {
-	builder := new(RFQRequestBuilder)
+	norelatedsym field.NoRelatedSym) RFQRequestBuilder {
+	var builder RFQRequestBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(rfqreqid)
 	builder.Body.Set(norelatedsym)
 	return builder
 }
 
 //RFQReqID is a required field for RFQRequest.
-func (m *RFQRequest) RFQReqID() (*field.RFQReqID, error) {
-	f := new(field.RFQReqID)
-	err := m.Body.Get(f)
+func (m RFQRequest) RFQReqID() (field.RFQReqID, error) {
+	var f field.RFQReqID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a required field for RFQRequest.
-func (m *RFQRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
+func (m RFQRequest) NoRelatedSym() (field.NoRelatedSym, error) {
+	var f field.NoRelatedSym
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SubscriptionRequestType is a non-required field for RFQRequest.
-func (m *RFQRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, error) {
-	f := new(field.SubscriptionRequestType)
-	err := m.Body.Get(f)
+func (m RFQRequest) SubscriptionRequestType() (field.SubscriptionRequestType, error) {
+	var f field.SubscriptionRequestType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PrivateQuote is a non-required field for RFQRequest.
-func (m *RFQRequest) PrivateQuote() (*field.PrivateQuote, error) {
-	f := new(field.PrivateQuote)
-	err := m.Body.Get(f)
+func (m RFQRequest) PrivateQuote() (field.PrivateQuote, error) {
+	var f field.PrivateQuote
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for RFQRequest.
-func (m *RFQRequest) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
+func (m RFQRequest) NoPartyIDs() (field.NoPartyIDs, error) {
+	var f field.NoPartyIDs
+	err := m.Body.Get(&f)
 	return f, err
 }

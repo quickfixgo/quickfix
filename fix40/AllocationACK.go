@@ -15,12 +15,13 @@ type AllocationACKBuilder struct {
 	message.MessageBuilder
 }
 
-//NewAllocationACKBuilder returns an initialized AllocationACKBuilder with specified required fields.
-func NewAllocationACKBuilder(
+//CreateAllocationACKBuilder returns an initialized AllocationACKBuilder with specified required fields.
+func CreateAllocationACKBuilder(
 	allocid field.AllocID,
 	tradedate field.TradeDate,
-	allocstatus field.AllocStatus) *AllocationACKBuilder {
-	builder := new(AllocationACKBuilder)
+	allocstatus field.AllocStatus) AllocationACKBuilder {
+	var builder AllocationACKBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(allocid)
 	builder.Body.Set(tradedate)
 	builder.Body.Set(allocstatus)
@@ -28,57 +29,57 @@ func NewAllocationACKBuilder(
 }
 
 //ClientID is a non-required field for AllocationACK.
-func (m *AllocationACK) ClientID() (*field.ClientID, error) {
-	f := new(field.ClientID)
-	err := m.Body.Get(f)
+func (m AllocationACK) ClientID() (field.ClientID, error) {
+	var f field.ClientID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExecBroker is a non-required field for AllocationACK.
-func (m *AllocationACK) ExecBroker() (*field.ExecBroker, error) {
-	f := new(field.ExecBroker)
-	err := m.Body.Get(f)
+func (m AllocationACK) ExecBroker() (field.ExecBroker, error) {
+	var f field.ExecBroker
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AllocID is a required field for AllocationACK.
-func (m *AllocationACK) AllocID() (*field.AllocID, error) {
-	f := new(field.AllocID)
-	err := m.Body.Get(f)
+func (m AllocationACK) AllocID() (field.AllocID, error) {
+	var f field.AllocID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeDate is a required field for AllocationACK.
-func (m *AllocationACK) TradeDate() (*field.TradeDate, error) {
-	f := new(field.TradeDate)
-	err := m.Body.Get(f)
+func (m AllocationACK) TradeDate() (field.TradeDate, error) {
+	var f field.TradeDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a non-required field for AllocationACK.
-func (m *AllocationACK) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
+func (m AllocationACK) TransactTime() (field.TransactTime, error) {
+	var f field.TransactTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AllocStatus is a required field for AllocationACK.
-func (m *AllocationACK) AllocStatus() (*field.AllocStatus, error) {
-	f := new(field.AllocStatus)
-	err := m.Body.Get(f)
+func (m AllocationACK) AllocStatus() (field.AllocStatus, error) {
+	var f field.AllocStatus
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AllocRejCode is a non-required field for AllocationACK.
-func (m *AllocationACK) AllocRejCode() (*field.AllocRejCode, error) {
-	f := new(field.AllocRejCode)
-	err := m.Body.Get(f)
+func (m AllocationACK) AllocRejCode() (field.AllocRejCode, error) {
+	var f field.AllocRejCode
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for AllocationACK.
-func (m *AllocationACK) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
+func (m AllocationACK) Text() (field.Text, error) {
+	var f field.Text
+	err := m.Body.Get(&f)
 	return f, err
 }

@@ -15,15 +15,16 @@ type HeartbeatBuilder struct {
 	message.MessageBuilder
 }
 
-//NewHeartbeatBuilder returns an initialized HeartbeatBuilder with specified required fields.
-func NewHeartbeatBuilder() *HeartbeatBuilder {
-	builder := new(HeartbeatBuilder)
+//CreateHeartbeatBuilder returns an initialized HeartbeatBuilder with specified required fields.
+func CreateHeartbeatBuilder() HeartbeatBuilder {
+	var builder HeartbeatBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	return builder
 }
 
 //TestReqID is a non-required field for Heartbeat.
-func (m *Heartbeat) TestReqID() (*field.TestReqID, error) {
-	f := new(field.TestReqID)
-	err := m.Body.Get(f)
+func (m Heartbeat) TestReqID() (field.TestReqID, error) {
+	var f field.TestReqID
+	err := m.Body.Get(&f)
 	return f, err
 }

@@ -4,7 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix"
 )
 
-//StringValue is a container for int, implements FieldValue.
+//StringValue is a container for string, implements FieldValue.
 type StringValue struct {
 	Value string
 }

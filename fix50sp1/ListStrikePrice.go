@@ -15,12 +15,13 @@ type ListStrikePriceBuilder struct {
 	message.MessageBuilder
 }
 
-//NewListStrikePriceBuilder returns an initialized ListStrikePriceBuilder with specified required fields.
-func NewListStrikePriceBuilder(
+//CreateListStrikePriceBuilder returns an initialized ListStrikePriceBuilder with specified required fields.
+func CreateListStrikePriceBuilder(
 	listid field.ListID,
 	totnostrikes field.TotNoStrikes,
-	nostrikes field.NoStrikes) *ListStrikePriceBuilder {
-	builder := new(ListStrikePriceBuilder)
+	nostrikes field.NoStrikes) ListStrikePriceBuilder {
+	var builder ListStrikePriceBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(listid)
 	builder.Body.Set(totnostrikes)
 	builder.Body.Set(nostrikes)
@@ -28,29 +29,29 @@ func NewListStrikePriceBuilder(
 }
 
 //ListID is a required field for ListStrikePrice.
-func (m *ListStrikePrice) ListID() (*field.ListID, error) {
-	f := new(field.ListID)
-	err := m.Body.Get(f)
+func (m ListStrikePrice) ListID() (field.ListID, error) {
+	var f field.ListID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotNoStrikes is a required field for ListStrikePrice.
-func (m *ListStrikePrice) TotNoStrikes() (*field.TotNoStrikes, error) {
-	f := new(field.TotNoStrikes)
-	err := m.Body.Get(f)
+func (m ListStrikePrice) TotNoStrikes() (field.TotNoStrikes, error) {
+	var f field.TotNoStrikes
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LastFragment is a non-required field for ListStrikePrice.
-func (m *ListStrikePrice) LastFragment() (*field.LastFragment, error) {
-	f := new(field.LastFragment)
-	err := m.Body.Get(f)
+func (m ListStrikePrice) LastFragment() (field.LastFragment, error) {
+	var f field.LastFragment
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoStrikes is a required field for ListStrikePrice.
-func (m *ListStrikePrice) NoStrikes() (*field.NoStrikes, error) {
-	f := new(field.NoStrikes)
-	err := m.Body.Get(f)
+func (m ListStrikePrice) NoStrikes() (field.NoStrikes, error) {
+	var f field.NoStrikes
+	err := m.Body.Get(&f)
 	return f, err
 }

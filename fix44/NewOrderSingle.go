@@ -15,13 +15,14 @@ type NewOrderSingleBuilder struct {
 	message.MessageBuilder
 }
 
-//NewNewOrderSingleBuilder returns an initialized NewOrderSingleBuilder with specified required fields.
-func NewNewOrderSingleBuilder(
+//CreateNewOrderSingleBuilder returns an initialized NewOrderSingleBuilder with specified required fields.
+func CreateNewOrderSingleBuilder(
 	clordid field.ClOrdID,
 	side field.Side,
 	transacttime field.TransactTime,
-	ordtype field.OrdType) *NewOrderSingleBuilder {
-	builder := new(NewOrderSingleBuilder)
+	ordtype field.OrdType) NewOrderSingleBuilder {
+	var builder NewOrderSingleBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(clordid)
 	builder.Body.Set(side)
 	builder.Body.Set(transacttime)
@@ -30,1086 +31,1086 @@ func NewNewOrderSingleBuilder(
 }
 
 //ClOrdID is a required field for NewOrderSingle.
-func (m *NewOrderSingle) ClOrdID() (*field.ClOrdID, error) {
-	f := new(field.ClOrdID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ClOrdID() (field.ClOrdID, error) {
+	var f field.ClOrdID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecondaryClOrdID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SecondaryClOrdID() (*field.SecondaryClOrdID, error) {
-	f := new(field.SecondaryClOrdID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SecondaryClOrdID() (field.SecondaryClOrdID, error) {
+	var f field.SecondaryClOrdID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdLinkID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ClOrdLinkID() (*field.ClOrdLinkID, error) {
-	f := new(field.ClOrdLinkID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ClOrdLinkID() (field.ClOrdLinkID, error) {
+	var f field.ClOrdLinkID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) NoPartyIDs() (*field.NoPartyIDs, error) {
-	f := new(field.NoPartyIDs)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) NoPartyIDs() (field.NoPartyIDs, error) {
+	var f field.NoPartyIDs
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeOriginationDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) TradeOriginationDate() (*field.TradeOriginationDate, error) {
-	f := new(field.TradeOriginationDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) TradeOriginationDate() (field.TradeOriginationDate, error) {
+	var f field.TradeOriginationDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) TradeDate() (*field.TradeDate, error) {
-	f := new(field.TradeDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) TradeDate() (field.TradeDate, error) {
+	var f field.TradeDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Account is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Account() (*field.Account, error) {
-	f := new(field.Account)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Account() (field.Account, error) {
+	var f field.Account
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AcctIDSource is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) AcctIDSource() (*field.AcctIDSource, error) {
-	f := new(field.AcctIDSource)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) AcctIDSource() (field.AcctIDSource, error) {
+	var f field.AcctIDSource
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AccountType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) AccountType() (*field.AccountType, error) {
-	f := new(field.AccountType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) AccountType() (field.AccountType, error) {
+	var f field.AccountType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DayBookingInst is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DayBookingInst() (*field.DayBookingInst, error) {
-	f := new(field.DayBookingInst)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DayBookingInst() (field.DayBookingInst, error) {
+	var f field.DayBookingInst
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BookingUnit is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BookingUnit() (*field.BookingUnit, error) {
-	f := new(field.BookingUnit)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BookingUnit() (field.BookingUnit, error) {
+	var f field.BookingUnit
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PreallocMethod is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PreallocMethod() (*field.PreallocMethod, error) {
-	f := new(field.PreallocMethod)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PreallocMethod() (field.PreallocMethod, error) {
+	var f field.PreallocMethod
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AllocID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) AllocID() (*field.AllocID, error) {
-	f := new(field.AllocID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) AllocID() (field.AllocID, error) {
+	var f field.AllocID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoAllocs is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) NoAllocs() (*field.NoAllocs, error) {
-	f := new(field.NoAllocs)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) NoAllocs() (field.NoAllocs, error) {
+	var f field.NoAllocs
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SettlType() (*field.SettlType, error) {
-	f := new(field.SettlType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SettlType() (field.SettlType, error) {
+	var f field.SettlType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SettlDate() (*field.SettlDate, error) {
-	f := new(field.SettlDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SettlDate() (field.SettlDate, error) {
+	var f field.SettlDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CashMargin is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CashMargin() (*field.CashMargin, error) {
-	f := new(field.CashMargin)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CashMargin() (field.CashMargin, error) {
+	var f field.CashMargin
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClearingFeeIndicator is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ClearingFeeIndicator() (*field.ClearingFeeIndicator, error) {
-	f := new(field.ClearingFeeIndicator)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ClearingFeeIndicator() (field.ClearingFeeIndicator, error) {
+	var f field.ClearingFeeIndicator
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //HandlInst is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) HandlInst() (*field.HandlInst, error) {
-	f := new(field.HandlInst)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) HandlInst() (field.HandlInst, error) {
+	var f field.HandlInst
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExecInst is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ExecInst() (*field.ExecInst, error) {
-	f := new(field.ExecInst)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ExecInst() (field.ExecInst, error) {
+	var f field.ExecInst
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinQty is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) MinQty() (*field.MinQty, error) {
-	f := new(field.MinQty)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) MinQty() (field.MinQty, error) {
+	var f field.MinQty
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaxFloor is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) MaxFloor() (*field.MaxFloor, error) {
-	f := new(field.MaxFloor)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) MaxFloor() (field.MaxFloor, error) {
+	var f field.MaxFloor
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExDestination is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ExDestination() (*field.ExDestination, error) {
-	f := new(field.ExDestination)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ExDestination() (field.ExDestination, error) {
+	var f field.ExDestination
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTradingSessions is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) NoTradingSessions() (*field.NoTradingSessions, error) {
-	f := new(field.NoTradingSessions)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) NoTradingSessions() (field.NoTradingSessions, error) {
+	var f field.NoTradingSessions
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProcessCode is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ProcessCode() (*field.ProcessCode, error) {
-	f := new(field.ProcessCode)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ProcessCode() (field.ProcessCode, error) {
+	var f field.ProcessCode
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Symbol() (*field.Symbol, error) {
-	f := new(field.Symbol)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Symbol() (field.Symbol, error) {
+	var f field.Symbol
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SymbolSfx() (*field.SymbolSfx, error) {
-	f := new(field.SymbolSfx)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SymbolSfx() (field.SymbolSfx, error) {
+	var f field.SymbolSfx
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SecurityID() (*field.SecurityID, error) {
-	f := new(field.SecurityID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SecurityID() (field.SecurityID, error) {
+	var f field.SecurityID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityIDSource is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SecurityIDSource() (*field.SecurityIDSource, error) {
-	f := new(field.SecurityIDSource)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SecurityIDSource() (field.SecurityIDSource, error) {
+	var f field.SecurityIDSource
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityAltID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) NoSecurityAltID() (*field.NoSecurityAltID, error) {
-	f := new(field.NoSecurityAltID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) NoSecurityAltID() (field.NoSecurityAltID, error) {
+	var f field.NoSecurityAltID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Product() (*field.Product, error) {
-	f := new(field.Product)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Product() (field.Product, error) {
+	var f field.Product
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CFICode() (*field.CFICode, error) {
-	f := new(field.CFICode)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CFICode() (field.CFICode, error) {
+	var f field.CFICode
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SecurityType() (*field.SecurityType, error) {
-	f := new(field.SecurityType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SecurityType() (field.SecurityType, error) {
+	var f field.SecurityType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecuritySubType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SecuritySubType() (*field.SecuritySubType, error) {
-	f := new(field.SecuritySubType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SecuritySubType() (field.SecuritySubType, error) {
+	var f field.SecuritySubType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityMonthYear is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) MaturityMonthYear() (*field.MaturityMonthYear, error) {
-	f := new(field.MaturityMonthYear)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) MaturityMonthYear() (field.MaturityMonthYear, error) {
+	var f field.MaturityMonthYear
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) MaturityDate() (*field.MaturityDate, error) {
-	f := new(field.MaturityDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) MaturityDate() (field.MaturityDate, error) {
+	var f field.MaturityDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponPaymentDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CouponPaymentDate() (*field.CouponPaymentDate, error) {
-	f := new(field.CouponPaymentDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CouponPaymentDate() (field.CouponPaymentDate, error) {
+	var f field.CouponPaymentDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IssueDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) IssueDate() (*field.IssueDate, error) {
-	f := new(field.IssueDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) IssueDate() (field.IssueDate, error) {
+	var f field.IssueDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepoCollateralSecurityType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, error) {
-	f := new(field.RepoCollateralSecurityType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, error) {
+	var f field.RepoCollateralSecurityType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseTerm is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) RepurchaseTerm() (*field.RepurchaseTerm, error) {
-	f := new(field.RepurchaseTerm)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) RepurchaseTerm() (field.RepurchaseTerm, error) {
+	var f field.RepurchaseTerm
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseRate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) RepurchaseRate() (*field.RepurchaseRate, error) {
-	f := new(field.RepurchaseRate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) RepurchaseRate() (field.RepurchaseRate, error) {
+	var f field.RepurchaseRate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Factor is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Factor() (*field.Factor, error) {
-	f := new(field.Factor)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Factor() (field.Factor, error) {
+	var f field.Factor
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CreditRating is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CreditRating() (*field.CreditRating, error) {
-	f := new(field.CreditRating)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CreditRating() (field.CreditRating, error) {
+	var f field.CreditRating
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrRegistry is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) InstrRegistry() (*field.InstrRegistry, error) {
-	f := new(field.InstrRegistry)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) InstrRegistry() (field.InstrRegistry, error) {
+	var f field.InstrRegistry
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CountryOfIssue is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CountryOfIssue() (*field.CountryOfIssue, error) {
-	f := new(field.CountryOfIssue)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CountryOfIssue() (field.CountryOfIssue, error) {
+	var f field.CountryOfIssue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StateOrProvinceOfIssue is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, error) {
-	f := new(field.StateOrProvinceOfIssue)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, error) {
+	var f field.StateOrProvinceOfIssue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocaleOfIssue is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) LocaleOfIssue() (*field.LocaleOfIssue, error) {
-	f := new(field.LocaleOfIssue)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) LocaleOfIssue() (field.LocaleOfIssue, error) {
+	var f field.LocaleOfIssue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RedemptionDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) RedemptionDate() (*field.RedemptionDate, error) {
-	f := new(field.RedemptionDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) RedemptionDate() (field.RedemptionDate, error) {
+	var f field.RedemptionDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePrice is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) StrikePrice() (*field.StrikePrice, error) {
-	f := new(field.StrikePrice)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) StrikePrice() (field.StrikePrice, error) {
+	var f field.StrikePrice
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeCurrency is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) StrikeCurrency() (*field.StrikeCurrency, error) {
-	f := new(field.StrikeCurrency)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) StrikeCurrency() (field.StrikeCurrency, error) {
+	var f field.StrikeCurrency
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptAttribute is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) OptAttribute() (*field.OptAttribute, error) {
-	f := new(field.OptAttribute)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) OptAttribute() (field.OptAttribute, error) {
+	var f field.OptAttribute
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplier is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ContractMultiplier() (*field.ContractMultiplier, error) {
-	f := new(field.ContractMultiplier)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ContractMultiplier() (field.ContractMultiplier, error) {
+	var f field.ContractMultiplier
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponRate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CouponRate() (*field.CouponRate, error) {
-	f := new(field.CouponRate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CouponRate() (field.CouponRate, error) {
+	var f field.CouponRate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityExchange is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SecurityExchange() (*field.SecurityExchange, error) {
-	f := new(field.SecurityExchange)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SecurityExchange() (field.SecurityExchange, error) {
+	var f field.SecurityExchange
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Issuer() (*field.Issuer, error) {
-	f := new(field.Issuer)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Issuer() (field.Issuer, error) {
+	var f field.Issuer
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuerLen is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) EncodedIssuerLen() (*field.EncodedIssuerLen, error) {
-	f := new(field.EncodedIssuerLen)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) EncodedIssuerLen() (field.EncodedIssuerLen, error) {
+	var f field.EncodedIssuerLen
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuer is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) EncodedIssuer() (*field.EncodedIssuer, error) {
-	f := new(field.EncodedIssuer)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) EncodedIssuer() (field.EncodedIssuer, error) {
+	var f field.EncodedIssuer
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SecurityDesc() (*field.SecurityDesc, error) {
-	f := new(field.SecurityDesc)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SecurityDesc() (field.SecurityDesc, error) {
+	var f field.SecurityDesc
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDescLen is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, error) {
-	f := new(field.EncodedSecurityDescLen)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, error) {
+	var f field.EncodedSecurityDescLen
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDesc is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) EncodedSecurityDesc() (*field.EncodedSecurityDesc, error) {
-	f := new(field.EncodedSecurityDesc)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) EncodedSecurityDesc() (field.EncodedSecurityDesc, error) {
+	var f field.EncodedSecurityDesc
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Pool is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Pool() (*field.Pool, error) {
-	f := new(field.Pool)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Pool() (field.Pool, error) {
+	var f field.Pool
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractSettlMonth is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ContractSettlMonth() (*field.ContractSettlMonth, error) {
-	f := new(field.ContractSettlMonth)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ContractSettlMonth() (field.ContractSettlMonth, error) {
+	var f field.ContractSettlMonth
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPProgram is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CPProgram() (*field.CPProgram, error) {
-	f := new(field.CPProgram)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CPProgram() (field.CPProgram, error) {
+	var f field.CPProgram
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPRegType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CPRegType() (*field.CPRegType, error) {
-	f := new(field.CPRegType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CPRegType() (field.CPRegType, error) {
+	var f field.CPRegType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoEvents is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) NoEvents() (*field.NoEvents, error) {
-	f := new(field.NoEvents)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) NoEvents() (field.NoEvents, error) {
+	var f field.NoEvents
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DatedDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DatedDate() (*field.DatedDate, error) {
-	f := new(field.DatedDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DatedDate() (field.DatedDate, error) {
+	var f field.DatedDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InterestAccrualDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) InterestAccrualDate() (*field.InterestAccrualDate, error) {
-	f := new(field.InterestAccrualDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) InterestAccrualDate() (field.InterestAccrualDate, error) {
+	var f field.InterestAccrualDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementDesc is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) AgreementDesc() (*field.AgreementDesc, error) {
-	f := new(field.AgreementDesc)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) AgreementDesc() (field.AgreementDesc, error) {
+	var f field.AgreementDesc
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) AgreementID() (*field.AgreementID, error) {
-	f := new(field.AgreementID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) AgreementID() (field.AgreementID, error) {
+	var f field.AgreementID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) AgreementDate() (*field.AgreementDate, error) {
-	f := new(field.AgreementDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) AgreementDate() (field.AgreementDate, error) {
+	var f field.AgreementDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementCurrency is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) AgreementCurrency() (*field.AgreementCurrency, error) {
-	f := new(field.AgreementCurrency)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) AgreementCurrency() (field.AgreementCurrency, error) {
+	var f field.AgreementCurrency
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TerminationType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) TerminationType() (*field.TerminationType, error) {
-	f := new(field.TerminationType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) TerminationType() (field.TerminationType, error) {
+	var f field.TerminationType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StartDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) StartDate() (*field.StartDate, error) {
-	f := new(field.StartDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) StartDate() (field.StartDate, error) {
+	var f field.StartDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EndDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) EndDate() (*field.EndDate, error) {
-	f := new(field.EndDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) EndDate() (field.EndDate, error) {
+	var f field.EndDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DeliveryType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DeliveryType() (*field.DeliveryType, error) {
-	f := new(field.DeliveryType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DeliveryType() (field.DeliveryType, error) {
+	var f field.DeliveryType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarginRatio is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) MarginRatio() (*field.MarginRatio, error) {
-	f := new(field.MarginRatio)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) MarginRatio() (field.MarginRatio, error) {
+	var f field.MarginRatio
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoUnderlyings is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) NoUnderlyings() (*field.NoUnderlyings, error) {
-	f := new(field.NoUnderlyings)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) NoUnderlyings() (field.NoUnderlyings, error) {
+	var f field.NoUnderlyings
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PrevClosePx is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PrevClosePx() (*field.PrevClosePx, error) {
-	f := new(field.PrevClosePx)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PrevClosePx() (field.PrevClosePx, error) {
+	var f field.PrevClosePx
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Side is a required field for NewOrderSingle.
-func (m *NewOrderSingle) Side() (*field.Side, error) {
-	f := new(field.Side)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Side() (field.Side, error) {
+	var f field.Side
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocateReqd is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) LocateReqd() (*field.LocateReqd, error) {
-	f := new(field.LocateReqd)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) LocateReqd() (field.LocateReqd, error) {
+	var f field.LocateReqd
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for NewOrderSingle.
-func (m *NewOrderSingle) TransactTime() (*field.TransactTime, error) {
-	f := new(field.TransactTime)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) TransactTime() (field.TransactTime, error) {
+	var f field.TransactTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoStipulations is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) NoStipulations() (*field.NoStipulations, error) {
-	f := new(field.NoStipulations)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) NoStipulations() (field.NoStipulations, error) {
+	var f field.NoStipulations
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QtyType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) QtyType() (*field.QtyType, error) {
-	f := new(field.QtyType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) QtyType() (field.QtyType, error) {
+	var f field.QtyType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderQty is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) OrderQty() (*field.OrderQty, error) {
-	f := new(field.OrderQty)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) OrderQty() (field.OrderQty, error) {
+	var f field.OrderQty
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CashOrderQty is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CashOrderQty() (*field.CashOrderQty, error) {
-	f := new(field.CashOrderQty)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CashOrderQty() (field.CashOrderQty, error) {
+	var f field.CashOrderQty
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderPercent is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) OrderPercent() (*field.OrderPercent, error) {
-	f := new(field.OrderPercent)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) OrderPercent() (field.OrderPercent, error) {
+	var f field.OrderPercent
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RoundingDirection is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) RoundingDirection() (*field.RoundingDirection, error) {
-	f := new(field.RoundingDirection)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) RoundingDirection() (field.RoundingDirection, error) {
+	var f field.RoundingDirection
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RoundingModulus is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) RoundingModulus() (*field.RoundingModulus, error) {
-	f := new(field.RoundingModulus)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) RoundingModulus() (field.RoundingModulus, error) {
+	var f field.RoundingModulus
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrdType is a required field for NewOrderSingle.
-func (m *NewOrderSingle) OrdType() (*field.OrdType, error) {
-	f := new(field.OrdType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) OrdType() (field.OrdType, error) {
+	var f field.OrdType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PriceType() (*field.PriceType, error) {
-	f := new(field.PriceType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PriceType() (field.PriceType, error) {
+	var f field.PriceType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Price is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Price() (*field.Price, error) {
-	f := new(field.Price)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Price() (field.Price, error) {
+	var f field.Price
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StopPx is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) StopPx() (*field.StopPx, error) {
-	f := new(field.StopPx)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) StopPx() (field.StopPx, error) {
+	var f field.StopPx
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Spread is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Spread() (*field.Spread, error) {
-	f := new(field.Spread)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Spread() (field.Spread, error) {
+	var f field.Spread
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurveCurrency is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BenchmarkCurveCurrency() (*field.BenchmarkCurveCurrency, error) {
-	f := new(field.BenchmarkCurveCurrency)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BenchmarkCurveCurrency() (field.BenchmarkCurveCurrency, error) {
+	var f field.BenchmarkCurveCurrency
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurveName is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BenchmarkCurveName() (*field.BenchmarkCurveName, error) {
-	f := new(field.BenchmarkCurveName)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BenchmarkCurveName() (field.BenchmarkCurveName, error) {
+	var f field.BenchmarkCurveName
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurvePoint is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BenchmarkCurvePoint() (*field.BenchmarkCurvePoint, error) {
-	f := new(field.BenchmarkCurvePoint)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BenchmarkCurvePoint() (field.BenchmarkCurvePoint, error) {
+	var f field.BenchmarkCurvePoint
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkPrice is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BenchmarkPrice() (*field.BenchmarkPrice, error) {
-	f := new(field.BenchmarkPrice)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BenchmarkPrice() (field.BenchmarkPrice, error) {
+	var f field.BenchmarkPrice
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkPriceType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BenchmarkPriceType() (*field.BenchmarkPriceType, error) {
-	f := new(field.BenchmarkPriceType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BenchmarkPriceType() (field.BenchmarkPriceType, error) {
+	var f field.BenchmarkPriceType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkSecurityID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BenchmarkSecurityID() (*field.BenchmarkSecurityID, error) {
-	f := new(field.BenchmarkSecurityID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BenchmarkSecurityID() (field.BenchmarkSecurityID, error) {
+	var f field.BenchmarkSecurityID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkSecurityIDSource is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BenchmarkSecurityIDSource() (*field.BenchmarkSecurityIDSource, error) {
-	f := new(field.BenchmarkSecurityIDSource)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BenchmarkSecurityIDSource() (field.BenchmarkSecurityIDSource, error) {
+	var f field.BenchmarkSecurityIDSource
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) YieldType() (*field.YieldType, error) {
-	f := new(field.YieldType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) YieldType() (field.YieldType, error) {
+	var f field.YieldType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Yield is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Yield() (*field.Yield, error) {
-	f := new(field.Yield)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Yield() (field.Yield, error) {
+	var f field.Yield
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldCalcDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) YieldCalcDate() (*field.YieldCalcDate, error) {
-	f := new(field.YieldCalcDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) YieldCalcDate() (field.YieldCalcDate, error) {
+	var f field.YieldCalcDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldRedemptionDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) YieldRedemptionDate() (*field.YieldRedemptionDate, error) {
-	f := new(field.YieldRedemptionDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) YieldRedemptionDate() (field.YieldRedemptionDate, error) {
+	var f field.YieldRedemptionDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldRedemptionPrice is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) YieldRedemptionPrice() (*field.YieldRedemptionPrice, error) {
-	f := new(field.YieldRedemptionPrice)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) YieldRedemptionPrice() (field.YieldRedemptionPrice, error) {
+	var f field.YieldRedemptionPrice
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldRedemptionPriceType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) YieldRedemptionPriceType() (*field.YieldRedemptionPriceType, error) {
-	f := new(field.YieldRedemptionPriceType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) YieldRedemptionPriceType() (field.YieldRedemptionPriceType, error) {
+	var f field.YieldRedemptionPriceType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Currency is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Currency() (*field.Currency, error) {
-	f := new(field.Currency)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Currency() (field.Currency, error) {
+	var f field.Currency
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ComplianceID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ComplianceID() (*field.ComplianceID, error) {
-	f := new(field.ComplianceID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ComplianceID() (field.ComplianceID, error) {
+	var f field.ComplianceID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SolicitedFlag is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SolicitedFlag() (*field.SolicitedFlag, error) {
-	f := new(field.SolicitedFlag)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SolicitedFlag() (field.SolicitedFlag, error) {
+	var f field.SolicitedFlag
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IOIID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) IOIID() (*field.IOIID, error) {
-	f := new(field.IOIID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) IOIID() (field.IOIID, error) {
+	var f field.IOIID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) QuoteID() (*field.QuoteID, error) {
-	f := new(field.QuoteID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) QuoteID() (field.QuoteID, error) {
+	var f field.QuoteID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TimeInForce is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) TimeInForce() (*field.TimeInForce, error) {
-	f := new(field.TimeInForce)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) TimeInForce() (field.TimeInForce, error) {
+	var f field.TimeInForce
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EffectiveTime is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) EffectiveTime() (*field.EffectiveTime, error) {
-	f := new(field.EffectiveTime)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) EffectiveTime() (field.EffectiveTime, error) {
+	var f field.EffectiveTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExpireDate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ExpireDate() (*field.ExpireDate, error) {
-	f := new(field.ExpireDate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ExpireDate() (field.ExpireDate, error) {
+	var f field.ExpireDate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExpireTime is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ExpireTime() (*field.ExpireTime, error) {
-	f := new(field.ExpireTime)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ExpireTime() (field.ExpireTime, error) {
+	var f field.ExpireTime
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //GTBookingInst is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) GTBookingInst() (*field.GTBookingInst, error) {
-	f := new(field.GTBookingInst)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) GTBookingInst() (field.GTBookingInst, error) {
+	var f field.GTBookingInst
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Commission is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Commission() (*field.Commission, error) {
-	f := new(field.Commission)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Commission() (field.Commission, error) {
+	var f field.Commission
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CommType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CommType() (*field.CommType, error) {
-	f := new(field.CommType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CommType() (field.CommType, error) {
+	var f field.CommType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CommCurrency is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CommCurrency() (*field.CommCurrency, error) {
-	f := new(field.CommCurrency)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CommCurrency() (field.CommCurrency, error) {
+	var f field.CommCurrency
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FundRenewWaiv is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) FundRenewWaiv() (*field.FundRenewWaiv, error) {
-	f := new(field.FundRenewWaiv)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) FundRenewWaiv() (field.FundRenewWaiv, error) {
+	var f field.FundRenewWaiv
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderCapacity is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) OrderCapacity() (*field.OrderCapacity, error) {
-	f := new(field.OrderCapacity)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) OrderCapacity() (field.OrderCapacity, error) {
+	var f field.OrderCapacity
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderRestrictions is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) OrderRestrictions() (*field.OrderRestrictions, error) {
-	f := new(field.OrderRestrictions)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) OrderRestrictions() (field.OrderRestrictions, error) {
+	var f field.OrderRestrictions
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CustOrderCapacity is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CustOrderCapacity() (*field.CustOrderCapacity, error) {
-	f := new(field.CustOrderCapacity)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CustOrderCapacity() (field.CustOrderCapacity, error) {
+	var f field.CustOrderCapacity
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ForexReq is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ForexReq() (*field.ForexReq, error) {
-	f := new(field.ForexReq)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ForexReq() (field.ForexReq, error) {
+	var f field.ForexReq
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlCurrency is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SettlCurrency() (*field.SettlCurrency, error) {
-	f := new(field.SettlCurrency)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SettlCurrency() (field.SettlCurrency, error) {
+	var f field.SettlCurrency
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BookingType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) BookingType() (*field.BookingType, error) {
-	f := new(field.BookingType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) BookingType() (field.BookingType, error) {
+	var f field.BookingType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Text() (field.Text, error) {
+	var f field.Text
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) EncodedTextLen() (field.EncodedTextLen, error) {
+	var f field.EncodedTextLen
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) EncodedText() (field.EncodedText, error) {
+	var f field.EncodedText
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlDate2 is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) SettlDate2() (*field.SettlDate2, error) {
-	f := new(field.SettlDate2)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) SettlDate2() (field.SettlDate2, error) {
+	var f field.SettlDate2
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderQty2 is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) OrderQty2() (*field.OrderQty2, error) {
-	f := new(field.OrderQty2)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) OrderQty2() (field.OrderQty2, error) {
+	var f field.OrderQty2
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Price2 is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Price2() (*field.Price2, error) {
-	f := new(field.Price2)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Price2() (field.Price2, error) {
+	var f field.Price2
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PositionEffect is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PositionEffect() (*field.PositionEffect, error) {
-	f := new(field.PositionEffect)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PositionEffect() (field.PositionEffect, error) {
+	var f field.PositionEffect
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CoveredOrUncovered is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CoveredOrUncovered() (*field.CoveredOrUncovered, error) {
-	f := new(field.CoveredOrUncovered)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CoveredOrUncovered() (field.CoveredOrUncovered, error) {
+	var f field.CoveredOrUncovered
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaxShow is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) MaxShow() (*field.MaxShow, error) {
-	f := new(field.MaxShow)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) MaxShow() (field.MaxShow, error) {
+	var f field.MaxShow
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PegOffsetValue is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PegOffsetValue() (*field.PegOffsetValue, error) {
-	f := new(field.PegOffsetValue)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PegOffsetValue() (field.PegOffsetValue, error) {
+	var f field.PegOffsetValue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PegMoveType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PegMoveType() (*field.PegMoveType, error) {
-	f := new(field.PegMoveType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PegMoveType() (field.PegMoveType, error) {
+	var f field.PegMoveType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PegOffsetType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PegOffsetType() (*field.PegOffsetType, error) {
-	f := new(field.PegOffsetType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PegOffsetType() (field.PegOffsetType, error) {
+	var f field.PegOffsetType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PegLimitType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PegLimitType() (*field.PegLimitType, error) {
-	f := new(field.PegLimitType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PegLimitType() (field.PegLimitType, error) {
+	var f field.PegLimitType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PegRoundDirection is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PegRoundDirection() (*field.PegRoundDirection, error) {
-	f := new(field.PegRoundDirection)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PegRoundDirection() (field.PegRoundDirection, error) {
+	var f field.PegRoundDirection
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PegScope is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) PegScope() (*field.PegScope, error) {
-	f := new(field.PegScope)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) PegScope() (field.PegScope, error) {
+	var f field.PegScope
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionInst is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DiscretionInst() (*field.DiscretionInst, error) {
-	f := new(field.DiscretionInst)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DiscretionInst() (field.DiscretionInst, error) {
+	var f field.DiscretionInst
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionOffsetValue is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DiscretionOffsetValue() (*field.DiscretionOffsetValue, error) {
-	f := new(field.DiscretionOffsetValue)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DiscretionOffsetValue() (field.DiscretionOffsetValue, error) {
+	var f field.DiscretionOffsetValue
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionMoveType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DiscretionMoveType() (*field.DiscretionMoveType, error) {
-	f := new(field.DiscretionMoveType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DiscretionMoveType() (field.DiscretionMoveType, error) {
+	var f field.DiscretionMoveType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionOffsetType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DiscretionOffsetType() (*field.DiscretionOffsetType, error) {
-	f := new(field.DiscretionOffsetType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DiscretionOffsetType() (field.DiscretionOffsetType, error) {
+	var f field.DiscretionOffsetType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionLimitType is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DiscretionLimitType() (*field.DiscretionLimitType, error) {
-	f := new(field.DiscretionLimitType)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DiscretionLimitType() (field.DiscretionLimitType, error) {
+	var f field.DiscretionLimitType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionRoundDirection is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DiscretionRoundDirection() (*field.DiscretionRoundDirection, error) {
-	f := new(field.DiscretionRoundDirection)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DiscretionRoundDirection() (field.DiscretionRoundDirection, error) {
+	var f field.DiscretionRoundDirection
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionScope is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) DiscretionScope() (*field.DiscretionScope, error) {
-	f := new(field.DiscretionScope)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) DiscretionScope() (field.DiscretionScope, error) {
+	var f field.DiscretionScope
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TargetStrategy is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) TargetStrategy() (*field.TargetStrategy, error) {
-	f := new(field.TargetStrategy)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) TargetStrategy() (field.TargetStrategy, error) {
+	var f field.TargetStrategy
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TargetStrategyParameters is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) TargetStrategyParameters() (*field.TargetStrategyParameters, error) {
-	f := new(field.TargetStrategyParameters)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) TargetStrategyParameters() (field.TargetStrategyParameters, error) {
+	var f field.TargetStrategyParameters
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ParticipationRate is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) ParticipationRate() (*field.ParticipationRate, error) {
-	f := new(field.ParticipationRate)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) ParticipationRate() (field.ParticipationRate, error) {
+	var f field.ParticipationRate
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CancellationRights is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) CancellationRights() (*field.CancellationRights, error) {
-	f := new(field.CancellationRights)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) CancellationRights() (field.CancellationRights, error) {
+	var f field.CancellationRights
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MoneyLaunderingStatus is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) MoneyLaunderingStatus() (*field.MoneyLaunderingStatus, error) {
-	f := new(field.MoneyLaunderingStatus)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) MoneyLaunderingStatus() (field.MoneyLaunderingStatus, error) {
+	var f field.MoneyLaunderingStatus
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RegistID is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) RegistID() (*field.RegistID, error) {
-	f := new(field.RegistID)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) RegistID() (field.RegistID, error) {
+	var f field.RegistID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Designation is a non-required field for NewOrderSingle.
-func (m *NewOrderSingle) Designation() (*field.Designation, error) {
-	f := new(field.Designation)
-	err := m.Body.Get(f)
+func (m NewOrderSingle) Designation() (field.Designation, error) {
+	var f field.Designation
+	err := m.Body.Get(&f)
 	return f, err
 }

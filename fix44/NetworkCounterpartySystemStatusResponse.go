@@ -15,12 +15,13 @@ type NetworkCounterpartySystemStatusResponseBuilder struct {
 	message.MessageBuilder
 }
 
-//NewNetworkCounterpartySystemStatusResponseBuilder returns an initialized NetworkCounterpartySystemStatusResponseBuilder with specified required fields.
-func NewNetworkCounterpartySystemStatusResponseBuilder(
+//CreateNetworkCounterpartySystemStatusResponseBuilder returns an initialized NetworkCounterpartySystemStatusResponseBuilder with specified required fields.
+func CreateNetworkCounterpartySystemStatusResponseBuilder(
 	networkstatusresponsetype field.NetworkStatusResponseType,
 	networkresponseid field.NetworkResponseID,
-	nocompids field.NoCompIDs) *NetworkCounterpartySystemStatusResponseBuilder {
-	builder := new(NetworkCounterpartySystemStatusResponseBuilder)
+	nocompids field.NoCompIDs) NetworkCounterpartySystemStatusResponseBuilder {
+	var builder NetworkCounterpartySystemStatusResponseBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(networkstatusresponsetype)
 	builder.Body.Set(networkresponseid)
 	builder.Body.Set(nocompids)
@@ -28,36 +29,36 @@ func NewNetworkCounterpartySystemStatusResponseBuilder(
 }
 
 //NetworkStatusResponseType is a required field for NetworkCounterpartySystemStatusResponse.
-func (m *NetworkCounterpartySystemStatusResponse) NetworkStatusResponseType() (*field.NetworkStatusResponseType, error) {
-	f := new(field.NetworkStatusResponseType)
-	err := m.Body.Get(f)
+func (m NetworkCounterpartySystemStatusResponse) NetworkStatusResponseType() (field.NetworkStatusResponseType, error) {
+	var f field.NetworkStatusResponseType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NetworkRequestID is a non-required field for NetworkCounterpartySystemStatusResponse.
-func (m *NetworkCounterpartySystemStatusResponse) NetworkRequestID() (*field.NetworkRequestID, error) {
-	f := new(field.NetworkRequestID)
-	err := m.Body.Get(f)
+func (m NetworkCounterpartySystemStatusResponse) NetworkRequestID() (field.NetworkRequestID, error) {
+	var f field.NetworkRequestID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NetworkResponseID is a required field for NetworkCounterpartySystemStatusResponse.
-func (m *NetworkCounterpartySystemStatusResponse) NetworkResponseID() (*field.NetworkResponseID, error) {
-	f := new(field.NetworkResponseID)
-	err := m.Body.Get(f)
+func (m NetworkCounterpartySystemStatusResponse) NetworkResponseID() (field.NetworkResponseID, error) {
+	var f field.NetworkResponseID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LastNetworkResponseID is a non-required field for NetworkCounterpartySystemStatusResponse.
-func (m *NetworkCounterpartySystemStatusResponse) LastNetworkResponseID() (*field.LastNetworkResponseID, error) {
-	f := new(field.LastNetworkResponseID)
-	err := m.Body.Get(f)
+func (m NetworkCounterpartySystemStatusResponse) LastNetworkResponseID() (field.LastNetworkResponseID, error) {
+	var f field.LastNetworkResponseID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoCompIDs is a required field for NetworkCounterpartySystemStatusResponse.
-func (m *NetworkCounterpartySystemStatusResponse) NoCompIDs() (*field.NoCompIDs, error) {
-	f := new(field.NoCompIDs)
-	err := m.Body.Get(f)
+func (m NetworkCounterpartySystemStatusResponse) NoCompIDs() (field.NoCompIDs, error) {
+	var f field.NoCompIDs
+	err := m.Body.Get(&f)
 	return f, err
 }

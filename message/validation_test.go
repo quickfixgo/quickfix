@@ -12,8 +12,8 @@ var _ = Suite(&ValidationTests{})
 
 type ValidationTests struct{}
 
-func (s *ValidationTests) createFIX40NewOrderSingle() *MessageBuilder {
-	msg := NewMessageBuilder()
+func (s *ValidationTests) createFIX40NewOrderSingle() MessageBuilder {
+	msg := CreateMessageBuilder()
 	msg.Header.Set(NewStringField(tag.MsgType, "D"))
 	msg.Header.Set(NewStringField(tag.BeginString, "FIX.4.0"))
 	msg.Header.Set(NewStringField(tag.BodyLength, "0"))
@@ -34,8 +34,8 @@ func (s *ValidationTests) createFIX40NewOrderSingle() *MessageBuilder {
 	return msg
 }
 
-func (s *ValidationTests) createFIX43NewOrderSingle() *MessageBuilder {
-	msg := NewMessageBuilder()
+func (s *ValidationTests) createFIX43NewOrderSingle() MessageBuilder {
+	msg := CreateMessageBuilder()
 	msg.Header.Set(NewStringField(tag.MsgType, "D"))
 	msg.Header.Set(NewStringField(tag.BeginString, "FIX.4.3"))
 	msg.Header.Set(NewStringField(tag.BodyLength, "0"))

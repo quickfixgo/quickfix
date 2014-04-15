@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"github.com/quickfixgo/quickfix/message"
 	"time"
@@ -11,8 +12,8 @@ type inSession struct {
 }
 
 func (state inSession) FixMsgIn(session *session, msg message.Message) (nextState sessionState) {
-	msgType := new(message.StringField)
-	if err := msg.Header.GetField(tag.MsgType, msgType); err == nil {
+	var msgType field.MsgType
+	if err := msg.Header.Get(&msgType); err == nil {
 		switch msgType.Value {
 		//logon
 		case "A":
@@ -44,13 +45,13 @@ func (state inSession) FixMsgIn(session *session, msg message.Message) (nextStat
 func (state inSession) Timeout(session *session, event event) (nextState sessionState) {
 	switch event {
 	case needHeartbeat:
-		heartBt := message.NewMessageBuilder()
-		heartBt.Header.Set(message.NewStringField(tag.MsgType, "0"))
+		heartBt := message.CreateMessageBuilder()
+		heartBt.Header.Set(field.BuildMsgType("0"))
 		session.send(heartBt)
 	case peerTimeout:
-		testReq := message.NewMessageBuilder()
-		testReq.Header.Set(message.NewStringField(tag.MsgType, "1"))
-		testReq.Body.Set(message.NewStringField(tag.TestReqID, "TEST"))
+		testReq := message.CreateMessageBuilder()
+		testReq.Header.Set(field.BuildMsgType("1"))
+		testReq.Body.Set(field.BuildTestReqID("TEST"))
 		session.send(testReq)
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
 		return pendingTimeout{}
@@ -177,13 +178,13 @@ func (state inSession) handleTestRequest(session *session, msg message.Message) 
 		return state.processReject(session, err)
 	}
 
-	testReq := new(message.StringValue)
-	if err := msg.Body.GetField(tag.TestReqID, testReq); err != nil {
+	var testReq field.TestReqID
+	if err := msg.Body.Get(&testReq); err != nil {
 		session.log.OnEvent("Test Request with no testRequestID")
 	} else {
-		heartBt := message.NewMessageBuilder()
-		heartBt.Header.Set(message.NewStringField(tag.MsgType, "0"))
-		heartBt.Body.Set(message.NewStringField(tag.TestReqID, testReq.Value))
+		heartBt := message.CreateMessageBuilder()
+		heartBt.Header.Set(field.BuildMsgType("0"))
+		heartBt.Body.Set(field.BuildTestReqID(testReq.Value))
 		session.send(heartBt)
 	}
 
@@ -259,14 +260,14 @@ func (state *inSession) initiateLogout(session *session, reason string) (nextSta
 }
 
 func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, endSeqNo int) {
-	sequenceReset := message.NewMessageBuilder()
+	sequenceReset := message.CreateMessageBuilder()
 	session.fillDefaultHeader(sequenceReset)
 
-	sequenceReset.Header.Set(message.NewStringField(tag.MsgType, "4"))
-	sequenceReset.Header.Set(message.NewIntField(tag.MsgSeqNum, beginSeqNo))
-	sequenceReset.Header.Set(message.NewBooleanField(tag.PossDupFlag, true))
-	sequenceReset.Body.Set(message.NewIntField(tag.NewSeqNo, endSeqNo))
-	sequenceReset.Body.Set(message.NewBooleanField(tag.GapFillFlag, true))
+	sequenceReset.Header.Set(field.BuildMsgType("4"))
+	sequenceReset.Header.Set(field.BuildMsgSeqNum(beginSeqNo))
+	sequenceReset.Header.Set(field.BuildPossDupFlag(true))
+	sequenceReset.Body.Set(field.BuildNewSeqNo(endSeqNo))
+	sequenceReset.Body.Set(field.BuildGapFillFlag(true))
 
 	origSendingTime := new(message.StringValue)
 	if err := sequenceReset.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
@@ -283,14 +284,14 @@ func (state *inSession) generateLogout(session *session) {
 }
 
 func (state *inSession) generateLogoutWithReason(session *session, reason string) {
-	reply := message.NewMessageBuilder()
-	reply.Header.Set(message.NewStringField(tag.MsgType, "5"))
-	reply.Header.Set(message.NewStringField(tag.BeginString, session.BeginString))
-	reply.Header.Set(message.NewStringField(tag.TargetCompID, session.TargetCompID))
-	reply.Header.Set(message.NewStringField(tag.SenderCompID, session.SenderCompID))
+	reply := message.CreateMessageBuilder()
+	reply.Header.Set(field.BuildMsgType("5"))
+	reply.Header.Set(field.BuildBeginString(session.BeginString))
+	reply.Header.Set(field.BuildTargetCompID(session.TargetCompID))
+	reply.Header.Set(field.BuildSenderCompID(session.SenderCompID))
 
 	if reason != "" {
-		reply.Body.Set(message.NewStringField(tag.Text, reason))
+		reply.Body.Set(field.BuildText(reason))
 	}
 
 	session.send(reply)

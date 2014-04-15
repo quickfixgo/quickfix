@@ -1,3 +1,4 @@
+//Package message provides support for reading and building FIX messages.
 package message
 
 import (
@@ -92,8 +93,8 @@ func (m Message) Bytes() []byte {
 }
 
 //ReverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
-func (m Message) ReverseRoute() *MessageBuilder {
-	reverseBuilder := NewMessageBuilder()
+func (m Message) ReverseRoute() MessageBuilder {
+	reverseBuilder := CreateMessageBuilder()
 
 	copy := func(src fix.Tag, dest fix.Tag) {
 		if field := new(StringValue); m.Header.GetField(src, field) == nil {
@@ -158,8 +159,8 @@ func (m Message) String() string {
 
 //ToBuilder returns a writable message builder initialized with the fields in the message
 //FIXME: not safe with repeated groups
-func (m Message) ToBuilder() *MessageBuilder {
-	builder := NewMessageBuilder()
+func (m Message) ToBuilder() MessageBuilder {
+	builder := CreateMessageBuilder()
 	for tag := range m.Header.lookup {
 		builder.Header.fields[tag] = m.Header.lookup[tag]
 	}

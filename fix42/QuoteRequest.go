@@ -15,26 +15,27 @@ type QuoteRequestBuilder struct {
 	message.MessageBuilder
 }
 
-//NewQuoteRequestBuilder returns an initialized QuoteRequestBuilder with specified required fields.
-func NewQuoteRequestBuilder(
+//CreateQuoteRequestBuilder returns an initialized QuoteRequestBuilder with specified required fields.
+func CreateQuoteRequestBuilder(
 	quotereqid field.QuoteReqID,
-	norelatedsym field.NoRelatedSym) *QuoteRequestBuilder {
-	builder := new(QuoteRequestBuilder)
+	norelatedsym field.NoRelatedSym) QuoteRequestBuilder {
+	var builder QuoteRequestBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(norelatedsym)
 	return builder
 }
 
 //QuoteReqID is a required field for QuoteRequest.
-func (m *QuoteRequest) QuoteReqID() (*field.QuoteReqID, error) {
-	f := new(field.QuoteReqID)
-	err := m.Body.Get(f)
+func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, error) {
+	var f field.QuoteReqID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a required field for QuoteRequest.
-func (m *QuoteRequest) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
+func (m QuoteRequest) NoRelatedSym() (field.NoRelatedSym, error) {
+	var f field.NoRelatedSym
+	err := m.Body.Get(&f)
 	return f, err
 }

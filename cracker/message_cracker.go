@@ -4,6 +4,7 @@ package cracker
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"github.com/quickfixgo/quickfix/message"
@@ -71,17 +72,17 @@ func tryCrack(beginString string, msg message.Message, sessionID quickfix.Sessio
 		}
 
 		switch applVerID {
-		case fix.ApplVerID_FIX40:
+		case enum.ApplVerID_FIX40:
 			beginString = fix.BeginString_FIX40
-		case fix.ApplVerID_FIX41:
+		case enum.ApplVerID_FIX41:
 			beginString = fix.BeginString_FIX41
-		case fix.ApplVerID_FIX42:
+		case enum.ApplVerID_FIX42:
 			beginString = fix.BeginString_FIX42
-		case fix.ApplVerID_FIX43:
+		case enum.ApplVerID_FIX43:
 			beginString = fix.BeginString_FIX43
-		case fix.ApplVerID_FIX44:
+		case enum.ApplVerID_FIX44:
 			beginString = fix.BeginString_FIX44
-		case fix.ApplVerID_FIX50, fix.ApplVerID_FIX50SP1, fix.ApplVerID_FIX50SP2:
+		case enum.ApplVerID_FIX50, enum.ApplVerID_FIX50SP1, enum.ApplVerID_FIX50SP2:
 			beginString = fix.BeginString_FIX50
 		default:
 			beginString = ""

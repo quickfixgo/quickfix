@@ -1,4 +1,4 @@
-//Package settings for provides settings and configuration for quickfixgo.
+//Package settings provides settings and configuration for QuickFIX.
 package settings
 
 import (

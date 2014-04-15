@@ -15,26 +15,27 @@ type ResendRequestBuilder struct {
 	message.MessageBuilder
 }
 
-//NewResendRequestBuilder returns an initialized ResendRequestBuilder with specified required fields.
-func NewResendRequestBuilder(
+//CreateResendRequestBuilder returns an initialized ResendRequestBuilder with specified required fields.
+func CreateResendRequestBuilder(
 	beginseqno field.BeginSeqNo,
-	endseqno field.EndSeqNo) *ResendRequestBuilder {
-	builder := new(ResendRequestBuilder)
+	endseqno field.EndSeqNo) ResendRequestBuilder {
+	var builder ResendRequestBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(beginseqno)
 	builder.Body.Set(endseqno)
 	return builder
 }
 
 //BeginSeqNo is a required field for ResendRequest.
-func (m *ResendRequest) BeginSeqNo() (*field.BeginSeqNo, error) {
-	f := new(field.BeginSeqNo)
-	err := m.Body.Get(f)
+func (m ResendRequest) BeginSeqNo() (field.BeginSeqNo, error) {
+	var f field.BeginSeqNo
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EndSeqNo is a required field for ResendRequest.
-func (m *ResendRequest) EndSeqNo() (*field.EndSeqNo, error) {
-	f := new(field.EndSeqNo)
-	err := m.Body.Get(f)
+func (m ResendRequest) EndSeqNo() (field.EndSeqNo, error) {
+	var f field.EndSeqNo
+	err := m.Body.Get(&f)
 	return f, err
 }

@@ -6,13 +6,15 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/gen"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
 
 var (
-	pkg     string
-	fixSpec *datadictionary.DataDictionary
+	pkg            string
+	fixSpec        *datadictionary.DataDictionary
+	sortedMsgTypes []string
 )
 
 func usage() {
@@ -63,7 +65,9 @@ func buildCrack() (out string) {
 switch msg.Header.Get(msgType); msgType.Value {
 `
 
-	for msgType, m := range fixSpec.Messages {
+	for _, msgType := range sortedMsgTypes {
+		m, _ := fixSpec.Messages[msgType]
+
 		out += fmt.Sprintf("case \"%v\":\n", msgType)
 		out += fmt.Sprintf("return router.On%v%v(%v{msg},sessionID)\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
@@ -77,7 +81,8 @@ switch msg.Header.Get(msgType); msgType.Value {
 func buildMessageRouter() (out string) {
 	out += "type MessageRouter interface {\n"
 
-	for _, m := range fixSpec.Messages {
+	for _, msgType := range sortedMsgTypes {
+		m, _ := fixSpec.Messages[msgType]
 		out += fmt.Sprintf("On%v%v(msg %v, sessionID quickfix.SessionID) message.MessageReject\n", strings.ToUpper(pkg), m.Name, m.Name)
 	}
 
@@ -89,7 +94,8 @@ func buildMessageRouter() (out string) {
 func buildMessageCracker() (out string) {
 	out += fmt.Sprintf("type %vMessageCracker struct {}\n", strings.ToUpper(pkg))
 
-	for _, m := range fixSpec.Messages {
+	for _, msgType := range sortedMsgTypes {
+		m, _ := fixSpec.Messages[msgType]
 		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId quickfix.SessionID) message.MessageReject {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
 		out += "return message.NewUnsupportedMessageType(msg.Message)\n}\n"
 	}
@@ -118,15 +124,16 @@ import(
 		}
 	}
 
-	fileOut += fmt.Sprintf("//New%vBuilder returns an initialized %vBuilder with specified required fields.\n", msg.Name, msg.Name)
-	fileOut += fmt.Sprintf("func New%vBuilder(\n", msg.Name)
+	fileOut += fmt.Sprintf("//Create%vBuilder returns an initialized %vBuilder with specified required fields.\n", msg.Name, msg.Name)
+	fileOut += fmt.Sprintf("func Create%vBuilder(\n", msg.Name)
 	builderArgs := make([]string, len(requiredFields))
 	for i, field := range requiredFields {
 		builderArgs[i] = fmt.Sprintf("%v field.%v", strings.ToLower(field.Name), field.Name)
 	}
 	fileOut += strings.Join(builderArgs, ",\n")
-	fileOut += fmt.Sprintf(") *%vBuilder {\n", msg.Name)
-	fileOut += fmt.Sprintf("builder:=new(%vBuilder)\n", msg.Name)
+	fileOut += fmt.Sprintf(") %vBuilder {\n", msg.Name)
+	fileOut += fmt.Sprintf("var builder %vBuilder\n", msg.Name)
+	fileOut += "builder.MessageBuilder = message.CreateMessageBuilder()\n"
 
 	for _, field := range requiredFields {
 		fileOut += fmt.Sprintf("builder.Body.Set(%v)\n", strings.ToLower(field.Name))
@@ -141,9 +148,9 @@ import(
 		} else {
 			fileOut += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, msg.Name)
 		}
-		fileOut += fmt.Sprintf("func (m * %v) %v() (*field.%v, error) {\n", msg.Name, field.Name, field.Name)
-		fileOut += fmt.Sprintf("f:=new(field.%v)\n", field.Name)
-		fileOut += "err:=m.Body.Get(f)\n"
+		fileOut += fmt.Sprintf("func (m %v) %v() (field.%v, error) {\n", msg.Name, field.Name, field.Name)
+		fileOut += fmt.Sprintf("var f field.%v\n", field.Name)
+		fileOut += "err:=m.Body.Get(&f)\n"
 		fileOut += "return f, err\n}\n"
 	}
 
@@ -166,6 +173,14 @@ func main() {
 	} else {
 		fixSpec = spec
 	}
+
+	sortedMsgTypes = make([]string, len(fixSpec.Messages))
+	i := 0
+	for f := range fixSpec.Messages {
+		sortedMsgTypes[i] = f
+		i++
+	}
+	sort.Strings(sortedMsgTypes)
 
 	initPackage()
 

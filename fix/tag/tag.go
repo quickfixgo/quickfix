@@ -1,4 +1,4 @@
-//Package tag declares known tag values
+//Package tag declares standard FIX tags.
 package tag
 
 import (

@@ -15,29 +15,30 @@ type LogoutBuilder struct {
 	message.MessageBuilder
 }
 
-//NewLogoutBuilder returns an initialized LogoutBuilder with specified required fields.
-func NewLogoutBuilder() *LogoutBuilder {
-	builder := new(LogoutBuilder)
+//CreateLogoutBuilder returns an initialized LogoutBuilder with specified required fields.
+func CreateLogoutBuilder() LogoutBuilder {
+	var builder LogoutBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	return builder
 }
 
 //Text is a non-required field for Logout.
-func (m *Logout) Text() (*field.Text, error) {
-	f := new(field.Text)
-	err := m.Body.Get(f)
+func (m Logout) Text() (field.Text, error) {
+	var f field.Text
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for Logout.
-func (m *Logout) EncodedTextLen() (*field.EncodedTextLen, error) {
-	f := new(field.EncodedTextLen)
-	err := m.Body.Get(f)
+func (m Logout) EncodedTextLen() (field.EncodedTextLen, error) {
+	var f field.EncodedTextLen
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for Logout.
-func (m *Logout) EncodedText() (*field.EncodedText, error) {
-	f := new(field.EncodedText)
-	err := m.Body.Get(f)
+func (m Logout) EncodedText() (field.EncodedText, error) {
+	var f field.EncodedText
+	err := m.Body.Get(&f)
 	return f, err
 }

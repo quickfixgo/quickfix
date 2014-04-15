@@ -15,12 +15,13 @@ type SecurityListBuilder struct {
 	message.MessageBuilder
 }
 
-//NewSecurityListBuilder returns an initialized SecurityListBuilder with specified required fields.
-func NewSecurityListBuilder(
+//CreateSecurityListBuilder returns an initialized SecurityListBuilder with specified required fields.
+func CreateSecurityListBuilder(
 	securityreqid field.SecurityReqID,
 	securityresponseid field.SecurityResponseID,
-	securityrequestresult field.SecurityRequestResult) *SecurityListBuilder {
-	builder := new(SecurityListBuilder)
+	securityrequestresult field.SecurityRequestResult) SecurityListBuilder {
+	var builder SecurityListBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)
 	builder.Body.Set(securityrequestresult)
@@ -28,43 +29,43 @@ func NewSecurityListBuilder(
 }
 
 //SecurityReqID is a required field for SecurityList.
-func (m *SecurityList) SecurityReqID() (*field.SecurityReqID, error) {
-	f := new(field.SecurityReqID)
-	err := m.Body.Get(f)
+func (m SecurityList) SecurityReqID() (field.SecurityReqID, error) {
+	var f field.SecurityReqID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityResponseID is a required field for SecurityList.
-func (m *SecurityList) SecurityResponseID() (*field.SecurityResponseID, error) {
-	f := new(field.SecurityResponseID)
-	err := m.Body.Get(f)
+func (m SecurityList) SecurityResponseID() (field.SecurityResponseID, error) {
+	var f field.SecurityResponseID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityRequestResult is a required field for SecurityList.
-func (m *SecurityList) SecurityRequestResult() (*field.SecurityRequestResult, error) {
-	f := new(field.SecurityRequestResult)
-	err := m.Body.Get(f)
+func (m SecurityList) SecurityRequestResult() (field.SecurityRequestResult, error) {
+	var f field.SecurityRequestResult
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotNoRelatedSym is a non-required field for SecurityList.
-func (m *SecurityList) TotNoRelatedSym() (*field.TotNoRelatedSym, error) {
-	f := new(field.TotNoRelatedSym)
-	err := m.Body.Get(f)
+func (m SecurityList) TotNoRelatedSym() (field.TotNoRelatedSym, error) {
+	var f field.TotNoRelatedSym
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LastFragment is a non-required field for SecurityList.
-func (m *SecurityList) LastFragment() (*field.LastFragment, error) {
-	f := new(field.LastFragment)
-	err := m.Body.Get(f)
+func (m SecurityList) LastFragment() (field.LastFragment, error) {
+	var f field.LastFragment
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a non-required field for SecurityList.
-func (m *SecurityList) NoRelatedSym() (*field.NoRelatedSym, error) {
-	f := new(field.NoRelatedSym)
-	err := m.Body.Get(f)
+func (m SecurityList) NoRelatedSym() (field.NoRelatedSym, error) {
+	var f field.NoRelatedSym
+	err := m.Body.Get(&f)
 	return f, err
 }

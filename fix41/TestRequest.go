@@ -15,17 +15,18 @@ type TestRequestBuilder struct {
 	message.MessageBuilder
 }
 
-//NewTestRequestBuilder returns an initialized TestRequestBuilder with specified required fields.
-func NewTestRequestBuilder(
-	testreqid field.TestReqID) *TestRequestBuilder {
-	builder := new(TestRequestBuilder)
+//CreateTestRequestBuilder returns an initialized TestRequestBuilder with specified required fields.
+func CreateTestRequestBuilder(
+	testreqid field.TestReqID) TestRequestBuilder {
+	var builder TestRequestBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(testreqid)
 	return builder
 }
 
 //TestReqID is a required field for TestRequest.
-func (m *TestRequest) TestReqID() (*field.TestReqID, error) {
-	f := new(field.TestReqID)
-	err := m.Body.Get(f)
+func (m TestRequest) TestReqID() (field.TestReqID, error) {
+	var f field.TestReqID
+	err := m.Body.Get(&f)
 	return f, err
 }

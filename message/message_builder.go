@@ -11,8 +11,8 @@ type MessageBuilder struct {
 	Body FieldMapBuilder
 }
 
-func NewMessageBuilder() *MessageBuilder {
-	m := new(MessageBuilder)
+func CreateMessageBuilder() MessageBuilder {
+	var m MessageBuilder
 	m.Header.init()
 	m.Trailer.init()
 	m.Body.init(normalFieldOrder)

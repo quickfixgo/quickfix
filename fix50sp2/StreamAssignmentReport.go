@@ -15,38 +15,39 @@ type StreamAssignmentReportBuilder struct {
 	message.MessageBuilder
 }
 
-//NewStreamAssignmentReportBuilder returns an initialized StreamAssignmentReportBuilder with specified required fields.
-func NewStreamAssignmentReportBuilder(
-	streamasgnrptid field.StreamAsgnRptID) *StreamAssignmentReportBuilder {
-	builder := new(StreamAssignmentReportBuilder)
+//CreateStreamAssignmentReportBuilder returns an initialized StreamAssignmentReportBuilder with specified required fields.
+func CreateStreamAssignmentReportBuilder(
+	streamasgnrptid field.StreamAsgnRptID) StreamAssignmentReportBuilder {
+	var builder StreamAssignmentReportBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(streamasgnrptid)
 	return builder
 }
 
 //StreamAsgnRptID is a required field for StreamAssignmentReport.
-func (m *StreamAssignmentReport) StreamAsgnRptID() (*field.StreamAsgnRptID, error) {
-	f := new(field.StreamAsgnRptID)
-	err := m.Body.Get(f)
+func (m StreamAssignmentReport) StreamAsgnRptID() (field.StreamAsgnRptID, error) {
+	var f field.StreamAsgnRptID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StreamAsgnReqType is a non-required field for StreamAssignmentReport.
-func (m *StreamAssignmentReport) StreamAsgnReqType() (*field.StreamAsgnReqType, error) {
-	f := new(field.StreamAsgnReqType)
-	err := m.Body.Get(f)
+func (m StreamAssignmentReport) StreamAsgnReqType() (field.StreamAsgnReqType, error) {
+	var f field.StreamAsgnReqType
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StreamAsgnReqID is a non-required field for StreamAssignmentReport.
-func (m *StreamAssignmentReport) StreamAsgnReqID() (*field.StreamAsgnReqID, error) {
-	f := new(field.StreamAsgnReqID)
-	err := m.Body.Get(f)
+func (m StreamAssignmentReport) StreamAsgnReqID() (field.StreamAsgnReqID, error) {
+	var f field.StreamAsgnReqID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoAsgnReqs is a non-required field for StreamAssignmentReport.
-func (m *StreamAssignmentReport) NoAsgnReqs() (*field.NoAsgnReqs, error) {
-	f := new(field.NoAsgnReqs)
-	err := m.Body.Get(f)
+func (m StreamAssignmentReport) NoAsgnReqs() (field.NoAsgnReqs, error) {
+	var f field.NoAsgnReqs
+	err := m.Body.Get(&f)
 	return f, err
 }

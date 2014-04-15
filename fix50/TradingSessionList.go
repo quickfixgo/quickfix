@@ -15,24 +15,25 @@ type TradingSessionListBuilder struct {
 	message.MessageBuilder
 }
 
-//NewTradingSessionListBuilder returns an initialized TradingSessionListBuilder with specified required fields.
-func NewTradingSessionListBuilder(
-	notradingsessions field.NoTradingSessions) *TradingSessionListBuilder {
-	builder := new(TradingSessionListBuilder)
+//CreateTradingSessionListBuilder returns an initialized TradingSessionListBuilder with specified required fields.
+func CreateTradingSessionListBuilder(
+	notradingsessions field.NoTradingSessions) TradingSessionListBuilder {
+	var builder TradingSessionListBuilder
+	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Body.Set(notradingsessions)
 	return builder
 }
 
 //TradSesReqID is a non-required field for TradingSessionList.
-func (m *TradingSessionList) TradSesReqID() (*field.TradSesReqID, error) {
-	f := new(field.TradSesReqID)
-	err := m.Body.Get(f)
+func (m TradingSessionList) TradSesReqID() (field.TradSesReqID, error) {
+	var f field.TradSesReqID
+	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTradingSessions is a required field for TradingSessionList.
-func (m *TradingSessionList) NoTradingSessions() (*field.NoTradingSessions, error) {
-	f := new(field.NoTradingSessions)
-	err := m.Body.Get(f)
+func (m TradingSessionList) NoTradingSessions() (field.NoTradingSessions, error) {
+	var f field.NoTradingSessions
+	err := m.Body.Get(&f)
 	return f, err
 }
