@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,35 +26,35 @@ func CreateUserNotificationBuilder(
 }
 
 //Username is a non-required field for UserNotification.
-func (m UserNotification) Username() (field.Username, error) {
+func (m UserNotification) Username() (field.Username, errors.MessageRejectError) {
 	var f field.Username
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UserStatus is a required field for UserNotification.
-func (m UserNotification) UserStatus() (field.UserStatus, error) {
+func (m UserNotification) UserStatus() (field.UserStatus, errors.MessageRejectError) {
 	var f field.UserStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for UserNotification.
-func (m UserNotification) Text() (field.Text, error) {
+func (m UserNotification) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for UserNotification.
-func (m UserNotification) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m UserNotification) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for UserNotification.
-func (m UserNotification) EncodedText() (field.EncodedText, error) {
+func (m UserNotification) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

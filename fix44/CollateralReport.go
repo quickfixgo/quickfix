@@ -1,6 +1,7 @@
 package fix44
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,735 +28,735 @@ func CreateCollateralReportBuilder(
 }
 
 //CollRptID is a required field for CollateralReport.
-func (m CollateralReport) CollRptID() (field.CollRptID, error) {
+func (m CollateralReport) CollRptID() (field.CollRptID, errors.MessageRejectError) {
 	var f field.CollRptID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CollInquiryID is a non-required field for CollateralReport.
-func (m CollateralReport) CollInquiryID() (field.CollInquiryID, error) {
+func (m CollateralReport) CollInquiryID() (field.CollInquiryID, errors.MessageRejectError) {
 	var f field.CollInquiryID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CollStatus is a required field for CollateralReport.
-func (m CollateralReport) CollStatus() (field.CollStatus, error) {
+func (m CollateralReport) CollStatus() (field.CollStatus, errors.MessageRejectError) {
 	var f field.CollStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotNumReports is a non-required field for CollateralReport.
-func (m CollateralReport) TotNumReports() (field.TotNumReports, error) {
+func (m CollateralReport) TotNumReports() (field.TotNumReports, errors.MessageRejectError) {
 	var f field.TotNumReports
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LastRptRequested is a non-required field for CollateralReport.
-func (m CollateralReport) LastRptRequested() (field.LastRptRequested, error) {
+func (m CollateralReport) LastRptRequested() (field.LastRptRequested, errors.MessageRejectError) {
 	var f field.LastRptRequested
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for CollateralReport.
-func (m CollateralReport) NoPartyIDs() (field.NoPartyIDs, error) {
+func (m CollateralReport) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
 	var f field.NoPartyIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Account is a non-required field for CollateralReport.
-func (m CollateralReport) Account() (field.Account, error) {
+func (m CollateralReport) Account() (field.Account, errors.MessageRejectError) {
 	var f field.Account
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AccountType is a non-required field for CollateralReport.
-func (m CollateralReport) AccountType() (field.AccountType, error) {
+func (m CollateralReport) AccountType() (field.AccountType, errors.MessageRejectError) {
 	var f field.AccountType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdID is a non-required field for CollateralReport.
-func (m CollateralReport) ClOrdID() (field.ClOrdID, error) {
+func (m CollateralReport) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
 	var f field.ClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderID is a non-required field for CollateralReport.
-func (m CollateralReport) OrderID() (field.OrderID, error) {
+func (m CollateralReport) OrderID() (field.OrderID, errors.MessageRejectError) {
 	var f field.OrderID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecondaryOrderID is a non-required field for CollateralReport.
-func (m CollateralReport) SecondaryOrderID() (field.SecondaryOrderID, error) {
+func (m CollateralReport) SecondaryOrderID() (field.SecondaryOrderID, errors.MessageRejectError) {
 	var f field.SecondaryOrderID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecondaryClOrdID is a non-required field for CollateralReport.
-func (m CollateralReport) SecondaryClOrdID() (field.SecondaryClOrdID, error) {
+func (m CollateralReport) SecondaryClOrdID() (field.SecondaryClOrdID, errors.MessageRejectError) {
 	var f field.SecondaryClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoExecs is a non-required field for CollateralReport.
-func (m CollateralReport) NoExecs() (field.NoExecs, error) {
+func (m CollateralReport) NoExecs() (field.NoExecs, errors.MessageRejectError) {
 	var f field.NoExecs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTrades is a non-required field for CollateralReport.
-func (m CollateralReport) NoTrades() (field.NoTrades, error) {
+func (m CollateralReport) NoTrades() (field.NoTrades, errors.MessageRejectError) {
 	var f field.NoTrades
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a non-required field for CollateralReport.
-func (m CollateralReport) Symbol() (field.Symbol, error) {
+func (m CollateralReport) Symbol() (field.Symbol, errors.MessageRejectError) {
 	var f field.Symbol
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for CollateralReport.
-func (m CollateralReport) SymbolSfx() (field.SymbolSfx, error) {
+func (m CollateralReport) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
 	var f field.SymbolSfx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for CollateralReport.
-func (m CollateralReport) SecurityID() (field.SecurityID, error) {
+func (m CollateralReport) SecurityID() (field.SecurityID, errors.MessageRejectError) {
 	var f field.SecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityIDSource is a non-required field for CollateralReport.
-func (m CollateralReport) SecurityIDSource() (field.SecurityIDSource, error) {
+func (m CollateralReport) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
 	var f field.SecurityIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityAltID is a non-required field for CollateralReport.
-func (m CollateralReport) NoSecurityAltID() (field.NoSecurityAltID, error) {
+func (m CollateralReport) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
 	var f field.NoSecurityAltID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for CollateralReport.
-func (m CollateralReport) Product() (field.Product, error) {
+func (m CollateralReport) Product() (field.Product, errors.MessageRejectError) {
 	var f field.Product
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for CollateralReport.
-func (m CollateralReport) CFICode() (field.CFICode, error) {
+func (m CollateralReport) CFICode() (field.CFICode, errors.MessageRejectError) {
 	var f field.CFICode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for CollateralReport.
-func (m CollateralReport) SecurityType() (field.SecurityType, error) {
+func (m CollateralReport) SecurityType() (field.SecurityType, errors.MessageRejectError) {
 	var f field.SecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecuritySubType is a non-required field for CollateralReport.
-func (m CollateralReport) SecuritySubType() (field.SecuritySubType, error) {
+func (m CollateralReport) SecuritySubType() (field.SecuritySubType, errors.MessageRejectError) {
 	var f field.SecuritySubType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityMonthYear is a non-required field for CollateralReport.
-func (m CollateralReport) MaturityMonthYear() (field.MaturityMonthYear, error) {
+func (m CollateralReport) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
 	var f field.MaturityMonthYear
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityDate is a non-required field for CollateralReport.
-func (m CollateralReport) MaturityDate() (field.MaturityDate, error) {
+func (m CollateralReport) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
 	var f field.MaturityDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponPaymentDate is a non-required field for CollateralReport.
-func (m CollateralReport) CouponPaymentDate() (field.CouponPaymentDate, error) {
+func (m CollateralReport) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
 	var f field.CouponPaymentDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IssueDate is a non-required field for CollateralReport.
-func (m CollateralReport) IssueDate() (field.IssueDate, error) {
+func (m CollateralReport) IssueDate() (field.IssueDate, errors.MessageRejectError) {
 	var f field.IssueDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepoCollateralSecurityType is a non-required field for CollateralReport.
-func (m CollateralReport) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, error) {
+func (m CollateralReport) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
 	var f field.RepoCollateralSecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseTerm is a non-required field for CollateralReport.
-func (m CollateralReport) RepurchaseTerm() (field.RepurchaseTerm, error) {
+func (m CollateralReport) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
 	var f field.RepurchaseTerm
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseRate is a non-required field for CollateralReport.
-func (m CollateralReport) RepurchaseRate() (field.RepurchaseRate, error) {
+func (m CollateralReport) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
 	var f field.RepurchaseRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Factor is a non-required field for CollateralReport.
-func (m CollateralReport) Factor() (field.Factor, error) {
+func (m CollateralReport) Factor() (field.Factor, errors.MessageRejectError) {
 	var f field.Factor
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CreditRating is a non-required field for CollateralReport.
-func (m CollateralReport) CreditRating() (field.CreditRating, error) {
+func (m CollateralReport) CreditRating() (field.CreditRating, errors.MessageRejectError) {
 	var f field.CreditRating
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrRegistry is a non-required field for CollateralReport.
-func (m CollateralReport) InstrRegistry() (field.InstrRegistry, error) {
+func (m CollateralReport) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
 	var f field.InstrRegistry
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CountryOfIssue is a non-required field for CollateralReport.
-func (m CollateralReport) CountryOfIssue() (field.CountryOfIssue, error) {
+func (m CollateralReport) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
 	var f field.CountryOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StateOrProvinceOfIssue is a non-required field for CollateralReport.
-func (m CollateralReport) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, error) {
+func (m CollateralReport) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
 	var f field.StateOrProvinceOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocaleOfIssue is a non-required field for CollateralReport.
-func (m CollateralReport) LocaleOfIssue() (field.LocaleOfIssue, error) {
+func (m CollateralReport) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
 	var f field.LocaleOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RedemptionDate is a non-required field for CollateralReport.
-func (m CollateralReport) RedemptionDate() (field.RedemptionDate, error) {
+func (m CollateralReport) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
 	var f field.RedemptionDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePrice is a non-required field for CollateralReport.
-func (m CollateralReport) StrikePrice() (field.StrikePrice, error) {
+func (m CollateralReport) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
 	var f field.StrikePrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeCurrency is a non-required field for CollateralReport.
-func (m CollateralReport) StrikeCurrency() (field.StrikeCurrency, error) {
+func (m CollateralReport) StrikeCurrency() (field.StrikeCurrency, errors.MessageRejectError) {
 	var f field.StrikeCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptAttribute is a non-required field for CollateralReport.
-func (m CollateralReport) OptAttribute() (field.OptAttribute, error) {
+func (m CollateralReport) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
 	var f field.OptAttribute
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplier is a non-required field for CollateralReport.
-func (m CollateralReport) ContractMultiplier() (field.ContractMultiplier, error) {
+func (m CollateralReport) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
 	var f field.ContractMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponRate is a non-required field for CollateralReport.
-func (m CollateralReport) CouponRate() (field.CouponRate, error) {
+func (m CollateralReport) CouponRate() (field.CouponRate, errors.MessageRejectError) {
 	var f field.CouponRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityExchange is a non-required field for CollateralReport.
-func (m CollateralReport) SecurityExchange() (field.SecurityExchange, error) {
+func (m CollateralReport) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
 	var f field.SecurityExchange
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for CollateralReport.
-func (m CollateralReport) Issuer() (field.Issuer, error) {
+func (m CollateralReport) Issuer() (field.Issuer, errors.MessageRejectError) {
 	var f field.Issuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuerLen is a non-required field for CollateralReport.
-func (m CollateralReport) EncodedIssuerLen() (field.EncodedIssuerLen, error) {
+func (m CollateralReport) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
 	var f field.EncodedIssuerLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuer is a non-required field for CollateralReport.
-func (m CollateralReport) EncodedIssuer() (field.EncodedIssuer, error) {
+func (m CollateralReport) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
 	var f field.EncodedIssuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for CollateralReport.
-func (m CollateralReport) SecurityDesc() (field.SecurityDesc, error) {
+func (m CollateralReport) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
 	var f field.SecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDescLen is a non-required field for CollateralReport.
-func (m CollateralReport) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, error) {
+func (m CollateralReport) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
 	var f field.EncodedSecurityDescLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDesc is a non-required field for CollateralReport.
-func (m CollateralReport) EncodedSecurityDesc() (field.EncodedSecurityDesc, error) {
+func (m CollateralReport) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
 	var f field.EncodedSecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Pool is a non-required field for CollateralReport.
-func (m CollateralReport) Pool() (field.Pool, error) {
+func (m CollateralReport) Pool() (field.Pool, errors.MessageRejectError) {
 	var f field.Pool
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractSettlMonth is a non-required field for CollateralReport.
-func (m CollateralReport) ContractSettlMonth() (field.ContractSettlMonth, error) {
+func (m CollateralReport) ContractSettlMonth() (field.ContractSettlMonth, errors.MessageRejectError) {
 	var f field.ContractSettlMonth
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPProgram is a non-required field for CollateralReport.
-func (m CollateralReport) CPProgram() (field.CPProgram, error) {
+func (m CollateralReport) CPProgram() (field.CPProgram, errors.MessageRejectError) {
 	var f field.CPProgram
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPRegType is a non-required field for CollateralReport.
-func (m CollateralReport) CPRegType() (field.CPRegType, error) {
+func (m CollateralReport) CPRegType() (field.CPRegType, errors.MessageRejectError) {
 	var f field.CPRegType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoEvents is a non-required field for CollateralReport.
-func (m CollateralReport) NoEvents() (field.NoEvents, error) {
+func (m CollateralReport) NoEvents() (field.NoEvents, errors.MessageRejectError) {
 	var f field.NoEvents
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DatedDate is a non-required field for CollateralReport.
-func (m CollateralReport) DatedDate() (field.DatedDate, error) {
+func (m CollateralReport) DatedDate() (field.DatedDate, errors.MessageRejectError) {
 	var f field.DatedDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InterestAccrualDate is a non-required field for CollateralReport.
-func (m CollateralReport) InterestAccrualDate() (field.InterestAccrualDate, error) {
+func (m CollateralReport) InterestAccrualDate() (field.InterestAccrualDate, errors.MessageRejectError) {
 	var f field.InterestAccrualDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementDesc is a non-required field for CollateralReport.
-func (m CollateralReport) AgreementDesc() (field.AgreementDesc, error) {
+func (m CollateralReport) AgreementDesc() (field.AgreementDesc, errors.MessageRejectError) {
 	var f field.AgreementDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementID is a non-required field for CollateralReport.
-func (m CollateralReport) AgreementID() (field.AgreementID, error) {
+func (m CollateralReport) AgreementID() (field.AgreementID, errors.MessageRejectError) {
 	var f field.AgreementID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementDate is a non-required field for CollateralReport.
-func (m CollateralReport) AgreementDate() (field.AgreementDate, error) {
+func (m CollateralReport) AgreementDate() (field.AgreementDate, errors.MessageRejectError) {
 	var f field.AgreementDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementCurrency is a non-required field for CollateralReport.
-func (m CollateralReport) AgreementCurrency() (field.AgreementCurrency, error) {
+func (m CollateralReport) AgreementCurrency() (field.AgreementCurrency, errors.MessageRejectError) {
 	var f field.AgreementCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TerminationType is a non-required field for CollateralReport.
-func (m CollateralReport) TerminationType() (field.TerminationType, error) {
+func (m CollateralReport) TerminationType() (field.TerminationType, errors.MessageRejectError) {
 	var f field.TerminationType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StartDate is a non-required field for CollateralReport.
-func (m CollateralReport) StartDate() (field.StartDate, error) {
+func (m CollateralReport) StartDate() (field.StartDate, errors.MessageRejectError) {
 	var f field.StartDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EndDate is a non-required field for CollateralReport.
-func (m CollateralReport) EndDate() (field.EndDate, error) {
+func (m CollateralReport) EndDate() (field.EndDate, errors.MessageRejectError) {
 	var f field.EndDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DeliveryType is a non-required field for CollateralReport.
-func (m CollateralReport) DeliveryType() (field.DeliveryType, error) {
+func (m CollateralReport) DeliveryType() (field.DeliveryType, errors.MessageRejectError) {
 	var f field.DeliveryType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarginRatio is a non-required field for CollateralReport.
-func (m CollateralReport) MarginRatio() (field.MarginRatio, error) {
+func (m CollateralReport) MarginRatio() (field.MarginRatio, errors.MessageRejectError) {
 	var f field.MarginRatio
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlDate is a non-required field for CollateralReport.
-func (m CollateralReport) SettlDate() (field.SettlDate, error) {
+func (m CollateralReport) SettlDate() (field.SettlDate, errors.MessageRejectError) {
 	var f field.SettlDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Quantity is a non-required field for CollateralReport.
-func (m CollateralReport) Quantity() (field.Quantity, error) {
+func (m CollateralReport) Quantity() (field.Quantity, errors.MessageRejectError) {
 	var f field.Quantity
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QtyType is a non-required field for CollateralReport.
-func (m CollateralReport) QtyType() (field.QtyType, error) {
+func (m CollateralReport) QtyType() (field.QtyType, errors.MessageRejectError) {
 	var f field.QtyType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Currency is a non-required field for CollateralReport.
-func (m CollateralReport) Currency() (field.Currency, error) {
+func (m CollateralReport) Currency() (field.Currency, errors.MessageRejectError) {
 	var f field.Currency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLegs is a non-required field for CollateralReport.
-func (m CollateralReport) NoLegs() (field.NoLegs, error) {
+func (m CollateralReport) NoLegs() (field.NoLegs, errors.MessageRejectError) {
 	var f field.NoLegs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoUnderlyings is a non-required field for CollateralReport.
-func (m CollateralReport) NoUnderlyings() (field.NoUnderlyings, error) {
+func (m CollateralReport) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
 	var f field.NoUnderlyings
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarginExcess is a non-required field for CollateralReport.
-func (m CollateralReport) MarginExcess() (field.MarginExcess, error) {
+func (m CollateralReport) MarginExcess() (field.MarginExcess, errors.MessageRejectError) {
 	var f field.MarginExcess
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotalNetValue is a non-required field for CollateralReport.
-func (m CollateralReport) TotalNetValue() (field.TotalNetValue, error) {
+func (m CollateralReport) TotalNetValue() (field.TotalNetValue, errors.MessageRejectError) {
 	var f field.TotalNetValue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CashOutstanding is a non-required field for CollateralReport.
-func (m CollateralReport) CashOutstanding() (field.CashOutstanding, error) {
+func (m CollateralReport) CashOutstanding() (field.CashOutstanding, errors.MessageRejectError) {
 	var f field.CashOutstanding
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTrdRegTimestamps is a non-required field for CollateralReport.
-func (m CollateralReport) NoTrdRegTimestamps() (field.NoTrdRegTimestamps, error) {
+func (m CollateralReport) NoTrdRegTimestamps() (field.NoTrdRegTimestamps, errors.MessageRejectError) {
 	var f field.NoTrdRegTimestamps
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Side is a non-required field for CollateralReport.
-func (m CollateralReport) Side() (field.Side, error) {
+func (m CollateralReport) Side() (field.Side, errors.MessageRejectError) {
 	var f field.Side
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoMiscFees is a non-required field for CollateralReport.
-func (m CollateralReport) NoMiscFees() (field.NoMiscFees, error) {
+func (m CollateralReport) NoMiscFees() (field.NoMiscFees, errors.MessageRejectError) {
 	var f field.NoMiscFees
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Price is a non-required field for CollateralReport.
-func (m CollateralReport) Price() (field.Price, error) {
+func (m CollateralReport) Price() (field.Price, errors.MessageRejectError) {
 	var f field.Price
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceType is a non-required field for CollateralReport.
-func (m CollateralReport) PriceType() (field.PriceType, error) {
+func (m CollateralReport) PriceType() (field.PriceType, errors.MessageRejectError) {
 	var f field.PriceType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AccruedInterestAmt is a non-required field for CollateralReport.
-func (m CollateralReport) AccruedInterestAmt() (field.AccruedInterestAmt, error) {
+func (m CollateralReport) AccruedInterestAmt() (field.AccruedInterestAmt, errors.MessageRejectError) {
 	var f field.AccruedInterestAmt
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EndAccruedInterestAmt is a non-required field for CollateralReport.
-func (m CollateralReport) EndAccruedInterestAmt() (field.EndAccruedInterestAmt, error) {
+func (m CollateralReport) EndAccruedInterestAmt() (field.EndAccruedInterestAmt, errors.MessageRejectError) {
 	var f field.EndAccruedInterestAmt
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StartCash is a non-required field for CollateralReport.
-func (m CollateralReport) StartCash() (field.StartCash, error) {
+func (m CollateralReport) StartCash() (field.StartCash, errors.MessageRejectError) {
 	var f field.StartCash
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EndCash is a non-required field for CollateralReport.
-func (m CollateralReport) EndCash() (field.EndCash, error) {
+func (m CollateralReport) EndCash() (field.EndCash, errors.MessageRejectError) {
 	var f field.EndCash
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Spread is a non-required field for CollateralReport.
-func (m CollateralReport) Spread() (field.Spread, error) {
+func (m CollateralReport) Spread() (field.Spread, errors.MessageRejectError) {
 	var f field.Spread
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurveCurrency is a non-required field for CollateralReport.
-func (m CollateralReport) BenchmarkCurveCurrency() (field.BenchmarkCurveCurrency, error) {
+func (m CollateralReport) BenchmarkCurveCurrency() (field.BenchmarkCurveCurrency, errors.MessageRejectError) {
 	var f field.BenchmarkCurveCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurveName is a non-required field for CollateralReport.
-func (m CollateralReport) BenchmarkCurveName() (field.BenchmarkCurveName, error) {
+func (m CollateralReport) BenchmarkCurveName() (field.BenchmarkCurveName, errors.MessageRejectError) {
 	var f field.BenchmarkCurveName
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurvePoint is a non-required field for CollateralReport.
-func (m CollateralReport) BenchmarkCurvePoint() (field.BenchmarkCurvePoint, error) {
+func (m CollateralReport) BenchmarkCurvePoint() (field.BenchmarkCurvePoint, errors.MessageRejectError) {
 	var f field.BenchmarkCurvePoint
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkPrice is a non-required field for CollateralReport.
-func (m CollateralReport) BenchmarkPrice() (field.BenchmarkPrice, error) {
+func (m CollateralReport) BenchmarkPrice() (field.BenchmarkPrice, errors.MessageRejectError) {
 	var f field.BenchmarkPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkPriceType is a non-required field for CollateralReport.
-func (m CollateralReport) BenchmarkPriceType() (field.BenchmarkPriceType, error) {
+func (m CollateralReport) BenchmarkPriceType() (field.BenchmarkPriceType, errors.MessageRejectError) {
 	var f field.BenchmarkPriceType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkSecurityID is a non-required field for CollateralReport.
-func (m CollateralReport) BenchmarkSecurityID() (field.BenchmarkSecurityID, error) {
+func (m CollateralReport) BenchmarkSecurityID() (field.BenchmarkSecurityID, errors.MessageRejectError) {
 	var f field.BenchmarkSecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkSecurityIDSource is a non-required field for CollateralReport.
-func (m CollateralReport) BenchmarkSecurityIDSource() (field.BenchmarkSecurityIDSource, error) {
+func (m CollateralReport) BenchmarkSecurityIDSource() (field.BenchmarkSecurityIDSource, errors.MessageRejectError) {
 	var f field.BenchmarkSecurityIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoStipulations is a non-required field for CollateralReport.
-func (m CollateralReport) NoStipulations() (field.NoStipulations, error) {
+func (m CollateralReport) NoStipulations() (field.NoStipulations, errors.MessageRejectError) {
 	var f field.NoStipulations
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlDeliveryType is a non-required field for CollateralReport.
-func (m CollateralReport) SettlDeliveryType() (field.SettlDeliveryType, error) {
+func (m CollateralReport) SettlDeliveryType() (field.SettlDeliveryType, errors.MessageRejectError) {
 	var f field.SettlDeliveryType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StandInstDbType is a non-required field for CollateralReport.
-func (m CollateralReport) StandInstDbType() (field.StandInstDbType, error) {
+func (m CollateralReport) StandInstDbType() (field.StandInstDbType, errors.MessageRejectError) {
 	var f field.StandInstDbType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StandInstDbName is a non-required field for CollateralReport.
-func (m CollateralReport) StandInstDbName() (field.StandInstDbName, error) {
+func (m CollateralReport) StandInstDbName() (field.StandInstDbName, errors.MessageRejectError) {
 	var f field.StandInstDbName
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StandInstDbID is a non-required field for CollateralReport.
-func (m CollateralReport) StandInstDbID() (field.StandInstDbID, error) {
+func (m CollateralReport) StandInstDbID() (field.StandInstDbID, errors.MessageRejectError) {
 	var f field.StandInstDbID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoDlvyInst is a non-required field for CollateralReport.
-func (m CollateralReport) NoDlvyInst() (field.NoDlvyInst, error) {
+func (m CollateralReport) NoDlvyInst() (field.NoDlvyInst, errors.MessageRejectError) {
 	var f field.NoDlvyInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionID is a non-required field for CollateralReport.
-func (m CollateralReport) TradingSessionID() (field.TradingSessionID, error) {
+func (m CollateralReport) TradingSessionID() (field.TradingSessionID, errors.MessageRejectError) {
 	var f field.TradingSessionID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionSubID is a non-required field for CollateralReport.
-func (m CollateralReport) TradingSessionSubID() (field.TradingSessionSubID, error) {
+func (m CollateralReport) TradingSessionSubID() (field.TradingSessionSubID, errors.MessageRejectError) {
 	var f field.TradingSessionSubID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlSessID is a non-required field for CollateralReport.
-func (m CollateralReport) SettlSessID() (field.SettlSessID, error) {
+func (m CollateralReport) SettlSessID() (field.SettlSessID, errors.MessageRejectError) {
 	var f field.SettlSessID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlSessSubID is a non-required field for CollateralReport.
-func (m CollateralReport) SettlSessSubID() (field.SettlSessSubID, error) {
+func (m CollateralReport) SettlSessSubID() (field.SettlSessSubID, errors.MessageRejectError) {
 	var f field.SettlSessSubID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClearingBusinessDate is a non-required field for CollateralReport.
-func (m CollateralReport) ClearingBusinessDate() (field.ClearingBusinessDate, error) {
+func (m CollateralReport) ClearingBusinessDate() (field.ClearingBusinessDate, errors.MessageRejectError) {
 	var f field.ClearingBusinessDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for CollateralReport.
-func (m CollateralReport) Text() (field.Text, error) {
+func (m CollateralReport) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for CollateralReport.
-func (m CollateralReport) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m CollateralReport) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for CollateralReport.
-func (m CollateralReport) EncodedText() (field.EncodedText, error) {
+func (m CollateralReport) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

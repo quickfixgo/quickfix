@@ -1,6 +1,7 @@
 package fix40
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,7 +24,7 @@ func CreateHeartbeatBuilder() HeartbeatBuilder {
 }
 
 //TestReqID is a non-required field for Heartbeat.
-func (m Heartbeat) TestReqID() (field.TestReqID, error) {
+func (m Heartbeat) TestReqID() (field.TestReqID, errors.MessageRejectError) {
 	var f field.TestReqID
 	err := m.Body.Get(&f)
 	return f, err

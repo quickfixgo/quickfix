@@ -1,6 +1,7 @@
 package fix50
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,42 +26,42 @@ func CreateMarketDataRequestRejectBuilder(
 }
 
 //MDReqID is a required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) MDReqID() (field.MDReqID, error) {
+func (m MarketDataRequestReject) MDReqID() (field.MDReqID, errors.MessageRejectError) {
 	var f field.MDReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MDReqRejReason is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) MDReqRejReason() (field.MDReqRejReason, error) {
+func (m MarketDataRequestReject) MDReqRejReason() (field.MDReqRejReason, errors.MessageRejectError) {
 	var f field.MDReqRejReason
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoAltMDSource is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) NoAltMDSource() (field.NoAltMDSource, error) {
+func (m MarketDataRequestReject) NoAltMDSource() (field.NoAltMDSource, errors.MessageRejectError) {
 	var f field.NoAltMDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) Text() (field.Text, error) {
+func (m MarketDataRequestReject) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m MarketDataRequestReject) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) EncodedText() (field.EncodedText, error) {
+func (m MarketDataRequestReject) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

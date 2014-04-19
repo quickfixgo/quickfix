@@ -1,6 +1,7 @@
 package message
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
 )
@@ -32,21 +33,22 @@ func (fieldMap FieldMap) Tags() []fix.Tag {
 	return tags
 }
 
-func (fieldMap FieldMap) Get(parser Field) error {
-	field, ok := fieldMap.lookup[parser.Tag()]
-
-	if !ok {
-		return FieldNotFoundError{parser.Tag()}
-	}
-
-	return parser.Read(field.Value)
+func (fieldMap FieldMap) Get(parser Field) errors.MessageRejectError {
+	return fieldMap.GetField(parser.Tag(), parser)
 }
 
-func (fieldMap FieldMap) GetField(tag fix.Tag, field FieldValue) error {
-	if f, ok := fieldMap.lookup[tag]; ok {
-		return field.Read(f.Value)
+func (fieldMap FieldMap) GetField(tag fix.Tag, parser FieldValue) errors.MessageRejectError {
+	field, ok := fieldMap.lookup[tag]
+
+	if !ok {
+		return errors.ConditionallyRequiredFieldMissing(tag)
 	}
-	return FieldNotFoundError{tag}
+
+	if err := parser.Read(field.Value); err != nil {
+		return errors.IncorrectDataFormatForValue(tag)
+	}
+
+	return nil
 }
 
 func (fieldMap FieldMap) length() int {

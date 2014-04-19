@@ -1,6 +1,7 @@
 package fix50sp1
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -35,203 +36,203 @@ func CreateBidRequestBuilder(
 }
 
 //BidID is a non-required field for BidRequest.
-func (m BidRequest) BidID() (field.BidID, error) {
+func (m BidRequest) BidID() (field.BidID, errors.MessageRejectError) {
 	var f field.BidID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClientBidID is a required field for BidRequest.
-func (m BidRequest) ClientBidID() (field.ClientBidID, error) {
+func (m BidRequest) ClientBidID() (field.ClientBidID, errors.MessageRejectError) {
 	var f field.ClientBidID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BidRequestTransType is a required field for BidRequest.
-func (m BidRequest) BidRequestTransType() (field.BidRequestTransType, error) {
+func (m BidRequest) BidRequestTransType() (field.BidRequestTransType, errors.MessageRejectError) {
 	var f field.BidRequestTransType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListName is a non-required field for BidRequest.
-func (m BidRequest) ListName() (field.ListName, error) {
+func (m BidRequest) ListName() (field.ListName, errors.MessageRejectError) {
 	var f field.ListName
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotNoRelatedSym is a required field for BidRequest.
-func (m BidRequest) TotNoRelatedSym() (field.TotNoRelatedSym, error) {
+func (m BidRequest) TotNoRelatedSym() (field.TotNoRelatedSym, errors.MessageRejectError) {
 	var f field.TotNoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BidType is a required field for BidRequest.
-func (m BidRequest) BidType() (field.BidType, error) {
+func (m BidRequest) BidType() (field.BidType, errors.MessageRejectError) {
 	var f field.BidType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NumTickets is a non-required field for BidRequest.
-func (m BidRequest) NumTickets() (field.NumTickets, error) {
+func (m BidRequest) NumTickets() (field.NumTickets, errors.MessageRejectError) {
 	var f field.NumTickets
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Currency is a non-required field for BidRequest.
-func (m BidRequest) Currency() (field.Currency, error) {
+func (m BidRequest) Currency() (field.Currency, errors.MessageRejectError) {
 	var f field.Currency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SideValue1 is a non-required field for BidRequest.
-func (m BidRequest) SideValue1() (field.SideValue1, error) {
+func (m BidRequest) SideValue1() (field.SideValue1, errors.MessageRejectError) {
 	var f field.SideValue1
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SideValue2 is a non-required field for BidRequest.
-func (m BidRequest) SideValue2() (field.SideValue2, error) {
+func (m BidRequest) SideValue2() (field.SideValue2, errors.MessageRejectError) {
 	var f field.SideValue2
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoBidDescriptors is a non-required field for BidRequest.
-func (m BidRequest) NoBidDescriptors() (field.NoBidDescriptors, error) {
+func (m BidRequest) NoBidDescriptors() (field.NoBidDescriptors, errors.MessageRejectError) {
 	var f field.NoBidDescriptors
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoBidComponents is a non-required field for BidRequest.
-func (m BidRequest) NoBidComponents() (field.NoBidComponents, error) {
+func (m BidRequest) NoBidComponents() (field.NoBidComponents, errors.MessageRejectError) {
 	var f field.NoBidComponents
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LiquidityIndType is a non-required field for BidRequest.
-func (m BidRequest) LiquidityIndType() (field.LiquidityIndType, error) {
+func (m BidRequest) LiquidityIndType() (field.LiquidityIndType, errors.MessageRejectError) {
 	var f field.LiquidityIndType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //WtAverageLiquidity is a non-required field for BidRequest.
-func (m BidRequest) WtAverageLiquidity() (field.WtAverageLiquidity, error) {
+func (m BidRequest) WtAverageLiquidity() (field.WtAverageLiquidity, errors.MessageRejectError) {
 	var f field.WtAverageLiquidity
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExchangeForPhysical is a non-required field for BidRequest.
-func (m BidRequest) ExchangeForPhysical() (field.ExchangeForPhysical, error) {
+func (m BidRequest) ExchangeForPhysical() (field.ExchangeForPhysical, errors.MessageRejectError) {
 	var f field.ExchangeForPhysical
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OutMainCntryUIndex is a non-required field for BidRequest.
-func (m BidRequest) OutMainCntryUIndex() (field.OutMainCntryUIndex, error) {
+func (m BidRequest) OutMainCntryUIndex() (field.OutMainCntryUIndex, errors.MessageRejectError) {
 	var f field.OutMainCntryUIndex
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CrossPercent is a non-required field for BidRequest.
-func (m BidRequest) CrossPercent() (field.CrossPercent, error) {
+func (m BidRequest) CrossPercent() (field.CrossPercent, errors.MessageRejectError) {
 	var f field.CrossPercent
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProgRptReqs is a non-required field for BidRequest.
-func (m BidRequest) ProgRptReqs() (field.ProgRptReqs, error) {
+func (m BidRequest) ProgRptReqs() (field.ProgRptReqs, errors.MessageRejectError) {
 	var f field.ProgRptReqs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProgPeriodInterval is a non-required field for BidRequest.
-func (m BidRequest) ProgPeriodInterval() (field.ProgPeriodInterval, error) {
+func (m BidRequest) ProgPeriodInterval() (field.ProgPeriodInterval, errors.MessageRejectError) {
 	var f field.ProgPeriodInterval
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IncTaxInd is a non-required field for BidRequest.
-func (m BidRequest) IncTaxInd() (field.IncTaxInd, error) {
+func (m BidRequest) IncTaxInd() (field.IncTaxInd, errors.MessageRejectError) {
 	var f field.IncTaxInd
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ForexReq is a non-required field for BidRequest.
-func (m BidRequest) ForexReq() (field.ForexReq, error) {
+func (m BidRequest) ForexReq() (field.ForexReq, errors.MessageRejectError) {
 	var f field.ForexReq
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NumBidders is a non-required field for BidRequest.
-func (m BidRequest) NumBidders() (field.NumBidders, error) {
+func (m BidRequest) NumBidders() (field.NumBidders, errors.MessageRejectError) {
 	var f field.NumBidders
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeDate is a non-required field for BidRequest.
-func (m BidRequest) TradeDate() (field.TradeDate, error) {
+func (m BidRequest) TradeDate() (field.TradeDate, errors.MessageRejectError) {
 	var f field.TradeDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BidTradeType is a required field for BidRequest.
-func (m BidRequest) BidTradeType() (field.BidTradeType, error) {
+func (m BidRequest) BidTradeType() (field.BidTradeType, errors.MessageRejectError) {
 	var f field.BidTradeType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BasisPxType is a required field for BidRequest.
-func (m BidRequest) BasisPxType() (field.BasisPxType, error) {
+func (m BidRequest) BasisPxType() (field.BasisPxType, errors.MessageRejectError) {
 	var f field.BasisPxType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeTime is a non-required field for BidRequest.
-func (m BidRequest) StrikeTime() (field.StrikeTime, error) {
+func (m BidRequest) StrikeTime() (field.StrikeTime, errors.MessageRejectError) {
 	var f field.StrikeTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for BidRequest.
-func (m BidRequest) Text() (field.Text, error) {
+func (m BidRequest) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for BidRequest.
-func (m BidRequest) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m BidRequest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for BidRequest.
-func (m BidRequest) EncodedText() (field.EncodedText, error) {
+func (m BidRequest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

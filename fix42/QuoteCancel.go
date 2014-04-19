@@ -1,6 +1,7 @@
 package fix42
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,42 +30,42 @@ func CreateQuoteCancelBuilder(
 }
 
 //QuoteReqID is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteReqID() (field.QuoteReqID, error) {
+func (m QuoteCancel) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
 	var f field.QuoteReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteID is a required field for QuoteCancel.
-func (m QuoteCancel) QuoteID() (field.QuoteID, error) {
+func (m QuoteCancel) QuoteID() (field.QuoteID, errors.MessageRejectError) {
 	var f field.QuoteID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteCancelType is a required field for QuoteCancel.
-func (m QuoteCancel) QuoteCancelType() (field.QuoteCancelType, error) {
+func (m QuoteCancel) QuoteCancelType() (field.QuoteCancelType, errors.MessageRejectError) {
 	var f field.QuoteCancelType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteResponseLevel is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteResponseLevel() (field.QuoteResponseLevel, error) {
+func (m QuoteCancel) QuoteResponseLevel() (field.QuoteResponseLevel, errors.MessageRejectError) {
 	var f field.QuoteResponseLevel
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionID is a non-required field for QuoteCancel.
-func (m QuoteCancel) TradingSessionID() (field.TradingSessionID, error) {
+func (m QuoteCancel) TradingSessionID() (field.TradingSessionID, errors.MessageRejectError) {
 	var f field.TradingSessionID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoQuoteEntries is a required field for QuoteCancel.
-func (m QuoteCancel) NoQuoteEntries() (field.NoQuoteEntries, error) {
+func (m QuoteCancel) NoQuoteEntries() (field.NoQuoteEntries, errors.MessageRejectError) {
 	var f field.NoQuoteEntries
 	err := m.Body.Get(&f)
 	return f, err

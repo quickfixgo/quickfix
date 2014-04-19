@@ -1,6 +1,7 @@
 package fix43
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -37,742 +38,742 @@ func CreateMultilegOrderCancelReplaceRequestBuilder(
 }
 
 //OrderID is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OrderID() (field.OrderID, error) {
+func (m MultilegOrderCancelReplaceRequest) OrderID() (field.OrderID, errors.MessageRejectError) {
 	var f field.OrderID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrigClOrdID is a required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OrigClOrdID() (field.OrigClOrdID, error) {
+func (m MultilegOrderCancelReplaceRequest) OrigClOrdID() (field.OrigClOrdID, errors.MessageRejectError) {
 	var f field.OrigClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdID is a required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ClOrdID() (field.ClOrdID, error) {
+func (m MultilegOrderCancelReplaceRequest) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
 	var f field.ClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecondaryClOrdID is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SecondaryClOrdID() (field.SecondaryClOrdID, error) {
+func (m MultilegOrderCancelReplaceRequest) SecondaryClOrdID() (field.SecondaryClOrdID, errors.MessageRejectError) {
 	var f field.SecondaryClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdLinkID is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ClOrdLinkID() (field.ClOrdLinkID, error) {
+func (m MultilegOrderCancelReplaceRequest) ClOrdLinkID() (field.ClOrdLinkID, errors.MessageRejectError) {
 	var f field.ClOrdLinkID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrigOrdModTime is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OrigOrdModTime() (field.OrigOrdModTime, error) {
+func (m MultilegOrderCancelReplaceRequest) OrigOrdModTime() (field.OrigOrdModTime, errors.MessageRejectError) {
 	var f field.OrigOrdModTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) NoPartyIDs() (field.NoPartyIDs, error) {
+func (m MultilegOrderCancelReplaceRequest) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
 	var f field.NoPartyIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Account is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Account() (field.Account, error) {
+func (m MultilegOrderCancelReplaceRequest) Account() (field.Account, errors.MessageRejectError) {
 	var f field.Account
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AccountType is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) AccountType() (field.AccountType, error) {
+func (m MultilegOrderCancelReplaceRequest) AccountType() (field.AccountType, errors.MessageRejectError) {
 	var f field.AccountType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DayBookingInst is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) DayBookingInst() (field.DayBookingInst, error) {
+func (m MultilegOrderCancelReplaceRequest) DayBookingInst() (field.DayBookingInst, errors.MessageRejectError) {
 	var f field.DayBookingInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BookingUnit is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) BookingUnit() (field.BookingUnit, error) {
+func (m MultilegOrderCancelReplaceRequest) BookingUnit() (field.BookingUnit, errors.MessageRejectError) {
 	var f field.BookingUnit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PreallocMethod is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) PreallocMethod() (field.PreallocMethod, error) {
+func (m MultilegOrderCancelReplaceRequest) PreallocMethod() (field.PreallocMethod, errors.MessageRejectError) {
 	var f field.PreallocMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoAllocs is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) NoAllocs() (field.NoAllocs, error) {
+func (m MultilegOrderCancelReplaceRequest) NoAllocs() (field.NoAllocs, errors.MessageRejectError) {
 	var f field.NoAllocs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlmntTyp is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SettlmntTyp() (field.SettlmntTyp, error) {
+func (m MultilegOrderCancelReplaceRequest) SettlmntTyp() (field.SettlmntTyp, errors.MessageRejectError) {
 	var f field.SettlmntTyp
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FutSettDate is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) FutSettDate() (field.FutSettDate, error) {
+func (m MultilegOrderCancelReplaceRequest) FutSettDate() (field.FutSettDate, errors.MessageRejectError) {
 	var f field.FutSettDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CashMargin is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CashMargin() (field.CashMargin, error) {
+func (m MultilegOrderCancelReplaceRequest) CashMargin() (field.CashMargin, errors.MessageRejectError) {
 	var f field.CashMargin
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClearingFeeIndicator is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ClearingFeeIndicator() (field.ClearingFeeIndicator, error) {
+func (m MultilegOrderCancelReplaceRequest) ClearingFeeIndicator() (field.ClearingFeeIndicator, errors.MessageRejectError) {
 	var f field.ClearingFeeIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //HandlInst is a required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) HandlInst() (field.HandlInst, error) {
+func (m MultilegOrderCancelReplaceRequest) HandlInst() (field.HandlInst, errors.MessageRejectError) {
 	var f field.HandlInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExecInst is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ExecInst() (field.ExecInst, error) {
+func (m MultilegOrderCancelReplaceRequest) ExecInst() (field.ExecInst, errors.MessageRejectError) {
 	var f field.ExecInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinQty is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) MinQty() (field.MinQty, error) {
+func (m MultilegOrderCancelReplaceRequest) MinQty() (field.MinQty, errors.MessageRejectError) {
 	var f field.MinQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaxFloor is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) MaxFloor() (field.MaxFloor, error) {
+func (m MultilegOrderCancelReplaceRequest) MaxFloor() (field.MaxFloor, errors.MessageRejectError) {
 	var f field.MaxFloor
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExDestination is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ExDestination() (field.ExDestination, error) {
+func (m MultilegOrderCancelReplaceRequest) ExDestination() (field.ExDestination, errors.MessageRejectError) {
 	var f field.ExDestination
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTradingSessions is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) NoTradingSessions() (field.NoTradingSessions, error) {
+func (m MultilegOrderCancelReplaceRequest) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
 	var f field.NoTradingSessions
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProcessCode is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ProcessCode() (field.ProcessCode, error) {
+func (m MultilegOrderCancelReplaceRequest) ProcessCode() (field.ProcessCode, errors.MessageRejectError) {
 	var f field.ProcessCode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Side is a required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Side() (field.Side, error) {
+func (m MultilegOrderCancelReplaceRequest) Side() (field.Side, errors.MessageRejectError) {
 	var f field.Side
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Symbol() (field.Symbol, error) {
+func (m MultilegOrderCancelReplaceRequest) Symbol() (field.Symbol, errors.MessageRejectError) {
 	var f field.Symbol
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SymbolSfx() (field.SymbolSfx, error) {
+func (m MultilegOrderCancelReplaceRequest) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
 	var f field.SymbolSfx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SecurityID() (field.SecurityID, error) {
+func (m MultilegOrderCancelReplaceRequest) SecurityID() (field.SecurityID, errors.MessageRejectError) {
 	var f field.SecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityIDSource is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SecurityIDSource() (field.SecurityIDSource, error) {
+func (m MultilegOrderCancelReplaceRequest) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
 	var f field.SecurityIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityAltID is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) NoSecurityAltID() (field.NoSecurityAltID, error) {
+func (m MultilegOrderCancelReplaceRequest) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
 	var f field.NoSecurityAltID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Product() (field.Product, error) {
+func (m MultilegOrderCancelReplaceRequest) Product() (field.Product, errors.MessageRejectError) {
 	var f field.Product
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CFICode() (field.CFICode, error) {
+func (m MultilegOrderCancelReplaceRequest) CFICode() (field.CFICode, errors.MessageRejectError) {
 	var f field.CFICode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SecurityType() (field.SecurityType, error) {
+func (m MultilegOrderCancelReplaceRequest) SecurityType() (field.SecurityType, errors.MessageRejectError) {
 	var f field.SecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityMonthYear is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) MaturityMonthYear() (field.MaturityMonthYear, error) {
+func (m MultilegOrderCancelReplaceRequest) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
 	var f field.MaturityMonthYear
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityDate is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) MaturityDate() (field.MaturityDate, error) {
+func (m MultilegOrderCancelReplaceRequest) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
 	var f field.MaturityDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponPaymentDate is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CouponPaymentDate() (field.CouponPaymentDate, error) {
+func (m MultilegOrderCancelReplaceRequest) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
 	var f field.CouponPaymentDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IssueDate is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) IssueDate() (field.IssueDate, error) {
+func (m MultilegOrderCancelReplaceRequest) IssueDate() (field.IssueDate, errors.MessageRejectError) {
 	var f field.IssueDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepoCollateralSecurityType is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, error) {
+func (m MultilegOrderCancelReplaceRequest) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
 	var f field.RepoCollateralSecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseTerm is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) RepurchaseTerm() (field.RepurchaseTerm, error) {
+func (m MultilegOrderCancelReplaceRequest) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
 	var f field.RepurchaseTerm
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseRate is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) RepurchaseRate() (field.RepurchaseRate, error) {
+func (m MultilegOrderCancelReplaceRequest) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
 	var f field.RepurchaseRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Factor is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Factor() (field.Factor, error) {
+func (m MultilegOrderCancelReplaceRequest) Factor() (field.Factor, errors.MessageRejectError) {
 	var f field.Factor
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CreditRating is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CreditRating() (field.CreditRating, error) {
+func (m MultilegOrderCancelReplaceRequest) CreditRating() (field.CreditRating, errors.MessageRejectError) {
 	var f field.CreditRating
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrRegistry is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) InstrRegistry() (field.InstrRegistry, error) {
+func (m MultilegOrderCancelReplaceRequest) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
 	var f field.InstrRegistry
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CountryOfIssue is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CountryOfIssue() (field.CountryOfIssue, error) {
+func (m MultilegOrderCancelReplaceRequest) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
 	var f field.CountryOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StateOrProvinceOfIssue is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, error) {
+func (m MultilegOrderCancelReplaceRequest) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
 	var f field.StateOrProvinceOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocaleOfIssue is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) LocaleOfIssue() (field.LocaleOfIssue, error) {
+func (m MultilegOrderCancelReplaceRequest) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
 	var f field.LocaleOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RedemptionDate is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) RedemptionDate() (field.RedemptionDate, error) {
+func (m MultilegOrderCancelReplaceRequest) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
 	var f field.RedemptionDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePrice is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) StrikePrice() (field.StrikePrice, error) {
+func (m MultilegOrderCancelReplaceRequest) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
 	var f field.StrikePrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptAttribute is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OptAttribute() (field.OptAttribute, error) {
+func (m MultilegOrderCancelReplaceRequest) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
 	var f field.OptAttribute
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplier is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ContractMultiplier() (field.ContractMultiplier, error) {
+func (m MultilegOrderCancelReplaceRequest) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
 	var f field.ContractMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponRate is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CouponRate() (field.CouponRate, error) {
+func (m MultilegOrderCancelReplaceRequest) CouponRate() (field.CouponRate, errors.MessageRejectError) {
 	var f field.CouponRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityExchange is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SecurityExchange() (field.SecurityExchange, error) {
+func (m MultilegOrderCancelReplaceRequest) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
 	var f field.SecurityExchange
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Issuer() (field.Issuer, error) {
+func (m MultilegOrderCancelReplaceRequest) Issuer() (field.Issuer, errors.MessageRejectError) {
 	var f field.Issuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuerLen is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) EncodedIssuerLen() (field.EncodedIssuerLen, error) {
+func (m MultilegOrderCancelReplaceRequest) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
 	var f field.EncodedIssuerLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuer is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) EncodedIssuer() (field.EncodedIssuer, error) {
+func (m MultilegOrderCancelReplaceRequest) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
 	var f field.EncodedIssuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SecurityDesc() (field.SecurityDesc, error) {
+func (m MultilegOrderCancelReplaceRequest) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
 	var f field.SecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDescLen is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, error) {
+func (m MultilegOrderCancelReplaceRequest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
 	var f field.EncodedSecurityDescLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDesc is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) EncodedSecurityDesc() (field.EncodedSecurityDesc, error) {
+func (m MultilegOrderCancelReplaceRequest) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
 	var f field.EncodedSecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PrevClosePx is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) PrevClosePx() (field.PrevClosePx, error) {
+func (m MultilegOrderCancelReplaceRequest) PrevClosePx() (field.PrevClosePx, errors.MessageRejectError) {
 	var f field.PrevClosePx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLegs is a required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) NoLegs() (field.NoLegs, error) {
+func (m MultilegOrderCancelReplaceRequest) NoLegs() (field.NoLegs, errors.MessageRejectError) {
 	var f field.NoLegs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocateReqd is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) LocateReqd() (field.LocateReqd, error) {
+func (m MultilegOrderCancelReplaceRequest) LocateReqd() (field.LocateReqd, errors.MessageRejectError) {
 	var f field.LocateReqd
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) TransactTime() (field.TransactTime, error) {
+func (m MultilegOrderCancelReplaceRequest) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuantityType is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) QuantityType() (field.QuantityType, error) {
+func (m MultilegOrderCancelReplaceRequest) QuantityType() (field.QuantityType, errors.MessageRejectError) {
 	var f field.QuantityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderQty is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OrderQty() (field.OrderQty, error) {
+func (m MultilegOrderCancelReplaceRequest) OrderQty() (field.OrderQty, errors.MessageRejectError) {
 	var f field.OrderQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CashOrderQty is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CashOrderQty() (field.CashOrderQty, error) {
+func (m MultilegOrderCancelReplaceRequest) CashOrderQty() (field.CashOrderQty, errors.MessageRejectError) {
 	var f field.CashOrderQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderPercent is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OrderPercent() (field.OrderPercent, error) {
+func (m MultilegOrderCancelReplaceRequest) OrderPercent() (field.OrderPercent, errors.MessageRejectError) {
 	var f field.OrderPercent
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RoundingDirection is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) RoundingDirection() (field.RoundingDirection, error) {
+func (m MultilegOrderCancelReplaceRequest) RoundingDirection() (field.RoundingDirection, errors.MessageRejectError) {
 	var f field.RoundingDirection
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RoundingModulus is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) RoundingModulus() (field.RoundingModulus, error) {
+func (m MultilegOrderCancelReplaceRequest) RoundingModulus() (field.RoundingModulus, errors.MessageRejectError) {
 	var f field.RoundingModulus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrdType is a required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OrdType() (field.OrdType, error) {
+func (m MultilegOrderCancelReplaceRequest) OrdType() (field.OrdType, errors.MessageRejectError) {
 	var f field.OrdType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceType is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) PriceType() (field.PriceType, error) {
+func (m MultilegOrderCancelReplaceRequest) PriceType() (field.PriceType, errors.MessageRejectError) {
 	var f field.PriceType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Price is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Price() (field.Price, error) {
+func (m MultilegOrderCancelReplaceRequest) Price() (field.Price, errors.MessageRejectError) {
 	var f field.Price
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StopPx is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) StopPx() (field.StopPx, error) {
+func (m MultilegOrderCancelReplaceRequest) StopPx() (field.StopPx, errors.MessageRejectError) {
 	var f field.StopPx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Currency is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Currency() (field.Currency, error) {
+func (m MultilegOrderCancelReplaceRequest) Currency() (field.Currency, errors.MessageRejectError) {
 	var f field.Currency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ComplianceID is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ComplianceID() (field.ComplianceID, error) {
+func (m MultilegOrderCancelReplaceRequest) ComplianceID() (field.ComplianceID, errors.MessageRejectError) {
 	var f field.ComplianceID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SolicitedFlag is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SolicitedFlag() (field.SolicitedFlag, error) {
+func (m MultilegOrderCancelReplaceRequest) SolicitedFlag() (field.SolicitedFlag, errors.MessageRejectError) {
 	var f field.SolicitedFlag
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IOIid is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) IOIid() (field.IOIid, error) {
+func (m MultilegOrderCancelReplaceRequest) IOIid() (field.IOIid, errors.MessageRejectError) {
 	var f field.IOIid
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteID is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) QuoteID() (field.QuoteID, error) {
+func (m MultilegOrderCancelReplaceRequest) QuoteID() (field.QuoteID, errors.MessageRejectError) {
 	var f field.QuoteID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TimeInForce is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) TimeInForce() (field.TimeInForce, error) {
+func (m MultilegOrderCancelReplaceRequest) TimeInForce() (field.TimeInForce, errors.MessageRejectError) {
 	var f field.TimeInForce
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EffectiveTime is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) EffectiveTime() (field.EffectiveTime, error) {
+func (m MultilegOrderCancelReplaceRequest) EffectiveTime() (field.EffectiveTime, errors.MessageRejectError) {
 	var f field.EffectiveTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExpireDate is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ExpireDate() (field.ExpireDate, error) {
+func (m MultilegOrderCancelReplaceRequest) ExpireDate() (field.ExpireDate, errors.MessageRejectError) {
 	var f field.ExpireDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExpireTime is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ExpireTime() (field.ExpireTime, error) {
+func (m MultilegOrderCancelReplaceRequest) ExpireTime() (field.ExpireTime, errors.MessageRejectError) {
 	var f field.ExpireTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //GTBookingInst is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) GTBookingInst() (field.GTBookingInst, error) {
+func (m MultilegOrderCancelReplaceRequest) GTBookingInst() (field.GTBookingInst, errors.MessageRejectError) {
 	var f field.GTBookingInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Commission is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Commission() (field.Commission, error) {
+func (m MultilegOrderCancelReplaceRequest) Commission() (field.Commission, errors.MessageRejectError) {
 	var f field.Commission
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CommType is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CommType() (field.CommType, error) {
+func (m MultilegOrderCancelReplaceRequest) CommType() (field.CommType, errors.MessageRejectError) {
 	var f field.CommType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CommCurrency is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CommCurrency() (field.CommCurrency, error) {
+func (m MultilegOrderCancelReplaceRequest) CommCurrency() (field.CommCurrency, errors.MessageRejectError) {
 	var f field.CommCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FundRenewWaiv is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) FundRenewWaiv() (field.FundRenewWaiv, error) {
+func (m MultilegOrderCancelReplaceRequest) FundRenewWaiv() (field.FundRenewWaiv, errors.MessageRejectError) {
 	var f field.FundRenewWaiv
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderCapacity is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OrderCapacity() (field.OrderCapacity, error) {
+func (m MultilegOrderCancelReplaceRequest) OrderCapacity() (field.OrderCapacity, errors.MessageRejectError) {
 	var f field.OrderCapacity
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderRestrictions is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) OrderRestrictions() (field.OrderRestrictions, error) {
+func (m MultilegOrderCancelReplaceRequest) OrderRestrictions() (field.OrderRestrictions, errors.MessageRejectError) {
 	var f field.OrderRestrictions
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CustOrderCapacity is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CustOrderCapacity() (field.CustOrderCapacity, error) {
+func (m MultilegOrderCancelReplaceRequest) CustOrderCapacity() (field.CustOrderCapacity, errors.MessageRejectError) {
 	var f field.CustOrderCapacity
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ForexReq is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) ForexReq() (field.ForexReq, error) {
+func (m MultilegOrderCancelReplaceRequest) ForexReq() (field.ForexReq, errors.MessageRejectError) {
 	var f field.ForexReq
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlCurrency is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) SettlCurrency() (field.SettlCurrency, error) {
+func (m MultilegOrderCancelReplaceRequest) SettlCurrency() (field.SettlCurrency, errors.MessageRejectError) {
 	var f field.SettlCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Text() (field.Text, error) {
+func (m MultilegOrderCancelReplaceRequest) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m MultilegOrderCancelReplaceRequest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) EncodedText() (field.EncodedText, error) {
+func (m MultilegOrderCancelReplaceRequest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PositionEffect is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) PositionEffect() (field.PositionEffect, error) {
+func (m MultilegOrderCancelReplaceRequest) PositionEffect() (field.PositionEffect, errors.MessageRejectError) {
 	var f field.PositionEffect
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CoveredOrUncovered is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CoveredOrUncovered() (field.CoveredOrUncovered, error) {
+func (m MultilegOrderCancelReplaceRequest) CoveredOrUncovered() (field.CoveredOrUncovered, errors.MessageRejectError) {
 	var f field.CoveredOrUncovered
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaxShow is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) MaxShow() (field.MaxShow, error) {
+func (m MultilegOrderCancelReplaceRequest) MaxShow() (field.MaxShow, errors.MessageRejectError) {
 	var f field.MaxShow
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PegDifference is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) PegDifference() (field.PegDifference, error) {
+func (m MultilegOrderCancelReplaceRequest) PegDifference() (field.PegDifference, errors.MessageRejectError) {
 	var f field.PegDifference
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionInst is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) DiscretionInst() (field.DiscretionInst, error) {
+func (m MultilegOrderCancelReplaceRequest) DiscretionInst() (field.DiscretionInst, errors.MessageRejectError) {
 	var f field.DiscretionInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DiscretionOffset is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) DiscretionOffset() (field.DiscretionOffset, error) {
+func (m MultilegOrderCancelReplaceRequest) DiscretionOffset() (field.DiscretionOffset, errors.MessageRejectError) {
 	var f field.DiscretionOffset
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CancellationRights is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) CancellationRights() (field.CancellationRights, error) {
+func (m MultilegOrderCancelReplaceRequest) CancellationRights() (field.CancellationRights, errors.MessageRejectError) {
 	var f field.CancellationRights
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MoneyLaunderingStatus is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) MoneyLaunderingStatus() (field.MoneyLaunderingStatus, error) {
+func (m MultilegOrderCancelReplaceRequest) MoneyLaunderingStatus() (field.MoneyLaunderingStatus, errors.MessageRejectError) {
 	var f field.MoneyLaunderingStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RegistID is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) RegistID() (field.RegistID, error) {
+func (m MultilegOrderCancelReplaceRequest) RegistID() (field.RegistID, errors.MessageRejectError) {
 	var f field.RegistID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Designation is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) Designation() (field.Designation, error) {
+func (m MultilegOrderCancelReplaceRequest) Designation() (field.Designation, errors.MessageRejectError) {
 	var f field.Designation
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MultiLegRptTypeReq is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) MultiLegRptTypeReq() (field.MultiLegRptTypeReq, error) {
+func (m MultilegOrderCancelReplaceRequest) MultiLegRptTypeReq() (field.MultiLegRptTypeReq, errors.MessageRejectError) {
 	var f field.MultiLegRptTypeReq
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NetMoney is a non-required field for MultilegOrderCancelReplaceRequest.
-func (m MultilegOrderCancelReplaceRequest) NetMoney() (field.NetMoney, error) {
+func (m MultilegOrderCancelReplaceRequest) NetMoney() (field.NetMoney, errors.MessageRejectError) {
 	var f field.NetMoney
 	err := m.Body.Get(&f)
 	return f, err

@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,49 +28,49 @@ func CreateApplicationMessageReportBuilder(
 }
 
 //ApplReportID is a required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) ApplReportID() (field.ApplReportID, error) {
+func (m ApplicationMessageReport) ApplReportID() (field.ApplReportID, errors.MessageRejectError) {
 	var f field.ApplReportID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplReportType is a required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) ApplReportType() (field.ApplReportType, error) {
+func (m ApplicationMessageReport) ApplReportType() (field.ApplReportType, errors.MessageRejectError) {
 	var f field.ApplReportType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoApplIDs is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) NoApplIDs() (field.NoApplIDs, error) {
+func (m ApplicationMessageReport) NoApplIDs() (field.NoApplIDs, errors.MessageRejectError) {
 	var f field.NoApplIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) Text() (field.Text, error) {
+func (m ApplicationMessageReport) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m ApplicationMessageReport) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) EncodedText() (field.EncodedText, error) {
+func (m ApplicationMessageReport) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplReqID is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) ApplReqID() (field.ApplReqID, error) {
+func (m ApplicationMessageReport) ApplReqID() (field.ApplReqID, errors.MessageRejectError) {
 	var f field.ApplReqID
 	err := m.Body.Get(&f)
 	return f, err

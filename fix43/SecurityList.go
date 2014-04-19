@@ -1,6 +1,7 @@
 package fix43
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,35 +30,35 @@ func CreateSecurityListBuilder(
 }
 
 //SecurityReqID is a required field for SecurityList.
-func (m SecurityList) SecurityReqID() (field.SecurityReqID, error) {
+func (m SecurityList) SecurityReqID() (field.SecurityReqID, errors.MessageRejectError) {
 	var f field.SecurityReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityResponseID is a required field for SecurityList.
-func (m SecurityList) SecurityResponseID() (field.SecurityResponseID, error) {
+func (m SecurityList) SecurityResponseID() (field.SecurityResponseID, errors.MessageRejectError) {
 	var f field.SecurityResponseID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityRequestResult is a required field for SecurityList.
-func (m SecurityList) SecurityRequestResult() (field.SecurityRequestResult, error) {
+func (m SecurityList) SecurityRequestResult() (field.SecurityRequestResult, errors.MessageRejectError) {
 	var f field.SecurityRequestResult
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotalNumSecurities is a non-required field for SecurityList.
-func (m SecurityList) TotalNumSecurities() (field.TotalNumSecurities, error) {
+func (m SecurityList) TotalNumSecurities() (field.TotalNumSecurities, errors.MessageRejectError) {
 	var f field.TotalNumSecurities
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a non-required field for SecurityList.
-func (m SecurityList) NoRelatedSym() (field.NoRelatedSym, error) {
+func (m SecurityList) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
 	var f field.NoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err

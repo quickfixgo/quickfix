@@ -1,6 +1,7 @@
 package fix44
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,14 +26,14 @@ func CreateSequenceResetBuilder(
 }
 
 //GapFillFlag is a non-required field for SequenceReset.
-func (m SequenceReset) GapFillFlag() (field.GapFillFlag, error) {
+func (m SequenceReset) GapFillFlag() (field.GapFillFlag, errors.MessageRejectError) {
 	var f field.GapFillFlag
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NewSeqNo is a required field for SequenceReset.
-func (m SequenceReset) NewSeqNo() (field.NewSeqNo, error) {
+func (m SequenceReset) NewSeqNo() (field.NewSeqNo, errors.MessageRejectError) {
 	var f field.NewSeqNo
 	err := m.Body.Get(&f)
 	return f, err

@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -35,693 +36,693 @@ func CreateCrossOrderCancelRequestBuilder(
 }
 
 //OrderID is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) OrderID() (field.OrderID, error) {
+func (m CrossOrderCancelRequest) OrderID() (field.OrderID, errors.MessageRejectError) {
 	var f field.OrderID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CrossID is a required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CrossID() (field.CrossID, error) {
+func (m CrossOrderCancelRequest) CrossID() (field.CrossID, errors.MessageRejectError) {
 	var f field.CrossID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrigCrossID is a required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) OrigCrossID() (field.OrigCrossID, error) {
+func (m CrossOrderCancelRequest) OrigCrossID() (field.OrigCrossID, errors.MessageRejectError) {
 	var f field.OrigCrossID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CrossType is a required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CrossType() (field.CrossType, error) {
+func (m CrossOrderCancelRequest) CrossType() (field.CrossType, errors.MessageRejectError) {
 	var f field.CrossType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CrossPrioritization is a required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CrossPrioritization() (field.CrossPrioritization, error) {
+func (m CrossOrderCancelRequest) CrossPrioritization() (field.CrossPrioritization, errors.MessageRejectError) {
 	var f field.CrossPrioritization
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSides is a required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NoSides() (field.NoSides, error) {
+func (m CrossOrderCancelRequest) NoSides() (field.NoSides, errors.MessageRejectError) {
 	var f field.NoSides
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) Symbol() (field.Symbol, error) {
+func (m CrossOrderCancelRequest) Symbol() (field.Symbol, errors.MessageRejectError) {
 	var f field.Symbol
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SymbolSfx() (field.SymbolSfx, error) {
+func (m CrossOrderCancelRequest) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
 	var f field.SymbolSfx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityID() (field.SecurityID, error) {
+func (m CrossOrderCancelRequest) SecurityID() (field.SecurityID, errors.MessageRejectError) {
 	var f field.SecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityIDSource is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityIDSource() (field.SecurityIDSource, error) {
+func (m CrossOrderCancelRequest) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
 	var f field.SecurityIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityAltID is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NoSecurityAltID() (field.NoSecurityAltID, error) {
+func (m CrossOrderCancelRequest) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
 	var f field.NoSecurityAltID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) Product() (field.Product, error) {
+func (m CrossOrderCancelRequest) Product() (field.Product, errors.MessageRejectError) {
 	var f field.Product
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CFICode() (field.CFICode, error) {
+func (m CrossOrderCancelRequest) CFICode() (field.CFICode, errors.MessageRejectError) {
 	var f field.CFICode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityType() (field.SecurityType, error) {
+func (m CrossOrderCancelRequest) SecurityType() (field.SecurityType, errors.MessageRejectError) {
 	var f field.SecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecuritySubType is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecuritySubType() (field.SecuritySubType, error) {
+func (m CrossOrderCancelRequest) SecuritySubType() (field.SecuritySubType, errors.MessageRejectError) {
 	var f field.SecuritySubType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityMonthYear is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) MaturityMonthYear() (field.MaturityMonthYear, error) {
+func (m CrossOrderCancelRequest) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
 	var f field.MaturityMonthYear
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityDate is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) MaturityDate() (field.MaturityDate, error) {
+func (m CrossOrderCancelRequest) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
 	var f field.MaturityDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponPaymentDate is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CouponPaymentDate() (field.CouponPaymentDate, error) {
+func (m CrossOrderCancelRequest) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
 	var f field.CouponPaymentDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IssueDate is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) IssueDate() (field.IssueDate, error) {
+func (m CrossOrderCancelRequest) IssueDate() (field.IssueDate, errors.MessageRejectError) {
 	var f field.IssueDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepoCollateralSecurityType is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, error) {
+func (m CrossOrderCancelRequest) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
 	var f field.RepoCollateralSecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseTerm is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) RepurchaseTerm() (field.RepurchaseTerm, error) {
+func (m CrossOrderCancelRequest) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
 	var f field.RepurchaseTerm
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseRate is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) RepurchaseRate() (field.RepurchaseRate, error) {
+func (m CrossOrderCancelRequest) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
 	var f field.RepurchaseRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Factor is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) Factor() (field.Factor, error) {
+func (m CrossOrderCancelRequest) Factor() (field.Factor, errors.MessageRejectError) {
 	var f field.Factor
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CreditRating is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CreditRating() (field.CreditRating, error) {
+func (m CrossOrderCancelRequest) CreditRating() (field.CreditRating, errors.MessageRejectError) {
 	var f field.CreditRating
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrRegistry is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) InstrRegistry() (field.InstrRegistry, error) {
+func (m CrossOrderCancelRequest) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
 	var f field.InstrRegistry
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CountryOfIssue is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CountryOfIssue() (field.CountryOfIssue, error) {
+func (m CrossOrderCancelRequest) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
 	var f field.CountryOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StateOrProvinceOfIssue is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, error) {
+func (m CrossOrderCancelRequest) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
 	var f field.StateOrProvinceOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocaleOfIssue is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) LocaleOfIssue() (field.LocaleOfIssue, error) {
+func (m CrossOrderCancelRequest) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
 	var f field.LocaleOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RedemptionDate is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) RedemptionDate() (field.RedemptionDate, error) {
+func (m CrossOrderCancelRequest) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
 	var f field.RedemptionDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePrice is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) StrikePrice() (field.StrikePrice, error) {
+func (m CrossOrderCancelRequest) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
 	var f field.StrikePrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeCurrency is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) StrikeCurrency() (field.StrikeCurrency, error) {
+func (m CrossOrderCancelRequest) StrikeCurrency() (field.StrikeCurrency, errors.MessageRejectError) {
 	var f field.StrikeCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptAttribute is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) OptAttribute() (field.OptAttribute, error) {
+func (m CrossOrderCancelRequest) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
 	var f field.OptAttribute
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplier is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) ContractMultiplier() (field.ContractMultiplier, error) {
+func (m CrossOrderCancelRequest) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
 	var f field.ContractMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponRate is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CouponRate() (field.CouponRate, error) {
+func (m CrossOrderCancelRequest) CouponRate() (field.CouponRate, errors.MessageRejectError) {
 	var f field.CouponRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityExchange is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityExchange() (field.SecurityExchange, error) {
+func (m CrossOrderCancelRequest) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
 	var f field.SecurityExchange
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) Issuer() (field.Issuer, error) {
+func (m CrossOrderCancelRequest) Issuer() (field.Issuer, errors.MessageRejectError) {
 	var f field.Issuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuerLen is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) EncodedIssuerLen() (field.EncodedIssuerLen, error) {
+func (m CrossOrderCancelRequest) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
 	var f field.EncodedIssuerLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuer is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) EncodedIssuer() (field.EncodedIssuer, error) {
+func (m CrossOrderCancelRequest) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
 	var f field.EncodedIssuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityDesc() (field.SecurityDesc, error) {
+func (m CrossOrderCancelRequest) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
 	var f field.SecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDescLen is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, error) {
+func (m CrossOrderCancelRequest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
 	var f field.EncodedSecurityDescLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDesc is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) EncodedSecurityDesc() (field.EncodedSecurityDesc, error) {
+func (m CrossOrderCancelRequest) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
 	var f field.EncodedSecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Pool is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) Pool() (field.Pool, error) {
+func (m CrossOrderCancelRequest) Pool() (field.Pool, errors.MessageRejectError) {
 	var f field.Pool
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractSettlMonth is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) ContractSettlMonth() (field.ContractSettlMonth, error) {
+func (m CrossOrderCancelRequest) ContractSettlMonth() (field.ContractSettlMonth, errors.MessageRejectError) {
 	var f field.ContractSettlMonth
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPProgram is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CPProgram() (field.CPProgram, error) {
+func (m CrossOrderCancelRequest) CPProgram() (field.CPProgram, errors.MessageRejectError) {
 	var f field.CPProgram
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPRegType is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CPRegType() (field.CPRegType, error) {
+func (m CrossOrderCancelRequest) CPRegType() (field.CPRegType, errors.MessageRejectError) {
 	var f field.CPRegType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoEvents is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NoEvents() (field.NoEvents, error) {
+func (m CrossOrderCancelRequest) NoEvents() (field.NoEvents, errors.MessageRejectError) {
 	var f field.NoEvents
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DatedDate is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) DatedDate() (field.DatedDate, error) {
+func (m CrossOrderCancelRequest) DatedDate() (field.DatedDate, errors.MessageRejectError) {
 	var f field.DatedDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InterestAccrualDate is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) InterestAccrualDate() (field.InterestAccrualDate, error) {
+func (m CrossOrderCancelRequest) InterestAccrualDate() (field.InterestAccrualDate, errors.MessageRejectError) {
 	var f field.InterestAccrualDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityStatus is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityStatus() (field.SecurityStatus, error) {
+func (m CrossOrderCancelRequest) SecurityStatus() (field.SecurityStatus, errors.MessageRejectError) {
 	var f field.SecurityStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettleOnOpenFlag is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SettleOnOpenFlag() (field.SettleOnOpenFlag, error) {
+func (m CrossOrderCancelRequest) SettleOnOpenFlag() (field.SettleOnOpenFlag, errors.MessageRejectError) {
 	var f field.SettleOnOpenFlag
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrmtAssignmentMethod is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) InstrmtAssignmentMethod() (field.InstrmtAssignmentMethod, error) {
+func (m CrossOrderCancelRequest) InstrmtAssignmentMethod() (field.InstrmtAssignmentMethod, errors.MessageRejectError) {
 	var f field.InstrmtAssignmentMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeMultiplier is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) StrikeMultiplier() (field.StrikeMultiplier, error) {
+func (m CrossOrderCancelRequest) StrikeMultiplier() (field.StrikeMultiplier, errors.MessageRejectError) {
 	var f field.StrikeMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeValue is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) StrikeValue() (field.StrikeValue, error) {
+func (m CrossOrderCancelRequest) StrikeValue() (field.StrikeValue, errors.MessageRejectError) {
 	var f field.StrikeValue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinPriceIncrement is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) MinPriceIncrement() (field.MinPriceIncrement, error) {
+func (m CrossOrderCancelRequest) MinPriceIncrement() (field.MinPriceIncrement, errors.MessageRejectError) {
 	var f field.MinPriceIncrement
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PositionLimit is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) PositionLimit() (field.PositionLimit, error) {
+func (m CrossOrderCancelRequest) PositionLimit() (field.PositionLimit, errors.MessageRejectError) {
 	var f field.PositionLimit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NTPositionLimit is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NTPositionLimit() (field.NTPositionLimit, error) {
+func (m CrossOrderCancelRequest) NTPositionLimit() (field.NTPositionLimit, errors.MessageRejectError) {
 	var f field.NTPositionLimit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoInstrumentParties is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NoInstrumentParties() (field.NoInstrumentParties, error) {
+func (m CrossOrderCancelRequest) NoInstrumentParties() (field.NoInstrumentParties, errors.MessageRejectError) {
 	var f field.NoInstrumentParties
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnitOfMeasure is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) UnitOfMeasure() (field.UnitOfMeasure, error) {
+func (m CrossOrderCancelRequest) UnitOfMeasure() (field.UnitOfMeasure, errors.MessageRejectError) {
 	var f field.UnitOfMeasure
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TimeUnit is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) TimeUnit() (field.TimeUnit, error) {
+func (m CrossOrderCancelRequest) TimeUnit() (field.TimeUnit, errors.MessageRejectError) {
 	var f field.TimeUnit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityTime is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) MaturityTime() (field.MaturityTime, error) {
+func (m CrossOrderCancelRequest) MaturityTime() (field.MaturityTime, errors.MessageRejectError) {
 	var f field.MaturityTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityGroup is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityGroup() (field.SecurityGroup, error) {
+func (m CrossOrderCancelRequest) SecurityGroup() (field.SecurityGroup, errors.MessageRejectError) {
 	var f field.SecurityGroup
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinPriceIncrementAmount is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) MinPriceIncrementAmount() (field.MinPriceIncrementAmount, error) {
+func (m CrossOrderCancelRequest) MinPriceIncrementAmount() (field.MinPriceIncrementAmount, errors.MessageRejectError) {
 	var f field.MinPriceIncrementAmount
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnitOfMeasureQty is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) UnitOfMeasureQty() (field.UnitOfMeasureQty, error) {
+func (m CrossOrderCancelRequest) UnitOfMeasureQty() (field.UnitOfMeasureQty, errors.MessageRejectError) {
 	var f field.UnitOfMeasureQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXMLLen is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityXMLLen() (field.SecurityXMLLen, error) {
+func (m CrossOrderCancelRequest) SecurityXMLLen() (field.SecurityXMLLen, errors.MessageRejectError) {
 	var f field.SecurityXMLLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXML is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityXML() (field.SecurityXML, error) {
+func (m CrossOrderCancelRequest) SecurityXML() (field.SecurityXML, errors.MessageRejectError) {
 	var f field.SecurityXML
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXMLSchema is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SecurityXMLSchema() (field.SecurityXMLSchema, error) {
+func (m CrossOrderCancelRequest) SecurityXMLSchema() (field.SecurityXMLSchema, errors.MessageRejectError) {
 	var f field.SecurityXMLSchema
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProductComplex is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) ProductComplex() (field.ProductComplex, error) {
+func (m CrossOrderCancelRequest) ProductComplex() (field.ProductComplex, errors.MessageRejectError) {
 	var f field.ProductComplex
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceUnitOfMeasure is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) PriceUnitOfMeasure() (field.PriceUnitOfMeasure, error) {
+func (m CrossOrderCancelRequest) PriceUnitOfMeasure() (field.PriceUnitOfMeasure, errors.MessageRejectError) {
 	var f field.PriceUnitOfMeasure
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceUnitOfMeasureQty is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) PriceUnitOfMeasureQty() (field.PriceUnitOfMeasureQty, error) {
+func (m CrossOrderCancelRequest) PriceUnitOfMeasureQty() (field.PriceUnitOfMeasureQty, errors.MessageRejectError) {
 	var f field.PriceUnitOfMeasureQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlMethod is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) SettlMethod() (field.SettlMethod, error) {
+func (m CrossOrderCancelRequest) SettlMethod() (field.SettlMethod, errors.MessageRejectError) {
 	var f field.SettlMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExerciseStyle is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) ExerciseStyle() (field.ExerciseStyle, error) {
+func (m CrossOrderCancelRequest) ExerciseStyle() (field.ExerciseStyle, errors.MessageRejectError) {
 	var f field.ExerciseStyle
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptPayoutAmount is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) OptPayoutAmount() (field.OptPayoutAmount, error) {
+func (m CrossOrderCancelRequest) OptPayoutAmount() (field.OptPayoutAmount, errors.MessageRejectError) {
 	var f field.OptPayoutAmount
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceQuoteMethod is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) PriceQuoteMethod() (field.PriceQuoteMethod, error) {
+func (m CrossOrderCancelRequest) PriceQuoteMethod() (field.PriceQuoteMethod, errors.MessageRejectError) {
 	var f field.PriceQuoteMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListMethod is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) ListMethod() (field.ListMethod, error) {
+func (m CrossOrderCancelRequest) ListMethod() (field.ListMethod, errors.MessageRejectError) {
 	var f field.ListMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CapPrice is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) CapPrice() (field.CapPrice, error) {
+func (m CrossOrderCancelRequest) CapPrice() (field.CapPrice, errors.MessageRejectError) {
 	var f field.CapPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FloorPrice is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) FloorPrice() (field.FloorPrice, error) {
+func (m CrossOrderCancelRequest) FloorPrice() (field.FloorPrice, errors.MessageRejectError) {
 	var f field.FloorPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PutOrCall is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) PutOrCall() (field.PutOrCall, error) {
+func (m CrossOrderCancelRequest) PutOrCall() (field.PutOrCall, errors.MessageRejectError) {
 	var f field.PutOrCall
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlexibleIndicator is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) FlexibleIndicator() (field.FlexibleIndicator, error) {
+func (m CrossOrderCancelRequest) FlexibleIndicator() (field.FlexibleIndicator, errors.MessageRejectError) {
 	var f field.FlexibleIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlexProductEligibilityIndicator is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) FlexProductEligibilityIndicator() (field.FlexProductEligibilityIndicator, error) {
+func (m CrossOrderCancelRequest) FlexProductEligibilityIndicator() (field.FlexProductEligibilityIndicator, errors.MessageRejectError) {
 	var f field.FlexProductEligibilityIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ValuationMethod is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) ValuationMethod() (field.ValuationMethod, error) {
+func (m CrossOrderCancelRequest) ValuationMethod() (field.ValuationMethod, errors.MessageRejectError) {
 	var f field.ValuationMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplierUnit is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) ContractMultiplierUnit() (field.ContractMultiplierUnit, error) {
+func (m CrossOrderCancelRequest) ContractMultiplierUnit() (field.ContractMultiplierUnit, errors.MessageRejectError) {
 	var f field.ContractMultiplierUnit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlowScheduleType is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) FlowScheduleType() (field.FlowScheduleType, error) {
+func (m CrossOrderCancelRequest) FlowScheduleType() (field.FlowScheduleType, errors.MessageRejectError) {
 	var f field.FlowScheduleType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RestructuringType is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) RestructuringType() (field.RestructuringType, error) {
+func (m CrossOrderCancelRequest) RestructuringType() (field.RestructuringType, errors.MessageRejectError) {
 	var f field.RestructuringType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Seniority is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) Seniority() (field.Seniority, error) {
+func (m CrossOrderCancelRequest) Seniority() (field.Seniority, errors.MessageRejectError) {
 	var f field.Seniority
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NotionalPercentageOutstanding is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NotionalPercentageOutstanding() (field.NotionalPercentageOutstanding, error) {
+func (m CrossOrderCancelRequest) NotionalPercentageOutstanding() (field.NotionalPercentageOutstanding, errors.MessageRejectError) {
 	var f field.NotionalPercentageOutstanding
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OriginalNotionalPercentageOutstanding is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) OriginalNotionalPercentageOutstanding() (field.OriginalNotionalPercentageOutstanding, error) {
+func (m CrossOrderCancelRequest) OriginalNotionalPercentageOutstanding() (field.OriginalNotionalPercentageOutstanding, errors.MessageRejectError) {
 	var f field.OriginalNotionalPercentageOutstanding
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AttachmentPoint is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) AttachmentPoint() (field.AttachmentPoint, error) {
+func (m CrossOrderCancelRequest) AttachmentPoint() (field.AttachmentPoint, errors.MessageRejectError) {
 	var f field.AttachmentPoint
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DetachmentPoint is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) DetachmentPoint() (field.DetachmentPoint, error) {
+func (m CrossOrderCancelRequest) DetachmentPoint() (field.DetachmentPoint, errors.MessageRejectError) {
 	var f field.DetachmentPoint
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceDeterminationMethod is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) StrikePriceDeterminationMethod() (field.StrikePriceDeterminationMethod, error) {
+func (m CrossOrderCancelRequest) StrikePriceDeterminationMethod() (field.StrikePriceDeterminationMethod, errors.MessageRejectError) {
 	var f field.StrikePriceDeterminationMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceBoundaryMethod is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) StrikePriceBoundaryMethod() (field.StrikePriceBoundaryMethod, error) {
+func (m CrossOrderCancelRequest) StrikePriceBoundaryMethod() (field.StrikePriceBoundaryMethod, errors.MessageRejectError) {
 	var f field.StrikePriceBoundaryMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceBoundaryPrecision is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) StrikePriceBoundaryPrecision() (field.StrikePriceBoundaryPrecision, error) {
+func (m CrossOrderCancelRequest) StrikePriceBoundaryPrecision() (field.StrikePriceBoundaryPrecision, errors.MessageRejectError) {
 	var f field.StrikePriceBoundaryPrecision
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnderlyingPriceDeterminationMethod is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) UnderlyingPriceDeterminationMethod() (field.UnderlyingPriceDeterminationMethod, error) {
+func (m CrossOrderCancelRequest) UnderlyingPriceDeterminationMethod() (field.UnderlyingPriceDeterminationMethod, errors.MessageRejectError) {
 	var f field.UnderlyingPriceDeterminationMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptPayoutType is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) OptPayoutType() (field.OptPayoutType, error) {
+func (m CrossOrderCancelRequest) OptPayoutType() (field.OptPayoutType, errors.MessageRejectError) {
 	var f field.OptPayoutType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoComplexEvents is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NoComplexEvents() (field.NoComplexEvents, error) {
+func (m CrossOrderCancelRequest) NoComplexEvents() (field.NoComplexEvents, errors.MessageRejectError) {
 	var f field.NoComplexEvents
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoUnderlyings is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NoUnderlyings() (field.NoUnderlyings, error) {
+func (m CrossOrderCancelRequest) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
 	var f field.NoUnderlyings
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLegs is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NoLegs() (field.NoLegs, error) {
+func (m CrossOrderCancelRequest) NoLegs() (field.NoLegs, errors.MessageRejectError) {
 	var f field.NoLegs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) TransactTime() (field.TransactTime, error) {
+func (m CrossOrderCancelRequest) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //HostCrossID is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) HostCrossID() (field.HostCrossID, error) {
+func (m CrossOrderCancelRequest) HostCrossID() (field.HostCrossID, errors.MessageRejectError) {
 	var f field.HostCrossID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRootPartyIDs is a non-required field for CrossOrderCancelRequest.
-func (m CrossOrderCancelRequest) NoRootPartyIDs() (field.NoRootPartyIDs, error) {
+func (m CrossOrderCancelRequest) NoRootPartyIDs() (field.NoRootPartyIDs, errors.MessageRejectError) {
 	var f field.NoRootPartyIDs
 	err := m.Body.Get(&f)
 	return f, err

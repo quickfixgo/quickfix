@@ -1,6 +1,7 @@
 package fix40
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,7 +26,7 @@ func CreateTestRequestBuilder(
 }
 
 //TestReqID is a required field for TestRequest.
-func (m TestRequest) TestReqID() (field.TestReqID, error) {
+func (m TestRequest) TestReqID() (field.TestReqID, errors.MessageRejectError) {
 	var f field.TestReqID
 	err := m.Body.Get(&f)
 	return f, err

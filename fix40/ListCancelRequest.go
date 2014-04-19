@@ -1,6 +1,7 @@
 package fix40
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,21 +26,21 @@ func CreateListCancelRequestBuilder(
 }
 
 //ListID is a required field for ListCancelRequest.
-func (m ListCancelRequest) ListID() (field.ListID, error) {
+func (m ListCancelRequest) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //WaveNo is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) WaveNo() (field.WaveNo, error) {
+func (m ListCancelRequest) WaveNo() (field.WaveNo, errors.MessageRejectError) {
 	var f field.WaveNo
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) Text() (field.Text, error) {
+func (m ListCancelRequest) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err

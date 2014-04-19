@@ -1,6 +1,7 @@
 package fix44
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,49 +28,49 @@ func CreateListExecuteBuilder(
 }
 
 //ListID is a required field for ListExecute.
-func (m ListExecute) ListID() (field.ListID, error) {
+func (m ListExecute) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClientBidID is a non-required field for ListExecute.
-func (m ListExecute) ClientBidID() (field.ClientBidID, error) {
+func (m ListExecute) ClientBidID() (field.ClientBidID, errors.MessageRejectError) {
 	var f field.ClientBidID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BidID is a non-required field for ListExecute.
-func (m ListExecute) BidID() (field.BidID, error) {
+func (m ListExecute) BidID() (field.BidID, errors.MessageRejectError) {
 	var f field.BidID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for ListExecute.
-func (m ListExecute) TransactTime() (field.TransactTime, error) {
+func (m ListExecute) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ListExecute.
-func (m ListExecute) Text() (field.Text, error) {
+func (m ListExecute) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for ListExecute.
-func (m ListExecute) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m ListExecute) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for ListExecute.
-func (m ListExecute) EncodedText() (field.EncodedText, error) {
+func (m ListExecute) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

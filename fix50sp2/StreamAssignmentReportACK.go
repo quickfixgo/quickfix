@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,42 +28,42 @@ func CreateStreamAssignmentReportACKBuilder(
 }
 
 //StreamAsgnAckType is a required field for StreamAssignmentReportACK.
-func (m StreamAssignmentReportACK) StreamAsgnAckType() (field.StreamAsgnAckType, error) {
+func (m StreamAssignmentReportACK) StreamAsgnAckType() (field.StreamAsgnAckType, errors.MessageRejectError) {
 	var f field.StreamAsgnAckType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StreamAsgnRptID is a required field for StreamAssignmentReportACK.
-func (m StreamAssignmentReportACK) StreamAsgnRptID() (field.StreamAsgnRptID, error) {
+func (m StreamAssignmentReportACK) StreamAsgnRptID() (field.StreamAsgnRptID, errors.MessageRejectError) {
 	var f field.StreamAsgnRptID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StreamAsgnRejReason is a non-required field for StreamAssignmentReportACK.
-func (m StreamAssignmentReportACK) StreamAsgnRejReason() (field.StreamAsgnRejReason, error) {
+func (m StreamAssignmentReportACK) StreamAsgnRejReason() (field.StreamAsgnRejReason, errors.MessageRejectError) {
 	var f field.StreamAsgnRejReason
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for StreamAssignmentReportACK.
-func (m StreamAssignmentReportACK) Text() (field.Text, error) {
+func (m StreamAssignmentReportACK) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for StreamAssignmentReportACK.
-func (m StreamAssignmentReportACK) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m StreamAssignmentReportACK) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for StreamAssignmentReportACK.
-func (m StreamAssignmentReportACK) EncodedText() (field.EncodedText, error) {
+func (m StreamAssignmentReportACK) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

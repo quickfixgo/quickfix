@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,28 +30,28 @@ func CreateListStrikePriceBuilder(
 }
 
 //ListID is a required field for ListStrikePrice.
-func (m ListStrikePrice) ListID() (field.ListID, error) {
+func (m ListStrikePrice) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotNoStrikes is a required field for ListStrikePrice.
-func (m ListStrikePrice) TotNoStrikes() (field.TotNoStrikes, error) {
+func (m ListStrikePrice) TotNoStrikes() (field.TotNoStrikes, errors.MessageRejectError) {
 	var f field.TotNoStrikes
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LastFragment is a non-required field for ListStrikePrice.
-func (m ListStrikePrice) LastFragment() (field.LastFragment, error) {
+func (m ListStrikePrice) LastFragment() (field.LastFragment, errors.MessageRejectError) {
 	var f field.LastFragment
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoStrikes is a required field for ListStrikePrice.
-func (m ListStrikePrice) NoStrikes() (field.NoStrikes, error) {
+func (m ListStrikePrice) NoStrikes() (field.NoStrikes, errors.MessageRejectError) {
 	var f field.NoStrikes
 	err := m.Body.Get(&f)
 	return f, err

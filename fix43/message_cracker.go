@@ -2,11 +2,12 @@ package fix43
 
 import (
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
 
-func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRouter) message.MessageReject {
+func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {
 
 	msgType := new(field.MsgType)
 	switch msg.Header.Get(msgType); msgType.Value {
@@ -145,278 +146,278 @@ func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRout
 	case "z":
 		return router.OnFIX43DerivativeSecurityListRequest(DerivativeSecurityListRequest{msg}, sessionID)
 	}
-	return message.NewInvalidMessageType(msg)
+	return errors.InvalidMessageType()
 }
 
 type MessageRouter interface {
-	OnFIX43Heartbeat(msg Heartbeat, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43TestRequest(msg TestRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43ResendRequest(msg ResendRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43Reject(msg Reject, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SequenceReset(msg SequenceReset, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43Logout(msg Logout, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43IOI(msg IOI, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43Advertisement(msg Advertisement, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43ExecutionReport(msg ExecutionReport, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43OrderCancelReject(msg OrderCancelReject, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43Logon(msg Logon, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43DerivativeSecurityList(msg DerivativeSecurityList, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43NewOrderMultileg(msg NewOrderMultileg, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43MultilegOrderCancelReplaceRequest(msg MultilegOrderCancelReplaceRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43TradeCaptureReportRequest(msg TradeCaptureReportRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43TradeCaptureReport(msg TradeCaptureReport, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43OrderMassStatusRequest(msg OrderMassStatusRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43QuoteRequestReject(msg QuoteRequestReject, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43RFQRequest(msg RFQRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43QuoteStatusReport(msg QuoteStatusReport, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43News(msg News, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43Email(msg Email, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43NewOrderSingle(msg NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43NewOrderList(msg NewOrderList, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43OrderCancelRequest(msg OrderCancelRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43OrderStatusRequest(msg OrderStatusRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43Allocation(msg Allocation, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43ListCancelRequest(msg ListCancelRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43ListExecute(msg ListExecute, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43ListStatusRequest(msg ListStatusRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43ListStatus(msg ListStatus, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43AllocationAck(msg AllocationAck, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43DontKnowTrade(msg DontKnowTrade, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43QuoteRequest(msg QuoteRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43Quote(msg Quote, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SettlementInstructions(msg SettlementInstructions, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43MarketDataRequest(msg MarketDataRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43MarketDataSnapshotFullRefresh(msg MarketDataSnapshotFullRefresh, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43MarketDataIncrementalRefresh(msg MarketDataIncrementalRefresh, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43MarketDataRequestReject(msg MarketDataRequestReject, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43QuoteCancel(msg QuoteCancel, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43QuoteStatusRequest(msg QuoteStatusRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43MassQuoteAcknowledgement(msg MassQuoteAcknowledgement, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SecurityDefinitionRequest(msg SecurityDefinitionRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SecurityDefinition(msg SecurityDefinition, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SecurityStatusRequest(msg SecurityStatusRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SecurityStatus(msg SecurityStatus, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43TradingSessionStatusRequest(msg TradingSessionStatusRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43TradingSessionStatus(msg TradingSessionStatus, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43MassQuote(msg MassQuote, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43BusinessMessageReject(msg BusinessMessageReject, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43BidRequest(msg BidRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43BidResponse(msg BidResponse, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43ListStrikePrice(msg ListStrikePrice, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43RegistrationInstructions(msg RegistrationInstructions, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43RegistrationInstructionsResponse(msg RegistrationInstructionsResponse, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43OrderMassCancelRequest(msg OrderMassCancelRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43OrderMassCancelReport(msg OrderMassCancelReport, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43NewOrderCross(msg NewOrderCross, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43CrossOrderCancelReplaceRequest(msg CrossOrderCancelReplaceRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43CrossOrderCancelRequest(msg CrossOrderCancelRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SecurityTypeRequest(msg SecurityTypeRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SecurityTypes(msg SecurityTypes, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SecurityListRequest(msg SecurityListRequest, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43SecurityList(msg SecurityList, sessionID quickfix.SessionID) message.MessageReject
-	OnFIX43DerivativeSecurityListRequest(msg DerivativeSecurityListRequest, sessionID quickfix.SessionID) message.MessageReject
+	OnFIX43Heartbeat(msg Heartbeat, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43TestRequest(msg TestRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43ResendRequest(msg ResendRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43Reject(msg Reject, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SequenceReset(msg SequenceReset, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43Logout(msg Logout, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43IOI(msg IOI, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43Advertisement(msg Advertisement, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43ExecutionReport(msg ExecutionReport, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43OrderCancelReject(msg OrderCancelReject, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43Logon(msg Logon, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43DerivativeSecurityList(msg DerivativeSecurityList, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43NewOrderMultileg(msg NewOrderMultileg, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43MultilegOrderCancelReplaceRequest(msg MultilegOrderCancelReplaceRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43TradeCaptureReportRequest(msg TradeCaptureReportRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43TradeCaptureReport(msg TradeCaptureReport, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43OrderMassStatusRequest(msg OrderMassStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43QuoteRequestReject(msg QuoteRequestReject, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43RFQRequest(msg RFQRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43QuoteStatusReport(msg QuoteStatusReport, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43News(msg News, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43Email(msg Email, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43NewOrderSingle(msg NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43NewOrderList(msg NewOrderList, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43OrderCancelRequest(msg OrderCancelRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43OrderStatusRequest(msg OrderStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43Allocation(msg Allocation, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43ListCancelRequest(msg ListCancelRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43ListExecute(msg ListExecute, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43ListStatusRequest(msg ListStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43ListStatus(msg ListStatus, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43AllocationAck(msg AllocationAck, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43DontKnowTrade(msg DontKnowTrade, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43QuoteRequest(msg QuoteRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43Quote(msg Quote, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SettlementInstructions(msg SettlementInstructions, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43MarketDataRequest(msg MarketDataRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43MarketDataSnapshotFullRefresh(msg MarketDataSnapshotFullRefresh, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43MarketDataIncrementalRefresh(msg MarketDataIncrementalRefresh, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43MarketDataRequestReject(msg MarketDataRequestReject, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43QuoteCancel(msg QuoteCancel, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43QuoteStatusRequest(msg QuoteStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43MassQuoteAcknowledgement(msg MassQuoteAcknowledgement, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SecurityDefinitionRequest(msg SecurityDefinitionRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SecurityDefinition(msg SecurityDefinition, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SecurityStatusRequest(msg SecurityStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SecurityStatus(msg SecurityStatus, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43TradingSessionStatusRequest(msg TradingSessionStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43TradingSessionStatus(msg TradingSessionStatus, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43MassQuote(msg MassQuote, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43BusinessMessageReject(msg BusinessMessageReject, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43BidRequest(msg BidRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43BidResponse(msg BidResponse, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43ListStrikePrice(msg ListStrikePrice, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43RegistrationInstructions(msg RegistrationInstructions, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43RegistrationInstructionsResponse(msg RegistrationInstructionsResponse, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43OrderMassCancelRequest(msg OrderMassCancelRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43OrderMassCancelReport(msg OrderMassCancelReport, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43NewOrderCross(msg NewOrderCross, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43CrossOrderCancelReplaceRequest(msg CrossOrderCancelReplaceRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43CrossOrderCancelRequest(msg CrossOrderCancelRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SecurityTypeRequest(msg SecurityTypeRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SecurityTypes(msg SecurityTypes, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SecurityListRequest(msg SecurityListRequest, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43SecurityList(msg SecurityList, sessionID quickfix.SessionID) errors.MessageRejectError
+	OnFIX43DerivativeSecurityListRequest(msg DerivativeSecurityListRequest, sessionID quickfix.SessionID) errors.MessageRejectError
 }
 type FIX43MessageCracker struct{}
 
-func (c *FIX43MessageCracker) OnFIX43Heartbeat(msg Heartbeat, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43Heartbeat(msg Heartbeat, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43TestRequest(msg TestRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43TestRequest(msg TestRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43ResendRequest(msg ResendRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43ResendRequest(msg ResendRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43Reject(msg Reject, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43Reject(msg Reject, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SequenceReset(msg SequenceReset, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SequenceReset(msg SequenceReset, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43Logout(msg Logout, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43Logout(msg Logout, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43IOI(msg IOI, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43IOI(msg IOI, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43Advertisement(msg Advertisement, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43Advertisement(msg Advertisement, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43ExecutionReport(msg ExecutionReport, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43ExecutionReport(msg ExecutionReport, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43OrderCancelReject(msg OrderCancelReject, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43OrderCancelReject(msg OrderCancelReject, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43Logon(msg Logon, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43Logon(msg Logon, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43DerivativeSecurityList(msg DerivativeSecurityList, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43DerivativeSecurityList(msg DerivativeSecurityList, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43NewOrderMultileg(msg NewOrderMultileg, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43NewOrderMultileg(msg NewOrderMultileg, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43MultilegOrderCancelReplaceRequest(msg MultilegOrderCancelReplaceRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43MultilegOrderCancelReplaceRequest(msg MultilegOrderCancelReplaceRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43TradeCaptureReportRequest(msg TradeCaptureReportRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43TradeCaptureReportRequest(msg TradeCaptureReportRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43TradeCaptureReport(msg TradeCaptureReport, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43TradeCaptureReport(msg TradeCaptureReport, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43OrderMassStatusRequest(msg OrderMassStatusRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43OrderMassStatusRequest(msg OrderMassStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43QuoteRequestReject(msg QuoteRequestReject, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43QuoteRequestReject(msg QuoteRequestReject, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43RFQRequest(msg RFQRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43RFQRequest(msg RFQRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43QuoteStatusReport(msg QuoteStatusReport, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43QuoteStatusReport(msg QuoteStatusReport, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43News(msg News, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43News(msg News, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43Email(msg Email, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43Email(msg Email, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43NewOrderSingle(msg NewOrderSingle, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43NewOrderSingle(msg NewOrderSingle, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43NewOrderList(msg NewOrderList, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43NewOrderList(msg NewOrderList, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43OrderCancelRequest(msg OrderCancelRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43OrderCancelRequest(msg OrderCancelRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43OrderStatusRequest(msg OrderStatusRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43OrderStatusRequest(msg OrderStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43Allocation(msg Allocation, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43Allocation(msg Allocation, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43ListCancelRequest(msg ListCancelRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43ListCancelRequest(msg ListCancelRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43ListExecute(msg ListExecute, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43ListExecute(msg ListExecute, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43ListStatusRequest(msg ListStatusRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43ListStatusRequest(msg ListStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43ListStatus(msg ListStatus, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43ListStatus(msg ListStatus, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43AllocationAck(msg AllocationAck, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43AllocationAck(msg AllocationAck, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43DontKnowTrade(msg DontKnowTrade, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43DontKnowTrade(msg DontKnowTrade, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43QuoteRequest(msg QuoteRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43QuoteRequest(msg QuoteRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43Quote(msg Quote, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43Quote(msg Quote, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SettlementInstructions(msg SettlementInstructions, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SettlementInstructions(msg SettlementInstructions, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43MarketDataRequest(msg MarketDataRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43MarketDataRequest(msg MarketDataRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43MarketDataSnapshotFullRefresh(msg MarketDataSnapshotFullRefresh, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43MarketDataSnapshotFullRefresh(msg MarketDataSnapshotFullRefresh, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43MarketDataIncrementalRefresh(msg MarketDataIncrementalRefresh, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43MarketDataIncrementalRefresh(msg MarketDataIncrementalRefresh, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43MarketDataRequestReject(msg MarketDataRequestReject, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43MarketDataRequestReject(msg MarketDataRequestReject, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43QuoteCancel(msg QuoteCancel, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43QuoteCancel(msg QuoteCancel, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43QuoteStatusRequest(msg QuoteStatusRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43QuoteStatusRequest(msg QuoteStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43MassQuoteAcknowledgement(msg MassQuoteAcknowledgement, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43MassQuoteAcknowledgement(msg MassQuoteAcknowledgement, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SecurityDefinitionRequest(msg SecurityDefinitionRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SecurityDefinitionRequest(msg SecurityDefinitionRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SecurityDefinition(msg SecurityDefinition, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SecurityDefinition(msg SecurityDefinition, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SecurityStatusRequest(msg SecurityStatusRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SecurityStatusRequest(msg SecurityStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SecurityStatus(msg SecurityStatus, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SecurityStatus(msg SecurityStatus, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43TradingSessionStatusRequest(msg TradingSessionStatusRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43TradingSessionStatusRequest(msg TradingSessionStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43TradingSessionStatus(msg TradingSessionStatus, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43TradingSessionStatus(msg TradingSessionStatus, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43MassQuote(msg MassQuote, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43MassQuote(msg MassQuote, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43BusinessMessageReject(msg BusinessMessageReject, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43BusinessMessageReject(msg BusinessMessageReject, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43BidRequest(msg BidRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43BidRequest(msg BidRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43BidResponse(msg BidResponse, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43BidResponse(msg BidResponse, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43ListStrikePrice(msg ListStrikePrice, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43ListStrikePrice(msg ListStrikePrice, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43RegistrationInstructions(msg RegistrationInstructions, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43RegistrationInstructions(msg RegistrationInstructions, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43RegistrationInstructionsResponse(msg RegistrationInstructionsResponse, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43RegistrationInstructionsResponse(msg RegistrationInstructionsResponse, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43OrderMassCancelRequest(msg OrderMassCancelRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43OrderMassCancelRequest(msg OrderMassCancelRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43OrderMassCancelReport(msg OrderMassCancelReport, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43OrderMassCancelReport(msg OrderMassCancelReport, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43NewOrderCross(msg NewOrderCross, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43NewOrderCross(msg NewOrderCross, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43CrossOrderCancelReplaceRequest(msg CrossOrderCancelReplaceRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43CrossOrderCancelReplaceRequest(msg CrossOrderCancelReplaceRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43CrossOrderCancelRequest(msg CrossOrderCancelRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43CrossOrderCancelRequest(msg CrossOrderCancelRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SecurityTypeRequest(msg SecurityTypeRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SecurityTypeRequest(msg SecurityTypeRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SecurityTypes(msg SecurityTypes, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SecurityTypes(msg SecurityTypes, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SecurityListRequest(msg SecurityListRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SecurityListRequest(msg SecurityListRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43SecurityList(msg SecurityList, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43SecurityList(msg SecurityList, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }
-func (c *FIX43MessageCracker) OnFIX43DerivativeSecurityListRequest(msg DerivativeSecurityListRequest, sessionId quickfix.SessionID) message.MessageReject {
-	return message.NewUnsupportedMessageType(msg.Message)
+func (c *FIX43MessageCracker) OnFIX43DerivativeSecurityListRequest(msg DerivativeSecurityListRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+	return errors.UnsupportedMessageType()
 }

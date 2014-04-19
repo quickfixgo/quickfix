@@ -1,6 +1,7 @@
 package fix42
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,14 +28,14 @@ func CreateQuoteRequestBuilder(
 }
 
 //QuoteReqID is a required field for QuoteRequest.
-func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, error) {
+func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
 	var f field.QuoteReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a required field for QuoteRequest.
-func (m QuoteRequest) NoRelatedSym() (field.NoRelatedSym, error) {
+func (m QuoteRequest) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
 	var f field.NoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err

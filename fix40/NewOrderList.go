@@ -1,6 +1,7 @@
 package fix40
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -41,273 +42,273 @@ func CreateNewOrderListBuilder(
 }
 
 //ListID is a required field for NewOrderList.
-func (m NewOrderList) ListID() (field.ListID, error) {
+func (m NewOrderList) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //WaveNo is a non-required field for NewOrderList.
-func (m NewOrderList) WaveNo() (field.WaveNo, error) {
+func (m NewOrderList) WaveNo() (field.WaveNo, errors.MessageRejectError) {
 	var f field.WaveNo
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListSeqNo is a required field for NewOrderList.
-func (m NewOrderList) ListSeqNo() (field.ListSeqNo, error) {
+func (m NewOrderList) ListSeqNo() (field.ListSeqNo, errors.MessageRejectError) {
 	var f field.ListSeqNo
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListNoOrds is a required field for NewOrderList.
-func (m NewOrderList) ListNoOrds() (field.ListNoOrds, error) {
+func (m NewOrderList) ListNoOrds() (field.ListNoOrds, errors.MessageRejectError) {
 	var f field.ListNoOrds
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListExecInst is a non-required field for NewOrderList.
-func (m NewOrderList) ListExecInst() (field.ListExecInst, error) {
+func (m NewOrderList) ListExecInst() (field.ListExecInst, errors.MessageRejectError) {
 	var f field.ListExecInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdID is a required field for NewOrderList.
-func (m NewOrderList) ClOrdID() (field.ClOrdID, error) {
+func (m NewOrderList) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
 	var f field.ClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClientID is a non-required field for NewOrderList.
-func (m NewOrderList) ClientID() (field.ClientID, error) {
+func (m NewOrderList) ClientID() (field.ClientID, errors.MessageRejectError) {
 	var f field.ClientID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExecBroker is a non-required field for NewOrderList.
-func (m NewOrderList) ExecBroker() (field.ExecBroker, error) {
+func (m NewOrderList) ExecBroker() (field.ExecBroker, errors.MessageRejectError) {
 	var f field.ExecBroker
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Account is a non-required field for NewOrderList.
-func (m NewOrderList) Account() (field.Account, error) {
+func (m NewOrderList) Account() (field.Account, errors.MessageRejectError) {
 	var f field.Account
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlmntTyp is a non-required field for NewOrderList.
-func (m NewOrderList) SettlmntTyp() (field.SettlmntTyp, error) {
+func (m NewOrderList) SettlmntTyp() (field.SettlmntTyp, errors.MessageRejectError) {
 	var f field.SettlmntTyp
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FutSettDate is a non-required field for NewOrderList.
-func (m NewOrderList) FutSettDate() (field.FutSettDate, error) {
+func (m NewOrderList) FutSettDate() (field.FutSettDate, errors.MessageRejectError) {
 	var f field.FutSettDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //HandlInst is a required field for NewOrderList.
-func (m NewOrderList) HandlInst() (field.HandlInst, error) {
+func (m NewOrderList) HandlInst() (field.HandlInst, errors.MessageRejectError) {
 	var f field.HandlInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExecInst is a non-required field for NewOrderList.
-func (m NewOrderList) ExecInst() (field.ExecInst, error) {
+func (m NewOrderList) ExecInst() (field.ExecInst, errors.MessageRejectError) {
 	var f field.ExecInst
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinQty is a non-required field for NewOrderList.
-func (m NewOrderList) MinQty() (field.MinQty, error) {
+func (m NewOrderList) MinQty() (field.MinQty, errors.MessageRejectError) {
 	var f field.MinQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaxFloor is a non-required field for NewOrderList.
-func (m NewOrderList) MaxFloor() (field.MaxFloor, error) {
+func (m NewOrderList) MaxFloor() (field.MaxFloor, errors.MessageRejectError) {
 	var f field.MaxFloor
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExDestination is a non-required field for NewOrderList.
-func (m NewOrderList) ExDestination() (field.ExDestination, error) {
+func (m NewOrderList) ExDestination() (field.ExDestination, errors.MessageRejectError) {
 	var f field.ExDestination
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProcessCode is a non-required field for NewOrderList.
-func (m NewOrderList) ProcessCode() (field.ProcessCode, error) {
+func (m NewOrderList) ProcessCode() (field.ProcessCode, errors.MessageRejectError) {
 	var f field.ProcessCode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a required field for NewOrderList.
-func (m NewOrderList) Symbol() (field.Symbol, error) {
+func (m NewOrderList) Symbol() (field.Symbol, errors.MessageRejectError) {
 	var f field.Symbol
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for NewOrderList.
-func (m NewOrderList) SymbolSfx() (field.SymbolSfx, error) {
+func (m NewOrderList) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
 	var f field.SymbolSfx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for NewOrderList.
-func (m NewOrderList) SecurityID() (field.SecurityID, error) {
+func (m NewOrderList) SecurityID() (field.SecurityID, errors.MessageRejectError) {
 	var f field.SecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IDSource is a non-required field for NewOrderList.
-func (m NewOrderList) IDSource() (field.IDSource, error) {
+func (m NewOrderList) IDSource() (field.IDSource, errors.MessageRejectError) {
 	var f field.IDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for NewOrderList.
-func (m NewOrderList) Issuer() (field.Issuer, error) {
+func (m NewOrderList) Issuer() (field.Issuer, errors.MessageRejectError) {
 	var f field.Issuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for NewOrderList.
-func (m NewOrderList) SecurityDesc() (field.SecurityDesc, error) {
+func (m NewOrderList) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
 	var f field.SecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PrevClosePx is a non-required field for NewOrderList.
-func (m NewOrderList) PrevClosePx() (field.PrevClosePx, error) {
+func (m NewOrderList) PrevClosePx() (field.PrevClosePx, errors.MessageRejectError) {
 	var f field.PrevClosePx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Side is a required field for NewOrderList.
-func (m NewOrderList) Side() (field.Side, error) {
+func (m NewOrderList) Side() (field.Side, errors.MessageRejectError) {
 	var f field.Side
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocateReqd is a non-required field for NewOrderList.
-func (m NewOrderList) LocateReqd() (field.LocateReqd, error) {
+func (m NewOrderList) LocateReqd() (field.LocateReqd, errors.MessageRejectError) {
 	var f field.LocateReqd
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderQty is a required field for NewOrderList.
-func (m NewOrderList) OrderQty() (field.OrderQty, error) {
+func (m NewOrderList) OrderQty() (field.OrderQty, errors.MessageRejectError) {
 	var f field.OrderQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrdType is a required field for NewOrderList.
-func (m NewOrderList) OrdType() (field.OrdType, error) {
+func (m NewOrderList) OrdType() (field.OrdType, errors.MessageRejectError) {
 	var f field.OrdType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Price is a non-required field for NewOrderList.
-func (m NewOrderList) Price() (field.Price, error) {
+func (m NewOrderList) Price() (field.Price, errors.MessageRejectError) {
 	var f field.Price
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StopPx is a non-required field for NewOrderList.
-func (m NewOrderList) StopPx() (field.StopPx, error) {
+func (m NewOrderList) StopPx() (field.StopPx, errors.MessageRejectError) {
 	var f field.StopPx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Currency is a non-required field for NewOrderList.
-func (m NewOrderList) Currency() (field.Currency, error) {
+func (m NewOrderList) Currency() (field.Currency, errors.MessageRejectError) {
 	var f field.Currency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TimeInForce is a non-required field for NewOrderList.
-func (m NewOrderList) TimeInForce() (field.TimeInForce, error) {
+func (m NewOrderList) TimeInForce() (field.TimeInForce, errors.MessageRejectError) {
 	var f field.TimeInForce
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExpireTime is a non-required field for NewOrderList.
-func (m NewOrderList) ExpireTime() (field.ExpireTime, error) {
+func (m NewOrderList) ExpireTime() (field.ExpireTime, errors.MessageRejectError) {
 	var f field.ExpireTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Commission is a non-required field for NewOrderList.
-func (m NewOrderList) Commission() (field.Commission, error) {
+func (m NewOrderList) Commission() (field.Commission, errors.MessageRejectError) {
 	var f field.Commission
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CommType is a non-required field for NewOrderList.
-func (m NewOrderList) CommType() (field.CommType, error) {
+func (m NewOrderList) CommType() (field.CommType, errors.MessageRejectError) {
 	var f field.CommType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Rule80A is a non-required field for NewOrderList.
-func (m NewOrderList) Rule80A() (field.Rule80A, error) {
+func (m NewOrderList) Rule80A() (field.Rule80A, errors.MessageRejectError) {
 	var f field.Rule80A
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ForexReq is a non-required field for NewOrderList.
-func (m NewOrderList) ForexReq() (field.ForexReq, error) {
+func (m NewOrderList) ForexReq() (field.ForexReq, errors.MessageRejectError) {
 	var f field.ForexReq
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlCurrency is a non-required field for NewOrderList.
-func (m NewOrderList) SettlCurrency() (field.SettlCurrency, error) {
+func (m NewOrderList) SettlCurrency() (field.SettlCurrency, errors.MessageRejectError) {
 	var f field.SettlCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for NewOrderList.
-func (m NewOrderList) Text() (field.Text, error) {
+func (m NewOrderList) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err

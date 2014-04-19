@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,973 +28,973 @@ func CreateTradeCaptureReportRequestBuilder(
 }
 
 //TradeRequestID is a required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradeRequestID() (field.TradeRequestID, error) {
+func (m TradeCaptureReportRequest) TradeRequestID() (field.TradeRequestID, errors.MessageRejectError) {
 	var f field.TradeRequestID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeRequestType is a required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradeRequestType() (field.TradeRequestType, error) {
+func (m TradeCaptureReportRequest) TradeRequestType() (field.TradeRequestType, errors.MessageRejectError) {
 	var f field.TradeRequestType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SubscriptionRequestType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SubscriptionRequestType() (field.SubscriptionRequestType, error) {
+func (m TradeCaptureReportRequest) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
 	var f field.SubscriptionRequestType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeReportID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradeReportID() (field.TradeReportID, error) {
+func (m TradeCaptureReportRequest) TradeReportID() (field.TradeReportID, errors.MessageRejectError) {
 	var f field.TradeReportID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecondaryTradeReportID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecondaryTradeReportID() (field.SecondaryTradeReportID, error) {
+func (m TradeCaptureReportRequest) SecondaryTradeReportID() (field.SecondaryTradeReportID, errors.MessageRejectError) {
 	var f field.SecondaryTradeReportID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExecID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ExecID() (field.ExecID, error) {
+func (m TradeCaptureReportRequest) ExecID() (field.ExecID, errors.MessageRejectError) {
 	var f field.ExecID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExecType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ExecType() (field.ExecType, error) {
+func (m TradeCaptureReportRequest) ExecType() (field.ExecType, errors.MessageRejectError) {
 	var f field.ExecType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) OrderID() (field.OrderID, error) {
+func (m TradeCaptureReportRequest) OrderID() (field.OrderID, errors.MessageRejectError) {
 	var f field.OrderID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ClOrdID() (field.ClOrdID, error) {
+func (m TradeCaptureReportRequest) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
 	var f field.ClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MatchStatus is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MatchStatus() (field.MatchStatus, error) {
+func (m TradeCaptureReportRequest) MatchStatus() (field.MatchStatus, errors.MessageRejectError) {
 	var f field.MatchStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TrdType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TrdType() (field.TrdType, error) {
+func (m TradeCaptureReportRequest) TrdType() (field.TrdType, errors.MessageRejectError) {
 	var f field.TrdType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TrdSubType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TrdSubType() (field.TrdSubType, error) {
+func (m TradeCaptureReportRequest) TrdSubType() (field.TrdSubType, errors.MessageRejectError) {
 	var f field.TrdSubType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransferReason is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TransferReason() (field.TransferReason, error) {
+func (m TradeCaptureReportRequest) TransferReason() (field.TransferReason, errors.MessageRejectError) {
 	var f field.TransferReason
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecondaryTrdType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecondaryTrdType() (field.SecondaryTrdType, error) {
+func (m TradeCaptureReportRequest) SecondaryTrdType() (field.SecondaryTrdType, errors.MessageRejectError) {
 	var f field.SecondaryTrdType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeLinkID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradeLinkID() (field.TradeLinkID, error) {
+func (m TradeCaptureReportRequest) TradeLinkID() (field.TradeLinkID, errors.MessageRejectError) {
 	var f field.TradeLinkID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TrdMatchID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TrdMatchID() (field.TrdMatchID, error) {
+func (m TradeCaptureReportRequest) TrdMatchID() (field.TrdMatchID, errors.MessageRejectError) {
 	var f field.TrdMatchID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoPartyIDs() (field.NoPartyIDs, error) {
+func (m TradeCaptureReportRequest) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
 	var f field.NoPartyIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) Symbol() (field.Symbol, error) {
+func (m TradeCaptureReportRequest) Symbol() (field.Symbol, errors.MessageRejectError) {
 	var f field.Symbol
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SymbolSfx() (field.SymbolSfx, error) {
+func (m TradeCaptureReportRequest) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
 	var f field.SymbolSfx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityID() (field.SecurityID, error) {
+func (m TradeCaptureReportRequest) SecurityID() (field.SecurityID, errors.MessageRejectError) {
 	var f field.SecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityIDSource is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityIDSource() (field.SecurityIDSource, error) {
+func (m TradeCaptureReportRequest) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
 	var f field.SecurityIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityAltID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoSecurityAltID() (field.NoSecurityAltID, error) {
+func (m TradeCaptureReportRequest) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
 	var f field.NoSecurityAltID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) Product() (field.Product, error) {
+func (m TradeCaptureReportRequest) Product() (field.Product, errors.MessageRejectError) {
 	var f field.Product
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) CFICode() (field.CFICode, error) {
+func (m TradeCaptureReportRequest) CFICode() (field.CFICode, errors.MessageRejectError) {
 	var f field.CFICode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityType() (field.SecurityType, error) {
+func (m TradeCaptureReportRequest) SecurityType() (field.SecurityType, errors.MessageRejectError) {
 	var f field.SecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecuritySubType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecuritySubType() (field.SecuritySubType, error) {
+func (m TradeCaptureReportRequest) SecuritySubType() (field.SecuritySubType, errors.MessageRejectError) {
 	var f field.SecuritySubType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityMonthYear is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MaturityMonthYear() (field.MaturityMonthYear, error) {
+func (m TradeCaptureReportRequest) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
 	var f field.MaturityMonthYear
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MaturityDate() (field.MaturityDate, error) {
+func (m TradeCaptureReportRequest) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
 	var f field.MaturityDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponPaymentDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) CouponPaymentDate() (field.CouponPaymentDate, error) {
+func (m TradeCaptureReportRequest) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
 	var f field.CouponPaymentDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IssueDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) IssueDate() (field.IssueDate, error) {
+func (m TradeCaptureReportRequest) IssueDate() (field.IssueDate, errors.MessageRejectError) {
 	var f field.IssueDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepoCollateralSecurityType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, error) {
+func (m TradeCaptureReportRequest) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
 	var f field.RepoCollateralSecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseTerm is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) RepurchaseTerm() (field.RepurchaseTerm, error) {
+func (m TradeCaptureReportRequest) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
 	var f field.RepurchaseTerm
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseRate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) RepurchaseRate() (field.RepurchaseRate, error) {
+func (m TradeCaptureReportRequest) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
 	var f field.RepurchaseRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Factor is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) Factor() (field.Factor, error) {
+func (m TradeCaptureReportRequest) Factor() (field.Factor, errors.MessageRejectError) {
 	var f field.Factor
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CreditRating is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) CreditRating() (field.CreditRating, error) {
+func (m TradeCaptureReportRequest) CreditRating() (field.CreditRating, errors.MessageRejectError) {
 	var f field.CreditRating
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrRegistry is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) InstrRegistry() (field.InstrRegistry, error) {
+func (m TradeCaptureReportRequest) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
 	var f field.InstrRegistry
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CountryOfIssue is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) CountryOfIssue() (field.CountryOfIssue, error) {
+func (m TradeCaptureReportRequest) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
 	var f field.CountryOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StateOrProvinceOfIssue is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, error) {
+func (m TradeCaptureReportRequest) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
 	var f field.StateOrProvinceOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocaleOfIssue is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) LocaleOfIssue() (field.LocaleOfIssue, error) {
+func (m TradeCaptureReportRequest) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
 	var f field.LocaleOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RedemptionDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) RedemptionDate() (field.RedemptionDate, error) {
+func (m TradeCaptureReportRequest) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
 	var f field.RedemptionDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePrice is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StrikePrice() (field.StrikePrice, error) {
+func (m TradeCaptureReportRequest) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
 	var f field.StrikePrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeCurrency is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StrikeCurrency() (field.StrikeCurrency, error) {
+func (m TradeCaptureReportRequest) StrikeCurrency() (field.StrikeCurrency, errors.MessageRejectError) {
 	var f field.StrikeCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptAttribute is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) OptAttribute() (field.OptAttribute, error) {
+func (m TradeCaptureReportRequest) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
 	var f field.OptAttribute
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplier is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ContractMultiplier() (field.ContractMultiplier, error) {
+func (m TradeCaptureReportRequest) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
 	var f field.ContractMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponRate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) CouponRate() (field.CouponRate, error) {
+func (m TradeCaptureReportRequest) CouponRate() (field.CouponRate, errors.MessageRejectError) {
 	var f field.CouponRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityExchange is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityExchange() (field.SecurityExchange, error) {
+func (m TradeCaptureReportRequest) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
 	var f field.SecurityExchange
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) Issuer() (field.Issuer, error) {
+func (m TradeCaptureReportRequest) Issuer() (field.Issuer, errors.MessageRejectError) {
 	var f field.Issuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuerLen is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) EncodedIssuerLen() (field.EncodedIssuerLen, error) {
+func (m TradeCaptureReportRequest) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
 	var f field.EncodedIssuerLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuer is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) EncodedIssuer() (field.EncodedIssuer, error) {
+func (m TradeCaptureReportRequest) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
 	var f field.EncodedIssuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityDesc() (field.SecurityDesc, error) {
+func (m TradeCaptureReportRequest) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
 	var f field.SecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDescLen is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, error) {
+func (m TradeCaptureReportRequest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
 	var f field.EncodedSecurityDescLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDesc is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) EncodedSecurityDesc() (field.EncodedSecurityDesc, error) {
+func (m TradeCaptureReportRequest) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
 	var f field.EncodedSecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Pool is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) Pool() (field.Pool, error) {
+func (m TradeCaptureReportRequest) Pool() (field.Pool, errors.MessageRejectError) {
 	var f field.Pool
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractSettlMonth is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ContractSettlMonth() (field.ContractSettlMonth, error) {
+func (m TradeCaptureReportRequest) ContractSettlMonth() (field.ContractSettlMonth, errors.MessageRejectError) {
 	var f field.ContractSettlMonth
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPProgram is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) CPProgram() (field.CPProgram, error) {
+func (m TradeCaptureReportRequest) CPProgram() (field.CPProgram, errors.MessageRejectError) {
 	var f field.CPProgram
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPRegType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) CPRegType() (field.CPRegType, error) {
+func (m TradeCaptureReportRequest) CPRegType() (field.CPRegType, errors.MessageRejectError) {
 	var f field.CPRegType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoEvents is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoEvents() (field.NoEvents, error) {
+func (m TradeCaptureReportRequest) NoEvents() (field.NoEvents, errors.MessageRejectError) {
 	var f field.NoEvents
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DatedDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) DatedDate() (field.DatedDate, error) {
+func (m TradeCaptureReportRequest) DatedDate() (field.DatedDate, errors.MessageRejectError) {
 	var f field.DatedDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InterestAccrualDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) InterestAccrualDate() (field.InterestAccrualDate, error) {
+func (m TradeCaptureReportRequest) InterestAccrualDate() (field.InterestAccrualDate, errors.MessageRejectError) {
 	var f field.InterestAccrualDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityStatus is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityStatus() (field.SecurityStatus, error) {
+func (m TradeCaptureReportRequest) SecurityStatus() (field.SecurityStatus, errors.MessageRejectError) {
 	var f field.SecurityStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettleOnOpenFlag is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SettleOnOpenFlag() (field.SettleOnOpenFlag, error) {
+func (m TradeCaptureReportRequest) SettleOnOpenFlag() (field.SettleOnOpenFlag, errors.MessageRejectError) {
 	var f field.SettleOnOpenFlag
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrmtAssignmentMethod is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) InstrmtAssignmentMethod() (field.InstrmtAssignmentMethod, error) {
+func (m TradeCaptureReportRequest) InstrmtAssignmentMethod() (field.InstrmtAssignmentMethod, errors.MessageRejectError) {
 	var f field.InstrmtAssignmentMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeMultiplier is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StrikeMultiplier() (field.StrikeMultiplier, error) {
+func (m TradeCaptureReportRequest) StrikeMultiplier() (field.StrikeMultiplier, errors.MessageRejectError) {
 	var f field.StrikeMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeValue is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StrikeValue() (field.StrikeValue, error) {
+func (m TradeCaptureReportRequest) StrikeValue() (field.StrikeValue, errors.MessageRejectError) {
 	var f field.StrikeValue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinPriceIncrement is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MinPriceIncrement() (field.MinPriceIncrement, error) {
+func (m TradeCaptureReportRequest) MinPriceIncrement() (field.MinPriceIncrement, errors.MessageRejectError) {
 	var f field.MinPriceIncrement
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PositionLimit is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) PositionLimit() (field.PositionLimit, error) {
+func (m TradeCaptureReportRequest) PositionLimit() (field.PositionLimit, errors.MessageRejectError) {
 	var f field.PositionLimit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NTPositionLimit is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NTPositionLimit() (field.NTPositionLimit, error) {
+func (m TradeCaptureReportRequest) NTPositionLimit() (field.NTPositionLimit, errors.MessageRejectError) {
 	var f field.NTPositionLimit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoInstrumentParties is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoInstrumentParties() (field.NoInstrumentParties, error) {
+func (m TradeCaptureReportRequest) NoInstrumentParties() (field.NoInstrumentParties, errors.MessageRejectError) {
 	var f field.NoInstrumentParties
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnitOfMeasure is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) UnitOfMeasure() (field.UnitOfMeasure, error) {
+func (m TradeCaptureReportRequest) UnitOfMeasure() (field.UnitOfMeasure, errors.MessageRejectError) {
 	var f field.UnitOfMeasure
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TimeUnit is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TimeUnit() (field.TimeUnit, error) {
+func (m TradeCaptureReportRequest) TimeUnit() (field.TimeUnit, errors.MessageRejectError) {
 	var f field.TimeUnit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityTime is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MaturityTime() (field.MaturityTime, error) {
+func (m TradeCaptureReportRequest) MaturityTime() (field.MaturityTime, errors.MessageRejectError) {
 	var f field.MaturityTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityGroup is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityGroup() (field.SecurityGroup, error) {
+func (m TradeCaptureReportRequest) SecurityGroup() (field.SecurityGroup, errors.MessageRejectError) {
 	var f field.SecurityGroup
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinPriceIncrementAmount is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MinPriceIncrementAmount() (field.MinPriceIncrementAmount, error) {
+func (m TradeCaptureReportRequest) MinPriceIncrementAmount() (field.MinPriceIncrementAmount, errors.MessageRejectError) {
 	var f field.MinPriceIncrementAmount
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnitOfMeasureQty is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) UnitOfMeasureQty() (field.UnitOfMeasureQty, error) {
+func (m TradeCaptureReportRequest) UnitOfMeasureQty() (field.UnitOfMeasureQty, errors.MessageRejectError) {
 	var f field.UnitOfMeasureQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXMLLen is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityXMLLen() (field.SecurityXMLLen, error) {
+func (m TradeCaptureReportRequest) SecurityXMLLen() (field.SecurityXMLLen, errors.MessageRejectError) {
 	var f field.SecurityXMLLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXML is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityXML() (field.SecurityXML, error) {
+func (m TradeCaptureReportRequest) SecurityXML() (field.SecurityXML, errors.MessageRejectError) {
 	var f field.SecurityXML
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXMLSchema is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecurityXMLSchema() (field.SecurityXMLSchema, error) {
+func (m TradeCaptureReportRequest) SecurityXMLSchema() (field.SecurityXMLSchema, errors.MessageRejectError) {
 	var f field.SecurityXMLSchema
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProductComplex is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ProductComplex() (field.ProductComplex, error) {
+func (m TradeCaptureReportRequest) ProductComplex() (field.ProductComplex, errors.MessageRejectError) {
 	var f field.ProductComplex
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceUnitOfMeasure is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) PriceUnitOfMeasure() (field.PriceUnitOfMeasure, error) {
+func (m TradeCaptureReportRequest) PriceUnitOfMeasure() (field.PriceUnitOfMeasure, errors.MessageRejectError) {
 	var f field.PriceUnitOfMeasure
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceUnitOfMeasureQty is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) PriceUnitOfMeasureQty() (field.PriceUnitOfMeasureQty, error) {
+func (m TradeCaptureReportRequest) PriceUnitOfMeasureQty() (field.PriceUnitOfMeasureQty, errors.MessageRejectError) {
 	var f field.PriceUnitOfMeasureQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlMethod is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SettlMethod() (field.SettlMethod, error) {
+func (m TradeCaptureReportRequest) SettlMethod() (field.SettlMethod, errors.MessageRejectError) {
 	var f field.SettlMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExerciseStyle is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ExerciseStyle() (field.ExerciseStyle, error) {
+func (m TradeCaptureReportRequest) ExerciseStyle() (field.ExerciseStyle, errors.MessageRejectError) {
 	var f field.ExerciseStyle
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptPayoutAmount is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) OptPayoutAmount() (field.OptPayoutAmount, error) {
+func (m TradeCaptureReportRequest) OptPayoutAmount() (field.OptPayoutAmount, errors.MessageRejectError) {
 	var f field.OptPayoutAmount
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceQuoteMethod is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) PriceQuoteMethod() (field.PriceQuoteMethod, error) {
+func (m TradeCaptureReportRequest) PriceQuoteMethod() (field.PriceQuoteMethod, errors.MessageRejectError) {
 	var f field.PriceQuoteMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListMethod is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ListMethod() (field.ListMethod, error) {
+func (m TradeCaptureReportRequest) ListMethod() (field.ListMethod, errors.MessageRejectError) {
 	var f field.ListMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CapPrice is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) CapPrice() (field.CapPrice, error) {
+func (m TradeCaptureReportRequest) CapPrice() (field.CapPrice, errors.MessageRejectError) {
 	var f field.CapPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FloorPrice is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) FloorPrice() (field.FloorPrice, error) {
+func (m TradeCaptureReportRequest) FloorPrice() (field.FloorPrice, errors.MessageRejectError) {
 	var f field.FloorPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PutOrCall is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) PutOrCall() (field.PutOrCall, error) {
+func (m TradeCaptureReportRequest) PutOrCall() (field.PutOrCall, errors.MessageRejectError) {
 	var f field.PutOrCall
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlexibleIndicator is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) FlexibleIndicator() (field.FlexibleIndicator, error) {
+func (m TradeCaptureReportRequest) FlexibleIndicator() (field.FlexibleIndicator, errors.MessageRejectError) {
 	var f field.FlexibleIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlexProductEligibilityIndicator is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) FlexProductEligibilityIndicator() (field.FlexProductEligibilityIndicator, error) {
+func (m TradeCaptureReportRequest) FlexProductEligibilityIndicator() (field.FlexProductEligibilityIndicator, errors.MessageRejectError) {
 	var f field.FlexProductEligibilityIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ValuationMethod is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ValuationMethod() (field.ValuationMethod, error) {
+func (m TradeCaptureReportRequest) ValuationMethod() (field.ValuationMethod, errors.MessageRejectError) {
 	var f field.ValuationMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplierUnit is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ContractMultiplierUnit() (field.ContractMultiplierUnit, error) {
+func (m TradeCaptureReportRequest) ContractMultiplierUnit() (field.ContractMultiplierUnit, errors.MessageRejectError) {
 	var f field.ContractMultiplierUnit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlowScheduleType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) FlowScheduleType() (field.FlowScheduleType, error) {
+func (m TradeCaptureReportRequest) FlowScheduleType() (field.FlowScheduleType, errors.MessageRejectError) {
 	var f field.FlowScheduleType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RestructuringType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) RestructuringType() (field.RestructuringType, error) {
+func (m TradeCaptureReportRequest) RestructuringType() (field.RestructuringType, errors.MessageRejectError) {
 	var f field.RestructuringType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Seniority is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) Seniority() (field.Seniority, error) {
+func (m TradeCaptureReportRequest) Seniority() (field.Seniority, errors.MessageRejectError) {
 	var f field.Seniority
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NotionalPercentageOutstanding is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NotionalPercentageOutstanding() (field.NotionalPercentageOutstanding, error) {
+func (m TradeCaptureReportRequest) NotionalPercentageOutstanding() (field.NotionalPercentageOutstanding, errors.MessageRejectError) {
 	var f field.NotionalPercentageOutstanding
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OriginalNotionalPercentageOutstanding is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) OriginalNotionalPercentageOutstanding() (field.OriginalNotionalPercentageOutstanding, error) {
+func (m TradeCaptureReportRequest) OriginalNotionalPercentageOutstanding() (field.OriginalNotionalPercentageOutstanding, errors.MessageRejectError) {
 	var f field.OriginalNotionalPercentageOutstanding
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AttachmentPoint is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) AttachmentPoint() (field.AttachmentPoint, error) {
+func (m TradeCaptureReportRequest) AttachmentPoint() (field.AttachmentPoint, errors.MessageRejectError) {
 	var f field.AttachmentPoint
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DetachmentPoint is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) DetachmentPoint() (field.DetachmentPoint, error) {
+func (m TradeCaptureReportRequest) DetachmentPoint() (field.DetachmentPoint, errors.MessageRejectError) {
 	var f field.DetachmentPoint
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceDeterminationMethod is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StrikePriceDeterminationMethod() (field.StrikePriceDeterminationMethod, error) {
+func (m TradeCaptureReportRequest) StrikePriceDeterminationMethod() (field.StrikePriceDeterminationMethod, errors.MessageRejectError) {
 	var f field.StrikePriceDeterminationMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceBoundaryMethod is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StrikePriceBoundaryMethod() (field.StrikePriceBoundaryMethod, error) {
+func (m TradeCaptureReportRequest) StrikePriceBoundaryMethod() (field.StrikePriceBoundaryMethod, errors.MessageRejectError) {
 	var f field.StrikePriceBoundaryMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePriceBoundaryPrecision is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StrikePriceBoundaryPrecision() (field.StrikePriceBoundaryPrecision, error) {
+func (m TradeCaptureReportRequest) StrikePriceBoundaryPrecision() (field.StrikePriceBoundaryPrecision, errors.MessageRejectError) {
 	var f field.StrikePriceBoundaryPrecision
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnderlyingPriceDeterminationMethod is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) UnderlyingPriceDeterminationMethod() (field.UnderlyingPriceDeterminationMethod, error) {
+func (m TradeCaptureReportRequest) UnderlyingPriceDeterminationMethod() (field.UnderlyingPriceDeterminationMethod, errors.MessageRejectError) {
 	var f field.UnderlyingPriceDeterminationMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptPayoutType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) OptPayoutType() (field.OptPayoutType, error) {
+func (m TradeCaptureReportRequest) OptPayoutType() (field.OptPayoutType, errors.MessageRejectError) {
 	var f field.OptPayoutType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoComplexEvents is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoComplexEvents() (field.NoComplexEvents, error) {
+func (m TradeCaptureReportRequest) NoComplexEvents() (field.NoComplexEvents, errors.MessageRejectError) {
 	var f field.NoComplexEvents
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DeliveryForm is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) DeliveryForm() (field.DeliveryForm, error) {
+func (m TradeCaptureReportRequest) DeliveryForm() (field.DeliveryForm, errors.MessageRejectError) {
 	var f field.DeliveryForm
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PctAtRisk is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) PctAtRisk() (field.PctAtRisk, error) {
+func (m TradeCaptureReportRequest) PctAtRisk() (field.PctAtRisk, errors.MessageRejectError) {
 	var f field.PctAtRisk
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoInstrAttrib is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoInstrAttrib() (field.NoInstrAttrib, error) {
+func (m TradeCaptureReportRequest) NoInstrAttrib() (field.NoInstrAttrib, errors.MessageRejectError) {
 	var f field.NoInstrAttrib
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementDesc is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) AgreementDesc() (field.AgreementDesc, error) {
+func (m TradeCaptureReportRequest) AgreementDesc() (field.AgreementDesc, errors.MessageRejectError) {
 	var f field.AgreementDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) AgreementID() (field.AgreementID, error) {
+func (m TradeCaptureReportRequest) AgreementID() (field.AgreementID, errors.MessageRejectError) {
 	var f field.AgreementID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) AgreementDate() (field.AgreementDate, error) {
+func (m TradeCaptureReportRequest) AgreementDate() (field.AgreementDate, errors.MessageRejectError) {
 	var f field.AgreementDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementCurrency is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) AgreementCurrency() (field.AgreementCurrency, error) {
+func (m TradeCaptureReportRequest) AgreementCurrency() (field.AgreementCurrency, errors.MessageRejectError) {
 	var f field.AgreementCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TerminationType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TerminationType() (field.TerminationType, error) {
+func (m TradeCaptureReportRequest) TerminationType() (field.TerminationType, errors.MessageRejectError) {
 	var f field.TerminationType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StartDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) StartDate() (field.StartDate, error) {
+func (m TradeCaptureReportRequest) StartDate() (field.StartDate, errors.MessageRejectError) {
 	var f field.StartDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EndDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) EndDate() (field.EndDate, error) {
+func (m TradeCaptureReportRequest) EndDate() (field.EndDate, errors.MessageRejectError) {
 	var f field.EndDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DeliveryType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) DeliveryType() (field.DeliveryType, error) {
+func (m TradeCaptureReportRequest) DeliveryType() (field.DeliveryType, errors.MessageRejectError) {
 	var f field.DeliveryType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarginRatio is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MarginRatio() (field.MarginRatio, error) {
+func (m TradeCaptureReportRequest) MarginRatio() (field.MarginRatio, errors.MessageRejectError) {
 	var f field.MarginRatio
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoUnderlyings is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoUnderlyings() (field.NoUnderlyings, error) {
+func (m TradeCaptureReportRequest) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
 	var f field.NoUnderlyings
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLegs is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoLegs() (field.NoLegs, error) {
+func (m TradeCaptureReportRequest) NoLegs() (field.NoLegs, errors.MessageRejectError) {
 	var f field.NoLegs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoDates is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) NoDates() (field.NoDates, error) {
+func (m TradeCaptureReportRequest) NoDates() (field.NoDates, errors.MessageRejectError) {
 	var f field.NoDates
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClearingBusinessDate is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ClearingBusinessDate() (field.ClearingBusinessDate, error) {
+func (m TradeCaptureReportRequest) ClearingBusinessDate() (field.ClearingBusinessDate, errors.MessageRejectError) {
 	var f field.ClearingBusinessDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradingSessionID() (field.TradingSessionID, error) {
+func (m TradeCaptureReportRequest) TradingSessionID() (field.TradingSessionID, errors.MessageRejectError) {
 	var f field.TradingSessionID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionSubID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradingSessionSubID() (field.TradingSessionSubID, error) {
+func (m TradeCaptureReportRequest) TradingSessionSubID() (field.TradingSessionSubID, errors.MessageRejectError) {
 	var f field.TradingSessionSubID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TimeBracket is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TimeBracket() (field.TimeBracket, error) {
+func (m TradeCaptureReportRequest) TimeBracket() (field.TimeBracket, errors.MessageRejectError) {
 	var f field.TimeBracket
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Side is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) Side() (field.Side, error) {
+func (m TradeCaptureReportRequest) Side() (field.Side, errors.MessageRejectError) {
 	var f field.Side
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MultiLegReportingType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MultiLegReportingType() (field.MultiLegReportingType, error) {
+func (m TradeCaptureReportRequest) MultiLegReportingType() (field.MultiLegReportingType, errors.MessageRejectError) {
 	var f field.MultiLegReportingType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeInputSource is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradeInputSource() (field.TradeInputSource, error) {
+func (m TradeCaptureReportRequest) TradeInputSource() (field.TradeInputSource, errors.MessageRejectError) {
 	var f field.TradeInputSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeInputDevice is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradeInputDevice() (field.TradeInputDevice, error) {
+func (m TradeCaptureReportRequest) TradeInputDevice() (field.TradeInputDevice, errors.MessageRejectError) {
 	var f field.TradeInputDevice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ResponseTransportType is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ResponseTransportType() (field.ResponseTransportType, error) {
+func (m TradeCaptureReportRequest) ResponseTransportType() (field.ResponseTransportType, errors.MessageRejectError) {
 	var f field.ResponseTransportType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ResponseDestination is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) ResponseDestination() (field.ResponseDestination, error) {
+func (m TradeCaptureReportRequest) ResponseDestination() (field.ResponseDestination, errors.MessageRejectError) {
 	var f field.ResponseDestination
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) Text() (field.Text, error) {
+func (m TradeCaptureReportRequest) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m TradeCaptureReportRequest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) EncodedText() (field.EncodedText, error) {
+func (m TradeCaptureReportRequest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MessageEventSource is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) MessageEventSource() (field.MessageEventSource, error) {
+func (m TradeCaptureReportRequest) MessageEventSource() (field.MessageEventSource, errors.MessageRejectError) {
 	var f field.MessageEventSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradeID() (field.TradeID, error) {
+func (m TradeCaptureReportRequest) TradeID() (field.TradeID, errors.MessageRejectError) {
 	var f field.TradeID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecondaryTradeID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecondaryTradeID() (field.SecondaryTradeID, error) {
+func (m TradeCaptureReportRequest) SecondaryTradeID() (field.SecondaryTradeID, errors.MessageRejectError) {
 	var f field.SecondaryTradeID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FirmTradeID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) FirmTradeID() (field.FirmTradeID, error) {
+func (m TradeCaptureReportRequest) FirmTradeID() (field.FirmTradeID, errors.MessageRejectError) {
 	var f field.FirmTradeID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecondaryFirmTradeID is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) SecondaryFirmTradeID() (field.SecondaryFirmTradeID, error) {
+func (m TradeCaptureReportRequest) SecondaryFirmTradeID() (field.SecondaryFirmTradeID, errors.MessageRejectError) {
 	var f field.SecondaryFirmTradeID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeHandlingInstr is a non-required field for TradeCaptureReportRequest.
-func (m TradeCaptureReportRequest) TradeHandlingInstr() (field.TradeHandlingInstr, error) {
+func (m TradeCaptureReportRequest) TradeHandlingInstr() (field.TradeHandlingInstr, errors.MessageRejectError) {
 	var f field.TradeHandlingInstr
 	err := m.Body.Get(&f)
 	return f, err

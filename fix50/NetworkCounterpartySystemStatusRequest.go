@@ -1,6 +1,7 @@
 package fix50
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,21 +28,21 @@ func CreateNetworkCounterpartySystemStatusRequestBuilder(
 }
 
 //NetworkRequestType is a required field for NetworkCounterpartySystemStatusRequest.
-func (m NetworkCounterpartySystemStatusRequest) NetworkRequestType() (field.NetworkRequestType, error) {
+func (m NetworkCounterpartySystemStatusRequest) NetworkRequestType() (field.NetworkRequestType, errors.MessageRejectError) {
 	var f field.NetworkRequestType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NetworkRequestID is a required field for NetworkCounterpartySystemStatusRequest.
-func (m NetworkCounterpartySystemStatusRequest) NetworkRequestID() (field.NetworkRequestID, error) {
+func (m NetworkCounterpartySystemStatusRequest) NetworkRequestID() (field.NetworkRequestID, errors.MessageRejectError) {
 	var f field.NetworkRequestID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoCompIDs is a non-required field for NetworkCounterpartySystemStatusRequest.
-func (m NetworkCounterpartySystemStatusRequest) NoCompIDs() (field.NoCompIDs, error) {
+func (m NetworkCounterpartySystemStatusRequest) NoCompIDs() (field.NoCompIDs, errors.MessageRejectError) {
 	var f field.NoCompIDs
 	err := m.Body.Get(&f)
 	return f, err

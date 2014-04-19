@@ -1,6 +1,7 @@
 package fix43
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,77 +30,77 @@ func CreateSecurityTypesBuilder(
 }
 
 //SecurityReqID is a required field for SecurityTypes.
-func (m SecurityTypes) SecurityReqID() (field.SecurityReqID, error) {
+func (m SecurityTypes) SecurityReqID() (field.SecurityReqID, errors.MessageRejectError) {
 	var f field.SecurityReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityResponseID is a required field for SecurityTypes.
-func (m SecurityTypes) SecurityResponseID() (field.SecurityResponseID, error) {
+func (m SecurityTypes) SecurityResponseID() (field.SecurityResponseID, errors.MessageRejectError) {
 	var f field.SecurityResponseID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityResponseType is a required field for SecurityTypes.
-func (m SecurityTypes) SecurityResponseType() (field.SecurityResponseType, error) {
+func (m SecurityTypes) SecurityResponseType() (field.SecurityResponseType, errors.MessageRejectError) {
 	var f field.SecurityResponseType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotalNumSecurityTypes is a non-required field for SecurityTypes.
-func (m SecurityTypes) TotalNumSecurityTypes() (field.TotalNumSecurityTypes, error) {
+func (m SecurityTypes) TotalNumSecurityTypes() (field.TotalNumSecurityTypes, errors.MessageRejectError) {
 	var f field.TotalNumSecurityTypes
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityTypes is a non-required field for SecurityTypes.
-func (m SecurityTypes) NoSecurityTypes() (field.NoSecurityTypes, error) {
+func (m SecurityTypes) NoSecurityTypes() (field.NoSecurityTypes, errors.MessageRejectError) {
 	var f field.NoSecurityTypes
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for SecurityTypes.
-func (m SecurityTypes) Text() (field.Text, error) {
+func (m SecurityTypes) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for SecurityTypes.
-func (m SecurityTypes) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m SecurityTypes) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for SecurityTypes.
-func (m SecurityTypes) EncodedText() (field.EncodedText, error) {
+func (m SecurityTypes) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionID is a non-required field for SecurityTypes.
-func (m SecurityTypes) TradingSessionID() (field.TradingSessionID, error) {
+func (m SecurityTypes) TradingSessionID() (field.TradingSessionID, errors.MessageRejectError) {
 	var f field.TradingSessionID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionSubID is a non-required field for SecurityTypes.
-func (m SecurityTypes) TradingSessionSubID() (field.TradingSessionSubID, error) {
+func (m SecurityTypes) TradingSessionSubID() (field.TradingSessionSubID, errors.MessageRejectError) {
 	var f field.TradingSessionSubID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SubscriptionRequestType is a non-required field for SecurityTypes.
-func (m SecurityTypes) SubscriptionRequestType() (field.SubscriptionRequestType, error) {
+func (m SecurityTypes) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
 	var f field.SubscriptionRequestType
 	err := m.Body.Get(&f)
 	return f, err

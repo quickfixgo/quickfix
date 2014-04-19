@@ -1,6 +1,7 @@
 package fix44
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,28 +26,28 @@ func CreateMarketDataIncrementalRefreshBuilder(
 }
 
 //MDReqID is a non-required field for MarketDataIncrementalRefresh.
-func (m MarketDataIncrementalRefresh) MDReqID() (field.MDReqID, error) {
+func (m MarketDataIncrementalRefresh) MDReqID() (field.MDReqID, errors.MessageRejectError) {
 	var f field.MDReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoMDEntries is a required field for MarketDataIncrementalRefresh.
-func (m MarketDataIncrementalRefresh) NoMDEntries() (field.NoMDEntries, error) {
+func (m MarketDataIncrementalRefresh) NoMDEntries() (field.NoMDEntries, errors.MessageRejectError) {
 	var f field.NoMDEntries
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplQueueDepth is a non-required field for MarketDataIncrementalRefresh.
-func (m MarketDataIncrementalRefresh) ApplQueueDepth() (field.ApplQueueDepth, error) {
+func (m MarketDataIncrementalRefresh) ApplQueueDepth() (field.ApplQueueDepth, errors.MessageRejectError) {
 	var f field.ApplQueueDepth
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplQueueResolution is a non-required field for MarketDataIncrementalRefresh.
-func (m MarketDataIncrementalRefresh) ApplQueueResolution() (field.ApplQueueResolution, error) {
+func (m MarketDataIncrementalRefresh) ApplQueueResolution() (field.ApplQueueResolution, errors.MessageRejectError) {
 	var f field.ApplQueueResolution
 	err := m.Body.Get(&f)
 	return f, err

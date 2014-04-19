@@ -1,6 +1,7 @@
 package fix43
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,42 +28,42 @@ func CreateQuoteRequestBuilder(
 }
 
 //QuoteReqID is a required field for QuoteRequest.
-func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, error) {
+func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
 	var f field.QuoteReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RFQReqID is a non-required field for QuoteRequest.
-func (m QuoteRequest) RFQReqID() (field.RFQReqID, error) {
+func (m QuoteRequest) RFQReqID() (field.RFQReqID, errors.MessageRejectError) {
 	var f field.RFQReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a required field for QuoteRequest.
-func (m QuoteRequest) NoRelatedSym() (field.NoRelatedSym, error) {
+func (m QuoteRequest) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
 	var f field.NoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for QuoteRequest.
-func (m QuoteRequest) Text() (field.Text, error) {
+func (m QuoteRequest) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for QuoteRequest.
-func (m QuoteRequest) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m QuoteRequest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for QuoteRequest.
-func (m QuoteRequest) EncodedText() (field.EncodedText, error) {
+func (m QuoteRequest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

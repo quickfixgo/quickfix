@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"bufio"
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"github.com/quickfixgo/quickfix/log"
 	"github.com/quickfixgo/quickfix/message"
@@ -103,7 +104,7 @@ func readLoop(parser *parser, msgIn chan []byte) {
 		if msg, err := parser.readMessage(); err != nil {
 			switch err.(type) {
 			//ignore message parser errors
-			case message.ParseError:
+			case errors.ParseError:
 				continue
 			default:
 				return

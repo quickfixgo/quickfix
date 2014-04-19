@@ -1,6 +1,7 @@
 package fix50
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,98 +26,98 @@ func CreateMassQuoteAcknowledgementBuilder(
 }
 
 //QuoteReqID is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) QuoteReqID() (field.QuoteReqID, error) {
+func (m MassQuoteAcknowledgement) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
 	var f field.QuoteReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteID is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) QuoteID() (field.QuoteID, error) {
+func (m MassQuoteAcknowledgement) QuoteID() (field.QuoteID, errors.MessageRejectError) {
 	var f field.QuoteID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteStatus is a required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) QuoteStatus() (field.QuoteStatus, error) {
+func (m MassQuoteAcknowledgement) QuoteStatus() (field.QuoteStatus, errors.MessageRejectError) {
 	var f field.QuoteStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteRejectReason is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) QuoteRejectReason() (field.QuoteRejectReason, error) {
+func (m MassQuoteAcknowledgement) QuoteRejectReason() (field.QuoteRejectReason, errors.MessageRejectError) {
 	var f field.QuoteRejectReason
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteResponseLevel is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) QuoteResponseLevel() (field.QuoteResponseLevel, error) {
+func (m MassQuoteAcknowledgement) QuoteResponseLevel() (field.QuoteResponseLevel, errors.MessageRejectError) {
 	var f field.QuoteResponseLevel
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteType is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) QuoteType() (field.QuoteType, error) {
+func (m MassQuoteAcknowledgement) QuoteType() (field.QuoteType, errors.MessageRejectError) {
 	var f field.QuoteType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) NoPartyIDs() (field.NoPartyIDs, error) {
+func (m MassQuoteAcknowledgement) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
 	var f field.NoPartyIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Account is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) Account() (field.Account, error) {
+func (m MassQuoteAcknowledgement) Account() (field.Account, errors.MessageRejectError) {
 	var f field.Account
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AcctIDSource is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) AcctIDSource() (field.AcctIDSource, error) {
+func (m MassQuoteAcknowledgement) AcctIDSource() (field.AcctIDSource, errors.MessageRejectError) {
 	var f field.AcctIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AccountType is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) AccountType() (field.AccountType, error) {
+func (m MassQuoteAcknowledgement) AccountType() (field.AccountType, errors.MessageRejectError) {
 	var f field.AccountType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) Text() (field.Text, error) {
+func (m MassQuoteAcknowledgement) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m MassQuoteAcknowledgement) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) EncodedText() (field.EncodedText, error) {
+func (m MassQuoteAcknowledgement) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoQuoteSets is a non-required field for MassQuoteAcknowledgement.
-func (m MassQuoteAcknowledgement) NoQuoteSets() (field.NoQuoteSets, error) {
+func (m MassQuoteAcknowledgement) NoQuoteSets() (field.NoQuoteSets, errors.MessageRejectError) {
 	var f field.NoQuoteSets
 	err := m.Body.Get(&f)
 	return f, err

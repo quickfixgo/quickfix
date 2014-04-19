@@ -1,6 +1,7 @@
 package fix40
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,14 +26,14 @@ func CreateRejectBuilder(
 }
 
 //RefSeqNum is a required field for Reject.
-func (m Reject) RefSeqNum() (field.RefSeqNum, error) {
+func (m Reject) RefSeqNum() (field.RefSeqNum, errors.MessageRejectError) {
 	var f field.RefSeqNum
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for Reject.
-func (m Reject) Text() (field.Text, error) {
+func (m Reject) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err

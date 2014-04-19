@@ -1,6 +1,7 @@
 package fix43
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -33,77 +34,77 @@ func CreateMarketDataRequestBuilder(
 }
 
 //MDReqID is a required field for MarketDataRequest.
-func (m MarketDataRequest) MDReqID() (field.MDReqID, error) {
+func (m MarketDataRequest) MDReqID() (field.MDReqID, errors.MessageRejectError) {
 	var f field.MDReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SubscriptionRequestType is a required field for MarketDataRequest.
-func (m MarketDataRequest) SubscriptionRequestType() (field.SubscriptionRequestType, error) {
+func (m MarketDataRequest) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
 	var f field.SubscriptionRequestType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarketDepth is a required field for MarketDataRequest.
-func (m MarketDataRequest) MarketDepth() (field.MarketDepth, error) {
+func (m MarketDataRequest) MarketDepth() (field.MarketDepth, errors.MessageRejectError) {
 	var f field.MarketDepth
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MDUpdateType is a non-required field for MarketDataRequest.
-func (m MarketDataRequest) MDUpdateType() (field.MDUpdateType, error) {
+func (m MarketDataRequest) MDUpdateType() (field.MDUpdateType, errors.MessageRejectError) {
 	var f field.MDUpdateType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AggregatedBook is a non-required field for MarketDataRequest.
-func (m MarketDataRequest) AggregatedBook() (field.AggregatedBook, error) {
+func (m MarketDataRequest) AggregatedBook() (field.AggregatedBook, errors.MessageRejectError) {
 	var f field.AggregatedBook
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OpenCloseSettleFlag is a non-required field for MarketDataRequest.
-func (m MarketDataRequest) OpenCloseSettleFlag() (field.OpenCloseSettleFlag, error) {
+func (m MarketDataRequest) OpenCloseSettleFlag() (field.OpenCloseSettleFlag, errors.MessageRejectError) {
 	var f field.OpenCloseSettleFlag
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Scope is a non-required field for MarketDataRequest.
-func (m MarketDataRequest) Scope() (field.Scope, error) {
+func (m MarketDataRequest) Scope() (field.Scope, errors.MessageRejectError) {
 	var f field.Scope
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MDImplicitDelete is a non-required field for MarketDataRequest.
-func (m MarketDataRequest) MDImplicitDelete() (field.MDImplicitDelete, error) {
+func (m MarketDataRequest) MDImplicitDelete() (field.MDImplicitDelete, errors.MessageRejectError) {
 	var f field.MDImplicitDelete
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoMDEntryTypes is a required field for MarketDataRequest.
-func (m MarketDataRequest) NoMDEntryTypes() (field.NoMDEntryTypes, error) {
+func (m MarketDataRequest) NoMDEntryTypes() (field.NoMDEntryTypes, errors.MessageRejectError) {
 	var f field.NoMDEntryTypes
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a required field for MarketDataRequest.
-func (m MarketDataRequest) NoRelatedSym() (field.NoRelatedSym, error) {
+func (m MarketDataRequest) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
 	var f field.NoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTradingSessions is a non-required field for MarketDataRequest.
-func (m MarketDataRequest) NoTradingSessions() (field.NoTradingSessions, error) {
+func (m MarketDataRequest) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
 	var f field.NoTradingSessions
 	err := m.Body.Get(&f)
 	return f, err

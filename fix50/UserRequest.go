@@ -1,6 +1,7 @@
 package fix50
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,49 +30,49 @@ func CreateUserRequestBuilder(
 }
 
 //UserRequestID is a required field for UserRequest.
-func (m UserRequest) UserRequestID() (field.UserRequestID, error) {
+func (m UserRequest) UserRequestID() (field.UserRequestID, errors.MessageRejectError) {
 	var f field.UserRequestID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UserRequestType is a required field for UserRequest.
-func (m UserRequest) UserRequestType() (field.UserRequestType, error) {
+func (m UserRequest) UserRequestType() (field.UserRequestType, errors.MessageRejectError) {
 	var f field.UserRequestType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Username is a required field for UserRequest.
-func (m UserRequest) Username() (field.Username, error) {
+func (m UserRequest) Username() (field.Username, errors.MessageRejectError) {
 	var f field.Username
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Password is a non-required field for UserRequest.
-func (m UserRequest) Password() (field.Password, error) {
+func (m UserRequest) Password() (field.Password, errors.MessageRejectError) {
 	var f field.Password
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NewPassword is a non-required field for UserRequest.
-func (m UserRequest) NewPassword() (field.NewPassword, error) {
+func (m UserRequest) NewPassword() (field.NewPassword, errors.MessageRejectError) {
 	var f field.NewPassword
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawDataLength is a non-required field for UserRequest.
-func (m UserRequest) RawDataLength() (field.RawDataLength, error) {
+func (m UserRequest) RawDataLength() (field.RawDataLength, errors.MessageRejectError) {
 	var f field.RawDataLength
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawData is a non-required field for UserRequest.
-func (m UserRequest) RawData() (field.RawData, error) {
+func (m UserRequest) RawData() (field.RawData, errors.MessageRejectError) {
 	var f field.RawData
 	err := m.Body.Get(&f)
 	return f, err

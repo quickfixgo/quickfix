@@ -1,6 +1,7 @@
 package fix50sp1
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,49 +26,49 @@ func CreateTradingSessionListUpdateReportBuilder(
 }
 
 //TradSesReqID is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) TradSesReqID() (field.TradSesReqID, error) {
+func (m TradingSessionListUpdateReport) TradSesReqID() (field.TradSesReqID, errors.MessageRejectError) {
 	var f field.TradSesReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradSesUpdateAction is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) TradSesUpdateAction() (field.TradSesUpdateAction, error) {
+func (m TradingSessionListUpdateReport) TradSesUpdateAction() (field.TradSesUpdateAction, errors.MessageRejectError) {
 	var f field.TradSesUpdateAction
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTradingSessions is a required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) NoTradingSessions() (field.NoTradingSessions, error) {
+func (m TradingSessionListUpdateReport) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
 	var f field.NoTradingSessions
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplID is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) ApplID() (field.ApplID, error) {
+func (m TradingSessionListUpdateReport) ApplID() (field.ApplID, errors.MessageRejectError) {
 	var f field.ApplID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplSeqNum is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) ApplSeqNum() (field.ApplSeqNum, error) {
+func (m TradingSessionListUpdateReport) ApplSeqNum() (field.ApplSeqNum, errors.MessageRejectError) {
 	var f field.ApplSeqNum
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplLastSeqNum is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) ApplLastSeqNum() (field.ApplLastSeqNum, error) {
+func (m TradingSessionListUpdateReport) ApplLastSeqNum() (field.ApplLastSeqNum, errors.MessageRejectError) {
 	var f field.ApplLastSeqNum
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplResendFlag is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) ApplResendFlag() (field.ApplResendFlag, error) {
+func (m TradingSessionListUpdateReport) ApplResendFlag() (field.ApplResendFlag, errors.MessageRejectError) {
 	var f field.ApplResendFlag
 	err := m.Body.Get(&f)
 	return f, err

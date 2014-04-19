@@ -1,6 +1,7 @@
 package fix40
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,7 +24,7 @@ func CreateLogoutBuilder() LogoutBuilder {
 }
 
 //Text is a non-required field for Logout.
-func (m Logout) Text() (field.Text, error) {
+func (m Logout) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err

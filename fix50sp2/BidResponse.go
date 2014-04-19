@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,21 +26,21 @@ func CreateBidResponseBuilder(
 }
 
 //BidID is a non-required field for BidResponse.
-func (m BidResponse) BidID() (field.BidID, error) {
+func (m BidResponse) BidID() (field.BidID, errors.MessageRejectError) {
 	var f field.BidID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClientBidID is a non-required field for BidResponse.
-func (m BidResponse) ClientBidID() (field.ClientBidID, error) {
+func (m BidResponse) ClientBidID() (field.ClientBidID, errors.MessageRejectError) {
 	var f field.ClientBidID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoBidComponents is a required field for BidResponse.
-func (m BidResponse) NoBidComponents() (field.NoBidComponents, error) {
+func (m BidResponse) NoBidComponents() (field.NoBidComponents, errors.MessageRejectError) {
 	var f field.NoBidComponents
 	err := m.Body.Get(&f)
 	return f, err

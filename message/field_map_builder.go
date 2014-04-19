@@ -2,6 +2,7 @@ package message
 
 import (
 	"bytes"
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"sort"
@@ -44,7 +45,7 @@ func (b FieldMapBuilder) Get(parser Field) error {
 	field, ok := b.fields[parser.Tag()]
 
 	if !ok {
-		return FieldNotFoundError{parser.Tag()}
+		return errors.ConditionallyRequiredFieldMissing(parser.Tag())
 	}
 
 	return parser.Read(field.Value)
@@ -54,7 +55,7 @@ func (b FieldMapBuilder) GetField(tag fix.Tag, field FieldValue) error {
 	if f, ok := b.fields[tag]; ok {
 		return field.Read(f.Value)
 	}
-	return FieldNotFoundError{tag}
+	return errors.ConditionallyRequiredFieldMissing(tag)
 }
 
 func (b FieldMapBuilder) sortedTags() []fix.Tag {

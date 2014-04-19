@@ -1,6 +1,7 @@
 package fix50
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,35 +30,35 @@ func CreateNetworkCounterpartySystemStatusResponseBuilder(
 }
 
 //NetworkStatusResponseType is a required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) NetworkStatusResponseType() (field.NetworkStatusResponseType, error) {
+func (m NetworkCounterpartySystemStatusResponse) NetworkStatusResponseType() (field.NetworkStatusResponseType, errors.MessageRejectError) {
 	var f field.NetworkStatusResponseType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NetworkRequestID is a non-required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) NetworkRequestID() (field.NetworkRequestID, error) {
+func (m NetworkCounterpartySystemStatusResponse) NetworkRequestID() (field.NetworkRequestID, errors.MessageRejectError) {
 	var f field.NetworkRequestID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NetworkResponseID is a required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) NetworkResponseID() (field.NetworkResponseID, error) {
+func (m NetworkCounterpartySystemStatusResponse) NetworkResponseID() (field.NetworkResponseID, errors.MessageRejectError) {
 	var f field.NetworkResponseID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LastNetworkResponseID is a non-required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) LastNetworkResponseID() (field.LastNetworkResponseID, error) {
+func (m NetworkCounterpartySystemStatusResponse) LastNetworkResponseID() (field.LastNetworkResponseID, errors.MessageRejectError) {
 	var f field.LastNetworkResponseID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoCompIDs is a required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) NoCompIDs() (field.NoCompIDs, error) {
+func (m NetworkCounterpartySystemStatusResponse) NoCompIDs() (field.NoCompIDs, errors.MessageRejectError) {
 	var f field.NoCompIDs
 	err := m.Body.Get(&f)
 	return f, err

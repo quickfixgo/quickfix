@@ -1,6 +1,7 @@
 package fix41
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,35 +28,35 @@ func CreateLogonBuilder(
 }
 
 //EncryptMethod is a required field for Logon.
-func (m Logon) EncryptMethod() (field.EncryptMethod, error) {
+func (m Logon) EncryptMethod() (field.EncryptMethod, errors.MessageRejectError) {
 	var f field.EncryptMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //HeartBtInt is a required field for Logon.
-func (m Logon) HeartBtInt() (field.HeartBtInt, error) {
+func (m Logon) HeartBtInt() (field.HeartBtInt, errors.MessageRejectError) {
 	var f field.HeartBtInt
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawDataLength is a non-required field for Logon.
-func (m Logon) RawDataLength() (field.RawDataLength, error) {
+func (m Logon) RawDataLength() (field.RawDataLength, errors.MessageRejectError) {
 	var f field.RawDataLength
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawData is a non-required field for Logon.
-func (m Logon) RawData() (field.RawData, error) {
+func (m Logon) RawData() (field.RawData, errors.MessageRejectError) {
 	var f field.RawData
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ResetSeqNumFlag is a non-required field for Logon.
-func (m Logon) ResetSeqNumFlag() (field.ResetSeqNumFlag, error) {
+func (m Logon) ResetSeqNumFlag() (field.ResetSeqNumFlag, errors.MessageRejectError) {
 	var f field.ResetSeqNumFlag
 	err := m.Body.Get(&f)
 	return f, err

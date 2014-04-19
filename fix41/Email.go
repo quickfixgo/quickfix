@@ -1,6 +1,7 @@
 package fix41
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -31,70 +32,70 @@ func CreateEmailBuilder(
 }
 
 //EmailThreadID is a required field for Email.
-func (m Email) EmailThreadID() (field.EmailThreadID, error) {
+func (m Email) EmailThreadID() (field.EmailThreadID, errors.MessageRejectError) {
 	var f field.EmailThreadID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EmailType is a required field for Email.
-func (m Email) EmailType() (field.EmailType, error) {
+func (m Email) EmailType() (field.EmailType, errors.MessageRejectError) {
 	var f field.EmailType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrigTime is a non-required field for Email.
-func (m Email) OrigTime() (field.OrigTime, error) {
+func (m Email) OrigTime() (field.OrigTime, errors.MessageRejectError) {
 	var f field.OrigTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Subject is a required field for Email.
-func (m Email) Subject() (field.Subject, error) {
+func (m Email) Subject() (field.Subject, errors.MessageRejectError) {
 	var f field.Subject
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a non-required field for Email.
-func (m Email) NoRelatedSym() (field.NoRelatedSym, error) {
+func (m Email) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
 	var f field.NoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderID is a non-required field for Email.
-func (m Email) OrderID() (field.OrderID, error) {
+func (m Email) OrderID() (field.OrderID, errors.MessageRejectError) {
 	var f field.OrderID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdID is a non-required field for Email.
-func (m Email) ClOrdID() (field.ClOrdID, error) {
+func (m Email) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
 	var f field.ClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LinesOfText is a required field for Email.
-func (m Email) LinesOfText() (field.LinesOfText, error) {
+func (m Email) LinesOfText() (field.LinesOfText, errors.MessageRejectError) {
 	var f field.LinesOfText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawDataLength is a non-required field for Email.
-func (m Email) RawDataLength() (field.RawDataLength, error) {
+func (m Email) RawDataLength() (field.RawDataLength, errors.MessageRejectError) {
 	var f field.RawDataLength
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawData is a non-required field for Email.
-func (m Email) RawData() (field.RawData, error) {
+func (m Email) RawData() (field.RawData, errors.MessageRejectError) {
 	var f field.RawData
 	err := m.Body.Get(&f)
 	return f, err

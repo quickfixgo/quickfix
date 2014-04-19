@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,70 +30,70 @@ func CreateSettlementInstructionsBuilder(
 }
 
 //SettlInstMsgID is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstMsgID() (field.SettlInstMsgID, error) {
+func (m SettlementInstructions) SettlInstMsgID() (field.SettlInstMsgID, errors.MessageRejectError) {
 	var f field.SettlInstMsgID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlInstReqID is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstReqID() (field.SettlInstReqID, error) {
+func (m SettlementInstructions) SettlInstReqID() (field.SettlInstReqID, errors.MessageRejectError) {
 	var f field.SettlInstReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlInstMode is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstMode() (field.SettlInstMode, error) {
+func (m SettlementInstructions) SettlInstMode() (field.SettlInstMode, errors.MessageRejectError) {
 	var f field.SettlInstMode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlInstReqRejCode is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstReqRejCode() (field.SettlInstReqRejCode, error) {
+func (m SettlementInstructions) SettlInstReqRejCode() (field.SettlInstReqRejCode, errors.MessageRejectError) {
 	var f field.SettlInstReqRejCode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) Text() (field.Text, error) {
+func (m SettlementInstructions) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m SettlementInstructions) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) EncodedText() (field.EncodedText, error) {
+func (m SettlementInstructions) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdID is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) ClOrdID() (field.ClOrdID, error) {
+func (m SettlementInstructions) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
 	var f field.ClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for SettlementInstructions.
-func (m SettlementInstructions) TransactTime() (field.TransactTime, error) {
+func (m SettlementInstructions) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSettlInst is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) NoSettlInst() (field.NoSettlInst, error) {
+func (m SettlementInstructions) NoSettlInst() (field.NoSettlInst, errors.MessageRejectError) {
 	var f field.NoSettlInst
 	err := m.Body.Get(&f)
 	return f, err

@@ -1,6 +1,7 @@
 package fix43
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,42 +28,42 @@ func CreateListCancelRequestBuilder(
 }
 
 //ListID is a required field for ListCancelRequest.
-func (m ListCancelRequest) ListID() (field.ListID, error) {
+func (m ListCancelRequest) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for ListCancelRequest.
-func (m ListCancelRequest) TransactTime() (field.TransactTime, error) {
+func (m ListCancelRequest) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeOriginationDate is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) TradeOriginationDate() (field.TradeOriginationDate, error) {
+func (m ListCancelRequest) TradeOriginationDate() (field.TradeOriginationDate, errors.MessageRejectError) {
 	var f field.TradeOriginationDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) Text() (field.Text, error) {
+func (m ListCancelRequest) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m ListCancelRequest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) EncodedText() (field.EncodedText, error) {
+func (m ListCancelRequest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

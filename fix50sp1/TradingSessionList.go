@@ -1,6 +1,7 @@
 package fix50sp1
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,42 +26,42 @@ func CreateTradingSessionListBuilder(
 }
 
 //TradSesReqID is a non-required field for TradingSessionList.
-func (m TradingSessionList) TradSesReqID() (field.TradSesReqID, error) {
+func (m TradingSessionList) TradSesReqID() (field.TradSesReqID, errors.MessageRejectError) {
 	var f field.TradSesReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTradingSessions is a required field for TradingSessionList.
-func (m TradingSessionList) NoTradingSessions() (field.NoTradingSessions, error) {
+func (m TradingSessionList) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
 	var f field.NoTradingSessions
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplID is a non-required field for TradingSessionList.
-func (m TradingSessionList) ApplID() (field.ApplID, error) {
+func (m TradingSessionList) ApplID() (field.ApplID, errors.MessageRejectError) {
 	var f field.ApplID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplSeqNum is a non-required field for TradingSessionList.
-func (m TradingSessionList) ApplSeqNum() (field.ApplSeqNum, error) {
+func (m TradingSessionList) ApplSeqNum() (field.ApplSeqNum, errors.MessageRejectError) {
 	var f field.ApplSeqNum
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplLastSeqNum is a non-required field for TradingSessionList.
-func (m TradingSessionList) ApplLastSeqNum() (field.ApplLastSeqNum, error) {
+func (m TradingSessionList) ApplLastSeqNum() (field.ApplLastSeqNum, errors.MessageRejectError) {
 	var f field.ApplLastSeqNum
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplResendFlag is a non-required field for TradingSessionList.
-func (m TradingSessionList) ApplResendFlag() (field.ApplResendFlag, error) {
+func (m TradingSessionList) ApplResendFlag() (field.ApplResendFlag, errors.MessageRejectError) {
 	var f field.ApplResendFlag
 	err := m.Body.Get(&f)
 	return f, err

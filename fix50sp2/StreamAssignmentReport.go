@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,28 +26,28 @@ func CreateStreamAssignmentReportBuilder(
 }
 
 //StreamAsgnRptID is a required field for StreamAssignmentReport.
-func (m StreamAssignmentReport) StreamAsgnRptID() (field.StreamAsgnRptID, error) {
+func (m StreamAssignmentReport) StreamAsgnRptID() (field.StreamAsgnRptID, errors.MessageRejectError) {
 	var f field.StreamAsgnRptID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StreamAsgnReqType is a non-required field for StreamAssignmentReport.
-func (m StreamAssignmentReport) StreamAsgnReqType() (field.StreamAsgnReqType, error) {
+func (m StreamAssignmentReport) StreamAsgnReqType() (field.StreamAsgnReqType, errors.MessageRejectError) {
 	var f field.StreamAsgnReqType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StreamAsgnReqID is a non-required field for StreamAssignmentReport.
-func (m StreamAssignmentReport) StreamAsgnReqID() (field.StreamAsgnReqID, error) {
+func (m StreamAssignmentReport) StreamAsgnReqID() (field.StreamAsgnReqID, errors.MessageRejectError) {
 	var f field.StreamAsgnReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoAsgnReqs is a non-required field for StreamAssignmentReport.
-func (m StreamAssignmentReport) NoAsgnReqs() (field.NoAsgnReqs, error) {
+func (m StreamAssignmentReport) NoAsgnReqs() (field.NoAsgnReqs, errors.MessageRejectError) {
 	var f field.NoAsgnReqs
 	err := m.Body.Get(&f)
 	return f, err

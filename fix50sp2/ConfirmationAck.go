@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -31,63 +32,63 @@ func CreateConfirmationAckBuilder(
 }
 
 //ConfirmID is a required field for ConfirmationAck.
-func (m ConfirmationAck) ConfirmID() (field.ConfirmID, error) {
+func (m ConfirmationAck) ConfirmID() (field.ConfirmID, errors.MessageRejectError) {
 	var f field.ConfirmID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradeDate is a required field for ConfirmationAck.
-func (m ConfirmationAck) TradeDate() (field.TradeDate, error) {
+func (m ConfirmationAck) TradeDate() (field.TradeDate, errors.MessageRejectError) {
 	var f field.TradeDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a required field for ConfirmationAck.
-func (m ConfirmationAck) TransactTime() (field.TransactTime, error) {
+func (m ConfirmationAck) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AffirmStatus is a required field for ConfirmationAck.
-func (m ConfirmationAck) AffirmStatus() (field.AffirmStatus, error) {
+func (m ConfirmationAck) AffirmStatus() (field.AffirmStatus, errors.MessageRejectError) {
 	var f field.AffirmStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ConfirmRejReason is a non-required field for ConfirmationAck.
-func (m ConfirmationAck) ConfirmRejReason() (field.ConfirmRejReason, error) {
+func (m ConfirmationAck) ConfirmRejReason() (field.ConfirmRejReason, errors.MessageRejectError) {
 	var f field.ConfirmRejReason
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MatchStatus is a non-required field for ConfirmationAck.
-func (m ConfirmationAck) MatchStatus() (field.MatchStatus, error) {
+func (m ConfirmationAck) MatchStatus() (field.MatchStatus, errors.MessageRejectError) {
 	var f field.MatchStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ConfirmationAck.
-func (m ConfirmationAck) Text() (field.Text, error) {
+func (m ConfirmationAck) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for ConfirmationAck.
-func (m ConfirmationAck) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m ConfirmationAck) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for ConfirmationAck.
-func (m ConfirmationAck) EncodedText() (field.EncodedText, error) {
+func (m ConfirmationAck) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

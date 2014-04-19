@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,35 +28,35 @@ func CreateMarketDefinitionRequestBuilder(
 }
 
 //MarketReqID is a required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) MarketReqID() (field.MarketReqID, error) {
+func (m MarketDefinitionRequest) MarketReqID() (field.MarketReqID, errors.MessageRejectError) {
 	var f field.MarketReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SubscriptionRequestType is a required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) SubscriptionRequestType() (field.SubscriptionRequestType, error) {
+func (m MarketDefinitionRequest) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
 	var f field.SubscriptionRequestType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarketID is a non-required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) MarketID() (field.MarketID, error) {
+func (m MarketDefinitionRequest) MarketID() (field.MarketID, errors.MessageRejectError) {
 	var f field.MarketID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarketSegmentID is a non-required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) MarketSegmentID() (field.MarketSegmentID, error) {
+func (m MarketDefinitionRequest) MarketSegmentID() (field.MarketSegmentID, errors.MessageRejectError) {
 	var f field.MarketSegmentID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ParentMktSegmID is a non-required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) ParentMktSegmID() (field.ParentMktSegmID, error) {
+func (m MarketDefinitionRequest) ParentMktSegmID() (field.ParentMktSegmID, errors.MessageRejectError) {
 	var f field.ParentMktSegmID
 	err := m.Body.Get(&f)
 	return f, err

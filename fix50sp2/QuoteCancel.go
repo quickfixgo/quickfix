@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,98 +26,98 @@ func CreateQuoteCancelBuilder(
 }
 
 //QuoteReqID is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteReqID() (field.QuoteReqID, error) {
+func (m QuoteCancel) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
 	var f field.QuoteReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteID is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteID() (field.QuoteID, error) {
+func (m QuoteCancel) QuoteID() (field.QuoteID, errors.MessageRejectError) {
 	var f field.QuoteID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteCancelType is a required field for QuoteCancel.
-func (m QuoteCancel) QuoteCancelType() (field.QuoteCancelType, error) {
+func (m QuoteCancel) QuoteCancelType() (field.QuoteCancelType, errors.MessageRejectError) {
 	var f field.QuoteCancelType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteResponseLevel is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteResponseLevel() (field.QuoteResponseLevel, error) {
+func (m QuoteCancel) QuoteResponseLevel() (field.QuoteResponseLevel, errors.MessageRejectError) {
 	var f field.QuoteResponseLevel
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for QuoteCancel.
-func (m QuoteCancel) NoPartyIDs() (field.NoPartyIDs, error) {
+func (m QuoteCancel) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
 	var f field.NoPartyIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Account is a non-required field for QuoteCancel.
-func (m QuoteCancel) Account() (field.Account, error) {
+func (m QuoteCancel) Account() (field.Account, errors.MessageRejectError) {
 	var f field.Account
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AcctIDSource is a non-required field for QuoteCancel.
-func (m QuoteCancel) AcctIDSource() (field.AcctIDSource, error) {
+func (m QuoteCancel) AcctIDSource() (field.AcctIDSource, errors.MessageRejectError) {
 	var f field.AcctIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AccountType is a non-required field for QuoteCancel.
-func (m QuoteCancel) AccountType() (field.AccountType, error) {
+func (m QuoteCancel) AccountType() (field.AccountType, errors.MessageRejectError) {
 	var f field.AccountType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionID is a non-required field for QuoteCancel.
-func (m QuoteCancel) TradingSessionID() (field.TradingSessionID, error) {
+func (m QuoteCancel) TradingSessionID() (field.TradingSessionID, errors.MessageRejectError) {
 	var f field.TradingSessionID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionSubID is a non-required field for QuoteCancel.
-func (m QuoteCancel) TradingSessionSubID() (field.TradingSessionSubID, error) {
+func (m QuoteCancel) TradingSessionSubID() (field.TradingSessionSubID, errors.MessageRejectError) {
 	var f field.TradingSessionSubID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoQuoteEntries is a non-required field for QuoteCancel.
-func (m QuoteCancel) NoQuoteEntries() (field.NoQuoteEntries, error) {
+func (m QuoteCancel) NoQuoteEntries() (field.NoQuoteEntries, errors.MessageRejectError) {
 	var f field.NoQuoteEntries
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteMsgID is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteMsgID() (field.QuoteMsgID, error) {
+func (m QuoteCancel) QuoteMsgID() (field.QuoteMsgID, errors.MessageRejectError) {
 	var f field.QuoteMsgID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteType is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteType() (field.QuoteType, error) {
+func (m QuoteCancel) QuoteType() (field.QuoteType, errors.MessageRejectError) {
 	var f field.QuoteType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTargetPartyIDs is a non-required field for QuoteCancel.
-func (m QuoteCancel) NoTargetPartyIDs() (field.NoTargetPartyIDs, error) {
+func (m QuoteCancel) NoTargetPartyIDs() (field.NoTargetPartyIDs, errors.MessageRejectError) {
 	var f field.NoTargetPartyIDs
 	err := m.Body.Get(&f)
 	return f, err

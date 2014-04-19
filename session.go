@@ -3,6 +3,7 @@ package quickfix
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
@@ -174,7 +175,7 @@ func (s *session) sendBuffer(buffer buffer) {
 	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 }
 
-func (s *session) DoTargetTooHigh(reject message.TargetTooHigh) {
+func (s *session) DoTargetTooHigh(reject errors.TargetTooHigh) {
 	resend := message.CreateMessageBuilder()
 	resend.Header.Set(field.BuildMsgType("2"))
 	resend.Body.Set(field.BuildBeginSeqNo(reject.ExpectedTarget))
@@ -236,7 +237,7 @@ func (s *session) handleLogon(msg message.Message) error {
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		switch TypedError := err.(type) {
-		case message.TargetTooHigh:
+		case errors.TargetTooHigh:
 			s.DoTargetTooHigh(TypedError)
 		}
 	}
@@ -245,59 +246,59 @@ func (s *session) handleLogon(msg message.Message) error {
 	return nil
 }
 
-func (s *session) verify(msg message.Message) message.MessageReject {
+func (s *session) verify(msg message.Message) errors.MessageRejectError {
 	return s.verifySelect(msg, true, true)
 }
 
-func (s *session) verifyIgnoreSeqNumTooHigh(msg message.Message) message.MessageReject {
+func (s *session) verifyIgnoreSeqNumTooHigh(msg message.Message) errors.MessageRejectError {
 	return s.verifySelect(msg, false, true)
 }
 
-func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg message.Message) message.MessageReject {
+func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg message.Message) errors.MessageRejectError {
 	return s.verifySelect(msg, false, false)
 }
 
-func (s *session) verifySelect(msg message.Message, checkTooHigh bool, checkTooLow bool) message.MessageReject {
-	if err := s.checkBeginString(msg); err != nil {
-		return err
+func (s *session) verifySelect(msg message.Message, checkTooHigh bool, checkTooLow bool) errors.MessageRejectError {
+	if reject := s.checkBeginString(msg); reject != nil {
+		return reject
 	}
 
-	if err := s.checkCompID(msg); err != nil {
-		return err
+	if reject := s.checkCompID(msg); reject != nil {
+		return reject
 	}
 
-	if err := s.checkSendingTime(msg); err != nil {
-		return err
+	if reject := s.checkSendingTime(msg); reject != nil {
+		return reject
 	}
 
 	if checkTooLow {
-		if err := s.checkTargetTooLow(msg); err != nil {
-			return err
+		if reject := s.checkTargetTooLow(msg); reject != nil {
+			return reject
 		}
 	}
 
 	if checkTooHigh {
-		if err := s.checkTargetTooHigh(msg); err != nil {
-			return err
+		if reject := s.checkTargetTooHigh(msg); reject != nil {
+			return reject
 		}
 	}
 
 	if s.dataDictionary != nil {
-		if err := message.Validate(s.dataDictionary, msg); err != nil {
-			return err
+		if reject := message.Validate(s.dataDictionary, msg); reject != nil {
+			return reject
 		}
 	}
 
 	if s.transportDataDictionary != nil {
-		msgType := new(message.StringValue)
-		msg.Header.GetField(tag.MsgType, msgType)
+		var msgType field.MsgType
+		msg.Header.Get(&msgType)
 		if fix.IsAdminMessageType(msgType.Value) {
-			if err := message.Validate(s.transportDataDictionary, msg); err != nil {
-				return err
+			if reject := message.Validate(s.transportDataDictionary, msg); reject != nil {
+				return reject
 			}
 		} else {
-			if err := message.ValidateFIXTApp(s.transportDataDictionary, s.appDataDictionary, msg); err != nil {
-				return err
+			if reject := message.ValidateFIXTApp(s.transportDataDictionary, s.appDataDictionary, msg); reject != nil {
+				return reject
 			}
 		}
 	}
@@ -305,7 +306,7 @@ func (s *session) verifySelect(msg message.Message, checkTooHigh bool, checkTooL
 	return s.fromCallback(msg)
 }
 
-func (s *session) fromCallback(msg message.Message) message.MessageReject {
+func (s *session) fromCallback(msg message.Message) errors.MessageRejectError {
 	msgType := new(message.StringValue)
 	if msg.Header.GetField(tag.MsgType, msgType); fix.IsAdminMessageType(msgType.Value) {
 		return s.application.FromAdmin(msg, s.SessionID)
@@ -314,31 +315,31 @@ func (s *session) fromCallback(msg message.Message) message.MessageReject {
 	return s.application.FromApp(msg, s.SessionID)
 }
 
-func (s *session) checkTargetTooLow(msg message.Message) message.MessageReject {
+func (s *session) checkTargetTooLow(msg message.Message) errors.MessageRejectError {
 	seqNum := new(message.IntField)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
-		return message.NewRequiredTagMissing(msg, tag.MsgSeqNum)
+		return errors.RequiredTagMissing(tag.MsgSeqNum)
 	case seqNum.Value < s.expectedSeqNum:
-		return message.NewTargetTooLow(msg, seqNum.Value, s.expectedSeqNum)
+		return errors.TargetTooLow{ReceivedTarget: seqNum.Value, ExpectedTarget: s.expectedSeqNum}
 	}
 
 	return nil
 }
 
-func (s *session) checkTargetTooHigh(msg message.Message) message.MessageReject {
+func (s *session) checkTargetTooHigh(msg message.Message) errors.MessageRejectError {
 	seqNum := new(message.IntValue)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
-		return message.NewRequiredTagMissing(msg, tag.MsgSeqNum)
+		return errors.RequiredTagMissing(tag.MsgSeqNum)
 	case seqNum.Value > s.expectedSeqNum:
-		return message.NewTargetTooHigh(msg, seqNum.Value, s.expectedSeqNum)
+		return errors.TargetTooHigh{ReceivedTarget: seqNum.Value, ExpectedTarget: s.expectedSeqNum}
 	}
 
 	return nil
 }
 
-func (s *session) checkCompID(msg message.Message) message.MessageReject {
+func (s *session) checkCompID(msg message.Message) errors.MessageRejectError {
 	senderCompID := new(message.StringValue)
 	targetCompID := new(message.StringValue)
 	haveSender := msg.Header.GetField(tag.SenderCompID, senderCompID)
@@ -346,47 +347,47 @@ func (s *session) checkCompID(msg message.Message) message.MessageReject {
 
 	switch {
 	case haveSender != nil:
-		return message.NewRequiredTagMissing(msg, tag.SenderCompID)
+		return errors.RequiredTagMissing(tag.SenderCompID)
 	case haveTarget != nil:
-		return message.NewRequiredTagMissing(msg, tag.TargetCompID)
+		return errors.RequiredTagMissing(tag.TargetCompID)
 	case len(targetCompID.Value) == 0:
-		return message.NewTagSpecifiedWithoutAValue(msg, tag.TargetCompID)
+		return errors.TagSpecifiedWithoutAValue(tag.TargetCompID)
 	case len(senderCompID.Value) == 0:
-		return message.NewTagSpecifiedWithoutAValue(msg, tag.SenderCompID)
+		return errors.TagSpecifiedWithoutAValue(tag.SenderCompID)
 	case s.SenderCompID != targetCompID.Value || s.TargetCompID != senderCompID.Value:
-		return message.NewCompIDProblem(msg)
+		return errors.CompIDProblem()
 	}
 
 	return nil
 }
 
-func (s *session) checkSendingTime(msg message.Message) message.MessageReject {
+func (s *session) checkSendingTime(msg message.Message) errors.MessageRejectError {
 	sendingTime := new(message.UTCTimestampValue)
 	if err := msg.Header.GetField(tag.SendingTime, sendingTime); err != nil {
-		return message.NewRequiredTagMissing(msg, tag.SendingTime)
+		return err
 	}
 
 	if delta := time.Since(sendingTime.Value); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
-		return message.NewSendingTimeAccuracyProblem(msg)
+		return errors.SendingTimeAccuracyProblem()
 	}
 
 	return nil
 }
 
-func (s *session) checkBeginString(msg message.Message) message.MessageReject {
+func (s *session) checkBeginString(msg message.Message) errors.MessageRejectError {
 	beginString := new(message.StringValue)
 	switch err := msg.Header.GetField(tag.BeginString, beginString); {
 	case err != nil:
-		return message.NewRequiredTagMissing(msg, tag.BeginString)
+		return errors.RequiredTagMissing(tag.BeginString)
 	case s.BeginString != beginString.Value:
-		return message.NewIncorrectBeginString(msg)
+		return errors.IncorrectBeginString{}
 	}
 
 	return nil
 }
 
-func (s *session) doReject(rej message.MessageReject) {
-	reply := rej.RejectedMessage().ReverseRoute()
+func (s *session) doReject(msg message.Message, rej errors.MessageRejectError) {
+	reply := msg.ReverseRoute()
 
 	if s.BeginString >= fix.BeginString_FIX42 {
 
@@ -398,14 +399,14 @@ func (s *session) doReject(rej message.MessageReject) {
 			switch {
 			default:
 				reply.Body.Set(field.BuildSessionRejectReason(int(rej.RejectReason())))
-			case rej.RejectReason() > message.InvalidMsgType && s.BeginString == fix.BeginString_FIX42:
+			case rej.RejectReason() > errors.RejectReasonInvalidMsgType && s.BeginString == fix.BeginString_FIX42:
 				//fix42 knows up to invalid msg type
 			}
 		}
 		reply.Body.Set(field.BuildText(rej.Error()))
 
 		var msgType field.MsgType
-		if err := rej.RejectedMessage().Header.Get(&msgType); err == nil {
+		if err := msg.Header.Get(&msgType); err == nil {
 			reply.Body.Set(field.BuildRefMsgType(msgType.Value))
 		}
 
@@ -423,7 +424,7 @@ func (s *session) doReject(rej message.MessageReject) {
 	}
 
 	var seqNum field.MsgSeqNum
-	if err := rej.RejectedMessage().Header.Get(&seqNum); err == nil {
+	if err := msg.Header.Get(&seqNum); err == nil {
 		reply.Body.Set(field.BuildRefSeqNum(seqNum.Value))
 	}
 

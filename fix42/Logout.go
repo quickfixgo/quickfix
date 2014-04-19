@@ -1,6 +1,7 @@
 package fix42
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,21 +24,21 @@ func CreateLogoutBuilder() LogoutBuilder {
 }
 
 //Text is a non-required field for Logout.
-func (m Logout) Text() (field.Text, error) {
+func (m Logout) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for Logout.
-func (m Logout) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m Logout) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for Logout.
-func (m Logout) EncodedText() (field.EncodedText, error) {
+func (m Logout) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

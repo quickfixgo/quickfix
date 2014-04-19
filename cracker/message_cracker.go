@@ -3,6 +3,7 @@ package cracker
 
 import (
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
@@ -38,13 +39,13 @@ type MessageCracker struct {
 	fixt11.FIXT11MessageCracker
 }
 
-func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRouter) message.MessageReject {
+func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {
 	beginString := new(field.BeginString)
 	msg.Header.Get(beginString)
 	return tryCrack(beginString.Value, msg, sessionID, router)
 }
 
-func tryCrack(beginString string, msg message.Message, sessionID quickfix.SessionID, router MessageRouter) message.MessageReject {
+func tryCrack(beginString string, msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {
 	switch beginString {
 	case fix.BeginString_FIX40:
 		return fix40.Crack(msg, sessionID, router)

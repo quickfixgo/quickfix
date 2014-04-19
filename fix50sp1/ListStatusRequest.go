@@ -1,6 +1,7 @@
 package fix50sp1
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,28 +26,28 @@ func CreateListStatusRequestBuilder(
 }
 
 //ListID is a required field for ListStatusRequest.
-func (m ListStatusRequest) ListID() (field.ListID, error) {
+func (m ListStatusRequest) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) Text() (field.Text, error) {
+func (m ListStatusRequest) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m ListStatusRequest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) EncodedText() (field.EncodedText, error) {
+func (m ListStatusRequest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err

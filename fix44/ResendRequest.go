@@ -1,6 +1,7 @@
 package fix44
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,14 +28,14 @@ func CreateResendRequestBuilder(
 }
 
 //BeginSeqNo is a required field for ResendRequest.
-func (m ResendRequest) BeginSeqNo() (field.BeginSeqNo, error) {
+func (m ResendRequest) BeginSeqNo() (field.BeginSeqNo, errors.MessageRejectError) {
 	var f field.BeginSeqNo
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EndSeqNo is a required field for ResendRequest.
-func (m ResendRequest) EndSeqNo() (field.EndSeqNo, error) {
+func (m ResendRequest) EndSeqNo() (field.EndSeqNo, errors.MessageRejectError) {
 	var f field.EndSeqNo
 	err := m.Body.Get(&f)
 	return f, err

@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -37,98 +38,98 @@ func CreateListStatusBuilder(
 }
 
 //ListID is a required field for ListStatus.
-func (m ListStatus) ListID() (field.ListID, error) {
+func (m ListStatus) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListStatusType is a required field for ListStatus.
-func (m ListStatus) ListStatusType() (field.ListStatusType, error) {
+func (m ListStatus) ListStatusType() (field.ListStatusType, errors.MessageRejectError) {
 	var f field.ListStatusType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRpts is a required field for ListStatus.
-func (m ListStatus) NoRpts() (field.NoRpts, error) {
+func (m ListStatus) NoRpts() (field.NoRpts, errors.MessageRejectError) {
 	var f field.NoRpts
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListOrderStatus is a required field for ListStatus.
-func (m ListStatus) ListOrderStatus() (field.ListOrderStatus, error) {
+func (m ListStatus) ListOrderStatus() (field.ListOrderStatus, errors.MessageRejectError) {
 	var f field.ListOrderStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RptSeq is a required field for ListStatus.
-func (m ListStatus) RptSeq() (field.RptSeq, error) {
+func (m ListStatus) RptSeq() (field.RptSeq, errors.MessageRejectError) {
 	var f field.RptSeq
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListStatusText is a non-required field for ListStatus.
-func (m ListStatus) ListStatusText() (field.ListStatusText, error) {
+func (m ListStatus) ListStatusText() (field.ListStatusText, errors.MessageRejectError) {
 	var f field.ListStatusText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedListStatusTextLen is a non-required field for ListStatus.
-func (m ListStatus) EncodedListStatusTextLen() (field.EncodedListStatusTextLen, error) {
+func (m ListStatus) EncodedListStatusTextLen() (field.EncodedListStatusTextLen, errors.MessageRejectError) {
 	var f field.EncodedListStatusTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedListStatusText is a non-required field for ListStatus.
-func (m ListStatus) EncodedListStatusText() (field.EncodedListStatusText, error) {
+func (m ListStatus) EncodedListStatusText() (field.EncodedListStatusText, errors.MessageRejectError) {
 	var f field.EncodedListStatusText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a non-required field for ListStatus.
-func (m ListStatus) TransactTime() (field.TransactTime, error) {
+func (m ListStatus) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TotNoOrders is a required field for ListStatus.
-func (m ListStatus) TotNoOrders() (field.TotNoOrders, error) {
+func (m ListStatus) TotNoOrders() (field.TotNoOrders, errors.MessageRejectError) {
 	var f field.TotNoOrders
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LastFragment is a non-required field for ListStatus.
-func (m ListStatus) LastFragment() (field.LastFragment, error) {
+func (m ListStatus) LastFragment() (field.LastFragment, errors.MessageRejectError) {
 	var f field.LastFragment
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoOrders is a required field for ListStatus.
-func (m ListStatus) NoOrders() (field.NoOrders, error) {
+func (m ListStatus) NoOrders() (field.NoOrders, errors.MessageRejectError) {
 	var f field.NoOrders
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContingencyType is a non-required field for ListStatus.
-func (m ListStatus) ContingencyType() (field.ContingencyType, error) {
+func (m ListStatus) ContingencyType() (field.ContingencyType, errors.MessageRejectError) {
 	var f field.ContingencyType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListRejectReason is a non-required field for ListStatus.
-func (m ListStatus) ListRejectReason() (field.ListRejectReason, error) {
+func (m ListStatus) ListRejectReason() (field.ListRejectReason, errors.MessageRejectError) {
 	var f field.ListRejectReason
 	err := m.Body.Get(&f)
 	return f, err

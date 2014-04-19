@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,77 +30,77 @@ func CreateQuoteRequestRejectBuilder(
 }
 
 //QuoteReqID is a required field for QuoteRequestReject.
-func (m QuoteRequestReject) QuoteReqID() (field.QuoteReqID, error) {
+func (m QuoteRequestReject) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
 	var f field.QuoteReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RFQReqID is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) RFQReqID() (field.RFQReqID, error) {
+func (m QuoteRequestReject) RFQReqID() (field.RFQReqID, errors.MessageRejectError) {
 	var f field.RFQReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QuoteRequestRejectReason is a required field for QuoteRequestReject.
-func (m QuoteRequestReject) QuoteRequestRejectReason() (field.QuoteRequestRejectReason, error) {
+func (m QuoteRequestReject) QuoteRequestRejectReason() (field.QuoteRequestRejectReason, errors.MessageRejectError) {
 	var f field.QuoteRequestRejectReason
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a required field for QuoteRequestReject.
-func (m QuoteRequestReject) NoRelatedSym() (field.NoRelatedSym, error) {
+func (m QuoteRequestReject) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
 	var f field.NoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) Text() (field.Text, error) {
+func (m QuoteRequestReject) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m QuoteRequestReject) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) EncodedText() (field.EncodedText, error) {
+func (m QuoteRequestReject) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRootPartyIDs is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) NoRootPartyIDs() (field.NoRootPartyIDs, error) {
+func (m QuoteRequestReject) NoRootPartyIDs() (field.NoRootPartyIDs, errors.MessageRejectError) {
 	var f field.NoRootPartyIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PrivateQuote is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) PrivateQuote() (field.PrivateQuote, error) {
+func (m QuoteRequestReject) PrivateQuote() (field.PrivateQuote, errors.MessageRejectError) {
 	var f field.PrivateQuote
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RespondentType is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) RespondentType() (field.RespondentType, error) {
+func (m QuoteRequestReject) RespondentType() (field.RespondentType, errors.MessageRejectError) {
 	var f field.RespondentType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PreTradeAnonymity is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) PreTradeAnonymity() (field.PreTradeAnonymity, error) {
+func (m QuoteRequestReject) PreTradeAnonymity() (field.PreTradeAnonymity, errors.MessageRejectError) {
 	var f field.PreTradeAnonymity
 	err := m.Body.Get(&f)
 	return f, err

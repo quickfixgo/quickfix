@@ -1,6 +1,7 @@
 package fix43
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,14 +26,14 @@ func CreateMarketDataIncrementalRefreshBuilder(
 }
 
 //MDReqID is a non-required field for MarketDataIncrementalRefresh.
-func (m MarketDataIncrementalRefresh) MDReqID() (field.MDReqID, error) {
+func (m MarketDataIncrementalRefresh) MDReqID() (field.MDReqID, errors.MessageRejectError) {
 	var f field.MDReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoMDEntries is a required field for MarketDataIncrementalRefresh.
-func (m MarketDataIncrementalRefresh) NoMDEntries() (field.NoMDEntries, error) {
+func (m MarketDataIncrementalRefresh) NoMDEntries() (field.NoMDEntries, errors.MessageRejectError) {
 	var f field.NoMDEntries
 	err := m.Body.Get(&f)
 	return f, err

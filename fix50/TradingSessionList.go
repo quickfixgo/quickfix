@@ -1,6 +1,7 @@
 package fix50
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,14 +26,14 @@ func CreateTradingSessionListBuilder(
 }
 
 //TradSesReqID is a non-required field for TradingSessionList.
-func (m TradingSessionList) TradSesReqID() (field.TradSesReqID, error) {
+func (m TradingSessionList) TradSesReqID() (field.TradSesReqID, errors.MessageRejectError) {
 	var f field.TradSesReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTradingSessions is a required field for TradingSessionList.
-func (m TradingSessionList) NoTradingSessions() (field.NoTradingSessions, error) {
+func (m TradingSessionList) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
 	var f field.NoTradingSessions
 	err := m.Body.Get(&f)
 	return f, err

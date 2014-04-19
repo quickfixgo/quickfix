@@ -1,6 +1,7 @@
 package fix41
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -31,35 +32,35 @@ func CreateListStatusBuilder(
 }
 
 //ListID is a required field for ListStatus.
-func (m ListStatus) ListID() (field.ListID, error) {
+func (m ListStatus) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //WaveNo is a non-required field for ListStatus.
-func (m ListStatus) WaveNo() (field.WaveNo, error) {
+func (m ListStatus) WaveNo() (field.WaveNo, errors.MessageRejectError) {
 	var f field.WaveNo
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRpts is a required field for ListStatus.
-func (m ListStatus) NoRpts() (field.NoRpts, error) {
+func (m ListStatus) NoRpts() (field.NoRpts, errors.MessageRejectError) {
 	var f field.NoRpts
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RptSeq is a required field for ListStatus.
-func (m ListStatus) RptSeq() (field.RptSeq, error) {
+func (m ListStatus) RptSeq() (field.RptSeq, errors.MessageRejectError) {
 	var f field.RptSeq
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoOrders is a required field for ListStatus.
-func (m ListStatus) NoOrders() (field.NoOrders, error) {
+func (m ListStatus) NoOrders() (field.NoOrders, errors.MessageRejectError) {
 	var f field.NoOrders
 	err := m.Body.Get(&f)
 	return f, err

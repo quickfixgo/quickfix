@@ -1,6 +1,7 @@
 package fix50sp1
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -33,728 +34,728 @@ func CreatePositionMaintenanceReportBuilder(
 }
 
 //PosMaintRptID is a required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PosMaintRptID() (field.PosMaintRptID, error) {
+func (m PositionMaintenanceReport) PosMaintRptID() (field.PosMaintRptID, errors.MessageRejectError) {
 	var f field.PosMaintRptID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PosTransType is a required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PosTransType() (field.PosTransType, error) {
+func (m PositionMaintenanceReport) PosTransType() (field.PosTransType, errors.MessageRejectError) {
 	var f field.PosTransType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PosReqID is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PosReqID() (field.PosReqID, error) {
+func (m PositionMaintenanceReport) PosReqID() (field.PosReqID, errors.MessageRejectError) {
 	var f field.PosReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PosMaintAction is a required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PosMaintAction() (field.PosMaintAction, error) {
+func (m PositionMaintenanceReport) PosMaintAction() (field.PosMaintAction, errors.MessageRejectError) {
 	var f field.PosMaintAction
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrigPosReqRefID is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) OrigPosReqRefID() (field.OrigPosReqRefID, error) {
+func (m PositionMaintenanceReport) OrigPosReqRefID() (field.OrigPosReqRefID, errors.MessageRejectError) {
 	var f field.OrigPosReqRefID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PosMaintStatus is a required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PosMaintStatus() (field.PosMaintStatus, error) {
+func (m PositionMaintenanceReport) PosMaintStatus() (field.PosMaintStatus, errors.MessageRejectError) {
 	var f field.PosMaintStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PosMaintResult is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PosMaintResult() (field.PosMaintResult, error) {
+func (m PositionMaintenanceReport) PosMaintResult() (field.PosMaintResult, errors.MessageRejectError) {
 	var f field.PosMaintResult
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClearingBusinessDate is a required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) ClearingBusinessDate() (field.ClearingBusinessDate, error) {
+func (m PositionMaintenanceReport) ClearingBusinessDate() (field.ClearingBusinessDate, errors.MessageRejectError) {
 	var f field.ClearingBusinessDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlSessID is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SettlSessID() (field.SettlSessID, error) {
+func (m PositionMaintenanceReport) SettlSessID() (field.SettlSessID, errors.MessageRejectError) {
 	var f field.SettlSessID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlSessSubID is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SettlSessSubID() (field.SettlSessSubID, error) {
+func (m PositionMaintenanceReport) SettlSessSubID() (field.SettlSessSubID, errors.MessageRejectError) {
 	var f field.SettlSessSubID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoPartyIDs() (field.NoPartyIDs, error) {
+func (m PositionMaintenanceReport) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
 	var f field.NoPartyIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Account is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) Account() (field.Account, error) {
+func (m PositionMaintenanceReport) Account() (field.Account, errors.MessageRejectError) {
 	var f field.Account
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AcctIDSource is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) AcctIDSource() (field.AcctIDSource, error) {
+func (m PositionMaintenanceReport) AcctIDSource() (field.AcctIDSource, errors.MessageRejectError) {
 	var f field.AcctIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AccountType is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) AccountType() (field.AccountType, error) {
+func (m PositionMaintenanceReport) AccountType() (field.AccountType, errors.MessageRejectError) {
 	var f field.AccountType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) Symbol() (field.Symbol, error) {
+func (m PositionMaintenanceReport) Symbol() (field.Symbol, errors.MessageRejectError) {
 	var f field.Symbol
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SymbolSfx() (field.SymbolSfx, error) {
+func (m PositionMaintenanceReport) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
 	var f field.SymbolSfx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityID() (field.SecurityID, error) {
+func (m PositionMaintenanceReport) SecurityID() (field.SecurityID, errors.MessageRejectError) {
 	var f field.SecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityIDSource is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityIDSource() (field.SecurityIDSource, error) {
+func (m PositionMaintenanceReport) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
 	var f field.SecurityIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityAltID is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoSecurityAltID() (field.NoSecurityAltID, error) {
+func (m PositionMaintenanceReport) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
 	var f field.NoSecurityAltID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) Product() (field.Product, error) {
+func (m PositionMaintenanceReport) Product() (field.Product, errors.MessageRejectError) {
 	var f field.Product
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) CFICode() (field.CFICode, error) {
+func (m PositionMaintenanceReport) CFICode() (field.CFICode, errors.MessageRejectError) {
 	var f field.CFICode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityType() (field.SecurityType, error) {
+func (m PositionMaintenanceReport) SecurityType() (field.SecurityType, errors.MessageRejectError) {
 	var f field.SecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecuritySubType is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecuritySubType() (field.SecuritySubType, error) {
+func (m PositionMaintenanceReport) SecuritySubType() (field.SecuritySubType, errors.MessageRejectError) {
 	var f field.SecuritySubType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityMonthYear is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) MaturityMonthYear() (field.MaturityMonthYear, error) {
+func (m PositionMaintenanceReport) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
 	var f field.MaturityMonthYear
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityDate is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) MaturityDate() (field.MaturityDate, error) {
+func (m PositionMaintenanceReport) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
 	var f field.MaturityDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponPaymentDate is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) CouponPaymentDate() (field.CouponPaymentDate, error) {
+func (m PositionMaintenanceReport) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
 	var f field.CouponPaymentDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IssueDate is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) IssueDate() (field.IssueDate, error) {
+func (m PositionMaintenanceReport) IssueDate() (field.IssueDate, errors.MessageRejectError) {
 	var f field.IssueDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepoCollateralSecurityType is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, error) {
+func (m PositionMaintenanceReport) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
 	var f field.RepoCollateralSecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseTerm is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) RepurchaseTerm() (field.RepurchaseTerm, error) {
+func (m PositionMaintenanceReport) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
 	var f field.RepurchaseTerm
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseRate is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) RepurchaseRate() (field.RepurchaseRate, error) {
+func (m PositionMaintenanceReport) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
 	var f field.RepurchaseRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Factor is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) Factor() (field.Factor, error) {
+func (m PositionMaintenanceReport) Factor() (field.Factor, errors.MessageRejectError) {
 	var f field.Factor
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CreditRating is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) CreditRating() (field.CreditRating, error) {
+func (m PositionMaintenanceReport) CreditRating() (field.CreditRating, errors.MessageRejectError) {
 	var f field.CreditRating
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrRegistry is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) InstrRegistry() (field.InstrRegistry, error) {
+func (m PositionMaintenanceReport) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
 	var f field.InstrRegistry
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CountryOfIssue is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) CountryOfIssue() (field.CountryOfIssue, error) {
+func (m PositionMaintenanceReport) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
 	var f field.CountryOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StateOrProvinceOfIssue is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, error) {
+func (m PositionMaintenanceReport) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
 	var f field.StateOrProvinceOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocaleOfIssue is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) LocaleOfIssue() (field.LocaleOfIssue, error) {
+func (m PositionMaintenanceReport) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
 	var f field.LocaleOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RedemptionDate is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) RedemptionDate() (field.RedemptionDate, error) {
+func (m PositionMaintenanceReport) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
 	var f field.RedemptionDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePrice is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) StrikePrice() (field.StrikePrice, error) {
+func (m PositionMaintenanceReport) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
 	var f field.StrikePrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeCurrency is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) StrikeCurrency() (field.StrikeCurrency, error) {
+func (m PositionMaintenanceReport) StrikeCurrency() (field.StrikeCurrency, errors.MessageRejectError) {
 	var f field.StrikeCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptAttribute is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) OptAttribute() (field.OptAttribute, error) {
+func (m PositionMaintenanceReport) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
 	var f field.OptAttribute
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplier is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) ContractMultiplier() (field.ContractMultiplier, error) {
+func (m PositionMaintenanceReport) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
 	var f field.ContractMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponRate is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) CouponRate() (field.CouponRate, error) {
+func (m PositionMaintenanceReport) CouponRate() (field.CouponRate, errors.MessageRejectError) {
 	var f field.CouponRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityExchange is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityExchange() (field.SecurityExchange, error) {
+func (m PositionMaintenanceReport) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
 	var f field.SecurityExchange
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) Issuer() (field.Issuer, error) {
+func (m PositionMaintenanceReport) Issuer() (field.Issuer, errors.MessageRejectError) {
 	var f field.Issuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuerLen is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) EncodedIssuerLen() (field.EncodedIssuerLen, error) {
+func (m PositionMaintenanceReport) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
 	var f field.EncodedIssuerLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuer is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) EncodedIssuer() (field.EncodedIssuer, error) {
+func (m PositionMaintenanceReport) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
 	var f field.EncodedIssuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityDesc() (field.SecurityDesc, error) {
+func (m PositionMaintenanceReport) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
 	var f field.SecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDescLen is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, error) {
+func (m PositionMaintenanceReport) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
 	var f field.EncodedSecurityDescLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDesc is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) EncodedSecurityDesc() (field.EncodedSecurityDesc, error) {
+func (m PositionMaintenanceReport) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
 	var f field.EncodedSecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Pool is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) Pool() (field.Pool, error) {
+func (m PositionMaintenanceReport) Pool() (field.Pool, errors.MessageRejectError) {
 	var f field.Pool
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractSettlMonth is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) ContractSettlMonth() (field.ContractSettlMonth, error) {
+func (m PositionMaintenanceReport) ContractSettlMonth() (field.ContractSettlMonth, errors.MessageRejectError) {
 	var f field.ContractSettlMonth
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPProgram is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) CPProgram() (field.CPProgram, error) {
+func (m PositionMaintenanceReport) CPProgram() (field.CPProgram, errors.MessageRejectError) {
 	var f field.CPProgram
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPRegType is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) CPRegType() (field.CPRegType, error) {
+func (m PositionMaintenanceReport) CPRegType() (field.CPRegType, errors.MessageRejectError) {
 	var f field.CPRegType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoEvents is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoEvents() (field.NoEvents, error) {
+func (m PositionMaintenanceReport) NoEvents() (field.NoEvents, errors.MessageRejectError) {
 	var f field.NoEvents
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DatedDate is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) DatedDate() (field.DatedDate, error) {
+func (m PositionMaintenanceReport) DatedDate() (field.DatedDate, errors.MessageRejectError) {
 	var f field.DatedDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InterestAccrualDate is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) InterestAccrualDate() (field.InterestAccrualDate, error) {
+func (m PositionMaintenanceReport) InterestAccrualDate() (field.InterestAccrualDate, errors.MessageRejectError) {
 	var f field.InterestAccrualDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityStatus is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityStatus() (field.SecurityStatus, error) {
+func (m PositionMaintenanceReport) SecurityStatus() (field.SecurityStatus, errors.MessageRejectError) {
 	var f field.SecurityStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettleOnOpenFlag is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SettleOnOpenFlag() (field.SettleOnOpenFlag, error) {
+func (m PositionMaintenanceReport) SettleOnOpenFlag() (field.SettleOnOpenFlag, errors.MessageRejectError) {
 	var f field.SettleOnOpenFlag
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrmtAssignmentMethod is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) InstrmtAssignmentMethod() (field.InstrmtAssignmentMethod, error) {
+func (m PositionMaintenanceReport) InstrmtAssignmentMethod() (field.InstrmtAssignmentMethod, errors.MessageRejectError) {
 	var f field.InstrmtAssignmentMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeMultiplier is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) StrikeMultiplier() (field.StrikeMultiplier, error) {
+func (m PositionMaintenanceReport) StrikeMultiplier() (field.StrikeMultiplier, errors.MessageRejectError) {
 	var f field.StrikeMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeValue is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) StrikeValue() (field.StrikeValue, error) {
+func (m PositionMaintenanceReport) StrikeValue() (field.StrikeValue, errors.MessageRejectError) {
 	var f field.StrikeValue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinPriceIncrement is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) MinPriceIncrement() (field.MinPriceIncrement, error) {
+func (m PositionMaintenanceReport) MinPriceIncrement() (field.MinPriceIncrement, errors.MessageRejectError) {
 	var f field.MinPriceIncrement
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PositionLimit is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PositionLimit() (field.PositionLimit, error) {
+func (m PositionMaintenanceReport) PositionLimit() (field.PositionLimit, errors.MessageRejectError) {
 	var f field.PositionLimit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NTPositionLimit is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NTPositionLimit() (field.NTPositionLimit, error) {
+func (m PositionMaintenanceReport) NTPositionLimit() (field.NTPositionLimit, errors.MessageRejectError) {
 	var f field.NTPositionLimit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoInstrumentParties is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoInstrumentParties() (field.NoInstrumentParties, error) {
+func (m PositionMaintenanceReport) NoInstrumentParties() (field.NoInstrumentParties, errors.MessageRejectError) {
 	var f field.NoInstrumentParties
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnitOfMeasure is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) UnitOfMeasure() (field.UnitOfMeasure, error) {
+func (m PositionMaintenanceReport) UnitOfMeasure() (field.UnitOfMeasure, errors.MessageRejectError) {
 	var f field.UnitOfMeasure
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TimeUnit is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) TimeUnit() (field.TimeUnit, error) {
+func (m PositionMaintenanceReport) TimeUnit() (field.TimeUnit, errors.MessageRejectError) {
 	var f field.TimeUnit
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityTime is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) MaturityTime() (field.MaturityTime, error) {
+func (m PositionMaintenanceReport) MaturityTime() (field.MaturityTime, errors.MessageRejectError) {
 	var f field.MaturityTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityGroup is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityGroup() (field.SecurityGroup, error) {
+func (m PositionMaintenanceReport) SecurityGroup() (field.SecurityGroup, errors.MessageRejectError) {
 	var f field.SecurityGroup
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MinPriceIncrementAmount is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) MinPriceIncrementAmount() (field.MinPriceIncrementAmount, error) {
+func (m PositionMaintenanceReport) MinPriceIncrementAmount() (field.MinPriceIncrementAmount, errors.MessageRejectError) {
 	var f field.MinPriceIncrementAmount
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //UnitOfMeasureQty is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) UnitOfMeasureQty() (field.UnitOfMeasureQty, error) {
+func (m PositionMaintenanceReport) UnitOfMeasureQty() (field.UnitOfMeasureQty, errors.MessageRejectError) {
 	var f field.UnitOfMeasureQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXMLLen is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityXMLLen() (field.SecurityXMLLen, error) {
+func (m PositionMaintenanceReport) SecurityXMLLen() (field.SecurityXMLLen, errors.MessageRejectError) {
 	var f field.SecurityXMLLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXML is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityXML() (field.SecurityXML, error) {
+func (m PositionMaintenanceReport) SecurityXML() (field.SecurityXML, errors.MessageRejectError) {
 	var f field.SecurityXML
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityXMLSchema is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SecurityXMLSchema() (field.SecurityXMLSchema, error) {
+func (m PositionMaintenanceReport) SecurityXMLSchema() (field.SecurityXMLSchema, errors.MessageRejectError) {
 	var f field.SecurityXMLSchema
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ProductComplex is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) ProductComplex() (field.ProductComplex, error) {
+func (m PositionMaintenanceReport) ProductComplex() (field.ProductComplex, errors.MessageRejectError) {
 	var f field.ProductComplex
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceUnitOfMeasure is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PriceUnitOfMeasure() (field.PriceUnitOfMeasure, error) {
+func (m PositionMaintenanceReport) PriceUnitOfMeasure() (field.PriceUnitOfMeasure, errors.MessageRejectError) {
 	var f field.PriceUnitOfMeasure
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceUnitOfMeasureQty is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PriceUnitOfMeasureQty() (field.PriceUnitOfMeasureQty, error) {
+func (m PositionMaintenanceReport) PriceUnitOfMeasureQty() (field.PriceUnitOfMeasureQty, errors.MessageRejectError) {
 	var f field.PriceUnitOfMeasureQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlMethod is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SettlMethod() (field.SettlMethod, error) {
+func (m PositionMaintenanceReport) SettlMethod() (field.SettlMethod, errors.MessageRejectError) {
 	var f field.SettlMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ExerciseStyle is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) ExerciseStyle() (field.ExerciseStyle, error) {
+func (m PositionMaintenanceReport) ExerciseStyle() (field.ExerciseStyle, errors.MessageRejectError) {
 	var f field.ExerciseStyle
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptPayAmount is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) OptPayAmount() (field.OptPayAmount, error) {
+func (m PositionMaintenanceReport) OptPayAmount() (field.OptPayAmount, errors.MessageRejectError) {
 	var f field.OptPayAmount
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceQuoteMethod is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PriceQuoteMethod() (field.PriceQuoteMethod, error) {
+func (m PositionMaintenanceReport) PriceQuoteMethod() (field.PriceQuoteMethod, errors.MessageRejectError) {
 	var f field.PriceQuoteMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ListMethod is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) ListMethod() (field.ListMethod, error) {
+func (m PositionMaintenanceReport) ListMethod() (field.ListMethod, errors.MessageRejectError) {
 	var f field.ListMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CapPrice is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) CapPrice() (field.CapPrice, error) {
+func (m PositionMaintenanceReport) CapPrice() (field.CapPrice, errors.MessageRejectError) {
 	var f field.CapPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FloorPrice is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) FloorPrice() (field.FloorPrice, error) {
+func (m PositionMaintenanceReport) FloorPrice() (field.FloorPrice, errors.MessageRejectError) {
 	var f field.FloorPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PutOrCall is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PutOrCall() (field.PutOrCall, error) {
+func (m PositionMaintenanceReport) PutOrCall() (field.PutOrCall, errors.MessageRejectError) {
 	var f field.PutOrCall
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlexibleIndicator is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) FlexibleIndicator() (field.FlexibleIndicator, error) {
+func (m PositionMaintenanceReport) FlexibleIndicator() (field.FlexibleIndicator, errors.MessageRejectError) {
 	var f field.FlexibleIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FlexProductEligibilityIndicator is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) FlexProductEligibilityIndicator() (field.FlexProductEligibilityIndicator, error) {
+func (m PositionMaintenanceReport) FlexProductEligibilityIndicator() (field.FlexProductEligibilityIndicator, errors.MessageRejectError) {
 	var f field.FlexProductEligibilityIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //FuturesValuationMethod is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) FuturesValuationMethod() (field.FuturesValuationMethod, error) {
+func (m PositionMaintenanceReport) FuturesValuationMethod() (field.FuturesValuationMethod, errors.MessageRejectError) {
 	var f field.FuturesValuationMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Currency is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) Currency() (field.Currency, error) {
+func (m PositionMaintenanceReport) Currency() (field.Currency, errors.MessageRejectError) {
 	var f field.Currency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLegs is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoLegs() (field.NoLegs, error) {
+func (m PositionMaintenanceReport) NoLegs() (field.NoLegs, errors.MessageRejectError) {
 	var f field.NoLegs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoUnderlyings is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoUnderlyings() (field.NoUnderlyings, error) {
+func (m PositionMaintenanceReport) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
 	var f field.NoUnderlyings
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoTradingSessions is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoTradingSessions() (field.NoTradingSessions, error) {
+func (m PositionMaintenanceReport) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
 	var f field.NoTradingSessions
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) TransactTime() (field.TransactTime, error) {
+func (m PositionMaintenanceReport) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPositions is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoPositions() (field.NoPositions, error) {
+func (m PositionMaintenanceReport) NoPositions() (field.NoPositions, errors.MessageRejectError) {
 	var f field.NoPositions
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPosAmt is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) NoPosAmt() (field.NoPosAmt, error) {
+func (m PositionMaintenanceReport) NoPosAmt() (field.NoPosAmt, errors.MessageRejectError) {
 	var f field.NoPosAmt
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AdjustmentType is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) AdjustmentType() (field.AdjustmentType, error) {
+func (m PositionMaintenanceReport) AdjustmentType() (field.AdjustmentType, errors.MessageRejectError) {
 	var f field.AdjustmentType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ThresholdAmount is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) ThresholdAmount() (field.ThresholdAmount, error) {
+func (m PositionMaintenanceReport) ThresholdAmount() (field.ThresholdAmount, errors.MessageRejectError) {
 	var f field.ThresholdAmount
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) Text() (field.Text, error) {
+func (m PositionMaintenanceReport) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m PositionMaintenanceReport) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) EncodedText() (field.EncodedText, error) {
+func (m PositionMaintenanceReport) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SettlCurrency is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) SettlCurrency() (field.SettlCurrency, error) {
+func (m PositionMaintenanceReport) SettlCurrency() (field.SettlCurrency, errors.MessageRejectError) {
 	var f field.SettlCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContraryInstructionIndicator is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) ContraryInstructionIndicator() (field.ContraryInstructionIndicator, error) {
+func (m PositionMaintenanceReport) ContraryInstructionIndicator() (field.ContraryInstructionIndicator, errors.MessageRejectError) {
 	var f field.ContraryInstructionIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriorSpreadIndicator is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PriorSpreadIndicator() (field.PriorSpreadIndicator, error) {
+func (m PositionMaintenanceReport) PriorSpreadIndicator() (field.PriorSpreadIndicator, errors.MessageRejectError) {
 	var f field.PriorSpreadIndicator
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PosMaintRptRefID is a non-required field for PositionMaintenanceReport.
-func (m PositionMaintenanceReport) PosMaintRptRefID() (field.PosMaintRptRefID, error) {
+func (m PositionMaintenanceReport) PosMaintRptRefID() (field.PosMaintRptRefID, errors.MessageRejectError) {
 	var f field.PosMaintRptRefID
 	err := m.Body.Get(&f)
 	return f, err

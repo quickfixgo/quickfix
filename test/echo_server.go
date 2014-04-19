@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/cracker"
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
@@ -44,19 +45,19 @@ func (e EchoApplication) ToApp(msgBuilder message.MessageBuilder, sessionID quic
 	return
 }
 
-func (e EchoApplication) FromAdmin(msg message.Message, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e EchoApplication) FromAdmin(msg message.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	return
 }
 
-func (e *EchoApplication) FromApp(msg message.Message, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e *EchoApplication) FromApp(msg message.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	fmt.Println("Got Message ", msg)
 	return cracker.Crack(msg, sessionID, e)
 }
 
-func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	orderID := new(field.ClOrdID)
 	if err := msg.Body.Get(orderID); err != nil {
-		return
+		return err
 	}
 
 	reply := message.CreateMessageBuilder()
@@ -64,7 +65,7 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.Ses
 	possResend := new(field.PossResend)
 	if err := msg.Header.Get(possResend); err == nil && possResend.Value {
 		if e.OrderIds[sessionOrderID] {
-			return
+			return nil
 		}
 
 		reply.Header.Set(possResend)
@@ -85,72 +86,72 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.Ses
 
 	quickfix.SendToTarget(reply, sessionID)
 
-	return
+	return nil
 }
 
-func (e EchoApplication) OnFIX40NewOrderSingle(msg fix40.NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject {
+func (e EchoApplication) OnFIX40NewOrderSingle(msg fix40.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX41NewOrderSingle(msg fix41.NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject {
+func (e EchoApplication) OnFIX41NewOrderSingle(msg fix41.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX42NewOrderSingle(msg fix42.NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject {
+func (e EchoApplication) OnFIX42NewOrderSingle(msg fix42.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX43NewOrderSingle(msg fix43.NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject {
+func (e EchoApplication) OnFIX43NewOrderSingle(msg fix43.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX44NewOrderSingle(msg fix44.NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject {
+func (e EchoApplication) OnFIX44NewOrderSingle(msg fix44.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50NewOrderSingle(msg fix50.NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject {
+func (e EchoApplication) OnFIX50NewOrderSingle(msg fix50.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1.NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject {
+func (e EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2.NewOrderSingle, sessionID quickfix.SessionID) message.MessageReject {
+func (e EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX42SecurityDefinition(msg fix42.SecurityDefinition, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e EchoApplication) OnFIX42SecurityDefinition(msg fix42.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX43SecurityDefinition(msg fix43.SecurityDefinition, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e EchoApplication) OnFIX43SecurityDefinition(msg fix43.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX44SecurityDefinition(msg fix44.SecurityDefinition, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e EchoApplication) OnFIX44SecurityDefinition(msg fix44.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX50SecurityDefinition(msg fix50.SecurityDefinition, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e EchoApplication) OnFIX50SecurityDefinition(msg fix50.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX50SP1SecurityDefinition(msg fix50sp1.SecurityDefinition, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e EchoApplication) OnFIX50SP1SecurityDefinition(msg fix50sp1.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefinition, sessionID quickfix.SessionID) (reject message.MessageReject) {
+func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return

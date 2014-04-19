@@ -1,6 +1,7 @@
 package fix44
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -31,644 +32,644 @@ func CreateIOIBuilder(
 }
 
 //IOIID is a required field for IOI.
-func (m IOI) IOIID() (field.IOIID, error) {
+func (m IOI) IOIID() (field.IOIID, errors.MessageRejectError) {
 	var f field.IOIID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IOITransType is a required field for IOI.
-func (m IOI) IOITransType() (field.IOITransType, error) {
+func (m IOI) IOITransType() (field.IOITransType, errors.MessageRejectError) {
 	var f field.IOITransType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IOIRefID is a non-required field for IOI.
-func (m IOI) IOIRefID() (field.IOIRefID, error) {
+func (m IOI) IOIRefID() (field.IOIRefID, errors.MessageRejectError) {
 	var f field.IOIRefID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a non-required field for IOI.
-func (m IOI) Symbol() (field.Symbol, error) {
+func (m IOI) Symbol() (field.Symbol, errors.MessageRejectError) {
 	var f field.Symbol
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for IOI.
-func (m IOI) SymbolSfx() (field.SymbolSfx, error) {
+func (m IOI) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
 	var f field.SymbolSfx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for IOI.
-func (m IOI) SecurityID() (field.SecurityID, error) {
+func (m IOI) SecurityID() (field.SecurityID, errors.MessageRejectError) {
 	var f field.SecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityIDSource is a non-required field for IOI.
-func (m IOI) SecurityIDSource() (field.SecurityIDSource, error) {
+func (m IOI) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
 	var f field.SecurityIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoSecurityAltID is a non-required field for IOI.
-func (m IOI) NoSecurityAltID() (field.NoSecurityAltID, error) {
+func (m IOI) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
 	var f field.NoSecurityAltID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Product is a non-required field for IOI.
-func (m IOI) Product() (field.Product, error) {
+func (m IOI) Product() (field.Product, errors.MessageRejectError) {
 	var f field.Product
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CFICode is a non-required field for IOI.
-func (m IOI) CFICode() (field.CFICode, error) {
+func (m IOI) CFICode() (field.CFICode, errors.MessageRejectError) {
 	var f field.CFICode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityType is a non-required field for IOI.
-func (m IOI) SecurityType() (field.SecurityType, error) {
+func (m IOI) SecurityType() (field.SecurityType, errors.MessageRejectError) {
 	var f field.SecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecuritySubType is a non-required field for IOI.
-func (m IOI) SecuritySubType() (field.SecuritySubType, error) {
+func (m IOI) SecuritySubType() (field.SecuritySubType, errors.MessageRejectError) {
 	var f field.SecuritySubType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityMonthYear is a non-required field for IOI.
-func (m IOI) MaturityMonthYear() (field.MaturityMonthYear, error) {
+func (m IOI) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
 	var f field.MaturityMonthYear
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MaturityDate is a non-required field for IOI.
-func (m IOI) MaturityDate() (field.MaturityDate, error) {
+func (m IOI) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
 	var f field.MaturityDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponPaymentDate is a non-required field for IOI.
-func (m IOI) CouponPaymentDate() (field.CouponPaymentDate, error) {
+func (m IOI) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
 	var f field.CouponPaymentDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IssueDate is a non-required field for IOI.
-func (m IOI) IssueDate() (field.IssueDate, error) {
+func (m IOI) IssueDate() (field.IssueDate, errors.MessageRejectError) {
 	var f field.IssueDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepoCollateralSecurityType is a non-required field for IOI.
-func (m IOI) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, error) {
+func (m IOI) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
 	var f field.RepoCollateralSecurityType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseTerm is a non-required field for IOI.
-func (m IOI) RepurchaseTerm() (field.RepurchaseTerm, error) {
+func (m IOI) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
 	var f field.RepurchaseTerm
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RepurchaseRate is a non-required field for IOI.
-func (m IOI) RepurchaseRate() (field.RepurchaseRate, error) {
+func (m IOI) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
 	var f field.RepurchaseRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Factor is a non-required field for IOI.
-func (m IOI) Factor() (field.Factor, error) {
+func (m IOI) Factor() (field.Factor, errors.MessageRejectError) {
 	var f field.Factor
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CreditRating is a non-required field for IOI.
-func (m IOI) CreditRating() (field.CreditRating, error) {
+func (m IOI) CreditRating() (field.CreditRating, errors.MessageRejectError) {
 	var f field.CreditRating
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InstrRegistry is a non-required field for IOI.
-func (m IOI) InstrRegistry() (field.InstrRegistry, error) {
+func (m IOI) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
 	var f field.InstrRegistry
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CountryOfIssue is a non-required field for IOI.
-func (m IOI) CountryOfIssue() (field.CountryOfIssue, error) {
+func (m IOI) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
 	var f field.CountryOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StateOrProvinceOfIssue is a non-required field for IOI.
-func (m IOI) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, error) {
+func (m IOI) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
 	var f field.StateOrProvinceOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LocaleOfIssue is a non-required field for IOI.
-func (m IOI) LocaleOfIssue() (field.LocaleOfIssue, error) {
+func (m IOI) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
 	var f field.LocaleOfIssue
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RedemptionDate is a non-required field for IOI.
-func (m IOI) RedemptionDate() (field.RedemptionDate, error) {
+func (m IOI) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
 	var f field.RedemptionDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikePrice is a non-required field for IOI.
-func (m IOI) StrikePrice() (field.StrikePrice, error) {
+func (m IOI) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
 	var f field.StrikePrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StrikeCurrency is a non-required field for IOI.
-func (m IOI) StrikeCurrency() (field.StrikeCurrency, error) {
+func (m IOI) StrikeCurrency() (field.StrikeCurrency, errors.MessageRejectError) {
 	var f field.StrikeCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OptAttribute is a non-required field for IOI.
-func (m IOI) OptAttribute() (field.OptAttribute, error) {
+func (m IOI) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
 	var f field.OptAttribute
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractMultiplier is a non-required field for IOI.
-func (m IOI) ContractMultiplier() (field.ContractMultiplier, error) {
+func (m IOI) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
 	var f field.ContractMultiplier
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CouponRate is a non-required field for IOI.
-func (m IOI) CouponRate() (field.CouponRate, error) {
+func (m IOI) CouponRate() (field.CouponRate, errors.MessageRejectError) {
 	var f field.CouponRate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityExchange is a non-required field for IOI.
-func (m IOI) SecurityExchange() (field.SecurityExchange, error) {
+func (m IOI) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
 	var f field.SecurityExchange
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for IOI.
-func (m IOI) Issuer() (field.Issuer, error) {
+func (m IOI) Issuer() (field.Issuer, errors.MessageRejectError) {
 	var f field.Issuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuerLen is a non-required field for IOI.
-func (m IOI) EncodedIssuerLen() (field.EncodedIssuerLen, error) {
+func (m IOI) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
 	var f field.EncodedIssuerLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedIssuer is a non-required field for IOI.
-func (m IOI) EncodedIssuer() (field.EncodedIssuer, error) {
+func (m IOI) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
 	var f field.EncodedIssuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for IOI.
-func (m IOI) SecurityDesc() (field.SecurityDesc, error) {
+func (m IOI) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
 	var f field.SecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDescLen is a non-required field for IOI.
-func (m IOI) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, error) {
+func (m IOI) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
 	var f field.EncodedSecurityDescLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedSecurityDesc is a non-required field for IOI.
-func (m IOI) EncodedSecurityDesc() (field.EncodedSecurityDesc, error) {
+func (m IOI) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
 	var f field.EncodedSecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Pool is a non-required field for IOI.
-func (m IOI) Pool() (field.Pool, error) {
+func (m IOI) Pool() (field.Pool, errors.MessageRejectError) {
 	var f field.Pool
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ContractSettlMonth is a non-required field for IOI.
-func (m IOI) ContractSettlMonth() (field.ContractSettlMonth, error) {
+func (m IOI) ContractSettlMonth() (field.ContractSettlMonth, errors.MessageRejectError) {
 	var f field.ContractSettlMonth
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPProgram is a non-required field for IOI.
-func (m IOI) CPProgram() (field.CPProgram, error) {
+func (m IOI) CPProgram() (field.CPProgram, errors.MessageRejectError) {
 	var f field.CPProgram
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CPRegType is a non-required field for IOI.
-func (m IOI) CPRegType() (field.CPRegType, error) {
+func (m IOI) CPRegType() (field.CPRegType, errors.MessageRejectError) {
 	var f field.CPRegType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoEvents is a non-required field for IOI.
-func (m IOI) NoEvents() (field.NoEvents, error) {
+func (m IOI) NoEvents() (field.NoEvents, errors.MessageRejectError) {
 	var f field.NoEvents
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DatedDate is a non-required field for IOI.
-func (m IOI) DatedDate() (field.DatedDate, error) {
+func (m IOI) DatedDate() (field.DatedDate, errors.MessageRejectError) {
 	var f field.DatedDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //InterestAccrualDate is a non-required field for IOI.
-func (m IOI) InterestAccrualDate() (field.InterestAccrualDate, error) {
+func (m IOI) InterestAccrualDate() (field.InterestAccrualDate, errors.MessageRejectError) {
 	var f field.InterestAccrualDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementDesc is a non-required field for IOI.
-func (m IOI) AgreementDesc() (field.AgreementDesc, error) {
+func (m IOI) AgreementDesc() (field.AgreementDesc, errors.MessageRejectError) {
 	var f field.AgreementDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementID is a non-required field for IOI.
-func (m IOI) AgreementID() (field.AgreementID, error) {
+func (m IOI) AgreementID() (field.AgreementID, errors.MessageRejectError) {
 	var f field.AgreementID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementDate is a non-required field for IOI.
-func (m IOI) AgreementDate() (field.AgreementDate, error) {
+func (m IOI) AgreementDate() (field.AgreementDate, errors.MessageRejectError) {
 	var f field.AgreementDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //AgreementCurrency is a non-required field for IOI.
-func (m IOI) AgreementCurrency() (field.AgreementCurrency, error) {
+func (m IOI) AgreementCurrency() (field.AgreementCurrency, errors.MessageRejectError) {
 	var f field.AgreementCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TerminationType is a non-required field for IOI.
-func (m IOI) TerminationType() (field.TerminationType, error) {
+func (m IOI) TerminationType() (field.TerminationType, errors.MessageRejectError) {
 	var f field.TerminationType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StartDate is a non-required field for IOI.
-func (m IOI) StartDate() (field.StartDate, error) {
+func (m IOI) StartDate() (field.StartDate, errors.MessageRejectError) {
 	var f field.StartDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EndDate is a non-required field for IOI.
-func (m IOI) EndDate() (field.EndDate, error) {
+func (m IOI) EndDate() (field.EndDate, errors.MessageRejectError) {
 	var f field.EndDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //DeliveryType is a non-required field for IOI.
-func (m IOI) DeliveryType() (field.DeliveryType, error) {
+func (m IOI) DeliveryType() (field.DeliveryType, errors.MessageRejectError) {
 	var f field.DeliveryType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarginRatio is a non-required field for IOI.
-func (m IOI) MarginRatio() (field.MarginRatio, error) {
+func (m IOI) MarginRatio() (field.MarginRatio, errors.MessageRejectError) {
 	var f field.MarginRatio
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoUnderlyings is a non-required field for IOI.
-func (m IOI) NoUnderlyings() (field.NoUnderlyings, error) {
+func (m IOI) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
 	var f field.NoUnderlyings
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Side is a required field for IOI.
-func (m IOI) Side() (field.Side, error) {
+func (m IOI) Side() (field.Side, errors.MessageRejectError) {
 	var f field.Side
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //QtyType is a non-required field for IOI.
-func (m IOI) QtyType() (field.QtyType, error) {
+func (m IOI) QtyType() (field.QtyType, errors.MessageRejectError) {
 	var f field.QtyType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderQty is a non-required field for IOI.
-func (m IOI) OrderQty() (field.OrderQty, error) {
+func (m IOI) OrderQty() (field.OrderQty, errors.MessageRejectError) {
 	var f field.OrderQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //CashOrderQty is a non-required field for IOI.
-func (m IOI) CashOrderQty() (field.CashOrderQty, error) {
+func (m IOI) CashOrderQty() (field.CashOrderQty, errors.MessageRejectError) {
 	var f field.CashOrderQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderPercent is a non-required field for IOI.
-func (m IOI) OrderPercent() (field.OrderPercent, error) {
+func (m IOI) OrderPercent() (field.OrderPercent, errors.MessageRejectError) {
 	var f field.OrderPercent
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RoundingDirection is a non-required field for IOI.
-func (m IOI) RoundingDirection() (field.RoundingDirection, error) {
+func (m IOI) RoundingDirection() (field.RoundingDirection, errors.MessageRejectError) {
 	var f field.RoundingDirection
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RoundingModulus is a non-required field for IOI.
-func (m IOI) RoundingModulus() (field.RoundingModulus, error) {
+func (m IOI) RoundingModulus() (field.RoundingModulus, errors.MessageRejectError) {
 	var f field.RoundingModulus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IOIQty is a required field for IOI.
-func (m IOI) IOIQty() (field.IOIQty, error) {
+func (m IOI) IOIQty() (field.IOIQty, errors.MessageRejectError) {
 	var f field.IOIQty
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Currency is a non-required field for IOI.
-func (m IOI) Currency() (field.Currency, error) {
+func (m IOI) Currency() (field.Currency, errors.MessageRejectError) {
 	var f field.Currency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoStipulations is a non-required field for IOI.
-func (m IOI) NoStipulations() (field.NoStipulations, error) {
+func (m IOI) NoStipulations() (field.NoStipulations, errors.MessageRejectError) {
 	var f field.NoStipulations
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLegs is a non-required field for IOI.
-func (m IOI) NoLegs() (field.NoLegs, error) {
+func (m IOI) NoLegs() (field.NoLegs, errors.MessageRejectError) {
 	var f field.NoLegs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PriceType is a non-required field for IOI.
-func (m IOI) PriceType() (field.PriceType, error) {
+func (m IOI) PriceType() (field.PriceType, errors.MessageRejectError) {
 	var f field.PriceType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Price is a non-required field for IOI.
-func (m IOI) Price() (field.Price, error) {
+func (m IOI) Price() (field.Price, errors.MessageRejectError) {
 	var f field.Price
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ValidUntilTime is a non-required field for IOI.
-func (m IOI) ValidUntilTime() (field.ValidUntilTime, error) {
+func (m IOI) ValidUntilTime() (field.ValidUntilTime, errors.MessageRejectError) {
 	var f field.ValidUntilTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IOIQltyInd is a non-required field for IOI.
-func (m IOI) IOIQltyInd() (field.IOIQltyInd, error) {
+func (m IOI) IOIQltyInd() (field.IOIQltyInd, errors.MessageRejectError) {
 	var f field.IOIQltyInd
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IOINaturalFlag is a non-required field for IOI.
-func (m IOI) IOINaturalFlag() (field.IOINaturalFlag, error) {
+func (m IOI) IOINaturalFlag() (field.IOINaturalFlag, errors.MessageRejectError) {
 	var f field.IOINaturalFlag
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoIOIQualifiers is a non-required field for IOI.
-func (m IOI) NoIOIQualifiers() (field.NoIOIQualifiers, error) {
+func (m IOI) NoIOIQualifiers() (field.NoIOIQualifiers, errors.MessageRejectError) {
 	var f field.NoIOIQualifiers
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for IOI.
-func (m IOI) Text() (field.Text, error) {
+func (m IOI) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedTextLen is a non-required field for IOI.
-func (m IOI) EncodedTextLen() (field.EncodedTextLen, error) {
+func (m IOI) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
 	var f field.EncodedTextLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedText is a non-required field for IOI.
-func (m IOI) EncodedText() (field.EncodedText, error) {
+func (m IOI) EncodedText() (field.EncodedText, errors.MessageRejectError) {
 	var f field.EncodedText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TransactTime is a non-required field for IOI.
-func (m IOI) TransactTime() (field.TransactTime, error) {
+func (m IOI) TransactTime() (field.TransactTime, errors.MessageRejectError) {
 	var f field.TransactTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //URLLink is a non-required field for IOI.
-func (m IOI) URLLink() (field.URLLink, error) {
+func (m IOI) URLLink() (field.URLLink, errors.MessageRejectError) {
 	var f field.URLLink
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRoutingIDs is a non-required field for IOI.
-func (m IOI) NoRoutingIDs() (field.NoRoutingIDs, error) {
+func (m IOI) NoRoutingIDs() (field.NoRoutingIDs, errors.MessageRejectError) {
 	var f field.NoRoutingIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Spread is a non-required field for IOI.
-func (m IOI) Spread() (field.Spread, error) {
+func (m IOI) Spread() (field.Spread, errors.MessageRejectError) {
 	var f field.Spread
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurveCurrency is a non-required field for IOI.
-func (m IOI) BenchmarkCurveCurrency() (field.BenchmarkCurveCurrency, error) {
+func (m IOI) BenchmarkCurveCurrency() (field.BenchmarkCurveCurrency, errors.MessageRejectError) {
 	var f field.BenchmarkCurveCurrency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurveName is a non-required field for IOI.
-func (m IOI) BenchmarkCurveName() (field.BenchmarkCurveName, error) {
+func (m IOI) BenchmarkCurveName() (field.BenchmarkCurveName, errors.MessageRejectError) {
 	var f field.BenchmarkCurveName
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkCurvePoint is a non-required field for IOI.
-func (m IOI) BenchmarkCurvePoint() (field.BenchmarkCurvePoint, error) {
+func (m IOI) BenchmarkCurvePoint() (field.BenchmarkCurvePoint, errors.MessageRejectError) {
 	var f field.BenchmarkCurvePoint
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkPrice is a non-required field for IOI.
-func (m IOI) BenchmarkPrice() (field.BenchmarkPrice, error) {
+func (m IOI) BenchmarkPrice() (field.BenchmarkPrice, errors.MessageRejectError) {
 	var f field.BenchmarkPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkPriceType is a non-required field for IOI.
-func (m IOI) BenchmarkPriceType() (field.BenchmarkPriceType, error) {
+func (m IOI) BenchmarkPriceType() (field.BenchmarkPriceType, errors.MessageRejectError) {
 	var f field.BenchmarkPriceType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkSecurityID is a non-required field for IOI.
-func (m IOI) BenchmarkSecurityID() (field.BenchmarkSecurityID, error) {
+func (m IOI) BenchmarkSecurityID() (field.BenchmarkSecurityID, errors.MessageRejectError) {
 	var f field.BenchmarkSecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //BenchmarkSecurityIDSource is a non-required field for IOI.
-func (m IOI) BenchmarkSecurityIDSource() (field.BenchmarkSecurityIDSource, error) {
+func (m IOI) BenchmarkSecurityIDSource() (field.BenchmarkSecurityIDSource, errors.MessageRejectError) {
 	var f field.BenchmarkSecurityIDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldType is a non-required field for IOI.
-func (m IOI) YieldType() (field.YieldType, error) {
+func (m IOI) YieldType() (field.YieldType, errors.MessageRejectError) {
 	var f field.YieldType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Yield is a non-required field for IOI.
-func (m IOI) Yield() (field.Yield, error) {
+func (m IOI) Yield() (field.Yield, errors.MessageRejectError) {
 	var f field.Yield
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldCalcDate is a non-required field for IOI.
-func (m IOI) YieldCalcDate() (field.YieldCalcDate, error) {
+func (m IOI) YieldCalcDate() (field.YieldCalcDate, errors.MessageRejectError) {
 	var f field.YieldCalcDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldRedemptionDate is a non-required field for IOI.
-func (m IOI) YieldRedemptionDate() (field.YieldRedemptionDate, error) {
+func (m IOI) YieldRedemptionDate() (field.YieldRedemptionDate, errors.MessageRejectError) {
 	var f field.YieldRedemptionDate
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldRedemptionPrice is a non-required field for IOI.
-func (m IOI) YieldRedemptionPrice() (field.YieldRedemptionPrice, error) {
+func (m IOI) YieldRedemptionPrice() (field.YieldRedemptionPrice, errors.MessageRejectError) {
 	var f field.YieldRedemptionPrice
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //YieldRedemptionPriceType is a non-required field for IOI.
-func (m IOI) YieldRedemptionPriceType() (field.YieldRedemptionPriceType, error) {
+func (m IOI) YieldRedemptionPriceType() (field.YieldRedemptionPriceType, errors.MessageRejectError) {
 	var f field.YieldRedemptionPriceType
 	err := m.Body.Get(&f)
 	return f, err

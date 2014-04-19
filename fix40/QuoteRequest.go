@@ -1,6 +1,7 @@
 package fix40
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,70 +28,70 @@ func CreateQuoteRequestBuilder(
 }
 
 //QuoteReqID is a required field for QuoteRequest.
-func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, error) {
+func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
 	var f field.QuoteReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Symbol is a required field for QuoteRequest.
-func (m QuoteRequest) Symbol() (field.Symbol, error) {
+func (m QuoteRequest) Symbol() (field.Symbol, errors.MessageRejectError) {
 	var f field.Symbol
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SymbolSfx is a non-required field for QuoteRequest.
-func (m QuoteRequest) SymbolSfx() (field.SymbolSfx, error) {
+func (m QuoteRequest) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
 	var f field.SymbolSfx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityID is a non-required field for QuoteRequest.
-func (m QuoteRequest) SecurityID() (field.SecurityID, error) {
+func (m QuoteRequest) SecurityID() (field.SecurityID, errors.MessageRejectError) {
 	var f field.SecurityID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //IDSource is a non-required field for QuoteRequest.
-func (m QuoteRequest) IDSource() (field.IDSource, error) {
+func (m QuoteRequest) IDSource() (field.IDSource, errors.MessageRejectError) {
 	var f field.IDSource
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Issuer is a non-required field for QuoteRequest.
-func (m QuoteRequest) Issuer() (field.Issuer, error) {
+func (m QuoteRequest) Issuer() (field.Issuer, errors.MessageRejectError) {
 	var f field.Issuer
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SecurityDesc is a non-required field for QuoteRequest.
-func (m QuoteRequest) SecurityDesc() (field.SecurityDesc, error) {
+func (m QuoteRequest) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
 	var f field.SecurityDesc
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PrevClosePx is a non-required field for QuoteRequest.
-func (m QuoteRequest) PrevClosePx() (field.PrevClosePx, error) {
+func (m QuoteRequest) PrevClosePx() (field.PrevClosePx, errors.MessageRejectError) {
 	var f field.PrevClosePx
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Side is a non-required field for QuoteRequest.
-func (m QuoteRequest) Side() (field.Side, error) {
+func (m QuoteRequest) Side() (field.Side, errors.MessageRejectError) {
 	var f field.Side
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //OrderQty is a non-required field for QuoteRequest.
-func (m QuoteRequest) OrderQty() (field.OrderQty, error) {
+func (m QuoteRequest) OrderQty() (field.OrderQty, errors.MessageRejectError) {
 	var f field.OrderQty
 	err := m.Body.Get(&f)
 	return f, err

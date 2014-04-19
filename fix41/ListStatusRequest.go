@@ -1,6 +1,7 @@
 package fix41
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,21 +26,21 @@ func CreateListStatusRequestBuilder(
 }
 
 //ListID is a required field for ListStatusRequest.
-func (m ListStatusRequest) ListID() (field.ListID, error) {
+func (m ListStatusRequest) ListID() (field.ListID, errors.MessageRejectError) {
 	var f field.ListID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //WaveNo is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) WaveNo() (field.WaveNo, error) {
+func (m ListStatusRequest) WaveNo() (field.WaveNo, errors.MessageRejectError) {
 	var f field.WaveNo
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Text is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) Text() (field.Text, error) {
+func (m ListStatusRequest) Text() (field.Text, errors.MessageRejectError) {
 	var f field.Text
 	err := m.Body.Get(&f)
 	return f, err

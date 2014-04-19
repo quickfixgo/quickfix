@@ -1,6 +1,7 @@
 package fix42
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,35 +28,35 @@ func CreateTradingSessionStatusRequestBuilder(
 }
 
 //TradSesReqID is a required field for TradingSessionStatusRequest.
-func (m TradingSessionStatusRequest) TradSesReqID() (field.TradSesReqID, error) {
+func (m TradingSessionStatusRequest) TradSesReqID() (field.TradSesReqID, errors.MessageRejectError) {
 	var f field.TradSesReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradingSessionID is a non-required field for TradingSessionStatusRequest.
-func (m TradingSessionStatusRequest) TradingSessionID() (field.TradingSessionID, error) {
+func (m TradingSessionStatusRequest) TradingSessionID() (field.TradingSessionID, errors.MessageRejectError) {
 	var f field.TradingSessionID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradSesMethod is a non-required field for TradingSessionStatusRequest.
-func (m TradingSessionStatusRequest) TradSesMethod() (field.TradSesMethod, error) {
+func (m TradingSessionStatusRequest) TradSesMethod() (field.TradSesMethod, errors.MessageRejectError) {
 	var f field.TradSesMethod
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //TradSesMode is a non-required field for TradingSessionStatusRequest.
-func (m TradingSessionStatusRequest) TradSesMode() (field.TradSesMode, error) {
+func (m TradingSessionStatusRequest) TradSesMode() (field.TradSesMode, errors.MessageRejectError) {
 	var f field.TradSesMode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SubscriptionRequestType is a required field for TradingSessionStatusRequest.
-func (m TradingSessionStatusRequest) SubscriptionRequestType() (field.SubscriptionRequestType, error) {
+func (m TradingSessionStatusRequest) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
 	var f field.SubscriptionRequestType
 	err := m.Body.Get(&f)
 	return f, err

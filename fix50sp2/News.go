@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,161 +28,161 @@ func CreateNewsBuilder(
 }
 
 //OrigTime is a non-required field for News.
-func (m News) OrigTime() (field.OrigTime, error) {
+func (m News) OrigTime() (field.OrigTime, errors.MessageRejectError) {
 	var f field.OrigTime
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Urgency is a non-required field for News.
-func (m News) Urgency() (field.Urgency, error) {
+func (m News) Urgency() (field.Urgency, errors.MessageRejectError) {
 	var f field.Urgency
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Headline is a required field for News.
-func (m News) Headline() (field.Headline, error) {
+func (m News) Headline() (field.Headline, errors.MessageRejectError) {
 	var f field.Headline
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedHeadlineLen is a non-required field for News.
-func (m News) EncodedHeadlineLen() (field.EncodedHeadlineLen, error) {
+func (m News) EncodedHeadlineLen() (field.EncodedHeadlineLen, errors.MessageRejectError) {
 	var f field.EncodedHeadlineLen
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //EncodedHeadline is a non-required field for News.
-func (m News) EncodedHeadline() (field.EncodedHeadline, error) {
+func (m News) EncodedHeadline() (field.EncodedHeadline, errors.MessageRejectError) {
 	var f field.EncodedHeadline
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRoutingIDs is a non-required field for News.
-func (m News) NoRoutingIDs() (field.NoRoutingIDs, error) {
+func (m News) NoRoutingIDs() (field.NoRoutingIDs, errors.MessageRejectError) {
 	var f field.NoRoutingIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a non-required field for News.
-func (m News) NoRelatedSym() (field.NoRelatedSym, error) {
+func (m News) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
 	var f field.NoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLegs is a non-required field for News.
-func (m News) NoLegs() (field.NoLegs, error) {
+func (m News) NoLegs() (field.NoLegs, errors.MessageRejectError) {
 	var f field.NoLegs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoUnderlyings is a non-required field for News.
-func (m News) NoUnderlyings() (field.NoUnderlyings, error) {
+func (m News) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
 	var f field.NoUnderlyings
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoLinesOfText is a required field for News.
-func (m News) NoLinesOfText() (field.NoLinesOfText, error) {
+func (m News) NoLinesOfText() (field.NoLinesOfText, errors.MessageRejectError) {
 	var f field.NoLinesOfText
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //URLLink is a non-required field for News.
-func (m News) URLLink() (field.URLLink, error) {
+func (m News) URLLink() (field.URLLink, errors.MessageRejectError) {
 	var f field.URLLink
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawDataLength is a non-required field for News.
-func (m News) RawDataLength() (field.RawDataLength, error) {
+func (m News) RawDataLength() (field.RawDataLength, errors.MessageRejectError) {
 	var f field.RawDataLength
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RawData is a non-required field for News.
-func (m News) RawData() (field.RawData, error) {
+func (m News) RawData() (field.RawData, errors.MessageRejectError) {
 	var f field.RawData
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplID is a non-required field for News.
-func (m News) ApplID() (field.ApplID, error) {
+func (m News) ApplID() (field.ApplID, errors.MessageRejectError) {
 	var f field.ApplID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplSeqNum is a non-required field for News.
-func (m News) ApplSeqNum() (field.ApplSeqNum, error) {
+func (m News) ApplSeqNum() (field.ApplSeqNum, errors.MessageRejectError) {
 	var f field.ApplSeqNum
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplLastSeqNum is a non-required field for News.
-func (m News) ApplLastSeqNum() (field.ApplLastSeqNum, error) {
+func (m News) ApplLastSeqNum() (field.ApplLastSeqNum, errors.MessageRejectError) {
 	var f field.ApplLastSeqNum
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ApplResendFlag is a non-required field for News.
-func (m News) ApplResendFlag() (field.ApplResendFlag, error) {
+func (m News) ApplResendFlag() (field.ApplResendFlag, errors.MessageRejectError) {
 	var f field.ApplResendFlag
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NewsID is a non-required field for News.
-func (m News) NewsID() (field.NewsID, error) {
+func (m News) NewsID() (field.NewsID, errors.MessageRejectError) {
 	var f field.NewsID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoNewsRefIDs is a non-required field for News.
-func (m News) NoNewsRefIDs() (field.NoNewsRefIDs, error) {
+func (m News) NoNewsRefIDs() (field.NoNewsRefIDs, errors.MessageRejectError) {
 	var f field.NoNewsRefIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NewsCategory is a non-required field for News.
-func (m News) NewsCategory() (field.NewsCategory, error) {
+func (m News) NewsCategory() (field.NewsCategory, errors.MessageRejectError) {
 	var f field.NewsCategory
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //LanguageCode is a non-required field for News.
-func (m News) LanguageCode() (field.LanguageCode, error) {
+func (m News) LanguageCode() (field.LanguageCode, errors.MessageRejectError) {
 	var f field.LanguageCode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarketID is a non-required field for News.
-func (m News) MarketID() (field.MarketID, error) {
+func (m News) MarketID() (field.MarketID, errors.MessageRejectError) {
 	var f field.MarketID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //MarketSegmentID is a non-required field for News.
-func (m News) MarketSegmentID() (field.MarketSegmentID, error) {
+func (m News) MarketSegmentID() (field.MarketSegmentID, errors.MessageRejectError) {
 	var f field.MarketSegmentID
 	err := m.Body.Get(&f)
 	return f, err

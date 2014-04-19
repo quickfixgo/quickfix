@@ -1,6 +1,7 @@
 package fix50sp1
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,35 +28,35 @@ func CreateRFQRequestBuilder(
 }
 
 //RFQReqID is a required field for RFQRequest.
-func (m RFQRequest) RFQReqID() (field.RFQReqID, error) {
+func (m RFQRequest) RFQReqID() (field.RFQReqID, errors.MessageRejectError) {
 	var f field.RFQReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoRelatedSym is a required field for RFQRequest.
-func (m RFQRequest) NoRelatedSym() (field.NoRelatedSym, error) {
+func (m RFQRequest) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
 	var f field.NoRelatedSym
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //SubscriptionRequestType is a non-required field for RFQRequest.
-func (m RFQRequest) SubscriptionRequestType() (field.SubscriptionRequestType, error) {
+func (m RFQRequest) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
 	var f field.SubscriptionRequestType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //PrivateQuote is a non-required field for RFQRequest.
-func (m RFQRequest) PrivateQuote() (field.PrivateQuote, error) {
+func (m RFQRequest) PrivateQuote() (field.PrivateQuote, errors.MessageRejectError) {
 	var f field.PrivateQuote
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for RFQRequest.
-func (m RFQRequest) NoPartyIDs() (field.NoPartyIDs, error) {
+func (m RFQRequest) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
 	var f field.NoPartyIDs
 	err := m.Body.Get(&f)
 	return f, err

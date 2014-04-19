@@ -1,6 +1,7 @@
 package fix43
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -31,63 +32,63 @@ func CreateRegistrationInstructionsResponseBuilder(
 }
 
 //RegistID is a required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistID() (field.RegistID, error) {
+func (m RegistrationInstructionsResponse) RegistID() (field.RegistID, errors.MessageRejectError) {
 	var f field.RegistID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RegistTransType is a required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistTransType() (field.RegistTransType, error) {
+func (m RegistrationInstructionsResponse) RegistTransType() (field.RegistTransType, errors.MessageRejectError) {
 	var f field.RegistTransType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RegistRefID is a required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistRefID() (field.RegistRefID, error) {
+func (m RegistrationInstructionsResponse) RegistRefID() (field.RegistRefID, errors.MessageRejectError) {
 	var f field.RegistRefID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //ClOrdID is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) ClOrdID() (field.ClOrdID, error) {
+func (m RegistrationInstructionsResponse) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
 	var f field.ClOrdID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoPartyIDs is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) NoPartyIDs() (field.NoPartyIDs, error) {
+func (m RegistrationInstructionsResponse) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
 	var f field.NoPartyIDs
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //Account is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) Account() (field.Account, error) {
+func (m RegistrationInstructionsResponse) Account() (field.Account, errors.MessageRejectError) {
 	var f field.Account
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RegistStatus is a required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistStatus() (field.RegistStatus, error) {
+func (m RegistrationInstructionsResponse) RegistStatus() (field.RegistStatus, errors.MessageRejectError) {
 	var f field.RegistStatus
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RegistRejReasonCode is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistRejReasonCode() (field.RegistRejReasonCode, error) {
+func (m RegistrationInstructionsResponse) RegistRejReasonCode() (field.RegistRejReasonCode, errors.MessageRejectError) {
 	var f field.RegistRejReasonCode
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //RegistRejReasonText is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistRejReasonText() (field.RegistRejReasonText, error) {
+func (m RegistrationInstructionsResponse) RegistRejReasonText() (field.RegistRejReasonText, errors.MessageRejectError) {
 	var f field.RegistRejReasonText
 	err := m.Body.Get(&f)
 	return f, err

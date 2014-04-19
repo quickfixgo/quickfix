@@ -1,6 +1,7 @@
 package fix50sp2
 
 import (
+	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,21 +28,21 @@ func CreateStreamAssignmentRequestBuilder(
 }
 
 //StreamAsgnReqID is a required field for StreamAssignmentRequest.
-func (m StreamAssignmentRequest) StreamAsgnReqID() (field.StreamAsgnReqID, error) {
+func (m StreamAssignmentRequest) StreamAsgnReqID() (field.StreamAsgnReqID, errors.MessageRejectError) {
 	var f field.StreamAsgnReqID
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //StreamAsgnReqType is a required field for StreamAssignmentRequest.
-func (m StreamAssignmentRequest) StreamAsgnReqType() (field.StreamAsgnReqType, error) {
+func (m StreamAssignmentRequest) StreamAsgnReqType() (field.StreamAsgnReqType, errors.MessageRejectError) {
 	var f field.StreamAsgnReqType
 	err := m.Body.Get(&f)
 	return f, err
 }
 
 //NoAsgnReqs is a non-required field for StreamAssignmentRequest.
-func (m StreamAssignmentRequest) NoAsgnReqs() (field.NoAsgnReqs, error) {
+func (m StreamAssignmentRequest) NoAsgnReqs() (field.NoAsgnReqs, errors.MessageRejectError) {
 	var f field.NoAsgnReqs
 	err := m.Body.Get(&f)
 	return f, err
