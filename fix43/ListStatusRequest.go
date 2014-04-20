@@ -26,29 +26,49 @@ func CreateListStatusRequestBuilder(
 }
 
 //ListID is a required field for ListStatusRequest.
-func (m ListStatusRequest) ListID() (field.ListID, errors.MessageRejectError) {
-	var f field.ListID
-	err := m.Body.Get(&f)
+func (m ListStatusRequest) ListID() (*field.ListID, errors.MessageRejectError) {
+	f := new(field.ListID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetListID reads a ListID from ListStatusRequest.
+func (m ListStatusRequest) GetListID(f *field.ListID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m ListStatusRequest) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from ListStatusRequest.
+func (m ListStatusRequest) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m ListStatusRequest) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetEncodedTextLen reads a EncodedTextLen from ListStatusRequest.
+func (m ListStatusRequest) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //EncodedText is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m ListStatusRequest) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from ListStatusRequest.
+func (m ListStatusRequest) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

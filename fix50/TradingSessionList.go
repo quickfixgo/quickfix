@@ -26,15 +26,25 @@ func CreateTradingSessionListBuilder(
 }
 
 //TradSesReqID is a non-required field for TradingSessionList.
-func (m TradingSessionList) TradSesReqID() (field.TradSesReqID, errors.MessageRejectError) {
-	var f field.TradSesReqID
-	err := m.Body.Get(&f)
+func (m TradingSessionList) TradSesReqID() (*field.TradSesReqID, errors.MessageRejectError) {
+	f := new(field.TradSesReqID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetTradSesReqID reads a TradSesReqID from TradingSessionList.
+func (m TradingSessionList) GetTradSesReqID(f *field.TradSesReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //NoTradingSessions is a required field for TradingSessionList.
-func (m TradingSessionList) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
-	var f field.NoTradingSessions
-	err := m.Body.Get(&f)
+func (m TradingSessionList) NoTradingSessions() (*field.NoTradingSessions, errors.MessageRejectError) {
+	f := new(field.NoTradingSessions)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoTradingSessions reads a NoTradingSessions from TradingSessionList.
+func (m TradingSessionList) GetNoTradingSessions(f *field.NoTradingSessions) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

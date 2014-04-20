@@ -34,267 +34,457 @@ func CreateIndicationofInterestBuilder(
 }
 
 //IOIid is a required field for IndicationofInterest.
-func (m IndicationofInterest) IOIid() (field.IOIid, errors.MessageRejectError) {
-	var f field.IOIid
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) IOIid() (*field.IOIid, errors.MessageRejectError) {
+	f := new(field.IOIid)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIOIid reads a IOIid from IndicationofInterest.
+func (m IndicationofInterest) GetIOIid(f *field.IOIid) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IOITransType is a required field for IndicationofInterest.
-func (m IndicationofInterest) IOITransType() (field.IOITransType, errors.MessageRejectError) {
-	var f field.IOITransType
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) IOITransType() (*field.IOITransType, errors.MessageRejectError) {
+	f := new(field.IOITransType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIOITransType reads a IOITransType from IndicationofInterest.
+func (m IndicationofInterest) GetIOITransType(f *field.IOITransType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IOIRefID is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) IOIRefID() (field.IOIRefID, errors.MessageRejectError) {
-	var f field.IOIRefID
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) IOIRefID() (*field.IOIRefID, errors.MessageRejectError) {
+	f := new(field.IOIRefID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIOIRefID reads a IOIRefID from IndicationofInterest.
+func (m IndicationofInterest) GetIOIRefID(f *field.IOIRefID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Symbol is a required field for IndicationofInterest.
-func (m IndicationofInterest) Symbol() (field.Symbol, errors.MessageRejectError) {
-	var f field.Symbol
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) Symbol() (*field.Symbol, errors.MessageRejectError) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbol reads a Symbol from IndicationofInterest.
+func (m IndicationofInterest) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
-	var f field.SymbolSfx
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbolSfx reads a SymbolSfx from IndicationofInterest.
+func (m IndicationofInterest) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) SecurityID() (field.SecurityID, errors.MessageRejectError) {
-	var f field.SecurityID
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityID reads a SecurityID from IndicationofInterest.
+func (m IndicationofInterest) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IDSource is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) IDSource() (field.IDSource, errors.MessageRejectError) {
-	var f field.IDSource
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) IDSource() (*field.IDSource, errors.MessageRejectError) {
+	f := new(field.IDSource)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIDSource reads a IDSource from IndicationofInterest.
+func (m IndicationofInterest) GetIDSource(f *field.IDSource) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) SecurityType() (field.SecurityType, errors.MessageRejectError) {
-	var f field.SecurityType
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityType reads a SecurityType from IndicationofInterest.
+func (m IndicationofInterest) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
-	var f field.MaturityMonthYear
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
+	f := new(field.MaturityMonthYear)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityMonthYear reads a MaturityMonthYear from IndicationofInterest.
+func (m IndicationofInterest) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityDay is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) MaturityDay() (field.MaturityDay, errors.MessageRejectError) {
-	var f field.MaturityDay
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) MaturityDay() (*field.MaturityDay, errors.MessageRejectError) {
+	f := new(field.MaturityDay)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityDay reads a MaturityDay from IndicationofInterest.
+func (m IndicationofInterest) GetMaturityDay(f *field.MaturityDay) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) PutOrCall() (field.PutOrCall, errors.MessageRejectError) {
-	var f field.PutOrCall
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
+	f := new(field.PutOrCall)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPutOrCall reads a PutOrCall from IndicationofInterest.
+func (m IndicationofInterest) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
-	var f field.StrikePrice
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikePrice reads a StrikePrice from IndicationofInterest.
+func (m IndicationofInterest) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
-	var f field.OptAttribute
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOptAttribute reads a OptAttribute from IndicationofInterest.
+func (m IndicationofInterest) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
-	var f field.ContractMultiplier
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
+	f := new(field.ContractMultiplier)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetContractMultiplier reads a ContractMultiplier from IndicationofInterest.
+func (m IndicationofInterest) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) CouponRate() (field.CouponRate, errors.MessageRejectError) {
-	var f field.CouponRate
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
+	f := new(field.CouponRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCouponRate reads a CouponRate from IndicationofInterest.
+func (m IndicationofInterest) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
-	var f field.SecurityExchange
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityExchange reads a SecurityExchange from IndicationofInterest.
+func (m IndicationofInterest) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) Issuer() (field.Issuer, errors.MessageRejectError) {
-	var f field.Issuer
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) Issuer() (*field.Issuer, errors.MessageRejectError) {
+	f := new(field.Issuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIssuer reads a Issuer from IndicationofInterest.
+func (m IndicationofInterest) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
-	var f field.EncodedIssuerLen
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
+	f := new(field.EncodedIssuerLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedIssuerLen reads a EncodedIssuerLen from IndicationofInterest.
+func (m IndicationofInterest) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
-	var f field.EncodedIssuer
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
+	f := new(field.EncodedIssuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedIssuer reads a EncodedIssuer from IndicationofInterest.
+func (m IndicationofInterest) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
-	var f field.SecurityDesc
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityDesc reads a SecurityDesc from IndicationofInterest.
+func (m IndicationofInterest) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	var f field.EncodedSecurityDescLen
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
+	f := new(field.EncodedSecurityDescLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from IndicationofInterest.
+func (m IndicationofInterest) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
-	var f field.EncodedSecurityDesc
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
+	f := new(field.EncodedSecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedSecurityDesc reads a EncodedSecurityDesc from IndicationofInterest.
+func (m IndicationofInterest) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Side is a required field for IndicationofInterest.
-func (m IndicationofInterest) Side() (field.Side, errors.MessageRejectError) {
-	var f field.Side
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) Side() (*field.Side, errors.MessageRejectError) {
+	f := new(field.Side)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSide reads a Side from IndicationofInterest.
+func (m IndicationofInterest) GetSide(f *field.Side) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IOIShares is a required field for IndicationofInterest.
-func (m IndicationofInterest) IOIShares() (field.IOIShares, errors.MessageRejectError) {
-	var f field.IOIShares
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) IOIShares() (*field.IOIShares, errors.MessageRejectError) {
+	f := new(field.IOIShares)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIOIShares reads a IOIShares from IndicationofInterest.
+func (m IndicationofInterest) GetIOIShares(f *field.IOIShares) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Price is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) Price() (field.Price, errors.MessageRejectError) {
-	var f field.Price
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) Price() (*field.Price, errors.MessageRejectError) {
+	f := new(field.Price)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPrice reads a Price from IndicationofInterest.
+func (m IndicationofInterest) GetPrice(f *field.Price) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) Currency() (field.Currency, errors.MessageRejectError) {
-	var f field.Currency
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) Currency() (*field.Currency, errors.MessageRejectError) {
+	f := new(field.Currency)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCurrency reads a Currency from IndicationofInterest.
+func (m IndicationofInterest) GetCurrency(f *field.Currency) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ValidUntilTime is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) ValidUntilTime() (field.ValidUntilTime, errors.MessageRejectError) {
-	var f field.ValidUntilTime
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) ValidUntilTime() (*field.ValidUntilTime, errors.MessageRejectError) {
+	f := new(field.ValidUntilTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetValidUntilTime reads a ValidUntilTime from IndicationofInterest.
+func (m IndicationofInterest) GetValidUntilTime(f *field.ValidUntilTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IOIQltyInd is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) IOIQltyInd() (field.IOIQltyInd, errors.MessageRejectError) {
-	var f field.IOIQltyInd
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) IOIQltyInd() (*field.IOIQltyInd, errors.MessageRejectError) {
+	f := new(field.IOIQltyInd)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIOIQltyInd reads a IOIQltyInd from IndicationofInterest.
+func (m IndicationofInterest) GetIOIQltyInd(f *field.IOIQltyInd) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IOINaturalFlag is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) IOINaturalFlag() (field.IOINaturalFlag, errors.MessageRejectError) {
-	var f field.IOINaturalFlag
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) IOINaturalFlag() (*field.IOINaturalFlag, errors.MessageRejectError) {
+	f := new(field.IOINaturalFlag)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIOINaturalFlag reads a IOINaturalFlag from IndicationofInterest.
+func (m IndicationofInterest) GetIOINaturalFlag(f *field.IOINaturalFlag) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoIOIQualifiers is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) NoIOIQualifiers() (field.NoIOIQualifiers, errors.MessageRejectError) {
-	var f field.NoIOIQualifiers
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) NoIOIQualifiers() (*field.NoIOIQualifiers, errors.MessageRejectError) {
+	f := new(field.NoIOIQualifiers)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoIOIQualifiers reads a NoIOIQualifiers from IndicationofInterest.
+func (m IndicationofInterest) GetNoIOIQualifiers(f *field.NoIOIQualifiers) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from IndicationofInterest.
+func (m IndicationofInterest) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedTextLen reads a EncodedTextLen from IndicationofInterest.
+func (m IndicationofInterest) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from IndicationofInterest.
+func (m IndicationofInterest) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TransactTime is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) TransactTime() (field.TransactTime, errors.MessageRejectError) {
-	var f field.TransactTime
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTransactTime reads a TransactTime from IndicationofInterest.
+func (m IndicationofInterest) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //URLLink is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) URLLink() (field.URLLink, errors.MessageRejectError) {
-	var f field.URLLink
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) URLLink() (*field.URLLink, errors.MessageRejectError) {
+	f := new(field.URLLink)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetURLLink reads a URLLink from IndicationofInterest.
+func (m IndicationofInterest) GetURLLink(f *field.URLLink) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoRoutingIDs is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) NoRoutingIDs() (field.NoRoutingIDs, errors.MessageRejectError) {
-	var f field.NoRoutingIDs
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) NoRoutingIDs() (*field.NoRoutingIDs, errors.MessageRejectError) {
+	f := new(field.NoRoutingIDs)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoRoutingIDs reads a NoRoutingIDs from IndicationofInterest.
+func (m IndicationofInterest) GetNoRoutingIDs(f *field.NoRoutingIDs) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SpreadToBenchmark is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) SpreadToBenchmark() (field.SpreadToBenchmark, errors.MessageRejectError) {
-	var f field.SpreadToBenchmark
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) SpreadToBenchmark() (*field.SpreadToBenchmark, errors.MessageRejectError) {
+	f := new(field.SpreadToBenchmark)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetSpreadToBenchmark reads a SpreadToBenchmark from IndicationofInterest.
+func (m IndicationofInterest) GetSpreadToBenchmark(f *field.SpreadToBenchmark) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //Benchmark is a non-required field for IndicationofInterest.
-func (m IndicationofInterest) Benchmark() (field.Benchmark, errors.MessageRejectError) {
-	var f field.Benchmark
-	err := m.Body.Get(&f)
+func (m IndicationofInterest) Benchmark() (*field.Benchmark, errors.MessageRejectError) {
+	f := new(field.Benchmark)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBenchmark reads a Benchmark from IndicationofInterest.
+func (m IndicationofInterest) GetBenchmark(f *field.Benchmark) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -150,10 +150,14 @@ import(
 		} else {
 			fileOut += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, msg.Name)
 		}
-		fileOut += fmt.Sprintf("func (m %v) %v() (field.%v, errors.MessageRejectError) {\n", msg.Name, field.Name, field.Name)
-		fileOut += fmt.Sprintf("var f field.%v\n", field.Name)
-		fileOut += "err:=m.Body.Get(&f)\n"
+		fileOut += fmt.Sprintf("func (m %v) %v() (*field.%v, errors.MessageRejectError) {\n", msg.Name, field.Name, field.Name)
+		fileOut += fmt.Sprintf("f := new(field.%v)\n", field.Name)
+		fileOut += "err:=m.Body.Get(f)\n"
 		fileOut += "return f, err\n}\n"
+
+		fileOut += fmt.Sprintf("//Get%v reads a %v from %v.\n", field.Name, field.Name, msg.Name)
+		fileOut += fmt.Sprintf("func (m %v) Get%v(f *field.%v) errors.MessageRejectError {\n", msg.Name, field.Name, field.Name)
+		fileOut += "return m.Body.Get(f)\n}\n"
 	}
 
 	filePath := pkg + "/" + msg.Name + ".go"

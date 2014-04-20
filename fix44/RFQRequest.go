@@ -28,22 +28,37 @@ func CreateRFQRequestBuilder(
 }
 
 //RFQReqID is a required field for RFQRequest.
-func (m RFQRequest) RFQReqID() (field.RFQReqID, errors.MessageRejectError) {
-	var f field.RFQReqID
-	err := m.Body.Get(&f)
+func (m RFQRequest) RFQReqID() (*field.RFQReqID, errors.MessageRejectError) {
+	f := new(field.RFQReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRFQReqID reads a RFQReqID from RFQRequest.
+func (m RFQRequest) GetRFQReqID(f *field.RFQReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a required field for RFQRequest.
-func (m RFQRequest) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
-	var f field.NoRelatedSym
-	err := m.Body.Get(&f)
+func (m RFQRequest) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetNoRelatedSym reads a NoRelatedSym from RFQRequest.
+func (m RFQRequest) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //SubscriptionRequestType is a non-required field for RFQRequest.
-func (m RFQRequest) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
-	var f field.SubscriptionRequestType
-	err := m.Body.Get(&f)
+func (m RFQRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, errors.MessageRejectError) {
+	f := new(field.SubscriptionRequestType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSubscriptionRequestType reads a SubscriptionRequestType from RFQRequest.
+func (m RFQRequest) GetSubscriptionRequestType(f *field.SubscriptionRequestType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -26,15 +26,25 @@ func CreateSequenceResetBuilder(
 }
 
 //GapFillFlag is a non-required field for SequenceReset.
-func (m SequenceReset) GapFillFlag() (field.GapFillFlag, errors.MessageRejectError) {
-	var f field.GapFillFlag
-	err := m.Body.Get(&f)
+func (m SequenceReset) GapFillFlag() (*field.GapFillFlag, errors.MessageRejectError) {
+	f := new(field.GapFillFlag)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetGapFillFlag reads a GapFillFlag from SequenceReset.
+func (m SequenceReset) GetGapFillFlag(f *field.GapFillFlag) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //NewSeqNo is a required field for SequenceReset.
-func (m SequenceReset) NewSeqNo() (field.NewSeqNo, errors.MessageRejectError) {
-	var f field.NewSeqNo
-	err := m.Body.Get(&f)
+func (m SequenceReset) NewSeqNo() (*field.NewSeqNo, errors.MessageRejectError) {
+	f := new(field.NewSeqNo)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNewSeqNo reads a NewSeqNo from SequenceReset.
+func (m SequenceReset) GetNewSeqNo(f *field.NewSeqNo) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -28,71 +28,121 @@ func CreateBusinessMessageRejectBuilder(
 }
 
 //RefSeqNum is a non-required field for BusinessMessageReject.
-func (m BusinessMessageReject) RefSeqNum() (field.RefSeqNum, errors.MessageRejectError) {
-	var f field.RefSeqNum
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) RefSeqNum() (*field.RefSeqNum, errors.MessageRejectError) {
+	f := new(field.RefSeqNum)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRefSeqNum reads a RefSeqNum from BusinessMessageReject.
+func (m BusinessMessageReject) GetRefSeqNum(f *field.RefSeqNum) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RefMsgType is a required field for BusinessMessageReject.
-func (m BusinessMessageReject) RefMsgType() (field.RefMsgType, errors.MessageRejectError) {
-	var f field.RefMsgType
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) RefMsgType() (*field.RefMsgType, errors.MessageRejectError) {
+	f := new(field.RefMsgType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRefMsgType reads a RefMsgType from BusinessMessageReject.
+func (m BusinessMessageReject) GetRefMsgType(f *field.RefMsgType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BusinessRejectRefID is a non-required field for BusinessMessageReject.
-func (m BusinessMessageReject) BusinessRejectRefID() (field.BusinessRejectRefID, errors.MessageRejectError) {
-	var f field.BusinessRejectRefID
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) BusinessRejectRefID() (*field.BusinessRejectRefID, errors.MessageRejectError) {
+	f := new(field.BusinessRejectRefID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBusinessRejectRefID reads a BusinessRejectRefID from BusinessMessageReject.
+func (m BusinessMessageReject) GetBusinessRejectRefID(f *field.BusinessRejectRefID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BusinessRejectReason is a required field for BusinessMessageReject.
-func (m BusinessMessageReject) BusinessRejectReason() (field.BusinessRejectReason, errors.MessageRejectError) {
-	var f field.BusinessRejectReason
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) BusinessRejectReason() (*field.BusinessRejectReason, errors.MessageRejectError) {
+	f := new(field.BusinessRejectReason)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBusinessRejectReason reads a BusinessRejectReason from BusinessMessageReject.
+func (m BusinessMessageReject) GetBusinessRejectReason(f *field.BusinessRejectReason) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for BusinessMessageReject.
-func (m BusinessMessageReject) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from BusinessMessageReject.
+func (m BusinessMessageReject) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for BusinessMessageReject.
-func (m BusinessMessageReject) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedTextLen reads a EncodedTextLen from BusinessMessageReject.
+func (m BusinessMessageReject) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for BusinessMessageReject.
-func (m BusinessMessageReject) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from BusinessMessageReject.
+func (m BusinessMessageReject) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RefApplVerID is a non-required field for BusinessMessageReject.
-func (m BusinessMessageReject) RefApplVerID() (field.RefApplVerID, errors.MessageRejectError) {
-	var f field.RefApplVerID
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) RefApplVerID() (*field.RefApplVerID, errors.MessageRejectError) {
+	f := new(field.RefApplVerID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRefApplVerID reads a RefApplVerID from BusinessMessageReject.
+func (m BusinessMessageReject) GetRefApplVerID(f *field.RefApplVerID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RefApplExtID is a non-required field for BusinessMessageReject.
-func (m BusinessMessageReject) RefApplExtID() (field.RefApplExtID, errors.MessageRejectError) {
-	var f field.RefApplExtID
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) RefApplExtID() (*field.RefApplExtID, errors.MessageRejectError) {
+	f := new(field.RefApplExtID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetRefApplExtID reads a RefApplExtID from BusinessMessageReject.
+func (m BusinessMessageReject) GetRefApplExtID(f *field.RefApplExtID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //RefCstmApplVerID is a non-required field for BusinessMessageReject.
-func (m BusinessMessageReject) RefCstmApplVerID() (field.RefCstmApplVerID, errors.MessageRejectError) {
-	var f field.RefCstmApplVerID
-	err := m.Body.Get(&f)
+func (m BusinessMessageReject) RefCstmApplVerID() (*field.RefCstmApplVerID, errors.MessageRejectError) {
+	f := new(field.RefCstmApplVerID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRefCstmApplVerID reads a RefCstmApplVerID from BusinessMessageReject.
+func (m BusinessMessageReject) GetRefCstmApplVerID(f *field.RefCstmApplVerID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

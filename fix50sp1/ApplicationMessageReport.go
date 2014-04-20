@@ -28,43 +28,73 @@ func CreateApplicationMessageReportBuilder(
 }
 
 //ApplReportID is a required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) ApplReportID() (field.ApplReportID, errors.MessageRejectError) {
-	var f field.ApplReportID
-	err := m.Body.Get(&f)
+func (m ApplicationMessageReport) ApplReportID() (*field.ApplReportID, errors.MessageRejectError) {
+	f := new(field.ApplReportID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetApplReportID reads a ApplReportID from ApplicationMessageReport.
+func (m ApplicationMessageReport) GetApplReportID(f *field.ApplReportID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ApplReportType is a required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) ApplReportType() (field.ApplReportType, errors.MessageRejectError) {
-	var f field.ApplReportType
-	err := m.Body.Get(&f)
+func (m ApplicationMessageReport) ApplReportType() (*field.ApplReportType, errors.MessageRejectError) {
+	f := new(field.ApplReportType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetApplReportType reads a ApplReportType from ApplicationMessageReport.
+func (m ApplicationMessageReport) GetApplReportType(f *field.ApplReportType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoApplIDs is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) NoApplIDs() (field.NoApplIDs, errors.MessageRejectError) {
-	var f field.NoApplIDs
-	err := m.Body.Get(&f)
+func (m ApplicationMessageReport) NoApplIDs() (*field.NoApplIDs, errors.MessageRejectError) {
+	f := new(field.NoApplIDs)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoApplIDs reads a NoApplIDs from ApplicationMessageReport.
+func (m ApplicationMessageReport) GetNoApplIDs(f *field.NoApplIDs) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m ApplicationMessageReport) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from ApplicationMessageReport.
+func (m ApplicationMessageReport) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m ApplicationMessageReport) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetEncodedTextLen reads a EncodedTextLen from ApplicationMessageReport.
+func (m ApplicationMessageReport) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //EncodedText is a non-required field for ApplicationMessageReport.
-func (m ApplicationMessageReport) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m ApplicationMessageReport) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from ApplicationMessageReport.
+func (m ApplicationMessageReport) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -28,57 +28,97 @@ func CreateQuoteRequestBuilder(
 }
 
 //QuoteReqID is a required field for QuoteRequest.
-func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
-	var f field.QuoteReqID
-	err := m.Body.Get(&f)
+func (m QuoteRequest) QuoteReqID() (*field.QuoteReqID, errors.MessageRejectError) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetQuoteReqID reads a QuoteReqID from QuoteRequest.
+func (m QuoteRequest) GetQuoteReqID(f *field.QuoteReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RFQReqID is a non-required field for QuoteRequest.
-func (m QuoteRequest) RFQReqID() (field.RFQReqID, errors.MessageRejectError) {
-	var f field.RFQReqID
-	err := m.Body.Get(&f)
+func (m QuoteRequest) RFQReqID() (*field.RFQReqID, errors.MessageRejectError) {
+	f := new(field.RFQReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRFQReqID reads a RFQReqID from QuoteRequest.
+func (m QuoteRequest) GetRFQReqID(f *field.RFQReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClOrdID is a non-required field for QuoteRequest.
-func (m QuoteRequest) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
-	var f field.ClOrdID
-	err := m.Body.Get(&f)
+func (m QuoteRequest) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetClOrdID reads a ClOrdID from QuoteRequest.
+func (m QuoteRequest) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OrderCapacity is a non-required field for QuoteRequest.
-func (m QuoteRequest) OrderCapacity() (field.OrderCapacity, errors.MessageRejectError) {
-	var f field.OrderCapacity
-	err := m.Body.Get(&f)
+func (m QuoteRequest) OrderCapacity() (*field.OrderCapacity, errors.MessageRejectError) {
+	f := new(field.OrderCapacity)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOrderCapacity reads a OrderCapacity from QuoteRequest.
+func (m QuoteRequest) GetOrderCapacity(f *field.OrderCapacity) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a required field for QuoteRequest.
-func (m QuoteRequest) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
-	var f field.NoRelatedSym
-	err := m.Body.Get(&f)
+func (m QuoteRequest) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoRelatedSym reads a NoRelatedSym from QuoteRequest.
+func (m QuoteRequest) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for QuoteRequest.
-func (m QuoteRequest) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m QuoteRequest) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from QuoteRequest.
+func (m QuoteRequest) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for QuoteRequest.
-func (m QuoteRequest) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m QuoteRequest) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetEncodedTextLen reads a EncodedTextLen from QuoteRequest.
+func (m QuoteRequest) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //EncodedText is a non-required field for QuoteRequest.
-func (m QuoteRequest) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m QuoteRequest) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from QuoteRequest.
+func (m QuoteRequest) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -28,78 +28,133 @@ func CreateLogonBuilder(
 }
 
 //EncryptMethod is a required field for Logon.
-func (m Logon) EncryptMethod() (field.EncryptMethod, errors.MessageRejectError) {
-	var f field.EncryptMethod
-	err := m.Body.Get(&f)
+func (m Logon) EncryptMethod() (*field.EncryptMethod, errors.MessageRejectError) {
+	f := new(field.EncryptMethod)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncryptMethod reads a EncryptMethod from Logon.
+func (m Logon) GetEncryptMethod(f *field.EncryptMethod) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //HeartBtInt is a required field for Logon.
-func (m Logon) HeartBtInt() (field.HeartBtInt, errors.MessageRejectError) {
-	var f field.HeartBtInt
-	err := m.Body.Get(&f)
+func (m Logon) HeartBtInt() (*field.HeartBtInt, errors.MessageRejectError) {
+	f := new(field.HeartBtInt)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetHeartBtInt reads a HeartBtInt from Logon.
+func (m Logon) GetHeartBtInt(f *field.HeartBtInt) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RawDataLength is a non-required field for Logon.
-func (m Logon) RawDataLength() (field.RawDataLength, errors.MessageRejectError) {
-	var f field.RawDataLength
-	err := m.Body.Get(&f)
+func (m Logon) RawDataLength() (*field.RawDataLength, errors.MessageRejectError) {
+	f := new(field.RawDataLength)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRawDataLength reads a RawDataLength from Logon.
+func (m Logon) GetRawDataLength(f *field.RawDataLength) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RawData is a non-required field for Logon.
-func (m Logon) RawData() (field.RawData, errors.MessageRejectError) {
-	var f field.RawData
-	err := m.Body.Get(&f)
+func (m Logon) RawData() (*field.RawData, errors.MessageRejectError) {
+	f := new(field.RawData)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRawData reads a RawData from Logon.
+func (m Logon) GetRawData(f *field.RawData) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ResetSeqNumFlag is a non-required field for Logon.
-func (m Logon) ResetSeqNumFlag() (field.ResetSeqNumFlag, errors.MessageRejectError) {
-	var f field.ResetSeqNumFlag
-	err := m.Body.Get(&f)
+func (m Logon) ResetSeqNumFlag() (*field.ResetSeqNumFlag, errors.MessageRejectError) {
+	f := new(field.ResetSeqNumFlag)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetResetSeqNumFlag reads a ResetSeqNumFlag from Logon.
+func (m Logon) GetResetSeqNumFlag(f *field.ResetSeqNumFlag) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NextExpectedMsgSeqNum is a non-required field for Logon.
-func (m Logon) NextExpectedMsgSeqNum() (field.NextExpectedMsgSeqNum, errors.MessageRejectError) {
-	var f field.NextExpectedMsgSeqNum
-	err := m.Body.Get(&f)
+func (m Logon) NextExpectedMsgSeqNum() (*field.NextExpectedMsgSeqNum, errors.MessageRejectError) {
+	f := new(field.NextExpectedMsgSeqNum)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNextExpectedMsgSeqNum reads a NextExpectedMsgSeqNum from Logon.
+func (m Logon) GetNextExpectedMsgSeqNum(f *field.NextExpectedMsgSeqNum) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaxMessageSize is a non-required field for Logon.
-func (m Logon) MaxMessageSize() (field.MaxMessageSize, errors.MessageRejectError) {
-	var f field.MaxMessageSize
-	err := m.Body.Get(&f)
+func (m Logon) MaxMessageSize() (*field.MaxMessageSize, errors.MessageRejectError) {
+	f := new(field.MaxMessageSize)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaxMessageSize reads a MaxMessageSize from Logon.
+func (m Logon) GetMaxMessageSize(f *field.MaxMessageSize) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoMsgTypes is a non-required field for Logon.
-func (m Logon) NoMsgTypes() (field.NoMsgTypes, errors.MessageRejectError) {
-	var f field.NoMsgTypes
-	err := m.Body.Get(&f)
+func (m Logon) NoMsgTypes() (*field.NoMsgTypes, errors.MessageRejectError) {
+	f := new(field.NoMsgTypes)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoMsgTypes reads a NoMsgTypes from Logon.
+func (m Logon) GetNoMsgTypes(f *field.NoMsgTypes) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TestMessageIndicator is a non-required field for Logon.
-func (m Logon) TestMessageIndicator() (field.TestMessageIndicator, errors.MessageRejectError) {
-	var f field.TestMessageIndicator
-	err := m.Body.Get(&f)
+func (m Logon) TestMessageIndicator() (*field.TestMessageIndicator, errors.MessageRejectError) {
+	f := new(field.TestMessageIndicator)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTestMessageIndicator reads a TestMessageIndicator from Logon.
+func (m Logon) GetTestMessageIndicator(f *field.TestMessageIndicator) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Username is a non-required field for Logon.
-func (m Logon) Username() (field.Username, errors.MessageRejectError) {
-	var f field.Username
-	err := m.Body.Get(&f)
+func (m Logon) Username() (*field.Username, errors.MessageRejectError) {
+	f := new(field.Username)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetUsername reads a Username from Logon.
+func (m Logon) GetUsername(f *field.Username) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //Password is a non-required field for Logon.
-func (m Logon) Password() (field.Password, errors.MessageRejectError) {
-	var f field.Password
-	err := m.Body.Get(&f)
+func (m Logon) Password() (*field.Password, errors.MessageRejectError) {
+	f := new(field.Password)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPassword reads a Password from Logon.
+func (m Logon) GetPassword(f *field.Password) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

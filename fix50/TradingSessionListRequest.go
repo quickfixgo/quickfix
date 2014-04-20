@@ -28,50 +28,85 @@ func CreateTradingSessionListRequestBuilder(
 }
 
 //TradSesReqID is a required field for TradingSessionListRequest.
-func (m TradingSessionListRequest) TradSesReqID() (field.TradSesReqID, errors.MessageRejectError) {
-	var f field.TradSesReqID
-	err := m.Body.Get(&f)
+func (m TradingSessionListRequest) TradSesReqID() (*field.TradSesReqID, errors.MessageRejectError) {
+	f := new(field.TradSesReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTradSesReqID reads a TradSesReqID from TradingSessionListRequest.
+func (m TradingSessionListRequest) GetTradSesReqID(f *field.TradSesReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TradingSessionID is a non-required field for TradingSessionListRequest.
-func (m TradingSessionListRequest) TradingSessionID() (field.TradingSessionID, errors.MessageRejectError) {
-	var f field.TradingSessionID
-	err := m.Body.Get(&f)
+func (m TradingSessionListRequest) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
+	f := new(field.TradingSessionID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTradingSessionID reads a TradingSessionID from TradingSessionListRequest.
+func (m TradingSessionListRequest) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TradingSessionSubID is a non-required field for TradingSessionListRequest.
-func (m TradingSessionListRequest) TradingSessionSubID() (field.TradingSessionSubID, errors.MessageRejectError) {
-	var f field.TradingSessionSubID
-	err := m.Body.Get(&f)
+func (m TradingSessionListRequest) TradingSessionSubID() (*field.TradingSessionSubID, errors.MessageRejectError) {
+	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTradingSessionSubID reads a TradingSessionSubID from TradingSessionListRequest.
+func (m TradingSessionListRequest) GetTradingSessionSubID(f *field.TradingSessionSubID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for TradingSessionListRequest.
-func (m TradingSessionListRequest) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
-	var f field.SecurityExchange
-	err := m.Body.Get(&f)
+func (m TradingSessionListRequest) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityExchange reads a SecurityExchange from TradingSessionListRequest.
+func (m TradingSessionListRequest) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TradSesMethod is a non-required field for TradingSessionListRequest.
-func (m TradingSessionListRequest) TradSesMethod() (field.TradSesMethod, errors.MessageRejectError) {
-	var f field.TradSesMethod
-	err := m.Body.Get(&f)
+func (m TradingSessionListRequest) TradSesMethod() (*field.TradSesMethod, errors.MessageRejectError) {
+	f := new(field.TradSesMethod)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTradSesMethod reads a TradSesMethod from TradingSessionListRequest.
+func (m TradingSessionListRequest) GetTradSesMethod(f *field.TradSesMethod) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TradSesMode is a non-required field for TradingSessionListRequest.
-func (m TradingSessionListRequest) TradSesMode() (field.TradSesMode, errors.MessageRejectError) {
-	var f field.TradSesMode
-	err := m.Body.Get(&f)
+func (m TradingSessionListRequest) TradSesMode() (*field.TradSesMode, errors.MessageRejectError) {
+	f := new(field.TradSesMode)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetTradSesMode reads a TradSesMode from TradingSessionListRequest.
+func (m TradingSessionListRequest) GetTradSesMode(f *field.TradSesMode) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //SubscriptionRequestType is a required field for TradingSessionListRequest.
-func (m TradingSessionListRequest) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
-	var f field.SubscriptionRequestType
-	err := m.Body.Get(&f)
+func (m TradingSessionListRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, errors.MessageRejectError) {
+	f := new(field.SubscriptionRequestType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSubscriptionRequestType reads a SubscriptionRequestType from TradingSessionListRequest.
+func (m TradingSessionListRequest) GetSubscriptionRequestType(f *field.SubscriptionRequestType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

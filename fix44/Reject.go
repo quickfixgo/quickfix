@@ -26,50 +26,85 @@ func CreateRejectBuilder(
 }
 
 //RefSeqNum is a required field for Reject.
-func (m Reject) RefSeqNum() (field.RefSeqNum, errors.MessageRejectError) {
-	var f field.RefSeqNum
-	err := m.Body.Get(&f)
+func (m Reject) RefSeqNum() (*field.RefSeqNum, errors.MessageRejectError) {
+	f := new(field.RefSeqNum)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRefSeqNum reads a RefSeqNum from Reject.
+func (m Reject) GetRefSeqNum(f *field.RefSeqNum) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RefTagID is a non-required field for Reject.
-func (m Reject) RefTagID() (field.RefTagID, errors.MessageRejectError) {
-	var f field.RefTagID
-	err := m.Body.Get(&f)
+func (m Reject) RefTagID() (*field.RefTagID, errors.MessageRejectError) {
+	f := new(field.RefTagID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRefTagID reads a RefTagID from Reject.
+func (m Reject) GetRefTagID(f *field.RefTagID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RefMsgType is a non-required field for Reject.
-func (m Reject) RefMsgType() (field.RefMsgType, errors.MessageRejectError) {
-	var f field.RefMsgType
-	err := m.Body.Get(&f)
+func (m Reject) RefMsgType() (*field.RefMsgType, errors.MessageRejectError) {
+	f := new(field.RefMsgType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRefMsgType reads a RefMsgType from Reject.
+func (m Reject) GetRefMsgType(f *field.RefMsgType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SessionRejectReason is a non-required field for Reject.
-func (m Reject) SessionRejectReason() (field.SessionRejectReason, errors.MessageRejectError) {
-	var f field.SessionRejectReason
-	err := m.Body.Get(&f)
+func (m Reject) SessionRejectReason() (*field.SessionRejectReason, errors.MessageRejectError) {
+	f := new(field.SessionRejectReason)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSessionRejectReason reads a SessionRejectReason from Reject.
+func (m Reject) GetSessionRejectReason(f *field.SessionRejectReason) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for Reject.
-func (m Reject) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m Reject) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from Reject.
+func (m Reject) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for Reject.
-func (m Reject) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m Reject) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetEncodedTextLen reads a EncodedTextLen from Reject.
+func (m Reject) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //EncodedText is a non-required field for Reject.
-func (m Reject) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m Reject) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from Reject.
+func (m Reject) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

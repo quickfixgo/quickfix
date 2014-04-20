@@ -32,428 +32,733 @@ func CreateAdvertisementBuilder(
 }
 
 //AdvId is a required field for Advertisement.
-func (m Advertisement) AdvId() (field.AdvId, errors.MessageRejectError) {
-	var f field.AdvId
-	err := m.Body.Get(&f)
+func (m Advertisement) AdvId() (*field.AdvId, errors.MessageRejectError) {
+	f := new(field.AdvId)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAdvId reads a AdvId from Advertisement.
+func (m Advertisement) GetAdvId(f *field.AdvId) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //AdvTransType is a required field for Advertisement.
-func (m Advertisement) AdvTransType() (field.AdvTransType, errors.MessageRejectError) {
-	var f field.AdvTransType
-	err := m.Body.Get(&f)
+func (m Advertisement) AdvTransType() (*field.AdvTransType, errors.MessageRejectError) {
+	f := new(field.AdvTransType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAdvTransType reads a AdvTransType from Advertisement.
+func (m Advertisement) GetAdvTransType(f *field.AdvTransType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //AdvRefID is a non-required field for Advertisement.
-func (m Advertisement) AdvRefID() (field.AdvRefID, errors.MessageRejectError) {
-	var f field.AdvRefID
-	err := m.Body.Get(&f)
+func (m Advertisement) AdvRefID() (*field.AdvRefID, errors.MessageRejectError) {
+	f := new(field.AdvRefID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAdvRefID reads a AdvRefID from Advertisement.
+func (m Advertisement) GetAdvRefID(f *field.AdvRefID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for Advertisement.
-func (m Advertisement) Symbol() (field.Symbol, errors.MessageRejectError) {
-	var f field.Symbol
-	err := m.Body.Get(&f)
+func (m Advertisement) Symbol() (*field.Symbol, errors.MessageRejectError) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbol reads a Symbol from Advertisement.
+func (m Advertisement) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for Advertisement.
-func (m Advertisement) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
-	var f field.SymbolSfx
-	err := m.Body.Get(&f)
+func (m Advertisement) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbolSfx reads a SymbolSfx from Advertisement.
+func (m Advertisement) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for Advertisement.
-func (m Advertisement) SecurityID() (field.SecurityID, errors.MessageRejectError) {
-	var f field.SecurityID
-	err := m.Body.Get(&f)
+func (m Advertisement) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityID reads a SecurityID from Advertisement.
+func (m Advertisement) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for Advertisement.
-func (m Advertisement) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
-	var f field.SecurityIDSource
-	err := m.Body.Get(&f)
+func (m Advertisement) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
+	f := new(field.SecurityIDSource)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityIDSource reads a SecurityIDSource from Advertisement.
+func (m Advertisement) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for Advertisement.
-func (m Advertisement) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
-	var f field.NoSecurityAltID
-	err := m.Body.Get(&f)
+func (m Advertisement) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
+	f := new(field.NoSecurityAltID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoSecurityAltID reads a NoSecurityAltID from Advertisement.
+func (m Advertisement) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Product is a non-required field for Advertisement.
-func (m Advertisement) Product() (field.Product, errors.MessageRejectError) {
-	var f field.Product
-	err := m.Body.Get(&f)
+func (m Advertisement) Product() (*field.Product, errors.MessageRejectError) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetProduct reads a Product from Advertisement.
+func (m Advertisement) GetProduct(f *field.Product) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for Advertisement.
-func (m Advertisement) CFICode() (field.CFICode, errors.MessageRejectError) {
-	var f field.CFICode
-	err := m.Body.Get(&f)
+func (m Advertisement) CFICode() (*field.CFICode, errors.MessageRejectError) {
+	f := new(field.CFICode)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCFICode reads a CFICode from Advertisement.
+func (m Advertisement) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for Advertisement.
-func (m Advertisement) SecurityType() (field.SecurityType, errors.MessageRejectError) {
-	var f field.SecurityType
-	err := m.Body.Get(&f)
+func (m Advertisement) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityType reads a SecurityType from Advertisement.
+func (m Advertisement) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for Advertisement.
-func (m Advertisement) SecuritySubType() (field.SecuritySubType, errors.MessageRejectError) {
-	var f field.SecuritySubType
-	err := m.Body.Get(&f)
+func (m Advertisement) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
+	f := new(field.SecuritySubType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecuritySubType reads a SecuritySubType from Advertisement.
+func (m Advertisement) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for Advertisement.
-func (m Advertisement) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
-	var f field.MaturityMonthYear
-	err := m.Body.Get(&f)
+func (m Advertisement) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
+	f := new(field.MaturityMonthYear)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityMonthYear reads a MaturityMonthYear from Advertisement.
+func (m Advertisement) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for Advertisement.
-func (m Advertisement) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
-	var f field.MaturityDate
-	err := m.Body.Get(&f)
+func (m Advertisement) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
+	f := new(field.MaturityDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityDate reads a MaturityDate from Advertisement.
+func (m Advertisement) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for Advertisement.
-func (m Advertisement) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
-	var f field.CouponPaymentDate
-	err := m.Body.Get(&f)
+func (m Advertisement) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
+	f := new(field.CouponPaymentDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCouponPaymentDate reads a CouponPaymentDate from Advertisement.
+func (m Advertisement) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for Advertisement.
-func (m Advertisement) IssueDate() (field.IssueDate, errors.MessageRejectError) {
-	var f field.IssueDate
-	err := m.Body.Get(&f)
+func (m Advertisement) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
+	f := new(field.IssueDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIssueDate reads a IssueDate from Advertisement.
+func (m Advertisement) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for Advertisement.
-func (m Advertisement) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	var f field.RepoCollateralSecurityType
-	err := m.Body.Get(&f)
+func (m Advertisement) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
+	f := new(field.RepoCollateralSecurityType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from Advertisement.
+func (m Advertisement) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for Advertisement.
-func (m Advertisement) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
-	var f field.RepurchaseTerm
-	err := m.Body.Get(&f)
+func (m Advertisement) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
+	f := new(field.RepurchaseTerm)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepurchaseTerm reads a RepurchaseTerm from Advertisement.
+func (m Advertisement) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for Advertisement.
-func (m Advertisement) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
-	var f field.RepurchaseRate
-	err := m.Body.Get(&f)
+func (m Advertisement) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
+	f := new(field.RepurchaseRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepurchaseRate reads a RepurchaseRate from Advertisement.
+func (m Advertisement) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for Advertisement.
-func (m Advertisement) Factor() (field.Factor, errors.MessageRejectError) {
-	var f field.Factor
-	err := m.Body.Get(&f)
+func (m Advertisement) Factor() (*field.Factor, errors.MessageRejectError) {
+	f := new(field.Factor)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetFactor reads a Factor from Advertisement.
+func (m Advertisement) GetFactor(f *field.Factor) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for Advertisement.
-func (m Advertisement) CreditRating() (field.CreditRating, errors.MessageRejectError) {
-	var f field.CreditRating
-	err := m.Body.Get(&f)
+func (m Advertisement) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
+	f := new(field.CreditRating)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCreditRating reads a CreditRating from Advertisement.
+func (m Advertisement) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for Advertisement.
-func (m Advertisement) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
-	var f field.InstrRegistry
-	err := m.Body.Get(&f)
+func (m Advertisement) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
+	f := new(field.InstrRegistry)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetInstrRegistry reads a InstrRegistry from Advertisement.
+func (m Advertisement) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for Advertisement.
-func (m Advertisement) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
-	var f field.CountryOfIssue
-	err := m.Body.Get(&f)
+func (m Advertisement) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
+	f := new(field.CountryOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCountryOfIssue reads a CountryOfIssue from Advertisement.
+func (m Advertisement) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for Advertisement.
-func (m Advertisement) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	var f field.StateOrProvinceOfIssue
-	err := m.Body.Get(&f)
+func (m Advertisement) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
+	f := new(field.StateOrProvinceOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from Advertisement.
+func (m Advertisement) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for Advertisement.
-func (m Advertisement) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
-	var f field.LocaleOfIssue
-	err := m.Body.Get(&f)
+func (m Advertisement) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
+	f := new(field.LocaleOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetLocaleOfIssue reads a LocaleOfIssue from Advertisement.
+func (m Advertisement) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for Advertisement.
-func (m Advertisement) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
-	var f field.RedemptionDate
-	err := m.Body.Get(&f)
+func (m Advertisement) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
+	f := new(field.RedemptionDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRedemptionDate reads a RedemptionDate from Advertisement.
+func (m Advertisement) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for Advertisement.
-func (m Advertisement) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
-	var f field.StrikePrice
-	err := m.Body.Get(&f)
+func (m Advertisement) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikePrice reads a StrikePrice from Advertisement.
+func (m Advertisement) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for Advertisement.
-func (m Advertisement) StrikeCurrency() (field.StrikeCurrency, errors.MessageRejectError) {
-	var f field.StrikeCurrency
-	err := m.Body.Get(&f)
+func (m Advertisement) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
+	f := new(field.StrikeCurrency)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikeCurrency reads a StrikeCurrency from Advertisement.
+func (m Advertisement) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for Advertisement.
-func (m Advertisement) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
-	var f field.OptAttribute
-	err := m.Body.Get(&f)
+func (m Advertisement) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOptAttribute reads a OptAttribute from Advertisement.
+func (m Advertisement) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for Advertisement.
-func (m Advertisement) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
-	var f field.ContractMultiplier
-	err := m.Body.Get(&f)
+func (m Advertisement) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
+	f := new(field.ContractMultiplier)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetContractMultiplier reads a ContractMultiplier from Advertisement.
+func (m Advertisement) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for Advertisement.
-func (m Advertisement) CouponRate() (field.CouponRate, errors.MessageRejectError) {
-	var f field.CouponRate
-	err := m.Body.Get(&f)
+func (m Advertisement) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
+	f := new(field.CouponRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCouponRate reads a CouponRate from Advertisement.
+func (m Advertisement) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for Advertisement.
-func (m Advertisement) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
-	var f field.SecurityExchange
-	err := m.Body.Get(&f)
+func (m Advertisement) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityExchange reads a SecurityExchange from Advertisement.
+func (m Advertisement) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for Advertisement.
-func (m Advertisement) Issuer() (field.Issuer, errors.MessageRejectError) {
-	var f field.Issuer
-	err := m.Body.Get(&f)
+func (m Advertisement) Issuer() (*field.Issuer, errors.MessageRejectError) {
+	f := new(field.Issuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIssuer reads a Issuer from Advertisement.
+func (m Advertisement) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for Advertisement.
-func (m Advertisement) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
-	var f field.EncodedIssuerLen
-	err := m.Body.Get(&f)
+func (m Advertisement) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
+	f := new(field.EncodedIssuerLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedIssuerLen reads a EncodedIssuerLen from Advertisement.
+func (m Advertisement) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for Advertisement.
-func (m Advertisement) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
-	var f field.EncodedIssuer
-	err := m.Body.Get(&f)
+func (m Advertisement) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
+	f := new(field.EncodedIssuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedIssuer reads a EncodedIssuer from Advertisement.
+func (m Advertisement) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for Advertisement.
-func (m Advertisement) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
-	var f field.SecurityDesc
-	err := m.Body.Get(&f)
+func (m Advertisement) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityDesc reads a SecurityDesc from Advertisement.
+func (m Advertisement) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for Advertisement.
-func (m Advertisement) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	var f field.EncodedSecurityDescLen
-	err := m.Body.Get(&f)
+func (m Advertisement) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
+	f := new(field.EncodedSecurityDescLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from Advertisement.
+func (m Advertisement) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for Advertisement.
-func (m Advertisement) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
-	var f field.EncodedSecurityDesc
-	err := m.Body.Get(&f)
+func (m Advertisement) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
+	f := new(field.EncodedSecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedSecurityDesc reads a EncodedSecurityDesc from Advertisement.
+func (m Advertisement) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for Advertisement.
-func (m Advertisement) Pool() (field.Pool, errors.MessageRejectError) {
-	var f field.Pool
-	err := m.Body.Get(&f)
+func (m Advertisement) Pool() (*field.Pool, errors.MessageRejectError) {
+	f := new(field.Pool)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPool reads a Pool from Advertisement.
+func (m Advertisement) GetPool(f *field.Pool) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for Advertisement.
-func (m Advertisement) ContractSettlMonth() (field.ContractSettlMonth, errors.MessageRejectError) {
-	var f field.ContractSettlMonth
-	err := m.Body.Get(&f)
+func (m Advertisement) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
+	f := new(field.ContractSettlMonth)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetContractSettlMonth reads a ContractSettlMonth from Advertisement.
+func (m Advertisement) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for Advertisement.
-func (m Advertisement) CPProgram() (field.CPProgram, errors.MessageRejectError) {
-	var f field.CPProgram
-	err := m.Body.Get(&f)
+func (m Advertisement) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
+	f := new(field.CPProgram)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCPProgram reads a CPProgram from Advertisement.
+func (m Advertisement) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for Advertisement.
-func (m Advertisement) CPRegType() (field.CPRegType, errors.MessageRejectError) {
-	var f field.CPRegType
-	err := m.Body.Get(&f)
+func (m Advertisement) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
+	f := new(field.CPRegType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCPRegType reads a CPRegType from Advertisement.
+func (m Advertisement) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for Advertisement.
-func (m Advertisement) NoEvents() (field.NoEvents, errors.MessageRejectError) {
-	var f field.NoEvents
-	err := m.Body.Get(&f)
+func (m Advertisement) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
+	f := new(field.NoEvents)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoEvents reads a NoEvents from Advertisement.
+func (m Advertisement) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for Advertisement.
-func (m Advertisement) DatedDate() (field.DatedDate, errors.MessageRejectError) {
-	var f field.DatedDate
-	err := m.Body.Get(&f)
+func (m Advertisement) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
+	f := new(field.DatedDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDatedDate reads a DatedDate from Advertisement.
+func (m Advertisement) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for Advertisement.
-func (m Advertisement) InterestAccrualDate() (field.InterestAccrualDate, errors.MessageRejectError) {
-	var f field.InterestAccrualDate
-	err := m.Body.Get(&f)
+func (m Advertisement) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
+	f := new(field.InterestAccrualDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetInterestAccrualDate reads a InterestAccrualDate from Advertisement.
+func (m Advertisement) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoLegs is a non-required field for Advertisement.
-func (m Advertisement) NoLegs() (field.NoLegs, errors.MessageRejectError) {
-	var f field.NoLegs
-	err := m.Body.Get(&f)
+func (m Advertisement) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
+	f := new(field.NoLegs)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoLegs reads a NoLegs from Advertisement.
+func (m Advertisement) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for Advertisement.
-func (m Advertisement) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
-	var f field.NoUnderlyings
-	err := m.Body.Get(&f)
+func (m Advertisement) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
+	f := new(field.NoUnderlyings)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoUnderlyings reads a NoUnderlyings from Advertisement.
+func (m Advertisement) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //AdvSide is a required field for Advertisement.
-func (m Advertisement) AdvSide() (field.AdvSide, errors.MessageRejectError) {
-	var f field.AdvSide
-	err := m.Body.Get(&f)
+func (m Advertisement) AdvSide() (*field.AdvSide, errors.MessageRejectError) {
+	f := new(field.AdvSide)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAdvSide reads a AdvSide from Advertisement.
+func (m Advertisement) GetAdvSide(f *field.AdvSide) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Quantity is a required field for Advertisement.
-func (m Advertisement) Quantity() (field.Quantity, errors.MessageRejectError) {
-	var f field.Quantity
-	err := m.Body.Get(&f)
+func (m Advertisement) Quantity() (*field.Quantity, errors.MessageRejectError) {
+	f := new(field.Quantity)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetQuantity reads a Quantity from Advertisement.
+func (m Advertisement) GetQuantity(f *field.Quantity) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //QtyType is a non-required field for Advertisement.
-func (m Advertisement) QtyType() (field.QtyType, errors.MessageRejectError) {
-	var f field.QtyType
-	err := m.Body.Get(&f)
+func (m Advertisement) QtyType() (*field.QtyType, errors.MessageRejectError) {
+	f := new(field.QtyType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetQtyType reads a QtyType from Advertisement.
+func (m Advertisement) GetQtyType(f *field.QtyType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Price is a non-required field for Advertisement.
-func (m Advertisement) Price() (field.Price, errors.MessageRejectError) {
-	var f field.Price
-	err := m.Body.Get(&f)
+func (m Advertisement) Price() (*field.Price, errors.MessageRejectError) {
+	f := new(field.Price)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPrice reads a Price from Advertisement.
+func (m Advertisement) GetPrice(f *field.Price) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for Advertisement.
-func (m Advertisement) Currency() (field.Currency, errors.MessageRejectError) {
-	var f field.Currency
-	err := m.Body.Get(&f)
+func (m Advertisement) Currency() (*field.Currency, errors.MessageRejectError) {
+	f := new(field.Currency)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCurrency reads a Currency from Advertisement.
+func (m Advertisement) GetCurrency(f *field.Currency) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TradeDate is a non-required field for Advertisement.
-func (m Advertisement) TradeDate() (field.TradeDate, errors.MessageRejectError) {
-	var f field.TradeDate
-	err := m.Body.Get(&f)
+func (m Advertisement) TradeDate() (*field.TradeDate, errors.MessageRejectError) {
+	f := new(field.TradeDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTradeDate reads a TradeDate from Advertisement.
+func (m Advertisement) GetTradeDate(f *field.TradeDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TransactTime is a non-required field for Advertisement.
-func (m Advertisement) TransactTime() (field.TransactTime, errors.MessageRejectError) {
-	var f field.TransactTime
-	err := m.Body.Get(&f)
+func (m Advertisement) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTransactTime reads a TransactTime from Advertisement.
+func (m Advertisement) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for Advertisement.
-func (m Advertisement) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m Advertisement) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from Advertisement.
+func (m Advertisement) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for Advertisement.
-func (m Advertisement) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m Advertisement) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedTextLen reads a EncodedTextLen from Advertisement.
+func (m Advertisement) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for Advertisement.
-func (m Advertisement) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m Advertisement) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from Advertisement.
+func (m Advertisement) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //URLLink is a non-required field for Advertisement.
-func (m Advertisement) URLLink() (field.URLLink, errors.MessageRejectError) {
-	var f field.URLLink
-	err := m.Body.Get(&f)
+func (m Advertisement) URLLink() (*field.URLLink, errors.MessageRejectError) {
+	f := new(field.URLLink)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetURLLink reads a URLLink from Advertisement.
+func (m Advertisement) GetURLLink(f *field.URLLink) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //LastMkt is a non-required field for Advertisement.
-func (m Advertisement) LastMkt() (field.LastMkt, errors.MessageRejectError) {
-	var f field.LastMkt
-	err := m.Body.Get(&f)
+func (m Advertisement) LastMkt() (*field.LastMkt, errors.MessageRejectError) {
+	f := new(field.LastMkt)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetLastMkt reads a LastMkt from Advertisement.
+func (m Advertisement) GetLastMkt(f *field.LastMkt) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TradingSessionID is a non-required field for Advertisement.
-func (m Advertisement) TradingSessionID() (field.TradingSessionID, errors.MessageRejectError) {
-	var f field.TradingSessionID
-	err := m.Body.Get(&f)
+func (m Advertisement) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
+	f := new(field.TradingSessionID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetTradingSessionID reads a TradingSessionID from Advertisement.
+func (m Advertisement) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //TradingSessionSubID is a non-required field for Advertisement.
-func (m Advertisement) TradingSessionSubID() (field.TradingSessionSubID, errors.MessageRejectError) {
-	var f field.TradingSessionSubID
-	err := m.Body.Get(&f)
+func (m Advertisement) TradingSessionSubID() (*field.TradingSessionSubID, errors.MessageRejectError) {
+	f := new(field.TradingSessionSubID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTradingSessionSubID reads a TradingSessionSubID from Advertisement.
+func (m Advertisement) GetTradingSessionSubID(f *field.TradingSessionSubID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

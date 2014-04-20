@@ -28,50 +28,85 @@ func CreateOrderCancelRejectBuilder(
 }
 
 //OrderID is a required field for OrderCancelReject.
-func (m OrderCancelReject) OrderID() (field.OrderID, errors.MessageRejectError) {
-	var f field.OrderID
-	err := m.Body.Get(&f)
+func (m OrderCancelReject) OrderID() (*field.OrderID, errors.MessageRejectError) {
+	f := new(field.OrderID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOrderID reads a OrderID from OrderCancelReject.
+func (m OrderCancelReject) GetOrderID(f *field.OrderID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClOrdID is a required field for OrderCancelReject.
-func (m OrderCancelReject) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
-	var f field.ClOrdID
-	err := m.Body.Get(&f)
+func (m OrderCancelReject) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetClOrdID reads a ClOrdID from OrderCancelReject.
+func (m OrderCancelReject) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClientID is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) ClientID() (field.ClientID, errors.MessageRejectError) {
-	var f field.ClientID
-	err := m.Body.Get(&f)
+func (m OrderCancelReject) ClientID() (*field.ClientID, errors.MessageRejectError) {
+	f := new(field.ClientID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetClientID reads a ClientID from OrderCancelReject.
+func (m OrderCancelReject) GetClientID(f *field.ClientID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ExecBroker is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) ExecBroker() (field.ExecBroker, errors.MessageRejectError) {
-	var f field.ExecBroker
-	err := m.Body.Get(&f)
+func (m OrderCancelReject) ExecBroker() (*field.ExecBroker, errors.MessageRejectError) {
+	f := new(field.ExecBroker)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetExecBroker reads a ExecBroker from OrderCancelReject.
+func (m OrderCancelReject) GetExecBroker(f *field.ExecBroker) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ListID is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) ListID() (field.ListID, errors.MessageRejectError) {
-	var f field.ListID
-	err := m.Body.Get(&f)
+func (m OrderCancelReject) ListID() (*field.ListID, errors.MessageRejectError) {
+	f := new(field.ListID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetListID reads a ListID from OrderCancelReject.
+func (m OrderCancelReject) GetListID(f *field.ListID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CxlRejReason is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) CxlRejReason() (field.CxlRejReason, errors.MessageRejectError) {
-	var f field.CxlRejReason
-	err := m.Body.Get(&f)
+func (m OrderCancelReject) CxlRejReason() (*field.CxlRejReason, errors.MessageRejectError) {
+	f := new(field.CxlRejReason)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetCxlRejReason reads a CxlRejReason from OrderCancelReject.
+func (m OrderCancelReject) GetCxlRejReason(f *field.CxlRejReason) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //Text is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m OrderCancelReject) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from OrderCancelReject.
+func (m OrderCancelReject) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

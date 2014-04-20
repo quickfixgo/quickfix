@@ -28,15 +28,25 @@ func CreateResendRequestBuilder(
 }
 
 //BeginSeqNo is a required field for ResendRequest.
-func (m ResendRequest) BeginSeqNo() (field.BeginSeqNo, errors.MessageRejectError) {
-	var f field.BeginSeqNo
-	err := m.Body.Get(&f)
+func (m ResendRequest) BeginSeqNo() (*field.BeginSeqNo, errors.MessageRejectError) {
+	f := new(field.BeginSeqNo)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetBeginSeqNo reads a BeginSeqNo from ResendRequest.
+func (m ResendRequest) GetBeginSeqNo(f *field.BeginSeqNo) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //EndSeqNo is a required field for ResendRequest.
-func (m ResendRequest) EndSeqNo() (field.EndSeqNo, errors.MessageRejectError) {
-	var f field.EndSeqNo
-	err := m.Body.Get(&f)
+func (m ResendRequest) EndSeqNo() (*field.EndSeqNo, errors.MessageRejectError) {
+	f := new(field.EndSeqNo)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEndSeqNo reads a EndSeqNo from ResendRequest.
+func (m ResendRequest) GetEndSeqNo(f *field.EndSeqNo) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

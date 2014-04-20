@@ -28,15 +28,25 @@ func CreateQuoteRequestBuilder(
 }
 
 //QuoteReqID is a required field for QuoteRequest.
-func (m QuoteRequest) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
-	var f field.QuoteReqID
-	err := m.Body.Get(&f)
+func (m QuoteRequest) QuoteReqID() (*field.QuoteReqID, errors.MessageRejectError) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetQuoteReqID reads a QuoteReqID from QuoteRequest.
+func (m QuoteRequest) GetQuoteReqID(f *field.QuoteReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //NoRelatedSym is a required field for QuoteRequest.
-func (m QuoteRequest) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
-	var f field.NoRelatedSym
-	err := m.Body.Get(&f)
+func (m QuoteRequest) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoRelatedSym reads a NoRelatedSym from QuoteRequest.
+func (m QuoteRequest) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

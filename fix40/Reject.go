@@ -26,15 +26,25 @@ func CreateRejectBuilder(
 }
 
 //RefSeqNum is a required field for Reject.
-func (m Reject) RefSeqNum() (field.RefSeqNum, errors.MessageRejectError) {
-	var f field.RefSeqNum
-	err := m.Body.Get(&f)
+func (m Reject) RefSeqNum() (*field.RefSeqNum, errors.MessageRejectError) {
+	f := new(field.RefSeqNum)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetRefSeqNum reads a RefSeqNum from Reject.
+func (m Reject) GetRefSeqNum(f *field.RefSeqNum) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //Text is a non-required field for Reject.
-func (m Reject) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m Reject) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from Reject.
+func (m Reject) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

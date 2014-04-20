@@ -28,204 +28,349 @@ func CreateQuoteBuilder(
 }
 
 //QuoteReqID is a non-required field for Quote.
-func (m Quote) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
-	var f field.QuoteReqID
-	err := m.Body.Get(&f)
+func (m Quote) QuoteReqID() (*field.QuoteReqID, errors.MessageRejectError) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetQuoteReqID reads a QuoteReqID from Quote.
+func (m Quote) GetQuoteReqID(f *field.QuoteReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //QuoteID is a required field for Quote.
-func (m Quote) QuoteID() (field.QuoteID, errors.MessageRejectError) {
-	var f field.QuoteID
-	err := m.Body.Get(&f)
+func (m Quote) QuoteID() (*field.QuoteID, errors.MessageRejectError) {
+	f := new(field.QuoteID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetQuoteID reads a QuoteID from Quote.
+func (m Quote) GetQuoteID(f *field.QuoteID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Symbol is a required field for Quote.
-func (m Quote) Symbol() (field.Symbol, errors.MessageRejectError) {
-	var f field.Symbol
-	err := m.Body.Get(&f)
+func (m Quote) Symbol() (*field.Symbol, errors.MessageRejectError) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbol reads a Symbol from Quote.
+func (m Quote) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for Quote.
-func (m Quote) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
-	var f field.SymbolSfx
-	err := m.Body.Get(&f)
+func (m Quote) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbolSfx reads a SymbolSfx from Quote.
+func (m Quote) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for Quote.
-func (m Quote) SecurityID() (field.SecurityID, errors.MessageRejectError) {
-	var f field.SecurityID
-	err := m.Body.Get(&f)
+func (m Quote) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityID reads a SecurityID from Quote.
+func (m Quote) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IDSource is a non-required field for Quote.
-func (m Quote) IDSource() (field.IDSource, errors.MessageRejectError) {
-	var f field.IDSource
-	err := m.Body.Get(&f)
+func (m Quote) IDSource() (*field.IDSource, errors.MessageRejectError) {
+	f := new(field.IDSource)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIDSource reads a IDSource from Quote.
+func (m Quote) GetIDSource(f *field.IDSource) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for Quote.
-func (m Quote) SecurityType() (field.SecurityType, errors.MessageRejectError) {
-	var f field.SecurityType
-	err := m.Body.Get(&f)
+func (m Quote) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityType reads a SecurityType from Quote.
+func (m Quote) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for Quote.
-func (m Quote) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
-	var f field.MaturityMonthYear
-	err := m.Body.Get(&f)
+func (m Quote) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
+	f := new(field.MaturityMonthYear)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityMonthYear reads a MaturityMonthYear from Quote.
+func (m Quote) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityDay is a non-required field for Quote.
-func (m Quote) MaturityDay() (field.MaturityDay, errors.MessageRejectError) {
-	var f field.MaturityDay
-	err := m.Body.Get(&f)
+func (m Quote) MaturityDay() (*field.MaturityDay, errors.MessageRejectError) {
+	f := new(field.MaturityDay)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityDay reads a MaturityDay from Quote.
+func (m Quote) GetMaturityDay(f *field.MaturityDay) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for Quote.
-func (m Quote) PutOrCall() (field.PutOrCall, errors.MessageRejectError) {
-	var f field.PutOrCall
-	err := m.Body.Get(&f)
+func (m Quote) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
+	f := new(field.PutOrCall)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPutOrCall reads a PutOrCall from Quote.
+func (m Quote) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for Quote.
-func (m Quote) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
-	var f field.StrikePrice
-	err := m.Body.Get(&f)
+func (m Quote) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikePrice reads a StrikePrice from Quote.
+func (m Quote) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for Quote.
-func (m Quote) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
-	var f field.OptAttribute
-	err := m.Body.Get(&f)
+func (m Quote) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOptAttribute reads a OptAttribute from Quote.
+func (m Quote) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for Quote.
-func (m Quote) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
-	var f field.SecurityExchange
-	err := m.Body.Get(&f)
+func (m Quote) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityExchange reads a SecurityExchange from Quote.
+func (m Quote) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for Quote.
-func (m Quote) Issuer() (field.Issuer, errors.MessageRejectError) {
-	var f field.Issuer
-	err := m.Body.Get(&f)
+func (m Quote) Issuer() (*field.Issuer, errors.MessageRejectError) {
+	f := new(field.Issuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIssuer reads a Issuer from Quote.
+func (m Quote) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for Quote.
-func (m Quote) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
-	var f field.SecurityDesc
-	err := m.Body.Get(&f)
+func (m Quote) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityDesc reads a SecurityDesc from Quote.
+func (m Quote) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BidPx is a non-required field for Quote.
-func (m Quote) BidPx() (field.BidPx, errors.MessageRejectError) {
-	var f field.BidPx
-	err := m.Body.Get(&f)
+func (m Quote) BidPx() (*field.BidPx, errors.MessageRejectError) {
+	f := new(field.BidPx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBidPx reads a BidPx from Quote.
+func (m Quote) GetBidPx(f *field.BidPx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OfferPx is a non-required field for Quote.
-func (m Quote) OfferPx() (field.OfferPx, errors.MessageRejectError) {
-	var f field.OfferPx
-	err := m.Body.Get(&f)
+func (m Quote) OfferPx() (*field.OfferPx, errors.MessageRejectError) {
+	f := new(field.OfferPx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOfferPx reads a OfferPx from Quote.
+func (m Quote) GetOfferPx(f *field.OfferPx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BidSize is a non-required field for Quote.
-func (m Quote) BidSize() (field.BidSize, errors.MessageRejectError) {
-	var f field.BidSize
-	err := m.Body.Get(&f)
+func (m Quote) BidSize() (*field.BidSize, errors.MessageRejectError) {
+	f := new(field.BidSize)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBidSize reads a BidSize from Quote.
+func (m Quote) GetBidSize(f *field.BidSize) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OfferSize is a non-required field for Quote.
-func (m Quote) OfferSize() (field.OfferSize, errors.MessageRejectError) {
-	var f field.OfferSize
-	err := m.Body.Get(&f)
+func (m Quote) OfferSize() (*field.OfferSize, errors.MessageRejectError) {
+	f := new(field.OfferSize)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOfferSize reads a OfferSize from Quote.
+func (m Quote) GetOfferSize(f *field.OfferSize) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ValidUntilTime is a non-required field for Quote.
-func (m Quote) ValidUntilTime() (field.ValidUntilTime, errors.MessageRejectError) {
-	var f field.ValidUntilTime
-	err := m.Body.Get(&f)
+func (m Quote) ValidUntilTime() (*field.ValidUntilTime, errors.MessageRejectError) {
+	f := new(field.ValidUntilTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetValidUntilTime reads a ValidUntilTime from Quote.
+func (m Quote) GetValidUntilTime(f *field.ValidUntilTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BidSpotRate is a non-required field for Quote.
-func (m Quote) BidSpotRate() (field.BidSpotRate, errors.MessageRejectError) {
-	var f field.BidSpotRate
-	err := m.Body.Get(&f)
+func (m Quote) BidSpotRate() (*field.BidSpotRate, errors.MessageRejectError) {
+	f := new(field.BidSpotRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBidSpotRate reads a BidSpotRate from Quote.
+func (m Quote) GetBidSpotRate(f *field.BidSpotRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OfferSpotRate is a non-required field for Quote.
-func (m Quote) OfferSpotRate() (field.OfferSpotRate, errors.MessageRejectError) {
-	var f field.OfferSpotRate
-	err := m.Body.Get(&f)
+func (m Quote) OfferSpotRate() (*field.OfferSpotRate, errors.MessageRejectError) {
+	f := new(field.OfferSpotRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOfferSpotRate reads a OfferSpotRate from Quote.
+func (m Quote) GetOfferSpotRate(f *field.OfferSpotRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BidForwardPoints is a non-required field for Quote.
-func (m Quote) BidForwardPoints() (field.BidForwardPoints, errors.MessageRejectError) {
-	var f field.BidForwardPoints
-	err := m.Body.Get(&f)
+func (m Quote) BidForwardPoints() (*field.BidForwardPoints, errors.MessageRejectError) {
+	f := new(field.BidForwardPoints)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBidForwardPoints reads a BidForwardPoints from Quote.
+func (m Quote) GetBidForwardPoints(f *field.BidForwardPoints) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OfferForwardPoints is a non-required field for Quote.
-func (m Quote) OfferForwardPoints() (field.OfferForwardPoints, errors.MessageRejectError) {
-	var f field.OfferForwardPoints
-	err := m.Body.Get(&f)
+func (m Quote) OfferForwardPoints() (*field.OfferForwardPoints, errors.MessageRejectError) {
+	f := new(field.OfferForwardPoints)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOfferForwardPoints reads a OfferForwardPoints from Quote.
+func (m Quote) GetOfferForwardPoints(f *field.OfferForwardPoints) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TransactTime is a non-required field for Quote.
-func (m Quote) TransactTime() (field.TransactTime, errors.MessageRejectError) {
-	var f field.TransactTime
-	err := m.Body.Get(&f)
+func (m Quote) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTransactTime reads a TransactTime from Quote.
+func (m Quote) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //FutSettDate is a non-required field for Quote.
-func (m Quote) FutSettDate() (field.FutSettDate, errors.MessageRejectError) {
-	var f field.FutSettDate
-	err := m.Body.Get(&f)
+func (m Quote) FutSettDate() (*field.FutSettDate, errors.MessageRejectError) {
+	f := new(field.FutSettDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetFutSettDate reads a FutSettDate from Quote.
+func (m Quote) GetFutSettDate(f *field.FutSettDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OrdType is a non-required field for Quote.
-func (m Quote) OrdType() (field.OrdType, errors.MessageRejectError) {
-	var f field.OrdType
-	err := m.Body.Get(&f)
+func (m Quote) OrdType() (*field.OrdType, errors.MessageRejectError) {
+	f := new(field.OrdType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOrdType reads a OrdType from Quote.
+func (m Quote) GetOrdType(f *field.OrdType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //FutSettDate2 is a non-required field for Quote.
-func (m Quote) FutSettDate2() (field.FutSettDate2, errors.MessageRejectError) {
-	var f field.FutSettDate2
-	err := m.Body.Get(&f)
+func (m Quote) FutSettDate2() (*field.FutSettDate2, errors.MessageRejectError) {
+	f := new(field.FutSettDate2)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetFutSettDate2 reads a FutSettDate2 from Quote.
+func (m Quote) GetFutSettDate2(f *field.FutSettDate2) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //OrderQty2 is a non-required field for Quote.
-func (m Quote) OrderQty2() (field.OrderQty2, errors.MessageRejectError) {
-	var f field.OrderQty2
-	err := m.Body.Get(&f)
+func (m Quote) OrderQty2() (*field.OrderQty2, errors.MessageRejectError) {
+	f := new(field.OrderQty2)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOrderQty2 reads a OrderQty2 from Quote.
+func (m Quote) GetOrderQty2(f *field.OrderQty2) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

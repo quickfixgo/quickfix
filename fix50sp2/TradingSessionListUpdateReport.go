@@ -26,43 +26,73 @@ func CreateTradingSessionListUpdateReportBuilder(
 }
 
 //TradSesReqID is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) TradSesReqID() (field.TradSesReqID, errors.MessageRejectError) {
-	var f field.TradSesReqID
-	err := m.Body.Get(&f)
+func (m TradingSessionListUpdateReport) TradSesReqID() (*field.TradSesReqID, errors.MessageRejectError) {
+	f := new(field.TradSesReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTradSesReqID reads a TradSesReqID from TradingSessionListUpdateReport.
+func (m TradingSessionListUpdateReport) GetTradSesReqID(f *field.TradSesReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoTradingSessions is a required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
-	var f field.NoTradingSessions
-	err := m.Body.Get(&f)
+func (m TradingSessionListUpdateReport) NoTradingSessions() (*field.NoTradingSessions, errors.MessageRejectError) {
+	f := new(field.NoTradingSessions)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoTradingSessions reads a NoTradingSessions from TradingSessionListUpdateReport.
+func (m TradingSessionListUpdateReport) GetNoTradingSessions(f *field.NoTradingSessions) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ApplID is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) ApplID() (field.ApplID, errors.MessageRejectError) {
-	var f field.ApplID
-	err := m.Body.Get(&f)
+func (m TradingSessionListUpdateReport) ApplID() (*field.ApplID, errors.MessageRejectError) {
+	f := new(field.ApplID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetApplID reads a ApplID from TradingSessionListUpdateReport.
+func (m TradingSessionListUpdateReport) GetApplID(f *field.ApplID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ApplSeqNum is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) ApplSeqNum() (field.ApplSeqNum, errors.MessageRejectError) {
-	var f field.ApplSeqNum
-	err := m.Body.Get(&f)
+func (m TradingSessionListUpdateReport) ApplSeqNum() (*field.ApplSeqNum, errors.MessageRejectError) {
+	f := new(field.ApplSeqNum)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetApplSeqNum reads a ApplSeqNum from TradingSessionListUpdateReport.
+func (m TradingSessionListUpdateReport) GetApplSeqNum(f *field.ApplSeqNum) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ApplLastSeqNum is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) ApplLastSeqNum() (field.ApplLastSeqNum, errors.MessageRejectError) {
-	var f field.ApplLastSeqNum
-	err := m.Body.Get(&f)
+func (m TradingSessionListUpdateReport) ApplLastSeqNum() (*field.ApplLastSeqNum, errors.MessageRejectError) {
+	f := new(field.ApplLastSeqNum)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetApplLastSeqNum reads a ApplLastSeqNum from TradingSessionListUpdateReport.
+func (m TradingSessionListUpdateReport) GetApplLastSeqNum(f *field.ApplLastSeqNum) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //ApplResendFlag is a non-required field for TradingSessionListUpdateReport.
-func (m TradingSessionListUpdateReport) ApplResendFlag() (field.ApplResendFlag, errors.MessageRejectError) {
-	var f field.ApplResendFlag
-	err := m.Body.Get(&f)
+func (m TradingSessionListUpdateReport) ApplResendFlag() (*field.ApplResendFlag, errors.MessageRejectError) {
+	f := new(field.ApplResendFlag)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetApplResendFlag reads a ApplResendFlag from TradingSessionListUpdateReport.
+func (m TradingSessionListUpdateReport) GetApplResendFlag(f *field.ApplResendFlag) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

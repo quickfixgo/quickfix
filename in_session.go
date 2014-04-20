@@ -93,7 +93,7 @@ func (state inSession) handleSequenceReset(session *session, msg message.Message
 			session.expectedSeqNum = newSeqNo.Value
 		case newSeqNo.Value < session.expectedSeqNum:
 			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
-			session.doReject(msg, errors.ValueIsIncorrect(nil))
+			session.doReject(msg, errors.ValueIsIncorrectNoTag())
 		}
 	}
 

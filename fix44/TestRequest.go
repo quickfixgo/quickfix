@@ -26,8 +26,13 @@ func CreateTestRequestBuilder(
 }
 
 //TestReqID is a required field for TestRequest.
-func (m TestRequest) TestReqID() (field.TestReqID, errors.MessageRejectError) {
-	var f field.TestReqID
-	err := m.Body.Get(&f)
+func (m TestRequest) TestReqID() (*field.TestReqID, errors.MessageRejectError) {
+	f := new(field.TestReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTestReqID reads a TestReqID from TestRequest.
+func (m TestRequest) GetTestReqID(f *field.TestReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

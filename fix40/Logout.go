@@ -24,8 +24,13 @@ func CreateLogoutBuilder() LogoutBuilder {
 }
 
 //Text is a non-required field for Logout.
-func (m Logout) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m Logout) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from Logout.
+func (m Logout) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -26,36 +26,61 @@ func CreateUserNotificationBuilder(
 }
 
 //Username is a non-required field for UserNotification.
-func (m UserNotification) Username() (field.Username, errors.MessageRejectError) {
-	var f field.Username
-	err := m.Body.Get(&f)
+func (m UserNotification) Username() (*field.Username, errors.MessageRejectError) {
+	f := new(field.Username)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetUsername reads a Username from UserNotification.
+func (m UserNotification) GetUsername(f *field.Username) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //UserStatus is a required field for UserNotification.
-func (m UserNotification) UserStatus() (field.UserStatus, errors.MessageRejectError) {
-	var f field.UserStatus
-	err := m.Body.Get(&f)
+func (m UserNotification) UserStatus() (*field.UserStatus, errors.MessageRejectError) {
+	f := new(field.UserStatus)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetUserStatus reads a UserStatus from UserNotification.
+func (m UserNotification) GetUserStatus(f *field.UserStatus) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for UserNotification.
-func (m UserNotification) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m UserNotification) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from UserNotification.
+func (m UserNotification) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for UserNotification.
-func (m UserNotification) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m UserNotification) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetEncodedTextLen reads a EncodedTextLen from UserNotification.
+func (m UserNotification) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //EncodedText is a non-required field for UserNotification.
-func (m UserNotification) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m UserNotification) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from UserNotification.
+func (m UserNotification) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -30,71 +30,121 @@ func CreateSettlementInstructionsBuilder(
 }
 
 //SettlInstMsgID is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstMsgID() (field.SettlInstMsgID, errors.MessageRejectError) {
-	var f field.SettlInstMsgID
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) SettlInstMsgID() (*field.SettlInstMsgID, errors.MessageRejectError) {
+	f := new(field.SettlInstMsgID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettlInstMsgID reads a SettlInstMsgID from SettlementInstructions.
+func (m SettlementInstructions) GetSettlInstMsgID(f *field.SettlInstMsgID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SettlInstReqID is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstReqID() (field.SettlInstReqID, errors.MessageRejectError) {
-	var f field.SettlInstReqID
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) SettlInstReqID() (*field.SettlInstReqID, errors.MessageRejectError) {
+	f := new(field.SettlInstReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettlInstReqID reads a SettlInstReqID from SettlementInstructions.
+func (m SettlementInstructions) GetSettlInstReqID(f *field.SettlInstReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SettlInstMode is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstMode() (field.SettlInstMode, errors.MessageRejectError) {
-	var f field.SettlInstMode
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) SettlInstMode() (*field.SettlInstMode, errors.MessageRejectError) {
+	f := new(field.SettlInstMode)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettlInstMode reads a SettlInstMode from SettlementInstructions.
+func (m SettlementInstructions) GetSettlInstMode(f *field.SettlInstMode) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SettlInstReqRejCode is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstReqRejCode() (field.SettlInstReqRejCode, errors.MessageRejectError) {
-	var f field.SettlInstReqRejCode
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) SettlInstReqRejCode() (*field.SettlInstReqRejCode, errors.MessageRejectError) {
+	f := new(field.SettlInstReqRejCode)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettlInstReqRejCode reads a SettlInstReqRejCode from SettlementInstructions.
+func (m SettlementInstructions) GetSettlInstReqRejCode(f *field.SettlInstReqRejCode) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from SettlementInstructions.
+func (m SettlementInstructions) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedTextLen reads a EncodedTextLen from SettlementInstructions.
+func (m SettlementInstructions) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from SettlementInstructions.
+func (m SettlementInstructions) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClOrdID is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
-	var f field.ClOrdID
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetClOrdID reads a ClOrdID from SettlementInstructions.
+func (m SettlementInstructions) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for SettlementInstructions.
-func (m SettlementInstructions) TransactTime() (field.TransactTime, errors.MessageRejectError) {
-	var f field.TransactTime
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetTransactTime reads a TransactTime from SettlementInstructions.
+func (m SettlementInstructions) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //NoSettlInst is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) NoSettlInst() (field.NoSettlInst, errors.MessageRejectError) {
-	var f field.NoSettlInst
-	err := m.Body.Get(&f)
+func (m SettlementInstructions) NoSettlInst() (*field.NoSettlInst, errors.MessageRejectError) {
+	f := new(field.NoSettlInst)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoSettlInst reads a NoSettlInst from SettlementInstructions.
+func (m SettlementInstructions) GetNoSettlInst(f *field.NoSettlInst) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -28,22 +28,37 @@ func CreateNetworkCounterpartySystemStatusRequestBuilder(
 }
 
 //NetworkRequestType is a required field for NetworkCounterpartySystemStatusRequest.
-func (m NetworkCounterpartySystemStatusRequest) NetworkRequestType() (field.NetworkRequestType, errors.MessageRejectError) {
-	var f field.NetworkRequestType
-	err := m.Body.Get(&f)
+func (m NetworkCounterpartySystemStatusRequest) NetworkRequestType() (*field.NetworkRequestType, errors.MessageRejectError) {
+	f := new(field.NetworkRequestType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNetworkRequestType reads a NetworkRequestType from NetworkCounterpartySystemStatusRequest.
+func (m NetworkCounterpartySystemStatusRequest) GetNetworkRequestType(f *field.NetworkRequestType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NetworkRequestID is a required field for NetworkCounterpartySystemStatusRequest.
-func (m NetworkCounterpartySystemStatusRequest) NetworkRequestID() (field.NetworkRequestID, errors.MessageRejectError) {
-	var f field.NetworkRequestID
-	err := m.Body.Get(&f)
+func (m NetworkCounterpartySystemStatusRequest) NetworkRequestID() (*field.NetworkRequestID, errors.MessageRejectError) {
+	f := new(field.NetworkRequestID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetNetworkRequestID reads a NetworkRequestID from NetworkCounterpartySystemStatusRequest.
+func (m NetworkCounterpartySystemStatusRequest) GetNetworkRequestID(f *field.NetworkRequestID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //NoCompIDs is a non-required field for NetworkCounterpartySystemStatusRequest.
-func (m NetworkCounterpartySystemStatusRequest) NoCompIDs() (field.NoCompIDs, errors.MessageRejectError) {
-	var f field.NoCompIDs
-	err := m.Body.Get(&f)
+func (m NetworkCounterpartySystemStatusRequest) NoCompIDs() (*field.NoCompIDs, errors.MessageRejectError) {
+	f := new(field.NoCompIDs)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoCompIDs reads a NoCompIDs from NetworkCounterpartySystemStatusRequest.
+func (m NetworkCounterpartySystemStatusRequest) GetNoCompIDs(f *field.NoCompIDs) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

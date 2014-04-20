@@ -24,8 +24,13 @@ func CreateHeartbeatBuilder() HeartbeatBuilder {
 }
 
 //TestReqID is a non-required field for Heartbeat.
-func (m Heartbeat) TestReqID() (field.TestReqID, errors.MessageRejectError) {
-	var f field.TestReqID
-	err := m.Body.Get(&f)
+func (m Heartbeat) TestReqID() (*field.TestReqID, errors.MessageRejectError) {
+	f := new(field.TestReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTestReqID reads a TestReqID from Heartbeat.
+func (m Heartbeat) GetTestReqID(f *field.TestReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

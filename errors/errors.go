@@ -53,9 +53,14 @@ func IncorrectDataFormatForValue(tag fix.Tag) MessageRejectError {
 }
 
 //ValueIsIncorrect returns an error indicating a field with value that is not valid.
+func ValueIsIncorrect(tag fix.Tag) MessageRejectError {
+	return messageRejectError{text: "Value is incorrect (out of range) for this tag", rejectReason: RejectReasonValueIsIncorrect, refTagID: &tag}
+}
+
+//ValueIsIncorrectNoTag returns an error indicating a field with value that is not valid.
 //FIXME: to be compliant with legacy tests, for certain value issues, do not include reftag? (11c_NewSeqNoLess)
-func ValueIsIncorrect(tag *fix.Tag) MessageRejectError {
-	return messageRejectError{text: "Value is incorrect (out of range) for this tag", rejectReason: RejectReasonValueIsIncorrect, refTagID: tag}
+func ValueIsIncorrectNoTag() MessageRejectError {
+	return messageRejectError{text: "Value is incorrect (out of range) for this tag", rejectReason: RejectReasonValueIsIncorrect}
 }
 
 //InvalidMessageType returns an error to indicate an invalid message type

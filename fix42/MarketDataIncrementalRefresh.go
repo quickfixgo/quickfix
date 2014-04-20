@@ -26,15 +26,25 @@ func CreateMarketDataIncrementalRefreshBuilder(
 }
 
 //MDReqID is a non-required field for MarketDataIncrementalRefresh.
-func (m MarketDataIncrementalRefresh) MDReqID() (field.MDReqID, errors.MessageRejectError) {
-	var f field.MDReqID
-	err := m.Body.Get(&f)
+func (m MarketDataIncrementalRefresh) MDReqID() (*field.MDReqID, errors.MessageRejectError) {
+	f := new(field.MDReqID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetMDReqID reads a MDReqID from MarketDataIncrementalRefresh.
+func (m MarketDataIncrementalRefresh) GetMDReqID(f *field.MDReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //NoMDEntries is a required field for MarketDataIncrementalRefresh.
-func (m MarketDataIncrementalRefresh) NoMDEntries() (field.NoMDEntries, errors.MessageRejectError) {
-	var f field.NoMDEntries
-	err := m.Body.Get(&f)
+func (m MarketDataIncrementalRefresh) NoMDEntries() (*field.NoMDEntries, errors.MessageRejectError) {
+	f := new(field.NoMDEntries)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoMDEntries reads a NoMDEntries from MarketDataIncrementalRefresh.
+func (m MarketDataIncrementalRefresh) GetNoMDEntries(f *field.NoMDEntries) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

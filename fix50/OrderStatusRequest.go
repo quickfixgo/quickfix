@@ -28,512 +28,877 @@ func CreateOrderStatusRequestBuilder(
 }
 
 //OrderID is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) OrderID() (field.OrderID, errors.MessageRejectError) {
-	var f field.OrderID
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) OrderID() (*field.OrderID, errors.MessageRejectError) {
+	f := new(field.OrderID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOrderID reads a OrderID from OrderStatusRequest.
+func (m OrderStatusRequest) GetOrderID(f *field.OrderID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClOrdID is a required field for OrderStatusRequest.
-func (m OrderStatusRequest) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
-	var f field.ClOrdID
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetClOrdID reads a ClOrdID from OrderStatusRequest.
+func (m OrderStatusRequest) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecondaryClOrdID is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SecondaryClOrdID() (field.SecondaryClOrdID, errors.MessageRejectError) {
-	var f field.SecondaryClOrdID
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SecondaryClOrdID() (*field.SecondaryClOrdID, errors.MessageRejectError) {
+	f := new(field.SecondaryClOrdID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecondaryClOrdID reads a SecondaryClOrdID from OrderStatusRequest.
+func (m OrderStatusRequest) GetSecondaryClOrdID(f *field.SecondaryClOrdID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClOrdLinkID is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) ClOrdLinkID() (field.ClOrdLinkID, errors.MessageRejectError) {
-	var f field.ClOrdLinkID
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) ClOrdLinkID() (*field.ClOrdLinkID, errors.MessageRejectError) {
+	f := new(field.ClOrdLinkID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetClOrdLinkID reads a ClOrdLinkID from OrderStatusRequest.
+func (m OrderStatusRequest) GetClOrdLinkID(f *field.ClOrdLinkID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
-	var f field.NoPartyIDs
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoPartyIDs reads a NoPartyIDs from OrderStatusRequest.
+func (m OrderStatusRequest) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OrdStatusReqID is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) OrdStatusReqID() (field.OrdStatusReqID, errors.MessageRejectError) {
-	var f field.OrdStatusReqID
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) OrdStatusReqID() (*field.OrdStatusReqID, errors.MessageRejectError) {
+	f := new(field.OrdStatusReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOrdStatusReqID reads a OrdStatusReqID from OrderStatusRequest.
+func (m OrderStatusRequest) GetOrdStatusReqID(f *field.OrdStatusReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Account is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) Account() (field.Account, errors.MessageRejectError) {
-	var f field.Account
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) Account() (*field.Account, errors.MessageRejectError) {
+	f := new(field.Account)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAccount reads a Account from OrderStatusRequest.
+func (m OrderStatusRequest) GetAccount(f *field.Account) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //AcctIDSource is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) AcctIDSource() (field.AcctIDSource, errors.MessageRejectError) {
-	var f field.AcctIDSource
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) AcctIDSource() (*field.AcctIDSource, errors.MessageRejectError) {
+	f := new(field.AcctIDSource)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAcctIDSource reads a AcctIDSource from OrderStatusRequest.
+func (m OrderStatusRequest) GetAcctIDSource(f *field.AcctIDSource) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) Symbol() (field.Symbol, errors.MessageRejectError) {
-	var f field.Symbol
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) Symbol() (*field.Symbol, errors.MessageRejectError) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbol reads a Symbol from OrderStatusRequest.
+func (m OrderStatusRequest) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
-	var f field.SymbolSfx
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbolSfx reads a SymbolSfx from OrderStatusRequest.
+func (m OrderStatusRequest) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SecurityID() (field.SecurityID, errors.MessageRejectError) {
-	var f field.SecurityID
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityID reads a SecurityID from OrderStatusRequest.
+func (m OrderStatusRequest) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
-	var f field.SecurityIDSource
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
+	f := new(field.SecurityIDSource)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityIDSource reads a SecurityIDSource from OrderStatusRequest.
+func (m OrderStatusRequest) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
-	var f field.NoSecurityAltID
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
+	f := new(field.NoSecurityAltID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoSecurityAltID reads a NoSecurityAltID from OrderStatusRequest.
+func (m OrderStatusRequest) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Product is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) Product() (field.Product, errors.MessageRejectError) {
-	var f field.Product
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) Product() (*field.Product, errors.MessageRejectError) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetProduct reads a Product from OrderStatusRequest.
+func (m OrderStatusRequest) GetProduct(f *field.Product) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) CFICode() (field.CFICode, errors.MessageRejectError) {
-	var f field.CFICode
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) CFICode() (*field.CFICode, errors.MessageRejectError) {
+	f := new(field.CFICode)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCFICode reads a CFICode from OrderStatusRequest.
+func (m OrderStatusRequest) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SecurityType() (field.SecurityType, errors.MessageRejectError) {
-	var f field.SecurityType
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityType reads a SecurityType from OrderStatusRequest.
+func (m OrderStatusRequest) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SecuritySubType() (field.SecuritySubType, errors.MessageRejectError) {
-	var f field.SecuritySubType
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
+	f := new(field.SecuritySubType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecuritySubType reads a SecuritySubType from OrderStatusRequest.
+func (m OrderStatusRequest) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
-	var f field.MaturityMonthYear
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
+	f := new(field.MaturityMonthYear)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityMonthYear reads a MaturityMonthYear from OrderStatusRequest.
+func (m OrderStatusRequest) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
-	var f field.MaturityDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
+	f := new(field.MaturityDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityDate reads a MaturityDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
-	var f field.CouponPaymentDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
+	f := new(field.CouponPaymentDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCouponPaymentDate reads a CouponPaymentDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) IssueDate() (field.IssueDate, errors.MessageRejectError) {
-	var f field.IssueDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
+	f := new(field.IssueDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIssueDate reads a IssueDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	var f field.RepoCollateralSecurityType
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
+	f := new(field.RepoCollateralSecurityType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from OrderStatusRequest.
+func (m OrderStatusRequest) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
-	var f field.RepurchaseTerm
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
+	f := new(field.RepurchaseTerm)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepurchaseTerm reads a RepurchaseTerm from OrderStatusRequest.
+func (m OrderStatusRequest) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
-	var f field.RepurchaseRate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
+	f := new(field.RepurchaseRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepurchaseRate reads a RepurchaseRate from OrderStatusRequest.
+func (m OrderStatusRequest) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) Factor() (field.Factor, errors.MessageRejectError) {
-	var f field.Factor
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) Factor() (*field.Factor, errors.MessageRejectError) {
+	f := new(field.Factor)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetFactor reads a Factor from OrderStatusRequest.
+func (m OrderStatusRequest) GetFactor(f *field.Factor) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) CreditRating() (field.CreditRating, errors.MessageRejectError) {
-	var f field.CreditRating
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
+	f := new(field.CreditRating)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCreditRating reads a CreditRating from OrderStatusRequest.
+func (m OrderStatusRequest) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
-	var f field.InstrRegistry
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
+	f := new(field.InstrRegistry)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetInstrRegistry reads a InstrRegistry from OrderStatusRequest.
+func (m OrderStatusRequest) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
-	var f field.CountryOfIssue
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
+	f := new(field.CountryOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCountryOfIssue reads a CountryOfIssue from OrderStatusRequest.
+func (m OrderStatusRequest) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	var f field.StateOrProvinceOfIssue
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
+	f := new(field.StateOrProvinceOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from OrderStatusRequest.
+func (m OrderStatusRequest) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
-	var f field.LocaleOfIssue
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
+	f := new(field.LocaleOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetLocaleOfIssue reads a LocaleOfIssue from OrderStatusRequest.
+func (m OrderStatusRequest) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
-	var f field.RedemptionDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
+	f := new(field.RedemptionDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRedemptionDate reads a RedemptionDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
-	var f field.StrikePrice
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikePrice reads a StrikePrice from OrderStatusRequest.
+func (m OrderStatusRequest) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) StrikeCurrency() (field.StrikeCurrency, errors.MessageRejectError) {
-	var f field.StrikeCurrency
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
+	f := new(field.StrikeCurrency)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikeCurrency reads a StrikeCurrency from OrderStatusRequest.
+func (m OrderStatusRequest) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
-	var f field.OptAttribute
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOptAttribute reads a OptAttribute from OrderStatusRequest.
+func (m OrderStatusRequest) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
-	var f field.ContractMultiplier
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
+	f := new(field.ContractMultiplier)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetContractMultiplier reads a ContractMultiplier from OrderStatusRequest.
+func (m OrderStatusRequest) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) CouponRate() (field.CouponRate, errors.MessageRejectError) {
-	var f field.CouponRate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
+	f := new(field.CouponRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCouponRate reads a CouponRate from OrderStatusRequest.
+func (m OrderStatusRequest) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
-	var f field.SecurityExchange
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityExchange reads a SecurityExchange from OrderStatusRequest.
+func (m OrderStatusRequest) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) Issuer() (field.Issuer, errors.MessageRejectError) {
-	var f field.Issuer
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) Issuer() (*field.Issuer, errors.MessageRejectError) {
+	f := new(field.Issuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIssuer reads a Issuer from OrderStatusRequest.
+func (m OrderStatusRequest) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
-	var f field.EncodedIssuerLen
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
+	f := new(field.EncodedIssuerLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedIssuerLen reads a EncodedIssuerLen from OrderStatusRequest.
+func (m OrderStatusRequest) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
-	var f field.EncodedIssuer
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
+	f := new(field.EncodedIssuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedIssuer reads a EncodedIssuer from OrderStatusRequest.
+func (m OrderStatusRequest) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
-	var f field.SecurityDesc
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityDesc reads a SecurityDesc from OrderStatusRequest.
+func (m OrderStatusRequest) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	var f field.EncodedSecurityDescLen
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
+	f := new(field.EncodedSecurityDescLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from OrderStatusRequest.
+func (m OrderStatusRequest) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
-	var f field.EncodedSecurityDesc
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
+	f := new(field.EncodedSecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedSecurityDesc reads a EncodedSecurityDesc from OrderStatusRequest.
+func (m OrderStatusRequest) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) Pool() (field.Pool, errors.MessageRejectError) {
-	var f field.Pool
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) Pool() (*field.Pool, errors.MessageRejectError) {
+	f := new(field.Pool)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPool reads a Pool from OrderStatusRequest.
+func (m OrderStatusRequest) GetPool(f *field.Pool) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) ContractSettlMonth() (field.ContractSettlMonth, errors.MessageRejectError) {
-	var f field.ContractSettlMonth
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
+	f := new(field.ContractSettlMonth)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetContractSettlMonth reads a ContractSettlMonth from OrderStatusRequest.
+func (m OrderStatusRequest) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) CPProgram() (field.CPProgram, errors.MessageRejectError) {
-	var f field.CPProgram
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
+	f := new(field.CPProgram)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCPProgram reads a CPProgram from OrderStatusRequest.
+func (m OrderStatusRequest) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) CPRegType() (field.CPRegType, errors.MessageRejectError) {
-	var f field.CPRegType
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
+	f := new(field.CPRegType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCPRegType reads a CPRegType from OrderStatusRequest.
+func (m OrderStatusRequest) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) NoEvents() (field.NoEvents, errors.MessageRejectError) {
-	var f field.NoEvents
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
+	f := new(field.NoEvents)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoEvents reads a NoEvents from OrderStatusRequest.
+func (m OrderStatusRequest) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) DatedDate() (field.DatedDate, errors.MessageRejectError) {
-	var f field.DatedDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
+	f := new(field.DatedDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDatedDate reads a DatedDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) InterestAccrualDate() (field.InterestAccrualDate, errors.MessageRejectError) {
-	var f field.InterestAccrualDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
+	f := new(field.InterestAccrualDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetInterestAccrualDate reads a InterestAccrualDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityStatus is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SecurityStatus() (field.SecurityStatus, errors.MessageRejectError) {
-	var f field.SecurityStatus
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SecurityStatus() (*field.SecurityStatus, errors.MessageRejectError) {
+	f := new(field.SecurityStatus)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityStatus reads a SecurityStatus from OrderStatusRequest.
+func (m OrderStatusRequest) GetSecurityStatus(f *field.SecurityStatus) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SettleOnOpenFlag is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) SettleOnOpenFlag() (field.SettleOnOpenFlag, errors.MessageRejectError) {
-	var f field.SettleOnOpenFlag
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) SettleOnOpenFlag() (*field.SettleOnOpenFlag, errors.MessageRejectError) {
+	f := new(field.SettleOnOpenFlag)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettleOnOpenFlag reads a SettleOnOpenFlag from OrderStatusRequest.
+func (m OrderStatusRequest) GetSettleOnOpenFlag(f *field.SettleOnOpenFlag) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //InstrmtAssignmentMethod is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) InstrmtAssignmentMethod() (field.InstrmtAssignmentMethod, errors.MessageRejectError) {
-	var f field.InstrmtAssignmentMethod
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, errors.MessageRejectError) {
+	f := new(field.InstrmtAssignmentMethod)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetInstrmtAssignmentMethod reads a InstrmtAssignmentMethod from OrderStatusRequest.
+func (m OrderStatusRequest) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethod) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikeMultiplier is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) StrikeMultiplier() (field.StrikeMultiplier, errors.MessageRejectError) {
-	var f field.StrikeMultiplier
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) StrikeMultiplier() (*field.StrikeMultiplier, errors.MessageRejectError) {
+	f := new(field.StrikeMultiplier)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikeMultiplier reads a StrikeMultiplier from OrderStatusRequest.
+func (m OrderStatusRequest) GetStrikeMultiplier(f *field.StrikeMultiplier) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikeValue is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) StrikeValue() (field.StrikeValue, errors.MessageRejectError) {
-	var f field.StrikeValue
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) StrikeValue() (*field.StrikeValue, errors.MessageRejectError) {
+	f := new(field.StrikeValue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikeValue reads a StrikeValue from OrderStatusRequest.
+func (m OrderStatusRequest) GetStrikeValue(f *field.StrikeValue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MinPriceIncrement is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) MinPriceIncrement() (field.MinPriceIncrement, errors.MessageRejectError) {
-	var f field.MinPriceIncrement
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) MinPriceIncrement() (*field.MinPriceIncrement, errors.MessageRejectError) {
+	f := new(field.MinPriceIncrement)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMinPriceIncrement reads a MinPriceIncrement from OrderStatusRequest.
+func (m OrderStatusRequest) GetMinPriceIncrement(f *field.MinPriceIncrement) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PositionLimit is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) PositionLimit() (field.PositionLimit, errors.MessageRejectError) {
-	var f field.PositionLimit
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) PositionLimit() (*field.PositionLimit, errors.MessageRejectError) {
+	f := new(field.PositionLimit)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPositionLimit reads a PositionLimit from OrderStatusRequest.
+func (m OrderStatusRequest) GetPositionLimit(f *field.PositionLimit) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NTPositionLimit is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) NTPositionLimit() (field.NTPositionLimit, errors.MessageRejectError) {
-	var f field.NTPositionLimit
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) NTPositionLimit() (*field.NTPositionLimit, errors.MessageRejectError) {
+	f := new(field.NTPositionLimit)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNTPositionLimit reads a NTPositionLimit from OrderStatusRequest.
+func (m OrderStatusRequest) GetNTPositionLimit(f *field.NTPositionLimit) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoInstrumentParties is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) NoInstrumentParties() (field.NoInstrumentParties, errors.MessageRejectError) {
-	var f field.NoInstrumentParties
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) NoInstrumentParties() (*field.NoInstrumentParties, errors.MessageRejectError) {
+	f := new(field.NoInstrumentParties)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoInstrumentParties reads a NoInstrumentParties from OrderStatusRequest.
+func (m OrderStatusRequest) GetNoInstrumentParties(f *field.NoInstrumentParties) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //UnitOfMeasure is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) UnitOfMeasure() (field.UnitOfMeasure, errors.MessageRejectError) {
-	var f field.UnitOfMeasure
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) UnitOfMeasure() (*field.UnitOfMeasure, errors.MessageRejectError) {
+	f := new(field.UnitOfMeasure)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetUnitOfMeasure reads a UnitOfMeasure from OrderStatusRequest.
+func (m OrderStatusRequest) GetUnitOfMeasure(f *field.UnitOfMeasure) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TimeUnit is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) TimeUnit() (field.TimeUnit, errors.MessageRejectError) {
-	var f field.TimeUnit
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) TimeUnit() (*field.TimeUnit, errors.MessageRejectError) {
+	f := new(field.TimeUnit)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTimeUnit reads a TimeUnit from OrderStatusRequest.
+func (m OrderStatusRequest) GetTimeUnit(f *field.TimeUnit) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityTime is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) MaturityTime() (field.MaturityTime, errors.MessageRejectError) {
-	var f field.MaturityTime
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) MaturityTime() (*field.MaturityTime, errors.MessageRejectError) {
+	f := new(field.MaturityTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityTime reads a MaturityTime from OrderStatusRequest.
+func (m OrderStatusRequest) GetMaturityTime(f *field.MaturityTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //AgreementDesc is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) AgreementDesc() (field.AgreementDesc, errors.MessageRejectError) {
-	var f field.AgreementDesc
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) AgreementDesc() (*field.AgreementDesc, errors.MessageRejectError) {
+	f := new(field.AgreementDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAgreementDesc reads a AgreementDesc from OrderStatusRequest.
+func (m OrderStatusRequest) GetAgreementDesc(f *field.AgreementDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //AgreementID is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) AgreementID() (field.AgreementID, errors.MessageRejectError) {
-	var f field.AgreementID
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) AgreementID() (*field.AgreementID, errors.MessageRejectError) {
+	f := new(field.AgreementID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAgreementID reads a AgreementID from OrderStatusRequest.
+func (m OrderStatusRequest) GetAgreementID(f *field.AgreementID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //AgreementDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) AgreementDate() (field.AgreementDate, errors.MessageRejectError) {
-	var f field.AgreementDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) AgreementDate() (*field.AgreementDate, errors.MessageRejectError) {
+	f := new(field.AgreementDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAgreementDate reads a AgreementDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetAgreementDate(f *field.AgreementDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //AgreementCurrency is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) AgreementCurrency() (field.AgreementCurrency, errors.MessageRejectError) {
-	var f field.AgreementCurrency
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) AgreementCurrency() (*field.AgreementCurrency, errors.MessageRejectError) {
+	f := new(field.AgreementCurrency)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAgreementCurrency reads a AgreementCurrency from OrderStatusRequest.
+func (m OrderStatusRequest) GetAgreementCurrency(f *field.AgreementCurrency) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TerminationType is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) TerminationType() (field.TerminationType, errors.MessageRejectError) {
-	var f field.TerminationType
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) TerminationType() (*field.TerminationType, errors.MessageRejectError) {
+	f := new(field.TerminationType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTerminationType reads a TerminationType from OrderStatusRequest.
+func (m OrderStatusRequest) GetTerminationType(f *field.TerminationType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StartDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) StartDate() (field.StartDate, errors.MessageRejectError) {
-	var f field.StartDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) StartDate() (*field.StartDate, errors.MessageRejectError) {
+	f := new(field.StartDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStartDate reads a StartDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetStartDate(f *field.StartDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EndDate is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) EndDate() (field.EndDate, errors.MessageRejectError) {
-	var f field.EndDate
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) EndDate() (*field.EndDate, errors.MessageRejectError) {
+	f := new(field.EndDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEndDate reads a EndDate from OrderStatusRequest.
+func (m OrderStatusRequest) GetEndDate(f *field.EndDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DeliveryType is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) DeliveryType() (field.DeliveryType, errors.MessageRejectError) {
-	var f field.DeliveryType
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) DeliveryType() (*field.DeliveryType, errors.MessageRejectError) {
+	f := new(field.DeliveryType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDeliveryType reads a DeliveryType from OrderStatusRequest.
+func (m OrderStatusRequest) GetDeliveryType(f *field.DeliveryType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MarginRatio is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) MarginRatio() (field.MarginRatio, errors.MessageRejectError) {
-	var f field.MarginRatio
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) MarginRatio() (*field.MarginRatio, errors.MessageRejectError) {
+	f := new(field.MarginRatio)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMarginRatio reads a MarginRatio from OrderStatusRequest.
+func (m OrderStatusRequest) GetMarginRatio(f *field.MarginRatio) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for OrderStatusRequest.
-func (m OrderStatusRequest) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
-	var f field.NoUnderlyings
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
+	f := new(field.NoUnderlyings)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetNoUnderlyings reads a NoUnderlyings from OrderStatusRequest.
+func (m OrderStatusRequest) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //Side is a required field for OrderStatusRequest.
-func (m OrderStatusRequest) Side() (field.Side, errors.MessageRejectError) {
-	var f field.Side
-	err := m.Body.Get(&f)
+func (m OrderStatusRequest) Side() (*field.Side, errors.MessageRejectError) {
+	f := new(field.Side)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSide reads a Side from OrderStatusRequest.
+func (m OrderStatusRequest) GetSide(f *field.Side) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

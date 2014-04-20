@@ -32,64 +32,109 @@ func CreateRegistrationInstructionsResponseBuilder(
 }
 
 //RegistID is a required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistID() (field.RegistID, errors.MessageRejectError) {
-	var f field.RegistID
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) RegistID() (*field.RegistID, errors.MessageRejectError) {
+	f := new(field.RegistID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRegistID reads a RegistID from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetRegistID(f *field.RegistID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RegistTransType is a required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistTransType() (field.RegistTransType, errors.MessageRejectError) {
-	var f field.RegistTransType
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) RegistTransType() (*field.RegistTransType, errors.MessageRejectError) {
+	f := new(field.RegistTransType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRegistTransType reads a RegistTransType from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetRegistTransType(f *field.RegistTransType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RegistRefID is a required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistRefID() (field.RegistRefID, errors.MessageRejectError) {
-	var f field.RegistRefID
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) RegistRefID() (*field.RegistRefID, errors.MessageRejectError) {
+	f := new(field.RegistRefID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRegistRefID reads a RegistRefID from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetRegistRefID(f *field.RegistRefID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClOrdID is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) ClOrdID() (field.ClOrdID, errors.MessageRejectError) {
-	var f field.ClOrdID
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
+	f := new(field.ClOrdID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetClOrdID reads a ClOrdID from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
-	var f field.NoPartyIDs
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoPartyIDs reads a NoPartyIDs from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Account is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) Account() (field.Account, errors.MessageRejectError) {
-	var f field.Account
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) Account() (*field.Account, errors.MessageRejectError) {
+	f := new(field.Account)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetAccount reads a Account from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetAccount(f *field.Account) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RegistStatus is a required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistStatus() (field.RegistStatus, errors.MessageRejectError) {
-	var f field.RegistStatus
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) RegistStatus() (*field.RegistStatus, errors.MessageRejectError) {
+	f := new(field.RegistStatus)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRegistStatus reads a RegistStatus from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetRegistStatus(f *field.RegistStatus) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RegistRejReasonCode is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistRejReasonCode() (field.RegistRejReasonCode, errors.MessageRejectError) {
-	var f field.RegistRejReasonCode
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) RegistRejReasonCode() (*field.RegistRejReasonCode, errors.MessageRejectError) {
+	f := new(field.RegistRejReasonCode)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetRegistRejReasonCode reads a RegistRejReasonCode from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetRegistRejReasonCode(f *field.RegistRejReasonCode) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //RegistRejReasonText is a non-required field for RegistrationInstructionsResponse.
-func (m RegistrationInstructionsResponse) RegistRejReasonText() (field.RegistRejReasonText, errors.MessageRejectError) {
-	var f field.RegistRejReasonText
-	err := m.Body.Get(&f)
+func (m RegistrationInstructionsResponse) RegistRejReasonText() (*field.RegistRejReasonText, errors.MessageRejectError) {
+	f := new(field.RegistRejReasonText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRegistRejReasonText reads a RegistRejReasonText from RegistrationInstructionsResponse.
+func (m RegistrationInstructionsResponse) GetRegistRejReasonText(f *field.RegistRejReasonText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -36,764 +36,1309 @@ func CreateNewOrderCrossBuilder(
 }
 
 //CrossID is a required field for NewOrderCross.
-func (m NewOrderCross) CrossID() (field.CrossID, errors.MessageRejectError) {
-	var f field.CrossID
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CrossID() (*field.CrossID, errors.MessageRejectError) {
+	f := new(field.CrossID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCrossID reads a CrossID from NewOrderCross.
+func (m NewOrderCross) GetCrossID(f *field.CrossID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CrossType is a required field for NewOrderCross.
-func (m NewOrderCross) CrossType() (field.CrossType, errors.MessageRejectError) {
-	var f field.CrossType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CrossType() (*field.CrossType, errors.MessageRejectError) {
+	f := new(field.CrossType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCrossType reads a CrossType from NewOrderCross.
+func (m NewOrderCross) GetCrossType(f *field.CrossType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CrossPrioritization is a required field for NewOrderCross.
-func (m NewOrderCross) CrossPrioritization() (field.CrossPrioritization, errors.MessageRejectError) {
-	var f field.CrossPrioritization
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CrossPrioritization() (*field.CrossPrioritization, errors.MessageRejectError) {
+	f := new(field.CrossPrioritization)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCrossPrioritization reads a CrossPrioritization from NewOrderCross.
+func (m NewOrderCross) GetCrossPrioritization(f *field.CrossPrioritization) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoSides is a required field for NewOrderCross.
-func (m NewOrderCross) NoSides() (field.NoSides, errors.MessageRejectError) {
-	var f field.NoSides
-	err := m.Body.Get(&f)
+func (m NewOrderCross) NoSides() (*field.NoSides, errors.MessageRejectError) {
+	f := new(field.NoSides)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoSides reads a NoSides from NewOrderCross.
+func (m NewOrderCross) GetNoSides(f *field.NoSides) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for NewOrderCross.
-func (m NewOrderCross) Symbol() (field.Symbol, errors.MessageRejectError) {
-	var f field.Symbol
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Symbol() (*field.Symbol, errors.MessageRejectError) {
+	f := new(field.Symbol)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbol reads a Symbol from NewOrderCross.
+func (m NewOrderCross) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for NewOrderCross.
-func (m NewOrderCross) SymbolSfx() (field.SymbolSfx, errors.MessageRejectError) {
-	var f field.SymbolSfx
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
+	f := new(field.SymbolSfx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSymbolSfx reads a SymbolSfx from NewOrderCross.
+func (m NewOrderCross) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for NewOrderCross.
-func (m NewOrderCross) SecurityID() (field.SecurityID, errors.MessageRejectError) {
-	var f field.SecurityID
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
+	f := new(field.SecurityID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityID reads a SecurityID from NewOrderCross.
+func (m NewOrderCross) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for NewOrderCross.
-func (m NewOrderCross) SecurityIDSource() (field.SecurityIDSource, errors.MessageRejectError) {
-	var f field.SecurityIDSource
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
+	f := new(field.SecurityIDSource)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityIDSource reads a SecurityIDSource from NewOrderCross.
+func (m NewOrderCross) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for NewOrderCross.
-func (m NewOrderCross) NoSecurityAltID() (field.NoSecurityAltID, errors.MessageRejectError) {
-	var f field.NoSecurityAltID
-	err := m.Body.Get(&f)
+func (m NewOrderCross) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
+	f := new(field.NoSecurityAltID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoSecurityAltID reads a NoSecurityAltID from NewOrderCross.
+func (m NewOrderCross) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Product is a non-required field for NewOrderCross.
-func (m NewOrderCross) Product() (field.Product, errors.MessageRejectError) {
-	var f field.Product
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Product() (*field.Product, errors.MessageRejectError) {
+	f := new(field.Product)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetProduct reads a Product from NewOrderCross.
+func (m NewOrderCross) GetProduct(f *field.Product) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for NewOrderCross.
-func (m NewOrderCross) CFICode() (field.CFICode, errors.MessageRejectError) {
-	var f field.CFICode
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CFICode() (*field.CFICode, errors.MessageRejectError) {
+	f := new(field.CFICode)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCFICode reads a CFICode from NewOrderCross.
+func (m NewOrderCross) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for NewOrderCross.
-func (m NewOrderCross) SecurityType() (field.SecurityType, errors.MessageRejectError) {
-	var f field.SecurityType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
+	f := new(field.SecurityType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityType reads a SecurityType from NewOrderCross.
+func (m NewOrderCross) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for NewOrderCross.
-func (m NewOrderCross) SecuritySubType() (field.SecuritySubType, errors.MessageRejectError) {
-	var f field.SecuritySubType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
+	f := new(field.SecuritySubType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecuritySubType reads a SecuritySubType from NewOrderCross.
+func (m NewOrderCross) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for NewOrderCross.
-func (m NewOrderCross) MaturityMonthYear() (field.MaturityMonthYear, errors.MessageRejectError) {
-	var f field.MaturityMonthYear
-	err := m.Body.Get(&f)
+func (m NewOrderCross) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
+	f := new(field.MaturityMonthYear)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityMonthYear reads a MaturityMonthYear from NewOrderCross.
+func (m NewOrderCross) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) MaturityDate() (field.MaturityDate, errors.MessageRejectError) {
-	var f field.MaturityDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
+	f := new(field.MaturityDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaturityDate reads a MaturityDate from NewOrderCross.
+func (m NewOrderCross) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) CouponPaymentDate() (field.CouponPaymentDate, errors.MessageRejectError) {
-	var f field.CouponPaymentDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
+	f := new(field.CouponPaymentDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCouponPaymentDate reads a CouponPaymentDate from NewOrderCross.
+func (m NewOrderCross) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) IssueDate() (field.IssueDate, errors.MessageRejectError) {
-	var f field.IssueDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
+	f := new(field.IssueDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIssueDate reads a IssueDate from NewOrderCross.
+func (m NewOrderCross) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for NewOrderCross.
-func (m NewOrderCross) RepoCollateralSecurityType() (field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	var f field.RepoCollateralSecurityType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
+	f := new(field.RepoCollateralSecurityType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from NewOrderCross.
+func (m NewOrderCross) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for NewOrderCross.
-func (m NewOrderCross) RepurchaseTerm() (field.RepurchaseTerm, errors.MessageRejectError) {
-	var f field.RepurchaseTerm
-	err := m.Body.Get(&f)
+func (m NewOrderCross) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
+	f := new(field.RepurchaseTerm)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepurchaseTerm reads a RepurchaseTerm from NewOrderCross.
+func (m NewOrderCross) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for NewOrderCross.
-func (m NewOrderCross) RepurchaseRate() (field.RepurchaseRate, errors.MessageRejectError) {
-	var f field.RepurchaseRate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
+	f := new(field.RepurchaseRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRepurchaseRate reads a RepurchaseRate from NewOrderCross.
+func (m NewOrderCross) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for NewOrderCross.
-func (m NewOrderCross) Factor() (field.Factor, errors.MessageRejectError) {
-	var f field.Factor
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Factor() (*field.Factor, errors.MessageRejectError) {
+	f := new(field.Factor)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetFactor reads a Factor from NewOrderCross.
+func (m NewOrderCross) GetFactor(f *field.Factor) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for NewOrderCross.
-func (m NewOrderCross) CreditRating() (field.CreditRating, errors.MessageRejectError) {
-	var f field.CreditRating
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
+	f := new(field.CreditRating)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCreditRating reads a CreditRating from NewOrderCross.
+func (m NewOrderCross) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for NewOrderCross.
-func (m NewOrderCross) InstrRegistry() (field.InstrRegistry, errors.MessageRejectError) {
-	var f field.InstrRegistry
-	err := m.Body.Get(&f)
+func (m NewOrderCross) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
+	f := new(field.InstrRegistry)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetInstrRegistry reads a InstrRegistry from NewOrderCross.
+func (m NewOrderCross) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for NewOrderCross.
-func (m NewOrderCross) CountryOfIssue() (field.CountryOfIssue, errors.MessageRejectError) {
-	var f field.CountryOfIssue
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
+	f := new(field.CountryOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCountryOfIssue reads a CountryOfIssue from NewOrderCross.
+func (m NewOrderCross) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for NewOrderCross.
-func (m NewOrderCross) StateOrProvinceOfIssue() (field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	var f field.StateOrProvinceOfIssue
-	err := m.Body.Get(&f)
+func (m NewOrderCross) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
+	f := new(field.StateOrProvinceOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from NewOrderCross.
+func (m NewOrderCross) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for NewOrderCross.
-func (m NewOrderCross) LocaleOfIssue() (field.LocaleOfIssue, errors.MessageRejectError) {
-	var f field.LocaleOfIssue
-	err := m.Body.Get(&f)
+func (m NewOrderCross) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
+	f := new(field.LocaleOfIssue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetLocaleOfIssue reads a LocaleOfIssue from NewOrderCross.
+func (m NewOrderCross) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) RedemptionDate() (field.RedemptionDate, errors.MessageRejectError) {
-	var f field.RedemptionDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
+	f := new(field.RedemptionDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRedemptionDate reads a RedemptionDate from NewOrderCross.
+func (m NewOrderCross) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for NewOrderCross.
-func (m NewOrderCross) StrikePrice() (field.StrikePrice, errors.MessageRejectError) {
-	var f field.StrikePrice
-	err := m.Body.Get(&f)
+func (m NewOrderCross) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
+	f := new(field.StrikePrice)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikePrice reads a StrikePrice from NewOrderCross.
+func (m NewOrderCross) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for NewOrderCross.
-func (m NewOrderCross) StrikeCurrency() (field.StrikeCurrency, errors.MessageRejectError) {
-	var f field.StrikeCurrency
-	err := m.Body.Get(&f)
+func (m NewOrderCross) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
+	f := new(field.StrikeCurrency)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStrikeCurrency reads a StrikeCurrency from NewOrderCross.
+func (m NewOrderCross) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for NewOrderCross.
-func (m NewOrderCross) OptAttribute() (field.OptAttribute, errors.MessageRejectError) {
-	var f field.OptAttribute
-	err := m.Body.Get(&f)
+func (m NewOrderCross) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
+	f := new(field.OptAttribute)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOptAttribute reads a OptAttribute from NewOrderCross.
+func (m NewOrderCross) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for NewOrderCross.
-func (m NewOrderCross) ContractMultiplier() (field.ContractMultiplier, errors.MessageRejectError) {
-	var f field.ContractMultiplier
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
+	f := new(field.ContractMultiplier)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetContractMultiplier reads a ContractMultiplier from NewOrderCross.
+func (m NewOrderCross) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for NewOrderCross.
-func (m NewOrderCross) CouponRate() (field.CouponRate, errors.MessageRejectError) {
-	var f field.CouponRate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
+	f := new(field.CouponRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCouponRate reads a CouponRate from NewOrderCross.
+func (m NewOrderCross) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for NewOrderCross.
-func (m NewOrderCross) SecurityExchange() (field.SecurityExchange, errors.MessageRejectError) {
-	var f field.SecurityExchange
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
+	f := new(field.SecurityExchange)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityExchange reads a SecurityExchange from NewOrderCross.
+func (m NewOrderCross) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for NewOrderCross.
-func (m NewOrderCross) Issuer() (field.Issuer, errors.MessageRejectError) {
-	var f field.Issuer
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Issuer() (*field.Issuer, errors.MessageRejectError) {
+	f := new(field.Issuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIssuer reads a Issuer from NewOrderCross.
+func (m NewOrderCross) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for NewOrderCross.
-func (m NewOrderCross) EncodedIssuerLen() (field.EncodedIssuerLen, errors.MessageRejectError) {
-	var f field.EncodedIssuerLen
-	err := m.Body.Get(&f)
+func (m NewOrderCross) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
+	f := new(field.EncodedIssuerLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedIssuerLen reads a EncodedIssuerLen from NewOrderCross.
+func (m NewOrderCross) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for NewOrderCross.
-func (m NewOrderCross) EncodedIssuer() (field.EncodedIssuer, errors.MessageRejectError) {
-	var f field.EncodedIssuer
-	err := m.Body.Get(&f)
+func (m NewOrderCross) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
+	f := new(field.EncodedIssuer)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedIssuer reads a EncodedIssuer from NewOrderCross.
+func (m NewOrderCross) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for NewOrderCross.
-func (m NewOrderCross) SecurityDesc() (field.SecurityDesc, errors.MessageRejectError) {
-	var f field.SecurityDesc
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
+	f := new(field.SecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSecurityDesc reads a SecurityDesc from NewOrderCross.
+func (m NewOrderCross) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for NewOrderCross.
-func (m NewOrderCross) EncodedSecurityDescLen() (field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	var f field.EncodedSecurityDescLen
-	err := m.Body.Get(&f)
+func (m NewOrderCross) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
+	f := new(field.EncodedSecurityDescLen)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from NewOrderCross.
+func (m NewOrderCross) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for NewOrderCross.
-func (m NewOrderCross) EncodedSecurityDesc() (field.EncodedSecurityDesc, errors.MessageRejectError) {
-	var f field.EncodedSecurityDesc
-	err := m.Body.Get(&f)
+func (m NewOrderCross) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
+	f := new(field.EncodedSecurityDesc)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedSecurityDesc reads a EncodedSecurityDesc from NewOrderCross.
+func (m NewOrderCross) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for NewOrderCross.
-func (m NewOrderCross) Pool() (field.Pool, errors.MessageRejectError) {
-	var f field.Pool
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Pool() (*field.Pool, errors.MessageRejectError) {
+	f := new(field.Pool)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPool reads a Pool from NewOrderCross.
+func (m NewOrderCross) GetPool(f *field.Pool) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for NewOrderCross.
-func (m NewOrderCross) ContractSettlMonth() (field.ContractSettlMonth, errors.MessageRejectError) {
-	var f field.ContractSettlMonth
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
+	f := new(field.ContractSettlMonth)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetContractSettlMonth reads a ContractSettlMonth from NewOrderCross.
+func (m NewOrderCross) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for NewOrderCross.
-func (m NewOrderCross) CPProgram() (field.CPProgram, errors.MessageRejectError) {
-	var f field.CPProgram
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
+	f := new(field.CPProgram)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCPProgram reads a CPProgram from NewOrderCross.
+func (m NewOrderCross) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for NewOrderCross.
-func (m NewOrderCross) CPRegType() (field.CPRegType, errors.MessageRejectError) {
-	var f field.CPRegType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
+	f := new(field.CPRegType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCPRegType reads a CPRegType from NewOrderCross.
+func (m NewOrderCross) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for NewOrderCross.
-func (m NewOrderCross) NoEvents() (field.NoEvents, errors.MessageRejectError) {
-	var f field.NoEvents
-	err := m.Body.Get(&f)
+func (m NewOrderCross) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
+	f := new(field.NoEvents)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoEvents reads a NoEvents from NewOrderCross.
+func (m NewOrderCross) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) DatedDate() (field.DatedDate, errors.MessageRejectError) {
-	var f field.DatedDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
+	f := new(field.DatedDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDatedDate reads a DatedDate from NewOrderCross.
+func (m NewOrderCross) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) InterestAccrualDate() (field.InterestAccrualDate, errors.MessageRejectError) {
-	var f field.InterestAccrualDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
+	f := new(field.InterestAccrualDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetInterestAccrualDate reads a InterestAccrualDate from NewOrderCross.
+func (m NewOrderCross) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for NewOrderCross.
-func (m NewOrderCross) NoUnderlyings() (field.NoUnderlyings, errors.MessageRejectError) {
-	var f field.NoUnderlyings
-	err := m.Body.Get(&f)
+func (m NewOrderCross) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
+	f := new(field.NoUnderlyings)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoUnderlyings reads a NoUnderlyings from NewOrderCross.
+func (m NewOrderCross) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoLegs is a non-required field for NewOrderCross.
-func (m NewOrderCross) NoLegs() (field.NoLegs, errors.MessageRejectError) {
-	var f field.NoLegs
-	err := m.Body.Get(&f)
+func (m NewOrderCross) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
+	f := new(field.NoLegs)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoLegs reads a NoLegs from NewOrderCross.
+func (m NewOrderCross) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SettlType is a non-required field for NewOrderCross.
-func (m NewOrderCross) SettlType() (field.SettlType, errors.MessageRejectError) {
-	var f field.SettlType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SettlType() (*field.SettlType, errors.MessageRejectError) {
+	f := new(field.SettlType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettlType reads a SettlType from NewOrderCross.
+func (m NewOrderCross) GetSettlType(f *field.SettlType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SettlDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) SettlDate() (field.SettlDate, errors.MessageRejectError) {
-	var f field.SettlDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) SettlDate() (*field.SettlDate, errors.MessageRejectError) {
+	f := new(field.SettlDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettlDate reads a SettlDate from NewOrderCross.
+func (m NewOrderCross) GetSettlDate(f *field.SettlDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //HandlInst is a non-required field for NewOrderCross.
-func (m NewOrderCross) HandlInst() (field.HandlInst, errors.MessageRejectError) {
-	var f field.HandlInst
-	err := m.Body.Get(&f)
+func (m NewOrderCross) HandlInst() (*field.HandlInst, errors.MessageRejectError) {
+	f := new(field.HandlInst)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetHandlInst reads a HandlInst from NewOrderCross.
+func (m NewOrderCross) GetHandlInst(f *field.HandlInst) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ExecInst is a non-required field for NewOrderCross.
-func (m NewOrderCross) ExecInst() (field.ExecInst, errors.MessageRejectError) {
-	var f field.ExecInst
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ExecInst() (*field.ExecInst, errors.MessageRejectError) {
+	f := new(field.ExecInst)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetExecInst reads a ExecInst from NewOrderCross.
+func (m NewOrderCross) GetExecInst(f *field.ExecInst) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MinQty is a non-required field for NewOrderCross.
-func (m NewOrderCross) MinQty() (field.MinQty, errors.MessageRejectError) {
-	var f field.MinQty
-	err := m.Body.Get(&f)
+func (m NewOrderCross) MinQty() (*field.MinQty, errors.MessageRejectError) {
+	f := new(field.MinQty)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMinQty reads a MinQty from NewOrderCross.
+func (m NewOrderCross) GetMinQty(f *field.MinQty) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaxFloor is a non-required field for NewOrderCross.
-func (m NewOrderCross) MaxFloor() (field.MaxFloor, errors.MessageRejectError) {
-	var f field.MaxFloor
-	err := m.Body.Get(&f)
+func (m NewOrderCross) MaxFloor() (*field.MaxFloor, errors.MessageRejectError) {
+	f := new(field.MaxFloor)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaxFloor reads a MaxFloor from NewOrderCross.
+func (m NewOrderCross) GetMaxFloor(f *field.MaxFloor) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ExDestination is a non-required field for NewOrderCross.
-func (m NewOrderCross) ExDestination() (field.ExDestination, errors.MessageRejectError) {
-	var f field.ExDestination
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ExDestination() (*field.ExDestination, errors.MessageRejectError) {
+	f := new(field.ExDestination)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetExDestination reads a ExDestination from NewOrderCross.
+func (m NewOrderCross) GetExDestination(f *field.ExDestination) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoTradingSessions is a non-required field for NewOrderCross.
-func (m NewOrderCross) NoTradingSessions() (field.NoTradingSessions, errors.MessageRejectError) {
-	var f field.NoTradingSessions
-	err := m.Body.Get(&f)
+func (m NewOrderCross) NoTradingSessions() (*field.NoTradingSessions, errors.MessageRejectError) {
+	f := new(field.NoTradingSessions)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoTradingSessions reads a NoTradingSessions from NewOrderCross.
+func (m NewOrderCross) GetNoTradingSessions(f *field.NoTradingSessions) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ProcessCode is a non-required field for NewOrderCross.
-func (m NewOrderCross) ProcessCode() (field.ProcessCode, errors.MessageRejectError) {
-	var f field.ProcessCode
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ProcessCode() (*field.ProcessCode, errors.MessageRejectError) {
+	f := new(field.ProcessCode)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetProcessCode reads a ProcessCode from NewOrderCross.
+func (m NewOrderCross) GetProcessCode(f *field.ProcessCode) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PrevClosePx is a non-required field for NewOrderCross.
-func (m NewOrderCross) PrevClosePx() (field.PrevClosePx, errors.MessageRejectError) {
-	var f field.PrevClosePx
-	err := m.Body.Get(&f)
+func (m NewOrderCross) PrevClosePx() (*field.PrevClosePx, errors.MessageRejectError) {
+	f := new(field.PrevClosePx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPrevClosePx reads a PrevClosePx from NewOrderCross.
+func (m NewOrderCross) GetPrevClosePx(f *field.PrevClosePx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //LocateReqd is a non-required field for NewOrderCross.
-func (m NewOrderCross) LocateReqd() (field.LocateReqd, errors.MessageRejectError) {
-	var f field.LocateReqd
-	err := m.Body.Get(&f)
+func (m NewOrderCross) LocateReqd() (*field.LocateReqd, errors.MessageRejectError) {
+	f := new(field.LocateReqd)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetLocateReqd reads a LocateReqd from NewOrderCross.
+func (m NewOrderCross) GetLocateReqd(f *field.LocateReqd) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for NewOrderCross.
-func (m NewOrderCross) TransactTime() (field.TransactTime, errors.MessageRejectError) {
-	var f field.TransactTime
-	err := m.Body.Get(&f)
+func (m NewOrderCross) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
+	f := new(field.TransactTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTransactTime reads a TransactTime from NewOrderCross.
+func (m NewOrderCross) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoStipulations is a non-required field for NewOrderCross.
-func (m NewOrderCross) NoStipulations() (field.NoStipulations, errors.MessageRejectError) {
-	var f field.NoStipulations
-	err := m.Body.Get(&f)
+func (m NewOrderCross) NoStipulations() (*field.NoStipulations, errors.MessageRejectError) {
+	f := new(field.NoStipulations)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoStipulations reads a NoStipulations from NewOrderCross.
+func (m NewOrderCross) GetNoStipulations(f *field.NoStipulations) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //OrdType is a required field for NewOrderCross.
-func (m NewOrderCross) OrdType() (field.OrdType, errors.MessageRejectError) {
-	var f field.OrdType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) OrdType() (*field.OrdType, errors.MessageRejectError) {
+	f := new(field.OrdType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetOrdType reads a OrdType from NewOrderCross.
+func (m NewOrderCross) GetOrdType(f *field.OrdType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PriceType is a non-required field for NewOrderCross.
-func (m NewOrderCross) PriceType() (field.PriceType, errors.MessageRejectError) {
-	var f field.PriceType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) PriceType() (*field.PriceType, errors.MessageRejectError) {
+	f := new(field.PriceType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPriceType reads a PriceType from NewOrderCross.
+func (m NewOrderCross) GetPriceType(f *field.PriceType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Price is a non-required field for NewOrderCross.
-func (m NewOrderCross) Price() (field.Price, errors.MessageRejectError) {
-	var f field.Price
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Price() (*field.Price, errors.MessageRejectError) {
+	f := new(field.Price)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPrice reads a Price from NewOrderCross.
+func (m NewOrderCross) GetPrice(f *field.Price) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //StopPx is a non-required field for NewOrderCross.
-func (m NewOrderCross) StopPx() (field.StopPx, errors.MessageRejectError) {
-	var f field.StopPx
-	err := m.Body.Get(&f)
+func (m NewOrderCross) StopPx() (*field.StopPx, errors.MessageRejectError) {
+	f := new(field.StopPx)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetStopPx reads a StopPx from NewOrderCross.
+func (m NewOrderCross) GetStopPx(f *field.StopPx) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Spread is a non-required field for NewOrderCross.
-func (m NewOrderCross) Spread() (field.Spread, errors.MessageRejectError) {
-	var f field.Spread
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Spread() (*field.Spread, errors.MessageRejectError) {
+	f := new(field.Spread)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSpread reads a Spread from NewOrderCross.
+func (m NewOrderCross) GetSpread(f *field.Spread) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BenchmarkCurveCurrency is a non-required field for NewOrderCross.
-func (m NewOrderCross) BenchmarkCurveCurrency() (field.BenchmarkCurveCurrency, errors.MessageRejectError) {
-	var f field.BenchmarkCurveCurrency
-	err := m.Body.Get(&f)
+func (m NewOrderCross) BenchmarkCurveCurrency() (*field.BenchmarkCurveCurrency, errors.MessageRejectError) {
+	f := new(field.BenchmarkCurveCurrency)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBenchmarkCurveCurrency reads a BenchmarkCurveCurrency from NewOrderCross.
+func (m NewOrderCross) GetBenchmarkCurveCurrency(f *field.BenchmarkCurveCurrency) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BenchmarkCurveName is a non-required field for NewOrderCross.
-func (m NewOrderCross) BenchmarkCurveName() (field.BenchmarkCurveName, errors.MessageRejectError) {
-	var f field.BenchmarkCurveName
-	err := m.Body.Get(&f)
+func (m NewOrderCross) BenchmarkCurveName() (*field.BenchmarkCurveName, errors.MessageRejectError) {
+	f := new(field.BenchmarkCurveName)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBenchmarkCurveName reads a BenchmarkCurveName from NewOrderCross.
+func (m NewOrderCross) GetBenchmarkCurveName(f *field.BenchmarkCurveName) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BenchmarkCurvePoint is a non-required field for NewOrderCross.
-func (m NewOrderCross) BenchmarkCurvePoint() (field.BenchmarkCurvePoint, errors.MessageRejectError) {
-	var f field.BenchmarkCurvePoint
-	err := m.Body.Get(&f)
+func (m NewOrderCross) BenchmarkCurvePoint() (*field.BenchmarkCurvePoint, errors.MessageRejectError) {
+	f := new(field.BenchmarkCurvePoint)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBenchmarkCurvePoint reads a BenchmarkCurvePoint from NewOrderCross.
+func (m NewOrderCross) GetBenchmarkCurvePoint(f *field.BenchmarkCurvePoint) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BenchmarkPrice is a non-required field for NewOrderCross.
-func (m NewOrderCross) BenchmarkPrice() (field.BenchmarkPrice, errors.MessageRejectError) {
-	var f field.BenchmarkPrice
-	err := m.Body.Get(&f)
+func (m NewOrderCross) BenchmarkPrice() (*field.BenchmarkPrice, errors.MessageRejectError) {
+	f := new(field.BenchmarkPrice)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBenchmarkPrice reads a BenchmarkPrice from NewOrderCross.
+func (m NewOrderCross) GetBenchmarkPrice(f *field.BenchmarkPrice) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BenchmarkPriceType is a non-required field for NewOrderCross.
-func (m NewOrderCross) BenchmarkPriceType() (field.BenchmarkPriceType, errors.MessageRejectError) {
-	var f field.BenchmarkPriceType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) BenchmarkPriceType() (*field.BenchmarkPriceType, errors.MessageRejectError) {
+	f := new(field.BenchmarkPriceType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBenchmarkPriceType reads a BenchmarkPriceType from NewOrderCross.
+func (m NewOrderCross) GetBenchmarkPriceType(f *field.BenchmarkPriceType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BenchmarkSecurityID is a non-required field for NewOrderCross.
-func (m NewOrderCross) BenchmarkSecurityID() (field.BenchmarkSecurityID, errors.MessageRejectError) {
-	var f field.BenchmarkSecurityID
-	err := m.Body.Get(&f)
+func (m NewOrderCross) BenchmarkSecurityID() (*field.BenchmarkSecurityID, errors.MessageRejectError) {
+	f := new(field.BenchmarkSecurityID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBenchmarkSecurityID reads a BenchmarkSecurityID from NewOrderCross.
+func (m NewOrderCross) GetBenchmarkSecurityID(f *field.BenchmarkSecurityID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //BenchmarkSecurityIDSource is a non-required field for NewOrderCross.
-func (m NewOrderCross) BenchmarkSecurityIDSource() (field.BenchmarkSecurityIDSource, errors.MessageRejectError) {
-	var f field.BenchmarkSecurityIDSource
-	err := m.Body.Get(&f)
+func (m NewOrderCross) BenchmarkSecurityIDSource() (*field.BenchmarkSecurityIDSource, errors.MessageRejectError) {
+	f := new(field.BenchmarkSecurityIDSource)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBenchmarkSecurityIDSource reads a BenchmarkSecurityIDSource from NewOrderCross.
+func (m NewOrderCross) GetBenchmarkSecurityIDSource(f *field.BenchmarkSecurityIDSource) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //YieldType is a non-required field for NewOrderCross.
-func (m NewOrderCross) YieldType() (field.YieldType, errors.MessageRejectError) {
-	var f field.YieldType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) YieldType() (*field.YieldType, errors.MessageRejectError) {
+	f := new(field.YieldType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetYieldType reads a YieldType from NewOrderCross.
+func (m NewOrderCross) GetYieldType(f *field.YieldType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Yield is a non-required field for NewOrderCross.
-func (m NewOrderCross) Yield() (field.Yield, errors.MessageRejectError) {
-	var f field.Yield
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Yield() (*field.Yield, errors.MessageRejectError) {
+	f := new(field.Yield)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetYield reads a Yield from NewOrderCross.
+func (m NewOrderCross) GetYield(f *field.Yield) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //YieldCalcDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) YieldCalcDate() (field.YieldCalcDate, errors.MessageRejectError) {
-	var f field.YieldCalcDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) YieldCalcDate() (*field.YieldCalcDate, errors.MessageRejectError) {
+	f := new(field.YieldCalcDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetYieldCalcDate reads a YieldCalcDate from NewOrderCross.
+func (m NewOrderCross) GetYieldCalcDate(f *field.YieldCalcDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //YieldRedemptionDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) YieldRedemptionDate() (field.YieldRedemptionDate, errors.MessageRejectError) {
-	var f field.YieldRedemptionDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) YieldRedemptionDate() (*field.YieldRedemptionDate, errors.MessageRejectError) {
+	f := new(field.YieldRedemptionDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetYieldRedemptionDate reads a YieldRedemptionDate from NewOrderCross.
+func (m NewOrderCross) GetYieldRedemptionDate(f *field.YieldRedemptionDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //YieldRedemptionPrice is a non-required field for NewOrderCross.
-func (m NewOrderCross) YieldRedemptionPrice() (field.YieldRedemptionPrice, errors.MessageRejectError) {
-	var f field.YieldRedemptionPrice
-	err := m.Body.Get(&f)
+func (m NewOrderCross) YieldRedemptionPrice() (*field.YieldRedemptionPrice, errors.MessageRejectError) {
+	f := new(field.YieldRedemptionPrice)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetYieldRedemptionPrice reads a YieldRedemptionPrice from NewOrderCross.
+func (m NewOrderCross) GetYieldRedemptionPrice(f *field.YieldRedemptionPrice) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //YieldRedemptionPriceType is a non-required field for NewOrderCross.
-func (m NewOrderCross) YieldRedemptionPriceType() (field.YieldRedemptionPriceType, errors.MessageRejectError) {
-	var f field.YieldRedemptionPriceType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) YieldRedemptionPriceType() (*field.YieldRedemptionPriceType, errors.MessageRejectError) {
+	f := new(field.YieldRedemptionPriceType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetYieldRedemptionPriceType reads a YieldRedemptionPriceType from NewOrderCross.
+func (m NewOrderCross) GetYieldRedemptionPriceType(f *field.YieldRedemptionPriceType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for NewOrderCross.
-func (m NewOrderCross) Currency() (field.Currency, errors.MessageRejectError) {
-	var f field.Currency
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Currency() (*field.Currency, errors.MessageRejectError) {
+	f := new(field.Currency)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCurrency reads a Currency from NewOrderCross.
+func (m NewOrderCross) GetCurrency(f *field.Currency) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ComplianceID is a non-required field for NewOrderCross.
-func (m NewOrderCross) ComplianceID() (field.ComplianceID, errors.MessageRejectError) {
-	var f field.ComplianceID
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ComplianceID() (*field.ComplianceID, errors.MessageRejectError) {
+	f := new(field.ComplianceID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetComplianceID reads a ComplianceID from NewOrderCross.
+func (m NewOrderCross) GetComplianceID(f *field.ComplianceID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //IOIID is a non-required field for NewOrderCross.
-func (m NewOrderCross) IOIID() (field.IOIID, errors.MessageRejectError) {
-	var f field.IOIID
-	err := m.Body.Get(&f)
+func (m NewOrderCross) IOIID() (*field.IOIID, errors.MessageRejectError) {
+	f := new(field.IOIID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetIOIID reads a IOIID from NewOrderCross.
+func (m NewOrderCross) GetIOIID(f *field.IOIID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //QuoteID is a non-required field for NewOrderCross.
-func (m NewOrderCross) QuoteID() (field.QuoteID, errors.MessageRejectError) {
-	var f field.QuoteID
-	err := m.Body.Get(&f)
+func (m NewOrderCross) QuoteID() (*field.QuoteID, errors.MessageRejectError) {
+	f := new(field.QuoteID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetQuoteID reads a QuoteID from NewOrderCross.
+func (m NewOrderCross) GetQuoteID(f *field.QuoteID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TimeInForce is a non-required field for NewOrderCross.
-func (m NewOrderCross) TimeInForce() (field.TimeInForce, errors.MessageRejectError) {
-	var f field.TimeInForce
-	err := m.Body.Get(&f)
+func (m NewOrderCross) TimeInForce() (*field.TimeInForce, errors.MessageRejectError) {
+	f := new(field.TimeInForce)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTimeInForce reads a TimeInForce from NewOrderCross.
+func (m NewOrderCross) GetTimeInForce(f *field.TimeInForce) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EffectiveTime is a non-required field for NewOrderCross.
-func (m NewOrderCross) EffectiveTime() (field.EffectiveTime, errors.MessageRejectError) {
-	var f field.EffectiveTime
-	err := m.Body.Get(&f)
+func (m NewOrderCross) EffectiveTime() (*field.EffectiveTime, errors.MessageRejectError) {
+	f := new(field.EffectiveTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEffectiveTime reads a EffectiveTime from NewOrderCross.
+func (m NewOrderCross) GetEffectiveTime(f *field.EffectiveTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ExpireDate is a non-required field for NewOrderCross.
-func (m NewOrderCross) ExpireDate() (field.ExpireDate, errors.MessageRejectError) {
-	var f field.ExpireDate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ExpireDate() (*field.ExpireDate, errors.MessageRejectError) {
+	f := new(field.ExpireDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetExpireDate reads a ExpireDate from NewOrderCross.
+func (m NewOrderCross) GetExpireDate(f *field.ExpireDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ExpireTime is a non-required field for NewOrderCross.
-func (m NewOrderCross) ExpireTime() (field.ExpireTime, errors.MessageRejectError) {
-	var f field.ExpireTime
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ExpireTime() (*field.ExpireTime, errors.MessageRejectError) {
+	f := new(field.ExpireTime)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetExpireTime reads a ExpireTime from NewOrderCross.
+func (m NewOrderCross) GetExpireTime(f *field.ExpireTime) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //GTBookingInst is a non-required field for NewOrderCross.
-func (m NewOrderCross) GTBookingInst() (field.GTBookingInst, errors.MessageRejectError) {
-	var f field.GTBookingInst
-	err := m.Body.Get(&f)
+func (m NewOrderCross) GTBookingInst() (*field.GTBookingInst, errors.MessageRejectError) {
+	f := new(field.GTBookingInst)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetGTBookingInst reads a GTBookingInst from NewOrderCross.
+func (m NewOrderCross) GetGTBookingInst(f *field.GTBookingInst) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MaxShow is a non-required field for NewOrderCross.
-func (m NewOrderCross) MaxShow() (field.MaxShow, errors.MessageRejectError) {
-	var f field.MaxShow
-	err := m.Body.Get(&f)
+func (m NewOrderCross) MaxShow() (*field.MaxShow, errors.MessageRejectError) {
+	f := new(field.MaxShow)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMaxShow reads a MaxShow from NewOrderCross.
+func (m NewOrderCross) GetMaxShow(f *field.MaxShow) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PegOffsetValue is a non-required field for NewOrderCross.
-func (m NewOrderCross) PegOffsetValue() (field.PegOffsetValue, errors.MessageRejectError) {
-	var f field.PegOffsetValue
-	err := m.Body.Get(&f)
+func (m NewOrderCross) PegOffsetValue() (*field.PegOffsetValue, errors.MessageRejectError) {
+	f := new(field.PegOffsetValue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPegOffsetValue reads a PegOffsetValue from NewOrderCross.
+func (m NewOrderCross) GetPegOffsetValue(f *field.PegOffsetValue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PegMoveType is a non-required field for NewOrderCross.
-func (m NewOrderCross) PegMoveType() (field.PegMoveType, errors.MessageRejectError) {
-	var f field.PegMoveType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) PegMoveType() (*field.PegMoveType, errors.MessageRejectError) {
+	f := new(field.PegMoveType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPegMoveType reads a PegMoveType from NewOrderCross.
+func (m NewOrderCross) GetPegMoveType(f *field.PegMoveType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PegOffsetType is a non-required field for NewOrderCross.
-func (m NewOrderCross) PegOffsetType() (field.PegOffsetType, errors.MessageRejectError) {
-	var f field.PegOffsetType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) PegOffsetType() (*field.PegOffsetType, errors.MessageRejectError) {
+	f := new(field.PegOffsetType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPegOffsetType reads a PegOffsetType from NewOrderCross.
+func (m NewOrderCross) GetPegOffsetType(f *field.PegOffsetType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PegLimitType is a non-required field for NewOrderCross.
-func (m NewOrderCross) PegLimitType() (field.PegLimitType, errors.MessageRejectError) {
-	var f field.PegLimitType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) PegLimitType() (*field.PegLimitType, errors.MessageRejectError) {
+	f := new(field.PegLimitType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPegLimitType reads a PegLimitType from NewOrderCross.
+func (m NewOrderCross) GetPegLimitType(f *field.PegLimitType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PegRoundDirection is a non-required field for NewOrderCross.
-func (m NewOrderCross) PegRoundDirection() (field.PegRoundDirection, errors.MessageRejectError) {
-	var f field.PegRoundDirection
-	err := m.Body.Get(&f)
+func (m NewOrderCross) PegRoundDirection() (*field.PegRoundDirection, errors.MessageRejectError) {
+	f := new(field.PegRoundDirection)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPegRoundDirection reads a PegRoundDirection from NewOrderCross.
+func (m NewOrderCross) GetPegRoundDirection(f *field.PegRoundDirection) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PegScope is a non-required field for NewOrderCross.
-func (m NewOrderCross) PegScope() (field.PegScope, errors.MessageRejectError) {
-	var f field.PegScope
-	err := m.Body.Get(&f)
+func (m NewOrderCross) PegScope() (*field.PegScope, errors.MessageRejectError) {
+	f := new(field.PegScope)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPegScope reads a PegScope from NewOrderCross.
+func (m NewOrderCross) GetPegScope(f *field.PegScope) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DiscretionInst is a non-required field for NewOrderCross.
-func (m NewOrderCross) DiscretionInst() (field.DiscretionInst, errors.MessageRejectError) {
-	var f field.DiscretionInst
-	err := m.Body.Get(&f)
+func (m NewOrderCross) DiscretionInst() (*field.DiscretionInst, errors.MessageRejectError) {
+	f := new(field.DiscretionInst)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDiscretionInst reads a DiscretionInst from NewOrderCross.
+func (m NewOrderCross) GetDiscretionInst(f *field.DiscretionInst) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DiscretionOffsetValue is a non-required field for NewOrderCross.
-func (m NewOrderCross) DiscretionOffsetValue() (field.DiscretionOffsetValue, errors.MessageRejectError) {
-	var f field.DiscretionOffsetValue
-	err := m.Body.Get(&f)
+func (m NewOrderCross) DiscretionOffsetValue() (*field.DiscretionOffsetValue, errors.MessageRejectError) {
+	f := new(field.DiscretionOffsetValue)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDiscretionOffsetValue reads a DiscretionOffsetValue from NewOrderCross.
+func (m NewOrderCross) GetDiscretionOffsetValue(f *field.DiscretionOffsetValue) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DiscretionMoveType is a non-required field for NewOrderCross.
-func (m NewOrderCross) DiscretionMoveType() (field.DiscretionMoveType, errors.MessageRejectError) {
-	var f field.DiscretionMoveType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) DiscretionMoveType() (*field.DiscretionMoveType, errors.MessageRejectError) {
+	f := new(field.DiscretionMoveType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDiscretionMoveType reads a DiscretionMoveType from NewOrderCross.
+func (m NewOrderCross) GetDiscretionMoveType(f *field.DiscretionMoveType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DiscretionOffsetType is a non-required field for NewOrderCross.
-func (m NewOrderCross) DiscretionOffsetType() (field.DiscretionOffsetType, errors.MessageRejectError) {
-	var f field.DiscretionOffsetType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) DiscretionOffsetType() (*field.DiscretionOffsetType, errors.MessageRejectError) {
+	f := new(field.DiscretionOffsetType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDiscretionOffsetType reads a DiscretionOffsetType from NewOrderCross.
+func (m NewOrderCross) GetDiscretionOffsetType(f *field.DiscretionOffsetType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DiscretionLimitType is a non-required field for NewOrderCross.
-func (m NewOrderCross) DiscretionLimitType() (field.DiscretionLimitType, errors.MessageRejectError) {
-	var f field.DiscretionLimitType
-	err := m.Body.Get(&f)
+func (m NewOrderCross) DiscretionLimitType() (*field.DiscretionLimitType, errors.MessageRejectError) {
+	f := new(field.DiscretionLimitType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDiscretionLimitType reads a DiscretionLimitType from NewOrderCross.
+func (m NewOrderCross) GetDiscretionLimitType(f *field.DiscretionLimitType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DiscretionRoundDirection is a non-required field for NewOrderCross.
-func (m NewOrderCross) DiscretionRoundDirection() (field.DiscretionRoundDirection, errors.MessageRejectError) {
-	var f field.DiscretionRoundDirection
-	err := m.Body.Get(&f)
+func (m NewOrderCross) DiscretionRoundDirection() (*field.DiscretionRoundDirection, errors.MessageRejectError) {
+	f := new(field.DiscretionRoundDirection)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDiscretionRoundDirection reads a DiscretionRoundDirection from NewOrderCross.
+func (m NewOrderCross) GetDiscretionRoundDirection(f *field.DiscretionRoundDirection) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //DiscretionScope is a non-required field for NewOrderCross.
-func (m NewOrderCross) DiscretionScope() (field.DiscretionScope, errors.MessageRejectError) {
-	var f field.DiscretionScope
-	err := m.Body.Get(&f)
+func (m NewOrderCross) DiscretionScope() (*field.DiscretionScope, errors.MessageRejectError) {
+	f := new(field.DiscretionScope)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDiscretionScope reads a DiscretionScope from NewOrderCross.
+func (m NewOrderCross) GetDiscretionScope(f *field.DiscretionScope) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TargetStrategy is a non-required field for NewOrderCross.
-func (m NewOrderCross) TargetStrategy() (field.TargetStrategy, errors.MessageRejectError) {
-	var f field.TargetStrategy
-	err := m.Body.Get(&f)
+func (m NewOrderCross) TargetStrategy() (*field.TargetStrategy, errors.MessageRejectError) {
+	f := new(field.TargetStrategy)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTargetStrategy reads a TargetStrategy from NewOrderCross.
+func (m NewOrderCross) GetTargetStrategy(f *field.TargetStrategy) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //TargetStrategyParameters is a non-required field for NewOrderCross.
-func (m NewOrderCross) TargetStrategyParameters() (field.TargetStrategyParameters, errors.MessageRejectError) {
-	var f field.TargetStrategyParameters
-	err := m.Body.Get(&f)
+func (m NewOrderCross) TargetStrategyParameters() (*field.TargetStrategyParameters, errors.MessageRejectError) {
+	f := new(field.TargetStrategyParameters)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetTargetStrategyParameters reads a TargetStrategyParameters from NewOrderCross.
+func (m NewOrderCross) GetTargetStrategyParameters(f *field.TargetStrategyParameters) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ParticipationRate is a non-required field for NewOrderCross.
-func (m NewOrderCross) ParticipationRate() (field.ParticipationRate, errors.MessageRejectError) {
-	var f field.ParticipationRate
-	err := m.Body.Get(&f)
+func (m NewOrderCross) ParticipationRate() (*field.ParticipationRate, errors.MessageRejectError) {
+	f := new(field.ParticipationRate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetParticipationRate reads a ParticipationRate from NewOrderCross.
+func (m NewOrderCross) GetParticipationRate(f *field.ParticipationRate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //CancellationRights is a non-required field for NewOrderCross.
-func (m NewOrderCross) CancellationRights() (field.CancellationRights, errors.MessageRejectError) {
-	var f field.CancellationRights
-	err := m.Body.Get(&f)
+func (m NewOrderCross) CancellationRights() (*field.CancellationRights, errors.MessageRejectError) {
+	f := new(field.CancellationRights)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetCancellationRights reads a CancellationRights from NewOrderCross.
+func (m NewOrderCross) GetCancellationRights(f *field.CancellationRights) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MoneyLaunderingStatus is a non-required field for NewOrderCross.
-func (m NewOrderCross) MoneyLaunderingStatus() (field.MoneyLaunderingStatus, errors.MessageRejectError) {
-	var f field.MoneyLaunderingStatus
-	err := m.Body.Get(&f)
+func (m NewOrderCross) MoneyLaunderingStatus() (*field.MoneyLaunderingStatus, errors.MessageRejectError) {
+	f := new(field.MoneyLaunderingStatus)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMoneyLaunderingStatus reads a MoneyLaunderingStatus from NewOrderCross.
+func (m NewOrderCross) GetMoneyLaunderingStatus(f *field.MoneyLaunderingStatus) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RegistID is a non-required field for NewOrderCross.
-func (m NewOrderCross) RegistID() (field.RegistID, errors.MessageRejectError) {
-	var f field.RegistID
-	err := m.Body.Get(&f)
+func (m NewOrderCross) RegistID() (*field.RegistID, errors.MessageRejectError) {
+	f := new(field.RegistID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetRegistID reads a RegistID from NewOrderCross.
+func (m NewOrderCross) GetRegistID(f *field.RegistID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //Designation is a non-required field for NewOrderCross.
-func (m NewOrderCross) Designation() (field.Designation, errors.MessageRejectError) {
-	var f field.Designation
-	err := m.Body.Get(&f)
+func (m NewOrderCross) Designation() (*field.Designation, errors.MessageRejectError) {
+	f := new(field.Designation)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetDesignation reads a Designation from NewOrderCross.
+func (m NewOrderCross) GetDesignation(f *field.Designation) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

@@ -28,36 +28,61 @@ func CreateMarketDefinitionRequestBuilder(
 }
 
 //MarketReqID is a required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) MarketReqID() (field.MarketReqID, errors.MessageRejectError) {
-	var f field.MarketReqID
-	err := m.Body.Get(&f)
+func (m MarketDefinitionRequest) MarketReqID() (*field.MarketReqID, errors.MessageRejectError) {
+	f := new(field.MarketReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMarketReqID reads a MarketReqID from MarketDefinitionRequest.
+func (m MarketDefinitionRequest) GetMarketReqID(f *field.MarketReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SubscriptionRequestType is a required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) SubscriptionRequestType() (field.SubscriptionRequestType, errors.MessageRejectError) {
-	var f field.SubscriptionRequestType
-	err := m.Body.Get(&f)
+func (m MarketDefinitionRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, errors.MessageRejectError) {
+	f := new(field.SubscriptionRequestType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSubscriptionRequestType reads a SubscriptionRequestType from MarketDefinitionRequest.
+func (m MarketDefinitionRequest) GetSubscriptionRequestType(f *field.SubscriptionRequestType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MarketID is a non-required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) MarketID() (field.MarketID, errors.MessageRejectError) {
-	var f field.MarketID
-	err := m.Body.Get(&f)
+func (m MarketDefinitionRequest) MarketID() (*field.MarketID, errors.MessageRejectError) {
+	f := new(field.MarketID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetMarketID reads a MarketID from MarketDefinitionRequest.
+func (m MarketDefinitionRequest) GetMarketID(f *field.MarketID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //MarketSegmentID is a non-required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) MarketSegmentID() (field.MarketSegmentID, errors.MessageRejectError) {
-	var f field.MarketSegmentID
-	err := m.Body.Get(&f)
+func (m MarketDefinitionRequest) MarketSegmentID() (*field.MarketSegmentID, errors.MessageRejectError) {
+	f := new(field.MarketSegmentID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetMarketSegmentID reads a MarketSegmentID from MarketDefinitionRequest.
+func (m MarketDefinitionRequest) GetMarketSegmentID(f *field.MarketSegmentID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //ParentMktSegmID is a non-required field for MarketDefinitionRequest.
-func (m MarketDefinitionRequest) ParentMktSegmID() (field.ParentMktSegmID, errors.MessageRejectError) {
-	var f field.ParentMktSegmID
-	err := m.Body.Get(&f)
+func (m MarketDefinitionRequest) ParentMktSegmID() (*field.ParentMktSegmID, errors.MessageRejectError) {
+	f := new(field.ParentMktSegmID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetParentMktSegmID reads a ParentMktSegmID from MarketDefinitionRequest.
+func (m MarketDefinitionRequest) GetParentMktSegmID(f *field.ParentMktSegmID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

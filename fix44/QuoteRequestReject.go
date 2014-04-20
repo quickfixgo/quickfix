@@ -30,50 +30,85 @@ func CreateQuoteRequestRejectBuilder(
 }
 
 //QuoteReqID is a required field for QuoteRequestReject.
-func (m QuoteRequestReject) QuoteReqID() (field.QuoteReqID, errors.MessageRejectError) {
-	var f field.QuoteReqID
-	err := m.Body.Get(&f)
+func (m QuoteRequestReject) QuoteReqID() (*field.QuoteReqID, errors.MessageRejectError) {
+	f := new(field.QuoteReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetQuoteReqID reads a QuoteReqID from QuoteRequestReject.
+func (m QuoteRequestReject) GetQuoteReqID(f *field.QuoteReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //RFQReqID is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) RFQReqID() (field.RFQReqID, errors.MessageRejectError) {
-	var f field.RFQReqID
-	err := m.Body.Get(&f)
+func (m QuoteRequestReject) RFQReqID() (*field.RFQReqID, errors.MessageRejectError) {
+	f := new(field.RFQReqID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetRFQReqID reads a RFQReqID from QuoteRequestReject.
+func (m QuoteRequestReject) GetRFQReqID(f *field.RFQReqID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //QuoteRequestRejectReason is a required field for QuoteRequestReject.
-func (m QuoteRequestReject) QuoteRequestRejectReason() (field.QuoteRequestRejectReason, errors.MessageRejectError) {
-	var f field.QuoteRequestRejectReason
-	err := m.Body.Get(&f)
+func (m QuoteRequestReject) QuoteRequestRejectReason() (*field.QuoteRequestRejectReason, errors.MessageRejectError) {
+	f := new(field.QuoteRequestRejectReason)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetQuoteRequestRejectReason reads a QuoteRequestRejectReason from QuoteRequestReject.
+func (m QuoteRequestReject) GetQuoteRequestRejectReason(f *field.QuoteRequestRejectReason) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a required field for QuoteRequestReject.
-func (m QuoteRequestReject) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
-	var f field.NoRelatedSym
-	err := m.Body.Get(&f)
+func (m QuoteRequestReject) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoRelatedSym reads a NoRelatedSym from QuoteRequestReject.
+func (m QuoteRequestReject) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //Text is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) Text() (field.Text, errors.MessageRejectError) {
-	var f field.Text
-	err := m.Body.Get(&f)
+func (m QuoteRequestReject) Text() (*field.Text, errors.MessageRejectError) {
+	f := new(field.Text)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetText reads a Text from QuoteRequestReject.
+func (m QuoteRequestReject) GetText(f *field.Text) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) EncodedTextLen() (field.EncodedTextLen, errors.MessageRejectError) {
-	var f field.EncodedTextLen
-	err := m.Body.Get(&f)
+func (m QuoteRequestReject) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
+	f := new(field.EncodedTextLen)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetEncodedTextLen reads a EncodedTextLen from QuoteRequestReject.
+func (m QuoteRequestReject) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //EncodedText is a non-required field for QuoteRequestReject.
-func (m QuoteRequestReject) EncodedText() (field.EncodedText, errors.MessageRejectError) {
-	var f field.EncodedText
-	err := m.Body.Get(&f)
+func (m QuoteRequestReject) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
+	f := new(field.EncodedText)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetEncodedText reads a EncodedText from QuoteRequestReject.
+func (m QuoteRequestReject) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

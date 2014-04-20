@@ -26,22 +26,37 @@ func CreateBidResponseBuilder(
 }
 
 //BidID is a non-required field for BidResponse.
-func (m BidResponse) BidID() (field.BidID, errors.MessageRejectError) {
-	var f field.BidID
-	err := m.Body.Get(&f)
+func (m BidResponse) BidID() (*field.BidID, errors.MessageRejectError) {
+	f := new(field.BidID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetBidID reads a BidID from BidResponse.
+func (m BidResponse) GetBidID(f *field.BidID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClientBidID is a non-required field for BidResponse.
-func (m BidResponse) ClientBidID() (field.ClientBidID, errors.MessageRejectError) {
-	var f field.ClientBidID
-	err := m.Body.Get(&f)
+func (m BidResponse) ClientBidID() (*field.ClientBidID, errors.MessageRejectError) {
+	f := new(field.ClientBidID)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetClientBidID reads a ClientBidID from BidResponse.
+func (m BidResponse) GetClientBidID(f *field.ClientBidID) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //NoBidComponents is a required field for BidResponse.
-func (m BidResponse) NoBidComponents() (field.NoBidComponents, errors.MessageRejectError) {
-	var f field.NoBidComponents
-	err := m.Body.Get(&f)
+func (m BidResponse) NoBidComponents() (*field.NoBidComponents, errors.MessageRejectError) {
+	f := new(field.NoBidComponents)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoBidComponents reads a NoBidComponents from BidResponse.
+func (m BidResponse) GetNoBidComponents(f *field.NoBidComponents) errors.MessageRejectError {
+	return m.Body.Get(f)
 }

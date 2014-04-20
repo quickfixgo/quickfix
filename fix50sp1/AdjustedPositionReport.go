@@ -28,71 +28,121 @@ func CreateAdjustedPositionReportBuilder(
 }
 
 //PosMaintRptID is a required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) PosMaintRptID() (field.PosMaintRptID, errors.MessageRejectError) {
-	var f field.PosMaintRptID
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) PosMaintRptID() (*field.PosMaintRptID, errors.MessageRejectError) {
+	f := new(field.PosMaintRptID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPosMaintRptID reads a PosMaintRptID from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetPosMaintRptID(f *field.PosMaintRptID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PosReqType is a non-required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) PosReqType() (field.PosReqType, errors.MessageRejectError) {
-	var f field.PosReqType
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) PosReqType() (*field.PosReqType, errors.MessageRejectError) {
+	f := new(field.PosReqType)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPosReqType reads a PosReqType from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetPosReqType(f *field.PosReqType) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //ClearingBusinessDate is a required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) ClearingBusinessDate() (field.ClearingBusinessDate, errors.MessageRejectError) {
-	var f field.ClearingBusinessDate
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) ClearingBusinessDate() (*field.ClearingBusinessDate, errors.MessageRejectError) {
+	f := new(field.ClearingBusinessDate)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetClearingBusinessDate reads a ClearingBusinessDate from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetClearingBusinessDate(f *field.ClearingBusinessDate) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SettlSessID is a non-required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) SettlSessID() (field.SettlSessID, errors.MessageRejectError) {
-	var f field.SettlSessID
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) SettlSessID() (*field.SettlSessID, errors.MessageRejectError) {
+	f := new(field.SettlSessID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettlSessID reads a SettlSessID from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetSettlSessID(f *field.SettlSessID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) NoPartyIDs() (field.NoPartyIDs, errors.MessageRejectError) {
-	var f field.NoPartyIDs
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
+	f := new(field.NoPartyIDs)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoPartyIDs reads a NoPartyIDs from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoPositions is a non-required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) NoPositions() (field.NoPositions, errors.MessageRejectError) {
-	var f field.NoPositions
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) NoPositions() (*field.NoPositions, errors.MessageRejectError) {
+	f := new(field.NoPositions)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoPositions reads a NoPositions from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetNoPositions(f *field.NoPositions) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a non-required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) NoRelatedSym() (field.NoRelatedSym, errors.MessageRejectError) {
-	var f field.NoRelatedSym
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
+	f := new(field.NoRelatedSym)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetNoRelatedSym reads a NoRelatedSym from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //SettlPrice is a non-required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) SettlPrice() (field.SettlPrice, errors.MessageRejectError) {
-	var f field.SettlPrice
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) SettlPrice() (*field.SettlPrice, errors.MessageRejectError) {
+	f := new(field.SettlPrice)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetSettlPrice reads a SettlPrice from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetSettlPrice(f *field.SettlPrice) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
 
 //PriorSettlPrice is a non-required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) PriorSettlPrice() (field.PriorSettlPrice, errors.MessageRejectError) {
-	var f field.PriorSettlPrice
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) PriorSettlPrice() (*field.PriorSettlPrice, errors.MessageRejectError) {
+	f := new(field.PriorSettlPrice)
+	err := m.Body.Get(f)
 	return f, err
 }
 
+//GetPriorSettlPrice reads a PriorSettlPrice from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetPriorSettlPrice(f *field.PriorSettlPrice) errors.MessageRejectError {
+	return m.Body.Get(f)
+}
+
 //PosMaintRptRefID is a non-required field for AdjustedPositionReport.
-func (m AdjustedPositionReport) PosMaintRptRefID() (field.PosMaintRptRefID, errors.MessageRejectError) {
-	var f field.PosMaintRptRefID
-	err := m.Body.Get(&f)
+func (m AdjustedPositionReport) PosMaintRptRefID() (*field.PosMaintRptRefID, errors.MessageRejectError) {
+	f := new(field.PosMaintRptRefID)
+	err := m.Body.Get(f)
 	return f, err
+}
+
+//GetPosMaintRptRefID reads a PosMaintRptRefID from AdjustedPositionReport.
+func (m AdjustedPositionReport) GetPosMaintRptRefID(f *field.PosMaintRptRefID) errors.MessageRejectError {
+	return m.Body.Get(f)
 }
