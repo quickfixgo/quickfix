@@ -9,6 +9,44 @@ import (
 	"net"
 )
 
+//Picks up session from net.Conn Initiator
+func handleInitiatorConnection(netConn net.Conn, log log.Log, sessID SessionID) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.OnEventf("Connection Terminated: %v", err)
+		}
+
+		netConn.Close()
+	}()
+
+	session := activate(sessID)
+	if session == nil {
+		log.OnEventf("Session not found for SessionID: %v", sessID)
+		return
+	}
+	defer func() {
+		deactivate(sessID)
+	}()
+
+	var msgOut chan buffer
+	var err error
+	if msgOut, err = session.initiate(); err != nil {
+		log.OnEventf("Session cannot initiate: %v", err)
+		return
+	}
+
+	reader := bufio.NewReader(netConn)
+	parser := newParser(reader)
+
+	msgIn := make(chan []byte)
+	go writeLoop(netConn, msgOut)
+	go func() {
+		readLoop(parser, msgIn)
+	}()
+
+	session.run(msgIn)
+}
+
 //Picks up session from net.Conn Acceptor
 func handleAcceptorConnection(netConn net.Conn, log log.Log) {
 	defer func() {

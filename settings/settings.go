@@ -18,10 +18,12 @@ const (
 	SenderCompID            Setting = "SenderCompID"
 	TargetCompID            Setting = "TargetCompID"
 	SocketAcceptPort        Setting = "SocketAcceptPort"
+	SocketConnectHost       Setting = "SocketConnectHost"
 	SocketConnectPort       Setting = "SocketConnectPort"
 	DefaultApplVerID        Setting = "DefaultApplVerID"
 	DataDictionary          Setting = "DataDictionary"
 	TransportDataDictionary Setting = "TransportDataDictionary"
 	AppDataDictionary       Setting = "AppDataDictionary"
 	ResetOnLogon            Setting = "ResetOnLogon"
+	HeartBtInt              Setting = "HeartBtInt"
 )

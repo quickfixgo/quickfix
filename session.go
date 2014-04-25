@@ -33,41 +33,43 @@ type session struct {
 	transportDataDictionary *datadictionary.DataDictionary
 	appDataDictionary       *datadictionary.DataDictionary
 	resetOnLogon            bool
+	initiateLogon           bool
+	heartBtInt              int
 }
 
 //Creates Session, associates with internal session registry
-func createSession(dict settings.Dictionary, logFactory log.LogFactory, application Application) error {
+func createSession(dict settings.Dictionary, logFactory log.LogFactory, application Application) (SessionID, error) {
 	session := new(session)
 
 	if beginString, ok := dict.GetString(settings.BeginString); ok {
 		session.SessionID.BeginString = beginString
 	} else {
-		return settings.RequiredConfigurationMissing(settings.BeginString)
+		return session.SessionID, settings.RequiredConfigurationMissing(settings.BeginString)
 	}
 
 	if targetCompID, ok := dict.GetString(settings.TargetCompID); ok {
 		session.SessionID.TargetCompID = targetCompID
 	} else {
-		return settings.RequiredConfigurationMissing(settings.TargetCompID)
+		return session.SessionID, settings.RequiredConfigurationMissing(settings.TargetCompID)
 	}
 
 	if senderCompID, ok := dict.GetString(settings.SenderCompID); ok {
 		session.SessionID.SenderCompID = senderCompID
 	} else {
-		return settings.RequiredConfigurationMissing(settings.SenderCompID)
+		return session.SessionID, settings.RequiredConfigurationMissing(settings.SenderCompID)
 	}
 
 	if dataDictionaryPath, ok := dict.GetString(settings.DataDictionary); ok {
 		var err error
 		if session.dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
-			return err
+			return session.SessionID, err
 		}
 	}
 
 	if transportDataDictionaryPath, ok := dict.GetString(settings.TransportDataDictionary); ok {
 		var err error
 		if session.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
-			return err
+			return session.SessionID, err
 		}
 	}
 
@@ -75,7 +77,7 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 	if appDataDictionaryPath, ok := dict.GetString(settings.AppDataDictionary); ok {
 		var err error
 		if session.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
-			return err
+			return session.SessionID, err
 		}
 	}
 
@@ -83,15 +85,15 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 		if defaultApplVerID, ok := dict.GetString(settings.DefaultApplVerID); ok {
 			session.SessionID.DefaultApplVerID = defaultApplVerID
 		} else {
-			return settings.RequiredConfigurationMissing(settings.DefaultApplVerID)
+			return session.SessionID, settings.RequiredConfigurationMissing(settings.DefaultApplVerID)
 		}
 	}
 
-	if resetOnLogon, ok := dict.GetBool(settings.ResetOnLogon); ok {
-		session.resetOnLogon = resetOnLogon
-	} else {
-		session.resetOnLogon = false
-	}
+	resetOnLogon, _ := dict.GetBool(settings.ResetOnLogon)
+	session.resetOnLogon = resetOnLogon
+
+	heartBtInt, _ := dict.GetInt(settings.HeartBtInt)
+	session.heartBtInt = heartBtInt
 
 	session.toSend = make(chan message.MessageBuilder)
 
@@ -104,7 +106,17 @@ func createSession(dict settings.Dictionary, logFactory log.LogFactory, applicat
 	application.OnCreate(session.SessionID)
 	sessions.newSession <- session
 
-	return nil
+	return session.SessionID, nil
+}
+
+func (s *session) initiate() (chan buffer, error) {
+	s.currentState = logonState{}
+	s.messageOut = make(chan buffer)
+	s.messageStash = make(map[int]message.Message)
+	s.store = newMemoryStore()
+	s.initiateLogon = true
+
+	return s.messageOut, nil
 }
 
 func (s *session) accept() (chan buffer, error) {
@@ -190,48 +202,50 @@ func (s *session) DoTargetTooHigh(reject errors.TargetTooHigh) {
 }
 
 func (s *session) handleLogon(msg message.Message) error {
-	s.log.OnEvent("Received logon request")
-	if s.resetOnLogon {
-		s.expectedSeqNum = 1
-		s.seqNum = 1
-	}
-
-	resetSeqNumFlag := new(message.BooleanValue)
-	if err := msg.Body.GetField(tag.ResetSeqNumFlag, resetSeqNumFlag); err == nil {
-		if resetSeqNumFlag.Value {
-			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
-			s.seqNum = 1
+	if !s.initiateLogon {
+		s.log.OnEvent("Received logon request")
+		if s.resetOnLogon {
 			s.expectedSeqNum = 1
+			s.seqNum = 1
 		}
+
+		resetSeqNumFlag := new(message.BooleanValue)
+		if err := msg.Body.GetField(tag.ResetSeqNumFlag, resetSeqNumFlag); err == nil {
+			if resetSeqNumFlag.Value {
+				s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
+				s.seqNum = 1
+				s.expectedSeqNum = 1
+			}
+		}
+
+		if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
+			return err
+		}
+
+		reply := message.CreateMessageBuilder()
+		reply.Header.Set(field.BuildMsgType("A"))
+		reply.Header.Set(field.BuildBeginString(s.BeginString))
+		reply.Header.Set(field.BuildTargetCompID(s.TargetCompID))
+		reply.Header.Set(field.BuildSenderCompID(s.SenderCompID))
+		reply.Body.Set(field.BuildEncryptMethod(0))
+
+		var heartBtInt field.HeartBtInt
+		if err := msg.Body.Get(&heartBtInt); err == nil {
+			s.heartBeatTimeout = time.Duration(heartBtInt.Value) * time.Second
+			reply.Body.Set(heartBtInt)
+		}
+
+		if resetSeqNumFlag.Value {
+			reply.Body.Set(field.BuildResetSeqNumFlag(resetSeqNumFlag.Value))
+		}
+
+		if s.DefaultApplVerID != "" {
+			reply.Trailer.Set(field.BuildDefaultApplVerID(s.DefaultApplVerID))
+		}
+
+		s.log.OnEvent("Responding to logon request")
+		s.send(reply)
 	}
-
-	if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
-		return err
-	}
-
-	reply := message.CreateMessageBuilder()
-	reply.Header.Set(field.BuildMsgType("A"))
-	reply.Header.Set(field.BuildBeginString(s.BeginString))
-	reply.Header.Set(field.BuildTargetCompID(s.TargetCompID))
-	reply.Header.Set(field.BuildSenderCompID(s.SenderCompID))
-	reply.Body.Set(field.BuildEncryptMethod(0))
-
-	var heartBtInt field.HeartBtInt
-	if err := msg.Body.Get(&heartBtInt); err == nil {
-		s.heartBeatTimeout = time.Duration(heartBtInt.Value) * time.Second
-		reply.Body.Set(heartBtInt)
-	}
-
-	if resetSeqNumFlag.Value {
-		reply.Body.Set(field.BuildResetSeqNumFlag(resetSeqNumFlag.Value))
-	}
-
-	if s.DefaultApplVerID != "" {
-		reply.Trailer.Set(field.BuildDefaultApplVerID(s.DefaultApplVerID))
-	}
-
-	s.log.OnEvent("Responding to logon request")
-	s.send(reply)
 
 	s.application.OnLogon(s.SessionID)
 
@@ -436,6 +450,28 @@ func (s *session) run(msgIn chan []byte) {
 	defer func() {
 		s.messageOut <- nil
 	}()
+
+	if s.initiateLogon {
+		s.expectedSeqNum = 1
+		s.seqNum = 1
+
+		logon := message.CreateMessageBuilder()
+		logon.Header.Set(field.BuildMsgType("A"))
+		logon.Header.Set(field.BuildBeginString(s.BeginString))
+		logon.Header.Set(field.BuildTargetCompID(s.TargetCompID))
+		logon.Header.Set(field.BuildSenderCompID(s.SenderCompID))
+		logon.Body.Set(field.BuildEncryptMethod(0))
+		logon.Body.Set(field.BuildHeartBtInt(s.heartBtInt))
+
+		s.heartBeatTimeout = time.Duration(s.heartBtInt) * time.Second
+
+		if s.DefaultApplVerID != "" {
+			logon.Trailer.Set(field.BuildDefaultApplVerID(s.DefaultApplVerID))
+		}
+
+		s.log.OnEvent("Sending logon request")
+		s.send(logon)
+	}
 
 	for {
 

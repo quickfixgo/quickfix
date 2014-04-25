@@ -20,7 +20,7 @@ type Acceptor struct {
 func (a *Acceptor) Start() (e error) {
 	port, hasPort := a.settings.GetGlobalSettings().GetInt(settings.SocketAcceptPort)
 	if !hasPort {
-		return errors.New("config error: must provide socketAcceptPort")
+		return errors.New("config error: must provide SocketAcceptPort")
 	}
 
 	server, err := net.Listen("tcp", ":"+strconv.Itoa(port))
@@ -51,7 +51,7 @@ func NewAcceptor(app Application, settings settings.ApplicationSettings, logFact
 	a.globalLog = logFactory.Create()
 
 	for _, s := range settings.GetSessionSettings() {
-		if err := createSession(s, logFactory, app); err != nil {
+		if _, err := createSession(s, logFactory, app); err != nil {
 			return nil, err
 		}
 	}
