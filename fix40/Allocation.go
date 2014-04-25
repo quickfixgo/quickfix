@@ -29,6 +29,7 @@ func CreateAllocationBuilder(
 	noallocs field.NoAllocs) AllocationBuilder {
 	var builder AllocationBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("J"))
 	builder.Body.Set(allocid)
 	builder.Body.Set(alloctranstype)
 	builder.Body.Set(noorders)

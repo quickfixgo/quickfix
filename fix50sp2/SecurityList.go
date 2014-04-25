@@ -20,6 +20,7 @@ type SecurityListBuilder struct {
 func CreateSecurityListBuilder() SecurityListBuilder {
 	var builder SecurityListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("y"))
 	return builder
 }
 

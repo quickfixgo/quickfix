@@ -21,6 +21,7 @@ func CreateRejectBuilder(
 	refseqnum field.RefSeqNum) RejectBuilder {
 	var builder RejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("3"))
 	builder.Body.Set(refseqnum)
 	return builder
 }

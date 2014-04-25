@@ -21,6 +21,7 @@ func CreateSecurityStatusBuilder(
 	symbol field.Symbol) SecurityStatusBuilder {
 	var builder SecurityStatusBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("f"))
 	builder.Body.Set(symbol)
 	return builder
 }

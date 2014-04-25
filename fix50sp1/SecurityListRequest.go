@@ -22,6 +22,7 @@ func CreateSecurityListRequestBuilder(
 	securitylistrequesttype field.SecurityListRequestType) SecurityListRequestBuilder {
 	var builder SecurityListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("x"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securitylistrequesttype)
 	return builder

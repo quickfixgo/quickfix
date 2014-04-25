@@ -21,6 +21,7 @@ func CreateTradingSessionListBuilder(
 	notradingsessions field.NoTradingSessions) TradingSessionListBuilder {
 	var builder TradingSessionListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BJ"))
 	builder.Body.Set(notradingsessions)
 	return builder
 }

@@ -22,6 +22,7 @@ func CreateLogonBuilder(
 	heartbtint field.HeartBtInt) LogonBuilder {
 	var builder LogonBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("A"))
 	builder.Body.Set(encryptmethod)
 	builder.Body.Set(heartbtint)
 	return builder

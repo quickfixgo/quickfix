@@ -28,6 +28,7 @@ func CreatePositionReportBuilder(
 	priorsettlprice field.PriorSettlPrice) PositionReportBuilder {
 	var builder PositionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AP"))
 	builder.Body.Set(posmaintrptid)
 	builder.Body.Set(posreqresult)
 	builder.Body.Set(clearingbusinessdate)

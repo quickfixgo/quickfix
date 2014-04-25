@@ -22,6 +22,7 @@ func CreatePartyDetailsListRequestBuilder(
 	nopartylistresponsetypes field.NoPartyListResponseTypes) PartyDetailsListRequestBuilder {
 	var builder PartyDetailsListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("CF"))
 	builder.Body.Set(partydetailslistrequestid)
 	builder.Body.Set(nopartylistresponsetypes)
 	return builder

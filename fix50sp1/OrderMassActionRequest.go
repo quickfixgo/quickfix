@@ -24,6 +24,7 @@ func CreateOrderMassActionRequestBuilder(
 	transacttime field.TransactTime) OrderMassActionRequestBuilder {
 	var builder OrderMassActionRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("CA"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(massactiontype)
 	builder.Body.Set(massactionscope)

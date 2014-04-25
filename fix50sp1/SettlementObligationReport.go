@@ -22,6 +22,7 @@ func CreateSettlementObligationReportBuilder(
 	settlobligmode field.SettlObligMode) SettlementObligationReportBuilder {
 	var builder SettlementObligationReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BQ"))
 	builder.Body.Set(settlobligmsgid)
 	builder.Body.Set(settlobligmode)
 	return builder

@@ -22,6 +22,7 @@ func CreateQuoteRequestBuilder(
 	norelatedsym field.NoRelatedSym) QuoteRequestBuilder {
 	var builder QuoteRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("R"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(norelatedsym)
 	return builder

@@ -21,6 +21,7 @@ func CreateCollateralInquiryBuilder(
 	collinquiryid field.CollInquiryID) CollateralInquiryBuilder {
 	var builder CollateralInquiryBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BB"))
 	builder.Body.Set(collinquiryid)
 	return builder
 }

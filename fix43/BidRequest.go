@@ -26,6 +26,7 @@ func CreateBidRequestBuilder(
 	basispxtype field.BasisPxType) BidRequestBuilder {
 	var builder BidRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("k"))
 	builder.Body.Set(clientbidid)
 	builder.Body.Set(bidrequesttranstype)
 	builder.Body.Set(totalnumsecurities)

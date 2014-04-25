@@ -27,6 +27,7 @@ func CreatePositionMaintenanceRequestBuilder(
 	transacttime field.TransactTime) PositionMaintenanceRequestBuilder {
 	var builder PositionMaintenanceRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AL"))
 	builder.Body.Set(posreqid)
 	builder.Body.Set(postranstype)
 	builder.Body.Set(posmaintaction)

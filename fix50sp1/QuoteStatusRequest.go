@@ -20,6 +20,7 @@ type QuoteStatusRequestBuilder struct {
 func CreateQuoteStatusRequestBuilder() QuoteStatusRequestBuilder {
 	var builder QuoteStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("a"))
 	return builder
 }
 

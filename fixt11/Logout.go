@@ -20,6 +20,7 @@ type LogoutBuilder struct {
 func CreateLogoutBuilder() LogoutBuilder {
 	var builder LogoutBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("5"))
 	return builder
 }
 

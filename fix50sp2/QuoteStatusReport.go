@@ -20,6 +20,7 @@ type QuoteStatusReportBuilder struct {
 func CreateQuoteStatusReportBuilder() QuoteStatusReportBuilder {
 	var builder QuoteStatusReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AI"))
 	return builder
 }
 

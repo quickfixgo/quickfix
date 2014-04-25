@@ -26,6 +26,7 @@ func CreateNewOrderSingleBuilder(
 	ordtype field.OrdType) NewOrderSingleBuilder {
 	var builder NewOrderSingleBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("D"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(handlinst)
 	builder.Body.Set(symbol)

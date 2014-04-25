@@ -21,6 +21,7 @@ func CreateDerivativeSecurityListBuilder(
 	securityresponseid field.SecurityResponseID) DerivativeSecurityListBuilder {
 	var builder DerivativeSecurityListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AA"))
 	builder.Body.Set(securityresponseid)
 	return builder
 }

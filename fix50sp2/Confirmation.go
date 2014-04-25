@@ -33,6 +33,7 @@ func CreateConfirmationBuilder(
 	netmoney field.NetMoney) ConfirmationBuilder {
 	var builder ConfirmationBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AK"))
 	builder.Body.Set(confirmid)
 	builder.Body.Set(confirmtranstype)
 	builder.Body.Set(confirmtype)

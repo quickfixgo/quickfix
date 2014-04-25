@@ -22,6 +22,7 @@ func CreateTradingSessionStatusRequestBuilder(
 	subscriptionrequesttype field.SubscriptionRequestType) TradingSessionStatusRequestBuilder {
 	var builder TradingSessionStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("g"))
 	builder.Body.Set(tradsesreqid)
 	builder.Body.Set(subscriptionrequesttype)
 	return builder

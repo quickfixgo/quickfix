@@ -21,6 +21,7 @@ func CreateQuoteStatusReportBuilder(
 	quoteid field.QuoteID) QuoteStatusReportBuilder {
 	var builder QuoteStatusReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AI"))
 	builder.Body.Set(quoteid)
 	return builder
 }

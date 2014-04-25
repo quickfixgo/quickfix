@@ -22,6 +22,7 @@ func CreateDerivativeSecurityListRequestBuilder(
 	securitylistrequesttype field.SecurityListRequestType) DerivativeSecurityListRequestBuilder {
 	var builder DerivativeSecurityListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("z"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securitylistrequesttype)
 	return builder

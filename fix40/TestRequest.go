@@ -21,6 +21,7 @@ func CreateTestRequestBuilder(
 	testreqid field.TestReqID) TestRequestBuilder {
 	var builder TestRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("1"))
 	builder.Body.Set(testreqid)
 	return builder
 }

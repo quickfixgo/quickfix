@@ -24,6 +24,7 @@ func CreateTradeCaptureReportRequestAckBuilder(
 	traderequeststatus field.TradeRequestStatus) TradeCaptureReportRequestAckBuilder {
 	var builder TradeCaptureReportRequestAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AQ"))
 	builder.Body.Set(traderequestid)
 	builder.Body.Set(traderequesttype)
 	builder.Body.Set(traderequestresult)

@@ -22,6 +22,7 @@ func CreateNetworkCounterpartySystemStatusRequestBuilder(
 	networkrequestid field.NetworkRequestID) NetworkCounterpartySystemStatusRequestBuilder {
 	var builder NetworkCounterpartySystemStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BC"))
 	builder.Body.Set(networkrequesttype)
 	builder.Body.Set(networkrequestid)
 	return builder

@@ -23,6 +23,7 @@ func CreateRegistrationInstructionsBuilder(
 	registrefid field.RegistRefID) RegistrationInstructionsBuilder {
 	var builder RegistrationInstructionsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("o"))
 	builder.Body.Set(registid)
 	builder.Body.Set(registtranstype)
 	builder.Body.Set(registrefid)

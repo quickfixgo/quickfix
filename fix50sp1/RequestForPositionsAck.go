@@ -23,6 +23,7 @@ func CreateRequestForPositionsAckBuilder(
 	posreqstatus field.PosReqStatus) RequestForPositionsAckBuilder {
 	var builder RequestForPositionsAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AO"))
 	builder.Body.Set(posmaintrptid)
 	builder.Body.Set(posreqresult)
 	builder.Body.Set(posreqstatus)

@@ -22,6 +22,7 @@ func CreateUserResponseBuilder(
 	username field.Username) UserResponseBuilder {
 	var builder UserResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BF"))
 	builder.Body.Set(userrequestid)
 	builder.Body.Set(username)
 	return builder

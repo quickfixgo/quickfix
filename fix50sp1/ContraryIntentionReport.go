@@ -22,6 +22,7 @@ func CreateContraryIntentionReportBuilder(
 	clearingbusinessdate field.ClearingBusinessDate) ContraryIntentionReportBuilder {
 	var builder ContraryIntentionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BO"))
 	builder.Body.Set(contintrptid)
 	builder.Body.Set(clearingbusinessdate)
 	return builder

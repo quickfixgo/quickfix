@@ -21,6 +21,7 @@ func CreatePartyDetailsListReportBuilder(
 	partydetailslistreportid field.PartyDetailsListReportID) PartyDetailsListReportBuilder {
 	var builder PartyDetailsListReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("CG"))
 	builder.Body.Set(partydetailslistreportid)
 	return builder
 }

@@ -22,6 +22,7 @@ func CreateSettlementInstructionRequestBuilder(
 	transacttime field.TransactTime) SettlementInstructionRequestBuilder {
 	var builder SettlementInstructionRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AV"))
 	builder.Body.Set(settlinstreqid)
 	builder.Body.Set(transacttime)
 	return builder

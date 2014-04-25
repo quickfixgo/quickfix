@@ -28,6 +28,7 @@ func CreateAllocationReportBuilder(
 	tradedate field.TradeDate) AllocationReportBuilder {
 	var builder AllocationReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AS"))
 	builder.Body.Set(allocreportid)
 	builder.Body.Set(alloctranstype)
 	builder.Body.Set(allocreporttype)

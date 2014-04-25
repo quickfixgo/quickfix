@@ -21,6 +21,7 @@ func CreateApplicationMessageRequestAckBuilder(
 	applresponseid field.ApplResponseID) ApplicationMessageRequestAckBuilder {
 	var builder ApplicationMessageRequestAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BX"))
 	builder.Body.Set(applresponseid)
 	return builder
 }

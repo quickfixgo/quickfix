@@ -28,6 +28,7 @@ func CreateTradeCaptureReportBuilder(
 	nosides field.NoSides) TradeCaptureReportBuilder {
 	var builder TradeCaptureReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AE"))
 	builder.Body.Set(tradereportid)
 	builder.Body.Set(exectype)
 	builder.Body.Set(previouslyreported)

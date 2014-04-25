@@ -29,6 +29,7 @@ func CreateNewOrderListBuilder(
 	ordtype field.OrdType) NewOrderListBuilder {
 	var builder NewOrderListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("E"))
 	builder.Body.Set(listid)
 	builder.Body.Set(listseqno)
 	builder.Body.Set(listnoords)

@@ -20,6 +20,7 @@ type SecurityDefinitionUpdateReportBuilder struct {
 func CreateSecurityDefinitionUpdateReportBuilder() SecurityDefinitionUpdateReportBuilder {
 	var builder SecurityDefinitionUpdateReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BP"))
 	return builder
 }
 

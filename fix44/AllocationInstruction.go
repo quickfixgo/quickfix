@@ -28,6 +28,7 @@ func CreateAllocationInstructionBuilder(
 	tradedate field.TradeDate) AllocationInstructionBuilder {
 	var builder AllocationInstructionBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("J"))
 	builder.Body.Set(allocid)
 	builder.Body.Set(alloctranstype)
 	builder.Body.Set(alloctype)

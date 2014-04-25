@@ -23,6 +23,7 @@ func CreateSettlementInstructionsBuilder(
 	transacttime field.TransactTime) SettlementInstructionsBuilder {
 	var builder SettlementInstructionsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("T"))
 	builder.Body.Set(settlinstmsgid)
 	builder.Body.Set(settlinstmode)
 	builder.Body.Set(transacttime)

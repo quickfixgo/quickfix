@@ -23,6 +23,7 @@ func CreateListStrikePriceBuilder(
 	nostrikes field.NoStrikes) ListStrikePriceBuilder {
 	var builder ListStrikePriceBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("m"))
 	builder.Body.Set(listid)
 	builder.Body.Set(totnostrikes)
 	builder.Body.Set(nostrikes)

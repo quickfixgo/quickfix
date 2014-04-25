@@ -25,6 +25,7 @@ func CreatePositionMaintenanceReportBuilder(
 	clearingbusinessdate field.ClearingBusinessDate) PositionMaintenanceReportBuilder {
 	var builder PositionMaintenanceReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AM"))
 	builder.Body.Set(posmaintrptid)
 	builder.Body.Set(postranstype)
 	builder.Body.Set(posmaintaction)

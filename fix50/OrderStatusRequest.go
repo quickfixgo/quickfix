@@ -22,6 +22,7 @@ func CreateOrderStatusRequestBuilder(
 	side field.Side) OrderStatusRequestBuilder {
 	var builder OrderStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("H"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(side)
 	return builder

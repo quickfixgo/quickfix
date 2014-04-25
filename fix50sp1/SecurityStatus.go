@@ -20,6 +20,7 @@ type SecurityStatusBuilder struct {
 func CreateSecurityStatusBuilder() SecurityStatusBuilder {
 	var builder SecurityStatusBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("f"))
 	return builder
 }
 

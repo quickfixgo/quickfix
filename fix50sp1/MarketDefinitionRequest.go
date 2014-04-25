@@ -22,6 +22,7 @@ func CreateMarketDefinitionRequestBuilder(
 	subscriptionrequesttype field.SubscriptionRequestType) MarketDefinitionRequestBuilder {
 	var builder MarketDefinitionRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BT"))
 	builder.Body.Set(marketreqid)
 	builder.Body.Set(subscriptionrequesttype)
 	return builder

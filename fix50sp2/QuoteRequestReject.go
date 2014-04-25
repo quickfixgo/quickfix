@@ -23,6 +23,7 @@ func CreateQuoteRequestRejectBuilder(
 	norelatedsym field.NoRelatedSym) QuoteRequestRejectBuilder {
 	var builder QuoteRequestRejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AG"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(quoterequestrejectreason)
 	builder.Body.Set(norelatedsym)

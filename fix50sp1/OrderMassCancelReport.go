@@ -24,6 +24,7 @@ func CreateOrderMassCancelReportBuilder(
 	massactionreportid field.MassActionReportID) OrderMassCancelReportBuilder {
 	var builder OrderMassCancelReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("r"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(masscancelrequesttype)
 	builder.Body.Set(masscancelresponse)

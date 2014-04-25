@@ -21,6 +21,7 @@ func CreateListStatusRequestBuilder(
 	listid field.ListID) ListStatusRequestBuilder {
 	var builder ListStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("M"))
 	builder.Body.Set(listid)
 	return builder
 }

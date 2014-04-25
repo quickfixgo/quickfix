@@ -26,6 +26,7 @@ func CreateMultilegOrderCancelReplaceBuilder(
 	ordtype field.OrdType) MultilegOrderCancelReplaceBuilder {
 	var builder MultilegOrderCancelReplaceBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AC"))
 	builder.Body.Set(origclordid)
 	builder.Body.Set(clordid)
 	builder.Body.Set(side)

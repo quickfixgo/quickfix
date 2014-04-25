@@ -20,6 +20,7 @@ type SecurityDefinitionBuilder struct {
 func CreateSecurityDefinitionBuilder() SecurityDefinitionBuilder {
 	var builder SecurityDefinitionBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("d"))
 	return builder
 }
 

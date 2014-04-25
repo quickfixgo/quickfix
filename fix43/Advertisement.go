@@ -24,6 +24,7 @@ func CreateAdvertisementBuilder(
 	quantity field.Quantity) AdvertisementBuilder {
 	var builder AdvertisementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("7"))
 	builder.Body.Set(advid)
 	builder.Body.Set(advtranstype)
 	builder.Body.Set(advside)

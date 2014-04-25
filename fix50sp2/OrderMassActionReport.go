@@ -24,6 +24,7 @@ func CreateOrderMassActionReportBuilder(
 	massactionresponse field.MassActionResponse) OrderMassActionReportBuilder {
 	var builder OrderMassActionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BZ"))
 	builder.Body.Set(massactionreportid)
 	builder.Body.Set(massactiontype)
 	builder.Body.Set(massactionscope)

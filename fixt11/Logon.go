@@ -23,6 +23,7 @@ func CreateLogonBuilder(
 	defaultapplverid field.DefaultApplVerID) LogonBuilder {
 	var builder LogonBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("A"))
 	builder.Body.Set(encryptmethod)
 	builder.Body.Set(heartbtint)
 	builder.Body.Set(defaultapplverid)

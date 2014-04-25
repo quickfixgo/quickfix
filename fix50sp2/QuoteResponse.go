@@ -22,6 +22,7 @@ func CreateQuoteResponseBuilder(
 	quoteresptype field.QuoteRespType) QuoteResponseBuilder {
 	var builder QuoteResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AJ"))
 	builder.Body.Set(quoterespid)
 	builder.Body.Set(quoteresptype)
 	return builder

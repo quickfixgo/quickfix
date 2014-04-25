@@ -22,6 +22,7 @@ func CreateRFQRequestBuilder(
 	norelatedsym field.NoRelatedSym) RFQRequestBuilder {
 	var builder RFQRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AH"))
 	builder.Body.Set(rfqreqid)
 	builder.Body.Set(norelatedsym)
 	return builder

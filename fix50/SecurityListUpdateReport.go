@@ -20,6 +20,7 @@ type SecurityListUpdateReportBuilder struct {
 func CreateSecurityListUpdateReportBuilder() SecurityListUpdateReportBuilder {
 	var builder SecurityListUpdateReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BK"))
 	return builder
 }
 

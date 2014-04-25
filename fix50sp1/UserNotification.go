@@ -21,6 +21,7 @@ func CreateUserNotificationBuilder(
 	userstatus field.UserStatus) UserNotificationBuilder {
 	var builder UserNotificationBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("CB"))
 	builder.Body.Set(userstatus)
 	return builder
 }

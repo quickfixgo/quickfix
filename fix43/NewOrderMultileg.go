@@ -26,6 +26,7 @@ func CreateNewOrderMultilegBuilder(
 	ordtype field.OrdType) NewOrderMultilegBuilder {
 	var builder NewOrderMultilegBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AB"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(handlinst)
 	builder.Body.Set(side)

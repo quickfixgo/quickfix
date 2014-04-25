@@ -22,6 +22,7 @@ func CreateQuoteRequestBuilder(
 	symbol field.Symbol) QuoteRequestBuilder {
 	var builder QuoteRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("R"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(symbol)
 	return builder

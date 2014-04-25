@@ -20,6 +20,7 @@ type CollateralInquiryBuilder struct {
 func CreateCollateralInquiryBuilder() CollateralInquiryBuilder {
 	var builder CollateralInquiryBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BB"))
 	return builder
 }
 

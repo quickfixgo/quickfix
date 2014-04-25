@@ -22,6 +22,7 @@ func CreateTradeCaptureReportRequestBuilder(
 	traderequesttype field.TradeRequestType) TradeCaptureReportRequestBuilder {
 	var builder TradeCaptureReportRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AD"))
 	builder.Body.Set(traderequestid)
 	builder.Body.Set(traderequesttype)
 	return builder

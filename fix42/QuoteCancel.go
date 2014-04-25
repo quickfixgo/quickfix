@@ -23,6 +23,7 @@ func CreateQuoteCancelBuilder(
 	noquoteentries field.NoQuoteEntries) QuoteCancelBuilder {
 	var builder QuoteCancelBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("Z"))
 	builder.Body.Set(quoteid)
 	builder.Body.Set(quotecanceltype)
 	builder.Body.Set(noquoteentries)

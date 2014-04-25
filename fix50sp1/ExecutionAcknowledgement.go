@@ -24,6 +24,7 @@ func CreateExecutionAcknowledgementBuilder(
 	side field.Side) ExecutionAcknowledgementBuilder {
 	var builder ExecutionAcknowledgementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BN"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execackstatus)
 	builder.Body.Set(execid)

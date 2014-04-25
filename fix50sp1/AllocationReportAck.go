@@ -22,6 +22,7 @@ func CreateAllocationReportAckBuilder(
 	allocid field.AllocID) AllocationReportAckBuilder {
 	var builder AllocationReportAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AT"))
 	builder.Body.Set(allocreportid)
 	builder.Body.Set(allocid)
 	return builder

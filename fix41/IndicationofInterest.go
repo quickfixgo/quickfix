@@ -25,6 +25,7 @@ func CreateIndicationofInterestBuilder(
 	ioishares field.IOIShares) IndicationofInterestBuilder {
 	var builder IndicationofInterestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("6"))
 	builder.Body.Set(ioiid)
 	builder.Body.Set(ioitranstype)
 	builder.Body.Set(symbol)

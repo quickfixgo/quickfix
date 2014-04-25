@@ -25,6 +25,7 @@ func CreateMarketDataRequestBuilder(
 	norelatedsym field.NoRelatedSym) MarketDataRequestBuilder {
 	var builder MarketDataRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("V"))
 	builder.Body.Set(mdreqid)
 	builder.Body.Set(subscriptionrequesttype)
 	builder.Body.Set(marketdepth)

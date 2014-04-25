@@ -21,6 +21,7 @@ func CreateMarketDataIncrementalRefreshBuilder(
 	nomdentries field.NoMDEntries) MarketDataIncrementalRefreshBuilder {
 	var builder MarketDataIncrementalRefreshBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("X"))
 	builder.Body.Set(nomdentries)
 	return builder
 }

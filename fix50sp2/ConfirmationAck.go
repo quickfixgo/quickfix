@@ -24,6 +24,7 @@ func CreateConfirmationAckBuilder(
 	affirmstatus field.AffirmStatus) ConfirmationAckBuilder {
 	var builder ConfirmationAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AU"))
 	builder.Body.Set(confirmid)
 	builder.Body.Set(tradedate)
 	builder.Body.Set(transacttime)

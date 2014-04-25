@@ -22,6 +22,7 @@ func CreateTradingSessionStatusBuilder(
 	tradsesstatus field.TradSesStatus) TradingSessionStatusBuilder {
 	var builder TradingSessionStatusBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("h"))
 	builder.Body.Set(tradingsessionid)
 	builder.Body.Set(tradsesstatus)
 	return builder

@@ -27,6 +27,7 @@ func CreateListStatusBuilder(
 	noorders field.NoOrders) ListStatusBuilder {
 	var builder ListStatusBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("N"))
 	builder.Body.Set(listid)
 	builder.Body.Set(liststatustype)
 	builder.Body.Set(norpts)

@@ -22,6 +22,7 @@ func CreateStreamAssignmentReportACKBuilder(
 	streamasgnrptid field.StreamAsgnRptID) StreamAssignmentReportACKBuilder {
 	var builder StreamAssignmentReportACKBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("CE"))
 	builder.Body.Set(streamasgnacktype)
 	builder.Body.Set(streamasgnrptid)
 	return builder

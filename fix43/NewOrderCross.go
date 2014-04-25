@@ -27,6 +27,7 @@ func CreateNewOrderCrossBuilder(
 	ordtype field.OrdType) NewOrderCrossBuilder {
 	var builder NewOrderCrossBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("s"))
 	builder.Body.Set(crossid)
 	builder.Body.Set(crosstype)
 	builder.Body.Set(crossprioritization)

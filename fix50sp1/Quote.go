@@ -21,6 +21,7 @@ func CreateQuoteBuilder(
 	quoteid field.QuoteID) QuoteBuilder {
 	var builder QuoteBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("S"))
 	builder.Body.Set(quoteid)
 	return builder
 }

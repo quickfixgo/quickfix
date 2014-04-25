@@ -23,6 +23,7 @@ func CreateSecurityListBuilder(
 	securityrequestresult field.SecurityRequestResult) SecurityListBuilder {
 	var builder SecurityListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("y"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)
 	builder.Body.Set(securityrequestresult)

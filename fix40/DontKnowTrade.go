@@ -26,6 +26,7 @@ func CreateDontKnowTradeBuilder(
 	lastpx field.LastPx) DontKnowTradeBuilder {
 	var builder DontKnowTradeBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("Q"))
 	builder.Body.Set(dkreason)
 	builder.Body.Set(symbol)
 	builder.Body.Set(side)

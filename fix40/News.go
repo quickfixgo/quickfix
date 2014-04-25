@@ -22,6 +22,7 @@ func CreateNewsBuilder(
 	text field.Text) NewsBuilder {
 	var builder NewsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("B"))
 	builder.Body.Set(linesoftext)
 	builder.Body.Set(text)
 	return builder

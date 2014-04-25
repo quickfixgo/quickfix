@@ -20,6 +20,7 @@ type HeartbeatBuilder struct {
 func CreateHeartbeatBuilder() HeartbeatBuilder {
 	var builder HeartbeatBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("0"))
 	return builder
 }
 

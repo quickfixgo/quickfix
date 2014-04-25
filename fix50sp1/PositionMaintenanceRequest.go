@@ -23,6 +23,7 @@ func CreatePositionMaintenanceRequestBuilder(
 	clearingbusinessdate field.ClearingBusinessDate) PositionMaintenanceRequestBuilder {
 	var builder PositionMaintenanceRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AL"))
 	builder.Body.Set(postranstype)
 	builder.Body.Set(posmaintaction)
 	builder.Body.Set(clearingbusinessdate)

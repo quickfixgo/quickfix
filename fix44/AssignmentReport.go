@@ -31,6 +31,7 @@ func CreateAssignmentReportBuilder(
 	clearingbusinessdate field.ClearingBusinessDate) AssignmentReportBuilder {
 	var builder AssignmentReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AW"))
 	builder.Body.Set(asgnrptid)
 	builder.Body.Set(accounttype)
 	builder.Body.Set(settlprice)

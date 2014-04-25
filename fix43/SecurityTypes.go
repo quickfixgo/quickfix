@@ -23,6 +23,7 @@ func CreateSecurityTypesBuilder(
 	securityresponsetype field.SecurityResponseType) SecurityTypesBuilder {
 	var builder SecurityTypesBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("w"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)
 	builder.Body.Set(securityresponsetype)

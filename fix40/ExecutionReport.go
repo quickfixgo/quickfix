@@ -31,6 +31,7 @@ func CreateExecutionReportBuilder(
 	avgpx field.AvgPx) ExecutionReportBuilder {
 	var builder ExecutionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("8"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execid)
 	builder.Body.Set(exectranstype)

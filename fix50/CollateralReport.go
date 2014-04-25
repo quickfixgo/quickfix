@@ -22,6 +22,7 @@ func CreateCollateralReportBuilder(
 	collstatus field.CollStatus) CollateralReportBuilder {
 	var builder CollateralReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BA"))
 	builder.Body.Set(collrptid)
 	builder.Body.Set(collstatus)
 	return builder

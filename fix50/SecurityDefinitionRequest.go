@@ -22,6 +22,7 @@ func CreateSecurityDefinitionRequestBuilder(
 	securityrequesttype field.SecurityRequestType) SecurityDefinitionRequestBuilder {
 	var builder SecurityDefinitionRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("c"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityrequesttype)
 	return builder

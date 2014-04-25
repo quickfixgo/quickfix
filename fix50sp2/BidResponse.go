@@ -21,6 +21,7 @@ func CreateBidResponseBuilder(
 	nobidcomponents field.NoBidComponents) BidResponseBuilder {
 	var builder BidResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("l"))
 	builder.Body.Set(nobidcomponents)
 	return builder
 }

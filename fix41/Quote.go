@@ -22,6 +22,7 @@ func CreateQuoteBuilder(
 	symbol field.Symbol) QuoteBuilder {
 	var builder QuoteBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("S"))
 	builder.Body.Set(quoteid)
 	builder.Body.Set(symbol)
 	return builder

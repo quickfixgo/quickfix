@@ -22,6 +22,7 @@ func CreateOrderMassStatusRequestBuilder(
 	massstatusreqtype field.MassStatusReqType) OrderMassStatusRequestBuilder {
 	var builder OrderMassStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AF"))
 	builder.Body.Set(massstatusreqid)
 	builder.Body.Set(massstatusreqtype)
 	return builder

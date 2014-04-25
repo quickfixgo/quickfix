@@ -22,6 +22,7 @@ func CreateAdjustedPositionReportBuilder(
 	clearingbusinessdate field.ClearingBusinessDate) AdjustedPositionReportBuilder {
 	var builder AdjustedPositionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BL"))
 	builder.Body.Set(posmaintrptid)
 	builder.Body.Set(clearingbusinessdate)
 	return builder

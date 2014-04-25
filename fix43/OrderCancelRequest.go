@@ -24,6 +24,7 @@ func CreateOrderCancelRequestBuilder(
 	transacttime field.TransactTime) OrderCancelRequestBuilder {
 	var builder OrderCancelRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("F"))
 	builder.Body.Set(origclordid)
 	builder.Body.Set(clordid)
 	builder.Body.Set(side)

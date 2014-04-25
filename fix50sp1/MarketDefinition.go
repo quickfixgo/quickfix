@@ -22,6 +22,7 @@ func CreateMarketDefinitionBuilder(
 	marketid field.MarketID) MarketDefinitionBuilder {
 	var builder MarketDefinitionBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BU"))
 	builder.Body.Set(marketreportid)
 	builder.Body.Set(marketid)
 	return builder

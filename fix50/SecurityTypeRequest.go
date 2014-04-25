@@ -21,6 +21,7 @@ func CreateSecurityTypeRequestBuilder(
 	securityreqid field.SecurityReqID) SecurityTypeRequestBuilder {
 	var builder SecurityTypeRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("v"))
 	builder.Body.Set(securityreqid)
 	return builder
 }

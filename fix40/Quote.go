@@ -23,6 +23,7 @@ func CreateQuoteBuilder(
 	bidpx field.BidPx) QuoteBuilder {
 	var builder QuoteBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("S"))
 	builder.Body.Set(quoteid)
 	builder.Body.Set(symbol)
 	builder.Body.Set(bidpx)

@@ -20,6 +20,7 @@ type DerivativeSecurityListUpdateReportBuilder struct {
 func CreateDerivativeSecurityListUpdateReportBuilder() DerivativeSecurityListUpdateReportBuilder {
 	var builder DerivativeSecurityListUpdateReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BR"))
 	return builder
 }
 

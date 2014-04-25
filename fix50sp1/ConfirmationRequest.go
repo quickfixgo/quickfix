@@ -23,6 +23,7 @@ func CreateConfirmationRequestBuilder(
 	transacttime field.TransactTime) ConfirmationRequestBuilder {
 	var builder ConfirmationRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BH"))
 	builder.Body.Set(confirmreqid)
 	builder.Body.Set(confirmtype)
 	builder.Body.Set(transacttime)

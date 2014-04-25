@@ -21,6 +21,7 @@ func CreateQuoteAcknowledgementBuilder(
 	quoteackstatus field.QuoteAckStatus) QuoteAcknowledgementBuilder {
 	var builder QuoteAcknowledgementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("b"))
 	builder.Body.Set(quoteackstatus)
 	return builder
 }

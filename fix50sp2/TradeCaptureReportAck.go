@@ -21,6 +21,7 @@ func CreateTradeCaptureReportAckBuilder(
 	nosides field.NoSides) TradeCaptureReportAckBuilder {
 	var builder TradeCaptureReportAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AR"))
 	builder.Body.Set(nosides)
 	return builder
 }

@@ -26,6 +26,7 @@ func CreateRequestForPositionsBuilder(
 	transacttime field.TransactTime) RequestForPositionsBuilder {
 	var builder RequestForPositionsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AN"))
 	builder.Body.Set(posreqid)
 	builder.Body.Set(posreqtype)
 	builder.Body.Set(account)

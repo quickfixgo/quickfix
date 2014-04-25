@@ -21,6 +21,7 @@ func CreateMassQuoteAcknowledgementBuilder(
 	quotestatus field.QuoteStatus) MassQuoteAcknowledgementBuilder {
 	var builder MassQuoteAcknowledgementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("b"))
 	builder.Body.Set(quotestatus)
 	return builder
 }

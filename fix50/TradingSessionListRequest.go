@@ -22,6 +22,7 @@ func CreateTradingSessionListRequestBuilder(
 	subscriptionrequesttype field.SubscriptionRequestType) TradingSessionListRequestBuilder {
 	var builder TradingSessionListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BI"))
 	builder.Body.Set(tradsesreqid)
 	builder.Body.Set(subscriptionrequesttype)
 	return builder

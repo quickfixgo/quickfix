@@ -22,6 +22,7 @@ func CreateApplicationMessageRequestBuilder(
 	applreqtype field.ApplReqType) ApplicationMessageRequestBuilder {
 	var builder ApplicationMessageRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BW"))
 	builder.Body.Set(applreqid)
 	builder.Body.Set(applreqtype)
 	return builder

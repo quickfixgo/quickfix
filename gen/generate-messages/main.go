@@ -136,6 +136,7 @@ import(
 	fileOut += fmt.Sprintf(") %vBuilder {\n", msg.Name)
 	fileOut += fmt.Sprintf("var builder %vBuilder\n", msg.Name)
 	fileOut += "builder.MessageBuilder = message.CreateMessageBuilder()\n"
+	fileOut += fmt.Sprintf("builder.Header.Set(field.BuildMsgType(\"%v\"))\n", msg.MsgType)
 
 	for _, field := range requiredFields {
 		fileOut += fmt.Sprintf("builder.Body.Set(%v)\n", strings.ToLower(field.Name))

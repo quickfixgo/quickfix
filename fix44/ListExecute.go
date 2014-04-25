@@ -22,6 +22,7 @@ func CreateListExecuteBuilder(
 	transacttime field.TransactTime) ListExecuteBuilder {
 	var builder ListExecuteBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("L"))
 	builder.Body.Set(listid)
 	builder.Body.Set(transacttime)
 	return builder

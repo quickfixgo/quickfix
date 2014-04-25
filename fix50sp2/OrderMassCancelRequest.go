@@ -23,6 +23,7 @@ func CreateOrderMassCancelRequestBuilder(
 	transacttime field.TransactTime) OrderMassCancelRequestBuilder {
 	var builder OrderMassCancelRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("q"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(masscancelrequesttype)
 	builder.Body.Set(transacttime)

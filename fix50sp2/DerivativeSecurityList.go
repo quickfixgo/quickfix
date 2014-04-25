@@ -20,6 +20,7 @@ type DerivativeSecurityListBuilder struct {
 func CreateDerivativeSecurityListBuilder() DerivativeSecurityListBuilder {
 	var builder DerivativeSecurityListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("AA"))
 	return builder
 }
 

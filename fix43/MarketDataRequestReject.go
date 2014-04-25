@@ -21,6 +21,7 @@ func CreateMarketDataRequestRejectBuilder(
 	mdreqid field.MDReqID) MarketDataRequestRejectBuilder {
 	var builder MarketDataRequestRejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("Y"))
 	builder.Body.Set(mdreqid)
 	return builder
 }

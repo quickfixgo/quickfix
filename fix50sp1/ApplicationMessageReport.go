@@ -22,6 +22,7 @@ func CreateApplicationMessageReportBuilder(
 	applreporttype field.ApplReportType) ApplicationMessageReportBuilder {
 	var builder ApplicationMessageReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("BY"))
 	builder.Body.Set(applreportid)
 	builder.Body.Set(applreporttype)
 	return builder

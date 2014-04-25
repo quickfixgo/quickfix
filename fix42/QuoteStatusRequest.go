@@ -21,6 +21,7 @@ func CreateQuoteStatusRequestBuilder(
 	symbol field.Symbol) QuoteStatusRequestBuilder {
 	var builder QuoteStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("a"))
 	builder.Body.Set(symbol)
 	return builder
 }

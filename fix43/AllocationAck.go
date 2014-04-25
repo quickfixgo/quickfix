@@ -23,6 +23,7 @@ func CreateAllocationAckBuilder(
 	allocstatus field.AllocStatus) AllocationAckBuilder {
 	var builder AllocationAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("P"))
 	builder.Body.Set(allocid)
 	builder.Body.Set(tradedate)
 	builder.Body.Set(allocstatus)

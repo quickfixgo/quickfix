@@ -22,6 +22,7 @@ func CreateStreamAssignmentRequestBuilder(
 	streamasgnreqtype field.StreamAsgnReqType) StreamAssignmentRequestBuilder {
 	var builder StreamAssignmentRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("CC"))
 	builder.Body.Set(streamasgnreqid)
 	builder.Body.Set(streamasgnreqtype)
 	return builder

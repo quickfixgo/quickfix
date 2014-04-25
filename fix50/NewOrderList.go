@@ -24,6 +24,7 @@ func CreateNewOrderListBuilder(
 	noorders field.NoOrders) NewOrderListBuilder {
 	var builder NewOrderListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildMsgType("E"))
 	builder.Body.Set(listid)
 	builder.Body.Set(bidtype)
 	builder.Body.Set(totnoorders)
