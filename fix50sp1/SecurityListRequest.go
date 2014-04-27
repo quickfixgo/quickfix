@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //SecurityListRequest msg type = x.
 type SecurityListRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateSecurityListRequestBuilder(
 	var builder SecurityListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("x"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securitylistrequesttype)

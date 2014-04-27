@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //OrderCancelReplaceRequest msg type = G.
 type OrderCancelReplaceRequest struct {
 	message.Message
@@ -27,6 +31,7 @@ func CreateOrderCancelReplaceRequestBuilder(
 	var builder OrderCancelReplaceRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("G"))
 	builder.Body.Set(origclordid)
 	builder.Body.Set(clordid)

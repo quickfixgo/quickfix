@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //NewOrderList msg type = E.
 type NewOrderList struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateNewOrderListBuilder(
 	var builder NewOrderListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("E"))
 	builder.Body.Set(listid)
 	builder.Body.Set(bidtype)

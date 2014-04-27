@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //SecurityStatusRequest msg type = e.
 type SecurityStatusRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateSecurityStatusRequestBuilder(
 	var builder SecurityStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("e"))
 	builder.Body.Set(securitystatusreqid)
 	builder.Body.Set(subscriptionrequesttype)

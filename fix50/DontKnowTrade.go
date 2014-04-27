@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //DontKnowTrade msg type = Q.
 type DontKnowTrade struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateDontKnowTradeBuilder(
 	var builder DontKnowTradeBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("Q"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execid)

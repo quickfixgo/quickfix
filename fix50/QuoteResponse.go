@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //QuoteResponse msg type = AJ.
 type QuoteResponse struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateQuoteResponseBuilder(
 	var builder QuoteResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("AJ"))
 	builder.Body.Set(quoterespid)
 	builder.Body.Set(quoteresptype)

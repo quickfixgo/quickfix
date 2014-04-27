@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //PositionMaintenanceRequest msg type = AL.
 type PositionMaintenanceRequest struct {
 	message.Message
@@ -25,6 +29,7 @@ func CreatePositionMaintenanceRequestBuilder(
 	var builder PositionMaintenanceRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("AL"))
 	builder.Body.Set(postranstype)
 	builder.Body.Set(posmaintaction)

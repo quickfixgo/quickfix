@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //RequestForPositionsAck msg type = AO.
 type RequestForPositionsAck struct {
 	message.Message
@@ -25,6 +29,7 @@ func CreateRequestForPositionsAckBuilder(
 	var builder RequestForPositionsAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("AO"))
 	builder.Body.Set(posmaintrptid)
 	builder.Body.Set(posreqresult)

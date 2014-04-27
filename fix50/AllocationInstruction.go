@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //AllocationInstruction msg type = J.
 type AllocationInstruction struct {
 	message.Message
@@ -28,6 +32,7 @@ func CreateAllocationInstructionBuilder(
 	var builder AllocationInstructionBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("J"))
 	builder.Body.Set(allocid)
 	builder.Body.Set(alloctranstype)

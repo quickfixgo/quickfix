@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //ListStrikePrice msg type = m.
 type ListStrikePrice struct {
 	message.Message
@@ -25,6 +29,7 @@ func CreateListStrikePriceBuilder(
 	var builder ListStrikePriceBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("m"))
 	builder.Body.Set(listid)
 	builder.Body.Set(totnostrikes)

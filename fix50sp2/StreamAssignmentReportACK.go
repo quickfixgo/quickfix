@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //StreamAssignmentReportACK msg type = CE.
 type StreamAssignmentReportACK struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateStreamAssignmentReportACKBuilder(
 	var builder StreamAssignmentReportACKBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("CE"))
 	builder.Body.Set(streamasgnacktype)
 	builder.Body.Set(streamasgnrptid)

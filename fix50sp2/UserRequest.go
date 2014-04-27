@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //UserRequest msg type = BE.
 type UserRequest struct {
 	message.Message
@@ -25,6 +29,7 @@ func CreateUserRequestBuilder(
 	var builder UserRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("BE"))
 	builder.Body.Set(userrequestid)
 	builder.Body.Set(userrequesttype)

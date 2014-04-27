@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //StreamAssignmentRequest msg type = CC.
 type StreamAssignmentRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateStreamAssignmentRequestBuilder(
 	var builder StreamAssignmentRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("CC"))
 	builder.Body.Set(streamasgnreqid)
 	builder.Body.Set(streamasgnreqtype)

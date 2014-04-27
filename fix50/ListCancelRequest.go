@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //ListCancelRequest msg type = K.
 type ListCancelRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateListCancelRequestBuilder(
 	var builder ListCancelRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("K"))
 	builder.Body.Set(listid)
 	builder.Body.Set(transacttime)

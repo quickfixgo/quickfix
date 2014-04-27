@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //RequestForPositions msg type = AN.
 type RequestForPositions struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateRequestForPositionsBuilder(
 	var builder RequestForPositionsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("AN"))
 	builder.Body.Set(posreqid)
 	builder.Body.Set(posreqtype)

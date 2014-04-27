@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //CrossOrderCancelRequest msg type = u.
 type CrossOrderCancelRequest struct {
 	message.Message
@@ -28,6 +32,7 @@ func CreateCrossOrderCancelRequestBuilder(
 	var builder CrossOrderCancelRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("u"))
 	builder.Body.Set(crossid)
 	builder.Body.Set(origcrossid)

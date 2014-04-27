@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //TradingSessionListUpdateReport msg type = BS.
 type TradingSessionListUpdateReport struct {
 	message.Message
@@ -23,6 +27,7 @@ func CreateTradingSessionListUpdateReportBuilder(
 	var builder TradingSessionListUpdateReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("BS"))
 	builder.Body.Set(notradingsessions)
 	return builder

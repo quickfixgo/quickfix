@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //AllocationInstructionAck msg type = P.
 type AllocationInstructionAck struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateAllocationInstructionAckBuilder(
 	var builder AllocationInstructionAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("P"))
 	builder.Body.Set(allocid)
 	builder.Body.Set(allocstatus)

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //ApplicationMessageReport msg type = BY.
 type ApplicationMessageReport struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateApplicationMessageReportBuilder(
 	var builder ApplicationMessageReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("BY"))
 	builder.Body.Set(applreportid)
 	builder.Body.Set(applreporttype)

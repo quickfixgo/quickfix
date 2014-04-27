@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //TradeCaptureReportRequestAck msg type = AQ.
 type TradeCaptureReportRequestAck struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateTradeCaptureReportRequestAckBuilder(
 	var builder TradeCaptureReportRequestAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("AQ"))
 	builder.Body.Set(traderequestid)
 	builder.Body.Set(traderequesttype)

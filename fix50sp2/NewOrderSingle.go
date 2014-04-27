@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //NewOrderSingle msg type = D.
 type NewOrderSingle struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateNewOrderSingleBuilder(
 	var builder NewOrderSingleBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("D"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(side)

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //SettlementObligationReport msg type = BQ.
 type SettlementObligationReport struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateSettlementObligationReportBuilder(
 	var builder SettlementObligationReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("BQ"))
 	builder.Body.Set(settlobligmsgid)
 	builder.Body.Set(settlobligmode)

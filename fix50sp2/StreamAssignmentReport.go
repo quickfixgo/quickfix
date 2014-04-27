@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //StreamAssignmentReport msg type = CD.
 type StreamAssignmentReport struct {
 	message.Message
@@ -23,6 +27,7 @@ func CreateStreamAssignmentReportBuilder(
 	var builder StreamAssignmentReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("CD"))
 	builder.Body.Set(streamasgnrptid)
 	return builder

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //NewOrderCross msg type = s.
 type NewOrderCross struct {
 	message.Message
@@ -28,6 +32,7 @@ func CreateNewOrderCrossBuilder(
 	var builder NewOrderCrossBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("s"))
 	builder.Body.Set(crossid)
 	builder.Body.Set(crosstype)

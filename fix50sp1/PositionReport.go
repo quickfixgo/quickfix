@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //PositionReport msg type = AP.
 type PositionReport struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreatePositionReportBuilder(
 	var builder PositionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("AP"))
 	builder.Body.Set(posmaintrptid)
 	builder.Body.Set(clearingbusinessdate)

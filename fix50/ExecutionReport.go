@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //ExecutionReport msg type = 8.
 type ExecutionReport struct {
 	message.Message
@@ -29,6 +33,7 @@ func CreateExecutionReportBuilder(
 	var builder ExecutionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("8"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execid)

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //MarketDataRequest msg type = V.
 type MarketDataRequest struct {
 	message.Message
@@ -27,6 +31,7 @@ func CreateMarketDataRequestBuilder(
 	var builder MarketDataRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("V"))
 	builder.Body.Set(mdreqid)
 	builder.Body.Set(subscriptionrequesttype)

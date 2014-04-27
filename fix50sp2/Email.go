@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //Email msg type = C.
 type Email struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateEmailBuilder(
 	var builder EmailBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("C"))
 	builder.Body.Set(emailthreadid)
 	builder.Body.Set(emailtype)

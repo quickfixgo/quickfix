@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //AssignmentReport msg type = AW.
 type AssignmentReport struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateAssignmentReportBuilder(
 	var builder AssignmentReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("AW"))
 	builder.Body.Set(asgnrptid)
 	builder.Body.Set(clearingbusinessdate)

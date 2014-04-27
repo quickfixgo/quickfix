@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //Advertisement msg type = 7.
 type Advertisement struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateAdvertisementBuilder(
 	var builder AdvertisementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("7"))
 	builder.Body.Set(advid)
 	builder.Body.Set(advtranstype)

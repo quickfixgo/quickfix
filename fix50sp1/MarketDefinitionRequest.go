@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //MarketDefinitionRequest msg type = BT.
 type MarketDefinitionRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateMarketDefinitionRequestBuilder(
 	var builder MarketDefinitionRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("BT"))
 	builder.Body.Set(marketreqid)
 	builder.Body.Set(subscriptionrequesttype)

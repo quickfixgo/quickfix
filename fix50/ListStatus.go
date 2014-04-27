@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //ListStatus msg type = N.
 type ListStatus struct {
 	message.Message
@@ -29,6 +33,7 @@ func CreateListStatusBuilder(
 	var builder ListStatusBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("N"))
 	builder.Body.Set(listid)
 	builder.Body.Set(liststatustype)

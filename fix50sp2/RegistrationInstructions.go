@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //RegistrationInstructions msg type = o.
 type RegistrationInstructions struct {
 	message.Message
@@ -25,6 +29,7 @@ func CreateRegistrationInstructionsBuilder(
 	var builder RegistrationInstructionsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("o"))
 	builder.Body.Set(registid)
 	builder.Body.Set(registtranstype)

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //AllocationReportAck msg type = AT.
 type AllocationReportAck struct {
 	message.Message
@@ -23,6 +27,7 @@ func CreateAllocationReportAckBuilder(
 	var builder AllocationReportAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("AT"))
 	builder.Body.Set(allocreportid)
 	return builder

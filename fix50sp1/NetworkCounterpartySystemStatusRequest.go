@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //NetworkCounterpartySystemStatusRequest msg type = BC.
 type NetworkCounterpartySystemStatusRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateNetworkCounterpartySystemStatusRequestBuilder(
 	var builder NetworkCounterpartySystemStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("BC"))
 	builder.Body.Set(networkrequesttype)
 	builder.Body.Set(networkrequestid)

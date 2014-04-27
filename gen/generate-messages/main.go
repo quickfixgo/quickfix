@@ -114,6 +114,15 @@ import(
   "github.com/quickfixgo/quickfix/message"
 )
 `
+
+	if fixSpec.Major == 5 {
+		fileOut += `
+import( 
+  "github.com/quickfixgo/quickfix/fix/enum"
+)
+`
+	}
+
 	fileOut += fmt.Sprintf("//%v msg type = %v.\n", msg.Name, msg.MsgType)
 	fileOut += fmt.Sprintf("type %v struct {\n message.Message}\n", msg.Name)
 
@@ -138,10 +147,20 @@ import(
 	fileOut += fmt.Sprintf("var builder %vBuilder\n", msg.Name)
 	fileOut += "builder.MessageBuilder = message.CreateMessageBuilder()\n"
 
-	if fixSpec.FIXType == "FIXT" || fixSpec.Major == 5 {
+	if fixSpec.FIXType == "FIXT" {
 		fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))\n")
 	} else {
-		fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
+		if fixSpec.Major == 5 {
+			fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))\n")
+			switch fixSpec.ServicePack {
+			case 0:
+				fileOut += fmt.Sprintf("builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))\n")
+			default:
+				fileOut += fmt.Sprintf("builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP%v))\n", fixSpec.ServicePack)
+			}
+		} else {
+			fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
+		}
 	}
 
 	fileOut += fmt.Sprintf("builder.Header.Set(field.BuildMsgType(\"%v\"))\n", msg.MsgType)

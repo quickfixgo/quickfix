@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //ExecutionAcknowledgement msg type = BN.
 type ExecutionAcknowledgement struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateExecutionAcknowledgementBuilder(
 	var builder ExecutionAcknowledgementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("BN"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execackstatus)

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //PositionMaintenanceReport msg type = AM.
 type PositionMaintenanceReport struct {
 	message.Message
@@ -27,6 +31,7 @@ func CreatePositionMaintenanceReportBuilder(
 	var builder PositionMaintenanceReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("AM"))
 	builder.Body.Set(posmaintrptid)
 	builder.Body.Set(postranstype)

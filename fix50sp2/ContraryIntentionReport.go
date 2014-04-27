@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //ContraryIntentionReport msg type = BO.
 type ContraryIntentionReport struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateContraryIntentionReportBuilder(
 	var builder ContraryIntentionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("BO"))
 	builder.Body.Set(contintrptid)
 	builder.Body.Set(clearingbusinessdate)

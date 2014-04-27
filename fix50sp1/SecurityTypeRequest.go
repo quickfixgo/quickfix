@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //SecurityTypeRequest msg type = v.
 type SecurityTypeRequest struct {
 	message.Message
@@ -23,6 +27,7 @@ func CreateSecurityTypeRequestBuilder(
 	var builder SecurityTypeRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("v"))
 	builder.Body.Set(securityreqid)
 	return builder

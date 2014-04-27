@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //MarketDefinitionUpdateReport msg type = BV.
 type MarketDefinitionUpdateReport struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateMarketDefinitionUpdateReportBuilder(
 	var builder MarketDefinitionUpdateReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("BV"))
 	builder.Body.Set(marketreportid)
 	builder.Body.Set(marketid)

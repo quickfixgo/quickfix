@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //UserNotification msg type = CB.
 type UserNotification struct {
 	message.Message
@@ -23,6 +27,7 @@ func CreateUserNotificationBuilder(
 	var builder UserNotificationBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("CB"))
 	builder.Body.Set(userstatus)
 	return builder

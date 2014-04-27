@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //BidResponse msg type = l.
 type BidResponse struct {
 	message.Message
@@ -23,6 +27,7 @@ func CreateBidResponseBuilder(
 	var builder BidResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("l"))
 	builder.Body.Set(nobidcomponents)
 	return builder

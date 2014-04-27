@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //CollateralRequest msg type = AX.
 type CollateralRequest struct {
 	message.Message
@@ -25,6 +29,7 @@ func CreateCollateralRequestBuilder(
 	var builder CollateralRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("AX"))
 	builder.Body.Set(collreqid)
 	builder.Body.Set(collasgnreason)

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //CollateralAssignment msg type = AY.
 type CollateralAssignment struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateCollateralAssignmentBuilder(
 	var builder CollateralAssignmentBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("AY"))
 	builder.Body.Set(collasgnid)
 	builder.Body.Set(collasgnreason)

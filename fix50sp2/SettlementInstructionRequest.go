@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //SettlementInstructionRequest msg type = AV.
 type SettlementInstructionRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateSettlementInstructionRequestBuilder(
 	var builder SettlementInstructionRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("AV"))
 	builder.Body.Set(settlinstreqid)
 	builder.Body.Set(transacttime)

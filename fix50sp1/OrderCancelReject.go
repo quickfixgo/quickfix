@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //OrderCancelReject msg type = 9.
 type OrderCancelReject struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateOrderCancelRejectBuilder(
 	var builder OrderCancelRejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("9"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(clordid)

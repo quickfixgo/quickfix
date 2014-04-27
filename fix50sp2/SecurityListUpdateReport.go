@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //SecurityListUpdateReport msg type = BK.
 type SecurityListUpdateReport struct {
 	message.Message
@@ -22,6 +26,7 @@ func CreateSecurityListUpdateReportBuilder() SecurityListUpdateReportBuilder {
 	var builder SecurityListUpdateReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("BK"))
 	return builder
 }

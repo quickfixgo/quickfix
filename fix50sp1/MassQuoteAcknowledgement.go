@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //MassQuoteAcknowledgement msg type = b.
 type MassQuoteAcknowledgement struct {
 	message.Message
@@ -23,6 +27,7 @@ func CreateMassQuoteAcknowledgementBuilder(
 	var builder MassQuoteAcknowledgementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("b"))
 	builder.Body.Set(quotestatus)
 	return builder

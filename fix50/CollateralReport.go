@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //CollateralReport msg type = BA.
 type CollateralReport struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateCollateralReportBuilder(
 	var builder CollateralReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("BA"))
 	builder.Body.Set(collrptid)
 	builder.Body.Set(collstatus)

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //CollateralResponse msg type = AZ.
 type CollateralResponse struct {
 	message.Message
@@ -25,6 +29,7 @@ func CreateCollateralResponseBuilder(
 	var builder CollateralResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("AZ"))
 	builder.Body.Set(collrespid)
 	builder.Body.Set(collasgnresptype)

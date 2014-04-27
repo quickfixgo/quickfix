@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //BidRequest msg type = k.
 type BidRequest struct {
 	message.Message
@@ -28,6 +32,7 @@ func CreateBidRequestBuilder(
 	var builder BidRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("k"))
 	builder.Body.Set(clientbidid)
 	builder.Body.Set(bidrequesttranstype)

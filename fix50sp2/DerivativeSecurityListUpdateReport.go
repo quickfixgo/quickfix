@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //DerivativeSecurityListUpdateReport msg type = BR.
 type DerivativeSecurityListUpdateReport struct {
 	message.Message
@@ -22,6 +26,7 @@ func CreateDerivativeSecurityListUpdateReportBuilder() DerivativeSecurityListUpd
 	var builder DerivativeSecurityListUpdateReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("BR"))
 	return builder
 }

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //ListExecute msg type = L.
 type ListExecute struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateListExecuteBuilder(
 	var builder ListExecuteBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("L"))
 	builder.Body.Set(listid)
 	builder.Body.Set(transacttime)

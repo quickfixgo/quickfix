@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //OrderMassStatusRequest msg type = AF.
 type OrderMassStatusRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateOrderMassStatusRequestBuilder(
 	var builder OrderMassStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("AF"))
 	builder.Body.Set(massstatusreqid)
 	builder.Body.Set(massstatusreqtype)

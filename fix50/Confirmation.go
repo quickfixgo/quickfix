@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //Confirmation msg type = AK.
 type Confirmation struct {
 	message.Message
@@ -35,6 +39,7 @@ func CreateConfirmationBuilder(
 	var builder ConfirmationBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("AK"))
 	builder.Body.Set(confirmid)
 	builder.Body.Set(confirmtranstype)

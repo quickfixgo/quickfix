@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //QuoteRequest msg type = R.
 type QuoteRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateQuoteRequestBuilder(
 	var builder QuoteRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("R"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(norelatedsym)

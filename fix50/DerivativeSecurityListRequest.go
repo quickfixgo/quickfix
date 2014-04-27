@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //DerivativeSecurityListRequest msg type = z.
 type DerivativeSecurityListRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateDerivativeSecurityListRequestBuilder(
 	var builder DerivativeSecurityListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("z"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securitylistrequesttype)

@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //OrderStatusRequest msg type = H.
 type OrderStatusRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreateOrderStatusRequestBuilder(
 	var builder OrderStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("H"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(side)

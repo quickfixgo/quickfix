@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //PartyDetailsListRequest msg type = CF.
 type PartyDetailsListRequest struct {
 	message.Message
@@ -24,6 +28,7 @@ func CreatePartyDetailsListRequestBuilder(
 	var builder PartyDetailsListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("CF"))
 	builder.Body.Set(partydetailslistrequestid)
 	builder.Body.Set(nopartylistresponsetypes)

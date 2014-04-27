@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //MultilegOrderCancelReplace msg type = AC.
 type MultilegOrderCancelReplace struct {
 	message.Message
@@ -28,6 +32,7 @@ func CreateMultilegOrderCancelReplaceBuilder(
 	var builder MultilegOrderCancelReplaceBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.BuildMsgType("AC"))
 	builder.Body.Set(origclordid)
 	builder.Body.Set(clordid)

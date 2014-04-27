@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //QuoteRequestReject msg type = AG.
 type QuoteRequestReject struct {
 	message.Message
@@ -25,6 +29,7 @@ func CreateQuoteRequestRejectBuilder(
 	var builder QuoteRequestRejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.BuildMsgType("AG"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(quoterequestrejectreason)

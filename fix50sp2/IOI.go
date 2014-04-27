@@ -7,6 +7,10 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
+import (
+	"github.com/quickfixgo/quickfix/fix/enum"
+)
+
 //IOI msg type = 6.
 type IOI struct {
 	message.Message
@@ -26,6 +30,7 @@ func CreateIOIBuilder(
 	var builder IOIBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
 	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.BuildMsgType("6"))
 	builder.Body.Set(ioiid)
 	builder.Body.Set(ioitranstype)
