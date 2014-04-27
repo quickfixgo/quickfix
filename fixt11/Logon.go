@@ -2,6 +2,7 @@ package fixt11
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,6 +24,7 @@ func CreateLogonBuilder(
 	defaultapplverid field.DefaultApplVerID) LogonBuilder {
 	var builder LogonBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("A"))
 	builder.Body.Set(encryptmethod)
 	builder.Body.Set(heartbtint)

@@ -2,6 +2,7 @@ package fix42
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -21,6 +22,7 @@ func CreateBidResponseBuilder(
 	nobidcomponents field.NoBidComponents) BidResponseBuilder {
 	var builder BidResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.BuildMsgType("l"))
 	builder.Body.Set(nobidcomponents)
 	return builder

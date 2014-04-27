@@ -2,6 +2,7 @@ package fix40
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -22,6 +23,7 @@ func CreateOrderCancelRejectBuilder(
 	clordid field.ClOrdID) OrderCancelRejectBuilder {
 	var builder OrderCancelRejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.BuildMsgType("9"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(clordid)

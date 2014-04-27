@@ -2,6 +2,7 @@ package fix50sp1
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -25,6 +26,7 @@ func CreatePositionMaintenanceReportBuilder(
 	clearingbusinessdate field.ClearingBusinessDate) PositionMaintenanceReportBuilder {
 	var builder PositionMaintenanceReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("AM"))
 	builder.Body.Set(posmaintrptid)
 	builder.Body.Set(postranstype)

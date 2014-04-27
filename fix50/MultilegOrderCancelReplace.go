@@ -2,6 +2,7 @@ package fix50
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -26,6 +27,7 @@ func CreateMultilegOrderCancelReplaceBuilder(
 	ordtype field.OrdType) MultilegOrderCancelReplaceBuilder {
 	var builder MultilegOrderCancelReplaceBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("AC"))
 	builder.Body.Set(origclordid)
 	builder.Body.Set(clordid)

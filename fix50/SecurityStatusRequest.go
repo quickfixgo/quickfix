@@ -2,6 +2,7 @@ package fix50
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -22,6 +23,7 @@ func CreateSecurityStatusRequestBuilder(
 	subscriptionrequesttype field.SubscriptionRequestType) SecurityStatusRequestBuilder {
 	var builder SecurityStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("e"))
 	builder.Body.Set(securitystatusreqid)
 	builder.Body.Set(subscriptionrequesttype)

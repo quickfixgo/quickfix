@@ -2,6 +2,7 @@ package fix50sp2
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -24,6 +25,7 @@ func CreateAdvertisementBuilder(
 	quantity field.Quantity) AdvertisementBuilder {
 	var builder AdvertisementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("7"))
 	builder.Body.Set(advid)
 	builder.Body.Set(advtranstype)

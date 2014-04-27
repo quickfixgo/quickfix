@@ -2,6 +2,7 @@ package fix44
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -31,6 +32,7 @@ func CreateAssignmentReportBuilder(
 	clearingbusinessdate field.ClearingBusinessDate) AssignmentReportBuilder {
 	var builder AssignmentReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.BuildMsgType("AW"))
 	builder.Body.Set(asgnrptid)
 	builder.Body.Set(accounttype)

@@ -2,6 +2,7 @@ package fix44
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -35,6 +36,7 @@ func CreateConfirmationBuilder(
 	netmoney field.NetMoney) ConfirmationBuilder {
 	var builder ConfirmationBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.BuildMsgType("AK"))
 	builder.Body.Set(confirmid)
 	builder.Body.Set(confirmtranstype)

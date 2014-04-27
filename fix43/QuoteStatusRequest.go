@@ -2,6 +2,7 @@ package fix43
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -20,6 +21,7 @@ type QuoteStatusRequestBuilder struct {
 func CreateQuoteStatusRequestBuilder() QuoteStatusRequestBuilder {
 	var builder QuoteStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.BuildMsgType("a"))
 	return builder
 }

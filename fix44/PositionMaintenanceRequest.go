@@ -2,6 +2,7 @@ package fix44
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,6 +28,7 @@ func CreatePositionMaintenanceRequestBuilder(
 	transacttime field.TransactTime) PositionMaintenanceRequestBuilder {
 	var builder PositionMaintenanceRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.BuildMsgType("AL"))
 	builder.Body.Set(posreqid)
 	builder.Body.Set(postranstype)

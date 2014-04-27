@@ -2,6 +2,7 @@ package fix40
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -29,6 +30,7 @@ func CreateAllocationBuilder(
 	noallocs field.NoAllocs) AllocationBuilder {
 	var builder AllocationBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.BuildMsgType("J"))
 	builder.Body.Set(allocid)
 	builder.Body.Set(alloctranstype)

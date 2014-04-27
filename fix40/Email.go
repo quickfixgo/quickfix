@@ -2,6 +2,7 @@ package fix40
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,6 +24,7 @@ func CreateEmailBuilder(
 	text field.Text) EmailBuilder {
 	var builder EmailBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.BuildMsgType("C"))
 	builder.Body.Set(emailtype)
 	builder.Body.Set(linesoftext)

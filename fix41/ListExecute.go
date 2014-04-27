@@ -2,6 +2,7 @@ package fix41
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -21,6 +22,7 @@ func CreateListExecuteBuilder(
 	listid field.ListID) ListExecuteBuilder {
 	var builder ListExecuteBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX41))
 	builder.Header.Set(field.BuildMsgType("L"))
 	builder.Body.Set(listid)
 	return builder

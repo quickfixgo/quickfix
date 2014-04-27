@@ -2,6 +2,7 @@ package fix43
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,6 +24,7 @@ func CreateOrderMassCancelRequestBuilder(
 	transacttime field.TransactTime) OrderMassCancelRequestBuilder {
 	var builder OrderMassCancelRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.BuildMsgType("q"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(masscancelrequesttype)

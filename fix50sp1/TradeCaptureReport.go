@@ -2,6 +2,7 @@ package fix50sp1
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,6 +24,7 @@ func CreateTradeCaptureReportBuilder(
 	nosides field.NoSides) TradeCaptureReportBuilder {
 	var builder TradeCaptureReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("AE"))
 	builder.Body.Set(lastqty)
 	builder.Body.Set(lastpx)

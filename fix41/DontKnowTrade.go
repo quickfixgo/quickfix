@@ -2,6 +2,7 @@ package fix41
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,6 +24,7 @@ func CreateDontKnowTradeBuilder(
 	side field.Side) DontKnowTradeBuilder {
 	var builder DontKnowTradeBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX41))
 	builder.Header.Set(field.BuildMsgType("Q"))
 	builder.Body.Set(dkreason)
 	builder.Body.Set(symbol)

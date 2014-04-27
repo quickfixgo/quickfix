@@ -2,6 +2,7 @@ package fix50sp1
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -22,6 +23,7 @@ func CreateQuoteResponseBuilder(
 	quoteresptype field.QuoteRespType) QuoteResponseBuilder {
 	var builder QuoteResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("AJ"))
 	builder.Body.Set(quoterespid)
 	builder.Body.Set(quoteresptype)

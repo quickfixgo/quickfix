@@ -109,6 +109,7 @@ func genMessage(msg *datadictionary.MessageDef) {
 	fileOut += `
 import( 
   "github.com/quickfixgo/quickfix/errors"
+  "github.com/quickfixgo/quickfix/fix"
   "github.com/quickfixgo/quickfix/fix/field"
   "github.com/quickfixgo/quickfix/message"
 )
@@ -136,6 +137,13 @@ import(
 	fileOut += fmt.Sprintf(") %vBuilder {\n", msg.Name)
 	fileOut += fmt.Sprintf("var builder %vBuilder\n", msg.Name)
 	fileOut += "builder.MessageBuilder = message.CreateMessageBuilder()\n"
+
+	if fixSpec.FIXType == "FIXT" || fixSpec.Major == 5 {
+		fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))\n")
+	} else {
+		fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
+	}
+
 	fileOut += fmt.Sprintf("builder.Header.Set(field.BuildMsgType(\"%v\"))\n", msg.MsgType)
 
 	for _, field := range requiredFields {

@@ -2,6 +2,7 @@ package fix43
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -22,6 +23,7 @@ func CreateTradingSessionStatusRequestBuilder(
 	subscriptionrequesttype field.SubscriptionRequestType) TradingSessionStatusRequestBuilder {
 	var builder TradingSessionStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.BuildMsgType("g"))
 	builder.Body.Set(tradsesreqid)
 	builder.Body.Set(subscriptionrequesttype)

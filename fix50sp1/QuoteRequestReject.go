@@ -2,6 +2,7 @@ package fix50sp1
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,6 +24,7 @@ func CreateQuoteRequestRejectBuilder(
 	norelatedsym field.NoRelatedSym) QuoteRequestRejectBuilder {
 	var builder QuoteRequestRejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("AG"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(quoterequestrejectreason)

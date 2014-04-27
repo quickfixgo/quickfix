@@ -2,6 +2,7 @@ package fix42
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -22,6 +23,7 @@ func CreateNewsBuilder(
 	linesoftext field.LinesOfText) NewsBuilder {
 	var builder NewsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.BuildMsgType("B"))
 	builder.Body.Set(headline)
 	builder.Body.Set(linesoftext)

@@ -2,6 +2,7 @@ package fix50sp2
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -22,6 +23,7 @@ func CreatePartyDetailsListRequestBuilder(
 	nopartylistresponsetypes field.NoPartyListResponseTypes) PartyDetailsListRequestBuilder {
 	var builder PartyDetailsListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("CF"))
 	builder.Body.Set(partydetailslistrequestid)
 	builder.Body.Set(nopartylistresponsetypes)

@@ -2,6 +2,7 @@ package fix50
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -21,6 +22,7 @@ func CreateSecurityTypeRequestBuilder(
 	securityreqid field.SecurityReqID) SecurityTypeRequestBuilder {
 	var builder SecurityTypeRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("v"))
 	builder.Body.Set(securityreqid)
 	return builder

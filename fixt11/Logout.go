@@ -2,6 +2,7 @@ package fixt11
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -20,6 +21,7 @@ type LogoutBuilder struct {
 func CreateLogoutBuilder() LogoutBuilder {
 	var builder LogoutBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("5"))
 	return builder
 }

@@ -2,6 +2,7 @@ package fix50
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,6 +24,7 @@ func CreateUserRequestBuilder(
 	username field.Username) UserRequestBuilder {
 	var builder UserRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("BE"))
 	builder.Body.Set(userrequestid)
 	builder.Body.Set(userrequesttype)

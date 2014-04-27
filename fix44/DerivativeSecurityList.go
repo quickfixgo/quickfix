@@ -2,6 +2,7 @@ package fix44
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -23,6 +24,7 @@ func CreateDerivativeSecurityListBuilder(
 	securityrequestresult field.SecurityRequestResult) DerivativeSecurityListBuilder {
 	var builder DerivativeSecurityListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.BuildMsgType("AA"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)

@@ -1,8 +1,37 @@
 package quickfix
 
 import (
+	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
+
+//Send determines the session to send msgBuilder using header fields BeginString, TargetCompID, SenderCompID, and DefaultApplVerID
+func Send(msg message.MessageBuilder) (err error) {
+	var beginString field.BeginString
+	if err := msg.Header.Get(&beginString); err != nil {
+		return err
+	}
+
+	var targetCompID field.TargetCompID
+	if err := msg.Header.Get(&targetCompID); err != nil {
+		return err
+	}
+
+	var senderCompID field.SenderCompID
+	if err := msg.Header.Get(&senderCompID); err != nil {
+
+		return nil
+	}
+
+	sessionID := SessionID{BeginString: beginString.Value, TargetCompID: targetCompID.Value, SenderCompID: senderCompID.Value}
+
+	var defaultApplVerID field.DefaultApplVerID
+	if err := msg.Header.Get(&defaultApplVerID); err == nil {
+		sessionID.DefaultApplVerID = defaultApplVerID.Value
+	}
+
+	return SendToTarget(msg, sessionID)
+}
 
 func SendToTarget(msgBuilder message.MessageBuilder, sessionID SessionID) (err error) {
 	session := lookup(sessionID)

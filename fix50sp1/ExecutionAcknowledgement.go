@@ -2,6 +2,7 @@ package fix50sp1
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -24,6 +25,7 @@ func CreateExecutionAcknowledgementBuilder(
 	side field.Side) ExecutionAcknowledgementBuilder {
 	var builder ExecutionAcknowledgementBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.BuildMsgType("BN"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execackstatus)

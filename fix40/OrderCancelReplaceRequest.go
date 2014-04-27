@@ -2,6 +2,7 @@ package fix40
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -27,6 +28,7 @@ func CreateOrderCancelReplaceRequestBuilder(
 	ordtype field.OrdType) OrderCancelReplaceRequestBuilder {
 	var builder OrderCancelReplaceRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.BuildMsgType("G"))
 	builder.Body.Set(origclordid)
 	builder.Body.Set(clordid)
