@@ -33,7 +33,7 @@ func genEnums() {
 
 		sortedEnums := make([]string, len(fieldType.Enums))
 		i := 0
-		for enum, _ := range fieldType.Enums {
+		for enum := range fieldType.Enums {
 			sortedEnums[i] = enum
 			i++
 		}
@@ -203,6 +203,31 @@ func main() {
 
 		for _, field := range spec.FieldTypeByTag {
 			fieldMap[field.Name] = int(field.Tag)
+
+			if oldField, ok := fieldTypeMap[field.Name]; ok {
+				//merge old enums with new
+				if len(oldField.Enums) > 0 && field.Enums == nil {
+					field.Enums = make(map[string]datadictionary.Enum)
+				}
+
+				for enumVal, enum := range oldField.Enums {
+					if _, ok := field.Enums[enumVal]; !ok {
+						//Verify an existing enum doesn't have the same description. Keep newer enum
+						okToKeepEnum := true
+						for _, newEnum := range field.Enums {
+							if newEnum.Description == enum.Description {
+								okToKeepEnum = false
+								break
+							}
+						}
+
+						if okToKeepEnum {
+							field.Enums[enumVal] = enum
+						}
+					}
+				}
+			}
+
 			fieldTypeMap[field.Name] = field
 		}
 	}

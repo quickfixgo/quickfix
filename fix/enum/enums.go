@@ -774,6 +774,12 @@ const (
 	CxlRejResponseTo_ORDER_CANCEL_REPLACE_REQUEST = "2"
 )
 
+//Enum values for CxlType
+const (
+	CxlType_FULL_REMAINING_QUANTITY = "F"
+	CxlType_PARTIAL_CANCEL          = "P"
+)
+
 //Enum values for DKReason
 const (
 	DKReason_UNKNOWN_SYMBOL         = "A"
@@ -1011,6 +1017,12 @@ const (
 	EventType_OTHER                      = "99"
 )
 
+//Enum values for ExDestination
+const (
+	ExDestination_NONE  = "0"
+	ExDestination_POSIT = "4"
+)
+
 //Enum values for ExDestinationIDSource
 const (
 	ExDestinationIDSource_BIC                                              = "B"
@@ -1133,6 +1145,8 @@ const (
 //Enum values for ExecType
 const (
 	ExecType_NEW                                 = "0"
+	ExecType_PARTIAL_FILL                        = "1"
+	ExecType_FILL                                = "2"
 	ExecType_DONE_FOR_DAY                        = "3"
 	ExecType_CANCELED                            = "4"
 	ExecType_REPLACED                            = "5"
@@ -1234,6 +1248,12 @@ const (
 	GTBookingInst_ACCUMULATE_UNTIL_VERBALLLY_NOTIFIED_OTHERWISE           = "2"
 )
 
+//Enum values for GapFillFlag
+const (
+	GapFillFlag_NO  = "N"
+	GapFillFlag_YES = "Y"
+)
+
 //Enum values for HaltReasonChar
 const (
 	HaltReasonChar_NEWS_DISSEMINATION     = "D"
@@ -1278,6 +1298,12 @@ const (
 const (
 	IOINaturalFlag_NO  = "N"
 	IOINaturalFlag_YES = "Y"
+)
+
+//Enum values for IOIOthSvc
+const (
+	IOIOthSvc_AUTEX  = "A"
+	IOIOthSvc_BRIDGE = "B"
 )
 
 //Enum values for IOIQltyInd
@@ -1390,6 +1416,13 @@ const (
 	InstrAttribType_COUPON_PERIOD                                                               = "8"
 	InstrAttribType_WHEN_AND_IF_ISSUED                                                          = "9"
 	InstrAttribType_TEXT_SUPPLY_THE_TEXT_OF_THE_ATTRIBUTE_OR_DISCLAIMER_IN_THE_INSTRATTRIBVALUE = "99"
+)
+
+//Enum values for InstrRegistry
+const (
+	InstrRegistry_CUSTODIAN = "BIC"
+	InstrRegistry_COUNTRY   = "ISO"
+	InstrRegistry_PHYSICAL  = "ZZ"
 )
 
 //Enum values for LastCapacity
@@ -1743,6 +1776,12 @@ const (
 	MatchType_AUTO_MATCH                                                                                                                       = "4"
 	MatchType_CROSS_AUCTION                                                                                                                    = "5"
 	MatchType_COUNTER_ORDER_SELECTION                                                                                                          = "6"
+	MatchType_ONE_PARTY_PRIVATELY_NEGOTIATED_TRADE_REPORT                                                                                      = "60"
+	MatchType_TWO_PARTY_PRIVATELY_NEGOTIATED_TRADE_REPORT                                                                                      = "61"
+	MatchType_CONTINUOUS_AUTO_MATCH                                                                                                            = "62"
+	MatchType_CROSS_AUCTION_63                                                                                                                 = "63"
+	MatchType_COUNTER_ORDER_SELECTION_64                                                                                                       = "64"
+	MatchType_CALL_AUCTION_65                                                                                                                  = "65"
 	MatchType_CALL_AUCTION                                                                                                                     = "7"
 	MatchType_ISSUING_BUY_BACK_AUCTION                                                                                                         = "8"
 	MatchType_EXACT_MATCH_ON_TRADE_DATE_STOCK_SYMBOL_QUANTITY_PRICE_TRADE_TYPE_AND_SPECIAL_TRADE_INDICATOR_PLUS_FOUR_BADGES_AND_EXECUTION_TIME = "A1"
@@ -1750,6 +1789,13 @@ const (
 	MatchType_EXACT_MATCH_ON_TRADE_DATE_STOCK_SYMBOL_QUANTITY_PRICE_TRADE_TYPE_AND_SPECIAL_TRADE_INDICATOR_PLUS_TWO_BADGES_AND_EXECUTION_TIME  = "A3"
 	MatchType_EXACT_MATCH_ON_TRADE_DATE_STOCK_SYMBOL_QUANTITY_PRICE_TRADE_TYPE_AND_SPECIAL_TRADE_INDICATOR_PLUS_TWO_BADGES                     = "A4"
 	MatchType_EXACT_MATCH_ON_TRADE_DATE_STOCK_SYMBOL_QUANTITY_PRICE_TRADETYPE_AND_SPECIAL_TRADE_INDICATOR_PLUS_EXECUTION_TIME                  = "A5"
+	MatchType_NASDAQACTM1MATCH                                                                                                                 = "ACTM1"
+	MatchType_NASDAQACTM2MATCH                                                                                                                 = "ACTM2"
+	MatchType_NASDAQACTACCEPTEDTRADE                                                                                                           = "ACTM3"
+	MatchType_NASDAQACTDEFAULTTRADE                                                                                                            = "ACTM4"
+	MatchType_NASDAQACTDEFAULTAFTERM2                                                                                                          = "ACTM5"
+	MatchType_NASDAQACTM6MATCH                                                                                                                 = "ACTM6"
+	MatchType_NASDAQNONACT                                                                                                                     = "ACTMT"
 	MatchType_COMPARED_RECORDS_RESULTING_FROM_STAMPED_ADVISORIES_OR_SPECIALIST_ACCEPTS_PAIR_OFFS                                               = "AQ"
 	MatchType_EXACT_MATCH_ON_TRADE_DATE_STOCK_SYMBOL_QUANTITY_PRICE_TRADE_TYPE_AND_SPECIAL_TRADE_INDICATOR_MINUS_BADGES_AND_TIMES_ACT_M1_MATCH = "M1"
 	MatchType_SUMMARIZED_MATCH_MINUS_BADGES_AND_TIMES_ACT_M2_MATCH                                                                             = "M2"
@@ -1890,7 +1936,24 @@ const (
 	MsgType_EXECUTION_ACKNOWLEDGEMENT          = "BN"
 	MsgType_CONTRARY_INTENTION_REPORT          = "BO"
 	MsgType_SECURITY_DEFINITION_UPDATE_REPORT  = "BP"
+	MsgType_SETTLEMENTOBLIGATIONREPORT         = "BQ"
+	MsgType_DERIVATIVESECURITYLISTUPDATEREPORT = "BR"
+	MsgType_TRADINGSESSIONLISTUPDATEREPORT     = "BS"
+	MsgType_MARKETDEFINITIONREQUEST            = "BT"
+	MsgType_MARKETDEFINITION                   = "BU"
+	MsgType_MARKETDEFINITIONUPDATEREPORT       = "BV"
+	MsgType_APPLICATIONMESSAGEREQUEST          = "BW"
+	MsgType_APPLICATIONMESSAGEREQUESTACK       = "BX"
+	MsgType_APPLICATIONMESSAGEREPORT           = "BY"
+	MsgType_ORDERMASSACTIONREPORT              = "BZ"
 	MsgType_EMAIL                              = "C"
+	MsgType_ORDERMASSACTIONREQUEST             = "CA"
+	MsgType_USERNOTIFICATION                   = "CB"
+	MsgType_STREAMASSIGNMENTREQUEST            = "CC"
+	MsgType_STREAMASSIGNMENTREPORT             = "CD"
+	MsgType_STREAMASSIGNMENTREPORTACK          = "CE"
+	MsgType_PARTYDETAILSLISTREQUEST            = "CF"
+	MsgType_PARTYDETAILSLISTREPORT             = "CG"
 	MsgType_ORDER_SINGLE                       = "D"
 	MsgType_ORDER_LIST                         = "E"
 	MsgType_ORDER_CANCEL_REQUEST               = "F"
@@ -2394,39 +2457,40 @@ const (
 
 //Enum values for PartySubIDType
 const (
-	PartySubIDType_FIRM                         = "1"
-	PartySubIDType_SECURITIES_ACCOUNT_NUMBER    = "10"
-	PartySubIDType_REGISTRATION_NUMBER          = "11"
-	PartySubIDType_REGISTERED_ADDRESS_12        = "12"
-	PartySubIDType_REGULATORY_STATUS            = "13"
-	PartySubIDType_REGISTRATION_NAME            = "14"
-	PartySubIDType_CASH_ACCOUNT_NUMBER          = "15"
-	PartySubIDType_BIC                          = "16"
-	PartySubIDType_CSD_PARTICIPANT_MEMBER_CODE  = "17"
-	PartySubIDType_REGISTERED_ADDRESS_18        = "18"
-	PartySubIDType_FUND_ACCOUNT_NAME            = "19"
-	PartySubIDType_PERSON                       = "2"
-	PartySubIDType_TELEX_NUMBER                 = "20"
-	PartySubIDType_FAX_NUMBER                   = "21"
-	PartySubIDType_SECURITIES_ACCOUNT_NAME      = "22"
-	PartySubIDType_CASH_ACCOUNT_NAME            = "23"
-	PartySubIDType_DEPARTMENT                   = "24"
-	PartySubIDType_LOCATION_DESK                = "25"
-	PartySubIDType_POSITION_ACCOUNT_TYPE        = "26"
-	PartySubIDType_SECURITY_LOCATE_ID           = "27"
-	PartySubIDType_MARKET_MAKER                 = "28"
-	PartySubIDType_ELIGIBLE_COUNTERPARTY        = "29"
-	PartySubIDType_SYSTEM                       = "3"
-	PartySubIDType_PROFESSIONAL_CLIENT          = "30"
-	PartySubIDType_LOCATION                     = "31"
-	PartySubIDType_EXECUTION_VENUE              = "32"
-	PartySubIDType_CURRENCY_DELIVERY_IDENTIFIER = "33"
-	PartySubIDType_APPLICATION                  = "4"
-	PartySubIDType_FULL_LEGAL_NAME_OF_FIRM      = "5"
-	PartySubIDType_POSTAL_ADDRESS               = "6"
-	PartySubIDType_PHONE_NUMBER                 = "7"
-	PartySubIDType_EMAIL_ADDRESS                = "8"
-	PartySubIDType_CONTACT_NAME                 = "9"
+	PartySubIDType_FIRM                                                          = "1"
+	PartySubIDType_SECURITIES_ACCOUNT_NUMBER                                     = "10"
+	PartySubIDType_REGISTRATION_NUMBER                                           = "11"
+	PartySubIDType_REGISTERED_ADDRESS_12                                         = "12"
+	PartySubIDType_REGULATORY_STATUS                                             = "13"
+	PartySubIDType_REGISTRATION_NAME                                             = "14"
+	PartySubIDType_CASH_ACCOUNT_NUMBER                                           = "15"
+	PartySubIDType_BIC                                                           = "16"
+	PartySubIDType_CSD_PARTICIPANT_MEMBER_CODE                                   = "17"
+	PartySubIDType_REGISTERED_ADDRESS_18                                         = "18"
+	PartySubIDType_FUND_ACCOUNT_NAME                                             = "19"
+	PartySubIDType_PERSON                                                        = "2"
+	PartySubIDType_TELEX_NUMBER                                                  = "20"
+	PartySubIDType_FAX_NUMBER                                                    = "21"
+	PartySubIDType_SECURITIES_ACCOUNT_NAME                                       = "22"
+	PartySubIDType_CASH_ACCOUNT_NAME                                             = "23"
+	PartySubIDType_DEPARTMENT                                                    = "24"
+	PartySubIDType_LOCATION_DESK                                                 = "25"
+	PartySubIDType_POSITION_ACCOUNT_TYPE                                         = "26"
+	PartySubIDType_SECURITY_LOCATE_ID                                            = "27"
+	PartySubIDType_MARKET_MAKER                                                  = "28"
+	PartySubIDType_ELIGIBLE_COUNTERPARTY                                         = "29"
+	PartySubIDType_SYSTEM                                                        = "3"
+	PartySubIDType_PROFESSIONAL_CLIENT                                           = "30"
+	PartySubIDType_LOCATION                                                      = "31"
+	PartySubIDType_EXECUTION_VENUE                                               = "32"
+	PartySubIDType_CURRENCY_DELIVERY_IDENTIFIER                                  = "33"
+	PartySubIDType_APPLICATION                                                   = "4"
+	PartySubIDType_RESERVEDANDAVAILABLEFORBILATERALLYAGREEDUPONUSERDEFINEDVALUES = "4000"
+	PartySubIDType_FULL_LEGAL_NAME_OF_FIRM                                       = "5"
+	PartySubIDType_POSTAL_ADDRESS                                                = "6"
+	PartySubIDType_PHONE_NUMBER                                                  = "7"
+	PartySubIDType_EMAIL_ADDRESS                                                 = "8"
+	PartySubIDType_CONTACT_NAME                                                  = "9"
 )
 
 //Enum values for PaymentMethod
@@ -2471,14 +2535,15 @@ const (
 
 //Enum values for PegPriceType
 const (
-	PegPriceType_LAST_PEG           = "1"
-	PegPriceType_MID_PRICE_PEG      = "2"
-	PegPriceType_OPENING_PEG        = "3"
-	PegPriceType_MARKET_PEG         = "4"
-	PegPriceType_PRIMARY_PEG        = "5"
-	PegPriceType_PEG_TO_VWAP        = "7"
-	PegPriceType_TRAILING_STOP_PEG  = "8"
-	PegPriceType_PEG_TO_LIMIT_PRICE = "9"
+	PegPriceType_LAST_PEG                                              = "1"
+	PegPriceType_MID_PRICE_PEG                                         = "2"
+	PegPriceType_OPENING_PEG                                           = "3"
+	PegPriceType_MARKET_PEG                                            = "4"
+	PegPriceType_PRIMARY_PEG                                           = "5"
+	PegPriceType_FIXED_PEG_TO_LOCAL_BEST_BID_OR_OFFER_AT_TIME_OF_ORDER = "6"
+	PegPriceType_PEG_TO_VWAP                                           = "7"
+	PegPriceType_TRAILING_STOP_PEG                                     = "8"
+	PegPriceType_PEG_TO_LIMIT_PRICE                                    = "9"
 )
 
 //Enum values for PegRoundDirection
@@ -2625,6 +2690,18 @@ const (
 	PositionEffect_CLOSE_BUT_NOTIFY_ON_OPEN = "N"
 	PositionEffect_OPEN                     = "O"
 	PositionEffect_ROLLED                   = "R"
+)
+
+//Enum values for PossDupFlag
+const (
+	PossDupFlag_NO  = "N"
+	PossDupFlag_YES = "Y"
+)
+
+//Enum values for PossResend
+const (
+	PossResend_NO  = "N"
+	PossResend_YES = "Y"
 )
 
 //Enum values for PreallocMethod
@@ -2842,6 +2919,20 @@ const (
 	QuoteCondition_SUSPENDED_SAM                       = "z"
 )
 
+//Enum values for QuoteEntryRejectReason
+const (
+	QuoteEntryRejectReason_UNKNOWN_SYMBOL                   = "1"
+	QuoteEntryRejectReason_EXHCNAGE                         = "2"
+	QuoteEntryRejectReason_QUOTE_EXCEEDS_LIMIT              = "3"
+	QuoteEntryRejectReason_TOO_LATE_TO_ENTER                = "4"
+	QuoteEntryRejectReason_UNKNOWN_QUOTE                    = "5"
+	QuoteEntryRejectReason_DUPLICATE_QUOTE                  = "6"
+	QuoteEntryRejectReason_INVALID_BID_ASK_SPREAD           = "7"
+	QuoteEntryRejectReason_INVALID_PRICE                    = "8"
+	QuoteEntryRejectReason_NOT_AUTHORIZED_TO_QUOTE_SECURITY = "9"
+	QuoteEntryRejectReason_OTHER                            = "99"
+)
+
 //Enum values for QuoteEntryStatus
 const (
 	QuoteEntryStatus_ACCEPTED                     = "0"
@@ -3034,6 +3125,12 @@ const (
 const (
 	ReportToExch_NO  = "N"
 	ReportToExch_YES = "Y"
+)
+
+//Enum values for ResetSeqNumFlag
+const (
+	ResetSeqNumFlag_NO  = "N"
+	ResetSeqNumFlag_YES = "Y"
 )
 
 //Enum values for RespondentType
@@ -3306,6 +3403,9 @@ const (
 	SecurityType_EURO_SUPRANATIONAL_COUPONS                            = "EUSUPRA"
 	SecurityType_FEDERAL_AGENCY_COUPON                                 = "FAC"
 	SecurityType_FEDERAL_AGENCY_DISCOUNT_NOTE                          = "FADN"
+	SecurityType_FEDERAL_HOUSING_AUTHORITY                             = "FHA"
+	SecurityType_FEDERAL_HOME_LOAN                                     = "FHL"
+	SecurityType_FEDERAL_NATIONAL_MORTGAGE_ASSOCIATION                 = "FN"
 	SecurityType_FOREIGN_EXCHANGE_CONTRACT                             = "FOR"
 	SecurityType_FORWARD                                               = "FORWARD"
 	SecurityType_US_CORPORATE_FLOATING_RATE_NOTES                      = "FRN"
@@ -3314,7 +3414,9 @@ const (
 	SecurityType_NON_DELIVERABLE_FORWARD                               = "FXNDF"
 	SecurityType_FX_SPOT                                               = "FXSPOT"
 	SecurityType_FX_SWAP                                               = "FXSWAP"
+	SecurityType_GOVERNMENT_NATIONAL_MORTGAGE_ASSOCIATION              = "GN"
 	SecurityType_GENERAL_OBLIGATION_BONDS                              = "GO"
+	SecurityType_TREASURIES_PLUS_AGENCY_DEBENTURE                      = "GOVT"
 	SecurityType_IOETTE_MORTGAGE                                       = "IET"
 	SecurityType_INTEREST_RATE_SWAP                                    = "IRS"
 	SecurityType_LETTER_OF_CREDIT                                      = "LOFC"
@@ -3329,6 +3431,7 @@ const (
 	SecurityType_MISCELLANEOUS_PASS_THROUGH                            = "MPT"
 	SecurityType_MANDATORY_TENDER                                      = "MT"
 	SecurityType_MEDIUM_TERM_NOTES                                     = "MTN"
+	SecurityType_MUNICIPAL_BOND                                        = "MUNI"
 	SecurityType_NO_SECURITY_TYPE                                      = "NONE"
 	SecurityType_OVERNIGHT                                             = "ONITE"
 	SecurityType_OPTIONS_ON_COMBO                                      = "OOC"
@@ -3338,6 +3441,7 @@ const (
 	SecurityType_PRIVATE_EXPORT_FUNDING                                = "PEF"
 	SecurityType_PFANDBRIEFE                                           = "PFAND"
 	SecurityType_PROMISSORY_NOTE                                       = "PN"
+	SecurityType_AGENCY_POOLS                                          = "POOL"
 	SecurityType_CANADIAN_PROVINCIAL_BONDS                             = "PROV"
 	SecurityType_PREFERRED_STOCK                                       = "PS"
 	SecurityType_PLAZOS_FIJOS                                          = "PZFJ"
@@ -3346,10 +3450,13 @@ const (
 	SecurityType_REPURCHASE                                            = "REPO"
 	SecurityType_RETIRED                                               = "RETIRED"
 	SecurityType_REVENUE_BONDS                                         = "REV"
+	SecurityType_REPURCHASE_AGREEMENT                                  = "RP"
 	SecurityType_REVOLVER_LOAN                                         = "RVLV"
 	SecurityType_REVOLVER_TERM_LOAN                                    = "RVLVTRM"
+	SecurityType_REVERSE_REPURCHASE_AGREEMENT                          = "RVRP"
 	SecurityType_SECURITIES_LOAN                                       = "SECLOAN"
 	SecurityType_SECURITIES_PLEDGE                                     = "SECPLEDGE"
+	SecurityType_STUDENT_LOAN_MARKETING_ASSOCIATION                    = "SL"
 	SecurityType_SECURED_LIQUIDITY_NOTE                                = "SLQN"
 	SecurityType_SPECIAL_ASSESSMENT                                    = "SPCLA"
 	SecurityType_SPECIAL_OBLIGATION                                    = "SPCLO"
@@ -3380,10 +3487,12 @@ const (
 	SecurityType_VARIABLE_RATE_DEMAND_NOTE                             = "VRDN"
 	SecurityType_WARRANT                                               = "WAR"
 	SecurityType_WITHDRAWN                                             = "WITHDRN"
+	SecurityType_WILDCARD_ENTRY                                        = "WLD"
 	SecurityType_EXTENDED_COMM_NOTE                                    = "XCN"
 	SecurityType_INDEXED_LINKED                                        = "XLINKD"
 	SecurityType_YANKEE_CORPORATE_BOND                                 = "YANK"
 	SecurityType_YANKEE_CERTIFICATE_OF_DEPOSIT                         = "YCD"
+	SecurityType_CATS_TIGERS_LIONS                                     = "ZOO"
 )
 
 //Enum values for SecurityUpdateAction
@@ -3412,6 +3521,7 @@ const (
 	SessionRejectReason_REPEATING_GROUP_FIELDS_OUT_OF_ORDER            = "15"
 	SessionRejectReason_INCORRECT_NUMINGROUP_COUNT_FOR_REPEATING_GROUP = "16"
 	SessionRejectReason_NON_DATA_VALUE_INCLUDES_FIELD_DELIMITER        = "17"
+	SessionRejectReason_INVALID_UNSUPPORTED_APPLICATION_VERSION        = "18"
 	SessionRejectReason_TAG_NOT_DEFINED_FOR_THIS_MESSAGE_TYPE          = "2"
 	SessionRejectReason_UNDEFINED_TAG                                  = "3"
 	SessionRejectReason_TAG_SPECIFIED_WITHOUT_A_VALUE                  = "4"
@@ -3603,6 +3713,21 @@ const (
 	SideMultiLegReportingType_MULTILEG_SECURITY                     = "3"
 )
 
+//Enum values for SideTrdSubTyp
+const (
+	SideTrdSubTyp_CMTA                                            = "0"
+	SideTrdSubTyp_INTERNAL_TRANSFER                               = "1"
+	SideTrdSubTyp_TRANSACTION_FROM_ASSIGNMENT                     = "10"
+	SideTrdSubTyp_EXTERNAL_TRANSFER                               = "2"
+	SideTrdSubTyp_REJECT_FOR_SUBMITTING_TRADE                     = "3"
+	SideTrdSubTyp_ADVISORY_FOR_CONTRA_SIDE                        = "4"
+	SideTrdSubTyp_OFFSET_DUE_TO_AN_ALLOCATION                     = "5"
+	SideTrdSubTyp_ONSET_DUE_TO_AN_ALLOCATION                      = "6"
+	SideTrdSubTyp_DIFFERENTIAL_SPREAD                             = "7"
+	SideTrdSubTyp_IMPLIED_SPREAD_LEG_EXECUTED_AGAINST_AN_OUTRIGHT = "8"
+	SideTrdSubTyp_TRANSACTION_FROM_EXERCISE                       = "9"
+)
+
 //Enum values for SideValueInd
 const (
 	SideValueInd_SIDE_VALUE_1 = "1"
@@ -3674,6 +3799,7 @@ const (
 	StipulationType_MATURITY_YEAR_AND_MONTH                            = "MAT"
 	StipulationType_MATURITY_RANGE                                     = "MATURITY"
 	StipulationType_MAXIMUM_LOAN_BALANCE                               = "MAXBAL"
+	StipulationType_MAXIMUMDENOMINATION                                = "MAXDNOM"
 	StipulationType_MAXIMUM_ORDER_SIZE                                 = "MAXORDQTY"
 	StipulationType_MAXIMUM_SUBSTITUTIONS                              = "MAXSUBS"
 	StipulationType_PERCENT_OF_MANUFACTURED_HOUSING_PREPAYMENT_CURVE   = "MHP"
@@ -3685,6 +3811,7 @@ const (
 	StipulationType_PAYMENT_FREQUENCY_CALENDAR                         = "PAYFREQ"
 	StipulationType_NUMBER_OF_PIECES                                   = "PIECES"
 	StipulationType_POOLS_MAXIMUM                                      = "PMAX"
+	StipulationType_POOLSMINIMUM                                       = "PMIN"
 	StipulationType_POOL_IDENTIFIER                                    = "POOL"
 	StipulationType_PERCENT_OF_PROSPECTUS_PREPAYMENT_CURVE             = "PPC"
 	StipulationType_POOLS_PER_LOT                                      = "PPL"
@@ -3817,9 +3944,10 @@ const (
 
 //Enum values for TargetStrategy
 const (
-	TargetStrategy_VWAP                   = "1"
-	TargetStrategy_PARTICIPATE            = "2"
-	TargetStrategy_MININIZE_MARKET_IMPACT = "3"
+	TargetStrategy_VWAP                                                          = "1"
+	TargetStrategy_RESERVEDANDAVAILABLEFORBILATERALLYAGREEDUPONUSERDEFINEDVALUES = "1000"
+	TargetStrategy_PARTICIPATE                                                   = "2"
+	TargetStrategy_MININIZE_MARKET_IMPACT                                        = "3"
 )
 
 //Enum values for TaxAdvantageType
@@ -3863,6 +3991,12 @@ const (
 	TerminationType_TERM      = "2"
 	TerminationType_FLEXIBLE  = "3"
 	TerminationType_OPEN      = "4"
+)
+
+//Enum values for TestMessageIndicator
+const (
+	TestMessageIndicator_NO  = "N"
+	TestMessageIndicator_YES = "Y"
 )
 
 //Enum values for TickDirection
@@ -4423,38 +4557,42 @@ const (
 
 //Enum values for YieldType
 const (
-	YieldType_AFTER_TAX_YIELD                   = "AFTERTAX"
-	YieldType_ANNUAL_YIELD                      = "ANNUAL"
-	YieldType_YIELD_AT_ISSUE                    = "ATISSUE"
-	YieldType_YIELD_TO_AVG_MATURITY             = "AVGMATURITY"
-	YieldType_BOOK_YIELD                        = "BOOK"
-	YieldType_YIELD_TO_NEXT_CALL                = "CALL"
-	YieldType_YIELD_CHANGE_SINCE_CLOSE          = "CHANGE"
-	YieldType_CLOSING_YIELD                     = "CLOSE"
-	YieldType_COMPOUND_YIELD                    = "COMPOUND"
-	YieldType_CURRENT_YIELD                     = "CURRENT"
-	YieldType_GVNT_EQUIVALENT_YIELD             = "GOVTEQUIV"
-	YieldType_TRUE_GROSS_YIELD                  = "GROSS"
-	YieldType_YIELD_WITH_INFLATION_ASSUMPTION   = "INFLATION"
-	YieldType_INVERSE_FLOATER_BOND_YIELD        = "INVERSEFLOATER"
-	YieldType_MOST_RECENT_CLOSING_YIELD         = "LASTCLOSE"
-	YieldType_CLOSING_YIELD_MOST_RECENT_MONTH   = "LASTMONTH"
-	YieldType_CLOSING_YIELD_MOST_RECENT_QUARTER = "LASTQUARTER"
-	YieldType_CLOSING_YIELD_MOST_RECENT_YEAR    = "LASTYEAR"
-	YieldType_YIELD_TO_LONGEST_AVERAGE_LIFE     = "LONGAVGLIFE"
-	YieldType_MARK_TO_MARKET_YIELD              = "MARK"
-	YieldType_YIELD_TO_MATURITY                 = "MATURITY"
-	YieldType_YIELD_TO_NEXT_REFUND              = "NEXTREFUND"
-	YieldType_OPEN_AVERAGE_YIELD                = "OPENAVG"
-	YieldType_PREVIOUS_CLOSE_YIELD              = "PREVCLOSE"
-	YieldType_PROCEEDS_YIELD                    = "PROCEEDS"
-	YieldType_YIELD_TO_NEXT_PUT                 = "PUT"
-	YieldType_SEMI_ANNUAL_YIELD                 = "SEMIANNUAL"
-	YieldType_YIELD_TO_SHORTEST_AVERAGE_LIFE    = "SHORTAVGLIFE"
-	YieldType_SIMPLE_YIELD                      = "SIMPLE"
-	YieldType_TAX_EQUIVALENT_YIELD              = "TAXEQUIV"
-	YieldType_YIELD_TO_TENDER_DATE              = "TENDER"
-	YieldType_TRUE_YIELD                        = "TRUE"
-	YieldType_YIELD_VALUE_OF_1_32               = "VALUE1_32"
-	YieldType_YIELD_TO_WORST                    = "WORST"
+	YieldType_AFTER_TAX_YIELD                                                                        = "AFTERTAX"
+	YieldType_ANNUAL_YIELD                                                                           = "ANNUAL"
+	YieldType_YIELD_AT_ISSUE                                                                         = "ATISSUE"
+	YieldType_YIELD_TO_AVERAGE_LIFE_THE_YIELD_ASSUMING_THAT_ALL_SINKS                                = "AVGLIFE"
+	YieldType_YIELD_TO_AVG_MATURITY                                                                  = "AVGMATURITY"
+	YieldType_BOOK_YIELD                                                                             = "BOOK"
+	YieldType_YIELD_TO_NEXT_CALL                                                                     = "CALL"
+	YieldType_YIELD_CHANGE_SINCE_CLOSE                                                               = "CHANGE"
+	YieldType_CLOSING_YIELD                                                                          = "CLOSE"
+	YieldType_COMPOUND_YIELD                                                                         = "COMPOUND"
+	YieldType_CURRENT_YIELD                                                                          = "CURRENT"
+	YieldType_GVNT_EQUIVALENT_YIELD                                                                  = "GOVTEQUIV"
+	YieldType_TRUE_GROSS_YIELD                                                                       = "GROSS"
+	YieldType_YIELD_WITH_INFLATION_ASSUMPTION                                                        = "INFLATION"
+	YieldType_INVERSE_FLOATER_BOND_YIELD                                                             = "INVERSEFLOATER"
+	YieldType_MOST_RECENT_CLOSING_YIELD                                                              = "LASTCLOSE"
+	YieldType_CLOSING_YIELD_MOST_RECENT_MONTH                                                        = "LASTMONTH"
+	YieldType_CLOSING_YIELD_MOST_RECENT_QUARTER                                                      = "LASTQUARTER"
+	YieldType_CLOSING_YIELD_MOST_RECENT_YEAR                                                         = "LASTYEAR"
+	YieldType_YIELD_TO_LONGEST_AVERAGE_LIFE                                                          = "LONGAVGLIFE"
+	YieldType_YIELD_TO_LONGEST_AVERAGE                                                               = "LONGEST"
+	YieldType_MARK_TO_MARKET_YIELD                                                                   = "MARK"
+	YieldType_YIELD_TO_MATURITY                                                                      = "MATURITY"
+	YieldType_YIELD_TO_NEXT_REFUND                                                                   = "NEXTREFUND"
+	YieldType_OPEN_AVERAGE_YIELD                                                                     = "OPENAVG"
+	YieldType_PREVIOUS_CLOSE_YIELD                                                                   = "PREVCLOSE"
+	YieldType_PROCEEDS_YIELD                                                                         = "PROCEEDS"
+	YieldType_YIELD_TO_NEXT_PUT                                                                      = "PUT"
+	YieldType_SEMI_ANNUAL_YIELD                                                                      = "SEMIANNUAL"
+	YieldType_YIELD_TO_SHORTEST_AVERAGE_LIFE                                                         = "SHORTAVGLIFE"
+	YieldType_YIELD_TO_SHORTEST_AVERAGE                                                              = "SHORTEST"
+	YieldType_SIMPLE_YIELD                                                                           = "SIMPLE"
+	YieldType_TAX_EQUIVALENT_YIELD                                                                   = "TAXEQUIV"
+	YieldType_YIELD_TO_TENDER_DATE                                                                   = "TENDER"
+	YieldType_TRUE_YIELD                                                                             = "TRUE"
+	YieldType_YIELD_VALUE_OF_1_32_THE_AMOUNT_THAT_THE_YIELD_WILL_CHANGE_FOR_A_1_32ND_CHANGE_IN_PRICE = "VALUE1/32"
+	YieldType_YIELD_VALUE_OF_1_32                                                                    = "VALUE1_32"
+	YieldType_YIELD_TO_WORST                                                                         = "WORST"
 )
