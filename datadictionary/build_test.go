@@ -3,7 +3,7 @@ package datadictionary
 import (
 	"encoding/xml"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	. "launchpad.net/gocheck"
+	. "gopkg.in/check.v1"
 )
 
 var _ = Suite(&BuildTests{})

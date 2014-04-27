@@ -2,7 +2,7 @@ package message
 
 import (
 	"github.com/quickfixgo/quickfix/fix"
-	. "launchpad.net/gocheck"
+	. "gopkg.in/check.v1"
 )
 
 var _ = Suite(&BooleanFieldTests{})

@@ -1,7 +1,7 @@
 package quickfix
 
 import (
-	. "launchpad.net/gocheck"
+	. "gopkg.in/check.v1"
 )
 
 type StoreTests struct {

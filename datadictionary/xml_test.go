@@ -2,7 +2,7 @@ package datadictionary
 
 import (
 	"encoding/xml"
-	. "launchpad.net/gocheck"
+	. "gopkg.in/check.v1"
 	"testing"
 )
 

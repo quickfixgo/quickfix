@@ -5,7 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	. "launchpad.net/gocheck"
+	. "gopkg.in/check.v1"
 	"time"
 )
 
