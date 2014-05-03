@@ -208,12 +208,12 @@ func main() {
 
 	acceptor, err := quickfix.NewAcceptor(app, appSettings, log.ScreenLogFactory{})
 	if err != nil {
-		fmt.Printf("Unable to create Acceptor: ", err)
+		fmt.Println("Unable to create Acceptor: ", err)
 		return
 	}
 
 	if err = acceptor.Start(); err != nil {
-		fmt.Printf("Unable to start Acceptor: ", err)
+		fmt.Println("Unable to start Acceptor: ", err)
 		return
 	}
 

@@ -66,8 +66,6 @@ func (p *parser) findIndexOffset(delim []byte) (start int, err error) {
 			return
 		}
 	}
-
-	return
 }
 
 func (p *parser) findStart() (err error) {

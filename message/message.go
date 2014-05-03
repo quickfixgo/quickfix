@@ -82,7 +82,7 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 	bodyLength := new(IntValue)
 	msg.Header.GetField(tag.BodyLength, bodyLength)
 	if bodyLength.Value != length {
-		return msg, errors.ParseError{fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
+		return msg, errors.ParseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
 	}
 
 	return msg, nil
@@ -135,7 +135,7 @@ func extractSpecificField(expectedTag fix.Tag, buffer []byte) (field *fieldBytes
 	case err != nil:
 		return
 	case field.Tag != expectedTag:
-		err = errors.ParseError{fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag)}
+		err = errors.ParseError{OrigError: fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag)}
 		return
 	}
 
@@ -145,7 +145,7 @@ func extractSpecificField(expectedTag fix.Tag, buffer []byte) (field *fieldBytes
 func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
-		err = errors.ParseError{"extractField: No Trailing Delim in " + string(buffer)}
+		err = errors.ParseError{OrigError: "extractField: No Trailing Delim in " + string(buffer)}
 		remBytes = buffer
 		return
 	}
