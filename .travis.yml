@@ -1,7 +1,17 @@
 language: go
 
 go:
-  - 1.0
   - 1.1
   - 1.2
   - tip
+
+install: 
+  - make get
+  - (go version | grep "version go1.1") || go get code.google.com/p/go.tools/cmd/vet
+
+before_script: make generate
+script: make travis_test
+
+matrix:
+  allow_failures:
+  - go: tip

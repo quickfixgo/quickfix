@@ -1,9 +1,9 @@
-all:
-	go build
-	cd test; go build -o echo_server
+.PHONY: test
+all: vet test
 
-fmt:
-	go fmt ./...
+get:
+	go get github.com/golang/lint/golint
+	go get gopkg.in/check.v1
 
 GEN_MESSAGES = go run gen/generate-messages/main.go
 GEN_FIELDS = go run gen/generate-fields/main.go
@@ -13,10 +13,26 @@ generate:
 	$(GEN_FIELDS) $(foreach vers, $(FIXVERS), spec/$(vers).xml)
 	$(foreach vers, $(FIXVERS), $(GEN_MESSAGES) spec/$(vers).xml;)
 
-unit:
-	go test ./...
+fmt:
+	go fmt ./...
+
+vet:
+	go vet ./...
+
+lint:
+	golint .
+
+test:
+	go test -v ./...
+
+build_accept:
+		cd test; go build -o echo_server
 
 accept:
-	cd test; ./runat.sh
+		cd test; ./runat.sh
 
-check: unit accept
+# travis VMs have a difficult time if # of builds > 1
+_travis_build_accept:
+	cd test; go build -p 1 -o echo_server
+
+travis_test: all _travis_build_accept accept
