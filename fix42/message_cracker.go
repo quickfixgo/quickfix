@@ -157,141 +157,232 @@ type MessageRouter interface {
 }
 type FIX42MessageCracker struct{}
 
-func (c *FIX42MessageCracker) OnFIX42Heartbeat(msg Heartbeat, sessionId quickfix.SessionID) errors.MessageRejectError {
+//OnFIX42Heartbeat is a Callback for Heartbeat messages.
+func (c *FIX42MessageCracker) OnFIX42Heartbeat(msg Heartbeat, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42TestRequest(msg TestRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42TestRequest is a Callback for TestRequest messages.
+func (c *FIX42MessageCracker) OnFIX42TestRequest(msg TestRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42ResendRequest(msg ResendRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42ResendRequest is a Callback for ResendRequest messages.
+func (c *FIX42MessageCracker) OnFIX42ResendRequest(msg ResendRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42Reject(msg Reject, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42Reject is a Callback for Reject messages.
+func (c *FIX42MessageCracker) OnFIX42Reject(msg Reject, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42SequenceReset(msg SequenceReset, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42SequenceReset is a Callback for SequenceReset messages.
+func (c *FIX42MessageCracker) OnFIX42SequenceReset(msg SequenceReset, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42Logout(msg Logout, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42Logout is a Callback for Logout messages.
+func (c *FIX42MessageCracker) OnFIX42Logout(msg Logout, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42IndicationofInterest(msg IndicationofInterest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42IndicationofInterest is a Callback for IndicationofInterest messages.
+func (c *FIX42MessageCracker) OnFIX42IndicationofInterest(msg IndicationofInterest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42Advertisement(msg Advertisement, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42Advertisement is a Callback for Advertisement messages.
+func (c *FIX42MessageCracker) OnFIX42Advertisement(msg Advertisement, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42ExecutionReport(msg ExecutionReport, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42ExecutionReport is a Callback for ExecutionReport messages.
+func (c *FIX42MessageCracker) OnFIX42ExecutionReport(msg ExecutionReport, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42OrderCancelReject(msg OrderCancelReject, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42OrderCancelReject is a Callback for OrderCancelReject messages.
+func (c *FIX42MessageCracker) OnFIX42OrderCancelReject(msg OrderCancelReject, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42Logon(msg Logon, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42Logon is a Callback for Logon messages.
+func (c *FIX42MessageCracker) OnFIX42Logon(msg Logon, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42News(msg News, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42News is a Callback for News messages.
+func (c *FIX42MessageCracker) OnFIX42News(msg News, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42Email(msg Email, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42Email is a Callback for Email messages.
+func (c *FIX42MessageCracker) OnFIX42Email(msg Email, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42NewOrderSingle(msg NewOrderSingle, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42NewOrderSingle is a Callback for NewOrderSingle messages.
+func (c *FIX42MessageCracker) OnFIX42NewOrderSingle(msg NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42NewOrderList(msg NewOrderList, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42NewOrderList is a Callback for NewOrderList messages.
+func (c *FIX42MessageCracker) OnFIX42NewOrderList(msg NewOrderList, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42OrderCancelRequest(msg OrderCancelRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42OrderCancelRequest is a Callback for OrderCancelRequest messages.
+func (c *FIX42MessageCracker) OnFIX42OrderCancelRequest(msg OrderCancelRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42OrderCancelReplaceRequest is a Callback for OrderCancelReplaceRequest messages.
+func (c *FIX42MessageCracker) OnFIX42OrderCancelReplaceRequest(msg OrderCancelReplaceRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42OrderStatusRequest(msg OrderStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42OrderStatusRequest is a Callback for OrderStatusRequest messages.
+func (c *FIX42MessageCracker) OnFIX42OrderStatusRequest(msg OrderStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42Allocation(msg Allocation, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42Allocation is a Callback for Allocation messages.
+func (c *FIX42MessageCracker) OnFIX42Allocation(msg Allocation, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42ListCancelRequest(msg ListCancelRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42ListCancelRequest is a Callback for ListCancelRequest messages.
+func (c *FIX42MessageCracker) OnFIX42ListCancelRequest(msg ListCancelRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42ListExecute(msg ListExecute, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42ListExecute is a Callback for ListExecute messages.
+func (c *FIX42MessageCracker) OnFIX42ListExecute(msg ListExecute, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42ListStatusRequest(msg ListStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42ListStatusRequest is a Callback for ListStatusRequest messages.
+func (c *FIX42MessageCracker) OnFIX42ListStatusRequest(msg ListStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42ListStatus(msg ListStatus, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42ListStatus is a Callback for ListStatus messages.
+func (c *FIX42MessageCracker) OnFIX42ListStatus(msg ListStatus, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42AllocationACK(msg AllocationACK, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42AllocationACK is a Callback for AllocationACK messages.
+func (c *FIX42MessageCracker) OnFIX42AllocationACK(msg AllocationACK, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42DontKnowTrade(msg DontKnowTrade, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42DontKnowTrade is a Callback for DontKnowTrade messages.
+func (c *FIX42MessageCracker) OnFIX42DontKnowTrade(msg DontKnowTrade, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42QuoteRequest(msg QuoteRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42QuoteRequest is a Callback for QuoteRequest messages.
+func (c *FIX42MessageCracker) OnFIX42QuoteRequest(msg QuoteRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42Quote(msg Quote, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42Quote is a Callback for Quote messages.
+func (c *FIX42MessageCracker) OnFIX42Quote(msg Quote, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42SettlementInstructions(msg SettlementInstructions, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42SettlementInstructions is a Callback for SettlementInstructions messages.
+func (c *FIX42MessageCracker) OnFIX42SettlementInstructions(msg SettlementInstructions, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42MarketDataRequest(msg MarketDataRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42MarketDataRequest is a Callback for MarketDataRequest messages.
+func (c *FIX42MessageCracker) OnFIX42MarketDataRequest(msg MarketDataRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42MarketDataSnapshotFullRefresh(msg MarketDataSnapshotFullRefresh, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42MarketDataSnapshotFullRefresh is a Callback for MarketDataSnapshotFullRefresh messages.
+func (c *FIX42MessageCracker) OnFIX42MarketDataSnapshotFullRefresh(msg MarketDataSnapshotFullRefresh, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42MarketDataIncrementalRefresh(msg MarketDataIncrementalRefresh, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42MarketDataIncrementalRefresh is a Callback for MarketDataIncrementalRefresh messages.
+func (c *FIX42MessageCracker) OnFIX42MarketDataIncrementalRefresh(msg MarketDataIncrementalRefresh, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42MarketDataRequestReject(msg MarketDataRequestReject, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42MarketDataRequestReject is a Callback for MarketDataRequestReject messages.
+func (c *FIX42MessageCracker) OnFIX42MarketDataRequestReject(msg MarketDataRequestReject, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42QuoteCancel(msg QuoteCancel, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42QuoteCancel is a Callback for QuoteCancel messages.
+func (c *FIX42MessageCracker) OnFIX42QuoteCancel(msg QuoteCancel, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42QuoteStatusRequest(msg QuoteStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42QuoteStatusRequest is a Callback for QuoteStatusRequest messages.
+func (c *FIX42MessageCracker) OnFIX42QuoteStatusRequest(msg QuoteStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42QuoteAcknowledgement(msg QuoteAcknowledgement, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42QuoteAcknowledgement is a Callback for QuoteAcknowledgement messages.
+func (c *FIX42MessageCracker) OnFIX42QuoteAcknowledgement(msg QuoteAcknowledgement, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42SecurityDefinitionRequest(msg SecurityDefinitionRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42SecurityDefinitionRequest is a Callback for SecurityDefinitionRequest messages.
+func (c *FIX42MessageCracker) OnFIX42SecurityDefinitionRequest(msg SecurityDefinitionRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42SecurityDefinition(msg SecurityDefinition, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42SecurityDefinition is a Callback for SecurityDefinition messages.
+func (c *FIX42MessageCracker) OnFIX42SecurityDefinition(msg SecurityDefinition, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42SecurityStatusRequest(msg SecurityStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42SecurityStatusRequest is a Callback for SecurityStatusRequest messages.
+func (c *FIX42MessageCracker) OnFIX42SecurityStatusRequest(msg SecurityStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42SecurityStatus(msg SecurityStatus, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42SecurityStatus is a Callback for SecurityStatus messages.
+func (c *FIX42MessageCracker) OnFIX42SecurityStatus(msg SecurityStatus, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42TradingSessionStatusRequest(msg TradingSessionStatusRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42TradingSessionStatusRequest is a Callback for TradingSessionStatusRequest messages.
+func (c *FIX42MessageCracker) OnFIX42TradingSessionStatusRequest(msg TradingSessionStatusRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42TradingSessionStatus(msg TradingSessionStatus, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42TradingSessionStatus is a Callback for TradingSessionStatus messages.
+func (c *FIX42MessageCracker) OnFIX42TradingSessionStatus(msg TradingSessionStatus, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42MassQuote(msg MassQuote, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42MassQuote is a Callback for MassQuote messages.
+func (c *FIX42MessageCracker) OnFIX42MassQuote(msg MassQuote, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42BusinessMessageReject(msg BusinessMessageReject, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42BusinessMessageReject is a Callback for BusinessMessageReject messages.
+func (c *FIX42MessageCracker) OnFIX42BusinessMessageReject(msg BusinessMessageReject, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42BidRequest(msg BidRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42BidRequest is a Callback for BidRequest messages.
+func (c *FIX42MessageCracker) OnFIX42BidRequest(msg BidRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42BidResponse(msg BidResponse, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42BidResponse is a Callback for BidResponse messages.
+func (c *FIX42MessageCracker) OnFIX42BidResponse(msg BidResponse, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIX42MessageCracker) OnFIX42ListStrikePrice(msg ListStrikePrice, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIX42ListStrikePrice is a Callback for ListStrikePrice messages.
+func (c *FIX42MessageCracker) OnFIX42ListStrikePrice(msg ListStrikePrice, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }

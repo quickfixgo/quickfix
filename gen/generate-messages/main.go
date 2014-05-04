@@ -97,7 +97,8 @@ func buildMessageCracker() (out string) {
 
 	for _, msgType := range sortedMsgTypes {
 		m, _ := fixSpec.Messages[msgType]
-		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionId quickfix.SessionID) errors.MessageRejectError {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
+		out += fmt.Sprintf("//On%v%v is a Callback for %v messages.\n", strings.ToUpper(pkg), m.Name, m.Name)
+		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionID quickfix.SessionID) errors.MessageRejectError {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
 		out += "return errors.UnsupportedMessageType()\n}\n"
 	}
 

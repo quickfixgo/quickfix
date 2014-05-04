@@ -40,24 +40,37 @@ type MessageRouter interface {
 }
 type FIXT11MessageCracker struct{}
 
-func (c *FIXT11MessageCracker) OnFIXT11Heartbeat(msg Heartbeat, sessionId quickfix.SessionID) errors.MessageRejectError {
+//OnFIXT11Heartbeat is a Callback for Heartbeat messages.
+func (c *FIXT11MessageCracker) OnFIXT11Heartbeat(msg Heartbeat, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIXT11MessageCracker) OnFIXT11TestRequest(msg TestRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIXT11TestRequest is a Callback for TestRequest messages.
+func (c *FIXT11MessageCracker) OnFIXT11TestRequest(msg TestRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIXT11MessageCracker) OnFIXT11ResendRequest(msg ResendRequest, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIXT11ResendRequest is a Callback for ResendRequest messages.
+func (c *FIXT11MessageCracker) OnFIXT11ResendRequest(msg ResendRequest, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIXT11MessageCracker) OnFIXT11Reject(msg Reject, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIXT11Reject is a Callback for Reject messages.
+func (c *FIXT11MessageCracker) OnFIXT11Reject(msg Reject, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIXT11MessageCracker) OnFIXT11SequenceReset(msg SequenceReset, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIXT11SequenceReset is a Callback for SequenceReset messages.
+func (c *FIXT11MessageCracker) OnFIXT11SequenceReset(msg SequenceReset, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIXT11MessageCracker) OnFIXT11Logout(msg Logout, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIXT11Logout is a Callback for Logout messages.
+func (c *FIXT11MessageCracker) OnFIXT11Logout(msg Logout, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
-func (c *FIXT11MessageCracker) OnFIXT11Logon(msg Logon, sessionId quickfix.SessionID) errors.MessageRejectError {
+
+//OnFIXT11Logon is a Callback for Logon messages.
+func (c *FIXT11MessageCracker) OnFIXT11Logon(msg Logon, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return errors.UnsupportedMessageType()
 }
