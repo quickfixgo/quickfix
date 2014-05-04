@@ -5,8 +5,6 @@ import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/cracker"
 	"github.com/quickfixgo/quickfix/errors"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix40"
 	"github.com/quickfixgo/quickfix/fix41"
@@ -160,59 +158,17 @@ func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefin
 func main() {
 	app := new(EchoApplication)
 
-	appSettings := settings.New()
-	globalSettings := appSettings.GlobalSettings()
+	cfg, err := os.Open("session.cfg")
+	if err != nil {
+		fmt.Println("Error opening cfg:", err)
+		return
+	}
 
-	globalSettings.Set(settings.SocketAcceptPort, "5001")
-	globalSettings.Set(settings.SenderCompID, "ISLD")
-	globalSettings.Set(settings.TargetCompID, "TW")
-	globalSettings.Set(settings.ResetOnLogon, "Y")
-
-	sessionSettings := settings.NewSessionSettings()
-	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX40)
-	sessionSettings.Set(settings.DataDictionary, "../spec/FIX40.xml")
-	appSettings.AddSession(sessionSettings)
-
-	sessionSettings = settings.NewSessionSettings()
-	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX41)
-	sessionSettings.Set(settings.DataDictionary, "../spec/FIX41.xml")
-	appSettings.AddSession(sessionSettings)
-
-	sessionSettings = settings.NewSessionSettings()
-	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX42)
-	sessionSettings.Set(settings.DataDictionary, "../spec/FIX42.xml")
-	appSettings.AddSession(sessionSettings)
-
-	sessionSettings = settings.NewSessionSettings()
-	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX43)
-	sessionSettings.Set(settings.DataDictionary, "../spec/FIX43.xml")
-	appSettings.AddSession(sessionSettings)
-
-	sessionSettings = settings.NewSessionSettings()
-	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX44)
-	sessionSettings.Set(settings.DataDictionary, "../spec/FIX44.xml")
-	appSettings.AddSession(sessionSettings)
-
-	sessionSettings = settings.NewSessionSettings()
-	sessionSettings.Set(settings.BeginString, fix.BeginString_FIXT11)
-	sessionSettings.Set(settings.DefaultApplVerID, enum.ApplVerID_FIX50)
-	sessionSettings.Set(settings.TransportDataDictionary, "../spec/FIXT11.xml")
-	sessionSettings.Set(settings.AppDataDictionary, "../spec/FIX50.xml")
-	appSettings.AddSession(sessionSettings)
-
-	sessionSettings = settings.NewSessionSettings()
-	sessionSettings.Set(settings.BeginString, fix.BeginString_FIXT11)
-	sessionSettings.Set(settings.DefaultApplVerID, enum.ApplVerID_FIX50SP1)
-	sessionSettings.Set(settings.TransportDataDictionary, "../spec/FIXT11.xml")
-	sessionSettings.Set(settings.AppDataDictionary, "../spec/FIX50SP1.xml")
-	appSettings.AddSession(sessionSettings)
-
-	sessionSettings = settings.NewSessionSettings()
-	sessionSettings.Set(settings.BeginString, fix.BeginString_FIXT11)
-	sessionSettings.Set(settings.DefaultApplVerID, enum.ApplVerID_FIX50SP2)
-	sessionSettings.Set(settings.TransportDataDictionary, "../spec/FIXT11.xml")
-	sessionSettings.Set(settings.AppDataDictionary, "../spec/FIX50SP2.xml")
-	appSettings.AddSession(sessionSettings)
+	appSettings, err := settings.Read(cfg)
+	if err != nil {
+		fmt.Println("Error reading cfg:", err)
+		return
+	}
 
 	acceptor, err := quickfix.NewAcceptor(app, appSettings, log.ScreenLogFactory{})
 	if err != nil {

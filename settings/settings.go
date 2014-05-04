@@ -2,8 +2,11 @@
 package settings
 
 import (
+	"bufio"
 	"container/list"
 	"fmt"
+	"io"
+	"regexp"
 )
 
 func RequiredConfigurationMissing(setting string) error {
@@ -33,6 +36,60 @@ func New() *Settings {
 	s := &Settings{}
 	s.Init()
 	return s
+}
+
+//Read creates and initializes a Settings instance with config parsed from a Reader.
+//Returns error if the config is has parse errors
+func Read(reader io.Reader) (*Settings, error) {
+	s := New()
+
+	scanner := bufio.NewScanner(reader)
+	blankRegEx := regexp.MustCompile(`^\s*$`)
+	commentRegEx := regexp.MustCompile(`^#.*`)
+	defaultRegEx := regexp.MustCompile(`^\[DEFAULT\]\s*$`)
+	sessionRegEx := regexp.MustCompile(`^\[SESSION\]\s*$`)
+	settingRegEx := regexp.MustCompile(`^(.*)=(.*)$`)
+
+	var settings *SessionSettings
+
+	lineNumber := 0
+	for scanner.Scan() {
+		lineNumber++
+		line := scanner.Text()
+
+		switch {
+		case commentRegEx.MatchString(line) || blankRegEx.MatchString(line):
+			continue
+
+		case defaultRegEx.MatchString(line):
+			settings = s.GlobalSettings()
+
+		case sessionRegEx.MatchString(line):
+			if settings != nil && settings != s.GlobalSettings() {
+				s.AddSession(settings)
+			}
+			settings = NewSessionSettings()
+
+		case settingRegEx.MatchString(line):
+			parts := settingRegEx.FindStringSubmatch(line)
+			settings.Set(parts[1], parts[2])
+
+		default:
+			return s, fmt.Errorf("error parsing line %v", lineNumber)
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return s, err
+	}
+
+	if settings == nil || settings == s.GlobalSettings() {
+		return s, fmt.Errorf("no sessions declared")
+	}
+
+	s.AddSession(settings)
+
+	return s, nil
 }
 
 //GlobalSettings are default setting inherited by all session settings.
