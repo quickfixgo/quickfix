@@ -160,51 +160,59 @@ func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefin
 func main() {
 	app := new(EchoApplication)
 
-	globalSettings := settings.NewDictionary()
-	globalSettings.SetInt(settings.SocketAcceptPort, 5001)
-	globalSettings.SetString(settings.SenderCompID, "ISLD")
-	globalSettings.SetString(settings.TargetCompID, "TW")
-	globalSettings.SetBool(settings.ResetOnLogon, true)
+	appSettings := settings.New()
+	globalSettings := appSettings.GlobalSettings()
 
-	appSettings := settings.NewApplicationSettings(globalSettings)
+	globalSettings.Set(settings.SocketAcceptPort, "5001")
+	globalSettings.Set(settings.SenderCompID, "ISLD")
+	globalSettings.Set(settings.TargetCompID, "TW")
+	globalSettings.Set(settings.ResetOnLogon, "Y")
 
-	appSettings.AddSession("FIX40", settings.NewDictionary().
-		SetString(settings.BeginString, fix.BeginString_FIX40).
-		SetString(settings.DataDictionary, "../spec/FIX40.xml"))
+	sessionSettings := settings.NewSessionSettings()
+	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX40)
+	sessionSettings.Set(settings.DataDictionary, "../spec/FIX40.xml")
+	appSettings.AddSession(sessionSettings)
 
-	appSettings.AddSession("FIX41", settings.NewDictionary().
-		SetString(settings.BeginString, fix.BeginString_FIX41).
-		SetString(settings.DataDictionary, "../spec/FIX41.xml"))
+	sessionSettings = settings.NewSessionSettings()
+	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX41)
+	sessionSettings.Set(settings.DataDictionary, "../spec/FIX41.xml")
+	appSettings.AddSession(sessionSettings)
 
-	appSettings.AddSession("FIX42", settings.NewDictionary().
-		SetString(settings.BeginString, fix.BeginString_FIX42).
-		SetString(settings.DataDictionary, "../spec/FIX42.xml"))
+	sessionSettings = settings.NewSessionSettings()
+	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX42)
+	sessionSettings.Set(settings.DataDictionary, "../spec/FIX42.xml")
+	appSettings.AddSession(sessionSettings)
 
-	appSettings.AddSession("FIX43", settings.NewDictionary().
-		SetString(settings.BeginString, fix.BeginString_FIX43).
-		SetString(settings.DataDictionary, "../spec/FIX43.xml"))
+	sessionSettings = settings.NewSessionSettings()
+	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX43)
+	sessionSettings.Set(settings.DataDictionary, "../spec/FIX43.xml")
+	appSettings.AddSession(sessionSettings)
 
-	appSettings.AddSession("FIX44", settings.NewDictionary().
-		SetString(settings.BeginString, fix.BeginString_FIX44).
-		SetString(settings.DataDictionary, "../spec/FIX44.xml"))
+	sessionSettings = settings.NewSessionSettings()
+	sessionSettings.Set(settings.BeginString, fix.BeginString_FIX44)
+	sessionSettings.Set(settings.DataDictionary, "../spec/FIX44.xml")
+	appSettings.AddSession(sessionSettings)
 
-	appSettings.AddSession("FIX50", settings.NewDictionary().
-		SetString(settings.BeginString, fix.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, enum.ApplVerID_FIX50).
-		SetString(settings.TransportDataDictionary, "../spec/FIXT11.xml").
-		SetString(settings.AppDataDictionary, "../spec/FIX50.xml"))
+	sessionSettings = settings.NewSessionSettings()
+	sessionSettings.Set(settings.BeginString, fix.BeginString_FIXT11)
+	sessionSettings.Set(settings.DefaultApplVerID, enum.ApplVerID_FIX50)
+	sessionSettings.Set(settings.TransportDataDictionary, "../spec/FIXT11.xml")
+	sessionSettings.Set(settings.AppDataDictionary, "../spec/FIX50.xml")
+	appSettings.AddSession(sessionSettings)
 
-	appSettings.AddSession("FIX50SP1", settings.NewDictionary().
-		SetString(settings.BeginString, fix.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, enum.ApplVerID_FIX50SP1).
-		SetString(settings.TransportDataDictionary, "../spec/FIXT11.xml").
-		SetString(settings.AppDataDictionary, "../spec/FIX50SP1.xml"))
+	sessionSettings = settings.NewSessionSettings()
+	sessionSettings.Set(settings.BeginString, fix.BeginString_FIXT11)
+	sessionSettings.Set(settings.DefaultApplVerID, enum.ApplVerID_FIX50SP1)
+	sessionSettings.Set(settings.TransportDataDictionary, "../spec/FIXT11.xml")
+	sessionSettings.Set(settings.AppDataDictionary, "../spec/FIX50SP1.xml")
+	appSettings.AddSession(sessionSettings)
 
-	appSettings.AddSession("FIX50SP2", settings.NewDictionary().
-		SetString(settings.BeginString, fix.BeginString_FIXT11).
-		SetString(settings.DefaultApplVerID, enum.ApplVerID_FIX50SP2).
-		SetString(settings.TransportDataDictionary, "../spec/FIXT11.xml").
-		SetString(settings.AppDataDictionary, "../spec/FIX50SP2.xml"))
+	sessionSettings = settings.NewSessionSettings()
+	sessionSettings.Set(settings.BeginString, fix.BeginString_FIXT11)
+	sessionSettings.Set(settings.DefaultApplVerID, enum.ApplVerID_FIX50SP2)
+	sessionSettings.Set(settings.TransportDataDictionary, "../spec/FIXT11.xml")
+	sessionSettings.Set(settings.AppDataDictionary, "../spec/FIX50SP2.xml")
+	appSettings.AddSession(sessionSettings)
 
 	acceptor, err := quickfix.NewAcceptor(app, appSettings, log.ScreenLogFactory{})
 	if err != nil {

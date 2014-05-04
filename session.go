@@ -38,62 +38,73 @@ type session struct {
 }
 
 //Creates Session, associates with internal session registry
-func createSession(dict settings.Dictionary, logFactory log.LogFactory, application Application) (SessionID, error) {
+func createSession(dict *settings.SessionSettings, logFactory log.LogFactory, application Application) (SessionID, error) {
 	session := new(session)
 
-	if beginString, ok := dict.GetString(settings.BeginString); ok {
-		session.SessionID.BeginString = beginString
-	} else {
+	beginString, err := dict.Setting(settings.BeginString)
+	if err != nil {
 		return session.SessionID, settings.RequiredConfigurationMissing(settings.BeginString)
 	}
+	session.SessionID.BeginString = beginString
 
-	if targetCompID, ok := dict.GetString(settings.TargetCompID); ok {
-		session.SessionID.TargetCompID = targetCompID
-	} else {
+	targetCompID, err := dict.Setting(settings.TargetCompID)
+	if err != nil {
 		return session.SessionID, settings.RequiredConfigurationMissing(settings.TargetCompID)
 	}
+	session.SessionID.TargetCompID = targetCompID
 
-	if senderCompID, ok := dict.GetString(settings.SenderCompID); ok {
-		session.SessionID.SenderCompID = senderCompID
-	} else {
+	senderCompID, err := dict.Setting(settings.SenderCompID)
+	if err != nil {
 		return session.SessionID, settings.RequiredConfigurationMissing(settings.SenderCompID)
 	}
+	session.SessionID.SenderCompID = senderCompID
 
-	if dataDictionaryPath, ok := dict.GetString(settings.DataDictionary); ok {
-		var err error
+	if dataDictionaryPath, err := dict.Setting(settings.DataDictionary); err == nil {
 		if session.dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
 			return session.SessionID, err
 		}
 	}
 
-	if transportDataDictionaryPath, ok := dict.GetString(settings.TransportDataDictionary); ok {
-		var err error
+	if transportDataDictionaryPath, err := dict.Setting(settings.TransportDataDictionary); err == nil {
 		if session.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
 			return session.SessionID, err
 		}
 	}
 
 	//FIXME: tDictionary w/o appDictionary and vice versa should throw config error
-	if appDataDictionaryPath, ok := dict.GetString(settings.AppDataDictionary); ok {
-		var err error
+	if appDataDictionaryPath, err := dict.Setting(settings.AppDataDictionary); err == nil {
 		if session.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
 			return session.SessionID, err
 		}
 	}
 
 	if session.SessionID.BeginString == fix.BeginString_FIXT11 {
-		if defaultApplVerID, ok := dict.GetString(settings.DefaultApplVerID); ok {
-			session.SessionID.DefaultApplVerID = defaultApplVerID
-		} else {
+		defaultApplVerID, err := dict.Setting(settings.DefaultApplVerID)
+
+		if err != nil {
 			return session.SessionID, settings.RequiredConfigurationMissing(settings.DefaultApplVerID)
 		}
+
+		session.SessionID.DefaultApplVerID = defaultApplVerID
 	}
 
-	resetOnLogon, _ := dict.GetBool(settings.ResetOnLogon)
-	session.resetOnLogon = resetOnLogon
+	if dict.HasSetting(settings.ResetOnLogon) {
+		resetOnLogon, err := dict.BoolSetting(settings.ResetOnLogon)
+		if err != nil {
+			return session.SessionID, err
+		}
 
-	heartBtInt, _ := dict.GetInt(settings.HeartBtInt)
-	session.heartBtInt = heartBtInt
+		session.resetOnLogon = resetOnLogon
+	}
+
+	if dict.HasSetting(settings.HeartBtInt) {
+		heartBtInt, err := dict.IntSetting(settings.HeartBtInt)
+		if err != nil {
+			return session.SessionID, err
+		}
+
+		session.heartBtInt = heartBtInt
+	}
 
 	session.toSend = make(chan message.MessageBuilder)
 

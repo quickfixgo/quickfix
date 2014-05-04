@@ -10,8 +10,8 @@ import (
 //Initiator initiates connections and processes messages for all sessions.
 type Initiator struct {
 	app             Application
-	settings        settings.ApplicationSettings
-	sessionSettings map[SessionID]settings.Dictionary
+	settings        *settings.Settings
+	sessionSettings map[SessionID]*settings.SessionSettings
 	logFactory      log.LogFactory
 	globalLog       log.Log
 }
@@ -20,8 +20,15 @@ type Initiator struct {
 func (i *Initiator) Start() error {
 
 	for sessionID, s := range i.sessionSettings {
-		socketConnectHost, _ := s.GetString(settings.SocketConnectHost)
-		socketConnectPort, _ := s.GetInt(settings.SocketConnectPort)
+		socketConnectHost, err := s.Setting(settings.SocketConnectHost)
+		if err != nil {
+			return fmt.Errorf("error on SocketConnectHost: %v", err)
+		}
+
+		socketConnectPort, err := s.IntSetting(settings.SocketConnectPort)
+		if err != nil {
+			return fmt.Errorf("error on SocketConnectPort: %v", err)
+		}
 
 		conn, err := net.Dial("tcp", fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort))
 		if err != nil {
@@ -40,22 +47,22 @@ func (i *Initiator) Stop() {
 }
 
 //NewInitiator creates and initializes a new Initiator.
-func NewInitiator(app Application, appSettings settings.ApplicationSettings, logFactory log.LogFactory) (*Initiator, error) {
+func NewInitiator(app Application, appSettings *settings.Settings, logFactory log.LogFactory) (*Initiator, error) {
 	i := new(Initiator)
 	i.app = app
 	i.settings = appSettings
-	i.sessionSettings = make(map[SessionID]settings.Dictionary)
+	i.sessionSettings = make(map[SessionID]*settings.SessionSettings)
 	i.logFactory = logFactory
 	i.globalLog = logFactory.Create()
 
-	for _, s := range appSettings.GetSessionSettings() {
+	for _, s := range appSettings.SessionSettings() {
 
 		//fail fast
-		if _, ok := s.GetString(settings.SocketConnectHost); !ok {
+		if ok := s.HasSetting(settings.SocketConnectHost); !ok {
 			return nil, settings.RequiredConfigurationMissing(settings.SocketConnectHost)
 		}
 
-		if _, ok := s.GetInt(settings.SocketConnectPort); !ok {
+		if ok := s.HasSetting(settings.SocketConnectPort); !ok {
 			return nil, settings.RequiredConfigurationMissing(settings.SocketConnectPort)
 		}
 
