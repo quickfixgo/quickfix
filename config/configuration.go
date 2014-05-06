@@ -1,6 +1,6 @@
-package settings
+//Package config declares application and session settings for QuickFIX/Go
+package config
 
-//QuickFIX/Go settings.
 const (
 	BeginString             string = "BeginString"
 	SenderCompID            string = "SenderCompID"

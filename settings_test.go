@@ -1,12 +1,13 @@
-package settings
+package quickfix
 
 import (
+	"github.com/quickfixgo/quickfix/config"
 	"strings"
 	"testing"
 )
 
 func TestSettings_New(t *testing.T) {
-	s := New()
+	s := NewSettings()
 
 	if s == nil {
 		t.Error("New returned nil")
@@ -28,17 +29,17 @@ func TestSettings_New(t *testing.T) {
 }
 
 func TestSettings_AddSession(t *testing.T) {
-	s := New()
+	s := NewSettings()
 	globalSettings := s.GlobalSettings()
 
-	globalSettings.Set(BeginString, "blah")
-	globalSettings.Set(SocketAcceptPort, "1000")
+	globalSettings.Set(config.BeginString, "blah")
+	globalSettings.Set(config.SocketAcceptPort, "1000")
 
 	s1 := NewSessionSettings()
-	s1.Set(BeginString, "foo")
+	s1.Set(config.BeginString, "foo")
 
 	s2 := NewSessionSettings()
-	s2.Set(ResetOnLogon, "Y")
+	s2.Set(config.ResetOnLogon, "Y")
 
 	s.AddSession(s1)
 	s.AddSession(s2)
@@ -54,11 +55,11 @@ func TestSettings_AddSession(t *testing.T) {
 		input    string
 		expected string
 	}{
-		{0, BeginString, "foo"},
-		{0, SocketAcceptPort, "1000"},
-		{1, BeginString, "blah"},
-		{1, SocketAcceptPort, "1000"},
-		{1, ResetOnLogon, "Y"},
+		{0, config.BeginString, "foo"},
+		{0, config.SocketAcceptPort, "1000"},
+		{1, config.BeginString, "blah"},
+		{1, config.SocketAcceptPort, "1000"},
+		{1, config.ResetOnLogon, "Y"},
 	}
 
 	for _, tc := range cases {
@@ -75,7 +76,7 @@ func TestSettings_AddSession(t *testing.T) {
 	}
 }
 
-func TestSettings_Read(t *testing.T) {
+func TestSettings_ParseSettings(t *testing.T) {
 	cfg := `
 # default settings for sessions
 [DEFAULT]
@@ -128,7 +129,7 @@ DataDictionary=somewhere/FIX42.xml
 `
 
 	stringReader := strings.NewReader(cfg)
-	s, err := Read(stringReader)
+	s, err := ParseSettings(stringReader)
 
 	if err != nil {
 		t.Error("Error in Read: ", err)

@@ -2,14 +2,13 @@ package quickfix
 
 import (
 	"fmt"
+	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	"github.com/quickfixgo/quickfix/log"
 	"github.com/quickfixgo/quickfix/message"
-	"github.com/quickfixgo/quickfix/settings"
 	"time"
 )
 
@@ -17,7 +16,7 @@ type session struct {
 	stateData
 	store messageStore
 
-	log log.Log
+	log Log
 	SessionID
 
 	messageOut chan buffer
@@ -38,58 +37,58 @@ type session struct {
 }
 
 //Creates Session, associates with internal session registry
-func createSession(dict *settings.SessionSettings, logFactory log.LogFactory, application Application) (SessionID, error) {
+func createSession(dict *SessionSettings, logFactory LogFactory, application Application) (SessionID, error) {
 	session := new(session)
 
-	beginString, err := dict.Setting(settings.BeginString)
+	beginString, err := dict.Setting(config.BeginString)
 	if err != nil {
-		return session.SessionID, settings.RequiredConfigurationMissing(settings.BeginString)
+		return session.SessionID, errors.RequiredConfigurationMissing(config.BeginString)
 	}
 	session.SessionID.BeginString = beginString
 
-	targetCompID, err := dict.Setting(settings.TargetCompID)
+	targetCompID, err := dict.Setting(config.TargetCompID)
 	if err != nil {
-		return session.SessionID, settings.RequiredConfigurationMissing(settings.TargetCompID)
+		return session.SessionID, errors.RequiredConfigurationMissing(config.TargetCompID)
 	}
 	session.SessionID.TargetCompID = targetCompID
 
-	senderCompID, err := dict.Setting(settings.SenderCompID)
+	senderCompID, err := dict.Setting(config.SenderCompID)
 	if err != nil {
-		return session.SessionID, settings.RequiredConfigurationMissing(settings.SenderCompID)
+		return session.SessionID, errors.RequiredConfigurationMissing(config.SenderCompID)
 	}
 	session.SessionID.SenderCompID = senderCompID
 
-	if dataDictionaryPath, err := dict.Setting(settings.DataDictionary); err == nil {
+	if dataDictionaryPath, err := dict.Setting(config.DataDictionary); err == nil {
 		if session.dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
 			return session.SessionID, err
 		}
 	}
 
-	if transportDataDictionaryPath, err := dict.Setting(settings.TransportDataDictionary); err == nil {
+	if transportDataDictionaryPath, err := dict.Setting(config.TransportDataDictionary); err == nil {
 		if session.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
 			return session.SessionID, err
 		}
 	}
 
 	//FIXME: tDictionary w/o appDictionary and vice versa should throw config error
-	if appDataDictionaryPath, err := dict.Setting(settings.AppDataDictionary); err == nil {
+	if appDataDictionaryPath, err := dict.Setting(config.AppDataDictionary); err == nil {
 		if session.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
 			return session.SessionID, err
 		}
 	}
 
 	if session.SessionID.BeginString == fix.BeginString_FIXT11 {
-		defaultApplVerID, err := dict.Setting(settings.DefaultApplVerID)
+		defaultApplVerID, err := dict.Setting(config.DefaultApplVerID)
 
 		if err != nil {
-			return session.SessionID, settings.RequiredConfigurationMissing(settings.DefaultApplVerID)
+			return session.SessionID, errors.RequiredConfigurationMissing(config.DefaultApplVerID)
 		}
 
 		session.SessionID.DefaultApplVerID = defaultApplVerID
 	}
 
-	if dict.HasSetting(settings.ResetOnLogon) {
-		resetOnLogon, err := dict.BoolSetting(settings.ResetOnLogon)
+	if dict.HasSetting(config.ResetOnLogon) {
+		resetOnLogon, err := dict.BoolSetting(config.ResetOnLogon)
 		if err != nil {
 			return session.SessionID, err
 		}
@@ -97,8 +96,8 @@ func createSession(dict *settings.SessionSettings, logFactory log.LogFactory, ap
 		session.resetOnLogon = resetOnLogon
 	}
 
-	if dict.HasSetting(settings.HeartBtInt) {
-		heartBtInt, err := dict.IntSetting(settings.HeartBtInt)
+	if dict.HasSetting(config.HeartBtInt) {
+		heartBtInt, err := dict.IntSetting(config.HeartBtInt)
 		if err != nil {
 			return session.SessionID, err
 		}

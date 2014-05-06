@@ -1,6 +1,7 @@
-package settings
+package quickfix
 
 import (
+	"github.com/quickfixgo/quickfix/config"
 	"testing"
 )
 
@@ -10,19 +11,19 @@ func TestSessionSettings_StringSettings(t *testing.T) {
 		t.Error("NewSessionSettings returned nil")
 	}
 
-	s.Set(BeginString, "foo")
-	s.Set(BeginString, "blah")
-	s.Set(SenderCompID, "bar")
+	s.Set(config.BeginString, "foo")
+	s.Set(config.BeginString, "blah")
+	s.Set(config.SenderCompID, "bar")
 
 	if ok := s.HasSetting("DoesNotExist"); ok {
 		t.Error("HasSetting returned true for setting that doesn't exist")
 	}
 
-	if ok := s.HasSetting(BeginString); !ok {
+	if ok := s.HasSetting(config.BeginString); !ok {
 		t.Error("HasSetting returned false for setting that does exist")
 	}
 
-	if val, err := s.Setting(BeginString); err != nil {
+	if val, err := s.Setting(config.BeginString); err != nil {
 		t.Error("Got error requesing setting", err)
 	} else {
 		if val != "blah" {
@@ -33,17 +34,17 @@ func TestSessionSettings_StringSettings(t *testing.T) {
 
 func TestSessionSettings_IntSettings(t *testing.T) {
 	s := NewSessionSettings()
-	if _, err := s.IntSetting(SocketAcceptPort); err == nil {
+	if _, err := s.IntSetting(config.SocketAcceptPort); err == nil {
 		t.Error("Expected error for unknown setting")
 	}
 
-	s.Set(SocketAcceptPort, "notanint")
-	if _, err := s.IntSetting(SocketAcceptPort); err == nil {
+	s.Set(config.SocketAcceptPort, "notanint")
+	if _, err := s.IntSetting(config.SocketAcceptPort); err == nil {
 		t.Error("Expected error for unparsable value")
 	}
 
-	s.Set(SocketAcceptPort, "1005")
-	val, err := s.IntSetting(SocketAcceptPort)
+	s.Set(config.SocketAcceptPort, "1005")
+	val, err := s.IntSetting(config.SocketAcceptPort)
 	if err != nil {
 		t.Error("Unexpected err", err)
 	}
@@ -55,12 +56,12 @@ func TestSessionSettings_IntSettings(t *testing.T) {
 
 func TestSessionSettings_BoolSettins(t *testing.T) {
 	s := NewSessionSettings()
-	if _, err := s.BoolSetting(ResetOnLogon); err == nil {
+	if _, err := s.BoolSetting(config.ResetOnLogon); err == nil {
 		t.Error("Expected error for unknown setting")
 	}
 
-	s.Set(ResetOnLogon, "notabool")
-	if _, err := s.BoolSetting(ResetOnLogon); err == nil {
+	s.Set(config.ResetOnLogon, "notabool")
+	if _, err := s.BoolSetting(config.ResetOnLogon); err == nil {
 		t.Error("Expected error for unparsable value")
 	}
 
@@ -75,9 +76,9 @@ func TestSessionSettings_BoolSettins(t *testing.T) {
 	}
 
 	for _, bt := range boolTests {
-		s.Set(ResetOnLogon, bt.input)
+		s.Set(config.ResetOnLogon, bt.input)
 
-		actual, err := s.BoolSetting(ResetOnLogon)
+		actual, err := s.BoolSetting(config.ResetOnLogon)
 		if err != nil {
 			t.Error("Unexpected err", err)
 		}
@@ -95,9 +96,9 @@ func TestSessionSettings_Clone(t *testing.T) {
 		input    string
 		expected string
 	}{
-		{SocketAcceptPort, "101"},
-		{BeginString, "foo"},
-		{ResetOnLogon, "N"},
+		{config.SocketAcceptPort, "101"},
+		{config.BeginString, "foo"},
+		{config.ResetOnLogon, "N"},
 	}
 
 	for _, ct := range cloneTests {
@@ -126,19 +127,19 @@ func TestSessionSettings_Overlay(t *testing.T) {
 	s := NewSessionSettings()
 	overlay := NewSessionSettings()
 
-	s.Set(SocketAcceptPort, "101")
-	s.Set(BeginString, "foo")
+	s.Set(config.SocketAcceptPort, "101")
+	s.Set(config.BeginString, "foo")
 
-	overlay.Set(SocketAcceptPort, "102")
-	overlay.Set(SenderCompID, "blah")
+	overlay.Set(config.SocketAcceptPort, "102")
+	overlay.Set(config.SenderCompID, "blah")
 
 	var overlayTests = []struct {
 		input    string
 		expected string
 	}{
-		{SocketAcceptPort, "102"},
-		{BeginString, "foo"},
-		{SenderCompID, "blah"},
+		{config.SocketAcceptPort, "102"},
+		{config.BeginString, "foo"},
+		{config.SenderCompID, "blah"},
 	}
 
 	s.overlay(overlay)

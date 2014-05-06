@@ -14,9 +14,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50"
 	"github.com/quickfixgo/quickfix/fix50sp1"
 	"github.com/quickfixgo/quickfix/fix50sp2"
-	"github.com/quickfixgo/quickfix/log"
 	"github.com/quickfixgo/quickfix/message"
-	"github.com/quickfixgo/quickfix/settings"
 	"os"
 	"os/signal"
 )
@@ -164,13 +162,13 @@ func main() {
 		return
 	}
 
-	appSettings, err := settings.Read(cfg)
+	appSettings, err := quickfix.ParseSettings(cfg)
 	if err != nil {
 		fmt.Println("Error reading cfg:", err)
 		return
 	}
 
-	acceptor, err := quickfix.NewAcceptor(app, appSettings, log.ScreenLogFactory{})
+	acceptor, err := quickfix.NewAcceptor(app, appSettings, quickfix.ScreenLogFactory{})
 	if err != nil {
 		fmt.Println("Unable to create Acceptor: ", err)
 		return

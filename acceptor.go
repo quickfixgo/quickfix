@@ -2,8 +2,7 @@ package quickfix
 
 import (
 	"fmt"
-	"github.com/quickfixgo/quickfix/log"
-	"github.com/quickfixgo/quickfix/settings"
+	"github.com/quickfixgo/quickfix/config"
 	"net"
 	"strconv"
 )
@@ -11,14 +10,14 @@ import (
 //Acceptor accepts connections from FIX clients and manages the associated sessions.
 type Acceptor struct {
 	app        Application
-	settings   *settings.Settings
-	logFactory log.LogFactory
-	globalLog  log.Log
+	settings   *Settings
+	logFactory LogFactory
+	globalLog  Log
 }
 
 //Start accepting connections.
 func (a *Acceptor) Start() (e error) {
-	port, err := a.settings.GlobalSettings().IntSetting(settings.SocketAcceptPort)
+	port, err := a.settings.GlobalSettings().IntSetting(config.SocketAcceptPort)
 	if err != nil {
 		return fmt.Errorf("error fetching required SocketAcceptPort: %v", err)
 	}
@@ -43,7 +42,7 @@ func (a *Acceptor) Start() (e error) {
 func (a *Acceptor) Stop() {}
 
 //NewAcceptor creates and initializes a new Acceptor.
-func NewAcceptor(app Application, settings *settings.Settings, logFactory log.LogFactory) (*Acceptor, error) {
+func NewAcceptor(app Application, settings *Settings, logFactory LogFactory) (*Acceptor, error) {
 	a := new(Acceptor)
 	a.app = app
 	a.settings = settings

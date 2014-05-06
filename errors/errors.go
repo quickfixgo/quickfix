@@ -129,3 +129,8 @@ type ParseError struct {
 }
 
 func (e ParseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
+
+//RequiredConfigurationMissing indicates a missing required conditional configuration option.
+func RequiredConfigurationMissing(setting string) error {
+	return fmt.Errorf("missing configuration: %v", setting)
+}

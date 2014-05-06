@@ -1,5 +1,4 @@
-//Package settings provides settings and configuration for QuickFIX.
-package settings
+package quickfix
 
 import (
 	"bufio"
@@ -8,10 +7,6 @@ import (
 	"io"
 	"regexp"
 )
-
-func RequiredConfigurationMissing(setting string) error {
-	return fmt.Errorf("missing configuration: %v", setting)
-}
 
 //The Settings type represents a collection of global and session settings.
 type Settings struct {
@@ -31,17 +26,17 @@ func (s *Settings) lazyInit() {
 	}
 }
 
-//New creates a Settings instance
-func New() *Settings {
+//NewSettings creates a Settings instance
+func NewSettings() *Settings {
 	s := &Settings{}
 	s.Init()
 	return s
 }
 
-//Read creates and initializes a Settings instance with config parsed from a Reader.
+//ParseSettings creates and initializes a Settings instance with config parsed from a Reader.
 //Returns error if the config is has parse errors
-func Read(reader io.Reader) (*Settings, error) {
-	s := New()
+func ParseSettings(reader io.Reader) (*Settings, error) {
+	s := NewSettings()
 
 	scanner := bufio.NewScanner(reader)
 	blankRegEx := regexp.MustCompile(`^\s*$`)

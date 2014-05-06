@@ -1,4 +1,4 @@
-package log
+package quickfix
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ type screenLog struct {
 	prefix string
 }
 
-//Screen log factory creates log implementations that write to screen.
+//ScreenLogFactory creates Log instances that write to screen.
 //Implements LogFactory interface.
 type ScreenLogFactory struct{}
 

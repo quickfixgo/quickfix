@@ -1,6 +1,6 @@
-//Package log implements logging of FIX messages and events.
-package log
+package quickfix
 
+//Log is a generic interface for logging FIX messages and events.
 type Log interface {
 	//log incoming fix message
 	OnIncoming(string)
@@ -15,6 +15,7 @@ type Log interface {
 	OnEventf(string, ...interface{})
 }
 
+//The LogFactory interface creates global and session specific Log instances
 type LogFactory interface {
 	//global log
 	Create() Log

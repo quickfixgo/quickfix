@@ -4,13 +4,12 @@ import (
 	"bufio"
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	"github.com/quickfixgo/quickfix/log"
 	"github.com/quickfixgo/quickfix/message"
 	"net"
 )
 
 //Picks up session from net.Conn Initiator
-func handleInitiatorConnection(netConn net.Conn, log log.Log, sessID SessionID) {
+func handleInitiatorConnection(netConn net.Conn, log Log, sessID SessionID) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.OnEventf("Connection Terminated: %v", err)
@@ -48,7 +47,7 @@ func handleInitiatorConnection(netConn net.Conn, log log.Log, sessID SessionID) 
 }
 
 //Picks up session from net.Conn Acceptor
-func handleAcceptorConnection(netConn net.Conn, log log.Log) {
+func handleAcceptorConnection(netConn net.Conn, log Log) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.OnEventf("Connection Terminated: %v", err)
