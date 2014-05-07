@@ -49,8 +49,8 @@ func NewAcceptor(app Application, settings *Settings, logFactory LogFactory) (*A
 	a.logFactory = logFactory
 	a.globalLog = logFactory.Create()
 
-	for _, s := range settings.SessionSettings() {
-		if _, err := createSession(s, logFactory, app); err != nil {
+	for sessionID, sessionSettings := range settings.SessionSettings() {
+		if err := createSession(sessionID, sessionSettings, logFactory, app); err != nil {
 			return nil, err
 		}
 	}

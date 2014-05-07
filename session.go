@@ -37,69 +37,41 @@ type session struct {
 }
 
 //Creates Session, associates with internal session registry
-func createSession(dict *SessionSettings, logFactory LogFactory, application Application) (SessionID, error) {
-	session := new(session)
+func createSession(sessionID SessionID, settings *SessionSettings, logFactory LogFactory, application Application) error {
+	session := &session{SessionID: sessionID}
 
-	beginString, err := dict.Setting(config.BeginString)
-	if err != nil {
-		return session.SessionID, errors.RequiredConfigurationMissing(config.BeginString)
-	}
-	session.SessionID.BeginString = beginString
-
-	targetCompID, err := dict.Setting(config.TargetCompID)
-	if err != nil {
-		return session.SessionID, errors.RequiredConfigurationMissing(config.TargetCompID)
-	}
-	session.SessionID.TargetCompID = targetCompID
-
-	senderCompID, err := dict.Setting(config.SenderCompID)
-	if err != nil {
-		return session.SessionID, errors.RequiredConfigurationMissing(config.SenderCompID)
-	}
-	session.SessionID.SenderCompID = senderCompID
-
-	if dataDictionaryPath, err := dict.Setting(config.DataDictionary); err == nil {
+	if dataDictionaryPath, err := settings.Setting(config.DataDictionary); err == nil {
 		if session.dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
-			return session.SessionID, err
+			return err
 		}
 	}
 
-	if transportDataDictionaryPath, err := dict.Setting(config.TransportDataDictionary); err == nil {
+	if transportDataDictionaryPath, err := settings.Setting(config.TransportDataDictionary); err == nil {
 		if session.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
-			return session.SessionID, err
+			return err
 		}
 	}
 
 	//FIXME: tDictionary w/o appDictionary and vice versa should throw config error
-	if appDataDictionaryPath, err := dict.Setting(config.AppDataDictionary); err == nil {
+	if appDataDictionaryPath, err := settings.Setting(config.AppDataDictionary); err == nil {
 		if session.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
-			return session.SessionID, err
+			return err
 		}
 	}
 
-	if session.SessionID.BeginString == fix.BeginString_FIXT11 {
-		defaultApplVerID, err := dict.Setting(config.DefaultApplVerID)
-
+	if settings.HasSetting(config.ResetOnLogon) {
+		resetOnLogon, err := settings.BoolSetting(config.ResetOnLogon)
 		if err != nil {
-			return session.SessionID, errors.RequiredConfigurationMissing(config.DefaultApplVerID)
-		}
-
-		session.SessionID.DefaultApplVerID = defaultApplVerID
-	}
-
-	if dict.HasSetting(config.ResetOnLogon) {
-		resetOnLogon, err := dict.BoolSetting(config.ResetOnLogon)
-		if err != nil {
-			return session.SessionID, err
+			return err
 		}
 
 		session.resetOnLogon = resetOnLogon
 	}
 
-	if dict.HasSetting(config.HeartBtInt) {
-		heartBtInt, err := dict.IntSetting(config.HeartBtInt)
+	if settings.HasSetting(config.HeartBtInt) {
+		heartBtInt, err := settings.IntSetting(config.HeartBtInt)
 		if err != nil {
-			return session.SessionID, err
+			return err
 		}
 
 		session.heartBtInt = heartBtInt
@@ -108,7 +80,7 @@ func createSession(dict *SessionSettings, logFactory LogFactory, application App
 	session.toSend = make(chan message.MessageBuilder)
 
 	session.sessionEvent = make(chan event)
-	session.log = logFactory.CreateSessionLog(session.SessionID.String())
+	session.log = logFactory.CreateSessionLog(session.SessionID)
 	session.application = application
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
@@ -116,7 +88,7 @@ func createSession(dict *SessionSettings, logFactory LogFactory, application App
 	application.OnCreate(session.SessionID)
 	sessions.newSession <- session
 
-	return session.SessionID, nil
+	return nil
 }
 
 func (s *session) initiate() (chan buffer, error) {
@@ -364,10 +336,11 @@ func (s *session) checkTargetTooHigh(msg message.Message) errors.MessageRejectEr
 }
 
 func (s *session) checkCompID(msg message.Message) errors.MessageRejectError {
-	senderCompID := new(message.StringValue)
-	targetCompID := new(message.StringValue)
-	haveSender := msg.Header.GetField(tag.SenderCompID, senderCompID)
-	haveTarget := msg.Header.GetField(tag.TargetCompID, targetCompID)
+	senderCompID := &field.SenderCompID{}
+	targetCompID := &field.TargetCompID{}
+
+	haveSender := msg.Header.Get(senderCompID)
+	haveTarget := msg.Header.Get(targetCompID)
 
 	switch {
 	case haveSender != nil:

@@ -3,9 +3,11 @@ package quickfix
 import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"github.com/quickfixgo/quickfix/message"
 	. "gopkg.in/check.v1"
+	"testing"
 	"time"
 )
 
@@ -22,42 +24,64 @@ func getBuilder() message.MessageBuilder {
 	return builder
 }
 
-func (s *SessionTests) TestCheckCorrectCompID(c *C) {
-	s.session.SessionID.TargetCompID = "TAR"
-	s.session.SessionID.SenderCompID = "SND"
+func TestSession_CheckCorrectCompID(t *testing.T) {
+	session := session{}
+	session.SessionID.TargetCompID = "TAR"
+	session.SessionID.SenderCompID = "SND"
 
-	builder := getBuilder()
-	msg, _ := builder.Build()
-	//missing target comp id or sender comp id
-	err := s.session.checkCompID(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
+	var testCases = []struct {
+		senderCompID *field.SenderCompID
+		targetCompID *field.TargetCompID
+		returnsError bool
+		rejectReason errors.RejectReason
+	}{
+		{returnsError: true, rejectReason: errors.RejectReasonRequiredTagMissing},
+		{senderCompID: field.BuildSenderCompID("TAR"),
+			returnsError: true,
+			rejectReason: errors.RejectReasonRequiredTagMissing},
+		{senderCompID: field.BuildSenderCompID("TAR"),
+			targetCompID: field.BuildTargetCompID("JCD"),
+			returnsError: true,
+			rejectReason: errors.RejectReasonCompIDProblem},
+		{senderCompID: field.BuildSenderCompID("JCD"),
+			targetCompID: field.BuildTargetCompID("SND"),
+			returnsError: true,
+			rejectReason: errors.RejectReasonCompIDProblem},
+		{senderCompID: field.BuildSenderCompID("TAR"),
+			targetCompID: field.BuildTargetCompID("SND"),
+			returnsError: false},
+	}
 
-	builder.Header.Set(message.NewStringField(tag.SenderCompID, "TAR"))
-	msg, _ = builder.Build()
-	err = s.session.checkCompID(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
+	for _, tc := range testCases {
+		builder := getBuilder()
 
-	//comp wrong
-	builder.Header.Set(message.NewStringField(tag.TargetCompID, "JCD"))
-	msg, _ = builder.Build()
-	err = s.session.checkCompID(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonCompIDProblem)
+		if tc.senderCompID != nil {
+			builder.Header.Set(tc.senderCompID)
+		}
 
-	builder.Header.Set(message.NewStringField(tag.TargetCompID, "SND"))
-	builder.Header.Set(message.NewStringField(tag.SenderCompID, "JCD"))
-	msg, _ = builder.Build()
-	err = s.session.checkCompID(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonCompIDProblem)
+		if tc.targetCompID != nil {
+			builder.Header.Set(tc.targetCompID)
+		}
 
-	builder.Header.Set(message.NewStringField(tag.TargetCompID, "SND"))
-	builder.Header.Set(message.NewStringField(tag.SenderCompID, "TAR"))
-	msg, _ = builder.Build()
-	err = s.session.checkCompID(*msg)
-	c.Check(err, IsNil)
+		msg, _ := builder.Build()
+		err := session.checkCompID(*msg)
+
+		if err == nil {
+			if tc.returnsError {
+				t.Error("expected error")
+			}
+
+			return
+		}
+
+		if !tc.returnsError {
+			t.Fatal("unexpected error", err)
+		}
+
+		if err.RejectReason() != tc.rejectReason {
+			t.Errorf("expected %v got %v", tc.rejectReason, err.RejectReason())
+		}
+	}
 }
 
 func (s *SessionTests) TestCheckBeginString(c *C) {

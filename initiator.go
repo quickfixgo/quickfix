@@ -51,11 +51,11 @@ func NewInitiator(app Application, appSettings *Settings, logFactory LogFactory)
 	i := new(Initiator)
 	i.app = app
 	i.settings = appSettings
-	i.sessionSettings = make(map[SessionID]*SessionSettings)
+	i.sessionSettings = appSettings.SessionSettings()
 	i.logFactory = logFactory
 	i.globalLog = logFactory.Create()
 
-	for _, s := range appSettings.SessionSettings() {
+	for sessionID, s := range i.sessionSettings {
 
 		//fail fast
 		if ok := s.HasSetting(config.SocketConnectHost); !ok {
@@ -66,12 +66,10 @@ func NewInitiator(app Application, appSettings *Settings, logFactory LogFactory)
 			return nil, errors.RequiredConfigurationMissing(config.SocketConnectPort)
 		}
 
-		sessionID, err := createSession(s, logFactory, app)
+		err := createSession(sessionID, s, logFactory, app)
 		if err != nil {
 			return nil, err
 		}
-
-		i.sessionSettings[sessionID] = s
 	}
 
 	return i, nil

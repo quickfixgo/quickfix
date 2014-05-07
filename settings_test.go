@@ -32,17 +32,49 @@ func TestSettings_AddSession(t *testing.T) {
 	s := NewSettings()
 	globalSettings := s.GlobalSettings()
 
-	globalSettings.Set(config.BeginString, "blah")
+	globalSettings.Set(config.BeginString, "FIX.4.0")
 	globalSettings.Set(config.SocketAcceptPort, "1000")
 
 	s1 := NewSessionSettings()
-	s1.Set(config.BeginString, "foo")
+	s1.Set(config.BeginString, "FIX.4.1")
+	s1.Set(config.SenderCompID, "CB")
+	s1.Set(config.TargetCompID, "SS")
+
+	sessionID1 := SessionID{BeginString: "FIX.4.1", SenderCompID: "CB", TargetCompID: "SS"}
 
 	s2 := NewSessionSettings()
 	s2.Set(config.ResetOnLogon, "Y")
+	s2.Set(config.SenderCompID, "CB")
+	s2.Set(config.TargetCompID, "SS")
 
-	s.AddSession(s1)
-	s.AddSession(s2)
+	sessionID2 := SessionID{BeginString: "FIX.4.0", SenderCompID: "CB", TargetCompID: "SS"}
+
+	var addCases = []struct {
+		settings          *SessionSettings
+		expectedSessionID SessionID
+	}{
+		{s1, sessionID1},
+		{s2, sessionID2},
+	}
+
+	for _, tc := range addCases {
+		sid, err := s.AddSession(tc.settings)
+		if err != nil {
+			t.Fatal("Got Error adding session", err)
+		}
+
+		if sid != tc.expectedSessionID {
+			t.Fatalf("expected %v got %v", tc.expectedSessionID, sid)
+		}
+	}
+
+	s3 := NewSessionSettings()
+	s3.Set(config.ResetOnLogon, "Y")
+	s3.Set(config.SenderCompID, "CB")
+	s3.Set(config.TargetCompID, "SS")
+	if _, err := s.AddSession(s3); err == nil {
+		t.Error("Expected error for adding duplicate session")
+	}
 
 	sessionSettings := s.SessionSettings()
 
@@ -51,19 +83,19 @@ func TestSettings_AddSession(t *testing.T) {
 	}
 
 	var cases = []struct {
-		index    int
-		input    string
-		expected string
+		sessionID SessionID
+		input     string
+		expected  string
 	}{
-		{0, config.BeginString, "foo"},
-		{0, config.SocketAcceptPort, "1000"},
-		{1, config.BeginString, "blah"},
-		{1, config.SocketAcceptPort, "1000"},
-		{1, config.ResetOnLogon, "Y"},
+		{sessionID1, config.BeginString, "FIX.4.1"},
+		{sessionID1, config.SocketAcceptPort, "1000"},
+		{sessionID2, config.BeginString, "FIX.4.0"},
+		{sessionID2, config.SocketAcceptPort, "1000"},
+		{sessionID2, config.ResetOnLogon, "Y"},
 	}
 
 	for _, tc := range cases {
-		settings := sessionSettings[tc.index]
+		settings := sessionSettings[tc.sessionID]
 
 		actual, err := settings.Setting(tc.input)
 		if err != nil {
@@ -167,54 +199,61 @@ DataDictionary=somewhere/FIX42.xml
 		t.Errorf("Expected %v sessions, got %v", 3, len(sessionSettings))
 	}
 
+	sessionID1 := SessionID{BeginString: "FIX.4.1", SenderCompID: "TW", TargetCompID: "ARCA"}
+	sessionID2 := SessionID{BeginString: "FIX.4.0", SenderCompID: "TW", TargetCompID: "ISLD"}
+	sessionID3 := SessionID{BeginString: "FIX.4.2", SenderCompID: "TW", TargetCompID: "INCA"}
+
 	var sessionTCs = []struct {
-		index    int
-		setting  string
-		expected string
+		sessionID SessionID
+		setting   string
+		expected  string
 	}{
-		{0, "ConnectionType", "initiator"},
-		{0, "ReconnectInterval", "60"},
-		{0, "SenderCompID", "TW"},
-		{0, "BeginString", "FIX.4.1"},
-		{0, "TargetCompID", "ARCA"},
-		{0, "StartTime", "12:30:00"},
-		{0, "EndTime", "23:30:00"},
-		{0, "HeartBtInt", "20"},
-		{0, "SocketConnectPort", "9823"},
-		{0, "SocketConnectHost", "123.123.123.123"},
-		{0, "DataDictionary", "somewhere/FIX41.xml"},
+		{sessionID1, "ConnectionType", "initiator"},
+		{sessionID1, "ReconnectInterval", "60"},
+		{sessionID1, "SenderCompID", "TW"},
+		{sessionID1, "BeginString", "FIX.4.1"},
+		{sessionID1, "TargetCompID", "ARCA"},
+		{sessionID1, "StartTime", "12:30:00"},
+		{sessionID1, "EndTime", "23:30:00"},
+		{sessionID1, "HeartBtInt", "20"},
+		{sessionID1, "SocketConnectPort", "9823"},
+		{sessionID1, "SocketConnectHost", "123.123.123.123"},
+		{sessionID1, "DataDictionary", "somewhere/FIX41.xml"},
 
-		{1, "ConnectionType", "initiator"},
-		{1, "ReconnectInterval", "60"},
-		{1, "SenderCompID", "TW"},
-		{1, "BeginString", "FIX.4.0"},
-		{1, "TargetCompID", "ISLD"},
-		{1, "StartTime", "12:00:00"},
-		{1, "EndTime", "23:00:00"},
-		{1, "HeartBtInt", "30"},
-		{1, "SocketConnectPort", "8323"},
-		{1, "SocketConnectHost", "23.23.23.23"},
-		{1, "DataDictionary", "somewhere/FIX40.xml"},
+		{sessionID2, "ConnectionType", "initiator"},
+		{sessionID2, "ReconnectInterval", "60"},
+		{sessionID2, "SenderCompID", "TW"},
+		{sessionID2, "BeginString", "FIX.4.0"},
+		{sessionID2, "TargetCompID", "ISLD"},
+		{sessionID2, "StartTime", "12:00:00"},
+		{sessionID2, "EndTime", "23:00:00"},
+		{sessionID2, "HeartBtInt", "30"},
+		{sessionID2, "SocketConnectPort", "8323"},
+		{sessionID2, "SocketConnectHost", "23.23.23.23"},
+		{sessionID2, "DataDictionary", "somewhere/FIX40.xml"},
 
-		{2, "ConnectionType", "initiator"},
-		{2, "BeginString", "FIX.4.2"},
-		{2, "SenderCompID", "TW"},
-		{2, "TargetCompID", "INCA"},
-		{2, "StartTime", "12:30:00"},
-		{2, "EndTime", "21:30:00"},
-		{2, "ReconnectInterval", "30"},
-		{2, "HeartBtInt", "30"},
-		{2, "SocketConnectPort", "6523"},
-		{2, "SocketConnectHost", "3.3.3.3"},
-		{2, "SocketConnectPort1", "8392"},
-		{2, "SocketConnectHost1", "8.8.8.8"},
-		{2, "SocketConnectPort2", "2932"},
-		{2, "SocketConnectHost2", "12.12.12.12"},
-		{2, "DataDictionary", "somewhere/FIX42.xml"},
+		{sessionID3, "ConnectionType", "initiator"},
+		{sessionID3, "BeginString", "FIX.4.2"},
+		{sessionID3, "SenderCompID", "TW"},
+		{sessionID3, "TargetCompID", "INCA"},
+		{sessionID3, "StartTime", "12:30:00"},
+		{sessionID3, "EndTime", "21:30:00"},
+		{sessionID3, "ReconnectInterval", "30"},
+		{sessionID3, "HeartBtInt", "30"},
+		{sessionID3, "SocketConnectPort", "6523"},
+		{sessionID3, "SocketConnectHost", "3.3.3.3"},
+		{sessionID3, "SocketConnectPort1", "8392"},
+		{sessionID3, "SocketConnectHost1", "8.8.8.8"},
+		{sessionID3, "SocketConnectPort2", "2932"},
+		{sessionID3, "SocketConnectHost2", "12.12.12.12"},
+		{sessionID3, "DataDictionary", "somewhere/FIX42.xml"},
 	}
 
 	for _, tc := range sessionTCs {
-		settings := sessionSettings[tc.index]
+		settings, ok := sessionSettings[tc.sessionID]
+		if !ok {
+			t.Fatal("No Session recalled for", tc.sessionID)
+		}
 		actual, err := settings.Setting(tc.setting)
 
 		if err != nil {
@@ -225,5 +264,76 @@ DataDictionary=somewhere/FIX42.xml
 			t.Errorf("Expected %v, got %v", tc.expected, actual)
 		}
 	}
+}
 
+func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
+	var testCases = []struct {
+		globalBeginString       string
+		globalTargetCompID      string
+		globalSenderCompID      string
+		globalDefaultApplVerID  string
+		sessionBeginString      string
+		sessionTargetCompID     string
+		sessionSenderCompID     string
+		sessionDefaultApplVerID string
+		expectedSessionID       SessionID
+	}{
+		{globalBeginString: "FIX.4.0", globalTargetCompID: "CB", globalSenderCompID: "SS",
+			expectedSessionID: SessionID{BeginString: "FIX.4.0", TargetCompID: "CB", SenderCompID: "SS"}},
+
+		{sessionBeginString: "FIX.4.1", sessionTargetCompID: "GE", sessionSenderCompID: "LE",
+			expectedSessionID: SessionID{BeginString: "FIX.4.1", TargetCompID: "GE", SenderCompID: "LE"}},
+
+		{sessionBeginString: "FIX.T.1", sessionTargetCompID: "CB", sessionSenderCompID: "EB", sessionDefaultApplVerID: "9",
+			expectedSessionID: SessionID{BeginString: "FIX.T.1", TargetCompID: "CB", SenderCompID: "EB", DefaultApplVerID: "9"}},
+
+		{globalBeginString: "FIX.4.2", globalTargetCompID: "CB", sessionTargetCompID: "GE", sessionSenderCompID: "LE",
+			expectedSessionID: SessionID{BeginString: "FIX.4.2", TargetCompID: "GE", SenderCompID: "LE"}},
+
+		{globalBeginString: "FIX.T.1", sessionTargetCompID: "CB", sessionSenderCompID: "EB", globalDefaultApplVerID: "9",
+			expectedSessionID: SessionID{BeginString: "FIX.T.1", TargetCompID: "CB", SenderCompID: "EB", DefaultApplVerID: "9"}},
+	}
+
+	for _, tc := range testCases {
+		globalSettings := NewSessionSettings()
+		sessionSettings := NewSessionSettings()
+
+		if tc.globalBeginString != "" {
+			globalSettings.Set(config.BeginString, tc.globalBeginString)
+		}
+
+		if tc.sessionBeginString != "" {
+			sessionSettings.Set(config.BeginString, tc.sessionBeginString)
+		}
+
+		if tc.globalTargetCompID != "" {
+			globalSettings.Set(config.TargetCompID, tc.globalTargetCompID)
+		}
+
+		if tc.sessionTargetCompID != "" {
+			sessionSettings.Set(config.TargetCompID, tc.sessionTargetCompID)
+		}
+
+		if tc.globalSenderCompID != "" {
+			globalSettings.Set(config.SenderCompID, tc.globalSenderCompID)
+		}
+
+		if tc.sessionSenderCompID != "" {
+			sessionSettings.Set(config.SenderCompID, tc.sessionSenderCompID)
+		}
+
+		if tc.globalDefaultApplVerID != "" {
+			globalSettings.Set(config.DefaultApplVerID, tc.globalDefaultApplVerID)
+		}
+
+		if tc.sessionDefaultApplVerID != "" {
+			sessionSettings.Set(config.DefaultApplVerID, tc.sessionDefaultApplVerID)
+		}
+
+		actualSessionID := sessionIDFromSessionSettings(globalSettings, sessionSettings)
+
+		if tc.expectedSessionID != actualSessionID {
+			t.Errorf("Expected %v, got %v", tc.expectedSessionID, actualSessionID)
+		}
+	}
 }

@@ -21,5 +21,5 @@ type LogFactory interface {
 	Create() Log
 
 	//session specific log
-	CreateSessionLog(prefix string) Log
+	CreateSessionLog(sessionID SessionID) Log
 }

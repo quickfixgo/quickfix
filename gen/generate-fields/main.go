@@ -159,8 +159,8 @@ func genFields() {
 		switch goType {
 		case "string", "int", "float64", "bool":
 			fileOut += fmt.Sprintf("//Build%v returns a new %v initialized with val\n", field.Name, field.Name)
-			fileOut += fmt.Sprintf("func Build%v(val %v) %v {\n", field.Name, goType, field.Name)
-			fileOut += fmt.Sprintf("var field %v\n", field.Name)
+			fileOut += fmt.Sprintf("func Build%v(val %v) *%v {\n", field.Name, goType, field.Name)
+			fileOut += fmt.Sprintf("field := &%v{}\n", field.Name)
 			fileOut += "field.Value = val\n"
 			fileOut += "return field\n"
 			fileOut += "}\n"
