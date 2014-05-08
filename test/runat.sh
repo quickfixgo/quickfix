@@ -1,11 +1,14 @@
 #!/bin/sh
 
-PORT=5001
+CFG=$1
+PORT=$2
+TESTS=$3
 
-./echo_server &
+./echo_server $CFG &
+pid=$!
 
-ruby -I. Runner.rb 127.0.0.1 $PORT definitions/server/*/*.def 
+ruby -I. Runner.rb 127.0.0.1 $PORT $TESTS
 result=$?
-killall echo_server
+kill -kill $pid
 
 exit $result

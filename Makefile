@@ -1,4 +1,3 @@
-.PHONY: test
 all: vet test
 
 get:
@@ -28,11 +27,30 @@ test:
 build_accept:
 		cd test; go build -o echo_server
 
-accept:
-		cd test; ./runat.sh
+fix40:
+	cd test; ./runat.sh $@.cfg 5001 "definitions/server/$@/*.def"
+fix41:
+	cd test; ./runat.sh $@.cfg 5002 "definitions/server/$@/*.def"
+fix42:
+	cd test; ./runat.sh $@.cfg 5003 "definitions/server/$@/*.def"
+fix43:
+	cd test; ./runat.sh $@.cfg 5004 "definitions/server/$@/*.def"
+fix44:
+	cd test; ./runat.sh $@.cfg 5005 "definitions/server/$@/*.def"
+fix50:
+	cd test; ./runat.sh $@.cfg 5006 "definitions/server/$@/*.def"
+fix50sp1:
+	cd test; ./runat.sh $@.cfg 5007 "definitions/server/$@/*.def"
+fix50sp2:
+	cd test; ./runat.sh $@.cfg 5008 "definitions/server/$@/*.def"
+
+ACCEPT_SUITE=fix40 fix41 fix42 fix43 fix44 fix50 fix50sp1 fix50sp2 
+accept: $(ACCEPT_SUITE)
 
 # travis VMs have a difficult time if # of builds > 1
 _travis_build_accept:
 	cd test; go build -p 1 -o echo_server
 
 travis_test: all _travis_build_accept accept
+
+.PHONY: test $(ACCEPT_SUITE)

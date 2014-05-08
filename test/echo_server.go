@@ -156,9 +156,9 @@ func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefin
 func main() {
 	app := new(EchoApplication)
 
-	cfg, err := os.Open("session.cfg")
+	cfg, err := os.Open(os.Args[1])
 	if err != nil {
-		fmt.Println("Error opening cfg:", err)
+		fmt.Printf("Error opening %v, %v%n", os.Args[1], err)
 		return
 	}
 
