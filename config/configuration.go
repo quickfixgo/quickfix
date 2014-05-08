@@ -14,4 +14,5 @@ const (
 	AppDataDictionary       string = "AppDataDictionary"
 	ResetOnLogon            string = "ResetOnLogon"
 	HeartBtInt              string = "HeartBtInt"
+	FileLogPath             string = "FileLogPath"
 )

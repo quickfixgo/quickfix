@@ -14,15 +14,15 @@ type screenLog struct {
 type ScreenLogFactory struct{}
 
 //Create returns a logger that writes to stdout with prefix "GLOBAL"
-func (ScreenLogFactory) Create() Log {
+func (ScreenLogFactory) Create() (Log, error) {
 	log := screenLog{"GLOBAL"}
-	return log
+	return log, nil
 }
 
 //CreateSessionLog returns a logger that writes to stdout with a prefix equal to SessionID.String()
-func (ScreenLogFactory) CreateSessionLog(sessionID SessionID) Log {
+func (ScreenLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
 	log := screenLog{sessionID.String()}
-	return log
+	return log, nil
 }
 
 func (l screenLog) OnIncoming(s string) {

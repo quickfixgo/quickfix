@@ -15,24 +15,27 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1"
 	"github.com/quickfixgo/quickfix/fix50sp2"
 	"github.com/quickfixgo/quickfix/message"
+	"io/ioutil"
+	"log"
 	"os"
 	"os/signal"
 )
 
 type EchoApplication struct {
+	log *log.Logger
 	cracker.MessageCracker
 	OrderIds map[string]bool
 }
 
 func (e EchoApplication) OnCreate(sessionID quickfix.SessionID) {
-	fmt.Printf("OnCreate %v\n", sessionID.String())
+	e.log.Printf("OnCreate %v\n", sessionID.String())
 }
 func (e *EchoApplication) OnLogon(sessionID quickfix.SessionID) {
-	fmt.Printf("OnLogon %v\n", sessionID.String())
+	e.log.Printf("OnLogon %v\n", sessionID.String())
 	e.OrderIds = make(map[string]bool)
 }
 func (e *EchoApplication) OnLogout(sessionID quickfix.SessionID) {
-	fmt.Printf("OnLogout %v\n", sessionID.String())
+	e.log.Printf("OnLogout %v\n", sessionID.String())
 }
 func (e EchoApplication) ToAdmin(msgBuilder message.MessageBuilder, sessionID quickfix.SessionID) {
 }
@@ -46,7 +49,7 @@ func (e EchoApplication) FromAdmin(msg message.Message, sessionID quickfix.Sessi
 }
 
 func (e *EchoApplication) FromApp(msg message.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
-	fmt.Println("Got Message ", msg)
+	e.log.Println("Got Message ", msg)
 	return cracker.Crack(msg, sessionID, e)
 }
 
@@ -154,7 +157,8 @@ func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefin
 }
 
 func main() {
-	app := new(EchoApplication)
+	app := &EchoApplication{}
+	app.log = log.New(ioutil.Discard, "", log.LstdFlags)
 
 	cfg, err := os.Open(os.Args[1])
 	if err != nil {
@@ -168,7 +172,14 @@ func main() {
 		return
 	}
 
-	acceptor, err := quickfix.NewAcceptor(app, appSettings, quickfix.ScreenLogFactory{})
+	fileLogFactory, err := quickfix.NewFileLogFactory(appSettings)
+
+	if err != nil {
+		fmt.Println("Error creating file log factory:", err)
+		return
+	}
+
+	acceptor, err := quickfix.NewAcceptor(app, appSettings, fileLogFactory)
 	if err != nil {
 		fmt.Println("Unable to create Acceptor: ", err)
 		return

@@ -78,28 +78,25 @@ func createSession(sessionID SessionID, settings *SessionSettings, logFactory Lo
 		}
 	}
 
+	var err error
 	if settings.HasSetting(config.ResetOnLogon) {
-		resetOnLogon, err := settings.BoolSetting(config.ResetOnLogon)
-		if err != nil {
+		if session.resetOnLogon, err = settings.BoolSetting(config.ResetOnLogon); err != nil {
 			return err
 		}
-
-		session.resetOnLogon = resetOnLogon
 	}
 
 	if settings.HasSetting(config.HeartBtInt) {
-		heartBtInt, err := settings.IntSetting(config.HeartBtInt)
-		if err != nil {
+		if session.heartBtInt, err = settings.IntSetting(config.HeartBtInt); err != nil {
 			return err
 		}
+	}
 
-		session.heartBtInt = heartBtInt
+	if session.log, err = logFactory.CreateSessionLog(session.sessionID); err != nil {
+		return err
 	}
 
 	session.toSend = make(chan message.MessageBuilder)
-
 	session.sessionEvent = make(chan event)
-	session.log = logFactory.CreateSessionLog(session.sessionID)
 	session.application = application
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
@@ -456,7 +453,7 @@ func (s *Session) doReject(msg message.Message, rej errors.MessageRejectError) {
 	}
 
 	s.send(reply)
-	s.log.OnEventf("Message Rejected: %s", rej.Error())
+	s.log.OnEventf("Message Rejected: %v", rej.Error())
 }
 
 func (s *Session) run(msgIn chan []byte) {
@@ -498,7 +495,7 @@ func (s *Session) run(msgIn chan []byte) {
 			if ok {
 				s.log.OnIncoming(string(msgBytes))
 				if msg, err := message.MessageFromParsedBytes(msgBytes); err != nil {
-					s.log.OnEventf("Msg Parse Error: %s, %s", err.Error(), msgBytes)
+					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), msgBytes)
 				} else {
 					s.currentState = s.currentState.FixMsgIn(s, *msg)
 				}

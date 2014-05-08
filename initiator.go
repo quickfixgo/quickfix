@@ -53,7 +53,12 @@ func NewInitiator(app Application, appSettings *Settings, logFactory LogFactory)
 	i.settings = appSettings
 	i.sessionSettings = appSettings.SessionSettings()
 	i.logFactory = logFactory
-	i.globalLog = logFactory.Create()
+
+	var err error
+	i.globalLog, err = logFactory.Create()
+	if err != nil {
+		return i, err
+	}
 
 	for sessionID, s := range i.sessionSettings {
 
@@ -66,7 +71,7 @@ func NewInitiator(app Application, appSettings *Settings, logFactory LogFactory)
 			return nil, errors.RequiredConfigurationMissing(config.SocketConnectPort)
 		}
 
-		err := createSession(sessionID, s, logFactory, app)
+		err = createSession(sessionID, s, logFactory, app)
 		if err != nil {
 			return nil, err
 		}

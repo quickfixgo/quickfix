@@ -18,8 +18,8 @@ type Log interface {
 //The LogFactory interface creates global and session specific Log instances
 type LogFactory interface {
 	//global log
-	Create() Log
+	Create() (Log, error)
 
 	//session specific log
-	CreateSessionLog(sessionID SessionID) Log
+	CreateSessionLog(sessionID SessionID) (Log, error)
 }

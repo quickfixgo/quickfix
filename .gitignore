@@ -3,3 +3,4 @@
 *.swo
 test/test
 test/echo_server
+test/tmp
