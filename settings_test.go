@@ -268,15 +268,13 @@ DataDictionary=somewhere/FIX42.xml
 
 func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
 	var testCases = []struct {
-		globalBeginString       string
-		globalTargetCompID      string
-		globalSenderCompID      string
-		globalDefaultApplVerID  string
-		sessionBeginString      string
-		sessionTargetCompID     string
-		sessionSenderCompID     string
-		sessionDefaultApplVerID string
-		expectedSessionID       SessionID
+		globalBeginString   string
+		globalTargetCompID  string
+		globalSenderCompID  string
+		sessionBeginString  string
+		sessionTargetCompID string
+		sessionSenderCompID string
+		expectedSessionID   SessionID
 	}{
 		{globalBeginString: "FIX.4.0", globalTargetCompID: "CB", globalSenderCompID: "SS",
 			expectedSessionID: SessionID{BeginString: "FIX.4.0", TargetCompID: "CB", SenderCompID: "SS"}},
@@ -284,14 +282,8 @@ func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
 		{sessionBeginString: "FIX.4.1", sessionTargetCompID: "GE", sessionSenderCompID: "LE",
 			expectedSessionID: SessionID{BeginString: "FIX.4.1", TargetCompID: "GE", SenderCompID: "LE"}},
 
-		{sessionBeginString: "FIX.T.1", sessionTargetCompID: "CB", sessionSenderCompID: "EB", sessionDefaultApplVerID: "9",
-			expectedSessionID: SessionID{BeginString: "FIX.T.1", TargetCompID: "CB", SenderCompID: "EB", DefaultApplVerID: "9"}},
-
 		{globalBeginString: "FIX.4.2", globalTargetCompID: "CB", sessionTargetCompID: "GE", sessionSenderCompID: "LE",
 			expectedSessionID: SessionID{BeginString: "FIX.4.2", TargetCompID: "GE", SenderCompID: "LE"}},
-
-		{globalBeginString: "FIX.T.1", sessionTargetCompID: "CB", sessionSenderCompID: "EB", globalDefaultApplVerID: "9",
-			expectedSessionID: SessionID{BeginString: "FIX.T.1", TargetCompID: "CB", SenderCompID: "EB", DefaultApplVerID: "9"}},
 	}
 
 	for _, tc := range testCases {
@@ -320,14 +312,6 @@ func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
 
 		if tc.sessionSenderCompID != "" {
 			sessionSettings.Set(config.SenderCompID, tc.sessionSenderCompID)
-		}
-
-		if tc.globalDefaultApplVerID != "" {
-			globalSettings.Set(config.DefaultApplVerID, tc.globalDefaultApplVerID)
-		}
-
-		if tc.sessionDefaultApplVerID != "" {
-			sessionSettings.Set(config.DefaultApplVerID, tc.sessionDefaultApplVerID)
 		}
 
 		actualSessionID := sessionIDFromSessionSettings(globalSettings, sessionSettings)

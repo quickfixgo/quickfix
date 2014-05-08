@@ -37,6 +37,7 @@ type Session struct {
 	heartBtInt              int
 
 	//required on logon for FIX.T.1 messages
+	defaultApplVerID       string
 	targetDefaultApplVerID string
 }
 
@@ -49,6 +50,14 @@ func (s *Session) TargetDefaultApplicationVersionID() string {
 //Creates Session, associates with internal session registry
 func createSession(sessionID SessionID, settings *SessionSettings, logFactory LogFactory, application Application) error {
 	session := &Session{sessionID: sessionID}
+
+	if sessionID.BeginString == fix.BeginString_FIXT11 {
+		defaultApplVerID, err := settings.Setting(config.DefaultApplVerID)
+		if err != nil {
+			return errors.RequiredConfigurationMissing(config.DefaultApplVerID)
+		}
+		session.defaultApplVerID = defaultApplVerID
+	}
 
 	if dataDictionaryPath, err := settings.Setting(config.DataDictionary); err == nil {
 		if session.dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
@@ -242,8 +251,8 @@ func (s *Session) handleLogon(msg message.Message) error {
 			reply.Body.Set(field.BuildResetSeqNumFlag(resetSeqNumFlag.Value))
 		}
 
-		if len(s.sessionID.DefaultApplVerID) > 0 {
-			reply.Body.Set(field.BuildDefaultApplVerID(s.sessionID.DefaultApplVerID))
+		if len(s.defaultApplVerID) > 0 {
+			reply.Body.Set(field.BuildDefaultApplVerID(s.defaultApplVerID))
 		}
 
 		s.log.OnEvent("Responding to logon request")
@@ -469,8 +478,8 @@ func (s *Session) run(msgIn chan []byte) {
 
 		s.heartBeatTimeout = time.Duration(s.heartBtInt) * time.Second
 
-		if len(s.sessionID.DefaultApplVerID) > 0 {
-			logon.Body.Set(field.BuildDefaultApplVerID(s.sessionID.DefaultApplVerID))
+		if len(s.defaultApplVerID) > 0 {
+			logon.Body.Set(field.BuildDefaultApplVerID(s.defaultApplVerID))
 		}
 
 		s.log.OnEvent("Sending logon request")

@@ -6,7 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/message"
 )
 
-//Send determines the session to send msgBuilder using header fields BeginString, TargetCompID, SenderCompID, and DefaultApplVerID
+//Send determines the session to send msgBuilder using header fields BeginString, TargetCompID, SenderCompID
 func Send(msg message.MessageBuilder) (err error) {
 	var beginString field.BeginString
 	if err := msg.Header.Get(&beginString); err != nil {
@@ -25,11 +25,6 @@ func Send(msg message.MessageBuilder) (err error) {
 	}
 
 	sessionID := SessionID{BeginString: beginString.Value, TargetCompID: targetCompID.Value, SenderCompID: senderCompID.Value}
-
-	var defaultApplVerID field.DefaultApplVerID
-	if err := msg.Header.Get(&defaultApplVerID); err == nil {
-		sessionID.DefaultApplVerID = defaultApplVerID.Value
-	}
 
 	return SendToTarget(msg, sessionID)
 }

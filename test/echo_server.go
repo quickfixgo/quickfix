@@ -158,7 +158,7 @@ func main() {
 
 	cfg, err := os.Open(os.Args[1])
 	if err != nil {
-		fmt.Printf("Error opening %v, %v%n", os.Args[1], err)
+		fmt.Printf("Error opening %v, %v\n", os.Args[1], err)
 		return
 	}
 

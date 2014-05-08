@@ -48,11 +48,6 @@ func sessionIDFromSessionSettings(globalSettings *SessionSettings, sessionSettin
 		if settings.HasSetting(config.SenderCompID) {
 			sessionID.SenderCompID, _ = settings.Setting(config.SenderCompID)
 		}
-
-		if settings.HasSetting(config.DefaultApplVerID) {
-			sessionID.DefaultApplVerID, _ = settings.Setting(config.DefaultApplVerID)
-		}
-
 	}
 
 	return sessionID

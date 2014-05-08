@@ -86,11 +86,6 @@ func handleAcceptorConnection(netConn net.Conn, log Log) {
 		sessID.SenderCompID = targetCompID.Value
 	}
 
-	defaultApplVerID := new(message.StringValue)
-	if err := msg.Body.GetField(tag.DefaultApplVerID, defaultApplVerID); err == nil {
-		sessID.DefaultApplVerID = defaultApplVerID.Value
-	}
-
 	session := activate(sessID)
 
 	if session == nil {
