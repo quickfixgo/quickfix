@@ -14,7 +14,7 @@ import (
 var _ = Suite(&SessionTests{})
 
 type SessionTests struct {
-	session
+	session Session
 }
 
 func getBuilder() message.MessageBuilder {
@@ -25,9 +25,9 @@ func getBuilder() message.MessageBuilder {
 }
 
 func TestSession_CheckCorrectCompID(t *testing.T) {
-	session := session{}
-	session.SessionID.TargetCompID = "TAR"
-	session.SessionID.SenderCompID = "SND"
+	session := Session{}
+	session.sessionID.TargetCompID = "TAR"
+	session.sessionID.SenderCompID = "SND"
 
 	var testCases = []struct {
 		senderCompID *field.SenderCompID
@@ -85,7 +85,7 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 }
 
 func (s *SessionTests) TestCheckBeginString(c *C) {
-	s.session.SessionID.BeginString = "FIX.4.2"
+	s.session.sessionID.BeginString = "FIX.4.2"
 	builder := getBuilder()
 
 	//wrong value
@@ -95,7 +95,7 @@ func (s *SessionTests) TestCheckBeginString(c *C) {
 	c.Check(err, NotNil)
 	c.Check(err, FitsTypeOf, errors.IncorrectBeginString{})
 
-	builder.Header.Set(message.NewStringField(tag.BeginString, s.session.SessionID.BeginString))
+	builder.Header.Set(message.NewStringField(tag.BeginString, s.session.sessionID.BeginString))
 	msg, _ = builder.Build()
 	err = s.session.checkBeginString(*msg)
 	c.Check(err, IsNil)

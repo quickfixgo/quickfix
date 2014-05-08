@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"fmt"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 )
@@ -33,30 +34,39 @@ func Send(msg message.MessageBuilder) (err error) {
 	return SendToTarget(msg, sessionID)
 }
 
-func SendToTarget(msgBuilder message.MessageBuilder, sessionID SessionID) (err error) {
-	session := lookup(sessionID)
+func SendToTarget(msgBuilder message.MessageBuilder, sessionID SessionID) error {
+	session, err := LookupSession(sessionID)
+	if err != nil {
+		return err
+	}
+
 	session.send(msgBuilder)
 
-	return
+	return nil
 }
 
 type sessionActivate struct {
 	SessionID
-	reply chan *session
+	reply chan *Session
 }
 
 type sessionResource struct {
-	session *session
+	session *Session
 	active  bool
+}
+
+type sessionLookupResponse struct {
+	session *Session
+	err     error
 }
 
 type sessionLookup struct {
 	SessionID
-	reply chan *session
+	reply chan sessionLookupResponse
 }
 
 type registry struct {
-	newSession chan *session
+	newSession chan *Session
 	activate   chan sessionActivate
 	deactivate chan SessionID
 	lookup     chan sessionLookup
@@ -66,7 +76,7 @@ var sessions *registry
 
 func init() {
 	sessions = new(registry)
-	sessions.newSession = make(chan *session)
+	sessions.newSession = make(chan *Session)
 	sessions.activate = make(chan sessionActivate)
 	sessions.deactivate = make(chan SessionID)
 	sessions.lookup = make(chan sessionLookup)
@@ -74,8 +84,8 @@ func init() {
 	go sessions.sessionResourceServerLoop()
 }
 
-func activate(sessionID SessionID) *session {
-	response := make(chan *session)
+func activate(sessionID SessionID) *Session {
+	response := make(chan *Session)
 	sessions.activate <- sessionActivate{sessionID, response}
 	return <-response
 }
@@ -84,10 +94,13 @@ func deactivate(sessionID SessionID) {
 	sessions.deactivate <- sessionID
 }
 
-func lookup(sessionID SessionID) *session {
-	response := make(chan *session)
-	sessions.lookup <- sessionLookup{sessionID, response}
-	return <-response
+//LookupSession returns the Session associated with the sessionID.
+func LookupSession(sessionID SessionID) (*Session, error) {
+	responseChannel := make(chan sessionLookupResponse)
+	sessions.lookup <- sessionLookup{sessionID, responseChannel}
+
+	response := <-responseChannel
+	return response.session, response.err
 }
 
 func (r *registry) sessionResourceServerLoop() {
@@ -96,7 +109,7 @@ func (r *registry) sessionResourceServerLoop() {
 	for {
 		select {
 		case session := <-r.newSession:
-			sessions[session.SessionID] = &sessionResource{session, false}
+			sessions[session.sessionID] = &sessionResource{session, false}
 
 		case deactivatedID := <-r.deactivate:
 			if resource, ok := sessions[deactivatedID]; ok {
@@ -105,9 +118,9 @@ func (r *registry) sessionResourceServerLoop() {
 
 		case lookup := <-r.lookup:
 			if resource, ok := sessions[lookup.SessionID]; ok {
-				lookup.reply <- resource.session
+				lookup.reply <- sessionLookupResponse{resource.session, nil}
 			} else {
-				lookup.reply <- nil
+				lookup.reply <- sessionLookupResponse{nil, fmt.Errorf("session not found")}
 			}
 
 		case request := <-r.activate:
