@@ -19,20 +19,20 @@ type ExecutionReportBuilder struct {
 
 //CreateExecutionReportBuilder returns an initialized ExecutionReportBuilder with specified required fields.
 func CreateExecutionReportBuilder(
-	orderid field.OrderID,
-	execid field.ExecID,
-	exectranstype field.ExecTransType,
-	exectype field.ExecType,
-	ordstatus field.OrdStatus,
-	symbol field.Symbol,
-	side field.Side,
-	leavesqty field.LeavesQty,
-	cumqty field.CumQty,
-	avgpx field.AvgPx) ExecutionReportBuilder {
+	orderid *field.OrderIDField,
+	execid *field.ExecIDField,
+	exectranstype *field.ExecTransTypeField,
+	exectype *field.ExecTypeField,
+	ordstatus *field.OrdStatusField,
+	symbol *field.SymbolField,
+	side *field.SideField,
+	leavesqty *field.LeavesQtyField,
+	cumqty *field.CumQtyField,
+	avgpx *field.AvgPxField) ExecutionReportBuilder {
 	var builder ExecutionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.BuildMsgType("8"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("8"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execid)
 	builder.Body.Set(exectranstype)
@@ -47,1105 +47,1105 @@ func CreateExecutionReportBuilder(
 }
 
 //OrderID is a required field for ExecutionReport.
-func (m ExecutionReport) OrderID() (*field.OrderID, errors.MessageRejectError) {
-	f := new(field.OrderID)
+func (m ExecutionReport) OrderID() (*field.OrderIDField, errors.MessageRejectError) {
+	f := &field.OrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderID reads a OrderID from ExecutionReport.
-func (m ExecutionReport) GetOrderID(f *field.OrderID) errors.MessageRejectError {
+func (m ExecutionReport) GetOrderID(f *field.OrderIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryOrderID is a non-required field for ExecutionReport.
-func (m ExecutionReport) SecondaryOrderID() (*field.SecondaryOrderID, errors.MessageRejectError) {
-	f := new(field.SecondaryOrderID)
+func (m ExecutionReport) SecondaryOrderID() (*field.SecondaryOrderIDField, errors.MessageRejectError) {
+	f := &field.SecondaryOrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryOrderID reads a SecondaryOrderID from ExecutionReport.
-func (m ExecutionReport) GetSecondaryOrderID(f *field.SecondaryOrderID) errors.MessageRejectError {
+func (m ExecutionReport) GetSecondaryOrderID(f *field.SecondaryOrderIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdID is a non-required field for ExecutionReport.
-func (m ExecutionReport) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
-	f := new(field.ClOrdID)
+func (m ExecutionReport) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from ExecutionReport.
-func (m ExecutionReport) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+func (m ExecutionReport) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrigClOrdID is a non-required field for ExecutionReport.
-func (m ExecutionReport) OrigClOrdID() (*field.OrigClOrdID, errors.MessageRejectError) {
-	f := new(field.OrigClOrdID)
+func (m ExecutionReport) OrigClOrdID() (*field.OrigClOrdIDField, errors.MessageRejectError) {
+	f := &field.OrigClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrigClOrdID reads a OrigClOrdID from ExecutionReport.
-func (m ExecutionReport) GetOrigClOrdID(f *field.OrigClOrdID) errors.MessageRejectError {
+func (m ExecutionReport) GetOrigClOrdID(f *field.OrigClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClientID is a non-required field for ExecutionReport.
-func (m ExecutionReport) ClientID() (*field.ClientID, errors.MessageRejectError) {
-	f := new(field.ClientID)
+func (m ExecutionReport) ClientID() (*field.ClientIDField, errors.MessageRejectError) {
+	f := &field.ClientIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClientID reads a ClientID from ExecutionReport.
-func (m ExecutionReport) GetClientID(f *field.ClientID) errors.MessageRejectError {
+func (m ExecutionReport) GetClientID(f *field.ClientIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecBroker is a non-required field for ExecutionReport.
-func (m ExecutionReport) ExecBroker() (*field.ExecBroker, errors.MessageRejectError) {
-	f := new(field.ExecBroker)
+func (m ExecutionReport) ExecBroker() (*field.ExecBrokerField, errors.MessageRejectError) {
+	f := &field.ExecBrokerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecBroker reads a ExecBroker from ExecutionReport.
-func (m ExecutionReport) GetExecBroker(f *field.ExecBroker) errors.MessageRejectError {
+func (m ExecutionReport) GetExecBroker(f *field.ExecBrokerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoContraBrokers is a non-required field for ExecutionReport.
-func (m ExecutionReport) NoContraBrokers() (*field.NoContraBrokers, errors.MessageRejectError) {
-	f := new(field.NoContraBrokers)
+func (m ExecutionReport) NoContraBrokers() (*field.NoContraBrokersField, errors.MessageRejectError) {
+	f := &field.NoContraBrokersField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoContraBrokers reads a NoContraBrokers from ExecutionReport.
-func (m ExecutionReport) GetNoContraBrokers(f *field.NoContraBrokers) errors.MessageRejectError {
+func (m ExecutionReport) GetNoContraBrokers(f *field.NoContraBrokersField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListID is a non-required field for ExecutionReport.
-func (m ExecutionReport) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m ExecutionReport) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from ExecutionReport.
-func (m ExecutionReport) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m ExecutionReport) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecID is a required field for ExecutionReport.
-func (m ExecutionReport) ExecID() (*field.ExecID, errors.MessageRejectError) {
-	f := new(field.ExecID)
+func (m ExecutionReport) ExecID() (*field.ExecIDField, errors.MessageRejectError) {
+	f := &field.ExecIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecID reads a ExecID from ExecutionReport.
-func (m ExecutionReport) GetExecID(f *field.ExecID) errors.MessageRejectError {
+func (m ExecutionReport) GetExecID(f *field.ExecIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecTransType is a required field for ExecutionReport.
-func (m ExecutionReport) ExecTransType() (*field.ExecTransType, errors.MessageRejectError) {
-	f := new(field.ExecTransType)
+func (m ExecutionReport) ExecTransType() (*field.ExecTransTypeField, errors.MessageRejectError) {
+	f := &field.ExecTransTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecTransType reads a ExecTransType from ExecutionReport.
-func (m ExecutionReport) GetExecTransType(f *field.ExecTransType) errors.MessageRejectError {
+func (m ExecutionReport) GetExecTransType(f *field.ExecTransTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecRefID is a non-required field for ExecutionReport.
-func (m ExecutionReport) ExecRefID() (*field.ExecRefID, errors.MessageRejectError) {
-	f := new(field.ExecRefID)
+func (m ExecutionReport) ExecRefID() (*field.ExecRefIDField, errors.MessageRejectError) {
+	f := &field.ExecRefIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecRefID reads a ExecRefID from ExecutionReport.
-func (m ExecutionReport) GetExecRefID(f *field.ExecRefID) errors.MessageRejectError {
+func (m ExecutionReport) GetExecRefID(f *field.ExecRefIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecType is a required field for ExecutionReport.
-func (m ExecutionReport) ExecType() (*field.ExecType, errors.MessageRejectError) {
-	f := new(field.ExecType)
+func (m ExecutionReport) ExecType() (*field.ExecTypeField, errors.MessageRejectError) {
+	f := &field.ExecTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecType reads a ExecType from ExecutionReport.
-func (m ExecutionReport) GetExecType(f *field.ExecType) errors.MessageRejectError {
+func (m ExecutionReport) GetExecType(f *field.ExecTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrdStatus is a required field for ExecutionReport.
-func (m ExecutionReport) OrdStatus() (*field.OrdStatus, errors.MessageRejectError) {
-	f := new(field.OrdStatus)
+func (m ExecutionReport) OrdStatus() (*field.OrdStatusField, errors.MessageRejectError) {
+	f := &field.OrdStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrdStatus reads a OrdStatus from ExecutionReport.
-func (m ExecutionReport) GetOrdStatus(f *field.OrdStatus) errors.MessageRejectError {
+func (m ExecutionReport) GetOrdStatus(f *field.OrdStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrdRejReason is a non-required field for ExecutionReport.
-func (m ExecutionReport) OrdRejReason() (*field.OrdRejReason, errors.MessageRejectError) {
-	f := new(field.OrdRejReason)
+func (m ExecutionReport) OrdRejReason() (*field.OrdRejReasonField, errors.MessageRejectError) {
+	f := &field.OrdRejReasonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrdRejReason reads a OrdRejReason from ExecutionReport.
-func (m ExecutionReport) GetOrdRejReason(f *field.OrdRejReason) errors.MessageRejectError {
+func (m ExecutionReport) GetOrdRejReason(f *field.OrdRejReasonField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecRestatementReason is a non-required field for ExecutionReport.
-func (m ExecutionReport) ExecRestatementReason() (*field.ExecRestatementReason, errors.MessageRejectError) {
-	f := new(field.ExecRestatementReason)
+func (m ExecutionReport) ExecRestatementReason() (*field.ExecRestatementReasonField, errors.MessageRejectError) {
+	f := &field.ExecRestatementReasonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecRestatementReason reads a ExecRestatementReason from ExecutionReport.
-func (m ExecutionReport) GetExecRestatementReason(f *field.ExecRestatementReason) errors.MessageRejectError {
+func (m ExecutionReport) GetExecRestatementReason(f *field.ExecRestatementReasonField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for ExecutionReport.
-func (m ExecutionReport) Account() (*field.Account, errors.MessageRejectError) {
-	f := new(field.Account)
+func (m ExecutionReport) Account() (*field.AccountField, errors.MessageRejectError) {
+	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from ExecutionReport.
-func (m ExecutionReport) GetAccount(f *field.Account) errors.MessageRejectError {
+func (m ExecutionReport) GetAccount(f *field.AccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlmntTyp is a non-required field for ExecutionReport.
-func (m ExecutionReport) SettlmntTyp() (*field.SettlmntTyp, errors.MessageRejectError) {
-	f := new(field.SettlmntTyp)
+func (m ExecutionReport) SettlmntTyp() (*field.SettlmntTypField, errors.MessageRejectError) {
+	f := &field.SettlmntTypField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlmntTyp reads a SettlmntTyp from ExecutionReport.
-func (m ExecutionReport) GetSettlmntTyp(f *field.SettlmntTyp) errors.MessageRejectError {
+func (m ExecutionReport) GetSettlmntTyp(f *field.SettlmntTypField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FutSettDate is a non-required field for ExecutionReport.
-func (m ExecutionReport) FutSettDate() (*field.FutSettDate, errors.MessageRejectError) {
-	f := new(field.FutSettDate)
+func (m ExecutionReport) FutSettDate() (*field.FutSettDateField, errors.MessageRejectError) {
+	f := &field.FutSettDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFutSettDate reads a FutSettDate from ExecutionReport.
-func (m ExecutionReport) GetFutSettDate(f *field.FutSettDate) errors.MessageRejectError {
+func (m ExecutionReport) GetFutSettDate(f *field.FutSettDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a required field for ExecutionReport.
-func (m ExecutionReport) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m ExecutionReport) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from ExecutionReport.
-func (m ExecutionReport) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m ExecutionReport) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for ExecutionReport.
-func (m ExecutionReport) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m ExecutionReport) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from ExecutionReport.
-func (m ExecutionReport) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m ExecutionReport) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for ExecutionReport.
-func (m ExecutionReport) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m ExecutionReport) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from ExecutionReport.
-func (m ExecutionReport) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m ExecutionReport) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IDSource is a non-required field for ExecutionReport.
-func (m ExecutionReport) IDSource() (*field.IDSource, errors.MessageRejectError) {
-	f := new(field.IDSource)
+func (m ExecutionReport) IDSource() (*field.IDSourceField, errors.MessageRejectError) {
+	f := &field.IDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIDSource reads a IDSource from ExecutionReport.
-func (m ExecutionReport) GetIDSource(f *field.IDSource) errors.MessageRejectError {
+func (m ExecutionReport) GetIDSource(f *field.IDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for ExecutionReport.
-func (m ExecutionReport) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m ExecutionReport) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from ExecutionReport.
-func (m ExecutionReport) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m ExecutionReport) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for ExecutionReport.
-func (m ExecutionReport) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m ExecutionReport) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from ExecutionReport.
-func (m ExecutionReport) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m ExecutionReport) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDay is a non-required field for ExecutionReport.
-func (m ExecutionReport) MaturityDay() (*field.MaturityDay, errors.MessageRejectError) {
-	f := new(field.MaturityDay)
+func (m ExecutionReport) MaturityDay() (*field.MaturityDayField, errors.MessageRejectError) {
+	f := &field.MaturityDayField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDay reads a MaturityDay from ExecutionReport.
-func (m ExecutionReport) GetMaturityDay(f *field.MaturityDay) errors.MessageRejectError {
+func (m ExecutionReport) GetMaturityDay(f *field.MaturityDayField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for ExecutionReport.
-func (m ExecutionReport) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
-	f := new(field.PutOrCall)
+func (m ExecutionReport) PutOrCall() (*field.PutOrCallField, errors.MessageRejectError) {
+	f := &field.PutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPutOrCall reads a PutOrCall from ExecutionReport.
-func (m ExecutionReport) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+func (m ExecutionReport) GetPutOrCall(f *field.PutOrCallField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for ExecutionReport.
-func (m ExecutionReport) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m ExecutionReport) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from ExecutionReport.
-func (m ExecutionReport) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m ExecutionReport) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for ExecutionReport.
-func (m ExecutionReport) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m ExecutionReport) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from ExecutionReport.
-func (m ExecutionReport) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m ExecutionReport) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for ExecutionReport.
-func (m ExecutionReport) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m ExecutionReport) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from ExecutionReport.
-func (m ExecutionReport) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m ExecutionReport) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for ExecutionReport.
-func (m ExecutionReport) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m ExecutionReport) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from ExecutionReport.
-func (m ExecutionReport) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m ExecutionReport) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for ExecutionReport.
-func (m ExecutionReport) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m ExecutionReport) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from ExecutionReport.
-func (m ExecutionReport) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m ExecutionReport) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for ExecutionReport.
-func (m ExecutionReport) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m ExecutionReport) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from ExecutionReport.
-func (m ExecutionReport) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m ExecutionReport) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for ExecutionReport.
-func (m ExecutionReport) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m ExecutionReport) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from ExecutionReport.
-func (m ExecutionReport) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m ExecutionReport) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for ExecutionReport.
-func (m ExecutionReport) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m ExecutionReport) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from ExecutionReport.
-func (m ExecutionReport) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m ExecutionReport) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for ExecutionReport.
-func (m ExecutionReport) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m ExecutionReport) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from ExecutionReport.
-func (m ExecutionReport) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m ExecutionReport) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for ExecutionReport.
-func (m ExecutionReport) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m ExecutionReport) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from ExecutionReport.
-func (m ExecutionReport) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m ExecutionReport) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for ExecutionReport.
-func (m ExecutionReport) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m ExecutionReport) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from ExecutionReport.
-func (m ExecutionReport) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m ExecutionReport) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a required field for ExecutionReport.
-func (m ExecutionReport) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m ExecutionReport) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from ExecutionReport.
-func (m ExecutionReport) GetSide(f *field.Side) errors.MessageRejectError {
+func (m ExecutionReport) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty is a non-required field for ExecutionReport.
-func (m ExecutionReport) OrderQty() (*field.OrderQty, errors.MessageRejectError) {
-	f := new(field.OrderQty)
+func (m ExecutionReport) OrderQty() (*field.OrderQtyField, errors.MessageRejectError) {
+	f := &field.OrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty reads a OrderQty from ExecutionReport.
-func (m ExecutionReport) GetOrderQty(f *field.OrderQty) errors.MessageRejectError {
+func (m ExecutionReport) GetOrderQty(f *field.OrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashOrderQty is a non-required field for ExecutionReport.
-func (m ExecutionReport) CashOrderQty() (*field.CashOrderQty, errors.MessageRejectError) {
-	f := new(field.CashOrderQty)
+func (m ExecutionReport) CashOrderQty() (*field.CashOrderQtyField, errors.MessageRejectError) {
+	f := &field.CashOrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashOrderQty reads a CashOrderQty from ExecutionReport.
-func (m ExecutionReport) GetCashOrderQty(f *field.CashOrderQty) errors.MessageRejectError {
+func (m ExecutionReport) GetCashOrderQty(f *field.CashOrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrdType is a non-required field for ExecutionReport.
-func (m ExecutionReport) OrdType() (*field.OrdType, errors.MessageRejectError) {
-	f := new(field.OrdType)
+func (m ExecutionReport) OrdType() (*field.OrdTypeField, errors.MessageRejectError) {
+	f := &field.OrdTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrdType reads a OrdType from ExecutionReport.
-func (m ExecutionReport) GetOrdType(f *field.OrdType) errors.MessageRejectError {
+func (m ExecutionReport) GetOrdType(f *field.OrdTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Price is a non-required field for ExecutionReport.
-func (m ExecutionReport) Price() (*field.Price, errors.MessageRejectError) {
-	f := new(field.Price)
+func (m ExecutionReport) Price() (*field.PriceField, errors.MessageRejectError) {
+	f := &field.PriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPrice reads a Price from ExecutionReport.
-func (m ExecutionReport) GetPrice(f *field.Price) errors.MessageRejectError {
+func (m ExecutionReport) GetPrice(f *field.PriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StopPx is a non-required field for ExecutionReport.
-func (m ExecutionReport) StopPx() (*field.StopPx, errors.MessageRejectError) {
-	f := new(field.StopPx)
+func (m ExecutionReport) StopPx() (*field.StopPxField, errors.MessageRejectError) {
+	f := &field.StopPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStopPx reads a StopPx from ExecutionReport.
-func (m ExecutionReport) GetStopPx(f *field.StopPx) errors.MessageRejectError {
+func (m ExecutionReport) GetStopPx(f *field.StopPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PegDifference is a non-required field for ExecutionReport.
-func (m ExecutionReport) PegDifference() (*field.PegDifference, errors.MessageRejectError) {
-	f := new(field.PegDifference)
+func (m ExecutionReport) PegDifference() (*field.PegDifferenceField, errors.MessageRejectError) {
+	f := &field.PegDifferenceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPegDifference reads a PegDifference from ExecutionReport.
-func (m ExecutionReport) GetPegDifference(f *field.PegDifference) errors.MessageRejectError {
+func (m ExecutionReport) GetPegDifference(f *field.PegDifferenceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionInst is a non-required field for ExecutionReport.
-func (m ExecutionReport) DiscretionInst() (*field.DiscretionInst, errors.MessageRejectError) {
-	f := new(field.DiscretionInst)
+func (m ExecutionReport) DiscretionInst() (*field.DiscretionInstField, errors.MessageRejectError) {
+	f := &field.DiscretionInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionInst reads a DiscretionInst from ExecutionReport.
-func (m ExecutionReport) GetDiscretionInst(f *field.DiscretionInst) errors.MessageRejectError {
+func (m ExecutionReport) GetDiscretionInst(f *field.DiscretionInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionOffset is a non-required field for ExecutionReport.
-func (m ExecutionReport) DiscretionOffset() (*field.DiscretionOffset, errors.MessageRejectError) {
-	f := new(field.DiscretionOffset)
+func (m ExecutionReport) DiscretionOffset() (*field.DiscretionOffsetField, errors.MessageRejectError) {
+	f := &field.DiscretionOffsetField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionOffset reads a DiscretionOffset from ExecutionReport.
-func (m ExecutionReport) GetDiscretionOffset(f *field.DiscretionOffset) errors.MessageRejectError {
+func (m ExecutionReport) GetDiscretionOffset(f *field.DiscretionOffsetField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for ExecutionReport.
-func (m ExecutionReport) Currency() (*field.Currency, errors.MessageRejectError) {
-	f := new(field.Currency)
+func (m ExecutionReport) Currency() (*field.CurrencyField, errors.MessageRejectError) {
+	f := &field.CurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCurrency reads a Currency from ExecutionReport.
-func (m ExecutionReport) GetCurrency(f *field.Currency) errors.MessageRejectError {
+func (m ExecutionReport) GetCurrency(f *field.CurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ComplianceID is a non-required field for ExecutionReport.
-func (m ExecutionReport) ComplianceID() (*field.ComplianceID, errors.MessageRejectError) {
-	f := new(field.ComplianceID)
+func (m ExecutionReport) ComplianceID() (*field.ComplianceIDField, errors.MessageRejectError) {
+	f := &field.ComplianceIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetComplianceID reads a ComplianceID from ExecutionReport.
-func (m ExecutionReport) GetComplianceID(f *field.ComplianceID) errors.MessageRejectError {
+func (m ExecutionReport) GetComplianceID(f *field.ComplianceIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SolicitedFlag is a non-required field for ExecutionReport.
-func (m ExecutionReport) SolicitedFlag() (*field.SolicitedFlag, errors.MessageRejectError) {
-	f := new(field.SolicitedFlag)
+func (m ExecutionReport) SolicitedFlag() (*field.SolicitedFlagField, errors.MessageRejectError) {
+	f := &field.SolicitedFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSolicitedFlag reads a SolicitedFlag from ExecutionReport.
-func (m ExecutionReport) GetSolicitedFlag(f *field.SolicitedFlag) errors.MessageRejectError {
+func (m ExecutionReport) GetSolicitedFlag(f *field.SolicitedFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeInForce is a non-required field for ExecutionReport.
-func (m ExecutionReport) TimeInForce() (*field.TimeInForce, errors.MessageRejectError) {
-	f := new(field.TimeInForce)
+func (m ExecutionReport) TimeInForce() (*field.TimeInForceField, errors.MessageRejectError) {
+	f := &field.TimeInForceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeInForce reads a TimeInForce from ExecutionReport.
-func (m ExecutionReport) GetTimeInForce(f *field.TimeInForce) errors.MessageRejectError {
+func (m ExecutionReport) GetTimeInForce(f *field.TimeInForceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EffectiveTime is a non-required field for ExecutionReport.
-func (m ExecutionReport) EffectiveTime() (*field.EffectiveTime, errors.MessageRejectError) {
-	f := new(field.EffectiveTime)
+func (m ExecutionReport) EffectiveTime() (*field.EffectiveTimeField, errors.MessageRejectError) {
+	f := &field.EffectiveTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEffectiveTime reads a EffectiveTime from ExecutionReport.
-func (m ExecutionReport) GetEffectiveTime(f *field.EffectiveTime) errors.MessageRejectError {
+func (m ExecutionReport) GetEffectiveTime(f *field.EffectiveTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExpireDate is a non-required field for ExecutionReport.
-func (m ExecutionReport) ExpireDate() (*field.ExpireDate, errors.MessageRejectError) {
-	f := new(field.ExpireDate)
+func (m ExecutionReport) ExpireDate() (*field.ExpireDateField, errors.MessageRejectError) {
+	f := &field.ExpireDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExpireDate reads a ExpireDate from ExecutionReport.
-func (m ExecutionReport) GetExpireDate(f *field.ExpireDate) errors.MessageRejectError {
+func (m ExecutionReport) GetExpireDate(f *field.ExpireDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExpireTime is a non-required field for ExecutionReport.
-func (m ExecutionReport) ExpireTime() (*field.ExpireTime, errors.MessageRejectError) {
-	f := new(field.ExpireTime)
+func (m ExecutionReport) ExpireTime() (*field.ExpireTimeField, errors.MessageRejectError) {
+	f := &field.ExpireTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExpireTime reads a ExpireTime from ExecutionReport.
-func (m ExecutionReport) GetExpireTime(f *field.ExpireTime) errors.MessageRejectError {
+func (m ExecutionReport) GetExpireTime(f *field.ExpireTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecInst is a non-required field for ExecutionReport.
-func (m ExecutionReport) ExecInst() (*field.ExecInst, errors.MessageRejectError) {
-	f := new(field.ExecInst)
+func (m ExecutionReport) ExecInst() (*field.ExecInstField, errors.MessageRejectError) {
+	f := &field.ExecInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecInst reads a ExecInst from ExecutionReport.
-func (m ExecutionReport) GetExecInst(f *field.ExecInst) errors.MessageRejectError {
+func (m ExecutionReport) GetExecInst(f *field.ExecInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Rule80A is a non-required field for ExecutionReport.
-func (m ExecutionReport) Rule80A() (*field.Rule80A, errors.MessageRejectError) {
-	f := new(field.Rule80A)
+func (m ExecutionReport) Rule80A() (*field.Rule80AField, errors.MessageRejectError) {
+	f := &field.Rule80AField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRule80A reads a Rule80A from ExecutionReport.
-func (m ExecutionReport) GetRule80A(f *field.Rule80A) errors.MessageRejectError {
+func (m ExecutionReport) GetRule80A(f *field.Rule80AField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastShares is a non-required field for ExecutionReport.
-func (m ExecutionReport) LastShares() (*field.LastShares, errors.MessageRejectError) {
-	f := new(field.LastShares)
+func (m ExecutionReport) LastShares() (*field.LastSharesField, errors.MessageRejectError) {
+	f := &field.LastSharesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastShares reads a LastShares from ExecutionReport.
-func (m ExecutionReport) GetLastShares(f *field.LastShares) errors.MessageRejectError {
+func (m ExecutionReport) GetLastShares(f *field.LastSharesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastPx is a non-required field for ExecutionReport.
-func (m ExecutionReport) LastPx() (*field.LastPx, errors.MessageRejectError) {
-	f := new(field.LastPx)
+func (m ExecutionReport) LastPx() (*field.LastPxField, errors.MessageRejectError) {
+	f := &field.LastPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastPx reads a LastPx from ExecutionReport.
-func (m ExecutionReport) GetLastPx(f *field.LastPx) errors.MessageRejectError {
+func (m ExecutionReport) GetLastPx(f *field.LastPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastSpotRate is a non-required field for ExecutionReport.
-func (m ExecutionReport) LastSpotRate() (*field.LastSpotRate, errors.MessageRejectError) {
-	f := new(field.LastSpotRate)
+func (m ExecutionReport) LastSpotRate() (*field.LastSpotRateField, errors.MessageRejectError) {
+	f := &field.LastSpotRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastSpotRate reads a LastSpotRate from ExecutionReport.
-func (m ExecutionReport) GetLastSpotRate(f *field.LastSpotRate) errors.MessageRejectError {
+func (m ExecutionReport) GetLastSpotRate(f *field.LastSpotRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastForwardPoints is a non-required field for ExecutionReport.
-func (m ExecutionReport) LastForwardPoints() (*field.LastForwardPoints, errors.MessageRejectError) {
-	f := new(field.LastForwardPoints)
+func (m ExecutionReport) LastForwardPoints() (*field.LastForwardPointsField, errors.MessageRejectError) {
+	f := &field.LastForwardPointsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastForwardPoints reads a LastForwardPoints from ExecutionReport.
-func (m ExecutionReport) GetLastForwardPoints(f *field.LastForwardPoints) errors.MessageRejectError {
+func (m ExecutionReport) GetLastForwardPoints(f *field.LastForwardPointsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastMkt is a non-required field for ExecutionReport.
-func (m ExecutionReport) LastMkt() (*field.LastMkt, errors.MessageRejectError) {
-	f := new(field.LastMkt)
+func (m ExecutionReport) LastMkt() (*field.LastMktField, errors.MessageRejectError) {
+	f := &field.LastMktField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastMkt reads a LastMkt from ExecutionReport.
-func (m ExecutionReport) GetLastMkt(f *field.LastMkt) errors.MessageRejectError {
+func (m ExecutionReport) GetLastMkt(f *field.LastMktField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionID is a non-required field for ExecutionReport.
-func (m ExecutionReport) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
-	f := new(field.TradingSessionID)
+func (m ExecutionReport) TradingSessionID() (*field.TradingSessionIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionID reads a TradingSessionID from ExecutionReport.
-func (m ExecutionReport) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+func (m ExecutionReport) GetTradingSessionID(f *field.TradingSessionIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastCapacity is a non-required field for ExecutionReport.
-func (m ExecutionReport) LastCapacity() (*field.LastCapacity, errors.MessageRejectError) {
-	f := new(field.LastCapacity)
+func (m ExecutionReport) LastCapacity() (*field.LastCapacityField, errors.MessageRejectError) {
+	f := &field.LastCapacityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastCapacity reads a LastCapacity from ExecutionReport.
-func (m ExecutionReport) GetLastCapacity(f *field.LastCapacity) errors.MessageRejectError {
+func (m ExecutionReport) GetLastCapacity(f *field.LastCapacityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LeavesQty is a required field for ExecutionReport.
-func (m ExecutionReport) LeavesQty() (*field.LeavesQty, errors.MessageRejectError) {
-	f := new(field.LeavesQty)
+func (m ExecutionReport) LeavesQty() (*field.LeavesQtyField, errors.MessageRejectError) {
+	f := &field.LeavesQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLeavesQty reads a LeavesQty from ExecutionReport.
-func (m ExecutionReport) GetLeavesQty(f *field.LeavesQty) errors.MessageRejectError {
+func (m ExecutionReport) GetLeavesQty(f *field.LeavesQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CumQty is a required field for ExecutionReport.
-func (m ExecutionReport) CumQty() (*field.CumQty, errors.MessageRejectError) {
-	f := new(field.CumQty)
+func (m ExecutionReport) CumQty() (*field.CumQtyField, errors.MessageRejectError) {
+	f := &field.CumQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCumQty reads a CumQty from ExecutionReport.
-func (m ExecutionReport) GetCumQty(f *field.CumQty) errors.MessageRejectError {
+func (m ExecutionReport) GetCumQty(f *field.CumQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AvgPx is a required field for ExecutionReport.
-func (m ExecutionReport) AvgPx() (*field.AvgPx, errors.MessageRejectError) {
-	f := new(field.AvgPx)
+func (m ExecutionReport) AvgPx() (*field.AvgPxField, errors.MessageRejectError) {
+	f := &field.AvgPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAvgPx reads a AvgPx from ExecutionReport.
-func (m ExecutionReport) GetAvgPx(f *field.AvgPx) errors.MessageRejectError {
+func (m ExecutionReport) GetAvgPx(f *field.AvgPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DayOrderQty is a non-required field for ExecutionReport.
-func (m ExecutionReport) DayOrderQty() (*field.DayOrderQty, errors.MessageRejectError) {
-	f := new(field.DayOrderQty)
+func (m ExecutionReport) DayOrderQty() (*field.DayOrderQtyField, errors.MessageRejectError) {
+	f := &field.DayOrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDayOrderQty reads a DayOrderQty from ExecutionReport.
-func (m ExecutionReport) GetDayOrderQty(f *field.DayOrderQty) errors.MessageRejectError {
+func (m ExecutionReport) GetDayOrderQty(f *field.DayOrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DayCumQty is a non-required field for ExecutionReport.
-func (m ExecutionReport) DayCumQty() (*field.DayCumQty, errors.MessageRejectError) {
-	f := new(field.DayCumQty)
+func (m ExecutionReport) DayCumQty() (*field.DayCumQtyField, errors.MessageRejectError) {
+	f := &field.DayCumQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDayCumQty reads a DayCumQty from ExecutionReport.
-func (m ExecutionReport) GetDayCumQty(f *field.DayCumQty) errors.MessageRejectError {
+func (m ExecutionReport) GetDayCumQty(f *field.DayCumQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DayAvgPx is a non-required field for ExecutionReport.
-func (m ExecutionReport) DayAvgPx() (*field.DayAvgPx, errors.MessageRejectError) {
-	f := new(field.DayAvgPx)
+func (m ExecutionReport) DayAvgPx() (*field.DayAvgPxField, errors.MessageRejectError) {
+	f := &field.DayAvgPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDayAvgPx reads a DayAvgPx from ExecutionReport.
-func (m ExecutionReport) GetDayAvgPx(f *field.DayAvgPx) errors.MessageRejectError {
+func (m ExecutionReport) GetDayAvgPx(f *field.DayAvgPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //GTBookingInst is a non-required field for ExecutionReport.
-func (m ExecutionReport) GTBookingInst() (*field.GTBookingInst, errors.MessageRejectError) {
-	f := new(field.GTBookingInst)
+func (m ExecutionReport) GTBookingInst() (*field.GTBookingInstField, errors.MessageRejectError) {
+	f := &field.GTBookingInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetGTBookingInst reads a GTBookingInst from ExecutionReport.
-func (m ExecutionReport) GetGTBookingInst(f *field.GTBookingInst) errors.MessageRejectError {
+func (m ExecutionReport) GetGTBookingInst(f *field.GTBookingInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeDate is a non-required field for ExecutionReport.
-func (m ExecutionReport) TradeDate() (*field.TradeDate, errors.MessageRejectError) {
-	f := new(field.TradeDate)
+func (m ExecutionReport) TradeDate() (*field.TradeDateField, errors.MessageRejectError) {
+	f := &field.TradeDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeDate reads a TradeDate from ExecutionReport.
-func (m ExecutionReport) GetTradeDate(f *field.TradeDate) errors.MessageRejectError {
+func (m ExecutionReport) GetTradeDate(f *field.TradeDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a non-required field for ExecutionReport.
-func (m ExecutionReport) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m ExecutionReport) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from ExecutionReport.
-func (m ExecutionReport) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m ExecutionReport) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ReportToExch is a non-required field for ExecutionReport.
-func (m ExecutionReport) ReportToExch() (*field.ReportToExch, errors.MessageRejectError) {
-	f := new(field.ReportToExch)
+func (m ExecutionReport) ReportToExch() (*field.ReportToExchField, errors.MessageRejectError) {
+	f := &field.ReportToExchField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetReportToExch reads a ReportToExch from ExecutionReport.
-func (m ExecutionReport) GetReportToExch(f *field.ReportToExch) errors.MessageRejectError {
+func (m ExecutionReport) GetReportToExch(f *field.ReportToExchField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Commission is a non-required field for ExecutionReport.
-func (m ExecutionReport) Commission() (*field.Commission, errors.MessageRejectError) {
-	f := new(field.Commission)
+func (m ExecutionReport) Commission() (*field.CommissionField, errors.MessageRejectError) {
+	f := &field.CommissionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommission reads a Commission from ExecutionReport.
-func (m ExecutionReport) GetCommission(f *field.Commission) errors.MessageRejectError {
+func (m ExecutionReport) GetCommission(f *field.CommissionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CommType is a non-required field for ExecutionReport.
-func (m ExecutionReport) CommType() (*field.CommType, errors.MessageRejectError) {
-	f := new(field.CommType)
+func (m ExecutionReport) CommType() (*field.CommTypeField, errors.MessageRejectError) {
+	f := &field.CommTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommType reads a CommType from ExecutionReport.
-func (m ExecutionReport) GetCommType(f *field.CommType) errors.MessageRejectError {
+func (m ExecutionReport) GetCommType(f *field.CommTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //GrossTradeAmt is a non-required field for ExecutionReport.
-func (m ExecutionReport) GrossTradeAmt() (*field.GrossTradeAmt, errors.MessageRejectError) {
-	f := new(field.GrossTradeAmt)
+func (m ExecutionReport) GrossTradeAmt() (*field.GrossTradeAmtField, errors.MessageRejectError) {
+	f := &field.GrossTradeAmtField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetGrossTradeAmt reads a GrossTradeAmt from ExecutionReport.
-func (m ExecutionReport) GetGrossTradeAmt(f *field.GrossTradeAmt) errors.MessageRejectError {
+func (m ExecutionReport) GetGrossTradeAmt(f *field.GrossTradeAmtField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrAmt is a non-required field for ExecutionReport.
-func (m ExecutionReport) SettlCurrAmt() (*field.SettlCurrAmt, errors.MessageRejectError) {
-	f := new(field.SettlCurrAmt)
+func (m ExecutionReport) SettlCurrAmt() (*field.SettlCurrAmtField, errors.MessageRejectError) {
+	f := &field.SettlCurrAmtField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrAmt reads a SettlCurrAmt from ExecutionReport.
-func (m ExecutionReport) GetSettlCurrAmt(f *field.SettlCurrAmt) errors.MessageRejectError {
+func (m ExecutionReport) GetSettlCurrAmt(f *field.SettlCurrAmtField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrency is a non-required field for ExecutionReport.
-func (m ExecutionReport) SettlCurrency() (*field.SettlCurrency, errors.MessageRejectError) {
-	f := new(field.SettlCurrency)
+func (m ExecutionReport) SettlCurrency() (*field.SettlCurrencyField, errors.MessageRejectError) {
+	f := &field.SettlCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrency reads a SettlCurrency from ExecutionReport.
-func (m ExecutionReport) GetSettlCurrency(f *field.SettlCurrency) errors.MessageRejectError {
+func (m ExecutionReport) GetSettlCurrency(f *field.SettlCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrFxRate is a non-required field for ExecutionReport.
-func (m ExecutionReport) SettlCurrFxRate() (*field.SettlCurrFxRate, errors.MessageRejectError) {
-	f := new(field.SettlCurrFxRate)
+func (m ExecutionReport) SettlCurrFxRate() (*field.SettlCurrFxRateField, errors.MessageRejectError) {
+	f := &field.SettlCurrFxRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrFxRate reads a SettlCurrFxRate from ExecutionReport.
-func (m ExecutionReport) GetSettlCurrFxRate(f *field.SettlCurrFxRate) errors.MessageRejectError {
+func (m ExecutionReport) GetSettlCurrFxRate(f *field.SettlCurrFxRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrFxRateCalc is a non-required field for ExecutionReport.
-func (m ExecutionReport) SettlCurrFxRateCalc() (*field.SettlCurrFxRateCalc, errors.MessageRejectError) {
-	f := new(field.SettlCurrFxRateCalc)
+func (m ExecutionReport) SettlCurrFxRateCalc() (*field.SettlCurrFxRateCalcField, errors.MessageRejectError) {
+	f := &field.SettlCurrFxRateCalcField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrFxRateCalc reads a SettlCurrFxRateCalc from ExecutionReport.
-func (m ExecutionReport) GetSettlCurrFxRateCalc(f *field.SettlCurrFxRateCalc) errors.MessageRejectError {
+func (m ExecutionReport) GetSettlCurrFxRateCalc(f *field.SettlCurrFxRateCalcField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //HandlInst is a non-required field for ExecutionReport.
-func (m ExecutionReport) HandlInst() (*field.HandlInst, errors.MessageRejectError) {
-	f := new(field.HandlInst)
+func (m ExecutionReport) HandlInst() (*field.HandlInstField, errors.MessageRejectError) {
+	f := &field.HandlInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetHandlInst reads a HandlInst from ExecutionReport.
-func (m ExecutionReport) GetHandlInst(f *field.HandlInst) errors.MessageRejectError {
+func (m ExecutionReport) GetHandlInst(f *field.HandlInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinQty is a non-required field for ExecutionReport.
-func (m ExecutionReport) MinQty() (*field.MinQty, errors.MessageRejectError) {
-	f := new(field.MinQty)
+func (m ExecutionReport) MinQty() (*field.MinQtyField, errors.MessageRejectError) {
+	f := &field.MinQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinQty reads a MinQty from ExecutionReport.
-func (m ExecutionReport) GetMinQty(f *field.MinQty) errors.MessageRejectError {
+func (m ExecutionReport) GetMinQty(f *field.MinQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaxFloor is a non-required field for ExecutionReport.
-func (m ExecutionReport) MaxFloor() (*field.MaxFloor, errors.MessageRejectError) {
-	f := new(field.MaxFloor)
+func (m ExecutionReport) MaxFloor() (*field.MaxFloorField, errors.MessageRejectError) {
+	f := &field.MaxFloorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaxFloor reads a MaxFloor from ExecutionReport.
-func (m ExecutionReport) GetMaxFloor(f *field.MaxFloor) errors.MessageRejectError {
+func (m ExecutionReport) GetMaxFloor(f *field.MaxFloorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OpenClose is a non-required field for ExecutionReport.
-func (m ExecutionReport) OpenClose() (*field.OpenClose, errors.MessageRejectError) {
-	f := new(field.OpenClose)
+func (m ExecutionReport) OpenClose() (*field.OpenCloseField, errors.MessageRejectError) {
+	f := &field.OpenCloseField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOpenClose reads a OpenClose from ExecutionReport.
-func (m ExecutionReport) GetOpenClose(f *field.OpenClose) errors.MessageRejectError {
+func (m ExecutionReport) GetOpenClose(f *field.OpenCloseField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaxShow is a non-required field for ExecutionReport.
-func (m ExecutionReport) MaxShow() (*field.MaxShow, errors.MessageRejectError) {
-	f := new(field.MaxShow)
+func (m ExecutionReport) MaxShow() (*field.MaxShowField, errors.MessageRejectError) {
+	f := &field.MaxShowField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaxShow reads a MaxShow from ExecutionReport.
-func (m ExecutionReport) GetMaxShow(f *field.MaxShow) errors.MessageRejectError {
+func (m ExecutionReport) GetMaxShow(f *field.MaxShowField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for ExecutionReport.
-func (m ExecutionReport) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m ExecutionReport) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from ExecutionReport.
-func (m ExecutionReport) GetText(f *field.Text) errors.MessageRejectError {
+func (m ExecutionReport) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for ExecutionReport.
-func (m ExecutionReport) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m ExecutionReport) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from ExecutionReport.
-func (m ExecutionReport) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m ExecutionReport) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for ExecutionReport.
-func (m ExecutionReport) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m ExecutionReport) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from ExecutionReport.
-func (m ExecutionReport) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m ExecutionReport) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FutSettDate2 is a non-required field for ExecutionReport.
-func (m ExecutionReport) FutSettDate2() (*field.FutSettDate2, errors.MessageRejectError) {
-	f := new(field.FutSettDate2)
+func (m ExecutionReport) FutSettDate2() (*field.FutSettDate2Field, errors.MessageRejectError) {
+	f := &field.FutSettDate2Field{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFutSettDate2 reads a FutSettDate2 from ExecutionReport.
-func (m ExecutionReport) GetFutSettDate2(f *field.FutSettDate2) errors.MessageRejectError {
+func (m ExecutionReport) GetFutSettDate2(f *field.FutSettDate2Field) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty2 is a non-required field for ExecutionReport.
-func (m ExecutionReport) OrderQty2() (*field.OrderQty2, errors.MessageRejectError) {
-	f := new(field.OrderQty2)
+func (m ExecutionReport) OrderQty2() (*field.OrderQty2Field, errors.MessageRejectError) {
+	f := &field.OrderQty2Field{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty2 reads a OrderQty2 from ExecutionReport.
-func (m ExecutionReport) GetOrderQty2(f *field.OrderQty2) errors.MessageRejectError {
+func (m ExecutionReport) GetOrderQty2(f *field.OrderQty2Field) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClearingFirm is a non-required field for ExecutionReport.
-func (m ExecutionReport) ClearingFirm() (*field.ClearingFirm, errors.MessageRejectError) {
-	f := new(field.ClearingFirm)
+func (m ExecutionReport) ClearingFirm() (*field.ClearingFirmField, errors.MessageRejectError) {
+	f := &field.ClearingFirmField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClearingFirm reads a ClearingFirm from ExecutionReport.
-func (m ExecutionReport) GetClearingFirm(f *field.ClearingFirm) errors.MessageRejectError {
+func (m ExecutionReport) GetClearingFirm(f *field.ClearingFirmField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClearingAccount is a non-required field for ExecutionReport.
-func (m ExecutionReport) ClearingAccount() (*field.ClearingAccount, errors.MessageRejectError) {
-	f := new(field.ClearingAccount)
+func (m ExecutionReport) ClearingAccount() (*field.ClearingAccountField, errors.MessageRejectError) {
+	f := &field.ClearingAccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClearingAccount reads a ClearingAccount from ExecutionReport.
-func (m ExecutionReport) GetClearingAccount(f *field.ClearingAccount) errors.MessageRejectError {
+func (m ExecutionReport) GetClearingAccount(f *field.ClearingAccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MultiLegReportingType is a non-required field for ExecutionReport.
-func (m ExecutionReport) MultiLegReportingType() (*field.MultiLegReportingType, errors.MessageRejectError) {
-	f := new(field.MultiLegReportingType)
+func (m ExecutionReport) MultiLegReportingType() (*field.MultiLegReportingTypeField, errors.MessageRejectError) {
+	f := &field.MultiLegReportingTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMultiLegReportingType reads a MultiLegReportingType from ExecutionReport.
-func (m ExecutionReport) GetMultiLegReportingType(f *field.MultiLegReportingType) errors.MessageRejectError {
+func (m ExecutionReport) GetMultiLegReportingType(f *field.MultiLegReportingTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

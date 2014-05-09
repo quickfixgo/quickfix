@@ -23,290 +23,290 @@ type NewsBuilder struct {
 
 //CreateNewsBuilder returns an initialized NewsBuilder with specified required fields.
 func CreateNewsBuilder(
-	headline field.Headline,
-	nolinesoftext field.NoLinesOfText) NewsBuilder {
+	headline *field.HeadlineField,
+	nolinesoftext *field.NoLinesOfTextField) NewsBuilder {
 	var builder NewsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.BuildMsgType("B"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("B"))
 	builder.Body.Set(headline)
 	builder.Body.Set(nolinesoftext)
 	return builder
 }
 
 //OrigTime is a non-required field for News.
-func (m News) OrigTime() (*field.OrigTime, errors.MessageRejectError) {
-	f := new(field.OrigTime)
+func (m News) OrigTime() (*field.OrigTimeField, errors.MessageRejectError) {
+	f := &field.OrigTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrigTime reads a OrigTime from News.
-func (m News) GetOrigTime(f *field.OrigTime) errors.MessageRejectError {
+func (m News) GetOrigTime(f *field.OrigTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Urgency is a non-required field for News.
-func (m News) Urgency() (*field.Urgency, errors.MessageRejectError) {
-	f := new(field.Urgency)
+func (m News) Urgency() (*field.UrgencyField, errors.MessageRejectError) {
+	f := &field.UrgencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUrgency reads a Urgency from News.
-func (m News) GetUrgency(f *field.Urgency) errors.MessageRejectError {
+func (m News) GetUrgency(f *field.UrgencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Headline is a required field for News.
-func (m News) Headline() (*field.Headline, errors.MessageRejectError) {
-	f := new(field.Headline)
+func (m News) Headline() (*field.HeadlineField, errors.MessageRejectError) {
+	f := &field.HeadlineField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetHeadline reads a Headline from News.
-func (m News) GetHeadline(f *field.Headline) errors.MessageRejectError {
+func (m News) GetHeadline(f *field.HeadlineField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedHeadlineLen is a non-required field for News.
-func (m News) EncodedHeadlineLen() (*field.EncodedHeadlineLen, errors.MessageRejectError) {
-	f := new(field.EncodedHeadlineLen)
+func (m News) EncodedHeadlineLen() (*field.EncodedHeadlineLenField, errors.MessageRejectError) {
+	f := &field.EncodedHeadlineLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedHeadlineLen reads a EncodedHeadlineLen from News.
-func (m News) GetEncodedHeadlineLen(f *field.EncodedHeadlineLen) errors.MessageRejectError {
+func (m News) GetEncodedHeadlineLen(f *field.EncodedHeadlineLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedHeadline is a non-required field for News.
-func (m News) EncodedHeadline() (*field.EncodedHeadline, errors.MessageRejectError) {
-	f := new(field.EncodedHeadline)
+func (m News) EncodedHeadline() (*field.EncodedHeadlineField, errors.MessageRejectError) {
+	f := &field.EncodedHeadlineField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedHeadline reads a EncodedHeadline from News.
-func (m News) GetEncodedHeadline(f *field.EncodedHeadline) errors.MessageRejectError {
+func (m News) GetEncodedHeadline(f *field.EncodedHeadlineField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRoutingIDs is a non-required field for News.
-func (m News) NoRoutingIDs() (*field.NoRoutingIDs, errors.MessageRejectError) {
-	f := new(field.NoRoutingIDs)
+func (m News) NoRoutingIDs() (*field.NoRoutingIDsField, errors.MessageRejectError) {
+	f := &field.NoRoutingIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRoutingIDs reads a NoRoutingIDs from News.
-func (m News) GetNoRoutingIDs(f *field.NoRoutingIDs) errors.MessageRejectError {
+func (m News) GetNoRoutingIDs(f *field.NoRoutingIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a non-required field for News.
-func (m News) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
-	f := new(field.NoRelatedSym)
+func (m News) NoRelatedSym() (*field.NoRelatedSymField, errors.MessageRejectError) {
+	f := &field.NoRelatedSymField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRelatedSym reads a NoRelatedSym from News.
-func (m News) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+func (m News) GetNoRelatedSym(f *field.NoRelatedSymField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLegs is a non-required field for News.
-func (m News) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
-	f := new(field.NoLegs)
+func (m News) NoLegs() (*field.NoLegsField, errors.MessageRejectError) {
+	f := &field.NoLegsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLegs reads a NoLegs from News.
-func (m News) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+func (m News) GetNoLegs(f *field.NoLegsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for News.
-func (m News) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
-	f := new(field.NoUnderlyings)
+func (m News) NoUnderlyings() (*field.NoUnderlyingsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyings reads a NoUnderlyings from News.
-func (m News) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+func (m News) GetNoUnderlyings(f *field.NoUnderlyingsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLinesOfText is a required field for News.
-func (m News) NoLinesOfText() (*field.NoLinesOfText, errors.MessageRejectError) {
-	f := new(field.NoLinesOfText)
+func (m News) NoLinesOfText() (*field.NoLinesOfTextField, errors.MessageRejectError) {
+	f := &field.NoLinesOfTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLinesOfText reads a NoLinesOfText from News.
-func (m News) GetNoLinesOfText(f *field.NoLinesOfText) errors.MessageRejectError {
+func (m News) GetNoLinesOfText(f *field.NoLinesOfTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //URLLink is a non-required field for News.
-func (m News) URLLink() (*field.URLLink, errors.MessageRejectError) {
-	f := new(field.URLLink)
+func (m News) URLLink() (*field.URLLinkField, errors.MessageRejectError) {
+	f := &field.URLLinkField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetURLLink reads a URLLink from News.
-func (m News) GetURLLink(f *field.URLLink) errors.MessageRejectError {
+func (m News) GetURLLink(f *field.URLLinkField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawDataLength is a non-required field for News.
-func (m News) RawDataLength() (*field.RawDataLength, errors.MessageRejectError) {
-	f := new(field.RawDataLength)
+func (m News) RawDataLength() (*field.RawDataLengthField, errors.MessageRejectError) {
+	f := &field.RawDataLengthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawDataLength reads a RawDataLength from News.
-func (m News) GetRawDataLength(f *field.RawDataLength) errors.MessageRejectError {
+func (m News) GetRawDataLength(f *field.RawDataLengthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawData is a non-required field for News.
-func (m News) RawData() (*field.RawData, errors.MessageRejectError) {
-	f := new(field.RawData)
+func (m News) RawData() (*field.RawDataField, errors.MessageRejectError) {
+	f := &field.RawDataField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawData reads a RawData from News.
-func (m News) GetRawData(f *field.RawData) errors.MessageRejectError {
+func (m News) GetRawData(f *field.RawDataField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplID is a non-required field for News.
-func (m News) ApplID() (*field.ApplID, errors.MessageRejectError) {
-	f := new(field.ApplID)
+func (m News) ApplID() (*field.ApplIDField, errors.MessageRejectError) {
+	f := &field.ApplIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplID reads a ApplID from News.
-func (m News) GetApplID(f *field.ApplID) errors.MessageRejectError {
+func (m News) GetApplID(f *field.ApplIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplSeqNum is a non-required field for News.
-func (m News) ApplSeqNum() (*field.ApplSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplSeqNum)
+func (m News) ApplSeqNum() (*field.ApplSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplSeqNum reads a ApplSeqNum from News.
-func (m News) GetApplSeqNum(f *field.ApplSeqNum) errors.MessageRejectError {
+func (m News) GetApplSeqNum(f *field.ApplSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplLastSeqNum is a non-required field for News.
-func (m News) ApplLastSeqNum() (*field.ApplLastSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplLastSeqNum)
+func (m News) ApplLastSeqNum() (*field.ApplLastSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplLastSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplLastSeqNum reads a ApplLastSeqNum from News.
-func (m News) GetApplLastSeqNum(f *field.ApplLastSeqNum) errors.MessageRejectError {
+func (m News) GetApplLastSeqNum(f *field.ApplLastSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplResendFlag is a non-required field for News.
-func (m News) ApplResendFlag() (*field.ApplResendFlag, errors.MessageRejectError) {
-	f := new(field.ApplResendFlag)
+func (m News) ApplResendFlag() (*field.ApplResendFlagField, errors.MessageRejectError) {
+	f := &field.ApplResendFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplResendFlag reads a ApplResendFlag from News.
-func (m News) GetApplResendFlag(f *field.ApplResendFlag) errors.MessageRejectError {
+func (m News) GetApplResendFlag(f *field.ApplResendFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NewsID is a non-required field for News.
-func (m News) NewsID() (*field.NewsID, errors.MessageRejectError) {
-	f := new(field.NewsID)
+func (m News) NewsID() (*field.NewsIDField, errors.MessageRejectError) {
+	f := &field.NewsIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNewsID reads a NewsID from News.
-func (m News) GetNewsID(f *field.NewsID) errors.MessageRejectError {
+func (m News) GetNewsID(f *field.NewsIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoNewsRefIDs is a non-required field for News.
-func (m News) NoNewsRefIDs() (*field.NoNewsRefIDs, errors.MessageRejectError) {
-	f := new(field.NoNewsRefIDs)
+func (m News) NoNewsRefIDs() (*field.NoNewsRefIDsField, errors.MessageRejectError) {
+	f := &field.NoNewsRefIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoNewsRefIDs reads a NoNewsRefIDs from News.
-func (m News) GetNoNewsRefIDs(f *field.NoNewsRefIDs) errors.MessageRejectError {
+func (m News) GetNoNewsRefIDs(f *field.NoNewsRefIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NewsCategory is a non-required field for News.
-func (m News) NewsCategory() (*field.NewsCategory, errors.MessageRejectError) {
-	f := new(field.NewsCategory)
+func (m News) NewsCategory() (*field.NewsCategoryField, errors.MessageRejectError) {
+	f := &field.NewsCategoryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNewsCategory reads a NewsCategory from News.
-func (m News) GetNewsCategory(f *field.NewsCategory) errors.MessageRejectError {
+func (m News) GetNewsCategory(f *field.NewsCategoryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LanguageCode is a non-required field for News.
-func (m News) LanguageCode() (*field.LanguageCode, errors.MessageRejectError) {
-	f := new(field.LanguageCode)
+func (m News) LanguageCode() (*field.LanguageCodeField, errors.MessageRejectError) {
+	f := &field.LanguageCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLanguageCode reads a LanguageCode from News.
-func (m News) GetLanguageCode(f *field.LanguageCode) errors.MessageRejectError {
+func (m News) GetLanguageCode(f *field.LanguageCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarketID is a non-required field for News.
-func (m News) MarketID() (*field.MarketID, errors.MessageRejectError) {
-	f := new(field.MarketID)
+func (m News) MarketID() (*field.MarketIDField, errors.MessageRejectError) {
+	f := &field.MarketIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarketID reads a MarketID from News.
-func (m News) GetMarketID(f *field.MarketID) errors.MessageRejectError {
+func (m News) GetMarketID(f *field.MarketIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarketSegmentID is a non-required field for News.
-func (m News) MarketSegmentID() (*field.MarketSegmentID, errors.MessageRejectError) {
-	f := new(field.MarketSegmentID)
+func (m News) MarketSegmentID() (*field.MarketSegmentIDField, errors.MessageRejectError) {
+	f := &field.MarketSegmentIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarketSegmentID reads a MarketSegmentID from News.
-func (m News) GetMarketSegmentID(f *field.MarketSegmentID) errors.MessageRejectError {
+func (m News) GetMarketSegmentID(f *field.MarketSegmentIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

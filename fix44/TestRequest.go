@@ -19,23 +19,23 @@ type TestRequestBuilder struct {
 
 //CreateTestRequestBuilder returns an initialized TestRequestBuilder with specified required fields.
 func CreateTestRequestBuilder(
-	testreqid field.TestReqID) TestRequestBuilder {
+	testreqid *field.TestReqIDField) TestRequestBuilder {
 	var builder TestRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.BuildMsgType("1"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("1"))
 	builder.Body.Set(testreqid)
 	return builder
 }
 
 //TestReqID is a required field for TestRequest.
-func (m TestRequest) TestReqID() (*field.TestReqID, errors.MessageRejectError) {
-	f := new(field.TestReqID)
+func (m TestRequest) TestReqID() (*field.TestReqIDField, errors.MessageRejectError) {
+	f := &field.TestReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTestReqID reads a TestReqID from TestRequest.
-func (m TestRequest) GetTestReqID(f *field.TestReqID) errors.MessageRejectError {
+func (m TestRequest) GetTestReqID(f *field.TestReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

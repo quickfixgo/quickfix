@@ -23,182 +23,182 @@ type QuoteRequestBuilder struct {
 
 //CreateQuoteRequestBuilder returns an initialized QuoteRequestBuilder with specified required fields.
 func CreateQuoteRequestBuilder(
-	quotereqid field.QuoteReqID,
-	norelatedsym field.NoRelatedSym) QuoteRequestBuilder {
+	quotereqid *field.QuoteReqIDField,
+	norelatedsym *field.NoRelatedSymField) QuoteRequestBuilder {
 	var builder QuoteRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.BuildMsgType("R"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("R"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(norelatedsym)
 	return builder
 }
 
 //QuoteReqID is a required field for QuoteRequest.
-func (m QuoteRequest) QuoteReqID() (*field.QuoteReqID, errors.MessageRejectError) {
-	f := new(field.QuoteReqID)
+func (m QuoteRequest) QuoteReqID() (*field.QuoteReqIDField, errors.MessageRejectError) {
+	f := &field.QuoteReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQuoteReqID reads a QuoteReqID from QuoteRequest.
-func (m QuoteRequest) GetQuoteReqID(f *field.QuoteReqID) errors.MessageRejectError {
+func (m QuoteRequest) GetQuoteReqID(f *field.QuoteReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RFQReqID is a non-required field for QuoteRequest.
-func (m QuoteRequest) RFQReqID() (*field.RFQReqID, errors.MessageRejectError) {
-	f := new(field.RFQReqID)
+func (m QuoteRequest) RFQReqID() (*field.RFQReqIDField, errors.MessageRejectError) {
+	f := &field.RFQReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRFQReqID reads a RFQReqID from QuoteRequest.
-func (m QuoteRequest) GetRFQReqID(f *field.RFQReqID) errors.MessageRejectError {
+func (m QuoteRequest) GetRFQReqID(f *field.RFQReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdID is a non-required field for QuoteRequest.
-func (m QuoteRequest) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
-	f := new(field.ClOrdID)
+func (m QuoteRequest) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from QuoteRequest.
-func (m QuoteRequest) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+func (m QuoteRequest) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderCapacity is a non-required field for QuoteRequest.
-func (m QuoteRequest) OrderCapacity() (*field.OrderCapacity, errors.MessageRejectError) {
-	f := new(field.OrderCapacity)
+func (m QuoteRequest) OrderCapacity() (*field.OrderCapacityField, errors.MessageRejectError) {
+	f := &field.OrderCapacityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderCapacity reads a OrderCapacity from QuoteRequest.
-func (m QuoteRequest) GetOrderCapacity(f *field.OrderCapacity) errors.MessageRejectError {
+func (m QuoteRequest) GetOrderCapacity(f *field.OrderCapacityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a required field for QuoteRequest.
-func (m QuoteRequest) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
-	f := new(field.NoRelatedSym)
+func (m QuoteRequest) NoRelatedSym() (*field.NoRelatedSymField, errors.MessageRejectError) {
+	f := &field.NoRelatedSymField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRelatedSym reads a NoRelatedSym from QuoteRequest.
-func (m QuoteRequest) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+func (m QuoteRequest) GetNoRelatedSym(f *field.NoRelatedSymField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for QuoteRequest.
-func (m QuoteRequest) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m QuoteRequest) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from QuoteRequest.
-func (m QuoteRequest) GetText(f *field.Text) errors.MessageRejectError {
+func (m QuoteRequest) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for QuoteRequest.
-func (m QuoteRequest) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m QuoteRequest) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from QuoteRequest.
-func (m QuoteRequest) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m QuoteRequest) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for QuoteRequest.
-func (m QuoteRequest) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m QuoteRequest) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from QuoteRequest.
-func (m QuoteRequest) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m QuoteRequest) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRootPartyIDs is a non-required field for QuoteRequest.
-func (m QuoteRequest) NoRootPartyIDs() (*field.NoRootPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoRootPartyIDs)
+func (m QuoteRequest) NoRootPartyIDs() (*field.NoRootPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoRootPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRootPartyIDs reads a NoRootPartyIDs from QuoteRequest.
-func (m QuoteRequest) GetNoRootPartyIDs(f *field.NoRootPartyIDs) errors.MessageRejectError {
+func (m QuoteRequest) GetNoRootPartyIDs(f *field.NoRootPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PrivateQuote is a non-required field for QuoteRequest.
-func (m QuoteRequest) PrivateQuote() (*field.PrivateQuote, errors.MessageRejectError) {
-	f := new(field.PrivateQuote)
+func (m QuoteRequest) PrivateQuote() (*field.PrivateQuoteField, errors.MessageRejectError) {
+	f := &field.PrivateQuoteField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPrivateQuote reads a PrivateQuote from QuoteRequest.
-func (m QuoteRequest) GetPrivateQuote(f *field.PrivateQuote) errors.MessageRejectError {
+func (m QuoteRequest) GetPrivateQuote(f *field.PrivateQuoteField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RespondentType is a non-required field for QuoteRequest.
-func (m QuoteRequest) RespondentType() (*field.RespondentType, errors.MessageRejectError) {
-	f := new(field.RespondentType)
+func (m QuoteRequest) RespondentType() (*field.RespondentTypeField, errors.MessageRejectError) {
+	f := &field.RespondentTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRespondentType reads a RespondentType from QuoteRequest.
-func (m QuoteRequest) GetRespondentType(f *field.RespondentType) errors.MessageRejectError {
+func (m QuoteRequest) GetRespondentType(f *field.RespondentTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PreTradeAnonymity is a non-required field for QuoteRequest.
-func (m QuoteRequest) PreTradeAnonymity() (*field.PreTradeAnonymity, errors.MessageRejectError) {
-	f := new(field.PreTradeAnonymity)
+func (m QuoteRequest) PreTradeAnonymity() (*field.PreTradeAnonymityField, errors.MessageRejectError) {
+	f := &field.PreTradeAnonymityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPreTradeAnonymity reads a PreTradeAnonymity from QuoteRequest.
-func (m QuoteRequest) GetPreTradeAnonymity(f *field.PreTradeAnonymity) errors.MessageRejectError {
+func (m QuoteRequest) GetPreTradeAnonymity(f *field.PreTradeAnonymityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BookingType is a non-required field for QuoteRequest.
-func (m QuoteRequest) BookingType() (*field.BookingType, errors.MessageRejectError) {
-	f := new(field.BookingType)
+func (m QuoteRequest) BookingType() (*field.BookingTypeField, errors.MessageRejectError) {
+	f := &field.BookingTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBookingType reads a BookingType from QuoteRequest.
-func (m QuoteRequest) GetBookingType(f *field.BookingType) errors.MessageRejectError {
+func (m QuoteRequest) GetBookingType(f *field.BookingTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderRestrictions is a non-required field for QuoteRequest.
-func (m QuoteRequest) OrderRestrictions() (*field.OrderRestrictions, errors.MessageRejectError) {
-	f := new(field.OrderRestrictions)
+func (m QuoteRequest) OrderRestrictions() (*field.OrderRestrictionsField, errors.MessageRejectError) {
+	f := &field.OrderRestrictionsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderRestrictions reads a OrderRestrictions from QuoteRequest.
-func (m QuoteRequest) GetOrderRestrictions(f *field.OrderRestrictions) errors.MessageRejectError {
+func (m QuoteRequest) GetOrderRestrictions(f *field.OrderRestrictionsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

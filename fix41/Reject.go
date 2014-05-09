@@ -19,35 +19,35 @@ type RejectBuilder struct {
 
 //CreateRejectBuilder returns an initialized RejectBuilder with specified required fields.
 func CreateRejectBuilder(
-	refseqnum field.RefSeqNum) RejectBuilder {
+	refseqnum *field.RefSeqNumField) RejectBuilder {
 	var builder RejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.BuildMsgType("3"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("3"))
 	builder.Body.Set(refseqnum)
 	return builder
 }
 
 //RefSeqNum is a required field for Reject.
-func (m Reject) RefSeqNum() (*field.RefSeqNum, errors.MessageRejectError) {
-	f := new(field.RefSeqNum)
+func (m Reject) RefSeqNum() (*field.RefSeqNumField, errors.MessageRejectError) {
+	f := &field.RefSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRefSeqNum reads a RefSeqNum from Reject.
-func (m Reject) GetRefSeqNum(f *field.RefSeqNum) errors.MessageRejectError {
+func (m Reject) GetRefSeqNum(f *field.RefSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for Reject.
-func (m Reject) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m Reject) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from Reject.
-func (m Reject) GetText(f *field.Text) errors.MessageRejectError {
+func (m Reject) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

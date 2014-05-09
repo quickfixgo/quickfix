@@ -19,133 +19,133 @@ type QuoteCancelBuilder struct {
 
 //CreateQuoteCancelBuilder returns an initialized QuoteCancelBuilder with specified required fields.
 func CreateQuoteCancelBuilder(
-	quoteid field.QuoteID,
-	quotecanceltype field.QuoteCancelType) QuoteCancelBuilder {
+	quoteid *field.QuoteIDField,
+	quotecanceltype *field.QuoteCancelTypeField) QuoteCancelBuilder {
 	var builder QuoteCancelBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.BuildMsgType("Z"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("Z"))
 	builder.Body.Set(quoteid)
 	builder.Body.Set(quotecanceltype)
 	return builder
 }
 
 //QuoteReqID is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteReqID() (*field.QuoteReqID, errors.MessageRejectError) {
-	f := new(field.QuoteReqID)
+func (m QuoteCancel) QuoteReqID() (*field.QuoteReqIDField, errors.MessageRejectError) {
+	f := &field.QuoteReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQuoteReqID reads a QuoteReqID from QuoteCancel.
-func (m QuoteCancel) GetQuoteReqID(f *field.QuoteReqID) errors.MessageRejectError {
+func (m QuoteCancel) GetQuoteReqID(f *field.QuoteReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //QuoteID is a required field for QuoteCancel.
-func (m QuoteCancel) QuoteID() (*field.QuoteID, errors.MessageRejectError) {
-	f := new(field.QuoteID)
+func (m QuoteCancel) QuoteID() (*field.QuoteIDField, errors.MessageRejectError) {
+	f := &field.QuoteIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQuoteID reads a QuoteID from QuoteCancel.
-func (m QuoteCancel) GetQuoteID(f *field.QuoteID) errors.MessageRejectError {
+func (m QuoteCancel) GetQuoteID(f *field.QuoteIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //QuoteCancelType is a required field for QuoteCancel.
-func (m QuoteCancel) QuoteCancelType() (*field.QuoteCancelType, errors.MessageRejectError) {
-	f := new(field.QuoteCancelType)
+func (m QuoteCancel) QuoteCancelType() (*field.QuoteCancelTypeField, errors.MessageRejectError) {
+	f := &field.QuoteCancelTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQuoteCancelType reads a QuoteCancelType from QuoteCancel.
-func (m QuoteCancel) GetQuoteCancelType(f *field.QuoteCancelType) errors.MessageRejectError {
+func (m QuoteCancel) GetQuoteCancelType(f *field.QuoteCancelTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //QuoteResponseLevel is a non-required field for QuoteCancel.
-func (m QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevel, errors.MessageRejectError) {
-	f := new(field.QuoteResponseLevel)
+func (m QuoteCancel) QuoteResponseLevel() (*field.QuoteResponseLevelField, errors.MessageRejectError) {
+	f := &field.QuoteResponseLevelField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQuoteResponseLevel reads a QuoteResponseLevel from QuoteCancel.
-func (m QuoteCancel) GetQuoteResponseLevel(f *field.QuoteResponseLevel) errors.MessageRejectError {
+func (m QuoteCancel) GetQuoteResponseLevel(f *field.QuoteResponseLevelField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for QuoteCancel.
-func (m QuoteCancel) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m QuoteCancel) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from QuoteCancel.
-func (m QuoteCancel) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m QuoteCancel) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for QuoteCancel.
-func (m QuoteCancel) Account() (*field.Account, errors.MessageRejectError) {
-	f := new(field.Account)
+func (m QuoteCancel) Account() (*field.AccountField, errors.MessageRejectError) {
+	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from QuoteCancel.
-func (m QuoteCancel) GetAccount(f *field.Account) errors.MessageRejectError {
+func (m QuoteCancel) GetAccount(f *field.AccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AccountType is a non-required field for QuoteCancel.
-func (m QuoteCancel) AccountType() (*field.AccountType, errors.MessageRejectError) {
-	f := new(field.AccountType)
+func (m QuoteCancel) AccountType() (*field.AccountTypeField, errors.MessageRejectError) {
+	f := &field.AccountTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccountType reads a AccountType from QuoteCancel.
-func (m QuoteCancel) GetAccountType(f *field.AccountType) errors.MessageRejectError {
+func (m QuoteCancel) GetAccountType(f *field.AccountTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionID is a non-required field for QuoteCancel.
-func (m QuoteCancel) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
-	f := new(field.TradingSessionID)
+func (m QuoteCancel) TradingSessionID() (*field.TradingSessionIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionID reads a TradingSessionID from QuoteCancel.
-func (m QuoteCancel) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+func (m QuoteCancel) GetTradingSessionID(f *field.TradingSessionIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionSubID is a non-required field for QuoteCancel.
-func (m QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubID, errors.MessageRejectError) {
-	f := new(field.TradingSessionSubID)
+func (m QuoteCancel) TradingSessionSubID() (*field.TradingSessionSubIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionSubIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionSubID reads a TradingSessionSubID from QuoteCancel.
-func (m QuoteCancel) GetTradingSessionSubID(f *field.TradingSessionSubID) errors.MessageRejectError {
+func (m QuoteCancel) GetTradingSessionSubID(f *field.TradingSessionSubIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoQuoteEntries is a non-required field for QuoteCancel.
-func (m QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntries, errors.MessageRejectError) {
-	f := new(field.NoQuoteEntries)
+func (m QuoteCancel) NoQuoteEntries() (*field.NoQuoteEntriesField, errors.MessageRejectError) {
+	f := &field.NoQuoteEntriesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoQuoteEntries reads a NoQuoteEntries from QuoteCancel.
-func (m QuoteCancel) GetNoQuoteEntries(f *field.NoQuoteEntries) errors.MessageRejectError {
+func (m QuoteCancel) GetNoQuoteEntries(f *field.NoQuoteEntriesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

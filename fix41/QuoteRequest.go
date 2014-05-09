@@ -19,265 +19,265 @@ type QuoteRequestBuilder struct {
 
 //CreateQuoteRequestBuilder returns an initialized QuoteRequestBuilder with specified required fields.
 func CreateQuoteRequestBuilder(
-	quotereqid field.QuoteReqID,
-	symbol field.Symbol) QuoteRequestBuilder {
+	quotereqid *field.QuoteReqIDField,
+	symbol *field.SymbolField) QuoteRequestBuilder {
 	var builder QuoteRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.BuildMsgType("R"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("R"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(symbol)
 	return builder
 }
 
 //QuoteReqID is a required field for QuoteRequest.
-func (m QuoteRequest) QuoteReqID() (*field.QuoteReqID, errors.MessageRejectError) {
-	f := new(field.QuoteReqID)
+func (m QuoteRequest) QuoteReqID() (*field.QuoteReqIDField, errors.MessageRejectError) {
+	f := &field.QuoteReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQuoteReqID reads a QuoteReqID from QuoteRequest.
-func (m QuoteRequest) GetQuoteReqID(f *field.QuoteReqID) errors.MessageRejectError {
+func (m QuoteRequest) GetQuoteReqID(f *field.QuoteReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a required field for QuoteRequest.
-func (m QuoteRequest) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m QuoteRequest) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from QuoteRequest.
-func (m QuoteRequest) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m QuoteRequest) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for QuoteRequest.
-func (m QuoteRequest) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m QuoteRequest) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from QuoteRequest.
-func (m QuoteRequest) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m QuoteRequest) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for QuoteRequest.
-func (m QuoteRequest) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m QuoteRequest) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from QuoteRequest.
-func (m QuoteRequest) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m QuoteRequest) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IDSource is a non-required field for QuoteRequest.
-func (m QuoteRequest) IDSource() (*field.IDSource, errors.MessageRejectError) {
-	f := new(field.IDSource)
+func (m QuoteRequest) IDSource() (*field.IDSourceField, errors.MessageRejectError) {
+	f := &field.IDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIDSource reads a IDSource from QuoteRequest.
-func (m QuoteRequest) GetIDSource(f *field.IDSource) errors.MessageRejectError {
+func (m QuoteRequest) GetIDSource(f *field.IDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for QuoteRequest.
-func (m QuoteRequest) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m QuoteRequest) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from QuoteRequest.
-func (m QuoteRequest) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m QuoteRequest) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for QuoteRequest.
-func (m QuoteRequest) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m QuoteRequest) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from QuoteRequest.
-func (m QuoteRequest) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m QuoteRequest) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDay is a non-required field for QuoteRequest.
-func (m QuoteRequest) MaturityDay() (*field.MaturityDay, errors.MessageRejectError) {
-	f := new(field.MaturityDay)
+func (m QuoteRequest) MaturityDay() (*field.MaturityDayField, errors.MessageRejectError) {
+	f := &field.MaturityDayField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDay reads a MaturityDay from QuoteRequest.
-func (m QuoteRequest) GetMaturityDay(f *field.MaturityDay) errors.MessageRejectError {
+func (m QuoteRequest) GetMaturityDay(f *field.MaturityDayField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for QuoteRequest.
-func (m QuoteRequest) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
-	f := new(field.PutOrCall)
+func (m QuoteRequest) PutOrCall() (*field.PutOrCallField, errors.MessageRejectError) {
+	f := &field.PutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPutOrCall reads a PutOrCall from QuoteRequest.
-func (m QuoteRequest) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+func (m QuoteRequest) GetPutOrCall(f *field.PutOrCallField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for QuoteRequest.
-func (m QuoteRequest) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m QuoteRequest) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from QuoteRequest.
-func (m QuoteRequest) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m QuoteRequest) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for QuoteRequest.
-func (m QuoteRequest) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m QuoteRequest) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from QuoteRequest.
-func (m QuoteRequest) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m QuoteRequest) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for QuoteRequest.
-func (m QuoteRequest) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m QuoteRequest) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from QuoteRequest.
-func (m QuoteRequest) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m QuoteRequest) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for QuoteRequest.
-func (m QuoteRequest) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m QuoteRequest) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from QuoteRequest.
-func (m QuoteRequest) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m QuoteRequest) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for QuoteRequest.
-func (m QuoteRequest) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m QuoteRequest) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from QuoteRequest.
-func (m QuoteRequest) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m QuoteRequest) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PrevClosePx is a non-required field for QuoteRequest.
-func (m QuoteRequest) PrevClosePx() (*field.PrevClosePx, errors.MessageRejectError) {
-	f := new(field.PrevClosePx)
+func (m QuoteRequest) PrevClosePx() (*field.PrevClosePxField, errors.MessageRejectError) {
+	f := &field.PrevClosePxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPrevClosePx reads a PrevClosePx from QuoteRequest.
-func (m QuoteRequest) GetPrevClosePx(f *field.PrevClosePx) errors.MessageRejectError {
+func (m QuoteRequest) GetPrevClosePx(f *field.PrevClosePxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a non-required field for QuoteRequest.
-func (m QuoteRequest) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m QuoteRequest) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from QuoteRequest.
-func (m QuoteRequest) GetSide(f *field.Side) errors.MessageRejectError {
+func (m QuoteRequest) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty is a non-required field for QuoteRequest.
-func (m QuoteRequest) OrderQty() (*field.OrderQty, errors.MessageRejectError) {
-	f := new(field.OrderQty)
+func (m QuoteRequest) OrderQty() (*field.OrderQtyField, errors.MessageRejectError) {
+	f := &field.OrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty reads a OrderQty from QuoteRequest.
-func (m QuoteRequest) GetOrderQty(f *field.OrderQty) errors.MessageRejectError {
+func (m QuoteRequest) GetOrderQty(f *field.OrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FutSettDate is a non-required field for QuoteRequest.
-func (m QuoteRequest) FutSettDate() (*field.FutSettDate, errors.MessageRejectError) {
-	f := new(field.FutSettDate)
+func (m QuoteRequest) FutSettDate() (*field.FutSettDateField, errors.MessageRejectError) {
+	f := &field.FutSettDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFutSettDate reads a FutSettDate from QuoteRequest.
-func (m QuoteRequest) GetFutSettDate(f *field.FutSettDate) errors.MessageRejectError {
+func (m QuoteRequest) GetFutSettDate(f *field.FutSettDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrdType is a non-required field for QuoteRequest.
-func (m QuoteRequest) OrdType() (*field.OrdType, errors.MessageRejectError) {
-	f := new(field.OrdType)
+func (m QuoteRequest) OrdType() (*field.OrdTypeField, errors.MessageRejectError) {
+	f := &field.OrdTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrdType reads a OrdType from QuoteRequest.
-func (m QuoteRequest) GetOrdType(f *field.OrdType) errors.MessageRejectError {
+func (m QuoteRequest) GetOrdType(f *field.OrdTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FutSettDate2 is a non-required field for QuoteRequest.
-func (m QuoteRequest) FutSettDate2() (*field.FutSettDate2, errors.MessageRejectError) {
-	f := new(field.FutSettDate2)
+func (m QuoteRequest) FutSettDate2() (*field.FutSettDate2Field, errors.MessageRejectError) {
+	f := &field.FutSettDate2Field{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFutSettDate2 reads a FutSettDate2 from QuoteRequest.
-func (m QuoteRequest) GetFutSettDate2(f *field.FutSettDate2) errors.MessageRejectError {
+func (m QuoteRequest) GetFutSettDate2(f *field.FutSettDate2Field) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty2 is a non-required field for QuoteRequest.
-func (m QuoteRequest) OrderQty2() (*field.OrderQty2, errors.MessageRejectError) {
-	f := new(field.OrderQty2)
+func (m QuoteRequest) OrderQty2() (*field.OrderQty2Field, errors.MessageRejectError) {
+	f := &field.OrderQty2Field{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty2 reads a OrderQty2 from QuoteRequest.
-func (m QuoteRequest) GetOrderQty2(f *field.OrderQty2) errors.MessageRejectError {
+func (m QuoteRequest) GetOrderQty2(f *field.OrderQty2Field) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

@@ -19,13 +19,13 @@ type UserRequestBuilder struct {
 
 //CreateUserRequestBuilder returns an initialized UserRequestBuilder with specified required fields.
 func CreateUserRequestBuilder(
-	userrequestid field.UserRequestID,
-	userrequesttype field.UserRequestType,
-	username field.Username) UserRequestBuilder {
+	userrequestid *field.UserRequestIDField,
+	userrequesttype *field.UserRequestTypeField,
+	username *field.UsernameField) UserRequestBuilder {
 	var builder UserRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.BuildMsgType("BE"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("BE"))
 	builder.Body.Set(userrequestid)
 	builder.Body.Set(userrequesttype)
 	builder.Body.Set(username)
@@ -33,85 +33,85 @@ func CreateUserRequestBuilder(
 }
 
 //UserRequestID is a required field for UserRequest.
-func (m UserRequest) UserRequestID() (*field.UserRequestID, errors.MessageRejectError) {
-	f := new(field.UserRequestID)
+func (m UserRequest) UserRequestID() (*field.UserRequestIDField, errors.MessageRejectError) {
+	f := &field.UserRequestIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUserRequestID reads a UserRequestID from UserRequest.
-func (m UserRequest) GetUserRequestID(f *field.UserRequestID) errors.MessageRejectError {
+func (m UserRequest) GetUserRequestID(f *field.UserRequestIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UserRequestType is a required field for UserRequest.
-func (m UserRequest) UserRequestType() (*field.UserRequestType, errors.MessageRejectError) {
-	f := new(field.UserRequestType)
+func (m UserRequest) UserRequestType() (*field.UserRequestTypeField, errors.MessageRejectError) {
+	f := &field.UserRequestTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUserRequestType reads a UserRequestType from UserRequest.
-func (m UserRequest) GetUserRequestType(f *field.UserRequestType) errors.MessageRejectError {
+func (m UserRequest) GetUserRequestType(f *field.UserRequestTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Username is a required field for UserRequest.
-func (m UserRequest) Username() (*field.Username, errors.MessageRejectError) {
-	f := new(field.Username)
+func (m UserRequest) Username() (*field.UsernameField, errors.MessageRejectError) {
+	f := &field.UsernameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUsername reads a Username from UserRequest.
-func (m UserRequest) GetUsername(f *field.Username) errors.MessageRejectError {
+func (m UserRequest) GetUsername(f *field.UsernameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Password is a non-required field for UserRequest.
-func (m UserRequest) Password() (*field.Password, errors.MessageRejectError) {
-	f := new(field.Password)
+func (m UserRequest) Password() (*field.PasswordField, errors.MessageRejectError) {
+	f := &field.PasswordField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPassword reads a Password from UserRequest.
-func (m UserRequest) GetPassword(f *field.Password) errors.MessageRejectError {
+func (m UserRequest) GetPassword(f *field.PasswordField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NewPassword is a non-required field for UserRequest.
-func (m UserRequest) NewPassword() (*field.NewPassword, errors.MessageRejectError) {
-	f := new(field.NewPassword)
+func (m UserRequest) NewPassword() (*field.NewPasswordField, errors.MessageRejectError) {
+	f := &field.NewPasswordField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNewPassword reads a NewPassword from UserRequest.
-func (m UserRequest) GetNewPassword(f *field.NewPassword) errors.MessageRejectError {
+func (m UserRequest) GetNewPassword(f *field.NewPasswordField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawDataLength is a non-required field for UserRequest.
-func (m UserRequest) RawDataLength() (*field.RawDataLength, errors.MessageRejectError) {
-	f := new(field.RawDataLength)
+func (m UserRequest) RawDataLength() (*field.RawDataLengthField, errors.MessageRejectError) {
+	f := &field.RawDataLengthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawDataLength reads a RawDataLength from UserRequest.
-func (m UserRequest) GetRawDataLength(f *field.RawDataLength) errors.MessageRejectError {
+func (m UserRequest) GetRawDataLength(f *field.RawDataLengthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawData is a non-required field for UserRequest.
-func (m UserRequest) RawData() (*field.RawData, errors.MessageRejectError) {
-	f := new(field.RawData)
+func (m UserRequest) RawData() (*field.RawDataField, errors.MessageRejectError) {
+	f := &field.RawDataField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawData reads a RawData from UserRequest.
-func (m UserRequest) GetRawData(f *field.RawData) errors.MessageRejectError {
+func (m UserRequest) GetRawData(f *field.RawDataField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

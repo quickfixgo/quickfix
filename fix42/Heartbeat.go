@@ -21,19 +21,19 @@ type HeartbeatBuilder struct {
 func CreateHeartbeatBuilder() HeartbeatBuilder {
 	var builder HeartbeatBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.BuildMsgType("0"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("0"))
 	return builder
 }
 
 //TestReqID is a non-required field for Heartbeat.
-func (m Heartbeat) TestReqID() (*field.TestReqID, errors.MessageRejectError) {
-	f := new(field.TestReqID)
+func (m Heartbeat) TestReqID() (*field.TestReqIDField, errors.MessageRejectError) {
+	f := &field.TestReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTestReqID reads a TestReqID from Heartbeat.
-func (m Heartbeat) GetTestReqID(f *field.TestReqID) errors.MessageRejectError {
+func (m Heartbeat) GetTestReqID(f *field.TestReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

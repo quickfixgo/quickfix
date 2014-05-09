@@ -19,47 +19,47 @@ type ListExecuteBuilder struct {
 
 //CreateListExecuteBuilder returns an initialized ListExecuteBuilder with specified required fields.
 func CreateListExecuteBuilder(
-	listid field.ListID) ListExecuteBuilder {
+	listid *field.ListIDField) ListExecuteBuilder {
 	var builder ListExecuteBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.BuildMsgType("L"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("L"))
 	builder.Body.Set(listid)
 	return builder
 }
 
 //ListID is a required field for ListExecute.
-func (m ListExecute) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m ListExecute) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from ListExecute.
-func (m ListExecute) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m ListExecute) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //WaveNo is a non-required field for ListExecute.
-func (m ListExecute) WaveNo() (*field.WaveNo, errors.MessageRejectError) {
-	f := new(field.WaveNo)
+func (m ListExecute) WaveNo() (*field.WaveNoField, errors.MessageRejectError) {
+	f := &field.WaveNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetWaveNo reads a WaveNo from ListExecute.
-func (m ListExecute) GetWaveNo(f *field.WaveNo) errors.MessageRejectError {
+func (m ListExecute) GetWaveNo(f *field.WaveNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for ListExecute.
-func (m ListExecute) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m ListExecute) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from ListExecute.
-func (m ListExecute) GetText(f *field.Text) errors.MessageRejectError {
+func (m ListExecute) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

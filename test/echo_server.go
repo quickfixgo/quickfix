@@ -54,14 +54,14 @@ func (e *EchoApplication) FromApp(msg message.Message, sessionID quickfix.Sessio
 }
 
 func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
-	orderID := new(field.ClOrdID)
+	orderID := new(field.ClOrdIDField)
 	if err := msg.Body.Get(orderID); err != nil {
 		return err
 	}
 
 	reply := message.CreateMessageBuilder()
 	sessionOrderID := sessionID.String() + orderID.Value
-	possResend := new(field.PossResend)
+	possResend := new(field.PossResendField)
 	if err := msg.Header.Get(possResend); err == nil && possResend.Value {
 		if e.OrderIds[sessionOrderID] {
 			return nil
@@ -72,7 +72,7 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.Ses
 
 	e.OrderIds[sessionOrderID] = true
 
-	msgType := new(field.MsgType)
+	msgType := new(field.MsgTypeField)
 	msg.Header.Get(msgType)
 	reply.Header.Set(msgType)
 

@@ -23,14 +23,14 @@ type NetworkCounterpartySystemStatusResponseBuilder struct {
 
 //CreateNetworkCounterpartySystemStatusResponseBuilder returns an initialized NetworkCounterpartySystemStatusResponseBuilder with specified required fields.
 func CreateNetworkCounterpartySystemStatusResponseBuilder(
-	networkstatusresponsetype field.NetworkStatusResponseType,
-	networkresponseid field.NetworkResponseID,
-	nocompids field.NoCompIDs) NetworkCounterpartySystemStatusResponseBuilder {
+	networkstatusresponsetype *field.NetworkStatusResponseTypeField,
+	networkresponseid *field.NetworkResponseIDField,
+	nocompids *field.NoCompIDsField) NetworkCounterpartySystemStatusResponseBuilder {
 	var builder NetworkCounterpartySystemStatusResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.BuildMsgType("BD"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("BD"))
 	builder.Body.Set(networkstatusresponsetype)
 	builder.Body.Set(networkresponseid)
 	builder.Body.Set(nocompids)
@@ -38,61 +38,61 @@ func CreateNetworkCounterpartySystemStatusResponseBuilder(
 }
 
 //NetworkStatusResponseType is a required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) NetworkStatusResponseType() (*field.NetworkStatusResponseType, errors.MessageRejectError) {
-	f := new(field.NetworkStatusResponseType)
+func (m NetworkCounterpartySystemStatusResponse) NetworkStatusResponseType() (*field.NetworkStatusResponseTypeField, errors.MessageRejectError) {
+	f := &field.NetworkStatusResponseTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNetworkStatusResponseType reads a NetworkStatusResponseType from NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) GetNetworkStatusResponseType(f *field.NetworkStatusResponseType) errors.MessageRejectError {
+func (m NetworkCounterpartySystemStatusResponse) GetNetworkStatusResponseType(f *field.NetworkStatusResponseTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NetworkRequestID is a non-required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) NetworkRequestID() (*field.NetworkRequestID, errors.MessageRejectError) {
-	f := new(field.NetworkRequestID)
+func (m NetworkCounterpartySystemStatusResponse) NetworkRequestID() (*field.NetworkRequestIDField, errors.MessageRejectError) {
+	f := &field.NetworkRequestIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNetworkRequestID reads a NetworkRequestID from NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) GetNetworkRequestID(f *field.NetworkRequestID) errors.MessageRejectError {
+func (m NetworkCounterpartySystemStatusResponse) GetNetworkRequestID(f *field.NetworkRequestIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NetworkResponseID is a required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) NetworkResponseID() (*field.NetworkResponseID, errors.MessageRejectError) {
-	f := new(field.NetworkResponseID)
+func (m NetworkCounterpartySystemStatusResponse) NetworkResponseID() (*field.NetworkResponseIDField, errors.MessageRejectError) {
+	f := &field.NetworkResponseIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNetworkResponseID reads a NetworkResponseID from NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) GetNetworkResponseID(f *field.NetworkResponseID) errors.MessageRejectError {
+func (m NetworkCounterpartySystemStatusResponse) GetNetworkResponseID(f *field.NetworkResponseIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastNetworkResponseID is a non-required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) LastNetworkResponseID() (*field.LastNetworkResponseID, errors.MessageRejectError) {
-	f := new(field.LastNetworkResponseID)
+func (m NetworkCounterpartySystemStatusResponse) LastNetworkResponseID() (*field.LastNetworkResponseIDField, errors.MessageRejectError) {
+	f := &field.LastNetworkResponseIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastNetworkResponseID reads a LastNetworkResponseID from NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) GetLastNetworkResponseID(f *field.LastNetworkResponseID) errors.MessageRejectError {
+func (m NetworkCounterpartySystemStatusResponse) GetLastNetworkResponseID(f *field.LastNetworkResponseIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoCompIDs is a required field for NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) NoCompIDs() (*field.NoCompIDs, errors.MessageRejectError) {
-	f := new(field.NoCompIDs)
+func (m NetworkCounterpartySystemStatusResponse) NoCompIDs() (*field.NoCompIDsField, errors.MessageRejectError) {
+	f := &field.NoCompIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoCompIDs reads a NoCompIDs from NetworkCounterpartySystemStatusResponse.
-func (m NetworkCounterpartySystemStatusResponse) GetNoCompIDs(f *field.NoCompIDs) errors.MessageRejectError {
+func (m NetworkCounterpartySystemStatusResponse) GetNoCompIDs(f *field.NoCompIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

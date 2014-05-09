@@ -23,170 +23,170 @@ type SettlementObligationReportBuilder struct {
 
 //CreateSettlementObligationReportBuilder returns an initialized SettlementObligationReportBuilder with specified required fields.
 func CreateSettlementObligationReportBuilder(
-	settlobligmsgid field.SettlObligMsgID,
-	settlobligmode field.SettlObligMode) SettlementObligationReportBuilder {
+	settlobligmsgid *field.SettlObligMsgIDField,
+	settlobligmode *field.SettlObligModeField) SettlementObligationReportBuilder {
 	var builder SettlementObligationReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.BuildMsgType("BQ"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("BQ"))
 	builder.Body.Set(settlobligmsgid)
 	builder.Body.Set(settlobligmode)
 	return builder
 }
 
 //ClearingBusinessDate is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) ClearingBusinessDate() (*field.ClearingBusinessDate, errors.MessageRejectError) {
-	f := new(field.ClearingBusinessDate)
+func (m SettlementObligationReport) ClearingBusinessDate() (*field.ClearingBusinessDateField, errors.MessageRejectError) {
+	f := &field.ClearingBusinessDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClearingBusinessDate reads a ClearingBusinessDate from SettlementObligationReport.
-func (m SettlementObligationReport) GetClearingBusinessDate(f *field.ClearingBusinessDate) errors.MessageRejectError {
+func (m SettlementObligationReport) GetClearingBusinessDate(f *field.ClearingBusinessDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlementCycleNo is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) SettlementCycleNo() (*field.SettlementCycleNo, errors.MessageRejectError) {
-	f := new(field.SettlementCycleNo)
+func (m SettlementObligationReport) SettlementCycleNo() (*field.SettlementCycleNoField, errors.MessageRejectError) {
+	f := &field.SettlementCycleNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlementCycleNo reads a SettlementCycleNo from SettlementObligationReport.
-func (m SettlementObligationReport) GetSettlementCycleNo(f *field.SettlementCycleNo) errors.MessageRejectError {
+func (m SettlementObligationReport) GetSettlementCycleNo(f *field.SettlementCycleNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlObligMsgID is a required field for SettlementObligationReport.
-func (m SettlementObligationReport) SettlObligMsgID() (*field.SettlObligMsgID, errors.MessageRejectError) {
-	f := new(field.SettlObligMsgID)
+func (m SettlementObligationReport) SettlObligMsgID() (*field.SettlObligMsgIDField, errors.MessageRejectError) {
+	f := &field.SettlObligMsgIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlObligMsgID reads a SettlObligMsgID from SettlementObligationReport.
-func (m SettlementObligationReport) GetSettlObligMsgID(f *field.SettlObligMsgID) errors.MessageRejectError {
+func (m SettlementObligationReport) GetSettlObligMsgID(f *field.SettlObligMsgIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlObligMode is a required field for SettlementObligationReport.
-func (m SettlementObligationReport) SettlObligMode() (*field.SettlObligMode, errors.MessageRejectError) {
-	f := new(field.SettlObligMode)
+func (m SettlementObligationReport) SettlObligMode() (*field.SettlObligModeField, errors.MessageRejectError) {
+	f := &field.SettlObligModeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlObligMode reads a SettlObligMode from SettlementObligationReport.
-func (m SettlementObligationReport) GetSettlObligMode(f *field.SettlObligMode) errors.MessageRejectError {
+func (m SettlementObligationReport) GetSettlObligMode(f *field.SettlObligModeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m SettlementObligationReport) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from SettlementObligationReport.
-func (m SettlementObligationReport) GetText(f *field.Text) errors.MessageRejectError {
+func (m SettlementObligationReport) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m SettlementObligationReport) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from SettlementObligationReport.
-func (m SettlementObligationReport) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m SettlementObligationReport) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m SettlementObligationReport) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from SettlementObligationReport.
-func (m SettlementObligationReport) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m SettlementObligationReport) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m SettlementObligationReport) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from SettlementObligationReport.
-func (m SettlementObligationReport) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m SettlementObligationReport) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSettlOblig is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) NoSettlOblig() (*field.NoSettlOblig, errors.MessageRejectError) {
-	f := new(field.NoSettlOblig)
+func (m SettlementObligationReport) NoSettlOblig() (*field.NoSettlObligField, errors.MessageRejectError) {
+	f := &field.NoSettlObligField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSettlOblig reads a NoSettlOblig from SettlementObligationReport.
-func (m SettlementObligationReport) GetNoSettlOblig(f *field.NoSettlOblig) errors.MessageRejectError {
+func (m SettlementObligationReport) GetNoSettlOblig(f *field.NoSettlObligField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplID is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) ApplID() (*field.ApplID, errors.MessageRejectError) {
-	f := new(field.ApplID)
+func (m SettlementObligationReport) ApplID() (*field.ApplIDField, errors.MessageRejectError) {
+	f := &field.ApplIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplID reads a ApplID from SettlementObligationReport.
-func (m SettlementObligationReport) GetApplID(f *field.ApplID) errors.MessageRejectError {
+func (m SettlementObligationReport) GetApplID(f *field.ApplIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplSeqNum is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) ApplSeqNum() (*field.ApplSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplSeqNum)
+func (m SettlementObligationReport) ApplSeqNum() (*field.ApplSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplSeqNum reads a ApplSeqNum from SettlementObligationReport.
-func (m SettlementObligationReport) GetApplSeqNum(f *field.ApplSeqNum) errors.MessageRejectError {
+func (m SettlementObligationReport) GetApplSeqNum(f *field.ApplSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplLastSeqNum is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) ApplLastSeqNum() (*field.ApplLastSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplLastSeqNum)
+func (m SettlementObligationReport) ApplLastSeqNum() (*field.ApplLastSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplLastSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplLastSeqNum reads a ApplLastSeqNum from SettlementObligationReport.
-func (m SettlementObligationReport) GetApplLastSeqNum(f *field.ApplLastSeqNum) errors.MessageRejectError {
+func (m SettlementObligationReport) GetApplLastSeqNum(f *field.ApplLastSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplResendFlag is a non-required field for SettlementObligationReport.
-func (m SettlementObligationReport) ApplResendFlag() (*field.ApplResendFlag, errors.MessageRejectError) {
-	f := new(field.ApplResendFlag)
+func (m SettlementObligationReport) ApplResendFlag() (*field.ApplResendFlagField, errors.MessageRejectError) {
+	f := &field.ApplResendFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplResendFlag reads a ApplResendFlag from SettlementObligationReport.
-func (m SettlementObligationReport) GetApplResendFlag(f *field.ApplResendFlag) errors.MessageRejectError {
+func (m SettlementObligationReport) GetApplResendFlag(f *field.ApplResendFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

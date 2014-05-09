@@ -23,15 +23,15 @@ type DontKnowTradeBuilder struct {
 
 //CreateDontKnowTradeBuilder returns an initialized DontKnowTradeBuilder with specified required fields.
 func CreateDontKnowTradeBuilder(
-	orderid field.OrderID,
-	execid field.ExecID,
-	dkreason field.DKReason,
-	side field.Side) DontKnowTradeBuilder {
+	orderid *field.OrderIDField,
+	execid *field.ExecIDField,
+	dkreason *field.DKReasonField,
+	side *field.SideField) DontKnowTradeBuilder {
 	var builder DontKnowTradeBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.BuildMsgType("Q"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("Q"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execid)
 	builder.Body.Set(dkreason)
@@ -40,1093 +40,1093 @@ func CreateDontKnowTradeBuilder(
 }
 
 //OrderID is a required field for DontKnowTrade.
-func (m DontKnowTrade) OrderID() (*field.OrderID, errors.MessageRejectError) {
-	f := new(field.OrderID)
+func (m DontKnowTrade) OrderID() (*field.OrderIDField, errors.MessageRejectError) {
+	f := &field.OrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderID reads a OrderID from DontKnowTrade.
-func (m DontKnowTrade) GetOrderID(f *field.OrderID) errors.MessageRejectError {
+func (m DontKnowTrade) GetOrderID(f *field.OrderIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryOrderID is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecondaryOrderID() (*field.SecondaryOrderID, errors.MessageRejectError) {
-	f := new(field.SecondaryOrderID)
+func (m DontKnowTrade) SecondaryOrderID() (*field.SecondaryOrderIDField, errors.MessageRejectError) {
+	f := &field.SecondaryOrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryOrderID reads a SecondaryOrderID from DontKnowTrade.
-func (m DontKnowTrade) GetSecondaryOrderID(f *field.SecondaryOrderID) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecondaryOrderID(f *field.SecondaryOrderIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecID is a required field for DontKnowTrade.
-func (m DontKnowTrade) ExecID() (*field.ExecID, errors.MessageRejectError) {
-	f := new(field.ExecID)
+func (m DontKnowTrade) ExecID() (*field.ExecIDField, errors.MessageRejectError) {
+	f := &field.ExecIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecID reads a ExecID from DontKnowTrade.
-func (m DontKnowTrade) GetExecID(f *field.ExecID) errors.MessageRejectError {
+func (m DontKnowTrade) GetExecID(f *field.ExecIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DKReason is a required field for DontKnowTrade.
-func (m DontKnowTrade) DKReason() (*field.DKReason, errors.MessageRejectError) {
-	f := new(field.DKReason)
+func (m DontKnowTrade) DKReason() (*field.DKReasonField, errors.MessageRejectError) {
+	f := &field.DKReasonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDKReason reads a DKReason from DontKnowTrade.
-func (m DontKnowTrade) GetDKReason(f *field.DKReason) errors.MessageRejectError {
+func (m DontKnowTrade) GetDKReason(f *field.DKReasonField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m DontKnowTrade) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from DontKnowTrade.
-func (m DontKnowTrade) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m DontKnowTrade) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m DontKnowTrade) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from DontKnowTrade.
-func (m DontKnowTrade) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m DontKnowTrade) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m DontKnowTrade) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m DontKnowTrade) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m DontKnowTrade) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from DontKnowTrade.
-func (m DontKnowTrade) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m DontKnowTrade) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m DontKnowTrade) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from DontKnowTrade.
-func (m DontKnowTrade) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m DontKnowTrade) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m DontKnowTrade) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from DontKnowTrade.
-func (m DontKnowTrade) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m DontKnowTrade) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m DontKnowTrade) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
-	f := new(field.SecuritySubType)
+func (m DontKnowTrade) SecuritySubType() (*field.SecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.SecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySubType reads a SecuritySubType from DontKnowTrade.
-func (m DontKnowTrade) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecuritySubType(f *field.SecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m DontKnowTrade) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from DontKnowTrade.
-func (m DontKnowTrade) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m DontKnowTrade) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m DontKnowTrade) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from DontKnowTrade.
-func (m DontKnowTrade) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m DontKnowTrade) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m DontKnowTrade) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from DontKnowTrade.
-func (m DontKnowTrade) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m DontKnowTrade) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m DontKnowTrade) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from DontKnowTrade.
-func (m DontKnowTrade) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m DontKnowTrade) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m DontKnowTrade) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from DontKnowTrade.
-func (m DontKnowTrade) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m DontKnowTrade) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m DontKnowTrade) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from DontKnowTrade.
-func (m DontKnowTrade) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m DontKnowTrade) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m DontKnowTrade) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from DontKnowTrade.
-func (m DontKnowTrade) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m DontKnowTrade) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m DontKnowTrade) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from DontKnowTrade.
-func (m DontKnowTrade) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m DontKnowTrade) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m DontKnowTrade) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from DontKnowTrade.
-func (m DontKnowTrade) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m DontKnowTrade) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m DontKnowTrade) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from DontKnowTrade.
-func (m DontKnowTrade) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m DontKnowTrade) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m DontKnowTrade) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from DontKnowTrade.
-func (m DontKnowTrade) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m DontKnowTrade) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m DontKnowTrade) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from DontKnowTrade.
-func (m DontKnowTrade) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m DontKnowTrade) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m DontKnowTrade) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from DontKnowTrade.
-func (m DontKnowTrade) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m DontKnowTrade) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m DontKnowTrade) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from DontKnowTrade.
-func (m DontKnowTrade) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m DontKnowTrade) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m DontKnowTrade) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from DontKnowTrade.
-func (m DontKnowTrade) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m DontKnowTrade) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
-	f := new(field.StrikeCurrency)
+func (m DontKnowTrade) StrikeCurrency() (*field.StrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.StrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeCurrency reads a StrikeCurrency from DontKnowTrade.
-func (m DontKnowTrade) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+func (m DontKnowTrade) GetStrikeCurrency(f *field.StrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m DontKnowTrade) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from DontKnowTrade.
-func (m DontKnowTrade) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m DontKnowTrade) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m DontKnowTrade) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from DontKnowTrade.
-func (m DontKnowTrade) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m DontKnowTrade) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m DontKnowTrade) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from DontKnowTrade.
-func (m DontKnowTrade) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m DontKnowTrade) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m DontKnowTrade) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m DontKnowTrade) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from DontKnowTrade.
-func (m DontKnowTrade) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m DontKnowTrade) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m DontKnowTrade) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from DontKnowTrade.
-func (m DontKnowTrade) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m DontKnowTrade) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m DontKnowTrade) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from DontKnowTrade.
-func (m DontKnowTrade) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m DontKnowTrade) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m DontKnowTrade) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m DontKnowTrade) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from DontKnowTrade.
-func (m DontKnowTrade) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m DontKnowTrade) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m DontKnowTrade) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from DontKnowTrade.
-func (m DontKnowTrade) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m DontKnowTrade) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) Pool() (*field.Pool, errors.MessageRejectError) {
-	f := new(field.Pool)
+func (m DontKnowTrade) Pool() (*field.PoolField, errors.MessageRejectError) {
+	f := &field.PoolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPool reads a Pool from DontKnowTrade.
-func (m DontKnowTrade) GetPool(f *field.Pool) errors.MessageRejectError {
+func (m DontKnowTrade) GetPool(f *field.PoolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
-	f := new(field.ContractSettlMonth)
+func (m DontKnowTrade) ContractSettlMonth() (*field.ContractSettlMonthField, errors.MessageRejectError) {
+	f := &field.ContractSettlMonthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractSettlMonth reads a ContractSettlMonth from DontKnowTrade.
-func (m DontKnowTrade) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+func (m DontKnowTrade) GetContractSettlMonth(f *field.ContractSettlMonthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
-	f := new(field.CPProgram)
+func (m DontKnowTrade) CPProgram() (*field.CPProgramField, errors.MessageRejectError) {
+	f := &field.CPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPProgram reads a CPProgram from DontKnowTrade.
-func (m DontKnowTrade) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+func (m DontKnowTrade) GetCPProgram(f *field.CPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
-	f := new(field.CPRegType)
+func (m DontKnowTrade) CPRegType() (*field.CPRegTypeField, errors.MessageRejectError) {
+	f := &field.CPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPRegType reads a CPRegType from DontKnowTrade.
-func (m DontKnowTrade) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+func (m DontKnowTrade) GetCPRegType(f *field.CPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
-	f := new(field.NoEvents)
+func (m DontKnowTrade) NoEvents() (*field.NoEventsField, errors.MessageRejectError) {
+	f := &field.NoEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoEvents reads a NoEvents from DontKnowTrade.
-func (m DontKnowTrade) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+func (m DontKnowTrade) GetNoEvents(f *field.NoEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
-	f := new(field.DatedDate)
+func (m DontKnowTrade) DatedDate() (*field.DatedDateField, errors.MessageRejectError) {
+	f := &field.DatedDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDatedDate reads a DatedDate from DontKnowTrade.
-func (m DontKnowTrade) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+func (m DontKnowTrade) GetDatedDate(f *field.DatedDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
-	f := new(field.InterestAccrualDate)
+func (m DontKnowTrade) InterestAccrualDate() (*field.InterestAccrualDateField, errors.MessageRejectError) {
+	f := &field.InterestAccrualDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAccrualDate reads a InterestAccrualDate from DontKnowTrade.
-func (m DontKnowTrade) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+func (m DontKnowTrade) GetInterestAccrualDate(f *field.InterestAccrualDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityStatus is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityStatus() (*field.SecurityStatus, errors.MessageRejectError) {
-	f := new(field.SecurityStatus)
+func (m DontKnowTrade) SecurityStatus() (*field.SecurityStatusField, errors.MessageRejectError) {
+	f := &field.SecurityStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityStatus reads a SecurityStatus from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityStatus(f *field.SecurityStatus) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityStatus(f *field.SecurityStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettleOnOpenFlag is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SettleOnOpenFlag() (*field.SettleOnOpenFlag, errors.MessageRejectError) {
-	f := new(field.SettleOnOpenFlag)
+func (m DontKnowTrade) SettleOnOpenFlag() (*field.SettleOnOpenFlagField, errors.MessageRejectError) {
+	f := &field.SettleOnOpenFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettleOnOpenFlag reads a SettleOnOpenFlag from DontKnowTrade.
-func (m DontKnowTrade) GetSettleOnOpenFlag(f *field.SettleOnOpenFlag) errors.MessageRejectError {
+func (m DontKnowTrade) GetSettleOnOpenFlag(f *field.SettleOnOpenFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrmtAssignmentMethod is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, errors.MessageRejectError) {
-	f := new(field.InstrmtAssignmentMethod)
+func (m DontKnowTrade) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethodField, errors.MessageRejectError) {
+	f := &field.InstrmtAssignmentMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrmtAssignmentMethod reads a InstrmtAssignmentMethod from DontKnowTrade.
-func (m DontKnowTrade) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethod) errors.MessageRejectError {
+func (m DontKnowTrade) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeMultiplier is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) StrikeMultiplier() (*field.StrikeMultiplier, errors.MessageRejectError) {
-	f := new(field.StrikeMultiplier)
+func (m DontKnowTrade) StrikeMultiplier() (*field.StrikeMultiplierField, errors.MessageRejectError) {
+	f := &field.StrikeMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeMultiplier reads a StrikeMultiplier from DontKnowTrade.
-func (m DontKnowTrade) GetStrikeMultiplier(f *field.StrikeMultiplier) errors.MessageRejectError {
+func (m DontKnowTrade) GetStrikeMultiplier(f *field.StrikeMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeValue is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) StrikeValue() (*field.StrikeValue, errors.MessageRejectError) {
-	f := new(field.StrikeValue)
+func (m DontKnowTrade) StrikeValue() (*field.StrikeValueField, errors.MessageRejectError) {
+	f := &field.StrikeValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeValue reads a StrikeValue from DontKnowTrade.
-func (m DontKnowTrade) GetStrikeValue(f *field.StrikeValue) errors.MessageRejectError {
+func (m DontKnowTrade) GetStrikeValue(f *field.StrikeValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrement is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) MinPriceIncrement() (*field.MinPriceIncrement, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrement)
+func (m DontKnowTrade) MinPriceIncrement() (*field.MinPriceIncrementField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrement reads a MinPriceIncrement from DontKnowTrade.
-func (m DontKnowTrade) GetMinPriceIncrement(f *field.MinPriceIncrement) errors.MessageRejectError {
+func (m DontKnowTrade) GetMinPriceIncrement(f *field.MinPriceIncrementField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PositionLimit is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) PositionLimit() (*field.PositionLimit, errors.MessageRejectError) {
-	f := new(field.PositionLimit)
+func (m DontKnowTrade) PositionLimit() (*field.PositionLimitField, errors.MessageRejectError) {
+	f := &field.PositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPositionLimit reads a PositionLimit from DontKnowTrade.
-func (m DontKnowTrade) GetPositionLimit(f *field.PositionLimit) errors.MessageRejectError {
+func (m DontKnowTrade) GetPositionLimit(f *field.PositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NTPositionLimit is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) NTPositionLimit() (*field.NTPositionLimit, errors.MessageRejectError) {
-	f := new(field.NTPositionLimit)
+func (m DontKnowTrade) NTPositionLimit() (*field.NTPositionLimitField, errors.MessageRejectError) {
+	f := &field.NTPositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNTPositionLimit reads a NTPositionLimit from DontKnowTrade.
-func (m DontKnowTrade) GetNTPositionLimit(f *field.NTPositionLimit) errors.MessageRejectError {
+func (m DontKnowTrade) GetNTPositionLimit(f *field.NTPositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoInstrumentParties is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) NoInstrumentParties() (*field.NoInstrumentParties, errors.MessageRejectError) {
-	f := new(field.NoInstrumentParties)
+func (m DontKnowTrade) NoInstrumentParties() (*field.NoInstrumentPartiesField, errors.MessageRejectError) {
+	f := &field.NoInstrumentPartiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoInstrumentParties reads a NoInstrumentParties from DontKnowTrade.
-func (m DontKnowTrade) GetNoInstrumentParties(f *field.NoInstrumentParties) errors.MessageRejectError {
+func (m DontKnowTrade) GetNoInstrumentParties(f *field.NoInstrumentPartiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasure is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) UnitOfMeasure() (*field.UnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasure)
+func (m DontKnowTrade) UnitOfMeasure() (*field.UnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasure reads a UnitOfMeasure from DontKnowTrade.
-func (m DontKnowTrade) GetUnitOfMeasure(f *field.UnitOfMeasure) errors.MessageRejectError {
+func (m DontKnowTrade) GetUnitOfMeasure(f *field.UnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeUnit is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) TimeUnit() (*field.TimeUnit, errors.MessageRejectError) {
-	f := new(field.TimeUnit)
+func (m DontKnowTrade) TimeUnit() (*field.TimeUnitField, errors.MessageRejectError) {
+	f := &field.TimeUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeUnit reads a TimeUnit from DontKnowTrade.
-func (m DontKnowTrade) GetTimeUnit(f *field.TimeUnit) errors.MessageRejectError {
+func (m DontKnowTrade) GetTimeUnit(f *field.TimeUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityTime is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) MaturityTime() (*field.MaturityTime, errors.MessageRejectError) {
-	f := new(field.MaturityTime)
+func (m DontKnowTrade) MaturityTime() (*field.MaturityTimeField, errors.MessageRejectError) {
+	f := &field.MaturityTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityTime reads a MaturityTime from DontKnowTrade.
-func (m DontKnowTrade) GetMaturityTime(f *field.MaturityTime) errors.MessageRejectError {
+func (m DontKnowTrade) GetMaturityTime(f *field.MaturityTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityGroup is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityGroup() (*field.SecurityGroup, errors.MessageRejectError) {
-	f := new(field.SecurityGroup)
+func (m DontKnowTrade) SecurityGroup() (*field.SecurityGroupField, errors.MessageRejectError) {
+	f := &field.SecurityGroupField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityGroup reads a SecurityGroup from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityGroup(f *field.SecurityGroup) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityGroup(f *field.SecurityGroupField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrementAmount is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) MinPriceIncrementAmount() (*field.MinPriceIncrementAmount, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrementAmount)
+func (m DontKnowTrade) MinPriceIncrementAmount() (*field.MinPriceIncrementAmountField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrementAmount reads a MinPriceIncrementAmount from DontKnowTrade.
-func (m DontKnowTrade) GetMinPriceIncrementAmount(f *field.MinPriceIncrementAmount) errors.MessageRejectError {
+func (m DontKnowTrade) GetMinPriceIncrementAmount(f *field.MinPriceIncrementAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasureQty is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) UnitOfMeasureQty() (*field.UnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasureQty)
+func (m DontKnowTrade) UnitOfMeasureQty() (*field.UnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasureQty reads a UnitOfMeasureQty from DontKnowTrade.
-func (m DontKnowTrade) GetUnitOfMeasureQty(f *field.UnitOfMeasureQty) errors.MessageRejectError {
+func (m DontKnowTrade) GetUnitOfMeasureQty(f *field.UnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXMLLen is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityXMLLen() (*field.SecurityXMLLen, errors.MessageRejectError) {
-	f := new(field.SecurityXMLLen)
+func (m DontKnowTrade) SecurityXMLLen() (*field.SecurityXMLLenField, errors.MessageRejectError) {
+	f := &field.SecurityXMLLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXMLLen reads a SecurityXMLLen from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityXMLLen(f *field.SecurityXMLLen) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityXMLLen(f *field.SecurityXMLLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXML is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityXML() (*field.SecurityXML, errors.MessageRejectError) {
-	f := new(field.SecurityXML)
+func (m DontKnowTrade) SecurityXML() (*field.SecurityXMLField, errors.MessageRejectError) {
+	f := &field.SecurityXMLField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXML reads a SecurityXML from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityXML(f *field.SecurityXML) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityXML(f *field.SecurityXMLField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXMLSchema is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SecurityXMLSchema() (*field.SecurityXMLSchema, errors.MessageRejectError) {
-	f := new(field.SecurityXMLSchema)
+func (m DontKnowTrade) SecurityXMLSchema() (*field.SecurityXMLSchemaField, errors.MessageRejectError) {
+	f := &field.SecurityXMLSchemaField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXMLSchema reads a SecurityXMLSchema from DontKnowTrade.
-func (m DontKnowTrade) GetSecurityXMLSchema(f *field.SecurityXMLSchema) errors.MessageRejectError {
+func (m DontKnowTrade) GetSecurityXMLSchema(f *field.SecurityXMLSchemaField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ProductComplex is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) ProductComplex() (*field.ProductComplex, errors.MessageRejectError) {
-	f := new(field.ProductComplex)
+func (m DontKnowTrade) ProductComplex() (*field.ProductComplexField, errors.MessageRejectError) {
+	f := &field.ProductComplexField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProductComplex reads a ProductComplex from DontKnowTrade.
-func (m DontKnowTrade) GetProductComplex(f *field.ProductComplex) errors.MessageRejectError {
+func (m DontKnowTrade) GetProductComplex(f *field.ProductComplexField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceUnitOfMeasure is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) PriceUnitOfMeasure() (*field.PriceUnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.PriceUnitOfMeasure)
+func (m DontKnowTrade) PriceUnitOfMeasure() (*field.PriceUnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.PriceUnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceUnitOfMeasure reads a PriceUnitOfMeasure from DontKnowTrade.
-func (m DontKnowTrade) GetPriceUnitOfMeasure(f *field.PriceUnitOfMeasure) errors.MessageRejectError {
+func (m DontKnowTrade) GetPriceUnitOfMeasure(f *field.PriceUnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceUnitOfMeasureQty is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.PriceUnitOfMeasureQty)
+func (m DontKnowTrade) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.PriceUnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceUnitOfMeasureQty reads a PriceUnitOfMeasureQty from DontKnowTrade.
-func (m DontKnowTrade) GetPriceUnitOfMeasureQty(f *field.PriceUnitOfMeasureQty) errors.MessageRejectError {
+func (m DontKnowTrade) GetPriceUnitOfMeasureQty(f *field.PriceUnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlMethod is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) SettlMethod() (*field.SettlMethod, errors.MessageRejectError) {
-	f := new(field.SettlMethod)
+func (m DontKnowTrade) SettlMethod() (*field.SettlMethodField, errors.MessageRejectError) {
+	f := &field.SettlMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlMethod reads a SettlMethod from DontKnowTrade.
-func (m DontKnowTrade) GetSettlMethod(f *field.SettlMethod) errors.MessageRejectError {
+func (m DontKnowTrade) GetSettlMethod(f *field.SettlMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExerciseStyle is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) ExerciseStyle() (*field.ExerciseStyle, errors.MessageRejectError) {
-	f := new(field.ExerciseStyle)
+func (m DontKnowTrade) ExerciseStyle() (*field.ExerciseStyleField, errors.MessageRejectError) {
+	f := &field.ExerciseStyleField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExerciseStyle reads a ExerciseStyle from DontKnowTrade.
-func (m DontKnowTrade) GetExerciseStyle(f *field.ExerciseStyle) errors.MessageRejectError {
+func (m DontKnowTrade) GetExerciseStyle(f *field.ExerciseStyleField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptPayAmount is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) OptPayAmount() (*field.OptPayAmount, errors.MessageRejectError) {
-	f := new(field.OptPayAmount)
+func (m DontKnowTrade) OptPayAmount() (*field.OptPayAmountField, errors.MessageRejectError) {
+	f := &field.OptPayAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptPayAmount reads a OptPayAmount from DontKnowTrade.
-func (m DontKnowTrade) GetOptPayAmount(f *field.OptPayAmount) errors.MessageRejectError {
+func (m DontKnowTrade) GetOptPayAmount(f *field.OptPayAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceQuoteMethod is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) PriceQuoteMethod() (*field.PriceQuoteMethod, errors.MessageRejectError) {
-	f := new(field.PriceQuoteMethod)
+func (m DontKnowTrade) PriceQuoteMethod() (*field.PriceQuoteMethodField, errors.MessageRejectError) {
+	f := &field.PriceQuoteMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceQuoteMethod reads a PriceQuoteMethod from DontKnowTrade.
-func (m DontKnowTrade) GetPriceQuoteMethod(f *field.PriceQuoteMethod) errors.MessageRejectError {
+func (m DontKnowTrade) GetPriceQuoteMethod(f *field.PriceQuoteMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListMethod is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) ListMethod() (*field.ListMethod, errors.MessageRejectError) {
-	f := new(field.ListMethod)
+func (m DontKnowTrade) ListMethod() (*field.ListMethodField, errors.MessageRejectError) {
+	f := &field.ListMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListMethod reads a ListMethod from DontKnowTrade.
-func (m DontKnowTrade) GetListMethod(f *field.ListMethod) errors.MessageRejectError {
+func (m DontKnowTrade) GetListMethod(f *field.ListMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CapPrice is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CapPrice() (*field.CapPrice, errors.MessageRejectError) {
-	f := new(field.CapPrice)
+func (m DontKnowTrade) CapPrice() (*field.CapPriceField, errors.MessageRejectError) {
+	f := &field.CapPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCapPrice reads a CapPrice from DontKnowTrade.
-func (m DontKnowTrade) GetCapPrice(f *field.CapPrice) errors.MessageRejectError {
+func (m DontKnowTrade) GetCapPrice(f *field.CapPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FloorPrice is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) FloorPrice() (*field.FloorPrice, errors.MessageRejectError) {
-	f := new(field.FloorPrice)
+func (m DontKnowTrade) FloorPrice() (*field.FloorPriceField, errors.MessageRejectError) {
+	f := &field.FloorPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFloorPrice reads a FloorPrice from DontKnowTrade.
-func (m DontKnowTrade) GetFloorPrice(f *field.FloorPrice) errors.MessageRejectError {
+func (m DontKnowTrade) GetFloorPrice(f *field.FloorPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
-	f := new(field.PutOrCall)
+func (m DontKnowTrade) PutOrCall() (*field.PutOrCallField, errors.MessageRejectError) {
+	f := &field.PutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPutOrCall reads a PutOrCall from DontKnowTrade.
-func (m DontKnowTrade) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+func (m DontKnowTrade) GetPutOrCall(f *field.PutOrCallField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlexibleIndicator is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) FlexibleIndicator() (*field.FlexibleIndicator, errors.MessageRejectError) {
-	f := new(field.FlexibleIndicator)
+func (m DontKnowTrade) FlexibleIndicator() (*field.FlexibleIndicatorField, errors.MessageRejectError) {
+	f := &field.FlexibleIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlexibleIndicator reads a FlexibleIndicator from DontKnowTrade.
-func (m DontKnowTrade) GetFlexibleIndicator(f *field.FlexibleIndicator) errors.MessageRejectError {
+func (m DontKnowTrade) GetFlexibleIndicator(f *field.FlexibleIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlexProductEligibilityIndicator is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicator, errors.MessageRejectError) {
-	f := new(field.FlexProductEligibilityIndicator)
+func (m DontKnowTrade) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicatorField, errors.MessageRejectError) {
+	f := &field.FlexProductEligibilityIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlexProductEligibilityIndicator reads a FlexProductEligibilityIndicator from DontKnowTrade.
-func (m DontKnowTrade) GetFlexProductEligibilityIndicator(f *field.FlexProductEligibilityIndicator) errors.MessageRejectError {
+func (m DontKnowTrade) GetFlexProductEligibilityIndicator(f *field.FlexProductEligibilityIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FuturesValuationMethod is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) FuturesValuationMethod() (*field.FuturesValuationMethod, errors.MessageRejectError) {
-	f := new(field.FuturesValuationMethod)
+func (m DontKnowTrade) FuturesValuationMethod() (*field.FuturesValuationMethodField, errors.MessageRejectError) {
+	f := &field.FuturesValuationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFuturesValuationMethod reads a FuturesValuationMethod from DontKnowTrade.
-func (m DontKnowTrade) GetFuturesValuationMethod(f *field.FuturesValuationMethod) errors.MessageRejectError {
+func (m DontKnowTrade) GetFuturesValuationMethod(f *field.FuturesValuationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
-	f := new(field.NoUnderlyings)
+func (m DontKnowTrade) NoUnderlyings() (*field.NoUnderlyingsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyings reads a NoUnderlyings from DontKnowTrade.
-func (m DontKnowTrade) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+func (m DontKnowTrade) GetNoUnderlyings(f *field.NoUnderlyingsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLegs is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
-	f := new(field.NoLegs)
+func (m DontKnowTrade) NoLegs() (*field.NoLegsField, errors.MessageRejectError) {
+	f := &field.NoLegsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLegs reads a NoLegs from DontKnowTrade.
-func (m DontKnowTrade) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+func (m DontKnowTrade) GetNoLegs(f *field.NoLegsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a required field for DontKnowTrade.
-func (m DontKnowTrade) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m DontKnowTrade) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from DontKnowTrade.
-func (m DontKnowTrade) GetSide(f *field.Side) errors.MessageRejectError {
+func (m DontKnowTrade) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) OrderQty() (*field.OrderQty, errors.MessageRejectError) {
-	f := new(field.OrderQty)
+func (m DontKnowTrade) OrderQty() (*field.OrderQtyField, errors.MessageRejectError) {
+	f := &field.OrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty reads a OrderQty from DontKnowTrade.
-func (m DontKnowTrade) GetOrderQty(f *field.OrderQty) errors.MessageRejectError {
+func (m DontKnowTrade) GetOrderQty(f *field.OrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashOrderQty is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) CashOrderQty() (*field.CashOrderQty, errors.MessageRejectError) {
-	f := new(field.CashOrderQty)
+func (m DontKnowTrade) CashOrderQty() (*field.CashOrderQtyField, errors.MessageRejectError) {
+	f := &field.CashOrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashOrderQty reads a CashOrderQty from DontKnowTrade.
-func (m DontKnowTrade) GetCashOrderQty(f *field.CashOrderQty) errors.MessageRejectError {
+func (m DontKnowTrade) GetCashOrderQty(f *field.CashOrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderPercent is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) OrderPercent() (*field.OrderPercent, errors.MessageRejectError) {
-	f := new(field.OrderPercent)
+func (m DontKnowTrade) OrderPercent() (*field.OrderPercentField, errors.MessageRejectError) {
+	f := &field.OrderPercentField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderPercent reads a OrderPercent from DontKnowTrade.
-func (m DontKnowTrade) GetOrderPercent(f *field.OrderPercent) errors.MessageRejectError {
+func (m DontKnowTrade) GetOrderPercent(f *field.OrderPercentField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RoundingDirection is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) RoundingDirection() (*field.RoundingDirection, errors.MessageRejectError) {
-	f := new(field.RoundingDirection)
+func (m DontKnowTrade) RoundingDirection() (*field.RoundingDirectionField, errors.MessageRejectError) {
+	f := &field.RoundingDirectionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRoundingDirection reads a RoundingDirection from DontKnowTrade.
-func (m DontKnowTrade) GetRoundingDirection(f *field.RoundingDirection) errors.MessageRejectError {
+func (m DontKnowTrade) GetRoundingDirection(f *field.RoundingDirectionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RoundingModulus is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) RoundingModulus() (*field.RoundingModulus, errors.MessageRejectError) {
-	f := new(field.RoundingModulus)
+func (m DontKnowTrade) RoundingModulus() (*field.RoundingModulusField, errors.MessageRejectError) {
+	f := &field.RoundingModulusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRoundingModulus reads a RoundingModulus from DontKnowTrade.
-func (m DontKnowTrade) GetRoundingModulus(f *field.RoundingModulus) errors.MessageRejectError {
+func (m DontKnowTrade) GetRoundingModulus(f *field.RoundingModulusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastQty is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) LastQty() (*field.LastQty, errors.MessageRejectError) {
-	f := new(field.LastQty)
+func (m DontKnowTrade) LastQty() (*field.LastQtyField, errors.MessageRejectError) {
+	f := &field.LastQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastQty reads a LastQty from DontKnowTrade.
-func (m DontKnowTrade) GetLastQty(f *field.LastQty) errors.MessageRejectError {
+func (m DontKnowTrade) GetLastQty(f *field.LastQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastPx is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) LastPx() (*field.LastPx, errors.MessageRejectError) {
-	f := new(field.LastPx)
+func (m DontKnowTrade) LastPx() (*field.LastPxField, errors.MessageRejectError) {
+	f := &field.LastPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastPx reads a LastPx from DontKnowTrade.
-func (m DontKnowTrade) GetLastPx(f *field.LastPx) errors.MessageRejectError {
+func (m DontKnowTrade) GetLastPx(f *field.LastPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m DontKnowTrade) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from DontKnowTrade.
-func (m DontKnowTrade) GetText(f *field.Text) errors.MessageRejectError {
+func (m DontKnowTrade) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m DontKnowTrade) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from DontKnowTrade.
-func (m DontKnowTrade) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m DontKnowTrade) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for DontKnowTrade.
-func (m DontKnowTrade) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m DontKnowTrade) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from DontKnowTrade.
-func (m DontKnowTrade) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m DontKnowTrade) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

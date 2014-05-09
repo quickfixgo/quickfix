@@ -19,13 +19,13 @@ type DerivativeSecurityListBuilder struct {
 
 //CreateDerivativeSecurityListBuilder returns an initialized DerivativeSecurityListBuilder with specified required fields.
 func CreateDerivativeSecurityListBuilder(
-	securityreqid field.SecurityReqID,
-	securityresponseid field.SecurityResponseID,
-	securityrequestresult field.SecurityRequestResult) DerivativeSecurityListBuilder {
+	securityreqid *field.SecurityReqIDField,
+	securityresponseid *field.SecurityResponseIDField,
+	securityrequestresult *field.SecurityRequestResultField) DerivativeSecurityListBuilder {
 	var builder DerivativeSecurityListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.BuildMsgType("AA"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("AA"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)
 	builder.Body.Set(securityrequestresult)
@@ -33,457 +33,457 @@ func CreateDerivativeSecurityListBuilder(
 }
 
 //SecurityReqID is a required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) SecurityReqID() (*field.SecurityReqID, errors.MessageRejectError) {
-	f := new(field.SecurityReqID)
+func (m DerivativeSecurityList) SecurityReqID() (*field.SecurityReqIDField, errors.MessageRejectError) {
+	f := &field.SecurityReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityReqID reads a SecurityReqID from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetSecurityReqID(f *field.SecurityReqID) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetSecurityReqID(f *field.SecurityReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityResponseID is a required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) SecurityResponseID() (*field.SecurityResponseID, errors.MessageRejectError) {
-	f := new(field.SecurityResponseID)
+func (m DerivativeSecurityList) SecurityResponseID() (*field.SecurityResponseIDField, errors.MessageRejectError) {
+	f := &field.SecurityResponseIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityResponseID reads a SecurityResponseID from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetSecurityResponseID(f *field.SecurityResponseID) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetSecurityResponseID(f *field.SecurityResponseIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityRequestResult is a required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) SecurityRequestResult() (*field.SecurityRequestResult, errors.MessageRejectError) {
-	f := new(field.SecurityRequestResult)
+func (m DerivativeSecurityList) SecurityRequestResult() (*field.SecurityRequestResultField, errors.MessageRejectError) {
+	f := &field.SecurityRequestResultField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityRequestResult reads a SecurityRequestResult from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetSecurityRequestResult(f *field.SecurityRequestResult) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetSecurityRequestResult(f *field.SecurityRequestResultField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSymbol is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingSymbol() (*field.UnderlyingSymbol, errors.MessageRejectError) {
-	f := new(field.UnderlyingSymbol)
+func (m DerivativeSecurityList) UnderlyingSymbol() (*field.UnderlyingSymbolField, errors.MessageRejectError) {
+	f := &field.UnderlyingSymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSymbol reads a UnderlyingSymbol from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingSymbol(f *field.UnderlyingSymbol) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingSymbol(f *field.UnderlyingSymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSymbolSfx is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfx, errors.MessageRejectError) {
-	f := new(field.UnderlyingSymbolSfx)
+func (m DerivativeSecurityList) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfxField, errors.MessageRejectError) {
+	f := &field.UnderlyingSymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSymbolSfx reads a UnderlyingSymbolSfx from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingSymbolSfx(f *field.UnderlyingSymbolSfx) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingSymbolSfx(f *field.UnderlyingSymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityID is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingSecurityID() (*field.UnderlyingSecurityID, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityID)
+func (m DerivativeSecurityList) UnderlyingSecurityID() (*field.UnderlyingSecurityIDField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityID reads a UnderlyingSecurityID from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingSecurityID(f *field.UnderlyingSecurityID) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingSecurityID(f *field.UnderlyingSecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityIDSource is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingSecurityIDSource() (*field.UnderlyingSecurityIDSource, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityIDSource)
+func (m DerivativeSecurityList) UnderlyingSecurityIDSource() (*field.UnderlyingSecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityIDSource reads a UnderlyingSecurityIDSource from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingSecurityIDSource(f *field.UnderlyingSecurityIDSource) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingSecurityIDSource(f *field.UnderlyingSecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyingSecurityAltID is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoUnderlyingSecurityAltID)
+func (m DerivativeSecurityList) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyingSecurityAltID reads a NoUnderlyingSecurityAltID from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetNoUnderlyingSecurityAltID(f *field.NoUnderlyingSecurityAltID) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetNoUnderlyingSecurityAltID(f *field.NoUnderlyingSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingProduct is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingProduct() (*field.UnderlyingProduct, errors.MessageRejectError) {
-	f := new(field.UnderlyingProduct)
+func (m DerivativeSecurityList) UnderlyingProduct() (*field.UnderlyingProductField, errors.MessageRejectError) {
+	f := &field.UnderlyingProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingProduct reads a UnderlyingProduct from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingProduct(f *field.UnderlyingProduct) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingProduct(f *field.UnderlyingProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCFICode is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingCFICode() (*field.UnderlyingCFICode, errors.MessageRejectError) {
-	f := new(field.UnderlyingCFICode)
+func (m DerivativeSecurityList) UnderlyingCFICode() (*field.UnderlyingCFICodeField, errors.MessageRejectError) {
+	f := &field.UnderlyingCFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCFICode reads a UnderlyingCFICode from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingCFICode(f *field.UnderlyingCFICode) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingCFICode(f *field.UnderlyingCFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityType is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingSecurityType() (*field.UnderlyingSecurityType, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityType)
+func (m DerivativeSecurityList) UnderlyingSecurityType() (*field.UnderlyingSecurityTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityType reads a UnderlyingSecurityType from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingSecurityType(f *field.UnderlyingSecurityType) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingSecurityType(f *field.UnderlyingSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingMaturityMonthYear is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.UnderlyingMaturityMonthYear)
+func (m DerivativeSecurityList) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.UnderlyingMaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingMaturityMonthYear reads a UnderlyingMaturityMonthYear from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingMaturityMonthYear(f *field.UnderlyingMaturityMonthYear) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingMaturityMonthYear(f *field.UnderlyingMaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingMaturityDate is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingMaturityDate() (*field.UnderlyingMaturityDate, errors.MessageRejectError) {
-	f := new(field.UnderlyingMaturityDate)
+func (m DerivativeSecurityList) UnderlyingMaturityDate() (*field.UnderlyingMaturityDateField, errors.MessageRejectError) {
+	f := &field.UnderlyingMaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingMaturityDate reads a UnderlyingMaturityDate from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingMaturityDate(f *field.UnderlyingMaturityDate) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingMaturityDate(f *field.UnderlyingMaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCouponPaymentDate is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.UnderlyingCouponPaymentDate)
+func (m DerivativeSecurityList) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.UnderlyingCouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCouponPaymentDate reads a UnderlyingCouponPaymentDate from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingCouponPaymentDate(f *field.UnderlyingCouponPaymentDate) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingCouponPaymentDate(f *field.UnderlyingCouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingIssueDate is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingIssueDate() (*field.UnderlyingIssueDate, errors.MessageRejectError) {
-	f := new(field.UnderlyingIssueDate)
+func (m DerivativeSecurityList) UnderlyingIssueDate() (*field.UnderlyingIssueDateField, errors.MessageRejectError) {
+	f := &field.UnderlyingIssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingIssueDate reads a UnderlyingIssueDate from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingIssueDate(f *field.UnderlyingIssueDate) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingIssueDate(f *field.UnderlyingIssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRepoCollateralSecurityType is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingRepoCollateralSecurityType() (*field.UnderlyingRepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.UnderlyingRepoCollateralSecurityType)
+func (m DerivativeSecurityList) UnderlyingRepoCollateralSecurityType() (*field.UnderlyingRepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingRepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRepoCollateralSecurityType reads a UnderlyingRepoCollateralSecurityType from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingRepoCollateralSecurityType(f *field.UnderlyingRepoCollateralSecurityType) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingRepoCollateralSecurityType(f *field.UnderlyingRepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRepurchaseTerm is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.UnderlyingRepurchaseTerm)
+func (m DerivativeSecurityList) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTermField, errors.MessageRejectError) {
+	f := &field.UnderlyingRepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRepurchaseTerm reads a UnderlyingRepurchaseTerm from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingRepurchaseTerm(f *field.UnderlyingRepurchaseTerm) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingRepurchaseTerm(f *field.UnderlyingRepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRepurchaseRate is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingRepurchaseRate() (*field.UnderlyingRepurchaseRate, errors.MessageRejectError) {
-	f := new(field.UnderlyingRepurchaseRate)
+func (m DerivativeSecurityList) UnderlyingRepurchaseRate() (*field.UnderlyingRepurchaseRateField, errors.MessageRejectError) {
+	f := &field.UnderlyingRepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRepurchaseRate reads a UnderlyingRepurchaseRate from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingRepurchaseRate(f *field.UnderlyingRepurchaseRate) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingRepurchaseRate(f *field.UnderlyingRepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingFactor is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingFactor() (*field.UnderlyingFactor, errors.MessageRejectError) {
-	f := new(field.UnderlyingFactor)
+func (m DerivativeSecurityList) UnderlyingFactor() (*field.UnderlyingFactorField, errors.MessageRejectError) {
+	f := &field.UnderlyingFactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingFactor reads a UnderlyingFactor from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingFactor(f *field.UnderlyingFactor) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingFactor(f *field.UnderlyingFactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCreditRating is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingCreditRating() (*field.UnderlyingCreditRating, errors.MessageRejectError) {
-	f := new(field.UnderlyingCreditRating)
+func (m DerivativeSecurityList) UnderlyingCreditRating() (*field.UnderlyingCreditRatingField, errors.MessageRejectError) {
+	f := &field.UnderlyingCreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCreditRating reads a UnderlyingCreditRating from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingCreditRating(f *field.UnderlyingCreditRating) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingCreditRating(f *field.UnderlyingCreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingInstrRegistry is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistry, errors.MessageRejectError) {
-	f := new(field.UnderlyingInstrRegistry)
+func (m DerivativeSecurityList) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistryField, errors.MessageRejectError) {
+	f := &field.UnderlyingInstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingInstrRegistry reads a UnderlyingInstrRegistry from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingInstrRegistry(f *field.UnderlyingInstrRegistry) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingInstrRegistry(f *field.UnderlyingInstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCountryOfIssue is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssue, errors.MessageRejectError) {
-	f := new(field.UnderlyingCountryOfIssue)
+func (m DerivativeSecurityList) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssueField, errors.MessageRejectError) {
+	f := &field.UnderlyingCountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCountryOfIssue reads a UnderlyingCountryOfIssue from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingCountryOfIssue(f *field.UnderlyingCountryOfIssue) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingCountryOfIssue(f *field.UnderlyingCountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingStateOrProvinceOfIssue is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingStateOrProvinceOfIssue() (*field.UnderlyingStateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.UnderlyingStateOrProvinceOfIssue)
+func (m DerivativeSecurityList) UnderlyingStateOrProvinceOfIssue() (*field.UnderlyingStateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.UnderlyingStateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingStateOrProvinceOfIssue reads a UnderlyingStateOrProvinceOfIssue from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingStateOrProvinceOfIssue(f *field.UnderlyingStateOrProvinceOfIssue) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingStateOrProvinceOfIssue(f *field.UnderlyingStateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingLocaleOfIssue is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingLocaleOfIssue() (*field.UnderlyingLocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.UnderlyingLocaleOfIssue)
+func (m DerivativeSecurityList) UnderlyingLocaleOfIssue() (*field.UnderlyingLocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.UnderlyingLocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingLocaleOfIssue reads a UnderlyingLocaleOfIssue from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingLocaleOfIssue(f *field.UnderlyingLocaleOfIssue) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingLocaleOfIssue(f *field.UnderlyingLocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRedemptionDate is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDate, errors.MessageRejectError) {
-	f := new(field.UnderlyingRedemptionDate)
+func (m DerivativeSecurityList) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDateField, errors.MessageRejectError) {
+	f := &field.UnderlyingRedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRedemptionDate reads a UnderlyingRedemptionDate from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingRedemptionDate(f *field.UnderlyingRedemptionDate) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingRedemptionDate(f *field.UnderlyingRedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingStrikePrice is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingStrikePrice() (*field.UnderlyingStrikePrice, errors.MessageRejectError) {
-	f := new(field.UnderlyingStrikePrice)
+func (m DerivativeSecurityList) UnderlyingStrikePrice() (*field.UnderlyingStrikePriceField, errors.MessageRejectError) {
+	f := &field.UnderlyingStrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingStrikePrice reads a UnderlyingStrikePrice from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingStrikePrice(f *field.UnderlyingStrikePrice) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingStrikePrice(f *field.UnderlyingStrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingOptAttribute is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingOptAttribute() (*field.UnderlyingOptAttribute, errors.MessageRejectError) {
-	f := new(field.UnderlyingOptAttribute)
+func (m DerivativeSecurityList) UnderlyingOptAttribute() (*field.UnderlyingOptAttributeField, errors.MessageRejectError) {
+	f := &field.UnderlyingOptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingOptAttribute reads a UnderlyingOptAttribute from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingOptAttribute(f *field.UnderlyingOptAttribute) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingOptAttribute(f *field.UnderlyingOptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingContractMultiplier is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingContractMultiplier() (*field.UnderlyingContractMultiplier, errors.MessageRejectError) {
-	f := new(field.UnderlyingContractMultiplier)
+func (m DerivativeSecurityList) UnderlyingContractMultiplier() (*field.UnderlyingContractMultiplierField, errors.MessageRejectError) {
+	f := &field.UnderlyingContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingContractMultiplier reads a UnderlyingContractMultiplier from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingContractMultiplier(f *field.UnderlyingContractMultiplier) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingContractMultiplier(f *field.UnderlyingContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCouponRate is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingCouponRate() (*field.UnderlyingCouponRate, errors.MessageRejectError) {
-	f := new(field.UnderlyingCouponRate)
+func (m DerivativeSecurityList) UnderlyingCouponRate() (*field.UnderlyingCouponRateField, errors.MessageRejectError) {
+	f := &field.UnderlyingCouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCouponRate reads a UnderlyingCouponRate from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingCouponRate(f *field.UnderlyingCouponRate) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingCouponRate(f *field.UnderlyingCouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityExchange is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchange, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityExchange)
+func (m DerivativeSecurityList) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchangeField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityExchange reads a UnderlyingSecurityExchange from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingSecurityExchange(f *field.UnderlyingSecurityExchange) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingSecurityExchange(f *field.UnderlyingSecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingIssuer is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingIssuer() (*field.UnderlyingIssuer, errors.MessageRejectError) {
-	f := new(field.UnderlyingIssuer)
+func (m DerivativeSecurityList) UnderlyingIssuer() (*field.UnderlyingIssuerField, errors.MessageRejectError) {
+	f := &field.UnderlyingIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingIssuer reads a UnderlyingIssuer from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingIssuer(f *field.UnderlyingIssuer) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingIssuer(f *field.UnderlyingIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedUnderlyingIssuerLen is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedUnderlyingIssuerLen)
+func (m DerivativeSecurityList) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedUnderlyingIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedUnderlyingIssuerLen reads a EncodedUnderlyingIssuerLen from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetEncodedUnderlyingIssuerLen(f *field.EncodedUnderlyingIssuerLen) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetEncodedUnderlyingIssuerLen(f *field.EncodedUnderlyingIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedUnderlyingIssuer is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) EncodedUnderlyingIssuer() (*field.EncodedUnderlyingIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedUnderlyingIssuer)
+func (m DerivativeSecurityList) EncodedUnderlyingIssuer() (*field.EncodedUnderlyingIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedUnderlyingIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedUnderlyingIssuer reads a EncodedUnderlyingIssuer from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetEncodedUnderlyingIssuer(f *field.EncodedUnderlyingIssuer) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetEncodedUnderlyingIssuer(f *field.EncodedUnderlyingIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityDesc is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDesc, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityDesc)
+func (m DerivativeSecurityList) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDescField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityDesc reads a UnderlyingSecurityDesc from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetUnderlyingSecurityDesc(f *field.UnderlyingSecurityDesc) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetUnderlyingSecurityDesc(f *field.UnderlyingSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedUnderlyingSecurityDescLen is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedUnderlyingSecurityDescLen)
+func (m DerivativeSecurityList) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedUnderlyingSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedUnderlyingSecurityDescLen reads a EncodedUnderlyingSecurityDescLen from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetEncodedUnderlyingSecurityDescLen(f *field.EncodedUnderlyingSecurityDescLen) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetEncodedUnderlyingSecurityDescLen(f *field.EncodedUnderlyingSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedUnderlyingSecurityDesc is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) EncodedUnderlyingSecurityDesc() (*field.EncodedUnderlyingSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedUnderlyingSecurityDesc)
+func (m DerivativeSecurityList) EncodedUnderlyingSecurityDesc() (*field.EncodedUnderlyingSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedUnderlyingSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedUnderlyingSecurityDesc reads a EncodedUnderlyingSecurityDesc from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetEncodedUnderlyingSecurityDesc(f *field.EncodedUnderlyingSecurityDesc) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetEncodedUnderlyingSecurityDesc(f *field.EncodedUnderlyingSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TotalNumSecurities is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) TotalNumSecurities() (*field.TotalNumSecurities, errors.MessageRejectError) {
-	f := new(field.TotalNumSecurities)
+func (m DerivativeSecurityList) TotalNumSecurities() (*field.TotalNumSecuritiesField, errors.MessageRejectError) {
+	f := &field.TotalNumSecuritiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTotalNumSecurities reads a TotalNumSecurities from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetTotalNumSecurities(f *field.TotalNumSecurities) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetTotalNumSecurities(f *field.TotalNumSecuritiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a non-required field for DerivativeSecurityList.
-func (m DerivativeSecurityList) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
-	f := new(field.NoRelatedSym)
+func (m DerivativeSecurityList) NoRelatedSym() (*field.NoRelatedSymField, errors.MessageRejectError) {
+	f := &field.NoRelatedSymField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRelatedSym reads a NoRelatedSym from DerivativeSecurityList.
-func (m DerivativeSecurityList) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+func (m DerivativeSecurityList) GetNoRelatedSym(f *field.NoRelatedSymField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

@@ -23,15 +23,15 @@ type RequestForPositionsBuilder struct {
 
 //CreateRequestForPositionsBuilder returns an initialized RequestForPositionsBuilder with specified required fields.
 func CreateRequestForPositionsBuilder(
-	posreqid field.PosReqID,
-	posreqtype field.PosReqType,
-	clearingbusinessdate field.ClearingBusinessDate,
-	transacttime field.TransactTime) RequestForPositionsBuilder {
+	posreqid *field.PosReqIDField,
+	posreqtype *field.PosReqTypeField,
+	clearingbusinessdate *field.ClearingBusinessDateField,
+	transacttime *field.TransactTimeField) RequestForPositionsBuilder {
 	var builder RequestForPositionsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.BuildMsgType("AN"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("AN"))
 	builder.Body.Set(posreqid)
 	builder.Body.Set(posreqtype)
 	builder.Body.Set(clearingbusinessdate)
@@ -40,913 +40,913 @@ func CreateRequestForPositionsBuilder(
 }
 
 //PosReqID is a required field for RequestForPositions.
-func (m RequestForPositions) PosReqID() (*field.PosReqID, errors.MessageRejectError) {
-	f := new(field.PosReqID)
+func (m RequestForPositions) PosReqID() (*field.PosReqIDField, errors.MessageRejectError) {
+	f := &field.PosReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPosReqID reads a PosReqID from RequestForPositions.
-func (m RequestForPositions) GetPosReqID(f *field.PosReqID) errors.MessageRejectError {
+func (m RequestForPositions) GetPosReqID(f *field.PosReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PosReqType is a required field for RequestForPositions.
-func (m RequestForPositions) PosReqType() (*field.PosReqType, errors.MessageRejectError) {
-	f := new(field.PosReqType)
+func (m RequestForPositions) PosReqType() (*field.PosReqTypeField, errors.MessageRejectError) {
+	f := &field.PosReqTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPosReqType reads a PosReqType from RequestForPositions.
-func (m RequestForPositions) GetPosReqType(f *field.PosReqType) errors.MessageRejectError {
+func (m RequestForPositions) GetPosReqType(f *field.PosReqTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MatchStatus is a non-required field for RequestForPositions.
-func (m RequestForPositions) MatchStatus() (*field.MatchStatus, errors.MessageRejectError) {
-	f := new(field.MatchStatus)
+func (m RequestForPositions) MatchStatus() (*field.MatchStatusField, errors.MessageRejectError) {
+	f := &field.MatchStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMatchStatus reads a MatchStatus from RequestForPositions.
-func (m RequestForPositions) GetMatchStatus(f *field.MatchStatus) errors.MessageRejectError {
+func (m RequestForPositions) GetMatchStatus(f *field.MatchStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SubscriptionRequestType is a non-required field for RequestForPositions.
-func (m RequestForPositions) SubscriptionRequestType() (*field.SubscriptionRequestType, errors.MessageRejectError) {
-	f := new(field.SubscriptionRequestType)
+func (m RequestForPositions) SubscriptionRequestType() (*field.SubscriptionRequestTypeField, errors.MessageRejectError) {
+	f := &field.SubscriptionRequestTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSubscriptionRequestType reads a SubscriptionRequestType from RequestForPositions.
-func (m RequestForPositions) GetSubscriptionRequestType(f *field.SubscriptionRequestType) errors.MessageRejectError {
+func (m RequestForPositions) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for RequestForPositions.
-func (m RequestForPositions) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m RequestForPositions) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from RequestForPositions.
-func (m RequestForPositions) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m RequestForPositions) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for RequestForPositions.
-func (m RequestForPositions) Account() (*field.Account, errors.MessageRejectError) {
-	f := new(field.Account)
+func (m RequestForPositions) Account() (*field.AccountField, errors.MessageRejectError) {
+	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from RequestForPositions.
-func (m RequestForPositions) GetAccount(f *field.Account) errors.MessageRejectError {
+func (m RequestForPositions) GetAccount(f *field.AccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AcctIDSource is a non-required field for RequestForPositions.
-func (m RequestForPositions) AcctIDSource() (*field.AcctIDSource, errors.MessageRejectError) {
-	f := new(field.AcctIDSource)
+func (m RequestForPositions) AcctIDSource() (*field.AcctIDSourceField, errors.MessageRejectError) {
+	f := &field.AcctIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAcctIDSource reads a AcctIDSource from RequestForPositions.
-func (m RequestForPositions) GetAcctIDSource(f *field.AcctIDSource) errors.MessageRejectError {
+func (m RequestForPositions) GetAcctIDSource(f *field.AcctIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AccountType is a non-required field for RequestForPositions.
-func (m RequestForPositions) AccountType() (*field.AccountType, errors.MessageRejectError) {
-	f := new(field.AccountType)
+func (m RequestForPositions) AccountType() (*field.AccountTypeField, errors.MessageRejectError) {
+	f := &field.AccountTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccountType reads a AccountType from RequestForPositions.
-func (m RequestForPositions) GetAccountType(f *field.AccountType) errors.MessageRejectError {
+func (m RequestForPositions) GetAccountType(f *field.AccountTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for RequestForPositions.
-func (m RequestForPositions) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m RequestForPositions) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from RequestForPositions.
-func (m RequestForPositions) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m RequestForPositions) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for RequestForPositions.
-func (m RequestForPositions) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m RequestForPositions) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from RequestForPositions.
-func (m RequestForPositions) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m RequestForPositions) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for RequestForPositions.
-func (m RequestForPositions) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m RequestForPositions) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from RequestForPositions.
-func (m RequestForPositions) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m RequestForPositions) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for RequestForPositions.
-func (m RequestForPositions) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m RequestForPositions) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from RequestForPositions.
-func (m RequestForPositions) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m RequestForPositions) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for RequestForPositions.
-func (m RequestForPositions) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m RequestForPositions) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from RequestForPositions.
-func (m RequestForPositions) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m RequestForPositions) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for RequestForPositions.
-func (m RequestForPositions) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m RequestForPositions) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from RequestForPositions.
-func (m RequestForPositions) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m RequestForPositions) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for RequestForPositions.
-func (m RequestForPositions) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m RequestForPositions) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from RequestForPositions.
-func (m RequestForPositions) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m RequestForPositions) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for RequestForPositions.
-func (m RequestForPositions) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m RequestForPositions) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from RequestForPositions.
-func (m RequestForPositions) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m RequestForPositions) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for RequestForPositions.
-func (m RequestForPositions) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
-	f := new(field.SecuritySubType)
+func (m RequestForPositions) SecuritySubType() (*field.SecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.SecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySubType reads a SecuritySubType from RequestForPositions.
-func (m RequestForPositions) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+func (m RequestForPositions) GetSecuritySubType(f *field.SecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for RequestForPositions.
-func (m RequestForPositions) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m RequestForPositions) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from RequestForPositions.
-func (m RequestForPositions) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m RequestForPositions) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for RequestForPositions.
-func (m RequestForPositions) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m RequestForPositions) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from RequestForPositions.
-func (m RequestForPositions) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m RequestForPositions) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for RequestForPositions.
-func (m RequestForPositions) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m RequestForPositions) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from RequestForPositions.
-func (m RequestForPositions) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m RequestForPositions) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for RequestForPositions.
-func (m RequestForPositions) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m RequestForPositions) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from RequestForPositions.
-func (m RequestForPositions) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m RequestForPositions) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for RequestForPositions.
-func (m RequestForPositions) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m RequestForPositions) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from RequestForPositions.
-func (m RequestForPositions) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m RequestForPositions) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for RequestForPositions.
-func (m RequestForPositions) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m RequestForPositions) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from RequestForPositions.
-func (m RequestForPositions) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m RequestForPositions) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for RequestForPositions.
-func (m RequestForPositions) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m RequestForPositions) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from RequestForPositions.
-func (m RequestForPositions) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m RequestForPositions) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for RequestForPositions.
-func (m RequestForPositions) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m RequestForPositions) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from RequestForPositions.
-func (m RequestForPositions) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m RequestForPositions) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for RequestForPositions.
-func (m RequestForPositions) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m RequestForPositions) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from RequestForPositions.
-func (m RequestForPositions) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m RequestForPositions) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for RequestForPositions.
-func (m RequestForPositions) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m RequestForPositions) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from RequestForPositions.
-func (m RequestForPositions) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m RequestForPositions) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for RequestForPositions.
-func (m RequestForPositions) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m RequestForPositions) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from RequestForPositions.
-func (m RequestForPositions) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m RequestForPositions) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for RequestForPositions.
-func (m RequestForPositions) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m RequestForPositions) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from RequestForPositions.
-func (m RequestForPositions) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m RequestForPositions) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for RequestForPositions.
-func (m RequestForPositions) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m RequestForPositions) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from RequestForPositions.
-func (m RequestForPositions) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m RequestForPositions) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for RequestForPositions.
-func (m RequestForPositions) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m RequestForPositions) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from RequestForPositions.
-func (m RequestForPositions) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m RequestForPositions) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for RequestForPositions.
-func (m RequestForPositions) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m RequestForPositions) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from RequestForPositions.
-func (m RequestForPositions) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m RequestForPositions) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for RequestForPositions.
-func (m RequestForPositions) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
-	f := new(field.StrikeCurrency)
+func (m RequestForPositions) StrikeCurrency() (*field.StrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.StrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeCurrency reads a StrikeCurrency from RequestForPositions.
-func (m RequestForPositions) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+func (m RequestForPositions) GetStrikeCurrency(f *field.StrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for RequestForPositions.
-func (m RequestForPositions) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m RequestForPositions) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from RequestForPositions.
-func (m RequestForPositions) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m RequestForPositions) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for RequestForPositions.
-func (m RequestForPositions) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m RequestForPositions) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from RequestForPositions.
-func (m RequestForPositions) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m RequestForPositions) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for RequestForPositions.
-func (m RequestForPositions) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m RequestForPositions) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from RequestForPositions.
-func (m RequestForPositions) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m RequestForPositions) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for RequestForPositions.
-func (m RequestForPositions) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m RequestForPositions) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from RequestForPositions.
-func (m RequestForPositions) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m RequestForPositions) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for RequestForPositions.
-func (m RequestForPositions) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m RequestForPositions) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from RequestForPositions.
-func (m RequestForPositions) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m RequestForPositions) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for RequestForPositions.
-func (m RequestForPositions) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m RequestForPositions) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from RequestForPositions.
-func (m RequestForPositions) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m RequestForPositions) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for RequestForPositions.
-func (m RequestForPositions) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m RequestForPositions) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from RequestForPositions.
-func (m RequestForPositions) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m RequestForPositions) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for RequestForPositions.
-func (m RequestForPositions) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m RequestForPositions) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from RequestForPositions.
-func (m RequestForPositions) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m RequestForPositions) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for RequestForPositions.
-func (m RequestForPositions) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m RequestForPositions) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from RequestForPositions.
-func (m RequestForPositions) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m RequestForPositions) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for RequestForPositions.
-func (m RequestForPositions) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m RequestForPositions) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from RequestForPositions.
-func (m RequestForPositions) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m RequestForPositions) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for RequestForPositions.
-func (m RequestForPositions) Pool() (*field.Pool, errors.MessageRejectError) {
-	f := new(field.Pool)
+func (m RequestForPositions) Pool() (*field.PoolField, errors.MessageRejectError) {
+	f := &field.PoolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPool reads a Pool from RequestForPositions.
-func (m RequestForPositions) GetPool(f *field.Pool) errors.MessageRejectError {
+func (m RequestForPositions) GetPool(f *field.PoolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for RequestForPositions.
-func (m RequestForPositions) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
-	f := new(field.ContractSettlMonth)
+func (m RequestForPositions) ContractSettlMonth() (*field.ContractSettlMonthField, errors.MessageRejectError) {
+	f := &field.ContractSettlMonthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractSettlMonth reads a ContractSettlMonth from RequestForPositions.
-func (m RequestForPositions) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+func (m RequestForPositions) GetContractSettlMonth(f *field.ContractSettlMonthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for RequestForPositions.
-func (m RequestForPositions) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
-	f := new(field.CPProgram)
+func (m RequestForPositions) CPProgram() (*field.CPProgramField, errors.MessageRejectError) {
+	f := &field.CPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPProgram reads a CPProgram from RequestForPositions.
-func (m RequestForPositions) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+func (m RequestForPositions) GetCPProgram(f *field.CPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for RequestForPositions.
-func (m RequestForPositions) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
-	f := new(field.CPRegType)
+func (m RequestForPositions) CPRegType() (*field.CPRegTypeField, errors.MessageRejectError) {
+	f := &field.CPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPRegType reads a CPRegType from RequestForPositions.
-func (m RequestForPositions) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+func (m RequestForPositions) GetCPRegType(f *field.CPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for RequestForPositions.
-func (m RequestForPositions) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
-	f := new(field.NoEvents)
+func (m RequestForPositions) NoEvents() (*field.NoEventsField, errors.MessageRejectError) {
+	f := &field.NoEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoEvents reads a NoEvents from RequestForPositions.
-func (m RequestForPositions) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+func (m RequestForPositions) GetNoEvents(f *field.NoEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for RequestForPositions.
-func (m RequestForPositions) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
-	f := new(field.DatedDate)
+func (m RequestForPositions) DatedDate() (*field.DatedDateField, errors.MessageRejectError) {
+	f := &field.DatedDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDatedDate reads a DatedDate from RequestForPositions.
-func (m RequestForPositions) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+func (m RequestForPositions) GetDatedDate(f *field.DatedDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for RequestForPositions.
-func (m RequestForPositions) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
-	f := new(field.InterestAccrualDate)
+func (m RequestForPositions) InterestAccrualDate() (*field.InterestAccrualDateField, errors.MessageRejectError) {
+	f := &field.InterestAccrualDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAccrualDate reads a InterestAccrualDate from RequestForPositions.
-func (m RequestForPositions) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+func (m RequestForPositions) GetInterestAccrualDate(f *field.InterestAccrualDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityStatus is a non-required field for RequestForPositions.
-func (m RequestForPositions) SecurityStatus() (*field.SecurityStatus, errors.MessageRejectError) {
-	f := new(field.SecurityStatus)
+func (m RequestForPositions) SecurityStatus() (*field.SecurityStatusField, errors.MessageRejectError) {
+	f := &field.SecurityStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityStatus reads a SecurityStatus from RequestForPositions.
-func (m RequestForPositions) GetSecurityStatus(f *field.SecurityStatus) errors.MessageRejectError {
+func (m RequestForPositions) GetSecurityStatus(f *field.SecurityStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettleOnOpenFlag is a non-required field for RequestForPositions.
-func (m RequestForPositions) SettleOnOpenFlag() (*field.SettleOnOpenFlag, errors.MessageRejectError) {
-	f := new(field.SettleOnOpenFlag)
+func (m RequestForPositions) SettleOnOpenFlag() (*field.SettleOnOpenFlagField, errors.MessageRejectError) {
+	f := &field.SettleOnOpenFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettleOnOpenFlag reads a SettleOnOpenFlag from RequestForPositions.
-func (m RequestForPositions) GetSettleOnOpenFlag(f *field.SettleOnOpenFlag) errors.MessageRejectError {
+func (m RequestForPositions) GetSettleOnOpenFlag(f *field.SettleOnOpenFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrmtAssignmentMethod is a non-required field for RequestForPositions.
-func (m RequestForPositions) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, errors.MessageRejectError) {
-	f := new(field.InstrmtAssignmentMethod)
+func (m RequestForPositions) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethodField, errors.MessageRejectError) {
+	f := &field.InstrmtAssignmentMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrmtAssignmentMethod reads a InstrmtAssignmentMethod from RequestForPositions.
-func (m RequestForPositions) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethod) errors.MessageRejectError {
+func (m RequestForPositions) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeMultiplier is a non-required field for RequestForPositions.
-func (m RequestForPositions) StrikeMultiplier() (*field.StrikeMultiplier, errors.MessageRejectError) {
-	f := new(field.StrikeMultiplier)
+func (m RequestForPositions) StrikeMultiplier() (*field.StrikeMultiplierField, errors.MessageRejectError) {
+	f := &field.StrikeMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeMultiplier reads a StrikeMultiplier from RequestForPositions.
-func (m RequestForPositions) GetStrikeMultiplier(f *field.StrikeMultiplier) errors.MessageRejectError {
+func (m RequestForPositions) GetStrikeMultiplier(f *field.StrikeMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeValue is a non-required field for RequestForPositions.
-func (m RequestForPositions) StrikeValue() (*field.StrikeValue, errors.MessageRejectError) {
-	f := new(field.StrikeValue)
+func (m RequestForPositions) StrikeValue() (*field.StrikeValueField, errors.MessageRejectError) {
+	f := &field.StrikeValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeValue reads a StrikeValue from RequestForPositions.
-func (m RequestForPositions) GetStrikeValue(f *field.StrikeValue) errors.MessageRejectError {
+func (m RequestForPositions) GetStrikeValue(f *field.StrikeValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrement is a non-required field for RequestForPositions.
-func (m RequestForPositions) MinPriceIncrement() (*field.MinPriceIncrement, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrement)
+func (m RequestForPositions) MinPriceIncrement() (*field.MinPriceIncrementField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrement reads a MinPriceIncrement from RequestForPositions.
-func (m RequestForPositions) GetMinPriceIncrement(f *field.MinPriceIncrement) errors.MessageRejectError {
+func (m RequestForPositions) GetMinPriceIncrement(f *field.MinPriceIncrementField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PositionLimit is a non-required field for RequestForPositions.
-func (m RequestForPositions) PositionLimit() (*field.PositionLimit, errors.MessageRejectError) {
-	f := new(field.PositionLimit)
+func (m RequestForPositions) PositionLimit() (*field.PositionLimitField, errors.MessageRejectError) {
+	f := &field.PositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPositionLimit reads a PositionLimit from RequestForPositions.
-func (m RequestForPositions) GetPositionLimit(f *field.PositionLimit) errors.MessageRejectError {
+func (m RequestForPositions) GetPositionLimit(f *field.PositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NTPositionLimit is a non-required field for RequestForPositions.
-func (m RequestForPositions) NTPositionLimit() (*field.NTPositionLimit, errors.MessageRejectError) {
-	f := new(field.NTPositionLimit)
+func (m RequestForPositions) NTPositionLimit() (*field.NTPositionLimitField, errors.MessageRejectError) {
+	f := &field.NTPositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNTPositionLimit reads a NTPositionLimit from RequestForPositions.
-func (m RequestForPositions) GetNTPositionLimit(f *field.NTPositionLimit) errors.MessageRejectError {
+func (m RequestForPositions) GetNTPositionLimit(f *field.NTPositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoInstrumentParties is a non-required field for RequestForPositions.
-func (m RequestForPositions) NoInstrumentParties() (*field.NoInstrumentParties, errors.MessageRejectError) {
-	f := new(field.NoInstrumentParties)
+func (m RequestForPositions) NoInstrumentParties() (*field.NoInstrumentPartiesField, errors.MessageRejectError) {
+	f := &field.NoInstrumentPartiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoInstrumentParties reads a NoInstrumentParties from RequestForPositions.
-func (m RequestForPositions) GetNoInstrumentParties(f *field.NoInstrumentParties) errors.MessageRejectError {
+func (m RequestForPositions) GetNoInstrumentParties(f *field.NoInstrumentPartiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasure is a non-required field for RequestForPositions.
-func (m RequestForPositions) UnitOfMeasure() (*field.UnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasure)
+func (m RequestForPositions) UnitOfMeasure() (*field.UnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasure reads a UnitOfMeasure from RequestForPositions.
-func (m RequestForPositions) GetUnitOfMeasure(f *field.UnitOfMeasure) errors.MessageRejectError {
+func (m RequestForPositions) GetUnitOfMeasure(f *field.UnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeUnit is a non-required field for RequestForPositions.
-func (m RequestForPositions) TimeUnit() (*field.TimeUnit, errors.MessageRejectError) {
-	f := new(field.TimeUnit)
+func (m RequestForPositions) TimeUnit() (*field.TimeUnitField, errors.MessageRejectError) {
+	f := &field.TimeUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeUnit reads a TimeUnit from RequestForPositions.
-func (m RequestForPositions) GetTimeUnit(f *field.TimeUnit) errors.MessageRejectError {
+func (m RequestForPositions) GetTimeUnit(f *field.TimeUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityTime is a non-required field for RequestForPositions.
-func (m RequestForPositions) MaturityTime() (*field.MaturityTime, errors.MessageRejectError) {
-	f := new(field.MaturityTime)
+func (m RequestForPositions) MaturityTime() (*field.MaturityTimeField, errors.MessageRejectError) {
+	f := &field.MaturityTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityTime reads a MaturityTime from RequestForPositions.
-func (m RequestForPositions) GetMaturityTime(f *field.MaturityTime) errors.MessageRejectError {
+func (m RequestForPositions) GetMaturityTime(f *field.MaturityTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for RequestForPositions.
-func (m RequestForPositions) Currency() (*field.Currency, errors.MessageRejectError) {
-	f := new(field.Currency)
+func (m RequestForPositions) Currency() (*field.CurrencyField, errors.MessageRejectError) {
+	f := &field.CurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCurrency reads a Currency from RequestForPositions.
-func (m RequestForPositions) GetCurrency(f *field.Currency) errors.MessageRejectError {
+func (m RequestForPositions) GetCurrency(f *field.CurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLegs is a non-required field for RequestForPositions.
-func (m RequestForPositions) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
-	f := new(field.NoLegs)
+func (m RequestForPositions) NoLegs() (*field.NoLegsField, errors.MessageRejectError) {
+	f := &field.NoLegsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLegs reads a NoLegs from RequestForPositions.
-func (m RequestForPositions) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+func (m RequestForPositions) GetNoLegs(f *field.NoLegsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for RequestForPositions.
-func (m RequestForPositions) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
-	f := new(field.NoUnderlyings)
+func (m RequestForPositions) NoUnderlyings() (*field.NoUnderlyingsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyings reads a NoUnderlyings from RequestForPositions.
-func (m RequestForPositions) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+func (m RequestForPositions) GetNoUnderlyings(f *field.NoUnderlyingsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClearingBusinessDate is a required field for RequestForPositions.
-func (m RequestForPositions) ClearingBusinessDate() (*field.ClearingBusinessDate, errors.MessageRejectError) {
-	f := new(field.ClearingBusinessDate)
+func (m RequestForPositions) ClearingBusinessDate() (*field.ClearingBusinessDateField, errors.MessageRejectError) {
+	f := &field.ClearingBusinessDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClearingBusinessDate reads a ClearingBusinessDate from RequestForPositions.
-func (m RequestForPositions) GetClearingBusinessDate(f *field.ClearingBusinessDate) errors.MessageRejectError {
+func (m RequestForPositions) GetClearingBusinessDate(f *field.ClearingBusinessDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlSessID is a non-required field for RequestForPositions.
-func (m RequestForPositions) SettlSessID() (*field.SettlSessID, errors.MessageRejectError) {
-	f := new(field.SettlSessID)
+func (m RequestForPositions) SettlSessID() (*field.SettlSessIDField, errors.MessageRejectError) {
+	f := &field.SettlSessIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlSessID reads a SettlSessID from RequestForPositions.
-func (m RequestForPositions) GetSettlSessID(f *field.SettlSessID) errors.MessageRejectError {
+func (m RequestForPositions) GetSettlSessID(f *field.SettlSessIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlSessSubID is a non-required field for RequestForPositions.
-func (m RequestForPositions) SettlSessSubID() (*field.SettlSessSubID, errors.MessageRejectError) {
-	f := new(field.SettlSessSubID)
+func (m RequestForPositions) SettlSessSubID() (*field.SettlSessSubIDField, errors.MessageRejectError) {
+	f := &field.SettlSessSubIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlSessSubID reads a SettlSessSubID from RequestForPositions.
-func (m RequestForPositions) GetSettlSessSubID(f *field.SettlSessSubID) errors.MessageRejectError {
+func (m RequestForPositions) GetSettlSessSubID(f *field.SettlSessSubIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoTradingSessions is a non-required field for RequestForPositions.
-func (m RequestForPositions) NoTradingSessions() (*field.NoTradingSessions, errors.MessageRejectError) {
-	f := new(field.NoTradingSessions)
+func (m RequestForPositions) NoTradingSessions() (*field.NoTradingSessionsField, errors.MessageRejectError) {
+	f := &field.NoTradingSessionsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoTradingSessions reads a NoTradingSessions from RequestForPositions.
-func (m RequestForPositions) GetNoTradingSessions(f *field.NoTradingSessions) errors.MessageRejectError {
+func (m RequestForPositions) GetNoTradingSessions(f *field.NoTradingSessionsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for RequestForPositions.
-func (m RequestForPositions) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m RequestForPositions) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from RequestForPositions.
-func (m RequestForPositions) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m RequestForPositions) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ResponseTransportType is a non-required field for RequestForPositions.
-func (m RequestForPositions) ResponseTransportType() (*field.ResponseTransportType, errors.MessageRejectError) {
-	f := new(field.ResponseTransportType)
+func (m RequestForPositions) ResponseTransportType() (*field.ResponseTransportTypeField, errors.MessageRejectError) {
+	f := &field.ResponseTransportTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetResponseTransportType reads a ResponseTransportType from RequestForPositions.
-func (m RequestForPositions) GetResponseTransportType(f *field.ResponseTransportType) errors.MessageRejectError {
+func (m RequestForPositions) GetResponseTransportType(f *field.ResponseTransportTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ResponseDestination is a non-required field for RequestForPositions.
-func (m RequestForPositions) ResponseDestination() (*field.ResponseDestination, errors.MessageRejectError) {
-	f := new(field.ResponseDestination)
+func (m RequestForPositions) ResponseDestination() (*field.ResponseDestinationField, errors.MessageRejectError) {
+	f := &field.ResponseDestinationField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetResponseDestination reads a ResponseDestination from RequestForPositions.
-func (m RequestForPositions) GetResponseDestination(f *field.ResponseDestination) errors.MessageRejectError {
+func (m RequestForPositions) GetResponseDestination(f *field.ResponseDestinationField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for RequestForPositions.
-func (m RequestForPositions) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m RequestForPositions) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from RequestForPositions.
-func (m RequestForPositions) GetText(f *field.Text) errors.MessageRejectError {
+func (m RequestForPositions) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for RequestForPositions.
-func (m RequestForPositions) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m RequestForPositions) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from RequestForPositions.
-func (m RequestForPositions) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m RequestForPositions) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for RequestForPositions.
-func (m RequestForPositions) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m RequestForPositions) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from RequestForPositions.
-func (m RequestForPositions) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m RequestForPositions) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrency is a non-required field for RequestForPositions.
-func (m RequestForPositions) SettlCurrency() (*field.SettlCurrency, errors.MessageRejectError) {
-	f := new(field.SettlCurrency)
+func (m RequestForPositions) SettlCurrency() (*field.SettlCurrencyField, errors.MessageRejectError) {
+	f := &field.SettlCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrency reads a SettlCurrency from RequestForPositions.
-func (m RequestForPositions) GetSettlCurrency(f *field.SettlCurrency) errors.MessageRejectError {
+func (m RequestForPositions) GetSettlCurrency(f *field.SettlCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

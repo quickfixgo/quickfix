@@ -23,840 +23,840 @@ type MarketDataSnapshotFullRefreshBuilder struct {
 
 //CreateMarketDataSnapshotFullRefreshBuilder returns an initialized MarketDataSnapshotFullRefreshBuilder with specified required fields.
 func CreateMarketDataSnapshotFullRefreshBuilder(
-	nomdentries field.NoMDEntries) MarketDataSnapshotFullRefreshBuilder {
+	nomdentries *field.NoMDEntriesField) MarketDataSnapshotFullRefreshBuilder {
 	var builder MarketDataSnapshotFullRefreshBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.BuildMsgType("W"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("W"))
 	builder.Body.Set(nomdentries)
 	return builder
 }
 
 //MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) MDReqID() (*field.MDReqID, errors.MessageRejectError) {
-	f := new(field.MDReqID)
+func (m MarketDataSnapshotFullRefresh) MDReqID() (*field.MDReqIDField, errors.MessageRejectError) {
+	f := &field.MDReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMDReqID reads a MDReqID from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetMDReqID(f *field.MDReqID) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetMDReqID(f *field.MDReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m MarketDataSnapshotFullRefresh) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m MarketDataSnapshotFullRefresh) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m MarketDataSnapshotFullRefresh) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m MarketDataSnapshotFullRefresh) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m MarketDataSnapshotFullRefresh) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m MarketDataSnapshotFullRefresh) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m MarketDataSnapshotFullRefresh) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m MarketDataSnapshotFullRefresh) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
-	f := new(field.SecuritySubType)
+func (m MarketDataSnapshotFullRefresh) SecuritySubType() (*field.SecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.SecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySubType reads a SecuritySubType from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSecuritySubType(f *field.SecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m MarketDataSnapshotFullRefresh) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m MarketDataSnapshotFullRefresh) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m MarketDataSnapshotFullRefresh) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m MarketDataSnapshotFullRefresh) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m MarketDataSnapshotFullRefresh) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m MarketDataSnapshotFullRefresh) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m MarketDataSnapshotFullRefresh) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m MarketDataSnapshotFullRefresh) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m MarketDataSnapshotFullRefresh) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m MarketDataSnapshotFullRefresh) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m MarketDataSnapshotFullRefresh) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m MarketDataSnapshotFullRefresh) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m MarketDataSnapshotFullRefresh) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m MarketDataSnapshotFullRefresh) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m MarketDataSnapshotFullRefresh) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
-	f := new(field.StrikeCurrency)
+func (m MarketDataSnapshotFullRefresh) StrikeCurrency() (*field.StrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.StrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeCurrency reads a StrikeCurrency from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetStrikeCurrency(f *field.StrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m MarketDataSnapshotFullRefresh) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m MarketDataSnapshotFullRefresh) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m MarketDataSnapshotFullRefresh) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m MarketDataSnapshotFullRefresh) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m MarketDataSnapshotFullRefresh) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m MarketDataSnapshotFullRefresh) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m MarketDataSnapshotFullRefresh) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m MarketDataSnapshotFullRefresh) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m MarketDataSnapshotFullRefresh) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m MarketDataSnapshotFullRefresh) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) Pool() (*field.Pool, errors.MessageRejectError) {
-	f := new(field.Pool)
+func (m MarketDataSnapshotFullRefresh) Pool() (*field.PoolField, errors.MessageRejectError) {
+	f := &field.PoolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPool reads a Pool from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetPool(f *field.Pool) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetPool(f *field.PoolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
-	f := new(field.ContractSettlMonth)
+func (m MarketDataSnapshotFullRefresh) ContractSettlMonth() (*field.ContractSettlMonthField, errors.MessageRejectError) {
+	f := &field.ContractSettlMonthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractSettlMonth reads a ContractSettlMonth from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetContractSettlMonth(f *field.ContractSettlMonthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
-	f := new(field.CPProgram)
+func (m MarketDataSnapshotFullRefresh) CPProgram() (*field.CPProgramField, errors.MessageRejectError) {
+	f := &field.CPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPProgram reads a CPProgram from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetCPProgram(f *field.CPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
-	f := new(field.CPRegType)
+func (m MarketDataSnapshotFullRefresh) CPRegType() (*field.CPRegTypeField, errors.MessageRejectError) {
+	f := &field.CPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPRegType reads a CPRegType from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetCPRegType(f *field.CPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
-	f := new(field.NoEvents)
+func (m MarketDataSnapshotFullRefresh) NoEvents() (*field.NoEventsField, errors.MessageRejectError) {
+	f := &field.NoEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoEvents reads a NoEvents from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNoEvents(f *field.NoEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
-	f := new(field.DatedDate)
+func (m MarketDataSnapshotFullRefresh) DatedDate() (*field.DatedDateField, errors.MessageRejectError) {
+	f := &field.DatedDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDatedDate reads a DatedDate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetDatedDate(f *field.DatedDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
-	f := new(field.InterestAccrualDate)
+func (m MarketDataSnapshotFullRefresh) InterestAccrualDate() (*field.InterestAccrualDateField, errors.MessageRejectError) {
+	f := &field.InterestAccrualDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAccrualDate reads a InterestAccrualDate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetInterestAccrualDate(f *field.InterestAccrualDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityStatus is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SecurityStatus() (*field.SecurityStatus, errors.MessageRejectError) {
-	f := new(field.SecurityStatus)
+func (m MarketDataSnapshotFullRefresh) SecurityStatus() (*field.SecurityStatusField, errors.MessageRejectError) {
+	f := &field.SecurityStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityStatus reads a SecurityStatus from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSecurityStatus(f *field.SecurityStatus) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSecurityStatus(f *field.SecurityStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettleOnOpenFlag is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) SettleOnOpenFlag() (*field.SettleOnOpenFlag, errors.MessageRejectError) {
-	f := new(field.SettleOnOpenFlag)
+func (m MarketDataSnapshotFullRefresh) SettleOnOpenFlag() (*field.SettleOnOpenFlagField, errors.MessageRejectError) {
+	f := &field.SettleOnOpenFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettleOnOpenFlag reads a SettleOnOpenFlag from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetSettleOnOpenFlag(f *field.SettleOnOpenFlag) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetSettleOnOpenFlag(f *field.SettleOnOpenFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrmtAssignmentMethod is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, errors.MessageRejectError) {
-	f := new(field.InstrmtAssignmentMethod)
+func (m MarketDataSnapshotFullRefresh) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethodField, errors.MessageRejectError) {
+	f := &field.InstrmtAssignmentMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrmtAssignmentMethod reads a InstrmtAssignmentMethod from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethod) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeMultiplier is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) StrikeMultiplier() (*field.StrikeMultiplier, errors.MessageRejectError) {
-	f := new(field.StrikeMultiplier)
+func (m MarketDataSnapshotFullRefresh) StrikeMultiplier() (*field.StrikeMultiplierField, errors.MessageRejectError) {
+	f := &field.StrikeMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeMultiplier reads a StrikeMultiplier from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetStrikeMultiplier(f *field.StrikeMultiplier) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetStrikeMultiplier(f *field.StrikeMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeValue is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) StrikeValue() (*field.StrikeValue, errors.MessageRejectError) {
-	f := new(field.StrikeValue)
+func (m MarketDataSnapshotFullRefresh) StrikeValue() (*field.StrikeValueField, errors.MessageRejectError) {
+	f := &field.StrikeValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeValue reads a StrikeValue from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetStrikeValue(f *field.StrikeValue) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetStrikeValue(f *field.StrikeValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrement is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) MinPriceIncrement() (*field.MinPriceIncrement, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrement)
+func (m MarketDataSnapshotFullRefresh) MinPriceIncrement() (*field.MinPriceIncrementField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrement reads a MinPriceIncrement from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetMinPriceIncrement(f *field.MinPriceIncrement) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetMinPriceIncrement(f *field.MinPriceIncrementField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PositionLimit is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) PositionLimit() (*field.PositionLimit, errors.MessageRejectError) {
-	f := new(field.PositionLimit)
+func (m MarketDataSnapshotFullRefresh) PositionLimit() (*field.PositionLimitField, errors.MessageRejectError) {
+	f := &field.PositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPositionLimit reads a PositionLimit from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetPositionLimit(f *field.PositionLimit) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetPositionLimit(f *field.PositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NTPositionLimit is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NTPositionLimit() (*field.NTPositionLimit, errors.MessageRejectError) {
-	f := new(field.NTPositionLimit)
+func (m MarketDataSnapshotFullRefresh) NTPositionLimit() (*field.NTPositionLimitField, errors.MessageRejectError) {
+	f := &field.NTPositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNTPositionLimit reads a NTPositionLimit from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNTPositionLimit(f *field.NTPositionLimit) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNTPositionLimit(f *field.NTPositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoInstrumentParties is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NoInstrumentParties() (*field.NoInstrumentParties, errors.MessageRejectError) {
-	f := new(field.NoInstrumentParties)
+func (m MarketDataSnapshotFullRefresh) NoInstrumentParties() (*field.NoInstrumentPartiesField, errors.MessageRejectError) {
+	f := &field.NoInstrumentPartiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoInstrumentParties reads a NoInstrumentParties from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNoInstrumentParties(f *field.NoInstrumentParties) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNoInstrumentParties(f *field.NoInstrumentPartiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasure is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) UnitOfMeasure() (*field.UnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasure)
+func (m MarketDataSnapshotFullRefresh) UnitOfMeasure() (*field.UnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasure reads a UnitOfMeasure from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetUnitOfMeasure(f *field.UnitOfMeasure) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetUnitOfMeasure(f *field.UnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeUnit is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) TimeUnit() (*field.TimeUnit, errors.MessageRejectError) {
-	f := new(field.TimeUnit)
+func (m MarketDataSnapshotFullRefresh) TimeUnit() (*field.TimeUnitField, errors.MessageRejectError) {
+	f := &field.TimeUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeUnit reads a TimeUnit from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetTimeUnit(f *field.TimeUnit) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetTimeUnit(f *field.TimeUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityTime is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) MaturityTime() (*field.MaturityTime, errors.MessageRejectError) {
-	f := new(field.MaturityTime)
+func (m MarketDataSnapshotFullRefresh) MaturityTime() (*field.MaturityTimeField, errors.MessageRejectError) {
+	f := &field.MaturityTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityTime reads a MaturityTime from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetMaturityTime(f *field.MaturityTime) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetMaturityTime(f *field.MaturityTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
-	f := new(field.NoUnderlyings)
+func (m MarketDataSnapshotFullRefresh) NoUnderlyings() (*field.NoUnderlyingsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyings reads a NoUnderlyings from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNoUnderlyings(f *field.NoUnderlyingsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLegs is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
-	f := new(field.NoLegs)
+func (m MarketDataSnapshotFullRefresh) NoLegs() (*field.NoLegsField, errors.MessageRejectError) {
+	f := &field.NoLegsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLegs reads a NoLegs from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNoLegs(f *field.NoLegsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FinancialStatus is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) FinancialStatus() (*field.FinancialStatus, errors.MessageRejectError) {
-	f := new(field.FinancialStatus)
+func (m MarketDataSnapshotFullRefresh) FinancialStatus() (*field.FinancialStatusField, errors.MessageRejectError) {
+	f := &field.FinancialStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFinancialStatus reads a FinancialStatus from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetFinancialStatus(f *field.FinancialStatus) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetFinancialStatus(f *field.FinancialStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CorporateAction is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) CorporateAction() (*field.CorporateAction, errors.MessageRejectError) {
-	f := new(field.CorporateAction)
+func (m MarketDataSnapshotFullRefresh) CorporateAction() (*field.CorporateActionField, errors.MessageRejectError) {
+	f := &field.CorporateActionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCorporateAction reads a CorporateAction from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetCorporateAction(f *field.CorporateAction) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetCorporateAction(f *field.CorporateActionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NetChgPrevDay is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NetChgPrevDay() (*field.NetChgPrevDay, errors.MessageRejectError) {
-	f := new(field.NetChgPrevDay)
+func (m MarketDataSnapshotFullRefresh) NetChgPrevDay() (*field.NetChgPrevDayField, errors.MessageRejectError) {
+	f := &field.NetChgPrevDayField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNetChgPrevDay reads a NetChgPrevDay from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNetChgPrevDay(f *field.NetChgPrevDay) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNetChgPrevDay(f *field.NetChgPrevDayField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoMDEntries is a required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NoMDEntries() (*field.NoMDEntries, errors.MessageRejectError) {
-	f := new(field.NoMDEntries)
+func (m MarketDataSnapshotFullRefresh) NoMDEntries() (*field.NoMDEntriesField, errors.MessageRejectError) {
+	f := &field.NoMDEntriesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoMDEntries reads a NoMDEntries from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNoMDEntries(f *field.NoMDEntries) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNoMDEntries(f *field.NoMDEntriesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplQueueDepth is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) ApplQueueDepth() (*field.ApplQueueDepth, errors.MessageRejectError) {
-	f := new(field.ApplQueueDepth)
+func (m MarketDataSnapshotFullRefresh) ApplQueueDepth() (*field.ApplQueueDepthField, errors.MessageRejectError) {
+	f := &field.ApplQueueDepthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplQueueDepth reads a ApplQueueDepth from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetApplQueueDepth(f *field.ApplQueueDepth) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetApplQueueDepth(f *field.ApplQueueDepthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplQueueResolution is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) ApplQueueResolution() (*field.ApplQueueResolution, errors.MessageRejectError) {
-	f := new(field.ApplQueueResolution)
+func (m MarketDataSnapshotFullRefresh) ApplQueueResolution() (*field.ApplQueueResolutionField, errors.MessageRejectError) {
+	f := &field.ApplQueueResolutionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplQueueResolution reads a ApplQueueResolution from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetApplQueueResolution(f *field.ApplQueueResolution) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetApplQueueResolution(f *field.ApplQueueResolutionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MDReportID is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) MDReportID() (*field.MDReportID, errors.MessageRejectError) {
-	f := new(field.MDReportID)
+func (m MarketDataSnapshotFullRefresh) MDReportID() (*field.MDReportIDField, errors.MessageRejectError) {
+	f := &field.MDReportIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMDReportID reads a MDReportID from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetMDReportID(f *field.MDReportID) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetMDReportID(f *field.MDReportIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClearingBusinessDate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) ClearingBusinessDate() (*field.ClearingBusinessDate, errors.MessageRejectError) {
-	f := new(field.ClearingBusinessDate)
+func (m MarketDataSnapshotFullRefresh) ClearingBusinessDate() (*field.ClearingBusinessDateField, errors.MessageRejectError) {
+	f := &field.ClearingBusinessDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClearingBusinessDate reads a ClearingBusinessDate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetClearingBusinessDate(f *field.ClearingBusinessDate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetClearingBusinessDate(f *field.ClearingBusinessDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MDBookType is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) MDBookType() (*field.MDBookType, errors.MessageRejectError) {
-	f := new(field.MDBookType)
+func (m MarketDataSnapshotFullRefresh) MDBookType() (*field.MDBookTypeField, errors.MessageRejectError) {
+	f := &field.MDBookTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMDBookType reads a MDBookType from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetMDBookType(f *field.MDBookType) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetMDBookType(f *field.MDBookTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MDFeedType is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) MDFeedType() (*field.MDFeedType, errors.MessageRejectError) {
-	f := new(field.MDFeedType)
+func (m MarketDataSnapshotFullRefresh) MDFeedType() (*field.MDFeedTypeField, errors.MessageRejectError) {
+	f := &field.MDFeedTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMDFeedType reads a MDFeedType from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetMDFeedType(f *field.MDFeedType) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetMDFeedType(f *field.MDFeedTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeDate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) TradeDate() (*field.TradeDate, errors.MessageRejectError) {
-	f := new(field.TradeDate)
+func (m MarketDataSnapshotFullRefresh) TradeDate() (*field.TradeDateField, errors.MessageRejectError) {
+	f := &field.TradeDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeDate reads a TradeDate from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetTradeDate(f *field.TradeDate) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetTradeDate(f *field.TradeDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRoutingIDs is a non-required field for MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) NoRoutingIDs() (*field.NoRoutingIDs, errors.MessageRejectError) {
-	f := new(field.NoRoutingIDs)
+func (m MarketDataSnapshotFullRefresh) NoRoutingIDs() (*field.NoRoutingIDsField, errors.MessageRejectError) {
+	f := &field.NoRoutingIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRoutingIDs reads a NoRoutingIDs from MarketDataSnapshotFullRefresh.
-func (m MarketDataSnapshotFullRefresh) GetNoRoutingIDs(f *field.NoRoutingIDs) errors.MessageRejectError {
+func (m MarketDataSnapshotFullRefresh) GetNoRoutingIDs(f *field.NoRoutingIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

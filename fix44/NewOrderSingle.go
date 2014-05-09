@@ -19,14 +19,14 @@ type NewOrderSingleBuilder struct {
 
 //CreateNewOrderSingleBuilder returns an initialized NewOrderSingleBuilder with specified required fields.
 func CreateNewOrderSingleBuilder(
-	clordid field.ClOrdID,
-	side field.Side,
-	transacttime field.TransactTime,
-	ordtype field.OrdType) NewOrderSingleBuilder {
+	clordid *field.ClOrdIDField,
+	side *field.SideField,
+	transacttime *field.TransactTimeField,
+	ordtype *field.OrdTypeField) NewOrderSingleBuilder {
 	var builder NewOrderSingleBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.BuildMsgType("D"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("D"))
 	builder.Body.Set(clordid)
 	builder.Body.Set(side)
 	builder.Body.Set(transacttime)
@@ -35,1861 +35,1861 @@ func CreateNewOrderSingleBuilder(
 }
 
 //ClOrdID is a required field for NewOrderSingle.
-func (m NewOrderSingle) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
-	f := new(field.ClOrdID)
+func (m NewOrderSingle) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from NewOrderSingle.
-func (m NewOrderSingle) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+func (m NewOrderSingle) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryClOrdID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SecondaryClOrdID() (*field.SecondaryClOrdID, errors.MessageRejectError) {
-	f := new(field.SecondaryClOrdID)
+func (m NewOrderSingle) SecondaryClOrdID() (*field.SecondaryClOrdIDField, errors.MessageRejectError) {
+	f := &field.SecondaryClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryClOrdID reads a SecondaryClOrdID from NewOrderSingle.
-func (m NewOrderSingle) GetSecondaryClOrdID(f *field.SecondaryClOrdID) errors.MessageRejectError {
+func (m NewOrderSingle) GetSecondaryClOrdID(f *field.SecondaryClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdLinkID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ClOrdLinkID() (*field.ClOrdLinkID, errors.MessageRejectError) {
-	f := new(field.ClOrdLinkID)
+func (m NewOrderSingle) ClOrdLinkID() (*field.ClOrdLinkIDField, errors.MessageRejectError) {
+	f := &field.ClOrdLinkIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdLinkID reads a ClOrdLinkID from NewOrderSingle.
-func (m NewOrderSingle) GetClOrdLinkID(f *field.ClOrdLinkID) errors.MessageRejectError {
+func (m NewOrderSingle) GetClOrdLinkID(f *field.ClOrdLinkIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m NewOrderSingle) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from NewOrderSingle.
-func (m NewOrderSingle) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m NewOrderSingle) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeOriginationDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) TradeOriginationDate() (*field.TradeOriginationDate, errors.MessageRejectError) {
-	f := new(field.TradeOriginationDate)
+func (m NewOrderSingle) TradeOriginationDate() (*field.TradeOriginationDateField, errors.MessageRejectError) {
+	f := &field.TradeOriginationDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeOriginationDate reads a TradeOriginationDate from NewOrderSingle.
-func (m NewOrderSingle) GetTradeOriginationDate(f *field.TradeOriginationDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetTradeOriginationDate(f *field.TradeOriginationDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) TradeDate() (*field.TradeDate, errors.MessageRejectError) {
-	f := new(field.TradeDate)
+func (m NewOrderSingle) TradeDate() (*field.TradeDateField, errors.MessageRejectError) {
+	f := &field.TradeDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeDate reads a TradeDate from NewOrderSingle.
-func (m NewOrderSingle) GetTradeDate(f *field.TradeDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetTradeDate(f *field.TradeDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Account() (*field.Account, errors.MessageRejectError) {
-	f := new(field.Account)
+func (m NewOrderSingle) Account() (*field.AccountField, errors.MessageRejectError) {
+	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from NewOrderSingle.
-func (m NewOrderSingle) GetAccount(f *field.Account) errors.MessageRejectError {
+func (m NewOrderSingle) GetAccount(f *field.AccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AcctIDSource is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) AcctIDSource() (*field.AcctIDSource, errors.MessageRejectError) {
-	f := new(field.AcctIDSource)
+func (m NewOrderSingle) AcctIDSource() (*field.AcctIDSourceField, errors.MessageRejectError) {
+	f := &field.AcctIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAcctIDSource reads a AcctIDSource from NewOrderSingle.
-func (m NewOrderSingle) GetAcctIDSource(f *field.AcctIDSource) errors.MessageRejectError {
+func (m NewOrderSingle) GetAcctIDSource(f *field.AcctIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AccountType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) AccountType() (*field.AccountType, errors.MessageRejectError) {
-	f := new(field.AccountType)
+func (m NewOrderSingle) AccountType() (*field.AccountTypeField, errors.MessageRejectError) {
+	f := &field.AccountTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccountType reads a AccountType from NewOrderSingle.
-func (m NewOrderSingle) GetAccountType(f *field.AccountType) errors.MessageRejectError {
+func (m NewOrderSingle) GetAccountType(f *field.AccountTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DayBookingInst is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DayBookingInst() (*field.DayBookingInst, errors.MessageRejectError) {
-	f := new(field.DayBookingInst)
+func (m NewOrderSingle) DayBookingInst() (*field.DayBookingInstField, errors.MessageRejectError) {
+	f := &field.DayBookingInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDayBookingInst reads a DayBookingInst from NewOrderSingle.
-func (m NewOrderSingle) GetDayBookingInst(f *field.DayBookingInst) errors.MessageRejectError {
+func (m NewOrderSingle) GetDayBookingInst(f *field.DayBookingInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BookingUnit is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BookingUnit() (*field.BookingUnit, errors.MessageRejectError) {
-	f := new(field.BookingUnit)
+func (m NewOrderSingle) BookingUnit() (*field.BookingUnitField, errors.MessageRejectError) {
+	f := &field.BookingUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBookingUnit reads a BookingUnit from NewOrderSingle.
-func (m NewOrderSingle) GetBookingUnit(f *field.BookingUnit) errors.MessageRejectError {
+func (m NewOrderSingle) GetBookingUnit(f *field.BookingUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PreallocMethod is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PreallocMethod() (*field.PreallocMethod, errors.MessageRejectError) {
-	f := new(field.PreallocMethod)
+func (m NewOrderSingle) PreallocMethod() (*field.PreallocMethodField, errors.MessageRejectError) {
+	f := &field.PreallocMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPreallocMethod reads a PreallocMethod from NewOrderSingle.
-func (m NewOrderSingle) GetPreallocMethod(f *field.PreallocMethod) errors.MessageRejectError {
+func (m NewOrderSingle) GetPreallocMethod(f *field.PreallocMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) AllocID() (*field.AllocID, errors.MessageRejectError) {
-	f := new(field.AllocID)
+func (m NewOrderSingle) AllocID() (*field.AllocIDField, errors.MessageRejectError) {
+	f := &field.AllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocID reads a AllocID from NewOrderSingle.
-func (m NewOrderSingle) GetAllocID(f *field.AllocID) errors.MessageRejectError {
+func (m NewOrderSingle) GetAllocID(f *field.AllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoAllocs is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) NoAllocs() (*field.NoAllocs, errors.MessageRejectError) {
-	f := new(field.NoAllocs)
+func (m NewOrderSingle) NoAllocs() (*field.NoAllocsField, errors.MessageRejectError) {
+	f := &field.NoAllocsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoAllocs reads a NoAllocs from NewOrderSingle.
-func (m NewOrderSingle) GetNoAllocs(f *field.NoAllocs) errors.MessageRejectError {
+func (m NewOrderSingle) GetNoAllocs(f *field.NoAllocsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SettlType() (*field.SettlType, errors.MessageRejectError) {
-	f := new(field.SettlType)
+func (m NewOrderSingle) SettlType() (*field.SettlTypeField, errors.MessageRejectError) {
+	f := &field.SettlTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlType reads a SettlType from NewOrderSingle.
-func (m NewOrderSingle) GetSettlType(f *field.SettlType) errors.MessageRejectError {
+func (m NewOrderSingle) GetSettlType(f *field.SettlTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SettlDate() (*field.SettlDate, errors.MessageRejectError) {
-	f := new(field.SettlDate)
+func (m NewOrderSingle) SettlDate() (*field.SettlDateField, errors.MessageRejectError) {
+	f := &field.SettlDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlDate reads a SettlDate from NewOrderSingle.
-func (m NewOrderSingle) GetSettlDate(f *field.SettlDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetSettlDate(f *field.SettlDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashMargin is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CashMargin() (*field.CashMargin, errors.MessageRejectError) {
-	f := new(field.CashMargin)
+func (m NewOrderSingle) CashMargin() (*field.CashMarginField, errors.MessageRejectError) {
+	f := &field.CashMarginField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashMargin reads a CashMargin from NewOrderSingle.
-func (m NewOrderSingle) GetCashMargin(f *field.CashMargin) errors.MessageRejectError {
+func (m NewOrderSingle) GetCashMargin(f *field.CashMarginField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClearingFeeIndicator is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ClearingFeeIndicator() (*field.ClearingFeeIndicator, errors.MessageRejectError) {
-	f := new(field.ClearingFeeIndicator)
+func (m NewOrderSingle) ClearingFeeIndicator() (*field.ClearingFeeIndicatorField, errors.MessageRejectError) {
+	f := &field.ClearingFeeIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClearingFeeIndicator reads a ClearingFeeIndicator from NewOrderSingle.
-func (m NewOrderSingle) GetClearingFeeIndicator(f *field.ClearingFeeIndicator) errors.MessageRejectError {
+func (m NewOrderSingle) GetClearingFeeIndicator(f *field.ClearingFeeIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //HandlInst is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) HandlInst() (*field.HandlInst, errors.MessageRejectError) {
-	f := new(field.HandlInst)
+func (m NewOrderSingle) HandlInst() (*field.HandlInstField, errors.MessageRejectError) {
+	f := &field.HandlInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetHandlInst reads a HandlInst from NewOrderSingle.
-func (m NewOrderSingle) GetHandlInst(f *field.HandlInst) errors.MessageRejectError {
+func (m NewOrderSingle) GetHandlInst(f *field.HandlInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecInst is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ExecInst() (*field.ExecInst, errors.MessageRejectError) {
-	f := new(field.ExecInst)
+func (m NewOrderSingle) ExecInst() (*field.ExecInstField, errors.MessageRejectError) {
+	f := &field.ExecInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecInst reads a ExecInst from NewOrderSingle.
-func (m NewOrderSingle) GetExecInst(f *field.ExecInst) errors.MessageRejectError {
+func (m NewOrderSingle) GetExecInst(f *field.ExecInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinQty is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) MinQty() (*field.MinQty, errors.MessageRejectError) {
-	f := new(field.MinQty)
+func (m NewOrderSingle) MinQty() (*field.MinQtyField, errors.MessageRejectError) {
+	f := &field.MinQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinQty reads a MinQty from NewOrderSingle.
-func (m NewOrderSingle) GetMinQty(f *field.MinQty) errors.MessageRejectError {
+func (m NewOrderSingle) GetMinQty(f *field.MinQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaxFloor is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) MaxFloor() (*field.MaxFloor, errors.MessageRejectError) {
-	f := new(field.MaxFloor)
+func (m NewOrderSingle) MaxFloor() (*field.MaxFloorField, errors.MessageRejectError) {
+	f := &field.MaxFloorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaxFloor reads a MaxFloor from NewOrderSingle.
-func (m NewOrderSingle) GetMaxFloor(f *field.MaxFloor) errors.MessageRejectError {
+func (m NewOrderSingle) GetMaxFloor(f *field.MaxFloorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExDestination is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ExDestination() (*field.ExDestination, errors.MessageRejectError) {
-	f := new(field.ExDestination)
+func (m NewOrderSingle) ExDestination() (*field.ExDestinationField, errors.MessageRejectError) {
+	f := &field.ExDestinationField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExDestination reads a ExDestination from NewOrderSingle.
-func (m NewOrderSingle) GetExDestination(f *field.ExDestination) errors.MessageRejectError {
+func (m NewOrderSingle) GetExDestination(f *field.ExDestinationField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoTradingSessions is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) NoTradingSessions() (*field.NoTradingSessions, errors.MessageRejectError) {
-	f := new(field.NoTradingSessions)
+func (m NewOrderSingle) NoTradingSessions() (*field.NoTradingSessionsField, errors.MessageRejectError) {
+	f := &field.NoTradingSessionsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoTradingSessions reads a NoTradingSessions from NewOrderSingle.
-func (m NewOrderSingle) GetNoTradingSessions(f *field.NoTradingSessions) errors.MessageRejectError {
+func (m NewOrderSingle) GetNoTradingSessions(f *field.NoTradingSessionsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ProcessCode is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ProcessCode() (*field.ProcessCode, errors.MessageRejectError) {
-	f := new(field.ProcessCode)
+func (m NewOrderSingle) ProcessCode() (*field.ProcessCodeField, errors.MessageRejectError) {
+	f := &field.ProcessCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProcessCode reads a ProcessCode from NewOrderSingle.
-func (m NewOrderSingle) GetProcessCode(f *field.ProcessCode) errors.MessageRejectError {
+func (m NewOrderSingle) GetProcessCode(f *field.ProcessCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m NewOrderSingle) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from NewOrderSingle.
-func (m NewOrderSingle) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m NewOrderSingle) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m NewOrderSingle) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from NewOrderSingle.
-func (m NewOrderSingle) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m NewOrderSingle) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m NewOrderSingle) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from NewOrderSingle.
-func (m NewOrderSingle) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m NewOrderSingle) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m NewOrderSingle) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from NewOrderSingle.
-func (m NewOrderSingle) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m NewOrderSingle) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m NewOrderSingle) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from NewOrderSingle.
-func (m NewOrderSingle) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m NewOrderSingle) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m NewOrderSingle) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from NewOrderSingle.
-func (m NewOrderSingle) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m NewOrderSingle) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m NewOrderSingle) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from NewOrderSingle.
-func (m NewOrderSingle) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m NewOrderSingle) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m NewOrderSingle) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from NewOrderSingle.
-func (m NewOrderSingle) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m NewOrderSingle) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
-	f := new(field.SecuritySubType)
+func (m NewOrderSingle) SecuritySubType() (*field.SecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.SecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySubType reads a SecuritySubType from NewOrderSingle.
-func (m NewOrderSingle) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+func (m NewOrderSingle) GetSecuritySubType(f *field.SecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m NewOrderSingle) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from NewOrderSingle.
-func (m NewOrderSingle) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m NewOrderSingle) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m NewOrderSingle) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from NewOrderSingle.
-func (m NewOrderSingle) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m NewOrderSingle) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from NewOrderSingle.
-func (m NewOrderSingle) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m NewOrderSingle) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from NewOrderSingle.
-func (m NewOrderSingle) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m NewOrderSingle) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from NewOrderSingle.
-func (m NewOrderSingle) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m NewOrderSingle) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m NewOrderSingle) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from NewOrderSingle.
-func (m NewOrderSingle) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m NewOrderSingle) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m NewOrderSingle) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from NewOrderSingle.
-func (m NewOrderSingle) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m NewOrderSingle) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m NewOrderSingle) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from NewOrderSingle.
-func (m NewOrderSingle) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m NewOrderSingle) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m NewOrderSingle) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from NewOrderSingle.
-func (m NewOrderSingle) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m NewOrderSingle) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m NewOrderSingle) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from NewOrderSingle.
-func (m NewOrderSingle) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m NewOrderSingle) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m NewOrderSingle) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from NewOrderSingle.
-func (m NewOrderSingle) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m NewOrderSingle) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m NewOrderSingle) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from NewOrderSingle.
-func (m NewOrderSingle) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m NewOrderSingle) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m NewOrderSingle) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from NewOrderSingle.
-func (m NewOrderSingle) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m NewOrderSingle) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m NewOrderSingle) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from NewOrderSingle.
-func (m NewOrderSingle) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m NewOrderSingle) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from NewOrderSingle.
-func (m NewOrderSingle) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m NewOrderSingle) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
-	f := new(field.StrikeCurrency)
+func (m NewOrderSingle) StrikeCurrency() (*field.StrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.StrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeCurrency reads a StrikeCurrency from NewOrderSingle.
-func (m NewOrderSingle) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+func (m NewOrderSingle) GetStrikeCurrency(f *field.StrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m NewOrderSingle) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from NewOrderSingle.
-func (m NewOrderSingle) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m NewOrderSingle) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m NewOrderSingle) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from NewOrderSingle.
-func (m NewOrderSingle) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m NewOrderSingle) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m NewOrderSingle) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from NewOrderSingle.
-func (m NewOrderSingle) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m NewOrderSingle) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m NewOrderSingle) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from NewOrderSingle.
-func (m NewOrderSingle) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m NewOrderSingle) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m NewOrderSingle) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from NewOrderSingle.
-func (m NewOrderSingle) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m NewOrderSingle) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m NewOrderSingle) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from NewOrderSingle.
-func (m NewOrderSingle) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m NewOrderSingle) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m NewOrderSingle) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from NewOrderSingle.
-func (m NewOrderSingle) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m NewOrderSingle) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m NewOrderSingle) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from NewOrderSingle.
-func (m NewOrderSingle) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m NewOrderSingle) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m NewOrderSingle) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from NewOrderSingle.
-func (m NewOrderSingle) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m NewOrderSingle) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m NewOrderSingle) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from NewOrderSingle.
-func (m NewOrderSingle) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m NewOrderSingle) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Pool() (*field.Pool, errors.MessageRejectError) {
-	f := new(field.Pool)
+func (m NewOrderSingle) Pool() (*field.PoolField, errors.MessageRejectError) {
+	f := &field.PoolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPool reads a Pool from NewOrderSingle.
-func (m NewOrderSingle) GetPool(f *field.Pool) errors.MessageRejectError {
+func (m NewOrderSingle) GetPool(f *field.PoolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
-	f := new(field.ContractSettlMonth)
+func (m NewOrderSingle) ContractSettlMonth() (*field.ContractSettlMonthField, errors.MessageRejectError) {
+	f := &field.ContractSettlMonthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractSettlMonth reads a ContractSettlMonth from NewOrderSingle.
-func (m NewOrderSingle) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+func (m NewOrderSingle) GetContractSettlMonth(f *field.ContractSettlMonthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
-	f := new(field.CPProgram)
+func (m NewOrderSingle) CPProgram() (*field.CPProgramField, errors.MessageRejectError) {
+	f := &field.CPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPProgram reads a CPProgram from NewOrderSingle.
-func (m NewOrderSingle) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+func (m NewOrderSingle) GetCPProgram(f *field.CPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
-	f := new(field.CPRegType)
+func (m NewOrderSingle) CPRegType() (*field.CPRegTypeField, errors.MessageRejectError) {
+	f := &field.CPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPRegType reads a CPRegType from NewOrderSingle.
-func (m NewOrderSingle) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+func (m NewOrderSingle) GetCPRegType(f *field.CPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
-	f := new(field.NoEvents)
+func (m NewOrderSingle) NoEvents() (*field.NoEventsField, errors.MessageRejectError) {
+	f := &field.NoEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoEvents reads a NoEvents from NewOrderSingle.
-func (m NewOrderSingle) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+func (m NewOrderSingle) GetNoEvents(f *field.NoEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
-	f := new(field.DatedDate)
+func (m NewOrderSingle) DatedDate() (*field.DatedDateField, errors.MessageRejectError) {
+	f := &field.DatedDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDatedDate reads a DatedDate from NewOrderSingle.
-func (m NewOrderSingle) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetDatedDate(f *field.DatedDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
-	f := new(field.InterestAccrualDate)
+func (m NewOrderSingle) InterestAccrualDate() (*field.InterestAccrualDateField, errors.MessageRejectError) {
+	f := &field.InterestAccrualDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAccrualDate reads a InterestAccrualDate from NewOrderSingle.
-func (m NewOrderSingle) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetInterestAccrualDate(f *field.InterestAccrualDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AgreementDesc is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) AgreementDesc() (*field.AgreementDesc, errors.MessageRejectError) {
-	f := new(field.AgreementDesc)
+func (m NewOrderSingle) AgreementDesc() (*field.AgreementDescField, errors.MessageRejectError) {
+	f := &field.AgreementDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAgreementDesc reads a AgreementDesc from NewOrderSingle.
-func (m NewOrderSingle) GetAgreementDesc(f *field.AgreementDesc) errors.MessageRejectError {
+func (m NewOrderSingle) GetAgreementDesc(f *field.AgreementDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AgreementID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) AgreementID() (*field.AgreementID, errors.MessageRejectError) {
-	f := new(field.AgreementID)
+func (m NewOrderSingle) AgreementID() (*field.AgreementIDField, errors.MessageRejectError) {
+	f := &field.AgreementIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAgreementID reads a AgreementID from NewOrderSingle.
-func (m NewOrderSingle) GetAgreementID(f *field.AgreementID) errors.MessageRejectError {
+func (m NewOrderSingle) GetAgreementID(f *field.AgreementIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AgreementDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) AgreementDate() (*field.AgreementDate, errors.MessageRejectError) {
-	f := new(field.AgreementDate)
+func (m NewOrderSingle) AgreementDate() (*field.AgreementDateField, errors.MessageRejectError) {
+	f := &field.AgreementDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAgreementDate reads a AgreementDate from NewOrderSingle.
-func (m NewOrderSingle) GetAgreementDate(f *field.AgreementDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetAgreementDate(f *field.AgreementDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AgreementCurrency is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) AgreementCurrency() (*field.AgreementCurrency, errors.MessageRejectError) {
-	f := new(field.AgreementCurrency)
+func (m NewOrderSingle) AgreementCurrency() (*field.AgreementCurrencyField, errors.MessageRejectError) {
+	f := &field.AgreementCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAgreementCurrency reads a AgreementCurrency from NewOrderSingle.
-func (m NewOrderSingle) GetAgreementCurrency(f *field.AgreementCurrency) errors.MessageRejectError {
+func (m NewOrderSingle) GetAgreementCurrency(f *field.AgreementCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TerminationType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) TerminationType() (*field.TerminationType, errors.MessageRejectError) {
-	f := new(field.TerminationType)
+func (m NewOrderSingle) TerminationType() (*field.TerminationTypeField, errors.MessageRejectError) {
+	f := &field.TerminationTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTerminationType reads a TerminationType from NewOrderSingle.
-func (m NewOrderSingle) GetTerminationType(f *field.TerminationType) errors.MessageRejectError {
+func (m NewOrderSingle) GetTerminationType(f *field.TerminationTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StartDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) StartDate() (*field.StartDate, errors.MessageRejectError) {
-	f := new(field.StartDate)
+func (m NewOrderSingle) StartDate() (*field.StartDateField, errors.MessageRejectError) {
+	f := &field.StartDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStartDate reads a StartDate from NewOrderSingle.
-func (m NewOrderSingle) GetStartDate(f *field.StartDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetStartDate(f *field.StartDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EndDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) EndDate() (*field.EndDate, errors.MessageRejectError) {
-	f := new(field.EndDate)
+func (m NewOrderSingle) EndDate() (*field.EndDateField, errors.MessageRejectError) {
+	f := &field.EndDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEndDate reads a EndDate from NewOrderSingle.
-func (m NewOrderSingle) GetEndDate(f *field.EndDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetEndDate(f *field.EndDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DeliveryType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DeliveryType() (*field.DeliveryType, errors.MessageRejectError) {
-	f := new(field.DeliveryType)
+func (m NewOrderSingle) DeliveryType() (*field.DeliveryTypeField, errors.MessageRejectError) {
+	f := &field.DeliveryTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDeliveryType reads a DeliveryType from NewOrderSingle.
-func (m NewOrderSingle) GetDeliveryType(f *field.DeliveryType) errors.MessageRejectError {
+func (m NewOrderSingle) GetDeliveryType(f *field.DeliveryTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarginRatio is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) MarginRatio() (*field.MarginRatio, errors.MessageRejectError) {
-	f := new(field.MarginRatio)
+func (m NewOrderSingle) MarginRatio() (*field.MarginRatioField, errors.MessageRejectError) {
+	f := &field.MarginRatioField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarginRatio reads a MarginRatio from NewOrderSingle.
-func (m NewOrderSingle) GetMarginRatio(f *field.MarginRatio) errors.MessageRejectError {
+func (m NewOrderSingle) GetMarginRatio(f *field.MarginRatioField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
-	f := new(field.NoUnderlyings)
+func (m NewOrderSingle) NoUnderlyings() (*field.NoUnderlyingsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyings reads a NoUnderlyings from NewOrderSingle.
-func (m NewOrderSingle) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+func (m NewOrderSingle) GetNoUnderlyings(f *field.NoUnderlyingsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PrevClosePx is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PrevClosePx() (*field.PrevClosePx, errors.MessageRejectError) {
-	f := new(field.PrevClosePx)
+func (m NewOrderSingle) PrevClosePx() (*field.PrevClosePxField, errors.MessageRejectError) {
+	f := &field.PrevClosePxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPrevClosePx reads a PrevClosePx from NewOrderSingle.
-func (m NewOrderSingle) GetPrevClosePx(f *field.PrevClosePx) errors.MessageRejectError {
+func (m NewOrderSingle) GetPrevClosePx(f *field.PrevClosePxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a required field for NewOrderSingle.
-func (m NewOrderSingle) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m NewOrderSingle) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from NewOrderSingle.
-func (m NewOrderSingle) GetSide(f *field.Side) errors.MessageRejectError {
+func (m NewOrderSingle) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocateReqd is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) LocateReqd() (*field.LocateReqd, errors.MessageRejectError) {
-	f := new(field.LocateReqd)
+func (m NewOrderSingle) LocateReqd() (*field.LocateReqdField, errors.MessageRejectError) {
+	f := &field.LocateReqdField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocateReqd reads a LocateReqd from NewOrderSingle.
-func (m NewOrderSingle) GetLocateReqd(f *field.LocateReqd) errors.MessageRejectError {
+func (m NewOrderSingle) GetLocateReqd(f *field.LocateReqdField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for NewOrderSingle.
-func (m NewOrderSingle) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m NewOrderSingle) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from NewOrderSingle.
-func (m NewOrderSingle) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m NewOrderSingle) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoStipulations is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) NoStipulations() (*field.NoStipulations, errors.MessageRejectError) {
-	f := new(field.NoStipulations)
+func (m NewOrderSingle) NoStipulations() (*field.NoStipulationsField, errors.MessageRejectError) {
+	f := &field.NoStipulationsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoStipulations reads a NoStipulations from NewOrderSingle.
-func (m NewOrderSingle) GetNoStipulations(f *field.NoStipulations) errors.MessageRejectError {
+func (m NewOrderSingle) GetNoStipulations(f *field.NoStipulationsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //QtyType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) QtyType() (*field.QtyType, errors.MessageRejectError) {
-	f := new(field.QtyType)
+func (m NewOrderSingle) QtyType() (*field.QtyTypeField, errors.MessageRejectError) {
+	f := &field.QtyTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQtyType reads a QtyType from NewOrderSingle.
-func (m NewOrderSingle) GetQtyType(f *field.QtyType) errors.MessageRejectError {
+func (m NewOrderSingle) GetQtyType(f *field.QtyTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) OrderQty() (*field.OrderQty, errors.MessageRejectError) {
-	f := new(field.OrderQty)
+func (m NewOrderSingle) OrderQty() (*field.OrderQtyField, errors.MessageRejectError) {
+	f := &field.OrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty reads a OrderQty from NewOrderSingle.
-func (m NewOrderSingle) GetOrderQty(f *field.OrderQty) errors.MessageRejectError {
+func (m NewOrderSingle) GetOrderQty(f *field.OrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashOrderQty is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CashOrderQty() (*field.CashOrderQty, errors.MessageRejectError) {
-	f := new(field.CashOrderQty)
+func (m NewOrderSingle) CashOrderQty() (*field.CashOrderQtyField, errors.MessageRejectError) {
+	f := &field.CashOrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashOrderQty reads a CashOrderQty from NewOrderSingle.
-func (m NewOrderSingle) GetCashOrderQty(f *field.CashOrderQty) errors.MessageRejectError {
+func (m NewOrderSingle) GetCashOrderQty(f *field.CashOrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderPercent is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) OrderPercent() (*field.OrderPercent, errors.MessageRejectError) {
-	f := new(field.OrderPercent)
+func (m NewOrderSingle) OrderPercent() (*field.OrderPercentField, errors.MessageRejectError) {
+	f := &field.OrderPercentField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderPercent reads a OrderPercent from NewOrderSingle.
-func (m NewOrderSingle) GetOrderPercent(f *field.OrderPercent) errors.MessageRejectError {
+func (m NewOrderSingle) GetOrderPercent(f *field.OrderPercentField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RoundingDirection is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) RoundingDirection() (*field.RoundingDirection, errors.MessageRejectError) {
-	f := new(field.RoundingDirection)
+func (m NewOrderSingle) RoundingDirection() (*field.RoundingDirectionField, errors.MessageRejectError) {
+	f := &field.RoundingDirectionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRoundingDirection reads a RoundingDirection from NewOrderSingle.
-func (m NewOrderSingle) GetRoundingDirection(f *field.RoundingDirection) errors.MessageRejectError {
+func (m NewOrderSingle) GetRoundingDirection(f *field.RoundingDirectionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RoundingModulus is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) RoundingModulus() (*field.RoundingModulus, errors.MessageRejectError) {
-	f := new(field.RoundingModulus)
+func (m NewOrderSingle) RoundingModulus() (*field.RoundingModulusField, errors.MessageRejectError) {
+	f := &field.RoundingModulusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRoundingModulus reads a RoundingModulus from NewOrderSingle.
-func (m NewOrderSingle) GetRoundingModulus(f *field.RoundingModulus) errors.MessageRejectError {
+func (m NewOrderSingle) GetRoundingModulus(f *field.RoundingModulusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrdType is a required field for NewOrderSingle.
-func (m NewOrderSingle) OrdType() (*field.OrdType, errors.MessageRejectError) {
-	f := new(field.OrdType)
+func (m NewOrderSingle) OrdType() (*field.OrdTypeField, errors.MessageRejectError) {
+	f := &field.OrdTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrdType reads a OrdType from NewOrderSingle.
-func (m NewOrderSingle) GetOrdType(f *field.OrdType) errors.MessageRejectError {
+func (m NewOrderSingle) GetOrdType(f *field.OrdTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PriceType() (*field.PriceType, errors.MessageRejectError) {
-	f := new(field.PriceType)
+func (m NewOrderSingle) PriceType() (*field.PriceTypeField, errors.MessageRejectError) {
+	f := &field.PriceTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceType reads a PriceType from NewOrderSingle.
-func (m NewOrderSingle) GetPriceType(f *field.PriceType) errors.MessageRejectError {
+func (m NewOrderSingle) GetPriceType(f *field.PriceTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Price is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Price() (*field.Price, errors.MessageRejectError) {
-	f := new(field.Price)
+func (m NewOrderSingle) Price() (*field.PriceField, errors.MessageRejectError) {
+	f := &field.PriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPrice reads a Price from NewOrderSingle.
-func (m NewOrderSingle) GetPrice(f *field.Price) errors.MessageRejectError {
+func (m NewOrderSingle) GetPrice(f *field.PriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StopPx is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) StopPx() (*field.StopPx, errors.MessageRejectError) {
-	f := new(field.StopPx)
+func (m NewOrderSingle) StopPx() (*field.StopPxField, errors.MessageRejectError) {
+	f := &field.StopPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStopPx reads a StopPx from NewOrderSingle.
-func (m NewOrderSingle) GetStopPx(f *field.StopPx) errors.MessageRejectError {
+func (m NewOrderSingle) GetStopPx(f *field.StopPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Spread is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Spread() (*field.Spread, errors.MessageRejectError) {
-	f := new(field.Spread)
+func (m NewOrderSingle) Spread() (*field.SpreadField, errors.MessageRejectError) {
+	f := &field.SpreadField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSpread reads a Spread from NewOrderSingle.
-func (m NewOrderSingle) GetSpread(f *field.Spread) errors.MessageRejectError {
+func (m NewOrderSingle) GetSpread(f *field.SpreadField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkCurveCurrency is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BenchmarkCurveCurrency() (*field.BenchmarkCurveCurrency, errors.MessageRejectError) {
-	f := new(field.BenchmarkCurveCurrency)
+func (m NewOrderSingle) BenchmarkCurveCurrency() (*field.BenchmarkCurveCurrencyField, errors.MessageRejectError) {
+	f := &field.BenchmarkCurveCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkCurveCurrency reads a BenchmarkCurveCurrency from NewOrderSingle.
-func (m NewOrderSingle) GetBenchmarkCurveCurrency(f *field.BenchmarkCurveCurrency) errors.MessageRejectError {
+func (m NewOrderSingle) GetBenchmarkCurveCurrency(f *field.BenchmarkCurveCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkCurveName is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BenchmarkCurveName() (*field.BenchmarkCurveName, errors.MessageRejectError) {
-	f := new(field.BenchmarkCurveName)
+func (m NewOrderSingle) BenchmarkCurveName() (*field.BenchmarkCurveNameField, errors.MessageRejectError) {
+	f := &field.BenchmarkCurveNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkCurveName reads a BenchmarkCurveName from NewOrderSingle.
-func (m NewOrderSingle) GetBenchmarkCurveName(f *field.BenchmarkCurveName) errors.MessageRejectError {
+func (m NewOrderSingle) GetBenchmarkCurveName(f *field.BenchmarkCurveNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkCurvePoint is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BenchmarkCurvePoint() (*field.BenchmarkCurvePoint, errors.MessageRejectError) {
-	f := new(field.BenchmarkCurvePoint)
+func (m NewOrderSingle) BenchmarkCurvePoint() (*field.BenchmarkCurvePointField, errors.MessageRejectError) {
+	f := &field.BenchmarkCurvePointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkCurvePoint reads a BenchmarkCurvePoint from NewOrderSingle.
-func (m NewOrderSingle) GetBenchmarkCurvePoint(f *field.BenchmarkCurvePoint) errors.MessageRejectError {
+func (m NewOrderSingle) GetBenchmarkCurvePoint(f *field.BenchmarkCurvePointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkPrice is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BenchmarkPrice() (*field.BenchmarkPrice, errors.MessageRejectError) {
-	f := new(field.BenchmarkPrice)
+func (m NewOrderSingle) BenchmarkPrice() (*field.BenchmarkPriceField, errors.MessageRejectError) {
+	f := &field.BenchmarkPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkPrice reads a BenchmarkPrice from NewOrderSingle.
-func (m NewOrderSingle) GetBenchmarkPrice(f *field.BenchmarkPrice) errors.MessageRejectError {
+func (m NewOrderSingle) GetBenchmarkPrice(f *field.BenchmarkPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkPriceType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BenchmarkPriceType() (*field.BenchmarkPriceType, errors.MessageRejectError) {
-	f := new(field.BenchmarkPriceType)
+func (m NewOrderSingle) BenchmarkPriceType() (*field.BenchmarkPriceTypeField, errors.MessageRejectError) {
+	f := &field.BenchmarkPriceTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkPriceType reads a BenchmarkPriceType from NewOrderSingle.
-func (m NewOrderSingle) GetBenchmarkPriceType(f *field.BenchmarkPriceType) errors.MessageRejectError {
+func (m NewOrderSingle) GetBenchmarkPriceType(f *field.BenchmarkPriceTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkSecurityID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BenchmarkSecurityID() (*field.BenchmarkSecurityID, errors.MessageRejectError) {
-	f := new(field.BenchmarkSecurityID)
+func (m NewOrderSingle) BenchmarkSecurityID() (*field.BenchmarkSecurityIDField, errors.MessageRejectError) {
+	f := &field.BenchmarkSecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkSecurityID reads a BenchmarkSecurityID from NewOrderSingle.
-func (m NewOrderSingle) GetBenchmarkSecurityID(f *field.BenchmarkSecurityID) errors.MessageRejectError {
+func (m NewOrderSingle) GetBenchmarkSecurityID(f *field.BenchmarkSecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkSecurityIDSource is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BenchmarkSecurityIDSource() (*field.BenchmarkSecurityIDSource, errors.MessageRejectError) {
-	f := new(field.BenchmarkSecurityIDSource)
+func (m NewOrderSingle) BenchmarkSecurityIDSource() (*field.BenchmarkSecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.BenchmarkSecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkSecurityIDSource reads a BenchmarkSecurityIDSource from NewOrderSingle.
-func (m NewOrderSingle) GetBenchmarkSecurityIDSource(f *field.BenchmarkSecurityIDSource) errors.MessageRejectError {
+func (m NewOrderSingle) GetBenchmarkSecurityIDSource(f *field.BenchmarkSecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) YieldType() (*field.YieldType, errors.MessageRejectError) {
-	f := new(field.YieldType)
+func (m NewOrderSingle) YieldType() (*field.YieldTypeField, errors.MessageRejectError) {
+	f := &field.YieldTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldType reads a YieldType from NewOrderSingle.
-func (m NewOrderSingle) GetYieldType(f *field.YieldType) errors.MessageRejectError {
+func (m NewOrderSingle) GetYieldType(f *field.YieldTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Yield is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Yield() (*field.Yield, errors.MessageRejectError) {
-	f := new(field.Yield)
+func (m NewOrderSingle) Yield() (*field.YieldField, errors.MessageRejectError) {
+	f := &field.YieldField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYield reads a Yield from NewOrderSingle.
-func (m NewOrderSingle) GetYield(f *field.Yield) errors.MessageRejectError {
+func (m NewOrderSingle) GetYield(f *field.YieldField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldCalcDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) YieldCalcDate() (*field.YieldCalcDate, errors.MessageRejectError) {
-	f := new(field.YieldCalcDate)
+func (m NewOrderSingle) YieldCalcDate() (*field.YieldCalcDateField, errors.MessageRejectError) {
+	f := &field.YieldCalcDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldCalcDate reads a YieldCalcDate from NewOrderSingle.
-func (m NewOrderSingle) GetYieldCalcDate(f *field.YieldCalcDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetYieldCalcDate(f *field.YieldCalcDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldRedemptionDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) YieldRedemptionDate() (*field.YieldRedemptionDate, errors.MessageRejectError) {
-	f := new(field.YieldRedemptionDate)
+func (m NewOrderSingle) YieldRedemptionDate() (*field.YieldRedemptionDateField, errors.MessageRejectError) {
+	f := &field.YieldRedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldRedemptionDate reads a YieldRedemptionDate from NewOrderSingle.
-func (m NewOrderSingle) GetYieldRedemptionDate(f *field.YieldRedemptionDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetYieldRedemptionDate(f *field.YieldRedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldRedemptionPrice is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) YieldRedemptionPrice() (*field.YieldRedemptionPrice, errors.MessageRejectError) {
-	f := new(field.YieldRedemptionPrice)
+func (m NewOrderSingle) YieldRedemptionPrice() (*field.YieldRedemptionPriceField, errors.MessageRejectError) {
+	f := &field.YieldRedemptionPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldRedemptionPrice reads a YieldRedemptionPrice from NewOrderSingle.
-func (m NewOrderSingle) GetYieldRedemptionPrice(f *field.YieldRedemptionPrice) errors.MessageRejectError {
+func (m NewOrderSingle) GetYieldRedemptionPrice(f *field.YieldRedemptionPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldRedemptionPriceType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) YieldRedemptionPriceType() (*field.YieldRedemptionPriceType, errors.MessageRejectError) {
-	f := new(field.YieldRedemptionPriceType)
+func (m NewOrderSingle) YieldRedemptionPriceType() (*field.YieldRedemptionPriceTypeField, errors.MessageRejectError) {
+	f := &field.YieldRedemptionPriceTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldRedemptionPriceType reads a YieldRedemptionPriceType from NewOrderSingle.
-func (m NewOrderSingle) GetYieldRedemptionPriceType(f *field.YieldRedemptionPriceType) errors.MessageRejectError {
+func (m NewOrderSingle) GetYieldRedemptionPriceType(f *field.YieldRedemptionPriceTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Currency() (*field.Currency, errors.MessageRejectError) {
-	f := new(field.Currency)
+func (m NewOrderSingle) Currency() (*field.CurrencyField, errors.MessageRejectError) {
+	f := &field.CurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCurrency reads a Currency from NewOrderSingle.
-func (m NewOrderSingle) GetCurrency(f *field.Currency) errors.MessageRejectError {
+func (m NewOrderSingle) GetCurrency(f *field.CurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ComplianceID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ComplianceID() (*field.ComplianceID, errors.MessageRejectError) {
-	f := new(field.ComplianceID)
+func (m NewOrderSingle) ComplianceID() (*field.ComplianceIDField, errors.MessageRejectError) {
+	f := &field.ComplianceIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetComplianceID reads a ComplianceID from NewOrderSingle.
-func (m NewOrderSingle) GetComplianceID(f *field.ComplianceID) errors.MessageRejectError {
+func (m NewOrderSingle) GetComplianceID(f *field.ComplianceIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SolicitedFlag is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SolicitedFlag() (*field.SolicitedFlag, errors.MessageRejectError) {
-	f := new(field.SolicitedFlag)
+func (m NewOrderSingle) SolicitedFlag() (*field.SolicitedFlagField, errors.MessageRejectError) {
+	f := &field.SolicitedFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSolicitedFlag reads a SolicitedFlag from NewOrderSingle.
-func (m NewOrderSingle) GetSolicitedFlag(f *field.SolicitedFlag) errors.MessageRejectError {
+func (m NewOrderSingle) GetSolicitedFlag(f *field.SolicitedFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IOIID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) IOIID() (*field.IOIID, errors.MessageRejectError) {
-	f := new(field.IOIID)
+func (m NewOrderSingle) IOIID() (*field.IOIIDField, errors.MessageRejectError) {
+	f := &field.IOIIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIOIID reads a IOIID from NewOrderSingle.
-func (m NewOrderSingle) GetIOIID(f *field.IOIID) errors.MessageRejectError {
+func (m NewOrderSingle) GetIOIID(f *field.IOIIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //QuoteID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) QuoteID() (*field.QuoteID, errors.MessageRejectError) {
-	f := new(field.QuoteID)
+func (m NewOrderSingle) QuoteID() (*field.QuoteIDField, errors.MessageRejectError) {
+	f := &field.QuoteIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQuoteID reads a QuoteID from NewOrderSingle.
-func (m NewOrderSingle) GetQuoteID(f *field.QuoteID) errors.MessageRejectError {
+func (m NewOrderSingle) GetQuoteID(f *field.QuoteIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeInForce is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) TimeInForce() (*field.TimeInForce, errors.MessageRejectError) {
-	f := new(field.TimeInForce)
+func (m NewOrderSingle) TimeInForce() (*field.TimeInForceField, errors.MessageRejectError) {
+	f := &field.TimeInForceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeInForce reads a TimeInForce from NewOrderSingle.
-func (m NewOrderSingle) GetTimeInForce(f *field.TimeInForce) errors.MessageRejectError {
+func (m NewOrderSingle) GetTimeInForce(f *field.TimeInForceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EffectiveTime is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) EffectiveTime() (*field.EffectiveTime, errors.MessageRejectError) {
-	f := new(field.EffectiveTime)
+func (m NewOrderSingle) EffectiveTime() (*field.EffectiveTimeField, errors.MessageRejectError) {
+	f := &field.EffectiveTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEffectiveTime reads a EffectiveTime from NewOrderSingle.
-func (m NewOrderSingle) GetEffectiveTime(f *field.EffectiveTime) errors.MessageRejectError {
+func (m NewOrderSingle) GetEffectiveTime(f *field.EffectiveTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExpireDate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ExpireDate() (*field.ExpireDate, errors.MessageRejectError) {
-	f := new(field.ExpireDate)
+func (m NewOrderSingle) ExpireDate() (*field.ExpireDateField, errors.MessageRejectError) {
+	f := &field.ExpireDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExpireDate reads a ExpireDate from NewOrderSingle.
-func (m NewOrderSingle) GetExpireDate(f *field.ExpireDate) errors.MessageRejectError {
+func (m NewOrderSingle) GetExpireDate(f *field.ExpireDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExpireTime is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ExpireTime() (*field.ExpireTime, errors.MessageRejectError) {
-	f := new(field.ExpireTime)
+func (m NewOrderSingle) ExpireTime() (*field.ExpireTimeField, errors.MessageRejectError) {
+	f := &field.ExpireTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExpireTime reads a ExpireTime from NewOrderSingle.
-func (m NewOrderSingle) GetExpireTime(f *field.ExpireTime) errors.MessageRejectError {
+func (m NewOrderSingle) GetExpireTime(f *field.ExpireTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //GTBookingInst is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) GTBookingInst() (*field.GTBookingInst, errors.MessageRejectError) {
-	f := new(field.GTBookingInst)
+func (m NewOrderSingle) GTBookingInst() (*field.GTBookingInstField, errors.MessageRejectError) {
+	f := &field.GTBookingInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetGTBookingInst reads a GTBookingInst from NewOrderSingle.
-func (m NewOrderSingle) GetGTBookingInst(f *field.GTBookingInst) errors.MessageRejectError {
+func (m NewOrderSingle) GetGTBookingInst(f *field.GTBookingInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Commission is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Commission() (*field.Commission, errors.MessageRejectError) {
-	f := new(field.Commission)
+func (m NewOrderSingle) Commission() (*field.CommissionField, errors.MessageRejectError) {
+	f := &field.CommissionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommission reads a Commission from NewOrderSingle.
-func (m NewOrderSingle) GetCommission(f *field.Commission) errors.MessageRejectError {
+func (m NewOrderSingle) GetCommission(f *field.CommissionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CommType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CommType() (*field.CommType, errors.MessageRejectError) {
-	f := new(field.CommType)
+func (m NewOrderSingle) CommType() (*field.CommTypeField, errors.MessageRejectError) {
+	f := &field.CommTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommType reads a CommType from NewOrderSingle.
-func (m NewOrderSingle) GetCommType(f *field.CommType) errors.MessageRejectError {
+func (m NewOrderSingle) GetCommType(f *field.CommTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CommCurrency is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CommCurrency() (*field.CommCurrency, errors.MessageRejectError) {
-	f := new(field.CommCurrency)
+func (m NewOrderSingle) CommCurrency() (*field.CommCurrencyField, errors.MessageRejectError) {
+	f := &field.CommCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommCurrency reads a CommCurrency from NewOrderSingle.
-func (m NewOrderSingle) GetCommCurrency(f *field.CommCurrency) errors.MessageRejectError {
+func (m NewOrderSingle) GetCommCurrency(f *field.CommCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FundRenewWaiv is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) FundRenewWaiv() (*field.FundRenewWaiv, errors.MessageRejectError) {
-	f := new(field.FundRenewWaiv)
+func (m NewOrderSingle) FundRenewWaiv() (*field.FundRenewWaivField, errors.MessageRejectError) {
+	f := &field.FundRenewWaivField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFundRenewWaiv reads a FundRenewWaiv from NewOrderSingle.
-func (m NewOrderSingle) GetFundRenewWaiv(f *field.FundRenewWaiv) errors.MessageRejectError {
+func (m NewOrderSingle) GetFundRenewWaiv(f *field.FundRenewWaivField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderCapacity is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) OrderCapacity() (*field.OrderCapacity, errors.MessageRejectError) {
-	f := new(field.OrderCapacity)
+func (m NewOrderSingle) OrderCapacity() (*field.OrderCapacityField, errors.MessageRejectError) {
+	f := &field.OrderCapacityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderCapacity reads a OrderCapacity from NewOrderSingle.
-func (m NewOrderSingle) GetOrderCapacity(f *field.OrderCapacity) errors.MessageRejectError {
+func (m NewOrderSingle) GetOrderCapacity(f *field.OrderCapacityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderRestrictions is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) OrderRestrictions() (*field.OrderRestrictions, errors.MessageRejectError) {
-	f := new(field.OrderRestrictions)
+func (m NewOrderSingle) OrderRestrictions() (*field.OrderRestrictionsField, errors.MessageRejectError) {
+	f := &field.OrderRestrictionsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderRestrictions reads a OrderRestrictions from NewOrderSingle.
-func (m NewOrderSingle) GetOrderRestrictions(f *field.OrderRestrictions) errors.MessageRejectError {
+func (m NewOrderSingle) GetOrderRestrictions(f *field.OrderRestrictionsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CustOrderCapacity is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CustOrderCapacity() (*field.CustOrderCapacity, errors.MessageRejectError) {
-	f := new(field.CustOrderCapacity)
+func (m NewOrderSingle) CustOrderCapacity() (*field.CustOrderCapacityField, errors.MessageRejectError) {
+	f := &field.CustOrderCapacityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCustOrderCapacity reads a CustOrderCapacity from NewOrderSingle.
-func (m NewOrderSingle) GetCustOrderCapacity(f *field.CustOrderCapacity) errors.MessageRejectError {
+func (m NewOrderSingle) GetCustOrderCapacity(f *field.CustOrderCapacityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ForexReq is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ForexReq() (*field.ForexReq, errors.MessageRejectError) {
-	f := new(field.ForexReq)
+func (m NewOrderSingle) ForexReq() (*field.ForexReqField, errors.MessageRejectError) {
+	f := &field.ForexReqField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetForexReq reads a ForexReq from NewOrderSingle.
-func (m NewOrderSingle) GetForexReq(f *field.ForexReq) errors.MessageRejectError {
+func (m NewOrderSingle) GetForexReq(f *field.ForexReqField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrency is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SettlCurrency() (*field.SettlCurrency, errors.MessageRejectError) {
-	f := new(field.SettlCurrency)
+func (m NewOrderSingle) SettlCurrency() (*field.SettlCurrencyField, errors.MessageRejectError) {
+	f := &field.SettlCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrency reads a SettlCurrency from NewOrderSingle.
-func (m NewOrderSingle) GetSettlCurrency(f *field.SettlCurrency) errors.MessageRejectError {
+func (m NewOrderSingle) GetSettlCurrency(f *field.SettlCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BookingType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) BookingType() (*field.BookingType, errors.MessageRejectError) {
-	f := new(field.BookingType)
+func (m NewOrderSingle) BookingType() (*field.BookingTypeField, errors.MessageRejectError) {
+	f := &field.BookingTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBookingType reads a BookingType from NewOrderSingle.
-func (m NewOrderSingle) GetBookingType(f *field.BookingType) errors.MessageRejectError {
+func (m NewOrderSingle) GetBookingType(f *field.BookingTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m NewOrderSingle) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from NewOrderSingle.
-func (m NewOrderSingle) GetText(f *field.Text) errors.MessageRejectError {
+func (m NewOrderSingle) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m NewOrderSingle) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from NewOrderSingle.
-func (m NewOrderSingle) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m NewOrderSingle) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m NewOrderSingle) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from NewOrderSingle.
-func (m NewOrderSingle) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m NewOrderSingle) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlDate2 is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) SettlDate2() (*field.SettlDate2, errors.MessageRejectError) {
-	f := new(field.SettlDate2)
+func (m NewOrderSingle) SettlDate2() (*field.SettlDate2Field, errors.MessageRejectError) {
+	f := &field.SettlDate2Field{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlDate2 reads a SettlDate2 from NewOrderSingle.
-func (m NewOrderSingle) GetSettlDate2(f *field.SettlDate2) errors.MessageRejectError {
+func (m NewOrderSingle) GetSettlDate2(f *field.SettlDate2Field) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty2 is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) OrderQty2() (*field.OrderQty2, errors.MessageRejectError) {
-	f := new(field.OrderQty2)
+func (m NewOrderSingle) OrderQty2() (*field.OrderQty2Field, errors.MessageRejectError) {
+	f := &field.OrderQty2Field{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty2 reads a OrderQty2 from NewOrderSingle.
-func (m NewOrderSingle) GetOrderQty2(f *field.OrderQty2) errors.MessageRejectError {
+func (m NewOrderSingle) GetOrderQty2(f *field.OrderQty2Field) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Price2 is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Price2() (*field.Price2, errors.MessageRejectError) {
-	f := new(field.Price2)
+func (m NewOrderSingle) Price2() (*field.Price2Field, errors.MessageRejectError) {
+	f := &field.Price2Field{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPrice2 reads a Price2 from NewOrderSingle.
-func (m NewOrderSingle) GetPrice2(f *field.Price2) errors.MessageRejectError {
+func (m NewOrderSingle) GetPrice2(f *field.Price2Field) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PositionEffect is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PositionEffect() (*field.PositionEffect, errors.MessageRejectError) {
-	f := new(field.PositionEffect)
+func (m NewOrderSingle) PositionEffect() (*field.PositionEffectField, errors.MessageRejectError) {
+	f := &field.PositionEffectField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPositionEffect reads a PositionEffect from NewOrderSingle.
-func (m NewOrderSingle) GetPositionEffect(f *field.PositionEffect) errors.MessageRejectError {
+func (m NewOrderSingle) GetPositionEffect(f *field.PositionEffectField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CoveredOrUncovered is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CoveredOrUncovered() (*field.CoveredOrUncovered, errors.MessageRejectError) {
-	f := new(field.CoveredOrUncovered)
+func (m NewOrderSingle) CoveredOrUncovered() (*field.CoveredOrUncoveredField, errors.MessageRejectError) {
+	f := &field.CoveredOrUncoveredField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCoveredOrUncovered reads a CoveredOrUncovered from NewOrderSingle.
-func (m NewOrderSingle) GetCoveredOrUncovered(f *field.CoveredOrUncovered) errors.MessageRejectError {
+func (m NewOrderSingle) GetCoveredOrUncovered(f *field.CoveredOrUncoveredField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaxShow is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) MaxShow() (*field.MaxShow, errors.MessageRejectError) {
-	f := new(field.MaxShow)
+func (m NewOrderSingle) MaxShow() (*field.MaxShowField, errors.MessageRejectError) {
+	f := &field.MaxShowField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaxShow reads a MaxShow from NewOrderSingle.
-func (m NewOrderSingle) GetMaxShow(f *field.MaxShow) errors.MessageRejectError {
+func (m NewOrderSingle) GetMaxShow(f *field.MaxShowField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PegOffsetValue is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PegOffsetValue() (*field.PegOffsetValue, errors.MessageRejectError) {
-	f := new(field.PegOffsetValue)
+func (m NewOrderSingle) PegOffsetValue() (*field.PegOffsetValueField, errors.MessageRejectError) {
+	f := &field.PegOffsetValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPegOffsetValue reads a PegOffsetValue from NewOrderSingle.
-func (m NewOrderSingle) GetPegOffsetValue(f *field.PegOffsetValue) errors.MessageRejectError {
+func (m NewOrderSingle) GetPegOffsetValue(f *field.PegOffsetValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PegMoveType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PegMoveType() (*field.PegMoveType, errors.MessageRejectError) {
-	f := new(field.PegMoveType)
+func (m NewOrderSingle) PegMoveType() (*field.PegMoveTypeField, errors.MessageRejectError) {
+	f := &field.PegMoveTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPegMoveType reads a PegMoveType from NewOrderSingle.
-func (m NewOrderSingle) GetPegMoveType(f *field.PegMoveType) errors.MessageRejectError {
+func (m NewOrderSingle) GetPegMoveType(f *field.PegMoveTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PegOffsetType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PegOffsetType() (*field.PegOffsetType, errors.MessageRejectError) {
-	f := new(field.PegOffsetType)
+func (m NewOrderSingle) PegOffsetType() (*field.PegOffsetTypeField, errors.MessageRejectError) {
+	f := &field.PegOffsetTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPegOffsetType reads a PegOffsetType from NewOrderSingle.
-func (m NewOrderSingle) GetPegOffsetType(f *field.PegOffsetType) errors.MessageRejectError {
+func (m NewOrderSingle) GetPegOffsetType(f *field.PegOffsetTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PegLimitType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PegLimitType() (*field.PegLimitType, errors.MessageRejectError) {
-	f := new(field.PegLimitType)
+func (m NewOrderSingle) PegLimitType() (*field.PegLimitTypeField, errors.MessageRejectError) {
+	f := &field.PegLimitTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPegLimitType reads a PegLimitType from NewOrderSingle.
-func (m NewOrderSingle) GetPegLimitType(f *field.PegLimitType) errors.MessageRejectError {
+func (m NewOrderSingle) GetPegLimitType(f *field.PegLimitTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PegRoundDirection is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PegRoundDirection() (*field.PegRoundDirection, errors.MessageRejectError) {
-	f := new(field.PegRoundDirection)
+func (m NewOrderSingle) PegRoundDirection() (*field.PegRoundDirectionField, errors.MessageRejectError) {
+	f := &field.PegRoundDirectionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPegRoundDirection reads a PegRoundDirection from NewOrderSingle.
-func (m NewOrderSingle) GetPegRoundDirection(f *field.PegRoundDirection) errors.MessageRejectError {
+func (m NewOrderSingle) GetPegRoundDirection(f *field.PegRoundDirectionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PegScope is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) PegScope() (*field.PegScope, errors.MessageRejectError) {
-	f := new(field.PegScope)
+func (m NewOrderSingle) PegScope() (*field.PegScopeField, errors.MessageRejectError) {
+	f := &field.PegScopeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPegScope reads a PegScope from NewOrderSingle.
-func (m NewOrderSingle) GetPegScope(f *field.PegScope) errors.MessageRejectError {
+func (m NewOrderSingle) GetPegScope(f *field.PegScopeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionInst is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DiscretionInst() (*field.DiscretionInst, errors.MessageRejectError) {
-	f := new(field.DiscretionInst)
+func (m NewOrderSingle) DiscretionInst() (*field.DiscretionInstField, errors.MessageRejectError) {
+	f := &field.DiscretionInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionInst reads a DiscretionInst from NewOrderSingle.
-func (m NewOrderSingle) GetDiscretionInst(f *field.DiscretionInst) errors.MessageRejectError {
+func (m NewOrderSingle) GetDiscretionInst(f *field.DiscretionInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionOffsetValue is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DiscretionOffsetValue() (*field.DiscretionOffsetValue, errors.MessageRejectError) {
-	f := new(field.DiscretionOffsetValue)
+func (m NewOrderSingle) DiscretionOffsetValue() (*field.DiscretionOffsetValueField, errors.MessageRejectError) {
+	f := &field.DiscretionOffsetValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionOffsetValue reads a DiscretionOffsetValue from NewOrderSingle.
-func (m NewOrderSingle) GetDiscretionOffsetValue(f *field.DiscretionOffsetValue) errors.MessageRejectError {
+func (m NewOrderSingle) GetDiscretionOffsetValue(f *field.DiscretionOffsetValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionMoveType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DiscretionMoveType() (*field.DiscretionMoveType, errors.MessageRejectError) {
-	f := new(field.DiscretionMoveType)
+func (m NewOrderSingle) DiscretionMoveType() (*field.DiscretionMoveTypeField, errors.MessageRejectError) {
+	f := &field.DiscretionMoveTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionMoveType reads a DiscretionMoveType from NewOrderSingle.
-func (m NewOrderSingle) GetDiscretionMoveType(f *field.DiscretionMoveType) errors.MessageRejectError {
+func (m NewOrderSingle) GetDiscretionMoveType(f *field.DiscretionMoveTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionOffsetType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DiscretionOffsetType() (*field.DiscretionOffsetType, errors.MessageRejectError) {
-	f := new(field.DiscretionOffsetType)
+func (m NewOrderSingle) DiscretionOffsetType() (*field.DiscretionOffsetTypeField, errors.MessageRejectError) {
+	f := &field.DiscretionOffsetTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionOffsetType reads a DiscretionOffsetType from NewOrderSingle.
-func (m NewOrderSingle) GetDiscretionOffsetType(f *field.DiscretionOffsetType) errors.MessageRejectError {
+func (m NewOrderSingle) GetDiscretionOffsetType(f *field.DiscretionOffsetTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionLimitType is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DiscretionLimitType() (*field.DiscretionLimitType, errors.MessageRejectError) {
-	f := new(field.DiscretionLimitType)
+func (m NewOrderSingle) DiscretionLimitType() (*field.DiscretionLimitTypeField, errors.MessageRejectError) {
+	f := &field.DiscretionLimitTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionLimitType reads a DiscretionLimitType from NewOrderSingle.
-func (m NewOrderSingle) GetDiscretionLimitType(f *field.DiscretionLimitType) errors.MessageRejectError {
+func (m NewOrderSingle) GetDiscretionLimitType(f *field.DiscretionLimitTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionRoundDirection is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DiscretionRoundDirection() (*field.DiscretionRoundDirection, errors.MessageRejectError) {
-	f := new(field.DiscretionRoundDirection)
+func (m NewOrderSingle) DiscretionRoundDirection() (*field.DiscretionRoundDirectionField, errors.MessageRejectError) {
+	f := &field.DiscretionRoundDirectionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionRoundDirection reads a DiscretionRoundDirection from NewOrderSingle.
-func (m NewOrderSingle) GetDiscretionRoundDirection(f *field.DiscretionRoundDirection) errors.MessageRejectError {
+func (m NewOrderSingle) GetDiscretionRoundDirection(f *field.DiscretionRoundDirectionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DiscretionScope is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) DiscretionScope() (*field.DiscretionScope, errors.MessageRejectError) {
-	f := new(field.DiscretionScope)
+func (m NewOrderSingle) DiscretionScope() (*field.DiscretionScopeField, errors.MessageRejectError) {
+	f := &field.DiscretionScopeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDiscretionScope reads a DiscretionScope from NewOrderSingle.
-func (m NewOrderSingle) GetDiscretionScope(f *field.DiscretionScope) errors.MessageRejectError {
+func (m NewOrderSingle) GetDiscretionScope(f *field.DiscretionScopeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TargetStrategy is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) TargetStrategy() (*field.TargetStrategy, errors.MessageRejectError) {
-	f := new(field.TargetStrategy)
+func (m NewOrderSingle) TargetStrategy() (*field.TargetStrategyField, errors.MessageRejectError) {
+	f := &field.TargetStrategyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTargetStrategy reads a TargetStrategy from NewOrderSingle.
-func (m NewOrderSingle) GetTargetStrategy(f *field.TargetStrategy) errors.MessageRejectError {
+func (m NewOrderSingle) GetTargetStrategy(f *field.TargetStrategyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TargetStrategyParameters is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) TargetStrategyParameters() (*field.TargetStrategyParameters, errors.MessageRejectError) {
-	f := new(field.TargetStrategyParameters)
+func (m NewOrderSingle) TargetStrategyParameters() (*field.TargetStrategyParametersField, errors.MessageRejectError) {
+	f := &field.TargetStrategyParametersField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTargetStrategyParameters reads a TargetStrategyParameters from NewOrderSingle.
-func (m NewOrderSingle) GetTargetStrategyParameters(f *field.TargetStrategyParameters) errors.MessageRejectError {
+func (m NewOrderSingle) GetTargetStrategyParameters(f *field.TargetStrategyParametersField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ParticipationRate is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) ParticipationRate() (*field.ParticipationRate, errors.MessageRejectError) {
-	f := new(field.ParticipationRate)
+func (m NewOrderSingle) ParticipationRate() (*field.ParticipationRateField, errors.MessageRejectError) {
+	f := &field.ParticipationRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetParticipationRate reads a ParticipationRate from NewOrderSingle.
-func (m NewOrderSingle) GetParticipationRate(f *field.ParticipationRate) errors.MessageRejectError {
+func (m NewOrderSingle) GetParticipationRate(f *field.ParticipationRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CancellationRights is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) CancellationRights() (*field.CancellationRights, errors.MessageRejectError) {
-	f := new(field.CancellationRights)
+func (m NewOrderSingle) CancellationRights() (*field.CancellationRightsField, errors.MessageRejectError) {
+	f := &field.CancellationRightsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCancellationRights reads a CancellationRights from NewOrderSingle.
-func (m NewOrderSingle) GetCancellationRights(f *field.CancellationRights) errors.MessageRejectError {
+func (m NewOrderSingle) GetCancellationRights(f *field.CancellationRightsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MoneyLaunderingStatus is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) MoneyLaunderingStatus() (*field.MoneyLaunderingStatus, errors.MessageRejectError) {
-	f := new(field.MoneyLaunderingStatus)
+func (m NewOrderSingle) MoneyLaunderingStatus() (*field.MoneyLaunderingStatusField, errors.MessageRejectError) {
+	f := &field.MoneyLaunderingStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMoneyLaunderingStatus reads a MoneyLaunderingStatus from NewOrderSingle.
-func (m NewOrderSingle) GetMoneyLaunderingStatus(f *field.MoneyLaunderingStatus) errors.MessageRejectError {
+func (m NewOrderSingle) GetMoneyLaunderingStatus(f *field.MoneyLaunderingStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RegistID is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) RegistID() (*field.RegistID, errors.MessageRejectError) {
-	f := new(field.RegistID)
+func (m NewOrderSingle) RegistID() (*field.RegistIDField, errors.MessageRejectError) {
+	f := &field.RegistIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRegistID reads a RegistID from NewOrderSingle.
-func (m NewOrderSingle) GetRegistID(f *field.RegistID) errors.MessageRejectError {
+func (m NewOrderSingle) GetRegistID(f *field.RegistIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Designation is a non-required field for NewOrderSingle.
-func (m NewOrderSingle) Designation() (*field.Designation, errors.MessageRejectError) {
-	f := new(field.Designation)
+func (m NewOrderSingle) Designation() (*field.DesignationField, errors.MessageRejectError) {
+	f := &field.DesignationField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDesignation reads a Designation from NewOrderSingle.
-func (m NewOrderSingle) GetDesignation(f *field.Designation) errors.MessageRejectError {
+func (m NewOrderSingle) GetDesignation(f *field.DesignationField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

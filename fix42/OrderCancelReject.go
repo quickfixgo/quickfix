@@ -19,15 +19,15 @@ type OrderCancelRejectBuilder struct {
 
 //CreateOrderCancelRejectBuilder returns an initialized OrderCancelRejectBuilder with specified required fields.
 func CreateOrderCancelRejectBuilder(
-	orderid field.OrderID,
-	clordid field.ClOrdID,
-	origclordid field.OrigClOrdID,
-	ordstatus field.OrdStatus,
-	cxlrejresponseto field.CxlRejResponseTo) OrderCancelRejectBuilder {
+	orderid *field.OrderIDField,
+	clordid *field.ClOrdIDField,
+	origclordid *field.OrigClOrdIDField,
+	ordstatus *field.OrdStatusField,
+	cxlrejresponseto *field.CxlRejResponseToField) OrderCancelRejectBuilder {
 	var builder OrderCancelRejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.BuildMsgType("9"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("9"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(clordid)
 	builder.Body.Set(origclordid)
@@ -37,181 +37,181 @@ func CreateOrderCancelRejectBuilder(
 }
 
 //OrderID is a required field for OrderCancelReject.
-func (m OrderCancelReject) OrderID() (*field.OrderID, errors.MessageRejectError) {
-	f := new(field.OrderID)
+func (m OrderCancelReject) OrderID() (*field.OrderIDField, errors.MessageRejectError) {
+	f := &field.OrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderID reads a OrderID from OrderCancelReject.
-func (m OrderCancelReject) GetOrderID(f *field.OrderID) errors.MessageRejectError {
+func (m OrderCancelReject) GetOrderID(f *field.OrderIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryOrderID is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) SecondaryOrderID() (*field.SecondaryOrderID, errors.MessageRejectError) {
-	f := new(field.SecondaryOrderID)
+func (m OrderCancelReject) SecondaryOrderID() (*field.SecondaryOrderIDField, errors.MessageRejectError) {
+	f := &field.SecondaryOrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryOrderID reads a SecondaryOrderID from OrderCancelReject.
-func (m OrderCancelReject) GetSecondaryOrderID(f *field.SecondaryOrderID) errors.MessageRejectError {
+func (m OrderCancelReject) GetSecondaryOrderID(f *field.SecondaryOrderIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdID is a required field for OrderCancelReject.
-func (m OrderCancelReject) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
-	f := new(field.ClOrdID)
+func (m OrderCancelReject) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from OrderCancelReject.
-func (m OrderCancelReject) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+func (m OrderCancelReject) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrigClOrdID is a required field for OrderCancelReject.
-func (m OrderCancelReject) OrigClOrdID() (*field.OrigClOrdID, errors.MessageRejectError) {
-	f := new(field.OrigClOrdID)
+func (m OrderCancelReject) OrigClOrdID() (*field.OrigClOrdIDField, errors.MessageRejectError) {
+	f := &field.OrigClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrigClOrdID reads a OrigClOrdID from OrderCancelReject.
-func (m OrderCancelReject) GetOrigClOrdID(f *field.OrigClOrdID) errors.MessageRejectError {
+func (m OrderCancelReject) GetOrigClOrdID(f *field.OrigClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrdStatus is a required field for OrderCancelReject.
-func (m OrderCancelReject) OrdStatus() (*field.OrdStatus, errors.MessageRejectError) {
-	f := new(field.OrdStatus)
+func (m OrderCancelReject) OrdStatus() (*field.OrdStatusField, errors.MessageRejectError) {
+	f := &field.OrdStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrdStatus reads a OrdStatus from OrderCancelReject.
-func (m OrderCancelReject) GetOrdStatus(f *field.OrdStatus) errors.MessageRejectError {
+func (m OrderCancelReject) GetOrdStatus(f *field.OrdStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClientID is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) ClientID() (*field.ClientID, errors.MessageRejectError) {
-	f := new(field.ClientID)
+func (m OrderCancelReject) ClientID() (*field.ClientIDField, errors.MessageRejectError) {
+	f := &field.ClientIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClientID reads a ClientID from OrderCancelReject.
-func (m OrderCancelReject) GetClientID(f *field.ClientID) errors.MessageRejectError {
+func (m OrderCancelReject) GetClientID(f *field.ClientIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecBroker is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) ExecBroker() (*field.ExecBroker, errors.MessageRejectError) {
-	f := new(field.ExecBroker)
+func (m OrderCancelReject) ExecBroker() (*field.ExecBrokerField, errors.MessageRejectError) {
+	f := &field.ExecBrokerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecBroker reads a ExecBroker from OrderCancelReject.
-func (m OrderCancelReject) GetExecBroker(f *field.ExecBroker) errors.MessageRejectError {
+func (m OrderCancelReject) GetExecBroker(f *field.ExecBrokerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListID is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m OrderCancelReject) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from OrderCancelReject.
-func (m OrderCancelReject) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m OrderCancelReject) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) Account() (*field.Account, errors.MessageRejectError) {
-	f := new(field.Account)
+func (m OrderCancelReject) Account() (*field.AccountField, errors.MessageRejectError) {
+	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from OrderCancelReject.
-func (m OrderCancelReject) GetAccount(f *field.Account) errors.MessageRejectError {
+func (m OrderCancelReject) GetAccount(f *field.AccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m OrderCancelReject) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from OrderCancelReject.
-func (m OrderCancelReject) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m OrderCancelReject) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CxlRejResponseTo is a required field for OrderCancelReject.
-func (m OrderCancelReject) CxlRejResponseTo() (*field.CxlRejResponseTo, errors.MessageRejectError) {
-	f := new(field.CxlRejResponseTo)
+func (m OrderCancelReject) CxlRejResponseTo() (*field.CxlRejResponseToField, errors.MessageRejectError) {
+	f := &field.CxlRejResponseToField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCxlRejResponseTo reads a CxlRejResponseTo from OrderCancelReject.
-func (m OrderCancelReject) GetCxlRejResponseTo(f *field.CxlRejResponseTo) errors.MessageRejectError {
+func (m OrderCancelReject) GetCxlRejResponseTo(f *field.CxlRejResponseToField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CxlRejReason is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) CxlRejReason() (*field.CxlRejReason, errors.MessageRejectError) {
-	f := new(field.CxlRejReason)
+func (m OrderCancelReject) CxlRejReason() (*field.CxlRejReasonField, errors.MessageRejectError) {
+	f := &field.CxlRejReasonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCxlRejReason reads a CxlRejReason from OrderCancelReject.
-func (m OrderCancelReject) GetCxlRejReason(f *field.CxlRejReason) errors.MessageRejectError {
+func (m OrderCancelReject) GetCxlRejReason(f *field.CxlRejReasonField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m OrderCancelReject) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from OrderCancelReject.
-func (m OrderCancelReject) GetText(f *field.Text) errors.MessageRejectError {
+func (m OrderCancelReject) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m OrderCancelReject) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from OrderCancelReject.
-func (m OrderCancelReject) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m OrderCancelReject) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for OrderCancelReject.
-func (m OrderCancelReject) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m OrderCancelReject) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from OrderCancelReject.
-func (m OrderCancelReject) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m OrderCancelReject) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

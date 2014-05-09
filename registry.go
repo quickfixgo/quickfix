@@ -8,17 +8,17 @@ import (
 
 //Send determines the session to send msgBuilder using header fields BeginString, TargetCompID, SenderCompID
 func Send(msg message.MessageBuilder) (err error) {
-	var beginString field.BeginString
+	var beginString field.BeginStringField
 	if err := msg.Header.Get(&beginString); err != nil {
 		return err
 	}
 
-	var targetCompID field.TargetCompID
+	var targetCompID field.TargetCompIDField
 	if err := msg.Header.Get(&targetCompID); err != nil {
 		return err
 	}
 
-	var senderCompID field.SenderCompID
+	var senderCompID field.SenderCompIDField
 	if err := msg.Header.Get(&senderCompID); err != nil {
 
 		return nil

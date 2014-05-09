@@ -19,17 +19,17 @@ type SettlementInstructionsBuilder struct {
 
 //CreateSettlementInstructionsBuilder returns an initialized SettlementInstructionsBuilder with specified required fields.
 func CreateSettlementInstructionsBuilder(
-	settlinstid field.SettlInstID,
-	settlinsttranstype field.SettlInstTransType,
-	settlinstrefid field.SettlInstRefID,
-	settlinstmode field.SettlInstMode,
-	settlinstsource field.SettlInstSource,
-	allocaccount field.AllocAccount,
-	transacttime field.TransactTime) SettlementInstructionsBuilder {
+	settlinstid *field.SettlInstIDField,
+	settlinsttranstype *field.SettlInstTransTypeField,
+	settlinstrefid *field.SettlInstRefIDField,
+	settlinstmode *field.SettlInstModeField,
+	settlinstsource *field.SettlInstSourceField,
+	allocaccount *field.AllocAccountField,
+	transacttime *field.TransactTimeField) SettlementInstructionsBuilder {
 	var builder SettlementInstructionsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.BuildMsgType("T"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("T"))
 	builder.Body.Set(settlinstid)
 	builder.Body.Set(settlinsttranstype)
 	builder.Body.Set(settlinstrefid)
@@ -41,433 +41,433 @@ func CreateSettlementInstructionsBuilder(
 }
 
 //SettlInstID is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstID() (*field.SettlInstID, errors.MessageRejectError) {
-	f := new(field.SettlInstID)
+func (m SettlementInstructions) SettlInstID() (*field.SettlInstIDField, errors.MessageRejectError) {
+	f := &field.SettlInstIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlInstID reads a SettlInstID from SettlementInstructions.
-func (m SettlementInstructions) GetSettlInstID(f *field.SettlInstID) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlInstID(f *field.SettlInstIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlInstTransType is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstTransType() (*field.SettlInstTransType, errors.MessageRejectError) {
-	f := new(field.SettlInstTransType)
+func (m SettlementInstructions) SettlInstTransType() (*field.SettlInstTransTypeField, errors.MessageRejectError) {
+	f := &field.SettlInstTransTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlInstTransType reads a SettlInstTransType from SettlementInstructions.
-func (m SettlementInstructions) GetSettlInstTransType(f *field.SettlInstTransType) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlInstTransType(f *field.SettlInstTransTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlInstRefID is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstRefID() (*field.SettlInstRefID, errors.MessageRejectError) {
-	f := new(field.SettlInstRefID)
+func (m SettlementInstructions) SettlInstRefID() (*field.SettlInstRefIDField, errors.MessageRejectError) {
+	f := &field.SettlInstRefIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlInstRefID reads a SettlInstRefID from SettlementInstructions.
-func (m SettlementInstructions) GetSettlInstRefID(f *field.SettlInstRefID) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlInstRefID(f *field.SettlInstRefIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlInstMode is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstMode() (*field.SettlInstMode, errors.MessageRejectError) {
-	f := new(field.SettlInstMode)
+func (m SettlementInstructions) SettlInstMode() (*field.SettlInstModeField, errors.MessageRejectError) {
+	f := &field.SettlInstModeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlInstMode reads a SettlInstMode from SettlementInstructions.
-func (m SettlementInstructions) GetSettlInstMode(f *field.SettlInstMode) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlInstMode(f *field.SettlInstModeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlInstSource is a required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstSource() (*field.SettlInstSource, errors.MessageRejectError) {
-	f := new(field.SettlInstSource)
+func (m SettlementInstructions) SettlInstSource() (*field.SettlInstSourceField, errors.MessageRejectError) {
+	f := &field.SettlInstSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlInstSource reads a SettlInstSource from SettlementInstructions.
-func (m SettlementInstructions) GetSettlInstSource(f *field.SettlInstSource) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlInstSource(f *field.SettlInstSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocAccount is a required field for SettlementInstructions.
-func (m SettlementInstructions) AllocAccount() (*field.AllocAccount, errors.MessageRejectError) {
-	f := new(field.AllocAccount)
+func (m SettlementInstructions) AllocAccount() (*field.AllocAccountField, errors.MessageRejectError) {
+	f := &field.AllocAccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocAccount reads a AllocAccount from SettlementInstructions.
-func (m SettlementInstructions) GetAllocAccount(f *field.AllocAccount) errors.MessageRejectError {
+func (m SettlementInstructions) GetAllocAccount(f *field.AllocAccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlLocation is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlLocation() (*field.SettlLocation, errors.MessageRejectError) {
-	f := new(field.SettlLocation)
+func (m SettlementInstructions) SettlLocation() (*field.SettlLocationField, errors.MessageRejectError) {
+	f := &field.SettlLocationField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlLocation reads a SettlLocation from SettlementInstructions.
-func (m SettlementInstructions) GetSettlLocation(f *field.SettlLocation) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlLocation(f *field.SettlLocationField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeDate is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) TradeDate() (*field.TradeDate, errors.MessageRejectError) {
-	f := new(field.TradeDate)
+func (m SettlementInstructions) TradeDate() (*field.TradeDateField, errors.MessageRejectError) {
+	f := &field.TradeDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeDate reads a TradeDate from SettlementInstructions.
-func (m SettlementInstructions) GetTradeDate(f *field.TradeDate) errors.MessageRejectError {
+func (m SettlementInstructions) GetTradeDate(f *field.TradeDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocID is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) AllocID() (*field.AllocID, errors.MessageRejectError) {
-	f := new(field.AllocID)
+func (m SettlementInstructions) AllocID() (*field.AllocIDField, errors.MessageRejectError) {
+	f := &field.AllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocID reads a AllocID from SettlementInstructions.
-func (m SettlementInstructions) GetAllocID(f *field.AllocID) errors.MessageRejectError {
+func (m SettlementInstructions) GetAllocID(f *field.AllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastMkt is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) LastMkt() (*field.LastMkt, errors.MessageRejectError) {
-	f := new(field.LastMkt)
+func (m SettlementInstructions) LastMkt() (*field.LastMktField, errors.MessageRejectError) {
+	f := &field.LastMktField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastMkt reads a LastMkt from SettlementInstructions.
-func (m SettlementInstructions) GetLastMkt(f *field.LastMkt) errors.MessageRejectError {
+func (m SettlementInstructions) GetLastMkt(f *field.LastMktField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionID is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
-	f := new(field.TradingSessionID)
+func (m SettlementInstructions) TradingSessionID() (*field.TradingSessionIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionID reads a TradingSessionID from SettlementInstructions.
-func (m SettlementInstructions) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+func (m SettlementInstructions) GetTradingSessionID(f *field.TradingSessionIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m SettlementInstructions) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from SettlementInstructions.
-func (m SettlementInstructions) GetSide(f *field.Side) errors.MessageRejectError {
+func (m SettlementInstructions) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m SettlementInstructions) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from SettlementInstructions.
-func (m SettlementInstructions) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m SettlementInstructions) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EffectiveTime is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) EffectiveTime() (*field.EffectiveTime, errors.MessageRejectError) {
-	f := new(field.EffectiveTime)
+func (m SettlementInstructions) EffectiveTime() (*field.EffectiveTimeField, errors.MessageRejectError) {
+	f := &field.EffectiveTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEffectiveTime reads a EffectiveTime from SettlementInstructions.
-func (m SettlementInstructions) GetEffectiveTime(f *field.EffectiveTime) errors.MessageRejectError {
+func (m SettlementInstructions) GetEffectiveTime(f *field.EffectiveTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for SettlementInstructions.
-func (m SettlementInstructions) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m SettlementInstructions) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from SettlementInstructions.
-func (m SettlementInstructions) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m SettlementInstructions) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClientID is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) ClientID() (*field.ClientID, errors.MessageRejectError) {
-	f := new(field.ClientID)
+func (m SettlementInstructions) ClientID() (*field.ClientIDField, errors.MessageRejectError) {
+	f := &field.ClientIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClientID reads a ClientID from SettlementInstructions.
-func (m SettlementInstructions) GetClientID(f *field.ClientID) errors.MessageRejectError {
+func (m SettlementInstructions) GetClientID(f *field.ClientIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecBroker is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) ExecBroker() (*field.ExecBroker, errors.MessageRejectError) {
-	f := new(field.ExecBroker)
+func (m SettlementInstructions) ExecBroker() (*field.ExecBrokerField, errors.MessageRejectError) {
+	f := &field.ExecBrokerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecBroker reads a ExecBroker from SettlementInstructions.
-func (m SettlementInstructions) GetExecBroker(f *field.ExecBroker) errors.MessageRejectError {
+func (m SettlementInstructions) GetExecBroker(f *field.ExecBrokerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StandInstDbType is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) StandInstDbType() (*field.StandInstDbType, errors.MessageRejectError) {
-	f := new(field.StandInstDbType)
+func (m SettlementInstructions) StandInstDbType() (*field.StandInstDbTypeField, errors.MessageRejectError) {
+	f := &field.StandInstDbTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStandInstDbType reads a StandInstDbType from SettlementInstructions.
-func (m SettlementInstructions) GetStandInstDbType(f *field.StandInstDbType) errors.MessageRejectError {
+func (m SettlementInstructions) GetStandInstDbType(f *field.StandInstDbTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StandInstDbName is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) StandInstDbName() (*field.StandInstDbName, errors.MessageRejectError) {
-	f := new(field.StandInstDbName)
+func (m SettlementInstructions) StandInstDbName() (*field.StandInstDbNameField, errors.MessageRejectError) {
+	f := &field.StandInstDbNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStandInstDbName reads a StandInstDbName from SettlementInstructions.
-func (m SettlementInstructions) GetStandInstDbName(f *field.StandInstDbName) errors.MessageRejectError {
+func (m SettlementInstructions) GetStandInstDbName(f *field.StandInstDbNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StandInstDbID is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) StandInstDbID() (*field.StandInstDbID, errors.MessageRejectError) {
-	f := new(field.StandInstDbID)
+func (m SettlementInstructions) StandInstDbID() (*field.StandInstDbIDField, errors.MessageRejectError) {
+	f := &field.StandInstDbIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStandInstDbID reads a StandInstDbID from SettlementInstructions.
-func (m SettlementInstructions) GetStandInstDbID(f *field.StandInstDbID) errors.MessageRejectError {
+func (m SettlementInstructions) GetStandInstDbID(f *field.StandInstDbIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlDeliveryType is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlDeliveryType() (*field.SettlDeliveryType, errors.MessageRejectError) {
-	f := new(field.SettlDeliveryType)
+func (m SettlementInstructions) SettlDeliveryType() (*field.SettlDeliveryTypeField, errors.MessageRejectError) {
+	f := &field.SettlDeliveryTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlDeliveryType reads a SettlDeliveryType from SettlementInstructions.
-func (m SettlementInstructions) GetSettlDeliveryType(f *field.SettlDeliveryType) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlDeliveryType(f *field.SettlDeliveryTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlDepositoryCode is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlDepositoryCode() (*field.SettlDepositoryCode, errors.MessageRejectError) {
-	f := new(field.SettlDepositoryCode)
+func (m SettlementInstructions) SettlDepositoryCode() (*field.SettlDepositoryCodeField, errors.MessageRejectError) {
+	f := &field.SettlDepositoryCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlDepositoryCode reads a SettlDepositoryCode from SettlementInstructions.
-func (m SettlementInstructions) GetSettlDepositoryCode(f *field.SettlDepositoryCode) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlDepositoryCode(f *field.SettlDepositoryCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlBrkrCode is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlBrkrCode() (*field.SettlBrkrCode, errors.MessageRejectError) {
-	f := new(field.SettlBrkrCode)
+func (m SettlementInstructions) SettlBrkrCode() (*field.SettlBrkrCodeField, errors.MessageRejectError) {
+	f := &field.SettlBrkrCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlBrkrCode reads a SettlBrkrCode from SettlementInstructions.
-func (m SettlementInstructions) GetSettlBrkrCode(f *field.SettlBrkrCode) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlBrkrCode(f *field.SettlBrkrCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlInstCode is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SettlInstCode() (*field.SettlInstCode, errors.MessageRejectError) {
-	f := new(field.SettlInstCode)
+func (m SettlementInstructions) SettlInstCode() (*field.SettlInstCodeField, errors.MessageRejectError) {
+	f := &field.SettlInstCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlInstCode reads a SettlInstCode from SettlementInstructions.
-func (m SettlementInstructions) GetSettlInstCode(f *field.SettlInstCode) errors.MessageRejectError {
+func (m SettlementInstructions) GetSettlInstCode(f *field.SettlInstCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySettlAgentName is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SecuritySettlAgentName() (*field.SecuritySettlAgentName, errors.MessageRejectError) {
-	f := new(field.SecuritySettlAgentName)
+func (m SettlementInstructions) SecuritySettlAgentName() (*field.SecuritySettlAgentNameField, errors.MessageRejectError) {
+	f := &field.SecuritySettlAgentNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySettlAgentName reads a SecuritySettlAgentName from SettlementInstructions.
-func (m SettlementInstructions) GetSecuritySettlAgentName(f *field.SecuritySettlAgentName) errors.MessageRejectError {
+func (m SettlementInstructions) GetSecuritySettlAgentName(f *field.SecuritySettlAgentNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySettlAgentCode is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SecuritySettlAgentCode() (*field.SecuritySettlAgentCode, errors.MessageRejectError) {
-	f := new(field.SecuritySettlAgentCode)
+func (m SettlementInstructions) SecuritySettlAgentCode() (*field.SecuritySettlAgentCodeField, errors.MessageRejectError) {
+	f := &field.SecuritySettlAgentCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySettlAgentCode reads a SecuritySettlAgentCode from SettlementInstructions.
-func (m SettlementInstructions) GetSecuritySettlAgentCode(f *field.SecuritySettlAgentCode) errors.MessageRejectError {
+func (m SettlementInstructions) GetSecuritySettlAgentCode(f *field.SecuritySettlAgentCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySettlAgentAcctNum is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SecuritySettlAgentAcctNum() (*field.SecuritySettlAgentAcctNum, errors.MessageRejectError) {
-	f := new(field.SecuritySettlAgentAcctNum)
+func (m SettlementInstructions) SecuritySettlAgentAcctNum() (*field.SecuritySettlAgentAcctNumField, errors.MessageRejectError) {
+	f := &field.SecuritySettlAgentAcctNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySettlAgentAcctNum reads a SecuritySettlAgentAcctNum from SettlementInstructions.
-func (m SettlementInstructions) GetSecuritySettlAgentAcctNum(f *field.SecuritySettlAgentAcctNum) errors.MessageRejectError {
+func (m SettlementInstructions) GetSecuritySettlAgentAcctNum(f *field.SecuritySettlAgentAcctNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySettlAgentAcctName is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SecuritySettlAgentAcctName() (*field.SecuritySettlAgentAcctName, errors.MessageRejectError) {
-	f := new(field.SecuritySettlAgentAcctName)
+func (m SettlementInstructions) SecuritySettlAgentAcctName() (*field.SecuritySettlAgentAcctNameField, errors.MessageRejectError) {
+	f := &field.SecuritySettlAgentAcctNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySettlAgentAcctName reads a SecuritySettlAgentAcctName from SettlementInstructions.
-func (m SettlementInstructions) GetSecuritySettlAgentAcctName(f *field.SecuritySettlAgentAcctName) errors.MessageRejectError {
+func (m SettlementInstructions) GetSecuritySettlAgentAcctName(f *field.SecuritySettlAgentAcctNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySettlAgentContactName is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SecuritySettlAgentContactName() (*field.SecuritySettlAgentContactName, errors.MessageRejectError) {
-	f := new(field.SecuritySettlAgentContactName)
+func (m SettlementInstructions) SecuritySettlAgentContactName() (*field.SecuritySettlAgentContactNameField, errors.MessageRejectError) {
+	f := &field.SecuritySettlAgentContactNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySettlAgentContactName reads a SecuritySettlAgentContactName from SettlementInstructions.
-func (m SettlementInstructions) GetSecuritySettlAgentContactName(f *field.SecuritySettlAgentContactName) errors.MessageRejectError {
+func (m SettlementInstructions) GetSecuritySettlAgentContactName(f *field.SecuritySettlAgentContactNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySettlAgentContactPhone is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) SecuritySettlAgentContactPhone() (*field.SecuritySettlAgentContactPhone, errors.MessageRejectError) {
-	f := new(field.SecuritySettlAgentContactPhone)
+func (m SettlementInstructions) SecuritySettlAgentContactPhone() (*field.SecuritySettlAgentContactPhoneField, errors.MessageRejectError) {
+	f := &field.SecuritySettlAgentContactPhoneField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySettlAgentContactPhone reads a SecuritySettlAgentContactPhone from SettlementInstructions.
-func (m SettlementInstructions) GetSecuritySettlAgentContactPhone(f *field.SecuritySettlAgentContactPhone) errors.MessageRejectError {
+func (m SettlementInstructions) GetSecuritySettlAgentContactPhone(f *field.SecuritySettlAgentContactPhoneField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashSettlAgentName is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) CashSettlAgentName() (*field.CashSettlAgentName, errors.MessageRejectError) {
-	f := new(field.CashSettlAgentName)
+func (m SettlementInstructions) CashSettlAgentName() (*field.CashSettlAgentNameField, errors.MessageRejectError) {
+	f := &field.CashSettlAgentNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashSettlAgentName reads a CashSettlAgentName from SettlementInstructions.
-func (m SettlementInstructions) GetCashSettlAgentName(f *field.CashSettlAgentName) errors.MessageRejectError {
+func (m SettlementInstructions) GetCashSettlAgentName(f *field.CashSettlAgentNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashSettlAgentCode is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) CashSettlAgentCode() (*field.CashSettlAgentCode, errors.MessageRejectError) {
-	f := new(field.CashSettlAgentCode)
+func (m SettlementInstructions) CashSettlAgentCode() (*field.CashSettlAgentCodeField, errors.MessageRejectError) {
+	f := &field.CashSettlAgentCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashSettlAgentCode reads a CashSettlAgentCode from SettlementInstructions.
-func (m SettlementInstructions) GetCashSettlAgentCode(f *field.CashSettlAgentCode) errors.MessageRejectError {
+func (m SettlementInstructions) GetCashSettlAgentCode(f *field.CashSettlAgentCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashSettlAgentAcctNum is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) CashSettlAgentAcctNum() (*field.CashSettlAgentAcctNum, errors.MessageRejectError) {
-	f := new(field.CashSettlAgentAcctNum)
+func (m SettlementInstructions) CashSettlAgentAcctNum() (*field.CashSettlAgentAcctNumField, errors.MessageRejectError) {
+	f := &field.CashSettlAgentAcctNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashSettlAgentAcctNum reads a CashSettlAgentAcctNum from SettlementInstructions.
-func (m SettlementInstructions) GetCashSettlAgentAcctNum(f *field.CashSettlAgentAcctNum) errors.MessageRejectError {
+func (m SettlementInstructions) GetCashSettlAgentAcctNum(f *field.CashSettlAgentAcctNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashSettlAgentAcctName is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) CashSettlAgentAcctName() (*field.CashSettlAgentAcctName, errors.MessageRejectError) {
-	f := new(field.CashSettlAgentAcctName)
+func (m SettlementInstructions) CashSettlAgentAcctName() (*field.CashSettlAgentAcctNameField, errors.MessageRejectError) {
+	f := &field.CashSettlAgentAcctNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashSettlAgentAcctName reads a CashSettlAgentAcctName from SettlementInstructions.
-func (m SettlementInstructions) GetCashSettlAgentAcctName(f *field.CashSettlAgentAcctName) errors.MessageRejectError {
+func (m SettlementInstructions) GetCashSettlAgentAcctName(f *field.CashSettlAgentAcctNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashSettlAgentContactName is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) CashSettlAgentContactName() (*field.CashSettlAgentContactName, errors.MessageRejectError) {
-	f := new(field.CashSettlAgentContactName)
+func (m SettlementInstructions) CashSettlAgentContactName() (*field.CashSettlAgentContactNameField, errors.MessageRejectError) {
+	f := &field.CashSettlAgentContactNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashSettlAgentContactName reads a CashSettlAgentContactName from SettlementInstructions.
-func (m SettlementInstructions) GetCashSettlAgentContactName(f *field.CashSettlAgentContactName) errors.MessageRejectError {
+func (m SettlementInstructions) GetCashSettlAgentContactName(f *field.CashSettlAgentContactNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashSettlAgentContactPhone is a non-required field for SettlementInstructions.
-func (m SettlementInstructions) CashSettlAgentContactPhone() (*field.CashSettlAgentContactPhone, errors.MessageRejectError) {
-	f := new(field.CashSettlAgentContactPhone)
+func (m SettlementInstructions) CashSettlAgentContactPhone() (*field.CashSettlAgentContactPhoneField, errors.MessageRejectError) {
+	f := &field.CashSettlAgentContactPhoneField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashSettlAgentContactPhone reads a CashSettlAgentContactPhone from SettlementInstructions.
-func (m SettlementInstructions) GetCashSettlAgentContactPhone(f *field.CashSettlAgentContactPhone) errors.MessageRejectError {
+func (m SettlementInstructions) GetCashSettlAgentContactPhone(f *field.CashSettlAgentContactPhoneField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

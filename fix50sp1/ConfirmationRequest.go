@@ -23,14 +23,14 @@ type ConfirmationRequestBuilder struct {
 
 //CreateConfirmationRequestBuilder returns an initialized ConfirmationRequestBuilder with specified required fields.
 func CreateConfirmationRequestBuilder(
-	confirmreqid field.ConfirmReqID,
-	confirmtype field.ConfirmType,
-	transacttime field.TransactTime) ConfirmationRequestBuilder {
+	confirmreqid *field.ConfirmReqIDField,
+	confirmtype *field.ConfirmTypeField,
+	transacttime *field.TransactTimeField) ConfirmationRequestBuilder {
 	var builder ConfirmationRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.BuildMsgType("BH"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("BH"))
 	builder.Body.Set(confirmreqid)
 	builder.Body.Set(confirmtype)
 	builder.Body.Set(transacttime)
@@ -38,157 +38,157 @@ func CreateConfirmationRequestBuilder(
 }
 
 //ConfirmReqID is a required field for ConfirmationRequest.
-func (m ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqID, errors.MessageRejectError) {
-	f := new(field.ConfirmReqID)
+func (m ConfirmationRequest) ConfirmReqID() (*field.ConfirmReqIDField, errors.MessageRejectError) {
+	f := &field.ConfirmReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConfirmReqID reads a ConfirmReqID from ConfirmationRequest.
-func (m ConfirmationRequest) GetConfirmReqID(f *field.ConfirmReqID) errors.MessageRejectError {
+func (m ConfirmationRequest) GetConfirmReqID(f *field.ConfirmReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ConfirmType is a required field for ConfirmationRequest.
-func (m ConfirmationRequest) ConfirmType() (*field.ConfirmType, errors.MessageRejectError) {
-	f := new(field.ConfirmType)
+func (m ConfirmationRequest) ConfirmType() (*field.ConfirmTypeField, errors.MessageRejectError) {
+	f := &field.ConfirmTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConfirmType reads a ConfirmType from ConfirmationRequest.
-func (m ConfirmationRequest) GetConfirmType(f *field.ConfirmType) errors.MessageRejectError {
+func (m ConfirmationRequest) GetConfirmType(f *field.ConfirmTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoOrders is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) NoOrders() (*field.NoOrders, errors.MessageRejectError) {
-	f := new(field.NoOrders)
+func (m ConfirmationRequest) NoOrders() (*field.NoOrdersField, errors.MessageRejectError) {
+	f := &field.NoOrdersField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoOrders reads a NoOrders from ConfirmationRequest.
-func (m ConfirmationRequest) GetNoOrders(f *field.NoOrders) errors.MessageRejectError {
+func (m ConfirmationRequest) GetNoOrders(f *field.NoOrdersField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocID is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) AllocID() (*field.AllocID, errors.MessageRejectError) {
-	f := new(field.AllocID)
+func (m ConfirmationRequest) AllocID() (*field.AllocIDField, errors.MessageRejectError) {
+	f := &field.AllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocID reads a AllocID from ConfirmationRequest.
-func (m ConfirmationRequest) GetAllocID(f *field.AllocID) errors.MessageRejectError {
+func (m ConfirmationRequest) GetAllocID(f *field.AllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryAllocID is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocID, errors.MessageRejectError) {
-	f := new(field.SecondaryAllocID)
+func (m ConfirmationRequest) SecondaryAllocID() (*field.SecondaryAllocIDField, errors.MessageRejectError) {
+	f := &field.SecondaryAllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryAllocID reads a SecondaryAllocID from ConfirmationRequest.
-func (m ConfirmationRequest) GetSecondaryAllocID(f *field.SecondaryAllocID) errors.MessageRejectError {
+func (m ConfirmationRequest) GetSecondaryAllocID(f *field.SecondaryAllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IndividualAllocID is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocID, errors.MessageRejectError) {
-	f := new(field.IndividualAllocID)
+func (m ConfirmationRequest) IndividualAllocID() (*field.IndividualAllocIDField, errors.MessageRejectError) {
+	f := &field.IndividualAllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIndividualAllocID reads a IndividualAllocID from ConfirmationRequest.
-func (m ConfirmationRequest) GetIndividualAllocID(f *field.IndividualAllocID) errors.MessageRejectError {
+func (m ConfirmationRequest) GetIndividualAllocID(f *field.IndividualAllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for ConfirmationRequest.
-func (m ConfirmationRequest) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m ConfirmationRequest) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from ConfirmationRequest.
-func (m ConfirmationRequest) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m ConfirmationRequest) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocAccount is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) AllocAccount() (*field.AllocAccount, errors.MessageRejectError) {
-	f := new(field.AllocAccount)
+func (m ConfirmationRequest) AllocAccount() (*field.AllocAccountField, errors.MessageRejectError) {
+	f := &field.AllocAccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocAccount reads a AllocAccount from ConfirmationRequest.
-func (m ConfirmationRequest) GetAllocAccount(f *field.AllocAccount) errors.MessageRejectError {
+func (m ConfirmationRequest) GetAllocAccount(f *field.AllocAccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocAcctIDSource is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) AllocAcctIDSource() (*field.AllocAcctIDSource, errors.MessageRejectError) {
-	f := new(field.AllocAcctIDSource)
+func (m ConfirmationRequest) AllocAcctIDSource() (*field.AllocAcctIDSourceField, errors.MessageRejectError) {
+	f := &field.AllocAcctIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocAcctIDSource reads a AllocAcctIDSource from ConfirmationRequest.
-func (m ConfirmationRequest) GetAllocAcctIDSource(f *field.AllocAcctIDSource) errors.MessageRejectError {
+func (m ConfirmationRequest) GetAllocAcctIDSource(f *field.AllocAcctIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocAccountType is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) AllocAccountType() (*field.AllocAccountType, errors.MessageRejectError) {
-	f := new(field.AllocAccountType)
+func (m ConfirmationRequest) AllocAccountType() (*field.AllocAccountTypeField, errors.MessageRejectError) {
+	f := &field.AllocAccountTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocAccountType reads a AllocAccountType from ConfirmationRequest.
-func (m ConfirmationRequest) GetAllocAccountType(f *field.AllocAccountType) errors.MessageRejectError {
+func (m ConfirmationRequest) GetAllocAccountType(f *field.AllocAccountTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m ConfirmationRequest) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from ConfirmationRequest.
-func (m ConfirmationRequest) GetText(f *field.Text) errors.MessageRejectError {
+func (m ConfirmationRequest) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m ConfirmationRequest) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from ConfirmationRequest.
-func (m ConfirmationRequest) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m ConfirmationRequest) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for ConfirmationRequest.
-func (m ConfirmationRequest) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m ConfirmationRequest) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from ConfirmationRequest.
-func (m ConfirmationRequest) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m ConfirmationRequest) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

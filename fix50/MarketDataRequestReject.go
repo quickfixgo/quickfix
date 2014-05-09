@@ -23,84 +23,84 @@ type MarketDataRequestRejectBuilder struct {
 
 //CreateMarketDataRequestRejectBuilder returns an initialized MarketDataRequestRejectBuilder with specified required fields.
 func CreateMarketDataRequestRejectBuilder(
-	mdreqid field.MDReqID) MarketDataRequestRejectBuilder {
+	mdreqid *field.MDReqIDField) MarketDataRequestRejectBuilder {
 	var builder MarketDataRequestRejectBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.BuildMsgType("Y"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("Y"))
 	builder.Body.Set(mdreqid)
 	return builder
 }
 
 //MDReqID is a required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) MDReqID() (*field.MDReqID, errors.MessageRejectError) {
-	f := new(field.MDReqID)
+func (m MarketDataRequestReject) MDReqID() (*field.MDReqIDField, errors.MessageRejectError) {
+	f := &field.MDReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMDReqID reads a MDReqID from MarketDataRequestReject.
-func (m MarketDataRequestReject) GetMDReqID(f *field.MDReqID) errors.MessageRejectError {
+func (m MarketDataRequestReject) GetMDReqID(f *field.MDReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MDReqRejReason is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) MDReqRejReason() (*field.MDReqRejReason, errors.MessageRejectError) {
-	f := new(field.MDReqRejReason)
+func (m MarketDataRequestReject) MDReqRejReason() (*field.MDReqRejReasonField, errors.MessageRejectError) {
+	f := &field.MDReqRejReasonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMDReqRejReason reads a MDReqRejReason from MarketDataRequestReject.
-func (m MarketDataRequestReject) GetMDReqRejReason(f *field.MDReqRejReason) errors.MessageRejectError {
+func (m MarketDataRequestReject) GetMDReqRejReason(f *field.MDReqRejReasonField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoAltMDSource is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) NoAltMDSource() (*field.NoAltMDSource, errors.MessageRejectError) {
-	f := new(field.NoAltMDSource)
+func (m MarketDataRequestReject) NoAltMDSource() (*field.NoAltMDSourceField, errors.MessageRejectError) {
+	f := &field.NoAltMDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoAltMDSource reads a NoAltMDSource from MarketDataRequestReject.
-func (m MarketDataRequestReject) GetNoAltMDSource(f *field.NoAltMDSource) errors.MessageRejectError {
+func (m MarketDataRequestReject) GetNoAltMDSource(f *field.NoAltMDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m MarketDataRequestReject) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from MarketDataRequestReject.
-func (m MarketDataRequestReject) GetText(f *field.Text) errors.MessageRejectError {
+func (m MarketDataRequestReject) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m MarketDataRequestReject) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from MarketDataRequestReject.
-func (m MarketDataRequestReject) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m MarketDataRequestReject) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for MarketDataRequestReject.
-func (m MarketDataRequestReject) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m MarketDataRequestReject) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from MarketDataRequestReject.
-func (m MarketDataRequestReject) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m MarketDataRequestReject) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

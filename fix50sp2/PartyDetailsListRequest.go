@@ -23,122 +23,122 @@ type PartyDetailsListRequestBuilder struct {
 
 //CreatePartyDetailsListRequestBuilder returns an initialized PartyDetailsListRequestBuilder with specified required fields.
 func CreatePartyDetailsListRequestBuilder(
-	partydetailslistrequestid field.PartyDetailsListRequestID,
-	nopartylistresponsetypes field.NoPartyListResponseTypes) PartyDetailsListRequestBuilder {
+	partydetailslistrequestid *field.PartyDetailsListRequestIDField,
+	nopartylistresponsetypes *field.NoPartyListResponseTypesField) PartyDetailsListRequestBuilder {
 	var builder PartyDetailsListRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.BuildMsgType("CF"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("CF"))
 	builder.Body.Set(partydetailslistrequestid)
 	builder.Body.Set(nopartylistresponsetypes)
 	return builder
 }
 
 //PartyDetailsListRequestID is a required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) PartyDetailsListRequestID() (*field.PartyDetailsListRequestID, errors.MessageRejectError) {
-	f := new(field.PartyDetailsListRequestID)
+func (m PartyDetailsListRequest) PartyDetailsListRequestID() (*field.PartyDetailsListRequestIDField, errors.MessageRejectError) {
+	f := &field.PartyDetailsListRequestIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPartyDetailsListRequestID reads a PartyDetailsListRequestID from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetPartyDetailsListRequestID(f *field.PartyDetailsListRequestID) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetPartyDetailsListRequestID(f *field.PartyDetailsListRequestIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyListResponseTypes is a required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) NoPartyListResponseTypes() (*field.NoPartyListResponseTypes, errors.MessageRejectError) {
-	f := new(field.NoPartyListResponseTypes)
+func (m PartyDetailsListRequest) NoPartyListResponseTypes() (*field.NoPartyListResponseTypesField, errors.MessageRejectError) {
+	f := &field.NoPartyListResponseTypesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyListResponseTypes reads a NoPartyListResponseTypes from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetNoPartyListResponseTypes(f *field.NoPartyListResponseTypes) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetNoPartyListResponseTypes(f *field.NoPartyListResponseTypesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m PartyDetailsListRequest) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRequestedPartyRoles is a non-required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) NoRequestedPartyRoles() (*field.NoRequestedPartyRoles, errors.MessageRejectError) {
-	f := new(field.NoRequestedPartyRoles)
+func (m PartyDetailsListRequest) NoRequestedPartyRoles() (*field.NoRequestedPartyRolesField, errors.MessageRejectError) {
+	f := &field.NoRequestedPartyRolesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRequestedPartyRoles reads a NoRequestedPartyRoles from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetNoRequestedPartyRoles(f *field.NoRequestedPartyRoles) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetNoRequestedPartyRoles(f *field.NoRequestedPartyRolesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyRelationships is a non-required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) NoPartyRelationships() (*field.NoPartyRelationships, errors.MessageRejectError) {
-	f := new(field.NoPartyRelationships)
+func (m PartyDetailsListRequest) NoPartyRelationships() (*field.NoPartyRelationshipsField, errors.MessageRejectError) {
+	f := &field.NoPartyRelationshipsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyRelationships reads a NoPartyRelationships from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetNoPartyRelationships(f *field.NoPartyRelationships) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetNoPartyRelationships(f *field.NoPartyRelationshipsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SubscriptionRequestType is a non-required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) SubscriptionRequestType() (*field.SubscriptionRequestType, errors.MessageRejectError) {
-	f := new(field.SubscriptionRequestType)
+func (m PartyDetailsListRequest) SubscriptionRequestType() (*field.SubscriptionRequestTypeField, errors.MessageRejectError) {
+	f := &field.SubscriptionRequestTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSubscriptionRequestType reads a SubscriptionRequestType from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetSubscriptionRequestType(f *field.SubscriptionRequestType) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m PartyDetailsListRequest) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetText(f *field.Text) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m PartyDetailsListRequest) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for PartyDetailsListRequest.
-func (m PartyDetailsListRequest) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m PartyDetailsListRequest) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from PartyDetailsListRequest.
-func (m PartyDetailsListRequest) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m PartyDetailsListRequest) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

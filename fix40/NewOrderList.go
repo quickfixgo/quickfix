@@ -19,19 +19,19 @@ type NewOrderListBuilder struct {
 
 //CreateNewOrderListBuilder returns an initialized NewOrderListBuilder with specified required fields.
 func CreateNewOrderListBuilder(
-	listid field.ListID,
-	listseqno field.ListSeqNo,
-	listnoords field.ListNoOrds,
-	clordid field.ClOrdID,
-	handlinst field.HandlInst,
-	symbol field.Symbol,
-	side field.Side,
-	orderqty field.OrderQty,
-	ordtype field.OrdType) NewOrderListBuilder {
+	listid *field.ListIDField,
+	listseqno *field.ListSeqNoField,
+	listnoords *field.ListNoOrdsField,
+	clordid *field.ClOrdIDField,
+	handlinst *field.HandlInstField,
+	symbol *field.SymbolField,
+	side *field.SideField,
+	orderqty *field.OrderQtyField,
+	ordtype *field.OrdTypeField) NewOrderListBuilder {
 	var builder NewOrderListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.BuildMsgType("E"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("E"))
 	builder.Body.Set(listid)
 	builder.Body.Set(listseqno)
 	builder.Body.Set(listnoords)
@@ -45,469 +45,469 @@ func CreateNewOrderListBuilder(
 }
 
 //ListID is a required field for NewOrderList.
-func (m NewOrderList) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m NewOrderList) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from NewOrderList.
-func (m NewOrderList) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m NewOrderList) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //WaveNo is a non-required field for NewOrderList.
-func (m NewOrderList) WaveNo() (*field.WaveNo, errors.MessageRejectError) {
-	f := new(field.WaveNo)
+func (m NewOrderList) WaveNo() (*field.WaveNoField, errors.MessageRejectError) {
+	f := &field.WaveNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetWaveNo reads a WaveNo from NewOrderList.
-func (m NewOrderList) GetWaveNo(f *field.WaveNo) errors.MessageRejectError {
+func (m NewOrderList) GetWaveNo(f *field.WaveNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListSeqNo is a required field for NewOrderList.
-func (m NewOrderList) ListSeqNo() (*field.ListSeqNo, errors.MessageRejectError) {
-	f := new(field.ListSeqNo)
+func (m NewOrderList) ListSeqNo() (*field.ListSeqNoField, errors.MessageRejectError) {
+	f := &field.ListSeqNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListSeqNo reads a ListSeqNo from NewOrderList.
-func (m NewOrderList) GetListSeqNo(f *field.ListSeqNo) errors.MessageRejectError {
+func (m NewOrderList) GetListSeqNo(f *field.ListSeqNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListNoOrds is a required field for NewOrderList.
-func (m NewOrderList) ListNoOrds() (*field.ListNoOrds, errors.MessageRejectError) {
-	f := new(field.ListNoOrds)
+func (m NewOrderList) ListNoOrds() (*field.ListNoOrdsField, errors.MessageRejectError) {
+	f := &field.ListNoOrdsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListNoOrds reads a ListNoOrds from NewOrderList.
-func (m NewOrderList) GetListNoOrds(f *field.ListNoOrds) errors.MessageRejectError {
+func (m NewOrderList) GetListNoOrds(f *field.ListNoOrdsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListExecInst is a non-required field for NewOrderList.
-func (m NewOrderList) ListExecInst() (*field.ListExecInst, errors.MessageRejectError) {
-	f := new(field.ListExecInst)
+func (m NewOrderList) ListExecInst() (*field.ListExecInstField, errors.MessageRejectError) {
+	f := &field.ListExecInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListExecInst reads a ListExecInst from NewOrderList.
-func (m NewOrderList) GetListExecInst(f *field.ListExecInst) errors.MessageRejectError {
+func (m NewOrderList) GetListExecInst(f *field.ListExecInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdID is a required field for NewOrderList.
-func (m NewOrderList) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
-	f := new(field.ClOrdID)
+func (m NewOrderList) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from NewOrderList.
-func (m NewOrderList) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+func (m NewOrderList) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClientID is a non-required field for NewOrderList.
-func (m NewOrderList) ClientID() (*field.ClientID, errors.MessageRejectError) {
-	f := new(field.ClientID)
+func (m NewOrderList) ClientID() (*field.ClientIDField, errors.MessageRejectError) {
+	f := &field.ClientIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClientID reads a ClientID from NewOrderList.
-func (m NewOrderList) GetClientID(f *field.ClientID) errors.MessageRejectError {
+func (m NewOrderList) GetClientID(f *field.ClientIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecBroker is a non-required field for NewOrderList.
-func (m NewOrderList) ExecBroker() (*field.ExecBroker, errors.MessageRejectError) {
-	f := new(field.ExecBroker)
+func (m NewOrderList) ExecBroker() (*field.ExecBrokerField, errors.MessageRejectError) {
+	f := &field.ExecBrokerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecBroker reads a ExecBroker from NewOrderList.
-func (m NewOrderList) GetExecBroker(f *field.ExecBroker) errors.MessageRejectError {
+func (m NewOrderList) GetExecBroker(f *field.ExecBrokerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for NewOrderList.
-func (m NewOrderList) Account() (*field.Account, errors.MessageRejectError) {
-	f := new(field.Account)
+func (m NewOrderList) Account() (*field.AccountField, errors.MessageRejectError) {
+	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from NewOrderList.
-func (m NewOrderList) GetAccount(f *field.Account) errors.MessageRejectError {
+func (m NewOrderList) GetAccount(f *field.AccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlmntTyp is a non-required field for NewOrderList.
-func (m NewOrderList) SettlmntTyp() (*field.SettlmntTyp, errors.MessageRejectError) {
-	f := new(field.SettlmntTyp)
+func (m NewOrderList) SettlmntTyp() (*field.SettlmntTypField, errors.MessageRejectError) {
+	f := &field.SettlmntTypField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlmntTyp reads a SettlmntTyp from NewOrderList.
-func (m NewOrderList) GetSettlmntTyp(f *field.SettlmntTyp) errors.MessageRejectError {
+func (m NewOrderList) GetSettlmntTyp(f *field.SettlmntTypField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FutSettDate is a non-required field for NewOrderList.
-func (m NewOrderList) FutSettDate() (*field.FutSettDate, errors.MessageRejectError) {
-	f := new(field.FutSettDate)
+func (m NewOrderList) FutSettDate() (*field.FutSettDateField, errors.MessageRejectError) {
+	f := &field.FutSettDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFutSettDate reads a FutSettDate from NewOrderList.
-func (m NewOrderList) GetFutSettDate(f *field.FutSettDate) errors.MessageRejectError {
+func (m NewOrderList) GetFutSettDate(f *field.FutSettDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //HandlInst is a required field for NewOrderList.
-func (m NewOrderList) HandlInst() (*field.HandlInst, errors.MessageRejectError) {
-	f := new(field.HandlInst)
+func (m NewOrderList) HandlInst() (*field.HandlInstField, errors.MessageRejectError) {
+	f := &field.HandlInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetHandlInst reads a HandlInst from NewOrderList.
-func (m NewOrderList) GetHandlInst(f *field.HandlInst) errors.MessageRejectError {
+func (m NewOrderList) GetHandlInst(f *field.HandlInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecInst is a non-required field for NewOrderList.
-func (m NewOrderList) ExecInst() (*field.ExecInst, errors.MessageRejectError) {
-	f := new(field.ExecInst)
+func (m NewOrderList) ExecInst() (*field.ExecInstField, errors.MessageRejectError) {
+	f := &field.ExecInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecInst reads a ExecInst from NewOrderList.
-func (m NewOrderList) GetExecInst(f *field.ExecInst) errors.MessageRejectError {
+func (m NewOrderList) GetExecInst(f *field.ExecInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinQty is a non-required field for NewOrderList.
-func (m NewOrderList) MinQty() (*field.MinQty, errors.MessageRejectError) {
-	f := new(field.MinQty)
+func (m NewOrderList) MinQty() (*field.MinQtyField, errors.MessageRejectError) {
+	f := &field.MinQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinQty reads a MinQty from NewOrderList.
-func (m NewOrderList) GetMinQty(f *field.MinQty) errors.MessageRejectError {
+func (m NewOrderList) GetMinQty(f *field.MinQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaxFloor is a non-required field for NewOrderList.
-func (m NewOrderList) MaxFloor() (*field.MaxFloor, errors.MessageRejectError) {
-	f := new(field.MaxFloor)
+func (m NewOrderList) MaxFloor() (*field.MaxFloorField, errors.MessageRejectError) {
+	f := &field.MaxFloorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaxFloor reads a MaxFloor from NewOrderList.
-func (m NewOrderList) GetMaxFloor(f *field.MaxFloor) errors.MessageRejectError {
+func (m NewOrderList) GetMaxFloor(f *field.MaxFloorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExDestination is a non-required field for NewOrderList.
-func (m NewOrderList) ExDestination() (*field.ExDestination, errors.MessageRejectError) {
-	f := new(field.ExDestination)
+func (m NewOrderList) ExDestination() (*field.ExDestinationField, errors.MessageRejectError) {
+	f := &field.ExDestinationField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExDestination reads a ExDestination from NewOrderList.
-func (m NewOrderList) GetExDestination(f *field.ExDestination) errors.MessageRejectError {
+func (m NewOrderList) GetExDestination(f *field.ExDestinationField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ProcessCode is a non-required field for NewOrderList.
-func (m NewOrderList) ProcessCode() (*field.ProcessCode, errors.MessageRejectError) {
-	f := new(field.ProcessCode)
+func (m NewOrderList) ProcessCode() (*field.ProcessCodeField, errors.MessageRejectError) {
+	f := &field.ProcessCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProcessCode reads a ProcessCode from NewOrderList.
-func (m NewOrderList) GetProcessCode(f *field.ProcessCode) errors.MessageRejectError {
+func (m NewOrderList) GetProcessCode(f *field.ProcessCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a required field for NewOrderList.
-func (m NewOrderList) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m NewOrderList) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from NewOrderList.
-func (m NewOrderList) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m NewOrderList) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for NewOrderList.
-func (m NewOrderList) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m NewOrderList) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from NewOrderList.
-func (m NewOrderList) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m NewOrderList) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for NewOrderList.
-func (m NewOrderList) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m NewOrderList) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from NewOrderList.
-func (m NewOrderList) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m NewOrderList) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IDSource is a non-required field for NewOrderList.
-func (m NewOrderList) IDSource() (*field.IDSource, errors.MessageRejectError) {
-	f := new(field.IDSource)
+func (m NewOrderList) IDSource() (*field.IDSourceField, errors.MessageRejectError) {
+	f := &field.IDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIDSource reads a IDSource from NewOrderList.
-func (m NewOrderList) GetIDSource(f *field.IDSource) errors.MessageRejectError {
+func (m NewOrderList) GetIDSource(f *field.IDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for NewOrderList.
-func (m NewOrderList) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m NewOrderList) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from NewOrderList.
-func (m NewOrderList) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m NewOrderList) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for NewOrderList.
-func (m NewOrderList) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m NewOrderList) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from NewOrderList.
-func (m NewOrderList) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m NewOrderList) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PrevClosePx is a non-required field for NewOrderList.
-func (m NewOrderList) PrevClosePx() (*field.PrevClosePx, errors.MessageRejectError) {
-	f := new(field.PrevClosePx)
+func (m NewOrderList) PrevClosePx() (*field.PrevClosePxField, errors.MessageRejectError) {
+	f := &field.PrevClosePxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPrevClosePx reads a PrevClosePx from NewOrderList.
-func (m NewOrderList) GetPrevClosePx(f *field.PrevClosePx) errors.MessageRejectError {
+func (m NewOrderList) GetPrevClosePx(f *field.PrevClosePxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a required field for NewOrderList.
-func (m NewOrderList) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m NewOrderList) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from NewOrderList.
-func (m NewOrderList) GetSide(f *field.Side) errors.MessageRejectError {
+func (m NewOrderList) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocateReqd is a non-required field for NewOrderList.
-func (m NewOrderList) LocateReqd() (*field.LocateReqd, errors.MessageRejectError) {
-	f := new(field.LocateReqd)
+func (m NewOrderList) LocateReqd() (*field.LocateReqdField, errors.MessageRejectError) {
+	f := &field.LocateReqdField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocateReqd reads a LocateReqd from NewOrderList.
-func (m NewOrderList) GetLocateReqd(f *field.LocateReqd) errors.MessageRejectError {
+func (m NewOrderList) GetLocateReqd(f *field.LocateReqdField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty is a required field for NewOrderList.
-func (m NewOrderList) OrderQty() (*field.OrderQty, errors.MessageRejectError) {
-	f := new(field.OrderQty)
+func (m NewOrderList) OrderQty() (*field.OrderQtyField, errors.MessageRejectError) {
+	f := &field.OrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty reads a OrderQty from NewOrderList.
-func (m NewOrderList) GetOrderQty(f *field.OrderQty) errors.MessageRejectError {
+func (m NewOrderList) GetOrderQty(f *field.OrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrdType is a required field for NewOrderList.
-func (m NewOrderList) OrdType() (*field.OrdType, errors.MessageRejectError) {
-	f := new(field.OrdType)
+func (m NewOrderList) OrdType() (*field.OrdTypeField, errors.MessageRejectError) {
+	f := &field.OrdTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrdType reads a OrdType from NewOrderList.
-func (m NewOrderList) GetOrdType(f *field.OrdType) errors.MessageRejectError {
+func (m NewOrderList) GetOrdType(f *field.OrdTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Price is a non-required field for NewOrderList.
-func (m NewOrderList) Price() (*field.Price, errors.MessageRejectError) {
-	f := new(field.Price)
+func (m NewOrderList) Price() (*field.PriceField, errors.MessageRejectError) {
+	f := &field.PriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPrice reads a Price from NewOrderList.
-func (m NewOrderList) GetPrice(f *field.Price) errors.MessageRejectError {
+func (m NewOrderList) GetPrice(f *field.PriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StopPx is a non-required field for NewOrderList.
-func (m NewOrderList) StopPx() (*field.StopPx, errors.MessageRejectError) {
-	f := new(field.StopPx)
+func (m NewOrderList) StopPx() (*field.StopPxField, errors.MessageRejectError) {
+	f := &field.StopPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStopPx reads a StopPx from NewOrderList.
-func (m NewOrderList) GetStopPx(f *field.StopPx) errors.MessageRejectError {
+func (m NewOrderList) GetStopPx(f *field.StopPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for NewOrderList.
-func (m NewOrderList) Currency() (*field.Currency, errors.MessageRejectError) {
-	f := new(field.Currency)
+func (m NewOrderList) Currency() (*field.CurrencyField, errors.MessageRejectError) {
+	f := &field.CurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCurrency reads a Currency from NewOrderList.
-func (m NewOrderList) GetCurrency(f *field.Currency) errors.MessageRejectError {
+func (m NewOrderList) GetCurrency(f *field.CurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeInForce is a non-required field for NewOrderList.
-func (m NewOrderList) TimeInForce() (*field.TimeInForce, errors.MessageRejectError) {
-	f := new(field.TimeInForce)
+func (m NewOrderList) TimeInForce() (*field.TimeInForceField, errors.MessageRejectError) {
+	f := &field.TimeInForceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeInForce reads a TimeInForce from NewOrderList.
-func (m NewOrderList) GetTimeInForce(f *field.TimeInForce) errors.MessageRejectError {
+func (m NewOrderList) GetTimeInForce(f *field.TimeInForceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExpireTime is a non-required field for NewOrderList.
-func (m NewOrderList) ExpireTime() (*field.ExpireTime, errors.MessageRejectError) {
-	f := new(field.ExpireTime)
+func (m NewOrderList) ExpireTime() (*field.ExpireTimeField, errors.MessageRejectError) {
+	f := &field.ExpireTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExpireTime reads a ExpireTime from NewOrderList.
-func (m NewOrderList) GetExpireTime(f *field.ExpireTime) errors.MessageRejectError {
+func (m NewOrderList) GetExpireTime(f *field.ExpireTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Commission is a non-required field for NewOrderList.
-func (m NewOrderList) Commission() (*field.Commission, errors.MessageRejectError) {
-	f := new(field.Commission)
+func (m NewOrderList) Commission() (*field.CommissionField, errors.MessageRejectError) {
+	f := &field.CommissionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommission reads a Commission from NewOrderList.
-func (m NewOrderList) GetCommission(f *field.Commission) errors.MessageRejectError {
+func (m NewOrderList) GetCommission(f *field.CommissionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CommType is a non-required field for NewOrderList.
-func (m NewOrderList) CommType() (*field.CommType, errors.MessageRejectError) {
-	f := new(field.CommType)
+func (m NewOrderList) CommType() (*field.CommTypeField, errors.MessageRejectError) {
+	f := &field.CommTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommType reads a CommType from NewOrderList.
-func (m NewOrderList) GetCommType(f *field.CommType) errors.MessageRejectError {
+func (m NewOrderList) GetCommType(f *field.CommTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Rule80A is a non-required field for NewOrderList.
-func (m NewOrderList) Rule80A() (*field.Rule80A, errors.MessageRejectError) {
-	f := new(field.Rule80A)
+func (m NewOrderList) Rule80A() (*field.Rule80AField, errors.MessageRejectError) {
+	f := &field.Rule80AField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRule80A reads a Rule80A from NewOrderList.
-func (m NewOrderList) GetRule80A(f *field.Rule80A) errors.MessageRejectError {
+func (m NewOrderList) GetRule80A(f *field.Rule80AField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ForexReq is a non-required field for NewOrderList.
-func (m NewOrderList) ForexReq() (*field.ForexReq, errors.MessageRejectError) {
-	f := new(field.ForexReq)
+func (m NewOrderList) ForexReq() (*field.ForexReqField, errors.MessageRejectError) {
+	f := &field.ForexReqField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetForexReq reads a ForexReq from NewOrderList.
-func (m NewOrderList) GetForexReq(f *field.ForexReq) errors.MessageRejectError {
+func (m NewOrderList) GetForexReq(f *field.ForexReqField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrency is a non-required field for NewOrderList.
-func (m NewOrderList) SettlCurrency() (*field.SettlCurrency, errors.MessageRejectError) {
-	f := new(field.SettlCurrency)
+func (m NewOrderList) SettlCurrency() (*field.SettlCurrencyField, errors.MessageRejectError) {
+	f := &field.SettlCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrency reads a SettlCurrency from NewOrderList.
-func (m NewOrderList) GetSettlCurrency(f *field.SettlCurrency) errors.MessageRejectError {
+func (m NewOrderList) GetSettlCurrency(f *field.SettlCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for NewOrderList.
-func (m NewOrderList) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m NewOrderList) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from NewOrderList.
-func (m NewOrderList) GetText(f *field.Text) errors.MessageRejectError {
+func (m NewOrderList) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

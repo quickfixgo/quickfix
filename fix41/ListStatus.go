@@ -19,14 +19,14 @@ type ListStatusBuilder struct {
 
 //CreateListStatusBuilder returns an initialized ListStatusBuilder with specified required fields.
 func CreateListStatusBuilder(
-	listid field.ListID,
-	norpts field.NoRpts,
-	rptseq field.RptSeq,
-	noorders field.NoOrders) ListStatusBuilder {
+	listid *field.ListIDField,
+	norpts *field.NoRptsField,
+	rptseq *field.RptSeqField,
+	noorders *field.NoOrdersField) ListStatusBuilder {
 	var builder ListStatusBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.BuildMsgType("N"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("N"))
 	builder.Body.Set(listid)
 	builder.Body.Set(norpts)
 	builder.Body.Set(rptseq)
@@ -35,61 +35,61 @@ func CreateListStatusBuilder(
 }
 
 //ListID is a required field for ListStatus.
-func (m ListStatus) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m ListStatus) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from ListStatus.
-func (m ListStatus) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m ListStatus) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //WaveNo is a non-required field for ListStatus.
-func (m ListStatus) WaveNo() (*field.WaveNo, errors.MessageRejectError) {
-	f := new(field.WaveNo)
+func (m ListStatus) WaveNo() (*field.WaveNoField, errors.MessageRejectError) {
+	f := &field.WaveNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetWaveNo reads a WaveNo from ListStatus.
-func (m ListStatus) GetWaveNo(f *field.WaveNo) errors.MessageRejectError {
+func (m ListStatus) GetWaveNo(f *field.WaveNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRpts is a required field for ListStatus.
-func (m ListStatus) NoRpts() (*field.NoRpts, errors.MessageRejectError) {
-	f := new(field.NoRpts)
+func (m ListStatus) NoRpts() (*field.NoRptsField, errors.MessageRejectError) {
+	f := &field.NoRptsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRpts reads a NoRpts from ListStatus.
-func (m ListStatus) GetNoRpts(f *field.NoRpts) errors.MessageRejectError {
+func (m ListStatus) GetNoRpts(f *field.NoRptsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RptSeq is a required field for ListStatus.
-func (m ListStatus) RptSeq() (*field.RptSeq, errors.MessageRejectError) {
-	f := new(field.RptSeq)
+func (m ListStatus) RptSeq() (*field.RptSeqField, errors.MessageRejectError) {
+	f := &field.RptSeqField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRptSeq reads a RptSeq from ListStatus.
-func (m ListStatus) GetRptSeq(f *field.RptSeq) errors.MessageRejectError {
+func (m ListStatus) GetRptSeq(f *field.RptSeqField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoOrders is a required field for ListStatus.
-func (m ListStatus) NoOrders() (*field.NoOrders, errors.MessageRejectError) {
-	f := new(field.NoOrders)
+func (m ListStatus) NoOrders() (*field.NoOrdersField, errors.MessageRejectError) {
+	f := &field.NoOrdersField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoOrders reads a NoOrders from ListStatus.
-func (m ListStatus) GetNoOrders(f *field.NoOrders) errors.MessageRejectError {
+func (m ListStatus) GetNoOrders(f *field.NoOrdersField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

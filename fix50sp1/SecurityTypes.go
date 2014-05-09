@@ -23,14 +23,14 @@ type SecurityTypesBuilder struct {
 
 //CreateSecurityTypesBuilder returns an initialized SecurityTypesBuilder with specified required fields.
 func CreateSecurityTypesBuilder(
-	securityreqid field.SecurityReqID,
-	securityresponseid field.SecurityResponseID,
-	securityresponsetype field.SecurityResponseType) SecurityTypesBuilder {
+	securityreqid *field.SecurityReqIDField,
+	securityresponseid *field.SecurityResponseIDField,
+	securityresponsetype *field.SecurityResponseTypeField) SecurityTypesBuilder {
 	var builder SecurityTypesBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.BuildMsgType("w"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("w"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)
 	builder.Body.Set(securityresponsetype)
@@ -38,217 +38,217 @@ func CreateSecurityTypesBuilder(
 }
 
 //SecurityReqID is a required field for SecurityTypes.
-func (m SecurityTypes) SecurityReqID() (*field.SecurityReqID, errors.MessageRejectError) {
-	f := new(field.SecurityReqID)
+func (m SecurityTypes) SecurityReqID() (*field.SecurityReqIDField, errors.MessageRejectError) {
+	f := &field.SecurityReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityReqID reads a SecurityReqID from SecurityTypes.
-func (m SecurityTypes) GetSecurityReqID(f *field.SecurityReqID) errors.MessageRejectError {
+func (m SecurityTypes) GetSecurityReqID(f *field.SecurityReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityResponseID is a required field for SecurityTypes.
-func (m SecurityTypes) SecurityResponseID() (*field.SecurityResponseID, errors.MessageRejectError) {
-	f := new(field.SecurityResponseID)
+func (m SecurityTypes) SecurityResponseID() (*field.SecurityResponseIDField, errors.MessageRejectError) {
+	f := &field.SecurityResponseIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityResponseID reads a SecurityResponseID from SecurityTypes.
-func (m SecurityTypes) GetSecurityResponseID(f *field.SecurityResponseID) errors.MessageRejectError {
+func (m SecurityTypes) GetSecurityResponseID(f *field.SecurityResponseIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityResponseType is a required field for SecurityTypes.
-func (m SecurityTypes) SecurityResponseType() (*field.SecurityResponseType, errors.MessageRejectError) {
-	f := new(field.SecurityResponseType)
+func (m SecurityTypes) SecurityResponseType() (*field.SecurityResponseTypeField, errors.MessageRejectError) {
+	f := &field.SecurityResponseTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityResponseType reads a SecurityResponseType from SecurityTypes.
-func (m SecurityTypes) GetSecurityResponseType(f *field.SecurityResponseType) errors.MessageRejectError {
+func (m SecurityTypes) GetSecurityResponseType(f *field.SecurityResponseTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TotNoSecurityTypes is a non-required field for SecurityTypes.
-func (m SecurityTypes) TotNoSecurityTypes() (*field.TotNoSecurityTypes, errors.MessageRejectError) {
-	f := new(field.TotNoSecurityTypes)
+func (m SecurityTypes) TotNoSecurityTypes() (*field.TotNoSecurityTypesField, errors.MessageRejectError) {
+	f := &field.TotNoSecurityTypesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTotNoSecurityTypes reads a TotNoSecurityTypes from SecurityTypes.
-func (m SecurityTypes) GetTotNoSecurityTypes(f *field.TotNoSecurityTypes) errors.MessageRejectError {
+func (m SecurityTypes) GetTotNoSecurityTypes(f *field.TotNoSecurityTypesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastFragment is a non-required field for SecurityTypes.
-func (m SecurityTypes) LastFragment() (*field.LastFragment, errors.MessageRejectError) {
-	f := new(field.LastFragment)
+func (m SecurityTypes) LastFragment() (*field.LastFragmentField, errors.MessageRejectError) {
+	f := &field.LastFragmentField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastFragment reads a LastFragment from SecurityTypes.
-func (m SecurityTypes) GetLastFragment(f *field.LastFragment) errors.MessageRejectError {
+func (m SecurityTypes) GetLastFragment(f *field.LastFragmentField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityTypes is a non-required field for SecurityTypes.
-func (m SecurityTypes) NoSecurityTypes() (*field.NoSecurityTypes, errors.MessageRejectError) {
-	f := new(field.NoSecurityTypes)
+func (m SecurityTypes) NoSecurityTypes() (*field.NoSecurityTypesField, errors.MessageRejectError) {
+	f := &field.NoSecurityTypesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityTypes reads a NoSecurityTypes from SecurityTypes.
-func (m SecurityTypes) GetNoSecurityTypes(f *field.NoSecurityTypes) errors.MessageRejectError {
+func (m SecurityTypes) GetNoSecurityTypes(f *field.NoSecurityTypesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for SecurityTypes.
-func (m SecurityTypes) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m SecurityTypes) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from SecurityTypes.
-func (m SecurityTypes) GetText(f *field.Text) errors.MessageRejectError {
+func (m SecurityTypes) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for SecurityTypes.
-func (m SecurityTypes) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m SecurityTypes) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from SecurityTypes.
-func (m SecurityTypes) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m SecurityTypes) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for SecurityTypes.
-func (m SecurityTypes) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m SecurityTypes) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from SecurityTypes.
-func (m SecurityTypes) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m SecurityTypes) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionID is a non-required field for SecurityTypes.
-func (m SecurityTypes) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
-	f := new(field.TradingSessionID)
+func (m SecurityTypes) TradingSessionID() (*field.TradingSessionIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionID reads a TradingSessionID from SecurityTypes.
-func (m SecurityTypes) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+func (m SecurityTypes) GetTradingSessionID(f *field.TradingSessionIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionSubID is a non-required field for SecurityTypes.
-func (m SecurityTypes) TradingSessionSubID() (*field.TradingSessionSubID, errors.MessageRejectError) {
-	f := new(field.TradingSessionSubID)
+func (m SecurityTypes) TradingSessionSubID() (*field.TradingSessionSubIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionSubIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionSubID reads a TradingSessionSubID from SecurityTypes.
-func (m SecurityTypes) GetTradingSessionSubID(f *field.TradingSessionSubID) errors.MessageRejectError {
+func (m SecurityTypes) GetTradingSessionSubID(f *field.TradingSessionSubIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SubscriptionRequestType is a non-required field for SecurityTypes.
-func (m SecurityTypes) SubscriptionRequestType() (*field.SubscriptionRequestType, errors.MessageRejectError) {
-	f := new(field.SubscriptionRequestType)
+func (m SecurityTypes) SubscriptionRequestType() (*field.SubscriptionRequestTypeField, errors.MessageRejectError) {
+	f := &field.SubscriptionRequestTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSubscriptionRequestType reads a SubscriptionRequestType from SecurityTypes.
-func (m SecurityTypes) GetSubscriptionRequestType(f *field.SubscriptionRequestType) errors.MessageRejectError {
+func (m SecurityTypes) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarketID is a non-required field for SecurityTypes.
-func (m SecurityTypes) MarketID() (*field.MarketID, errors.MessageRejectError) {
-	f := new(field.MarketID)
+func (m SecurityTypes) MarketID() (*field.MarketIDField, errors.MessageRejectError) {
+	f := &field.MarketIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarketID reads a MarketID from SecurityTypes.
-func (m SecurityTypes) GetMarketID(f *field.MarketID) errors.MessageRejectError {
+func (m SecurityTypes) GetMarketID(f *field.MarketIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarketSegmentID is a non-required field for SecurityTypes.
-func (m SecurityTypes) MarketSegmentID() (*field.MarketSegmentID, errors.MessageRejectError) {
-	f := new(field.MarketSegmentID)
+func (m SecurityTypes) MarketSegmentID() (*field.MarketSegmentIDField, errors.MessageRejectError) {
+	f := &field.MarketSegmentIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarketSegmentID reads a MarketSegmentID from SecurityTypes.
-func (m SecurityTypes) GetMarketSegmentID(f *field.MarketSegmentID) errors.MessageRejectError {
+func (m SecurityTypes) GetMarketSegmentID(f *field.MarketSegmentIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplID is a non-required field for SecurityTypes.
-func (m SecurityTypes) ApplID() (*field.ApplID, errors.MessageRejectError) {
-	f := new(field.ApplID)
+func (m SecurityTypes) ApplID() (*field.ApplIDField, errors.MessageRejectError) {
+	f := &field.ApplIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplID reads a ApplID from SecurityTypes.
-func (m SecurityTypes) GetApplID(f *field.ApplID) errors.MessageRejectError {
+func (m SecurityTypes) GetApplID(f *field.ApplIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplSeqNum is a non-required field for SecurityTypes.
-func (m SecurityTypes) ApplSeqNum() (*field.ApplSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplSeqNum)
+func (m SecurityTypes) ApplSeqNum() (*field.ApplSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplSeqNum reads a ApplSeqNum from SecurityTypes.
-func (m SecurityTypes) GetApplSeqNum(f *field.ApplSeqNum) errors.MessageRejectError {
+func (m SecurityTypes) GetApplSeqNum(f *field.ApplSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplLastSeqNum is a non-required field for SecurityTypes.
-func (m SecurityTypes) ApplLastSeqNum() (*field.ApplLastSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplLastSeqNum)
+func (m SecurityTypes) ApplLastSeqNum() (*field.ApplLastSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplLastSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplLastSeqNum reads a ApplLastSeqNum from SecurityTypes.
-func (m SecurityTypes) GetApplLastSeqNum(f *field.ApplLastSeqNum) errors.MessageRejectError {
+func (m SecurityTypes) GetApplLastSeqNum(f *field.ApplLastSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplResendFlag is a non-required field for SecurityTypes.
-func (m SecurityTypes) ApplResendFlag() (*field.ApplResendFlag, errors.MessageRejectError) {
-	f := new(field.ApplResendFlag)
+func (m SecurityTypes) ApplResendFlag() (*field.ApplResendFlagField, errors.MessageRejectError) {
+	f := &field.ApplResendFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplResendFlag reads a ApplResendFlag from SecurityTypes.
-func (m SecurityTypes) GetApplResendFlag(f *field.ApplResendFlag) errors.MessageRejectError {
+func (m SecurityTypes) GetApplResendFlag(f *field.ApplResendFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

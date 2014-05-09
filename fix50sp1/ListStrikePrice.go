@@ -23,14 +23,14 @@ type ListStrikePriceBuilder struct {
 
 //CreateListStrikePriceBuilder returns an initialized ListStrikePriceBuilder with specified required fields.
 func CreateListStrikePriceBuilder(
-	listid field.ListID,
-	totnostrikes field.TotNoStrikes,
-	nostrikes field.NoStrikes) ListStrikePriceBuilder {
+	listid *field.ListIDField,
+	totnostrikes *field.TotNoStrikesField,
+	nostrikes *field.NoStrikesField) ListStrikePriceBuilder {
 	var builder ListStrikePriceBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.BuildMsgType("m"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("m"))
 	builder.Body.Set(listid)
 	builder.Body.Set(totnostrikes)
 	builder.Body.Set(nostrikes)
@@ -38,49 +38,49 @@ func CreateListStrikePriceBuilder(
 }
 
 //ListID is a required field for ListStrikePrice.
-func (m ListStrikePrice) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m ListStrikePrice) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from ListStrikePrice.
-func (m ListStrikePrice) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m ListStrikePrice) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TotNoStrikes is a required field for ListStrikePrice.
-func (m ListStrikePrice) TotNoStrikes() (*field.TotNoStrikes, errors.MessageRejectError) {
-	f := new(field.TotNoStrikes)
+func (m ListStrikePrice) TotNoStrikes() (*field.TotNoStrikesField, errors.MessageRejectError) {
+	f := &field.TotNoStrikesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTotNoStrikes reads a TotNoStrikes from ListStrikePrice.
-func (m ListStrikePrice) GetTotNoStrikes(f *field.TotNoStrikes) errors.MessageRejectError {
+func (m ListStrikePrice) GetTotNoStrikes(f *field.TotNoStrikesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastFragment is a non-required field for ListStrikePrice.
-func (m ListStrikePrice) LastFragment() (*field.LastFragment, errors.MessageRejectError) {
-	f := new(field.LastFragment)
+func (m ListStrikePrice) LastFragment() (*field.LastFragmentField, errors.MessageRejectError) {
+	f := &field.LastFragmentField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastFragment reads a LastFragment from ListStrikePrice.
-func (m ListStrikePrice) GetLastFragment(f *field.LastFragment) errors.MessageRejectError {
+func (m ListStrikePrice) GetLastFragment(f *field.LastFragmentField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoStrikes is a required field for ListStrikePrice.
-func (m ListStrikePrice) NoStrikes() (*field.NoStrikes, errors.MessageRejectError) {
-	f := new(field.NoStrikes)
+func (m ListStrikePrice) NoStrikes() (*field.NoStrikesField, errors.MessageRejectError) {
+	f := &field.NoStrikesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoStrikes reads a NoStrikes from ListStrikePrice.
-func (m ListStrikePrice) GetNoStrikes(f *field.NoStrikes) errors.MessageRejectError {
+func (m ListStrikePrice) GetNoStrikes(f *field.NoStrikesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

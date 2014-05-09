@@ -23,1454 +23,1454 @@ type AssignmentReportBuilder struct {
 
 //CreateAssignmentReportBuilder returns an initialized AssignmentReportBuilder with specified required fields.
 func CreateAssignmentReportBuilder(
-	asgnrptid field.AsgnRptID,
-	clearingbusinessdate field.ClearingBusinessDate) AssignmentReportBuilder {
+	asgnrptid *field.AsgnRptIDField,
+	clearingbusinessdate *field.ClearingBusinessDateField) AssignmentReportBuilder {
 	var builder AssignmentReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.BuildMsgType("AW"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("AW"))
 	builder.Body.Set(asgnrptid)
 	builder.Body.Set(clearingbusinessdate)
 	return builder
 }
 
 //AsgnRptID is a required field for AssignmentReport.
-func (m AssignmentReport) AsgnRptID() (*field.AsgnRptID, errors.MessageRejectError) {
-	f := new(field.AsgnRptID)
+func (m AssignmentReport) AsgnRptID() (*field.AsgnRptIDField, errors.MessageRejectError) {
+	f := &field.AsgnRptIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAsgnRptID reads a AsgnRptID from AssignmentReport.
-func (m AssignmentReport) GetAsgnRptID(f *field.AsgnRptID) errors.MessageRejectError {
+func (m AssignmentReport) GetAsgnRptID(f *field.AsgnRptIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TotNumAssignmentReports is a non-required field for AssignmentReport.
-func (m AssignmentReport) TotNumAssignmentReports() (*field.TotNumAssignmentReports, errors.MessageRejectError) {
-	f := new(field.TotNumAssignmentReports)
+func (m AssignmentReport) TotNumAssignmentReports() (*field.TotNumAssignmentReportsField, errors.MessageRejectError) {
+	f := &field.TotNumAssignmentReportsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTotNumAssignmentReports reads a TotNumAssignmentReports from AssignmentReport.
-func (m AssignmentReport) GetTotNumAssignmentReports(f *field.TotNumAssignmentReports) errors.MessageRejectError {
+func (m AssignmentReport) GetTotNumAssignmentReports(f *field.TotNumAssignmentReportsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastRptRequested is a non-required field for AssignmentReport.
-func (m AssignmentReport) LastRptRequested() (*field.LastRptRequested, errors.MessageRejectError) {
-	f := new(field.LastRptRequested)
+func (m AssignmentReport) LastRptRequested() (*field.LastRptRequestedField, errors.MessageRejectError) {
+	f := &field.LastRptRequestedField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastRptRequested reads a LastRptRequested from AssignmentReport.
-func (m AssignmentReport) GetLastRptRequested(f *field.LastRptRequested) errors.MessageRejectError {
+func (m AssignmentReport) GetLastRptRequested(f *field.LastRptRequestedField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m AssignmentReport) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from AssignmentReport.
-func (m AssignmentReport) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m AssignmentReport) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for AssignmentReport.
-func (m AssignmentReport) Account() (*field.Account, errors.MessageRejectError) {
-	f := new(field.Account)
+func (m AssignmentReport) Account() (*field.AccountField, errors.MessageRejectError) {
+	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from AssignmentReport.
-func (m AssignmentReport) GetAccount(f *field.Account) errors.MessageRejectError {
+func (m AssignmentReport) GetAccount(f *field.AccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AccountType is a non-required field for AssignmentReport.
-func (m AssignmentReport) AccountType() (*field.AccountType, errors.MessageRejectError) {
-	f := new(field.AccountType)
+func (m AssignmentReport) AccountType() (*field.AccountTypeField, errors.MessageRejectError) {
+	f := &field.AccountTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccountType reads a AccountType from AssignmentReport.
-func (m AssignmentReport) GetAccountType(f *field.AccountType) errors.MessageRejectError {
+func (m AssignmentReport) GetAccountType(f *field.AccountTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for AssignmentReport.
-func (m AssignmentReport) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m AssignmentReport) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from AssignmentReport.
-func (m AssignmentReport) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m AssignmentReport) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for AssignmentReport.
-func (m AssignmentReport) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m AssignmentReport) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from AssignmentReport.
-func (m AssignmentReport) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m AssignmentReport) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m AssignmentReport) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from AssignmentReport.
-func (m AssignmentReport) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m AssignmentReport) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from AssignmentReport.
-func (m AssignmentReport) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m AssignmentReport) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from AssignmentReport.
-func (m AssignmentReport) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m AssignmentReport) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for AssignmentReport.
-func (m AssignmentReport) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m AssignmentReport) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from AssignmentReport.
-func (m AssignmentReport) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m AssignmentReport) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for AssignmentReport.
-func (m AssignmentReport) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m AssignmentReport) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from AssignmentReport.
-func (m AssignmentReport) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m AssignmentReport) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m AssignmentReport) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from AssignmentReport.
-func (m AssignmentReport) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
-	f := new(field.SecuritySubType)
+func (m AssignmentReport) SecuritySubType() (*field.SecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.SecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySubType reads a SecuritySubType from AssignmentReport.
-func (m AssignmentReport) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+func (m AssignmentReport) GetSecuritySubType(f *field.SecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for AssignmentReport.
-func (m AssignmentReport) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m AssignmentReport) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from AssignmentReport.
-func (m AssignmentReport) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m AssignmentReport) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for AssignmentReport.
-func (m AssignmentReport) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m AssignmentReport) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from AssignmentReport.
-func (m AssignmentReport) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m AssignmentReport) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for AssignmentReport.
-func (m AssignmentReport) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m AssignmentReport) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from AssignmentReport.
-func (m AssignmentReport) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m AssignmentReport) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for AssignmentReport.
-func (m AssignmentReport) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m AssignmentReport) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from AssignmentReport.
-func (m AssignmentReport) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m AssignmentReport) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for AssignmentReport.
-func (m AssignmentReport) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m AssignmentReport) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from AssignmentReport.
-func (m AssignmentReport) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m AssignmentReport) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for AssignmentReport.
-func (m AssignmentReport) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m AssignmentReport) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from AssignmentReport.
-func (m AssignmentReport) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m AssignmentReport) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for AssignmentReport.
-func (m AssignmentReport) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m AssignmentReport) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from AssignmentReport.
-func (m AssignmentReport) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m AssignmentReport) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for AssignmentReport.
-func (m AssignmentReport) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m AssignmentReport) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from AssignmentReport.
-func (m AssignmentReport) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m AssignmentReport) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for AssignmentReport.
-func (m AssignmentReport) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m AssignmentReport) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from AssignmentReport.
-func (m AssignmentReport) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m AssignmentReport) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for AssignmentReport.
-func (m AssignmentReport) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m AssignmentReport) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from AssignmentReport.
-func (m AssignmentReport) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m AssignmentReport) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for AssignmentReport.
-func (m AssignmentReport) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m AssignmentReport) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from AssignmentReport.
-func (m AssignmentReport) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m AssignmentReport) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for AssignmentReport.
-func (m AssignmentReport) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m AssignmentReport) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from AssignmentReport.
-func (m AssignmentReport) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m AssignmentReport) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for AssignmentReport.
-func (m AssignmentReport) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m AssignmentReport) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from AssignmentReport.
-func (m AssignmentReport) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m AssignmentReport) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for AssignmentReport.
-func (m AssignmentReport) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m AssignmentReport) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from AssignmentReport.
-func (m AssignmentReport) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m AssignmentReport) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for AssignmentReport.
-func (m AssignmentReport) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m AssignmentReport) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from AssignmentReport.
-func (m AssignmentReport) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m AssignmentReport) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for AssignmentReport.
-func (m AssignmentReport) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
-	f := new(field.StrikeCurrency)
+func (m AssignmentReport) StrikeCurrency() (*field.StrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.StrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeCurrency reads a StrikeCurrency from AssignmentReport.
-func (m AssignmentReport) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+func (m AssignmentReport) GetStrikeCurrency(f *field.StrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for AssignmentReport.
-func (m AssignmentReport) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m AssignmentReport) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from AssignmentReport.
-func (m AssignmentReport) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m AssignmentReport) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for AssignmentReport.
-func (m AssignmentReport) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m AssignmentReport) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from AssignmentReport.
-func (m AssignmentReport) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m AssignmentReport) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for AssignmentReport.
-func (m AssignmentReport) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m AssignmentReport) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from AssignmentReport.
-func (m AssignmentReport) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m AssignmentReport) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m AssignmentReport) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from AssignmentReport.
-func (m AssignmentReport) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for AssignmentReport.
-func (m AssignmentReport) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m AssignmentReport) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from AssignmentReport.
-func (m AssignmentReport) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m AssignmentReport) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for AssignmentReport.
-func (m AssignmentReport) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m AssignmentReport) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from AssignmentReport.
-func (m AssignmentReport) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m AssignmentReport) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for AssignmentReport.
-func (m AssignmentReport) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m AssignmentReport) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from AssignmentReport.
-func (m AssignmentReport) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m AssignmentReport) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m AssignmentReport) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from AssignmentReport.
-func (m AssignmentReport) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for AssignmentReport.
-func (m AssignmentReport) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m AssignmentReport) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from AssignmentReport.
-func (m AssignmentReport) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m AssignmentReport) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for AssignmentReport.
-func (m AssignmentReport) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m AssignmentReport) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from AssignmentReport.
-func (m AssignmentReport) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m AssignmentReport) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for AssignmentReport.
-func (m AssignmentReport) Pool() (*field.Pool, errors.MessageRejectError) {
-	f := new(field.Pool)
+func (m AssignmentReport) Pool() (*field.PoolField, errors.MessageRejectError) {
+	f := &field.PoolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPool reads a Pool from AssignmentReport.
-func (m AssignmentReport) GetPool(f *field.Pool) errors.MessageRejectError {
+func (m AssignmentReport) GetPool(f *field.PoolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for AssignmentReport.
-func (m AssignmentReport) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
-	f := new(field.ContractSettlMonth)
+func (m AssignmentReport) ContractSettlMonth() (*field.ContractSettlMonthField, errors.MessageRejectError) {
+	f := &field.ContractSettlMonthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractSettlMonth reads a ContractSettlMonth from AssignmentReport.
-func (m AssignmentReport) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+func (m AssignmentReport) GetContractSettlMonth(f *field.ContractSettlMonthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for AssignmentReport.
-func (m AssignmentReport) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
-	f := new(field.CPProgram)
+func (m AssignmentReport) CPProgram() (*field.CPProgramField, errors.MessageRejectError) {
+	f := &field.CPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPProgram reads a CPProgram from AssignmentReport.
-func (m AssignmentReport) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+func (m AssignmentReport) GetCPProgram(f *field.CPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for AssignmentReport.
-func (m AssignmentReport) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
-	f := new(field.CPRegType)
+func (m AssignmentReport) CPRegType() (*field.CPRegTypeField, errors.MessageRejectError) {
+	f := &field.CPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPRegType reads a CPRegType from AssignmentReport.
-func (m AssignmentReport) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+func (m AssignmentReport) GetCPRegType(f *field.CPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
-	f := new(field.NoEvents)
+func (m AssignmentReport) NoEvents() (*field.NoEventsField, errors.MessageRejectError) {
+	f := &field.NoEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoEvents reads a NoEvents from AssignmentReport.
-func (m AssignmentReport) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+func (m AssignmentReport) GetNoEvents(f *field.NoEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for AssignmentReport.
-func (m AssignmentReport) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
-	f := new(field.DatedDate)
+func (m AssignmentReport) DatedDate() (*field.DatedDateField, errors.MessageRejectError) {
+	f := &field.DatedDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDatedDate reads a DatedDate from AssignmentReport.
-func (m AssignmentReport) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+func (m AssignmentReport) GetDatedDate(f *field.DatedDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for AssignmentReport.
-func (m AssignmentReport) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
-	f := new(field.InterestAccrualDate)
+func (m AssignmentReport) InterestAccrualDate() (*field.InterestAccrualDateField, errors.MessageRejectError) {
+	f := &field.InterestAccrualDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAccrualDate reads a InterestAccrualDate from AssignmentReport.
-func (m AssignmentReport) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+func (m AssignmentReport) GetInterestAccrualDate(f *field.InterestAccrualDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityStatus is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityStatus() (*field.SecurityStatus, errors.MessageRejectError) {
-	f := new(field.SecurityStatus)
+func (m AssignmentReport) SecurityStatus() (*field.SecurityStatusField, errors.MessageRejectError) {
+	f := &field.SecurityStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityStatus reads a SecurityStatus from AssignmentReport.
-func (m AssignmentReport) GetSecurityStatus(f *field.SecurityStatus) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityStatus(f *field.SecurityStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettleOnOpenFlag is a non-required field for AssignmentReport.
-func (m AssignmentReport) SettleOnOpenFlag() (*field.SettleOnOpenFlag, errors.MessageRejectError) {
-	f := new(field.SettleOnOpenFlag)
+func (m AssignmentReport) SettleOnOpenFlag() (*field.SettleOnOpenFlagField, errors.MessageRejectError) {
+	f := &field.SettleOnOpenFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettleOnOpenFlag reads a SettleOnOpenFlag from AssignmentReport.
-func (m AssignmentReport) GetSettleOnOpenFlag(f *field.SettleOnOpenFlag) errors.MessageRejectError {
+func (m AssignmentReport) GetSettleOnOpenFlag(f *field.SettleOnOpenFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrmtAssignmentMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, errors.MessageRejectError) {
-	f := new(field.InstrmtAssignmentMethod)
+func (m AssignmentReport) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethodField, errors.MessageRejectError) {
+	f := &field.InstrmtAssignmentMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrmtAssignmentMethod reads a InstrmtAssignmentMethod from AssignmentReport.
-func (m AssignmentReport) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeMultiplier is a non-required field for AssignmentReport.
-func (m AssignmentReport) StrikeMultiplier() (*field.StrikeMultiplier, errors.MessageRejectError) {
-	f := new(field.StrikeMultiplier)
+func (m AssignmentReport) StrikeMultiplier() (*field.StrikeMultiplierField, errors.MessageRejectError) {
+	f := &field.StrikeMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeMultiplier reads a StrikeMultiplier from AssignmentReport.
-func (m AssignmentReport) GetStrikeMultiplier(f *field.StrikeMultiplier) errors.MessageRejectError {
+func (m AssignmentReport) GetStrikeMultiplier(f *field.StrikeMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeValue is a non-required field for AssignmentReport.
-func (m AssignmentReport) StrikeValue() (*field.StrikeValue, errors.MessageRejectError) {
-	f := new(field.StrikeValue)
+func (m AssignmentReport) StrikeValue() (*field.StrikeValueField, errors.MessageRejectError) {
+	f := &field.StrikeValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeValue reads a StrikeValue from AssignmentReport.
-func (m AssignmentReport) GetStrikeValue(f *field.StrikeValue) errors.MessageRejectError {
+func (m AssignmentReport) GetStrikeValue(f *field.StrikeValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrement is a non-required field for AssignmentReport.
-func (m AssignmentReport) MinPriceIncrement() (*field.MinPriceIncrement, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrement)
+func (m AssignmentReport) MinPriceIncrement() (*field.MinPriceIncrementField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrement reads a MinPriceIncrement from AssignmentReport.
-func (m AssignmentReport) GetMinPriceIncrement(f *field.MinPriceIncrement) errors.MessageRejectError {
+func (m AssignmentReport) GetMinPriceIncrement(f *field.MinPriceIncrementField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PositionLimit is a non-required field for AssignmentReport.
-func (m AssignmentReport) PositionLimit() (*field.PositionLimit, errors.MessageRejectError) {
-	f := new(field.PositionLimit)
+func (m AssignmentReport) PositionLimit() (*field.PositionLimitField, errors.MessageRejectError) {
+	f := &field.PositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPositionLimit reads a PositionLimit from AssignmentReport.
-func (m AssignmentReport) GetPositionLimit(f *field.PositionLimit) errors.MessageRejectError {
+func (m AssignmentReport) GetPositionLimit(f *field.PositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NTPositionLimit is a non-required field for AssignmentReport.
-func (m AssignmentReport) NTPositionLimit() (*field.NTPositionLimit, errors.MessageRejectError) {
-	f := new(field.NTPositionLimit)
+func (m AssignmentReport) NTPositionLimit() (*field.NTPositionLimitField, errors.MessageRejectError) {
+	f := &field.NTPositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNTPositionLimit reads a NTPositionLimit from AssignmentReport.
-func (m AssignmentReport) GetNTPositionLimit(f *field.NTPositionLimit) errors.MessageRejectError {
+func (m AssignmentReport) GetNTPositionLimit(f *field.NTPositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoInstrumentParties is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoInstrumentParties() (*field.NoInstrumentParties, errors.MessageRejectError) {
-	f := new(field.NoInstrumentParties)
+func (m AssignmentReport) NoInstrumentParties() (*field.NoInstrumentPartiesField, errors.MessageRejectError) {
+	f := &field.NoInstrumentPartiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoInstrumentParties reads a NoInstrumentParties from AssignmentReport.
-func (m AssignmentReport) GetNoInstrumentParties(f *field.NoInstrumentParties) errors.MessageRejectError {
+func (m AssignmentReport) GetNoInstrumentParties(f *field.NoInstrumentPartiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasure is a non-required field for AssignmentReport.
-func (m AssignmentReport) UnitOfMeasure() (*field.UnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasure)
+func (m AssignmentReport) UnitOfMeasure() (*field.UnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasure reads a UnitOfMeasure from AssignmentReport.
-func (m AssignmentReport) GetUnitOfMeasure(f *field.UnitOfMeasure) errors.MessageRejectError {
+func (m AssignmentReport) GetUnitOfMeasure(f *field.UnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeUnit is a non-required field for AssignmentReport.
-func (m AssignmentReport) TimeUnit() (*field.TimeUnit, errors.MessageRejectError) {
-	f := new(field.TimeUnit)
+func (m AssignmentReport) TimeUnit() (*field.TimeUnitField, errors.MessageRejectError) {
+	f := &field.TimeUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeUnit reads a TimeUnit from AssignmentReport.
-func (m AssignmentReport) GetTimeUnit(f *field.TimeUnit) errors.MessageRejectError {
+func (m AssignmentReport) GetTimeUnit(f *field.TimeUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityTime is a non-required field for AssignmentReport.
-func (m AssignmentReport) MaturityTime() (*field.MaturityTime, errors.MessageRejectError) {
-	f := new(field.MaturityTime)
+func (m AssignmentReport) MaturityTime() (*field.MaturityTimeField, errors.MessageRejectError) {
+	f := &field.MaturityTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityTime reads a MaturityTime from AssignmentReport.
-func (m AssignmentReport) GetMaturityTime(f *field.MaturityTime) errors.MessageRejectError {
+func (m AssignmentReport) GetMaturityTime(f *field.MaturityTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityGroup is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityGroup() (*field.SecurityGroup, errors.MessageRejectError) {
-	f := new(field.SecurityGroup)
+func (m AssignmentReport) SecurityGroup() (*field.SecurityGroupField, errors.MessageRejectError) {
+	f := &field.SecurityGroupField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityGroup reads a SecurityGroup from AssignmentReport.
-func (m AssignmentReport) GetSecurityGroup(f *field.SecurityGroup) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityGroup(f *field.SecurityGroupField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrementAmount is a non-required field for AssignmentReport.
-func (m AssignmentReport) MinPriceIncrementAmount() (*field.MinPriceIncrementAmount, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrementAmount)
+func (m AssignmentReport) MinPriceIncrementAmount() (*field.MinPriceIncrementAmountField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrementAmount reads a MinPriceIncrementAmount from AssignmentReport.
-func (m AssignmentReport) GetMinPriceIncrementAmount(f *field.MinPriceIncrementAmount) errors.MessageRejectError {
+func (m AssignmentReport) GetMinPriceIncrementAmount(f *field.MinPriceIncrementAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasureQty is a non-required field for AssignmentReport.
-func (m AssignmentReport) UnitOfMeasureQty() (*field.UnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasureQty)
+func (m AssignmentReport) UnitOfMeasureQty() (*field.UnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasureQty reads a UnitOfMeasureQty from AssignmentReport.
-func (m AssignmentReport) GetUnitOfMeasureQty(f *field.UnitOfMeasureQty) errors.MessageRejectError {
+func (m AssignmentReport) GetUnitOfMeasureQty(f *field.UnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXMLLen is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityXMLLen() (*field.SecurityXMLLen, errors.MessageRejectError) {
-	f := new(field.SecurityXMLLen)
+func (m AssignmentReport) SecurityXMLLen() (*field.SecurityXMLLenField, errors.MessageRejectError) {
+	f := &field.SecurityXMLLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXMLLen reads a SecurityXMLLen from AssignmentReport.
-func (m AssignmentReport) GetSecurityXMLLen(f *field.SecurityXMLLen) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityXMLLen(f *field.SecurityXMLLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXML is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityXML() (*field.SecurityXML, errors.MessageRejectError) {
-	f := new(field.SecurityXML)
+func (m AssignmentReport) SecurityXML() (*field.SecurityXMLField, errors.MessageRejectError) {
+	f := &field.SecurityXMLField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXML reads a SecurityXML from AssignmentReport.
-func (m AssignmentReport) GetSecurityXML(f *field.SecurityXML) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityXML(f *field.SecurityXMLField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXMLSchema is a non-required field for AssignmentReport.
-func (m AssignmentReport) SecurityXMLSchema() (*field.SecurityXMLSchema, errors.MessageRejectError) {
-	f := new(field.SecurityXMLSchema)
+func (m AssignmentReport) SecurityXMLSchema() (*field.SecurityXMLSchemaField, errors.MessageRejectError) {
+	f := &field.SecurityXMLSchemaField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXMLSchema reads a SecurityXMLSchema from AssignmentReport.
-func (m AssignmentReport) GetSecurityXMLSchema(f *field.SecurityXMLSchema) errors.MessageRejectError {
+func (m AssignmentReport) GetSecurityXMLSchema(f *field.SecurityXMLSchemaField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ProductComplex is a non-required field for AssignmentReport.
-func (m AssignmentReport) ProductComplex() (*field.ProductComplex, errors.MessageRejectError) {
-	f := new(field.ProductComplex)
+func (m AssignmentReport) ProductComplex() (*field.ProductComplexField, errors.MessageRejectError) {
+	f := &field.ProductComplexField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProductComplex reads a ProductComplex from AssignmentReport.
-func (m AssignmentReport) GetProductComplex(f *field.ProductComplex) errors.MessageRejectError {
+func (m AssignmentReport) GetProductComplex(f *field.ProductComplexField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceUnitOfMeasure is a non-required field for AssignmentReport.
-func (m AssignmentReport) PriceUnitOfMeasure() (*field.PriceUnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.PriceUnitOfMeasure)
+func (m AssignmentReport) PriceUnitOfMeasure() (*field.PriceUnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.PriceUnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceUnitOfMeasure reads a PriceUnitOfMeasure from AssignmentReport.
-func (m AssignmentReport) GetPriceUnitOfMeasure(f *field.PriceUnitOfMeasure) errors.MessageRejectError {
+func (m AssignmentReport) GetPriceUnitOfMeasure(f *field.PriceUnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceUnitOfMeasureQty is a non-required field for AssignmentReport.
-func (m AssignmentReport) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.PriceUnitOfMeasureQty)
+func (m AssignmentReport) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.PriceUnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceUnitOfMeasureQty reads a PriceUnitOfMeasureQty from AssignmentReport.
-func (m AssignmentReport) GetPriceUnitOfMeasureQty(f *field.PriceUnitOfMeasureQty) errors.MessageRejectError {
+func (m AssignmentReport) GetPriceUnitOfMeasureQty(f *field.PriceUnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) SettlMethod() (*field.SettlMethod, errors.MessageRejectError) {
-	f := new(field.SettlMethod)
+func (m AssignmentReport) SettlMethod() (*field.SettlMethodField, errors.MessageRejectError) {
+	f := &field.SettlMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlMethod reads a SettlMethod from AssignmentReport.
-func (m AssignmentReport) GetSettlMethod(f *field.SettlMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetSettlMethod(f *field.SettlMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExerciseStyle is a non-required field for AssignmentReport.
-func (m AssignmentReport) ExerciseStyle() (*field.ExerciseStyle, errors.MessageRejectError) {
-	f := new(field.ExerciseStyle)
+func (m AssignmentReport) ExerciseStyle() (*field.ExerciseStyleField, errors.MessageRejectError) {
+	f := &field.ExerciseStyleField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExerciseStyle reads a ExerciseStyle from AssignmentReport.
-func (m AssignmentReport) GetExerciseStyle(f *field.ExerciseStyle) errors.MessageRejectError {
+func (m AssignmentReport) GetExerciseStyle(f *field.ExerciseStyleField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptPayoutAmount is a non-required field for AssignmentReport.
-func (m AssignmentReport) OptPayoutAmount() (*field.OptPayoutAmount, errors.MessageRejectError) {
-	f := new(field.OptPayoutAmount)
+func (m AssignmentReport) OptPayoutAmount() (*field.OptPayoutAmountField, errors.MessageRejectError) {
+	f := &field.OptPayoutAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptPayoutAmount reads a OptPayoutAmount from AssignmentReport.
-func (m AssignmentReport) GetOptPayoutAmount(f *field.OptPayoutAmount) errors.MessageRejectError {
+func (m AssignmentReport) GetOptPayoutAmount(f *field.OptPayoutAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceQuoteMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) PriceQuoteMethod() (*field.PriceQuoteMethod, errors.MessageRejectError) {
-	f := new(field.PriceQuoteMethod)
+func (m AssignmentReport) PriceQuoteMethod() (*field.PriceQuoteMethodField, errors.MessageRejectError) {
+	f := &field.PriceQuoteMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceQuoteMethod reads a PriceQuoteMethod from AssignmentReport.
-func (m AssignmentReport) GetPriceQuoteMethod(f *field.PriceQuoteMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetPriceQuoteMethod(f *field.PriceQuoteMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) ListMethod() (*field.ListMethod, errors.MessageRejectError) {
-	f := new(field.ListMethod)
+func (m AssignmentReport) ListMethod() (*field.ListMethodField, errors.MessageRejectError) {
+	f := &field.ListMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListMethod reads a ListMethod from AssignmentReport.
-func (m AssignmentReport) GetListMethod(f *field.ListMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetListMethod(f *field.ListMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CapPrice is a non-required field for AssignmentReport.
-func (m AssignmentReport) CapPrice() (*field.CapPrice, errors.MessageRejectError) {
-	f := new(field.CapPrice)
+func (m AssignmentReport) CapPrice() (*field.CapPriceField, errors.MessageRejectError) {
+	f := &field.CapPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCapPrice reads a CapPrice from AssignmentReport.
-func (m AssignmentReport) GetCapPrice(f *field.CapPrice) errors.MessageRejectError {
+func (m AssignmentReport) GetCapPrice(f *field.CapPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FloorPrice is a non-required field for AssignmentReport.
-func (m AssignmentReport) FloorPrice() (*field.FloorPrice, errors.MessageRejectError) {
-	f := new(field.FloorPrice)
+func (m AssignmentReport) FloorPrice() (*field.FloorPriceField, errors.MessageRejectError) {
+	f := &field.FloorPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFloorPrice reads a FloorPrice from AssignmentReport.
-func (m AssignmentReport) GetFloorPrice(f *field.FloorPrice) errors.MessageRejectError {
+func (m AssignmentReport) GetFloorPrice(f *field.FloorPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for AssignmentReport.
-func (m AssignmentReport) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
-	f := new(field.PutOrCall)
+func (m AssignmentReport) PutOrCall() (*field.PutOrCallField, errors.MessageRejectError) {
+	f := &field.PutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPutOrCall reads a PutOrCall from AssignmentReport.
-func (m AssignmentReport) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+func (m AssignmentReport) GetPutOrCall(f *field.PutOrCallField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlexibleIndicator is a non-required field for AssignmentReport.
-func (m AssignmentReport) FlexibleIndicator() (*field.FlexibleIndicator, errors.MessageRejectError) {
-	f := new(field.FlexibleIndicator)
+func (m AssignmentReport) FlexibleIndicator() (*field.FlexibleIndicatorField, errors.MessageRejectError) {
+	f := &field.FlexibleIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlexibleIndicator reads a FlexibleIndicator from AssignmentReport.
-func (m AssignmentReport) GetFlexibleIndicator(f *field.FlexibleIndicator) errors.MessageRejectError {
+func (m AssignmentReport) GetFlexibleIndicator(f *field.FlexibleIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlexProductEligibilityIndicator is a non-required field for AssignmentReport.
-func (m AssignmentReport) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicator, errors.MessageRejectError) {
-	f := new(field.FlexProductEligibilityIndicator)
+func (m AssignmentReport) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicatorField, errors.MessageRejectError) {
+	f := &field.FlexProductEligibilityIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlexProductEligibilityIndicator reads a FlexProductEligibilityIndicator from AssignmentReport.
-func (m AssignmentReport) GetFlexProductEligibilityIndicator(f *field.FlexProductEligibilityIndicator) errors.MessageRejectError {
+func (m AssignmentReport) GetFlexProductEligibilityIndicator(f *field.FlexProductEligibilityIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ValuationMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) ValuationMethod() (*field.ValuationMethod, errors.MessageRejectError) {
-	f := new(field.ValuationMethod)
+func (m AssignmentReport) ValuationMethod() (*field.ValuationMethodField, errors.MessageRejectError) {
+	f := &field.ValuationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetValuationMethod reads a ValuationMethod from AssignmentReport.
-func (m AssignmentReport) GetValuationMethod(f *field.ValuationMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetValuationMethod(f *field.ValuationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplierUnit is a non-required field for AssignmentReport.
-func (m AssignmentReport) ContractMultiplierUnit() (*field.ContractMultiplierUnit, errors.MessageRejectError) {
-	f := new(field.ContractMultiplierUnit)
+func (m AssignmentReport) ContractMultiplierUnit() (*field.ContractMultiplierUnitField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplierUnit reads a ContractMultiplierUnit from AssignmentReport.
-func (m AssignmentReport) GetContractMultiplierUnit(f *field.ContractMultiplierUnit) errors.MessageRejectError {
+func (m AssignmentReport) GetContractMultiplierUnit(f *field.ContractMultiplierUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlowScheduleType is a non-required field for AssignmentReport.
-func (m AssignmentReport) FlowScheduleType() (*field.FlowScheduleType, errors.MessageRejectError) {
-	f := new(field.FlowScheduleType)
+func (m AssignmentReport) FlowScheduleType() (*field.FlowScheduleTypeField, errors.MessageRejectError) {
+	f := &field.FlowScheduleTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlowScheduleType reads a FlowScheduleType from AssignmentReport.
-func (m AssignmentReport) GetFlowScheduleType(f *field.FlowScheduleType) errors.MessageRejectError {
+func (m AssignmentReport) GetFlowScheduleType(f *field.FlowScheduleTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RestructuringType is a non-required field for AssignmentReport.
-func (m AssignmentReport) RestructuringType() (*field.RestructuringType, errors.MessageRejectError) {
-	f := new(field.RestructuringType)
+func (m AssignmentReport) RestructuringType() (*field.RestructuringTypeField, errors.MessageRejectError) {
+	f := &field.RestructuringTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRestructuringType reads a RestructuringType from AssignmentReport.
-func (m AssignmentReport) GetRestructuringType(f *field.RestructuringType) errors.MessageRejectError {
+func (m AssignmentReport) GetRestructuringType(f *field.RestructuringTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Seniority is a non-required field for AssignmentReport.
-func (m AssignmentReport) Seniority() (*field.Seniority, errors.MessageRejectError) {
-	f := new(field.Seniority)
+func (m AssignmentReport) Seniority() (*field.SeniorityField, errors.MessageRejectError) {
+	f := &field.SeniorityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSeniority reads a Seniority from AssignmentReport.
-func (m AssignmentReport) GetSeniority(f *field.Seniority) errors.MessageRejectError {
+func (m AssignmentReport) GetSeniority(f *field.SeniorityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NotionalPercentageOutstanding is a non-required field for AssignmentReport.
-func (m AssignmentReport) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstanding, errors.MessageRejectError) {
-	f := new(field.NotionalPercentageOutstanding)
+func (m AssignmentReport) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstandingField, errors.MessageRejectError) {
+	f := &field.NotionalPercentageOutstandingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNotionalPercentageOutstanding reads a NotionalPercentageOutstanding from AssignmentReport.
-func (m AssignmentReport) GetNotionalPercentageOutstanding(f *field.NotionalPercentageOutstanding) errors.MessageRejectError {
+func (m AssignmentReport) GetNotionalPercentageOutstanding(f *field.NotionalPercentageOutstandingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OriginalNotionalPercentageOutstanding is a non-required field for AssignmentReport.
-func (m AssignmentReport) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstanding, errors.MessageRejectError) {
-	f := new(field.OriginalNotionalPercentageOutstanding)
+func (m AssignmentReport) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstandingField, errors.MessageRejectError) {
+	f := &field.OriginalNotionalPercentageOutstandingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOriginalNotionalPercentageOutstanding reads a OriginalNotionalPercentageOutstanding from AssignmentReport.
-func (m AssignmentReport) GetOriginalNotionalPercentageOutstanding(f *field.OriginalNotionalPercentageOutstanding) errors.MessageRejectError {
+func (m AssignmentReport) GetOriginalNotionalPercentageOutstanding(f *field.OriginalNotionalPercentageOutstandingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AttachmentPoint is a non-required field for AssignmentReport.
-func (m AssignmentReport) AttachmentPoint() (*field.AttachmentPoint, errors.MessageRejectError) {
-	f := new(field.AttachmentPoint)
+func (m AssignmentReport) AttachmentPoint() (*field.AttachmentPointField, errors.MessageRejectError) {
+	f := &field.AttachmentPointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAttachmentPoint reads a AttachmentPoint from AssignmentReport.
-func (m AssignmentReport) GetAttachmentPoint(f *field.AttachmentPoint) errors.MessageRejectError {
+func (m AssignmentReport) GetAttachmentPoint(f *field.AttachmentPointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DetachmentPoint is a non-required field for AssignmentReport.
-func (m AssignmentReport) DetachmentPoint() (*field.DetachmentPoint, errors.MessageRejectError) {
-	f := new(field.DetachmentPoint)
+func (m AssignmentReport) DetachmentPoint() (*field.DetachmentPointField, errors.MessageRejectError) {
+	f := &field.DetachmentPointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDetachmentPoint reads a DetachmentPoint from AssignmentReport.
-func (m AssignmentReport) GetDetachmentPoint(f *field.DetachmentPoint) errors.MessageRejectError {
+func (m AssignmentReport) GetDetachmentPoint(f *field.DetachmentPointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceDeterminationMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethod, errors.MessageRejectError) {
-	f := new(field.StrikePriceDeterminationMethod)
+func (m AssignmentReport) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethodField, errors.MessageRejectError) {
+	f := &field.StrikePriceDeterminationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceDeterminationMethod reads a StrikePriceDeterminationMethod from AssignmentReport.
-func (m AssignmentReport) GetStrikePriceDeterminationMethod(f *field.StrikePriceDeterminationMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetStrikePriceDeterminationMethod(f *field.StrikePriceDeterminationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceBoundaryMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethod, errors.MessageRejectError) {
-	f := new(field.StrikePriceBoundaryMethod)
+func (m AssignmentReport) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethodField, errors.MessageRejectError) {
+	f := &field.StrikePriceBoundaryMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceBoundaryMethod reads a StrikePriceBoundaryMethod from AssignmentReport.
-func (m AssignmentReport) GetStrikePriceBoundaryMethod(f *field.StrikePriceBoundaryMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetStrikePriceBoundaryMethod(f *field.StrikePriceBoundaryMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceBoundaryPrecision is a non-required field for AssignmentReport.
-func (m AssignmentReport) StrikePriceBoundaryPrecision() (*field.StrikePriceBoundaryPrecision, errors.MessageRejectError) {
-	f := new(field.StrikePriceBoundaryPrecision)
+func (m AssignmentReport) StrikePriceBoundaryPrecision() (*field.StrikePriceBoundaryPrecisionField, errors.MessageRejectError) {
+	f := &field.StrikePriceBoundaryPrecisionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceBoundaryPrecision reads a StrikePriceBoundaryPrecision from AssignmentReport.
-func (m AssignmentReport) GetStrikePriceBoundaryPrecision(f *field.StrikePriceBoundaryPrecision) errors.MessageRejectError {
+func (m AssignmentReport) GetStrikePriceBoundaryPrecision(f *field.StrikePriceBoundaryPrecisionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingPriceDeterminationMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethod, errors.MessageRejectError) {
-	f := new(field.UnderlyingPriceDeterminationMethod)
+func (m AssignmentReport) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethodField, errors.MessageRejectError) {
+	f := &field.UnderlyingPriceDeterminationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingPriceDeterminationMethod reads a UnderlyingPriceDeterminationMethod from AssignmentReport.
-func (m AssignmentReport) GetUnderlyingPriceDeterminationMethod(f *field.UnderlyingPriceDeterminationMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetUnderlyingPriceDeterminationMethod(f *field.UnderlyingPriceDeterminationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptPayoutType is a non-required field for AssignmentReport.
-func (m AssignmentReport) OptPayoutType() (*field.OptPayoutType, errors.MessageRejectError) {
-	f := new(field.OptPayoutType)
+func (m AssignmentReport) OptPayoutType() (*field.OptPayoutTypeField, errors.MessageRejectError) {
+	f := &field.OptPayoutTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptPayoutType reads a OptPayoutType from AssignmentReport.
-func (m AssignmentReport) GetOptPayoutType(f *field.OptPayoutType) errors.MessageRejectError {
+func (m AssignmentReport) GetOptPayoutType(f *field.OptPayoutTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoComplexEvents is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoComplexEvents() (*field.NoComplexEvents, errors.MessageRejectError) {
-	f := new(field.NoComplexEvents)
+func (m AssignmentReport) NoComplexEvents() (*field.NoComplexEventsField, errors.MessageRejectError) {
+	f := &field.NoComplexEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoComplexEvents reads a NoComplexEvents from AssignmentReport.
-func (m AssignmentReport) GetNoComplexEvents(f *field.NoComplexEvents) errors.MessageRejectError {
+func (m AssignmentReport) GetNoComplexEvents(f *field.NoComplexEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for AssignmentReport.
-func (m AssignmentReport) Currency() (*field.Currency, errors.MessageRejectError) {
-	f := new(field.Currency)
+func (m AssignmentReport) Currency() (*field.CurrencyField, errors.MessageRejectError) {
+	f := &field.CurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCurrency reads a Currency from AssignmentReport.
-func (m AssignmentReport) GetCurrency(f *field.Currency) errors.MessageRejectError {
+func (m AssignmentReport) GetCurrency(f *field.CurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLegs is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
-	f := new(field.NoLegs)
+func (m AssignmentReport) NoLegs() (*field.NoLegsField, errors.MessageRejectError) {
+	f := &field.NoLegsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLegs reads a NoLegs from AssignmentReport.
-func (m AssignmentReport) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+func (m AssignmentReport) GetNoLegs(f *field.NoLegsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
-	f := new(field.NoUnderlyings)
+func (m AssignmentReport) NoUnderlyings() (*field.NoUnderlyingsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyings reads a NoUnderlyings from AssignmentReport.
-func (m AssignmentReport) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+func (m AssignmentReport) GetNoUnderlyings(f *field.NoUnderlyingsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPositions is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoPositions() (*field.NoPositions, errors.MessageRejectError) {
-	f := new(field.NoPositions)
+func (m AssignmentReport) NoPositions() (*field.NoPositionsField, errors.MessageRejectError) {
+	f := &field.NoPositionsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPositions reads a NoPositions from AssignmentReport.
-func (m AssignmentReport) GetNoPositions(f *field.NoPositions) errors.MessageRejectError {
+func (m AssignmentReport) GetNoPositions(f *field.NoPositionsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPosAmt is a non-required field for AssignmentReport.
-func (m AssignmentReport) NoPosAmt() (*field.NoPosAmt, errors.MessageRejectError) {
-	f := new(field.NoPosAmt)
+func (m AssignmentReport) NoPosAmt() (*field.NoPosAmtField, errors.MessageRejectError) {
+	f := &field.NoPosAmtField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPosAmt reads a NoPosAmt from AssignmentReport.
-func (m AssignmentReport) GetNoPosAmt(f *field.NoPosAmt) errors.MessageRejectError {
+func (m AssignmentReport) GetNoPosAmt(f *field.NoPosAmtField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ThresholdAmount is a non-required field for AssignmentReport.
-func (m AssignmentReport) ThresholdAmount() (*field.ThresholdAmount, errors.MessageRejectError) {
-	f := new(field.ThresholdAmount)
+func (m AssignmentReport) ThresholdAmount() (*field.ThresholdAmountField, errors.MessageRejectError) {
+	f := &field.ThresholdAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetThresholdAmount reads a ThresholdAmount from AssignmentReport.
-func (m AssignmentReport) GetThresholdAmount(f *field.ThresholdAmount) errors.MessageRejectError {
+func (m AssignmentReport) GetThresholdAmount(f *field.ThresholdAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlPrice is a non-required field for AssignmentReport.
-func (m AssignmentReport) SettlPrice() (*field.SettlPrice, errors.MessageRejectError) {
-	f := new(field.SettlPrice)
+func (m AssignmentReport) SettlPrice() (*field.SettlPriceField, errors.MessageRejectError) {
+	f := &field.SettlPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlPrice reads a SettlPrice from AssignmentReport.
-func (m AssignmentReport) GetSettlPrice(f *field.SettlPrice) errors.MessageRejectError {
+func (m AssignmentReport) GetSettlPrice(f *field.SettlPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlPriceType is a non-required field for AssignmentReport.
-func (m AssignmentReport) SettlPriceType() (*field.SettlPriceType, errors.MessageRejectError) {
-	f := new(field.SettlPriceType)
+func (m AssignmentReport) SettlPriceType() (*field.SettlPriceTypeField, errors.MessageRejectError) {
+	f := &field.SettlPriceTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlPriceType reads a SettlPriceType from AssignmentReport.
-func (m AssignmentReport) GetSettlPriceType(f *field.SettlPriceType) errors.MessageRejectError {
+func (m AssignmentReport) GetSettlPriceType(f *field.SettlPriceTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSettlPrice is a non-required field for AssignmentReport.
-func (m AssignmentReport) UnderlyingSettlPrice() (*field.UnderlyingSettlPrice, errors.MessageRejectError) {
-	f := new(field.UnderlyingSettlPrice)
+func (m AssignmentReport) UnderlyingSettlPrice() (*field.UnderlyingSettlPriceField, errors.MessageRejectError) {
+	f := &field.UnderlyingSettlPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSettlPrice reads a UnderlyingSettlPrice from AssignmentReport.
-func (m AssignmentReport) GetUnderlyingSettlPrice(f *field.UnderlyingSettlPrice) errors.MessageRejectError {
+func (m AssignmentReport) GetUnderlyingSettlPrice(f *field.UnderlyingSettlPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExpireDate is a non-required field for AssignmentReport.
-func (m AssignmentReport) ExpireDate() (*field.ExpireDate, errors.MessageRejectError) {
-	f := new(field.ExpireDate)
+func (m AssignmentReport) ExpireDate() (*field.ExpireDateField, errors.MessageRejectError) {
+	f := &field.ExpireDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExpireDate reads a ExpireDate from AssignmentReport.
-func (m AssignmentReport) GetExpireDate(f *field.ExpireDate) errors.MessageRejectError {
+func (m AssignmentReport) GetExpireDate(f *field.ExpireDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AssignmentMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) AssignmentMethod() (*field.AssignmentMethod, errors.MessageRejectError) {
-	f := new(field.AssignmentMethod)
+func (m AssignmentReport) AssignmentMethod() (*field.AssignmentMethodField, errors.MessageRejectError) {
+	f := &field.AssignmentMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAssignmentMethod reads a AssignmentMethod from AssignmentReport.
-func (m AssignmentReport) GetAssignmentMethod(f *field.AssignmentMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetAssignmentMethod(f *field.AssignmentMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AssignmentUnit is a non-required field for AssignmentReport.
-func (m AssignmentReport) AssignmentUnit() (*field.AssignmentUnit, errors.MessageRejectError) {
-	f := new(field.AssignmentUnit)
+func (m AssignmentReport) AssignmentUnit() (*field.AssignmentUnitField, errors.MessageRejectError) {
+	f := &field.AssignmentUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAssignmentUnit reads a AssignmentUnit from AssignmentReport.
-func (m AssignmentReport) GetAssignmentUnit(f *field.AssignmentUnit) errors.MessageRejectError {
+func (m AssignmentReport) GetAssignmentUnit(f *field.AssignmentUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OpenInterest is a non-required field for AssignmentReport.
-func (m AssignmentReport) OpenInterest() (*field.OpenInterest, errors.MessageRejectError) {
-	f := new(field.OpenInterest)
+func (m AssignmentReport) OpenInterest() (*field.OpenInterestField, errors.MessageRejectError) {
+	f := &field.OpenInterestField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOpenInterest reads a OpenInterest from AssignmentReport.
-func (m AssignmentReport) GetOpenInterest(f *field.OpenInterest) errors.MessageRejectError {
+func (m AssignmentReport) GetOpenInterest(f *field.OpenInterestField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExerciseMethod is a non-required field for AssignmentReport.
-func (m AssignmentReport) ExerciseMethod() (*field.ExerciseMethod, errors.MessageRejectError) {
-	f := new(field.ExerciseMethod)
+func (m AssignmentReport) ExerciseMethod() (*field.ExerciseMethodField, errors.MessageRejectError) {
+	f := &field.ExerciseMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExerciseMethod reads a ExerciseMethod from AssignmentReport.
-func (m AssignmentReport) GetExerciseMethod(f *field.ExerciseMethod) errors.MessageRejectError {
+func (m AssignmentReport) GetExerciseMethod(f *field.ExerciseMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlSessID is a non-required field for AssignmentReport.
-func (m AssignmentReport) SettlSessID() (*field.SettlSessID, errors.MessageRejectError) {
-	f := new(field.SettlSessID)
+func (m AssignmentReport) SettlSessID() (*field.SettlSessIDField, errors.MessageRejectError) {
+	f := &field.SettlSessIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlSessID reads a SettlSessID from AssignmentReport.
-func (m AssignmentReport) GetSettlSessID(f *field.SettlSessID) errors.MessageRejectError {
+func (m AssignmentReport) GetSettlSessID(f *field.SettlSessIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlSessSubID is a non-required field for AssignmentReport.
-func (m AssignmentReport) SettlSessSubID() (*field.SettlSessSubID, errors.MessageRejectError) {
-	f := new(field.SettlSessSubID)
+func (m AssignmentReport) SettlSessSubID() (*field.SettlSessSubIDField, errors.MessageRejectError) {
+	f := &field.SettlSessSubIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlSessSubID reads a SettlSessSubID from AssignmentReport.
-func (m AssignmentReport) GetSettlSessSubID(f *field.SettlSessSubID) errors.MessageRejectError {
+func (m AssignmentReport) GetSettlSessSubID(f *field.SettlSessSubIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClearingBusinessDate is a required field for AssignmentReport.
-func (m AssignmentReport) ClearingBusinessDate() (*field.ClearingBusinessDate, errors.MessageRejectError) {
-	f := new(field.ClearingBusinessDate)
+func (m AssignmentReport) ClearingBusinessDate() (*field.ClearingBusinessDateField, errors.MessageRejectError) {
+	f := &field.ClearingBusinessDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClearingBusinessDate reads a ClearingBusinessDate from AssignmentReport.
-func (m AssignmentReport) GetClearingBusinessDate(f *field.ClearingBusinessDate) errors.MessageRejectError {
+func (m AssignmentReport) GetClearingBusinessDate(f *field.ClearingBusinessDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for AssignmentReport.
-func (m AssignmentReport) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m AssignmentReport) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from AssignmentReport.
-func (m AssignmentReport) GetText(f *field.Text) errors.MessageRejectError {
+func (m AssignmentReport) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for AssignmentReport.
-func (m AssignmentReport) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m AssignmentReport) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from AssignmentReport.
-func (m AssignmentReport) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m AssignmentReport) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for AssignmentReport.
-func (m AssignmentReport) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m AssignmentReport) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from AssignmentReport.
-func (m AssignmentReport) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m AssignmentReport) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriorSettlPrice is a non-required field for AssignmentReport.
-func (m AssignmentReport) PriorSettlPrice() (*field.PriorSettlPrice, errors.MessageRejectError) {
-	f := new(field.PriorSettlPrice)
+func (m AssignmentReport) PriorSettlPrice() (*field.PriorSettlPriceField, errors.MessageRejectError) {
+	f := &field.PriorSettlPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriorSettlPrice reads a PriorSettlPrice from AssignmentReport.
-func (m AssignmentReport) GetPriorSettlPrice(f *field.PriorSettlPrice) errors.MessageRejectError {
+func (m AssignmentReport) GetPriorSettlPrice(f *field.PriorSettlPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplID is a non-required field for AssignmentReport.
-func (m AssignmentReport) ApplID() (*field.ApplID, errors.MessageRejectError) {
-	f := new(field.ApplID)
+func (m AssignmentReport) ApplID() (*field.ApplIDField, errors.MessageRejectError) {
+	f := &field.ApplIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplID reads a ApplID from AssignmentReport.
-func (m AssignmentReport) GetApplID(f *field.ApplID) errors.MessageRejectError {
+func (m AssignmentReport) GetApplID(f *field.ApplIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplSeqNum is a non-required field for AssignmentReport.
-func (m AssignmentReport) ApplSeqNum() (*field.ApplSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplSeqNum)
+func (m AssignmentReport) ApplSeqNum() (*field.ApplSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplSeqNum reads a ApplSeqNum from AssignmentReport.
-func (m AssignmentReport) GetApplSeqNum(f *field.ApplSeqNum) errors.MessageRejectError {
+func (m AssignmentReport) GetApplSeqNum(f *field.ApplSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplLastSeqNum is a non-required field for AssignmentReport.
-func (m AssignmentReport) ApplLastSeqNum() (*field.ApplLastSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplLastSeqNum)
+func (m AssignmentReport) ApplLastSeqNum() (*field.ApplLastSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplLastSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplLastSeqNum reads a ApplLastSeqNum from AssignmentReport.
-func (m AssignmentReport) GetApplLastSeqNum(f *field.ApplLastSeqNum) errors.MessageRejectError {
+func (m AssignmentReport) GetApplLastSeqNum(f *field.ApplLastSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplResendFlag is a non-required field for AssignmentReport.
-func (m AssignmentReport) ApplResendFlag() (*field.ApplResendFlag, errors.MessageRejectError) {
-	f := new(field.ApplResendFlag)
+func (m AssignmentReport) ApplResendFlag() (*field.ApplResendFlagField, errors.MessageRejectError) {
+	f := &field.ApplResendFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplResendFlag reads a ApplResendFlag from AssignmentReport.
-func (m AssignmentReport) GetApplResendFlag(f *field.ApplResendFlag) errors.MessageRejectError {
+func (m AssignmentReport) GetApplResendFlag(f *field.ApplResendFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PosReqID is a non-required field for AssignmentReport.
-func (m AssignmentReport) PosReqID() (*field.PosReqID, errors.MessageRejectError) {
-	f := new(field.PosReqID)
+func (m AssignmentReport) PosReqID() (*field.PosReqIDField, errors.MessageRejectError) {
+	f := &field.PosReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPosReqID reads a PosReqID from AssignmentReport.
-func (m AssignmentReport) GetPosReqID(f *field.PosReqID) errors.MessageRejectError {
+func (m AssignmentReport) GetPosReqID(f *field.PosReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

@@ -70,13 +70,13 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		return
 	}
 
-	beginString := &field.BeginString{}
+	beginString := &field.BeginStringField{}
 	msg.Header.Get(beginString)
 
-	senderCompID := &field.SenderCompID{}
+	senderCompID := &field.SenderCompIDField{}
 	msg.Header.Get(senderCompID)
 
-	targetCompID := &field.TargetCompID{}
+	targetCompID := &field.TargetCompIDField{}
 	msg.Header.Get(targetCompID)
 
 	sessID := SessionID{BeginString: beginString.Value, SenderCompID: targetCompID.Value, TargetCompID: senderCompID.Value}

@@ -9,7 +9,7 @@ import (
 
 func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {
 
-	msgType := new(field.MsgType)
+	msgType := &field.MsgTypeField{}
 	switch msg.Header.Get(msgType); msgType.Value {
 	case "6":
 		return router.OnFIX50SP2IOI(IOI{msg}, sessionID)

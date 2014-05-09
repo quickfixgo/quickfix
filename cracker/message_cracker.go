@@ -42,7 +42,7 @@ type MessageCracker struct {
 }
 
 func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {
-	beginString := &field.BeginString{}
+	beginString := &field.BeginStringField{}
 	err := msg.Header.Get(beginString)
 
 	if err != nil {
@@ -52,7 +52,7 @@ func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRout
 	return tryCrack(beginString, msg, sessionID, router)
 }
 
-func tryCrack(beginString *field.BeginString, msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {
+func tryCrack(beginString *field.BeginStringField, msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {
 	switch beginString.Value {
 	default:
 	case fix.BeginString_FIX40:
@@ -74,7 +74,7 @@ func tryCrack(beginString *field.BeginString, msg message.Message, sessionID qui
 			return fixt11.Crack(msg, sessionID, router)
 		}
 
-		applVerID := &field.ApplVerID{}
+		applVerID := &field.ApplVerIDField{}
 		if err := msg.Header.Get(applVerID); err != nil {
 			session, _ := quickfix.LookupSession(sessionID)
 			applVerID.Value = session.TargetDefaultApplicationVersionID()

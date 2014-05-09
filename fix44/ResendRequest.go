@@ -19,37 +19,37 @@ type ResendRequestBuilder struct {
 
 //CreateResendRequestBuilder returns an initialized ResendRequestBuilder with specified required fields.
 func CreateResendRequestBuilder(
-	beginseqno field.BeginSeqNo,
-	endseqno field.EndSeqNo) ResendRequestBuilder {
+	beginseqno *field.BeginSeqNoField,
+	endseqno *field.EndSeqNoField) ResendRequestBuilder {
 	var builder ResendRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.BuildMsgType("2"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("2"))
 	builder.Body.Set(beginseqno)
 	builder.Body.Set(endseqno)
 	return builder
 }
 
 //BeginSeqNo is a required field for ResendRequest.
-func (m ResendRequest) BeginSeqNo() (*field.BeginSeqNo, errors.MessageRejectError) {
-	f := new(field.BeginSeqNo)
+func (m ResendRequest) BeginSeqNo() (*field.BeginSeqNoField, errors.MessageRejectError) {
+	f := &field.BeginSeqNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBeginSeqNo reads a BeginSeqNo from ResendRequest.
-func (m ResendRequest) GetBeginSeqNo(f *field.BeginSeqNo) errors.MessageRejectError {
+func (m ResendRequest) GetBeginSeqNo(f *field.BeginSeqNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EndSeqNo is a required field for ResendRequest.
-func (m ResendRequest) EndSeqNo() (*field.EndSeqNo, errors.MessageRejectError) {
-	f := new(field.EndSeqNo)
+func (m ResendRequest) EndSeqNo() (*field.EndSeqNoField, errors.MessageRejectError) {
+	f := &field.EndSeqNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEndSeqNo reads a EndSeqNo from ResendRequest.
-func (m ResendRequest) GetEndSeqNo(f *field.EndSeqNo) errors.MessageRejectError {
+func (m ResendRequest) GetEndSeqNo(f *field.EndSeqNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

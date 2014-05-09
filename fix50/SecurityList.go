@@ -25,104 +25,104 @@ type SecurityListBuilder struct {
 func CreateSecurityListBuilder() SecurityListBuilder {
 	var builder SecurityListBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.BuildMsgType("y"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("y"))
 	return builder
 }
 
 //SecurityReqID is a non-required field for SecurityList.
-func (m SecurityList) SecurityReqID() (*field.SecurityReqID, errors.MessageRejectError) {
-	f := new(field.SecurityReqID)
+func (m SecurityList) SecurityReqID() (*field.SecurityReqIDField, errors.MessageRejectError) {
+	f := &field.SecurityReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityReqID reads a SecurityReqID from SecurityList.
-func (m SecurityList) GetSecurityReqID(f *field.SecurityReqID) errors.MessageRejectError {
+func (m SecurityList) GetSecurityReqID(f *field.SecurityReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityResponseID is a non-required field for SecurityList.
-func (m SecurityList) SecurityResponseID() (*field.SecurityResponseID, errors.MessageRejectError) {
-	f := new(field.SecurityResponseID)
+func (m SecurityList) SecurityResponseID() (*field.SecurityResponseIDField, errors.MessageRejectError) {
+	f := &field.SecurityResponseIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityResponseID reads a SecurityResponseID from SecurityList.
-func (m SecurityList) GetSecurityResponseID(f *field.SecurityResponseID) errors.MessageRejectError {
+func (m SecurityList) GetSecurityResponseID(f *field.SecurityResponseIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityRequestResult is a non-required field for SecurityList.
-func (m SecurityList) SecurityRequestResult() (*field.SecurityRequestResult, errors.MessageRejectError) {
-	f := new(field.SecurityRequestResult)
+func (m SecurityList) SecurityRequestResult() (*field.SecurityRequestResultField, errors.MessageRejectError) {
+	f := &field.SecurityRequestResultField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityRequestResult reads a SecurityRequestResult from SecurityList.
-func (m SecurityList) GetSecurityRequestResult(f *field.SecurityRequestResult) errors.MessageRejectError {
+func (m SecurityList) GetSecurityRequestResult(f *field.SecurityRequestResultField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TotNoRelatedSym is a non-required field for SecurityList.
-func (m SecurityList) TotNoRelatedSym() (*field.TotNoRelatedSym, errors.MessageRejectError) {
-	f := new(field.TotNoRelatedSym)
+func (m SecurityList) TotNoRelatedSym() (*field.TotNoRelatedSymField, errors.MessageRejectError) {
+	f := &field.TotNoRelatedSymField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTotNoRelatedSym reads a TotNoRelatedSym from SecurityList.
-func (m SecurityList) GetTotNoRelatedSym(f *field.TotNoRelatedSym) errors.MessageRejectError {
+func (m SecurityList) GetTotNoRelatedSym(f *field.TotNoRelatedSymField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastFragment is a non-required field for SecurityList.
-func (m SecurityList) LastFragment() (*field.LastFragment, errors.MessageRejectError) {
-	f := new(field.LastFragment)
+func (m SecurityList) LastFragment() (*field.LastFragmentField, errors.MessageRejectError) {
+	f := &field.LastFragmentField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastFragment reads a LastFragment from SecurityList.
-func (m SecurityList) GetLastFragment(f *field.LastFragment) errors.MessageRejectError {
+func (m SecurityList) GetLastFragment(f *field.LastFragmentField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a non-required field for SecurityList.
-func (m SecurityList) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
-	f := new(field.NoRelatedSym)
+func (m SecurityList) NoRelatedSym() (*field.NoRelatedSymField, errors.MessageRejectError) {
+	f := &field.NoRelatedSymField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRelatedSym reads a NoRelatedSym from SecurityList.
-func (m SecurityList) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+func (m SecurityList) GetNoRelatedSym(f *field.NoRelatedSymField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityReportID is a non-required field for SecurityList.
-func (m SecurityList) SecurityReportID() (*field.SecurityReportID, errors.MessageRejectError) {
-	f := new(field.SecurityReportID)
+func (m SecurityList) SecurityReportID() (*field.SecurityReportIDField, errors.MessageRejectError) {
+	f := &field.SecurityReportIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityReportID reads a SecurityReportID from SecurityList.
-func (m SecurityList) GetSecurityReportID(f *field.SecurityReportID) errors.MessageRejectError {
+func (m SecurityList) GetSecurityReportID(f *field.SecurityReportIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClearingBusinessDate is a non-required field for SecurityList.
-func (m SecurityList) ClearingBusinessDate() (*field.ClearingBusinessDate, errors.MessageRejectError) {
-	f := new(field.ClearingBusinessDate)
+func (m SecurityList) ClearingBusinessDate() (*field.ClearingBusinessDateField, errors.MessageRejectError) {
+	f := &field.ClearingBusinessDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClearingBusinessDate reads a ClearingBusinessDate from SecurityList.
-func (m SecurityList) GetClearingBusinessDate(f *field.ClearingBusinessDate) errors.MessageRejectError {
+func (m SecurityList) GetClearingBusinessDate(f *field.ClearingBusinessDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

@@ -19,14 +19,14 @@ type AllocationReportAckBuilder struct {
 
 //CreateAllocationReportAckBuilder returns an initialized AllocationReportAckBuilder with specified required fields.
 func CreateAllocationReportAckBuilder(
-	allocreportid field.AllocReportID,
-	allocid field.AllocID,
-	transacttime field.TransactTime,
-	allocstatus field.AllocStatus) AllocationReportAckBuilder {
+	allocreportid *field.AllocReportIDField,
+	allocid *field.AllocIDField,
+	transacttime *field.TransactTimeField,
+	allocstatus *field.AllocStatusField) AllocationReportAckBuilder {
 	var builder AllocationReportAckBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.BuildMsgType("AT"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AT"))
 	builder.Body.Set(allocreportid)
 	builder.Body.Set(allocid)
 	builder.Body.Set(transacttime)
@@ -35,205 +35,205 @@ func CreateAllocationReportAckBuilder(
 }
 
 //AllocReportID is a required field for AllocationReportAck.
-func (m AllocationReportAck) AllocReportID() (*field.AllocReportID, errors.MessageRejectError) {
-	f := new(field.AllocReportID)
+func (m AllocationReportAck) AllocReportID() (*field.AllocReportIDField, errors.MessageRejectError) {
+	f := &field.AllocReportIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocReportID reads a AllocReportID from AllocationReportAck.
-func (m AllocationReportAck) GetAllocReportID(f *field.AllocReportID) errors.MessageRejectError {
+func (m AllocationReportAck) GetAllocReportID(f *field.AllocReportIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocID is a required field for AllocationReportAck.
-func (m AllocationReportAck) AllocID() (*field.AllocID, errors.MessageRejectError) {
-	f := new(field.AllocID)
+func (m AllocationReportAck) AllocID() (*field.AllocIDField, errors.MessageRejectError) {
+	f := &field.AllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocID reads a AllocID from AllocationReportAck.
-func (m AllocationReportAck) GetAllocID(f *field.AllocID) errors.MessageRejectError {
+func (m AllocationReportAck) GetAllocID(f *field.AllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m AllocationReportAck) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from AllocationReportAck.
-func (m AllocationReportAck) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m AllocationReportAck) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryAllocID is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) SecondaryAllocID() (*field.SecondaryAllocID, errors.MessageRejectError) {
-	f := new(field.SecondaryAllocID)
+func (m AllocationReportAck) SecondaryAllocID() (*field.SecondaryAllocIDField, errors.MessageRejectError) {
+	f := &field.SecondaryAllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryAllocID reads a SecondaryAllocID from AllocationReportAck.
-func (m AllocationReportAck) GetSecondaryAllocID(f *field.SecondaryAllocID) errors.MessageRejectError {
+func (m AllocationReportAck) GetSecondaryAllocID(f *field.SecondaryAllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeDate is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) TradeDate() (*field.TradeDate, errors.MessageRejectError) {
-	f := new(field.TradeDate)
+func (m AllocationReportAck) TradeDate() (*field.TradeDateField, errors.MessageRejectError) {
+	f := &field.TradeDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeDate reads a TradeDate from AllocationReportAck.
-func (m AllocationReportAck) GetTradeDate(f *field.TradeDate) errors.MessageRejectError {
+func (m AllocationReportAck) GetTradeDate(f *field.TradeDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for AllocationReportAck.
-func (m AllocationReportAck) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m AllocationReportAck) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from AllocationReportAck.
-func (m AllocationReportAck) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m AllocationReportAck) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocStatus is a required field for AllocationReportAck.
-func (m AllocationReportAck) AllocStatus() (*field.AllocStatus, errors.MessageRejectError) {
-	f := new(field.AllocStatus)
+func (m AllocationReportAck) AllocStatus() (*field.AllocStatusField, errors.MessageRejectError) {
+	f := &field.AllocStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocStatus reads a AllocStatus from AllocationReportAck.
-func (m AllocationReportAck) GetAllocStatus(f *field.AllocStatus) errors.MessageRejectError {
+func (m AllocationReportAck) GetAllocStatus(f *field.AllocStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocRejCode is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) AllocRejCode() (*field.AllocRejCode, errors.MessageRejectError) {
-	f := new(field.AllocRejCode)
+func (m AllocationReportAck) AllocRejCode() (*field.AllocRejCodeField, errors.MessageRejectError) {
+	f := &field.AllocRejCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocRejCode reads a AllocRejCode from AllocationReportAck.
-func (m AllocationReportAck) GetAllocRejCode(f *field.AllocRejCode) errors.MessageRejectError {
+func (m AllocationReportAck) GetAllocRejCode(f *field.AllocRejCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocReportType is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) AllocReportType() (*field.AllocReportType, errors.MessageRejectError) {
-	f := new(field.AllocReportType)
+func (m AllocationReportAck) AllocReportType() (*field.AllocReportTypeField, errors.MessageRejectError) {
+	f := &field.AllocReportTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocReportType reads a AllocReportType from AllocationReportAck.
-func (m AllocationReportAck) GetAllocReportType(f *field.AllocReportType) errors.MessageRejectError {
+func (m AllocationReportAck) GetAllocReportType(f *field.AllocReportTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocIntermedReqType is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) AllocIntermedReqType() (*field.AllocIntermedReqType, errors.MessageRejectError) {
-	f := new(field.AllocIntermedReqType)
+func (m AllocationReportAck) AllocIntermedReqType() (*field.AllocIntermedReqTypeField, errors.MessageRejectError) {
+	f := &field.AllocIntermedReqTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocIntermedReqType reads a AllocIntermedReqType from AllocationReportAck.
-func (m AllocationReportAck) GetAllocIntermedReqType(f *field.AllocIntermedReqType) errors.MessageRejectError {
+func (m AllocationReportAck) GetAllocIntermedReqType(f *field.AllocIntermedReqTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MatchStatus is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) MatchStatus() (*field.MatchStatus, errors.MessageRejectError) {
-	f := new(field.MatchStatus)
+func (m AllocationReportAck) MatchStatus() (*field.MatchStatusField, errors.MessageRejectError) {
+	f := &field.MatchStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMatchStatus reads a MatchStatus from AllocationReportAck.
-func (m AllocationReportAck) GetMatchStatus(f *field.MatchStatus) errors.MessageRejectError {
+func (m AllocationReportAck) GetMatchStatus(f *field.MatchStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m AllocationReportAck) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from AllocationReportAck.
-func (m AllocationReportAck) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m AllocationReportAck) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m AllocationReportAck) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from AllocationReportAck.
-func (m AllocationReportAck) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m AllocationReportAck) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m AllocationReportAck) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from AllocationReportAck.
-func (m AllocationReportAck) GetText(f *field.Text) errors.MessageRejectError {
+func (m AllocationReportAck) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m AllocationReportAck) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from AllocationReportAck.
-func (m AllocationReportAck) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m AllocationReportAck) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m AllocationReportAck) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from AllocationReportAck.
-func (m AllocationReportAck) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m AllocationReportAck) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoAllocs is a non-required field for AllocationReportAck.
-func (m AllocationReportAck) NoAllocs() (*field.NoAllocs, errors.MessageRejectError) {
-	f := new(field.NoAllocs)
+func (m AllocationReportAck) NoAllocs() (*field.NoAllocsField, errors.MessageRejectError) {
+	f := &field.NoAllocsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoAllocs reads a NoAllocs from AllocationReportAck.
-func (m AllocationReportAck) GetNoAllocs(f *field.NoAllocs) errors.MessageRejectError {
+func (m AllocationReportAck) GetNoAllocs(f *field.NoAllocsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

@@ -19,35 +19,35 @@ type SequenceResetBuilder struct {
 
 //CreateSequenceResetBuilder returns an initialized SequenceResetBuilder with specified required fields.
 func CreateSequenceResetBuilder(
-	newseqno field.NewSeqNo) SequenceResetBuilder {
+	newseqno *field.NewSeqNoField) SequenceResetBuilder {
 	var builder SequenceResetBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.BuildMsgType("4"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("4"))
 	builder.Body.Set(newseqno)
 	return builder
 }
 
 //GapFillFlag is a non-required field for SequenceReset.
-func (m SequenceReset) GapFillFlag() (*field.GapFillFlag, errors.MessageRejectError) {
-	f := new(field.GapFillFlag)
+func (m SequenceReset) GapFillFlag() (*field.GapFillFlagField, errors.MessageRejectError) {
+	f := &field.GapFillFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetGapFillFlag reads a GapFillFlag from SequenceReset.
-func (m SequenceReset) GetGapFillFlag(f *field.GapFillFlag) errors.MessageRejectError {
+func (m SequenceReset) GetGapFillFlag(f *field.GapFillFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NewSeqNo is a required field for SequenceReset.
-func (m SequenceReset) NewSeqNo() (*field.NewSeqNo, errors.MessageRejectError) {
-	f := new(field.NewSeqNo)
+func (m SequenceReset) NewSeqNo() (*field.NewSeqNoField, errors.MessageRejectError) {
+	f := &field.NewSeqNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNewSeqNo reads a NewSeqNo from SequenceReset.
-func (m SequenceReset) GetNewSeqNo(f *field.NewSeqNo) errors.MessageRejectError {
+func (m SequenceReset) GetNewSeqNo(f *field.NewSeqNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

@@ -30,25 +30,25 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 	session.sessionID.SenderCompID = "SND"
 
 	var testCases = []struct {
-		senderCompID *field.SenderCompID
-		targetCompID *field.TargetCompID
+		senderCompID *field.SenderCompIDField
+		targetCompID *field.TargetCompIDField
 		returnsError bool
 		rejectReason errors.RejectReason
 	}{
 		{returnsError: true, rejectReason: errors.RejectReasonRequiredTagMissing},
-		{senderCompID: field.BuildSenderCompID("TAR"),
+		{senderCompID: field.NewSenderCompID("TAR"),
 			returnsError: true,
 			rejectReason: errors.RejectReasonRequiredTagMissing},
-		{senderCompID: field.BuildSenderCompID("TAR"),
-			targetCompID: field.BuildTargetCompID("JCD"),
+		{senderCompID: field.NewSenderCompID("TAR"),
+			targetCompID: field.NewTargetCompID("JCD"),
 			returnsError: true,
 			rejectReason: errors.RejectReasonCompIDProblem},
-		{senderCompID: field.BuildSenderCompID("JCD"),
-			targetCompID: field.BuildTargetCompID("SND"),
+		{senderCompID: field.NewSenderCompID("JCD"),
+			targetCompID: field.NewTargetCompID("SND"),
 			returnsError: true,
 			rejectReason: errors.RejectReasonCompIDProblem},
-		{senderCompID: field.BuildSenderCompID("TAR"),
-			targetCompID: field.BuildTargetCompID("SND"),
+		{senderCompID: field.NewSenderCompID("TAR"),
+			targetCompID: field.NewTargetCompID("SND"),
 			returnsError: false},
 	}
 

@@ -62,7 +62,7 @@ import(
 func buildCrack() (out string) {
 	out += "func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {\n"
 	out += `
-  msgType:=new(field.MsgType)
+  msgType:=&field.MsgTypeField{}
 switch msg.Header.Get(msgType); msgType.Value {
 `
 
@@ -141,7 +141,7 @@ import(
 	fileOut += fmt.Sprintf("func Create%vBuilder(\n", msg.Name)
 	builderArgs := make([]string, len(requiredFields))
 	for i, field := range requiredFields {
-		builderArgs[i] = fmt.Sprintf("%v field.%v", strings.ToLower(field.Name), field.Name)
+		builderArgs[i] = fmt.Sprintf("%v *field.%vField", strings.ToLower(field.Name), field.Name)
 	}
 	fileOut += strings.Join(builderArgs, ",\n")
 	fileOut += fmt.Sprintf(") %vBuilder {\n", msg.Name)
@@ -149,22 +149,22 @@ import(
 	fileOut += "builder.MessageBuilder = message.CreateMessageBuilder()\n"
 
 	if fixSpec.FIXType == "FIXT" {
-		fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))\n")
+		fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
 	} else {
 		if fixSpec.Major == 5 {
-			fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))\n")
+			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
 			switch fixSpec.ServicePack {
 			case 0:
-				fileOut += fmt.Sprintf("builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))\n")
+				fileOut += fmt.Sprintf("builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))\n")
 			default:
-				fileOut += fmt.Sprintf("builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP%v))\n", fixSpec.ServicePack)
+				fileOut += fmt.Sprintf("builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP%v))\n", fixSpec.ServicePack)
 			}
 		} else {
-			fileOut += fmt.Sprintf("builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
+			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
 		}
 	}
 
-	fileOut += fmt.Sprintf("builder.Header.Set(field.BuildMsgType(\"%v\"))\n", msg.MsgType)
+	fileOut += fmt.Sprintf("builder.Header.Set(field.NewMsgType(\"%v\"))\n", msg.MsgType)
 
 	for _, field := range requiredFields {
 		fileOut += fmt.Sprintf("builder.Body.Set(%v)\n", strings.ToLower(field.Name))
@@ -179,13 +179,13 @@ import(
 		} else {
 			fileOut += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, msg.Name)
 		}
-		fileOut += fmt.Sprintf("func (m %v) %v() (*field.%v, errors.MessageRejectError) {\n", msg.Name, field.Name, field.Name)
-		fileOut += fmt.Sprintf("f := new(field.%v)\n", field.Name)
+		fileOut += fmt.Sprintf("func (m %v) %v() (*field.%vField, errors.MessageRejectError) {\n", msg.Name, field.Name, field.Name)
+		fileOut += fmt.Sprintf("f := &field.%vField{}\n", field.Name)
 		fileOut += "err:=m.Body.Get(f)\n"
 		fileOut += "return f, err\n}\n"
 
 		fileOut += fmt.Sprintf("//Get%v reads a %v from %v.\n", field.Name, field.Name, msg.Name)
-		fileOut += fmt.Sprintf("func (m %v) Get%v(f *field.%v) errors.MessageRejectError {\n", msg.Name, field.Name, field.Name)
+		fileOut += fmt.Sprintf("func (m %v) Get%v(f *field.%vField) errors.MessageRejectError {\n", msg.Name, field.Name, field.Name)
 		fileOut += "return m.Body.Get(f)\n}\n"
 	}
 

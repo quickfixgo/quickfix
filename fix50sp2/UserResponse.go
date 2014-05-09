@@ -23,62 +23,62 @@ type UserResponseBuilder struct {
 
 //CreateUserResponseBuilder returns an initialized UserResponseBuilder with specified required fields.
 func CreateUserResponseBuilder(
-	userrequestid field.UserRequestID,
-	username field.Username) UserResponseBuilder {
+	userrequestid *field.UserRequestIDField,
+	username *field.UsernameField) UserResponseBuilder {
 	var builder UserResponseBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.BuildMsgType("BF"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("BF"))
 	builder.Body.Set(userrequestid)
 	builder.Body.Set(username)
 	return builder
 }
 
 //UserRequestID is a required field for UserResponse.
-func (m UserResponse) UserRequestID() (*field.UserRequestID, errors.MessageRejectError) {
-	f := new(field.UserRequestID)
+func (m UserResponse) UserRequestID() (*field.UserRequestIDField, errors.MessageRejectError) {
+	f := &field.UserRequestIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUserRequestID reads a UserRequestID from UserResponse.
-func (m UserResponse) GetUserRequestID(f *field.UserRequestID) errors.MessageRejectError {
+func (m UserResponse) GetUserRequestID(f *field.UserRequestIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Username is a required field for UserResponse.
-func (m UserResponse) Username() (*field.Username, errors.MessageRejectError) {
-	f := new(field.Username)
+func (m UserResponse) Username() (*field.UsernameField, errors.MessageRejectError) {
+	f := &field.UsernameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUsername reads a Username from UserResponse.
-func (m UserResponse) GetUsername(f *field.Username) errors.MessageRejectError {
+func (m UserResponse) GetUsername(f *field.UsernameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UserStatus is a non-required field for UserResponse.
-func (m UserResponse) UserStatus() (*field.UserStatus, errors.MessageRejectError) {
-	f := new(field.UserStatus)
+func (m UserResponse) UserStatus() (*field.UserStatusField, errors.MessageRejectError) {
+	f := &field.UserStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUserStatus reads a UserStatus from UserResponse.
-func (m UserResponse) GetUserStatus(f *field.UserStatus) errors.MessageRejectError {
+func (m UserResponse) GetUserStatus(f *field.UserStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UserStatusText is a non-required field for UserResponse.
-func (m UserResponse) UserStatusText() (*field.UserStatusText, errors.MessageRejectError) {
-	f := new(field.UserStatusText)
+func (m UserResponse) UserStatusText() (*field.UserStatusTextField, errors.MessageRejectError) {
+	f := &field.UserStatusTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUserStatusText reads a UserStatusText from UserResponse.
-func (m UserResponse) GetUserStatusText(f *field.UserStatusText) errors.MessageRejectError {
+func (m UserResponse) GetUserStatusText(f *field.UserStatusTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

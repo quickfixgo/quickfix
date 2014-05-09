@@ -151,16 +151,16 @@ func genFields() {
 			fmt.Printf("Unknown type '%v' for tag '%v'\n", field.Type, tag)
 		}
 
-		fileOut += fmt.Sprintf("//%v is a %v field\n", field.Name, field.Type)
-		fileOut += fmt.Sprintf("type %v struct { message.%v }\n", field.Name, baseType)
+		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name, field.Type)
+		fileOut += fmt.Sprintf("type %vField struct { message.%v }\n", field.Name, baseType)
 		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name, field.Tag)
-		fileOut += fmt.Sprintf("func (f %v) Tag() fix.Tag {return tag.%v}\n", field.Name, field.Name)
+		fileOut += fmt.Sprintf("func (f %vField) Tag() fix.Tag {return tag.%v}\n", field.Name, field.Name)
 
 		switch goType {
 		case "string", "int", "float64", "bool":
-			fileOut += fmt.Sprintf("//Build%v returns a new %v initialized with val\n", field.Name, field.Name)
-			fileOut += fmt.Sprintf("func Build%v(val %v) *%v {\n", field.Name, goType, field.Name)
-			fileOut += fmt.Sprintf("field := &%v{}\n", field.Name)
+			fileOut += fmt.Sprintf("//New%v returns a new %vField initialized with val\n", field.Name, field.Name)
+			fileOut += fmt.Sprintf("func New%v(val %v) *%vField {\n", field.Name, goType, field.Name)
+			fileOut += fmt.Sprintf("field := &%vField{}\n", field.Name)
 			fileOut += "field.Value = val\n"
 			fileOut += "return field\n"
 			fileOut += "}\n"

@@ -19,25 +19,25 @@ type ConfirmationBuilder struct {
 
 //CreateConfirmationBuilder returns an initialized ConfirmationBuilder with specified required fields.
 func CreateConfirmationBuilder(
-	confirmid field.ConfirmID,
-	confirmtranstype field.ConfirmTransType,
-	confirmtype field.ConfirmType,
-	confirmstatus field.ConfirmStatus,
-	transacttime field.TransactTime,
-	tradedate field.TradeDate,
-	nounderlyings field.NoUnderlyings,
-	nolegs field.NoLegs,
-	allocqty field.AllocQty,
-	side field.Side,
-	nocapacities field.NoCapacities,
-	allocaccount field.AllocAccount,
-	avgpx field.AvgPx,
-	grosstradeamt field.GrossTradeAmt,
-	netmoney field.NetMoney) ConfirmationBuilder {
+	confirmid *field.ConfirmIDField,
+	confirmtranstype *field.ConfirmTransTypeField,
+	confirmtype *field.ConfirmTypeField,
+	confirmstatus *field.ConfirmStatusField,
+	transacttime *field.TransactTimeField,
+	tradedate *field.TradeDateField,
+	nounderlyings *field.NoUnderlyingsField,
+	nolegs *field.NoLegsField,
+	allocqty *field.AllocQtyField,
+	side *field.SideField,
+	nocapacities *field.NoCapacitiesField,
+	allocaccount *field.AllocAccountField,
+	avgpx *field.AvgPxField,
+	grosstradeamt *field.GrossTradeAmtField,
+	netmoney *field.NetMoneyField) ConfirmationBuilder {
 	var builder ConfirmationBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.BuildMsgType("AK"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AK"))
 	builder.Body.Set(confirmid)
 	builder.Body.Set(confirmtranstype)
 	builder.Body.Set(confirmtype)
@@ -57,1621 +57,1621 @@ func CreateConfirmationBuilder(
 }
 
 //ConfirmID is a required field for Confirmation.
-func (m Confirmation) ConfirmID() (*field.ConfirmID, errors.MessageRejectError) {
-	f := new(field.ConfirmID)
+func (m Confirmation) ConfirmID() (*field.ConfirmIDField, errors.MessageRejectError) {
+	f := &field.ConfirmIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConfirmID reads a ConfirmID from Confirmation.
-func (m Confirmation) GetConfirmID(f *field.ConfirmID) errors.MessageRejectError {
+func (m Confirmation) GetConfirmID(f *field.ConfirmIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ConfirmRefID is a non-required field for Confirmation.
-func (m Confirmation) ConfirmRefID() (*field.ConfirmRefID, errors.MessageRejectError) {
-	f := new(field.ConfirmRefID)
+func (m Confirmation) ConfirmRefID() (*field.ConfirmRefIDField, errors.MessageRejectError) {
+	f := &field.ConfirmRefIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConfirmRefID reads a ConfirmRefID from Confirmation.
-func (m Confirmation) GetConfirmRefID(f *field.ConfirmRefID) errors.MessageRejectError {
+func (m Confirmation) GetConfirmRefID(f *field.ConfirmRefIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ConfirmReqID is a non-required field for Confirmation.
-func (m Confirmation) ConfirmReqID() (*field.ConfirmReqID, errors.MessageRejectError) {
-	f := new(field.ConfirmReqID)
+func (m Confirmation) ConfirmReqID() (*field.ConfirmReqIDField, errors.MessageRejectError) {
+	f := &field.ConfirmReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConfirmReqID reads a ConfirmReqID from Confirmation.
-func (m Confirmation) GetConfirmReqID(f *field.ConfirmReqID) errors.MessageRejectError {
+func (m Confirmation) GetConfirmReqID(f *field.ConfirmReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ConfirmTransType is a required field for Confirmation.
-func (m Confirmation) ConfirmTransType() (*field.ConfirmTransType, errors.MessageRejectError) {
-	f := new(field.ConfirmTransType)
+func (m Confirmation) ConfirmTransType() (*field.ConfirmTransTypeField, errors.MessageRejectError) {
+	f := &field.ConfirmTransTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConfirmTransType reads a ConfirmTransType from Confirmation.
-func (m Confirmation) GetConfirmTransType(f *field.ConfirmTransType) errors.MessageRejectError {
+func (m Confirmation) GetConfirmTransType(f *field.ConfirmTransTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ConfirmType is a required field for Confirmation.
-func (m Confirmation) ConfirmType() (*field.ConfirmType, errors.MessageRejectError) {
-	f := new(field.ConfirmType)
+func (m Confirmation) ConfirmType() (*field.ConfirmTypeField, errors.MessageRejectError) {
+	f := &field.ConfirmTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConfirmType reads a ConfirmType from Confirmation.
-func (m Confirmation) GetConfirmType(f *field.ConfirmType) errors.MessageRejectError {
+func (m Confirmation) GetConfirmType(f *field.ConfirmTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CopyMsgIndicator is a non-required field for Confirmation.
-func (m Confirmation) CopyMsgIndicator() (*field.CopyMsgIndicator, errors.MessageRejectError) {
-	f := new(field.CopyMsgIndicator)
+func (m Confirmation) CopyMsgIndicator() (*field.CopyMsgIndicatorField, errors.MessageRejectError) {
+	f := &field.CopyMsgIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCopyMsgIndicator reads a CopyMsgIndicator from Confirmation.
-func (m Confirmation) GetCopyMsgIndicator(f *field.CopyMsgIndicator) errors.MessageRejectError {
+func (m Confirmation) GetCopyMsgIndicator(f *field.CopyMsgIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LegalConfirm is a non-required field for Confirmation.
-func (m Confirmation) LegalConfirm() (*field.LegalConfirm, errors.MessageRejectError) {
-	f := new(field.LegalConfirm)
+func (m Confirmation) LegalConfirm() (*field.LegalConfirmField, errors.MessageRejectError) {
+	f := &field.LegalConfirmField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLegalConfirm reads a LegalConfirm from Confirmation.
-func (m Confirmation) GetLegalConfirm(f *field.LegalConfirm) errors.MessageRejectError {
+func (m Confirmation) GetLegalConfirm(f *field.LegalConfirmField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ConfirmStatus is a required field for Confirmation.
-func (m Confirmation) ConfirmStatus() (*field.ConfirmStatus, errors.MessageRejectError) {
-	f := new(field.ConfirmStatus)
+func (m Confirmation) ConfirmStatus() (*field.ConfirmStatusField, errors.MessageRejectError) {
+	f := &field.ConfirmStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConfirmStatus reads a ConfirmStatus from Confirmation.
-func (m Confirmation) GetConfirmStatus(f *field.ConfirmStatus) errors.MessageRejectError {
+func (m Confirmation) GetConfirmStatus(f *field.ConfirmStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for Confirmation.
-func (m Confirmation) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m Confirmation) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from Confirmation.
-func (m Confirmation) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m Confirmation) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoOrders is a non-required field for Confirmation.
-func (m Confirmation) NoOrders() (*field.NoOrders, errors.MessageRejectError) {
-	f := new(field.NoOrders)
+func (m Confirmation) NoOrders() (*field.NoOrdersField, errors.MessageRejectError) {
+	f := &field.NoOrdersField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoOrders reads a NoOrders from Confirmation.
-func (m Confirmation) GetNoOrders(f *field.NoOrders) errors.MessageRejectError {
+func (m Confirmation) GetNoOrders(f *field.NoOrdersField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocID is a non-required field for Confirmation.
-func (m Confirmation) AllocID() (*field.AllocID, errors.MessageRejectError) {
-	f := new(field.AllocID)
+func (m Confirmation) AllocID() (*field.AllocIDField, errors.MessageRejectError) {
+	f := &field.AllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocID reads a AllocID from Confirmation.
-func (m Confirmation) GetAllocID(f *field.AllocID) errors.MessageRejectError {
+func (m Confirmation) GetAllocID(f *field.AllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryAllocID is a non-required field for Confirmation.
-func (m Confirmation) SecondaryAllocID() (*field.SecondaryAllocID, errors.MessageRejectError) {
-	f := new(field.SecondaryAllocID)
+func (m Confirmation) SecondaryAllocID() (*field.SecondaryAllocIDField, errors.MessageRejectError) {
+	f := &field.SecondaryAllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryAllocID reads a SecondaryAllocID from Confirmation.
-func (m Confirmation) GetSecondaryAllocID(f *field.SecondaryAllocID) errors.MessageRejectError {
+func (m Confirmation) GetSecondaryAllocID(f *field.SecondaryAllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IndividualAllocID is a non-required field for Confirmation.
-func (m Confirmation) IndividualAllocID() (*field.IndividualAllocID, errors.MessageRejectError) {
-	f := new(field.IndividualAllocID)
+func (m Confirmation) IndividualAllocID() (*field.IndividualAllocIDField, errors.MessageRejectError) {
+	f := &field.IndividualAllocIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIndividualAllocID reads a IndividualAllocID from Confirmation.
-func (m Confirmation) GetIndividualAllocID(f *field.IndividualAllocID) errors.MessageRejectError {
+func (m Confirmation) GetIndividualAllocID(f *field.IndividualAllocIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for Confirmation.
-func (m Confirmation) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m Confirmation) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from Confirmation.
-func (m Confirmation) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m Confirmation) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeDate is a required field for Confirmation.
-func (m Confirmation) TradeDate() (*field.TradeDate, errors.MessageRejectError) {
-	f := new(field.TradeDate)
+func (m Confirmation) TradeDate() (*field.TradeDateField, errors.MessageRejectError) {
+	f := &field.TradeDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeDate reads a TradeDate from Confirmation.
-func (m Confirmation) GetTradeDate(f *field.TradeDate) errors.MessageRejectError {
+func (m Confirmation) GetTradeDate(f *field.TradeDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoTrdRegTimestamps is a non-required field for Confirmation.
-func (m Confirmation) NoTrdRegTimestamps() (*field.NoTrdRegTimestamps, errors.MessageRejectError) {
-	f := new(field.NoTrdRegTimestamps)
+func (m Confirmation) NoTrdRegTimestamps() (*field.NoTrdRegTimestampsField, errors.MessageRejectError) {
+	f := &field.NoTrdRegTimestampsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoTrdRegTimestamps reads a NoTrdRegTimestamps from Confirmation.
-func (m Confirmation) GetNoTrdRegTimestamps(f *field.NoTrdRegTimestamps) errors.MessageRejectError {
+func (m Confirmation) GetNoTrdRegTimestamps(f *field.NoTrdRegTimestampsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for Confirmation.
-func (m Confirmation) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m Confirmation) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from Confirmation.
-func (m Confirmation) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m Confirmation) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for Confirmation.
-func (m Confirmation) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m Confirmation) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from Confirmation.
-func (m Confirmation) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m Confirmation) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for Confirmation.
-func (m Confirmation) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m Confirmation) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from Confirmation.
-func (m Confirmation) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m Confirmation) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for Confirmation.
-func (m Confirmation) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m Confirmation) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from Confirmation.
-func (m Confirmation) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m Confirmation) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for Confirmation.
-func (m Confirmation) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m Confirmation) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from Confirmation.
-func (m Confirmation) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m Confirmation) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for Confirmation.
-func (m Confirmation) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m Confirmation) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from Confirmation.
-func (m Confirmation) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m Confirmation) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for Confirmation.
-func (m Confirmation) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m Confirmation) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from Confirmation.
-func (m Confirmation) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m Confirmation) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for Confirmation.
-func (m Confirmation) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m Confirmation) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from Confirmation.
-func (m Confirmation) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m Confirmation) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for Confirmation.
-func (m Confirmation) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
-	f := new(field.SecuritySubType)
+func (m Confirmation) SecuritySubType() (*field.SecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.SecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySubType reads a SecuritySubType from Confirmation.
-func (m Confirmation) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+func (m Confirmation) GetSecuritySubType(f *field.SecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for Confirmation.
-func (m Confirmation) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m Confirmation) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from Confirmation.
-func (m Confirmation) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m Confirmation) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for Confirmation.
-func (m Confirmation) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m Confirmation) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from Confirmation.
-func (m Confirmation) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m Confirmation) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for Confirmation.
-func (m Confirmation) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m Confirmation) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from Confirmation.
-func (m Confirmation) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m Confirmation) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for Confirmation.
-func (m Confirmation) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m Confirmation) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from Confirmation.
-func (m Confirmation) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m Confirmation) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for Confirmation.
-func (m Confirmation) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m Confirmation) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from Confirmation.
-func (m Confirmation) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m Confirmation) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for Confirmation.
-func (m Confirmation) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m Confirmation) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from Confirmation.
-func (m Confirmation) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m Confirmation) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for Confirmation.
-func (m Confirmation) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m Confirmation) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from Confirmation.
-func (m Confirmation) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m Confirmation) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for Confirmation.
-func (m Confirmation) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m Confirmation) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from Confirmation.
-func (m Confirmation) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m Confirmation) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for Confirmation.
-func (m Confirmation) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m Confirmation) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from Confirmation.
-func (m Confirmation) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m Confirmation) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for Confirmation.
-func (m Confirmation) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m Confirmation) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from Confirmation.
-func (m Confirmation) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m Confirmation) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for Confirmation.
-func (m Confirmation) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m Confirmation) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from Confirmation.
-func (m Confirmation) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m Confirmation) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for Confirmation.
-func (m Confirmation) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m Confirmation) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from Confirmation.
-func (m Confirmation) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m Confirmation) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for Confirmation.
-func (m Confirmation) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m Confirmation) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from Confirmation.
-func (m Confirmation) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m Confirmation) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for Confirmation.
-func (m Confirmation) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m Confirmation) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from Confirmation.
-func (m Confirmation) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m Confirmation) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for Confirmation.
-func (m Confirmation) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m Confirmation) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from Confirmation.
-func (m Confirmation) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m Confirmation) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for Confirmation.
-func (m Confirmation) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
-	f := new(field.StrikeCurrency)
+func (m Confirmation) StrikeCurrency() (*field.StrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.StrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeCurrency reads a StrikeCurrency from Confirmation.
-func (m Confirmation) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+func (m Confirmation) GetStrikeCurrency(f *field.StrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for Confirmation.
-func (m Confirmation) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m Confirmation) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from Confirmation.
-func (m Confirmation) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m Confirmation) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for Confirmation.
-func (m Confirmation) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m Confirmation) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from Confirmation.
-func (m Confirmation) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m Confirmation) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for Confirmation.
-func (m Confirmation) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m Confirmation) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from Confirmation.
-func (m Confirmation) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m Confirmation) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for Confirmation.
-func (m Confirmation) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m Confirmation) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from Confirmation.
-func (m Confirmation) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m Confirmation) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for Confirmation.
-func (m Confirmation) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m Confirmation) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from Confirmation.
-func (m Confirmation) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m Confirmation) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for Confirmation.
-func (m Confirmation) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m Confirmation) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from Confirmation.
-func (m Confirmation) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m Confirmation) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for Confirmation.
-func (m Confirmation) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m Confirmation) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from Confirmation.
-func (m Confirmation) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m Confirmation) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for Confirmation.
-func (m Confirmation) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m Confirmation) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from Confirmation.
-func (m Confirmation) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m Confirmation) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for Confirmation.
-func (m Confirmation) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m Confirmation) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from Confirmation.
-func (m Confirmation) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m Confirmation) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for Confirmation.
-func (m Confirmation) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m Confirmation) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from Confirmation.
-func (m Confirmation) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m Confirmation) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for Confirmation.
-func (m Confirmation) Pool() (*field.Pool, errors.MessageRejectError) {
-	f := new(field.Pool)
+func (m Confirmation) Pool() (*field.PoolField, errors.MessageRejectError) {
+	f := &field.PoolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPool reads a Pool from Confirmation.
-func (m Confirmation) GetPool(f *field.Pool) errors.MessageRejectError {
+func (m Confirmation) GetPool(f *field.PoolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for Confirmation.
-func (m Confirmation) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
-	f := new(field.ContractSettlMonth)
+func (m Confirmation) ContractSettlMonth() (*field.ContractSettlMonthField, errors.MessageRejectError) {
+	f := &field.ContractSettlMonthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractSettlMonth reads a ContractSettlMonth from Confirmation.
-func (m Confirmation) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+func (m Confirmation) GetContractSettlMonth(f *field.ContractSettlMonthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for Confirmation.
-func (m Confirmation) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
-	f := new(field.CPProgram)
+func (m Confirmation) CPProgram() (*field.CPProgramField, errors.MessageRejectError) {
+	f := &field.CPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPProgram reads a CPProgram from Confirmation.
-func (m Confirmation) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+func (m Confirmation) GetCPProgram(f *field.CPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for Confirmation.
-func (m Confirmation) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
-	f := new(field.CPRegType)
+func (m Confirmation) CPRegType() (*field.CPRegTypeField, errors.MessageRejectError) {
+	f := &field.CPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPRegType reads a CPRegType from Confirmation.
-func (m Confirmation) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+func (m Confirmation) GetCPRegType(f *field.CPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for Confirmation.
-func (m Confirmation) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
-	f := new(field.NoEvents)
+func (m Confirmation) NoEvents() (*field.NoEventsField, errors.MessageRejectError) {
+	f := &field.NoEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoEvents reads a NoEvents from Confirmation.
-func (m Confirmation) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+func (m Confirmation) GetNoEvents(f *field.NoEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for Confirmation.
-func (m Confirmation) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
-	f := new(field.DatedDate)
+func (m Confirmation) DatedDate() (*field.DatedDateField, errors.MessageRejectError) {
+	f := &field.DatedDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDatedDate reads a DatedDate from Confirmation.
-func (m Confirmation) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+func (m Confirmation) GetDatedDate(f *field.DatedDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for Confirmation.
-func (m Confirmation) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
-	f := new(field.InterestAccrualDate)
+func (m Confirmation) InterestAccrualDate() (*field.InterestAccrualDateField, errors.MessageRejectError) {
+	f := &field.InterestAccrualDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAccrualDate reads a InterestAccrualDate from Confirmation.
-func (m Confirmation) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+func (m Confirmation) GetInterestAccrualDate(f *field.InterestAccrualDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DeliveryForm is a non-required field for Confirmation.
-func (m Confirmation) DeliveryForm() (*field.DeliveryForm, errors.MessageRejectError) {
-	f := new(field.DeliveryForm)
+func (m Confirmation) DeliveryForm() (*field.DeliveryFormField, errors.MessageRejectError) {
+	f := &field.DeliveryFormField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDeliveryForm reads a DeliveryForm from Confirmation.
-func (m Confirmation) GetDeliveryForm(f *field.DeliveryForm) errors.MessageRejectError {
+func (m Confirmation) GetDeliveryForm(f *field.DeliveryFormField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PctAtRisk is a non-required field for Confirmation.
-func (m Confirmation) PctAtRisk() (*field.PctAtRisk, errors.MessageRejectError) {
-	f := new(field.PctAtRisk)
+func (m Confirmation) PctAtRisk() (*field.PctAtRiskField, errors.MessageRejectError) {
+	f := &field.PctAtRiskField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPctAtRisk reads a PctAtRisk from Confirmation.
-func (m Confirmation) GetPctAtRisk(f *field.PctAtRisk) errors.MessageRejectError {
+func (m Confirmation) GetPctAtRisk(f *field.PctAtRiskField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoInstrAttrib is a non-required field for Confirmation.
-func (m Confirmation) NoInstrAttrib() (*field.NoInstrAttrib, errors.MessageRejectError) {
-	f := new(field.NoInstrAttrib)
+func (m Confirmation) NoInstrAttrib() (*field.NoInstrAttribField, errors.MessageRejectError) {
+	f := &field.NoInstrAttribField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoInstrAttrib reads a NoInstrAttrib from Confirmation.
-func (m Confirmation) GetNoInstrAttrib(f *field.NoInstrAttrib) errors.MessageRejectError {
+func (m Confirmation) GetNoInstrAttrib(f *field.NoInstrAttribField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AgreementDesc is a non-required field for Confirmation.
-func (m Confirmation) AgreementDesc() (*field.AgreementDesc, errors.MessageRejectError) {
-	f := new(field.AgreementDesc)
+func (m Confirmation) AgreementDesc() (*field.AgreementDescField, errors.MessageRejectError) {
+	f := &field.AgreementDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAgreementDesc reads a AgreementDesc from Confirmation.
-func (m Confirmation) GetAgreementDesc(f *field.AgreementDesc) errors.MessageRejectError {
+func (m Confirmation) GetAgreementDesc(f *field.AgreementDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AgreementID is a non-required field for Confirmation.
-func (m Confirmation) AgreementID() (*field.AgreementID, errors.MessageRejectError) {
-	f := new(field.AgreementID)
+func (m Confirmation) AgreementID() (*field.AgreementIDField, errors.MessageRejectError) {
+	f := &field.AgreementIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAgreementID reads a AgreementID from Confirmation.
-func (m Confirmation) GetAgreementID(f *field.AgreementID) errors.MessageRejectError {
+func (m Confirmation) GetAgreementID(f *field.AgreementIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AgreementDate is a non-required field for Confirmation.
-func (m Confirmation) AgreementDate() (*field.AgreementDate, errors.MessageRejectError) {
-	f := new(field.AgreementDate)
+func (m Confirmation) AgreementDate() (*field.AgreementDateField, errors.MessageRejectError) {
+	f := &field.AgreementDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAgreementDate reads a AgreementDate from Confirmation.
-func (m Confirmation) GetAgreementDate(f *field.AgreementDate) errors.MessageRejectError {
+func (m Confirmation) GetAgreementDate(f *field.AgreementDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AgreementCurrency is a non-required field for Confirmation.
-func (m Confirmation) AgreementCurrency() (*field.AgreementCurrency, errors.MessageRejectError) {
-	f := new(field.AgreementCurrency)
+func (m Confirmation) AgreementCurrency() (*field.AgreementCurrencyField, errors.MessageRejectError) {
+	f := &field.AgreementCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAgreementCurrency reads a AgreementCurrency from Confirmation.
-func (m Confirmation) GetAgreementCurrency(f *field.AgreementCurrency) errors.MessageRejectError {
+func (m Confirmation) GetAgreementCurrency(f *field.AgreementCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TerminationType is a non-required field for Confirmation.
-func (m Confirmation) TerminationType() (*field.TerminationType, errors.MessageRejectError) {
-	f := new(field.TerminationType)
+func (m Confirmation) TerminationType() (*field.TerminationTypeField, errors.MessageRejectError) {
+	f := &field.TerminationTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTerminationType reads a TerminationType from Confirmation.
-func (m Confirmation) GetTerminationType(f *field.TerminationType) errors.MessageRejectError {
+func (m Confirmation) GetTerminationType(f *field.TerminationTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StartDate is a non-required field for Confirmation.
-func (m Confirmation) StartDate() (*field.StartDate, errors.MessageRejectError) {
-	f := new(field.StartDate)
+func (m Confirmation) StartDate() (*field.StartDateField, errors.MessageRejectError) {
+	f := &field.StartDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStartDate reads a StartDate from Confirmation.
-func (m Confirmation) GetStartDate(f *field.StartDate) errors.MessageRejectError {
+func (m Confirmation) GetStartDate(f *field.StartDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EndDate is a non-required field for Confirmation.
-func (m Confirmation) EndDate() (*field.EndDate, errors.MessageRejectError) {
-	f := new(field.EndDate)
+func (m Confirmation) EndDate() (*field.EndDateField, errors.MessageRejectError) {
+	f := &field.EndDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEndDate reads a EndDate from Confirmation.
-func (m Confirmation) GetEndDate(f *field.EndDate) errors.MessageRejectError {
+func (m Confirmation) GetEndDate(f *field.EndDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DeliveryType is a non-required field for Confirmation.
-func (m Confirmation) DeliveryType() (*field.DeliveryType, errors.MessageRejectError) {
-	f := new(field.DeliveryType)
+func (m Confirmation) DeliveryType() (*field.DeliveryTypeField, errors.MessageRejectError) {
+	f := &field.DeliveryTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDeliveryType reads a DeliveryType from Confirmation.
-func (m Confirmation) GetDeliveryType(f *field.DeliveryType) errors.MessageRejectError {
+func (m Confirmation) GetDeliveryType(f *field.DeliveryTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarginRatio is a non-required field for Confirmation.
-func (m Confirmation) MarginRatio() (*field.MarginRatio, errors.MessageRejectError) {
-	f := new(field.MarginRatio)
+func (m Confirmation) MarginRatio() (*field.MarginRatioField, errors.MessageRejectError) {
+	f := &field.MarginRatioField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarginRatio reads a MarginRatio from Confirmation.
-func (m Confirmation) GetMarginRatio(f *field.MarginRatio) errors.MessageRejectError {
+func (m Confirmation) GetMarginRatio(f *field.MarginRatioField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a required field for Confirmation.
-func (m Confirmation) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
-	f := new(field.NoUnderlyings)
+func (m Confirmation) NoUnderlyings() (*field.NoUnderlyingsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyings reads a NoUnderlyings from Confirmation.
-func (m Confirmation) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+func (m Confirmation) GetNoUnderlyings(f *field.NoUnderlyingsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLegs is a required field for Confirmation.
-func (m Confirmation) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
-	f := new(field.NoLegs)
+func (m Confirmation) NoLegs() (*field.NoLegsField, errors.MessageRejectError) {
+	f := &field.NoLegsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLegs reads a NoLegs from Confirmation.
-func (m Confirmation) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+func (m Confirmation) GetNoLegs(f *field.NoLegsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldType is a non-required field for Confirmation.
-func (m Confirmation) YieldType() (*field.YieldType, errors.MessageRejectError) {
-	f := new(field.YieldType)
+func (m Confirmation) YieldType() (*field.YieldTypeField, errors.MessageRejectError) {
+	f := &field.YieldTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldType reads a YieldType from Confirmation.
-func (m Confirmation) GetYieldType(f *field.YieldType) errors.MessageRejectError {
+func (m Confirmation) GetYieldType(f *field.YieldTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Yield is a non-required field for Confirmation.
-func (m Confirmation) Yield() (*field.Yield, errors.MessageRejectError) {
-	f := new(field.Yield)
+func (m Confirmation) Yield() (*field.YieldField, errors.MessageRejectError) {
+	f := &field.YieldField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYield reads a Yield from Confirmation.
-func (m Confirmation) GetYield(f *field.Yield) errors.MessageRejectError {
+func (m Confirmation) GetYield(f *field.YieldField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldCalcDate is a non-required field for Confirmation.
-func (m Confirmation) YieldCalcDate() (*field.YieldCalcDate, errors.MessageRejectError) {
-	f := new(field.YieldCalcDate)
+func (m Confirmation) YieldCalcDate() (*field.YieldCalcDateField, errors.MessageRejectError) {
+	f := &field.YieldCalcDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldCalcDate reads a YieldCalcDate from Confirmation.
-func (m Confirmation) GetYieldCalcDate(f *field.YieldCalcDate) errors.MessageRejectError {
+func (m Confirmation) GetYieldCalcDate(f *field.YieldCalcDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldRedemptionDate is a non-required field for Confirmation.
-func (m Confirmation) YieldRedemptionDate() (*field.YieldRedemptionDate, errors.MessageRejectError) {
-	f := new(field.YieldRedemptionDate)
+func (m Confirmation) YieldRedemptionDate() (*field.YieldRedemptionDateField, errors.MessageRejectError) {
+	f := &field.YieldRedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldRedemptionDate reads a YieldRedemptionDate from Confirmation.
-func (m Confirmation) GetYieldRedemptionDate(f *field.YieldRedemptionDate) errors.MessageRejectError {
+func (m Confirmation) GetYieldRedemptionDate(f *field.YieldRedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldRedemptionPrice is a non-required field for Confirmation.
-func (m Confirmation) YieldRedemptionPrice() (*field.YieldRedemptionPrice, errors.MessageRejectError) {
-	f := new(field.YieldRedemptionPrice)
+func (m Confirmation) YieldRedemptionPrice() (*field.YieldRedemptionPriceField, errors.MessageRejectError) {
+	f := &field.YieldRedemptionPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldRedemptionPrice reads a YieldRedemptionPrice from Confirmation.
-func (m Confirmation) GetYieldRedemptionPrice(f *field.YieldRedemptionPrice) errors.MessageRejectError {
+func (m Confirmation) GetYieldRedemptionPrice(f *field.YieldRedemptionPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //YieldRedemptionPriceType is a non-required field for Confirmation.
-func (m Confirmation) YieldRedemptionPriceType() (*field.YieldRedemptionPriceType, errors.MessageRejectError) {
-	f := new(field.YieldRedemptionPriceType)
+func (m Confirmation) YieldRedemptionPriceType() (*field.YieldRedemptionPriceTypeField, errors.MessageRejectError) {
+	f := &field.YieldRedemptionPriceTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetYieldRedemptionPriceType reads a YieldRedemptionPriceType from Confirmation.
-func (m Confirmation) GetYieldRedemptionPriceType(f *field.YieldRedemptionPriceType) errors.MessageRejectError {
+func (m Confirmation) GetYieldRedemptionPriceType(f *field.YieldRedemptionPriceTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocQty is a required field for Confirmation.
-func (m Confirmation) AllocQty() (*field.AllocQty, errors.MessageRejectError) {
-	f := new(field.AllocQty)
+func (m Confirmation) AllocQty() (*field.AllocQtyField, errors.MessageRejectError) {
+	f := &field.AllocQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocQty reads a AllocQty from Confirmation.
-func (m Confirmation) GetAllocQty(f *field.AllocQty) errors.MessageRejectError {
+func (m Confirmation) GetAllocQty(f *field.AllocQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //QtyType is a non-required field for Confirmation.
-func (m Confirmation) QtyType() (*field.QtyType, errors.MessageRejectError) {
-	f := new(field.QtyType)
+func (m Confirmation) QtyType() (*field.QtyTypeField, errors.MessageRejectError) {
+	f := &field.QtyTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetQtyType reads a QtyType from Confirmation.
-func (m Confirmation) GetQtyType(f *field.QtyType) errors.MessageRejectError {
+func (m Confirmation) GetQtyType(f *field.QtyTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a required field for Confirmation.
-func (m Confirmation) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m Confirmation) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from Confirmation.
-func (m Confirmation) GetSide(f *field.Side) errors.MessageRejectError {
+func (m Confirmation) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for Confirmation.
-func (m Confirmation) Currency() (*field.Currency, errors.MessageRejectError) {
-	f := new(field.Currency)
+func (m Confirmation) Currency() (*field.CurrencyField, errors.MessageRejectError) {
+	f := &field.CurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCurrency reads a Currency from Confirmation.
-func (m Confirmation) GetCurrency(f *field.Currency) errors.MessageRejectError {
+func (m Confirmation) GetCurrency(f *field.CurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastMkt is a non-required field for Confirmation.
-func (m Confirmation) LastMkt() (*field.LastMkt, errors.MessageRejectError) {
-	f := new(field.LastMkt)
+func (m Confirmation) LastMkt() (*field.LastMktField, errors.MessageRejectError) {
+	f := &field.LastMktField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastMkt reads a LastMkt from Confirmation.
-func (m Confirmation) GetLastMkt(f *field.LastMkt) errors.MessageRejectError {
+func (m Confirmation) GetLastMkt(f *field.LastMktField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoCapacities is a required field for Confirmation.
-func (m Confirmation) NoCapacities() (*field.NoCapacities, errors.MessageRejectError) {
-	f := new(field.NoCapacities)
+func (m Confirmation) NoCapacities() (*field.NoCapacitiesField, errors.MessageRejectError) {
+	f := &field.NoCapacitiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoCapacities reads a NoCapacities from Confirmation.
-func (m Confirmation) GetNoCapacities(f *field.NoCapacities) errors.MessageRejectError {
+func (m Confirmation) GetNoCapacities(f *field.NoCapacitiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocAccount is a required field for Confirmation.
-func (m Confirmation) AllocAccount() (*field.AllocAccount, errors.MessageRejectError) {
-	f := new(field.AllocAccount)
+func (m Confirmation) AllocAccount() (*field.AllocAccountField, errors.MessageRejectError) {
+	f := &field.AllocAccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocAccount reads a AllocAccount from Confirmation.
-func (m Confirmation) GetAllocAccount(f *field.AllocAccount) errors.MessageRejectError {
+func (m Confirmation) GetAllocAccount(f *field.AllocAccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocAcctIDSource is a non-required field for Confirmation.
-func (m Confirmation) AllocAcctIDSource() (*field.AllocAcctIDSource, errors.MessageRejectError) {
-	f := new(field.AllocAcctIDSource)
+func (m Confirmation) AllocAcctIDSource() (*field.AllocAcctIDSourceField, errors.MessageRejectError) {
+	f := &field.AllocAcctIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocAcctIDSource reads a AllocAcctIDSource from Confirmation.
-func (m Confirmation) GetAllocAcctIDSource(f *field.AllocAcctIDSource) errors.MessageRejectError {
+func (m Confirmation) GetAllocAcctIDSource(f *field.AllocAcctIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AllocAccountType is a non-required field for Confirmation.
-func (m Confirmation) AllocAccountType() (*field.AllocAccountType, errors.MessageRejectError) {
-	f := new(field.AllocAccountType)
+func (m Confirmation) AllocAccountType() (*field.AllocAccountTypeField, errors.MessageRejectError) {
+	f := &field.AllocAccountTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAllocAccountType reads a AllocAccountType from Confirmation.
-func (m Confirmation) GetAllocAccountType(f *field.AllocAccountType) errors.MessageRejectError {
+func (m Confirmation) GetAllocAccountType(f *field.AllocAccountTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AvgPx is a required field for Confirmation.
-func (m Confirmation) AvgPx() (*field.AvgPx, errors.MessageRejectError) {
-	f := new(field.AvgPx)
+func (m Confirmation) AvgPx() (*field.AvgPxField, errors.MessageRejectError) {
+	f := &field.AvgPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAvgPx reads a AvgPx from Confirmation.
-func (m Confirmation) GetAvgPx(f *field.AvgPx) errors.MessageRejectError {
+func (m Confirmation) GetAvgPx(f *field.AvgPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AvgPxPrecision is a non-required field for Confirmation.
-func (m Confirmation) AvgPxPrecision() (*field.AvgPxPrecision, errors.MessageRejectError) {
-	f := new(field.AvgPxPrecision)
+func (m Confirmation) AvgPxPrecision() (*field.AvgPxPrecisionField, errors.MessageRejectError) {
+	f := &field.AvgPxPrecisionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAvgPxPrecision reads a AvgPxPrecision from Confirmation.
-func (m Confirmation) GetAvgPxPrecision(f *field.AvgPxPrecision) errors.MessageRejectError {
+func (m Confirmation) GetAvgPxPrecision(f *field.AvgPxPrecisionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceType is a non-required field for Confirmation.
-func (m Confirmation) PriceType() (*field.PriceType, errors.MessageRejectError) {
-	f := new(field.PriceType)
+func (m Confirmation) PriceType() (*field.PriceTypeField, errors.MessageRejectError) {
+	f := &field.PriceTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceType reads a PriceType from Confirmation.
-func (m Confirmation) GetPriceType(f *field.PriceType) errors.MessageRejectError {
+func (m Confirmation) GetPriceType(f *field.PriceTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AvgParPx is a non-required field for Confirmation.
-func (m Confirmation) AvgParPx() (*field.AvgParPx, errors.MessageRejectError) {
-	f := new(field.AvgParPx)
+func (m Confirmation) AvgParPx() (*field.AvgParPxField, errors.MessageRejectError) {
+	f := &field.AvgParPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAvgParPx reads a AvgParPx from Confirmation.
-func (m Confirmation) GetAvgParPx(f *field.AvgParPx) errors.MessageRejectError {
+func (m Confirmation) GetAvgParPx(f *field.AvgParPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Spread is a non-required field for Confirmation.
-func (m Confirmation) Spread() (*field.Spread, errors.MessageRejectError) {
-	f := new(field.Spread)
+func (m Confirmation) Spread() (*field.SpreadField, errors.MessageRejectError) {
+	f := &field.SpreadField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSpread reads a Spread from Confirmation.
-func (m Confirmation) GetSpread(f *field.Spread) errors.MessageRejectError {
+func (m Confirmation) GetSpread(f *field.SpreadField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkCurveCurrency is a non-required field for Confirmation.
-func (m Confirmation) BenchmarkCurveCurrency() (*field.BenchmarkCurveCurrency, errors.MessageRejectError) {
-	f := new(field.BenchmarkCurveCurrency)
+func (m Confirmation) BenchmarkCurveCurrency() (*field.BenchmarkCurveCurrencyField, errors.MessageRejectError) {
+	f := &field.BenchmarkCurveCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkCurveCurrency reads a BenchmarkCurveCurrency from Confirmation.
-func (m Confirmation) GetBenchmarkCurveCurrency(f *field.BenchmarkCurveCurrency) errors.MessageRejectError {
+func (m Confirmation) GetBenchmarkCurveCurrency(f *field.BenchmarkCurveCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkCurveName is a non-required field for Confirmation.
-func (m Confirmation) BenchmarkCurveName() (*field.BenchmarkCurveName, errors.MessageRejectError) {
-	f := new(field.BenchmarkCurveName)
+func (m Confirmation) BenchmarkCurveName() (*field.BenchmarkCurveNameField, errors.MessageRejectError) {
+	f := &field.BenchmarkCurveNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkCurveName reads a BenchmarkCurveName from Confirmation.
-func (m Confirmation) GetBenchmarkCurveName(f *field.BenchmarkCurveName) errors.MessageRejectError {
+func (m Confirmation) GetBenchmarkCurveName(f *field.BenchmarkCurveNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkCurvePoint is a non-required field for Confirmation.
-func (m Confirmation) BenchmarkCurvePoint() (*field.BenchmarkCurvePoint, errors.MessageRejectError) {
-	f := new(field.BenchmarkCurvePoint)
+func (m Confirmation) BenchmarkCurvePoint() (*field.BenchmarkCurvePointField, errors.MessageRejectError) {
+	f := &field.BenchmarkCurvePointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkCurvePoint reads a BenchmarkCurvePoint from Confirmation.
-func (m Confirmation) GetBenchmarkCurvePoint(f *field.BenchmarkCurvePoint) errors.MessageRejectError {
+func (m Confirmation) GetBenchmarkCurvePoint(f *field.BenchmarkCurvePointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkPrice is a non-required field for Confirmation.
-func (m Confirmation) BenchmarkPrice() (*field.BenchmarkPrice, errors.MessageRejectError) {
-	f := new(field.BenchmarkPrice)
+func (m Confirmation) BenchmarkPrice() (*field.BenchmarkPriceField, errors.MessageRejectError) {
+	f := &field.BenchmarkPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkPrice reads a BenchmarkPrice from Confirmation.
-func (m Confirmation) GetBenchmarkPrice(f *field.BenchmarkPrice) errors.MessageRejectError {
+func (m Confirmation) GetBenchmarkPrice(f *field.BenchmarkPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkPriceType is a non-required field for Confirmation.
-func (m Confirmation) BenchmarkPriceType() (*field.BenchmarkPriceType, errors.MessageRejectError) {
-	f := new(field.BenchmarkPriceType)
+func (m Confirmation) BenchmarkPriceType() (*field.BenchmarkPriceTypeField, errors.MessageRejectError) {
+	f := &field.BenchmarkPriceTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkPriceType reads a BenchmarkPriceType from Confirmation.
-func (m Confirmation) GetBenchmarkPriceType(f *field.BenchmarkPriceType) errors.MessageRejectError {
+func (m Confirmation) GetBenchmarkPriceType(f *field.BenchmarkPriceTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkSecurityID is a non-required field for Confirmation.
-func (m Confirmation) BenchmarkSecurityID() (*field.BenchmarkSecurityID, errors.MessageRejectError) {
-	f := new(field.BenchmarkSecurityID)
+func (m Confirmation) BenchmarkSecurityID() (*field.BenchmarkSecurityIDField, errors.MessageRejectError) {
+	f := &field.BenchmarkSecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkSecurityID reads a BenchmarkSecurityID from Confirmation.
-func (m Confirmation) GetBenchmarkSecurityID(f *field.BenchmarkSecurityID) errors.MessageRejectError {
+func (m Confirmation) GetBenchmarkSecurityID(f *field.BenchmarkSecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BenchmarkSecurityIDSource is a non-required field for Confirmation.
-func (m Confirmation) BenchmarkSecurityIDSource() (*field.BenchmarkSecurityIDSource, errors.MessageRejectError) {
-	f := new(field.BenchmarkSecurityIDSource)
+func (m Confirmation) BenchmarkSecurityIDSource() (*field.BenchmarkSecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.BenchmarkSecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBenchmarkSecurityIDSource reads a BenchmarkSecurityIDSource from Confirmation.
-func (m Confirmation) GetBenchmarkSecurityIDSource(f *field.BenchmarkSecurityIDSource) errors.MessageRejectError {
+func (m Confirmation) GetBenchmarkSecurityIDSource(f *field.BenchmarkSecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ReportedPx is a non-required field for Confirmation.
-func (m Confirmation) ReportedPx() (*field.ReportedPx, errors.MessageRejectError) {
-	f := new(field.ReportedPx)
+func (m Confirmation) ReportedPx() (*field.ReportedPxField, errors.MessageRejectError) {
+	f := &field.ReportedPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetReportedPx reads a ReportedPx from Confirmation.
-func (m Confirmation) GetReportedPx(f *field.ReportedPx) errors.MessageRejectError {
+func (m Confirmation) GetReportedPx(f *field.ReportedPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for Confirmation.
-func (m Confirmation) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m Confirmation) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from Confirmation.
-func (m Confirmation) GetText(f *field.Text) errors.MessageRejectError {
+func (m Confirmation) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for Confirmation.
-func (m Confirmation) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m Confirmation) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from Confirmation.
-func (m Confirmation) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m Confirmation) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for Confirmation.
-func (m Confirmation) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m Confirmation) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from Confirmation.
-func (m Confirmation) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m Confirmation) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ProcessCode is a non-required field for Confirmation.
-func (m Confirmation) ProcessCode() (*field.ProcessCode, errors.MessageRejectError) {
-	f := new(field.ProcessCode)
+func (m Confirmation) ProcessCode() (*field.ProcessCodeField, errors.MessageRejectError) {
+	f := &field.ProcessCodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProcessCode reads a ProcessCode from Confirmation.
-func (m Confirmation) GetProcessCode(f *field.ProcessCode) errors.MessageRejectError {
+func (m Confirmation) GetProcessCode(f *field.ProcessCodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //GrossTradeAmt is a required field for Confirmation.
-func (m Confirmation) GrossTradeAmt() (*field.GrossTradeAmt, errors.MessageRejectError) {
-	f := new(field.GrossTradeAmt)
+func (m Confirmation) GrossTradeAmt() (*field.GrossTradeAmtField, errors.MessageRejectError) {
+	f := &field.GrossTradeAmtField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetGrossTradeAmt reads a GrossTradeAmt from Confirmation.
-func (m Confirmation) GetGrossTradeAmt(f *field.GrossTradeAmt) errors.MessageRejectError {
+func (m Confirmation) GetGrossTradeAmt(f *field.GrossTradeAmtField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NumDaysInterest is a non-required field for Confirmation.
-func (m Confirmation) NumDaysInterest() (*field.NumDaysInterest, errors.MessageRejectError) {
-	f := new(field.NumDaysInterest)
+func (m Confirmation) NumDaysInterest() (*field.NumDaysInterestField, errors.MessageRejectError) {
+	f := &field.NumDaysInterestField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNumDaysInterest reads a NumDaysInterest from Confirmation.
-func (m Confirmation) GetNumDaysInterest(f *field.NumDaysInterest) errors.MessageRejectError {
+func (m Confirmation) GetNumDaysInterest(f *field.NumDaysInterestField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExDate is a non-required field for Confirmation.
-func (m Confirmation) ExDate() (*field.ExDate, errors.MessageRejectError) {
-	f := new(field.ExDate)
+func (m Confirmation) ExDate() (*field.ExDateField, errors.MessageRejectError) {
+	f := &field.ExDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExDate reads a ExDate from Confirmation.
-func (m Confirmation) GetExDate(f *field.ExDate) errors.MessageRejectError {
+func (m Confirmation) GetExDate(f *field.ExDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AccruedInterestRate is a non-required field for Confirmation.
-func (m Confirmation) AccruedInterestRate() (*field.AccruedInterestRate, errors.MessageRejectError) {
-	f := new(field.AccruedInterestRate)
+func (m Confirmation) AccruedInterestRate() (*field.AccruedInterestRateField, errors.MessageRejectError) {
+	f := &field.AccruedInterestRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccruedInterestRate reads a AccruedInterestRate from Confirmation.
-func (m Confirmation) GetAccruedInterestRate(f *field.AccruedInterestRate) errors.MessageRejectError {
+func (m Confirmation) GetAccruedInterestRate(f *field.AccruedInterestRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AccruedInterestAmt is a non-required field for Confirmation.
-func (m Confirmation) AccruedInterestAmt() (*field.AccruedInterestAmt, errors.MessageRejectError) {
-	f := new(field.AccruedInterestAmt)
+func (m Confirmation) AccruedInterestAmt() (*field.AccruedInterestAmtField, errors.MessageRejectError) {
+	f := &field.AccruedInterestAmtField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccruedInterestAmt reads a AccruedInterestAmt from Confirmation.
-func (m Confirmation) GetAccruedInterestAmt(f *field.AccruedInterestAmt) errors.MessageRejectError {
+func (m Confirmation) GetAccruedInterestAmt(f *field.AccruedInterestAmtField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAtMaturity is a non-required field for Confirmation.
-func (m Confirmation) InterestAtMaturity() (*field.InterestAtMaturity, errors.MessageRejectError) {
-	f := new(field.InterestAtMaturity)
+func (m Confirmation) InterestAtMaturity() (*field.InterestAtMaturityField, errors.MessageRejectError) {
+	f := &field.InterestAtMaturityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAtMaturity reads a InterestAtMaturity from Confirmation.
-func (m Confirmation) GetInterestAtMaturity(f *field.InterestAtMaturity) errors.MessageRejectError {
+func (m Confirmation) GetInterestAtMaturity(f *field.InterestAtMaturityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EndAccruedInterestAmt is a non-required field for Confirmation.
-func (m Confirmation) EndAccruedInterestAmt() (*field.EndAccruedInterestAmt, errors.MessageRejectError) {
-	f := new(field.EndAccruedInterestAmt)
+func (m Confirmation) EndAccruedInterestAmt() (*field.EndAccruedInterestAmtField, errors.MessageRejectError) {
+	f := &field.EndAccruedInterestAmtField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEndAccruedInterestAmt reads a EndAccruedInterestAmt from Confirmation.
-func (m Confirmation) GetEndAccruedInterestAmt(f *field.EndAccruedInterestAmt) errors.MessageRejectError {
+func (m Confirmation) GetEndAccruedInterestAmt(f *field.EndAccruedInterestAmtField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StartCash is a non-required field for Confirmation.
-func (m Confirmation) StartCash() (*field.StartCash, errors.MessageRejectError) {
-	f := new(field.StartCash)
+func (m Confirmation) StartCash() (*field.StartCashField, errors.MessageRejectError) {
+	f := &field.StartCashField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStartCash reads a StartCash from Confirmation.
-func (m Confirmation) GetStartCash(f *field.StartCash) errors.MessageRejectError {
+func (m Confirmation) GetStartCash(f *field.StartCashField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EndCash is a non-required field for Confirmation.
-func (m Confirmation) EndCash() (*field.EndCash, errors.MessageRejectError) {
-	f := new(field.EndCash)
+func (m Confirmation) EndCash() (*field.EndCashField, errors.MessageRejectError) {
+	f := &field.EndCashField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEndCash reads a EndCash from Confirmation.
-func (m Confirmation) GetEndCash(f *field.EndCash) errors.MessageRejectError {
+func (m Confirmation) GetEndCash(f *field.EndCashField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Concession is a non-required field for Confirmation.
-func (m Confirmation) Concession() (*field.Concession, errors.MessageRejectError) {
-	f := new(field.Concession)
+func (m Confirmation) Concession() (*field.ConcessionField, errors.MessageRejectError) {
+	f := &field.ConcessionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetConcession reads a Concession from Confirmation.
-func (m Confirmation) GetConcession(f *field.Concession) errors.MessageRejectError {
+func (m Confirmation) GetConcession(f *field.ConcessionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TotalTakedown is a non-required field for Confirmation.
-func (m Confirmation) TotalTakedown() (*field.TotalTakedown, errors.MessageRejectError) {
-	f := new(field.TotalTakedown)
+func (m Confirmation) TotalTakedown() (*field.TotalTakedownField, errors.MessageRejectError) {
+	f := &field.TotalTakedownField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTotalTakedown reads a TotalTakedown from Confirmation.
-func (m Confirmation) GetTotalTakedown(f *field.TotalTakedown) errors.MessageRejectError {
+func (m Confirmation) GetTotalTakedown(f *field.TotalTakedownField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NetMoney is a required field for Confirmation.
-func (m Confirmation) NetMoney() (*field.NetMoney, errors.MessageRejectError) {
-	f := new(field.NetMoney)
+func (m Confirmation) NetMoney() (*field.NetMoneyField, errors.MessageRejectError) {
+	f := &field.NetMoneyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNetMoney reads a NetMoney from Confirmation.
-func (m Confirmation) GetNetMoney(f *field.NetMoney) errors.MessageRejectError {
+func (m Confirmation) GetNetMoney(f *field.NetMoneyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityNetMoney is a non-required field for Confirmation.
-func (m Confirmation) MaturityNetMoney() (*field.MaturityNetMoney, errors.MessageRejectError) {
-	f := new(field.MaturityNetMoney)
+func (m Confirmation) MaturityNetMoney() (*field.MaturityNetMoneyField, errors.MessageRejectError) {
+	f := &field.MaturityNetMoneyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityNetMoney reads a MaturityNetMoney from Confirmation.
-func (m Confirmation) GetMaturityNetMoney(f *field.MaturityNetMoney) errors.MessageRejectError {
+func (m Confirmation) GetMaturityNetMoney(f *field.MaturityNetMoneyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrAmt is a non-required field for Confirmation.
-func (m Confirmation) SettlCurrAmt() (*field.SettlCurrAmt, errors.MessageRejectError) {
-	f := new(field.SettlCurrAmt)
+func (m Confirmation) SettlCurrAmt() (*field.SettlCurrAmtField, errors.MessageRejectError) {
+	f := &field.SettlCurrAmtField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrAmt reads a SettlCurrAmt from Confirmation.
-func (m Confirmation) GetSettlCurrAmt(f *field.SettlCurrAmt) errors.MessageRejectError {
+func (m Confirmation) GetSettlCurrAmt(f *field.SettlCurrAmtField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrency is a non-required field for Confirmation.
-func (m Confirmation) SettlCurrency() (*field.SettlCurrency, errors.MessageRejectError) {
-	f := new(field.SettlCurrency)
+func (m Confirmation) SettlCurrency() (*field.SettlCurrencyField, errors.MessageRejectError) {
+	f := &field.SettlCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrency reads a SettlCurrency from Confirmation.
-func (m Confirmation) GetSettlCurrency(f *field.SettlCurrency) errors.MessageRejectError {
+func (m Confirmation) GetSettlCurrency(f *field.SettlCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrFxRate is a non-required field for Confirmation.
-func (m Confirmation) SettlCurrFxRate() (*field.SettlCurrFxRate, errors.MessageRejectError) {
-	f := new(field.SettlCurrFxRate)
+func (m Confirmation) SettlCurrFxRate() (*field.SettlCurrFxRateField, errors.MessageRejectError) {
+	f := &field.SettlCurrFxRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrFxRate reads a SettlCurrFxRate from Confirmation.
-func (m Confirmation) GetSettlCurrFxRate(f *field.SettlCurrFxRate) errors.MessageRejectError {
+func (m Confirmation) GetSettlCurrFxRate(f *field.SettlCurrFxRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlCurrFxRateCalc is a non-required field for Confirmation.
-func (m Confirmation) SettlCurrFxRateCalc() (*field.SettlCurrFxRateCalc, errors.MessageRejectError) {
-	f := new(field.SettlCurrFxRateCalc)
+func (m Confirmation) SettlCurrFxRateCalc() (*field.SettlCurrFxRateCalcField, errors.MessageRejectError) {
+	f := &field.SettlCurrFxRateCalcField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlCurrFxRateCalc reads a SettlCurrFxRateCalc from Confirmation.
-func (m Confirmation) GetSettlCurrFxRateCalc(f *field.SettlCurrFxRateCalc) errors.MessageRejectError {
+func (m Confirmation) GetSettlCurrFxRateCalc(f *field.SettlCurrFxRateCalcField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlType is a non-required field for Confirmation.
-func (m Confirmation) SettlType() (*field.SettlType, errors.MessageRejectError) {
-	f := new(field.SettlType)
+func (m Confirmation) SettlType() (*field.SettlTypeField, errors.MessageRejectError) {
+	f := &field.SettlTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlType reads a SettlType from Confirmation.
-func (m Confirmation) GetSettlType(f *field.SettlType) errors.MessageRejectError {
+func (m Confirmation) GetSettlType(f *field.SettlTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlDate is a non-required field for Confirmation.
-func (m Confirmation) SettlDate() (*field.SettlDate, errors.MessageRejectError) {
-	f := new(field.SettlDate)
+func (m Confirmation) SettlDate() (*field.SettlDateField, errors.MessageRejectError) {
+	f := &field.SettlDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlDate reads a SettlDate from Confirmation.
-func (m Confirmation) GetSettlDate(f *field.SettlDate) errors.MessageRejectError {
+func (m Confirmation) GetSettlDate(f *field.SettlDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlDeliveryType is a non-required field for Confirmation.
-func (m Confirmation) SettlDeliveryType() (*field.SettlDeliveryType, errors.MessageRejectError) {
-	f := new(field.SettlDeliveryType)
+func (m Confirmation) SettlDeliveryType() (*field.SettlDeliveryTypeField, errors.MessageRejectError) {
+	f := &field.SettlDeliveryTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlDeliveryType reads a SettlDeliveryType from Confirmation.
-func (m Confirmation) GetSettlDeliveryType(f *field.SettlDeliveryType) errors.MessageRejectError {
+func (m Confirmation) GetSettlDeliveryType(f *field.SettlDeliveryTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StandInstDbType is a non-required field for Confirmation.
-func (m Confirmation) StandInstDbType() (*field.StandInstDbType, errors.MessageRejectError) {
-	f := new(field.StandInstDbType)
+func (m Confirmation) StandInstDbType() (*field.StandInstDbTypeField, errors.MessageRejectError) {
+	f := &field.StandInstDbTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStandInstDbType reads a StandInstDbType from Confirmation.
-func (m Confirmation) GetStandInstDbType(f *field.StandInstDbType) errors.MessageRejectError {
+func (m Confirmation) GetStandInstDbType(f *field.StandInstDbTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StandInstDbName is a non-required field for Confirmation.
-func (m Confirmation) StandInstDbName() (*field.StandInstDbName, errors.MessageRejectError) {
-	f := new(field.StandInstDbName)
+func (m Confirmation) StandInstDbName() (*field.StandInstDbNameField, errors.MessageRejectError) {
+	f := &field.StandInstDbNameField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStandInstDbName reads a StandInstDbName from Confirmation.
-func (m Confirmation) GetStandInstDbName(f *field.StandInstDbName) errors.MessageRejectError {
+func (m Confirmation) GetStandInstDbName(f *field.StandInstDbNameField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StandInstDbID is a non-required field for Confirmation.
-func (m Confirmation) StandInstDbID() (*field.StandInstDbID, errors.MessageRejectError) {
-	f := new(field.StandInstDbID)
+func (m Confirmation) StandInstDbID() (*field.StandInstDbIDField, errors.MessageRejectError) {
+	f := &field.StandInstDbIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStandInstDbID reads a StandInstDbID from Confirmation.
-func (m Confirmation) GetStandInstDbID(f *field.StandInstDbID) errors.MessageRejectError {
+func (m Confirmation) GetStandInstDbID(f *field.StandInstDbIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoDlvyInst is a non-required field for Confirmation.
-func (m Confirmation) NoDlvyInst() (*field.NoDlvyInst, errors.MessageRejectError) {
-	f := new(field.NoDlvyInst)
+func (m Confirmation) NoDlvyInst() (*field.NoDlvyInstField, errors.MessageRejectError) {
+	f := &field.NoDlvyInstField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoDlvyInst reads a NoDlvyInst from Confirmation.
-func (m Confirmation) GetNoDlvyInst(f *field.NoDlvyInst) errors.MessageRejectError {
+func (m Confirmation) GetNoDlvyInst(f *field.NoDlvyInstField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Commission is a non-required field for Confirmation.
-func (m Confirmation) Commission() (*field.Commission, errors.MessageRejectError) {
-	f := new(field.Commission)
+func (m Confirmation) Commission() (*field.CommissionField, errors.MessageRejectError) {
+	f := &field.CommissionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommission reads a Commission from Confirmation.
-func (m Confirmation) GetCommission(f *field.Commission) errors.MessageRejectError {
+func (m Confirmation) GetCommission(f *field.CommissionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CommType is a non-required field for Confirmation.
-func (m Confirmation) CommType() (*field.CommType, errors.MessageRejectError) {
-	f := new(field.CommType)
+func (m Confirmation) CommType() (*field.CommTypeField, errors.MessageRejectError) {
+	f := &field.CommTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommType reads a CommType from Confirmation.
-func (m Confirmation) GetCommType(f *field.CommType) errors.MessageRejectError {
+func (m Confirmation) GetCommType(f *field.CommTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CommCurrency is a non-required field for Confirmation.
-func (m Confirmation) CommCurrency() (*field.CommCurrency, errors.MessageRejectError) {
-	f := new(field.CommCurrency)
+func (m Confirmation) CommCurrency() (*field.CommCurrencyField, errors.MessageRejectError) {
+	f := &field.CommCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCommCurrency reads a CommCurrency from Confirmation.
-func (m Confirmation) GetCommCurrency(f *field.CommCurrency) errors.MessageRejectError {
+func (m Confirmation) GetCommCurrency(f *field.CommCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FundRenewWaiv is a non-required field for Confirmation.
-func (m Confirmation) FundRenewWaiv() (*field.FundRenewWaiv, errors.MessageRejectError) {
-	f := new(field.FundRenewWaiv)
+func (m Confirmation) FundRenewWaiv() (*field.FundRenewWaivField, errors.MessageRejectError) {
+	f := &field.FundRenewWaivField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFundRenewWaiv reads a FundRenewWaiv from Confirmation.
-func (m Confirmation) GetFundRenewWaiv(f *field.FundRenewWaiv) errors.MessageRejectError {
+func (m Confirmation) GetFundRenewWaiv(f *field.FundRenewWaivField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SharedCommission is a non-required field for Confirmation.
-func (m Confirmation) SharedCommission() (*field.SharedCommission, errors.MessageRejectError) {
-	f := new(field.SharedCommission)
+func (m Confirmation) SharedCommission() (*field.SharedCommissionField, errors.MessageRejectError) {
+	f := &field.SharedCommissionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSharedCommission reads a SharedCommission from Confirmation.
-func (m Confirmation) GetSharedCommission(f *field.SharedCommission) errors.MessageRejectError {
+func (m Confirmation) GetSharedCommission(f *field.SharedCommissionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoStipulations is a non-required field for Confirmation.
-func (m Confirmation) NoStipulations() (*field.NoStipulations, errors.MessageRejectError) {
-	f := new(field.NoStipulations)
+func (m Confirmation) NoStipulations() (*field.NoStipulationsField, errors.MessageRejectError) {
+	f := &field.NoStipulationsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoStipulations reads a NoStipulations from Confirmation.
-func (m Confirmation) GetNoStipulations(f *field.NoStipulations) errors.MessageRejectError {
+func (m Confirmation) GetNoStipulations(f *field.NoStipulationsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoMiscFees is a non-required field for Confirmation.
-func (m Confirmation) NoMiscFees() (*field.NoMiscFees, errors.MessageRejectError) {
-	f := new(field.NoMiscFees)
+func (m Confirmation) NoMiscFees() (*field.NoMiscFeesField, errors.MessageRejectError) {
+	f := &field.NoMiscFeesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoMiscFees reads a NoMiscFees from Confirmation.
-func (m Confirmation) GetNoMiscFees(f *field.NoMiscFees) errors.MessageRejectError {
+func (m Confirmation) GetNoMiscFees(f *field.NoMiscFeesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

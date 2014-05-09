@@ -19,47 +19,47 @@ type ListStatusRequestBuilder struct {
 
 //CreateListStatusRequestBuilder returns an initialized ListStatusRequestBuilder with specified required fields.
 func CreateListStatusRequestBuilder(
-	listid field.ListID) ListStatusRequestBuilder {
+	listid *field.ListIDField) ListStatusRequestBuilder {
 	var builder ListStatusRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.BuildMsgType("M"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("M"))
 	builder.Body.Set(listid)
 	return builder
 }
 
 //ListID is a required field for ListStatusRequest.
-func (m ListStatusRequest) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m ListStatusRequest) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from ListStatusRequest.
-func (m ListStatusRequest) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m ListStatusRequest) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //WaveNo is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) WaveNo() (*field.WaveNo, errors.MessageRejectError) {
-	f := new(field.WaveNo)
+func (m ListStatusRequest) WaveNo() (*field.WaveNoField, errors.MessageRejectError) {
+	f := &field.WaveNoField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetWaveNo reads a WaveNo from ListStatusRequest.
-func (m ListStatusRequest) GetWaveNo(f *field.WaveNo) errors.MessageRejectError {
+func (m ListStatusRequest) GetWaveNo(f *field.WaveNoField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for ListStatusRequest.
-func (m ListStatusRequest) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m ListStatusRequest) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from ListStatusRequest.
-func (m ListStatusRequest) GetText(f *field.Text) errors.MessageRejectError {
+func (m ListStatusRequest) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

@@ -23,1358 +23,1358 @@ type TradingSessionStatusBuilder struct {
 
 //CreateTradingSessionStatusBuilder returns an initialized TradingSessionStatusBuilder with specified required fields.
 func CreateTradingSessionStatusBuilder(
-	tradingsessionid field.TradingSessionID,
-	tradsesstatus field.TradSesStatus) TradingSessionStatusBuilder {
+	tradingsessionid *field.TradingSessionIDField,
+	tradsesstatus *field.TradSesStatusField) TradingSessionStatusBuilder {
 	var builder TradingSessionStatusBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.BuildMsgType("h"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("h"))
 	builder.Body.Set(tradingsessionid)
 	builder.Body.Set(tradsesstatus)
 	return builder
 }
 
 //TradSesReqID is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesReqID() (*field.TradSesReqID, errors.MessageRejectError) {
-	f := new(field.TradSesReqID)
+func (m TradingSessionStatus) TradSesReqID() (*field.TradSesReqIDField, errors.MessageRejectError) {
+	f := &field.TradSesReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesReqID reads a TradSesReqID from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesReqID(f *field.TradSesReqID) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesReqID(f *field.TradSesReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionID is a required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
-	f := new(field.TradingSessionID)
+func (m TradingSessionStatus) TradingSessionID() (*field.TradingSessionIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionID reads a TradingSessionID from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradingSessionID(f *field.TradingSessionIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionSubID is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradingSessionSubID() (*field.TradingSessionSubID, errors.MessageRejectError) {
-	f := new(field.TradingSessionSubID)
+func (m TradingSessionStatus) TradingSessionSubID() (*field.TradingSessionSubIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionSubIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionSubID reads a TradingSessionSubID from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradingSessionSubID(f *field.TradingSessionSubID) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradingSessionSubID(f *field.TradingSessionSubIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesMethod() (*field.TradSesMethod, errors.MessageRejectError) {
-	f := new(field.TradSesMethod)
+func (m TradingSessionStatus) TradSesMethod() (*field.TradSesMethodField, errors.MessageRejectError) {
+	f := &field.TradSesMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesMethod reads a TradSesMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesMethod(f *field.TradSesMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesMethod(f *field.TradSesMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesMode is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesMode() (*field.TradSesMode, errors.MessageRejectError) {
-	f := new(field.TradSesMode)
+func (m TradingSessionStatus) TradSesMode() (*field.TradSesModeField, errors.MessageRejectError) {
+	f := &field.TradSesModeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesMode reads a TradSesMode from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesMode(f *field.TradSesMode) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesMode(f *field.TradSesModeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnsolicitedIndicator is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) UnsolicitedIndicator() (*field.UnsolicitedIndicator, errors.MessageRejectError) {
-	f := new(field.UnsolicitedIndicator)
+func (m TradingSessionStatus) UnsolicitedIndicator() (*field.UnsolicitedIndicatorField, errors.MessageRejectError) {
+	f := &field.UnsolicitedIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnsolicitedIndicator reads a UnsolicitedIndicator from TradingSessionStatus.
-func (m TradingSessionStatus) GetUnsolicitedIndicator(f *field.UnsolicitedIndicator) errors.MessageRejectError {
+func (m TradingSessionStatus) GetUnsolicitedIndicator(f *field.UnsolicitedIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesStatus is a required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesStatus() (*field.TradSesStatus, errors.MessageRejectError) {
-	f := new(field.TradSesStatus)
+func (m TradingSessionStatus) TradSesStatus() (*field.TradSesStatusField, errors.MessageRejectError) {
+	f := &field.TradSesStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesStatus reads a TradSesStatus from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesStatus(f *field.TradSesStatus) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesStatus(f *field.TradSesStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesStatusRejReason is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesStatusRejReason() (*field.TradSesStatusRejReason, errors.MessageRejectError) {
-	f := new(field.TradSesStatusRejReason)
+func (m TradingSessionStatus) TradSesStatusRejReason() (*field.TradSesStatusRejReasonField, errors.MessageRejectError) {
+	f := &field.TradSesStatusRejReasonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesStatusRejReason reads a TradSesStatusRejReason from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesStatusRejReason(f *field.TradSesStatusRejReason) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesStatusRejReason(f *field.TradSesStatusRejReasonField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesStartTime is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesStartTime() (*field.TradSesStartTime, errors.MessageRejectError) {
-	f := new(field.TradSesStartTime)
+func (m TradingSessionStatus) TradSesStartTime() (*field.TradSesStartTimeField, errors.MessageRejectError) {
+	f := &field.TradSesStartTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesStartTime reads a TradSesStartTime from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesStartTime(f *field.TradSesStartTime) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesStartTime(f *field.TradSesStartTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesOpenTime is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesOpenTime() (*field.TradSesOpenTime, errors.MessageRejectError) {
-	f := new(field.TradSesOpenTime)
+func (m TradingSessionStatus) TradSesOpenTime() (*field.TradSesOpenTimeField, errors.MessageRejectError) {
+	f := &field.TradSesOpenTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesOpenTime reads a TradSesOpenTime from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesOpenTime(f *field.TradSesOpenTime) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesOpenTime(f *field.TradSesOpenTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesPreCloseTime is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesPreCloseTime() (*field.TradSesPreCloseTime, errors.MessageRejectError) {
-	f := new(field.TradSesPreCloseTime)
+func (m TradingSessionStatus) TradSesPreCloseTime() (*field.TradSesPreCloseTimeField, errors.MessageRejectError) {
+	f := &field.TradSesPreCloseTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesPreCloseTime reads a TradSesPreCloseTime from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesPreCloseTime(f *field.TradSesPreCloseTime) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesPreCloseTime(f *field.TradSesPreCloseTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesCloseTime is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesCloseTime() (*field.TradSesCloseTime, errors.MessageRejectError) {
-	f := new(field.TradSesCloseTime)
+func (m TradingSessionStatus) TradSesCloseTime() (*field.TradSesCloseTimeField, errors.MessageRejectError) {
+	f := &field.TradSesCloseTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesCloseTime reads a TradSesCloseTime from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesCloseTime(f *field.TradSesCloseTime) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesCloseTime(f *field.TradSesCloseTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesEndTime is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesEndTime() (*field.TradSesEndTime, errors.MessageRejectError) {
-	f := new(field.TradSesEndTime)
+func (m TradingSessionStatus) TradSesEndTime() (*field.TradSesEndTimeField, errors.MessageRejectError) {
+	f := &field.TradSesEndTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesEndTime reads a TradSesEndTime from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesEndTime(f *field.TradSesEndTime) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesEndTime(f *field.TradSesEndTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TotalVolumeTraded is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TotalVolumeTraded() (*field.TotalVolumeTraded, errors.MessageRejectError) {
-	f := new(field.TotalVolumeTraded)
+func (m TradingSessionStatus) TotalVolumeTraded() (*field.TotalVolumeTradedField, errors.MessageRejectError) {
+	f := &field.TotalVolumeTradedField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTotalVolumeTraded reads a TotalVolumeTraded from TradingSessionStatus.
-func (m TradingSessionStatus) GetTotalVolumeTraded(f *field.TotalVolumeTraded) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTotalVolumeTraded(f *field.TotalVolumeTradedField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m TradingSessionStatus) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from TradingSessionStatus.
-func (m TradingSessionStatus) GetText(f *field.Text) errors.MessageRejectError {
+func (m TradingSessionStatus) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m TradingSessionStatus) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from TradingSessionStatus.
-func (m TradingSessionStatus) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m TradingSessionStatus) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m TradingSessionStatus) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from TradingSessionStatus.
-func (m TradingSessionStatus) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m TradingSessionStatus) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m TradingSessionStatus) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from TradingSessionStatus.
-func (m TradingSessionStatus) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m TradingSessionStatus) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from TradingSessionStatus.
-func (m TradingSessionStatus) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m TradingSessionStatus) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m TradingSessionStatus) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m TradingSessionStatus) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from TradingSessionStatus.
-func (m TradingSessionStatus) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m TradingSessionStatus) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m TradingSessionStatus) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from TradingSessionStatus.
-func (m TradingSessionStatus) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m TradingSessionStatus) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m TradingSessionStatus) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from TradingSessionStatus.
-func (m TradingSessionStatus) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m TradingSessionStatus) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m TradingSessionStatus) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
-	f := new(field.SecuritySubType)
+func (m TradingSessionStatus) SecuritySubType() (*field.SecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.SecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySubType reads a SecuritySubType from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecuritySubType(f *field.SecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m TradingSessionStatus) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from TradingSessionStatus.
-func (m TradingSessionStatus) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m TradingSessionStatus) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m TradingSessionStatus) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from TradingSessionStatus.
-func (m TradingSessionStatus) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m TradingSessionStatus) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m TradingSessionStatus) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from TradingSessionStatus.
-func (m TradingSessionStatus) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m TradingSessionStatus) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m TradingSessionStatus) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from TradingSessionStatus.
-func (m TradingSessionStatus) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m TradingSessionStatus) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m TradingSessionStatus) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from TradingSessionStatus.
-func (m TradingSessionStatus) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m TradingSessionStatus) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m TradingSessionStatus) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from TradingSessionStatus.
-func (m TradingSessionStatus) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m TradingSessionStatus) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m TradingSessionStatus) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from TradingSessionStatus.
-func (m TradingSessionStatus) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m TradingSessionStatus) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m TradingSessionStatus) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from TradingSessionStatus.
-func (m TradingSessionStatus) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m TradingSessionStatus) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m TradingSessionStatus) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from TradingSessionStatus.
-func (m TradingSessionStatus) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m TradingSessionStatus) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m TradingSessionStatus) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from TradingSessionStatus.
-func (m TradingSessionStatus) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m TradingSessionStatus) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m TradingSessionStatus) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from TradingSessionStatus.
-func (m TradingSessionStatus) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m TradingSessionStatus) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m TradingSessionStatus) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from TradingSessionStatus.
-func (m TradingSessionStatus) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m TradingSessionStatus) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m TradingSessionStatus) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from TradingSessionStatus.
-func (m TradingSessionStatus) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m TradingSessionStatus) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m TradingSessionStatus) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from TradingSessionStatus.
-func (m TradingSessionStatus) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m TradingSessionStatus) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m TradingSessionStatus) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from TradingSessionStatus.
-func (m TradingSessionStatus) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m TradingSessionStatus) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
-	f := new(field.StrikeCurrency)
+func (m TradingSessionStatus) StrikeCurrency() (*field.StrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.StrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeCurrency reads a StrikeCurrency from TradingSessionStatus.
-func (m TradingSessionStatus) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+func (m TradingSessionStatus) GetStrikeCurrency(f *field.StrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m TradingSessionStatus) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from TradingSessionStatus.
-func (m TradingSessionStatus) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m TradingSessionStatus) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m TradingSessionStatus) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from TradingSessionStatus.
-func (m TradingSessionStatus) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m TradingSessionStatus) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m TradingSessionStatus) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from TradingSessionStatus.
-func (m TradingSessionStatus) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m TradingSessionStatus) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m TradingSessionStatus) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m TradingSessionStatus) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from TradingSessionStatus.
-func (m TradingSessionStatus) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m TradingSessionStatus) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m TradingSessionStatus) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from TradingSessionStatus.
-func (m TradingSessionStatus) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m TradingSessionStatus) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m TradingSessionStatus) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from TradingSessionStatus.
-func (m TradingSessionStatus) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m TradingSessionStatus) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m TradingSessionStatus) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m TradingSessionStatus) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from TradingSessionStatus.
-func (m TradingSessionStatus) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m TradingSessionStatus) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m TradingSessionStatus) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from TradingSessionStatus.
-func (m TradingSessionStatus) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m TradingSessionStatus) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) Pool() (*field.Pool, errors.MessageRejectError) {
-	f := new(field.Pool)
+func (m TradingSessionStatus) Pool() (*field.PoolField, errors.MessageRejectError) {
+	f := &field.PoolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPool reads a Pool from TradingSessionStatus.
-func (m TradingSessionStatus) GetPool(f *field.Pool) errors.MessageRejectError {
+func (m TradingSessionStatus) GetPool(f *field.PoolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
-	f := new(field.ContractSettlMonth)
+func (m TradingSessionStatus) ContractSettlMonth() (*field.ContractSettlMonthField, errors.MessageRejectError) {
+	f := &field.ContractSettlMonthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractSettlMonth reads a ContractSettlMonth from TradingSessionStatus.
-func (m TradingSessionStatus) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+func (m TradingSessionStatus) GetContractSettlMonth(f *field.ContractSettlMonthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
-	f := new(field.CPProgram)
+func (m TradingSessionStatus) CPProgram() (*field.CPProgramField, errors.MessageRejectError) {
+	f := &field.CPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPProgram reads a CPProgram from TradingSessionStatus.
-func (m TradingSessionStatus) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+func (m TradingSessionStatus) GetCPProgram(f *field.CPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
-	f := new(field.CPRegType)
+func (m TradingSessionStatus) CPRegType() (*field.CPRegTypeField, errors.MessageRejectError) {
+	f := &field.CPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPRegType reads a CPRegType from TradingSessionStatus.
-func (m TradingSessionStatus) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+func (m TradingSessionStatus) GetCPRegType(f *field.CPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
-	f := new(field.NoEvents)
+func (m TradingSessionStatus) NoEvents() (*field.NoEventsField, errors.MessageRejectError) {
+	f := &field.NoEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoEvents reads a NoEvents from TradingSessionStatus.
-func (m TradingSessionStatus) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+func (m TradingSessionStatus) GetNoEvents(f *field.NoEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
-	f := new(field.DatedDate)
+func (m TradingSessionStatus) DatedDate() (*field.DatedDateField, errors.MessageRejectError) {
+	f := &field.DatedDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDatedDate reads a DatedDate from TradingSessionStatus.
-func (m TradingSessionStatus) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+func (m TradingSessionStatus) GetDatedDate(f *field.DatedDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
-	f := new(field.InterestAccrualDate)
+func (m TradingSessionStatus) InterestAccrualDate() (*field.InterestAccrualDateField, errors.MessageRejectError) {
+	f := &field.InterestAccrualDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAccrualDate reads a InterestAccrualDate from TradingSessionStatus.
-func (m TradingSessionStatus) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+func (m TradingSessionStatus) GetInterestAccrualDate(f *field.InterestAccrualDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityStatus is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityStatus() (*field.SecurityStatus, errors.MessageRejectError) {
-	f := new(field.SecurityStatus)
+func (m TradingSessionStatus) SecurityStatus() (*field.SecurityStatusField, errors.MessageRejectError) {
+	f := &field.SecurityStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityStatus reads a SecurityStatus from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityStatus(f *field.SecurityStatus) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityStatus(f *field.SecurityStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettleOnOpenFlag is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SettleOnOpenFlag() (*field.SettleOnOpenFlag, errors.MessageRejectError) {
-	f := new(field.SettleOnOpenFlag)
+func (m TradingSessionStatus) SettleOnOpenFlag() (*field.SettleOnOpenFlagField, errors.MessageRejectError) {
+	f := &field.SettleOnOpenFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettleOnOpenFlag reads a SettleOnOpenFlag from TradingSessionStatus.
-func (m TradingSessionStatus) GetSettleOnOpenFlag(f *field.SettleOnOpenFlag) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSettleOnOpenFlag(f *field.SettleOnOpenFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrmtAssignmentMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, errors.MessageRejectError) {
-	f := new(field.InstrmtAssignmentMethod)
+func (m TradingSessionStatus) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethodField, errors.MessageRejectError) {
+	f := &field.InstrmtAssignmentMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrmtAssignmentMethod reads a InstrmtAssignmentMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeMultiplier is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) StrikeMultiplier() (*field.StrikeMultiplier, errors.MessageRejectError) {
-	f := new(field.StrikeMultiplier)
+func (m TradingSessionStatus) StrikeMultiplier() (*field.StrikeMultiplierField, errors.MessageRejectError) {
+	f := &field.StrikeMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeMultiplier reads a StrikeMultiplier from TradingSessionStatus.
-func (m TradingSessionStatus) GetStrikeMultiplier(f *field.StrikeMultiplier) errors.MessageRejectError {
+func (m TradingSessionStatus) GetStrikeMultiplier(f *field.StrikeMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeValue is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) StrikeValue() (*field.StrikeValue, errors.MessageRejectError) {
-	f := new(field.StrikeValue)
+func (m TradingSessionStatus) StrikeValue() (*field.StrikeValueField, errors.MessageRejectError) {
+	f := &field.StrikeValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeValue reads a StrikeValue from TradingSessionStatus.
-func (m TradingSessionStatus) GetStrikeValue(f *field.StrikeValue) errors.MessageRejectError {
+func (m TradingSessionStatus) GetStrikeValue(f *field.StrikeValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrement is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) MinPriceIncrement() (*field.MinPriceIncrement, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrement)
+func (m TradingSessionStatus) MinPriceIncrement() (*field.MinPriceIncrementField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrement reads a MinPriceIncrement from TradingSessionStatus.
-func (m TradingSessionStatus) GetMinPriceIncrement(f *field.MinPriceIncrement) errors.MessageRejectError {
+func (m TradingSessionStatus) GetMinPriceIncrement(f *field.MinPriceIncrementField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PositionLimit is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) PositionLimit() (*field.PositionLimit, errors.MessageRejectError) {
-	f := new(field.PositionLimit)
+func (m TradingSessionStatus) PositionLimit() (*field.PositionLimitField, errors.MessageRejectError) {
+	f := &field.PositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPositionLimit reads a PositionLimit from TradingSessionStatus.
-func (m TradingSessionStatus) GetPositionLimit(f *field.PositionLimit) errors.MessageRejectError {
+func (m TradingSessionStatus) GetPositionLimit(f *field.PositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NTPositionLimit is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) NTPositionLimit() (*field.NTPositionLimit, errors.MessageRejectError) {
-	f := new(field.NTPositionLimit)
+func (m TradingSessionStatus) NTPositionLimit() (*field.NTPositionLimitField, errors.MessageRejectError) {
+	f := &field.NTPositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNTPositionLimit reads a NTPositionLimit from TradingSessionStatus.
-func (m TradingSessionStatus) GetNTPositionLimit(f *field.NTPositionLimit) errors.MessageRejectError {
+func (m TradingSessionStatus) GetNTPositionLimit(f *field.NTPositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoInstrumentParties is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) NoInstrumentParties() (*field.NoInstrumentParties, errors.MessageRejectError) {
-	f := new(field.NoInstrumentParties)
+func (m TradingSessionStatus) NoInstrumentParties() (*field.NoInstrumentPartiesField, errors.MessageRejectError) {
+	f := &field.NoInstrumentPartiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoInstrumentParties reads a NoInstrumentParties from TradingSessionStatus.
-func (m TradingSessionStatus) GetNoInstrumentParties(f *field.NoInstrumentParties) errors.MessageRejectError {
+func (m TradingSessionStatus) GetNoInstrumentParties(f *field.NoInstrumentPartiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasure is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) UnitOfMeasure() (*field.UnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasure)
+func (m TradingSessionStatus) UnitOfMeasure() (*field.UnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasure reads a UnitOfMeasure from TradingSessionStatus.
-func (m TradingSessionStatus) GetUnitOfMeasure(f *field.UnitOfMeasure) errors.MessageRejectError {
+func (m TradingSessionStatus) GetUnitOfMeasure(f *field.UnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeUnit is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TimeUnit() (*field.TimeUnit, errors.MessageRejectError) {
-	f := new(field.TimeUnit)
+func (m TradingSessionStatus) TimeUnit() (*field.TimeUnitField, errors.MessageRejectError) {
+	f := &field.TimeUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeUnit reads a TimeUnit from TradingSessionStatus.
-func (m TradingSessionStatus) GetTimeUnit(f *field.TimeUnit) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTimeUnit(f *field.TimeUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityTime is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) MaturityTime() (*field.MaturityTime, errors.MessageRejectError) {
-	f := new(field.MaturityTime)
+func (m TradingSessionStatus) MaturityTime() (*field.MaturityTimeField, errors.MessageRejectError) {
+	f := &field.MaturityTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityTime reads a MaturityTime from TradingSessionStatus.
-func (m TradingSessionStatus) GetMaturityTime(f *field.MaturityTime) errors.MessageRejectError {
+func (m TradingSessionStatus) GetMaturityTime(f *field.MaturityTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityGroup is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityGroup() (*field.SecurityGroup, errors.MessageRejectError) {
-	f := new(field.SecurityGroup)
+func (m TradingSessionStatus) SecurityGroup() (*field.SecurityGroupField, errors.MessageRejectError) {
+	f := &field.SecurityGroupField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityGroup reads a SecurityGroup from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityGroup(f *field.SecurityGroup) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityGroup(f *field.SecurityGroupField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrementAmount is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) MinPriceIncrementAmount() (*field.MinPriceIncrementAmount, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrementAmount)
+func (m TradingSessionStatus) MinPriceIncrementAmount() (*field.MinPriceIncrementAmountField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrementAmount reads a MinPriceIncrementAmount from TradingSessionStatus.
-func (m TradingSessionStatus) GetMinPriceIncrementAmount(f *field.MinPriceIncrementAmount) errors.MessageRejectError {
+func (m TradingSessionStatus) GetMinPriceIncrementAmount(f *field.MinPriceIncrementAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasureQty is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) UnitOfMeasureQty() (*field.UnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasureQty)
+func (m TradingSessionStatus) UnitOfMeasureQty() (*field.UnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasureQty reads a UnitOfMeasureQty from TradingSessionStatus.
-func (m TradingSessionStatus) GetUnitOfMeasureQty(f *field.UnitOfMeasureQty) errors.MessageRejectError {
+func (m TradingSessionStatus) GetUnitOfMeasureQty(f *field.UnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXMLLen is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityXMLLen() (*field.SecurityXMLLen, errors.MessageRejectError) {
-	f := new(field.SecurityXMLLen)
+func (m TradingSessionStatus) SecurityXMLLen() (*field.SecurityXMLLenField, errors.MessageRejectError) {
+	f := &field.SecurityXMLLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXMLLen reads a SecurityXMLLen from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityXMLLen(f *field.SecurityXMLLen) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityXMLLen(f *field.SecurityXMLLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXML is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityXML() (*field.SecurityXML, errors.MessageRejectError) {
-	f := new(field.SecurityXML)
+func (m TradingSessionStatus) SecurityXML() (*field.SecurityXMLField, errors.MessageRejectError) {
+	f := &field.SecurityXMLField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXML reads a SecurityXML from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityXML(f *field.SecurityXML) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityXML(f *field.SecurityXMLField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXMLSchema is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SecurityXMLSchema() (*field.SecurityXMLSchema, errors.MessageRejectError) {
-	f := new(field.SecurityXMLSchema)
+func (m TradingSessionStatus) SecurityXMLSchema() (*field.SecurityXMLSchemaField, errors.MessageRejectError) {
+	f := &field.SecurityXMLSchemaField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXMLSchema reads a SecurityXMLSchema from TradingSessionStatus.
-func (m TradingSessionStatus) GetSecurityXMLSchema(f *field.SecurityXMLSchema) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSecurityXMLSchema(f *field.SecurityXMLSchemaField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ProductComplex is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ProductComplex() (*field.ProductComplex, errors.MessageRejectError) {
-	f := new(field.ProductComplex)
+func (m TradingSessionStatus) ProductComplex() (*field.ProductComplexField, errors.MessageRejectError) {
+	f := &field.ProductComplexField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProductComplex reads a ProductComplex from TradingSessionStatus.
-func (m TradingSessionStatus) GetProductComplex(f *field.ProductComplex) errors.MessageRejectError {
+func (m TradingSessionStatus) GetProductComplex(f *field.ProductComplexField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceUnitOfMeasure is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) PriceUnitOfMeasure() (*field.PriceUnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.PriceUnitOfMeasure)
+func (m TradingSessionStatus) PriceUnitOfMeasure() (*field.PriceUnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.PriceUnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceUnitOfMeasure reads a PriceUnitOfMeasure from TradingSessionStatus.
-func (m TradingSessionStatus) GetPriceUnitOfMeasure(f *field.PriceUnitOfMeasure) errors.MessageRejectError {
+func (m TradingSessionStatus) GetPriceUnitOfMeasure(f *field.PriceUnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceUnitOfMeasureQty is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.PriceUnitOfMeasureQty)
+func (m TradingSessionStatus) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.PriceUnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceUnitOfMeasureQty reads a PriceUnitOfMeasureQty from TradingSessionStatus.
-func (m TradingSessionStatus) GetPriceUnitOfMeasureQty(f *field.PriceUnitOfMeasureQty) errors.MessageRejectError {
+func (m TradingSessionStatus) GetPriceUnitOfMeasureQty(f *field.PriceUnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) SettlMethod() (*field.SettlMethod, errors.MessageRejectError) {
-	f := new(field.SettlMethod)
+func (m TradingSessionStatus) SettlMethod() (*field.SettlMethodField, errors.MessageRejectError) {
+	f := &field.SettlMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlMethod reads a SettlMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetSettlMethod(f *field.SettlMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSettlMethod(f *field.SettlMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExerciseStyle is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ExerciseStyle() (*field.ExerciseStyle, errors.MessageRejectError) {
-	f := new(field.ExerciseStyle)
+func (m TradingSessionStatus) ExerciseStyle() (*field.ExerciseStyleField, errors.MessageRejectError) {
+	f := &field.ExerciseStyleField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExerciseStyle reads a ExerciseStyle from TradingSessionStatus.
-func (m TradingSessionStatus) GetExerciseStyle(f *field.ExerciseStyle) errors.MessageRejectError {
+func (m TradingSessionStatus) GetExerciseStyle(f *field.ExerciseStyleField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptPayoutAmount is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) OptPayoutAmount() (*field.OptPayoutAmount, errors.MessageRejectError) {
-	f := new(field.OptPayoutAmount)
+func (m TradingSessionStatus) OptPayoutAmount() (*field.OptPayoutAmountField, errors.MessageRejectError) {
+	f := &field.OptPayoutAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptPayoutAmount reads a OptPayoutAmount from TradingSessionStatus.
-func (m TradingSessionStatus) GetOptPayoutAmount(f *field.OptPayoutAmount) errors.MessageRejectError {
+func (m TradingSessionStatus) GetOptPayoutAmount(f *field.OptPayoutAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceQuoteMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) PriceQuoteMethod() (*field.PriceQuoteMethod, errors.MessageRejectError) {
-	f := new(field.PriceQuoteMethod)
+func (m TradingSessionStatus) PriceQuoteMethod() (*field.PriceQuoteMethodField, errors.MessageRejectError) {
+	f := &field.PriceQuoteMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceQuoteMethod reads a PriceQuoteMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetPriceQuoteMethod(f *field.PriceQuoteMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetPriceQuoteMethod(f *field.PriceQuoteMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ListMethod() (*field.ListMethod, errors.MessageRejectError) {
-	f := new(field.ListMethod)
+func (m TradingSessionStatus) ListMethod() (*field.ListMethodField, errors.MessageRejectError) {
+	f := &field.ListMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListMethod reads a ListMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetListMethod(f *field.ListMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetListMethod(f *field.ListMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CapPrice is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) CapPrice() (*field.CapPrice, errors.MessageRejectError) {
-	f := new(field.CapPrice)
+func (m TradingSessionStatus) CapPrice() (*field.CapPriceField, errors.MessageRejectError) {
+	f := &field.CapPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCapPrice reads a CapPrice from TradingSessionStatus.
-func (m TradingSessionStatus) GetCapPrice(f *field.CapPrice) errors.MessageRejectError {
+func (m TradingSessionStatus) GetCapPrice(f *field.CapPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FloorPrice is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) FloorPrice() (*field.FloorPrice, errors.MessageRejectError) {
-	f := new(field.FloorPrice)
+func (m TradingSessionStatus) FloorPrice() (*field.FloorPriceField, errors.MessageRejectError) {
+	f := &field.FloorPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFloorPrice reads a FloorPrice from TradingSessionStatus.
-func (m TradingSessionStatus) GetFloorPrice(f *field.FloorPrice) errors.MessageRejectError {
+func (m TradingSessionStatus) GetFloorPrice(f *field.FloorPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
-	f := new(field.PutOrCall)
+func (m TradingSessionStatus) PutOrCall() (*field.PutOrCallField, errors.MessageRejectError) {
+	f := &field.PutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPutOrCall reads a PutOrCall from TradingSessionStatus.
-func (m TradingSessionStatus) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+func (m TradingSessionStatus) GetPutOrCall(f *field.PutOrCallField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlexibleIndicator is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) FlexibleIndicator() (*field.FlexibleIndicator, errors.MessageRejectError) {
-	f := new(field.FlexibleIndicator)
+func (m TradingSessionStatus) FlexibleIndicator() (*field.FlexibleIndicatorField, errors.MessageRejectError) {
+	f := &field.FlexibleIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlexibleIndicator reads a FlexibleIndicator from TradingSessionStatus.
-func (m TradingSessionStatus) GetFlexibleIndicator(f *field.FlexibleIndicator) errors.MessageRejectError {
+func (m TradingSessionStatus) GetFlexibleIndicator(f *field.FlexibleIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlexProductEligibilityIndicator is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicator, errors.MessageRejectError) {
-	f := new(field.FlexProductEligibilityIndicator)
+func (m TradingSessionStatus) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicatorField, errors.MessageRejectError) {
+	f := &field.FlexProductEligibilityIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlexProductEligibilityIndicator reads a FlexProductEligibilityIndicator from TradingSessionStatus.
-func (m TradingSessionStatus) GetFlexProductEligibilityIndicator(f *field.FlexProductEligibilityIndicator) errors.MessageRejectError {
+func (m TradingSessionStatus) GetFlexProductEligibilityIndicator(f *field.FlexProductEligibilityIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ValuationMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ValuationMethod() (*field.ValuationMethod, errors.MessageRejectError) {
-	f := new(field.ValuationMethod)
+func (m TradingSessionStatus) ValuationMethod() (*field.ValuationMethodField, errors.MessageRejectError) {
+	f := &field.ValuationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetValuationMethod reads a ValuationMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetValuationMethod(f *field.ValuationMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetValuationMethod(f *field.ValuationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplierUnit is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ContractMultiplierUnit() (*field.ContractMultiplierUnit, errors.MessageRejectError) {
-	f := new(field.ContractMultiplierUnit)
+func (m TradingSessionStatus) ContractMultiplierUnit() (*field.ContractMultiplierUnitField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplierUnit reads a ContractMultiplierUnit from TradingSessionStatus.
-func (m TradingSessionStatus) GetContractMultiplierUnit(f *field.ContractMultiplierUnit) errors.MessageRejectError {
+func (m TradingSessionStatus) GetContractMultiplierUnit(f *field.ContractMultiplierUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlowScheduleType is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) FlowScheduleType() (*field.FlowScheduleType, errors.MessageRejectError) {
-	f := new(field.FlowScheduleType)
+func (m TradingSessionStatus) FlowScheduleType() (*field.FlowScheduleTypeField, errors.MessageRejectError) {
+	f := &field.FlowScheduleTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlowScheduleType reads a FlowScheduleType from TradingSessionStatus.
-func (m TradingSessionStatus) GetFlowScheduleType(f *field.FlowScheduleType) errors.MessageRejectError {
+func (m TradingSessionStatus) GetFlowScheduleType(f *field.FlowScheduleTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RestructuringType is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) RestructuringType() (*field.RestructuringType, errors.MessageRejectError) {
-	f := new(field.RestructuringType)
+func (m TradingSessionStatus) RestructuringType() (*field.RestructuringTypeField, errors.MessageRejectError) {
+	f := &field.RestructuringTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRestructuringType reads a RestructuringType from TradingSessionStatus.
-func (m TradingSessionStatus) GetRestructuringType(f *field.RestructuringType) errors.MessageRejectError {
+func (m TradingSessionStatus) GetRestructuringType(f *field.RestructuringTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Seniority is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) Seniority() (*field.Seniority, errors.MessageRejectError) {
-	f := new(field.Seniority)
+func (m TradingSessionStatus) Seniority() (*field.SeniorityField, errors.MessageRejectError) {
+	f := &field.SeniorityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSeniority reads a Seniority from TradingSessionStatus.
-func (m TradingSessionStatus) GetSeniority(f *field.Seniority) errors.MessageRejectError {
+func (m TradingSessionStatus) GetSeniority(f *field.SeniorityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NotionalPercentageOutstanding is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstanding, errors.MessageRejectError) {
-	f := new(field.NotionalPercentageOutstanding)
+func (m TradingSessionStatus) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstandingField, errors.MessageRejectError) {
+	f := &field.NotionalPercentageOutstandingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNotionalPercentageOutstanding reads a NotionalPercentageOutstanding from TradingSessionStatus.
-func (m TradingSessionStatus) GetNotionalPercentageOutstanding(f *field.NotionalPercentageOutstanding) errors.MessageRejectError {
+func (m TradingSessionStatus) GetNotionalPercentageOutstanding(f *field.NotionalPercentageOutstandingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OriginalNotionalPercentageOutstanding is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstanding, errors.MessageRejectError) {
-	f := new(field.OriginalNotionalPercentageOutstanding)
+func (m TradingSessionStatus) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstandingField, errors.MessageRejectError) {
+	f := &field.OriginalNotionalPercentageOutstandingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOriginalNotionalPercentageOutstanding reads a OriginalNotionalPercentageOutstanding from TradingSessionStatus.
-func (m TradingSessionStatus) GetOriginalNotionalPercentageOutstanding(f *field.OriginalNotionalPercentageOutstanding) errors.MessageRejectError {
+func (m TradingSessionStatus) GetOriginalNotionalPercentageOutstanding(f *field.OriginalNotionalPercentageOutstandingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AttachmentPoint is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) AttachmentPoint() (*field.AttachmentPoint, errors.MessageRejectError) {
-	f := new(field.AttachmentPoint)
+func (m TradingSessionStatus) AttachmentPoint() (*field.AttachmentPointField, errors.MessageRejectError) {
+	f := &field.AttachmentPointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAttachmentPoint reads a AttachmentPoint from TradingSessionStatus.
-func (m TradingSessionStatus) GetAttachmentPoint(f *field.AttachmentPoint) errors.MessageRejectError {
+func (m TradingSessionStatus) GetAttachmentPoint(f *field.AttachmentPointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DetachmentPoint is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) DetachmentPoint() (*field.DetachmentPoint, errors.MessageRejectError) {
-	f := new(field.DetachmentPoint)
+func (m TradingSessionStatus) DetachmentPoint() (*field.DetachmentPointField, errors.MessageRejectError) {
+	f := &field.DetachmentPointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDetachmentPoint reads a DetachmentPoint from TradingSessionStatus.
-func (m TradingSessionStatus) GetDetachmentPoint(f *field.DetachmentPoint) errors.MessageRejectError {
+func (m TradingSessionStatus) GetDetachmentPoint(f *field.DetachmentPointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceDeterminationMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethod, errors.MessageRejectError) {
-	f := new(field.StrikePriceDeterminationMethod)
+func (m TradingSessionStatus) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethodField, errors.MessageRejectError) {
+	f := &field.StrikePriceDeterminationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceDeterminationMethod reads a StrikePriceDeterminationMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetStrikePriceDeterminationMethod(f *field.StrikePriceDeterminationMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetStrikePriceDeterminationMethod(f *field.StrikePriceDeterminationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceBoundaryMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethod, errors.MessageRejectError) {
-	f := new(field.StrikePriceBoundaryMethod)
+func (m TradingSessionStatus) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethodField, errors.MessageRejectError) {
+	f := &field.StrikePriceBoundaryMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceBoundaryMethod reads a StrikePriceBoundaryMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetStrikePriceBoundaryMethod(f *field.StrikePriceBoundaryMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetStrikePriceBoundaryMethod(f *field.StrikePriceBoundaryMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceBoundaryPrecision is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) StrikePriceBoundaryPrecision() (*field.StrikePriceBoundaryPrecision, errors.MessageRejectError) {
-	f := new(field.StrikePriceBoundaryPrecision)
+func (m TradingSessionStatus) StrikePriceBoundaryPrecision() (*field.StrikePriceBoundaryPrecisionField, errors.MessageRejectError) {
+	f := &field.StrikePriceBoundaryPrecisionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceBoundaryPrecision reads a StrikePriceBoundaryPrecision from TradingSessionStatus.
-func (m TradingSessionStatus) GetStrikePriceBoundaryPrecision(f *field.StrikePriceBoundaryPrecision) errors.MessageRejectError {
+func (m TradingSessionStatus) GetStrikePriceBoundaryPrecision(f *field.StrikePriceBoundaryPrecisionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingPriceDeterminationMethod is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethod, errors.MessageRejectError) {
-	f := new(field.UnderlyingPriceDeterminationMethod)
+func (m TradingSessionStatus) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethodField, errors.MessageRejectError) {
+	f := &field.UnderlyingPriceDeterminationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingPriceDeterminationMethod reads a UnderlyingPriceDeterminationMethod from TradingSessionStatus.
-func (m TradingSessionStatus) GetUnderlyingPriceDeterminationMethod(f *field.UnderlyingPriceDeterminationMethod) errors.MessageRejectError {
+func (m TradingSessionStatus) GetUnderlyingPriceDeterminationMethod(f *field.UnderlyingPriceDeterminationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptPayoutType is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) OptPayoutType() (*field.OptPayoutType, errors.MessageRejectError) {
-	f := new(field.OptPayoutType)
+func (m TradingSessionStatus) OptPayoutType() (*field.OptPayoutTypeField, errors.MessageRejectError) {
+	f := &field.OptPayoutTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptPayoutType reads a OptPayoutType from TradingSessionStatus.
-func (m TradingSessionStatus) GetOptPayoutType(f *field.OptPayoutType) errors.MessageRejectError {
+func (m TradingSessionStatus) GetOptPayoutType(f *field.OptPayoutTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoComplexEvents is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) NoComplexEvents() (*field.NoComplexEvents, errors.MessageRejectError) {
-	f := new(field.NoComplexEvents)
+func (m TradingSessionStatus) NoComplexEvents() (*field.NoComplexEventsField, errors.MessageRejectError) {
+	f := &field.NoComplexEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoComplexEvents reads a NoComplexEvents from TradingSessionStatus.
-func (m TradingSessionStatus) GetNoComplexEvents(f *field.NoComplexEvents) errors.MessageRejectError {
+func (m TradingSessionStatus) GetNoComplexEvents(f *field.NoComplexEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarketID is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) MarketID() (*field.MarketID, errors.MessageRejectError) {
-	f := new(field.MarketID)
+func (m TradingSessionStatus) MarketID() (*field.MarketIDField, errors.MessageRejectError) {
+	f := &field.MarketIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarketID reads a MarketID from TradingSessionStatus.
-func (m TradingSessionStatus) GetMarketID(f *field.MarketID) errors.MessageRejectError {
+func (m TradingSessionStatus) GetMarketID(f *field.MarketIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarketSegmentID is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) MarketSegmentID() (*field.MarketSegmentID, errors.MessageRejectError) {
-	f := new(field.MarketSegmentID)
+func (m TradingSessionStatus) MarketSegmentID() (*field.MarketSegmentIDField, errors.MessageRejectError) {
+	f := &field.MarketSegmentIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarketSegmentID reads a MarketSegmentID from TradingSessionStatus.
-func (m TradingSessionStatus) GetMarketSegmentID(f *field.MarketSegmentID) errors.MessageRejectError {
+func (m TradingSessionStatus) GetMarketSegmentID(f *field.MarketSegmentIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradSesEvent is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) TradSesEvent() (*field.TradSesEvent, errors.MessageRejectError) {
-	f := new(field.TradSesEvent)
+func (m TradingSessionStatus) TradSesEvent() (*field.TradSesEventField, errors.MessageRejectError) {
+	f := &field.TradSesEventField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesEvent reads a TradSesEvent from TradingSessionStatus.
-func (m TradingSessionStatus) GetTradSesEvent(f *field.TradSesEvent) errors.MessageRejectError {
+func (m TradingSessionStatus) GetTradSesEvent(f *field.TradSesEventField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplID is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ApplID() (*field.ApplID, errors.MessageRejectError) {
-	f := new(field.ApplID)
+func (m TradingSessionStatus) ApplID() (*field.ApplIDField, errors.MessageRejectError) {
+	f := &field.ApplIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplID reads a ApplID from TradingSessionStatus.
-func (m TradingSessionStatus) GetApplID(f *field.ApplID) errors.MessageRejectError {
+func (m TradingSessionStatus) GetApplID(f *field.ApplIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplSeqNum is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ApplSeqNum() (*field.ApplSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplSeqNum)
+func (m TradingSessionStatus) ApplSeqNum() (*field.ApplSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplSeqNum reads a ApplSeqNum from TradingSessionStatus.
-func (m TradingSessionStatus) GetApplSeqNum(f *field.ApplSeqNum) errors.MessageRejectError {
+func (m TradingSessionStatus) GetApplSeqNum(f *field.ApplSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplLastSeqNum is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ApplLastSeqNum() (*field.ApplLastSeqNum, errors.MessageRejectError) {
-	f := new(field.ApplLastSeqNum)
+func (m TradingSessionStatus) ApplLastSeqNum() (*field.ApplLastSeqNumField, errors.MessageRejectError) {
+	f := &field.ApplLastSeqNumField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplLastSeqNum reads a ApplLastSeqNum from TradingSessionStatus.
-func (m TradingSessionStatus) GetApplLastSeqNum(f *field.ApplLastSeqNum) errors.MessageRejectError {
+func (m TradingSessionStatus) GetApplLastSeqNum(f *field.ApplLastSeqNumField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ApplResendFlag is a non-required field for TradingSessionStatus.
-func (m TradingSessionStatus) ApplResendFlag() (*field.ApplResendFlag, errors.MessageRejectError) {
-	f := new(field.ApplResendFlag)
+func (m TradingSessionStatus) ApplResendFlag() (*field.ApplResendFlagField, errors.MessageRejectError) {
+	f := &field.ApplResendFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetApplResendFlag reads a ApplResendFlag from TradingSessionStatus.
-func (m TradingSessionStatus) GetApplResendFlag(f *field.ApplResendFlag) errors.MessageRejectError {
+func (m TradingSessionStatus) GetApplResendFlag(f *field.ApplResendFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

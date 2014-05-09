@@ -23,15 +23,15 @@ type OrderMassActionReportBuilder struct {
 
 //CreateOrderMassActionReportBuilder returns an initialized OrderMassActionReportBuilder with specified required fields.
 func CreateOrderMassActionReportBuilder(
-	massactionreportid field.MassActionReportID,
-	massactiontype field.MassActionType,
-	massactionscope field.MassActionScope,
-	massactionresponse field.MassActionResponse) OrderMassActionReportBuilder {
+	massactionreportid *field.MassActionReportIDField,
+	massactiontype *field.MassActionTypeField,
+	massactionscope *field.MassActionScopeField,
+	massactionresponse *field.MassActionResponseField) OrderMassActionReportBuilder {
 	var builder OrderMassActionReportBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.BuildMsgType("BZ"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("BZ"))
 	builder.Body.Set(massactionreportid)
 	builder.Body.Set(massactiontype)
 	builder.Body.Set(massactionscope)
@@ -40,2173 +40,2173 @@ func CreateOrderMassActionReportBuilder(
 }
 
 //ClOrdID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
-	f := new(field.ClOrdID)
+func (m OrderMassActionReport) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from OrderMassActionReport.
-func (m OrderMassActionReport) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryClOrdID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecondaryClOrdID() (*field.SecondaryClOrdID, errors.MessageRejectError) {
-	f := new(field.SecondaryClOrdID)
+func (m OrderMassActionReport) SecondaryClOrdID() (*field.SecondaryClOrdIDField, errors.MessageRejectError) {
+	f := &field.SecondaryClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryClOrdID reads a SecondaryClOrdID from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecondaryClOrdID(f *field.SecondaryClOrdID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecondaryClOrdID(f *field.SecondaryClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MassActionReportID is a required field for OrderMassActionReport.
-func (m OrderMassActionReport) MassActionReportID() (*field.MassActionReportID, errors.MessageRejectError) {
-	f := new(field.MassActionReportID)
+func (m OrderMassActionReport) MassActionReportID() (*field.MassActionReportIDField, errors.MessageRejectError) {
+	f := &field.MassActionReportIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMassActionReportID reads a MassActionReportID from OrderMassActionReport.
-func (m OrderMassActionReport) GetMassActionReportID(f *field.MassActionReportID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMassActionReportID(f *field.MassActionReportIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MassActionType is a required field for OrderMassActionReport.
-func (m OrderMassActionReport) MassActionType() (*field.MassActionType, errors.MessageRejectError) {
-	f := new(field.MassActionType)
+func (m OrderMassActionReport) MassActionType() (*field.MassActionTypeField, errors.MessageRejectError) {
+	f := &field.MassActionTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMassActionType reads a MassActionType from OrderMassActionReport.
-func (m OrderMassActionReport) GetMassActionType(f *field.MassActionType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMassActionType(f *field.MassActionTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MassActionScope is a required field for OrderMassActionReport.
-func (m OrderMassActionReport) MassActionScope() (*field.MassActionScope, errors.MessageRejectError) {
-	f := new(field.MassActionScope)
+func (m OrderMassActionReport) MassActionScope() (*field.MassActionScopeField, errors.MessageRejectError) {
+	f := &field.MassActionScopeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMassActionScope reads a MassActionScope from OrderMassActionReport.
-func (m OrderMassActionReport) GetMassActionScope(f *field.MassActionScope) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMassActionScope(f *field.MassActionScopeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MassActionResponse is a required field for OrderMassActionReport.
-func (m OrderMassActionReport) MassActionResponse() (*field.MassActionResponse, errors.MessageRejectError) {
-	f := new(field.MassActionResponse)
+func (m OrderMassActionReport) MassActionResponse() (*field.MassActionResponseField, errors.MessageRejectError) {
+	f := &field.MassActionResponseField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMassActionResponse reads a MassActionResponse from OrderMassActionReport.
-func (m OrderMassActionReport) GetMassActionResponse(f *field.MassActionResponse) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMassActionResponse(f *field.MassActionResponseField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MassActionRejectReason is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) MassActionRejectReason() (*field.MassActionRejectReason, errors.MessageRejectError) {
-	f := new(field.MassActionRejectReason)
+func (m OrderMassActionReport) MassActionRejectReason() (*field.MassActionRejectReasonField, errors.MessageRejectError) {
+	f := &field.MassActionRejectReasonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMassActionRejectReason reads a MassActionRejectReason from OrderMassActionReport.
-func (m OrderMassActionReport) GetMassActionRejectReason(f *field.MassActionRejectReason) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMassActionRejectReason(f *field.MassActionRejectReasonField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TotalAffectedOrders is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) TotalAffectedOrders() (*field.TotalAffectedOrders, errors.MessageRejectError) {
-	f := new(field.TotalAffectedOrders)
+func (m OrderMassActionReport) TotalAffectedOrders() (*field.TotalAffectedOrdersField, errors.MessageRejectError) {
+	f := &field.TotalAffectedOrdersField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTotalAffectedOrders reads a TotalAffectedOrders from OrderMassActionReport.
-func (m OrderMassActionReport) GetTotalAffectedOrders(f *field.TotalAffectedOrders) errors.MessageRejectError {
+func (m OrderMassActionReport) GetTotalAffectedOrders(f *field.TotalAffectedOrdersField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoAffectedOrders is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoAffectedOrders() (*field.NoAffectedOrders, errors.MessageRejectError) {
-	f := new(field.NoAffectedOrders)
+func (m OrderMassActionReport) NoAffectedOrders() (*field.NoAffectedOrdersField, errors.MessageRejectError) {
+	f := &field.NoAffectedOrdersField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoAffectedOrders reads a NoAffectedOrders from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoAffectedOrders(f *field.NoAffectedOrders) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoAffectedOrders(f *field.NoAffectedOrdersField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarketID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) MarketID() (*field.MarketID, errors.MessageRejectError) {
-	f := new(field.MarketID)
+func (m OrderMassActionReport) MarketID() (*field.MarketIDField, errors.MessageRejectError) {
+	f := &field.MarketIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarketID reads a MarketID from OrderMassActionReport.
-func (m OrderMassActionReport) GetMarketID(f *field.MarketID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMarketID(f *field.MarketIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MarketSegmentID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) MarketSegmentID() (*field.MarketSegmentID, errors.MessageRejectError) {
-	f := new(field.MarketSegmentID)
+func (m OrderMassActionReport) MarketSegmentID() (*field.MarketSegmentIDField, errors.MessageRejectError) {
+	f := &field.MarketSegmentIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMarketSegmentID reads a MarketSegmentID from OrderMassActionReport.
-func (m OrderMassActionReport) GetMarketSegmentID(f *field.MarketSegmentID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMarketSegmentID(f *field.MarketSegmentIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
-	f := new(field.TradingSessionID)
+func (m OrderMassActionReport) TradingSessionID() (*field.TradingSessionIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionID reads a TradingSessionID from OrderMassActionReport.
-func (m OrderMassActionReport) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetTradingSessionID(f *field.TradingSessionIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionSubID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) TradingSessionSubID() (*field.TradingSessionSubID, errors.MessageRejectError) {
-	f := new(field.TradingSessionSubID)
+func (m OrderMassActionReport) TradingSessionSubID() (*field.TradingSessionSubIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionSubIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionSubID reads a TradingSessionSubID from OrderMassActionReport.
-func (m OrderMassActionReport) GetTradingSessionSubID(f *field.TradingSessionSubID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetTradingSessionSubID(f *field.TradingSessionSubIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m OrderMassActionReport) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m OrderMassActionReport) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from OrderMassActionReport.
-func (m OrderMassActionReport) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m OrderMassActionReport) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from OrderMassActionReport.
-func (m OrderMassActionReport) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m OrderMassActionReport) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m OrderMassActionReport) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m OrderMassActionReport) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m OrderMassActionReport) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from OrderMassActionReport.
-func (m OrderMassActionReport) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m OrderMassActionReport) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m OrderMassActionReport) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from OrderMassActionReport.
-func (m OrderMassActionReport) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m OrderMassActionReport) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m OrderMassActionReport) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecuritySubType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecuritySubType() (*field.SecuritySubType, errors.MessageRejectError) {
-	f := new(field.SecuritySubType)
+func (m OrderMassActionReport) SecuritySubType() (*field.SecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.SecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecuritySubType reads a SecuritySubType from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecuritySubType(f *field.SecuritySubType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecuritySubType(f *field.SecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m OrderMassActionReport) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from OrderMassActionReport.
-func (m OrderMassActionReport) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m OrderMassActionReport) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m OrderMassActionReport) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m OrderMassActionReport) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m OrderMassActionReport) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from OrderMassActionReport.
-func (m OrderMassActionReport) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m OrderMassActionReport) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from OrderMassActionReport.
-func (m OrderMassActionReport) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m OrderMassActionReport) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m OrderMassActionReport) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from OrderMassActionReport.
-func (m OrderMassActionReport) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m OrderMassActionReport) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from OrderMassActionReport.
-func (m OrderMassActionReport) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m OrderMassActionReport) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m OrderMassActionReport) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from OrderMassActionReport.
-func (m OrderMassActionReport) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m OrderMassActionReport) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m OrderMassActionReport) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from OrderMassActionReport.
-func (m OrderMassActionReport) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m OrderMassActionReport) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m OrderMassActionReport) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from OrderMassActionReport.
-func (m OrderMassActionReport) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m OrderMassActionReport) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from OrderMassActionReport.
-func (m OrderMassActionReport) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m OrderMassActionReport) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from OrderMassActionReport.
-func (m OrderMassActionReport) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m OrderMassActionReport) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m OrderMassActionReport) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from OrderMassActionReport.
-func (m OrderMassActionReport) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m OrderMassActionReport) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeCurrency is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) StrikeCurrency() (*field.StrikeCurrency, errors.MessageRejectError) {
-	f := new(field.StrikeCurrency)
+func (m OrderMassActionReport) StrikeCurrency() (*field.StrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.StrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeCurrency reads a StrikeCurrency from OrderMassActionReport.
-func (m OrderMassActionReport) GetStrikeCurrency(f *field.StrikeCurrency) errors.MessageRejectError {
+func (m OrderMassActionReport) GetStrikeCurrency(f *field.StrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m OrderMassActionReport) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from OrderMassActionReport.
-func (m OrderMassActionReport) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m OrderMassActionReport) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m OrderMassActionReport) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from OrderMassActionReport.
-func (m OrderMassActionReport) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m OrderMassActionReport) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m OrderMassActionReport) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from OrderMassActionReport.
-func (m OrderMassActionReport) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m OrderMassActionReport) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m OrderMassActionReport) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from OrderMassActionReport.
-func (m OrderMassActionReport) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m OrderMassActionReport) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m OrderMassActionReport) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m OrderMassActionReport) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m OrderMassActionReport) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m OrderMassActionReport) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m OrderMassActionReport) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Pool is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) Pool() (*field.Pool, errors.MessageRejectError) {
-	f := new(field.Pool)
+func (m OrderMassActionReport) Pool() (*field.PoolField, errors.MessageRejectError) {
+	f := &field.PoolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPool reads a Pool from OrderMassActionReport.
-func (m OrderMassActionReport) GetPool(f *field.Pool) errors.MessageRejectError {
+func (m OrderMassActionReport) GetPool(f *field.PoolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractSettlMonth is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) ContractSettlMonth() (*field.ContractSettlMonth, errors.MessageRejectError) {
-	f := new(field.ContractSettlMonth)
+func (m OrderMassActionReport) ContractSettlMonth() (*field.ContractSettlMonthField, errors.MessageRejectError) {
+	f := &field.ContractSettlMonthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractSettlMonth reads a ContractSettlMonth from OrderMassActionReport.
-func (m OrderMassActionReport) GetContractSettlMonth(f *field.ContractSettlMonth) errors.MessageRejectError {
+func (m OrderMassActionReport) GetContractSettlMonth(f *field.ContractSettlMonthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPProgram is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) CPProgram() (*field.CPProgram, errors.MessageRejectError) {
-	f := new(field.CPProgram)
+func (m OrderMassActionReport) CPProgram() (*field.CPProgramField, errors.MessageRejectError) {
+	f := &field.CPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPProgram reads a CPProgram from OrderMassActionReport.
-func (m OrderMassActionReport) GetCPProgram(f *field.CPProgram) errors.MessageRejectError {
+func (m OrderMassActionReport) GetCPProgram(f *field.CPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CPRegType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) CPRegType() (*field.CPRegType, errors.MessageRejectError) {
-	f := new(field.CPRegType)
+func (m OrderMassActionReport) CPRegType() (*field.CPRegTypeField, errors.MessageRejectError) {
+	f := &field.CPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCPRegType reads a CPRegType from OrderMassActionReport.
-func (m OrderMassActionReport) GetCPRegType(f *field.CPRegType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetCPRegType(f *field.CPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoEvents is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoEvents() (*field.NoEvents, errors.MessageRejectError) {
-	f := new(field.NoEvents)
+func (m OrderMassActionReport) NoEvents() (*field.NoEventsField, errors.MessageRejectError) {
+	f := &field.NoEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoEvents reads a NoEvents from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoEvents(f *field.NoEvents) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoEvents(f *field.NoEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DatedDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) DatedDate() (*field.DatedDate, errors.MessageRejectError) {
-	f := new(field.DatedDate)
+func (m OrderMassActionReport) DatedDate() (*field.DatedDateField, errors.MessageRejectError) {
+	f := &field.DatedDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDatedDate reads a DatedDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetDatedDate(f *field.DatedDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetDatedDate(f *field.DatedDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InterestAccrualDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) InterestAccrualDate() (*field.InterestAccrualDate, errors.MessageRejectError) {
-	f := new(field.InterestAccrualDate)
+func (m OrderMassActionReport) InterestAccrualDate() (*field.InterestAccrualDateField, errors.MessageRejectError) {
+	f := &field.InterestAccrualDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInterestAccrualDate reads a InterestAccrualDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetInterestAccrualDate(f *field.InterestAccrualDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetInterestAccrualDate(f *field.InterestAccrualDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityStatus is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityStatus() (*field.SecurityStatus, errors.MessageRejectError) {
-	f := new(field.SecurityStatus)
+func (m OrderMassActionReport) SecurityStatus() (*field.SecurityStatusField, errors.MessageRejectError) {
+	f := &field.SecurityStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityStatus reads a SecurityStatus from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityStatus(f *field.SecurityStatus) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityStatus(f *field.SecurityStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettleOnOpenFlag is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SettleOnOpenFlag() (*field.SettleOnOpenFlag, errors.MessageRejectError) {
-	f := new(field.SettleOnOpenFlag)
+func (m OrderMassActionReport) SettleOnOpenFlag() (*field.SettleOnOpenFlagField, errors.MessageRejectError) {
+	f := &field.SettleOnOpenFlagField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettleOnOpenFlag reads a SettleOnOpenFlag from OrderMassActionReport.
-func (m OrderMassActionReport) GetSettleOnOpenFlag(f *field.SettleOnOpenFlag) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSettleOnOpenFlag(f *field.SettleOnOpenFlagField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrmtAssignmentMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethod, errors.MessageRejectError) {
-	f := new(field.InstrmtAssignmentMethod)
+func (m OrderMassActionReport) InstrmtAssignmentMethod() (*field.InstrmtAssignmentMethodField, errors.MessageRejectError) {
+	f := &field.InstrmtAssignmentMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrmtAssignmentMethod reads a InstrmtAssignmentMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetInstrmtAssignmentMethod(f *field.InstrmtAssignmentMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeMultiplier is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) StrikeMultiplier() (*field.StrikeMultiplier, errors.MessageRejectError) {
-	f := new(field.StrikeMultiplier)
+func (m OrderMassActionReport) StrikeMultiplier() (*field.StrikeMultiplierField, errors.MessageRejectError) {
+	f := &field.StrikeMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeMultiplier reads a StrikeMultiplier from OrderMassActionReport.
-func (m OrderMassActionReport) GetStrikeMultiplier(f *field.StrikeMultiplier) errors.MessageRejectError {
+func (m OrderMassActionReport) GetStrikeMultiplier(f *field.StrikeMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikeValue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) StrikeValue() (*field.StrikeValue, errors.MessageRejectError) {
-	f := new(field.StrikeValue)
+func (m OrderMassActionReport) StrikeValue() (*field.StrikeValueField, errors.MessageRejectError) {
+	f := &field.StrikeValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikeValue reads a StrikeValue from OrderMassActionReport.
-func (m OrderMassActionReport) GetStrikeValue(f *field.StrikeValue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetStrikeValue(f *field.StrikeValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrement is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) MinPriceIncrement() (*field.MinPriceIncrement, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrement)
+func (m OrderMassActionReport) MinPriceIncrement() (*field.MinPriceIncrementField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrement reads a MinPriceIncrement from OrderMassActionReport.
-func (m OrderMassActionReport) GetMinPriceIncrement(f *field.MinPriceIncrement) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMinPriceIncrement(f *field.MinPriceIncrementField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PositionLimit is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) PositionLimit() (*field.PositionLimit, errors.MessageRejectError) {
-	f := new(field.PositionLimit)
+func (m OrderMassActionReport) PositionLimit() (*field.PositionLimitField, errors.MessageRejectError) {
+	f := &field.PositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPositionLimit reads a PositionLimit from OrderMassActionReport.
-func (m OrderMassActionReport) GetPositionLimit(f *field.PositionLimit) errors.MessageRejectError {
+func (m OrderMassActionReport) GetPositionLimit(f *field.PositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NTPositionLimit is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NTPositionLimit() (*field.NTPositionLimit, errors.MessageRejectError) {
-	f := new(field.NTPositionLimit)
+func (m OrderMassActionReport) NTPositionLimit() (*field.NTPositionLimitField, errors.MessageRejectError) {
+	f := &field.NTPositionLimitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNTPositionLimit reads a NTPositionLimit from OrderMassActionReport.
-func (m OrderMassActionReport) GetNTPositionLimit(f *field.NTPositionLimit) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNTPositionLimit(f *field.NTPositionLimitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoInstrumentParties is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoInstrumentParties() (*field.NoInstrumentParties, errors.MessageRejectError) {
-	f := new(field.NoInstrumentParties)
+func (m OrderMassActionReport) NoInstrumentParties() (*field.NoInstrumentPartiesField, errors.MessageRejectError) {
+	f := &field.NoInstrumentPartiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoInstrumentParties reads a NoInstrumentParties from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoInstrumentParties(f *field.NoInstrumentParties) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoInstrumentParties(f *field.NoInstrumentPartiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasure is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnitOfMeasure() (*field.UnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasure)
+func (m OrderMassActionReport) UnitOfMeasure() (*field.UnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasure reads a UnitOfMeasure from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnitOfMeasure(f *field.UnitOfMeasure) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnitOfMeasure(f *field.UnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TimeUnit is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) TimeUnit() (*field.TimeUnit, errors.MessageRejectError) {
-	f := new(field.TimeUnit)
+func (m OrderMassActionReport) TimeUnit() (*field.TimeUnitField, errors.MessageRejectError) {
+	f := &field.TimeUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTimeUnit reads a TimeUnit from OrderMassActionReport.
-func (m OrderMassActionReport) GetTimeUnit(f *field.TimeUnit) errors.MessageRejectError {
+func (m OrderMassActionReport) GetTimeUnit(f *field.TimeUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityTime is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) MaturityTime() (*field.MaturityTime, errors.MessageRejectError) {
-	f := new(field.MaturityTime)
+func (m OrderMassActionReport) MaturityTime() (*field.MaturityTimeField, errors.MessageRejectError) {
+	f := &field.MaturityTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityTime reads a MaturityTime from OrderMassActionReport.
-func (m OrderMassActionReport) GetMaturityTime(f *field.MaturityTime) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMaturityTime(f *field.MaturityTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityGroup is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityGroup() (*field.SecurityGroup, errors.MessageRejectError) {
-	f := new(field.SecurityGroup)
+func (m OrderMassActionReport) SecurityGroup() (*field.SecurityGroupField, errors.MessageRejectError) {
+	f := &field.SecurityGroupField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityGroup reads a SecurityGroup from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityGroup(f *field.SecurityGroup) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityGroup(f *field.SecurityGroupField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MinPriceIncrementAmount is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) MinPriceIncrementAmount() (*field.MinPriceIncrementAmount, errors.MessageRejectError) {
-	f := new(field.MinPriceIncrementAmount)
+func (m OrderMassActionReport) MinPriceIncrementAmount() (*field.MinPriceIncrementAmountField, errors.MessageRejectError) {
+	f := &field.MinPriceIncrementAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMinPriceIncrementAmount reads a MinPriceIncrementAmount from OrderMassActionReport.
-func (m OrderMassActionReport) GetMinPriceIncrementAmount(f *field.MinPriceIncrementAmount) errors.MessageRejectError {
+func (m OrderMassActionReport) GetMinPriceIncrementAmount(f *field.MinPriceIncrementAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnitOfMeasureQty is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnitOfMeasureQty() (*field.UnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.UnitOfMeasureQty)
+func (m OrderMassActionReport) UnitOfMeasureQty() (*field.UnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.UnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnitOfMeasureQty reads a UnitOfMeasureQty from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnitOfMeasureQty(f *field.UnitOfMeasureQty) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnitOfMeasureQty(f *field.UnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXMLLen is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityXMLLen() (*field.SecurityXMLLen, errors.MessageRejectError) {
-	f := new(field.SecurityXMLLen)
+func (m OrderMassActionReport) SecurityXMLLen() (*field.SecurityXMLLenField, errors.MessageRejectError) {
+	f := &field.SecurityXMLLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXMLLen reads a SecurityXMLLen from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityXMLLen(f *field.SecurityXMLLen) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityXMLLen(f *field.SecurityXMLLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXML is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityXML() (*field.SecurityXML, errors.MessageRejectError) {
-	f := new(field.SecurityXML)
+func (m OrderMassActionReport) SecurityXML() (*field.SecurityXMLField, errors.MessageRejectError) {
+	f := &field.SecurityXMLField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXML reads a SecurityXML from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityXML(f *field.SecurityXML) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityXML(f *field.SecurityXMLField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityXMLSchema is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SecurityXMLSchema() (*field.SecurityXMLSchema, errors.MessageRejectError) {
-	f := new(field.SecurityXMLSchema)
+func (m OrderMassActionReport) SecurityXMLSchema() (*field.SecurityXMLSchemaField, errors.MessageRejectError) {
+	f := &field.SecurityXMLSchemaField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityXMLSchema reads a SecurityXMLSchema from OrderMassActionReport.
-func (m OrderMassActionReport) GetSecurityXMLSchema(f *field.SecurityXMLSchema) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSecurityXMLSchema(f *field.SecurityXMLSchemaField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ProductComplex is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) ProductComplex() (*field.ProductComplex, errors.MessageRejectError) {
-	f := new(field.ProductComplex)
+func (m OrderMassActionReport) ProductComplex() (*field.ProductComplexField, errors.MessageRejectError) {
+	f := &field.ProductComplexField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProductComplex reads a ProductComplex from OrderMassActionReport.
-func (m OrderMassActionReport) GetProductComplex(f *field.ProductComplex) errors.MessageRejectError {
+func (m OrderMassActionReport) GetProductComplex(f *field.ProductComplexField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceUnitOfMeasure is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) PriceUnitOfMeasure() (*field.PriceUnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.PriceUnitOfMeasure)
+func (m OrderMassActionReport) PriceUnitOfMeasure() (*field.PriceUnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.PriceUnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceUnitOfMeasure reads a PriceUnitOfMeasure from OrderMassActionReport.
-func (m OrderMassActionReport) GetPriceUnitOfMeasure(f *field.PriceUnitOfMeasure) errors.MessageRejectError {
+func (m OrderMassActionReport) GetPriceUnitOfMeasure(f *field.PriceUnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceUnitOfMeasureQty is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.PriceUnitOfMeasureQty)
+func (m OrderMassActionReport) PriceUnitOfMeasureQty() (*field.PriceUnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.PriceUnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceUnitOfMeasureQty reads a PriceUnitOfMeasureQty from OrderMassActionReport.
-func (m OrderMassActionReport) GetPriceUnitOfMeasureQty(f *field.PriceUnitOfMeasureQty) errors.MessageRejectError {
+func (m OrderMassActionReport) GetPriceUnitOfMeasureQty(f *field.PriceUnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SettlMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) SettlMethod() (*field.SettlMethod, errors.MessageRejectError) {
-	f := new(field.SettlMethod)
+func (m OrderMassActionReport) SettlMethod() (*field.SettlMethodField, errors.MessageRejectError) {
+	f := &field.SettlMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSettlMethod reads a SettlMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetSettlMethod(f *field.SettlMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSettlMethod(f *field.SettlMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExerciseStyle is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) ExerciseStyle() (*field.ExerciseStyle, errors.MessageRejectError) {
-	f := new(field.ExerciseStyle)
+func (m OrderMassActionReport) ExerciseStyle() (*field.ExerciseStyleField, errors.MessageRejectError) {
+	f := &field.ExerciseStyleField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExerciseStyle reads a ExerciseStyle from OrderMassActionReport.
-func (m OrderMassActionReport) GetExerciseStyle(f *field.ExerciseStyle) errors.MessageRejectError {
+func (m OrderMassActionReport) GetExerciseStyle(f *field.ExerciseStyleField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptPayoutAmount is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) OptPayoutAmount() (*field.OptPayoutAmount, errors.MessageRejectError) {
-	f := new(field.OptPayoutAmount)
+func (m OrderMassActionReport) OptPayoutAmount() (*field.OptPayoutAmountField, errors.MessageRejectError) {
+	f := &field.OptPayoutAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptPayoutAmount reads a OptPayoutAmount from OrderMassActionReport.
-func (m OrderMassActionReport) GetOptPayoutAmount(f *field.OptPayoutAmount) errors.MessageRejectError {
+func (m OrderMassActionReport) GetOptPayoutAmount(f *field.OptPayoutAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PriceQuoteMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) PriceQuoteMethod() (*field.PriceQuoteMethod, errors.MessageRejectError) {
-	f := new(field.PriceQuoteMethod)
+func (m OrderMassActionReport) PriceQuoteMethod() (*field.PriceQuoteMethodField, errors.MessageRejectError) {
+	f := &field.PriceQuoteMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPriceQuoteMethod reads a PriceQuoteMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetPriceQuoteMethod(f *field.PriceQuoteMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetPriceQuoteMethod(f *field.PriceQuoteMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) ListMethod() (*field.ListMethod, errors.MessageRejectError) {
-	f := new(field.ListMethod)
+func (m OrderMassActionReport) ListMethod() (*field.ListMethodField, errors.MessageRejectError) {
+	f := &field.ListMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListMethod reads a ListMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetListMethod(f *field.ListMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetListMethod(f *field.ListMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CapPrice is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) CapPrice() (*field.CapPrice, errors.MessageRejectError) {
-	f := new(field.CapPrice)
+func (m OrderMassActionReport) CapPrice() (*field.CapPriceField, errors.MessageRejectError) {
+	f := &field.CapPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCapPrice reads a CapPrice from OrderMassActionReport.
-func (m OrderMassActionReport) GetCapPrice(f *field.CapPrice) errors.MessageRejectError {
+func (m OrderMassActionReport) GetCapPrice(f *field.CapPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FloorPrice is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) FloorPrice() (*field.FloorPrice, errors.MessageRejectError) {
-	f := new(field.FloorPrice)
+func (m OrderMassActionReport) FloorPrice() (*field.FloorPriceField, errors.MessageRejectError) {
+	f := &field.FloorPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFloorPrice reads a FloorPrice from OrderMassActionReport.
-func (m OrderMassActionReport) GetFloorPrice(f *field.FloorPrice) errors.MessageRejectError {
+func (m OrderMassActionReport) GetFloorPrice(f *field.FloorPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
-	f := new(field.PutOrCall)
+func (m OrderMassActionReport) PutOrCall() (*field.PutOrCallField, errors.MessageRejectError) {
+	f := &field.PutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPutOrCall reads a PutOrCall from OrderMassActionReport.
-func (m OrderMassActionReport) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+func (m OrderMassActionReport) GetPutOrCall(f *field.PutOrCallField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlexibleIndicator is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) FlexibleIndicator() (*field.FlexibleIndicator, errors.MessageRejectError) {
-	f := new(field.FlexibleIndicator)
+func (m OrderMassActionReport) FlexibleIndicator() (*field.FlexibleIndicatorField, errors.MessageRejectError) {
+	f := &field.FlexibleIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlexibleIndicator reads a FlexibleIndicator from OrderMassActionReport.
-func (m OrderMassActionReport) GetFlexibleIndicator(f *field.FlexibleIndicator) errors.MessageRejectError {
+func (m OrderMassActionReport) GetFlexibleIndicator(f *field.FlexibleIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlexProductEligibilityIndicator is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicator, errors.MessageRejectError) {
-	f := new(field.FlexProductEligibilityIndicator)
+func (m OrderMassActionReport) FlexProductEligibilityIndicator() (*field.FlexProductEligibilityIndicatorField, errors.MessageRejectError) {
+	f := &field.FlexProductEligibilityIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlexProductEligibilityIndicator reads a FlexProductEligibilityIndicator from OrderMassActionReport.
-func (m OrderMassActionReport) GetFlexProductEligibilityIndicator(f *field.FlexProductEligibilityIndicator) errors.MessageRejectError {
+func (m OrderMassActionReport) GetFlexProductEligibilityIndicator(f *field.FlexProductEligibilityIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ValuationMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) ValuationMethod() (*field.ValuationMethod, errors.MessageRejectError) {
-	f := new(field.ValuationMethod)
+func (m OrderMassActionReport) ValuationMethod() (*field.ValuationMethodField, errors.MessageRejectError) {
+	f := &field.ValuationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetValuationMethod reads a ValuationMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetValuationMethod(f *field.ValuationMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetValuationMethod(f *field.ValuationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplierUnit is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) ContractMultiplierUnit() (*field.ContractMultiplierUnit, errors.MessageRejectError) {
-	f := new(field.ContractMultiplierUnit)
+func (m OrderMassActionReport) ContractMultiplierUnit() (*field.ContractMultiplierUnitField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplierUnit reads a ContractMultiplierUnit from OrderMassActionReport.
-func (m OrderMassActionReport) GetContractMultiplierUnit(f *field.ContractMultiplierUnit) errors.MessageRejectError {
+func (m OrderMassActionReport) GetContractMultiplierUnit(f *field.ContractMultiplierUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FlowScheduleType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) FlowScheduleType() (*field.FlowScheduleType, errors.MessageRejectError) {
-	f := new(field.FlowScheduleType)
+func (m OrderMassActionReport) FlowScheduleType() (*field.FlowScheduleTypeField, errors.MessageRejectError) {
+	f := &field.FlowScheduleTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFlowScheduleType reads a FlowScheduleType from OrderMassActionReport.
-func (m OrderMassActionReport) GetFlowScheduleType(f *field.FlowScheduleType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetFlowScheduleType(f *field.FlowScheduleTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RestructuringType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) RestructuringType() (*field.RestructuringType, errors.MessageRejectError) {
-	f := new(field.RestructuringType)
+func (m OrderMassActionReport) RestructuringType() (*field.RestructuringTypeField, errors.MessageRejectError) {
+	f := &field.RestructuringTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRestructuringType reads a RestructuringType from OrderMassActionReport.
-func (m OrderMassActionReport) GetRestructuringType(f *field.RestructuringType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetRestructuringType(f *field.RestructuringTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Seniority is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) Seniority() (*field.Seniority, errors.MessageRejectError) {
-	f := new(field.Seniority)
+func (m OrderMassActionReport) Seniority() (*field.SeniorityField, errors.MessageRejectError) {
+	f := &field.SeniorityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSeniority reads a Seniority from OrderMassActionReport.
-func (m OrderMassActionReport) GetSeniority(f *field.Seniority) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSeniority(f *field.SeniorityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NotionalPercentageOutstanding is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstanding, errors.MessageRejectError) {
-	f := new(field.NotionalPercentageOutstanding)
+func (m OrderMassActionReport) NotionalPercentageOutstanding() (*field.NotionalPercentageOutstandingField, errors.MessageRejectError) {
+	f := &field.NotionalPercentageOutstandingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNotionalPercentageOutstanding reads a NotionalPercentageOutstanding from OrderMassActionReport.
-func (m OrderMassActionReport) GetNotionalPercentageOutstanding(f *field.NotionalPercentageOutstanding) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNotionalPercentageOutstanding(f *field.NotionalPercentageOutstandingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OriginalNotionalPercentageOutstanding is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstanding, errors.MessageRejectError) {
-	f := new(field.OriginalNotionalPercentageOutstanding)
+func (m OrderMassActionReport) OriginalNotionalPercentageOutstanding() (*field.OriginalNotionalPercentageOutstandingField, errors.MessageRejectError) {
+	f := &field.OriginalNotionalPercentageOutstandingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOriginalNotionalPercentageOutstanding reads a OriginalNotionalPercentageOutstanding from OrderMassActionReport.
-func (m OrderMassActionReport) GetOriginalNotionalPercentageOutstanding(f *field.OriginalNotionalPercentageOutstanding) errors.MessageRejectError {
+func (m OrderMassActionReport) GetOriginalNotionalPercentageOutstanding(f *field.OriginalNotionalPercentageOutstandingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AttachmentPoint is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) AttachmentPoint() (*field.AttachmentPoint, errors.MessageRejectError) {
-	f := new(field.AttachmentPoint)
+func (m OrderMassActionReport) AttachmentPoint() (*field.AttachmentPointField, errors.MessageRejectError) {
+	f := &field.AttachmentPointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAttachmentPoint reads a AttachmentPoint from OrderMassActionReport.
-func (m OrderMassActionReport) GetAttachmentPoint(f *field.AttachmentPoint) errors.MessageRejectError {
+func (m OrderMassActionReport) GetAttachmentPoint(f *field.AttachmentPointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DetachmentPoint is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) DetachmentPoint() (*field.DetachmentPoint, errors.MessageRejectError) {
-	f := new(field.DetachmentPoint)
+func (m OrderMassActionReport) DetachmentPoint() (*field.DetachmentPointField, errors.MessageRejectError) {
+	f := &field.DetachmentPointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDetachmentPoint reads a DetachmentPoint from OrderMassActionReport.
-func (m OrderMassActionReport) GetDetachmentPoint(f *field.DetachmentPoint) errors.MessageRejectError {
+func (m OrderMassActionReport) GetDetachmentPoint(f *field.DetachmentPointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceDeterminationMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethod, errors.MessageRejectError) {
-	f := new(field.StrikePriceDeterminationMethod)
+func (m OrderMassActionReport) StrikePriceDeterminationMethod() (*field.StrikePriceDeterminationMethodField, errors.MessageRejectError) {
+	f := &field.StrikePriceDeterminationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceDeterminationMethod reads a StrikePriceDeterminationMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetStrikePriceDeterminationMethod(f *field.StrikePriceDeterminationMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetStrikePriceDeterminationMethod(f *field.StrikePriceDeterminationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceBoundaryMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethod, errors.MessageRejectError) {
-	f := new(field.StrikePriceBoundaryMethod)
+func (m OrderMassActionReport) StrikePriceBoundaryMethod() (*field.StrikePriceBoundaryMethodField, errors.MessageRejectError) {
+	f := &field.StrikePriceBoundaryMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceBoundaryMethod reads a StrikePriceBoundaryMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetStrikePriceBoundaryMethod(f *field.StrikePriceBoundaryMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetStrikePriceBoundaryMethod(f *field.StrikePriceBoundaryMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePriceBoundaryPrecision is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) StrikePriceBoundaryPrecision() (*field.StrikePriceBoundaryPrecision, errors.MessageRejectError) {
-	f := new(field.StrikePriceBoundaryPrecision)
+func (m OrderMassActionReport) StrikePriceBoundaryPrecision() (*field.StrikePriceBoundaryPrecisionField, errors.MessageRejectError) {
+	f := &field.StrikePriceBoundaryPrecisionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePriceBoundaryPrecision reads a StrikePriceBoundaryPrecision from OrderMassActionReport.
-func (m OrderMassActionReport) GetStrikePriceBoundaryPrecision(f *field.StrikePriceBoundaryPrecision) errors.MessageRejectError {
+func (m OrderMassActionReport) GetStrikePriceBoundaryPrecision(f *field.StrikePriceBoundaryPrecisionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingPriceDeterminationMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethod, errors.MessageRejectError) {
-	f := new(field.UnderlyingPriceDeterminationMethod)
+func (m OrderMassActionReport) UnderlyingPriceDeterminationMethod() (*field.UnderlyingPriceDeterminationMethodField, errors.MessageRejectError) {
+	f := &field.UnderlyingPriceDeterminationMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingPriceDeterminationMethod reads a UnderlyingPriceDeterminationMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingPriceDeterminationMethod(f *field.UnderlyingPriceDeterminationMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingPriceDeterminationMethod(f *field.UnderlyingPriceDeterminationMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptPayoutType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) OptPayoutType() (*field.OptPayoutType, errors.MessageRejectError) {
-	f := new(field.OptPayoutType)
+func (m OrderMassActionReport) OptPayoutType() (*field.OptPayoutTypeField, errors.MessageRejectError) {
+	f := &field.OptPayoutTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptPayoutType reads a OptPayoutType from OrderMassActionReport.
-func (m OrderMassActionReport) GetOptPayoutType(f *field.OptPayoutType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetOptPayoutType(f *field.OptPayoutTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoComplexEvents is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoComplexEvents() (*field.NoComplexEvents, errors.MessageRejectError) {
-	f := new(field.NoComplexEvents)
+func (m OrderMassActionReport) NoComplexEvents() (*field.NoComplexEventsField, errors.MessageRejectError) {
+	f := &field.NoComplexEventsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoComplexEvents reads a NoComplexEvents from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoComplexEvents(f *field.NoComplexEvents) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoComplexEvents(f *field.NoComplexEventsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSymbol is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSymbol() (*field.UnderlyingSymbol, errors.MessageRejectError) {
-	f := new(field.UnderlyingSymbol)
+func (m OrderMassActionReport) UnderlyingSymbol() (*field.UnderlyingSymbolField, errors.MessageRejectError) {
+	f := &field.UnderlyingSymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSymbol reads a UnderlyingSymbol from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSymbol(f *field.UnderlyingSymbol) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSymbol(f *field.UnderlyingSymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSymbolSfx is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfx, errors.MessageRejectError) {
-	f := new(field.UnderlyingSymbolSfx)
+func (m OrderMassActionReport) UnderlyingSymbolSfx() (*field.UnderlyingSymbolSfxField, errors.MessageRejectError) {
+	f := &field.UnderlyingSymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSymbolSfx reads a UnderlyingSymbolSfx from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSymbolSfx(f *field.UnderlyingSymbolSfx) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSymbolSfx(f *field.UnderlyingSymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSecurityID() (*field.UnderlyingSecurityID, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityID)
+func (m OrderMassActionReport) UnderlyingSecurityID() (*field.UnderlyingSecurityIDField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityID reads a UnderlyingSecurityID from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSecurityID(f *field.UnderlyingSecurityID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSecurityID(f *field.UnderlyingSecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityIDSource is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSecurityIDSource() (*field.UnderlyingSecurityIDSource, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityIDSource)
+func (m OrderMassActionReport) UnderlyingSecurityIDSource() (*field.UnderlyingSecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityIDSource reads a UnderlyingSecurityIDSource from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSecurityIDSource(f *field.UnderlyingSecurityIDSource) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSecurityIDSource(f *field.UnderlyingSecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyingSecurityAltID is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoUnderlyingSecurityAltID)
+func (m OrderMassActionReport) NoUnderlyingSecurityAltID() (*field.NoUnderlyingSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyingSecurityAltID reads a NoUnderlyingSecurityAltID from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoUnderlyingSecurityAltID(f *field.NoUnderlyingSecurityAltID) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoUnderlyingSecurityAltID(f *field.NoUnderlyingSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingProduct is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingProduct() (*field.UnderlyingProduct, errors.MessageRejectError) {
-	f := new(field.UnderlyingProduct)
+func (m OrderMassActionReport) UnderlyingProduct() (*field.UnderlyingProductField, errors.MessageRejectError) {
+	f := &field.UnderlyingProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingProduct reads a UnderlyingProduct from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingProduct(f *field.UnderlyingProduct) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingProduct(f *field.UnderlyingProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCFICode is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCFICode() (*field.UnderlyingCFICode, errors.MessageRejectError) {
-	f := new(field.UnderlyingCFICode)
+func (m OrderMassActionReport) UnderlyingCFICode() (*field.UnderlyingCFICodeField, errors.MessageRejectError) {
+	f := &field.UnderlyingCFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCFICode reads a UnderlyingCFICode from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCFICode(f *field.UnderlyingCFICode) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCFICode(f *field.UnderlyingCFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSecurityType() (*field.UnderlyingSecurityType, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityType)
+func (m OrderMassActionReport) UnderlyingSecurityType() (*field.UnderlyingSecurityTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityType reads a UnderlyingSecurityType from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSecurityType(f *field.UnderlyingSecurityType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSecurityType(f *field.UnderlyingSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecuritySubType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSecuritySubType() (*field.UnderlyingSecuritySubType, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecuritySubType)
+func (m OrderMassActionReport) UnderlyingSecuritySubType() (*field.UnderlyingSecuritySubTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecuritySubTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecuritySubType reads a UnderlyingSecuritySubType from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSecuritySubType(f *field.UnderlyingSecuritySubType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSecuritySubType(f *field.UnderlyingSecuritySubTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingMaturityMonthYear is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.UnderlyingMaturityMonthYear)
+func (m OrderMassActionReport) UnderlyingMaturityMonthYear() (*field.UnderlyingMaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.UnderlyingMaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingMaturityMonthYear reads a UnderlyingMaturityMonthYear from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingMaturityMonthYear(f *field.UnderlyingMaturityMonthYear) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingMaturityMonthYear(f *field.UnderlyingMaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingMaturityDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingMaturityDate() (*field.UnderlyingMaturityDate, errors.MessageRejectError) {
-	f := new(field.UnderlyingMaturityDate)
+func (m OrderMassActionReport) UnderlyingMaturityDate() (*field.UnderlyingMaturityDateField, errors.MessageRejectError) {
+	f := &field.UnderlyingMaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingMaturityDate reads a UnderlyingMaturityDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingMaturityDate(f *field.UnderlyingMaturityDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingMaturityDate(f *field.UnderlyingMaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCouponPaymentDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.UnderlyingCouponPaymentDate)
+func (m OrderMassActionReport) UnderlyingCouponPaymentDate() (*field.UnderlyingCouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.UnderlyingCouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCouponPaymentDate reads a UnderlyingCouponPaymentDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCouponPaymentDate(f *field.UnderlyingCouponPaymentDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCouponPaymentDate(f *field.UnderlyingCouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingIssueDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingIssueDate() (*field.UnderlyingIssueDate, errors.MessageRejectError) {
-	f := new(field.UnderlyingIssueDate)
+func (m OrderMassActionReport) UnderlyingIssueDate() (*field.UnderlyingIssueDateField, errors.MessageRejectError) {
+	f := &field.UnderlyingIssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingIssueDate reads a UnderlyingIssueDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingIssueDate(f *field.UnderlyingIssueDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingIssueDate(f *field.UnderlyingIssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRepoCollateralSecurityType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingRepoCollateralSecurityType() (*field.UnderlyingRepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.UnderlyingRepoCollateralSecurityType)
+func (m OrderMassActionReport) UnderlyingRepoCollateralSecurityType() (*field.UnderlyingRepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingRepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRepoCollateralSecurityType reads a UnderlyingRepoCollateralSecurityType from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingRepoCollateralSecurityType(f *field.UnderlyingRepoCollateralSecurityType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingRepoCollateralSecurityType(f *field.UnderlyingRepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRepurchaseTerm is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.UnderlyingRepurchaseTerm)
+func (m OrderMassActionReport) UnderlyingRepurchaseTerm() (*field.UnderlyingRepurchaseTermField, errors.MessageRejectError) {
+	f := &field.UnderlyingRepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRepurchaseTerm reads a UnderlyingRepurchaseTerm from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingRepurchaseTerm(f *field.UnderlyingRepurchaseTerm) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingRepurchaseTerm(f *field.UnderlyingRepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRepurchaseRate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingRepurchaseRate() (*field.UnderlyingRepurchaseRate, errors.MessageRejectError) {
-	f := new(field.UnderlyingRepurchaseRate)
+func (m OrderMassActionReport) UnderlyingRepurchaseRate() (*field.UnderlyingRepurchaseRateField, errors.MessageRejectError) {
+	f := &field.UnderlyingRepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRepurchaseRate reads a UnderlyingRepurchaseRate from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingRepurchaseRate(f *field.UnderlyingRepurchaseRate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingRepurchaseRate(f *field.UnderlyingRepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingFactor is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingFactor() (*field.UnderlyingFactor, errors.MessageRejectError) {
-	f := new(field.UnderlyingFactor)
+func (m OrderMassActionReport) UnderlyingFactor() (*field.UnderlyingFactorField, errors.MessageRejectError) {
+	f := &field.UnderlyingFactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingFactor reads a UnderlyingFactor from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingFactor(f *field.UnderlyingFactor) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingFactor(f *field.UnderlyingFactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCreditRating is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCreditRating() (*field.UnderlyingCreditRating, errors.MessageRejectError) {
-	f := new(field.UnderlyingCreditRating)
+func (m OrderMassActionReport) UnderlyingCreditRating() (*field.UnderlyingCreditRatingField, errors.MessageRejectError) {
+	f := &field.UnderlyingCreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCreditRating reads a UnderlyingCreditRating from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCreditRating(f *field.UnderlyingCreditRating) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCreditRating(f *field.UnderlyingCreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingInstrRegistry is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistry, errors.MessageRejectError) {
-	f := new(field.UnderlyingInstrRegistry)
+func (m OrderMassActionReport) UnderlyingInstrRegistry() (*field.UnderlyingInstrRegistryField, errors.MessageRejectError) {
+	f := &field.UnderlyingInstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingInstrRegistry reads a UnderlyingInstrRegistry from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingInstrRegistry(f *field.UnderlyingInstrRegistry) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingInstrRegistry(f *field.UnderlyingInstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCountryOfIssue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssue, errors.MessageRejectError) {
-	f := new(field.UnderlyingCountryOfIssue)
+func (m OrderMassActionReport) UnderlyingCountryOfIssue() (*field.UnderlyingCountryOfIssueField, errors.MessageRejectError) {
+	f := &field.UnderlyingCountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCountryOfIssue reads a UnderlyingCountryOfIssue from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCountryOfIssue(f *field.UnderlyingCountryOfIssue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCountryOfIssue(f *field.UnderlyingCountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingStateOrProvinceOfIssue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingStateOrProvinceOfIssue() (*field.UnderlyingStateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.UnderlyingStateOrProvinceOfIssue)
+func (m OrderMassActionReport) UnderlyingStateOrProvinceOfIssue() (*field.UnderlyingStateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.UnderlyingStateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingStateOrProvinceOfIssue reads a UnderlyingStateOrProvinceOfIssue from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingStateOrProvinceOfIssue(f *field.UnderlyingStateOrProvinceOfIssue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingStateOrProvinceOfIssue(f *field.UnderlyingStateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingLocaleOfIssue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingLocaleOfIssue() (*field.UnderlyingLocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.UnderlyingLocaleOfIssue)
+func (m OrderMassActionReport) UnderlyingLocaleOfIssue() (*field.UnderlyingLocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.UnderlyingLocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingLocaleOfIssue reads a UnderlyingLocaleOfIssue from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingLocaleOfIssue(f *field.UnderlyingLocaleOfIssue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingLocaleOfIssue(f *field.UnderlyingLocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRedemptionDate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDate, errors.MessageRejectError) {
-	f := new(field.UnderlyingRedemptionDate)
+func (m OrderMassActionReport) UnderlyingRedemptionDate() (*field.UnderlyingRedemptionDateField, errors.MessageRejectError) {
+	f := &field.UnderlyingRedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRedemptionDate reads a UnderlyingRedemptionDate from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingRedemptionDate(f *field.UnderlyingRedemptionDate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingRedemptionDate(f *field.UnderlyingRedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingStrikePrice is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingStrikePrice() (*field.UnderlyingStrikePrice, errors.MessageRejectError) {
-	f := new(field.UnderlyingStrikePrice)
+func (m OrderMassActionReport) UnderlyingStrikePrice() (*field.UnderlyingStrikePriceField, errors.MessageRejectError) {
+	f := &field.UnderlyingStrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingStrikePrice reads a UnderlyingStrikePrice from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingStrikePrice(f *field.UnderlyingStrikePrice) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingStrikePrice(f *field.UnderlyingStrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingStrikeCurrency is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingStrikeCurrency() (*field.UnderlyingStrikeCurrency, errors.MessageRejectError) {
-	f := new(field.UnderlyingStrikeCurrency)
+func (m OrderMassActionReport) UnderlyingStrikeCurrency() (*field.UnderlyingStrikeCurrencyField, errors.MessageRejectError) {
+	f := &field.UnderlyingStrikeCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingStrikeCurrency reads a UnderlyingStrikeCurrency from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingStrikeCurrency(f *field.UnderlyingStrikeCurrency) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingStrikeCurrency(f *field.UnderlyingStrikeCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingOptAttribute is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingOptAttribute() (*field.UnderlyingOptAttribute, errors.MessageRejectError) {
-	f := new(field.UnderlyingOptAttribute)
+func (m OrderMassActionReport) UnderlyingOptAttribute() (*field.UnderlyingOptAttributeField, errors.MessageRejectError) {
+	f := &field.UnderlyingOptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingOptAttribute reads a UnderlyingOptAttribute from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingOptAttribute(f *field.UnderlyingOptAttribute) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingOptAttribute(f *field.UnderlyingOptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingContractMultiplier is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingContractMultiplier() (*field.UnderlyingContractMultiplier, errors.MessageRejectError) {
-	f := new(field.UnderlyingContractMultiplier)
+func (m OrderMassActionReport) UnderlyingContractMultiplier() (*field.UnderlyingContractMultiplierField, errors.MessageRejectError) {
+	f := &field.UnderlyingContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingContractMultiplier reads a UnderlyingContractMultiplier from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingContractMultiplier(f *field.UnderlyingContractMultiplier) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingContractMultiplier(f *field.UnderlyingContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCouponRate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCouponRate() (*field.UnderlyingCouponRate, errors.MessageRejectError) {
-	f := new(field.UnderlyingCouponRate)
+func (m OrderMassActionReport) UnderlyingCouponRate() (*field.UnderlyingCouponRateField, errors.MessageRejectError) {
+	f := &field.UnderlyingCouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCouponRate reads a UnderlyingCouponRate from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCouponRate(f *field.UnderlyingCouponRate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCouponRate(f *field.UnderlyingCouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityExchange is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchange, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityExchange)
+func (m OrderMassActionReport) UnderlyingSecurityExchange() (*field.UnderlyingSecurityExchangeField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityExchange reads a UnderlyingSecurityExchange from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSecurityExchange(f *field.UnderlyingSecurityExchange) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSecurityExchange(f *field.UnderlyingSecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingIssuer is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingIssuer() (*field.UnderlyingIssuer, errors.MessageRejectError) {
-	f := new(field.UnderlyingIssuer)
+func (m OrderMassActionReport) UnderlyingIssuer() (*field.UnderlyingIssuerField, errors.MessageRejectError) {
+	f := &field.UnderlyingIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingIssuer reads a UnderlyingIssuer from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingIssuer(f *field.UnderlyingIssuer) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingIssuer(f *field.UnderlyingIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedUnderlyingIssuerLen is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedUnderlyingIssuerLen)
+func (m OrderMassActionReport) EncodedUnderlyingIssuerLen() (*field.EncodedUnderlyingIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedUnderlyingIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedUnderlyingIssuerLen reads a EncodedUnderlyingIssuerLen from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedUnderlyingIssuerLen(f *field.EncodedUnderlyingIssuerLen) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedUnderlyingIssuerLen(f *field.EncodedUnderlyingIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedUnderlyingIssuer is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedUnderlyingIssuer() (*field.EncodedUnderlyingIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedUnderlyingIssuer)
+func (m OrderMassActionReport) EncodedUnderlyingIssuer() (*field.EncodedUnderlyingIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedUnderlyingIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedUnderlyingIssuer reads a EncodedUnderlyingIssuer from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedUnderlyingIssuer(f *field.EncodedUnderlyingIssuer) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedUnderlyingIssuer(f *field.EncodedUnderlyingIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSecurityDesc is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDesc, errors.MessageRejectError) {
-	f := new(field.UnderlyingSecurityDesc)
+func (m OrderMassActionReport) UnderlyingSecurityDesc() (*field.UnderlyingSecurityDescField, errors.MessageRejectError) {
+	f := &field.UnderlyingSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSecurityDesc reads a UnderlyingSecurityDesc from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSecurityDesc(f *field.UnderlyingSecurityDesc) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSecurityDesc(f *field.UnderlyingSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedUnderlyingSecurityDescLen is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedUnderlyingSecurityDescLen)
+func (m OrderMassActionReport) EncodedUnderlyingSecurityDescLen() (*field.EncodedUnderlyingSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedUnderlyingSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedUnderlyingSecurityDescLen reads a EncodedUnderlyingSecurityDescLen from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedUnderlyingSecurityDescLen(f *field.EncodedUnderlyingSecurityDescLen) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedUnderlyingSecurityDescLen(f *field.EncodedUnderlyingSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedUnderlyingSecurityDesc is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedUnderlyingSecurityDesc() (*field.EncodedUnderlyingSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedUnderlyingSecurityDesc)
+func (m OrderMassActionReport) EncodedUnderlyingSecurityDesc() (*field.EncodedUnderlyingSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedUnderlyingSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedUnderlyingSecurityDesc reads a EncodedUnderlyingSecurityDesc from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedUnderlyingSecurityDesc(f *field.EncodedUnderlyingSecurityDesc) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedUnderlyingSecurityDesc(f *field.EncodedUnderlyingSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCPProgram is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCPProgram() (*field.UnderlyingCPProgram, errors.MessageRejectError) {
-	f := new(field.UnderlyingCPProgram)
+func (m OrderMassActionReport) UnderlyingCPProgram() (*field.UnderlyingCPProgramField, errors.MessageRejectError) {
+	f := &field.UnderlyingCPProgramField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCPProgram reads a UnderlyingCPProgram from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCPProgram(f *field.UnderlyingCPProgram) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCPProgram(f *field.UnderlyingCPProgramField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCPRegType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCPRegType() (*field.UnderlyingCPRegType, errors.MessageRejectError) {
-	f := new(field.UnderlyingCPRegType)
+func (m OrderMassActionReport) UnderlyingCPRegType() (*field.UnderlyingCPRegTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingCPRegTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCPRegType reads a UnderlyingCPRegType from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCPRegType(f *field.UnderlyingCPRegType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCPRegType(f *field.UnderlyingCPRegTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCurrency is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCurrency() (*field.UnderlyingCurrency, errors.MessageRejectError) {
-	f := new(field.UnderlyingCurrency)
+func (m OrderMassActionReport) UnderlyingCurrency() (*field.UnderlyingCurrencyField, errors.MessageRejectError) {
+	f := &field.UnderlyingCurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCurrency reads a UnderlyingCurrency from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCurrency(f *field.UnderlyingCurrency) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCurrency(f *field.UnderlyingCurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingQty is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingQty() (*field.UnderlyingQty, errors.MessageRejectError) {
-	f := new(field.UnderlyingQty)
+func (m OrderMassActionReport) UnderlyingQty() (*field.UnderlyingQtyField, errors.MessageRejectError) {
+	f := &field.UnderlyingQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingQty reads a UnderlyingQty from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingQty(f *field.UnderlyingQty) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingQty(f *field.UnderlyingQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingPx is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingPx() (*field.UnderlyingPx, errors.MessageRejectError) {
-	f := new(field.UnderlyingPx)
+func (m OrderMassActionReport) UnderlyingPx() (*field.UnderlyingPxField, errors.MessageRejectError) {
+	f := &field.UnderlyingPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingPx reads a UnderlyingPx from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingPx(f *field.UnderlyingPx) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingPx(f *field.UnderlyingPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingDirtyPrice is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingDirtyPrice() (*field.UnderlyingDirtyPrice, errors.MessageRejectError) {
-	f := new(field.UnderlyingDirtyPrice)
+func (m OrderMassActionReport) UnderlyingDirtyPrice() (*field.UnderlyingDirtyPriceField, errors.MessageRejectError) {
+	f := &field.UnderlyingDirtyPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingDirtyPrice reads a UnderlyingDirtyPrice from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingDirtyPrice(f *field.UnderlyingDirtyPrice) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingDirtyPrice(f *field.UnderlyingDirtyPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingEndPrice is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingEndPrice() (*field.UnderlyingEndPrice, errors.MessageRejectError) {
-	f := new(field.UnderlyingEndPrice)
+func (m OrderMassActionReport) UnderlyingEndPrice() (*field.UnderlyingEndPriceField, errors.MessageRejectError) {
+	f := &field.UnderlyingEndPriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingEndPrice reads a UnderlyingEndPrice from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingEndPrice(f *field.UnderlyingEndPrice) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingEndPrice(f *field.UnderlyingEndPriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingStartValue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingStartValue() (*field.UnderlyingStartValue, errors.MessageRejectError) {
-	f := new(field.UnderlyingStartValue)
+func (m OrderMassActionReport) UnderlyingStartValue() (*field.UnderlyingStartValueField, errors.MessageRejectError) {
+	f := &field.UnderlyingStartValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingStartValue reads a UnderlyingStartValue from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingStartValue(f *field.UnderlyingStartValue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingStartValue(f *field.UnderlyingStartValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCurrentValue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCurrentValue() (*field.UnderlyingCurrentValue, errors.MessageRejectError) {
-	f := new(field.UnderlyingCurrentValue)
+func (m OrderMassActionReport) UnderlyingCurrentValue() (*field.UnderlyingCurrentValueField, errors.MessageRejectError) {
+	f := &field.UnderlyingCurrentValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCurrentValue reads a UnderlyingCurrentValue from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCurrentValue(f *field.UnderlyingCurrentValue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCurrentValue(f *field.UnderlyingCurrentValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingEndValue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingEndValue() (*field.UnderlyingEndValue, errors.MessageRejectError) {
-	f := new(field.UnderlyingEndValue)
+func (m OrderMassActionReport) UnderlyingEndValue() (*field.UnderlyingEndValueField, errors.MessageRejectError) {
+	f := &field.UnderlyingEndValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingEndValue reads a UnderlyingEndValue from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingEndValue(f *field.UnderlyingEndValue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingEndValue(f *field.UnderlyingEndValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyingStips is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoUnderlyingStips() (*field.NoUnderlyingStips, errors.MessageRejectError) {
-	f := new(field.NoUnderlyingStips)
+func (m OrderMassActionReport) NoUnderlyingStips() (*field.NoUnderlyingStipsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingStipsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyingStips reads a NoUnderlyingStips from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoUnderlyingStips(f *field.NoUnderlyingStips) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoUnderlyingStips(f *field.NoUnderlyingStipsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingAllocationPercent is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingAllocationPercent() (*field.UnderlyingAllocationPercent, errors.MessageRejectError) {
-	f := new(field.UnderlyingAllocationPercent)
+func (m OrderMassActionReport) UnderlyingAllocationPercent() (*field.UnderlyingAllocationPercentField, errors.MessageRejectError) {
+	f := &field.UnderlyingAllocationPercentField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingAllocationPercent reads a UnderlyingAllocationPercent from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingAllocationPercent(f *field.UnderlyingAllocationPercent) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingAllocationPercent(f *field.UnderlyingAllocationPercentField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSettlementType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSettlementType() (*field.UnderlyingSettlementType, errors.MessageRejectError) {
-	f := new(field.UnderlyingSettlementType)
+func (m OrderMassActionReport) UnderlyingSettlementType() (*field.UnderlyingSettlementTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingSettlementTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSettlementType reads a UnderlyingSettlementType from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSettlementType(f *field.UnderlyingSettlementType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSettlementType(f *field.UnderlyingSettlementTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCashAmount is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCashAmount() (*field.UnderlyingCashAmount, errors.MessageRejectError) {
-	f := new(field.UnderlyingCashAmount)
+func (m OrderMassActionReport) UnderlyingCashAmount() (*field.UnderlyingCashAmountField, errors.MessageRejectError) {
+	f := &field.UnderlyingCashAmountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCashAmount reads a UnderlyingCashAmount from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCashAmount(f *field.UnderlyingCashAmount) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCashAmount(f *field.UnderlyingCashAmountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCashType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCashType() (*field.UnderlyingCashType, errors.MessageRejectError) {
-	f := new(field.UnderlyingCashType)
+func (m OrderMassActionReport) UnderlyingCashType() (*field.UnderlyingCashTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingCashTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCashType reads a UnderlyingCashType from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCashType(f *field.UnderlyingCashType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCashType(f *field.UnderlyingCashTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingUnitOfMeasure is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingUnitOfMeasure() (*field.UnderlyingUnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.UnderlyingUnitOfMeasure)
+func (m OrderMassActionReport) UnderlyingUnitOfMeasure() (*field.UnderlyingUnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.UnderlyingUnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingUnitOfMeasure reads a UnderlyingUnitOfMeasure from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingUnitOfMeasure(f *field.UnderlyingUnitOfMeasure) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingUnitOfMeasure(f *field.UnderlyingUnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingTimeUnit is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingTimeUnit() (*field.UnderlyingTimeUnit, errors.MessageRejectError) {
-	f := new(field.UnderlyingTimeUnit)
+func (m OrderMassActionReport) UnderlyingTimeUnit() (*field.UnderlyingTimeUnitField, errors.MessageRejectError) {
+	f := &field.UnderlyingTimeUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingTimeUnit reads a UnderlyingTimeUnit from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingTimeUnit(f *field.UnderlyingTimeUnit) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingTimeUnit(f *field.UnderlyingTimeUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingCapValue is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingCapValue() (*field.UnderlyingCapValue, errors.MessageRejectError) {
-	f := new(field.UnderlyingCapValue)
+func (m OrderMassActionReport) UnderlyingCapValue() (*field.UnderlyingCapValueField, errors.MessageRejectError) {
+	f := &field.UnderlyingCapValueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingCapValue reads a UnderlyingCapValue from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingCapValue(f *field.UnderlyingCapValue) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingCapValue(f *field.UnderlyingCapValueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUndlyInstrumentParties is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoUndlyInstrumentParties() (*field.NoUndlyInstrumentParties, errors.MessageRejectError) {
-	f := new(field.NoUndlyInstrumentParties)
+func (m OrderMassActionReport) NoUndlyInstrumentParties() (*field.NoUndlyInstrumentPartiesField, errors.MessageRejectError) {
+	f := &field.NoUndlyInstrumentPartiesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUndlyInstrumentParties reads a NoUndlyInstrumentParties from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoUndlyInstrumentParties(f *field.NoUndlyInstrumentParties) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoUndlyInstrumentParties(f *field.NoUndlyInstrumentPartiesField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSettlMethod is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSettlMethod() (*field.UnderlyingSettlMethod, errors.MessageRejectError) {
-	f := new(field.UnderlyingSettlMethod)
+func (m OrderMassActionReport) UnderlyingSettlMethod() (*field.UnderlyingSettlMethodField, errors.MessageRejectError) {
+	f := &field.UnderlyingSettlMethodField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSettlMethod reads a UnderlyingSettlMethod from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSettlMethod(f *field.UnderlyingSettlMethod) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSettlMethod(f *field.UnderlyingSettlMethodField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingAdjustedQuantity is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingAdjustedQuantity() (*field.UnderlyingAdjustedQuantity, errors.MessageRejectError) {
-	f := new(field.UnderlyingAdjustedQuantity)
+func (m OrderMassActionReport) UnderlyingAdjustedQuantity() (*field.UnderlyingAdjustedQuantityField, errors.MessageRejectError) {
+	f := &field.UnderlyingAdjustedQuantityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingAdjustedQuantity reads a UnderlyingAdjustedQuantity from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingAdjustedQuantity(f *field.UnderlyingAdjustedQuantity) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingAdjustedQuantity(f *field.UnderlyingAdjustedQuantityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingFXRate is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingFXRate() (*field.UnderlyingFXRate, errors.MessageRejectError) {
-	f := new(field.UnderlyingFXRate)
+func (m OrderMassActionReport) UnderlyingFXRate() (*field.UnderlyingFXRateField, errors.MessageRejectError) {
+	f := &field.UnderlyingFXRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingFXRate reads a UnderlyingFXRate from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingFXRate(f *field.UnderlyingFXRate) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingFXRate(f *field.UnderlyingFXRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingFXRateCalc is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingFXRateCalc() (*field.UnderlyingFXRateCalc, errors.MessageRejectError) {
-	f := new(field.UnderlyingFXRateCalc)
+func (m OrderMassActionReport) UnderlyingFXRateCalc() (*field.UnderlyingFXRateCalcField, errors.MessageRejectError) {
+	f := &field.UnderlyingFXRateCalcField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingFXRateCalc reads a UnderlyingFXRateCalc from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingFXRateCalc(f *field.UnderlyingFXRateCalc) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingFXRateCalc(f *field.UnderlyingFXRateCalcField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingMaturityTime is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingMaturityTime() (*field.UnderlyingMaturityTime, errors.MessageRejectError) {
-	f := new(field.UnderlyingMaturityTime)
+func (m OrderMassActionReport) UnderlyingMaturityTime() (*field.UnderlyingMaturityTimeField, errors.MessageRejectError) {
+	f := &field.UnderlyingMaturityTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingMaturityTime reads a UnderlyingMaturityTime from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingMaturityTime(f *field.UnderlyingMaturityTime) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingMaturityTime(f *field.UnderlyingMaturityTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingPutOrCall is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingPutOrCall() (*field.UnderlyingPutOrCall, errors.MessageRejectError) {
-	f := new(field.UnderlyingPutOrCall)
+func (m OrderMassActionReport) UnderlyingPutOrCall() (*field.UnderlyingPutOrCallField, errors.MessageRejectError) {
+	f := &field.UnderlyingPutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingPutOrCall reads a UnderlyingPutOrCall from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingPutOrCall(f *field.UnderlyingPutOrCall) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingPutOrCall(f *field.UnderlyingPutOrCallField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingExerciseStyle is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingExerciseStyle() (*field.UnderlyingExerciseStyle, errors.MessageRejectError) {
-	f := new(field.UnderlyingExerciseStyle)
+func (m OrderMassActionReport) UnderlyingExerciseStyle() (*field.UnderlyingExerciseStyleField, errors.MessageRejectError) {
+	f := &field.UnderlyingExerciseStyleField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingExerciseStyle reads a UnderlyingExerciseStyle from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingExerciseStyle(f *field.UnderlyingExerciseStyle) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingExerciseStyle(f *field.UnderlyingExerciseStyleField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingUnitOfMeasureQty is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingUnitOfMeasureQty() (*field.UnderlyingUnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.UnderlyingUnitOfMeasureQty)
+func (m OrderMassActionReport) UnderlyingUnitOfMeasureQty() (*field.UnderlyingUnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.UnderlyingUnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingUnitOfMeasureQty reads a UnderlyingUnitOfMeasureQty from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingUnitOfMeasureQty(f *field.UnderlyingUnitOfMeasureQty) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingUnitOfMeasureQty(f *field.UnderlyingUnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingPriceUnitOfMeasure is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingPriceUnitOfMeasure() (*field.UnderlyingPriceUnitOfMeasure, errors.MessageRejectError) {
-	f := new(field.UnderlyingPriceUnitOfMeasure)
+func (m OrderMassActionReport) UnderlyingPriceUnitOfMeasure() (*field.UnderlyingPriceUnitOfMeasureField, errors.MessageRejectError) {
+	f := &field.UnderlyingPriceUnitOfMeasureField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingPriceUnitOfMeasure reads a UnderlyingPriceUnitOfMeasure from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingPriceUnitOfMeasure(f *field.UnderlyingPriceUnitOfMeasure) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingPriceUnitOfMeasure(f *field.UnderlyingPriceUnitOfMeasureField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingPriceUnitOfMeasureQty is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingPriceUnitOfMeasureQty() (*field.UnderlyingPriceUnitOfMeasureQty, errors.MessageRejectError) {
-	f := new(field.UnderlyingPriceUnitOfMeasureQty)
+func (m OrderMassActionReport) UnderlyingPriceUnitOfMeasureQty() (*field.UnderlyingPriceUnitOfMeasureQtyField, errors.MessageRejectError) {
+	f := &field.UnderlyingPriceUnitOfMeasureQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingPriceUnitOfMeasureQty reads a UnderlyingPriceUnitOfMeasureQty from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingPriceUnitOfMeasureQty(f *field.UnderlyingPriceUnitOfMeasureQty) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingPriceUnitOfMeasureQty(f *field.UnderlyingPriceUnitOfMeasureQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingContractMultiplierUnit is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingContractMultiplierUnit() (*field.UnderlyingContractMultiplierUnit, errors.MessageRejectError) {
-	f := new(field.UnderlyingContractMultiplierUnit)
+func (m OrderMassActionReport) UnderlyingContractMultiplierUnit() (*field.UnderlyingContractMultiplierUnitField, errors.MessageRejectError) {
+	f := &field.UnderlyingContractMultiplierUnitField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingContractMultiplierUnit reads a UnderlyingContractMultiplierUnit from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingContractMultiplierUnit(f *field.UnderlyingContractMultiplierUnit) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingContractMultiplierUnit(f *field.UnderlyingContractMultiplierUnitField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingFlowScheduleType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingFlowScheduleType() (*field.UnderlyingFlowScheduleType, errors.MessageRejectError) {
-	f := new(field.UnderlyingFlowScheduleType)
+func (m OrderMassActionReport) UnderlyingFlowScheduleType() (*field.UnderlyingFlowScheduleTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingFlowScheduleTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingFlowScheduleType reads a UnderlyingFlowScheduleType from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingFlowScheduleType(f *field.UnderlyingFlowScheduleType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingFlowScheduleType(f *field.UnderlyingFlowScheduleTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingRestructuringType is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingRestructuringType() (*field.UnderlyingRestructuringType, errors.MessageRejectError) {
-	f := new(field.UnderlyingRestructuringType)
+func (m OrderMassActionReport) UnderlyingRestructuringType() (*field.UnderlyingRestructuringTypeField, errors.MessageRejectError) {
+	f := &field.UnderlyingRestructuringTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingRestructuringType reads a UnderlyingRestructuringType from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingRestructuringType(f *field.UnderlyingRestructuringType) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingRestructuringType(f *field.UnderlyingRestructuringTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingSeniority is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingSeniority() (*field.UnderlyingSeniority, errors.MessageRejectError) {
-	f := new(field.UnderlyingSeniority)
+func (m OrderMassActionReport) UnderlyingSeniority() (*field.UnderlyingSeniorityField, errors.MessageRejectError) {
+	f := &field.UnderlyingSeniorityField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingSeniority reads a UnderlyingSeniority from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingSeniority(f *field.UnderlyingSeniority) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingSeniority(f *field.UnderlyingSeniorityField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingNotionalPercentageOutstanding is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingNotionalPercentageOutstanding() (*field.UnderlyingNotionalPercentageOutstanding, errors.MessageRejectError) {
-	f := new(field.UnderlyingNotionalPercentageOutstanding)
+func (m OrderMassActionReport) UnderlyingNotionalPercentageOutstanding() (*field.UnderlyingNotionalPercentageOutstandingField, errors.MessageRejectError) {
+	f := &field.UnderlyingNotionalPercentageOutstandingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingNotionalPercentageOutstanding reads a UnderlyingNotionalPercentageOutstanding from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingNotionalPercentageOutstanding(f *field.UnderlyingNotionalPercentageOutstanding) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingNotionalPercentageOutstanding(f *field.UnderlyingNotionalPercentageOutstandingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingOriginalNotionalPercentageOutstanding is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingOriginalNotionalPercentageOutstanding() (*field.UnderlyingOriginalNotionalPercentageOutstanding, errors.MessageRejectError) {
-	f := new(field.UnderlyingOriginalNotionalPercentageOutstanding)
+func (m OrderMassActionReport) UnderlyingOriginalNotionalPercentageOutstanding() (*field.UnderlyingOriginalNotionalPercentageOutstandingField, errors.MessageRejectError) {
+	f := &field.UnderlyingOriginalNotionalPercentageOutstandingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingOriginalNotionalPercentageOutstanding reads a UnderlyingOriginalNotionalPercentageOutstanding from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingOriginalNotionalPercentageOutstanding(f *field.UnderlyingOriginalNotionalPercentageOutstanding) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingOriginalNotionalPercentageOutstanding(f *field.UnderlyingOriginalNotionalPercentageOutstandingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingAttachmentPoint is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingAttachmentPoint() (*field.UnderlyingAttachmentPoint, errors.MessageRejectError) {
-	f := new(field.UnderlyingAttachmentPoint)
+func (m OrderMassActionReport) UnderlyingAttachmentPoint() (*field.UnderlyingAttachmentPointField, errors.MessageRejectError) {
+	f := &field.UnderlyingAttachmentPointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingAttachmentPoint reads a UnderlyingAttachmentPoint from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingAttachmentPoint(f *field.UnderlyingAttachmentPoint) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingAttachmentPoint(f *field.UnderlyingAttachmentPointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnderlyingDetachmentPoint is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) UnderlyingDetachmentPoint() (*field.UnderlyingDetachmentPoint, errors.MessageRejectError) {
-	f := new(field.UnderlyingDetachmentPoint)
+func (m OrderMassActionReport) UnderlyingDetachmentPoint() (*field.UnderlyingDetachmentPointField, errors.MessageRejectError) {
+	f := &field.UnderlyingDetachmentPointField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnderlyingDetachmentPoint reads a UnderlyingDetachmentPoint from OrderMassActionReport.
-func (m OrderMassActionReport) GetUnderlyingDetachmentPoint(f *field.UnderlyingDetachmentPoint) errors.MessageRejectError {
+func (m OrderMassActionReport) GetUnderlyingDetachmentPoint(f *field.UnderlyingDetachmentPointField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m OrderMassActionReport) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from OrderMassActionReport.
-func (m OrderMassActionReport) GetSide(f *field.Side) errors.MessageRejectError {
+func (m OrderMassActionReport) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m OrderMassActionReport) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from OrderMassActionReport.
-func (m OrderMassActionReport) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m OrderMassActionReport) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m OrderMassActionReport) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from OrderMassActionReport.
-func (m OrderMassActionReport) GetText(f *field.Text) errors.MessageRejectError {
+func (m OrderMassActionReport) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m OrderMassActionReport) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m OrderMassActionReport) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from OrderMassActionReport.
-func (m OrderMassActionReport) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m OrderMassActionReport) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoNotAffectedOrders is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoNotAffectedOrders() (*field.NoNotAffectedOrders, errors.MessageRejectError) {
-	f := new(field.NoNotAffectedOrders)
+func (m OrderMassActionReport) NoNotAffectedOrders() (*field.NoNotAffectedOrdersField, errors.MessageRejectError) {
+	f := &field.NoNotAffectedOrdersField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoNotAffectedOrders reads a NoNotAffectedOrders from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoNotAffectedOrders(f *field.NoNotAffectedOrders) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoNotAffectedOrders(f *field.NoNotAffectedOrdersField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoTargetPartyIDs is a non-required field for OrderMassActionReport.
-func (m OrderMassActionReport) NoTargetPartyIDs() (*field.NoTargetPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoTargetPartyIDs)
+func (m OrderMassActionReport) NoTargetPartyIDs() (*field.NoTargetPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoTargetPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoTargetPartyIDs reads a NoTargetPartyIDs from OrderMassActionReport.
-func (m OrderMassActionReport) GetNoTargetPartyIDs(f *field.NoTargetPartyIDs) errors.MessageRejectError {
+func (m OrderMassActionReport) GetNoTargetPartyIDs(f *field.NoTargetPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

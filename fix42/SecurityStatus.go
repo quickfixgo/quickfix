@@ -19,443 +19,443 @@ type SecurityStatusBuilder struct {
 
 //CreateSecurityStatusBuilder returns an initialized SecurityStatusBuilder with specified required fields.
 func CreateSecurityStatusBuilder(
-	symbol field.Symbol) SecurityStatusBuilder {
+	symbol *field.SymbolField) SecurityStatusBuilder {
 	var builder SecurityStatusBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.BuildMsgType("f"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("f"))
 	builder.Body.Set(symbol)
 	return builder
 }
 
 //SecurityStatusReqID is a non-required field for SecurityStatus.
-func (m SecurityStatus) SecurityStatusReqID() (*field.SecurityStatusReqID, errors.MessageRejectError) {
-	f := new(field.SecurityStatusReqID)
+func (m SecurityStatus) SecurityStatusReqID() (*field.SecurityStatusReqIDField, errors.MessageRejectError) {
+	f := &field.SecurityStatusReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityStatusReqID reads a SecurityStatusReqID from SecurityStatus.
-func (m SecurityStatus) GetSecurityStatusReqID(f *field.SecurityStatusReqID) errors.MessageRejectError {
+func (m SecurityStatus) GetSecurityStatusReqID(f *field.SecurityStatusReqIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a required field for SecurityStatus.
-func (m SecurityStatus) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m SecurityStatus) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from SecurityStatus.
-func (m SecurityStatus) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m SecurityStatus) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for SecurityStatus.
-func (m SecurityStatus) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m SecurityStatus) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from SecurityStatus.
-func (m SecurityStatus) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m SecurityStatus) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for SecurityStatus.
-func (m SecurityStatus) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m SecurityStatus) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from SecurityStatus.
-func (m SecurityStatus) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m SecurityStatus) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IDSource is a non-required field for SecurityStatus.
-func (m SecurityStatus) IDSource() (*field.IDSource, errors.MessageRejectError) {
-	f := new(field.IDSource)
+func (m SecurityStatus) IDSource() (*field.IDSourceField, errors.MessageRejectError) {
+	f := &field.IDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIDSource reads a IDSource from SecurityStatus.
-func (m SecurityStatus) GetIDSource(f *field.IDSource) errors.MessageRejectError {
+func (m SecurityStatus) GetIDSource(f *field.IDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for SecurityStatus.
-func (m SecurityStatus) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m SecurityStatus) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from SecurityStatus.
-func (m SecurityStatus) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m SecurityStatus) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for SecurityStatus.
-func (m SecurityStatus) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m SecurityStatus) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from SecurityStatus.
-func (m SecurityStatus) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m SecurityStatus) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDay is a non-required field for SecurityStatus.
-func (m SecurityStatus) MaturityDay() (*field.MaturityDay, errors.MessageRejectError) {
-	f := new(field.MaturityDay)
+func (m SecurityStatus) MaturityDay() (*field.MaturityDayField, errors.MessageRejectError) {
+	f := &field.MaturityDayField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDay reads a MaturityDay from SecurityStatus.
-func (m SecurityStatus) GetMaturityDay(f *field.MaturityDay) errors.MessageRejectError {
+func (m SecurityStatus) GetMaturityDay(f *field.MaturityDayField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for SecurityStatus.
-func (m SecurityStatus) PutOrCall() (*field.PutOrCall, errors.MessageRejectError) {
-	f := new(field.PutOrCall)
+func (m SecurityStatus) PutOrCall() (*field.PutOrCallField, errors.MessageRejectError) {
+	f := &field.PutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPutOrCall reads a PutOrCall from SecurityStatus.
-func (m SecurityStatus) GetPutOrCall(f *field.PutOrCall) errors.MessageRejectError {
+func (m SecurityStatus) GetPutOrCall(f *field.PutOrCallField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for SecurityStatus.
-func (m SecurityStatus) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m SecurityStatus) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from SecurityStatus.
-func (m SecurityStatus) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m SecurityStatus) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for SecurityStatus.
-func (m SecurityStatus) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m SecurityStatus) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from SecurityStatus.
-func (m SecurityStatus) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m SecurityStatus) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for SecurityStatus.
-func (m SecurityStatus) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m SecurityStatus) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from SecurityStatus.
-func (m SecurityStatus) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m SecurityStatus) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for SecurityStatus.
-func (m SecurityStatus) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m SecurityStatus) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from SecurityStatus.
-func (m SecurityStatus) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m SecurityStatus) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for SecurityStatus.
-func (m SecurityStatus) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m SecurityStatus) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from SecurityStatus.
-func (m SecurityStatus) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m SecurityStatus) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for SecurityStatus.
-func (m SecurityStatus) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m SecurityStatus) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from SecurityStatus.
-func (m SecurityStatus) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m SecurityStatus) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for SecurityStatus.
-func (m SecurityStatus) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m SecurityStatus) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from SecurityStatus.
-func (m SecurityStatus) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m SecurityStatus) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for SecurityStatus.
-func (m SecurityStatus) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m SecurityStatus) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from SecurityStatus.
-func (m SecurityStatus) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m SecurityStatus) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for SecurityStatus.
-func (m SecurityStatus) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m SecurityStatus) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from SecurityStatus.
-func (m SecurityStatus) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m SecurityStatus) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for SecurityStatus.
-func (m SecurityStatus) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m SecurityStatus) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from SecurityStatus.
-func (m SecurityStatus) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m SecurityStatus) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for SecurityStatus.
-func (m SecurityStatus) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m SecurityStatus) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from SecurityStatus.
-func (m SecurityStatus) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m SecurityStatus) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Currency is a non-required field for SecurityStatus.
-func (m SecurityStatus) Currency() (*field.Currency, errors.MessageRejectError) {
-	f := new(field.Currency)
+func (m SecurityStatus) Currency() (*field.CurrencyField, errors.MessageRejectError) {
+	f := &field.CurrencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCurrency reads a Currency from SecurityStatus.
-func (m SecurityStatus) GetCurrency(f *field.Currency) errors.MessageRejectError {
+func (m SecurityStatus) GetCurrency(f *field.CurrencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradingSessionID is a non-required field for SecurityStatus.
-func (m SecurityStatus) TradingSessionID() (*field.TradingSessionID, errors.MessageRejectError) {
-	f := new(field.TradingSessionID)
+func (m SecurityStatus) TradingSessionID() (*field.TradingSessionIDField, errors.MessageRejectError) {
+	f := &field.TradingSessionIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradingSessionID reads a TradingSessionID from SecurityStatus.
-func (m SecurityStatus) GetTradingSessionID(f *field.TradingSessionID) errors.MessageRejectError {
+func (m SecurityStatus) GetTradingSessionID(f *field.TradingSessionIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //UnsolicitedIndicator is a non-required field for SecurityStatus.
-func (m SecurityStatus) UnsolicitedIndicator() (*field.UnsolicitedIndicator, errors.MessageRejectError) {
-	f := new(field.UnsolicitedIndicator)
+func (m SecurityStatus) UnsolicitedIndicator() (*field.UnsolicitedIndicatorField, errors.MessageRejectError) {
+	f := &field.UnsolicitedIndicatorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUnsolicitedIndicator reads a UnsolicitedIndicator from SecurityStatus.
-func (m SecurityStatus) GetUnsolicitedIndicator(f *field.UnsolicitedIndicator) errors.MessageRejectError {
+func (m SecurityStatus) GetUnsolicitedIndicator(f *field.UnsolicitedIndicatorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityTradingStatus is a non-required field for SecurityStatus.
-func (m SecurityStatus) SecurityTradingStatus() (*field.SecurityTradingStatus, errors.MessageRejectError) {
-	f := new(field.SecurityTradingStatus)
+func (m SecurityStatus) SecurityTradingStatus() (*field.SecurityTradingStatusField, errors.MessageRejectError) {
+	f := &field.SecurityTradingStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityTradingStatus reads a SecurityTradingStatus from SecurityStatus.
-func (m SecurityStatus) GetSecurityTradingStatus(f *field.SecurityTradingStatus) errors.MessageRejectError {
+func (m SecurityStatus) GetSecurityTradingStatus(f *field.SecurityTradingStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //FinancialStatus is a non-required field for SecurityStatus.
-func (m SecurityStatus) FinancialStatus() (*field.FinancialStatus, errors.MessageRejectError) {
-	f := new(field.FinancialStatus)
+func (m SecurityStatus) FinancialStatus() (*field.FinancialStatusField, errors.MessageRejectError) {
+	f := &field.FinancialStatusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFinancialStatus reads a FinancialStatus from SecurityStatus.
-func (m SecurityStatus) GetFinancialStatus(f *field.FinancialStatus) errors.MessageRejectError {
+func (m SecurityStatus) GetFinancialStatus(f *field.FinancialStatusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CorporateAction is a non-required field for SecurityStatus.
-func (m SecurityStatus) CorporateAction() (*field.CorporateAction, errors.MessageRejectError) {
-	f := new(field.CorporateAction)
+func (m SecurityStatus) CorporateAction() (*field.CorporateActionField, errors.MessageRejectError) {
+	f := &field.CorporateActionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCorporateAction reads a CorporateAction from SecurityStatus.
-func (m SecurityStatus) GetCorporateAction(f *field.CorporateAction) errors.MessageRejectError {
+func (m SecurityStatus) GetCorporateAction(f *field.CorporateActionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //HaltReasonChar is a non-required field for SecurityStatus.
-func (m SecurityStatus) HaltReasonChar() (*field.HaltReasonChar, errors.MessageRejectError) {
-	f := new(field.HaltReasonChar)
+func (m SecurityStatus) HaltReasonChar() (*field.HaltReasonCharField, errors.MessageRejectError) {
+	f := &field.HaltReasonCharField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetHaltReasonChar reads a HaltReasonChar from SecurityStatus.
-func (m SecurityStatus) GetHaltReasonChar(f *field.HaltReasonChar) errors.MessageRejectError {
+func (m SecurityStatus) GetHaltReasonChar(f *field.HaltReasonCharField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InViewOfCommon is a non-required field for SecurityStatus.
-func (m SecurityStatus) InViewOfCommon() (*field.InViewOfCommon, errors.MessageRejectError) {
-	f := new(field.InViewOfCommon)
+func (m SecurityStatus) InViewOfCommon() (*field.InViewOfCommonField, errors.MessageRejectError) {
+	f := &field.InViewOfCommonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInViewOfCommon reads a InViewOfCommon from SecurityStatus.
-func (m SecurityStatus) GetInViewOfCommon(f *field.InViewOfCommon) errors.MessageRejectError {
+func (m SecurityStatus) GetInViewOfCommon(f *field.InViewOfCommonField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DueToRelated is a non-required field for SecurityStatus.
-func (m SecurityStatus) DueToRelated() (*field.DueToRelated, errors.MessageRejectError) {
-	f := new(field.DueToRelated)
+func (m SecurityStatus) DueToRelated() (*field.DueToRelatedField, errors.MessageRejectError) {
+	f := &field.DueToRelatedField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDueToRelated reads a DueToRelated from SecurityStatus.
-func (m SecurityStatus) GetDueToRelated(f *field.DueToRelated) errors.MessageRejectError {
+func (m SecurityStatus) GetDueToRelated(f *field.DueToRelatedField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //BuyVolume is a non-required field for SecurityStatus.
-func (m SecurityStatus) BuyVolume() (*field.BuyVolume, errors.MessageRejectError) {
-	f := new(field.BuyVolume)
+func (m SecurityStatus) BuyVolume() (*field.BuyVolumeField, errors.MessageRejectError) {
+	f := &field.BuyVolumeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBuyVolume reads a BuyVolume from SecurityStatus.
-func (m SecurityStatus) GetBuyVolume(f *field.BuyVolume) errors.MessageRejectError {
+func (m SecurityStatus) GetBuyVolume(f *field.BuyVolumeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SellVolume is a non-required field for SecurityStatus.
-func (m SecurityStatus) SellVolume() (*field.SellVolume, errors.MessageRejectError) {
-	f := new(field.SellVolume)
+func (m SecurityStatus) SellVolume() (*field.SellVolumeField, errors.MessageRejectError) {
+	f := &field.SellVolumeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSellVolume reads a SellVolume from SecurityStatus.
-func (m SecurityStatus) GetSellVolume(f *field.SellVolume) errors.MessageRejectError {
+func (m SecurityStatus) GetSellVolume(f *field.SellVolumeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //HighPx is a non-required field for SecurityStatus.
-func (m SecurityStatus) HighPx() (*field.HighPx, errors.MessageRejectError) {
-	f := new(field.HighPx)
+func (m SecurityStatus) HighPx() (*field.HighPxField, errors.MessageRejectError) {
+	f := &field.HighPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetHighPx reads a HighPx from SecurityStatus.
-func (m SecurityStatus) GetHighPx(f *field.HighPx) errors.MessageRejectError {
+func (m SecurityStatus) GetHighPx(f *field.HighPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LowPx is a non-required field for SecurityStatus.
-func (m SecurityStatus) LowPx() (*field.LowPx, errors.MessageRejectError) {
-	f := new(field.LowPx)
+func (m SecurityStatus) LowPx() (*field.LowPxField, errors.MessageRejectError) {
+	f := &field.LowPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLowPx reads a LowPx from SecurityStatus.
-func (m SecurityStatus) GetLowPx(f *field.LowPx) errors.MessageRejectError {
+func (m SecurityStatus) GetLowPx(f *field.LowPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastPx is a non-required field for SecurityStatus.
-func (m SecurityStatus) LastPx() (*field.LastPx, errors.MessageRejectError) {
-	f := new(field.LastPx)
+func (m SecurityStatus) LastPx() (*field.LastPxField, errors.MessageRejectError) {
+	f := &field.LastPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastPx reads a LastPx from SecurityStatus.
-func (m SecurityStatus) GetLastPx(f *field.LastPx) errors.MessageRejectError {
+func (m SecurityStatus) GetLastPx(f *field.LastPxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a non-required field for SecurityStatus.
-func (m SecurityStatus) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m SecurityStatus) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from SecurityStatus.
-func (m SecurityStatus) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m SecurityStatus) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Adjustment is a non-required field for SecurityStatus.
-func (m SecurityStatus) Adjustment() (*field.Adjustment, errors.MessageRejectError) {
-	f := new(field.Adjustment)
+func (m SecurityStatus) Adjustment() (*field.AdjustmentField, errors.MessageRejectError) {
+	f := &field.AdjustmentField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAdjustment reads a Adjustment from SecurityStatus.
-func (m SecurityStatus) GetAdjustment(f *field.Adjustment) errors.MessageRejectError {
+func (m SecurityStatus) GetAdjustment(f *field.AdjustmentField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

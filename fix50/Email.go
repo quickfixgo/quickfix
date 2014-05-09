@@ -23,15 +23,15 @@ type EmailBuilder struct {
 
 //CreateEmailBuilder returns an initialized EmailBuilder with specified required fields.
 func CreateEmailBuilder(
-	emailthreadid field.EmailThreadID,
-	emailtype field.EmailType,
-	subject field.Subject,
-	nolinesoftext field.NoLinesOfText) EmailBuilder {
+	emailthreadid *field.EmailThreadIDField,
+	emailtype *field.EmailTypeField,
+	subject *field.SubjectField,
+	nolinesoftext *field.NoLinesOfTextField) EmailBuilder {
 	var builder EmailBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.BuildMsgType("C"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("C"))
 	builder.Body.Set(emailthreadid)
 	builder.Body.Set(emailtype)
 	builder.Body.Set(subject)
@@ -40,181 +40,181 @@ func CreateEmailBuilder(
 }
 
 //EmailThreadID is a required field for Email.
-func (m Email) EmailThreadID() (*field.EmailThreadID, errors.MessageRejectError) {
-	f := new(field.EmailThreadID)
+func (m Email) EmailThreadID() (*field.EmailThreadIDField, errors.MessageRejectError) {
+	f := &field.EmailThreadIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEmailThreadID reads a EmailThreadID from Email.
-func (m Email) GetEmailThreadID(f *field.EmailThreadID) errors.MessageRejectError {
+func (m Email) GetEmailThreadID(f *field.EmailThreadIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EmailType is a required field for Email.
-func (m Email) EmailType() (*field.EmailType, errors.MessageRejectError) {
-	f := new(field.EmailType)
+func (m Email) EmailType() (*field.EmailTypeField, errors.MessageRejectError) {
+	f := &field.EmailTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEmailType reads a EmailType from Email.
-func (m Email) GetEmailType(f *field.EmailType) errors.MessageRejectError {
+func (m Email) GetEmailType(f *field.EmailTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrigTime is a non-required field for Email.
-func (m Email) OrigTime() (*field.OrigTime, errors.MessageRejectError) {
-	f := new(field.OrigTime)
+func (m Email) OrigTime() (*field.OrigTimeField, errors.MessageRejectError) {
+	f := &field.OrigTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrigTime reads a OrigTime from Email.
-func (m Email) GetOrigTime(f *field.OrigTime) errors.MessageRejectError {
+func (m Email) GetOrigTime(f *field.OrigTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Subject is a required field for Email.
-func (m Email) Subject() (*field.Subject, errors.MessageRejectError) {
-	f := new(field.Subject)
+func (m Email) Subject() (*field.SubjectField, errors.MessageRejectError) {
+	f := &field.SubjectField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSubject reads a Subject from Email.
-func (m Email) GetSubject(f *field.Subject) errors.MessageRejectError {
+func (m Email) GetSubject(f *field.SubjectField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSubjectLen is a non-required field for Email.
-func (m Email) EncodedSubjectLen() (*field.EncodedSubjectLen, errors.MessageRejectError) {
-	f := new(field.EncodedSubjectLen)
+func (m Email) EncodedSubjectLen() (*field.EncodedSubjectLenField, errors.MessageRejectError) {
+	f := &field.EncodedSubjectLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSubjectLen reads a EncodedSubjectLen from Email.
-func (m Email) GetEncodedSubjectLen(f *field.EncodedSubjectLen) errors.MessageRejectError {
+func (m Email) GetEncodedSubjectLen(f *field.EncodedSubjectLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSubject is a non-required field for Email.
-func (m Email) EncodedSubject() (*field.EncodedSubject, errors.MessageRejectError) {
-	f := new(field.EncodedSubject)
+func (m Email) EncodedSubject() (*field.EncodedSubjectField, errors.MessageRejectError) {
+	f := &field.EncodedSubjectField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSubject reads a EncodedSubject from Email.
-func (m Email) GetEncodedSubject(f *field.EncodedSubject) errors.MessageRejectError {
+func (m Email) GetEncodedSubject(f *field.EncodedSubjectField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRoutingIDs is a non-required field for Email.
-func (m Email) NoRoutingIDs() (*field.NoRoutingIDs, errors.MessageRejectError) {
-	f := new(field.NoRoutingIDs)
+func (m Email) NoRoutingIDs() (*field.NoRoutingIDsField, errors.MessageRejectError) {
+	f := &field.NoRoutingIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRoutingIDs reads a NoRoutingIDs from Email.
-func (m Email) GetNoRoutingIDs(f *field.NoRoutingIDs) errors.MessageRejectError {
+func (m Email) GetNoRoutingIDs(f *field.NoRoutingIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRelatedSym is a non-required field for Email.
-func (m Email) NoRelatedSym() (*field.NoRelatedSym, errors.MessageRejectError) {
-	f := new(field.NoRelatedSym)
+func (m Email) NoRelatedSym() (*field.NoRelatedSymField, errors.MessageRejectError) {
+	f := &field.NoRelatedSymField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRelatedSym reads a NoRelatedSym from Email.
-func (m Email) GetNoRelatedSym(f *field.NoRelatedSym) errors.MessageRejectError {
+func (m Email) GetNoRelatedSym(f *field.NoRelatedSymField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoUnderlyings is a non-required field for Email.
-func (m Email) NoUnderlyings() (*field.NoUnderlyings, errors.MessageRejectError) {
-	f := new(field.NoUnderlyings)
+func (m Email) NoUnderlyings() (*field.NoUnderlyingsField, errors.MessageRejectError) {
+	f := &field.NoUnderlyingsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoUnderlyings reads a NoUnderlyings from Email.
-func (m Email) GetNoUnderlyings(f *field.NoUnderlyings) errors.MessageRejectError {
+func (m Email) GetNoUnderlyings(f *field.NoUnderlyingsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLegs is a non-required field for Email.
-func (m Email) NoLegs() (*field.NoLegs, errors.MessageRejectError) {
-	f := new(field.NoLegs)
+func (m Email) NoLegs() (*field.NoLegsField, errors.MessageRejectError) {
+	f := &field.NoLegsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLegs reads a NoLegs from Email.
-func (m Email) GetNoLegs(f *field.NoLegs) errors.MessageRejectError {
+func (m Email) GetNoLegs(f *field.NoLegsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderID is a non-required field for Email.
-func (m Email) OrderID() (*field.OrderID, errors.MessageRejectError) {
-	f := new(field.OrderID)
+func (m Email) OrderID() (*field.OrderIDField, errors.MessageRejectError) {
+	f := &field.OrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderID reads a OrderID from Email.
-func (m Email) GetOrderID(f *field.OrderID) errors.MessageRejectError {
+func (m Email) GetOrderID(f *field.OrderIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdID is a non-required field for Email.
-func (m Email) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
-	f := new(field.ClOrdID)
+func (m Email) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from Email.
-func (m Email) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+func (m Email) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoLinesOfText is a required field for Email.
-func (m Email) NoLinesOfText() (*field.NoLinesOfText, errors.MessageRejectError) {
-	f := new(field.NoLinesOfText)
+func (m Email) NoLinesOfText() (*field.NoLinesOfTextField, errors.MessageRejectError) {
+	f := &field.NoLinesOfTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoLinesOfText reads a NoLinesOfText from Email.
-func (m Email) GetNoLinesOfText(f *field.NoLinesOfText) errors.MessageRejectError {
+func (m Email) GetNoLinesOfText(f *field.NoLinesOfTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawDataLength is a non-required field for Email.
-func (m Email) RawDataLength() (*field.RawDataLength, errors.MessageRejectError) {
-	f := new(field.RawDataLength)
+func (m Email) RawDataLength() (*field.RawDataLengthField, errors.MessageRejectError) {
+	f := &field.RawDataLengthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawDataLength reads a RawDataLength from Email.
-func (m Email) GetRawDataLength(f *field.RawDataLength) errors.MessageRejectError {
+func (m Email) GetRawDataLength(f *field.RawDataLengthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawData is a non-required field for Email.
-func (m Email) RawData() (*field.RawData, errors.MessageRejectError) {
-	f := new(field.RawData)
+func (m Email) RawData() (*field.RawDataField, errors.MessageRejectError) {
+	f := &field.RawDataField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawData reads a RawData from Email.
-func (m Email) GetRawData(f *field.RawData) errors.MessageRejectError {
+func (m Email) GetRawData(f *field.RawDataField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

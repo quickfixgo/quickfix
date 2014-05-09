@@ -21,19 +21,19 @@ type LogoutBuilder struct {
 func CreateLogoutBuilder() LogoutBuilder {
 	var builder LogoutBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.BuildMsgType("5"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("5"))
 	return builder
 }
 
 //Text is a non-required field for Logout.
-func (m Logout) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m Logout) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from Logout.
-func (m Logout) GetText(f *field.Text) errors.MessageRejectError {
+func (m Logout) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

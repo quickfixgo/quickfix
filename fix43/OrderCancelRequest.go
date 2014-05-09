@@ -19,14 +19,14 @@ type OrderCancelRequestBuilder struct {
 
 //CreateOrderCancelRequestBuilder returns an initialized OrderCancelRequestBuilder with specified required fields.
 func CreateOrderCancelRequestBuilder(
-	origclordid field.OrigClOrdID,
-	clordid field.ClOrdID,
-	side field.Side,
-	transacttime field.TransactTime) OrderCancelRequestBuilder {
+	origclordid *field.OrigClOrdIDField,
+	clordid *field.ClOrdIDField,
+	side *field.SideField,
+	transacttime *field.TransactTimeField) OrderCancelRequestBuilder {
 	var builder OrderCancelRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.BuildMsgType("F"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("F"))
 	builder.Body.Set(origclordid)
 	builder.Body.Set(clordid)
 	builder.Body.Set(side)
@@ -35,649 +35,649 @@ func CreateOrderCancelRequestBuilder(
 }
 
 //OrigClOrdID is a required field for OrderCancelRequest.
-func (m OrderCancelRequest) OrigClOrdID() (*field.OrigClOrdID, errors.MessageRejectError) {
-	f := new(field.OrigClOrdID)
+func (m OrderCancelRequest) OrigClOrdID() (*field.OrigClOrdIDField, errors.MessageRejectError) {
+	f := &field.OrigClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrigClOrdID reads a OrigClOrdID from OrderCancelRequest.
-func (m OrderCancelRequest) GetOrigClOrdID(f *field.OrigClOrdID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetOrigClOrdID(f *field.OrigClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderID is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) OrderID() (*field.OrderID, errors.MessageRejectError) {
-	f := new(field.OrderID)
+func (m OrderCancelRequest) OrderID() (*field.OrderIDField, errors.MessageRejectError) {
+	f := &field.OrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderID reads a OrderID from OrderCancelRequest.
-func (m OrderCancelRequest) GetOrderID(f *field.OrderID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetOrderID(f *field.OrderIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdID is a required field for OrderCancelRequest.
-func (m OrderCancelRequest) ClOrdID() (*field.ClOrdID, errors.MessageRejectError) {
-	f := new(field.ClOrdID)
+func (m OrderCancelRequest) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from OrderCancelRequest.
-func (m OrderCancelRequest) GetClOrdID(f *field.ClOrdID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecondaryClOrdID is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) SecondaryClOrdID() (*field.SecondaryClOrdID, errors.MessageRejectError) {
-	f := new(field.SecondaryClOrdID)
+func (m OrderCancelRequest) SecondaryClOrdID() (*field.SecondaryClOrdIDField, errors.MessageRejectError) {
+	f := &field.SecondaryClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecondaryClOrdID reads a SecondaryClOrdID from OrderCancelRequest.
-func (m OrderCancelRequest) GetSecondaryClOrdID(f *field.SecondaryClOrdID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSecondaryClOrdID(f *field.SecondaryClOrdIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdLinkID is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) ClOrdLinkID() (*field.ClOrdLinkID, errors.MessageRejectError) {
-	f := new(field.ClOrdLinkID)
+func (m OrderCancelRequest) ClOrdLinkID() (*field.ClOrdLinkIDField, errors.MessageRejectError) {
+	f := &field.ClOrdLinkIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdLinkID reads a ClOrdLinkID from OrderCancelRequest.
-func (m OrderCancelRequest) GetClOrdLinkID(f *field.ClOrdLinkID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetClOrdLinkID(f *field.ClOrdLinkIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ListID is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m OrderCancelRequest) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from OrderCancelRequest.
-func (m OrderCancelRequest) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrigOrdModTime is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) OrigOrdModTime() (*field.OrigOrdModTime, errors.MessageRejectError) {
-	f := new(field.OrigOrdModTime)
+func (m OrderCancelRequest) OrigOrdModTime() (*field.OrigOrdModTimeField, errors.MessageRejectError) {
+	f := &field.OrigOrdModTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrigOrdModTime reads a OrigOrdModTime from OrderCancelRequest.
-func (m OrderCancelRequest) GetOrigOrdModTime(f *field.OrigOrdModTime) errors.MessageRejectError {
+func (m OrderCancelRequest) GetOrigOrdModTime(f *field.OrigOrdModTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) Account() (*field.Account, errors.MessageRejectError) {
-	f := new(field.Account)
+func (m OrderCancelRequest) Account() (*field.AccountField, errors.MessageRejectError) {
+	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from OrderCancelRequest.
-func (m OrderCancelRequest) GetAccount(f *field.Account) errors.MessageRejectError {
+func (m OrderCancelRequest) GetAccount(f *field.AccountField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AccountType is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) AccountType() (*field.AccountType, errors.MessageRejectError) {
-	f := new(field.AccountType)
+func (m OrderCancelRequest) AccountType() (*field.AccountTypeField, errors.MessageRejectError) {
+	f := &field.AccountTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccountType reads a AccountType from OrderCancelRequest.
-func (m OrderCancelRequest) GetAccountType(f *field.AccountType) errors.MessageRejectError {
+func (m OrderCancelRequest) GetAccountType(f *field.AccountTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m OrderCancelRequest) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from OrderCancelRequest.
-func (m OrderCancelRequest) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m OrderCancelRequest) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) Symbol() (*field.Symbol, errors.MessageRejectError) {
-	f := new(field.Symbol)
+func (m OrderCancelRequest) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from OrderCancelRequest.
-func (m OrderCancelRequest) GetSymbol(f *field.Symbol) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) SymbolSfx() (*field.SymbolSfx, errors.MessageRejectError) {
-	f := new(field.SymbolSfx)
+func (m OrderCancelRequest) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from OrderCancelRequest.
-func (m OrderCancelRequest) GetSymbolSfx(f *field.SymbolSfx) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) SecurityID() (*field.SecurityID, errors.MessageRejectError) {
-	f := new(field.SecurityID)
+func (m OrderCancelRequest) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from OrderCancelRequest.
-func (m OrderCancelRequest) GetSecurityID(f *field.SecurityID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityIDSource is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) SecurityIDSource() (*field.SecurityIDSource, errors.MessageRejectError) {
-	f := new(field.SecurityIDSource)
+func (m OrderCancelRequest) SecurityIDSource() (*field.SecurityIDSourceField, errors.MessageRejectError) {
+	f := &field.SecurityIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityIDSource reads a SecurityIDSource from OrderCancelRequest.
-func (m OrderCancelRequest) GetSecurityIDSource(f *field.SecurityIDSource) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSecurityIDSource(f *field.SecurityIDSourceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoSecurityAltID is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) NoSecurityAltID() (*field.NoSecurityAltID, errors.MessageRejectError) {
-	f := new(field.NoSecurityAltID)
+func (m OrderCancelRequest) NoSecurityAltID() (*field.NoSecurityAltIDField, errors.MessageRejectError) {
+	f := &field.NoSecurityAltIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoSecurityAltID reads a NoSecurityAltID from OrderCancelRequest.
-func (m OrderCancelRequest) GetNoSecurityAltID(f *field.NoSecurityAltID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetNoSecurityAltID(f *field.NoSecurityAltIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Product is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) Product() (*field.Product, errors.MessageRejectError) {
-	f := new(field.Product)
+func (m OrderCancelRequest) Product() (*field.ProductField, errors.MessageRejectError) {
+	f := &field.ProductField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetProduct reads a Product from OrderCancelRequest.
-func (m OrderCancelRequest) GetProduct(f *field.Product) errors.MessageRejectError {
+func (m OrderCancelRequest) GetProduct(f *field.ProductField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CFICode is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) CFICode() (*field.CFICode, errors.MessageRejectError) {
-	f := new(field.CFICode)
+func (m OrderCancelRequest) CFICode() (*field.CFICodeField, errors.MessageRejectError) {
+	f := &field.CFICodeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCFICode reads a CFICode from OrderCancelRequest.
-func (m OrderCancelRequest) GetCFICode(f *field.CFICode) errors.MessageRejectError {
+func (m OrderCancelRequest) GetCFICode(f *field.CFICodeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) SecurityType() (*field.SecurityType, errors.MessageRejectError) {
-	f := new(field.SecurityType)
+func (m OrderCancelRequest) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from OrderCancelRequest.
-func (m OrderCancelRequest) GetSecurityType(f *field.SecurityType) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) MaturityMonthYear() (*field.MaturityMonthYear, errors.MessageRejectError) {
-	f := new(field.MaturityMonthYear)
+func (m OrderCancelRequest) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from OrderCancelRequest.
-func (m OrderCancelRequest) GetMaturityMonthYear(f *field.MaturityMonthYear) errors.MessageRejectError {
+func (m OrderCancelRequest) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDate is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) MaturityDate() (*field.MaturityDate, errors.MessageRejectError) {
-	f := new(field.MaturityDate)
+func (m OrderCancelRequest) MaturityDate() (*field.MaturityDateField, errors.MessageRejectError) {
+	f := &field.MaturityDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDate reads a MaturityDate from OrderCancelRequest.
-func (m OrderCancelRequest) GetMaturityDate(f *field.MaturityDate) errors.MessageRejectError {
+func (m OrderCancelRequest) GetMaturityDate(f *field.MaturityDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponPaymentDate is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) CouponPaymentDate() (*field.CouponPaymentDate, errors.MessageRejectError) {
-	f := new(field.CouponPaymentDate)
+func (m OrderCancelRequest) CouponPaymentDate() (*field.CouponPaymentDateField, errors.MessageRejectError) {
+	f := &field.CouponPaymentDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponPaymentDate reads a CouponPaymentDate from OrderCancelRequest.
-func (m OrderCancelRequest) GetCouponPaymentDate(f *field.CouponPaymentDate) errors.MessageRejectError {
+func (m OrderCancelRequest) GetCouponPaymentDate(f *field.CouponPaymentDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IssueDate is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) IssueDate() (*field.IssueDate, errors.MessageRejectError) {
-	f := new(field.IssueDate)
+func (m OrderCancelRequest) IssueDate() (*field.IssueDateField, errors.MessageRejectError) {
+	f := &field.IssueDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssueDate reads a IssueDate from OrderCancelRequest.
-func (m OrderCancelRequest) GetIssueDate(f *field.IssueDate) errors.MessageRejectError {
+func (m OrderCancelRequest) GetIssueDate(f *field.IssueDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepoCollateralSecurityType is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) RepoCollateralSecurityType() (*field.RepoCollateralSecurityType, errors.MessageRejectError) {
-	f := new(field.RepoCollateralSecurityType)
+func (m OrderCancelRequest) RepoCollateralSecurityType() (*field.RepoCollateralSecurityTypeField, errors.MessageRejectError) {
+	f := &field.RepoCollateralSecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepoCollateralSecurityType reads a RepoCollateralSecurityType from OrderCancelRequest.
-func (m OrderCancelRequest) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityType) errors.MessageRejectError {
+func (m OrderCancelRequest) GetRepoCollateralSecurityType(f *field.RepoCollateralSecurityTypeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseTerm is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) RepurchaseTerm() (*field.RepurchaseTerm, errors.MessageRejectError) {
-	f := new(field.RepurchaseTerm)
+func (m OrderCancelRequest) RepurchaseTerm() (*field.RepurchaseTermField, errors.MessageRejectError) {
+	f := &field.RepurchaseTermField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseTerm reads a RepurchaseTerm from OrderCancelRequest.
-func (m OrderCancelRequest) GetRepurchaseTerm(f *field.RepurchaseTerm) errors.MessageRejectError {
+func (m OrderCancelRequest) GetRepurchaseTerm(f *field.RepurchaseTermField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RepurchaseRate is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) RepurchaseRate() (*field.RepurchaseRate, errors.MessageRejectError) {
-	f := new(field.RepurchaseRate)
+func (m OrderCancelRequest) RepurchaseRate() (*field.RepurchaseRateField, errors.MessageRejectError) {
+	f := &field.RepurchaseRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRepurchaseRate reads a RepurchaseRate from OrderCancelRequest.
-func (m OrderCancelRequest) GetRepurchaseRate(f *field.RepurchaseRate) errors.MessageRejectError {
+func (m OrderCancelRequest) GetRepurchaseRate(f *field.RepurchaseRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Factor is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) Factor() (*field.Factor, errors.MessageRejectError) {
-	f := new(field.Factor)
+func (m OrderCancelRequest) Factor() (*field.FactorField, errors.MessageRejectError) {
+	f := &field.FactorField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetFactor reads a Factor from OrderCancelRequest.
-func (m OrderCancelRequest) GetFactor(f *field.Factor) errors.MessageRejectError {
+func (m OrderCancelRequest) GetFactor(f *field.FactorField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CreditRating is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) CreditRating() (*field.CreditRating, errors.MessageRejectError) {
-	f := new(field.CreditRating)
+func (m OrderCancelRequest) CreditRating() (*field.CreditRatingField, errors.MessageRejectError) {
+	f := &field.CreditRatingField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCreditRating reads a CreditRating from OrderCancelRequest.
-func (m OrderCancelRequest) GetCreditRating(f *field.CreditRating) errors.MessageRejectError {
+func (m OrderCancelRequest) GetCreditRating(f *field.CreditRatingField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //InstrRegistry is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) InstrRegistry() (*field.InstrRegistry, errors.MessageRejectError) {
-	f := new(field.InstrRegistry)
+func (m OrderCancelRequest) InstrRegistry() (*field.InstrRegistryField, errors.MessageRejectError) {
+	f := &field.InstrRegistryField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetInstrRegistry reads a InstrRegistry from OrderCancelRequest.
-func (m OrderCancelRequest) GetInstrRegistry(f *field.InstrRegistry) errors.MessageRejectError {
+func (m OrderCancelRequest) GetInstrRegistry(f *field.InstrRegistryField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CountryOfIssue is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) CountryOfIssue() (*field.CountryOfIssue, errors.MessageRejectError) {
-	f := new(field.CountryOfIssue)
+func (m OrderCancelRequest) CountryOfIssue() (*field.CountryOfIssueField, errors.MessageRejectError) {
+	f := &field.CountryOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCountryOfIssue reads a CountryOfIssue from OrderCancelRequest.
-func (m OrderCancelRequest) GetCountryOfIssue(f *field.CountryOfIssue) errors.MessageRejectError {
+func (m OrderCancelRequest) GetCountryOfIssue(f *field.CountryOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StateOrProvinceOfIssue is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssue, errors.MessageRejectError) {
-	f := new(field.StateOrProvinceOfIssue)
+func (m OrderCancelRequest) StateOrProvinceOfIssue() (*field.StateOrProvinceOfIssueField, errors.MessageRejectError) {
+	f := &field.StateOrProvinceOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStateOrProvinceOfIssue reads a StateOrProvinceOfIssue from OrderCancelRequest.
-func (m OrderCancelRequest) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssue) errors.MessageRejectError {
+func (m OrderCancelRequest) GetStateOrProvinceOfIssue(f *field.StateOrProvinceOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LocaleOfIssue is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) LocaleOfIssue() (*field.LocaleOfIssue, errors.MessageRejectError) {
-	f := new(field.LocaleOfIssue)
+func (m OrderCancelRequest) LocaleOfIssue() (*field.LocaleOfIssueField, errors.MessageRejectError) {
+	f := &field.LocaleOfIssueField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLocaleOfIssue reads a LocaleOfIssue from OrderCancelRequest.
-func (m OrderCancelRequest) GetLocaleOfIssue(f *field.LocaleOfIssue) errors.MessageRejectError {
+func (m OrderCancelRequest) GetLocaleOfIssue(f *field.LocaleOfIssueField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RedemptionDate is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) RedemptionDate() (*field.RedemptionDate, errors.MessageRejectError) {
-	f := new(field.RedemptionDate)
+func (m OrderCancelRequest) RedemptionDate() (*field.RedemptionDateField, errors.MessageRejectError) {
+	f := &field.RedemptionDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRedemptionDate reads a RedemptionDate from OrderCancelRequest.
-func (m OrderCancelRequest) GetRedemptionDate(f *field.RedemptionDate) errors.MessageRejectError {
+func (m OrderCancelRequest) GetRedemptionDate(f *field.RedemptionDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) StrikePrice() (*field.StrikePrice, errors.MessageRejectError) {
-	f := new(field.StrikePrice)
+func (m OrderCancelRequest) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from OrderCancelRequest.
-func (m OrderCancelRequest) GetStrikePrice(f *field.StrikePrice) errors.MessageRejectError {
+func (m OrderCancelRequest) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) OptAttribute() (*field.OptAttribute, errors.MessageRejectError) {
-	f := new(field.OptAttribute)
+func (m OrderCancelRequest) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from OrderCancelRequest.
-func (m OrderCancelRequest) GetOptAttribute(f *field.OptAttribute) errors.MessageRejectError {
+func (m OrderCancelRequest) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) ContractMultiplier() (*field.ContractMultiplier, errors.MessageRejectError) {
-	f := new(field.ContractMultiplier)
+func (m OrderCancelRequest) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from OrderCancelRequest.
-func (m OrderCancelRequest) GetContractMultiplier(f *field.ContractMultiplier) errors.MessageRejectError {
+func (m OrderCancelRequest) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) CouponRate() (*field.CouponRate, errors.MessageRejectError) {
-	f := new(field.CouponRate)
+func (m OrderCancelRequest) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from OrderCancelRequest.
-func (m OrderCancelRequest) GetCouponRate(f *field.CouponRate) errors.MessageRejectError {
+func (m OrderCancelRequest) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) SecurityExchange() (*field.SecurityExchange, errors.MessageRejectError) {
-	f := new(field.SecurityExchange)
+func (m OrderCancelRequest) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from OrderCancelRequest.
-func (m OrderCancelRequest) GetSecurityExchange(f *field.SecurityExchange) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) Issuer() (*field.Issuer, errors.MessageRejectError) {
-	f := new(field.Issuer)
+func (m OrderCancelRequest) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from OrderCancelRequest.
-func (m OrderCancelRequest) GetIssuer(f *field.Issuer) errors.MessageRejectError {
+func (m OrderCancelRequest) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) EncodedIssuerLen() (*field.EncodedIssuerLen, errors.MessageRejectError) {
-	f := new(field.EncodedIssuerLen)
+func (m OrderCancelRequest) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from OrderCancelRequest.
-func (m OrderCancelRequest) GetEncodedIssuerLen(f *field.EncodedIssuerLen) errors.MessageRejectError {
+func (m OrderCancelRequest) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) EncodedIssuer() (*field.EncodedIssuer, errors.MessageRejectError) {
-	f := new(field.EncodedIssuer)
+func (m OrderCancelRequest) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from OrderCancelRequest.
-func (m OrderCancelRequest) GetEncodedIssuer(f *field.EncodedIssuer) errors.MessageRejectError {
+func (m OrderCancelRequest) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) SecurityDesc() (*field.SecurityDesc, errors.MessageRejectError) {
-	f := new(field.SecurityDesc)
+func (m OrderCancelRequest) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from OrderCancelRequest.
-func (m OrderCancelRequest) GetSecurityDesc(f *field.SecurityDesc) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLen, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDescLen)
+func (m OrderCancelRequest) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from OrderCancelRequest.
-func (m OrderCancelRequest) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLen) errors.MessageRejectError {
+func (m OrderCancelRequest) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) EncodedSecurityDesc() (*field.EncodedSecurityDesc, errors.MessageRejectError) {
-	f := new(field.EncodedSecurityDesc)
+func (m OrderCancelRequest) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from OrderCancelRequest.
-func (m OrderCancelRequest) GetEncodedSecurityDesc(f *field.EncodedSecurityDesc) errors.MessageRejectError {
+func (m OrderCancelRequest) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a required field for OrderCancelRequest.
-func (m OrderCancelRequest) Side() (*field.Side, errors.MessageRejectError) {
-	f := new(field.Side)
+func (m OrderCancelRequest) Side() (*field.SideField, errors.MessageRejectError) {
+	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from OrderCancelRequest.
-func (m OrderCancelRequest) GetSide(f *field.Side) errors.MessageRejectError {
+func (m OrderCancelRequest) GetSide(f *field.SideField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for OrderCancelRequest.
-func (m OrderCancelRequest) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m OrderCancelRequest) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from OrderCancelRequest.
-func (m OrderCancelRequest) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m OrderCancelRequest) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) OrderQty() (*field.OrderQty, errors.MessageRejectError) {
-	f := new(field.OrderQty)
+func (m OrderCancelRequest) OrderQty() (*field.OrderQtyField, errors.MessageRejectError) {
+	f := &field.OrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty reads a OrderQty from OrderCancelRequest.
-func (m OrderCancelRequest) GetOrderQty(f *field.OrderQty) errors.MessageRejectError {
+func (m OrderCancelRequest) GetOrderQty(f *field.OrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashOrderQty is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) CashOrderQty() (*field.CashOrderQty, errors.MessageRejectError) {
-	f := new(field.CashOrderQty)
+func (m OrderCancelRequest) CashOrderQty() (*field.CashOrderQtyField, errors.MessageRejectError) {
+	f := &field.CashOrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashOrderQty reads a CashOrderQty from OrderCancelRequest.
-func (m OrderCancelRequest) GetCashOrderQty(f *field.CashOrderQty) errors.MessageRejectError {
+func (m OrderCancelRequest) GetCashOrderQty(f *field.CashOrderQtyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderPercent is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) OrderPercent() (*field.OrderPercent, errors.MessageRejectError) {
-	f := new(field.OrderPercent)
+func (m OrderCancelRequest) OrderPercent() (*field.OrderPercentField, errors.MessageRejectError) {
+	f := &field.OrderPercentField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderPercent reads a OrderPercent from OrderCancelRequest.
-func (m OrderCancelRequest) GetOrderPercent(f *field.OrderPercent) errors.MessageRejectError {
+func (m OrderCancelRequest) GetOrderPercent(f *field.OrderPercentField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RoundingDirection is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) RoundingDirection() (*field.RoundingDirection, errors.MessageRejectError) {
-	f := new(field.RoundingDirection)
+func (m OrderCancelRequest) RoundingDirection() (*field.RoundingDirectionField, errors.MessageRejectError) {
+	f := &field.RoundingDirectionField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRoundingDirection reads a RoundingDirection from OrderCancelRequest.
-func (m OrderCancelRequest) GetRoundingDirection(f *field.RoundingDirection) errors.MessageRejectError {
+func (m OrderCancelRequest) GetRoundingDirection(f *field.RoundingDirectionField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RoundingModulus is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) RoundingModulus() (*field.RoundingModulus, errors.MessageRejectError) {
-	f := new(field.RoundingModulus)
+func (m OrderCancelRequest) RoundingModulus() (*field.RoundingModulusField, errors.MessageRejectError) {
+	f := &field.RoundingModulusField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRoundingModulus reads a RoundingModulus from OrderCancelRequest.
-func (m OrderCancelRequest) GetRoundingModulus(f *field.RoundingModulus) errors.MessageRejectError {
+func (m OrderCancelRequest) GetRoundingModulus(f *field.RoundingModulusField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ComplianceID is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) ComplianceID() (*field.ComplianceID, errors.MessageRejectError) {
-	f := new(field.ComplianceID)
+func (m OrderCancelRequest) ComplianceID() (*field.ComplianceIDField, errors.MessageRejectError) {
+	f := &field.ComplianceIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetComplianceID reads a ComplianceID from OrderCancelRequest.
-func (m OrderCancelRequest) GetComplianceID(f *field.ComplianceID) errors.MessageRejectError {
+func (m OrderCancelRequest) GetComplianceID(f *field.ComplianceIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m OrderCancelRequest) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from OrderCancelRequest.
-func (m OrderCancelRequest) GetText(f *field.Text) errors.MessageRejectError {
+func (m OrderCancelRequest) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m OrderCancelRequest) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from OrderCancelRequest.
-func (m OrderCancelRequest) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m OrderCancelRequest) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for OrderCancelRequest.
-func (m OrderCancelRequest) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m OrderCancelRequest) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from OrderCancelRequest.
-func (m OrderCancelRequest) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m OrderCancelRequest) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

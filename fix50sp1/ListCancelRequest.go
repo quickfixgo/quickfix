@@ -23,110 +23,110 @@ type ListCancelRequestBuilder struct {
 
 //CreateListCancelRequestBuilder returns an initialized ListCancelRequestBuilder with specified required fields.
 func CreateListCancelRequestBuilder(
-	listid field.ListID,
-	transacttime field.TransactTime) ListCancelRequestBuilder {
+	listid *field.ListIDField,
+	transacttime *field.TransactTimeField) ListCancelRequestBuilder {
 	var builder ListCancelRequestBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.BuildDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.BuildMsgType("K"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("K"))
 	builder.Body.Set(listid)
 	builder.Body.Set(transacttime)
 	return builder
 }
 
 //ListID is a required field for ListCancelRequest.
-func (m ListCancelRequest) ListID() (*field.ListID, errors.MessageRejectError) {
-	f := new(field.ListID)
+func (m ListCancelRequest) ListID() (*field.ListIDField, errors.MessageRejectError) {
+	f := &field.ListIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetListID reads a ListID from ListCancelRequest.
-func (m ListCancelRequest) GetListID(f *field.ListID) errors.MessageRejectError {
+func (m ListCancelRequest) GetListID(f *field.ListIDField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TransactTime is a required field for ListCancelRequest.
-func (m ListCancelRequest) TransactTime() (*field.TransactTime, errors.MessageRejectError) {
-	f := new(field.TransactTime)
+func (m ListCancelRequest) TransactTime() (*field.TransactTimeField, errors.MessageRejectError) {
+	f := &field.TransactTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTransactTime reads a TransactTime from ListCancelRequest.
-func (m ListCancelRequest) GetTransactTime(f *field.TransactTime) errors.MessageRejectError {
+func (m ListCancelRequest) GetTransactTime(f *field.TransactTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeOriginationDate is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) TradeOriginationDate() (*field.TradeOriginationDate, errors.MessageRejectError) {
-	f := new(field.TradeOriginationDate)
+func (m ListCancelRequest) TradeOriginationDate() (*field.TradeOriginationDateField, errors.MessageRejectError) {
+	f := &field.TradeOriginationDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeOriginationDate reads a TradeOriginationDate from ListCancelRequest.
-func (m ListCancelRequest) GetTradeOriginationDate(f *field.TradeOriginationDate) errors.MessageRejectError {
+func (m ListCancelRequest) GetTradeOriginationDate(f *field.TradeOriginationDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TradeDate is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) TradeDate() (*field.TradeDate, errors.MessageRejectError) {
-	f := new(field.TradeDate)
+func (m ListCancelRequest) TradeDate() (*field.TradeDateField, errors.MessageRejectError) {
+	f := &field.TradeDateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradeDate reads a TradeDate from ListCancelRequest.
-func (m ListCancelRequest) GetTradeDate(f *field.TradeDate) errors.MessageRejectError {
+func (m ListCancelRequest) GetTradeDate(f *field.TradeDateField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m ListCancelRequest) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from ListCancelRequest.
-func (m ListCancelRequest) GetText(f *field.Text) errors.MessageRejectError {
+func (m ListCancelRequest) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) EncodedTextLen() (*field.EncodedTextLen, errors.MessageRejectError) {
-	f := new(field.EncodedTextLen)
+func (m ListCancelRequest) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from ListCancelRequest.
-func (m ListCancelRequest) GetEncodedTextLen(f *field.EncodedTextLen) errors.MessageRejectError {
+func (m ListCancelRequest) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) EncodedText() (*field.EncodedText, errors.MessageRejectError) {
-	f := new(field.EncodedText)
+func (m ListCancelRequest) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from ListCancelRequest.
-func (m ListCancelRequest) GetEncodedText(f *field.EncodedText) errors.MessageRejectError {
+func (m ListCancelRequest) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for ListCancelRequest.
-func (m ListCancelRequest) NoPartyIDs() (*field.NoPartyIDs, errors.MessageRejectError) {
-	f := new(field.NoPartyIDs)
+func (m ListCancelRequest) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from ListCancelRequest.
-func (m ListCancelRequest) GetNoPartyIDs(f *field.NoPartyIDs) errors.MessageRejectError {
+func (m ListCancelRequest) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }

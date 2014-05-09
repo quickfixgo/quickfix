@@ -19,97 +19,97 @@ type NewsBuilder struct {
 
 //CreateNewsBuilder returns an initialized NewsBuilder with specified required fields.
 func CreateNewsBuilder(
-	linesoftext field.LinesOfText,
-	text field.Text) NewsBuilder {
+	linesoftext *field.LinesOfTextField,
+	text *field.TextField) NewsBuilder {
 	var builder NewsBuilder
 	builder.MessageBuilder = message.CreateMessageBuilder()
-	builder.Header.Set(field.BuildBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.BuildMsgType("B"))
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("B"))
 	builder.Body.Set(linesoftext)
 	builder.Body.Set(text)
 	return builder
 }
 
 //OrigTime is a non-required field for News.
-func (m News) OrigTime() (*field.OrigTime, errors.MessageRejectError) {
-	f := new(field.OrigTime)
+func (m News) OrigTime() (*field.OrigTimeField, errors.MessageRejectError) {
+	f := &field.OrigTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrigTime reads a OrigTime from News.
-func (m News) GetOrigTime(f *field.OrigTime) errors.MessageRejectError {
+func (m News) GetOrigTime(f *field.OrigTimeField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Urgency is a non-required field for News.
-func (m News) Urgency() (*field.Urgency, errors.MessageRejectError) {
-	f := new(field.Urgency)
+func (m News) Urgency() (*field.UrgencyField, errors.MessageRejectError) {
+	f := &field.UrgencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUrgency reads a Urgency from News.
-func (m News) GetUrgency(f *field.Urgency) errors.MessageRejectError {
+func (m News) GetUrgency(f *field.UrgencyField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RelatdSym is a non-required field for News.
-func (m News) RelatdSym() (*field.RelatdSym, errors.MessageRejectError) {
-	f := new(field.RelatdSym)
+func (m News) RelatdSym() (*field.RelatdSymField, errors.MessageRejectError) {
+	f := &field.RelatdSymField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRelatdSym reads a RelatdSym from News.
-func (m News) GetRelatdSym(f *field.RelatdSym) errors.MessageRejectError {
+func (m News) GetRelatdSym(f *field.RelatdSymField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LinesOfText is a required field for News.
-func (m News) LinesOfText() (*field.LinesOfText, errors.MessageRejectError) {
-	f := new(field.LinesOfText)
+func (m News) LinesOfText() (*field.LinesOfTextField, errors.MessageRejectError) {
+	f := &field.LinesOfTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLinesOfText reads a LinesOfText from News.
-func (m News) GetLinesOfText(f *field.LinesOfText) errors.MessageRejectError {
+func (m News) GetLinesOfText(f *field.LinesOfTextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a required field for News.
-func (m News) Text() (*field.Text, errors.MessageRejectError) {
-	f := new(field.Text)
+func (m News) Text() (*field.TextField, errors.MessageRejectError) {
+	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from News.
-func (m News) GetText(f *field.Text) errors.MessageRejectError {
+func (m News) GetText(f *field.TextField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawDataLength is a non-required field for News.
-func (m News) RawDataLength() (*field.RawDataLength, errors.MessageRejectError) {
-	f := new(field.RawDataLength)
+func (m News) RawDataLength() (*field.RawDataLengthField, errors.MessageRejectError) {
+	f := &field.RawDataLengthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawDataLength reads a RawDataLength from News.
-func (m News) GetRawDataLength(f *field.RawDataLength) errors.MessageRejectError {
+func (m News) GetRawDataLength(f *field.RawDataLengthField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawData is a non-required field for News.
-func (m News) RawData() (*field.RawData, errors.MessageRejectError) {
-	f := new(field.RawData)
+func (m News) RawData() (*field.RawDataField, errors.MessageRejectError) {
+	f := &field.RawDataField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawData reads a RawData from News.
-func (m News) GetRawData(f *field.RawData) errors.MessageRejectError {
+func (m News) GetRawData(f *field.RawDataField) errors.MessageRejectError {
 	return m.Body.Get(f)
 }
