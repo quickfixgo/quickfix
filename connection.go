@@ -3,7 +3,7 @@ package quickfix
 import (
 	"bufio"
 	"github.com/quickfixgo/quickfix/errors"
-	"github.com/quickfixgo/quickfix/fix/tag"
+	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 	"net"
 )
@@ -47,7 +47,7 @@ func handleInitiatorConnection(netConn net.Conn, log Log, sessID SessionID) {
 }
 
 //Picks up session from net.Conn Acceptor
-func handleAcceptorConnection(netConn net.Conn, log Log) {
+func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionID]SessionID, log Log) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.OnEventf("Connection Terminated: %v", err)
@@ -70,30 +70,31 @@ func handleAcceptorConnection(netConn net.Conn, log Log) {
 		return
 	}
 
-	var sessID SessionID
-	beginString := new(message.StringValue)
-	if err := msg.Header.GetField(tag.BeginString, beginString); err == nil {
-		sessID.BeginString = beginString.Value
+	beginString := &field.BeginString{}
+	msg.Header.Get(beginString)
+
+	senderCompID := &field.SenderCompID{}
+	msg.Header.Get(senderCompID)
+
+	targetCompID := &field.TargetCompID{}
+	msg.Header.Get(targetCompID)
+
+	sessID := SessionID{BeginString: beginString.Value, SenderCompID: targetCompID.Value, TargetCompID: senderCompID.Value}
+	qualifiedSessID, validID := qualifiedSessionIDs[sessID]
+
+	if !validID {
+		log.OnEventf("Session %v not found for incoming message: %v", sessID, msg.String())
+		return
 	}
 
-	senderCompID := new(message.StringValue)
-	if err := msg.Header.GetField(tag.SenderCompID, senderCompID); err == nil {
-		sessID.TargetCompID = senderCompID.Value
-	}
-
-	targetCompID := new(message.StringValue)
-	if err := msg.Header.GetField(tag.TargetCompID, targetCompID); err == nil {
-		sessID.SenderCompID = targetCompID.Value
-	}
-
-	session := activate(sessID)
+	session := activate(qualifiedSessID)
 
 	if session == nil {
-		log.OnEventf("Session not found for incoming message: %v", msg.String())
+		log.OnEventf("Cannot activate session for incoming message: %v", msg.String())
 		return
 	}
 	defer func() {
-		deactivate(sessID)
+		deactivate(qualifiedSessID)
 	}()
 
 	var msgOut chan buffer

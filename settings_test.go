@@ -274,6 +274,7 @@ func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
 		sessionBeginString  string
 		sessionTargetCompID string
 		sessionSenderCompID string
+		sessionQualifier    string
 		expectedSessionID   SessionID
 	}{
 		{globalBeginString: "FIX.4.0", globalTargetCompID: "CB", globalSenderCompID: "SS",
@@ -282,8 +283,8 @@ func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
 		{sessionBeginString: "FIX.4.1", sessionTargetCompID: "GE", sessionSenderCompID: "LE",
 			expectedSessionID: SessionID{BeginString: "FIX.4.1", TargetCompID: "GE", SenderCompID: "LE"}},
 
-		{globalBeginString: "FIX.4.2", globalTargetCompID: "CB", sessionTargetCompID: "GE", sessionSenderCompID: "LE",
-			expectedSessionID: SessionID{BeginString: "FIX.4.2", TargetCompID: "GE", SenderCompID: "LE"}},
+		{globalBeginString: "FIX.4.2", globalTargetCompID: "CB", sessionTargetCompID: "GE", sessionSenderCompID: "LE", sessionQualifier: "J",
+			expectedSessionID: SessionID{BeginString: "FIX.4.2", TargetCompID: "GE", SenderCompID: "LE", Qualifier: "J"}},
 	}
 
 	for _, tc := range testCases {
@@ -312,6 +313,10 @@ func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
 
 		if tc.sessionSenderCompID != "" {
 			sessionSettings.Set(config.SenderCompID, tc.sessionSenderCompID)
+		}
+
+		if len(tc.sessionQualifier) > 0 {
+			sessionSettings.Set(config.SessionQualifier, tc.sessionQualifier)
 		}
 
 		actualSessionID := sessionIDFromSessionSettings(globalSettings, sessionSettings)

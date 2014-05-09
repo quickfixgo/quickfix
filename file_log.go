@@ -97,6 +97,10 @@ func (f fileLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
 		return nil, fmt.Errorf("logger not defined for %v", sessionID)
 	}
 
-	prefix := strings.Join([]string{sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID}, "-")
-	return f.buildFileLog(prefix, logPath)
+	prefixParts := []string{sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID}
+	if len(sessionID.Qualifier) > 0 {
+		prefixParts = append(prefixParts, sessionID.Qualifier)
+	}
+
+	return f.buildFileLog(strings.Join(prefixParts, "-"), logPath)
 }

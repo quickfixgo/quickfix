@@ -5,6 +5,7 @@ const (
 	BeginString             string = "BeginString"
 	SenderCompID            string = "SenderCompID"
 	TargetCompID            string = "TargetCompID"
+	SessionQualifier        string = "SessionQualifier"
 	SocketAcceptPort        string = "SocketAcceptPort"
 	SocketConnectHost       string = "SocketConnectHost"
 	SocketConnectPort       string = "SocketConnectPort"

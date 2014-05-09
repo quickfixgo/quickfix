@@ -48,6 +48,10 @@ func sessionIDFromSessionSettings(globalSettings *SessionSettings, sessionSettin
 		if settings.HasSetting(config.SenderCompID) {
 			sessionID.SenderCompID, _ = settings.Setting(config.SenderCompID)
 		}
+
+		if settings.HasSetting(config.SessionQualifier) {
+			sessionID.Qualifier, _ = settings.Setting(config.SessionQualifier)
+		}
 	}
 
 	return sessionID

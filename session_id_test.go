@@ -3,12 +3,19 @@ package quickfix
 import "testing"
 
 func TestSessionID_String(t *testing.T) {
-	s := SessionID{BeginString: "FIX.4.2", SenderCompID: "SND", TargetCompID: "TAR"}
+	var testCases = []struct {
+		sessionID      SessionID
+		expectedString string
+	}{
+		{SessionID{BeginString: "FIX.4.2", SenderCompID: "SND", TargetCompID: "TAR"}, "FIX.4.2:SND->TAR"},
+		{SessionID{BeginString: "FIX.4.2", SenderCompID: "SND", TargetCompID: "TAR", Qualifier: "BLAH"}, "FIX.4.2:SND->TAR:BLAH"},
+	}
 
-	expect := "FIX.4.2:SND->TAR"
-	actual := s.String()
+	for _, tc := range testCases {
+		actual := tc.sessionID.String()
 
-	if expect != actual {
-		t.Errorf("Expected %v got %v ", expect, actual)
+		if tc.expectedString != actual {
+			t.Errorf("Expected %v got %v ", tc.expectedString, actual)
+		}
 	}
 }

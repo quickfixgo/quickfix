@@ -26,6 +26,11 @@ FileLogPath=.
 BeginString=FIX.4.1
 TargetCompID=ARCA
 FileLogPath=mydir
+
+[SESSION]
+BeginString=FIX.4.1
+TargetCompID=ARCA
+SessionQualifier=BS
 `
 	stringReader := strings.NewReader(cfg)
 	settings, _ := ParseSettings(stringReader)

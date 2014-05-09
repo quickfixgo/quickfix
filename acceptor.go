@@ -9,10 +9,11 @@ import (
 
 //Acceptor accepts connections from FIX clients and manages the associated sessions.
 type Acceptor struct {
-	app        Application
-	settings   *Settings
-	logFactory LogFactory
-	globalLog  Log
+	app                 Application
+	settings            *Settings
+	logFactory          LogFactory
+	globalLog           Log
+	qualifiedSessionIDs map[SessionID]SessionID
 }
 
 //Start accepting connections.
@@ -31,7 +32,7 @@ func (a *Acceptor) Start() (e error) {
 	go func() {
 		for {
 			cxn := <-connections
-			go handleAcceptorConnection(cxn, a.globalLog)
+			go handleAcceptorConnection(cxn, a.qualifiedSessionIDs, a.globalLog)
 		}
 	}()
 
@@ -47,6 +48,7 @@ func NewAcceptor(app Application, settings *Settings, logFactory LogFactory) (*A
 	a.app = app
 	a.settings = settings
 	a.logFactory = logFactory
+	a.qualifiedSessionIDs = make(map[SessionID]SessionID)
 
 	var err error
 	a.globalLog, err = logFactory.Create()
@@ -55,6 +57,17 @@ func NewAcceptor(app Application, settings *Settings, logFactory LogFactory) (*A
 	}
 
 	for sessionID, sessionSettings := range settings.SessionSettings() {
+		//unqualified sessionIDs must be unique
+		unqualifiedSessionID := SessionID{
+			BeginString:  sessionID.BeginString,
+			TargetCompID: sessionID.TargetCompID,
+			SenderCompID: sessionID.SenderCompID}
+
+		if _, dup := a.qualifiedSessionIDs[unqualifiedSessionID]; dup {
+			return nil, fmt.Errorf("duplicate SessionID %v", unqualifiedSessionID)
+		}
+		a.qualifiedSessionIDs[unqualifiedSessionID] = sessionID
+
 		if err = createSession(sessionID, sessionSettings, logFactory, app); err != nil {
 			return nil, err
 		}
