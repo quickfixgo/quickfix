@@ -3,11 +3,10 @@ package field
 import (
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 //AccountField is a STRING field
-type AccountField struct{ message.StringValue }
+type AccountField struct{ fix.StringValue }
 
 //Tag returns tag.Account (1)
 func (f AccountField) Tag() fix.Tag { return tag.Account }
@@ -20,7 +19,7 @@ func NewAccount(val string) *AccountField {
 }
 
 //AccountTypeField is a INT field
-type AccountTypeField struct{ message.IntValue }
+type AccountTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AccountType (581)
 func (f AccountTypeField) Tag() fix.Tag { return tag.AccountType }
@@ -33,7 +32,7 @@ func NewAccountType(val int) *AccountTypeField {
 }
 
 //AccruedInterestAmtField is a AMT field
-type AccruedInterestAmtField struct{ message.AmtValue }
+type AccruedInterestAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.AccruedInterestAmt (159)
 func (f AccruedInterestAmtField) Tag() fix.Tag { return tag.AccruedInterestAmt }
@@ -46,7 +45,7 @@ func NewAccruedInterestAmt(val float64) *AccruedInterestAmtField {
 }
 
 //AccruedInterestRateField is a PERCENTAGE field
-type AccruedInterestRateField struct{ message.PercentageValue }
+type AccruedInterestRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.AccruedInterestRate (158)
 func (f AccruedInterestRateField) Tag() fix.Tag { return tag.AccruedInterestRate }
@@ -59,7 +58,7 @@ func NewAccruedInterestRate(val float64) *AccruedInterestRateField {
 }
 
 //AcctIDSourceField is a INT field
-type AcctIDSourceField struct{ message.IntValue }
+type AcctIDSourceField struct{ fix.IntValue }
 
 //Tag returns tag.AcctIDSource (660)
 func (f AcctIDSourceField) Tag() fix.Tag { return tag.AcctIDSource }
@@ -72,7 +71,7 @@ func NewAcctIDSource(val int) *AcctIDSourceField {
 }
 
 //AdjustmentField is a INT field
-type AdjustmentField struct{ message.IntValue }
+type AdjustmentField struct{ fix.IntValue }
 
 //Tag returns tag.Adjustment (334)
 func (f AdjustmentField) Tag() fix.Tag { return tag.Adjustment }
@@ -85,7 +84,7 @@ func NewAdjustment(val int) *AdjustmentField {
 }
 
 //AdjustmentTypeField is a INT field
-type AdjustmentTypeField struct{ message.IntValue }
+type AdjustmentTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AdjustmentType (718)
 func (f AdjustmentTypeField) Tag() fix.Tag { return tag.AdjustmentType }
@@ -98,7 +97,7 @@ func NewAdjustmentType(val int) *AdjustmentTypeField {
 }
 
 //AdvIdField is a STRING field
-type AdvIdField struct{ message.StringValue }
+type AdvIdField struct{ fix.StringValue }
 
 //Tag returns tag.AdvId (2)
 func (f AdvIdField) Tag() fix.Tag { return tag.AdvId }
@@ -111,7 +110,7 @@ func NewAdvId(val string) *AdvIdField {
 }
 
 //AdvRefIDField is a STRING field
-type AdvRefIDField struct{ message.StringValue }
+type AdvRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.AdvRefID (3)
 func (f AdvRefIDField) Tag() fix.Tag { return tag.AdvRefID }
@@ -124,7 +123,7 @@ func NewAdvRefID(val string) *AdvRefIDField {
 }
 
 //AdvSideField is a CHAR field
-type AdvSideField struct{ message.CharValue }
+type AdvSideField struct{ fix.CharValue }
 
 //Tag returns tag.AdvSide (4)
 func (f AdvSideField) Tag() fix.Tag { return tag.AdvSide }
@@ -137,7 +136,7 @@ func NewAdvSide(val string) *AdvSideField {
 }
 
 //AdvTransTypeField is a STRING field
-type AdvTransTypeField struct{ message.StringValue }
+type AdvTransTypeField struct{ fix.StringValue }
 
 //Tag returns tag.AdvTransType (5)
 func (f AdvTransTypeField) Tag() fix.Tag { return tag.AdvTransType }
@@ -150,7 +149,7 @@ func NewAdvTransType(val string) *AdvTransTypeField {
 }
 
 //AffectedOrderIDField is a STRING field
-type AffectedOrderIDField struct{ message.StringValue }
+type AffectedOrderIDField struct{ fix.StringValue }
 
 //Tag returns tag.AffectedOrderID (535)
 func (f AffectedOrderIDField) Tag() fix.Tag { return tag.AffectedOrderID }
@@ -163,7 +162,7 @@ func NewAffectedOrderID(val string) *AffectedOrderIDField {
 }
 
 //AffectedSecondaryOrderIDField is a STRING field
-type AffectedSecondaryOrderIDField struct{ message.StringValue }
+type AffectedSecondaryOrderIDField struct{ fix.StringValue }
 
 //Tag returns tag.AffectedSecondaryOrderID (536)
 func (f AffectedSecondaryOrderIDField) Tag() fix.Tag { return tag.AffectedSecondaryOrderID }
@@ -176,7 +175,7 @@ func NewAffectedSecondaryOrderID(val string) *AffectedSecondaryOrderIDField {
 }
 
 //AffirmStatusField is a INT field
-type AffirmStatusField struct{ message.IntValue }
+type AffirmStatusField struct{ fix.IntValue }
 
 //Tag returns tag.AffirmStatus (940)
 func (f AffirmStatusField) Tag() fix.Tag { return tag.AffirmStatus }
@@ -189,7 +188,7 @@ func NewAffirmStatus(val int) *AffirmStatusField {
 }
 
 //AggregatedBookField is a BOOLEAN field
-type AggregatedBookField struct{ message.BooleanValue }
+type AggregatedBookField struct{ fix.BooleanValue }
 
 //Tag returns tag.AggregatedBook (266)
 func (f AggregatedBookField) Tag() fix.Tag { return tag.AggregatedBook }
@@ -202,7 +201,7 @@ func NewAggregatedBook(val bool) *AggregatedBookField {
 }
 
 //AggressorIndicatorField is a BOOLEAN field
-type AggressorIndicatorField struct{ message.BooleanValue }
+type AggressorIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.AggressorIndicator (1057)
 func (f AggressorIndicatorField) Tag() fix.Tag { return tag.AggressorIndicator }
@@ -215,7 +214,7 @@ func NewAggressorIndicator(val bool) *AggressorIndicatorField {
 }
 
 //AgreementCurrencyField is a CURRENCY field
-type AgreementCurrencyField struct{ message.CurrencyValue }
+type AgreementCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.AgreementCurrency (918)
 func (f AgreementCurrencyField) Tag() fix.Tag { return tag.AgreementCurrency }
@@ -228,7 +227,7 @@ func NewAgreementCurrency(val string) *AgreementCurrencyField {
 }
 
 //AgreementDateField is a LOCALMKTDATE field
-type AgreementDateField struct{ message.LocalMktDateValue }
+type AgreementDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.AgreementDate (915)
 func (f AgreementDateField) Tag() fix.Tag { return tag.AgreementDate }
@@ -241,7 +240,7 @@ func NewAgreementDate(val string) *AgreementDateField {
 }
 
 //AgreementDescField is a STRING field
-type AgreementDescField struct{ message.StringValue }
+type AgreementDescField struct{ fix.StringValue }
 
 //Tag returns tag.AgreementDesc (913)
 func (f AgreementDescField) Tag() fix.Tag { return tag.AgreementDesc }
@@ -254,7 +253,7 @@ func NewAgreementDesc(val string) *AgreementDescField {
 }
 
 //AgreementIDField is a STRING field
-type AgreementIDField struct{ message.StringValue }
+type AgreementIDField struct{ fix.StringValue }
 
 //Tag returns tag.AgreementID (914)
 func (f AgreementIDField) Tag() fix.Tag { return tag.AgreementID }
@@ -267,7 +266,7 @@ func NewAgreementID(val string) *AgreementIDField {
 }
 
 //AllocAccountField is a STRING field
-type AllocAccountField struct{ message.StringValue }
+type AllocAccountField struct{ fix.StringValue }
 
 //Tag returns tag.AllocAccount (79)
 func (f AllocAccountField) Tag() fix.Tag { return tag.AllocAccount }
@@ -280,7 +279,7 @@ func NewAllocAccount(val string) *AllocAccountField {
 }
 
 //AllocAccountTypeField is a INT field
-type AllocAccountTypeField struct{ message.IntValue }
+type AllocAccountTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AllocAccountType (798)
 func (f AllocAccountTypeField) Tag() fix.Tag { return tag.AllocAccountType }
@@ -293,7 +292,7 @@ func NewAllocAccountType(val int) *AllocAccountTypeField {
 }
 
 //AllocAccruedInterestAmtField is a AMT field
-type AllocAccruedInterestAmtField struct{ message.AmtValue }
+type AllocAccruedInterestAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.AllocAccruedInterestAmt (742)
 func (f AllocAccruedInterestAmtField) Tag() fix.Tag { return tag.AllocAccruedInterestAmt }
@@ -306,7 +305,7 @@ func NewAllocAccruedInterestAmt(val float64) *AllocAccruedInterestAmtField {
 }
 
 //AllocAcctIDSourceField is a INT field
-type AllocAcctIDSourceField struct{ message.IntValue }
+type AllocAcctIDSourceField struct{ fix.IntValue }
 
 //Tag returns tag.AllocAcctIDSource (661)
 func (f AllocAcctIDSourceField) Tag() fix.Tag { return tag.AllocAcctIDSource }
@@ -319,7 +318,7 @@ func NewAllocAcctIDSource(val int) *AllocAcctIDSourceField {
 }
 
 //AllocAvgPxField is a PRICE field
-type AllocAvgPxField struct{ message.PriceValue }
+type AllocAvgPxField struct{ fix.PriceValue }
 
 //Tag returns tag.AllocAvgPx (153)
 func (f AllocAvgPxField) Tag() fix.Tag { return tag.AllocAvgPx }
@@ -332,7 +331,7 @@ func NewAllocAvgPx(val float64) *AllocAvgPxField {
 }
 
 //AllocCancReplaceReasonField is a INT field
-type AllocCancReplaceReasonField struct{ message.IntValue }
+type AllocCancReplaceReasonField struct{ fix.IntValue }
 
 //Tag returns tag.AllocCancReplaceReason (796)
 func (f AllocCancReplaceReasonField) Tag() fix.Tag { return tag.AllocCancReplaceReason }
@@ -345,7 +344,7 @@ func NewAllocCancReplaceReason(val int) *AllocCancReplaceReasonField {
 }
 
 //AllocClearingFeeIndicatorField is a STRING field
-type AllocClearingFeeIndicatorField struct{ message.StringValue }
+type AllocClearingFeeIndicatorField struct{ fix.StringValue }
 
 //Tag returns tag.AllocClearingFeeIndicator (1136)
 func (f AllocClearingFeeIndicatorField) Tag() fix.Tag { return tag.AllocClearingFeeIndicator }
@@ -358,7 +357,7 @@ func NewAllocClearingFeeIndicator(val string) *AllocClearingFeeIndicatorField {
 }
 
 //AllocCustomerCapacityField is a STRING field
-type AllocCustomerCapacityField struct{ message.StringValue }
+type AllocCustomerCapacityField struct{ fix.StringValue }
 
 //Tag returns tag.AllocCustomerCapacity (993)
 func (f AllocCustomerCapacityField) Tag() fix.Tag { return tag.AllocCustomerCapacity }
@@ -371,7 +370,7 @@ func NewAllocCustomerCapacity(val string) *AllocCustomerCapacityField {
 }
 
 //AllocHandlInstField is a INT field
-type AllocHandlInstField struct{ message.IntValue }
+type AllocHandlInstField struct{ fix.IntValue }
 
 //Tag returns tag.AllocHandlInst (209)
 func (f AllocHandlInstField) Tag() fix.Tag { return tag.AllocHandlInst }
@@ -384,7 +383,7 @@ func NewAllocHandlInst(val int) *AllocHandlInstField {
 }
 
 //AllocIDField is a STRING field
-type AllocIDField struct{ message.StringValue }
+type AllocIDField struct{ fix.StringValue }
 
 //Tag returns tag.AllocID (70)
 func (f AllocIDField) Tag() fix.Tag { return tag.AllocID }
@@ -397,7 +396,7 @@ func NewAllocID(val string) *AllocIDField {
 }
 
 //AllocInterestAtMaturityField is a AMT field
-type AllocInterestAtMaturityField struct{ message.AmtValue }
+type AllocInterestAtMaturityField struct{ fix.AmtValue }
 
 //Tag returns tag.AllocInterestAtMaturity (741)
 func (f AllocInterestAtMaturityField) Tag() fix.Tag { return tag.AllocInterestAtMaturity }
@@ -410,7 +409,7 @@ func NewAllocInterestAtMaturity(val float64) *AllocInterestAtMaturityField {
 }
 
 //AllocIntermedReqTypeField is a INT field
-type AllocIntermedReqTypeField struct{ message.IntValue }
+type AllocIntermedReqTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AllocIntermedReqType (808)
 func (f AllocIntermedReqTypeField) Tag() fix.Tag { return tag.AllocIntermedReqType }
@@ -423,7 +422,7 @@ func NewAllocIntermedReqType(val int) *AllocIntermedReqTypeField {
 }
 
 //AllocLinkIDField is a STRING field
-type AllocLinkIDField struct{ message.StringValue }
+type AllocLinkIDField struct{ fix.StringValue }
 
 //Tag returns tag.AllocLinkID (196)
 func (f AllocLinkIDField) Tag() fix.Tag { return tag.AllocLinkID }
@@ -436,7 +435,7 @@ func NewAllocLinkID(val string) *AllocLinkIDField {
 }
 
 //AllocLinkTypeField is a INT field
-type AllocLinkTypeField struct{ message.IntValue }
+type AllocLinkTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AllocLinkType (197)
 func (f AllocLinkTypeField) Tag() fix.Tag { return tag.AllocLinkType }
@@ -449,7 +448,7 @@ func NewAllocLinkType(val int) *AllocLinkTypeField {
 }
 
 //AllocMethodField is a INT field
-type AllocMethodField struct{ message.IntValue }
+type AllocMethodField struct{ fix.IntValue }
 
 //Tag returns tag.AllocMethod (1002)
 func (f AllocMethodField) Tag() fix.Tag { return tag.AllocMethod }
@@ -462,7 +461,7 @@ func NewAllocMethod(val int) *AllocMethodField {
 }
 
 //AllocNetMoneyField is a AMT field
-type AllocNetMoneyField struct{ message.AmtValue }
+type AllocNetMoneyField struct{ fix.AmtValue }
 
 //Tag returns tag.AllocNetMoney (154)
 func (f AllocNetMoneyField) Tag() fix.Tag { return tag.AllocNetMoney }
@@ -475,7 +474,7 @@ func NewAllocNetMoney(val float64) *AllocNetMoneyField {
 }
 
 //AllocNoOrdersTypeField is a INT field
-type AllocNoOrdersTypeField struct{ message.IntValue }
+type AllocNoOrdersTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AllocNoOrdersType (857)
 func (f AllocNoOrdersTypeField) Tag() fix.Tag { return tag.AllocNoOrdersType }
@@ -488,7 +487,7 @@ func NewAllocNoOrdersType(val int) *AllocNoOrdersTypeField {
 }
 
 //AllocPositionEffectField is a CHAR field
-type AllocPositionEffectField struct{ message.CharValue }
+type AllocPositionEffectField struct{ fix.CharValue }
 
 //Tag returns tag.AllocPositionEffect (1047)
 func (f AllocPositionEffectField) Tag() fix.Tag { return tag.AllocPositionEffect }
@@ -501,7 +500,7 @@ func NewAllocPositionEffect(val string) *AllocPositionEffectField {
 }
 
 //AllocPriceField is a PRICE field
-type AllocPriceField struct{ message.PriceValue }
+type AllocPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.AllocPrice (366)
 func (f AllocPriceField) Tag() fix.Tag { return tag.AllocPrice }
@@ -514,7 +513,7 @@ func NewAllocPrice(val float64) *AllocPriceField {
 }
 
 //AllocQtyField is a QTY field
-type AllocQtyField struct{ message.QtyValue }
+type AllocQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.AllocQty (80)
 func (f AllocQtyField) Tag() fix.Tag { return tag.AllocQty }
@@ -527,7 +526,7 @@ func NewAllocQty(val float64) *AllocQtyField {
 }
 
 //AllocRejCodeField is a INT field
-type AllocRejCodeField struct{ message.IntValue }
+type AllocRejCodeField struct{ fix.IntValue }
 
 //Tag returns tag.AllocRejCode (88)
 func (f AllocRejCodeField) Tag() fix.Tag { return tag.AllocRejCode }
@@ -540,7 +539,7 @@ func NewAllocRejCode(val int) *AllocRejCodeField {
 }
 
 //AllocReportIDField is a STRING field
-type AllocReportIDField struct{ message.StringValue }
+type AllocReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.AllocReportID (755)
 func (f AllocReportIDField) Tag() fix.Tag { return tag.AllocReportID }
@@ -553,7 +552,7 @@ func NewAllocReportID(val string) *AllocReportIDField {
 }
 
 //AllocReportRefIDField is a STRING field
-type AllocReportRefIDField struct{ message.StringValue }
+type AllocReportRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.AllocReportRefID (795)
 func (f AllocReportRefIDField) Tag() fix.Tag { return tag.AllocReportRefID }
@@ -566,7 +565,7 @@ func NewAllocReportRefID(val string) *AllocReportRefIDField {
 }
 
 //AllocReportTypeField is a INT field
-type AllocReportTypeField struct{ message.IntValue }
+type AllocReportTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AllocReportType (794)
 func (f AllocReportTypeField) Tag() fix.Tag { return tag.AllocReportType }
@@ -579,7 +578,7 @@ func NewAllocReportType(val int) *AllocReportTypeField {
 }
 
 //AllocSettlCurrAmtField is a AMT field
-type AllocSettlCurrAmtField struct{ message.AmtValue }
+type AllocSettlCurrAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.AllocSettlCurrAmt (737)
 func (f AllocSettlCurrAmtField) Tag() fix.Tag { return tag.AllocSettlCurrAmt }
@@ -592,7 +591,7 @@ func NewAllocSettlCurrAmt(val float64) *AllocSettlCurrAmtField {
 }
 
 //AllocSettlCurrencyField is a CURRENCY field
-type AllocSettlCurrencyField struct{ message.CurrencyValue }
+type AllocSettlCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.AllocSettlCurrency (736)
 func (f AllocSettlCurrencyField) Tag() fix.Tag { return tag.AllocSettlCurrency }
@@ -605,7 +604,7 @@ func NewAllocSettlCurrency(val string) *AllocSettlCurrencyField {
 }
 
 //AllocSettlInstTypeField is a INT field
-type AllocSettlInstTypeField struct{ message.IntValue }
+type AllocSettlInstTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AllocSettlInstType (780)
 func (f AllocSettlInstTypeField) Tag() fix.Tag { return tag.AllocSettlInstType }
@@ -618,7 +617,7 @@ func NewAllocSettlInstType(val int) *AllocSettlInstTypeField {
 }
 
 //AllocSharesField is a QTY field
-type AllocSharesField struct{ message.QtyValue }
+type AllocSharesField struct{ fix.QtyValue }
 
 //Tag returns tag.AllocShares (80)
 func (f AllocSharesField) Tag() fix.Tag { return tag.AllocShares }
@@ -631,7 +630,7 @@ func NewAllocShares(val float64) *AllocSharesField {
 }
 
 //AllocStatusField is a INT field
-type AllocStatusField struct{ message.IntValue }
+type AllocStatusField struct{ fix.IntValue }
 
 //Tag returns tag.AllocStatus (87)
 func (f AllocStatusField) Tag() fix.Tag { return tag.AllocStatus }
@@ -644,7 +643,7 @@ func NewAllocStatus(val int) *AllocStatusField {
 }
 
 //AllocTextField is a STRING field
-type AllocTextField struct{ message.StringValue }
+type AllocTextField struct{ fix.StringValue }
 
 //Tag returns tag.AllocText (161)
 func (f AllocTextField) Tag() fix.Tag { return tag.AllocText }
@@ -657,7 +656,7 @@ func NewAllocText(val string) *AllocTextField {
 }
 
 //AllocTransTypeField is a CHAR field
-type AllocTransTypeField struct{ message.CharValue }
+type AllocTransTypeField struct{ fix.CharValue }
 
 //Tag returns tag.AllocTransType (71)
 func (f AllocTransTypeField) Tag() fix.Tag { return tag.AllocTransType }
@@ -670,7 +669,7 @@ func NewAllocTransType(val string) *AllocTransTypeField {
 }
 
 //AllocTypeField is a INT field
-type AllocTypeField struct{ message.IntValue }
+type AllocTypeField struct{ fix.IntValue }
 
 //Tag returns tag.AllocType (626)
 func (f AllocTypeField) Tag() fix.Tag { return tag.AllocType }
@@ -683,7 +682,7 @@ func NewAllocType(val int) *AllocTypeField {
 }
 
 //AllowableOneSidednessCurrField is a CURRENCY field
-type AllowableOneSidednessCurrField struct{ message.CurrencyValue }
+type AllowableOneSidednessCurrField struct{ fix.CurrencyValue }
 
 //Tag returns tag.AllowableOneSidednessCurr (767)
 func (f AllowableOneSidednessCurrField) Tag() fix.Tag { return tag.AllowableOneSidednessCurr }
@@ -696,7 +695,7 @@ func NewAllowableOneSidednessCurr(val string) *AllowableOneSidednessCurrField {
 }
 
 //AllowableOneSidednessPctField is a PERCENTAGE field
-type AllowableOneSidednessPctField struct{ message.PercentageValue }
+type AllowableOneSidednessPctField struct{ fix.PercentageValue }
 
 //Tag returns tag.AllowableOneSidednessPct (765)
 func (f AllowableOneSidednessPctField) Tag() fix.Tag { return tag.AllowableOneSidednessPct }
@@ -709,7 +708,7 @@ func NewAllowableOneSidednessPct(val float64) *AllowableOneSidednessPctField {
 }
 
 //AllowableOneSidednessValueField is a AMT field
-type AllowableOneSidednessValueField struct{ message.AmtValue }
+type AllowableOneSidednessValueField struct{ fix.AmtValue }
 
 //Tag returns tag.AllowableOneSidednessValue (766)
 func (f AllowableOneSidednessValueField) Tag() fix.Tag { return tag.AllowableOneSidednessValue }
@@ -722,7 +721,7 @@ func NewAllowableOneSidednessValue(val float64) *AllowableOneSidednessValueField
 }
 
 //AltMDSourceIDField is a STRING field
-type AltMDSourceIDField struct{ message.StringValue }
+type AltMDSourceIDField struct{ fix.StringValue }
 
 //Tag returns tag.AltMDSourceID (817)
 func (f AltMDSourceIDField) Tag() fix.Tag { return tag.AltMDSourceID }
@@ -735,7 +734,7 @@ func NewAltMDSourceID(val string) *AltMDSourceIDField {
 }
 
 //ApplBegSeqNumField is a SEQNUM field
-type ApplBegSeqNumField struct{ message.SeqNumValue }
+type ApplBegSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.ApplBegSeqNum (1182)
 func (f ApplBegSeqNumField) Tag() fix.Tag { return tag.ApplBegSeqNum }
@@ -748,7 +747,7 @@ func NewApplBegSeqNum(val int) *ApplBegSeqNumField {
 }
 
 //ApplEndSeqNumField is a SEQNUM field
-type ApplEndSeqNumField struct{ message.SeqNumValue }
+type ApplEndSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.ApplEndSeqNum (1183)
 func (f ApplEndSeqNumField) Tag() fix.Tag { return tag.ApplEndSeqNum }
@@ -761,7 +760,7 @@ func NewApplEndSeqNum(val int) *ApplEndSeqNumField {
 }
 
 //ApplExtIDField is a INT field
-type ApplExtIDField struct{ message.IntValue }
+type ApplExtIDField struct{ fix.IntValue }
 
 //Tag returns tag.ApplExtID (1156)
 func (f ApplExtIDField) Tag() fix.Tag { return tag.ApplExtID }
@@ -774,7 +773,7 @@ func NewApplExtID(val int) *ApplExtIDField {
 }
 
 //ApplIDField is a STRING field
-type ApplIDField struct{ message.StringValue }
+type ApplIDField struct{ fix.StringValue }
 
 //Tag returns tag.ApplID (1180)
 func (f ApplIDField) Tag() fix.Tag { return tag.ApplID }
@@ -787,7 +786,7 @@ func NewApplID(val string) *ApplIDField {
 }
 
 //ApplLastSeqNumField is a SEQNUM field
-type ApplLastSeqNumField struct{ message.SeqNumValue }
+type ApplLastSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.ApplLastSeqNum (1350)
 func (f ApplLastSeqNumField) Tag() fix.Tag { return tag.ApplLastSeqNum }
@@ -800,7 +799,7 @@ func NewApplLastSeqNum(val int) *ApplLastSeqNumField {
 }
 
 //ApplNewSeqNumField is a SEQNUM field
-type ApplNewSeqNumField struct{ message.SeqNumValue }
+type ApplNewSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.ApplNewSeqNum (1399)
 func (f ApplNewSeqNumField) Tag() fix.Tag { return tag.ApplNewSeqNum }
@@ -813,7 +812,7 @@ func NewApplNewSeqNum(val int) *ApplNewSeqNumField {
 }
 
 //ApplQueueActionField is a INT field
-type ApplQueueActionField struct{ message.IntValue }
+type ApplQueueActionField struct{ fix.IntValue }
 
 //Tag returns tag.ApplQueueAction (815)
 func (f ApplQueueActionField) Tag() fix.Tag { return tag.ApplQueueAction }
@@ -826,7 +825,7 @@ func NewApplQueueAction(val int) *ApplQueueActionField {
 }
 
 //ApplQueueDepthField is a INT field
-type ApplQueueDepthField struct{ message.IntValue }
+type ApplQueueDepthField struct{ fix.IntValue }
 
 //Tag returns tag.ApplQueueDepth (813)
 func (f ApplQueueDepthField) Tag() fix.Tag { return tag.ApplQueueDepth }
@@ -839,7 +838,7 @@ func NewApplQueueDepth(val int) *ApplQueueDepthField {
 }
 
 //ApplQueueMaxField is a INT field
-type ApplQueueMaxField struct{ message.IntValue }
+type ApplQueueMaxField struct{ fix.IntValue }
 
 //Tag returns tag.ApplQueueMax (812)
 func (f ApplQueueMaxField) Tag() fix.Tag { return tag.ApplQueueMax }
@@ -852,7 +851,7 @@ func NewApplQueueMax(val int) *ApplQueueMaxField {
 }
 
 //ApplQueueResolutionField is a INT field
-type ApplQueueResolutionField struct{ message.IntValue }
+type ApplQueueResolutionField struct{ fix.IntValue }
 
 //Tag returns tag.ApplQueueResolution (814)
 func (f ApplQueueResolutionField) Tag() fix.Tag { return tag.ApplQueueResolution }
@@ -865,7 +864,7 @@ func NewApplQueueResolution(val int) *ApplQueueResolutionField {
 }
 
 //ApplReportIDField is a STRING field
-type ApplReportIDField struct{ message.StringValue }
+type ApplReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.ApplReportID (1356)
 func (f ApplReportIDField) Tag() fix.Tag { return tag.ApplReportID }
@@ -878,7 +877,7 @@ func NewApplReportID(val string) *ApplReportIDField {
 }
 
 //ApplReportTypeField is a INT field
-type ApplReportTypeField struct{ message.IntValue }
+type ApplReportTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ApplReportType (1426)
 func (f ApplReportTypeField) Tag() fix.Tag { return tag.ApplReportType }
@@ -891,7 +890,7 @@ func NewApplReportType(val int) *ApplReportTypeField {
 }
 
 //ApplReqIDField is a STRING field
-type ApplReqIDField struct{ message.StringValue }
+type ApplReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.ApplReqID (1346)
 func (f ApplReqIDField) Tag() fix.Tag { return tag.ApplReqID }
@@ -904,7 +903,7 @@ func NewApplReqID(val string) *ApplReqIDField {
 }
 
 //ApplReqTypeField is a INT field
-type ApplReqTypeField struct{ message.IntValue }
+type ApplReqTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ApplReqType (1347)
 func (f ApplReqTypeField) Tag() fix.Tag { return tag.ApplReqType }
@@ -917,7 +916,7 @@ func NewApplReqType(val int) *ApplReqTypeField {
 }
 
 //ApplResendFlagField is a BOOLEAN field
-type ApplResendFlagField struct{ message.BooleanValue }
+type ApplResendFlagField struct{ fix.BooleanValue }
 
 //Tag returns tag.ApplResendFlag (1352)
 func (f ApplResendFlagField) Tag() fix.Tag { return tag.ApplResendFlag }
@@ -930,7 +929,7 @@ func NewApplResendFlag(val bool) *ApplResendFlagField {
 }
 
 //ApplResponseErrorField is a INT field
-type ApplResponseErrorField struct{ message.IntValue }
+type ApplResponseErrorField struct{ fix.IntValue }
 
 //Tag returns tag.ApplResponseError (1354)
 func (f ApplResponseErrorField) Tag() fix.Tag { return tag.ApplResponseError }
@@ -943,7 +942,7 @@ func NewApplResponseError(val int) *ApplResponseErrorField {
 }
 
 //ApplResponseIDField is a STRING field
-type ApplResponseIDField struct{ message.StringValue }
+type ApplResponseIDField struct{ fix.StringValue }
 
 //Tag returns tag.ApplResponseID (1353)
 func (f ApplResponseIDField) Tag() fix.Tag { return tag.ApplResponseID }
@@ -956,7 +955,7 @@ func NewApplResponseID(val string) *ApplResponseIDField {
 }
 
 //ApplResponseTypeField is a INT field
-type ApplResponseTypeField struct{ message.IntValue }
+type ApplResponseTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ApplResponseType (1348)
 func (f ApplResponseTypeField) Tag() fix.Tag { return tag.ApplResponseType }
@@ -969,7 +968,7 @@ func NewApplResponseType(val int) *ApplResponseTypeField {
 }
 
 //ApplSeqNumField is a SEQNUM field
-type ApplSeqNumField struct{ message.SeqNumValue }
+type ApplSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.ApplSeqNum (1181)
 func (f ApplSeqNumField) Tag() fix.Tag { return tag.ApplSeqNum }
@@ -982,7 +981,7 @@ func NewApplSeqNum(val int) *ApplSeqNumField {
 }
 
 //ApplTotalMessageCountField is a INT field
-type ApplTotalMessageCountField struct{ message.IntValue }
+type ApplTotalMessageCountField struct{ fix.IntValue }
 
 //Tag returns tag.ApplTotalMessageCount (1349)
 func (f ApplTotalMessageCountField) Tag() fix.Tag { return tag.ApplTotalMessageCount }
@@ -995,7 +994,7 @@ func NewApplTotalMessageCount(val int) *ApplTotalMessageCountField {
 }
 
 //ApplVerIDField is a STRING field
-type ApplVerIDField struct{ message.StringValue }
+type ApplVerIDField struct{ fix.StringValue }
 
 //Tag returns tag.ApplVerID (1128)
 func (f ApplVerIDField) Tag() fix.Tag { return tag.ApplVerID }
@@ -1008,7 +1007,7 @@ func NewApplVerID(val string) *ApplVerIDField {
 }
 
 //AsOfIndicatorField is a CHAR field
-type AsOfIndicatorField struct{ message.CharValue }
+type AsOfIndicatorField struct{ fix.CharValue }
 
 //Tag returns tag.AsOfIndicator (1015)
 func (f AsOfIndicatorField) Tag() fix.Tag { return tag.AsOfIndicator }
@@ -1021,7 +1020,7 @@ func NewAsOfIndicator(val string) *AsOfIndicatorField {
 }
 
 //AsgnReqIDField is a STRING field
-type AsgnReqIDField struct{ message.StringValue }
+type AsgnReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.AsgnReqID (831)
 func (f AsgnReqIDField) Tag() fix.Tag { return tag.AsgnReqID }
@@ -1034,7 +1033,7 @@ func NewAsgnReqID(val string) *AsgnReqIDField {
 }
 
 //AsgnRptIDField is a STRING field
-type AsgnRptIDField struct{ message.StringValue }
+type AsgnRptIDField struct{ fix.StringValue }
 
 //Tag returns tag.AsgnRptID (833)
 func (f AsgnRptIDField) Tag() fix.Tag { return tag.AsgnRptID }
@@ -1047,7 +1046,7 @@ func NewAsgnRptID(val string) *AsgnRptIDField {
 }
 
 //AssignmentMethodField is a CHAR field
-type AssignmentMethodField struct{ message.CharValue }
+type AssignmentMethodField struct{ fix.CharValue }
 
 //Tag returns tag.AssignmentMethod (744)
 func (f AssignmentMethodField) Tag() fix.Tag { return tag.AssignmentMethod }
@@ -1060,7 +1059,7 @@ func NewAssignmentMethod(val string) *AssignmentMethodField {
 }
 
 //AssignmentUnitField is a QTY field
-type AssignmentUnitField struct{ message.QtyValue }
+type AssignmentUnitField struct{ fix.QtyValue }
 
 //Tag returns tag.AssignmentUnit (745)
 func (f AssignmentUnitField) Tag() fix.Tag { return tag.AssignmentUnit }
@@ -1073,7 +1072,7 @@ func NewAssignmentUnit(val float64) *AssignmentUnitField {
 }
 
 //AttachmentPointField is a PERCENTAGE field
-type AttachmentPointField struct{ message.PercentageValue }
+type AttachmentPointField struct{ fix.PercentageValue }
 
 //Tag returns tag.AttachmentPoint (1457)
 func (f AttachmentPointField) Tag() fix.Tag { return tag.AttachmentPoint }
@@ -1086,7 +1085,7 @@ func NewAttachmentPoint(val float64) *AttachmentPointField {
 }
 
 //AutoAcceptIndicatorField is a BOOLEAN field
-type AutoAcceptIndicatorField struct{ message.BooleanValue }
+type AutoAcceptIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.AutoAcceptIndicator (754)
 func (f AutoAcceptIndicatorField) Tag() fix.Tag { return tag.AutoAcceptIndicator }
@@ -1099,7 +1098,7 @@ func NewAutoAcceptIndicator(val bool) *AutoAcceptIndicatorField {
 }
 
 //AvgParPxField is a PRICE field
-type AvgParPxField struct{ message.PriceValue }
+type AvgParPxField struct{ fix.PriceValue }
 
 //Tag returns tag.AvgParPx (860)
 func (f AvgParPxField) Tag() fix.Tag { return tag.AvgParPx }
@@ -1112,7 +1111,7 @@ func NewAvgParPx(val float64) *AvgParPxField {
 }
 
 //AvgPrxPrecisionField is a INT field
-type AvgPrxPrecisionField struct{ message.IntValue }
+type AvgPrxPrecisionField struct{ fix.IntValue }
 
 //Tag returns tag.AvgPrxPrecision (74)
 func (f AvgPrxPrecisionField) Tag() fix.Tag { return tag.AvgPrxPrecision }
@@ -1125,7 +1124,7 @@ func NewAvgPrxPrecision(val int) *AvgPrxPrecisionField {
 }
 
 //AvgPxField is a PRICE field
-type AvgPxField struct{ message.PriceValue }
+type AvgPxField struct{ fix.PriceValue }
 
 //Tag returns tag.AvgPx (6)
 func (f AvgPxField) Tag() fix.Tag { return tag.AvgPx }
@@ -1138,7 +1137,7 @@ func NewAvgPx(val float64) *AvgPxField {
 }
 
 //AvgPxIndicatorField is a INT field
-type AvgPxIndicatorField struct{ message.IntValue }
+type AvgPxIndicatorField struct{ fix.IntValue }
 
 //Tag returns tag.AvgPxIndicator (819)
 func (f AvgPxIndicatorField) Tag() fix.Tag { return tag.AvgPxIndicator }
@@ -1151,7 +1150,7 @@ func NewAvgPxIndicator(val int) *AvgPxIndicatorField {
 }
 
 //AvgPxPrecisionField is a INT field
-type AvgPxPrecisionField struct{ message.IntValue }
+type AvgPxPrecisionField struct{ fix.IntValue }
 
 //Tag returns tag.AvgPxPrecision (74)
 func (f AvgPxPrecisionField) Tag() fix.Tag { return tag.AvgPxPrecision }
@@ -1164,7 +1163,7 @@ func NewAvgPxPrecision(val int) *AvgPxPrecisionField {
 }
 
 //BasisFeatureDateField is a LOCALMKTDATE field
-type BasisFeatureDateField struct{ message.LocalMktDateValue }
+type BasisFeatureDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.BasisFeatureDate (259)
 func (f BasisFeatureDateField) Tag() fix.Tag { return tag.BasisFeatureDate }
@@ -1177,7 +1176,7 @@ func NewBasisFeatureDate(val string) *BasisFeatureDateField {
 }
 
 //BasisFeaturePriceField is a PRICE field
-type BasisFeaturePriceField struct{ message.PriceValue }
+type BasisFeaturePriceField struct{ fix.PriceValue }
 
 //Tag returns tag.BasisFeaturePrice (260)
 func (f BasisFeaturePriceField) Tag() fix.Tag { return tag.BasisFeaturePrice }
@@ -1190,7 +1189,7 @@ func NewBasisFeaturePrice(val float64) *BasisFeaturePriceField {
 }
 
 //BasisPxTypeField is a CHAR field
-type BasisPxTypeField struct{ message.CharValue }
+type BasisPxTypeField struct{ fix.CharValue }
 
 //Tag returns tag.BasisPxType (419)
 func (f BasisPxTypeField) Tag() fix.Tag { return tag.BasisPxType }
@@ -1203,7 +1202,7 @@ func NewBasisPxType(val string) *BasisPxTypeField {
 }
 
 //BeginSeqNoField is a SEQNUM field
-type BeginSeqNoField struct{ message.SeqNumValue }
+type BeginSeqNoField struct{ fix.SeqNumValue }
 
 //Tag returns tag.BeginSeqNo (7)
 func (f BeginSeqNoField) Tag() fix.Tag { return tag.BeginSeqNo }
@@ -1216,7 +1215,7 @@ func NewBeginSeqNo(val int) *BeginSeqNoField {
 }
 
 //BeginStringField is a STRING field
-type BeginStringField struct{ message.StringValue }
+type BeginStringField struct{ fix.StringValue }
 
 //Tag returns tag.BeginString (8)
 func (f BeginStringField) Tag() fix.Tag { return tag.BeginString }
@@ -1229,7 +1228,7 @@ func NewBeginString(val string) *BeginStringField {
 }
 
 //BenchmarkField is a CHAR field
-type BenchmarkField struct{ message.CharValue }
+type BenchmarkField struct{ fix.CharValue }
 
 //Tag returns tag.Benchmark (219)
 func (f BenchmarkField) Tag() fix.Tag { return tag.Benchmark }
@@ -1242,7 +1241,7 @@ func NewBenchmark(val string) *BenchmarkField {
 }
 
 //BenchmarkCurveCurrencyField is a CURRENCY field
-type BenchmarkCurveCurrencyField struct{ message.CurrencyValue }
+type BenchmarkCurveCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.BenchmarkCurveCurrency (220)
 func (f BenchmarkCurveCurrencyField) Tag() fix.Tag { return tag.BenchmarkCurveCurrency }
@@ -1255,7 +1254,7 @@ func NewBenchmarkCurveCurrency(val string) *BenchmarkCurveCurrencyField {
 }
 
 //BenchmarkCurveNameField is a STRING field
-type BenchmarkCurveNameField struct{ message.StringValue }
+type BenchmarkCurveNameField struct{ fix.StringValue }
 
 //Tag returns tag.BenchmarkCurveName (221)
 func (f BenchmarkCurveNameField) Tag() fix.Tag { return tag.BenchmarkCurveName }
@@ -1268,7 +1267,7 @@ func NewBenchmarkCurveName(val string) *BenchmarkCurveNameField {
 }
 
 //BenchmarkCurvePointField is a STRING field
-type BenchmarkCurvePointField struct{ message.StringValue }
+type BenchmarkCurvePointField struct{ fix.StringValue }
 
 //Tag returns tag.BenchmarkCurvePoint (222)
 func (f BenchmarkCurvePointField) Tag() fix.Tag { return tag.BenchmarkCurvePoint }
@@ -1281,7 +1280,7 @@ func NewBenchmarkCurvePoint(val string) *BenchmarkCurvePointField {
 }
 
 //BenchmarkPriceField is a PRICE field
-type BenchmarkPriceField struct{ message.PriceValue }
+type BenchmarkPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.BenchmarkPrice (662)
 func (f BenchmarkPriceField) Tag() fix.Tag { return tag.BenchmarkPrice }
@@ -1294,7 +1293,7 @@ func NewBenchmarkPrice(val float64) *BenchmarkPriceField {
 }
 
 //BenchmarkPriceTypeField is a INT field
-type BenchmarkPriceTypeField struct{ message.IntValue }
+type BenchmarkPriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.BenchmarkPriceType (663)
 func (f BenchmarkPriceTypeField) Tag() fix.Tag { return tag.BenchmarkPriceType }
@@ -1307,7 +1306,7 @@ func NewBenchmarkPriceType(val int) *BenchmarkPriceTypeField {
 }
 
 //BenchmarkSecurityIDField is a STRING field
-type BenchmarkSecurityIDField struct{ message.StringValue }
+type BenchmarkSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.BenchmarkSecurityID (699)
 func (f BenchmarkSecurityIDField) Tag() fix.Tag { return tag.BenchmarkSecurityID }
@@ -1320,7 +1319,7 @@ func NewBenchmarkSecurityID(val string) *BenchmarkSecurityIDField {
 }
 
 //BenchmarkSecurityIDSourceField is a STRING field
-type BenchmarkSecurityIDSourceField struct{ message.StringValue }
+type BenchmarkSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.BenchmarkSecurityIDSource (761)
 func (f BenchmarkSecurityIDSourceField) Tag() fix.Tag { return tag.BenchmarkSecurityIDSource }
@@ -1333,7 +1332,7 @@ func NewBenchmarkSecurityIDSource(val string) *BenchmarkSecurityIDSourceField {
 }
 
 //BidDescriptorField is a STRING field
-type BidDescriptorField struct{ message.StringValue }
+type BidDescriptorField struct{ fix.StringValue }
 
 //Tag returns tag.BidDescriptor (400)
 func (f BidDescriptorField) Tag() fix.Tag { return tag.BidDescriptor }
@@ -1346,7 +1345,7 @@ func NewBidDescriptor(val string) *BidDescriptorField {
 }
 
 //BidDescriptorTypeField is a INT field
-type BidDescriptorTypeField struct{ message.IntValue }
+type BidDescriptorTypeField struct{ fix.IntValue }
 
 //Tag returns tag.BidDescriptorType (399)
 func (f BidDescriptorTypeField) Tag() fix.Tag { return tag.BidDescriptorType }
@@ -1359,7 +1358,7 @@ func NewBidDescriptorType(val int) *BidDescriptorTypeField {
 }
 
 //BidForwardPointsField is a PRICEOFFSET field
-type BidForwardPointsField struct{ message.PriceOffsetValue }
+type BidForwardPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.BidForwardPoints (189)
 func (f BidForwardPointsField) Tag() fix.Tag { return tag.BidForwardPoints }
@@ -1372,7 +1371,7 @@ func NewBidForwardPoints(val float64) *BidForwardPointsField {
 }
 
 //BidForwardPoints2Field is a PRICEOFFSET field
-type BidForwardPoints2Field struct{ message.PriceOffsetValue }
+type BidForwardPoints2Field struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.BidForwardPoints2 (642)
 func (f BidForwardPoints2Field) Tag() fix.Tag { return tag.BidForwardPoints2 }
@@ -1385,7 +1384,7 @@ func NewBidForwardPoints2(val float64) *BidForwardPoints2Field {
 }
 
 //BidIDField is a STRING field
-type BidIDField struct{ message.StringValue }
+type BidIDField struct{ fix.StringValue }
 
 //Tag returns tag.BidID (390)
 func (f BidIDField) Tag() fix.Tag { return tag.BidID }
@@ -1398,7 +1397,7 @@ func NewBidID(val string) *BidIDField {
 }
 
 //BidPxField is a PRICE field
-type BidPxField struct{ message.PriceValue }
+type BidPxField struct{ fix.PriceValue }
 
 //Tag returns tag.BidPx (132)
 func (f BidPxField) Tag() fix.Tag { return tag.BidPx }
@@ -1411,7 +1410,7 @@ func NewBidPx(val float64) *BidPxField {
 }
 
 //BidRequestTransTypeField is a CHAR field
-type BidRequestTransTypeField struct{ message.CharValue }
+type BidRequestTransTypeField struct{ fix.CharValue }
 
 //Tag returns tag.BidRequestTransType (374)
 func (f BidRequestTransTypeField) Tag() fix.Tag { return tag.BidRequestTransType }
@@ -1424,7 +1423,7 @@ func NewBidRequestTransType(val string) *BidRequestTransTypeField {
 }
 
 //BidSizeField is a QTY field
-type BidSizeField struct{ message.QtyValue }
+type BidSizeField struct{ fix.QtyValue }
 
 //Tag returns tag.BidSize (134)
 func (f BidSizeField) Tag() fix.Tag { return tag.BidSize }
@@ -1437,7 +1436,7 @@ func NewBidSize(val float64) *BidSizeField {
 }
 
 //BidSpotRateField is a PRICE field
-type BidSpotRateField struct{ message.PriceValue }
+type BidSpotRateField struct{ fix.PriceValue }
 
 //Tag returns tag.BidSpotRate (188)
 func (f BidSpotRateField) Tag() fix.Tag { return tag.BidSpotRate }
@@ -1450,7 +1449,7 @@ func NewBidSpotRate(val float64) *BidSpotRateField {
 }
 
 //BidSwapPointsField is a PRICEOFFSET field
-type BidSwapPointsField struct{ message.PriceOffsetValue }
+type BidSwapPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.BidSwapPoints (1065)
 func (f BidSwapPointsField) Tag() fix.Tag { return tag.BidSwapPoints }
@@ -1463,7 +1462,7 @@ func NewBidSwapPoints(val float64) *BidSwapPointsField {
 }
 
 //BidTradeTypeField is a CHAR field
-type BidTradeTypeField struct{ message.CharValue }
+type BidTradeTypeField struct{ fix.CharValue }
 
 //Tag returns tag.BidTradeType (418)
 func (f BidTradeTypeField) Tag() fix.Tag { return tag.BidTradeType }
@@ -1476,7 +1475,7 @@ func NewBidTradeType(val string) *BidTradeTypeField {
 }
 
 //BidTypeField is a INT field
-type BidTypeField struct{ message.IntValue }
+type BidTypeField struct{ fix.IntValue }
 
 //Tag returns tag.BidType (394)
 func (f BidTypeField) Tag() fix.Tag { return tag.BidType }
@@ -1489,7 +1488,7 @@ func NewBidType(val int) *BidTypeField {
 }
 
 //BidYieldField is a PERCENTAGE field
-type BidYieldField struct{ message.PercentageValue }
+type BidYieldField struct{ fix.PercentageValue }
 
 //Tag returns tag.BidYield (632)
 func (f BidYieldField) Tag() fix.Tag { return tag.BidYield }
@@ -1502,7 +1501,7 @@ func NewBidYield(val float64) *BidYieldField {
 }
 
 //BodyLengthField is a LENGTH field
-type BodyLengthField struct{ message.LengthValue }
+type BodyLengthField struct{ fix.LengthValue }
 
 //Tag returns tag.BodyLength (9)
 func (f BodyLengthField) Tag() fix.Tag { return tag.BodyLength }
@@ -1515,7 +1514,7 @@ func NewBodyLength(val int) *BodyLengthField {
 }
 
 //BookingRefIDField is a STRING field
-type BookingRefIDField struct{ message.StringValue }
+type BookingRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.BookingRefID (466)
 func (f BookingRefIDField) Tag() fix.Tag { return tag.BookingRefID }
@@ -1528,7 +1527,7 @@ func NewBookingRefID(val string) *BookingRefIDField {
 }
 
 //BookingTypeField is a INT field
-type BookingTypeField struct{ message.IntValue }
+type BookingTypeField struct{ fix.IntValue }
 
 //Tag returns tag.BookingType (775)
 func (f BookingTypeField) Tag() fix.Tag { return tag.BookingType }
@@ -1541,7 +1540,7 @@ func NewBookingType(val int) *BookingTypeField {
 }
 
 //BookingUnitField is a CHAR field
-type BookingUnitField struct{ message.CharValue }
+type BookingUnitField struct{ fix.CharValue }
 
 //Tag returns tag.BookingUnit (590)
 func (f BookingUnitField) Tag() fix.Tag { return tag.BookingUnit }
@@ -1554,7 +1553,7 @@ func NewBookingUnit(val string) *BookingUnitField {
 }
 
 //BrokerOfCreditField is a STRING field
-type BrokerOfCreditField struct{ message.StringValue }
+type BrokerOfCreditField struct{ fix.StringValue }
 
 //Tag returns tag.BrokerOfCredit (92)
 func (f BrokerOfCreditField) Tag() fix.Tag { return tag.BrokerOfCredit }
@@ -1567,7 +1566,7 @@ func NewBrokerOfCredit(val string) *BrokerOfCreditField {
 }
 
 //BusinessRejectReasonField is a INT field
-type BusinessRejectReasonField struct{ message.IntValue }
+type BusinessRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.BusinessRejectReason (380)
 func (f BusinessRejectReasonField) Tag() fix.Tag { return tag.BusinessRejectReason }
@@ -1580,7 +1579,7 @@ func NewBusinessRejectReason(val int) *BusinessRejectReasonField {
 }
 
 //BusinessRejectRefIDField is a STRING field
-type BusinessRejectRefIDField struct{ message.StringValue }
+type BusinessRejectRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.BusinessRejectRefID (379)
 func (f BusinessRejectRefIDField) Tag() fix.Tag { return tag.BusinessRejectRefID }
@@ -1593,7 +1592,7 @@ func NewBusinessRejectRefID(val string) *BusinessRejectRefIDField {
 }
 
 //BuyVolumeField is a QTY field
-type BuyVolumeField struct{ message.QtyValue }
+type BuyVolumeField struct{ fix.QtyValue }
 
 //Tag returns tag.BuyVolume (330)
 func (f BuyVolumeField) Tag() fix.Tag { return tag.BuyVolume }
@@ -1606,7 +1605,7 @@ func NewBuyVolume(val float64) *BuyVolumeField {
 }
 
 //CFICodeField is a STRING field
-type CFICodeField struct{ message.StringValue }
+type CFICodeField struct{ fix.StringValue }
 
 //Tag returns tag.CFICode (461)
 func (f CFICodeField) Tag() fix.Tag { return tag.CFICode }
@@ -1619,7 +1618,7 @@ func NewCFICode(val string) *CFICodeField {
 }
 
 //CPProgramField is a INT field
-type CPProgramField struct{ message.IntValue }
+type CPProgramField struct{ fix.IntValue }
 
 //Tag returns tag.CPProgram (875)
 func (f CPProgramField) Tag() fix.Tag { return tag.CPProgram }
@@ -1632,7 +1631,7 @@ func NewCPProgram(val int) *CPProgramField {
 }
 
 //CPRegTypeField is a STRING field
-type CPRegTypeField struct{ message.StringValue }
+type CPRegTypeField struct{ fix.StringValue }
 
 //Tag returns tag.CPRegType (876)
 func (f CPRegTypeField) Tag() fix.Tag { return tag.CPRegType }
@@ -1645,7 +1644,7 @@ func NewCPRegType(val string) *CPRegTypeField {
 }
 
 //CalculatedCcyLastQtyField is a QTY field
-type CalculatedCcyLastQtyField struct{ message.QtyValue }
+type CalculatedCcyLastQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.CalculatedCcyLastQty (1056)
 func (f CalculatedCcyLastQtyField) Tag() fix.Tag { return tag.CalculatedCcyLastQty }
@@ -1658,7 +1657,7 @@ func NewCalculatedCcyLastQty(val float64) *CalculatedCcyLastQtyField {
 }
 
 //CancellationRightsField is a CHAR field
-type CancellationRightsField struct{ message.CharValue }
+type CancellationRightsField struct{ fix.CharValue }
 
 //Tag returns tag.CancellationRights (480)
 func (f CancellationRightsField) Tag() fix.Tag { return tag.CancellationRights }
@@ -1671,7 +1670,7 @@ func NewCancellationRights(val string) *CancellationRightsField {
 }
 
 //CapPriceField is a PRICE field
-type CapPriceField struct{ message.PriceValue }
+type CapPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.CapPrice (1199)
 func (f CapPriceField) Tag() fix.Tag { return tag.CapPrice }
@@ -1684,7 +1683,7 @@ func NewCapPrice(val float64) *CapPriceField {
 }
 
 //CardExpDateField is a LOCALMKTDATE field
-type CardExpDateField struct{ message.LocalMktDateValue }
+type CardExpDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.CardExpDate (490)
 func (f CardExpDateField) Tag() fix.Tag { return tag.CardExpDate }
@@ -1697,7 +1696,7 @@ func NewCardExpDate(val string) *CardExpDateField {
 }
 
 //CardHolderNameField is a STRING field
-type CardHolderNameField struct{ message.StringValue }
+type CardHolderNameField struct{ fix.StringValue }
 
 //Tag returns tag.CardHolderName (488)
 func (f CardHolderNameField) Tag() fix.Tag { return tag.CardHolderName }
@@ -1710,7 +1709,7 @@ func NewCardHolderName(val string) *CardHolderNameField {
 }
 
 //CardIssNoField is a STRING field
-type CardIssNoField struct{ message.StringValue }
+type CardIssNoField struct{ fix.StringValue }
 
 //Tag returns tag.CardIssNo (491)
 func (f CardIssNoField) Tag() fix.Tag { return tag.CardIssNo }
@@ -1723,7 +1722,7 @@ func NewCardIssNo(val string) *CardIssNoField {
 }
 
 //CardIssNumField is a STRING field
-type CardIssNumField struct{ message.StringValue }
+type CardIssNumField struct{ fix.StringValue }
 
 //Tag returns tag.CardIssNum (491)
 func (f CardIssNumField) Tag() fix.Tag { return tag.CardIssNum }
@@ -1736,7 +1735,7 @@ func NewCardIssNum(val string) *CardIssNumField {
 }
 
 //CardNumberField is a STRING field
-type CardNumberField struct{ message.StringValue }
+type CardNumberField struct{ fix.StringValue }
 
 //Tag returns tag.CardNumber (489)
 func (f CardNumberField) Tag() fix.Tag { return tag.CardNumber }
@@ -1749,7 +1748,7 @@ func NewCardNumber(val string) *CardNumberField {
 }
 
 //CardStartDateField is a LOCALMKTDATE field
-type CardStartDateField struct{ message.LocalMktDateValue }
+type CardStartDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.CardStartDate (503)
 func (f CardStartDateField) Tag() fix.Tag { return tag.CardStartDate }
@@ -1762,7 +1761,7 @@ func NewCardStartDate(val string) *CardStartDateField {
 }
 
 //CashDistribAgentAcctNameField is a STRING field
-type CashDistribAgentAcctNameField struct{ message.StringValue }
+type CashDistribAgentAcctNameField struct{ fix.StringValue }
 
 //Tag returns tag.CashDistribAgentAcctName (502)
 func (f CashDistribAgentAcctNameField) Tag() fix.Tag { return tag.CashDistribAgentAcctName }
@@ -1775,7 +1774,7 @@ func NewCashDistribAgentAcctName(val string) *CashDistribAgentAcctNameField {
 }
 
 //CashDistribAgentAcctNumberField is a STRING field
-type CashDistribAgentAcctNumberField struct{ message.StringValue }
+type CashDistribAgentAcctNumberField struct{ fix.StringValue }
 
 //Tag returns tag.CashDistribAgentAcctNumber (500)
 func (f CashDistribAgentAcctNumberField) Tag() fix.Tag { return tag.CashDistribAgentAcctNumber }
@@ -1788,7 +1787,7 @@ func NewCashDistribAgentAcctNumber(val string) *CashDistribAgentAcctNumberField 
 }
 
 //CashDistribAgentCodeField is a STRING field
-type CashDistribAgentCodeField struct{ message.StringValue }
+type CashDistribAgentCodeField struct{ fix.StringValue }
 
 //Tag returns tag.CashDistribAgentCode (499)
 func (f CashDistribAgentCodeField) Tag() fix.Tag { return tag.CashDistribAgentCode }
@@ -1801,7 +1800,7 @@ func NewCashDistribAgentCode(val string) *CashDistribAgentCodeField {
 }
 
 //CashDistribAgentNameField is a STRING field
-type CashDistribAgentNameField struct{ message.StringValue }
+type CashDistribAgentNameField struct{ fix.StringValue }
 
 //Tag returns tag.CashDistribAgentName (498)
 func (f CashDistribAgentNameField) Tag() fix.Tag { return tag.CashDistribAgentName }
@@ -1814,7 +1813,7 @@ func NewCashDistribAgentName(val string) *CashDistribAgentNameField {
 }
 
 //CashDistribCurrField is a CURRENCY field
-type CashDistribCurrField struct{ message.CurrencyValue }
+type CashDistribCurrField struct{ fix.CurrencyValue }
 
 //Tag returns tag.CashDistribCurr (478)
 func (f CashDistribCurrField) Tag() fix.Tag { return tag.CashDistribCurr }
@@ -1827,7 +1826,7 @@ func NewCashDistribCurr(val string) *CashDistribCurrField {
 }
 
 //CashDistribPayRefField is a STRING field
-type CashDistribPayRefField struct{ message.StringValue }
+type CashDistribPayRefField struct{ fix.StringValue }
 
 //Tag returns tag.CashDistribPayRef (501)
 func (f CashDistribPayRefField) Tag() fix.Tag { return tag.CashDistribPayRef }
@@ -1840,7 +1839,7 @@ func NewCashDistribPayRef(val string) *CashDistribPayRefField {
 }
 
 //CashMarginField is a CHAR field
-type CashMarginField struct{ message.CharValue }
+type CashMarginField struct{ fix.CharValue }
 
 //Tag returns tag.CashMargin (544)
 func (f CashMarginField) Tag() fix.Tag { return tag.CashMargin }
@@ -1853,7 +1852,7 @@ func NewCashMargin(val string) *CashMarginField {
 }
 
 //CashOrderQtyField is a QTY field
-type CashOrderQtyField struct{ message.QtyValue }
+type CashOrderQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.CashOrderQty (152)
 func (f CashOrderQtyField) Tag() fix.Tag { return tag.CashOrderQty }
@@ -1866,7 +1865,7 @@ func NewCashOrderQty(val float64) *CashOrderQtyField {
 }
 
 //CashOutstandingField is a AMT field
-type CashOutstandingField struct{ message.AmtValue }
+type CashOutstandingField struct{ fix.AmtValue }
 
 //Tag returns tag.CashOutstanding (901)
 func (f CashOutstandingField) Tag() fix.Tag { return tag.CashOutstanding }
@@ -1879,7 +1878,7 @@ func NewCashOutstanding(val float64) *CashOutstandingField {
 }
 
 //CashSettlAgentAcctNameField is a STRING field
-type CashSettlAgentAcctNameField struct{ message.StringValue }
+type CashSettlAgentAcctNameField struct{ fix.StringValue }
 
 //Tag returns tag.CashSettlAgentAcctName (185)
 func (f CashSettlAgentAcctNameField) Tag() fix.Tag { return tag.CashSettlAgentAcctName }
@@ -1892,7 +1891,7 @@ func NewCashSettlAgentAcctName(val string) *CashSettlAgentAcctNameField {
 }
 
 //CashSettlAgentAcctNumField is a STRING field
-type CashSettlAgentAcctNumField struct{ message.StringValue }
+type CashSettlAgentAcctNumField struct{ fix.StringValue }
 
 //Tag returns tag.CashSettlAgentAcctNum (184)
 func (f CashSettlAgentAcctNumField) Tag() fix.Tag { return tag.CashSettlAgentAcctNum }
@@ -1905,7 +1904,7 @@ func NewCashSettlAgentAcctNum(val string) *CashSettlAgentAcctNumField {
 }
 
 //CashSettlAgentCodeField is a STRING field
-type CashSettlAgentCodeField struct{ message.StringValue }
+type CashSettlAgentCodeField struct{ fix.StringValue }
 
 //Tag returns tag.CashSettlAgentCode (183)
 func (f CashSettlAgentCodeField) Tag() fix.Tag { return tag.CashSettlAgentCode }
@@ -1918,7 +1917,7 @@ func NewCashSettlAgentCode(val string) *CashSettlAgentCodeField {
 }
 
 //CashSettlAgentContactNameField is a STRING field
-type CashSettlAgentContactNameField struct{ message.StringValue }
+type CashSettlAgentContactNameField struct{ fix.StringValue }
 
 //Tag returns tag.CashSettlAgentContactName (186)
 func (f CashSettlAgentContactNameField) Tag() fix.Tag { return tag.CashSettlAgentContactName }
@@ -1931,7 +1930,7 @@ func NewCashSettlAgentContactName(val string) *CashSettlAgentContactNameField {
 }
 
 //CashSettlAgentContactPhoneField is a STRING field
-type CashSettlAgentContactPhoneField struct{ message.StringValue }
+type CashSettlAgentContactPhoneField struct{ fix.StringValue }
 
 //Tag returns tag.CashSettlAgentContactPhone (187)
 func (f CashSettlAgentContactPhoneField) Tag() fix.Tag { return tag.CashSettlAgentContactPhone }
@@ -1944,7 +1943,7 @@ func NewCashSettlAgentContactPhone(val string) *CashSettlAgentContactPhoneField 
 }
 
 //CashSettlAgentNameField is a STRING field
-type CashSettlAgentNameField struct{ message.StringValue }
+type CashSettlAgentNameField struct{ fix.StringValue }
 
 //Tag returns tag.CashSettlAgentName (182)
 func (f CashSettlAgentNameField) Tag() fix.Tag { return tag.CashSettlAgentName }
@@ -1957,7 +1956,7 @@ func NewCashSettlAgentName(val string) *CashSettlAgentNameField {
 }
 
 //CcyAmtField is a AMT field
-type CcyAmtField struct{ message.AmtValue }
+type CcyAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.CcyAmt (1157)
 func (f CcyAmtField) Tag() fix.Tag { return tag.CcyAmt }
@@ -1970,7 +1969,7 @@ func NewCcyAmt(val float64) *CcyAmtField {
 }
 
 //CheckSumField is a STRING field
-type CheckSumField struct{ message.StringValue }
+type CheckSumField struct{ fix.StringValue }
 
 //Tag returns tag.CheckSum (10)
 func (f CheckSumField) Tag() fix.Tag { return tag.CheckSum }
@@ -1983,7 +1982,7 @@ func NewCheckSum(val string) *CheckSumField {
 }
 
 //ClOrdIDField is a STRING field
-type ClOrdIDField struct{ message.StringValue }
+type ClOrdIDField struct{ fix.StringValue }
 
 //Tag returns tag.ClOrdID (11)
 func (f ClOrdIDField) Tag() fix.Tag { return tag.ClOrdID }
@@ -1996,7 +1995,7 @@ func NewClOrdID(val string) *ClOrdIDField {
 }
 
 //ClOrdLinkIDField is a STRING field
-type ClOrdLinkIDField struct{ message.StringValue }
+type ClOrdLinkIDField struct{ fix.StringValue }
 
 //Tag returns tag.ClOrdLinkID (583)
 func (f ClOrdLinkIDField) Tag() fix.Tag { return tag.ClOrdLinkID }
@@ -2009,7 +2008,7 @@ func NewClOrdLinkID(val string) *ClOrdLinkIDField {
 }
 
 //ClearingAccountField is a STRING field
-type ClearingAccountField struct{ message.StringValue }
+type ClearingAccountField struct{ fix.StringValue }
 
 //Tag returns tag.ClearingAccount (440)
 func (f ClearingAccountField) Tag() fix.Tag { return tag.ClearingAccount }
@@ -2022,7 +2021,7 @@ func NewClearingAccount(val string) *ClearingAccountField {
 }
 
 //ClearingBusinessDateField is a LOCALMKTDATE field
-type ClearingBusinessDateField struct{ message.LocalMktDateValue }
+type ClearingBusinessDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.ClearingBusinessDate (715)
 func (f ClearingBusinessDateField) Tag() fix.Tag { return tag.ClearingBusinessDate }
@@ -2035,7 +2034,7 @@ func NewClearingBusinessDate(val string) *ClearingBusinessDateField {
 }
 
 //ClearingFeeIndicatorField is a STRING field
-type ClearingFeeIndicatorField struct{ message.StringValue }
+type ClearingFeeIndicatorField struct{ fix.StringValue }
 
 //Tag returns tag.ClearingFeeIndicator (635)
 func (f ClearingFeeIndicatorField) Tag() fix.Tag { return tag.ClearingFeeIndicator }
@@ -2048,7 +2047,7 @@ func NewClearingFeeIndicator(val string) *ClearingFeeIndicatorField {
 }
 
 //ClearingFirmField is a STRING field
-type ClearingFirmField struct{ message.StringValue }
+type ClearingFirmField struct{ fix.StringValue }
 
 //Tag returns tag.ClearingFirm (439)
 func (f ClearingFirmField) Tag() fix.Tag { return tag.ClearingFirm }
@@ -2061,7 +2060,7 @@ func NewClearingFirm(val string) *ClearingFirmField {
 }
 
 //ClearingInstructionField is a INT field
-type ClearingInstructionField struct{ message.IntValue }
+type ClearingInstructionField struct{ fix.IntValue }
 
 //Tag returns tag.ClearingInstruction (577)
 func (f ClearingInstructionField) Tag() fix.Tag { return tag.ClearingInstruction }
@@ -2074,7 +2073,7 @@ func NewClearingInstruction(val int) *ClearingInstructionField {
 }
 
 //ClientBidIDField is a STRING field
-type ClientBidIDField struct{ message.StringValue }
+type ClientBidIDField struct{ fix.StringValue }
 
 //Tag returns tag.ClientBidID (391)
 func (f ClientBidIDField) Tag() fix.Tag { return tag.ClientBidID }
@@ -2087,7 +2086,7 @@ func NewClientBidID(val string) *ClientBidIDField {
 }
 
 //ClientIDField is a STRING field
-type ClientIDField struct{ message.StringValue }
+type ClientIDField struct{ fix.StringValue }
 
 //Tag returns tag.ClientID (109)
 func (f ClientIDField) Tag() fix.Tag { return tag.ClientID }
@@ -2100,7 +2099,7 @@ func NewClientID(val string) *ClientIDField {
 }
 
 //CollActionField is a INT field
-type CollActionField struct{ message.IntValue }
+type CollActionField struct{ fix.IntValue }
 
 //Tag returns tag.CollAction (944)
 func (f CollActionField) Tag() fix.Tag { return tag.CollAction }
@@ -2113,7 +2112,7 @@ func NewCollAction(val int) *CollActionField {
 }
 
 //CollApplTypeField is a INT field
-type CollApplTypeField struct{ message.IntValue }
+type CollApplTypeField struct{ fix.IntValue }
 
 //Tag returns tag.CollApplType (1043)
 func (f CollApplTypeField) Tag() fix.Tag { return tag.CollApplType }
@@ -2126,7 +2125,7 @@ func NewCollApplType(val int) *CollApplTypeField {
 }
 
 //CollAsgnIDField is a STRING field
-type CollAsgnIDField struct{ message.StringValue }
+type CollAsgnIDField struct{ fix.StringValue }
 
 //Tag returns tag.CollAsgnID (902)
 func (f CollAsgnIDField) Tag() fix.Tag { return tag.CollAsgnID }
@@ -2139,7 +2138,7 @@ func NewCollAsgnID(val string) *CollAsgnIDField {
 }
 
 //CollAsgnReasonField is a INT field
-type CollAsgnReasonField struct{ message.IntValue }
+type CollAsgnReasonField struct{ fix.IntValue }
 
 //Tag returns tag.CollAsgnReason (895)
 func (f CollAsgnReasonField) Tag() fix.Tag { return tag.CollAsgnReason }
@@ -2152,7 +2151,7 @@ func NewCollAsgnReason(val int) *CollAsgnReasonField {
 }
 
 //CollAsgnRefIDField is a STRING field
-type CollAsgnRefIDField struct{ message.StringValue }
+type CollAsgnRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.CollAsgnRefID (907)
 func (f CollAsgnRefIDField) Tag() fix.Tag { return tag.CollAsgnRefID }
@@ -2165,7 +2164,7 @@ func NewCollAsgnRefID(val string) *CollAsgnRefIDField {
 }
 
 //CollAsgnRejectReasonField is a INT field
-type CollAsgnRejectReasonField struct{ message.IntValue }
+type CollAsgnRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.CollAsgnRejectReason (906)
 func (f CollAsgnRejectReasonField) Tag() fix.Tag { return tag.CollAsgnRejectReason }
@@ -2178,7 +2177,7 @@ func NewCollAsgnRejectReason(val int) *CollAsgnRejectReasonField {
 }
 
 //CollAsgnRespTypeField is a INT field
-type CollAsgnRespTypeField struct{ message.IntValue }
+type CollAsgnRespTypeField struct{ fix.IntValue }
 
 //Tag returns tag.CollAsgnRespType (905)
 func (f CollAsgnRespTypeField) Tag() fix.Tag { return tag.CollAsgnRespType }
@@ -2191,7 +2190,7 @@ func NewCollAsgnRespType(val int) *CollAsgnRespTypeField {
 }
 
 //CollAsgnTransTypeField is a INT field
-type CollAsgnTransTypeField struct{ message.IntValue }
+type CollAsgnTransTypeField struct{ fix.IntValue }
 
 //Tag returns tag.CollAsgnTransType (903)
 func (f CollAsgnTransTypeField) Tag() fix.Tag { return tag.CollAsgnTransType }
@@ -2204,7 +2203,7 @@ func NewCollAsgnTransType(val int) *CollAsgnTransTypeField {
 }
 
 //CollInquiryIDField is a STRING field
-type CollInquiryIDField struct{ message.StringValue }
+type CollInquiryIDField struct{ fix.StringValue }
 
 //Tag returns tag.CollInquiryID (909)
 func (f CollInquiryIDField) Tag() fix.Tag { return tag.CollInquiryID }
@@ -2217,7 +2216,7 @@ func NewCollInquiryID(val string) *CollInquiryIDField {
 }
 
 //CollInquiryQualifierField is a INT field
-type CollInquiryQualifierField struct{ message.IntValue }
+type CollInquiryQualifierField struct{ fix.IntValue }
 
 //Tag returns tag.CollInquiryQualifier (896)
 func (f CollInquiryQualifierField) Tag() fix.Tag { return tag.CollInquiryQualifier }
@@ -2230,7 +2229,7 @@ func NewCollInquiryQualifier(val int) *CollInquiryQualifierField {
 }
 
 //CollInquiryResultField is a INT field
-type CollInquiryResultField struct{ message.IntValue }
+type CollInquiryResultField struct{ fix.IntValue }
 
 //Tag returns tag.CollInquiryResult (946)
 func (f CollInquiryResultField) Tag() fix.Tag { return tag.CollInquiryResult }
@@ -2243,7 +2242,7 @@ func NewCollInquiryResult(val int) *CollInquiryResultField {
 }
 
 //CollInquiryStatusField is a INT field
-type CollInquiryStatusField struct{ message.IntValue }
+type CollInquiryStatusField struct{ fix.IntValue }
 
 //Tag returns tag.CollInquiryStatus (945)
 func (f CollInquiryStatusField) Tag() fix.Tag { return tag.CollInquiryStatus }
@@ -2256,7 +2255,7 @@ func NewCollInquiryStatus(val int) *CollInquiryStatusField {
 }
 
 //CollReqIDField is a STRING field
-type CollReqIDField struct{ message.StringValue }
+type CollReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.CollReqID (894)
 func (f CollReqIDField) Tag() fix.Tag { return tag.CollReqID }
@@ -2269,7 +2268,7 @@ func NewCollReqID(val string) *CollReqIDField {
 }
 
 //CollRespIDField is a STRING field
-type CollRespIDField struct{ message.StringValue }
+type CollRespIDField struct{ fix.StringValue }
 
 //Tag returns tag.CollRespID (904)
 func (f CollRespIDField) Tag() fix.Tag { return tag.CollRespID }
@@ -2282,7 +2281,7 @@ func NewCollRespID(val string) *CollRespIDField {
 }
 
 //CollRptIDField is a STRING field
-type CollRptIDField struct{ message.StringValue }
+type CollRptIDField struct{ fix.StringValue }
 
 //Tag returns tag.CollRptID (908)
 func (f CollRptIDField) Tag() fix.Tag { return tag.CollRptID }
@@ -2295,7 +2294,7 @@ func NewCollRptID(val string) *CollRptIDField {
 }
 
 //CollStatusField is a INT field
-type CollStatusField struct{ message.IntValue }
+type CollStatusField struct{ fix.IntValue }
 
 //Tag returns tag.CollStatus (910)
 func (f CollStatusField) Tag() fix.Tag { return tag.CollStatus }
@@ -2308,7 +2307,7 @@ func NewCollStatus(val int) *CollStatusField {
 }
 
 //CommCurrencyField is a CURRENCY field
-type CommCurrencyField struct{ message.CurrencyValue }
+type CommCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.CommCurrency (479)
 func (f CommCurrencyField) Tag() fix.Tag { return tag.CommCurrency }
@@ -2321,7 +2320,7 @@ func NewCommCurrency(val string) *CommCurrencyField {
 }
 
 //CommTypeField is a CHAR field
-type CommTypeField struct{ message.CharValue }
+type CommTypeField struct{ fix.CharValue }
 
 //Tag returns tag.CommType (13)
 func (f CommTypeField) Tag() fix.Tag { return tag.CommType }
@@ -2334,7 +2333,7 @@ func NewCommType(val string) *CommTypeField {
 }
 
 //CommissionField is a AMT field
-type CommissionField struct{ message.AmtValue }
+type CommissionField struct{ fix.AmtValue }
 
 //Tag returns tag.Commission (12)
 func (f CommissionField) Tag() fix.Tag { return tag.Commission }
@@ -2347,7 +2346,7 @@ func NewCommission(val float64) *CommissionField {
 }
 
 //ComplexEventConditionField is a INT field
-type ComplexEventConditionField struct{ message.IntValue }
+type ComplexEventConditionField struct{ fix.IntValue }
 
 //Tag returns tag.ComplexEventCondition (1490)
 func (f ComplexEventConditionField) Tag() fix.Tag { return tag.ComplexEventCondition }
@@ -2360,19 +2359,19 @@ func NewComplexEventCondition(val int) *ComplexEventConditionField {
 }
 
 //ComplexEventEndDateField is a UTCTIMESTAMP field
-type ComplexEventEndDateField struct{ message.UTCTimestampValue }
+type ComplexEventEndDateField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.ComplexEventEndDate (1493)
 func (f ComplexEventEndDateField) Tag() fix.Tag { return tag.ComplexEventEndDate }
 
 //ComplexEventEndTimeField is a UTCTIMEONLY field
-type ComplexEventEndTimeField struct{ message.UTCTimeOnlyValue }
+type ComplexEventEndTimeField struct{ fix.UTCTimeOnlyValue }
 
 //Tag returns tag.ComplexEventEndTime (1496)
 func (f ComplexEventEndTimeField) Tag() fix.Tag { return tag.ComplexEventEndTime }
 
 //ComplexEventPriceField is a PRICE field
-type ComplexEventPriceField struct{ message.PriceValue }
+type ComplexEventPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.ComplexEventPrice (1486)
 func (f ComplexEventPriceField) Tag() fix.Tag { return tag.ComplexEventPrice }
@@ -2385,7 +2384,7 @@ func NewComplexEventPrice(val float64) *ComplexEventPriceField {
 }
 
 //ComplexEventPriceBoundaryMethodField is a INT field
-type ComplexEventPriceBoundaryMethodField struct{ message.IntValue }
+type ComplexEventPriceBoundaryMethodField struct{ fix.IntValue }
 
 //Tag returns tag.ComplexEventPriceBoundaryMethod (1487)
 func (f ComplexEventPriceBoundaryMethodField) Tag() fix.Tag {
@@ -2400,7 +2399,7 @@ func NewComplexEventPriceBoundaryMethod(val int) *ComplexEventPriceBoundaryMetho
 }
 
 //ComplexEventPriceBoundaryPrecisionField is a PERCENTAGE field
-type ComplexEventPriceBoundaryPrecisionField struct{ message.PercentageValue }
+type ComplexEventPriceBoundaryPrecisionField struct{ fix.PercentageValue }
 
 //Tag returns tag.ComplexEventPriceBoundaryPrecision (1488)
 func (f ComplexEventPriceBoundaryPrecisionField) Tag() fix.Tag {
@@ -2415,7 +2414,7 @@ func NewComplexEventPriceBoundaryPrecision(val float64) *ComplexEventPriceBounda
 }
 
 //ComplexEventPriceTimeTypeField is a INT field
-type ComplexEventPriceTimeTypeField struct{ message.IntValue }
+type ComplexEventPriceTimeTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ComplexEventPriceTimeType (1489)
 func (f ComplexEventPriceTimeTypeField) Tag() fix.Tag { return tag.ComplexEventPriceTimeType }
@@ -2428,19 +2427,19 @@ func NewComplexEventPriceTimeType(val int) *ComplexEventPriceTimeTypeField {
 }
 
 //ComplexEventStartDateField is a UTCTIMESTAMP field
-type ComplexEventStartDateField struct{ message.UTCTimestampValue }
+type ComplexEventStartDateField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.ComplexEventStartDate (1492)
 func (f ComplexEventStartDateField) Tag() fix.Tag { return tag.ComplexEventStartDate }
 
 //ComplexEventStartTimeField is a UTCTIMEONLY field
-type ComplexEventStartTimeField struct{ message.UTCTimeOnlyValue }
+type ComplexEventStartTimeField struct{ fix.UTCTimeOnlyValue }
 
 //Tag returns tag.ComplexEventStartTime (1495)
 func (f ComplexEventStartTimeField) Tag() fix.Tag { return tag.ComplexEventStartTime }
 
 //ComplexEventTypeField is a INT field
-type ComplexEventTypeField struct{ message.IntValue }
+type ComplexEventTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ComplexEventType (1484)
 func (f ComplexEventTypeField) Tag() fix.Tag { return tag.ComplexEventType }
@@ -2453,7 +2452,7 @@ func NewComplexEventType(val int) *ComplexEventTypeField {
 }
 
 //ComplexOptPayoutAmountField is a AMT field
-type ComplexOptPayoutAmountField struct{ message.AmtValue }
+type ComplexOptPayoutAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.ComplexOptPayoutAmount (1485)
 func (f ComplexOptPayoutAmountField) Tag() fix.Tag { return tag.ComplexOptPayoutAmount }
@@ -2466,7 +2465,7 @@ func NewComplexOptPayoutAmount(val float64) *ComplexOptPayoutAmountField {
 }
 
 //ComplianceIDField is a STRING field
-type ComplianceIDField struct{ message.StringValue }
+type ComplianceIDField struct{ fix.StringValue }
 
 //Tag returns tag.ComplianceID (376)
 func (f ComplianceIDField) Tag() fix.Tag { return tag.ComplianceID }
@@ -2479,7 +2478,7 @@ func NewComplianceID(val string) *ComplianceIDField {
 }
 
 //ConcessionField is a AMT field
-type ConcessionField struct{ message.AmtValue }
+type ConcessionField struct{ fix.AmtValue }
 
 //Tag returns tag.Concession (238)
 func (f ConcessionField) Tag() fix.Tag { return tag.Concession }
@@ -2492,7 +2491,7 @@ func NewConcession(val float64) *ConcessionField {
 }
 
 //ConfirmIDField is a STRING field
-type ConfirmIDField struct{ message.StringValue }
+type ConfirmIDField struct{ fix.StringValue }
 
 //Tag returns tag.ConfirmID (664)
 func (f ConfirmIDField) Tag() fix.Tag { return tag.ConfirmID }
@@ -2505,7 +2504,7 @@ func NewConfirmID(val string) *ConfirmIDField {
 }
 
 //ConfirmRefIDField is a STRING field
-type ConfirmRefIDField struct{ message.StringValue }
+type ConfirmRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.ConfirmRefID (772)
 func (f ConfirmRefIDField) Tag() fix.Tag { return tag.ConfirmRefID }
@@ -2518,7 +2517,7 @@ func NewConfirmRefID(val string) *ConfirmRefIDField {
 }
 
 //ConfirmRejReasonField is a INT field
-type ConfirmRejReasonField struct{ message.IntValue }
+type ConfirmRejReasonField struct{ fix.IntValue }
 
 //Tag returns tag.ConfirmRejReason (774)
 func (f ConfirmRejReasonField) Tag() fix.Tag { return tag.ConfirmRejReason }
@@ -2531,7 +2530,7 @@ func NewConfirmRejReason(val int) *ConfirmRejReasonField {
 }
 
 //ConfirmReqIDField is a STRING field
-type ConfirmReqIDField struct{ message.StringValue }
+type ConfirmReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.ConfirmReqID (859)
 func (f ConfirmReqIDField) Tag() fix.Tag { return tag.ConfirmReqID }
@@ -2544,7 +2543,7 @@ func NewConfirmReqID(val string) *ConfirmReqIDField {
 }
 
 //ConfirmStatusField is a INT field
-type ConfirmStatusField struct{ message.IntValue }
+type ConfirmStatusField struct{ fix.IntValue }
 
 //Tag returns tag.ConfirmStatus (665)
 func (f ConfirmStatusField) Tag() fix.Tag { return tag.ConfirmStatus }
@@ -2557,7 +2556,7 @@ func NewConfirmStatus(val int) *ConfirmStatusField {
 }
 
 //ConfirmTransTypeField is a INT field
-type ConfirmTransTypeField struct{ message.IntValue }
+type ConfirmTransTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ConfirmTransType (666)
 func (f ConfirmTransTypeField) Tag() fix.Tag { return tag.ConfirmTransType }
@@ -2570,7 +2569,7 @@ func NewConfirmTransType(val int) *ConfirmTransTypeField {
 }
 
 //ConfirmTypeField is a INT field
-type ConfirmTypeField struct{ message.IntValue }
+type ConfirmTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ConfirmType (773)
 func (f ConfirmTypeField) Tag() fix.Tag { return tag.ConfirmType }
@@ -2583,7 +2582,7 @@ func NewConfirmType(val int) *ConfirmTypeField {
 }
 
 //ContAmtCurrField is a CURRENCY field
-type ContAmtCurrField struct{ message.CurrencyValue }
+type ContAmtCurrField struct{ fix.CurrencyValue }
 
 //Tag returns tag.ContAmtCurr (521)
 func (f ContAmtCurrField) Tag() fix.Tag { return tag.ContAmtCurr }
@@ -2596,7 +2595,7 @@ func NewContAmtCurr(val string) *ContAmtCurrField {
 }
 
 //ContAmtTypeField is a INT field
-type ContAmtTypeField struct{ message.IntValue }
+type ContAmtTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ContAmtType (519)
 func (f ContAmtTypeField) Tag() fix.Tag { return tag.ContAmtType }
@@ -2609,7 +2608,7 @@ func NewContAmtType(val int) *ContAmtTypeField {
 }
 
 //ContAmtValueField is a FLOAT field
-type ContAmtValueField struct{ message.FloatValue }
+type ContAmtValueField struct{ fix.FloatValue }
 
 //Tag returns tag.ContAmtValue (520)
 func (f ContAmtValueField) Tag() fix.Tag { return tag.ContAmtValue }
@@ -2622,7 +2621,7 @@ func NewContAmtValue(val float64) *ContAmtValueField {
 }
 
 //ContIntRptIDField is a STRING field
-type ContIntRptIDField struct{ message.StringValue }
+type ContIntRptIDField struct{ fix.StringValue }
 
 //Tag returns tag.ContIntRptID (977)
 func (f ContIntRptIDField) Tag() fix.Tag { return tag.ContIntRptID }
@@ -2635,7 +2634,7 @@ func NewContIntRptID(val string) *ContIntRptIDField {
 }
 
 //ContextPartyIDField is a STRING field
-type ContextPartyIDField struct{ message.StringValue }
+type ContextPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.ContextPartyID (1523)
 func (f ContextPartyIDField) Tag() fix.Tag { return tag.ContextPartyID }
@@ -2648,7 +2647,7 @@ func NewContextPartyID(val string) *ContextPartyIDField {
 }
 
 //ContextPartyIDSourceField is a CHAR field
-type ContextPartyIDSourceField struct{ message.CharValue }
+type ContextPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.ContextPartyIDSource (1524)
 func (f ContextPartyIDSourceField) Tag() fix.Tag { return tag.ContextPartyIDSource }
@@ -2661,7 +2660,7 @@ func NewContextPartyIDSource(val string) *ContextPartyIDSourceField {
 }
 
 //ContextPartyRoleField is a INT field
-type ContextPartyRoleField struct{ message.IntValue }
+type ContextPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.ContextPartyRole (1525)
 func (f ContextPartyRoleField) Tag() fix.Tag { return tag.ContextPartyRole }
@@ -2674,7 +2673,7 @@ func NewContextPartyRole(val int) *ContextPartyRoleField {
 }
 
 //ContextPartySubIDField is a STRING field
-type ContextPartySubIDField struct{ message.StringValue }
+type ContextPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.ContextPartySubID (1527)
 func (f ContextPartySubIDField) Tag() fix.Tag { return tag.ContextPartySubID }
@@ -2687,7 +2686,7 @@ func NewContextPartySubID(val string) *ContextPartySubIDField {
 }
 
 //ContextPartySubIDTypeField is a INT field
-type ContextPartySubIDTypeField struct{ message.IntValue }
+type ContextPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ContextPartySubIDType (1528)
 func (f ContextPartySubIDTypeField) Tag() fix.Tag { return tag.ContextPartySubIDType }
@@ -2700,7 +2699,7 @@ func NewContextPartySubIDType(val int) *ContextPartySubIDTypeField {
 }
 
 //ContingencyTypeField is a INT field
-type ContingencyTypeField struct{ message.IntValue }
+type ContingencyTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ContingencyType (1385)
 func (f ContingencyTypeField) Tag() fix.Tag { return tag.ContingencyType }
@@ -2713,7 +2712,7 @@ func NewContingencyType(val int) *ContingencyTypeField {
 }
 
 //ContraBrokerField is a STRING field
-type ContraBrokerField struct{ message.StringValue }
+type ContraBrokerField struct{ fix.StringValue }
 
 //Tag returns tag.ContraBroker (375)
 func (f ContraBrokerField) Tag() fix.Tag { return tag.ContraBroker }
@@ -2726,7 +2725,7 @@ func NewContraBroker(val string) *ContraBrokerField {
 }
 
 //ContraLegRefIDField is a STRING field
-type ContraLegRefIDField struct{ message.StringValue }
+type ContraLegRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.ContraLegRefID (655)
 func (f ContraLegRefIDField) Tag() fix.Tag { return tag.ContraLegRefID }
@@ -2739,7 +2738,7 @@ func NewContraLegRefID(val string) *ContraLegRefIDField {
 }
 
 //ContraTradeQtyField is a QTY field
-type ContraTradeQtyField struct{ message.QtyValue }
+type ContraTradeQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.ContraTradeQty (437)
 func (f ContraTradeQtyField) Tag() fix.Tag { return tag.ContraTradeQty }
@@ -2752,13 +2751,13 @@ func NewContraTradeQty(val float64) *ContraTradeQtyField {
 }
 
 //ContraTradeTimeField is a UTCTIMESTAMP field
-type ContraTradeTimeField struct{ message.UTCTimestampValue }
+type ContraTradeTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.ContraTradeTime (438)
 func (f ContraTradeTimeField) Tag() fix.Tag { return tag.ContraTradeTime }
 
 //ContraTraderField is a STRING field
-type ContraTraderField struct{ message.StringValue }
+type ContraTraderField struct{ fix.StringValue }
 
 //Tag returns tag.ContraTrader (337)
 func (f ContraTraderField) Tag() fix.Tag { return tag.ContraTrader }
@@ -2771,7 +2770,7 @@ func NewContraTrader(val string) *ContraTraderField {
 }
 
 //ContractMultiplierField is a FLOAT field
-type ContractMultiplierField struct{ message.FloatValue }
+type ContractMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.ContractMultiplier (231)
 func (f ContractMultiplierField) Tag() fix.Tag { return tag.ContractMultiplier }
@@ -2784,7 +2783,7 @@ func NewContractMultiplier(val float64) *ContractMultiplierField {
 }
 
 //ContractMultiplierUnitField is a INT field
-type ContractMultiplierUnitField struct{ message.IntValue }
+type ContractMultiplierUnitField struct{ fix.IntValue }
 
 //Tag returns tag.ContractMultiplierUnit (1435)
 func (f ContractMultiplierUnitField) Tag() fix.Tag { return tag.ContractMultiplierUnit }
@@ -2797,7 +2796,7 @@ func NewContractMultiplierUnit(val int) *ContractMultiplierUnitField {
 }
 
 //ContractSettlMonthField is a MONTHYEAR field
-type ContractSettlMonthField struct{ message.MonthYearValue }
+type ContractSettlMonthField struct{ fix.MonthYearValue }
 
 //Tag returns tag.ContractSettlMonth (667)
 func (f ContractSettlMonthField) Tag() fix.Tag { return tag.ContractSettlMonth }
@@ -2810,7 +2809,7 @@ func NewContractSettlMonth(val string) *ContractSettlMonthField {
 }
 
 //ContraryInstructionIndicatorField is a BOOLEAN field
-type ContraryInstructionIndicatorField struct{ message.BooleanValue }
+type ContraryInstructionIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.ContraryInstructionIndicator (719)
 func (f ContraryInstructionIndicatorField) Tag() fix.Tag { return tag.ContraryInstructionIndicator }
@@ -2823,7 +2822,7 @@ func NewContraryInstructionIndicator(val bool) *ContraryInstructionIndicatorFiel
 }
 
 //CopyMsgIndicatorField is a BOOLEAN field
-type CopyMsgIndicatorField struct{ message.BooleanValue }
+type CopyMsgIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.CopyMsgIndicator (797)
 func (f CopyMsgIndicatorField) Tag() fix.Tag { return tag.CopyMsgIndicator }
@@ -2836,7 +2835,7 @@ func NewCopyMsgIndicator(val bool) *CopyMsgIndicatorField {
 }
 
 //CorporateActionField is a MULTIPLECHARVALUE field
-type CorporateActionField struct{ message.MultipleCharValue }
+type CorporateActionField struct{ fix.MultipleCharValue }
 
 //Tag returns tag.CorporateAction (292)
 func (f CorporateActionField) Tag() fix.Tag { return tag.CorporateAction }
@@ -2849,7 +2848,7 @@ func NewCorporateAction(val string) *CorporateActionField {
 }
 
 //CountryField is a COUNTRY field
-type CountryField struct{ message.CountryValue }
+type CountryField struct{ fix.CountryValue }
 
 //Tag returns tag.Country (421)
 func (f CountryField) Tag() fix.Tag { return tag.Country }
@@ -2862,7 +2861,7 @@ func NewCountry(val string) *CountryField {
 }
 
 //CountryOfIssueField is a COUNTRY field
-type CountryOfIssueField struct{ message.CountryValue }
+type CountryOfIssueField struct{ fix.CountryValue }
 
 //Tag returns tag.CountryOfIssue (470)
 func (f CountryOfIssueField) Tag() fix.Tag { return tag.CountryOfIssue }
@@ -2875,7 +2874,7 @@ func NewCountryOfIssue(val string) *CountryOfIssueField {
 }
 
 //CouponPaymentDateField is a LOCALMKTDATE field
-type CouponPaymentDateField struct{ message.LocalMktDateValue }
+type CouponPaymentDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.CouponPaymentDate (224)
 func (f CouponPaymentDateField) Tag() fix.Tag { return tag.CouponPaymentDate }
@@ -2888,7 +2887,7 @@ func NewCouponPaymentDate(val string) *CouponPaymentDateField {
 }
 
 //CouponRateField is a PERCENTAGE field
-type CouponRateField struct{ message.PercentageValue }
+type CouponRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.CouponRate (223)
 func (f CouponRateField) Tag() fix.Tag { return tag.CouponRate }
@@ -2901,7 +2900,7 @@ func NewCouponRate(val float64) *CouponRateField {
 }
 
 //CoveredOrUncoveredField is a INT field
-type CoveredOrUncoveredField struct{ message.IntValue }
+type CoveredOrUncoveredField struct{ fix.IntValue }
 
 //Tag returns tag.CoveredOrUncovered (203)
 func (f CoveredOrUncoveredField) Tag() fix.Tag { return tag.CoveredOrUncovered }
@@ -2914,7 +2913,7 @@ func NewCoveredOrUncovered(val int) *CoveredOrUncoveredField {
 }
 
 //CreditRatingField is a STRING field
-type CreditRatingField struct{ message.StringValue }
+type CreditRatingField struct{ fix.StringValue }
 
 //Tag returns tag.CreditRating (255)
 func (f CreditRatingField) Tag() fix.Tag { return tag.CreditRating }
@@ -2927,7 +2926,7 @@ func NewCreditRating(val string) *CreditRatingField {
 }
 
 //CrossIDField is a STRING field
-type CrossIDField struct{ message.StringValue }
+type CrossIDField struct{ fix.StringValue }
 
 //Tag returns tag.CrossID (548)
 func (f CrossIDField) Tag() fix.Tag { return tag.CrossID }
@@ -2940,7 +2939,7 @@ func NewCrossID(val string) *CrossIDField {
 }
 
 //CrossPercentField is a PERCENTAGE field
-type CrossPercentField struct{ message.PercentageValue }
+type CrossPercentField struct{ fix.PercentageValue }
 
 //Tag returns tag.CrossPercent (413)
 func (f CrossPercentField) Tag() fix.Tag { return tag.CrossPercent }
@@ -2953,7 +2952,7 @@ func NewCrossPercent(val float64) *CrossPercentField {
 }
 
 //CrossPrioritizationField is a INT field
-type CrossPrioritizationField struct{ message.IntValue }
+type CrossPrioritizationField struct{ fix.IntValue }
 
 //Tag returns tag.CrossPrioritization (550)
 func (f CrossPrioritizationField) Tag() fix.Tag { return tag.CrossPrioritization }
@@ -2966,7 +2965,7 @@ func NewCrossPrioritization(val int) *CrossPrioritizationField {
 }
 
 //CrossTypeField is a INT field
-type CrossTypeField struct{ message.IntValue }
+type CrossTypeField struct{ fix.IntValue }
 
 //Tag returns tag.CrossType (549)
 func (f CrossTypeField) Tag() fix.Tag { return tag.CrossType }
@@ -2979,7 +2978,7 @@ func NewCrossType(val int) *CrossTypeField {
 }
 
 //CstmApplVerIDField is a STRING field
-type CstmApplVerIDField struct{ message.StringValue }
+type CstmApplVerIDField struct{ fix.StringValue }
 
 //Tag returns tag.CstmApplVerID (1129)
 func (f CstmApplVerIDField) Tag() fix.Tag { return tag.CstmApplVerID }
@@ -2992,7 +2991,7 @@ func NewCstmApplVerID(val string) *CstmApplVerIDField {
 }
 
 //CumQtyField is a QTY field
-type CumQtyField struct{ message.QtyValue }
+type CumQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.CumQty (14)
 func (f CumQtyField) Tag() fix.Tag { return tag.CumQty }
@@ -3005,7 +3004,7 @@ func NewCumQty(val float64) *CumQtyField {
 }
 
 //CurrencyField is a CURRENCY field
-type CurrencyField struct{ message.CurrencyValue }
+type CurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.Currency (15)
 func (f CurrencyField) Tag() fix.Tag { return tag.Currency }
@@ -3018,7 +3017,7 @@ func NewCurrency(val string) *CurrencyField {
 }
 
 //CurrencyRatioField is a FLOAT field
-type CurrencyRatioField struct{ message.FloatValue }
+type CurrencyRatioField struct{ fix.FloatValue }
 
 //Tag returns tag.CurrencyRatio (1382)
 func (f CurrencyRatioField) Tag() fix.Tag { return tag.CurrencyRatio }
@@ -3031,7 +3030,7 @@ func NewCurrencyRatio(val float64) *CurrencyRatioField {
 }
 
 //CustDirectedOrderField is a BOOLEAN field
-type CustDirectedOrderField struct{ message.BooleanValue }
+type CustDirectedOrderField struct{ fix.BooleanValue }
 
 //Tag returns tag.CustDirectedOrder (1029)
 func (f CustDirectedOrderField) Tag() fix.Tag { return tag.CustDirectedOrder }
@@ -3044,7 +3043,7 @@ func NewCustDirectedOrder(val bool) *CustDirectedOrderField {
 }
 
 //CustOrderCapacityField is a INT field
-type CustOrderCapacityField struct{ message.IntValue }
+type CustOrderCapacityField struct{ fix.IntValue }
 
 //Tag returns tag.CustOrderCapacity (582)
 func (f CustOrderCapacityField) Tag() fix.Tag { return tag.CustOrderCapacity }
@@ -3057,7 +3056,7 @@ func NewCustOrderCapacity(val int) *CustOrderCapacityField {
 }
 
 //CustOrderHandlingInstField is a MULTIPLESTRINGVALUE field
-type CustOrderHandlingInstField struct{ message.MultipleStringValue }
+type CustOrderHandlingInstField struct{ fix.MultipleStringValue }
 
 //Tag returns tag.CustOrderHandlingInst (1031)
 func (f CustOrderHandlingInstField) Tag() fix.Tag { return tag.CustOrderHandlingInst }
@@ -3070,7 +3069,7 @@ func NewCustOrderHandlingInst(val string) *CustOrderHandlingInstField {
 }
 
 //CustomerOrFirmField is a INT field
-type CustomerOrFirmField struct{ message.IntValue }
+type CustomerOrFirmField struct{ fix.IntValue }
 
 //Tag returns tag.CustomerOrFirm (204)
 func (f CustomerOrFirmField) Tag() fix.Tag { return tag.CustomerOrFirm }
@@ -3083,7 +3082,7 @@ func NewCustomerOrFirm(val int) *CustomerOrFirmField {
 }
 
 //CxlQtyField is a QTY field
-type CxlQtyField struct{ message.QtyValue }
+type CxlQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.CxlQty (84)
 func (f CxlQtyField) Tag() fix.Tag { return tag.CxlQty }
@@ -3096,7 +3095,7 @@ func NewCxlQty(val float64) *CxlQtyField {
 }
 
 //CxlRejReasonField is a INT field
-type CxlRejReasonField struct{ message.IntValue }
+type CxlRejReasonField struct{ fix.IntValue }
 
 //Tag returns tag.CxlRejReason (102)
 func (f CxlRejReasonField) Tag() fix.Tag { return tag.CxlRejReason }
@@ -3109,7 +3108,7 @@ func NewCxlRejReason(val int) *CxlRejReasonField {
 }
 
 //CxlRejResponseToField is a CHAR field
-type CxlRejResponseToField struct{ message.CharValue }
+type CxlRejResponseToField struct{ fix.CharValue }
 
 //Tag returns tag.CxlRejResponseTo (434)
 func (f CxlRejResponseToField) Tag() fix.Tag { return tag.CxlRejResponseTo }
@@ -3122,7 +3121,7 @@ func NewCxlRejResponseTo(val string) *CxlRejResponseToField {
 }
 
 //CxlTypeField is a CHAR field
-type CxlTypeField struct{ message.CharValue }
+type CxlTypeField struct{ fix.CharValue }
 
 //Tag returns tag.CxlType (125)
 func (f CxlTypeField) Tag() fix.Tag { return tag.CxlType }
@@ -3135,7 +3134,7 @@ func NewCxlType(val string) *CxlTypeField {
 }
 
 //DKReasonField is a CHAR field
-type DKReasonField struct{ message.CharValue }
+type DKReasonField struct{ fix.CharValue }
 
 //Tag returns tag.DKReason (127)
 func (f DKReasonField) Tag() fix.Tag { return tag.DKReason }
@@ -3148,7 +3147,7 @@ func NewDKReason(val string) *DKReasonField {
 }
 
 //DateOfBirthField is a LOCALMKTDATE field
-type DateOfBirthField struct{ message.LocalMktDateValue }
+type DateOfBirthField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.DateOfBirth (486)
 func (f DateOfBirthField) Tag() fix.Tag { return tag.DateOfBirth }
@@ -3161,7 +3160,7 @@ func NewDateOfBirth(val string) *DateOfBirthField {
 }
 
 //DatedDateField is a LOCALMKTDATE field
-type DatedDateField struct{ message.LocalMktDateValue }
+type DatedDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.DatedDate (873)
 func (f DatedDateField) Tag() fix.Tag { return tag.DatedDate }
@@ -3174,7 +3173,7 @@ func NewDatedDate(val string) *DatedDateField {
 }
 
 //DayAvgPxField is a PRICE field
-type DayAvgPxField struct{ message.PriceValue }
+type DayAvgPxField struct{ fix.PriceValue }
 
 //Tag returns tag.DayAvgPx (426)
 func (f DayAvgPxField) Tag() fix.Tag { return tag.DayAvgPx }
@@ -3187,7 +3186,7 @@ func NewDayAvgPx(val float64) *DayAvgPxField {
 }
 
 //DayBookingInstField is a CHAR field
-type DayBookingInstField struct{ message.CharValue }
+type DayBookingInstField struct{ fix.CharValue }
 
 //Tag returns tag.DayBookingInst (589)
 func (f DayBookingInstField) Tag() fix.Tag { return tag.DayBookingInst }
@@ -3200,7 +3199,7 @@ func NewDayBookingInst(val string) *DayBookingInstField {
 }
 
 //DayCumQtyField is a QTY field
-type DayCumQtyField struct{ message.QtyValue }
+type DayCumQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.DayCumQty (425)
 func (f DayCumQtyField) Tag() fix.Tag { return tag.DayCumQty }
@@ -3213,7 +3212,7 @@ func NewDayCumQty(val float64) *DayCumQtyField {
 }
 
 //DayOrderQtyField is a QTY field
-type DayOrderQtyField struct{ message.QtyValue }
+type DayOrderQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.DayOrderQty (424)
 func (f DayOrderQtyField) Tag() fix.Tag { return tag.DayOrderQty }
@@ -3226,7 +3225,7 @@ func NewDayOrderQty(val float64) *DayOrderQtyField {
 }
 
 //DealingCapacityField is a CHAR field
-type DealingCapacityField struct{ message.CharValue }
+type DealingCapacityField struct{ fix.CharValue }
 
 //Tag returns tag.DealingCapacity (1048)
 func (f DealingCapacityField) Tag() fix.Tag { return tag.DealingCapacity }
@@ -3239,7 +3238,7 @@ func NewDealingCapacity(val string) *DealingCapacityField {
 }
 
 //DefBidSizeField is a QTY field
-type DefBidSizeField struct{ message.QtyValue }
+type DefBidSizeField struct{ fix.QtyValue }
 
 //Tag returns tag.DefBidSize (293)
 func (f DefBidSizeField) Tag() fix.Tag { return tag.DefBidSize }
@@ -3252,7 +3251,7 @@ func NewDefBidSize(val float64) *DefBidSizeField {
 }
 
 //DefOfferSizeField is a QTY field
-type DefOfferSizeField struct{ message.QtyValue }
+type DefOfferSizeField struct{ fix.QtyValue }
 
 //Tag returns tag.DefOfferSize (294)
 func (f DefOfferSizeField) Tag() fix.Tag { return tag.DefOfferSize }
@@ -3265,7 +3264,7 @@ func NewDefOfferSize(val float64) *DefOfferSizeField {
 }
 
 //DefaultApplExtIDField is a INT field
-type DefaultApplExtIDField struct{ message.IntValue }
+type DefaultApplExtIDField struct{ fix.IntValue }
 
 //Tag returns tag.DefaultApplExtID (1407)
 func (f DefaultApplExtIDField) Tag() fix.Tag { return tag.DefaultApplExtID }
@@ -3278,7 +3277,7 @@ func NewDefaultApplExtID(val int) *DefaultApplExtIDField {
 }
 
 //DefaultApplVerIDField is a STRING field
-type DefaultApplVerIDField struct{ message.StringValue }
+type DefaultApplVerIDField struct{ fix.StringValue }
 
 //Tag returns tag.DefaultApplVerID (1137)
 func (f DefaultApplVerIDField) Tag() fix.Tag { return tag.DefaultApplVerID }
@@ -3291,7 +3290,7 @@ func NewDefaultApplVerID(val string) *DefaultApplVerIDField {
 }
 
 //DefaultCstmApplVerIDField is a STRING field
-type DefaultCstmApplVerIDField struct{ message.StringValue }
+type DefaultCstmApplVerIDField struct{ fix.StringValue }
 
 //Tag returns tag.DefaultCstmApplVerID (1408)
 func (f DefaultCstmApplVerIDField) Tag() fix.Tag { return tag.DefaultCstmApplVerID }
@@ -3304,7 +3303,7 @@ func NewDefaultCstmApplVerID(val string) *DefaultCstmApplVerIDField {
 }
 
 //DefaultVerIndicatorField is a BOOLEAN field
-type DefaultVerIndicatorField struct{ message.BooleanValue }
+type DefaultVerIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.DefaultVerIndicator (1410)
 func (f DefaultVerIndicatorField) Tag() fix.Tag { return tag.DefaultVerIndicator }
@@ -3317,7 +3316,7 @@ func NewDefaultVerIndicator(val bool) *DefaultVerIndicatorField {
 }
 
 //DeleteReasonField is a CHAR field
-type DeleteReasonField struct{ message.CharValue }
+type DeleteReasonField struct{ fix.CharValue }
 
 //Tag returns tag.DeleteReason (285)
 func (f DeleteReasonField) Tag() fix.Tag { return tag.DeleteReason }
@@ -3330,7 +3329,7 @@ func NewDeleteReason(val string) *DeleteReasonField {
 }
 
 //DeliverToCompIDField is a STRING field
-type DeliverToCompIDField struct{ message.StringValue }
+type DeliverToCompIDField struct{ fix.StringValue }
 
 //Tag returns tag.DeliverToCompID (128)
 func (f DeliverToCompIDField) Tag() fix.Tag { return tag.DeliverToCompID }
@@ -3343,7 +3342,7 @@ func NewDeliverToCompID(val string) *DeliverToCompIDField {
 }
 
 //DeliverToLocationIDField is a STRING field
-type DeliverToLocationIDField struct{ message.StringValue }
+type DeliverToLocationIDField struct{ fix.StringValue }
 
 //Tag returns tag.DeliverToLocationID (145)
 func (f DeliverToLocationIDField) Tag() fix.Tag { return tag.DeliverToLocationID }
@@ -3356,7 +3355,7 @@ func NewDeliverToLocationID(val string) *DeliverToLocationIDField {
 }
 
 //DeliverToSubIDField is a STRING field
-type DeliverToSubIDField struct{ message.StringValue }
+type DeliverToSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.DeliverToSubID (129)
 func (f DeliverToSubIDField) Tag() fix.Tag { return tag.DeliverToSubID }
@@ -3369,7 +3368,7 @@ func NewDeliverToSubID(val string) *DeliverToSubIDField {
 }
 
 //DeliveryDateField is a LOCALMKTDATE field
-type DeliveryDateField struct{ message.LocalMktDateValue }
+type DeliveryDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.DeliveryDate (743)
 func (f DeliveryDateField) Tag() fix.Tag { return tag.DeliveryDate }
@@ -3382,7 +3381,7 @@ func NewDeliveryDate(val string) *DeliveryDateField {
 }
 
 //DeliveryFormField is a INT field
-type DeliveryFormField struct{ message.IntValue }
+type DeliveryFormField struct{ fix.IntValue }
 
 //Tag returns tag.DeliveryForm (668)
 func (f DeliveryFormField) Tag() fix.Tag { return tag.DeliveryForm }
@@ -3395,7 +3394,7 @@ func NewDeliveryForm(val int) *DeliveryFormField {
 }
 
 //DeliveryTypeField is a INT field
-type DeliveryTypeField struct{ message.IntValue }
+type DeliveryTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DeliveryType (919)
 func (f DeliveryTypeField) Tag() fix.Tag { return tag.DeliveryType }
@@ -3408,7 +3407,7 @@ func NewDeliveryType(val int) *DeliveryTypeField {
 }
 
 //DerivFlexProductEligibilityIndicatorField is a BOOLEAN field
-type DerivFlexProductEligibilityIndicatorField struct{ message.BooleanValue }
+type DerivFlexProductEligibilityIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.DerivFlexProductEligibilityIndicator (1243)
 func (f DerivFlexProductEligibilityIndicatorField) Tag() fix.Tag {
@@ -3423,7 +3422,7 @@ func NewDerivFlexProductEligibilityIndicator(val bool) *DerivFlexProductEligibil
 }
 
 //DerivativeCFICodeField is a STRING field
-type DerivativeCFICodeField struct{ message.StringValue }
+type DerivativeCFICodeField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeCFICode (1248)
 func (f DerivativeCFICodeField) Tag() fix.Tag { return tag.DerivativeCFICode }
@@ -3436,7 +3435,7 @@ func NewDerivativeCFICode(val string) *DerivativeCFICodeField {
 }
 
 //DerivativeCapPriceField is a PRICE field
-type DerivativeCapPriceField struct{ message.PriceValue }
+type DerivativeCapPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.DerivativeCapPrice (1321)
 func (f DerivativeCapPriceField) Tag() fix.Tag { return tag.DerivativeCapPrice }
@@ -3449,7 +3448,7 @@ func NewDerivativeCapPrice(val float64) *DerivativeCapPriceField {
 }
 
 //DerivativeContractMultiplierField is a FLOAT field
-type DerivativeContractMultiplierField struct{ message.FloatValue }
+type DerivativeContractMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.DerivativeContractMultiplier (1266)
 func (f DerivativeContractMultiplierField) Tag() fix.Tag { return tag.DerivativeContractMultiplier }
@@ -3462,7 +3461,7 @@ func NewDerivativeContractMultiplier(val float64) *DerivativeContractMultiplierF
 }
 
 //DerivativeContractMultiplierUnitField is a INT field
-type DerivativeContractMultiplierUnitField struct{ message.IntValue }
+type DerivativeContractMultiplierUnitField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeContractMultiplierUnit (1438)
 func (f DerivativeContractMultiplierUnitField) Tag() fix.Tag {
@@ -3477,7 +3476,7 @@ func NewDerivativeContractMultiplierUnit(val int) *DerivativeContractMultiplierU
 }
 
 //DerivativeContractSettlMonthField is a MONTHYEAR field
-type DerivativeContractSettlMonthField struct{ message.MonthYearValue }
+type DerivativeContractSettlMonthField struct{ fix.MonthYearValue }
 
 //Tag returns tag.DerivativeContractSettlMonth (1285)
 func (f DerivativeContractSettlMonthField) Tag() fix.Tag { return tag.DerivativeContractSettlMonth }
@@ -3490,7 +3489,7 @@ func NewDerivativeContractSettlMonth(val string) *DerivativeContractSettlMonthFi
 }
 
 //DerivativeCountryOfIssueField is a COUNTRY field
-type DerivativeCountryOfIssueField struct{ message.CountryValue }
+type DerivativeCountryOfIssueField struct{ fix.CountryValue }
 
 //Tag returns tag.DerivativeCountryOfIssue (1258)
 func (f DerivativeCountryOfIssueField) Tag() fix.Tag { return tag.DerivativeCountryOfIssue }
@@ -3503,7 +3502,7 @@ func NewDerivativeCountryOfIssue(val string) *DerivativeCountryOfIssueField {
 }
 
 //DerivativeEncodedIssuerField is a DATA field
-type DerivativeEncodedIssuerField struct{ message.DataValue }
+type DerivativeEncodedIssuerField struct{ fix.DataValue }
 
 //Tag returns tag.DerivativeEncodedIssuer (1278)
 func (f DerivativeEncodedIssuerField) Tag() fix.Tag { return tag.DerivativeEncodedIssuer }
@@ -3516,7 +3515,7 @@ func NewDerivativeEncodedIssuer(val string) *DerivativeEncodedIssuerField {
 }
 
 //DerivativeEncodedIssuerLenField is a LENGTH field
-type DerivativeEncodedIssuerLenField struct{ message.LengthValue }
+type DerivativeEncodedIssuerLenField struct{ fix.LengthValue }
 
 //Tag returns tag.DerivativeEncodedIssuerLen (1277)
 func (f DerivativeEncodedIssuerLenField) Tag() fix.Tag { return tag.DerivativeEncodedIssuerLen }
@@ -3529,7 +3528,7 @@ func NewDerivativeEncodedIssuerLen(val int) *DerivativeEncodedIssuerLenField {
 }
 
 //DerivativeEncodedSecurityDescField is a DATA field
-type DerivativeEncodedSecurityDescField struct{ message.DataValue }
+type DerivativeEncodedSecurityDescField struct{ fix.DataValue }
 
 //Tag returns tag.DerivativeEncodedSecurityDesc (1281)
 func (f DerivativeEncodedSecurityDescField) Tag() fix.Tag { return tag.DerivativeEncodedSecurityDesc }
@@ -3542,7 +3541,7 @@ func NewDerivativeEncodedSecurityDesc(val string) *DerivativeEncodedSecurityDesc
 }
 
 //DerivativeEncodedSecurityDescLenField is a LENGTH field
-type DerivativeEncodedSecurityDescLenField struct{ message.LengthValue }
+type DerivativeEncodedSecurityDescLenField struct{ fix.LengthValue }
 
 //Tag returns tag.DerivativeEncodedSecurityDescLen (1280)
 func (f DerivativeEncodedSecurityDescLenField) Tag() fix.Tag {
@@ -3557,7 +3556,7 @@ func NewDerivativeEncodedSecurityDescLen(val int) *DerivativeEncodedSecurityDesc
 }
 
 //DerivativeEventDateField is a LOCALMKTDATE field
-type DerivativeEventDateField struct{ message.LocalMktDateValue }
+type DerivativeEventDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.DerivativeEventDate (1288)
 func (f DerivativeEventDateField) Tag() fix.Tag { return tag.DerivativeEventDate }
@@ -3570,7 +3569,7 @@ func NewDerivativeEventDate(val string) *DerivativeEventDateField {
 }
 
 //DerivativeEventPxField is a PRICE field
-type DerivativeEventPxField struct{ message.PriceValue }
+type DerivativeEventPxField struct{ fix.PriceValue }
 
 //Tag returns tag.DerivativeEventPx (1290)
 func (f DerivativeEventPxField) Tag() fix.Tag { return tag.DerivativeEventPx }
@@ -3583,7 +3582,7 @@ func NewDerivativeEventPx(val float64) *DerivativeEventPxField {
 }
 
 //DerivativeEventTextField is a STRING field
-type DerivativeEventTextField struct{ message.StringValue }
+type DerivativeEventTextField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeEventText (1291)
 func (f DerivativeEventTextField) Tag() fix.Tag { return tag.DerivativeEventText }
@@ -3596,13 +3595,13 @@ func NewDerivativeEventText(val string) *DerivativeEventTextField {
 }
 
 //DerivativeEventTimeField is a UTCTIMESTAMP field
-type DerivativeEventTimeField struct{ message.UTCTimestampValue }
+type DerivativeEventTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.DerivativeEventTime (1289)
 func (f DerivativeEventTimeField) Tag() fix.Tag { return tag.DerivativeEventTime }
 
 //DerivativeEventTypeField is a INT field
-type DerivativeEventTypeField struct{ message.IntValue }
+type DerivativeEventTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeEventType (1287)
 func (f DerivativeEventTypeField) Tag() fix.Tag { return tag.DerivativeEventType }
@@ -3615,7 +3614,7 @@ func NewDerivativeEventType(val int) *DerivativeEventTypeField {
 }
 
 //DerivativeExerciseStyleField is a CHAR field
-type DerivativeExerciseStyleField struct{ message.CharValue }
+type DerivativeExerciseStyleField struct{ fix.CharValue }
 
 //Tag returns tag.DerivativeExerciseStyle (1299)
 func (f DerivativeExerciseStyleField) Tag() fix.Tag { return tag.DerivativeExerciseStyle }
@@ -3628,7 +3627,7 @@ func NewDerivativeExerciseStyle(val string) *DerivativeExerciseStyleField {
 }
 
 //DerivativeFloorPriceField is a PRICE field
-type DerivativeFloorPriceField struct{ message.PriceValue }
+type DerivativeFloorPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.DerivativeFloorPrice (1322)
 func (f DerivativeFloorPriceField) Tag() fix.Tag { return tag.DerivativeFloorPrice }
@@ -3641,7 +3640,7 @@ func NewDerivativeFloorPrice(val float64) *DerivativeFloorPriceField {
 }
 
 //DerivativeFlowScheduleTypeField is a INT field
-type DerivativeFlowScheduleTypeField struct{ message.IntValue }
+type DerivativeFlowScheduleTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeFlowScheduleType (1442)
 func (f DerivativeFlowScheduleTypeField) Tag() fix.Tag { return tag.DerivativeFlowScheduleType }
@@ -3654,7 +3653,7 @@ func NewDerivativeFlowScheduleType(val int) *DerivativeFlowScheduleTypeField {
 }
 
 //DerivativeFuturesValuationMethodField is a STRING field
-type DerivativeFuturesValuationMethodField struct{ message.StringValue }
+type DerivativeFuturesValuationMethodField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeFuturesValuationMethod (1319)
 func (f DerivativeFuturesValuationMethodField) Tag() fix.Tag {
@@ -3669,7 +3668,7 @@ func NewDerivativeFuturesValuationMethod(val string) *DerivativeFuturesValuation
 }
 
 //DerivativeInstrAttribTypeField is a INT field
-type DerivativeInstrAttribTypeField struct{ message.IntValue }
+type DerivativeInstrAttribTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeInstrAttribType (1313)
 func (f DerivativeInstrAttribTypeField) Tag() fix.Tag { return tag.DerivativeInstrAttribType }
@@ -3682,7 +3681,7 @@ func NewDerivativeInstrAttribType(val int) *DerivativeInstrAttribTypeField {
 }
 
 //DerivativeInstrAttribValueField is a STRING field
-type DerivativeInstrAttribValueField struct{ message.StringValue }
+type DerivativeInstrAttribValueField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeInstrAttribValue (1314)
 func (f DerivativeInstrAttribValueField) Tag() fix.Tag { return tag.DerivativeInstrAttribValue }
@@ -3695,7 +3694,7 @@ func NewDerivativeInstrAttribValue(val string) *DerivativeInstrAttribValueField 
 }
 
 //DerivativeInstrRegistryField is a STRING field
-type DerivativeInstrRegistryField struct{ message.StringValue }
+type DerivativeInstrRegistryField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeInstrRegistry (1257)
 func (f DerivativeInstrRegistryField) Tag() fix.Tag { return tag.DerivativeInstrRegistry }
@@ -3708,7 +3707,7 @@ func NewDerivativeInstrRegistry(val string) *DerivativeInstrRegistryField {
 }
 
 //DerivativeInstrmtAssignmentMethodField is a CHAR field
-type DerivativeInstrmtAssignmentMethodField struct{ message.CharValue }
+type DerivativeInstrmtAssignmentMethodField struct{ fix.CharValue }
 
 //Tag returns tag.DerivativeInstrmtAssignmentMethod (1255)
 func (f DerivativeInstrmtAssignmentMethodField) Tag() fix.Tag {
@@ -3723,7 +3722,7 @@ func NewDerivativeInstrmtAssignmentMethod(val string) *DerivativeInstrmtAssignme
 }
 
 //DerivativeInstrumentPartyIDField is a STRING field
-type DerivativeInstrumentPartyIDField struct{ message.StringValue }
+type DerivativeInstrumentPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeInstrumentPartyID (1293)
 func (f DerivativeInstrumentPartyIDField) Tag() fix.Tag { return tag.DerivativeInstrumentPartyID }
@@ -3736,7 +3735,7 @@ func NewDerivativeInstrumentPartyID(val string) *DerivativeInstrumentPartyIDFiel
 }
 
 //DerivativeInstrumentPartyIDSourceField is a STRING field
-type DerivativeInstrumentPartyIDSourceField struct{ message.StringValue }
+type DerivativeInstrumentPartyIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeInstrumentPartyIDSource (1294)
 func (f DerivativeInstrumentPartyIDSourceField) Tag() fix.Tag {
@@ -3751,7 +3750,7 @@ func NewDerivativeInstrumentPartyIDSource(val string) *DerivativeInstrumentParty
 }
 
 //DerivativeInstrumentPartyRoleField is a INT field
-type DerivativeInstrumentPartyRoleField struct{ message.IntValue }
+type DerivativeInstrumentPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeInstrumentPartyRole (1295)
 func (f DerivativeInstrumentPartyRoleField) Tag() fix.Tag { return tag.DerivativeInstrumentPartyRole }
@@ -3764,7 +3763,7 @@ func NewDerivativeInstrumentPartyRole(val int) *DerivativeInstrumentPartyRoleFie
 }
 
 //DerivativeInstrumentPartySubIDField is a STRING field
-type DerivativeInstrumentPartySubIDField struct{ message.StringValue }
+type DerivativeInstrumentPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeInstrumentPartySubID (1297)
 func (f DerivativeInstrumentPartySubIDField) Tag() fix.Tag { return tag.DerivativeInstrumentPartySubID }
@@ -3777,7 +3776,7 @@ func NewDerivativeInstrumentPartySubID(val string) *DerivativeInstrumentPartySub
 }
 
 //DerivativeInstrumentPartySubIDTypeField is a INT field
-type DerivativeInstrumentPartySubIDTypeField struct{ message.IntValue }
+type DerivativeInstrumentPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeInstrumentPartySubIDType (1298)
 func (f DerivativeInstrumentPartySubIDTypeField) Tag() fix.Tag {
@@ -3792,7 +3791,7 @@ func NewDerivativeInstrumentPartySubIDType(val int) *DerivativeInstrumentPartySu
 }
 
 //DerivativeIssueDateField is a LOCALMKTDATE field
-type DerivativeIssueDateField struct{ message.LocalMktDateValue }
+type DerivativeIssueDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.DerivativeIssueDate (1276)
 func (f DerivativeIssueDateField) Tag() fix.Tag { return tag.DerivativeIssueDate }
@@ -3805,7 +3804,7 @@ func NewDerivativeIssueDate(val string) *DerivativeIssueDateField {
 }
 
 //DerivativeIssuerField is a STRING field
-type DerivativeIssuerField struct{ message.StringValue }
+type DerivativeIssuerField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeIssuer (1275)
 func (f DerivativeIssuerField) Tag() fix.Tag { return tag.DerivativeIssuer }
@@ -3818,7 +3817,7 @@ func NewDerivativeIssuer(val string) *DerivativeIssuerField {
 }
 
 //DerivativeListMethodField is a INT field
-type DerivativeListMethodField struct{ message.IntValue }
+type DerivativeListMethodField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeListMethod (1320)
 func (f DerivativeListMethodField) Tag() fix.Tag { return tag.DerivativeListMethod }
@@ -3831,7 +3830,7 @@ func NewDerivativeListMethod(val int) *DerivativeListMethodField {
 }
 
 //DerivativeLocaleOfIssueField is a STRING field
-type DerivativeLocaleOfIssueField struct{ message.StringValue }
+type DerivativeLocaleOfIssueField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeLocaleOfIssue (1260)
 func (f DerivativeLocaleOfIssueField) Tag() fix.Tag { return tag.DerivativeLocaleOfIssue }
@@ -3844,7 +3843,7 @@ func NewDerivativeLocaleOfIssue(val string) *DerivativeLocaleOfIssueField {
 }
 
 //DerivativeMaturityDateField is a LOCALMKTDATE field
-type DerivativeMaturityDateField struct{ message.LocalMktDateValue }
+type DerivativeMaturityDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.DerivativeMaturityDate (1252)
 func (f DerivativeMaturityDateField) Tag() fix.Tag { return tag.DerivativeMaturityDate }
@@ -3857,7 +3856,7 @@ func NewDerivativeMaturityDate(val string) *DerivativeMaturityDateField {
 }
 
 //DerivativeMaturityMonthYearField is a MONTHYEAR field
-type DerivativeMaturityMonthYearField struct{ message.MonthYearValue }
+type DerivativeMaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.DerivativeMaturityMonthYear (1251)
 func (f DerivativeMaturityMonthYearField) Tag() fix.Tag { return tag.DerivativeMaturityMonthYear }
@@ -3870,13 +3869,13 @@ func NewDerivativeMaturityMonthYear(val string) *DerivativeMaturityMonthYearFiel
 }
 
 //DerivativeMaturityTimeField is a TZTIMEONLY field
-type DerivativeMaturityTimeField struct{ message.TZTimeOnlyValue }
+type DerivativeMaturityTimeField struct{ fix.TZTimeOnlyValue }
 
 //Tag returns tag.DerivativeMaturityTime (1253)
 func (f DerivativeMaturityTimeField) Tag() fix.Tag { return tag.DerivativeMaturityTime }
 
 //DerivativeMinPriceIncrementField is a FLOAT field
-type DerivativeMinPriceIncrementField struct{ message.FloatValue }
+type DerivativeMinPriceIncrementField struct{ fix.FloatValue }
 
 //Tag returns tag.DerivativeMinPriceIncrement (1267)
 func (f DerivativeMinPriceIncrementField) Tag() fix.Tag { return tag.DerivativeMinPriceIncrement }
@@ -3889,7 +3888,7 @@ func NewDerivativeMinPriceIncrement(val float64) *DerivativeMinPriceIncrementFie
 }
 
 //DerivativeMinPriceIncrementAmountField is a AMT field
-type DerivativeMinPriceIncrementAmountField struct{ message.AmtValue }
+type DerivativeMinPriceIncrementAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.DerivativeMinPriceIncrementAmount (1268)
 func (f DerivativeMinPriceIncrementAmountField) Tag() fix.Tag {
@@ -3904,7 +3903,7 @@ func NewDerivativeMinPriceIncrementAmount(val float64) *DerivativeMinPriceIncrem
 }
 
 //DerivativeNTPositionLimitField is a INT field
-type DerivativeNTPositionLimitField struct{ message.IntValue }
+type DerivativeNTPositionLimitField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeNTPositionLimit (1274)
 func (f DerivativeNTPositionLimitField) Tag() fix.Tag { return tag.DerivativeNTPositionLimit }
@@ -3917,7 +3916,7 @@ func NewDerivativeNTPositionLimit(val int) *DerivativeNTPositionLimitField {
 }
 
 //DerivativeOptAttributeField is a CHAR field
-type DerivativeOptAttributeField struct{ message.CharValue }
+type DerivativeOptAttributeField struct{ fix.CharValue }
 
 //Tag returns tag.DerivativeOptAttribute (1265)
 func (f DerivativeOptAttributeField) Tag() fix.Tag { return tag.DerivativeOptAttribute }
@@ -3930,7 +3929,7 @@ func NewDerivativeOptAttribute(val string) *DerivativeOptAttributeField {
 }
 
 //DerivativeOptPayAmountField is a AMT field
-type DerivativeOptPayAmountField struct{ message.AmtValue }
+type DerivativeOptPayAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.DerivativeOptPayAmount (1225)
 func (f DerivativeOptPayAmountField) Tag() fix.Tag { return tag.DerivativeOptPayAmount }
@@ -3943,7 +3942,7 @@ func NewDerivativeOptPayAmount(val float64) *DerivativeOptPayAmountField {
 }
 
 //DerivativePositionLimitField is a INT field
-type DerivativePositionLimitField struct{ message.IntValue }
+type DerivativePositionLimitField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativePositionLimit (1273)
 func (f DerivativePositionLimitField) Tag() fix.Tag { return tag.DerivativePositionLimit }
@@ -3956,7 +3955,7 @@ func NewDerivativePositionLimit(val int) *DerivativePositionLimitField {
 }
 
 //DerivativePriceQuoteMethodField is a STRING field
-type DerivativePriceQuoteMethodField struct{ message.StringValue }
+type DerivativePriceQuoteMethodField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativePriceQuoteMethod (1318)
 func (f DerivativePriceQuoteMethodField) Tag() fix.Tag { return tag.DerivativePriceQuoteMethod }
@@ -3969,7 +3968,7 @@ func NewDerivativePriceQuoteMethod(val string) *DerivativePriceQuoteMethodField 
 }
 
 //DerivativePriceUnitOfMeasureField is a STRING field
-type DerivativePriceUnitOfMeasureField struct{ message.StringValue }
+type DerivativePriceUnitOfMeasureField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativePriceUnitOfMeasure (1315)
 func (f DerivativePriceUnitOfMeasureField) Tag() fix.Tag { return tag.DerivativePriceUnitOfMeasure }
@@ -3982,7 +3981,7 @@ func NewDerivativePriceUnitOfMeasure(val string) *DerivativePriceUnitOfMeasureFi
 }
 
 //DerivativePriceUnitOfMeasureQtyField is a QTY field
-type DerivativePriceUnitOfMeasureQtyField struct{ message.QtyValue }
+type DerivativePriceUnitOfMeasureQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.DerivativePriceUnitOfMeasureQty (1316)
 func (f DerivativePriceUnitOfMeasureQtyField) Tag() fix.Tag {
@@ -3997,7 +3996,7 @@ func NewDerivativePriceUnitOfMeasureQty(val float64) *DerivativePriceUnitOfMeasu
 }
 
 //DerivativeProductField is a INT field
-type DerivativeProductField struct{ message.IntValue }
+type DerivativeProductField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeProduct (1246)
 func (f DerivativeProductField) Tag() fix.Tag { return tag.DerivativeProduct }
@@ -4010,7 +4009,7 @@ func NewDerivativeProduct(val int) *DerivativeProductField {
 }
 
 //DerivativeProductComplexField is a STRING field
-type DerivativeProductComplexField struct{ message.StringValue }
+type DerivativeProductComplexField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeProductComplex (1228)
 func (f DerivativeProductComplexField) Tag() fix.Tag { return tag.DerivativeProductComplex }
@@ -4023,7 +4022,7 @@ func NewDerivativeProductComplex(val string) *DerivativeProductComplexField {
 }
 
 //DerivativePutOrCallField is a INT field
-type DerivativePutOrCallField struct{ message.IntValue }
+type DerivativePutOrCallField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativePutOrCall (1323)
 func (f DerivativePutOrCallField) Tag() fix.Tag { return tag.DerivativePutOrCall }
@@ -4036,7 +4035,7 @@ func NewDerivativePutOrCall(val int) *DerivativePutOrCallField {
 }
 
 //DerivativeSecurityAltIDField is a STRING field
-type DerivativeSecurityAltIDField struct{ message.StringValue }
+type DerivativeSecurityAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityAltID (1219)
 func (f DerivativeSecurityAltIDField) Tag() fix.Tag { return tag.DerivativeSecurityAltID }
@@ -4049,7 +4048,7 @@ func NewDerivativeSecurityAltID(val string) *DerivativeSecurityAltIDField {
 }
 
 //DerivativeSecurityAltIDSourceField is a STRING field
-type DerivativeSecurityAltIDSourceField struct{ message.StringValue }
+type DerivativeSecurityAltIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityAltIDSource (1220)
 func (f DerivativeSecurityAltIDSourceField) Tag() fix.Tag { return tag.DerivativeSecurityAltIDSource }
@@ -4062,7 +4061,7 @@ func NewDerivativeSecurityAltIDSource(val string) *DerivativeSecurityAltIDSource
 }
 
 //DerivativeSecurityDescField is a STRING field
-type DerivativeSecurityDescField struct{ message.StringValue }
+type DerivativeSecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityDesc (1279)
 func (f DerivativeSecurityDescField) Tag() fix.Tag { return tag.DerivativeSecurityDesc }
@@ -4075,7 +4074,7 @@ func NewDerivativeSecurityDesc(val string) *DerivativeSecurityDescField {
 }
 
 //DerivativeSecurityExchangeField is a EXCHANGE field
-type DerivativeSecurityExchangeField struct{ message.ExchangeValue }
+type DerivativeSecurityExchangeField struct{ fix.ExchangeValue }
 
 //Tag returns tag.DerivativeSecurityExchange (1272)
 func (f DerivativeSecurityExchangeField) Tag() fix.Tag { return tag.DerivativeSecurityExchange }
@@ -4088,7 +4087,7 @@ func NewDerivativeSecurityExchange(val string) *DerivativeSecurityExchangeField 
 }
 
 //DerivativeSecurityGroupField is a STRING field
-type DerivativeSecurityGroupField struct{ message.StringValue }
+type DerivativeSecurityGroupField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityGroup (1247)
 func (f DerivativeSecurityGroupField) Tag() fix.Tag { return tag.DerivativeSecurityGroup }
@@ -4101,7 +4100,7 @@ func NewDerivativeSecurityGroup(val string) *DerivativeSecurityGroupField {
 }
 
 //DerivativeSecurityIDField is a STRING field
-type DerivativeSecurityIDField struct{ message.StringValue }
+type DerivativeSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityID (1216)
 func (f DerivativeSecurityIDField) Tag() fix.Tag { return tag.DerivativeSecurityID }
@@ -4114,7 +4113,7 @@ func NewDerivativeSecurityID(val string) *DerivativeSecurityIDField {
 }
 
 //DerivativeSecurityIDSourceField is a STRING field
-type DerivativeSecurityIDSourceField struct{ message.StringValue }
+type DerivativeSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityIDSource (1217)
 func (f DerivativeSecurityIDSourceField) Tag() fix.Tag { return tag.DerivativeSecurityIDSource }
@@ -4127,7 +4126,7 @@ func NewDerivativeSecurityIDSource(val string) *DerivativeSecurityIDSourceField 
 }
 
 //DerivativeSecurityListRequestTypeField is a INT field
-type DerivativeSecurityListRequestTypeField struct{ message.IntValue }
+type DerivativeSecurityListRequestTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DerivativeSecurityListRequestType (1307)
 func (f DerivativeSecurityListRequestTypeField) Tag() fix.Tag {
@@ -4142,7 +4141,7 @@ func NewDerivativeSecurityListRequestType(val int) *DerivativeSecurityListReques
 }
 
 //DerivativeSecurityStatusField is a STRING field
-type DerivativeSecurityStatusField struct{ message.StringValue }
+type DerivativeSecurityStatusField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityStatus (1256)
 func (f DerivativeSecurityStatusField) Tag() fix.Tag { return tag.DerivativeSecurityStatus }
@@ -4155,7 +4154,7 @@ func NewDerivativeSecurityStatus(val string) *DerivativeSecurityStatusField {
 }
 
 //DerivativeSecuritySubTypeField is a STRING field
-type DerivativeSecuritySubTypeField struct{ message.StringValue }
+type DerivativeSecuritySubTypeField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecuritySubType (1250)
 func (f DerivativeSecuritySubTypeField) Tag() fix.Tag { return tag.DerivativeSecuritySubType }
@@ -4168,7 +4167,7 @@ func NewDerivativeSecuritySubType(val string) *DerivativeSecuritySubTypeField {
 }
 
 //DerivativeSecurityTypeField is a STRING field
-type DerivativeSecurityTypeField struct{ message.StringValue }
+type DerivativeSecurityTypeField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityType (1249)
 func (f DerivativeSecurityTypeField) Tag() fix.Tag { return tag.DerivativeSecurityType }
@@ -4181,7 +4180,7 @@ func NewDerivativeSecurityType(val string) *DerivativeSecurityTypeField {
 }
 
 //DerivativeSecurityXMLField is a DATA field
-type DerivativeSecurityXMLField struct{ message.DataValue }
+type DerivativeSecurityXMLField struct{ fix.DataValue }
 
 //Tag returns tag.DerivativeSecurityXML (1283)
 func (f DerivativeSecurityXMLField) Tag() fix.Tag { return tag.DerivativeSecurityXML }
@@ -4194,7 +4193,7 @@ func NewDerivativeSecurityXML(val string) *DerivativeSecurityXMLField {
 }
 
 //DerivativeSecurityXMLLenField is a LENGTH field
-type DerivativeSecurityXMLLenField struct{ message.LengthValue }
+type DerivativeSecurityXMLLenField struct{ fix.LengthValue }
 
 //Tag returns tag.DerivativeSecurityXMLLen (1282)
 func (f DerivativeSecurityXMLLenField) Tag() fix.Tag { return tag.DerivativeSecurityXMLLen }
@@ -4207,7 +4206,7 @@ func NewDerivativeSecurityXMLLen(val int) *DerivativeSecurityXMLLenField {
 }
 
 //DerivativeSecurityXMLSchemaField is a STRING field
-type DerivativeSecurityXMLSchemaField struct{ message.StringValue }
+type DerivativeSecurityXMLSchemaField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSecurityXMLSchema (1284)
 func (f DerivativeSecurityXMLSchemaField) Tag() fix.Tag { return tag.DerivativeSecurityXMLSchema }
@@ -4220,7 +4219,7 @@ func NewDerivativeSecurityXMLSchema(val string) *DerivativeSecurityXMLSchemaFiel
 }
 
 //DerivativeSettlMethodField is a CHAR field
-type DerivativeSettlMethodField struct{ message.CharValue }
+type DerivativeSettlMethodField struct{ fix.CharValue }
 
 //Tag returns tag.DerivativeSettlMethod (1317)
 func (f DerivativeSettlMethodField) Tag() fix.Tag { return tag.DerivativeSettlMethod }
@@ -4233,7 +4232,7 @@ func NewDerivativeSettlMethod(val string) *DerivativeSettlMethodField {
 }
 
 //DerivativeSettleOnOpenFlagField is a STRING field
-type DerivativeSettleOnOpenFlagField struct{ message.StringValue }
+type DerivativeSettleOnOpenFlagField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSettleOnOpenFlag (1254)
 func (f DerivativeSettleOnOpenFlagField) Tag() fix.Tag { return tag.DerivativeSettleOnOpenFlag }
@@ -4246,7 +4245,7 @@ func NewDerivativeSettleOnOpenFlag(val string) *DerivativeSettleOnOpenFlagField 
 }
 
 //DerivativeStateOrProvinceOfIssueField is a STRING field
-type DerivativeStateOrProvinceOfIssueField struct{ message.StringValue }
+type DerivativeStateOrProvinceOfIssueField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeStateOrProvinceOfIssue (1259)
 func (f DerivativeStateOrProvinceOfIssueField) Tag() fix.Tag {
@@ -4261,7 +4260,7 @@ func NewDerivativeStateOrProvinceOfIssue(val string) *DerivativeStateOrProvinceO
 }
 
 //DerivativeStrikeCurrencyField is a CURRENCY field
-type DerivativeStrikeCurrencyField struct{ message.CurrencyValue }
+type DerivativeStrikeCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.DerivativeStrikeCurrency (1262)
 func (f DerivativeStrikeCurrencyField) Tag() fix.Tag { return tag.DerivativeStrikeCurrency }
@@ -4274,7 +4273,7 @@ func NewDerivativeStrikeCurrency(val string) *DerivativeStrikeCurrencyField {
 }
 
 //DerivativeStrikeMultiplierField is a FLOAT field
-type DerivativeStrikeMultiplierField struct{ message.FloatValue }
+type DerivativeStrikeMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.DerivativeStrikeMultiplier (1263)
 func (f DerivativeStrikeMultiplierField) Tag() fix.Tag { return tag.DerivativeStrikeMultiplier }
@@ -4287,7 +4286,7 @@ func NewDerivativeStrikeMultiplier(val float64) *DerivativeStrikeMultiplierField
 }
 
 //DerivativeStrikePriceField is a PRICE field
-type DerivativeStrikePriceField struct{ message.PriceValue }
+type DerivativeStrikePriceField struct{ fix.PriceValue }
 
 //Tag returns tag.DerivativeStrikePrice (1261)
 func (f DerivativeStrikePriceField) Tag() fix.Tag { return tag.DerivativeStrikePrice }
@@ -4300,7 +4299,7 @@ func NewDerivativeStrikePrice(val float64) *DerivativeStrikePriceField {
 }
 
 //DerivativeStrikeValueField is a FLOAT field
-type DerivativeStrikeValueField struct{ message.FloatValue }
+type DerivativeStrikeValueField struct{ fix.FloatValue }
 
 //Tag returns tag.DerivativeStrikeValue (1264)
 func (f DerivativeStrikeValueField) Tag() fix.Tag { return tag.DerivativeStrikeValue }
@@ -4313,7 +4312,7 @@ func NewDerivativeStrikeValue(val float64) *DerivativeStrikeValueField {
 }
 
 //DerivativeSymbolField is a STRING field
-type DerivativeSymbolField struct{ message.StringValue }
+type DerivativeSymbolField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSymbol (1214)
 func (f DerivativeSymbolField) Tag() fix.Tag { return tag.DerivativeSymbol }
@@ -4326,7 +4325,7 @@ func NewDerivativeSymbol(val string) *DerivativeSymbolField {
 }
 
 //DerivativeSymbolSfxField is a STRING field
-type DerivativeSymbolSfxField struct{ message.StringValue }
+type DerivativeSymbolSfxField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeSymbolSfx (1215)
 func (f DerivativeSymbolSfxField) Tag() fix.Tag { return tag.DerivativeSymbolSfx }
@@ -4339,7 +4338,7 @@ func NewDerivativeSymbolSfx(val string) *DerivativeSymbolSfxField {
 }
 
 //DerivativeTimeUnitField is a STRING field
-type DerivativeTimeUnitField struct{ message.StringValue }
+type DerivativeTimeUnitField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeTimeUnit (1271)
 func (f DerivativeTimeUnitField) Tag() fix.Tag { return tag.DerivativeTimeUnit }
@@ -4352,7 +4351,7 @@ func NewDerivativeTimeUnit(val string) *DerivativeTimeUnitField {
 }
 
 //DerivativeUnitOfMeasureField is a STRING field
-type DerivativeUnitOfMeasureField struct{ message.StringValue }
+type DerivativeUnitOfMeasureField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeUnitOfMeasure (1269)
 func (f DerivativeUnitOfMeasureField) Tag() fix.Tag { return tag.DerivativeUnitOfMeasure }
@@ -4365,7 +4364,7 @@ func NewDerivativeUnitOfMeasure(val string) *DerivativeUnitOfMeasureField {
 }
 
 //DerivativeUnitOfMeasureQtyField is a QTY field
-type DerivativeUnitOfMeasureQtyField struct{ message.QtyValue }
+type DerivativeUnitOfMeasureQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.DerivativeUnitOfMeasureQty (1270)
 func (f DerivativeUnitOfMeasureQtyField) Tag() fix.Tag { return tag.DerivativeUnitOfMeasureQty }
@@ -4378,7 +4377,7 @@ func NewDerivativeUnitOfMeasureQty(val float64) *DerivativeUnitOfMeasureQtyField
 }
 
 //DerivativeValuationMethodField is a STRING field
-type DerivativeValuationMethodField struct{ message.StringValue }
+type DerivativeValuationMethodField struct{ fix.StringValue }
 
 //Tag returns tag.DerivativeValuationMethod (1319)
 func (f DerivativeValuationMethodField) Tag() fix.Tag { return tag.DerivativeValuationMethod }
@@ -4391,7 +4390,7 @@ func NewDerivativeValuationMethod(val string) *DerivativeValuationMethodField {
 }
 
 //DesignationField is a STRING field
-type DesignationField struct{ message.StringValue }
+type DesignationField struct{ fix.StringValue }
 
 //Tag returns tag.Designation (494)
 func (f DesignationField) Tag() fix.Tag { return tag.Designation }
@@ -4404,7 +4403,7 @@ func NewDesignation(val string) *DesignationField {
 }
 
 //DeskIDField is a STRING field
-type DeskIDField struct{ message.StringValue }
+type DeskIDField struct{ fix.StringValue }
 
 //Tag returns tag.DeskID (284)
 func (f DeskIDField) Tag() fix.Tag { return tag.DeskID }
@@ -4417,7 +4416,7 @@ func NewDeskID(val string) *DeskIDField {
 }
 
 //DeskOrderHandlingInstField is a MULTIPLESTRINGVALUE field
-type DeskOrderHandlingInstField struct{ message.MultipleStringValue }
+type DeskOrderHandlingInstField struct{ fix.MultipleStringValue }
 
 //Tag returns tag.DeskOrderHandlingInst (1035)
 func (f DeskOrderHandlingInstField) Tag() fix.Tag { return tag.DeskOrderHandlingInst }
@@ -4430,7 +4429,7 @@ func NewDeskOrderHandlingInst(val string) *DeskOrderHandlingInstField {
 }
 
 //DeskTypeField is a STRING field
-type DeskTypeField struct{ message.StringValue }
+type DeskTypeField struct{ fix.StringValue }
 
 //Tag returns tag.DeskType (1033)
 func (f DeskTypeField) Tag() fix.Tag { return tag.DeskType }
@@ -4443,7 +4442,7 @@ func NewDeskType(val string) *DeskTypeField {
 }
 
 //DeskTypeSourceField is a INT field
-type DeskTypeSourceField struct{ message.IntValue }
+type DeskTypeSourceField struct{ fix.IntValue }
 
 //Tag returns tag.DeskTypeSource (1034)
 func (f DeskTypeSourceField) Tag() fix.Tag { return tag.DeskTypeSource }
@@ -4456,7 +4455,7 @@ func NewDeskTypeSource(val int) *DeskTypeSourceField {
 }
 
 //DetachmentPointField is a PERCENTAGE field
-type DetachmentPointField struct{ message.PercentageValue }
+type DetachmentPointField struct{ fix.PercentageValue }
 
 //Tag returns tag.DetachmentPoint (1458)
 func (f DetachmentPointField) Tag() fix.Tag { return tag.DetachmentPoint }
@@ -4469,7 +4468,7 @@ func NewDetachmentPoint(val float64) *DetachmentPointField {
 }
 
 //DiscretionInstField is a CHAR field
-type DiscretionInstField struct{ message.CharValue }
+type DiscretionInstField struct{ fix.CharValue }
 
 //Tag returns tag.DiscretionInst (388)
 func (f DiscretionInstField) Tag() fix.Tag { return tag.DiscretionInst }
@@ -4482,7 +4481,7 @@ func NewDiscretionInst(val string) *DiscretionInstField {
 }
 
 //DiscretionLimitTypeField is a INT field
-type DiscretionLimitTypeField struct{ message.IntValue }
+type DiscretionLimitTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DiscretionLimitType (843)
 func (f DiscretionLimitTypeField) Tag() fix.Tag { return tag.DiscretionLimitType }
@@ -4495,7 +4494,7 @@ func NewDiscretionLimitType(val int) *DiscretionLimitTypeField {
 }
 
 //DiscretionMoveTypeField is a INT field
-type DiscretionMoveTypeField struct{ message.IntValue }
+type DiscretionMoveTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DiscretionMoveType (841)
 func (f DiscretionMoveTypeField) Tag() fix.Tag { return tag.DiscretionMoveType }
@@ -4508,7 +4507,7 @@ func NewDiscretionMoveType(val int) *DiscretionMoveTypeField {
 }
 
 //DiscretionOffsetField is a PRICEOFFSET field
-type DiscretionOffsetField struct{ message.PriceOffsetValue }
+type DiscretionOffsetField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.DiscretionOffset (389)
 func (f DiscretionOffsetField) Tag() fix.Tag { return tag.DiscretionOffset }
@@ -4521,7 +4520,7 @@ func NewDiscretionOffset(val float64) *DiscretionOffsetField {
 }
 
 //DiscretionOffsetTypeField is a INT field
-type DiscretionOffsetTypeField struct{ message.IntValue }
+type DiscretionOffsetTypeField struct{ fix.IntValue }
 
 //Tag returns tag.DiscretionOffsetType (842)
 func (f DiscretionOffsetTypeField) Tag() fix.Tag { return tag.DiscretionOffsetType }
@@ -4534,7 +4533,7 @@ func NewDiscretionOffsetType(val int) *DiscretionOffsetTypeField {
 }
 
 //DiscretionOffsetValueField is a FLOAT field
-type DiscretionOffsetValueField struct{ message.FloatValue }
+type DiscretionOffsetValueField struct{ fix.FloatValue }
 
 //Tag returns tag.DiscretionOffsetValue (389)
 func (f DiscretionOffsetValueField) Tag() fix.Tag { return tag.DiscretionOffsetValue }
@@ -4547,7 +4546,7 @@ func NewDiscretionOffsetValue(val float64) *DiscretionOffsetValueField {
 }
 
 //DiscretionPriceField is a PRICE field
-type DiscretionPriceField struct{ message.PriceValue }
+type DiscretionPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.DiscretionPrice (845)
 func (f DiscretionPriceField) Tag() fix.Tag { return tag.DiscretionPrice }
@@ -4560,7 +4559,7 @@ func NewDiscretionPrice(val float64) *DiscretionPriceField {
 }
 
 //DiscretionRoundDirectionField is a INT field
-type DiscretionRoundDirectionField struct{ message.IntValue }
+type DiscretionRoundDirectionField struct{ fix.IntValue }
 
 //Tag returns tag.DiscretionRoundDirection (844)
 func (f DiscretionRoundDirectionField) Tag() fix.Tag { return tag.DiscretionRoundDirection }
@@ -4573,7 +4572,7 @@ func NewDiscretionRoundDirection(val int) *DiscretionRoundDirectionField {
 }
 
 //DiscretionScopeField is a INT field
-type DiscretionScopeField struct{ message.IntValue }
+type DiscretionScopeField struct{ fix.IntValue }
 
 //Tag returns tag.DiscretionScope (846)
 func (f DiscretionScopeField) Tag() fix.Tag { return tag.DiscretionScope }
@@ -4586,7 +4585,7 @@ func NewDiscretionScope(val int) *DiscretionScopeField {
 }
 
 //DisplayHighQtyField is a QTY field
-type DisplayHighQtyField struct{ message.QtyValue }
+type DisplayHighQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.DisplayHighQty (1086)
 func (f DisplayHighQtyField) Tag() fix.Tag { return tag.DisplayHighQty }
@@ -4599,7 +4598,7 @@ func NewDisplayHighQty(val float64) *DisplayHighQtyField {
 }
 
 //DisplayLowQtyField is a QTY field
-type DisplayLowQtyField struct{ message.QtyValue }
+type DisplayLowQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.DisplayLowQty (1085)
 func (f DisplayLowQtyField) Tag() fix.Tag { return tag.DisplayLowQty }
@@ -4612,7 +4611,7 @@ func NewDisplayLowQty(val float64) *DisplayLowQtyField {
 }
 
 //DisplayMethodField is a CHAR field
-type DisplayMethodField struct{ message.CharValue }
+type DisplayMethodField struct{ fix.CharValue }
 
 //Tag returns tag.DisplayMethod (1084)
 func (f DisplayMethodField) Tag() fix.Tag { return tag.DisplayMethod }
@@ -4625,7 +4624,7 @@ func NewDisplayMethod(val string) *DisplayMethodField {
 }
 
 //DisplayMinIncrField is a QTY field
-type DisplayMinIncrField struct{ message.QtyValue }
+type DisplayMinIncrField struct{ fix.QtyValue }
 
 //Tag returns tag.DisplayMinIncr (1087)
 func (f DisplayMinIncrField) Tag() fix.Tag { return tag.DisplayMinIncr }
@@ -4638,7 +4637,7 @@ func NewDisplayMinIncr(val float64) *DisplayMinIncrField {
 }
 
 //DisplayQtyField is a QTY field
-type DisplayQtyField struct{ message.QtyValue }
+type DisplayQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.DisplayQty (1138)
 func (f DisplayQtyField) Tag() fix.Tag { return tag.DisplayQty }
@@ -4651,7 +4650,7 @@ func NewDisplayQty(val float64) *DisplayQtyField {
 }
 
 //DisplayWhenField is a CHAR field
-type DisplayWhenField struct{ message.CharValue }
+type DisplayWhenField struct{ fix.CharValue }
 
 //Tag returns tag.DisplayWhen (1083)
 func (f DisplayWhenField) Tag() fix.Tag { return tag.DisplayWhen }
@@ -4664,7 +4663,7 @@ func NewDisplayWhen(val string) *DisplayWhenField {
 }
 
 //DistribPaymentMethodField is a INT field
-type DistribPaymentMethodField struct{ message.IntValue }
+type DistribPaymentMethodField struct{ fix.IntValue }
 
 //Tag returns tag.DistribPaymentMethod (477)
 func (f DistribPaymentMethodField) Tag() fix.Tag { return tag.DistribPaymentMethod }
@@ -4677,7 +4676,7 @@ func NewDistribPaymentMethod(val int) *DistribPaymentMethodField {
 }
 
 //DistribPercentageField is a PERCENTAGE field
-type DistribPercentageField struct{ message.PercentageValue }
+type DistribPercentageField struct{ fix.PercentageValue }
 
 //Tag returns tag.DistribPercentage (512)
 func (f DistribPercentageField) Tag() fix.Tag { return tag.DistribPercentage }
@@ -4690,7 +4689,7 @@ func NewDistribPercentage(val float64) *DistribPercentageField {
 }
 
 //DividendYieldField is a PERCENTAGE field
-type DividendYieldField struct{ message.PercentageValue }
+type DividendYieldField struct{ fix.PercentageValue }
 
 //Tag returns tag.DividendYield (1380)
 func (f DividendYieldField) Tag() fix.Tag { return tag.DividendYield }
@@ -4703,7 +4702,7 @@ func NewDividendYield(val float64) *DividendYieldField {
 }
 
 //DlvyInstField is a STRING field
-type DlvyInstField struct{ message.StringValue }
+type DlvyInstField struct{ fix.StringValue }
 
 //Tag returns tag.DlvyInst (86)
 func (f DlvyInstField) Tag() fix.Tag { return tag.DlvyInst }
@@ -4716,7 +4715,7 @@ func NewDlvyInst(val string) *DlvyInstField {
 }
 
 //DlvyInstTypeField is a CHAR field
-type DlvyInstTypeField struct{ message.CharValue }
+type DlvyInstTypeField struct{ fix.CharValue }
 
 //Tag returns tag.DlvyInstType (787)
 func (f DlvyInstTypeField) Tag() fix.Tag { return tag.DlvyInstType }
@@ -4729,7 +4728,7 @@ func NewDlvyInstType(val string) *DlvyInstTypeField {
 }
 
 //DueToRelatedField is a BOOLEAN field
-type DueToRelatedField struct{ message.BooleanValue }
+type DueToRelatedField struct{ fix.BooleanValue }
 
 //Tag returns tag.DueToRelated (329)
 func (f DueToRelatedField) Tag() fix.Tag { return tag.DueToRelated }
@@ -4742,7 +4741,7 @@ func NewDueToRelated(val bool) *DueToRelatedField {
 }
 
 //EFPTrackingErrorField is a PERCENTAGE field
-type EFPTrackingErrorField struct{ message.PercentageValue }
+type EFPTrackingErrorField struct{ fix.PercentageValue }
 
 //Tag returns tag.EFPTrackingError (405)
 func (f EFPTrackingErrorField) Tag() fix.Tag { return tag.EFPTrackingError }
@@ -4755,13 +4754,13 @@ func NewEFPTrackingError(val float64) *EFPTrackingErrorField {
 }
 
 //EffectiveTimeField is a UTCTIMESTAMP field
-type EffectiveTimeField struct{ message.UTCTimestampValue }
+type EffectiveTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.EffectiveTime (168)
 func (f EffectiveTimeField) Tag() fix.Tag { return tag.EffectiveTime }
 
 //EmailThreadIDField is a STRING field
-type EmailThreadIDField struct{ message.StringValue }
+type EmailThreadIDField struct{ fix.StringValue }
 
 //Tag returns tag.EmailThreadID (164)
 func (f EmailThreadIDField) Tag() fix.Tag { return tag.EmailThreadID }
@@ -4774,7 +4773,7 @@ func NewEmailThreadID(val string) *EmailThreadIDField {
 }
 
 //EmailTypeField is a CHAR field
-type EmailTypeField struct{ message.CharValue }
+type EmailTypeField struct{ fix.CharValue }
 
 //Tag returns tag.EmailType (94)
 func (f EmailTypeField) Tag() fix.Tag { return tag.EmailType }
@@ -4787,7 +4786,7 @@ func NewEmailType(val string) *EmailTypeField {
 }
 
 //EncodedAllocTextField is a DATA field
-type EncodedAllocTextField struct{ message.DataValue }
+type EncodedAllocTextField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedAllocText (361)
 func (f EncodedAllocTextField) Tag() fix.Tag { return tag.EncodedAllocText }
@@ -4800,7 +4799,7 @@ func NewEncodedAllocText(val string) *EncodedAllocTextField {
 }
 
 //EncodedAllocTextLenField is a LENGTH field
-type EncodedAllocTextLenField struct{ message.LengthValue }
+type EncodedAllocTextLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedAllocTextLen (360)
 func (f EncodedAllocTextLenField) Tag() fix.Tag { return tag.EncodedAllocTextLen }
@@ -4813,7 +4812,7 @@ func NewEncodedAllocTextLen(val int) *EncodedAllocTextLenField {
 }
 
 //EncodedHeadlineField is a DATA field
-type EncodedHeadlineField struct{ message.DataValue }
+type EncodedHeadlineField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedHeadline (359)
 func (f EncodedHeadlineField) Tag() fix.Tag { return tag.EncodedHeadline }
@@ -4826,7 +4825,7 @@ func NewEncodedHeadline(val string) *EncodedHeadlineField {
 }
 
 //EncodedHeadlineLenField is a LENGTH field
-type EncodedHeadlineLenField struct{ message.LengthValue }
+type EncodedHeadlineLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedHeadlineLen (358)
 func (f EncodedHeadlineLenField) Tag() fix.Tag { return tag.EncodedHeadlineLen }
@@ -4839,7 +4838,7 @@ func NewEncodedHeadlineLen(val int) *EncodedHeadlineLenField {
 }
 
 //EncodedIssuerField is a DATA field
-type EncodedIssuerField struct{ message.DataValue }
+type EncodedIssuerField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedIssuer (349)
 func (f EncodedIssuerField) Tag() fix.Tag { return tag.EncodedIssuer }
@@ -4852,7 +4851,7 @@ func NewEncodedIssuer(val string) *EncodedIssuerField {
 }
 
 //EncodedIssuerLenField is a LENGTH field
-type EncodedIssuerLenField struct{ message.LengthValue }
+type EncodedIssuerLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedIssuerLen (348)
 func (f EncodedIssuerLenField) Tag() fix.Tag { return tag.EncodedIssuerLen }
@@ -4865,7 +4864,7 @@ func NewEncodedIssuerLen(val int) *EncodedIssuerLenField {
 }
 
 //EncodedLegIssuerField is a DATA field
-type EncodedLegIssuerField struct{ message.DataValue }
+type EncodedLegIssuerField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedLegIssuer (619)
 func (f EncodedLegIssuerField) Tag() fix.Tag { return tag.EncodedLegIssuer }
@@ -4878,7 +4877,7 @@ func NewEncodedLegIssuer(val string) *EncodedLegIssuerField {
 }
 
 //EncodedLegIssuerLenField is a LENGTH field
-type EncodedLegIssuerLenField struct{ message.LengthValue }
+type EncodedLegIssuerLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedLegIssuerLen (618)
 func (f EncodedLegIssuerLenField) Tag() fix.Tag { return tag.EncodedLegIssuerLen }
@@ -4891,7 +4890,7 @@ func NewEncodedLegIssuerLen(val int) *EncodedLegIssuerLenField {
 }
 
 //EncodedLegSecurityDescField is a DATA field
-type EncodedLegSecurityDescField struct{ message.DataValue }
+type EncodedLegSecurityDescField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedLegSecurityDesc (622)
 func (f EncodedLegSecurityDescField) Tag() fix.Tag { return tag.EncodedLegSecurityDesc }
@@ -4904,7 +4903,7 @@ func NewEncodedLegSecurityDesc(val string) *EncodedLegSecurityDescField {
 }
 
 //EncodedLegSecurityDescLenField is a LENGTH field
-type EncodedLegSecurityDescLenField struct{ message.LengthValue }
+type EncodedLegSecurityDescLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedLegSecurityDescLen (621)
 func (f EncodedLegSecurityDescLenField) Tag() fix.Tag { return tag.EncodedLegSecurityDescLen }
@@ -4917,7 +4916,7 @@ func NewEncodedLegSecurityDescLen(val int) *EncodedLegSecurityDescLenField {
 }
 
 //EncodedListExecInstField is a DATA field
-type EncodedListExecInstField struct{ message.DataValue }
+type EncodedListExecInstField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedListExecInst (353)
 func (f EncodedListExecInstField) Tag() fix.Tag { return tag.EncodedListExecInst }
@@ -4930,7 +4929,7 @@ func NewEncodedListExecInst(val string) *EncodedListExecInstField {
 }
 
 //EncodedListExecInstLenField is a LENGTH field
-type EncodedListExecInstLenField struct{ message.LengthValue }
+type EncodedListExecInstLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedListExecInstLen (352)
 func (f EncodedListExecInstLenField) Tag() fix.Tag { return tag.EncodedListExecInstLen }
@@ -4943,7 +4942,7 @@ func NewEncodedListExecInstLen(val int) *EncodedListExecInstLenField {
 }
 
 //EncodedListStatusTextField is a DATA field
-type EncodedListStatusTextField struct{ message.DataValue }
+type EncodedListStatusTextField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedListStatusText (446)
 func (f EncodedListStatusTextField) Tag() fix.Tag { return tag.EncodedListStatusText }
@@ -4956,7 +4955,7 @@ func NewEncodedListStatusText(val string) *EncodedListStatusTextField {
 }
 
 //EncodedListStatusTextLenField is a LENGTH field
-type EncodedListStatusTextLenField struct{ message.LengthValue }
+type EncodedListStatusTextLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedListStatusTextLen (445)
 func (f EncodedListStatusTextLenField) Tag() fix.Tag { return tag.EncodedListStatusTextLen }
@@ -4969,7 +4968,7 @@ func NewEncodedListStatusTextLen(val int) *EncodedListStatusTextLenField {
 }
 
 //EncodedMktSegmDescField is a DATA field
-type EncodedMktSegmDescField struct{ message.DataValue }
+type EncodedMktSegmDescField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedMktSegmDesc (1398)
 func (f EncodedMktSegmDescField) Tag() fix.Tag { return tag.EncodedMktSegmDesc }
@@ -4982,7 +4981,7 @@ func NewEncodedMktSegmDesc(val string) *EncodedMktSegmDescField {
 }
 
 //EncodedMktSegmDescLenField is a LENGTH field
-type EncodedMktSegmDescLenField struct{ message.LengthValue }
+type EncodedMktSegmDescLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedMktSegmDescLen (1397)
 func (f EncodedMktSegmDescLenField) Tag() fix.Tag { return tag.EncodedMktSegmDescLen }
@@ -4995,7 +4994,7 @@ func NewEncodedMktSegmDescLen(val int) *EncodedMktSegmDescLenField {
 }
 
 //EncodedSecurityDescField is a DATA field
-type EncodedSecurityDescField struct{ message.DataValue }
+type EncodedSecurityDescField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedSecurityDesc (351)
 func (f EncodedSecurityDescField) Tag() fix.Tag { return tag.EncodedSecurityDesc }
@@ -5008,7 +5007,7 @@ func NewEncodedSecurityDesc(val string) *EncodedSecurityDescField {
 }
 
 //EncodedSecurityDescLenField is a LENGTH field
-type EncodedSecurityDescLenField struct{ message.LengthValue }
+type EncodedSecurityDescLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedSecurityDescLen (350)
 func (f EncodedSecurityDescLenField) Tag() fix.Tag { return tag.EncodedSecurityDescLen }
@@ -5021,7 +5020,7 @@ func NewEncodedSecurityDescLen(val int) *EncodedSecurityDescLenField {
 }
 
 //EncodedSecurityListDescField is a DATA field
-type EncodedSecurityListDescField struct{ message.DataValue }
+type EncodedSecurityListDescField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedSecurityListDesc (1469)
 func (f EncodedSecurityListDescField) Tag() fix.Tag { return tag.EncodedSecurityListDesc }
@@ -5034,7 +5033,7 @@ func NewEncodedSecurityListDesc(val string) *EncodedSecurityListDescField {
 }
 
 //EncodedSecurityListDescLenField is a LENGTH field
-type EncodedSecurityListDescLenField struct{ message.LengthValue }
+type EncodedSecurityListDescLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedSecurityListDescLen (1468)
 func (f EncodedSecurityListDescLenField) Tag() fix.Tag { return tag.EncodedSecurityListDescLen }
@@ -5047,7 +5046,7 @@ func NewEncodedSecurityListDescLen(val int) *EncodedSecurityListDescLenField {
 }
 
 //EncodedSubjectField is a DATA field
-type EncodedSubjectField struct{ message.DataValue }
+type EncodedSubjectField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedSubject (357)
 func (f EncodedSubjectField) Tag() fix.Tag { return tag.EncodedSubject }
@@ -5060,7 +5059,7 @@ func NewEncodedSubject(val string) *EncodedSubjectField {
 }
 
 //EncodedSubjectLenField is a LENGTH field
-type EncodedSubjectLenField struct{ message.LengthValue }
+type EncodedSubjectLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedSubjectLen (356)
 func (f EncodedSubjectLenField) Tag() fix.Tag { return tag.EncodedSubjectLen }
@@ -5073,7 +5072,7 @@ func NewEncodedSubjectLen(val int) *EncodedSubjectLenField {
 }
 
 //EncodedSymbolField is a DATA field
-type EncodedSymbolField struct{ message.DataValue }
+type EncodedSymbolField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedSymbol (1360)
 func (f EncodedSymbolField) Tag() fix.Tag { return tag.EncodedSymbol }
@@ -5086,7 +5085,7 @@ func NewEncodedSymbol(val string) *EncodedSymbolField {
 }
 
 //EncodedSymbolLenField is a LENGTH field
-type EncodedSymbolLenField struct{ message.LengthValue }
+type EncodedSymbolLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedSymbolLen (1359)
 func (f EncodedSymbolLenField) Tag() fix.Tag { return tag.EncodedSymbolLen }
@@ -5099,7 +5098,7 @@ func NewEncodedSymbolLen(val int) *EncodedSymbolLenField {
 }
 
 //EncodedTextField is a DATA field
-type EncodedTextField struct{ message.DataValue }
+type EncodedTextField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedText (355)
 func (f EncodedTextField) Tag() fix.Tag { return tag.EncodedText }
@@ -5112,7 +5111,7 @@ func NewEncodedText(val string) *EncodedTextField {
 }
 
 //EncodedTextLenField is a LENGTH field
-type EncodedTextLenField struct{ message.LengthValue }
+type EncodedTextLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedTextLen (354)
 func (f EncodedTextLenField) Tag() fix.Tag { return tag.EncodedTextLen }
@@ -5125,7 +5124,7 @@ func NewEncodedTextLen(val int) *EncodedTextLenField {
 }
 
 //EncodedUnderlyingIssuerField is a DATA field
-type EncodedUnderlyingIssuerField struct{ message.DataValue }
+type EncodedUnderlyingIssuerField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedUnderlyingIssuer (363)
 func (f EncodedUnderlyingIssuerField) Tag() fix.Tag { return tag.EncodedUnderlyingIssuer }
@@ -5138,7 +5137,7 @@ func NewEncodedUnderlyingIssuer(val string) *EncodedUnderlyingIssuerField {
 }
 
 //EncodedUnderlyingIssuerLenField is a LENGTH field
-type EncodedUnderlyingIssuerLenField struct{ message.LengthValue }
+type EncodedUnderlyingIssuerLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedUnderlyingIssuerLen (362)
 func (f EncodedUnderlyingIssuerLenField) Tag() fix.Tag { return tag.EncodedUnderlyingIssuerLen }
@@ -5151,7 +5150,7 @@ func NewEncodedUnderlyingIssuerLen(val int) *EncodedUnderlyingIssuerLenField {
 }
 
 //EncodedUnderlyingSecurityDescField is a DATA field
-type EncodedUnderlyingSecurityDescField struct{ message.DataValue }
+type EncodedUnderlyingSecurityDescField struct{ fix.DataValue }
 
 //Tag returns tag.EncodedUnderlyingSecurityDesc (365)
 func (f EncodedUnderlyingSecurityDescField) Tag() fix.Tag { return tag.EncodedUnderlyingSecurityDesc }
@@ -5164,7 +5163,7 @@ func NewEncodedUnderlyingSecurityDesc(val string) *EncodedUnderlyingSecurityDesc
 }
 
 //EncodedUnderlyingSecurityDescLenField is a LENGTH field
-type EncodedUnderlyingSecurityDescLenField struct{ message.LengthValue }
+type EncodedUnderlyingSecurityDescLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncodedUnderlyingSecurityDescLen (364)
 func (f EncodedUnderlyingSecurityDescLenField) Tag() fix.Tag {
@@ -5179,7 +5178,7 @@ func NewEncodedUnderlyingSecurityDescLen(val int) *EncodedUnderlyingSecurityDesc
 }
 
 //EncryptMethodField is a INT field
-type EncryptMethodField struct{ message.IntValue }
+type EncryptMethodField struct{ fix.IntValue }
 
 //Tag returns tag.EncryptMethod (98)
 func (f EncryptMethodField) Tag() fix.Tag { return tag.EncryptMethod }
@@ -5192,7 +5191,7 @@ func NewEncryptMethod(val int) *EncryptMethodField {
 }
 
 //EncryptedNewPasswordField is a DATA field
-type EncryptedNewPasswordField struct{ message.DataValue }
+type EncryptedNewPasswordField struct{ fix.DataValue }
 
 //Tag returns tag.EncryptedNewPassword (1404)
 func (f EncryptedNewPasswordField) Tag() fix.Tag { return tag.EncryptedNewPassword }
@@ -5205,7 +5204,7 @@ func NewEncryptedNewPassword(val string) *EncryptedNewPasswordField {
 }
 
 //EncryptedNewPasswordLenField is a LENGTH field
-type EncryptedNewPasswordLenField struct{ message.LengthValue }
+type EncryptedNewPasswordLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncryptedNewPasswordLen (1403)
 func (f EncryptedNewPasswordLenField) Tag() fix.Tag { return tag.EncryptedNewPasswordLen }
@@ -5218,7 +5217,7 @@ func NewEncryptedNewPasswordLen(val int) *EncryptedNewPasswordLenField {
 }
 
 //EncryptedPasswordField is a DATA field
-type EncryptedPasswordField struct{ message.DataValue }
+type EncryptedPasswordField struct{ fix.DataValue }
 
 //Tag returns tag.EncryptedPassword (1402)
 func (f EncryptedPasswordField) Tag() fix.Tag { return tag.EncryptedPassword }
@@ -5231,7 +5230,7 @@ func NewEncryptedPassword(val string) *EncryptedPasswordField {
 }
 
 //EncryptedPasswordLenField is a LENGTH field
-type EncryptedPasswordLenField struct{ message.LengthValue }
+type EncryptedPasswordLenField struct{ fix.LengthValue }
 
 //Tag returns tag.EncryptedPasswordLen (1401)
 func (f EncryptedPasswordLenField) Tag() fix.Tag { return tag.EncryptedPasswordLen }
@@ -5244,7 +5243,7 @@ func NewEncryptedPasswordLen(val int) *EncryptedPasswordLenField {
 }
 
 //EncryptedPasswordMethodField is a INT field
-type EncryptedPasswordMethodField struct{ message.IntValue }
+type EncryptedPasswordMethodField struct{ fix.IntValue }
 
 //Tag returns tag.EncryptedPasswordMethod (1400)
 func (f EncryptedPasswordMethodField) Tag() fix.Tag { return tag.EncryptedPasswordMethod }
@@ -5257,7 +5256,7 @@ func NewEncryptedPasswordMethod(val int) *EncryptedPasswordMethodField {
 }
 
 //EndAccruedInterestAmtField is a AMT field
-type EndAccruedInterestAmtField struct{ message.AmtValue }
+type EndAccruedInterestAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.EndAccruedInterestAmt (920)
 func (f EndAccruedInterestAmtField) Tag() fix.Tag { return tag.EndAccruedInterestAmt }
@@ -5270,7 +5269,7 @@ func NewEndAccruedInterestAmt(val float64) *EndAccruedInterestAmtField {
 }
 
 //EndCashField is a AMT field
-type EndCashField struct{ message.AmtValue }
+type EndCashField struct{ fix.AmtValue }
 
 //Tag returns tag.EndCash (922)
 func (f EndCashField) Tag() fix.Tag { return tag.EndCash }
@@ -5283,7 +5282,7 @@ func NewEndCash(val float64) *EndCashField {
 }
 
 //EndDateField is a LOCALMKTDATE field
-type EndDateField struct{ message.LocalMktDateValue }
+type EndDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.EndDate (917)
 func (f EndDateField) Tag() fix.Tag { return tag.EndDate }
@@ -5296,7 +5295,7 @@ func NewEndDate(val string) *EndDateField {
 }
 
 //EndMaturityMonthYearField is a MONTHYEAR field
-type EndMaturityMonthYearField struct{ message.MonthYearValue }
+type EndMaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.EndMaturityMonthYear (1226)
 func (f EndMaturityMonthYearField) Tag() fix.Tag { return tag.EndMaturityMonthYear }
@@ -5309,7 +5308,7 @@ func NewEndMaturityMonthYear(val string) *EndMaturityMonthYearField {
 }
 
 //EndSeqNoField is a SEQNUM field
-type EndSeqNoField struct{ message.SeqNumValue }
+type EndSeqNoField struct{ fix.SeqNumValue }
 
 //Tag returns tag.EndSeqNo (16)
 func (f EndSeqNoField) Tag() fix.Tag { return tag.EndSeqNo }
@@ -5322,7 +5321,7 @@ func NewEndSeqNo(val int) *EndSeqNoField {
 }
 
 //EndStrikePxRangeField is a PRICE field
-type EndStrikePxRangeField struct{ message.PriceValue }
+type EndStrikePxRangeField struct{ fix.PriceValue }
 
 //Tag returns tag.EndStrikePxRange (1203)
 func (f EndStrikePxRangeField) Tag() fix.Tag { return tag.EndStrikePxRange }
@@ -5335,7 +5334,7 @@ func NewEndStrikePxRange(val float64) *EndStrikePxRangeField {
 }
 
 //EndTickPriceRangeField is a PRICE field
-type EndTickPriceRangeField struct{ message.PriceValue }
+type EndTickPriceRangeField struct{ fix.PriceValue }
 
 //Tag returns tag.EndTickPriceRange (1207)
 func (f EndTickPriceRangeField) Tag() fix.Tag { return tag.EndTickPriceRange }
@@ -5348,7 +5347,7 @@ func NewEndTickPriceRange(val float64) *EndTickPriceRangeField {
 }
 
 //EventDateField is a LOCALMKTDATE field
-type EventDateField struct{ message.LocalMktDateValue }
+type EventDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.EventDate (866)
 func (f EventDateField) Tag() fix.Tag { return tag.EventDate }
@@ -5361,7 +5360,7 @@ func NewEventDate(val string) *EventDateField {
 }
 
 //EventPxField is a PRICE field
-type EventPxField struct{ message.PriceValue }
+type EventPxField struct{ fix.PriceValue }
 
 //Tag returns tag.EventPx (867)
 func (f EventPxField) Tag() fix.Tag { return tag.EventPx }
@@ -5374,7 +5373,7 @@ func NewEventPx(val float64) *EventPxField {
 }
 
 //EventTextField is a STRING field
-type EventTextField struct{ message.StringValue }
+type EventTextField struct{ fix.StringValue }
 
 //Tag returns tag.EventText (868)
 func (f EventTextField) Tag() fix.Tag { return tag.EventText }
@@ -5387,13 +5386,13 @@ func NewEventText(val string) *EventTextField {
 }
 
 //EventTimeField is a UTCTIMESTAMP field
-type EventTimeField struct{ message.UTCTimestampValue }
+type EventTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.EventTime (1145)
 func (f EventTimeField) Tag() fix.Tag { return tag.EventTime }
 
 //EventTypeField is a INT field
-type EventTypeField struct{ message.IntValue }
+type EventTypeField struct{ fix.IntValue }
 
 //Tag returns tag.EventType (865)
 func (f EventTypeField) Tag() fix.Tag { return tag.EventType }
@@ -5406,7 +5405,7 @@ func NewEventType(val int) *EventTypeField {
 }
 
 //ExDateField is a LOCALMKTDATE field
-type ExDateField struct{ message.LocalMktDateValue }
+type ExDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.ExDate (230)
 func (f ExDateField) Tag() fix.Tag { return tag.ExDate }
@@ -5419,7 +5418,7 @@ func NewExDate(val string) *ExDateField {
 }
 
 //ExDestinationField is a EXCHANGE field
-type ExDestinationField struct{ message.ExchangeValue }
+type ExDestinationField struct{ fix.ExchangeValue }
 
 //Tag returns tag.ExDestination (100)
 func (f ExDestinationField) Tag() fix.Tag { return tag.ExDestination }
@@ -5432,7 +5431,7 @@ func NewExDestination(val string) *ExDestinationField {
 }
 
 //ExDestinationIDSourceField is a CHAR field
-type ExDestinationIDSourceField struct{ message.CharValue }
+type ExDestinationIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.ExDestinationIDSource (1133)
 func (f ExDestinationIDSourceField) Tag() fix.Tag { return tag.ExDestinationIDSource }
@@ -5445,7 +5444,7 @@ func NewExDestinationIDSource(val string) *ExDestinationIDSourceField {
 }
 
 //ExchangeForPhysicalField is a BOOLEAN field
-type ExchangeForPhysicalField struct{ message.BooleanValue }
+type ExchangeForPhysicalField struct{ fix.BooleanValue }
 
 //Tag returns tag.ExchangeForPhysical (411)
 func (f ExchangeForPhysicalField) Tag() fix.Tag { return tag.ExchangeForPhysical }
@@ -5458,7 +5457,7 @@ func NewExchangeForPhysical(val bool) *ExchangeForPhysicalField {
 }
 
 //ExchangeRuleField is a STRING field
-type ExchangeRuleField struct{ message.StringValue }
+type ExchangeRuleField struct{ fix.StringValue }
 
 //Tag returns tag.ExchangeRule (825)
 func (f ExchangeRuleField) Tag() fix.Tag { return tag.ExchangeRule }
@@ -5471,7 +5470,7 @@ func NewExchangeRule(val string) *ExchangeRuleField {
 }
 
 //ExchangeSpecialInstructionsField is a STRING field
-type ExchangeSpecialInstructionsField struct{ message.StringValue }
+type ExchangeSpecialInstructionsField struct{ fix.StringValue }
 
 //Tag returns tag.ExchangeSpecialInstructions (1139)
 func (f ExchangeSpecialInstructionsField) Tag() fix.Tag { return tag.ExchangeSpecialInstructions }
@@ -5484,7 +5483,7 @@ func NewExchangeSpecialInstructions(val string) *ExchangeSpecialInstructionsFiel
 }
 
 //ExecAckStatusField is a CHAR field
-type ExecAckStatusField struct{ message.CharValue }
+type ExecAckStatusField struct{ fix.CharValue }
 
 //Tag returns tag.ExecAckStatus (1036)
 func (f ExecAckStatusField) Tag() fix.Tag { return tag.ExecAckStatus }
@@ -5497,7 +5496,7 @@ func NewExecAckStatus(val string) *ExecAckStatusField {
 }
 
 //ExecBrokerField is a STRING field
-type ExecBrokerField struct{ message.StringValue }
+type ExecBrokerField struct{ fix.StringValue }
 
 //Tag returns tag.ExecBroker (76)
 func (f ExecBrokerField) Tag() fix.Tag { return tag.ExecBroker }
@@ -5510,7 +5509,7 @@ func NewExecBroker(val string) *ExecBrokerField {
 }
 
 //ExecIDField is a STRING field
-type ExecIDField struct{ message.StringValue }
+type ExecIDField struct{ fix.StringValue }
 
 //Tag returns tag.ExecID (17)
 func (f ExecIDField) Tag() fix.Tag { return tag.ExecID }
@@ -5523,7 +5522,7 @@ func NewExecID(val string) *ExecIDField {
 }
 
 //ExecInstField is a MULTIPLECHARVALUE field
-type ExecInstField struct{ message.MultipleCharValue }
+type ExecInstField struct{ fix.MultipleCharValue }
 
 //Tag returns tag.ExecInst (18)
 func (f ExecInstField) Tag() fix.Tag { return tag.ExecInst }
@@ -5536,7 +5535,7 @@ func NewExecInst(val string) *ExecInstField {
 }
 
 //ExecInstValueField is a CHAR field
-type ExecInstValueField struct{ message.CharValue }
+type ExecInstValueField struct{ fix.CharValue }
 
 //Tag returns tag.ExecInstValue (1308)
 func (f ExecInstValueField) Tag() fix.Tag { return tag.ExecInstValue }
@@ -5549,7 +5548,7 @@ func NewExecInstValue(val string) *ExecInstValueField {
 }
 
 //ExecPriceAdjustmentField is a FLOAT field
-type ExecPriceAdjustmentField struct{ message.FloatValue }
+type ExecPriceAdjustmentField struct{ fix.FloatValue }
 
 //Tag returns tag.ExecPriceAdjustment (485)
 func (f ExecPriceAdjustmentField) Tag() fix.Tag { return tag.ExecPriceAdjustment }
@@ -5562,7 +5561,7 @@ func NewExecPriceAdjustment(val float64) *ExecPriceAdjustmentField {
 }
 
 //ExecPriceTypeField is a CHAR field
-type ExecPriceTypeField struct{ message.CharValue }
+type ExecPriceTypeField struct{ fix.CharValue }
 
 //Tag returns tag.ExecPriceType (484)
 func (f ExecPriceTypeField) Tag() fix.Tag { return tag.ExecPriceType }
@@ -5575,7 +5574,7 @@ func NewExecPriceType(val string) *ExecPriceTypeField {
 }
 
 //ExecRefIDField is a STRING field
-type ExecRefIDField struct{ message.StringValue }
+type ExecRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.ExecRefID (19)
 func (f ExecRefIDField) Tag() fix.Tag { return tag.ExecRefID }
@@ -5588,7 +5587,7 @@ func NewExecRefID(val string) *ExecRefIDField {
 }
 
 //ExecRestatementReasonField is a INT field
-type ExecRestatementReasonField struct{ message.IntValue }
+type ExecRestatementReasonField struct{ fix.IntValue }
 
 //Tag returns tag.ExecRestatementReason (378)
 func (f ExecRestatementReasonField) Tag() fix.Tag { return tag.ExecRestatementReason }
@@ -5601,7 +5600,7 @@ func NewExecRestatementReason(val int) *ExecRestatementReasonField {
 }
 
 //ExecTransTypeField is a CHAR field
-type ExecTransTypeField struct{ message.CharValue }
+type ExecTransTypeField struct{ fix.CharValue }
 
 //Tag returns tag.ExecTransType (20)
 func (f ExecTransTypeField) Tag() fix.Tag { return tag.ExecTransType }
@@ -5614,7 +5613,7 @@ func NewExecTransType(val string) *ExecTransTypeField {
 }
 
 //ExecTypeField is a CHAR field
-type ExecTypeField struct{ message.CharValue }
+type ExecTypeField struct{ fix.CharValue }
 
 //Tag returns tag.ExecType (150)
 func (f ExecTypeField) Tag() fix.Tag { return tag.ExecType }
@@ -5627,13 +5626,13 @@ func NewExecType(val string) *ExecTypeField {
 }
 
 //ExecValuationPointField is a UTCTIMESTAMP field
-type ExecValuationPointField struct{ message.UTCTimestampValue }
+type ExecValuationPointField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.ExecValuationPoint (515)
 func (f ExecValuationPointField) Tag() fix.Tag { return tag.ExecValuationPoint }
 
 //ExerciseMethodField is a CHAR field
-type ExerciseMethodField struct{ message.CharValue }
+type ExerciseMethodField struct{ fix.CharValue }
 
 //Tag returns tag.ExerciseMethod (747)
 func (f ExerciseMethodField) Tag() fix.Tag { return tag.ExerciseMethod }
@@ -5646,7 +5645,7 @@ func NewExerciseMethod(val string) *ExerciseMethodField {
 }
 
 //ExerciseStyleField is a INT field
-type ExerciseStyleField struct{ message.IntValue }
+type ExerciseStyleField struct{ fix.IntValue }
 
 //Tag returns tag.ExerciseStyle (1194)
 func (f ExerciseStyleField) Tag() fix.Tag { return tag.ExerciseStyle }
@@ -5659,7 +5658,7 @@ func NewExerciseStyle(val int) *ExerciseStyleField {
 }
 
 //ExpQtyField is a QTY field
-type ExpQtyField struct{ message.QtyValue }
+type ExpQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.ExpQty (983)
 func (f ExpQtyField) Tag() fix.Tag { return tag.ExpQty }
@@ -5672,7 +5671,7 @@ func NewExpQty(val float64) *ExpQtyField {
 }
 
 //ExpTypeField is a INT field
-type ExpTypeField struct{ message.IntValue }
+type ExpTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ExpType (982)
 func (f ExpTypeField) Tag() fix.Tag { return tag.ExpType }
@@ -5685,7 +5684,7 @@ func NewExpType(val int) *ExpTypeField {
 }
 
 //ExpirationCycleField is a INT field
-type ExpirationCycleField struct{ message.IntValue }
+type ExpirationCycleField struct{ fix.IntValue }
 
 //Tag returns tag.ExpirationCycle (827)
 func (f ExpirationCycleField) Tag() fix.Tag { return tag.ExpirationCycle }
@@ -5698,7 +5697,7 @@ func NewExpirationCycle(val int) *ExpirationCycleField {
 }
 
 //ExpirationQtyTypeField is a INT field
-type ExpirationQtyTypeField struct{ message.IntValue }
+type ExpirationQtyTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ExpirationQtyType (982)
 func (f ExpirationQtyTypeField) Tag() fix.Tag { return tag.ExpirationQtyType }
@@ -5711,7 +5710,7 @@ func NewExpirationQtyType(val int) *ExpirationQtyTypeField {
 }
 
 //ExpireDateField is a LOCALMKTDATE field
-type ExpireDateField struct{ message.LocalMktDateValue }
+type ExpireDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.ExpireDate (432)
 func (f ExpireDateField) Tag() fix.Tag { return tag.ExpireDate }
@@ -5724,13 +5723,13 @@ func NewExpireDate(val string) *ExpireDateField {
 }
 
 //ExpireTimeField is a UTCTIMESTAMP field
-type ExpireTimeField struct{ message.UTCTimestampValue }
+type ExpireTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.ExpireTime (126)
 func (f ExpireTimeField) Tag() fix.Tag { return tag.ExpireTime }
 
 //FactorField is a FLOAT field
-type FactorField struct{ message.FloatValue }
+type FactorField struct{ fix.FloatValue }
 
 //Tag returns tag.Factor (228)
 func (f FactorField) Tag() fix.Tag { return tag.Factor }
@@ -5743,7 +5742,7 @@ func NewFactor(val float64) *FactorField {
 }
 
 //FairValueField is a AMT field
-type FairValueField struct{ message.AmtValue }
+type FairValueField struct{ fix.AmtValue }
 
 //Tag returns tag.FairValue (406)
 func (f FairValueField) Tag() fix.Tag { return tag.FairValue }
@@ -5756,7 +5755,7 @@ func NewFairValue(val float64) *FairValueField {
 }
 
 //FeeMultiplierField is a FLOAT field
-type FeeMultiplierField struct{ message.FloatValue }
+type FeeMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.FeeMultiplier (1329)
 func (f FeeMultiplierField) Tag() fix.Tag { return tag.FeeMultiplier }
@@ -5769,7 +5768,7 @@ func NewFeeMultiplier(val float64) *FeeMultiplierField {
 }
 
 //FillExecIDField is a STRING field
-type FillExecIDField struct{ message.StringValue }
+type FillExecIDField struct{ fix.StringValue }
 
 //Tag returns tag.FillExecID (1363)
 func (f FillExecIDField) Tag() fix.Tag { return tag.FillExecID }
@@ -5782,7 +5781,7 @@ func NewFillExecID(val string) *FillExecIDField {
 }
 
 //FillLiquidityIndField is a INT field
-type FillLiquidityIndField struct{ message.IntValue }
+type FillLiquidityIndField struct{ fix.IntValue }
 
 //Tag returns tag.FillLiquidityInd (1443)
 func (f FillLiquidityIndField) Tag() fix.Tag { return tag.FillLiquidityInd }
@@ -5795,7 +5794,7 @@ func NewFillLiquidityInd(val int) *FillLiquidityIndField {
 }
 
 //FillPxField is a PRICE field
-type FillPxField struct{ message.PriceValue }
+type FillPxField struct{ fix.PriceValue }
 
 //Tag returns tag.FillPx (1364)
 func (f FillPxField) Tag() fix.Tag { return tag.FillPx }
@@ -5808,7 +5807,7 @@ func NewFillPx(val float64) *FillPxField {
 }
 
 //FillQtyField is a QTY field
-type FillQtyField struct{ message.QtyValue }
+type FillQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.FillQty (1365)
 func (f FillQtyField) Tag() fix.Tag { return tag.FillQty }
@@ -5821,7 +5820,7 @@ func NewFillQty(val float64) *FillQtyField {
 }
 
 //FinancialStatusField is a MULTIPLECHARVALUE field
-type FinancialStatusField struct{ message.MultipleCharValue }
+type FinancialStatusField struct{ fix.MultipleCharValue }
 
 //Tag returns tag.FinancialStatus (291)
 func (f FinancialStatusField) Tag() fix.Tag { return tag.FinancialStatus }
@@ -5834,7 +5833,7 @@ func NewFinancialStatus(val string) *FinancialStatusField {
 }
 
 //FirmTradeIDField is a STRING field
-type FirmTradeIDField struct{ message.StringValue }
+type FirmTradeIDField struct{ fix.StringValue }
 
 //Tag returns tag.FirmTradeID (1041)
 func (f FirmTradeIDField) Tag() fix.Tag { return tag.FirmTradeID }
@@ -5847,7 +5846,7 @@ func NewFirmTradeID(val string) *FirmTradeIDField {
 }
 
 //FirstPxField is a PRICE field
-type FirstPxField struct{ message.PriceValue }
+type FirstPxField struct{ fix.PriceValue }
 
 //Tag returns tag.FirstPx (1025)
 func (f FirstPxField) Tag() fix.Tag { return tag.FirstPx }
@@ -5860,7 +5859,7 @@ func NewFirstPx(val float64) *FirstPxField {
 }
 
 //FlexProductEligibilityIndicatorField is a BOOLEAN field
-type FlexProductEligibilityIndicatorField struct{ message.BooleanValue }
+type FlexProductEligibilityIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.FlexProductEligibilityIndicator (1242)
 func (f FlexProductEligibilityIndicatorField) Tag() fix.Tag {
@@ -5875,7 +5874,7 @@ func NewFlexProductEligibilityIndicator(val bool) *FlexProductEligibilityIndicat
 }
 
 //FlexibleIndicatorField is a BOOLEAN field
-type FlexibleIndicatorField struct{ message.BooleanValue }
+type FlexibleIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.FlexibleIndicator (1244)
 func (f FlexibleIndicatorField) Tag() fix.Tag { return tag.FlexibleIndicator }
@@ -5888,7 +5887,7 @@ func NewFlexibleIndicator(val bool) *FlexibleIndicatorField {
 }
 
 //FloorPriceField is a PRICE field
-type FloorPriceField struct{ message.PriceValue }
+type FloorPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.FloorPrice (1200)
 func (f FloorPriceField) Tag() fix.Tag { return tag.FloorPrice }
@@ -5901,7 +5900,7 @@ func NewFloorPrice(val float64) *FloorPriceField {
 }
 
 //FlowScheduleTypeField is a INT field
-type FlowScheduleTypeField struct{ message.IntValue }
+type FlowScheduleTypeField struct{ fix.IntValue }
 
 //Tag returns tag.FlowScheduleType (1439)
 func (f FlowScheduleTypeField) Tag() fix.Tag { return tag.FlowScheduleType }
@@ -5914,7 +5913,7 @@ func NewFlowScheduleType(val int) *FlowScheduleTypeField {
 }
 
 //ForexReqField is a BOOLEAN field
-type ForexReqField struct{ message.BooleanValue }
+type ForexReqField struct{ fix.BooleanValue }
 
 //Tag returns tag.ForexReq (121)
 func (f ForexReqField) Tag() fix.Tag { return tag.ForexReq }
@@ -5927,7 +5926,7 @@ func NewForexReq(val bool) *ForexReqField {
 }
 
 //FundRenewWaivField is a CHAR field
-type FundRenewWaivField struct{ message.CharValue }
+type FundRenewWaivField struct{ fix.CharValue }
 
 //Tag returns tag.FundRenewWaiv (497)
 func (f FundRenewWaivField) Tag() fix.Tag { return tag.FundRenewWaiv }
@@ -5940,7 +5939,7 @@ func NewFundRenewWaiv(val string) *FundRenewWaivField {
 }
 
 //FutSettDateField is a LOCALMKTDATE field
-type FutSettDateField struct{ message.LocalMktDateValue }
+type FutSettDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.FutSettDate (64)
 func (f FutSettDateField) Tag() fix.Tag { return tag.FutSettDate }
@@ -5953,7 +5952,7 @@ func NewFutSettDate(val string) *FutSettDateField {
 }
 
 //FutSettDate2Field is a LOCALMKTDATE field
-type FutSettDate2Field struct{ message.LocalMktDateValue }
+type FutSettDate2Field struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.FutSettDate2 (193)
 func (f FutSettDate2Field) Tag() fix.Tag { return tag.FutSettDate2 }
@@ -5966,7 +5965,7 @@ func NewFutSettDate2(val string) *FutSettDate2Field {
 }
 
 //FuturesValuationMethodField is a STRING field
-type FuturesValuationMethodField struct{ message.StringValue }
+type FuturesValuationMethodField struct{ fix.StringValue }
 
 //Tag returns tag.FuturesValuationMethod (1197)
 func (f FuturesValuationMethodField) Tag() fix.Tag { return tag.FuturesValuationMethod }
@@ -5979,7 +5978,7 @@ func NewFuturesValuationMethod(val string) *FuturesValuationMethodField {
 }
 
 //GTBookingInstField is a INT field
-type GTBookingInstField struct{ message.IntValue }
+type GTBookingInstField struct{ fix.IntValue }
 
 //Tag returns tag.GTBookingInst (427)
 func (f GTBookingInstField) Tag() fix.Tag { return tag.GTBookingInst }
@@ -5992,7 +5991,7 @@ func NewGTBookingInst(val int) *GTBookingInstField {
 }
 
 //GapFillFlagField is a BOOLEAN field
-type GapFillFlagField struct{ message.BooleanValue }
+type GapFillFlagField struct{ fix.BooleanValue }
 
 //Tag returns tag.GapFillFlag (123)
 func (f GapFillFlagField) Tag() fix.Tag { return tag.GapFillFlag }
@@ -6005,7 +6004,7 @@ func NewGapFillFlag(val bool) *GapFillFlagField {
 }
 
 //GrossTradeAmtField is a AMT field
-type GrossTradeAmtField struct{ message.AmtValue }
+type GrossTradeAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.GrossTradeAmt (381)
 func (f GrossTradeAmtField) Tag() fix.Tag { return tag.GrossTradeAmt }
@@ -6018,7 +6017,7 @@ func NewGrossTradeAmt(val float64) *GrossTradeAmtField {
 }
 
 //HaltReasonCharField is a CHAR field
-type HaltReasonCharField struct{ message.CharValue }
+type HaltReasonCharField struct{ fix.CharValue }
 
 //Tag returns tag.HaltReasonChar (327)
 func (f HaltReasonCharField) Tag() fix.Tag { return tag.HaltReasonChar }
@@ -6031,7 +6030,7 @@ func NewHaltReasonChar(val string) *HaltReasonCharField {
 }
 
 //HaltReasonIntField is a INT field
-type HaltReasonIntField struct{ message.IntValue }
+type HaltReasonIntField struct{ fix.IntValue }
 
 //Tag returns tag.HaltReasonInt (327)
 func (f HaltReasonIntField) Tag() fix.Tag { return tag.HaltReasonInt }
@@ -6044,7 +6043,7 @@ func NewHaltReasonInt(val int) *HaltReasonIntField {
 }
 
 //HandlInstField is a CHAR field
-type HandlInstField struct{ message.CharValue }
+type HandlInstField struct{ fix.CharValue }
 
 //Tag returns tag.HandlInst (21)
 func (f HandlInstField) Tag() fix.Tag { return tag.HandlInst }
@@ -6057,7 +6056,7 @@ func NewHandlInst(val string) *HandlInstField {
 }
 
 //HeadlineField is a STRING field
-type HeadlineField struct{ message.StringValue }
+type HeadlineField struct{ fix.StringValue }
 
 //Tag returns tag.Headline (148)
 func (f HeadlineField) Tag() fix.Tag { return tag.Headline }
@@ -6070,7 +6069,7 @@ func NewHeadline(val string) *HeadlineField {
 }
 
 //HeartBtIntField is a INT field
-type HeartBtIntField struct{ message.IntValue }
+type HeartBtIntField struct{ fix.IntValue }
 
 //Tag returns tag.HeartBtInt (108)
 func (f HeartBtIntField) Tag() fix.Tag { return tag.HeartBtInt }
@@ -6083,7 +6082,7 @@ func NewHeartBtInt(val int) *HeartBtIntField {
 }
 
 //HighLimitPriceField is a PRICE field
-type HighLimitPriceField struct{ message.PriceValue }
+type HighLimitPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.HighLimitPrice (1149)
 func (f HighLimitPriceField) Tag() fix.Tag { return tag.HighLimitPrice }
@@ -6096,7 +6095,7 @@ func NewHighLimitPrice(val float64) *HighLimitPriceField {
 }
 
 //HighPxField is a PRICE field
-type HighPxField struct{ message.PriceValue }
+type HighPxField struct{ fix.PriceValue }
 
 //Tag returns tag.HighPx (332)
 func (f HighPxField) Tag() fix.Tag { return tag.HighPx }
@@ -6109,7 +6108,7 @@ func NewHighPx(val float64) *HighPxField {
 }
 
 //HopCompIDField is a STRING field
-type HopCompIDField struct{ message.StringValue }
+type HopCompIDField struct{ fix.StringValue }
 
 //Tag returns tag.HopCompID (628)
 func (f HopCompIDField) Tag() fix.Tag { return tag.HopCompID }
@@ -6122,7 +6121,7 @@ func NewHopCompID(val string) *HopCompIDField {
 }
 
 //HopRefIDField is a SEQNUM field
-type HopRefIDField struct{ message.SeqNumValue }
+type HopRefIDField struct{ fix.SeqNumValue }
 
 //Tag returns tag.HopRefID (630)
 func (f HopRefIDField) Tag() fix.Tag { return tag.HopRefID }
@@ -6135,13 +6134,13 @@ func NewHopRefID(val int) *HopRefIDField {
 }
 
 //HopSendingTimeField is a UTCTIMESTAMP field
-type HopSendingTimeField struct{ message.UTCTimestampValue }
+type HopSendingTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.HopSendingTime (629)
 func (f HopSendingTimeField) Tag() fix.Tag { return tag.HopSendingTime }
 
 //HostCrossIDField is a STRING field
-type HostCrossIDField struct{ message.StringValue }
+type HostCrossIDField struct{ fix.StringValue }
 
 //Tag returns tag.HostCrossID (961)
 func (f HostCrossIDField) Tag() fix.Tag { return tag.HostCrossID }
@@ -6154,7 +6153,7 @@ func NewHostCrossID(val string) *HostCrossIDField {
 }
 
 //IDSourceField is a STRING field
-type IDSourceField struct{ message.StringValue }
+type IDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.IDSource (22)
 func (f IDSourceField) Tag() fix.Tag { return tag.IDSource }
@@ -6167,7 +6166,7 @@ func NewIDSource(val string) *IDSourceField {
 }
 
 //IOIIDField is a STRING field
-type IOIIDField struct{ message.StringValue }
+type IOIIDField struct{ fix.StringValue }
 
 //Tag returns tag.IOIID (23)
 func (f IOIIDField) Tag() fix.Tag { return tag.IOIID }
@@ -6180,7 +6179,7 @@ func NewIOIID(val string) *IOIIDField {
 }
 
 //IOINaturalFlagField is a BOOLEAN field
-type IOINaturalFlagField struct{ message.BooleanValue }
+type IOINaturalFlagField struct{ fix.BooleanValue }
 
 //Tag returns tag.IOINaturalFlag (130)
 func (f IOINaturalFlagField) Tag() fix.Tag { return tag.IOINaturalFlag }
@@ -6193,7 +6192,7 @@ func NewIOINaturalFlag(val bool) *IOINaturalFlagField {
 }
 
 //IOIOthSvcField is a CHAR field
-type IOIOthSvcField struct{ message.CharValue }
+type IOIOthSvcField struct{ fix.CharValue }
 
 //Tag returns tag.IOIOthSvc (24)
 func (f IOIOthSvcField) Tag() fix.Tag { return tag.IOIOthSvc }
@@ -6206,7 +6205,7 @@ func NewIOIOthSvc(val string) *IOIOthSvcField {
 }
 
 //IOIQltyIndField is a CHAR field
-type IOIQltyIndField struct{ message.CharValue }
+type IOIQltyIndField struct{ fix.CharValue }
 
 //Tag returns tag.IOIQltyInd (25)
 func (f IOIQltyIndField) Tag() fix.Tag { return tag.IOIQltyInd }
@@ -6219,7 +6218,7 @@ func NewIOIQltyInd(val string) *IOIQltyIndField {
 }
 
 //IOIQtyField is a STRING field
-type IOIQtyField struct{ message.StringValue }
+type IOIQtyField struct{ fix.StringValue }
 
 //Tag returns tag.IOIQty (27)
 func (f IOIQtyField) Tag() fix.Tag { return tag.IOIQty }
@@ -6232,7 +6231,7 @@ func NewIOIQty(val string) *IOIQtyField {
 }
 
 //IOIQualifierField is a CHAR field
-type IOIQualifierField struct{ message.CharValue }
+type IOIQualifierField struct{ fix.CharValue }
 
 //Tag returns tag.IOIQualifier (104)
 func (f IOIQualifierField) Tag() fix.Tag { return tag.IOIQualifier }
@@ -6245,7 +6244,7 @@ func NewIOIQualifier(val string) *IOIQualifierField {
 }
 
 //IOIRefIDField is a STRING field
-type IOIRefIDField struct{ message.StringValue }
+type IOIRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.IOIRefID (26)
 func (f IOIRefIDField) Tag() fix.Tag { return tag.IOIRefID }
@@ -6258,7 +6257,7 @@ func NewIOIRefID(val string) *IOIRefIDField {
 }
 
 //IOISharesField is a STRING field
-type IOISharesField struct{ message.StringValue }
+type IOISharesField struct{ fix.StringValue }
 
 //Tag returns tag.IOIShares (27)
 func (f IOISharesField) Tag() fix.Tag { return tag.IOIShares }
@@ -6271,7 +6270,7 @@ func NewIOIShares(val string) *IOISharesField {
 }
 
 //IOITransTypeField is a CHAR field
-type IOITransTypeField struct{ message.CharValue }
+type IOITransTypeField struct{ fix.CharValue }
 
 //Tag returns tag.IOITransType (28)
 func (f IOITransTypeField) Tag() fix.Tag { return tag.IOITransType }
@@ -6284,7 +6283,7 @@ func NewIOITransType(val string) *IOITransTypeField {
 }
 
 //IOIidField is a STRING field
-type IOIidField struct{ message.StringValue }
+type IOIidField struct{ fix.StringValue }
 
 //Tag returns tag.IOIid (23)
 func (f IOIidField) Tag() fix.Tag { return tag.IOIid }
@@ -6297,7 +6296,7 @@ func NewIOIid(val string) *IOIidField {
 }
 
 //ImpliedMarketIndicatorField is a INT field
-type ImpliedMarketIndicatorField struct{ message.IntValue }
+type ImpliedMarketIndicatorField struct{ fix.IntValue }
 
 //Tag returns tag.ImpliedMarketIndicator (1144)
 func (f ImpliedMarketIndicatorField) Tag() fix.Tag { return tag.ImpliedMarketIndicator }
@@ -6310,7 +6309,7 @@ func NewImpliedMarketIndicator(val int) *ImpliedMarketIndicatorField {
 }
 
 //InViewOfCommonField is a BOOLEAN field
-type InViewOfCommonField struct{ message.BooleanValue }
+type InViewOfCommonField struct{ fix.BooleanValue }
 
 //Tag returns tag.InViewOfCommon (328)
 func (f InViewOfCommonField) Tag() fix.Tag { return tag.InViewOfCommon }
@@ -6323,7 +6322,7 @@ func NewInViewOfCommon(val bool) *InViewOfCommonField {
 }
 
 //IncTaxIndField is a INT field
-type IncTaxIndField struct{ message.IntValue }
+type IncTaxIndField struct{ fix.IntValue }
 
 //Tag returns tag.IncTaxInd (416)
 func (f IncTaxIndField) Tag() fix.Tag { return tag.IncTaxInd }
@@ -6336,7 +6335,7 @@ func NewIncTaxInd(val int) *IncTaxIndField {
 }
 
 //IndividualAllocIDField is a STRING field
-type IndividualAllocIDField struct{ message.StringValue }
+type IndividualAllocIDField struct{ fix.StringValue }
 
 //Tag returns tag.IndividualAllocID (467)
 func (f IndividualAllocIDField) Tag() fix.Tag { return tag.IndividualAllocID }
@@ -6349,7 +6348,7 @@ func NewIndividualAllocID(val string) *IndividualAllocIDField {
 }
 
 //IndividualAllocRejCodeField is a INT field
-type IndividualAllocRejCodeField struct{ message.IntValue }
+type IndividualAllocRejCodeField struct{ fix.IntValue }
 
 //Tag returns tag.IndividualAllocRejCode (776)
 func (f IndividualAllocRejCodeField) Tag() fix.Tag { return tag.IndividualAllocRejCode }
@@ -6362,7 +6361,7 @@ func NewIndividualAllocRejCode(val int) *IndividualAllocRejCodeField {
 }
 
 //IndividualAllocTypeField is a INT field
-type IndividualAllocTypeField struct{ message.IntValue }
+type IndividualAllocTypeField struct{ fix.IntValue }
 
 //Tag returns tag.IndividualAllocType (992)
 func (f IndividualAllocTypeField) Tag() fix.Tag { return tag.IndividualAllocType }
@@ -6375,7 +6374,7 @@ func NewIndividualAllocType(val int) *IndividualAllocTypeField {
 }
 
 //InputSourceField is a STRING field
-type InputSourceField struct{ message.StringValue }
+type InputSourceField struct{ fix.StringValue }
 
 //Tag returns tag.InputSource (979)
 func (f InputSourceField) Tag() fix.Tag { return tag.InputSource }
@@ -6388,7 +6387,7 @@ func NewInputSource(val string) *InputSourceField {
 }
 
 //InstrAttribTypeField is a INT field
-type InstrAttribTypeField struct{ message.IntValue }
+type InstrAttribTypeField struct{ fix.IntValue }
 
 //Tag returns tag.InstrAttribType (871)
 func (f InstrAttribTypeField) Tag() fix.Tag { return tag.InstrAttribType }
@@ -6401,7 +6400,7 @@ func NewInstrAttribType(val int) *InstrAttribTypeField {
 }
 
 //InstrAttribValueField is a STRING field
-type InstrAttribValueField struct{ message.StringValue }
+type InstrAttribValueField struct{ fix.StringValue }
 
 //Tag returns tag.InstrAttribValue (872)
 func (f InstrAttribValueField) Tag() fix.Tag { return tag.InstrAttribValue }
@@ -6414,7 +6413,7 @@ func NewInstrAttribValue(val string) *InstrAttribValueField {
 }
 
 //InstrRegistryField is a STRING field
-type InstrRegistryField struct{ message.StringValue }
+type InstrRegistryField struct{ fix.StringValue }
 
 //Tag returns tag.InstrRegistry (543)
 func (f InstrRegistryField) Tag() fix.Tag { return tag.InstrRegistry }
@@ -6427,7 +6426,7 @@ func NewInstrRegistry(val string) *InstrRegistryField {
 }
 
 //InstrmtAssignmentMethodField is a CHAR field
-type InstrmtAssignmentMethodField struct{ message.CharValue }
+type InstrmtAssignmentMethodField struct{ fix.CharValue }
 
 //Tag returns tag.InstrmtAssignmentMethod (1049)
 func (f InstrmtAssignmentMethodField) Tag() fix.Tag { return tag.InstrmtAssignmentMethod }
@@ -6440,7 +6439,7 @@ func NewInstrmtAssignmentMethod(val string) *InstrmtAssignmentMethodField {
 }
 
 //InstrumentPartyIDField is a STRING field
-type InstrumentPartyIDField struct{ message.StringValue }
+type InstrumentPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.InstrumentPartyID (1019)
 func (f InstrumentPartyIDField) Tag() fix.Tag { return tag.InstrumentPartyID }
@@ -6453,7 +6452,7 @@ func NewInstrumentPartyID(val string) *InstrumentPartyIDField {
 }
 
 //InstrumentPartyIDSourceField is a CHAR field
-type InstrumentPartyIDSourceField struct{ message.CharValue }
+type InstrumentPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.InstrumentPartyIDSource (1050)
 func (f InstrumentPartyIDSourceField) Tag() fix.Tag { return tag.InstrumentPartyIDSource }
@@ -6466,7 +6465,7 @@ func NewInstrumentPartyIDSource(val string) *InstrumentPartyIDSourceField {
 }
 
 //InstrumentPartyRoleField is a INT field
-type InstrumentPartyRoleField struct{ message.IntValue }
+type InstrumentPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.InstrumentPartyRole (1051)
 func (f InstrumentPartyRoleField) Tag() fix.Tag { return tag.InstrumentPartyRole }
@@ -6479,7 +6478,7 @@ func NewInstrumentPartyRole(val int) *InstrumentPartyRoleField {
 }
 
 //InstrumentPartySubIDField is a STRING field
-type InstrumentPartySubIDField struct{ message.StringValue }
+type InstrumentPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.InstrumentPartySubID (1053)
 func (f InstrumentPartySubIDField) Tag() fix.Tag { return tag.InstrumentPartySubID }
@@ -6492,7 +6491,7 @@ func NewInstrumentPartySubID(val string) *InstrumentPartySubIDField {
 }
 
 //InstrumentPartySubIDTypeField is a INT field
-type InstrumentPartySubIDTypeField struct{ message.IntValue }
+type InstrumentPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.InstrumentPartySubIDType (1054)
 func (f InstrumentPartySubIDTypeField) Tag() fix.Tag { return tag.InstrumentPartySubIDType }
@@ -6505,7 +6504,7 @@ func NewInstrumentPartySubIDType(val int) *InstrumentPartySubIDTypeField {
 }
 
 //InterestAccrualDateField is a LOCALMKTDATE field
-type InterestAccrualDateField struct{ message.LocalMktDateValue }
+type InterestAccrualDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.InterestAccrualDate (874)
 func (f InterestAccrualDateField) Tag() fix.Tag { return tag.InterestAccrualDate }
@@ -6518,7 +6517,7 @@ func NewInterestAccrualDate(val string) *InterestAccrualDateField {
 }
 
 //InterestAtMaturityField is a AMT field
-type InterestAtMaturityField struct{ message.AmtValue }
+type InterestAtMaturityField struct{ fix.AmtValue }
 
 //Tag returns tag.InterestAtMaturity (738)
 func (f InterestAtMaturityField) Tag() fix.Tag { return tag.InterestAtMaturity }
@@ -6531,7 +6530,7 @@ func NewInterestAtMaturity(val float64) *InterestAtMaturityField {
 }
 
 //InvestorCountryOfResidenceField is a COUNTRY field
-type InvestorCountryOfResidenceField struct{ message.CountryValue }
+type InvestorCountryOfResidenceField struct{ fix.CountryValue }
 
 //Tag returns tag.InvestorCountryOfResidence (475)
 func (f InvestorCountryOfResidenceField) Tag() fix.Tag { return tag.InvestorCountryOfResidence }
@@ -6544,7 +6543,7 @@ func NewInvestorCountryOfResidence(val string) *InvestorCountryOfResidenceField 
 }
 
 //IssueDateField is a LOCALMKTDATE field
-type IssueDateField struct{ message.LocalMktDateValue }
+type IssueDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.IssueDate (225)
 func (f IssueDateField) Tag() fix.Tag { return tag.IssueDate }
@@ -6557,7 +6556,7 @@ func NewIssueDate(val string) *IssueDateField {
 }
 
 //IssuerField is a STRING field
-type IssuerField struct{ message.StringValue }
+type IssuerField struct{ fix.StringValue }
 
 //Tag returns tag.Issuer (106)
 func (f IssuerField) Tag() fix.Tag { return tag.Issuer }
@@ -6570,7 +6569,7 @@ func NewIssuer(val string) *IssuerField {
 }
 
 //LanguageCodeField is a LANGUAGE field
-type LanguageCodeField struct{ message.LanguageValue }
+type LanguageCodeField struct{ fix.LanguageValue }
 
 //Tag returns tag.LanguageCode (1474)
 func (f LanguageCodeField) Tag() fix.Tag { return tag.LanguageCode }
@@ -6583,7 +6582,7 @@ func NewLanguageCode(val string) *LanguageCodeField {
 }
 
 //LastCapacityField is a CHAR field
-type LastCapacityField struct{ message.CharValue }
+type LastCapacityField struct{ fix.CharValue }
 
 //Tag returns tag.LastCapacity (29)
 func (f LastCapacityField) Tag() fix.Tag { return tag.LastCapacity }
@@ -6596,7 +6595,7 @@ func NewLastCapacity(val string) *LastCapacityField {
 }
 
 //LastForwardPointsField is a PRICEOFFSET field
-type LastForwardPointsField struct{ message.PriceOffsetValue }
+type LastForwardPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.LastForwardPoints (195)
 func (f LastForwardPointsField) Tag() fix.Tag { return tag.LastForwardPoints }
@@ -6609,7 +6608,7 @@ func NewLastForwardPoints(val float64) *LastForwardPointsField {
 }
 
 //LastForwardPoints2Field is a PRICEOFFSET field
-type LastForwardPoints2Field struct{ message.PriceOffsetValue }
+type LastForwardPoints2Field struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.LastForwardPoints2 (641)
 func (f LastForwardPoints2Field) Tag() fix.Tag { return tag.LastForwardPoints2 }
@@ -6622,7 +6621,7 @@ func NewLastForwardPoints2(val float64) *LastForwardPoints2Field {
 }
 
 //LastFragmentField is a BOOLEAN field
-type LastFragmentField struct{ message.BooleanValue }
+type LastFragmentField struct{ fix.BooleanValue }
 
 //Tag returns tag.LastFragment (893)
 func (f LastFragmentField) Tag() fix.Tag { return tag.LastFragment }
@@ -6635,7 +6634,7 @@ func NewLastFragment(val bool) *LastFragmentField {
 }
 
 //LastLiquidityIndField is a INT field
-type LastLiquidityIndField struct{ message.IntValue }
+type LastLiquidityIndField struct{ fix.IntValue }
 
 //Tag returns tag.LastLiquidityInd (851)
 func (f LastLiquidityIndField) Tag() fix.Tag { return tag.LastLiquidityInd }
@@ -6648,7 +6647,7 @@ func NewLastLiquidityInd(val int) *LastLiquidityIndField {
 }
 
 //LastMktField is a EXCHANGE field
-type LastMktField struct{ message.ExchangeValue }
+type LastMktField struct{ fix.ExchangeValue }
 
 //Tag returns tag.LastMkt (30)
 func (f LastMktField) Tag() fix.Tag { return tag.LastMkt }
@@ -6661,7 +6660,7 @@ func NewLastMkt(val string) *LastMktField {
 }
 
 //LastMsgSeqNumProcessedField is a SEQNUM field
-type LastMsgSeqNumProcessedField struct{ message.SeqNumValue }
+type LastMsgSeqNumProcessedField struct{ fix.SeqNumValue }
 
 //Tag returns tag.LastMsgSeqNumProcessed (369)
 func (f LastMsgSeqNumProcessedField) Tag() fix.Tag { return tag.LastMsgSeqNumProcessed }
@@ -6674,7 +6673,7 @@ func NewLastMsgSeqNumProcessed(val int) *LastMsgSeqNumProcessedField {
 }
 
 //LastNetworkResponseIDField is a STRING field
-type LastNetworkResponseIDField struct{ message.StringValue }
+type LastNetworkResponseIDField struct{ fix.StringValue }
 
 //Tag returns tag.LastNetworkResponseID (934)
 func (f LastNetworkResponseIDField) Tag() fix.Tag { return tag.LastNetworkResponseID }
@@ -6687,7 +6686,7 @@ func NewLastNetworkResponseID(val string) *LastNetworkResponseIDField {
 }
 
 //LastParPxField is a PRICE field
-type LastParPxField struct{ message.PriceValue }
+type LastParPxField struct{ fix.PriceValue }
 
 //Tag returns tag.LastParPx (669)
 func (f LastParPxField) Tag() fix.Tag { return tag.LastParPx }
@@ -6700,7 +6699,7 @@ func NewLastParPx(val float64) *LastParPxField {
 }
 
 //LastPxField is a PRICE field
-type LastPxField struct{ message.PriceValue }
+type LastPxField struct{ fix.PriceValue }
 
 //Tag returns tag.LastPx (31)
 func (f LastPxField) Tag() fix.Tag { return tag.LastPx }
@@ -6713,7 +6712,7 @@ func NewLastPx(val float64) *LastPxField {
 }
 
 //LastQtyField is a QTY field
-type LastQtyField struct{ message.QtyValue }
+type LastQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LastQty (32)
 func (f LastQtyField) Tag() fix.Tag { return tag.LastQty }
@@ -6726,7 +6725,7 @@ func NewLastQty(val float64) *LastQtyField {
 }
 
 //LastRptRequestedField is a BOOLEAN field
-type LastRptRequestedField struct{ message.BooleanValue }
+type LastRptRequestedField struct{ fix.BooleanValue }
 
 //Tag returns tag.LastRptRequested (912)
 func (f LastRptRequestedField) Tag() fix.Tag { return tag.LastRptRequested }
@@ -6739,7 +6738,7 @@ func NewLastRptRequested(val bool) *LastRptRequestedField {
 }
 
 //LastSharesField is a QTY field
-type LastSharesField struct{ message.QtyValue }
+type LastSharesField struct{ fix.QtyValue }
 
 //Tag returns tag.LastShares (32)
 func (f LastSharesField) Tag() fix.Tag { return tag.LastShares }
@@ -6752,7 +6751,7 @@ func NewLastShares(val float64) *LastSharesField {
 }
 
 //LastSpotRateField is a PRICE field
-type LastSpotRateField struct{ message.PriceValue }
+type LastSpotRateField struct{ fix.PriceValue }
 
 //Tag returns tag.LastSpotRate (194)
 func (f LastSpotRateField) Tag() fix.Tag { return tag.LastSpotRate }
@@ -6765,7 +6764,7 @@ func NewLastSpotRate(val float64) *LastSpotRateField {
 }
 
 //LastSwapPointsField is a PRICEOFFSET field
-type LastSwapPointsField struct{ message.PriceOffsetValue }
+type LastSwapPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.LastSwapPoints (1071)
 func (f LastSwapPointsField) Tag() fix.Tag { return tag.LastSwapPoints }
@@ -6778,13 +6777,13 @@ func NewLastSwapPoints(val float64) *LastSwapPointsField {
 }
 
 //LastUpdateTimeField is a UTCTIMESTAMP field
-type LastUpdateTimeField struct{ message.UTCTimestampValue }
+type LastUpdateTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.LastUpdateTime (779)
 func (f LastUpdateTimeField) Tag() fix.Tag { return tag.LastUpdateTime }
 
 //LateIndicatorField is a BOOLEAN field
-type LateIndicatorField struct{ message.BooleanValue }
+type LateIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.LateIndicator (978)
 func (f LateIndicatorField) Tag() fix.Tag { return tag.LateIndicator }
@@ -6797,7 +6796,7 @@ func NewLateIndicator(val bool) *LateIndicatorField {
 }
 
 //LeavesQtyField is a QTY field
-type LeavesQtyField struct{ message.QtyValue }
+type LeavesQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LeavesQty (151)
 func (f LeavesQtyField) Tag() fix.Tag { return tag.LeavesQty }
@@ -6810,7 +6809,7 @@ func NewLeavesQty(val float64) *LeavesQtyField {
 }
 
 //LegAllocAccountField is a STRING field
-type LegAllocAccountField struct{ message.StringValue }
+type LegAllocAccountField struct{ fix.StringValue }
 
 //Tag returns tag.LegAllocAccount (671)
 func (f LegAllocAccountField) Tag() fix.Tag { return tag.LegAllocAccount }
@@ -6823,7 +6822,7 @@ func NewLegAllocAccount(val string) *LegAllocAccountField {
 }
 
 //LegAllocAcctIDSourceField is a STRING field
-type LegAllocAcctIDSourceField struct{ message.StringValue }
+type LegAllocAcctIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.LegAllocAcctIDSource (674)
 func (f LegAllocAcctIDSourceField) Tag() fix.Tag { return tag.LegAllocAcctIDSource }
@@ -6836,7 +6835,7 @@ func NewLegAllocAcctIDSource(val string) *LegAllocAcctIDSourceField {
 }
 
 //LegAllocIDField is a STRING field
-type LegAllocIDField struct{ message.StringValue }
+type LegAllocIDField struct{ fix.StringValue }
 
 //Tag returns tag.LegAllocID (1366)
 func (f LegAllocIDField) Tag() fix.Tag { return tag.LegAllocID }
@@ -6849,7 +6848,7 @@ func NewLegAllocID(val string) *LegAllocIDField {
 }
 
 //LegAllocQtyField is a QTY field
-type LegAllocQtyField struct{ message.QtyValue }
+type LegAllocQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LegAllocQty (673)
 func (f LegAllocQtyField) Tag() fix.Tag { return tag.LegAllocQty }
@@ -6862,7 +6861,7 @@ func NewLegAllocQty(val float64) *LegAllocQtyField {
 }
 
 //LegAllocSettlCurrencyField is a CURRENCY field
-type LegAllocSettlCurrencyField struct{ message.CurrencyValue }
+type LegAllocSettlCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.LegAllocSettlCurrency (1367)
 func (f LegAllocSettlCurrencyField) Tag() fix.Tag { return tag.LegAllocSettlCurrency }
@@ -6875,7 +6874,7 @@ func NewLegAllocSettlCurrency(val string) *LegAllocSettlCurrencyField {
 }
 
 //LegBenchmarkCurveCurrencyField is a CURRENCY field
-type LegBenchmarkCurveCurrencyField struct{ message.CurrencyValue }
+type LegBenchmarkCurveCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.LegBenchmarkCurveCurrency (676)
 func (f LegBenchmarkCurveCurrencyField) Tag() fix.Tag { return tag.LegBenchmarkCurveCurrency }
@@ -6888,7 +6887,7 @@ func NewLegBenchmarkCurveCurrency(val string) *LegBenchmarkCurveCurrencyField {
 }
 
 //LegBenchmarkCurveNameField is a STRING field
-type LegBenchmarkCurveNameField struct{ message.StringValue }
+type LegBenchmarkCurveNameField struct{ fix.StringValue }
 
 //Tag returns tag.LegBenchmarkCurveName (677)
 func (f LegBenchmarkCurveNameField) Tag() fix.Tag { return tag.LegBenchmarkCurveName }
@@ -6901,7 +6900,7 @@ func NewLegBenchmarkCurveName(val string) *LegBenchmarkCurveNameField {
 }
 
 //LegBenchmarkCurvePointField is a STRING field
-type LegBenchmarkCurvePointField struct{ message.StringValue }
+type LegBenchmarkCurvePointField struct{ fix.StringValue }
 
 //Tag returns tag.LegBenchmarkCurvePoint (678)
 func (f LegBenchmarkCurvePointField) Tag() fix.Tag { return tag.LegBenchmarkCurvePoint }
@@ -6914,7 +6913,7 @@ func NewLegBenchmarkCurvePoint(val string) *LegBenchmarkCurvePointField {
 }
 
 //LegBenchmarkPriceField is a PRICE field
-type LegBenchmarkPriceField struct{ message.PriceValue }
+type LegBenchmarkPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.LegBenchmarkPrice (679)
 func (f LegBenchmarkPriceField) Tag() fix.Tag { return tag.LegBenchmarkPrice }
@@ -6927,7 +6926,7 @@ func NewLegBenchmarkPrice(val float64) *LegBenchmarkPriceField {
 }
 
 //LegBenchmarkPriceTypeField is a INT field
-type LegBenchmarkPriceTypeField struct{ message.IntValue }
+type LegBenchmarkPriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.LegBenchmarkPriceType (680)
 func (f LegBenchmarkPriceTypeField) Tag() fix.Tag { return tag.LegBenchmarkPriceType }
@@ -6940,7 +6939,7 @@ func NewLegBenchmarkPriceType(val int) *LegBenchmarkPriceTypeField {
 }
 
 //LegBidForwardPointsField is a PRICEOFFSET field
-type LegBidForwardPointsField struct{ message.PriceOffsetValue }
+type LegBidForwardPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.LegBidForwardPoints (1067)
 func (f LegBidForwardPointsField) Tag() fix.Tag { return tag.LegBidForwardPoints }
@@ -6953,7 +6952,7 @@ func NewLegBidForwardPoints(val float64) *LegBidForwardPointsField {
 }
 
 //LegBidPxField is a PRICE field
-type LegBidPxField struct{ message.PriceValue }
+type LegBidPxField struct{ fix.PriceValue }
 
 //Tag returns tag.LegBidPx (681)
 func (f LegBidPxField) Tag() fix.Tag { return tag.LegBidPx }
@@ -6966,7 +6965,7 @@ func NewLegBidPx(val float64) *LegBidPxField {
 }
 
 //LegCFICodeField is a STRING field
-type LegCFICodeField struct{ message.StringValue }
+type LegCFICodeField struct{ fix.StringValue }
 
 //Tag returns tag.LegCFICode (608)
 func (f LegCFICodeField) Tag() fix.Tag { return tag.LegCFICode }
@@ -6979,7 +6978,7 @@ func NewLegCFICode(val string) *LegCFICodeField {
 }
 
 //LegCalculatedCcyLastQtyField is a QTY field
-type LegCalculatedCcyLastQtyField struct{ message.QtyValue }
+type LegCalculatedCcyLastQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LegCalculatedCcyLastQty (1074)
 func (f LegCalculatedCcyLastQtyField) Tag() fix.Tag { return tag.LegCalculatedCcyLastQty }
@@ -6992,7 +6991,7 @@ func NewLegCalculatedCcyLastQty(val float64) *LegCalculatedCcyLastQtyField {
 }
 
 //LegContractMultiplierField is a FLOAT field
-type LegContractMultiplierField struct{ message.FloatValue }
+type LegContractMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.LegContractMultiplier (614)
 func (f LegContractMultiplierField) Tag() fix.Tag { return tag.LegContractMultiplier }
@@ -7005,7 +7004,7 @@ func NewLegContractMultiplier(val float64) *LegContractMultiplierField {
 }
 
 //LegContractMultiplierUnitField is a INT field
-type LegContractMultiplierUnitField struct{ message.IntValue }
+type LegContractMultiplierUnitField struct{ fix.IntValue }
 
 //Tag returns tag.LegContractMultiplierUnit (1436)
 func (f LegContractMultiplierUnitField) Tag() fix.Tag { return tag.LegContractMultiplierUnit }
@@ -7018,7 +7017,7 @@ func NewLegContractMultiplierUnit(val int) *LegContractMultiplierUnitField {
 }
 
 //LegContractSettlMonthField is a MONTHYEAR field
-type LegContractSettlMonthField struct{ message.MonthYearValue }
+type LegContractSettlMonthField struct{ fix.MonthYearValue }
 
 //Tag returns tag.LegContractSettlMonth (955)
 func (f LegContractSettlMonthField) Tag() fix.Tag { return tag.LegContractSettlMonth }
@@ -7031,7 +7030,7 @@ func NewLegContractSettlMonth(val string) *LegContractSettlMonthField {
 }
 
 //LegCountryOfIssueField is a COUNTRY field
-type LegCountryOfIssueField struct{ message.CountryValue }
+type LegCountryOfIssueField struct{ fix.CountryValue }
 
 //Tag returns tag.LegCountryOfIssue (596)
 func (f LegCountryOfIssueField) Tag() fix.Tag { return tag.LegCountryOfIssue }
@@ -7044,7 +7043,7 @@ func NewLegCountryOfIssue(val string) *LegCountryOfIssueField {
 }
 
 //LegCouponPaymentDateField is a LOCALMKTDATE field
-type LegCouponPaymentDateField struct{ message.LocalMktDateValue }
+type LegCouponPaymentDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.LegCouponPaymentDate (248)
 func (f LegCouponPaymentDateField) Tag() fix.Tag { return tag.LegCouponPaymentDate }
@@ -7057,7 +7056,7 @@ func NewLegCouponPaymentDate(val string) *LegCouponPaymentDateField {
 }
 
 //LegCouponRateField is a PERCENTAGE field
-type LegCouponRateField struct{ message.PercentageValue }
+type LegCouponRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.LegCouponRate (615)
 func (f LegCouponRateField) Tag() fix.Tag { return tag.LegCouponRate }
@@ -7070,7 +7069,7 @@ func NewLegCouponRate(val float64) *LegCouponRateField {
 }
 
 //LegCoveredOrUncoveredField is a INT field
-type LegCoveredOrUncoveredField struct{ message.IntValue }
+type LegCoveredOrUncoveredField struct{ fix.IntValue }
 
 //Tag returns tag.LegCoveredOrUncovered (565)
 func (f LegCoveredOrUncoveredField) Tag() fix.Tag { return tag.LegCoveredOrUncovered }
@@ -7083,7 +7082,7 @@ func NewLegCoveredOrUncovered(val int) *LegCoveredOrUncoveredField {
 }
 
 //LegCreditRatingField is a STRING field
-type LegCreditRatingField struct{ message.StringValue }
+type LegCreditRatingField struct{ fix.StringValue }
 
 //Tag returns tag.LegCreditRating (257)
 func (f LegCreditRatingField) Tag() fix.Tag { return tag.LegCreditRating }
@@ -7096,7 +7095,7 @@ func NewLegCreditRating(val string) *LegCreditRatingField {
 }
 
 //LegCurrencyField is a CURRENCY field
-type LegCurrencyField struct{ message.CurrencyValue }
+type LegCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.LegCurrency (556)
 func (f LegCurrencyField) Tag() fix.Tag { return tag.LegCurrency }
@@ -7109,7 +7108,7 @@ func NewLegCurrency(val string) *LegCurrencyField {
 }
 
 //LegCurrencyRatioField is a FLOAT field
-type LegCurrencyRatioField struct{ message.FloatValue }
+type LegCurrencyRatioField struct{ fix.FloatValue }
 
 //Tag returns tag.LegCurrencyRatio (1383)
 func (f LegCurrencyRatioField) Tag() fix.Tag { return tag.LegCurrencyRatio }
@@ -7122,7 +7121,7 @@ func NewLegCurrencyRatio(val float64) *LegCurrencyRatioField {
 }
 
 //LegDatedDateField is a LOCALMKTDATE field
-type LegDatedDateField struct{ message.LocalMktDateValue }
+type LegDatedDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.LegDatedDate (739)
 func (f LegDatedDateField) Tag() fix.Tag { return tag.LegDatedDate }
@@ -7135,7 +7134,7 @@ func NewLegDatedDate(val string) *LegDatedDateField {
 }
 
 //LegDividendYieldField is a PERCENTAGE field
-type LegDividendYieldField struct{ message.PercentageValue }
+type LegDividendYieldField struct{ fix.PercentageValue }
 
 //Tag returns tag.LegDividendYield (1381)
 func (f LegDividendYieldField) Tag() fix.Tag { return tag.LegDividendYield }
@@ -7148,7 +7147,7 @@ func NewLegDividendYield(val float64) *LegDividendYieldField {
 }
 
 //LegExecInstField is a MULTIPLECHARVALUE field
-type LegExecInstField struct{ message.MultipleCharValue }
+type LegExecInstField struct{ fix.MultipleCharValue }
 
 //Tag returns tag.LegExecInst (1384)
 func (f LegExecInstField) Tag() fix.Tag { return tag.LegExecInst }
@@ -7161,7 +7160,7 @@ func NewLegExecInst(val string) *LegExecInstField {
 }
 
 //LegExerciseStyleField is a INT field
-type LegExerciseStyleField struct{ message.IntValue }
+type LegExerciseStyleField struct{ fix.IntValue }
 
 //Tag returns tag.LegExerciseStyle (1420)
 func (f LegExerciseStyleField) Tag() fix.Tag { return tag.LegExerciseStyle }
@@ -7174,7 +7173,7 @@ func NewLegExerciseStyle(val int) *LegExerciseStyleField {
 }
 
 //LegFactorField is a FLOAT field
-type LegFactorField struct{ message.FloatValue }
+type LegFactorField struct{ fix.FloatValue }
 
 //Tag returns tag.LegFactor (253)
 func (f LegFactorField) Tag() fix.Tag { return tag.LegFactor }
@@ -7187,7 +7186,7 @@ func NewLegFactor(val float64) *LegFactorField {
 }
 
 //LegFlowScheduleTypeField is a INT field
-type LegFlowScheduleTypeField struct{ message.IntValue }
+type LegFlowScheduleTypeField struct{ fix.IntValue }
 
 //Tag returns tag.LegFlowScheduleType (1440)
 func (f LegFlowScheduleTypeField) Tag() fix.Tag { return tag.LegFlowScheduleType }
@@ -7200,7 +7199,7 @@ func NewLegFlowScheduleType(val int) *LegFlowScheduleTypeField {
 }
 
 //LegFutSettDateField is a LOCALMKTDATE field
-type LegFutSettDateField struct{ message.LocalMktDateValue }
+type LegFutSettDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.LegFutSettDate (588)
 func (f LegFutSettDateField) Tag() fix.Tag { return tag.LegFutSettDate }
@@ -7213,7 +7212,7 @@ func NewLegFutSettDate(val string) *LegFutSettDateField {
 }
 
 //LegGrossTradeAmtField is a AMT field
-type LegGrossTradeAmtField struct{ message.AmtValue }
+type LegGrossTradeAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.LegGrossTradeAmt (1075)
 func (f LegGrossTradeAmtField) Tag() fix.Tag { return tag.LegGrossTradeAmt }
@@ -7226,7 +7225,7 @@ func NewLegGrossTradeAmt(val float64) *LegGrossTradeAmtField {
 }
 
 //LegIOIQtyField is a STRING field
-type LegIOIQtyField struct{ message.StringValue }
+type LegIOIQtyField struct{ fix.StringValue }
 
 //Tag returns tag.LegIOIQty (682)
 func (f LegIOIQtyField) Tag() fix.Tag { return tag.LegIOIQty }
@@ -7239,7 +7238,7 @@ func NewLegIOIQty(val string) *LegIOIQtyField {
 }
 
 //LegIndividualAllocIDField is a STRING field
-type LegIndividualAllocIDField struct{ message.StringValue }
+type LegIndividualAllocIDField struct{ fix.StringValue }
 
 //Tag returns tag.LegIndividualAllocID (672)
 func (f LegIndividualAllocIDField) Tag() fix.Tag { return tag.LegIndividualAllocID }
@@ -7252,7 +7251,7 @@ func NewLegIndividualAllocID(val string) *LegIndividualAllocIDField {
 }
 
 //LegInstrRegistryField is a STRING field
-type LegInstrRegistryField struct{ message.StringValue }
+type LegInstrRegistryField struct{ fix.StringValue }
 
 //Tag returns tag.LegInstrRegistry (599)
 func (f LegInstrRegistryField) Tag() fix.Tag { return tag.LegInstrRegistry }
@@ -7265,7 +7264,7 @@ func NewLegInstrRegistry(val string) *LegInstrRegistryField {
 }
 
 //LegInterestAccrualDateField is a LOCALMKTDATE field
-type LegInterestAccrualDateField struct{ message.LocalMktDateValue }
+type LegInterestAccrualDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.LegInterestAccrualDate (956)
 func (f LegInterestAccrualDateField) Tag() fix.Tag { return tag.LegInterestAccrualDate }
@@ -7278,7 +7277,7 @@ func NewLegInterestAccrualDate(val string) *LegInterestAccrualDateField {
 }
 
 //LegIssueDateField is a LOCALMKTDATE field
-type LegIssueDateField struct{ message.LocalMktDateValue }
+type LegIssueDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.LegIssueDate (249)
 func (f LegIssueDateField) Tag() fix.Tag { return tag.LegIssueDate }
@@ -7291,7 +7290,7 @@ func NewLegIssueDate(val string) *LegIssueDateField {
 }
 
 //LegIssuerField is a STRING field
-type LegIssuerField struct{ message.StringValue }
+type LegIssuerField struct{ fix.StringValue }
 
 //Tag returns tag.LegIssuer (617)
 func (f LegIssuerField) Tag() fix.Tag { return tag.LegIssuer }
@@ -7304,7 +7303,7 @@ func NewLegIssuer(val string) *LegIssuerField {
 }
 
 //LegLastForwardPointsField is a PRICEOFFSET field
-type LegLastForwardPointsField struct{ message.PriceOffsetValue }
+type LegLastForwardPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.LegLastForwardPoints (1073)
 func (f LegLastForwardPointsField) Tag() fix.Tag { return tag.LegLastForwardPoints }
@@ -7317,7 +7316,7 @@ func NewLegLastForwardPoints(val float64) *LegLastForwardPointsField {
 }
 
 //LegLastPxField is a PRICE field
-type LegLastPxField struct{ message.PriceValue }
+type LegLastPxField struct{ fix.PriceValue }
 
 //Tag returns tag.LegLastPx (637)
 func (f LegLastPxField) Tag() fix.Tag { return tag.LegLastPx }
@@ -7330,7 +7329,7 @@ func NewLegLastPx(val float64) *LegLastPxField {
 }
 
 //LegLastQtyField is a QTY field
-type LegLastQtyField struct{ message.QtyValue }
+type LegLastQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LegLastQty (1418)
 func (f LegLastQtyField) Tag() fix.Tag { return tag.LegLastQty }
@@ -7343,7 +7342,7 @@ func NewLegLastQty(val float64) *LegLastQtyField {
 }
 
 //LegLocaleOfIssueField is a STRING field
-type LegLocaleOfIssueField struct{ message.StringValue }
+type LegLocaleOfIssueField struct{ fix.StringValue }
 
 //Tag returns tag.LegLocaleOfIssue (598)
 func (f LegLocaleOfIssueField) Tag() fix.Tag { return tag.LegLocaleOfIssue }
@@ -7356,7 +7355,7 @@ func NewLegLocaleOfIssue(val string) *LegLocaleOfIssueField {
 }
 
 //LegMaturityDateField is a LOCALMKTDATE field
-type LegMaturityDateField struct{ message.LocalMktDateValue }
+type LegMaturityDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.LegMaturityDate (611)
 func (f LegMaturityDateField) Tag() fix.Tag { return tag.LegMaturityDate }
@@ -7369,7 +7368,7 @@ func NewLegMaturityDate(val string) *LegMaturityDateField {
 }
 
 //LegMaturityMonthYearField is a MONTHYEAR field
-type LegMaturityMonthYearField struct{ message.MonthYearValue }
+type LegMaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.LegMaturityMonthYear (610)
 func (f LegMaturityMonthYearField) Tag() fix.Tag { return tag.LegMaturityMonthYear }
@@ -7382,13 +7381,13 @@ func NewLegMaturityMonthYear(val string) *LegMaturityMonthYearField {
 }
 
 //LegMaturityTimeField is a TZTIMEONLY field
-type LegMaturityTimeField struct{ message.TZTimeOnlyValue }
+type LegMaturityTimeField struct{ fix.TZTimeOnlyValue }
 
 //Tag returns tag.LegMaturityTime (1212)
 func (f LegMaturityTimeField) Tag() fix.Tag { return tag.LegMaturityTime }
 
 //LegNumberField is a INT field
-type LegNumberField struct{ message.IntValue }
+type LegNumberField struct{ fix.IntValue }
 
 //Tag returns tag.LegNumber (1152)
 func (f LegNumberField) Tag() fix.Tag { return tag.LegNumber }
@@ -7401,7 +7400,7 @@ func NewLegNumber(val int) *LegNumberField {
 }
 
 //LegOfferForwardPointsField is a PRICEOFFSET field
-type LegOfferForwardPointsField struct{ message.PriceOffsetValue }
+type LegOfferForwardPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.LegOfferForwardPoints (1068)
 func (f LegOfferForwardPointsField) Tag() fix.Tag { return tag.LegOfferForwardPoints }
@@ -7414,7 +7413,7 @@ func NewLegOfferForwardPoints(val float64) *LegOfferForwardPointsField {
 }
 
 //LegOfferPxField is a PRICE field
-type LegOfferPxField struct{ message.PriceValue }
+type LegOfferPxField struct{ fix.PriceValue }
 
 //Tag returns tag.LegOfferPx (684)
 func (f LegOfferPxField) Tag() fix.Tag { return tag.LegOfferPx }
@@ -7427,7 +7426,7 @@ func NewLegOfferPx(val float64) *LegOfferPxField {
 }
 
 //LegOptAttributeField is a CHAR field
-type LegOptAttributeField struct{ message.CharValue }
+type LegOptAttributeField struct{ fix.CharValue }
 
 //Tag returns tag.LegOptAttribute (613)
 func (f LegOptAttributeField) Tag() fix.Tag { return tag.LegOptAttribute }
@@ -7440,7 +7439,7 @@ func NewLegOptAttribute(val string) *LegOptAttributeField {
 }
 
 //LegOptionRatioField is a FLOAT field
-type LegOptionRatioField struct{ message.FloatValue }
+type LegOptionRatioField struct{ fix.FloatValue }
 
 //Tag returns tag.LegOptionRatio (1017)
 func (f LegOptionRatioField) Tag() fix.Tag { return tag.LegOptionRatio }
@@ -7453,7 +7452,7 @@ func NewLegOptionRatio(val float64) *LegOptionRatioField {
 }
 
 //LegOrderQtyField is a QTY field
-type LegOrderQtyField struct{ message.QtyValue }
+type LegOrderQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LegOrderQty (685)
 func (f LegOrderQtyField) Tag() fix.Tag { return tag.LegOrderQty }
@@ -7466,7 +7465,7 @@ func NewLegOrderQty(val float64) *LegOrderQtyField {
 }
 
 //LegPoolField is a STRING field
-type LegPoolField struct{ message.StringValue }
+type LegPoolField struct{ fix.StringValue }
 
 //Tag returns tag.LegPool (740)
 func (f LegPoolField) Tag() fix.Tag { return tag.LegPool }
@@ -7479,7 +7478,7 @@ func NewLegPool(val string) *LegPoolField {
 }
 
 //LegPositionEffectField is a CHAR field
-type LegPositionEffectField struct{ message.CharValue }
+type LegPositionEffectField struct{ fix.CharValue }
 
 //Tag returns tag.LegPositionEffect (564)
 func (f LegPositionEffectField) Tag() fix.Tag { return tag.LegPositionEffect }
@@ -7492,7 +7491,7 @@ func NewLegPositionEffect(val string) *LegPositionEffectField {
 }
 
 //LegPriceField is a PRICE field
-type LegPriceField struct{ message.PriceValue }
+type LegPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.LegPrice (566)
 func (f LegPriceField) Tag() fix.Tag { return tag.LegPrice }
@@ -7505,7 +7504,7 @@ func NewLegPrice(val float64) *LegPriceField {
 }
 
 //LegPriceTypeField is a INT field
-type LegPriceTypeField struct{ message.IntValue }
+type LegPriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.LegPriceType (686)
 func (f LegPriceTypeField) Tag() fix.Tag { return tag.LegPriceType }
@@ -7518,7 +7517,7 @@ func NewLegPriceType(val int) *LegPriceTypeField {
 }
 
 //LegPriceUnitOfMeasureField is a STRING field
-type LegPriceUnitOfMeasureField struct{ message.StringValue }
+type LegPriceUnitOfMeasureField struct{ fix.StringValue }
 
 //Tag returns tag.LegPriceUnitOfMeasure (1421)
 func (f LegPriceUnitOfMeasureField) Tag() fix.Tag { return tag.LegPriceUnitOfMeasure }
@@ -7531,7 +7530,7 @@ func NewLegPriceUnitOfMeasure(val string) *LegPriceUnitOfMeasureField {
 }
 
 //LegPriceUnitOfMeasureQtyField is a QTY field
-type LegPriceUnitOfMeasureQtyField struct{ message.QtyValue }
+type LegPriceUnitOfMeasureQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LegPriceUnitOfMeasureQty (1422)
 func (f LegPriceUnitOfMeasureQtyField) Tag() fix.Tag { return tag.LegPriceUnitOfMeasureQty }
@@ -7544,7 +7543,7 @@ func NewLegPriceUnitOfMeasureQty(val float64) *LegPriceUnitOfMeasureQtyField {
 }
 
 //LegProductField is a INT field
-type LegProductField struct{ message.IntValue }
+type LegProductField struct{ fix.IntValue }
 
 //Tag returns tag.LegProduct (607)
 func (f LegProductField) Tag() fix.Tag { return tag.LegProduct }
@@ -7557,7 +7556,7 @@ func NewLegProduct(val int) *LegProductField {
 }
 
 //LegPutOrCallField is a INT field
-type LegPutOrCallField struct{ message.IntValue }
+type LegPutOrCallField struct{ fix.IntValue }
 
 //Tag returns tag.LegPutOrCall (1358)
 func (f LegPutOrCallField) Tag() fix.Tag { return tag.LegPutOrCall }
@@ -7570,7 +7569,7 @@ func NewLegPutOrCall(val int) *LegPutOrCallField {
 }
 
 //LegQtyField is a QTY field
-type LegQtyField struct{ message.QtyValue }
+type LegQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LegQty (687)
 func (f LegQtyField) Tag() fix.Tag { return tag.LegQty }
@@ -7583,7 +7582,7 @@ func NewLegQty(val float64) *LegQtyField {
 }
 
 //LegRatioQtyField is a FLOAT field
-type LegRatioQtyField struct{ message.FloatValue }
+type LegRatioQtyField struct{ fix.FloatValue }
 
 //Tag returns tag.LegRatioQty (623)
 func (f LegRatioQtyField) Tag() fix.Tag { return tag.LegRatioQty }
@@ -7596,7 +7595,7 @@ func NewLegRatioQty(val float64) *LegRatioQtyField {
 }
 
 //LegRedemptionDateField is a LOCALMKTDATE field
-type LegRedemptionDateField struct{ message.LocalMktDateValue }
+type LegRedemptionDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.LegRedemptionDate (254)
 func (f LegRedemptionDateField) Tag() fix.Tag { return tag.LegRedemptionDate }
@@ -7609,7 +7608,7 @@ func NewLegRedemptionDate(val string) *LegRedemptionDateField {
 }
 
 //LegRefIDField is a STRING field
-type LegRefIDField struct{ message.StringValue }
+type LegRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.LegRefID (654)
 func (f LegRefIDField) Tag() fix.Tag { return tag.LegRefID }
@@ -7622,7 +7621,7 @@ func NewLegRefID(val string) *LegRefIDField {
 }
 
 //LegRepoCollateralSecurityTypeField is a INT field
-type LegRepoCollateralSecurityTypeField struct{ message.IntValue }
+type LegRepoCollateralSecurityTypeField struct{ fix.IntValue }
 
 //Tag returns tag.LegRepoCollateralSecurityType (250)
 func (f LegRepoCollateralSecurityTypeField) Tag() fix.Tag { return tag.LegRepoCollateralSecurityType }
@@ -7635,7 +7634,7 @@ func NewLegRepoCollateralSecurityType(val int) *LegRepoCollateralSecurityTypeFie
 }
 
 //LegReportIDField is a STRING field
-type LegReportIDField struct{ message.StringValue }
+type LegReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.LegReportID (990)
 func (f LegReportIDField) Tag() fix.Tag { return tag.LegReportID }
@@ -7648,7 +7647,7 @@ func NewLegReportID(val string) *LegReportIDField {
 }
 
 //LegRepurchaseRateField is a PERCENTAGE field
-type LegRepurchaseRateField struct{ message.PercentageValue }
+type LegRepurchaseRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.LegRepurchaseRate (252)
 func (f LegRepurchaseRateField) Tag() fix.Tag { return tag.LegRepurchaseRate }
@@ -7661,7 +7660,7 @@ func NewLegRepurchaseRate(val float64) *LegRepurchaseRateField {
 }
 
 //LegRepurchaseTermField is a INT field
-type LegRepurchaseTermField struct{ message.IntValue }
+type LegRepurchaseTermField struct{ fix.IntValue }
 
 //Tag returns tag.LegRepurchaseTerm (251)
 func (f LegRepurchaseTermField) Tag() fix.Tag { return tag.LegRepurchaseTerm }
@@ -7674,7 +7673,7 @@ func NewLegRepurchaseTerm(val int) *LegRepurchaseTermField {
 }
 
 //LegSecurityAltIDField is a STRING field
-type LegSecurityAltIDField struct{ message.StringValue }
+type LegSecurityAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.LegSecurityAltID (605)
 func (f LegSecurityAltIDField) Tag() fix.Tag { return tag.LegSecurityAltID }
@@ -7687,7 +7686,7 @@ func NewLegSecurityAltID(val string) *LegSecurityAltIDField {
 }
 
 //LegSecurityAltIDSourceField is a STRING field
-type LegSecurityAltIDSourceField struct{ message.StringValue }
+type LegSecurityAltIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.LegSecurityAltIDSource (606)
 func (f LegSecurityAltIDSourceField) Tag() fix.Tag { return tag.LegSecurityAltIDSource }
@@ -7700,7 +7699,7 @@ func NewLegSecurityAltIDSource(val string) *LegSecurityAltIDSourceField {
 }
 
 //LegSecurityDescField is a STRING field
-type LegSecurityDescField struct{ message.StringValue }
+type LegSecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.LegSecurityDesc (620)
 func (f LegSecurityDescField) Tag() fix.Tag { return tag.LegSecurityDesc }
@@ -7713,7 +7712,7 @@ func NewLegSecurityDesc(val string) *LegSecurityDescField {
 }
 
 //LegSecurityExchangeField is a EXCHANGE field
-type LegSecurityExchangeField struct{ message.ExchangeValue }
+type LegSecurityExchangeField struct{ fix.ExchangeValue }
 
 //Tag returns tag.LegSecurityExchange (616)
 func (f LegSecurityExchangeField) Tag() fix.Tag { return tag.LegSecurityExchange }
@@ -7726,7 +7725,7 @@ func NewLegSecurityExchange(val string) *LegSecurityExchangeField {
 }
 
 //LegSecurityIDField is a STRING field
-type LegSecurityIDField struct{ message.StringValue }
+type LegSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.LegSecurityID (602)
 func (f LegSecurityIDField) Tag() fix.Tag { return tag.LegSecurityID }
@@ -7739,7 +7738,7 @@ func NewLegSecurityID(val string) *LegSecurityIDField {
 }
 
 //LegSecurityIDSourceField is a STRING field
-type LegSecurityIDSourceField struct{ message.StringValue }
+type LegSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.LegSecurityIDSource (603)
 func (f LegSecurityIDSourceField) Tag() fix.Tag { return tag.LegSecurityIDSource }
@@ -7752,7 +7751,7 @@ func NewLegSecurityIDSource(val string) *LegSecurityIDSourceField {
 }
 
 //LegSecuritySubTypeField is a STRING field
-type LegSecuritySubTypeField struct{ message.StringValue }
+type LegSecuritySubTypeField struct{ fix.StringValue }
 
 //Tag returns tag.LegSecuritySubType (764)
 func (f LegSecuritySubTypeField) Tag() fix.Tag { return tag.LegSecuritySubType }
@@ -7765,7 +7764,7 @@ func NewLegSecuritySubType(val string) *LegSecuritySubTypeField {
 }
 
 //LegSecurityTypeField is a STRING field
-type LegSecurityTypeField struct{ message.StringValue }
+type LegSecurityTypeField struct{ fix.StringValue }
 
 //Tag returns tag.LegSecurityType (609)
 func (f LegSecurityTypeField) Tag() fix.Tag { return tag.LegSecurityType }
@@ -7778,7 +7777,7 @@ func NewLegSecurityType(val string) *LegSecurityTypeField {
 }
 
 //LegSettlCurrencyField is a CURRENCY field
-type LegSettlCurrencyField struct{ message.CurrencyValue }
+type LegSettlCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.LegSettlCurrency (675)
 func (f LegSettlCurrencyField) Tag() fix.Tag { return tag.LegSettlCurrency }
@@ -7791,7 +7790,7 @@ func NewLegSettlCurrency(val string) *LegSettlCurrencyField {
 }
 
 //LegSettlDateField is a LOCALMKTDATE field
-type LegSettlDateField struct{ message.LocalMktDateValue }
+type LegSettlDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.LegSettlDate (588)
 func (f LegSettlDateField) Tag() fix.Tag { return tag.LegSettlDate }
@@ -7804,7 +7803,7 @@ func NewLegSettlDate(val string) *LegSettlDateField {
 }
 
 //LegSettlTypeField is a CHAR field
-type LegSettlTypeField struct{ message.CharValue }
+type LegSettlTypeField struct{ fix.CharValue }
 
 //Tag returns tag.LegSettlType (587)
 func (f LegSettlTypeField) Tag() fix.Tag { return tag.LegSettlType }
@@ -7817,7 +7816,7 @@ func NewLegSettlType(val string) *LegSettlTypeField {
 }
 
 //LegSettlmntTypField is a CHAR field
-type LegSettlmntTypField struct{ message.CharValue }
+type LegSettlmntTypField struct{ fix.CharValue }
 
 //Tag returns tag.LegSettlmntTyp (587)
 func (f LegSettlmntTypField) Tag() fix.Tag { return tag.LegSettlmntTyp }
@@ -7830,7 +7829,7 @@ func NewLegSettlmntTyp(val string) *LegSettlmntTypField {
 }
 
 //LegSideField is a CHAR field
-type LegSideField struct{ message.CharValue }
+type LegSideField struct{ fix.CharValue }
 
 //Tag returns tag.LegSide (624)
 func (f LegSideField) Tag() fix.Tag { return tag.LegSide }
@@ -7843,7 +7842,7 @@ func NewLegSide(val string) *LegSideField {
 }
 
 //LegStateOrProvinceOfIssueField is a STRING field
-type LegStateOrProvinceOfIssueField struct{ message.StringValue }
+type LegStateOrProvinceOfIssueField struct{ fix.StringValue }
 
 //Tag returns tag.LegStateOrProvinceOfIssue (597)
 func (f LegStateOrProvinceOfIssueField) Tag() fix.Tag { return tag.LegStateOrProvinceOfIssue }
@@ -7856,7 +7855,7 @@ func NewLegStateOrProvinceOfIssue(val string) *LegStateOrProvinceOfIssueField {
 }
 
 //LegStipulationTypeField is a STRING field
-type LegStipulationTypeField struct{ message.StringValue }
+type LegStipulationTypeField struct{ fix.StringValue }
 
 //Tag returns tag.LegStipulationType (688)
 func (f LegStipulationTypeField) Tag() fix.Tag { return tag.LegStipulationType }
@@ -7869,7 +7868,7 @@ func NewLegStipulationType(val string) *LegStipulationTypeField {
 }
 
 //LegStipulationValueField is a STRING field
-type LegStipulationValueField struct{ message.StringValue }
+type LegStipulationValueField struct{ fix.StringValue }
 
 //Tag returns tag.LegStipulationValue (689)
 func (f LegStipulationValueField) Tag() fix.Tag { return tag.LegStipulationValue }
@@ -7882,7 +7881,7 @@ func NewLegStipulationValue(val string) *LegStipulationValueField {
 }
 
 //LegStrikeCurrencyField is a CURRENCY field
-type LegStrikeCurrencyField struct{ message.CurrencyValue }
+type LegStrikeCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.LegStrikeCurrency (942)
 func (f LegStrikeCurrencyField) Tag() fix.Tag { return tag.LegStrikeCurrency }
@@ -7895,7 +7894,7 @@ func NewLegStrikeCurrency(val string) *LegStrikeCurrencyField {
 }
 
 //LegStrikePriceField is a PRICE field
-type LegStrikePriceField struct{ message.PriceValue }
+type LegStrikePriceField struct{ fix.PriceValue }
 
 //Tag returns tag.LegStrikePrice (612)
 func (f LegStrikePriceField) Tag() fix.Tag { return tag.LegStrikePrice }
@@ -7908,7 +7907,7 @@ func NewLegStrikePrice(val float64) *LegStrikePriceField {
 }
 
 //LegSwapTypeField is a INT field
-type LegSwapTypeField struct{ message.IntValue }
+type LegSwapTypeField struct{ fix.IntValue }
 
 //Tag returns tag.LegSwapType (690)
 func (f LegSwapTypeField) Tag() fix.Tag { return tag.LegSwapType }
@@ -7921,7 +7920,7 @@ func NewLegSwapType(val int) *LegSwapTypeField {
 }
 
 //LegSymbolField is a STRING field
-type LegSymbolField struct{ message.StringValue }
+type LegSymbolField struct{ fix.StringValue }
 
 //Tag returns tag.LegSymbol (600)
 func (f LegSymbolField) Tag() fix.Tag { return tag.LegSymbol }
@@ -7934,7 +7933,7 @@ func NewLegSymbol(val string) *LegSymbolField {
 }
 
 //LegSymbolSfxField is a STRING field
-type LegSymbolSfxField struct{ message.StringValue }
+type LegSymbolSfxField struct{ fix.StringValue }
 
 //Tag returns tag.LegSymbolSfx (601)
 func (f LegSymbolSfxField) Tag() fix.Tag { return tag.LegSymbolSfx }
@@ -7947,7 +7946,7 @@ func NewLegSymbolSfx(val string) *LegSymbolSfxField {
 }
 
 //LegTimeUnitField is a STRING field
-type LegTimeUnitField struct{ message.StringValue }
+type LegTimeUnitField struct{ fix.StringValue }
 
 //Tag returns tag.LegTimeUnit (1001)
 func (f LegTimeUnitField) Tag() fix.Tag { return tag.LegTimeUnit }
@@ -7960,7 +7959,7 @@ func NewLegTimeUnit(val string) *LegTimeUnitField {
 }
 
 //LegUnitOfMeasureField is a STRING field
-type LegUnitOfMeasureField struct{ message.StringValue }
+type LegUnitOfMeasureField struct{ fix.StringValue }
 
 //Tag returns tag.LegUnitOfMeasure (999)
 func (f LegUnitOfMeasureField) Tag() fix.Tag { return tag.LegUnitOfMeasure }
@@ -7973,7 +7972,7 @@ func NewLegUnitOfMeasure(val string) *LegUnitOfMeasureField {
 }
 
 //LegUnitOfMeasureQtyField is a QTY field
-type LegUnitOfMeasureQtyField struct{ message.QtyValue }
+type LegUnitOfMeasureQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LegUnitOfMeasureQty (1224)
 func (f LegUnitOfMeasureQtyField) Tag() fix.Tag { return tag.LegUnitOfMeasureQty }
@@ -7986,7 +7985,7 @@ func NewLegUnitOfMeasureQty(val float64) *LegUnitOfMeasureQtyField {
 }
 
 //LegVolatilityField is a FLOAT field
-type LegVolatilityField struct{ message.FloatValue }
+type LegVolatilityField struct{ fix.FloatValue }
 
 //Tag returns tag.LegVolatility (1379)
 func (f LegVolatilityField) Tag() fix.Tag { return tag.LegVolatility }
@@ -7999,7 +7998,7 @@ func NewLegVolatility(val float64) *LegVolatilityField {
 }
 
 //LegalConfirmField is a BOOLEAN field
-type LegalConfirmField struct{ message.BooleanValue }
+type LegalConfirmField struct{ fix.BooleanValue }
 
 //Tag returns tag.LegalConfirm (650)
 func (f LegalConfirmField) Tag() fix.Tag { return tag.LegalConfirm }
@@ -8012,7 +8011,7 @@ func NewLegalConfirm(val bool) *LegalConfirmField {
 }
 
 //LinesOfTextField is a NUMINGROUP field
-type LinesOfTextField struct{ message.NumInGroupValue }
+type LinesOfTextField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.LinesOfText (33)
 func (f LinesOfTextField) Tag() fix.Tag { return tag.LinesOfText }
@@ -8025,7 +8024,7 @@ func NewLinesOfText(val int) *LinesOfTextField {
 }
 
 //LiquidityIndTypeField is a INT field
-type LiquidityIndTypeField struct{ message.IntValue }
+type LiquidityIndTypeField struct{ fix.IntValue }
 
 //Tag returns tag.LiquidityIndType (409)
 func (f LiquidityIndTypeField) Tag() fix.Tag { return tag.LiquidityIndType }
@@ -8038,7 +8037,7 @@ func NewLiquidityIndType(val int) *LiquidityIndTypeField {
 }
 
 //LiquidityNumSecuritiesField is a INT field
-type LiquidityNumSecuritiesField struct{ message.IntValue }
+type LiquidityNumSecuritiesField struct{ fix.IntValue }
 
 //Tag returns tag.LiquidityNumSecurities (441)
 func (f LiquidityNumSecuritiesField) Tag() fix.Tag { return tag.LiquidityNumSecurities }
@@ -8051,7 +8050,7 @@ func NewLiquidityNumSecurities(val int) *LiquidityNumSecuritiesField {
 }
 
 //LiquidityPctHighField is a PERCENTAGE field
-type LiquidityPctHighField struct{ message.PercentageValue }
+type LiquidityPctHighField struct{ fix.PercentageValue }
 
 //Tag returns tag.LiquidityPctHigh (403)
 func (f LiquidityPctHighField) Tag() fix.Tag { return tag.LiquidityPctHigh }
@@ -8064,7 +8063,7 @@ func NewLiquidityPctHigh(val float64) *LiquidityPctHighField {
 }
 
 //LiquidityPctLowField is a PERCENTAGE field
-type LiquidityPctLowField struct{ message.PercentageValue }
+type LiquidityPctLowField struct{ fix.PercentageValue }
 
 //Tag returns tag.LiquidityPctLow (402)
 func (f LiquidityPctLowField) Tag() fix.Tag { return tag.LiquidityPctLow }
@@ -8077,7 +8076,7 @@ func NewLiquidityPctLow(val float64) *LiquidityPctLowField {
 }
 
 //LiquidityValueField is a AMT field
-type LiquidityValueField struct{ message.AmtValue }
+type LiquidityValueField struct{ fix.AmtValue }
 
 //Tag returns tag.LiquidityValue (404)
 func (f LiquidityValueField) Tag() fix.Tag { return tag.LiquidityValue }
@@ -8090,7 +8089,7 @@ func NewLiquidityValue(val float64) *LiquidityValueField {
 }
 
 //ListExecInstField is a STRING field
-type ListExecInstField struct{ message.StringValue }
+type ListExecInstField struct{ fix.StringValue }
 
 //Tag returns tag.ListExecInst (69)
 func (f ListExecInstField) Tag() fix.Tag { return tag.ListExecInst }
@@ -8103,7 +8102,7 @@ func NewListExecInst(val string) *ListExecInstField {
 }
 
 //ListExecInstTypeField is a CHAR field
-type ListExecInstTypeField struct{ message.CharValue }
+type ListExecInstTypeField struct{ fix.CharValue }
 
 //Tag returns tag.ListExecInstType (433)
 func (f ListExecInstTypeField) Tag() fix.Tag { return tag.ListExecInstType }
@@ -8116,7 +8115,7 @@ func NewListExecInstType(val string) *ListExecInstTypeField {
 }
 
 //ListIDField is a STRING field
-type ListIDField struct{ message.StringValue }
+type ListIDField struct{ fix.StringValue }
 
 //Tag returns tag.ListID (66)
 func (f ListIDField) Tag() fix.Tag { return tag.ListID }
@@ -8129,7 +8128,7 @@ func NewListID(val string) *ListIDField {
 }
 
 //ListMethodField is a INT field
-type ListMethodField struct{ message.IntValue }
+type ListMethodField struct{ fix.IntValue }
 
 //Tag returns tag.ListMethod (1198)
 func (f ListMethodField) Tag() fix.Tag { return tag.ListMethod }
@@ -8142,7 +8141,7 @@ func NewListMethod(val int) *ListMethodField {
 }
 
 //ListNameField is a STRING field
-type ListNameField struct{ message.StringValue }
+type ListNameField struct{ fix.StringValue }
 
 //Tag returns tag.ListName (392)
 func (f ListNameField) Tag() fix.Tag { return tag.ListName }
@@ -8155,7 +8154,7 @@ func NewListName(val string) *ListNameField {
 }
 
 //ListNoOrdsField is a INT field
-type ListNoOrdsField struct{ message.IntValue }
+type ListNoOrdsField struct{ fix.IntValue }
 
 //Tag returns tag.ListNoOrds (68)
 func (f ListNoOrdsField) Tag() fix.Tag { return tag.ListNoOrds }
@@ -8168,7 +8167,7 @@ func NewListNoOrds(val int) *ListNoOrdsField {
 }
 
 //ListOrderStatusField is a INT field
-type ListOrderStatusField struct{ message.IntValue }
+type ListOrderStatusField struct{ fix.IntValue }
 
 //Tag returns tag.ListOrderStatus (431)
 func (f ListOrderStatusField) Tag() fix.Tag { return tag.ListOrderStatus }
@@ -8181,7 +8180,7 @@ func NewListOrderStatus(val int) *ListOrderStatusField {
 }
 
 //ListRejectReasonField is a INT field
-type ListRejectReasonField struct{ message.IntValue }
+type ListRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.ListRejectReason (1386)
 func (f ListRejectReasonField) Tag() fix.Tag { return tag.ListRejectReason }
@@ -8194,7 +8193,7 @@ func NewListRejectReason(val int) *ListRejectReasonField {
 }
 
 //ListSeqNoField is a INT field
-type ListSeqNoField struct{ message.IntValue }
+type ListSeqNoField struct{ fix.IntValue }
 
 //Tag returns tag.ListSeqNo (67)
 func (f ListSeqNoField) Tag() fix.Tag { return tag.ListSeqNo }
@@ -8207,7 +8206,7 @@ func NewListSeqNo(val int) *ListSeqNoField {
 }
 
 //ListStatusTextField is a STRING field
-type ListStatusTextField struct{ message.StringValue }
+type ListStatusTextField struct{ fix.StringValue }
 
 //Tag returns tag.ListStatusText (444)
 func (f ListStatusTextField) Tag() fix.Tag { return tag.ListStatusText }
@@ -8220,7 +8219,7 @@ func NewListStatusText(val string) *ListStatusTextField {
 }
 
 //ListStatusTypeField is a INT field
-type ListStatusTypeField struct{ message.IntValue }
+type ListStatusTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ListStatusType (429)
 func (f ListStatusTypeField) Tag() fix.Tag { return tag.ListStatusType }
@@ -8233,7 +8232,7 @@ func NewListStatusType(val int) *ListStatusTypeField {
 }
 
 //ListUpdateActionField is a CHAR field
-type ListUpdateActionField struct{ message.CharValue }
+type ListUpdateActionField struct{ fix.CharValue }
 
 //Tag returns tag.ListUpdateAction (1324)
 func (f ListUpdateActionField) Tag() fix.Tag { return tag.ListUpdateAction }
@@ -8246,7 +8245,7 @@ func NewListUpdateAction(val string) *ListUpdateActionField {
 }
 
 //LocaleOfIssueField is a STRING field
-type LocaleOfIssueField struct{ message.StringValue }
+type LocaleOfIssueField struct{ fix.StringValue }
 
 //Tag returns tag.LocaleOfIssue (472)
 func (f LocaleOfIssueField) Tag() fix.Tag { return tag.LocaleOfIssue }
@@ -8259,7 +8258,7 @@ func NewLocaleOfIssue(val string) *LocaleOfIssueField {
 }
 
 //LocateReqdField is a BOOLEAN field
-type LocateReqdField struct{ message.BooleanValue }
+type LocateReqdField struct{ fix.BooleanValue }
 
 //Tag returns tag.LocateReqd (114)
 func (f LocateReqdField) Tag() fix.Tag { return tag.LocateReqd }
@@ -8272,7 +8271,7 @@ func NewLocateReqd(val bool) *LocateReqdField {
 }
 
 //LocationIDField is a STRING field
-type LocationIDField struct{ message.StringValue }
+type LocationIDField struct{ fix.StringValue }
 
 //Tag returns tag.LocationID (283)
 func (f LocationIDField) Tag() fix.Tag { return tag.LocationID }
@@ -8285,7 +8284,7 @@ func NewLocationID(val string) *LocationIDField {
 }
 
 //LongQtyField is a QTY field
-type LongQtyField struct{ message.QtyValue }
+type LongQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.LongQty (704)
 func (f LongQtyField) Tag() fix.Tag { return tag.LongQty }
@@ -8298,7 +8297,7 @@ func NewLongQty(val float64) *LongQtyField {
 }
 
 //LotTypeField is a CHAR field
-type LotTypeField struct{ message.CharValue }
+type LotTypeField struct{ fix.CharValue }
 
 //Tag returns tag.LotType (1093)
 func (f LotTypeField) Tag() fix.Tag { return tag.LotType }
@@ -8311,7 +8310,7 @@ func NewLotType(val string) *LotTypeField {
 }
 
 //LowLimitPriceField is a PRICE field
-type LowLimitPriceField struct{ message.PriceValue }
+type LowLimitPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.LowLimitPrice (1148)
 func (f LowLimitPriceField) Tag() fix.Tag { return tag.LowLimitPrice }
@@ -8324,7 +8323,7 @@ func NewLowLimitPrice(val float64) *LowLimitPriceField {
 }
 
 //LowPxField is a PRICE field
-type LowPxField struct{ message.PriceValue }
+type LowPxField struct{ fix.PriceValue }
 
 //Tag returns tag.LowPx (333)
 func (f LowPxField) Tag() fix.Tag { return tag.LowPx }
@@ -8337,7 +8336,7 @@ func NewLowPx(val float64) *LowPxField {
 }
 
 //MDBookTypeField is a INT field
-type MDBookTypeField struct{ message.IntValue }
+type MDBookTypeField struct{ fix.IntValue }
 
 //Tag returns tag.MDBookType (1021)
 func (f MDBookTypeField) Tag() fix.Tag { return tag.MDBookType }
@@ -8350,7 +8349,7 @@ func NewMDBookType(val int) *MDBookTypeField {
 }
 
 //MDEntryBuyerField is a STRING field
-type MDEntryBuyerField struct{ message.StringValue }
+type MDEntryBuyerField struct{ fix.StringValue }
 
 //Tag returns tag.MDEntryBuyer (288)
 func (f MDEntryBuyerField) Tag() fix.Tag { return tag.MDEntryBuyer }
@@ -8363,13 +8362,13 @@ func NewMDEntryBuyer(val string) *MDEntryBuyerField {
 }
 
 //MDEntryDateField is a UTCDATEONLY field
-type MDEntryDateField struct{ message.UTCDateOnlyValue }
+type MDEntryDateField struct{ fix.UTCDateOnlyValue }
 
 //Tag returns tag.MDEntryDate (272)
 func (f MDEntryDateField) Tag() fix.Tag { return tag.MDEntryDate }
 
 //MDEntryForwardPointsField is a PRICEOFFSET field
-type MDEntryForwardPointsField struct{ message.PriceOffsetValue }
+type MDEntryForwardPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.MDEntryForwardPoints (1027)
 func (f MDEntryForwardPointsField) Tag() fix.Tag { return tag.MDEntryForwardPoints }
@@ -8382,7 +8381,7 @@ func NewMDEntryForwardPoints(val float64) *MDEntryForwardPointsField {
 }
 
 //MDEntryIDField is a STRING field
-type MDEntryIDField struct{ message.StringValue }
+type MDEntryIDField struct{ fix.StringValue }
 
 //Tag returns tag.MDEntryID (278)
 func (f MDEntryIDField) Tag() fix.Tag { return tag.MDEntryID }
@@ -8395,7 +8394,7 @@ func NewMDEntryID(val string) *MDEntryIDField {
 }
 
 //MDEntryOriginatorField is a STRING field
-type MDEntryOriginatorField struct{ message.StringValue }
+type MDEntryOriginatorField struct{ fix.StringValue }
 
 //Tag returns tag.MDEntryOriginator (282)
 func (f MDEntryOriginatorField) Tag() fix.Tag { return tag.MDEntryOriginator }
@@ -8408,7 +8407,7 @@ func NewMDEntryOriginator(val string) *MDEntryOriginatorField {
 }
 
 //MDEntryPositionNoField is a INT field
-type MDEntryPositionNoField struct{ message.IntValue }
+type MDEntryPositionNoField struct{ fix.IntValue }
 
 //Tag returns tag.MDEntryPositionNo (290)
 func (f MDEntryPositionNoField) Tag() fix.Tag { return tag.MDEntryPositionNo }
@@ -8421,7 +8420,7 @@ func NewMDEntryPositionNo(val int) *MDEntryPositionNoField {
 }
 
 //MDEntryPxField is a PRICE field
-type MDEntryPxField struct{ message.PriceValue }
+type MDEntryPxField struct{ fix.PriceValue }
 
 //Tag returns tag.MDEntryPx (270)
 func (f MDEntryPxField) Tag() fix.Tag { return tag.MDEntryPx }
@@ -8434,7 +8433,7 @@ func NewMDEntryPx(val float64) *MDEntryPxField {
 }
 
 //MDEntryRefIDField is a STRING field
-type MDEntryRefIDField struct{ message.StringValue }
+type MDEntryRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.MDEntryRefID (280)
 func (f MDEntryRefIDField) Tag() fix.Tag { return tag.MDEntryRefID }
@@ -8447,7 +8446,7 @@ func NewMDEntryRefID(val string) *MDEntryRefIDField {
 }
 
 //MDEntrySellerField is a STRING field
-type MDEntrySellerField struct{ message.StringValue }
+type MDEntrySellerField struct{ fix.StringValue }
 
 //Tag returns tag.MDEntrySeller (289)
 func (f MDEntrySellerField) Tag() fix.Tag { return tag.MDEntrySeller }
@@ -8460,7 +8459,7 @@ func NewMDEntrySeller(val string) *MDEntrySellerField {
 }
 
 //MDEntrySizeField is a QTY field
-type MDEntrySizeField struct{ message.QtyValue }
+type MDEntrySizeField struct{ fix.QtyValue }
 
 //Tag returns tag.MDEntrySize (271)
 func (f MDEntrySizeField) Tag() fix.Tag { return tag.MDEntrySize }
@@ -8473,7 +8472,7 @@ func NewMDEntrySize(val float64) *MDEntrySizeField {
 }
 
 //MDEntrySpotRateField is a FLOAT field
-type MDEntrySpotRateField struct{ message.FloatValue }
+type MDEntrySpotRateField struct{ fix.FloatValue }
 
 //Tag returns tag.MDEntrySpotRate (1026)
 func (f MDEntrySpotRateField) Tag() fix.Tag { return tag.MDEntrySpotRate }
@@ -8486,13 +8485,13 @@ func NewMDEntrySpotRate(val float64) *MDEntrySpotRateField {
 }
 
 //MDEntryTimeField is a UTCTIMEONLY field
-type MDEntryTimeField struct{ message.UTCTimeOnlyValue }
+type MDEntryTimeField struct{ fix.UTCTimeOnlyValue }
 
 //Tag returns tag.MDEntryTime (273)
 func (f MDEntryTimeField) Tag() fix.Tag { return tag.MDEntryTime }
 
 //MDEntryTypeField is a CHAR field
-type MDEntryTypeField struct{ message.CharValue }
+type MDEntryTypeField struct{ fix.CharValue }
 
 //Tag returns tag.MDEntryType (269)
 func (f MDEntryTypeField) Tag() fix.Tag { return tag.MDEntryType }
@@ -8505,7 +8504,7 @@ func NewMDEntryType(val string) *MDEntryTypeField {
 }
 
 //MDFeedTypeField is a STRING field
-type MDFeedTypeField struct{ message.StringValue }
+type MDFeedTypeField struct{ fix.StringValue }
 
 //Tag returns tag.MDFeedType (1022)
 func (f MDFeedTypeField) Tag() fix.Tag { return tag.MDFeedType }
@@ -8518,7 +8517,7 @@ func NewMDFeedType(val string) *MDFeedTypeField {
 }
 
 //MDImplicitDeleteField is a BOOLEAN field
-type MDImplicitDeleteField struct{ message.BooleanValue }
+type MDImplicitDeleteField struct{ fix.BooleanValue }
 
 //Tag returns tag.MDImplicitDelete (547)
 func (f MDImplicitDeleteField) Tag() fix.Tag { return tag.MDImplicitDelete }
@@ -8531,7 +8530,7 @@ func NewMDImplicitDelete(val bool) *MDImplicitDeleteField {
 }
 
 //MDMktField is a EXCHANGE field
-type MDMktField struct{ message.ExchangeValue }
+type MDMktField struct{ fix.ExchangeValue }
 
 //Tag returns tag.MDMkt (275)
 func (f MDMktField) Tag() fix.Tag { return tag.MDMkt }
@@ -8544,7 +8543,7 @@ func NewMDMkt(val string) *MDMktField {
 }
 
 //MDOriginTypeField is a INT field
-type MDOriginTypeField struct{ message.IntValue }
+type MDOriginTypeField struct{ fix.IntValue }
 
 //Tag returns tag.MDOriginType (1024)
 func (f MDOriginTypeField) Tag() fix.Tag { return tag.MDOriginType }
@@ -8557,7 +8556,7 @@ func NewMDOriginType(val int) *MDOriginTypeField {
 }
 
 //MDPriceLevelField is a INT field
-type MDPriceLevelField struct{ message.IntValue }
+type MDPriceLevelField struct{ fix.IntValue }
 
 //Tag returns tag.MDPriceLevel (1023)
 func (f MDPriceLevelField) Tag() fix.Tag { return tag.MDPriceLevel }
@@ -8570,7 +8569,7 @@ func NewMDPriceLevel(val int) *MDPriceLevelField {
 }
 
 //MDQuoteTypeField is a INT field
-type MDQuoteTypeField struct{ message.IntValue }
+type MDQuoteTypeField struct{ fix.IntValue }
 
 //Tag returns tag.MDQuoteType (1070)
 func (f MDQuoteTypeField) Tag() fix.Tag { return tag.MDQuoteType }
@@ -8583,7 +8582,7 @@ func NewMDQuoteType(val int) *MDQuoteTypeField {
 }
 
 //MDReportIDField is a INT field
-type MDReportIDField struct{ message.IntValue }
+type MDReportIDField struct{ fix.IntValue }
 
 //Tag returns tag.MDReportID (963)
 func (f MDReportIDField) Tag() fix.Tag { return tag.MDReportID }
@@ -8596,7 +8595,7 @@ func NewMDReportID(val int) *MDReportIDField {
 }
 
 //MDReqIDField is a STRING field
-type MDReqIDField struct{ message.StringValue }
+type MDReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.MDReqID (262)
 func (f MDReqIDField) Tag() fix.Tag { return tag.MDReqID }
@@ -8609,7 +8608,7 @@ func NewMDReqID(val string) *MDReqIDField {
 }
 
 //MDReqRejReasonField is a CHAR field
-type MDReqRejReasonField struct{ message.CharValue }
+type MDReqRejReasonField struct{ fix.CharValue }
 
 //Tag returns tag.MDReqRejReason (281)
 func (f MDReqRejReasonField) Tag() fix.Tag { return tag.MDReqRejReason }
@@ -8622,7 +8621,7 @@ func NewMDReqRejReason(val string) *MDReqRejReasonField {
 }
 
 //MDSecSizeField is a QTY field
-type MDSecSizeField struct{ message.QtyValue }
+type MDSecSizeField struct{ fix.QtyValue }
 
 //Tag returns tag.MDSecSize (1179)
 func (f MDSecSizeField) Tag() fix.Tag { return tag.MDSecSize }
@@ -8635,7 +8634,7 @@ func NewMDSecSize(val float64) *MDSecSizeField {
 }
 
 //MDSecSizeTypeField is a INT field
-type MDSecSizeTypeField struct{ message.IntValue }
+type MDSecSizeTypeField struct{ fix.IntValue }
 
 //Tag returns tag.MDSecSizeType (1178)
 func (f MDSecSizeTypeField) Tag() fix.Tag { return tag.MDSecSizeType }
@@ -8648,7 +8647,7 @@ func NewMDSecSizeType(val int) *MDSecSizeTypeField {
 }
 
 //MDStreamIDField is a STRING field
-type MDStreamIDField struct{ message.StringValue }
+type MDStreamIDField struct{ fix.StringValue }
 
 //Tag returns tag.MDStreamID (1500)
 func (f MDStreamIDField) Tag() fix.Tag { return tag.MDStreamID }
@@ -8661,7 +8660,7 @@ func NewMDStreamID(val string) *MDStreamIDField {
 }
 
 //MDSubBookTypeField is a INT field
-type MDSubBookTypeField struct{ message.IntValue }
+type MDSubBookTypeField struct{ fix.IntValue }
 
 //Tag returns tag.MDSubBookType (1173)
 func (f MDSubBookTypeField) Tag() fix.Tag { return tag.MDSubBookType }
@@ -8674,7 +8673,7 @@ func NewMDSubBookType(val int) *MDSubBookTypeField {
 }
 
 //MDUpdateActionField is a CHAR field
-type MDUpdateActionField struct{ message.CharValue }
+type MDUpdateActionField struct{ fix.CharValue }
 
 //Tag returns tag.MDUpdateAction (279)
 func (f MDUpdateActionField) Tag() fix.Tag { return tag.MDUpdateAction }
@@ -8687,7 +8686,7 @@ func NewMDUpdateAction(val string) *MDUpdateActionField {
 }
 
 //MDUpdateTypeField is a INT field
-type MDUpdateTypeField struct{ message.IntValue }
+type MDUpdateTypeField struct{ fix.IntValue }
 
 //Tag returns tag.MDUpdateType (265)
 func (f MDUpdateTypeField) Tag() fix.Tag { return tag.MDUpdateType }
@@ -8700,7 +8699,7 @@ func NewMDUpdateType(val int) *MDUpdateTypeField {
 }
 
 //MailingDtlsField is a STRING field
-type MailingDtlsField struct{ message.StringValue }
+type MailingDtlsField struct{ fix.StringValue }
 
 //Tag returns tag.MailingDtls (474)
 func (f MailingDtlsField) Tag() fix.Tag { return tag.MailingDtls }
@@ -8713,7 +8712,7 @@ func NewMailingDtls(val string) *MailingDtlsField {
 }
 
 //MailingInstField is a STRING field
-type MailingInstField struct{ message.StringValue }
+type MailingInstField struct{ fix.StringValue }
 
 //Tag returns tag.MailingInst (482)
 func (f MailingInstField) Tag() fix.Tag { return tag.MailingInst }
@@ -8726,7 +8725,7 @@ func NewMailingInst(val string) *MailingInstField {
 }
 
 //ManualOrderIndicatorField is a BOOLEAN field
-type ManualOrderIndicatorField struct{ message.BooleanValue }
+type ManualOrderIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.ManualOrderIndicator (1028)
 func (f ManualOrderIndicatorField) Tag() fix.Tag { return tag.ManualOrderIndicator }
@@ -8739,7 +8738,7 @@ func NewManualOrderIndicator(val bool) *ManualOrderIndicatorField {
 }
 
 //MarginExcessField is a AMT field
-type MarginExcessField struct{ message.AmtValue }
+type MarginExcessField struct{ fix.AmtValue }
 
 //Tag returns tag.MarginExcess (899)
 func (f MarginExcessField) Tag() fix.Tag { return tag.MarginExcess }
@@ -8752,7 +8751,7 @@ func NewMarginExcess(val float64) *MarginExcessField {
 }
 
 //MarginRatioField is a PERCENTAGE field
-type MarginRatioField struct{ message.PercentageValue }
+type MarginRatioField struct{ fix.PercentageValue }
 
 //Tag returns tag.MarginRatio (898)
 func (f MarginRatioField) Tag() fix.Tag { return tag.MarginRatio }
@@ -8765,7 +8764,7 @@ func NewMarginRatio(val float64) *MarginRatioField {
 }
 
 //MarketDepthField is a INT field
-type MarketDepthField struct{ message.IntValue }
+type MarketDepthField struct{ fix.IntValue }
 
 //Tag returns tag.MarketDepth (264)
 func (f MarketDepthField) Tag() fix.Tag { return tag.MarketDepth }
@@ -8778,7 +8777,7 @@ func NewMarketDepth(val int) *MarketDepthField {
 }
 
 //MarketIDField is a EXCHANGE field
-type MarketIDField struct{ message.ExchangeValue }
+type MarketIDField struct{ fix.ExchangeValue }
 
 //Tag returns tag.MarketID (1301)
 func (f MarketIDField) Tag() fix.Tag { return tag.MarketID }
@@ -8791,7 +8790,7 @@ func NewMarketID(val string) *MarketIDField {
 }
 
 //MarketReportIDField is a STRING field
-type MarketReportIDField struct{ message.StringValue }
+type MarketReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.MarketReportID (1394)
 func (f MarketReportIDField) Tag() fix.Tag { return tag.MarketReportID }
@@ -8804,7 +8803,7 @@ func NewMarketReportID(val string) *MarketReportIDField {
 }
 
 //MarketReqIDField is a STRING field
-type MarketReqIDField struct{ message.StringValue }
+type MarketReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.MarketReqID (1393)
 func (f MarketReqIDField) Tag() fix.Tag { return tag.MarketReqID }
@@ -8817,7 +8816,7 @@ func NewMarketReqID(val string) *MarketReqIDField {
 }
 
 //MarketSegmentDescField is a STRING field
-type MarketSegmentDescField struct{ message.StringValue }
+type MarketSegmentDescField struct{ fix.StringValue }
 
 //Tag returns tag.MarketSegmentDesc (1396)
 func (f MarketSegmentDescField) Tag() fix.Tag { return tag.MarketSegmentDesc }
@@ -8830,7 +8829,7 @@ func NewMarketSegmentDesc(val string) *MarketSegmentDescField {
 }
 
 //MarketSegmentIDField is a STRING field
-type MarketSegmentIDField struct{ message.StringValue }
+type MarketSegmentIDField struct{ fix.StringValue }
 
 //Tag returns tag.MarketSegmentID (1300)
 func (f MarketSegmentIDField) Tag() fix.Tag { return tag.MarketSegmentID }
@@ -8843,7 +8842,7 @@ func NewMarketSegmentID(val string) *MarketSegmentIDField {
 }
 
 //MarketUpdateActionField is a CHAR field
-type MarketUpdateActionField struct{ message.CharValue }
+type MarketUpdateActionField struct{ fix.CharValue }
 
 //Tag returns tag.MarketUpdateAction (1395)
 func (f MarketUpdateActionField) Tag() fix.Tag { return tag.MarketUpdateAction }
@@ -8856,7 +8855,7 @@ func NewMarketUpdateAction(val string) *MarketUpdateActionField {
 }
 
 //MassActionRejectReasonField is a INT field
-type MassActionRejectReasonField struct{ message.IntValue }
+type MassActionRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.MassActionRejectReason (1376)
 func (f MassActionRejectReasonField) Tag() fix.Tag { return tag.MassActionRejectReason }
@@ -8869,7 +8868,7 @@ func NewMassActionRejectReason(val int) *MassActionRejectReasonField {
 }
 
 //MassActionReportIDField is a STRING field
-type MassActionReportIDField struct{ message.StringValue }
+type MassActionReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.MassActionReportID (1369)
 func (f MassActionReportIDField) Tag() fix.Tag { return tag.MassActionReportID }
@@ -8882,7 +8881,7 @@ func NewMassActionReportID(val string) *MassActionReportIDField {
 }
 
 //MassActionResponseField is a INT field
-type MassActionResponseField struct{ message.IntValue }
+type MassActionResponseField struct{ fix.IntValue }
 
 //Tag returns tag.MassActionResponse (1375)
 func (f MassActionResponseField) Tag() fix.Tag { return tag.MassActionResponse }
@@ -8895,7 +8894,7 @@ func NewMassActionResponse(val int) *MassActionResponseField {
 }
 
 //MassActionScopeField is a INT field
-type MassActionScopeField struct{ message.IntValue }
+type MassActionScopeField struct{ fix.IntValue }
 
 //Tag returns tag.MassActionScope (1374)
 func (f MassActionScopeField) Tag() fix.Tag { return tag.MassActionScope }
@@ -8908,7 +8907,7 @@ func NewMassActionScope(val int) *MassActionScopeField {
 }
 
 //MassActionTypeField is a INT field
-type MassActionTypeField struct{ message.IntValue }
+type MassActionTypeField struct{ fix.IntValue }
 
 //Tag returns tag.MassActionType (1373)
 func (f MassActionTypeField) Tag() fix.Tag { return tag.MassActionType }
@@ -8921,7 +8920,7 @@ func NewMassActionType(val int) *MassActionTypeField {
 }
 
 //MassCancelRejectReasonField is a INT field
-type MassCancelRejectReasonField struct{ message.IntValue }
+type MassCancelRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.MassCancelRejectReason (532)
 func (f MassCancelRejectReasonField) Tag() fix.Tag { return tag.MassCancelRejectReason }
@@ -8934,7 +8933,7 @@ func NewMassCancelRejectReason(val int) *MassCancelRejectReasonField {
 }
 
 //MassCancelRequestTypeField is a CHAR field
-type MassCancelRequestTypeField struct{ message.CharValue }
+type MassCancelRequestTypeField struct{ fix.CharValue }
 
 //Tag returns tag.MassCancelRequestType (530)
 func (f MassCancelRequestTypeField) Tag() fix.Tag { return tag.MassCancelRequestType }
@@ -8947,7 +8946,7 @@ func NewMassCancelRequestType(val string) *MassCancelRequestTypeField {
 }
 
 //MassCancelResponseField is a CHAR field
-type MassCancelResponseField struct{ message.CharValue }
+type MassCancelResponseField struct{ fix.CharValue }
 
 //Tag returns tag.MassCancelResponse (531)
 func (f MassCancelResponseField) Tag() fix.Tag { return tag.MassCancelResponse }
@@ -8960,7 +8959,7 @@ func NewMassCancelResponse(val string) *MassCancelResponseField {
 }
 
 //MassStatusReqIDField is a STRING field
-type MassStatusReqIDField struct{ message.StringValue }
+type MassStatusReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.MassStatusReqID (584)
 func (f MassStatusReqIDField) Tag() fix.Tag { return tag.MassStatusReqID }
@@ -8973,7 +8972,7 @@ func NewMassStatusReqID(val string) *MassStatusReqIDField {
 }
 
 //MassStatusReqTypeField is a INT field
-type MassStatusReqTypeField struct{ message.IntValue }
+type MassStatusReqTypeField struct{ fix.IntValue }
 
 //Tag returns tag.MassStatusReqType (585)
 func (f MassStatusReqTypeField) Tag() fix.Tag { return tag.MassStatusReqType }
@@ -8986,7 +8985,7 @@ func NewMassStatusReqType(val int) *MassStatusReqTypeField {
 }
 
 //MatchAlgorithmField is a STRING field
-type MatchAlgorithmField struct{ message.StringValue }
+type MatchAlgorithmField struct{ fix.StringValue }
 
 //Tag returns tag.MatchAlgorithm (1142)
 func (f MatchAlgorithmField) Tag() fix.Tag { return tag.MatchAlgorithm }
@@ -8999,7 +8998,7 @@ func NewMatchAlgorithm(val string) *MatchAlgorithmField {
 }
 
 //MatchIncrementField is a QTY field
-type MatchIncrementField struct{ message.QtyValue }
+type MatchIncrementField struct{ fix.QtyValue }
 
 //Tag returns tag.MatchIncrement (1089)
 func (f MatchIncrementField) Tag() fix.Tag { return tag.MatchIncrement }
@@ -9012,7 +9011,7 @@ func NewMatchIncrement(val float64) *MatchIncrementField {
 }
 
 //MatchStatusField is a CHAR field
-type MatchStatusField struct{ message.CharValue }
+type MatchStatusField struct{ fix.CharValue }
 
 //Tag returns tag.MatchStatus (573)
 func (f MatchStatusField) Tag() fix.Tag { return tag.MatchStatus }
@@ -9025,7 +9024,7 @@ func NewMatchStatus(val string) *MatchStatusField {
 }
 
 //MatchTypeField is a STRING field
-type MatchTypeField struct{ message.StringValue }
+type MatchTypeField struct{ fix.StringValue }
 
 //Tag returns tag.MatchType (574)
 func (f MatchTypeField) Tag() fix.Tag { return tag.MatchType }
@@ -9038,7 +9037,7 @@ func NewMatchType(val string) *MatchTypeField {
 }
 
 //MaturityDateField is a LOCALMKTDATE field
-type MaturityDateField struct{ message.LocalMktDateValue }
+type MaturityDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.MaturityDate (541)
 func (f MaturityDateField) Tag() fix.Tag { return tag.MaturityDate }
@@ -9051,7 +9050,7 @@ func NewMaturityDate(val string) *MaturityDateField {
 }
 
 //MaturityDayField is a DAYOFMONTH field
-type MaturityDayField struct{ message.DayOfMonthValue }
+type MaturityDayField struct{ fix.DayOfMonthValue }
 
 //Tag returns tag.MaturityDay (205)
 func (f MaturityDayField) Tag() fix.Tag { return tag.MaturityDay }
@@ -9064,7 +9063,7 @@ func NewMaturityDay(val int) *MaturityDayField {
 }
 
 //MaturityMonthYearField is a MONTHYEAR field
-type MaturityMonthYearField struct{ message.MonthYearValue }
+type MaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.MaturityMonthYear (200)
 func (f MaturityMonthYearField) Tag() fix.Tag { return tag.MaturityMonthYear }
@@ -9077,7 +9076,7 @@ func NewMaturityMonthYear(val string) *MaturityMonthYearField {
 }
 
 //MaturityMonthYearFormatField is a INT field
-type MaturityMonthYearFormatField struct{ message.IntValue }
+type MaturityMonthYearFormatField struct{ fix.IntValue }
 
 //Tag returns tag.MaturityMonthYearFormat (1303)
 func (f MaturityMonthYearFormatField) Tag() fix.Tag { return tag.MaturityMonthYearFormat }
@@ -9090,7 +9089,7 @@ func NewMaturityMonthYearFormat(val int) *MaturityMonthYearFormatField {
 }
 
 //MaturityMonthYearIncrementField is a INT field
-type MaturityMonthYearIncrementField struct{ message.IntValue }
+type MaturityMonthYearIncrementField struct{ fix.IntValue }
 
 //Tag returns tag.MaturityMonthYearIncrement (1229)
 func (f MaturityMonthYearIncrementField) Tag() fix.Tag { return tag.MaturityMonthYearIncrement }
@@ -9103,7 +9102,7 @@ func NewMaturityMonthYearIncrement(val int) *MaturityMonthYearIncrementField {
 }
 
 //MaturityMonthYearIncrementUnitsField is a INT field
-type MaturityMonthYearIncrementUnitsField struct{ message.IntValue }
+type MaturityMonthYearIncrementUnitsField struct{ fix.IntValue }
 
 //Tag returns tag.MaturityMonthYearIncrementUnits (1302)
 func (f MaturityMonthYearIncrementUnitsField) Tag() fix.Tag {
@@ -9118,7 +9117,7 @@ func NewMaturityMonthYearIncrementUnits(val int) *MaturityMonthYearIncrementUnit
 }
 
 //MaturityNetMoneyField is a AMT field
-type MaturityNetMoneyField struct{ message.AmtValue }
+type MaturityNetMoneyField struct{ fix.AmtValue }
 
 //Tag returns tag.MaturityNetMoney (890)
 func (f MaturityNetMoneyField) Tag() fix.Tag { return tag.MaturityNetMoney }
@@ -9131,7 +9130,7 @@ func NewMaturityNetMoney(val float64) *MaturityNetMoneyField {
 }
 
 //MaturityRuleIDField is a STRING field
-type MaturityRuleIDField struct{ message.StringValue }
+type MaturityRuleIDField struct{ fix.StringValue }
 
 //Tag returns tag.MaturityRuleID (1222)
 func (f MaturityRuleIDField) Tag() fix.Tag { return tag.MaturityRuleID }
@@ -9144,13 +9143,13 @@ func NewMaturityRuleID(val string) *MaturityRuleIDField {
 }
 
 //MaturityTimeField is a TZTIMEONLY field
-type MaturityTimeField struct{ message.TZTimeOnlyValue }
+type MaturityTimeField struct{ fix.TZTimeOnlyValue }
 
 //Tag returns tag.MaturityTime (1079)
 func (f MaturityTimeField) Tag() fix.Tag { return tag.MaturityTime }
 
 //MaxFloorField is a QTY field
-type MaxFloorField struct{ message.QtyValue }
+type MaxFloorField struct{ fix.QtyValue }
 
 //Tag returns tag.MaxFloor (111)
 func (f MaxFloorField) Tag() fix.Tag { return tag.MaxFloor }
@@ -9163,7 +9162,7 @@ func NewMaxFloor(val float64) *MaxFloorField {
 }
 
 //MaxMessageSizeField is a LENGTH field
-type MaxMessageSizeField struct{ message.LengthValue }
+type MaxMessageSizeField struct{ fix.LengthValue }
 
 //Tag returns tag.MaxMessageSize (383)
 func (f MaxMessageSizeField) Tag() fix.Tag { return tag.MaxMessageSize }
@@ -9176,7 +9175,7 @@ func NewMaxMessageSize(val int) *MaxMessageSizeField {
 }
 
 //MaxPriceLevelsField is a INT field
-type MaxPriceLevelsField struct{ message.IntValue }
+type MaxPriceLevelsField struct{ fix.IntValue }
 
 //Tag returns tag.MaxPriceLevels (1090)
 func (f MaxPriceLevelsField) Tag() fix.Tag { return tag.MaxPriceLevels }
@@ -9189,7 +9188,7 @@ func NewMaxPriceLevels(val int) *MaxPriceLevelsField {
 }
 
 //MaxPriceVariationField is a FLOAT field
-type MaxPriceVariationField struct{ message.FloatValue }
+type MaxPriceVariationField struct{ fix.FloatValue }
 
 //Tag returns tag.MaxPriceVariation (1143)
 func (f MaxPriceVariationField) Tag() fix.Tag { return tag.MaxPriceVariation }
@@ -9202,7 +9201,7 @@ func NewMaxPriceVariation(val float64) *MaxPriceVariationField {
 }
 
 //MaxShowField is a QTY field
-type MaxShowField struct{ message.QtyValue }
+type MaxShowField struct{ fix.QtyValue }
 
 //Tag returns tag.MaxShow (210)
 func (f MaxShowField) Tag() fix.Tag { return tag.MaxShow }
@@ -9215,7 +9214,7 @@ func NewMaxShow(val float64) *MaxShowField {
 }
 
 //MaxTradeVolField is a QTY field
-type MaxTradeVolField struct{ message.QtyValue }
+type MaxTradeVolField struct{ fix.QtyValue }
 
 //Tag returns tag.MaxTradeVol (1140)
 func (f MaxTradeVolField) Tag() fix.Tag { return tag.MaxTradeVol }
@@ -9228,7 +9227,7 @@ func NewMaxTradeVol(val float64) *MaxTradeVolField {
 }
 
 //MessageEncodingField is a STRING field
-type MessageEncodingField struct{ message.StringValue }
+type MessageEncodingField struct{ fix.StringValue }
 
 //Tag returns tag.MessageEncoding (347)
 func (f MessageEncodingField) Tag() fix.Tag { return tag.MessageEncoding }
@@ -9241,7 +9240,7 @@ func NewMessageEncoding(val string) *MessageEncodingField {
 }
 
 //MessageEventSourceField is a STRING field
-type MessageEventSourceField struct{ message.StringValue }
+type MessageEventSourceField struct{ fix.StringValue }
 
 //Tag returns tag.MessageEventSource (1011)
 func (f MessageEventSourceField) Tag() fix.Tag { return tag.MessageEventSource }
@@ -9254,7 +9253,7 @@ func NewMessageEventSource(val string) *MessageEventSourceField {
 }
 
 //MidPxField is a PRICE field
-type MidPxField struct{ message.PriceValue }
+type MidPxField struct{ fix.PriceValue }
 
 //Tag returns tag.MidPx (631)
 func (f MidPxField) Tag() fix.Tag { return tag.MidPx }
@@ -9267,7 +9266,7 @@ func NewMidPx(val float64) *MidPxField {
 }
 
 //MidYieldField is a PERCENTAGE field
-type MidYieldField struct{ message.PercentageValue }
+type MidYieldField struct{ fix.PercentageValue }
 
 //Tag returns tag.MidYield (633)
 func (f MidYieldField) Tag() fix.Tag { return tag.MidYield }
@@ -9280,7 +9279,7 @@ func NewMidYield(val float64) *MidYieldField {
 }
 
 //MinBidSizeField is a QTY field
-type MinBidSizeField struct{ message.QtyValue }
+type MinBidSizeField struct{ fix.QtyValue }
 
 //Tag returns tag.MinBidSize (647)
 func (f MinBidSizeField) Tag() fix.Tag { return tag.MinBidSize }
@@ -9293,7 +9292,7 @@ func NewMinBidSize(val float64) *MinBidSizeField {
 }
 
 //MinLotSizeField is a QTY field
-type MinLotSizeField struct{ message.QtyValue }
+type MinLotSizeField struct{ fix.QtyValue }
 
 //Tag returns tag.MinLotSize (1231)
 func (f MinLotSizeField) Tag() fix.Tag { return tag.MinLotSize }
@@ -9306,7 +9305,7 @@ func NewMinLotSize(val float64) *MinLotSizeField {
 }
 
 //MinOfferSizeField is a QTY field
-type MinOfferSizeField struct{ message.QtyValue }
+type MinOfferSizeField struct{ fix.QtyValue }
 
 //Tag returns tag.MinOfferSize (648)
 func (f MinOfferSizeField) Tag() fix.Tag { return tag.MinOfferSize }
@@ -9319,7 +9318,7 @@ func NewMinOfferSize(val float64) *MinOfferSizeField {
 }
 
 //MinPriceIncrementField is a FLOAT field
-type MinPriceIncrementField struct{ message.FloatValue }
+type MinPriceIncrementField struct{ fix.FloatValue }
 
 //Tag returns tag.MinPriceIncrement (969)
 func (f MinPriceIncrementField) Tag() fix.Tag { return tag.MinPriceIncrement }
@@ -9332,7 +9331,7 @@ func NewMinPriceIncrement(val float64) *MinPriceIncrementField {
 }
 
 //MinPriceIncrementAmountField is a AMT field
-type MinPriceIncrementAmountField struct{ message.AmtValue }
+type MinPriceIncrementAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.MinPriceIncrementAmount (1146)
 func (f MinPriceIncrementAmountField) Tag() fix.Tag { return tag.MinPriceIncrementAmount }
@@ -9345,7 +9344,7 @@ func NewMinPriceIncrementAmount(val float64) *MinPriceIncrementAmountField {
 }
 
 //MinQtyField is a QTY field
-type MinQtyField struct{ message.QtyValue }
+type MinQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.MinQty (110)
 func (f MinQtyField) Tag() fix.Tag { return tag.MinQty }
@@ -9358,7 +9357,7 @@ func NewMinQty(val float64) *MinQtyField {
 }
 
 //MinTradeVolField is a QTY field
-type MinTradeVolField struct{ message.QtyValue }
+type MinTradeVolField struct{ fix.QtyValue }
 
 //Tag returns tag.MinTradeVol (562)
 func (f MinTradeVolField) Tag() fix.Tag { return tag.MinTradeVol }
@@ -9371,7 +9370,7 @@ func NewMinTradeVol(val float64) *MinTradeVolField {
 }
 
 //MiscFeeAmtField is a AMT field
-type MiscFeeAmtField struct{ message.AmtValue }
+type MiscFeeAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.MiscFeeAmt (137)
 func (f MiscFeeAmtField) Tag() fix.Tag { return tag.MiscFeeAmt }
@@ -9384,7 +9383,7 @@ func NewMiscFeeAmt(val float64) *MiscFeeAmtField {
 }
 
 //MiscFeeBasisField is a INT field
-type MiscFeeBasisField struct{ message.IntValue }
+type MiscFeeBasisField struct{ fix.IntValue }
 
 //Tag returns tag.MiscFeeBasis (891)
 func (f MiscFeeBasisField) Tag() fix.Tag { return tag.MiscFeeBasis }
@@ -9397,7 +9396,7 @@ func NewMiscFeeBasis(val int) *MiscFeeBasisField {
 }
 
 //MiscFeeCurrField is a CURRENCY field
-type MiscFeeCurrField struct{ message.CurrencyValue }
+type MiscFeeCurrField struct{ fix.CurrencyValue }
 
 //Tag returns tag.MiscFeeCurr (138)
 func (f MiscFeeCurrField) Tag() fix.Tag { return tag.MiscFeeCurr }
@@ -9410,7 +9409,7 @@ func NewMiscFeeCurr(val string) *MiscFeeCurrField {
 }
 
 //MiscFeeTypeField is a STRING field
-type MiscFeeTypeField struct{ message.StringValue }
+type MiscFeeTypeField struct{ fix.StringValue }
 
 //Tag returns tag.MiscFeeType (139)
 func (f MiscFeeTypeField) Tag() fix.Tag { return tag.MiscFeeType }
@@ -9423,7 +9422,7 @@ func NewMiscFeeType(val string) *MiscFeeTypeField {
 }
 
 //MktBidPxField is a PRICE field
-type MktBidPxField struct{ message.PriceValue }
+type MktBidPxField struct{ fix.PriceValue }
 
 //Tag returns tag.MktBidPx (645)
 func (f MktBidPxField) Tag() fix.Tag { return tag.MktBidPx }
@@ -9436,7 +9435,7 @@ func NewMktBidPx(val float64) *MktBidPxField {
 }
 
 //MktOfferPxField is a PRICE field
-type MktOfferPxField struct{ message.PriceValue }
+type MktOfferPxField struct{ fix.PriceValue }
 
 //Tag returns tag.MktOfferPx (646)
 func (f MktOfferPxField) Tag() fix.Tag { return tag.MktOfferPx }
@@ -9449,7 +9448,7 @@ func NewMktOfferPx(val float64) *MktOfferPxField {
 }
 
 //ModelTypeField is a INT field
-type ModelTypeField struct{ message.IntValue }
+type ModelTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ModelType (1434)
 func (f ModelTypeField) Tag() fix.Tag { return tag.ModelType }
@@ -9462,7 +9461,7 @@ func NewModelType(val int) *ModelTypeField {
 }
 
 //MoneyLaunderingStatusField is a CHAR field
-type MoneyLaunderingStatusField struct{ message.CharValue }
+type MoneyLaunderingStatusField struct{ fix.CharValue }
 
 //Tag returns tag.MoneyLaunderingStatus (481)
 func (f MoneyLaunderingStatusField) Tag() fix.Tag { return tag.MoneyLaunderingStatus }
@@ -9475,7 +9474,7 @@ func NewMoneyLaunderingStatus(val string) *MoneyLaunderingStatusField {
 }
 
 //MsgDirectionField is a CHAR field
-type MsgDirectionField struct{ message.CharValue }
+type MsgDirectionField struct{ fix.CharValue }
 
 //Tag returns tag.MsgDirection (385)
 func (f MsgDirectionField) Tag() fix.Tag { return tag.MsgDirection }
@@ -9488,7 +9487,7 @@ func NewMsgDirection(val string) *MsgDirectionField {
 }
 
 //MsgSeqNumField is a SEQNUM field
-type MsgSeqNumField struct{ message.SeqNumValue }
+type MsgSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.MsgSeqNum (34)
 func (f MsgSeqNumField) Tag() fix.Tag { return tag.MsgSeqNum }
@@ -9501,7 +9500,7 @@ func NewMsgSeqNum(val int) *MsgSeqNumField {
 }
 
 //MsgTypeField is a STRING field
-type MsgTypeField struct{ message.StringValue }
+type MsgTypeField struct{ fix.StringValue }
 
 //Tag returns tag.MsgType (35)
 func (f MsgTypeField) Tag() fix.Tag { return tag.MsgType }
@@ -9514,7 +9513,7 @@ func NewMsgType(val string) *MsgTypeField {
 }
 
 //MultiLegReportingTypeField is a CHAR field
-type MultiLegReportingTypeField struct{ message.CharValue }
+type MultiLegReportingTypeField struct{ fix.CharValue }
 
 //Tag returns tag.MultiLegReportingType (442)
 func (f MultiLegReportingTypeField) Tag() fix.Tag { return tag.MultiLegReportingType }
@@ -9527,7 +9526,7 @@ func NewMultiLegReportingType(val string) *MultiLegReportingTypeField {
 }
 
 //MultiLegRptTypeReqField is a INT field
-type MultiLegRptTypeReqField struct{ message.IntValue }
+type MultiLegRptTypeReqField struct{ fix.IntValue }
 
 //Tag returns tag.MultiLegRptTypeReq (563)
 func (f MultiLegRptTypeReqField) Tag() fix.Tag { return tag.MultiLegRptTypeReq }
@@ -9540,7 +9539,7 @@ func NewMultiLegRptTypeReq(val int) *MultiLegRptTypeReqField {
 }
 
 //MultilegModelField is a INT field
-type MultilegModelField struct{ message.IntValue }
+type MultilegModelField struct{ fix.IntValue }
 
 //Tag returns tag.MultilegModel (1377)
 func (f MultilegModelField) Tag() fix.Tag { return tag.MultilegModel }
@@ -9553,7 +9552,7 @@ func NewMultilegModel(val int) *MultilegModelField {
 }
 
 //MultilegPriceMethodField is a INT field
-type MultilegPriceMethodField struct{ message.IntValue }
+type MultilegPriceMethodField struct{ fix.IntValue }
 
 //Tag returns tag.MultilegPriceMethod (1378)
 func (f MultilegPriceMethodField) Tag() fix.Tag { return tag.MultilegPriceMethod }
@@ -9566,7 +9565,7 @@ func NewMultilegPriceMethod(val int) *MultilegPriceMethodField {
 }
 
 //NTPositionLimitField is a INT field
-type NTPositionLimitField struct{ message.IntValue }
+type NTPositionLimitField struct{ fix.IntValue }
 
 //Tag returns tag.NTPositionLimit (971)
 func (f NTPositionLimitField) Tag() fix.Tag { return tag.NTPositionLimit }
@@ -9579,7 +9578,7 @@ func NewNTPositionLimit(val int) *NTPositionLimitField {
 }
 
 //Nested2PartyIDField is a STRING field
-type Nested2PartyIDField struct{ message.StringValue }
+type Nested2PartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.Nested2PartyID (757)
 func (f Nested2PartyIDField) Tag() fix.Tag { return tag.Nested2PartyID }
@@ -9592,7 +9591,7 @@ func NewNested2PartyID(val string) *Nested2PartyIDField {
 }
 
 //Nested2PartyIDSourceField is a CHAR field
-type Nested2PartyIDSourceField struct{ message.CharValue }
+type Nested2PartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.Nested2PartyIDSource (758)
 func (f Nested2PartyIDSourceField) Tag() fix.Tag { return tag.Nested2PartyIDSource }
@@ -9605,7 +9604,7 @@ func NewNested2PartyIDSource(val string) *Nested2PartyIDSourceField {
 }
 
 //Nested2PartyRoleField is a INT field
-type Nested2PartyRoleField struct{ message.IntValue }
+type Nested2PartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.Nested2PartyRole (759)
 func (f Nested2PartyRoleField) Tag() fix.Tag { return tag.Nested2PartyRole }
@@ -9618,7 +9617,7 @@ func NewNested2PartyRole(val int) *Nested2PartyRoleField {
 }
 
 //Nested2PartySubIDField is a STRING field
-type Nested2PartySubIDField struct{ message.StringValue }
+type Nested2PartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.Nested2PartySubID (760)
 func (f Nested2PartySubIDField) Tag() fix.Tag { return tag.Nested2PartySubID }
@@ -9631,7 +9630,7 @@ func NewNested2PartySubID(val string) *Nested2PartySubIDField {
 }
 
 //Nested2PartySubIDTypeField is a INT field
-type Nested2PartySubIDTypeField struct{ message.IntValue }
+type Nested2PartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.Nested2PartySubIDType (807)
 func (f Nested2PartySubIDTypeField) Tag() fix.Tag { return tag.Nested2PartySubIDType }
@@ -9644,7 +9643,7 @@ func NewNested2PartySubIDType(val int) *Nested2PartySubIDTypeField {
 }
 
 //Nested3PartyIDField is a STRING field
-type Nested3PartyIDField struct{ message.StringValue }
+type Nested3PartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.Nested3PartyID (949)
 func (f Nested3PartyIDField) Tag() fix.Tag { return tag.Nested3PartyID }
@@ -9657,7 +9656,7 @@ func NewNested3PartyID(val string) *Nested3PartyIDField {
 }
 
 //Nested3PartyIDSourceField is a CHAR field
-type Nested3PartyIDSourceField struct{ message.CharValue }
+type Nested3PartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.Nested3PartyIDSource (950)
 func (f Nested3PartyIDSourceField) Tag() fix.Tag { return tag.Nested3PartyIDSource }
@@ -9670,7 +9669,7 @@ func NewNested3PartyIDSource(val string) *Nested3PartyIDSourceField {
 }
 
 //Nested3PartyRoleField is a INT field
-type Nested3PartyRoleField struct{ message.IntValue }
+type Nested3PartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.Nested3PartyRole (951)
 func (f Nested3PartyRoleField) Tag() fix.Tag { return tag.Nested3PartyRole }
@@ -9683,7 +9682,7 @@ func NewNested3PartyRole(val int) *Nested3PartyRoleField {
 }
 
 //Nested3PartySubIDField is a STRING field
-type Nested3PartySubIDField struct{ message.StringValue }
+type Nested3PartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.Nested3PartySubID (953)
 func (f Nested3PartySubIDField) Tag() fix.Tag { return tag.Nested3PartySubID }
@@ -9696,7 +9695,7 @@ func NewNested3PartySubID(val string) *Nested3PartySubIDField {
 }
 
 //Nested3PartySubIDTypeField is a INT field
-type Nested3PartySubIDTypeField struct{ message.IntValue }
+type Nested3PartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.Nested3PartySubIDType (954)
 func (f Nested3PartySubIDTypeField) Tag() fix.Tag { return tag.Nested3PartySubIDType }
@@ -9709,7 +9708,7 @@ func NewNested3PartySubIDType(val int) *Nested3PartySubIDTypeField {
 }
 
 //Nested4PartyIDField is a STRING field
-type Nested4PartyIDField struct{ message.StringValue }
+type Nested4PartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.Nested4PartyID (1415)
 func (f Nested4PartyIDField) Tag() fix.Tag { return tag.Nested4PartyID }
@@ -9722,7 +9721,7 @@ func NewNested4PartyID(val string) *Nested4PartyIDField {
 }
 
 //Nested4PartyIDSourceField is a CHAR field
-type Nested4PartyIDSourceField struct{ message.CharValue }
+type Nested4PartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.Nested4PartyIDSource (1416)
 func (f Nested4PartyIDSourceField) Tag() fix.Tag { return tag.Nested4PartyIDSource }
@@ -9735,7 +9734,7 @@ func NewNested4PartyIDSource(val string) *Nested4PartyIDSourceField {
 }
 
 //Nested4PartyRoleField is a INT field
-type Nested4PartyRoleField struct{ message.IntValue }
+type Nested4PartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.Nested4PartyRole (1417)
 func (f Nested4PartyRoleField) Tag() fix.Tag { return tag.Nested4PartyRole }
@@ -9748,7 +9747,7 @@ func NewNested4PartyRole(val int) *Nested4PartyRoleField {
 }
 
 //Nested4PartySubIDField is a STRING field
-type Nested4PartySubIDField struct{ message.StringValue }
+type Nested4PartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.Nested4PartySubID (1412)
 func (f Nested4PartySubIDField) Tag() fix.Tag { return tag.Nested4PartySubID }
@@ -9761,7 +9760,7 @@ func NewNested4PartySubID(val string) *Nested4PartySubIDField {
 }
 
 //Nested4PartySubIDTypeField is a INT field
-type Nested4PartySubIDTypeField struct{ message.IntValue }
+type Nested4PartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.Nested4PartySubIDType (1411)
 func (f Nested4PartySubIDTypeField) Tag() fix.Tag { return tag.Nested4PartySubIDType }
@@ -9774,7 +9773,7 @@ func NewNested4PartySubIDType(val int) *Nested4PartySubIDTypeField {
 }
 
 //NestedInstrAttribTypeField is a INT field
-type NestedInstrAttribTypeField struct{ message.IntValue }
+type NestedInstrAttribTypeField struct{ fix.IntValue }
 
 //Tag returns tag.NestedInstrAttribType (1210)
 func (f NestedInstrAttribTypeField) Tag() fix.Tag { return tag.NestedInstrAttribType }
@@ -9787,7 +9786,7 @@ func NewNestedInstrAttribType(val int) *NestedInstrAttribTypeField {
 }
 
 //NestedInstrAttribValueField is a STRING field
-type NestedInstrAttribValueField struct{ message.StringValue }
+type NestedInstrAttribValueField struct{ fix.StringValue }
 
 //Tag returns tag.NestedInstrAttribValue (1211)
 func (f NestedInstrAttribValueField) Tag() fix.Tag { return tag.NestedInstrAttribValue }
@@ -9800,7 +9799,7 @@ func NewNestedInstrAttribValue(val string) *NestedInstrAttribValueField {
 }
 
 //NestedPartyIDField is a STRING field
-type NestedPartyIDField struct{ message.StringValue }
+type NestedPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.NestedPartyID (524)
 func (f NestedPartyIDField) Tag() fix.Tag { return tag.NestedPartyID }
@@ -9813,7 +9812,7 @@ func NewNestedPartyID(val string) *NestedPartyIDField {
 }
 
 //NestedPartyIDSourceField is a CHAR field
-type NestedPartyIDSourceField struct{ message.CharValue }
+type NestedPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.NestedPartyIDSource (525)
 func (f NestedPartyIDSourceField) Tag() fix.Tag { return tag.NestedPartyIDSource }
@@ -9826,7 +9825,7 @@ func NewNestedPartyIDSource(val string) *NestedPartyIDSourceField {
 }
 
 //NestedPartyRoleField is a INT field
-type NestedPartyRoleField struct{ message.IntValue }
+type NestedPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.NestedPartyRole (538)
 func (f NestedPartyRoleField) Tag() fix.Tag { return tag.NestedPartyRole }
@@ -9839,7 +9838,7 @@ func NewNestedPartyRole(val int) *NestedPartyRoleField {
 }
 
 //NestedPartySubIDField is a STRING field
-type NestedPartySubIDField struct{ message.StringValue }
+type NestedPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.NestedPartySubID (545)
 func (f NestedPartySubIDField) Tag() fix.Tag { return tag.NestedPartySubID }
@@ -9852,7 +9851,7 @@ func NewNestedPartySubID(val string) *NestedPartySubIDField {
 }
 
 //NestedPartySubIDTypeField is a INT field
-type NestedPartySubIDTypeField struct{ message.IntValue }
+type NestedPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.NestedPartySubIDType (805)
 func (f NestedPartySubIDTypeField) Tag() fix.Tag { return tag.NestedPartySubIDType }
@@ -9865,7 +9864,7 @@ func NewNestedPartySubIDType(val int) *NestedPartySubIDTypeField {
 }
 
 //NetChgPrevDayField is a PRICEOFFSET field
-type NetChgPrevDayField struct{ message.PriceOffsetValue }
+type NetChgPrevDayField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.NetChgPrevDay (451)
 func (f NetChgPrevDayField) Tag() fix.Tag { return tag.NetChgPrevDay }
@@ -9878,7 +9877,7 @@ func NewNetChgPrevDay(val float64) *NetChgPrevDayField {
 }
 
 //NetGrossIndField is a INT field
-type NetGrossIndField struct{ message.IntValue }
+type NetGrossIndField struct{ fix.IntValue }
 
 //Tag returns tag.NetGrossInd (430)
 func (f NetGrossIndField) Tag() fix.Tag { return tag.NetGrossInd }
@@ -9891,7 +9890,7 @@ func NewNetGrossInd(val int) *NetGrossIndField {
 }
 
 //NetMoneyField is a AMT field
-type NetMoneyField struct{ message.AmtValue }
+type NetMoneyField struct{ fix.AmtValue }
 
 //Tag returns tag.NetMoney (118)
 func (f NetMoneyField) Tag() fix.Tag { return tag.NetMoney }
@@ -9904,7 +9903,7 @@ func NewNetMoney(val float64) *NetMoneyField {
 }
 
 //NetworkRequestIDField is a STRING field
-type NetworkRequestIDField struct{ message.StringValue }
+type NetworkRequestIDField struct{ fix.StringValue }
 
 //Tag returns tag.NetworkRequestID (933)
 func (f NetworkRequestIDField) Tag() fix.Tag { return tag.NetworkRequestID }
@@ -9917,7 +9916,7 @@ func NewNetworkRequestID(val string) *NetworkRequestIDField {
 }
 
 //NetworkRequestTypeField is a INT field
-type NetworkRequestTypeField struct{ message.IntValue }
+type NetworkRequestTypeField struct{ fix.IntValue }
 
 //Tag returns tag.NetworkRequestType (935)
 func (f NetworkRequestTypeField) Tag() fix.Tag { return tag.NetworkRequestType }
@@ -9930,7 +9929,7 @@ func NewNetworkRequestType(val int) *NetworkRequestTypeField {
 }
 
 //NetworkResponseIDField is a STRING field
-type NetworkResponseIDField struct{ message.StringValue }
+type NetworkResponseIDField struct{ fix.StringValue }
 
 //Tag returns tag.NetworkResponseID (932)
 func (f NetworkResponseIDField) Tag() fix.Tag { return tag.NetworkResponseID }
@@ -9943,7 +9942,7 @@ func NewNetworkResponseID(val string) *NetworkResponseIDField {
 }
 
 //NetworkStatusResponseTypeField is a INT field
-type NetworkStatusResponseTypeField struct{ message.IntValue }
+type NetworkStatusResponseTypeField struct{ fix.IntValue }
 
 //Tag returns tag.NetworkStatusResponseType (937)
 func (f NetworkStatusResponseTypeField) Tag() fix.Tag { return tag.NetworkStatusResponseType }
@@ -9956,7 +9955,7 @@ func NewNetworkStatusResponseType(val int) *NetworkStatusResponseTypeField {
 }
 
 //NewPasswordField is a STRING field
-type NewPasswordField struct{ message.StringValue }
+type NewPasswordField struct{ fix.StringValue }
 
 //Tag returns tag.NewPassword (925)
 func (f NewPasswordField) Tag() fix.Tag { return tag.NewPassword }
@@ -9969,7 +9968,7 @@ func NewNewPassword(val string) *NewPasswordField {
 }
 
 //NewSeqNoField is a SEQNUM field
-type NewSeqNoField struct{ message.SeqNumValue }
+type NewSeqNoField struct{ fix.SeqNumValue }
 
 //Tag returns tag.NewSeqNo (36)
 func (f NewSeqNoField) Tag() fix.Tag { return tag.NewSeqNo }
@@ -9982,7 +9981,7 @@ func NewNewSeqNo(val int) *NewSeqNoField {
 }
 
 //NewsCategoryField is a INT field
-type NewsCategoryField struct{ message.IntValue }
+type NewsCategoryField struct{ fix.IntValue }
 
 //Tag returns tag.NewsCategory (1473)
 func (f NewsCategoryField) Tag() fix.Tag { return tag.NewsCategory }
@@ -9995,7 +9994,7 @@ func NewNewsCategory(val int) *NewsCategoryField {
 }
 
 //NewsIDField is a STRING field
-type NewsIDField struct{ message.StringValue }
+type NewsIDField struct{ fix.StringValue }
 
 //Tag returns tag.NewsID (1472)
 func (f NewsIDField) Tag() fix.Tag { return tag.NewsID }
@@ -10008,7 +10007,7 @@ func NewNewsID(val string) *NewsIDField {
 }
 
 //NewsRefIDField is a STRING field
-type NewsRefIDField struct{ message.StringValue }
+type NewsRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.NewsRefID (1476)
 func (f NewsRefIDField) Tag() fix.Tag { return tag.NewsRefID }
@@ -10021,7 +10020,7 @@ func NewNewsRefID(val string) *NewsRefIDField {
 }
 
 //NewsRefTypeField is a INT field
-type NewsRefTypeField struct{ message.IntValue }
+type NewsRefTypeField struct{ fix.IntValue }
 
 //Tag returns tag.NewsRefType (1477)
 func (f NewsRefTypeField) Tag() fix.Tag { return tag.NewsRefType }
@@ -10034,7 +10033,7 @@ func NewNewsRefType(val int) *NewsRefTypeField {
 }
 
 //NextExpectedMsgSeqNumField is a SEQNUM field
-type NextExpectedMsgSeqNumField struct{ message.SeqNumValue }
+type NextExpectedMsgSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.NextExpectedMsgSeqNum (789)
 func (f NextExpectedMsgSeqNumField) Tag() fix.Tag { return tag.NextExpectedMsgSeqNum }
@@ -10047,7 +10046,7 @@ func NewNextExpectedMsgSeqNum(val int) *NextExpectedMsgSeqNumField {
 }
 
 //NoAffectedOrdersField is a NUMINGROUP field
-type NoAffectedOrdersField struct{ message.NumInGroupValue }
+type NoAffectedOrdersField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoAffectedOrders (534)
 func (f NoAffectedOrdersField) Tag() fix.Tag { return tag.NoAffectedOrders }
@@ -10060,7 +10059,7 @@ func NewNoAffectedOrders(val int) *NoAffectedOrdersField {
 }
 
 //NoAllocsField is a NUMINGROUP field
-type NoAllocsField struct{ message.NumInGroupValue }
+type NoAllocsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoAllocs (78)
 func (f NoAllocsField) Tag() fix.Tag { return tag.NoAllocs }
@@ -10073,7 +10072,7 @@ func NewNoAllocs(val int) *NoAllocsField {
 }
 
 //NoAltMDSourceField is a NUMINGROUP field
-type NoAltMDSourceField struct{ message.NumInGroupValue }
+type NoAltMDSourceField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoAltMDSource (816)
 func (f NoAltMDSourceField) Tag() fix.Tag { return tag.NoAltMDSource }
@@ -10086,7 +10085,7 @@ func NewNoAltMDSource(val int) *NoAltMDSourceField {
 }
 
 //NoApplIDsField is a NUMINGROUP field
-type NoApplIDsField struct{ message.NumInGroupValue }
+type NoApplIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoApplIDs (1351)
 func (f NoApplIDsField) Tag() fix.Tag { return tag.NoApplIDs }
@@ -10099,7 +10098,7 @@ func NewNoApplIDs(val int) *NoApplIDsField {
 }
 
 //NoAsgnReqsField is a NUMINGROUP field
-type NoAsgnReqsField struct{ message.NumInGroupValue }
+type NoAsgnReqsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoAsgnReqs (1499)
 func (f NoAsgnReqsField) Tag() fix.Tag { return tag.NoAsgnReqs }
@@ -10112,7 +10111,7 @@ func NewNoAsgnReqs(val int) *NoAsgnReqsField {
 }
 
 //NoBidComponentsField is a NUMINGROUP field
-type NoBidComponentsField struct{ message.NumInGroupValue }
+type NoBidComponentsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoBidComponents (420)
 func (f NoBidComponentsField) Tag() fix.Tag { return tag.NoBidComponents }
@@ -10125,7 +10124,7 @@ func NewNoBidComponents(val int) *NoBidComponentsField {
 }
 
 //NoBidDescriptorsField is a NUMINGROUP field
-type NoBidDescriptorsField struct{ message.NumInGroupValue }
+type NoBidDescriptorsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoBidDescriptors (398)
 func (f NoBidDescriptorsField) Tag() fix.Tag { return tag.NoBidDescriptors }
@@ -10138,7 +10137,7 @@ func NewNoBidDescriptors(val int) *NoBidDescriptorsField {
 }
 
 //NoCapacitiesField is a NUMINGROUP field
-type NoCapacitiesField struct{ message.NumInGroupValue }
+type NoCapacitiesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoCapacities (862)
 func (f NoCapacitiesField) Tag() fix.Tag { return tag.NoCapacities }
@@ -10151,7 +10150,7 @@ func NewNoCapacities(val int) *NoCapacitiesField {
 }
 
 //NoClearingInstructionsField is a NUMINGROUP field
-type NoClearingInstructionsField struct{ message.NumInGroupValue }
+type NoClearingInstructionsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoClearingInstructions (576)
 func (f NoClearingInstructionsField) Tag() fix.Tag { return tag.NoClearingInstructions }
@@ -10164,7 +10163,7 @@ func NewNoClearingInstructions(val int) *NoClearingInstructionsField {
 }
 
 //NoCollInquiryQualifierField is a NUMINGROUP field
-type NoCollInquiryQualifierField struct{ message.NumInGroupValue }
+type NoCollInquiryQualifierField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoCollInquiryQualifier (938)
 func (f NoCollInquiryQualifierField) Tag() fix.Tag { return tag.NoCollInquiryQualifier }
@@ -10177,7 +10176,7 @@ func NewNoCollInquiryQualifier(val int) *NoCollInquiryQualifierField {
 }
 
 //NoCompIDsField is a NUMINGROUP field
-type NoCompIDsField struct{ message.NumInGroupValue }
+type NoCompIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoCompIDs (936)
 func (f NoCompIDsField) Tag() fix.Tag { return tag.NoCompIDs }
@@ -10190,7 +10189,7 @@ func NewNoCompIDs(val int) *NoCompIDsField {
 }
 
 //NoComplexEventDatesField is a NUMINGROUP field
-type NoComplexEventDatesField struct{ message.NumInGroupValue }
+type NoComplexEventDatesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoComplexEventDates (1491)
 func (f NoComplexEventDatesField) Tag() fix.Tag { return tag.NoComplexEventDates }
@@ -10203,7 +10202,7 @@ func NewNoComplexEventDates(val int) *NoComplexEventDatesField {
 }
 
 //NoComplexEventTimesField is a NUMINGROUP field
-type NoComplexEventTimesField struct{ message.NumInGroupValue }
+type NoComplexEventTimesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoComplexEventTimes (1494)
 func (f NoComplexEventTimesField) Tag() fix.Tag { return tag.NoComplexEventTimes }
@@ -10216,7 +10215,7 @@ func NewNoComplexEventTimes(val int) *NoComplexEventTimesField {
 }
 
 //NoComplexEventsField is a NUMINGROUP field
-type NoComplexEventsField struct{ message.NumInGroupValue }
+type NoComplexEventsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoComplexEvents (1483)
 func (f NoComplexEventsField) Tag() fix.Tag { return tag.NoComplexEvents }
@@ -10229,7 +10228,7 @@ func NewNoComplexEvents(val int) *NoComplexEventsField {
 }
 
 //NoContAmtsField is a NUMINGROUP field
-type NoContAmtsField struct{ message.NumInGroupValue }
+type NoContAmtsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoContAmts (518)
 func (f NoContAmtsField) Tag() fix.Tag { return tag.NoContAmts }
@@ -10242,7 +10241,7 @@ func NewNoContAmts(val int) *NoContAmtsField {
 }
 
 //NoContextPartyIDsField is a NUMINGROUP field
-type NoContextPartyIDsField struct{ message.NumInGroupValue }
+type NoContextPartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoContextPartyIDs (1522)
 func (f NoContextPartyIDsField) Tag() fix.Tag { return tag.NoContextPartyIDs }
@@ -10255,7 +10254,7 @@ func NewNoContextPartyIDs(val int) *NoContextPartyIDsField {
 }
 
 //NoContextPartySubIDsField is a NUMINGROUP field
-type NoContextPartySubIDsField struct{ message.NumInGroupValue }
+type NoContextPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoContextPartySubIDs (1526)
 func (f NoContextPartySubIDsField) Tag() fix.Tag { return tag.NoContextPartySubIDs }
@@ -10268,7 +10267,7 @@ func NewNoContextPartySubIDs(val int) *NoContextPartySubIDsField {
 }
 
 //NoContraBrokersField is a NUMINGROUP field
-type NoContraBrokersField struct{ message.NumInGroupValue }
+type NoContraBrokersField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoContraBrokers (382)
 func (f NoContraBrokersField) Tag() fix.Tag { return tag.NoContraBrokers }
@@ -10281,7 +10280,7 @@ func NewNoContraBrokers(val int) *NoContraBrokersField {
 }
 
 //NoDatesField is a INT field
-type NoDatesField struct{ message.IntValue }
+type NoDatesField struct{ fix.IntValue }
 
 //Tag returns tag.NoDates (580)
 func (f NoDatesField) Tag() fix.Tag { return tag.NoDates }
@@ -10294,7 +10293,7 @@ func NewNoDates(val int) *NoDatesField {
 }
 
 //NoDerivativeEventsField is a NUMINGROUP field
-type NoDerivativeEventsField struct{ message.NumInGroupValue }
+type NoDerivativeEventsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeEvents (1286)
 func (f NoDerivativeEventsField) Tag() fix.Tag { return tag.NoDerivativeEvents }
@@ -10307,7 +10306,7 @@ func NewNoDerivativeEvents(val int) *NoDerivativeEventsField {
 }
 
 //NoDerivativeInstrAttribField is a NUMINGROUP field
-type NoDerivativeInstrAttribField struct{ message.NumInGroupValue }
+type NoDerivativeInstrAttribField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeInstrAttrib (1311)
 func (f NoDerivativeInstrAttribField) Tag() fix.Tag { return tag.NoDerivativeInstrAttrib }
@@ -10320,7 +10319,7 @@ func NewNoDerivativeInstrAttrib(val int) *NoDerivativeInstrAttribField {
 }
 
 //NoDerivativeInstrumentPartiesField is a NUMINGROUP field
-type NoDerivativeInstrumentPartiesField struct{ message.NumInGroupValue }
+type NoDerivativeInstrumentPartiesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeInstrumentParties (1292)
 func (f NoDerivativeInstrumentPartiesField) Tag() fix.Tag { return tag.NoDerivativeInstrumentParties }
@@ -10333,7 +10332,7 @@ func NewNoDerivativeInstrumentParties(val int) *NoDerivativeInstrumentPartiesFie
 }
 
 //NoDerivativeInstrumentPartySubIDsField is a NUMINGROUP field
-type NoDerivativeInstrumentPartySubIDsField struct{ message.NumInGroupValue }
+type NoDerivativeInstrumentPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeInstrumentPartySubIDs (1296)
 func (f NoDerivativeInstrumentPartySubIDsField) Tag() fix.Tag {
@@ -10348,7 +10347,7 @@ func NewNoDerivativeInstrumentPartySubIDs(val int) *NoDerivativeInstrumentPartyS
 }
 
 //NoDerivativeSecurityAltIDField is a NUMINGROUP field
-type NoDerivativeSecurityAltIDField struct{ message.NumInGroupValue }
+type NoDerivativeSecurityAltIDField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeSecurityAltID (1218)
 func (f NoDerivativeSecurityAltIDField) Tag() fix.Tag { return tag.NoDerivativeSecurityAltID }
@@ -10361,7 +10360,7 @@ func NewNoDerivativeSecurityAltID(val int) *NoDerivativeSecurityAltIDField {
 }
 
 //NoDistribInstsField is a NUMINGROUP field
-type NoDistribInstsField struct{ message.NumInGroupValue }
+type NoDistribInstsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoDistribInsts (510)
 func (f NoDistribInstsField) Tag() fix.Tag { return tag.NoDistribInsts }
@@ -10374,7 +10373,7 @@ func NewNoDistribInsts(val int) *NoDistribInstsField {
 }
 
 //NoDlvyInstField is a NUMINGROUP field
-type NoDlvyInstField struct{ message.NumInGroupValue }
+type NoDlvyInstField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoDlvyInst (85)
 func (f NoDlvyInstField) Tag() fix.Tag { return tag.NoDlvyInst }
@@ -10387,7 +10386,7 @@ func NewNoDlvyInst(val int) *NoDlvyInstField {
 }
 
 //NoEventsField is a NUMINGROUP field
-type NoEventsField struct{ message.NumInGroupValue }
+type NoEventsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoEvents (864)
 func (f NoEventsField) Tag() fix.Tag { return tag.NoEvents }
@@ -10400,7 +10399,7 @@ func NewNoEvents(val int) *NoEventsField {
 }
 
 //NoExecInstRulesField is a NUMINGROUP field
-type NoExecInstRulesField struct{ message.NumInGroupValue }
+type NoExecInstRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoExecInstRules (1232)
 func (f NoExecInstRulesField) Tag() fix.Tag { return tag.NoExecInstRules }
@@ -10413,7 +10412,7 @@ func NewNoExecInstRules(val int) *NoExecInstRulesField {
 }
 
 //NoExecsField is a NUMINGROUP field
-type NoExecsField struct{ message.NumInGroupValue }
+type NoExecsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoExecs (124)
 func (f NoExecsField) Tag() fix.Tag { return tag.NoExecs }
@@ -10426,7 +10425,7 @@ func NewNoExecs(val int) *NoExecsField {
 }
 
 //NoExpirationField is a NUMINGROUP field
-type NoExpirationField struct{ message.NumInGroupValue }
+type NoExpirationField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoExpiration (981)
 func (f NoExpirationField) Tag() fix.Tag { return tag.NoExpiration }
@@ -10439,7 +10438,7 @@ func NewNoExpiration(val int) *NoExpirationField {
 }
 
 //NoFillsField is a NUMINGROUP field
-type NoFillsField struct{ message.NumInGroupValue }
+type NoFillsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoFills (1362)
 func (f NoFillsField) Tag() fix.Tag { return tag.NoFills }
@@ -10452,7 +10451,7 @@ func NewNoFills(val int) *NoFillsField {
 }
 
 //NoHopsField is a NUMINGROUP field
-type NoHopsField struct{ message.NumInGroupValue }
+type NoHopsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoHops (627)
 func (f NoHopsField) Tag() fix.Tag { return tag.NoHops }
@@ -10465,7 +10464,7 @@ func NewNoHops(val int) *NoHopsField {
 }
 
 //NoIOIQualifiersField is a NUMINGROUP field
-type NoIOIQualifiersField struct{ message.NumInGroupValue }
+type NoIOIQualifiersField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoIOIQualifiers (199)
 func (f NoIOIQualifiersField) Tag() fix.Tag { return tag.NoIOIQualifiers }
@@ -10478,7 +10477,7 @@ func NewNoIOIQualifiers(val int) *NoIOIQualifiersField {
 }
 
 //NoInstrAttribField is a NUMINGROUP field
-type NoInstrAttribField struct{ message.NumInGroupValue }
+type NoInstrAttribField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoInstrAttrib (870)
 func (f NoInstrAttribField) Tag() fix.Tag { return tag.NoInstrAttrib }
@@ -10491,7 +10490,7 @@ func NewNoInstrAttrib(val int) *NoInstrAttribField {
 }
 
 //NoInstrumentPartiesField is a NUMINGROUP field
-type NoInstrumentPartiesField struct{ message.NumInGroupValue }
+type NoInstrumentPartiesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoInstrumentParties (1018)
 func (f NoInstrumentPartiesField) Tag() fix.Tag { return tag.NoInstrumentParties }
@@ -10504,7 +10503,7 @@ func NewNoInstrumentParties(val int) *NoInstrumentPartiesField {
 }
 
 //NoInstrumentPartySubIDsField is a NUMINGROUP field
-type NoInstrumentPartySubIDsField struct{ message.NumInGroupValue }
+type NoInstrumentPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoInstrumentPartySubIDs (1052)
 func (f NoInstrumentPartySubIDsField) Tag() fix.Tag { return tag.NoInstrumentPartySubIDs }
@@ -10517,7 +10516,7 @@ func NewNoInstrumentPartySubIDs(val int) *NoInstrumentPartySubIDsField {
 }
 
 //NoLegAllocsField is a NUMINGROUP field
-type NoLegAllocsField struct{ message.NumInGroupValue }
+type NoLegAllocsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoLegAllocs (670)
 func (f NoLegAllocsField) Tag() fix.Tag { return tag.NoLegAllocs }
@@ -10530,7 +10529,7 @@ func NewNoLegAllocs(val int) *NoLegAllocsField {
 }
 
 //NoLegSecurityAltIDField is a STRING field
-type NoLegSecurityAltIDField struct{ message.StringValue }
+type NoLegSecurityAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.NoLegSecurityAltID (604)
 func (f NoLegSecurityAltIDField) Tag() fix.Tag { return tag.NoLegSecurityAltID }
@@ -10543,7 +10542,7 @@ func NewNoLegSecurityAltID(val string) *NoLegSecurityAltIDField {
 }
 
 //NoLegStipulationsField is a NUMINGROUP field
-type NoLegStipulationsField struct{ message.NumInGroupValue }
+type NoLegStipulationsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoLegStipulations (683)
 func (f NoLegStipulationsField) Tag() fix.Tag { return tag.NoLegStipulations }
@@ -10556,7 +10555,7 @@ func NewNoLegStipulations(val int) *NoLegStipulationsField {
 }
 
 //NoLegsField is a NUMINGROUP field
-type NoLegsField struct{ message.NumInGroupValue }
+type NoLegsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoLegs (555)
 func (f NoLegsField) Tag() fix.Tag { return tag.NoLegs }
@@ -10569,7 +10568,7 @@ func NewNoLegs(val int) *NoLegsField {
 }
 
 //NoLinesOfTextField is a NUMINGROUP field
-type NoLinesOfTextField struct{ message.NumInGroupValue }
+type NoLinesOfTextField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoLinesOfText (33)
 func (f NoLinesOfTextField) Tag() fix.Tag { return tag.NoLinesOfText }
@@ -10582,7 +10581,7 @@ func NewNoLinesOfText(val int) *NoLinesOfTextField {
 }
 
 //NoLotTypeRulesField is a NUMINGROUP field
-type NoLotTypeRulesField struct{ message.NumInGroupValue }
+type NoLotTypeRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoLotTypeRules (1234)
 func (f NoLotTypeRulesField) Tag() fix.Tag { return tag.NoLotTypeRules }
@@ -10595,7 +10594,7 @@ func NewNoLotTypeRules(val int) *NoLotTypeRulesField {
 }
 
 //NoMDEntriesField is a NUMINGROUP field
-type NoMDEntriesField struct{ message.NumInGroupValue }
+type NoMDEntriesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoMDEntries (268)
 func (f NoMDEntriesField) Tag() fix.Tag { return tag.NoMDEntries }
@@ -10608,7 +10607,7 @@ func NewNoMDEntries(val int) *NoMDEntriesField {
 }
 
 //NoMDEntryTypesField is a NUMINGROUP field
-type NoMDEntryTypesField struct{ message.NumInGroupValue }
+type NoMDEntryTypesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoMDEntryTypes (267)
 func (f NoMDEntryTypesField) Tag() fix.Tag { return tag.NoMDEntryTypes }
@@ -10621,7 +10620,7 @@ func NewNoMDEntryTypes(val int) *NoMDEntryTypesField {
 }
 
 //NoMDFeedTypesField is a NUMINGROUP field
-type NoMDFeedTypesField struct{ message.NumInGroupValue }
+type NoMDFeedTypesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoMDFeedTypes (1141)
 func (f NoMDFeedTypesField) Tag() fix.Tag { return tag.NoMDFeedTypes }
@@ -10634,7 +10633,7 @@ func NewNoMDFeedTypes(val int) *NoMDFeedTypesField {
 }
 
 //NoMarketSegmentsField is a NUMINGROUP field
-type NoMarketSegmentsField struct{ message.NumInGroupValue }
+type NoMarketSegmentsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoMarketSegments (1310)
 func (f NoMarketSegmentsField) Tag() fix.Tag { return tag.NoMarketSegments }
@@ -10647,7 +10646,7 @@ func NewNoMarketSegments(val int) *NoMarketSegmentsField {
 }
 
 //NoMatchRulesField is a NUMINGROUP field
-type NoMatchRulesField struct{ message.NumInGroupValue }
+type NoMatchRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoMatchRules (1235)
 func (f NoMatchRulesField) Tag() fix.Tag { return tag.NoMatchRules }
@@ -10660,7 +10659,7 @@ func NewNoMatchRules(val int) *NoMatchRulesField {
 }
 
 //NoMaturityRulesField is a NUMINGROUP field
-type NoMaturityRulesField struct{ message.NumInGroupValue }
+type NoMaturityRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoMaturityRules (1236)
 func (f NoMaturityRulesField) Tag() fix.Tag { return tag.NoMaturityRules }
@@ -10673,7 +10672,7 @@ func NewNoMaturityRules(val int) *NoMaturityRulesField {
 }
 
 //NoMiscFeesField is a NUMINGROUP field
-type NoMiscFeesField struct{ message.NumInGroupValue }
+type NoMiscFeesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoMiscFees (136)
 func (f NoMiscFeesField) Tag() fix.Tag { return tag.NoMiscFees }
@@ -10686,7 +10685,7 @@ func NewNoMiscFees(val int) *NoMiscFeesField {
 }
 
 //NoMsgTypesField is a NUMINGROUP field
-type NoMsgTypesField struct{ message.NumInGroupValue }
+type NoMsgTypesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoMsgTypes (384)
 func (f NoMsgTypesField) Tag() fix.Tag { return tag.NoMsgTypes }
@@ -10699,7 +10698,7 @@ func NewNoMsgTypes(val int) *NoMsgTypesField {
 }
 
 //NoNested2PartyIDsField is a NUMINGROUP field
-type NoNested2PartyIDsField struct{ message.NumInGroupValue }
+type NoNested2PartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNested2PartyIDs (756)
 func (f NoNested2PartyIDsField) Tag() fix.Tag { return tag.NoNested2PartyIDs }
@@ -10712,7 +10711,7 @@ func NewNoNested2PartyIDs(val int) *NoNested2PartyIDsField {
 }
 
 //NoNested2PartySubIDsField is a NUMINGROUP field
-type NoNested2PartySubIDsField struct{ message.NumInGroupValue }
+type NoNested2PartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNested2PartySubIDs (806)
 func (f NoNested2PartySubIDsField) Tag() fix.Tag { return tag.NoNested2PartySubIDs }
@@ -10725,7 +10724,7 @@ func NewNoNested2PartySubIDs(val int) *NoNested2PartySubIDsField {
 }
 
 //NoNested3PartyIDsField is a NUMINGROUP field
-type NoNested3PartyIDsField struct{ message.NumInGroupValue }
+type NoNested3PartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNested3PartyIDs (948)
 func (f NoNested3PartyIDsField) Tag() fix.Tag { return tag.NoNested3PartyIDs }
@@ -10738,7 +10737,7 @@ func NewNoNested3PartyIDs(val int) *NoNested3PartyIDsField {
 }
 
 //NoNested3PartySubIDsField is a NUMINGROUP field
-type NoNested3PartySubIDsField struct{ message.NumInGroupValue }
+type NoNested3PartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNested3PartySubIDs (952)
 func (f NoNested3PartySubIDsField) Tag() fix.Tag { return tag.NoNested3PartySubIDs }
@@ -10751,7 +10750,7 @@ func NewNoNested3PartySubIDs(val int) *NoNested3PartySubIDsField {
 }
 
 //NoNested4PartyIDsField is a NUMINGROUP field
-type NoNested4PartyIDsField struct{ message.NumInGroupValue }
+type NoNested4PartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNested4PartyIDs (1414)
 func (f NoNested4PartyIDsField) Tag() fix.Tag { return tag.NoNested4PartyIDs }
@@ -10764,7 +10763,7 @@ func NewNoNested4PartyIDs(val int) *NoNested4PartyIDsField {
 }
 
 //NoNested4PartySubIDsField is a NUMINGROUP field
-type NoNested4PartySubIDsField struct{ message.NumInGroupValue }
+type NoNested4PartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNested4PartySubIDs (1413)
 func (f NoNested4PartySubIDsField) Tag() fix.Tag { return tag.NoNested4PartySubIDs }
@@ -10777,7 +10776,7 @@ func NewNoNested4PartySubIDs(val int) *NoNested4PartySubIDsField {
 }
 
 //NoNestedInstrAttribField is a NUMINGROUP field
-type NoNestedInstrAttribField struct{ message.NumInGroupValue }
+type NoNestedInstrAttribField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNestedInstrAttrib (1312)
 func (f NoNestedInstrAttribField) Tag() fix.Tag { return tag.NoNestedInstrAttrib }
@@ -10790,7 +10789,7 @@ func NewNoNestedInstrAttrib(val int) *NoNestedInstrAttribField {
 }
 
 //NoNestedPartyIDsField is a NUMINGROUP field
-type NoNestedPartyIDsField struct{ message.NumInGroupValue }
+type NoNestedPartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNestedPartyIDs (539)
 func (f NoNestedPartyIDsField) Tag() fix.Tag { return tag.NoNestedPartyIDs }
@@ -10803,7 +10802,7 @@ func NewNoNestedPartyIDs(val int) *NoNestedPartyIDsField {
 }
 
 //NoNestedPartySubIDsField is a NUMINGROUP field
-type NoNestedPartySubIDsField struct{ message.NumInGroupValue }
+type NoNestedPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNestedPartySubIDs (804)
 func (f NoNestedPartySubIDsField) Tag() fix.Tag { return tag.NoNestedPartySubIDs }
@@ -10816,7 +10815,7 @@ func NewNoNestedPartySubIDs(val int) *NoNestedPartySubIDsField {
 }
 
 //NoNewsRefIDsField is a NUMINGROUP field
-type NoNewsRefIDsField struct{ message.NumInGroupValue }
+type NoNewsRefIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNewsRefIDs (1475)
 func (f NoNewsRefIDsField) Tag() fix.Tag { return tag.NoNewsRefIDs }
@@ -10829,7 +10828,7 @@ func NewNoNewsRefIDs(val int) *NoNewsRefIDsField {
 }
 
 //NoNotAffectedOrdersField is a NUMINGROUP field
-type NoNotAffectedOrdersField struct{ message.NumInGroupValue }
+type NoNotAffectedOrdersField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoNotAffectedOrders (1370)
 func (f NoNotAffectedOrdersField) Tag() fix.Tag { return tag.NoNotAffectedOrders }
@@ -10842,7 +10841,7 @@ func NewNoNotAffectedOrders(val int) *NoNotAffectedOrdersField {
 }
 
 //NoOfLegUnderlyingsField is a NUMINGROUP field
-type NoOfLegUnderlyingsField struct{ message.NumInGroupValue }
+type NoOfLegUnderlyingsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoOfLegUnderlyings (1342)
 func (f NoOfLegUnderlyingsField) Tag() fix.Tag { return tag.NoOfLegUnderlyings }
@@ -10855,7 +10854,7 @@ func NewNoOfLegUnderlyings(val int) *NoOfLegUnderlyingsField {
 }
 
 //NoOfSecSizesField is a NUMINGROUP field
-type NoOfSecSizesField struct{ message.NumInGroupValue }
+type NoOfSecSizesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoOfSecSizes (1177)
 func (f NoOfSecSizesField) Tag() fix.Tag { return tag.NoOfSecSizes }
@@ -10868,7 +10867,7 @@ func NewNoOfSecSizes(val int) *NoOfSecSizesField {
 }
 
 //NoOrdTypeRulesField is a NUMINGROUP field
-type NoOrdTypeRulesField struct{ message.NumInGroupValue }
+type NoOrdTypeRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoOrdTypeRules (1237)
 func (f NoOrdTypeRulesField) Tag() fix.Tag { return tag.NoOrdTypeRules }
@@ -10881,7 +10880,7 @@ func NewNoOrdTypeRules(val int) *NoOrdTypeRulesField {
 }
 
 //NoOrdersField is a NUMINGROUP field
-type NoOrdersField struct{ message.NumInGroupValue }
+type NoOrdersField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoOrders (73)
 func (f NoOrdersField) Tag() fix.Tag { return tag.NoOrders }
@@ -10894,7 +10893,7 @@ func NewNoOrders(val int) *NoOrdersField {
 }
 
 //NoPartyAltIDsField is a NUMINGROUP field
-type NoPartyAltIDsField struct{ message.NumInGroupValue }
+type NoPartyAltIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPartyAltIDs (1516)
 func (f NoPartyAltIDsField) Tag() fix.Tag { return tag.NoPartyAltIDs }
@@ -10907,7 +10906,7 @@ func NewNoPartyAltIDs(val int) *NoPartyAltIDsField {
 }
 
 //NoPartyAltSubIDsField is a NUMINGROUP field
-type NoPartyAltSubIDsField struct{ message.NumInGroupValue }
+type NoPartyAltSubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPartyAltSubIDs (1519)
 func (f NoPartyAltSubIDsField) Tag() fix.Tag { return tag.NoPartyAltSubIDs }
@@ -10920,7 +10919,7 @@ func NewNoPartyAltSubIDs(val int) *NoPartyAltSubIDsField {
 }
 
 //NoPartyIDsField is a NUMINGROUP field
-type NoPartyIDsField struct{ message.NumInGroupValue }
+type NoPartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPartyIDs (453)
 func (f NoPartyIDsField) Tag() fix.Tag { return tag.NoPartyIDs }
@@ -10933,7 +10932,7 @@ func NewNoPartyIDs(val int) *NoPartyIDsField {
 }
 
 //NoPartyListField is a NUMINGROUP field
-type NoPartyListField struct{ message.NumInGroupValue }
+type NoPartyListField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPartyList (1513)
 func (f NoPartyListField) Tag() fix.Tag { return tag.NoPartyList }
@@ -10946,7 +10945,7 @@ func NewNoPartyList(val int) *NoPartyListField {
 }
 
 //NoPartyListResponseTypesField is a NUMINGROUP field
-type NoPartyListResponseTypesField struct{ message.NumInGroupValue }
+type NoPartyListResponseTypesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPartyListResponseTypes (1506)
 func (f NoPartyListResponseTypesField) Tag() fix.Tag { return tag.NoPartyListResponseTypes }
@@ -10959,7 +10958,7 @@ func NewNoPartyListResponseTypes(val int) *NoPartyListResponseTypesField {
 }
 
 //NoPartyRelationshipsField is a NUMINGROUP field
-type NoPartyRelationshipsField struct{ message.NumInGroupValue }
+type NoPartyRelationshipsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPartyRelationships (1514)
 func (f NoPartyRelationshipsField) Tag() fix.Tag { return tag.NoPartyRelationships }
@@ -10972,7 +10971,7 @@ func NewNoPartyRelationships(val int) *NoPartyRelationshipsField {
 }
 
 //NoPartySubIDsField is a NUMINGROUP field
-type NoPartySubIDsField struct{ message.NumInGroupValue }
+type NoPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPartySubIDs (802)
 func (f NoPartySubIDsField) Tag() fix.Tag { return tag.NoPartySubIDs }
@@ -10985,7 +10984,7 @@ func NewNoPartySubIDs(val int) *NoPartySubIDsField {
 }
 
 //NoPosAmtField is a NUMINGROUP field
-type NoPosAmtField struct{ message.NumInGroupValue }
+type NoPosAmtField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPosAmt (753)
 func (f NoPosAmtField) Tag() fix.Tag { return tag.NoPosAmt }
@@ -10998,7 +10997,7 @@ func NewNoPosAmt(val int) *NoPosAmtField {
 }
 
 //NoPositionsField is a NUMINGROUP field
-type NoPositionsField struct{ message.NumInGroupValue }
+type NoPositionsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoPositions (702)
 func (f NoPositionsField) Tag() fix.Tag { return tag.NoPositions }
@@ -11011,7 +11010,7 @@ func NewNoPositions(val int) *NoPositionsField {
 }
 
 //NoQuoteEntriesField is a NUMINGROUP field
-type NoQuoteEntriesField struct{ message.NumInGroupValue }
+type NoQuoteEntriesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoQuoteEntries (295)
 func (f NoQuoteEntriesField) Tag() fix.Tag { return tag.NoQuoteEntries }
@@ -11024,7 +11023,7 @@ func NewNoQuoteEntries(val int) *NoQuoteEntriesField {
 }
 
 //NoQuoteQualifiersField is a NUMINGROUP field
-type NoQuoteQualifiersField struct{ message.NumInGroupValue }
+type NoQuoteQualifiersField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoQuoteQualifiers (735)
 func (f NoQuoteQualifiersField) Tag() fix.Tag { return tag.NoQuoteQualifiers }
@@ -11037,7 +11036,7 @@ func NewNoQuoteQualifiers(val int) *NoQuoteQualifiersField {
 }
 
 //NoQuoteSetsField is a NUMINGROUP field
-type NoQuoteSetsField struct{ message.NumInGroupValue }
+type NoQuoteSetsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoQuoteSets (296)
 func (f NoQuoteSetsField) Tag() fix.Tag { return tag.NoQuoteSets }
@@ -11050,7 +11049,7 @@ func NewNoQuoteSets(val int) *NoQuoteSetsField {
 }
 
 //NoRateSourcesField is a NUMINGROUP field
-type NoRateSourcesField struct{ message.NumInGroupValue }
+type NoRateSourcesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRateSources (1445)
 func (f NoRateSourcesField) Tag() fix.Tag { return tag.NoRateSources }
@@ -11063,7 +11062,7 @@ func NewNoRateSources(val int) *NoRateSourcesField {
 }
 
 //NoRegistDtlsField is a NUMINGROUP field
-type NoRegistDtlsField struct{ message.NumInGroupValue }
+type NoRegistDtlsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRegistDtls (473)
 func (f NoRegistDtlsField) Tag() fix.Tag { return tag.NoRegistDtls }
@@ -11076,7 +11075,7 @@ func NewNoRegistDtls(val int) *NoRegistDtlsField {
 }
 
 //NoRelatedContextPartyIDsField is a NUMINGROUP field
-type NoRelatedContextPartyIDsField struct{ message.NumInGroupValue }
+type NoRelatedContextPartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedContextPartyIDs (1575)
 func (f NoRelatedContextPartyIDsField) Tag() fix.Tag { return tag.NoRelatedContextPartyIDs }
@@ -11089,7 +11088,7 @@ func NewNoRelatedContextPartyIDs(val int) *NoRelatedContextPartyIDsField {
 }
 
 //NoRelatedContextPartySubIDsField is a NUMINGROUP field
-type NoRelatedContextPartySubIDsField struct{ message.NumInGroupValue }
+type NoRelatedContextPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedContextPartySubIDs (1579)
 func (f NoRelatedContextPartySubIDsField) Tag() fix.Tag { return tag.NoRelatedContextPartySubIDs }
@@ -11102,7 +11101,7 @@ func NewNoRelatedContextPartySubIDs(val int) *NoRelatedContextPartySubIDsField {
 }
 
 //NoRelatedPartyAltIDsField is a NUMINGROUP field
-type NoRelatedPartyAltIDsField struct{ message.NumInGroupValue }
+type NoRelatedPartyAltIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedPartyAltIDs (1569)
 func (f NoRelatedPartyAltIDsField) Tag() fix.Tag { return tag.NoRelatedPartyAltIDs }
@@ -11115,7 +11114,7 @@ func NewNoRelatedPartyAltIDs(val int) *NoRelatedPartyAltIDsField {
 }
 
 //NoRelatedPartyAltSubIDsField is a NUMINGROUP field
-type NoRelatedPartyAltSubIDsField struct{ message.NumInGroupValue }
+type NoRelatedPartyAltSubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedPartyAltSubIDs (1572)
 func (f NoRelatedPartyAltSubIDsField) Tag() fix.Tag { return tag.NoRelatedPartyAltSubIDs }
@@ -11128,7 +11127,7 @@ func NewNoRelatedPartyAltSubIDs(val int) *NoRelatedPartyAltSubIDsField {
 }
 
 //NoRelatedPartyIDsField is a NUMINGROUP field
-type NoRelatedPartyIDsField struct{ message.NumInGroupValue }
+type NoRelatedPartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedPartyIDs (1562)
 func (f NoRelatedPartyIDsField) Tag() fix.Tag { return tag.NoRelatedPartyIDs }
@@ -11141,7 +11140,7 @@ func NewNoRelatedPartyIDs(val int) *NoRelatedPartyIDsField {
 }
 
 //NoRelatedPartySubIDsField is a NUMINGROUP field
-type NoRelatedPartySubIDsField struct{ message.NumInGroupValue }
+type NoRelatedPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedPartySubIDs (1566)
 func (f NoRelatedPartySubIDsField) Tag() fix.Tag { return tag.NoRelatedPartySubIDs }
@@ -11154,7 +11153,7 @@ func NewNoRelatedPartySubIDs(val int) *NoRelatedPartySubIDsField {
 }
 
 //NoRelatedSymField is a NUMINGROUP field
-type NoRelatedSymField struct{ message.NumInGroupValue }
+type NoRelatedSymField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedSym (146)
 func (f NoRelatedSymField) Tag() fix.Tag { return tag.NoRelatedSym }
@@ -11167,7 +11166,7 @@ func NewNoRelatedSym(val int) *NoRelatedSymField {
 }
 
 //NoRelationshipRiskInstrumentsField is a NUMINGROUP field
-type NoRelationshipRiskInstrumentsField struct{ message.NumInGroupValue }
+type NoRelationshipRiskInstrumentsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelationshipRiskInstruments (1587)
 func (f NoRelationshipRiskInstrumentsField) Tag() fix.Tag { return tag.NoRelationshipRiskInstruments }
@@ -11180,7 +11179,7 @@ func NewNoRelationshipRiskInstruments(val int) *NoRelationshipRiskInstrumentsFie
 }
 
 //NoRelationshipRiskLimitsField is a NUMINGROUP field
-type NoRelationshipRiskLimitsField struct{ message.NumInGroupValue }
+type NoRelationshipRiskLimitsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelationshipRiskLimits (1582)
 func (f NoRelationshipRiskLimitsField) Tag() fix.Tag { return tag.NoRelationshipRiskLimits }
@@ -11193,7 +11192,7 @@ func NewNoRelationshipRiskLimits(val int) *NoRelationshipRiskLimitsField {
 }
 
 //NoRelationshipRiskSecurityAltIDField is a NUMINGROUP field
-type NoRelationshipRiskSecurityAltIDField struct{ message.NumInGroupValue }
+type NoRelationshipRiskSecurityAltIDField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelationshipRiskSecurityAltID (1593)
 func (f NoRelationshipRiskSecurityAltIDField) Tag() fix.Tag {
@@ -11208,7 +11207,7 @@ func NewNoRelationshipRiskSecurityAltID(val int) *NoRelationshipRiskSecurityAltI
 }
 
 //NoRelationshipRiskWarningLevelsField is a NUMINGROUP field
-type NoRelationshipRiskWarningLevelsField struct{ message.NumInGroupValue }
+type NoRelationshipRiskWarningLevelsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRelationshipRiskWarningLevels (1613)
 func (f NoRelationshipRiskWarningLevelsField) Tag() fix.Tag {
@@ -11223,7 +11222,7 @@ func NewNoRelationshipRiskWarningLevels(val int) *NoRelationshipRiskWarningLevel
 }
 
 //NoRequestedPartyRolesField is a NUMINGROUP field
-type NoRequestedPartyRolesField struct{ message.NumInGroupValue }
+type NoRequestedPartyRolesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRequestedPartyRoles (1508)
 func (f NoRequestedPartyRolesField) Tag() fix.Tag { return tag.NoRequestedPartyRoles }
@@ -11236,7 +11235,7 @@ func NewNoRequestedPartyRoles(val int) *NoRequestedPartyRolesField {
 }
 
 //NoRiskInstrumentsField is a NUMINGROUP field
-type NoRiskInstrumentsField struct{ message.NumInGroupValue }
+type NoRiskInstrumentsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRiskInstruments (1534)
 func (f NoRiskInstrumentsField) Tag() fix.Tag { return tag.NoRiskInstruments }
@@ -11249,7 +11248,7 @@ func NewNoRiskInstruments(val int) *NoRiskInstrumentsField {
 }
 
 //NoRiskLimitsField is a NUMINGROUP field
-type NoRiskLimitsField struct{ message.NumInGroupValue }
+type NoRiskLimitsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRiskLimits (1529)
 func (f NoRiskLimitsField) Tag() fix.Tag { return tag.NoRiskLimits }
@@ -11262,7 +11261,7 @@ func NewNoRiskLimits(val int) *NoRiskLimitsField {
 }
 
 //NoRiskSecurityAltIDField is a NUMINGROUP field
-type NoRiskSecurityAltIDField struct{ message.NumInGroupValue }
+type NoRiskSecurityAltIDField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRiskSecurityAltID (1540)
 func (f NoRiskSecurityAltIDField) Tag() fix.Tag { return tag.NoRiskSecurityAltID }
@@ -11275,7 +11274,7 @@ func NewNoRiskSecurityAltID(val int) *NoRiskSecurityAltIDField {
 }
 
 //NoRiskWarningLevelsField is a NUMINGROUP field
-type NoRiskWarningLevelsField struct{ message.NumInGroupValue }
+type NoRiskWarningLevelsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRiskWarningLevels (1559)
 func (f NoRiskWarningLevelsField) Tag() fix.Tag { return tag.NoRiskWarningLevels }
@@ -11288,7 +11287,7 @@ func NewNoRiskWarningLevels(val int) *NoRiskWarningLevelsField {
 }
 
 //NoRootPartyIDsField is a NUMINGROUP field
-type NoRootPartyIDsField struct{ message.NumInGroupValue }
+type NoRootPartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRootPartyIDs (1116)
 func (f NoRootPartyIDsField) Tag() fix.Tag { return tag.NoRootPartyIDs }
@@ -11301,7 +11300,7 @@ func NewNoRootPartyIDs(val int) *NoRootPartyIDsField {
 }
 
 //NoRootPartySubIDsField is a NUMINGROUP field
-type NoRootPartySubIDsField struct{ message.NumInGroupValue }
+type NoRootPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRootPartySubIDs (1120)
 func (f NoRootPartySubIDsField) Tag() fix.Tag { return tag.NoRootPartySubIDs }
@@ -11314,7 +11313,7 @@ func NewNoRootPartySubIDs(val int) *NoRootPartySubIDsField {
 }
 
 //NoRoutingIDsField is a NUMINGROUP field
-type NoRoutingIDsField struct{ message.NumInGroupValue }
+type NoRoutingIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoRoutingIDs (215)
 func (f NoRoutingIDsField) Tag() fix.Tag { return tag.NoRoutingIDs }
@@ -11327,7 +11326,7 @@ func NewNoRoutingIDs(val int) *NoRoutingIDsField {
 }
 
 //NoRptsField is a INT field
-type NoRptsField struct{ message.IntValue }
+type NoRptsField struct{ fix.IntValue }
 
 //Tag returns tag.NoRpts (82)
 func (f NoRptsField) Tag() fix.Tag { return tag.NoRpts }
@@ -11340,7 +11339,7 @@ func NewNoRpts(val int) *NoRptsField {
 }
 
 //NoSecurityAltIDField is a NUMINGROUP field
-type NoSecurityAltIDField struct{ message.NumInGroupValue }
+type NoSecurityAltIDField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSecurityAltID (454)
 func (f NoSecurityAltIDField) Tag() fix.Tag { return tag.NoSecurityAltID }
@@ -11353,7 +11352,7 @@ func NewNoSecurityAltID(val int) *NoSecurityAltIDField {
 }
 
 //NoSecurityTypesField is a NUMINGROUP field
-type NoSecurityTypesField struct{ message.NumInGroupValue }
+type NoSecurityTypesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSecurityTypes (558)
 func (f NoSecurityTypesField) Tag() fix.Tag { return tag.NoSecurityTypes }
@@ -11366,7 +11365,7 @@ func NewNoSecurityTypes(val int) *NoSecurityTypesField {
 }
 
 //NoSettlDetailsField is a NUMINGROUP field
-type NoSettlDetailsField struct{ message.NumInGroupValue }
+type NoSettlDetailsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSettlDetails (1158)
 func (f NoSettlDetailsField) Tag() fix.Tag { return tag.NoSettlDetails }
@@ -11379,7 +11378,7 @@ func NewNoSettlDetails(val int) *NoSettlDetailsField {
 }
 
 //NoSettlInstField is a NUMINGROUP field
-type NoSettlInstField struct{ message.NumInGroupValue }
+type NoSettlInstField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSettlInst (778)
 func (f NoSettlInstField) Tag() fix.Tag { return tag.NoSettlInst }
@@ -11392,7 +11391,7 @@ func NewNoSettlInst(val int) *NoSettlInstField {
 }
 
 //NoSettlObligField is a NUMINGROUP field
-type NoSettlObligField struct{ message.NumInGroupValue }
+type NoSettlObligField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSettlOblig (1165)
 func (f NoSettlObligField) Tag() fix.Tag { return tag.NoSettlOblig }
@@ -11405,7 +11404,7 @@ func NewNoSettlOblig(val int) *NoSettlObligField {
 }
 
 //NoSettlPartyIDsField is a NUMINGROUP field
-type NoSettlPartyIDsField struct{ message.NumInGroupValue }
+type NoSettlPartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSettlPartyIDs (781)
 func (f NoSettlPartyIDsField) Tag() fix.Tag { return tag.NoSettlPartyIDs }
@@ -11418,7 +11417,7 @@ func NewNoSettlPartyIDs(val int) *NoSettlPartyIDsField {
 }
 
 //NoSettlPartySubIDsField is a NUMINGROUP field
-type NoSettlPartySubIDsField struct{ message.NumInGroupValue }
+type NoSettlPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSettlPartySubIDs (801)
 func (f NoSettlPartySubIDsField) Tag() fix.Tag { return tag.NoSettlPartySubIDs }
@@ -11431,7 +11430,7 @@ func NewNoSettlPartySubIDs(val int) *NoSettlPartySubIDsField {
 }
 
 //NoSideTrdRegTSField is a NUMINGROUP field
-type NoSideTrdRegTSField struct{ message.NumInGroupValue }
+type NoSideTrdRegTSField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSideTrdRegTS (1016)
 func (f NoSideTrdRegTSField) Tag() fix.Tag { return tag.NoSideTrdRegTS }
@@ -11444,7 +11443,7 @@ func NewNoSideTrdRegTS(val int) *NoSideTrdRegTSField {
 }
 
 //NoSidesField is a NUMINGROUP field
-type NoSidesField struct{ message.NumInGroupValue }
+type NoSidesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoSides (552)
 func (f NoSidesField) Tag() fix.Tag { return tag.NoSides }
@@ -11457,7 +11456,7 @@ func NewNoSides(val int) *NoSidesField {
 }
 
 //NoStatsIndicatorsField is a NUMINGROUP field
-type NoStatsIndicatorsField struct{ message.NumInGroupValue }
+type NoStatsIndicatorsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoStatsIndicators (1175)
 func (f NoStatsIndicatorsField) Tag() fix.Tag { return tag.NoStatsIndicators }
@@ -11470,7 +11469,7 @@ func NewNoStatsIndicators(val int) *NoStatsIndicatorsField {
 }
 
 //NoStipulationsField is a NUMINGROUP field
-type NoStipulationsField struct{ message.NumInGroupValue }
+type NoStipulationsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoStipulations (232)
 func (f NoStipulationsField) Tag() fix.Tag { return tag.NoStipulations }
@@ -11483,7 +11482,7 @@ func NewNoStipulations(val int) *NoStipulationsField {
 }
 
 //NoStrategyParametersField is a NUMINGROUP field
-type NoStrategyParametersField struct{ message.NumInGroupValue }
+type NoStrategyParametersField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoStrategyParameters (957)
 func (f NoStrategyParametersField) Tag() fix.Tag { return tag.NoStrategyParameters }
@@ -11496,7 +11495,7 @@ func NewNoStrategyParameters(val int) *NoStrategyParametersField {
 }
 
 //NoStrikeRulesField is a NUMINGROUP field
-type NoStrikeRulesField struct{ message.NumInGroupValue }
+type NoStrikeRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoStrikeRules (1201)
 func (f NoStrikeRulesField) Tag() fix.Tag { return tag.NoStrikeRules }
@@ -11509,7 +11508,7 @@ func NewNoStrikeRules(val int) *NoStrikeRulesField {
 }
 
 //NoStrikesField is a NUMINGROUP field
-type NoStrikesField struct{ message.NumInGroupValue }
+type NoStrikesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoStrikes (428)
 func (f NoStrikesField) Tag() fix.Tag { return tag.NoStrikes }
@@ -11522,7 +11521,7 @@ func NewNoStrikes(val int) *NoStrikesField {
 }
 
 //NoTargetPartyIDsField is a NUMINGROUP field
-type NoTargetPartyIDsField struct{ message.NumInGroupValue }
+type NoTargetPartyIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoTargetPartyIDs (1461)
 func (f NoTargetPartyIDsField) Tag() fix.Tag { return tag.NoTargetPartyIDs }
@@ -11535,7 +11534,7 @@ func NewNoTargetPartyIDs(val int) *NoTargetPartyIDsField {
 }
 
 //NoTickRulesField is a NUMINGROUP field
-type NoTickRulesField struct{ message.NumInGroupValue }
+type NoTickRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoTickRules (1205)
 func (f NoTickRulesField) Tag() fix.Tag { return tag.NoTickRules }
@@ -11548,7 +11547,7 @@ func NewNoTickRules(val int) *NoTickRulesField {
 }
 
 //NoTimeInForceRulesField is a NUMINGROUP field
-type NoTimeInForceRulesField struct{ message.NumInGroupValue }
+type NoTimeInForceRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoTimeInForceRules (1239)
 func (f NoTimeInForceRulesField) Tag() fix.Tag { return tag.NoTimeInForceRules }
@@ -11561,7 +11560,7 @@ func NewNoTimeInForceRules(val int) *NoTimeInForceRulesField {
 }
 
 //NoTradesField is a NUMINGROUP field
-type NoTradesField struct{ message.NumInGroupValue }
+type NoTradesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoTrades (897)
 func (f NoTradesField) Tag() fix.Tag { return tag.NoTrades }
@@ -11574,7 +11573,7 @@ func NewNoTrades(val int) *NoTradesField {
 }
 
 //NoTradingSessionRulesField is a NUMINGROUP field
-type NoTradingSessionRulesField struct{ message.NumInGroupValue }
+type NoTradingSessionRulesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoTradingSessionRules (1309)
 func (f NoTradingSessionRulesField) Tag() fix.Tag { return tag.NoTradingSessionRules }
@@ -11587,7 +11586,7 @@ func NewNoTradingSessionRules(val int) *NoTradingSessionRulesField {
 }
 
 //NoTradingSessionsField is a NUMINGROUP field
-type NoTradingSessionsField struct{ message.NumInGroupValue }
+type NoTradingSessionsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoTradingSessions (386)
 func (f NoTradingSessionsField) Tag() fix.Tag { return tag.NoTradingSessions }
@@ -11600,7 +11599,7 @@ func NewNoTradingSessions(val int) *NoTradingSessionsField {
 }
 
 //NoTrdRegTimestampsField is a NUMINGROUP field
-type NoTrdRegTimestampsField struct{ message.NumInGroupValue }
+type NoTrdRegTimestampsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoTrdRegTimestamps (768)
 func (f NoTrdRegTimestampsField) Tag() fix.Tag { return tag.NoTrdRegTimestamps }
@@ -11613,7 +11612,7 @@ func NewNoTrdRegTimestamps(val int) *NoTrdRegTimestampsField {
 }
 
 //NoTrdRepIndicatorsField is a NUMINGROUP field
-type NoTrdRepIndicatorsField struct{ message.NumInGroupValue }
+type NoTrdRepIndicatorsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoTrdRepIndicators (1387)
 func (f NoTrdRepIndicatorsField) Tag() fix.Tag { return tag.NoTrdRepIndicators }
@@ -11626,7 +11625,7 @@ func NewNoTrdRepIndicators(val int) *NoTrdRepIndicatorsField {
 }
 
 //NoUnderlyingAmountsField is a NUMINGROUP field
-type NoUnderlyingAmountsField struct{ message.NumInGroupValue }
+type NoUnderlyingAmountsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyingAmounts (984)
 func (f NoUnderlyingAmountsField) Tag() fix.Tag { return tag.NoUnderlyingAmounts }
@@ -11639,7 +11638,7 @@ func NewNoUnderlyingAmounts(val int) *NoUnderlyingAmountsField {
 }
 
 //NoUnderlyingLegSecurityAltIDField is a NUMINGROUP field
-type NoUnderlyingLegSecurityAltIDField struct{ message.NumInGroupValue }
+type NoUnderlyingLegSecurityAltIDField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyingLegSecurityAltID (1334)
 func (f NoUnderlyingLegSecurityAltIDField) Tag() fix.Tag { return tag.NoUnderlyingLegSecurityAltID }
@@ -11652,7 +11651,7 @@ func NewNoUnderlyingLegSecurityAltID(val int) *NoUnderlyingLegSecurityAltIDField
 }
 
 //NoUnderlyingSecurityAltIDField is a NUMINGROUP field
-type NoUnderlyingSecurityAltIDField struct{ message.NumInGroupValue }
+type NoUnderlyingSecurityAltIDField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyingSecurityAltID (457)
 func (f NoUnderlyingSecurityAltIDField) Tag() fix.Tag { return tag.NoUnderlyingSecurityAltID }
@@ -11665,7 +11664,7 @@ func NewNoUnderlyingSecurityAltID(val int) *NoUnderlyingSecurityAltIDField {
 }
 
 //NoUnderlyingStipsField is a NUMINGROUP field
-type NoUnderlyingStipsField struct{ message.NumInGroupValue }
+type NoUnderlyingStipsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyingStips (887)
 func (f NoUnderlyingStipsField) Tag() fix.Tag { return tag.NoUnderlyingStips }
@@ -11678,7 +11677,7 @@ func NewNoUnderlyingStips(val int) *NoUnderlyingStipsField {
 }
 
 //NoUnderlyingsField is a NUMINGROUP field
-type NoUnderlyingsField struct{ message.NumInGroupValue }
+type NoUnderlyingsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyings (711)
 func (f NoUnderlyingsField) Tag() fix.Tag { return tag.NoUnderlyings }
@@ -11691,7 +11690,7 @@ func NewNoUnderlyings(val int) *NoUnderlyingsField {
 }
 
 //NoUndlyInstrumentPartiesField is a NUMINGROUP field
-type NoUndlyInstrumentPartiesField struct{ message.NumInGroupValue }
+type NoUndlyInstrumentPartiesField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoUndlyInstrumentParties (1058)
 func (f NoUndlyInstrumentPartiesField) Tag() fix.Tag { return tag.NoUndlyInstrumentParties }
@@ -11704,7 +11703,7 @@ func NewNoUndlyInstrumentParties(val int) *NoUndlyInstrumentPartiesField {
 }
 
 //NoUndlyInstrumentPartySubIDsField is a NUMINGROUP field
-type NoUndlyInstrumentPartySubIDsField struct{ message.NumInGroupValue }
+type NoUndlyInstrumentPartySubIDsField struct{ fix.NumInGroupValue }
 
 //Tag returns tag.NoUndlyInstrumentPartySubIDs (1062)
 func (f NoUndlyInstrumentPartySubIDsField) Tag() fix.Tag { return tag.NoUndlyInstrumentPartySubIDs }
@@ -11717,7 +11716,7 @@ func NewNoUndlyInstrumentPartySubIDs(val int) *NoUndlyInstrumentPartySubIDsField
 }
 
 //NotAffOrigClOrdIDField is a STRING field
-type NotAffOrigClOrdIDField struct{ message.StringValue }
+type NotAffOrigClOrdIDField struct{ fix.StringValue }
 
 //Tag returns tag.NotAffOrigClOrdID (1372)
 func (f NotAffOrigClOrdIDField) Tag() fix.Tag { return tag.NotAffOrigClOrdID }
@@ -11730,7 +11729,7 @@ func NewNotAffOrigClOrdID(val string) *NotAffOrigClOrdIDField {
 }
 
 //NotAffectedOrderIDField is a STRING field
-type NotAffectedOrderIDField struct{ message.StringValue }
+type NotAffectedOrderIDField struct{ fix.StringValue }
 
 //Tag returns tag.NotAffectedOrderID (1371)
 func (f NotAffectedOrderIDField) Tag() fix.Tag { return tag.NotAffectedOrderID }
@@ -11743,7 +11742,7 @@ func NewNotAffectedOrderID(val string) *NotAffectedOrderIDField {
 }
 
 //NotifyBrokerOfCreditField is a BOOLEAN field
-type NotifyBrokerOfCreditField struct{ message.BooleanValue }
+type NotifyBrokerOfCreditField struct{ fix.BooleanValue }
 
 //Tag returns tag.NotifyBrokerOfCredit (208)
 func (f NotifyBrokerOfCreditField) Tag() fix.Tag { return tag.NotifyBrokerOfCredit }
@@ -11756,7 +11755,7 @@ func NewNotifyBrokerOfCredit(val bool) *NotifyBrokerOfCreditField {
 }
 
 //NotionalPercentageOutstandingField is a PERCENTAGE field
-type NotionalPercentageOutstandingField struct{ message.PercentageValue }
+type NotionalPercentageOutstandingField struct{ fix.PercentageValue }
 
 //Tag returns tag.NotionalPercentageOutstanding (1451)
 func (f NotionalPercentageOutstandingField) Tag() fix.Tag { return tag.NotionalPercentageOutstanding }
@@ -11769,7 +11768,7 @@ func NewNotionalPercentageOutstanding(val float64) *NotionalPercentageOutstandin
 }
 
 //NumBiddersField is a INT field
-type NumBiddersField struct{ message.IntValue }
+type NumBiddersField struct{ fix.IntValue }
 
 //Tag returns tag.NumBidders (417)
 func (f NumBiddersField) Tag() fix.Tag { return tag.NumBidders }
@@ -11782,7 +11781,7 @@ func NewNumBidders(val int) *NumBiddersField {
 }
 
 //NumDaysInterestField is a INT field
-type NumDaysInterestField struct{ message.IntValue }
+type NumDaysInterestField struct{ fix.IntValue }
 
 //Tag returns tag.NumDaysInterest (157)
 func (f NumDaysInterestField) Tag() fix.Tag { return tag.NumDaysInterest }
@@ -11795,7 +11794,7 @@ func NewNumDaysInterest(val int) *NumDaysInterestField {
 }
 
 //NumTicketsField is a INT field
-type NumTicketsField struct{ message.IntValue }
+type NumTicketsField struct{ fix.IntValue }
 
 //Tag returns tag.NumTickets (395)
 func (f NumTicketsField) Tag() fix.Tag { return tag.NumTickets }
@@ -11808,7 +11807,7 @@ func NewNumTickets(val int) *NumTicketsField {
 }
 
 //NumberOfOrdersField is a INT field
-type NumberOfOrdersField struct{ message.IntValue }
+type NumberOfOrdersField struct{ fix.IntValue }
 
 //Tag returns tag.NumberOfOrders (346)
 func (f NumberOfOrdersField) Tag() fix.Tag { return tag.NumberOfOrders }
@@ -11821,7 +11820,7 @@ func NewNumberOfOrders(val int) *NumberOfOrdersField {
 }
 
 //OddLotField is a BOOLEAN field
-type OddLotField struct{ message.BooleanValue }
+type OddLotField struct{ fix.BooleanValue }
 
 //Tag returns tag.OddLot (575)
 func (f OddLotField) Tag() fix.Tag { return tag.OddLot }
@@ -11834,7 +11833,7 @@ func NewOddLot(val bool) *OddLotField {
 }
 
 //OfferForwardPointsField is a PRICEOFFSET field
-type OfferForwardPointsField struct{ message.PriceOffsetValue }
+type OfferForwardPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.OfferForwardPoints (191)
 func (f OfferForwardPointsField) Tag() fix.Tag { return tag.OfferForwardPoints }
@@ -11847,7 +11846,7 @@ func NewOfferForwardPoints(val float64) *OfferForwardPointsField {
 }
 
 //OfferForwardPoints2Field is a PRICEOFFSET field
-type OfferForwardPoints2Field struct{ message.PriceOffsetValue }
+type OfferForwardPoints2Field struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.OfferForwardPoints2 (643)
 func (f OfferForwardPoints2Field) Tag() fix.Tag { return tag.OfferForwardPoints2 }
@@ -11860,7 +11859,7 @@ func NewOfferForwardPoints2(val float64) *OfferForwardPoints2Field {
 }
 
 //OfferPxField is a PRICE field
-type OfferPxField struct{ message.PriceValue }
+type OfferPxField struct{ fix.PriceValue }
 
 //Tag returns tag.OfferPx (133)
 func (f OfferPxField) Tag() fix.Tag { return tag.OfferPx }
@@ -11873,7 +11872,7 @@ func NewOfferPx(val float64) *OfferPxField {
 }
 
 //OfferSizeField is a QTY field
-type OfferSizeField struct{ message.QtyValue }
+type OfferSizeField struct{ fix.QtyValue }
 
 //Tag returns tag.OfferSize (135)
 func (f OfferSizeField) Tag() fix.Tag { return tag.OfferSize }
@@ -11886,7 +11885,7 @@ func NewOfferSize(val float64) *OfferSizeField {
 }
 
 //OfferSpotRateField is a PRICE field
-type OfferSpotRateField struct{ message.PriceValue }
+type OfferSpotRateField struct{ fix.PriceValue }
 
 //Tag returns tag.OfferSpotRate (190)
 func (f OfferSpotRateField) Tag() fix.Tag { return tag.OfferSpotRate }
@@ -11899,7 +11898,7 @@ func NewOfferSpotRate(val float64) *OfferSpotRateField {
 }
 
 //OfferSwapPointsField is a PRICEOFFSET field
-type OfferSwapPointsField struct{ message.PriceOffsetValue }
+type OfferSwapPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.OfferSwapPoints (1066)
 func (f OfferSwapPointsField) Tag() fix.Tag { return tag.OfferSwapPoints }
@@ -11912,7 +11911,7 @@ func NewOfferSwapPoints(val float64) *OfferSwapPointsField {
 }
 
 //OfferYieldField is a PERCENTAGE field
-type OfferYieldField struct{ message.PercentageValue }
+type OfferYieldField struct{ fix.PercentageValue }
 
 //Tag returns tag.OfferYield (634)
 func (f OfferYieldField) Tag() fix.Tag { return tag.OfferYield }
@@ -11925,7 +11924,7 @@ func NewOfferYield(val float64) *OfferYieldField {
 }
 
 //OnBehalfOfCompIDField is a STRING field
-type OnBehalfOfCompIDField struct{ message.StringValue }
+type OnBehalfOfCompIDField struct{ fix.StringValue }
 
 //Tag returns tag.OnBehalfOfCompID (115)
 func (f OnBehalfOfCompIDField) Tag() fix.Tag { return tag.OnBehalfOfCompID }
@@ -11938,7 +11937,7 @@ func NewOnBehalfOfCompID(val string) *OnBehalfOfCompIDField {
 }
 
 //OnBehalfOfLocationIDField is a STRING field
-type OnBehalfOfLocationIDField struct{ message.StringValue }
+type OnBehalfOfLocationIDField struct{ fix.StringValue }
 
 //Tag returns tag.OnBehalfOfLocationID (144)
 func (f OnBehalfOfLocationIDField) Tag() fix.Tag { return tag.OnBehalfOfLocationID }
@@ -11951,13 +11950,13 @@ func NewOnBehalfOfLocationID(val string) *OnBehalfOfLocationIDField {
 }
 
 //OnBehalfOfSendingTimeField is a UTCTIMESTAMP field
-type OnBehalfOfSendingTimeField struct{ message.UTCTimestampValue }
+type OnBehalfOfSendingTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.OnBehalfOfSendingTime (370)
 func (f OnBehalfOfSendingTimeField) Tag() fix.Tag { return tag.OnBehalfOfSendingTime }
 
 //OnBehalfOfSubIDField is a STRING field
-type OnBehalfOfSubIDField struct{ message.StringValue }
+type OnBehalfOfSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.OnBehalfOfSubID (116)
 func (f OnBehalfOfSubIDField) Tag() fix.Tag { return tag.OnBehalfOfSubID }
@@ -11970,7 +11969,7 @@ func NewOnBehalfOfSubID(val string) *OnBehalfOfSubIDField {
 }
 
 //OpenCloseField is a CHAR field
-type OpenCloseField struct{ message.CharValue }
+type OpenCloseField struct{ fix.CharValue }
 
 //Tag returns tag.OpenClose (77)
 func (f OpenCloseField) Tag() fix.Tag { return tag.OpenClose }
@@ -11983,7 +11982,7 @@ func NewOpenClose(val string) *OpenCloseField {
 }
 
 //OpenCloseSettlFlagField is a MULTIPLECHARVALUE field
-type OpenCloseSettlFlagField struct{ message.MultipleCharValue }
+type OpenCloseSettlFlagField struct{ fix.MultipleCharValue }
 
 //Tag returns tag.OpenCloseSettlFlag (286)
 func (f OpenCloseSettlFlagField) Tag() fix.Tag { return tag.OpenCloseSettlFlag }
@@ -11996,7 +11995,7 @@ func NewOpenCloseSettlFlag(val string) *OpenCloseSettlFlagField {
 }
 
 //OpenCloseSettleFlagField is a MULTIPLEVALUESTRING field
-type OpenCloseSettleFlagField struct{ message.MultipleStringValue }
+type OpenCloseSettleFlagField struct{ fix.MultipleStringValue }
 
 //Tag returns tag.OpenCloseSettleFlag (286)
 func (f OpenCloseSettleFlagField) Tag() fix.Tag { return tag.OpenCloseSettleFlag }
@@ -12009,7 +12008,7 @@ func NewOpenCloseSettleFlag(val string) *OpenCloseSettleFlagField {
 }
 
 //OpenInterestField is a AMT field
-type OpenInterestField struct{ message.AmtValue }
+type OpenInterestField struct{ fix.AmtValue }
 
 //Tag returns tag.OpenInterest (746)
 func (f OpenInterestField) Tag() fix.Tag { return tag.OpenInterest }
@@ -12022,7 +12021,7 @@ func NewOpenInterest(val float64) *OpenInterestField {
 }
 
 //OptAttributeField is a CHAR field
-type OptAttributeField struct{ message.CharValue }
+type OptAttributeField struct{ fix.CharValue }
 
 //Tag returns tag.OptAttribute (206)
 func (f OptAttributeField) Tag() fix.Tag { return tag.OptAttribute }
@@ -12035,7 +12034,7 @@ func NewOptAttribute(val string) *OptAttributeField {
 }
 
 //OptPayAmountField is a AMT field
-type OptPayAmountField struct{ message.AmtValue }
+type OptPayAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.OptPayAmount (1195)
 func (f OptPayAmountField) Tag() fix.Tag { return tag.OptPayAmount }
@@ -12048,7 +12047,7 @@ func NewOptPayAmount(val float64) *OptPayAmountField {
 }
 
 //OptPayoutAmountField is a AMT field
-type OptPayoutAmountField struct{ message.AmtValue }
+type OptPayoutAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.OptPayoutAmount (1195)
 func (f OptPayoutAmountField) Tag() fix.Tag { return tag.OptPayoutAmount }
@@ -12061,7 +12060,7 @@ func NewOptPayoutAmount(val float64) *OptPayoutAmountField {
 }
 
 //OptPayoutTypeField is a INT field
-type OptPayoutTypeField struct{ message.IntValue }
+type OptPayoutTypeField struct{ fix.IntValue }
 
 //Tag returns tag.OptPayoutType (1482)
 func (f OptPayoutTypeField) Tag() fix.Tag { return tag.OptPayoutType }
@@ -12074,7 +12073,7 @@ func NewOptPayoutType(val int) *OptPayoutTypeField {
 }
 
 //OrdRejReasonField is a INT field
-type OrdRejReasonField struct{ message.IntValue }
+type OrdRejReasonField struct{ fix.IntValue }
 
 //Tag returns tag.OrdRejReason (103)
 func (f OrdRejReasonField) Tag() fix.Tag { return tag.OrdRejReason }
@@ -12087,7 +12086,7 @@ func NewOrdRejReason(val int) *OrdRejReasonField {
 }
 
 //OrdStatusField is a CHAR field
-type OrdStatusField struct{ message.CharValue }
+type OrdStatusField struct{ fix.CharValue }
 
 //Tag returns tag.OrdStatus (39)
 func (f OrdStatusField) Tag() fix.Tag { return tag.OrdStatus }
@@ -12100,7 +12099,7 @@ func NewOrdStatus(val string) *OrdStatusField {
 }
 
 //OrdStatusReqIDField is a STRING field
-type OrdStatusReqIDField struct{ message.StringValue }
+type OrdStatusReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.OrdStatusReqID (790)
 func (f OrdStatusReqIDField) Tag() fix.Tag { return tag.OrdStatusReqID }
@@ -12113,7 +12112,7 @@ func NewOrdStatusReqID(val string) *OrdStatusReqIDField {
 }
 
 //OrdTypeField is a CHAR field
-type OrdTypeField struct{ message.CharValue }
+type OrdTypeField struct{ fix.CharValue }
 
 //Tag returns tag.OrdType (40)
 func (f OrdTypeField) Tag() fix.Tag { return tag.OrdType }
@@ -12126,7 +12125,7 @@ func NewOrdType(val string) *OrdTypeField {
 }
 
 //OrderAvgPxField is a PRICE field
-type OrderAvgPxField struct{ message.PriceValue }
+type OrderAvgPxField struct{ fix.PriceValue }
 
 //Tag returns tag.OrderAvgPx (799)
 func (f OrderAvgPxField) Tag() fix.Tag { return tag.OrderAvgPx }
@@ -12139,7 +12138,7 @@ func NewOrderAvgPx(val float64) *OrderAvgPxField {
 }
 
 //OrderBookingQtyField is a QTY field
-type OrderBookingQtyField struct{ message.QtyValue }
+type OrderBookingQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.OrderBookingQty (800)
 func (f OrderBookingQtyField) Tag() fix.Tag { return tag.OrderBookingQty }
@@ -12152,7 +12151,7 @@ func NewOrderBookingQty(val float64) *OrderBookingQtyField {
 }
 
 //OrderCapacityField is a CHAR field
-type OrderCapacityField struct{ message.CharValue }
+type OrderCapacityField struct{ fix.CharValue }
 
 //Tag returns tag.OrderCapacity (528)
 func (f OrderCapacityField) Tag() fix.Tag { return tag.OrderCapacity }
@@ -12165,7 +12164,7 @@ func NewOrderCapacity(val string) *OrderCapacityField {
 }
 
 //OrderCapacityQtyField is a QTY field
-type OrderCapacityQtyField struct{ message.QtyValue }
+type OrderCapacityQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.OrderCapacityQty (863)
 func (f OrderCapacityQtyField) Tag() fix.Tag { return tag.OrderCapacityQty }
@@ -12178,7 +12177,7 @@ func NewOrderCapacityQty(val float64) *OrderCapacityQtyField {
 }
 
 //OrderCategoryField is a CHAR field
-type OrderCategoryField struct{ message.CharValue }
+type OrderCategoryField struct{ fix.CharValue }
 
 //Tag returns tag.OrderCategory (1115)
 func (f OrderCategoryField) Tag() fix.Tag { return tag.OrderCategory }
@@ -12191,7 +12190,7 @@ func NewOrderCategory(val string) *OrderCategoryField {
 }
 
 //OrderDelayField is a INT field
-type OrderDelayField struct{ message.IntValue }
+type OrderDelayField struct{ fix.IntValue }
 
 //Tag returns tag.OrderDelay (1428)
 func (f OrderDelayField) Tag() fix.Tag { return tag.OrderDelay }
@@ -12204,7 +12203,7 @@ func NewOrderDelay(val int) *OrderDelayField {
 }
 
 //OrderDelayUnitField is a INT field
-type OrderDelayUnitField struct{ message.IntValue }
+type OrderDelayUnitField struct{ fix.IntValue }
 
 //Tag returns tag.OrderDelayUnit (1429)
 func (f OrderDelayUnitField) Tag() fix.Tag { return tag.OrderDelayUnit }
@@ -12217,7 +12216,7 @@ func NewOrderDelayUnit(val int) *OrderDelayUnitField {
 }
 
 //OrderHandlingInstSourceField is a INT field
-type OrderHandlingInstSourceField struct{ message.IntValue }
+type OrderHandlingInstSourceField struct{ fix.IntValue }
 
 //Tag returns tag.OrderHandlingInstSource (1032)
 func (f OrderHandlingInstSourceField) Tag() fix.Tag { return tag.OrderHandlingInstSource }
@@ -12230,7 +12229,7 @@ func NewOrderHandlingInstSource(val int) *OrderHandlingInstSourceField {
 }
 
 //OrderIDField is a STRING field
-type OrderIDField struct{ message.StringValue }
+type OrderIDField struct{ fix.StringValue }
 
 //Tag returns tag.OrderID (37)
 func (f OrderIDField) Tag() fix.Tag { return tag.OrderID }
@@ -12243,7 +12242,7 @@ func NewOrderID(val string) *OrderIDField {
 }
 
 //OrderInputDeviceField is a STRING field
-type OrderInputDeviceField struct{ message.StringValue }
+type OrderInputDeviceField struct{ fix.StringValue }
 
 //Tag returns tag.OrderInputDevice (821)
 func (f OrderInputDeviceField) Tag() fix.Tag { return tag.OrderInputDevice }
@@ -12256,7 +12255,7 @@ func NewOrderInputDevice(val string) *OrderInputDeviceField {
 }
 
 //OrderPercentField is a PERCENTAGE field
-type OrderPercentField struct{ message.PercentageValue }
+type OrderPercentField struct{ fix.PercentageValue }
 
 //Tag returns tag.OrderPercent (516)
 func (f OrderPercentField) Tag() fix.Tag { return tag.OrderPercent }
@@ -12269,7 +12268,7 @@ func NewOrderPercent(val float64) *OrderPercentField {
 }
 
 //OrderQtyField is a QTY field
-type OrderQtyField struct{ message.QtyValue }
+type OrderQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.OrderQty (38)
 func (f OrderQtyField) Tag() fix.Tag { return tag.OrderQty }
@@ -12282,7 +12281,7 @@ func NewOrderQty(val float64) *OrderQtyField {
 }
 
 //OrderQty2Field is a QTY field
-type OrderQty2Field struct{ message.QtyValue }
+type OrderQty2Field struct{ fix.QtyValue }
 
 //Tag returns tag.OrderQty2 (192)
 func (f OrderQty2Field) Tag() fix.Tag { return tag.OrderQty2 }
@@ -12295,7 +12294,7 @@ func NewOrderQty2(val float64) *OrderQty2Field {
 }
 
 //OrderRestrictionsField is a MULTIPLECHARVALUE field
-type OrderRestrictionsField struct{ message.MultipleCharValue }
+type OrderRestrictionsField struct{ fix.MultipleCharValue }
 
 //Tag returns tag.OrderRestrictions (529)
 func (f OrderRestrictionsField) Tag() fix.Tag { return tag.OrderRestrictions }
@@ -12308,7 +12307,7 @@ func NewOrderRestrictions(val string) *OrderRestrictionsField {
 }
 
 //OrigClOrdIDField is a STRING field
-type OrigClOrdIDField struct{ message.StringValue }
+type OrigClOrdIDField struct{ fix.StringValue }
 
 //Tag returns tag.OrigClOrdID (41)
 func (f OrigClOrdIDField) Tag() fix.Tag { return tag.OrigClOrdID }
@@ -12321,7 +12320,7 @@ func NewOrigClOrdID(val string) *OrigClOrdIDField {
 }
 
 //OrigCrossIDField is a STRING field
-type OrigCrossIDField struct{ message.StringValue }
+type OrigCrossIDField struct{ fix.StringValue }
 
 //Tag returns tag.OrigCrossID (551)
 func (f OrigCrossIDField) Tag() fix.Tag { return tag.OrigCrossID }
@@ -12334,7 +12333,7 @@ func NewOrigCrossID(val string) *OrigCrossIDField {
 }
 
 //OrigCustOrderCapacityField is a INT field
-type OrigCustOrderCapacityField struct{ message.IntValue }
+type OrigCustOrderCapacityField struct{ fix.IntValue }
 
 //Tag returns tag.OrigCustOrderCapacity (1432)
 func (f OrigCustOrderCapacityField) Tag() fix.Tag { return tag.OrigCustOrderCapacity }
@@ -12347,13 +12346,13 @@ func NewOrigCustOrderCapacity(val int) *OrigCustOrderCapacityField {
 }
 
 //OrigOrdModTimeField is a UTCTIMESTAMP field
-type OrigOrdModTimeField struct{ message.UTCTimestampValue }
+type OrigOrdModTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.OrigOrdModTime (586)
 func (f OrigOrdModTimeField) Tag() fix.Tag { return tag.OrigOrdModTime }
 
 //OrigPosReqRefIDField is a STRING field
-type OrigPosReqRefIDField struct{ message.StringValue }
+type OrigPosReqRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.OrigPosReqRefID (713)
 func (f OrigPosReqRefIDField) Tag() fix.Tag { return tag.OrigPosReqRefID }
@@ -12366,7 +12365,7 @@ func NewOrigPosReqRefID(val string) *OrigPosReqRefIDField {
 }
 
 //OrigSecondaryTradeIDField is a STRING field
-type OrigSecondaryTradeIDField struct{ message.StringValue }
+type OrigSecondaryTradeIDField struct{ fix.StringValue }
 
 //Tag returns tag.OrigSecondaryTradeID (1127)
 func (f OrigSecondaryTradeIDField) Tag() fix.Tag { return tag.OrigSecondaryTradeID }
@@ -12379,19 +12378,19 @@ func NewOrigSecondaryTradeID(val string) *OrigSecondaryTradeIDField {
 }
 
 //OrigSendingTimeField is a UTCTIMESTAMP field
-type OrigSendingTimeField struct{ message.UTCTimestampValue }
+type OrigSendingTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.OrigSendingTime (122)
 func (f OrigSendingTimeField) Tag() fix.Tag { return tag.OrigSendingTime }
 
 //OrigTimeField is a UTCTIMESTAMP field
-type OrigTimeField struct{ message.UTCTimestampValue }
+type OrigTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.OrigTime (42)
 func (f OrigTimeField) Tag() fix.Tag { return tag.OrigTime }
 
 //OrigTradeDateField is a LOCALMKTDATE field
-type OrigTradeDateField struct{ message.LocalMktDateValue }
+type OrigTradeDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.OrigTradeDate (1125)
 func (f OrigTradeDateField) Tag() fix.Tag { return tag.OrigTradeDate }
@@ -12404,7 +12403,7 @@ func NewOrigTradeDate(val string) *OrigTradeDateField {
 }
 
 //OrigTradeHandlingInstrField is a CHAR field
-type OrigTradeHandlingInstrField struct{ message.CharValue }
+type OrigTradeHandlingInstrField struct{ fix.CharValue }
 
 //Tag returns tag.OrigTradeHandlingInstr (1124)
 func (f OrigTradeHandlingInstrField) Tag() fix.Tag { return tag.OrigTradeHandlingInstr }
@@ -12417,7 +12416,7 @@ func NewOrigTradeHandlingInstr(val string) *OrigTradeHandlingInstrField {
 }
 
 //OrigTradeIDField is a STRING field
-type OrigTradeIDField struct{ message.StringValue }
+type OrigTradeIDField struct{ fix.StringValue }
 
 //Tag returns tag.OrigTradeID (1126)
 func (f OrigTradeIDField) Tag() fix.Tag { return tag.OrigTradeID }
@@ -12430,7 +12429,7 @@ func NewOrigTradeID(val string) *OrigTradeIDField {
 }
 
 //OriginalNotionalPercentageOutstandingField is a PERCENTAGE field
-type OriginalNotionalPercentageOutstandingField struct{ message.PercentageValue }
+type OriginalNotionalPercentageOutstandingField struct{ fix.PercentageValue }
 
 //Tag returns tag.OriginalNotionalPercentageOutstanding (1452)
 func (f OriginalNotionalPercentageOutstandingField) Tag() fix.Tag {
@@ -12445,7 +12444,7 @@ func NewOriginalNotionalPercentageOutstanding(val float64) *OriginalNotionalPerc
 }
 
 //OutMainCntryUIndexField is a AMT field
-type OutMainCntryUIndexField struct{ message.AmtValue }
+type OutMainCntryUIndexField struct{ fix.AmtValue }
 
 //Tag returns tag.OutMainCntryUIndex (412)
 func (f OutMainCntryUIndexField) Tag() fix.Tag { return tag.OutMainCntryUIndex }
@@ -12458,7 +12457,7 @@ func NewOutMainCntryUIndex(val float64) *OutMainCntryUIndexField {
 }
 
 //OutsideIndexPctField is a PERCENTAGE field
-type OutsideIndexPctField struct{ message.PercentageValue }
+type OutsideIndexPctField struct{ fix.PercentageValue }
 
 //Tag returns tag.OutsideIndexPct (407)
 func (f OutsideIndexPctField) Tag() fix.Tag { return tag.OutsideIndexPct }
@@ -12471,7 +12470,7 @@ func NewOutsideIndexPct(val float64) *OutsideIndexPctField {
 }
 
 //OwnerTypeField is a INT field
-type OwnerTypeField struct{ message.IntValue }
+type OwnerTypeField struct{ fix.IntValue }
 
 //Tag returns tag.OwnerType (522)
 func (f OwnerTypeField) Tag() fix.Tag { return tag.OwnerType }
@@ -12484,7 +12483,7 @@ func NewOwnerType(val int) *OwnerTypeField {
 }
 
 //OwnershipTypeField is a CHAR field
-type OwnershipTypeField struct{ message.CharValue }
+type OwnershipTypeField struct{ fix.CharValue }
 
 //Tag returns tag.OwnershipType (517)
 func (f OwnershipTypeField) Tag() fix.Tag { return tag.OwnershipType }
@@ -12497,7 +12496,7 @@ func NewOwnershipType(val string) *OwnershipTypeField {
 }
 
 //ParentMktSegmIDField is a STRING field
-type ParentMktSegmIDField struct{ message.StringValue }
+type ParentMktSegmIDField struct{ fix.StringValue }
 
 //Tag returns tag.ParentMktSegmID (1325)
 func (f ParentMktSegmIDField) Tag() fix.Tag { return tag.ParentMktSegmID }
@@ -12510,7 +12509,7 @@ func NewParentMktSegmID(val string) *ParentMktSegmIDField {
 }
 
 //ParticipationRateField is a PERCENTAGE field
-type ParticipationRateField struct{ message.PercentageValue }
+type ParticipationRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.ParticipationRate (849)
 func (f ParticipationRateField) Tag() fix.Tag { return tag.ParticipationRate }
@@ -12523,7 +12522,7 @@ func NewParticipationRate(val float64) *ParticipationRateField {
 }
 
 //PartyAltIDField is a STRING field
-type PartyAltIDField struct{ message.StringValue }
+type PartyAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.PartyAltID (1517)
 func (f PartyAltIDField) Tag() fix.Tag { return tag.PartyAltID }
@@ -12536,7 +12535,7 @@ func NewPartyAltID(val string) *PartyAltIDField {
 }
 
 //PartyAltIDSourceField is a CHAR field
-type PartyAltIDSourceField struct{ message.CharValue }
+type PartyAltIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.PartyAltIDSource (1518)
 func (f PartyAltIDSourceField) Tag() fix.Tag { return tag.PartyAltIDSource }
@@ -12549,7 +12548,7 @@ func NewPartyAltIDSource(val string) *PartyAltIDSourceField {
 }
 
 //PartyAltSubIDField is a STRING field
-type PartyAltSubIDField struct{ message.StringValue }
+type PartyAltSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.PartyAltSubID (1520)
 func (f PartyAltSubIDField) Tag() fix.Tag { return tag.PartyAltSubID }
@@ -12562,7 +12561,7 @@ func NewPartyAltSubID(val string) *PartyAltSubIDField {
 }
 
 //PartyAltSubIDTypeField is a INT field
-type PartyAltSubIDTypeField struct{ message.IntValue }
+type PartyAltSubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PartyAltSubIDType (1521)
 func (f PartyAltSubIDTypeField) Tag() fix.Tag { return tag.PartyAltSubIDType }
@@ -12575,7 +12574,7 @@ func NewPartyAltSubIDType(val int) *PartyAltSubIDTypeField {
 }
 
 //PartyDetailsListReportIDField is a STRING field
-type PartyDetailsListReportIDField struct{ message.StringValue }
+type PartyDetailsListReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.PartyDetailsListReportID (1510)
 func (f PartyDetailsListReportIDField) Tag() fix.Tag { return tag.PartyDetailsListReportID }
@@ -12588,7 +12587,7 @@ func NewPartyDetailsListReportID(val string) *PartyDetailsListReportIDField {
 }
 
 //PartyDetailsListRequestIDField is a STRING field
-type PartyDetailsListRequestIDField struct{ message.StringValue }
+type PartyDetailsListRequestIDField struct{ fix.StringValue }
 
 //Tag returns tag.PartyDetailsListRequestID (1505)
 func (f PartyDetailsListRequestIDField) Tag() fix.Tag { return tag.PartyDetailsListRequestID }
@@ -12601,7 +12600,7 @@ func NewPartyDetailsListRequestID(val string) *PartyDetailsListRequestIDField {
 }
 
 //PartyDetailsRequestResultField is a INT field
-type PartyDetailsRequestResultField struct{ message.IntValue }
+type PartyDetailsRequestResultField struct{ fix.IntValue }
 
 //Tag returns tag.PartyDetailsRequestResult (1511)
 func (f PartyDetailsRequestResultField) Tag() fix.Tag { return tag.PartyDetailsRequestResult }
@@ -12614,7 +12613,7 @@ func NewPartyDetailsRequestResult(val int) *PartyDetailsRequestResultField {
 }
 
 //PartyIDField is a STRING field
-type PartyIDField struct{ message.StringValue }
+type PartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.PartyID (448)
 func (f PartyIDField) Tag() fix.Tag { return tag.PartyID }
@@ -12627,7 +12626,7 @@ func NewPartyID(val string) *PartyIDField {
 }
 
 //PartyIDSourceField is a CHAR field
-type PartyIDSourceField struct{ message.CharValue }
+type PartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.PartyIDSource (447)
 func (f PartyIDSourceField) Tag() fix.Tag { return tag.PartyIDSource }
@@ -12640,7 +12639,7 @@ func NewPartyIDSource(val string) *PartyIDSourceField {
 }
 
 //PartyListResponseTypeField is a INT field
-type PartyListResponseTypeField struct{ message.IntValue }
+type PartyListResponseTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PartyListResponseType (1507)
 func (f PartyListResponseTypeField) Tag() fix.Tag { return tag.PartyListResponseType }
@@ -12653,7 +12652,7 @@ func NewPartyListResponseType(val int) *PartyListResponseTypeField {
 }
 
 //PartyRelationshipField is a INT field
-type PartyRelationshipField struct{ message.IntValue }
+type PartyRelationshipField struct{ fix.IntValue }
 
 //Tag returns tag.PartyRelationship (1515)
 func (f PartyRelationshipField) Tag() fix.Tag { return tag.PartyRelationship }
@@ -12666,7 +12665,7 @@ func NewPartyRelationship(val int) *PartyRelationshipField {
 }
 
 //PartyRoleField is a INT field
-type PartyRoleField struct{ message.IntValue }
+type PartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.PartyRole (452)
 func (f PartyRoleField) Tag() fix.Tag { return tag.PartyRole }
@@ -12679,7 +12678,7 @@ func NewPartyRole(val int) *PartyRoleField {
 }
 
 //PartySubIDField is a STRING field
-type PartySubIDField struct{ message.StringValue }
+type PartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.PartySubID (523)
 func (f PartySubIDField) Tag() fix.Tag { return tag.PartySubID }
@@ -12692,7 +12691,7 @@ func NewPartySubID(val string) *PartySubIDField {
 }
 
 //PartySubIDTypeField is a INT field
-type PartySubIDTypeField struct{ message.IntValue }
+type PartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PartySubIDType (803)
 func (f PartySubIDTypeField) Tag() fix.Tag { return tag.PartySubIDType }
@@ -12705,7 +12704,7 @@ func NewPartySubIDType(val int) *PartySubIDTypeField {
 }
 
 //PasswordField is a STRING field
-type PasswordField struct{ message.StringValue }
+type PasswordField struct{ fix.StringValue }
 
 //Tag returns tag.Password (554)
 func (f PasswordField) Tag() fix.Tag { return tag.Password }
@@ -12718,7 +12717,7 @@ func NewPassword(val string) *PasswordField {
 }
 
 //PaymentDateField is a LOCALMKTDATE field
-type PaymentDateField struct{ message.LocalMktDateValue }
+type PaymentDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.PaymentDate (504)
 func (f PaymentDateField) Tag() fix.Tag { return tag.PaymentDate }
@@ -12731,7 +12730,7 @@ func NewPaymentDate(val string) *PaymentDateField {
 }
 
 //PaymentMethodField is a INT field
-type PaymentMethodField struct{ message.IntValue }
+type PaymentMethodField struct{ fix.IntValue }
 
 //Tag returns tag.PaymentMethod (492)
 func (f PaymentMethodField) Tag() fix.Tag { return tag.PaymentMethod }
@@ -12744,7 +12743,7 @@ func NewPaymentMethod(val int) *PaymentMethodField {
 }
 
 //PaymentRefField is a STRING field
-type PaymentRefField struct{ message.StringValue }
+type PaymentRefField struct{ fix.StringValue }
 
 //Tag returns tag.PaymentRef (476)
 func (f PaymentRefField) Tag() fix.Tag { return tag.PaymentRef }
@@ -12757,7 +12756,7 @@ func NewPaymentRef(val string) *PaymentRefField {
 }
 
 //PaymentRemitterIDField is a STRING field
-type PaymentRemitterIDField struct{ message.StringValue }
+type PaymentRemitterIDField struct{ fix.StringValue }
 
 //Tag returns tag.PaymentRemitterID (505)
 func (f PaymentRemitterIDField) Tag() fix.Tag { return tag.PaymentRemitterID }
@@ -12770,7 +12769,7 @@ func NewPaymentRemitterID(val string) *PaymentRemitterIDField {
 }
 
 //PctAtRiskField is a PERCENTAGE field
-type PctAtRiskField struct{ message.PercentageValue }
+type PctAtRiskField struct{ fix.PercentageValue }
 
 //Tag returns tag.PctAtRisk (869)
 func (f PctAtRiskField) Tag() fix.Tag { return tag.PctAtRisk }
@@ -12783,7 +12782,7 @@ func NewPctAtRisk(val float64) *PctAtRiskField {
 }
 
 //PegDifferenceField is a PRICEOFFSET field
-type PegDifferenceField struct{ message.PriceOffsetValue }
+type PegDifferenceField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.PegDifference (211)
 func (f PegDifferenceField) Tag() fix.Tag { return tag.PegDifference }
@@ -12796,7 +12795,7 @@ func NewPegDifference(val float64) *PegDifferenceField {
 }
 
 //PegLimitTypeField is a INT field
-type PegLimitTypeField struct{ message.IntValue }
+type PegLimitTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PegLimitType (837)
 func (f PegLimitTypeField) Tag() fix.Tag { return tag.PegLimitType }
@@ -12809,7 +12808,7 @@ func NewPegLimitType(val int) *PegLimitTypeField {
 }
 
 //PegMoveTypeField is a INT field
-type PegMoveTypeField struct{ message.IntValue }
+type PegMoveTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PegMoveType (835)
 func (f PegMoveTypeField) Tag() fix.Tag { return tag.PegMoveType }
@@ -12822,7 +12821,7 @@ func NewPegMoveType(val int) *PegMoveTypeField {
 }
 
 //PegOffsetTypeField is a INT field
-type PegOffsetTypeField struct{ message.IntValue }
+type PegOffsetTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PegOffsetType (836)
 func (f PegOffsetTypeField) Tag() fix.Tag { return tag.PegOffsetType }
@@ -12835,7 +12834,7 @@ func NewPegOffsetType(val int) *PegOffsetTypeField {
 }
 
 //PegOffsetValueField is a FLOAT field
-type PegOffsetValueField struct{ message.FloatValue }
+type PegOffsetValueField struct{ fix.FloatValue }
 
 //Tag returns tag.PegOffsetValue (211)
 func (f PegOffsetValueField) Tag() fix.Tag { return tag.PegOffsetValue }
@@ -12848,7 +12847,7 @@ func NewPegOffsetValue(val float64) *PegOffsetValueField {
 }
 
 //PegPriceTypeField is a INT field
-type PegPriceTypeField struct{ message.IntValue }
+type PegPriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PegPriceType (1094)
 func (f PegPriceTypeField) Tag() fix.Tag { return tag.PegPriceType }
@@ -12861,7 +12860,7 @@ func NewPegPriceType(val int) *PegPriceTypeField {
 }
 
 //PegRoundDirectionField is a INT field
-type PegRoundDirectionField struct{ message.IntValue }
+type PegRoundDirectionField struct{ fix.IntValue }
 
 //Tag returns tag.PegRoundDirection (838)
 func (f PegRoundDirectionField) Tag() fix.Tag { return tag.PegRoundDirection }
@@ -12874,7 +12873,7 @@ func NewPegRoundDirection(val int) *PegRoundDirectionField {
 }
 
 //PegScopeField is a INT field
-type PegScopeField struct{ message.IntValue }
+type PegScopeField struct{ fix.IntValue }
 
 //Tag returns tag.PegScope (840)
 func (f PegScopeField) Tag() fix.Tag { return tag.PegScope }
@@ -12887,7 +12886,7 @@ func NewPegScope(val int) *PegScopeField {
 }
 
 //PegSecurityDescField is a STRING field
-type PegSecurityDescField struct{ message.StringValue }
+type PegSecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.PegSecurityDesc (1099)
 func (f PegSecurityDescField) Tag() fix.Tag { return tag.PegSecurityDesc }
@@ -12900,7 +12899,7 @@ func NewPegSecurityDesc(val string) *PegSecurityDescField {
 }
 
 //PegSecurityIDField is a STRING field
-type PegSecurityIDField struct{ message.StringValue }
+type PegSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.PegSecurityID (1097)
 func (f PegSecurityIDField) Tag() fix.Tag { return tag.PegSecurityID }
@@ -12913,7 +12912,7 @@ func NewPegSecurityID(val string) *PegSecurityIDField {
 }
 
 //PegSecurityIDSourceField is a STRING field
-type PegSecurityIDSourceField struct{ message.StringValue }
+type PegSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.PegSecurityIDSource (1096)
 func (f PegSecurityIDSourceField) Tag() fix.Tag { return tag.PegSecurityIDSource }
@@ -12926,7 +12925,7 @@ func NewPegSecurityIDSource(val string) *PegSecurityIDSourceField {
 }
 
 //PegSymbolField is a STRING field
-type PegSymbolField struct{ message.StringValue }
+type PegSymbolField struct{ fix.StringValue }
 
 //Tag returns tag.PegSymbol (1098)
 func (f PegSymbolField) Tag() fix.Tag { return tag.PegSymbol }
@@ -12939,7 +12938,7 @@ func NewPegSymbol(val string) *PegSymbolField {
 }
 
 //PeggedPriceField is a PRICE field
-type PeggedPriceField struct{ message.PriceValue }
+type PeggedPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.PeggedPrice (839)
 func (f PeggedPriceField) Tag() fix.Tag { return tag.PeggedPrice }
@@ -12952,7 +12951,7 @@ func NewPeggedPrice(val float64) *PeggedPriceField {
 }
 
 //PeggedRefPriceField is a PRICE field
-type PeggedRefPriceField struct{ message.PriceValue }
+type PeggedRefPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.PeggedRefPrice (1095)
 func (f PeggedRefPriceField) Tag() fix.Tag { return tag.PeggedRefPrice }
@@ -12965,7 +12964,7 @@ func NewPeggedRefPrice(val float64) *PeggedRefPriceField {
 }
 
 //PoolField is a STRING field
-type PoolField struct{ message.StringValue }
+type PoolField struct{ fix.StringValue }
 
 //Tag returns tag.Pool (691)
 func (f PoolField) Tag() fix.Tag { return tag.Pool }
@@ -12978,7 +12977,7 @@ func NewPool(val string) *PoolField {
 }
 
 //PosAmtField is a AMT field
-type PosAmtField struct{ message.AmtValue }
+type PosAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.PosAmt (708)
 func (f PosAmtField) Tag() fix.Tag { return tag.PosAmt }
@@ -12991,7 +12990,7 @@ func NewPosAmt(val float64) *PosAmtField {
 }
 
 //PosAmtTypeField is a STRING field
-type PosAmtTypeField struct{ message.StringValue }
+type PosAmtTypeField struct{ fix.StringValue }
 
 //Tag returns tag.PosAmtType (707)
 func (f PosAmtTypeField) Tag() fix.Tag { return tag.PosAmtType }
@@ -13004,7 +13003,7 @@ func NewPosAmtType(val string) *PosAmtTypeField {
 }
 
 //PosMaintActionField is a INT field
-type PosMaintActionField struct{ message.IntValue }
+type PosMaintActionField struct{ fix.IntValue }
 
 //Tag returns tag.PosMaintAction (712)
 func (f PosMaintActionField) Tag() fix.Tag { return tag.PosMaintAction }
@@ -13017,7 +13016,7 @@ func NewPosMaintAction(val int) *PosMaintActionField {
 }
 
 //PosMaintResultField is a INT field
-type PosMaintResultField struct{ message.IntValue }
+type PosMaintResultField struct{ fix.IntValue }
 
 //Tag returns tag.PosMaintResult (723)
 func (f PosMaintResultField) Tag() fix.Tag { return tag.PosMaintResult }
@@ -13030,7 +13029,7 @@ func NewPosMaintResult(val int) *PosMaintResultField {
 }
 
 //PosMaintRptIDField is a STRING field
-type PosMaintRptIDField struct{ message.StringValue }
+type PosMaintRptIDField struct{ fix.StringValue }
 
 //Tag returns tag.PosMaintRptID (721)
 func (f PosMaintRptIDField) Tag() fix.Tag { return tag.PosMaintRptID }
@@ -13043,7 +13042,7 @@ func NewPosMaintRptID(val string) *PosMaintRptIDField {
 }
 
 //PosMaintRptRefIDField is a STRING field
-type PosMaintRptRefIDField struct{ message.StringValue }
+type PosMaintRptRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.PosMaintRptRefID (714)
 func (f PosMaintRptRefIDField) Tag() fix.Tag { return tag.PosMaintRptRefID }
@@ -13056,7 +13055,7 @@ func NewPosMaintRptRefID(val string) *PosMaintRptRefIDField {
 }
 
 //PosMaintStatusField is a INT field
-type PosMaintStatusField struct{ message.IntValue }
+type PosMaintStatusField struct{ fix.IntValue }
 
 //Tag returns tag.PosMaintStatus (722)
 func (f PosMaintStatusField) Tag() fix.Tag { return tag.PosMaintStatus }
@@ -13069,7 +13068,7 @@ func NewPosMaintStatus(val int) *PosMaintStatusField {
 }
 
 //PosQtyStatusField is a INT field
-type PosQtyStatusField struct{ message.IntValue }
+type PosQtyStatusField struct{ fix.IntValue }
 
 //Tag returns tag.PosQtyStatus (706)
 func (f PosQtyStatusField) Tag() fix.Tag { return tag.PosQtyStatus }
@@ -13082,7 +13081,7 @@ func NewPosQtyStatus(val int) *PosQtyStatusField {
 }
 
 //PosReqIDField is a STRING field
-type PosReqIDField struct{ message.StringValue }
+type PosReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.PosReqID (710)
 func (f PosReqIDField) Tag() fix.Tag { return tag.PosReqID }
@@ -13095,7 +13094,7 @@ func NewPosReqID(val string) *PosReqIDField {
 }
 
 //PosReqResultField is a INT field
-type PosReqResultField struct{ message.IntValue }
+type PosReqResultField struct{ fix.IntValue }
 
 //Tag returns tag.PosReqResult (728)
 func (f PosReqResultField) Tag() fix.Tag { return tag.PosReqResult }
@@ -13108,7 +13107,7 @@ func NewPosReqResult(val int) *PosReqResultField {
 }
 
 //PosReqStatusField is a INT field
-type PosReqStatusField struct{ message.IntValue }
+type PosReqStatusField struct{ fix.IntValue }
 
 //Tag returns tag.PosReqStatus (729)
 func (f PosReqStatusField) Tag() fix.Tag { return tag.PosReqStatus }
@@ -13121,7 +13120,7 @@ func NewPosReqStatus(val int) *PosReqStatusField {
 }
 
 //PosReqTypeField is a INT field
-type PosReqTypeField struct{ message.IntValue }
+type PosReqTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PosReqType (724)
 func (f PosReqTypeField) Tag() fix.Tag { return tag.PosReqType }
@@ -13134,7 +13133,7 @@ func NewPosReqType(val int) *PosReqTypeField {
 }
 
 //PosTransTypeField is a INT field
-type PosTransTypeField struct{ message.IntValue }
+type PosTransTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PosTransType (709)
 func (f PosTransTypeField) Tag() fix.Tag { return tag.PosTransType }
@@ -13147,7 +13146,7 @@ func NewPosTransType(val int) *PosTransTypeField {
 }
 
 //PosTypeField is a STRING field
-type PosTypeField struct{ message.StringValue }
+type PosTypeField struct{ fix.StringValue }
 
 //Tag returns tag.PosType (703)
 func (f PosTypeField) Tag() fix.Tag { return tag.PosType }
@@ -13160,7 +13159,7 @@ func NewPosType(val string) *PosTypeField {
 }
 
 //PositionCurrencyField is a STRING field
-type PositionCurrencyField struct{ message.StringValue }
+type PositionCurrencyField struct{ fix.StringValue }
 
 //Tag returns tag.PositionCurrency (1055)
 func (f PositionCurrencyField) Tag() fix.Tag { return tag.PositionCurrency }
@@ -13173,7 +13172,7 @@ func NewPositionCurrency(val string) *PositionCurrencyField {
 }
 
 //PositionEffectField is a CHAR field
-type PositionEffectField struct{ message.CharValue }
+type PositionEffectField struct{ fix.CharValue }
 
 //Tag returns tag.PositionEffect (77)
 func (f PositionEffectField) Tag() fix.Tag { return tag.PositionEffect }
@@ -13186,7 +13185,7 @@ func NewPositionEffect(val string) *PositionEffectField {
 }
 
 //PositionLimitField is a INT field
-type PositionLimitField struct{ message.IntValue }
+type PositionLimitField struct{ fix.IntValue }
 
 //Tag returns tag.PositionLimit (970)
 func (f PositionLimitField) Tag() fix.Tag { return tag.PositionLimit }
@@ -13199,7 +13198,7 @@ func NewPositionLimit(val int) *PositionLimitField {
 }
 
 //PossDupFlagField is a BOOLEAN field
-type PossDupFlagField struct{ message.BooleanValue }
+type PossDupFlagField struct{ fix.BooleanValue }
 
 //Tag returns tag.PossDupFlag (43)
 func (f PossDupFlagField) Tag() fix.Tag { return tag.PossDupFlag }
@@ -13212,7 +13211,7 @@ func NewPossDupFlag(val bool) *PossDupFlagField {
 }
 
 //PossResendField is a BOOLEAN field
-type PossResendField struct{ message.BooleanValue }
+type PossResendField struct{ fix.BooleanValue }
 
 //Tag returns tag.PossResend (97)
 func (f PossResendField) Tag() fix.Tag { return tag.PossResend }
@@ -13225,7 +13224,7 @@ func NewPossResend(val bool) *PossResendField {
 }
 
 //PreTradeAnonymityField is a BOOLEAN field
-type PreTradeAnonymityField struct{ message.BooleanValue }
+type PreTradeAnonymityField struct{ fix.BooleanValue }
 
 //Tag returns tag.PreTradeAnonymity (1091)
 func (f PreTradeAnonymityField) Tag() fix.Tag { return tag.PreTradeAnonymity }
@@ -13238,7 +13237,7 @@ func NewPreTradeAnonymity(val bool) *PreTradeAnonymityField {
 }
 
 //PreallocMethodField is a CHAR field
-type PreallocMethodField struct{ message.CharValue }
+type PreallocMethodField struct{ fix.CharValue }
 
 //Tag returns tag.PreallocMethod (591)
 func (f PreallocMethodField) Tag() fix.Tag { return tag.PreallocMethod }
@@ -13251,7 +13250,7 @@ func NewPreallocMethod(val string) *PreallocMethodField {
 }
 
 //PrevClosePxField is a PRICE field
-type PrevClosePxField struct{ message.PriceValue }
+type PrevClosePxField struct{ fix.PriceValue }
 
 //Tag returns tag.PrevClosePx (140)
 func (f PrevClosePxField) Tag() fix.Tag { return tag.PrevClosePx }
@@ -13264,7 +13263,7 @@ func NewPrevClosePx(val float64) *PrevClosePxField {
 }
 
 //PreviouslyReportedField is a BOOLEAN field
-type PreviouslyReportedField struct{ message.BooleanValue }
+type PreviouslyReportedField struct{ fix.BooleanValue }
 
 //Tag returns tag.PreviouslyReported (570)
 func (f PreviouslyReportedField) Tag() fix.Tag { return tag.PreviouslyReported }
@@ -13277,7 +13276,7 @@ func NewPreviouslyReported(val bool) *PreviouslyReportedField {
 }
 
 //PriceField is a PRICE field
-type PriceField struct{ message.PriceValue }
+type PriceField struct{ fix.PriceValue }
 
 //Tag returns tag.Price (44)
 func (f PriceField) Tag() fix.Tag { return tag.Price }
@@ -13290,7 +13289,7 @@ func NewPrice(val float64) *PriceField {
 }
 
 //Price2Field is a PRICE field
-type Price2Field struct{ message.PriceValue }
+type Price2Field struct{ fix.PriceValue }
 
 //Tag returns tag.Price2 (640)
 func (f Price2Field) Tag() fix.Tag { return tag.Price2 }
@@ -13303,7 +13302,7 @@ func NewPrice2(val float64) *Price2Field {
 }
 
 //PriceDeltaField is a FLOAT field
-type PriceDeltaField struct{ message.FloatValue }
+type PriceDeltaField struct{ fix.FloatValue }
 
 //Tag returns tag.PriceDelta (811)
 func (f PriceDeltaField) Tag() fix.Tag { return tag.PriceDelta }
@@ -13316,7 +13315,7 @@ func NewPriceDelta(val float64) *PriceDeltaField {
 }
 
 //PriceImprovementField is a PRICEOFFSET field
-type PriceImprovementField struct{ message.PriceOffsetValue }
+type PriceImprovementField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.PriceImprovement (639)
 func (f PriceImprovementField) Tag() fix.Tag { return tag.PriceImprovement }
@@ -13329,7 +13328,7 @@ func NewPriceImprovement(val float64) *PriceImprovementField {
 }
 
 //PriceLimitTypeField is a INT field
-type PriceLimitTypeField struct{ message.IntValue }
+type PriceLimitTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PriceLimitType (1306)
 func (f PriceLimitTypeField) Tag() fix.Tag { return tag.PriceLimitType }
@@ -13342,7 +13341,7 @@ func NewPriceLimitType(val int) *PriceLimitTypeField {
 }
 
 //PriceProtectionScopeField is a CHAR field
-type PriceProtectionScopeField struct{ message.CharValue }
+type PriceProtectionScopeField struct{ fix.CharValue }
 
 //Tag returns tag.PriceProtectionScope (1092)
 func (f PriceProtectionScopeField) Tag() fix.Tag { return tag.PriceProtectionScope }
@@ -13355,7 +13354,7 @@ func NewPriceProtectionScope(val string) *PriceProtectionScopeField {
 }
 
 //PriceQuoteMethodField is a STRING field
-type PriceQuoteMethodField struct{ message.StringValue }
+type PriceQuoteMethodField struct{ fix.StringValue }
 
 //Tag returns tag.PriceQuoteMethod (1196)
 func (f PriceQuoteMethodField) Tag() fix.Tag { return tag.PriceQuoteMethod }
@@ -13368,7 +13367,7 @@ func NewPriceQuoteMethod(val string) *PriceQuoteMethodField {
 }
 
 //PriceTypeField is a INT field
-type PriceTypeField struct{ message.IntValue }
+type PriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.PriceType (423)
 func (f PriceTypeField) Tag() fix.Tag { return tag.PriceType }
@@ -13381,7 +13380,7 @@ func NewPriceType(val int) *PriceTypeField {
 }
 
 //PriceUnitOfMeasureField is a STRING field
-type PriceUnitOfMeasureField struct{ message.StringValue }
+type PriceUnitOfMeasureField struct{ fix.StringValue }
 
 //Tag returns tag.PriceUnitOfMeasure (1191)
 func (f PriceUnitOfMeasureField) Tag() fix.Tag { return tag.PriceUnitOfMeasure }
@@ -13394,7 +13393,7 @@ func NewPriceUnitOfMeasure(val string) *PriceUnitOfMeasureField {
 }
 
 //PriceUnitOfMeasureQtyField is a QTY field
-type PriceUnitOfMeasureQtyField struct{ message.QtyValue }
+type PriceUnitOfMeasureQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.PriceUnitOfMeasureQty (1192)
 func (f PriceUnitOfMeasureQtyField) Tag() fix.Tag { return tag.PriceUnitOfMeasureQty }
@@ -13407,7 +13406,7 @@ func NewPriceUnitOfMeasureQty(val float64) *PriceUnitOfMeasureQtyField {
 }
 
 //PriorSettlPriceField is a PRICE field
-type PriorSettlPriceField struct{ message.PriceValue }
+type PriorSettlPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.PriorSettlPrice (734)
 func (f PriorSettlPriceField) Tag() fix.Tag { return tag.PriorSettlPrice }
@@ -13420,7 +13419,7 @@ func NewPriorSettlPrice(val float64) *PriorSettlPriceField {
 }
 
 //PriorSpreadIndicatorField is a BOOLEAN field
-type PriorSpreadIndicatorField struct{ message.BooleanValue }
+type PriorSpreadIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.PriorSpreadIndicator (720)
 func (f PriorSpreadIndicatorField) Tag() fix.Tag { return tag.PriorSpreadIndicator }
@@ -13433,7 +13432,7 @@ func NewPriorSpreadIndicator(val bool) *PriorSpreadIndicatorField {
 }
 
 //PriorityIndicatorField is a INT field
-type PriorityIndicatorField struct{ message.IntValue }
+type PriorityIndicatorField struct{ fix.IntValue }
 
 //Tag returns tag.PriorityIndicator (638)
 func (f PriorityIndicatorField) Tag() fix.Tag { return tag.PriorityIndicator }
@@ -13446,7 +13445,7 @@ func NewPriorityIndicator(val int) *PriorityIndicatorField {
 }
 
 //PrivateQuoteField is a BOOLEAN field
-type PrivateQuoteField struct{ message.BooleanValue }
+type PrivateQuoteField struct{ fix.BooleanValue }
 
 //Tag returns tag.PrivateQuote (1171)
 func (f PrivateQuoteField) Tag() fix.Tag { return tag.PrivateQuote }
@@ -13459,7 +13458,7 @@ func NewPrivateQuote(val bool) *PrivateQuoteField {
 }
 
 //ProcessCodeField is a CHAR field
-type ProcessCodeField struct{ message.CharValue }
+type ProcessCodeField struct{ fix.CharValue }
 
 //Tag returns tag.ProcessCode (81)
 func (f ProcessCodeField) Tag() fix.Tag { return tag.ProcessCode }
@@ -13472,7 +13471,7 @@ func NewProcessCode(val string) *ProcessCodeField {
 }
 
 //ProductField is a INT field
-type ProductField struct{ message.IntValue }
+type ProductField struct{ fix.IntValue }
 
 //Tag returns tag.Product (460)
 func (f ProductField) Tag() fix.Tag { return tag.Product }
@@ -13485,7 +13484,7 @@ func NewProduct(val int) *ProductField {
 }
 
 //ProductComplexField is a STRING field
-type ProductComplexField struct{ message.StringValue }
+type ProductComplexField struct{ fix.StringValue }
 
 //Tag returns tag.ProductComplex (1227)
 func (f ProductComplexField) Tag() fix.Tag { return tag.ProductComplex }
@@ -13498,7 +13497,7 @@ func NewProductComplex(val string) *ProductComplexField {
 }
 
 //ProgPeriodIntervalField is a INT field
-type ProgPeriodIntervalField struct{ message.IntValue }
+type ProgPeriodIntervalField struct{ fix.IntValue }
 
 //Tag returns tag.ProgPeriodInterval (415)
 func (f ProgPeriodIntervalField) Tag() fix.Tag { return tag.ProgPeriodInterval }
@@ -13511,7 +13510,7 @@ func NewProgPeriodInterval(val int) *ProgPeriodIntervalField {
 }
 
 //ProgRptReqsField is a INT field
-type ProgRptReqsField struct{ message.IntValue }
+type ProgRptReqsField struct{ fix.IntValue }
 
 //Tag returns tag.ProgRptReqs (414)
 func (f ProgRptReqsField) Tag() fix.Tag { return tag.ProgRptReqs }
@@ -13524,7 +13523,7 @@ func NewProgRptReqs(val int) *ProgRptReqsField {
 }
 
 //PublishTrdIndicatorField is a BOOLEAN field
-type PublishTrdIndicatorField struct{ message.BooleanValue }
+type PublishTrdIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.PublishTrdIndicator (852)
 func (f PublishTrdIndicatorField) Tag() fix.Tag { return tag.PublishTrdIndicator }
@@ -13537,7 +13536,7 @@ func NewPublishTrdIndicator(val bool) *PublishTrdIndicatorField {
 }
 
 //PutOrCallField is a INT field
-type PutOrCallField struct{ message.IntValue }
+type PutOrCallField struct{ fix.IntValue }
 
 //Tag returns tag.PutOrCall (201)
 func (f PutOrCallField) Tag() fix.Tag { return tag.PutOrCall }
@@ -13550,7 +13549,7 @@ func NewPutOrCall(val int) *PutOrCallField {
 }
 
 //QtyTypeField is a INT field
-type QtyTypeField struct{ message.IntValue }
+type QtyTypeField struct{ fix.IntValue }
 
 //Tag returns tag.QtyType (854)
 func (f QtyTypeField) Tag() fix.Tag { return tag.QtyType }
@@ -13563,7 +13562,7 @@ func NewQtyType(val int) *QtyTypeField {
 }
 
 //QuantityField is a QTY field
-type QuantityField struct{ message.QtyValue }
+type QuantityField struct{ fix.QtyValue }
 
 //Tag returns tag.Quantity (53)
 func (f QuantityField) Tag() fix.Tag { return tag.Quantity }
@@ -13576,7 +13575,7 @@ func NewQuantity(val float64) *QuantityField {
 }
 
 //QuantityDateField is a LOCALMKTDATE field
-type QuantityDateField struct{ message.LocalMktDateValue }
+type QuantityDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.QuantityDate (976)
 func (f QuantityDateField) Tag() fix.Tag { return tag.QuantityDate }
@@ -13589,7 +13588,7 @@ func NewQuantityDate(val string) *QuantityDateField {
 }
 
 //QuantityTypeField is a INT field
-type QuantityTypeField struct{ message.IntValue }
+type QuantityTypeField struct{ fix.IntValue }
 
 //Tag returns tag.QuantityType (465)
 func (f QuantityTypeField) Tag() fix.Tag { return tag.QuantityType }
@@ -13602,7 +13601,7 @@ func NewQuantityType(val int) *QuantityTypeField {
 }
 
 //QuoteAckStatusField is a INT field
-type QuoteAckStatusField struct{ message.IntValue }
+type QuoteAckStatusField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteAckStatus (297)
 func (f QuoteAckStatusField) Tag() fix.Tag { return tag.QuoteAckStatus }
@@ -13615,7 +13614,7 @@ func NewQuoteAckStatus(val int) *QuoteAckStatusField {
 }
 
 //QuoteCancelTypeField is a INT field
-type QuoteCancelTypeField struct{ message.IntValue }
+type QuoteCancelTypeField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteCancelType (298)
 func (f QuoteCancelTypeField) Tag() fix.Tag { return tag.QuoteCancelType }
@@ -13628,7 +13627,7 @@ func NewQuoteCancelType(val int) *QuoteCancelTypeField {
 }
 
 //QuoteConditionField is a MULTIPLESTRINGVALUE field
-type QuoteConditionField struct{ message.MultipleStringValue }
+type QuoteConditionField struct{ fix.MultipleStringValue }
 
 //Tag returns tag.QuoteCondition (276)
 func (f QuoteConditionField) Tag() fix.Tag { return tag.QuoteCondition }
@@ -13641,7 +13640,7 @@ func NewQuoteCondition(val string) *QuoteConditionField {
 }
 
 //QuoteEntryIDField is a STRING field
-type QuoteEntryIDField struct{ message.StringValue }
+type QuoteEntryIDField struct{ fix.StringValue }
 
 //Tag returns tag.QuoteEntryID (299)
 func (f QuoteEntryIDField) Tag() fix.Tag { return tag.QuoteEntryID }
@@ -13654,7 +13653,7 @@ func NewQuoteEntryID(val string) *QuoteEntryIDField {
 }
 
 //QuoteEntryRejectReasonField is a INT field
-type QuoteEntryRejectReasonField struct{ message.IntValue }
+type QuoteEntryRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteEntryRejectReason (368)
 func (f QuoteEntryRejectReasonField) Tag() fix.Tag { return tag.QuoteEntryRejectReason }
@@ -13667,7 +13666,7 @@ func NewQuoteEntryRejectReason(val int) *QuoteEntryRejectReasonField {
 }
 
 //QuoteEntryStatusField is a INT field
-type QuoteEntryStatusField struct{ message.IntValue }
+type QuoteEntryStatusField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteEntryStatus (1167)
 func (f QuoteEntryStatusField) Tag() fix.Tag { return tag.QuoteEntryStatus }
@@ -13680,7 +13679,7 @@ func NewQuoteEntryStatus(val int) *QuoteEntryStatusField {
 }
 
 //QuoteIDField is a STRING field
-type QuoteIDField struct{ message.StringValue }
+type QuoteIDField struct{ fix.StringValue }
 
 //Tag returns tag.QuoteID (117)
 func (f QuoteIDField) Tag() fix.Tag { return tag.QuoteID }
@@ -13693,7 +13692,7 @@ func NewQuoteID(val string) *QuoteIDField {
 }
 
 //QuoteMsgIDField is a STRING field
-type QuoteMsgIDField struct{ message.StringValue }
+type QuoteMsgIDField struct{ fix.StringValue }
 
 //Tag returns tag.QuoteMsgID (1166)
 func (f QuoteMsgIDField) Tag() fix.Tag { return tag.QuoteMsgID }
@@ -13706,7 +13705,7 @@ func NewQuoteMsgID(val string) *QuoteMsgIDField {
 }
 
 //QuotePriceTypeField is a INT field
-type QuotePriceTypeField struct{ message.IntValue }
+type QuotePriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.QuotePriceType (692)
 func (f QuotePriceTypeField) Tag() fix.Tag { return tag.QuotePriceType }
@@ -13719,7 +13718,7 @@ func NewQuotePriceType(val int) *QuotePriceTypeField {
 }
 
 //QuoteQualifierField is a CHAR field
-type QuoteQualifierField struct{ message.CharValue }
+type QuoteQualifierField struct{ fix.CharValue }
 
 //Tag returns tag.QuoteQualifier (695)
 func (f QuoteQualifierField) Tag() fix.Tag { return tag.QuoteQualifier }
@@ -13732,7 +13731,7 @@ func NewQuoteQualifier(val string) *QuoteQualifierField {
 }
 
 //QuoteRejectReasonField is a INT field
-type QuoteRejectReasonField struct{ message.IntValue }
+type QuoteRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteRejectReason (300)
 func (f QuoteRejectReasonField) Tag() fix.Tag { return tag.QuoteRejectReason }
@@ -13745,7 +13744,7 @@ func NewQuoteRejectReason(val int) *QuoteRejectReasonField {
 }
 
 //QuoteReqIDField is a STRING field
-type QuoteReqIDField struct{ message.StringValue }
+type QuoteReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.QuoteReqID (131)
 func (f QuoteReqIDField) Tag() fix.Tag { return tag.QuoteReqID }
@@ -13758,7 +13757,7 @@ func NewQuoteReqID(val string) *QuoteReqIDField {
 }
 
 //QuoteRequestRejectReasonField is a INT field
-type QuoteRequestRejectReasonField struct{ message.IntValue }
+type QuoteRequestRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteRequestRejectReason (658)
 func (f QuoteRequestRejectReasonField) Tag() fix.Tag { return tag.QuoteRequestRejectReason }
@@ -13771,7 +13770,7 @@ func NewQuoteRequestRejectReason(val int) *QuoteRequestRejectReasonField {
 }
 
 //QuoteRequestTypeField is a INT field
-type QuoteRequestTypeField struct{ message.IntValue }
+type QuoteRequestTypeField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteRequestType (303)
 func (f QuoteRequestTypeField) Tag() fix.Tag { return tag.QuoteRequestType }
@@ -13784,7 +13783,7 @@ func NewQuoteRequestType(val int) *QuoteRequestTypeField {
 }
 
 //QuoteRespIDField is a STRING field
-type QuoteRespIDField struct{ message.StringValue }
+type QuoteRespIDField struct{ fix.StringValue }
 
 //Tag returns tag.QuoteRespID (693)
 func (f QuoteRespIDField) Tag() fix.Tag { return tag.QuoteRespID }
@@ -13797,7 +13796,7 @@ func NewQuoteRespID(val string) *QuoteRespIDField {
 }
 
 //QuoteRespTypeField is a INT field
-type QuoteRespTypeField struct{ message.IntValue }
+type QuoteRespTypeField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteRespType (694)
 func (f QuoteRespTypeField) Tag() fix.Tag { return tag.QuoteRespType }
@@ -13810,7 +13809,7 @@ func NewQuoteRespType(val int) *QuoteRespTypeField {
 }
 
 //QuoteResponseLevelField is a INT field
-type QuoteResponseLevelField struct{ message.IntValue }
+type QuoteResponseLevelField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteResponseLevel (301)
 func (f QuoteResponseLevelField) Tag() fix.Tag { return tag.QuoteResponseLevel }
@@ -13823,7 +13822,7 @@ func NewQuoteResponseLevel(val int) *QuoteResponseLevelField {
 }
 
 //QuoteSetIDField is a STRING field
-type QuoteSetIDField struct{ message.StringValue }
+type QuoteSetIDField struct{ fix.StringValue }
 
 //Tag returns tag.QuoteSetID (302)
 func (f QuoteSetIDField) Tag() fix.Tag { return tag.QuoteSetID }
@@ -13836,13 +13835,13 @@ func NewQuoteSetID(val string) *QuoteSetIDField {
 }
 
 //QuoteSetValidUntilTimeField is a UTCTIMESTAMP field
-type QuoteSetValidUntilTimeField struct{ message.UTCTimestampValue }
+type QuoteSetValidUntilTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.QuoteSetValidUntilTime (367)
 func (f QuoteSetValidUntilTimeField) Tag() fix.Tag { return tag.QuoteSetValidUntilTime }
 
 //QuoteStatusField is a INT field
-type QuoteStatusField struct{ message.IntValue }
+type QuoteStatusField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteStatus (297)
 func (f QuoteStatusField) Tag() fix.Tag { return tag.QuoteStatus }
@@ -13855,7 +13854,7 @@ func NewQuoteStatus(val int) *QuoteStatusField {
 }
 
 //QuoteStatusReqIDField is a STRING field
-type QuoteStatusReqIDField struct{ message.StringValue }
+type QuoteStatusReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.QuoteStatusReqID (649)
 func (f QuoteStatusReqIDField) Tag() fix.Tag { return tag.QuoteStatusReqID }
@@ -13868,7 +13867,7 @@ func NewQuoteStatusReqID(val string) *QuoteStatusReqIDField {
 }
 
 //QuoteTypeField is a INT field
-type QuoteTypeField struct{ message.IntValue }
+type QuoteTypeField struct{ fix.IntValue }
 
 //Tag returns tag.QuoteType (537)
 func (f QuoteTypeField) Tag() fix.Tag { return tag.QuoteType }
@@ -13881,7 +13880,7 @@ func NewQuoteType(val int) *QuoteTypeField {
 }
 
 //RFQReqIDField is a STRING field
-type RFQReqIDField struct{ message.StringValue }
+type RFQReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.RFQReqID (644)
 func (f RFQReqIDField) Tag() fix.Tag { return tag.RFQReqID }
@@ -13894,7 +13893,7 @@ func NewRFQReqID(val string) *RFQReqIDField {
 }
 
 //RateSourceField is a INT field
-type RateSourceField struct{ message.IntValue }
+type RateSourceField struct{ fix.IntValue }
 
 //Tag returns tag.RateSource (1446)
 func (f RateSourceField) Tag() fix.Tag { return tag.RateSource }
@@ -13907,7 +13906,7 @@ func NewRateSource(val int) *RateSourceField {
 }
 
 //RateSourceTypeField is a INT field
-type RateSourceTypeField struct{ message.IntValue }
+type RateSourceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RateSourceType (1447)
 func (f RateSourceTypeField) Tag() fix.Tag { return tag.RateSourceType }
@@ -13920,7 +13919,7 @@ func NewRateSourceType(val int) *RateSourceTypeField {
 }
 
 //RatioQtyField is a QTY field
-type RatioQtyField struct{ message.QtyValue }
+type RatioQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.RatioQty (319)
 func (f RatioQtyField) Tag() fix.Tag { return tag.RatioQty }
@@ -13933,7 +13932,7 @@ func NewRatioQty(val float64) *RatioQtyField {
 }
 
 //RawDataField is a DATA field
-type RawDataField struct{ message.DataValue }
+type RawDataField struct{ fix.DataValue }
 
 //Tag returns tag.RawData (96)
 func (f RawDataField) Tag() fix.Tag { return tag.RawData }
@@ -13946,7 +13945,7 @@ func NewRawData(val string) *RawDataField {
 }
 
 //RawDataLengthField is a LENGTH field
-type RawDataLengthField struct{ message.LengthValue }
+type RawDataLengthField struct{ fix.LengthValue }
 
 //Tag returns tag.RawDataLength (95)
 func (f RawDataLengthField) Tag() fix.Tag { return tag.RawDataLength }
@@ -13959,7 +13958,7 @@ func NewRawDataLength(val int) *RawDataLengthField {
 }
 
 //ReceivedDeptIDField is a STRING field
-type ReceivedDeptIDField struct{ message.StringValue }
+type ReceivedDeptIDField struct{ fix.StringValue }
 
 //Tag returns tag.ReceivedDeptID (1030)
 func (f ReceivedDeptIDField) Tag() fix.Tag { return tag.ReceivedDeptID }
@@ -13972,7 +13971,7 @@ func NewReceivedDeptID(val string) *ReceivedDeptIDField {
 }
 
 //RedemptionDateField is a LOCALMKTDATE field
-type RedemptionDateField struct{ message.LocalMktDateValue }
+type RedemptionDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.RedemptionDate (240)
 func (f RedemptionDateField) Tag() fix.Tag { return tag.RedemptionDate }
@@ -13985,7 +13984,7 @@ func NewRedemptionDate(val string) *RedemptionDateField {
 }
 
 //RefAllocIDField is a STRING field
-type RefAllocIDField struct{ message.StringValue }
+type RefAllocIDField struct{ fix.StringValue }
 
 //Tag returns tag.RefAllocID (72)
 func (f RefAllocIDField) Tag() fix.Tag { return tag.RefAllocID }
@@ -13998,7 +13997,7 @@ func NewRefAllocID(val string) *RefAllocIDField {
 }
 
 //RefApplExtIDField is a INT field
-type RefApplExtIDField struct{ message.IntValue }
+type RefApplExtIDField struct{ fix.IntValue }
 
 //Tag returns tag.RefApplExtID (1406)
 func (f RefApplExtIDField) Tag() fix.Tag { return tag.RefApplExtID }
@@ -14011,7 +14010,7 @@ func NewRefApplExtID(val int) *RefApplExtIDField {
 }
 
 //RefApplIDField is a STRING field
-type RefApplIDField struct{ message.StringValue }
+type RefApplIDField struct{ fix.StringValue }
 
 //Tag returns tag.RefApplID (1355)
 func (f RefApplIDField) Tag() fix.Tag { return tag.RefApplID }
@@ -14024,7 +14023,7 @@ func NewRefApplID(val string) *RefApplIDField {
 }
 
 //RefApplLastSeqNumField is a SEQNUM field
-type RefApplLastSeqNumField struct{ message.SeqNumValue }
+type RefApplLastSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.RefApplLastSeqNum (1357)
 func (f RefApplLastSeqNumField) Tag() fix.Tag { return tag.RefApplLastSeqNum }
@@ -14037,7 +14036,7 @@ func NewRefApplLastSeqNum(val int) *RefApplLastSeqNumField {
 }
 
 //RefApplReqIDField is a STRING field
-type RefApplReqIDField struct{ message.StringValue }
+type RefApplReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.RefApplReqID (1433)
 func (f RefApplReqIDField) Tag() fix.Tag { return tag.RefApplReqID }
@@ -14050,7 +14049,7 @@ func NewRefApplReqID(val string) *RefApplReqIDField {
 }
 
 //RefApplVerIDField is a STRING field
-type RefApplVerIDField struct{ message.StringValue }
+type RefApplVerIDField struct{ fix.StringValue }
 
 //Tag returns tag.RefApplVerID (1130)
 func (f RefApplVerIDField) Tag() fix.Tag { return tag.RefApplVerID }
@@ -14063,7 +14062,7 @@ func NewRefApplVerID(val string) *RefApplVerIDField {
 }
 
 //RefCompIDField is a STRING field
-type RefCompIDField struct{ message.StringValue }
+type RefCompIDField struct{ fix.StringValue }
 
 //Tag returns tag.RefCompID (930)
 func (f RefCompIDField) Tag() fix.Tag { return tag.RefCompID }
@@ -14076,7 +14075,7 @@ func NewRefCompID(val string) *RefCompIDField {
 }
 
 //RefCstmApplVerIDField is a STRING field
-type RefCstmApplVerIDField struct{ message.StringValue }
+type RefCstmApplVerIDField struct{ fix.StringValue }
 
 //Tag returns tag.RefCstmApplVerID (1131)
 func (f RefCstmApplVerIDField) Tag() fix.Tag { return tag.RefCstmApplVerID }
@@ -14089,7 +14088,7 @@ func NewRefCstmApplVerID(val string) *RefCstmApplVerIDField {
 }
 
 //RefMsgTypeField is a STRING field
-type RefMsgTypeField struct{ message.StringValue }
+type RefMsgTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RefMsgType (372)
 func (f RefMsgTypeField) Tag() fix.Tag { return tag.RefMsgType }
@@ -14102,7 +14101,7 @@ func NewRefMsgType(val string) *RefMsgTypeField {
 }
 
 //RefOrdIDReasonField is a INT field
-type RefOrdIDReasonField struct{ message.IntValue }
+type RefOrdIDReasonField struct{ fix.IntValue }
 
 //Tag returns tag.RefOrdIDReason (1431)
 func (f RefOrdIDReasonField) Tag() fix.Tag { return tag.RefOrdIDReason }
@@ -14115,7 +14114,7 @@ func NewRefOrdIDReason(val int) *RefOrdIDReasonField {
 }
 
 //RefOrderIDField is a STRING field
-type RefOrderIDField struct{ message.StringValue }
+type RefOrderIDField struct{ fix.StringValue }
 
 //Tag returns tag.RefOrderID (1080)
 func (f RefOrderIDField) Tag() fix.Tag { return tag.RefOrderID }
@@ -14128,7 +14127,7 @@ func NewRefOrderID(val string) *RefOrderIDField {
 }
 
 //RefOrderIDSourceField is a CHAR field
-type RefOrderIDSourceField struct{ message.CharValue }
+type RefOrderIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.RefOrderIDSource (1081)
 func (f RefOrderIDSourceField) Tag() fix.Tag { return tag.RefOrderIDSource }
@@ -14141,7 +14140,7 @@ func NewRefOrderIDSource(val string) *RefOrderIDSourceField {
 }
 
 //RefSeqNumField is a SEQNUM field
-type RefSeqNumField struct{ message.SeqNumValue }
+type RefSeqNumField struct{ fix.SeqNumValue }
 
 //Tag returns tag.RefSeqNum (45)
 func (f RefSeqNumField) Tag() fix.Tag { return tag.RefSeqNum }
@@ -14154,7 +14153,7 @@ func NewRefSeqNum(val int) *RefSeqNumField {
 }
 
 //RefSubIDField is a STRING field
-type RefSubIDField struct{ message.StringValue }
+type RefSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.RefSubID (931)
 func (f RefSubIDField) Tag() fix.Tag { return tag.RefSubID }
@@ -14167,7 +14166,7 @@ func NewRefSubID(val string) *RefSubIDField {
 }
 
 //RefTagIDField is a INT field
-type RefTagIDField struct{ message.IntValue }
+type RefTagIDField struct{ fix.IntValue }
 
 //Tag returns tag.RefTagID (371)
 func (f RefTagIDField) Tag() fix.Tag { return tag.RefTagID }
@@ -14180,7 +14179,7 @@ func NewRefTagID(val int) *RefTagIDField {
 }
 
 //ReferencePageField is a STRING field
-type ReferencePageField struct{ message.StringValue }
+type ReferencePageField struct{ fix.StringValue }
 
 //Tag returns tag.ReferencePage (1448)
 func (f ReferencePageField) Tag() fix.Tag { return tag.ReferencePage }
@@ -14193,7 +14192,7 @@ func NewReferencePage(val string) *ReferencePageField {
 }
 
 //RefreshIndicatorField is a BOOLEAN field
-type RefreshIndicatorField struct{ message.BooleanValue }
+type RefreshIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.RefreshIndicator (1187)
 func (f RefreshIndicatorField) Tag() fix.Tag { return tag.RefreshIndicator }
@@ -14206,7 +14205,7 @@ func NewRefreshIndicator(val bool) *RefreshIndicatorField {
 }
 
 //RefreshQtyField is a QTY field
-type RefreshQtyField struct{ message.QtyValue }
+type RefreshQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.RefreshQty (1088)
 func (f RefreshQtyField) Tag() fix.Tag { return tag.RefreshQty }
@@ -14219,7 +14218,7 @@ func NewRefreshQty(val float64) *RefreshQtyField {
 }
 
 //RegistAcctTypeField is a STRING field
-type RegistAcctTypeField struct{ message.StringValue }
+type RegistAcctTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RegistAcctType (493)
 func (f RegistAcctTypeField) Tag() fix.Tag { return tag.RegistAcctType }
@@ -14232,7 +14231,7 @@ func NewRegistAcctType(val string) *RegistAcctTypeField {
 }
 
 //RegistDetlsField is a STRING field
-type RegistDetlsField struct{ message.StringValue }
+type RegistDetlsField struct{ fix.StringValue }
 
 //Tag returns tag.RegistDetls (509)
 func (f RegistDetlsField) Tag() fix.Tag { return tag.RegistDetls }
@@ -14245,7 +14244,7 @@ func NewRegistDetls(val string) *RegistDetlsField {
 }
 
 //RegistDtlsField is a STRING field
-type RegistDtlsField struct{ message.StringValue }
+type RegistDtlsField struct{ fix.StringValue }
 
 //Tag returns tag.RegistDtls (509)
 func (f RegistDtlsField) Tag() fix.Tag { return tag.RegistDtls }
@@ -14258,7 +14257,7 @@ func NewRegistDtls(val string) *RegistDtlsField {
 }
 
 //RegistEmailField is a STRING field
-type RegistEmailField struct{ message.StringValue }
+type RegistEmailField struct{ fix.StringValue }
 
 //Tag returns tag.RegistEmail (511)
 func (f RegistEmailField) Tag() fix.Tag { return tag.RegistEmail }
@@ -14271,7 +14270,7 @@ func NewRegistEmail(val string) *RegistEmailField {
 }
 
 //RegistIDField is a STRING field
-type RegistIDField struct{ message.StringValue }
+type RegistIDField struct{ fix.StringValue }
 
 //Tag returns tag.RegistID (513)
 func (f RegistIDField) Tag() fix.Tag { return tag.RegistID }
@@ -14284,7 +14283,7 @@ func NewRegistID(val string) *RegistIDField {
 }
 
 //RegistRefIDField is a STRING field
-type RegistRefIDField struct{ message.StringValue }
+type RegistRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.RegistRefID (508)
 func (f RegistRefIDField) Tag() fix.Tag { return tag.RegistRefID }
@@ -14297,7 +14296,7 @@ func NewRegistRefID(val string) *RegistRefIDField {
 }
 
 //RegistRejReasonCodeField is a INT field
-type RegistRejReasonCodeField struct{ message.IntValue }
+type RegistRejReasonCodeField struct{ fix.IntValue }
 
 //Tag returns tag.RegistRejReasonCode (507)
 func (f RegistRejReasonCodeField) Tag() fix.Tag { return tag.RegistRejReasonCode }
@@ -14310,7 +14309,7 @@ func NewRegistRejReasonCode(val int) *RegistRejReasonCodeField {
 }
 
 //RegistRejReasonTextField is a STRING field
-type RegistRejReasonTextField struct{ message.StringValue }
+type RegistRejReasonTextField struct{ fix.StringValue }
 
 //Tag returns tag.RegistRejReasonText (496)
 func (f RegistRejReasonTextField) Tag() fix.Tag { return tag.RegistRejReasonText }
@@ -14323,7 +14322,7 @@ func NewRegistRejReasonText(val string) *RegistRejReasonTextField {
 }
 
 //RegistStatusField is a CHAR field
-type RegistStatusField struct{ message.CharValue }
+type RegistStatusField struct{ fix.CharValue }
 
 //Tag returns tag.RegistStatus (506)
 func (f RegistStatusField) Tag() fix.Tag { return tag.RegistStatus }
@@ -14336,7 +14335,7 @@ func NewRegistStatus(val string) *RegistStatusField {
 }
 
 //RegistTransTypeField is a CHAR field
-type RegistTransTypeField struct{ message.CharValue }
+type RegistTransTypeField struct{ fix.CharValue }
 
 //Tag returns tag.RegistTransType (514)
 func (f RegistTransTypeField) Tag() fix.Tag { return tag.RegistTransType }
@@ -14349,7 +14348,7 @@ func NewRegistTransType(val string) *RegistTransTypeField {
 }
 
 //RejectTextField is a STRING field
-type RejectTextField struct{ message.StringValue }
+type RejectTextField struct{ fix.StringValue }
 
 //Tag returns tag.RejectText (1328)
 func (f RejectTextField) Tag() fix.Tag { return tag.RejectText }
@@ -14362,13 +14361,13 @@ func NewRejectText(val string) *RejectTextField {
 }
 
 //RelSymTransactTimeField is a UTCTIMESTAMP field
-type RelSymTransactTimeField struct{ message.UTCTimestampValue }
+type RelSymTransactTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.RelSymTransactTime (1504)
 func (f RelSymTransactTimeField) Tag() fix.Tag { return tag.RelSymTransactTime }
 
 //RelatdSymField is a STRING field
-type RelatdSymField struct{ message.StringValue }
+type RelatdSymField struct{ fix.StringValue }
 
 //Tag returns tag.RelatdSym (46)
 func (f RelatdSymField) Tag() fix.Tag { return tag.RelatdSym }
@@ -14381,7 +14380,7 @@ func NewRelatdSym(val string) *RelatdSymField {
 }
 
 //RelatedContextPartyIDField is a STRING field
-type RelatedContextPartyIDField struct{ message.StringValue }
+type RelatedContextPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.RelatedContextPartyID (1576)
 func (f RelatedContextPartyIDField) Tag() fix.Tag { return tag.RelatedContextPartyID }
@@ -14394,7 +14393,7 @@ func NewRelatedContextPartyID(val string) *RelatedContextPartyIDField {
 }
 
 //RelatedContextPartyIDSourceField is a CHAR field
-type RelatedContextPartyIDSourceField struct{ message.CharValue }
+type RelatedContextPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.RelatedContextPartyIDSource (1577)
 func (f RelatedContextPartyIDSourceField) Tag() fix.Tag { return tag.RelatedContextPartyIDSource }
@@ -14407,7 +14406,7 @@ func NewRelatedContextPartyIDSource(val string) *RelatedContextPartyIDSourceFiel
 }
 
 //RelatedContextPartyRoleField is a INT field
-type RelatedContextPartyRoleField struct{ message.IntValue }
+type RelatedContextPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.RelatedContextPartyRole (1578)
 func (f RelatedContextPartyRoleField) Tag() fix.Tag { return tag.RelatedContextPartyRole }
@@ -14420,7 +14419,7 @@ func NewRelatedContextPartyRole(val int) *RelatedContextPartyRoleField {
 }
 
 //RelatedContextPartySubIDField is a STRING field
-type RelatedContextPartySubIDField struct{ message.StringValue }
+type RelatedContextPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.RelatedContextPartySubID (1580)
 func (f RelatedContextPartySubIDField) Tag() fix.Tag { return tag.RelatedContextPartySubID }
@@ -14433,7 +14432,7 @@ func NewRelatedContextPartySubID(val string) *RelatedContextPartySubIDField {
 }
 
 //RelatedContextPartySubIDTypeField is a INT field
-type RelatedContextPartySubIDTypeField struct{ message.IntValue }
+type RelatedContextPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RelatedContextPartySubIDType (1581)
 func (f RelatedContextPartySubIDTypeField) Tag() fix.Tag { return tag.RelatedContextPartySubIDType }
@@ -14446,7 +14445,7 @@ func NewRelatedContextPartySubIDType(val int) *RelatedContextPartySubIDTypeField
 }
 
 //RelatedPartyAltIDField is a STRING field
-type RelatedPartyAltIDField struct{ message.StringValue }
+type RelatedPartyAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.RelatedPartyAltID (1570)
 func (f RelatedPartyAltIDField) Tag() fix.Tag { return tag.RelatedPartyAltID }
@@ -14459,7 +14458,7 @@ func NewRelatedPartyAltID(val string) *RelatedPartyAltIDField {
 }
 
 //RelatedPartyAltIDSourceField is a CHAR field
-type RelatedPartyAltIDSourceField struct{ message.CharValue }
+type RelatedPartyAltIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.RelatedPartyAltIDSource (1571)
 func (f RelatedPartyAltIDSourceField) Tag() fix.Tag { return tag.RelatedPartyAltIDSource }
@@ -14472,7 +14471,7 @@ func NewRelatedPartyAltIDSource(val string) *RelatedPartyAltIDSourceField {
 }
 
 //RelatedPartyAltSubIDField is a STRING field
-type RelatedPartyAltSubIDField struct{ message.StringValue }
+type RelatedPartyAltSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.RelatedPartyAltSubID (1573)
 func (f RelatedPartyAltSubIDField) Tag() fix.Tag { return tag.RelatedPartyAltSubID }
@@ -14485,7 +14484,7 @@ func NewRelatedPartyAltSubID(val string) *RelatedPartyAltSubIDField {
 }
 
 //RelatedPartyAltSubIDTypeField is a INT field
-type RelatedPartyAltSubIDTypeField struct{ message.IntValue }
+type RelatedPartyAltSubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RelatedPartyAltSubIDType (1574)
 func (f RelatedPartyAltSubIDTypeField) Tag() fix.Tag { return tag.RelatedPartyAltSubIDType }
@@ -14498,7 +14497,7 @@ func NewRelatedPartyAltSubIDType(val int) *RelatedPartyAltSubIDTypeField {
 }
 
 //RelatedPartyIDField is a STRING field
-type RelatedPartyIDField struct{ message.StringValue }
+type RelatedPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.RelatedPartyID (1563)
 func (f RelatedPartyIDField) Tag() fix.Tag { return tag.RelatedPartyID }
@@ -14511,7 +14510,7 @@ func NewRelatedPartyID(val string) *RelatedPartyIDField {
 }
 
 //RelatedPartyIDSourceField is a CHAR field
-type RelatedPartyIDSourceField struct{ message.CharValue }
+type RelatedPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.RelatedPartyIDSource (1564)
 func (f RelatedPartyIDSourceField) Tag() fix.Tag { return tag.RelatedPartyIDSource }
@@ -14524,7 +14523,7 @@ func NewRelatedPartyIDSource(val string) *RelatedPartyIDSourceField {
 }
 
 //RelatedPartyRoleField is a INT field
-type RelatedPartyRoleField struct{ message.IntValue }
+type RelatedPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.RelatedPartyRole (1565)
 func (f RelatedPartyRoleField) Tag() fix.Tag { return tag.RelatedPartyRole }
@@ -14537,7 +14536,7 @@ func NewRelatedPartyRole(val int) *RelatedPartyRoleField {
 }
 
 //RelatedPartySubIDField is a STRING field
-type RelatedPartySubIDField struct{ message.StringValue }
+type RelatedPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.RelatedPartySubID (1567)
 func (f RelatedPartySubIDField) Tag() fix.Tag { return tag.RelatedPartySubID }
@@ -14550,7 +14549,7 @@ func NewRelatedPartySubID(val string) *RelatedPartySubIDField {
 }
 
 //RelatedPartySubIDTypeField is a INT field
-type RelatedPartySubIDTypeField struct{ message.IntValue }
+type RelatedPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RelatedPartySubIDType (1568)
 func (f RelatedPartySubIDTypeField) Tag() fix.Tag { return tag.RelatedPartySubIDType }
@@ -14563,7 +14562,7 @@ func NewRelatedPartySubIDType(val int) *RelatedPartySubIDTypeField {
 }
 
 //RelationshipRiskCFICodeField is a STRING field
-type RelationshipRiskCFICodeField struct{ message.StringValue }
+type RelationshipRiskCFICodeField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskCFICode (1599)
 func (f RelationshipRiskCFICodeField) Tag() fix.Tag { return tag.RelationshipRiskCFICode }
@@ -14576,7 +14575,7 @@ func NewRelationshipRiskCFICode(val string) *RelationshipRiskCFICodeField {
 }
 
 //RelationshipRiskCouponRateField is a PERCENTAGE field
-type RelationshipRiskCouponRateField struct{ message.PercentageValue }
+type RelationshipRiskCouponRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.RelationshipRiskCouponRate (1608)
 func (f RelationshipRiskCouponRateField) Tag() fix.Tag { return tag.RelationshipRiskCouponRate }
@@ -14589,7 +14588,7 @@ func NewRelationshipRiskCouponRate(val float64) *RelationshipRiskCouponRateField
 }
 
 //RelationshipRiskEncodedSecurityDescField is a DATA field
-type RelationshipRiskEncodedSecurityDescField struct{ message.DataValue }
+type RelationshipRiskEncodedSecurityDescField struct{ fix.DataValue }
 
 //Tag returns tag.RelationshipRiskEncodedSecurityDesc (1619)
 func (f RelationshipRiskEncodedSecurityDescField) Tag() fix.Tag {
@@ -14604,7 +14603,7 @@ func NewRelationshipRiskEncodedSecurityDesc(val string) *RelationshipRiskEncoded
 }
 
 //RelationshipRiskEncodedSecurityDescLenField is a LENGTH field
-type RelationshipRiskEncodedSecurityDescLenField struct{ message.LengthValue }
+type RelationshipRiskEncodedSecurityDescLenField struct{ fix.LengthValue }
 
 //Tag returns tag.RelationshipRiskEncodedSecurityDescLen (1618)
 func (f RelationshipRiskEncodedSecurityDescLenField) Tag() fix.Tag {
@@ -14619,7 +14618,7 @@ func NewRelationshipRiskEncodedSecurityDescLen(val int) *RelationshipRiskEncoded
 }
 
 //RelationshipRiskFlexibleIndicatorField is a BOOLEAN field
-type RelationshipRiskFlexibleIndicatorField struct{ message.BooleanValue }
+type RelationshipRiskFlexibleIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.RelationshipRiskFlexibleIndicator (1607)
 func (f RelationshipRiskFlexibleIndicatorField) Tag() fix.Tag {
@@ -14634,7 +14633,7 @@ func NewRelationshipRiskFlexibleIndicator(val bool) *RelationshipRiskFlexibleInd
 }
 
 //RelationshipRiskInstrumentMultiplierField is a FLOAT field
-type RelationshipRiskInstrumentMultiplierField struct{ message.FloatValue }
+type RelationshipRiskInstrumentMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.RelationshipRiskInstrumentMultiplier (1612)
 func (f RelationshipRiskInstrumentMultiplierField) Tag() fix.Tag {
@@ -14649,7 +14648,7 @@ func NewRelationshipRiskInstrumentMultiplier(val float64) *RelationshipRiskInstr
 }
 
 //RelationshipRiskInstrumentOperatorField is a INT field
-type RelationshipRiskInstrumentOperatorField struct{ message.IntValue }
+type RelationshipRiskInstrumentOperatorField struct{ fix.IntValue }
 
 //Tag returns tag.RelationshipRiskInstrumentOperator (1588)
 func (f RelationshipRiskInstrumentOperatorField) Tag() fix.Tag {
@@ -14664,7 +14663,7 @@ func NewRelationshipRiskInstrumentOperator(val int) *RelationshipRiskInstrumentO
 }
 
 //RelationshipRiskInstrumentSettlTypeField is a STRING field
-type RelationshipRiskInstrumentSettlTypeField struct{ message.StringValue }
+type RelationshipRiskInstrumentSettlTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskInstrumentSettlType (1611)
 func (f RelationshipRiskInstrumentSettlTypeField) Tag() fix.Tag {
@@ -14679,7 +14678,7 @@ func NewRelationshipRiskInstrumentSettlType(val string) *RelationshipRiskInstrum
 }
 
 //RelationshipRiskLimitAmountField is a AMT field
-type RelationshipRiskLimitAmountField struct{ message.AmtValue }
+type RelationshipRiskLimitAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.RelationshipRiskLimitAmount (1584)
 func (f RelationshipRiskLimitAmountField) Tag() fix.Tag { return tag.RelationshipRiskLimitAmount }
@@ -14692,7 +14691,7 @@ func NewRelationshipRiskLimitAmount(val float64) *RelationshipRiskLimitAmountFie
 }
 
 //RelationshipRiskLimitCurrencyField is a CURRENCY field
-type RelationshipRiskLimitCurrencyField struct{ message.CurrencyValue }
+type RelationshipRiskLimitCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.RelationshipRiskLimitCurrency (1585)
 func (f RelationshipRiskLimitCurrencyField) Tag() fix.Tag { return tag.RelationshipRiskLimitCurrency }
@@ -14705,7 +14704,7 @@ func NewRelationshipRiskLimitCurrency(val string) *RelationshipRiskLimitCurrency
 }
 
 //RelationshipRiskLimitPlatformField is a STRING field
-type RelationshipRiskLimitPlatformField struct{ message.StringValue }
+type RelationshipRiskLimitPlatformField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskLimitPlatform (1586)
 func (f RelationshipRiskLimitPlatformField) Tag() fix.Tag { return tag.RelationshipRiskLimitPlatform }
@@ -14718,7 +14717,7 @@ func NewRelationshipRiskLimitPlatform(val string) *RelationshipRiskLimitPlatform
 }
 
 //RelationshipRiskLimitTypeField is a INT field
-type RelationshipRiskLimitTypeField struct{ message.IntValue }
+type RelationshipRiskLimitTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RelationshipRiskLimitType (1583)
 func (f RelationshipRiskLimitTypeField) Tag() fix.Tag { return tag.RelationshipRiskLimitType }
@@ -14731,7 +14730,7 @@ func NewRelationshipRiskLimitType(val int) *RelationshipRiskLimitTypeField {
 }
 
 //RelationshipRiskMaturityMonthYearField is a MONTHYEAR field
-type RelationshipRiskMaturityMonthYearField struct{ message.MonthYearValue }
+type RelationshipRiskMaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.RelationshipRiskMaturityMonthYear (1602)
 func (f RelationshipRiskMaturityMonthYearField) Tag() fix.Tag {
@@ -14746,13 +14745,13 @@ func NewRelationshipRiskMaturityMonthYear(val string) *RelationshipRiskMaturityM
 }
 
 //RelationshipRiskMaturityTimeField is a TZTIMEONLY field
-type RelationshipRiskMaturityTimeField struct{ message.TZTimeOnlyValue }
+type RelationshipRiskMaturityTimeField struct{ fix.TZTimeOnlyValue }
 
 //Tag returns tag.RelationshipRiskMaturityTime (1603)
 func (f RelationshipRiskMaturityTimeField) Tag() fix.Tag { return tag.RelationshipRiskMaturityTime }
 
 //RelationshipRiskProductField is a INT field
-type RelationshipRiskProductField struct{ message.IntValue }
+type RelationshipRiskProductField struct{ fix.IntValue }
 
 //Tag returns tag.RelationshipRiskProduct (1596)
 func (f RelationshipRiskProductField) Tag() fix.Tag { return tag.RelationshipRiskProduct }
@@ -14765,7 +14764,7 @@ func NewRelationshipRiskProduct(val int) *RelationshipRiskProductField {
 }
 
 //RelationshipRiskProductComplexField is a STRING field
-type RelationshipRiskProductComplexField struct{ message.StringValue }
+type RelationshipRiskProductComplexField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskProductComplex (1597)
 func (f RelationshipRiskProductComplexField) Tag() fix.Tag { return tag.RelationshipRiskProductComplex }
@@ -14778,7 +14777,7 @@ func NewRelationshipRiskProductComplex(val string) *RelationshipRiskProductCompl
 }
 
 //RelationshipRiskPutOrCallField is a INT field
-type RelationshipRiskPutOrCallField struct{ message.IntValue }
+type RelationshipRiskPutOrCallField struct{ fix.IntValue }
 
 //Tag returns tag.RelationshipRiskPutOrCall (1606)
 func (f RelationshipRiskPutOrCallField) Tag() fix.Tag { return tag.RelationshipRiskPutOrCall }
@@ -14791,7 +14790,7 @@ func NewRelationshipRiskPutOrCall(val int) *RelationshipRiskPutOrCallField {
 }
 
 //RelationshipRiskRestructuringTypeField is a STRING field
-type RelationshipRiskRestructuringTypeField struct{ message.StringValue }
+type RelationshipRiskRestructuringTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskRestructuringType (1604)
 func (f RelationshipRiskRestructuringTypeField) Tag() fix.Tag {
@@ -14806,7 +14805,7 @@ func NewRelationshipRiskRestructuringType(val string) *RelationshipRiskRestructu
 }
 
 //RelationshipRiskSecurityAltIDField is a STRING field
-type RelationshipRiskSecurityAltIDField struct{ message.StringValue }
+type RelationshipRiskSecurityAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityAltID (1594)
 func (f RelationshipRiskSecurityAltIDField) Tag() fix.Tag { return tag.RelationshipRiskSecurityAltID }
@@ -14819,7 +14818,7 @@ func NewRelationshipRiskSecurityAltID(val string) *RelationshipRiskSecurityAltID
 }
 
 //RelationshipRiskSecurityAltIDSourceField is a STRING field
-type RelationshipRiskSecurityAltIDSourceField struct{ message.StringValue }
+type RelationshipRiskSecurityAltIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityAltIDSource (1595)
 func (f RelationshipRiskSecurityAltIDSourceField) Tag() fix.Tag {
@@ -14834,7 +14833,7 @@ func NewRelationshipRiskSecurityAltIDSource(val string) *RelationshipRiskSecurit
 }
 
 //RelationshipRiskSecurityDescField is a STRING field
-type RelationshipRiskSecurityDescField struct{ message.StringValue }
+type RelationshipRiskSecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityDesc (1610)
 func (f RelationshipRiskSecurityDescField) Tag() fix.Tag { return tag.RelationshipRiskSecurityDesc }
@@ -14847,7 +14846,7 @@ func NewRelationshipRiskSecurityDesc(val string) *RelationshipRiskSecurityDescFi
 }
 
 //RelationshipRiskSecurityExchangeField is a EXCHANGE field
-type RelationshipRiskSecurityExchangeField struct{ message.ExchangeValue }
+type RelationshipRiskSecurityExchangeField struct{ fix.ExchangeValue }
 
 //Tag returns tag.RelationshipRiskSecurityExchange (1609)
 func (f RelationshipRiskSecurityExchangeField) Tag() fix.Tag {
@@ -14862,7 +14861,7 @@ func NewRelationshipRiskSecurityExchange(val string) *RelationshipRiskSecurityEx
 }
 
 //RelationshipRiskSecurityGroupField is a STRING field
-type RelationshipRiskSecurityGroupField struct{ message.StringValue }
+type RelationshipRiskSecurityGroupField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityGroup (1598)
 func (f RelationshipRiskSecurityGroupField) Tag() fix.Tag { return tag.RelationshipRiskSecurityGroup }
@@ -14875,7 +14874,7 @@ func NewRelationshipRiskSecurityGroup(val string) *RelationshipRiskSecurityGroup
 }
 
 //RelationshipRiskSecurityIDField is a STRING field
-type RelationshipRiskSecurityIDField struct{ message.StringValue }
+type RelationshipRiskSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityID (1591)
 func (f RelationshipRiskSecurityIDField) Tag() fix.Tag { return tag.RelationshipRiskSecurityID }
@@ -14888,7 +14887,7 @@ func NewRelationshipRiskSecurityID(val string) *RelationshipRiskSecurityIDField 
 }
 
 //RelationshipRiskSecurityIDSourceField is a STRING field
-type RelationshipRiskSecurityIDSourceField struct{ message.StringValue }
+type RelationshipRiskSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityIDSource (1592)
 func (f RelationshipRiskSecurityIDSourceField) Tag() fix.Tag {
@@ -14903,7 +14902,7 @@ func NewRelationshipRiskSecurityIDSource(val string) *RelationshipRiskSecurityID
 }
 
 //RelationshipRiskSecuritySubTypeField is a STRING field
-type RelationshipRiskSecuritySubTypeField struct{ message.StringValue }
+type RelationshipRiskSecuritySubTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecuritySubType (1601)
 func (f RelationshipRiskSecuritySubTypeField) Tag() fix.Tag {
@@ -14918,7 +14917,7 @@ func NewRelationshipRiskSecuritySubType(val string) *RelationshipRiskSecuritySub
 }
 
 //RelationshipRiskSecurityTypeField is a STRING field
-type RelationshipRiskSecurityTypeField struct{ message.StringValue }
+type RelationshipRiskSecurityTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityType (1600)
 func (f RelationshipRiskSecurityTypeField) Tag() fix.Tag { return tag.RelationshipRiskSecurityType }
@@ -14931,7 +14930,7 @@ func NewRelationshipRiskSecurityType(val string) *RelationshipRiskSecurityTypeFi
 }
 
 //RelationshipRiskSeniorityField is a STRING field
-type RelationshipRiskSeniorityField struct{ message.StringValue }
+type RelationshipRiskSeniorityField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSeniority (1605)
 func (f RelationshipRiskSeniorityField) Tag() fix.Tag { return tag.RelationshipRiskSeniority }
@@ -14944,7 +14943,7 @@ func NewRelationshipRiskSeniority(val string) *RelationshipRiskSeniorityField {
 }
 
 //RelationshipRiskSymbolField is a STRING field
-type RelationshipRiskSymbolField struct{ message.StringValue }
+type RelationshipRiskSymbolField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSymbol (1589)
 func (f RelationshipRiskSymbolField) Tag() fix.Tag { return tag.RelationshipRiskSymbol }
@@ -14957,7 +14956,7 @@ func NewRelationshipRiskSymbol(val string) *RelationshipRiskSymbolField {
 }
 
 //RelationshipRiskSymbolSfxField is a STRING field
-type RelationshipRiskSymbolSfxField struct{ message.StringValue }
+type RelationshipRiskSymbolSfxField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskSymbolSfx (1590)
 func (f RelationshipRiskSymbolSfxField) Tag() fix.Tag { return tag.RelationshipRiskSymbolSfx }
@@ -14970,7 +14969,7 @@ func NewRelationshipRiskSymbolSfx(val string) *RelationshipRiskSymbolSfxField {
 }
 
 //RelationshipRiskWarningLevelNameField is a STRING field
-type RelationshipRiskWarningLevelNameField struct{ message.StringValue }
+type RelationshipRiskWarningLevelNameField struct{ fix.StringValue }
 
 //Tag returns tag.RelationshipRiskWarningLevelName (1615)
 func (f RelationshipRiskWarningLevelNameField) Tag() fix.Tag {
@@ -14985,7 +14984,7 @@ func NewRelationshipRiskWarningLevelName(val string) *RelationshipRiskWarningLev
 }
 
 //RelationshipRiskWarningLevelPercentField is a PERCENTAGE field
-type RelationshipRiskWarningLevelPercentField struct{ message.PercentageValue }
+type RelationshipRiskWarningLevelPercentField struct{ fix.PercentageValue }
 
 //Tag returns tag.RelationshipRiskWarningLevelPercent (1614)
 func (f RelationshipRiskWarningLevelPercentField) Tag() fix.Tag {
@@ -15000,7 +14999,7 @@ func NewRelationshipRiskWarningLevelPercent(val float64) *RelationshipRiskWarnin
 }
 
 //RepoCollateralSecurityTypeField is a INT field
-type RepoCollateralSecurityTypeField struct{ message.IntValue }
+type RepoCollateralSecurityTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RepoCollateralSecurityType (239)
 func (f RepoCollateralSecurityTypeField) Tag() fix.Tag { return tag.RepoCollateralSecurityType }
@@ -15013,7 +15012,7 @@ func NewRepoCollateralSecurityType(val int) *RepoCollateralSecurityTypeField {
 }
 
 //ReportToExchField is a BOOLEAN field
-type ReportToExchField struct{ message.BooleanValue }
+type ReportToExchField struct{ fix.BooleanValue }
 
 //Tag returns tag.ReportToExch (113)
 func (f ReportToExchField) Tag() fix.Tag { return tag.ReportToExch }
@@ -15026,7 +15025,7 @@ func NewReportToExch(val bool) *ReportToExchField {
 }
 
 //ReportedPxField is a PRICE field
-type ReportedPxField struct{ message.PriceValue }
+type ReportedPxField struct{ fix.PriceValue }
 
 //Tag returns tag.ReportedPx (861)
 func (f ReportedPxField) Tag() fix.Tag { return tag.ReportedPx }
@@ -15039,7 +15038,7 @@ func NewReportedPx(val float64) *ReportedPxField {
 }
 
 //ReportedPxDiffField is a BOOLEAN field
-type ReportedPxDiffField struct{ message.BooleanValue }
+type ReportedPxDiffField struct{ fix.BooleanValue }
 
 //Tag returns tag.ReportedPxDiff (1134)
 func (f ReportedPxDiffField) Tag() fix.Tag { return tag.ReportedPxDiff }
@@ -15052,7 +15051,7 @@ func NewReportedPxDiff(val bool) *ReportedPxDiffField {
 }
 
 //RepurchaseRateField is a PERCENTAGE field
-type RepurchaseRateField struct{ message.PercentageValue }
+type RepurchaseRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.RepurchaseRate (227)
 func (f RepurchaseRateField) Tag() fix.Tag { return tag.RepurchaseRate }
@@ -15065,7 +15064,7 @@ func NewRepurchaseRate(val float64) *RepurchaseRateField {
 }
 
 //RepurchaseTermField is a INT field
-type RepurchaseTermField struct{ message.IntValue }
+type RepurchaseTermField struct{ fix.IntValue }
 
 //Tag returns tag.RepurchaseTerm (226)
 func (f RepurchaseTermField) Tag() fix.Tag { return tag.RepurchaseTerm }
@@ -15078,7 +15077,7 @@ func NewRepurchaseTerm(val int) *RepurchaseTermField {
 }
 
 //RequestedPartyRoleField is a INT field
-type RequestedPartyRoleField struct{ message.IntValue }
+type RequestedPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.RequestedPartyRole (1509)
 func (f RequestedPartyRoleField) Tag() fix.Tag { return tag.RequestedPartyRole }
@@ -15091,7 +15090,7 @@ func NewRequestedPartyRole(val int) *RequestedPartyRoleField {
 }
 
 //ResetSeqNumFlagField is a BOOLEAN field
-type ResetSeqNumFlagField struct{ message.BooleanValue }
+type ResetSeqNumFlagField struct{ fix.BooleanValue }
 
 //Tag returns tag.ResetSeqNumFlag (141)
 func (f ResetSeqNumFlagField) Tag() fix.Tag { return tag.ResetSeqNumFlag }
@@ -15104,7 +15103,7 @@ func NewResetSeqNumFlag(val bool) *ResetSeqNumFlagField {
 }
 
 //RespondentTypeField is a INT field
-type RespondentTypeField struct{ message.IntValue }
+type RespondentTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RespondentType (1172)
 func (f RespondentTypeField) Tag() fix.Tag { return tag.RespondentType }
@@ -15117,7 +15116,7 @@ func NewRespondentType(val int) *RespondentTypeField {
 }
 
 //ResponseDestinationField is a STRING field
-type ResponseDestinationField struct{ message.StringValue }
+type ResponseDestinationField struct{ fix.StringValue }
 
 //Tag returns tag.ResponseDestination (726)
 func (f ResponseDestinationField) Tag() fix.Tag { return tag.ResponseDestination }
@@ -15130,7 +15129,7 @@ func NewResponseDestination(val string) *ResponseDestinationField {
 }
 
 //ResponseTransportTypeField is a INT field
-type ResponseTransportTypeField struct{ message.IntValue }
+type ResponseTransportTypeField struct{ fix.IntValue }
 
 //Tag returns tag.ResponseTransportType (725)
 func (f ResponseTransportTypeField) Tag() fix.Tag { return tag.ResponseTransportType }
@@ -15143,7 +15142,7 @@ func NewResponseTransportType(val int) *ResponseTransportTypeField {
 }
 
 //RestructuringTypeField is a STRING field
-type RestructuringTypeField struct{ message.StringValue }
+type RestructuringTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RestructuringType (1449)
 func (f RestructuringTypeField) Tag() fix.Tag { return tag.RestructuringType }
@@ -15156,7 +15155,7 @@ func NewRestructuringType(val string) *RestructuringTypeField {
 }
 
 //ReversalIndicatorField is a BOOLEAN field
-type ReversalIndicatorField struct{ message.BooleanValue }
+type ReversalIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.ReversalIndicator (700)
 func (f ReversalIndicatorField) Tag() fix.Tag { return tag.ReversalIndicator }
@@ -15169,7 +15168,7 @@ func NewReversalIndicator(val bool) *ReversalIndicatorField {
 }
 
 //RiskCFICodeField is a STRING field
-type RiskCFICodeField struct{ message.StringValue }
+type RiskCFICodeField struct{ fix.StringValue }
 
 //Tag returns tag.RiskCFICode (1546)
 func (f RiskCFICodeField) Tag() fix.Tag { return tag.RiskCFICode }
@@ -15182,7 +15181,7 @@ func NewRiskCFICode(val string) *RiskCFICodeField {
 }
 
 //RiskCouponRateField is a PERCENTAGE field
-type RiskCouponRateField struct{ message.PercentageValue }
+type RiskCouponRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.RiskCouponRate (1555)
 func (f RiskCouponRateField) Tag() fix.Tag { return tag.RiskCouponRate }
@@ -15195,7 +15194,7 @@ func NewRiskCouponRate(val float64) *RiskCouponRateField {
 }
 
 //RiskEncodedSecurityDescField is a DATA field
-type RiskEncodedSecurityDescField struct{ message.DataValue }
+type RiskEncodedSecurityDescField struct{ fix.DataValue }
 
 //Tag returns tag.RiskEncodedSecurityDesc (1621)
 func (f RiskEncodedSecurityDescField) Tag() fix.Tag { return tag.RiskEncodedSecurityDesc }
@@ -15208,7 +15207,7 @@ func NewRiskEncodedSecurityDesc(val string) *RiskEncodedSecurityDescField {
 }
 
 //RiskEncodedSecurityDescLenField is a LENGTH field
-type RiskEncodedSecurityDescLenField struct{ message.LengthValue }
+type RiskEncodedSecurityDescLenField struct{ fix.LengthValue }
 
 //Tag returns tag.RiskEncodedSecurityDescLen (1620)
 func (f RiskEncodedSecurityDescLenField) Tag() fix.Tag { return tag.RiskEncodedSecurityDescLen }
@@ -15221,7 +15220,7 @@ func NewRiskEncodedSecurityDescLen(val int) *RiskEncodedSecurityDescLenField {
 }
 
 //RiskFlexibleIndicatorField is a BOOLEAN field
-type RiskFlexibleIndicatorField struct{ message.BooleanValue }
+type RiskFlexibleIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.RiskFlexibleIndicator (1554)
 func (f RiskFlexibleIndicatorField) Tag() fix.Tag { return tag.RiskFlexibleIndicator }
@@ -15234,7 +15233,7 @@ func NewRiskFlexibleIndicator(val bool) *RiskFlexibleIndicatorField {
 }
 
 //RiskFreeRateField is a FLOAT field
-type RiskFreeRateField struct{ message.FloatValue }
+type RiskFreeRateField struct{ fix.FloatValue }
 
 //Tag returns tag.RiskFreeRate (1190)
 func (f RiskFreeRateField) Tag() fix.Tag { return tag.RiskFreeRate }
@@ -15247,7 +15246,7 @@ func NewRiskFreeRate(val float64) *RiskFreeRateField {
 }
 
 //RiskInstrumentMultiplierField is a FLOAT field
-type RiskInstrumentMultiplierField struct{ message.FloatValue }
+type RiskInstrumentMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.RiskInstrumentMultiplier (1558)
 func (f RiskInstrumentMultiplierField) Tag() fix.Tag { return tag.RiskInstrumentMultiplier }
@@ -15260,7 +15259,7 @@ func NewRiskInstrumentMultiplier(val float64) *RiskInstrumentMultiplierField {
 }
 
 //RiskInstrumentOperatorField is a INT field
-type RiskInstrumentOperatorField struct{ message.IntValue }
+type RiskInstrumentOperatorField struct{ fix.IntValue }
 
 //Tag returns tag.RiskInstrumentOperator (1535)
 func (f RiskInstrumentOperatorField) Tag() fix.Tag { return tag.RiskInstrumentOperator }
@@ -15273,7 +15272,7 @@ func NewRiskInstrumentOperator(val int) *RiskInstrumentOperatorField {
 }
 
 //RiskInstrumentSettlTypeField is a STRING field
-type RiskInstrumentSettlTypeField struct{ message.StringValue }
+type RiskInstrumentSettlTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RiskInstrumentSettlType (1557)
 func (f RiskInstrumentSettlTypeField) Tag() fix.Tag { return tag.RiskInstrumentSettlType }
@@ -15286,7 +15285,7 @@ func NewRiskInstrumentSettlType(val string) *RiskInstrumentSettlTypeField {
 }
 
 //RiskLimitAmountField is a AMT field
-type RiskLimitAmountField struct{ message.AmtValue }
+type RiskLimitAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.RiskLimitAmount (1531)
 func (f RiskLimitAmountField) Tag() fix.Tag { return tag.RiskLimitAmount }
@@ -15299,7 +15298,7 @@ func NewRiskLimitAmount(val float64) *RiskLimitAmountField {
 }
 
 //RiskLimitCurrencyField is a CURRENCY field
-type RiskLimitCurrencyField struct{ message.CurrencyValue }
+type RiskLimitCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.RiskLimitCurrency (1532)
 func (f RiskLimitCurrencyField) Tag() fix.Tag { return tag.RiskLimitCurrency }
@@ -15312,7 +15311,7 @@ func NewRiskLimitCurrency(val string) *RiskLimitCurrencyField {
 }
 
 //RiskLimitPlatformField is a STRING field
-type RiskLimitPlatformField struct{ message.StringValue }
+type RiskLimitPlatformField struct{ fix.StringValue }
 
 //Tag returns tag.RiskLimitPlatform (1533)
 func (f RiskLimitPlatformField) Tag() fix.Tag { return tag.RiskLimitPlatform }
@@ -15325,7 +15324,7 @@ func NewRiskLimitPlatform(val string) *RiskLimitPlatformField {
 }
 
 //RiskLimitTypeField is a INT field
-type RiskLimitTypeField struct{ message.IntValue }
+type RiskLimitTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RiskLimitType (1530)
 func (f RiskLimitTypeField) Tag() fix.Tag { return tag.RiskLimitType }
@@ -15338,7 +15337,7 @@ func NewRiskLimitType(val int) *RiskLimitTypeField {
 }
 
 //RiskMaturityMonthYearField is a MONTHYEAR field
-type RiskMaturityMonthYearField struct{ message.MonthYearValue }
+type RiskMaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.RiskMaturityMonthYear (1549)
 func (f RiskMaturityMonthYearField) Tag() fix.Tag { return tag.RiskMaturityMonthYear }
@@ -15351,13 +15350,13 @@ func NewRiskMaturityMonthYear(val string) *RiskMaturityMonthYearField {
 }
 
 //RiskMaturityTimeField is a TZTIMEONLY field
-type RiskMaturityTimeField struct{ message.TZTimeOnlyValue }
+type RiskMaturityTimeField struct{ fix.TZTimeOnlyValue }
 
 //Tag returns tag.RiskMaturityTime (1550)
 func (f RiskMaturityTimeField) Tag() fix.Tag { return tag.RiskMaturityTime }
 
 //RiskProductField is a INT field
-type RiskProductField struct{ message.IntValue }
+type RiskProductField struct{ fix.IntValue }
 
 //Tag returns tag.RiskProduct (1543)
 func (f RiskProductField) Tag() fix.Tag { return tag.RiskProduct }
@@ -15370,7 +15369,7 @@ func NewRiskProduct(val int) *RiskProductField {
 }
 
 //RiskProductComplexField is a STRING field
-type RiskProductComplexField struct{ message.StringValue }
+type RiskProductComplexField struct{ fix.StringValue }
 
 //Tag returns tag.RiskProductComplex (1544)
 func (f RiskProductComplexField) Tag() fix.Tag { return tag.RiskProductComplex }
@@ -15383,7 +15382,7 @@ func NewRiskProductComplex(val string) *RiskProductComplexField {
 }
 
 //RiskPutOrCallField is a INT field
-type RiskPutOrCallField struct{ message.IntValue }
+type RiskPutOrCallField struct{ fix.IntValue }
 
 //Tag returns tag.RiskPutOrCall (1553)
 func (f RiskPutOrCallField) Tag() fix.Tag { return tag.RiskPutOrCall }
@@ -15396,7 +15395,7 @@ func NewRiskPutOrCall(val int) *RiskPutOrCallField {
 }
 
 //RiskRestructuringTypeField is a STRING field
-type RiskRestructuringTypeField struct{ message.StringValue }
+type RiskRestructuringTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RiskRestructuringType (1551)
 func (f RiskRestructuringTypeField) Tag() fix.Tag { return tag.RiskRestructuringType }
@@ -15409,7 +15408,7 @@ func NewRiskRestructuringType(val string) *RiskRestructuringTypeField {
 }
 
 //RiskSecurityAltIDField is a STRING field
-type RiskSecurityAltIDField struct{ message.StringValue }
+type RiskSecurityAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSecurityAltID (1541)
 func (f RiskSecurityAltIDField) Tag() fix.Tag { return tag.RiskSecurityAltID }
@@ -15422,7 +15421,7 @@ func NewRiskSecurityAltID(val string) *RiskSecurityAltIDField {
 }
 
 //RiskSecurityAltIDSourceField is a STRING field
-type RiskSecurityAltIDSourceField struct{ message.StringValue }
+type RiskSecurityAltIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSecurityAltIDSource (1542)
 func (f RiskSecurityAltIDSourceField) Tag() fix.Tag { return tag.RiskSecurityAltIDSource }
@@ -15435,7 +15434,7 @@ func NewRiskSecurityAltIDSource(val string) *RiskSecurityAltIDSourceField {
 }
 
 //RiskSecurityDescField is a STRING field
-type RiskSecurityDescField struct{ message.StringValue }
+type RiskSecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSecurityDesc (1556)
 func (f RiskSecurityDescField) Tag() fix.Tag { return tag.RiskSecurityDesc }
@@ -15448,7 +15447,7 @@ func NewRiskSecurityDesc(val string) *RiskSecurityDescField {
 }
 
 //RiskSecurityExchangeField is a EXCHANGE field
-type RiskSecurityExchangeField struct{ message.ExchangeValue }
+type RiskSecurityExchangeField struct{ fix.ExchangeValue }
 
 //Tag returns tag.RiskSecurityExchange (1616)
 func (f RiskSecurityExchangeField) Tag() fix.Tag { return tag.RiskSecurityExchange }
@@ -15461,7 +15460,7 @@ func NewRiskSecurityExchange(val string) *RiskSecurityExchangeField {
 }
 
 //RiskSecurityGroupField is a STRING field
-type RiskSecurityGroupField struct{ message.StringValue }
+type RiskSecurityGroupField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSecurityGroup (1545)
 func (f RiskSecurityGroupField) Tag() fix.Tag { return tag.RiskSecurityGroup }
@@ -15474,7 +15473,7 @@ func NewRiskSecurityGroup(val string) *RiskSecurityGroupField {
 }
 
 //RiskSecurityIDField is a STRING field
-type RiskSecurityIDField struct{ message.StringValue }
+type RiskSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSecurityID (1538)
 func (f RiskSecurityIDField) Tag() fix.Tag { return tag.RiskSecurityID }
@@ -15487,7 +15486,7 @@ func NewRiskSecurityID(val string) *RiskSecurityIDField {
 }
 
 //RiskSecurityIDSourceField is a STRING field
-type RiskSecurityIDSourceField struct{ message.StringValue }
+type RiskSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSecurityIDSource (1539)
 func (f RiskSecurityIDSourceField) Tag() fix.Tag { return tag.RiskSecurityIDSource }
@@ -15500,7 +15499,7 @@ func NewRiskSecurityIDSource(val string) *RiskSecurityIDSourceField {
 }
 
 //RiskSecuritySubTypeField is a STRING field
-type RiskSecuritySubTypeField struct{ message.StringValue }
+type RiskSecuritySubTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSecuritySubType (1548)
 func (f RiskSecuritySubTypeField) Tag() fix.Tag { return tag.RiskSecuritySubType }
@@ -15513,7 +15512,7 @@ func NewRiskSecuritySubType(val string) *RiskSecuritySubTypeField {
 }
 
 //RiskSecurityTypeField is a STRING field
-type RiskSecurityTypeField struct{ message.StringValue }
+type RiskSecurityTypeField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSecurityType (1547)
 func (f RiskSecurityTypeField) Tag() fix.Tag { return tag.RiskSecurityType }
@@ -15526,7 +15525,7 @@ func NewRiskSecurityType(val string) *RiskSecurityTypeField {
 }
 
 //RiskSeniorityField is a STRING field
-type RiskSeniorityField struct{ message.StringValue }
+type RiskSeniorityField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSeniority (1552)
 func (f RiskSeniorityField) Tag() fix.Tag { return tag.RiskSeniority }
@@ -15539,7 +15538,7 @@ func NewRiskSeniority(val string) *RiskSeniorityField {
 }
 
 //RiskSymbolField is a STRING field
-type RiskSymbolField struct{ message.StringValue }
+type RiskSymbolField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSymbol (1536)
 func (f RiskSymbolField) Tag() fix.Tag { return tag.RiskSymbol }
@@ -15552,7 +15551,7 @@ func NewRiskSymbol(val string) *RiskSymbolField {
 }
 
 //RiskSymbolSfxField is a STRING field
-type RiskSymbolSfxField struct{ message.StringValue }
+type RiskSymbolSfxField struct{ fix.StringValue }
 
 //Tag returns tag.RiskSymbolSfx (1537)
 func (f RiskSymbolSfxField) Tag() fix.Tag { return tag.RiskSymbolSfx }
@@ -15565,7 +15564,7 @@ func NewRiskSymbolSfx(val string) *RiskSymbolSfxField {
 }
 
 //RiskWarningLevelNameField is a STRING field
-type RiskWarningLevelNameField struct{ message.StringValue }
+type RiskWarningLevelNameField struct{ fix.StringValue }
 
 //Tag returns tag.RiskWarningLevelName (1561)
 func (f RiskWarningLevelNameField) Tag() fix.Tag { return tag.RiskWarningLevelName }
@@ -15578,7 +15577,7 @@ func NewRiskWarningLevelName(val string) *RiskWarningLevelNameField {
 }
 
 //RiskWarningLevelPercentField is a PERCENTAGE field
-type RiskWarningLevelPercentField struct{ message.PercentageValue }
+type RiskWarningLevelPercentField struct{ fix.PercentageValue }
 
 //Tag returns tag.RiskWarningLevelPercent (1560)
 func (f RiskWarningLevelPercentField) Tag() fix.Tag { return tag.RiskWarningLevelPercent }
@@ -15591,7 +15590,7 @@ func NewRiskWarningLevelPercent(val float64) *RiskWarningLevelPercentField {
 }
 
 //RndPxField is a PRICE field
-type RndPxField struct{ message.PriceValue }
+type RndPxField struct{ fix.PriceValue }
 
 //Tag returns tag.RndPx (991)
 func (f RndPxField) Tag() fix.Tag { return tag.RndPx }
@@ -15604,7 +15603,7 @@ func NewRndPx(val float64) *RndPxField {
 }
 
 //RootPartyIDField is a STRING field
-type RootPartyIDField struct{ message.StringValue }
+type RootPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.RootPartyID (1117)
 func (f RootPartyIDField) Tag() fix.Tag { return tag.RootPartyID }
@@ -15617,7 +15616,7 @@ func NewRootPartyID(val string) *RootPartyIDField {
 }
 
 //RootPartyIDSourceField is a CHAR field
-type RootPartyIDSourceField struct{ message.CharValue }
+type RootPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.RootPartyIDSource (1118)
 func (f RootPartyIDSourceField) Tag() fix.Tag { return tag.RootPartyIDSource }
@@ -15630,7 +15629,7 @@ func NewRootPartyIDSource(val string) *RootPartyIDSourceField {
 }
 
 //RootPartyRoleField is a INT field
-type RootPartyRoleField struct{ message.IntValue }
+type RootPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.RootPartyRole (1119)
 func (f RootPartyRoleField) Tag() fix.Tag { return tag.RootPartyRole }
@@ -15643,7 +15642,7 @@ func NewRootPartyRole(val int) *RootPartyRoleField {
 }
 
 //RootPartySubIDField is a STRING field
-type RootPartySubIDField struct{ message.StringValue }
+type RootPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.RootPartySubID (1121)
 func (f RootPartySubIDField) Tag() fix.Tag { return tag.RootPartySubID }
@@ -15656,7 +15655,7 @@ func NewRootPartySubID(val string) *RootPartySubIDField {
 }
 
 //RootPartySubIDTypeField is a INT field
-type RootPartySubIDTypeField struct{ message.IntValue }
+type RootPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RootPartySubIDType (1122)
 func (f RootPartySubIDTypeField) Tag() fix.Tag { return tag.RootPartySubIDType }
@@ -15669,7 +15668,7 @@ func NewRootPartySubIDType(val int) *RootPartySubIDTypeField {
 }
 
 //RoundLotField is a QTY field
-type RoundLotField struct{ message.QtyValue }
+type RoundLotField struct{ fix.QtyValue }
 
 //Tag returns tag.RoundLot (561)
 func (f RoundLotField) Tag() fix.Tag { return tag.RoundLot }
@@ -15682,7 +15681,7 @@ func NewRoundLot(val float64) *RoundLotField {
 }
 
 //RoundingDirectionField is a CHAR field
-type RoundingDirectionField struct{ message.CharValue }
+type RoundingDirectionField struct{ fix.CharValue }
 
 //Tag returns tag.RoundingDirection (468)
 func (f RoundingDirectionField) Tag() fix.Tag { return tag.RoundingDirection }
@@ -15695,7 +15694,7 @@ func NewRoundingDirection(val string) *RoundingDirectionField {
 }
 
 //RoundingModulusField is a FLOAT field
-type RoundingModulusField struct{ message.FloatValue }
+type RoundingModulusField struct{ fix.FloatValue }
 
 //Tag returns tag.RoundingModulus (469)
 func (f RoundingModulusField) Tag() fix.Tag { return tag.RoundingModulus }
@@ -15708,7 +15707,7 @@ func NewRoundingModulus(val float64) *RoundingModulusField {
 }
 
 //RoutingIDField is a STRING field
-type RoutingIDField struct{ message.StringValue }
+type RoutingIDField struct{ fix.StringValue }
 
 //Tag returns tag.RoutingID (217)
 func (f RoutingIDField) Tag() fix.Tag { return tag.RoutingID }
@@ -15721,7 +15720,7 @@ func NewRoutingID(val string) *RoutingIDField {
 }
 
 //RoutingTypeField is a INT field
-type RoutingTypeField struct{ message.IntValue }
+type RoutingTypeField struct{ fix.IntValue }
 
 //Tag returns tag.RoutingType (216)
 func (f RoutingTypeField) Tag() fix.Tag { return tag.RoutingType }
@@ -15734,7 +15733,7 @@ func NewRoutingType(val int) *RoutingTypeField {
 }
 
 //RptSeqField is a INT field
-type RptSeqField struct{ message.IntValue }
+type RptSeqField struct{ fix.IntValue }
 
 //Tag returns tag.RptSeq (83)
 func (f RptSeqField) Tag() fix.Tag { return tag.RptSeq }
@@ -15747,7 +15746,7 @@ func NewRptSeq(val int) *RptSeqField {
 }
 
 //RptSysField is a STRING field
-type RptSysField struct{ message.StringValue }
+type RptSysField struct{ fix.StringValue }
 
 //Tag returns tag.RptSys (1135)
 func (f RptSysField) Tag() fix.Tag { return tag.RptSys }
@@ -15760,7 +15759,7 @@ func NewRptSys(val string) *RptSysField {
 }
 
 //Rule80AField is a CHAR field
-type Rule80AField struct{ message.CharValue }
+type Rule80AField struct{ fix.CharValue }
 
 //Tag returns tag.Rule80A (47)
 func (f Rule80AField) Tag() fix.Tag { return tag.Rule80A }
@@ -15773,7 +15772,7 @@ func NewRule80A(val string) *Rule80AField {
 }
 
 //ScopeField is a MULTIPLECHARVALUE field
-type ScopeField struct{ message.MultipleCharValue }
+type ScopeField struct{ fix.MultipleCharValue }
 
 //Tag returns tag.Scope (546)
 func (f ScopeField) Tag() fix.Tag { return tag.Scope }
@@ -15786,7 +15785,7 @@ func NewScope(val string) *ScopeField {
 }
 
 //SecDefStatusField is a INT field
-type SecDefStatusField struct{ message.IntValue }
+type SecDefStatusField struct{ fix.IntValue }
 
 //Tag returns tag.SecDefStatus (653)
 func (f SecDefStatusField) Tag() fix.Tag { return tag.SecDefStatus }
@@ -15799,7 +15798,7 @@ func NewSecDefStatus(val int) *SecDefStatusField {
 }
 
 //SecondaryAllocIDField is a STRING field
-type SecondaryAllocIDField struct{ message.StringValue }
+type SecondaryAllocIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryAllocID (793)
 func (f SecondaryAllocIDField) Tag() fix.Tag { return tag.SecondaryAllocID }
@@ -15812,7 +15811,7 @@ func NewSecondaryAllocID(val string) *SecondaryAllocIDField {
 }
 
 //SecondaryClOrdIDField is a STRING field
-type SecondaryClOrdIDField struct{ message.StringValue }
+type SecondaryClOrdIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryClOrdID (526)
 func (f SecondaryClOrdIDField) Tag() fix.Tag { return tag.SecondaryClOrdID }
@@ -15825,7 +15824,7 @@ func NewSecondaryClOrdID(val string) *SecondaryClOrdIDField {
 }
 
 //SecondaryDisplayQtyField is a QTY field
-type SecondaryDisplayQtyField struct{ message.QtyValue }
+type SecondaryDisplayQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.SecondaryDisplayQty (1082)
 func (f SecondaryDisplayQtyField) Tag() fix.Tag { return tag.SecondaryDisplayQty }
@@ -15838,7 +15837,7 @@ func NewSecondaryDisplayQty(val float64) *SecondaryDisplayQtyField {
 }
 
 //SecondaryExecIDField is a STRING field
-type SecondaryExecIDField struct{ message.StringValue }
+type SecondaryExecIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryExecID (527)
 func (f SecondaryExecIDField) Tag() fix.Tag { return tag.SecondaryExecID }
@@ -15851,7 +15850,7 @@ func NewSecondaryExecID(val string) *SecondaryExecIDField {
 }
 
 //SecondaryFirmTradeIDField is a STRING field
-type SecondaryFirmTradeIDField struct{ message.StringValue }
+type SecondaryFirmTradeIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryFirmTradeID (1042)
 func (f SecondaryFirmTradeIDField) Tag() fix.Tag { return tag.SecondaryFirmTradeID }
@@ -15864,7 +15863,7 @@ func NewSecondaryFirmTradeID(val string) *SecondaryFirmTradeIDField {
 }
 
 //SecondaryHighLimitPriceField is a PRICE field
-type SecondaryHighLimitPriceField struct{ message.PriceValue }
+type SecondaryHighLimitPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.SecondaryHighLimitPrice (1230)
 func (f SecondaryHighLimitPriceField) Tag() fix.Tag { return tag.SecondaryHighLimitPrice }
@@ -15877,7 +15876,7 @@ func NewSecondaryHighLimitPrice(val float64) *SecondaryHighLimitPriceField {
 }
 
 //SecondaryIndividualAllocIDField is a STRING field
-type SecondaryIndividualAllocIDField struct{ message.StringValue }
+type SecondaryIndividualAllocIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryIndividualAllocID (989)
 func (f SecondaryIndividualAllocIDField) Tag() fix.Tag { return tag.SecondaryIndividualAllocID }
@@ -15890,7 +15889,7 @@ func NewSecondaryIndividualAllocID(val string) *SecondaryIndividualAllocIDField 
 }
 
 //SecondaryLowLimitPriceField is a PRICE field
-type SecondaryLowLimitPriceField struct{ message.PriceValue }
+type SecondaryLowLimitPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.SecondaryLowLimitPrice (1221)
 func (f SecondaryLowLimitPriceField) Tag() fix.Tag { return tag.SecondaryLowLimitPrice }
@@ -15903,7 +15902,7 @@ func NewSecondaryLowLimitPrice(val float64) *SecondaryLowLimitPriceField {
 }
 
 //SecondaryOrderIDField is a STRING field
-type SecondaryOrderIDField struct{ message.StringValue }
+type SecondaryOrderIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryOrderID (198)
 func (f SecondaryOrderIDField) Tag() fix.Tag { return tag.SecondaryOrderID }
@@ -15916,7 +15915,7 @@ func NewSecondaryOrderID(val string) *SecondaryOrderIDField {
 }
 
 //SecondaryPriceLimitTypeField is a INT field
-type SecondaryPriceLimitTypeField struct{ message.IntValue }
+type SecondaryPriceLimitTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SecondaryPriceLimitType (1305)
 func (f SecondaryPriceLimitTypeField) Tag() fix.Tag { return tag.SecondaryPriceLimitType }
@@ -15929,7 +15928,7 @@ func NewSecondaryPriceLimitType(val int) *SecondaryPriceLimitTypeField {
 }
 
 //SecondaryTradeIDField is a STRING field
-type SecondaryTradeIDField struct{ message.StringValue }
+type SecondaryTradeIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryTradeID (1040)
 func (f SecondaryTradeIDField) Tag() fix.Tag { return tag.SecondaryTradeID }
@@ -15942,7 +15941,7 @@ func NewSecondaryTradeID(val string) *SecondaryTradeIDField {
 }
 
 //SecondaryTradeReportIDField is a STRING field
-type SecondaryTradeReportIDField struct{ message.StringValue }
+type SecondaryTradeReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryTradeReportID (818)
 func (f SecondaryTradeReportIDField) Tag() fix.Tag { return tag.SecondaryTradeReportID }
@@ -15955,7 +15954,7 @@ func NewSecondaryTradeReportID(val string) *SecondaryTradeReportIDField {
 }
 
 //SecondaryTradeReportRefIDField is a STRING field
-type SecondaryTradeReportRefIDField struct{ message.StringValue }
+type SecondaryTradeReportRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecondaryTradeReportRefID (881)
 func (f SecondaryTradeReportRefIDField) Tag() fix.Tag { return tag.SecondaryTradeReportRefID }
@@ -15968,7 +15967,7 @@ func NewSecondaryTradeReportRefID(val string) *SecondaryTradeReportRefIDField {
 }
 
 //SecondaryTradingReferencePriceField is a PRICE field
-type SecondaryTradingReferencePriceField struct{ message.PriceValue }
+type SecondaryTradingReferencePriceField struct{ fix.PriceValue }
 
 //Tag returns tag.SecondaryTradingReferencePrice (1240)
 func (f SecondaryTradingReferencePriceField) Tag() fix.Tag { return tag.SecondaryTradingReferencePrice }
@@ -15981,7 +15980,7 @@ func NewSecondaryTradingReferencePrice(val float64) *SecondaryTradingReferencePr
 }
 
 //SecondaryTrdTypeField is a INT field
-type SecondaryTrdTypeField struct{ message.IntValue }
+type SecondaryTrdTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SecondaryTrdType (855)
 func (f SecondaryTrdTypeField) Tag() fix.Tag { return tag.SecondaryTrdType }
@@ -15994,7 +15993,7 @@ func NewSecondaryTrdType(val int) *SecondaryTrdTypeField {
 }
 
 //SecureDataField is a DATA field
-type SecureDataField struct{ message.DataValue }
+type SecureDataField struct{ fix.DataValue }
 
 //Tag returns tag.SecureData (91)
 func (f SecureDataField) Tag() fix.Tag { return tag.SecureData }
@@ -16007,7 +16006,7 @@ func NewSecureData(val string) *SecureDataField {
 }
 
 //SecureDataLenField is a LENGTH field
-type SecureDataLenField struct{ message.LengthValue }
+type SecureDataLenField struct{ fix.LengthValue }
 
 //Tag returns tag.SecureDataLen (90)
 func (f SecureDataLenField) Tag() fix.Tag { return tag.SecureDataLen }
@@ -16020,7 +16019,7 @@ func NewSecureDataLen(val int) *SecureDataLenField {
 }
 
 //SecurityAltIDField is a STRING field
-type SecurityAltIDField struct{ message.StringValue }
+type SecurityAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityAltID (455)
 func (f SecurityAltIDField) Tag() fix.Tag { return tag.SecurityAltID }
@@ -16033,7 +16032,7 @@ func NewSecurityAltID(val string) *SecurityAltIDField {
 }
 
 //SecurityAltIDSourceField is a STRING field
-type SecurityAltIDSourceField struct{ message.StringValue }
+type SecurityAltIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityAltIDSource (456)
 func (f SecurityAltIDSourceField) Tag() fix.Tag { return tag.SecurityAltIDSource }
@@ -16046,7 +16045,7 @@ func NewSecurityAltIDSource(val string) *SecurityAltIDSourceField {
 }
 
 //SecurityDescField is a STRING field
-type SecurityDescField struct{ message.StringValue }
+type SecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityDesc (107)
 func (f SecurityDescField) Tag() fix.Tag { return tag.SecurityDesc }
@@ -16059,7 +16058,7 @@ func NewSecurityDesc(val string) *SecurityDescField {
 }
 
 //SecurityExchangeField is a EXCHANGE field
-type SecurityExchangeField struct{ message.ExchangeValue }
+type SecurityExchangeField struct{ fix.ExchangeValue }
 
 //Tag returns tag.SecurityExchange (207)
 func (f SecurityExchangeField) Tag() fix.Tag { return tag.SecurityExchange }
@@ -16072,7 +16071,7 @@ func NewSecurityExchange(val string) *SecurityExchangeField {
 }
 
 //SecurityGroupField is a STRING field
-type SecurityGroupField struct{ message.StringValue }
+type SecurityGroupField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityGroup (1151)
 func (f SecurityGroupField) Tag() fix.Tag { return tag.SecurityGroup }
@@ -16085,7 +16084,7 @@ func NewSecurityGroup(val string) *SecurityGroupField {
 }
 
 //SecurityIDField is a STRING field
-type SecurityIDField struct{ message.StringValue }
+type SecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityID (48)
 func (f SecurityIDField) Tag() fix.Tag { return tag.SecurityID }
@@ -16098,7 +16097,7 @@ func NewSecurityID(val string) *SecurityIDField {
 }
 
 //SecurityIDSourceField is a STRING field
-type SecurityIDSourceField struct{ message.StringValue }
+type SecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityIDSource (22)
 func (f SecurityIDSourceField) Tag() fix.Tag { return tag.SecurityIDSource }
@@ -16111,7 +16110,7 @@ func NewSecurityIDSource(val string) *SecurityIDSourceField {
 }
 
 //SecurityListDescField is a STRING field
-type SecurityListDescField struct{ message.StringValue }
+type SecurityListDescField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityListDesc (1467)
 func (f SecurityListDescField) Tag() fix.Tag { return tag.SecurityListDesc }
@@ -16124,7 +16123,7 @@ func NewSecurityListDesc(val string) *SecurityListDescField {
 }
 
 //SecurityListIDField is a STRING field
-type SecurityListIDField struct{ message.StringValue }
+type SecurityListIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityListID (1465)
 func (f SecurityListIDField) Tag() fix.Tag { return tag.SecurityListID }
@@ -16137,7 +16136,7 @@ func NewSecurityListID(val string) *SecurityListIDField {
 }
 
 //SecurityListRefIDField is a STRING field
-type SecurityListRefIDField struct{ message.StringValue }
+type SecurityListRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityListRefID (1466)
 func (f SecurityListRefIDField) Tag() fix.Tag { return tag.SecurityListRefID }
@@ -16150,7 +16149,7 @@ func NewSecurityListRefID(val string) *SecurityListRefIDField {
 }
 
 //SecurityListRequestTypeField is a INT field
-type SecurityListRequestTypeField struct{ message.IntValue }
+type SecurityListRequestTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityListRequestType (559)
 func (f SecurityListRequestTypeField) Tag() fix.Tag { return tag.SecurityListRequestType }
@@ -16163,7 +16162,7 @@ func NewSecurityListRequestType(val int) *SecurityListRequestTypeField {
 }
 
 //SecurityListTypeField is a INT field
-type SecurityListTypeField struct{ message.IntValue }
+type SecurityListTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityListType (1470)
 func (f SecurityListTypeField) Tag() fix.Tag { return tag.SecurityListType }
@@ -16176,7 +16175,7 @@ func NewSecurityListType(val int) *SecurityListTypeField {
 }
 
 //SecurityListTypeSourceField is a INT field
-type SecurityListTypeSourceField struct{ message.IntValue }
+type SecurityListTypeSourceField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityListTypeSource (1471)
 func (f SecurityListTypeSourceField) Tag() fix.Tag { return tag.SecurityListTypeSource }
@@ -16189,7 +16188,7 @@ func NewSecurityListTypeSource(val int) *SecurityListTypeSourceField {
 }
 
 //SecurityReportIDField is a INT field
-type SecurityReportIDField struct{ message.IntValue }
+type SecurityReportIDField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityReportID (964)
 func (f SecurityReportIDField) Tag() fix.Tag { return tag.SecurityReportID }
@@ -16202,7 +16201,7 @@ func NewSecurityReportID(val int) *SecurityReportIDField {
 }
 
 //SecurityReqIDField is a STRING field
-type SecurityReqIDField struct{ message.StringValue }
+type SecurityReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityReqID (320)
 func (f SecurityReqIDField) Tag() fix.Tag { return tag.SecurityReqID }
@@ -16215,7 +16214,7 @@ func NewSecurityReqID(val string) *SecurityReqIDField {
 }
 
 //SecurityRequestResultField is a INT field
-type SecurityRequestResultField struct{ message.IntValue }
+type SecurityRequestResultField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityRequestResult (560)
 func (f SecurityRequestResultField) Tag() fix.Tag { return tag.SecurityRequestResult }
@@ -16228,7 +16227,7 @@ func NewSecurityRequestResult(val int) *SecurityRequestResultField {
 }
 
 //SecurityRequestTypeField is a INT field
-type SecurityRequestTypeField struct{ message.IntValue }
+type SecurityRequestTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityRequestType (321)
 func (f SecurityRequestTypeField) Tag() fix.Tag { return tag.SecurityRequestType }
@@ -16241,7 +16240,7 @@ func NewSecurityRequestType(val int) *SecurityRequestTypeField {
 }
 
 //SecurityResponseIDField is a STRING field
-type SecurityResponseIDField struct{ message.StringValue }
+type SecurityResponseIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityResponseID (322)
 func (f SecurityResponseIDField) Tag() fix.Tag { return tag.SecurityResponseID }
@@ -16254,7 +16253,7 @@ func NewSecurityResponseID(val string) *SecurityResponseIDField {
 }
 
 //SecurityResponseTypeField is a INT field
-type SecurityResponseTypeField struct{ message.IntValue }
+type SecurityResponseTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityResponseType (323)
 func (f SecurityResponseTypeField) Tag() fix.Tag { return tag.SecurityResponseType }
@@ -16267,7 +16266,7 @@ func NewSecurityResponseType(val int) *SecurityResponseTypeField {
 }
 
 //SecuritySettlAgentAcctNameField is a STRING field
-type SecuritySettlAgentAcctNameField struct{ message.StringValue }
+type SecuritySettlAgentAcctNameField struct{ fix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentAcctName (179)
 func (f SecuritySettlAgentAcctNameField) Tag() fix.Tag { return tag.SecuritySettlAgentAcctName }
@@ -16280,7 +16279,7 @@ func NewSecuritySettlAgentAcctName(val string) *SecuritySettlAgentAcctNameField 
 }
 
 //SecuritySettlAgentAcctNumField is a STRING field
-type SecuritySettlAgentAcctNumField struct{ message.StringValue }
+type SecuritySettlAgentAcctNumField struct{ fix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentAcctNum (178)
 func (f SecuritySettlAgentAcctNumField) Tag() fix.Tag { return tag.SecuritySettlAgentAcctNum }
@@ -16293,7 +16292,7 @@ func NewSecuritySettlAgentAcctNum(val string) *SecuritySettlAgentAcctNumField {
 }
 
 //SecuritySettlAgentCodeField is a STRING field
-type SecuritySettlAgentCodeField struct{ message.StringValue }
+type SecuritySettlAgentCodeField struct{ fix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentCode (177)
 func (f SecuritySettlAgentCodeField) Tag() fix.Tag { return tag.SecuritySettlAgentCode }
@@ -16306,7 +16305,7 @@ func NewSecuritySettlAgentCode(val string) *SecuritySettlAgentCodeField {
 }
 
 //SecuritySettlAgentContactNameField is a STRING field
-type SecuritySettlAgentContactNameField struct{ message.StringValue }
+type SecuritySettlAgentContactNameField struct{ fix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentContactName (180)
 func (f SecuritySettlAgentContactNameField) Tag() fix.Tag { return tag.SecuritySettlAgentContactName }
@@ -16319,7 +16318,7 @@ func NewSecuritySettlAgentContactName(val string) *SecuritySettlAgentContactName
 }
 
 //SecuritySettlAgentContactPhoneField is a STRING field
-type SecuritySettlAgentContactPhoneField struct{ message.StringValue }
+type SecuritySettlAgentContactPhoneField struct{ fix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentContactPhone (181)
 func (f SecuritySettlAgentContactPhoneField) Tag() fix.Tag { return tag.SecuritySettlAgentContactPhone }
@@ -16332,7 +16331,7 @@ func NewSecuritySettlAgentContactPhone(val string) *SecuritySettlAgentContactPho
 }
 
 //SecuritySettlAgentNameField is a STRING field
-type SecuritySettlAgentNameField struct{ message.StringValue }
+type SecuritySettlAgentNameField struct{ fix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentName (176)
 func (f SecuritySettlAgentNameField) Tag() fix.Tag { return tag.SecuritySettlAgentName }
@@ -16345,7 +16344,7 @@ func NewSecuritySettlAgentName(val string) *SecuritySettlAgentNameField {
 }
 
 //SecurityStatusField is a STRING field
-type SecurityStatusField struct{ message.StringValue }
+type SecurityStatusField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityStatus (965)
 func (f SecurityStatusField) Tag() fix.Tag { return tag.SecurityStatus }
@@ -16358,7 +16357,7 @@ func NewSecurityStatus(val string) *SecurityStatusField {
 }
 
 //SecurityStatusReqIDField is a STRING field
-type SecurityStatusReqIDField struct{ message.StringValue }
+type SecurityStatusReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityStatusReqID (324)
 func (f SecurityStatusReqIDField) Tag() fix.Tag { return tag.SecurityStatusReqID }
@@ -16371,7 +16370,7 @@ func NewSecurityStatusReqID(val string) *SecurityStatusReqIDField {
 }
 
 //SecuritySubTypeField is a STRING field
-type SecuritySubTypeField struct{ message.StringValue }
+type SecuritySubTypeField struct{ fix.StringValue }
 
 //Tag returns tag.SecuritySubType (762)
 func (f SecuritySubTypeField) Tag() fix.Tag { return tag.SecuritySubType }
@@ -16384,7 +16383,7 @@ func NewSecuritySubType(val string) *SecuritySubTypeField {
 }
 
 //SecurityTradingEventField is a INT field
-type SecurityTradingEventField struct{ message.IntValue }
+type SecurityTradingEventField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityTradingEvent (1174)
 func (f SecurityTradingEventField) Tag() fix.Tag { return tag.SecurityTradingEvent }
@@ -16397,7 +16396,7 @@ func NewSecurityTradingEvent(val int) *SecurityTradingEventField {
 }
 
 //SecurityTradingStatusField is a INT field
-type SecurityTradingStatusField struct{ message.IntValue }
+type SecurityTradingStatusField struct{ fix.IntValue }
 
 //Tag returns tag.SecurityTradingStatus (326)
 func (f SecurityTradingStatusField) Tag() fix.Tag { return tag.SecurityTradingStatus }
@@ -16410,7 +16409,7 @@ func NewSecurityTradingStatus(val int) *SecurityTradingStatusField {
 }
 
 //SecurityTypeField is a STRING field
-type SecurityTypeField struct{ message.StringValue }
+type SecurityTypeField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityType (167)
 func (f SecurityTypeField) Tag() fix.Tag { return tag.SecurityType }
@@ -16423,7 +16422,7 @@ func NewSecurityType(val string) *SecurityTypeField {
 }
 
 //SecurityUpdateActionField is a CHAR field
-type SecurityUpdateActionField struct{ message.CharValue }
+type SecurityUpdateActionField struct{ fix.CharValue }
 
 //Tag returns tag.SecurityUpdateAction (980)
 func (f SecurityUpdateActionField) Tag() fix.Tag { return tag.SecurityUpdateAction }
@@ -16436,7 +16435,7 @@ func NewSecurityUpdateAction(val string) *SecurityUpdateActionField {
 }
 
 //SecurityXMLField is a XMLDATA field
-type SecurityXMLField struct{ message.XMLDataValue }
+type SecurityXMLField struct{ fix.XMLDataValue }
 
 //Tag returns tag.SecurityXML (1185)
 func (f SecurityXMLField) Tag() fix.Tag { return tag.SecurityXML }
@@ -16449,7 +16448,7 @@ func NewSecurityXML(val string) *SecurityXMLField {
 }
 
 //SecurityXMLLenField is a LENGTH field
-type SecurityXMLLenField struct{ message.LengthValue }
+type SecurityXMLLenField struct{ fix.LengthValue }
 
 //Tag returns tag.SecurityXMLLen (1184)
 func (f SecurityXMLLenField) Tag() fix.Tag { return tag.SecurityXMLLen }
@@ -16462,7 +16461,7 @@ func NewSecurityXMLLen(val int) *SecurityXMLLenField {
 }
 
 //SecurityXMLSchemaField is a STRING field
-type SecurityXMLSchemaField struct{ message.StringValue }
+type SecurityXMLSchemaField struct{ fix.StringValue }
 
 //Tag returns tag.SecurityXMLSchema (1186)
 func (f SecurityXMLSchemaField) Tag() fix.Tag { return tag.SecurityXMLSchema }
@@ -16475,7 +16474,7 @@ func NewSecurityXMLSchema(val string) *SecurityXMLSchemaField {
 }
 
 //SellVolumeField is a QTY field
-type SellVolumeField struct{ message.QtyValue }
+type SellVolumeField struct{ fix.QtyValue }
 
 //Tag returns tag.SellVolume (331)
 func (f SellVolumeField) Tag() fix.Tag { return tag.SellVolume }
@@ -16488,7 +16487,7 @@ func NewSellVolume(val float64) *SellVolumeField {
 }
 
 //SellerDaysField is a INT field
-type SellerDaysField struct{ message.IntValue }
+type SellerDaysField struct{ fix.IntValue }
 
 //Tag returns tag.SellerDays (287)
 func (f SellerDaysField) Tag() fix.Tag { return tag.SellerDays }
@@ -16501,7 +16500,7 @@ func NewSellerDays(val int) *SellerDaysField {
 }
 
 //SenderCompIDField is a STRING field
-type SenderCompIDField struct{ message.StringValue }
+type SenderCompIDField struct{ fix.StringValue }
 
 //Tag returns tag.SenderCompID (49)
 func (f SenderCompIDField) Tag() fix.Tag { return tag.SenderCompID }
@@ -16514,7 +16513,7 @@ func NewSenderCompID(val string) *SenderCompIDField {
 }
 
 //SenderLocationIDField is a STRING field
-type SenderLocationIDField struct{ message.StringValue }
+type SenderLocationIDField struct{ fix.StringValue }
 
 //Tag returns tag.SenderLocationID (142)
 func (f SenderLocationIDField) Tag() fix.Tag { return tag.SenderLocationID }
@@ -16527,7 +16526,7 @@ func NewSenderLocationID(val string) *SenderLocationIDField {
 }
 
 //SenderSubIDField is a STRING field
-type SenderSubIDField struct{ message.StringValue }
+type SenderSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.SenderSubID (50)
 func (f SenderSubIDField) Tag() fix.Tag { return tag.SenderSubID }
@@ -16540,7 +16539,7 @@ func NewSenderSubID(val string) *SenderSubIDField {
 }
 
 //SendingDateField is a LOCALMKTDATE field
-type SendingDateField struct{ message.LocalMktDateValue }
+type SendingDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.SendingDate (51)
 func (f SendingDateField) Tag() fix.Tag { return tag.SendingDate }
@@ -16553,13 +16552,13 @@ func NewSendingDate(val string) *SendingDateField {
 }
 
 //SendingTimeField is a UTCTIMESTAMP field
-type SendingTimeField struct{ message.UTCTimestampValue }
+type SendingTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.SendingTime (52)
 func (f SendingTimeField) Tag() fix.Tag { return tag.SendingTime }
 
 //SeniorityField is a STRING field
-type SeniorityField struct{ message.StringValue }
+type SeniorityField struct{ fix.StringValue }
 
 //Tag returns tag.Seniority (1450)
 func (f SeniorityField) Tag() fix.Tag { return tag.Seniority }
@@ -16572,7 +16571,7 @@ func NewSeniority(val string) *SeniorityField {
 }
 
 //SessionRejectReasonField is a INT field
-type SessionRejectReasonField struct{ message.IntValue }
+type SessionRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.SessionRejectReason (373)
 func (f SessionRejectReasonField) Tag() fix.Tag { return tag.SessionRejectReason }
@@ -16585,7 +16584,7 @@ func NewSessionRejectReason(val int) *SessionRejectReasonField {
 }
 
 //SessionStatusField is a INT field
-type SessionStatusField struct{ message.IntValue }
+type SessionStatusField struct{ fix.IntValue }
 
 //Tag returns tag.SessionStatus (1409)
 func (f SessionStatusField) Tag() fix.Tag { return tag.SessionStatus }
@@ -16598,7 +16597,7 @@ func NewSessionStatus(val int) *SessionStatusField {
 }
 
 //SettlBrkrCodeField is a STRING field
-type SettlBrkrCodeField struct{ message.StringValue }
+type SettlBrkrCodeField struct{ fix.StringValue }
 
 //Tag returns tag.SettlBrkrCode (174)
 func (f SettlBrkrCodeField) Tag() fix.Tag { return tag.SettlBrkrCode }
@@ -16611,7 +16610,7 @@ func NewSettlBrkrCode(val string) *SettlBrkrCodeField {
 }
 
 //SettlCurrAmtField is a AMT field
-type SettlCurrAmtField struct{ message.AmtValue }
+type SettlCurrAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.SettlCurrAmt (119)
 func (f SettlCurrAmtField) Tag() fix.Tag { return tag.SettlCurrAmt }
@@ -16624,7 +16623,7 @@ func NewSettlCurrAmt(val float64) *SettlCurrAmtField {
 }
 
 //SettlCurrBidFxRateField is a FLOAT field
-type SettlCurrBidFxRateField struct{ message.FloatValue }
+type SettlCurrBidFxRateField struct{ fix.FloatValue }
 
 //Tag returns tag.SettlCurrBidFxRate (656)
 func (f SettlCurrBidFxRateField) Tag() fix.Tag { return tag.SettlCurrBidFxRate }
@@ -16637,7 +16636,7 @@ func NewSettlCurrBidFxRate(val float64) *SettlCurrBidFxRateField {
 }
 
 //SettlCurrFxRateField is a FLOAT field
-type SettlCurrFxRateField struct{ message.FloatValue }
+type SettlCurrFxRateField struct{ fix.FloatValue }
 
 //Tag returns tag.SettlCurrFxRate (155)
 func (f SettlCurrFxRateField) Tag() fix.Tag { return tag.SettlCurrFxRate }
@@ -16650,7 +16649,7 @@ func NewSettlCurrFxRate(val float64) *SettlCurrFxRateField {
 }
 
 //SettlCurrFxRateCalcField is a CHAR field
-type SettlCurrFxRateCalcField struct{ message.CharValue }
+type SettlCurrFxRateCalcField struct{ fix.CharValue }
 
 //Tag returns tag.SettlCurrFxRateCalc (156)
 func (f SettlCurrFxRateCalcField) Tag() fix.Tag { return tag.SettlCurrFxRateCalc }
@@ -16663,7 +16662,7 @@ func NewSettlCurrFxRateCalc(val string) *SettlCurrFxRateCalcField {
 }
 
 //SettlCurrOfferFxRateField is a FLOAT field
-type SettlCurrOfferFxRateField struct{ message.FloatValue }
+type SettlCurrOfferFxRateField struct{ fix.FloatValue }
 
 //Tag returns tag.SettlCurrOfferFxRate (657)
 func (f SettlCurrOfferFxRateField) Tag() fix.Tag { return tag.SettlCurrOfferFxRate }
@@ -16676,7 +16675,7 @@ func NewSettlCurrOfferFxRate(val float64) *SettlCurrOfferFxRateField {
 }
 
 //SettlCurrencyField is a CURRENCY field
-type SettlCurrencyField struct{ message.CurrencyValue }
+type SettlCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.SettlCurrency (120)
 func (f SettlCurrencyField) Tag() fix.Tag { return tag.SettlCurrency }
@@ -16689,7 +16688,7 @@ func NewSettlCurrency(val string) *SettlCurrencyField {
 }
 
 //SettlDateField is a LOCALMKTDATE field
-type SettlDateField struct{ message.LocalMktDateValue }
+type SettlDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.SettlDate (64)
 func (f SettlDateField) Tag() fix.Tag { return tag.SettlDate }
@@ -16702,7 +16701,7 @@ func NewSettlDate(val string) *SettlDateField {
 }
 
 //SettlDate2Field is a LOCALMKTDATE field
-type SettlDate2Field struct{ message.LocalMktDateValue }
+type SettlDate2Field struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.SettlDate2 (193)
 func (f SettlDate2Field) Tag() fix.Tag { return tag.SettlDate2 }
@@ -16715,7 +16714,7 @@ func NewSettlDate2(val string) *SettlDate2Field {
 }
 
 //SettlDeliveryTypeField is a INT field
-type SettlDeliveryTypeField struct{ message.IntValue }
+type SettlDeliveryTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SettlDeliveryType (172)
 func (f SettlDeliveryTypeField) Tag() fix.Tag { return tag.SettlDeliveryType }
@@ -16728,7 +16727,7 @@ func NewSettlDeliveryType(val int) *SettlDeliveryTypeField {
 }
 
 //SettlDepositoryCodeField is a STRING field
-type SettlDepositoryCodeField struct{ message.StringValue }
+type SettlDepositoryCodeField struct{ fix.StringValue }
 
 //Tag returns tag.SettlDepositoryCode (173)
 func (f SettlDepositoryCodeField) Tag() fix.Tag { return tag.SettlDepositoryCode }
@@ -16741,7 +16740,7 @@ func NewSettlDepositoryCode(val string) *SettlDepositoryCodeField {
 }
 
 //SettlInstCodeField is a STRING field
-type SettlInstCodeField struct{ message.StringValue }
+type SettlInstCodeField struct{ fix.StringValue }
 
 //Tag returns tag.SettlInstCode (175)
 func (f SettlInstCodeField) Tag() fix.Tag { return tag.SettlInstCode }
@@ -16754,7 +16753,7 @@ func NewSettlInstCode(val string) *SettlInstCodeField {
 }
 
 //SettlInstIDField is a STRING field
-type SettlInstIDField struct{ message.StringValue }
+type SettlInstIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlInstID (162)
 func (f SettlInstIDField) Tag() fix.Tag { return tag.SettlInstID }
@@ -16767,7 +16766,7 @@ func NewSettlInstID(val string) *SettlInstIDField {
 }
 
 //SettlInstModeField is a CHAR field
-type SettlInstModeField struct{ message.CharValue }
+type SettlInstModeField struct{ fix.CharValue }
 
 //Tag returns tag.SettlInstMode (160)
 func (f SettlInstModeField) Tag() fix.Tag { return tag.SettlInstMode }
@@ -16780,7 +16779,7 @@ func NewSettlInstMode(val string) *SettlInstModeField {
 }
 
 //SettlInstMsgIDField is a STRING field
-type SettlInstMsgIDField struct{ message.StringValue }
+type SettlInstMsgIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlInstMsgID (777)
 func (f SettlInstMsgIDField) Tag() fix.Tag { return tag.SettlInstMsgID }
@@ -16793,7 +16792,7 @@ func NewSettlInstMsgID(val string) *SettlInstMsgIDField {
 }
 
 //SettlInstRefIDField is a STRING field
-type SettlInstRefIDField struct{ message.StringValue }
+type SettlInstRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlInstRefID (214)
 func (f SettlInstRefIDField) Tag() fix.Tag { return tag.SettlInstRefID }
@@ -16806,7 +16805,7 @@ func NewSettlInstRefID(val string) *SettlInstRefIDField {
 }
 
 //SettlInstReqIDField is a STRING field
-type SettlInstReqIDField struct{ message.StringValue }
+type SettlInstReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlInstReqID (791)
 func (f SettlInstReqIDField) Tag() fix.Tag { return tag.SettlInstReqID }
@@ -16819,7 +16818,7 @@ func NewSettlInstReqID(val string) *SettlInstReqIDField {
 }
 
 //SettlInstReqRejCodeField is a INT field
-type SettlInstReqRejCodeField struct{ message.IntValue }
+type SettlInstReqRejCodeField struct{ fix.IntValue }
 
 //Tag returns tag.SettlInstReqRejCode (792)
 func (f SettlInstReqRejCodeField) Tag() fix.Tag { return tag.SettlInstReqRejCode }
@@ -16832,7 +16831,7 @@ func NewSettlInstReqRejCode(val int) *SettlInstReqRejCodeField {
 }
 
 //SettlInstSourceField is a CHAR field
-type SettlInstSourceField struct{ message.CharValue }
+type SettlInstSourceField struct{ fix.CharValue }
 
 //Tag returns tag.SettlInstSource (165)
 func (f SettlInstSourceField) Tag() fix.Tag { return tag.SettlInstSource }
@@ -16845,7 +16844,7 @@ func NewSettlInstSource(val string) *SettlInstSourceField {
 }
 
 //SettlInstTransTypeField is a CHAR field
-type SettlInstTransTypeField struct{ message.CharValue }
+type SettlInstTransTypeField struct{ fix.CharValue }
 
 //Tag returns tag.SettlInstTransType (163)
 func (f SettlInstTransTypeField) Tag() fix.Tag { return tag.SettlInstTransType }
@@ -16858,7 +16857,7 @@ func NewSettlInstTransType(val string) *SettlInstTransTypeField {
 }
 
 //SettlLocationField is a STRING field
-type SettlLocationField struct{ message.StringValue }
+type SettlLocationField struct{ fix.StringValue }
 
 //Tag returns tag.SettlLocation (166)
 func (f SettlLocationField) Tag() fix.Tag { return tag.SettlLocation }
@@ -16871,7 +16870,7 @@ func NewSettlLocation(val string) *SettlLocationField {
 }
 
 //SettlMethodField is a CHAR field
-type SettlMethodField struct{ message.CharValue }
+type SettlMethodField struct{ fix.CharValue }
 
 //Tag returns tag.SettlMethod (1193)
 func (f SettlMethodField) Tag() fix.Tag { return tag.SettlMethod }
@@ -16884,7 +16883,7 @@ func NewSettlMethod(val string) *SettlMethodField {
 }
 
 //SettlObligIDField is a STRING field
-type SettlObligIDField struct{ message.StringValue }
+type SettlObligIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlObligID (1161)
 func (f SettlObligIDField) Tag() fix.Tag { return tag.SettlObligID }
@@ -16897,7 +16896,7 @@ func NewSettlObligID(val string) *SettlObligIDField {
 }
 
 //SettlObligModeField is a INT field
-type SettlObligModeField struct{ message.IntValue }
+type SettlObligModeField struct{ fix.IntValue }
 
 //Tag returns tag.SettlObligMode (1159)
 func (f SettlObligModeField) Tag() fix.Tag { return tag.SettlObligMode }
@@ -16910,7 +16909,7 @@ func NewSettlObligMode(val int) *SettlObligModeField {
 }
 
 //SettlObligMsgIDField is a STRING field
-type SettlObligMsgIDField struct{ message.StringValue }
+type SettlObligMsgIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlObligMsgID (1160)
 func (f SettlObligMsgIDField) Tag() fix.Tag { return tag.SettlObligMsgID }
@@ -16923,7 +16922,7 @@ func NewSettlObligMsgID(val string) *SettlObligMsgIDField {
 }
 
 //SettlObligRefIDField is a STRING field
-type SettlObligRefIDField struct{ message.StringValue }
+type SettlObligRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlObligRefID (1163)
 func (f SettlObligRefIDField) Tag() fix.Tag { return tag.SettlObligRefID }
@@ -16936,7 +16935,7 @@ func NewSettlObligRefID(val string) *SettlObligRefIDField {
 }
 
 //SettlObligSourceField is a CHAR field
-type SettlObligSourceField struct{ message.CharValue }
+type SettlObligSourceField struct{ fix.CharValue }
 
 //Tag returns tag.SettlObligSource (1164)
 func (f SettlObligSourceField) Tag() fix.Tag { return tag.SettlObligSource }
@@ -16949,7 +16948,7 @@ func NewSettlObligSource(val string) *SettlObligSourceField {
 }
 
 //SettlObligTransTypeField is a CHAR field
-type SettlObligTransTypeField struct{ message.CharValue }
+type SettlObligTransTypeField struct{ fix.CharValue }
 
 //Tag returns tag.SettlObligTransType (1162)
 func (f SettlObligTransTypeField) Tag() fix.Tag { return tag.SettlObligTransType }
@@ -16962,7 +16961,7 @@ func NewSettlObligTransType(val string) *SettlObligTransTypeField {
 }
 
 //SettlPartyIDField is a STRING field
-type SettlPartyIDField struct{ message.StringValue }
+type SettlPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlPartyID (782)
 func (f SettlPartyIDField) Tag() fix.Tag { return tag.SettlPartyID }
@@ -16975,7 +16974,7 @@ func NewSettlPartyID(val string) *SettlPartyIDField {
 }
 
 //SettlPartyIDSourceField is a CHAR field
-type SettlPartyIDSourceField struct{ message.CharValue }
+type SettlPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.SettlPartyIDSource (783)
 func (f SettlPartyIDSourceField) Tag() fix.Tag { return tag.SettlPartyIDSource }
@@ -16988,7 +16987,7 @@ func NewSettlPartyIDSource(val string) *SettlPartyIDSourceField {
 }
 
 //SettlPartyRoleField is a INT field
-type SettlPartyRoleField struct{ message.IntValue }
+type SettlPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.SettlPartyRole (784)
 func (f SettlPartyRoleField) Tag() fix.Tag { return tag.SettlPartyRole }
@@ -17001,7 +17000,7 @@ func NewSettlPartyRole(val int) *SettlPartyRoleField {
 }
 
 //SettlPartySubIDField is a STRING field
-type SettlPartySubIDField struct{ message.StringValue }
+type SettlPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlPartySubID (785)
 func (f SettlPartySubIDField) Tag() fix.Tag { return tag.SettlPartySubID }
@@ -17014,7 +17013,7 @@ func NewSettlPartySubID(val string) *SettlPartySubIDField {
 }
 
 //SettlPartySubIDTypeField is a INT field
-type SettlPartySubIDTypeField struct{ message.IntValue }
+type SettlPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SettlPartySubIDType (786)
 func (f SettlPartySubIDTypeField) Tag() fix.Tag { return tag.SettlPartySubIDType }
@@ -17027,7 +17026,7 @@ func NewSettlPartySubIDType(val int) *SettlPartySubIDTypeField {
 }
 
 //SettlPriceField is a PRICE field
-type SettlPriceField struct{ message.PriceValue }
+type SettlPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.SettlPrice (730)
 func (f SettlPriceField) Tag() fix.Tag { return tag.SettlPrice }
@@ -17040,7 +17039,7 @@ func NewSettlPrice(val float64) *SettlPriceField {
 }
 
 //SettlPriceTypeField is a INT field
-type SettlPriceTypeField struct{ message.IntValue }
+type SettlPriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SettlPriceType (731)
 func (f SettlPriceTypeField) Tag() fix.Tag { return tag.SettlPriceType }
@@ -17053,7 +17052,7 @@ func NewSettlPriceType(val int) *SettlPriceTypeField {
 }
 
 //SettlSessIDField is a STRING field
-type SettlSessIDField struct{ message.StringValue }
+type SettlSessIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlSessID (716)
 func (f SettlSessIDField) Tag() fix.Tag { return tag.SettlSessID }
@@ -17066,7 +17065,7 @@ func NewSettlSessID(val string) *SettlSessIDField {
 }
 
 //SettlSessSubIDField is a STRING field
-type SettlSessSubIDField struct{ message.StringValue }
+type SettlSessSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.SettlSessSubID (717)
 func (f SettlSessSubIDField) Tag() fix.Tag { return tag.SettlSessSubID }
@@ -17079,7 +17078,7 @@ func NewSettlSessSubID(val string) *SettlSessSubIDField {
 }
 
 //SettlTypeField is a STRING field
-type SettlTypeField struct{ message.StringValue }
+type SettlTypeField struct{ fix.StringValue }
 
 //Tag returns tag.SettlType (63)
 func (f SettlTypeField) Tag() fix.Tag { return tag.SettlType }
@@ -17092,7 +17091,7 @@ func NewSettlType(val string) *SettlTypeField {
 }
 
 //SettleOnOpenFlagField is a STRING field
-type SettleOnOpenFlagField struct{ message.StringValue }
+type SettleOnOpenFlagField struct{ fix.StringValue }
 
 //Tag returns tag.SettleOnOpenFlag (966)
 func (f SettleOnOpenFlagField) Tag() fix.Tag { return tag.SettleOnOpenFlag }
@@ -17105,7 +17104,7 @@ func NewSettleOnOpenFlag(val string) *SettleOnOpenFlagField {
 }
 
 //SettlementCycleNoField is a INT field
-type SettlementCycleNoField struct{ message.IntValue }
+type SettlementCycleNoField struct{ fix.IntValue }
 
 //Tag returns tag.SettlementCycleNo (1153)
 func (f SettlementCycleNoField) Tag() fix.Tag { return tag.SettlementCycleNo }
@@ -17118,7 +17117,7 @@ func NewSettlementCycleNo(val int) *SettlementCycleNoField {
 }
 
 //SettlmntTypField is a CHAR field
-type SettlmntTypField struct{ message.CharValue }
+type SettlmntTypField struct{ fix.CharValue }
 
 //Tag returns tag.SettlmntTyp (63)
 func (f SettlmntTypField) Tag() fix.Tag { return tag.SettlmntTyp }
@@ -17131,7 +17130,7 @@ func NewSettlmntTyp(val string) *SettlmntTypField {
 }
 
 //SharedCommissionField is a AMT field
-type SharedCommissionField struct{ message.AmtValue }
+type SharedCommissionField struct{ fix.AmtValue }
 
 //Tag returns tag.SharedCommission (858)
 func (f SharedCommissionField) Tag() fix.Tag { return tag.SharedCommission }
@@ -17144,7 +17143,7 @@ func NewSharedCommission(val float64) *SharedCommissionField {
 }
 
 //SharesField is a QTY field
-type SharesField struct{ message.QtyValue }
+type SharesField struct{ fix.QtyValue }
 
 //Tag returns tag.Shares (53)
 func (f SharesField) Tag() fix.Tag { return tag.Shares }
@@ -17157,7 +17156,7 @@ func NewShares(val float64) *SharesField {
 }
 
 //ShortQtyField is a QTY field
-type ShortQtyField struct{ message.QtyValue }
+type ShortQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.ShortQty (705)
 func (f ShortQtyField) Tag() fix.Tag { return tag.ShortQty }
@@ -17170,7 +17169,7 @@ func NewShortQty(val float64) *ShortQtyField {
 }
 
 //ShortSaleReasonField is a INT field
-type ShortSaleReasonField struct{ message.IntValue }
+type ShortSaleReasonField struct{ fix.IntValue }
 
 //Tag returns tag.ShortSaleReason (853)
 func (f ShortSaleReasonField) Tag() fix.Tag { return tag.ShortSaleReason }
@@ -17183,7 +17182,7 @@ func NewShortSaleReason(val int) *ShortSaleReasonField {
 }
 
 //SideField is a CHAR field
-type SideField struct{ message.CharValue }
+type SideField struct{ fix.CharValue }
 
 //Tag returns tag.Side (54)
 func (f SideField) Tag() fix.Tag { return tag.Side }
@@ -17196,7 +17195,7 @@ func NewSide(val string) *SideField {
 }
 
 //SideComplianceIDField is a STRING field
-type SideComplianceIDField struct{ message.StringValue }
+type SideComplianceIDField struct{ fix.StringValue }
 
 //Tag returns tag.SideComplianceID (659)
 func (f SideComplianceIDField) Tag() fix.Tag { return tag.SideComplianceID }
@@ -17209,7 +17208,7 @@ func NewSideComplianceID(val string) *SideComplianceIDField {
 }
 
 //SideCurrencyField is a CURRENCY field
-type SideCurrencyField struct{ message.CurrencyValue }
+type SideCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.SideCurrency (1154)
 func (f SideCurrencyField) Tag() fix.Tag { return tag.SideCurrency }
@@ -17222,7 +17221,7 @@ func NewSideCurrency(val string) *SideCurrencyField {
 }
 
 //SideExecIDField is a STRING field
-type SideExecIDField struct{ message.StringValue }
+type SideExecIDField struct{ fix.StringValue }
 
 //Tag returns tag.SideExecID (1427)
 func (f SideExecIDField) Tag() fix.Tag { return tag.SideExecID }
@@ -17235,7 +17234,7 @@ func NewSideExecID(val string) *SideExecIDField {
 }
 
 //SideFillStationCdField is a STRING field
-type SideFillStationCdField struct{ message.StringValue }
+type SideFillStationCdField struct{ fix.StringValue }
 
 //Tag returns tag.SideFillStationCd (1006)
 func (f SideFillStationCdField) Tag() fix.Tag { return tag.SideFillStationCd }
@@ -17248,7 +17247,7 @@ func NewSideFillStationCd(val string) *SideFillStationCdField {
 }
 
 //SideGrossTradeAmtField is a AMT field
-type SideGrossTradeAmtField struct{ message.AmtValue }
+type SideGrossTradeAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.SideGrossTradeAmt (1072)
 func (f SideGrossTradeAmtField) Tag() fix.Tag { return tag.SideGrossTradeAmt }
@@ -17261,7 +17260,7 @@ func NewSideGrossTradeAmt(val float64) *SideGrossTradeAmtField {
 }
 
 //SideLastQtyField is a INT field
-type SideLastQtyField struct{ message.IntValue }
+type SideLastQtyField struct{ fix.IntValue }
 
 //Tag returns tag.SideLastQty (1009)
 func (f SideLastQtyField) Tag() fix.Tag { return tag.SideLastQty }
@@ -17274,7 +17273,7 @@ func NewSideLastQty(val int) *SideLastQtyField {
 }
 
 //SideLiquidityIndField is a INT field
-type SideLiquidityIndField struct{ message.IntValue }
+type SideLiquidityIndField struct{ fix.IntValue }
 
 //Tag returns tag.SideLiquidityInd (1444)
 func (f SideLiquidityIndField) Tag() fix.Tag { return tag.SideLiquidityInd }
@@ -17287,7 +17286,7 @@ func NewSideLiquidityInd(val int) *SideLiquidityIndField {
 }
 
 //SideMultiLegReportingTypeField is a INT field
-type SideMultiLegReportingTypeField struct{ message.IntValue }
+type SideMultiLegReportingTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SideMultiLegReportingType (752)
 func (f SideMultiLegReportingTypeField) Tag() fix.Tag { return tag.SideMultiLegReportingType }
@@ -17300,7 +17299,7 @@ func NewSideMultiLegReportingType(val int) *SideMultiLegReportingTypeField {
 }
 
 //SideQtyField is a INT field
-type SideQtyField struct{ message.IntValue }
+type SideQtyField struct{ fix.IntValue }
 
 //Tag returns tag.SideQty (1009)
 func (f SideQtyField) Tag() fix.Tag { return tag.SideQty }
@@ -17313,7 +17312,7 @@ func NewSideQty(val int) *SideQtyField {
 }
 
 //SideReasonCdField is a STRING field
-type SideReasonCdField struct{ message.StringValue }
+type SideReasonCdField struct{ fix.StringValue }
 
 //Tag returns tag.SideReasonCd (1007)
 func (f SideReasonCdField) Tag() fix.Tag { return tag.SideReasonCd }
@@ -17326,7 +17325,7 @@ func NewSideReasonCd(val string) *SideReasonCdField {
 }
 
 //SideSettlCurrencyField is a CURRENCY field
-type SideSettlCurrencyField struct{ message.CurrencyValue }
+type SideSettlCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.SideSettlCurrency (1155)
 func (f SideSettlCurrencyField) Tag() fix.Tag { return tag.SideSettlCurrency }
@@ -17339,13 +17338,13 @@ func NewSideSettlCurrency(val string) *SideSettlCurrencyField {
 }
 
 //SideTimeInForceField is a UTCTIMESTAMP field
-type SideTimeInForceField struct{ message.UTCTimestampValue }
+type SideTimeInForceField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.SideTimeInForce (962)
 func (f SideTimeInForceField) Tag() fix.Tag { return tag.SideTimeInForce }
 
 //SideTradeReportIDField is a STRING field
-type SideTradeReportIDField struct{ message.StringValue }
+type SideTradeReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.SideTradeReportID (1005)
 func (f SideTradeReportIDField) Tag() fix.Tag { return tag.SideTradeReportID }
@@ -17358,13 +17357,13 @@ func NewSideTradeReportID(val string) *SideTradeReportIDField {
 }
 
 //SideTrdRegTimestampField is a UTCTIMESTAMP field
-type SideTrdRegTimestampField struct{ message.UTCTimestampValue }
+type SideTrdRegTimestampField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.SideTrdRegTimestamp (1012)
 func (f SideTrdRegTimestampField) Tag() fix.Tag { return tag.SideTrdRegTimestamp }
 
 //SideTrdRegTimestampSrcField is a STRING field
-type SideTrdRegTimestampSrcField struct{ message.StringValue }
+type SideTrdRegTimestampSrcField struct{ fix.StringValue }
 
 //Tag returns tag.SideTrdRegTimestampSrc (1014)
 func (f SideTrdRegTimestampSrcField) Tag() fix.Tag { return tag.SideTrdRegTimestampSrc }
@@ -17377,7 +17376,7 @@ func NewSideTrdRegTimestampSrc(val string) *SideTrdRegTimestampSrcField {
 }
 
 //SideTrdRegTimestampTypeField is a INT field
-type SideTrdRegTimestampTypeField struct{ message.IntValue }
+type SideTrdRegTimestampTypeField struct{ fix.IntValue }
 
 //Tag returns tag.SideTrdRegTimestampType (1013)
 func (f SideTrdRegTimestampTypeField) Tag() fix.Tag { return tag.SideTrdRegTimestampType }
@@ -17390,7 +17389,7 @@ func NewSideTrdRegTimestampType(val int) *SideTrdRegTimestampTypeField {
 }
 
 //SideTrdSubTypField is a INT field
-type SideTrdSubTypField struct{ message.IntValue }
+type SideTrdSubTypField struct{ fix.IntValue }
 
 //Tag returns tag.SideTrdSubTyp (1008)
 func (f SideTrdSubTypField) Tag() fix.Tag { return tag.SideTrdSubTyp }
@@ -17403,7 +17402,7 @@ func NewSideTrdSubTyp(val int) *SideTrdSubTypField {
 }
 
 //SideValue1Field is a AMT field
-type SideValue1Field struct{ message.AmtValue }
+type SideValue1Field struct{ fix.AmtValue }
 
 //Tag returns tag.SideValue1 (396)
 func (f SideValue1Field) Tag() fix.Tag { return tag.SideValue1 }
@@ -17416,7 +17415,7 @@ func NewSideValue1(val float64) *SideValue1Field {
 }
 
 //SideValue2Field is a AMT field
-type SideValue2Field struct{ message.AmtValue }
+type SideValue2Field struct{ fix.AmtValue }
 
 //Tag returns tag.SideValue2 (397)
 func (f SideValue2Field) Tag() fix.Tag { return tag.SideValue2 }
@@ -17429,7 +17428,7 @@ func NewSideValue2(val float64) *SideValue2Field {
 }
 
 //SideValueIndField is a INT field
-type SideValueIndField struct{ message.IntValue }
+type SideValueIndField struct{ fix.IntValue }
 
 //Tag returns tag.SideValueInd (401)
 func (f SideValueIndField) Tag() fix.Tag { return tag.SideValueInd }
@@ -17442,7 +17441,7 @@ func NewSideValueInd(val int) *SideValueIndField {
 }
 
 //SignatureField is a DATA field
-type SignatureField struct{ message.DataValue }
+type SignatureField struct{ fix.DataValue }
 
 //Tag returns tag.Signature (89)
 func (f SignatureField) Tag() fix.Tag { return tag.Signature }
@@ -17455,7 +17454,7 @@ func NewSignature(val string) *SignatureField {
 }
 
 //SignatureLengthField is a LENGTH field
-type SignatureLengthField struct{ message.LengthValue }
+type SignatureLengthField struct{ fix.LengthValue }
 
 //Tag returns tag.SignatureLength (93)
 func (f SignatureLengthField) Tag() fix.Tag { return tag.SignatureLength }
@@ -17468,7 +17467,7 @@ func NewSignatureLength(val int) *SignatureLengthField {
 }
 
 //SolicitedFlagField is a BOOLEAN field
-type SolicitedFlagField struct{ message.BooleanValue }
+type SolicitedFlagField struct{ fix.BooleanValue }
 
 //Tag returns tag.SolicitedFlag (377)
 func (f SolicitedFlagField) Tag() fix.Tag { return tag.SolicitedFlag }
@@ -17481,7 +17480,7 @@ func NewSolicitedFlag(val bool) *SolicitedFlagField {
 }
 
 //SpreadField is a PRICEOFFSET field
-type SpreadField struct{ message.PriceOffsetValue }
+type SpreadField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.Spread (218)
 func (f SpreadField) Tag() fix.Tag { return tag.Spread }
@@ -17494,7 +17493,7 @@ func NewSpread(val float64) *SpreadField {
 }
 
 //SpreadToBenchmarkField is a PRICEOFFSET field
-type SpreadToBenchmarkField struct{ message.PriceOffsetValue }
+type SpreadToBenchmarkField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.SpreadToBenchmark (218)
 func (f SpreadToBenchmarkField) Tag() fix.Tag { return tag.SpreadToBenchmark }
@@ -17507,7 +17506,7 @@ func NewSpreadToBenchmark(val float64) *SpreadToBenchmarkField {
 }
 
 //StandInstDbIDField is a STRING field
-type StandInstDbIDField struct{ message.StringValue }
+type StandInstDbIDField struct{ fix.StringValue }
 
 //Tag returns tag.StandInstDbID (171)
 func (f StandInstDbIDField) Tag() fix.Tag { return tag.StandInstDbID }
@@ -17520,7 +17519,7 @@ func NewStandInstDbID(val string) *StandInstDbIDField {
 }
 
 //StandInstDbNameField is a STRING field
-type StandInstDbNameField struct{ message.StringValue }
+type StandInstDbNameField struct{ fix.StringValue }
 
 //Tag returns tag.StandInstDbName (170)
 func (f StandInstDbNameField) Tag() fix.Tag { return tag.StandInstDbName }
@@ -17533,7 +17532,7 @@ func NewStandInstDbName(val string) *StandInstDbNameField {
 }
 
 //StandInstDbTypeField is a INT field
-type StandInstDbTypeField struct{ message.IntValue }
+type StandInstDbTypeField struct{ fix.IntValue }
 
 //Tag returns tag.StandInstDbType (169)
 func (f StandInstDbTypeField) Tag() fix.Tag { return tag.StandInstDbType }
@@ -17546,7 +17545,7 @@ func NewStandInstDbType(val int) *StandInstDbTypeField {
 }
 
 //StartCashField is a AMT field
-type StartCashField struct{ message.AmtValue }
+type StartCashField struct{ fix.AmtValue }
 
 //Tag returns tag.StartCash (921)
 func (f StartCashField) Tag() fix.Tag { return tag.StartCash }
@@ -17559,7 +17558,7 @@ func NewStartCash(val float64) *StartCashField {
 }
 
 //StartDateField is a LOCALMKTDATE field
-type StartDateField struct{ message.LocalMktDateValue }
+type StartDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.StartDate (916)
 func (f StartDateField) Tag() fix.Tag { return tag.StartDate }
@@ -17572,7 +17571,7 @@ func NewStartDate(val string) *StartDateField {
 }
 
 //StartMaturityMonthYearField is a MONTHYEAR field
-type StartMaturityMonthYearField struct{ message.MonthYearValue }
+type StartMaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.StartMaturityMonthYear (1241)
 func (f StartMaturityMonthYearField) Tag() fix.Tag { return tag.StartMaturityMonthYear }
@@ -17585,7 +17584,7 @@ func NewStartMaturityMonthYear(val string) *StartMaturityMonthYearField {
 }
 
 //StartStrikePxRangeField is a PRICE field
-type StartStrikePxRangeField struct{ message.PriceValue }
+type StartStrikePxRangeField struct{ fix.PriceValue }
 
 //Tag returns tag.StartStrikePxRange (1202)
 func (f StartStrikePxRangeField) Tag() fix.Tag { return tag.StartStrikePxRange }
@@ -17598,7 +17597,7 @@ func NewStartStrikePxRange(val float64) *StartStrikePxRangeField {
 }
 
 //StartTickPriceRangeField is a PRICE field
-type StartTickPriceRangeField struct{ message.PriceValue }
+type StartTickPriceRangeField struct{ fix.PriceValue }
 
 //Tag returns tag.StartTickPriceRange (1206)
 func (f StartTickPriceRangeField) Tag() fix.Tag { return tag.StartTickPriceRange }
@@ -17611,7 +17610,7 @@ func NewStartTickPriceRange(val float64) *StartTickPriceRangeField {
 }
 
 //StateOrProvinceOfIssueField is a STRING field
-type StateOrProvinceOfIssueField struct{ message.StringValue }
+type StateOrProvinceOfIssueField struct{ fix.StringValue }
 
 //Tag returns tag.StateOrProvinceOfIssue (471)
 func (f StateOrProvinceOfIssueField) Tag() fix.Tag { return tag.StateOrProvinceOfIssue }
@@ -17624,7 +17623,7 @@ func NewStateOrProvinceOfIssue(val string) *StateOrProvinceOfIssueField {
 }
 
 //StatsTypeField is a INT field
-type StatsTypeField struct{ message.IntValue }
+type StatsTypeField struct{ fix.IntValue }
 
 //Tag returns tag.StatsType (1176)
 func (f StatsTypeField) Tag() fix.Tag { return tag.StatsType }
@@ -17637,7 +17636,7 @@ func NewStatsType(val int) *StatsTypeField {
 }
 
 //StatusTextField is a STRING field
-type StatusTextField struct{ message.StringValue }
+type StatusTextField struct{ fix.StringValue }
 
 //Tag returns tag.StatusText (929)
 func (f StatusTextField) Tag() fix.Tag { return tag.StatusText }
@@ -17650,7 +17649,7 @@ func NewStatusText(val string) *StatusTextField {
 }
 
 //StatusValueField is a INT field
-type StatusValueField struct{ message.IntValue }
+type StatusValueField struct{ fix.IntValue }
 
 //Tag returns tag.StatusValue (928)
 func (f StatusValueField) Tag() fix.Tag { return tag.StatusValue }
@@ -17663,7 +17662,7 @@ func NewStatusValue(val int) *StatusValueField {
 }
 
 //StipulationTypeField is a STRING field
-type StipulationTypeField struct{ message.StringValue }
+type StipulationTypeField struct{ fix.StringValue }
 
 //Tag returns tag.StipulationType (233)
 func (f StipulationTypeField) Tag() fix.Tag { return tag.StipulationType }
@@ -17676,7 +17675,7 @@ func NewStipulationType(val string) *StipulationTypeField {
 }
 
 //StipulationValueField is a STRING field
-type StipulationValueField struct{ message.StringValue }
+type StipulationValueField struct{ fix.StringValue }
 
 //Tag returns tag.StipulationValue (234)
 func (f StipulationValueField) Tag() fix.Tag { return tag.StipulationValue }
@@ -17689,7 +17688,7 @@ func NewStipulationValue(val string) *StipulationValueField {
 }
 
 //StopPxField is a PRICE field
-type StopPxField struct{ message.PriceValue }
+type StopPxField struct{ fix.PriceValue }
 
 //Tag returns tag.StopPx (99)
 func (f StopPxField) Tag() fix.Tag { return tag.StopPx }
@@ -17702,7 +17701,7 @@ func NewStopPx(val float64) *StopPxField {
 }
 
 //StrategyParameterNameField is a STRING field
-type StrategyParameterNameField struct{ message.StringValue }
+type StrategyParameterNameField struct{ fix.StringValue }
 
 //Tag returns tag.StrategyParameterName (958)
 func (f StrategyParameterNameField) Tag() fix.Tag { return tag.StrategyParameterName }
@@ -17715,7 +17714,7 @@ func NewStrategyParameterName(val string) *StrategyParameterNameField {
 }
 
 //StrategyParameterTypeField is a INT field
-type StrategyParameterTypeField struct{ message.IntValue }
+type StrategyParameterTypeField struct{ fix.IntValue }
 
 //Tag returns tag.StrategyParameterType (959)
 func (f StrategyParameterTypeField) Tag() fix.Tag { return tag.StrategyParameterType }
@@ -17728,7 +17727,7 @@ func NewStrategyParameterType(val int) *StrategyParameterTypeField {
 }
 
 //StrategyParameterValueField is a STRING field
-type StrategyParameterValueField struct{ message.StringValue }
+type StrategyParameterValueField struct{ fix.StringValue }
 
 //Tag returns tag.StrategyParameterValue (960)
 func (f StrategyParameterValueField) Tag() fix.Tag { return tag.StrategyParameterValue }
@@ -17741,7 +17740,7 @@ func NewStrategyParameterValue(val string) *StrategyParameterValueField {
 }
 
 //StreamAsgnAckTypeField is a INT field
-type StreamAsgnAckTypeField struct{ message.IntValue }
+type StreamAsgnAckTypeField struct{ fix.IntValue }
 
 //Tag returns tag.StreamAsgnAckType (1503)
 func (f StreamAsgnAckTypeField) Tag() fix.Tag { return tag.StreamAsgnAckType }
@@ -17754,7 +17753,7 @@ func NewStreamAsgnAckType(val int) *StreamAsgnAckTypeField {
 }
 
 //StreamAsgnRejReasonField is a INT field
-type StreamAsgnRejReasonField struct{ message.IntValue }
+type StreamAsgnRejReasonField struct{ fix.IntValue }
 
 //Tag returns tag.StreamAsgnRejReason (1502)
 func (f StreamAsgnRejReasonField) Tag() fix.Tag { return tag.StreamAsgnRejReason }
@@ -17767,7 +17766,7 @@ func NewStreamAsgnRejReason(val int) *StreamAsgnRejReasonField {
 }
 
 //StreamAsgnReqIDField is a STRING field
-type StreamAsgnReqIDField struct{ message.StringValue }
+type StreamAsgnReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.StreamAsgnReqID (1497)
 func (f StreamAsgnReqIDField) Tag() fix.Tag { return tag.StreamAsgnReqID }
@@ -17780,7 +17779,7 @@ func NewStreamAsgnReqID(val string) *StreamAsgnReqIDField {
 }
 
 //StreamAsgnReqTypeField is a INT field
-type StreamAsgnReqTypeField struct{ message.IntValue }
+type StreamAsgnReqTypeField struct{ fix.IntValue }
 
 //Tag returns tag.StreamAsgnReqType (1498)
 func (f StreamAsgnReqTypeField) Tag() fix.Tag { return tag.StreamAsgnReqType }
@@ -17793,7 +17792,7 @@ func NewStreamAsgnReqType(val int) *StreamAsgnReqTypeField {
 }
 
 //StreamAsgnRptIDField is a STRING field
-type StreamAsgnRptIDField struct{ message.StringValue }
+type StreamAsgnRptIDField struct{ fix.StringValue }
 
 //Tag returns tag.StreamAsgnRptID (1501)
 func (f StreamAsgnRptIDField) Tag() fix.Tag { return tag.StreamAsgnRptID }
@@ -17806,7 +17805,7 @@ func NewStreamAsgnRptID(val string) *StreamAsgnRptIDField {
 }
 
 //StreamAsgnTypeField is a INT field
-type StreamAsgnTypeField struct{ message.IntValue }
+type StreamAsgnTypeField struct{ fix.IntValue }
 
 //Tag returns tag.StreamAsgnType (1617)
 func (f StreamAsgnTypeField) Tag() fix.Tag { return tag.StreamAsgnType }
@@ -17819,7 +17818,7 @@ func NewStreamAsgnType(val int) *StreamAsgnTypeField {
 }
 
 //StrikeCurrencyField is a CURRENCY field
-type StrikeCurrencyField struct{ message.CurrencyValue }
+type StrikeCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.StrikeCurrency (947)
 func (f StrikeCurrencyField) Tag() fix.Tag { return tag.StrikeCurrency }
@@ -17832,7 +17831,7 @@ func NewStrikeCurrency(val string) *StrikeCurrencyField {
 }
 
 //StrikeExerciseStyleField is a INT field
-type StrikeExerciseStyleField struct{ message.IntValue }
+type StrikeExerciseStyleField struct{ fix.IntValue }
 
 //Tag returns tag.StrikeExerciseStyle (1304)
 func (f StrikeExerciseStyleField) Tag() fix.Tag { return tag.StrikeExerciseStyle }
@@ -17845,7 +17844,7 @@ func NewStrikeExerciseStyle(val int) *StrikeExerciseStyleField {
 }
 
 //StrikeIncrementField is a FLOAT field
-type StrikeIncrementField struct{ message.FloatValue }
+type StrikeIncrementField struct{ fix.FloatValue }
 
 //Tag returns tag.StrikeIncrement (1204)
 func (f StrikeIncrementField) Tag() fix.Tag { return tag.StrikeIncrement }
@@ -17858,7 +17857,7 @@ func NewStrikeIncrement(val float64) *StrikeIncrementField {
 }
 
 //StrikeMultiplierField is a FLOAT field
-type StrikeMultiplierField struct{ message.FloatValue }
+type StrikeMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.StrikeMultiplier (967)
 func (f StrikeMultiplierField) Tag() fix.Tag { return tag.StrikeMultiplier }
@@ -17871,7 +17870,7 @@ func NewStrikeMultiplier(val float64) *StrikeMultiplierField {
 }
 
 //StrikePriceField is a PRICE field
-type StrikePriceField struct{ message.PriceValue }
+type StrikePriceField struct{ fix.PriceValue }
 
 //Tag returns tag.StrikePrice (202)
 func (f StrikePriceField) Tag() fix.Tag { return tag.StrikePrice }
@@ -17884,7 +17883,7 @@ func NewStrikePrice(val float64) *StrikePriceField {
 }
 
 //StrikePriceBoundaryMethodField is a INT field
-type StrikePriceBoundaryMethodField struct{ message.IntValue }
+type StrikePriceBoundaryMethodField struct{ fix.IntValue }
 
 //Tag returns tag.StrikePriceBoundaryMethod (1479)
 func (f StrikePriceBoundaryMethodField) Tag() fix.Tag { return tag.StrikePriceBoundaryMethod }
@@ -17897,7 +17896,7 @@ func NewStrikePriceBoundaryMethod(val int) *StrikePriceBoundaryMethodField {
 }
 
 //StrikePriceBoundaryPrecisionField is a PERCENTAGE field
-type StrikePriceBoundaryPrecisionField struct{ message.PercentageValue }
+type StrikePriceBoundaryPrecisionField struct{ fix.PercentageValue }
 
 //Tag returns tag.StrikePriceBoundaryPrecision (1480)
 func (f StrikePriceBoundaryPrecisionField) Tag() fix.Tag { return tag.StrikePriceBoundaryPrecision }
@@ -17910,7 +17909,7 @@ func NewStrikePriceBoundaryPrecision(val float64) *StrikePriceBoundaryPrecisionF
 }
 
 //StrikePriceDeterminationMethodField is a INT field
-type StrikePriceDeterminationMethodField struct{ message.IntValue }
+type StrikePriceDeterminationMethodField struct{ fix.IntValue }
 
 //Tag returns tag.StrikePriceDeterminationMethod (1478)
 func (f StrikePriceDeterminationMethodField) Tag() fix.Tag { return tag.StrikePriceDeterminationMethod }
@@ -17923,7 +17922,7 @@ func NewStrikePriceDeterminationMethod(val int) *StrikePriceDeterminationMethodF
 }
 
 //StrikeRuleIDField is a STRING field
-type StrikeRuleIDField struct{ message.StringValue }
+type StrikeRuleIDField struct{ fix.StringValue }
 
 //Tag returns tag.StrikeRuleID (1223)
 func (f StrikeRuleIDField) Tag() fix.Tag { return tag.StrikeRuleID }
@@ -17936,13 +17935,13 @@ func NewStrikeRuleID(val string) *StrikeRuleIDField {
 }
 
 //StrikeTimeField is a UTCTIMESTAMP field
-type StrikeTimeField struct{ message.UTCTimestampValue }
+type StrikeTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.StrikeTime (443)
 func (f StrikeTimeField) Tag() fix.Tag { return tag.StrikeTime }
 
 //StrikeValueField is a FLOAT field
-type StrikeValueField struct{ message.FloatValue }
+type StrikeValueField struct{ fix.FloatValue }
 
 //Tag returns tag.StrikeValue (968)
 func (f StrikeValueField) Tag() fix.Tag { return tag.StrikeValue }
@@ -17955,7 +17954,7 @@ func NewStrikeValue(val float64) *StrikeValueField {
 }
 
 //SubjectField is a STRING field
-type SubjectField struct{ message.StringValue }
+type SubjectField struct{ fix.StringValue }
 
 //Tag returns tag.Subject (147)
 func (f SubjectField) Tag() fix.Tag { return tag.Subject }
@@ -17968,7 +17967,7 @@ func NewSubject(val string) *SubjectField {
 }
 
 //SubscriptionRequestTypeField is a CHAR field
-type SubscriptionRequestTypeField struct{ message.CharValue }
+type SubscriptionRequestTypeField struct{ fix.CharValue }
 
 //Tag returns tag.SubscriptionRequestType (263)
 func (f SubscriptionRequestTypeField) Tag() fix.Tag { return tag.SubscriptionRequestType }
@@ -17981,7 +17980,7 @@ func NewSubscriptionRequestType(val string) *SubscriptionRequestTypeField {
 }
 
 //SwapPointsField is a PRICEOFFSET field
-type SwapPointsField struct{ message.PriceOffsetValue }
+type SwapPointsField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.SwapPoints (1069)
 func (f SwapPointsField) Tag() fix.Tag { return tag.SwapPoints }
@@ -17994,7 +17993,7 @@ func NewSwapPoints(val float64) *SwapPointsField {
 }
 
 //SymbolField is a STRING field
-type SymbolField struct{ message.StringValue }
+type SymbolField struct{ fix.StringValue }
 
 //Tag returns tag.Symbol (55)
 func (f SymbolField) Tag() fix.Tag { return tag.Symbol }
@@ -18007,7 +18006,7 @@ func NewSymbol(val string) *SymbolField {
 }
 
 //SymbolSfxField is a STRING field
-type SymbolSfxField struct{ message.StringValue }
+type SymbolSfxField struct{ fix.StringValue }
 
 //Tag returns tag.SymbolSfx (65)
 func (f SymbolSfxField) Tag() fix.Tag { return tag.SymbolSfx }
@@ -18020,13 +18019,13 @@ func NewSymbolSfx(val string) *SymbolSfxField {
 }
 
 //TZTransactTimeField is a TZTIMESTAMP field
-type TZTransactTimeField struct{ message.TZTimestampValue }
+type TZTransactTimeField struct{ fix.TZTimestampValue }
 
 //Tag returns tag.TZTransactTime (1132)
 func (f TZTransactTimeField) Tag() fix.Tag { return tag.TZTransactTime }
 
 //TargetCompIDField is a STRING field
-type TargetCompIDField struct{ message.StringValue }
+type TargetCompIDField struct{ fix.StringValue }
 
 //Tag returns tag.TargetCompID (56)
 func (f TargetCompIDField) Tag() fix.Tag { return tag.TargetCompID }
@@ -18039,7 +18038,7 @@ func NewTargetCompID(val string) *TargetCompIDField {
 }
 
 //TargetLocationIDField is a STRING field
-type TargetLocationIDField struct{ message.StringValue }
+type TargetLocationIDField struct{ fix.StringValue }
 
 //Tag returns tag.TargetLocationID (143)
 func (f TargetLocationIDField) Tag() fix.Tag { return tag.TargetLocationID }
@@ -18052,7 +18051,7 @@ func NewTargetLocationID(val string) *TargetLocationIDField {
 }
 
 //TargetPartyIDField is a STRING field
-type TargetPartyIDField struct{ message.StringValue }
+type TargetPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.TargetPartyID (1462)
 func (f TargetPartyIDField) Tag() fix.Tag { return tag.TargetPartyID }
@@ -18065,7 +18064,7 @@ func NewTargetPartyID(val string) *TargetPartyIDField {
 }
 
 //TargetPartyIDSourceField is a CHAR field
-type TargetPartyIDSourceField struct{ message.CharValue }
+type TargetPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.TargetPartyIDSource (1463)
 func (f TargetPartyIDSourceField) Tag() fix.Tag { return tag.TargetPartyIDSource }
@@ -18078,7 +18077,7 @@ func NewTargetPartyIDSource(val string) *TargetPartyIDSourceField {
 }
 
 //TargetPartyRoleField is a INT field
-type TargetPartyRoleField struct{ message.IntValue }
+type TargetPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.TargetPartyRole (1464)
 func (f TargetPartyRoleField) Tag() fix.Tag { return tag.TargetPartyRole }
@@ -18091,7 +18090,7 @@ func NewTargetPartyRole(val int) *TargetPartyRoleField {
 }
 
 //TargetStrategyField is a INT field
-type TargetStrategyField struct{ message.IntValue }
+type TargetStrategyField struct{ fix.IntValue }
 
 //Tag returns tag.TargetStrategy (847)
 func (f TargetStrategyField) Tag() fix.Tag { return tag.TargetStrategy }
@@ -18104,7 +18103,7 @@ func NewTargetStrategy(val int) *TargetStrategyField {
 }
 
 //TargetStrategyParametersField is a STRING field
-type TargetStrategyParametersField struct{ message.StringValue }
+type TargetStrategyParametersField struct{ fix.StringValue }
 
 //Tag returns tag.TargetStrategyParameters (848)
 func (f TargetStrategyParametersField) Tag() fix.Tag { return tag.TargetStrategyParameters }
@@ -18117,7 +18116,7 @@ func NewTargetStrategyParameters(val string) *TargetStrategyParametersField {
 }
 
 //TargetStrategyPerformanceField is a FLOAT field
-type TargetStrategyPerformanceField struct{ message.FloatValue }
+type TargetStrategyPerformanceField struct{ fix.FloatValue }
 
 //Tag returns tag.TargetStrategyPerformance (850)
 func (f TargetStrategyPerformanceField) Tag() fix.Tag { return tag.TargetStrategyPerformance }
@@ -18130,7 +18129,7 @@ func NewTargetStrategyPerformance(val float64) *TargetStrategyPerformanceField {
 }
 
 //TargetSubIDField is a STRING field
-type TargetSubIDField struct{ message.StringValue }
+type TargetSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.TargetSubID (57)
 func (f TargetSubIDField) Tag() fix.Tag { return tag.TargetSubID }
@@ -18143,7 +18142,7 @@ func NewTargetSubID(val string) *TargetSubIDField {
 }
 
 //TaxAdvantageTypeField is a INT field
-type TaxAdvantageTypeField struct{ message.IntValue }
+type TaxAdvantageTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TaxAdvantageType (495)
 func (f TaxAdvantageTypeField) Tag() fix.Tag { return tag.TaxAdvantageType }
@@ -18156,7 +18155,7 @@ func NewTaxAdvantageType(val int) *TaxAdvantageTypeField {
 }
 
 //TerminationTypeField is a INT field
-type TerminationTypeField struct{ message.IntValue }
+type TerminationTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TerminationType (788)
 func (f TerminationTypeField) Tag() fix.Tag { return tag.TerminationType }
@@ -18169,7 +18168,7 @@ func NewTerminationType(val int) *TerminationTypeField {
 }
 
 //TestMessageIndicatorField is a BOOLEAN field
-type TestMessageIndicatorField struct{ message.BooleanValue }
+type TestMessageIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.TestMessageIndicator (464)
 func (f TestMessageIndicatorField) Tag() fix.Tag { return tag.TestMessageIndicator }
@@ -18182,7 +18181,7 @@ func NewTestMessageIndicator(val bool) *TestMessageIndicatorField {
 }
 
 //TestReqIDField is a STRING field
-type TestReqIDField struct{ message.StringValue }
+type TestReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.TestReqID (112)
 func (f TestReqIDField) Tag() fix.Tag { return tag.TestReqID }
@@ -18195,7 +18194,7 @@ func NewTestReqID(val string) *TestReqIDField {
 }
 
 //TextField is a STRING field
-type TextField struct{ message.StringValue }
+type TextField struct{ fix.StringValue }
 
 //Tag returns tag.Text (58)
 func (f TextField) Tag() fix.Tag { return tag.Text }
@@ -18208,7 +18207,7 @@ func NewText(val string) *TextField {
 }
 
 //ThresholdAmountField is a PRICEOFFSET field
-type ThresholdAmountField struct{ message.PriceOffsetValue }
+type ThresholdAmountField struct{ fix.PriceOffsetValue }
 
 //Tag returns tag.ThresholdAmount (834)
 func (f ThresholdAmountField) Tag() fix.Tag { return tag.ThresholdAmount }
@@ -18221,7 +18220,7 @@ func NewThresholdAmount(val float64) *ThresholdAmountField {
 }
 
 //TickDirectionField is a CHAR field
-type TickDirectionField struct{ message.CharValue }
+type TickDirectionField struct{ fix.CharValue }
 
 //Tag returns tag.TickDirection (274)
 func (f TickDirectionField) Tag() fix.Tag { return tag.TickDirection }
@@ -18234,7 +18233,7 @@ func NewTickDirection(val string) *TickDirectionField {
 }
 
 //TickIncrementField is a PRICE field
-type TickIncrementField struct{ message.PriceValue }
+type TickIncrementField struct{ fix.PriceValue }
 
 //Tag returns tag.TickIncrement (1208)
 func (f TickIncrementField) Tag() fix.Tag { return tag.TickIncrement }
@@ -18247,7 +18246,7 @@ func NewTickIncrement(val float64) *TickIncrementField {
 }
 
 //TickRuleTypeField is a INT field
-type TickRuleTypeField struct{ message.IntValue }
+type TickRuleTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TickRuleType (1209)
 func (f TickRuleTypeField) Tag() fix.Tag { return tag.TickRuleType }
@@ -18260,7 +18259,7 @@ func NewTickRuleType(val int) *TickRuleTypeField {
 }
 
 //TierCodeField is a STRING field
-type TierCodeField struct{ message.StringValue }
+type TierCodeField struct{ fix.StringValue }
 
 //Tag returns tag.TierCode (994)
 func (f TierCodeField) Tag() fix.Tag { return tag.TierCode }
@@ -18273,7 +18272,7 @@ func NewTierCode(val string) *TierCodeField {
 }
 
 //TimeBracketField is a STRING field
-type TimeBracketField struct{ message.StringValue }
+type TimeBracketField struct{ fix.StringValue }
 
 //Tag returns tag.TimeBracket (943)
 func (f TimeBracketField) Tag() fix.Tag { return tag.TimeBracket }
@@ -18286,7 +18285,7 @@ func NewTimeBracket(val string) *TimeBracketField {
 }
 
 //TimeInForceField is a CHAR field
-type TimeInForceField struct{ message.CharValue }
+type TimeInForceField struct{ fix.CharValue }
 
 //Tag returns tag.TimeInForce (59)
 func (f TimeInForceField) Tag() fix.Tag { return tag.TimeInForce }
@@ -18299,7 +18298,7 @@ func NewTimeInForce(val string) *TimeInForceField {
 }
 
 //TimeToExpirationField is a FLOAT field
-type TimeToExpirationField struct{ message.FloatValue }
+type TimeToExpirationField struct{ fix.FloatValue }
 
 //Tag returns tag.TimeToExpiration (1189)
 func (f TimeToExpirationField) Tag() fix.Tag { return tag.TimeToExpiration }
@@ -18312,7 +18311,7 @@ func NewTimeToExpiration(val float64) *TimeToExpirationField {
 }
 
 //TimeUnitField is a STRING field
-type TimeUnitField struct{ message.StringValue }
+type TimeUnitField struct{ fix.StringValue }
 
 //Tag returns tag.TimeUnit (997)
 func (f TimeUnitField) Tag() fix.Tag { return tag.TimeUnit }
@@ -18325,7 +18324,7 @@ func NewTimeUnit(val string) *TimeUnitField {
 }
 
 //TotNoAccQuotesField is a INT field
-type TotNoAccQuotesField struct{ message.IntValue }
+type TotNoAccQuotesField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoAccQuotes (1169)
 func (f TotNoAccQuotesField) Tag() fix.Tag { return tag.TotNoAccQuotes }
@@ -18338,7 +18337,7 @@ func NewTotNoAccQuotes(val int) *TotNoAccQuotesField {
 }
 
 //TotNoAllocsField is a INT field
-type TotNoAllocsField struct{ message.IntValue }
+type TotNoAllocsField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoAllocs (892)
 func (f TotNoAllocsField) Tag() fix.Tag { return tag.TotNoAllocs }
@@ -18351,7 +18350,7 @@ func NewTotNoAllocs(val int) *TotNoAllocsField {
 }
 
 //TotNoCxldQuotesField is a INT field
-type TotNoCxldQuotesField struct{ message.IntValue }
+type TotNoCxldQuotesField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoCxldQuotes (1168)
 func (f TotNoCxldQuotesField) Tag() fix.Tag { return tag.TotNoCxldQuotes }
@@ -18364,7 +18363,7 @@ func NewTotNoCxldQuotes(val int) *TotNoCxldQuotesField {
 }
 
 //TotNoFillsField is a INT field
-type TotNoFillsField struct{ message.IntValue }
+type TotNoFillsField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoFills (1361)
 func (f TotNoFillsField) Tag() fix.Tag { return tag.TotNoFills }
@@ -18377,7 +18376,7 @@ func NewTotNoFills(val int) *TotNoFillsField {
 }
 
 //TotNoOrdersField is a INT field
-type TotNoOrdersField struct{ message.IntValue }
+type TotNoOrdersField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoOrders (68)
 func (f TotNoOrdersField) Tag() fix.Tag { return tag.TotNoOrders }
@@ -18390,7 +18389,7 @@ func NewTotNoOrders(val int) *TotNoOrdersField {
 }
 
 //TotNoPartyListField is a INT field
-type TotNoPartyListField struct{ message.IntValue }
+type TotNoPartyListField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoPartyList (1512)
 func (f TotNoPartyListField) Tag() fix.Tag { return tag.TotNoPartyList }
@@ -18403,7 +18402,7 @@ func NewTotNoPartyList(val int) *TotNoPartyListField {
 }
 
 //TotNoQuoteEntriesField is a INT field
-type TotNoQuoteEntriesField struct{ message.IntValue }
+type TotNoQuoteEntriesField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoQuoteEntries (304)
 func (f TotNoQuoteEntriesField) Tag() fix.Tag { return tag.TotNoQuoteEntries }
@@ -18416,7 +18415,7 @@ func NewTotNoQuoteEntries(val int) *TotNoQuoteEntriesField {
 }
 
 //TotNoRejQuotesField is a INT field
-type TotNoRejQuotesField struct{ message.IntValue }
+type TotNoRejQuotesField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoRejQuotes (1170)
 func (f TotNoRejQuotesField) Tag() fix.Tag { return tag.TotNoRejQuotes }
@@ -18429,7 +18428,7 @@ func NewTotNoRejQuotes(val int) *TotNoRejQuotesField {
 }
 
 //TotNoRelatedSymField is a INT field
-type TotNoRelatedSymField struct{ message.IntValue }
+type TotNoRelatedSymField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoRelatedSym (393)
 func (f TotNoRelatedSymField) Tag() fix.Tag { return tag.TotNoRelatedSym }
@@ -18442,7 +18441,7 @@ func NewTotNoRelatedSym(val int) *TotNoRelatedSymField {
 }
 
 //TotNoSecurityTypesField is a INT field
-type TotNoSecurityTypesField struct{ message.IntValue }
+type TotNoSecurityTypesField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoSecurityTypes (557)
 func (f TotNoSecurityTypesField) Tag() fix.Tag { return tag.TotNoSecurityTypes }
@@ -18455,7 +18454,7 @@ func NewTotNoSecurityTypes(val int) *TotNoSecurityTypesField {
 }
 
 //TotNoStrikesField is a INT field
-type TotNoStrikesField struct{ message.IntValue }
+type TotNoStrikesField struct{ fix.IntValue }
 
 //Tag returns tag.TotNoStrikes (422)
 func (f TotNoStrikesField) Tag() fix.Tag { return tag.TotNoStrikes }
@@ -18468,7 +18467,7 @@ func NewTotNoStrikes(val int) *TotNoStrikesField {
 }
 
 //TotNumAssignmentReportsField is a INT field
-type TotNumAssignmentReportsField struct{ message.IntValue }
+type TotNumAssignmentReportsField struct{ fix.IntValue }
 
 //Tag returns tag.TotNumAssignmentReports (832)
 func (f TotNumAssignmentReportsField) Tag() fix.Tag { return tag.TotNumAssignmentReports }
@@ -18481,7 +18480,7 @@ func NewTotNumAssignmentReports(val int) *TotNumAssignmentReportsField {
 }
 
 //TotNumReportsField is a INT field
-type TotNumReportsField struct{ message.IntValue }
+type TotNumReportsField struct{ fix.IntValue }
 
 //Tag returns tag.TotNumReports (911)
 func (f TotNumReportsField) Tag() fix.Tag { return tag.TotNumReports }
@@ -18494,7 +18493,7 @@ func NewTotNumReports(val int) *TotNumReportsField {
 }
 
 //TotNumTradeReportsField is a INT field
-type TotNumTradeReportsField struct{ message.IntValue }
+type TotNumTradeReportsField struct{ fix.IntValue }
 
 //Tag returns tag.TotNumTradeReports (748)
 func (f TotNumTradeReportsField) Tag() fix.Tag { return tag.TotNumTradeReports }
@@ -18507,7 +18506,7 @@ func NewTotNumTradeReports(val int) *TotNumTradeReportsField {
 }
 
 //TotQuoteEntriesField is a INT field
-type TotQuoteEntriesField struct{ message.IntValue }
+type TotQuoteEntriesField struct{ fix.IntValue }
 
 //Tag returns tag.TotQuoteEntries (304)
 func (f TotQuoteEntriesField) Tag() fix.Tag { return tag.TotQuoteEntries }
@@ -18520,7 +18519,7 @@ func NewTotQuoteEntries(val int) *TotQuoteEntriesField {
 }
 
 //TotalAccruedInterestAmtField is a AMT field
-type TotalAccruedInterestAmtField struct{ message.AmtValue }
+type TotalAccruedInterestAmtField struct{ fix.AmtValue }
 
 //Tag returns tag.TotalAccruedInterestAmt (540)
 func (f TotalAccruedInterestAmtField) Tag() fix.Tag { return tag.TotalAccruedInterestAmt }
@@ -18533,7 +18532,7 @@ func NewTotalAccruedInterestAmt(val float64) *TotalAccruedInterestAmtField {
 }
 
 //TotalAffectedOrdersField is a INT field
-type TotalAffectedOrdersField struct{ message.IntValue }
+type TotalAffectedOrdersField struct{ fix.IntValue }
 
 //Tag returns tag.TotalAffectedOrders (533)
 func (f TotalAffectedOrdersField) Tag() fix.Tag { return tag.TotalAffectedOrders }
@@ -18546,7 +18545,7 @@ func NewTotalAffectedOrders(val int) *TotalAffectedOrdersField {
 }
 
 //TotalNetValueField is a AMT field
-type TotalNetValueField struct{ message.AmtValue }
+type TotalNetValueField struct{ fix.AmtValue }
 
 //Tag returns tag.TotalNetValue (900)
 func (f TotalNetValueField) Tag() fix.Tag { return tag.TotalNetValue }
@@ -18559,7 +18558,7 @@ func NewTotalNetValue(val float64) *TotalNetValueField {
 }
 
 //TotalNumPosReportsField is a INT field
-type TotalNumPosReportsField struct{ message.IntValue }
+type TotalNumPosReportsField struct{ fix.IntValue }
 
 //Tag returns tag.TotalNumPosReports (727)
 func (f TotalNumPosReportsField) Tag() fix.Tag { return tag.TotalNumPosReports }
@@ -18572,7 +18571,7 @@ func NewTotalNumPosReports(val int) *TotalNumPosReportsField {
 }
 
 //TotalNumSecuritiesField is a INT field
-type TotalNumSecuritiesField struct{ message.IntValue }
+type TotalNumSecuritiesField struct{ fix.IntValue }
 
 //Tag returns tag.TotalNumSecurities (393)
 func (f TotalNumSecuritiesField) Tag() fix.Tag { return tag.TotalNumSecurities }
@@ -18585,7 +18584,7 @@ func NewTotalNumSecurities(val int) *TotalNumSecuritiesField {
 }
 
 //TotalNumSecurityTypesField is a INT field
-type TotalNumSecurityTypesField struct{ message.IntValue }
+type TotalNumSecurityTypesField struct{ fix.IntValue }
 
 //Tag returns tag.TotalNumSecurityTypes (557)
 func (f TotalNumSecurityTypesField) Tag() fix.Tag { return tag.TotalNumSecurityTypes }
@@ -18598,7 +18597,7 @@ func NewTotalNumSecurityTypes(val int) *TotalNumSecurityTypesField {
 }
 
 //TotalTakedownField is a AMT field
-type TotalTakedownField struct{ message.AmtValue }
+type TotalTakedownField struct{ fix.AmtValue }
 
 //Tag returns tag.TotalTakedown (237)
 func (f TotalTakedownField) Tag() fix.Tag { return tag.TotalTakedown }
@@ -18611,7 +18610,7 @@ func NewTotalTakedown(val float64) *TotalTakedownField {
 }
 
 //TotalVolumeTradedField is a QTY field
-type TotalVolumeTradedField struct{ message.QtyValue }
+type TotalVolumeTradedField struct{ fix.QtyValue }
 
 //Tag returns tag.TotalVolumeTraded (387)
 func (f TotalVolumeTradedField) Tag() fix.Tag { return tag.TotalVolumeTraded }
@@ -18624,31 +18623,31 @@ func NewTotalVolumeTraded(val float64) *TotalVolumeTradedField {
 }
 
 //TotalVolumeTradedDateField is a UTCDATEONLY field
-type TotalVolumeTradedDateField struct{ message.UTCDateOnlyValue }
+type TotalVolumeTradedDateField struct{ fix.UTCDateOnlyValue }
 
 //Tag returns tag.TotalVolumeTradedDate (449)
 func (f TotalVolumeTradedDateField) Tag() fix.Tag { return tag.TotalVolumeTradedDate }
 
 //TotalVolumeTradedTimeField is a UTCTIMEONLY field
-type TotalVolumeTradedTimeField struct{ message.UTCTimeOnlyValue }
+type TotalVolumeTradedTimeField struct{ fix.UTCTimeOnlyValue }
 
 //Tag returns tag.TotalVolumeTradedTime (450)
 func (f TotalVolumeTradedTimeField) Tag() fix.Tag { return tag.TotalVolumeTradedTime }
 
 //TradSesCloseTimeField is a UTCTIMESTAMP field
-type TradSesCloseTimeField struct{ message.UTCTimestampValue }
+type TradSesCloseTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.TradSesCloseTime (344)
 func (f TradSesCloseTimeField) Tag() fix.Tag { return tag.TradSesCloseTime }
 
 //TradSesEndTimeField is a UTCTIMESTAMP field
-type TradSesEndTimeField struct{ message.UTCTimestampValue }
+type TradSesEndTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.TradSesEndTime (345)
 func (f TradSesEndTimeField) Tag() fix.Tag { return tag.TradSesEndTime }
 
 //TradSesEventField is a INT field
-type TradSesEventField struct{ message.IntValue }
+type TradSesEventField struct{ fix.IntValue }
 
 //Tag returns tag.TradSesEvent (1368)
 func (f TradSesEventField) Tag() fix.Tag { return tag.TradSesEvent }
@@ -18661,7 +18660,7 @@ func NewTradSesEvent(val int) *TradSesEventField {
 }
 
 //TradSesMethodField is a INT field
-type TradSesMethodField struct{ message.IntValue }
+type TradSesMethodField struct{ fix.IntValue }
 
 //Tag returns tag.TradSesMethod (338)
 func (f TradSesMethodField) Tag() fix.Tag { return tag.TradSesMethod }
@@ -18674,7 +18673,7 @@ func NewTradSesMethod(val int) *TradSesMethodField {
 }
 
 //TradSesModeField is a INT field
-type TradSesModeField struct{ message.IntValue }
+type TradSesModeField struct{ fix.IntValue }
 
 //Tag returns tag.TradSesMode (339)
 func (f TradSesModeField) Tag() fix.Tag { return tag.TradSesMode }
@@ -18687,19 +18686,19 @@ func NewTradSesMode(val int) *TradSesModeField {
 }
 
 //TradSesOpenTimeField is a UTCTIMESTAMP field
-type TradSesOpenTimeField struct{ message.UTCTimestampValue }
+type TradSesOpenTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.TradSesOpenTime (342)
 func (f TradSesOpenTimeField) Tag() fix.Tag { return tag.TradSesOpenTime }
 
 //TradSesPreCloseTimeField is a UTCTIMESTAMP field
-type TradSesPreCloseTimeField struct{ message.UTCTimestampValue }
+type TradSesPreCloseTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.TradSesPreCloseTime (343)
 func (f TradSesPreCloseTimeField) Tag() fix.Tag { return tag.TradSesPreCloseTime }
 
 //TradSesReqIDField is a STRING field
-type TradSesReqIDField struct{ message.StringValue }
+type TradSesReqIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradSesReqID (335)
 func (f TradSesReqIDField) Tag() fix.Tag { return tag.TradSesReqID }
@@ -18712,13 +18711,13 @@ func NewTradSesReqID(val string) *TradSesReqIDField {
 }
 
 //TradSesStartTimeField is a UTCTIMESTAMP field
-type TradSesStartTimeField struct{ message.UTCTimestampValue }
+type TradSesStartTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.TradSesStartTime (341)
 func (f TradSesStartTimeField) Tag() fix.Tag { return tag.TradSesStartTime }
 
 //TradSesStatusField is a INT field
-type TradSesStatusField struct{ message.IntValue }
+type TradSesStatusField struct{ fix.IntValue }
 
 //Tag returns tag.TradSesStatus (340)
 func (f TradSesStatusField) Tag() fix.Tag { return tag.TradSesStatus }
@@ -18731,7 +18730,7 @@ func NewTradSesStatus(val int) *TradSesStatusField {
 }
 
 //TradSesStatusRejReasonField is a INT field
-type TradSesStatusRejReasonField struct{ message.IntValue }
+type TradSesStatusRejReasonField struct{ fix.IntValue }
 
 //Tag returns tag.TradSesStatusRejReason (567)
 func (f TradSesStatusRejReasonField) Tag() fix.Tag { return tag.TradSesStatusRejReason }
@@ -18744,7 +18743,7 @@ func NewTradSesStatusRejReason(val int) *TradSesStatusRejReasonField {
 }
 
 //TradSesUpdateActionField is a CHAR field
-type TradSesUpdateActionField struct{ message.CharValue }
+type TradSesUpdateActionField struct{ fix.CharValue }
 
 //Tag returns tag.TradSesUpdateAction (1327)
 func (f TradSesUpdateActionField) Tag() fix.Tag { return tag.TradSesUpdateAction }
@@ -18757,7 +18756,7 @@ func NewTradSesUpdateAction(val string) *TradSesUpdateActionField {
 }
 
 //TradeAllocIndicatorField is a INT field
-type TradeAllocIndicatorField struct{ message.IntValue }
+type TradeAllocIndicatorField struct{ fix.IntValue }
 
 //Tag returns tag.TradeAllocIndicator (826)
 func (f TradeAllocIndicatorField) Tag() fix.Tag { return tag.TradeAllocIndicator }
@@ -18770,7 +18769,7 @@ func NewTradeAllocIndicator(val int) *TradeAllocIndicatorField {
 }
 
 //TradeConditionField is a MULTIPLESTRINGVALUE field
-type TradeConditionField struct{ message.MultipleStringValue }
+type TradeConditionField struct{ fix.MultipleStringValue }
 
 //Tag returns tag.TradeCondition (277)
 func (f TradeConditionField) Tag() fix.Tag { return tag.TradeCondition }
@@ -18783,7 +18782,7 @@ func NewTradeCondition(val string) *TradeConditionField {
 }
 
 //TradeDateField is a LOCALMKTDATE field
-type TradeDateField struct{ message.LocalMktDateValue }
+type TradeDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.TradeDate (75)
 func (f TradeDateField) Tag() fix.Tag { return tag.TradeDate }
@@ -18796,7 +18795,7 @@ func NewTradeDate(val string) *TradeDateField {
 }
 
 //TradeHandlingInstrField is a CHAR field
-type TradeHandlingInstrField struct{ message.CharValue }
+type TradeHandlingInstrField struct{ fix.CharValue }
 
 //Tag returns tag.TradeHandlingInstr (1123)
 func (f TradeHandlingInstrField) Tag() fix.Tag { return tag.TradeHandlingInstr }
@@ -18809,7 +18808,7 @@ func NewTradeHandlingInstr(val string) *TradeHandlingInstrField {
 }
 
 //TradeIDField is a STRING field
-type TradeIDField struct{ message.StringValue }
+type TradeIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradeID (1003)
 func (f TradeIDField) Tag() fix.Tag { return tag.TradeID }
@@ -18822,7 +18821,7 @@ func NewTradeID(val string) *TradeIDField {
 }
 
 //TradeInputDeviceField is a STRING field
-type TradeInputDeviceField struct{ message.StringValue }
+type TradeInputDeviceField struct{ fix.StringValue }
 
 //Tag returns tag.TradeInputDevice (579)
 func (f TradeInputDeviceField) Tag() fix.Tag { return tag.TradeInputDevice }
@@ -18835,7 +18834,7 @@ func NewTradeInputDevice(val string) *TradeInputDeviceField {
 }
 
 //TradeInputSourceField is a STRING field
-type TradeInputSourceField struct{ message.StringValue }
+type TradeInputSourceField struct{ fix.StringValue }
 
 //Tag returns tag.TradeInputSource (578)
 func (f TradeInputSourceField) Tag() fix.Tag { return tag.TradeInputSource }
@@ -18848,7 +18847,7 @@ func NewTradeInputSource(val string) *TradeInputSourceField {
 }
 
 //TradeLegRefIDField is a STRING field
-type TradeLegRefIDField struct{ message.StringValue }
+type TradeLegRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradeLegRefID (824)
 func (f TradeLegRefIDField) Tag() fix.Tag { return tag.TradeLegRefID }
@@ -18861,7 +18860,7 @@ func NewTradeLegRefID(val string) *TradeLegRefIDField {
 }
 
 //TradeLinkIDField is a STRING field
-type TradeLinkIDField struct{ message.StringValue }
+type TradeLinkIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradeLinkID (820)
 func (f TradeLinkIDField) Tag() fix.Tag { return tag.TradeLinkID }
@@ -18874,7 +18873,7 @@ func NewTradeLinkID(val string) *TradeLinkIDField {
 }
 
 //TradeOriginationDateField is a LOCALMKTDATE field
-type TradeOriginationDateField struct{ message.LocalMktDateValue }
+type TradeOriginationDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.TradeOriginationDate (229)
 func (f TradeOriginationDateField) Tag() fix.Tag { return tag.TradeOriginationDate }
@@ -18887,7 +18886,7 @@ func NewTradeOriginationDate(val string) *TradeOriginationDateField {
 }
 
 //TradePublishIndicatorField is a INT field
-type TradePublishIndicatorField struct{ message.IntValue }
+type TradePublishIndicatorField struct{ fix.IntValue }
 
 //Tag returns tag.TradePublishIndicator (1390)
 func (f TradePublishIndicatorField) Tag() fix.Tag { return tag.TradePublishIndicator }
@@ -18900,7 +18899,7 @@ func NewTradePublishIndicator(val int) *TradePublishIndicatorField {
 }
 
 //TradeReportIDField is a STRING field
-type TradeReportIDField struct{ message.StringValue }
+type TradeReportIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradeReportID (571)
 func (f TradeReportIDField) Tag() fix.Tag { return tag.TradeReportID }
@@ -18913,7 +18912,7 @@ func NewTradeReportID(val string) *TradeReportIDField {
 }
 
 //TradeReportRefIDField is a STRING field
-type TradeReportRefIDField struct{ message.StringValue }
+type TradeReportRefIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradeReportRefID (572)
 func (f TradeReportRefIDField) Tag() fix.Tag { return tag.TradeReportRefID }
@@ -18926,7 +18925,7 @@ func NewTradeReportRefID(val string) *TradeReportRefIDField {
 }
 
 //TradeReportRejectReasonField is a INT field
-type TradeReportRejectReasonField struct{ message.IntValue }
+type TradeReportRejectReasonField struct{ fix.IntValue }
 
 //Tag returns tag.TradeReportRejectReason (751)
 func (f TradeReportRejectReasonField) Tag() fix.Tag { return tag.TradeReportRejectReason }
@@ -18939,7 +18938,7 @@ func NewTradeReportRejectReason(val int) *TradeReportRejectReasonField {
 }
 
 //TradeReportTransTypeField is a INT field
-type TradeReportTransTypeField struct{ message.IntValue }
+type TradeReportTransTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TradeReportTransType (487)
 func (f TradeReportTransTypeField) Tag() fix.Tag { return tag.TradeReportTransType }
@@ -18952,7 +18951,7 @@ func NewTradeReportTransType(val int) *TradeReportTransTypeField {
 }
 
 //TradeReportTypeField is a INT field
-type TradeReportTypeField struct{ message.IntValue }
+type TradeReportTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TradeReportType (856)
 func (f TradeReportTypeField) Tag() fix.Tag { return tag.TradeReportType }
@@ -18965,7 +18964,7 @@ func NewTradeReportType(val int) *TradeReportTypeField {
 }
 
 //TradeRequestIDField is a STRING field
-type TradeRequestIDField struct{ message.StringValue }
+type TradeRequestIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradeRequestID (568)
 func (f TradeRequestIDField) Tag() fix.Tag { return tag.TradeRequestID }
@@ -18978,7 +18977,7 @@ func NewTradeRequestID(val string) *TradeRequestIDField {
 }
 
 //TradeRequestResultField is a INT field
-type TradeRequestResultField struct{ message.IntValue }
+type TradeRequestResultField struct{ fix.IntValue }
 
 //Tag returns tag.TradeRequestResult (749)
 func (f TradeRequestResultField) Tag() fix.Tag { return tag.TradeRequestResult }
@@ -18991,7 +18990,7 @@ func NewTradeRequestResult(val int) *TradeRequestResultField {
 }
 
 //TradeRequestStatusField is a INT field
-type TradeRequestStatusField struct{ message.IntValue }
+type TradeRequestStatusField struct{ fix.IntValue }
 
 //Tag returns tag.TradeRequestStatus (750)
 func (f TradeRequestStatusField) Tag() fix.Tag { return tag.TradeRequestStatus }
@@ -19004,7 +19003,7 @@ func NewTradeRequestStatus(val int) *TradeRequestStatusField {
 }
 
 //TradeRequestTypeField is a INT field
-type TradeRequestTypeField struct{ message.IntValue }
+type TradeRequestTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TradeRequestType (569)
 func (f TradeRequestTypeField) Tag() fix.Tag { return tag.TradeRequestType }
@@ -19017,7 +19016,7 @@ func NewTradeRequestType(val int) *TradeRequestTypeField {
 }
 
 //TradeTypeField is a CHAR field
-type TradeTypeField struct{ message.CharValue }
+type TradeTypeField struct{ fix.CharValue }
 
 //Tag returns tag.TradeType (418)
 func (f TradeTypeField) Tag() fix.Tag { return tag.TradeType }
@@ -19030,7 +19029,7 @@ func NewTradeType(val string) *TradeTypeField {
 }
 
 //TradeVolumeField is a QTY field
-type TradeVolumeField struct{ message.QtyValue }
+type TradeVolumeField struct{ fix.QtyValue }
 
 //Tag returns tag.TradeVolume (1020)
 func (f TradeVolumeField) Tag() fix.Tag { return tag.TradeVolume }
@@ -19043,7 +19042,7 @@ func NewTradeVolume(val float64) *TradeVolumeField {
 }
 
 //TradedFlatSwitchField is a BOOLEAN field
-type TradedFlatSwitchField struct{ message.BooleanValue }
+type TradedFlatSwitchField struct{ fix.BooleanValue }
 
 //Tag returns tag.TradedFlatSwitch (258)
 func (f TradedFlatSwitchField) Tag() fix.Tag { return tag.TradedFlatSwitch }
@@ -19056,7 +19055,7 @@ func NewTradedFlatSwitch(val bool) *TradedFlatSwitchField {
 }
 
 //TradingCurrencyField is a CURRENCY field
-type TradingCurrencyField struct{ message.CurrencyValue }
+type TradingCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.TradingCurrency (1245)
 func (f TradingCurrencyField) Tag() fix.Tag { return tag.TradingCurrency }
@@ -19069,7 +19068,7 @@ func NewTradingCurrency(val string) *TradingCurrencyField {
 }
 
 //TradingReferencePriceField is a PRICE field
-type TradingReferencePriceField struct{ message.PriceValue }
+type TradingReferencePriceField struct{ fix.PriceValue }
 
 //Tag returns tag.TradingReferencePrice (1150)
 func (f TradingReferencePriceField) Tag() fix.Tag { return tag.TradingReferencePrice }
@@ -19082,7 +19081,7 @@ func NewTradingReferencePrice(val float64) *TradingReferencePriceField {
 }
 
 //TradingSessionDescField is a STRING field
-type TradingSessionDescField struct{ message.StringValue }
+type TradingSessionDescField struct{ fix.StringValue }
 
 //Tag returns tag.TradingSessionDesc (1326)
 func (f TradingSessionDescField) Tag() fix.Tag { return tag.TradingSessionDesc }
@@ -19095,7 +19094,7 @@ func NewTradingSessionDesc(val string) *TradingSessionDescField {
 }
 
 //TradingSessionIDField is a STRING field
-type TradingSessionIDField struct{ message.StringValue }
+type TradingSessionIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradingSessionID (336)
 func (f TradingSessionIDField) Tag() fix.Tag { return tag.TradingSessionID }
@@ -19108,7 +19107,7 @@ func NewTradingSessionID(val string) *TradingSessionIDField {
 }
 
 //TradingSessionSubIDField is a STRING field
-type TradingSessionSubIDField struct{ message.StringValue }
+type TradingSessionSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.TradingSessionSubID (625)
 func (f TradingSessionSubIDField) Tag() fix.Tag { return tag.TradingSessionSubID }
@@ -19121,19 +19120,19 @@ func NewTradingSessionSubID(val string) *TradingSessionSubIDField {
 }
 
 //TransBkdTimeField is a UTCTIMESTAMP field
-type TransBkdTimeField struct{ message.UTCTimestampValue }
+type TransBkdTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.TransBkdTime (483)
 func (f TransBkdTimeField) Tag() fix.Tag { return tag.TransBkdTime }
 
 //TransactTimeField is a UTCTIMESTAMP field
-type TransactTimeField struct{ message.UTCTimestampValue }
+type TransactTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.TransactTime (60)
 func (f TransactTimeField) Tag() fix.Tag { return tag.TransactTime }
 
 //TransferReasonField is a STRING field
-type TransferReasonField struct{ message.StringValue }
+type TransferReasonField struct{ fix.StringValue }
 
 //Tag returns tag.TransferReason (830)
 func (f TransferReasonField) Tag() fix.Tag { return tag.TransferReason }
@@ -19146,7 +19145,7 @@ func NewTransferReason(val string) *TransferReasonField {
 }
 
 //TrdMatchIDField is a STRING field
-type TrdMatchIDField struct{ message.StringValue }
+type TrdMatchIDField struct{ fix.StringValue }
 
 //Tag returns tag.TrdMatchID (880)
 func (f TrdMatchIDField) Tag() fix.Tag { return tag.TrdMatchID }
@@ -19159,13 +19158,13 @@ func NewTrdMatchID(val string) *TrdMatchIDField {
 }
 
 //TrdRegTimestampField is a UTCTIMESTAMP field
-type TrdRegTimestampField struct{ message.UTCTimestampValue }
+type TrdRegTimestampField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.TrdRegTimestamp (769)
 func (f TrdRegTimestampField) Tag() fix.Tag { return tag.TrdRegTimestamp }
 
 //TrdRegTimestampOriginField is a STRING field
-type TrdRegTimestampOriginField struct{ message.StringValue }
+type TrdRegTimestampOriginField struct{ fix.StringValue }
 
 //Tag returns tag.TrdRegTimestampOrigin (771)
 func (f TrdRegTimestampOriginField) Tag() fix.Tag { return tag.TrdRegTimestampOrigin }
@@ -19178,7 +19177,7 @@ func NewTrdRegTimestampOrigin(val string) *TrdRegTimestampOriginField {
 }
 
 //TrdRegTimestampTypeField is a INT field
-type TrdRegTimestampTypeField struct{ message.IntValue }
+type TrdRegTimestampTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TrdRegTimestampType (770)
 func (f TrdRegTimestampTypeField) Tag() fix.Tag { return tag.TrdRegTimestampType }
@@ -19191,7 +19190,7 @@ func NewTrdRegTimestampType(val int) *TrdRegTimestampTypeField {
 }
 
 //TrdRepIndicatorField is a BOOLEAN field
-type TrdRepIndicatorField struct{ message.BooleanValue }
+type TrdRepIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.TrdRepIndicator (1389)
 func (f TrdRepIndicatorField) Tag() fix.Tag { return tag.TrdRepIndicator }
@@ -19204,7 +19203,7 @@ func NewTrdRepIndicator(val bool) *TrdRepIndicatorField {
 }
 
 //TrdRepPartyRoleField is a INT field
-type TrdRepPartyRoleField struct{ message.IntValue }
+type TrdRepPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.TrdRepPartyRole (1388)
 func (f TrdRepPartyRoleField) Tag() fix.Tag { return tag.TrdRepPartyRole }
@@ -19217,7 +19216,7 @@ func NewTrdRepPartyRole(val int) *TrdRepPartyRoleField {
 }
 
 //TrdRptStatusField is a INT field
-type TrdRptStatusField struct{ message.IntValue }
+type TrdRptStatusField struct{ fix.IntValue }
 
 //Tag returns tag.TrdRptStatus (939)
 func (f TrdRptStatusField) Tag() fix.Tag { return tag.TrdRptStatus }
@@ -19230,7 +19229,7 @@ func NewTrdRptStatus(val int) *TrdRptStatusField {
 }
 
 //TrdSubTypeField is a INT field
-type TrdSubTypeField struct{ message.IntValue }
+type TrdSubTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TrdSubType (829)
 func (f TrdSubTypeField) Tag() fix.Tag { return tag.TrdSubType }
@@ -19243,7 +19242,7 @@ func NewTrdSubType(val int) *TrdSubTypeField {
 }
 
 //TrdTypeField is a INT field
-type TrdTypeField struct{ message.IntValue }
+type TrdTypeField struct{ fix.IntValue }
 
 //Tag returns tag.TrdType (828)
 func (f TrdTypeField) Tag() fix.Tag { return tag.TrdType }
@@ -19256,7 +19255,7 @@ func NewTrdType(val int) *TrdTypeField {
 }
 
 //TriggerActionField is a CHAR field
-type TriggerActionField struct{ message.CharValue }
+type TriggerActionField struct{ fix.CharValue }
 
 //Tag returns tag.TriggerAction (1101)
 func (f TriggerActionField) Tag() fix.Tag { return tag.TriggerAction }
@@ -19269,7 +19268,7 @@ func NewTriggerAction(val string) *TriggerActionField {
 }
 
 //TriggerNewPriceField is a PRICE field
-type TriggerNewPriceField struct{ message.PriceValue }
+type TriggerNewPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.TriggerNewPrice (1110)
 func (f TriggerNewPriceField) Tag() fix.Tag { return tag.TriggerNewPrice }
@@ -19282,7 +19281,7 @@ func NewTriggerNewPrice(val float64) *TriggerNewPriceField {
 }
 
 //TriggerNewQtyField is a QTY field
-type TriggerNewQtyField struct{ message.QtyValue }
+type TriggerNewQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.TriggerNewQty (1112)
 func (f TriggerNewQtyField) Tag() fix.Tag { return tag.TriggerNewQty }
@@ -19295,7 +19294,7 @@ func NewTriggerNewQty(val float64) *TriggerNewQtyField {
 }
 
 //TriggerOrderTypeField is a CHAR field
-type TriggerOrderTypeField struct{ message.CharValue }
+type TriggerOrderTypeField struct{ fix.CharValue }
 
 //Tag returns tag.TriggerOrderType (1111)
 func (f TriggerOrderTypeField) Tag() fix.Tag { return tag.TriggerOrderType }
@@ -19308,7 +19307,7 @@ func NewTriggerOrderType(val string) *TriggerOrderTypeField {
 }
 
 //TriggerPriceField is a PRICE field
-type TriggerPriceField struct{ message.PriceValue }
+type TriggerPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.TriggerPrice (1102)
 func (f TriggerPriceField) Tag() fix.Tag { return tag.TriggerPrice }
@@ -19321,7 +19320,7 @@ func NewTriggerPrice(val float64) *TriggerPriceField {
 }
 
 //TriggerPriceDirectionField is a CHAR field
-type TriggerPriceDirectionField struct{ message.CharValue }
+type TriggerPriceDirectionField struct{ fix.CharValue }
 
 //Tag returns tag.TriggerPriceDirection (1109)
 func (f TriggerPriceDirectionField) Tag() fix.Tag { return tag.TriggerPriceDirection }
@@ -19334,7 +19333,7 @@ func NewTriggerPriceDirection(val string) *TriggerPriceDirectionField {
 }
 
 //TriggerPriceTypeField is a CHAR field
-type TriggerPriceTypeField struct{ message.CharValue }
+type TriggerPriceTypeField struct{ fix.CharValue }
 
 //Tag returns tag.TriggerPriceType (1107)
 func (f TriggerPriceTypeField) Tag() fix.Tag { return tag.TriggerPriceType }
@@ -19347,7 +19346,7 @@ func NewTriggerPriceType(val string) *TriggerPriceTypeField {
 }
 
 //TriggerPriceTypeScopeField is a CHAR field
-type TriggerPriceTypeScopeField struct{ message.CharValue }
+type TriggerPriceTypeScopeField struct{ fix.CharValue }
 
 //Tag returns tag.TriggerPriceTypeScope (1108)
 func (f TriggerPriceTypeScopeField) Tag() fix.Tag { return tag.TriggerPriceTypeScope }
@@ -19360,7 +19359,7 @@ func NewTriggerPriceTypeScope(val string) *TriggerPriceTypeScopeField {
 }
 
 //TriggerSecurityDescField is a STRING field
-type TriggerSecurityDescField struct{ message.StringValue }
+type TriggerSecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.TriggerSecurityDesc (1106)
 func (f TriggerSecurityDescField) Tag() fix.Tag { return tag.TriggerSecurityDesc }
@@ -19373,7 +19372,7 @@ func NewTriggerSecurityDesc(val string) *TriggerSecurityDescField {
 }
 
 //TriggerSecurityIDField is a STRING field
-type TriggerSecurityIDField struct{ message.StringValue }
+type TriggerSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.TriggerSecurityID (1104)
 func (f TriggerSecurityIDField) Tag() fix.Tag { return tag.TriggerSecurityID }
@@ -19386,7 +19385,7 @@ func NewTriggerSecurityID(val string) *TriggerSecurityIDField {
 }
 
 //TriggerSecurityIDSourceField is a STRING field
-type TriggerSecurityIDSourceField struct{ message.StringValue }
+type TriggerSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.TriggerSecurityIDSource (1105)
 func (f TriggerSecurityIDSourceField) Tag() fix.Tag { return tag.TriggerSecurityIDSource }
@@ -19399,7 +19398,7 @@ func NewTriggerSecurityIDSource(val string) *TriggerSecurityIDSourceField {
 }
 
 //TriggerSymbolField is a STRING field
-type TriggerSymbolField struct{ message.StringValue }
+type TriggerSymbolField struct{ fix.StringValue }
 
 //Tag returns tag.TriggerSymbol (1103)
 func (f TriggerSymbolField) Tag() fix.Tag { return tag.TriggerSymbol }
@@ -19412,7 +19411,7 @@ func NewTriggerSymbol(val string) *TriggerSymbolField {
 }
 
 //TriggerTradingSessionIDField is a STRING field
-type TriggerTradingSessionIDField struct{ message.StringValue }
+type TriggerTradingSessionIDField struct{ fix.StringValue }
 
 //Tag returns tag.TriggerTradingSessionID (1113)
 func (f TriggerTradingSessionIDField) Tag() fix.Tag { return tag.TriggerTradingSessionID }
@@ -19425,7 +19424,7 @@ func NewTriggerTradingSessionID(val string) *TriggerTradingSessionIDField {
 }
 
 //TriggerTradingSessionSubIDField is a STRING field
-type TriggerTradingSessionSubIDField struct{ message.StringValue }
+type TriggerTradingSessionSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.TriggerTradingSessionSubID (1114)
 func (f TriggerTradingSessionSubIDField) Tag() fix.Tag { return tag.TriggerTradingSessionSubID }
@@ -19438,7 +19437,7 @@ func NewTriggerTradingSessionSubID(val string) *TriggerTradingSessionSubIDField 
 }
 
 //TriggerTypeField is a CHAR field
-type TriggerTypeField struct{ message.CharValue }
+type TriggerTypeField struct{ fix.CharValue }
 
 //Tag returns tag.TriggerType (1100)
 func (f TriggerTypeField) Tag() fix.Tag { return tag.TriggerType }
@@ -19451,7 +19450,7 @@ func NewTriggerType(val string) *TriggerTypeField {
 }
 
 //URLLinkField is a STRING field
-type URLLinkField struct{ message.StringValue }
+type URLLinkField struct{ fix.StringValue }
 
 //Tag returns tag.URLLink (149)
 func (f URLLinkField) Tag() fix.Tag { return tag.URLLink }
@@ -19464,7 +19463,7 @@ func NewURLLink(val string) *URLLinkField {
 }
 
 //UnderlyingAdjustedQuantityField is a QTY field
-type UnderlyingAdjustedQuantityField struct{ message.QtyValue }
+type UnderlyingAdjustedQuantityField struct{ fix.QtyValue }
 
 //Tag returns tag.UnderlyingAdjustedQuantity (1044)
 func (f UnderlyingAdjustedQuantityField) Tag() fix.Tag { return tag.UnderlyingAdjustedQuantity }
@@ -19477,7 +19476,7 @@ func NewUnderlyingAdjustedQuantity(val float64) *UnderlyingAdjustedQuantityField
 }
 
 //UnderlyingAllocationPercentField is a PERCENTAGE field
-type UnderlyingAllocationPercentField struct{ message.PercentageValue }
+type UnderlyingAllocationPercentField struct{ fix.PercentageValue }
 
 //Tag returns tag.UnderlyingAllocationPercent (972)
 func (f UnderlyingAllocationPercentField) Tag() fix.Tag { return tag.UnderlyingAllocationPercent }
@@ -19490,7 +19489,7 @@ func NewUnderlyingAllocationPercent(val float64) *UnderlyingAllocationPercentFie
 }
 
 //UnderlyingAttachmentPointField is a PERCENTAGE field
-type UnderlyingAttachmentPointField struct{ message.PercentageValue }
+type UnderlyingAttachmentPointField struct{ fix.PercentageValue }
 
 //Tag returns tag.UnderlyingAttachmentPoint (1459)
 func (f UnderlyingAttachmentPointField) Tag() fix.Tag { return tag.UnderlyingAttachmentPoint }
@@ -19503,7 +19502,7 @@ func NewUnderlyingAttachmentPoint(val float64) *UnderlyingAttachmentPointField {
 }
 
 //UnderlyingCFICodeField is a STRING field
-type UnderlyingCFICodeField struct{ message.StringValue }
+type UnderlyingCFICodeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingCFICode (463)
 func (f UnderlyingCFICodeField) Tag() fix.Tag { return tag.UnderlyingCFICode }
@@ -19516,7 +19515,7 @@ func NewUnderlyingCFICode(val string) *UnderlyingCFICodeField {
 }
 
 //UnderlyingCPProgramField is a STRING field
-type UnderlyingCPProgramField struct{ message.StringValue }
+type UnderlyingCPProgramField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingCPProgram (877)
 func (f UnderlyingCPProgramField) Tag() fix.Tag { return tag.UnderlyingCPProgram }
@@ -19529,7 +19528,7 @@ func NewUnderlyingCPProgram(val string) *UnderlyingCPProgramField {
 }
 
 //UnderlyingCPRegTypeField is a STRING field
-type UnderlyingCPRegTypeField struct{ message.StringValue }
+type UnderlyingCPRegTypeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingCPRegType (878)
 func (f UnderlyingCPRegTypeField) Tag() fix.Tag { return tag.UnderlyingCPRegType }
@@ -19542,7 +19541,7 @@ func NewUnderlyingCPRegType(val string) *UnderlyingCPRegTypeField {
 }
 
 //UnderlyingCapValueField is a AMT field
-type UnderlyingCapValueField struct{ message.AmtValue }
+type UnderlyingCapValueField struct{ fix.AmtValue }
 
 //Tag returns tag.UnderlyingCapValue (1038)
 func (f UnderlyingCapValueField) Tag() fix.Tag { return tag.UnderlyingCapValue }
@@ -19555,7 +19554,7 @@ func NewUnderlyingCapValue(val float64) *UnderlyingCapValueField {
 }
 
 //UnderlyingCashAmountField is a AMT field
-type UnderlyingCashAmountField struct{ message.AmtValue }
+type UnderlyingCashAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.UnderlyingCashAmount (973)
 func (f UnderlyingCashAmountField) Tag() fix.Tag { return tag.UnderlyingCashAmount }
@@ -19568,7 +19567,7 @@ func NewUnderlyingCashAmount(val float64) *UnderlyingCashAmountField {
 }
 
 //UnderlyingCashTypeField is a STRING field
-type UnderlyingCashTypeField struct{ message.StringValue }
+type UnderlyingCashTypeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingCashType (974)
 func (f UnderlyingCashTypeField) Tag() fix.Tag { return tag.UnderlyingCashType }
@@ -19581,7 +19580,7 @@ func NewUnderlyingCashType(val string) *UnderlyingCashTypeField {
 }
 
 //UnderlyingCollectAmountField is a AMT field
-type UnderlyingCollectAmountField struct{ message.AmtValue }
+type UnderlyingCollectAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.UnderlyingCollectAmount (986)
 func (f UnderlyingCollectAmountField) Tag() fix.Tag { return tag.UnderlyingCollectAmount }
@@ -19594,7 +19593,7 @@ func NewUnderlyingCollectAmount(val float64) *UnderlyingCollectAmountField {
 }
 
 //UnderlyingContractMultiplierField is a FLOAT field
-type UnderlyingContractMultiplierField struct{ message.FloatValue }
+type UnderlyingContractMultiplierField struct{ fix.FloatValue }
 
 //Tag returns tag.UnderlyingContractMultiplier (436)
 func (f UnderlyingContractMultiplierField) Tag() fix.Tag { return tag.UnderlyingContractMultiplier }
@@ -19607,7 +19606,7 @@ func NewUnderlyingContractMultiplier(val float64) *UnderlyingContractMultiplierF
 }
 
 //UnderlyingContractMultiplierUnitField is a INT field
-type UnderlyingContractMultiplierUnitField struct{ message.IntValue }
+type UnderlyingContractMultiplierUnitField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingContractMultiplierUnit (1437)
 func (f UnderlyingContractMultiplierUnitField) Tag() fix.Tag {
@@ -19622,7 +19621,7 @@ func NewUnderlyingContractMultiplierUnit(val int) *UnderlyingContractMultiplierU
 }
 
 //UnderlyingCountryOfIssueField is a COUNTRY field
-type UnderlyingCountryOfIssueField struct{ message.CountryValue }
+type UnderlyingCountryOfIssueField struct{ fix.CountryValue }
 
 //Tag returns tag.UnderlyingCountryOfIssue (592)
 func (f UnderlyingCountryOfIssueField) Tag() fix.Tag { return tag.UnderlyingCountryOfIssue }
@@ -19635,7 +19634,7 @@ func NewUnderlyingCountryOfIssue(val string) *UnderlyingCountryOfIssueField {
 }
 
 //UnderlyingCouponPaymentDateField is a LOCALMKTDATE field
-type UnderlyingCouponPaymentDateField struct{ message.LocalMktDateValue }
+type UnderlyingCouponPaymentDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingCouponPaymentDate (241)
 func (f UnderlyingCouponPaymentDateField) Tag() fix.Tag { return tag.UnderlyingCouponPaymentDate }
@@ -19648,7 +19647,7 @@ func NewUnderlyingCouponPaymentDate(val string) *UnderlyingCouponPaymentDateFiel
 }
 
 //UnderlyingCouponRateField is a PERCENTAGE field
-type UnderlyingCouponRateField struct{ message.PercentageValue }
+type UnderlyingCouponRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.UnderlyingCouponRate (435)
 func (f UnderlyingCouponRateField) Tag() fix.Tag { return tag.UnderlyingCouponRate }
@@ -19661,7 +19660,7 @@ func NewUnderlyingCouponRate(val float64) *UnderlyingCouponRateField {
 }
 
 //UnderlyingCreditRatingField is a STRING field
-type UnderlyingCreditRatingField struct{ message.StringValue }
+type UnderlyingCreditRatingField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingCreditRating (256)
 func (f UnderlyingCreditRatingField) Tag() fix.Tag { return tag.UnderlyingCreditRating }
@@ -19674,7 +19673,7 @@ func NewUnderlyingCreditRating(val string) *UnderlyingCreditRatingField {
 }
 
 //UnderlyingCurrencyField is a CURRENCY field
-type UnderlyingCurrencyField struct{ message.CurrencyValue }
+type UnderlyingCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.UnderlyingCurrency (318)
 func (f UnderlyingCurrencyField) Tag() fix.Tag { return tag.UnderlyingCurrency }
@@ -19687,7 +19686,7 @@ func NewUnderlyingCurrency(val string) *UnderlyingCurrencyField {
 }
 
 //UnderlyingCurrentValueField is a AMT field
-type UnderlyingCurrentValueField struct{ message.AmtValue }
+type UnderlyingCurrentValueField struct{ fix.AmtValue }
 
 //Tag returns tag.UnderlyingCurrentValue (885)
 func (f UnderlyingCurrentValueField) Tag() fix.Tag { return tag.UnderlyingCurrentValue }
@@ -19700,7 +19699,7 @@ func NewUnderlyingCurrentValue(val float64) *UnderlyingCurrentValueField {
 }
 
 //UnderlyingDeliveryAmountField is a AMT field
-type UnderlyingDeliveryAmountField struct{ message.AmtValue }
+type UnderlyingDeliveryAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.UnderlyingDeliveryAmount (1037)
 func (f UnderlyingDeliveryAmountField) Tag() fix.Tag { return tag.UnderlyingDeliveryAmount }
@@ -19713,7 +19712,7 @@ func NewUnderlyingDeliveryAmount(val float64) *UnderlyingDeliveryAmountField {
 }
 
 //UnderlyingDetachmentPointField is a PERCENTAGE field
-type UnderlyingDetachmentPointField struct{ message.PercentageValue }
+type UnderlyingDetachmentPointField struct{ fix.PercentageValue }
 
 //Tag returns tag.UnderlyingDetachmentPoint (1460)
 func (f UnderlyingDetachmentPointField) Tag() fix.Tag { return tag.UnderlyingDetachmentPoint }
@@ -19726,7 +19725,7 @@ func NewUnderlyingDetachmentPoint(val float64) *UnderlyingDetachmentPointField {
 }
 
 //UnderlyingDirtyPriceField is a PRICE field
-type UnderlyingDirtyPriceField struct{ message.PriceValue }
+type UnderlyingDirtyPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.UnderlyingDirtyPrice (882)
 func (f UnderlyingDirtyPriceField) Tag() fix.Tag { return tag.UnderlyingDirtyPrice }
@@ -19739,7 +19738,7 @@ func NewUnderlyingDirtyPrice(val float64) *UnderlyingDirtyPriceField {
 }
 
 //UnderlyingEndPriceField is a PRICE field
-type UnderlyingEndPriceField struct{ message.PriceValue }
+type UnderlyingEndPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.UnderlyingEndPrice (883)
 func (f UnderlyingEndPriceField) Tag() fix.Tag { return tag.UnderlyingEndPrice }
@@ -19752,7 +19751,7 @@ func NewUnderlyingEndPrice(val float64) *UnderlyingEndPriceField {
 }
 
 //UnderlyingEndValueField is a AMT field
-type UnderlyingEndValueField struct{ message.AmtValue }
+type UnderlyingEndValueField struct{ fix.AmtValue }
 
 //Tag returns tag.UnderlyingEndValue (886)
 func (f UnderlyingEndValueField) Tag() fix.Tag { return tag.UnderlyingEndValue }
@@ -19765,7 +19764,7 @@ func NewUnderlyingEndValue(val float64) *UnderlyingEndValueField {
 }
 
 //UnderlyingExerciseStyleField is a INT field
-type UnderlyingExerciseStyleField struct{ message.IntValue }
+type UnderlyingExerciseStyleField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingExerciseStyle (1419)
 func (f UnderlyingExerciseStyleField) Tag() fix.Tag { return tag.UnderlyingExerciseStyle }
@@ -19778,7 +19777,7 @@ func NewUnderlyingExerciseStyle(val int) *UnderlyingExerciseStyleField {
 }
 
 //UnderlyingFXRateField is a FLOAT field
-type UnderlyingFXRateField struct{ message.FloatValue }
+type UnderlyingFXRateField struct{ fix.FloatValue }
 
 //Tag returns tag.UnderlyingFXRate (1045)
 func (f UnderlyingFXRateField) Tag() fix.Tag { return tag.UnderlyingFXRate }
@@ -19791,7 +19790,7 @@ func NewUnderlyingFXRate(val float64) *UnderlyingFXRateField {
 }
 
 //UnderlyingFXRateCalcField is a CHAR field
-type UnderlyingFXRateCalcField struct{ message.CharValue }
+type UnderlyingFXRateCalcField struct{ fix.CharValue }
 
 //Tag returns tag.UnderlyingFXRateCalc (1046)
 func (f UnderlyingFXRateCalcField) Tag() fix.Tag { return tag.UnderlyingFXRateCalc }
@@ -19804,7 +19803,7 @@ func NewUnderlyingFXRateCalc(val string) *UnderlyingFXRateCalcField {
 }
 
 //UnderlyingFactorField is a FLOAT field
-type UnderlyingFactorField struct{ message.FloatValue }
+type UnderlyingFactorField struct{ fix.FloatValue }
 
 //Tag returns tag.UnderlyingFactor (246)
 func (f UnderlyingFactorField) Tag() fix.Tag { return tag.UnderlyingFactor }
@@ -19817,7 +19816,7 @@ func NewUnderlyingFactor(val float64) *UnderlyingFactorField {
 }
 
 //UnderlyingFlowScheduleTypeField is a INT field
-type UnderlyingFlowScheduleTypeField struct{ message.IntValue }
+type UnderlyingFlowScheduleTypeField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingFlowScheduleType (1441)
 func (f UnderlyingFlowScheduleTypeField) Tag() fix.Tag { return tag.UnderlyingFlowScheduleType }
@@ -19830,7 +19829,7 @@ func NewUnderlyingFlowScheduleType(val int) *UnderlyingFlowScheduleTypeField {
 }
 
 //UnderlyingIDSourceField is a STRING field
-type UnderlyingIDSourceField struct{ message.StringValue }
+type UnderlyingIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingIDSource (305)
 func (f UnderlyingIDSourceField) Tag() fix.Tag { return tag.UnderlyingIDSource }
@@ -19843,7 +19842,7 @@ func NewUnderlyingIDSource(val string) *UnderlyingIDSourceField {
 }
 
 //UnderlyingInstrRegistryField is a STRING field
-type UnderlyingInstrRegistryField struct{ message.StringValue }
+type UnderlyingInstrRegistryField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingInstrRegistry (595)
 func (f UnderlyingInstrRegistryField) Tag() fix.Tag { return tag.UnderlyingInstrRegistry }
@@ -19856,7 +19855,7 @@ func NewUnderlyingInstrRegistry(val string) *UnderlyingInstrRegistryField {
 }
 
 //UnderlyingInstrumentPartyIDField is a STRING field
-type UnderlyingInstrumentPartyIDField struct{ message.StringValue }
+type UnderlyingInstrumentPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingInstrumentPartyID (1059)
 func (f UnderlyingInstrumentPartyIDField) Tag() fix.Tag { return tag.UnderlyingInstrumentPartyID }
@@ -19869,7 +19868,7 @@ func NewUnderlyingInstrumentPartyID(val string) *UnderlyingInstrumentPartyIDFiel
 }
 
 //UnderlyingInstrumentPartyIDSourceField is a CHAR field
-type UnderlyingInstrumentPartyIDSourceField struct{ message.CharValue }
+type UnderlyingInstrumentPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.UnderlyingInstrumentPartyIDSource (1060)
 func (f UnderlyingInstrumentPartyIDSourceField) Tag() fix.Tag {
@@ -19884,7 +19883,7 @@ func NewUnderlyingInstrumentPartyIDSource(val string) *UnderlyingInstrumentParty
 }
 
 //UnderlyingInstrumentPartyRoleField is a INT field
-type UnderlyingInstrumentPartyRoleField struct{ message.IntValue }
+type UnderlyingInstrumentPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingInstrumentPartyRole (1061)
 func (f UnderlyingInstrumentPartyRoleField) Tag() fix.Tag { return tag.UnderlyingInstrumentPartyRole }
@@ -19897,7 +19896,7 @@ func NewUnderlyingInstrumentPartyRole(val int) *UnderlyingInstrumentPartyRoleFie
 }
 
 //UnderlyingInstrumentPartySubIDField is a STRING field
-type UnderlyingInstrumentPartySubIDField struct{ message.StringValue }
+type UnderlyingInstrumentPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingInstrumentPartySubID (1063)
 func (f UnderlyingInstrumentPartySubIDField) Tag() fix.Tag { return tag.UnderlyingInstrumentPartySubID }
@@ -19910,7 +19909,7 @@ func NewUnderlyingInstrumentPartySubID(val string) *UnderlyingInstrumentPartySub
 }
 
 //UnderlyingInstrumentPartySubIDTypeField is a INT field
-type UnderlyingInstrumentPartySubIDTypeField struct{ message.IntValue }
+type UnderlyingInstrumentPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingInstrumentPartySubIDType (1064)
 func (f UnderlyingInstrumentPartySubIDTypeField) Tag() fix.Tag {
@@ -19925,7 +19924,7 @@ func NewUnderlyingInstrumentPartySubIDType(val int) *UnderlyingInstrumentPartySu
 }
 
 //UnderlyingIssueDateField is a LOCALMKTDATE field
-type UnderlyingIssueDateField struct{ message.LocalMktDateValue }
+type UnderlyingIssueDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingIssueDate (242)
 func (f UnderlyingIssueDateField) Tag() fix.Tag { return tag.UnderlyingIssueDate }
@@ -19938,7 +19937,7 @@ func NewUnderlyingIssueDate(val string) *UnderlyingIssueDateField {
 }
 
 //UnderlyingIssuerField is a STRING field
-type UnderlyingIssuerField struct{ message.StringValue }
+type UnderlyingIssuerField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingIssuer (306)
 func (f UnderlyingIssuerField) Tag() fix.Tag { return tag.UnderlyingIssuer }
@@ -19951,7 +19950,7 @@ func NewUnderlyingIssuer(val string) *UnderlyingIssuerField {
 }
 
 //UnderlyingLastPxField is a PRICE field
-type UnderlyingLastPxField struct{ message.PriceValue }
+type UnderlyingLastPxField struct{ fix.PriceValue }
 
 //Tag returns tag.UnderlyingLastPx (651)
 func (f UnderlyingLastPxField) Tag() fix.Tag { return tag.UnderlyingLastPx }
@@ -19964,7 +19963,7 @@ func NewUnderlyingLastPx(val float64) *UnderlyingLastPxField {
 }
 
 //UnderlyingLastQtyField is a QTY field
-type UnderlyingLastQtyField struct{ message.QtyValue }
+type UnderlyingLastQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.UnderlyingLastQty (652)
 func (f UnderlyingLastQtyField) Tag() fix.Tag { return tag.UnderlyingLastQty }
@@ -19977,7 +19976,7 @@ func NewUnderlyingLastQty(val float64) *UnderlyingLastQtyField {
 }
 
 //UnderlyingLegCFICodeField is a STRING field
-type UnderlyingLegCFICodeField struct{ message.StringValue }
+type UnderlyingLegCFICodeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegCFICode (1344)
 func (f UnderlyingLegCFICodeField) Tag() fix.Tag { return tag.UnderlyingLegCFICode }
@@ -19990,7 +19989,7 @@ func NewUnderlyingLegCFICode(val string) *UnderlyingLegCFICodeField {
 }
 
 //UnderlyingLegMaturityDateField is a LOCALMKTDATE field
-type UnderlyingLegMaturityDateField struct{ message.LocalMktDateValue }
+type UnderlyingLegMaturityDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingLegMaturityDate (1345)
 func (f UnderlyingLegMaturityDateField) Tag() fix.Tag { return tag.UnderlyingLegMaturityDate }
@@ -20003,7 +20002,7 @@ func NewUnderlyingLegMaturityDate(val string) *UnderlyingLegMaturityDateField {
 }
 
 //UnderlyingLegMaturityMonthYearField is a MONTHYEAR field
-type UnderlyingLegMaturityMonthYearField struct{ message.MonthYearValue }
+type UnderlyingLegMaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.UnderlyingLegMaturityMonthYear (1339)
 func (f UnderlyingLegMaturityMonthYearField) Tag() fix.Tag { return tag.UnderlyingLegMaturityMonthYear }
@@ -20016,13 +20015,13 @@ func NewUnderlyingLegMaturityMonthYear(val string) *UnderlyingLegMaturityMonthYe
 }
 
 //UnderlyingLegMaturityTimeField is a TZTIMEONLY field
-type UnderlyingLegMaturityTimeField struct{ message.TZTimeOnlyValue }
+type UnderlyingLegMaturityTimeField struct{ fix.TZTimeOnlyValue }
 
 //Tag returns tag.UnderlyingLegMaturityTime (1405)
 func (f UnderlyingLegMaturityTimeField) Tag() fix.Tag { return tag.UnderlyingLegMaturityTime }
 
 //UnderlyingLegOptAttributeField is a CHAR field
-type UnderlyingLegOptAttributeField struct{ message.CharValue }
+type UnderlyingLegOptAttributeField struct{ fix.CharValue }
 
 //Tag returns tag.UnderlyingLegOptAttribute (1391)
 func (f UnderlyingLegOptAttributeField) Tag() fix.Tag { return tag.UnderlyingLegOptAttribute }
@@ -20035,7 +20034,7 @@ func NewUnderlyingLegOptAttribute(val string) *UnderlyingLegOptAttributeField {
 }
 
 //UnderlyingLegPutOrCallField is a INT field
-type UnderlyingLegPutOrCallField struct{ message.IntValue }
+type UnderlyingLegPutOrCallField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingLegPutOrCall (1343)
 func (f UnderlyingLegPutOrCallField) Tag() fix.Tag { return tag.UnderlyingLegPutOrCall }
@@ -20048,7 +20047,7 @@ func NewUnderlyingLegPutOrCall(val int) *UnderlyingLegPutOrCallField {
 }
 
 //UnderlyingLegSecurityAltIDField is a STRING field
-type UnderlyingLegSecurityAltIDField struct{ message.StringValue }
+type UnderlyingLegSecurityAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityAltID (1335)
 func (f UnderlyingLegSecurityAltIDField) Tag() fix.Tag { return tag.UnderlyingLegSecurityAltID }
@@ -20061,7 +20060,7 @@ func NewUnderlyingLegSecurityAltID(val string) *UnderlyingLegSecurityAltIDField 
 }
 
 //UnderlyingLegSecurityAltIDSourceField is a STRING field
-type UnderlyingLegSecurityAltIDSourceField struct{ message.StringValue }
+type UnderlyingLegSecurityAltIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityAltIDSource (1336)
 func (f UnderlyingLegSecurityAltIDSourceField) Tag() fix.Tag {
@@ -20076,7 +20075,7 @@ func NewUnderlyingLegSecurityAltIDSource(val string) *UnderlyingLegSecurityAltID
 }
 
 //UnderlyingLegSecurityDescField is a STRING field
-type UnderlyingLegSecurityDescField struct{ message.StringValue }
+type UnderlyingLegSecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityDesc (1392)
 func (f UnderlyingLegSecurityDescField) Tag() fix.Tag { return tag.UnderlyingLegSecurityDesc }
@@ -20089,7 +20088,7 @@ func NewUnderlyingLegSecurityDesc(val string) *UnderlyingLegSecurityDescField {
 }
 
 //UnderlyingLegSecurityExchangeField is a STRING field
-type UnderlyingLegSecurityExchangeField struct{ message.StringValue }
+type UnderlyingLegSecurityExchangeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityExchange (1341)
 func (f UnderlyingLegSecurityExchangeField) Tag() fix.Tag { return tag.UnderlyingLegSecurityExchange }
@@ -20102,7 +20101,7 @@ func NewUnderlyingLegSecurityExchange(val string) *UnderlyingLegSecurityExchange
 }
 
 //UnderlyingLegSecurityIDField is a STRING field
-type UnderlyingLegSecurityIDField struct{ message.StringValue }
+type UnderlyingLegSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityID (1332)
 func (f UnderlyingLegSecurityIDField) Tag() fix.Tag { return tag.UnderlyingLegSecurityID }
@@ -20115,7 +20114,7 @@ func NewUnderlyingLegSecurityID(val string) *UnderlyingLegSecurityIDField {
 }
 
 //UnderlyingLegSecurityIDSourceField is a STRING field
-type UnderlyingLegSecurityIDSourceField struct{ message.StringValue }
+type UnderlyingLegSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityIDSource (1333)
 func (f UnderlyingLegSecurityIDSourceField) Tag() fix.Tag { return tag.UnderlyingLegSecurityIDSource }
@@ -20128,7 +20127,7 @@ func NewUnderlyingLegSecurityIDSource(val string) *UnderlyingLegSecurityIDSource
 }
 
 //UnderlyingLegSecuritySubTypeField is a STRING field
-type UnderlyingLegSecuritySubTypeField struct{ message.StringValue }
+type UnderlyingLegSecuritySubTypeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecuritySubType (1338)
 func (f UnderlyingLegSecuritySubTypeField) Tag() fix.Tag { return tag.UnderlyingLegSecuritySubType }
@@ -20141,7 +20140,7 @@ func NewUnderlyingLegSecuritySubType(val string) *UnderlyingLegSecuritySubTypeFi
 }
 
 //UnderlyingLegSecurityTypeField is a STRING field
-type UnderlyingLegSecurityTypeField struct{ message.StringValue }
+type UnderlyingLegSecurityTypeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityType (1337)
 func (f UnderlyingLegSecurityTypeField) Tag() fix.Tag { return tag.UnderlyingLegSecurityType }
@@ -20154,7 +20153,7 @@ func NewUnderlyingLegSecurityType(val string) *UnderlyingLegSecurityTypeField {
 }
 
 //UnderlyingLegStrikePriceField is a PRICE field
-type UnderlyingLegStrikePriceField struct{ message.PriceValue }
+type UnderlyingLegStrikePriceField struct{ fix.PriceValue }
 
 //Tag returns tag.UnderlyingLegStrikePrice (1340)
 func (f UnderlyingLegStrikePriceField) Tag() fix.Tag { return tag.UnderlyingLegStrikePrice }
@@ -20167,7 +20166,7 @@ func NewUnderlyingLegStrikePrice(val float64) *UnderlyingLegStrikePriceField {
 }
 
 //UnderlyingLegSymbolField is a STRING field
-type UnderlyingLegSymbolField struct{ message.StringValue }
+type UnderlyingLegSymbolField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSymbol (1330)
 func (f UnderlyingLegSymbolField) Tag() fix.Tag { return tag.UnderlyingLegSymbol }
@@ -20180,7 +20179,7 @@ func NewUnderlyingLegSymbol(val string) *UnderlyingLegSymbolField {
 }
 
 //UnderlyingLegSymbolSfxField is a STRING field
-type UnderlyingLegSymbolSfxField struct{ message.StringValue }
+type UnderlyingLegSymbolSfxField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLegSymbolSfx (1331)
 func (f UnderlyingLegSymbolSfxField) Tag() fix.Tag { return tag.UnderlyingLegSymbolSfx }
@@ -20193,7 +20192,7 @@ func NewUnderlyingLegSymbolSfx(val string) *UnderlyingLegSymbolSfxField {
 }
 
 //UnderlyingLocaleOfIssueField is a STRING field
-type UnderlyingLocaleOfIssueField struct{ message.StringValue }
+type UnderlyingLocaleOfIssueField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingLocaleOfIssue (594)
 func (f UnderlyingLocaleOfIssueField) Tag() fix.Tag { return tag.UnderlyingLocaleOfIssue }
@@ -20206,7 +20205,7 @@ func NewUnderlyingLocaleOfIssue(val string) *UnderlyingLocaleOfIssueField {
 }
 
 //UnderlyingMaturityDateField is a LOCALMKTDATE field
-type UnderlyingMaturityDateField struct{ message.LocalMktDateValue }
+type UnderlyingMaturityDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingMaturityDate (542)
 func (f UnderlyingMaturityDateField) Tag() fix.Tag { return tag.UnderlyingMaturityDate }
@@ -20219,7 +20218,7 @@ func NewUnderlyingMaturityDate(val string) *UnderlyingMaturityDateField {
 }
 
 //UnderlyingMaturityDayField is a DAYOFMONTH field
-type UnderlyingMaturityDayField struct{ message.DayOfMonthValue }
+type UnderlyingMaturityDayField struct{ fix.DayOfMonthValue }
 
 //Tag returns tag.UnderlyingMaturityDay (314)
 func (f UnderlyingMaturityDayField) Tag() fix.Tag { return tag.UnderlyingMaturityDay }
@@ -20232,7 +20231,7 @@ func NewUnderlyingMaturityDay(val int) *UnderlyingMaturityDayField {
 }
 
 //UnderlyingMaturityMonthYearField is a MONTHYEAR field
-type UnderlyingMaturityMonthYearField struct{ message.MonthYearValue }
+type UnderlyingMaturityMonthYearField struct{ fix.MonthYearValue }
 
 //Tag returns tag.UnderlyingMaturityMonthYear (313)
 func (f UnderlyingMaturityMonthYearField) Tag() fix.Tag { return tag.UnderlyingMaturityMonthYear }
@@ -20245,13 +20244,13 @@ func NewUnderlyingMaturityMonthYear(val string) *UnderlyingMaturityMonthYearFiel
 }
 
 //UnderlyingMaturityTimeField is a TZTIMEONLY field
-type UnderlyingMaturityTimeField struct{ message.TZTimeOnlyValue }
+type UnderlyingMaturityTimeField struct{ fix.TZTimeOnlyValue }
 
 //Tag returns tag.UnderlyingMaturityTime (1213)
 func (f UnderlyingMaturityTimeField) Tag() fix.Tag { return tag.UnderlyingMaturityTime }
 
 //UnderlyingNotionalPercentageOutstandingField is a PERCENTAGE field
-type UnderlyingNotionalPercentageOutstandingField struct{ message.PercentageValue }
+type UnderlyingNotionalPercentageOutstandingField struct{ fix.PercentageValue }
 
 //Tag returns tag.UnderlyingNotionalPercentageOutstanding (1455)
 func (f UnderlyingNotionalPercentageOutstandingField) Tag() fix.Tag {
@@ -20266,7 +20265,7 @@ func NewUnderlyingNotionalPercentageOutstanding(val float64) *UnderlyingNotional
 }
 
 //UnderlyingOptAttributeField is a CHAR field
-type UnderlyingOptAttributeField struct{ message.CharValue }
+type UnderlyingOptAttributeField struct{ fix.CharValue }
 
 //Tag returns tag.UnderlyingOptAttribute (317)
 func (f UnderlyingOptAttributeField) Tag() fix.Tag { return tag.UnderlyingOptAttribute }
@@ -20279,7 +20278,7 @@ func NewUnderlyingOptAttribute(val string) *UnderlyingOptAttributeField {
 }
 
 //UnderlyingOriginalNotionalPercentageOutstandingField is a PERCENTAGE field
-type UnderlyingOriginalNotionalPercentageOutstandingField struct{ message.PercentageValue }
+type UnderlyingOriginalNotionalPercentageOutstandingField struct{ fix.PercentageValue }
 
 //Tag returns tag.UnderlyingOriginalNotionalPercentageOutstanding (1456)
 func (f UnderlyingOriginalNotionalPercentageOutstandingField) Tag() fix.Tag {
@@ -20294,7 +20293,7 @@ func NewUnderlyingOriginalNotionalPercentageOutstanding(val float64) *Underlying
 }
 
 //UnderlyingPayAmountField is a AMT field
-type UnderlyingPayAmountField struct{ message.AmtValue }
+type UnderlyingPayAmountField struct{ fix.AmtValue }
 
 //Tag returns tag.UnderlyingPayAmount (985)
 func (f UnderlyingPayAmountField) Tag() fix.Tag { return tag.UnderlyingPayAmount }
@@ -20307,7 +20306,7 @@ func NewUnderlyingPayAmount(val float64) *UnderlyingPayAmountField {
 }
 
 //UnderlyingPriceDeterminationMethodField is a INT field
-type UnderlyingPriceDeterminationMethodField struct{ message.IntValue }
+type UnderlyingPriceDeterminationMethodField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingPriceDeterminationMethod (1481)
 func (f UnderlyingPriceDeterminationMethodField) Tag() fix.Tag {
@@ -20322,7 +20321,7 @@ func NewUnderlyingPriceDeterminationMethod(val int) *UnderlyingPriceDeterminatio
 }
 
 //UnderlyingPriceUnitOfMeasureField is a STRING field
-type UnderlyingPriceUnitOfMeasureField struct{ message.StringValue }
+type UnderlyingPriceUnitOfMeasureField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingPriceUnitOfMeasure (1424)
 func (f UnderlyingPriceUnitOfMeasureField) Tag() fix.Tag { return tag.UnderlyingPriceUnitOfMeasure }
@@ -20335,7 +20334,7 @@ func NewUnderlyingPriceUnitOfMeasure(val string) *UnderlyingPriceUnitOfMeasureFi
 }
 
 //UnderlyingPriceUnitOfMeasureQtyField is a QTY field
-type UnderlyingPriceUnitOfMeasureQtyField struct{ message.QtyValue }
+type UnderlyingPriceUnitOfMeasureQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.UnderlyingPriceUnitOfMeasureQty (1425)
 func (f UnderlyingPriceUnitOfMeasureQtyField) Tag() fix.Tag {
@@ -20350,7 +20349,7 @@ func NewUnderlyingPriceUnitOfMeasureQty(val float64) *UnderlyingPriceUnitOfMeasu
 }
 
 //UnderlyingProductField is a INT field
-type UnderlyingProductField struct{ message.IntValue }
+type UnderlyingProductField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingProduct (462)
 func (f UnderlyingProductField) Tag() fix.Tag { return tag.UnderlyingProduct }
@@ -20363,7 +20362,7 @@ func NewUnderlyingProduct(val int) *UnderlyingProductField {
 }
 
 //UnderlyingPutOrCallField is a INT field
-type UnderlyingPutOrCallField struct{ message.IntValue }
+type UnderlyingPutOrCallField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingPutOrCall (315)
 func (f UnderlyingPutOrCallField) Tag() fix.Tag { return tag.UnderlyingPutOrCall }
@@ -20376,7 +20375,7 @@ func NewUnderlyingPutOrCall(val int) *UnderlyingPutOrCallField {
 }
 
 //UnderlyingPxField is a PRICE field
-type UnderlyingPxField struct{ message.PriceValue }
+type UnderlyingPxField struct{ fix.PriceValue }
 
 //Tag returns tag.UnderlyingPx (810)
 func (f UnderlyingPxField) Tag() fix.Tag { return tag.UnderlyingPx }
@@ -20389,7 +20388,7 @@ func NewUnderlyingPx(val float64) *UnderlyingPxField {
 }
 
 //UnderlyingQtyField is a QTY field
-type UnderlyingQtyField struct{ message.QtyValue }
+type UnderlyingQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.UnderlyingQty (879)
 func (f UnderlyingQtyField) Tag() fix.Tag { return tag.UnderlyingQty }
@@ -20402,7 +20401,7 @@ func NewUnderlyingQty(val float64) *UnderlyingQtyField {
 }
 
 //UnderlyingRedemptionDateField is a LOCALMKTDATE field
-type UnderlyingRedemptionDateField struct{ message.LocalMktDateValue }
+type UnderlyingRedemptionDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingRedemptionDate (247)
 func (f UnderlyingRedemptionDateField) Tag() fix.Tag { return tag.UnderlyingRedemptionDate }
@@ -20415,7 +20414,7 @@ func NewUnderlyingRedemptionDate(val string) *UnderlyingRedemptionDateField {
 }
 
 //UnderlyingRepoCollateralSecurityTypeField is a INT field
-type UnderlyingRepoCollateralSecurityTypeField struct{ message.IntValue }
+type UnderlyingRepoCollateralSecurityTypeField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingRepoCollateralSecurityType (243)
 func (f UnderlyingRepoCollateralSecurityTypeField) Tag() fix.Tag {
@@ -20430,7 +20429,7 @@ func NewUnderlyingRepoCollateralSecurityType(val int) *UnderlyingRepoCollateralS
 }
 
 //UnderlyingRepurchaseRateField is a PERCENTAGE field
-type UnderlyingRepurchaseRateField struct{ message.PercentageValue }
+type UnderlyingRepurchaseRateField struct{ fix.PercentageValue }
 
 //Tag returns tag.UnderlyingRepurchaseRate (245)
 func (f UnderlyingRepurchaseRateField) Tag() fix.Tag { return tag.UnderlyingRepurchaseRate }
@@ -20443,7 +20442,7 @@ func NewUnderlyingRepurchaseRate(val float64) *UnderlyingRepurchaseRateField {
 }
 
 //UnderlyingRepurchaseTermField is a INT field
-type UnderlyingRepurchaseTermField struct{ message.IntValue }
+type UnderlyingRepurchaseTermField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingRepurchaseTerm (244)
 func (f UnderlyingRepurchaseTermField) Tag() fix.Tag { return tag.UnderlyingRepurchaseTerm }
@@ -20456,7 +20455,7 @@ func NewUnderlyingRepurchaseTerm(val int) *UnderlyingRepurchaseTermField {
 }
 
 //UnderlyingRestructuringTypeField is a STRING field
-type UnderlyingRestructuringTypeField struct{ message.StringValue }
+type UnderlyingRestructuringTypeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingRestructuringType (1453)
 func (f UnderlyingRestructuringTypeField) Tag() fix.Tag { return tag.UnderlyingRestructuringType }
@@ -20469,7 +20468,7 @@ func NewUnderlyingRestructuringType(val string) *UnderlyingRestructuringTypeFiel
 }
 
 //UnderlyingSecurityAltIDField is a STRING field
-type UnderlyingSecurityAltIDField struct{ message.StringValue }
+type UnderlyingSecurityAltIDField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityAltID (458)
 func (f UnderlyingSecurityAltIDField) Tag() fix.Tag { return tag.UnderlyingSecurityAltID }
@@ -20482,7 +20481,7 @@ func NewUnderlyingSecurityAltID(val string) *UnderlyingSecurityAltIDField {
 }
 
 //UnderlyingSecurityAltIDSourceField is a STRING field
-type UnderlyingSecurityAltIDSourceField struct{ message.StringValue }
+type UnderlyingSecurityAltIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityAltIDSource (459)
 func (f UnderlyingSecurityAltIDSourceField) Tag() fix.Tag { return tag.UnderlyingSecurityAltIDSource }
@@ -20495,7 +20494,7 @@ func NewUnderlyingSecurityAltIDSource(val string) *UnderlyingSecurityAltIDSource
 }
 
 //UnderlyingSecurityDescField is a STRING field
-type UnderlyingSecurityDescField struct{ message.StringValue }
+type UnderlyingSecurityDescField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityDesc (307)
 func (f UnderlyingSecurityDescField) Tag() fix.Tag { return tag.UnderlyingSecurityDesc }
@@ -20508,7 +20507,7 @@ func NewUnderlyingSecurityDesc(val string) *UnderlyingSecurityDescField {
 }
 
 //UnderlyingSecurityExchangeField is a EXCHANGE field
-type UnderlyingSecurityExchangeField struct{ message.ExchangeValue }
+type UnderlyingSecurityExchangeField struct{ fix.ExchangeValue }
 
 //Tag returns tag.UnderlyingSecurityExchange (308)
 func (f UnderlyingSecurityExchangeField) Tag() fix.Tag { return tag.UnderlyingSecurityExchange }
@@ -20521,7 +20520,7 @@ func NewUnderlyingSecurityExchange(val string) *UnderlyingSecurityExchangeField 
 }
 
 //UnderlyingSecurityIDField is a STRING field
-type UnderlyingSecurityIDField struct{ message.StringValue }
+type UnderlyingSecurityIDField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityID (309)
 func (f UnderlyingSecurityIDField) Tag() fix.Tag { return tag.UnderlyingSecurityID }
@@ -20534,7 +20533,7 @@ func NewUnderlyingSecurityID(val string) *UnderlyingSecurityIDField {
 }
 
 //UnderlyingSecurityIDSourceField is a STRING field
-type UnderlyingSecurityIDSourceField struct{ message.StringValue }
+type UnderlyingSecurityIDSourceField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityIDSource (305)
 func (f UnderlyingSecurityIDSourceField) Tag() fix.Tag { return tag.UnderlyingSecurityIDSource }
@@ -20547,7 +20546,7 @@ func NewUnderlyingSecurityIDSource(val string) *UnderlyingSecurityIDSourceField 
 }
 
 //UnderlyingSecuritySubTypeField is a STRING field
-type UnderlyingSecuritySubTypeField struct{ message.StringValue }
+type UnderlyingSecuritySubTypeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSecuritySubType (763)
 func (f UnderlyingSecuritySubTypeField) Tag() fix.Tag { return tag.UnderlyingSecuritySubType }
@@ -20560,7 +20559,7 @@ func NewUnderlyingSecuritySubType(val string) *UnderlyingSecuritySubTypeField {
 }
 
 //UnderlyingSecurityTypeField is a STRING field
-type UnderlyingSecurityTypeField struct{ message.StringValue }
+type UnderlyingSecurityTypeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityType (310)
 func (f UnderlyingSecurityTypeField) Tag() fix.Tag { return tag.UnderlyingSecurityType }
@@ -20573,7 +20572,7 @@ func NewUnderlyingSecurityType(val string) *UnderlyingSecurityTypeField {
 }
 
 //UnderlyingSeniorityField is a STRING field
-type UnderlyingSeniorityField struct{ message.StringValue }
+type UnderlyingSeniorityField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSeniority (1454)
 func (f UnderlyingSeniorityField) Tag() fix.Tag { return tag.UnderlyingSeniority }
@@ -20586,7 +20585,7 @@ func NewUnderlyingSeniority(val string) *UnderlyingSeniorityField {
 }
 
 //UnderlyingSettlMethodField is a STRING field
-type UnderlyingSettlMethodField struct{ message.StringValue }
+type UnderlyingSettlMethodField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSettlMethod (1039)
 func (f UnderlyingSettlMethodField) Tag() fix.Tag { return tag.UnderlyingSettlMethod }
@@ -20599,7 +20598,7 @@ func NewUnderlyingSettlMethod(val string) *UnderlyingSettlMethodField {
 }
 
 //UnderlyingSettlPriceField is a PRICE field
-type UnderlyingSettlPriceField struct{ message.PriceValue }
+type UnderlyingSettlPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.UnderlyingSettlPrice (732)
 func (f UnderlyingSettlPriceField) Tag() fix.Tag { return tag.UnderlyingSettlPrice }
@@ -20612,7 +20611,7 @@ func NewUnderlyingSettlPrice(val float64) *UnderlyingSettlPriceField {
 }
 
 //UnderlyingSettlPriceTypeField is a INT field
-type UnderlyingSettlPriceTypeField struct{ message.IntValue }
+type UnderlyingSettlPriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingSettlPriceType (733)
 func (f UnderlyingSettlPriceTypeField) Tag() fix.Tag { return tag.UnderlyingSettlPriceType }
@@ -20625,7 +20624,7 @@ func NewUnderlyingSettlPriceType(val int) *UnderlyingSettlPriceTypeField {
 }
 
 //UnderlyingSettlementDateField is a LOCALMKTDATE field
-type UnderlyingSettlementDateField struct{ message.LocalMktDateValue }
+type UnderlyingSettlementDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingSettlementDate (987)
 func (f UnderlyingSettlementDateField) Tag() fix.Tag { return tag.UnderlyingSettlementDate }
@@ -20638,7 +20637,7 @@ func NewUnderlyingSettlementDate(val string) *UnderlyingSettlementDateField {
 }
 
 //UnderlyingSettlementStatusField is a STRING field
-type UnderlyingSettlementStatusField struct{ message.StringValue }
+type UnderlyingSettlementStatusField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSettlementStatus (988)
 func (f UnderlyingSettlementStatusField) Tag() fix.Tag { return tag.UnderlyingSettlementStatus }
@@ -20651,7 +20650,7 @@ func NewUnderlyingSettlementStatus(val string) *UnderlyingSettlementStatusField 
 }
 
 //UnderlyingSettlementTypeField is a INT field
-type UnderlyingSettlementTypeField struct{ message.IntValue }
+type UnderlyingSettlementTypeField struct{ fix.IntValue }
 
 //Tag returns tag.UnderlyingSettlementType (975)
 func (f UnderlyingSettlementTypeField) Tag() fix.Tag { return tag.UnderlyingSettlementType }
@@ -20664,7 +20663,7 @@ func NewUnderlyingSettlementType(val int) *UnderlyingSettlementTypeField {
 }
 
 //UnderlyingStartValueField is a AMT field
-type UnderlyingStartValueField struct{ message.AmtValue }
+type UnderlyingStartValueField struct{ fix.AmtValue }
 
 //Tag returns tag.UnderlyingStartValue (884)
 func (f UnderlyingStartValueField) Tag() fix.Tag { return tag.UnderlyingStartValue }
@@ -20677,7 +20676,7 @@ func NewUnderlyingStartValue(val float64) *UnderlyingStartValueField {
 }
 
 //UnderlyingStateOrProvinceOfIssueField is a STRING field
-type UnderlyingStateOrProvinceOfIssueField struct{ message.StringValue }
+type UnderlyingStateOrProvinceOfIssueField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingStateOrProvinceOfIssue (593)
 func (f UnderlyingStateOrProvinceOfIssueField) Tag() fix.Tag {
@@ -20692,7 +20691,7 @@ func NewUnderlyingStateOrProvinceOfIssue(val string) *UnderlyingStateOrProvinceO
 }
 
 //UnderlyingStipTypeField is a STRING field
-type UnderlyingStipTypeField struct{ message.StringValue }
+type UnderlyingStipTypeField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingStipType (888)
 func (f UnderlyingStipTypeField) Tag() fix.Tag { return tag.UnderlyingStipType }
@@ -20705,7 +20704,7 @@ func NewUnderlyingStipType(val string) *UnderlyingStipTypeField {
 }
 
 //UnderlyingStipValueField is a STRING field
-type UnderlyingStipValueField struct{ message.StringValue }
+type UnderlyingStipValueField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingStipValue (889)
 func (f UnderlyingStipValueField) Tag() fix.Tag { return tag.UnderlyingStipValue }
@@ -20718,7 +20717,7 @@ func NewUnderlyingStipValue(val string) *UnderlyingStipValueField {
 }
 
 //UnderlyingStrikeCurrencyField is a CURRENCY field
-type UnderlyingStrikeCurrencyField struct{ message.CurrencyValue }
+type UnderlyingStrikeCurrencyField struct{ fix.CurrencyValue }
 
 //Tag returns tag.UnderlyingStrikeCurrency (941)
 func (f UnderlyingStrikeCurrencyField) Tag() fix.Tag { return tag.UnderlyingStrikeCurrency }
@@ -20731,7 +20730,7 @@ func NewUnderlyingStrikeCurrency(val string) *UnderlyingStrikeCurrencyField {
 }
 
 //UnderlyingStrikePriceField is a PRICE field
-type UnderlyingStrikePriceField struct{ message.PriceValue }
+type UnderlyingStrikePriceField struct{ fix.PriceValue }
 
 //Tag returns tag.UnderlyingStrikePrice (316)
 func (f UnderlyingStrikePriceField) Tag() fix.Tag { return tag.UnderlyingStrikePrice }
@@ -20744,7 +20743,7 @@ func NewUnderlyingStrikePrice(val float64) *UnderlyingStrikePriceField {
 }
 
 //UnderlyingSymbolField is a STRING field
-type UnderlyingSymbolField struct{ message.StringValue }
+type UnderlyingSymbolField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSymbol (311)
 func (f UnderlyingSymbolField) Tag() fix.Tag { return tag.UnderlyingSymbol }
@@ -20757,7 +20756,7 @@ func NewUnderlyingSymbol(val string) *UnderlyingSymbolField {
 }
 
 //UnderlyingSymbolSfxField is a STRING field
-type UnderlyingSymbolSfxField struct{ message.StringValue }
+type UnderlyingSymbolSfxField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingSymbolSfx (312)
 func (f UnderlyingSymbolSfxField) Tag() fix.Tag { return tag.UnderlyingSymbolSfx }
@@ -20770,7 +20769,7 @@ func NewUnderlyingSymbolSfx(val string) *UnderlyingSymbolSfxField {
 }
 
 //UnderlyingTimeUnitField is a STRING field
-type UnderlyingTimeUnitField struct{ message.StringValue }
+type UnderlyingTimeUnitField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingTimeUnit (1000)
 func (f UnderlyingTimeUnitField) Tag() fix.Tag { return tag.UnderlyingTimeUnit }
@@ -20783,7 +20782,7 @@ func NewUnderlyingTimeUnit(val string) *UnderlyingTimeUnitField {
 }
 
 //UnderlyingTradingSessionIDField is a STRING field
-type UnderlyingTradingSessionIDField struct{ message.StringValue }
+type UnderlyingTradingSessionIDField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingTradingSessionID (822)
 func (f UnderlyingTradingSessionIDField) Tag() fix.Tag { return tag.UnderlyingTradingSessionID }
@@ -20796,7 +20795,7 @@ func NewUnderlyingTradingSessionID(val string) *UnderlyingTradingSessionIDField 
 }
 
 //UnderlyingTradingSessionSubIDField is a STRING field
-type UnderlyingTradingSessionSubIDField struct{ message.StringValue }
+type UnderlyingTradingSessionSubIDField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingTradingSessionSubID (823)
 func (f UnderlyingTradingSessionSubIDField) Tag() fix.Tag { return tag.UnderlyingTradingSessionSubID }
@@ -20809,7 +20808,7 @@ func NewUnderlyingTradingSessionSubID(val string) *UnderlyingTradingSessionSubID
 }
 
 //UnderlyingUnitOfMeasureField is a STRING field
-type UnderlyingUnitOfMeasureField struct{ message.StringValue }
+type UnderlyingUnitOfMeasureField struct{ fix.StringValue }
 
 //Tag returns tag.UnderlyingUnitOfMeasure (998)
 func (f UnderlyingUnitOfMeasureField) Tag() fix.Tag { return tag.UnderlyingUnitOfMeasure }
@@ -20822,7 +20821,7 @@ func NewUnderlyingUnitOfMeasure(val string) *UnderlyingUnitOfMeasureField {
 }
 
 //UnderlyingUnitOfMeasureQtyField is a QTY field
-type UnderlyingUnitOfMeasureQtyField struct{ message.QtyValue }
+type UnderlyingUnitOfMeasureQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.UnderlyingUnitOfMeasureQty (1423)
 func (f UnderlyingUnitOfMeasureQtyField) Tag() fix.Tag { return tag.UnderlyingUnitOfMeasureQty }
@@ -20835,7 +20834,7 @@ func NewUnderlyingUnitOfMeasureQty(val float64) *UnderlyingUnitOfMeasureQtyField
 }
 
 //UndlyInstrumentPartyIDField is a STRING field
-type UndlyInstrumentPartyIDField struct{ message.StringValue }
+type UndlyInstrumentPartyIDField struct{ fix.StringValue }
 
 //Tag returns tag.UndlyInstrumentPartyID (1059)
 func (f UndlyInstrumentPartyIDField) Tag() fix.Tag { return tag.UndlyInstrumentPartyID }
@@ -20848,7 +20847,7 @@ func NewUndlyInstrumentPartyID(val string) *UndlyInstrumentPartyIDField {
 }
 
 //UndlyInstrumentPartyIDSourceField is a CHAR field
-type UndlyInstrumentPartyIDSourceField struct{ message.CharValue }
+type UndlyInstrumentPartyIDSourceField struct{ fix.CharValue }
 
 //Tag returns tag.UndlyInstrumentPartyIDSource (1060)
 func (f UndlyInstrumentPartyIDSourceField) Tag() fix.Tag { return tag.UndlyInstrumentPartyIDSource }
@@ -20861,7 +20860,7 @@ func NewUndlyInstrumentPartyIDSource(val string) *UndlyInstrumentPartyIDSourceFi
 }
 
 //UndlyInstrumentPartyRoleField is a INT field
-type UndlyInstrumentPartyRoleField struct{ message.IntValue }
+type UndlyInstrumentPartyRoleField struct{ fix.IntValue }
 
 //Tag returns tag.UndlyInstrumentPartyRole (1061)
 func (f UndlyInstrumentPartyRoleField) Tag() fix.Tag { return tag.UndlyInstrumentPartyRole }
@@ -20874,7 +20873,7 @@ func NewUndlyInstrumentPartyRole(val int) *UndlyInstrumentPartyRoleField {
 }
 
 //UndlyInstrumentPartySubIDField is a STRING field
-type UndlyInstrumentPartySubIDField struct{ message.StringValue }
+type UndlyInstrumentPartySubIDField struct{ fix.StringValue }
 
 //Tag returns tag.UndlyInstrumentPartySubID (1063)
 func (f UndlyInstrumentPartySubIDField) Tag() fix.Tag { return tag.UndlyInstrumentPartySubID }
@@ -20887,7 +20886,7 @@ func NewUndlyInstrumentPartySubID(val string) *UndlyInstrumentPartySubIDField {
 }
 
 //UndlyInstrumentPartySubIDTypeField is a INT field
-type UndlyInstrumentPartySubIDTypeField struct{ message.IntValue }
+type UndlyInstrumentPartySubIDTypeField struct{ fix.IntValue }
 
 //Tag returns tag.UndlyInstrumentPartySubIDType (1064)
 func (f UndlyInstrumentPartySubIDTypeField) Tag() fix.Tag { return tag.UndlyInstrumentPartySubIDType }
@@ -20900,7 +20899,7 @@ func NewUndlyInstrumentPartySubIDType(val int) *UndlyInstrumentPartySubIDTypeFie
 }
 
 //UnitOfMeasureField is a STRING field
-type UnitOfMeasureField struct{ message.StringValue }
+type UnitOfMeasureField struct{ fix.StringValue }
 
 //Tag returns tag.UnitOfMeasure (996)
 func (f UnitOfMeasureField) Tag() fix.Tag { return tag.UnitOfMeasure }
@@ -20913,7 +20912,7 @@ func NewUnitOfMeasure(val string) *UnitOfMeasureField {
 }
 
 //UnitOfMeasureQtyField is a QTY field
-type UnitOfMeasureQtyField struct{ message.QtyValue }
+type UnitOfMeasureQtyField struct{ fix.QtyValue }
 
 //Tag returns tag.UnitOfMeasureQty (1147)
 func (f UnitOfMeasureQtyField) Tag() fix.Tag { return tag.UnitOfMeasureQty }
@@ -20926,7 +20925,7 @@ func NewUnitOfMeasureQty(val float64) *UnitOfMeasureQtyField {
 }
 
 //UnsolicitedIndicatorField is a BOOLEAN field
-type UnsolicitedIndicatorField struct{ message.BooleanValue }
+type UnsolicitedIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.UnsolicitedIndicator (325)
 func (f UnsolicitedIndicatorField) Tag() fix.Tag { return tag.UnsolicitedIndicator }
@@ -20939,7 +20938,7 @@ func NewUnsolicitedIndicator(val bool) *UnsolicitedIndicatorField {
 }
 
 //UrgencyField is a CHAR field
-type UrgencyField struct{ message.CharValue }
+type UrgencyField struct{ fix.CharValue }
 
 //Tag returns tag.Urgency (61)
 func (f UrgencyField) Tag() fix.Tag { return tag.Urgency }
@@ -20952,7 +20951,7 @@ func NewUrgency(val string) *UrgencyField {
 }
 
 //UserRequestIDField is a STRING field
-type UserRequestIDField struct{ message.StringValue }
+type UserRequestIDField struct{ fix.StringValue }
 
 //Tag returns tag.UserRequestID (923)
 func (f UserRequestIDField) Tag() fix.Tag { return tag.UserRequestID }
@@ -20965,7 +20964,7 @@ func NewUserRequestID(val string) *UserRequestIDField {
 }
 
 //UserRequestTypeField is a INT field
-type UserRequestTypeField struct{ message.IntValue }
+type UserRequestTypeField struct{ fix.IntValue }
 
 //Tag returns tag.UserRequestType (924)
 func (f UserRequestTypeField) Tag() fix.Tag { return tag.UserRequestType }
@@ -20978,7 +20977,7 @@ func NewUserRequestType(val int) *UserRequestTypeField {
 }
 
 //UserStatusField is a INT field
-type UserStatusField struct{ message.IntValue }
+type UserStatusField struct{ fix.IntValue }
 
 //Tag returns tag.UserStatus (926)
 func (f UserStatusField) Tag() fix.Tag { return tag.UserStatus }
@@ -20991,7 +20990,7 @@ func NewUserStatus(val int) *UserStatusField {
 }
 
 //UserStatusTextField is a STRING field
-type UserStatusTextField struct{ message.StringValue }
+type UserStatusTextField struct{ fix.StringValue }
 
 //Tag returns tag.UserStatusText (927)
 func (f UserStatusTextField) Tag() fix.Tag { return tag.UserStatusText }
@@ -21004,7 +21003,7 @@ func NewUserStatusText(val string) *UserStatusTextField {
 }
 
 //UsernameField is a STRING field
-type UsernameField struct{ message.StringValue }
+type UsernameField struct{ fix.StringValue }
 
 //Tag returns tag.Username (553)
 func (f UsernameField) Tag() fix.Tag { return tag.Username }
@@ -21017,13 +21016,13 @@ func NewUsername(val string) *UsernameField {
 }
 
 //ValidUntilTimeField is a UTCTIMESTAMP field
-type ValidUntilTimeField struct{ message.UTCTimestampValue }
+type ValidUntilTimeField struct{ fix.UTCTimestampValue }
 
 //Tag returns tag.ValidUntilTime (62)
 func (f ValidUntilTimeField) Tag() fix.Tag { return tag.ValidUntilTime }
 
 //ValuationMethodField is a STRING field
-type ValuationMethodField struct{ message.StringValue }
+type ValuationMethodField struct{ fix.StringValue }
 
 //Tag returns tag.ValuationMethod (1197)
 func (f ValuationMethodField) Tag() fix.Tag { return tag.ValuationMethod }
@@ -21036,7 +21035,7 @@ func NewValuationMethod(val string) *ValuationMethodField {
 }
 
 //ValueOfFuturesField is a AMT field
-type ValueOfFuturesField struct{ message.AmtValue }
+type ValueOfFuturesField struct{ fix.AmtValue }
 
 //Tag returns tag.ValueOfFutures (408)
 func (f ValueOfFuturesField) Tag() fix.Tag { return tag.ValueOfFutures }
@@ -21049,7 +21048,7 @@ func NewValueOfFutures(val float64) *ValueOfFuturesField {
 }
 
 //VenueTypeField is a CHAR field
-type VenueTypeField struct{ message.CharValue }
+type VenueTypeField struct{ fix.CharValue }
 
 //Tag returns tag.VenueType (1430)
 func (f VenueTypeField) Tag() fix.Tag { return tag.VenueType }
@@ -21062,7 +21061,7 @@ func NewVenueType(val string) *VenueTypeField {
 }
 
 //VolatilityField is a FLOAT field
-type VolatilityField struct{ message.FloatValue }
+type VolatilityField struct{ fix.FloatValue }
 
 //Tag returns tag.Volatility (1188)
 func (f VolatilityField) Tag() fix.Tag { return tag.Volatility }
@@ -21075,7 +21074,7 @@ func NewVolatility(val float64) *VolatilityField {
 }
 
 //WaveNoField is a STRING field
-type WaveNoField struct{ message.StringValue }
+type WaveNoField struct{ fix.StringValue }
 
 //Tag returns tag.WaveNo (105)
 func (f WaveNoField) Tag() fix.Tag { return tag.WaveNo }
@@ -21088,7 +21087,7 @@ func NewWaveNo(val string) *WaveNoField {
 }
 
 //WorkingIndicatorField is a BOOLEAN field
-type WorkingIndicatorField struct{ message.BooleanValue }
+type WorkingIndicatorField struct{ fix.BooleanValue }
 
 //Tag returns tag.WorkingIndicator (636)
 func (f WorkingIndicatorField) Tag() fix.Tag { return tag.WorkingIndicator }
@@ -21101,7 +21100,7 @@ func NewWorkingIndicator(val bool) *WorkingIndicatorField {
 }
 
 //WtAverageLiquidityField is a PERCENTAGE field
-type WtAverageLiquidityField struct{ message.PercentageValue }
+type WtAverageLiquidityField struct{ fix.PercentageValue }
 
 //Tag returns tag.WtAverageLiquidity (410)
 func (f WtAverageLiquidityField) Tag() fix.Tag { return tag.WtAverageLiquidity }
@@ -21114,7 +21113,7 @@ func NewWtAverageLiquidity(val float64) *WtAverageLiquidityField {
 }
 
 //XmlDataField is a DATA field
-type XmlDataField struct{ message.DataValue }
+type XmlDataField struct{ fix.DataValue }
 
 //Tag returns tag.XmlData (213)
 func (f XmlDataField) Tag() fix.Tag { return tag.XmlData }
@@ -21127,7 +21126,7 @@ func NewXmlData(val string) *XmlDataField {
 }
 
 //XmlDataLenField is a LENGTH field
-type XmlDataLenField struct{ message.LengthValue }
+type XmlDataLenField struct{ fix.LengthValue }
 
 //Tag returns tag.XmlDataLen (212)
 func (f XmlDataLenField) Tag() fix.Tag { return tag.XmlDataLen }
@@ -21140,7 +21139,7 @@ func NewXmlDataLen(val int) *XmlDataLenField {
 }
 
 //YieldField is a PERCENTAGE field
-type YieldField struct{ message.PercentageValue }
+type YieldField struct{ fix.PercentageValue }
 
 //Tag returns tag.Yield (236)
 func (f YieldField) Tag() fix.Tag { return tag.Yield }
@@ -21153,7 +21152,7 @@ func NewYield(val float64) *YieldField {
 }
 
 //YieldCalcDateField is a LOCALMKTDATE field
-type YieldCalcDateField struct{ message.LocalMktDateValue }
+type YieldCalcDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.YieldCalcDate (701)
 func (f YieldCalcDateField) Tag() fix.Tag { return tag.YieldCalcDate }
@@ -21166,7 +21165,7 @@ func NewYieldCalcDate(val string) *YieldCalcDateField {
 }
 
 //YieldRedemptionDateField is a LOCALMKTDATE field
-type YieldRedemptionDateField struct{ message.LocalMktDateValue }
+type YieldRedemptionDateField struct{ fix.LocalMktDateValue }
 
 //Tag returns tag.YieldRedemptionDate (696)
 func (f YieldRedemptionDateField) Tag() fix.Tag { return tag.YieldRedemptionDate }
@@ -21179,7 +21178,7 @@ func NewYieldRedemptionDate(val string) *YieldRedemptionDateField {
 }
 
 //YieldRedemptionPriceField is a PRICE field
-type YieldRedemptionPriceField struct{ message.PriceValue }
+type YieldRedemptionPriceField struct{ fix.PriceValue }
 
 //Tag returns tag.YieldRedemptionPrice (697)
 func (f YieldRedemptionPriceField) Tag() fix.Tag { return tag.YieldRedemptionPrice }
@@ -21192,7 +21191,7 @@ func NewYieldRedemptionPrice(val float64) *YieldRedemptionPriceField {
 }
 
 //YieldRedemptionPriceTypeField is a INT field
-type YieldRedemptionPriceTypeField struct{ message.IntValue }
+type YieldRedemptionPriceTypeField struct{ fix.IntValue }
 
 //Tag returns tag.YieldRedemptionPriceType (698)
 func (f YieldRedemptionPriceTypeField) Tag() fix.Tag { return tag.YieldRedemptionPriceType }
@@ -21205,7 +21204,7 @@ func NewYieldRedemptionPriceType(val int) *YieldRedemptionPriceTypeField {
 }
 
 //YieldTypeField is a STRING field
-type YieldTypeField struct{ message.StringValue }
+type YieldTypeField struct{ fix.StringValue }
 
 //Tag returns tag.YieldType (235)
 func (f YieldTypeField) Tag() fix.Tag { return tag.YieldType }

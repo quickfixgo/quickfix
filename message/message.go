@@ -86,7 +86,7 @@ func Parse(rawMessage []byte) (*Message, error) {
 		}
 	}
 
-	bodyLength := new(IntValue)
+	bodyLength := new(fix.IntValue)
 	msg.Header.GetField(tag.BodyLength, bodyLength)
 	if bodyLength.Value != length {
 		return msg, errors.ParseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
@@ -105,7 +105,7 @@ func (m *Message) ReverseRoute() MessageBuilder {
 	reverseBuilder := Builder()
 
 	copy := func(src fix.Tag, dest fix.Tag) {
-		if field := new(StringValue); m.Header.GetField(src, field) == nil {
+		if field := new(fix.StringValue); m.Header.GetField(src, field) == nil {
 			if len(field.Value) != 0 {
 				reverseBuilder.Header.SetField(dest, field)
 			}
@@ -126,7 +126,7 @@ func (m *Message) ReverseRoute() MessageBuilder {
 	copy(tag.DeliverToSubID, tag.OnBehalfOfSubID)
 
 	//tags added in 4.1
-	if beginString := new(StringValue); m.Header.GetField(tag.BeginString, beginString) == nil {
+	if beginString := new(fix.StringValue); m.Header.GetField(tag.BeginString, beginString) == nil {
 		if beginString.Value != fix.BeginString_FIX40 {
 			copy(tag.OnBehalfOfLocationID, tag.DeliverToLocationID)
 			copy(tag.DeliverToLocationID, tag.OnBehalfOfLocationID)
@@ -184,8 +184,8 @@ func (m *Message) ToBuilder() MessageBuilder {
 	return builder
 }
 
-func newCheckSum(value int) *StringField {
-	return NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
+func newCheckSum(value int) *fix.StringField {
+	return fix.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
 //Free is required for Buffer interface FIXME

@@ -77,14 +77,14 @@ func (state inSession) handleLogout(session *Session, msg message.Message) (next
 }
 
 func (state inSession) handleSequenceReset(session *Session, msg message.Message) (nextState sessionState) {
-	gapFillFlag := new(message.BooleanField)
+	gapFillFlag := new(fix.BooleanField)
 	msg.Body.GetField(tag.GapFillFlag, gapFillFlag)
 
 	if err := session.verifySelect(msg, gapFillFlag.Value, gapFillFlag.Value); err != nil {
 		return state.processReject(session, msg, err)
 	}
 
-	newSeqNo := new(message.IntField)
+	newSeqNo := new(fix.IntField)
 	if err := msg.Body.GetField(tag.NewSeqNo, newSeqNo); err == nil {
 		session.log.OnEventf("Received SequenceReset FROM: %v TO: %v", session.expectedSeqNum, newSeqNo.Value)
 
@@ -106,14 +106,14 @@ func (state inSession) handleResendRequest(session *Session, msg message.Message
 	}
 
 	var err error
-	beginSeqNoField := new(message.IntValue)
+	beginSeqNoField := new(fix.IntValue)
 	if err = msg.Body.GetField(tag.BeginSeqNo, beginSeqNoField); err != nil {
 		return state.processReject(session, msg, errors.RequiredTagMissing(tag.BeginSeqNo))
 	}
 
 	beginSeqNo := beginSeqNoField.Value
 
-	endSeqNoField := new(message.IntField)
+	endSeqNoField := new(fix.IntField)
 	if err = msg.Body.GetField(tag.EndSeqNo, endSeqNoField); err != nil {
 		return state.processReject(session, msg, errors.RequiredTagMissing(tag.EndSeqNo))
 	}
@@ -153,10 +153,10 @@ func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int
 
 		msg, _ := message.Parse(buf.Bytes())
 
-		msgType := new(message.StringValue)
+		msgType := new(fix.StringValue)
 		msg.Header.GetField(tag.MsgType, msgType)
 
-		sentMessageSeqNum := new(message.IntValue)
+		sentMessageSeqNum := new(fix.IntValue)
 		msg.Header.GetField(tag.MsgSeqNum, sentMessageSeqNum)
 
 		if fix.IsAdminMessageType(msgType.Value) {
@@ -225,16 +225,16 @@ func (state inSession) processReject(session *Session, msg message.Message, rej 
 }
 
 func (state inSession) doTargetTooLow(session *Session, msg message.Message, rej errors.TargetTooLow) (nextState sessionState) {
-	posDupFlag := new(message.BooleanValue)
+	posDupFlag := new(fix.BooleanValue)
 	if err := msg.Header.GetField(tag.PossDupFlag, posDupFlag); err == nil && posDupFlag.Value {
 
-		origSendingTime := new(message.UTCTimestampValue)
+		origSendingTime := new(fix.UTCTimestampValue)
 		if err = msg.Header.GetField(tag.OrigSendingTime, origSendingTime); err != nil {
 			session.doReject(msg, errors.RequiredTagMissing(tag.OrigSendingTime))
 			return state
 		}
 
-		sendingTime := new(message.UTCTimestampValue)
+		sendingTime := new(fix.UTCTimestampValue)
 		msg.Header.GetField(tag.SendingTime, sendingTime)
 
 		if sendingTime.Value.Before(origSendingTime.Value) {
@@ -270,9 +270,9 @@ func (state *inSession) generateSequenceReset(session *Session, beginSeqNo int, 
 	sequenceReset.Body.Set(field.NewNewSeqNo(endSeqNo))
 	sequenceReset.Body.Set(field.NewGapFillFlag(true))
 
-	origSendingTime := new(message.StringValue)
+	origSendingTime := new(fix.StringValue)
 	if err := sequenceReset.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
-		sequenceReset.Header.Set(message.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+		sequenceReset.Header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
 	//FIXME error check?

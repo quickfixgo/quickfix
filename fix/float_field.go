@@ -1,8 +1,7 @@
-package message
+package fix
 
 import (
 	"fmt"
-	"github.com/quickfixgo/quickfix/fix"
 	"regexp"
 	"strconv"
 )
@@ -34,7 +33,7 @@ type FloatField struct {
 	FloatValue
 }
 
-func NewFloatField(tag fix.Tag, value float64) *FloatField {
+func NewFloatField(tag Tag, value float64) *FloatField {
 	var f FloatField
 	f.tag = tag
 	f.Value = value

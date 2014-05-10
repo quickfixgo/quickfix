@@ -55,7 +55,6 @@ func genFields() {
 	fileOut := "package field\n"
 	fileOut += "import(\n"
 	fileOut += "\"github.com/quickfixgo/quickfix/fix\"\n"
-	fileOut += "\"github.com/quickfixgo/quickfix/message\"\n"
 	fileOut += "\"github.com/quickfixgo/quickfix/fix/tag\"\n"
 	fileOut += ")\n"
 
@@ -152,7 +151,7 @@ func genFields() {
 		}
 
 		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name, field.Type)
-		fileOut += fmt.Sprintf("type %vField struct { message.%v }\n", field.Name, baseType)
+		fileOut += fmt.Sprintf("type %vField struct { fix.%v }\n", field.Name, baseType)
 		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name, field.Tag)
 		fileOut += fmt.Sprintf("func (f %vField) Tag() fix.Tag {return tag.%v}\n", field.Name, field.Name)
 

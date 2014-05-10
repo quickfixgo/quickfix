@@ -1,8 +1,7 @@
-package message
+package fix
 
 import (
 	"errors"
-	"github.com/quickfixgo/quickfix/fix"
 )
 
 //BooleanValue is a container for bool, implements FieldValue.
@@ -37,7 +36,7 @@ type BooleanField struct {
 	BooleanValue
 }
 
-func NewBooleanField(tag fix.Tag, value bool) *BooleanField {
+func NewBooleanField(tag Tag, value bool) *BooleanField {
 	var f BooleanField
 	f.tag = tag
 	f.Value = value

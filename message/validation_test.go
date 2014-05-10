@@ -15,45 +15,45 @@ type ValidationTests struct{}
 
 func (s *ValidationTests) createFIX40NewOrderSingle() MessageBuilder {
 	msg := Builder()
-	msg.Header.Set(NewStringField(tag.MsgType, "D"))
-	msg.Header.Set(NewStringField(tag.BeginString, "FIX.4.0"))
-	msg.Header.Set(NewStringField(tag.BodyLength, "0"))
-	msg.Header.Set(NewStringField(tag.SenderCompID, "0"))
-	msg.Header.Set(NewStringField(tag.TargetCompID, "0"))
-	msg.Header.Set(NewStringField(tag.MsgSeqNum, "0"))
-	msg.Header.Set(NewUTCTimestampField(tag.SendingTime, time.Now()))
+	msg.Header.Set(fix.NewStringField(tag.MsgType, "D"))
+	msg.Header.Set(fix.NewStringField(tag.BeginString, "FIX.4.0"))
+	msg.Header.Set(fix.NewStringField(tag.BodyLength, "0"))
+	msg.Header.Set(fix.NewStringField(tag.SenderCompID, "0"))
+	msg.Header.Set(fix.NewStringField(tag.TargetCompID, "0"))
+	msg.Header.Set(fix.NewStringField(tag.MsgSeqNum, "0"))
+	msg.Header.Set(fix.NewUTCTimestampField(tag.SendingTime, time.Now()))
 
-	msg.Body.Set(NewStringField(tag.ClOrdID, "A"))
-	msg.Body.Set(NewStringField(tag.HandlInst, "1"))
-	msg.Body.Set(NewStringField(tag.Symbol, "A"))
-	msg.Body.Set(NewStringField(tag.Side, "1"))
-	msg.Body.Set(NewStringField(tag.OrdType, "1"))
-	msg.Body.Set(NewIntField(tag.OrderQty, 5))
+	msg.Body.Set(fix.NewStringField(tag.ClOrdID, "A"))
+	msg.Body.Set(fix.NewStringField(tag.HandlInst, "1"))
+	msg.Body.Set(fix.NewStringField(tag.Symbol, "A"))
+	msg.Body.Set(fix.NewStringField(tag.Side, "1"))
+	msg.Body.Set(fix.NewStringField(tag.OrdType, "1"))
+	msg.Body.Set(fix.NewIntField(tag.OrderQty, 5))
 
-	msg.Trailer.Set(NewStringField(tag.CheckSum, "000"))
+	msg.Trailer.Set(fix.NewStringField(tag.CheckSum, "000"))
 
 	return msg
 }
 
 func (s *ValidationTests) createFIX43NewOrderSingle() MessageBuilder {
 	msg := Builder()
-	msg.Header.Set(NewStringField(tag.MsgType, "D"))
-	msg.Header.Set(NewStringField(tag.BeginString, "FIX.4.3"))
-	msg.Header.Set(NewStringField(tag.BodyLength, "0"))
-	msg.Header.Set(NewStringField(tag.SenderCompID, "0"))
-	msg.Header.Set(NewStringField(tag.TargetCompID, "0"))
-	msg.Header.Set(NewStringField(tag.MsgSeqNum, "0"))
-	msg.Header.Set(NewUTCTimestampField(tag.SendingTime, time.Now()))
+	msg.Header.Set(fix.NewStringField(tag.MsgType, "D"))
+	msg.Header.Set(fix.NewStringField(tag.BeginString, "FIX.4.3"))
+	msg.Header.Set(fix.NewStringField(tag.BodyLength, "0"))
+	msg.Header.Set(fix.NewStringField(tag.SenderCompID, "0"))
+	msg.Header.Set(fix.NewStringField(tag.TargetCompID, "0"))
+	msg.Header.Set(fix.NewStringField(tag.MsgSeqNum, "0"))
+	msg.Header.Set(fix.NewUTCTimestampField(tag.SendingTime, time.Now()))
 
-	msg.Body.Set(NewStringField(tag.ClOrdID, "A"))
-	msg.Body.Set(NewStringField(tag.HandlInst, "1"))
-	msg.Body.Set(NewStringField(tag.Symbol, "A"))
-	msg.Body.Set(NewStringField(tag.Side, "1"))
-	msg.Body.Set(NewIntField(tag.OrderQty, 5))
-	msg.Body.Set(NewStringField(tag.OrdType, "1"))
-	msg.Body.Set(NewUTCTimestampField(tag.TransactTime, time.Now()))
+	msg.Body.Set(fix.NewStringField(tag.ClOrdID, "A"))
+	msg.Body.Set(fix.NewStringField(tag.HandlInst, "1"))
+	msg.Body.Set(fix.NewStringField(tag.Symbol, "A"))
+	msg.Body.Set(fix.NewStringField(tag.Side, "1"))
+	msg.Body.Set(fix.NewIntField(tag.OrderQty, 5))
+	msg.Body.Set(fix.NewStringField(tag.OrdType, "1"))
+	msg.Body.Set(fix.NewUTCTimestampField(tag.TransactTime, time.Now()))
 
-	msg.Trailer.Set(NewStringField(tag.CheckSum, "000"))
+	msg.Trailer.Set(fix.NewStringField(tag.CheckSum, "000"))
 
 	return msg
 }
@@ -62,7 +62,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
-	builder.Header.Set(NewStringField(9999, "hello"))
+	builder.Header.Set(fix.NewStringField(9999, "hello"))
 	msg, _ := builder.Build()
 	reject := Validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -70,7 +70,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
 
 	builder = s.createFIX40NewOrderSingle()
-	builder.Trailer.Set(NewStringField(9999, "hello"))
+	builder.Trailer.Set(fix.NewStringField(9999, "hello"))
 	msg, _ = builder.Build()
 	reject = Validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -78,7 +78,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
 
 	builder = s.createFIX40NewOrderSingle()
-	builder.Body.Set(NewStringField(9999, "hello"))
+	builder.Body.Set(fix.NewStringField(9999, "hello"))
 	msg, _ = builder.Build()
 	reject = Validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -90,7 +90,7 @@ func (s *ValidationTests) TestValidateTagNotDefinedForMessage(c *C) {
 	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
-	builder.Body.Set(NewStringField(41, "hello"))
+	builder.Body.Set(fix.NewStringField(41, "hello"))
 	msg, _ := builder.Build()
 
 	reject := Validate(dict, *msg)
@@ -114,14 +114,14 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body.init(normalFieldOrder)
-	builder.Body.Set(NewStringField(tag.ClOrdID, "A"))
-	builder.Body.Set(NewStringField(tag.HandlInst, "A"))
-	builder.Body.Set(NewStringField(tag.Symbol, "A"))
-	builder.Body.Set(NewStringField(tag.Side, "A"))
-	builder.Body.Set(NewStringField(tag.OrderQty, "A"))
+	builder.Body.Set(fix.NewStringField(tag.ClOrdID, "A"))
+	builder.Body.Set(fix.NewStringField(tag.HandlInst, "A"))
+	builder.Body.Set(fix.NewStringField(tag.Symbol, "A"))
+	builder.Body.Set(fix.NewStringField(tag.Side, "A"))
+	builder.Body.Set(fix.NewStringField(tag.OrderQty, "A"))
 
 	//ord type is required
-	//builder.Body.Set(NewStringField(tag.OrdType, "A"))
+	//builder.Body.Set(fix.NewStringField(tag.OrdType, "A"))
 	msg, _ := builder.Build()
 
 	reject := Validate(dict, *msg)
@@ -131,14 +131,14 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 
 	builder = s.createFIX40NewOrderSingle()
 	builder.Header.init(headerFieldOrder)
-	builder.Header.Set(NewStringField(tag.MsgType, "D"))
-	builder.Header.Set(NewStringField(tag.BeginString, "FIX.4.0"))
-	builder.Header.Set(NewStringField(tag.BodyLength, "0"))
-	builder.Header.Set(NewStringField(tag.SenderCompID, "0"))
-	builder.Header.Set(NewStringField(tag.TargetCompID, "0"))
-	builder.Header.Set(NewStringField(tag.MsgSeqNum, "0"))
+	builder.Header.Set(fix.NewStringField(tag.MsgType, "D"))
+	builder.Header.Set(fix.NewStringField(tag.BeginString, "FIX.4.0"))
+	builder.Header.Set(fix.NewStringField(tag.BodyLength, "0"))
+	builder.Header.Set(fix.NewStringField(tag.SenderCompID, "0"))
+	builder.Header.Set(fix.NewStringField(tag.TargetCompID, "0"))
+	builder.Header.Set(fix.NewStringField(tag.MsgSeqNum, "0"))
 	//sending time is required
-	//msg.Header.FieldMap.Set(NewStringField(tag.SendingTime, "0"))
+	//msg.Header.FieldMap.Set(fix.NewStringField(tag.SendingTime, "0"))
 
 	msg, _ = builder.Build()
 
@@ -151,7 +151,7 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 func (s *ValidationTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
 	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
-	builder.Body.Set(NewStringField(tag.ClientID, ""))
+	builder.Body.Set(fix.NewStringField(tag.ClientID, ""))
 	msg, _ := builder.Build()
 
 	reject := Validate(dict, *msg)
@@ -164,7 +164,7 @@ func (s *ValidationTests) TestValidateInvalidMsgType(c *C) {
 	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
-	builder.Header.Set(NewStringField(tag.MsgType, "z"))
+	builder.Header.Set(fix.NewStringField(tag.MsgType, "z"))
 	msg, _ := builder.Build()
 
 	reject := Validate(dict, *msg)
@@ -175,7 +175,7 @@ func (s *ValidationTests) TestValidateInvalidMsgType(c *C) {
 func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
 	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
-	builder.Body.Set(NewStringField(tag.HandlInst, "4"))
+	builder.Body.Set(fix.NewStringField(tag.HandlInst, "4"))
 	msg, _ := builder.Build()
 
 	reject := Validate(dict, *msg)
@@ -187,7 +187,7 @@ func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
 func (s *ValidationTests) TestValidateIncorrectDataFormatForValue(c *C) {
 	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
-	builder.Body.Set(NewStringField(tag.OrderQty, "+200.00"))
+	builder.Body.Set(fix.NewStringField(tag.OrderQty, "+200.00"))
 	msg, _ := builder.Build()
 	reject := Validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -199,7 +199,7 @@ func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	//should be in header
-	builder.Body.Set(NewStringField(tag.OnBehalfOfCompID, "CWB"))
+	builder.Body.Set(fix.NewStringField(tag.OnBehalfOfCompID, "CWB"))
 	msg, _ := builder.Build()
 	reject := Validate(dict, *msg)
 	c.Check(reject, NotNil)

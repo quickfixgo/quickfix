@@ -69,7 +69,7 @@ func tryCrack(beginString *field.BeginStringField, msg message.Message, sessionI
 		return fix50.Crack(msg, sessionID, router)
 	case fix.BeginString_FIXT11:
 
-		msgType := new(message.StringValue)
+		msgType := new(fix.StringValue)
 		if msg.Header.GetField(tag.MsgType, msgType); fix.IsAdminMessageType(msgType.Value) {
 			return fixt11.Crack(msg, sessionID, router)
 		}

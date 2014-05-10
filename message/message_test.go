@@ -1,6 +1,7 @@
 package message
 
 import (
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	. "gopkg.in/check.v1"
 )
@@ -15,62 +16,62 @@ func (s *FieldMapTests) TestReverseRoute(c *C) {
 
 	builder := msg.ReverseRoute()
 
-	targetCompID := new(StringValue)
+	targetCompID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.TargetCompID, targetCompID)
 	c.Check(err, IsNil)
 	c.Check(targetCompID.Value, Equals, "TW")
 
-	targetSubID := new(StringValue)
+	targetSubID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.TargetSubID, targetSubID)
 	c.Check(err, IsNil)
 	c.Check(targetSubID.Value, Equals, "KK")
 
-	targetLocationID := new(StringValue)
+	targetLocationID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.TargetLocationID, targetLocationID)
 	c.Check(err, IsNil)
 	c.Check(targetLocationID.Value, Equals, "JV")
 
-	senderCompID := new(StringValue)
+	senderCompID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.SenderCompID, senderCompID)
 	c.Check(err, IsNil)
 	c.Check(senderCompID.Value, Equals, "ISLD")
 
-	senderSubID := new(StringValue)
+	senderSubID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.SenderSubID, senderSubID)
 	c.Check(err, IsNil)
 	c.Check(senderSubID.Value, Equals, "AP")
 
-	senderLocationID := new(StringValue)
+	senderLocationID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.SenderLocationID, senderLocationID)
 	c.Check(err, IsNil)
 	c.Check(senderLocationID.Value, Equals, "RY")
 
-	deliverToCompID := new(StringValue)
+	deliverToCompID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.DeliverToCompID, deliverToCompID)
 	c.Check(err, IsNil)
 	c.Check(deliverToCompID.Value, Equals, "JCD")
 
-	deliverToSubID := new(StringValue)
+	deliverToSubID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.DeliverToSubID, deliverToSubID)
 	c.Check(err, IsNil)
 	c.Check(deliverToSubID.Value, Equals, "CS")
 
-	deliverToLocationID := new(StringValue)
+	deliverToLocationID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.DeliverToLocationID, deliverToLocationID)
 	c.Check(err, IsNil)
 	c.Check(deliverToLocationID.Value, Equals, "BB")
 
-	onBehalfOfCompID := new(StringValue)
+	onBehalfOfCompID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.OnBehalfOfCompID, onBehalfOfCompID)
 	c.Check(err, IsNil)
 	c.Check(onBehalfOfCompID.Value, Equals, "MG")
 
-	onBehalfOfSubID := new(StringValue)
+	onBehalfOfSubID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.OnBehalfOfSubID, onBehalfOfSubID)
 	c.Check(err, IsNil)
 	c.Check(onBehalfOfSubID.Value, Equals, "CB")
 
-	onBehalfOfLocationID := new(StringValue)
+	onBehalfOfLocationID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.OnBehalfOfLocationID, onBehalfOfLocationID)
 	c.Check(err, IsNil)
 	c.Check(onBehalfOfLocationID.Value, Equals, "BH")
@@ -82,7 +83,7 @@ func (s *FieldMapTests) TestReverseRouteIgnoreEmpty(c *C) {
 	builder := msg.ReverseRoute()
 
 	//don't reverse if empty
-	deliverToCompID := new(StringValue)
+	deliverToCompID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.DeliverToCompID, deliverToCompID)
 	c.Check(err, NotNil)
 
@@ -96,11 +97,11 @@ func (s *FieldMapTests) TestReverseRouteFIX40(c *C) {
 	c.Check(err, IsNil)
 	builder := msg.ReverseRoute()
 
-	deliverToLocationID := new(StringValue)
+	deliverToLocationID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.DeliverToLocationID, deliverToLocationID)
 	c.Check(err, NotNil)
 
-	onBehalfOfLocationID := new(StringValue)
+	onBehalfOfLocationID := new(fix.StringValue)
 	err = builder.Header.GetField(tag.OnBehalfOfLocationID, onBehalfOfLocationID)
 	c.Check(err, NotNil)
 }

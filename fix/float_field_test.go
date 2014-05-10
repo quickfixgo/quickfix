@@ -1,7 +1,6 @@
-package message
+package fix
 
 import (
-	"github.com/quickfixgo/quickfix/fix"
 	. "gopkg.in/check.v1"
 )
 
@@ -10,13 +9,13 @@ var _ = Suite(&FloatFieldTests{})
 type FloatFieldTests struct{}
 
 func (s *FloatFieldTests) TestNewField(c *C) {
-	field := NewFloatField(fix.Tag(1), 5.0)
-	c.Check(field.Tag(), Equals, fix.Tag(1))
+	field := NewFloatField(Tag(1), 5.0)
+	c.Check(field.Tag(), Equals, Tag(1))
 	c.Check(field.Value, Equals, 5.0)
 }
 
 func (s *FloatFieldTests) TestWrite(c *C) {
-	field := NewFloatField(fix.Tag(1), 5.0)
+	field := NewFloatField(Tag(1), 5.0)
 	bytes := field.Write()
 	c.Check(string(bytes), Equals, "5")
 }

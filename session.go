@@ -134,9 +134,9 @@ func (s *Session) insertSendingTime(builder message.MessageBuilder) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= fix.BeginString_FIX42 {
-		builder.Header.Set(message.NewUTCTimestampField(tag.SendingTime, sendingTime))
+		builder.Header.Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	} else {
-		builder.Header.Set(message.NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
+		builder.Header.Set(fix.NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
 	}
 }
 
@@ -151,9 +151,9 @@ func (s *Session) fillDefaultHeader(builder message.MessageBuilder) {
 func (s *Session) resend(m message.MessageBuilder) {
 	m.Header.Set(field.NewPossDupFlag(true))
 
-	origSendingTime := new(message.StringValue)
+	origSendingTime := new(fix.StringValue)
 	if err := m.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
-		m.Header.Set(message.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+		m.Header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
 	s.insertSendingTime(m)
@@ -167,7 +167,7 @@ func (s *Session) resend(m message.MessageBuilder) {
 
 func (s *Session) send(builder message.MessageBuilder) {
 	s.fillDefaultHeader(builder)
-	builder.Header.Set(message.NewIntField(tag.MsgSeqNum, s.seqNum))
+	builder.Header.Set(fix.NewIntField(tag.MsgSeqNum, s.seqNum))
 
 	if buffer, err := builder.Build(); err != nil {
 		panic(err)
@@ -218,7 +218,7 @@ func (s *Session) handleLogon(msg message.Message) error {
 			s.seqNum = 1
 		}
 
-		resetSeqNumFlag := new(message.BooleanValue)
+		resetSeqNumFlag := new(fix.BooleanValue)
 		if err := msg.Body.GetField(tag.ResetSeqNumFlag, resetSeqNumFlag); err == nil {
 			if resetSeqNumFlag.Value {
 				s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
@@ -330,7 +330,7 @@ func (s *Session) verifySelect(msg message.Message, checkTooHigh bool, checkTooL
 }
 
 func (s *Session) fromCallback(msg message.Message) errors.MessageRejectError {
-	msgType := new(message.StringValue)
+	msgType := new(fix.StringValue)
 	if msg.Header.GetField(tag.MsgType, msgType); fix.IsAdminMessageType(msgType.Value) {
 		return s.application.FromAdmin(msg, s.sessionID)
 	}
@@ -339,7 +339,7 @@ func (s *Session) fromCallback(msg message.Message) errors.MessageRejectError {
 }
 
 func (s *Session) checkTargetTooLow(msg message.Message) errors.MessageRejectError {
-	seqNum := new(message.IntField)
+	seqNum := new(fix.IntField)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
 		return errors.RequiredTagMissing(tag.MsgSeqNum)
@@ -351,7 +351,7 @@ func (s *Session) checkTargetTooLow(msg message.Message) errors.MessageRejectErr
 }
 
 func (s *Session) checkTargetTooHigh(msg message.Message) errors.MessageRejectError {
-	seqNum := new(message.IntValue)
+	seqNum := new(fix.IntValue)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
 		return errors.RequiredTagMissing(tag.MsgSeqNum)
@@ -386,7 +386,7 @@ func (s *Session) checkCompID(msg message.Message) errors.MessageRejectError {
 }
 
 func (s *Session) checkSendingTime(msg message.Message) errors.MessageRejectError {
-	sendingTime := new(message.UTCTimestampValue)
+	sendingTime := new(fix.UTCTimestampValue)
 	if err := msg.Header.GetField(tag.SendingTime, sendingTime); err != nil {
 		return err
 	}
@@ -399,7 +399,7 @@ func (s *Session) checkSendingTime(msg message.Message) errors.MessageRejectErro
 }
 
 func (s *Session) checkBeginString(msg message.Message) errors.MessageRejectError {
-	beginString := new(message.StringValue)
+	beginString := new(fix.StringValue)
 	switch err := msg.Header.GetField(tag.BeginString, beginString); {
 	case err != nil:
 		return errors.RequiredTagMissing(tag.BeginString)

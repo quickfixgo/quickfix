@@ -1,7 +1,6 @@
-package message
+package fix
 
 import (
-	"github.com/quickfixgo/quickfix/fix"
 	"strconv"
 )
 
@@ -26,7 +25,7 @@ type IntField struct {
 	IntValue
 }
 
-func NewIntField(tag fix.Tag, value int) *IntField {
+func NewIntField(tag Tag, value int) *IntField {
 	var f IntField
 	f.tag = tag
 	f.Value = value

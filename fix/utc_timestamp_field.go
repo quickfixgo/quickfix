@@ -1,7 +1,6 @@
-package message
+package fix
 
 import (
-	"github.com/quickfixgo/quickfix/fix"
 	"time"
 )
 
@@ -42,7 +41,7 @@ type UTCTimestampField struct {
 	UTCTimestampValue
 }
 
-func NewUTCTimestampField(tag fix.Tag, value time.Time) *UTCTimestampField {
+func NewUTCTimestampField(tag Tag, value time.Time) *UTCTimestampField {
 	var field UTCTimestampField
 	field.tag = tag
 	field.Value = value
@@ -50,7 +49,7 @@ func NewUTCTimestampField(tag fix.Tag, value time.Time) *UTCTimestampField {
 	return &field
 }
 
-func NewUTCTimestampFieldNoMillis(tag fix.Tag, value time.Time) *UTCTimestampField {
+func NewUTCTimestampFieldNoMillis(tag Tag, value time.Time) *UTCTimestampField {
 	var field UTCTimestampField
 	field.tag = tag
 	field.Value = value

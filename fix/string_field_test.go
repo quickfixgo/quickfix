@@ -1,7 +1,6 @@
-package message
+package fix
 
 import (
-	"github.com/quickfixgo/quickfix/fix"
 	. "gopkg.in/check.v1"
 )
 
@@ -14,7 +13,7 @@ func (s *StringFieldTests) SetUpTest(c *C) {
 
 func (s *StringFieldTests) TestNewField(c *C) {
 	field := NewStringField(1, "CWB")
-	c.Check(field.Tag(), Equals, fix.Tag(1))
+	c.Check(field.Tag(), Equals, Tag(1))
 	c.Check(field.Value, Equals, "CWB")
 }
 

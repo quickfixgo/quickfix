@@ -1,4 +1,4 @@
-package message
+package fix
 
 type SeqNumValue struct{ IntValue }
 type LengthValue struct{ IntValue }

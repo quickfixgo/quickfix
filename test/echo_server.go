@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/cracker"
 	"github.com/quickfixgo/quickfix/errors"
+	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix40"
 	"github.com/quickfixgo/quickfix/fix41"
@@ -77,7 +78,7 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.Ses
 	reply.Header.Set(msgType)
 
 	for _, tag := range msg.Body.Tags() {
-		field := new(message.StringValue)
+		field := new(fix.StringValue)
 		if err := msg.Body.GetField(tag, field); err == nil {
 			reply.Body.SetField(tag, field)
 		}

@@ -1,8 +1,4 @@
-package message
-
-import (
-	"github.com/quickfixgo/quickfix/fix"
-)
+package fix
 
 //StringValue is a container for string, implements FieldValue.
 type StringValue struct {
@@ -24,7 +20,7 @@ type StringField struct {
 	StringValue
 }
 
-func NewStringField(tag fix.Tag, value string) *StringField {
+func NewStringField(tag Tag, value string) *StringField {
 	var f StringField
 	f.tag = tag
 	f.Value = value
