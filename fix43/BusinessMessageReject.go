@@ -22,7 +22,7 @@ func CreateBusinessMessageRejectBuilder(
 	refmsgtype *field.RefMsgTypeField,
 	businessrejectreason *field.BusinessRejectReasonField) BusinessMessageRejectBuilder {
 	var builder BusinessMessageRejectBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("j"))
 	builder.Body.Set(refmsgtype)

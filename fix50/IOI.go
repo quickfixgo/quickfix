@@ -28,7 +28,7 @@ func CreateIOIBuilder(
 	side *field.SideField,
 	ioiqty *field.IOIQtyField) IOIBuilder {
 	var builder IOIBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("6"))

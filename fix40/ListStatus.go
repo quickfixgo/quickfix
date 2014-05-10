@@ -24,7 +24,7 @@ func CreateListStatusBuilder(
 	rptseq *field.RptSeqField,
 	noorders *field.NoOrdersField) ListStatusBuilder {
 	var builder ListStatusBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("N"))
 	builder.Body.Set(listid)

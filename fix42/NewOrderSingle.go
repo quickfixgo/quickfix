@@ -26,7 +26,7 @@ func CreateNewOrderSingleBuilder(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) NewOrderSingleBuilder {
 	var builder NewOrderSingleBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("D"))
 	builder.Body.Set(clordid)

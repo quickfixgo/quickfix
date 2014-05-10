@@ -31,7 +31,7 @@ func CreateAssignmentReportBuilder(
 	settlsesssubid *field.SettlSessSubIDField,
 	clearingbusinessdate *field.ClearingBusinessDateField) AssignmentReportBuilder {
 	var builder AssignmentReportBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AW"))
 	builder.Body.Set(asgnrptid)

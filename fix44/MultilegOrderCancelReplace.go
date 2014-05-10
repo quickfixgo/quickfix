@@ -26,7 +26,7 @@ func CreateMultilegOrderCancelReplaceBuilder(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) MultilegOrderCancelReplaceBuilder {
 	var builder MultilegOrderCancelReplaceBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AC"))
 	builder.Body.Set(origclordid)

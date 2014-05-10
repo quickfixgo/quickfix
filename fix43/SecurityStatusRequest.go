@@ -22,7 +22,7 @@ func CreateSecurityStatusRequestBuilder(
 	securitystatusreqid *field.SecurityStatusReqIDField,
 	subscriptionrequesttype *field.SubscriptionRequestTypeField) SecurityStatusRequestBuilder {
 	var builder SecurityStatusRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("e"))
 	builder.Body.Set(securitystatusreqid)

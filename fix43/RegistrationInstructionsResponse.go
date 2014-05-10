@@ -24,7 +24,7 @@ func CreateRegistrationInstructionsResponseBuilder(
 	registrefid *field.RegistRefIDField,
 	registstatus *field.RegistStatusField) RegistrationInstructionsResponseBuilder {
 	var builder RegistrationInstructionsResponseBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("p"))
 	builder.Body.Set(registid)

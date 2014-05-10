@@ -26,7 +26,7 @@ func CreateRequestForPositionsBuilder(
 	clearingbusinessdate *field.ClearingBusinessDateField,
 	transacttime *field.TransactTimeField) RequestForPositionsBuilder {
 	var builder RequestForPositionsBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AN"))
 	builder.Body.Set(posreqid)

@@ -27,7 +27,7 @@ func CreateListStatusBuilder(
 	totnoorders *field.TotNoOrdersField,
 	noorders *field.NoOrdersField) ListStatusBuilder {
 	var builder ListStatusBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("N"))
 	builder.Body.Set(listid)

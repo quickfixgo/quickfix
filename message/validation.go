@@ -253,19 +253,19 @@ func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadicti
 }
 
 func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, validFields datadictionary.TagSet, fieldMap FieldMap) errors.MessageRejectError {
-	for tag, fieldValue := range fieldMap.lookup {
+	for tag, fieldValue := range fieldMap.fieldLookup {
 		if len(fieldValue.Value) == 0 {
 			return errors.TagSpecifiedWithoutAValue(tag)
 		}
 	}
 
-	for tag := range fieldMap.lookup {
+	for tag := range fieldMap.fieldLookup {
 		if _, valid := d.FieldTypeByTag[tag]; !valid {
 			return errors.InvalidTagNumber(tag)
 		}
 	}
 
-	for tag, fieldValue := range fieldMap.lookup {
+	for tag, fieldValue := range fieldMap.fieldLookup {
 		allowedValues := d.FieldTypeByTag[tag].Enums
 		if len(allowedValues) != 0 {
 			if _, validValue := allowedValues[string(fieldValue.Value)]; !validValue {
@@ -274,7 +274,7 @@ func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, v
 		}
 	}
 
-	for tag := range fieldMap.lookup {
+	for tag := range fieldMap.fieldLookup {
 		fieldType := d.FieldTypeByTag[tag]
 		var prototype FieldValue
 		switch fieldType.Type {

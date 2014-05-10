@@ -22,7 +22,7 @@ func CreateResendRequestBuilder(
 	beginseqno *field.BeginSeqNoField,
 	endseqno *field.EndSeqNoField) ResendRequestBuilder {
 	var builder ResendRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("2"))
 	builder.Body.Set(beginseqno)

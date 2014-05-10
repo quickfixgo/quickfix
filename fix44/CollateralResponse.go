@@ -25,7 +25,7 @@ func CreateCollateralResponseBuilder(
 	collasgnresptype *field.CollAsgnRespTypeField,
 	transacttime *field.TransactTimeField) CollateralResponseBuilder {
 	var builder CollateralResponseBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AZ"))
 	builder.Body.Set(collrespid)

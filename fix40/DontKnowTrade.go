@@ -26,7 +26,7 @@ func CreateDontKnowTradeBuilder(
 	lastshares *field.LastSharesField,
 	lastpx *field.LastPxField) DontKnowTradeBuilder {
 	var builder DontKnowTradeBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("Q"))
 	builder.Body.Set(dkreason)

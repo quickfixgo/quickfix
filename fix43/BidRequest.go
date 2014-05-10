@@ -26,7 +26,7 @@ func CreateBidRequestBuilder(
 	tradetype *field.TradeTypeField,
 	basispxtype *field.BasisPxTypeField) BidRequestBuilder {
 	var builder BidRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("k"))
 	builder.Body.Set(clientbidid)

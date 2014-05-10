@@ -24,7 +24,7 @@ func CreateAllocationReportAckBuilder(
 	transacttime *field.TransactTimeField,
 	allocstatus *field.AllocStatusField) AllocationReportAckBuilder {
 	var builder AllocationReportAckBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AT"))
 	builder.Body.Set(allocreportid)

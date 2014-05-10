@@ -25,7 +25,7 @@ func CreateRequestForPositionsAckBuilder(
 	account *field.AccountField,
 	accounttype *field.AccountTypeField) RequestForPositionsAckBuilder {
 	var builder RequestForPositionsAckBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AO"))
 	builder.Body.Set(posmaintrptid)

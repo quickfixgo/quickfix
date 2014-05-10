@@ -25,7 +25,7 @@ func CreateOrderCancelReplaceRequestBuilder(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) OrderCancelReplaceRequestBuilder {
 	var builder OrderCancelReplaceRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("G"))
 	builder.Body.Set(origclordid)

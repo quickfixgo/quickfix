@@ -59,7 +59,7 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.Ses
 		return err
 	}
 
-	reply := message.CreateMessageBuilder()
+	reply := message.Builder()
 	sessionOrderID := sessionID.String() + orderID.Value
 	possResend := new(field.PossResendField)
 	if err := msg.Header.Get(possResend); err == nil && possResend.Value {

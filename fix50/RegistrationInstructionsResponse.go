@@ -28,7 +28,7 @@ func CreateRegistrationInstructionsResponseBuilder(
 	registrefid *field.RegistRefIDField,
 	registstatus *field.RegistStatusField) RegistrationInstructionsResponseBuilder {
 	var builder RegistrationInstructionsResponseBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("p"))

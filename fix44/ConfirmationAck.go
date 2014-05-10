@@ -24,7 +24,7 @@ func CreateConfirmationAckBuilder(
 	transacttime *field.TransactTimeField,
 	affirmstatus *field.AffirmStatusField) ConfirmationAckBuilder {
 	var builder ConfirmationAckBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AU"))
 	builder.Body.Set(confirmid)

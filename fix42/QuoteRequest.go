@@ -22,7 +22,7 @@ func CreateQuoteRequestBuilder(
 	quotereqid *field.QuoteReqIDField,
 	norelatedsym *field.NoRelatedSymField) QuoteRequestBuilder {
 	var builder QuoteRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("R"))
 	builder.Body.Set(quotereqid)

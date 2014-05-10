@@ -21,7 +21,7 @@ type QuoteAcknowledgementBuilder struct {
 func CreateQuoteAcknowledgementBuilder(
 	quoteackstatus *field.QuoteAckStatusField) QuoteAcknowledgementBuilder {
 	var builder QuoteAcknowledgementBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("b"))
 	builder.Body.Set(quoteackstatus)

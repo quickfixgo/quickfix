@@ -23,7 +23,7 @@ func CreateUserRequestBuilder(
 	userrequesttype *field.UserRequestTypeField,
 	username *field.UsernameField) UserRequestBuilder {
 	var builder UserRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("BE"))
 	builder.Body.Set(userrequestid)

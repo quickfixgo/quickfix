@@ -25,7 +25,7 @@ type MarketDataIncrementalRefreshBuilder struct {
 func CreateMarketDataIncrementalRefreshBuilder(
 	nomdentries *field.NoMDEntriesField) MarketDataIncrementalRefreshBuilder {
 	var builder MarketDataIncrementalRefreshBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("X"))

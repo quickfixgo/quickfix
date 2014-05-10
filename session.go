@@ -186,7 +186,7 @@ func (s *Session) sendBuffer(buffer buffer) {
 }
 
 func (s *Session) doTargetTooHigh(reject errors.TargetTooHigh) {
-	resend := message.CreateMessageBuilder()
+	resend := message.Builder()
 	resend.Header.Set(field.NewMsgType("2"))
 	resend.Body.Set(field.NewBeginSeqNo(reject.ExpectedTarget))
 
@@ -231,7 +231,7 @@ func (s *Session) handleLogon(msg message.Message) error {
 			return err
 		}
 
-		reply := message.CreateMessageBuilder()
+		reply := message.Builder()
 		reply.Header.Set(field.NewMsgType("A"))
 		reply.Header.Set(field.NewBeginString(s.sessionID.BeginString))
 		reply.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
@@ -465,7 +465,7 @@ func (s *Session) run(msgIn chan []byte) {
 		s.expectedSeqNum = 1
 		s.seqNum = 1
 
-		logon := message.CreateMessageBuilder()
+		logon := message.Builder()
 		logon.Header.Set(field.NewMsgType("A"))
 		logon.Header.Set(field.NewBeginString(s.sessionID.BeginString))
 		logon.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
@@ -494,7 +494,7 @@ func (s *Session) run(msgIn chan []byte) {
 		case msgBytes, ok := <-msgIn:
 			if ok {
 				s.log.OnIncoming(string(msgBytes))
-				if msg, err := message.MessageFromParsedBytes(msgBytes); err != nil {
+				if msg, err := message.Parse(msgBytes); err != nil {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), msgBytes)
 				} else {
 					s.currentState = s.currentState.FixMsgIn(s, *msg)

@@ -23,7 +23,7 @@ func CreateEmailBuilder(
 	linesoftext *field.LinesOfTextField,
 	text *field.TextField) EmailBuilder {
 	var builder EmailBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("C"))
 	builder.Body.Set(emailtype)

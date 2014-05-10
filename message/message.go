@@ -21,12 +21,12 @@ type Message struct {
 	fields []*fieldBytes
 }
 
-//MessageFromParsedBytes constructs a Message from a byte slice wrapping a FIX message
-func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
+//Parse constructs a Message from a byte slice wrapping a FIX message.
+func Parse(rawMessage []byte) (*Message, error) {
 	msg := new(Message)
-	msg.Header.init()
-	msg.Trailer.init()
-	msg.Body.init()
+	msg.Header.init(headerFieldOrder)
+	msg.Trailer.init(trailerFieldOrder)
+	msg.Body.init(normalFieldOrder)
 	msg.rawMessage = rawMessage
 
 	//BeginString, BodyLength, MsgType, CheckSum - at least 4
@@ -64,7 +64,6 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 		}
 
 		msg.fields = append(msg.fields, parsedFieldBytes)
-
 		switch {
 		case tag.IsHeader(parsedFieldBytes.Tag):
 			msg.Header.append(parsedFieldBytes)
@@ -78,7 +77,15 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 		}
 	}
 
-	length := msg.Header.length() + msg.Body.length() + msg.Trailer.length()
+	length := 0
+	for _, field := range msg.fields {
+		switch field.Tag {
+		case tag.BeginString, tag.BodyLength, tag.CheckSum: //tags do not contribute to length
+		default:
+			length += field.Length()
+		}
+	}
+
 	bodyLength := new(IntValue)
 	msg.Header.GetField(tag.BodyLength, bodyLength)
 	if bodyLength.Value != length {
@@ -89,13 +96,13 @@ func MessageFromParsedBytes(rawMessage []byte) (*Message, error) {
 }
 
 //Bytes returns the raw bytes of the Message
-func (m Message) Bytes() []byte {
+func (m *Message) Bytes() []byte {
 	return m.rawMessage
 }
 
 //ReverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
-func (m Message) ReverseRoute() MessageBuilder {
-	reverseBuilder := CreateMessageBuilder()
+func (m *Message) ReverseRoute() MessageBuilder {
+	reverseBuilder := Builder()
 
 	copy := func(src fix.Tag, dest fix.Tag) {
 		if field := new(StringValue); m.Header.GetField(src, field) == nil {
@@ -154,24 +161,24 @@ func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte,
 	return parsedFieldBytes, buffer[(endIndex + 1):], err
 }
 
-func (m Message) String() string {
+func (m *Message) String() string {
 	return string(m.rawMessage)
 }
 
 //ToBuilder returns a writable message builder initialized with the fields in the message
 //FIXME: not safe with repeated groups
-func (m Message) ToBuilder() MessageBuilder {
-	builder := CreateMessageBuilder()
-	for tag := range m.Header.lookup {
-		builder.Header.fields[tag] = m.Header.lookup[tag]
+func (m *Message) ToBuilder() MessageBuilder {
+	builder := Builder()
+	for tag := range m.Header.fieldLookup {
+		builder.Header.fieldLookup[tag] = m.Header.fieldLookup[tag]
 	}
 
-	for tag := range m.Body.lookup {
-		builder.Body.fields[tag] = m.Body.lookup[tag]
+	for tag := range m.Body.fieldLookup {
+		builder.Body.fieldLookup[tag] = m.Body.fieldLookup[tag]
 	}
 
-	for tag := range m.Trailer.lookup {
-		builder.Trailer.fields[tag] = m.Trailer.lookup[tag]
+	for tag := range m.Trailer.fieldLookup {
+		builder.Trailer.fieldLookup[tag] = m.Trailer.fieldLookup[tag]
 	}
 
 	return builder
@@ -182,6 +189,6 @@ func newCheckSum(value int) *StringField {
 }
 
 //Free is required for Buffer interface FIXME
-func (m Message) Free() {
+func (m *Message) Free() {
 
 }

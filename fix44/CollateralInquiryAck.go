@@ -22,7 +22,7 @@ func CreateCollateralInquiryAckBuilder(
 	collinquiryid *field.CollInquiryIDField,
 	collinquirystatus *field.CollInquiryStatusField) CollateralInquiryAckBuilder {
 	var builder CollateralInquiryAckBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("BG"))
 	builder.Body.Set(collinquiryid)

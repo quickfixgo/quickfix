@@ -23,7 +23,7 @@ func CreateSecurityDefinitionBuilder(
 	securityresponseid *field.SecurityResponseIDField,
 	totalnumsecurities *field.TotalNumSecuritiesField) SecurityDefinitionBuilder {
 	var builder SecurityDefinitionBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("d"))
 	builder.Body.Set(securityreqid)

@@ -21,7 +21,7 @@ type BidResponseBuilder struct {
 func CreateBidResponseBuilder(
 	nobidcomponents *field.NoBidComponentsField) BidResponseBuilder {
 	var builder BidResponseBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("l"))
 	builder.Body.Set(nobidcomponents)

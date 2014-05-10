@@ -21,7 +21,7 @@ type SequenceResetBuilder struct {
 func CreateSequenceResetBuilder(
 	newseqno *field.NewSeqNoField) SequenceResetBuilder {
 	var builder SequenceResetBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("4"))
 	builder.Body.Set(newseqno)

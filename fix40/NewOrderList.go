@@ -29,7 +29,7 @@ func CreateNewOrderListBuilder(
 	orderqty *field.OrderQtyField,
 	ordtype *field.OrdTypeField) NewOrderListBuilder {
 	var builder NewOrderListBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("E"))
 	builder.Body.Set(listid)

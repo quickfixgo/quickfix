@@ -29,7 +29,7 @@ func CreateAllocationBuilder(
 	tradedate *field.TradeDateField,
 	noallocs *field.NoAllocsField) AllocationBuilder {
 	var builder AllocationBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("J"))
 	builder.Body.Set(allocid)

@@ -29,7 +29,7 @@ func CreatePositionMaintenanceReportBuilder(
 	accounttype *field.AccountTypeField,
 	transacttime *field.TransactTimeField) PositionMaintenanceReportBuilder {
 	var builder PositionMaintenanceReportBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AM"))
 	builder.Body.Set(posmaintrptid)

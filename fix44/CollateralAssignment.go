@@ -24,7 +24,7 @@ func CreateCollateralAssignmentBuilder(
 	collasgntranstype *field.CollAsgnTransTypeField,
 	transacttime *field.TransactTimeField) CollateralAssignmentBuilder {
 	var builder CollateralAssignmentBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AY"))
 	builder.Body.Set(collasgnid)

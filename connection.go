@@ -64,7 +64,7 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		return
 	}
 
-	msg, err := message.MessageFromParsedBytes(msgBytes)
+	msg, err := message.Parse(msgBytes)
 	if err != nil {
 		log.OnEvent("Invalid message: " + string(msgBytes) + err.Error())
 		return

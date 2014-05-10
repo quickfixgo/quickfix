@@ -28,7 +28,7 @@ func CreateCrossOrderCancelReplaceRequestBuilder(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) CrossOrderCancelReplaceRequestBuilder {
 	var builder CrossOrderCancelReplaceRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("t"))
 	builder.Body.Set(crossid)

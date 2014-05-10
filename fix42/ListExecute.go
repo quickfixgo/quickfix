@@ -22,7 +22,7 @@ func CreateListExecuteBuilder(
 	listid *field.ListIDField,
 	transacttime *field.TransactTimeField) ListExecuteBuilder {
 	var builder ListExecuteBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("L"))
 	builder.Body.Set(listid)

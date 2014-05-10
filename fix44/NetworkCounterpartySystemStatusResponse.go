@@ -23,7 +23,7 @@ func CreateNetworkCounterpartySystemStatusResponseBuilder(
 	networkresponseid *field.NetworkResponseIDField,
 	nocompids *field.NoCompIDsField) NetworkCounterpartySystemStatusResponseBuilder {
 	var builder NetworkCounterpartySystemStatusResponseBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("BD"))
 	builder.Body.Set(networkstatusresponsetype)

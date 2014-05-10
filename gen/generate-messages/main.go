@@ -146,7 +146,7 @@ import(
 	fileOut += strings.Join(builderArgs, ",\n")
 	fileOut += fmt.Sprintf(") %vBuilder {\n", msg.Name)
 	fileOut += fmt.Sprintf("var builder %vBuilder\n", msg.Name)
-	fileOut += "builder.MessageBuilder = message.CreateMessageBuilder()\n"
+	fileOut += "builder.MessageBuilder = message.Builder()\n"
 
 	if fixSpec.FIXType == "FIXT" {
 		fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")

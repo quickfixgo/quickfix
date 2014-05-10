@@ -24,7 +24,7 @@ type CollateralInquiryBuilder struct {
 //CreateCollateralInquiryBuilder returns an initialized CollateralInquiryBuilder with specified required fields.
 func CreateCollateralInquiryBuilder() CollateralInquiryBuilder {
 	var builder CollateralInquiryBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("BB"))

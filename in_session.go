@@ -46,11 +46,11 @@ func (state inSession) FixMsgIn(session *Session, msg message.Message) (nextStat
 func (state inSession) Timeout(session *Session, event event) (nextState sessionState) {
 	switch event {
 	case needHeartbeat:
-		heartBt := message.CreateMessageBuilder()
+		heartBt := message.Builder()
 		heartBt.Header.Set(field.NewMsgType("0"))
 		session.send(heartBt)
 	case peerTimeout:
-		testReq := message.CreateMessageBuilder()
+		testReq := message.Builder()
 		testReq.Header.Set(field.NewMsgType("1"))
 		testReq.Body.Set(field.NewTestReqID("TEST"))
 		session.send(testReq)
@@ -151,7 +151,7 @@ func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int
 			return
 		}
 
-		msg, _ := message.MessageFromParsedBytes(buf.Bytes())
+		msg, _ := message.Parse(buf.Bytes())
 
 		msgType := new(message.StringValue)
 		msg.Header.GetField(tag.MsgType, msgType)
@@ -183,7 +183,7 @@ func (state inSession) handleTestRequest(session *Session, msg message.Message) 
 	if err := msg.Body.Get(&testReq); err != nil {
 		session.log.OnEvent("Test Request with no testRequestID")
 	} else {
-		heartBt := message.CreateMessageBuilder()
+		heartBt := message.Builder()
 		heartBt.Header.Set(field.NewMsgType("0"))
 		heartBt.Body.Set(field.NewTestReqID(testReq.Value))
 		session.send(heartBt)
@@ -261,7 +261,7 @@ func (state *inSession) initiateLogout(session *Session, reason string) (nextSta
 }
 
 func (state *inSession) generateSequenceReset(session *Session, beginSeqNo int, endSeqNo int) {
-	sequenceReset := message.CreateMessageBuilder()
+	sequenceReset := message.Builder()
 	session.fillDefaultHeader(sequenceReset)
 
 	sequenceReset.Header.Set(field.NewMsgType("4"))
@@ -285,7 +285,7 @@ func (state *inSession) generateLogout(session *Session) {
 }
 
 func (state *inSession) generateLogoutWithReason(session *Session, reason string) {
-	reply := message.CreateMessageBuilder()
+	reply := message.Builder()
 	reply.Header.Set(field.NewMsgType("5"))
 	reply.Header.Set(field.NewBeginString(session.sessionID.BeginString))
 	reply.Header.Set(field.NewTargetCompID(session.sessionID.TargetCompID))

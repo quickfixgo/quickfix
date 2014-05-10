@@ -26,7 +26,7 @@ func CreateNewOrderMultilegBuilder(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) NewOrderMultilegBuilder {
 	var builder NewOrderMultilegBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("AB"))
 	builder.Body.Set(clordid)

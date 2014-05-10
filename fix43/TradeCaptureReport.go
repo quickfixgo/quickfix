@@ -28,7 +28,7 @@ func CreateTradeCaptureReportBuilder(
 	transacttime *field.TransactTimeField,
 	nosides *field.NoSidesField) TradeCaptureReportBuilder {
 	var builder TradeCaptureReportBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("AE"))
 	builder.Body.Set(tradereportid)

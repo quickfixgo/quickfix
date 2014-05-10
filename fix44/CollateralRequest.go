@@ -23,7 +23,7 @@ func CreateCollateralRequestBuilder(
 	collasgnreason *field.CollAsgnReasonField,
 	transacttime *field.TransactTimeField) CollateralRequestBuilder {
 	var builder CollateralRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AX"))
 	builder.Body.Set(collreqid)

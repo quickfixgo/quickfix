@@ -22,7 +22,7 @@ func CreateMarketDataSnapshotFullRefreshBuilder(
 	symbol *field.SymbolField,
 	nomdentries *field.NoMDEntriesField) MarketDataSnapshotFullRefreshBuilder {
 	var builder MarketDataSnapshotFullRefreshBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("W"))
 	builder.Body.Set(symbol)

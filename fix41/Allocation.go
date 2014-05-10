@@ -27,7 +27,7 @@ func CreateAllocationBuilder(
 	avgpx *field.AvgPxField,
 	tradedate *field.TradeDateField) AllocationBuilder {
 	var builder AllocationBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
 	builder.Header.Set(field.NewMsgType("J"))
 	builder.Body.Set(allocid)

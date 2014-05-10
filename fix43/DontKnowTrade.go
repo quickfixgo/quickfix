@@ -24,7 +24,7 @@ func CreateDontKnowTradeBuilder(
 	dkreason *field.DKReasonField,
 	side *field.SideField) DontKnowTradeBuilder {
 	var builder DontKnowTradeBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("Q"))
 	builder.Body.Set(orderid)

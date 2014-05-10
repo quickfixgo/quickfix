@@ -20,7 +20,7 @@ type LogoutBuilder struct {
 //CreateLogoutBuilder returns an initialized LogoutBuilder with specified required fields.
 func CreateLogoutBuilder() LogoutBuilder {
 	var builder LogoutBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("5"))
 	return builder

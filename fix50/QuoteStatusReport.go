@@ -25,7 +25,7 @@ type QuoteStatusReportBuilder struct {
 func CreateQuoteStatusReportBuilder(
 	quoteid *field.QuoteIDField) QuoteStatusReportBuilder {
 	var builder QuoteStatusReportBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("AI"))

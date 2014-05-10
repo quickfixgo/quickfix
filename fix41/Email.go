@@ -24,7 +24,7 @@ func CreateEmailBuilder(
 	subject *field.SubjectField,
 	linesoftext *field.LinesOfTextField) EmailBuilder {
 	var builder EmailBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
 	builder.Header.Set(field.NewMsgType("C"))
 	builder.Body.Set(emailthreadid)

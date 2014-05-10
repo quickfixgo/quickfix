@@ -21,7 +21,7 @@ type ListExecuteBuilder struct {
 func CreateListExecuteBuilder(
 	listid *field.ListIDField) ListExecuteBuilder {
 	var builder ListExecuteBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
 	builder.Header.Set(field.NewMsgType("L"))
 	builder.Body.Set(listid)

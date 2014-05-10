@@ -28,7 +28,7 @@ func CreatePositionReportBuilder(
 	settlpricetype *field.SettlPriceTypeField,
 	priorsettlprice *field.PriorSettlPriceField) PositionReportBuilder {
 	var builder PositionReportBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AP"))
 	builder.Body.Set(posmaintrptid)

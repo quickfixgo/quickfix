@@ -23,7 +23,7 @@ func CreateRegistrationInstructionsBuilder(
 	registtranstype *field.RegistTransTypeField,
 	registrefid *field.RegistRefIDField) RegistrationInstructionsBuilder {
 	var builder RegistrationInstructionsBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("o"))
 	builder.Body.Set(registid)

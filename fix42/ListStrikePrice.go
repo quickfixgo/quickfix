@@ -23,7 +23,7 @@ func CreateListStrikePriceBuilder(
 	totnostrikes *field.TotNoStrikesField,
 	nostrikes *field.NoStrikesField) ListStrikePriceBuilder {
 	var builder ListStrikePriceBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("m"))
 	builder.Body.Set(listid)

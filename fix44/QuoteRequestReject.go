@@ -23,7 +23,7 @@ func CreateQuoteRequestRejectBuilder(
 	quoterequestrejectreason *field.QuoteRequestRejectReasonField,
 	norelatedsym *field.NoRelatedSymField) QuoteRequestRejectBuilder {
 	var builder QuoteRequestRejectBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AG"))
 	builder.Body.Set(quotereqid)

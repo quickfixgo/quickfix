@@ -26,7 +26,7 @@ func CreatePartyDetailsListRequestBuilder(
 	partydetailslistrequestid *field.PartyDetailsListRequestIDField,
 	nopartylistresponsetypes *field.NoPartyListResponseTypesField) PartyDetailsListRequestBuilder {
 	var builder PartyDetailsListRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("CF"))

@@ -21,7 +21,7 @@ type ListStatusRequestBuilder struct {
 func CreateListStatusRequestBuilder(
 	listid *field.ListIDField) ListStatusRequestBuilder {
 	var builder ListStatusRequestBuilder
-	builder.MessageBuilder = message.CreateMessageBuilder()
+	builder.MessageBuilder = message.Builder()
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("M"))
 	builder.Body.Set(listid)
