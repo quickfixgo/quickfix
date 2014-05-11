@@ -456,7 +456,12 @@ func (s *Session) doReject(msg message.Message, rej errors.MessageRejectError) {
 	s.log.OnEventf("Message Rejected: %v", rej.Error())
 }
 
-func (s *Session) run(msgIn chan []byte) {
+type fixIn struct {
+	bytes       []byte
+	receiveTime time.Time
+}
+
+func (s *Session) run(msgIn chan fixIn) {
 	defer func() {
 		s.messageOut <- nil
 	}()
@@ -491,12 +496,13 @@ func (s *Session) run(msgIn chan []byte) {
 		}
 
 		select {
-		case msgBytes, ok := <-msgIn:
+		case fixIn, ok := <-msgIn:
 			if ok {
-				s.log.OnIncoming(string(msgBytes))
-				if msg, err := message.Parse(msgBytes); err != nil {
-					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), msgBytes)
+				s.log.OnIncoming(string(fixIn.bytes))
+				if msg, err := message.Parse(fixIn.bytes); err != nil {
+					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
+					msg.ReceiveTime = fixIn.receiveTime
 					s.currentState = s.currentState.FixMsgIn(s, *msg)
 				}
 			} else {

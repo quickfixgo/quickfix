@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 	"net"
+	"time"
 )
 
 //Picks up session from net.Conn Initiator
@@ -37,7 +38,7 @@ func handleInitiatorConnection(netConn net.Conn, log Log, sessID SessionID) {
 	reader := bufio.NewReader(netConn)
 	parser := newParser(reader)
 
-	msgIn := make(chan []byte)
+	msgIn := make(chan fixIn)
 	go writeLoop(netConn, msgOut)
 	go func() {
 		readLoop(parser, msgIn)
@@ -59,7 +60,9 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 	reader := bufio.NewReader(netConn)
 	parser := newParser(reader)
 
-	msgBytes, err := parser.readMessage()
+	msgBytes, err := parser.ReadMessage()
+	receiveTime := time.Now()
+
 	if err != nil {
 		return
 	}
@@ -103,10 +106,10 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		return
 	}
 
-	msgIn := make(chan []byte)
+	msgIn := make(chan fixIn)
 	go writeLoop(netConn, msgOut)
 	go func() {
-		msgIn <- msgBytes
+		msgIn <- fixIn{msgBytes, receiveTime}
 		readLoop(parser, msgIn)
 	}()
 
@@ -128,13 +131,16 @@ func writeLoop(connection net.Conn, messageOut chan buffer) {
 	}
 }
 
-func readLoop(parser *parser, msgIn chan []byte) {
+func readLoop(parser *parser, msgIn chan fixIn) {
 	defer func() {
 		close(msgIn)
 	}()
 
 	for {
-		if msg, err := parser.readMessage(); err != nil {
+		msg, err := parser.ReadMessage()
+		receiveTime := time.Now()
+
+		if err != nil {
 			switch err.(type) {
 			//ignore message parser errors
 			case errors.ParseError:
@@ -143,7 +149,7 @@ func readLoop(parser *parser, msgIn chan []byte) {
 				return
 			}
 		} else {
-			msgIn <- msg
+			msgIn <- fixIn{msg, receiveTime}
 		}
 	}
 }

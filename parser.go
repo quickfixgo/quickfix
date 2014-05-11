@@ -11,129 +11,104 @@ const (
 )
 
 type parser struct {
-	buffer                       []byte
-	reader                       io.Reader
-	bytesRead, index, startIndex int
-	err                          error
+	buffer []byte
+	reader io.Reader
 }
 
 func newParser(reader io.Reader) *parser {
-	return &parser{
-		buffer: make([]byte, defaultBufSize),
-		reader: reader,
-	}
+	return &parser{reader: reader}
 }
 
-func newParserSize(reader io.Reader, size int) *parser {
-	return &parser{
-		buffer: make([]byte, size),
-		reader: reader,
-	}
-}
-
-func (p *parser) readMore() {
-	if p.bytesRead == cap(p.buffer) {
-		newBuffer := make([]byte, defaultBufSize+cap(p.buffer)-p.bytesRead)
-		p.bytesRead = copy(newBuffer, p.buffer[p.startIndex:])
+func (p *parser) readMore() (int, error) {
+	if len(p.buffer) == cap(p.buffer) {
+		newBuffer := make([]byte, len(p.buffer), len(p.buffer)+defaultBufSize)
+		copy(newBuffer, p.buffer)
 		p.buffer = newBuffer
-		p.index = (p.index - p.startIndex)
-		p.startIndex = 0
 	}
 
-	n, e := p.reader.Read(p.buffer[p.bytesRead:])
-	p.bytesRead += n
-	if e != nil {
-		p.err = e
-	}
+	n, e := p.reader.Read(p.buffer[len(p.buffer):cap(p.buffer)])
+	p.buffer = p.buffer[:len(p.buffer)+n]
+	return n, e
 }
 
-func (p *parser) findIndexOffset(delim []byte) (start int, err error) {
+func (p *parser) findIndex(delim []byte) (int, error) {
+	return p.findIndexAfterOffset(0, delim)
+}
+
+func (p *parser) findIndexAfterOffset(offset int, delim []byte) (int, error) {
 	for {
-		if p.index > p.bytesRead {
-			p.readMore()
+		if offset > len(p.buffer) {
+			if n, err := p.readMore(); n == 0 && err != nil {
+				return -1, err
+			}
+
+			continue
 		}
 
-		start = bytes.Index(p.buffer[p.index:p.bytesRead], delim)
-
-		if start != -1 {
-			return
+		if index := bytes.Index(p.buffer[offset:], delim); index != -1 {
+			return index + offset, nil
 		}
 
-		p.readMore()
+		n, err := p.readMore()
 
-		if p.err != nil {
-			err = p.err
-			return
+		if n == 0 && err != nil {
+			return -1, err
 		}
 	}
 }
 
-func (p *parser) findStart() (err error) {
-	var offset int
-	if offset, err = p.findIndexOffset([]byte("8=")); err != nil {
-		return
-	}
-
-	p.index += offset
-
-	return
+func (p *parser) findStart() (int, error) {
+	return p.findIndex([]byte("8="))
 }
 
-func (p *parser) findEnd() (err error) {
-	var offset int
-	if offset, err = p.findIndexOffset([]byte("\00110=")); err != nil {
-		return
+func (p *parser) findEndAfterOffset(offset int) (int, error) {
+	index, err := p.findIndexAfterOffset(offset, []byte("\00110="))
+	if err != nil {
+		return index, err
 	}
 
-	p.index += offset + 3
-
-	if offset, err = p.findIndexOffset([]byte("\001")); err != nil {
-		return
+	index, err = p.findIndexAfterOffset(index+1, []byte("\001"))
+	if err != nil {
+		return index, err
 	}
-	p.index += offset + 1
-
-	return
+	return index + 1, nil
 }
 
-func (p *parser) extractLength() (length int, err error) {
-	var offset int
-	if offset, err = p.findIndexOffset([]byte("9=")); err != nil {
-		return
+func (p *parser) extractLength() (int, error) {
+	lengthIndex, err := p.findIndex([]byte("9="))
+	if err != nil {
+		return 0, err
 	}
 
-	p.index += offset + 3
+	lengthIndex += 3
 
-	if offset, err = p.findIndexOffset([]byte("\001")); err != nil {
-		return
+	offset, err := p.findIndexAfterOffset(lengthIndex, []byte("\001"))
+	if err != nil {
+		return 0, err
 	}
 
-	length, _ = strconv.Atoi(string(p.buffer[p.index : p.index+offset]))
-	p.index += offset
-
-	return
+	return strconv.Atoi(string(p.buffer[lengthIndex:offset]))
 }
 
-func (p *parser) readMessage() (msg []byte, err error) {
-	p.startIndex = p.index
+func (p *parser) ReadMessage() ([]byte, error) {
+	start, err := p.findStart()
+	if err != nil {
+		return []byte{}, err
+	}
+	p.buffer = p.buffer[start:]
 
-	if err = p.findStart(); err != nil {
-		return
+	length, err := p.extractLength()
+	if err != nil {
+		return []byte{}, err
 	}
 
-	msgStart := p.index
-
-	var length int
-	if length, err = p.extractLength(); err != nil {
-		return
+	index, err := p.findEndAfterOffset(length)
+	if err != nil {
+		return []byte{}, err
 	}
 
-	p.index += length
+	msgBytes := p.buffer[:index]
+	p.buffer = p.buffer[index:]
 
-	if err = p.findEnd(); err != nil {
-		return
-	}
-
-	msg = p.buffer[msgStart:p.index]
-
-	return
+	return msgBytes, nil
 }

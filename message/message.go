@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
+	"time"
 )
 
 //Message is a FIX Message abstraction.
@@ -14,6 +15,9 @@ type Message struct {
 	Header  FieldMap
 	Trailer FieldMap
 	Body    FieldMap
+
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 
 	rawMessage []byte
 
