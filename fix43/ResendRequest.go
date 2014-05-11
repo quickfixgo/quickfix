@@ -23,10 +23,10 @@ func CreateResendRequestBuilder(
 	endseqno *field.EndSeqNoField) ResendRequestBuilder {
 	var builder ResendRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.NewMsgType("2"))
-	builder.Body.Set(beginseqno)
-	builder.Body.Set(endseqno)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header().Set(field.NewMsgType("2"))
+	builder.Body().Set(beginseqno)
+	builder.Body().Set(endseqno)
 	return builder
 }
 

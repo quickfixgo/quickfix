@@ -21,8 +21,8 @@ type SecurityStatusBuilder struct {
 func CreateSecurityStatusBuilder() SecurityStatusBuilder {
 	var builder SecurityStatusBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.NewMsgType("f"))
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header().Set(field.NewMsgType("f"))
 	return builder
 }
 

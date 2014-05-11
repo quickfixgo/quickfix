@@ -21,8 +21,8 @@ type LogoutBuilder struct {
 func CreateLogoutBuilder() LogoutBuilder {
 	var builder LogoutBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.NewMsgType("5"))
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header().Set(field.NewMsgType("5"))
 	return builder
 }
 

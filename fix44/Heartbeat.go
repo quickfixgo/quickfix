@@ -21,8 +21,8 @@ type HeartbeatBuilder struct {
 func CreateHeartbeatBuilder() HeartbeatBuilder {
 	var builder HeartbeatBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("0"))
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("0"))
 	return builder
 }
 

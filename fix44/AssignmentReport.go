@@ -32,19 +32,19 @@ func CreateAssignmentReportBuilder(
 	clearingbusinessdate *field.ClearingBusinessDateField) AssignmentReportBuilder {
 	var builder AssignmentReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("AW"))
-	builder.Body.Set(asgnrptid)
-	builder.Body.Set(accounttype)
-	builder.Body.Set(settlprice)
-	builder.Body.Set(settlpricetype)
-	builder.Body.Set(underlyingsettlprice)
-	builder.Body.Set(assignmentmethod)
-	builder.Body.Set(openinterest)
-	builder.Body.Set(exercisemethod)
-	builder.Body.Set(settlsessid)
-	builder.Body.Set(settlsesssubid)
-	builder.Body.Set(clearingbusinessdate)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("AW"))
+	builder.Body().Set(asgnrptid)
+	builder.Body().Set(accounttype)
+	builder.Body().Set(settlprice)
+	builder.Body().Set(settlpricetype)
+	builder.Body().Set(underlyingsettlprice)
+	builder.Body().Set(assignmentmethod)
+	builder.Body().Set(openinterest)
+	builder.Body().Set(exercisemethod)
+	builder.Body().Set(settlsessid)
+	builder.Body().Set(settlsesssubid)
+	builder.Body().Set(clearingbusinessdate)
 	return builder
 }
 

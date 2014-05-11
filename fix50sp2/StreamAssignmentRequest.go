@@ -27,11 +27,11 @@ func CreateStreamAssignmentRequestBuilder(
 	streamasgnreqtype *field.StreamAsgnReqTypeField) StreamAssignmentRequestBuilder {
 	var builder StreamAssignmentRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("CC"))
-	builder.Body.Set(streamasgnreqid)
-	builder.Body.Set(streamasgnreqtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("CC"))
+	builder.Body().Set(streamasgnreqid)
+	builder.Body().Set(streamasgnreqtype)
 	return builder
 }
 

@@ -27,11 +27,11 @@ func CreateQuoteRequestBuilder(
 	norelatedsym *field.NoRelatedSymField) QuoteRequestBuilder {
 	var builder QuoteRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("R"))
-	builder.Body.Set(quotereqid)
-	builder.Body.Set(norelatedsym)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("R"))
+	builder.Body().Set(quotereqid)
+	builder.Body().Set(norelatedsym)
 	return builder
 }
 

@@ -22,9 +22,9 @@ func CreateListStatusRequestBuilder(
 	listid *field.ListIDField) ListStatusRequestBuilder {
 	var builder ListStatusRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.NewMsgType("M"))
-	builder.Body.Set(listid)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header().Set(field.NewMsgType("M"))
+	builder.Body().Set(listid)
 	return builder
 }
 

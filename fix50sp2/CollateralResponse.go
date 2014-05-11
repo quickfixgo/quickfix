@@ -28,12 +28,12 @@ func CreateCollateralResponseBuilder(
 	transacttime *field.TransactTimeField) CollateralResponseBuilder {
 	var builder CollateralResponseBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("AZ"))
-	builder.Body.Set(collrespid)
-	builder.Body.Set(collasgnresptype)
-	builder.Body.Set(transacttime)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("AZ"))
+	builder.Body().Set(collrespid)
+	builder.Body().Set(collasgnresptype)
+	builder.Body().Set(transacttime)
 	return builder
 }
 

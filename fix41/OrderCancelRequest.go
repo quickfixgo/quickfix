@@ -25,12 +25,12 @@ func CreateOrderCancelRequestBuilder(
 	side *field.SideField) OrderCancelRequestBuilder {
 	var builder OrderCancelRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.NewMsgType("F"))
-	builder.Body.Set(origclordid)
-	builder.Body.Set(clordid)
-	builder.Body.Set(symbol)
-	builder.Body.Set(side)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header().Set(field.NewMsgType("F"))
+	builder.Body().Set(origclordid)
+	builder.Body().Set(clordid)
+	builder.Body().Set(symbol)
+	builder.Body().Set(side)
 	return builder
 }
 

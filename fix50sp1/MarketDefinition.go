@@ -27,11 +27,11 @@ func CreateMarketDefinitionBuilder(
 	marketid *field.MarketIDField) MarketDefinitionBuilder {
 	var builder MarketDefinitionBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("BU"))
-	builder.Body.Set(marketreportid)
-	builder.Body.Set(marketid)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header().Set(field.NewMsgType("BU"))
+	builder.Body().Set(marketreportid)
+	builder.Body().Set(marketid)
 	return builder
 }
 

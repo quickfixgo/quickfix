@@ -28,12 +28,12 @@ func CreateDerivativeSecurityListBuilder(
 	securityrequestresult *field.SecurityRequestResultField) DerivativeSecurityListBuilder {
 	var builder DerivativeSecurityListBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AA"))
-	builder.Body.Set(securityreqid)
-	builder.Body.Set(securityresponseid)
-	builder.Body.Set(securityrequestresult)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("AA"))
+	builder.Body().Set(securityreqid)
+	builder.Body().Set(securityresponseid)
+	builder.Body().Set(securityrequestresult)
 	return builder
 }
 

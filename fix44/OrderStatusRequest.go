@@ -23,10 +23,10 @@ func CreateOrderStatusRequestBuilder(
 	side *field.SideField) OrderStatusRequestBuilder {
 	var builder OrderStatusRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("H"))
-	builder.Body.Set(clordid)
-	builder.Body.Set(side)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("H"))
+	builder.Body().Set(clordid)
+	builder.Body().Set(side)
 	return builder
 }
 

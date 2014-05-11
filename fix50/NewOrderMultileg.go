@@ -30,14 +30,14 @@ func CreateNewOrderMultilegBuilder(
 	ordtype *field.OrdTypeField) NewOrderMultilegBuilder {
 	var builder NewOrderMultilegBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AB"))
-	builder.Body.Set(clordid)
-	builder.Body.Set(side)
-	builder.Body.Set(nolegs)
-	builder.Body.Set(transacttime)
-	builder.Body.Set(ordtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("AB"))
+	builder.Body().Set(clordid)
+	builder.Body().Set(side)
+	builder.Body().Set(nolegs)
+	builder.Body().Set(transacttime)
+	builder.Body().Set(ordtype)
 	return builder
 }
 

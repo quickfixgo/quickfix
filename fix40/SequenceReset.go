@@ -22,9 +22,9 @@ func CreateSequenceResetBuilder(
 	newseqno *field.NewSeqNoField) SequenceResetBuilder {
 	var builder SequenceResetBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.NewMsgType("4"))
-	builder.Body.Set(newseqno)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header().Set(field.NewMsgType("4"))
+	builder.Body().Set(newseqno)
 	return builder
 }
 

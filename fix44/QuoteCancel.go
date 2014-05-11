@@ -23,10 +23,10 @@ func CreateQuoteCancelBuilder(
 	quotecanceltype *field.QuoteCancelTypeField) QuoteCancelBuilder {
 	var builder QuoteCancelBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("Z"))
-	builder.Body.Set(quoteid)
-	builder.Body.Set(quotecanceltype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("Z"))
+	builder.Body().Set(quoteid)
+	builder.Body().Set(quotecanceltype)
 	return builder
 }
 

@@ -27,11 +27,11 @@ func CreateTradeCaptureReportRequestBuilder(
 	traderequesttype *field.TradeRequestTypeField) TradeCaptureReportRequestBuilder {
 	var builder TradeCaptureReportRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AD"))
-	builder.Body.Set(traderequestid)
-	builder.Body.Set(traderequesttype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("AD"))
+	builder.Body().Set(traderequestid)
+	builder.Body().Set(traderequesttype)
 	return builder
 }
 

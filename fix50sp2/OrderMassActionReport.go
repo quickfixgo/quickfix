@@ -29,13 +29,13 @@ func CreateOrderMassActionReportBuilder(
 	massactionresponse *field.MassActionResponseField) OrderMassActionReportBuilder {
 	var builder OrderMassActionReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("BZ"))
-	builder.Body.Set(massactionreportid)
-	builder.Body.Set(massactiontype)
-	builder.Body.Set(massactionscope)
-	builder.Body.Set(massactionresponse)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("BZ"))
+	builder.Body().Set(massactionreportid)
+	builder.Body().Set(massactiontype)
+	builder.Body().Set(massactionscope)
+	builder.Body().Set(massactionresponse)
 	return builder
 }
 

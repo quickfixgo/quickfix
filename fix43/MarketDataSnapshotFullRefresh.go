@@ -22,9 +22,9 @@ func CreateMarketDataSnapshotFullRefreshBuilder(
 	nomdentries *field.NoMDEntriesField) MarketDataSnapshotFullRefreshBuilder {
 	var builder MarketDataSnapshotFullRefreshBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.NewMsgType("W"))
-	builder.Body.Set(nomdentries)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header().Set(field.NewMsgType("W"))
+	builder.Body().Set(nomdentries)
 	return builder
 }
 

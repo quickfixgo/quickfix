@@ -24,11 +24,11 @@ func CreateQuoteRequestRejectBuilder(
 	norelatedsym *field.NoRelatedSymField) QuoteRequestRejectBuilder {
 	var builder QuoteRequestRejectBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("AG"))
-	builder.Body.Set(quotereqid)
-	builder.Body.Set(quoterequestrejectreason)
-	builder.Body.Set(norelatedsym)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("AG"))
+	builder.Body().Set(quotereqid)
+	builder.Body().Set(quoterequestrejectreason)
+	builder.Body().Set(norelatedsym)
 	return builder
 }
 

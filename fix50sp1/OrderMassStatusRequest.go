@@ -27,11 +27,11 @@ func CreateOrderMassStatusRequestBuilder(
 	massstatusreqtype *field.MassStatusReqTypeField) OrderMassStatusRequestBuilder {
 	var builder OrderMassStatusRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("AF"))
-	builder.Body.Set(massstatusreqid)
-	builder.Body.Set(massstatusreqtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header().Set(field.NewMsgType("AF"))
+	builder.Body().Set(massstatusreqid)
+	builder.Body().Set(massstatusreqtype)
 	return builder
 }
 

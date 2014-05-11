@@ -24,11 +24,11 @@ func CreateQuoteBuilder(
 	bidpx *field.BidPxField) QuoteBuilder {
 	var builder QuoteBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.NewMsgType("S"))
-	builder.Body.Set(quoteid)
-	builder.Body.Set(symbol)
-	builder.Body.Set(bidpx)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header().Set(field.NewMsgType("S"))
+	builder.Body().Set(quoteid)
+	builder.Body().Set(symbol)
+	builder.Body().Set(bidpx)
 	return builder
 }
 

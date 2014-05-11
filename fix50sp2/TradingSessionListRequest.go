@@ -27,11 +27,11 @@ func CreateTradingSessionListRequestBuilder(
 	subscriptionrequesttype *field.SubscriptionRequestTypeField) TradingSessionListRequestBuilder {
 	var builder TradingSessionListRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("BI"))
-	builder.Body.Set(tradsesreqid)
-	builder.Body.Set(subscriptionrequesttype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("BI"))
+	builder.Body().Set(tradsesreqid)
+	builder.Body().Set(subscriptionrequesttype)
 	return builder
 }
 

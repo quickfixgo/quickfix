@@ -29,13 +29,13 @@ func CreateNewOrderListBuilder(
 	noorders *field.NoOrdersField) NewOrderListBuilder {
 	var builder NewOrderListBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("E"))
-	builder.Body.Set(listid)
-	builder.Body.Set(bidtype)
-	builder.Body.Set(totnoorders)
-	builder.Body.Set(noorders)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header().Set(field.NewMsgType("E"))
+	builder.Body().Set(listid)
+	builder.Body().Set(bidtype)
+	builder.Body().Set(totnoorders)
+	builder.Body().Set(noorders)
 	return builder
 }
 

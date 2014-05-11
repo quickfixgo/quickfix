@@ -27,11 +27,11 @@ func CreateSecurityDefinitionRequestBuilder(
 	securityrequesttype *field.SecurityRequestTypeField) SecurityDefinitionRequestBuilder {
 	var builder SecurityDefinitionRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("c"))
-	builder.Body.Set(securityreqid)
-	builder.Body.Set(securityrequesttype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("c"))
+	builder.Body().Set(securityreqid)
+	builder.Body().Set(securityrequesttype)
 	return builder
 }
 

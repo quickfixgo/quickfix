@@ -29,13 +29,13 @@ func CreateRequestForPositionsBuilder(
 	transacttime *field.TransactTimeField) RequestForPositionsBuilder {
 	var builder RequestForPositionsBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("AN"))
-	builder.Body.Set(posreqid)
-	builder.Body.Set(posreqtype)
-	builder.Body.Set(clearingbusinessdate)
-	builder.Body.Set(transacttime)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("AN"))
+	builder.Body().Set(posreqid)
+	builder.Body().Set(posreqtype)
+	builder.Body().Set(clearingbusinessdate)
+	builder.Body().Set(transacttime)
 	return builder
 }
 

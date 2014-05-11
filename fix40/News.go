@@ -23,10 +23,10 @@ func CreateNewsBuilder(
 	text *field.TextField) NewsBuilder {
 	var builder NewsBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.NewMsgType("B"))
-	builder.Body.Set(linesoftext)
-	builder.Body.Set(text)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header().Set(field.NewMsgType("B"))
+	builder.Body().Set(linesoftext)
+	builder.Body().Set(text)
 	return builder
 }
 

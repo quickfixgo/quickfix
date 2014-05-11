@@ -26,13 +26,13 @@ func CreateRequestForPositionsAckBuilder(
 	accounttype *field.AccountTypeField) RequestForPositionsAckBuilder {
 	var builder RequestForPositionsAckBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("AO"))
-	builder.Body.Set(posmaintrptid)
-	builder.Body.Set(posreqresult)
-	builder.Body.Set(posreqstatus)
-	builder.Body.Set(account)
-	builder.Body.Set(accounttype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("AO"))
+	builder.Body().Set(posmaintrptid)
+	builder.Body().Set(posreqresult)
+	builder.Body().Set(posreqstatus)
+	builder.Body().Set(account)
+	builder.Body().Set(accounttype)
 	return builder
 }
 

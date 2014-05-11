@@ -22,9 +22,9 @@ func CreateSecurityStatusBuilder(
 	symbol *field.SymbolField) SecurityStatusBuilder {
 	var builder SecurityStatusBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.NewMsgType("f"))
-	builder.Body.Set(symbol)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header().Set(field.NewMsgType("f"))
+	builder.Body().Set(symbol)
 	return builder
 }
 

@@ -28,15 +28,15 @@ func CreateNewOrderCrossBuilder(
 	ordtype *field.OrdTypeField) NewOrderCrossBuilder {
 	var builder NewOrderCrossBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.NewMsgType("s"))
-	builder.Body.Set(crossid)
-	builder.Body.Set(crosstype)
-	builder.Body.Set(crossprioritization)
-	builder.Body.Set(nosides)
-	builder.Body.Set(handlinst)
-	builder.Body.Set(transacttime)
-	builder.Body.Set(ordtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header().Set(field.NewMsgType("s"))
+	builder.Body().Set(crossid)
+	builder.Body().Set(crosstype)
+	builder.Body().Set(crossprioritization)
+	builder.Body().Set(nosides)
+	builder.Body().Set(handlinst)
+	builder.Body().Set(transacttime)
+	builder.Body().Set(ordtype)
 	return builder
 }
 

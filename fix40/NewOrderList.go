@@ -30,17 +30,17 @@ func CreateNewOrderListBuilder(
 	ordtype *field.OrdTypeField) NewOrderListBuilder {
 	var builder NewOrderListBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.NewMsgType("E"))
-	builder.Body.Set(listid)
-	builder.Body.Set(listseqno)
-	builder.Body.Set(listnoords)
-	builder.Body.Set(clordid)
-	builder.Body.Set(handlinst)
-	builder.Body.Set(symbol)
-	builder.Body.Set(side)
-	builder.Body.Set(orderqty)
-	builder.Body.Set(ordtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header().Set(field.NewMsgType("E"))
+	builder.Body().Set(listid)
+	builder.Body().Set(listseqno)
+	builder.Body().Set(listnoords)
+	builder.Body().Set(clordid)
+	builder.Body().Set(handlinst)
+	builder.Body().Set(symbol)
+	builder.Body().Set(side)
+	builder.Body().Set(orderqty)
+	builder.Body().Set(ordtype)
 	return builder
 }
 

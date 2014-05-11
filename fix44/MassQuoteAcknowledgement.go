@@ -22,9 +22,9 @@ func CreateMassQuoteAcknowledgementBuilder(
 	quotestatus *field.QuoteStatusField) MassQuoteAcknowledgementBuilder {
 	var builder MassQuoteAcknowledgementBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("b"))
-	builder.Body.Set(quotestatus)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("b"))
+	builder.Body().Set(quotestatus)
 	return builder
 }
 

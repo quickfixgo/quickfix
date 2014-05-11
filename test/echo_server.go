@@ -68,19 +68,19 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.Ses
 			return nil
 		}
 
-		reply.Header.Set(possResend)
+		reply.Header().Set(possResend)
 	}
 
 	e.OrderIds[sessionOrderID] = true
 
 	msgType := new(field.MsgTypeField)
 	msg.Header.Get(msgType)
-	reply.Header.Set(msgType)
+	reply.Header().Set(msgType)
 
 	for _, tag := range msg.Body.Tags() {
 		field := new(fix.StringValue)
 		if err := msg.Body.GetField(tag, field); err == nil {
-			reply.Body.SetField(tag, field)
+			reply.Body().SetField(tag, field)
 		}
 	}
 

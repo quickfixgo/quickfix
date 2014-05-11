@@ -24,11 +24,11 @@ func CreateNetworkCounterpartySystemStatusResponseBuilder(
 	nocompids *field.NoCompIDsField) NetworkCounterpartySystemStatusResponseBuilder {
 	var builder NetworkCounterpartySystemStatusResponseBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("BD"))
-	builder.Body.Set(networkstatusresponsetype)
-	builder.Body.Set(networkresponseid)
-	builder.Body.Set(nocompids)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("BD"))
+	builder.Body().Set(networkstatusresponsetype)
+	builder.Body().Set(networkresponseid)
+	builder.Body().Set(nocompids)
 	return builder
 }
 

@@ -26,13 +26,13 @@ func CreateIndicationofInterestBuilder(
 	ioishares *field.IOISharesField) IndicationofInterestBuilder {
 	var builder IndicationofInterestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.NewMsgType("6"))
-	builder.Body.Set(ioiid)
-	builder.Body.Set(ioitranstype)
-	builder.Body.Set(symbol)
-	builder.Body.Set(side)
-	builder.Body.Set(ioishares)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header().Set(field.NewMsgType("6"))
+	builder.Body().Set(ioiid)
+	builder.Body().Set(ioitranstype)
+	builder.Body().Set(symbol)
+	builder.Body().Set(side)
+	builder.Body().Set(ioishares)
 	return builder
 }
 

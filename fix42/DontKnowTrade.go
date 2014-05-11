@@ -26,13 +26,13 @@ func CreateDontKnowTradeBuilder(
 	side *field.SideField) DontKnowTradeBuilder {
 	var builder DontKnowTradeBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.NewMsgType("Q"))
-	builder.Body.Set(orderid)
-	builder.Body.Set(execid)
-	builder.Body.Set(dkreason)
-	builder.Body.Set(symbol)
-	builder.Body.Set(side)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header().Set(field.NewMsgType("Q"))
+	builder.Body().Set(orderid)
+	builder.Body().Set(execid)
+	builder.Body().Set(dkreason)
+	builder.Body().Set(symbol)
+	builder.Body().Set(side)
 	return builder
 }
 

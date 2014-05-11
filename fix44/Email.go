@@ -25,12 +25,12 @@ func CreateEmailBuilder(
 	nolinesoftext *field.NoLinesOfTextField) EmailBuilder {
 	var builder EmailBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("C"))
-	builder.Body.Set(emailthreadid)
-	builder.Body.Set(emailtype)
-	builder.Body.Set(subject)
-	builder.Body.Set(nolinesoftext)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("C"))
+	builder.Body().Set(emailthreadid)
+	builder.Body().Set(emailtype)
+	builder.Body().Set(subject)
+	builder.Body().Set(nolinesoftext)
 	return builder
 }
 

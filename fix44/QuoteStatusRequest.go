@@ -21,8 +21,8 @@ type QuoteStatusRequestBuilder struct {
 func CreateQuoteStatusRequestBuilder() QuoteStatusRequestBuilder {
 	var builder QuoteStatusRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("a"))
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("a"))
 	return builder
 }
 

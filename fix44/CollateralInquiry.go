@@ -21,8 +21,8 @@ type CollateralInquiryBuilder struct {
 func CreateCollateralInquiryBuilder() CollateralInquiryBuilder {
 	var builder CollateralInquiryBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("BB"))
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("BB"))
 	return builder
 }
 

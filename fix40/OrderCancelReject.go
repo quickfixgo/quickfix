@@ -23,10 +23,10 @@ func CreateOrderCancelRejectBuilder(
 	clordid *field.ClOrdIDField) OrderCancelRejectBuilder {
 	var builder OrderCancelRejectBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.NewMsgType("9"))
-	builder.Body.Set(orderid)
-	builder.Body.Set(clordid)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header().Set(field.NewMsgType("9"))
+	builder.Body().Set(orderid)
+	builder.Body().Set(clordid)
 	return builder
 }
 

@@ -27,11 +27,11 @@ func CreateApplicationMessageReportBuilder(
 	applreporttype *field.ApplReportTypeField) ApplicationMessageReportBuilder {
 	var builder ApplicationMessageReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("BY"))
-	builder.Body.Set(applreportid)
-	builder.Body.Set(applreporttype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("BY"))
+	builder.Body().Set(applreportid)
+	builder.Body().Set(applreporttype)
 	return builder
 }
 

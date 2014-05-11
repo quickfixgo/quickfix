@@ -111,7 +111,7 @@ func (m *Message) ReverseRoute() MessageBuilder {
 	copy := func(src fix.Tag, dest fix.Tag) {
 		if field := new(fix.StringValue); m.Header.GetField(src, field) == nil {
 			if len(field.Value) != 0 {
-				reverseBuilder.Header.SetField(dest, field)
+				reverseBuilder.Header().SetField(dest, field)
 			}
 		}
 	}
@@ -174,15 +174,15 @@ func (m *Message) String() string {
 func (m *Message) ToBuilder() MessageBuilder {
 	builder := Builder()
 	for tag := range m.Header.fieldLookup {
-		builder.Header.fieldLookup[tag] = m.Header.fieldLookup[tag]
+		builder.Header().fieldLookup[tag] = m.Header.fieldLookup[tag]
 	}
 
 	for tag := range m.Body.fieldLookup {
-		builder.Body.fieldLookup[tag] = m.Body.fieldLookup[tag]
+		builder.Body().fieldLookup[tag] = m.Body.fieldLookup[tag]
 	}
 
 	for tag := range m.Trailer.fieldLookup {
-		builder.Trailer.fieldLookup[tag] = m.Trailer.fieldLookup[tag]
+		builder.Trailer().fieldLookup[tag] = m.Trailer.fieldLookup[tag]
 	}
 
 	return builder

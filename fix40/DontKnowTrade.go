@@ -27,14 +27,14 @@ func CreateDontKnowTradeBuilder(
 	lastpx *field.LastPxField) DontKnowTradeBuilder {
 	var builder DontKnowTradeBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.NewMsgType("Q"))
-	builder.Body.Set(dkreason)
-	builder.Body.Set(symbol)
-	builder.Body.Set(side)
-	builder.Body.Set(orderqty)
-	builder.Body.Set(lastshares)
-	builder.Body.Set(lastpx)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header().Set(field.NewMsgType("Q"))
+	builder.Body().Set(dkreason)
+	builder.Body().Set(symbol)
+	builder.Body().Set(side)
+	builder.Body().Set(orderqty)
+	builder.Body().Set(lastshares)
+	builder.Body().Set(lastpx)
 	return builder
 }
 

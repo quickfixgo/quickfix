@@ -22,9 +22,9 @@ func CreateRejectBuilder(
 	refseqnum *field.RefSeqNumField) RejectBuilder {
 	var builder RejectBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewMsgType("3"))
-	builder.Body.Set(refseqnum)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewMsgType("3"))
+	builder.Body().Set(refseqnum)
 	return builder
 }
 

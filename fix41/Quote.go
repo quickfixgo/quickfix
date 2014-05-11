@@ -23,10 +23,10 @@ func CreateQuoteBuilder(
 	symbol *field.SymbolField) QuoteBuilder {
 	var builder QuoteBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.NewMsgType("S"))
-	builder.Body.Set(quoteid)
-	builder.Body.Set(symbol)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header().Set(field.NewMsgType("S"))
+	builder.Body().Set(quoteid)
+	builder.Body().Set(symbol)
 	return builder
 }
 

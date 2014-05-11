@@ -31,15 +31,15 @@ func CreateAllocationInstructionAlertBuilder(
 	tradedate *field.TradeDateField) AllocationInstructionAlertBuilder {
 	var builder AllocationInstructionAlertBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("BM"))
-	builder.Body.Set(allocid)
-	builder.Body.Set(alloctranstype)
-	builder.Body.Set(alloctype)
-	builder.Body.Set(side)
-	builder.Body.Set(quantity)
-	builder.Body.Set(tradedate)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header().Set(field.NewMsgType("BM"))
+	builder.Body().Set(allocid)
+	builder.Body().Set(alloctranstype)
+	builder.Body().Set(alloctype)
+	builder.Body().Set(side)
+	builder.Body().Set(quantity)
+	builder.Body().Set(tradedate)
 	return builder
 }
 

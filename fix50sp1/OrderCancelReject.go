@@ -29,13 +29,13 @@ func CreateOrderCancelRejectBuilder(
 	cxlrejresponseto *field.CxlRejResponseToField) OrderCancelRejectBuilder {
 	var builder OrderCancelRejectBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("9"))
-	builder.Body.Set(orderid)
-	builder.Body.Set(clordid)
-	builder.Body.Set(ordstatus)
-	builder.Body.Set(cxlrejresponseto)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header().Set(field.NewMsgType("9"))
+	builder.Body().Set(orderid)
+	builder.Body().Set(clordid)
+	builder.Body().Set(ordstatus)
+	builder.Body().Set(cxlrejresponseto)
 	return builder
 }
 

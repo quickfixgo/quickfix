@@ -29,16 +29,16 @@ func CreateAllocationInstructionBuilder(
 	tradedate *field.TradeDateField) AllocationInstructionBuilder {
 	var builder AllocationInstructionBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("J"))
-	builder.Body.Set(allocid)
-	builder.Body.Set(alloctranstype)
-	builder.Body.Set(alloctype)
-	builder.Body.Set(allocnoorderstype)
-	builder.Body.Set(side)
-	builder.Body.Set(quantity)
-	builder.Body.Set(avgpx)
-	builder.Body.Set(tradedate)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("J"))
+	builder.Body().Set(allocid)
+	builder.Body().Set(alloctranstype)
+	builder.Body().Set(alloctype)
+	builder.Body().Set(allocnoorderstype)
+	builder.Body().Set(side)
+	builder.Body().Set(quantity)
+	builder.Body().Set(avgpx)
+	builder.Body().Set(tradedate)
 	return builder
 }
 

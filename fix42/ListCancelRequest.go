@@ -23,10 +23,10 @@ func CreateListCancelRequestBuilder(
 	transacttime *field.TransactTimeField) ListCancelRequestBuilder {
 	var builder ListCancelRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.NewMsgType("K"))
-	builder.Body.Set(listid)
-	builder.Body.Set(transacttime)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header().Set(field.NewMsgType("K"))
+	builder.Body().Set(listid)
+	builder.Body().Set(transacttime)
 	return builder
 }
 

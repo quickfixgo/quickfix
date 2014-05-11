@@ -27,14 +27,14 @@ func CreateOrderCancelReplaceRequestBuilder(
 	ordtype *field.OrdTypeField) OrderCancelReplaceRequestBuilder {
 	var builder OrderCancelReplaceRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.NewMsgType("G"))
-	builder.Body.Set(origclordid)
-	builder.Body.Set(clordid)
-	builder.Body.Set(handlinst)
-	builder.Body.Set(symbol)
-	builder.Body.Set(side)
-	builder.Body.Set(ordtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header().Set(field.NewMsgType("G"))
+	builder.Body().Set(origclordid)
+	builder.Body().Set(clordid)
+	builder.Body().Set(handlinst)
+	builder.Body().Set(symbol)
+	builder.Body().Set(side)
+	builder.Body().Set(ordtype)
 	return builder
 }
 

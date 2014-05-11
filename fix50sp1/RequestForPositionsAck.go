@@ -28,12 +28,12 @@ func CreateRequestForPositionsAckBuilder(
 	posreqstatus *field.PosReqStatusField) RequestForPositionsAckBuilder {
 	var builder RequestForPositionsAckBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("AO"))
-	builder.Body.Set(posmaintrptid)
-	builder.Body.Set(posreqresult)
-	builder.Body.Set(posreqstatus)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header().Set(field.NewMsgType("AO"))
+	builder.Body().Set(posmaintrptid)
+	builder.Body().Set(posreqresult)
+	builder.Body().Set(posreqstatus)
 	return builder
 }
 

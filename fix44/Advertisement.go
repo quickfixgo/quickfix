@@ -25,12 +25,12 @@ func CreateAdvertisementBuilder(
 	quantity *field.QuantityField) AdvertisementBuilder {
 	var builder AdvertisementBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("7"))
-	builder.Body.Set(advid)
-	builder.Body.Set(advtranstype)
-	builder.Body.Set(advside)
-	builder.Body.Set(quantity)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("7"))
+	builder.Body().Set(advid)
+	builder.Body().Set(advtranstype)
+	builder.Body().Set(advside)
+	builder.Body().Set(quantity)
 	return builder
 }
 

@@ -30,17 +30,17 @@ func CreatePositionMaintenanceReportBuilder(
 	transacttime *field.TransactTimeField) PositionMaintenanceReportBuilder {
 	var builder PositionMaintenanceReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("AM"))
-	builder.Body.Set(posmaintrptid)
-	builder.Body.Set(postranstype)
-	builder.Body.Set(posmaintaction)
-	builder.Body.Set(origposreqrefid)
-	builder.Body.Set(posmaintstatus)
-	builder.Body.Set(clearingbusinessdate)
-	builder.Body.Set(account)
-	builder.Body.Set(accounttype)
-	builder.Body.Set(transacttime)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("AM"))
+	builder.Body().Set(posmaintrptid)
+	builder.Body().Set(postranstype)
+	builder.Body().Set(posmaintaction)
+	builder.Body().Set(origposreqrefid)
+	builder.Body().Set(posmaintstatus)
+	builder.Body().Set(clearingbusinessdate)
+	builder.Body().Set(account)
+	builder.Body().Set(accounttype)
+	builder.Body().Set(transacttime)
 	return builder
 }
 

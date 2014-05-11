@@ -22,9 +22,9 @@ func CreateQuoteStatusRequestBuilder(
 	symbol *field.SymbolField) QuoteStatusRequestBuilder {
 	var builder QuoteStatusRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.NewMsgType("a"))
-	builder.Body.Set(symbol)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header().Set(field.NewMsgType("a"))
+	builder.Body().Set(symbol)
 	return builder
 }
 

@@ -29,13 +29,13 @@ func CreateConfirmationAckBuilder(
 	affirmstatus *field.AffirmStatusField) ConfirmationAckBuilder {
 	var builder ConfirmationAckBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AU"))
-	builder.Body.Set(confirmid)
-	builder.Body.Set(tradedate)
-	builder.Body.Set(transacttime)
-	builder.Body.Set(affirmstatus)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("AU"))
+	builder.Body().Set(confirmid)
+	builder.Body().Set(tradedate)
+	builder.Body().Set(transacttime)
+	builder.Body().Set(affirmstatus)
 	return builder
 }
 

@@ -29,16 +29,16 @@ func CreatePositionReportBuilder(
 	priorsettlprice *field.PriorSettlPriceField) PositionReportBuilder {
 	var builder PositionReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("AP"))
-	builder.Body.Set(posmaintrptid)
-	builder.Body.Set(posreqresult)
-	builder.Body.Set(clearingbusinessdate)
-	builder.Body.Set(account)
-	builder.Body.Set(accounttype)
-	builder.Body.Set(settlprice)
-	builder.Body.Set(settlpricetype)
-	builder.Body.Set(priorsettlprice)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("AP"))
+	builder.Body().Set(posmaintrptid)
+	builder.Body().Set(posreqresult)
+	builder.Body().Set(clearingbusinessdate)
+	builder.Body().Set(account)
+	builder.Body().Set(accounttype)
+	builder.Body().Set(settlprice)
+	builder.Body().Set(settlpricetype)
+	builder.Body().Set(priorsettlprice)
 	return builder
 }
 

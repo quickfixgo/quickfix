@@ -26,10 +26,10 @@ func CreateTradeCaptureReportAckBuilder(
 	nosides *field.NoSidesField) TradeCaptureReportAckBuilder {
 	var builder TradeCaptureReportAckBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AR"))
-	builder.Body.Set(nosides)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("AR"))
+	builder.Body().Set(nosides)
 	return builder
 }
 

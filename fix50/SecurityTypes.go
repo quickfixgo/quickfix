@@ -28,12 +28,12 @@ func CreateSecurityTypesBuilder(
 	securityresponsetype *field.SecurityResponseTypeField) SecurityTypesBuilder {
 	var builder SecurityTypesBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("w"))
-	builder.Body.Set(securityreqid)
-	builder.Body.Set(securityresponseid)
-	builder.Body.Set(securityresponsetype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("w"))
+	builder.Body().Set(securityreqid)
+	builder.Body().Set(securityresponseid)
+	builder.Body().Set(securityresponsetype)
 	return builder
 }
 

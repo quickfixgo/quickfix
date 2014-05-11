@@ -25,12 +25,12 @@ func CreateRegistrationInstructionsResponseBuilder(
 	registstatus *field.RegistStatusField) RegistrationInstructionsResponseBuilder {
 	var builder RegistrationInstructionsResponseBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("p"))
-	builder.Body.Set(registid)
-	builder.Body.Set(registtranstype)
-	builder.Body.Set(registrefid)
-	builder.Body.Set(registstatus)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("p"))
+	builder.Body().Set(registid)
+	builder.Body().Set(registtranstype)
+	builder.Body().Set(registrefid)
+	builder.Body().Set(registstatus)
 	return builder
 }
 

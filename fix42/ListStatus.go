@@ -28,15 +28,15 @@ func CreateListStatusBuilder(
 	noorders *field.NoOrdersField) ListStatusBuilder {
 	var builder ListStatusBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.NewMsgType("N"))
-	builder.Body.Set(listid)
-	builder.Body.Set(liststatustype)
-	builder.Body.Set(norpts)
-	builder.Body.Set(listorderstatus)
-	builder.Body.Set(rptseq)
-	builder.Body.Set(totnoorders)
-	builder.Body.Set(noorders)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header().Set(field.NewMsgType("N"))
+	builder.Body().Set(listid)
+	builder.Body().Set(liststatustype)
+	builder.Body().Set(norpts)
+	builder.Body().Set(listorderstatus)
+	builder.Body().Set(rptseq)
+	builder.Body().Set(totnoorders)
+	builder.Body().Set(noorders)
 	return builder
 }
 

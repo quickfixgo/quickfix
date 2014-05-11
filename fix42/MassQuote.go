@@ -23,10 +23,10 @@ func CreateMassQuoteBuilder(
 	noquotesets *field.NoQuoteSetsField) MassQuoteBuilder {
 	var builder MassQuoteBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.NewMsgType("i"))
-	builder.Body.Set(quoteid)
-	builder.Body.Set(noquotesets)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header().Set(field.NewMsgType("i"))
+	builder.Body().Set(quoteid)
+	builder.Body().Set(noquotesets)
 	return builder
 }
 

@@ -23,10 +23,10 @@ func CreateTradeCaptureReportAckBuilder(
 	exectype *field.ExecTypeField) TradeCaptureReportAckBuilder {
 	var builder TradeCaptureReportAckBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("AR"))
-	builder.Body.Set(tradereportid)
-	builder.Body.Set(exectype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("AR"))
+	builder.Body().Set(tradereportid)
+	builder.Body().Set(exectype)
 	return builder
 }
 

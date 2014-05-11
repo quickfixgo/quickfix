@@ -25,9 +25,9 @@ type SecurityListUpdateReportBuilder struct {
 func CreateSecurityListUpdateReportBuilder() SecurityListUpdateReportBuilder {
 	var builder SecurityListUpdateReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("BK"))
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("BK"))
 	return builder
 }
 

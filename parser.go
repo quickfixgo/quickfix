@@ -71,10 +71,11 @@ func (p *parser) findEndAfterOffset(offset int) (int, error) {
 	if err != nil {
 		return index, err
 	}
+
 	return index + 1, nil
 }
 
-func (p *parser) extractLength() (int, error) {
+func (p *parser) jumpLength() (int, error) {
 	lengthIndex, err := p.findIndex([]byte("9="))
 	if err != nil {
 		return 0, err
@@ -87,7 +88,11 @@ func (p *parser) extractLength() (int, error) {
 		return 0, err
 	}
 
-	return strconv.Atoi(string(p.buffer[lengthIndex:offset]))
+	length, err := strconv.Atoi(string(p.buffer[lengthIndex:offset]))
+	if err != nil {
+		return length, err
+	}
+	return offset + length, nil
 }
 
 func (p *parser) ReadMessage() ([]byte, error) {
@@ -97,12 +102,12 @@ func (p *parser) ReadMessage() ([]byte, error) {
 	}
 	p.buffer = p.buffer[start:]
 
-	length, err := p.extractLength()
+	index, err := p.jumpLength()
 	if err != nil {
 		return []byte{}, err
 	}
 
-	index, err := p.findEndAfterOffset(length)
+	index, err = p.findEndAfterOffset(index)
 	if err != nil {
 		return []byte{}, err
 	}

@@ -26,13 +26,13 @@ func CreateNewOrderSingleBuilder(
 	ordtype *field.OrdTypeField) NewOrderSingleBuilder {
 	var builder NewOrderSingleBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.NewMsgType("D"))
-	builder.Body.Set(clordid)
-	builder.Body.Set(handlinst)
-	builder.Body.Set(side)
-	builder.Body.Set(transacttime)
-	builder.Body.Set(ordtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header().Set(field.NewMsgType("D"))
+	builder.Body().Set(clordid)
+	builder.Body().Set(handlinst)
+	builder.Body().Set(side)
+	builder.Body().Set(transacttime)
+	builder.Body().Set(ordtype)
 	return builder
 }
 

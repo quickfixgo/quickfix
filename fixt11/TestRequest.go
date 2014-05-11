@@ -22,9 +22,9 @@ func CreateTestRequestBuilder(
 	testreqid *field.TestReqIDField) TestRequestBuilder {
 	var builder TestRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewMsgType("1"))
-	builder.Body.Set(testreqid)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewMsgType("1"))
+	builder.Body().Set(testreqid)
 	return builder
 }
 

@@ -27,11 +27,11 @@ func CreateCollateralInquiryAckBuilder(
 	collinquirystatus *field.CollInquiryStatusField) CollateralInquiryAckBuilder {
 	var builder CollateralInquiryAckBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("BG"))
-	builder.Body.Set(collinquiryid)
-	builder.Body.Set(collinquirystatus)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("BG"))
+	builder.Body().Set(collinquiryid)
+	builder.Body().Set(collinquirystatus)
 	return builder
 }
 

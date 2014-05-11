@@ -28,12 +28,12 @@ func CreateOrderMassCancelReportBuilder(
 	masscancelresponse *field.MassCancelResponseField) OrderMassCancelReportBuilder {
 	var builder OrderMassCancelReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("r"))
-	builder.Body.Set(orderid)
-	builder.Body.Set(masscancelrequesttype)
-	builder.Body.Set(masscancelresponse)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("r"))
+	builder.Body().Set(orderid)
+	builder.Body().Set(masscancelrequesttype)
+	builder.Body().Set(masscancelresponse)
 	return builder
 }
 

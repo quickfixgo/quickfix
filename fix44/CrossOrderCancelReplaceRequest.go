@@ -28,15 +28,15 @@ func CreateCrossOrderCancelReplaceRequestBuilder(
 	ordtype *field.OrdTypeField) CrossOrderCancelReplaceRequestBuilder {
 	var builder CrossOrderCancelReplaceRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("t"))
-	builder.Body.Set(crossid)
-	builder.Body.Set(origcrossid)
-	builder.Body.Set(crosstype)
-	builder.Body.Set(crossprioritization)
-	builder.Body.Set(nosides)
-	builder.Body.Set(transacttime)
-	builder.Body.Set(ordtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("t"))
+	builder.Body().Set(crossid)
+	builder.Body().Set(origcrossid)
+	builder.Body().Set(crosstype)
+	builder.Body().Set(crossprioritization)
+	builder.Body().Set(nosides)
+	builder.Body().Set(transacttime)
+	builder.Body().Set(ordtype)
 	return builder
 }
 

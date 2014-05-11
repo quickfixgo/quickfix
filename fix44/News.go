@@ -23,10 +23,10 @@ func CreateNewsBuilder(
 	nolinesoftext *field.NoLinesOfTextField) NewsBuilder {
 	var builder NewsBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("B"))
-	builder.Body.Set(headline)
-	builder.Body.Set(nolinesoftext)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("B"))
+	builder.Body().Set(headline)
+	builder.Body().Set(nolinesoftext)
 	return builder
 }
 

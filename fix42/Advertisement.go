@@ -26,13 +26,13 @@ func CreateAdvertisementBuilder(
 	shares *field.SharesField) AdvertisementBuilder {
 	var builder AdvertisementBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.NewMsgType("7"))
-	builder.Body.Set(advid)
-	builder.Body.Set(advtranstype)
-	builder.Body.Set(symbol)
-	builder.Body.Set(advside)
-	builder.Body.Set(shares)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header().Set(field.NewMsgType("7"))
+	builder.Body().Set(advid)
+	builder.Body().Set(advtranstype)
+	builder.Body().Set(symbol)
+	builder.Body().Set(advside)
+	builder.Body().Set(shares)
 	return builder
 }
 

@@ -29,13 +29,13 @@ func CreateCollateralAssignmentBuilder(
 	transacttime *field.TransactTimeField) CollateralAssignmentBuilder {
 	var builder CollateralAssignmentBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AY"))
-	builder.Body.Set(collasgnid)
-	builder.Body.Set(collasgnreason)
-	builder.Body.Set(collasgntranstype)
-	builder.Body.Set(transacttime)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("AY"))
+	builder.Body().Set(collasgnid)
+	builder.Body().Set(collasgnreason)
+	builder.Body().Set(collasgntranstype)
+	builder.Body().Set(transacttime)
 	return builder
 }
 

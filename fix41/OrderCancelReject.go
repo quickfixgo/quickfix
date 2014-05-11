@@ -25,12 +25,12 @@ func CreateOrderCancelRejectBuilder(
 	ordstatus *field.OrdStatusField) OrderCancelRejectBuilder {
 	var builder OrderCancelRejectBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header.Set(field.NewMsgType("9"))
-	builder.Body.Set(orderid)
-	builder.Body.Set(clordid)
-	builder.Body.Set(origclordid)
-	builder.Body.Set(ordstatus)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header().Set(field.NewMsgType("9"))
+	builder.Body().Set(orderid)
+	builder.Body().Set(clordid)
+	builder.Body().Set(origclordid)
+	builder.Body().Set(ordstatus)
 	return builder
 }
 

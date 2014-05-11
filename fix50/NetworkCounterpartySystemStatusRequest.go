@@ -27,11 +27,11 @@ func CreateNetworkCounterpartySystemStatusRequestBuilder(
 	networkrequestid *field.NetworkRequestIDField) NetworkCounterpartySystemStatusRequestBuilder {
 	var builder NetworkCounterpartySystemStatusRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("BC"))
-	builder.Body.Set(networkrequesttype)
-	builder.Body.Set(networkrequestid)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("BC"))
+	builder.Body().Set(networkrequesttype)
+	builder.Body().Set(networkrequestid)
 	return builder
 }
 

@@ -26,10 +26,10 @@ func CreateMarketDataIncrementalRefreshBuilder(
 	nomdentries *field.NoMDEntriesField) MarketDataIncrementalRefreshBuilder {
 	var builder MarketDataIncrementalRefreshBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("X"))
-	builder.Body.Set(nomdentries)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("X"))
+	builder.Body().Set(nomdentries)
 	return builder
 }
 

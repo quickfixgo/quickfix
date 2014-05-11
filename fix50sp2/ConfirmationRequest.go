@@ -28,12 +28,12 @@ func CreateConfirmationRequestBuilder(
 	transacttime *field.TransactTimeField) ConfirmationRequestBuilder {
 	var builder ConfirmationRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("BH"))
-	builder.Body.Set(confirmreqid)
-	builder.Body.Set(confirmtype)
-	builder.Body.Set(transacttime)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("BH"))
+	builder.Body().Set(confirmreqid)
+	builder.Body().Set(confirmtype)
+	builder.Body().Set(transacttime)
 	return builder
 }
 

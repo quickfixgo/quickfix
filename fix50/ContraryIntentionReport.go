@@ -27,11 +27,11 @@ func CreateContraryIntentionReportBuilder(
 	clearingbusinessdate *field.ClearingBusinessDateField) ContraryIntentionReportBuilder {
 	var builder ContraryIntentionReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("BO"))
-	builder.Body.Set(contintrptid)
-	builder.Body.Set(clearingbusinessdate)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("BO"))
+	builder.Body().Set(contintrptid)
+	builder.Body().Set(clearingbusinessdate)
 	return builder
 }
 

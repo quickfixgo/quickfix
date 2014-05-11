@@ -27,11 +27,11 @@ func CreateAllocationReportAckBuilder(
 	allocid *field.AllocIDField) AllocationReportAckBuilder {
 	var builder AllocationReportAckBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AT"))
-	builder.Body.Set(allocreportid)
-	builder.Body.Set(allocid)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header().Set(field.NewMsgType("AT"))
+	builder.Body().Set(allocreportid)
+	builder.Body().Set(allocid)
 	return builder
 }
 

@@ -54,7 +54,7 @@ func TestSessionSettings_IntSettings(t *testing.T) {
 	}
 }
 
-func TestSessionSettings_BoolSettins(t *testing.T) {
+func TestSessionSettings_BoolSettings(t *testing.T) {
 	s := NewSessionSettings()
 	if _, err := s.BoolSetting(config.ResetOnLogon); err == nil {
 		t.Error("Expected error for unknown setting")

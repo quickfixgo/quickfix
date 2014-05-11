@@ -32,16 +32,16 @@ func CreateExecutionReportBuilder(
 	cumqty *field.CumQtyField) ExecutionReportBuilder {
 	var builder ExecutionReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("8"))
-	builder.Body.Set(orderid)
-	builder.Body.Set(execid)
-	builder.Body.Set(exectype)
-	builder.Body.Set(ordstatus)
-	builder.Body.Set(side)
-	builder.Body.Set(leavesqty)
-	builder.Body.Set(cumqty)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("8"))
+	builder.Body().Set(orderid)
+	builder.Body().Set(execid)
+	builder.Body().Set(exectype)
+	builder.Body().Set(ordstatus)
+	builder.Body().Set(side)
+	builder.Body().Set(leavesqty)
+	builder.Body().Set(cumqty)
 	return builder
 }
 

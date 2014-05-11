@@ -26,13 +26,13 @@ func CreateMarketDataRequestBuilder(
 	norelatedsym *field.NoRelatedSymField) MarketDataRequestBuilder {
 	var builder MarketDataRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header.Set(field.NewMsgType("V"))
-	builder.Body.Set(mdreqid)
-	builder.Body.Set(subscriptionrequesttype)
-	builder.Body.Set(marketdepth)
-	builder.Body.Set(nomdentrytypes)
-	builder.Body.Set(norelatedsym)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header().Set(field.NewMsgType("V"))
+	builder.Body().Set(mdreqid)
+	builder.Body().Set(subscriptionrequesttype)
+	builder.Body().Set(marketdepth)
+	builder.Body().Set(nomdentrytypes)
+	builder.Body().Set(norelatedsym)
 	return builder
 }
 

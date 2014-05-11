@@ -22,9 +22,9 @@ func CreateListCancelRequestBuilder(
 	listid *field.ListIDField) ListCancelRequestBuilder {
 	var builder ListCancelRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header.Set(field.NewMsgType("K"))
-	builder.Body.Set(listid)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header().Set(field.NewMsgType("K"))
+	builder.Body().Set(listid)
 	return builder
 }
 

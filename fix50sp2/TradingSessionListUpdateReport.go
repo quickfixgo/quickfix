@@ -26,10 +26,10 @@ func CreateTradingSessionListUpdateReportBuilder(
 	notradingsessions *field.NoTradingSessionsField) TradingSessionListUpdateReportBuilder {
 	var builder TradingSessionListUpdateReportBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("BS"))
-	builder.Body.Set(notradingsessions)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header().Set(field.NewMsgType("BS"))
+	builder.Body().Set(notradingsessions)
 	return builder
 }
 

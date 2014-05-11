@@ -25,12 +25,12 @@ func CreateIOIBuilder(
 	ioiqty *field.IOIQtyField) IOIBuilder {
 	var builder IOIBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(field.NewMsgType("6"))
-	builder.Body.Set(ioiid)
-	builder.Body.Set(ioitranstype)
-	builder.Body.Set(side)
-	builder.Body.Set(ioiqty)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header().Set(field.NewMsgType("6"))
+	builder.Body().Set(ioiid)
+	builder.Body().Set(ioitranstype)
+	builder.Body().Set(side)
+	builder.Body().Set(ioiqty)
 	return builder
 }
 

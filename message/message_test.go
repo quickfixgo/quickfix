@@ -17,62 +17,62 @@ func (s *FieldMapTests) TestReverseRoute(c *C) {
 	builder := msg.ReverseRoute()
 
 	targetCompID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.TargetCompID, targetCompID)
+	err = builder.Header().GetField(tag.TargetCompID, targetCompID)
 	c.Check(err, IsNil)
 	c.Check(targetCompID.Value, Equals, "TW")
 
 	targetSubID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.TargetSubID, targetSubID)
+	err = builder.Header().GetField(tag.TargetSubID, targetSubID)
 	c.Check(err, IsNil)
 	c.Check(targetSubID.Value, Equals, "KK")
 
 	targetLocationID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.TargetLocationID, targetLocationID)
+	err = builder.Header().GetField(tag.TargetLocationID, targetLocationID)
 	c.Check(err, IsNil)
 	c.Check(targetLocationID.Value, Equals, "JV")
 
 	senderCompID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.SenderCompID, senderCompID)
+	err = builder.Header().GetField(tag.SenderCompID, senderCompID)
 	c.Check(err, IsNil)
 	c.Check(senderCompID.Value, Equals, "ISLD")
 
 	senderSubID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.SenderSubID, senderSubID)
+	err = builder.Header().GetField(tag.SenderSubID, senderSubID)
 	c.Check(err, IsNil)
 	c.Check(senderSubID.Value, Equals, "AP")
 
 	senderLocationID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.SenderLocationID, senderLocationID)
+	err = builder.Header().GetField(tag.SenderLocationID, senderLocationID)
 	c.Check(err, IsNil)
 	c.Check(senderLocationID.Value, Equals, "RY")
 
 	deliverToCompID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.DeliverToCompID, deliverToCompID)
+	err = builder.Header().GetField(tag.DeliverToCompID, deliverToCompID)
 	c.Check(err, IsNil)
 	c.Check(deliverToCompID.Value, Equals, "JCD")
 
 	deliverToSubID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.DeliverToSubID, deliverToSubID)
+	err = builder.Header().GetField(tag.DeliverToSubID, deliverToSubID)
 	c.Check(err, IsNil)
 	c.Check(deliverToSubID.Value, Equals, "CS")
 
 	deliverToLocationID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.DeliverToLocationID, deliverToLocationID)
+	err = builder.Header().GetField(tag.DeliverToLocationID, deliverToLocationID)
 	c.Check(err, IsNil)
 	c.Check(deliverToLocationID.Value, Equals, "BB")
 
 	onBehalfOfCompID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.OnBehalfOfCompID, onBehalfOfCompID)
+	err = builder.Header().GetField(tag.OnBehalfOfCompID, onBehalfOfCompID)
 	c.Check(err, IsNil)
 	c.Check(onBehalfOfCompID.Value, Equals, "MG")
 
 	onBehalfOfSubID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.OnBehalfOfSubID, onBehalfOfSubID)
+	err = builder.Header().GetField(tag.OnBehalfOfSubID, onBehalfOfSubID)
 	c.Check(err, IsNil)
 	c.Check(onBehalfOfSubID.Value, Equals, "CB")
 
 	onBehalfOfLocationID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.OnBehalfOfLocationID, onBehalfOfLocationID)
+	err = builder.Header().GetField(tag.OnBehalfOfLocationID, onBehalfOfLocationID)
 	c.Check(err, IsNil)
 	c.Check(onBehalfOfLocationID.Value, Equals, "BH")
 }
@@ -84,7 +84,7 @@ func (s *FieldMapTests) TestReverseRouteIgnoreEmpty(c *C) {
 
 	//don't reverse if empty
 	deliverToCompID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.DeliverToCompID, deliverToCompID)
+	err = builder.Header().GetField(tag.DeliverToCompID, deliverToCompID)
 	c.Check(err, NotNil)
 
 }
@@ -98,10 +98,10 @@ func (s *FieldMapTests) TestReverseRouteFIX40(c *C) {
 	builder := msg.ReverseRoute()
 
 	deliverToLocationID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.DeliverToLocationID, deliverToLocationID)
+	err = builder.Header().GetField(tag.DeliverToLocationID, deliverToLocationID)
 	c.Check(err, NotNil)
 
 	onBehalfOfLocationID := new(fix.StringValue)
-	err = builder.Header.GetField(tag.OnBehalfOfLocationID, onBehalfOfLocationID)
+	err = builder.Header().GetField(tag.OnBehalfOfLocationID, onBehalfOfLocationID)
 	c.Check(err, NotNil)
 }

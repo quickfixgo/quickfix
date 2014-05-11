@@ -27,14 +27,14 @@ func CreateBidRequestBuilder(
 	basispxtype *field.BasisPxTypeField) BidRequestBuilder {
 	var builder BidRequestBuilder
 	builder.MessageBuilder = message.Builder()
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header.Set(field.NewMsgType("k"))
-	builder.Body.Set(clientbidid)
-	builder.Body.Set(bidrequesttranstype)
-	builder.Body.Set(totalnumsecurities)
-	builder.Body.Set(bidtype)
-	builder.Body.Set(tradetype)
-	builder.Body.Set(basispxtype)
+	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header().Set(field.NewMsgType("k"))
+	builder.Body().Set(clientbidid)
+	builder.Body().Set(bidrequesttranstype)
+	builder.Body().Set(totalnumsecurities)
+	builder.Body().Set(bidtype)
+	builder.Body().Set(tradetype)
+	builder.Body().Set(basispxtype)
 	return builder
 }
 
