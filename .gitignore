@@ -1,6 +1,6 @@
 *~
 *.swp
 *.swo
-test/test
-test/echo_server
-test/tmp
+_test/test
+_test/echo_server
+_test/tmp

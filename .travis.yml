@@ -11,7 +11,3 @@ install:
 
 before_script: make generate
 script: make travis_test
-
-matrix:
-  allow_failures:
-  - go: tip

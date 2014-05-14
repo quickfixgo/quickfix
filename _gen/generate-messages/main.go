@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/gen"
+	"github.com/quickfixgo/quickfix/_gen"
 	"os"
 	"path"
 	"sort"
