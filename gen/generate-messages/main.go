@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/gen"
 	"os"
+	"path"
 	"sort"
 	"strconv"
 	"strings"
@@ -33,82 +34,14 @@ func initPackage() {
 
 func genMessages() {
 	for _, m := range fixSpec.Messages {
-		genMessage(m)
+		genMessagePkg(m)
 	}
 }
 
-func genCracker() {
-	fileOut := fmt.Sprintf("package %v\n", pkg)
-	fileOut += buildCrackerImports()
-	fileOut += buildCrack()
-	fileOut += buildMessageRouter()
-	fileOut += buildMessageCracker()
-
-	filePath := pkg + "/message_cracker.go"
-	gen.WriteFile(filePath, fileOut)
-}
-
-func buildCrackerImports() string {
-	return `
-import(
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
-	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
-)
-`
-}
-
-func buildCrack() (out string) {
-	out += "func Crack(msg message.Message, sessionID quickfix.SessionID, router MessageRouter) errors.MessageRejectError {\n"
-	out += `
-  msgType:=&field.MsgTypeField{}
-switch msg.Header.Get(msgType); msgType.Value {
-`
-
-	for _, msgType := range sortedMsgTypes {
-		m, _ := fixSpec.Messages[msgType]
-
-		out += fmt.Sprintf("case \"%v\":\n", msgType)
-		out += fmt.Sprintf("return router.On%v%v(%v{msg},sessionID)\n", strings.ToUpper(pkg), m.Name, m.Name)
-	}
-	out += "}\n"
-	out += "return errors.InvalidMessageType()\n"
-	out += "}\n"
-
-	return
-}
-
-func buildMessageRouter() (out string) {
-	out += "type MessageRouter interface {\n"
-
-	for _, msgType := range sortedMsgTypes {
-		m, _ := fixSpec.Messages[msgType]
-		out += fmt.Sprintf("On%v%v(msg %v, sessionID quickfix.SessionID) errors.MessageRejectError\n", strings.ToUpper(pkg), m.Name, m.Name)
-	}
-
-	out += "}\n"
-
-	return
-}
-
-func buildMessageCracker() (out string) {
-	out += fmt.Sprintf("type %vMessageCracker struct {}\n", strings.ToUpper(pkg))
-
-	for _, msgType := range sortedMsgTypes {
-		m, _ := fixSpec.Messages[msgType]
-		out += fmt.Sprintf("//On%v%v is a Callback for %v messages.\n", strings.ToUpper(pkg), m.Name, m.Name)
-		out += fmt.Sprintf("func (c * %vMessageCracker) On%v%v(msg %v, sessionID quickfix.SessionID) errors.MessageRejectError {\n", strings.ToUpper(pkg), strings.ToUpper(pkg), m.Name, m.Name)
-		out += "return errors.UnsupportedMessageType()\n}\n"
-	}
-
-	return
-}
-
-func genMessage(msg *datadictionary.MessageDef) {
-	fileOut := fmt.Sprintf("package %v\n", pkg)
-	fileOut += `
+func genMessageImports() string {
+	fileOut := `
 import( 
+  "github.com/quickfixgo/quickfix"
   "github.com/quickfixgo/quickfix/errors"
   "github.com/quickfixgo/quickfix/fix"
   "github.com/quickfixgo/quickfix/fix/field"
@@ -123,29 +56,45 @@ import(
 )
 `
 	}
+	return fileOut
+}
 
-	fileOut += fmt.Sprintf("//%v msg type = %v.\n", msg.Name, msg.MsgType)
-	fileOut += fmt.Sprintf("type %v struct {\n message.Message}\n", msg.Name)
+func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary.FieldDef) string {
+	fileOut := fmt.Sprintf("//Message is a %v wrapper for the generic Message type\n", msg.Name)
+	fileOut += "type Message struct {\n message.Message}\n"
 
-	fileOut += fmt.Sprintf("//%vBuilder builds %v messages.\n", msg.Name, msg.Name)
-	fileOut += fmt.Sprintf("type %vBuilder struct {\n message.MessageBuilder}\n", msg.Name)
-
-	requiredFields := make([]*datadictionary.FieldDef, 0, len(msg.FieldsInDeclarationOrder))
 	for _, field := range msg.FieldsInDeclarationOrder {
 		if field.Required {
-			requiredFields = append(requiredFields, field)
+			fileOut += fmt.Sprintf("//%v is a required field for %v.\n", field.Name, msg.Name)
+		} else {
+			fileOut += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, msg.Name)
 		}
+		fileOut += fmt.Sprintf("func (m Message) %v() (*field.%vField, errors.MessageRejectError) {\n", field.Name, field.Name)
+		fileOut += fmt.Sprintf("f := &field.%vField{}\n", field.Name)
+		fileOut += "err:=m.Body.Get(f)\n"
+		fileOut += "return f, err\n}\n"
+
+		fileOut += fmt.Sprintf("//Get%v reads a %v from %v.\n", field.Name, field.Name, msg.Name)
+		fileOut += fmt.Sprintf("func (m Message) Get%v(f *field.%vField) errors.MessageRejectError {\n", field.Name, field.Name)
+		fileOut += "return m.Body.Get(f)\n}\n"
 	}
 
-	fileOut += fmt.Sprintf("//Create%vBuilder returns an initialized %vBuilder with specified required fields.\n", msg.Name, msg.Name)
-	fileOut += fmt.Sprintf("func Create%vBuilder(\n", msg.Name)
+	return fileOut
+}
+
+func genMessageBuilder(msg *datadictionary.MessageDef, requiredFields []*datadictionary.FieldDef) string {
+	fileOut := fmt.Sprintf("//MessageBuilder builds %v messages.\n", msg.Name)
+	fileOut += "type MessageBuilder struct {\n message.MessageBuilder}\n"
+
+	fileOut += fmt.Sprintf("//Builder returns an initialized MessageBuilder with specified required fields for %v.\n", msg.Name)
+	fileOut += "func Builder(\n"
 	builderArgs := make([]string, len(requiredFields))
 	for i, field := range requiredFields {
 		builderArgs[i] = fmt.Sprintf("%v *field.%vField", strings.ToLower(field.Name), field.Name)
 	}
 	fileOut += strings.Join(builderArgs, ",\n")
-	fileOut += fmt.Sprintf(") %vBuilder {\n", msg.Name)
-	fileOut += fmt.Sprintf("var builder %vBuilder\n", msg.Name)
+	fileOut += ") MessageBuilder {\n"
+	fileOut += "var builder MessageBuilder\n"
 	fileOut += "builder.MessageBuilder = message.Builder()\n"
 
 	if fixSpec.FIXType == "FIXT" {
@@ -173,24 +122,56 @@ import(
 	fileOut += "return builder\n"
 	fileOut += "}\n"
 
-	for _, field := range msg.FieldsInDeclarationOrder {
-		if field.Required {
-			fileOut += fmt.Sprintf("//%v is a required field for %v.\n", field.Name, msg.Name)
-		} else {
-			fileOut += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, msg.Name)
-		}
-		fileOut += fmt.Sprintf("func (m %v) %v() (*field.%vField, errors.MessageRejectError) {\n", msg.Name, field.Name, field.Name)
-		fileOut += fmt.Sprintf("f := &field.%vField{}\n", field.Name)
-		fileOut += "err:=m.Body.Get(f)\n"
-		fileOut += "return f, err\n}\n"
+	return fileOut
+}
 
-		fileOut += fmt.Sprintf("//Get%v reads a %v from %v.\n", field.Name, field.Name, msg.Name)
-		fileOut += fmt.Sprintf("func (m %v) Get%v(f *field.%vField) errors.MessageRejectError {\n", msg.Name, field.Name, field.Name)
-		fileOut += "return m.Body.Get(f)\n}\n"
+func genMessageRoute(msg *datadictionary.MessageDef) string {
+	var beginStringEnum string
+	if fixSpec.FIXType == "FIXT" {
+		beginStringEnum = "fix.BeginString_FIXT11"
+	} else {
+		if fixSpec.ServicePack == 0 {
+			beginStringEnum = fmt.Sprintf("fix.BeginString_FIX%v%v", fixSpec.Major, fixSpec.Minor)
+		} else {
+			beginStringEnum = fmt.Sprintf("enum.ApplVerID_FIX%v%vSP%v", fixSpec.Major, fixSpec.Minor, fixSpec.ServicePack)
+		}
 	}
 
-	filePath := pkg + "/" + msg.Name + ".go"
-	gen.WriteFile(filePath, fileOut)
+	fileOut := `
+//A RouteOut is the callback type that should be implemented for routing Message
+type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+
+//Route returns the beginstring, message type, and MessageRoute for this Mesage type
+func Route(router RouteOut) (string,string,quickfix.MessageRoute) {
+	r:=func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+		return router(Message{msg}, sessionID)
+	}
+	`
+	fileOut += fmt.Sprintf("return %v,\"%v\", r\n", beginStringEnum, msg.MsgType)
+	fileOut += "}\n"
+
+	return fileOut
+}
+
+func genMessagePkg(msg *datadictionary.MessageDef) {
+	requiredFields := make([]*datadictionary.FieldDef, 0, len(msg.FieldsInDeclarationOrder))
+	for _, field := range msg.FieldsInDeclarationOrder {
+		if field.Required {
+			requiredFields = append(requiredFields, field)
+		}
+	}
+
+	pkgName := strings.ToLower(msg.Name)
+
+	fileOut := fmt.Sprintf("//Package %v msg type = %v.\n", pkgName, msg.MsgType)
+	fileOut += fmt.Sprintf("package %v\n", pkgName)
+	fileOut += genMessageImports()
+
+	fileOut += genMessage(msg, requiredFields)
+	fileOut += genMessageBuilder(msg, requiredFields)
+	fileOut += genMessageRoute(msg)
+
+	gen.WriteFile(path.Join(pkg, strings.ToLower(msg.Name), msg.Name+".go"), fileOut)
 }
 
 func main() {
@@ -227,6 +208,5 @@ func main() {
 		panic(pkg + "/ is not a directory")
 	}
 
-	genCracker()
 	genMessages()
 }

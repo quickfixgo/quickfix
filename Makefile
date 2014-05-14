@@ -22,7 +22,7 @@ lint:
 	golint .
 
 test:
-	go test -v ./...
+	go test -v . ./datadictionary/ ./message/ ./fix/
 
 build_accept:
 		cd test; go build -o echo_server

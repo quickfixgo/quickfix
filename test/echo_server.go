@@ -3,18 +3,23 @@ package main
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/cracker"
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/fix40"
-	"github.com/quickfixgo/quickfix/fix41"
-	"github.com/quickfixgo/quickfix/fix42"
-	"github.com/quickfixgo/quickfix/fix43"
-	"github.com/quickfixgo/quickfix/fix44"
-	"github.com/quickfixgo/quickfix/fix50"
-	"github.com/quickfixgo/quickfix/fix50sp1"
-	"github.com/quickfixgo/quickfix/fix50sp2"
+	fix40nos "github.com/quickfixgo/quickfix/fix40/newordersingle"
+	fix41nos "github.com/quickfixgo/quickfix/fix41/newordersingle"
+	fix42nos "github.com/quickfixgo/quickfix/fix42/newordersingle"
+	fix42secdef "github.com/quickfixgo/quickfix/fix42/securitydefinition"
+	fix43nos "github.com/quickfixgo/quickfix/fix43/newordersingle"
+	fix43secdef "github.com/quickfixgo/quickfix/fix43/securitydefinition"
+	fix44nos "github.com/quickfixgo/quickfix/fix44/newordersingle"
+	fix44secdef "github.com/quickfixgo/quickfix/fix44/securitydefinition"
+	fix50nos "github.com/quickfixgo/quickfix/fix50/newordersingle"
+	fix50secdef "github.com/quickfixgo/quickfix/fix50/securitydefinition"
+	fix50sp1nos "github.com/quickfixgo/quickfix/fix50sp1/newordersingle"
+	fix50sp1secdef "github.com/quickfixgo/quickfix/fix50sp1/securitydefinition"
+	fix50sp2nos "github.com/quickfixgo/quickfix/fix50sp2/newordersingle"
+	fix50sp2secdef "github.com/quickfixgo/quickfix/fix50sp2/securitydefinition"
 	"github.com/quickfixgo/quickfix/message"
 	"io/ioutil"
 	"log"
@@ -23,8 +28,7 @@ import (
 )
 
 type EchoApplication struct {
-	log *log.Logger
-	cracker.MessageCracker
+	log      *log.Logger
 	OrderIds map[string]bool
 }
 
@@ -51,10 +55,11 @@ func (e EchoApplication) FromAdmin(msg message.Message, sessionID quickfix.Sessi
 
 func (e *EchoApplication) FromApp(msg message.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	e.log.Println("Got Message ", msg)
-	return cracker.Crack(msg, sessionID, e)
+	return quickfix.Route(msg, sessionID)
 }
 
 func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+
 	orderID := new(field.ClOrdIDField)
 	if err := msg.Body.Get(orderID); err != nil {
 		return err
@@ -89,69 +94,69 @@ func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.Ses
 	return nil
 }
 
-func (e EchoApplication) OnFIX40NewOrderSingle(msg fix40.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX40NewOrderSingle(msg fix40nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX41NewOrderSingle(msg fix41.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX41NewOrderSingle(msg fix41nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX42NewOrderSingle(msg fix42.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX42NewOrderSingle(msg fix42nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX43NewOrderSingle(msg fix43.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX43NewOrderSingle(msg fix43nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX44NewOrderSingle(msg fix44.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX44NewOrderSingle(msg fix44nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50NewOrderSingle(msg fix50.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX50NewOrderSingle(msg fix50nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2.NewOrderSingle, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e EchoApplication) OnFIX42SecurityDefinition(msg fix42.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX42SecurityDefinition(msg fix42secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX43SecurityDefinition(msg fix43.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX43SecurityDefinition(msg fix43secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX44SecurityDefinition(msg fix44.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX44SecurityDefinition(msg fix44secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX50SecurityDefinition(msg fix50.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX50SecurityDefinition(msg fix50secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX50SP1SecurityDefinition(msg fix50sp1.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX50SP1SecurityDefinition(msg fix50sp1secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefinition, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
@@ -160,6 +165,23 @@ func (e EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2.SecurityDefin
 func main() {
 	app := &EchoApplication{}
 	app.log = log.New(ioutil.Discard, "", log.LstdFlags)
+	//app.log = log.New(os.Stdout, "", log.LstdFlags)
+
+	quickfix.AddRoute(fix40nos.Route(app.OnFIX40NewOrderSingle))
+	quickfix.AddRoute(fix41nos.Route(app.OnFIX41NewOrderSingle))
+	quickfix.AddRoute(fix42nos.Route(app.OnFIX42NewOrderSingle))
+	quickfix.AddRoute(fix43nos.Route(app.OnFIX43NewOrderSingle))
+	quickfix.AddRoute(fix44nos.Route(app.OnFIX44NewOrderSingle))
+	quickfix.AddRoute(fix50nos.Route(app.OnFIX50NewOrderSingle))
+	quickfix.AddRoute(fix50sp1nos.Route(app.OnFIX50SP1NewOrderSingle))
+	quickfix.AddRoute(fix50sp2nos.Route(app.OnFIX50SP2NewOrderSingle))
+
+	quickfix.AddRoute(fix42secdef.Route(app.OnFIX42SecurityDefinition))
+	quickfix.AddRoute(fix43secdef.Route(app.OnFIX43SecurityDefinition))
+	quickfix.AddRoute(fix44secdef.Route(app.OnFIX44SecurityDefinition))
+	quickfix.AddRoute(fix50secdef.Route(app.OnFIX50SecurityDefinition))
+	quickfix.AddRoute(fix50sp1secdef.Route(app.OnFIX50SP1SecurityDefinition))
+	quickfix.AddRoute(fix50sp2secdef.Route(app.OnFIX50SP2SecurityDefinition))
 
 	cfg, err := os.Open(os.Args[1])
 	if err != nil {

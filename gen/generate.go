@@ -7,6 +7,7 @@ import (
 	"go/printer"
 	"go/token"
 	"os"
+	"path"
 )
 
 var (
@@ -31,6 +32,13 @@ func WriteFile(filePath, fileOut string) {
 	}
 
 	ast.SortImports(fset, f)
+
+	//create parentdir if it doesn't exist
+	if parentdir := path.Dir(filePath); parentdir != "." {
+		if err := os.MkdirAll(parentdir, os.ModePerm); err != nil {
+			panic(err)
+		}
+	}
 
 	if file, err := os.Create(filePath); err == nil {
 		defer file.Close()
