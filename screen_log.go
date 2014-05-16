@@ -9,22 +9,6 @@ type screenLog struct {
 	prefix string
 }
 
-//ScreenLogFactory creates Log instances that write to screen.
-//Implements LogFactory interface.
-type ScreenLogFactory struct{}
-
-//Create returns a logger that writes to stdout with prefix "GLOBAL"
-func (ScreenLogFactory) Create() (Log, error) {
-	log := screenLog{"GLOBAL"}
-	return log, nil
-}
-
-//CreateSessionLog returns a logger that writes to stdout with a prefix equal to SessionID.String()
-func (ScreenLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
-	log := screenLog{sessionID.String()}
-	return log, nil
-}
-
 func (l screenLog) OnIncoming(s string) {
 	logTime := time.Now().UTC()
 	fmt.Printf("<%v, %s, incoming>\n  (%s)\n", logTime, l.prefix, s)
@@ -42,4 +26,21 @@ func (l screenLog) OnEvent(s string) {
 
 func (l screenLog) OnEventf(format string, a ...interface{}) {
 	l.OnEvent(fmt.Sprintf(format, a...))
+}
+
+type screenLogFactory struct{}
+
+func (screenLogFactory) Create() (Log, error) {
+	log := screenLog{"GLOBAL"}
+	return log, nil
+}
+
+func (screenLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
+	log := screenLog{sessionID.String()}
+	return log, nil
+}
+
+//NewScreenLogFactory creates an instance of LogFactory that writes messages and events to stdout.
+func NewScreenLogFactory() LogFactory {
+	return screenLogFactory{}
 }

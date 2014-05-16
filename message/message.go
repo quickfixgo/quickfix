@@ -33,8 +33,9 @@ func Parse(rawMessage []byte) (*Message, error) {
 	msg.Body.init(normalFieldOrder)
 	msg.rawMessage = rawMessage
 
-	//BeginString, BodyLength, MsgType, CheckSum - at least 4
-	msg.fields = make([]*fieldBytes, 0, 4)
+	//including required header and trailer fields, minimum of 7 fields can be expected
+	//TODO: expose size for priming
+	msg.fields = make([]*fieldBytes, 0, 7)
 
 	var parsedFieldBytes *fieldBytes
 	var err error

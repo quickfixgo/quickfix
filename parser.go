@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 	"strconv"
+	"time"
 )
 
 const (
@@ -11,8 +12,9 @@ const (
 )
 
 type parser struct {
-	buffer []byte
-	reader io.Reader
+	buffer   []byte
+	reader   io.Reader
+	lastRead time.Time
 }
 
 func newParser(reader io.Reader) *parser {
@@ -27,6 +29,7 @@ func (p *parser) readMore() (int, error) {
 	}
 
 	n, e := p.reader.Read(p.buffer[len(p.buffer):cap(p.buffer)])
+	p.lastRead = time.Now()
 	p.buffer = p.buffer[:len(p.buffer)+n]
 	return n, e
 }

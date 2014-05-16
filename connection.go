@@ -6,7 +6,6 @@ import (
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/message"
 	"net"
-	"time"
 )
 
 //Picks up session from net.Conn Initiator
@@ -61,7 +60,6 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 	parser := newParser(reader)
 
 	msgBytes, err := parser.ReadMessage()
-	receiveTime := time.Now()
 
 	if err != nil {
 		return
@@ -109,7 +107,7 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 	msgIn := make(chan fixIn)
 	go writeLoop(netConn, msgOut)
 	go func() {
-		msgIn <- fixIn{msgBytes, receiveTime}
+		msgIn <- fixIn{msgBytes, parser.lastRead}
 		readLoop(parser, msgIn)
 	}()
 
@@ -138,7 +136,6 @@ func readLoop(parser *parser, msgIn chan fixIn) {
 
 	for {
 		msg, err := parser.ReadMessage()
-		receiveTime := time.Now()
 
 		if err != nil {
 			switch err.(type) {
@@ -149,7 +146,7 @@ func readLoop(parser *parser, msgIn chan fixIn) {
 				return
 			}
 		} else {
-			msgIn <- fixIn{msg, receiveTime}
+			msgIn <- fixIn{msg, parser.lastRead}
 		}
 	}
 }
