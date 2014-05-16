@@ -31,20 +31,20 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 		senderCompID *field.SenderCompIDField
 		targetCompID *field.TargetCompIDField
 		returnsError bool
-		rejectReason RejectReason
+		rejectReason int
 	}{
-		{returnsError: true, rejectReason: RejectReasonRequiredTagMissing},
+		{returnsError: true, rejectReason: rejectReasonRequiredTagMissing},
 		{senderCompID: field.NewSenderCompID("TAR"),
 			returnsError: true,
-			rejectReason: RejectReasonRequiredTagMissing},
+			rejectReason: rejectReasonRequiredTagMissing},
 		{senderCompID: field.NewSenderCompID("TAR"),
 			targetCompID: field.NewTargetCompID("JCD"),
 			returnsError: true,
-			rejectReason: RejectReasonCompIDProblem},
+			rejectReason: rejectReasonCompIDProblem},
 		{senderCompID: field.NewSenderCompID("JCD"),
 			targetCompID: field.NewTargetCompID("SND"),
 			returnsError: true,
-			rejectReason: RejectReasonCompIDProblem},
+			rejectReason: rejectReasonCompIDProblem},
 		{senderCompID: field.NewSenderCompID("TAR"),
 			targetCompID: field.NewTargetCompID("SND"),
 			returnsError: false},
@@ -108,7 +108,7 @@ func (s *SessionTests) TestCheckTargetTooHigh(c *C) {
 	//missing seq number
 	err := s.session.checkTargetTooHigh(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, RejectReasonRequiredTagMissing)
+	c.Check(err.RejectReason(), Equals, rejectReasonRequiredTagMissing)
 
 	//too low
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 47))
@@ -131,7 +131,7 @@ func (s *SessionTests) TestCheckSendingTime(c *C) {
 	//missing sending time
 	err := s.session.checkSendingTime(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, RejectReasonRequiredTagMissing)
+	c.Check(err.RejectReason(), Equals, rejectReasonRequiredTagMissing)
 
 	//sending time too late
 	sendingTime := time.Now().Add(time.Duration(-200) * time.Second)
@@ -139,7 +139,7 @@ func (s *SessionTests) TestCheckSendingTime(c *C) {
 	msg, _ = builder.Build()
 	err = s.session.checkSendingTime(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, RejectReasonSendingTimeAccuracyProblem)
+	c.Check(err.RejectReason(), Equals, rejectReasonSendingTimeAccuracyProblem)
 
 	//future sending time
 	sendingTime = time.Now().Add(time.Duration(200) * time.Second)
@@ -147,7 +147,7 @@ func (s *SessionTests) TestCheckSendingTime(c *C) {
 	msg, _ = builder.Build()
 	err = s.session.checkSendingTime(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, RejectReasonSendingTimeAccuracyProblem)
+	c.Check(err.RejectReason(), Equals, rejectReasonSendingTimeAccuracyProblem)
 
 	//sending time ok
 	sendingTime = time.Now()
@@ -165,7 +165,7 @@ func (s *SessionTests) TestCheckTargetTooLow(c *C) {
 	//missing seq number
 	err := s.session.checkTargetTooLow(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, RejectReasonRequiredTagMissing)
+	c.Check(err.RejectReason(), Equals, rejectReasonRequiredTagMissing)
 
 	//too low
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 43))

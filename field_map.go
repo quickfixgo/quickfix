@@ -101,11 +101,11 @@ func (m FieldMap) GetField(tag fix.Tag, parser FieldValue) MessageRejectError {
 	field, ok := m.fieldLookup[tag]
 
 	if !ok {
-		return ConditionallyRequiredFieldMissing(tag)
+		return conditionallyRequiredFieldMissing(tag)
 	}
 
 	if err := parser.Read(field.Value); err != nil {
-		return IncorrectDataFormatForValue(tag)
+		return incorrectDataFormatForValue(tag)
 	}
 
 	return nil

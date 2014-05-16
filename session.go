@@ -340,7 +340,7 @@ func (s *Session) checkTargetTooLow(msg Message) MessageRejectError {
 	seqNum := new(fix.IntField)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
-		return RequiredTagMissing(tag.MsgSeqNum)
+		return requiredTagMissing(tag.MsgSeqNum)
 	case seqNum.Value < s.expectedSeqNum:
 		return targetTooLow{ReceivedTarget: seqNum.Value, ExpectedTarget: s.expectedSeqNum}
 	}
@@ -352,7 +352,7 @@ func (s *Session) checkTargetTooHigh(msg Message) MessageRejectError {
 	seqNum := new(fix.IntValue)
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
-		return RequiredTagMissing(tag.MsgSeqNum)
+		return requiredTagMissing(tag.MsgSeqNum)
 	case seqNum.Value > s.expectedSeqNum:
 		return targetTooHigh{ReceivedTarget: seqNum.Value, ExpectedTarget: s.expectedSeqNum}
 	}
@@ -369,15 +369,15 @@ func (s *Session) checkCompID(msg Message) MessageRejectError {
 
 	switch {
 	case haveSender != nil:
-		return RequiredTagMissing(tag.SenderCompID)
+		return requiredTagMissing(tag.SenderCompID)
 	case haveTarget != nil:
-		return RequiredTagMissing(tag.TargetCompID)
+		return requiredTagMissing(tag.TargetCompID)
 	case len(targetCompID.Value) == 0:
-		return TagSpecifiedWithoutAValue(tag.TargetCompID)
+		return tagSpecifiedWithoutAValue(tag.TargetCompID)
 	case len(senderCompID.Value) == 0:
-		return TagSpecifiedWithoutAValue(tag.SenderCompID)
+		return tagSpecifiedWithoutAValue(tag.SenderCompID)
 	case s.sessionID.SenderCompID != targetCompID.Value || s.sessionID.TargetCompID != senderCompID.Value:
-		return CompIDProblem()
+		return compIDProblem()
 	}
 
 	return nil
@@ -385,7 +385,7 @@ func (s *Session) checkCompID(msg Message) MessageRejectError {
 
 func (s *Session) checkSendingTime(msg Message) MessageRejectError {
 	if ok := msg.Header.Has(tag.SendingTime); !ok {
-		return RequiredTagMissing(tag.SendingTime)
+		return requiredTagMissing(tag.SendingTime)
 	}
 
 	sendingTime := &field.SendingTimeField{}
@@ -394,7 +394,7 @@ func (s *Session) checkSendingTime(msg Message) MessageRejectError {
 	}
 
 	if delta := time.Since(sendingTime.Value); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
-		return SendingTimeAccuracyProblem()
+		return sendingTimeAccuracyProblem()
 	}
 
 	return nil
@@ -404,7 +404,7 @@ func (s *Session) checkBeginString(msg Message) MessageRejectError {
 	beginString := new(fix.StringValue)
 	switch err := msg.Header.GetField(tag.BeginString, beginString); {
 	case err != nil:
-		return RequiredTagMissing(tag.BeginString)
+		return requiredTagMissing(tag.BeginString)
 	case s.sessionID.BeginString != beginString.Value:
 		return incorrectBeginString{}
 	}
@@ -425,7 +425,7 @@ func (s *Session) doReject(msg Message, rej MessageRejectError) {
 			switch {
 			default:
 				reply.Body().Set(field.NewSessionRejectReason(int(rej.RejectReason())))
-			case rej.RejectReason() > RejectReasonInvalidMsgType && s.sessionID.BeginString == fix.BeginString_FIX42:
+			case rej.RejectReason() > rejectReasonInvalidMsgType && s.sessionID.BeginString == fix.BeginString_FIX42:
 				//fix42 knows up to invalid msg type
 			}
 		}

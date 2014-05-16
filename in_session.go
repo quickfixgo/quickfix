@@ -91,7 +91,7 @@ func (state inSession) handleSequenceReset(session *Session, msg Message) (nextS
 			session.expectedSeqNum = newSeqNo.Value
 		case newSeqNo.Value < session.expectedSeqNum:
 			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
-			session.doReject(msg, ValueIsIncorrectNoTag())
+			session.doReject(msg, valueIsIncorrectNoTag())
 		}
 	}
 
@@ -106,14 +106,14 @@ func (state inSession) handleResendRequest(session *Session, msg Message) (nextS
 	var err error
 	beginSeqNoField := new(fix.IntValue)
 	if err = msg.Body.GetField(tag.BeginSeqNo, beginSeqNoField); err != nil {
-		return state.processReject(session, msg, RequiredTagMissing(tag.BeginSeqNo))
+		return state.processReject(session, msg, requiredTagMissing(tag.BeginSeqNo))
 	}
 
 	beginSeqNo := beginSeqNoField.Value
 
 	endSeqNoField := new(fix.IntField)
 	if err = msg.Body.GetField(tag.EndSeqNo, endSeqNoField); err != nil {
-		return state.processReject(session, msg, RequiredTagMissing(tag.EndSeqNo))
+		return state.processReject(session, msg, requiredTagMissing(tag.EndSeqNo))
 	}
 
 	endSeqNo := endSeqNoField.Value
@@ -212,7 +212,7 @@ func (state inSession) processReject(session *Session, msg Message, rej MessageR
 	}
 
 	switch rej.RejectReason() {
-	case RejectReasonCompIDProblem, RejectReasonSendingTimeAccuracyProblem:
+	case rejectReasonCompIDProblem, rejectReasonSendingTimeAccuracyProblem:
 		session.doReject(msg, rej)
 		return state.initiateLogout(session, "")
 	default:
@@ -228,7 +228,7 @@ func (state inSession) doTargetTooLow(session *Session, msg Message, rej targetT
 
 		origSendingTime := new(fix.UTCTimestampValue)
 		if err = msg.Header.GetField(tag.OrigSendingTime, origSendingTime); err != nil {
-			session.doReject(msg, RequiredTagMissing(tag.OrigSendingTime))
+			session.doReject(msg, requiredTagMissing(tag.OrigSendingTime))
 			return state
 		}
 
@@ -236,7 +236,7 @@ func (state inSession) doTargetTooLow(session *Session, msg Message, rej targetT
 		msg.Header.GetField(tag.SendingTime, sendingTime)
 
 		if sendingTime.Value.Before(origSendingTime.Value) {
-			session.doReject(msg, SendingTimeAccuracyProblem())
+			session.doReject(msg, sendingTimeAccuracyProblem())
 			return state.initiateLogout(session, "")
 		}
 

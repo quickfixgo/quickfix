@@ -78,7 +78,7 @@ func (c MessageRouter) tryRoute(beginString *field.BeginStringField, msgType *fi
 	route, ok := c.routes[routeKey{beginString.Value, msgType.Value}]
 
 	if !ok {
-		return UnsupportedMessageType()
+		return unsupportedMessageType()
 	}
 
 	return route(msg, sessionID)

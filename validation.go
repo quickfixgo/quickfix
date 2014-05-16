@@ -10,15 +10,15 @@ import (
 func validate(d *datadictionary.DataDictionary, msg Message) MessageRejectError {
 	msgType := new(fix.StringField)
 	if err := msg.Header.GetField(tag.MsgType, msgType); err != nil {
-		if err.RejectReason() == RejectReasonConditionallyRequiredFieldMissing {
-			return RequiredTagMissing(tag.MsgType)
+		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
+			return requiredTagMissing(tag.MsgType)
 		}
 
 		return err
 	}
 
 	if _, validMsgType := d.Messages[msgType.Value]; validMsgType == false {
-		return InvalidMessageType()
+		return invalidMessageType()
 	}
 
 	if err := validateRequired(d, d, msgType.Value, msg); err != nil {
@@ -43,15 +43,15 @@ func validate(d *datadictionary.DataDictionary, msg Message) MessageRejectError 
 func validateFIXTApp(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msg Message) MessageRejectError {
 	msgType := new(fix.StringField)
 	if err := msg.Header.GetField(tag.MsgType, msgType); err != nil {
-		if err.RejectReason() == RejectReasonConditionallyRequiredFieldMissing {
-			return RequiredTagMissing(tag.MsgType)
+		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
+			return requiredTagMissing(tag.MsgType)
 		}
 
 		return err
 	}
 
 	if _, validMsgType := appDD.Messages[msgType.Value]; validMsgType == false {
-		return InvalidMessageType()
+		return invalidMessageType()
 	}
 
 	if err := validateRequired(transportDD, appDD, msgType.Value, msg); err != nil {
@@ -93,7 +93,7 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 	}
 
 	if len(remainingFields) != 0 {
-		return TagNotDefinedForThisMessageType(remainingFields[0].Tag)
+		return tagNotDefinedForThisMessageType(remainingFields[0].Tag)
 	}
 
 	return nil
@@ -113,7 +113,7 @@ func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []*fiel
 		}
 
 		if _, duplicate := iteratedTags[field.Tag]; duplicate {
-			return nil, TagAppearsMoreThanOnce(field.Tag)
+			return nil, tagAppearsMoreThanOnce(field.Tag)
 		}
 		iteratedTags.Add(field.Tag)
 
@@ -142,7 +142,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []*fi
 	numInGroup := new(fix.IntValue)
 
 	if err := numInGroup.Read(fieldStack[0].Value); err != nil {
-		return nil, IncorrectDataFormatForValue(numInGroupTag)
+		return nil, incorrectDataFormatForValue(numInGroupTag)
 	}
 
 	fieldStack = fieldStack[1:]
@@ -170,7 +170,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []*fi
 			}
 		} else {
 			if childDefs[0].Required {
-				return fieldStack, RequiredTagMissing(childDefs[0].Tag)
+				return fieldStack, requiredTagMissing(childDefs[0].Tag)
 			}
 		}
 
@@ -178,7 +178,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []*fi
 	}
 
 	if groupCount != numInGroup.Value {
-		return fieldStack, IncorrectNumInGroupCountForRepeatingGroup(numInGroupTag)
+		return fieldStack, incorrectNumInGroupCountForRepeatingGroup(numInGroupTag)
 	}
 
 	return fieldStack, nil
@@ -195,11 +195,11 @@ func validateOrder(msg Message) MessageRejectError {
 		case inHeader && !tag.IsHeader(t):
 			inHeader = false
 		case !inHeader && tag.IsHeader(t):
-			return TagSpecifiedOutOfRequiredOrder(t)
+			return tagSpecifiedOutOfRequiredOrder(t)
 		case tag.IsTrailer(t):
 			inTrailer = true
 		case inTrailer && !tag.IsTrailer(t):
-			return TagSpecifiedOutOfRequiredOrder(t)
+			return tagSpecifiedOutOfRequiredOrder(t)
 		}
 	}
 
@@ -227,8 +227,8 @@ func validateRequiredFieldMap(msg Message, requiredTags map[fix.Tag]struct{}, fi
 		field := new(fix.StringValue)
 		if err := fieldMap.GetField(required, field); err != nil {
 			//FIXME: add "has..." method?
-			if err.RejectReason() == RejectReasonConditionallyRequiredFieldMissing {
-				return RequiredTagMissing(required)
+			if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
+				return requiredTagMissing(required)
 			}
 			return err
 		}
@@ -254,13 +254,13 @@ func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadicti
 func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, validFields datadictionary.TagSet, fieldMap FieldMap) MessageRejectError {
 	for tag, fieldValue := range fieldMap.fieldLookup {
 		if len(fieldValue.Value) == 0 {
-			return TagSpecifiedWithoutAValue(tag)
+			return tagSpecifiedWithoutAValue(tag)
 		}
 	}
 
 	for tag := range fieldMap.fieldLookup {
 		if _, valid := d.FieldTypeByTag[tag]; !valid {
-			return InvalidTagNumber(tag)
+			return invalidTagNumber(tag)
 		}
 	}
 
@@ -268,7 +268,7 @@ func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, v
 		allowedValues := d.FieldTypeByTag[tag].Enums
 		if len(allowedValues) != 0 {
 			if _, validValue := allowedValues[string(fieldValue.Value)]; !validValue {
-				return ValueIsIncorrect(tag)
+				return valueIsIncorrect(tag)
 			}
 		}
 	}
