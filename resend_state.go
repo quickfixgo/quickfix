@@ -1,14 +1,10 @@
 package quickfix
 
-import (
-	"github.com/quickfixgo/quickfix/message"
-)
-
 type resendState struct {
 	inSession
 }
 
-func (state resendState) FixMsgIn(session *Session, msg message.Message) (nextState sessionState) {
+func (state resendState) FixMsgIn(session *Session, msg Message) (nextState sessionState) {
 	for ok := true; ok; {
 		nextState = state.inSession.FixMsgIn(session, msg)
 

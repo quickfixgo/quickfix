@@ -6,7 +6,6 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 import (
@@ -15,7 +14,7 @@ import (
 
 //Message is a MultilegOrderCancelReplace wrapper for the generic Message type
 type Message struct {
-	message.Message
+	quickfix.Message
 }
 
 //OrderID is a non-required field for MultilegOrderCancelReplace.
@@ -2624,7 +2623,7 @@ func (m Message) GetRiskFreeRate(f *field.RiskFreeRateField) errors.MessageRejec
 
 //MessageBuilder builds MultilegOrderCancelReplace messages.
 type MessageBuilder struct {
-	message.MessageBuilder
+	quickfix.MessageBuilder
 }
 
 //Builder returns an initialized MessageBuilder with specified required fields for MultilegOrderCancelReplace.
@@ -2634,7 +2633,7 @@ func Builder(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = message.Builder()
+	builder.MessageBuilder = quickfix.NewMessageBuilder()
 	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header().Set(field.NewMsgType("AC"))
@@ -2650,7 +2649,7 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP2, "AC", r

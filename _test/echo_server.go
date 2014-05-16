@@ -20,7 +20,6 @@ import (
 	fix50sp1secdef "github.com/quickfixgo/quickfix/fix50sp1/securitydefinition"
 	fix50sp2nos "github.com/quickfixgo/quickfix/fix50sp2/newordersingle"
 	fix50sp2secdef "github.com/quickfixgo/quickfix/fix50sp2/securitydefinition"
-	"github.com/quickfixgo/quickfix/message"
 	"io/ioutil"
 	"log"
 	"os"
@@ -42,30 +41,30 @@ func (e *EchoApplication) OnLogon(sessionID quickfix.SessionID) {
 func (e *EchoApplication) OnLogout(sessionID quickfix.SessionID) {
 	e.log.Printf("OnLogout %v\n", sessionID.String())
 }
-func (e EchoApplication) ToAdmin(msgBuilder message.MessageBuilder, sessionID quickfix.SessionID) {
+func (e EchoApplication) ToAdmin(msgBuilder quickfix.MessageBuilder, sessionID quickfix.SessionID) {
 }
 
-func (e EchoApplication) ToApp(msgBuilder message.MessageBuilder, sessionID quickfix.SessionID) (err error) {
+func (e EchoApplication) ToApp(msgBuilder quickfix.MessageBuilder, sessionID quickfix.SessionID) (err error) {
 	return
 }
 
-func (e EchoApplication) FromAdmin(msg message.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e EchoApplication) FromAdmin(msg quickfix.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	return
 }
 
-func (e *EchoApplication) FromApp(msg message.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
 	e.log.Println("Got Message ", msg)
 	return quickfix.Route(msg, sessionID)
 }
 
-func (e *EchoApplication) processMsg(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 
 	orderID := new(field.ClOrdIDField)
 	if err := msg.Body.Get(orderID); err != nil {
 		return err
 	}
 
-	reply := message.Builder()
+	reply := quickfix.NewMessageBuilder()
 	sessionOrderID := sessionID.String() + orderID.Value
 	possResend := new(field.PossResendField)
 	if err := msg.Header.Get(possResend); err == nil && possResend.Value {

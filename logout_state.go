@@ -1,13 +1,9 @@
 package quickfix
 
-import (
-	"github.com/quickfixgo/quickfix/message"
-)
-
 type logoutState struct {
 }
 
-func (state logoutState) FixMsgIn(session *Session, msg message.Message) (nextState sessionState) {
+func (state logoutState) FixMsgIn(session *Session, msg Message) (nextState sessionState) {
 	return state
 }
 

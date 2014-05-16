@@ -5,7 +5,6 @@ import (
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 type routeKey struct {
@@ -14,7 +13,7 @@ type routeKey struct {
 }
 
 //A MessageRoute is a function can process a fromApp/fromAdmin callback
-type MessageRoute func(msg message.Message, sessionID SessionID) errors.MessageRejectError
+type MessageRoute func(msg Message, sessionID SessionID) errors.MessageRejectError
 
 //A MessageRouter is a mutex for MessageRoutes
 type MessageRouter struct {
@@ -32,7 +31,7 @@ func (c MessageRouter) AddRoute(beginString string, msgType string, router Messa
 }
 
 //Route may be called from the fromApp/fromAdmin callbacks. Messages that cannot be routed will be rejected with UnsupportedMessageType.
-func (c MessageRouter) Route(msg message.Message, sessionID SessionID) errors.MessageRejectError {
+func (c MessageRouter) Route(msg Message, sessionID SessionID) errors.MessageRejectError {
 	beginString := &field.BeginStringField{}
 	err := msg.Header.Get(beginString)
 
@@ -50,7 +49,7 @@ func (c MessageRouter) Route(msg message.Message, sessionID SessionID) errors.Me
 	return c.tryRoute(beginString, msgType, msg, sessionID)
 }
 
-func (c MessageRouter) tryRoute(beginString *field.BeginStringField, msgType *field.MsgTypeField, msg message.Message, sessionID SessionID) errors.MessageRejectError {
+func (c MessageRouter) tryRoute(beginString *field.BeginStringField, msgType *field.MsgTypeField, msg Message, sessionID SessionID) errors.MessageRejectError {
 
 	if beginString.Value == fix.BeginString_FIXT11 && !fix.IsAdminMessageType(msgType.Value) {
 		applVerID := &field.ApplVerIDField{}
@@ -98,6 +97,6 @@ func AddRoute(beginString string, msgType string, route MessageRoute) {
 }
 
 //Route may be called from the fromApp/fromAdmin callbacks to route to the default MessageRouter instance.
-func Route(msg message.Message, sessionID SessionID) errors.MessageRejectError {
+func Route(msg Message, sessionID SessionID) errors.MessageRejectError {
 	return defaultRouter.Route(msg, sessionID)
 }

@@ -6,12 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 //Message is a BidRequest wrapper for the generic Message type
 type Message struct {
-	message.Message
+	quickfix.Message
 }
 
 //BidID is a non-required field for BidRequest.
@@ -364,7 +363,7 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectE
 
 //MessageBuilder builds BidRequest messages.
 type MessageBuilder struct {
-	message.MessageBuilder
+	quickfix.MessageBuilder
 }
 
 //Builder returns an initialized MessageBuilder with specified required fields for BidRequest.
@@ -376,7 +375,7 @@ func Builder(
 	tradetype *field.TradeTypeField,
 	basispxtype *field.BasisPxTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = message.Builder()
+	builder.MessageBuilder = quickfix.NewMessageBuilder()
 	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header().Set(field.NewMsgType("k"))
 	builder.Body().Set(clientbidid)
@@ -393,7 +392,7 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX42, "k", r

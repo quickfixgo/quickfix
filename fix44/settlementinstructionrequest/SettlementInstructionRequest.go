@@ -6,12 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 //Message is a SettlementInstructionRequest wrapper for the generic Message type
 type Message struct {
-	message.Message
+	quickfix.Message
 }
 
 //SettlInstReqID is a required field for SettlementInstructionRequest.
@@ -196,7 +195,7 @@ func (m Message) GetStandInstDbID(f *field.StandInstDbIDField) errors.MessageRej
 
 //MessageBuilder builds SettlementInstructionRequest messages.
 type MessageBuilder struct {
-	message.MessageBuilder
+	quickfix.MessageBuilder
 }
 
 //Builder returns an initialized MessageBuilder with specified required fields for SettlementInstructionRequest.
@@ -204,7 +203,7 @@ func Builder(
 	settlinstreqid *field.SettlInstReqIDField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = message.Builder()
+	builder.MessageBuilder = quickfix.NewMessageBuilder()
 	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header().Set(field.NewMsgType("AV"))
 	builder.Body().Set(settlinstreqid)
@@ -217,7 +216,7 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX44, "AV", r

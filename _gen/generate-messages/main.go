@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/_gen"
+	"github.com/quickfixgo/quickfix/datadictionary"
 	"os"
 	"path"
 	"sort"
@@ -45,7 +45,6 @@ import(
   "github.com/quickfixgo/quickfix/errors"
   "github.com/quickfixgo/quickfix/fix"
   "github.com/quickfixgo/quickfix/fix/field"
-  "github.com/quickfixgo/quickfix/message"
 )
 `
 
@@ -61,7 +60,7 @@ import(
 
 func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary.FieldDef) string {
 	fileOut := fmt.Sprintf("//Message is a %v wrapper for the generic Message type\n", msg.Name)
-	fileOut += "type Message struct {\n message.Message}\n"
+	fileOut += "type Message struct {\n quickfix.Message}\n"
 
 	for _, field := range msg.FieldsInDeclarationOrder {
 		if field.Required {
@@ -84,7 +83,7 @@ func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary
 
 func genMessageBuilder(msg *datadictionary.MessageDef, requiredFields []*datadictionary.FieldDef) string {
 	fileOut := fmt.Sprintf("//MessageBuilder builds %v messages.\n", msg.Name)
-	fileOut += "type MessageBuilder struct {\n message.MessageBuilder}\n"
+	fileOut += "type MessageBuilder struct {\n quickfix.MessageBuilder}\n"
 
 	fileOut += fmt.Sprintf("//Builder returns an initialized MessageBuilder with specified required fields for %v.\n", msg.Name)
 	fileOut += "func Builder(\n"
@@ -95,7 +94,7 @@ func genMessageBuilder(msg *datadictionary.MessageDef, requiredFields []*datadic
 	fileOut += strings.Join(builderArgs, ",\n")
 	fileOut += ") MessageBuilder {\n"
 	fileOut += "var builder MessageBuilder\n"
-	fileOut += "builder.MessageBuilder = message.Builder()\n"
+	fileOut += "builder.MessageBuilder = quickfix.NewMessageBuilder()\n"
 
 	if fixSpec.FIXType == "FIXT" {
 		fileOut += fmt.Sprintf("builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
@@ -143,7 +142,7 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string,string,quickfix.MessageRoute) {
-	r:=func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r:=func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	`

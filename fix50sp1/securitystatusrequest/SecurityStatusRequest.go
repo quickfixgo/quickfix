@@ -6,7 +6,6 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 import (
@@ -15,7 +14,7 @@ import (
 
 //Message is a SecurityStatusRequest wrapper for the generic Message type
 type Message struct {
-	message.Message
+	quickfix.Message
 }
 
 //SecurityStatusReqID is a required field for SecurityStatusRequest.
@@ -1052,7 +1051,7 @@ func (m Message) GetMarketSegmentID(f *field.MarketSegmentIDField) errors.Messag
 
 //MessageBuilder builds SecurityStatusRequest messages.
 type MessageBuilder struct {
-	message.MessageBuilder
+	quickfix.MessageBuilder
 }
 
 //Builder returns an initialized MessageBuilder with specified required fields for SecurityStatusRequest.
@@ -1060,7 +1059,7 @@ func Builder(
 	securitystatusreqid *field.SecurityStatusReqIDField,
 	subscriptionrequesttype *field.SubscriptionRequestTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = message.Builder()
+	builder.MessageBuilder = quickfix.NewMessageBuilder()
 	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header().Set(field.NewMsgType("e"))
@@ -1074,7 +1073,7 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP1, "e", r

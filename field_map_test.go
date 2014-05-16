@@ -1,4 +1,4 @@
-package message
+package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/fix"

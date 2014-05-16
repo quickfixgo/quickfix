@@ -1,4 +1,4 @@
-package message
+package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/datadictionary"
@@ -7,8 +7,8 @@ import (
 	"github.com/quickfixgo/quickfix/fix/tag"
 )
 
-//Validate tests the message against the provided data dictionary.
-func Validate(d *datadictionary.DataDictionary, msg Message) errors.MessageRejectError {
+//validate tests the message against the provided data dictionary.
+func validate(d *datadictionary.DataDictionary, msg Message) errors.MessageRejectError {
 	msgType := new(fix.StringField)
 	if err := msg.Header.GetField(tag.MsgType, msgType); err != nil {
 		if err.RejectReason() == errors.RejectReasonConditionallyRequiredFieldMissing {
@@ -41,7 +41,7 @@ func Validate(d *datadictionary.DataDictionary, msg Message) errors.MessageRejec
 	return nil
 }
 
-func ValidateFIXTApp(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msg Message) errors.MessageRejectError {
+func validateFIXTApp(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msg Message) errors.MessageRejectError {
 	msgType := new(fix.StringField)
 	if err := msg.Header.GetField(tag.MsgType, msgType); err != nil {
 		if err.RejectReason() == errors.RejectReasonConditionallyRequiredFieldMissing {

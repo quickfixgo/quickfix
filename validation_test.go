@@ -1,4 +1,4 @@
-package message
+package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/datadictionary"
@@ -14,7 +14,7 @@ var _ = Suite(&ValidationTests{})
 type ValidationTests struct{}
 
 func (s *ValidationTests) createFIX40NewOrderSingle() MessageBuilder {
-	msg := Builder()
+	msg := NewMessageBuilder()
 	msg.Header().Set(fix.NewStringField(tag.MsgType, "D"))
 	msg.Header().Set(fix.NewStringField(tag.BeginString, "FIX.4.0"))
 	msg.Header().Set(fix.NewStringField(tag.BodyLength, "0"))
@@ -36,7 +36,7 @@ func (s *ValidationTests) createFIX40NewOrderSingle() MessageBuilder {
 }
 
 func (s *ValidationTests) createFIX43NewOrderSingle() MessageBuilder {
-	msg := Builder()
+	msg := NewMessageBuilder()
 	msg.Header().Set(fix.NewStringField(tag.MsgType, "D"))
 	msg.Header().Set(fix.NewStringField(tag.BeginString, "FIX.4.3"))
 	msg.Header().Set(fix.NewStringField(tag.BodyLength, "0"))
@@ -59,12 +59,12 @@ func (s *ValidationTests) createFIX43NewOrderSingle() MessageBuilder {
 }
 
 func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
 	builder.Header().Set(fix.NewStringField(9999, "hello"))
 	msg, _ := builder.Build()
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
@@ -72,7 +72,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	builder = s.createFIX40NewOrderSingle()
 	builder.Trailer().Set(fix.NewStringField(9999, "hello"))
 	msg, _ = builder.Build()
-	reject = Validate(dict, *msg)
+	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
@@ -80,39 +80,39 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	builder = s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(9999, "hello"))
 	msg, _ = builder.Build()
-	reject = Validate(dict, *msg)
+	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
 }
 
 func (s *ValidationTests) TestValidateTagNotDefinedForMessage(c *C) {
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(41, "hello"))
 	msg, _ := builder.Build()
 
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonTagNotDefinedForThisMessageType)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(41))
 }
 
 func (s *ValidationTests) TestValidateTagNotDefinedForMessageComponent(c *C) {
-	dict, err := datadictionary.Parse("../spec/FIX43.xml")
+	dict, err := datadictionary.Parse("spec/FIX43.xml")
 	c.Check(err, IsNil)
 	builder := s.createFIX43NewOrderSingle()
 	msg, _ := builder.Build()
 
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, IsNil)
 }
 
 func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
-	builder := Builder()
+	builder := NewMessageBuilder()
 	builder.Header().Set(fix.NewStringField(tag.MsgType, "D"))
 	builder.Header().Set(fix.NewStringField(tag.BeginString, "FIX.4.0"))
 	builder.Header().Set(fix.NewStringField(tag.BodyLength, "0"))
@@ -132,12 +132,12 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 	//builder.Body().Set(fix.NewStringField(tag.OrdType, "A"))
 	msg, _ := builder.Build()
 
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
 
-	builder = Builder()
+	builder = NewMessageBuilder()
 	builder.Trailer().Set(fix.NewStringField(tag.CheckSum, "000"))
 	builder.Body().Set(fix.NewStringField(tag.ClOrdID, "A"))
 	builder.Body().Set(fix.NewStringField(tag.HandlInst, "A"))
@@ -156,66 +156,66 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 
 	msg, _ = builder.Build()
 
-	reject = Validate(dict, *msg)
+	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
 	c.Check(*reject.RefTagID(), Equals, tag.SendingTime)
 }
 
 func (s *ValidationTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(tag.ClientID, ""))
 	msg, _ := builder.Build()
 
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonTagSpecifiedWithoutAValue)
 	c.Check(*reject.RefTagID(), Equals, tag.ClientID)
 }
 
 func (s *ValidationTests) TestValidateInvalidMsgType(c *C) {
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
 	builder := s.createFIX40NewOrderSingle()
 	builder.Header().Set(fix.NewStringField(tag.MsgType, "z"))
 	msg, _ := builder.Build()
 
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonInvalidMsgType)
 }
 
 func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(tag.HandlInst, "4"))
 	msg, _ := builder.Build()
 
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonValueIsIncorrect)
 	c.Check(*reject.RefTagID(), Equals, tag.HandlInst)
 }
 
 func (s *ValidationTests) TestValidateIncorrectDataFormatForValue(c *C) {
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(tag.OrderQty, "+200.00"))
 	msg, _ := builder.Build()
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonIncorrectDataFormatForValue)
 	c.Check(*reject.RefTagID(), Equals, tag.OrderQty)
 }
 
 func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	//should be in header
 	builder.Body().Set(fix.NewStringField(tag.OnBehalfOfCompID, "CWB"))
 	msg, _ := builder.Build()
-	reject := Validate(dict, *msg)
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonTagSpecifiedOutOfRequiredOrder)
 	c.Check(*reject.RefTagID(), Equals, tag.OnBehalfOfCompID)
@@ -223,22 +223,22 @@ func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 
 func (s *ValidationTests) TestValidateTagAppearsMoreThanOnce(c *C) {
 
-	msg, err := Parse([]byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
+	msg, err := ParseMessage([]byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
 	c.Check(err, IsNil)
 
-	dict, _ := datadictionary.Parse("../spec/FIX40.xml")
-	reject := Validate(dict, *msg)
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonTagAppearsMoreThanOnce)
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
 }
 
 func (s *ValidationTests) TestFloatValidation(c *C) {
-	msg, err := Parse([]byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"))
+	msg, err := ParseMessage([]byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"))
 	c.Check(err, IsNil)
 
-	dict, _ := datadictionary.Parse("../spec/FIX42.xml")
-	reject := Validate(dict, *msg)
+	dict, _ := datadictionary.Parse("spec/FIX42.xml")
+	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, errors.RejectReasonIncorrectDataFormatForValue)
 }

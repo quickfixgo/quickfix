@@ -5,7 +5,6 @@ import (
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	"github.com/quickfixgo/quickfix/message"
 	. "gopkg.in/check.v1"
 	"testing"
 	"time"
@@ -17,8 +16,8 @@ type SessionTests struct {
 	session Session
 }
 
-func getBuilder() message.MessageBuilder {
-	builder := message.Builder()
+func getBuilder() MessageBuilder {
+	builder := NewMessageBuilder()
 	builder.Header().Set(fix.NewStringField(tag.BeginString, fix.BeginString_FIX40))
 	builder.Header().Set(fix.NewStringField(tag.MsgType, "D"))
 	return builder

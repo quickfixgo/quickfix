@@ -1,4 +1,4 @@
-package message
+package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/fix"
@@ -8,12 +8,6 @@ import (
 type FieldValue interface {
 	Write() []byte
 	Read([]byte) error
-}
-
-//FieldWriter is a read-only interface for writing field values. Should not require pointer receiver from interface impl.
-type FieldWriter interface {
-	Tag() fix.Tag
-	Write() []byte
 }
 
 //Field is the interface implemented by all typed Fields in a Message

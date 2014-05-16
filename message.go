@@ -1,5 +1,4 @@
-//Package message provides support for reading and building FIX messages.
-package message
+package quickfix
 
 import (
 	"bytes"
@@ -25,8 +24,8 @@ type Message struct {
 	fields []*fieldBytes
 }
 
-//Parse constructs a Message from a byte slice wrapping a FIX message.
-func Parse(rawMessage []byte) (*Message, error) {
+//ParseMessage constructs a Message from a byte slice wrapping a FIX message.
+func ParseMessage(rawMessage []byte) (*Message, error) {
 	msg := new(Message)
 	msg.Header.init(headerFieldOrder)
 	msg.Trailer.init(trailerFieldOrder)
@@ -107,7 +106,7 @@ func (m *Message) Bytes() []byte {
 
 //ReverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
 func (m *Message) ReverseRoute() MessageBuilder {
-	reverseBuilder := Builder()
+	reverseBuilder := NewMessageBuilder()
 
 	copy := func(src fix.Tag, dest fix.Tag) {
 		if field := new(fix.StringValue); m.Header.GetField(src, field) == nil {
@@ -173,7 +172,7 @@ func (m *Message) String() string {
 //ToBuilder returns a writable message builder initialized with the fields in the message
 //FIXME: not safe with repeated groups
 func (m *Message) ToBuilder() MessageBuilder {
-	builder := Builder()
+	builder := NewMessageBuilder()
 	for tag := range m.Header.fieldLookup {
 		builder.Header().fieldLookup[tag] = m.Header.fieldLookup[tag]
 	}

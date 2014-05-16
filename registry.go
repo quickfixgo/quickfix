@@ -3,11 +3,10 @@ package quickfix
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 //Send determines the session to send msgBuilder using header fields BeginString, TargetCompID, SenderCompID
-func Send(msg message.MessageBuilder) (err error) {
+func Send(msg MessageBuilder) (err error) {
 	var beginString field.BeginStringField
 	if err := msg.Header().Get(&beginString); err != nil {
 		return err
@@ -29,7 +28,7 @@ func Send(msg message.MessageBuilder) (err error) {
 	return SendToTarget(msg, sessionID)
 }
 
-func SendToTarget(msgBuilder message.MessageBuilder, sessionID SessionID) error {
+func SendToTarget(msgBuilder MessageBuilder, sessionID SessionID) error {
 	session, err := LookupSession(sessionID)
 	if err != nil {
 		return err

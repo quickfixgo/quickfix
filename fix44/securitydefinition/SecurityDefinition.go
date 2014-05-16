@@ -6,12 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 //Message is a SecurityDefinition wrapper for the generic Message type
 type Message struct {
-	message.Message
+	quickfix.Message
 }
 
 //SecurityReqID is a required field for SecurityDefinition.
@@ -724,7 +723,7 @@ func (m Message) GetMinTradeVol(f *field.MinTradeVolField) errors.MessageRejectE
 
 //MessageBuilder builds SecurityDefinition messages.
 type MessageBuilder struct {
-	message.MessageBuilder
+	quickfix.MessageBuilder
 }
 
 //Builder returns an initialized MessageBuilder with specified required fields for SecurityDefinition.
@@ -733,7 +732,7 @@ func Builder(
 	securityresponseid *field.SecurityResponseIDField,
 	securityresponsetype *field.SecurityResponseTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = message.Builder()
+	builder.MessageBuilder = quickfix.NewMessageBuilder()
 	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header().Set(field.NewMsgType("d"))
 	builder.Body().Set(securityreqid)
@@ -747,7 +746,7 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX44, "d", r

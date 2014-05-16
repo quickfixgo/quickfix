@@ -1,4 +1,4 @@
-package message
+package quickfix
 
 import (
 	"bytes"
@@ -93,6 +93,11 @@ func (m FieldMap) Get(parser Field) errors.MessageRejectError {
 	return m.GetField(parser.Tag(), parser)
 }
 
+func (m FieldMap) Has(tag fix.Tag) bool {
+	_, ok := m.fieldLookup[tag]
+	return ok
+}
+
 func (m FieldMap) GetField(tag fix.Tag, parser FieldValue) errors.MessageRejectError {
 	field, ok := m.fieldLookup[tag]
 
@@ -111,7 +116,7 @@ func (m FieldMap) SetField(tag fix.Tag, field FieldValue) {
 	m.fieldLookup[tag] = newFieldBytes(tag, field.Write())
 }
 
-func (m FieldMap) Set(field FieldWriter) {
+func (m FieldMap) Set(field Field) {
 	m.fieldLookup[field.Tag()] = newFieldBytes(field.Tag(), field.Write())
 }
 

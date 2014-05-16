@@ -1,4 +1,4 @@
-package message
+package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/fix"
@@ -13,19 +13,19 @@ type MessageTests struct{}
 
 var msgResult *Message
 
-func BenchmarkParse(b *testing.B) {
+func BenchmarkParseMessage(b *testing.B) {
 	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
 	var msg *Message
 	for i := 0; i < b.N; i++ {
-		msg, _ = Parse(rawMsg)
+		msg, _ = ParseMessage(rawMsg)
 	}
 
 	msgResult = msg
 }
 
 func (s *FieldMapTests) TestReverseRoute(c *C) {
-	msg, err := Parse([]byte("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
+	msg, err := ParseMessage([]byte("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
 	c.Check(err, IsNil)
 
 	builder := msg.ReverseRoute()
@@ -92,7 +92,7 @@ func (s *FieldMapTests) TestReverseRoute(c *C) {
 }
 
 func (s *FieldMapTests) TestReverseRouteIgnoreEmpty(c *C) {
-	msg, err := Parse([]byte("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
+	msg, err := ParseMessage([]byte("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
 	c.Check(err, IsNil)
 	builder := msg.ReverseRoute()
 
@@ -106,7 +106,7 @@ func (s *FieldMapTests) TestReverseRouteIgnoreEmpty(c *C) {
 func (s *FieldMapTests) TestReverseRouteFIX40(c *C) {
 	//onbehalfof/deliverto location id not supported in fix 4.0
 
-	msg, err := Parse([]byte("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
+	msg, err := ParseMessage([]byte("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
 
 	c.Check(err, IsNil)
 	builder := msg.ReverseRoute()

@@ -5,14 +5,13 @@ import (
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	"github.com/quickfixgo/quickfix/message"
 	"time"
 )
 
 type inSession struct {
 }
 
-func (state inSession) FixMsgIn(session *Session, msg message.Message) (nextState sessionState) {
+func (state inSession) FixMsgIn(session *Session, msg Message) (nextState sessionState) {
 	msgType := field.MsgTypeField{}
 	if err := msg.Header.Get(&msgType); err == nil {
 		switch msgType.Value {
@@ -46,11 +45,11 @@ func (state inSession) FixMsgIn(session *Session, msg message.Message) (nextStat
 func (state inSession) Timeout(session *Session, event event) (nextState sessionState) {
 	switch event {
 	case needHeartbeat:
-		heartBt := message.Builder()
+		heartBt := NewMessageBuilder()
 		heartBt.Header().Set(field.NewMsgType("0"))
 		session.send(heartBt)
 	case peerTimeout:
-		testReq := message.Builder()
+		testReq := NewMessageBuilder()
 		testReq.Header().Set(field.NewMsgType("1"))
 		testReq.Body().Set(field.NewTestReqID("TEST"))
 		session.send(testReq)
@@ -60,7 +59,7 @@ func (state inSession) Timeout(session *Session, event event) (nextState session
 	return state
 }
 
-func (state inSession) handleLogon(session *Session, msg message.Message) (nextState sessionState) {
+func (state inSession) handleLogon(session *Session, msg Message) (nextState sessionState) {
 	if err := session.handleLogon(msg); err != nil {
 		return state.initiateLogout(session, "")
 	}
@@ -68,7 +67,7 @@ func (state inSession) handleLogon(session *Session, msg message.Message) (nextS
 	return state
 }
 
-func (state inSession) handleLogout(session *Session, msg message.Message) (nextState sessionState) {
+func (state inSession) handleLogout(session *Session, msg Message) (nextState sessionState) {
 	session.log.OnEvent("Received logout request")
 	state.generateLogout(session)
 	session.application.OnLogout(session.sessionID)
@@ -76,7 +75,7 @@ func (state inSession) handleLogout(session *Session, msg message.Message) (next
 	return latentState{}
 }
 
-func (state inSession) handleSequenceReset(session *Session, msg message.Message) (nextState sessionState) {
+func (state inSession) handleSequenceReset(session *Session, msg Message) (nextState sessionState) {
 	gapFillFlag := new(fix.BooleanField)
 	msg.Body.GetField(tag.GapFillFlag, gapFillFlag)
 
@@ -100,7 +99,7 @@ func (state inSession) handleSequenceReset(session *Session, msg message.Message
 	return state
 }
 
-func (state inSession) handleResendRequest(session *Session, msg message.Message) (nextState sessionState) {
+func (state inSession) handleResendRequest(session *Session, msg Message) (nextState sessionState) {
 	if err := session.verifyIgnoreSeqNumTooHighOrLow(msg); err != nil {
 		return state.processReject(session, msg, err)
 	}
@@ -151,7 +150,7 @@ func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int
 			return
 		}
 
-		msg, _ := message.Parse(buf.Bytes())
+		msg, _ := ParseMessage(buf.Bytes())
 
 		msgType := new(fix.StringValue)
 		msg.Header.GetField(tag.MsgType, msgType)
@@ -174,7 +173,7 @@ func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int
 	}
 }
 
-func (state inSession) handleTestRequest(session *Session, msg message.Message) (nextState sessionState) {
+func (state inSession) handleTestRequest(session *Session, msg Message) (nextState sessionState) {
 	if err := session.verify(msg); err != nil {
 		return state.processReject(session, msg, err)
 	}
@@ -183,7 +182,7 @@ func (state inSession) handleTestRequest(session *Session, msg message.Message) 
 	if err := msg.Body.Get(&testReq); err != nil {
 		session.log.OnEvent("Test Request with no testRequestID")
 	} else {
-		heartBt := message.Builder()
+		heartBt := NewMessageBuilder()
 		heartBt.Header().Set(field.NewMsgType("0"))
 		heartBt.Body().Set(field.NewTestReqID(testReq.Value))
 		session.send(heartBt)
@@ -194,7 +193,7 @@ func (state inSession) handleTestRequest(session *Session, msg message.Message) 
 	return state
 }
 
-func (state inSession) processReject(session *Session, msg message.Message, rej errors.MessageRejectError) (nextState sessionState) {
+func (state inSession) processReject(session *Session, msg Message, rej errors.MessageRejectError) (nextState sessionState) {
 	switch TypedError := rej.(type) {
 	case errors.TargetTooHigh:
 
@@ -224,7 +223,7 @@ func (state inSession) processReject(session *Session, msg message.Message, rej 
 	}
 }
 
-func (state inSession) doTargetTooLow(session *Session, msg message.Message, rej errors.TargetTooLow) (nextState sessionState) {
+func (state inSession) doTargetTooLow(session *Session, msg Message, rej errors.TargetTooLow) (nextState sessionState) {
 	posDupFlag := new(fix.BooleanValue)
 	if err := msg.Header.GetField(tag.PossDupFlag, posDupFlag); err == nil && posDupFlag.Value {
 
@@ -261,7 +260,7 @@ func (state *inSession) initiateLogout(session *Session, reason string) (nextSta
 }
 
 func (state *inSession) generateSequenceReset(session *Session, beginSeqNo int, endSeqNo int) {
-	sequenceReset := message.Builder()
+	sequenceReset := NewMessageBuilder()
 	session.fillDefaultHeader(sequenceReset)
 
 	sequenceReset.Header().Set(field.NewMsgType("4"))
@@ -285,7 +284,7 @@ func (state *inSession) generateLogout(session *Session) {
 }
 
 func (state *inSession) generateLogoutWithReason(session *Session, reason string) {
-	reply := message.Builder()
+	reply := NewMessageBuilder()
 	reply.Header().Set(field.NewMsgType("5"))
 	reply.Header().Set(field.NewBeginString(session.sessionID.BeginString))
 	reply.Header().Set(field.NewTargetCompID(session.sessionID.TargetCompID))

@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/errors"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 //The Application interface should be implemented by FIX Applications.
@@ -18,14 +17,14 @@ type Application interface {
 	OnLogout(sessionID SessionID)
 
 	//Notification of admin message being sent to target.
-	ToAdmin(msgBuilder message.MessageBuilder, sessionID SessionID)
+	ToAdmin(msgBuilder MessageBuilder, sessionID SessionID)
 
 	//Notification of app message being sent to target.
-	ToApp(msgBuilder message.MessageBuilder, sessionID SessionID) error
+	ToApp(msgBuilder MessageBuilder, sessionID SessionID) error
 
 	//Notification of admin message being received from target.
-	FromAdmin(msg message.Message, sessionID SessionID) errors.MessageRejectError
+	FromAdmin(msg Message, sessionID SessionID) errors.MessageRejectError
 
 	//Notification of app message being received from target.
-	FromApp(msg message.Message, sessionID SessionID) errors.MessageRejectError
+	FromApp(msg Message, sessionID SessionID) errors.MessageRejectError
 }

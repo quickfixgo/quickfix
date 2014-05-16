@@ -6,12 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 //Message is a NewOrderList wrapper for the generic Message type
 type Message struct {
-	message.Message
+	quickfix.Message
 }
 
 //ListID is a required field for NewOrderList.
@@ -196,7 +195,7 @@ func (m Message) GetNoOrders(f *field.NoOrdersField) errors.MessageRejectError {
 
 //MessageBuilder builds NewOrderList messages.
 type MessageBuilder struct {
-	message.MessageBuilder
+	quickfix.MessageBuilder
 }
 
 //Builder returns an initialized MessageBuilder with specified required fields for NewOrderList.
@@ -206,7 +205,7 @@ func Builder(
 	totnoorders *field.TotNoOrdersField,
 	noorders *field.NoOrdersField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = message.Builder()
+	builder.MessageBuilder = quickfix.NewMessageBuilder()
 	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header().Set(field.NewMsgType("E"))
 	builder.Body().Set(listid)
@@ -221,7 +220,7 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX43, "E", r

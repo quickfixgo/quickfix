@@ -1,4 +1,4 @@
-package message
+package quickfix
 
 import (
 	"bytes"
@@ -19,7 +19,7 @@ type messageBuilder struct {
 	body    FieldMap
 }
 
-func Builder() MessageBuilder {
+func NewMessageBuilder() MessageBuilder {
 	m := &messageBuilder{}
 	m.header.init(headerFieldOrder)
 	m.trailer.init(trailerFieldOrder)
@@ -40,7 +40,7 @@ func (m messageBuilder) Build() (*Message, error) {
 	m.trailer.Write(&b)
 
 	rawMessage := b.Bytes()
-	return Parse(rawMessage)
+	return ParseMessage(rawMessage)
 }
 
 func (m messageBuilder) cook() {

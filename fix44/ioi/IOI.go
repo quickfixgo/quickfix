@@ -6,12 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/message"
 )
 
 //Message is a IOI wrapper for the generic Message type
 type Message struct {
-	message.Message
+	quickfix.Message
 }
 
 //IOIID is a required field for IOI.
@@ -1120,7 +1119,7 @@ func (m Message) GetYieldRedemptionPriceType(f *field.YieldRedemptionPriceTypeFi
 
 //MessageBuilder builds IOI messages.
 type MessageBuilder struct {
-	message.MessageBuilder
+	quickfix.MessageBuilder
 }
 
 //Builder returns an initialized MessageBuilder with specified required fields for IOI.
@@ -1130,7 +1129,7 @@ func Builder(
 	side *field.SideField,
 	ioiqty *field.IOIQtyField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = message.Builder()
+	builder.MessageBuilder = quickfix.NewMessageBuilder()
 	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header().Set(field.NewMsgType("6"))
 	builder.Body().Set(ioiid)
@@ -1145,7 +1144,7 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg message.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX44, "6", r
