@@ -3,7 +3,6 @@ package news
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
@@ -14,86 +13,86 @@ type Message struct {
 }
 
 //OrigTime is a non-required field for News.
-func (m Message) OrigTime() (*field.OrigTimeField, errors.MessageRejectError) {
+func (m Message) OrigTime() (*field.OrigTimeField, quickfix.MessageRejectError) {
 	f := &field.OrigTimeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrigTime reads a OrigTime from News.
-func (m Message) GetOrigTime(f *field.OrigTimeField) errors.MessageRejectError {
+func (m Message) GetOrigTime(f *field.OrigTimeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Urgency is a non-required field for News.
-func (m Message) Urgency() (*field.UrgencyField, errors.MessageRejectError) {
+func (m Message) Urgency() (*field.UrgencyField, quickfix.MessageRejectError) {
 	f := &field.UrgencyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetUrgency reads a Urgency from News.
-func (m Message) GetUrgency(f *field.UrgencyField) errors.MessageRejectError {
+func (m Message) GetUrgency(f *field.UrgencyField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RelatdSym is a non-required field for News.
-func (m Message) RelatdSym() (*field.RelatdSymField, errors.MessageRejectError) {
+func (m Message) RelatdSym() (*field.RelatdSymField, quickfix.MessageRejectError) {
 	f := &field.RelatdSymField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRelatdSym reads a RelatdSym from News.
-func (m Message) GetRelatdSym(f *field.RelatdSymField) errors.MessageRejectError {
+func (m Message) GetRelatdSym(f *field.RelatdSymField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LinesOfText is a required field for News.
-func (m Message) LinesOfText() (*field.LinesOfTextField, errors.MessageRejectError) {
+func (m Message) LinesOfText() (*field.LinesOfTextField, quickfix.MessageRejectError) {
 	f := &field.LinesOfTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLinesOfText reads a LinesOfText from News.
-func (m Message) GetLinesOfText(f *field.LinesOfTextField) errors.MessageRejectError {
+func (m Message) GetLinesOfText(f *field.LinesOfTextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a required field for News.
-func (m Message) Text() (*field.TextField, errors.MessageRejectError) {
+func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
 	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from News.
-func (m Message) GetText(f *field.TextField) errors.MessageRejectError {
+func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawDataLength is a non-required field for News.
-func (m Message) RawDataLength() (*field.RawDataLengthField, errors.MessageRejectError) {
+func (m Message) RawDataLength() (*field.RawDataLengthField, quickfix.MessageRejectError) {
 	f := &field.RawDataLengthField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawDataLength reads a RawDataLength from News.
-func (m Message) GetRawDataLength(f *field.RawDataLengthField) errors.MessageRejectError {
+func (m Message) GetRawDataLength(f *field.RawDataLengthField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RawData is a non-required field for News.
-func (m Message) RawData() (*field.RawDataField, errors.MessageRejectError) {
+func (m Message) RawData() (*field.RawDataField, quickfix.MessageRejectError) {
 	f := &field.RawDataField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRawData reads a RawData from News.
-func (m Message) GetRawData(f *field.RawDataField) errors.MessageRejectError {
+func (m Message) GetRawData(f *field.RawDataField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
@@ -116,11 +115,11 @@ func Builder(
 }
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX40, "B", r

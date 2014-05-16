@@ -3,7 +3,6 @@ package streamassignmentrequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
@@ -18,38 +17,38 @@ type Message struct {
 }
 
 //StreamAsgnReqID is a required field for StreamAssignmentRequest.
-func (m Message) StreamAsgnReqID() (*field.StreamAsgnReqIDField, errors.MessageRejectError) {
+func (m Message) StreamAsgnReqID() (*field.StreamAsgnReqIDField, quickfix.MessageRejectError) {
 	f := &field.StreamAsgnReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStreamAsgnReqID reads a StreamAsgnReqID from StreamAssignmentRequest.
-func (m Message) GetStreamAsgnReqID(f *field.StreamAsgnReqIDField) errors.MessageRejectError {
+func (m Message) GetStreamAsgnReqID(f *field.StreamAsgnReqIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StreamAsgnReqType is a required field for StreamAssignmentRequest.
-func (m Message) StreamAsgnReqType() (*field.StreamAsgnReqTypeField, errors.MessageRejectError) {
+func (m Message) StreamAsgnReqType() (*field.StreamAsgnReqTypeField, quickfix.MessageRejectError) {
 	f := &field.StreamAsgnReqTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStreamAsgnReqType reads a StreamAsgnReqType from StreamAssignmentRequest.
-func (m Message) GetStreamAsgnReqType(f *field.StreamAsgnReqTypeField) errors.MessageRejectError {
+func (m Message) GetStreamAsgnReqType(f *field.StreamAsgnReqTypeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoAsgnReqs is a non-required field for StreamAssignmentRequest.
-func (m Message) NoAsgnReqs() (*field.NoAsgnReqsField, errors.MessageRejectError) {
+func (m Message) NoAsgnReqs() (*field.NoAsgnReqsField, quickfix.MessageRejectError) {
 	f := &field.NoAsgnReqsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoAsgnReqs reads a NoAsgnReqs from StreamAssignmentRequest.
-func (m Message) GetNoAsgnReqs(f *field.NoAsgnReqsField) errors.MessageRejectError {
+func (m Message) GetNoAsgnReqs(f *field.NoAsgnReqsField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
@@ -73,11 +72,11 @@ func Builder(
 }
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP2, "CC", r

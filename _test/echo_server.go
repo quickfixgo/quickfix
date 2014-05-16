@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	fix40nos "github.com/quickfixgo/quickfix/fix40/newordersingle"
@@ -48,16 +47,16 @@ func (e EchoApplication) ToApp(msgBuilder quickfix.MessageBuilder, sessionID qui
 	return
 }
 
-func (e EchoApplication) FromAdmin(msg quickfix.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e EchoApplication) FromAdmin(msg quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	return
 }
 
-func (e *EchoApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	e.log.Println("Got Message ", msg)
 	return quickfix.Route(msg, sessionID)
 }
 
-func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 
 	orderID := new(field.ClOrdIDField)
 	if err := msg.Body.Get(orderID); err != nil {
@@ -93,69 +92,69 @@ func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.Se
 	return nil
 }
 
-func (e *EchoApplication) OnFIX40NewOrderSingle(msg fix40nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX40NewOrderSingle(msg fix40nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e *EchoApplication) OnFIX41NewOrderSingle(msg fix41nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX41NewOrderSingle(msg fix41nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e *EchoApplication) OnFIX42NewOrderSingle(msg fix42nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX42NewOrderSingle(msg fix42nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e *EchoApplication) OnFIX43NewOrderSingle(msg fix43nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX43NewOrderSingle(msg fix43nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e *EchoApplication) OnFIX44NewOrderSingle(msg fix44nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX44NewOrderSingle(msg fix44nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e *EchoApplication) OnFIX50NewOrderSingle(msg fix50nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX50NewOrderSingle(msg fix50nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e *EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX50SP1NewOrderSingle(msg fix50sp1nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e *EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2nos.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+func (e *EchoApplication) OnFIX50SP2NewOrderSingle(msg fix50sp2nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	return e.processMsg(msg.Message, sessionID)
 }
 
-func (e *EchoApplication) OnFIX42SecurityDefinition(msg fix42secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX42SecurityDefinition(msg fix42secdef.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e *EchoApplication) OnFIX43SecurityDefinition(msg fix43secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX43SecurityDefinition(msg fix43secdef.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e *EchoApplication) OnFIX44SecurityDefinition(msg fix44secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX44SecurityDefinition(msg fix44secdef.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e *EchoApplication) OnFIX50SecurityDefinition(msg fix50secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX50SecurityDefinition(msg fix50secdef.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e *EchoApplication) OnFIX50SP1SecurityDefinition(msg fix50sp1secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX50SP1SecurityDefinition(msg fix50sp1secdef.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return
 }
 
-func (e *EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2secdef.Message, sessionID quickfix.SessionID) (err errors.MessageRejectError) {
+func (e *EchoApplication) OnFIX50SP2SecurityDefinition(msg fix50sp2secdef.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	reply := msg.ToBuilder()
 	quickfix.SendToTarget(reply, sessionID)
 	return

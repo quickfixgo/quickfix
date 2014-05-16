@@ -1,7 +1,6 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
@@ -13,7 +12,7 @@ type routeKey struct {
 }
 
 //A MessageRoute is a function can process a fromApp/fromAdmin callback
-type MessageRoute func(msg Message, sessionID SessionID) errors.MessageRejectError
+type MessageRoute func(msg Message, sessionID SessionID) MessageRejectError
 
 //A MessageRouter is a mutex for MessageRoutes
 type MessageRouter struct {
@@ -31,7 +30,7 @@ func (c MessageRouter) AddRoute(beginString string, msgType string, router Messa
 }
 
 //Route may be called from the fromApp/fromAdmin callbacks. Messages that cannot be routed will be rejected with UnsupportedMessageType.
-func (c MessageRouter) Route(msg Message, sessionID SessionID) errors.MessageRejectError {
+func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectError {
 	beginString := &field.BeginStringField{}
 	err := msg.Header.Get(beginString)
 
@@ -49,7 +48,7 @@ func (c MessageRouter) Route(msg Message, sessionID SessionID) errors.MessageRej
 	return c.tryRoute(beginString, msgType, msg, sessionID)
 }
 
-func (c MessageRouter) tryRoute(beginString *field.BeginStringField, msgType *field.MsgTypeField, msg Message, sessionID SessionID) errors.MessageRejectError {
+func (c MessageRouter) tryRoute(beginString *field.BeginStringField, msgType *field.MsgTypeField, msg Message, sessionID SessionID) MessageRejectError {
 
 	if beginString.Value == fix.BeginString_FIXT11 && !fix.IsAdminMessageType(msgType.Value) {
 		applVerID := &field.ApplVerIDField{}
@@ -79,7 +78,7 @@ func (c MessageRouter) tryRoute(beginString *field.BeginStringField, msgType *fi
 	route, ok := c.routes[routeKey{beginString.Value, msgType.Value}]
 
 	if !ok {
-		return errors.UnsupportedMessageType()
+		return UnsupportedMessageType()
 	}
 
 	return route(msg, sessionID)
@@ -97,6 +96,6 @@ func AddRoute(beginString string, msgType string, route MessageRoute) {
 }
 
 //Route may be called from the fromApp/fromAdmin callbacks to route to the default MessageRouter instance.
-func Route(msg Message, sessionID SessionID) errors.MessageRejectError {
+func Route(msg Message, sessionID SessionID) MessageRejectError {
 	return defaultRouter.Route(msg, sessionID)
 }

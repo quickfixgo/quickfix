@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"bytes"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"math"
@@ -89,7 +88,7 @@ func (m FieldMap) Tags() []fix.Tag {
 	return tags
 }
 
-func (m FieldMap) Get(parser Field) errors.MessageRejectError {
+func (m FieldMap) Get(parser Field) MessageRejectError {
 	return m.GetField(parser.Tag(), parser)
 }
 
@@ -98,15 +97,15 @@ func (m FieldMap) Has(tag fix.Tag) bool {
 	return ok
 }
 
-func (m FieldMap) GetField(tag fix.Tag, parser FieldValue) errors.MessageRejectError {
+func (m FieldMap) GetField(tag fix.Tag, parser FieldValue) MessageRejectError {
 	field, ok := m.fieldLookup[tag]
 
 	if !ok {
-		return errors.ConditionallyRequiredFieldMissing(tag)
+		return ConditionallyRequiredFieldMissing(tag)
 	}
 
 	if err := parser.Read(field.Value); err != nil {
-		return errors.IncorrectDataFormatForValue(tag)
+		return IncorrectDataFormatForValue(tag)
 	}
 
 	return nil

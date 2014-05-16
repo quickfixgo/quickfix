@@ -1,9 +1,5 @@
 package quickfix
 
-import (
-	"github.com/quickfixgo/quickfix/errors"
-)
-
 //The Application interface should be implemented by FIX Applications.
 //This is the primary interface for processing messages from a FIX Session.
 type Application interface {
@@ -23,8 +19,8 @@ type Application interface {
 	ToApp(msgBuilder MessageBuilder, sessionID SessionID) error
 
 	//Notification of admin message being received from target.
-	FromAdmin(msg Message, sessionID SessionID) errors.MessageRejectError
+	FromAdmin(msg Message, sessionID SessionID) MessageRejectError
 
 	//Notification of app message being received from target.
-	FromApp(msg Message, sessionID SessionID) errors.MessageRejectError
+	FromApp(msg Message, sessionID SessionID) MessageRejectError
 }

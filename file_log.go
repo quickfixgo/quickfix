@@ -3,7 +3,6 @@ package quickfix
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/config"
-	"github.com/quickfixgo/quickfix/errors"
 	"log"
 	"os"
 	"path"
@@ -43,7 +42,7 @@ func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 
 	var err error
 	if logFactory.globalLogPath, err = settings.GlobalSettings().Setting(config.FileLogPath); err != nil {
-		return logFactory, errors.RequiredConfigurationMissing(config.FileLogPath)
+		return logFactory, requiredConfigurationMissing(config.FileLogPath)
 	}
 
 	logFactory.sessionLogPaths = make(map[SessionID]string)
@@ -51,7 +50,7 @@ func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 	for sid, sessionSettings := range settings.SessionSettings() {
 		logPath, err := sessionSettings.Setting(config.FileLogPath)
 		if err != nil {
-			return logFactory, errors.RequiredConfigurationMissing(config.FileLogPath)
+			return logFactory, requiredConfigurationMissing(config.FileLogPath)
 		}
 		logFactory.sessionLogPaths[sid] = logPath
 	}

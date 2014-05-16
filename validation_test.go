@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	. "gopkg.in/check.v1"
@@ -66,7 +65,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	msg, _ := builder.Build()
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonInvalidTagNumber)
+	c.Check(reject.RejectReason(), Equals, RejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
 
 	builder = s.createFIX40NewOrderSingle()
@@ -74,7 +73,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	msg, _ = builder.Build()
 	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonInvalidTagNumber)
+	c.Check(reject.RejectReason(), Equals, RejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
 
 	builder = s.createFIX40NewOrderSingle()
@@ -82,7 +81,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	msg, _ = builder.Build()
 	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonInvalidTagNumber)
+	c.Check(reject.RejectReason(), Equals, RejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
 }
 
@@ -95,7 +94,7 @@ func (s *ValidationTests) TestValidateTagNotDefinedForMessage(c *C) {
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonTagNotDefinedForThisMessageType)
+	c.Check(reject.RejectReason(), Equals, RejectReasonTagNotDefinedForThisMessageType)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(41))
 }
 
@@ -134,7 +133,7 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
+	c.Check(reject.RejectReason(), Equals, RejectReasonRequiredTagMissing)
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
 
 	builder = NewMessageBuilder()
@@ -158,7 +157,7 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 
 	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
+	c.Check(reject.RejectReason(), Equals, RejectReasonRequiredTagMissing)
 	c.Check(*reject.RefTagID(), Equals, tag.SendingTime)
 }
 
@@ -170,7 +169,7 @@ func (s *ValidationTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonTagSpecifiedWithoutAValue)
+	c.Check(reject.RejectReason(), Equals, RejectReasonTagSpecifiedWithoutAValue)
 	c.Check(*reject.RefTagID(), Equals, tag.ClientID)
 }
 
@@ -183,7 +182,7 @@ func (s *ValidationTests) TestValidateInvalidMsgType(c *C) {
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonInvalidMsgType)
+	c.Check(reject.RejectReason(), Equals, RejectReasonInvalidMsgType)
 }
 
 func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
@@ -194,7 +193,7 @@ func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonValueIsIncorrect)
+	c.Check(reject.RejectReason(), Equals, RejectReasonValueIsIncorrect)
 	c.Check(*reject.RefTagID(), Equals, tag.HandlInst)
 }
 
@@ -205,7 +204,7 @@ func (s *ValidationTests) TestValidateIncorrectDataFormatForValue(c *C) {
 	msg, _ := builder.Build()
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonIncorrectDataFormatForValue)
+	c.Check(reject.RejectReason(), Equals, RejectReasonIncorrectDataFormatForValue)
 	c.Check(*reject.RefTagID(), Equals, tag.OrderQty)
 }
 
@@ -217,7 +216,7 @@ func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 	msg, _ := builder.Build()
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonTagSpecifiedOutOfRequiredOrder)
+	c.Check(reject.RejectReason(), Equals, RejectReasonTagSpecifiedOutOfRequiredOrder)
 	c.Check(*reject.RefTagID(), Equals, tag.OnBehalfOfCompID)
 }
 
@@ -229,7 +228,7 @@ func (s *ValidationTests) TestValidateTagAppearsMoreThanOnce(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonTagAppearsMoreThanOnce)
+	c.Check(reject.RejectReason(), Equals, RejectReasonTagAppearsMoreThanOnce)
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
 }
 
@@ -240,7 +239,7 @@ func (s *ValidationTests) TestFloatValidation(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX42.xml")
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonIncorrectDataFormatForValue)
+	c.Check(reject.RejectReason(), Equals, RejectReasonIncorrectDataFormatForValue)
 }
 
 func (s *ValidationTests) TestValidateVisitField(c *C) {
@@ -303,18 +302,18 @@ func (s *ValidationTests) TestValidateVisitFieldGroup(c *C) {
 	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonIncorrectNumInGroupCountForRepeatingGroup)
+	c.Check(reject.RejectReason(), Equals, RejectReasonIncorrectNumInGroupCountForRepeatingGroup)
 
 	groupID = newFieldBytes(fix.Tag(1), []byte("3"))
 	fields = []*fieldBytes{groupID, repField1, repField1, otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonIncorrectNumInGroupCountForRepeatingGroup)
+	c.Check(reject.RejectReason(), Equals, RejectReasonIncorrectNumInGroupCountForRepeatingGroup)
 
 	//REJECT: group size declared < actual group size
 	groupID = newFieldBytes(fix.Tag(1), []byte("1"))
 	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, errors.RejectReasonIncorrectNumInGroupCountForRepeatingGroup)
+	c.Check(reject.RejectReason(), Equals, RejectReasonIncorrectNumInGroupCountForRepeatingGroup)
 }

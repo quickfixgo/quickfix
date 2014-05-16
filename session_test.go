@@ -1,7 +1,6 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
@@ -32,20 +31,20 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 		senderCompID *field.SenderCompIDField
 		targetCompID *field.TargetCompIDField
 		returnsError bool
-		rejectReason errors.RejectReason
+		rejectReason RejectReason
 	}{
-		{returnsError: true, rejectReason: errors.RejectReasonRequiredTagMissing},
+		{returnsError: true, rejectReason: RejectReasonRequiredTagMissing},
 		{senderCompID: field.NewSenderCompID("TAR"),
 			returnsError: true,
-			rejectReason: errors.RejectReasonRequiredTagMissing},
+			rejectReason: RejectReasonRequiredTagMissing},
 		{senderCompID: field.NewSenderCompID("TAR"),
 			targetCompID: field.NewTargetCompID("JCD"),
 			returnsError: true,
-			rejectReason: errors.RejectReasonCompIDProblem},
+			rejectReason: RejectReasonCompIDProblem},
 		{senderCompID: field.NewSenderCompID("JCD"),
 			targetCompID: field.NewTargetCompID("SND"),
 			returnsError: true,
-			rejectReason: errors.RejectReasonCompIDProblem},
+			rejectReason: RejectReasonCompIDProblem},
 		{senderCompID: field.NewSenderCompID("TAR"),
 			targetCompID: field.NewTargetCompID("SND"),
 			returnsError: false},
@@ -92,7 +91,7 @@ func (s *SessionTests) TestCheckBeginString(c *C) {
 	msg, _ := builder.Build()
 	err := s.session.checkBeginString(*msg)
 	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, errors.IncorrectBeginString{})
+	c.Check(err, FitsTypeOf, incorrectBeginString{})
 
 	builder.Header().Set(fix.NewStringField(tag.BeginString, s.session.sessionID.BeginString))
 	msg, _ = builder.Build()
@@ -109,14 +108,14 @@ func (s *SessionTests) TestCheckTargetTooHigh(c *C) {
 	//missing seq number
 	err := s.session.checkTargetTooHigh(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
+	c.Check(err.RejectReason(), Equals, RejectReasonRequiredTagMissing)
 
 	//too low
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 47))
 	msg, _ = builder.Build()
 	err = s.session.checkTargetTooHigh(*msg)
 	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, errors.TargetTooHigh{})
+	c.Check(err, FitsTypeOf, targetTooHigh{})
 
 	//spot on
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 45))
@@ -132,7 +131,7 @@ func (s *SessionTests) TestCheckSendingTime(c *C) {
 	//missing sending time
 	err := s.session.checkSendingTime(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
+	c.Check(err.RejectReason(), Equals, RejectReasonRequiredTagMissing)
 
 	//sending time too late
 	sendingTime := time.Now().Add(time.Duration(-200) * time.Second)
@@ -140,7 +139,7 @@ func (s *SessionTests) TestCheckSendingTime(c *C) {
 	msg, _ = builder.Build()
 	err = s.session.checkSendingTime(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonSendingTimeAccuracyProblem)
+	c.Check(err.RejectReason(), Equals, RejectReasonSendingTimeAccuracyProblem)
 
 	//future sending time
 	sendingTime = time.Now().Add(time.Duration(200) * time.Second)
@@ -148,7 +147,7 @@ func (s *SessionTests) TestCheckSendingTime(c *C) {
 	msg, _ = builder.Build()
 	err = s.session.checkSendingTime(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonSendingTimeAccuracyProblem)
+	c.Check(err.RejectReason(), Equals, RejectReasonSendingTimeAccuracyProblem)
 
 	//sending time ok
 	sendingTime = time.Now()
@@ -166,14 +165,14 @@ func (s *SessionTests) TestCheckTargetTooLow(c *C) {
 	//missing seq number
 	err := s.session.checkTargetTooLow(*msg)
 	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, errors.RejectReasonRequiredTagMissing)
+	c.Check(err.RejectReason(), Equals, RejectReasonRequiredTagMissing)
 
 	//too low
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 43))
 	msg, _ = builder.Build()
 	err = s.session.checkTargetTooLow(*msg)
 	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, errors.TargetTooLow{})
+	c.Check(err, FitsTypeOf, targetTooLow{})
 
 	//spot on
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 45))

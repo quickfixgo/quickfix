@@ -3,7 +3,6 @@ package marketdataincrementalrefresh
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
@@ -14,26 +13,26 @@ type Message struct {
 }
 
 //MDReqID is a non-required field for MarketDataIncrementalRefresh.
-func (m Message) MDReqID() (*field.MDReqIDField, errors.MessageRejectError) {
+func (m Message) MDReqID() (*field.MDReqIDField, quickfix.MessageRejectError) {
 	f := &field.MDReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMDReqID reads a MDReqID from MarketDataIncrementalRefresh.
-func (m Message) GetMDReqID(f *field.MDReqIDField) errors.MessageRejectError {
+func (m Message) GetMDReqID(f *field.MDReqIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoMDEntries is a required field for MarketDataIncrementalRefresh.
-func (m Message) NoMDEntries() (*field.NoMDEntriesField, errors.MessageRejectError) {
+func (m Message) NoMDEntries() (*field.NoMDEntriesField, quickfix.MessageRejectError) {
 	f := &field.NoMDEntriesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoMDEntries reads a NoMDEntries from MarketDataIncrementalRefresh.
-func (m Message) GetNoMDEntries(f *field.NoMDEntriesField) errors.MessageRejectError {
+func (m Message) GetNoMDEntries(f *field.NoMDEntriesField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
@@ -54,11 +53,11 @@ func Builder(
 }
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX43, "X", r

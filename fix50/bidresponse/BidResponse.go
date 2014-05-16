@@ -3,7 +3,6 @@ package bidresponse
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
@@ -18,38 +17,38 @@ type Message struct {
 }
 
 //BidID is a non-required field for BidResponse.
-func (m Message) BidID() (*field.BidIDField, errors.MessageRejectError) {
+func (m Message) BidID() (*field.BidIDField, quickfix.MessageRejectError) {
 	f := &field.BidIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetBidID reads a BidID from BidResponse.
-func (m Message) GetBidID(f *field.BidIDField) errors.MessageRejectError {
+func (m Message) GetBidID(f *field.BidIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClientBidID is a non-required field for BidResponse.
-func (m Message) ClientBidID() (*field.ClientBidIDField, errors.MessageRejectError) {
+func (m Message) ClientBidID() (*field.ClientBidIDField, quickfix.MessageRejectError) {
 	f := &field.ClientBidIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClientBidID reads a ClientBidID from BidResponse.
-func (m Message) GetClientBidID(f *field.ClientBidIDField) errors.MessageRejectError {
+func (m Message) GetClientBidID(f *field.ClientBidIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoBidComponents is a required field for BidResponse.
-func (m Message) NoBidComponents() (*field.NoBidComponentsField, errors.MessageRejectError) {
+func (m Message) NoBidComponents() (*field.NoBidComponentsField, quickfix.MessageRejectError) {
 	f := &field.NoBidComponentsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoBidComponents reads a NoBidComponents from BidResponse.
-func (m Message) GetNoBidComponents(f *field.NoBidComponentsField) errors.MessageRejectError {
+func (m Message) GetNoBidComponents(f *field.NoBidComponentsField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
@@ -71,11 +70,11 @@ func Builder(
 }
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX50, "l", r

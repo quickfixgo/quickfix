@@ -42,7 +42,6 @@ func genMessageImports() string {
 	fileOut := `
 import( 
   "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/errors"
   "github.com/quickfixgo/quickfix/fix"
   "github.com/quickfixgo/quickfix/fix/field"
 )
@@ -68,13 +67,13 @@ func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary
 		} else {
 			fileOut += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, msg.Name)
 		}
-		fileOut += fmt.Sprintf("func (m Message) %v() (*field.%vField, errors.MessageRejectError) {\n", field.Name, field.Name)
+		fileOut += fmt.Sprintf("func (m Message) %v() (*field.%vField, quickfix.MessageRejectError) {\n", field.Name, field.Name)
 		fileOut += fmt.Sprintf("f := &field.%vField{}\n", field.Name)
 		fileOut += "err:=m.Body.Get(f)\n"
 		fileOut += "return f, err\n}\n"
 
 		fileOut += fmt.Sprintf("//Get%v reads a %v from %v.\n", field.Name, field.Name, msg.Name)
-		fileOut += fmt.Sprintf("func (m Message) Get%v(f *field.%vField) errors.MessageRejectError {\n", field.Name, field.Name)
+		fileOut += fmt.Sprintf("func (m Message) Get%v(f *field.%vField) quickfix.MessageRejectError {\n", field.Name, field.Name)
 		fileOut += "return m.Body.Get(f)\n}\n"
 	}
 
@@ -138,11 +137,11 @@ func genMessageRoute(msg *datadictionary.MessageDef) string {
 
 	fileOut := `
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string,string,quickfix.MessageRoute) {
-	r:=func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r:=func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	`

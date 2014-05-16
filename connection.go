@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"bufio"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"net"
 )
@@ -139,7 +138,7 @@ func readLoop(parser *parser, msgIn chan fixIn) {
 		if err != nil {
 			switch err.(type) {
 			//ignore message parser errors
-			case errors.ParseError:
+			case parseError:
 				continue
 			default:
 				return

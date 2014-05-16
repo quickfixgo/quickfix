@@ -3,7 +3,6 @@ package dontknowtrade
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
@@ -14,362 +13,362 @@ type Message struct {
 }
 
 //OrderID is a required field for DontKnowTrade.
-func (m Message) OrderID() (*field.OrderIDField, errors.MessageRejectError) {
+func (m Message) OrderID() (*field.OrderIDField, quickfix.MessageRejectError) {
 	f := &field.OrderIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderID reads a OrderID from DontKnowTrade.
-func (m Message) GetOrderID(f *field.OrderIDField) errors.MessageRejectError {
+func (m Message) GetOrderID(f *field.OrderIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ExecID is a required field for DontKnowTrade.
-func (m Message) ExecID() (*field.ExecIDField, errors.MessageRejectError) {
+func (m Message) ExecID() (*field.ExecIDField, quickfix.MessageRejectError) {
 	f := &field.ExecIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetExecID reads a ExecID from DontKnowTrade.
-func (m Message) GetExecID(f *field.ExecIDField) errors.MessageRejectError {
+func (m Message) GetExecID(f *field.ExecIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //DKReason is a required field for DontKnowTrade.
-func (m Message) DKReason() (*field.DKReasonField, errors.MessageRejectError) {
+func (m Message) DKReason() (*field.DKReasonField, quickfix.MessageRejectError) {
 	f := &field.DKReasonField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetDKReason reads a DKReason from DontKnowTrade.
-func (m Message) GetDKReason(f *field.DKReasonField) errors.MessageRejectError {
+func (m Message) GetDKReason(f *field.DKReasonField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Symbol is a required field for DontKnowTrade.
-func (m Message) Symbol() (*field.SymbolField, errors.MessageRejectError) {
+func (m Message) Symbol() (*field.SymbolField, quickfix.MessageRejectError) {
 	f := &field.SymbolField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbol reads a Symbol from DontKnowTrade.
-func (m Message) GetSymbol(f *field.SymbolField) errors.MessageRejectError {
+func (m Message) GetSymbol(f *field.SymbolField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SymbolSfx is a non-required field for DontKnowTrade.
-func (m Message) SymbolSfx() (*field.SymbolSfxField, errors.MessageRejectError) {
+func (m Message) SymbolSfx() (*field.SymbolSfxField, quickfix.MessageRejectError) {
 	f := &field.SymbolSfxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSymbolSfx reads a SymbolSfx from DontKnowTrade.
-func (m Message) GetSymbolSfx(f *field.SymbolSfxField) errors.MessageRejectError {
+func (m Message) GetSymbolSfx(f *field.SymbolSfxField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityID is a non-required field for DontKnowTrade.
-func (m Message) SecurityID() (*field.SecurityIDField, errors.MessageRejectError) {
+func (m Message) SecurityID() (*field.SecurityIDField, quickfix.MessageRejectError) {
 	f := &field.SecurityIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityID reads a SecurityID from DontKnowTrade.
-func (m Message) GetSecurityID(f *field.SecurityIDField) errors.MessageRejectError {
+func (m Message) GetSecurityID(f *field.SecurityIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //IDSource is a non-required field for DontKnowTrade.
-func (m Message) IDSource() (*field.IDSourceField, errors.MessageRejectError) {
+func (m Message) IDSource() (*field.IDSourceField, quickfix.MessageRejectError) {
 	f := &field.IDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIDSource reads a IDSource from DontKnowTrade.
-func (m Message) GetIDSource(f *field.IDSourceField) errors.MessageRejectError {
+func (m Message) GetIDSource(f *field.IDSourceField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityType is a non-required field for DontKnowTrade.
-func (m Message) SecurityType() (*field.SecurityTypeField, errors.MessageRejectError) {
+func (m Message) SecurityType() (*field.SecurityTypeField, quickfix.MessageRejectError) {
 	f := &field.SecurityTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityType reads a SecurityType from DontKnowTrade.
-func (m Message) GetSecurityType(f *field.SecurityTypeField) errors.MessageRejectError {
+func (m Message) GetSecurityType(f *field.SecurityTypeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityMonthYear is a non-required field for DontKnowTrade.
-func (m Message) MaturityMonthYear() (*field.MaturityMonthYearField, errors.MessageRejectError) {
+func (m Message) MaturityMonthYear() (*field.MaturityMonthYearField, quickfix.MessageRejectError) {
 	f := &field.MaturityMonthYearField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityMonthYear reads a MaturityMonthYear from DontKnowTrade.
-func (m Message) GetMaturityMonthYear(f *field.MaturityMonthYearField) errors.MessageRejectError {
+func (m Message) GetMaturityMonthYear(f *field.MaturityMonthYearField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //MaturityDay is a non-required field for DontKnowTrade.
-func (m Message) MaturityDay() (*field.MaturityDayField, errors.MessageRejectError) {
+func (m Message) MaturityDay() (*field.MaturityDayField, quickfix.MessageRejectError) {
 	f := &field.MaturityDayField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetMaturityDay reads a MaturityDay from DontKnowTrade.
-func (m Message) GetMaturityDay(f *field.MaturityDayField) errors.MessageRejectError {
+func (m Message) GetMaturityDay(f *field.MaturityDayField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //PutOrCall is a non-required field for DontKnowTrade.
-func (m Message) PutOrCall() (*field.PutOrCallField, errors.MessageRejectError) {
+func (m Message) PutOrCall() (*field.PutOrCallField, quickfix.MessageRejectError) {
 	f := &field.PutOrCallField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetPutOrCall reads a PutOrCall from DontKnowTrade.
-func (m Message) GetPutOrCall(f *field.PutOrCallField) errors.MessageRejectError {
+func (m Message) GetPutOrCall(f *field.PutOrCallField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //StrikePrice is a non-required field for DontKnowTrade.
-func (m Message) StrikePrice() (*field.StrikePriceField, errors.MessageRejectError) {
+func (m Message) StrikePrice() (*field.StrikePriceField, quickfix.MessageRejectError) {
 	f := &field.StrikePriceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetStrikePrice reads a StrikePrice from DontKnowTrade.
-func (m Message) GetStrikePrice(f *field.StrikePriceField) errors.MessageRejectError {
+func (m Message) GetStrikePrice(f *field.StrikePriceField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OptAttribute is a non-required field for DontKnowTrade.
-func (m Message) OptAttribute() (*field.OptAttributeField, errors.MessageRejectError) {
+func (m Message) OptAttribute() (*field.OptAttributeField, quickfix.MessageRejectError) {
 	f := &field.OptAttributeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOptAttribute reads a OptAttribute from DontKnowTrade.
-func (m Message) GetOptAttribute(f *field.OptAttributeField) errors.MessageRejectError {
+func (m Message) GetOptAttribute(f *field.OptAttributeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ContractMultiplier is a non-required field for DontKnowTrade.
-func (m Message) ContractMultiplier() (*field.ContractMultiplierField, errors.MessageRejectError) {
+func (m Message) ContractMultiplier() (*field.ContractMultiplierField, quickfix.MessageRejectError) {
 	f := &field.ContractMultiplierField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetContractMultiplier reads a ContractMultiplier from DontKnowTrade.
-func (m Message) GetContractMultiplier(f *field.ContractMultiplierField) errors.MessageRejectError {
+func (m Message) GetContractMultiplier(f *field.ContractMultiplierField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CouponRate is a non-required field for DontKnowTrade.
-func (m Message) CouponRate() (*field.CouponRateField, errors.MessageRejectError) {
+func (m Message) CouponRate() (*field.CouponRateField, quickfix.MessageRejectError) {
 	f := &field.CouponRateField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCouponRate reads a CouponRate from DontKnowTrade.
-func (m Message) GetCouponRate(f *field.CouponRateField) errors.MessageRejectError {
+func (m Message) GetCouponRate(f *field.CouponRateField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityExchange is a non-required field for DontKnowTrade.
-func (m Message) SecurityExchange() (*field.SecurityExchangeField, errors.MessageRejectError) {
+func (m Message) SecurityExchange() (*field.SecurityExchangeField, quickfix.MessageRejectError) {
 	f := &field.SecurityExchangeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityExchange reads a SecurityExchange from DontKnowTrade.
-func (m Message) GetSecurityExchange(f *field.SecurityExchangeField) errors.MessageRejectError {
+func (m Message) GetSecurityExchange(f *field.SecurityExchangeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Issuer is a non-required field for DontKnowTrade.
-func (m Message) Issuer() (*field.IssuerField, errors.MessageRejectError) {
+func (m Message) Issuer() (*field.IssuerField, quickfix.MessageRejectError) {
 	f := &field.IssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetIssuer reads a Issuer from DontKnowTrade.
-func (m Message) GetIssuer(f *field.IssuerField) errors.MessageRejectError {
+func (m Message) GetIssuer(f *field.IssuerField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuerLen is a non-required field for DontKnowTrade.
-func (m Message) EncodedIssuerLen() (*field.EncodedIssuerLenField, errors.MessageRejectError) {
+func (m Message) EncodedIssuerLen() (*field.EncodedIssuerLenField, quickfix.MessageRejectError) {
 	f := &field.EncodedIssuerLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuerLen reads a EncodedIssuerLen from DontKnowTrade.
-func (m Message) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) errors.MessageRejectError {
+func (m Message) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedIssuer is a non-required field for DontKnowTrade.
-func (m Message) EncodedIssuer() (*field.EncodedIssuerField, errors.MessageRejectError) {
+func (m Message) EncodedIssuer() (*field.EncodedIssuerField, quickfix.MessageRejectError) {
 	f := &field.EncodedIssuerField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedIssuer reads a EncodedIssuer from DontKnowTrade.
-func (m Message) GetEncodedIssuer(f *field.EncodedIssuerField) errors.MessageRejectError {
+func (m Message) GetEncodedIssuer(f *field.EncodedIssuerField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //SecurityDesc is a non-required field for DontKnowTrade.
-func (m Message) SecurityDesc() (*field.SecurityDescField, errors.MessageRejectError) {
+func (m Message) SecurityDesc() (*field.SecurityDescField, quickfix.MessageRejectError) {
 	f := &field.SecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSecurityDesc reads a SecurityDesc from DontKnowTrade.
-func (m Message) GetSecurityDesc(f *field.SecurityDescField) errors.MessageRejectError {
+func (m Message) GetSecurityDesc(f *field.SecurityDescField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDescLen is a non-required field for DontKnowTrade.
-func (m Message) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, errors.MessageRejectError) {
+func (m Message) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, quickfix.MessageRejectError) {
 	f := &field.EncodedSecurityDescLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from DontKnowTrade.
-func (m Message) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) errors.MessageRejectError {
+func (m Message) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedSecurityDesc is a non-required field for DontKnowTrade.
-func (m Message) EncodedSecurityDesc() (*field.EncodedSecurityDescField, errors.MessageRejectError) {
+func (m Message) EncodedSecurityDesc() (*field.EncodedSecurityDescField, quickfix.MessageRejectError) {
 	f := &field.EncodedSecurityDescField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedSecurityDesc reads a EncodedSecurityDesc from DontKnowTrade.
-func (m Message) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) errors.MessageRejectError {
+func (m Message) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Side is a required field for DontKnowTrade.
-func (m Message) Side() (*field.SideField, errors.MessageRejectError) {
+func (m Message) Side() (*field.SideField, quickfix.MessageRejectError) {
 	f := &field.SideField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetSide reads a Side from DontKnowTrade.
-func (m Message) GetSide(f *field.SideField) errors.MessageRejectError {
+func (m Message) GetSide(f *field.SideField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OrderQty is a non-required field for DontKnowTrade.
-func (m Message) OrderQty() (*field.OrderQtyField, errors.MessageRejectError) {
+func (m Message) OrderQty() (*field.OrderQtyField, quickfix.MessageRejectError) {
 	f := &field.OrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOrderQty reads a OrderQty from DontKnowTrade.
-func (m Message) GetOrderQty(f *field.OrderQtyField) errors.MessageRejectError {
+func (m Message) GetOrderQty(f *field.OrderQtyField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //CashOrderQty is a non-required field for DontKnowTrade.
-func (m Message) CashOrderQty() (*field.CashOrderQtyField, errors.MessageRejectError) {
+func (m Message) CashOrderQty() (*field.CashOrderQtyField, quickfix.MessageRejectError) {
 	f := &field.CashOrderQtyField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetCashOrderQty reads a CashOrderQty from DontKnowTrade.
-func (m Message) GetCashOrderQty(f *field.CashOrderQtyField) errors.MessageRejectError {
+func (m Message) GetCashOrderQty(f *field.CashOrderQtyField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastShares is a non-required field for DontKnowTrade.
-func (m Message) LastShares() (*field.LastSharesField, errors.MessageRejectError) {
+func (m Message) LastShares() (*field.LastSharesField, quickfix.MessageRejectError) {
 	f := &field.LastSharesField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastShares reads a LastShares from DontKnowTrade.
-func (m Message) GetLastShares(f *field.LastSharesField) errors.MessageRejectError {
+func (m Message) GetLastShares(f *field.LastSharesField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //LastPx is a non-required field for DontKnowTrade.
-func (m Message) LastPx() (*field.LastPxField, errors.MessageRejectError) {
+func (m Message) LastPx() (*field.LastPxField, quickfix.MessageRejectError) {
 	f := &field.LastPxField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetLastPx reads a LastPx from DontKnowTrade.
-func (m Message) GetLastPx(f *field.LastPxField) errors.MessageRejectError {
+func (m Message) GetLastPx(f *field.LastPxField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Text is a non-required field for DontKnowTrade.
-func (m Message) Text() (*field.TextField, errors.MessageRejectError) {
+func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
 	f := &field.TextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetText reads a Text from DontKnowTrade.
-func (m Message) GetText(f *field.TextField) errors.MessageRejectError {
+func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedTextLen is a non-required field for DontKnowTrade.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, errors.MessageRejectError) {
+func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
 	f := &field.EncodedTextLenField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedTextLen reads a EncodedTextLen from DontKnowTrade.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) errors.MessageRejectError {
+func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //EncodedText is a non-required field for DontKnowTrade.
-func (m Message) EncodedText() (*field.EncodedTextField, errors.MessageRejectError) {
+func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
 	f := &field.EncodedTextField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetEncodedText reads a EncodedText from DontKnowTrade.
-func (m Message) GetEncodedText(f *field.EncodedTextField) errors.MessageRejectError {
+func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
@@ -398,11 +397,11 @@ func Builder(
 }
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX42, "Q", r

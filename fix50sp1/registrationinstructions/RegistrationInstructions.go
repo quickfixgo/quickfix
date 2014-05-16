@@ -3,7 +3,6 @@ package registrationinstructions
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
@@ -18,146 +17,146 @@ type Message struct {
 }
 
 //RegistID is a required field for RegistrationInstructions.
-func (m Message) RegistID() (*field.RegistIDField, errors.MessageRejectError) {
+func (m Message) RegistID() (*field.RegistIDField, quickfix.MessageRejectError) {
 	f := &field.RegistIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRegistID reads a RegistID from RegistrationInstructions.
-func (m Message) GetRegistID(f *field.RegistIDField) errors.MessageRejectError {
+func (m Message) GetRegistID(f *field.RegistIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RegistTransType is a required field for RegistrationInstructions.
-func (m Message) RegistTransType() (*field.RegistTransTypeField, errors.MessageRejectError) {
+func (m Message) RegistTransType() (*field.RegistTransTypeField, quickfix.MessageRejectError) {
 	f := &field.RegistTransTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRegistTransType reads a RegistTransType from RegistrationInstructions.
-func (m Message) GetRegistTransType(f *field.RegistTransTypeField) errors.MessageRejectError {
+func (m Message) GetRegistTransType(f *field.RegistTransTypeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RegistRefID is a required field for RegistrationInstructions.
-func (m Message) RegistRefID() (*field.RegistRefIDField, errors.MessageRejectError) {
+func (m Message) RegistRefID() (*field.RegistRefIDField, quickfix.MessageRejectError) {
 	f := &field.RegistRefIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRegistRefID reads a RegistRefID from RegistrationInstructions.
-func (m Message) GetRegistRefID(f *field.RegistRefIDField) errors.MessageRejectError {
+func (m Message) GetRegistRefID(f *field.RegistRefIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //ClOrdID is a non-required field for RegistrationInstructions.
-func (m Message) ClOrdID() (*field.ClOrdIDField, errors.MessageRejectError) {
+func (m Message) ClOrdID() (*field.ClOrdIDField, quickfix.MessageRejectError) {
 	f := &field.ClOrdIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetClOrdID reads a ClOrdID from RegistrationInstructions.
-func (m Message) GetClOrdID(f *field.ClOrdIDField) errors.MessageRejectError {
+func (m Message) GetClOrdID(f *field.ClOrdIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoPartyIDs is a non-required field for RegistrationInstructions.
-func (m Message) NoPartyIDs() (*field.NoPartyIDsField, errors.MessageRejectError) {
+func (m Message) NoPartyIDs() (*field.NoPartyIDsField, quickfix.MessageRejectError) {
 	f := &field.NoPartyIDsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoPartyIDs reads a NoPartyIDs from RegistrationInstructions.
-func (m Message) GetNoPartyIDs(f *field.NoPartyIDsField) errors.MessageRejectError {
+func (m Message) GetNoPartyIDs(f *field.NoPartyIDsField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //Account is a non-required field for RegistrationInstructions.
-func (m Message) Account() (*field.AccountField, errors.MessageRejectError) {
+func (m Message) Account() (*field.AccountField, quickfix.MessageRejectError) {
 	f := &field.AccountField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAccount reads a Account from RegistrationInstructions.
-func (m Message) GetAccount(f *field.AccountField) errors.MessageRejectError {
+func (m Message) GetAccount(f *field.AccountField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //AcctIDSource is a non-required field for RegistrationInstructions.
-func (m Message) AcctIDSource() (*field.AcctIDSourceField, errors.MessageRejectError) {
+func (m Message) AcctIDSource() (*field.AcctIDSourceField, quickfix.MessageRejectError) {
 	f := &field.AcctIDSourceField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetAcctIDSource reads a AcctIDSource from RegistrationInstructions.
-func (m Message) GetAcctIDSource(f *field.AcctIDSourceField) errors.MessageRejectError {
+func (m Message) GetAcctIDSource(f *field.AcctIDSourceField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //RegistAcctType is a non-required field for RegistrationInstructions.
-func (m Message) RegistAcctType() (*field.RegistAcctTypeField, errors.MessageRejectError) {
+func (m Message) RegistAcctType() (*field.RegistAcctTypeField, quickfix.MessageRejectError) {
 	f := &field.RegistAcctTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetRegistAcctType reads a RegistAcctType from RegistrationInstructions.
-func (m Message) GetRegistAcctType(f *field.RegistAcctTypeField) errors.MessageRejectError {
+func (m Message) GetRegistAcctType(f *field.RegistAcctTypeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //TaxAdvantageType is a non-required field for RegistrationInstructions.
-func (m Message) TaxAdvantageType() (*field.TaxAdvantageTypeField, errors.MessageRejectError) {
+func (m Message) TaxAdvantageType() (*field.TaxAdvantageTypeField, quickfix.MessageRejectError) {
 	f := &field.TaxAdvantageTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTaxAdvantageType reads a TaxAdvantageType from RegistrationInstructions.
-func (m Message) GetTaxAdvantageType(f *field.TaxAdvantageTypeField) errors.MessageRejectError {
+func (m Message) GetTaxAdvantageType(f *field.TaxAdvantageTypeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //OwnershipType is a non-required field for RegistrationInstructions.
-func (m Message) OwnershipType() (*field.OwnershipTypeField, errors.MessageRejectError) {
+func (m Message) OwnershipType() (*field.OwnershipTypeField, quickfix.MessageRejectError) {
 	f := &field.OwnershipTypeField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetOwnershipType reads a OwnershipType from RegistrationInstructions.
-func (m Message) GetOwnershipType(f *field.OwnershipTypeField) errors.MessageRejectError {
+func (m Message) GetOwnershipType(f *field.OwnershipTypeField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoRegistDtls is a non-required field for RegistrationInstructions.
-func (m Message) NoRegistDtls() (*field.NoRegistDtlsField, errors.MessageRejectError) {
+func (m Message) NoRegistDtls() (*field.NoRegistDtlsField, quickfix.MessageRejectError) {
 	f := &field.NoRegistDtlsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoRegistDtls reads a NoRegistDtls from RegistrationInstructions.
-func (m Message) GetNoRegistDtls(f *field.NoRegistDtlsField) errors.MessageRejectError {
+func (m Message) GetNoRegistDtls(f *field.NoRegistDtlsField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoDistribInsts is a non-required field for RegistrationInstructions.
-func (m Message) NoDistribInsts() (*field.NoDistribInstsField, errors.MessageRejectError) {
+func (m Message) NoDistribInsts() (*field.NoDistribInstsField, quickfix.MessageRejectError) {
 	f := &field.NoDistribInstsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoDistribInsts reads a NoDistribInsts from RegistrationInstructions.
-func (m Message) GetNoDistribInsts(f *field.NoDistribInstsField) errors.MessageRejectError {
+func (m Message) GetNoDistribInsts(f *field.NoDistribInstsField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
@@ -183,11 +182,11 @@ func Builder(
 }
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP1, "o", r

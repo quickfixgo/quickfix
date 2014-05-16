@@ -3,7 +3,6 @@ package quickfix
 import (
 	"bytes"
 	"fmt"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"time"
@@ -23,6 +22,13 @@ type Message struct {
 	//field bytes as they appear in the raw message
 	fields []*fieldBytes
 }
+
+//parseError is returned when bytes cannot be parsed as a FIX message.
+type parseError struct {
+	OrigError string
+}
+
+func (e parseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
 
 //ParseMessage constructs a Message from a byte slice wrapping a FIX message.
 func ParseMessage(rawMessage []byte) (*Message, error) {
@@ -93,7 +99,7 @@ func ParseMessage(rawMessage []byte) (*Message, error) {
 	bodyLength := new(fix.IntValue)
 	msg.Header.GetField(tag.BodyLength, bodyLength)
 	if bodyLength.Value != length {
-		return msg, errors.ParseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
+		return msg, parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
 	}
 
 	return msg, nil
@@ -146,7 +152,7 @@ func extractSpecificField(expectedTag fix.Tag, buffer []byte) (field *fieldBytes
 	case err != nil:
 		return
 	case field.Tag != expectedTag:
-		err = errors.ParseError{OrigError: fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag)}
+		err = parseError{OrigError: fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag)}
 		return
 	}
 
@@ -156,7 +162,7 @@ func extractSpecificField(expectedTag fix.Tag, buffer []byte) (field *fieldBytes
 func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
-		err = errors.ParseError{OrigError: "extractField: No Trailing Delim in " + string(buffer)}
+		err = parseError{OrigError: "extractField: No Trailing Delim in " + string(buffer)}
 		remBytes = buffer
 		return
 	}

@@ -1,5 +1,4 @@
-//Package errors contain error types generated and consumed by quickFIX components.
-package errors
+package quickfix
 
 import (
 	"fmt"
@@ -123,14 +122,7 @@ func SendingTimeAccuracyProblem() MessageRejectError {
 	return messageRejectError{text: "SendingTime accuracy problem", rejectReason: RejectReasonSendingTimeAccuracyProblem}
 }
 
-//ParseError is returned when bytes cannot be parsed as a FIX message.
-type ParseError struct {
-	OrigError string
-}
-
-func (e ParseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
-
-//RequiredConfigurationMissing indicates a missing required conditional configuration option.
-func RequiredConfigurationMissing(setting string) error {
+//requiredConfigurationMissing indicates a missing required conditional configuration option.
+func requiredConfigurationMissing(setting string) error {
 	return fmt.Errorf("missing configuration: %v", setting)
 }

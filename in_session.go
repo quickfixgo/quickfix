@@ -1,7 +1,6 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
@@ -92,7 +91,7 @@ func (state inSession) handleSequenceReset(session *Session, msg Message) (nextS
 			session.expectedSeqNum = newSeqNo.Value
 		case newSeqNo.Value < session.expectedSeqNum:
 			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
-			session.doReject(msg, errors.ValueIsIncorrectNoTag())
+			session.doReject(msg, ValueIsIncorrectNoTag())
 		}
 	}
 
@@ -107,14 +106,14 @@ func (state inSession) handleResendRequest(session *Session, msg Message) (nextS
 	var err error
 	beginSeqNoField := new(fix.IntValue)
 	if err = msg.Body.GetField(tag.BeginSeqNo, beginSeqNoField); err != nil {
-		return state.processReject(session, msg, errors.RequiredTagMissing(tag.BeginSeqNo))
+		return state.processReject(session, msg, RequiredTagMissing(tag.BeginSeqNo))
 	}
 
 	beginSeqNo := beginSeqNoField.Value
 
 	endSeqNoField := new(fix.IntField)
 	if err = msg.Body.GetField(tag.EndSeqNo, endSeqNoField); err != nil {
-		return state.processReject(session, msg, errors.RequiredTagMissing(tag.EndSeqNo))
+		return state.processReject(session, msg, RequiredTagMissing(tag.EndSeqNo))
 	}
 
 	endSeqNo := endSeqNoField.Value
@@ -193,9 +192,9 @@ func (state inSession) handleTestRequest(session *Session, msg Message) (nextSta
 	return state
 }
 
-func (state inSession) processReject(session *Session, msg Message, rej errors.MessageRejectError) (nextState sessionState) {
+func (state inSession) processReject(session *Session, msg Message, rej MessageRejectError) (nextState sessionState) {
 	switch TypedError := rej.(type) {
-	case errors.TargetTooHigh:
+	case targetTooHigh:
 
 		switch session.currentState.(type) {
 		default:
@@ -206,14 +205,14 @@ func (state inSession) processReject(session *Session, msg Message, rej errors.M
 		session.messageStash[TypedError.ReceivedTarget] = msg
 		return resendState{}
 
-	case errors.TargetTooLow:
+	case targetTooLow:
 		return state.doTargetTooLow(session, msg, TypedError)
-	case errors.IncorrectBeginString:
+	case incorrectBeginString:
 		return state.initiateLogout(session, rej.Error())
 	}
 
 	switch rej.RejectReason() {
-	case errors.RejectReasonCompIDProblem, errors.RejectReasonSendingTimeAccuracyProblem:
+	case RejectReasonCompIDProblem, RejectReasonSendingTimeAccuracyProblem:
 		session.doReject(msg, rej)
 		return state.initiateLogout(session, "")
 	default:
@@ -223,13 +222,13 @@ func (state inSession) processReject(session *Session, msg Message, rej errors.M
 	}
 }
 
-func (state inSession) doTargetTooLow(session *Session, msg Message, rej errors.TargetTooLow) (nextState sessionState) {
+func (state inSession) doTargetTooLow(session *Session, msg Message, rej targetTooLow) (nextState sessionState) {
 	posDupFlag := new(fix.BooleanValue)
 	if err := msg.Header.GetField(tag.PossDupFlag, posDupFlag); err == nil && posDupFlag.Value {
 
 		origSendingTime := new(fix.UTCTimestampValue)
 		if err = msg.Header.GetField(tag.OrigSendingTime, origSendingTime); err != nil {
-			session.doReject(msg, errors.RequiredTagMissing(tag.OrigSendingTime))
+			session.doReject(msg, RequiredTagMissing(tag.OrigSendingTime))
 			return state
 		}
 
@@ -237,7 +236,7 @@ func (state inSession) doTargetTooLow(session *Session, msg Message, rej errors.
 		msg.Header.GetField(tag.SendingTime, sendingTime)
 
 		if sendingTime.Value.Before(origSendingTime.Value) {
-			session.doReject(msg, errors.SendingTimeAccuracyProblem())
+			session.doReject(msg, SendingTimeAccuracyProblem())
 			return state.initiateLogout(session, "")
 		}
 

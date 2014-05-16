@@ -3,7 +3,6 @@ package quickfix
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/config"
-	"github.com/quickfixgo/quickfix/errors"
 	"net"
 )
 
@@ -64,11 +63,11 @@ func NewInitiator(app Application, appSettings *Settings, logFactory LogFactory)
 
 		//fail fast
 		if ok := s.HasSetting(config.SocketConnectHost); !ok {
-			return nil, errors.RequiredConfigurationMissing(config.SocketConnectHost)
+			return nil, requiredConfigurationMissing(config.SocketConnectHost)
 		}
 
 		if ok := s.HasSetting(config.SocketConnectPort); !ok {
-			return nil, errors.RequiredConfigurationMissing(config.SocketConnectPort)
+			return nil, requiredConfigurationMissing(config.SocketConnectPort)
 		}
 
 		err = createSession(sessionID, s, logFactory, app)

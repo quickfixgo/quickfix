@@ -3,7 +3,6 @@ package tradingsessionlist
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/errors"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
@@ -18,26 +17,26 @@ type Message struct {
 }
 
 //TradSesReqID is a non-required field for TradingSessionList.
-func (m Message) TradSesReqID() (*field.TradSesReqIDField, errors.MessageRejectError) {
+func (m Message) TradSesReqID() (*field.TradSesReqIDField, quickfix.MessageRejectError) {
 	f := &field.TradSesReqIDField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetTradSesReqID reads a TradSesReqID from TradingSessionList.
-func (m Message) GetTradSesReqID(f *field.TradSesReqIDField) errors.MessageRejectError {
+func (m Message) GetTradSesReqID(f *field.TradSesReqIDField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
 //NoTradingSessions is a required field for TradingSessionList.
-func (m Message) NoTradingSessions() (*field.NoTradingSessionsField, errors.MessageRejectError) {
+func (m Message) NoTradingSessions() (*field.NoTradingSessionsField, quickfix.MessageRejectError) {
 	f := &field.NoTradingSessionsField{}
 	err := m.Body.Get(f)
 	return f, err
 }
 
 //GetNoTradingSessions reads a NoTradingSessions from TradingSessionList.
-func (m Message) GetNoTradingSessions(f *field.NoTradingSessionsField) errors.MessageRejectError {
+func (m Message) GetNoTradingSessions(f *field.NoTradingSessionsField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
@@ -59,11 +58,11 @@ func Builder(
 }
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) errors.MessageRejectError
+type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) errors.MessageRejectError {
+	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
 	return fix.BeginString_FIX50, "BJ", r
