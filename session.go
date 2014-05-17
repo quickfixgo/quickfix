@@ -413,7 +413,7 @@ func (s *Session) checkBeginString(msg Message) MessageRejectError {
 }
 
 func (s *Session) doReject(msg Message, rej MessageRejectError) {
-	reply := msg.ReverseRoute()
+	reply := msg.reverseRoute()
 
 	if s.sessionID.BeginString >= fix.BeginString_FIX42 {
 
@@ -501,7 +501,7 @@ func (s *Session) run(msgIn chan fixIn) {
 		case fixIn, ok := <-msgIn:
 			if ok {
 				s.log.OnIncoming(string(fixIn.bytes))
-				if msg, err := ParseMessage(fixIn.bytes); err != nil {
+				if msg, err := parseMessage(fixIn.bytes); err != nil {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
 					msg.ReceiveTime = fixIn.receiveTime

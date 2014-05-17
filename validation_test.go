@@ -222,7 +222,7 @@ func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 
 func (s *ValidationTests) TestValidateTagAppearsMoreThanOnce(c *C) {
 
-	msg, err := ParseMessage([]byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
+	msg, err := parseMessage([]byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
 	c.Check(err, IsNil)
 
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
@@ -233,7 +233,7 @@ func (s *ValidationTests) TestValidateTagAppearsMoreThanOnce(c *C) {
 }
 
 func (s *ValidationTests) TestFloatValidation(c *C) {
-	msg, err := ParseMessage([]byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"))
+	msg, err := parseMessage([]byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"))
 	c.Check(err, IsNil)
 
 	dict, _ := datadictionary.Parse("spec/FIX42.xml")

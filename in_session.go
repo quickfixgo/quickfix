@@ -149,7 +149,7 @@ func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int
 			return
 		}
 
-		msg, _ := ParseMessage(buf.Bytes())
+		msg, _ := parseMessage(buf.Bytes())
 
 		msgType := new(fix.StringValue)
 		msg.Header.GetField(tag.MsgType, msgType)

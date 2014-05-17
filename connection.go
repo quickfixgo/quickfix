@@ -63,7 +63,7 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		return
 	}
 
-	msg, err := ParseMessage(msgBytes)
+	msg, err := parseMessage(msgBytes)
 	if err != nil {
 		log.OnEvent("Invalid message: " + string(msgBytes) + err.Error())
 		return
@@ -123,7 +123,7 @@ func writeLoop(connection net.Conn, messageOut chan buffer) {
 			return
 		}
 		connection.Write(msg.Bytes())
-		msg.Free()
+		msg.free()
 	}
 }
 

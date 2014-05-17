@@ -35,12 +35,12 @@ func (m messageBuilder) Build() (*Message, error) {
 	m.cook()
 
 	var b bytes.Buffer
-	m.header.Write(&b)
-	m.body.Write(&b)
-	m.trailer.Write(&b)
+	m.header.write(&b)
+	m.body.write(&b)
+	m.trailer.write(&b)
 
 	rawMessage := b.Bytes()
-	return ParseMessage(rawMessage)
+	return parseMessage(rawMessage)
 }
 
 func (m messageBuilder) cook() {

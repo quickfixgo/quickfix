@@ -30,8 +30,8 @@ type parseError struct {
 
 func (e parseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
 
-//ParseMessage constructs a Message from a byte slice wrapping a FIX message.
-func ParseMessage(rawMessage []byte) (*Message, error) {
+//parseMessage constructs a Message from a byte slice wrapping a FIX message.
+func parseMessage(rawMessage []byte) (*Message, error) {
 	msg := new(Message)
 	msg.Header.init(headerFieldOrder)
 	msg.Trailer.init(trailerFieldOrder)
@@ -110,8 +110,8 @@ func (m *Message) Bytes() []byte {
 	return m.rawMessage
 }
 
-//ReverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
-func (m *Message) ReverseRoute() MessageBuilder {
+//reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
+func (m *Message) reverseRoute() MessageBuilder {
 	reverseBuilder := NewMessageBuilder()
 
 	copy := func(src fix.Tag, dest fix.Tag) {
@@ -198,7 +198,7 @@ func newCheckSum(value int) *fix.StringField {
 	return fix.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
-//Free is required for Buffer interface FIXME
-func (m *Message) Free() {
+//free is required for Buffer interface FIXME
+func (m *Message) free() {
 
 }

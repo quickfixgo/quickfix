@@ -129,7 +129,7 @@ func (m FieldMap) sortedTags() []fix.Tag {
 	return sortedTags
 }
 
-func (m FieldMap) Write(buffer *bytes.Buffer) {
+func (m FieldMap) write(buffer *bytes.Buffer) {
 	tags := m.sortedTags()
 
 	for _, tag := range tags {
@@ -138,13 +138,6 @@ func (m FieldMap) Write(buffer *bytes.Buffer) {
 		}
 	}
 }
-
-/*
-
-func (b FieldMapBuilder) Remove(tag fix.Tag) {
-	delete(b.fields, tag)
-}
-*/
 
 func (m FieldMap) total() int {
 	total := 0

@@ -7,4 +7,4 @@ func (buffer basicBuffer) Bytes() []byte {
 	return buffer
 }
 
-func (buffer basicBuffer) Free() {}
+func (buffer basicBuffer) free() {}

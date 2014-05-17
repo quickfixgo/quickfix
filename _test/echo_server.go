@@ -25,6 +25,8 @@ import (
 	"os/signal"
 )
 
+var router *quickfix.MessageRouter = quickfix.NewMessageRouter()
+
 type EchoApplication struct {
 	log      *log.Logger
 	OrderIds map[string]bool
@@ -53,7 +55,7 @@ func (e EchoApplication) FromAdmin(msg quickfix.Message, sessionID quickfix.Sess
 
 func (e *EchoApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	e.log.Println("Got Message ", msg)
-	return quickfix.Route(msg, sessionID)
+	return router.Route(msg, sessionID)
 }
 
 func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
@@ -165,21 +167,21 @@ func main() {
 	app.log = log.New(ioutil.Discard, "", log.LstdFlags)
 	//app.log = log.New(os.Stdout, "", log.LstdFlags)
 
-	quickfix.AddRoute(fix40nos.Route(app.OnFIX40NewOrderSingle))
-	quickfix.AddRoute(fix41nos.Route(app.OnFIX41NewOrderSingle))
-	quickfix.AddRoute(fix42nos.Route(app.OnFIX42NewOrderSingle))
-	quickfix.AddRoute(fix43nos.Route(app.OnFIX43NewOrderSingle))
-	quickfix.AddRoute(fix44nos.Route(app.OnFIX44NewOrderSingle))
-	quickfix.AddRoute(fix50nos.Route(app.OnFIX50NewOrderSingle))
-	quickfix.AddRoute(fix50sp1nos.Route(app.OnFIX50SP1NewOrderSingle))
-	quickfix.AddRoute(fix50sp2nos.Route(app.OnFIX50SP2NewOrderSingle))
+	router.AddRoute(fix40nos.Route(app.OnFIX40NewOrderSingle))
+	router.AddRoute(fix41nos.Route(app.OnFIX41NewOrderSingle))
+	router.AddRoute(fix42nos.Route(app.OnFIX42NewOrderSingle))
+	router.AddRoute(fix43nos.Route(app.OnFIX43NewOrderSingle))
+	router.AddRoute(fix44nos.Route(app.OnFIX44NewOrderSingle))
+	router.AddRoute(fix50nos.Route(app.OnFIX50NewOrderSingle))
+	router.AddRoute(fix50sp1nos.Route(app.OnFIX50SP1NewOrderSingle))
+	router.AddRoute(fix50sp2nos.Route(app.OnFIX50SP2NewOrderSingle))
 
-	quickfix.AddRoute(fix42secdef.Route(app.OnFIX42SecurityDefinition))
-	quickfix.AddRoute(fix43secdef.Route(app.OnFIX43SecurityDefinition))
-	quickfix.AddRoute(fix44secdef.Route(app.OnFIX44SecurityDefinition))
-	quickfix.AddRoute(fix50secdef.Route(app.OnFIX50SecurityDefinition))
-	quickfix.AddRoute(fix50sp1secdef.Route(app.OnFIX50SP1SecurityDefinition))
-	quickfix.AddRoute(fix50sp2secdef.Route(app.OnFIX50SP2SecurityDefinition))
+	router.AddRoute(fix42secdef.Route(app.OnFIX42SecurityDefinition))
+	router.AddRoute(fix43secdef.Route(app.OnFIX43SecurityDefinition))
+	router.AddRoute(fix44secdef.Route(app.OnFIX44SecurityDefinition))
+	router.AddRoute(fix50secdef.Route(app.OnFIX50SecurityDefinition))
+	router.AddRoute(fix50sp1secdef.Route(app.OnFIX50SP1SecurityDefinition))
+	router.AddRoute(fix50sp2secdef.Route(app.OnFIX50SP2SecurityDefinition))
 
 	cfg, err := os.Open(os.Args[1])
 	if err != nil {

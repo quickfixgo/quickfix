@@ -83,19 +83,3 @@ func (c MessageRouter) tryRoute(beginString *field.BeginStringField, msgType *fi
 
 	return route(msg, sessionID)
 }
-
-var defaultRouter *MessageRouter
-
-func init() {
-	defaultRouter = NewMessageRouter()
-}
-
-//AddRoute assigns a message route to the default MessageRouter.
-func AddRoute(beginString string, msgType string, route MessageRoute) {
-	defaultRouter.AddRoute(beginString, msgType, route)
-}
-
-//Route may be called from the fromApp/fromAdmin callbacks to route to the default MessageRouter instance.
-func Route(msg Message, sessionID SessionID) MessageRejectError {
-	return defaultRouter.Route(msg, sessionID)
-}
