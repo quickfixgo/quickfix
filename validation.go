@@ -268,7 +268,7 @@ func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, v
 		allowedValues := d.FieldTypeByTag[tag].Enums
 		if len(allowedValues) != 0 {
 			if _, validValue := allowedValues[string(fieldValue.Value)]; !validValue {
-				return valueIsIncorrect(tag)
+				return ValueIsIncorrect(tag)
 			}
 		}
 	}

@@ -61,8 +61,8 @@ func incorrectDataFormatForValue(tag fix.Tag) MessageRejectError {
 	return NewMessageRejectError("Incorrect data format for value", rejectReasonIncorrectDataFormatForValue, &tag)
 }
 
-//valueIsIncorrect returns an error indicating a field with value that is not valid.
-func valueIsIncorrect(tag fix.Tag) MessageRejectError {
+//ValueIsIncorrect returns an error indicating a field with value that is not valid.
+func ValueIsIncorrect(tag fix.Tag) MessageRejectError {
 	return NewMessageRejectError("Value is incorrect (out of range) for this tag", rejectReasonValueIsIncorrect, &tag)
 }
 
