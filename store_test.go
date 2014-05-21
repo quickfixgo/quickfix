@@ -1,49 +1,62 @@
 package quickfix
 
 import (
-	. "gopkg.in/check.v1"
+	"bytes"
+	"testing"
 )
 
-type StoreTests struct {
-	store memoryStore
-}
+func TestMemoryStore_GetMessages(t *testing.T) {
+	store := newMemoryStore()
 
-var _ = Suite(&StoreTests{})
-
-func (s *StoreTests) SetUpTest(c *C) {
-	s.store = newMemoryStore()
-}
-
-func (s *StoreTests) TestGetMessages(c *C) {
-	messages := s.store.GetMessages(1, 2)
+	messages := store.GetMessages(1, 2)
 	msg, ok := <-messages
-	c.Assert(ok, Equals, false)
 
-	buf1 := basicBuffer("hello")
-	s.store.SaveMessage(1, buf1)
+	if ok != false {
+		t.Error("Did not expect messages from empty store", msg)
+	}
 
-	messages = s.store.GetMessages(1, 2)
-	msg, ok = <-messages
-	c.Assert(ok, Equals, true)
-	c.Assert(msg.Bytes(), DeepEquals, buf1.Bytes())
-	msg, ok = <-messages
-	c.Assert(ok, Equals, false)
+	store.SaveMessage(1, []byte("hello"))
+	store.SaveMessage(2, []byte("cruel"))
+	store.SaveMessage(3, []byte("world"))
 
-	buf2 := basicBuffer("cruel")
-	s.store.SaveMessage(2, buf2)
+	var testCases = []struct {
+		beginSeqNo, endSeqNo int
+		expectedBytes        [][]byte
+	}{
+		{beginSeqNo: 1, endSeqNo: 1, expectedBytes: [][]byte{[]byte("hello")}},
+		{beginSeqNo: 1, endSeqNo: 2, expectedBytes: [][]byte{[]byte("hello"), []byte("cruel")}},
+		{beginSeqNo: 1, endSeqNo: 3, expectedBytes: [][]byte{[]byte("hello"), []byte("cruel"), []byte("world")}},
+		{beginSeqNo: 1, endSeqNo: 4, expectedBytes: [][]byte{[]byte("hello"), []byte("cruel"), []byte("world")}},
+		{beginSeqNo: 2, endSeqNo: 3, expectedBytes: [][]byte{[]byte("cruel"), []byte("world")}},
+		{beginSeqNo: 3, endSeqNo: 3, expectedBytes: [][]byte{[]byte("world")}},
+		{beginSeqNo: 3, endSeqNo: 4, expectedBytes: [][]byte{[]byte("world")}},
+		{beginSeqNo: 4, endSeqNo: 4, expectedBytes: [][]byte{}},
+		{beginSeqNo: 4, endSeqNo: 10, expectedBytes: [][]byte{}},
+	}
 
-	buf3 := basicBuffer("world")
-	s.store.SaveMessage(3, buf3)
+	for _, tc := range testCases {
+		messages = store.GetMessages(tc.beginSeqNo, tc.endSeqNo)
 
-	messages = s.store.GetMessages(1, 2)
-	msg, ok = <-messages
-	c.Assert(ok, Equals, true)
-	c.Assert(msg.Bytes(), DeepEquals, buf1.Bytes())
+		expected := tc.expectedBytes
+		for {
+			msg, ok = <-messages
 
-	msg, ok = <-messages
-	c.Assert(ok, Equals, true)
-	c.Assert(msg.Bytes(), DeepEquals, buf2.Bytes())
+			if len(expected) == 0 {
+				if ok == true {
+					t.Error("Did not expect additional messages", msg)
+				}
+				break
+			}
 
-	msg, ok = <-messages
-	c.Assert(ok, Equals, false)
+			if ok != true {
+				t.Error("Did not get messages, expected ", expected[0])
+			}
+
+			if !bytes.Equal(msg, expected[0]) {
+				t.Error("Expected ", expected[0], " got ", msg)
+			}
+
+			expected = expected[1:]
+		}
+	}
 }

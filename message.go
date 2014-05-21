@@ -17,7 +17,8 @@ type Message struct {
 	//ReceiveTime is the time that this message was read from the socket connection
 	ReceiveTime time.Time
 
-	rawMessage []byte
+	//Bytes is the raw bytes of the Message
+	Bytes []byte
 
 	//field bytes as they appear in the raw message
 	fields []*fieldBytes
@@ -36,7 +37,7 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 	msg.Header.init(headerFieldOrder)
 	msg.Trailer.init(trailerFieldOrder)
 	msg.Body.init(normalFieldOrder)
-	msg.rawMessage = rawMessage
+	msg.Bytes = rawMessage
 
 	//including required header and trailer fields, minimum of 7 fields can be expected
 	//TODO: expose size for priming
@@ -105,11 +106,6 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 	return msg, nil
 }
 
-//Bytes returns the raw bytes of the Message
-func (m *Message) Bytes() []byte {
-	return m.rawMessage
-}
-
 //reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
 func (m *Message) reverseRoute() MessageBuilder {
 	reverseBuilder := NewMessageBuilder()
@@ -172,7 +168,7 @@ func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte,
 }
 
 func (m *Message) String() string {
-	return string(m.rawMessage)
+	return string(m.Bytes)
 }
 
 //ToBuilder returns a writable message builder initialized with the fields in the message
@@ -196,9 +192,4 @@ func (m *Message) ToBuilder() MessageBuilder {
 
 func newCheckSum(value int) *fix.StringField {
 	return fix.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
-}
-
-//free is required for Buffer interface FIXME
-func (m *Message) free() {
-
 }

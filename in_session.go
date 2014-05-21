@@ -132,15 +132,15 @@ func (state inSession) handleResendRequest(session *Session, msg Message) (nextS
 }
 
 func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int) {
-	buffers := session.store.GetMessages(beginSeqNo, endSeqNo)
+	msgs := session.store.GetMessages(beginSeqNo, endSeqNo)
 
 	seqNum := beginSeqNo
 	nextSeqNum := seqNum
 
-	var buf buffer
+	var msgBytes []byte
 	var ok bool
 	for {
-		if buf, ok = <-buffers; !ok {
+		if msgBytes, ok = <-msgs; !ok {
 			//gapfill for catch-up
 			if seqNum != nextSeqNum {
 				state.generateSequenceReset(session, seqNum, nextSeqNum)
@@ -149,7 +149,7 @@ func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int
 			return
 		}
 
-		msg, _ := parseMessage(buf.Bytes())
+		msg, _ := parseMessage(msgBytes)
 
 		msgType := new(fix.StringValue)
 		msg.Header.GetField(tag.MsgType, msgType)
@@ -274,8 +274,8 @@ func (state *inSession) generateSequenceReset(session *Session, beginSeqNo int, 
 	}
 
 	//FIXME error check?
-	buffer, _ := sequenceReset.Build()
-	session.sendBuffer(buffer)
+	msg, _ := sequenceReset.Build()
+	session.sendBytes(msg.Bytes)
 }
 
 func (state *inSession) generateLogout(session *Session) {

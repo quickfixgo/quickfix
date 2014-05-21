@@ -25,7 +25,7 @@ func handleInitiatorConnection(netConn net.Conn, log Log, sessID SessionID) {
 		deactivate(sessID)
 	}()
 
-	var msgOut chan buffer
+	var msgOut chan []byte
 	var err error
 	if msgOut, err = session.initiate(); err != nil {
 		log.OnEventf("Session cannot initiate: %v", err)
@@ -96,7 +96,7 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		deactivate(qualifiedSessID)
 	}()
 
-	var msgOut chan buffer
+	var msgOut chan []byte
 	if msgOut, err = session.accept(); err != nil {
 		log.OnEventf("Session cannot accept: %v", err)
 		return
@@ -112,18 +112,17 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 	session.run(msgIn)
 }
 
-func writeLoop(connection net.Conn, messageOut chan buffer) {
+func writeLoop(connection net.Conn, messageOut chan []byte) {
 	defer func() {
 		close(messageOut)
 	}()
 
-	var msg buffer
+	var msg []byte
 	for {
 		if msg = <-messageOut; msg == nil {
 			return
 		}
-		connection.Write(msg.Bytes())
-		msg.free()
+		connection.Write(msg)
 	}
 }
 

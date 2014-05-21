@@ -18,7 +18,7 @@ type Session struct {
 	log       Log
 	sessionID SessionID
 
-	messageOut chan buffer
+	messageOut chan []byte
 	toSend     chan MessageBuilder
 
 	sessionEvent            chan event
@@ -105,9 +105,9 @@ func createSession(sessionID SessionID, settings *SessionSettings, logFactory Lo
 	return nil
 }
 
-func (s *Session) initiate() (chan buffer, error) {
+func (s *Session) initiate() (chan []byte, error) {
 	s.currentState = logonState{}
-	s.messageOut = make(chan buffer)
+	s.messageOut = make(chan []byte)
 	s.messageStash = make(map[int]Message)
 	s.store = newMemoryStore()
 	s.initiateLogon = true
@@ -115,9 +115,9 @@ func (s *Session) initiate() (chan buffer, error) {
 	return s.messageOut, nil
 }
 
-func (s *Session) accept() (chan buffer, error) {
+func (s *Session) accept() (chan []byte, error) {
 	s.currentState = logonState{}
-	s.messageOut = make(chan buffer)
+	s.messageOut = make(chan []byte)
 	s.messageStash = make(map[int]Message)
 	s.store = newMemoryStore()
 
@@ -156,10 +156,10 @@ func (s *Session) resend(m MessageBuilder) {
 
 	s.insertSendingTime(m)
 
-	if buffer, err := m.Build(); err != nil {
+	if msg, err := m.Build(); err != nil {
 		panic(err)
 	} else {
-		s.sendBuffer(buffer)
+		s.sendBytes(msg.Bytes)
 	}
 }
 
@@ -167,19 +167,19 @@ func (s *Session) send(builder MessageBuilder) {
 	s.fillDefaultHeader(builder)
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, s.seqNum))
 
-	if buffer, err := builder.Build(); err != nil {
+	if msg, err := builder.Build(); err != nil {
 		panic(err)
 	} else {
-		s.store.SaveMessage(s.seqNum, buffer)
-		s.sendBuffer(buffer)
+		s.store.SaveMessage(s.seqNum, msg.Bytes)
+		s.sendBytes(msg.Bytes)
 		s.seqNum++
 	}
 }
 
-func (s *Session) sendBuffer(buffer buffer) {
+func (s *Session) sendBytes(msg []byte) {
 
-	s.log.OnOutgoing(string(buffer.Bytes()))
-	s.messageOut <- buffer
+	s.log.OnOutgoing(string(msg))
+	s.messageOut <- msg
 	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 }
 
