@@ -128,13 +128,13 @@ func (s *Session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *Session) insertSendingTime(builder MessageBuilder) {
+func (s *Session) insertSendingTime(header FieldMap) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= fix.BeginString_FIX42 {
-		builder.Header().Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
+		header.Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	} else {
-		builder.Header().Set(fix.NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
+		header.Set(fix.NewUTCTimestampFieldNoMillis(tag.SendingTime, sendingTime))
 	}
 }
 
@@ -143,24 +143,22 @@ func (s *Session) fillDefaultHeader(builder MessageBuilder) {
 	builder.Header().Set(field.NewSenderCompID(s.sessionID.SenderCompID))
 	builder.Header().Set(field.NewTargetCompID(s.sessionID.TargetCompID))
 
-	s.insertSendingTime(builder)
+	s.insertSendingTime(builder.Header())
 }
 
-func (s *Session) resend(m MessageBuilder) {
-	m.Header().Set(field.NewPossDupFlag(true))
+func (s *Session) resend(msg *Message) {
+
+	msg.Header.Set(field.NewPossDupFlag(true))
 
 	origSendingTime := new(fix.StringValue)
-	if err := m.Header().GetField(tag.SendingTime, origSendingTime); err == nil {
-		m.Header().Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+	if err := msg.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
+		msg.Header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
-	s.insertSendingTime(m)
+	s.insertSendingTime(msg.Header)
 
-	if msg, err := m.Build(); err != nil {
-		panic(err)
-	} else {
-		s.sendBytes(msg.Bytes)
-	}
+	msg.rebuild()
+	s.sendBytes(msg.Bytes)
 }
 
 func (s *Session) send(builder MessageBuilder) {

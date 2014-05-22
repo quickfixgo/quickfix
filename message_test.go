@@ -1,15 +1,11 @@
 package quickfix
 
 import (
+	"bytes"
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	. "gopkg.in/check.v1"
 	"testing"
 )
-
-var _ = Suite(&MessageTests{})
-
-type MessageTests struct{}
 
 var msgResult *Message
 
@@ -24,98 +20,116 @@ func BenchmarkParseMessage(b *testing.B) {
 	msgResult = msg
 }
 
-func (s *FieldMapTests) TestReverseRoute(c *C) {
-	msg, err := parseMessage([]byte("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
-	c.Check(err, IsNil)
+func TestMessage_parseMessage(t *testing.T) {
+	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
+
+	msg, err := parseMessage(rawMsg)
+
+	if err != nil {
+		t.Error("Unexpected error, ", err)
+	}
+
+	if !bytes.Equal(rawMsg, msg.Bytes) {
+		t.Error("Expected msg bytes to equal raw bytes")
+	}
+
+	expectedBodyBytes := []byte("11=10021=140=154=155=TSLA60=00010101-00:00:00.000")
+
+	if !bytes.Equal(msg.bodyBytes, expectedBodyBytes) {
+		t.Error("Incorrect body bytes, got ", string(msg.bodyBytes))
+	}
+}
+
+func TestMessage_parseOutOfOrder(t *testing.T) {
+	//allow fields out of order, save for validation
+	rawMsg := []byte("8=FIX.4.09=8135=D11=id21=338=10040=154=155=MSFT34=249=TW52=20140521-22:07:0956=ISLD10=250")
+	_, err := parseMessage(rawMsg)
+
+	if err != nil {
+		t.Error("Should not have gotten error, got ", err)
+	}
+}
+
+func TestMessage_rebuild(t *testing.T) {
+	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
+
+	msg, _ := parseMessage(rawMsg)
+
+	msg.Header.Set(fix.NewStringField(tag.OrigSendingTime, "20140515-19:49:56.659"))
+	msg.Header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
+
+	msg.rebuild()
+
+	expectedBytes := []byte("8=FIX.4.29=12635=D34=249=TW52=20140615-19:49:5656=ISLD122=20140515-19:49:56.65911=10021=140=154=155=TSLA60=00010101-00:00:00.00010=124")
+
+	if !bytes.Equal(expectedBytes, msg.Bytes) {
+		t.Error("Unexpected bytes, got ", string(msg.Bytes))
+	}
+
+	expectedBodyBytes := []byte("11=10021=140=154=155=TSLA60=00010101-00:00:00.000")
+
+	if !bytes.Equal(msg.bodyBytes, expectedBodyBytes) {
+		t.Error("Incorrect body bytes, got ", string(msg.bodyBytes))
+	}
+}
+
+func TestMessage_reverseRoute(t *testing.T) {
+	msg, _ := parseMessage([]byte("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
 
 	builder := msg.reverseRoute()
 
-	targetCompID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.TargetCompID, targetCompID)
-	c.Check(err, IsNil)
-	c.Check(targetCompID.Value, Equals, "TW")
+	var testCases = []struct {
+		tag           fix.Tag
+		expectedValue string
+	}{
+		{tag.TargetCompID, "TW"},
+		{tag.TargetSubID, "KK"},
+		{tag.TargetLocationID, "JV"},
+		{tag.SenderCompID, "ISLD"},
+		{tag.SenderSubID, "AP"},
+		{tag.SenderLocationID, "RY"},
+		{tag.DeliverToCompID, "JCD"},
+		{tag.DeliverToSubID, "CS"},
+		{tag.DeliverToLocationID, "BB"},
+		{tag.OnBehalfOfCompID, "MG"},
+		{tag.OnBehalfOfSubID, "CB"},
+		{tag.OnBehalfOfLocationID, "BH"},
+	}
 
-	targetSubID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.TargetSubID, targetSubID)
-	c.Check(err, IsNil)
-	c.Check(targetSubID.Value, Equals, "KK")
+	for _, tc := range testCases {
+		field := new(fix.StringValue)
+		err := builder.Header().GetField(tc.tag, field)
+		if err != nil {
+			t.Error("Unexpected error, ", err)
+		}
 
-	targetLocationID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.TargetLocationID, targetLocationID)
-	c.Check(err, IsNil)
-	c.Check(targetLocationID.Value, Equals, "JV")
-
-	senderCompID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.SenderCompID, senderCompID)
-	c.Check(err, IsNil)
-	c.Check(senderCompID.Value, Equals, "ISLD")
-
-	senderSubID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.SenderSubID, senderSubID)
-	c.Check(err, IsNil)
-	c.Check(senderSubID.Value, Equals, "AP")
-
-	senderLocationID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.SenderLocationID, senderLocationID)
-	c.Check(err, IsNil)
-	c.Check(senderLocationID.Value, Equals, "RY")
-
-	deliverToCompID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.DeliverToCompID, deliverToCompID)
-	c.Check(err, IsNil)
-	c.Check(deliverToCompID.Value, Equals, "JCD")
-
-	deliverToSubID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.DeliverToSubID, deliverToSubID)
-	c.Check(err, IsNil)
-	c.Check(deliverToSubID.Value, Equals, "CS")
-
-	deliverToLocationID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.DeliverToLocationID, deliverToLocationID)
-	c.Check(err, IsNil)
-	c.Check(deliverToLocationID.Value, Equals, "BB")
-
-	onBehalfOfCompID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.OnBehalfOfCompID, onBehalfOfCompID)
-	c.Check(err, IsNil)
-	c.Check(onBehalfOfCompID.Value, Equals, "MG")
-
-	onBehalfOfSubID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.OnBehalfOfSubID, onBehalfOfSubID)
-	c.Check(err, IsNil)
-	c.Check(onBehalfOfSubID.Value, Equals, "CB")
-
-	onBehalfOfLocationID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.OnBehalfOfLocationID, onBehalfOfLocationID)
-	c.Check(err, IsNil)
-	c.Check(onBehalfOfLocationID.Value, Equals, "BH")
+		if field.Value != tc.expectedValue {
+			t.Errorf("Expected %v got %v", tc.expectedValue, field.Value)
+		}
+	}
 }
 
-func (s *FieldMapTests) TestReverseRouteIgnoreEmpty(c *C) {
-	msg, err := parseMessage([]byte("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
-	c.Check(err, IsNil)
+func TestMessage_reverseRouteIgnoreEmpty(t *testing.T) {
+	msg, _ := parseMessage([]byte("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
 	builder := msg.reverseRoute()
 
-	//don't reverse if empty
-	deliverToCompID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.DeliverToCompID, deliverToCompID)
-	c.Check(err, NotNil)
-
+	if builder.Header().Has(tag.DeliverToCompID) {
+		t.Error("Should not reverse if empty")
+	}
 }
 
-func (s *FieldMapTests) TestReverseRouteFIX40(c *C) {
+func TestMessage_reverseRouteFIX40(t *testing.T) {
 	//onbehalfof/deliverto location id not supported in fix 4.0
 
-	msg, err := parseMessage([]byte("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
+	msg, _ := parseMessage([]byte("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
 
-	c.Check(err, IsNil)
 	builder := msg.reverseRoute()
 
-	deliverToLocationID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.DeliverToLocationID, deliverToLocationID)
-	c.Check(err, NotNil)
+	if builder.Header().Has(tag.DeliverToLocationID) {
+		t.Error("delivertolocation id not supported in fix40")
+	}
 
-	onBehalfOfLocationID := new(fix.StringValue)
-	err = builder.Header().GetField(tag.OnBehalfOfLocationID, onBehalfOfLocationID)
-	c.Check(err, NotNil)
+	if builder.Header().Has(tag.OnBehalfOfLocationID) {
+		t.Error("onbehalfof location id not supported in fix40")
+	}
 }

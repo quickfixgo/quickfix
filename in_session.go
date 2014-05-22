@@ -165,7 +165,7 @@ func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int
 				state.generateSequenceReset(session, seqNum, sentMessageSeqNum.Value)
 			}
 
-			session.resend(msg.ToBuilder())
+			session.resend(msg)
 			seqNum = sentMessageSeqNum.Value + 1
 			nextSeqNum = seqNum
 		}

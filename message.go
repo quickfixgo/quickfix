@@ -20,6 +20,9 @@ type Message struct {
 	//Bytes is the raw bytes of the Message
 	Bytes []byte
 
+	//slice of Bytes corresponding to the message body
+	bodyBytes []byte
+
 	//field bytes as they appear in the raw message
 	fields []*fieldBytes
 }
@@ -68,6 +71,8 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 	msg.Header.append(parsedFieldBytes)
 	msg.fields = append(msg.fields, parsedFieldBytes)
 
+	trailerBytes := []byte{}
+	foundBody := false
 	for {
 		parsedFieldBytes, rawMessage, err = extractField(rawMessage)
 		if err != nil {
@@ -81,11 +86,22 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 		case tag.IsTrailer(parsedFieldBytes.Tag):
 			msg.Trailer.append(parsedFieldBytes)
 		default:
+			foundBody = true
+			trailerBytes = rawMessage
 			msg.Body.append(parsedFieldBytes)
 		}
 		if parsedFieldBytes.Tag == tag.CheckSum {
 			break
 		}
+
+		if !foundBody {
+			msg.bodyBytes = rawMessage
+		}
+	}
+
+	//body length would only be larger than trailer if fields out of order
+	if len(msg.bodyBytes) > len(trailerBytes) {
+		msg.bodyBytes = msg.bodyBytes[:len(msg.bodyBytes)-len(trailerBytes)]
 	}
 
 	length := 0
@@ -171,25 +187,26 @@ func (m *Message) String() string {
 	return string(m.Bytes)
 }
 
-//ToBuilder returns a writable message builder initialized with the fields in the message
-//FIXME: not safe with repeated groups
-func (m *Message) ToBuilder() MessageBuilder {
-	builder := NewMessageBuilder()
-	for tag := range m.Header.fieldLookup {
-		builder.Header().fieldLookup[tag] = m.Header.fieldLookup[tag]
-	}
-
-	for tag := range m.Body.fieldLookup {
-		builder.Body().fieldLookup[tag] = m.Body.fieldLookup[tag]
-	}
-
-	for tag := range m.Trailer.fieldLookup {
-		builder.Trailer().fieldLookup[tag] = m.Trailer.fieldLookup[tag]
-	}
-
-	return builder
-}
-
 func newCheckSum(value int) *fix.StringField {
 	return fix.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
+}
+
+func (m *Message) rebuild() {
+	bodyLength := m.Header.length() + len(m.bodyBytes) + m.Trailer.length()
+
+	checkSum := m.Header.total() + m.Trailer.total()
+	for _, b := range m.bodyBytes {
+		checkSum += int(b)
+	}
+	checkSum %= 256
+
+	m.Header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
+	m.Trailer.Set(newCheckSum(checkSum))
+
+	var b bytes.Buffer
+	m.Header.write(&b)
+	b.Write(m.bodyBytes)
+	m.Trailer.write(&b)
+
+	m.Bytes = b.Bytes()
 }
