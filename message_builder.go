@@ -7,16 +7,16 @@ import (
 )
 
 type MessageBuilder interface {
-	Header() FieldMap
-	Trailer() FieldMap
-	Body() FieldMap
+	Header() MutableFieldMap
+	Trailer() MutableFieldMap
+	Body() MutableFieldMap
 	Build() (*Message, error)
 }
 
 type messageBuilder struct {
-	header  FieldMap
-	trailer FieldMap
-	body    FieldMap
+	header  fieldMap
+	trailer fieldMap
+	body    fieldMap
 }
 
 func NewMessageBuilder() MessageBuilder {
@@ -27,9 +27,9 @@ func NewMessageBuilder() MessageBuilder {
 	return m
 }
 
-func (m messageBuilder) Header() FieldMap  { return m.header }
-func (m messageBuilder) Trailer() FieldMap { return m.trailer }
-func (m messageBuilder) Body() FieldMap    { return m.body }
+func (m messageBuilder) Header() MutableFieldMap  { return m.header }
+func (m messageBuilder) Trailer() MutableFieldMap { return m.trailer }
+func (m messageBuilder) Body() MutableFieldMap    { return m.body }
 
 func (m messageBuilder) Build() (*Message, error) {
 	m.cook()

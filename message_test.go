@@ -38,6 +38,11 @@ func TestMessage_parseMessage(t *testing.T) {
 	if !bytes.Equal(msg.bodyBytes, expectedBodyBytes) {
 		t.Error("Incorrect body bytes, got ", string(msg.bodyBytes))
 	}
+
+	expectedLenFields := 14
+	if len(msg.fields) != expectedLenFields {
+		t.Errorf("Expected %v fields, got %v", expectedLenFields, len(msg.fields))
+	}
 }
 
 func TestMessage_parseOutOfOrder(t *testing.T) {
@@ -54,9 +59,10 @@ func TestMessage_rebuild(t *testing.T) {
 	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
 	msg, _ := parseMessage(rawMsg)
+	header := msg.Header.(fieldMap)
 
-	msg.Header.Set(fix.NewStringField(tag.OrigSendingTime, "20140515-19:49:56.659"))
-	msg.Header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
+	header.Set(fix.NewStringField(tag.OrigSendingTime, "20140515-19:49:56.659"))
+	header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
 
 	msg.rebuild()
 

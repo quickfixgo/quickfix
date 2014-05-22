@@ -238,108 +238,107 @@ func validateRequiredFieldMap(msg Message, requiredTags map[fix.Tag]struct{}, fi
 }
 
 func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message Message) MessageRejectError {
-	if err := validateFieldMapFields(transportDD, message, transportDD.Header.Tags, message.Header); err != nil {
-		return err
-	}
-	if err := validateFieldMapFields(appDD, message, appDD.Messages[msgType].Tags, message.Body); err != nil {
-		return err
-	}
-	if err := validateFieldMapFields(transportDD, message, transportDD.Trailer.Tags, message.Trailer); err != nil {
-		return err
+	for _, field := range message.fields {
+		switch {
+		case tag.IsHeader(field.Tag):
+			if err := validateField(transportDD, transportDD.Header.Tags, field); err != nil {
+				return err
+			}
+		case tag.IsTrailer(field.Tag):
+			if err := validateField(transportDD, transportDD.Trailer.Tags, field); err != nil {
+				return err
+			}
+		default:
+			if err := validateField(appDD, appDD.Messages[msgType].Tags, field); err != nil {
+				return err
+			}
+		}
 	}
 
 	return nil
 }
 
-func validateFieldMapFields(d *datadictionary.DataDictionary, message Message, validFields datadictionary.TagSet, fieldMap FieldMap) MessageRejectError {
-	for tag, fieldValue := range fieldMap.fieldLookup {
-		if len(fieldValue.Value) == 0 {
-			return tagSpecifiedWithoutAValue(tag)
+func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field *fieldBytes) MessageRejectError {
+	if len(field.Value) == 0 {
+		return tagSpecifiedWithoutAValue(field.Tag)
+	}
+
+	if _, valid := d.FieldTypeByTag[field.Tag]; !valid {
+		return invalidTagNumber(field.Tag)
+	}
+
+	allowedValues := d.FieldTypeByTag[field.Tag].Enums
+	if len(allowedValues) != 0 {
+		if _, validValue := allowedValues[string(field.Value)]; !validValue {
+			return ValueIsIncorrect(field.Tag)
 		}
 	}
 
-	for tag := range fieldMap.fieldLookup {
-		if _, valid := d.FieldTypeByTag[tag]; !valid {
-			return invalidTagNumber(tag)
-		}
+	fieldType := d.FieldTypeByTag[field.Tag]
+	var prototype FieldValue
+	switch fieldType.Type {
+	case "STRING":
+		prototype = new(fix.StringValue)
+	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
+		prototype = new(fix.MultipleStringValue)
+	case "MULTIPLECHARVALUE":
+		prototype = new(fix.MultipleCharValue)
+	case "CHAR":
+		prototype = new(fix.CharValue)
+	case "CURRENCY":
+		prototype = new(fix.CurrencyValue)
+	case "DATA":
+		prototype = new(fix.DataValue)
+	case "MONTHYEAR":
+		prototype = new(fix.MonthYearValue)
+	case "LOCALMKTDATE", "DATE":
+		prototype = new(fix.LocalMktDateValue)
+	case "EXCHANGE":
+		prototype = new(fix.ExchangeValue)
+	case "LANGUAGE":
+		prototype = new(fix.LanguageValue)
+	case "XMLDATA":
+		prototype = new(fix.XMLDataValue)
+	case "COUNTRY":
+		prototype = new(fix.CountryValue)
+	case "UTCTIMEONLY":
+		prototype = new(fix.UTCTimeOnlyValue)
+	case "UTCDATEONLY", "UTCDATE":
+		prototype = new(fix.UTCDateOnlyValue)
+	case "TZTIMEONLY":
+		prototype = new(fix.TZTimeOnlyValue)
+	case "TZTIMESTAMP":
+		prototype = new(fix.TZTimestampValue)
+	case "BOOLEAN":
+		prototype = new(fix.BooleanValue)
+	case "INT":
+		prototype = new(fix.IntValue)
+	case "LENGTH":
+		prototype = new(fix.LengthValue)
+	case "DAYOFMONTH":
+		prototype = new(fix.DayOfMonthValue)
+	case "NUMINGROUP":
+		prototype = new(fix.NumInGroupValue)
+	case "SEQNUM":
+		prototype = new(fix.SeqNumValue)
+	case "UTCTIMESTAMP", "TIME":
+		prototype = new(fix.UTCTimestampValue)
+	case "FLOAT":
+		prototype = new(fix.FloatValue)
+	case "QTY", "QUANTITY":
+		prototype = new(fix.QtyValue)
+	case "AMT":
+		prototype = new(fix.AmtValue)
+	case "PRICE":
+		prototype = new(fix.PriceValue)
+	case "PRICEOFFSET":
+		prototype = new(fix.PriceOffsetValue)
+	case "PERCENTAGE":
+		prototype = new(fix.PercentageValue)
 	}
 
-	for tag, fieldValue := range fieldMap.fieldLookup {
-		allowedValues := d.FieldTypeByTag[tag].Enums
-		if len(allowedValues) != 0 {
-			if _, validValue := allowedValues[string(fieldValue.Value)]; !validValue {
-				return ValueIsIncorrect(tag)
-			}
-		}
-	}
-
-	for tag := range fieldMap.fieldLookup {
-		fieldType := d.FieldTypeByTag[tag]
-		var prototype FieldValue
-		switch fieldType.Type {
-		case "STRING":
-			prototype = new(fix.StringValue)
-		case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
-			prototype = new(fix.MultipleStringValue)
-		case "MULTIPLECHARVALUE":
-			prototype = new(fix.MultipleCharValue)
-		case "CHAR":
-			prototype = new(fix.CharValue)
-		case "CURRENCY":
-			prototype = new(fix.CurrencyValue)
-		case "DATA":
-			prototype = new(fix.DataValue)
-		case "MONTHYEAR":
-			prototype = new(fix.MonthYearValue)
-		case "LOCALMKTDATE", "DATE":
-			prototype = new(fix.LocalMktDateValue)
-		case "EXCHANGE":
-			prototype = new(fix.ExchangeValue)
-		case "LANGUAGE":
-			prototype = new(fix.LanguageValue)
-		case "XMLDATA":
-			prototype = new(fix.XMLDataValue)
-		case "COUNTRY":
-			prototype = new(fix.CountryValue)
-		case "UTCTIMEONLY":
-			prototype = new(fix.UTCTimeOnlyValue)
-		case "UTCDATEONLY", "UTCDATE":
-			prototype = new(fix.UTCDateOnlyValue)
-		case "TZTIMEONLY":
-			prototype = new(fix.TZTimeOnlyValue)
-		case "TZTIMESTAMP":
-			prototype = new(fix.TZTimestampValue)
-		case "BOOLEAN":
-			prototype = new(fix.BooleanValue)
-		case "INT":
-			prototype = new(fix.IntValue)
-		case "LENGTH":
-			prototype = new(fix.LengthValue)
-		case "DAYOFMONTH":
-			prototype = new(fix.DayOfMonthValue)
-		case "NUMINGROUP":
-			prototype = new(fix.NumInGroupValue)
-		case "SEQNUM":
-			prototype = new(fix.SeqNumValue)
-		case "UTCTIMESTAMP", "TIME":
-			prototype = new(fix.UTCTimestampValue)
-		case "FLOAT":
-			prototype = new(fix.FloatValue)
-		case "QTY", "QUANTITY":
-			prototype = new(fix.QtyValue)
-		case "AMT":
-			prototype = new(fix.AmtValue)
-		case "PRICE":
-			prototype = new(fix.PriceValue)
-		case "PRICEOFFSET":
-			prototype = new(fix.PriceOffsetValue)
-		case "PERCENTAGE":
-			prototype = new(fix.PercentageValue)
-		}
-
-		if err := fieldMap.GetField(tag, prototype); err != nil {
-			return err
-		}
+	if err := prototype.Read(field.Value); err != nil {
+		return incorrectDataFormatForValue(field.Tag)
 	}
 
 	return nil

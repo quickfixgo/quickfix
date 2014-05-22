@@ -8,6 +8,24 @@ import (
 	"sort"
 )
 
+//FieldMap is a collection of fix fields that make up a fix message.
+type FieldMap interface {
+	//Tags are a copy of all tags in this field map.
+	Tags() []fix.Tag
+
+	Get(field Field) MessageRejectError
+	Has(tag fix.Tag) bool
+	GetField(tag fix.Tag, value FieldValue) MessageRejectError
+}
+
+//MutableFieldMap is a writable FieldMap
+type MutableFieldMap interface {
+	FieldMap
+
+	SetField(tag fix.Tag, field FieldValue)
+	Set(field Field)
+}
+
 // fieldOrder true if tag i should occur before tag j
 type fieldOrder func(i, j fix.Tag) bool
 
@@ -63,23 +81,17 @@ func trailerFieldOrder(i, j fix.Tag) bool {
 	return i < j
 }
 
-//FieldMap is a collection of fix fields that make up a fix message.
-type FieldMap struct {
+type fieldMap struct {
 	fieldLookup map[fix.Tag]*fieldBytes
 	fieldOrder
 }
 
-func (m *FieldMap) init(ordering fieldOrder) {
+func (m *fieldMap) init(ordering fieldOrder) {
 	m.fieldLookup = make(map[fix.Tag]*fieldBytes)
 	m.fieldOrder = ordering
 }
 
-func (m *FieldMap) append(field *fieldBytes) {
-	m.fieldLookup[field.Tag] = field
-}
-
-//Tags are a copy of all tags in this field map.
-func (m FieldMap) Tags() []fix.Tag {
+func (m fieldMap) Tags() []fix.Tag {
 	tags := make([]fix.Tag, 0, len(m.fieldLookup))
 	for t := range m.fieldLookup {
 		tags = append(tags, t)
@@ -88,16 +100,16 @@ func (m FieldMap) Tags() []fix.Tag {
 	return tags
 }
 
-func (m FieldMap) Get(parser Field) MessageRejectError {
+func (m fieldMap) Get(parser Field) MessageRejectError {
 	return m.GetField(parser.Tag(), parser)
 }
 
-func (m FieldMap) Has(tag fix.Tag) bool {
+func (m fieldMap) Has(tag fix.Tag) bool {
 	_, ok := m.fieldLookup[tag]
 	return ok
 }
 
-func (m FieldMap) GetField(tag fix.Tag, parser FieldValue) MessageRejectError {
+func (m fieldMap) GetField(tag fix.Tag, parser FieldValue) MessageRejectError {
 	field, ok := m.fieldLookup[tag]
 
 	if !ok {
@@ -111,15 +123,15 @@ func (m FieldMap) GetField(tag fix.Tag, parser FieldValue) MessageRejectError {
 	return nil
 }
 
-func (m FieldMap) SetField(tag fix.Tag, field FieldValue) {
+func (m fieldMap) SetField(tag fix.Tag, field FieldValue) {
 	m.fieldLookup[tag] = newFieldBytes(tag, field.Write())
 }
 
-func (m FieldMap) Set(field Field) {
+func (m fieldMap) Set(field Field) {
 	m.fieldLookup[field.Tag()] = newFieldBytes(field.Tag(), field.Write())
 }
 
-func (m FieldMap) sortedTags() []fix.Tag {
+func (m fieldMap) sortedTags() []fix.Tag {
 	sortedTags := make([]fix.Tag, len(m.fieldLookup))
 	for tag := range m.fieldLookup {
 		sortedTags = append(sortedTags, tag)
@@ -129,7 +141,7 @@ func (m FieldMap) sortedTags() []fix.Tag {
 	return sortedTags
 }
 
-func (m FieldMap) write(buffer *bytes.Buffer) {
+func (m fieldMap) write(buffer *bytes.Buffer) {
 	tags := m.sortedTags()
 
 	for _, tag := range tags {
@@ -139,7 +151,7 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 	}
 }
 
-func (m FieldMap) total() int {
+func (m fieldMap) total() int {
 	total := 0
 	for t, field := range m.fieldLookup {
 		switch t {
@@ -152,7 +164,7 @@ func (m FieldMap) total() int {
 	return total
 }
 
-func (m FieldMap) length() int {
+func (m fieldMap) length() int {
 	length := 0
 	for t := range m.fieldLookup {
 		switch t {

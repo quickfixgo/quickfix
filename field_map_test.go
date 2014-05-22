@@ -2,40 +2,48 @@ package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/fix"
-	. "gopkg.in/check.v1"
+	"testing"
 )
 
-var _ = Suite(&FieldMapTests{})
+func TestFieldMap_SetAndGet(t *testing.T) {
+	fMap := fieldMap{}
+	fMap.init(normalFieldOrder)
 
-type FieldMapTests struct{ fieldMap FieldMap }
+	fMap.Set(fix.NewStringField(1, "hello"))
+	fMap.Set(fix.NewStringField(2, "world"))
 
-func (s *FieldMapTests) SetUpTest(c *C) {
-	s.fieldMap.init(normalFieldOrder)
+	var testCases = []struct {
+		tag         fix.Tag
+		expectErr   bool
+		expectValue string
+	}{
+		{tag: 1, expectValue: "hello"},
+		{tag: 2, expectValue: "world"},
+		{tag: 44, expectErr: true},
+	}
+
+	for _, tc := range testCases {
+		testField := fix.NewStringField(tc.tag, "")
+		err := fMap.Get(testField)
+
+		if tc.expectErr {
+			if err == nil {
+				t.Error("Expected Error")
+			}
+			continue
+		}
+
+		if err != nil {
+			t.Error("Unexpected Error", err)
+		}
+
+		if testField.Value != tc.expectValue {
+			t.Errorf("Expected %v got %v", tc.expectValue, testField.Value)
+		}
+	}
 }
 
-func (s *FieldMapTests) TestSetAndGet(c *C) {
-	field1 := fix.NewStringField(1, "hello")
-	field2 := fix.NewStringField(2, "world")
-
-	s.fieldMap.Set(field1)
-	s.fieldMap.Set(field2)
-
-	testField := fix.NewStringField(1, "")
-	err := s.fieldMap.Get(testField)
-	c.Check(err, IsNil)
-	c.Check(testField.Value, Equals, "hello")
-
-	testField = fix.NewStringField(2, "")
-	err = s.fieldMap.Get(testField)
-	c.Check(err, IsNil)
-	c.Check(testField.Value, Equals, "world")
-
-	testField = fix.NewStringField(44, "")
-	err = s.fieldMap.Get(testField)
-	c.Check(err, NotNil)
-}
-
-func (s *FieldMapTests) TestLength(c *C) {
+func TestFieldMap_Length(t *testing.T) {
 	f1 := fix.NewStringField(1, "hello")
 	f2 := fix.NewStringField(2, "world")
 
@@ -43,17 +51,20 @@ func (s *FieldMapTests) TestLength(c *C) {
 	bodyLength := fix.NewIntField(9, 100)
 	checkSum := fix.NewStringField(10, "100")
 
-	s.fieldMap.Set(f1)
-	s.fieldMap.Set(f2)
-	s.fieldMap.Set(beginString)
-	s.fieldMap.Set(bodyLength)
-	s.fieldMap.Set(checkSum)
+	fMap := fieldMap{}
+	fMap.init(normalFieldOrder)
+	fMap.Set(f1)
+	fMap.Set(f2)
+	fMap.Set(beginString)
+	fMap.Set(bodyLength)
+	fMap.Set(checkSum)
 
-	c.Check(s.fieldMap.length(), Equals, 16,
-		Commentf("Length includes all fields but beginString, bodyLength, and checkSum"))
+	if fMap.length() != 16 {
+		t.Error("Length should include all fields but beginString, bodyLength, and checkSum- got ", fMap.length())
+	}
 }
 
-func (s *FieldMapTests) TestTotal(c *C) {
+func TestFieldMap_Total(t *testing.T) {
 	f1 := fix.NewStringField(1, "hello")
 	f2 := fix.NewStringField(2, "world")
 
@@ -61,12 +72,15 @@ func (s *FieldMapTests) TestTotal(c *C) {
 	bodyLength := fix.NewIntField(9, 100)
 	checkSum := fix.NewStringField(10, "100")
 
-	s.fieldMap.Set(f1)
-	s.fieldMap.Set(f2)
-	s.fieldMap.Set(beginString)
-	s.fieldMap.Set(bodyLength)
-	s.fieldMap.Set(checkSum)
+	fMap := fieldMap{}
+	fMap.init(normalFieldOrder)
+	fMap.Set(f1)
+	fMap.Set(f2)
+	fMap.Set(beginString)
+	fMap.Set(bodyLength)
+	fMap.Set(checkSum)
 
-	c.Check(s.fieldMap.total(), Equals, 2116,
-		Commentf("Total includes all fields but checkSum"))
+	if fMap.total() != 2116 {
+		t.Error("Total should includes all fields but checkSum- got ", fMap.total())
+	}
 }

@@ -128,7 +128,7 @@ func (s *Session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *Session) insertSendingTime(header FieldMap) {
+func (s *Session) insertSendingTime(header MutableFieldMap) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= fix.BeginString_FIX42 {
@@ -147,15 +147,15 @@ func (s *Session) fillDefaultHeader(builder MessageBuilder) {
 }
 
 func (s *Session) resend(msg *Message) {
-
-	msg.Header.Set(field.NewPossDupFlag(true))
+	header := msg.Header.(fieldMap)
+	header.Set(field.NewPossDupFlag(true))
 
 	origSendingTime := new(fix.StringValue)
-	if err := msg.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
-		msg.Header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+	if err := header.GetField(tag.SendingTime, origSendingTime); err == nil {
+		header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
-	s.insertSendingTime(msg.Header)
+	s.insertSendingTime(header)
 
 	msg.rebuild()
 	s.sendBytes(msg.Bytes)

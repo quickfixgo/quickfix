@@ -36,11 +36,12 @@ func (e parseError) Error() string { return fmt.Sprintf("error parsing message: 
 
 //parseMessage constructs a Message from a byte slice wrapping a FIX message.
 func parseMessage(rawMessage []byte) (*Message, error) {
-	msg := new(Message)
-	msg.Header.init(headerFieldOrder)
-	msg.Trailer.init(trailerFieldOrder)
-	msg.Body.init(normalFieldOrder)
-	msg.Bytes = rawMessage
+	var header, body, trailer fieldMap
+	header.init(headerFieldOrder)
+	body.init(normalFieldOrder)
+	trailer.init(trailerFieldOrder)
+
+	msg := &Message{Header: header, Body: body, Trailer: trailer, Bytes: rawMessage}
 
 	//including required header and trailer fields, minimum of 7 fields can be expected
 	//TODO: expose size for priming
@@ -54,22 +55,22 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 		return nil, err
 	}
 
-	msg.Header.append(parsedFieldBytes)
 	msg.fields = append(msg.fields, parsedFieldBytes)
+	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BodyLength, rawMessage); err != nil {
 		return nil, err
 	}
 
-	msg.Header.append(parsedFieldBytes)
 	msg.fields = append(msg.fields, parsedFieldBytes)
+	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 
 	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.MsgType, rawMessage); err != nil {
 		return nil, err
 	}
 
-	msg.Header.append(parsedFieldBytes)
 	msg.fields = append(msg.fields, parsedFieldBytes)
+	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 
 	trailerBytes := []byte{}
 	foundBody := false
@@ -82,13 +83,13 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 		msg.fields = append(msg.fields, parsedFieldBytes)
 		switch {
 		case tag.IsHeader(parsedFieldBytes.Tag):
-			msg.Header.append(parsedFieldBytes)
+			header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		case tag.IsTrailer(parsedFieldBytes.Tag):
-			msg.Trailer.append(parsedFieldBytes)
+			trailer.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		default:
 			foundBody = true
 			trailerBytes = rawMessage
-			msg.Body.append(parsedFieldBytes)
+			body.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		}
 		if parsedFieldBytes.Tag == tag.CheckSum {
 			break
@@ -192,21 +193,23 @@ func newCheckSum(value int) *fix.StringField {
 }
 
 func (m *Message) rebuild() {
-	bodyLength := m.Header.length() + len(m.bodyBytes) + m.Trailer.length()
+	header := m.Header.(fieldMap)
+	trailer := m.Trailer.(fieldMap)
 
-	checkSum := m.Header.total() + m.Trailer.total()
+	bodyLength := header.length() + len(m.bodyBytes) + trailer.length()
+	checkSum := header.total() + trailer.total()
 	for _, b := range m.bodyBytes {
 		checkSum += int(b)
 	}
 	checkSum %= 256
 
-	m.Header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
-	m.Trailer.Set(newCheckSum(checkSum))
+	header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
+	trailer.Set(newCheckSum(checkSum))
 
 	var b bytes.Buffer
-	m.Header.write(&b)
+	header.write(&b)
 	b.Write(m.bodyBytes)
-	m.Trailer.write(&b)
+	trailer.write(&b)
 
 	m.Bytes = b.Bytes()
 }
