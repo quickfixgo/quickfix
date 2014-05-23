@@ -36,7 +36,7 @@ func (state inSession) FixMsgIn(session *Session, msg Message) (nextState sessio
 		}
 	}
 
-	session.expectedSeqNum++
+	session.store.IncrNextTargetMsgSeqNum()
 
 	return state
 }
@@ -84,12 +84,13 @@ func (state inSession) handleSequenceReset(session *Session, msg Message) (nextS
 
 	newSeqNo := new(fix.IntField)
 	if err := msg.Body.GetField(tag.NewSeqNo, newSeqNo); err == nil {
-		session.log.OnEventf("Received SequenceReset FROM: %v TO: %v", session.expectedSeqNum, newSeqNo.Value)
+		expectedSeqNum := session.store.NextTargetMsgSeqNum()
+		session.log.OnEventf("Received SequenceReset FROM: %v TO: %v", expectedSeqNum, newSeqNo.Value)
 
 		switch {
-		case newSeqNo.Value > session.expectedSeqNum:
-			session.expectedSeqNum = newSeqNo.Value
-		case newSeqNo.Value < session.expectedSeqNum:
+		case newSeqNo.Value > expectedSeqNum:
+			session.store.SetNextTargetMsgSeqNum(newSeqNo.Value)
+		case newSeqNo.Value < expectedSeqNum:
 			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
 			session.doReject(msg, valueIsIncorrectNoTag())
 		}
@@ -119,15 +120,16 @@ func (state inSession) handleResendRequest(session *Session, msg Message) (nextS
 	endSeqNo := endSeqNoField.Value
 
 	session.log.OnEventf("Received ResendRequest FROM: %d TO: %d", beginSeqNo, endSeqNo)
+	expectedSeqNum := session.store.NextTargetMsgSeqNum()
 
 	if (session.sessionID.BeginString >= fix.BeginString_FIX42 && endSeqNo == 0) ||
 		(session.sessionID.BeginString <= fix.BeginString_FIX42 && endSeqNo == 999999) ||
-		(endSeqNo >= session.expectedSeqNum) {
-		endSeqNo = session.expectedSeqNum - 1
+		(endSeqNo >= expectedSeqNum) {
+		endSeqNo = expectedSeqNum - 1
 	}
 
 	state.resendMessages(session, beginSeqNo, endSeqNo)
-	session.expectedSeqNum++
+	session.store.IncrNextTargetMsgSeqNum()
 	return state
 }
 
@@ -187,7 +189,7 @@ func (state inSession) handleTestRequest(session *Session, msg Message) (nextSta
 		session.send(heartBt)
 	}
 
-	session.expectedSeqNum++
+	session.store.IncrNextTargetMsgSeqNum()
 
 	return state
 }
@@ -217,7 +219,7 @@ func (state inSession) processReject(session *Session, msg Message, rej MessageR
 		return state.initiateLogout(session, "")
 	default:
 		session.doReject(msg, rej)
-		session.expectedSeqNum++
+		session.store.IncrNextTargetMsgSeqNum()
 		return state
 	}
 }

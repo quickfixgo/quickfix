@@ -13,7 +13,7 @@ func (state resendState) FixMsgIn(session *Session, msg Message) (nextState sess
 			return
 		}
 
-		msg, ok = session.messageStash[session.expectedSeqNum]
+		msg, ok = session.messageStash[session.store.NextTargetMsgSeqNum()]
 	}
 
 	if len(session.messageStash) != 0 {

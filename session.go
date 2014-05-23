@@ -12,8 +12,7 @@ import (
 
 //The Session is the primary FIX abstraction for message communication
 type Session struct {
-	stateData
-	store messageStore
+	store MessageStore
 
 	log       Log
 	sessionID SessionID
@@ -33,6 +32,7 @@ type Session struct {
 	resetOnLogon            bool
 	initiateLogon           bool
 	heartBtInt              int
+	heartBeatTimeout        time.Duration
 
 	//required on logon for FIX.T.1 messages
 	defaultApplVerID       string
@@ -46,7 +46,7 @@ func (s *Session) TargetDefaultApplicationVersionID() string {
 }
 
 //Creates Session, associates with internal session registry
-func createSession(sessionID SessionID, settings *SessionSettings, logFactory LogFactory, application Application) error {
+func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) error {
 	session := &Session{sessionID: sessionID}
 
 	if sessionID.BeginString == fix.BeginString_FIXT11 {
@@ -93,6 +93,10 @@ func createSession(sessionID SessionID, settings *SessionSettings, logFactory Lo
 		return err
 	}
 
+	if session.store, err = storeFactory.Create(session.sessionID); err != nil {
+		return err
+	}
+
 	session.toSend = make(chan MessageBuilder)
 	session.sessionEvent = make(chan event)
 	session.application = application
@@ -109,7 +113,6 @@ func (s *Session) initiate() (chan []byte, error) {
 	s.currentState = logonState{}
 	s.messageOut = make(chan []byte)
 	s.messageStash = make(map[int]Message)
-	s.store = newMemoryStore()
 	s.initiateLogon = true
 
 	return s.messageOut, nil
@@ -119,7 +122,6 @@ func (s *Session) accept() (chan []byte, error) {
 	s.currentState = logonState{}
 	s.messageOut = make(chan []byte)
 	s.messageStash = make(map[int]Message)
-	s.store = newMemoryStore()
 
 	return s.messageOut, nil
 }
@@ -163,14 +165,16 @@ func (s *Session) resend(msg *Message) {
 
 func (s *Session) send(builder MessageBuilder) {
 	s.fillDefaultHeader(builder)
-	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, s.seqNum))
+
+	seqNum := s.store.NextSenderMsgSeqNum()
+	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, seqNum))
 
 	if msgBytes, err := builder.Build(); err != nil {
 		panic(err)
 	} else {
-		s.store.SaveMessage(s.seqNum, msgBytes)
+		s.store.SaveMessage(seqNum, msgBytes)
 		s.sendBytes(msgBytes)
-		s.seqNum++
+		s.store.IncrNextSenderMsgSeqNum()
 	}
 }
 
@@ -210,16 +214,14 @@ func (s *Session) handleLogon(msg Message) error {
 	if !s.initiateLogon {
 		s.log.OnEvent("Received logon request")
 		if s.resetOnLogon {
-			s.expectedSeqNum = 1
-			s.seqNum = 1
+			s.store.Reset()
 		}
 
 		resetSeqNumFlag := new(fix.BooleanValue)
 		if err := msg.Body.GetField(tag.ResetSeqNumFlag, resetSeqNumFlag); err == nil {
 			if resetSeqNumFlag.Value {
 				s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
-				s.seqNum = 1
-				s.expectedSeqNum = 1
+				s.store.Reset()
 			}
 		}
 
@@ -261,7 +263,7 @@ func (s *Session) handleLogon(msg Message) error {
 		}
 	}
 
-	s.expectedSeqNum++
+	s.store.IncrNextTargetMsgSeqNum()
 	return nil
 }
 
@@ -339,8 +341,8 @@ func (s *Session) checkTargetTooLow(msg Message) MessageRejectError {
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
 		return requiredTagMissing(tag.MsgSeqNum)
-	case seqNum.Value < s.expectedSeqNum:
-		return targetTooLow{ReceivedTarget: seqNum.Value, ExpectedTarget: s.expectedSeqNum}
+	case seqNum.Value < s.store.NextTargetMsgSeqNum():
+		return targetTooLow{ReceivedTarget: seqNum.Value, ExpectedTarget: s.store.NextTargetMsgSeqNum()}
 	}
 
 	return nil
@@ -351,8 +353,8 @@ func (s *Session) checkTargetTooHigh(msg Message) MessageRejectError {
 	switch err := msg.Header.GetField(tag.MsgSeqNum, seqNum); {
 	case err != nil:
 		return requiredTagMissing(tag.MsgSeqNum)
-	case seqNum.Value > s.expectedSeqNum:
-		return targetTooHigh{ReceivedTarget: seqNum.Value, ExpectedTarget: s.expectedSeqNum}
+	case seqNum.Value > s.store.NextTargetMsgSeqNum():
+		return targetTooHigh{ReceivedTarget: seqNum.Value, ExpectedTarget: s.store.NextTargetMsgSeqNum()}
 	}
 
 	return nil
@@ -467,8 +469,10 @@ func (s *Session) run(msgIn chan fixIn) {
 	}()
 
 	if s.initiateLogon {
-		s.expectedSeqNum = 1
-		s.seqNum = 1
+
+		if s.resetOnLogon {
+			s.store.Reset()
+		}
 
 		logon := NewMessageBuilder()
 		logon.Header().Set(field.NewMsgType("A"))

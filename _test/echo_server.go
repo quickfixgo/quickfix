@@ -208,7 +208,7 @@ func main() {
 		return
 	}
 
-	acceptor, err := quickfix.NewAcceptor(app, appSettings, fileLogFactory)
+	acceptor, err := quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
 	if err != nil {
 		fmt.Println("Unable to create Acceptor: ", err)
 		return

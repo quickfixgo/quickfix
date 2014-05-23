@@ -106,12 +106,13 @@ func TestSession_CheckBeginString(t *testing.T) {
 }
 
 func TestSession_CheckTargetTooHigh(t *testing.T) {
-	session := Session{}
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+	session := Session{store: store}
 	builder := getBuilder()
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	session.expectedSeqNum = 45
+	store.SetNextTargetMsgSeqNum(45)
 
 	//missing seq number
 	err := session.checkTargetTooHigh(*msg)
@@ -202,12 +203,14 @@ func TestSession_CheckSendingTime(t *testing.T) {
 }
 
 func TestSession_CheckTargetTooLow(t *testing.T) {
-	session := Session{}
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+	session := Session{store: store}
+
 	builder := getBuilder()
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	session.expectedSeqNum = 45
+	store.SetNextTargetMsgSeqNum(45)
 
 	//missing seq number
 	err := session.checkTargetTooLow(*msg)

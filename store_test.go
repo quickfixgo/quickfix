@@ -5,8 +5,47 @@ import (
 	"testing"
 )
 
+func TestMemoryStore_IncMsgSeqNum(t *testing.T) {
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+
+	var testCases = []struct {
+		expectedNextSeqNum int
+	}{
+		{1}, {2}, {3},
+	}
+
+	for _, tc := range testCases {
+
+		if store.NextSenderMsgSeqNum() != tc.expectedNextSeqNum {
+			t.Errorf("Did not get expected sender seq num %v, got %v", tc.expectedNextSeqNum, store.NextSenderMsgSeqNum())
+		}
+
+		store.IncrNextSenderMsgSeqNum()
+
+		if store.NextTargetMsgSeqNum() != tc.expectedNextSeqNum {
+			t.Errorf("Did not get expected target seq num %v, got %v", tc.expectedNextSeqNum, store.NextTargetMsgSeqNum())
+		}
+
+		store.IncrNextTargetMsgSeqNum()
+	}
+}
+
+func TestMemoryStore_SetMsgSeqNum(t *testing.T) {
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+	store.SetNextSenderMsgSeqNum(50)
+	store.SetNextTargetMsgSeqNum(30)
+
+	if store.NextSenderMsgSeqNum() != 50 {
+		t.Errorf("Did not get expected sender seq num %v, got %v", 50, store.NextSenderMsgSeqNum())
+	}
+
+	if store.NextTargetMsgSeqNum() != 30 {
+		t.Errorf("Did not get expected target seq num %v, got %v", 30, store.NextTargetMsgSeqNum())
+	}
+}
+
 func TestMemoryStore_GetMessages(t *testing.T) {
-	store := newMemoryStore()
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
 
 	messages := store.GetMessages(1, 2)
 	msg, ok := <-messages
@@ -58,5 +97,32 @@ func TestMemoryStore_GetMessages(t *testing.T) {
 
 			expected = expected[1:]
 		}
+	}
+}
+
+func TestMemoryStore_Reset(t *testing.T) {
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+	store.SetNextSenderMsgSeqNum(50)
+	store.SetNextTargetMsgSeqNum(30)
+
+	store.SaveMessage(1, []byte("hello"))
+	store.SaveMessage(2, []byte("cruel"))
+	store.SaveMessage(3, []byte("world"))
+
+	store.Reset()
+
+	messages := store.GetMessages(1, 3)
+	msg, ok := <-messages
+
+	if ok {
+		t.Error("Did not expect messages, got ", string(msg))
+	}
+
+	if store.NextSenderMsgSeqNum() != 1 {
+		t.Error("SenderMsgSeqNum should reset")
+	}
+
+	if store.NextTargetMsgSeqNum() != 1 {
+		t.Error("TargetMsgSeqNum should reset")
 	}
 }

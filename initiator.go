@@ -11,6 +11,7 @@ type Initiator struct {
 	app             Application
 	settings        *Settings
 	sessionSettings map[SessionID]*SessionSettings
+	storeFactory    MessageStoreFactory
 	logFactory      LogFactory
 	globalLog       Log
 }
@@ -46,9 +47,10 @@ func (i *Initiator) Stop() {
 }
 
 //NewInitiator creates and initializes a new Initiator.
-func NewInitiator(app Application, appSettings *Settings, logFactory LogFactory) (*Initiator, error) {
+func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings *Settings, logFactory LogFactory) (*Initiator, error) {
 	i := new(Initiator)
 	i.app = app
+	i.storeFactory = storeFactory
 	i.settings = appSettings
 	i.sessionSettings = appSettings.SessionSettings()
 	i.logFactory = logFactory
@@ -70,7 +72,7 @@ func NewInitiator(app Application, appSettings *Settings, logFactory LogFactory)
 			return nil, requiredConfigurationMissing(config.SocketConnectPort)
 		}
 
-		err = createSession(sessionID, s, logFactory, app)
+		err = createSession(sessionID, storeFactory, s, logFactory, app)
 		if err != nil {
 			return nil, err
 		}

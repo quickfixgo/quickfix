@@ -12,6 +12,7 @@ type Acceptor struct {
 	app                 Application
 	settings            *Settings
 	logFactory          LogFactory
+	storeFactory        MessageStoreFactory
 	globalLog           Log
 	qualifiedSessionIDs map[SessionID]SessionID
 }
@@ -43,9 +44,10 @@ func (a *Acceptor) Start() (e error) {
 func (a *Acceptor) Stop() {}
 
 //NewAcceptor creates and initializes a new Acceptor.
-func NewAcceptor(app Application, settings *Settings, logFactory LogFactory) (*Acceptor, error) {
+func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (*Acceptor, error) {
 	a := new(Acceptor)
 	a.app = app
+	a.storeFactory = storeFactory
 	a.settings = settings
 	a.logFactory = logFactory
 	a.qualifiedSessionIDs = make(map[SessionID]SessionID)
@@ -68,7 +70,7 @@ func NewAcceptor(app Application, settings *Settings, logFactory LogFactory) (*A
 		}
 		a.qualifiedSessionIDs[unqualifiedSessionID] = sessionID
 
-		if err = createSession(sessionID, sessionSettings, logFactory, app); err != nil {
+		if err = createSession(sessionID, storeFactory, sessionSettings, logFactory, app); err != nil {
 			return nil, err
 		}
 	}
