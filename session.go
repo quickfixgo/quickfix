@@ -158,18 +158,18 @@ func (s *Session) resend(msg *Message) {
 	s.insertSendingTime(header)
 
 	msg.rebuild()
-	s.sendBytes(msg.Bytes)
+	s.sendBytes(msg.rawMessage)
 }
 
 func (s *Session) send(builder MessageBuilder) {
 	s.fillDefaultHeader(builder)
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, s.seqNum))
 
-	if msg, err := builder.Build(); err != nil {
+	if msgBytes, err := builder.Build(); err != nil {
 		panic(err)
 	} else {
-		s.store.SaveMessage(s.seqNum, msg.Bytes)
-		s.sendBytes(msg.Bytes)
+		s.store.SaveMessage(s.seqNum, msgBytes)
+		s.sendBytes(msgBytes)
 		s.seqNum++
 	}
 }

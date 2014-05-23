@@ -62,7 +62,8 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 
 	builder := s.createFIX40NewOrderSingle()
 	builder.Header().Set(fix.NewStringField(9999, "hello"))
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
@@ -70,7 +71,9 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 
 	builder = s.createFIX40NewOrderSingle()
 	builder.Trailer().Set(fix.NewStringField(9999, "hello"))
-	msg, _ = builder.Build()
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
 	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
@@ -78,7 +81,9 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 
 	builder = s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(9999, "hello"))
-	msg, _ = builder.Build()
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
 	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
@@ -90,7 +95,8 @@ func (s *ValidationTests) TestValidateTagNotDefinedForMessage(c *C) {
 
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(41, "hello"))
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -102,7 +108,8 @@ func (s *ValidationTests) TestValidateTagNotDefinedForMessageComponent(c *C) {
 	dict, err := datadictionary.Parse("spec/FIX43.xml")
 	c.Check(err, IsNil)
 	builder := s.createFIX43NewOrderSingle()
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 
 	reject := validate(dict, *msg)
 	c.Check(reject, IsNil)
@@ -129,7 +136,8 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 
 	//ord type is required
 	//builder.Body().Set(fix.NewStringField(tag.OrdType, "A"))
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -153,7 +161,8 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 	//sending time is required
 	//msg.Header.FieldMap.Set(fix.NewStringField(tag.SendingTime, "0"))
 
-	msg, _ = builder.Build()
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
 
 	reject = validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -165,7 +174,8 @@ func (s *ValidationTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(tag.ClientID, ""))
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -178,7 +188,8 @@ func (s *ValidationTests) TestValidateInvalidMsgType(c *C) {
 
 	builder := s.createFIX40NewOrderSingle()
 	builder.Header().Set(fix.NewStringField(tag.MsgType, "z"))
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -189,7 +200,8 @@ func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(tag.HandlInst, "4"))
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
@@ -201,7 +213,9 @@ func (s *ValidationTests) TestValidateIncorrectDataFormatForValue(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	builder := s.createFIX40NewOrderSingle()
 	builder.Body().Set(fix.NewStringField(tag.OrderQty, "+200.00"))
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
+
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectDataFormatForValue)
@@ -213,7 +227,9 @@ func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 	builder := s.createFIX40NewOrderSingle()
 	//should be in header
 	builder.Body().Set(fix.NewStringField(tag.OnBehalfOfCompID, "CWB"))
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
+
 	reject := validate(dict, *msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonTagSpecifiedOutOfRequiredOrder)

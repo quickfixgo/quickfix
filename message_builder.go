@@ -10,7 +10,7 @@ type MessageBuilder interface {
 	Header() MutableFieldMap
 	Trailer() MutableFieldMap
 	Body() MutableFieldMap
-	Build() (*Message, error)
+	Build() ([]byte, error)
 }
 
 type messageBuilder struct {
@@ -31,7 +31,7 @@ func (m messageBuilder) Header() MutableFieldMap  { return m.header }
 func (m messageBuilder) Trailer() MutableFieldMap { return m.trailer }
 func (m messageBuilder) Body() MutableFieldMap    { return m.body }
 
-func (m messageBuilder) Build() (*Message, error) {
+func (m messageBuilder) Build() ([]byte, error) {
 	m.cook()
 
 	var b bytes.Buffer
@@ -39,8 +39,7 @@ func (m messageBuilder) Build() (*Message, error) {
 	m.body.write(&b)
 	m.trailer.write(&b)
 
-	rawMessage := b.Bytes()
-	return parseMessage(rawMessage)
+	return b.Bytes(), nil
 }
 
 func (m messageBuilder) cook() {

@@ -17,8 +17,7 @@ type Message struct {
 	//ReceiveTime is the time that this message was read from the socket connection
 	ReceiveTime time.Time
 
-	//Bytes is the raw bytes of the Message
-	Bytes []byte
+	rawMessage []byte
 
 	//slice of Bytes corresponding to the message body
 	bodyBytes []byte
@@ -41,7 +40,7 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 	body.init(normalFieldOrder)
 	trailer.init(trailerFieldOrder)
 
-	msg := &Message{Header: header, Body: body, Trailer: trailer, Bytes: rawMessage}
+	msg := &Message{Header: header, Body: body, Trailer: trailer, rawMessage: rawMessage}
 
 	//including required header and trailer fields, minimum of 7 fields can be expected
 	//TODO: expose size for priming
@@ -185,7 +184,7 @@ func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte,
 }
 
 func (m *Message) String() string {
-	return string(m.Bytes)
+	return string(m.rawMessage)
 }
 
 func newCheckSum(value int) *fix.StringField {
@@ -211,5 +210,5 @@ func (m *Message) rebuild() {
 	b.Write(m.bodyBytes)
 	trailer.write(&b)
 
-	m.Bytes = b.Bytes()
+	m.rawMessage = b.Bytes()
 }

@@ -29,7 +29,7 @@ func TestMessage_parseMessage(t *testing.T) {
 		t.Error("Unexpected error, ", err)
 	}
 
-	if !bytes.Equal(rawMsg, msg.Bytes) {
+	if !bytes.Equal(rawMsg, msg.rawMessage) {
 		t.Error("Expected msg bytes to equal raw bytes")
 	}
 
@@ -68,8 +68,8 @@ func TestMessage_rebuild(t *testing.T) {
 
 	expectedBytes := []byte("8=FIX.4.29=12635=D34=249=TW52=20140615-19:49:5656=ISLD122=20140515-19:49:56.65911=10021=140=154=155=TSLA60=00010101-00:00:00.00010=124")
 
-	if !bytes.Equal(expectedBytes, msg.Bytes) {
-		t.Error("Unexpected bytes, got ", string(msg.Bytes))
+	if !bytes.Equal(expectedBytes, msg.rawMessage) {
+		t.Error("Unexpected bytes, got ", string(msg.rawMessage))
 	}
 
 	expectedBodyBytes := []byte("11=10021=140=154=155=TSLA60=00010101-00:00:00.000")

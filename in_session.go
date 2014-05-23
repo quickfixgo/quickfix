@@ -274,8 +274,8 @@ func (state *inSession) generateSequenceReset(session *Session, beginSeqNo int, 
 	}
 
 	//FIXME error check?
-	msg, _ := sequenceReset.Build()
-	session.sendBytes(msg.Bytes)
+	msgBytes, _ := sequenceReset.Build()
+	session.sendBytes(msgBytes)
 }
 
 func (state *inSession) generateLogout(session *Session) {

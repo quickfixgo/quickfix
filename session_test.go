@@ -4,16 +4,9 @@ import (
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
-	. "gopkg.in/check.v1"
 	"testing"
 	"time"
 )
-
-var _ = Suite(&SessionTests{})
-
-type SessionTests struct {
-	session Session
-}
 
 func getBuilder() MessageBuilder {
 	builder := NewMessageBuilder()
@@ -61,7 +54,8 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 			builder.Header().Set(tc.targetCompID)
 		}
 
-		msg, _ := builder.Build()
+		msgBytes, _ := builder.Build()
+		msg, _ := parseMessage(msgBytes)
 		err := session.checkCompID(*msg)
 
 		if err == nil {
@@ -82,101 +76,167 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 	}
 }
 
-func (s *SessionTests) TestCheckBeginString(c *C) {
-	s.session.sessionID.BeginString = "FIX.4.2"
+func TestSession_CheckBeginString(t *testing.T) {
+	session := Session{
+		sessionID: SessionID{BeginString: "FIX.4.2"},
+	}
+
 	builder := getBuilder()
 
 	//wrong value
 	builder.Header().Set(fix.NewStringField(tag.BeginString, "FIX.4.4"))
-	msg, _ := builder.Build()
-	err := s.session.checkBeginString(*msg)
-	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, incorrectBeginString{})
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 
-	builder.Header().Set(fix.NewStringField(tag.BeginString, s.session.sessionID.BeginString))
-	msg, _ = builder.Build()
-	err = s.session.checkBeginString(*msg)
-	c.Check(err, IsNil)
+	err := session.checkBeginString(*msg)
+	if err == nil {
+		t.Error("Expected Error")
+	}
+	_ = err.(incorrectBeginString)
 
+	builder.Header().Set(fix.NewStringField(tag.BeginString, session.sessionID.BeginString))
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
+	err = session.checkBeginString(*msg)
+
+	if err != nil {
+		t.Error("Unexpected error", err)
+	}
 }
 
-func (s *SessionTests) TestCheckTargetTooHigh(c *C) {
+func TestSession_CheckTargetTooHigh(t *testing.T) {
+	session := Session{}
 	builder := getBuilder()
-	msg, _ := builder.Build()
-	s.session.expectedSeqNum = 45
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
+
+	session.expectedSeqNum = 45
 
 	//missing seq number
-	err := s.session.checkTargetTooHigh(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, rejectReasonRequiredTagMissing)
+	err := session.checkTargetTooHigh(*msg)
+
+	if err == nil {
+		t.Error("Expected error")
+	}
+
+	if err.RejectReason() != rejectReasonRequiredTagMissing {
+		t.Error("Expected required tag missing, got", err.RejectReason())
+	}
 
 	//too low
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 47))
-	msg, _ = builder.Build()
-	err = s.session.checkTargetTooHigh(*msg)
-	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, targetTooHigh{})
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+	err = session.checkTargetTooHigh(*msg)
+
+	if err == nil {
+		t.Error("Expected error")
+	}
+	_ = err.(targetTooHigh)
 
 	//spot on
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 45))
-	msg, _ = builder.Build()
-	err = s.session.checkTargetTooHigh(*msg)
-	c.Check(err, IsNil)
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
+	err = session.checkTargetTooHigh(*msg)
+	if err != nil {
+		t.Error("Unexpected error", err)
+	}
 }
 
-func (s *SessionTests) TestCheckSendingTime(c *C) {
+func TestSession_CheckSendingTime(t *testing.T) {
+	session := Session{}
 	builder := getBuilder()
-	msg, _ := builder.Build()
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
 
 	//missing sending time
-	err := s.session.checkSendingTime(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, rejectReasonRequiredTagMissing)
+	err := session.checkSendingTime(*msg)
+	if err == nil {
+		t.Error("Expected error")
+	}
+	if err.RejectReason() != rejectReasonRequiredTagMissing {
+		t.Error("Reject reason not expected, got ", err.RejectReason)
+	}
 
 	//sending time too late
 	sendingTime := time.Now().Add(time.Duration(-200) * time.Second)
 	builder.Header().Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
-	msg, _ = builder.Build()
-	err = s.session.checkSendingTime(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, rejectReasonSendingTimeAccuracyProblem)
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
+	err = session.checkSendingTime(*msg)
+	if err == nil {
+		t.Error("Expected error")
+	}
+	if err.RejectReason() != rejectReasonSendingTimeAccuracyProblem {
+		t.Error("Reject reason not expected, got ", err.RejectReason)
+	}
 
 	//future sending time
 	sendingTime = time.Now().Add(time.Duration(200) * time.Second)
 	builder.Header().Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
-	msg, _ = builder.Build()
-	err = s.session.checkSendingTime(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, rejectReasonSendingTimeAccuracyProblem)
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
+	err = session.checkSendingTime(*msg)
+	if err == nil {
+		t.Error("Expected error")
+	}
+	if err.RejectReason() != rejectReasonSendingTimeAccuracyProblem {
+		t.Error("Reject reason not expected, got ", err.RejectReason)
+	}
 
 	//sending time ok
 	sendingTime = time.Now()
 	builder.Header().Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
-	msg, _ = builder.Build()
-	err = s.session.checkSendingTime(*msg)
-	c.Check(err, IsNil)
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
+	err = session.checkSendingTime(*msg)
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
 }
 
-func (s *SessionTests) TestCheckTargetTooLow(c *C) {
+func TestSession_CheckTargetTooLow(t *testing.T) {
+	session := Session{}
 	builder := getBuilder()
-	msg, _ := builder.Build()
-	s.session.expectedSeqNum = 45
+	msgBytes, _ := builder.Build()
+	msg, _ := parseMessage(msgBytes)
+
+	session.expectedSeqNum = 45
 
 	//missing seq number
-	err := s.session.checkTargetTooLow(*msg)
-	c.Check(err, NotNil)
-	c.Check(err.RejectReason(), Equals, rejectReasonRequiredTagMissing)
+	err := session.checkTargetTooLow(*msg)
+	if err == nil {
+		t.Error("Expected error")
+	}
+
+	if err.RejectReason() != rejectReasonRequiredTagMissing {
+		t.Error("Unexpected reject reason", err.RejectReason())
+	}
 
 	//too low
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 43))
-	msg, _ = builder.Build()
-	err = s.session.checkTargetTooLow(*msg)
-	c.Check(err, NotNil)
-	c.Check(err, FitsTypeOf, targetTooLow{})
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
+	err = session.checkTargetTooLow(*msg)
+	if err == nil {
+		t.Error("Expected error")
+	}
+	_ = err.(targetTooLow)
 
 	//spot on
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 45))
-	msg, _ = builder.Build()
-	err = s.session.checkTargetTooLow(*msg)
-	c.Check(err, IsNil)
+	msgBytes, _ = builder.Build()
+	msg, _ = parseMessage(msgBytes)
+
+	err = session.checkTargetTooLow(*msg)
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
 }
