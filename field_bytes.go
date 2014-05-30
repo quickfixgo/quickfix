@@ -31,7 +31,7 @@ func parseField(rawFieldBytes []byte) (f *fieldBytes, err error) {
 		return
 	}
 
-	parsedTag, err := strconv.Atoi(string(rawFieldBytes[:sepIndex]))
+	parsedTag, err := fix.Atoi(rawFieldBytes[:sepIndex])
 
 	if err != nil {
 		err = fmt.Errorf("fieldBytes.Parse: %s", err.Error())

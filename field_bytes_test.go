@@ -1,62 +1,87 @@
 package quickfix
 
 import (
+	"bytes"
 	"github.com/quickfixgo/quickfix/fix"
-	. "gopkg.in/check.v1"
 	"testing"
 )
 
-func Test(t *testing.T) { TestingT(t) }
-
-var _ = Suite(&FieldBytesTests{})
-
-type FieldBytesTests struct{}
-
-func (s *FieldBytesTests) TestNewField(c *C) {
+func TestFieldBytes_NewField(t *testing.T) {
 	f := newFieldBytes(fix.Tag(8), []byte("blahblah"))
-	c.Check(f, NotNil)
-	c.Check(f.Data, DeepEquals, []byte("8=blahblah"))
-	c.Check(f.Value, DeepEquals, []byte("blahblah"))
+	if f == nil {
+		t.Error("f should not be nil")
+	}
+
+	expectedData := []byte("8=blahblah")
+	if !bytes.Equal(f.Data, expectedData) {
+		t.Errorf("Expected %v, got %v", expectedData, f.Data)
+	}
+	expectedValue := []byte("blahblah")
+	if !bytes.Equal(f.Value, expectedValue) {
+		t.Errorf("Expected %v, got %v", expectedValue, f.Value)
+	}
 }
 
-func (s *FieldBytesTests) TestParseField(c *C) {
+func TestFieldBytes_ParseField(t *testing.T) {
 	stringField := "8=FIX.4.0"
 
 	f, err := parseField([]byte(stringField))
-	c.Check(err, IsNil)
-	c.Check(f, NotNil)
-	c.Check(f.Tag, Equals, fix.Tag(8))
-	c.Check(f.Data, DeepEquals, []byte(stringField))
-	c.Check(f.Value, DeepEquals, []byte("FIX.4.0"))
+
+	if err != nil {
+		t.Error("Unexpected error", err)
+	}
+
+	if f.Tag != fix.Tag(8) {
+		t.Error("Unexpected tag", f.Tag)
+	}
+
+	if !bytes.Equal(f.Data, []byte(stringField)) {
+		t.Errorf("Expected %v got %v", stringField, f.Data)
+	}
+
+	if !bytes.Equal(f.Value, []byte("FIX.4.0")) {
+		t.Error("Unxpected value", f.Value)
+	}
 }
 
-func (s *FieldBytesTests) TestParseFieldFail(c *C) {
+func TestFieldBytes_ParseFieldFail(t *testing.T) {
 	stringField := "not_tag_equal_value"
 
 	_, err := parseField([]byte(stringField))
-	c.Check(err, NotNil)
+
+	if err == nil {
+		t.Error("Expected Error")
+	}
 
 	stringField = "tag_not_an_int=uhoh"
 	_, err = parseField([]byte(stringField))
-	c.Check(err, NotNil)
+	if err == nil {
+		t.Error("Expected Error")
+	}
 }
 
-func (s *FieldBytesTests) TestString(c *C) {
+func TestFieldBytes_String(t *testing.T) {
 	stringField := "8=FIX.4.0"
 	f, _ := parseField([]byte(stringField))
 
-	c.Check(f.String(), Equals, "8=FIX.4.0")
+	if f.String() != "8=FIX.4.0" {
+		t.Error("Unexpected string value", f.String())
+	}
 }
 
-func (s *FieldBytesTests) TestLength(c *C) {
+func TestFieldBytes_Length(t *testing.T) {
 	stringField := "8=FIX.4.0"
 	f, _ := parseField([]byte(stringField))
 
-	c.Check(f.Length(), Equals, len(stringField))
+	if f.Length() != len(stringField) {
+		t.Error("Unexpected Length", f.Length())
+	}
 }
 
-func (s *FieldBytesTests) TestTotal(c *C) {
+func TestFieldBytes_Total(t *testing.T) {
 	stringField := "1=hello"
 	f, _ := parseField([]byte(stringField))
-	c.Check(f.Total(), Equals, 643, Commentf("Total is the summation of the ascii byte values of the field string"))
+	if f.Total() != 643 {
+		t.Error("Total is the summation of the ascii byte values of the field string, got ", f.Total())
+	}
 }

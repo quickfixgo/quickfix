@@ -1,31 +1,53 @@
 package fix
 
 import (
-	. "gopkg.in/check.v1"
+	"testing"
 )
 
-var _ = Suite(&IntFieldTests{})
-
-type IntFieldTests struct{}
-
-func (s *IntFieldTests) TestNewField(c *C) {
+func TestIntField_NewField(t *testing.T) {
 	field := NewIntField(Tag(1), 5)
-	c.Check(field.Tag(), Equals, Tag(1))
-	c.Check(field.Value, Equals, 5)
+	if field.Tag() != Tag(1) {
+		t.Error("Unexpected tag ", field.Tag())
+	}
+
+	if field.Value != 5 {
+		t.Error("Unexpected value", field.Value)
+	}
 }
 
-func (s *IntFieldTests) TestWrite(c *C) {
+func TestIntField_Write(t *testing.T) {
 	field := NewIntField(Tag(1), 5)
 	bytes := field.Write()
-	c.Check(string(bytes), Equals, "5")
+
+	if string(bytes) != "5" {
+		t.Error("Unexpected bytes ", bytes)
+	}
 }
 
-func (s *IntFieldTests) TestRead(c *C) {
+func TestIntField_Read(t *testing.T) {
 	field := new(IntField)
 	err := field.Read([]byte("15"))
-	c.Check(err, IsNil)
-	c.Check(field.Value, Equals, 15)
+
+	if err != nil {
+		t.Error("Unexpected error", err)
+	}
+
+	if field.Value != 15 {
+		t.Error("unexpected value", field.Value)
+	}
 
 	err = field.Read([]byte("blah"))
-	c.Check(err, NotNil)
+
+	if err == nil {
+		t.Error("expected error")
+	}
+}
+
+func BenchmarkIntField_Read(b *testing.B) {
+	intBytes := []byte("1500")
+	field := &IntField{}
+
+	for i := 0; i < b.N; i++ {
+		field.Read(intBytes)
+	}
 }
