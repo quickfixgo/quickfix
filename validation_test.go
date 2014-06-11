@@ -262,7 +262,7 @@ func (s *ValidationTests) TestValidateVisitField(c *C) {
 	fieldType := &datadictionary.FieldType{Name: "myfield", Tag: tag.ClOrdID, Type: "STRING"}
 	fieldDef := &datadictionary.FieldDef{FieldType: fieldType}
 
-	fields := []*fieldBytes{newFieldBytes(tag.ClOrdID, []byte("value"))}
+	fields := []fieldBytes{*newFieldBytes(tag.ClOrdID, []byte("value"))}
 	remFields, reject := validateVisitField(fieldDef, fields)
 	c.Check(len(remFields), Equals, 0)
 	c.Check(reject, IsNil)
@@ -283,52 +283,52 @@ func (s *ValidationTests) TestValidateVisitFieldGroup(c *C) {
 
 	//non-repeating
 	groupID := newFieldBytes(fix.Tag(1), []byte("1"))
-	fields := []*fieldBytes{groupID, repField1}
+	fields := []fieldBytes{*groupID, *repField1}
 	remFields, reject := validateVisitGroupField(groupFieldDef, fields)
 	c.Check(len(remFields), Equals, 0)
 	c.Check(reject, IsNil)
 
-	fields = []*fieldBytes{groupID, repField1, repField2}
+	fields = []fieldBytes{*groupID, *repField1, *repField2}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(len(remFields), Equals, 0)
 	c.Check(reject, IsNil)
 
 	//test with trailing tag not in group
 	otherField := newFieldBytes(fix.Tag(500), []byte("blah"))
-	fields = []*fieldBytes{groupID, repField1, repField2, otherField}
+	fields = []fieldBytes{*groupID, *repField1, *repField2, *otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(len(remFields), Equals, 1)
 	c.Check(reject, IsNil)
 
 	//repeats
 	groupID = newFieldBytes(fix.Tag(1), []byte("2"))
-	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, otherField}
+	fields = []fieldBytes{*groupID, *repField1, *repField2, *repField1, *repField2, *otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(len(remFields), Equals, 1)
 	c.Check(reject, IsNil)
 
 	groupID = newFieldBytes(fix.Tag(1), []byte("3"))
-	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, repField1, repField2, otherField}
+	fields = []fieldBytes{*groupID, *repField1, *repField2, *repField1, *repField2, *repField1, *repField2, *otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(len(remFields), Equals, 1)
 	c.Check(reject, IsNil)
 
 	//REJECT: group size declared > actual group size
 	groupID = newFieldBytes(fix.Tag(1), []byte("3"))
-	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, otherField}
+	fields = []fieldBytes{*groupID, *repField1, *repField2, *repField1, *repField2, *otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectNumInGroupCountForRepeatingGroup)
 
 	groupID = newFieldBytes(fix.Tag(1), []byte("3"))
-	fields = []*fieldBytes{groupID, repField1, repField1, otherField}
+	fields = []fieldBytes{*groupID, *repField1, *repField1, *otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectNumInGroupCountForRepeatingGroup)
 
 	//REJECT: group size declared < actual group size
 	groupID = newFieldBytes(fix.Tag(1), []byte("1"))
-	fields = []*fieldBytes{groupID, repField1, repField2, repField1, repField2, otherField}
+	fields = []fieldBytes{*groupID, *repField1, *repField2, *repField1, *repField2, *otherField}
 	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectNumInGroupCountForRepeatingGroup)

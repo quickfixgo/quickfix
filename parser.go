@@ -2,8 +2,8 @@ package quickfix
 
 import (
 	"bytes"
+	"github.com/quickfixgo/quickfix/fix"
 	"io"
-	"strconv"
 	"time"
 )
 
@@ -91,7 +91,7 @@ func (p *parser) jumpLength() (int, error) {
 		return 0, err
 	}
 
-	length, err := strconv.Atoi(string(p.buffer[lengthIndex:offset]))
+	length, err := fix.Atoi(p.buffer[lengthIndex:offset])
 	if err != nil {
 		return length, err
 	}

@@ -23,7 +23,7 @@ type Message struct {
 	bodyBytes []byte
 
 	//field bytes as they appear in the raw message
-	fields []*fieldBytes
+	fields []fieldBytes
 }
 
 //parseError is returned when bytes cannot be parsed as a FIX message.
@@ -42,44 +42,51 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 
 	msg := &Message{Header: header, Body: body, Trailer: trailer, rawMessage: rawMessage}
 
-	//including required header and trailer fields, minimum of 7 fields can be expected
-	//TODO: expose size for priming
-	msg.fields = make([]*fieldBytes, 0, 7)
+	//allocate fields in one chunk
+	fieldCount := 0
+	for _, b := range rawMessage {
+		if b == '\001' {
+			fieldCount++
+		}
+	}
+	msg.fields = make([]fieldBytes, fieldCount)
 
-	var parsedFieldBytes *fieldBytes
+	fieldIndex := 0
 	var err error
 
 	//message must start with begin string, body length, msg type
-	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BeginString, rawMessage); err != nil {
+	if rawMessage, err = extractSpecificField(&msg.fields[fieldIndex], tag.BeginString, rawMessage); err != nil {
 		return nil, err
 	}
 
-	msg.fields = append(msg.fields, parsedFieldBytes)
-	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+	header.fieldLookup[msg.fields[fieldIndex].Tag] = &msg.fields[fieldIndex]
+	fieldIndex++
 
-	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.BodyLength, rawMessage); err != nil {
+	parsedFieldBytes := &msg.fields[fieldIndex]
+	if rawMessage, err = extractSpecificField(parsedFieldBytes, tag.BodyLength, rawMessage); err != nil {
 		return nil, err
 	}
 
-	msg.fields = append(msg.fields, parsedFieldBytes)
 	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+	fieldIndex++
 
-	if parsedFieldBytes, rawMessage, err = extractSpecificField(tag.MsgType, rawMessage); err != nil {
+	parsedFieldBytes = &msg.fields[fieldIndex]
+	if rawMessage, err = extractSpecificField(parsedFieldBytes, tag.MsgType, rawMessage); err != nil {
 		return nil, err
 	}
 
-	msg.fields = append(msg.fields, parsedFieldBytes)
 	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+	fieldIndex++
 
 	trailerBytes := []byte{}
 	foundBody := false
 	for {
-		parsedFieldBytes, rawMessage, err = extractField(rawMessage)
+		parsedFieldBytes = &msg.fields[fieldIndex]
+		rawMessage, err = extractField(parsedFieldBytes, rawMessage)
 		if err != nil {
 			return nil, err
 		}
 
-		msg.fields = append(msg.fields, parsedFieldBytes)
 		switch {
 		case tag.IsHeader(parsedFieldBytes.Tag):
 			header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
@@ -97,6 +104,8 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 		if !foundBody {
 			msg.bodyBytes = rawMessage
 		}
+
+		fieldIndex++
 	}
 
 	//body length would only be larger than trailer if fields out of order
@@ -158,8 +167,8 @@ func (m *Message) reverseRoute() MessageBuilder {
 	return reverseBuilder
 }
 
-func extractSpecificField(expectedTag fix.Tag, buffer []byte) (field *fieldBytes, remBuffer []byte, err error) {
-	field, remBuffer, err = extractField(buffer)
+func extractSpecificField(field *fieldBytes, expectedTag fix.Tag, buffer []byte) (remBuffer []byte, err error) {
+	remBuffer, err = extractField(field, buffer)
 	switch {
 	case err != nil:
 		return
@@ -171,7 +180,7 @@ func extractSpecificField(expectedTag fix.Tag, buffer []byte) (field *fieldBytes
 	return
 }
 
-func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte, err error) {
+func extractField(parsedFieldBytes *fieldBytes, buffer []byte) (remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
 		err = parseError{OrigError: "extractField: No Trailing Delim in " + string(buffer)}
@@ -179,8 +188,8 @@ func extractField(buffer []byte) (parsedFieldBytes *fieldBytes, remBytes []byte,
 		return
 	}
 
-	parsedFieldBytes, err = parseField(buffer[:endIndex+1])
-	return parsedFieldBytes, buffer[(endIndex + 1):], err
+	err = parsedFieldBytes.parseField(buffer[:endIndex+1])
+	return buffer[(endIndex + 1):], err
 }
 
 func (m *Message) String() string {
