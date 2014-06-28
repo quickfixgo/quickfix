@@ -169,6 +169,12 @@ func (s *Session) send(builder MessageBuilder) {
 	seqNum := s.store.NextSenderMsgSeqNum()
 	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, seqNum))
 
+	msgType := new(fix.StringValue)
+	if builder.Header().GetField(tag.MsgType, msgType); fix.IsAdminMessageType(msgType.Value) {
+		s.application.ToAdmin(builder, s.sessionID)
+	} else {
+		s.application.ToApp(builder, s.sessionID)
+	}
 	if msgBytes, err := builder.Build(); err != nil {
 		panic(err)
 	} else {
