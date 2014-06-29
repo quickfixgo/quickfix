@@ -205,13 +205,13 @@ func (m *Message) rebuild() {
 	trailer := m.Trailer.(fieldMap)
 
 	bodyLength := header.length() + len(m.bodyBytes) + trailer.length()
+	header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
 	checkSum := header.total() + trailer.total()
 	for _, b := range m.bodyBytes {
 		checkSum += int(b)
 	}
 	checkSum %= 256
 
-	header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
 	trailer.Set(newCheckSum(checkSum))
 
 	var b bytes.Buffer
