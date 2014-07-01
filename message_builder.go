@@ -44,7 +44,7 @@ func (m messageBuilder) Build() ([]byte, error) {
 
 func (m messageBuilder) cook() {
 	bodyLength := m.header.length() + m.body.length() + m.trailer.length()
-	checkSum := (m.header.total() + m.body.total() + m.trailer.total()) % 256
 	m.header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
+	checkSum := (m.header.total() + m.body.total() + m.trailer.total()) % 256
 	m.trailer.Set(newCheckSum(checkSum))
 }
