@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"testing"
 	"time"
+	"os"
 )
 
 func getBuilder() MessageBuilder {
@@ -241,5 +242,128 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	err = session.checkTargetTooLow(*msg)
 	if err != nil {
 		t.Error("Unexpected error ", err)
+	}
+}
+
+
+type TestClient struct {
+	adminCalled int
+	appCalled int
+}
+
+func (e *TestClient) OnCreate(sessionID SessionID) {
+}
+
+func (e *TestClient) OnLogon(sessionID SessionID) {
+}
+
+func (e *TestClient) OnLogout(sessionID SessionID) {
+}
+
+func (e *TestClient) FromAdmin(msg Message, sessionID SessionID) (reject MessageRejectError) {
+	return nil
+}
+
+func (e *TestClient) ToAdmin(msg MessageBuilder, sessionID SessionID) {
+	e.adminCalled = e.adminCalled+1
+}
+
+func (e *TestClient) ToApp(msg MessageBuilder, sessionID SessionID) (err error) {
+	e.appCalled = e.appCalled+1
+	return nil
+}
+
+func (e *TestClient) FromApp(msg Message, sessionID SessionID) (reject MessageRejectError) {
+	return nil
+}
+
+func TestSession_CheckToAdminCalled(t *testing.T) {
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+	app := &TestClient{0, 0}
+	cfg, err := os.Open("_test/fix44.cfg")
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
+
+	appSettings, err := ParseSettings(cfg)
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
+
+	otherEnd := make(chan []byte)
+	go func() {
+		<- otherEnd
+	} ()
+
+	session := Session{store: store, application: app, messageOut: otherEnd}
+	session.toSend = make(chan MessageBuilder)
+	session.sessionEvent = make(chan event)
+	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
+	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
+
+	logFactory, err := NewFileLogFactory(appSettings)
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
+
+	session.log, err = logFactory.Create()
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
+
+	builder := getBuilder()
+	builder.Header().Set(field.NewMsgType("A"))
+	session.send(builder)
+
+	if app.adminCalled != 1 {
+		t.Error("ToAdmin should have been called exactly once, instead was called", app.adminCalled, "times")
+	}
+	if app.appCalled != 0 {
+		t.Error("ToApp should not have been called, instead was called", app.appCalled, "times")
+	}
+}
+
+func TestSession_CheckToAppCalled(t *testing.T) {
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+	app := &TestClient{0, 0}
+	cfg, err := os.Open("_test/fix44.cfg")
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
+
+	appSettings, err := ParseSettings(cfg)
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
+
+	otherEnd := make(chan []byte)
+	go func() {
+		<- otherEnd
+	} ()
+
+	session := Session{store: store, application: app, messageOut: otherEnd}
+	session.toSend = make(chan MessageBuilder)
+	session.sessionEvent = make(chan event)
+	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
+	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
+
+	logFactory, err := NewFileLogFactory(appSettings)
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
+
+	session.log, err = logFactory.Create()
+	if err != nil {
+		t.Error("Unexpected error ", err)
+	}
+
+	builder := getBuilder()
+	session.send(builder)
+
+	if app.appCalled != 1 {
+		t.Error("Toapp should have been called exactly once, instead was called", app.appCalled, "times")
+	}
+	if app.adminCalled != 0 {
+		t.Error("Toadmin should not have been called, instead was called", app.adminCalled, "times")
 	}
 }
