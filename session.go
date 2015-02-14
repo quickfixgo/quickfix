@@ -127,6 +127,7 @@ func (s *Session) accept() (chan []byte, error) {
 }
 
 func (s *Session) onDisconnect() {
+	s.application.OnLogout(s.sessionID)
 	s.log.OnEvent("Disconnected")
 }
 
