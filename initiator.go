@@ -14,6 +14,7 @@ type Initiator struct {
 	storeFactory    MessageStoreFactory
 	logFactory      LogFactory
 	globalLog       Log
+	quitChans       map[SessionID]chan bool
 }
 
 //Start Initiator.
@@ -35,7 +36,8 @@ func (i *Initiator) Start() error {
 			return err
 		}
 
-		go handleInitiatorConnection(conn, i.globalLog, sessionID)
+		i.quitChans[sessionID] = make(chan bool)
+		go handleInitiatorConnection(conn, i.globalLog, sessionID, i.quitChans[sessionID])
 	}
 
 	return nil
@@ -43,7 +45,12 @@ func (i *Initiator) Start() error {
 
 //Stop Initiator.
 func (i *Initiator) Stop() {
-
+	defer func() {
+		_ = recover() // suppress sending on closed channel error
+	}()
+	for _, channel := range i.quitChans {
+		channel <- true
+	}
 }
 
 //NewInitiator creates and initializes a new Initiator.
@@ -54,6 +61,7 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 	i.settings = appSettings
 	i.sessionSettings = appSettings.SessionSettings()
 	i.logFactory = logFactory
+	i.quitChans = make(map[SessionID]chan bool)
 
 	var err error
 	i.globalLog, err = logFactory.Create()

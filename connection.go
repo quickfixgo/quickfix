@@ -7,7 +7,7 @@ import (
 )
 
 //Picks up session from net.Conn Initiator
-func handleInitiatorConnection(netConn net.Conn, log Log, sessID SessionID) {
+func handleInitiatorConnection(netConn net.Conn, log Log, sessID SessionID, quit chan bool) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.OnEventf("Connection Terminated: %v", err)
@@ -41,17 +41,18 @@ func handleInitiatorConnection(netConn net.Conn, log Log, sessID SessionID) {
 		readLoop(parser, msgIn)
 	}()
 
-	session.run(msgIn)
+	session.run(msgIn, quit)
 }
 
 //Picks up session from net.Conn Acceptor
-func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionID]SessionID, log Log) {
+func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionID]SessionID, log Log, quit chan bool, done chan int, cnxNumber int) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.OnEventf("Connection Terminated: %v", err)
 		}
 
 		netConn.Close()
+		done <- cnxNumber
 	}()
 
 	reader := bufio.NewReader(netConn)
@@ -109,7 +110,7 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		readLoop(parser, msgIn)
 	}()
 
-	session.run(msgIn)
+	session.run(msgIn, quit)
 }
 
 func writeLoop(connection net.Conn, messageOut chan []byte) {

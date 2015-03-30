@@ -470,9 +470,11 @@ type fixIn struct {
 	receiveTime time.Time
 }
 
-func (s *Session) run(msgIn chan fixIn) {
+func (s *Session) run(msgIn chan fixIn, quit chan bool) {
 	defer func() {
+		close(quit)
 		s.messageOut <- nil
+		s.onDisconnect()
 	}()
 
 	if s.initiateLogon {
@@ -517,13 +519,15 @@ func (s *Session) run(msgIn chan fixIn) {
 					s.currentState = s.currentState.FixMsgIn(s, *msg)
 				}
 			} else {
-				s.onDisconnect()
 				return
 			}
 			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
 
 		case msg := <-s.toSend:
 			s.send(msg)
+
+		case <-quit:
+			return
 
 		case evt := <-s.sessionEvent:
 			s.currentState = s.currentState.Timeout(s, evt)
