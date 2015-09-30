@@ -65,8 +65,8 @@ func ParseSettings(reader io.Reader) (*Settings, error) {
 	scanner := bufio.NewScanner(reader)
 	blankRegEx := regexp.MustCompile(`^\s*$`)
 	commentRegEx := regexp.MustCompile(`^#.*`)
-	defaultRegEx := regexp.MustCompile(`^\[DEFAULT\]\s*$`)
-	sessionRegEx := regexp.MustCompile(`^\[SESSION\]\s*$`)
+	defaultRegEx := regexp.MustCompile(`^\[(?i)DEFAULT\]\s*$`)
+	sessionRegEx := regexp.MustCompile(`^\[(?i)SESSION\]\s*$`)
 	settingRegEx := regexp.MustCompile(`^(.*)=(.*)$`)
 
 	var settings *SessionSettings
