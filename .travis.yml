@@ -1,8 +1,13 @@
 language: go
+sudo: false
 
 go:
   - 1.5.1
   - tip
+
+matrix:
+  allow_failures:
+    - go: tip
 
 install: 
   - make get
