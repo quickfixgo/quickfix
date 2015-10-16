@@ -1,32 +1,69 @@
 package fix
 
 import (
-	. "gopkg.in/check.v1"
+	"bytes"
+	"testing"
 )
 
-var _ = Suite(&StringFieldTests{})
+func TestNewStringField(t *testing.T) {
+	var tests = []struct {
+		tag Tag
+		val string
+	}{
+		{Tag(1), "CWB"},
+	}
 
-type StringFieldTests struct{}
+	for _, test := range tests {
+		field := NewStringField(test.tag, test.val)
 
-func (s *StringFieldTests) SetUpTest(c *C) {
+		if field.Tag() != test.tag {
+			t.Errorf("got tag %v; want %v", field.Tag(), test.tag)
+		}
+
+		if field.Value != test.val {
+			t.Errorf("got val %v; want %v", field.Value, test.val)
+		}
+	}
 }
 
-func (s *StringFieldTests) TestNewField(c *C) {
-	field := NewStringField(1, "CWB")
-	c.Check(field.Tag(), Equals, Tag(1))
-	c.Check(field.Value, Equals, "CWB")
+func TestStringFieldWrite(t *testing.T) {
+	var tests = []struct {
+		field *StringField
+		val   []byte
+	}{
+		{NewStringField(1, "CWB"), []byte("CWB")},
+	}
+
+	for _, test := range tests {
+		b := test.field.Write()
+
+		if !bytes.Equal(b, test.val) {
+			t.Errorf("got %v; want %v", b, test.val)
+		}
+	}
 }
 
-func (s *StringFieldTests) TestWrite(c *C) {
-	field := NewStringField(1, "CWB")
-	bytes := field.Write()
-	c.Check(string(bytes), Equals, "CWB")
-}
+func TestStringFieldRead(t *testing.T) {
+	var tests = []struct {
+		bytes       []byte
+		value       string
+		expectError bool
+	}{
+		{[]byte("blah"), "blah", false},
+	}
 
-func (s *StringFieldTests) TestRead(c *C) {
-	field := new(StringField)
-	err := field.Read([]byte("blah"))
+	for _, test := range tests {
+		field := new(StringField)
+		err := field.Read(test.bytes)
 
-	c.Check(err, IsNil)
-	c.Check(field.Value, Equals, "blah")
+		if test.expectError && err == nil {
+			t.Errorf("Expected error for %v", test.bytes)
+		} else if !test.expectError && err != nil {
+			t.Errorf("UnExpected '%v'", err)
+		}
+
+		if field.Value != test.value {
+			t.Errorf("got %v want %v", field.Value, test.value)
+		}
+	}
 }

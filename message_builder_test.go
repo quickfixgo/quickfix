@@ -3,9 +3,9 @@ package quickfix
 import (
 	"bytes"
 	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"testing"
-	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 var builder MessageBuilder
@@ -31,4 +31,3 @@ func TestMessageBuilder_checkBuild(t *testing.T) {
 	}
 
 }
-

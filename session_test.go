@@ -4,9 +4,9 @@ import (
 	"github.com/quickfixgo/quickfix/fix"
 	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
+	"os"
 	"testing"
 	"time"
-	"os"
 )
 
 func getBuilder() MessageBuilder {
@@ -245,10 +245,9 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	}
 }
 
-
 type TestClient struct {
 	adminCalled int
-	appCalled int
+	appCalled   int
 }
 
 func (e *TestClient) OnCreate(sessionID SessionID) {
@@ -265,11 +264,11 @@ func (e *TestClient) FromAdmin(msg Message, sessionID SessionID) (reject Message
 }
 
 func (e *TestClient) ToAdmin(msg MessageBuilder, sessionID SessionID) {
-	e.adminCalled = e.adminCalled+1
+	e.adminCalled = e.adminCalled + 1
 }
 
 func (e *TestClient) ToApp(msg MessageBuilder, sessionID SessionID) (err error) {
-	e.appCalled = e.appCalled+1
+	e.appCalled = e.appCalled + 1
 	return nil
 }
 
@@ -292,8 +291,8 @@ func TestSession_CheckToAdminCalled(t *testing.T) {
 
 	otherEnd := make(chan []byte)
 	go func() {
-		<- otherEnd
-	} ()
+		<-otherEnd
+	}()
 
 	session := Session{store: store, application: app, messageOut: otherEnd}
 	session.toSend = make(chan MessageBuilder)
@@ -338,8 +337,8 @@ func TestSession_CheckToAppCalled(t *testing.T) {
 
 	otherEnd := make(chan []byte)
 	go func() {
-		<- otherEnd
-	} ()
+		<-otherEnd
+	}()
 
 	session := Session{store: store, application: app, messageOut: otherEnd}
 	session.toSend = make(chan MessageBuilder)

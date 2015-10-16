@@ -1,44 +1,74 @@
 package fix
 
 import (
-	. "gopkg.in/check.v1"
+	"bytes"
+	"testing"
 )
 
-var _ = Suite(&BooleanFieldTests{})
+func TestNewBooleanField(t *testing.T) {
+	var tests = []struct {
+		tag Tag
+		val bool
+	}{
+		{Tag(1), true},
+		{Tag(2), false},
+	}
 
-type BooleanFieldTests struct{}
+	for _, test := range tests {
+		field := NewBooleanField(test.tag, test.val)
 
-func (s *BooleanFieldTests) TestNewField(c *C) {
-	field := NewBooleanField(Tag(1), true)
-	c.Check(field.Tag(), Equals, Tag(1))
-	c.Check(field.Value, Equals, true)
+		if field.Tag() != test.tag {
+			t.Errorf("got tag %v; want %v", field.Tag(), test.tag)
+		}
 
-	field = NewBooleanField(Tag(2), false)
-	c.Check(field.Tag(), Equals, Tag(2))
-	c.Check(field.Value, Equals, false)
+		if field.Value != test.val {
+			t.Errorf("got val %v; want %v", field.Value, test.val)
+		}
+	}
 }
 
-func (s *BooleanFieldTests) TestWrite(c *C) {
-	field := NewBooleanField(Tag(1), true)
-	bytes := field.Write()
-	c.Check(string(bytes), Equals, "Y")
+func TestBooleanFieldWrite(t *testing.T) {
 
-	field = NewBooleanField(Tag(1), false)
-	bytes = field.Write()
+	var tests = []struct {
+		field *BooleanField
+		val   []byte
+	}{
+		{NewBooleanField(1, true), []byte("Y")},
+		{NewBooleanField(1, false), []byte("N")},
+	}
 
-	c.Check(string(bytes), Equals, "N")
+	for _, test := range tests {
+		b := test.field.Write()
+
+		if !bytes.Equal(b, test.val) {
+			t.Errorf("got %v; want %v", b, test.val)
+		}
+	}
 }
 
-func (s *BooleanFieldTests) TestRead(c *C) {
-	field := NewBooleanField(Tag(1), false)
-	err := field.Read([]byte("Y"))
-	c.Check(err, IsNil)
-	c.Check(field.Value, Equals, true)
+func TestBooleanFieldRead(t *testing.T) {
+	var tests = []struct {
+		bytes       []byte
+		value       bool
+		expectError bool
+	}{
+		{[]byte("Y"), true, false},
+		{[]byte("N"), false, false},
+		{[]byte("blah"), false, true},
+	}
 
-	err = field.Read([]byte("N"))
-	c.Check(err, IsNil)
-	c.Check(field.Value, Equals, false)
+	for _, test := range tests {
+		field := NewBooleanField(Tag(1), false)
+		err := field.Read(test.bytes)
 
-	err = field.Read([]byte("blah"))
-	c.Check(err, NotNil)
+		if test.expectError && err == nil {
+			t.Errorf("Expected error for %v", test.bytes)
+		} else if !test.expectError && err != nil {
+			t.Errorf("UnExpected '%v'", err)
+		}
+
+		if field.Value != test.value {
+			t.Errorf("got %v want %v", field.Value, test.value)
+		}
+	}
 }

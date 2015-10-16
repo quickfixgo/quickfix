@@ -1,34 +1,69 @@
 package fix
 
 import (
-	. "gopkg.in/check.v1"
+	"bytes"
+	"testing"
 )
 
-var _ = Suite(&FloatFieldTests{})
+func TestNewFloatField(t *testing.T) {
+	var tests = []struct {
+		tag Tag
+		val float64
+	}{
+		{Tag(1), 5.0},
+	}
 
-type FloatFieldTests struct{}
+	for _, test := range tests {
+		field := NewFloatField(test.tag, test.val)
 
-func (s *FloatFieldTests) TestNewField(c *C) {
-	field := NewFloatField(Tag(1), 5.0)
-	c.Check(field.Tag(), Equals, Tag(1))
-	c.Check(field.Value, Equals, 5.0)
+		if field.Tag() != test.tag {
+			t.Errorf("got tag %v; want %v", field.Tag(), test.tag)
+		}
+
+		if field.Value != test.val {
+			t.Errorf("got val %v; want %v", field.Value, test.val)
+		}
+	}
 }
 
-func (s *FloatFieldTests) TestWrite(c *C) {
-	field := NewFloatField(Tag(1), 5.0)
-	bytes := field.Write()
-	c.Check(string(bytes), Equals, "5")
+func TestFloatFieldWrite(t *testing.T) {
+	var tests = []struct {
+		field *FloatField
+		val   []byte
+	}{
+		{NewFloatField(1, 5.0), []byte("5")},
+	}
+
+	for _, test := range tests {
+		b := test.field.Write()
+
+		if !bytes.Equal(b, test.val) {
+			t.Errorf("got %v; want %v", b, test.val)
+		}
+	}
 }
 
-func (s *FloatFieldTests) TestRead(c *C) {
-	field := new(FloatField)
-	err := field.Read([]byte("15"))
-	c.Check(err, IsNil)
-	c.Check(field.Value, Equals, 15.0)
+func TestFloatFieldRead(t *testing.T) {
+	var tests = []struct {
+		bytes       []byte
+		value       float64
+		expectError bool
+	}{
+		{[]byte("15"), 15.0, false},
+		{[]byte("blah"), 0.0, true},
+		{[]byte("+200.00"), 0.0, true},
+	}
 
-	err = field.Read([]byte("blah"))
-	c.Check(err, NotNil)
-
-	err = field.Read([]byte("+200.00"))
-	c.Check(err, NotNil)
+	for _, test := range tests {
+		field := new(FloatField)
+		if err := field.Read(test.bytes); err != nil {
+			if !test.expectError {
+				t.Errorf("UnExpected '%v'", err)
+			}
+		} else if test.expectError {
+			t.Errorf("Expected error for %v", test.bytes)
+		} else if field.Value != test.value {
+			t.Errorf("got %v want %v", field.Value, test.value)
+		}
+	}
 }
