@@ -16,11 +16,6 @@ type FieldMap interface {
 	Get(field Field) MessageRejectError
 	Has(tag fix.Tag) bool
 	GetField(tag fix.Tag, value FieldValue) MessageRejectError
-}
-
-//MutableFieldMap is a writable FieldMap
-type MutableFieldMap interface {
-	FieldMap
 
 	SetField(tag fix.Tag, field FieldValue)
 	Set(field Field)

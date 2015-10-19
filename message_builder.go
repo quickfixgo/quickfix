@@ -7,9 +7,9 @@ import (
 )
 
 type MessageBuilder interface {
-	Header() MutableFieldMap
-	Trailer() MutableFieldMap
-	Body() MutableFieldMap
+	Header() FieldMap
+	Trailer() FieldMap
+	Body() FieldMap
 	Build() ([]byte, error)
 }
 
@@ -27,9 +27,9 @@ func NewMessageBuilder() MessageBuilder {
 	return m
 }
 
-func (m messageBuilder) Header() MutableFieldMap  { return m.header }
-func (m messageBuilder) Trailer() MutableFieldMap { return m.trailer }
-func (m messageBuilder) Body() MutableFieldMap    { return m.body }
+func (m messageBuilder) Header() FieldMap  { return m.header }
+func (m messageBuilder) Trailer() FieldMap { return m.trailer }
+func (m messageBuilder) Body() FieldMap    { return m.body }
 
 func (m messageBuilder) Build() ([]byte, error) {
 	m.cook()

@@ -131,7 +131,7 @@ func (s *Session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *Session) insertSendingTime(header MutableFieldMap) {
+func (s *Session) insertSendingTime(header FieldMap) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= fix.BeginString_FIX42 {
