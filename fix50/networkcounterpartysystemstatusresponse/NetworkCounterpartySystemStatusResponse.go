@@ -76,18 +76,12 @@ func (m Message) GetNoCompIDs(f *field.NoCompIDsField) quickfix.MessageRejectErr
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds NetworkCounterpartySystemStatusResponse messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for NetworkCounterpartySystemStatusResponse.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for NetworkCounterpartySystemStatusResponse.
+func New(
 	networkstatusresponsetype *field.NetworkStatusResponseTypeField,
 	networkresponseid *field.NetworkResponseIDField,
-	nocompids *field.NoCompIDsField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	nocompids *field.NoCompIDsField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("BD"))

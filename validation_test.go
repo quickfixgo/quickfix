@@ -12,8 +12,8 @@ var _ = Suite(&ValidationTests{})
 
 type ValidationTests struct{}
 
-func (s *ValidationTests) createFIX40NewOrderSingle() MessageBuilder {
-	msg := NewMessageBuilder()
+func (s *ValidationTests) createFIX40NewOrderSingle() Message {
+	msg := NewMessage()
 	msg.Header.Set(fix.NewStringField(tag.MsgType, "D"))
 	msg.Header.Set(fix.NewStringField(tag.BeginString, "FIX.4.0"))
 	msg.Header.Set(fix.NewStringField(tag.BodyLength, "0"))
@@ -31,11 +31,11 @@ func (s *ValidationTests) createFIX40NewOrderSingle() MessageBuilder {
 
 	msg.Trailer.Set(fix.NewStringField(tag.CheckSum, "000"))
 
-	return *msg
+	return msg
 }
 
-func (s *ValidationTests) createFIX43NewOrderSingle() MessageBuilder {
-	msg := NewMessageBuilder()
+func (s *ValidationTests) createFIX43NewOrderSingle() Message {
+	msg := NewMessage()
 	msg.Header.Set(fix.NewStringField(tag.MsgType, "D"))
 	msg.Header.Set(fix.NewStringField(tag.BeginString, "FIX.4.3"))
 	msg.Header.Set(fix.NewStringField(tag.BodyLength, "0"))
@@ -54,7 +54,7 @@ func (s *ValidationTests) createFIX43NewOrderSingle() MessageBuilder {
 
 	msg.Trailer.Set(fix.NewStringField(tag.CheckSum, "000"))
 
-	return *msg
+	return msg
 }
 
 func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
@@ -118,7 +118,7 @@ func (s *ValidationTests) TestValidateTagNotDefinedForMessageComponent(c *C) {
 func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 
-	builder := NewMessageBuilder()
+	builder := NewMessage()
 	builder.Header.Set(fix.NewStringField(tag.MsgType, "D"))
 	builder.Header.Set(fix.NewStringField(tag.BeginString, "FIX.4.0"))
 	builder.Header.Set(fix.NewStringField(tag.BodyLength, "0"))
@@ -144,7 +144,7 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 	c.Check(reject.RejectReason(), Equals, rejectReasonRequiredTagMissing)
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
 
-	builder = NewMessageBuilder()
+	builder = NewMessage()
 	builder.Trailer.Set(fix.NewStringField(tag.CheckSum, "000"))
 	builder.Body.Set(fix.NewStringField(tag.ClOrdID, "A"))
 	builder.Body.Set(fix.NewStringField(tag.HandlInst, "A"))

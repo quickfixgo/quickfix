@@ -2140,17 +2140,11 @@ func (m Message) GetOrderRestrictions(f *field.OrderRestrictionsField) quickfix.
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds QuoteResponse messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for QuoteResponse.
-func Builder(
+//New returns an initialized Message with specified required fields for QuoteResponse.
+func New(
 	quoterespid *field.QuoteRespIDField,
-	quoteresptype *field.QuoteRespTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	quoteresptype *field.QuoteRespTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("AJ"))

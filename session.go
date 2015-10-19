@@ -18,7 +18,7 @@ type Session struct {
 	sessionID SessionID
 
 	messageOut chan []byte
-	toSend     chan MessageBuilder
+	toSend     chan Message
 
 	sessionEvent            chan event
 	application             Application
@@ -97,7 +97,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 		return err
 	}
 
-	session.toSend = make(chan MessageBuilder)
+	session.toSend = make(chan Message)
 	session.sessionEvent = make(chan event)
 	session.application = application
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
@@ -141,12 +141,12 @@ func (s *Session) insertSendingTime(header FieldMap) {
 	}
 }
 
-func (s *Session) fillDefaultHeader(builder MessageBuilder) {
-	builder.Header.Set(field.NewBeginString(s.sessionID.BeginString))
-	builder.Header.Set(field.NewSenderCompID(s.sessionID.SenderCompID))
-	builder.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
+func (s *Session) fillDefaultHeader(msg Message) {
+	msg.Header.Set(field.NewBeginString(s.sessionID.BeginString))
+	msg.Header.Set(field.NewSenderCompID(s.sessionID.SenderCompID))
+	msg.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
 
-	s.insertSendingTime(builder.Header)
+	s.insertSendingTime(msg.Header)
 }
 
 func (s *Session) resend(msg *Message) {
@@ -160,23 +160,23 @@ func (s *Session) resend(msg *Message) {
 
 	s.insertSendingTime(header)
 
-	msg.rebuild()
+	msg.Build()
 	s.sendBytes(msg.rawMessage)
 }
 
-func (s *Session) send(builder MessageBuilder) {
-	s.fillDefaultHeader(builder)
+func (s *Session) send(msg Message) {
+	s.fillDefaultHeader(msg)
 
 	seqNum := s.store.NextSenderMsgSeqNum()
-	builder.Header.Set(fix.NewIntField(tag.MsgSeqNum, seqNum))
+	msg.Header.Set(fix.NewIntField(tag.MsgSeqNum, seqNum))
 
 	msgType := new(fix.StringValue)
-	if builder.Header.GetField(tag.MsgType, msgType); fix.IsAdminMessageType(msgType.Value) {
-		s.application.ToAdmin(builder, s.sessionID)
+	if msg.Header.GetField(tag.MsgType, msgType); fix.IsAdminMessageType(msgType.Value) {
+		s.application.ToAdmin(msg, s.sessionID)
 	} else {
-		s.application.ToApp(builder, s.sessionID)
+		s.application.ToApp(msg, s.sessionID)
 	}
-	if msgBytes, err := builder.Build(); err != nil {
+	if msgBytes, err := msg.Build(); err != nil {
 		panic(err)
 	} else {
 		s.store.SaveMessage(seqNum, msgBytes)
@@ -193,7 +193,7 @@ func (s *Session) sendBytes(msg []byte) {
 }
 
 func (s *Session) doTargetTooHigh(reject targetTooHigh) {
-	resend := NewMessageBuilder()
+	resend := NewMessage()
 	resend.Header.Set(field.NewMsgType("2"))
 	resend.Body.Set(field.NewBeginSeqNo(reject.ExpectedTarget))
 
@@ -203,7 +203,7 @@ func (s *Session) doTargetTooHigh(reject targetTooHigh) {
 	}
 	resend.Body.Set(field.NewEndSeqNo(endSeqNum))
 
-	s.send(*resend)
+	s.send(resend)
 }
 
 func (s *Session) handleLogon(msg Message) error {
@@ -236,7 +236,7 @@ func (s *Session) handleLogon(msg Message) error {
 			return err
 		}
 
-		reply := NewMessageBuilder()
+		reply := NewMessage()
 		reply.Header.Set(field.NewMsgType("A"))
 		reply.Header.Set(field.NewBeginString(s.sessionID.BeginString))
 		reply.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
@@ -258,7 +258,7 @@ func (s *Session) handleLogon(msg Message) error {
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		s.send(*reply)
+		s.send(reply)
 	}
 
 	s.application.OnLogon(s.sessionID)
@@ -461,7 +461,7 @@ func (s *Session) doReject(msg Message, rej MessageRejectError) {
 		reply.Body.Set(field.NewRefSeqNum(seqNum.Value))
 	}
 
-	s.send(*reply)
+	s.send(reply)
 	s.log.OnEventf("Message Rejected: %v", rej.Error())
 }
 
@@ -483,7 +483,7 @@ func (s *Session) run(msgIn chan fixIn, quit chan bool) {
 			s.store.Reset()
 		}
 
-		logon := NewMessageBuilder()
+		logon := NewMessage()
 		logon.Header.Set(field.NewMsgType("A"))
 		logon.Header.Set(field.NewBeginString(s.sessionID.BeginString))
 		logon.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
@@ -498,7 +498,7 @@ func (s *Session) run(msgIn chan fixIn, quit chan bool) {
 		}
 
 		s.log.OnEvent("Sending logon request")
-		s.send(*logon)
+		s.send(logon)
 	}
 
 	for {

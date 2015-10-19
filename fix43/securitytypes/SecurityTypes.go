@@ -144,18 +144,12 @@ func (m Message) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeFiel
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds SecurityTypes messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for SecurityTypes.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for SecurityTypes.
+func New(
 	securityreqid *field.SecurityReqIDField,
 	securityresponseid *field.SecurityResponseIDField,
-	securityresponsetype *field.SecurityResponseTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	securityresponsetype *field.SecurityResponseTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("w"))
 	builder.Body.Set(securityreqid)

@@ -480,13 +480,8 @@ func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds NewOrderList messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for NewOrderList.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for NewOrderList.
+func New(
 	listid *field.ListIDField,
 	listseqno *field.ListSeqNoField,
 	listnoords *field.ListNoOrdsField,
@@ -495,9 +490,8 @@ func Builder(
 	symbol *field.SymbolField,
 	side *field.SideField,
 	orderqty *field.OrderQtyField,
-	ordtype *field.OrdTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	ordtype *field.OrdTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("E"))
 	builder.Body.Set(listid)

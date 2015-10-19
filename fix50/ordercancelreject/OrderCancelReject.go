@@ -268,20 +268,14 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderCancelReject messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderCancelReject.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for OrderCancelReject.
+func New(
 	orderid *field.OrderIDField,
 	clordid *field.ClOrdIDField,
 	origclordid *field.OrigClOrdIDField,
 	ordstatus *field.OrdStatusField,
-	cxlrejresponseto *field.CxlRejResponseToField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	cxlrejresponseto *field.CxlRejResponseToField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("9"))

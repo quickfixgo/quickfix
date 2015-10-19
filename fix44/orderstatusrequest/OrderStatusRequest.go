@@ -744,17 +744,11 @@ func (m Message) GetSide(f *field.SideField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderStatusRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderStatusRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for OrderStatusRequest.
+func New(
 	clordid *field.ClOrdIDField,
-	side *field.SideField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	side *field.SideField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("H"))
 	builder.Body.Set(clordid)

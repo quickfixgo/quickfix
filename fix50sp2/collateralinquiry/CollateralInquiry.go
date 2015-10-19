@@ -1816,16 +1816,10 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds CollateralInquiry messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for CollateralInquiry.
-func Builder(
-	collinquiryid *field.CollInquiryIDField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+//New returns an initialized Message with specified required fields for CollateralInquiry.
+func New(
+	collinquiryid *field.CollInquiryIDField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("BB"))

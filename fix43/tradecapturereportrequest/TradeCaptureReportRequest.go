@@ -588,17 +588,11 @@ func (m Message) GetTradeInputDevice(f *field.TradeInputDeviceField) quickfix.Me
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TradeCaptureReportRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TradeCaptureReportRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for TradeCaptureReportRequest.
+func New(
 	traderequestid *field.TradeRequestIDField,
-	traderequesttype *field.TradeRequestTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	traderequesttype *field.TradeRequestTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("AD"))
 	builder.Body.Set(traderequestid)

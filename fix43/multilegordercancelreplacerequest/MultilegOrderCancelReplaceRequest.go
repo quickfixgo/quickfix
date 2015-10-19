@@ -1284,22 +1284,16 @@ func (m Message) GetNetMoney(f *field.NetMoneyField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds MultilegOrderCancelReplaceRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for MultilegOrderCancelReplaceRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for MultilegOrderCancelReplaceRequest.
+func New(
 	origclordid *field.OrigClOrdIDField,
 	clordid *field.ClOrdIDField,
 	handlinst *field.HandlInstField,
 	side *field.SideField,
 	nolegs *field.NoLegsField,
 	transacttime *field.TransactTimeField,
-	ordtype *field.OrdTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	ordtype *field.OrdTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("AC"))
 	builder.Body.Set(origclordid)

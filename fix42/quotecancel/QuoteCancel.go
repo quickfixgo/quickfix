@@ -84,18 +84,12 @@ func (m Message) GetNoQuoteEntries(f *field.NoQuoteEntriesField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds QuoteCancel messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for QuoteCancel.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for QuoteCancel.
+func New(
 	quoteid *field.QuoteIDField,
 	quotecanceltype *field.QuoteCancelTypeField,
-	noquoteentries *field.NoQuoteEntriesField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	noquoteentries *field.NoQuoteEntriesField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("Z"))
 	builder.Body.Set(quoteid)

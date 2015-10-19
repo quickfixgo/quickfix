@@ -192,17 +192,11 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TradingSessionStatus messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TradingSessionStatus.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for TradingSessionStatus.
+func New(
 	tradingsessionid *field.TradingSessionIDField,
-	tradsesstatus *field.TradSesStatusField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	tradsesstatus *field.TradSesStatusField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("h"))
 	builder.Body.Set(tradingsessionid)

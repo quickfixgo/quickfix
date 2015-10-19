@@ -64,17 +64,11 @@ func (m Message) GetUserStatusText(f *field.UserStatusTextField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds UserResponse messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for UserResponse.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for UserResponse.
+func New(
 	userrequestid *field.UserRequestIDField,
-	username *field.UsernameField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	username *field.UsernameField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("BF"))

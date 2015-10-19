@@ -204,21 +204,15 @@ func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderCancelRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderCancelRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for OrderCancelRequest.
+func New(
 	origclordid *field.OrigClOrdIDField,
 	clordid *field.ClOrdIDField,
 	cxltype *field.CxlTypeField,
 	symbol *field.SymbolField,
 	side *field.SideField,
-	orderqty *field.OrderQtyField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	orderqty *field.OrderQtyField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("F"))
 	builder.Body.Set(origclordid)

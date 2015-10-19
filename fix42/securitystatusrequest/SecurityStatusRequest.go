@@ -288,18 +288,12 @@ func (m Message) GetTradingSessionID(f *field.TradingSessionIDField) quickfix.Me
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds SecurityStatusRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for SecurityStatusRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for SecurityStatusRequest.
+func New(
 	securitystatusreqid *field.SecurityStatusReqIDField,
 	symbol *field.SymbolField,
-	subscriptionrequesttype *field.SubscriptionRequestTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	subscriptionrequesttype *field.SubscriptionRequestTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("e"))
 	builder.Body.Set(securitystatusreqid)

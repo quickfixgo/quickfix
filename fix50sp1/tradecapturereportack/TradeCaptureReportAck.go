@@ -1888,16 +1888,10 @@ func (m Message) GetTradePublishIndicator(f *field.TradePublishIndicatorField) q
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TradeCaptureReportAck messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TradeCaptureReportAck.
-func Builder(
-	nosides *field.NoSidesField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+//New returns an initialized MessageBuilder with specified required fields for TradeCaptureReportAck.
+func New(
+	nosides *field.NoSidesField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("AR"))

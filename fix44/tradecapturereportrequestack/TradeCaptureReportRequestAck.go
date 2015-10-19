@@ -684,19 +684,13 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TradeCaptureReportRequestAck messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TradeCaptureReportRequestAck.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for TradeCaptureReportRequestAck.
+func New(
 	traderequestid *field.TradeRequestIDField,
 	traderequesttype *field.TradeRequestTypeField,
 	traderequestresult *field.TradeRequestResultField,
-	traderequeststatus *field.TradeRequestStatusField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	traderequeststatus *field.TradeRequestStatusField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AQ"))
 	builder.Body.Set(traderequestid)

@@ -124,17 +124,11 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds PartyDetailsListRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for PartyDetailsListRequest.
-func Builder(
+//New returns an initialized Message with specified required fields for PartyDetailsListRequest.
+func New(
 	partydetailslistrequestid *field.PartyDetailsListRequestIDField,
-	nopartylistresponsetypes *field.NoPartyListResponseTypesField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	nopartylistresponsetypes *field.NoPartyListResponseTypesField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("CF"))

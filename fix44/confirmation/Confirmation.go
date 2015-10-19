@@ -1632,13 +1632,8 @@ func (m Message) GetNoMiscFees(f *field.NoMiscFeesField) quickfix.MessageRejectE
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Confirmation messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Confirmation.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for Confirmation.
+func New(
 	confirmid *field.ConfirmIDField,
 	confirmtranstype *field.ConfirmTransTypeField,
 	confirmtype *field.ConfirmTypeField,
@@ -1653,9 +1648,8 @@ func Builder(
 	allocaccount *field.AllocAccountField,
 	avgpx *field.AvgPxField,
 	grosstradeamt *field.GrossTradeAmtField,
-	netmoney *field.NetMoneyField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	netmoney *field.NetMoneyField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AK"))
 	builder.Body.Set(confirmid)

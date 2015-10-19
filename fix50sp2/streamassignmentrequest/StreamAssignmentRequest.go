@@ -52,17 +52,11 @@ func (m Message) GetNoAsgnReqs(f *field.NoAsgnReqsField) quickfix.MessageRejectE
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds StreamAssignmentRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for StreamAssignmentRequest.
-func Builder(
+//New returns an initialized Message with specified required fields for StreamAssignmentRequest.
+func New(
 	streamasgnreqid *field.StreamAsgnReqIDField,
-	streamasgnreqtype *field.StreamAsgnReqTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	streamasgnreqtype *field.StreamAsgnReqTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("CC"))

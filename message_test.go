@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bytes"
 	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/field"
 	"github.com/quickfixgo/quickfix/fix/tag"
 	"testing"
 )
@@ -55,7 +56,28 @@ func TestMessage_parseOutOfOrder(t *testing.T) {
 	}
 }
 
-func TestMessage_rebuild(t *testing.T) {
+func TestMessage_Build(t *testing.T) {
+	builder := NewMessage()
+
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(fix.NewStringField(tag.MsgType, "A"))
+	builder.Header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
+
+	builder.Body.Set(field.NewUsername("my_user"))
+	builder.Body.Set(field.NewPassword("secret"))
+
+	expectedBytes := []byte("8=FIX.4.49=4935=A52=20140615-19:49:56553=my_user554=secret10=072")
+	result, err := builder.Build()
+	if err != nil {
+		t.Error("Unexpected error", err)
+	}
+
+	if !bytes.Equal(expectedBytes, result) {
+		t.Error("Unexpected bytes, got ", string(result))
+	}
+}
+
+func TestMessage_ReBuild(t *testing.T) {
 	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
 	msg, _ := parseMessage(rawMsg)
@@ -64,7 +86,7 @@ func TestMessage_rebuild(t *testing.T) {
 	header.Set(fix.NewStringField(tag.OrigSendingTime, "20140515-19:49:56.659"))
 	header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
 
-	msg.rebuild()
+	msg.Build()
 
 	expectedBytes := []byte("8=FIX.4.29=12635=D34=249=TW52=20140615-19:49:5656=ISLD122=20140515-19:49:56.65911=10021=140=154=155=TSLA60=00010101-00:00:00.00010=128")
 

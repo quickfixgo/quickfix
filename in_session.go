@@ -44,14 +44,14 @@ func (state inSession) FixMsgIn(session *Session, msg Message) (nextState sessio
 func (state inSession) Timeout(session *Session, event event) (nextState sessionState) {
 	switch event {
 	case needHeartbeat:
-		heartBt := NewMessageBuilder()
+		heartBt := NewMessage()
 		heartBt.Header.Set(field.NewMsgType("0"))
-		session.send(*heartBt)
+		session.send(heartBt)
 	case peerTimeout:
-		testReq := NewMessageBuilder()
+		testReq := NewMessage()
 		testReq.Header.Set(field.NewMsgType("1"))
 		testReq.Body.Set(field.NewTestReqID("TEST"))
-		session.send(*testReq)
+		session.send(testReq)
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
 		return pendingTimeout{}
 	}
@@ -183,10 +183,10 @@ func (state inSession) handleTestRequest(session *Session, msg Message) (nextSta
 	if err := msg.Body.Get(&testReq); err != nil {
 		session.log.OnEvent("Test Request with no testRequestID")
 	} else {
-		heartBt := NewMessageBuilder()
+		heartBt := NewMessage()
 		heartBt.Header.Set(field.NewMsgType("0"))
 		heartBt.Body.Set(field.NewTestReqID(testReq.Value))
-		session.send(*heartBt)
+		session.send(heartBt)
 	}
 
 	session.store.IncrNextTargetMsgSeqNum()
@@ -261,8 +261,8 @@ func (state *inSession) initiateLogout(session *Session, reason string) (nextSta
 }
 
 func (state *inSession) generateSequenceReset(session *Session, beginSeqNo int, endSeqNo int) {
-	sequenceReset := NewMessageBuilder()
-	session.fillDefaultHeader(*sequenceReset)
+	sequenceReset := NewMessage()
+	session.fillDefaultHeader(sequenceReset)
 
 	sequenceReset.Header.Set(field.NewMsgType("4"))
 	sequenceReset.Header.Set(field.NewMsgSeqNum(beginSeqNo))
@@ -285,7 +285,7 @@ func (state *inSession) generateLogout(session *Session) {
 }
 
 func (state *inSession) generateLogoutWithReason(session *Session, reason string) {
-	reply := NewMessageBuilder()
+	reply := NewMessage()
 	reply.Header.Set(field.NewMsgType("5"))
 	reply.Header.Set(field.NewBeginString(session.sessionID.BeginString))
 	reply.Header.Set(field.NewTargetCompID(session.sessionID.TargetCompID))
@@ -295,6 +295,6 @@ func (state *inSession) generateLogoutWithReason(session *Session, reason string
 		reply.Body.Set(field.NewText(reason))
 	}
 
-	session.send(*reply)
+	session.send(reply)
 	session.log.OnEvent("Sending logout response")
 }

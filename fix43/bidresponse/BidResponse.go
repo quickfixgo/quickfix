@@ -48,16 +48,10 @@ func (m Message) GetNoBidComponents(f *field.NoBidComponentsField) quickfix.Mess
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds BidResponse messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for BidResponse.
-func Builder(
-	nobidcomponents *field.NoBidComponentsField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+//New returns an initialized MessageBuilder with specified required fields for BidResponse.
+func New(
+	nobidcomponents *field.NoBidComponentsField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("l"))
 	builder.Body.Set(nobidcomponents)

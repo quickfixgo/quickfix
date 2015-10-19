@@ -612,21 +612,15 @@ func (m Message) GetLocateReqd(f *field.LocateReqdField) quickfix.MessageRejectE
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderCancelReplaceRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderCancelReplaceRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for OrderCancelReplaceRequest.
+func New(
 	origclordid *field.OrigClOrdIDField,
 	clordid *field.ClOrdIDField,
 	handlinst *field.HandlInstField,
 	symbol *field.SymbolField,
 	side *field.SideField,
-	ordtype *field.OrdTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	ordtype *field.OrdTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
 	builder.Header.Set(field.NewMsgType("G"))
 	builder.Body.Set(origclordid)

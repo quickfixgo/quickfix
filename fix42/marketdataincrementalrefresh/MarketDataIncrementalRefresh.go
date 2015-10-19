@@ -36,16 +36,10 @@ func (m Message) GetNoMDEntries(f *field.NoMDEntriesField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds MarketDataIncrementalRefresh messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for MarketDataIncrementalRefresh.
-func Builder(
-	nomdentries *field.NoMDEntriesField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+//New returns an initialized MessageBuilder with specified required fields for MarketDataIncrementalRefresh.
+func New(
+	nomdentries *field.NoMDEntriesField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("X"))
 	builder.Body.Set(nomdentries)

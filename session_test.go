@@ -9,11 +9,12 @@ import (
 	"time"
 )
 
-func getBuilder() MessageBuilder {
-	builder := NewMessageBuilder()
+func getBuilder() Message {
+	builder := Message{}
+	builder.Init()
 	builder.Header.Set(fix.NewStringField(tag.BeginString, fix.BeginString_FIX40))
 	builder.Header.Set(fix.NewStringField(tag.MsgType, "D"))
-	return *builder
+	return builder
 }
 
 func TestSession_CheckCorrectCompID(t *testing.T) {
@@ -263,11 +264,11 @@ func (e *TestClient) FromAdmin(msg Message, sessionID SessionID) (reject Message
 	return nil
 }
 
-func (e *TestClient) ToAdmin(msg MessageBuilder, sessionID SessionID) {
+func (e *TestClient) ToAdmin(msg Message, sessionID SessionID) {
 	e.adminCalled = e.adminCalled + 1
 }
 
-func (e *TestClient) ToApp(msg MessageBuilder, sessionID SessionID) (err error) {
+func (e *TestClient) ToApp(msg Message, sessionID SessionID) (err error) {
 	e.appCalled = e.appCalled + 1
 	return nil
 }
@@ -295,7 +296,7 @@ func TestSession_CheckToAdminCalled(t *testing.T) {
 	}()
 
 	session := Session{store: store, application: app, messageOut: otherEnd}
-	session.toSend = make(chan MessageBuilder)
+	session.toSend = make(chan Message)
 	session.sessionEvent = make(chan event)
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
@@ -341,7 +342,7 @@ func TestSession_CheckToAppCalled(t *testing.T) {
 	}()
 
 	session := Session{store: store, application: app, messageOut: otherEnd}
-	session.toSend = make(chan MessageBuilder)
+	session.toSend = make(chan Message)
 	session.sessionEvent = make(chan event)
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}

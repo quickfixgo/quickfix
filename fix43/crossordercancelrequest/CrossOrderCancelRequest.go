@@ -492,21 +492,15 @@ func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRej
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds CrossOrderCancelRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for CrossOrderCancelRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for CrossOrderCancelRequest.
+func New(
 	crossid *field.CrossIDField,
 	origcrossid *field.OrigCrossIDField,
 	crosstype *field.CrossTypeField,
 	crossprioritization *field.CrossPrioritizationField,
 	nosides *field.NoSidesField,
-	transacttime *field.TransactTimeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	transacttime *field.TransactTimeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("u"))
 	builder.Body.Set(crossid)

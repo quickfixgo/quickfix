@@ -156,18 +156,12 @@ func (m Message) GetNoMsgTypes(f *field.NoMsgTypesField) quickfix.MessageRejectE
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Logon messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Logon.
-func Builder(
+//New returns an initialized Message with specified required fields for Logon.
+func New(
 	encryptmethod *field.EncryptMethodField,
 	heartbtint *field.HeartBtIntField,
-	defaultapplverid *field.DefaultApplVerIDField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	defaultapplverid *field.DefaultApplVerIDField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewMsgType("A"))
 	builder.Body.Set(encryptmethod)

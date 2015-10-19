@@ -420,20 +420,14 @@ func (m Message) GetTradingSessionID(f *field.TradingSessionIDField) quickfix.Me
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Advertisement messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Advertisement.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for Advertisement.
+func New(
 	advid *field.AdvIdField,
 	advtranstype *field.AdvTransTypeField,
 	symbol *field.SymbolField,
 	advside *field.AdvSideField,
-	shares *field.SharesField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	shares *field.SharesField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("7"))
 	builder.Body.Set(advid)

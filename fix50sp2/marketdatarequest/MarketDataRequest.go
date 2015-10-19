@@ -196,20 +196,14 @@ func (m Message) GetNoPartyIDs(f *field.NoPartyIDsField) quickfix.MessageRejectE
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds MarketDataRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for MarketDataRequest.
-func Builder(
+//New returns an initialized Message with specified required fields for MarketDataRequest.
+func New(
 	mdreqid *field.MDReqIDField,
 	subscriptionrequesttype *field.SubscriptionRequestTypeField,
 	marketdepth *field.MarketDepthField,
 	nomdentrytypes *field.NoMDEntryTypesField,
-	norelatedsym *field.NoRelatedSymField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	norelatedsym *field.NoRelatedSymField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("V"))

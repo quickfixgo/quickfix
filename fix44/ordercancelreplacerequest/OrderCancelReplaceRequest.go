@@ -1860,20 +1860,14 @@ func (m Message) GetDesignation(f *field.DesignationField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderCancelReplaceRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderCancelReplaceRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for OrderCancelReplaceRequest.
+func New(
 	origclordid *field.OrigClOrdIDField,
 	clordid *field.ClOrdIDField,
 	side *field.SideField,
 	transacttime *field.TransactTimeField,
-	ordtype *field.OrdTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	ordtype *field.OrdTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("G"))
 	builder.Body.Set(origclordid)

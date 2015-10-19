@@ -144,17 +144,11 @@ func (m Message) GetRawData(f *field.RawDataField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds News messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for News.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for News.
+func New(
 	headline *field.HeadlineField,
-	linesoftext *field.LinesOfTextField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	linesoftext *field.LinesOfTextField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
 	builder.Header.Set(field.NewMsgType("B"))
 	builder.Body.Set(headline)

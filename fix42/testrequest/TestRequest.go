@@ -24,16 +24,10 @@ func (m Message) GetTestReqID(f *field.TestReqIDField) quickfix.MessageRejectErr
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TestRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TestRequest.
-func Builder(
-	testreqid *field.TestReqIDField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+//New returns an initialized MessageBuilder with specified required fields for TestRequest.
+func New(
+	testreqid *field.TestReqIDField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
 	builder.Header.Set(field.NewMsgType("1"))
 	builder.Body.Set(testreqid)

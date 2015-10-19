@@ -768,21 +768,15 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds RequestForPositions messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for RequestForPositions.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for RequestForPositions.
+func New(
 	posreqid *field.PosReqIDField,
 	posreqtype *field.PosReqTypeField,
 	account *field.AccountField,
 	accounttype *field.AccountTypeField,
 	clearingbusinessdate *field.ClearingBusinessDateField,
-	transacttime *field.TransactTimeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	transacttime *field.TransactTimeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AN"))
 	builder.Body.Set(posreqid)

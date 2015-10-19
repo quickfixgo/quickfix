@@ -336,13 +336,8 @@ func (m Message) GetNoAllocs(f *field.NoAllocsField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Allocation messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Allocation.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for Allocation.
+func New(
 	allocid *field.AllocIDField,
 	alloctranstype *field.AllocTransTypeField,
 	noorders *field.NoOrdersField,
@@ -351,9 +346,8 @@ func Builder(
 	shares *field.SharesField,
 	avgpx *field.AvgPxField,
 	tradedate *field.TradeDateField,
-	noallocs *field.NoAllocsField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	noallocs *field.NoAllocsField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("J"))
 	builder.Body.Set(allocid)

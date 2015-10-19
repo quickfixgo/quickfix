@@ -6,7 +6,7 @@ import (
 )
 
 //Send determines the session to send msgBuilder using header fields BeginString, TargetCompID, SenderCompID
-func Send(msg MessageBuilder) (err error) {
+func Send(msg Message) (err error) {
 	var beginString field.BeginStringField
 	if err := msg.Header.Get(&beginString); err != nil {
 		return err
@@ -28,13 +28,13 @@ func Send(msg MessageBuilder) (err error) {
 	return SendToTarget(msg, sessionID)
 }
 
-func SendToTarget(msgBuilder MessageBuilder, sessionID SessionID) error {
+func SendToTarget(msg Message, sessionID SessionID) error {
 	session, err := LookupSession(sessionID)
 	if err != nil {
 		return err
 	}
 
-	session.send(msgBuilder)
+	session.send(msg)
 
 	return nil
 }

@@ -292,17 +292,11 @@ func (m Message) GetMarketSegmentID(f *field.MarketSegmentIDField) quickfix.Mess
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds News messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for News.
-func Builder(
+//New returns an initialized Message with specified required fields for News.
+func New(
 	headline *field.HeadlineField,
-	nolinesoftext *field.NoLinesOfTextField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	nolinesoftext *field.NoLinesOfTextField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("B"))

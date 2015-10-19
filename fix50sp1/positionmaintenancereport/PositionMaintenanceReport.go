@@ -1264,20 +1264,14 @@ func (m Message) GetPosMaintRptRefID(f *field.PosMaintRptRefIDField) quickfix.Me
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds PositionMaintenanceReport messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for PositionMaintenanceReport.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for PositionMaintenanceReport.
+func New(
 	posmaintrptid *field.PosMaintRptIDField,
 	postranstype *field.PosTransTypeField,
 	posmaintaction *field.PosMaintActionField,
 	posmaintstatus *field.PosMaintStatusField,
-	clearingbusinessdate *field.ClearingBusinessDateField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	clearingbusinessdate *field.ClearingBusinessDateField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("AM"))

@@ -624,20 +624,14 @@ func (m Message) GetPegDifference(f *field.PegDifferenceField) quickfix.MessageR
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds NewOrderSingle messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for NewOrderSingle.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for NewOrderSingle.
+func New(
 	clordid *field.ClOrdIDField,
 	handlinst *field.HandlInstField,
 	symbol *field.SymbolField,
 	side *field.SideField,
-	ordtype *field.OrdTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	ordtype *field.OrdTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
 	builder.Header.Set(field.NewMsgType("D"))
 	builder.Body.Set(clordid)

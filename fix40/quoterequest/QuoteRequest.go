@@ -132,17 +132,11 @@ func (m Message) GetOrderQty(f *field.OrderQtyField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds QuoteRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for QuoteRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for QuoteRequest.
+func New(
 	quotereqid *field.QuoteReqIDField,
-	symbol *field.SymbolField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	symbol *field.SymbolField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
 	builder.Header.Set(field.NewMsgType("R"))
 	builder.Body.Set(quotereqid)

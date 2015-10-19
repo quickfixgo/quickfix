@@ -42,10 +42,10 @@ func (e *EchoApplication) OnLogon(sessionID quickfix.SessionID) {
 func (e *EchoApplication) OnLogout(sessionID quickfix.SessionID) {
 	e.log.Printf("OnLogout %v\n", sessionID.String())
 }
-func (e EchoApplication) ToAdmin(msgBuilder quickfix.MessageBuilder, sessionID quickfix.SessionID) {
+func (e EchoApplication) ToAdmin(msgBuilder quickfix.Message, sessionID quickfix.SessionID) {
 }
 
-func (e EchoApplication) ToApp(msgBuilder quickfix.MessageBuilder, sessionID quickfix.SessionID) (err error) {
+func (e EchoApplication) ToApp(msgBuilder quickfix.Message, sessionID quickfix.SessionID) (err error) {
 	return
 }
 
@@ -83,8 +83,8 @@ func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.Se
 	return nil
 }
 
-func copyMessageToBuilder(msg quickfix.Message) quickfix.MessageBuilder {
-	reply := quickfix.NewMessageBuilder()
+func copyMessageToBuilder(msg quickfix.Message) quickfix.Message {
+	reply := quickfix.NewMessage()
 
 	msgType := new(field.MsgTypeField)
 	msg.Header.Get(msgType)
@@ -97,7 +97,7 @@ func copyMessageToBuilder(msg quickfix.Message) quickfix.MessageBuilder {
 		}
 	}
 
-	return *reply
+	return reply
 }
 
 func (e *EchoApplication) OnFIX40NewOrderSingle(msg fix40nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {

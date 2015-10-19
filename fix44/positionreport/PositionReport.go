@@ -840,13 +840,8 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds PositionReport messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for PositionReport.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for PositionReport.
+func New(
 	posmaintrptid *field.PosMaintRptIDField,
 	posreqresult *field.PosReqResultField,
 	clearingbusinessdate *field.ClearingBusinessDateField,
@@ -854,9 +849,8 @@ func Builder(
 	accounttype *field.AccountTypeField,
 	settlprice *field.SettlPriceField,
 	settlpricetype *field.SettlPriceTypeField,
-	priorsettlprice *field.PriorSettlPriceField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	priorsettlprice *field.PriorSettlPriceField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
 	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
 	builder.Header.Set(field.NewMsgType("AP"))
 	builder.Body.Set(posmaintrptid)
