@@ -58,7 +58,7 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 
 		msgBytes, _ := builder.Build()
 		msg, _ := parseMessage(msgBytes)
-		err := session.checkCompID(*msg)
+		err := session.checkCompID(msg)
 
 		if err == nil {
 			if tc.returnsError {
@@ -90,7 +90,7 @@ func TestSession_CheckBeginString(t *testing.T) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	err := session.checkBeginString(*msg)
+	err := session.checkBeginString(msg)
 	if err == nil {
 		t.Error("Expected Error")
 	}
@@ -100,7 +100,7 @@ func TestSession_CheckBeginString(t *testing.T) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	err = session.checkBeginString(*msg)
+	err = session.checkBeginString(msg)
 
 	if err != nil {
 		t.Error("Unexpected error", err)
@@ -117,7 +117,7 @@ func TestSession_CheckTargetTooHigh(t *testing.T) {
 	store.SetNextTargetMsgSeqNum(45)
 
 	//missing seq number
-	err := session.checkTargetTooHigh(*msg)
+	err := session.checkTargetTooHigh(msg)
 
 	if err == nil {
 		t.Error("Expected error")
@@ -131,7 +131,7 @@ func TestSession_CheckTargetTooHigh(t *testing.T) {
 	builder.Header.Set(fix.NewIntField(tag.MsgSeqNum, 47))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
-	err = session.checkTargetTooHigh(*msg)
+	err = session.checkTargetTooHigh(msg)
 
 	if err == nil {
 		t.Error("Expected error")
@@ -143,7 +143,7 @@ func TestSession_CheckTargetTooHigh(t *testing.T) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	err = session.checkTargetTooHigh(*msg)
+	err = session.checkTargetTooHigh(msg)
 	if err != nil {
 		t.Error("Unexpected error", err)
 	}
@@ -156,7 +156,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 	msg, _ := parseMessage(msgBytes)
 
 	//missing sending time
-	err := session.checkSendingTime(*msg)
+	err := session.checkSendingTime(msg)
 	if err == nil {
 		t.Error("Expected error")
 	}
@@ -170,7 +170,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	err = session.checkSendingTime(*msg)
+	err = session.checkSendingTime(msg)
 	if err == nil {
 		t.Error("Expected error")
 	}
@@ -184,7 +184,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	err = session.checkSendingTime(*msg)
+	err = session.checkSendingTime(msg)
 	if err == nil {
 		t.Error("Expected error")
 	}
@@ -198,7 +198,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	err = session.checkSendingTime(*msg)
+	err = session.checkSendingTime(msg)
 	if err != nil {
 		t.Error("Unexpected error ", err)
 	}
@@ -215,7 +215,7 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	store.SetNextTargetMsgSeqNum(45)
 
 	//missing seq number
-	err := session.checkTargetTooLow(*msg)
+	err := session.checkTargetTooLow(msg)
 	if err == nil {
 		t.Error("Expected error")
 	}
@@ -229,7 +229,7 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	err = session.checkTargetTooLow(*msg)
+	err = session.checkTargetTooLow(msg)
 	if err == nil {
 		t.Error("Expected error")
 	}
@@ -240,7 +240,7 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	err = session.checkTargetTooLow(*msg)
+	err = session.checkTargetTooLow(msg)
 	if err != nil {
 		t.Error("Unexpected error ", err)
 	}

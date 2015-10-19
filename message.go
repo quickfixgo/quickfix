@@ -41,29 +41,15 @@ func NewMessage() (m Message) {
 
 //Init initializes the Message instance
 func (m *Message) Init() {
-	var header, body, trailer fieldMap
-
-	header.init(headerFieldOrder)
-	body.init(normalFieldOrder)
-	trailer.init(trailerFieldOrder)
-
-	m.Header = header
-	m.Body = body
-	m.Trailer = trailer
+	m.Header.init(headerFieldOrder)
+	m.Body.init(normalFieldOrder)
+	m.Trailer.init(trailerFieldOrder)
 }
 
 //parseMessage constructs a Message from a byte slice wrapping a FIX message.
-func parseMessage(rawMessage []byte) (*Message, error) {
-	msg := &Message{rawMessage: rawMessage}
-	var header, body, trailer fieldMap
-
-	header.init(headerFieldOrder)
-	body.init(normalFieldOrder)
-	trailer.init(trailerFieldOrder)
-
-	msg.Header = header
-	msg.Body = body
-	msg.Trailer = trailer
+func parseMessage(rawMessage []byte) (Message, error) {
+	msg := NewMessage()
+	msg.rawMessage = rawMessage
 
 	//allocate fields in one chunk
 	fieldCount := 0
@@ -79,26 +65,26 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 
 	//message must start with begin string, body length, msg type
 	if rawMessage, err = extractSpecificField(&msg.fields[fieldIndex], tag.BeginString, rawMessage); err != nil {
-		return nil, err
+		return msg, err
 	}
 
-	header.fieldLookup[msg.fields[fieldIndex].Tag] = &msg.fields[fieldIndex]
+	msg.Header.fieldLookup[msg.fields[fieldIndex].Tag] = &msg.fields[fieldIndex]
 	fieldIndex++
 
 	parsedFieldBytes := &msg.fields[fieldIndex]
 	if rawMessage, err = extractSpecificField(parsedFieldBytes, tag.BodyLength, rawMessage); err != nil {
-		return nil, err
+		return msg, err
 	}
 
-	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+	msg.Header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 	fieldIndex++
 
 	parsedFieldBytes = &msg.fields[fieldIndex]
 	if rawMessage, err = extractSpecificField(parsedFieldBytes, tag.MsgType, rawMessage); err != nil {
-		return nil, err
+		return msg, err
 	}
 
-	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+	msg.Header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 	fieldIndex++
 
 	trailerBytes := []byte{}
@@ -107,18 +93,18 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 		parsedFieldBytes = &msg.fields[fieldIndex]
 		rawMessage, err = extractField(parsedFieldBytes, rawMessage)
 		if err != nil {
-			return nil, err
+			return msg, err
 		}
 
 		switch {
 		case tag.IsHeader(parsedFieldBytes.Tag):
-			header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+			msg.Header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		case tag.IsTrailer(parsedFieldBytes.Tag):
-			trailer.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+			msg.Trailer.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		default:
 			foundBody = true
 			trailerBytes = rawMessage
-			body.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+			msg.Body.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		}
 		if parsedFieldBytes.Tag == tag.CheckSum {
 			break

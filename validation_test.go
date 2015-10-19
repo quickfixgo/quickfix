@@ -64,7 +64,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	builder.Header.Set(fix.NewStringField(9999, "hello"))
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
@@ -74,7 +74,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	reject = validate(dict, *msg)
+	reject = validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
@@ -84,7 +84,7 @@ func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	reject = validate(dict, *msg)
+	reject = validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(9999))
@@ -98,7 +98,7 @@ func (s *ValidationTests) TestValidateTagNotDefinedForMessage(c *C) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonTagNotDefinedForThisMessageType)
 	c.Check(*reject.RefTagID(), Equals, fix.Tag(41))
@@ -111,7 +111,7 @@ func (s *ValidationTests) TestValidateTagNotDefinedForMessageComponent(c *C) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, IsNil)
 }
 
@@ -139,7 +139,7 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonRequiredTagMissing)
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
@@ -164,7 +164,7 @@ func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
-	reject = validate(dict, *msg)
+	reject = validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonRequiredTagMissing)
 	c.Check(*reject.RefTagID(), Equals, tag.SendingTime)
@@ -177,7 +177,7 @@ func (s *ValidationTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonTagSpecifiedWithoutAValue)
 	c.Check(*reject.RefTagID(), Equals, tag.ClientID)
@@ -191,7 +191,7 @@ func (s *ValidationTests) TestValidateInvalidMsgType(c *C) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidMsgType)
 }
@@ -203,7 +203,7 @@ func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonValueIsIncorrect)
 	c.Check(*reject.RefTagID(), Equals, tag.HandlInst)
@@ -216,7 +216,7 @@ func (s *ValidationTests) TestValidateIncorrectDataFormatForValue(c *C) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectDataFormatForValue)
 	c.Check(*reject.RefTagID(), Equals, tag.OrderQty)
@@ -230,7 +230,7 @@ func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonTagSpecifiedOutOfRequiredOrder)
 	c.Check(*reject.RefTagID(), Equals, tag.OnBehalfOfCompID)
@@ -242,7 +242,7 @@ func (s *ValidationTests) TestValidateTagAppearsMoreThanOnce(c *C) {
 	c.Check(err, IsNil)
 
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonTagAppearsMoreThanOnce)
 	c.Check(*reject.RefTagID(), Equals, tag.OrdType)
@@ -253,7 +253,7 @@ func (s *ValidationTests) TestFloatValidation(c *C) {
 	c.Check(err, IsNil)
 
 	dict, _ := datadictionary.Parse("spec/FIX42.xml")
-	reject := validate(dict, *msg)
+	reject := validate(dict, msg)
 	c.Check(reject, NotNil)
 	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectDataFormatForValue)
 }

@@ -149,16 +149,15 @@ func (s *Session) fillDefaultHeader(msg Message) {
 	s.insertSendingTime(msg.Header)
 }
 
-func (s *Session) resend(msg *Message) {
-	header := msg.Header.(fieldMap)
-	header.Set(field.NewPossDupFlag(true))
+func (s *Session) resend(msg Message) {
+	msg.Header.Set(field.NewPossDupFlag(true))
 
 	origSendingTime := new(fix.StringValue)
-	if err := header.GetField(tag.SendingTime, origSendingTime); err == nil {
-		header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+	if err := msg.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
+		msg.Header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
-	s.insertSendingTime(header)
+	s.insertSendingTime(msg.Header)
 
 	msg.Build()
 	s.sendBytes(msg.rawMessage)
@@ -516,7 +515,7 @@ func (s *Session) run(msgIn chan fixIn, quit chan bool) {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
 					msg.ReceiveTime = fixIn.receiveTime
-					s.currentState = s.currentState.FixMsgIn(s, *msg)
+					s.currentState = s.currentState.FixMsgIn(s, msg)
 				}
 			} else {
 				return

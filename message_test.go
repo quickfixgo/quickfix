@@ -8,12 +8,12 @@ import (
 	"testing"
 )
 
-var msgResult *Message
+var msgResult Message
 
 func BenchmarkParseMessage(b *testing.B) {
 	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
-	var msg *Message
+	var msg Message
 	for i := 0; i < b.N; i++ {
 		msg, _ = parseMessage(rawMsg)
 	}
@@ -81,10 +81,9 @@ func TestMessage_ReBuild(t *testing.T) {
 	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
 	msg, _ := parseMessage(rawMsg)
-	header := msg.Header.(fieldMap)
 
-	header.Set(fix.NewStringField(tag.OrigSendingTime, "20140515-19:49:56.659"))
-	header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
+	msg.Header.Set(fix.NewStringField(tag.OrigSendingTime, "20140515-19:49:56.659"))
+	msg.Header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
 
 	msg.Build()
 

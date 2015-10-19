@@ -6,7 +6,7 @@ import (
 )
 
 func TestFieldMap_SetAndGet(t *testing.T) {
-	fMap := fieldMap{}
+	fMap := FieldMap{}
 	fMap.init(normalFieldOrder)
 
 	fMap.Set(fix.NewStringField(1, "hello"))
@@ -51,7 +51,7 @@ func TestFieldMap_Length(t *testing.T) {
 	bodyLength := fix.NewIntField(9, 100)
 	checkSum := fix.NewStringField(10, "100")
 
-	fMap := fieldMap{}
+	fMap := FieldMap{}
 	fMap.init(normalFieldOrder)
 	fMap.Set(f1)
 	fMap.Set(f2)
@@ -72,7 +72,7 @@ func TestFieldMap_Total(t *testing.T) {
 	bodyLength := fix.NewIntField(9, 100)
 	checkSum := fix.NewStringField(10, "100")
 
-	fMap := fieldMap{}
+	fMap := FieldMap{}
 	fMap.init(normalFieldOrder)
 	fMap.Set(f1)
 	fMap.Set(f2)
