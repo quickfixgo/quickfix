@@ -502,11 +502,11 @@ func Builder(
 	clordid *field.ClOrdIDField,
 	side *field.SideField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("H"))
-	builder.Body().Set(clordid)
-	builder.Body().Set(side)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("H"))
+	builder.Body.Set(clordid)
+	builder.Body.Set(side)
 	return builder
 }
 

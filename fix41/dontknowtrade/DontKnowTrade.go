@@ -287,12 +287,12 @@ func Builder(
 	symbol *field.SymbolField,
 	side *field.SideField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("Q"))
-	builder.Body().Set(dkreason)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("Q"))
+	builder.Body.Set(dkreason)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
 	return builder
 }
 

@@ -1455,16 +1455,16 @@ func Builder(
 	transacttime *field.TransactTimeField,
 	nosides *field.NoSidesField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AE"))
-	builder.Body().Set(tradereportid)
-	builder.Body().Set(previouslyreported)
-	builder.Body().Set(lastqty)
-	builder.Body().Set(lastpx)
-	builder.Body().Set(tradedate)
-	builder.Body().Set(transacttime)
-	builder.Body().Set(nosides)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AE"))
+	builder.Body.Set(tradereportid)
+	builder.Body.Set(previouslyreported)
+	builder.Body.Set(lastqty)
+	builder.Body.Set(lastpx)
+	builder.Body.Set(tradedate)
+	builder.Body.Set(transacttime)
+	builder.Body.Set(nosides)
 	return builder
 }
 

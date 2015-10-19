@@ -144,13 +144,13 @@ func Builder(
 	origclordid *field.OrigClOrdIDField,
 	ordstatus *field.OrdStatusField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("9"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(clordid)
-	builder.Body().Set(origclordid)
-	builder.Body().Set(ordstatus)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("9"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(clordid)
+	builder.Body.Set(origclordid)
+	builder.Body.Set(ordstatus)
 	return builder
 }
 

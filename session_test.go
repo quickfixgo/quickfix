@@ -11,9 +11,9 @@ import (
 
 func getBuilder() MessageBuilder {
 	builder := NewMessageBuilder()
-	builder.Header().Set(fix.NewStringField(tag.BeginString, fix.BeginString_FIX40))
-	builder.Header().Set(fix.NewStringField(tag.MsgType, "D"))
-	return builder
+	builder.Header.Set(fix.NewStringField(tag.BeginString, fix.BeginString_FIX40))
+	builder.Header.Set(fix.NewStringField(tag.MsgType, "D"))
+	return *builder
 }
 
 func TestSession_CheckCorrectCompID(t *testing.T) {
@@ -48,11 +48,11 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 		builder := getBuilder()
 
 		if tc.senderCompID != nil {
-			builder.Header().Set(tc.senderCompID)
+			builder.Header.Set(tc.senderCompID)
 		}
 
 		if tc.targetCompID != nil {
-			builder.Header().Set(tc.targetCompID)
+			builder.Header.Set(tc.targetCompID)
 		}
 
 		msgBytes, _ := builder.Build()
@@ -85,7 +85,7 @@ func TestSession_CheckBeginString(t *testing.T) {
 	builder := getBuilder()
 
 	//wrong value
-	builder.Header().Set(fix.NewStringField(tag.BeginString, "FIX.4.4"))
+	builder.Header.Set(fix.NewStringField(tag.BeginString, "FIX.4.4"))
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
 
@@ -95,7 +95,7 @@ func TestSession_CheckBeginString(t *testing.T) {
 	}
 	_ = err.(incorrectBeginString)
 
-	builder.Header().Set(fix.NewStringField(tag.BeginString, session.sessionID.BeginString))
+	builder.Header.Set(fix.NewStringField(tag.BeginString, session.sessionID.BeginString))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
@@ -127,7 +127,7 @@ func TestSession_CheckTargetTooHigh(t *testing.T) {
 	}
 
 	//too low
-	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 47))
+	builder.Header.Set(fix.NewIntField(tag.MsgSeqNum, 47))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 	err = session.checkTargetTooHigh(*msg)
@@ -138,7 +138,7 @@ func TestSession_CheckTargetTooHigh(t *testing.T) {
 	_ = err.(targetTooHigh)
 
 	//spot on
-	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 45))
+	builder.Header.Set(fix.NewIntField(tag.MsgSeqNum, 45))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
@@ -165,7 +165,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 
 	//sending time too late
 	sendingTime := time.Now().Add(time.Duration(-200) * time.Second)
-	builder.Header().Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
+	builder.Header.Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
@@ -179,7 +179,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 
 	//future sending time
 	sendingTime = time.Now().Add(time.Duration(200) * time.Second)
-	builder.Header().Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
+	builder.Header.Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
@@ -193,7 +193,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 
 	//sending time ok
 	sendingTime = time.Now()
-	builder.Header().Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
+	builder.Header.Set(fix.NewUTCTimestampField(tag.SendingTime, sendingTime))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
@@ -224,7 +224,7 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	}
 
 	//too low
-	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 43))
+	builder.Header.Set(fix.NewIntField(tag.MsgSeqNum, 43))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
@@ -235,7 +235,7 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	_ = err.(targetTooLow)
 
 	//spot on
-	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, 45))
+	builder.Header.Set(fix.NewIntField(tag.MsgSeqNum, 45))
 	msgBytes, _ = builder.Build()
 	msg, _ = parseMessage(msgBytes)
 
@@ -311,7 +311,7 @@ func TestSession_CheckToAdminCalled(t *testing.T) {
 	}
 
 	builder := getBuilder()
-	builder.Header().Set(field.NewMsgType("A"))
+	builder.Header.Set(field.NewMsgType("A"))
 	session.send(builder)
 
 	if app.adminCalled != 1 {

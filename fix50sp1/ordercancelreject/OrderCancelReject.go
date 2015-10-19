@@ -280,14 +280,14 @@ func Builder(
 	ordstatus *field.OrdStatusField,
 	cxlrejresponseto *field.CxlRejResponseToField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("9"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(clordid)
-	builder.Body().Set(ordstatus)
-	builder.Body().Set(cxlrejresponseto)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("9"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(clordid)
+	builder.Body.Set(ordstatus)
+	builder.Body.Set(cxlrejresponseto)
 	return builder
 }
 

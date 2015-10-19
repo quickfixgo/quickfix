@@ -847,20 +847,20 @@ func Builder(
 	settlsesssubid *field.SettlSessSubIDField,
 	clearingbusinessdate *field.ClearingBusinessDateField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AW"))
-	builder.Body().Set(asgnrptid)
-	builder.Body().Set(accounttype)
-	builder.Body().Set(settlprice)
-	builder.Body().Set(settlpricetype)
-	builder.Body().Set(underlyingsettlprice)
-	builder.Body().Set(assignmentmethod)
-	builder.Body().Set(openinterest)
-	builder.Body().Set(exercisemethod)
-	builder.Body().Set(settlsessid)
-	builder.Body().Set(settlsesssubid)
-	builder.Body().Set(clearingbusinessdate)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AW"))
+	builder.Body.Set(asgnrptid)
+	builder.Body.Set(accounttype)
+	builder.Body.Set(settlprice)
+	builder.Body.Set(settlpricetype)
+	builder.Body.Set(underlyingsettlprice)
+	builder.Body.Set(assignmentmethod)
+	builder.Body.Set(openinterest)
+	builder.Body.Set(exercisemethod)
+	builder.Body.Set(settlsessid)
+	builder.Body.Set(settlsesssubid)
+	builder.Body.Set(clearingbusinessdate)
 	return builder
 }
 

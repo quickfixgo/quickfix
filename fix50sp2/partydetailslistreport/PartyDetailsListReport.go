@@ -181,11 +181,11 @@ type MessageBuilder struct {
 func Builder(
 	partydetailslistreportid *field.PartyDetailsListReportIDField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("CG"))
-	builder.Body().Set(partydetailslistreportid)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("CG"))
+	builder.Body.Set(partydetailslistreportid)
 	return builder
 }
 

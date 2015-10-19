@@ -1589,18 +1589,18 @@ func Builder(
 	avgpx *field.AvgPxField,
 	tradedate *field.TradeDateField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AS"))
-	builder.Body().Set(allocreportid)
-	builder.Body().Set(alloctranstype)
-	builder.Body().Set(allocreporttype)
-	builder.Body().Set(allocstatus)
-	builder.Body().Set(allocnoorderstype)
-	builder.Body().Set(side)
-	builder.Body().Set(quantity)
-	builder.Body().Set(avgpx)
-	builder.Body().Set(tradedate)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AS"))
+	builder.Body.Set(allocreportid)
+	builder.Body.Set(alloctranstype)
+	builder.Body.Set(allocreporttype)
+	builder.Body.Set(allocstatus)
+	builder.Body.Set(allocnoorderstype)
+	builder.Body.Set(side)
+	builder.Body.Set(quantity)
+	builder.Body.Set(avgpx)
+	builder.Body.Set(tradedate)
 	return builder
 }
 

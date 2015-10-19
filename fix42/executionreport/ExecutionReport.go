@@ -1134,19 +1134,19 @@ func Builder(
 	cumqty *field.CumQtyField,
 	avgpx *field.AvgPxField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("8"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(execid)
-	builder.Body().Set(exectranstype)
-	builder.Body().Set(exectype)
-	builder.Body().Set(ordstatus)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(leavesqty)
-	builder.Body().Set(cumqty)
-	builder.Body().Set(avgpx)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("8"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(execid)
+	builder.Body.Set(exectranstype)
+	builder.Body.Set(exectype)
+	builder.Body.Set(ordstatus)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(leavesqty)
+	builder.Body.Set(cumqty)
+	builder.Body.Set(avgpx)
 	return builder
 }
 

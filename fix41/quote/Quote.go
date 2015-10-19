@@ -370,11 +370,11 @@ func Builder(
 	quoteid *field.QuoteIDField,
 	symbol *field.SymbolField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("S"))
-	builder.Body().Set(quoteid)
-	builder.Body().Set(symbol)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("S"))
+	builder.Body.Set(quoteid)
+	builder.Body.Set(symbol)
 	return builder
 }
 

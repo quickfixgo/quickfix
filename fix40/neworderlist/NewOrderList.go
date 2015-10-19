@@ -497,18 +497,18 @@ func Builder(
 	orderqty *field.OrderQtyField,
 	ordtype *field.OrdTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("E"))
-	builder.Body().Set(listid)
-	builder.Body().Set(listseqno)
-	builder.Body().Set(listnoords)
-	builder.Body().Set(clordid)
-	builder.Body().Set(handlinst)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(orderqty)
-	builder.Body().Set(ordtype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("E"))
+	builder.Body.Set(listid)
+	builder.Body.Set(listseqno)
+	builder.Body.Set(listnoords)
+	builder.Body.Set(clordid)
+	builder.Body.Set(handlinst)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(orderqty)
+	builder.Body.Set(ordtype)
 	return builder
 }
 

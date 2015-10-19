@@ -371,12 +371,12 @@ func Builder(
 	securityresponseid *field.SecurityResponseIDField,
 	totalnumsecurities *field.TotalNumSecuritiesField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("d"))
-	builder.Body().Set(securityreqid)
-	builder.Body().Set(securityresponseid)
-	builder.Body().Set(totalnumsecurities)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("d"))
+	builder.Body.Set(securityreqid)
+	builder.Body.Set(securityresponseid)
+	builder.Body.Set(totalnumsecurities)
 	return builder
 }
 

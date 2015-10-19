@@ -159,16 +159,16 @@ func Builder(
 	totnoorders *field.TotNoOrdersField,
 	noorders *field.NoOrdersField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("N"))
-	builder.Body().Set(listid)
-	builder.Body().Set(liststatustype)
-	builder.Body().Set(norpts)
-	builder.Body().Set(listorderstatus)
-	builder.Body().Set(rptseq)
-	builder.Body().Set(totnoorders)
-	builder.Body().Set(noorders)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("N"))
+	builder.Body.Set(listid)
+	builder.Body.Set(liststatustype)
+	builder.Body.Set(norpts)
+	builder.Body.Set(listorderstatus)
+	builder.Body.Set(rptseq)
+	builder.Body.Set(totnoorders)
+	builder.Body.Set(noorders)
 	return builder
 }
 

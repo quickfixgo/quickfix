@@ -1262,15 +1262,15 @@ func Builder(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("AB"))
-	builder.Body().Set(clordid)
-	builder.Body().Set(handlinst)
-	builder.Body().Set(side)
-	builder.Body().Set(nolegs)
-	builder.Body().Set(transacttime)
-	builder.Body().Set(ordtype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("AB"))
+	builder.Body.Set(clordid)
+	builder.Body.Set(handlinst)
+	builder.Body.Set(side)
+	builder.Body.Set(nolegs)
+	builder.Body.Set(transacttime)
+	builder.Body.Set(ordtype)
 	return builder
 }
 

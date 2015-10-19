@@ -1936,14 +1936,14 @@ func Builder(
 	tradedate *field.TradeDateField,
 	nosides *field.NoSidesField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("AE"))
-	builder.Body().Set(lastqty)
-	builder.Body().Set(lastpx)
-	builder.Body().Set(tradedate)
-	builder.Body().Set(nosides)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("AE"))
+	builder.Body.Set(lastqty)
+	builder.Body.Set(lastpx)
+	builder.Body.Set(tradedate)
+	builder.Body.Set(nosides)
 	return builder
 }
 

@@ -513,10 +513,10 @@ type MessageBuilder struct {
 func Builder(
 	nomdentries *field.NoMDEntriesField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("W"))
-	builder.Body().Set(nomdentries)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("W"))
+	builder.Body.Set(nomdentries)
 	return builder
 }
 

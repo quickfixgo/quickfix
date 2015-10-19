@@ -93,10 +93,10 @@ type MessageBuilder struct {
 func Builder(
 	securityreqid *field.SecurityReqIDField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("v"))
-	builder.Body().Set(securityreqid)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("v"))
+	builder.Body.Set(securityreqid)
 	return builder
 }
 

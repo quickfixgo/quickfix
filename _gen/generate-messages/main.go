@@ -93,28 +93,28 @@ func genMessageBuilder(msg *datadictionary.MessageDef, requiredFields []*datadic
 	fileOut += strings.Join(builderArgs, ",\n")
 	fileOut += ") MessageBuilder {\n"
 	fileOut += "var builder MessageBuilder\n"
-	fileOut += "builder.MessageBuilder = quickfix.NewMessageBuilder()\n"
+	fileOut += "builder.MessageBuilder = *quickfix.NewMessageBuilder()\n"
 
 	if fixSpec.FIXType == "FIXT" {
-		fileOut += fmt.Sprintf("builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
+		fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
 	} else {
 		if fixSpec.Major == 5 {
-			fileOut += fmt.Sprintf("builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
+			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
 			switch fixSpec.ServicePack {
 			case 0:
-				fileOut += fmt.Sprintf("builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))\n")
+				fileOut += fmt.Sprintf("builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))\n")
 			default:
-				fileOut += fmt.Sprintf("builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP%v))\n", fixSpec.ServicePack)
+				fileOut += fmt.Sprintf("builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP%v))\n", fixSpec.ServicePack)
 			}
 		} else {
-			fileOut += fmt.Sprintf("builder.Header().Set(field.NewBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
+			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
 		}
 	}
 
-	fileOut += fmt.Sprintf("builder.Header().Set(field.NewMsgType(\"%v\"))\n", msg.MsgType)
+	fileOut += fmt.Sprintf("builder.Header.Set(field.NewMsgType(\"%v\"))\n", msg.MsgType)
 
 	for _, field := range requiredFields {
-		fileOut += fmt.Sprintf("builder.Body().Set(%v)\n", strings.ToLower(field.Name))
+		fileOut += fmt.Sprintf("builder.Body.Set(%v)\n", strings.ToLower(field.Name))
 	}
 
 	fileOut += "return builder\n"

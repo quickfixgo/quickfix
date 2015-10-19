@@ -299,12 +299,12 @@ func Builder(
 	symbol *field.SymbolField,
 	subscriptionrequesttype *field.SubscriptionRequestTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("e"))
-	builder.Body().Set(securitystatusreqid)
-	builder.Body().Set(symbol)
-	builder.Body().Set(subscriptionrequesttype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("e"))
+	builder.Body.Set(securitystatusreqid)
+	builder.Body.Set(symbol)
+	builder.Body.Set(subscriptionrequesttype)
 	return builder
 }
 

@@ -179,12 +179,12 @@ func Builder(
 	symbol *field.SymbolField,
 	bidpx *field.BidPxField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("S"))
-	builder.Body().Set(quoteid)
-	builder.Body().Set(symbol)
-	builder.Body().Set(bidpx)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("S"))
+	builder.Body.Set(quoteid)
+	builder.Body.Set(symbol)
+	builder.Body.Set(bidpx)
 	return builder
 }
 

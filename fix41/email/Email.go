@@ -144,13 +144,13 @@ func Builder(
 	subject *field.SubjectField,
 	linesoftext *field.LinesOfTextField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("C"))
-	builder.Body().Set(emailthreadid)
-	builder.Body().Set(emailtype)
-	builder.Body().Set(subject)
-	builder.Body().Set(linesoftext)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("C"))
+	builder.Body.Set(emailthreadid)
+	builder.Body.Set(emailtype)
+	builder.Body.Set(subject)
+	builder.Body.Set(linesoftext)
 	return builder
 }
 

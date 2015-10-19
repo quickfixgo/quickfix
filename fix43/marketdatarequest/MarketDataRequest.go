@@ -157,14 +157,14 @@ func Builder(
 	nomdentrytypes *field.NoMDEntryTypesField,
 	norelatedsym *field.NoRelatedSymField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("V"))
-	builder.Body().Set(mdreqid)
-	builder.Body().Set(subscriptionrequesttype)
-	builder.Body().Set(marketdepth)
-	builder.Body().Set(nomdentrytypes)
-	builder.Body().Set(norelatedsym)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("V"))
+	builder.Body.Set(mdreqid)
+	builder.Body.Set(subscriptionrequesttype)
+	builder.Body.Set(marketdepth)
+	builder.Body.Set(nomdentrytypes)
+	builder.Body.Set(norelatedsym)
 	return builder
 }
 

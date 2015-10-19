@@ -204,13 +204,13 @@ func Builder(
 	totnoorders *field.TotNoOrdersField,
 	noorders *field.NoOrdersField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("E"))
-	builder.Body().Set(listid)
-	builder.Body().Set(bidtype)
-	builder.Body().Set(totnoorders)
-	builder.Body().Set(noorders)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("E"))
+	builder.Body.Set(listid)
+	builder.Body.Set(bidtype)
+	builder.Body.Set(totnoorders)
+	builder.Body.Set(noorders)
 	return builder
 }
 

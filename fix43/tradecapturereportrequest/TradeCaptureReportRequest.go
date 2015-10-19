@@ -598,11 +598,11 @@ func Builder(
 	traderequestid *field.TradeRequestIDField,
 	traderequesttype *field.TradeRequestTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("AD"))
-	builder.Body().Set(traderequestid)
-	builder.Body().Set(traderequesttype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("AD"))
+	builder.Body.Set(traderequestid)
+	builder.Body.Set(traderequesttype)
 	return builder
 }
 

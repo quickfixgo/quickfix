@@ -182,12 +182,12 @@ func Builder(
 	headline *field.HeadlineField,
 	nolinesoftext *field.NoLinesOfTextField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("B"))
-	builder.Body().Set(headline)
-	builder.Body().Set(nolinesoftext)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("B"))
+	builder.Body.Set(headline)
+	builder.Body.Set(nolinesoftext)
 	return builder
 }
 

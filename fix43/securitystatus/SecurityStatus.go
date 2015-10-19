@@ -668,9 +668,9 @@ type MessageBuilder struct {
 //Builder returns an initialized MessageBuilder with specified required fields for SecurityStatus.
 func Builder() MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("f"))
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("f"))
 	return builder
 }
 

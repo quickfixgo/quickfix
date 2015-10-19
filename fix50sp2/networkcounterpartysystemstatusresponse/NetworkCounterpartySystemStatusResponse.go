@@ -87,13 +87,13 @@ func Builder(
 	networkresponseid *field.NetworkResponseIDField,
 	nocompids *field.NoCompIDsField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("BD"))
-	builder.Body().Set(networkstatusresponsetype)
-	builder.Body().Set(networkresponseid)
-	builder.Body().Set(nocompids)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("BD"))
+	builder.Body.Set(networkstatusresponsetype)
+	builder.Body.Set(networkresponseid)
+	builder.Body.Set(nocompids)
 	return builder
 }
 

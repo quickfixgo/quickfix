@@ -167,12 +167,12 @@ func Builder(
 	heartbtint *field.HeartBtIntField,
 	defaultapplverid *field.DefaultApplVerIDField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewMsgType("A"))
-	builder.Body().Set(encryptmethod)
-	builder.Body().Set(heartbtint)
-	builder.Body().Set(defaultapplverid)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewMsgType("A"))
+	builder.Body.Set(encryptmethod)
+	builder.Body.Set(heartbtint)
+	builder.Body.Set(defaultapplverid)
 	return builder
 }
 

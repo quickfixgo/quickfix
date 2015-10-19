@@ -1215,13 +1215,13 @@ func Builder(
 	posreqresult *field.PosReqResultField,
 	posreqstatus *field.PosReqStatusField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AO"))
-	builder.Body().Set(posmaintrptid)
-	builder.Body().Set(posreqresult)
-	builder.Body().Set(posreqstatus)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AO"))
+	builder.Body.Set(posmaintrptid)
+	builder.Body.Set(posreqresult)
+	builder.Body.Set(posreqstatus)
 	return builder
 }
 

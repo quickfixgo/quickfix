@@ -33,10 +33,10 @@ type MessageBuilder struct {
 func Builder(
 	testreqid *field.TestReqIDField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewMsgType("1"))
-	builder.Body().Set(testreqid)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewMsgType("1"))
+	builder.Body.Set(testreqid)
 	return builder
 }
 

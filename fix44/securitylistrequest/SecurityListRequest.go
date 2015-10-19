@@ -802,11 +802,11 @@ func Builder(
 	securityreqid *field.SecurityReqIDField,
 	securitylistrequesttype *field.SecurityListRequestTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("x"))
-	builder.Body().Set(securityreqid)
-	builder.Body().Set(securitylistrequesttype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("x"))
+	builder.Body.Set(securityreqid)
+	builder.Body.Set(securitylistrequesttype)
 	return builder
 }
 

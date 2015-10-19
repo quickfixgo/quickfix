@@ -106,11 +106,11 @@ func Builder(
 	linesoftext *field.LinesOfTextField,
 	text *field.TextField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("B"))
-	builder.Body().Set(linesoftext)
-	builder.Body().Set(text)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("B"))
+	builder.Body.Set(linesoftext)
+	builder.Body.Set(text)
 	return builder
 }
 

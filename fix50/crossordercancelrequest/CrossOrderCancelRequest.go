@@ -810,16 +810,16 @@ func Builder(
 	nosides *field.NoSidesField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("u"))
-	builder.Body().Set(crossid)
-	builder.Body().Set(origcrossid)
-	builder.Body().Set(crosstype)
-	builder.Body().Set(crossprioritization)
-	builder.Body().Set(nosides)
-	builder.Body().Set(transacttime)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("u"))
+	builder.Body.Set(crossid)
+	builder.Body.Set(origcrossid)
+	builder.Body.Set(crosstype)
+	builder.Body.Set(crossprioritization)
+	builder.Body.Set(nosides)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

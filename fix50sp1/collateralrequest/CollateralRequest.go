@@ -1599,13 +1599,13 @@ func Builder(
 	collasgnreason *field.CollAsgnReasonField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AX"))
-	builder.Body().Set(collreqid)
-	builder.Body().Set(collasgnreason)
-	builder.Body().Set(transacttime)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AX"))
+	builder.Body.Set(collreqid)
+	builder.Body.Set(collasgnreason)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

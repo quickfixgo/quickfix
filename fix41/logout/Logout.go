@@ -32,9 +32,9 @@ type MessageBuilder struct {
 //Builder returns an initialized MessageBuilder with specified required fields for Logout.
 func Builder() MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("5"))
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("5"))
 	return builder
 }
 

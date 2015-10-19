@@ -94,11 +94,11 @@ func Builder(
 	listid *field.ListIDField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("K"))
-	builder.Body().Set(listid)
-	builder.Body().Set(transacttime)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("K"))
+	builder.Body.Set(listid)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

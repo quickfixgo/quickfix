@@ -73,7 +73,7 @@ func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.Se
 			return nil
 		}
 
-		reply.Header().Set(possResend)
+		reply.Header.Set(possResend)
 	}
 
 	e.OrderIds[sessionOrderID] = true
@@ -88,16 +88,16 @@ func copyMessageToBuilder(msg quickfix.Message) quickfix.MessageBuilder {
 
 	msgType := new(field.MsgTypeField)
 	msg.Header.Get(msgType)
-	reply.Header().Set(msgType)
+	reply.Header.Set(msgType)
 
 	for _, tag := range msg.Body.Tags() {
 		field := new(fix.StringValue)
 		if err := msg.Body.GetField(tag, field); err == nil {
-			reply.Body().SetField(tag, field)
+			reply.Body.SetField(tag, field)
 		}
 	}
 
-	return reply
+	return *reply
 }
 
 func (e *EchoApplication) OnFIX40NewOrderSingle(msg fix40nos.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {

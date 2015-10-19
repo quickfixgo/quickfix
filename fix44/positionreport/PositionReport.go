@@ -856,17 +856,17 @@ func Builder(
 	settlpricetype *field.SettlPriceTypeField,
 	priorsettlprice *field.PriorSettlPriceField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AP"))
-	builder.Body().Set(posmaintrptid)
-	builder.Body().Set(posreqresult)
-	builder.Body().Set(clearingbusinessdate)
-	builder.Body().Set(account)
-	builder.Body().Set(accounttype)
-	builder.Body().Set(settlprice)
-	builder.Body().Set(settlpricetype)
-	builder.Body().Set(priorsettlprice)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AP"))
+	builder.Body.Set(posmaintrptid)
+	builder.Body.Set(posreqresult)
+	builder.Body.Set(clearingbusinessdate)
+	builder.Body.Set(account)
+	builder.Body.Set(accounttype)
+	builder.Body.Set(settlprice)
+	builder.Body.Set(settlpricetype)
+	builder.Body.Set(priorsettlprice)
 	return builder
 }
 

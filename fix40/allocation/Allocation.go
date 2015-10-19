@@ -353,18 +353,18 @@ func Builder(
 	tradedate *field.TradeDateField,
 	noallocs *field.NoAllocsField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("J"))
-	builder.Body().Set(allocid)
-	builder.Body().Set(alloctranstype)
-	builder.Body().Set(noorders)
-	builder.Body().Set(side)
-	builder.Body().Set(symbol)
-	builder.Body().Set(shares)
-	builder.Body().Set(avgpx)
-	builder.Body().Set(tradedate)
-	builder.Body().Set(noallocs)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("J"))
+	builder.Body.Set(allocid)
+	builder.Body.Set(alloctranstype)
+	builder.Body.Set(noorders)
+	builder.Body.Set(side)
+	builder.Body.Set(symbol)
+	builder.Body.Set(shares)
+	builder.Body.Set(avgpx)
+	builder.Body.Set(tradedate)
+	builder.Body.Set(noallocs)
 	return builder
 }
 

@@ -117,10 +117,10 @@ type MessageBuilder struct {
 func Builder(
 	quoteackstatus *field.QuoteAckStatusField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("b"))
-	builder.Body().Set(quoteackstatus)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("b"))
+	builder.Body.Set(quoteackstatus)
 	return builder
 }
 

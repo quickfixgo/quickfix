@@ -2150,12 +2150,12 @@ func Builder(
 	quoterespid *field.QuoteRespIDField,
 	quoteresptype *field.QuoteRespTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("AJ"))
-	builder.Body().Set(quoterespid)
-	builder.Body().Set(quoteresptype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("AJ"))
+	builder.Body.Set(quoterespid)
+	builder.Body.Set(quoteresptype)
 	return builder
 }
 

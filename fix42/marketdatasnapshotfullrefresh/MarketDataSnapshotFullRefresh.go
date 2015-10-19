@@ -310,11 +310,11 @@ func Builder(
 	symbol *field.SymbolField,
 	nomdentries *field.NoMDEntriesField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("W"))
-	builder.Body().Set(symbol)
-	builder.Body().Set(nomdentries)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("W"))
+	builder.Body.Set(symbol)
+	builder.Body.Set(nomdentries)
 	return builder
 }
 

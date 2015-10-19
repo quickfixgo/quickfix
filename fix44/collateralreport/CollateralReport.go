@@ -1282,11 +1282,11 @@ func Builder(
 	collrptid *field.CollRptIDField,
 	collstatus *field.CollStatusField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("BA"))
-	builder.Body().Set(collrptid)
-	builder.Body().Set(collstatus)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("BA"))
+	builder.Body.Set(collrptid)
+	builder.Body.Set(collstatus)
 	return builder
 }
 

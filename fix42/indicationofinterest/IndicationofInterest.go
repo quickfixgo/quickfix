@@ -481,14 +481,14 @@ func Builder(
 	side *field.SideField,
 	ioishares *field.IOISharesField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("6"))
-	builder.Body().Set(ioiid)
-	builder.Body().Set(ioitranstype)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(ioishares)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("6"))
+	builder.Body.Set(ioiid)
+	builder.Body.Set(ioitranstype)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(ioishares)
 	return builder
 }
 

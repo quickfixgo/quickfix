@@ -470,12 +470,12 @@ func Builder(
 	marketreportid *field.MarketReportIDField,
 	marketid *field.MarketIDField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("BV"))
-	builder.Body().Set(marketreportid)
-	builder.Body().Set(marketid)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("BV"))
+	builder.Body.Set(marketreportid)
+	builder.Body.Set(marketid)
 	return builder
 }
 

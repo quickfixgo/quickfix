@@ -374,15 +374,15 @@ func Builder(
 	tradetype *field.TradeTypeField,
 	basispxtype *field.BasisPxTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("k"))
-	builder.Body().Set(clientbidid)
-	builder.Body().Set(bidrequesttranstype)
-	builder.Body().Set(totalnumsecurities)
-	builder.Body().Set(bidtype)
-	builder.Body().Set(tradetype)
-	builder.Body().Set(basispxtype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("k"))
+	builder.Body.Set(clientbidid)
+	builder.Body.Set(bidrequesttranstype)
+	builder.Body.Set(totalnumsecurities)
+	builder.Body.Set(bidtype)
+	builder.Body.Set(tradetype)
+	builder.Body.Set(basispxtype)
 	return builder
 }
 

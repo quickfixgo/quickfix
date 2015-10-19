@@ -118,11 +118,11 @@ func Builder(
 	quotereqid *field.QuoteReqIDField,
 	norelatedsym *field.NoRelatedSymField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("R"))
-	builder.Body().Set(quotereqid)
-	builder.Body().Set(norelatedsym)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("R"))
+	builder.Body.Set(quotereqid)
+	builder.Body.Set(norelatedsym)
 	return builder
 }
 

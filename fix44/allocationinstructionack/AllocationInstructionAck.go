@@ -215,12 +215,12 @@ func Builder(
 	transacttime *field.TransactTimeField,
 	allocstatus *field.AllocStatusField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("P"))
-	builder.Body().Set(allocid)
-	builder.Body().Set(transacttime)
-	builder.Body().Set(allocstatus)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("P"))
+	builder.Body.Set(allocid)
+	builder.Body.Set(transacttime)
+	builder.Body.Set(allocstatus)
 	return builder
 }
 

@@ -378,16 +378,16 @@ func Builder(
 	bidtradetype *field.BidTradeTypeField,
 	basispxtype *field.BasisPxTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("k"))
-	builder.Body().Set(clientbidid)
-	builder.Body().Set(bidrequesttranstype)
-	builder.Body().Set(totnorelatedsym)
-	builder.Body().Set(bidtype)
-	builder.Body().Set(bidtradetype)
-	builder.Body().Set(basispxtype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("k"))
+	builder.Body.Set(clientbidid)
+	builder.Body.Set(bidrequesttranstype)
+	builder.Body.Set(totnorelatedsym)
+	builder.Body.Set(bidtype)
+	builder.Body.Set(bidtradetype)
+	builder.Body.Set(basispxtype)
 	return builder
 }
 

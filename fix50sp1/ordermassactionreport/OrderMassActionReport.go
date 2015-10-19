@@ -1924,14 +1924,14 @@ func Builder(
 	massactionscope *field.MassActionScopeField,
 	massactionresponse *field.MassActionResponseField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("BZ"))
-	builder.Body().Set(massactionreportid)
-	builder.Body().Set(massactiontype)
-	builder.Body().Set(massactionscope)
-	builder.Body().Set(massactionresponse)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("BZ"))
+	builder.Body.Set(massactionreportid)
+	builder.Body.Set(massactiontype)
+	builder.Body.Set(massactionscope)
+	builder.Body.Set(massactionresponse)
 	return builder
 }
 

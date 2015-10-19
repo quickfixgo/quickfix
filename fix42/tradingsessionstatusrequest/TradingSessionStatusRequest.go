@@ -82,11 +82,11 @@ func Builder(
 	tradsesreqid *field.TradSesReqIDField,
 	subscriptionrequesttype *field.SubscriptionRequestTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("g"))
-	builder.Body().Set(tradsesreqid)
-	builder.Body().Set(subscriptionrequesttype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("g"))
+	builder.Body.Set(tradsesreqid)
+	builder.Body.Set(subscriptionrequesttype)
 	return builder
 }
 

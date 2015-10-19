@@ -205,14 +205,14 @@ func Builder(
 	advside *field.AdvSideField,
 	shares *field.SharesField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("7"))
-	builder.Body().Set(advid)
-	builder.Body().Set(advtranstype)
-	builder.Body().Set(symbol)
-	builder.Body().Set(advside)
-	builder.Body().Set(shares)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("7"))
+	builder.Body.Set(advid)
+	builder.Body.Set(advtranstype)
+	builder.Body.Set(symbol)
+	builder.Body.Set(advside)
+	builder.Body.Set(shares)
 	return builder
 }
 

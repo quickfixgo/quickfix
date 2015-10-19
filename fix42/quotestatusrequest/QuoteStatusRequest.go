@@ -285,10 +285,10 @@ type MessageBuilder struct {
 func Builder(
 	symbol *field.SymbolField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("a"))
-	builder.Body().Set(symbol)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("a"))
+	builder.Body.Set(symbol)
 	return builder
 }
 

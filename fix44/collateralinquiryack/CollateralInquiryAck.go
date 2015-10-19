@@ -994,11 +994,11 @@ func Builder(
 	collinquiryid *field.CollInquiryIDField,
 	collinquirystatus *field.CollInquiryStatusField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("BG"))
-	builder.Body().Set(collinquiryid)
-	builder.Body().Set(collinquirystatus)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("BG"))
+	builder.Body.Set(collinquiryid)
+	builder.Body.Set(collinquirystatus)
 	return builder
 }
 

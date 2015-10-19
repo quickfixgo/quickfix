@@ -226,11 +226,11 @@ func Builder(
 	tradingsessionid *field.TradingSessionIDField,
 	tradsesstatus *field.TradSesStatusField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("h"))
-	builder.Body().Set(tradingsessionid)
-	builder.Body().Set(tradsesstatus)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("h"))
+	builder.Body.Set(tradingsessionid)
+	builder.Body.Set(tradsesstatus)
 	return builder
 }
 

@@ -95,12 +95,12 @@ func Builder(
 	quotecanceltype *field.QuoteCancelTypeField,
 	noquoteentries *field.NoQuoteEntriesField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("Z"))
-	builder.Body().Set(quoteid)
-	builder.Body().Set(quotecanceltype)
-	builder.Body().Set(noquoteentries)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("Z"))
+	builder.Body.Set(quoteid)
+	builder.Body.Set(quotecanceltype)
+	builder.Body.Set(noquoteentries)
 	return builder
 }
 

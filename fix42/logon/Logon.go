@@ -106,11 +106,11 @@ func Builder(
 	encryptmethod *field.EncryptMethodField,
 	heartbtint *field.HeartBtIntField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("A"))
-	builder.Body().Set(encryptmethod)
-	builder.Body().Set(heartbtint)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("A"))
+	builder.Body.Set(encryptmethod)
+	builder.Body.Set(heartbtint)
 	return builder
 }
 

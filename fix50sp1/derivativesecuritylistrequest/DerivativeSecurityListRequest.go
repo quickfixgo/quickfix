@@ -1658,12 +1658,12 @@ func Builder(
 	securityreqid *field.SecurityReqIDField,
 	securitylistrequesttype *field.SecurityListRequestTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("z"))
-	builder.Body().Set(securityreqid)
-	builder.Body().Set(securitylistrequesttype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("z"))
+	builder.Body.Set(securityreqid)
+	builder.Body.Set(securitylistrequesttype)
 	return builder
 }
 

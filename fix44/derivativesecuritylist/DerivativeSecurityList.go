@@ -647,12 +647,12 @@ func Builder(
 	securityresponseid *field.SecurityResponseIDField,
 	securityrequestresult *field.SecurityRequestResultField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AA"))
-	builder.Body().Set(securityreqid)
-	builder.Body().Set(securityresponseid)
-	builder.Body().Set(securityrequestresult)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AA"))
+	builder.Body.Set(securityreqid)
+	builder.Body.Set(securityresponseid)
+	builder.Body.Set(securityrequestresult)
 	return builder
 }
 

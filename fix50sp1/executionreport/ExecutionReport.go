@@ -3763,17 +3763,17 @@ func Builder(
 	leavesqty *field.LeavesQtyField,
 	cumqty *field.CumQtyField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("8"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(execid)
-	builder.Body().Set(exectype)
-	builder.Body().Set(ordstatus)
-	builder.Body().Set(side)
-	builder.Body().Set(leavesqty)
-	builder.Body().Set(cumqty)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("8"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(execid)
+	builder.Body.Set(exectype)
+	builder.Body.Set(ordstatus)
+	builder.Body.Set(side)
+	builder.Body.Set(leavesqty)
+	builder.Body.Set(cumqty)
 	return builder
 }
 

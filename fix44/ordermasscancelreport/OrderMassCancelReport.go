@@ -1271,12 +1271,12 @@ func Builder(
 	masscancelrequesttype *field.MassCancelRequestTypeField,
 	masscancelresponse *field.MassCancelResponseField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("r"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(masscancelrequesttype)
-	builder.Body().Set(masscancelresponse)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("r"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(masscancelrequesttype)
+	builder.Body.Set(masscancelresponse)
 	return builder
 }
 

@@ -106,11 +106,11 @@ func Builder(
 	refmsgtype *field.RefMsgTypeField,
 	businessrejectreason *field.BusinessRejectReasonField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("j"))
-	builder.Body().Set(refmsgtype)
-	builder.Body().Set(businessrejectreason)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("j"))
+	builder.Body.Set(refmsgtype)
+	builder.Body.Set(businessrejectreason)
 	return builder
 }
 

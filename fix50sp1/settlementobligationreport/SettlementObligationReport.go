@@ -182,12 +182,12 @@ func Builder(
 	settlobligmsgid *field.SettlObligMsgIDField,
 	settlobligmode *field.SettlObligModeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("BQ"))
-	builder.Body().Set(settlobligmsgid)
-	builder.Body().Set(settlobligmode)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("BQ"))
+	builder.Body.Set(settlobligmsgid)
+	builder.Body.Set(settlobligmode)
 	return builder
 }
 

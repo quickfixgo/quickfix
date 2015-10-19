@@ -45,10 +45,10 @@ type MessageBuilder struct {
 func Builder(
 	newseqno *field.NewSeqNoField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("4"))
-	builder.Body().Set(newseqno)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("4"))
+	builder.Body.Set(newseqno)
 	return builder
 }
 

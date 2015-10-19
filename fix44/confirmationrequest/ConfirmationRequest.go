@@ -179,12 +179,12 @@ func Builder(
 	confirmtype *field.ConfirmTypeField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("BH"))
-	builder.Body().Set(confirmreqid)
-	builder.Body().Set(confirmtype)
-	builder.Body().Set(transacttime)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("BH"))
+	builder.Body.Set(confirmreqid)
+	builder.Body.Set(confirmtype)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

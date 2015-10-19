@@ -958,11 +958,11 @@ func Builder(
 	tradereportid *field.TradeReportIDField,
 	exectype *field.ExecTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AR"))
-	builder.Body().Set(tradereportid)
-	builder.Body().Set(exectype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AR"))
+	builder.Body.Set(tradereportid)
+	builder.Body.Set(exectype)
 	return builder
 }
 

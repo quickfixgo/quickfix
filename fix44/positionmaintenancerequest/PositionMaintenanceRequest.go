@@ -831,16 +831,16 @@ func Builder(
 	accounttype *field.AccountTypeField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AL"))
-	builder.Body().Set(posreqid)
-	builder.Body().Set(postranstype)
-	builder.Body().Set(posmaintaction)
-	builder.Body().Set(clearingbusinessdate)
-	builder.Body().Set(account)
-	builder.Body().Set(accounttype)
-	builder.Body().Set(transacttime)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AL"))
+	builder.Body.Set(posreqid)
+	builder.Body.Set(postranstype)
+	builder.Body.Set(posmaintaction)
+	builder.Body.Set(clearingbusinessdate)
+	builder.Body.Set(account)
+	builder.Body.Set(accounttype)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

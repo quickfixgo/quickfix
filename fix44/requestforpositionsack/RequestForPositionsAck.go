@@ -745,14 +745,14 @@ func Builder(
 	account *field.AccountField,
 	accounttype *field.AccountTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AO"))
-	builder.Body().Set(posmaintrptid)
-	builder.Body().Set(posreqresult)
-	builder.Body().Set(posreqstatus)
-	builder.Body().Set(account)
-	builder.Body().Set(accounttype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AO"))
+	builder.Body.Set(posmaintrptid)
+	builder.Body.Set(posreqresult)
+	builder.Body.Set(posreqstatus)
+	builder.Body.Set(account)
+	builder.Body.Set(accounttype)
 	return builder
 }
 

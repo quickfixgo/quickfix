@@ -278,12 +278,12 @@ func Builder(
 	allocreportid *field.AllocReportIDField,
 	allocid *field.AllocIDField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AT"))
-	builder.Body().Set(allocreportid)
-	builder.Body().Set(allocid)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AT"))
+	builder.Body.Set(allocreportid)
+	builder.Body.Set(allocid)
 	return builder
 }
 

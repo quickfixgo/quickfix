@@ -104,7 +104,7 @@ func TestMessage_reverseRoute(t *testing.T) {
 
 	for _, tc := range testCases {
 		field := new(fix.StringValue)
-		err := builder.Header().GetField(tc.tag, field)
+		err := builder.Header.GetField(tc.tag, field)
 		if err != nil {
 			t.Error("Unexpected error, ", err)
 		}
@@ -119,7 +119,7 @@ func TestMessage_reverseRouteIgnoreEmpty(t *testing.T) {
 	msg, _ := parseMessage([]byte("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
 	builder := msg.reverseRoute()
 
-	if builder.Header().Has(tag.DeliverToCompID) {
+	if builder.Header.Has(tag.DeliverToCompID) {
 		t.Error("Should not reverse if empty")
 	}
 }
@@ -131,11 +131,11 @@ func TestMessage_reverseRouteFIX40(t *testing.T) {
 
 	builder := msg.reverseRoute()
 
-	if builder.Header().Has(tag.DeliverToLocationID) {
+	if builder.Header.Has(tag.DeliverToLocationID) {
 		t.Error("delivertolocation id not supported in fix40")
 	}
 
-	if builder.Header().Has(tag.OnBehalfOfLocationID) {
+	if builder.Header.Has(tag.OnBehalfOfLocationID) {
 		t.Error("onbehalfof location id not supported in fix40")
 	}
 }

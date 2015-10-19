@@ -218,15 +218,15 @@ func Builder(
 	side *field.SideField,
 	orderqty *field.OrderQtyField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("F"))
-	builder.Body().Set(origclordid)
-	builder.Body().Set(clordid)
-	builder.Body().Set(cxltype)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(orderqty)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("F"))
+	builder.Body.Set(origclordid)
+	builder.Body.Set(clordid)
+	builder.Body.Set(cxltype)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(orderqty)
 	return builder
 }
 

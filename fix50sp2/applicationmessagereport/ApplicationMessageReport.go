@@ -110,12 +110,12 @@ func Builder(
 	applreportid *field.ApplReportIDField,
 	applreporttype *field.ApplReportTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("BY"))
-	builder.Body().Set(applreportid)
-	builder.Body().Set(applreporttype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("BY"))
+	builder.Body.Set(applreportid)
+	builder.Body.Set(applreporttype)
 	return builder
 }
 

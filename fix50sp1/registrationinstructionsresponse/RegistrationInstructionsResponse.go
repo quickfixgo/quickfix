@@ -148,14 +148,14 @@ func Builder(
 	registrefid *field.RegistRefIDField,
 	registstatus *field.RegistStatusField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("p"))
-	builder.Body().Set(registid)
-	builder.Body().Set(registtranstype)
-	builder.Body().Set(registrefid)
-	builder.Body().Set(registstatus)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("p"))
+	builder.Body.Set(registid)
+	builder.Body.Set(registtranstype)
+	builder.Body.Set(registrefid)
+	builder.Body.Set(registstatus)
 	return builder
 }
 

@@ -1174,11 +1174,11 @@ func Builder(
 	massstatusreqid *field.MassStatusReqIDField,
 	massstatusreqtype *field.MassStatusReqTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AF"))
-	builder.Body().Set(massstatusreqid)
-	builder.Body().Set(massstatusreqtype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AF"))
+	builder.Body.Set(massstatusreqid)
+	builder.Body.Set(massstatusreqtype)
 	return builder
 }
 

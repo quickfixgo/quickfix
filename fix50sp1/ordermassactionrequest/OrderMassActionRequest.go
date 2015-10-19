@@ -1852,14 +1852,14 @@ func Builder(
 	massactionscope *field.MassActionScopeField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("CA"))
-	builder.Body().Set(clordid)
-	builder.Body().Set(massactiontype)
-	builder.Body().Set(massactionscope)
-	builder.Body().Set(transacttime)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("CA"))
+	builder.Body.Set(clordid)
+	builder.Body.Set(massactiontype)
+	builder.Body.Set(massactionscope)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

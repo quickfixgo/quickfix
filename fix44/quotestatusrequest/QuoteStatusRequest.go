@@ -764,9 +764,9 @@ type MessageBuilder struct {
 //Builder returns an initialized MessageBuilder with specified required fields for QuoteStatusRequest.
 func Builder() MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("a"))
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("a"))
 	return builder
 }
 

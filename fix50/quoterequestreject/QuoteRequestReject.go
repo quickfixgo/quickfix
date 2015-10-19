@@ -111,13 +111,13 @@ func Builder(
 	quoterequestrejectreason *field.QuoteRequestRejectReasonField,
 	norelatedsym *field.NoRelatedSymField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("AG"))
-	builder.Body().Set(quotereqid)
-	builder.Body().Set(quoterequestrejectreason)
-	builder.Body().Set(norelatedsym)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("AG"))
+	builder.Body.Set(quotereqid)
+	builder.Body.Set(quoterequestrejectreason)
+	builder.Body.Set(norelatedsym)
 	return builder
 }
 

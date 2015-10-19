@@ -142,11 +142,11 @@ func Builder(
 	quoteid *field.QuoteIDField,
 	noquotesets *field.NoQuoteSetsField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("i"))
-	builder.Body().Set(quoteid)
-	builder.Body().Set(noquotesets)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("i"))
+	builder.Body.Set(quoteid)
+	builder.Body.Set(noquotesets)
 	return builder
 }
 

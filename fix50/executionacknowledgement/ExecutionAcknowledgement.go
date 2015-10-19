@@ -952,14 +952,14 @@ func Builder(
 	execid *field.ExecIDField,
 	side *field.SideField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("BN"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(execackstatus)
-	builder.Body().Set(execid)
-	builder.Body().Set(side)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("BN"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(execackstatus)
+	builder.Body.Set(execid)
+	builder.Body.Set(side)
 	return builder
 }
 

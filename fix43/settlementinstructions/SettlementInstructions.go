@@ -579,16 +579,16 @@ func Builder(
 	allocaccount *field.AllocAccountField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("T"))
-	builder.Body().Set(settlinstid)
-	builder.Body().Set(settlinsttranstype)
-	builder.Body().Set(settlinstrefid)
-	builder.Body().Set(settlinstmode)
-	builder.Body().Set(settlinstsource)
-	builder.Body().Set(allocaccount)
-	builder.Body().Set(transacttime)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("T"))
+	builder.Body.Set(settlinstid)
+	builder.Body.Set(settlinsttranstype)
+	builder.Body.Set(settlinstrefid)
+	builder.Body.Set(settlinstmode)
+	builder.Body.Set(settlinstsource)
+	builder.Body.Set(allocaccount)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

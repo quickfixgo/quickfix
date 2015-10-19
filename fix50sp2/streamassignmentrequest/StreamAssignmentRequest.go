@@ -62,12 +62,12 @@ func Builder(
 	streamasgnreqid *field.StreamAsgnReqIDField,
 	streamasgnreqtype *field.StreamAsgnReqTypeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("CC"))
-	builder.Body().Set(streamasgnreqid)
-	builder.Body().Set(streamasgnreqtype)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("CC"))
+	builder.Body.Set(streamasgnreqid)
+	builder.Body.Set(streamasgnreqtype)
 	return builder
 }
 

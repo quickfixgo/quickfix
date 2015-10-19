@@ -171,13 +171,13 @@ func Builder(
 	userrequesttype *field.UserRequestTypeField,
 	username *field.UsernameField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("BE"))
-	builder.Body().Set(userrequestid)
-	builder.Body().Set(userrequesttype)
-	builder.Body().Set(username)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("BE"))
+	builder.Body.Set(userrequestid)
+	builder.Body.Set(userrequesttype)
+	builder.Body.Set(username)
 	return builder
 }
 

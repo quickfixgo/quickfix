@@ -1334,12 +1334,12 @@ func Builder(
 	posmaintrptid *field.PosMaintRptIDField,
 	clearingbusinessdate *field.ClearingBusinessDateField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AP"))
-	builder.Body().Set(posmaintrptid)
-	builder.Body().Set(clearingbusinessdate)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AP"))
+	builder.Body.Set(posmaintrptid)
+	builder.Body.Set(clearingbusinessdate)
 	return builder
 }
 

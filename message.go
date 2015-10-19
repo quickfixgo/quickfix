@@ -132,13 +132,13 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 }
 
 //reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
-func (m *Message) reverseRoute() MessageBuilder {
+func (m *Message) reverseRoute() *MessageBuilder {
 	reverseBuilder := NewMessageBuilder()
 
 	copy := func(src fix.Tag, dest fix.Tag) {
 		if field := new(fix.StringValue); m.Header.GetField(src, field) == nil {
 			if len(field.Value) != 0 {
-				reverseBuilder.Header().SetField(dest, field)
+				reverseBuilder.Header.SetField(dest, field)
 			}
 		}
 	}

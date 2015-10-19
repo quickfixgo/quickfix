@@ -134,15 +134,15 @@ func Builder(
 	lastshares *field.LastSharesField,
 	lastpx *field.LastPxField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("Q"))
-	builder.Body().Set(dkreason)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(orderqty)
-	builder.Body().Set(lastshares)
-	builder.Body().Set(lastpx)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("Q"))
+	builder.Body.Set(dkreason)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(orderqty)
+	builder.Body.Set(lastshares)
+	builder.Body.Set(lastpx)
 	return builder
 }
 

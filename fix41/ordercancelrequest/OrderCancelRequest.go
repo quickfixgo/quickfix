@@ -300,13 +300,13 @@ func Builder(
 	symbol *field.SymbolField,
 	side *field.SideField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("F"))
-	builder.Body().Set(origclordid)
-	builder.Body().Set(clordid)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("F"))
+	builder.Body.Set(origclordid)
+	builder.Body.Set(clordid)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
 	return builder
 }
 

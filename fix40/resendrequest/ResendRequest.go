@@ -46,11 +46,11 @@ func Builder(
 	beginseqno *field.BeginSeqNoField,
 	endseqno *field.EndSeqNoField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("2"))
-	builder.Body().Set(beginseqno)
-	builder.Body().Set(endseqno)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("2"))
+	builder.Body.Set(beginseqno)
+	builder.Body.Set(endseqno)
 	return builder
 }
 

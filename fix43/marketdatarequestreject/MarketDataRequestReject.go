@@ -81,10 +81,10 @@ type MessageBuilder struct {
 func Builder(
 	mdreqid *field.MDReqIDField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("Y"))
-	builder.Body().Set(mdreqid)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("Y"))
+	builder.Body.Set(mdreqid)
 	return builder
 }
 

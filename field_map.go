@@ -19,6 +19,9 @@ type FieldMap interface {
 
 	SetField(tag fix.Tag, field FieldValue)
 	Set(field Field)
+	write(buffer *bytes.Buffer)
+	length() int
+	total() int
 }
 
 // fieldOrder true if tag i should occur before tag j

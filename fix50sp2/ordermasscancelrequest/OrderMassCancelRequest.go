@@ -2115,13 +2115,13 @@ func Builder(
 	masscancelrequesttype *field.MassCancelRequestTypeField,
 	transacttime *field.TransactTimeField) MessageBuilder {
 	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("q"))
-	builder.Body().Set(clordid)
-	builder.Body().Set(masscancelrequesttype)
-	builder.Body().Set(transacttime)
+	builder.MessageBuilder = *quickfix.NewMessageBuilder()
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("q"))
+	builder.Body.Set(clordid)
+	builder.Body.Set(masscancelrequesttype)
+	builder.Body.Set(transacttime)
 	return builder
 }
 
