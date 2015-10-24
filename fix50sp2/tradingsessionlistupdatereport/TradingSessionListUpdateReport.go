@@ -88,20 +88,14 @@ func (m Message) GetApplResendFlag(f *field.ApplResendFlagField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TradingSessionListUpdateReport messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TradingSessionListUpdateReport.
-func Builder(
-	notradingsessions *field.NoTradingSessionsField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("BS"))
-	builder.Body().Set(notradingsessions)
+//New returns an initialized Message with specified required fields for TradingSessionListUpdateReport.
+func New(
+	notradingsessions *field.NoTradingSessionsField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("BS"))
+	builder.Body.Set(notradingsessions)
 	return builder
 }
 

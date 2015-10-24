@@ -132,23 +132,17 @@ func (m Message) GetLegalConfirm(f *field.LegalConfirmField) quickfix.MessageRej
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds AllocationAck messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for AllocationAck.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for AllocationAck.
+func New(
 	allocid *field.AllocIDField,
 	tradedate *field.TradeDateField,
-	allocstatus *field.AllocStatusField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("P"))
-	builder.Body().Set(allocid)
-	builder.Body().Set(tradedate)
-	builder.Body().Set(allocstatus)
+	allocstatus *field.AllocStatusField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("P"))
+	builder.Body.Set(allocid)
+	builder.Body.Set(tradedate)
+	builder.Body.Set(allocstatus)
 	return builder
 }
 

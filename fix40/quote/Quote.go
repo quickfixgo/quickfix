@@ -168,23 +168,17 @@ func (m Message) GetValidUntilTime(f *field.ValidUntilTimeField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Quote messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Quote.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for Quote.
+func New(
 	quoteid *field.QuoteIDField,
 	symbol *field.SymbolField,
-	bidpx *field.BidPxField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("S"))
-	builder.Body().Set(quoteid)
-	builder.Body().Set(symbol)
-	builder.Body().Set(bidpx)
+	bidpx *field.BidPxField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("S"))
+	builder.Body.Set(quoteid)
+	builder.Body.Set(symbol)
+	builder.Body.Set(bidpx)
 	return builder
 }
 

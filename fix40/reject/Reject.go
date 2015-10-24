@@ -36,19 +36,13 @@ func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Reject messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Reject.
-func Builder(
-	refseqnum *field.RefSeqNumField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("3"))
-	builder.Body().Set(refseqnum)
+//New returns an initialized MessageBuilder with specified required fields for Reject.
+func New(
+	refseqnum *field.RefSeqNumField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("3"))
+	builder.Body.Set(refseqnum)
 	return builder
 }
 

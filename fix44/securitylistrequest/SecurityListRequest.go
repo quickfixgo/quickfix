@@ -792,21 +792,15 @@ func (m Message) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeFiel
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds SecurityListRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for SecurityListRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for SecurityListRequest.
+func New(
 	securityreqid *field.SecurityReqIDField,
-	securitylistrequesttype *field.SecurityListRequestTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("x"))
-	builder.Body().Set(securityreqid)
-	builder.Body().Set(securitylistrequesttype)
+	securitylistrequesttype *field.SecurityListRequestTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("x"))
+	builder.Body.Set(securityreqid)
+	builder.Body.Set(securitylistrequesttype)
 	return builder
 }
 

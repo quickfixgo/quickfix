@@ -796,30 +796,24 @@ func (m Message) GetNoRootPartyIDs(f *field.NoRootPartyIDsField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds CrossOrderCancelRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for CrossOrderCancelRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for CrossOrderCancelRequest.
+func New(
 	crossid *field.CrossIDField,
 	origcrossid *field.OrigCrossIDField,
 	crosstype *field.CrossTypeField,
 	crossprioritization *field.CrossPrioritizationField,
 	nosides *field.NoSidesField,
-	transacttime *field.TransactTimeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("u"))
-	builder.Body().Set(crossid)
-	builder.Body().Set(origcrossid)
-	builder.Body().Set(crosstype)
-	builder.Body().Set(crossprioritization)
-	builder.Body().Set(nosides)
-	builder.Body().Set(transacttime)
+	transacttime *field.TransactTimeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("u"))
+	builder.Body.Set(crossid)
+	builder.Body.Set(origcrossid)
+	builder.Body.Set(crosstype)
+	builder.Body.Set(crossprioritization)
+	builder.Body.Set(nosides)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

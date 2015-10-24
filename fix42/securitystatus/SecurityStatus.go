@@ -444,19 +444,13 @@ func (m Message) GetAdjustment(f *field.AdjustmentField) quickfix.MessageRejectE
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds SecurityStatus messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for SecurityStatus.
-func Builder(
-	symbol *field.SymbolField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("f"))
-	builder.Body().Set(symbol)
+//New returns an initialized MessageBuilder with specified required fields for SecurityStatus.
+func New(
+	symbol *field.SymbolField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("f"))
+	builder.Body.Set(symbol)
 	return builder
 }
 

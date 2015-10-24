@@ -720,13 +720,8 @@ func (m Message) GetNoSides(f *field.NoSidesField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TradeCaptureReport messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TradeCaptureReport.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for TradeCaptureReport.
+func New(
 	tradereportid *field.TradeReportIDField,
 	exectype *field.ExecTypeField,
 	previouslyreported *field.PreviouslyReportedField,
@@ -734,19 +729,18 @@ func Builder(
 	lastpx *field.LastPxField,
 	tradedate *field.TradeDateField,
 	transacttime *field.TransactTimeField,
-	nosides *field.NoSidesField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("AE"))
-	builder.Body().Set(tradereportid)
-	builder.Body().Set(exectype)
-	builder.Body().Set(previouslyreported)
-	builder.Body().Set(lastqty)
-	builder.Body().Set(lastpx)
-	builder.Body().Set(tradedate)
-	builder.Body().Set(transacttime)
-	builder.Body().Set(nosides)
+	nosides *field.NoSidesField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("AE"))
+	builder.Body.Set(tradereportid)
+	builder.Body.Set(exectype)
+	builder.Body.Set(previouslyreported)
+	builder.Body.Set(lastqty)
+	builder.Body.Set(lastpx)
+	builder.Body.Set(tradedate)
+	builder.Body.Set(transacttime)
+	builder.Body.Set(nosides)
 	return builder
 }
 

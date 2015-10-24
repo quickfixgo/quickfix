@@ -81,40 +81,36 @@ func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary
 }
 
 func genMessageBuilder(msg *datadictionary.MessageDef, requiredFields []*datadictionary.FieldDef) string {
-	fileOut := fmt.Sprintf("//MessageBuilder builds %v messages.\n", msg.Name)
-	fileOut += "type MessageBuilder struct {\n quickfix.MessageBuilder}\n"
-
-	fileOut += fmt.Sprintf("//Builder returns an initialized MessageBuilder with specified required fields for %v.\n", msg.Name)
-	fileOut += "func Builder(\n"
+	fileOut := fmt.Sprintf("//New returns an initialized Message with specified required fields for %v.\n", msg.Name)
+	fileOut += "func New(\n"
 	builderArgs := make([]string, len(requiredFields))
 	for i, field := range requiredFields {
 		builderArgs[i] = fmt.Sprintf("%v *field.%vField", strings.ToLower(field.Name), field.Name)
 	}
 	fileOut += strings.Join(builderArgs, ",\n")
-	fileOut += ") MessageBuilder {\n"
-	fileOut += "var builder MessageBuilder\n"
-	fileOut += "builder.MessageBuilder = quickfix.NewMessageBuilder()\n"
+	fileOut += ") Message {\n"
+	fileOut += "builder := Message{Message: quickfix.NewMessage()}\n"
 
 	if fixSpec.FIXType == "FIXT" {
-		fileOut += fmt.Sprintf("builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
+		fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
 	} else {
 		if fixSpec.Major == 5 {
-			fileOut += fmt.Sprintf("builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
+			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
 			switch fixSpec.ServicePack {
 			case 0:
-				fileOut += fmt.Sprintf("builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))\n")
+				fileOut += fmt.Sprintf("builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))\n")
 			default:
-				fileOut += fmt.Sprintf("builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP%v))\n", fixSpec.ServicePack)
+				fileOut += fmt.Sprintf("builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP%v))\n", fixSpec.ServicePack)
 			}
 		} else {
-			fileOut += fmt.Sprintf("builder.Header().Set(field.NewBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
+			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
 		}
 	}
 
-	fileOut += fmt.Sprintf("builder.Header().Set(field.NewMsgType(\"%v\"))\n", msg.MsgType)
+	fileOut += fmt.Sprintf("builder.Header.Set(field.NewMsgType(\"%v\"))\n", msg.MsgType)
 
 	for _, field := range requiredFields {
-		fileOut += fmt.Sprintf("builder.Body().Set(%v)\n", strings.ToLower(field.Name))
+		fileOut += fmt.Sprintf("builder.Body.Set(%v)\n", strings.ToLower(field.Name))
 	}
 
 	fileOut += "return builder\n"

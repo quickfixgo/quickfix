@@ -348,27 +348,21 @@ func (m Message) GetURLLink(f *field.URLLinkField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds IndicationofInterest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for IndicationofInterest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for IndicationofInterest.
+func New(
 	ioiid *field.IOIidField,
 	ioitranstype *field.IOITransTypeField,
 	symbol *field.SymbolField,
 	side *field.SideField,
-	ioishares *field.IOISharesField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("6"))
-	builder.Body().Set(ioiid)
-	builder.Body().Set(ioitranstype)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(ioishares)
+	ioishares *field.IOISharesField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("6"))
+	builder.Body.Set(ioiid)
+	builder.Body.Set(ioitranstype)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(ioishares)
 	return builder
 }
 

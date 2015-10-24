@@ -448,22 +448,16 @@ func (m Message) GetApplResendFlag(f *field.ApplResendFlagField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds MarketDefinition messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for MarketDefinition.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for MarketDefinition.
+func New(
 	marketreportid *field.MarketReportIDField,
-	marketid *field.MarketIDField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("BU"))
-	builder.Body().Set(marketreportid)
-	builder.Body().Set(marketid)
+	marketid *field.MarketIDField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("BU"))
+	builder.Body.Set(marketreportid)
+	builder.Body.Set(marketid)
 	return builder
 }
 

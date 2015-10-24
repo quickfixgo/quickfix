@@ -1188,23 +1188,17 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderMassCancelRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderMassCancelRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for OrderMassCancelRequest.
+func New(
 	clordid *field.ClOrdIDField,
 	masscancelrequesttype *field.MassCancelRequestTypeField,
-	transacttime *field.TransactTimeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("q"))
-	builder.Body().Set(clordid)
-	builder.Body().Set(masscancelrequesttype)
-	builder.Body().Set(transacttime)
+	transacttime *field.TransactTimeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("q"))
+	builder.Body.Set(clordid)
+	builder.Body.Set(masscancelrequesttype)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

@@ -2116,26 +2116,20 @@ func (m Message) GetNoTargetPartyIDs(f *field.NoTargetPartyIDsField) quickfix.Me
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderMassActionRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderMassActionRequest.
-func Builder(
+//New returns an initialized Message with specified required fields for OrderMassActionRequest.
+func New(
 	clordid *field.ClOrdIDField,
 	massactiontype *field.MassActionTypeField,
 	massactionscope *field.MassActionScopeField,
-	transacttime *field.TransactTimeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("CA"))
-	builder.Body().Set(clordid)
-	builder.Body().Set(massactiontype)
-	builder.Body().Set(massactionscope)
-	builder.Body().Set(transacttime)
+	transacttime *field.TransactTimeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("CA"))
+	builder.Body.Set(clordid)
+	builder.Body.Set(massactiontype)
+	builder.Body.Set(massactionscope)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

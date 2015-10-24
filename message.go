@@ -33,14 +33,23 @@ type parseError struct {
 
 func (e parseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
 
-//parseMessage constructs a Message from a byte slice wrapping a FIX message.
-func parseMessage(rawMessage []byte) (*Message, error) {
-	var header, body, trailer fieldMap
-	header.init(headerFieldOrder)
-	body.init(normalFieldOrder)
-	trailer.init(trailerFieldOrder)
+//NewMessage returns a newly initialized Message instance
+func NewMessage() (m Message) {
+	m.Init()
+	return
+}
 
-	msg := &Message{Header: header, Body: body, Trailer: trailer, rawMessage: rawMessage}
+//Init initializes the Message instance
+func (m *Message) Init() {
+	m.Header.init(headerFieldOrder)
+	m.Body.init(normalFieldOrder)
+	m.Trailer.init(trailerFieldOrder)
+}
+
+//parseMessage constructs a Message from a byte slice wrapping a FIX message.
+func parseMessage(rawMessage []byte) (Message, error) {
+	msg := NewMessage()
+	msg.rawMessage = rawMessage
 
 	//allocate fields in one chunk
 	fieldCount := 0
@@ -56,26 +65,26 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 
 	//message must start with begin string, body length, msg type
 	if rawMessage, err = extractSpecificField(&msg.fields[fieldIndex], tag.BeginString, rawMessage); err != nil {
-		return nil, err
+		return msg, err
 	}
 
-	header.fieldLookup[msg.fields[fieldIndex].Tag] = &msg.fields[fieldIndex]
+	msg.Header.fieldLookup[msg.fields[fieldIndex].Tag] = &msg.fields[fieldIndex]
 	fieldIndex++
 
 	parsedFieldBytes := &msg.fields[fieldIndex]
 	if rawMessage, err = extractSpecificField(parsedFieldBytes, tag.BodyLength, rawMessage); err != nil {
-		return nil, err
+		return msg, err
 	}
 
-	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+	msg.Header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 	fieldIndex++
 
 	parsedFieldBytes = &msg.fields[fieldIndex]
 	if rawMessage, err = extractSpecificField(parsedFieldBytes, tag.MsgType, rawMessage); err != nil {
-		return nil, err
+		return msg, err
 	}
 
-	header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+	msg.Header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 	fieldIndex++
 
 	trailerBytes := []byte{}
@@ -84,18 +93,18 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 		parsedFieldBytes = &msg.fields[fieldIndex]
 		rawMessage, err = extractField(parsedFieldBytes, rawMessage)
 		if err != nil {
-			return nil, err
+			return msg, err
 		}
 
 		switch {
 		case tag.IsHeader(parsedFieldBytes.Tag):
-			header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+			msg.Header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		case tag.IsTrailer(parsedFieldBytes.Tag):
-			trailer.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+			msg.Trailer.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		default:
 			foundBody = true
 			trailerBytes = rawMessage
-			body.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
+			msg.Body.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		}
 		if parsedFieldBytes.Tag == tag.CheckSum {
 			break
@@ -132,13 +141,13 @@ func parseMessage(rawMessage []byte) (*Message, error) {
 }
 
 //reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
-func (m *Message) reverseRoute() MessageBuilder {
-	reverseBuilder := NewMessageBuilder()
+func (m Message) reverseRoute() Message {
+	reverseMsg := NewMessage()
 
 	copy := func(src fix.Tag, dest fix.Tag) {
 		if field := new(fix.StringValue); m.Header.GetField(src, field) == nil {
 			if len(field.Value) != 0 {
-				reverseBuilder.Header().SetField(dest, field)
+				reverseMsg.Header.SetField(dest, field)
 			}
 		}
 	}
@@ -164,7 +173,7 @@ func (m *Message) reverseRoute() MessageBuilder {
 		}
 	}
 
-	return reverseBuilder
+	return reverseMsg
 }
 
 func extractSpecificField(field *fieldBytes, expectedTag fix.Tag, buffer []byte) (remBuffer []byte, err error) {
@@ -200,24 +209,22 @@ func newCheckSum(value int) *fix.StringField {
 	return fix.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
 }
 
-func (m *Message) rebuild() {
-	header := m.Header.(fieldMap)
-	trailer := m.Trailer.(fieldMap)
-
-	bodyLength := header.length() + len(m.bodyBytes) + trailer.length()
-	header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
-	checkSum := header.total() + trailer.total()
-	for _, b := range m.bodyBytes {
-		checkSum += int(b)
-	}
-	checkSum %= 256
-
-	trailer.Set(newCheckSum(checkSum))
+func (m *Message) Build() ([]byte, error) {
+	m.cook()
 
 	var b bytes.Buffer
-	header.write(&b)
-	b.Write(m.bodyBytes)
-	trailer.write(&b)
+	m.Header.write(&b)
+	m.Body.write(&b)
+	m.Trailer.write(&b)
 
 	m.rawMessage = b.Bytes()
+
+	return m.rawMessage, nil
+}
+
+func (m Message) cook() {
+	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
+	m.Header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
+	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
+	m.Trailer.Set(newCheckSum(checkSum))
 }

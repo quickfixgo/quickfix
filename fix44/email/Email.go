@@ -192,25 +192,19 @@ func (m Message) GetRawData(f *field.RawDataField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Email messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Email.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for Email.
+func New(
 	emailthreadid *field.EmailThreadIDField,
 	emailtype *field.EmailTypeField,
 	subject *field.SubjectField,
-	nolinesoftext *field.NoLinesOfTextField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("C"))
-	builder.Body().Set(emailthreadid)
-	builder.Body().Set(emailtype)
-	builder.Body().Set(subject)
-	builder.Body().Set(nolinesoftext)
+	nolinesoftext *field.NoLinesOfTextField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("C"))
+	builder.Body.Set(emailthreadid)
+	builder.Body.Set(emailtype)
+	builder.Body.Set(subject)
+	builder.Body.Set(nolinesoftext)
 	return builder
 }
 

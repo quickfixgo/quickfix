@@ -268,22 +268,16 @@ func (m Message) GetAllocTransType(f *field.AllocTransTypeField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds AllocationReportAck messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for AllocationReportAck.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for AllocationReportAck.
+func New(
 	allocreportid *field.AllocReportIDField,
-	allocid *field.AllocIDField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AT"))
-	builder.Body().Set(allocreportid)
-	builder.Body().Set(allocid)
+	allocid *field.AllocIDField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AT"))
+	builder.Body.Set(allocreportid)
+	builder.Body.Set(allocid)
 	return builder
 }
 

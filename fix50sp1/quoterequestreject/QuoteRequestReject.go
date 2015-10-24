@@ -148,24 +148,18 @@ func (m Message) GetPreTradeAnonymity(f *field.PreTradeAnonymityField) quickfix.
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds QuoteRequestReject messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for QuoteRequestReject.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for QuoteRequestReject.
+func New(
 	quotereqid *field.QuoteReqIDField,
 	quoterequestrejectreason *field.QuoteRequestRejectReasonField,
-	norelatedsym *field.NoRelatedSymField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AG"))
-	builder.Body().Set(quotereqid)
-	builder.Body().Set(quoterequestrejectreason)
-	builder.Body().Set(norelatedsym)
+	norelatedsym *field.NoRelatedSymField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AG"))
+	builder.Body.Set(quotereqid)
+	builder.Body.Set(quoterequestrejectreason)
+	builder.Body.Set(norelatedsym)
 	return builder
 }
 

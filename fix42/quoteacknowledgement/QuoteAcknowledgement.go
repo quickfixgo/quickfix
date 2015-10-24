@@ -108,19 +108,13 @@ func (m Message) GetNoQuoteSets(f *field.NoQuoteSetsField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds QuoteAcknowledgement messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for QuoteAcknowledgement.
-func Builder(
-	quoteackstatus *field.QuoteAckStatusField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("b"))
-	builder.Body().Set(quoteackstatus)
+//New returns an initialized MessageBuilder with specified required fields for QuoteAcknowledgement.
+func New(
+	quoteackstatus *field.QuoteAckStatusField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("b"))
+	builder.Body.Set(quoteackstatus)
 	return builder
 }
 

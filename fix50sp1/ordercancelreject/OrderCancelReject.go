@@ -268,26 +268,20 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderCancelReject messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderCancelReject.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for OrderCancelReject.
+func New(
 	orderid *field.OrderIDField,
 	clordid *field.ClOrdIDField,
 	ordstatus *field.OrdStatusField,
-	cxlrejresponseto *field.CxlRejResponseToField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("9"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(clordid)
-	builder.Body().Set(ordstatus)
-	builder.Body().Set(cxlrejresponseto)
+	cxlrejresponseto *field.CxlRejResponseToField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("9"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(clordid)
+	builder.Body.Set(ordstatus)
+	builder.Body.Set(cxlrejresponseto)
 	return builder
 }
 

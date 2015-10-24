@@ -52,22 +52,16 @@ func (m Message) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeFiel
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds RFQRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for RFQRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for RFQRequest.
+func New(
 	rfqreqid *field.RFQReqIDField,
-	norelatedsym *field.NoRelatedSymField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("AH"))
-	builder.Body().Set(rfqreqid)
-	builder.Body().Set(norelatedsym)
+	norelatedsym *field.NoRelatedSymField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("AH"))
+	builder.Body.Set(rfqreqid)
+	builder.Body.Set(norelatedsym)
 	return builder
 }
 

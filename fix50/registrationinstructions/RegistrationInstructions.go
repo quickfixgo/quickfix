@@ -160,24 +160,18 @@ func (m Message) GetNoDistribInsts(f *field.NoDistribInstsField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds RegistrationInstructions messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for RegistrationInstructions.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for RegistrationInstructions.
+func New(
 	registid *field.RegistIDField,
 	registtranstype *field.RegistTransTypeField,
-	registrefid *field.RegistRefIDField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("o"))
-	builder.Body().Set(registid)
-	builder.Body().Set(registtranstype)
-	builder.Body().Set(registrefid)
+	registrefid *field.RegistRefIDField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("o"))
+	builder.Body.Set(registid)
+	builder.Body.Set(registtranstype)
+	builder.Body.Set(registrefid)
 	return builder
 }
 

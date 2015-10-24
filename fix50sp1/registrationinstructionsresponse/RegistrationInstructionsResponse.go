@@ -136,26 +136,20 @@ func (m Message) GetRegistRejReasonText(f *field.RegistRejReasonTextField) quick
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds RegistrationInstructionsResponse messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for RegistrationInstructionsResponse.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for RegistrationInstructionsResponse.
+func New(
 	registid *field.RegistIDField,
 	registtranstype *field.RegistTransTypeField,
 	registrefid *field.RegistRefIDField,
-	registstatus *field.RegistStatusField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("p"))
-	builder.Body().Set(registid)
-	builder.Body().Set(registtranstype)
-	builder.Body().Set(registrefid)
-	builder.Body().Set(registstatus)
+	registstatus *field.RegistStatusField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("p"))
+	builder.Body.Set(registid)
+	builder.Body.Set(registtranstype)
+	builder.Body.Set(registrefid)
+	builder.Body.Set(registstatus)
 	return builder
 }
 

@@ -468,21 +468,15 @@ func (m Message) GetCurrency(f *field.CurrencyField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Quote messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Quote.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for Quote.
+func New(
 	quoteid *field.QuoteIDField,
-	symbol *field.SymbolField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("S"))
-	builder.Body().Set(quoteid)
-	builder.Body().Set(symbol)
+	symbol *field.SymbolField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("S"))
+	builder.Body.Set(quoteid)
+	builder.Body.Set(symbol)
 	return builder
 }
 

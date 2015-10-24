@@ -136,22 +136,16 @@ func (m Message) GetRefCstmApplVerID(f *field.RefCstmApplVerIDField) quickfix.Me
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds BusinessMessageReject messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for BusinessMessageReject.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for BusinessMessageReject.
+func New(
 	refmsgtype *field.RefMsgTypeField,
-	businessrejectreason *field.BusinessRejectReasonField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("j"))
-	builder.Body().Set(refmsgtype)
-	builder.Body().Set(businessrejectreason)
+	businessrejectreason *field.BusinessRejectReasonField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("j"))
+	builder.Body.Set(refmsgtype)
+	builder.Body.Set(businessrejectreason)
 	return builder
 }
 

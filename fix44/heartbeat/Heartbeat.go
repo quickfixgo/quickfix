@@ -24,17 +24,11 @@ func (m Message) GetTestReqID(f *field.TestReqIDField) quickfix.MessageRejectErr
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Heartbeat messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Heartbeat.
-func Builder() MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("0"))
+//New returns an initialized MessageBuilder with specified required fields for Heartbeat.
+func New() Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("0"))
 	return builder
 }
 

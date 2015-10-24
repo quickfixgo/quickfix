@@ -76,22 +76,16 @@ func (m Message) GetParentMktSegmID(f *field.ParentMktSegmIDField) quickfix.Mess
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds MarketDefinitionRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for MarketDefinitionRequest.
-func Builder(
+//New returns an initialized Message with specified required fields for MarketDefinitionRequest.
+func New(
 	marketreqid *field.MarketReqIDField,
-	subscriptionrequesttype *field.SubscriptionRequestTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("BT"))
-	builder.Body().Set(marketreqid)
-	builder.Body().Set(subscriptionrequesttype)
+	subscriptionrequesttype *field.SubscriptionRequestTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("BT"))
+	builder.Body.Set(marketreqid)
+	builder.Body.Set(subscriptionrequesttype)
 	return builder
 }
 

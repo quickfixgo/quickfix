@@ -828,13 +828,8 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds AssignmentReport messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for AssignmentReport.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for AssignmentReport.
+func New(
 	asgnrptid *field.AsgnRptIDField,
 	accounttype *field.AccountTypeField,
 	settlprice *field.SettlPriceField,
@@ -845,22 +840,21 @@ func Builder(
 	exercisemethod *field.ExerciseMethodField,
 	settlsessid *field.SettlSessIDField,
 	settlsesssubid *field.SettlSessSubIDField,
-	clearingbusinessdate *field.ClearingBusinessDateField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AW"))
-	builder.Body().Set(asgnrptid)
-	builder.Body().Set(accounttype)
-	builder.Body().Set(settlprice)
-	builder.Body().Set(settlpricetype)
-	builder.Body().Set(underlyingsettlprice)
-	builder.Body().Set(assignmentmethod)
-	builder.Body().Set(openinterest)
-	builder.Body().Set(exercisemethod)
-	builder.Body().Set(settlsessid)
-	builder.Body().Set(settlsesssubid)
-	builder.Body().Set(clearingbusinessdate)
+	clearingbusinessdate *field.ClearingBusinessDateField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AW"))
+	builder.Body.Set(asgnrptid)
+	builder.Body.Set(accounttype)
+	builder.Body.Set(settlprice)
+	builder.Body.Set(settlpricetype)
+	builder.Body.Set(underlyingsettlprice)
+	builder.Body.Set(assignmentmethod)
+	builder.Body.Set(openinterest)
+	builder.Body.Set(exercisemethod)
+	builder.Body.Set(settlsessid)
+	builder.Body.Set(settlsesssubid)
+	builder.Body.Set(clearingbusinessdate)
 	return builder
 }
 

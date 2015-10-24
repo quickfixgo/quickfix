@@ -276,19 +276,13 @@ func (m Message) GetTradingSessionID(f *field.TradingSessionIDField) quickfix.Me
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds QuoteStatusRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for QuoteStatusRequest.
-func Builder(
-	symbol *field.SymbolField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("a"))
-	builder.Body().Set(symbol)
+//New returns an initialized MessageBuilder with specified required fields for QuoteStatusRequest.
+func New(
+	symbol *field.SymbolField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("a"))
+	builder.Body.Set(symbol)
 	return builder
 }
 

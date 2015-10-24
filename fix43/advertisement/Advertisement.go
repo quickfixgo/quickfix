@@ -600,25 +600,19 @@ func (m Message) GetTradingSessionSubID(f *field.TradingSessionSubIDField) quick
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Advertisement messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Advertisement.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for Advertisement.
+func New(
 	advid *field.AdvIdField,
 	advtranstype *field.AdvTransTypeField,
 	advside *field.AdvSideField,
-	quantity *field.QuantityField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("7"))
-	builder.Body().Set(advid)
-	builder.Body().Set(advtranstype)
-	builder.Body().Set(advside)
-	builder.Body().Set(quantity)
+	quantity *field.QuantityField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("7"))
+	builder.Body.Set(advid)
+	builder.Body.Set(advtranstype)
+	builder.Body.Set(advside)
+	builder.Body.Set(quantity)
 	return builder
 }
 

@@ -18,7 +18,7 @@ type Session struct {
 	sessionID SessionID
 
 	messageOut chan []byte
-	toSend     chan MessageBuilder
+	toSend     chan Message
 
 	sessionEvent            chan event
 	application             Application
@@ -97,7 +97,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 		return err
 	}
 
-	session.toSend = make(chan MessageBuilder)
+	session.toSend = make(chan Message)
 	session.sessionEvent = make(chan event)
 	session.application = application
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
@@ -131,7 +131,7 @@ func (s *Session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *Session) insertSendingTime(header MutableFieldMap) {
+func (s *Session) insertSendingTime(header FieldMap) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= fix.BeginString_FIX42 {
@@ -141,42 +141,41 @@ func (s *Session) insertSendingTime(header MutableFieldMap) {
 	}
 }
 
-func (s *Session) fillDefaultHeader(builder MessageBuilder) {
-	builder.Header().Set(field.NewBeginString(s.sessionID.BeginString))
-	builder.Header().Set(field.NewSenderCompID(s.sessionID.SenderCompID))
-	builder.Header().Set(field.NewTargetCompID(s.sessionID.TargetCompID))
+func (s *Session) fillDefaultHeader(msg Message) {
+	msg.Header.Set(field.NewBeginString(s.sessionID.BeginString))
+	msg.Header.Set(field.NewSenderCompID(s.sessionID.SenderCompID))
+	msg.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
 
-	s.insertSendingTime(builder.Header())
+	s.insertSendingTime(msg.Header)
 }
 
-func (s *Session) resend(msg *Message) {
-	header := msg.Header.(fieldMap)
-	header.Set(field.NewPossDupFlag(true))
+func (s *Session) resend(msg Message) {
+	msg.Header.Set(field.NewPossDupFlag(true))
 
 	origSendingTime := new(fix.StringValue)
-	if err := header.GetField(tag.SendingTime, origSendingTime); err == nil {
-		header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
+	if err := msg.Header.GetField(tag.SendingTime, origSendingTime); err == nil {
+		msg.Header.Set(fix.NewStringField(tag.OrigSendingTime, origSendingTime.Value))
 	}
 
-	s.insertSendingTime(header)
+	s.insertSendingTime(msg.Header)
 
-	msg.rebuild()
+	msg.Build()
 	s.sendBytes(msg.rawMessage)
 }
 
-func (s *Session) send(builder MessageBuilder) {
-	s.fillDefaultHeader(builder)
+func (s *Session) send(msg Message) {
+	s.fillDefaultHeader(msg)
 
 	seqNum := s.store.NextSenderMsgSeqNum()
-	builder.Header().Set(fix.NewIntField(tag.MsgSeqNum, seqNum))
+	msg.Header.Set(fix.NewIntField(tag.MsgSeqNum, seqNum))
 
 	msgType := new(fix.StringValue)
-	if builder.Header().GetField(tag.MsgType, msgType); fix.IsAdminMessageType(msgType.Value) {
-		s.application.ToAdmin(builder, s.sessionID)
+	if msg.Header.GetField(tag.MsgType, msgType); fix.IsAdminMessageType(msgType.Value) {
+		s.application.ToAdmin(msg, s.sessionID)
 	} else {
-		s.application.ToApp(builder, s.sessionID)
+		s.application.ToApp(msg, s.sessionID)
 	}
-	if msgBytes, err := builder.Build(); err != nil {
+	if msgBytes, err := msg.Build(); err != nil {
 		panic(err)
 	} else {
 		s.store.SaveMessage(seqNum, msgBytes)
@@ -193,15 +192,15 @@ func (s *Session) sendBytes(msg []byte) {
 }
 
 func (s *Session) doTargetTooHigh(reject targetTooHigh) {
-	resend := NewMessageBuilder()
-	resend.Header().Set(field.NewMsgType("2"))
-	resend.Body().Set(field.NewBeginSeqNo(reject.ExpectedTarget))
+	resend := NewMessage()
+	resend.Header.Set(field.NewMsgType("2"))
+	resend.Body.Set(field.NewBeginSeqNo(reject.ExpectedTarget))
 
 	var endSeqNum = 0
 	if s.sessionID.BeginString < fix.BeginString_FIX42 {
 		endSeqNum = 999999
 	}
-	resend.Body().Set(field.NewEndSeqNo(endSeqNum))
+	resend.Body.Set(field.NewEndSeqNo(endSeqNum))
 
 	s.send(resend)
 }
@@ -236,25 +235,25 @@ func (s *Session) handleLogon(msg Message) error {
 			return err
 		}
 
-		reply := NewMessageBuilder()
-		reply.Header().Set(field.NewMsgType("A"))
-		reply.Header().Set(field.NewBeginString(s.sessionID.BeginString))
-		reply.Header().Set(field.NewTargetCompID(s.sessionID.TargetCompID))
-		reply.Header().Set(field.NewSenderCompID(s.sessionID.SenderCompID))
-		reply.Body().Set(field.NewEncryptMethod(0))
+		reply := NewMessage()
+		reply.Header.Set(field.NewMsgType("A"))
+		reply.Header.Set(field.NewBeginString(s.sessionID.BeginString))
+		reply.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
+		reply.Header.Set(field.NewSenderCompID(s.sessionID.SenderCompID))
+		reply.Body.Set(field.NewEncryptMethod(0))
 
 		heartBtInt := &field.HeartBtIntField{}
 		if err := msg.Body.Get(heartBtInt); err == nil {
 			s.heartBeatTimeout = time.Duration(heartBtInt.Value) * time.Second
-			reply.Body().Set(heartBtInt)
+			reply.Body.Set(heartBtInt)
 		}
 
 		if resetSeqNumFlag.Value {
-			reply.Body().Set(field.NewResetSeqNumFlag(resetSeqNumFlag.Value))
+			reply.Body.Set(field.NewResetSeqNumFlag(resetSeqNumFlag.Value))
 		}
 
 		if len(s.defaultApplVerID) > 0 {
-			reply.Body().Set(field.NewDefaultApplVerID(s.defaultApplVerID))
+			reply.Body.Set(field.NewDefaultApplVerID(s.defaultApplVerID))
 		}
 
 		s.log.OnEvent("Responding to logon request")
@@ -425,40 +424,40 @@ func (s *Session) doReject(msg Message, rej MessageRejectError) {
 	if s.sessionID.BeginString >= fix.BeginString_FIX42 {
 
 		if rej.IsBusinessReject() {
-			reply.Header().Set(field.NewMsgType("j"))
-			reply.Body().Set(field.NewBusinessRejectReason(int(rej.RejectReason())))
+			reply.Header.Set(field.NewMsgType("j"))
+			reply.Body.Set(field.NewBusinessRejectReason(int(rej.RejectReason())))
 		} else {
-			reply.Header().Set(field.NewMsgType("3"))
+			reply.Header.Set(field.NewMsgType("3"))
 			switch {
 			default:
-				reply.Body().Set(field.NewSessionRejectReason(int(rej.RejectReason())))
+				reply.Body.Set(field.NewSessionRejectReason(int(rej.RejectReason())))
 			case rej.RejectReason() > rejectReasonInvalidMsgType && s.sessionID.BeginString == fix.BeginString_FIX42:
 				//fix42 knows up to invalid msg type
 			}
 		}
-		reply.Body().Set(field.NewText(rej.Error()))
+		reply.Body.Set(field.NewText(rej.Error()))
 
 		var msgType field.MsgTypeField
 		if err := msg.Header.Get(&msgType); err == nil {
-			reply.Body().Set(field.NewRefMsgType(msgType.Value))
+			reply.Body.Set(field.NewRefMsgType(msgType.Value))
 		}
 
 		if refTagID := rej.RefTagID(); refTagID != nil {
-			reply.Body().Set(field.NewRefTagID(int(*refTagID)))
+			reply.Body.Set(field.NewRefTagID(int(*refTagID)))
 		}
 	} else {
-		reply.Header().Set(field.NewMsgType("3"))
+		reply.Header.Set(field.NewMsgType("3"))
 
 		if refTagID := rej.RefTagID(); refTagID != nil {
-			reply.Body().Set(field.NewText(fmt.Sprintf("%s (%d)", rej.Error(), *refTagID)))
+			reply.Body.Set(field.NewText(fmt.Sprintf("%s (%d)", rej.Error(), *refTagID)))
 		} else {
-			reply.Body().Set(field.NewText(rej.Error()))
+			reply.Body.Set(field.NewText(rej.Error()))
 		}
 	}
 
 	var seqNum field.MsgSeqNumField
 	if err := msg.Header.Get(&seqNum); err == nil {
-		reply.Body().Set(field.NewRefSeqNum(seqNum.Value))
+		reply.Body.Set(field.NewRefSeqNum(seqNum.Value))
 	}
 
 	s.send(reply)
@@ -483,18 +482,18 @@ func (s *Session) run(msgIn chan fixIn, quit chan bool) {
 			s.store.Reset()
 		}
 
-		logon := NewMessageBuilder()
-		logon.Header().Set(field.NewMsgType("A"))
-		logon.Header().Set(field.NewBeginString(s.sessionID.BeginString))
-		logon.Header().Set(field.NewTargetCompID(s.sessionID.TargetCompID))
-		logon.Header().Set(field.NewSenderCompID(s.sessionID.SenderCompID))
-		logon.Body().Set(field.NewEncryptMethod(0))
-		logon.Body().Set(field.NewHeartBtInt(s.heartBtInt))
+		logon := NewMessage()
+		logon.Header.Set(field.NewMsgType("A"))
+		logon.Header.Set(field.NewBeginString(s.sessionID.BeginString))
+		logon.Header.Set(field.NewTargetCompID(s.sessionID.TargetCompID))
+		logon.Header.Set(field.NewSenderCompID(s.sessionID.SenderCompID))
+		logon.Body.Set(field.NewEncryptMethod(0))
+		logon.Body.Set(field.NewHeartBtInt(s.heartBtInt))
 
 		s.heartBeatTimeout = time.Duration(s.heartBtInt) * time.Second
 
 		if len(s.defaultApplVerID) > 0 {
-			logon.Body().Set(field.NewDefaultApplVerID(s.defaultApplVerID))
+			logon.Body.Set(field.NewDefaultApplVerID(s.defaultApplVerID))
 		}
 
 		s.log.OnEvent("Sending logon request")
@@ -516,7 +515,7 @@ func (s *Session) run(msgIn chan fixIn, quit chan bool) {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
 					msg.ReceiveTime = fixIn.receiveTime
-					s.currentState = s.currentState.FixMsgIn(s, *msg)
+					s.currentState = s.currentState.FixMsgIn(s, msg)
 				}
 			} else {
 				return

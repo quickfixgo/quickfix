@@ -124,26 +124,20 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds ConfirmationAck messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for ConfirmationAck.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for ConfirmationAck.
+func New(
 	confirmid *field.ConfirmIDField,
 	tradedate *field.TradeDateField,
 	transacttime *field.TransactTimeField,
-	affirmstatus *field.AffirmStatusField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AU"))
-	builder.Body().Set(confirmid)
-	builder.Body().Set(tradedate)
-	builder.Body().Set(transacttime)
-	builder.Body().Set(affirmstatus)
+	affirmstatus *field.AffirmStatusField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AU"))
+	builder.Body.Set(confirmid)
+	builder.Body.Set(tradedate)
+	builder.Body.Set(transacttime)
+	builder.Body.Set(affirmstatus)
 	return builder
 }
 

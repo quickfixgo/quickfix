@@ -720,13 +720,8 @@ func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds ExecutionReport messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for ExecutionReport.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for ExecutionReport.
+func New(
 	orderid *field.OrderIDField,
 	execid *field.ExecIDField,
 	exectranstype *field.ExecTransTypeField,
@@ -739,24 +734,23 @@ func Builder(
 	lastpx *field.LastPxField,
 	leavesqty *field.LeavesQtyField,
 	cumqty *field.CumQtyField,
-	avgpx *field.AvgPxField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("8"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(execid)
-	builder.Body().Set(exectranstype)
-	builder.Body().Set(exectype)
-	builder.Body().Set(ordstatus)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(orderqty)
-	builder.Body().Set(lastshares)
-	builder.Body().Set(lastpx)
-	builder.Body().Set(leavesqty)
-	builder.Body().Set(cumqty)
-	builder.Body().Set(avgpx)
+	avgpx *field.AvgPxField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("8"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(execid)
+	builder.Body.Set(exectranstype)
+	builder.Body.Set(exectype)
+	builder.Body.Set(ordstatus)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(orderqty)
+	builder.Body.Set(lastshares)
+	builder.Body.Set(lastpx)
+	builder.Body.Set(leavesqty)
+	builder.Body.Set(cumqty)
+	builder.Body.Set(avgpx)
 	return builder
 }
 

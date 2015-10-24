@@ -84,23 +84,17 @@ func (m Message) GetNoRelatedSym(f *field.NoRelatedSymField) quickfix.MessageRej
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds SecurityList messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for SecurityList.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for SecurityList.
+func New(
 	securityreqid *field.SecurityReqIDField,
 	securityresponseid *field.SecurityResponseIDField,
-	securityrequestresult *field.SecurityRequestResultField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("y"))
-	builder.Body().Set(securityreqid)
-	builder.Body().Set(securityresponseid)
-	builder.Body().Set(securityrequestresult)
+	securityrequestresult *field.SecurityRequestResultField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("y"))
+	builder.Body.Set(securityreqid)
+	builder.Body.Set(securityresponseid)
+	builder.Body.Set(securityrequestresult)
 	return builder
 }
 

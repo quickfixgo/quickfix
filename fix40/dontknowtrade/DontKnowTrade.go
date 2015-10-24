@@ -120,29 +120,23 @@ func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds DontKnowTrade messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for DontKnowTrade.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for DontKnowTrade.
+func New(
 	dkreason *field.DKReasonField,
 	symbol *field.SymbolField,
 	side *field.SideField,
 	orderqty *field.OrderQtyField,
 	lastshares *field.LastSharesField,
-	lastpx *field.LastPxField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX40))
-	builder.Header().Set(field.NewMsgType("Q"))
-	builder.Body().Set(dkreason)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(orderqty)
-	builder.Body().Set(lastshares)
-	builder.Body().Set(lastpx)
+	lastpx *field.LastPxField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewMsgType("Q"))
+	builder.Body.Set(dkreason)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(orderqty)
+	builder.Body.Set(lastshares)
+	builder.Body.Set(lastpx)
 	return builder
 }
 

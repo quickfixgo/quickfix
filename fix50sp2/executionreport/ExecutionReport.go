@@ -3928,32 +3928,26 @@ func (m Message) GetNoRateSources(f *field.NoRateSourcesField) quickfix.MessageR
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds ExecutionReport messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for ExecutionReport.
-func Builder(
+//New returns an initialized Message with specified required fields for ExecutionReport.
+func New(
 	orderid *field.OrderIDField,
 	execid *field.ExecIDField,
 	exectype *field.ExecTypeField,
 	ordstatus *field.OrdStatusField,
 	side *field.SideField,
 	leavesqty *field.LeavesQtyField,
-	cumqty *field.CumQtyField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("8"))
-	builder.Body().Set(orderid)
-	builder.Body().Set(execid)
-	builder.Body().Set(exectype)
-	builder.Body().Set(ordstatus)
-	builder.Body().Set(side)
-	builder.Body().Set(leavesqty)
-	builder.Body().Set(cumqty)
+	cumqty *field.CumQtyField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("8"))
+	builder.Body.Set(orderid)
+	builder.Body.Set(execid)
+	builder.Body.Set(exectype)
+	builder.Body.Set(ordstatus)
+	builder.Body.Set(side)
+	builder.Body.Set(leavesqty)
+	builder.Body.Set(cumqty)
 	return builder
 }
 

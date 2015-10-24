@@ -444,31 +444,25 @@ func (m Message) GetCashSettlAgentContactPhone(f *field.CashSettlAgentContactPho
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds SettlementInstructions messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for SettlementInstructions.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for SettlementInstructions.
+func New(
 	settlinstid *field.SettlInstIDField,
 	settlinsttranstype *field.SettlInstTransTypeField,
 	settlinstrefid *field.SettlInstRefIDField,
 	settlinstmode *field.SettlInstModeField,
 	settlinstsource *field.SettlInstSourceField,
 	allocaccount *field.AllocAccountField,
-	transacttime *field.TransactTimeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX42))
-	builder.Header().Set(field.NewMsgType("T"))
-	builder.Body().Set(settlinstid)
-	builder.Body().Set(settlinsttranstype)
-	builder.Body().Set(settlinstrefid)
-	builder.Body().Set(settlinstmode)
-	builder.Body().Set(settlinstsource)
-	builder.Body().Set(allocaccount)
-	builder.Body().Set(transacttime)
+	transacttime *field.TransactTimeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewMsgType("T"))
+	builder.Body.Set(settlinstid)
+	builder.Body.Set(settlinsttranstype)
+	builder.Body.Set(settlinstrefid)
+	builder.Body.Set(settlinstmode)
+	builder.Body.Set(settlinstsource)
+	builder.Body.Set(allocaccount)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

@@ -216,25 +216,19 @@ func (m Message) GetNoAllocs(f *field.NoAllocsField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds AllocationReportAck messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for AllocationReportAck.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for AllocationReportAck.
+func New(
 	allocreportid *field.AllocReportIDField,
 	allocid *field.AllocIDField,
 	transacttime *field.TransactTimeField,
-	allocstatus *field.AllocStatusField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AT"))
-	builder.Body().Set(allocreportid)
-	builder.Body().Set(allocid)
-	builder.Body().Set(transacttime)
-	builder.Body().Set(allocstatus)
+	allocstatus *field.AllocStatusField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AT"))
+	builder.Body.Set(allocreportid)
+	builder.Body.Set(allocid)
+	builder.Body.Set(transacttime)
+	builder.Body.Set(allocstatus)
 	return builder
 }
 

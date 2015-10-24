@@ -1444,26 +1444,20 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds CollateralAssignment messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for CollateralAssignment.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for CollateralAssignment.
+func New(
 	collasgnid *field.CollAsgnIDField,
 	collasgnreason *field.CollAsgnReasonField,
 	collasgntranstype *field.CollAsgnTransTypeField,
-	transacttime *field.TransactTimeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("AY"))
-	builder.Body().Set(collasgnid)
-	builder.Body().Set(collasgnreason)
-	builder.Body().Set(collasgntranstype)
-	builder.Body().Set(transacttime)
+	transacttime *field.TransactTimeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("AY"))
+	builder.Body.Set(collasgnid)
+	builder.Body.Set(collasgnreason)
+	builder.Body.Set(collasgntranstype)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

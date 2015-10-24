@@ -1524,13 +1524,8 @@ func (m Message) GetNoAllocs(f *field.NoAllocsField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds AllocationInstruction messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for AllocationInstruction.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for AllocationInstruction.
+func New(
 	allocid *field.AllocIDField,
 	alloctranstype *field.AllocTransTypeField,
 	alloctype *field.AllocTypeField,
@@ -1538,19 +1533,18 @@ func Builder(
 	side *field.SideField,
 	quantity *field.QuantityField,
 	avgpx *field.AvgPxField,
-	tradedate *field.TradeDateField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("J"))
-	builder.Body().Set(allocid)
-	builder.Body().Set(alloctranstype)
-	builder.Body().Set(alloctype)
-	builder.Body().Set(allocnoorderstype)
-	builder.Body().Set(side)
-	builder.Body().Set(quantity)
-	builder.Body().Set(avgpx)
-	builder.Body().Set(tradedate)
+	tradedate *field.TradeDateField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("J"))
+	builder.Body.Set(allocid)
+	builder.Body.Set(alloctranstype)
+	builder.Body.Set(alloctype)
+	builder.Body.Set(allocnoorderstype)
+	builder.Body.Set(side)
+	builder.Body.Set(quantity)
+	builder.Body.Set(avgpx)
+	builder.Body.Set(tradedate)
 	return builder
 }
 

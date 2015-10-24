@@ -172,24 +172,18 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds ConfirmationRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for ConfirmationRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for ConfirmationRequest.
+func New(
 	confirmreqid *field.ConfirmReqIDField,
 	confirmtype *field.ConfirmTypeField,
-	transacttime *field.TransactTimeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("BH"))
-	builder.Body().Set(confirmreqid)
-	builder.Body().Set(confirmtype)
-	builder.Body().Set(transacttime)
+	transacttime *field.TransactTimeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("BH"))
+	builder.Body.Set(confirmreqid)
+	builder.Body.Set(confirmtype)
+	builder.Body.Set(transacttime)
 	return builder
 }
 

@@ -2020,13 +2020,8 @@ func (m Message) GetNoMiscFees(f *field.NoMiscFeesField) quickfix.MessageRejectE
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Confirmation messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Confirmation.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for Confirmation.
+func New(
 	confirmid *field.ConfirmIDField,
 	confirmtranstype *field.ConfirmTransTypeField,
 	confirmtype *field.ConfirmTypeField,
@@ -2039,25 +2034,24 @@ func Builder(
 	allocaccount *field.AllocAccountField,
 	avgpx *field.AvgPxField,
 	grosstradeamt *field.GrossTradeAmtField,
-	netmoney *field.NetMoneyField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AK"))
-	builder.Body().Set(confirmid)
-	builder.Body().Set(confirmtranstype)
-	builder.Body().Set(confirmtype)
-	builder.Body().Set(confirmstatus)
-	builder.Body().Set(transacttime)
-	builder.Body().Set(tradedate)
-	builder.Body().Set(allocqty)
-	builder.Body().Set(side)
-	builder.Body().Set(nocapacities)
-	builder.Body().Set(allocaccount)
-	builder.Body().Set(avgpx)
-	builder.Body().Set(grosstradeamt)
-	builder.Body().Set(netmoney)
+	netmoney *field.NetMoneyField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AK"))
+	builder.Body.Set(confirmid)
+	builder.Body.Set(confirmtranstype)
+	builder.Body.Set(confirmtype)
+	builder.Body.Set(confirmstatus)
+	builder.Body.Set(transacttime)
+	builder.Body.Set(tradedate)
+	builder.Body.Set(allocqty)
+	builder.Body.Set(side)
+	builder.Body.Set(nocapacities)
+	builder.Body.Set(allocaccount)
+	builder.Body.Set(avgpx)
+	builder.Body.Set(grosstradeamt)
+	builder.Body.Set(netmoney)
 	return builder
 }
 

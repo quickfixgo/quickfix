@@ -1524,21 +1524,15 @@ func (m Message) GetYieldRedemptionPriceType(f *field.YieldRedemptionPriceTypeFi
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds QuoteResponse messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for QuoteResponse.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for QuoteResponse.
+func New(
 	quoterespid *field.QuoteRespIDField,
-	quoteresptype *field.QuoteRespTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AJ"))
-	builder.Body().Set(quoterespid)
-	builder.Body().Set(quoteresptype)
+	quoteresptype *field.QuoteRespTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AJ"))
+	builder.Body.Set(quoterespid)
+	builder.Body.Set(quoteresptype)
 	return builder
 }
 

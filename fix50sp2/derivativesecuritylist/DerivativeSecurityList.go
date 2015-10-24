@@ -1804,18 +1804,12 @@ func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRej
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds DerivativeSecurityList messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for DerivativeSecurityList.
-func Builder() MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("AA"))
+//New returns an initialized Message with specified required fields for DerivativeSecurityList.
+func New() Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("AA"))
 	return builder
 }
 

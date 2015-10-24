@@ -64,24 +64,18 @@ func (m Message) GetNoStrikes(f *field.NoStrikesField) quickfix.MessageRejectErr
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds ListStrikePrice messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for ListStrikePrice.
-func Builder(
+//New returns an initialized Message with specified required fields for ListStrikePrice.
+func New(
 	listid *field.ListIDField,
 	totnostrikes *field.TotNoStrikesField,
-	nostrikes *field.NoStrikesField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header().Set(field.NewMsgType("m"))
-	builder.Body().Set(listid)
-	builder.Body().Set(totnostrikes)
-	builder.Body().Set(nostrikes)
+	nostrikes *field.NoStrikesField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
+	builder.Header.Set(field.NewMsgType("m"))
+	builder.Body.Set(listid)
+	builder.Body.Set(totnostrikes)
+	builder.Body.Set(nostrikes)
 	return builder
 }
 

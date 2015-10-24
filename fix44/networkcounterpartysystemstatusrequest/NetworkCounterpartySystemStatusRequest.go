@@ -48,21 +48,15 @@ func (m Message) GetNoCompIDs(f *field.NoCompIDsField) quickfix.MessageRejectErr
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds NetworkCounterpartySystemStatusRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for NetworkCounterpartySystemStatusRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for NetworkCounterpartySystemStatusRequest.
+func New(
 	networkrequesttype *field.NetworkRequestTypeField,
-	networkrequestid *field.NetworkRequestIDField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("BC"))
-	builder.Body().Set(networkrequesttype)
-	builder.Body().Set(networkrequestid)
+	networkrequestid *field.NetworkRequestIDField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("BC"))
+	builder.Body.Set(networkrequesttype)
+	builder.Body.Set(networkrequestid)
 	return builder
 }
 

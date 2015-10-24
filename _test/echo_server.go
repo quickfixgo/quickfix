@@ -42,10 +42,10 @@ func (e *EchoApplication) OnLogon(sessionID quickfix.SessionID) {
 func (e *EchoApplication) OnLogout(sessionID quickfix.SessionID) {
 	e.log.Printf("OnLogout %v\n", sessionID.String())
 }
-func (e EchoApplication) ToAdmin(msgBuilder quickfix.MessageBuilder, sessionID quickfix.SessionID) {
+func (e EchoApplication) ToAdmin(msgBuilder quickfix.Message, sessionID quickfix.SessionID) {
 }
 
-func (e EchoApplication) ToApp(msgBuilder quickfix.MessageBuilder, sessionID quickfix.SessionID) (err error) {
+func (e EchoApplication) ToApp(msgBuilder quickfix.Message, sessionID quickfix.SessionID) (err error) {
 	return
 }
 
@@ -73,7 +73,7 @@ func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.Se
 			return nil
 		}
 
-		reply.Header().Set(possResend)
+		reply.Header.Set(possResend)
 	}
 
 	e.OrderIds[sessionOrderID] = true
@@ -83,17 +83,17 @@ func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.Se
 	return nil
 }
 
-func copyMessageToBuilder(msg quickfix.Message) quickfix.MessageBuilder {
-	reply := quickfix.NewMessageBuilder()
+func copyMessageToBuilder(msg quickfix.Message) quickfix.Message {
+	reply := quickfix.NewMessage()
 
 	msgType := new(field.MsgTypeField)
 	msg.Header.Get(msgType)
-	reply.Header().Set(msgType)
+	reply.Header.Set(msgType)
 
 	for _, tag := range msg.Body.Tags() {
 		field := new(fix.StringValue)
 		if err := msg.Body.GetField(tag, field); err == nil {
-			reply.Body().SetField(tag, field)
+			reply.Body.SetField(tag, field)
 		}
 	}
 

@@ -144,27 +144,21 @@ func (m Message) GetNoTradingSessions(f *field.NoTradingSessionsField) quickfix.
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds MarketDataRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for MarketDataRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for MarketDataRequest.
+func New(
 	mdreqid *field.MDReqIDField,
 	subscriptionrequesttype *field.SubscriptionRequestTypeField,
 	marketdepth *field.MarketDepthField,
 	nomdentrytypes *field.NoMDEntryTypesField,
-	norelatedsym *field.NoRelatedSymField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("V"))
-	builder.Body().Set(mdreqid)
-	builder.Body().Set(subscriptionrequesttype)
-	builder.Body().Set(marketdepth)
-	builder.Body().Set(nomdentrytypes)
-	builder.Body().Set(norelatedsym)
+	norelatedsym *field.NoRelatedSymField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("V"))
+	builder.Body.Set(mdreqid)
+	builder.Body.Set(subscriptionrequesttype)
+	builder.Body.Set(marketdepth)
+	builder.Body.Set(nomdentrytypes)
+	builder.Body.Set(norelatedsym)
 	return builder
 }
 

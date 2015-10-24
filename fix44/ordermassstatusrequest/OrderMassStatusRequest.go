@@ -1164,21 +1164,15 @@ func (m Message) GetSide(f *field.SideField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds OrderMassStatusRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for OrderMassStatusRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for OrderMassStatusRequest.
+func New(
 	massstatusreqid *field.MassStatusReqIDField,
-	massstatusreqtype *field.MassStatusReqTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header().Set(field.NewMsgType("AF"))
-	builder.Body().Set(massstatusreqid)
-	builder.Body().Set(massstatusreqtype)
+	massstatusreqtype *field.MassStatusReqTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewMsgType("AF"))
+	builder.Body.Set(massstatusreqid)
+	builder.Body.Set(massstatusreqtype)
 	return builder
 }
 

@@ -2092,13 +2092,8 @@ func (m Message) GetNoPosAmt(f *field.NoPosAmtField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds AllocationReport messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for AllocationReport.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for AllocationReport.
+func New(
 	allocreportid *field.AllocReportIDField,
 	alloctranstype *field.AllocTransTypeField,
 	allocreporttype *field.AllocReportTypeField,
@@ -2106,20 +2101,19 @@ func Builder(
 	side *field.SideField,
 	quantity *field.QuantityField,
 	avgpx *field.AvgPxField,
-	tradedate *field.TradeDateField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AS"))
-	builder.Body().Set(allocreportid)
-	builder.Body().Set(alloctranstype)
-	builder.Body().Set(allocreporttype)
-	builder.Body().Set(allocstatus)
-	builder.Body().Set(side)
-	builder.Body().Set(quantity)
-	builder.Body().Set(avgpx)
-	builder.Body().Set(tradedate)
+	tradedate *field.TradeDateField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AS"))
+	builder.Body.Set(allocreportid)
+	builder.Body.Set(alloctranstype)
+	builder.Body.Set(allocreporttype)
+	builder.Body.Set(allocstatus)
+	builder.Body.Set(side)
+	builder.Body.Set(quantity)
+	builder.Body.Set(avgpx)
+	builder.Body.Set(tradedate)
 	return builder
 }
 

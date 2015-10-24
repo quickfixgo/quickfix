@@ -40,20 +40,14 @@ func (m Message) GetNoTradingSessions(f *field.NoTradingSessionsField) quickfix.
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TradingSessionList messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TradingSessionList.
-func Builder(
-	notradingsessions *field.NoTradingSessionsField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("BJ"))
-	builder.Body().Set(notradingsessions)
+//New returns an initialized MessageBuilder with specified required fields for TradingSessionList.
+func New(
+	notradingsessions *field.NoTradingSessionsField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("BJ"))
+	builder.Body.Set(notradingsessions)
 	return builder
 }
 

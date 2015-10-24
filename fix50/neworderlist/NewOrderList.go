@@ -256,26 +256,20 @@ func (m Message) GetNoRootPartyIDs(f *field.NoRootPartyIDsField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds NewOrderList messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for NewOrderList.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for NewOrderList.
+func New(
 	listid *field.ListIDField,
 	bidtype *field.BidTypeField,
 	totnoorders *field.TotNoOrdersField,
-	noorders *field.NoOrdersField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header().Set(field.NewMsgType("E"))
-	builder.Body().Set(listid)
-	builder.Body().Set(bidtype)
-	builder.Body().Set(totnoorders)
-	builder.Body().Set(noorders)
+	noorders *field.NoOrdersField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
+	builder.Header.Set(field.NewMsgType("E"))
+	builder.Body.Set(listid)
+	builder.Body.Set(bidtype)
+	builder.Body.Set(totnoorders)
+	builder.Body.Set(noorders)
 	return builder
 }
 

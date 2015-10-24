@@ -648,13 +648,8 @@ func (m Message) GetMaxShow(f *field.MaxShowField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds NewOrderList messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for NewOrderList.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for NewOrderList.
+func New(
 	listid *field.ListIDField,
 	listseqno *field.ListSeqNoField,
 	listnoords *field.ListNoOrdsField,
@@ -663,20 +658,19 @@ func Builder(
 	symbol *field.SymbolField,
 	side *field.SideField,
 	orderqty *field.OrderQtyField,
-	ordtype *field.OrdTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX41))
-	builder.Header().Set(field.NewMsgType("E"))
-	builder.Body().Set(listid)
-	builder.Body().Set(listseqno)
-	builder.Body().Set(listnoords)
-	builder.Body().Set(clordid)
-	builder.Body().Set(handlinst)
-	builder.Body().Set(symbol)
-	builder.Body().Set(side)
-	builder.Body().Set(orderqty)
-	builder.Body().Set(ordtype)
+	ordtype *field.OrdTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewMsgType("E"))
+	builder.Body.Set(listid)
+	builder.Body.Set(listseqno)
+	builder.Body.Set(listnoords)
+	builder.Body.Set(clordid)
+	builder.Body.Set(handlinst)
+	builder.Body.Set(symbol)
+	builder.Body.Set(side)
+	builder.Body.Set(orderqty)
+	builder.Body.Set(ordtype)
 	return builder
 }
 

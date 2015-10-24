@@ -96,19 +96,13 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds Reject messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for Reject.
-func Builder(
-	refseqnum *field.RefSeqNumField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIX43))
-	builder.Header().Set(field.NewMsgType("3"))
-	builder.Body().Set(refseqnum)
+//New returns an initialized MessageBuilder with specified required fields for Reject.
+func New(
+	refseqnum *field.RefSeqNumField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewMsgType("3"))
+	builder.Body.Set(refseqnum)
 	return builder
 }
 

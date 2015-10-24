@@ -1516,22 +1516,16 @@ func (m Message) GetTradeHandlingInstr(f *field.TradeHandlingInstrField) quickfi
 	return m.Body.Get(f)
 }
 
-//MessageBuilder builds TradeCaptureReportRequest messages.
-type MessageBuilder struct {
-	quickfix.MessageBuilder
-}
-
-//Builder returns an initialized MessageBuilder with specified required fields for TradeCaptureReportRequest.
-func Builder(
+//New returns an initialized MessageBuilder with specified required fields for TradeCaptureReportRequest.
+func New(
 	traderequestid *field.TradeRequestIDField,
-	traderequesttype *field.TradeRequestTypeField) MessageBuilder {
-	var builder MessageBuilder
-	builder.MessageBuilder = quickfix.NewMessageBuilder()
-	builder.Header().Set(field.NewBeginString(fix.BeginString_FIXT11))
-	builder.Header().Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header().Set(field.NewMsgType("AD"))
-	builder.Body().Set(traderequestid)
-	builder.Body().Set(traderequesttype)
+	traderequesttype *field.TradeRequestTypeField) Message {
+	builder := Message{Message: quickfix.NewMessage()}
+	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
+	builder.Header.Set(field.NewMsgType("AD"))
+	builder.Body.Set(traderequestid)
+	builder.Body.Set(traderequesttype)
 	return builder
 }
 
