@@ -117,7 +117,6 @@ func (f RepeatingGroup) isDelimiter(t Tag) bool {
 }
 
 func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
-	var err error
 	expectedGroupSize, err := atoi(tv[0].Value)
 	if err != nil {
 		return tv, err
@@ -155,5 +154,6 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 	if len(f.Groups) != expectedGroupSize {
 		return tv, fmt.Errorf("Only found %v instead of %v expected groups, is template wrong?", len(f.Groups), expectedGroupSize)
 	}
+
 	return tv, err
 }
