@@ -59,7 +59,7 @@ func TestBooleanFieldRead(t *testing.T) {
 
 	for _, test := range tests {
 		field := NewBooleanField(Tag(1), false)
-		err := field.Read(test.bytes)
+		err := field.Read([]TagValue{TagValue{Value: test.bytes}})
 
 		if test.expectError && err == nil {
 			t.Errorf("Expected error for %v", test.bytes)

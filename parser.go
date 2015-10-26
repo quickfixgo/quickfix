@@ -90,7 +90,7 @@ func (p *parser) jumpLength() (int, error) {
 		return 0, err
 	}
 
-	length, err := Atoi(p.buffer[lengthIndex:offset])
+	length, err := atoi(p.buffer[lengthIndex:offset])
 	if err != nil {
 		return length, err
 	}

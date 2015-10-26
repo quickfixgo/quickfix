@@ -97,7 +97,7 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 	return nil
 }
 
-func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []fieldBytes) ([]fieldBytes, MessageRejectError) {
+func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []TagValue) ([]TagValue, MessageRejectError) {
 	var fieldDef *datadictionary.FieldDef
 	var ok bool
 	var err MessageRejectError
@@ -123,7 +123,7 @@ func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []field
 	return fields, nil
 }
 
-func validateVisitField(fieldDef *datadictionary.FieldDef, fields []fieldBytes) ([]fieldBytes, MessageRejectError) {
+func validateVisitField(fieldDef *datadictionary.FieldDef, fields []TagValue) ([]TagValue, MessageRejectError) {
 	var err MessageRejectError
 
 	if fieldDef.IsGroup() {
@@ -135,11 +135,11 @@ func validateVisitField(fieldDef *datadictionary.FieldDef, fields []fieldBytes) 
 	return fields[1:], nil
 }
 
-func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []fieldBytes) ([]fieldBytes, MessageRejectError) {
+func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []TagValue) ([]TagValue, MessageRejectError) {
 	numInGroupTag := fieldStack[0].Tag
 	numInGroup := new(IntValue)
 
-	if err := numInGroup.Read(fieldStack[0].Value); err != nil {
+	if err := numInGroup.Read(fieldStack); err != nil {
 		return nil, incorrectDataFormatForValue(numInGroupTag)
 	}
 
@@ -256,7 +256,7 @@ func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadicti
 	return nil
 }
 
-func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field fieldBytes) MessageRejectError {
+func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field TagValue) MessageRejectError {
 	if len(field.Value) == 0 {
 		return tagSpecifiedWithoutAValue(field.Tag)
 	}
@@ -335,7 +335,7 @@ func validateField(d *datadictionary.DataDictionary, validFields datadictionary.
 		prototype = new(PercentageValue)
 	}
 
-	if err := prototype.Read(field.Value); err != nil {
+	if err := prototype.Read([]TagValue{field}); err != nil {
 		return incorrectDataFormatForValue(field.Tag)
 	}
 

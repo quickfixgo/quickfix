@@ -15,7 +15,8 @@ const (
 	utcTimestampNoMillisFormat = "20060102-15:04:05"
 )
 
-func (f *UTCTimestampValue) Read(bytes []byte) (err error) {
+func (f *UTCTimestampValue) Read(tv []TagValue) (err error) {
+	bytes := tv[0].Value
 	//with millisecs
 	if f.Value, err = time.Parse(utcTimestampFormat, string(bytes)); err == nil {
 		return

@@ -11,7 +11,8 @@ type FloatValue struct {
 	Value float64
 }
 
-func (f *FloatValue) Read(bytes []byte) (err error) {
+func (f *FloatValue) Read(tv []TagValue) (err error) {
+	bytes := tv[0].Value
 	if f.Value, err = strconv.ParseFloat(string(bytes), 64); err != nil {
 		return
 	}
