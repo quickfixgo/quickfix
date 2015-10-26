@@ -2,7 +2,7 @@ package field
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix/tag"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //AccountField is a STRING field

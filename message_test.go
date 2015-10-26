@@ -2,7 +2,7 @@ package quickfix
 
 import (
 	"bytes"
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
 	"testing"
 )
 

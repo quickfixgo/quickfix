@@ -1,7 +1,7 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
 	"os"
 	"testing"
 	"time"

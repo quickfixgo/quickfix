@@ -42,8 +42,8 @@ func genMessageImports() string {
 	fileOut := `
 import( 
   "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/fix/enum"
-  "github.com/quickfixgo/quickfix/fix/field"
+  "github.com/quickfixgo/quickfix/enum"
+  "github.com/quickfixgo/quickfix/field"
 )
 `
 	return fileOut

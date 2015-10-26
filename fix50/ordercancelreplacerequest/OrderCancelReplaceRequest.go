@@ -3,8 +3,8 @@ package ordercancelreplacerequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix/enum"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a OrderCancelReplaceRequest wrapper for the generic Message type

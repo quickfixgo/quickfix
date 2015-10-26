@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
 	"time"
 )
 

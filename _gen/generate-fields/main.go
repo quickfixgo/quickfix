@@ -13,7 +13,6 @@ var (
 	fieldMap     map[string]int
 	fieldTypeMap map[string]*datadictionary.FieldType
 	sortedTags   []string
-	pkg          = "fix"
 )
 
 func usage() {
@@ -48,14 +47,14 @@ func genEnums() {
 		fileOut += ")\n"
 	}
 
-	gen.WriteFile("fix/enum/enums.go", fileOut)
+	gen.WriteFile("enum/enums.go", fileOut)
 }
 
 func genFields() {
 	fileOut := "package field\n"
 	fileOut += "import(\n"
 	fileOut += "\"github.com/quickfixgo/quickfix\"\n"
-	fileOut += "\"github.com/quickfixgo/quickfix/fix/tag\"\n"
+	fileOut += "\"github.com/quickfixgo/quickfix/tag\"\n"
 	fileOut += ")\n"
 
 	for _, tag := range sortedTags {
@@ -166,7 +165,7 @@ func genFields() {
 		}
 	}
 
-	gen.WriteFile("fix/field/fields.go", fileOut)
+	gen.WriteFile("field/fields.go", fileOut)
 }
 
 func genTags() {
@@ -179,7 +178,7 @@ func genTags() {
 	}
 	fileOut += ")\n"
 
-	gen.WriteFile("fix/tag/tag_numbers.go", fileOut)
+	gen.WriteFile("tag/tag_numbers.go", fileOut)
 }
 
 func main() {

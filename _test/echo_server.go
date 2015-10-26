@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/field"
 	fix40nos "github.com/quickfixgo/quickfix/fix40/newordersingle"
 	fix41nos "github.com/quickfixgo/quickfix/fix41/newordersingle"
 	fix42nos "github.com/quickfixgo/quickfix/fix42/newordersingle"
