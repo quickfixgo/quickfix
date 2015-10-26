@@ -3,7 +3,7 @@ package securitytypes
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -144,13 +144,13 @@ func (m Message) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeFiel
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for SecurityTypes.
+//New returns an initialized Message with specified required fields for SecurityTypes.
 func New(
 	securityreqid *field.SecurityReqIDField,
 	securityresponseid *field.SecurityResponseIDField,
 	securityresponsetype *field.SecurityResponseTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
 	builder.Header.Set(field.NewMsgType("w"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)
@@ -166,5 +166,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX43, "w", r
+	return enum.BeginStringFIX43, "w", r
 }

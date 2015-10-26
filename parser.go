@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"bytes"
-	"github.com/quickfixgo/quickfix/fix"
 	"io"
 	"time"
 )
@@ -91,7 +90,7 @@ func (p *parser) jumpLength() (int, error) {
 		return 0, err
 	}
 
-	length, err := fix.Atoi(p.buffer[lengthIndex:offset])
+	length, err := Atoi(p.buffer[lengthIndex:offset])
 	if err != nil {
 		return length, err
 	}

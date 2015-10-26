@@ -3,7 +3,7 @@ package allocationinstruction
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -1524,7 +1524,7 @@ func (m Message) GetNoAllocs(f *field.NoAllocsField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for AllocationInstruction.
+//New returns an initialized Message with specified required fields for AllocationInstruction.
 func New(
 	allocid *field.AllocIDField,
 	alloctranstype *field.AllocTransTypeField,
@@ -1535,7 +1535,7 @@ func New(
 	avgpx *field.AvgPxField,
 	tradedate *field.TradeDateField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
 	builder.Header.Set(field.NewMsgType("J"))
 	builder.Body.Set(allocid)
 	builder.Body.Set(alloctranstype)
@@ -1556,5 +1556,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX44, "J", r
+	return enum.BeginStringFIX44, "J", r
 }

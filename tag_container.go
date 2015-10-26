@@ -1,4 +1,4 @@
-package fix
+package quickfix
 
 type tagContainer struct {
 	tag Tag

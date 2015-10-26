@@ -3,7 +3,7 @@ package settlementinstructions
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -420,7 +420,7 @@ func (m Message) GetCashSettlAgentContactPhone(f *field.CashSettlAgentContactPho
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for SettlementInstructions.
+//New returns an initialized Message with specified required fields for SettlementInstructions.
 func New(
 	settlinstid *field.SettlInstIDField,
 	settlinsttranstype *field.SettlInstTransTypeField,
@@ -429,7 +429,7 @@ func New(
 	allocaccount *field.AllocAccountField,
 	transacttime *field.TransactTimeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX41))
 	builder.Header.Set(field.NewMsgType("T"))
 	builder.Body.Set(settlinstid)
 	builder.Body.Set(settlinsttranstype)
@@ -448,5 +448,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX41, "T", r
+	return enum.BeginStringFIX41, "T", r
 }

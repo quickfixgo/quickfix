@@ -3,7 +3,7 @@ package logon
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -60,12 +60,12 @@ func (m Message) GetRawData(f *field.RawDataField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for Logon.
+//New returns an initialized Message with specified required fields for Logon.
 func New(
 	encryptmethod *field.EncryptMethodField,
 	heartbtint *field.HeartBtIntField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX40))
 	builder.Header.Set(field.NewMsgType("A"))
 	builder.Body.Set(encryptmethod)
 	builder.Body.Set(heartbtint)
@@ -80,5 +80,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX40, "A", r
+	return enum.BeginStringFIX40, "A", r
 }

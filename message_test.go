@@ -2,9 +2,7 @@ package quickfix
 
 import (
 	"bytes"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-	"github.com/quickfixgo/quickfix/fix/tag"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"testing"
 )
 
@@ -59,12 +57,12 @@ func TestMessage_parseOutOfOrder(t *testing.T) {
 func TestMessage_Build(t *testing.T) {
 	builder := NewMessage()
 
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
-	builder.Header.Set(fix.NewStringField(tag.MsgType, "A"))
-	builder.Header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
+	builder.Header.Set(NewStringField(tagBeginString, enum.BeginStringFIX44))
+	builder.Header.Set(NewStringField(tagMsgType, "A"))
+	builder.Header.Set(NewStringField(tagSendingTime, "20140615-19:49:56"))
 
-	builder.Body.Set(field.NewUsername("my_user"))
-	builder.Body.Set(field.NewPassword("secret"))
+	builder.Body.Set(NewStringField(Tag(553), "my_user"))
+	builder.Body.Set(NewStringField(Tag(554), "secret"))
 
 	expectedBytes := []byte("8=FIX.4.49=4935=A52=20140615-19:49:56553=my_user554=secret10=072")
 	result, err := builder.Build()
@@ -82,8 +80,8 @@ func TestMessage_ReBuild(t *testing.T) {
 
 	msg, _ := parseMessage(rawMsg)
 
-	msg.Header.Set(fix.NewStringField(tag.OrigSendingTime, "20140515-19:49:56.659"))
-	msg.Header.Set(fix.NewStringField(tag.SendingTime, "20140615-19:49:56"))
+	msg.Header.Set(NewStringField(tagOrigSendingTime, "20140515-19:49:56.659"))
+	msg.Header.Set(NewStringField(tagSendingTime, "20140615-19:49:56"))
 
 	msg.Build()
 
@@ -106,25 +104,25 @@ func TestMessage_reverseRoute(t *testing.T) {
 	builder := msg.reverseRoute()
 
 	var testCases = []struct {
-		tag           fix.Tag
+		tag           Tag
 		expectedValue string
 	}{
-		{tag.TargetCompID, "TW"},
-		{tag.TargetSubID, "KK"},
-		{tag.TargetLocationID, "JV"},
-		{tag.SenderCompID, "ISLD"},
-		{tag.SenderSubID, "AP"},
-		{tag.SenderLocationID, "RY"},
-		{tag.DeliverToCompID, "JCD"},
-		{tag.DeliverToSubID, "CS"},
-		{tag.DeliverToLocationID, "BB"},
-		{tag.OnBehalfOfCompID, "MG"},
-		{tag.OnBehalfOfSubID, "CB"},
-		{tag.OnBehalfOfLocationID, "BH"},
+		{tagTargetCompID, "TW"},
+		{tagTargetSubID, "KK"},
+		{tagTargetLocationID, "JV"},
+		{tagSenderCompID, "ISLD"},
+		{tagSenderSubID, "AP"},
+		{tagSenderLocationID, "RY"},
+		{tagDeliverToCompID, "JCD"},
+		{tagDeliverToSubID, "CS"},
+		{tagDeliverToLocationID, "BB"},
+		{tagOnBehalfOfCompID, "MG"},
+		{tagOnBehalfOfSubID, "CB"},
+		{tagOnBehalfOfLocationID, "BH"},
 	}
 
 	for _, tc := range testCases {
-		field := new(fix.StringValue)
+		field := new(StringValue)
 		err := builder.Header.GetField(tc.tag, field)
 		if err != nil {
 			t.Error("Unexpected error, ", err)
@@ -140,7 +138,7 @@ func TestMessage_reverseRouteIgnoreEmpty(t *testing.T) {
 	msg, _ := parseMessage([]byte("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"))
 	builder := msg.reverseRoute()
 
-	if builder.Header.Has(tag.DeliverToCompID) {
+	if builder.Header.Has(tagDeliverToCompID) {
 		t.Error("Should not reverse if empty")
 	}
 }
@@ -152,11 +150,11 @@ func TestMessage_reverseRouteFIX40(t *testing.T) {
 
 	builder := msg.reverseRoute()
 
-	if builder.Header.Has(tag.DeliverToLocationID) {
+	if builder.Header.Has(tagDeliverToLocationID) {
 		t.Error("delivertolocation id not supported in fix40")
 	}
 
-	if builder.Header.Has(tag.OnBehalfOfLocationID) {
+	if builder.Header.Has(tagOnBehalfOfLocationID) {
 		t.Error("onbehalfof location id not supported in fix40")
 	}
 }

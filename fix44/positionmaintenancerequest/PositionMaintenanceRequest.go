@@ -3,7 +3,7 @@ package positionmaintenancerequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -816,7 +816,7 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for PositionMaintenanceRequest.
+//New returns an initialized Message with specified required fields for PositionMaintenanceRequest.
 func New(
 	posreqid *field.PosReqIDField,
 	postranstype *field.PosTransTypeField,
@@ -826,7 +826,7 @@ func New(
 	accounttype *field.AccountTypeField,
 	transacttime *field.TransactTimeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
 	builder.Header.Set(field.NewMsgType("AL"))
 	builder.Body.Set(posreqid)
 	builder.Body.Set(postranstype)
@@ -846,5 +846,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX44, "AL", r
+	return enum.BeginStringFIX44, "AL", r
 }

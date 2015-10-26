@@ -2,23 +2,22 @@ package quickfix
 
 import (
 	"fmt"
-	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 //Send determines the session to send msgBuilder using header fields BeginString, TargetCompID, SenderCompID
 func Send(msg Message) (err error) {
-	var beginString field.BeginStringField
-	if err := msg.Header.Get(&beginString); err != nil {
+	beginString := new(StringValue)
+	if err := msg.Header.GetField(tagBeginString, beginString); err != nil {
 		return err
 	}
 
-	var targetCompID field.TargetCompIDField
-	if err := msg.Header.Get(&targetCompID); err != nil {
+	targetCompID := new(StringValue)
+	if err := msg.Header.GetField(tagTargetCompID, targetCompID); err != nil {
 		return err
 	}
 
-	var senderCompID field.SenderCompIDField
-	if err := msg.Header.Get(&senderCompID); err != nil {
+	senderCompID := new(StringValue)
+	if err := msg.Header.GetField(tagSenderCompID, senderCompID); err != nil {
 
 		return nil
 	}

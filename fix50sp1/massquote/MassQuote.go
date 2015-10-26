@@ -3,12 +3,8 @@ package massquote
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
 	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 //Message is a MassQuote wrapper for the generic Message type
@@ -148,12 +144,12 @@ func (m Message) GetNoQuoteSets(f *field.NoQuoteSetsField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for MassQuote.
+//New returns an initialized Message with specified required fields for MassQuote.
 func New(
 	quoteid *field.QuoteIDField,
 	noquotesets *field.NoQuoteSetsField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("i"))
 	builder.Body.Set(quoteid)

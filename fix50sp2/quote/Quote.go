@@ -3,12 +3,8 @@ package quote
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
 	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 //Message is a Quote wrapper for the generic Message type
@@ -2180,7 +2176,7 @@ func (m Message) GetNoRateSources(f *field.NoRateSourcesField) quickfix.MessageR
 func New(
 	quoteid *field.QuoteIDField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("S"))
 	builder.Body.Set(quoteid)

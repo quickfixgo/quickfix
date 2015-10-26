@@ -3,7 +3,7 @@ package ordercancelreject
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -132,14 +132,14 @@ func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for OrderCancelReject.
+//New returns an initialized Message with specified required fields for OrderCancelReject.
 func New(
 	orderid *field.OrderIDField,
 	clordid *field.ClOrdIDField,
 	origclordid *field.OrigClOrdIDField,
 	ordstatus *field.OrdStatusField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX41))
 	builder.Header.Set(field.NewMsgType("9"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(clordid)
@@ -156,5 +156,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX41, "9", r
+	return enum.BeginStringFIX41, "9", r
 }

@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"bufio"
-	"github.com/quickfixgo/quickfix/fix/field"
 	"net"
 )
 
@@ -70,14 +69,14 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		return
 	}
 
-	beginString := &field.BeginStringField{}
-	msg.Header.Get(beginString)
+	beginString := new(StringValue)
+	msg.Header.GetField(tagBeginString, beginString)
 
-	senderCompID := &field.SenderCompIDField{}
-	msg.Header.Get(senderCompID)
+	senderCompID := new(StringValue)
+	msg.Header.GetField(tagSenderCompID, senderCompID)
 
-	targetCompID := &field.TargetCompIDField{}
-	msg.Header.Get(targetCompID)
+	targetCompID := new(StringValue)
+	msg.Header.GetField(tagTargetCompID, targetCompID)
 
 	sessID := SessionID{BeginString: beginString.Value, SenderCompID: targetCompID.Value, TargetCompID: senderCompID.Value}
 	qualifiedSessID, validID := qualifiedSessionIDs[sessID]

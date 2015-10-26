@@ -3,12 +3,8 @@ package userresponse
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
 	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 //Message is a UserResponse wrapper for the generic Message type
@@ -64,12 +60,12 @@ func (m Message) GetUserStatusText(f *field.UserStatusTextField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for UserResponse.
+//New returns an initialized Message with specified required fields for UserResponse.
 func New(
 	userrequestid *field.UserRequestIDField,
 	username *field.UsernameField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("BF"))
 	builder.Body.Set(userrequestid)
@@ -85,5 +81,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX50, "BF", r
+	return enum.BeginStringFIX50, "BF", r
 }

@@ -3,7 +3,7 @@ package executionreport
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -720,7 +720,7 @@ func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for ExecutionReport.
+//New returns an initialized Message with specified required fields for ExecutionReport.
 func New(
 	orderid *field.OrderIDField,
 	execid *field.ExecIDField,
@@ -736,7 +736,7 @@ func New(
 	cumqty *field.CumQtyField,
 	avgpx *field.AvgPxField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX41))
 	builder.Header.Set(field.NewMsgType("8"))
 	builder.Body.Set(orderid)
 	builder.Body.Set(execid)
@@ -762,5 +762,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX41, "8", r
+	return enum.BeginStringFIX41, "8", r
 }

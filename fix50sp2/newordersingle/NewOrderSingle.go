@@ -3,12 +3,8 @@ package newordersingle
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
 	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 //Message is a NewOrderSingle wrapper for the generic Message type
@@ -2939,7 +2935,7 @@ func New(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("D"))
 	builder.Body.Set(clordid)

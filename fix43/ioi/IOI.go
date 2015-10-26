@@ -3,7 +3,7 @@ package ioi
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -696,14 +696,14 @@ func (m Message) GetBenchmark(f *field.BenchmarkField) quickfix.MessageRejectErr
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for IOI.
+//New returns an initialized Message with specified required fields for IOI.
 func New(
 	ioiid *field.IOIidField,
 	ioitranstype *field.IOITransTypeField,
 	side *field.SideField,
 	ioiqty *field.IOIQtyField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
 	builder.Header.Set(field.NewMsgType("6"))
 	builder.Body.Set(ioiid)
 	builder.Body.Set(ioitranstype)
@@ -720,5 +720,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX43, "6", r
+	return enum.BeginStringFIX43, "6", r
 }

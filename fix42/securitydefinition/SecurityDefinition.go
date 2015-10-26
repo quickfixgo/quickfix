@@ -3,7 +3,7 @@ package securitydefinition
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -360,13 +360,13 @@ func (m Message) GetNoRelatedSym(f *field.NoRelatedSymField) quickfix.MessageRej
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for SecurityDefinition.
+//New returns an initialized Message with specified required fields for SecurityDefinition.
 func New(
 	securityreqid *field.SecurityReqIDField,
 	securityresponseid *field.SecurityResponseIDField,
 	totalnumsecurities *field.TotalNumSecuritiesField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX42))
 	builder.Header.Set(field.NewMsgType("d"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)
@@ -382,5 +382,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX42, "d", r
+	return enum.BeginStringFIX42, "d", r
 }

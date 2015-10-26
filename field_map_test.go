@@ -1,7 +1,6 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/fix"
 	"testing"
 )
 
@@ -9,11 +8,11 @@ func TestFieldMap_SetAndGet(t *testing.T) {
 	fMap := FieldMap{}
 	fMap.init(normalFieldOrder)
 
-	fMap.Set(fix.NewStringField(1, "hello"))
-	fMap.Set(fix.NewStringField(2, "world"))
+	fMap.Set(NewStringField(1, "hello"))
+	fMap.Set(NewStringField(2, "world"))
 
 	var testCases = []struct {
-		tag         fix.Tag
+		tag         Tag
 		expectErr   bool
 		expectValue string
 	}{
@@ -23,7 +22,7 @@ func TestFieldMap_SetAndGet(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		testField := fix.NewStringField(tc.tag, "")
+		testField := NewStringField(tc.tag, "")
 		err := fMap.Get(testField)
 
 		if tc.expectErr {
@@ -44,12 +43,12 @@ func TestFieldMap_SetAndGet(t *testing.T) {
 }
 
 func TestFieldMap_Length(t *testing.T) {
-	f1 := fix.NewStringField(1, "hello")
-	f2 := fix.NewStringField(2, "world")
+	f1 := NewStringField(1, "hello")
+	f2 := NewStringField(2, "world")
 
-	beginString := fix.NewStringField(8, "FIX.4.4")
-	bodyLength := fix.NewIntField(9, 100)
-	checkSum := fix.NewStringField(10, "100")
+	beginString := NewStringField(8, "FIX.4.4")
+	bodyLength := NewIntField(9, 100)
+	checkSum := NewStringField(10, "100")
 
 	fMap := FieldMap{}
 	fMap.init(normalFieldOrder)
@@ -65,12 +64,12 @@ func TestFieldMap_Length(t *testing.T) {
 }
 
 func TestFieldMap_Total(t *testing.T) {
-	f1 := fix.NewStringField(1, "hello")
-	f2 := fix.NewStringField(2, "world")
+	f1 := NewStringField(1, "hello")
+	f2 := NewStringField(2, "world")
 
-	beginString := fix.NewStringField(8, "FIX.4.4")
-	bodyLength := fix.NewIntField(9, 100)
-	checkSum := fix.NewStringField(10, "100")
+	beginString := NewStringField(8, "FIX.4.4")
+	bodyLength := NewIntField(9, 100)
+	checkSum := NewStringField(10, "100")
 
 	fMap := FieldMap{}
 	fMap.init(normalFieldOrder)

@@ -2,12 +2,11 @@ package quickfix
 
 import (
 	"bytes"
-	"github.com/quickfixgo/quickfix/fix"
 	"testing"
 )
 
 func TestFieldBytes_NewField(t *testing.T) {
-	f := newFieldBytes(fix.Tag(8), []byte("blahblah"))
+	f := newFieldBytes(Tag(8), []byte("blahblah"))
 	if f == nil {
 		t.Error("f should not be nil")
 	}
@@ -31,7 +30,7 @@ func TestFieldBytes_ParseField(t *testing.T) {
 		t.Error("Unexpected error", err)
 	}
 
-	if f.Tag != fix.Tag(8) {
+	if f.Tag != Tag(8) {
 		t.Error("Unexpected tag", f.Tag)
 	}
 

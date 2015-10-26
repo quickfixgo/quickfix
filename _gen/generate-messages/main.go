@@ -42,18 +42,10 @@ func genMessageImports() string {
 	fileOut := `
 import( 
   "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/fix"
+  "github.com/quickfixgo/quickfix/fix/enum"
   "github.com/quickfixgo/quickfix/fix/field"
 )
 `
-
-	if fixSpec.Major == 5 {
-		fileOut += `
-import( 
-  "github.com/quickfixgo/quickfix/fix/enum"
-)
-`
-	}
 	return fileOut
 }
 
@@ -92,10 +84,10 @@ func genMessageBuilder(msg *datadictionary.MessageDef, requiredFields []*datadic
 	fileOut += "builder := Message{Message: quickfix.NewMessage()}\n"
 
 	if fixSpec.FIXType == "FIXT" {
-		fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
+		fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))\n")
 	} else {
 		if fixSpec.Major == 5 {
-			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))\n")
+			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))\n")
 			switch fixSpec.ServicePack {
 			case 0:
 				fileOut += fmt.Sprintf("builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))\n")
@@ -103,7 +95,7 @@ func genMessageBuilder(msg *datadictionary.MessageDef, requiredFields []*datadic
 				fileOut += fmt.Sprintf("builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP%v))\n", fixSpec.ServicePack)
 			}
 		} else {
-			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(fix.BeginString_FIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
+			fileOut += fmt.Sprintf("builder.Header.Set(field.NewBeginString(enum.BeginStringFIX%v%v))\n", fixSpec.Major, fixSpec.Minor)
 		}
 	}
 
@@ -122,10 +114,10 @@ func genMessageBuilder(msg *datadictionary.MessageDef, requiredFields []*datadic
 func genMessageRoute(msg *datadictionary.MessageDef) string {
 	var beginStringEnum string
 	if fixSpec.FIXType == "FIXT" {
-		beginStringEnum = "fix.BeginString_FIXT11"
+		beginStringEnum = "enum.BeginStringFIXT11"
 	} else {
 		if fixSpec.ServicePack == 0 {
-			beginStringEnum = fmt.Sprintf("fix.BeginString_FIX%v%v", fixSpec.Major, fixSpec.Minor)
+			beginStringEnum = fmt.Sprintf("enum.BeginStringFIX%v%v", fixSpec.Major, fixSpec.Minor)
 		} else {
 			beginStringEnum = fmt.Sprintf("enum.ApplVerID_FIX%v%vSP%v", fixSpec.Major, fixSpec.Minor, fixSpec.ServicePack)
 		}

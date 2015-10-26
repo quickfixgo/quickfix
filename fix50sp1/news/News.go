@@ -3,12 +3,8 @@ package news
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
 	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 //Message is a News wrapper for the generic Message type
@@ -220,12 +216,12 @@ func (m Message) GetApplResendFlag(f *field.ApplResendFlagField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for News.
+//New returns an initialized Message with specified required fields for News.
 func New(
 	headline *field.HeadlineField,
 	nolinesoftext *field.NoLinesOfTextField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("B"))
 	builder.Body.Set(headline)

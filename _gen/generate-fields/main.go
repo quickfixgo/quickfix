@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/_gen"
+	"github.com/quickfixgo/quickfix/datadictionary"
 	"os"
 	"sort"
 )
@@ -54,7 +54,7 @@ func genEnums() {
 func genFields() {
 	fileOut := "package field\n"
 	fileOut += "import(\n"
-	fileOut += "\"github.com/quickfixgo/quickfix/fix\"\n"
+	fileOut += "\"github.com/quickfixgo/quickfix\"\n"
 	fileOut += "\"github.com/quickfixgo/quickfix/fix/tag\"\n"
 	fileOut += ")\n"
 
@@ -151,9 +151,9 @@ func genFields() {
 		}
 
 		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name, field.Type)
-		fileOut += fmt.Sprintf("type %vField struct { fix.%v }\n", field.Name, baseType)
+		fileOut += fmt.Sprintf("type %vField struct { quickfix.%v }\n", field.Name, baseType)
 		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name, field.Tag)
-		fileOut += fmt.Sprintf("func (f %vField) Tag() fix.Tag {return tag.%v}\n", field.Name, field.Name)
+		fileOut += fmt.Sprintf("func (f %vField) Tag() quickfix.Tag {return tag.%v}\n", field.Name, field.Name)
 
 		switch goType {
 		case "string", "int", "float64", "bool":
@@ -171,11 +171,11 @@ func genFields() {
 
 func genTags() {
 	fileOut := "package tag\n"
-	fileOut += "import(\"github.com/quickfixgo/quickfix/fix\")\n"
+	fileOut += "import(\"github.com/quickfixgo/quickfix\")\n"
 
 	fileOut += "const (\n"
 	for _, tag := range sortedTags {
-		fileOut += fmt.Sprintf("%v fix.Tag = %v\n", tag, fieldMap[tag])
+		fileOut += fmt.Sprintf("%v quickfix.Tag = %v\n", tag, fieldMap[tag])
 	}
 	fileOut += ")\n"
 

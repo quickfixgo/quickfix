@@ -2,23 +2,21 @@ package quickfix
 
 import (
 	"bytes"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/tag"
 	"math"
 	"sort"
 )
 
 //FieldMap is a collection of fix fields that make up a fix message.
 type FieldMap struct {
-	fieldLookup map[fix.Tag]*fieldBytes
+	fieldLookup map[Tag]*fieldBytes
 	fieldOrder
 }
 
 // fieldOrder true if tag i should occur before tag j
-type fieldOrder func(i, j fix.Tag) bool
+type fieldOrder func(i, j Tag) bool
 
 type fieldSort struct {
-	tags    []fix.Tag
+	tags    []Tag
 	compare fieldOrder
 }
 
@@ -27,14 +25,14 @@ func (t fieldSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tag
 func (t fieldSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
 //in the message header, the first 3 tags in the message header must be 8,9,35
-func headerFieldOrder(i, j fix.Tag) bool {
-	var ordering = func(t fix.Tag) uint32 {
+func headerFieldOrder(i, j Tag) bool {
+	var ordering = func(t Tag) uint32 {
 		switch t {
-		case tag.BeginString:
+		case tagBeginString:
 			return 1
-		case tag.BodyLength:
+		case tagBodyLength:
 			return 2
-		case tag.MsgType:
+		case tagMsgType:
 			return 3
 		}
 
@@ -55,14 +53,14 @@ func headerFieldOrder(i, j fix.Tag) bool {
 }
 
 // In the body, ascending tags
-func normalFieldOrder(i, j fix.Tag) bool { return i < j }
+func normalFieldOrder(i, j Tag) bool { return i < j }
 
 // In the trailer, CheckSum (tag 10) must be last
-func trailerFieldOrder(i, j fix.Tag) bool {
+func trailerFieldOrder(i, j Tag) bool {
 	switch {
-	case i == tag.CheckSum:
+	case i == tagCheckSum:
 		return false
-	case j == tag.CheckSum:
+	case j == tagCheckSum:
 		return true
 	}
 
@@ -70,12 +68,12 @@ func trailerFieldOrder(i, j fix.Tag) bool {
 }
 
 func (m *FieldMap) init(ordering fieldOrder) {
-	m.fieldLookup = make(map[fix.Tag]*fieldBytes)
+	m.fieldLookup = make(map[Tag]*fieldBytes)
 	m.fieldOrder = ordering
 }
 
-func (m FieldMap) Tags() []fix.Tag {
-	tags := make([]fix.Tag, 0, len(m.fieldLookup))
+func (m FieldMap) Tags() []Tag {
+	tags := make([]Tag, 0, len(m.fieldLookup))
 	for t := range m.fieldLookup {
 		tags = append(tags, t)
 	}
@@ -87,12 +85,12 @@ func (m FieldMap) Get(parser Field) MessageRejectError {
 	return m.GetField(parser.Tag(), parser)
 }
 
-func (m FieldMap) Has(tag fix.Tag) bool {
+func (m FieldMap) Has(tag Tag) bool {
 	_, ok := m.fieldLookup[tag]
 	return ok
 }
 
-func (m FieldMap) GetField(tag fix.Tag, parser FieldValue) MessageRejectError {
+func (m FieldMap) GetField(tag Tag, parser FieldValue) MessageRejectError {
 	field, ok := m.fieldLookup[tag]
 
 	if !ok {
@@ -106,7 +104,7 @@ func (m FieldMap) GetField(tag fix.Tag, parser FieldValue) MessageRejectError {
 	return nil
 }
 
-func (m FieldMap) SetField(tag fix.Tag, field FieldValue) {
+func (m FieldMap) SetField(tag Tag, field FieldValue) {
 	m.fieldLookup[tag] = newFieldBytes(tag, field.Write())
 }
 
@@ -114,8 +112,8 @@ func (m FieldMap) Set(field Field) {
 	m.fieldLookup[field.Tag()] = newFieldBytes(field.Tag(), field.Write())
 }
 
-func (m FieldMap) sortedTags() []fix.Tag {
-	sortedTags := make([]fix.Tag, len(m.fieldLookup))
+func (m FieldMap) sortedTags() []Tag {
+	sortedTags := make([]Tag, len(m.fieldLookup))
 	for tag := range m.fieldLookup {
 		sortedTags = append(sortedTags, tag)
 	}
@@ -138,7 +136,7 @@ func (m FieldMap) total() int {
 	total := 0
 	for t, field := range m.fieldLookup {
 		switch t {
-		case tag.CheckSum: //tag does not contribute to total
+		case tagCheckSum: //tag does not contribute to total
 		default:
 			total += field.Total()
 		}
@@ -151,7 +149,7 @@ func (m FieldMap) length() int {
 	length := 0
 	for t := range m.fieldLookup {
 		switch t {
-		case tag.BeginString, tag.BodyLength, tag.CheckSum: //tags do not contribute to length
+		case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
 		default:
 			length += m.fieldLookup[t].Length()
 		}

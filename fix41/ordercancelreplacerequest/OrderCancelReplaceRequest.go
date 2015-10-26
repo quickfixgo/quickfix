@@ -3,7 +3,7 @@ package ordercancelreplacerequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
+	"github.com/quickfixgo/quickfix/fix/enum"
 	"github.com/quickfixgo/quickfix/fix/field"
 )
 
@@ -612,7 +612,7 @@ func (m Message) GetLocateReqd(f *field.LocateReqdField) quickfix.MessageRejectE
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for OrderCancelReplaceRequest.
+//New returns an initialized Message with specified required fields for OrderCancelReplaceRequest.
 func New(
 	origclordid *field.OrigClOrdIDField,
 	clordid *field.ClOrdIDField,
@@ -621,7 +621,7 @@ func New(
 	side *field.SideField,
 	ordtype *field.OrdTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX41))
 	builder.Header.Set(field.NewMsgType("G"))
 	builder.Body.Set(origclordid)
 	builder.Body.Set(clordid)
@@ -640,5 +640,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX41, "G", r
+	return enum.BeginStringFIX41, "G", r
 }

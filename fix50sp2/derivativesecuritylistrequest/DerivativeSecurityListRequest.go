@@ -3,12 +3,8 @@ package derivativesecuritylistrequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
 	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 //Message is a DerivativeSecurityListRequest wrapper for the generic Message type
@@ -1773,7 +1769,7 @@ func New(
 	securityreqid *field.SecurityReqIDField,
 	securitylistrequesttype *field.SecurityListRequestTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("z"))
 	builder.Body.Set(securityreqid)

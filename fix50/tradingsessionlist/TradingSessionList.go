@@ -3,12 +3,8 @@ package tradingsessionlist
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
 	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/fix/field"
 )
 
 //Message is a TradingSessionList wrapper for the generic Message type
@@ -40,11 +36,11 @@ func (m Message) GetNoTradingSessions(f *field.NoTradingSessionsField) quickfix.
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for TradingSessionList.
+//New returns an initialized Message with specified required fields for TradingSessionList.
 func New(
 	notradingsessions *field.NoTradingSessionsField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("BJ"))
 	builder.Body.Set(notradingsessions)
@@ -59,5 +55,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX50, "BJ", r
+	return enum.BeginStringFIX50, "BJ", r
 }
