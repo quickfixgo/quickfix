@@ -3,12 +3,8 @@ package crossordercancelrequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a CrossOrderCancelRequest wrapper for the generic Message type
@@ -1036,7 +1032,7 @@ func (m Message) GetNoRootPartyIDs(f *field.NoRootPartyIDsField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for CrossOrderCancelRequest.
+//New returns an initialized Message with specified required fields for CrossOrderCancelRequest.
 func New(
 	crossid *field.CrossIDField,
 	origcrossid *field.OrigCrossIDField,
@@ -1045,7 +1041,7 @@ func New(
 	nosides *field.NoSidesField,
 	transacttime *field.TransactTimeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("u"))
 	builder.Body.Set(crossid)

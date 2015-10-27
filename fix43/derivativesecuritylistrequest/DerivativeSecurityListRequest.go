@@ -3,8 +3,8 @@ package derivativesecuritylistrequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a DerivativeSecurityListRequest wrapper for the generic Message type
@@ -516,12 +516,12 @@ func (m Message) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeFiel
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for DerivativeSecurityListRequest.
+//New returns an initialized Message with specified required fields for DerivativeSecurityListRequest.
 func New(
 	securityreqid *field.SecurityReqIDField,
 	securitylistrequesttype *field.SecurityListRequestTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
 	builder.Header.Set(field.NewMsgType("z"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securitylistrequesttype)
@@ -536,5 +536,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX43, "z", r
+	return enum.BeginStringFIX43, "z", r
 }

@@ -3,8 +3,8 @@ package bidresponse
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a BidResponse wrapper for the generic Message type
@@ -48,11 +48,11 @@ func (m Message) GetNoBidComponents(f *field.NoBidComponentsField) quickfix.Mess
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for BidResponse.
+//New returns an initialized Message with specified required fields for BidResponse.
 func New(
 	nobidcomponents *field.NoBidComponentsField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX42))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX42))
 	builder.Header.Set(field.NewMsgType("l"))
 	builder.Body.Set(nobidcomponents)
 	return builder
@@ -66,5 +66,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX42, "l", r
+	return enum.BeginStringFIX42, "l", r
 }

@@ -1,4 +1,4 @@
-package fix
+package quickfix
 
 //StringValue is a container for string, implements FieldValue.
 type StringValue struct {

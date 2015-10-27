@@ -3,17 +3,16 @@ package quickfix
 import (
 	"bytes"
 	"fmt"
-	"github.com/quickfixgo/quickfix/fix"
 	"strconv"
 )
 
 type fieldBytes struct {
-	fix.Tag
+	Tag
 	Data  []byte
 	Value []byte
 }
 
-func newFieldBytes(tag fix.Tag, value []byte) *fieldBytes {
+func newFieldBytes(tag Tag, value []byte) *fieldBytes {
 	var buf bytes.Buffer
 	buf.WriteString(strconv.Itoa(int(tag)))
 	buf.WriteString("=")
@@ -31,14 +30,14 @@ func (f *fieldBytes) parseField(rawFieldBytes []byte) (err error) {
 		return
 	}
 
-	parsedTag, err := fix.Atoi(rawFieldBytes[:sepIndex])
+	parsedTag, err := Atoi(rawFieldBytes[:sepIndex])
 
 	if err != nil {
 		err = fmt.Errorf("fieldBytes.Parse: %s", err.Error())
 		return
 	}
 
-	f.Tag = fix.Tag(parsedTag)
+	f.Tag = Tag(parsedTag)
 	f.Value = rawFieldBytes[(sepIndex + 1):(len(rawFieldBytes) - 1)]
 	f.Data = rawFieldBytes
 

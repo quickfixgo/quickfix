@@ -1,15 +1,15 @@
 package field
 
 import (
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/tag"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
 //AccountField is a STRING field
-type AccountField struct{ fix.StringValue }
+type AccountField struct{ quickfix.StringValue }
 
 //Tag returns tag.Account (1)
-func (f AccountField) Tag() fix.Tag { return tag.Account }
+func (f AccountField) Tag() quickfix.Tag { return tag.Account }
 
 //NewAccount returns a new AccountField initialized with val
 func NewAccount(val string) *AccountField {
@@ -19,10 +19,10 @@ func NewAccount(val string) *AccountField {
 }
 
 //AccountTypeField is a INT field
-type AccountTypeField struct{ fix.IntValue }
+type AccountTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AccountType (581)
-func (f AccountTypeField) Tag() fix.Tag { return tag.AccountType }
+func (f AccountTypeField) Tag() quickfix.Tag { return tag.AccountType }
 
 //NewAccountType returns a new AccountTypeField initialized with val
 func NewAccountType(val int) *AccountTypeField {
@@ -32,10 +32,10 @@ func NewAccountType(val int) *AccountTypeField {
 }
 
 //AccruedInterestAmtField is a AMT field
-type AccruedInterestAmtField struct{ fix.AmtValue }
+type AccruedInterestAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.AccruedInterestAmt (159)
-func (f AccruedInterestAmtField) Tag() fix.Tag { return tag.AccruedInterestAmt }
+func (f AccruedInterestAmtField) Tag() quickfix.Tag { return tag.AccruedInterestAmt }
 
 //NewAccruedInterestAmt returns a new AccruedInterestAmtField initialized with val
 func NewAccruedInterestAmt(val float64) *AccruedInterestAmtField {
@@ -45,10 +45,10 @@ func NewAccruedInterestAmt(val float64) *AccruedInterestAmtField {
 }
 
 //AccruedInterestRateField is a PERCENTAGE field
-type AccruedInterestRateField struct{ fix.PercentageValue }
+type AccruedInterestRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.AccruedInterestRate (158)
-func (f AccruedInterestRateField) Tag() fix.Tag { return tag.AccruedInterestRate }
+func (f AccruedInterestRateField) Tag() quickfix.Tag { return tag.AccruedInterestRate }
 
 //NewAccruedInterestRate returns a new AccruedInterestRateField initialized with val
 func NewAccruedInterestRate(val float64) *AccruedInterestRateField {
@@ -58,10 +58,10 @@ func NewAccruedInterestRate(val float64) *AccruedInterestRateField {
 }
 
 //AcctIDSourceField is a INT field
-type AcctIDSourceField struct{ fix.IntValue }
+type AcctIDSourceField struct{ quickfix.IntValue }
 
 //Tag returns tag.AcctIDSource (660)
-func (f AcctIDSourceField) Tag() fix.Tag { return tag.AcctIDSource }
+func (f AcctIDSourceField) Tag() quickfix.Tag { return tag.AcctIDSource }
 
 //NewAcctIDSource returns a new AcctIDSourceField initialized with val
 func NewAcctIDSource(val int) *AcctIDSourceField {
@@ -71,10 +71,10 @@ func NewAcctIDSource(val int) *AcctIDSourceField {
 }
 
 //AdjustmentField is a INT field
-type AdjustmentField struct{ fix.IntValue }
+type AdjustmentField struct{ quickfix.IntValue }
 
 //Tag returns tag.Adjustment (334)
-func (f AdjustmentField) Tag() fix.Tag { return tag.Adjustment }
+func (f AdjustmentField) Tag() quickfix.Tag { return tag.Adjustment }
 
 //NewAdjustment returns a new AdjustmentField initialized with val
 func NewAdjustment(val int) *AdjustmentField {
@@ -84,10 +84,10 @@ func NewAdjustment(val int) *AdjustmentField {
 }
 
 //AdjustmentTypeField is a INT field
-type AdjustmentTypeField struct{ fix.IntValue }
+type AdjustmentTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AdjustmentType (718)
-func (f AdjustmentTypeField) Tag() fix.Tag { return tag.AdjustmentType }
+func (f AdjustmentTypeField) Tag() quickfix.Tag { return tag.AdjustmentType }
 
 //NewAdjustmentType returns a new AdjustmentTypeField initialized with val
 func NewAdjustmentType(val int) *AdjustmentTypeField {
@@ -97,10 +97,10 @@ func NewAdjustmentType(val int) *AdjustmentTypeField {
 }
 
 //AdvIdField is a STRING field
-type AdvIdField struct{ fix.StringValue }
+type AdvIdField struct{ quickfix.StringValue }
 
 //Tag returns tag.AdvId (2)
-func (f AdvIdField) Tag() fix.Tag { return tag.AdvId }
+func (f AdvIdField) Tag() quickfix.Tag { return tag.AdvId }
 
 //NewAdvId returns a new AdvIdField initialized with val
 func NewAdvId(val string) *AdvIdField {
@@ -110,10 +110,10 @@ func NewAdvId(val string) *AdvIdField {
 }
 
 //AdvRefIDField is a STRING field
-type AdvRefIDField struct{ fix.StringValue }
+type AdvRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AdvRefID (3)
-func (f AdvRefIDField) Tag() fix.Tag { return tag.AdvRefID }
+func (f AdvRefIDField) Tag() quickfix.Tag { return tag.AdvRefID }
 
 //NewAdvRefID returns a new AdvRefIDField initialized with val
 func NewAdvRefID(val string) *AdvRefIDField {
@@ -123,10 +123,10 @@ func NewAdvRefID(val string) *AdvRefIDField {
 }
 
 //AdvSideField is a CHAR field
-type AdvSideField struct{ fix.CharValue }
+type AdvSideField struct{ quickfix.CharValue }
 
 //Tag returns tag.AdvSide (4)
-func (f AdvSideField) Tag() fix.Tag { return tag.AdvSide }
+func (f AdvSideField) Tag() quickfix.Tag { return tag.AdvSide }
 
 //NewAdvSide returns a new AdvSideField initialized with val
 func NewAdvSide(val string) *AdvSideField {
@@ -136,10 +136,10 @@ func NewAdvSide(val string) *AdvSideField {
 }
 
 //AdvTransTypeField is a STRING field
-type AdvTransTypeField struct{ fix.StringValue }
+type AdvTransTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.AdvTransType (5)
-func (f AdvTransTypeField) Tag() fix.Tag { return tag.AdvTransType }
+func (f AdvTransTypeField) Tag() quickfix.Tag { return tag.AdvTransType }
 
 //NewAdvTransType returns a new AdvTransTypeField initialized with val
 func NewAdvTransType(val string) *AdvTransTypeField {
@@ -149,10 +149,10 @@ func NewAdvTransType(val string) *AdvTransTypeField {
 }
 
 //AffectedOrderIDField is a STRING field
-type AffectedOrderIDField struct{ fix.StringValue }
+type AffectedOrderIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AffectedOrderID (535)
-func (f AffectedOrderIDField) Tag() fix.Tag { return tag.AffectedOrderID }
+func (f AffectedOrderIDField) Tag() quickfix.Tag { return tag.AffectedOrderID }
 
 //NewAffectedOrderID returns a new AffectedOrderIDField initialized with val
 func NewAffectedOrderID(val string) *AffectedOrderIDField {
@@ -162,10 +162,10 @@ func NewAffectedOrderID(val string) *AffectedOrderIDField {
 }
 
 //AffectedSecondaryOrderIDField is a STRING field
-type AffectedSecondaryOrderIDField struct{ fix.StringValue }
+type AffectedSecondaryOrderIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AffectedSecondaryOrderID (536)
-func (f AffectedSecondaryOrderIDField) Tag() fix.Tag { return tag.AffectedSecondaryOrderID }
+func (f AffectedSecondaryOrderIDField) Tag() quickfix.Tag { return tag.AffectedSecondaryOrderID }
 
 //NewAffectedSecondaryOrderID returns a new AffectedSecondaryOrderIDField initialized with val
 func NewAffectedSecondaryOrderID(val string) *AffectedSecondaryOrderIDField {
@@ -175,10 +175,10 @@ func NewAffectedSecondaryOrderID(val string) *AffectedSecondaryOrderIDField {
 }
 
 //AffirmStatusField is a INT field
-type AffirmStatusField struct{ fix.IntValue }
+type AffirmStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.AffirmStatus (940)
-func (f AffirmStatusField) Tag() fix.Tag { return tag.AffirmStatus }
+func (f AffirmStatusField) Tag() quickfix.Tag { return tag.AffirmStatus }
 
 //NewAffirmStatus returns a new AffirmStatusField initialized with val
 func NewAffirmStatus(val int) *AffirmStatusField {
@@ -188,10 +188,10 @@ func NewAffirmStatus(val int) *AffirmStatusField {
 }
 
 //AggregatedBookField is a BOOLEAN field
-type AggregatedBookField struct{ fix.BooleanValue }
+type AggregatedBookField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.AggregatedBook (266)
-func (f AggregatedBookField) Tag() fix.Tag { return tag.AggregatedBook }
+func (f AggregatedBookField) Tag() quickfix.Tag { return tag.AggregatedBook }
 
 //NewAggregatedBook returns a new AggregatedBookField initialized with val
 func NewAggregatedBook(val bool) *AggregatedBookField {
@@ -201,10 +201,10 @@ func NewAggregatedBook(val bool) *AggregatedBookField {
 }
 
 //AggressorIndicatorField is a BOOLEAN field
-type AggressorIndicatorField struct{ fix.BooleanValue }
+type AggressorIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.AggressorIndicator (1057)
-func (f AggressorIndicatorField) Tag() fix.Tag { return tag.AggressorIndicator }
+func (f AggressorIndicatorField) Tag() quickfix.Tag { return tag.AggressorIndicator }
 
 //NewAggressorIndicator returns a new AggressorIndicatorField initialized with val
 func NewAggressorIndicator(val bool) *AggressorIndicatorField {
@@ -214,10 +214,10 @@ func NewAggressorIndicator(val bool) *AggressorIndicatorField {
 }
 
 //AgreementCurrencyField is a CURRENCY field
-type AgreementCurrencyField struct{ fix.CurrencyValue }
+type AgreementCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.AgreementCurrency (918)
-func (f AgreementCurrencyField) Tag() fix.Tag { return tag.AgreementCurrency }
+func (f AgreementCurrencyField) Tag() quickfix.Tag { return tag.AgreementCurrency }
 
 //NewAgreementCurrency returns a new AgreementCurrencyField initialized with val
 func NewAgreementCurrency(val string) *AgreementCurrencyField {
@@ -227,10 +227,10 @@ func NewAgreementCurrency(val string) *AgreementCurrencyField {
 }
 
 //AgreementDateField is a LOCALMKTDATE field
-type AgreementDateField struct{ fix.LocalMktDateValue }
+type AgreementDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.AgreementDate (915)
-func (f AgreementDateField) Tag() fix.Tag { return tag.AgreementDate }
+func (f AgreementDateField) Tag() quickfix.Tag { return tag.AgreementDate }
 
 //NewAgreementDate returns a new AgreementDateField initialized with val
 func NewAgreementDate(val string) *AgreementDateField {
@@ -240,10 +240,10 @@ func NewAgreementDate(val string) *AgreementDateField {
 }
 
 //AgreementDescField is a STRING field
-type AgreementDescField struct{ fix.StringValue }
+type AgreementDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.AgreementDesc (913)
-func (f AgreementDescField) Tag() fix.Tag { return tag.AgreementDesc }
+func (f AgreementDescField) Tag() quickfix.Tag { return tag.AgreementDesc }
 
 //NewAgreementDesc returns a new AgreementDescField initialized with val
 func NewAgreementDesc(val string) *AgreementDescField {
@@ -253,10 +253,10 @@ func NewAgreementDesc(val string) *AgreementDescField {
 }
 
 //AgreementIDField is a STRING field
-type AgreementIDField struct{ fix.StringValue }
+type AgreementIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AgreementID (914)
-func (f AgreementIDField) Tag() fix.Tag { return tag.AgreementID }
+func (f AgreementIDField) Tag() quickfix.Tag { return tag.AgreementID }
 
 //NewAgreementID returns a new AgreementIDField initialized with val
 func NewAgreementID(val string) *AgreementIDField {
@@ -266,10 +266,10 @@ func NewAgreementID(val string) *AgreementIDField {
 }
 
 //AllocAccountField is a STRING field
-type AllocAccountField struct{ fix.StringValue }
+type AllocAccountField struct{ quickfix.StringValue }
 
 //Tag returns tag.AllocAccount (79)
-func (f AllocAccountField) Tag() fix.Tag { return tag.AllocAccount }
+func (f AllocAccountField) Tag() quickfix.Tag { return tag.AllocAccount }
 
 //NewAllocAccount returns a new AllocAccountField initialized with val
 func NewAllocAccount(val string) *AllocAccountField {
@@ -279,10 +279,10 @@ func NewAllocAccount(val string) *AllocAccountField {
 }
 
 //AllocAccountTypeField is a INT field
-type AllocAccountTypeField struct{ fix.IntValue }
+type AllocAccountTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocAccountType (798)
-func (f AllocAccountTypeField) Tag() fix.Tag { return tag.AllocAccountType }
+func (f AllocAccountTypeField) Tag() quickfix.Tag { return tag.AllocAccountType }
 
 //NewAllocAccountType returns a new AllocAccountTypeField initialized with val
 func NewAllocAccountType(val int) *AllocAccountTypeField {
@@ -292,10 +292,10 @@ func NewAllocAccountType(val int) *AllocAccountTypeField {
 }
 
 //AllocAccruedInterestAmtField is a AMT field
-type AllocAccruedInterestAmtField struct{ fix.AmtValue }
+type AllocAccruedInterestAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.AllocAccruedInterestAmt (742)
-func (f AllocAccruedInterestAmtField) Tag() fix.Tag { return tag.AllocAccruedInterestAmt }
+func (f AllocAccruedInterestAmtField) Tag() quickfix.Tag { return tag.AllocAccruedInterestAmt }
 
 //NewAllocAccruedInterestAmt returns a new AllocAccruedInterestAmtField initialized with val
 func NewAllocAccruedInterestAmt(val float64) *AllocAccruedInterestAmtField {
@@ -305,10 +305,10 @@ func NewAllocAccruedInterestAmt(val float64) *AllocAccruedInterestAmtField {
 }
 
 //AllocAcctIDSourceField is a INT field
-type AllocAcctIDSourceField struct{ fix.IntValue }
+type AllocAcctIDSourceField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocAcctIDSource (661)
-func (f AllocAcctIDSourceField) Tag() fix.Tag { return tag.AllocAcctIDSource }
+func (f AllocAcctIDSourceField) Tag() quickfix.Tag { return tag.AllocAcctIDSource }
 
 //NewAllocAcctIDSource returns a new AllocAcctIDSourceField initialized with val
 func NewAllocAcctIDSource(val int) *AllocAcctIDSourceField {
@@ -318,10 +318,10 @@ func NewAllocAcctIDSource(val int) *AllocAcctIDSourceField {
 }
 
 //AllocAvgPxField is a PRICE field
-type AllocAvgPxField struct{ fix.PriceValue }
+type AllocAvgPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.AllocAvgPx (153)
-func (f AllocAvgPxField) Tag() fix.Tag { return tag.AllocAvgPx }
+func (f AllocAvgPxField) Tag() quickfix.Tag { return tag.AllocAvgPx }
 
 //NewAllocAvgPx returns a new AllocAvgPxField initialized with val
 func NewAllocAvgPx(val float64) *AllocAvgPxField {
@@ -331,10 +331,10 @@ func NewAllocAvgPx(val float64) *AllocAvgPxField {
 }
 
 //AllocCancReplaceReasonField is a INT field
-type AllocCancReplaceReasonField struct{ fix.IntValue }
+type AllocCancReplaceReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocCancReplaceReason (796)
-func (f AllocCancReplaceReasonField) Tag() fix.Tag { return tag.AllocCancReplaceReason }
+func (f AllocCancReplaceReasonField) Tag() quickfix.Tag { return tag.AllocCancReplaceReason }
 
 //NewAllocCancReplaceReason returns a new AllocCancReplaceReasonField initialized with val
 func NewAllocCancReplaceReason(val int) *AllocCancReplaceReasonField {
@@ -344,10 +344,10 @@ func NewAllocCancReplaceReason(val int) *AllocCancReplaceReasonField {
 }
 
 //AllocClearingFeeIndicatorField is a STRING field
-type AllocClearingFeeIndicatorField struct{ fix.StringValue }
+type AllocClearingFeeIndicatorField struct{ quickfix.StringValue }
 
 //Tag returns tag.AllocClearingFeeIndicator (1136)
-func (f AllocClearingFeeIndicatorField) Tag() fix.Tag { return tag.AllocClearingFeeIndicator }
+func (f AllocClearingFeeIndicatorField) Tag() quickfix.Tag { return tag.AllocClearingFeeIndicator }
 
 //NewAllocClearingFeeIndicator returns a new AllocClearingFeeIndicatorField initialized with val
 func NewAllocClearingFeeIndicator(val string) *AllocClearingFeeIndicatorField {
@@ -357,10 +357,10 @@ func NewAllocClearingFeeIndicator(val string) *AllocClearingFeeIndicatorField {
 }
 
 //AllocCustomerCapacityField is a STRING field
-type AllocCustomerCapacityField struct{ fix.StringValue }
+type AllocCustomerCapacityField struct{ quickfix.StringValue }
 
 //Tag returns tag.AllocCustomerCapacity (993)
-func (f AllocCustomerCapacityField) Tag() fix.Tag { return tag.AllocCustomerCapacity }
+func (f AllocCustomerCapacityField) Tag() quickfix.Tag { return tag.AllocCustomerCapacity }
 
 //NewAllocCustomerCapacity returns a new AllocCustomerCapacityField initialized with val
 func NewAllocCustomerCapacity(val string) *AllocCustomerCapacityField {
@@ -370,10 +370,10 @@ func NewAllocCustomerCapacity(val string) *AllocCustomerCapacityField {
 }
 
 //AllocHandlInstField is a INT field
-type AllocHandlInstField struct{ fix.IntValue }
+type AllocHandlInstField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocHandlInst (209)
-func (f AllocHandlInstField) Tag() fix.Tag { return tag.AllocHandlInst }
+func (f AllocHandlInstField) Tag() quickfix.Tag { return tag.AllocHandlInst }
 
 //NewAllocHandlInst returns a new AllocHandlInstField initialized with val
 func NewAllocHandlInst(val int) *AllocHandlInstField {
@@ -383,10 +383,10 @@ func NewAllocHandlInst(val int) *AllocHandlInstField {
 }
 
 //AllocIDField is a STRING field
-type AllocIDField struct{ fix.StringValue }
+type AllocIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AllocID (70)
-func (f AllocIDField) Tag() fix.Tag { return tag.AllocID }
+func (f AllocIDField) Tag() quickfix.Tag { return tag.AllocID }
 
 //NewAllocID returns a new AllocIDField initialized with val
 func NewAllocID(val string) *AllocIDField {
@@ -396,10 +396,10 @@ func NewAllocID(val string) *AllocIDField {
 }
 
 //AllocInterestAtMaturityField is a AMT field
-type AllocInterestAtMaturityField struct{ fix.AmtValue }
+type AllocInterestAtMaturityField struct{ quickfix.AmtValue }
 
 //Tag returns tag.AllocInterestAtMaturity (741)
-func (f AllocInterestAtMaturityField) Tag() fix.Tag { return tag.AllocInterestAtMaturity }
+func (f AllocInterestAtMaturityField) Tag() quickfix.Tag { return tag.AllocInterestAtMaturity }
 
 //NewAllocInterestAtMaturity returns a new AllocInterestAtMaturityField initialized with val
 func NewAllocInterestAtMaturity(val float64) *AllocInterestAtMaturityField {
@@ -409,10 +409,10 @@ func NewAllocInterestAtMaturity(val float64) *AllocInterestAtMaturityField {
 }
 
 //AllocIntermedReqTypeField is a INT field
-type AllocIntermedReqTypeField struct{ fix.IntValue }
+type AllocIntermedReqTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocIntermedReqType (808)
-func (f AllocIntermedReqTypeField) Tag() fix.Tag { return tag.AllocIntermedReqType }
+func (f AllocIntermedReqTypeField) Tag() quickfix.Tag { return tag.AllocIntermedReqType }
 
 //NewAllocIntermedReqType returns a new AllocIntermedReqTypeField initialized with val
 func NewAllocIntermedReqType(val int) *AllocIntermedReqTypeField {
@@ -422,10 +422,10 @@ func NewAllocIntermedReqType(val int) *AllocIntermedReqTypeField {
 }
 
 //AllocLinkIDField is a STRING field
-type AllocLinkIDField struct{ fix.StringValue }
+type AllocLinkIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AllocLinkID (196)
-func (f AllocLinkIDField) Tag() fix.Tag { return tag.AllocLinkID }
+func (f AllocLinkIDField) Tag() quickfix.Tag { return tag.AllocLinkID }
 
 //NewAllocLinkID returns a new AllocLinkIDField initialized with val
 func NewAllocLinkID(val string) *AllocLinkIDField {
@@ -435,10 +435,10 @@ func NewAllocLinkID(val string) *AllocLinkIDField {
 }
 
 //AllocLinkTypeField is a INT field
-type AllocLinkTypeField struct{ fix.IntValue }
+type AllocLinkTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocLinkType (197)
-func (f AllocLinkTypeField) Tag() fix.Tag { return tag.AllocLinkType }
+func (f AllocLinkTypeField) Tag() quickfix.Tag { return tag.AllocLinkType }
 
 //NewAllocLinkType returns a new AllocLinkTypeField initialized with val
 func NewAllocLinkType(val int) *AllocLinkTypeField {
@@ -448,10 +448,10 @@ func NewAllocLinkType(val int) *AllocLinkTypeField {
 }
 
 //AllocMethodField is a INT field
-type AllocMethodField struct{ fix.IntValue }
+type AllocMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocMethod (1002)
-func (f AllocMethodField) Tag() fix.Tag { return tag.AllocMethod }
+func (f AllocMethodField) Tag() quickfix.Tag { return tag.AllocMethod }
 
 //NewAllocMethod returns a new AllocMethodField initialized with val
 func NewAllocMethod(val int) *AllocMethodField {
@@ -461,10 +461,10 @@ func NewAllocMethod(val int) *AllocMethodField {
 }
 
 //AllocNetMoneyField is a AMT field
-type AllocNetMoneyField struct{ fix.AmtValue }
+type AllocNetMoneyField struct{ quickfix.AmtValue }
 
 //Tag returns tag.AllocNetMoney (154)
-func (f AllocNetMoneyField) Tag() fix.Tag { return tag.AllocNetMoney }
+func (f AllocNetMoneyField) Tag() quickfix.Tag { return tag.AllocNetMoney }
 
 //NewAllocNetMoney returns a new AllocNetMoneyField initialized with val
 func NewAllocNetMoney(val float64) *AllocNetMoneyField {
@@ -474,10 +474,10 @@ func NewAllocNetMoney(val float64) *AllocNetMoneyField {
 }
 
 //AllocNoOrdersTypeField is a INT field
-type AllocNoOrdersTypeField struct{ fix.IntValue }
+type AllocNoOrdersTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocNoOrdersType (857)
-func (f AllocNoOrdersTypeField) Tag() fix.Tag { return tag.AllocNoOrdersType }
+func (f AllocNoOrdersTypeField) Tag() quickfix.Tag { return tag.AllocNoOrdersType }
 
 //NewAllocNoOrdersType returns a new AllocNoOrdersTypeField initialized with val
 func NewAllocNoOrdersType(val int) *AllocNoOrdersTypeField {
@@ -487,10 +487,10 @@ func NewAllocNoOrdersType(val int) *AllocNoOrdersTypeField {
 }
 
 //AllocPositionEffectField is a CHAR field
-type AllocPositionEffectField struct{ fix.CharValue }
+type AllocPositionEffectField struct{ quickfix.CharValue }
 
 //Tag returns tag.AllocPositionEffect (1047)
-func (f AllocPositionEffectField) Tag() fix.Tag { return tag.AllocPositionEffect }
+func (f AllocPositionEffectField) Tag() quickfix.Tag { return tag.AllocPositionEffect }
 
 //NewAllocPositionEffect returns a new AllocPositionEffectField initialized with val
 func NewAllocPositionEffect(val string) *AllocPositionEffectField {
@@ -500,10 +500,10 @@ func NewAllocPositionEffect(val string) *AllocPositionEffectField {
 }
 
 //AllocPriceField is a PRICE field
-type AllocPriceField struct{ fix.PriceValue }
+type AllocPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.AllocPrice (366)
-func (f AllocPriceField) Tag() fix.Tag { return tag.AllocPrice }
+func (f AllocPriceField) Tag() quickfix.Tag { return tag.AllocPrice }
 
 //NewAllocPrice returns a new AllocPriceField initialized with val
 func NewAllocPrice(val float64) *AllocPriceField {
@@ -513,10 +513,10 @@ func NewAllocPrice(val float64) *AllocPriceField {
 }
 
 //AllocQtyField is a QTY field
-type AllocQtyField struct{ fix.QtyValue }
+type AllocQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.AllocQty (80)
-func (f AllocQtyField) Tag() fix.Tag { return tag.AllocQty }
+func (f AllocQtyField) Tag() quickfix.Tag { return tag.AllocQty }
 
 //NewAllocQty returns a new AllocQtyField initialized with val
 func NewAllocQty(val float64) *AllocQtyField {
@@ -526,10 +526,10 @@ func NewAllocQty(val float64) *AllocQtyField {
 }
 
 //AllocRejCodeField is a INT field
-type AllocRejCodeField struct{ fix.IntValue }
+type AllocRejCodeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocRejCode (88)
-func (f AllocRejCodeField) Tag() fix.Tag { return tag.AllocRejCode }
+func (f AllocRejCodeField) Tag() quickfix.Tag { return tag.AllocRejCode }
 
 //NewAllocRejCode returns a new AllocRejCodeField initialized with val
 func NewAllocRejCode(val int) *AllocRejCodeField {
@@ -539,10 +539,10 @@ func NewAllocRejCode(val int) *AllocRejCodeField {
 }
 
 //AllocReportIDField is a STRING field
-type AllocReportIDField struct{ fix.StringValue }
+type AllocReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AllocReportID (755)
-func (f AllocReportIDField) Tag() fix.Tag { return tag.AllocReportID }
+func (f AllocReportIDField) Tag() quickfix.Tag { return tag.AllocReportID }
 
 //NewAllocReportID returns a new AllocReportIDField initialized with val
 func NewAllocReportID(val string) *AllocReportIDField {
@@ -552,10 +552,10 @@ func NewAllocReportID(val string) *AllocReportIDField {
 }
 
 //AllocReportRefIDField is a STRING field
-type AllocReportRefIDField struct{ fix.StringValue }
+type AllocReportRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AllocReportRefID (795)
-func (f AllocReportRefIDField) Tag() fix.Tag { return tag.AllocReportRefID }
+func (f AllocReportRefIDField) Tag() quickfix.Tag { return tag.AllocReportRefID }
 
 //NewAllocReportRefID returns a new AllocReportRefIDField initialized with val
 func NewAllocReportRefID(val string) *AllocReportRefIDField {
@@ -565,10 +565,10 @@ func NewAllocReportRefID(val string) *AllocReportRefIDField {
 }
 
 //AllocReportTypeField is a INT field
-type AllocReportTypeField struct{ fix.IntValue }
+type AllocReportTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocReportType (794)
-func (f AllocReportTypeField) Tag() fix.Tag { return tag.AllocReportType }
+func (f AllocReportTypeField) Tag() quickfix.Tag { return tag.AllocReportType }
 
 //NewAllocReportType returns a new AllocReportTypeField initialized with val
 func NewAllocReportType(val int) *AllocReportTypeField {
@@ -578,10 +578,10 @@ func NewAllocReportType(val int) *AllocReportTypeField {
 }
 
 //AllocSettlCurrAmtField is a AMT field
-type AllocSettlCurrAmtField struct{ fix.AmtValue }
+type AllocSettlCurrAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.AllocSettlCurrAmt (737)
-func (f AllocSettlCurrAmtField) Tag() fix.Tag { return tag.AllocSettlCurrAmt }
+func (f AllocSettlCurrAmtField) Tag() quickfix.Tag { return tag.AllocSettlCurrAmt }
 
 //NewAllocSettlCurrAmt returns a new AllocSettlCurrAmtField initialized with val
 func NewAllocSettlCurrAmt(val float64) *AllocSettlCurrAmtField {
@@ -591,10 +591,10 @@ func NewAllocSettlCurrAmt(val float64) *AllocSettlCurrAmtField {
 }
 
 //AllocSettlCurrencyField is a CURRENCY field
-type AllocSettlCurrencyField struct{ fix.CurrencyValue }
+type AllocSettlCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.AllocSettlCurrency (736)
-func (f AllocSettlCurrencyField) Tag() fix.Tag { return tag.AllocSettlCurrency }
+func (f AllocSettlCurrencyField) Tag() quickfix.Tag { return tag.AllocSettlCurrency }
 
 //NewAllocSettlCurrency returns a new AllocSettlCurrencyField initialized with val
 func NewAllocSettlCurrency(val string) *AllocSettlCurrencyField {
@@ -604,10 +604,10 @@ func NewAllocSettlCurrency(val string) *AllocSettlCurrencyField {
 }
 
 //AllocSettlInstTypeField is a INT field
-type AllocSettlInstTypeField struct{ fix.IntValue }
+type AllocSettlInstTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocSettlInstType (780)
-func (f AllocSettlInstTypeField) Tag() fix.Tag { return tag.AllocSettlInstType }
+func (f AllocSettlInstTypeField) Tag() quickfix.Tag { return tag.AllocSettlInstType }
 
 //NewAllocSettlInstType returns a new AllocSettlInstTypeField initialized with val
 func NewAllocSettlInstType(val int) *AllocSettlInstTypeField {
@@ -617,10 +617,10 @@ func NewAllocSettlInstType(val int) *AllocSettlInstTypeField {
 }
 
 //AllocSharesField is a QTY field
-type AllocSharesField struct{ fix.QtyValue }
+type AllocSharesField struct{ quickfix.QtyValue }
 
 //Tag returns tag.AllocShares (80)
-func (f AllocSharesField) Tag() fix.Tag { return tag.AllocShares }
+func (f AllocSharesField) Tag() quickfix.Tag { return tag.AllocShares }
 
 //NewAllocShares returns a new AllocSharesField initialized with val
 func NewAllocShares(val float64) *AllocSharesField {
@@ -630,10 +630,10 @@ func NewAllocShares(val float64) *AllocSharesField {
 }
 
 //AllocStatusField is a INT field
-type AllocStatusField struct{ fix.IntValue }
+type AllocStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocStatus (87)
-func (f AllocStatusField) Tag() fix.Tag { return tag.AllocStatus }
+func (f AllocStatusField) Tag() quickfix.Tag { return tag.AllocStatus }
 
 //NewAllocStatus returns a new AllocStatusField initialized with val
 func NewAllocStatus(val int) *AllocStatusField {
@@ -643,10 +643,10 @@ func NewAllocStatus(val int) *AllocStatusField {
 }
 
 //AllocTextField is a STRING field
-type AllocTextField struct{ fix.StringValue }
+type AllocTextField struct{ quickfix.StringValue }
 
 //Tag returns tag.AllocText (161)
-func (f AllocTextField) Tag() fix.Tag { return tag.AllocText }
+func (f AllocTextField) Tag() quickfix.Tag { return tag.AllocText }
 
 //NewAllocText returns a new AllocTextField initialized with val
 func NewAllocText(val string) *AllocTextField {
@@ -656,10 +656,10 @@ func NewAllocText(val string) *AllocTextField {
 }
 
 //AllocTransTypeField is a CHAR field
-type AllocTransTypeField struct{ fix.CharValue }
+type AllocTransTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.AllocTransType (71)
-func (f AllocTransTypeField) Tag() fix.Tag { return tag.AllocTransType }
+func (f AllocTransTypeField) Tag() quickfix.Tag { return tag.AllocTransType }
 
 //NewAllocTransType returns a new AllocTransTypeField initialized with val
 func NewAllocTransType(val string) *AllocTransTypeField {
@@ -669,10 +669,10 @@ func NewAllocTransType(val string) *AllocTransTypeField {
 }
 
 //AllocTypeField is a INT field
-type AllocTypeField struct{ fix.IntValue }
+type AllocTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.AllocType (626)
-func (f AllocTypeField) Tag() fix.Tag { return tag.AllocType }
+func (f AllocTypeField) Tag() quickfix.Tag { return tag.AllocType }
 
 //NewAllocType returns a new AllocTypeField initialized with val
 func NewAllocType(val int) *AllocTypeField {
@@ -682,10 +682,10 @@ func NewAllocType(val int) *AllocTypeField {
 }
 
 //AllowableOneSidednessCurrField is a CURRENCY field
-type AllowableOneSidednessCurrField struct{ fix.CurrencyValue }
+type AllowableOneSidednessCurrField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.AllowableOneSidednessCurr (767)
-func (f AllowableOneSidednessCurrField) Tag() fix.Tag { return tag.AllowableOneSidednessCurr }
+func (f AllowableOneSidednessCurrField) Tag() quickfix.Tag { return tag.AllowableOneSidednessCurr }
 
 //NewAllowableOneSidednessCurr returns a new AllowableOneSidednessCurrField initialized with val
 func NewAllowableOneSidednessCurr(val string) *AllowableOneSidednessCurrField {
@@ -695,10 +695,10 @@ func NewAllowableOneSidednessCurr(val string) *AllowableOneSidednessCurrField {
 }
 
 //AllowableOneSidednessPctField is a PERCENTAGE field
-type AllowableOneSidednessPctField struct{ fix.PercentageValue }
+type AllowableOneSidednessPctField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.AllowableOneSidednessPct (765)
-func (f AllowableOneSidednessPctField) Tag() fix.Tag { return tag.AllowableOneSidednessPct }
+func (f AllowableOneSidednessPctField) Tag() quickfix.Tag { return tag.AllowableOneSidednessPct }
 
 //NewAllowableOneSidednessPct returns a new AllowableOneSidednessPctField initialized with val
 func NewAllowableOneSidednessPct(val float64) *AllowableOneSidednessPctField {
@@ -708,10 +708,10 @@ func NewAllowableOneSidednessPct(val float64) *AllowableOneSidednessPctField {
 }
 
 //AllowableOneSidednessValueField is a AMT field
-type AllowableOneSidednessValueField struct{ fix.AmtValue }
+type AllowableOneSidednessValueField struct{ quickfix.AmtValue }
 
 //Tag returns tag.AllowableOneSidednessValue (766)
-func (f AllowableOneSidednessValueField) Tag() fix.Tag { return tag.AllowableOneSidednessValue }
+func (f AllowableOneSidednessValueField) Tag() quickfix.Tag { return tag.AllowableOneSidednessValue }
 
 //NewAllowableOneSidednessValue returns a new AllowableOneSidednessValueField initialized with val
 func NewAllowableOneSidednessValue(val float64) *AllowableOneSidednessValueField {
@@ -721,10 +721,10 @@ func NewAllowableOneSidednessValue(val float64) *AllowableOneSidednessValueField
 }
 
 //AltMDSourceIDField is a STRING field
-type AltMDSourceIDField struct{ fix.StringValue }
+type AltMDSourceIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AltMDSourceID (817)
-func (f AltMDSourceIDField) Tag() fix.Tag { return tag.AltMDSourceID }
+func (f AltMDSourceIDField) Tag() quickfix.Tag { return tag.AltMDSourceID }
 
 //NewAltMDSourceID returns a new AltMDSourceIDField initialized with val
 func NewAltMDSourceID(val string) *AltMDSourceIDField {
@@ -734,10 +734,10 @@ func NewAltMDSourceID(val string) *AltMDSourceIDField {
 }
 
 //ApplBegSeqNumField is a SEQNUM field
-type ApplBegSeqNumField struct{ fix.SeqNumValue }
+type ApplBegSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.ApplBegSeqNum (1182)
-func (f ApplBegSeqNumField) Tag() fix.Tag { return tag.ApplBegSeqNum }
+func (f ApplBegSeqNumField) Tag() quickfix.Tag { return tag.ApplBegSeqNum }
 
 //NewApplBegSeqNum returns a new ApplBegSeqNumField initialized with val
 func NewApplBegSeqNum(val int) *ApplBegSeqNumField {
@@ -747,10 +747,10 @@ func NewApplBegSeqNum(val int) *ApplBegSeqNumField {
 }
 
 //ApplEndSeqNumField is a SEQNUM field
-type ApplEndSeqNumField struct{ fix.SeqNumValue }
+type ApplEndSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.ApplEndSeqNum (1183)
-func (f ApplEndSeqNumField) Tag() fix.Tag { return tag.ApplEndSeqNum }
+func (f ApplEndSeqNumField) Tag() quickfix.Tag { return tag.ApplEndSeqNum }
 
 //NewApplEndSeqNum returns a new ApplEndSeqNumField initialized with val
 func NewApplEndSeqNum(val int) *ApplEndSeqNumField {
@@ -760,10 +760,10 @@ func NewApplEndSeqNum(val int) *ApplEndSeqNumField {
 }
 
 //ApplExtIDField is a INT field
-type ApplExtIDField struct{ fix.IntValue }
+type ApplExtIDField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplExtID (1156)
-func (f ApplExtIDField) Tag() fix.Tag { return tag.ApplExtID }
+func (f ApplExtIDField) Tag() quickfix.Tag { return tag.ApplExtID }
 
 //NewApplExtID returns a new ApplExtIDField initialized with val
 func NewApplExtID(val int) *ApplExtIDField {
@@ -773,10 +773,10 @@ func NewApplExtID(val int) *ApplExtIDField {
 }
 
 //ApplIDField is a STRING field
-type ApplIDField struct{ fix.StringValue }
+type ApplIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ApplID (1180)
-func (f ApplIDField) Tag() fix.Tag { return tag.ApplID }
+func (f ApplIDField) Tag() quickfix.Tag { return tag.ApplID }
 
 //NewApplID returns a new ApplIDField initialized with val
 func NewApplID(val string) *ApplIDField {
@@ -786,10 +786,10 @@ func NewApplID(val string) *ApplIDField {
 }
 
 //ApplLastSeqNumField is a SEQNUM field
-type ApplLastSeqNumField struct{ fix.SeqNumValue }
+type ApplLastSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.ApplLastSeqNum (1350)
-func (f ApplLastSeqNumField) Tag() fix.Tag { return tag.ApplLastSeqNum }
+func (f ApplLastSeqNumField) Tag() quickfix.Tag { return tag.ApplLastSeqNum }
 
 //NewApplLastSeqNum returns a new ApplLastSeqNumField initialized with val
 func NewApplLastSeqNum(val int) *ApplLastSeqNumField {
@@ -799,10 +799,10 @@ func NewApplLastSeqNum(val int) *ApplLastSeqNumField {
 }
 
 //ApplNewSeqNumField is a SEQNUM field
-type ApplNewSeqNumField struct{ fix.SeqNumValue }
+type ApplNewSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.ApplNewSeqNum (1399)
-func (f ApplNewSeqNumField) Tag() fix.Tag { return tag.ApplNewSeqNum }
+func (f ApplNewSeqNumField) Tag() quickfix.Tag { return tag.ApplNewSeqNum }
 
 //NewApplNewSeqNum returns a new ApplNewSeqNumField initialized with val
 func NewApplNewSeqNum(val int) *ApplNewSeqNumField {
@@ -812,10 +812,10 @@ func NewApplNewSeqNum(val int) *ApplNewSeqNumField {
 }
 
 //ApplQueueActionField is a INT field
-type ApplQueueActionField struct{ fix.IntValue }
+type ApplQueueActionField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplQueueAction (815)
-func (f ApplQueueActionField) Tag() fix.Tag { return tag.ApplQueueAction }
+func (f ApplQueueActionField) Tag() quickfix.Tag { return tag.ApplQueueAction }
 
 //NewApplQueueAction returns a new ApplQueueActionField initialized with val
 func NewApplQueueAction(val int) *ApplQueueActionField {
@@ -825,10 +825,10 @@ func NewApplQueueAction(val int) *ApplQueueActionField {
 }
 
 //ApplQueueDepthField is a INT field
-type ApplQueueDepthField struct{ fix.IntValue }
+type ApplQueueDepthField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplQueueDepth (813)
-func (f ApplQueueDepthField) Tag() fix.Tag { return tag.ApplQueueDepth }
+func (f ApplQueueDepthField) Tag() quickfix.Tag { return tag.ApplQueueDepth }
 
 //NewApplQueueDepth returns a new ApplQueueDepthField initialized with val
 func NewApplQueueDepth(val int) *ApplQueueDepthField {
@@ -838,10 +838,10 @@ func NewApplQueueDepth(val int) *ApplQueueDepthField {
 }
 
 //ApplQueueMaxField is a INT field
-type ApplQueueMaxField struct{ fix.IntValue }
+type ApplQueueMaxField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplQueueMax (812)
-func (f ApplQueueMaxField) Tag() fix.Tag { return tag.ApplQueueMax }
+func (f ApplQueueMaxField) Tag() quickfix.Tag { return tag.ApplQueueMax }
 
 //NewApplQueueMax returns a new ApplQueueMaxField initialized with val
 func NewApplQueueMax(val int) *ApplQueueMaxField {
@@ -851,10 +851,10 @@ func NewApplQueueMax(val int) *ApplQueueMaxField {
 }
 
 //ApplQueueResolutionField is a INT field
-type ApplQueueResolutionField struct{ fix.IntValue }
+type ApplQueueResolutionField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplQueueResolution (814)
-func (f ApplQueueResolutionField) Tag() fix.Tag { return tag.ApplQueueResolution }
+func (f ApplQueueResolutionField) Tag() quickfix.Tag { return tag.ApplQueueResolution }
 
 //NewApplQueueResolution returns a new ApplQueueResolutionField initialized with val
 func NewApplQueueResolution(val int) *ApplQueueResolutionField {
@@ -864,10 +864,10 @@ func NewApplQueueResolution(val int) *ApplQueueResolutionField {
 }
 
 //ApplReportIDField is a STRING field
-type ApplReportIDField struct{ fix.StringValue }
+type ApplReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ApplReportID (1356)
-func (f ApplReportIDField) Tag() fix.Tag { return tag.ApplReportID }
+func (f ApplReportIDField) Tag() quickfix.Tag { return tag.ApplReportID }
 
 //NewApplReportID returns a new ApplReportIDField initialized with val
 func NewApplReportID(val string) *ApplReportIDField {
@@ -877,10 +877,10 @@ func NewApplReportID(val string) *ApplReportIDField {
 }
 
 //ApplReportTypeField is a INT field
-type ApplReportTypeField struct{ fix.IntValue }
+type ApplReportTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplReportType (1426)
-func (f ApplReportTypeField) Tag() fix.Tag { return tag.ApplReportType }
+func (f ApplReportTypeField) Tag() quickfix.Tag { return tag.ApplReportType }
 
 //NewApplReportType returns a new ApplReportTypeField initialized with val
 func NewApplReportType(val int) *ApplReportTypeField {
@@ -890,10 +890,10 @@ func NewApplReportType(val int) *ApplReportTypeField {
 }
 
 //ApplReqIDField is a STRING field
-type ApplReqIDField struct{ fix.StringValue }
+type ApplReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ApplReqID (1346)
-func (f ApplReqIDField) Tag() fix.Tag { return tag.ApplReqID }
+func (f ApplReqIDField) Tag() quickfix.Tag { return tag.ApplReqID }
 
 //NewApplReqID returns a new ApplReqIDField initialized with val
 func NewApplReqID(val string) *ApplReqIDField {
@@ -903,10 +903,10 @@ func NewApplReqID(val string) *ApplReqIDField {
 }
 
 //ApplReqTypeField is a INT field
-type ApplReqTypeField struct{ fix.IntValue }
+type ApplReqTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplReqType (1347)
-func (f ApplReqTypeField) Tag() fix.Tag { return tag.ApplReqType }
+func (f ApplReqTypeField) Tag() quickfix.Tag { return tag.ApplReqType }
 
 //NewApplReqType returns a new ApplReqTypeField initialized with val
 func NewApplReqType(val int) *ApplReqTypeField {
@@ -916,10 +916,10 @@ func NewApplReqType(val int) *ApplReqTypeField {
 }
 
 //ApplResendFlagField is a BOOLEAN field
-type ApplResendFlagField struct{ fix.BooleanValue }
+type ApplResendFlagField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ApplResendFlag (1352)
-func (f ApplResendFlagField) Tag() fix.Tag { return tag.ApplResendFlag }
+func (f ApplResendFlagField) Tag() quickfix.Tag { return tag.ApplResendFlag }
 
 //NewApplResendFlag returns a new ApplResendFlagField initialized with val
 func NewApplResendFlag(val bool) *ApplResendFlagField {
@@ -929,10 +929,10 @@ func NewApplResendFlag(val bool) *ApplResendFlagField {
 }
 
 //ApplResponseErrorField is a INT field
-type ApplResponseErrorField struct{ fix.IntValue }
+type ApplResponseErrorField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplResponseError (1354)
-func (f ApplResponseErrorField) Tag() fix.Tag { return tag.ApplResponseError }
+func (f ApplResponseErrorField) Tag() quickfix.Tag { return tag.ApplResponseError }
 
 //NewApplResponseError returns a new ApplResponseErrorField initialized with val
 func NewApplResponseError(val int) *ApplResponseErrorField {
@@ -942,10 +942,10 @@ func NewApplResponseError(val int) *ApplResponseErrorField {
 }
 
 //ApplResponseIDField is a STRING field
-type ApplResponseIDField struct{ fix.StringValue }
+type ApplResponseIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ApplResponseID (1353)
-func (f ApplResponseIDField) Tag() fix.Tag { return tag.ApplResponseID }
+func (f ApplResponseIDField) Tag() quickfix.Tag { return tag.ApplResponseID }
 
 //NewApplResponseID returns a new ApplResponseIDField initialized with val
 func NewApplResponseID(val string) *ApplResponseIDField {
@@ -955,10 +955,10 @@ func NewApplResponseID(val string) *ApplResponseIDField {
 }
 
 //ApplResponseTypeField is a INT field
-type ApplResponseTypeField struct{ fix.IntValue }
+type ApplResponseTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplResponseType (1348)
-func (f ApplResponseTypeField) Tag() fix.Tag { return tag.ApplResponseType }
+func (f ApplResponseTypeField) Tag() quickfix.Tag { return tag.ApplResponseType }
 
 //NewApplResponseType returns a new ApplResponseTypeField initialized with val
 func NewApplResponseType(val int) *ApplResponseTypeField {
@@ -968,10 +968,10 @@ func NewApplResponseType(val int) *ApplResponseTypeField {
 }
 
 //ApplSeqNumField is a SEQNUM field
-type ApplSeqNumField struct{ fix.SeqNumValue }
+type ApplSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.ApplSeqNum (1181)
-func (f ApplSeqNumField) Tag() fix.Tag { return tag.ApplSeqNum }
+func (f ApplSeqNumField) Tag() quickfix.Tag { return tag.ApplSeqNum }
 
 //NewApplSeqNum returns a new ApplSeqNumField initialized with val
 func NewApplSeqNum(val int) *ApplSeqNumField {
@@ -981,10 +981,10 @@ func NewApplSeqNum(val int) *ApplSeqNumField {
 }
 
 //ApplTotalMessageCountField is a INT field
-type ApplTotalMessageCountField struct{ fix.IntValue }
+type ApplTotalMessageCountField struct{ quickfix.IntValue }
 
 //Tag returns tag.ApplTotalMessageCount (1349)
-func (f ApplTotalMessageCountField) Tag() fix.Tag { return tag.ApplTotalMessageCount }
+func (f ApplTotalMessageCountField) Tag() quickfix.Tag { return tag.ApplTotalMessageCount }
 
 //NewApplTotalMessageCount returns a new ApplTotalMessageCountField initialized with val
 func NewApplTotalMessageCount(val int) *ApplTotalMessageCountField {
@@ -994,10 +994,10 @@ func NewApplTotalMessageCount(val int) *ApplTotalMessageCountField {
 }
 
 //ApplVerIDField is a STRING field
-type ApplVerIDField struct{ fix.StringValue }
+type ApplVerIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ApplVerID (1128)
-func (f ApplVerIDField) Tag() fix.Tag { return tag.ApplVerID }
+func (f ApplVerIDField) Tag() quickfix.Tag { return tag.ApplVerID }
 
 //NewApplVerID returns a new ApplVerIDField initialized with val
 func NewApplVerID(val string) *ApplVerIDField {
@@ -1007,10 +1007,10 @@ func NewApplVerID(val string) *ApplVerIDField {
 }
 
 //AsOfIndicatorField is a CHAR field
-type AsOfIndicatorField struct{ fix.CharValue }
+type AsOfIndicatorField struct{ quickfix.CharValue }
 
 //Tag returns tag.AsOfIndicator (1015)
-func (f AsOfIndicatorField) Tag() fix.Tag { return tag.AsOfIndicator }
+func (f AsOfIndicatorField) Tag() quickfix.Tag { return tag.AsOfIndicator }
 
 //NewAsOfIndicator returns a new AsOfIndicatorField initialized with val
 func NewAsOfIndicator(val string) *AsOfIndicatorField {
@@ -1020,10 +1020,10 @@ func NewAsOfIndicator(val string) *AsOfIndicatorField {
 }
 
 //AsgnReqIDField is a STRING field
-type AsgnReqIDField struct{ fix.StringValue }
+type AsgnReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AsgnReqID (831)
-func (f AsgnReqIDField) Tag() fix.Tag { return tag.AsgnReqID }
+func (f AsgnReqIDField) Tag() quickfix.Tag { return tag.AsgnReqID }
 
 //NewAsgnReqID returns a new AsgnReqIDField initialized with val
 func NewAsgnReqID(val string) *AsgnReqIDField {
@@ -1033,10 +1033,10 @@ func NewAsgnReqID(val string) *AsgnReqIDField {
 }
 
 //AsgnRptIDField is a STRING field
-type AsgnRptIDField struct{ fix.StringValue }
+type AsgnRptIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.AsgnRptID (833)
-func (f AsgnRptIDField) Tag() fix.Tag { return tag.AsgnRptID }
+func (f AsgnRptIDField) Tag() quickfix.Tag { return tag.AsgnRptID }
 
 //NewAsgnRptID returns a new AsgnRptIDField initialized with val
 func NewAsgnRptID(val string) *AsgnRptIDField {
@@ -1046,10 +1046,10 @@ func NewAsgnRptID(val string) *AsgnRptIDField {
 }
 
 //AssignmentMethodField is a CHAR field
-type AssignmentMethodField struct{ fix.CharValue }
+type AssignmentMethodField struct{ quickfix.CharValue }
 
 //Tag returns tag.AssignmentMethod (744)
-func (f AssignmentMethodField) Tag() fix.Tag { return tag.AssignmentMethod }
+func (f AssignmentMethodField) Tag() quickfix.Tag { return tag.AssignmentMethod }
 
 //NewAssignmentMethod returns a new AssignmentMethodField initialized with val
 func NewAssignmentMethod(val string) *AssignmentMethodField {
@@ -1059,10 +1059,10 @@ func NewAssignmentMethod(val string) *AssignmentMethodField {
 }
 
 //AssignmentUnitField is a QTY field
-type AssignmentUnitField struct{ fix.QtyValue }
+type AssignmentUnitField struct{ quickfix.QtyValue }
 
 //Tag returns tag.AssignmentUnit (745)
-func (f AssignmentUnitField) Tag() fix.Tag { return tag.AssignmentUnit }
+func (f AssignmentUnitField) Tag() quickfix.Tag { return tag.AssignmentUnit }
 
 //NewAssignmentUnit returns a new AssignmentUnitField initialized with val
 func NewAssignmentUnit(val float64) *AssignmentUnitField {
@@ -1072,10 +1072,10 @@ func NewAssignmentUnit(val float64) *AssignmentUnitField {
 }
 
 //AttachmentPointField is a PERCENTAGE field
-type AttachmentPointField struct{ fix.PercentageValue }
+type AttachmentPointField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.AttachmentPoint (1457)
-func (f AttachmentPointField) Tag() fix.Tag { return tag.AttachmentPoint }
+func (f AttachmentPointField) Tag() quickfix.Tag { return tag.AttachmentPoint }
 
 //NewAttachmentPoint returns a new AttachmentPointField initialized with val
 func NewAttachmentPoint(val float64) *AttachmentPointField {
@@ -1085,10 +1085,10 @@ func NewAttachmentPoint(val float64) *AttachmentPointField {
 }
 
 //AutoAcceptIndicatorField is a BOOLEAN field
-type AutoAcceptIndicatorField struct{ fix.BooleanValue }
+type AutoAcceptIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.AutoAcceptIndicator (754)
-func (f AutoAcceptIndicatorField) Tag() fix.Tag { return tag.AutoAcceptIndicator }
+func (f AutoAcceptIndicatorField) Tag() quickfix.Tag { return tag.AutoAcceptIndicator }
 
 //NewAutoAcceptIndicator returns a new AutoAcceptIndicatorField initialized with val
 func NewAutoAcceptIndicator(val bool) *AutoAcceptIndicatorField {
@@ -1098,10 +1098,10 @@ func NewAutoAcceptIndicator(val bool) *AutoAcceptIndicatorField {
 }
 
 //AvgParPxField is a PRICE field
-type AvgParPxField struct{ fix.PriceValue }
+type AvgParPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.AvgParPx (860)
-func (f AvgParPxField) Tag() fix.Tag { return tag.AvgParPx }
+func (f AvgParPxField) Tag() quickfix.Tag { return tag.AvgParPx }
 
 //NewAvgParPx returns a new AvgParPxField initialized with val
 func NewAvgParPx(val float64) *AvgParPxField {
@@ -1111,10 +1111,10 @@ func NewAvgParPx(val float64) *AvgParPxField {
 }
 
 //AvgPrxPrecisionField is a INT field
-type AvgPrxPrecisionField struct{ fix.IntValue }
+type AvgPrxPrecisionField struct{ quickfix.IntValue }
 
 //Tag returns tag.AvgPrxPrecision (74)
-func (f AvgPrxPrecisionField) Tag() fix.Tag { return tag.AvgPrxPrecision }
+func (f AvgPrxPrecisionField) Tag() quickfix.Tag { return tag.AvgPrxPrecision }
 
 //NewAvgPrxPrecision returns a new AvgPrxPrecisionField initialized with val
 func NewAvgPrxPrecision(val int) *AvgPrxPrecisionField {
@@ -1124,10 +1124,10 @@ func NewAvgPrxPrecision(val int) *AvgPrxPrecisionField {
 }
 
 //AvgPxField is a PRICE field
-type AvgPxField struct{ fix.PriceValue }
+type AvgPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.AvgPx (6)
-func (f AvgPxField) Tag() fix.Tag { return tag.AvgPx }
+func (f AvgPxField) Tag() quickfix.Tag { return tag.AvgPx }
 
 //NewAvgPx returns a new AvgPxField initialized with val
 func NewAvgPx(val float64) *AvgPxField {
@@ -1137,10 +1137,10 @@ func NewAvgPx(val float64) *AvgPxField {
 }
 
 //AvgPxIndicatorField is a INT field
-type AvgPxIndicatorField struct{ fix.IntValue }
+type AvgPxIndicatorField struct{ quickfix.IntValue }
 
 //Tag returns tag.AvgPxIndicator (819)
-func (f AvgPxIndicatorField) Tag() fix.Tag { return tag.AvgPxIndicator }
+func (f AvgPxIndicatorField) Tag() quickfix.Tag { return tag.AvgPxIndicator }
 
 //NewAvgPxIndicator returns a new AvgPxIndicatorField initialized with val
 func NewAvgPxIndicator(val int) *AvgPxIndicatorField {
@@ -1150,10 +1150,10 @@ func NewAvgPxIndicator(val int) *AvgPxIndicatorField {
 }
 
 //AvgPxPrecisionField is a INT field
-type AvgPxPrecisionField struct{ fix.IntValue }
+type AvgPxPrecisionField struct{ quickfix.IntValue }
 
 //Tag returns tag.AvgPxPrecision (74)
-func (f AvgPxPrecisionField) Tag() fix.Tag { return tag.AvgPxPrecision }
+func (f AvgPxPrecisionField) Tag() quickfix.Tag { return tag.AvgPxPrecision }
 
 //NewAvgPxPrecision returns a new AvgPxPrecisionField initialized with val
 func NewAvgPxPrecision(val int) *AvgPxPrecisionField {
@@ -1163,10 +1163,10 @@ func NewAvgPxPrecision(val int) *AvgPxPrecisionField {
 }
 
 //BasisFeatureDateField is a LOCALMKTDATE field
-type BasisFeatureDateField struct{ fix.LocalMktDateValue }
+type BasisFeatureDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.BasisFeatureDate (259)
-func (f BasisFeatureDateField) Tag() fix.Tag { return tag.BasisFeatureDate }
+func (f BasisFeatureDateField) Tag() quickfix.Tag { return tag.BasisFeatureDate }
 
 //NewBasisFeatureDate returns a new BasisFeatureDateField initialized with val
 func NewBasisFeatureDate(val string) *BasisFeatureDateField {
@@ -1176,10 +1176,10 @@ func NewBasisFeatureDate(val string) *BasisFeatureDateField {
 }
 
 //BasisFeaturePriceField is a PRICE field
-type BasisFeaturePriceField struct{ fix.PriceValue }
+type BasisFeaturePriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.BasisFeaturePrice (260)
-func (f BasisFeaturePriceField) Tag() fix.Tag { return tag.BasisFeaturePrice }
+func (f BasisFeaturePriceField) Tag() quickfix.Tag { return tag.BasisFeaturePrice }
 
 //NewBasisFeaturePrice returns a new BasisFeaturePriceField initialized with val
 func NewBasisFeaturePrice(val float64) *BasisFeaturePriceField {
@@ -1189,10 +1189,10 @@ func NewBasisFeaturePrice(val float64) *BasisFeaturePriceField {
 }
 
 //BasisPxTypeField is a CHAR field
-type BasisPxTypeField struct{ fix.CharValue }
+type BasisPxTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.BasisPxType (419)
-func (f BasisPxTypeField) Tag() fix.Tag { return tag.BasisPxType }
+func (f BasisPxTypeField) Tag() quickfix.Tag { return tag.BasisPxType }
 
 //NewBasisPxType returns a new BasisPxTypeField initialized with val
 func NewBasisPxType(val string) *BasisPxTypeField {
@@ -1202,10 +1202,10 @@ func NewBasisPxType(val string) *BasisPxTypeField {
 }
 
 //BeginSeqNoField is a SEQNUM field
-type BeginSeqNoField struct{ fix.SeqNumValue }
+type BeginSeqNoField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.BeginSeqNo (7)
-func (f BeginSeqNoField) Tag() fix.Tag { return tag.BeginSeqNo }
+func (f BeginSeqNoField) Tag() quickfix.Tag { return tag.BeginSeqNo }
 
 //NewBeginSeqNo returns a new BeginSeqNoField initialized with val
 func NewBeginSeqNo(val int) *BeginSeqNoField {
@@ -1215,10 +1215,10 @@ func NewBeginSeqNo(val int) *BeginSeqNoField {
 }
 
 //BeginStringField is a STRING field
-type BeginStringField struct{ fix.StringValue }
+type BeginStringField struct{ quickfix.StringValue }
 
 //Tag returns tag.BeginString (8)
-func (f BeginStringField) Tag() fix.Tag { return tag.BeginString }
+func (f BeginStringField) Tag() quickfix.Tag { return tag.BeginString }
 
 //NewBeginString returns a new BeginStringField initialized with val
 func NewBeginString(val string) *BeginStringField {
@@ -1228,10 +1228,10 @@ func NewBeginString(val string) *BeginStringField {
 }
 
 //BenchmarkField is a CHAR field
-type BenchmarkField struct{ fix.CharValue }
+type BenchmarkField struct{ quickfix.CharValue }
 
 //Tag returns tag.Benchmark (219)
-func (f BenchmarkField) Tag() fix.Tag { return tag.Benchmark }
+func (f BenchmarkField) Tag() quickfix.Tag { return tag.Benchmark }
 
 //NewBenchmark returns a new BenchmarkField initialized with val
 func NewBenchmark(val string) *BenchmarkField {
@@ -1241,10 +1241,10 @@ func NewBenchmark(val string) *BenchmarkField {
 }
 
 //BenchmarkCurveCurrencyField is a CURRENCY field
-type BenchmarkCurveCurrencyField struct{ fix.CurrencyValue }
+type BenchmarkCurveCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.BenchmarkCurveCurrency (220)
-func (f BenchmarkCurveCurrencyField) Tag() fix.Tag { return tag.BenchmarkCurveCurrency }
+func (f BenchmarkCurveCurrencyField) Tag() quickfix.Tag { return tag.BenchmarkCurveCurrency }
 
 //NewBenchmarkCurveCurrency returns a new BenchmarkCurveCurrencyField initialized with val
 func NewBenchmarkCurveCurrency(val string) *BenchmarkCurveCurrencyField {
@@ -1254,10 +1254,10 @@ func NewBenchmarkCurveCurrency(val string) *BenchmarkCurveCurrencyField {
 }
 
 //BenchmarkCurveNameField is a STRING field
-type BenchmarkCurveNameField struct{ fix.StringValue }
+type BenchmarkCurveNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.BenchmarkCurveName (221)
-func (f BenchmarkCurveNameField) Tag() fix.Tag { return tag.BenchmarkCurveName }
+func (f BenchmarkCurveNameField) Tag() quickfix.Tag { return tag.BenchmarkCurveName }
 
 //NewBenchmarkCurveName returns a new BenchmarkCurveNameField initialized with val
 func NewBenchmarkCurveName(val string) *BenchmarkCurveNameField {
@@ -1267,10 +1267,10 @@ func NewBenchmarkCurveName(val string) *BenchmarkCurveNameField {
 }
 
 //BenchmarkCurvePointField is a STRING field
-type BenchmarkCurvePointField struct{ fix.StringValue }
+type BenchmarkCurvePointField struct{ quickfix.StringValue }
 
 //Tag returns tag.BenchmarkCurvePoint (222)
-func (f BenchmarkCurvePointField) Tag() fix.Tag { return tag.BenchmarkCurvePoint }
+func (f BenchmarkCurvePointField) Tag() quickfix.Tag { return tag.BenchmarkCurvePoint }
 
 //NewBenchmarkCurvePoint returns a new BenchmarkCurvePointField initialized with val
 func NewBenchmarkCurvePoint(val string) *BenchmarkCurvePointField {
@@ -1280,10 +1280,10 @@ func NewBenchmarkCurvePoint(val string) *BenchmarkCurvePointField {
 }
 
 //BenchmarkPriceField is a PRICE field
-type BenchmarkPriceField struct{ fix.PriceValue }
+type BenchmarkPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.BenchmarkPrice (662)
-func (f BenchmarkPriceField) Tag() fix.Tag { return tag.BenchmarkPrice }
+func (f BenchmarkPriceField) Tag() quickfix.Tag { return tag.BenchmarkPrice }
 
 //NewBenchmarkPrice returns a new BenchmarkPriceField initialized with val
 func NewBenchmarkPrice(val float64) *BenchmarkPriceField {
@@ -1293,10 +1293,10 @@ func NewBenchmarkPrice(val float64) *BenchmarkPriceField {
 }
 
 //BenchmarkPriceTypeField is a INT field
-type BenchmarkPriceTypeField struct{ fix.IntValue }
+type BenchmarkPriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.BenchmarkPriceType (663)
-func (f BenchmarkPriceTypeField) Tag() fix.Tag { return tag.BenchmarkPriceType }
+func (f BenchmarkPriceTypeField) Tag() quickfix.Tag { return tag.BenchmarkPriceType }
 
 //NewBenchmarkPriceType returns a new BenchmarkPriceTypeField initialized with val
 func NewBenchmarkPriceType(val int) *BenchmarkPriceTypeField {
@@ -1306,10 +1306,10 @@ func NewBenchmarkPriceType(val int) *BenchmarkPriceTypeField {
 }
 
 //BenchmarkSecurityIDField is a STRING field
-type BenchmarkSecurityIDField struct{ fix.StringValue }
+type BenchmarkSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.BenchmarkSecurityID (699)
-func (f BenchmarkSecurityIDField) Tag() fix.Tag { return tag.BenchmarkSecurityID }
+func (f BenchmarkSecurityIDField) Tag() quickfix.Tag { return tag.BenchmarkSecurityID }
 
 //NewBenchmarkSecurityID returns a new BenchmarkSecurityIDField initialized with val
 func NewBenchmarkSecurityID(val string) *BenchmarkSecurityIDField {
@@ -1319,10 +1319,10 @@ func NewBenchmarkSecurityID(val string) *BenchmarkSecurityIDField {
 }
 
 //BenchmarkSecurityIDSourceField is a STRING field
-type BenchmarkSecurityIDSourceField struct{ fix.StringValue }
+type BenchmarkSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.BenchmarkSecurityIDSource (761)
-func (f BenchmarkSecurityIDSourceField) Tag() fix.Tag { return tag.BenchmarkSecurityIDSource }
+func (f BenchmarkSecurityIDSourceField) Tag() quickfix.Tag { return tag.BenchmarkSecurityIDSource }
 
 //NewBenchmarkSecurityIDSource returns a new BenchmarkSecurityIDSourceField initialized with val
 func NewBenchmarkSecurityIDSource(val string) *BenchmarkSecurityIDSourceField {
@@ -1332,10 +1332,10 @@ func NewBenchmarkSecurityIDSource(val string) *BenchmarkSecurityIDSourceField {
 }
 
 //BidDescriptorField is a STRING field
-type BidDescriptorField struct{ fix.StringValue }
+type BidDescriptorField struct{ quickfix.StringValue }
 
 //Tag returns tag.BidDescriptor (400)
-func (f BidDescriptorField) Tag() fix.Tag { return tag.BidDescriptor }
+func (f BidDescriptorField) Tag() quickfix.Tag { return tag.BidDescriptor }
 
 //NewBidDescriptor returns a new BidDescriptorField initialized with val
 func NewBidDescriptor(val string) *BidDescriptorField {
@@ -1345,10 +1345,10 @@ func NewBidDescriptor(val string) *BidDescriptorField {
 }
 
 //BidDescriptorTypeField is a INT field
-type BidDescriptorTypeField struct{ fix.IntValue }
+type BidDescriptorTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.BidDescriptorType (399)
-func (f BidDescriptorTypeField) Tag() fix.Tag { return tag.BidDescriptorType }
+func (f BidDescriptorTypeField) Tag() quickfix.Tag { return tag.BidDescriptorType }
 
 //NewBidDescriptorType returns a new BidDescriptorTypeField initialized with val
 func NewBidDescriptorType(val int) *BidDescriptorTypeField {
@@ -1358,10 +1358,10 @@ func NewBidDescriptorType(val int) *BidDescriptorTypeField {
 }
 
 //BidForwardPointsField is a PRICEOFFSET field
-type BidForwardPointsField struct{ fix.PriceOffsetValue }
+type BidForwardPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.BidForwardPoints (189)
-func (f BidForwardPointsField) Tag() fix.Tag { return tag.BidForwardPoints }
+func (f BidForwardPointsField) Tag() quickfix.Tag { return tag.BidForwardPoints }
 
 //NewBidForwardPoints returns a new BidForwardPointsField initialized with val
 func NewBidForwardPoints(val float64) *BidForwardPointsField {
@@ -1371,10 +1371,10 @@ func NewBidForwardPoints(val float64) *BidForwardPointsField {
 }
 
 //BidForwardPoints2Field is a PRICEOFFSET field
-type BidForwardPoints2Field struct{ fix.PriceOffsetValue }
+type BidForwardPoints2Field struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.BidForwardPoints2 (642)
-func (f BidForwardPoints2Field) Tag() fix.Tag { return tag.BidForwardPoints2 }
+func (f BidForwardPoints2Field) Tag() quickfix.Tag { return tag.BidForwardPoints2 }
 
 //NewBidForwardPoints2 returns a new BidForwardPoints2Field initialized with val
 func NewBidForwardPoints2(val float64) *BidForwardPoints2Field {
@@ -1384,10 +1384,10 @@ func NewBidForwardPoints2(val float64) *BidForwardPoints2Field {
 }
 
 //BidIDField is a STRING field
-type BidIDField struct{ fix.StringValue }
+type BidIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.BidID (390)
-func (f BidIDField) Tag() fix.Tag { return tag.BidID }
+func (f BidIDField) Tag() quickfix.Tag { return tag.BidID }
 
 //NewBidID returns a new BidIDField initialized with val
 func NewBidID(val string) *BidIDField {
@@ -1397,10 +1397,10 @@ func NewBidID(val string) *BidIDField {
 }
 
 //BidPxField is a PRICE field
-type BidPxField struct{ fix.PriceValue }
+type BidPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.BidPx (132)
-func (f BidPxField) Tag() fix.Tag { return tag.BidPx }
+func (f BidPxField) Tag() quickfix.Tag { return tag.BidPx }
 
 //NewBidPx returns a new BidPxField initialized with val
 func NewBidPx(val float64) *BidPxField {
@@ -1410,10 +1410,10 @@ func NewBidPx(val float64) *BidPxField {
 }
 
 //BidRequestTransTypeField is a CHAR field
-type BidRequestTransTypeField struct{ fix.CharValue }
+type BidRequestTransTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.BidRequestTransType (374)
-func (f BidRequestTransTypeField) Tag() fix.Tag { return tag.BidRequestTransType }
+func (f BidRequestTransTypeField) Tag() quickfix.Tag { return tag.BidRequestTransType }
 
 //NewBidRequestTransType returns a new BidRequestTransTypeField initialized with val
 func NewBidRequestTransType(val string) *BidRequestTransTypeField {
@@ -1423,10 +1423,10 @@ func NewBidRequestTransType(val string) *BidRequestTransTypeField {
 }
 
 //BidSizeField is a QTY field
-type BidSizeField struct{ fix.QtyValue }
+type BidSizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.BidSize (134)
-func (f BidSizeField) Tag() fix.Tag { return tag.BidSize }
+func (f BidSizeField) Tag() quickfix.Tag { return tag.BidSize }
 
 //NewBidSize returns a new BidSizeField initialized with val
 func NewBidSize(val float64) *BidSizeField {
@@ -1436,10 +1436,10 @@ func NewBidSize(val float64) *BidSizeField {
 }
 
 //BidSpotRateField is a PRICE field
-type BidSpotRateField struct{ fix.PriceValue }
+type BidSpotRateField struct{ quickfix.PriceValue }
 
 //Tag returns tag.BidSpotRate (188)
-func (f BidSpotRateField) Tag() fix.Tag { return tag.BidSpotRate }
+func (f BidSpotRateField) Tag() quickfix.Tag { return tag.BidSpotRate }
 
 //NewBidSpotRate returns a new BidSpotRateField initialized with val
 func NewBidSpotRate(val float64) *BidSpotRateField {
@@ -1449,10 +1449,10 @@ func NewBidSpotRate(val float64) *BidSpotRateField {
 }
 
 //BidSwapPointsField is a PRICEOFFSET field
-type BidSwapPointsField struct{ fix.PriceOffsetValue }
+type BidSwapPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.BidSwapPoints (1065)
-func (f BidSwapPointsField) Tag() fix.Tag { return tag.BidSwapPoints }
+func (f BidSwapPointsField) Tag() quickfix.Tag { return tag.BidSwapPoints }
 
 //NewBidSwapPoints returns a new BidSwapPointsField initialized with val
 func NewBidSwapPoints(val float64) *BidSwapPointsField {
@@ -1462,10 +1462,10 @@ func NewBidSwapPoints(val float64) *BidSwapPointsField {
 }
 
 //BidTradeTypeField is a CHAR field
-type BidTradeTypeField struct{ fix.CharValue }
+type BidTradeTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.BidTradeType (418)
-func (f BidTradeTypeField) Tag() fix.Tag { return tag.BidTradeType }
+func (f BidTradeTypeField) Tag() quickfix.Tag { return tag.BidTradeType }
 
 //NewBidTradeType returns a new BidTradeTypeField initialized with val
 func NewBidTradeType(val string) *BidTradeTypeField {
@@ -1475,10 +1475,10 @@ func NewBidTradeType(val string) *BidTradeTypeField {
 }
 
 //BidTypeField is a INT field
-type BidTypeField struct{ fix.IntValue }
+type BidTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.BidType (394)
-func (f BidTypeField) Tag() fix.Tag { return tag.BidType }
+func (f BidTypeField) Tag() quickfix.Tag { return tag.BidType }
 
 //NewBidType returns a new BidTypeField initialized with val
 func NewBidType(val int) *BidTypeField {
@@ -1488,10 +1488,10 @@ func NewBidType(val int) *BidTypeField {
 }
 
 //BidYieldField is a PERCENTAGE field
-type BidYieldField struct{ fix.PercentageValue }
+type BidYieldField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.BidYield (632)
-func (f BidYieldField) Tag() fix.Tag { return tag.BidYield }
+func (f BidYieldField) Tag() quickfix.Tag { return tag.BidYield }
 
 //NewBidYield returns a new BidYieldField initialized with val
 func NewBidYield(val float64) *BidYieldField {
@@ -1501,10 +1501,10 @@ func NewBidYield(val float64) *BidYieldField {
 }
 
 //BodyLengthField is a LENGTH field
-type BodyLengthField struct{ fix.LengthValue }
+type BodyLengthField struct{ quickfix.LengthValue }
 
 //Tag returns tag.BodyLength (9)
-func (f BodyLengthField) Tag() fix.Tag { return tag.BodyLength }
+func (f BodyLengthField) Tag() quickfix.Tag { return tag.BodyLength }
 
 //NewBodyLength returns a new BodyLengthField initialized with val
 func NewBodyLength(val int) *BodyLengthField {
@@ -1514,10 +1514,10 @@ func NewBodyLength(val int) *BodyLengthField {
 }
 
 //BookingRefIDField is a STRING field
-type BookingRefIDField struct{ fix.StringValue }
+type BookingRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.BookingRefID (466)
-func (f BookingRefIDField) Tag() fix.Tag { return tag.BookingRefID }
+func (f BookingRefIDField) Tag() quickfix.Tag { return tag.BookingRefID }
 
 //NewBookingRefID returns a new BookingRefIDField initialized with val
 func NewBookingRefID(val string) *BookingRefIDField {
@@ -1527,10 +1527,10 @@ func NewBookingRefID(val string) *BookingRefIDField {
 }
 
 //BookingTypeField is a INT field
-type BookingTypeField struct{ fix.IntValue }
+type BookingTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.BookingType (775)
-func (f BookingTypeField) Tag() fix.Tag { return tag.BookingType }
+func (f BookingTypeField) Tag() quickfix.Tag { return tag.BookingType }
 
 //NewBookingType returns a new BookingTypeField initialized with val
 func NewBookingType(val int) *BookingTypeField {
@@ -1540,10 +1540,10 @@ func NewBookingType(val int) *BookingTypeField {
 }
 
 //BookingUnitField is a CHAR field
-type BookingUnitField struct{ fix.CharValue }
+type BookingUnitField struct{ quickfix.CharValue }
 
 //Tag returns tag.BookingUnit (590)
-func (f BookingUnitField) Tag() fix.Tag { return tag.BookingUnit }
+func (f BookingUnitField) Tag() quickfix.Tag { return tag.BookingUnit }
 
 //NewBookingUnit returns a new BookingUnitField initialized with val
 func NewBookingUnit(val string) *BookingUnitField {
@@ -1553,10 +1553,10 @@ func NewBookingUnit(val string) *BookingUnitField {
 }
 
 //BrokerOfCreditField is a STRING field
-type BrokerOfCreditField struct{ fix.StringValue }
+type BrokerOfCreditField struct{ quickfix.StringValue }
 
 //Tag returns tag.BrokerOfCredit (92)
-func (f BrokerOfCreditField) Tag() fix.Tag { return tag.BrokerOfCredit }
+func (f BrokerOfCreditField) Tag() quickfix.Tag { return tag.BrokerOfCredit }
 
 //NewBrokerOfCredit returns a new BrokerOfCreditField initialized with val
 func NewBrokerOfCredit(val string) *BrokerOfCreditField {
@@ -1566,10 +1566,10 @@ func NewBrokerOfCredit(val string) *BrokerOfCreditField {
 }
 
 //BusinessRejectReasonField is a INT field
-type BusinessRejectReasonField struct{ fix.IntValue }
+type BusinessRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.BusinessRejectReason (380)
-func (f BusinessRejectReasonField) Tag() fix.Tag { return tag.BusinessRejectReason }
+func (f BusinessRejectReasonField) Tag() quickfix.Tag { return tag.BusinessRejectReason }
 
 //NewBusinessRejectReason returns a new BusinessRejectReasonField initialized with val
 func NewBusinessRejectReason(val int) *BusinessRejectReasonField {
@@ -1579,10 +1579,10 @@ func NewBusinessRejectReason(val int) *BusinessRejectReasonField {
 }
 
 //BusinessRejectRefIDField is a STRING field
-type BusinessRejectRefIDField struct{ fix.StringValue }
+type BusinessRejectRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.BusinessRejectRefID (379)
-func (f BusinessRejectRefIDField) Tag() fix.Tag { return tag.BusinessRejectRefID }
+func (f BusinessRejectRefIDField) Tag() quickfix.Tag { return tag.BusinessRejectRefID }
 
 //NewBusinessRejectRefID returns a new BusinessRejectRefIDField initialized with val
 func NewBusinessRejectRefID(val string) *BusinessRejectRefIDField {
@@ -1592,10 +1592,10 @@ func NewBusinessRejectRefID(val string) *BusinessRejectRefIDField {
 }
 
 //BuyVolumeField is a QTY field
-type BuyVolumeField struct{ fix.QtyValue }
+type BuyVolumeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.BuyVolume (330)
-func (f BuyVolumeField) Tag() fix.Tag { return tag.BuyVolume }
+func (f BuyVolumeField) Tag() quickfix.Tag { return tag.BuyVolume }
 
 //NewBuyVolume returns a new BuyVolumeField initialized with val
 func NewBuyVolume(val float64) *BuyVolumeField {
@@ -1605,10 +1605,10 @@ func NewBuyVolume(val float64) *BuyVolumeField {
 }
 
 //CFICodeField is a STRING field
-type CFICodeField struct{ fix.StringValue }
+type CFICodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.CFICode (461)
-func (f CFICodeField) Tag() fix.Tag { return tag.CFICode }
+func (f CFICodeField) Tag() quickfix.Tag { return tag.CFICode }
 
 //NewCFICode returns a new CFICodeField initialized with val
 func NewCFICode(val string) *CFICodeField {
@@ -1618,10 +1618,10 @@ func NewCFICode(val string) *CFICodeField {
 }
 
 //CPProgramField is a INT field
-type CPProgramField struct{ fix.IntValue }
+type CPProgramField struct{ quickfix.IntValue }
 
 //Tag returns tag.CPProgram (875)
-func (f CPProgramField) Tag() fix.Tag { return tag.CPProgram }
+func (f CPProgramField) Tag() quickfix.Tag { return tag.CPProgram }
 
 //NewCPProgram returns a new CPProgramField initialized with val
 func NewCPProgram(val int) *CPProgramField {
@@ -1631,10 +1631,10 @@ func NewCPProgram(val int) *CPProgramField {
 }
 
 //CPRegTypeField is a STRING field
-type CPRegTypeField struct{ fix.StringValue }
+type CPRegTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.CPRegType (876)
-func (f CPRegTypeField) Tag() fix.Tag { return tag.CPRegType }
+func (f CPRegTypeField) Tag() quickfix.Tag { return tag.CPRegType }
 
 //NewCPRegType returns a new CPRegTypeField initialized with val
 func NewCPRegType(val string) *CPRegTypeField {
@@ -1644,10 +1644,10 @@ func NewCPRegType(val string) *CPRegTypeField {
 }
 
 //CalculatedCcyLastQtyField is a QTY field
-type CalculatedCcyLastQtyField struct{ fix.QtyValue }
+type CalculatedCcyLastQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.CalculatedCcyLastQty (1056)
-func (f CalculatedCcyLastQtyField) Tag() fix.Tag { return tag.CalculatedCcyLastQty }
+func (f CalculatedCcyLastQtyField) Tag() quickfix.Tag { return tag.CalculatedCcyLastQty }
 
 //NewCalculatedCcyLastQty returns a new CalculatedCcyLastQtyField initialized with val
 func NewCalculatedCcyLastQty(val float64) *CalculatedCcyLastQtyField {
@@ -1657,10 +1657,10 @@ func NewCalculatedCcyLastQty(val float64) *CalculatedCcyLastQtyField {
 }
 
 //CancellationRightsField is a CHAR field
-type CancellationRightsField struct{ fix.CharValue }
+type CancellationRightsField struct{ quickfix.CharValue }
 
 //Tag returns tag.CancellationRights (480)
-func (f CancellationRightsField) Tag() fix.Tag { return tag.CancellationRights }
+func (f CancellationRightsField) Tag() quickfix.Tag { return tag.CancellationRights }
 
 //NewCancellationRights returns a new CancellationRightsField initialized with val
 func NewCancellationRights(val string) *CancellationRightsField {
@@ -1670,10 +1670,10 @@ func NewCancellationRights(val string) *CancellationRightsField {
 }
 
 //CapPriceField is a PRICE field
-type CapPriceField struct{ fix.PriceValue }
+type CapPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.CapPrice (1199)
-func (f CapPriceField) Tag() fix.Tag { return tag.CapPrice }
+func (f CapPriceField) Tag() quickfix.Tag { return tag.CapPrice }
 
 //NewCapPrice returns a new CapPriceField initialized with val
 func NewCapPrice(val float64) *CapPriceField {
@@ -1683,10 +1683,10 @@ func NewCapPrice(val float64) *CapPriceField {
 }
 
 //CardExpDateField is a LOCALMKTDATE field
-type CardExpDateField struct{ fix.LocalMktDateValue }
+type CardExpDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.CardExpDate (490)
-func (f CardExpDateField) Tag() fix.Tag { return tag.CardExpDate }
+func (f CardExpDateField) Tag() quickfix.Tag { return tag.CardExpDate }
 
 //NewCardExpDate returns a new CardExpDateField initialized with val
 func NewCardExpDate(val string) *CardExpDateField {
@@ -1696,10 +1696,10 @@ func NewCardExpDate(val string) *CardExpDateField {
 }
 
 //CardHolderNameField is a STRING field
-type CardHolderNameField struct{ fix.StringValue }
+type CardHolderNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.CardHolderName (488)
-func (f CardHolderNameField) Tag() fix.Tag { return tag.CardHolderName }
+func (f CardHolderNameField) Tag() quickfix.Tag { return tag.CardHolderName }
 
 //NewCardHolderName returns a new CardHolderNameField initialized with val
 func NewCardHolderName(val string) *CardHolderNameField {
@@ -1709,10 +1709,10 @@ func NewCardHolderName(val string) *CardHolderNameField {
 }
 
 //CardIssNoField is a STRING field
-type CardIssNoField struct{ fix.StringValue }
+type CardIssNoField struct{ quickfix.StringValue }
 
 //Tag returns tag.CardIssNo (491)
-func (f CardIssNoField) Tag() fix.Tag { return tag.CardIssNo }
+func (f CardIssNoField) Tag() quickfix.Tag { return tag.CardIssNo }
 
 //NewCardIssNo returns a new CardIssNoField initialized with val
 func NewCardIssNo(val string) *CardIssNoField {
@@ -1722,10 +1722,10 @@ func NewCardIssNo(val string) *CardIssNoField {
 }
 
 //CardIssNumField is a STRING field
-type CardIssNumField struct{ fix.StringValue }
+type CardIssNumField struct{ quickfix.StringValue }
 
 //Tag returns tag.CardIssNum (491)
-func (f CardIssNumField) Tag() fix.Tag { return tag.CardIssNum }
+func (f CardIssNumField) Tag() quickfix.Tag { return tag.CardIssNum }
 
 //NewCardIssNum returns a new CardIssNumField initialized with val
 func NewCardIssNum(val string) *CardIssNumField {
@@ -1735,10 +1735,10 @@ func NewCardIssNum(val string) *CardIssNumField {
 }
 
 //CardNumberField is a STRING field
-type CardNumberField struct{ fix.StringValue }
+type CardNumberField struct{ quickfix.StringValue }
 
 //Tag returns tag.CardNumber (489)
-func (f CardNumberField) Tag() fix.Tag { return tag.CardNumber }
+func (f CardNumberField) Tag() quickfix.Tag { return tag.CardNumber }
 
 //NewCardNumber returns a new CardNumberField initialized with val
 func NewCardNumber(val string) *CardNumberField {
@@ -1748,10 +1748,10 @@ func NewCardNumber(val string) *CardNumberField {
 }
 
 //CardStartDateField is a LOCALMKTDATE field
-type CardStartDateField struct{ fix.LocalMktDateValue }
+type CardStartDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.CardStartDate (503)
-func (f CardStartDateField) Tag() fix.Tag { return tag.CardStartDate }
+func (f CardStartDateField) Tag() quickfix.Tag { return tag.CardStartDate }
 
 //NewCardStartDate returns a new CardStartDateField initialized with val
 func NewCardStartDate(val string) *CardStartDateField {
@@ -1761,10 +1761,10 @@ func NewCardStartDate(val string) *CardStartDateField {
 }
 
 //CashDistribAgentAcctNameField is a STRING field
-type CashDistribAgentAcctNameField struct{ fix.StringValue }
+type CashDistribAgentAcctNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashDistribAgentAcctName (502)
-func (f CashDistribAgentAcctNameField) Tag() fix.Tag { return tag.CashDistribAgentAcctName }
+func (f CashDistribAgentAcctNameField) Tag() quickfix.Tag { return tag.CashDistribAgentAcctName }
 
 //NewCashDistribAgentAcctName returns a new CashDistribAgentAcctNameField initialized with val
 func NewCashDistribAgentAcctName(val string) *CashDistribAgentAcctNameField {
@@ -1774,10 +1774,10 @@ func NewCashDistribAgentAcctName(val string) *CashDistribAgentAcctNameField {
 }
 
 //CashDistribAgentAcctNumberField is a STRING field
-type CashDistribAgentAcctNumberField struct{ fix.StringValue }
+type CashDistribAgentAcctNumberField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashDistribAgentAcctNumber (500)
-func (f CashDistribAgentAcctNumberField) Tag() fix.Tag { return tag.CashDistribAgentAcctNumber }
+func (f CashDistribAgentAcctNumberField) Tag() quickfix.Tag { return tag.CashDistribAgentAcctNumber }
 
 //NewCashDistribAgentAcctNumber returns a new CashDistribAgentAcctNumberField initialized with val
 func NewCashDistribAgentAcctNumber(val string) *CashDistribAgentAcctNumberField {
@@ -1787,10 +1787,10 @@ func NewCashDistribAgentAcctNumber(val string) *CashDistribAgentAcctNumberField 
 }
 
 //CashDistribAgentCodeField is a STRING field
-type CashDistribAgentCodeField struct{ fix.StringValue }
+type CashDistribAgentCodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashDistribAgentCode (499)
-func (f CashDistribAgentCodeField) Tag() fix.Tag { return tag.CashDistribAgentCode }
+func (f CashDistribAgentCodeField) Tag() quickfix.Tag { return tag.CashDistribAgentCode }
 
 //NewCashDistribAgentCode returns a new CashDistribAgentCodeField initialized with val
 func NewCashDistribAgentCode(val string) *CashDistribAgentCodeField {
@@ -1800,10 +1800,10 @@ func NewCashDistribAgentCode(val string) *CashDistribAgentCodeField {
 }
 
 //CashDistribAgentNameField is a STRING field
-type CashDistribAgentNameField struct{ fix.StringValue }
+type CashDistribAgentNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashDistribAgentName (498)
-func (f CashDistribAgentNameField) Tag() fix.Tag { return tag.CashDistribAgentName }
+func (f CashDistribAgentNameField) Tag() quickfix.Tag { return tag.CashDistribAgentName }
 
 //NewCashDistribAgentName returns a new CashDistribAgentNameField initialized with val
 func NewCashDistribAgentName(val string) *CashDistribAgentNameField {
@@ -1813,10 +1813,10 @@ func NewCashDistribAgentName(val string) *CashDistribAgentNameField {
 }
 
 //CashDistribCurrField is a CURRENCY field
-type CashDistribCurrField struct{ fix.CurrencyValue }
+type CashDistribCurrField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.CashDistribCurr (478)
-func (f CashDistribCurrField) Tag() fix.Tag { return tag.CashDistribCurr }
+func (f CashDistribCurrField) Tag() quickfix.Tag { return tag.CashDistribCurr }
 
 //NewCashDistribCurr returns a new CashDistribCurrField initialized with val
 func NewCashDistribCurr(val string) *CashDistribCurrField {
@@ -1826,10 +1826,10 @@ func NewCashDistribCurr(val string) *CashDistribCurrField {
 }
 
 //CashDistribPayRefField is a STRING field
-type CashDistribPayRefField struct{ fix.StringValue }
+type CashDistribPayRefField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashDistribPayRef (501)
-func (f CashDistribPayRefField) Tag() fix.Tag { return tag.CashDistribPayRef }
+func (f CashDistribPayRefField) Tag() quickfix.Tag { return tag.CashDistribPayRef }
 
 //NewCashDistribPayRef returns a new CashDistribPayRefField initialized with val
 func NewCashDistribPayRef(val string) *CashDistribPayRefField {
@@ -1839,10 +1839,10 @@ func NewCashDistribPayRef(val string) *CashDistribPayRefField {
 }
 
 //CashMarginField is a CHAR field
-type CashMarginField struct{ fix.CharValue }
+type CashMarginField struct{ quickfix.CharValue }
 
 //Tag returns tag.CashMargin (544)
-func (f CashMarginField) Tag() fix.Tag { return tag.CashMargin }
+func (f CashMarginField) Tag() quickfix.Tag { return tag.CashMargin }
 
 //NewCashMargin returns a new CashMarginField initialized with val
 func NewCashMargin(val string) *CashMarginField {
@@ -1852,10 +1852,10 @@ func NewCashMargin(val string) *CashMarginField {
 }
 
 //CashOrderQtyField is a QTY field
-type CashOrderQtyField struct{ fix.QtyValue }
+type CashOrderQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.CashOrderQty (152)
-func (f CashOrderQtyField) Tag() fix.Tag { return tag.CashOrderQty }
+func (f CashOrderQtyField) Tag() quickfix.Tag { return tag.CashOrderQty }
 
 //NewCashOrderQty returns a new CashOrderQtyField initialized with val
 func NewCashOrderQty(val float64) *CashOrderQtyField {
@@ -1865,10 +1865,10 @@ func NewCashOrderQty(val float64) *CashOrderQtyField {
 }
 
 //CashOutstandingField is a AMT field
-type CashOutstandingField struct{ fix.AmtValue }
+type CashOutstandingField struct{ quickfix.AmtValue }
 
 //Tag returns tag.CashOutstanding (901)
-func (f CashOutstandingField) Tag() fix.Tag { return tag.CashOutstanding }
+func (f CashOutstandingField) Tag() quickfix.Tag { return tag.CashOutstanding }
 
 //NewCashOutstanding returns a new CashOutstandingField initialized with val
 func NewCashOutstanding(val float64) *CashOutstandingField {
@@ -1878,10 +1878,10 @@ func NewCashOutstanding(val float64) *CashOutstandingField {
 }
 
 //CashSettlAgentAcctNameField is a STRING field
-type CashSettlAgentAcctNameField struct{ fix.StringValue }
+type CashSettlAgentAcctNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashSettlAgentAcctName (185)
-func (f CashSettlAgentAcctNameField) Tag() fix.Tag { return tag.CashSettlAgentAcctName }
+func (f CashSettlAgentAcctNameField) Tag() quickfix.Tag { return tag.CashSettlAgentAcctName }
 
 //NewCashSettlAgentAcctName returns a new CashSettlAgentAcctNameField initialized with val
 func NewCashSettlAgentAcctName(val string) *CashSettlAgentAcctNameField {
@@ -1891,10 +1891,10 @@ func NewCashSettlAgentAcctName(val string) *CashSettlAgentAcctNameField {
 }
 
 //CashSettlAgentAcctNumField is a STRING field
-type CashSettlAgentAcctNumField struct{ fix.StringValue }
+type CashSettlAgentAcctNumField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashSettlAgentAcctNum (184)
-func (f CashSettlAgentAcctNumField) Tag() fix.Tag { return tag.CashSettlAgentAcctNum }
+func (f CashSettlAgentAcctNumField) Tag() quickfix.Tag { return tag.CashSettlAgentAcctNum }
 
 //NewCashSettlAgentAcctNum returns a new CashSettlAgentAcctNumField initialized with val
 func NewCashSettlAgentAcctNum(val string) *CashSettlAgentAcctNumField {
@@ -1904,10 +1904,10 @@ func NewCashSettlAgentAcctNum(val string) *CashSettlAgentAcctNumField {
 }
 
 //CashSettlAgentCodeField is a STRING field
-type CashSettlAgentCodeField struct{ fix.StringValue }
+type CashSettlAgentCodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashSettlAgentCode (183)
-func (f CashSettlAgentCodeField) Tag() fix.Tag { return tag.CashSettlAgentCode }
+func (f CashSettlAgentCodeField) Tag() quickfix.Tag { return tag.CashSettlAgentCode }
 
 //NewCashSettlAgentCode returns a new CashSettlAgentCodeField initialized with val
 func NewCashSettlAgentCode(val string) *CashSettlAgentCodeField {
@@ -1917,10 +1917,10 @@ func NewCashSettlAgentCode(val string) *CashSettlAgentCodeField {
 }
 
 //CashSettlAgentContactNameField is a STRING field
-type CashSettlAgentContactNameField struct{ fix.StringValue }
+type CashSettlAgentContactNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashSettlAgentContactName (186)
-func (f CashSettlAgentContactNameField) Tag() fix.Tag { return tag.CashSettlAgentContactName }
+func (f CashSettlAgentContactNameField) Tag() quickfix.Tag { return tag.CashSettlAgentContactName }
 
 //NewCashSettlAgentContactName returns a new CashSettlAgentContactNameField initialized with val
 func NewCashSettlAgentContactName(val string) *CashSettlAgentContactNameField {
@@ -1930,10 +1930,10 @@ func NewCashSettlAgentContactName(val string) *CashSettlAgentContactNameField {
 }
 
 //CashSettlAgentContactPhoneField is a STRING field
-type CashSettlAgentContactPhoneField struct{ fix.StringValue }
+type CashSettlAgentContactPhoneField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashSettlAgentContactPhone (187)
-func (f CashSettlAgentContactPhoneField) Tag() fix.Tag { return tag.CashSettlAgentContactPhone }
+func (f CashSettlAgentContactPhoneField) Tag() quickfix.Tag { return tag.CashSettlAgentContactPhone }
 
 //NewCashSettlAgentContactPhone returns a new CashSettlAgentContactPhoneField initialized with val
 func NewCashSettlAgentContactPhone(val string) *CashSettlAgentContactPhoneField {
@@ -1943,10 +1943,10 @@ func NewCashSettlAgentContactPhone(val string) *CashSettlAgentContactPhoneField 
 }
 
 //CashSettlAgentNameField is a STRING field
-type CashSettlAgentNameField struct{ fix.StringValue }
+type CashSettlAgentNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.CashSettlAgentName (182)
-func (f CashSettlAgentNameField) Tag() fix.Tag { return tag.CashSettlAgentName }
+func (f CashSettlAgentNameField) Tag() quickfix.Tag { return tag.CashSettlAgentName }
 
 //NewCashSettlAgentName returns a new CashSettlAgentNameField initialized with val
 func NewCashSettlAgentName(val string) *CashSettlAgentNameField {
@@ -1956,10 +1956,10 @@ func NewCashSettlAgentName(val string) *CashSettlAgentNameField {
 }
 
 //CcyAmtField is a AMT field
-type CcyAmtField struct{ fix.AmtValue }
+type CcyAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.CcyAmt (1157)
-func (f CcyAmtField) Tag() fix.Tag { return tag.CcyAmt }
+func (f CcyAmtField) Tag() quickfix.Tag { return tag.CcyAmt }
 
 //NewCcyAmt returns a new CcyAmtField initialized with val
 func NewCcyAmt(val float64) *CcyAmtField {
@@ -1969,10 +1969,10 @@ func NewCcyAmt(val float64) *CcyAmtField {
 }
 
 //CheckSumField is a STRING field
-type CheckSumField struct{ fix.StringValue }
+type CheckSumField struct{ quickfix.StringValue }
 
 //Tag returns tag.CheckSum (10)
-func (f CheckSumField) Tag() fix.Tag { return tag.CheckSum }
+func (f CheckSumField) Tag() quickfix.Tag { return tag.CheckSum }
 
 //NewCheckSum returns a new CheckSumField initialized with val
 func NewCheckSum(val string) *CheckSumField {
@@ -1982,10 +1982,10 @@ func NewCheckSum(val string) *CheckSumField {
 }
 
 //ClOrdIDField is a STRING field
-type ClOrdIDField struct{ fix.StringValue }
+type ClOrdIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ClOrdID (11)
-func (f ClOrdIDField) Tag() fix.Tag { return tag.ClOrdID }
+func (f ClOrdIDField) Tag() quickfix.Tag { return tag.ClOrdID }
 
 //NewClOrdID returns a new ClOrdIDField initialized with val
 func NewClOrdID(val string) *ClOrdIDField {
@@ -1995,10 +1995,10 @@ func NewClOrdID(val string) *ClOrdIDField {
 }
 
 //ClOrdLinkIDField is a STRING field
-type ClOrdLinkIDField struct{ fix.StringValue }
+type ClOrdLinkIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ClOrdLinkID (583)
-func (f ClOrdLinkIDField) Tag() fix.Tag { return tag.ClOrdLinkID }
+func (f ClOrdLinkIDField) Tag() quickfix.Tag { return tag.ClOrdLinkID }
 
 //NewClOrdLinkID returns a new ClOrdLinkIDField initialized with val
 func NewClOrdLinkID(val string) *ClOrdLinkIDField {
@@ -2008,10 +2008,10 @@ func NewClOrdLinkID(val string) *ClOrdLinkIDField {
 }
 
 //ClearingAccountField is a STRING field
-type ClearingAccountField struct{ fix.StringValue }
+type ClearingAccountField struct{ quickfix.StringValue }
 
 //Tag returns tag.ClearingAccount (440)
-func (f ClearingAccountField) Tag() fix.Tag { return tag.ClearingAccount }
+func (f ClearingAccountField) Tag() quickfix.Tag { return tag.ClearingAccount }
 
 //NewClearingAccount returns a new ClearingAccountField initialized with val
 func NewClearingAccount(val string) *ClearingAccountField {
@@ -2021,10 +2021,10 @@ func NewClearingAccount(val string) *ClearingAccountField {
 }
 
 //ClearingBusinessDateField is a LOCALMKTDATE field
-type ClearingBusinessDateField struct{ fix.LocalMktDateValue }
+type ClearingBusinessDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.ClearingBusinessDate (715)
-func (f ClearingBusinessDateField) Tag() fix.Tag { return tag.ClearingBusinessDate }
+func (f ClearingBusinessDateField) Tag() quickfix.Tag { return tag.ClearingBusinessDate }
 
 //NewClearingBusinessDate returns a new ClearingBusinessDateField initialized with val
 func NewClearingBusinessDate(val string) *ClearingBusinessDateField {
@@ -2034,10 +2034,10 @@ func NewClearingBusinessDate(val string) *ClearingBusinessDateField {
 }
 
 //ClearingFeeIndicatorField is a STRING field
-type ClearingFeeIndicatorField struct{ fix.StringValue }
+type ClearingFeeIndicatorField struct{ quickfix.StringValue }
 
 //Tag returns tag.ClearingFeeIndicator (635)
-func (f ClearingFeeIndicatorField) Tag() fix.Tag { return tag.ClearingFeeIndicator }
+func (f ClearingFeeIndicatorField) Tag() quickfix.Tag { return tag.ClearingFeeIndicator }
 
 //NewClearingFeeIndicator returns a new ClearingFeeIndicatorField initialized with val
 func NewClearingFeeIndicator(val string) *ClearingFeeIndicatorField {
@@ -2047,10 +2047,10 @@ func NewClearingFeeIndicator(val string) *ClearingFeeIndicatorField {
 }
 
 //ClearingFirmField is a STRING field
-type ClearingFirmField struct{ fix.StringValue }
+type ClearingFirmField struct{ quickfix.StringValue }
 
 //Tag returns tag.ClearingFirm (439)
-func (f ClearingFirmField) Tag() fix.Tag { return tag.ClearingFirm }
+func (f ClearingFirmField) Tag() quickfix.Tag { return tag.ClearingFirm }
 
 //NewClearingFirm returns a new ClearingFirmField initialized with val
 func NewClearingFirm(val string) *ClearingFirmField {
@@ -2060,10 +2060,10 @@ func NewClearingFirm(val string) *ClearingFirmField {
 }
 
 //ClearingInstructionField is a INT field
-type ClearingInstructionField struct{ fix.IntValue }
+type ClearingInstructionField struct{ quickfix.IntValue }
 
 //Tag returns tag.ClearingInstruction (577)
-func (f ClearingInstructionField) Tag() fix.Tag { return tag.ClearingInstruction }
+func (f ClearingInstructionField) Tag() quickfix.Tag { return tag.ClearingInstruction }
 
 //NewClearingInstruction returns a new ClearingInstructionField initialized with val
 func NewClearingInstruction(val int) *ClearingInstructionField {
@@ -2073,10 +2073,10 @@ func NewClearingInstruction(val int) *ClearingInstructionField {
 }
 
 //ClientBidIDField is a STRING field
-type ClientBidIDField struct{ fix.StringValue }
+type ClientBidIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ClientBidID (391)
-func (f ClientBidIDField) Tag() fix.Tag { return tag.ClientBidID }
+func (f ClientBidIDField) Tag() quickfix.Tag { return tag.ClientBidID }
 
 //NewClientBidID returns a new ClientBidIDField initialized with val
 func NewClientBidID(val string) *ClientBidIDField {
@@ -2086,10 +2086,10 @@ func NewClientBidID(val string) *ClientBidIDField {
 }
 
 //ClientIDField is a STRING field
-type ClientIDField struct{ fix.StringValue }
+type ClientIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ClientID (109)
-func (f ClientIDField) Tag() fix.Tag { return tag.ClientID }
+func (f ClientIDField) Tag() quickfix.Tag { return tag.ClientID }
 
 //NewClientID returns a new ClientIDField initialized with val
 func NewClientID(val string) *ClientIDField {
@@ -2099,10 +2099,10 @@ func NewClientID(val string) *ClientIDField {
 }
 
 //CollActionField is a INT field
-type CollActionField struct{ fix.IntValue }
+type CollActionField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollAction (944)
-func (f CollActionField) Tag() fix.Tag { return tag.CollAction }
+func (f CollActionField) Tag() quickfix.Tag { return tag.CollAction }
 
 //NewCollAction returns a new CollActionField initialized with val
 func NewCollAction(val int) *CollActionField {
@@ -2112,10 +2112,10 @@ func NewCollAction(val int) *CollActionField {
 }
 
 //CollApplTypeField is a INT field
-type CollApplTypeField struct{ fix.IntValue }
+type CollApplTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollApplType (1043)
-func (f CollApplTypeField) Tag() fix.Tag { return tag.CollApplType }
+func (f CollApplTypeField) Tag() quickfix.Tag { return tag.CollApplType }
 
 //NewCollApplType returns a new CollApplTypeField initialized with val
 func NewCollApplType(val int) *CollApplTypeField {
@@ -2125,10 +2125,10 @@ func NewCollApplType(val int) *CollApplTypeField {
 }
 
 //CollAsgnIDField is a STRING field
-type CollAsgnIDField struct{ fix.StringValue }
+type CollAsgnIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.CollAsgnID (902)
-func (f CollAsgnIDField) Tag() fix.Tag { return tag.CollAsgnID }
+func (f CollAsgnIDField) Tag() quickfix.Tag { return tag.CollAsgnID }
 
 //NewCollAsgnID returns a new CollAsgnIDField initialized with val
 func NewCollAsgnID(val string) *CollAsgnIDField {
@@ -2138,10 +2138,10 @@ func NewCollAsgnID(val string) *CollAsgnIDField {
 }
 
 //CollAsgnReasonField is a INT field
-type CollAsgnReasonField struct{ fix.IntValue }
+type CollAsgnReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollAsgnReason (895)
-func (f CollAsgnReasonField) Tag() fix.Tag { return tag.CollAsgnReason }
+func (f CollAsgnReasonField) Tag() quickfix.Tag { return tag.CollAsgnReason }
 
 //NewCollAsgnReason returns a new CollAsgnReasonField initialized with val
 func NewCollAsgnReason(val int) *CollAsgnReasonField {
@@ -2151,10 +2151,10 @@ func NewCollAsgnReason(val int) *CollAsgnReasonField {
 }
 
 //CollAsgnRefIDField is a STRING field
-type CollAsgnRefIDField struct{ fix.StringValue }
+type CollAsgnRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.CollAsgnRefID (907)
-func (f CollAsgnRefIDField) Tag() fix.Tag { return tag.CollAsgnRefID }
+func (f CollAsgnRefIDField) Tag() quickfix.Tag { return tag.CollAsgnRefID }
 
 //NewCollAsgnRefID returns a new CollAsgnRefIDField initialized with val
 func NewCollAsgnRefID(val string) *CollAsgnRefIDField {
@@ -2164,10 +2164,10 @@ func NewCollAsgnRefID(val string) *CollAsgnRefIDField {
 }
 
 //CollAsgnRejectReasonField is a INT field
-type CollAsgnRejectReasonField struct{ fix.IntValue }
+type CollAsgnRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollAsgnRejectReason (906)
-func (f CollAsgnRejectReasonField) Tag() fix.Tag { return tag.CollAsgnRejectReason }
+func (f CollAsgnRejectReasonField) Tag() quickfix.Tag { return tag.CollAsgnRejectReason }
 
 //NewCollAsgnRejectReason returns a new CollAsgnRejectReasonField initialized with val
 func NewCollAsgnRejectReason(val int) *CollAsgnRejectReasonField {
@@ -2177,10 +2177,10 @@ func NewCollAsgnRejectReason(val int) *CollAsgnRejectReasonField {
 }
 
 //CollAsgnRespTypeField is a INT field
-type CollAsgnRespTypeField struct{ fix.IntValue }
+type CollAsgnRespTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollAsgnRespType (905)
-func (f CollAsgnRespTypeField) Tag() fix.Tag { return tag.CollAsgnRespType }
+func (f CollAsgnRespTypeField) Tag() quickfix.Tag { return tag.CollAsgnRespType }
 
 //NewCollAsgnRespType returns a new CollAsgnRespTypeField initialized with val
 func NewCollAsgnRespType(val int) *CollAsgnRespTypeField {
@@ -2190,10 +2190,10 @@ func NewCollAsgnRespType(val int) *CollAsgnRespTypeField {
 }
 
 //CollAsgnTransTypeField is a INT field
-type CollAsgnTransTypeField struct{ fix.IntValue }
+type CollAsgnTransTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollAsgnTransType (903)
-func (f CollAsgnTransTypeField) Tag() fix.Tag { return tag.CollAsgnTransType }
+func (f CollAsgnTransTypeField) Tag() quickfix.Tag { return tag.CollAsgnTransType }
 
 //NewCollAsgnTransType returns a new CollAsgnTransTypeField initialized with val
 func NewCollAsgnTransType(val int) *CollAsgnTransTypeField {
@@ -2203,10 +2203,10 @@ func NewCollAsgnTransType(val int) *CollAsgnTransTypeField {
 }
 
 //CollInquiryIDField is a STRING field
-type CollInquiryIDField struct{ fix.StringValue }
+type CollInquiryIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.CollInquiryID (909)
-func (f CollInquiryIDField) Tag() fix.Tag { return tag.CollInquiryID }
+func (f CollInquiryIDField) Tag() quickfix.Tag { return tag.CollInquiryID }
 
 //NewCollInquiryID returns a new CollInquiryIDField initialized with val
 func NewCollInquiryID(val string) *CollInquiryIDField {
@@ -2216,10 +2216,10 @@ func NewCollInquiryID(val string) *CollInquiryIDField {
 }
 
 //CollInquiryQualifierField is a INT field
-type CollInquiryQualifierField struct{ fix.IntValue }
+type CollInquiryQualifierField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollInquiryQualifier (896)
-func (f CollInquiryQualifierField) Tag() fix.Tag { return tag.CollInquiryQualifier }
+func (f CollInquiryQualifierField) Tag() quickfix.Tag { return tag.CollInquiryQualifier }
 
 //NewCollInquiryQualifier returns a new CollInquiryQualifierField initialized with val
 func NewCollInquiryQualifier(val int) *CollInquiryQualifierField {
@@ -2229,10 +2229,10 @@ func NewCollInquiryQualifier(val int) *CollInquiryQualifierField {
 }
 
 //CollInquiryResultField is a INT field
-type CollInquiryResultField struct{ fix.IntValue }
+type CollInquiryResultField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollInquiryResult (946)
-func (f CollInquiryResultField) Tag() fix.Tag { return tag.CollInquiryResult }
+func (f CollInquiryResultField) Tag() quickfix.Tag { return tag.CollInquiryResult }
 
 //NewCollInquiryResult returns a new CollInquiryResultField initialized with val
 func NewCollInquiryResult(val int) *CollInquiryResultField {
@@ -2242,10 +2242,10 @@ func NewCollInquiryResult(val int) *CollInquiryResultField {
 }
 
 //CollInquiryStatusField is a INT field
-type CollInquiryStatusField struct{ fix.IntValue }
+type CollInquiryStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollInquiryStatus (945)
-func (f CollInquiryStatusField) Tag() fix.Tag { return tag.CollInquiryStatus }
+func (f CollInquiryStatusField) Tag() quickfix.Tag { return tag.CollInquiryStatus }
 
 //NewCollInquiryStatus returns a new CollInquiryStatusField initialized with val
 func NewCollInquiryStatus(val int) *CollInquiryStatusField {
@@ -2255,10 +2255,10 @@ func NewCollInquiryStatus(val int) *CollInquiryStatusField {
 }
 
 //CollReqIDField is a STRING field
-type CollReqIDField struct{ fix.StringValue }
+type CollReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.CollReqID (894)
-func (f CollReqIDField) Tag() fix.Tag { return tag.CollReqID }
+func (f CollReqIDField) Tag() quickfix.Tag { return tag.CollReqID }
 
 //NewCollReqID returns a new CollReqIDField initialized with val
 func NewCollReqID(val string) *CollReqIDField {
@@ -2268,10 +2268,10 @@ func NewCollReqID(val string) *CollReqIDField {
 }
 
 //CollRespIDField is a STRING field
-type CollRespIDField struct{ fix.StringValue }
+type CollRespIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.CollRespID (904)
-func (f CollRespIDField) Tag() fix.Tag { return tag.CollRespID }
+func (f CollRespIDField) Tag() quickfix.Tag { return tag.CollRespID }
 
 //NewCollRespID returns a new CollRespIDField initialized with val
 func NewCollRespID(val string) *CollRespIDField {
@@ -2281,10 +2281,10 @@ func NewCollRespID(val string) *CollRespIDField {
 }
 
 //CollRptIDField is a STRING field
-type CollRptIDField struct{ fix.StringValue }
+type CollRptIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.CollRptID (908)
-func (f CollRptIDField) Tag() fix.Tag { return tag.CollRptID }
+func (f CollRptIDField) Tag() quickfix.Tag { return tag.CollRptID }
 
 //NewCollRptID returns a new CollRptIDField initialized with val
 func NewCollRptID(val string) *CollRptIDField {
@@ -2294,10 +2294,10 @@ func NewCollRptID(val string) *CollRptIDField {
 }
 
 //CollStatusField is a INT field
-type CollStatusField struct{ fix.IntValue }
+type CollStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.CollStatus (910)
-func (f CollStatusField) Tag() fix.Tag { return tag.CollStatus }
+func (f CollStatusField) Tag() quickfix.Tag { return tag.CollStatus }
 
 //NewCollStatus returns a new CollStatusField initialized with val
 func NewCollStatus(val int) *CollStatusField {
@@ -2307,10 +2307,10 @@ func NewCollStatus(val int) *CollStatusField {
 }
 
 //CommCurrencyField is a CURRENCY field
-type CommCurrencyField struct{ fix.CurrencyValue }
+type CommCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.CommCurrency (479)
-func (f CommCurrencyField) Tag() fix.Tag { return tag.CommCurrency }
+func (f CommCurrencyField) Tag() quickfix.Tag { return tag.CommCurrency }
 
 //NewCommCurrency returns a new CommCurrencyField initialized with val
 func NewCommCurrency(val string) *CommCurrencyField {
@@ -2320,10 +2320,10 @@ func NewCommCurrency(val string) *CommCurrencyField {
 }
 
 //CommTypeField is a CHAR field
-type CommTypeField struct{ fix.CharValue }
+type CommTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.CommType (13)
-func (f CommTypeField) Tag() fix.Tag { return tag.CommType }
+func (f CommTypeField) Tag() quickfix.Tag { return tag.CommType }
 
 //NewCommType returns a new CommTypeField initialized with val
 func NewCommType(val string) *CommTypeField {
@@ -2333,10 +2333,10 @@ func NewCommType(val string) *CommTypeField {
 }
 
 //CommissionField is a AMT field
-type CommissionField struct{ fix.AmtValue }
+type CommissionField struct{ quickfix.AmtValue }
 
 //Tag returns tag.Commission (12)
-func (f CommissionField) Tag() fix.Tag { return tag.Commission }
+func (f CommissionField) Tag() quickfix.Tag { return tag.Commission }
 
 //NewCommission returns a new CommissionField initialized with val
 func NewCommission(val float64) *CommissionField {
@@ -2346,10 +2346,10 @@ func NewCommission(val float64) *CommissionField {
 }
 
 //ComplexEventConditionField is a INT field
-type ComplexEventConditionField struct{ fix.IntValue }
+type ComplexEventConditionField struct{ quickfix.IntValue }
 
 //Tag returns tag.ComplexEventCondition (1490)
-func (f ComplexEventConditionField) Tag() fix.Tag { return tag.ComplexEventCondition }
+func (f ComplexEventConditionField) Tag() quickfix.Tag { return tag.ComplexEventCondition }
 
 //NewComplexEventCondition returns a new ComplexEventConditionField initialized with val
 func NewComplexEventCondition(val int) *ComplexEventConditionField {
@@ -2359,22 +2359,22 @@ func NewComplexEventCondition(val int) *ComplexEventConditionField {
 }
 
 //ComplexEventEndDateField is a UTCTIMESTAMP field
-type ComplexEventEndDateField struct{ fix.UTCTimestampValue }
+type ComplexEventEndDateField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.ComplexEventEndDate (1493)
-func (f ComplexEventEndDateField) Tag() fix.Tag { return tag.ComplexEventEndDate }
+func (f ComplexEventEndDateField) Tag() quickfix.Tag { return tag.ComplexEventEndDate }
 
 //ComplexEventEndTimeField is a UTCTIMEONLY field
-type ComplexEventEndTimeField struct{ fix.UTCTimeOnlyValue }
+type ComplexEventEndTimeField struct{ quickfix.UTCTimeOnlyValue }
 
 //Tag returns tag.ComplexEventEndTime (1496)
-func (f ComplexEventEndTimeField) Tag() fix.Tag { return tag.ComplexEventEndTime }
+func (f ComplexEventEndTimeField) Tag() quickfix.Tag { return tag.ComplexEventEndTime }
 
 //ComplexEventPriceField is a PRICE field
-type ComplexEventPriceField struct{ fix.PriceValue }
+type ComplexEventPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.ComplexEventPrice (1486)
-func (f ComplexEventPriceField) Tag() fix.Tag { return tag.ComplexEventPrice }
+func (f ComplexEventPriceField) Tag() quickfix.Tag { return tag.ComplexEventPrice }
 
 //NewComplexEventPrice returns a new ComplexEventPriceField initialized with val
 func NewComplexEventPrice(val float64) *ComplexEventPriceField {
@@ -2384,10 +2384,10 @@ func NewComplexEventPrice(val float64) *ComplexEventPriceField {
 }
 
 //ComplexEventPriceBoundaryMethodField is a INT field
-type ComplexEventPriceBoundaryMethodField struct{ fix.IntValue }
+type ComplexEventPriceBoundaryMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.ComplexEventPriceBoundaryMethod (1487)
-func (f ComplexEventPriceBoundaryMethodField) Tag() fix.Tag {
+func (f ComplexEventPriceBoundaryMethodField) Tag() quickfix.Tag {
 	return tag.ComplexEventPriceBoundaryMethod
 }
 
@@ -2399,10 +2399,10 @@ func NewComplexEventPriceBoundaryMethod(val int) *ComplexEventPriceBoundaryMetho
 }
 
 //ComplexEventPriceBoundaryPrecisionField is a PERCENTAGE field
-type ComplexEventPriceBoundaryPrecisionField struct{ fix.PercentageValue }
+type ComplexEventPriceBoundaryPrecisionField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.ComplexEventPriceBoundaryPrecision (1488)
-func (f ComplexEventPriceBoundaryPrecisionField) Tag() fix.Tag {
+func (f ComplexEventPriceBoundaryPrecisionField) Tag() quickfix.Tag {
 	return tag.ComplexEventPriceBoundaryPrecision
 }
 
@@ -2414,10 +2414,10 @@ func NewComplexEventPriceBoundaryPrecision(val float64) *ComplexEventPriceBounda
 }
 
 //ComplexEventPriceTimeTypeField is a INT field
-type ComplexEventPriceTimeTypeField struct{ fix.IntValue }
+type ComplexEventPriceTimeTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ComplexEventPriceTimeType (1489)
-func (f ComplexEventPriceTimeTypeField) Tag() fix.Tag { return tag.ComplexEventPriceTimeType }
+func (f ComplexEventPriceTimeTypeField) Tag() quickfix.Tag { return tag.ComplexEventPriceTimeType }
 
 //NewComplexEventPriceTimeType returns a new ComplexEventPriceTimeTypeField initialized with val
 func NewComplexEventPriceTimeType(val int) *ComplexEventPriceTimeTypeField {
@@ -2427,22 +2427,22 @@ func NewComplexEventPriceTimeType(val int) *ComplexEventPriceTimeTypeField {
 }
 
 //ComplexEventStartDateField is a UTCTIMESTAMP field
-type ComplexEventStartDateField struct{ fix.UTCTimestampValue }
+type ComplexEventStartDateField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.ComplexEventStartDate (1492)
-func (f ComplexEventStartDateField) Tag() fix.Tag { return tag.ComplexEventStartDate }
+func (f ComplexEventStartDateField) Tag() quickfix.Tag { return tag.ComplexEventStartDate }
 
 //ComplexEventStartTimeField is a UTCTIMEONLY field
-type ComplexEventStartTimeField struct{ fix.UTCTimeOnlyValue }
+type ComplexEventStartTimeField struct{ quickfix.UTCTimeOnlyValue }
 
 //Tag returns tag.ComplexEventStartTime (1495)
-func (f ComplexEventStartTimeField) Tag() fix.Tag { return tag.ComplexEventStartTime }
+func (f ComplexEventStartTimeField) Tag() quickfix.Tag { return tag.ComplexEventStartTime }
 
 //ComplexEventTypeField is a INT field
-type ComplexEventTypeField struct{ fix.IntValue }
+type ComplexEventTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ComplexEventType (1484)
-func (f ComplexEventTypeField) Tag() fix.Tag { return tag.ComplexEventType }
+func (f ComplexEventTypeField) Tag() quickfix.Tag { return tag.ComplexEventType }
 
 //NewComplexEventType returns a new ComplexEventTypeField initialized with val
 func NewComplexEventType(val int) *ComplexEventTypeField {
@@ -2452,10 +2452,10 @@ func NewComplexEventType(val int) *ComplexEventTypeField {
 }
 
 //ComplexOptPayoutAmountField is a AMT field
-type ComplexOptPayoutAmountField struct{ fix.AmtValue }
+type ComplexOptPayoutAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.ComplexOptPayoutAmount (1485)
-func (f ComplexOptPayoutAmountField) Tag() fix.Tag { return tag.ComplexOptPayoutAmount }
+func (f ComplexOptPayoutAmountField) Tag() quickfix.Tag { return tag.ComplexOptPayoutAmount }
 
 //NewComplexOptPayoutAmount returns a new ComplexOptPayoutAmountField initialized with val
 func NewComplexOptPayoutAmount(val float64) *ComplexOptPayoutAmountField {
@@ -2465,10 +2465,10 @@ func NewComplexOptPayoutAmount(val float64) *ComplexOptPayoutAmountField {
 }
 
 //ComplianceIDField is a STRING field
-type ComplianceIDField struct{ fix.StringValue }
+type ComplianceIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ComplianceID (376)
-func (f ComplianceIDField) Tag() fix.Tag { return tag.ComplianceID }
+func (f ComplianceIDField) Tag() quickfix.Tag { return tag.ComplianceID }
 
 //NewComplianceID returns a new ComplianceIDField initialized with val
 func NewComplianceID(val string) *ComplianceIDField {
@@ -2478,10 +2478,10 @@ func NewComplianceID(val string) *ComplianceIDField {
 }
 
 //ConcessionField is a AMT field
-type ConcessionField struct{ fix.AmtValue }
+type ConcessionField struct{ quickfix.AmtValue }
 
 //Tag returns tag.Concession (238)
-func (f ConcessionField) Tag() fix.Tag { return tag.Concession }
+func (f ConcessionField) Tag() quickfix.Tag { return tag.Concession }
 
 //NewConcession returns a new ConcessionField initialized with val
 func NewConcession(val float64) *ConcessionField {
@@ -2491,10 +2491,10 @@ func NewConcession(val float64) *ConcessionField {
 }
 
 //ConfirmIDField is a STRING field
-type ConfirmIDField struct{ fix.StringValue }
+type ConfirmIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ConfirmID (664)
-func (f ConfirmIDField) Tag() fix.Tag { return tag.ConfirmID }
+func (f ConfirmIDField) Tag() quickfix.Tag { return tag.ConfirmID }
 
 //NewConfirmID returns a new ConfirmIDField initialized with val
 func NewConfirmID(val string) *ConfirmIDField {
@@ -2504,10 +2504,10 @@ func NewConfirmID(val string) *ConfirmIDField {
 }
 
 //ConfirmRefIDField is a STRING field
-type ConfirmRefIDField struct{ fix.StringValue }
+type ConfirmRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ConfirmRefID (772)
-func (f ConfirmRefIDField) Tag() fix.Tag { return tag.ConfirmRefID }
+func (f ConfirmRefIDField) Tag() quickfix.Tag { return tag.ConfirmRefID }
 
 //NewConfirmRefID returns a new ConfirmRefIDField initialized with val
 func NewConfirmRefID(val string) *ConfirmRefIDField {
@@ -2517,10 +2517,10 @@ func NewConfirmRefID(val string) *ConfirmRefIDField {
 }
 
 //ConfirmRejReasonField is a INT field
-type ConfirmRejReasonField struct{ fix.IntValue }
+type ConfirmRejReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.ConfirmRejReason (774)
-func (f ConfirmRejReasonField) Tag() fix.Tag { return tag.ConfirmRejReason }
+func (f ConfirmRejReasonField) Tag() quickfix.Tag { return tag.ConfirmRejReason }
 
 //NewConfirmRejReason returns a new ConfirmRejReasonField initialized with val
 func NewConfirmRejReason(val int) *ConfirmRejReasonField {
@@ -2530,10 +2530,10 @@ func NewConfirmRejReason(val int) *ConfirmRejReasonField {
 }
 
 //ConfirmReqIDField is a STRING field
-type ConfirmReqIDField struct{ fix.StringValue }
+type ConfirmReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ConfirmReqID (859)
-func (f ConfirmReqIDField) Tag() fix.Tag { return tag.ConfirmReqID }
+func (f ConfirmReqIDField) Tag() quickfix.Tag { return tag.ConfirmReqID }
 
 //NewConfirmReqID returns a new ConfirmReqIDField initialized with val
 func NewConfirmReqID(val string) *ConfirmReqIDField {
@@ -2543,10 +2543,10 @@ func NewConfirmReqID(val string) *ConfirmReqIDField {
 }
 
 //ConfirmStatusField is a INT field
-type ConfirmStatusField struct{ fix.IntValue }
+type ConfirmStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.ConfirmStatus (665)
-func (f ConfirmStatusField) Tag() fix.Tag { return tag.ConfirmStatus }
+func (f ConfirmStatusField) Tag() quickfix.Tag { return tag.ConfirmStatus }
 
 //NewConfirmStatus returns a new ConfirmStatusField initialized with val
 func NewConfirmStatus(val int) *ConfirmStatusField {
@@ -2556,10 +2556,10 @@ func NewConfirmStatus(val int) *ConfirmStatusField {
 }
 
 //ConfirmTransTypeField is a INT field
-type ConfirmTransTypeField struct{ fix.IntValue }
+type ConfirmTransTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ConfirmTransType (666)
-func (f ConfirmTransTypeField) Tag() fix.Tag { return tag.ConfirmTransType }
+func (f ConfirmTransTypeField) Tag() quickfix.Tag { return tag.ConfirmTransType }
 
 //NewConfirmTransType returns a new ConfirmTransTypeField initialized with val
 func NewConfirmTransType(val int) *ConfirmTransTypeField {
@@ -2569,10 +2569,10 @@ func NewConfirmTransType(val int) *ConfirmTransTypeField {
 }
 
 //ConfirmTypeField is a INT field
-type ConfirmTypeField struct{ fix.IntValue }
+type ConfirmTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ConfirmType (773)
-func (f ConfirmTypeField) Tag() fix.Tag { return tag.ConfirmType }
+func (f ConfirmTypeField) Tag() quickfix.Tag { return tag.ConfirmType }
 
 //NewConfirmType returns a new ConfirmTypeField initialized with val
 func NewConfirmType(val int) *ConfirmTypeField {
@@ -2582,10 +2582,10 @@ func NewConfirmType(val int) *ConfirmTypeField {
 }
 
 //ContAmtCurrField is a CURRENCY field
-type ContAmtCurrField struct{ fix.CurrencyValue }
+type ContAmtCurrField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.ContAmtCurr (521)
-func (f ContAmtCurrField) Tag() fix.Tag { return tag.ContAmtCurr }
+func (f ContAmtCurrField) Tag() quickfix.Tag { return tag.ContAmtCurr }
 
 //NewContAmtCurr returns a new ContAmtCurrField initialized with val
 func NewContAmtCurr(val string) *ContAmtCurrField {
@@ -2595,10 +2595,10 @@ func NewContAmtCurr(val string) *ContAmtCurrField {
 }
 
 //ContAmtTypeField is a INT field
-type ContAmtTypeField struct{ fix.IntValue }
+type ContAmtTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ContAmtType (519)
-func (f ContAmtTypeField) Tag() fix.Tag { return tag.ContAmtType }
+func (f ContAmtTypeField) Tag() quickfix.Tag { return tag.ContAmtType }
 
 //NewContAmtType returns a new ContAmtTypeField initialized with val
 func NewContAmtType(val int) *ContAmtTypeField {
@@ -2608,10 +2608,10 @@ func NewContAmtType(val int) *ContAmtTypeField {
 }
 
 //ContAmtValueField is a FLOAT field
-type ContAmtValueField struct{ fix.FloatValue }
+type ContAmtValueField struct{ quickfix.FloatValue }
 
 //Tag returns tag.ContAmtValue (520)
-func (f ContAmtValueField) Tag() fix.Tag { return tag.ContAmtValue }
+func (f ContAmtValueField) Tag() quickfix.Tag { return tag.ContAmtValue }
 
 //NewContAmtValue returns a new ContAmtValueField initialized with val
 func NewContAmtValue(val float64) *ContAmtValueField {
@@ -2621,10 +2621,10 @@ func NewContAmtValue(val float64) *ContAmtValueField {
 }
 
 //ContIntRptIDField is a STRING field
-type ContIntRptIDField struct{ fix.StringValue }
+type ContIntRptIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ContIntRptID (977)
-func (f ContIntRptIDField) Tag() fix.Tag { return tag.ContIntRptID }
+func (f ContIntRptIDField) Tag() quickfix.Tag { return tag.ContIntRptID }
 
 //NewContIntRptID returns a new ContIntRptIDField initialized with val
 func NewContIntRptID(val string) *ContIntRptIDField {
@@ -2634,10 +2634,10 @@ func NewContIntRptID(val string) *ContIntRptIDField {
 }
 
 //ContextPartyIDField is a STRING field
-type ContextPartyIDField struct{ fix.StringValue }
+type ContextPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ContextPartyID (1523)
-func (f ContextPartyIDField) Tag() fix.Tag { return tag.ContextPartyID }
+func (f ContextPartyIDField) Tag() quickfix.Tag { return tag.ContextPartyID }
 
 //NewContextPartyID returns a new ContextPartyIDField initialized with val
 func NewContextPartyID(val string) *ContextPartyIDField {
@@ -2647,10 +2647,10 @@ func NewContextPartyID(val string) *ContextPartyIDField {
 }
 
 //ContextPartyIDSourceField is a CHAR field
-type ContextPartyIDSourceField struct{ fix.CharValue }
+type ContextPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.ContextPartyIDSource (1524)
-func (f ContextPartyIDSourceField) Tag() fix.Tag { return tag.ContextPartyIDSource }
+func (f ContextPartyIDSourceField) Tag() quickfix.Tag { return tag.ContextPartyIDSource }
 
 //NewContextPartyIDSource returns a new ContextPartyIDSourceField initialized with val
 func NewContextPartyIDSource(val string) *ContextPartyIDSourceField {
@@ -2660,10 +2660,10 @@ func NewContextPartyIDSource(val string) *ContextPartyIDSourceField {
 }
 
 //ContextPartyRoleField is a INT field
-type ContextPartyRoleField struct{ fix.IntValue }
+type ContextPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.ContextPartyRole (1525)
-func (f ContextPartyRoleField) Tag() fix.Tag { return tag.ContextPartyRole }
+func (f ContextPartyRoleField) Tag() quickfix.Tag { return tag.ContextPartyRole }
 
 //NewContextPartyRole returns a new ContextPartyRoleField initialized with val
 func NewContextPartyRole(val int) *ContextPartyRoleField {
@@ -2673,10 +2673,10 @@ func NewContextPartyRole(val int) *ContextPartyRoleField {
 }
 
 //ContextPartySubIDField is a STRING field
-type ContextPartySubIDField struct{ fix.StringValue }
+type ContextPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ContextPartySubID (1527)
-func (f ContextPartySubIDField) Tag() fix.Tag { return tag.ContextPartySubID }
+func (f ContextPartySubIDField) Tag() quickfix.Tag { return tag.ContextPartySubID }
 
 //NewContextPartySubID returns a new ContextPartySubIDField initialized with val
 func NewContextPartySubID(val string) *ContextPartySubIDField {
@@ -2686,10 +2686,10 @@ func NewContextPartySubID(val string) *ContextPartySubIDField {
 }
 
 //ContextPartySubIDTypeField is a INT field
-type ContextPartySubIDTypeField struct{ fix.IntValue }
+type ContextPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ContextPartySubIDType (1528)
-func (f ContextPartySubIDTypeField) Tag() fix.Tag { return tag.ContextPartySubIDType }
+func (f ContextPartySubIDTypeField) Tag() quickfix.Tag { return tag.ContextPartySubIDType }
 
 //NewContextPartySubIDType returns a new ContextPartySubIDTypeField initialized with val
 func NewContextPartySubIDType(val int) *ContextPartySubIDTypeField {
@@ -2699,10 +2699,10 @@ func NewContextPartySubIDType(val int) *ContextPartySubIDTypeField {
 }
 
 //ContingencyTypeField is a INT field
-type ContingencyTypeField struct{ fix.IntValue }
+type ContingencyTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ContingencyType (1385)
-func (f ContingencyTypeField) Tag() fix.Tag { return tag.ContingencyType }
+func (f ContingencyTypeField) Tag() quickfix.Tag { return tag.ContingencyType }
 
 //NewContingencyType returns a new ContingencyTypeField initialized with val
 func NewContingencyType(val int) *ContingencyTypeField {
@@ -2712,10 +2712,10 @@ func NewContingencyType(val int) *ContingencyTypeField {
 }
 
 //ContraBrokerField is a STRING field
-type ContraBrokerField struct{ fix.StringValue }
+type ContraBrokerField struct{ quickfix.StringValue }
 
 //Tag returns tag.ContraBroker (375)
-func (f ContraBrokerField) Tag() fix.Tag { return tag.ContraBroker }
+func (f ContraBrokerField) Tag() quickfix.Tag { return tag.ContraBroker }
 
 //NewContraBroker returns a new ContraBrokerField initialized with val
 func NewContraBroker(val string) *ContraBrokerField {
@@ -2725,10 +2725,10 @@ func NewContraBroker(val string) *ContraBrokerField {
 }
 
 //ContraLegRefIDField is a STRING field
-type ContraLegRefIDField struct{ fix.StringValue }
+type ContraLegRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ContraLegRefID (655)
-func (f ContraLegRefIDField) Tag() fix.Tag { return tag.ContraLegRefID }
+func (f ContraLegRefIDField) Tag() quickfix.Tag { return tag.ContraLegRefID }
 
 //NewContraLegRefID returns a new ContraLegRefIDField initialized with val
 func NewContraLegRefID(val string) *ContraLegRefIDField {
@@ -2738,10 +2738,10 @@ func NewContraLegRefID(val string) *ContraLegRefIDField {
 }
 
 //ContraTradeQtyField is a QTY field
-type ContraTradeQtyField struct{ fix.QtyValue }
+type ContraTradeQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.ContraTradeQty (437)
-func (f ContraTradeQtyField) Tag() fix.Tag { return tag.ContraTradeQty }
+func (f ContraTradeQtyField) Tag() quickfix.Tag { return tag.ContraTradeQty }
 
 //NewContraTradeQty returns a new ContraTradeQtyField initialized with val
 func NewContraTradeQty(val float64) *ContraTradeQtyField {
@@ -2751,16 +2751,16 @@ func NewContraTradeQty(val float64) *ContraTradeQtyField {
 }
 
 //ContraTradeTimeField is a UTCTIMESTAMP field
-type ContraTradeTimeField struct{ fix.UTCTimestampValue }
+type ContraTradeTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.ContraTradeTime (438)
-func (f ContraTradeTimeField) Tag() fix.Tag { return tag.ContraTradeTime }
+func (f ContraTradeTimeField) Tag() quickfix.Tag { return tag.ContraTradeTime }
 
 //ContraTraderField is a STRING field
-type ContraTraderField struct{ fix.StringValue }
+type ContraTraderField struct{ quickfix.StringValue }
 
 //Tag returns tag.ContraTrader (337)
-func (f ContraTraderField) Tag() fix.Tag { return tag.ContraTrader }
+func (f ContraTraderField) Tag() quickfix.Tag { return tag.ContraTrader }
 
 //NewContraTrader returns a new ContraTraderField initialized with val
 func NewContraTrader(val string) *ContraTraderField {
@@ -2770,10 +2770,10 @@ func NewContraTrader(val string) *ContraTraderField {
 }
 
 //ContractMultiplierField is a FLOAT field
-type ContractMultiplierField struct{ fix.FloatValue }
+type ContractMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.ContractMultiplier (231)
-func (f ContractMultiplierField) Tag() fix.Tag { return tag.ContractMultiplier }
+func (f ContractMultiplierField) Tag() quickfix.Tag { return tag.ContractMultiplier }
 
 //NewContractMultiplier returns a new ContractMultiplierField initialized with val
 func NewContractMultiplier(val float64) *ContractMultiplierField {
@@ -2783,10 +2783,10 @@ func NewContractMultiplier(val float64) *ContractMultiplierField {
 }
 
 //ContractMultiplierUnitField is a INT field
-type ContractMultiplierUnitField struct{ fix.IntValue }
+type ContractMultiplierUnitField struct{ quickfix.IntValue }
 
 //Tag returns tag.ContractMultiplierUnit (1435)
-func (f ContractMultiplierUnitField) Tag() fix.Tag { return tag.ContractMultiplierUnit }
+func (f ContractMultiplierUnitField) Tag() quickfix.Tag { return tag.ContractMultiplierUnit }
 
 //NewContractMultiplierUnit returns a new ContractMultiplierUnitField initialized with val
 func NewContractMultiplierUnit(val int) *ContractMultiplierUnitField {
@@ -2796,10 +2796,10 @@ func NewContractMultiplierUnit(val int) *ContractMultiplierUnitField {
 }
 
 //ContractSettlMonthField is a MONTHYEAR field
-type ContractSettlMonthField struct{ fix.MonthYearValue }
+type ContractSettlMonthField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.ContractSettlMonth (667)
-func (f ContractSettlMonthField) Tag() fix.Tag { return tag.ContractSettlMonth }
+func (f ContractSettlMonthField) Tag() quickfix.Tag { return tag.ContractSettlMonth }
 
 //NewContractSettlMonth returns a new ContractSettlMonthField initialized with val
 func NewContractSettlMonth(val string) *ContractSettlMonthField {
@@ -2809,10 +2809,10 @@ func NewContractSettlMonth(val string) *ContractSettlMonthField {
 }
 
 //ContraryInstructionIndicatorField is a BOOLEAN field
-type ContraryInstructionIndicatorField struct{ fix.BooleanValue }
+type ContraryInstructionIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ContraryInstructionIndicator (719)
-func (f ContraryInstructionIndicatorField) Tag() fix.Tag { return tag.ContraryInstructionIndicator }
+func (f ContraryInstructionIndicatorField) Tag() quickfix.Tag { return tag.ContraryInstructionIndicator }
 
 //NewContraryInstructionIndicator returns a new ContraryInstructionIndicatorField initialized with val
 func NewContraryInstructionIndicator(val bool) *ContraryInstructionIndicatorField {
@@ -2822,10 +2822,10 @@ func NewContraryInstructionIndicator(val bool) *ContraryInstructionIndicatorFiel
 }
 
 //CopyMsgIndicatorField is a BOOLEAN field
-type CopyMsgIndicatorField struct{ fix.BooleanValue }
+type CopyMsgIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.CopyMsgIndicator (797)
-func (f CopyMsgIndicatorField) Tag() fix.Tag { return tag.CopyMsgIndicator }
+func (f CopyMsgIndicatorField) Tag() quickfix.Tag { return tag.CopyMsgIndicator }
 
 //NewCopyMsgIndicator returns a new CopyMsgIndicatorField initialized with val
 func NewCopyMsgIndicator(val bool) *CopyMsgIndicatorField {
@@ -2835,10 +2835,10 @@ func NewCopyMsgIndicator(val bool) *CopyMsgIndicatorField {
 }
 
 //CorporateActionField is a MULTIPLECHARVALUE field
-type CorporateActionField struct{ fix.MultipleCharValue }
+type CorporateActionField struct{ quickfix.MultipleCharValue }
 
 //Tag returns tag.CorporateAction (292)
-func (f CorporateActionField) Tag() fix.Tag { return tag.CorporateAction }
+func (f CorporateActionField) Tag() quickfix.Tag { return tag.CorporateAction }
 
 //NewCorporateAction returns a new CorporateActionField initialized with val
 func NewCorporateAction(val string) *CorporateActionField {
@@ -2848,10 +2848,10 @@ func NewCorporateAction(val string) *CorporateActionField {
 }
 
 //CountryField is a COUNTRY field
-type CountryField struct{ fix.CountryValue }
+type CountryField struct{ quickfix.CountryValue }
 
 //Tag returns tag.Country (421)
-func (f CountryField) Tag() fix.Tag { return tag.Country }
+func (f CountryField) Tag() quickfix.Tag { return tag.Country }
 
 //NewCountry returns a new CountryField initialized with val
 func NewCountry(val string) *CountryField {
@@ -2861,10 +2861,10 @@ func NewCountry(val string) *CountryField {
 }
 
 //CountryOfIssueField is a COUNTRY field
-type CountryOfIssueField struct{ fix.CountryValue }
+type CountryOfIssueField struct{ quickfix.CountryValue }
 
 //Tag returns tag.CountryOfIssue (470)
-func (f CountryOfIssueField) Tag() fix.Tag { return tag.CountryOfIssue }
+func (f CountryOfIssueField) Tag() quickfix.Tag { return tag.CountryOfIssue }
 
 //NewCountryOfIssue returns a new CountryOfIssueField initialized with val
 func NewCountryOfIssue(val string) *CountryOfIssueField {
@@ -2874,10 +2874,10 @@ func NewCountryOfIssue(val string) *CountryOfIssueField {
 }
 
 //CouponPaymentDateField is a LOCALMKTDATE field
-type CouponPaymentDateField struct{ fix.LocalMktDateValue }
+type CouponPaymentDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.CouponPaymentDate (224)
-func (f CouponPaymentDateField) Tag() fix.Tag { return tag.CouponPaymentDate }
+func (f CouponPaymentDateField) Tag() quickfix.Tag { return tag.CouponPaymentDate }
 
 //NewCouponPaymentDate returns a new CouponPaymentDateField initialized with val
 func NewCouponPaymentDate(val string) *CouponPaymentDateField {
@@ -2887,10 +2887,10 @@ func NewCouponPaymentDate(val string) *CouponPaymentDateField {
 }
 
 //CouponRateField is a PERCENTAGE field
-type CouponRateField struct{ fix.PercentageValue }
+type CouponRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.CouponRate (223)
-func (f CouponRateField) Tag() fix.Tag { return tag.CouponRate }
+func (f CouponRateField) Tag() quickfix.Tag { return tag.CouponRate }
 
 //NewCouponRate returns a new CouponRateField initialized with val
 func NewCouponRate(val float64) *CouponRateField {
@@ -2900,10 +2900,10 @@ func NewCouponRate(val float64) *CouponRateField {
 }
 
 //CoveredOrUncoveredField is a INT field
-type CoveredOrUncoveredField struct{ fix.IntValue }
+type CoveredOrUncoveredField struct{ quickfix.IntValue }
 
 //Tag returns tag.CoveredOrUncovered (203)
-func (f CoveredOrUncoveredField) Tag() fix.Tag { return tag.CoveredOrUncovered }
+func (f CoveredOrUncoveredField) Tag() quickfix.Tag { return tag.CoveredOrUncovered }
 
 //NewCoveredOrUncovered returns a new CoveredOrUncoveredField initialized with val
 func NewCoveredOrUncovered(val int) *CoveredOrUncoveredField {
@@ -2913,10 +2913,10 @@ func NewCoveredOrUncovered(val int) *CoveredOrUncoveredField {
 }
 
 //CreditRatingField is a STRING field
-type CreditRatingField struct{ fix.StringValue }
+type CreditRatingField struct{ quickfix.StringValue }
 
 //Tag returns tag.CreditRating (255)
-func (f CreditRatingField) Tag() fix.Tag { return tag.CreditRating }
+func (f CreditRatingField) Tag() quickfix.Tag { return tag.CreditRating }
 
 //NewCreditRating returns a new CreditRatingField initialized with val
 func NewCreditRating(val string) *CreditRatingField {
@@ -2926,10 +2926,10 @@ func NewCreditRating(val string) *CreditRatingField {
 }
 
 //CrossIDField is a STRING field
-type CrossIDField struct{ fix.StringValue }
+type CrossIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.CrossID (548)
-func (f CrossIDField) Tag() fix.Tag { return tag.CrossID }
+func (f CrossIDField) Tag() quickfix.Tag { return tag.CrossID }
 
 //NewCrossID returns a new CrossIDField initialized with val
 func NewCrossID(val string) *CrossIDField {
@@ -2939,10 +2939,10 @@ func NewCrossID(val string) *CrossIDField {
 }
 
 //CrossPercentField is a PERCENTAGE field
-type CrossPercentField struct{ fix.PercentageValue }
+type CrossPercentField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.CrossPercent (413)
-func (f CrossPercentField) Tag() fix.Tag { return tag.CrossPercent }
+func (f CrossPercentField) Tag() quickfix.Tag { return tag.CrossPercent }
 
 //NewCrossPercent returns a new CrossPercentField initialized with val
 func NewCrossPercent(val float64) *CrossPercentField {
@@ -2952,10 +2952,10 @@ func NewCrossPercent(val float64) *CrossPercentField {
 }
 
 //CrossPrioritizationField is a INT field
-type CrossPrioritizationField struct{ fix.IntValue }
+type CrossPrioritizationField struct{ quickfix.IntValue }
 
 //Tag returns tag.CrossPrioritization (550)
-func (f CrossPrioritizationField) Tag() fix.Tag { return tag.CrossPrioritization }
+func (f CrossPrioritizationField) Tag() quickfix.Tag { return tag.CrossPrioritization }
 
 //NewCrossPrioritization returns a new CrossPrioritizationField initialized with val
 func NewCrossPrioritization(val int) *CrossPrioritizationField {
@@ -2965,10 +2965,10 @@ func NewCrossPrioritization(val int) *CrossPrioritizationField {
 }
 
 //CrossTypeField is a INT field
-type CrossTypeField struct{ fix.IntValue }
+type CrossTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.CrossType (549)
-func (f CrossTypeField) Tag() fix.Tag { return tag.CrossType }
+func (f CrossTypeField) Tag() quickfix.Tag { return tag.CrossType }
 
 //NewCrossType returns a new CrossTypeField initialized with val
 func NewCrossType(val int) *CrossTypeField {
@@ -2978,10 +2978,10 @@ func NewCrossType(val int) *CrossTypeField {
 }
 
 //CstmApplVerIDField is a STRING field
-type CstmApplVerIDField struct{ fix.StringValue }
+type CstmApplVerIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.CstmApplVerID (1129)
-func (f CstmApplVerIDField) Tag() fix.Tag { return tag.CstmApplVerID }
+func (f CstmApplVerIDField) Tag() quickfix.Tag { return tag.CstmApplVerID }
 
 //NewCstmApplVerID returns a new CstmApplVerIDField initialized with val
 func NewCstmApplVerID(val string) *CstmApplVerIDField {
@@ -2991,10 +2991,10 @@ func NewCstmApplVerID(val string) *CstmApplVerIDField {
 }
 
 //CumQtyField is a QTY field
-type CumQtyField struct{ fix.QtyValue }
+type CumQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.CumQty (14)
-func (f CumQtyField) Tag() fix.Tag { return tag.CumQty }
+func (f CumQtyField) Tag() quickfix.Tag { return tag.CumQty }
 
 //NewCumQty returns a new CumQtyField initialized with val
 func NewCumQty(val float64) *CumQtyField {
@@ -3004,10 +3004,10 @@ func NewCumQty(val float64) *CumQtyField {
 }
 
 //CurrencyField is a CURRENCY field
-type CurrencyField struct{ fix.CurrencyValue }
+type CurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.Currency (15)
-func (f CurrencyField) Tag() fix.Tag { return tag.Currency }
+func (f CurrencyField) Tag() quickfix.Tag { return tag.Currency }
 
 //NewCurrency returns a new CurrencyField initialized with val
 func NewCurrency(val string) *CurrencyField {
@@ -3017,10 +3017,10 @@ func NewCurrency(val string) *CurrencyField {
 }
 
 //CurrencyRatioField is a FLOAT field
-type CurrencyRatioField struct{ fix.FloatValue }
+type CurrencyRatioField struct{ quickfix.FloatValue }
 
 //Tag returns tag.CurrencyRatio (1382)
-func (f CurrencyRatioField) Tag() fix.Tag { return tag.CurrencyRatio }
+func (f CurrencyRatioField) Tag() quickfix.Tag { return tag.CurrencyRatio }
 
 //NewCurrencyRatio returns a new CurrencyRatioField initialized with val
 func NewCurrencyRatio(val float64) *CurrencyRatioField {
@@ -3030,10 +3030,10 @@ func NewCurrencyRatio(val float64) *CurrencyRatioField {
 }
 
 //CustDirectedOrderField is a BOOLEAN field
-type CustDirectedOrderField struct{ fix.BooleanValue }
+type CustDirectedOrderField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.CustDirectedOrder (1029)
-func (f CustDirectedOrderField) Tag() fix.Tag { return tag.CustDirectedOrder }
+func (f CustDirectedOrderField) Tag() quickfix.Tag { return tag.CustDirectedOrder }
 
 //NewCustDirectedOrder returns a new CustDirectedOrderField initialized with val
 func NewCustDirectedOrder(val bool) *CustDirectedOrderField {
@@ -3043,10 +3043,10 @@ func NewCustDirectedOrder(val bool) *CustDirectedOrderField {
 }
 
 //CustOrderCapacityField is a INT field
-type CustOrderCapacityField struct{ fix.IntValue }
+type CustOrderCapacityField struct{ quickfix.IntValue }
 
 //Tag returns tag.CustOrderCapacity (582)
-func (f CustOrderCapacityField) Tag() fix.Tag { return tag.CustOrderCapacity }
+func (f CustOrderCapacityField) Tag() quickfix.Tag { return tag.CustOrderCapacity }
 
 //NewCustOrderCapacity returns a new CustOrderCapacityField initialized with val
 func NewCustOrderCapacity(val int) *CustOrderCapacityField {
@@ -3056,10 +3056,10 @@ func NewCustOrderCapacity(val int) *CustOrderCapacityField {
 }
 
 //CustOrderHandlingInstField is a MULTIPLESTRINGVALUE field
-type CustOrderHandlingInstField struct{ fix.MultipleStringValue }
+type CustOrderHandlingInstField struct{ quickfix.MultipleStringValue }
 
 //Tag returns tag.CustOrderHandlingInst (1031)
-func (f CustOrderHandlingInstField) Tag() fix.Tag { return tag.CustOrderHandlingInst }
+func (f CustOrderHandlingInstField) Tag() quickfix.Tag { return tag.CustOrderHandlingInst }
 
 //NewCustOrderHandlingInst returns a new CustOrderHandlingInstField initialized with val
 func NewCustOrderHandlingInst(val string) *CustOrderHandlingInstField {
@@ -3069,10 +3069,10 @@ func NewCustOrderHandlingInst(val string) *CustOrderHandlingInstField {
 }
 
 //CustomerOrFirmField is a INT field
-type CustomerOrFirmField struct{ fix.IntValue }
+type CustomerOrFirmField struct{ quickfix.IntValue }
 
 //Tag returns tag.CustomerOrFirm (204)
-func (f CustomerOrFirmField) Tag() fix.Tag { return tag.CustomerOrFirm }
+func (f CustomerOrFirmField) Tag() quickfix.Tag { return tag.CustomerOrFirm }
 
 //NewCustomerOrFirm returns a new CustomerOrFirmField initialized with val
 func NewCustomerOrFirm(val int) *CustomerOrFirmField {
@@ -3082,10 +3082,10 @@ func NewCustomerOrFirm(val int) *CustomerOrFirmField {
 }
 
 //CxlQtyField is a QTY field
-type CxlQtyField struct{ fix.QtyValue }
+type CxlQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.CxlQty (84)
-func (f CxlQtyField) Tag() fix.Tag { return tag.CxlQty }
+func (f CxlQtyField) Tag() quickfix.Tag { return tag.CxlQty }
 
 //NewCxlQty returns a new CxlQtyField initialized with val
 func NewCxlQty(val float64) *CxlQtyField {
@@ -3095,10 +3095,10 @@ func NewCxlQty(val float64) *CxlQtyField {
 }
 
 //CxlRejReasonField is a INT field
-type CxlRejReasonField struct{ fix.IntValue }
+type CxlRejReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.CxlRejReason (102)
-func (f CxlRejReasonField) Tag() fix.Tag { return tag.CxlRejReason }
+func (f CxlRejReasonField) Tag() quickfix.Tag { return tag.CxlRejReason }
 
 //NewCxlRejReason returns a new CxlRejReasonField initialized with val
 func NewCxlRejReason(val int) *CxlRejReasonField {
@@ -3108,10 +3108,10 @@ func NewCxlRejReason(val int) *CxlRejReasonField {
 }
 
 //CxlRejResponseToField is a CHAR field
-type CxlRejResponseToField struct{ fix.CharValue }
+type CxlRejResponseToField struct{ quickfix.CharValue }
 
 //Tag returns tag.CxlRejResponseTo (434)
-func (f CxlRejResponseToField) Tag() fix.Tag { return tag.CxlRejResponseTo }
+func (f CxlRejResponseToField) Tag() quickfix.Tag { return tag.CxlRejResponseTo }
 
 //NewCxlRejResponseTo returns a new CxlRejResponseToField initialized with val
 func NewCxlRejResponseTo(val string) *CxlRejResponseToField {
@@ -3121,10 +3121,10 @@ func NewCxlRejResponseTo(val string) *CxlRejResponseToField {
 }
 
 //CxlTypeField is a CHAR field
-type CxlTypeField struct{ fix.CharValue }
+type CxlTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.CxlType (125)
-func (f CxlTypeField) Tag() fix.Tag { return tag.CxlType }
+func (f CxlTypeField) Tag() quickfix.Tag { return tag.CxlType }
 
 //NewCxlType returns a new CxlTypeField initialized with val
 func NewCxlType(val string) *CxlTypeField {
@@ -3134,10 +3134,10 @@ func NewCxlType(val string) *CxlTypeField {
 }
 
 //DKReasonField is a CHAR field
-type DKReasonField struct{ fix.CharValue }
+type DKReasonField struct{ quickfix.CharValue }
 
 //Tag returns tag.DKReason (127)
-func (f DKReasonField) Tag() fix.Tag { return tag.DKReason }
+func (f DKReasonField) Tag() quickfix.Tag { return tag.DKReason }
 
 //NewDKReason returns a new DKReasonField initialized with val
 func NewDKReason(val string) *DKReasonField {
@@ -3147,10 +3147,10 @@ func NewDKReason(val string) *DKReasonField {
 }
 
 //DateOfBirthField is a LOCALMKTDATE field
-type DateOfBirthField struct{ fix.LocalMktDateValue }
+type DateOfBirthField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.DateOfBirth (486)
-func (f DateOfBirthField) Tag() fix.Tag { return tag.DateOfBirth }
+func (f DateOfBirthField) Tag() quickfix.Tag { return tag.DateOfBirth }
 
 //NewDateOfBirth returns a new DateOfBirthField initialized with val
 func NewDateOfBirth(val string) *DateOfBirthField {
@@ -3160,10 +3160,10 @@ func NewDateOfBirth(val string) *DateOfBirthField {
 }
 
 //DatedDateField is a LOCALMKTDATE field
-type DatedDateField struct{ fix.LocalMktDateValue }
+type DatedDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.DatedDate (873)
-func (f DatedDateField) Tag() fix.Tag { return tag.DatedDate }
+func (f DatedDateField) Tag() quickfix.Tag { return tag.DatedDate }
 
 //NewDatedDate returns a new DatedDateField initialized with val
 func NewDatedDate(val string) *DatedDateField {
@@ -3173,10 +3173,10 @@ func NewDatedDate(val string) *DatedDateField {
 }
 
 //DayAvgPxField is a PRICE field
-type DayAvgPxField struct{ fix.PriceValue }
+type DayAvgPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.DayAvgPx (426)
-func (f DayAvgPxField) Tag() fix.Tag { return tag.DayAvgPx }
+func (f DayAvgPxField) Tag() quickfix.Tag { return tag.DayAvgPx }
 
 //NewDayAvgPx returns a new DayAvgPxField initialized with val
 func NewDayAvgPx(val float64) *DayAvgPxField {
@@ -3186,10 +3186,10 @@ func NewDayAvgPx(val float64) *DayAvgPxField {
 }
 
 //DayBookingInstField is a CHAR field
-type DayBookingInstField struct{ fix.CharValue }
+type DayBookingInstField struct{ quickfix.CharValue }
 
 //Tag returns tag.DayBookingInst (589)
-func (f DayBookingInstField) Tag() fix.Tag { return tag.DayBookingInst }
+func (f DayBookingInstField) Tag() quickfix.Tag { return tag.DayBookingInst }
 
 //NewDayBookingInst returns a new DayBookingInstField initialized with val
 func NewDayBookingInst(val string) *DayBookingInstField {
@@ -3199,10 +3199,10 @@ func NewDayBookingInst(val string) *DayBookingInstField {
 }
 
 //DayCumQtyField is a QTY field
-type DayCumQtyField struct{ fix.QtyValue }
+type DayCumQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DayCumQty (425)
-func (f DayCumQtyField) Tag() fix.Tag { return tag.DayCumQty }
+func (f DayCumQtyField) Tag() quickfix.Tag { return tag.DayCumQty }
 
 //NewDayCumQty returns a new DayCumQtyField initialized with val
 func NewDayCumQty(val float64) *DayCumQtyField {
@@ -3212,10 +3212,10 @@ func NewDayCumQty(val float64) *DayCumQtyField {
 }
 
 //DayOrderQtyField is a QTY field
-type DayOrderQtyField struct{ fix.QtyValue }
+type DayOrderQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DayOrderQty (424)
-func (f DayOrderQtyField) Tag() fix.Tag { return tag.DayOrderQty }
+func (f DayOrderQtyField) Tag() quickfix.Tag { return tag.DayOrderQty }
 
 //NewDayOrderQty returns a new DayOrderQtyField initialized with val
 func NewDayOrderQty(val float64) *DayOrderQtyField {
@@ -3225,10 +3225,10 @@ func NewDayOrderQty(val float64) *DayOrderQtyField {
 }
 
 //DealingCapacityField is a CHAR field
-type DealingCapacityField struct{ fix.CharValue }
+type DealingCapacityField struct{ quickfix.CharValue }
 
 //Tag returns tag.DealingCapacity (1048)
-func (f DealingCapacityField) Tag() fix.Tag { return tag.DealingCapacity }
+func (f DealingCapacityField) Tag() quickfix.Tag { return tag.DealingCapacity }
 
 //NewDealingCapacity returns a new DealingCapacityField initialized with val
 func NewDealingCapacity(val string) *DealingCapacityField {
@@ -3238,10 +3238,10 @@ func NewDealingCapacity(val string) *DealingCapacityField {
 }
 
 //DefBidSizeField is a QTY field
-type DefBidSizeField struct{ fix.QtyValue }
+type DefBidSizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DefBidSize (293)
-func (f DefBidSizeField) Tag() fix.Tag { return tag.DefBidSize }
+func (f DefBidSizeField) Tag() quickfix.Tag { return tag.DefBidSize }
 
 //NewDefBidSize returns a new DefBidSizeField initialized with val
 func NewDefBidSize(val float64) *DefBidSizeField {
@@ -3251,10 +3251,10 @@ func NewDefBidSize(val float64) *DefBidSizeField {
 }
 
 //DefOfferSizeField is a QTY field
-type DefOfferSizeField struct{ fix.QtyValue }
+type DefOfferSizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DefOfferSize (294)
-func (f DefOfferSizeField) Tag() fix.Tag { return tag.DefOfferSize }
+func (f DefOfferSizeField) Tag() quickfix.Tag { return tag.DefOfferSize }
 
 //NewDefOfferSize returns a new DefOfferSizeField initialized with val
 func NewDefOfferSize(val float64) *DefOfferSizeField {
@@ -3264,10 +3264,10 @@ func NewDefOfferSize(val float64) *DefOfferSizeField {
 }
 
 //DefaultApplExtIDField is a INT field
-type DefaultApplExtIDField struct{ fix.IntValue }
+type DefaultApplExtIDField struct{ quickfix.IntValue }
 
 //Tag returns tag.DefaultApplExtID (1407)
-func (f DefaultApplExtIDField) Tag() fix.Tag { return tag.DefaultApplExtID }
+func (f DefaultApplExtIDField) Tag() quickfix.Tag { return tag.DefaultApplExtID }
 
 //NewDefaultApplExtID returns a new DefaultApplExtIDField initialized with val
 func NewDefaultApplExtID(val int) *DefaultApplExtIDField {
@@ -3277,10 +3277,10 @@ func NewDefaultApplExtID(val int) *DefaultApplExtIDField {
 }
 
 //DefaultApplVerIDField is a STRING field
-type DefaultApplVerIDField struct{ fix.StringValue }
+type DefaultApplVerIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DefaultApplVerID (1137)
-func (f DefaultApplVerIDField) Tag() fix.Tag { return tag.DefaultApplVerID }
+func (f DefaultApplVerIDField) Tag() quickfix.Tag { return tag.DefaultApplVerID }
 
 //NewDefaultApplVerID returns a new DefaultApplVerIDField initialized with val
 func NewDefaultApplVerID(val string) *DefaultApplVerIDField {
@@ -3290,10 +3290,10 @@ func NewDefaultApplVerID(val string) *DefaultApplVerIDField {
 }
 
 //DefaultCstmApplVerIDField is a STRING field
-type DefaultCstmApplVerIDField struct{ fix.StringValue }
+type DefaultCstmApplVerIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DefaultCstmApplVerID (1408)
-func (f DefaultCstmApplVerIDField) Tag() fix.Tag { return tag.DefaultCstmApplVerID }
+func (f DefaultCstmApplVerIDField) Tag() quickfix.Tag { return tag.DefaultCstmApplVerID }
 
 //NewDefaultCstmApplVerID returns a new DefaultCstmApplVerIDField initialized with val
 func NewDefaultCstmApplVerID(val string) *DefaultCstmApplVerIDField {
@@ -3303,10 +3303,10 @@ func NewDefaultCstmApplVerID(val string) *DefaultCstmApplVerIDField {
 }
 
 //DefaultVerIndicatorField is a BOOLEAN field
-type DefaultVerIndicatorField struct{ fix.BooleanValue }
+type DefaultVerIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.DefaultVerIndicator (1410)
-func (f DefaultVerIndicatorField) Tag() fix.Tag { return tag.DefaultVerIndicator }
+func (f DefaultVerIndicatorField) Tag() quickfix.Tag { return tag.DefaultVerIndicator }
 
 //NewDefaultVerIndicator returns a new DefaultVerIndicatorField initialized with val
 func NewDefaultVerIndicator(val bool) *DefaultVerIndicatorField {
@@ -3316,10 +3316,10 @@ func NewDefaultVerIndicator(val bool) *DefaultVerIndicatorField {
 }
 
 //DeleteReasonField is a CHAR field
-type DeleteReasonField struct{ fix.CharValue }
+type DeleteReasonField struct{ quickfix.CharValue }
 
 //Tag returns tag.DeleteReason (285)
-func (f DeleteReasonField) Tag() fix.Tag { return tag.DeleteReason }
+func (f DeleteReasonField) Tag() quickfix.Tag { return tag.DeleteReason }
 
 //NewDeleteReason returns a new DeleteReasonField initialized with val
 func NewDeleteReason(val string) *DeleteReasonField {
@@ -3329,10 +3329,10 @@ func NewDeleteReason(val string) *DeleteReasonField {
 }
 
 //DeliverToCompIDField is a STRING field
-type DeliverToCompIDField struct{ fix.StringValue }
+type DeliverToCompIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DeliverToCompID (128)
-func (f DeliverToCompIDField) Tag() fix.Tag { return tag.DeliverToCompID }
+func (f DeliverToCompIDField) Tag() quickfix.Tag { return tag.DeliverToCompID }
 
 //NewDeliverToCompID returns a new DeliverToCompIDField initialized with val
 func NewDeliverToCompID(val string) *DeliverToCompIDField {
@@ -3342,10 +3342,10 @@ func NewDeliverToCompID(val string) *DeliverToCompIDField {
 }
 
 //DeliverToLocationIDField is a STRING field
-type DeliverToLocationIDField struct{ fix.StringValue }
+type DeliverToLocationIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DeliverToLocationID (145)
-func (f DeliverToLocationIDField) Tag() fix.Tag { return tag.DeliverToLocationID }
+func (f DeliverToLocationIDField) Tag() quickfix.Tag { return tag.DeliverToLocationID }
 
 //NewDeliverToLocationID returns a new DeliverToLocationIDField initialized with val
 func NewDeliverToLocationID(val string) *DeliverToLocationIDField {
@@ -3355,10 +3355,10 @@ func NewDeliverToLocationID(val string) *DeliverToLocationIDField {
 }
 
 //DeliverToSubIDField is a STRING field
-type DeliverToSubIDField struct{ fix.StringValue }
+type DeliverToSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DeliverToSubID (129)
-func (f DeliverToSubIDField) Tag() fix.Tag { return tag.DeliverToSubID }
+func (f DeliverToSubIDField) Tag() quickfix.Tag { return tag.DeliverToSubID }
 
 //NewDeliverToSubID returns a new DeliverToSubIDField initialized with val
 func NewDeliverToSubID(val string) *DeliverToSubIDField {
@@ -3368,10 +3368,10 @@ func NewDeliverToSubID(val string) *DeliverToSubIDField {
 }
 
 //DeliveryDateField is a LOCALMKTDATE field
-type DeliveryDateField struct{ fix.LocalMktDateValue }
+type DeliveryDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.DeliveryDate (743)
-func (f DeliveryDateField) Tag() fix.Tag { return tag.DeliveryDate }
+func (f DeliveryDateField) Tag() quickfix.Tag { return tag.DeliveryDate }
 
 //NewDeliveryDate returns a new DeliveryDateField initialized with val
 func NewDeliveryDate(val string) *DeliveryDateField {
@@ -3381,10 +3381,10 @@ func NewDeliveryDate(val string) *DeliveryDateField {
 }
 
 //DeliveryFormField is a INT field
-type DeliveryFormField struct{ fix.IntValue }
+type DeliveryFormField struct{ quickfix.IntValue }
 
 //Tag returns tag.DeliveryForm (668)
-func (f DeliveryFormField) Tag() fix.Tag { return tag.DeliveryForm }
+func (f DeliveryFormField) Tag() quickfix.Tag { return tag.DeliveryForm }
 
 //NewDeliveryForm returns a new DeliveryFormField initialized with val
 func NewDeliveryForm(val int) *DeliveryFormField {
@@ -3394,10 +3394,10 @@ func NewDeliveryForm(val int) *DeliveryFormField {
 }
 
 //DeliveryTypeField is a INT field
-type DeliveryTypeField struct{ fix.IntValue }
+type DeliveryTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DeliveryType (919)
-func (f DeliveryTypeField) Tag() fix.Tag { return tag.DeliveryType }
+func (f DeliveryTypeField) Tag() quickfix.Tag { return tag.DeliveryType }
 
 //NewDeliveryType returns a new DeliveryTypeField initialized with val
 func NewDeliveryType(val int) *DeliveryTypeField {
@@ -3407,10 +3407,10 @@ func NewDeliveryType(val int) *DeliveryTypeField {
 }
 
 //DerivFlexProductEligibilityIndicatorField is a BOOLEAN field
-type DerivFlexProductEligibilityIndicatorField struct{ fix.BooleanValue }
+type DerivFlexProductEligibilityIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.DerivFlexProductEligibilityIndicator (1243)
-func (f DerivFlexProductEligibilityIndicatorField) Tag() fix.Tag {
+func (f DerivFlexProductEligibilityIndicatorField) Tag() quickfix.Tag {
 	return tag.DerivFlexProductEligibilityIndicator
 }
 
@@ -3422,10 +3422,10 @@ func NewDerivFlexProductEligibilityIndicator(val bool) *DerivFlexProductEligibil
 }
 
 //DerivativeCFICodeField is a STRING field
-type DerivativeCFICodeField struct{ fix.StringValue }
+type DerivativeCFICodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeCFICode (1248)
-func (f DerivativeCFICodeField) Tag() fix.Tag { return tag.DerivativeCFICode }
+func (f DerivativeCFICodeField) Tag() quickfix.Tag { return tag.DerivativeCFICode }
 
 //NewDerivativeCFICode returns a new DerivativeCFICodeField initialized with val
 func NewDerivativeCFICode(val string) *DerivativeCFICodeField {
@@ -3435,10 +3435,10 @@ func NewDerivativeCFICode(val string) *DerivativeCFICodeField {
 }
 
 //DerivativeCapPriceField is a PRICE field
-type DerivativeCapPriceField struct{ fix.PriceValue }
+type DerivativeCapPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.DerivativeCapPrice (1321)
-func (f DerivativeCapPriceField) Tag() fix.Tag { return tag.DerivativeCapPrice }
+func (f DerivativeCapPriceField) Tag() quickfix.Tag { return tag.DerivativeCapPrice }
 
 //NewDerivativeCapPrice returns a new DerivativeCapPriceField initialized with val
 func NewDerivativeCapPrice(val float64) *DerivativeCapPriceField {
@@ -3448,10 +3448,10 @@ func NewDerivativeCapPrice(val float64) *DerivativeCapPriceField {
 }
 
 //DerivativeContractMultiplierField is a FLOAT field
-type DerivativeContractMultiplierField struct{ fix.FloatValue }
+type DerivativeContractMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.DerivativeContractMultiplier (1266)
-func (f DerivativeContractMultiplierField) Tag() fix.Tag { return tag.DerivativeContractMultiplier }
+func (f DerivativeContractMultiplierField) Tag() quickfix.Tag { return tag.DerivativeContractMultiplier }
 
 //NewDerivativeContractMultiplier returns a new DerivativeContractMultiplierField initialized with val
 func NewDerivativeContractMultiplier(val float64) *DerivativeContractMultiplierField {
@@ -3461,10 +3461,10 @@ func NewDerivativeContractMultiplier(val float64) *DerivativeContractMultiplierF
 }
 
 //DerivativeContractMultiplierUnitField is a INT field
-type DerivativeContractMultiplierUnitField struct{ fix.IntValue }
+type DerivativeContractMultiplierUnitField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeContractMultiplierUnit (1438)
-func (f DerivativeContractMultiplierUnitField) Tag() fix.Tag {
+func (f DerivativeContractMultiplierUnitField) Tag() quickfix.Tag {
 	return tag.DerivativeContractMultiplierUnit
 }
 
@@ -3476,10 +3476,10 @@ func NewDerivativeContractMultiplierUnit(val int) *DerivativeContractMultiplierU
 }
 
 //DerivativeContractSettlMonthField is a MONTHYEAR field
-type DerivativeContractSettlMonthField struct{ fix.MonthYearValue }
+type DerivativeContractSettlMonthField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.DerivativeContractSettlMonth (1285)
-func (f DerivativeContractSettlMonthField) Tag() fix.Tag { return tag.DerivativeContractSettlMonth }
+func (f DerivativeContractSettlMonthField) Tag() quickfix.Tag { return tag.DerivativeContractSettlMonth }
 
 //NewDerivativeContractSettlMonth returns a new DerivativeContractSettlMonthField initialized with val
 func NewDerivativeContractSettlMonth(val string) *DerivativeContractSettlMonthField {
@@ -3489,10 +3489,10 @@ func NewDerivativeContractSettlMonth(val string) *DerivativeContractSettlMonthFi
 }
 
 //DerivativeCountryOfIssueField is a COUNTRY field
-type DerivativeCountryOfIssueField struct{ fix.CountryValue }
+type DerivativeCountryOfIssueField struct{ quickfix.CountryValue }
 
 //Tag returns tag.DerivativeCountryOfIssue (1258)
-func (f DerivativeCountryOfIssueField) Tag() fix.Tag { return tag.DerivativeCountryOfIssue }
+func (f DerivativeCountryOfIssueField) Tag() quickfix.Tag { return tag.DerivativeCountryOfIssue }
 
 //NewDerivativeCountryOfIssue returns a new DerivativeCountryOfIssueField initialized with val
 func NewDerivativeCountryOfIssue(val string) *DerivativeCountryOfIssueField {
@@ -3502,10 +3502,10 @@ func NewDerivativeCountryOfIssue(val string) *DerivativeCountryOfIssueField {
 }
 
 //DerivativeEncodedIssuerField is a DATA field
-type DerivativeEncodedIssuerField struct{ fix.DataValue }
+type DerivativeEncodedIssuerField struct{ quickfix.DataValue }
 
 //Tag returns tag.DerivativeEncodedIssuer (1278)
-func (f DerivativeEncodedIssuerField) Tag() fix.Tag { return tag.DerivativeEncodedIssuer }
+func (f DerivativeEncodedIssuerField) Tag() quickfix.Tag { return tag.DerivativeEncodedIssuer }
 
 //NewDerivativeEncodedIssuer returns a new DerivativeEncodedIssuerField initialized with val
 func NewDerivativeEncodedIssuer(val string) *DerivativeEncodedIssuerField {
@@ -3515,10 +3515,10 @@ func NewDerivativeEncodedIssuer(val string) *DerivativeEncodedIssuerField {
 }
 
 //DerivativeEncodedIssuerLenField is a LENGTH field
-type DerivativeEncodedIssuerLenField struct{ fix.LengthValue }
+type DerivativeEncodedIssuerLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.DerivativeEncodedIssuerLen (1277)
-func (f DerivativeEncodedIssuerLenField) Tag() fix.Tag { return tag.DerivativeEncodedIssuerLen }
+func (f DerivativeEncodedIssuerLenField) Tag() quickfix.Tag { return tag.DerivativeEncodedIssuerLen }
 
 //NewDerivativeEncodedIssuerLen returns a new DerivativeEncodedIssuerLenField initialized with val
 func NewDerivativeEncodedIssuerLen(val int) *DerivativeEncodedIssuerLenField {
@@ -3528,10 +3528,12 @@ func NewDerivativeEncodedIssuerLen(val int) *DerivativeEncodedIssuerLenField {
 }
 
 //DerivativeEncodedSecurityDescField is a DATA field
-type DerivativeEncodedSecurityDescField struct{ fix.DataValue }
+type DerivativeEncodedSecurityDescField struct{ quickfix.DataValue }
 
 //Tag returns tag.DerivativeEncodedSecurityDesc (1281)
-func (f DerivativeEncodedSecurityDescField) Tag() fix.Tag { return tag.DerivativeEncodedSecurityDesc }
+func (f DerivativeEncodedSecurityDescField) Tag() quickfix.Tag {
+	return tag.DerivativeEncodedSecurityDesc
+}
 
 //NewDerivativeEncodedSecurityDesc returns a new DerivativeEncodedSecurityDescField initialized with val
 func NewDerivativeEncodedSecurityDesc(val string) *DerivativeEncodedSecurityDescField {
@@ -3541,10 +3543,10 @@ func NewDerivativeEncodedSecurityDesc(val string) *DerivativeEncodedSecurityDesc
 }
 
 //DerivativeEncodedSecurityDescLenField is a LENGTH field
-type DerivativeEncodedSecurityDescLenField struct{ fix.LengthValue }
+type DerivativeEncodedSecurityDescLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.DerivativeEncodedSecurityDescLen (1280)
-func (f DerivativeEncodedSecurityDescLenField) Tag() fix.Tag {
+func (f DerivativeEncodedSecurityDescLenField) Tag() quickfix.Tag {
 	return tag.DerivativeEncodedSecurityDescLen
 }
 
@@ -3556,10 +3558,10 @@ func NewDerivativeEncodedSecurityDescLen(val int) *DerivativeEncodedSecurityDesc
 }
 
 //DerivativeEventDateField is a LOCALMKTDATE field
-type DerivativeEventDateField struct{ fix.LocalMktDateValue }
+type DerivativeEventDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.DerivativeEventDate (1288)
-func (f DerivativeEventDateField) Tag() fix.Tag { return tag.DerivativeEventDate }
+func (f DerivativeEventDateField) Tag() quickfix.Tag { return tag.DerivativeEventDate }
 
 //NewDerivativeEventDate returns a new DerivativeEventDateField initialized with val
 func NewDerivativeEventDate(val string) *DerivativeEventDateField {
@@ -3569,10 +3571,10 @@ func NewDerivativeEventDate(val string) *DerivativeEventDateField {
 }
 
 //DerivativeEventPxField is a PRICE field
-type DerivativeEventPxField struct{ fix.PriceValue }
+type DerivativeEventPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.DerivativeEventPx (1290)
-func (f DerivativeEventPxField) Tag() fix.Tag { return tag.DerivativeEventPx }
+func (f DerivativeEventPxField) Tag() quickfix.Tag { return tag.DerivativeEventPx }
 
 //NewDerivativeEventPx returns a new DerivativeEventPxField initialized with val
 func NewDerivativeEventPx(val float64) *DerivativeEventPxField {
@@ -3582,10 +3584,10 @@ func NewDerivativeEventPx(val float64) *DerivativeEventPxField {
 }
 
 //DerivativeEventTextField is a STRING field
-type DerivativeEventTextField struct{ fix.StringValue }
+type DerivativeEventTextField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeEventText (1291)
-func (f DerivativeEventTextField) Tag() fix.Tag { return tag.DerivativeEventText }
+func (f DerivativeEventTextField) Tag() quickfix.Tag { return tag.DerivativeEventText }
 
 //NewDerivativeEventText returns a new DerivativeEventTextField initialized with val
 func NewDerivativeEventText(val string) *DerivativeEventTextField {
@@ -3595,16 +3597,16 @@ func NewDerivativeEventText(val string) *DerivativeEventTextField {
 }
 
 //DerivativeEventTimeField is a UTCTIMESTAMP field
-type DerivativeEventTimeField struct{ fix.UTCTimestampValue }
+type DerivativeEventTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.DerivativeEventTime (1289)
-func (f DerivativeEventTimeField) Tag() fix.Tag { return tag.DerivativeEventTime }
+func (f DerivativeEventTimeField) Tag() quickfix.Tag { return tag.DerivativeEventTime }
 
 //DerivativeEventTypeField is a INT field
-type DerivativeEventTypeField struct{ fix.IntValue }
+type DerivativeEventTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeEventType (1287)
-func (f DerivativeEventTypeField) Tag() fix.Tag { return tag.DerivativeEventType }
+func (f DerivativeEventTypeField) Tag() quickfix.Tag { return tag.DerivativeEventType }
 
 //NewDerivativeEventType returns a new DerivativeEventTypeField initialized with val
 func NewDerivativeEventType(val int) *DerivativeEventTypeField {
@@ -3614,10 +3616,10 @@ func NewDerivativeEventType(val int) *DerivativeEventTypeField {
 }
 
 //DerivativeExerciseStyleField is a CHAR field
-type DerivativeExerciseStyleField struct{ fix.CharValue }
+type DerivativeExerciseStyleField struct{ quickfix.CharValue }
 
 //Tag returns tag.DerivativeExerciseStyle (1299)
-func (f DerivativeExerciseStyleField) Tag() fix.Tag { return tag.DerivativeExerciseStyle }
+func (f DerivativeExerciseStyleField) Tag() quickfix.Tag { return tag.DerivativeExerciseStyle }
 
 //NewDerivativeExerciseStyle returns a new DerivativeExerciseStyleField initialized with val
 func NewDerivativeExerciseStyle(val string) *DerivativeExerciseStyleField {
@@ -3627,10 +3629,10 @@ func NewDerivativeExerciseStyle(val string) *DerivativeExerciseStyleField {
 }
 
 //DerivativeFloorPriceField is a PRICE field
-type DerivativeFloorPriceField struct{ fix.PriceValue }
+type DerivativeFloorPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.DerivativeFloorPrice (1322)
-func (f DerivativeFloorPriceField) Tag() fix.Tag { return tag.DerivativeFloorPrice }
+func (f DerivativeFloorPriceField) Tag() quickfix.Tag { return tag.DerivativeFloorPrice }
 
 //NewDerivativeFloorPrice returns a new DerivativeFloorPriceField initialized with val
 func NewDerivativeFloorPrice(val float64) *DerivativeFloorPriceField {
@@ -3640,10 +3642,10 @@ func NewDerivativeFloorPrice(val float64) *DerivativeFloorPriceField {
 }
 
 //DerivativeFlowScheduleTypeField is a INT field
-type DerivativeFlowScheduleTypeField struct{ fix.IntValue }
+type DerivativeFlowScheduleTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeFlowScheduleType (1442)
-func (f DerivativeFlowScheduleTypeField) Tag() fix.Tag { return tag.DerivativeFlowScheduleType }
+func (f DerivativeFlowScheduleTypeField) Tag() quickfix.Tag { return tag.DerivativeFlowScheduleType }
 
 //NewDerivativeFlowScheduleType returns a new DerivativeFlowScheduleTypeField initialized with val
 func NewDerivativeFlowScheduleType(val int) *DerivativeFlowScheduleTypeField {
@@ -3653,10 +3655,10 @@ func NewDerivativeFlowScheduleType(val int) *DerivativeFlowScheduleTypeField {
 }
 
 //DerivativeFuturesValuationMethodField is a STRING field
-type DerivativeFuturesValuationMethodField struct{ fix.StringValue }
+type DerivativeFuturesValuationMethodField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeFuturesValuationMethod (1319)
-func (f DerivativeFuturesValuationMethodField) Tag() fix.Tag {
+func (f DerivativeFuturesValuationMethodField) Tag() quickfix.Tag {
 	return tag.DerivativeFuturesValuationMethod
 }
 
@@ -3668,10 +3670,10 @@ func NewDerivativeFuturesValuationMethod(val string) *DerivativeFuturesValuation
 }
 
 //DerivativeInstrAttribTypeField is a INT field
-type DerivativeInstrAttribTypeField struct{ fix.IntValue }
+type DerivativeInstrAttribTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeInstrAttribType (1313)
-func (f DerivativeInstrAttribTypeField) Tag() fix.Tag { return tag.DerivativeInstrAttribType }
+func (f DerivativeInstrAttribTypeField) Tag() quickfix.Tag { return tag.DerivativeInstrAttribType }
 
 //NewDerivativeInstrAttribType returns a new DerivativeInstrAttribTypeField initialized with val
 func NewDerivativeInstrAttribType(val int) *DerivativeInstrAttribTypeField {
@@ -3681,10 +3683,10 @@ func NewDerivativeInstrAttribType(val int) *DerivativeInstrAttribTypeField {
 }
 
 //DerivativeInstrAttribValueField is a STRING field
-type DerivativeInstrAttribValueField struct{ fix.StringValue }
+type DerivativeInstrAttribValueField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeInstrAttribValue (1314)
-func (f DerivativeInstrAttribValueField) Tag() fix.Tag { return tag.DerivativeInstrAttribValue }
+func (f DerivativeInstrAttribValueField) Tag() quickfix.Tag { return tag.DerivativeInstrAttribValue }
 
 //NewDerivativeInstrAttribValue returns a new DerivativeInstrAttribValueField initialized with val
 func NewDerivativeInstrAttribValue(val string) *DerivativeInstrAttribValueField {
@@ -3694,10 +3696,10 @@ func NewDerivativeInstrAttribValue(val string) *DerivativeInstrAttribValueField 
 }
 
 //DerivativeInstrRegistryField is a STRING field
-type DerivativeInstrRegistryField struct{ fix.StringValue }
+type DerivativeInstrRegistryField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeInstrRegistry (1257)
-func (f DerivativeInstrRegistryField) Tag() fix.Tag { return tag.DerivativeInstrRegistry }
+func (f DerivativeInstrRegistryField) Tag() quickfix.Tag { return tag.DerivativeInstrRegistry }
 
 //NewDerivativeInstrRegistry returns a new DerivativeInstrRegistryField initialized with val
 func NewDerivativeInstrRegistry(val string) *DerivativeInstrRegistryField {
@@ -3707,10 +3709,10 @@ func NewDerivativeInstrRegistry(val string) *DerivativeInstrRegistryField {
 }
 
 //DerivativeInstrmtAssignmentMethodField is a CHAR field
-type DerivativeInstrmtAssignmentMethodField struct{ fix.CharValue }
+type DerivativeInstrmtAssignmentMethodField struct{ quickfix.CharValue }
 
 //Tag returns tag.DerivativeInstrmtAssignmentMethod (1255)
-func (f DerivativeInstrmtAssignmentMethodField) Tag() fix.Tag {
+func (f DerivativeInstrmtAssignmentMethodField) Tag() quickfix.Tag {
 	return tag.DerivativeInstrmtAssignmentMethod
 }
 
@@ -3722,10 +3724,10 @@ func NewDerivativeInstrmtAssignmentMethod(val string) *DerivativeInstrmtAssignme
 }
 
 //DerivativeInstrumentPartyIDField is a STRING field
-type DerivativeInstrumentPartyIDField struct{ fix.StringValue }
+type DerivativeInstrumentPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeInstrumentPartyID (1293)
-func (f DerivativeInstrumentPartyIDField) Tag() fix.Tag { return tag.DerivativeInstrumentPartyID }
+func (f DerivativeInstrumentPartyIDField) Tag() quickfix.Tag { return tag.DerivativeInstrumentPartyID }
 
 //NewDerivativeInstrumentPartyID returns a new DerivativeInstrumentPartyIDField initialized with val
 func NewDerivativeInstrumentPartyID(val string) *DerivativeInstrumentPartyIDField {
@@ -3735,10 +3737,10 @@ func NewDerivativeInstrumentPartyID(val string) *DerivativeInstrumentPartyIDFiel
 }
 
 //DerivativeInstrumentPartyIDSourceField is a STRING field
-type DerivativeInstrumentPartyIDSourceField struct{ fix.StringValue }
+type DerivativeInstrumentPartyIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeInstrumentPartyIDSource (1294)
-func (f DerivativeInstrumentPartyIDSourceField) Tag() fix.Tag {
+func (f DerivativeInstrumentPartyIDSourceField) Tag() quickfix.Tag {
 	return tag.DerivativeInstrumentPartyIDSource
 }
 
@@ -3750,10 +3752,12 @@ func NewDerivativeInstrumentPartyIDSource(val string) *DerivativeInstrumentParty
 }
 
 //DerivativeInstrumentPartyRoleField is a INT field
-type DerivativeInstrumentPartyRoleField struct{ fix.IntValue }
+type DerivativeInstrumentPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeInstrumentPartyRole (1295)
-func (f DerivativeInstrumentPartyRoleField) Tag() fix.Tag { return tag.DerivativeInstrumentPartyRole }
+func (f DerivativeInstrumentPartyRoleField) Tag() quickfix.Tag {
+	return tag.DerivativeInstrumentPartyRole
+}
 
 //NewDerivativeInstrumentPartyRole returns a new DerivativeInstrumentPartyRoleField initialized with val
 func NewDerivativeInstrumentPartyRole(val int) *DerivativeInstrumentPartyRoleField {
@@ -3763,10 +3767,12 @@ func NewDerivativeInstrumentPartyRole(val int) *DerivativeInstrumentPartyRoleFie
 }
 
 //DerivativeInstrumentPartySubIDField is a STRING field
-type DerivativeInstrumentPartySubIDField struct{ fix.StringValue }
+type DerivativeInstrumentPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeInstrumentPartySubID (1297)
-func (f DerivativeInstrumentPartySubIDField) Tag() fix.Tag { return tag.DerivativeInstrumentPartySubID }
+func (f DerivativeInstrumentPartySubIDField) Tag() quickfix.Tag {
+	return tag.DerivativeInstrumentPartySubID
+}
 
 //NewDerivativeInstrumentPartySubID returns a new DerivativeInstrumentPartySubIDField initialized with val
 func NewDerivativeInstrumentPartySubID(val string) *DerivativeInstrumentPartySubIDField {
@@ -3776,10 +3782,10 @@ func NewDerivativeInstrumentPartySubID(val string) *DerivativeInstrumentPartySub
 }
 
 //DerivativeInstrumentPartySubIDTypeField is a INT field
-type DerivativeInstrumentPartySubIDTypeField struct{ fix.IntValue }
+type DerivativeInstrumentPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeInstrumentPartySubIDType (1298)
-func (f DerivativeInstrumentPartySubIDTypeField) Tag() fix.Tag {
+func (f DerivativeInstrumentPartySubIDTypeField) Tag() quickfix.Tag {
 	return tag.DerivativeInstrumentPartySubIDType
 }
 
@@ -3791,10 +3797,10 @@ func NewDerivativeInstrumentPartySubIDType(val int) *DerivativeInstrumentPartySu
 }
 
 //DerivativeIssueDateField is a LOCALMKTDATE field
-type DerivativeIssueDateField struct{ fix.LocalMktDateValue }
+type DerivativeIssueDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.DerivativeIssueDate (1276)
-func (f DerivativeIssueDateField) Tag() fix.Tag { return tag.DerivativeIssueDate }
+func (f DerivativeIssueDateField) Tag() quickfix.Tag { return tag.DerivativeIssueDate }
 
 //NewDerivativeIssueDate returns a new DerivativeIssueDateField initialized with val
 func NewDerivativeIssueDate(val string) *DerivativeIssueDateField {
@@ -3804,10 +3810,10 @@ func NewDerivativeIssueDate(val string) *DerivativeIssueDateField {
 }
 
 //DerivativeIssuerField is a STRING field
-type DerivativeIssuerField struct{ fix.StringValue }
+type DerivativeIssuerField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeIssuer (1275)
-func (f DerivativeIssuerField) Tag() fix.Tag { return tag.DerivativeIssuer }
+func (f DerivativeIssuerField) Tag() quickfix.Tag { return tag.DerivativeIssuer }
 
 //NewDerivativeIssuer returns a new DerivativeIssuerField initialized with val
 func NewDerivativeIssuer(val string) *DerivativeIssuerField {
@@ -3817,10 +3823,10 @@ func NewDerivativeIssuer(val string) *DerivativeIssuerField {
 }
 
 //DerivativeListMethodField is a INT field
-type DerivativeListMethodField struct{ fix.IntValue }
+type DerivativeListMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeListMethod (1320)
-func (f DerivativeListMethodField) Tag() fix.Tag { return tag.DerivativeListMethod }
+func (f DerivativeListMethodField) Tag() quickfix.Tag { return tag.DerivativeListMethod }
 
 //NewDerivativeListMethod returns a new DerivativeListMethodField initialized with val
 func NewDerivativeListMethod(val int) *DerivativeListMethodField {
@@ -3830,10 +3836,10 @@ func NewDerivativeListMethod(val int) *DerivativeListMethodField {
 }
 
 //DerivativeLocaleOfIssueField is a STRING field
-type DerivativeLocaleOfIssueField struct{ fix.StringValue }
+type DerivativeLocaleOfIssueField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeLocaleOfIssue (1260)
-func (f DerivativeLocaleOfIssueField) Tag() fix.Tag { return tag.DerivativeLocaleOfIssue }
+func (f DerivativeLocaleOfIssueField) Tag() quickfix.Tag { return tag.DerivativeLocaleOfIssue }
 
 //NewDerivativeLocaleOfIssue returns a new DerivativeLocaleOfIssueField initialized with val
 func NewDerivativeLocaleOfIssue(val string) *DerivativeLocaleOfIssueField {
@@ -3843,10 +3849,10 @@ func NewDerivativeLocaleOfIssue(val string) *DerivativeLocaleOfIssueField {
 }
 
 //DerivativeMaturityDateField is a LOCALMKTDATE field
-type DerivativeMaturityDateField struct{ fix.LocalMktDateValue }
+type DerivativeMaturityDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.DerivativeMaturityDate (1252)
-func (f DerivativeMaturityDateField) Tag() fix.Tag { return tag.DerivativeMaturityDate }
+func (f DerivativeMaturityDateField) Tag() quickfix.Tag { return tag.DerivativeMaturityDate }
 
 //NewDerivativeMaturityDate returns a new DerivativeMaturityDateField initialized with val
 func NewDerivativeMaturityDate(val string) *DerivativeMaturityDateField {
@@ -3856,10 +3862,10 @@ func NewDerivativeMaturityDate(val string) *DerivativeMaturityDateField {
 }
 
 //DerivativeMaturityMonthYearField is a MONTHYEAR field
-type DerivativeMaturityMonthYearField struct{ fix.MonthYearValue }
+type DerivativeMaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.DerivativeMaturityMonthYear (1251)
-func (f DerivativeMaturityMonthYearField) Tag() fix.Tag { return tag.DerivativeMaturityMonthYear }
+func (f DerivativeMaturityMonthYearField) Tag() quickfix.Tag { return tag.DerivativeMaturityMonthYear }
 
 //NewDerivativeMaturityMonthYear returns a new DerivativeMaturityMonthYearField initialized with val
 func NewDerivativeMaturityMonthYear(val string) *DerivativeMaturityMonthYearField {
@@ -3869,16 +3875,16 @@ func NewDerivativeMaturityMonthYear(val string) *DerivativeMaturityMonthYearFiel
 }
 
 //DerivativeMaturityTimeField is a TZTIMEONLY field
-type DerivativeMaturityTimeField struct{ fix.TZTimeOnlyValue }
+type DerivativeMaturityTimeField struct{ quickfix.TZTimeOnlyValue }
 
 //Tag returns tag.DerivativeMaturityTime (1253)
-func (f DerivativeMaturityTimeField) Tag() fix.Tag { return tag.DerivativeMaturityTime }
+func (f DerivativeMaturityTimeField) Tag() quickfix.Tag { return tag.DerivativeMaturityTime }
 
 //DerivativeMinPriceIncrementField is a FLOAT field
-type DerivativeMinPriceIncrementField struct{ fix.FloatValue }
+type DerivativeMinPriceIncrementField struct{ quickfix.FloatValue }
 
 //Tag returns tag.DerivativeMinPriceIncrement (1267)
-func (f DerivativeMinPriceIncrementField) Tag() fix.Tag { return tag.DerivativeMinPriceIncrement }
+func (f DerivativeMinPriceIncrementField) Tag() quickfix.Tag { return tag.DerivativeMinPriceIncrement }
 
 //NewDerivativeMinPriceIncrement returns a new DerivativeMinPriceIncrementField initialized with val
 func NewDerivativeMinPriceIncrement(val float64) *DerivativeMinPriceIncrementField {
@@ -3888,10 +3894,10 @@ func NewDerivativeMinPriceIncrement(val float64) *DerivativeMinPriceIncrementFie
 }
 
 //DerivativeMinPriceIncrementAmountField is a AMT field
-type DerivativeMinPriceIncrementAmountField struct{ fix.AmtValue }
+type DerivativeMinPriceIncrementAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.DerivativeMinPriceIncrementAmount (1268)
-func (f DerivativeMinPriceIncrementAmountField) Tag() fix.Tag {
+func (f DerivativeMinPriceIncrementAmountField) Tag() quickfix.Tag {
 	return tag.DerivativeMinPriceIncrementAmount
 }
 
@@ -3903,10 +3909,10 @@ func NewDerivativeMinPriceIncrementAmount(val float64) *DerivativeMinPriceIncrem
 }
 
 //DerivativeNTPositionLimitField is a INT field
-type DerivativeNTPositionLimitField struct{ fix.IntValue }
+type DerivativeNTPositionLimitField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeNTPositionLimit (1274)
-func (f DerivativeNTPositionLimitField) Tag() fix.Tag { return tag.DerivativeNTPositionLimit }
+func (f DerivativeNTPositionLimitField) Tag() quickfix.Tag { return tag.DerivativeNTPositionLimit }
 
 //NewDerivativeNTPositionLimit returns a new DerivativeNTPositionLimitField initialized with val
 func NewDerivativeNTPositionLimit(val int) *DerivativeNTPositionLimitField {
@@ -3916,10 +3922,10 @@ func NewDerivativeNTPositionLimit(val int) *DerivativeNTPositionLimitField {
 }
 
 //DerivativeOptAttributeField is a CHAR field
-type DerivativeOptAttributeField struct{ fix.CharValue }
+type DerivativeOptAttributeField struct{ quickfix.CharValue }
 
 //Tag returns tag.DerivativeOptAttribute (1265)
-func (f DerivativeOptAttributeField) Tag() fix.Tag { return tag.DerivativeOptAttribute }
+func (f DerivativeOptAttributeField) Tag() quickfix.Tag { return tag.DerivativeOptAttribute }
 
 //NewDerivativeOptAttribute returns a new DerivativeOptAttributeField initialized with val
 func NewDerivativeOptAttribute(val string) *DerivativeOptAttributeField {
@@ -3929,10 +3935,10 @@ func NewDerivativeOptAttribute(val string) *DerivativeOptAttributeField {
 }
 
 //DerivativeOptPayAmountField is a AMT field
-type DerivativeOptPayAmountField struct{ fix.AmtValue }
+type DerivativeOptPayAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.DerivativeOptPayAmount (1225)
-func (f DerivativeOptPayAmountField) Tag() fix.Tag { return tag.DerivativeOptPayAmount }
+func (f DerivativeOptPayAmountField) Tag() quickfix.Tag { return tag.DerivativeOptPayAmount }
 
 //NewDerivativeOptPayAmount returns a new DerivativeOptPayAmountField initialized with val
 func NewDerivativeOptPayAmount(val float64) *DerivativeOptPayAmountField {
@@ -3942,10 +3948,10 @@ func NewDerivativeOptPayAmount(val float64) *DerivativeOptPayAmountField {
 }
 
 //DerivativePositionLimitField is a INT field
-type DerivativePositionLimitField struct{ fix.IntValue }
+type DerivativePositionLimitField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativePositionLimit (1273)
-func (f DerivativePositionLimitField) Tag() fix.Tag { return tag.DerivativePositionLimit }
+func (f DerivativePositionLimitField) Tag() quickfix.Tag { return tag.DerivativePositionLimit }
 
 //NewDerivativePositionLimit returns a new DerivativePositionLimitField initialized with val
 func NewDerivativePositionLimit(val int) *DerivativePositionLimitField {
@@ -3955,10 +3961,10 @@ func NewDerivativePositionLimit(val int) *DerivativePositionLimitField {
 }
 
 //DerivativePriceQuoteMethodField is a STRING field
-type DerivativePriceQuoteMethodField struct{ fix.StringValue }
+type DerivativePriceQuoteMethodField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativePriceQuoteMethod (1318)
-func (f DerivativePriceQuoteMethodField) Tag() fix.Tag { return tag.DerivativePriceQuoteMethod }
+func (f DerivativePriceQuoteMethodField) Tag() quickfix.Tag { return tag.DerivativePriceQuoteMethod }
 
 //NewDerivativePriceQuoteMethod returns a new DerivativePriceQuoteMethodField initialized with val
 func NewDerivativePriceQuoteMethod(val string) *DerivativePriceQuoteMethodField {
@@ -3968,10 +3974,10 @@ func NewDerivativePriceQuoteMethod(val string) *DerivativePriceQuoteMethodField 
 }
 
 //DerivativePriceUnitOfMeasureField is a STRING field
-type DerivativePriceUnitOfMeasureField struct{ fix.StringValue }
+type DerivativePriceUnitOfMeasureField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativePriceUnitOfMeasure (1315)
-func (f DerivativePriceUnitOfMeasureField) Tag() fix.Tag { return tag.DerivativePriceUnitOfMeasure }
+func (f DerivativePriceUnitOfMeasureField) Tag() quickfix.Tag { return tag.DerivativePriceUnitOfMeasure }
 
 //NewDerivativePriceUnitOfMeasure returns a new DerivativePriceUnitOfMeasureField initialized with val
 func NewDerivativePriceUnitOfMeasure(val string) *DerivativePriceUnitOfMeasureField {
@@ -3981,10 +3987,10 @@ func NewDerivativePriceUnitOfMeasure(val string) *DerivativePriceUnitOfMeasureFi
 }
 
 //DerivativePriceUnitOfMeasureQtyField is a QTY field
-type DerivativePriceUnitOfMeasureQtyField struct{ fix.QtyValue }
+type DerivativePriceUnitOfMeasureQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DerivativePriceUnitOfMeasureQty (1316)
-func (f DerivativePriceUnitOfMeasureQtyField) Tag() fix.Tag {
+func (f DerivativePriceUnitOfMeasureQtyField) Tag() quickfix.Tag {
 	return tag.DerivativePriceUnitOfMeasureQty
 }
 
@@ -3996,10 +4002,10 @@ func NewDerivativePriceUnitOfMeasureQty(val float64) *DerivativePriceUnitOfMeasu
 }
 
 //DerivativeProductField is a INT field
-type DerivativeProductField struct{ fix.IntValue }
+type DerivativeProductField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeProduct (1246)
-func (f DerivativeProductField) Tag() fix.Tag { return tag.DerivativeProduct }
+func (f DerivativeProductField) Tag() quickfix.Tag { return tag.DerivativeProduct }
 
 //NewDerivativeProduct returns a new DerivativeProductField initialized with val
 func NewDerivativeProduct(val int) *DerivativeProductField {
@@ -4009,10 +4015,10 @@ func NewDerivativeProduct(val int) *DerivativeProductField {
 }
 
 //DerivativeProductComplexField is a STRING field
-type DerivativeProductComplexField struct{ fix.StringValue }
+type DerivativeProductComplexField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeProductComplex (1228)
-func (f DerivativeProductComplexField) Tag() fix.Tag { return tag.DerivativeProductComplex }
+func (f DerivativeProductComplexField) Tag() quickfix.Tag { return tag.DerivativeProductComplex }
 
 //NewDerivativeProductComplex returns a new DerivativeProductComplexField initialized with val
 func NewDerivativeProductComplex(val string) *DerivativeProductComplexField {
@@ -4022,10 +4028,10 @@ func NewDerivativeProductComplex(val string) *DerivativeProductComplexField {
 }
 
 //DerivativePutOrCallField is a INT field
-type DerivativePutOrCallField struct{ fix.IntValue }
+type DerivativePutOrCallField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativePutOrCall (1323)
-func (f DerivativePutOrCallField) Tag() fix.Tag { return tag.DerivativePutOrCall }
+func (f DerivativePutOrCallField) Tag() quickfix.Tag { return tag.DerivativePutOrCall }
 
 //NewDerivativePutOrCall returns a new DerivativePutOrCallField initialized with val
 func NewDerivativePutOrCall(val int) *DerivativePutOrCallField {
@@ -4035,10 +4041,10 @@ func NewDerivativePutOrCall(val int) *DerivativePutOrCallField {
 }
 
 //DerivativeSecurityAltIDField is a STRING field
-type DerivativeSecurityAltIDField struct{ fix.StringValue }
+type DerivativeSecurityAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityAltID (1219)
-func (f DerivativeSecurityAltIDField) Tag() fix.Tag { return tag.DerivativeSecurityAltID }
+func (f DerivativeSecurityAltIDField) Tag() quickfix.Tag { return tag.DerivativeSecurityAltID }
 
 //NewDerivativeSecurityAltID returns a new DerivativeSecurityAltIDField initialized with val
 func NewDerivativeSecurityAltID(val string) *DerivativeSecurityAltIDField {
@@ -4048,10 +4054,12 @@ func NewDerivativeSecurityAltID(val string) *DerivativeSecurityAltIDField {
 }
 
 //DerivativeSecurityAltIDSourceField is a STRING field
-type DerivativeSecurityAltIDSourceField struct{ fix.StringValue }
+type DerivativeSecurityAltIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityAltIDSource (1220)
-func (f DerivativeSecurityAltIDSourceField) Tag() fix.Tag { return tag.DerivativeSecurityAltIDSource }
+func (f DerivativeSecurityAltIDSourceField) Tag() quickfix.Tag {
+	return tag.DerivativeSecurityAltIDSource
+}
 
 //NewDerivativeSecurityAltIDSource returns a new DerivativeSecurityAltIDSourceField initialized with val
 func NewDerivativeSecurityAltIDSource(val string) *DerivativeSecurityAltIDSourceField {
@@ -4061,10 +4069,10 @@ func NewDerivativeSecurityAltIDSource(val string) *DerivativeSecurityAltIDSource
 }
 
 //DerivativeSecurityDescField is a STRING field
-type DerivativeSecurityDescField struct{ fix.StringValue }
+type DerivativeSecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityDesc (1279)
-func (f DerivativeSecurityDescField) Tag() fix.Tag { return tag.DerivativeSecurityDesc }
+func (f DerivativeSecurityDescField) Tag() quickfix.Tag { return tag.DerivativeSecurityDesc }
 
 //NewDerivativeSecurityDesc returns a new DerivativeSecurityDescField initialized with val
 func NewDerivativeSecurityDesc(val string) *DerivativeSecurityDescField {
@@ -4074,10 +4082,10 @@ func NewDerivativeSecurityDesc(val string) *DerivativeSecurityDescField {
 }
 
 //DerivativeSecurityExchangeField is a EXCHANGE field
-type DerivativeSecurityExchangeField struct{ fix.ExchangeValue }
+type DerivativeSecurityExchangeField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.DerivativeSecurityExchange (1272)
-func (f DerivativeSecurityExchangeField) Tag() fix.Tag { return tag.DerivativeSecurityExchange }
+func (f DerivativeSecurityExchangeField) Tag() quickfix.Tag { return tag.DerivativeSecurityExchange }
 
 //NewDerivativeSecurityExchange returns a new DerivativeSecurityExchangeField initialized with val
 func NewDerivativeSecurityExchange(val string) *DerivativeSecurityExchangeField {
@@ -4087,10 +4095,10 @@ func NewDerivativeSecurityExchange(val string) *DerivativeSecurityExchangeField 
 }
 
 //DerivativeSecurityGroupField is a STRING field
-type DerivativeSecurityGroupField struct{ fix.StringValue }
+type DerivativeSecurityGroupField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityGroup (1247)
-func (f DerivativeSecurityGroupField) Tag() fix.Tag { return tag.DerivativeSecurityGroup }
+func (f DerivativeSecurityGroupField) Tag() quickfix.Tag { return tag.DerivativeSecurityGroup }
 
 //NewDerivativeSecurityGroup returns a new DerivativeSecurityGroupField initialized with val
 func NewDerivativeSecurityGroup(val string) *DerivativeSecurityGroupField {
@@ -4100,10 +4108,10 @@ func NewDerivativeSecurityGroup(val string) *DerivativeSecurityGroupField {
 }
 
 //DerivativeSecurityIDField is a STRING field
-type DerivativeSecurityIDField struct{ fix.StringValue }
+type DerivativeSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityID (1216)
-func (f DerivativeSecurityIDField) Tag() fix.Tag { return tag.DerivativeSecurityID }
+func (f DerivativeSecurityIDField) Tag() quickfix.Tag { return tag.DerivativeSecurityID }
 
 //NewDerivativeSecurityID returns a new DerivativeSecurityIDField initialized with val
 func NewDerivativeSecurityID(val string) *DerivativeSecurityIDField {
@@ -4113,10 +4121,10 @@ func NewDerivativeSecurityID(val string) *DerivativeSecurityIDField {
 }
 
 //DerivativeSecurityIDSourceField is a STRING field
-type DerivativeSecurityIDSourceField struct{ fix.StringValue }
+type DerivativeSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityIDSource (1217)
-func (f DerivativeSecurityIDSourceField) Tag() fix.Tag { return tag.DerivativeSecurityIDSource }
+func (f DerivativeSecurityIDSourceField) Tag() quickfix.Tag { return tag.DerivativeSecurityIDSource }
 
 //NewDerivativeSecurityIDSource returns a new DerivativeSecurityIDSourceField initialized with val
 func NewDerivativeSecurityIDSource(val string) *DerivativeSecurityIDSourceField {
@@ -4126,10 +4134,10 @@ func NewDerivativeSecurityIDSource(val string) *DerivativeSecurityIDSourceField 
 }
 
 //DerivativeSecurityListRequestTypeField is a INT field
-type DerivativeSecurityListRequestTypeField struct{ fix.IntValue }
+type DerivativeSecurityListRequestTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DerivativeSecurityListRequestType (1307)
-func (f DerivativeSecurityListRequestTypeField) Tag() fix.Tag {
+func (f DerivativeSecurityListRequestTypeField) Tag() quickfix.Tag {
 	return tag.DerivativeSecurityListRequestType
 }
 
@@ -4141,10 +4149,10 @@ func NewDerivativeSecurityListRequestType(val int) *DerivativeSecurityListReques
 }
 
 //DerivativeSecurityStatusField is a STRING field
-type DerivativeSecurityStatusField struct{ fix.StringValue }
+type DerivativeSecurityStatusField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityStatus (1256)
-func (f DerivativeSecurityStatusField) Tag() fix.Tag { return tag.DerivativeSecurityStatus }
+func (f DerivativeSecurityStatusField) Tag() quickfix.Tag { return tag.DerivativeSecurityStatus }
 
 //NewDerivativeSecurityStatus returns a new DerivativeSecurityStatusField initialized with val
 func NewDerivativeSecurityStatus(val string) *DerivativeSecurityStatusField {
@@ -4154,10 +4162,10 @@ func NewDerivativeSecurityStatus(val string) *DerivativeSecurityStatusField {
 }
 
 //DerivativeSecuritySubTypeField is a STRING field
-type DerivativeSecuritySubTypeField struct{ fix.StringValue }
+type DerivativeSecuritySubTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecuritySubType (1250)
-func (f DerivativeSecuritySubTypeField) Tag() fix.Tag { return tag.DerivativeSecuritySubType }
+func (f DerivativeSecuritySubTypeField) Tag() quickfix.Tag { return tag.DerivativeSecuritySubType }
 
 //NewDerivativeSecuritySubType returns a new DerivativeSecuritySubTypeField initialized with val
 func NewDerivativeSecuritySubType(val string) *DerivativeSecuritySubTypeField {
@@ -4167,10 +4175,10 @@ func NewDerivativeSecuritySubType(val string) *DerivativeSecuritySubTypeField {
 }
 
 //DerivativeSecurityTypeField is a STRING field
-type DerivativeSecurityTypeField struct{ fix.StringValue }
+type DerivativeSecurityTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityType (1249)
-func (f DerivativeSecurityTypeField) Tag() fix.Tag { return tag.DerivativeSecurityType }
+func (f DerivativeSecurityTypeField) Tag() quickfix.Tag { return tag.DerivativeSecurityType }
 
 //NewDerivativeSecurityType returns a new DerivativeSecurityTypeField initialized with val
 func NewDerivativeSecurityType(val string) *DerivativeSecurityTypeField {
@@ -4180,10 +4188,10 @@ func NewDerivativeSecurityType(val string) *DerivativeSecurityTypeField {
 }
 
 //DerivativeSecurityXMLField is a DATA field
-type DerivativeSecurityXMLField struct{ fix.DataValue }
+type DerivativeSecurityXMLField struct{ quickfix.DataValue }
 
 //Tag returns tag.DerivativeSecurityXML (1283)
-func (f DerivativeSecurityXMLField) Tag() fix.Tag { return tag.DerivativeSecurityXML }
+func (f DerivativeSecurityXMLField) Tag() quickfix.Tag { return tag.DerivativeSecurityXML }
 
 //NewDerivativeSecurityXML returns a new DerivativeSecurityXMLField initialized with val
 func NewDerivativeSecurityXML(val string) *DerivativeSecurityXMLField {
@@ -4193,10 +4201,10 @@ func NewDerivativeSecurityXML(val string) *DerivativeSecurityXMLField {
 }
 
 //DerivativeSecurityXMLLenField is a LENGTH field
-type DerivativeSecurityXMLLenField struct{ fix.LengthValue }
+type DerivativeSecurityXMLLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.DerivativeSecurityXMLLen (1282)
-func (f DerivativeSecurityXMLLenField) Tag() fix.Tag { return tag.DerivativeSecurityXMLLen }
+func (f DerivativeSecurityXMLLenField) Tag() quickfix.Tag { return tag.DerivativeSecurityXMLLen }
 
 //NewDerivativeSecurityXMLLen returns a new DerivativeSecurityXMLLenField initialized with val
 func NewDerivativeSecurityXMLLen(val int) *DerivativeSecurityXMLLenField {
@@ -4206,10 +4214,10 @@ func NewDerivativeSecurityXMLLen(val int) *DerivativeSecurityXMLLenField {
 }
 
 //DerivativeSecurityXMLSchemaField is a STRING field
-type DerivativeSecurityXMLSchemaField struct{ fix.StringValue }
+type DerivativeSecurityXMLSchemaField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSecurityXMLSchema (1284)
-func (f DerivativeSecurityXMLSchemaField) Tag() fix.Tag { return tag.DerivativeSecurityXMLSchema }
+func (f DerivativeSecurityXMLSchemaField) Tag() quickfix.Tag { return tag.DerivativeSecurityXMLSchema }
 
 //NewDerivativeSecurityXMLSchema returns a new DerivativeSecurityXMLSchemaField initialized with val
 func NewDerivativeSecurityXMLSchema(val string) *DerivativeSecurityXMLSchemaField {
@@ -4219,10 +4227,10 @@ func NewDerivativeSecurityXMLSchema(val string) *DerivativeSecurityXMLSchemaFiel
 }
 
 //DerivativeSettlMethodField is a CHAR field
-type DerivativeSettlMethodField struct{ fix.CharValue }
+type DerivativeSettlMethodField struct{ quickfix.CharValue }
 
 //Tag returns tag.DerivativeSettlMethod (1317)
-func (f DerivativeSettlMethodField) Tag() fix.Tag { return tag.DerivativeSettlMethod }
+func (f DerivativeSettlMethodField) Tag() quickfix.Tag { return tag.DerivativeSettlMethod }
 
 //NewDerivativeSettlMethod returns a new DerivativeSettlMethodField initialized with val
 func NewDerivativeSettlMethod(val string) *DerivativeSettlMethodField {
@@ -4232,10 +4240,10 @@ func NewDerivativeSettlMethod(val string) *DerivativeSettlMethodField {
 }
 
 //DerivativeSettleOnOpenFlagField is a STRING field
-type DerivativeSettleOnOpenFlagField struct{ fix.StringValue }
+type DerivativeSettleOnOpenFlagField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSettleOnOpenFlag (1254)
-func (f DerivativeSettleOnOpenFlagField) Tag() fix.Tag { return tag.DerivativeSettleOnOpenFlag }
+func (f DerivativeSettleOnOpenFlagField) Tag() quickfix.Tag { return tag.DerivativeSettleOnOpenFlag }
 
 //NewDerivativeSettleOnOpenFlag returns a new DerivativeSettleOnOpenFlagField initialized with val
 func NewDerivativeSettleOnOpenFlag(val string) *DerivativeSettleOnOpenFlagField {
@@ -4245,10 +4253,10 @@ func NewDerivativeSettleOnOpenFlag(val string) *DerivativeSettleOnOpenFlagField 
 }
 
 //DerivativeStateOrProvinceOfIssueField is a STRING field
-type DerivativeStateOrProvinceOfIssueField struct{ fix.StringValue }
+type DerivativeStateOrProvinceOfIssueField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeStateOrProvinceOfIssue (1259)
-func (f DerivativeStateOrProvinceOfIssueField) Tag() fix.Tag {
+func (f DerivativeStateOrProvinceOfIssueField) Tag() quickfix.Tag {
 	return tag.DerivativeStateOrProvinceOfIssue
 }
 
@@ -4260,10 +4268,10 @@ func NewDerivativeStateOrProvinceOfIssue(val string) *DerivativeStateOrProvinceO
 }
 
 //DerivativeStrikeCurrencyField is a CURRENCY field
-type DerivativeStrikeCurrencyField struct{ fix.CurrencyValue }
+type DerivativeStrikeCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.DerivativeStrikeCurrency (1262)
-func (f DerivativeStrikeCurrencyField) Tag() fix.Tag { return tag.DerivativeStrikeCurrency }
+func (f DerivativeStrikeCurrencyField) Tag() quickfix.Tag { return tag.DerivativeStrikeCurrency }
 
 //NewDerivativeStrikeCurrency returns a new DerivativeStrikeCurrencyField initialized with val
 func NewDerivativeStrikeCurrency(val string) *DerivativeStrikeCurrencyField {
@@ -4273,10 +4281,10 @@ func NewDerivativeStrikeCurrency(val string) *DerivativeStrikeCurrencyField {
 }
 
 //DerivativeStrikeMultiplierField is a FLOAT field
-type DerivativeStrikeMultiplierField struct{ fix.FloatValue }
+type DerivativeStrikeMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.DerivativeStrikeMultiplier (1263)
-func (f DerivativeStrikeMultiplierField) Tag() fix.Tag { return tag.DerivativeStrikeMultiplier }
+func (f DerivativeStrikeMultiplierField) Tag() quickfix.Tag { return tag.DerivativeStrikeMultiplier }
 
 //NewDerivativeStrikeMultiplier returns a new DerivativeStrikeMultiplierField initialized with val
 func NewDerivativeStrikeMultiplier(val float64) *DerivativeStrikeMultiplierField {
@@ -4286,10 +4294,10 @@ func NewDerivativeStrikeMultiplier(val float64) *DerivativeStrikeMultiplierField
 }
 
 //DerivativeStrikePriceField is a PRICE field
-type DerivativeStrikePriceField struct{ fix.PriceValue }
+type DerivativeStrikePriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.DerivativeStrikePrice (1261)
-func (f DerivativeStrikePriceField) Tag() fix.Tag { return tag.DerivativeStrikePrice }
+func (f DerivativeStrikePriceField) Tag() quickfix.Tag { return tag.DerivativeStrikePrice }
 
 //NewDerivativeStrikePrice returns a new DerivativeStrikePriceField initialized with val
 func NewDerivativeStrikePrice(val float64) *DerivativeStrikePriceField {
@@ -4299,10 +4307,10 @@ func NewDerivativeStrikePrice(val float64) *DerivativeStrikePriceField {
 }
 
 //DerivativeStrikeValueField is a FLOAT field
-type DerivativeStrikeValueField struct{ fix.FloatValue }
+type DerivativeStrikeValueField struct{ quickfix.FloatValue }
 
 //Tag returns tag.DerivativeStrikeValue (1264)
-func (f DerivativeStrikeValueField) Tag() fix.Tag { return tag.DerivativeStrikeValue }
+func (f DerivativeStrikeValueField) Tag() quickfix.Tag { return tag.DerivativeStrikeValue }
 
 //NewDerivativeStrikeValue returns a new DerivativeStrikeValueField initialized with val
 func NewDerivativeStrikeValue(val float64) *DerivativeStrikeValueField {
@@ -4312,10 +4320,10 @@ func NewDerivativeStrikeValue(val float64) *DerivativeStrikeValueField {
 }
 
 //DerivativeSymbolField is a STRING field
-type DerivativeSymbolField struct{ fix.StringValue }
+type DerivativeSymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSymbol (1214)
-func (f DerivativeSymbolField) Tag() fix.Tag { return tag.DerivativeSymbol }
+func (f DerivativeSymbolField) Tag() quickfix.Tag { return tag.DerivativeSymbol }
 
 //NewDerivativeSymbol returns a new DerivativeSymbolField initialized with val
 func NewDerivativeSymbol(val string) *DerivativeSymbolField {
@@ -4325,10 +4333,10 @@ func NewDerivativeSymbol(val string) *DerivativeSymbolField {
 }
 
 //DerivativeSymbolSfxField is a STRING field
-type DerivativeSymbolSfxField struct{ fix.StringValue }
+type DerivativeSymbolSfxField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeSymbolSfx (1215)
-func (f DerivativeSymbolSfxField) Tag() fix.Tag { return tag.DerivativeSymbolSfx }
+func (f DerivativeSymbolSfxField) Tag() quickfix.Tag { return tag.DerivativeSymbolSfx }
 
 //NewDerivativeSymbolSfx returns a new DerivativeSymbolSfxField initialized with val
 func NewDerivativeSymbolSfx(val string) *DerivativeSymbolSfxField {
@@ -4338,10 +4346,10 @@ func NewDerivativeSymbolSfx(val string) *DerivativeSymbolSfxField {
 }
 
 //DerivativeTimeUnitField is a STRING field
-type DerivativeTimeUnitField struct{ fix.StringValue }
+type DerivativeTimeUnitField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeTimeUnit (1271)
-func (f DerivativeTimeUnitField) Tag() fix.Tag { return tag.DerivativeTimeUnit }
+func (f DerivativeTimeUnitField) Tag() quickfix.Tag { return tag.DerivativeTimeUnit }
 
 //NewDerivativeTimeUnit returns a new DerivativeTimeUnitField initialized with val
 func NewDerivativeTimeUnit(val string) *DerivativeTimeUnitField {
@@ -4351,10 +4359,10 @@ func NewDerivativeTimeUnit(val string) *DerivativeTimeUnitField {
 }
 
 //DerivativeUnitOfMeasureField is a STRING field
-type DerivativeUnitOfMeasureField struct{ fix.StringValue }
+type DerivativeUnitOfMeasureField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeUnitOfMeasure (1269)
-func (f DerivativeUnitOfMeasureField) Tag() fix.Tag { return tag.DerivativeUnitOfMeasure }
+func (f DerivativeUnitOfMeasureField) Tag() quickfix.Tag { return tag.DerivativeUnitOfMeasure }
 
 //NewDerivativeUnitOfMeasure returns a new DerivativeUnitOfMeasureField initialized with val
 func NewDerivativeUnitOfMeasure(val string) *DerivativeUnitOfMeasureField {
@@ -4364,10 +4372,10 @@ func NewDerivativeUnitOfMeasure(val string) *DerivativeUnitOfMeasureField {
 }
 
 //DerivativeUnitOfMeasureQtyField is a QTY field
-type DerivativeUnitOfMeasureQtyField struct{ fix.QtyValue }
+type DerivativeUnitOfMeasureQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DerivativeUnitOfMeasureQty (1270)
-func (f DerivativeUnitOfMeasureQtyField) Tag() fix.Tag { return tag.DerivativeUnitOfMeasureQty }
+func (f DerivativeUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.DerivativeUnitOfMeasureQty }
 
 //NewDerivativeUnitOfMeasureQty returns a new DerivativeUnitOfMeasureQtyField initialized with val
 func NewDerivativeUnitOfMeasureQty(val float64) *DerivativeUnitOfMeasureQtyField {
@@ -4377,10 +4385,10 @@ func NewDerivativeUnitOfMeasureQty(val float64) *DerivativeUnitOfMeasureQtyField
 }
 
 //DerivativeValuationMethodField is a STRING field
-type DerivativeValuationMethodField struct{ fix.StringValue }
+type DerivativeValuationMethodField struct{ quickfix.StringValue }
 
 //Tag returns tag.DerivativeValuationMethod (1319)
-func (f DerivativeValuationMethodField) Tag() fix.Tag { return tag.DerivativeValuationMethod }
+func (f DerivativeValuationMethodField) Tag() quickfix.Tag { return tag.DerivativeValuationMethod }
 
 //NewDerivativeValuationMethod returns a new DerivativeValuationMethodField initialized with val
 func NewDerivativeValuationMethod(val string) *DerivativeValuationMethodField {
@@ -4390,10 +4398,10 @@ func NewDerivativeValuationMethod(val string) *DerivativeValuationMethodField {
 }
 
 //DesignationField is a STRING field
-type DesignationField struct{ fix.StringValue }
+type DesignationField struct{ quickfix.StringValue }
 
 //Tag returns tag.Designation (494)
-func (f DesignationField) Tag() fix.Tag { return tag.Designation }
+func (f DesignationField) Tag() quickfix.Tag { return tag.Designation }
 
 //NewDesignation returns a new DesignationField initialized with val
 func NewDesignation(val string) *DesignationField {
@@ -4403,10 +4411,10 @@ func NewDesignation(val string) *DesignationField {
 }
 
 //DeskIDField is a STRING field
-type DeskIDField struct{ fix.StringValue }
+type DeskIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.DeskID (284)
-func (f DeskIDField) Tag() fix.Tag { return tag.DeskID }
+func (f DeskIDField) Tag() quickfix.Tag { return tag.DeskID }
 
 //NewDeskID returns a new DeskIDField initialized with val
 func NewDeskID(val string) *DeskIDField {
@@ -4416,10 +4424,10 @@ func NewDeskID(val string) *DeskIDField {
 }
 
 //DeskOrderHandlingInstField is a MULTIPLESTRINGVALUE field
-type DeskOrderHandlingInstField struct{ fix.MultipleStringValue }
+type DeskOrderHandlingInstField struct{ quickfix.MultipleStringValue }
 
 //Tag returns tag.DeskOrderHandlingInst (1035)
-func (f DeskOrderHandlingInstField) Tag() fix.Tag { return tag.DeskOrderHandlingInst }
+func (f DeskOrderHandlingInstField) Tag() quickfix.Tag { return tag.DeskOrderHandlingInst }
 
 //NewDeskOrderHandlingInst returns a new DeskOrderHandlingInstField initialized with val
 func NewDeskOrderHandlingInst(val string) *DeskOrderHandlingInstField {
@@ -4429,10 +4437,10 @@ func NewDeskOrderHandlingInst(val string) *DeskOrderHandlingInstField {
 }
 
 //DeskTypeField is a STRING field
-type DeskTypeField struct{ fix.StringValue }
+type DeskTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.DeskType (1033)
-func (f DeskTypeField) Tag() fix.Tag { return tag.DeskType }
+func (f DeskTypeField) Tag() quickfix.Tag { return tag.DeskType }
 
 //NewDeskType returns a new DeskTypeField initialized with val
 func NewDeskType(val string) *DeskTypeField {
@@ -4442,10 +4450,10 @@ func NewDeskType(val string) *DeskTypeField {
 }
 
 //DeskTypeSourceField is a INT field
-type DeskTypeSourceField struct{ fix.IntValue }
+type DeskTypeSourceField struct{ quickfix.IntValue }
 
 //Tag returns tag.DeskTypeSource (1034)
-func (f DeskTypeSourceField) Tag() fix.Tag { return tag.DeskTypeSource }
+func (f DeskTypeSourceField) Tag() quickfix.Tag { return tag.DeskTypeSource }
 
 //NewDeskTypeSource returns a new DeskTypeSourceField initialized with val
 func NewDeskTypeSource(val int) *DeskTypeSourceField {
@@ -4455,10 +4463,10 @@ func NewDeskTypeSource(val int) *DeskTypeSourceField {
 }
 
 //DetachmentPointField is a PERCENTAGE field
-type DetachmentPointField struct{ fix.PercentageValue }
+type DetachmentPointField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.DetachmentPoint (1458)
-func (f DetachmentPointField) Tag() fix.Tag { return tag.DetachmentPoint }
+func (f DetachmentPointField) Tag() quickfix.Tag { return tag.DetachmentPoint }
 
 //NewDetachmentPoint returns a new DetachmentPointField initialized with val
 func NewDetachmentPoint(val float64) *DetachmentPointField {
@@ -4468,10 +4476,10 @@ func NewDetachmentPoint(val float64) *DetachmentPointField {
 }
 
 //DiscretionInstField is a CHAR field
-type DiscretionInstField struct{ fix.CharValue }
+type DiscretionInstField struct{ quickfix.CharValue }
 
 //Tag returns tag.DiscretionInst (388)
-func (f DiscretionInstField) Tag() fix.Tag { return tag.DiscretionInst }
+func (f DiscretionInstField) Tag() quickfix.Tag { return tag.DiscretionInst }
 
 //NewDiscretionInst returns a new DiscretionInstField initialized with val
 func NewDiscretionInst(val string) *DiscretionInstField {
@@ -4481,10 +4489,10 @@ func NewDiscretionInst(val string) *DiscretionInstField {
 }
 
 //DiscretionLimitTypeField is a INT field
-type DiscretionLimitTypeField struct{ fix.IntValue }
+type DiscretionLimitTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DiscretionLimitType (843)
-func (f DiscretionLimitTypeField) Tag() fix.Tag { return tag.DiscretionLimitType }
+func (f DiscretionLimitTypeField) Tag() quickfix.Tag { return tag.DiscretionLimitType }
 
 //NewDiscretionLimitType returns a new DiscretionLimitTypeField initialized with val
 func NewDiscretionLimitType(val int) *DiscretionLimitTypeField {
@@ -4494,10 +4502,10 @@ func NewDiscretionLimitType(val int) *DiscretionLimitTypeField {
 }
 
 //DiscretionMoveTypeField is a INT field
-type DiscretionMoveTypeField struct{ fix.IntValue }
+type DiscretionMoveTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DiscretionMoveType (841)
-func (f DiscretionMoveTypeField) Tag() fix.Tag { return tag.DiscretionMoveType }
+func (f DiscretionMoveTypeField) Tag() quickfix.Tag { return tag.DiscretionMoveType }
 
 //NewDiscretionMoveType returns a new DiscretionMoveTypeField initialized with val
 func NewDiscretionMoveType(val int) *DiscretionMoveTypeField {
@@ -4507,10 +4515,10 @@ func NewDiscretionMoveType(val int) *DiscretionMoveTypeField {
 }
 
 //DiscretionOffsetField is a PRICEOFFSET field
-type DiscretionOffsetField struct{ fix.PriceOffsetValue }
+type DiscretionOffsetField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.DiscretionOffset (389)
-func (f DiscretionOffsetField) Tag() fix.Tag { return tag.DiscretionOffset }
+func (f DiscretionOffsetField) Tag() quickfix.Tag { return tag.DiscretionOffset }
 
 //NewDiscretionOffset returns a new DiscretionOffsetField initialized with val
 func NewDiscretionOffset(val float64) *DiscretionOffsetField {
@@ -4520,10 +4528,10 @@ func NewDiscretionOffset(val float64) *DiscretionOffsetField {
 }
 
 //DiscretionOffsetTypeField is a INT field
-type DiscretionOffsetTypeField struct{ fix.IntValue }
+type DiscretionOffsetTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DiscretionOffsetType (842)
-func (f DiscretionOffsetTypeField) Tag() fix.Tag { return tag.DiscretionOffsetType }
+func (f DiscretionOffsetTypeField) Tag() quickfix.Tag { return tag.DiscretionOffsetType }
 
 //NewDiscretionOffsetType returns a new DiscretionOffsetTypeField initialized with val
 func NewDiscretionOffsetType(val int) *DiscretionOffsetTypeField {
@@ -4533,10 +4541,10 @@ func NewDiscretionOffsetType(val int) *DiscretionOffsetTypeField {
 }
 
 //DiscretionOffsetValueField is a FLOAT field
-type DiscretionOffsetValueField struct{ fix.FloatValue }
+type DiscretionOffsetValueField struct{ quickfix.FloatValue }
 
 //Tag returns tag.DiscretionOffsetValue (389)
-func (f DiscretionOffsetValueField) Tag() fix.Tag { return tag.DiscretionOffsetValue }
+func (f DiscretionOffsetValueField) Tag() quickfix.Tag { return tag.DiscretionOffsetValue }
 
 //NewDiscretionOffsetValue returns a new DiscretionOffsetValueField initialized with val
 func NewDiscretionOffsetValue(val float64) *DiscretionOffsetValueField {
@@ -4546,10 +4554,10 @@ func NewDiscretionOffsetValue(val float64) *DiscretionOffsetValueField {
 }
 
 //DiscretionPriceField is a PRICE field
-type DiscretionPriceField struct{ fix.PriceValue }
+type DiscretionPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.DiscretionPrice (845)
-func (f DiscretionPriceField) Tag() fix.Tag { return tag.DiscretionPrice }
+func (f DiscretionPriceField) Tag() quickfix.Tag { return tag.DiscretionPrice }
 
 //NewDiscretionPrice returns a new DiscretionPriceField initialized with val
 func NewDiscretionPrice(val float64) *DiscretionPriceField {
@@ -4559,10 +4567,10 @@ func NewDiscretionPrice(val float64) *DiscretionPriceField {
 }
 
 //DiscretionRoundDirectionField is a INT field
-type DiscretionRoundDirectionField struct{ fix.IntValue }
+type DiscretionRoundDirectionField struct{ quickfix.IntValue }
 
 //Tag returns tag.DiscretionRoundDirection (844)
-func (f DiscretionRoundDirectionField) Tag() fix.Tag { return tag.DiscretionRoundDirection }
+func (f DiscretionRoundDirectionField) Tag() quickfix.Tag { return tag.DiscretionRoundDirection }
 
 //NewDiscretionRoundDirection returns a new DiscretionRoundDirectionField initialized with val
 func NewDiscretionRoundDirection(val int) *DiscretionRoundDirectionField {
@@ -4572,10 +4580,10 @@ func NewDiscretionRoundDirection(val int) *DiscretionRoundDirectionField {
 }
 
 //DiscretionScopeField is a INT field
-type DiscretionScopeField struct{ fix.IntValue }
+type DiscretionScopeField struct{ quickfix.IntValue }
 
 //Tag returns tag.DiscretionScope (846)
-func (f DiscretionScopeField) Tag() fix.Tag { return tag.DiscretionScope }
+func (f DiscretionScopeField) Tag() quickfix.Tag { return tag.DiscretionScope }
 
 //NewDiscretionScope returns a new DiscretionScopeField initialized with val
 func NewDiscretionScope(val int) *DiscretionScopeField {
@@ -4585,10 +4593,10 @@ func NewDiscretionScope(val int) *DiscretionScopeField {
 }
 
 //DisplayHighQtyField is a QTY field
-type DisplayHighQtyField struct{ fix.QtyValue }
+type DisplayHighQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DisplayHighQty (1086)
-func (f DisplayHighQtyField) Tag() fix.Tag { return tag.DisplayHighQty }
+func (f DisplayHighQtyField) Tag() quickfix.Tag { return tag.DisplayHighQty }
 
 //NewDisplayHighQty returns a new DisplayHighQtyField initialized with val
 func NewDisplayHighQty(val float64) *DisplayHighQtyField {
@@ -4598,10 +4606,10 @@ func NewDisplayHighQty(val float64) *DisplayHighQtyField {
 }
 
 //DisplayLowQtyField is a QTY field
-type DisplayLowQtyField struct{ fix.QtyValue }
+type DisplayLowQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DisplayLowQty (1085)
-func (f DisplayLowQtyField) Tag() fix.Tag { return tag.DisplayLowQty }
+func (f DisplayLowQtyField) Tag() quickfix.Tag { return tag.DisplayLowQty }
 
 //NewDisplayLowQty returns a new DisplayLowQtyField initialized with val
 func NewDisplayLowQty(val float64) *DisplayLowQtyField {
@@ -4611,10 +4619,10 @@ func NewDisplayLowQty(val float64) *DisplayLowQtyField {
 }
 
 //DisplayMethodField is a CHAR field
-type DisplayMethodField struct{ fix.CharValue }
+type DisplayMethodField struct{ quickfix.CharValue }
 
 //Tag returns tag.DisplayMethod (1084)
-func (f DisplayMethodField) Tag() fix.Tag { return tag.DisplayMethod }
+func (f DisplayMethodField) Tag() quickfix.Tag { return tag.DisplayMethod }
 
 //NewDisplayMethod returns a new DisplayMethodField initialized with val
 func NewDisplayMethod(val string) *DisplayMethodField {
@@ -4624,10 +4632,10 @@ func NewDisplayMethod(val string) *DisplayMethodField {
 }
 
 //DisplayMinIncrField is a QTY field
-type DisplayMinIncrField struct{ fix.QtyValue }
+type DisplayMinIncrField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DisplayMinIncr (1087)
-func (f DisplayMinIncrField) Tag() fix.Tag { return tag.DisplayMinIncr }
+func (f DisplayMinIncrField) Tag() quickfix.Tag { return tag.DisplayMinIncr }
 
 //NewDisplayMinIncr returns a new DisplayMinIncrField initialized with val
 func NewDisplayMinIncr(val float64) *DisplayMinIncrField {
@@ -4637,10 +4645,10 @@ func NewDisplayMinIncr(val float64) *DisplayMinIncrField {
 }
 
 //DisplayQtyField is a QTY field
-type DisplayQtyField struct{ fix.QtyValue }
+type DisplayQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.DisplayQty (1138)
-func (f DisplayQtyField) Tag() fix.Tag { return tag.DisplayQty }
+func (f DisplayQtyField) Tag() quickfix.Tag { return tag.DisplayQty }
 
 //NewDisplayQty returns a new DisplayQtyField initialized with val
 func NewDisplayQty(val float64) *DisplayQtyField {
@@ -4650,10 +4658,10 @@ func NewDisplayQty(val float64) *DisplayQtyField {
 }
 
 //DisplayWhenField is a CHAR field
-type DisplayWhenField struct{ fix.CharValue }
+type DisplayWhenField struct{ quickfix.CharValue }
 
 //Tag returns tag.DisplayWhen (1083)
-func (f DisplayWhenField) Tag() fix.Tag { return tag.DisplayWhen }
+func (f DisplayWhenField) Tag() quickfix.Tag { return tag.DisplayWhen }
 
 //NewDisplayWhen returns a new DisplayWhenField initialized with val
 func NewDisplayWhen(val string) *DisplayWhenField {
@@ -4663,10 +4671,10 @@ func NewDisplayWhen(val string) *DisplayWhenField {
 }
 
 //DistribPaymentMethodField is a INT field
-type DistribPaymentMethodField struct{ fix.IntValue }
+type DistribPaymentMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.DistribPaymentMethod (477)
-func (f DistribPaymentMethodField) Tag() fix.Tag { return tag.DistribPaymentMethod }
+func (f DistribPaymentMethodField) Tag() quickfix.Tag { return tag.DistribPaymentMethod }
 
 //NewDistribPaymentMethod returns a new DistribPaymentMethodField initialized with val
 func NewDistribPaymentMethod(val int) *DistribPaymentMethodField {
@@ -4676,10 +4684,10 @@ func NewDistribPaymentMethod(val int) *DistribPaymentMethodField {
 }
 
 //DistribPercentageField is a PERCENTAGE field
-type DistribPercentageField struct{ fix.PercentageValue }
+type DistribPercentageField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.DistribPercentage (512)
-func (f DistribPercentageField) Tag() fix.Tag { return tag.DistribPercentage }
+func (f DistribPercentageField) Tag() quickfix.Tag { return tag.DistribPercentage }
 
 //NewDistribPercentage returns a new DistribPercentageField initialized with val
 func NewDistribPercentage(val float64) *DistribPercentageField {
@@ -4689,10 +4697,10 @@ func NewDistribPercentage(val float64) *DistribPercentageField {
 }
 
 //DividendYieldField is a PERCENTAGE field
-type DividendYieldField struct{ fix.PercentageValue }
+type DividendYieldField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.DividendYield (1380)
-func (f DividendYieldField) Tag() fix.Tag { return tag.DividendYield }
+func (f DividendYieldField) Tag() quickfix.Tag { return tag.DividendYield }
 
 //NewDividendYield returns a new DividendYieldField initialized with val
 func NewDividendYield(val float64) *DividendYieldField {
@@ -4702,10 +4710,10 @@ func NewDividendYield(val float64) *DividendYieldField {
 }
 
 //DlvyInstField is a STRING field
-type DlvyInstField struct{ fix.StringValue }
+type DlvyInstField struct{ quickfix.StringValue }
 
 //Tag returns tag.DlvyInst (86)
-func (f DlvyInstField) Tag() fix.Tag { return tag.DlvyInst }
+func (f DlvyInstField) Tag() quickfix.Tag { return tag.DlvyInst }
 
 //NewDlvyInst returns a new DlvyInstField initialized with val
 func NewDlvyInst(val string) *DlvyInstField {
@@ -4715,10 +4723,10 @@ func NewDlvyInst(val string) *DlvyInstField {
 }
 
 //DlvyInstTypeField is a CHAR field
-type DlvyInstTypeField struct{ fix.CharValue }
+type DlvyInstTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.DlvyInstType (787)
-func (f DlvyInstTypeField) Tag() fix.Tag { return tag.DlvyInstType }
+func (f DlvyInstTypeField) Tag() quickfix.Tag { return tag.DlvyInstType }
 
 //NewDlvyInstType returns a new DlvyInstTypeField initialized with val
 func NewDlvyInstType(val string) *DlvyInstTypeField {
@@ -4728,10 +4736,10 @@ func NewDlvyInstType(val string) *DlvyInstTypeField {
 }
 
 //DueToRelatedField is a BOOLEAN field
-type DueToRelatedField struct{ fix.BooleanValue }
+type DueToRelatedField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.DueToRelated (329)
-func (f DueToRelatedField) Tag() fix.Tag { return tag.DueToRelated }
+func (f DueToRelatedField) Tag() quickfix.Tag { return tag.DueToRelated }
 
 //NewDueToRelated returns a new DueToRelatedField initialized with val
 func NewDueToRelated(val bool) *DueToRelatedField {
@@ -4741,10 +4749,10 @@ func NewDueToRelated(val bool) *DueToRelatedField {
 }
 
 //EFPTrackingErrorField is a PERCENTAGE field
-type EFPTrackingErrorField struct{ fix.PercentageValue }
+type EFPTrackingErrorField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.EFPTrackingError (405)
-func (f EFPTrackingErrorField) Tag() fix.Tag { return tag.EFPTrackingError }
+func (f EFPTrackingErrorField) Tag() quickfix.Tag { return tag.EFPTrackingError }
 
 //NewEFPTrackingError returns a new EFPTrackingErrorField initialized with val
 func NewEFPTrackingError(val float64) *EFPTrackingErrorField {
@@ -4754,16 +4762,16 @@ func NewEFPTrackingError(val float64) *EFPTrackingErrorField {
 }
 
 //EffectiveTimeField is a UTCTIMESTAMP field
-type EffectiveTimeField struct{ fix.UTCTimestampValue }
+type EffectiveTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.EffectiveTime (168)
-func (f EffectiveTimeField) Tag() fix.Tag { return tag.EffectiveTime }
+func (f EffectiveTimeField) Tag() quickfix.Tag { return tag.EffectiveTime }
 
 //EmailThreadIDField is a STRING field
-type EmailThreadIDField struct{ fix.StringValue }
+type EmailThreadIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.EmailThreadID (164)
-func (f EmailThreadIDField) Tag() fix.Tag { return tag.EmailThreadID }
+func (f EmailThreadIDField) Tag() quickfix.Tag { return tag.EmailThreadID }
 
 //NewEmailThreadID returns a new EmailThreadIDField initialized with val
 func NewEmailThreadID(val string) *EmailThreadIDField {
@@ -4773,10 +4781,10 @@ func NewEmailThreadID(val string) *EmailThreadIDField {
 }
 
 //EmailTypeField is a CHAR field
-type EmailTypeField struct{ fix.CharValue }
+type EmailTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.EmailType (94)
-func (f EmailTypeField) Tag() fix.Tag { return tag.EmailType }
+func (f EmailTypeField) Tag() quickfix.Tag { return tag.EmailType }
 
 //NewEmailType returns a new EmailTypeField initialized with val
 func NewEmailType(val string) *EmailTypeField {
@@ -4786,10 +4794,10 @@ func NewEmailType(val string) *EmailTypeField {
 }
 
 //EncodedAllocTextField is a DATA field
-type EncodedAllocTextField struct{ fix.DataValue }
+type EncodedAllocTextField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedAllocText (361)
-func (f EncodedAllocTextField) Tag() fix.Tag { return tag.EncodedAllocText }
+func (f EncodedAllocTextField) Tag() quickfix.Tag { return tag.EncodedAllocText }
 
 //NewEncodedAllocText returns a new EncodedAllocTextField initialized with val
 func NewEncodedAllocText(val string) *EncodedAllocTextField {
@@ -4799,10 +4807,10 @@ func NewEncodedAllocText(val string) *EncodedAllocTextField {
 }
 
 //EncodedAllocTextLenField is a LENGTH field
-type EncodedAllocTextLenField struct{ fix.LengthValue }
+type EncodedAllocTextLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedAllocTextLen (360)
-func (f EncodedAllocTextLenField) Tag() fix.Tag { return tag.EncodedAllocTextLen }
+func (f EncodedAllocTextLenField) Tag() quickfix.Tag { return tag.EncodedAllocTextLen }
 
 //NewEncodedAllocTextLen returns a new EncodedAllocTextLenField initialized with val
 func NewEncodedAllocTextLen(val int) *EncodedAllocTextLenField {
@@ -4812,10 +4820,10 @@ func NewEncodedAllocTextLen(val int) *EncodedAllocTextLenField {
 }
 
 //EncodedHeadlineField is a DATA field
-type EncodedHeadlineField struct{ fix.DataValue }
+type EncodedHeadlineField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedHeadline (359)
-func (f EncodedHeadlineField) Tag() fix.Tag { return tag.EncodedHeadline }
+func (f EncodedHeadlineField) Tag() quickfix.Tag { return tag.EncodedHeadline }
 
 //NewEncodedHeadline returns a new EncodedHeadlineField initialized with val
 func NewEncodedHeadline(val string) *EncodedHeadlineField {
@@ -4825,10 +4833,10 @@ func NewEncodedHeadline(val string) *EncodedHeadlineField {
 }
 
 //EncodedHeadlineLenField is a LENGTH field
-type EncodedHeadlineLenField struct{ fix.LengthValue }
+type EncodedHeadlineLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedHeadlineLen (358)
-func (f EncodedHeadlineLenField) Tag() fix.Tag { return tag.EncodedHeadlineLen }
+func (f EncodedHeadlineLenField) Tag() quickfix.Tag { return tag.EncodedHeadlineLen }
 
 //NewEncodedHeadlineLen returns a new EncodedHeadlineLenField initialized with val
 func NewEncodedHeadlineLen(val int) *EncodedHeadlineLenField {
@@ -4838,10 +4846,10 @@ func NewEncodedHeadlineLen(val int) *EncodedHeadlineLenField {
 }
 
 //EncodedIssuerField is a DATA field
-type EncodedIssuerField struct{ fix.DataValue }
+type EncodedIssuerField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedIssuer (349)
-func (f EncodedIssuerField) Tag() fix.Tag { return tag.EncodedIssuer }
+func (f EncodedIssuerField) Tag() quickfix.Tag { return tag.EncodedIssuer }
 
 //NewEncodedIssuer returns a new EncodedIssuerField initialized with val
 func NewEncodedIssuer(val string) *EncodedIssuerField {
@@ -4851,10 +4859,10 @@ func NewEncodedIssuer(val string) *EncodedIssuerField {
 }
 
 //EncodedIssuerLenField is a LENGTH field
-type EncodedIssuerLenField struct{ fix.LengthValue }
+type EncodedIssuerLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedIssuerLen (348)
-func (f EncodedIssuerLenField) Tag() fix.Tag { return tag.EncodedIssuerLen }
+func (f EncodedIssuerLenField) Tag() quickfix.Tag { return tag.EncodedIssuerLen }
 
 //NewEncodedIssuerLen returns a new EncodedIssuerLenField initialized with val
 func NewEncodedIssuerLen(val int) *EncodedIssuerLenField {
@@ -4864,10 +4872,10 @@ func NewEncodedIssuerLen(val int) *EncodedIssuerLenField {
 }
 
 //EncodedLegIssuerField is a DATA field
-type EncodedLegIssuerField struct{ fix.DataValue }
+type EncodedLegIssuerField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedLegIssuer (619)
-func (f EncodedLegIssuerField) Tag() fix.Tag { return tag.EncodedLegIssuer }
+func (f EncodedLegIssuerField) Tag() quickfix.Tag { return tag.EncodedLegIssuer }
 
 //NewEncodedLegIssuer returns a new EncodedLegIssuerField initialized with val
 func NewEncodedLegIssuer(val string) *EncodedLegIssuerField {
@@ -4877,10 +4885,10 @@ func NewEncodedLegIssuer(val string) *EncodedLegIssuerField {
 }
 
 //EncodedLegIssuerLenField is a LENGTH field
-type EncodedLegIssuerLenField struct{ fix.LengthValue }
+type EncodedLegIssuerLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedLegIssuerLen (618)
-func (f EncodedLegIssuerLenField) Tag() fix.Tag { return tag.EncodedLegIssuerLen }
+func (f EncodedLegIssuerLenField) Tag() quickfix.Tag { return tag.EncodedLegIssuerLen }
 
 //NewEncodedLegIssuerLen returns a new EncodedLegIssuerLenField initialized with val
 func NewEncodedLegIssuerLen(val int) *EncodedLegIssuerLenField {
@@ -4890,10 +4898,10 @@ func NewEncodedLegIssuerLen(val int) *EncodedLegIssuerLenField {
 }
 
 //EncodedLegSecurityDescField is a DATA field
-type EncodedLegSecurityDescField struct{ fix.DataValue }
+type EncodedLegSecurityDescField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedLegSecurityDesc (622)
-func (f EncodedLegSecurityDescField) Tag() fix.Tag { return tag.EncodedLegSecurityDesc }
+func (f EncodedLegSecurityDescField) Tag() quickfix.Tag { return tag.EncodedLegSecurityDesc }
 
 //NewEncodedLegSecurityDesc returns a new EncodedLegSecurityDescField initialized with val
 func NewEncodedLegSecurityDesc(val string) *EncodedLegSecurityDescField {
@@ -4903,10 +4911,10 @@ func NewEncodedLegSecurityDesc(val string) *EncodedLegSecurityDescField {
 }
 
 //EncodedLegSecurityDescLenField is a LENGTH field
-type EncodedLegSecurityDescLenField struct{ fix.LengthValue }
+type EncodedLegSecurityDescLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedLegSecurityDescLen (621)
-func (f EncodedLegSecurityDescLenField) Tag() fix.Tag { return tag.EncodedLegSecurityDescLen }
+func (f EncodedLegSecurityDescLenField) Tag() quickfix.Tag { return tag.EncodedLegSecurityDescLen }
 
 //NewEncodedLegSecurityDescLen returns a new EncodedLegSecurityDescLenField initialized with val
 func NewEncodedLegSecurityDescLen(val int) *EncodedLegSecurityDescLenField {
@@ -4916,10 +4924,10 @@ func NewEncodedLegSecurityDescLen(val int) *EncodedLegSecurityDescLenField {
 }
 
 //EncodedListExecInstField is a DATA field
-type EncodedListExecInstField struct{ fix.DataValue }
+type EncodedListExecInstField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedListExecInst (353)
-func (f EncodedListExecInstField) Tag() fix.Tag { return tag.EncodedListExecInst }
+func (f EncodedListExecInstField) Tag() quickfix.Tag { return tag.EncodedListExecInst }
 
 //NewEncodedListExecInst returns a new EncodedListExecInstField initialized with val
 func NewEncodedListExecInst(val string) *EncodedListExecInstField {
@@ -4929,10 +4937,10 @@ func NewEncodedListExecInst(val string) *EncodedListExecInstField {
 }
 
 //EncodedListExecInstLenField is a LENGTH field
-type EncodedListExecInstLenField struct{ fix.LengthValue }
+type EncodedListExecInstLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedListExecInstLen (352)
-func (f EncodedListExecInstLenField) Tag() fix.Tag { return tag.EncodedListExecInstLen }
+func (f EncodedListExecInstLenField) Tag() quickfix.Tag { return tag.EncodedListExecInstLen }
 
 //NewEncodedListExecInstLen returns a new EncodedListExecInstLenField initialized with val
 func NewEncodedListExecInstLen(val int) *EncodedListExecInstLenField {
@@ -4942,10 +4950,10 @@ func NewEncodedListExecInstLen(val int) *EncodedListExecInstLenField {
 }
 
 //EncodedListStatusTextField is a DATA field
-type EncodedListStatusTextField struct{ fix.DataValue }
+type EncodedListStatusTextField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedListStatusText (446)
-func (f EncodedListStatusTextField) Tag() fix.Tag { return tag.EncodedListStatusText }
+func (f EncodedListStatusTextField) Tag() quickfix.Tag { return tag.EncodedListStatusText }
 
 //NewEncodedListStatusText returns a new EncodedListStatusTextField initialized with val
 func NewEncodedListStatusText(val string) *EncodedListStatusTextField {
@@ -4955,10 +4963,10 @@ func NewEncodedListStatusText(val string) *EncodedListStatusTextField {
 }
 
 //EncodedListStatusTextLenField is a LENGTH field
-type EncodedListStatusTextLenField struct{ fix.LengthValue }
+type EncodedListStatusTextLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedListStatusTextLen (445)
-func (f EncodedListStatusTextLenField) Tag() fix.Tag { return tag.EncodedListStatusTextLen }
+func (f EncodedListStatusTextLenField) Tag() quickfix.Tag { return tag.EncodedListStatusTextLen }
 
 //NewEncodedListStatusTextLen returns a new EncodedListStatusTextLenField initialized with val
 func NewEncodedListStatusTextLen(val int) *EncodedListStatusTextLenField {
@@ -4968,10 +4976,10 @@ func NewEncodedListStatusTextLen(val int) *EncodedListStatusTextLenField {
 }
 
 //EncodedMktSegmDescField is a DATA field
-type EncodedMktSegmDescField struct{ fix.DataValue }
+type EncodedMktSegmDescField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedMktSegmDesc (1398)
-func (f EncodedMktSegmDescField) Tag() fix.Tag { return tag.EncodedMktSegmDesc }
+func (f EncodedMktSegmDescField) Tag() quickfix.Tag { return tag.EncodedMktSegmDesc }
 
 //NewEncodedMktSegmDesc returns a new EncodedMktSegmDescField initialized with val
 func NewEncodedMktSegmDesc(val string) *EncodedMktSegmDescField {
@@ -4981,10 +4989,10 @@ func NewEncodedMktSegmDesc(val string) *EncodedMktSegmDescField {
 }
 
 //EncodedMktSegmDescLenField is a LENGTH field
-type EncodedMktSegmDescLenField struct{ fix.LengthValue }
+type EncodedMktSegmDescLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedMktSegmDescLen (1397)
-func (f EncodedMktSegmDescLenField) Tag() fix.Tag { return tag.EncodedMktSegmDescLen }
+func (f EncodedMktSegmDescLenField) Tag() quickfix.Tag { return tag.EncodedMktSegmDescLen }
 
 //NewEncodedMktSegmDescLen returns a new EncodedMktSegmDescLenField initialized with val
 func NewEncodedMktSegmDescLen(val int) *EncodedMktSegmDescLenField {
@@ -4994,10 +5002,10 @@ func NewEncodedMktSegmDescLen(val int) *EncodedMktSegmDescLenField {
 }
 
 //EncodedSecurityDescField is a DATA field
-type EncodedSecurityDescField struct{ fix.DataValue }
+type EncodedSecurityDescField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedSecurityDesc (351)
-func (f EncodedSecurityDescField) Tag() fix.Tag { return tag.EncodedSecurityDesc }
+func (f EncodedSecurityDescField) Tag() quickfix.Tag { return tag.EncodedSecurityDesc }
 
 //NewEncodedSecurityDesc returns a new EncodedSecurityDescField initialized with val
 func NewEncodedSecurityDesc(val string) *EncodedSecurityDescField {
@@ -5007,10 +5015,10 @@ func NewEncodedSecurityDesc(val string) *EncodedSecurityDescField {
 }
 
 //EncodedSecurityDescLenField is a LENGTH field
-type EncodedSecurityDescLenField struct{ fix.LengthValue }
+type EncodedSecurityDescLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedSecurityDescLen (350)
-func (f EncodedSecurityDescLenField) Tag() fix.Tag { return tag.EncodedSecurityDescLen }
+func (f EncodedSecurityDescLenField) Tag() quickfix.Tag { return tag.EncodedSecurityDescLen }
 
 //NewEncodedSecurityDescLen returns a new EncodedSecurityDescLenField initialized with val
 func NewEncodedSecurityDescLen(val int) *EncodedSecurityDescLenField {
@@ -5020,10 +5028,10 @@ func NewEncodedSecurityDescLen(val int) *EncodedSecurityDescLenField {
 }
 
 //EncodedSecurityListDescField is a DATA field
-type EncodedSecurityListDescField struct{ fix.DataValue }
+type EncodedSecurityListDescField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedSecurityListDesc (1469)
-func (f EncodedSecurityListDescField) Tag() fix.Tag { return tag.EncodedSecurityListDesc }
+func (f EncodedSecurityListDescField) Tag() quickfix.Tag { return tag.EncodedSecurityListDesc }
 
 //NewEncodedSecurityListDesc returns a new EncodedSecurityListDescField initialized with val
 func NewEncodedSecurityListDesc(val string) *EncodedSecurityListDescField {
@@ -5033,10 +5041,10 @@ func NewEncodedSecurityListDesc(val string) *EncodedSecurityListDescField {
 }
 
 //EncodedSecurityListDescLenField is a LENGTH field
-type EncodedSecurityListDescLenField struct{ fix.LengthValue }
+type EncodedSecurityListDescLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedSecurityListDescLen (1468)
-func (f EncodedSecurityListDescLenField) Tag() fix.Tag { return tag.EncodedSecurityListDescLen }
+func (f EncodedSecurityListDescLenField) Tag() quickfix.Tag { return tag.EncodedSecurityListDescLen }
 
 //NewEncodedSecurityListDescLen returns a new EncodedSecurityListDescLenField initialized with val
 func NewEncodedSecurityListDescLen(val int) *EncodedSecurityListDescLenField {
@@ -5046,10 +5054,10 @@ func NewEncodedSecurityListDescLen(val int) *EncodedSecurityListDescLenField {
 }
 
 //EncodedSubjectField is a DATA field
-type EncodedSubjectField struct{ fix.DataValue }
+type EncodedSubjectField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedSubject (357)
-func (f EncodedSubjectField) Tag() fix.Tag { return tag.EncodedSubject }
+func (f EncodedSubjectField) Tag() quickfix.Tag { return tag.EncodedSubject }
 
 //NewEncodedSubject returns a new EncodedSubjectField initialized with val
 func NewEncodedSubject(val string) *EncodedSubjectField {
@@ -5059,10 +5067,10 @@ func NewEncodedSubject(val string) *EncodedSubjectField {
 }
 
 //EncodedSubjectLenField is a LENGTH field
-type EncodedSubjectLenField struct{ fix.LengthValue }
+type EncodedSubjectLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedSubjectLen (356)
-func (f EncodedSubjectLenField) Tag() fix.Tag { return tag.EncodedSubjectLen }
+func (f EncodedSubjectLenField) Tag() quickfix.Tag { return tag.EncodedSubjectLen }
 
 //NewEncodedSubjectLen returns a new EncodedSubjectLenField initialized with val
 func NewEncodedSubjectLen(val int) *EncodedSubjectLenField {
@@ -5072,10 +5080,10 @@ func NewEncodedSubjectLen(val int) *EncodedSubjectLenField {
 }
 
 //EncodedSymbolField is a DATA field
-type EncodedSymbolField struct{ fix.DataValue }
+type EncodedSymbolField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedSymbol (1360)
-func (f EncodedSymbolField) Tag() fix.Tag { return tag.EncodedSymbol }
+func (f EncodedSymbolField) Tag() quickfix.Tag { return tag.EncodedSymbol }
 
 //NewEncodedSymbol returns a new EncodedSymbolField initialized with val
 func NewEncodedSymbol(val string) *EncodedSymbolField {
@@ -5085,10 +5093,10 @@ func NewEncodedSymbol(val string) *EncodedSymbolField {
 }
 
 //EncodedSymbolLenField is a LENGTH field
-type EncodedSymbolLenField struct{ fix.LengthValue }
+type EncodedSymbolLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedSymbolLen (1359)
-func (f EncodedSymbolLenField) Tag() fix.Tag { return tag.EncodedSymbolLen }
+func (f EncodedSymbolLenField) Tag() quickfix.Tag { return tag.EncodedSymbolLen }
 
 //NewEncodedSymbolLen returns a new EncodedSymbolLenField initialized with val
 func NewEncodedSymbolLen(val int) *EncodedSymbolLenField {
@@ -5098,10 +5106,10 @@ func NewEncodedSymbolLen(val int) *EncodedSymbolLenField {
 }
 
 //EncodedTextField is a DATA field
-type EncodedTextField struct{ fix.DataValue }
+type EncodedTextField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedText (355)
-func (f EncodedTextField) Tag() fix.Tag { return tag.EncodedText }
+func (f EncodedTextField) Tag() quickfix.Tag { return tag.EncodedText }
 
 //NewEncodedText returns a new EncodedTextField initialized with val
 func NewEncodedText(val string) *EncodedTextField {
@@ -5111,10 +5119,10 @@ func NewEncodedText(val string) *EncodedTextField {
 }
 
 //EncodedTextLenField is a LENGTH field
-type EncodedTextLenField struct{ fix.LengthValue }
+type EncodedTextLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedTextLen (354)
-func (f EncodedTextLenField) Tag() fix.Tag { return tag.EncodedTextLen }
+func (f EncodedTextLenField) Tag() quickfix.Tag { return tag.EncodedTextLen }
 
 //NewEncodedTextLen returns a new EncodedTextLenField initialized with val
 func NewEncodedTextLen(val int) *EncodedTextLenField {
@@ -5124,10 +5132,10 @@ func NewEncodedTextLen(val int) *EncodedTextLenField {
 }
 
 //EncodedUnderlyingIssuerField is a DATA field
-type EncodedUnderlyingIssuerField struct{ fix.DataValue }
+type EncodedUnderlyingIssuerField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedUnderlyingIssuer (363)
-func (f EncodedUnderlyingIssuerField) Tag() fix.Tag { return tag.EncodedUnderlyingIssuer }
+func (f EncodedUnderlyingIssuerField) Tag() quickfix.Tag { return tag.EncodedUnderlyingIssuer }
 
 //NewEncodedUnderlyingIssuer returns a new EncodedUnderlyingIssuerField initialized with val
 func NewEncodedUnderlyingIssuer(val string) *EncodedUnderlyingIssuerField {
@@ -5137,10 +5145,10 @@ func NewEncodedUnderlyingIssuer(val string) *EncodedUnderlyingIssuerField {
 }
 
 //EncodedUnderlyingIssuerLenField is a LENGTH field
-type EncodedUnderlyingIssuerLenField struct{ fix.LengthValue }
+type EncodedUnderlyingIssuerLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedUnderlyingIssuerLen (362)
-func (f EncodedUnderlyingIssuerLenField) Tag() fix.Tag { return tag.EncodedUnderlyingIssuerLen }
+func (f EncodedUnderlyingIssuerLenField) Tag() quickfix.Tag { return tag.EncodedUnderlyingIssuerLen }
 
 //NewEncodedUnderlyingIssuerLen returns a new EncodedUnderlyingIssuerLenField initialized with val
 func NewEncodedUnderlyingIssuerLen(val int) *EncodedUnderlyingIssuerLenField {
@@ -5150,10 +5158,12 @@ func NewEncodedUnderlyingIssuerLen(val int) *EncodedUnderlyingIssuerLenField {
 }
 
 //EncodedUnderlyingSecurityDescField is a DATA field
-type EncodedUnderlyingSecurityDescField struct{ fix.DataValue }
+type EncodedUnderlyingSecurityDescField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncodedUnderlyingSecurityDesc (365)
-func (f EncodedUnderlyingSecurityDescField) Tag() fix.Tag { return tag.EncodedUnderlyingSecurityDesc }
+func (f EncodedUnderlyingSecurityDescField) Tag() quickfix.Tag {
+	return tag.EncodedUnderlyingSecurityDesc
+}
 
 //NewEncodedUnderlyingSecurityDesc returns a new EncodedUnderlyingSecurityDescField initialized with val
 func NewEncodedUnderlyingSecurityDesc(val string) *EncodedUnderlyingSecurityDescField {
@@ -5163,10 +5173,10 @@ func NewEncodedUnderlyingSecurityDesc(val string) *EncodedUnderlyingSecurityDesc
 }
 
 //EncodedUnderlyingSecurityDescLenField is a LENGTH field
-type EncodedUnderlyingSecurityDescLenField struct{ fix.LengthValue }
+type EncodedUnderlyingSecurityDescLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncodedUnderlyingSecurityDescLen (364)
-func (f EncodedUnderlyingSecurityDescLenField) Tag() fix.Tag {
+func (f EncodedUnderlyingSecurityDescLenField) Tag() quickfix.Tag {
 	return tag.EncodedUnderlyingSecurityDescLen
 }
 
@@ -5178,10 +5188,10 @@ func NewEncodedUnderlyingSecurityDescLen(val int) *EncodedUnderlyingSecurityDesc
 }
 
 //EncryptMethodField is a INT field
-type EncryptMethodField struct{ fix.IntValue }
+type EncryptMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.EncryptMethod (98)
-func (f EncryptMethodField) Tag() fix.Tag { return tag.EncryptMethod }
+func (f EncryptMethodField) Tag() quickfix.Tag { return tag.EncryptMethod }
 
 //NewEncryptMethod returns a new EncryptMethodField initialized with val
 func NewEncryptMethod(val int) *EncryptMethodField {
@@ -5191,10 +5201,10 @@ func NewEncryptMethod(val int) *EncryptMethodField {
 }
 
 //EncryptedNewPasswordField is a DATA field
-type EncryptedNewPasswordField struct{ fix.DataValue }
+type EncryptedNewPasswordField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncryptedNewPassword (1404)
-func (f EncryptedNewPasswordField) Tag() fix.Tag { return tag.EncryptedNewPassword }
+func (f EncryptedNewPasswordField) Tag() quickfix.Tag { return tag.EncryptedNewPassword }
 
 //NewEncryptedNewPassword returns a new EncryptedNewPasswordField initialized with val
 func NewEncryptedNewPassword(val string) *EncryptedNewPasswordField {
@@ -5204,10 +5214,10 @@ func NewEncryptedNewPassword(val string) *EncryptedNewPasswordField {
 }
 
 //EncryptedNewPasswordLenField is a LENGTH field
-type EncryptedNewPasswordLenField struct{ fix.LengthValue }
+type EncryptedNewPasswordLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncryptedNewPasswordLen (1403)
-func (f EncryptedNewPasswordLenField) Tag() fix.Tag { return tag.EncryptedNewPasswordLen }
+func (f EncryptedNewPasswordLenField) Tag() quickfix.Tag { return tag.EncryptedNewPasswordLen }
 
 //NewEncryptedNewPasswordLen returns a new EncryptedNewPasswordLenField initialized with val
 func NewEncryptedNewPasswordLen(val int) *EncryptedNewPasswordLenField {
@@ -5217,10 +5227,10 @@ func NewEncryptedNewPasswordLen(val int) *EncryptedNewPasswordLenField {
 }
 
 //EncryptedPasswordField is a DATA field
-type EncryptedPasswordField struct{ fix.DataValue }
+type EncryptedPasswordField struct{ quickfix.DataValue }
 
 //Tag returns tag.EncryptedPassword (1402)
-func (f EncryptedPasswordField) Tag() fix.Tag { return tag.EncryptedPassword }
+func (f EncryptedPasswordField) Tag() quickfix.Tag { return tag.EncryptedPassword }
 
 //NewEncryptedPassword returns a new EncryptedPasswordField initialized with val
 func NewEncryptedPassword(val string) *EncryptedPasswordField {
@@ -5230,10 +5240,10 @@ func NewEncryptedPassword(val string) *EncryptedPasswordField {
 }
 
 //EncryptedPasswordLenField is a LENGTH field
-type EncryptedPasswordLenField struct{ fix.LengthValue }
+type EncryptedPasswordLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.EncryptedPasswordLen (1401)
-func (f EncryptedPasswordLenField) Tag() fix.Tag { return tag.EncryptedPasswordLen }
+func (f EncryptedPasswordLenField) Tag() quickfix.Tag { return tag.EncryptedPasswordLen }
 
 //NewEncryptedPasswordLen returns a new EncryptedPasswordLenField initialized with val
 func NewEncryptedPasswordLen(val int) *EncryptedPasswordLenField {
@@ -5243,10 +5253,10 @@ func NewEncryptedPasswordLen(val int) *EncryptedPasswordLenField {
 }
 
 //EncryptedPasswordMethodField is a INT field
-type EncryptedPasswordMethodField struct{ fix.IntValue }
+type EncryptedPasswordMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.EncryptedPasswordMethod (1400)
-func (f EncryptedPasswordMethodField) Tag() fix.Tag { return tag.EncryptedPasswordMethod }
+func (f EncryptedPasswordMethodField) Tag() quickfix.Tag { return tag.EncryptedPasswordMethod }
 
 //NewEncryptedPasswordMethod returns a new EncryptedPasswordMethodField initialized with val
 func NewEncryptedPasswordMethod(val int) *EncryptedPasswordMethodField {
@@ -5256,10 +5266,10 @@ func NewEncryptedPasswordMethod(val int) *EncryptedPasswordMethodField {
 }
 
 //EndAccruedInterestAmtField is a AMT field
-type EndAccruedInterestAmtField struct{ fix.AmtValue }
+type EndAccruedInterestAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.EndAccruedInterestAmt (920)
-func (f EndAccruedInterestAmtField) Tag() fix.Tag { return tag.EndAccruedInterestAmt }
+func (f EndAccruedInterestAmtField) Tag() quickfix.Tag { return tag.EndAccruedInterestAmt }
 
 //NewEndAccruedInterestAmt returns a new EndAccruedInterestAmtField initialized with val
 func NewEndAccruedInterestAmt(val float64) *EndAccruedInterestAmtField {
@@ -5269,10 +5279,10 @@ func NewEndAccruedInterestAmt(val float64) *EndAccruedInterestAmtField {
 }
 
 //EndCashField is a AMT field
-type EndCashField struct{ fix.AmtValue }
+type EndCashField struct{ quickfix.AmtValue }
 
 //Tag returns tag.EndCash (922)
-func (f EndCashField) Tag() fix.Tag { return tag.EndCash }
+func (f EndCashField) Tag() quickfix.Tag { return tag.EndCash }
 
 //NewEndCash returns a new EndCashField initialized with val
 func NewEndCash(val float64) *EndCashField {
@@ -5282,10 +5292,10 @@ func NewEndCash(val float64) *EndCashField {
 }
 
 //EndDateField is a LOCALMKTDATE field
-type EndDateField struct{ fix.LocalMktDateValue }
+type EndDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.EndDate (917)
-func (f EndDateField) Tag() fix.Tag { return tag.EndDate }
+func (f EndDateField) Tag() quickfix.Tag { return tag.EndDate }
 
 //NewEndDate returns a new EndDateField initialized with val
 func NewEndDate(val string) *EndDateField {
@@ -5295,10 +5305,10 @@ func NewEndDate(val string) *EndDateField {
 }
 
 //EndMaturityMonthYearField is a MONTHYEAR field
-type EndMaturityMonthYearField struct{ fix.MonthYearValue }
+type EndMaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.EndMaturityMonthYear (1226)
-func (f EndMaturityMonthYearField) Tag() fix.Tag { return tag.EndMaturityMonthYear }
+func (f EndMaturityMonthYearField) Tag() quickfix.Tag { return tag.EndMaturityMonthYear }
 
 //NewEndMaturityMonthYear returns a new EndMaturityMonthYearField initialized with val
 func NewEndMaturityMonthYear(val string) *EndMaturityMonthYearField {
@@ -5308,10 +5318,10 @@ func NewEndMaturityMonthYear(val string) *EndMaturityMonthYearField {
 }
 
 //EndSeqNoField is a SEQNUM field
-type EndSeqNoField struct{ fix.SeqNumValue }
+type EndSeqNoField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.EndSeqNo (16)
-func (f EndSeqNoField) Tag() fix.Tag { return tag.EndSeqNo }
+func (f EndSeqNoField) Tag() quickfix.Tag { return tag.EndSeqNo }
 
 //NewEndSeqNo returns a new EndSeqNoField initialized with val
 func NewEndSeqNo(val int) *EndSeqNoField {
@@ -5321,10 +5331,10 @@ func NewEndSeqNo(val int) *EndSeqNoField {
 }
 
 //EndStrikePxRangeField is a PRICE field
-type EndStrikePxRangeField struct{ fix.PriceValue }
+type EndStrikePxRangeField struct{ quickfix.PriceValue }
 
 //Tag returns tag.EndStrikePxRange (1203)
-func (f EndStrikePxRangeField) Tag() fix.Tag { return tag.EndStrikePxRange }
+func (f EndStrikePxRangeField) Tag() quickfix.Tag { return tag.EndStrikePxRange }
 
 //NewEndStrikePxRange returns a new EndStrikePxRangeField initialized with val
 func NewEndStrikePxRange(val float64) *EndStrikePxRangeField {
@@ -5334,10 +5344,10 @@ func NewEndStrikePxRange(val float64) *EndStrikePxRangeField {
 }
 
 //EndTickPriceRangeField is a PRICE field
-type EndTickPriceRangeField struct{ fix.PriceValue }
+type EndTickPriceRangeField struct{ quickfix.PriceValue }
 
 //Tag returns tag.EndTickPriceRange (1207)
-func (f EndTickPriceRangeField) Tag() fix.Tag { return tag.EndTickPriceRange }
+func (f EndTickPriceRangeField) Tag() quickfix.Tag { return tag.EndTickPriceRange }
 
 //NewEndTickPriceRange returns a new EndTickPriceRangeField initialized with val
 func NewEndTickPriceRange(val float64) *EndTickPriceRangeField {
@@ -5347,10 +5357,10 @@ func NewEndTickPriceRange(val float64) *EndTickPriceRangeField {
 }
 
 //EventDateField is a LOCALMKTDATE field
-type EventDateField struct{ fix.LocalMktDateValue }
+type EventDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.EventDate (866)
-func (f EventDateField) Tag() fix.Tag { return tag.EventDate }
+func (f EventDateField) Tag() quickfix.Tag { return tag.EventDate }
 
 //NewEventDate returns a new EventDateField initialized with val
 func NewEventDate(val string) *EventDateField {
@@ -5360,10 +5370,10 @@ func NewEventDate(val string) *EventDateField {
 }
 
 //EventPxField is a PRICE field
-type EventPxField struct{ fix.PriceValue }
+type EventPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.EventPx (867)
-func (f EventPxField) Tag() fix.Tag { return tag.EventPx }
+func (f EventPxField) Tag() quickfix.Tag { return tag.EventPx }
 
 //NewEventPx returns a new EventPxField initialized with val
 func NewEventPx(val float64) *EventPxField {
@@ -5373,10 +5383,10 @@ func NewEventPx(val float64) *EventPxField {
 }
 
 //EventTextField is a STRING field
-type EventTextField struct{ fix.StringValue }
+type EventTextField struct{ quickfix.StringValue }
 
 //Tag returns tag.EventText (868)
-func (f EventTextField) Tag() fix.Tag { return tag.EventText }
+func (f EventTextField) Tag() quickfix.Tag { return tag.EventText }
 
 //NewEventText returns a new EventTextField initialized with val
 func NewEventText(val string) *EventTextField {
@@ -5386,16 +5396,16 @@ func NewEventText(val string) *EventTextField {
 }
 
 //EventTimeField is a UTCTIMESTAMP field
-type EventTimeField struct{ fix.UTCTimestampValue }
+type EventTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.EventTime (1145)
-func (f EventTimeField) Tag() fix.Tag { return tag.EventTime }
+func (f EventTimeField) Tag() quickfix.Tag { return tag.EventTime }
 
 //EventTypeField is a INT field
-type EventTypeField struct{ fix.IntValue }
+type EventTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.EventType (865)
-func (f EventTypeField) Tag() fix.Tag { return tag.EventType }
+func (f EventTypeField) Tag() quickfix.Tag { return tag.EventType }
 
 //NewEventType returns a new EventTypeField initialized with val
 func NewEventType(val int) *EventTypeField {
@@ -5405,10 +5415,10 @@ func NewEventType(val int) *EventTypeField {
 }
 
 //ExDateField is a LOCALMKTDATE field
-type ExDateField struct{ fix.LocalMktDateValue }
+type ExDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.ExDate (230)
-func (f ExDateField) Tag() fix.Tag { return tag.ExDate }
+func (f ExDateField) Tag() quickfix.Tag { return tag.ExDate }
 
 //NewExDate returns a new ExDateField initialized with val
 func NewExDate(val string) *ExDateField {
@@ -5418,10 +5428,10 @@ func NewExDate(val string) *ExDateField {
 }
 
 //ExDestinationField is a EXCHANGE field
-type ExDestinationField struct{ fix.ExchangeValue }
+type ExDestinationField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.ExDestination (100)
-func (f ExDestinationField) Tag() fix.Tag { return tag.ExDestination }
+func (f ExDestinationField) Tag() quickfix.Tag { return tag.ExDestination }
 
 //NewExDestination returns a new ExDestinationField initialized with val
 func NewExDestination(val string) *ExDestinationField {
@@ -5431,10 +5441,10 @@ func NewExDestination(val string) *ExDestinationField {
 }
 
 //ExDestinationIDSourceField is a CHAR field
-type ExDestinationIDSourceField struct{ fix.CharValue }
+type ExDestinationIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.ExDestinationIDSource (1133)
-func (f ExDestinationIDSourceField) Tag() fix.Tag { return tag.ExDestinationIDSource }
+func (f ExDestinationIDSourceField) Tag() quickfix.Tag { return tag.ExDestinationIDSource }
 
 //NewExDestinationIDSource returns a new ExDestinationIDSourceField initialized with val
 func NewExDestinationIDSource(val string) *ExDestinationIDSourceField {
@@ -5444,10 +5454,10 @@ func NewExDestinationIDSource(val string) *ExDestinationIDSourceField {
 }
 
 //ExchangeForPhysicalField is a BOOLEAN field
-type ExchangeForPhysicalField struct{ fix.BooleanValue }
+type ExchangeForPhysicalField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ExchangeForPhysical (411)
-func (f ExchangeForPhysicalField) Tag() fix.Tag { return tag.ExchangeForPhysical }
+func (f ExchangeForPhysicalField) Tag() quickfix.Tag { return tag.ExchangeForPhysical }
 
 //NewExchangeForPhysical returns a new ExchangeForPhysicalField initialized with val
 func NewExchangeForPhysical(val bool) *ExchangeForPhysicalField {
@@ -5457,10 +5467,10 @@ func NewExchangeForPhysical(val bool) *ExchangeForPhysicalField {
 }
 
 //ExchangeRuleField is a STRING field
-type ExchangeRuleField struct{ fix.StringValue }
+type ExchangeRuleField struct{ quickfix.StringValue }
 
 //Tag returns tag.ExchangeRule (825)
-func (f ExchangeRuleField) Tag() fix.Tag { return tag.ExchangeRule }
+func (f ExchangeRuleField) Tag() quickfix.Tag { return tag.ExchangeRule }
 
 //NewExchangeRule returns a new ExchangeRuleField initialized with val
 func NewExchangeRule(val string) *ExchangeRuleField {
@@ -5470,10 +5480,10 @@ func NewExchangeRule(val string) *ExchangeRuleField {
 }
 
 //ExchangeSpecialInstructionsField is a STRING field
-type ExchangeSpecialInstructionsField struct{ fix.StringValue }
+type ExchangeSpecialInstructionsField struct{ quickfix.StringValue }
 
 //Tag returns tag.ExchangeSpecialInstructions (1139)
-func (f ExchangeSpecialInstructionsField) Tag() fix.Tag { return tag.ExchangeSpecialInstructions }
+func (f ExchangeSpecialInstructionsField) Tag() quickfix.Tag { return tag.ExchangeSpecialInstructions }
 
 //NewExchangeSpecialInstructions returns a new ExchangeSpecialInstructionsField initialized with val
 func NewExchangeSpecialInstructions(val string) *ExchangeSpecialInstructionsField {
@@ -5483,10 +5493,10 @@ func NewExchangeSpecialInstructions(val string) *ExchangeSpecialInstructionsFiel
 }
 
 //ExecAckStatusField is a CHAR field
-type ExecAckStatusField struct{ fix.CharValue }
+type ExecAckStatusField struct{ quickfix.CharValue }
 
 //Tag returns tag.ExecAckStatus (1036)
-func (f ExecAckStatusField) Tag() fix.Tag { return tag.ExecAckStatus }
+func (f ExecAckStatusField) Tag() quickfix.Tag { return tag.ExecAckStatus }
 
 //NewExecAckStatus returns a new ExecAckStatusField initialized with val
 func NewExecAckStatus(val string) *ExecAckStatusField {
@@ -5496,10 +5506,10 @@ func NewExecAckStatus(val string) *ExecAckStatusField {
 }
 
 //ExecBrokerField is a STRING field
-type ExecBrokerField struct{ fix.StringValue }
+type ExecBrokerField struct{ quickfix.StringValue }
 
 //Tag returns tag.ExecBroker (76)
-func (f ExecBrokerField) Tag() fix.Tag { return tag.ExecBroker }
+func (f ExecBrokerField) Tag() quickfix.Tag { return tag.ExecBroker }
 
 //NewExecBroker returns a new ExecBrokerField initialized with val
 func NewExecBroker(val string) *ExecBrokerField {
@@ -5509,10 +5519,10 @@ func NewExecBroker(val string) *ExecBrokerField {
 }
 
 //ExecIDField is a STRING field
-type ExecIDField struct{ fix.StringValue }
+type ExecIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ExecID (17)
-func (f ExecIDField) Tag() fix.Tag { return tag.ExecID }
+func (f ExecIDField) Tag() quickfix.Tag { return tag.ExecID }
 
 //NewExecID returns a new ExecIDField initialized with val
 func NewExecID(val string) *ExecIDField {
@@ -5522,10 +5532,10 @@ func NewExecID(val string) *ExecIDField {
 }
 
 //ExecInstField is a MULTIPLECHARVALUE field
-type ExecInstField struct{ fix.MultipleCharValue }
+type ExecInstField struct{ quickfix.MultipleCharValue }
 
 //Tag returns tag.ExecInst (18)
-func (f ExecInstField) Tag() fix.Tag { return tag.ExecInst }
+func (f ExecInstField) Tag() quickfix.Tag { return tag.ExecInst }
 
 //NewExecInst returns a new ExecInstField initialized with val
 func NewExecInst(val string) *ExecInstField {
@@ -5535,10 +5545,10 @@ func NewExecInst(val string) *ExecInstField {
 }
 
 //ExecInstValueField is a CHAR field
-type ExecInstValueField struct{ fix.CharValue }
+type ExecInstValueField struct{ quickfix.CharValue }
 
 //Tag returns tag.ExecInstValue (1308)
-func (f ExecInstValueField) Tag() fix.Tag { return tag.ExecInstValue }
+func (f ExecInstValueField) Tag() quickfix.Tag { return tag.ExecInstValue }
 
 //NewExecInstValue returns a new ExecInstValueField initialized with val
 func NewExecInstValue(val string) *ExecInstValueField {
@@ -5548,10 +5558,10 @@ func NewExecInstValue(val string) *ExecInstValueField {
 }
 
 //ExecPriceAdjustmentField is a FLOAT field
-type ExecPriceAdjustmentField struct{ fix.FloatValue }
+type ExecPriceAdjustmentField struct{ quickfix.FloatValue }
 
 //Tag returns tag.ExecPriceAdjustment (485)
-func (f ExecPriceAdjustmentField) Tag() fix.Tag { return tag.ExecPriceAdjustment }
+func (f ExecPriceAdjustmentField) Tag() quickfix.Tag { return tag.ExecPriceAdjustment }
 
 //NewExecPriceAdjustment returns a new ExecPriceAdjustmentField initialized with val
 func NewExecPriceAdjustment(val float64) *ExecPriceAdjustmentField {
@@ -5561,10 +5571,10 @@ func NewExecPriceAdjustment(val float64) *ExecPriceAdjustmentField {
 }
 
 //ExecPriceTypeField is a CHAR field
-type ExecPriceTypeField struct{ fix.CharValue }
+type ExecPriceTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.ExecPriceType (484)
-func (f ExecPriceTypeField) Tag() fix.Tag { return tag.ExecPriceType }
+func (f ExecPriceTypeField) Tag() quickfix.Tag { return tag.ExecPriceType }
 
 //NewExecPriceType returns a new ExecPriceTypeField initialized with val
 func NewExecPriceType(val string) *ExecPriceTypeField {
@@ -5574,10 +5584,10 @@ func NewExecPriceType(val string) *ExecPriceTypeField {
 }
 
 //ExecRefIDField is a STRING field
-type ExecRefIDField struct{ fix.StringValue }
+type ExecRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ExecRefID (19)
-func (f ExecRefIDField) Tag() fix.Tag { return tag.ExecRefID }
+func (f ExecRefIDField) Tag() quickfix.Tag { return tag.ExecRefID }
 
 //NewExecRefID returns a new ExecRefIDField initialized with val
 func NewExecRefID(val string) *ExecRefIDField {
@@ -5587,10 +5597,10 @@ func NewExecRefID(val string) *ExecRefIDField {
 }
 
 //ExecRestatementReasonField is a INT field
-type ExecRestatementReasonField struct{ fix.IntValue }
+type ExecRestatementReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.ExecRestatementReason (378)
-func (f ExecRestatementReasonField) Tag() fix.Tag { return tag.ExecRestatementReason }
+func (f ExecRestatementReasonField) Tag() quickfix.Tag { return tag.ExecRestatementReason }
 
 //NewExecRestatementReason returns a new ExecRestatementReasonField initialized with val
 func NewExecRestatementReason(val int) *ExecRestatementReasonField {
@@ -5600,10 +5610,10 @@ func NewExecRestatementReason(val int) *ExecRestatementReasonField {
 }
 
 //ExecTransTypeField is a CHAR field
-type ExecTransTypeField struct{ fix.CharValue }
+type ExecTransTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.ExecTransType (20)
-func (f ExecTransTypeField) Tag() fix.Tag { return tag.ExecTransType }
+func (f ExecTransTypeField) Tag() quickfix.Tag { return tag.ExecTransType }
 
 //NewExecTransType returns a new ExecTransTypeField initialized with val
 func NewExecTransType(val string) *ExecTransTypeField {
@@ -5613,10 +5623,10 @@ func NewExecTransType(val string) *ExecTransTypeField {
 }
 
 //ExecTypeField is a CHAR field
-type ExecTypeField struct{ fix.CharValue }
+type ExecTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.ExecType (150)
-func (f ExecTypeField) Tag() fix.Tag { return tag.ExecType }
+func (f ExecTypeField) Tag() quickfix.Tag { return tag.ExecType }
 
 //NewExecType returns a new ExecTypeField initialized with val
 func NewExecType(val string) *ExecTypeField {
@@ -5626,16 +5636,16 @@ func NewExecType(val string) *ExecTypeField {
 }
 
 //ExecValuationPointField is a UTCTIMESTAMP field
-type ExecValuationPointField struct{ fix.UTCTimestampValue }
+type ExecValuationPointField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.ExecValuationPoint (515)
-func (f ExecValuationPointField) Tag() fix.Tag { return tag.ExecValuationPoint }
+func (f ExecValuationPointField) Tag() quickfix.Tag { return tag.ExecValuationPoint }
 
 //ExerciseMethodField is a CHAR field
-type ExerciseMethodField struct{ fix.CharValue }
+type ExerciseMethodField struct{ quickfix.CharValue }
 
 //Tag returns tag.ExerciseMethod (747)
-func (f ExerciseMethodField) Tag() fix.Tag { return tag.ExerciseMethod }
+func (f ExerciseMethodField) Tag() quickfix.Tag { return tag.ExerciseMethod }
 
 //NewExerciseMethod returns a new ExerciseMethodField initialized with val
 func NewExerciseMethod(val string) *ExerciseMethodField {
@@ -5645,10 +5655,10 @@ func NewExerciseMethod(val string) *ExerciseMethodField {
 }
 
 //ExerciseStyleField is a INT field
-type ExerciseStyleField struct{ fix.IntValue }
+type ExerciseStyleField struct{ quickfix.IntValue }
 
 //Tag returns tag.ExerciseStyle (1194)
-func (f ExerciseStyleField) Tag() fix.Tag { return tag.ExerciseStyle }
+func (f ExerciseStyleField) Tag() quickfix.Tag { return tag.ExerciseStyle }
 
 //NewExerciseStyle returns a new ExerciseStyleField initialized with val
 func NewExerciseStyle(val int) *ExerciseStyleField {
@@ -5658,10 +5668,10 @@ func NewExerciseStyle(val int) *ExerciseStyleField {
 }
 
 //ExpQtyField is a QTY field
-type ExpQtyField struct{ fix.QtyValue }
+type ExpQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.ExpQty (983)
-func (f ExpQtyField) Tag() fix.Tag { return tag.ExpQty }
+func (f ExpQtyField) Tag() quickfix.Tag { return tag.ExpQty }
 
 //NewExpQty returns a new ExpQtyField initialized with val
 func NewExpQty(val float64) *ExpQtyField {
@@ -5671,10 +5681,10 @@ func NewExpQty(val float64) *ExpQtyField {
 }
 
 //ExpTypeField is a INT field
-type ExpTypeField struct{ fix.IntValue }
+type ExpTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ExpType (982)
-func (f ExpTypeField) Tag() fix.Tag { return tag.ExpType }
+func (f ExpTypeField) Tag() quickfix.Tag { return tag.ExpType }
 
 //NewExpType returns a new ExpTypeField initialized with val
 func NewExpType(val int) *ExpTypeField {
@@ -5684,10 +5694,10 @@ func NewExpType(val int) *ExpTypeField {
 }
 
 //ExpirationCycleField is a INT field
-type ExpirationCycleField struct{ fix.IntValue }
+type ExpirationCycleField struct{ quickfix.IntValue }
 
 //Tag returns tag.ExpirationCycle (827)
-func (f ExpirationCycleField) Tag() fix.Tag { return tag.ExpirationCycle }
+func (f ExpirationCycleField) Tag() quickfix.Tag { return tag.ExpirationCycle }
 
 //NewExpirationCycle returns a new ExpirationCycleField initialized with val
 func NewExpirationCycle(val int) *ExpirationCycleField {
@@ -5697,10 +5707,10 @@ func NewExpirationCycle(val int) *ExpirationCycleField {
 }
 
 //ExpirationQtyTypeField is a INT field
-type ExpirationQtyTypeField struct{ fix.IntValue }
+type ExpirationQtyTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ExpirationQtyType (982)
-func (f ExpirationQtyTypeField) Tag() fix.Tag { return tag.ExpirationQtyType }
+func (f ExpirationQtyTypeField) Tag() quickfix.Tag { return tag.ExpirationQtyType }
 
 //NewExpirationQtyType returns a new ExpirationQtyTypeField initialized with val
 func NewExpirationQtyType(val int) *ExpirationQtyTypeField {
@@ -5710,10 +5720,10 @@ func NewExpirationQtyType(val int) *ExpirationQtyTypeField {
 }
 
 //ExpireDateField is a LOCALMKTDATE field
-type ExpireDateField struct{ fix.LocalMktDateValue }
+type ExpireDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.ExpireDate (432)
-func (f ExpireDateField) Tag() fix.Tag { return tag.ExpireDate }
+func (f ExpireDateField) Tag() quickfix.Tag { return tag.ExpireDate }
 
 //NewExpireDate returns a new ExpireDateField initialized with val
 func NewExpireDate(val string) *ExpireDateField {
@@ -5723,16 +5733,16 @@ func NewExpireDate(val string) *ExpireDateField {
 }
 
 //ExpireTimeField is a UTCTIMESTAMP field
-type ExpireTimeField struct{ fix.UTCTimestampValue }
+type ExpireTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.ExpireTime (126)
-func (f ExpireTimeField) Tag() fix.Tag { return tag.ExpireTime }
+func (f ExpireTimeField) Tag() quickfix.Tag { return tag.ExpireTime }
 
 //FactorField is a FLOAT field
-type FactorField struct{ fix.FloatValue }
+type FactorField struct{ quickfix.FloatValue }
 
 //Tag returns tag.Factor (228)
-func (f FactorField) Tag() fix.Tag { return tag.Factor }
+func (f FactorField) Tag() quickfix.Tag { return tag.Factor }
 
 //NewFactor returns a new FactorField initialized with val
 func NewFactor(val float64) *FactorField {
@@ -5742,10 +5752,10 @@ func NewFactor(val float64) *FactorField {
 }
 
 //FairValueField is a AMT field
-type FairValueField struct{ fix.AmtValue }
+type FairValueField struct{ quickfix.AmtValue }
 
 //Tag returns tag.FairValue (406)
-func (f FairValueField) Tag() fix.Tag { return tag.FairValue }
+func (f FairValueField) Tag() quickfix.Tag { return tag.FairValue }
 
 //NewFairValue returns a new FairValueField initialized with val
 func NewFairValue(val float64) *FairValueField {
@@ -5755,10 +5765,10 @@ func NewFairValue(val float64) *FairValueField {
 }
 
 //FeeMultiplierField is a FLOAT field
-type FeeMultiplierField struct{ fix.FloatValue }
+type FeeMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.FeeMultiplier (1329)
-func (f FeeMultiplierField) Tag() fix.Tag { return tag.FeeMultiplier }
+func (f FeeMultiplierField) Tag() quickfix.Tag { return tag.FeeMultiplier }
 
 //NewFeeMultiplier returns a new FeeMultiplierField initialized with val
 func NewFeeMultiplier(val float64) *FeeMultiplierField {
@@ -5768,10 +5778,10 @@ func NewFeeMultiplier(val float64) *FeeMultiplierField {
 }
 
 //FillExecIDField is a STRING field
-type FillExecIDField struct{ fix.StringValue }
+type FillExecIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.FillExecID (1363)
-func (f FillExecIDField) Tag() fix.Tag { return tag.FillExecID }
+func (f FillExecIDField) Tag() quickfix.Tag { return tag.FillExecID }
 
 //NewFillExecID returns a new FillExecIDField initialized with val
 func NewFillExecID(val string) *FillExecIDField {
@@ -5781,10 +5791,10 @@ func NewFillExecID(val string) *FillExecIDField {
 }
 
 //FillLiquidityIndField is a INT field
-type FillLiquidityIndField struct{ fix.IntValue }
+type FillLiquidityIndField struct{ quickfix.IntValue }
 
 //Tag returns tag.FillLiquidityInd (1443)
-func (f FillLiquidityIndField) Tag() fix.Tag { return tag.FillLiquidityInd }
+func (f FillLiquidityIndField) Tag() quickfix.Tag { return tag.FillLiquidityInd }
 
 //NewFillLiquidityInd returns a new FillLiquidityIndField initialized with val
 func NewFillLiquidityInd(val int) *FillLiquidityIndField {
@@ -5794,10 +5804,10 @@ func NewFillLiquidityInd(val int) *FillLiquidityIndField {
 }
 
 //FillPxField is a PRICE field
-type FillPxField struct{ fix.PriceValue }
+type FillPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.FillPx (1364)
-func (f FillPxField) Tag() fix.Tag { return tag.FillPx }
+func (f FillPxField) Tag() quickfix.Tag { return tag.FillPx }
 
 //NewFillPx returns a new FillPxField initialized with val
 func NewFillPx(val float64) *FillPxField {
@@ -5807,10 +5817,10 @@ func NewFillPx(val float64) *FillPxField {
 }
 
 //FillQtyField is a QTY field
-type FillQtyField struct{ fix.QtyValue }
+type FillQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.FillQty (1365)
-func (f FillQtyField) Tag() fix.Tag { return tag.FillQty }
+func (f FillQtyField) Tag() quickfix.Tag { return tag.FillQty }
 
 //NewFillQty returns a new FillQtyField initialized with val
 func NewFillQty(val float64) *FillQtyField {
@@ -5820,10 +5830,10 @@ func NewFillQty(val float64) *FillQtyField {
 }
 
 //FinancialStatusField is a MULTIPLECHARVALUE field
-type FinancialStatusField struct{ fix.MultipleCharValue }
+type FinancialStatusField struct{ quickfix.MultipleCharValue }
 
 //Tag returns tag.FinancialStatus (291)
-func (f FinancialStatusField) Tag() fix.Tag { return tag.FinancialStatus }
+func (f FinancialStatusField) Tag() quickfix.Tag { return tag.FinancialStatus }
 
 //NewFinancialStatus returns a new FinancialStatusField initialized with val
 func NewFinancialStatus(val string) *FinancialStatusField {
@@ -5833,10 +5843,10 @@ func NewFinancialStatus(val string) *FinancialStatusField {
 }
 
 //FirmTradeIDField is a STRING field
-type FirmTradeIDField struct{ fix.StringValue }
+type FirmTradeIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.FirmTradeID (1041)
-func (f FirmTradeIDField) Tag() fix.Tag { return tag.FirmTradeID }
+func (f FirmTradeIDField) Tag() quickfix.Tag { return tag.FirmTradeID }
 
 //NewFirmTradeID returns a new FirmTradeIDField initialized with val
 func NewFirmTradeID(val string) *FirmTradeIDField {
@@ -5846,10 +5856,10 @@ func NewFirmTradeID(val string) *FirmTradeIDField {
 }
 
 //FirstPxField is a PRICE field
-type FirstPxField struct{ fix.PriceValue }
+type FirstPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.FirstPx (1025)
-func (f FirstPxField) Tag() fix.Tag { return tag.FirstPx }
+func (f FirstPxField) Tag() quickfix.Tag { return tag.FirstPx }
 
 //NewFirstPx returns a new FirstPxField initialized with val
 func NewFirstPx(val float64) *FirstPxField {
@@ -5859,10 +5869,10 @@ func NewFirstPx(val float64) *FirstPxField {
 }
 
 //FlexProductEligibilityIndicatorField is a BOOLEAN field
-type FlexProductEligibilityIndicatorField struct{ fix.BooleanValue }
+type FlexProductEligibilityIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.FlexProductEligibilityIndicator (1242)
-func (f FlexProductEligibilityIndicatorField) Tag() fix.Tag {
+func (f FlexProductEligibilityIndicatorField) Tag() quickfix.Tag {
 	return tag.FlexProductEligibilityIndicator
 }
 
@@ -5874,10 +5884,10 @@ func NewFlexProductEligibilityIndicator(val bool) *FlexProductEligibilityIndicat
 }
 
 //FlexibleIndicatorField is a BOOLEAN field
-type FlexibleIndicatorField struct{ fix.BooleanValue }
+type FlexibleIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.FlexibleIndicator (1244)
-func (f FlexibleIndicatorField) Tag() fix.Tag { return tag.FlexibleIndicator }
+func (f FlexibleIndicatorField) Tag() quickfix.Tag { return tag.FlexibleIndicator }
 
 //NewFlexibleIndicator returns a new FlexibleIndicatorField initialized with val
 func NewFlexibleIndicator(val bool) *FlexibleIndicatorField {
@@ -5887,10 +5897,10 @@ func NewFlexibleIndicator(val bool) *FlexibleIndicatorField {
 }
 
 //FloorPriceField is a PRICE field
-type FloorPriceField struct{ fix.PriceValue }
+type FloorPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.FloorPrice (1200)
-func (f FloorPriceField) Tag() fix.Tag { return tag.FloorPrice }
+func (f FloorPriceField) Tag() quickfix.Tag { return tag.FloorPrice }
 
 //NewFloorPrice returns a new FloorPriceField initialized with val
 func NewFloorPrice(val float64) *FloorPriceField {
@@ -5900,10 +5910,10 @@ func NewFloorPrice(val float64) *FloorPriceField {
 }
 
 //FlowScheduleTypeField is a INT field
-type FlowScheduleTypeField struct{ fix.IntValue }
+type FlowScheduleTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.FlowScheduleType (1439)
-func (f FlowScheduleTypeField) Tag() fix.Tag { return tag.FlowScheduleType }
+func (f FlowScheduleTypeField) Tag() quickfix.Tag { return tag.FlowScheduleType }
 
 //NewFlowScheduleType returns a new FlowScheduleTypeField initialized with val
 func NewFlowScheduleType(val int) *FlowScheduleTypeField {
@@ -5913,10 +5923,10 @@ func NewFlowScheduleType(val int) *FlowScheduleTypeField {
 }
 
 //ForexReqField is a BOOLEAN field
-type ForexReqField struct{ fix.BooleanValue }
+type ForexReqField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ForexReq (121)
-func (f ForexReqField) Tag() fix.Tag { return tag.ForexReq }
+func (f ForexReqField) Tag() quickfix.Tag { return tag.ForexReq }
 
 //NewForexReq returns a new ForexReqField initialized with val
 func NewForexReq(val bool) *ForexReqField {
@@ -5926,10 +5936,10 @@ func NewForexReq(val bool) *ForexReqField {
 }
 
 //FundRenewWaivField is a CHAR field
-type FundRenewWaivField struct{ fix.CharValue }
+type FundRenewWaivField struct{ quickfix.CharValue }
 
 //Tag returns tag.FundRenewWaiv (497)
-func (f FundRenewWaivField) Tag() fix.Tag { return tag.FundRenewWaiv }
+func (f FundRenewWaivField) Tag() quickfix.Tag { return tag.FundRenewWaiv }
 
 //NewFundRenewWaiv returns a new FundRenewWaivField initialized with val
 func NewFundRenewWaiv(val string) *FundRenewWaivField {
@@ -5939,10 +5949,10 @@ func NewFundRenewWaiv(val string) *FundRenewWaivField {
 }
 
 //FutSettDateField is a LOCALMKTDATE field
-type FutSettDateField struct{ fix.LocalMktDateValue }
+type FutSettDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.FutSettDate (64)
-func (f FutSettDateField) Tag() fix.Tag { return tag.FutSettDate }
+func (f FutSettDateField) Tag() quickfix.Tag { return tag.FutSettDate }
 
 //NewFutSettDate returns a new FutSettDateField initialized with val
 func NewFutSettDate(val string) *FutSettDateField {
@@ -5952,10 +5962,10 @@ func NewFutSettDate(val string) *FutSettDateField {
 }
 
 //FutSettDate2Field is a LOCALMKTDATE field
-type FutSettDate2Field struct{ fix.LocalMktDateValue }
+type FutSettDate2Field struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.FutSettDate2 (193)
-func (f FutSettDate2Field) Tag() fix.Tag { return tag.FutSettDate2 }
+func (f FutSettDate2Field) Tag() quickfix.Tag { return tag.FutSettDate2 }
 
 //NewFutSettDate2 returns a new FutSettDate2Field initialized with val
 func NewFutSettDate2(val string) *FutSettDate2Field {
@@ -5965,10 +5975,10 @@ func NewFutSettDate2(val string) *FutSettDate2Field {
 }
 
 //FuturesValuationMethodField is a STRING field
-type FuturesValuationMethodField struct{ fix.StringValue }
+type FuturesValuationMethodField struct{ quickfix.StringValue }
 
 //Tag returns tag.FuturesValuationMethod (1197)
-func (f FuturesValuationMethodField) Tag() fix.Tag { return tag.FuturesValuationMethod }
+func (f FuturesValuationMethodField) Tag() quickfix.Tag { return tag.FuturesValuationMethod }
 
 //NewFuturesValuationMethod returns a new FuturesValuationMethodField initialized with val
 func NewFuturesValuationMethod(val string) *FuturesValuationMethodField {
@@ -5978,10 +5988,10 @@ func NewFuturesValuationMethod(val string) *FuturesValuationMethodField {
 }
 
 //GTBookingInstField is a INT field
-type GTBookingInstField struct{ fix.IntValue }
+type GTBookingInstField struct{ quickfix.IntValue }
 
 //Tag returns tag.GTBookingInst (427)
-func (f GTBookingInstField) Tag() fix.Tag { return tag.GTBookingInst }
+func (f GTBookingInstField) Tag() quickfix.Tag { return tag.GTBookingInst }
 
 //NewGTBookingInst returns a new GTBookingInstField initialized with val
 func NewGTBookingInst(val int) *GTBookingInstField {
@@ -5991,10 +6001,10 @@ func NewGTBookingInst(val int) *GTBookingInstField {
 }
 
 //GapFillFlagField is a BOOLEAN field
-type GapFillFlagField struct{ fix.BooleanValue }
+type GapFillFlagField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.GapFillFlag (123)
-func (f GapFillFlagField) Tag() fix.Tag { return tag.GapFillFlag }
+func (f GapFillFlagField) Tag() quickfix.Tag { return tag.GapFillFlag }
 
 //NewGapFillFlag returns a new GapFillFlagField initialized with val
 func NewGapFillFlag(val bool) *GapFillFlagField {
@@ -6004,10 +6014,10 @@ func NewGapFillFlag(val bool) *GapFillFlagField {
 }
 
 //GrossTradeAmtField is a AMT field
-type GrossTradeAmtField struct{ fix.AmtValue }
+type GrossTradeAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.GrossTradeAmt (381)
-func (f GrossTradeAmtField) Tag() fix.Tag { return tag.GrossTradeAmt }
+func (f GrossTradeAmtField) Tag() quickfix.Tag { return tag.GrossTradeAmt }
 
 //NewGrossTradeAmt returns a new GrossTradeAmtField initialized with val
 func NewGrossTradeAmt(val float64) *GrossTradeAmtField {
@@ -6017,10 +6027,10 @@ func NewGrossTradeAmt(val float64) *GrossTradeAmtField {
 }
 
 //HaltReasonCharField is a CHAR field
-type HaltReasonCharField struct{ fix.CharValue }
+type HaltReasonCharField struct{ quickfix.CharValue }
 
 //Tag returns tag.HaltReasonChar (327)
-func (f HaltReasonCharField) Tag() fix.Tag { return tag.HaltReasonChar }
+func (f HaltReasonCharField) Tag() quickfix.Tag { return tag.HaltReasonChar }
 
 //NewHaltReasonChar returns a new HaltReasonCharField initialized with val
 func NewHaltReasonChar(val string) *HaltReasonCharField {
@@ -6030,10 +6040,10 @@ func NewHaltReasonChar(val string) *HaltReasonCharField {
 }
 
 //HaltReasonIntField is a INT field
-type HaltReasonIntField struct{ fix.IntValue }
+type HaltReasonIntField struct{ quickfix.IntValue }
 
 //Tag returns tag.HaltReasonInt (327)
-func (f HaltReasonIntField) Tag() fix.Tag { return tag.HaltReasonInt }
+func (f HaltReasonIntField) Tag() quickfix.Tag { return tag.HaltReasonInt }
 
 //NewHaltReasonInt returns a new HaltReasonIntField initialized with val
 func NewHaltReasonInt(val int) *HaltReasonIntField {
@@ -6043,10 +6053,10 @@ func NewHaltReasonInt(val int) *HaltReasonIntField {
 }
 
 //HandlInstField is a CHAR field
-type HandlInstField struct{ fix.CharValue }
+type HandlInstField struct{ quickfix.CharValue }
 
 //Tag returns tag.HandlInst (21)
-func (f HandlInstField) Tag() fix.Tag { return tag.HandlInst }
+func (f HandlInstField) Tag() quickfix.Tag { return tag.HandlInst }
 
 //NewHandlInst returns a new HandlInstField initialized with val
 func NewHandlInst(val string) *HandlInstField {
@@ -6056,10 +6066,10 @@ func NewHandlInst(val string) *HandlInstField {
 }
 
 //HeadlineField is a STRING field
-type HeadlineField struct{ fix.StringValue }
+type HeadlineField struct{ quickfix.StringValue }
 
 //Tag returns tag.Headline (148)
-func (f HeadlineField) Tag() fix.Tag { return tag.Headline }
+func (f HeadlineField) Tag() quickfix.Tag { return tag.Headline }
 
 //NewHeadline returns a new HeadlineField initialized with val
 func NewHeadline(val string) *HeadlineField {
@@ -6069,10 +6079,10 @@ func NewHeadline(val string) *HeadlineField {
 }
 
 //HeartBtIntField is a INT field
-type HeartBtIntField struct{ fix.IntValue }
+type HeartBtIntField struct{ quickfix.IntValue }
 
 //Tag returns tag.HeartBtInt (108)
-func (f HeartBtIntField) Tag() fix.Tag { return tag.HeartBtInt }
+func (f HeartBtIntField) Tag() quickfix.Tag { return tag.HeartBtInt }
 
 //NewHeartBtInt returns a new HeartBtIntField initialized with val
 func NewHeartBtInt(val int) *HeartBtIntField {
@@ -6082,10 +6092,10 @@ func NewHeartBtInt(val int) *HeartBtIntField {
 }
 
 //HighLimitPriceField is a PRICE field
-type HighLimitPriceField struct{ fix.PriceValue }
+type HighLimitPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.HighLimitPrice (1149)
-func (f HighLimitPriceField) Tag() fix.Tag { return tag.HighLimitPrice }
+func (f HighLimitPriceField) Tag() quickfix.Tag { return tag.HighLimitPrice }
 
 //NewHighLimitPrice returns a new HighLimitPriceField initialized with val
 func NewHighLimitPrice(val float64) *HighLimitPriceField {
@@ -6095,10 +6105,10 @@ func NewHighLimitPrice(val float64) *HighLimitPriceField {
 }
 
 //HighPxField is a PRICE field
-type HighPxField struct{ fix.PriceValue }
+type HighPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.HighPx (332)
-func (f HighPxField) Tag() fix.Tag { return tag.HighPx }
+func (f HighPxField) Tag() quickfix.Tag { return tag.HighPx }
 
 //NewHighPx returns a new HighPxField initialized with val
 func NewHighPx(val float64) *HighPxField {
@@ -6108,10 +6118,10 @@ func NewHighPx(val float64) *HighPxField {
 }
 
 //HopCompIDField is a STRING field
-type HopCompIDField struct{ fix.StringValue }
+type HopCompIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.HopCompID (628)
-func (f HopCompIDField) Tag() fix.Tag { return tag.HopCompID }
+func (f HopCompIDField) Tag() quickfix.Tag { return tag.HopCompID }
 
 //NewHopCompID returns a new HopCompIDField initialized with val
 func NewHopCompID(val string) *HopCompIDField {
@@ -6121,10 +6131,10 @@ func NewHopCompID(val string) *HopCompIDField {
 }
 
 //HopRefIDField is a SEQNUM field
-type HopRefIDField struct{ fix.SeqNumValue }
+type HopRefIDField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.HopRefID (630)
-func (f HopRefIDField) Tag() fix.Tag { return tag.HopRefID }
+func (f HopRefIDField) Tag() quickfix.Tag { return tag.HopRefID }
 
 //NewHopRefID returns a new HopRefIDField initialized with val
 func NewHopRefID(val int) *HopRefIDField {
@@ -6134,16 +6144,16 @@ func NewHopRefID(val int) *HopRefIDField {
 }
 
 //HopSendingTimeField is a UTCTIMESTAMP field
-type HopSendingTimeField struct{ fix.UTCTimestampValue }
+type HopSendingTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.HopSendingTime (629)
-func (f HopSendingTimeField) Tag() fix.Tag { return tag.HopSendingTime }
+func (f HopSendingTimeField) Tag() quickfix.Tag { return tag.HopSendingTime }
 
 //HostCrossIDField is a STRING field
-type HostCrossIDField struct{ fix.StringValue }
+type HostCrossIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.HostCrossID (961)
-func (f HostCrossIDField) Tag() fix.Tag { return tag.HostCrossID }
+func (f HostCrossIDField) Tag() quickfix.Tag { return tag.HostCrossID }
 
 //NewHostCrossID returns a new HostCrossIDField initialized with val
 func NewHostCrossID(val string) *HostCrossIDField {
@@ -6153,10 +6163,10 @@ func NewHostCrossID(val string) *HostCrossIDField {
 }
 
 //IDSourceField is a STRING field
-type IDSourceField struct{ fix.StringValue }
+type IDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.IDSource (22)
-func (f IDSourceField) Tag() fix.Tag { return tag.IDSource }
+func (f IDSourceField) Tag() quickfix.Tag { return tag.IDSource }
 
 //NewIDSource returns a new IDSourceField initialized with val
 func NewIDSource(val string) *IDSourceField {
@@ -6166,10 +6176,10 @@ func NewIDSource(val string) *IDSourceField {
 }
 
 //IOIIDField is a STRING field
-type IOIIDField struct{ fix.StringValue }
+type IOIIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.IOIID (23)
-func (f IOIIDField) Tag() fix.Tag { return tag.IOIID }
+func (f IOIIDField) Tag() quickfix.Tag { return tag.IOIID }
 
 //NewIOIID returns a new IOIIDField initialized with val
 func NewIOIID(val string) *IOIIDField {
@@ -6179,10 +6189,10 @@ func NewIOIID(val string) *IOIIDField {
 }
 
 //IOINaturalFlagField is a BOOLEAN field
-type IOINaturalFlagField struct{ fix.BooleanValue }
+type IOINaturalFlagField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.IOINaturalFlag (130)
-func (f IOINaturalFlagField) Tag() fix.Tag { return tag.IOINaturalFlag }
+func (f IOINaturalFlagField) Tag() quickfix.Tag { return tag.IOINaturalFlag }
 
 //NewIOINaturalFlag returns a new IOINaturalFlagField initialized with val
 func NewIOINaturalFlag(val bool) *IOINaturalFlagField {
@@ -6192,10 +6202,10 @@ func NewIOINaturalFlag(val bool) *IOINaturalFlagField {
 }
 
 //IOIOthSvcField is a CHAR field
-type IOIOthSvcField struct{ fix.CharValue }
+type IOIOthSvcField struct{ quickfix.CharValue }
 
 //Tag returns tag.IOIOthSvc (24)
-func (f IOIOthSvcField) Tag() fix.Tag { return tag.IOIOthSvc }
+func (f IOIOthSvcField) Tag() quickfix.Tag { return tag.IOIOthSvc }
 
 //NewIOIOthSvc returns a new IOIOthSvcField initialized with val
 func NewIOIOthSvc(val string) *IOIOthSvcField {
@@ -6205,10 +6215,10 @@ func NewIOIOthSvc(val string) *IOIOthSvcField {
 }
 
 //IOIQltyIndField is a CHAR field
-type IOIQltyIndField struct{ fix.CharValue }
+type IOIQltyIndField struct{ quickfix.CharValue }
 
 //Tag returns tag.IOIQltyInd (25)
-func (f IOIQltyIndField) Tag() fix.Tag { return tag.IOIQltyInd }
+func (f IOIQltyIndField) Tag() quickfix.Tag { return tag.IOIQltyInd }
 
 //NewIOIQltyInd returns a new IOIQltyIndField initialized with val
 func NewIOIQltyInd(val string) *IOIQltyIndField {
@@ -6218,10 +6228,10 @@ func NewIOIQltyInd(val string) *IOIQltyIndField {
 }
 
 //IOIQtyField is a STRING field
-type IOIQtyField struct{ fix.StringValue }
+type IOIQtyField struct{ quickfix.StringValue }
 
 //Tag returns tag.IOIQty (27)
-func (f IOIQtyField) Tag() fix.Tag { return tag.IOIQty }
+func (f IOIQtyField) Tag() quickfix.Tag { return tag.IOIQty }
 
 //NewIOIQty returns a new IOIQtyField initialized with val
 func NewIOIQty(val string) *IOIQtyField {
@@ -6231,10 +6241,10 @@ func NewIOIQty(val string) *IOIQtyField {
 }
 
 //IOIQualifierField is a CHAR field
-type IOIQualifierField struct{ fix.CharValue }
+type IOIQualifierField struct{ quickfix.CharValue }
 
 //Tag returns tag.IOIQualifier (104)
-func (f IOIQualifierField) Tag() fix.Tag { return tag.IOIQualifier }
+func (f IOIQualifierField) Tag() quickfix.Tag { return tag.IOIQualifier }
 
 //NewIOIQualifier returns a new IOIQualifierField initialized with val
 func NewIOIQualifier(val string) *IOIQualifierField {
@@ -6244,10 +6254,10 @@ func NewIOIQualifier(val string) *IOIQualifierField {
 }
 
 //IOIRefIDField is a STRING field
-type IOIRefIDField struct{ fix.StringValue }
+type IOIRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.IOIRefID (26)
-func (f IOIRefIDField) Tag() fix.Tag { return tag.IOIRefID }
+func (f IOIRefIDField) Tag() quickfix.Tag { return tag.IOIRefID }
 
 //NewIOIRefID returns a new IOIRefIDField initialized with val
 func NewIOIRefID(val string) *IOIRefIDField {
@@ -6257,10 +6267,10 @@ func NewIOIRefID(val string) *IOIRefIDField {
 }
 
 //IOISharesField is a STRING field
-type IOISharesField struct{ fix.StringValue }
+type IOISharesField struct{ quickfix.StringValue }
 
 //Tag returns tag.IOIShares (27)
-func (f IOISharesField) Tag() fix.Tag { return tag.IOIShares }
+func (f IOISharesField) Tag() quickfix.Tag { return tag.IOIShares }
 
 //NewIOIShares returns a new IOISharesField initialized with val
 func NewIOIShares(val string) *IOISharesField {
@@ -6270,10 +6280,10 @@ func NewIOIShares(val string) *IOISharesField {
 }
 
 //IOITransTypeField is a CHAR field
-type IOITransTypeField struct{ fix.CharValue }
+type IOITransTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.IOITransType (28)
-func (f IOITransTypeField) Tag() fix.Tag { return tag.IOITransType }
+func (f IOITransTypeField) Tag() quickfix.Tag { return tag.IOITransType }
 
 //NewIOITransType returns a new IOITransTypeField initialized with val
 func NewIOITransType(val string) *IOITransTypeField {
@@ -6283,10 +6293,10 @@ func NewIOITransType(val string) *IOITransTypeField {
 }
 
 //IOIidField is a STRING field
-type IOIidField struct{ fix.StringValue }
+type IOIidField struct{ quickfix.StringValue }
 
 //Tag returns tag.IOIid (23)
-func (f IOIidField) Tag() fix.Tag { return tag.IOIid }
+func (f IOIidField) Tag() quickfix.Tag { return tag.IOIid }
 
 //NewIOIid returns a new IOIidField initialized with val
 func NewIOIid(val string) *IOIidField {
@@ -6296,10 +6306,10 @@ func NewIOIid(val string) *IOIidField {
 }
 
 //ImpliedMarketIndicatorField is a INT field
-type ImpliedMarketIndicatorField struct{ fix.IntValue }
+type ImpliedMarketIndicatorField struct{ quickfix.IntValue }
 
 //Tag returns tag.ImpliedMarketIndicator (1144)
-func (f ImpliedMarketIndicatorField) Tag() fix.Tag { return tag.ImpliedMarketIndicator }
+func (f ImpliedMarketIndicatorField) Tag() quickfix.Tag { return tag.ImpliedMarketIndicator }
 
 //NewImpliedMarketIndicator returns a new ImpliedMarketIndicatorField initialized with val
 func NewImpliedMarketIndicator(val int) *ImpliedMarketIndicatorField {
@@ -6309,10 +6319,10 @@ func NewImpliedMarketIndicator(val int) *ImpliedMarketIndicatorField {
 }
 
 //InViewOfCommonField is a BOOLEAN field
-type InViewOfCommonField struct{ fix.BooleanValue }
+type InViewOfCommonField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.InViewOfCommon (328)
-func (f InViewOfCommonField) Tag() fix.Tag { return tag.InViewOfCommon }
+func (f InViewOfCommonField) Tag() quickfix.Tag { return tag.InViewOfCommon }
 
 //NewInViewOfCommon returns a new InViewOfCommonField initialized with val
 func NewInViewOfCommon(val bool) *InViewOfCommonField {
@@ -6322,10 +6332,10 @@ func NewInViewOfCommon(val bool) *InViewOfCommonField {
 }
 
 //IncTaxIndField is a INT field
-type IncTaxIndField struct{ fix.IntValue }
+type IncTaxIndField struct{ quickfix.IntValue }
 
 //Tag returns tag.IncTaxInd (416)
-func (f IncTaxIndField) Tag() fix.Tag { return tag.IncTaxInd }
+func (f IncTaxIndField) Tag() quickfix.Tag { return tag.IncTaxInd }
 
 //NewIncTaxInd returns a new IncTaxIndField initialized with val
 func NewIncTaxInd(val int) *IncTaxIndField {
@@ -6335,10 +6345,10 @@ func NewIncTaxInd(val int) *IncTaxIndField {
 }
 
 //IndividualAllocIDField is a STRING field
-type IndividualAllocIDField struct{ fix.StringValue }
+type IndividualAllocIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.IndividualAllocID (467)
-func (f IndividualAllocIDField) Tag() fix.Tag { return tag.IndividualAllocID }
+func (f IndividualAllocIDField) Tag() quickfix.Tag { return tag.IndividualAllocID }
 
 //NewIndividualAllocID returns a new IndividualAllocIDField initialized with val
 func NewIndividualAllocID(val string) *IndividualAllocIDField {
@@ -6348,10 +6358,10 @@ func NewIndividualAllocID(val string) *IndividualAllocIDField {
 }
 
 //IndividualAllocRejCodeField is a INT field
-type IndividualAllocRejCodeField struct{ fix.IntValue }
+type IndividualAllocRejCodeField struct{ quickfix.IntValue }
 
 //Tag returns tag.IndividualAllocRejCode (776)
-func (f IndividualAllocRejCodeField) Tag() fix.Tag { return tag.IndividualAllocRejCode }
+func (f IndividualAllocRejCodeField) Tag() quickfix.Tag { return tag.IndividualAllocRejCode }
 
 //NewIndividualAllocRejCode returns a new IndividualAllocRejCodeField initialized with val
 func NewIndividualAllocRejCode(val int) *IndividualAllocRejCodeField {
@@ -6361,10 +6371,10 @@ func NewIndividualAllocRejCode(val int) *IndividualAllocRejCodeField {
 }
 
 //IndividualAllocTypeField is a INT field
-type IndividualAllocTypeField struct{ fix.IntValue }
+type IndividualAllocTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.IndividualAllocType (992)
-func (f IndividualAllocTypeField) Tag() fix.Tag { return tag.IndividualAllocType }
+func (f IndividualAllocTypeField) Tag() quickfix.Tag { return tag.IndividualAllocType }
 
 //NewIndividualAllocType returns a new IndividualAllocTypeField initialized with val
 func NewIndividualAllocType(val int) *IndividualAllocTypeField {
@@ -6374,10 +6384,10 @@ func NewIndividualAllocType(val int) *IndividualAllocTypeField {
 }
 
 //InputSourceField is a STRING field
-type InputSourceField struct{ fix.StringValue }
+type InputSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.InputSource (979)
-func (f InputSourceField) Tag() fix.Tag { return tag.InputSource }
+func (f InputSourceField) Tag() quickfix.Tag { return tag.InputSource }
 
 //NewInputSource returns a new InputSourceField initialized with val
 func NewInputSource(val string) *InputSourceField {
@@ -6387,10 +6397,10 @@ func NewInputSource(val string) *InputSourceField {
 }
 
 //InstrAttribTypeField is a INT field
-type InstrAttribTypeField struct{ fix.IntValue }
+type InstrAttribTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.InstrAttribType (871)
-func (f InstrAttribTypeField) Tag() fix.Tag { return tag.InstrAttribType }
+func (f InstrAttribTypeField) Tag() quickfix.Tag { return tag.InstrAttribType }
 
 //NewInstrAttribType returns a new InstrAttribTypeField initialized with val
 func NewInstrAttribType(val int) *InstrAttribTypeField {
@@ -6400,10 +6410,10 @@ func NewInstrAttribType(val int) *InstrAttribTypeField {
 }
 
 //InstrAttribValueField is a STRING field
-type InstrAttribValueField struct{ fix.StringValue }
+type InstrAttribValueField struct{ quickfix.StringValue }
 
 //Tag returns tag.InstrAttribValue (872)
-func (f InstrAttribValueField) Tag() fix.Tag { return tag.InstrAttribValue }
+func (f InstrAttribValueField) Tag() quickfix.Tag { return tag.InstrAttribValue }
 
 //NewInstrAttribValue returns a new InstrAttribValueField initialized with val
 func NewInstrAttribValue(val string) *InstrAttribValueField {
@@ -6413,10 +6423,10 @@ func NewInstrAttribValue(val string) *InstrAttribValueField {
 }
 
 //InstrRegistryField is a STRING field
-type InstrRegistryField struct{ fix.StringValue }
+type InstrRegistryField struct{ quickfix.StringValue }
 
 //Tag returns tag.InstrRegistry (543)
-func (f InstrRegistryField) Tag() fix.Tag { return tag.InstrRegistry }
+func (f InstrRegistryField) Tag() quickfix.Tag { return tag.InstrRegistry }
 
 //NewInstrRegistry returns a new InstrRegistryField initialized with val
 func NewInstrRegistry(val string) *InstrRegistryField {
@@ -6426,10 +6436,10 @@ func NewInstrRegistry(val string) *InstrRegistryField {
 }
 
 //InstrmtAssignmentMethodField is a CHAR field
-type InstrmtAssignmentMethodField struct{ fix.CharValue }
+type InstrmtAssignmentMethodField struct{ quickfix.CharValue }
 
 //Tag returns tag.InstrmtAssignmentMethod (1049)
-func (f InstrmtAssignmentMethodField) Tag() fix.Tag { return tag.InstrmtAssignmentMethod }
+func (f InstrmtAssignmentMethodField) Tag() quickfix.Tag { return tag.InstrmtAssignmentMethod }
 
 //NewInstrmtAssignmentMethod returns a new InstrmtAssignmentMethodField initialized with val
 func NewInstrmtAssignmentMethod(val string) *InstrmtAssignmentMethodField {
@@ -6439,10 +6449,10 @@ func NewInstrmtAssignmentMethod(val string) *InstrmtAssignmentMethodField {
 }
 
 //InstrumentPartyIDField is a STRING field
-type InstrumentPartyIDField struct{ fix.StringValue }
+type InstrumentPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.InstrumentPartyID (1019)
-func (f InstrumentPartyIDField) Tag() fix.Tag { return tag.InstrumentPartyID }
+func (f InstrumentPartyIDField) Tag() quickfix.Tag { return tag.InstrumentPartyID }
 
 //NewInstrumentPartyID returns a new InstrumentPartyIDField initialized with val
 func NewInstrumentPartyID(val string) *InstrumentPartyIDField {
@@ -6452,10 +6462,10 @@ func NewInstrumentPartyID(val string) *InstrumentPartyIDField {
 }
 
 //InstrumentPartyIDSourceField is a CHAR field
-type InstrumentPartyIDSourceField struct{ fix.CharValue }
+type InstrumentPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.InstrumentPartyIDSource (1050)
-func (f InstrumentPartyIDSourceField) Tag() fix.Tag { return tag.InstrumentPartyIDSource }
+func (f InstrumentPartyIDSourceField) Tag() quickfix.Tag { return tag.InstrumentPartyIDSource }
 
 //NewInstrumentPartyIDSource returns a new InstrumentPartyIDSourceField initialized with val
 func NewInstrumentPartyIDSource(val string) *InstrumentPartyIDSourceField {
@@ -6465,10 +6475,10 @@ func NewInstrumentPartyIDSource(val string) *InstrumentPartyIDSourceField {
 }
 
 //InstrumentPartyRoleField is a INT field
-type InstrumentPartyRoleField struct{ fix.IntValue }
+type InstrumentPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.InstrumentPartyRole (1051)
-func (f InstrumentPartyRoleField) Tag() fix.Tag { return tag.InstrumentPartyRole }
+func (f InstrumentPartyRoleField) Tag() quickfix.Tag { return tag.InstrumentPartyRole }
 
 //NewInstrumentPartyRole returns a new InstrumentPartyRoleField initialized with val
 func NewInstrumentPartyRole(val int) *InstrumentPartyRoleField {
@@ -6478,10 +6488,10 @@ func NewInstrumentPartyRole(val int) *InstrumentPartyRoleField {
 }
 
 //InstrumentPartySubIDField is a STRING field
-type InstrumentPartySubIDField struct{ fix.StringValue }
+type InstrumentPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.InstrumentPartySubID (1053)
-func (f InstrumentPartySubIDField) Tag() fix.Tag { return tag.InstrumentPartySubID }
+func (f InstrumentPartySubIDField) Tag() quickfix.Tag { return tag.InstrumentPartySubID }
 
 //NewInstrumentPartySubID returns a new InstrumentPartySubIDField initialized with val
 func NewInstrumentPartySubID(val string) *InstrumentPartySubIDField {
@@ -6491,10 +6501,10 @@ func NewInstrumentPartySubID(val string) *InstrumentPartySubIDField {
 }
 
 //InstrumentPartySubIDTypeField is a INT field
-type InstrumentPartySubIDTypeField struct{ fix.IntValue }
+type InstrumentPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.InstrumentPartySubIDType (1054)
-func (f InstrumentPartySubIDTypeField) Tag() fix.Tag { return tag.InstrumentPartySubIDType }
+func (f InstrumentPartySubIDTypeField) Tag() quickfix.Tag { return tag.InstrumentPartySubIDType }
 
 //NewInstrumentPartySubIDType returns a new InstrumentPartySubIDTypeField initialized with val
 func NewInstrumentPartySubIDType(val int) *InstrumentPartySubIDTypeField {
@@ -6504,10 +6514,10 @@ func NewInstrumentPartySubIDType(val int) *InstrumentPartySubIDTypeField {
 }
 
 //InterestAccrualDateField is a LOCALMKTDATE field
-type InterestAccrualDateField struct{ fix.LocalMktDateValue }
+type InterestAccrualDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.InterestAccrualDate (874)
-func (f InterestAccrualDateField) Tag() fix.Tag { return tag.InterestAccrualDate }
+func (f InterestAccrualDateField) Tag() quickfix.Tag { return tag.InterestAccrualDate }
 
 //NewInterestAccrualDate returns a new InterestAccrualDateField initialized with val
 func NewInterestAccrualDate(val string) *InterestAccrualDateField {
@@ -6517,10 +6527,10 @@ func NewInterestAccrualDate(val string) *InterestAccrualDateField {
 }
 
 //InterestAtMaturityField is a AMT field
-type InterestAtMaturityField struct{ fix.AmtValue }
+type InterestAtMaturityField struct{ quickfix.AmtValue }
 
 //Tag returns tag.InterestAtMaturity (738)
-func (f InterestAtMaturityField) Tag() fix.Tag { return tag.InterestAtMaturity }
+func (f InterestAtMaturityField) Tag() quickfix.Tag { return tag.InterestAtMaturity }
 
 //NewInterestAtMaturity returns a new InterestAtMaturityField initialized with val
 func NewInterestAtMaturity(val float64) *InterestAtMaturityField {
@@ -6530,10 +6540,10 @@ func NewInterestAtMaturity(val float64) *InterestAtMaturityField {
 }
 
 //InvestorCountryOfResidenceField is a COUNTRY field
-type InvestorCountryOfResidenceField struct{ fix.CountryValue }
+type InvestorCountryOfResidenceField struct{ quickfix.CountryValue }
 
 //Tag returns tag.InvestorCountryOfResidence (475)
-func (f InvestorCountryOfResidenceField) Tag() fix.Tag { return tag.InvestorCountryOfResidence }
+func (f InvestorCountryOfResidenceField) Tag() quickfix.Tag { return tag.InvestorCountryOfResidence }
 
 //NewInvestorCountryOfResidence returns a new InvestorCountryOfResidenceField initialized with val
 func NewInvestorCountryOfResidence(val string) *InvestorCountryOfResidenceField {
@@ -6543,10 +6553,10 @@ func NewInvestorCountryOfResidence(val string) *InvestorCountryOfResidenceField 
 }
 
 //IssueDateField is a LOCALMKTDATE field
-type IssueDateField struct{ fix.LocalMktDateValue }
+type IssueDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.IssueDate (225)
-func (f IssueDateField) Tag() fix.Tag { return tag.IssueDate }
+func (f IssueDateField) Tag() quickfix.Tag { return tag.IssueDate }
 
 //NewIssueDate returns a new IssueDateField initialized with val
 func NewIssueDate(val string) *IssueDateField {
@@ -6556,10 +6566,10 @@ func NewIssueDate(val string) *IssueDateField {
 }
 
 //IssuerField is a STRING field
-type IssuerField struct{ fix.StringValue }
+type IssuerField struct{ quickfix.StringValue }
 
 //Tag returns tag.Issuer (106)
-func (f IssuerField) Tag() fix.Tag { return tag.Issuer }
+func (f IssuerField) Tag() quickfix.Tag { return tag.Issuer }
 
 //NewIssuer returns a new IssuerField initialized with val
 func NewIssuer(val string) *IssuerField {
@@ -6569,10 +6579,10 @@ func NewIssuer(val string) *IssuerField {
 }
 
 //LanguageCodeField is a LANGUAGE field
-type LanguageCodeField struct{ fix.LanguageValue }
+type LanguageCodeField struct{ quickfix.LanguageValue }
 
 //Tag returns tag.LanguageCode (1474)
-func (f LanguageCodeField) Tag() fix.Tag { return tag.LanguageCode }
+func (f LanguageCodeField) Tag() quickfix.Tag { return tag.LanguageCode }
 
 //NewLanguageCode returns a new LanguageCodeField initialized with val
 func NewLanguageCode(val string) *LanguageCodeField {
@@ -6582,10 +6592,10 @@ func NewLanguageCode(val string) *LanguageCodeField {
 }
 
 //LastCapacityField is a CHAR field
-type LastCapacityField struct{ fix.CharValue }
+type LastCapacityField struct{ quickfix.CharValue }
 
 //Tag returns tag.LastCapacity (29)
-func (f LastCapacityField) Tag() fix.Tag { return tag.LastCapacity }
+func (f LastCapacityField) Tag() quickfix.Tag { return tag.LastCapacity }
 
 //NewLastCapacity returns a new LastCapacityField initialized with val
 func NewLastCapacity(val string) *LastCapacityField {
@@ -6595,10 +6605,10 @@ func NewLastCapacity(val string) *LastCapacityField {
 }
 
 //LastForwardPointsField is a PRICEOFFSET field
-type LastForwardPointsField struct{ fix.PriceOffsetValue }
+type LastForwardPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.LastForwardPoints (195)
-func (f LastForwardPointsField) Tag() fix.Tag { return tag.LastForwardPoints }
+func (f LastForwardPointsField) Tag() quickfix.Tag { return tag.LastForwardPoints }
 
 //NewLastForwardPoints returns a new LastForwardPointsField initialized with val
 func NewLastForwardPoints(val float64) *LastForwardPointsField {
@@ -6608,10 +6618,10 @@ func NewLastForwardPoints(val float64) *LastForwardPointsField {
 }
 
 //LastForwardPoints2Field is a PRICEOFFSET field
-type LastForwardPoints2Field struct{ fix.PriceOffsetValue }
+type LastForwardPoints2Field struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.LastForwardPoints2 (641)
-func (f LastForwardPoints2Field) Tag() fix.Tag { return tag.LastForwardPoints2 }
+func (f LastForwardPoints2Field) Tag() quickfix.Tag { return tag.LastForwardPoints2 }
 
 //NewLastForwardPoints2 returns a new LastForwardPoints2Field initialized with val
 func NewLastForwardPoints2(val float64) *LastForwardPoints2Field {
@@ -6621,10 +6631,10 @@ func NewLastForwardPoints2(val float64) *LastForwardPoints2Field {
 }
 
 //LastFragmentField is a BOOLEAN field
-type LastFragmentField struct{ fix.BooleanValue }
+type LastFragmentField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.LastFragment (893)
-func (f LastFragmentField) Tag() fix.Tag { return tag.LastFragment }
+func (f LastFragmentField) Tag() quickfix.Tag { return tag.LastFragment }
 
 //NewLastFragment returns a new LastFragmentField initialized with val
 func NewLastFragment(val bool) *LastFragmentField {
@@ -6634,10 +6644,10 @@ func NewLastFragment(val bool) *LastFragmentField {
 }
 
 //LastLiquidityIndField is a INT field
-type LastLiquidityIndField struct{ fix.IntValue }
+type LastLiquidityIndField struct{ quickfix.IntValue }
 
 //Tag returns tag.LastLiquidityInd (851)
-func (f LastLiquidityIndField) Tag() fix.Tag { return tag.LastLiquidityInd }
+func (f LastLiquidityIndField) Tag() quickfix.Tag { return tag.LastLiquidityInd }
 
 //NewLastLiquidityInd returns a new LastLiquidityIndField initialized with val
 func NewLastLiquidityInd(val int) *LastLiquidityIndField {
@@ -6647,10 +6657,10 @@ func NewLastLiquidityInd(val int) *LastLiquidityIndField {
 }
 
 //LastMktField is a EXCHANGE field
-type LastMktField struct{ fix.ExchangeValue }
+type LastMktField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.LastMkt (30)
-func (f LastMktField) Tag() fix.Tag { return tag.LastMkt }
+func (f LastMktField) Tag() quickfix.Tag { return tag.LastMkt }
 
 //NewLastMkt returns a new LastMktField initialized with val
 func NewLastMkt(val string) *LastMktField {
@@ -6660,10 +6670,10 @@ func NewLastMkt(val string) *LastMktField {
 }
 
 //LastMsgSeqNumProcessedField is a SEQNUM field
-type LastMsgSeqNumProcessedField struct{ fix.SeqNumValue }
+type LastMsgSeqNumProcessedField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.LastMsgSeqNumProcessed (369)
-func (f LastMsgSeqNumProcessedField) Tag() fix.Tag { return tag.LastMsgSeqNumProcessed }
+func (f LastMsgSeqNumProcessedField) Tag() quickfix.Tag { return tag.LastMsgSeqNumProcessed }
 
 //NewLastMsgSeqNumProcessed returns a new LastMsgSeqNumProcessedField initialized with val
 func NewLastMsgSeqNumProcessed(val int) *LastMsgSeqNumProcessedField {
@@ -6673,10 +6683,10 @@ func NewLastMsgSeqNumProcessed(val int) *LastMsgSeqNumProcessedField {
 }
 
 //LastNetworkResponseIDField is a STRING field
-type LastNetworkResponseIDField struct{ fix.StringValue }
+type LastNetworkResponseIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.LastNetworkResponseID (934)
-func (f LastNetworkResponseIDField) Tag() fix.Tag { return tag.LastNetworkResponseID }
+func (f LastNetworkResponseIDField) Tag() quickfix.Tag { return tag.LastNetworkResponseID }
 
 //NewLastNetworkResponseID returns a new LastNetworkResponseIDField initialized with val
 func NewLastNetworkResponseID(val string) *LastNetworkResponseIDField {
@@ -6686,10 +6696,10 @@ func NewLastNetworkResponseID(val string) *LastNetworkResponseIDField {
 }
 
 //LastParPxField is a PRICE field
-type LastParPxField struct{ fix.PriceValue }
+type LastParPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LastParPx (669)
-func (f LastParPxField) Tag() fix.Tag { return tag.LastParPx }
+func (f LastParPxField) Tag() quickfix.Tag { return tag.LastParPx }
 
 //NewLastParPx returns a new LastParPxField initialized with val
 func NewLastParPx(val float64) *LastParPxField {
@@ -6699,10 +6709,10 @@ func NewLastParPx(val float64) *LastParPxField {
 }
 
 //LastPxField is a PRICE field
-type LastPxField struct{ fix.PriceValue }
+type LastPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LastPx (31)
-func (f LastPxField) Tag() fix.Tag { return tag.LastPx }
+func (f LastPxField) Tag() quickfix.Tag { return tag.LastPx }
 
 //NewLastPx returns a new LastPxField initialized with val
 func NewLastPx(val float64) *LastPxField {
@@ -6712,10 +6722,10 @@ func NewLastPx(val float64) *LastPxField {
 }
 
 //LastQtyField is a QTY field
-type LastQtyField struct{ fix.QtyValue }
+type LastQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LastQty (32)
-func (f LastQtyField) Tag() fix.Tag { return tag.LastQty }
+func (f LastQtyField) Tag() quickfix.Tag { return tag.LastQty }
 
 //NewLastQty returns a new LastQtyField initialized with val
 func NewLastQty(val float64) *LastQtyField {
@@ -6725,10 +6735,10 @@ func NewLastQty(val float64) *LastQtyField {
 }
 
 //LastRptRequestedField is a BOOLEAN field
-type LastRptRequestedField struct{ fix.BooleanValue }
+type LastRptRequestedField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.LastRptRequested (912)
-func (f LastRptRequestedField) Tag() fix.Tag { return tag.LastRptRequested }
+func (f LastRptRequestedField) Tag() quickfix.Tag { return tag.LastRptRequested }
 
 //NewLastRptRequested returns a new LastRptRequestedField initialized with val
 func NewLastRptRequested(val bool) *LastRptRequestedField {
@@ -6738,10 +6748,10 @@ func NewLastRptRequested(val bool) *LastRptRequestedField {
 }
 
 //LastSharesField is a QTY field
-type LastSharesField struct{ fix.QtyValue }
+type LastSharesField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LastShares (32)
-func (f LastSharesField) Tag() fix.Tag { return tag.LastShares }
+func (f LastSharesField) Tag() quickfix.Tag { return tag.LastShares }
 
 //NewLastShares returns a new LastSharesField initialized with val
 func NewLastShares(val float64) *LastSharesField {
@@ -6751,10 +6761,10 @@ func NewLastShares(val float64) *LastSharesField {
 }
 
 //LastSpotRateField is a PRICE field
-type LastSpotRateField struct{ fix.PriceValue }
+type LastSpotRateField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LastSpotRate (194)
-func (f LastSpotRateField) Tag() fix.Tag { return tag.LastSpotRate }
+func (f LastSpotRateField) Tag() quickfix.Tag { return tag.LastSpotRate }
 
 //NewLastSpotRate returns a new LastSpotRateField initialized with val
 func NewLastSpotRate(val float64) *LastSpotRateField {
@@ -6764,10 +6774,10 @@ func NewLastSpotRate(val float64) *LastSpotRateField {
 }
 
 //LastSwapPointsField is a PRICEOFFSET field
-type LastSwapPointsField struct{ fix.PriceOffsetValue }
+type LastSwapPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.LastSwapPoints (1071)
-func (f LastSwapPointsField) Tag() fix.Tag { return tag.LastSwapPoints }
+func (f LastSwapPointsField) Tag() quickfix.Tag { return tag.LastSwapPoints }
 
 //NewLastSwapPoints returns a new LastSwapPointsField initialized with val
 func NewLastSwapPoints(val float64) *LastSwapPointsField {
@@ -6777,16 +6787,16 @@ func NewLastSwapPoints(val float64) *LastSwapPointsField {
 }
 
 //LastUpdateTimeField is a UTCTIMESTAMP field
-type LastUpdateTimeField struct{ fix.UTCTimestampValue }
+type LastUpdateTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.LastUpdateTime (779)
-func (f LastUpdateTimeField) Tag() fix.Tag { return tag.LastUpdateTime }
+func (f LastUpdateTimeField) Tag() quickfix.Tag { return tag.LastUpdateTime }
 
 //LateIndicatorField is a BOOLEAN field
-type LateIndicatorField struct{ fix.BooleanValue }
+type LateIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.LateIndicator (978)
-func (f LateIndicatorField) Tag() fix.Tag { return tag.LateIndicator }
+func (f LateIndicatorField) Tag() quickfix.Tag { return tag.LateIndicator }
 
 //NewLateIndicator returns a new LateIndicatorField initialized with val
 func NewLateIndicator(val bool) *LateIndicatorField {
@@ -6796,10 +6806,10 @@ func NewLateIndicator(val bool) *LateIndicatorField {
 }
 
 //LeavesQtyField is a QTY field
-type LeavesQtyField struct{ fix.QtyValue }
+type LeavesQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LeavesQty (151)
-func (f LeavesQtyField) Tag() fix.Tag { return tag.LeavesQty }
+func (f LeavesQtyField) Tag() quickfix.Tag { return tag.LeavesQty }
 
 //NewLeavesQty returns a new LeavesQtyField initialized with val
 func NewLeavesQty(val float64) *LeavesQtyField {
@@ -6809,10 +6819,10 @@ func NewLeavesQty(val float64) *LeavesQtyField {
 }
 
 //LegAllocAccountField is a STRING field
-type LegAllocAccountField struct{ fix.StringValue }
+type LegAllocAccountField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegAllocAccount (671)
-func (f LegAllocAccountField) Tag() fix.Tag { return tag.LegAllocAccount }
+func (f LegAllocAccountField) Tag() quickfix.Tag { return tag.LegAllocAccount }
 
 //NewLegAllocAccount returns a new LegAllocAccountField initialized with val
 func NewLegAllocAccount(val string) *LegAllocAccountField {
@@ -6822,10 +6832,10 @@ func NewLegAllocAccount(val string) *LegAllocAccountField {
 }
 
 //LegAllocAcctIDSourceField is a STRING field
-type LegAllocAcctIDSourceField struct{ fix.StringValue }
+type LegAllocAcctIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegAllocAcctIDSource (674)
-func (f LegAllocAcctIDSourceField) Tag() fix.Tag { return tag.LegAllocAcctIDSource }
+func (f LegAllocAcctIDSourceField) Tag() quickfix.Tag { return tag.LegAllocAcctIDSource }
 
 //NewLegAllocAcctIDSource returns a new LegAllocAcctIDSourceField initialized with val
 func NewLegAllocAcctIDSource(val string) *LegAllocAcctIDSourceField {
@@ -6835,10 +6845,10 @@ func NewLegAllocAcctIDSource(val string) *LegAllocAcctIDSourceField {
 }
 
 //LegAllocIDField is a STRING field
-type LegAllocIDField struct{ fix.StringValue }
+type LegAllocIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegAllocID (1366)
-func (f LegAllocIDField) Tag() fix.Tag { return tag.LegAllocID }
+func (f LegAllocIDField) Tag() quickfix.Tag { return tag.LegAllocID }
 
 //NewLegAllocID returns a new LegAllocIDField initialized with val
 func NewLegAllocID(val string) *LegAllocIDField {
@@ -6848,10 +6858,10 @@ func NewLegAllocID(val string) *LegAllocIDField {
 }
 
 //LegAllocQtyField is a QTY field
-type LegAllocQtyField struct{ fix.QtyValue }
+type LegAllocQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LegAllocQty (673)
-func (f LegAllocQtyField) Tag() fix.Tag { return tag.LegAllocQty }
+func (f LegAllocQtyField) Tag() quickfix.Tag { return tag.LegAllocQty }
 
 //NewLegAllocQty returns a new LegAllocQtyField initialized with val
 func NewLegAllocQty(val float64) *LegAllocQtyField {
@@ -6861,10 +6871,10 @@ func NewLegAllocQty(val float64) *LegAllocQtyField {
 }
 
 //LegAllocSettlCurrencyField is a CURRENCY field
-type LegAllocSettlCurrencyField struct{ fix.CurrencyValue }
+type LegAllocSettlCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.LegAllocSettlCurrency (1367)
-func (f LegAllocSettlCurrencyField) Tag() fix.Tag { return tag.LegAllocSettlCurrency }
+func (f LegAllocSettlCurrencyField) Tag() quickfix.Tag { return tag.LegAllocSettlCurrency }
 
 //NewLegAllocSettlCurrency returns a new LegAllocSettlCurrencyField initialized with val
 func NewLegAllocSettlCurrency(val string) *LegAllocSettlCurrencyField {
@@ -6874,10 +6884,10 @@ func NewLegAllocSettlCurrency(val string) *LegAllocSettlCurrencyField {
 }
 
 //LegBenchmarkCurveCurrencyField is a CURRENCY field
-type LegBenchmarkCurveCurrencyField struct{ fix.CurrencyValue }
+type LegBenchmarkCurveCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.LegBenchmarkCurveCurrency (676)
-func (f LegBenchmarkCurveCurrencyField) Tag() fix.Tag { return tag.LegBenchmarkCurveCurrency }
+func (f LegBenchmarkCurveCurrencyField) Tag() quickfix.Tag { return tag.LegBenchmarkCurveCurrency }
 
 //NewLegBenchmarkCurveCurrency returns a new LegBenchmarkCurveCurrencyField initialized with val
 func NewLegBenchmarkCurveCurrency(val string) *LegBenchmarkCurveCurrencyField {
@@ -6887,10 +6897,10 @@ func NewLegBenchmarkCurveCurrency(val string) *LegBenchmarkCurveCurrencyField {
 }
 
 //LegBenchmarkCurveNameField is a STRING field
-type LegBenchmarkCurveNameField struct{ fix.StringValue }
+type LegBenchmarkCurveNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegBenchmarkCurveName (677)
-func (f LegBenchmarkCurveNameField) Tag() fix.Tag { return tag.LegBenchmarkCurveName }
+func (f LegBenchmarkCurveNameField) Tag() quickfix.Tag { return tag.LegBenchmarkCurveName }
 
 //NewLegBenchmarkCurveName returns a new LegBenchmarkCurveNameField initialized with val
 func NewLegBenchmarkCurveName(val string) *LegBenchmarkCurveNameField {
@@ -6900,10 +6910,10 @@ func NewLegBenchmarkCurveName(val string) *LegBenchmarkCurveNameField {
 }
 
 //LegBenchmarkCurvePointField is a STRING field
-type LegBenchmarkCurvePointField struct{ fix.StringValue }
+type LegBenchmarkCurvePointField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegBenchmarkCurvePoint (678)
-func (f LegBenchmarkCurvePointField) Tag() fix.Tag { return tag.LegBenchmarkCurvePoint }
+func (f LegBenchmarkCurvePointField) Tag() quickfix.Tag { return tag.LegBenchmarkCurvePoint }
 
 //NewLegBenchmarkCurvePoint returns a new LegBenchmarkCurvePointField initialized with val
 func NewLegBenchmarkCurvePoint(val string) *LegBenchmarkCurvePointField {
@@ -6913,10 +6923,10 @@ func NewLegBenchmarkCurvePoint(val string) *LegBenchmarkCurvePointField {
 }
 
 //LegBenchmarkPriceField is a PRICE field
-type LegBenchmarkPriceField struct{ fix.PriceValue }
+type LegBenchmarkPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LegBenchmarkPrice (679)
-func (f LegBenchmarkPriceField) Tag() fix.Tag { return tag.LegBenchmarkPrice }
+func (f LegBenchmarkPriceField) Tag() quickfix.Tag { return tag.LegBenchmarkPrice }
 
 //NewLegBenchmarkPrice returns a new LegBenchmarkPriceField initialized with val
 func NewLegBenchmarkPrice(val float64) *LegBenchmarkPriceField {
@@ -6926,10 +6936,10 @@ func NewLegBenchmarkPrice(val float64) *LegBenchmarkPriceField {
 }
 
 //LegBenchmarkPriceTypeField is a INT field
-type LegBenchmarkPriceTypeField struct{ fix.IntValue }
+type LegBenchmarkPriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegBenchmarkPriceType (680)
-func (f LegBenchmarkPriceTypeField) Tag() fix.Tag { return tag.LegBenchmarkPriceType }
+func (f LegBenchmarkPriceTypeField) Tag() quickfix.Tag { return tag.LegBenchmarkPriceType }
 
 //NewLegBenchmarkPriceType returns a new LegBenchmarkPriceTypeField initialized with val
 func NewLegBenchmarkPriceType(val int) *LegBenchmarkPriceTypeField {
@@ -6939,10 +6949,10 @@ func NewLegBenchmarkPriceType(val int) *LegBenchmarkPriceTypeField {
 }
 
 //LegBidForwardPointsField is a PRICEOFFSET field
-type LegBidForwardPointsField struct{ fix.PriceOffsetValue }
+type LegBidForwardPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.LegBidForwardPoints (1067)
-func (f LegBidForwardPointsField) Tag() fix.Tag { return tag.LegBidForwardPoints }
+func (f LegBidForwardPointsField) Tag() quickfix.Tag { return tag.LegBidForwardPoints }
 
 //NewLegBidForwardPoints returns a new LegBidForwardPointsField initialized with val
 func NewLegBidForwardPoints(val float64) *LegBidForwardPointsField {
@@ -6952,10 +6962,10 @@ func NewLegBidForwardPoints(val float64) *LegBidForwardPointsField {
 }
 
 //LegBidPxField is a PRICE field
-type LegBidPxField struct{ fix.PriceValue }
+type LegBidPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LegBidPx (681)
-func (f LegBidPxField) Tag() fix.Tag { return tag.LegBidPx }
+func (f LegBidPxField) Tag() quickfix.Tag { return tag.LegBidPx }
 
 //NewLegBidPx returns a new LegBidPxField initialized with val
 func NewLegBidPx(val float64) *LegBidPxField {
@@ -6965,10 +6975,10 @@ func NewLegBidPx(val float64) *LegBidPxField {
 }
 
 //LegCFICodeField is a STRING field
-type LegCFICodeField struct{ fix.StringValue }
+type LegCFICodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegCFICode (608)
-func (f LegCFICodeField) Tag() fix.Tag { return tag.LegCFICode }
+func (f LegCFICodeField) Tag() quickfix.Tag { return tag.LegCFICode }
 
 //NewLegCFICode returns a new LegCFICodeField initialized with val
 func NewLegCFICode(val string) *LegCFICodeField {
@@ -6978,10 +6988,10 @@ func NewLegCFICode(val string) *LegCFICodeField {
 }
 
 //LegCalculatedCcyLastQtyField is a QTY field
-type LegCalculatedCcyLastQtyField struct{ fix.QtyValue }
+type LegCalculatedCcyLastQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LegCalculatedCcyLastQty (1074)
-func (f LegCalculatedCcyLastQtyField) Tag() fix.Tag { return tag.LegCalculatedCcyLastQty }
+func (f LegCalculatedCcyLastQtyField) Tag() quickfix.Tag { return tag.LegCalculatedCcyLastQty }
 
 //NewLegCalculatedCcyLastQty returns a new LegCalculatedCcyLastQtyField initialized with val
 func NewLegCalculatedCcyLastQty(val float64) *LegCalculatedCcyLastQtyField {
@@ -6991,10 +7001,10 @@ func NewLegCalculatedCcyLastQty(val float64) *LegCalculatedCcyLastQtyField {
 }
 
 //LegContractMultiplierField is a FLOAT field
-type LegContractMultiplierField struct{ fix.FloatValue }
+type LegContractMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.LegContractMultiplier (614)
-func (f LegContractMultiplierField) Tag() fix.Tag { return tag.LegContractMultiplier }
+func (f LegContractMultiplierField) Tag() quickfix.Tag { return tag.LegContractMultiplier }
 
 //NewLegContractMultiplier returns a new LegContractMultiplierField initialized with val
 func NewLegContractMultiplier(val float64) *LegContractMultiplierField {
@@ -7004,10 +7014,10 @@ func NewLegContractMultiplier(val float64) *LegContractMultiplierField {
 }
 
 //LegContractMultiplierUnitField is a INT field
-type LegContractMultiplierUnitField struct{ fix.IntValue }
+type LegContractMultiplierUnitField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegContractMultiplierUnit (1436)
-func (f LegContractMultiplierUnitField) Tag() fix.Tag { return tag.LegContractMultiplierUnit }
+func (f LegContractMultiplierUnitField) Tag() quickfix.Tag { return tag.LegContractMultiplierUnit }
 
 //NewLegContractMultiplierUnit returns a new LegContractMultiplierUnitField initialized with val
 func NewLegContractMultiplierUnit(val int) *LegContractMultiplierUnitField {
@@ -7017,10 +7027,10 @@ func NewLegContractMultiplierUnit(val int) *LegContractMultiplierUnitField {
 }
 
 //LegContractSettlMonthField is a MONTHYEAR field
-type LegContractSettlMonthField struct{ fix.MonthYearValue }
+type LegContractSettlMonthField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.LegContractSettlMonth (955)
-func (f LegContractSettlMonthField) Tag() fix.Tag { return tag.LegContractSettlMonth }
+func (f LegContractSettlMonthField) Tag() quickfix.Tag { return tag.LegContractSettlMonth }
 
 //NewLegContractSettlMonth returns a new LegContractSettlMonthField initialized with val
 func NewLegContractSettlMonth(val string) *LegContractSettlMonthField {
@@ -7030,10 +7040,10 @@ func NewLegContractSettlMonth(val string) *LegContractSettlMonthField {
 }
 
 //LegCountryOfIssueField is a COUNTRY field
-type LegCountryOfIssueField struct{ fix.CountryValue }
+type LegCountryOfIssueField struct{ quickfix.CountryValue }
 
 //Tag returns tag.LegCountryOfIssue (596)
-func (f LegCountryOfIssueField) Tag() fix.Tag { return tag.LegCountryOfIssue }
+func (f LegCountryOfIssueField) Tag() quickfix.Tag { return tag.LegCountryOfIssue }
 
 //NewLegCountryOfIssue returns a new LegCountryOfIssueField initialized with val
 func NewLegCountryOfIssue(val string) *LegCountryOfIssueField {
@@ -7043,10 +7053,10 @@ func NewLegCountryOfIssue(val string) *LegCountryOfIssueField {
 }
 
 //LegCouponPaymentDateField is a LOCALMKTDATE field
-type LegCouponPaymentDateField struct{ fix.LocalMktDateValue }
+type LegCouponPaymentDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.LegCouponPaymentDate (248)
-func (f LegCouponPaymentDateField) Tag() fix.Tag { return tag.LegCouponPaymentDate }
+func (f LegCouponPaymentDateField) Tag() quickfix.Tag { return tag.LegCouponPaymentDate }
 
 //NewLegCouponPaymentDate returns a new LegCouponPaymentDateField initialized with val
 func NewLegCouponPaymentDate(val string) *LegCouponPaymentDateField {
@@ -7056,10 +7066,10 @@ func NewLegCouponPaymentDate(val string) *LegCouponPaymentDateField {
 }
 
 //LegCouponRateField is a PERCENTAGE field
-type LegCouponRateField struct{ fix.PercentageValue }
+type LegCouponRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.LegCouponRate (615)
-func (f LegCouponRateField) Tag() fix.Tag { return tag.LegCouponRate }
+func (f LegCouponRateField) Tag() quickfix.Tag { return tag.LegCouponRate }
 
 //NewLegCouponRate returns a new LegCouponRateField initialized with val
 func NewLegCouponRate(val float64) *LegCouponRateField {
@@ -7069,10 +7079,10 @@ func NewLegCouponRate(val float64) *LegCouponRateField {
 }
 
 //LegCoveredOrUncoveredField is a INT field
-type LegCoveredOrUncoveredField struct{ fix.IntValue }
+type LegCoveredOrUncoveredField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegCoveredOrUncovered (565)
-func (f LegCoveredOrUncoveredField) Tag() fix.Tag { return tag.LegCoveredOrUncovered }
+func (f LegCoveredOrUncoveredField) Tag() quickfix.Tag { return tag.LegCoveredOrUncovered }
 
 //NewLegCoveredOrUncovered returns a new LegCoveredOrUncoveredField initialized with val
 func NewLegCoveredOrUncovered(val int) *LegCoveredOrUncoveredField {
@@ -7082,10 +7092,10 @@ func NewLegCoveredOrUncovered(val int) *LegCoveredOrUncoveredField {
 }
 
 //LegCreditRatingField is a STRING field
-type LegCreditRatingField struct{ fix.StringValue }
+type LegCreditRatingField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegCreditRating (257)
-func (f LegCreditRatingField) Tag() fix.Tag { return tag.LegCreditRating }
+func (f LegCreditRatingField) Tag() quickfix.Tag { return tag.LegCreditRating }
 
 //NewLegCreditRating returns a new LegCreditRatingField initialized with val
 func NewLegCreditRating(val string) *LegCreditRatingField {
@@ -7095,10 +7105,10 @@ func NewLegCreditRating(val string) *LegCreditRatingField {
 }
 
 //LegCurrencyField is a CURRENCY field
-type LegCurrencyField struct{ fix.CurrencyValue }
+type LegCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.LegCurrency (556)
-func (f LegCurrencyField) Tag() fix.Tag { return tag.LegCurrency }
+func (f LegCurrencyField) Tag() quickfix.Tag { return tag.LegCurrency }
 
 //NewLegCurrency returns a new LegCurrencyField initialized with val
 func NewLegCurrency(val string) *LegCurrencyField {
@@ -7108,10 +7118,10 @@ func NewLegCurrency(val string) *LegCurrencyField {
 }
 
 //LegCurrencyRatioField is a FLOAT field
-type LegCurrencyRatioField struct{ fix.FloatValue }
+type LegCurrencyRatioField struct{ quickfix.FloatValue }
 
 //Tag returns tag.LegCurrencyRatio (1383)
-func (f LegCurrencyRatioField) Tag() fix.Tag { return tag.LegCurrencyRatio }
+func (f LegCurrencyRatioField) Tag() quickfix.Tag { return tag.LegCurrencyRatio }
 
 //NewLegCurrencyRatio returns a new LegCurrencyRatioField initialized with val
 func NewLegCurrencyRatio(val float64) *LegCurrencyRatioField {
@@ -7121,10 +7131,10 @@ func NewLegCurrencyRatio(val float64) *LegCurrencyRatioField {
 }
 
 //LegDatedDateField is a LOCALMKTDATE field
-type LegDatedDateField struct{ fix.LocalMktDateValue }
+type LegDatedDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.LegDatedDate (739)
-func (f LegDatedDateField) Tag() fix.Tag { return tag.LegDatedDate }
+func (f LegDatedDateField) Tag() quickfix.Tag { return tag.LegDatedDate }
 
 //NewLegDatedDate returns a new LegDatedDateField initialized with val
 func NewLegDatedDate(val string) *LegDatedDateField {
@@ -7134,10 +7144,10 @@ func NewLegDatedDate(val string) *LegDatedDateField {
 }
 
 //LegDividendYieldField is a PERCENTAGE field
-type LegDividendYieldField struct{ fix.PercentageValue }
+type LegDividendYieldField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.LegDividendYield (1381)
-func (f LegDividendYieldField) Tag() fix.Tag { return tag.LegDividendYield }
+func (f LegDividendYieldField) Tag() quickfix.Tag { return tag.LegDividendYield }
 
 //NewLegDividendYield returns a new LegDividendYieldField initialized with val
 func NewLegDividendYield(val float64) *LegDividendYieldField {
@@ -7147,10 +7157,10 @@ func NewLegDividendYield(val float64) *LegDividendYieldField {
 }
 
 //LegExecInstField is a MULTIPLECHARVALUE field
-type LegExecInstField struct{ fix.MultipleCharValue }
+type LegExecInstField struct{ quickfix.MultipleCharValue }
 
 //Tag returns tag.LegExecInst (1384)
-func (f LegExecInstField) Tag() fix.Tag { return tag.LegExecInst }
+func (f LegExecInstField) Tag() quickfix.Tag { return tag.LegExecInst }
 
 //NewLegExecInst returns a new LegExecInstField initialized with val
 func NewLegExecInst(val string) *LegExecInstField {
@@ -7160,10 +7170,10 @@ func NewLegExecInst(val string) *LegExecInstField {
 }
 
 //LegExerciseStyleField is a INT field
-type LegExerciseStyleField struct{ fix.IntValue }
+type LegExerciseStyleField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegExerciseStyle (1420)
-func (f LegExerciseStyleField) Tag() fix.Tag { return tag.LegExerciseStyle }
+func (f LegExerciseStyleField) Tag() quickfix.Tag { return tag.LegExerciseStyle }
 
 //NewLegExerciseStyle returns a new LegExerciseStyleField initialized with val
 func NewLegExerciseStyle(val int) *LegExerciseStyleField {
@@ -7173,10 +7183,10 @@ func NewLegExerciseStyle(val int) *LegExerciseStyleField {
 }
 
 //LegFactorField is a FLOAT field
-type LegFactorField struct{ fix.FloatValue }
+type LegFactorField struct{ quickfix.FloatValue }
 
 //Tag returns tag.LegFactor (253)
-func (f LegFactorField) Tag() fix.Tag { return tag.LegFactor }
+func (f LegFactorField) Tag() quickfix.Tag { return tag.LegFactor }
 
 //NewLegFactor returns a new LegFactorField initialized with val
 func NewLegFactor(val float64) *LegFactorField {
@@ -7186,10 +7196,10 @@ func NewLegFactor(val float64) *LegFactorField {
 }
 
 //LegFlowScheduleTypeField is a INT field
-type LegFlowScheduleTypeField struct{ fix.IntValue }
+type LegFlowScheduleTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegFlowScheduleType (1440)
-func (f LegFlowScheduleTypeField) Tag() fix.Tag { return tag.LegFlowScheduleType }
+func (f LegFlowScheduleTypeField) Tag() quickfix.Tag { return tag.LegFlowScheduleType }
 
 //NewLegFlowScheduleType returns a new LegFlowScheduleTypeField initialized with val
 func NewLegFlowScheduleType(val int) *LegFlowScheduleTypeField {
@@ -7199,10 +7209,10 @@ func NewLegFlowScheduleType(val int) *LegFlowScheduleTypeField {
 }
 
 //LegFutSettDateField is a LOCALMKTDATE field
-type LegFutSettDateField struct{ fix.LocalMktDateValue }
+type LegFutSettDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.LegFutSettDate (588)
-func (f LegFutSettDateField) Tag() fix.Tag { return tag.LegFutSettDate }
+func (f LegFutSettDateField) Tag() quickfix.Tag { return tag.LegFutSettDate }
 
 //NewLegFutSettDate returns a new LegFutSettDateField initialized with val
 func NewLegFutSettDate(val string) *LegFutSettDateField {
@@ -7212,10 +7222,10 @@ func NewLegFutSettDate(val string) *LegFutSettDateField {
 }
 
 //LegGrossTradeAmtField is a AMT field
-type LegGrossTradeAmtField struct{ fix.AmtValue }
+type LegGrossTradeAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.LegGrossTradeAmt (1075)
-func (f LegGrossTradeAmtField) Tag() fix.Tag { return tag.LegGrossTradeAmt }
+func (f LegGrossTradeAmtField) Tag() quickfix.Tag { return tag.LegGrossTradeAmt }
 
 //NewLegGrossTradeAmt returns a new LegGrossTradeAmtField initialized with val
 func NewLegGrossTradeAmt(val float64) *LegGrossTradeAmtField {
@@ -7225,10 +7235,10 @@ func NewLegGrossTradeAmt(val float64) *LegGrossTradeAmtField {
 }
 
 //LegIOIQtyField is a STRING field
-type LegIOIQtyField struct{ fix.StringValue }
+type LegIOIQtyField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegIOIQty (682)
-func (f LegIOIQtyField) Tag() fix.Tag { return tag.LegIOIQty }
+func (f LegIOIQtyField) Tag() quickfix.Tag { return tag.LegIOIQty }
 
 //NewLegIOIQty returns a new LegIOIQtyField initialized with val
 func NewLegIOIQty(val string) *LegIOIQtyField {
@@ -7238,10 +7248,10 @@ func NewLegIOIQty(val string) *LegIOIQtyField {
 }
 
 //LegIndividualAllocIDField is a STRING field
-type LegIndividualAllocIDField struct{ fix.StringValue }
+type LegIndividualAllocIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegIndividualAllocID (672)
-func (f LegIndividualAllocIDField) Tag() fix.Tag { return tag.LegIndividualAllocID }
+func (f LegIndividualAllocIDField) Tag() quickfix.Tag { return tag.LegIndividualAllocID }
 
 //NewLegIndividualAllocID returns a new LegIndividualAllocIDField initialized with val
 func NewLegIndividualAllocID(val string) *LegIndividualAllocIDField {
@@ -7251,10 +7261,10 @@ func NewLegIndividualAllocID(val string) *LegIndividualAllocIDField {
 }
 
 //LegInstrRegistryField is a STRING field
-type LegInstrRegistryField struct{ fix.StringValue }
+type LegInstrRegistryField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegInstrRegistry (599)
-func (f LegInstrRegistryField) Tag() fix.Tag { return tag.LegInstrRegistry }
+func (f LegInstrRegistryField) Tag() quickfix.Tag { return tag.LegInstrRegistry }
 
 //NewLegInstrRegistry returns a new LegInstrRegistryField initialized with val
 func NewLegInstrRegistry(val string) *LegInstrRegistryField {
@@ -7264,10 +7274,10 @@ func NewLegInstrRegistry(val string) *LegInstrRegistryField {
 }
 
 //LegInterestAccrualDateField is a LOCALMKTDATE field
-type LegInterestAccrualDateField struct{ fix.LocalMktDateValue }
+type LegInterestAccrualDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.LegInterestAccrualDate (956)
-func (f LegInterestAccrualDateField) Tag() fix.Tag { return tag.LegInterestAccrualDate }
+func (f LegInterestAccrualDateField) Tag() quickfix.Tag { return tag.LegInterestAccrualDate }
 
 //NewLegInterestAccrualDate returns a new LegInterestAccrualDateField initialized with val
 func NewLegInterestAccrualDate(val string) *LegInterestAccrualDateField {
@@ -7277,10 +7287,10 @@ func NewLegInterestAccrualDate(val string) *LegInterestAccrualDateField {
 }
 
 //LegIssueDateField is a LOCALMKTDATE field
-type LegIssueDateField struct{ fix.LocalMktDateValue }
+type LegIssueDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.LegIssueDate (249)
-func (f LegIssueDateField) Tag() fix.Tag { return tag.LegIssueDate }
+func (f LegIssueDateField) Tag() quickfix.Tag { return tag.LegIssueDate }
 
 //NewLegIssueDate returns a new LegIssueDateField initialized with val
 func NewLegIssueDate(val string) *LegIssueDateField {
@@ -7290,10 +7300,10 @@ func NewLegIssueDate(val string) *LegIssueDateField {
 }
 
 //LegIssuerField is a STRING field
-type LegIssuerField struct{ fix.StringValue }
+type LegIssuerField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegIssuer (617)
-func (f LegIssuerField) Tag() fix.Tag { return tag.LegIssuer }
+func (f LegIssuerField) Tag() quickfix.Tag { return tag.LegIssuer }
 
 //NewLegIssuer returns a new LegIssuerField initialized with val
 func NewLegIssuer(val string) *LegIssuerField {
@@ -7303,10 +7313,10 @@ func NewLegIssuer(val string) *LegIssuerField {
 }
 
 //LegLastForwardPointsField is a PRICEOFFSET field
-type LegLastForwardPointsField struct{ fix.PriceOffsetValue }
+type LegLastForwardPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.LegLastForwardPoints (1073)
-func (f LegLastForwardPointsField) Tag() fix.Tag { return tag.LegLastForwardPoints }
+func (f LegLastForwardPointsField) Tag() quickfix.Tag { return tag.LegLastForwardPoints }
 
 //NewLegLastForwardPoints returns a new LegLastForwardPointsField initialized with val
 func NewLegLastForwardPoints(val float64) *LegLastForwardPointsField {
@@ -7316,10 +7326,10 @@ func NewLegLastForwardPoints(val float64) *LegLastForwardPointsField {
 }
 
 //LegLastPxField is a PRICE field
-type LegLastPxField struct{ fix.PriceValue }
+type LegLastPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LegLastPx (637)
-func (f LegLastPxField) Tag() fix.Tag { return tag.LegLastPx }
+func (f LegLastPxField) Tag() quickfix.Tag { return tag.LegLastPx }
 
 //NewLegLastPx returns a new LegLastPxField initialized with val
 func NewLegLastPx(val float64) *LegLastPxField {
@@ -7329,10 +7339,10 @@ func NewLegLastPx(val float64) *LegLastPxField {
 }
 
 //LegLastQtyField is a QTY field
-type LegLastQtyField struct{ fix.QtyValue }
+type LegLastQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LegLastQty (1418)
-func (f LegLastQtyField) Tag() fix.Tag { return tag.LegLastQty }
+func (f LegLastQtyField) Tag() quickfix.Tag { return tag.LegLastQty }
 
 //NewLegLastQty returns a new LegLastQtyField initialized with val
 func NewLegLastQty(val float64) *LegLastQtyField {
@@ -7342,10 +7352,10 @@ func NewLegLastQty(val float64) *LegLastQtyField {
 }
 
 //LegLocaleOfIssueField is a STRING field
-type LegLocaleOfIssueField struct{ fix.StringValue }
+type LegLocaleOfIssueField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegLocaleOfIssue (598)
-func (f LegLocaleOfIssueField) Tag() fix.Tag { return tag.LegLocaleOfIssue }
+func (f LegLocaleOfIssueField) Tag() quickfix.Tag { return tag.LegLocaleOfIssue }
 
 //NewLegLocaleOfIssue returns a new LegLocaleOfIssueField initialized with val
 func NewLegLocaleOfIssue(val string) *LegLocaleOfIssueField {
@@ -7355,10 +7365,10 @@ func NewLegLocaleOfIssue(val string) *LegLocaleOfIssueField {
 }
 
 //LegMaturityDateField is a LOCALMKTDATE field
-type LegMaturityDateField struct{ fix.LocalMktDateValue }
+type LegMaturityDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.LegMaturityDate (611)
-func (f LegMaturityDateField) Tag() fix.Tag { return tag.LegMaturityDate }
+func (f LegMaturityDateField) Tag() quickfix.Tag { return tag.LegMaturityDate }
 
 //NewLegMaturityDate returns a new LegMaturityDateField initialized with val
 func NewLegMaturityDate(val string) *LegMaturityDateField {
@@ -7368,10 +7378,10 @@ func NewLegMaturityDate(val string) *LegMaturityDateField {
 }
 
 //LegMaturityMonthYearField is a MONTHYEAR field
-type LegMaturityMonthYearField struct{ fix.MonthYearValue }
+type LegMaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.LegMaturityMonthYear (610)
-func (f LegMaturityMonthYearField) Tag() fix.Tag { return tag.LegMaturityMonthYear }
+func (f LegMaturityMonthYearField) Tag() quickfix.Tag { return tag.LegMaturityMonthYear }
 
 //NewLegMaturityMonthYear returns a new LegMaturityMonthYearField initialized with val
 func NewLegMaturityMonthYear(val string) *LegMaturityMonthYearField {
@@ -7381,16 +7391,16 @@ func NewLegMaturityMonthYear(val string) *LegMaturityMonthYearField {
 }
 
 //LegMaturityTimeField is a TZTIMEONLY field
-type LegMaturityTimeField struct{ fix.TZTimeOnlyValue }
+type LegMaturityTimeField struct{ quickfix.TZTimeOnlyValue }
 
 //Tag returns tag.LegMaturityTime (1212)
-func (f LegMaturityTimeField) Tag() fix.Tag { return tag.LegMaturityTime }
+func (f LegMaturityTimeField) Tag() quickfix.Tag { return tag.LegMaturityTime }
 
 //LegNumberField is a INT field
-type LegNumberField struct{ fix.IntValue }
+type LegNumberField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegNumber (1152)
-func (f LegNumberField) Tag() fix.Tag { return tag.LegNumber }
+func (f LegNumberField) Tag() quickfix.Tag { return tag.LegNumber }
 
 //NewLegNumber returns a new LegNumberField initialized with val
 func NewLegNumber(val int) *LegNumberField {
@@ -7400,10 +7410,10 @@ func NewLegNumber(val int) *LegNumberField {
 }
 
 //LegOfferForwardPointsField is a PRICEOFFSET field
-type LegOfferForwardPointsField struct{ fix.PriceOffsetValue }
+type LegOfferForwardPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.LegOfferForwardPoints (1068)
-func (f LegOfferForwardPointsField) Tag() fix.Tag { return tag.LegOfferForwardPoints }
+func (f LegOfferForwardPointsField) Tag() quickfix.Tag { return tag.LegOfferForwardPoints }
 
 //NewLegOfferForwardPoints returns a new LegOfferForwardPointsField initialized with val
 func NewLegOfferForwardPoints(val float64) *LegOfferForwardPointsField {
@@ -7413,10 +7423,10 @@ func NewLegOfferForwardPoints(val float64) *LegOfferForwardPointsField {
 }
 
 //LegOfferPxField is a PRICE field
-type LegOfferPxField struct{ fix.PriceValue }
+type LegOfferPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LegOfferPx (684)
-func (f LegOfferPxField) Tag() fix.Tag { return tag.LegOfferPx }
+func (f LegOfferPxField) Tag() quickfix.Tag { return tag.LegOfferPx }
 
 //NewLegOfferPx returns a new LegOfferPxField initialized with val
 func NewLegOfferPx(val float64) *LegOfferPxField {
@@ -7426,10 +7436,10 @@ func NewLegOfferPx(val float64) *LegOfferPxField {
 }
 
 //LegOptAttributeField is a CHAR field
-type LegOptAttributeField struct{ fix.CharValue }
+type LegOptAttributeField struct{ quickfix.CharValue }
 
 //Tag returns tag.LegOptAttribute (613)
-func (f LegOptAttributeField) Tag() fix.Tag { return tag.LegOptAttribute }
+func (f LegOptAttributeField) Tag() quickfix.Tag { return tag.LegOptAttribute }
 
 //NewLegOptAttribute returns a new LegOptAttributeField initialized with val
 func NewLegOptAttribute(val string) *LegOptAttributeField {
@@ -7439,10 +7449,10 @@ func NewLegOptAttribute(val string) *LegOptAttributeField {
 }
 
 //LegOptionRatioField is a FLOAT field
-type LegOptionRatioField struct{ fix.FloatValue }
+type LegOptionRatioField struct{ quickfix.FloatValue }
 
 //Tag returns tag.LegOptionRatio (1017)
-func (f LegOptionRatioField) Tag() fix.Tag { return tag.LegOptionRatio }
+func (f LegOptionRatioField) Tag() quickfix.Tag { return tag.LegOptionRatio }
 
 //NewLegOptionRatio returns a new LegOptionRatioField initialized with val
 func NewLegOptionRatio(val float64) *LegOptionRatioField {
@@ -7452,10 +7462,10 @@ func NewLegOptionRatio(val float64) *LegOptionRatioField {
 }
 
 //LegOrderQtyField is a QTY field
-type LegOrderQtyField struct{ fix.QtyValue }
+type LegOrderQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LegOrderQty (685)
-func (f LegOrderQtyField) Tag() fix.Tag { return tag.LegOrderQty }
+func (f LegOrderQtyField) Tag() quickfix.Tag { return tag.LegOrderQty }
 
 //NewLegOrderQty returns a new LegOrderQtyField initialized with val
 func NewLegOrderQty(val float64) *LegOrderQtyField {
@@ -7465,10 +7475,10 @@ func NewLegOrderQty(val float64) *LegOrderQtyField {
 }
 
 //LegPoolField is a STRING field
-type LegPoolField struct{ fix.StringValue }
+type LegPoolField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegPool (740)
-func (f LegPoolField) Tag() fix.Tag { return tag.LegPool }
+func (f LegPoolField) Tag() quickfix.Tag { return tag.LegPool }
 
 //NewLegPool returns a new LegPoolField initialized with val
 func NewLegPool(val string) *LegPoolField {
@@ -7478,10 +7488,10 @@ func NewLegPool(val string) *LegPoolField {
 }
 
 //LegPositionEffectField is a CHAR field
-type LegPositionEffectField struct{ fix.CharValue }
+type LegPositionEffectField struct{ quickfix.CharValue }
 
 //Tag returns tag.LegPositionEffect (564)
-func (f LegPositionEffectField) Tag() fix.Tag { return tag.LegPositionEffect }
+func (f LegPositionEffectField) Tag() quickfix.Tag { return tag.LegPositionEffect }
 
 //NewLegPositionEffect returns a new LegPositionEffectField initialized with val
 func NewLegPositionEffect(val string) *LegPositionEffectField {
@@ -7491,10 +7501,10 @@ func NewLegPositionEffect(val string) *LegPositionEffectField {
 }
 
 //LegPriceField is a PRICE field
-type LegPriceField struct{ fix.PriceValue }
+type LegPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LegPrice (566)
-func (f LegPriceField) Tag() fix.Tag { return tag.LegPrice }
+func (f LegPriceField) Tag() quickfix.Tag { return tag.LegPrice }
 
 //NewLegPrice returns a new LegPriceField initialized with val
 func NewLegPrice(val float64) *LegPriceField {
@@ -7504,10 +7514,10 @@ func NewLegPrice(val float64) *LegPriceField {
 }
 
 //LegPriceTypeField is a INT field
-type LegPriceTypeField struct{ fix.IntValue }
+type LegPriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegPriceType (686)
-func (f LegPriceTypeField) Tag() fix.Tag { return tag.LegPriceType }
+func (f LegPriceTypeField) Tag() quickfix.Tag { return tag.LegPriceType }
 
 //NewLegPriceType returns a new LegPriceTypeField initialized with val
 func NewLegPriceType(val int) *LegPriceTypeField {
@@ -7517,10 +7527,10 @@ func NewLegPriceType(val int) *LegPriceTypeField {
 }
 
 //LegPriceUnitOfMeasureField is a STRING field
-type LegPriceUnitOfMeasureField struct{ fix.StringValue }
+type LegPriceUnitOfMeasureField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegPriceUnitOfMeasure (1421)
-func (f LegPriceUnitOfMeasureField) Tag() fix.Tag { return tag.LegPriceUnitOfMeasure }
+func (f LegPriceUnitOfMeasureField) Tag() quickfix.Tag { return tag.LegPriceUnitOfMeasure }
 
 //NewLegPriceUnitOfMeasure returns a new LegPriceUnitOfMeasureField initialized with val
 func NewLegPriceUnitOfMeasure(val string) *LegPriceUnitOfMeasureField {
@@ -7530,10 +7540,10 @@ func NewLegPriceUnitOfMeasure(val string) *LegPriceUnitOfMeasureField {
 }
 
 //LegPriceUnitOfMeasureQtyField is a QTY field
-type LegPriceUnitOfMeasureQtyField struct{ fix.QtyValue }
+type LegPriceUnitOfMeasureQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LegPriceUnitOfMeasureQty (1422)
-func (f LegPriceUnitOfMeasureQtyField) Tag() fix.Tag { return tag.LegPriceUnitOfMeasureQty }
+func (f LegPriceUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.LegPriceUnitOfMeasureQty }
 
 //NewLegPriceUnitOfMeasureQty returns a new LegPriceUnitOfMeasureQtyField initialized with val
 func NewLegPriceUnitOfMeasureQty(val float64) *LegPriceUnitOfMeasureQtyField {
@@ -7543,10 +7553,10 @@ func NewLegPriceUnitOfMeasureQty(val float64) *LegPriceUnitOfMeasureQtyField {
 }
 
 //LegProductField is a INT field
-type LegProductField struct{ fix.IntValue }
+type LegProductField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegProduct (607)
-func (f LegProductField) Tag() fix.Tag { return tag.LegProduct }
+func (f LegProductField) Tag() quickfix.Tag { return tag.LegProduct }
 
 //NewLegProduct returns a new LegProductField initialized with val
 func NewLegProduct(val int) *LegProductField {
@@ -7556,10 +7566,10 @@ func NewLegProduct(val int) *LegProductField {
 }
 
 //LegPutOrCallField is a INT field
-type LegPutOrCallField struct{ fix.IntValue }
+type LegPutOrCallField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegPutOrCall (1358)
-func (f LegPutOrCallField) Tag() fix.Tag { return tag.LegPutOrCall }
+func (f LegPutOrCallField) Tag() quickfix.Tag { return tag.LegPutOrCall }
 
 //NewLegPutOrCall returns a new LegPutOrCallField initialized with val
 func NewLegPutOrCall(val int) *LegPutOrCallField {
@@ -7569,10 +7579,10 @@ func NewLegPutOrCall(val int) *LegPutOrCallField {
 }
 
 //LegQtyField is a QTY field
-type LegQtyField struct{ fix.QtyValue }
+type LegQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LegQty (687)
-func (f LegQtyField) Tag() fix.Tag { return tag.LegQty }
+func (f LegQtyField) Tag() quickfix.Tag { return tag.LegQty }
 
 //NewLegQty returns a new LegQtyField initialized with val
 func NewLegQty(val float64) *LegQtyField {
@@ -7582,10 +7592,10 @@ func NewLegQty(val float64) *LegQtyField {
 }
 
 //LegRatioQtyField is a FLOAT field
-type LegRatioQtyField struct{ fix.FloatValue }
+type LegRatioQtyField struct{ quickfix.FloatValue }
 
 //Tag returns tag.LegRatioQty (623)
-func (f LegRatioQtyField) Tag() fix.Tag { return tag.LegRatioQty }
+func (f LegRatioQtyField) Tag() quickfix.Tag { return tag.LegRatioQty }
 
 //NewLegRatioQty returns a new LegRatioQtyField initialized with val
 func NewLegRatioQty(val float64) *LegRatioQtyField {
@@ -7595,10 +7605,10 @@ func NewLegRatioQty(val float64) *LegRatioQtyField {
 }
 
 //LegRedemptionDateField is a LOCALMKTDATE field
-type LegRedemptionDateField struct{ fix.LocalMktDateValue }
+type LegRedemptionDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.LegRedemptionDate (254)
-func (f LegRedemptionDateField) Tag() fix.Tag { return tag.LegRedemptionDate }
+func (f LegRedemptionDateField) Tag() quickfix.Tag { return tag.LegRedemptionDate }
 
 //NewLegRedemptionDate returns a new LegRedemptionDateField initialized with val
 func NewLegRedemptionDate(val string) *LegRedemptionDateField {
@@ -7608,10 +7618,10 @@ func NewLegRedemptionDate(val string) *LegRedemptionDateField {
 }
 
 //LegRefIDField is a STRING field
-type LegRefIDField struct{ fix.StringValue }
+type LegRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegRefID (654)
-func (f LegRefIDField) Tag() fix.Tag { return tag.LegRefID }
+func (f LegRefIDField) Tag() quickfix.Tag { return tag.LegRefID }
 
 //NewLegRefID returns a new LegRefIDField initialized with val
 func NewLegRefID(val string) *LegRefIDField {
@@ -7621,10 +7631,12 @@ func NewLegRefID(val string) *LegRefIDField {
 }
 
 //LegRepoCollateralSecurityTypeField is a INT field
-type LegRepoCollateralSecurityTypeField struct{ fix.IntValue }
+type LegRepoCollateralSecurityTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegRepoCollateralSecurityType (250)
-func (f LegRepoCollateralSecurityTypeField) Tag() fix.Tag { return tag.LegRepoCollateralSecurityType }
+func (f LegRepoCollateralSecurityTypeField) Tag() quickfix.Tag {
+	return tag.LegRepoCollateralSecurityType
+}
 
 //NewLegRepoCollateralSecurityType returns a new LegRepoCollateralSecurityTypeField initialized with val
 func NewLegRepoCollateralSecurityType(val int) *LegRepoCollateralSecurityTypeField {
@@ -7634,10 +7646,10 @@ func NewLegRepoCollateralSecurityType(val int) *LegRepoCollateralSecurityTypeFie
 }
 
 //LegReportIDField is a STRING field
-type LegReportIDField struct{ fix.StringValue }
+type LegReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegReportID (990)
-func (f LegReportIDField) Tag() fix.Tag { return tag.LegReportID }
+func (f LegReportIDField) Tag() quickfix.Tag { return tag.LegReportID }
 
 //NewLegReportID returns a new LegReportIDField initialized with val
 func NewLegReportID(val string) *LegReportIDField {
@@ -7647,10 +7659,10 @@ func NewLegReportID(val string) *LegReportIDField {
 }
 
 //LegRepurchaseRateField is a PERCENTAGE field
-type LegRepurchaseRateField struct{ fix.PercentageValue }
+type LegRepurchaseRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.LegRepurchaseRate (252)
-func (f LegRepurchaseRateField) Tag() fix.Tag { return tag.LegRepurchaseRate }
+func (f LegRepurchaseRateField) Tag() quickfix.Tag { return tag.LegRepurchaseRate }
 
 //NewLegRepurchaseRate returns a new LegRepurchaseRateField initialized with val
 func NewLegRepurchaseRate(val float64) *LegRepurchaseRateField {
@@ -7660,10 +7672,10 @@ func NewLegRepurchaseRate(val float64) *LegRepurchaseRateField {
 }
 
 //LegRepurchaseTermField is a INT field
-type LegRepurchaseTermField struct{ fix.IntValue }
+type LegRepurchaseTermField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegRepurchaseTerm (251)
-func (f LegRepurchaseTermField) Tag() fix.Tag { return tag.LegRepurchaseTerm }
+func (f LegRepurchaseTermField) Tag() quickfix.Tag { return tag.LegRepurchaseTerm }
 
 //NewLegRepurchaseTerm returns a new LegRepurchaseTermField initialized with val
 func NewLegRepurchaseTerm(val int) *LegRepurchaseTermField {
@@ -7673,10 +7685,10 @@ func NewLegRepurchaseTerm(val int) *LegRepurchaseTermField {
 }
 
 //LegSecurityAltIDField is a STRING field
-type LegSecurityAltIDField struct{ fix.StringValue }
+type LegSecurityAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSecurityAltID (605)
-func (f LegSecurityAltIDField) Tag() fix.Tag { return tag.LegSecurityAltID }
+func (f LegSecurityAltIDField) Tag() quickfix.Tag { return tag.LegSecurityAltID }
 
 //NewLegSecurityAltID returns a new LegSecurityAltIDField initialized with val
 func NewLegSecurityAltID(val string) *LegSecurityAltIDField {
@@ -7686,10 +7698,10 @@ func NewLegSecurityAltID(val string) *LegSecurityAltIDField {
 }
 
 //LegSecurityAltIDSourceField is a STRING field
-type LegSecurityAltIDSourceField struct{ fix.StringValue }
+type LegSecurityAltIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSecurityAltIDSource (606)
-func (f LegSecurityAltIDSourceField) Tag() fix.Tag { return tag.LegSecurityAltIDSource }
+func (f LegSecurityAltIDSourceField) Tag() quickfix.Tag { return tag.LegSecurityAltIDSource }
 
 //NewLegSecurityAltIDSource returns a new LegSecurityAltIDSourceField initialized with val
 func NewLegSecurityAltIDSource(val string) *LegSecurityAltIDSourceField {
@@ -7699,10 +7711,10 @@ func NewLegSecurityAltIDSource(val string) *LegSecurityAltIDSourceField {
 }
 
 //LegSecurityDescField is a STRING field
-type LegSecurityDescField struct{ fix.StringValue }
+type LegSecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSecurityDesc (620)
-func (f LegSecurityDescField) Tag() fix.Tag { return tag.LegSecurityDesc }
+func (f LegSecurityDescField) Tag() quickfix.Tag { return tag.LegSecurityDesc }
 
 //NewLegSecurityDesc returns a new LegSecurityDescField initialized with val
 func NewLegSecurityDesc(val string) *LegSecurityDescField {
@@ -7712,10 +7724,10 @@ func NewLegSecurityDesc(val string) *LegSecurityDescField {
 }
 
 //LegSecurityExchangeField is a EXCHANGE field
-type LegSecurityExchangeField struct{ fix.ExchangeValue }
+type LegSecurityExchangeField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.LegSecurityExchange (616)
-func (f LegSecurityExchangeField) Tag() fix.Tag { return tag.LegSecurityExchange }
+func (f LegSecurityExchangeField) Tag() quickfix.Tag { return tag.LegSecurityExchange }
 
 //NewLegSecurityExchange returns a new LegSecurityExchangeField initialized with val
 func NewLegSecurityExchange(val string) *LegSecurityExchangeField {
@@ -7725,10 +7737,10 @@ func NewLegSecurityExchange(val string) *LegSecurityExchangeField {
 }
 
 //LegSecurityIDField is a STRING field
-type LegSecurityIDField struct{ fix.StringValue }
+type LegSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSecurityID (602)
-func (f LegSecurityIDField) Tag() fix.Tag { return tag.LegSecurityID }
+func (f LegSecurityIDField) Tag() quickfix.Tag { return tag.LegSecurityID }
 
 //NewLegSecurityID returns a new LegSecurityIDField initialized with val
 func NewLegSecurityID(val string) *LegSecurityIDField {
@@ -7738,10 +7750,10 @@ func NewLegSecurityID(val string) *LegSecurityIDField {
 }
 
 //LegSecurityIDSourceField is a STRING field
-type LegSecurityIDSourceField struct{ fix.StringValue }
+type LegSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSecurityIDSource (603)
-func (f LegSecurityIDSourceField) Tag() fix.Tag { return tag.LegSecurityIDSource }
+func (f LegSecurityIDSourceField) Tag() quickfix.Tag { return tag.LegSecurityIDSource }
 
 //NewLegSecurityIDSource returns a new LegSecurityIDSourceField initialized with val
 func NewLegSecurityIDSource(val string) *LegSecurityIDSourceField {
@@ -7751,10 +7763,10 @@ func NewLegSecurityIDSource(val string) *LegSecurityIDSourceField {
 }
 
 //LegSecuritySubTypeField is a STRING field
-type LegSecuritySubTypeField struct{ fix.StringValue }
+type LegSecuritySubTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSecuritySubType (764)
-func (f LegSecuritySubTypeField) Tag() fix.Tag { return tag.LegSecuritySubType }
+func (f LegSecuritySubTypeField) Tag() quickfix.Tag { return tag.LegSecuritySubType }
 
 //NewLegSecuritySubType returns a new LegSecuritySubTypeField initialized with val
 func NewLegSecuritySubType(val string) *LegSecuritySubTypeField {
@@ -7764,10 +7776,10 @@ func NewLegSecuritySubType(val string) *LegSecuritySubTypeField {
 }
 
 //LegSecurityTypeField is a STRING field
-type LegSecurityTypeField struct{ fix.StringValue }
+type LegSecurityTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSecurityType (609)
-func (f LegSecurityTypeField) Tag() fix.Tag { return tag.LegSecurityType }
+func (f LegSecurityTypeField) Tag() quickfix.Tag { return tag.LegSecurityType }
 
 //NewLegSecurityType returns a new LegSecurityTypeField initialized with val
 func NewLegSecurityType(val string) *LegSecurityTypeField {
@@ -7777,10 +7789,10 @@ func NewLegSecurityType(val string) *LegSecurityTypeField {
 }
 
 //LegSettlCurrencyField is a CURRENCY field
-type LegSettlCurrencyField struct{ fix.CurrencyValue }
+type LegSettlCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.LegSettlCurrency (675)
-func (f LegSettlCurrencyField) Tag() fix.Tag { return tag.LegSettlCurrency }
+func (f LegSettlCurrencyField) Tag() quickfix.Tag { return tag.LegSettlCurrency }
 
 //NewLegSettlCurrency returns a new LegSettlCurrencyField initialized with val
 func NewLegSettlCurrency(val string) *LegSettlCurrencyField {
@@ -7790,10 +7802,10 @@ func NewLegSettlCurrency(val string) *LegSettlCurrencyField {
 }
 
 //LegSettlDateField is a LOCALMKTDATE field
-type LegSettlDateField struct{ fix.LocalMktDateValue }
+type LegSettlDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.LegSettlDate (588)
-func (f LegSettlDateField) Tag() fix.Tag { return tag.LegSettlDate }
+func (f LegSettlDateField) Tag() quickfix.Tag { return tag.LegSettlDate }
 
 //NewLegSettlDate returns a new LegSettlDateField initialized with val
 func NewLegSettlDate(val string) *LegSettlDateField {
@@ -7803,10 +7815,10 @@ func NewLegSettlDate(val string) *LegSettlDateField {
 }
 
 //LegSettlTypeField is a CHAR field
-type LegSettlTypeField struct{ fix.CharValue }
+type LegSettlTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.LegSettlType (587)
-func (f LegSettlTypeField) Tag() fix.Tag { return tag.LegSettlType }
+func (f LegSettlTypeField) Tag() quickfix.Tag { return tag.LegSettlType }
 
 //NewLegSettlType returns a new LegSettlTypeField initialized with val
 func NewLegSettlType(val string) *LegSettlTypeField {
@@ -7816,10 +7828,10 @@ func NewLegSettlType(val string) *LegSettlTypeField {
 }
 
 //LegSettlmntTypField is a CHAR field
-type LegSettlmntTypField struct{ fix.CharValue }
+type LegSettlmntTypField struct{ quickfix.CharValue }
 
 //Tag returns tag.LegSettlmntTyp (587)
-func (f LegSettlmntTypField) Tag() fix.Tag { return tag.LegSettlmntTyp }
+func (f LegSettlmntTypField) Tag() quickfix.Tag { return tag.LegSettlmntTyp }
 
 //NewLegSettlmntTyp returns a new LegSettlmntTypField initialized with val
 func NewLegSettlmntTyp(val string) *LegSettlmntTypField {
@@ -7829,10 +7841,10 @@ func NewLegSettlmntTyp(val string) *LegSettlmntTypField {
 }
 
 //LegSideField is a CHAR field
-type LegSideField struct{ fix.CharValue }
+type LegSideField struct{ quickfix.CharValue }
 
 //Tag returns tag.LegSide (624)
-func (f LegSideField) Tag() fix.Tag { return tag.LegSide }
+func (f LegSideField) Tag() quickfix.Tag { return tag.LegSide }
 
 //NewLegSide returns a new LegSideField initialized with val
 func NewLegSide(val string) *LegSideField {
@@ -7842,10 +7854,10 @@ func NewLegSide(val string) *LegSideField {
 }
 
 //LegStateOrProvinceOfIssueField is a STRING field
-type LegStateOrProvinceOfIssueField struct{ fix.StringValue }
+type LegStateOrProvinceOfIssueField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegStateOrProvinceOfIssue (597)
-func (f LegStateOrProvinceOfIssueField) Tag() fix.Tag { return tag.LegStateOrProvinceOfIssue }
+func (f LegStateOrProvinceOfIssueField) Tag() quickfix.Tag { return tag.LegStateOrProvinceOfIssue }
 
 //NewLegStateOrProvinceOfIssue returns a new LegStateOrProvinceOfIssueField initialized with val
 func NewLegStateOrProvinceOfIssue(val string) *LegStateOrProvinceOfIssueField {
@@ -7855,10 +7867,10 @@ func NewLegStateOrProvinceOfIssue(val string) *LegStateOrProvinceOfIssueField {
 }
 
 //LegStipulationTypeField is a STRING field
-type LegStipulationTypeField struct{ fix.StringValue }
+type LegStipulationTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegStipulationType (688)
-func (f LegStipulationTypeField) Tag() fix.Tag { return tag.LegStipulationType }
+func (f LegStipulationTypeField) Tag() quickfix.Tag { return tag.LegStipulationType }
 
 //NewLegStipulationType returns a new LegStipulationTypeField initialized with val
 func NewLegStipulationType(val string) *LegStipulationTypeField {
@@ -7868,10 +7880,10 @@ func NewLegStipulationType(val string) *LegStipulationTypeField {
 }
 
 //LegStipulationValueField is a STRING field
-type LegStipulationValueField struct{ fix.StringValue }
+type LegStipulationValueField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegStipulationValue (689)
-func (f LegStipulationValueField) Tag() fix.Tag { return tag.LegStipulationValue }
+func (f LegStipulationValueField) Tag() quickfix.Tag { return tag.LegStipulationValue }
 
 //NewLegStipulationValue returns a new LegStipulationValueField initialized with val
 func NewLegStipulationValue(val string) *LegStipulationValueField {
@@ -7881,10 +7893,10 @@ func NewLegStipulationValue(val string) *LegStipulationValueField {
 }
 
 //LegStrikeCurrencyField is a CURRENCY field
-type LegStrikeCurrencyField struct{ fix.CurrencyValue }
+type LegStrikeCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.LegStrikeCurrency (942)
-func (f LegStrikeCurrencyField) Tag() fix.Tag { return tag.LegStrikeCurrency }
+func (f LegStrikeCurrencyField) Tag() quickfix.Tag { return tag.LegStrikeCurrency }
 
 //NewLegStrikeCurrency returns a new LegStrikeCurrencyField initialized with val
 func NewLegStrikeCurrency(val string) *LegStrikeCurrencyField {
@@ -7894,10 +7906,10 @@ func NewLegStrikeCurrency(val string) *LegStrikeCurrencyField {
 }
 
 //LegStrikePriceField is a PRICE field
-type LegStrikePriceField struct{ fix.PriceValue }
+type LegStrikePriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LegStrikePrice (612)
-func (f LegStrikePriceField) Tag() fix.Tag { return tag.LegStrikePrice }
+func (f LegStrikePriceField) Tag() quickfix.Tag { return tag.LegStrikePrice }
 
 //NewLegStrikePrice returns a new LegStrikePriceField initialized with val
 func NewLegStrikePrice(val float64) *LegStrikePriceField {
@@ -7907,10 +7919,10 @@ func NewLegStrikePrice(val float64) *LegStrikePriceField {
 }
 
 //LegSwapTypeField is a INT field
-type LegSwapTypeField struct{ fix.IntValue }
+type LegSwapTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.LegSwapType (690)
-func (f LegSwapTypeField) Tag() fix.Tag { return tag.LegSwapType }
+func (f LegSwapTypeField) Tag() quickfix.Tag { return tag.LegSwapType }
 
 //NewLegSwapType returns a new LegSwapTypeField initialized with val
 func NewLegSwapType(val int) *LegSwapTypeField {
@@ -7920,10 +7932,10 @@ func NewLegSwapType(val int) *LegSwapTypeField {
 }
 
 //LegSymbolField is a STRING field
-type LegSymbolField struct{ fix.StringValue }
+type LegSymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSymbol (600)
-func (f LegSymbolField) Tag() fix.Tag { return tag.LegSymbol }
+func (f LegSymbolField) Tag() quickfix.Tag { return tag.LegSymbol }
 
 //NewLegSymbol returns a new LegSymbolField initialized with val
 func NewLegSymbol(val string) *LegSymbolField {
@@ -7933,10 +7945,10 @@ func NewLegSymbol(val string) *LegSymbolField {
 }
 
 //LegSymbolSfxField is a STRING field
-type LegSymbolSfxField struct{ fix.StringValue }
+type LegSymbolSfxField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegSymbolSfx (601)
-func (f LegSymbolSfxField) Tag() fix.Tag { return tag.LegSymbolSfx }
+func (f LegSymbolSfxField) Tag() quickfix.Tag { return tag.LegSymbolSfx }
 
 //NewLegSymbolSfx returns a new LegSymbolSfxField initialized with val
 func NewLegSymbolSfx(val string) *LegSymbolSfxField {
@@ -7946,10 +7958,10 @@ func NewLegSymbolSfx(val string) *LegSymbolSfxField {
 }
 
 //LegTimeUnitField is a STRING field
-type LegTimeUnitField struct{ fix.StringValue }
+type LegTimeUnitField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegTimeUnit (1001)
-func (f LegTimeUnitField) Tag() fix.Tag { return tag.LegTimeUnit }
+func (f LegTimeUnitField) Tag() quickfix.Tag { return tag.LegTimeUnit }
 
 //NewLegTimeUnit returns a new LegTimeUnitField initialized with val
 func NewLegTimeUnit(val string) *LegTimeUnitField {
@@ -7959,10 +7971,10 @@ func NewLegTimeUnit(val string) *LegTimeUnitField {
 }
 
 //LegUnitOfMeasureField is a STRING field
-type LegUnitOfMeasureField struct{ fix.StringValue }
+type LegUnitOfMeasureField struct{ quickfix.StringValue }
 
 //Tag returns tag.LegUnitOfMeasure (999)
-func (f LegUnitOfMeasureField) Tag() fix.Tag { return tag.LegUnitOfMeasure }
+func (f LegUnitOfMeasureField) Tag() quickfix.Tag { return tag.LegUnitOfMeasure }
 
 //NewLegUnitOfMeasure returns a new LegUnitOfMeasureField initialized with val
 func NewLegUnitOfMeasure(val string) *LegUnitOfMeasureField {
@@ -7972,10 +7984,10 @@ func NewLegUnitOfMeasure(val string) *LegUnitOfMeasureField {
 }
 
 //LegUnitOfMeasureQtyField is a QTY field
-type LegUnitOfMeasureQtyField struct{ fix.QtyValue }
+type LegUnitOfMeasureQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LegUnitOfMeasureQty (1224)
-func (f LegUnitOfMeasureQtyField) Tag() fix.Tag { return tag.LegUnitOfMeasureQty }
+func (f LegUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.LegUnitOfMeasureQty }
 
 //NewLegUnitOfMeasureQty returns a new LegUnitOfMeasureQtyField initialized with val
 func NewLegUnitOfMeasureQty(val float64) *LegUnitOfMeasureQtyField {
@@ -7985,10 +7997,10 @@ func NewLegUnitOfMeasureQty(val float64) *LegUnitOfMeasureQtyField {
 }
 
 //LegVolatilityField is a FLOAT field
-type LegVolatilityField struct{ fix.FloatValue }
+type LegVolatilityField struct{ quickfix.FloatValue }
 
 //Tag returns tag.LegVolatility (1379)
-func (f LegVolatilityField) Tag() fix.Tag { return tag.LegVolatility }
+func (f LegVolatilityField) Tag() quickfix.Tag { return tag.LegVolatility }
 
 //NewLegVolatility returns a new LegVolatilityField initialized with val
 func NewLegVolatility(val float64) *LegVolatilityField {
@@ -7998,10 +8010,10 @@ func NewLegVolatility(val float64) *LegVolatilityField {
 }
 
 //LegalConfirmField is a BOOLEAN field
-type LegalConfirmField struct{ fix.BooleanValue }
+type LegalConfirmField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.LegalConfirm (650)
-func (f LegalConfirmField) Tag() fix.Tag { return tag.LegalConfirm }
+func (f LegalConfirmField) Tag() quickfix.Tag { return tag.LegalConfirm }
 
 //NewLegalConfirm returns a new LegalConfirmField initialized with val
 func NewLegalConfirm(val bool) *LegalConfirmField {
@@ -8011,10 +8023,10 @@ func NewLegalConfirm(val bool) *LegalConfirmField {
 }
 
 //LinesOfTextField is a NUMINGROUP field
-type LinesOfTextField struct{ fix.NumInGroupValue }
+type LinesOfTextField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.LinesOfText (33)
-func (f LinesOfTextField) Tag() fix.Tag { return tag.LinesOfText }
+func (f LinesOfTextField) Tag() quickfix.Tag { return tag.LinesOfText }
 
 //NewLinesOfText returns a new LinesOfTextField initialized with val
 func NewLinesOfText(val int) *LinesOfTextField {
@@ -8024,10 +8036,10 @@ func NewLinesOfText(val int) *LinesOfTextField {
 }
 
 //LiquidityIndTypeField is a INT field
-type LiquidityIndTypeField struct{ fix.IntValue }
+type LiquidityIndTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.LiquidityIndType (409)
-func (f LiquidityIndTypeField) Tag() fix.Tag { return tag.LiquidityIndType }
+func (f LiquidityIndTypeField) Tag() quickfix.Tag { return tag.LiquidityIndType }
 
 //NewLiquidityIndType returns a new LiquidityIndTypeField initialized with val
 func NewLiquidityIndType(val int) *LiquidityIndTypeField {
@@ -8037,10 +8049,10 @@ func NewLiquidityIndType(val int) *LiquidityIndTypeField {
 }
 
 //LiquidityNumSecuritiesField is a INT field
-type LiquidityNumSecuritiesField struct{ fix.IntValue }
+type LiquidityNumSecuritiesField struct{ quickfix.IntValue }
 
 //Tag returns tag.LiquidityNumSecurities (441)
-func (f LiquidityNumSecuritiesField) Tag() fix.Tag { return tag.LiquidityNumSecurities }
+func (f LiquidityNumSecuritiesField) Tag() quickfix.Tag { return tag.LiquidityNumSecurities }
 
 //NewLiquidityNumSecurities returns a new LiquidityNumSecuritiesField initialized with val
 func NewLiquidityNumSecurities(val int) *LiquidityNumSecuritiesField {
@@ -8050,10 +8062,10 @@ func NewLiquidityNumSecurities(val int) *LiquidityNumSecuritiesField {
 }
 
 //LiquidityPctHighField is a PERCENTAGE field
-type LiquidityPctHighField struct{ fix.PercentageValue }
+type LiquidityPctHighField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.LiquidityPctHigh (403)
-func (f LiquidityPctHighField) Tag() fix.Tag { return tag.LiquidityPctHigh }
+func (f LiquidityPctHighField) Tag() quickfix.Tag { return tag.LiquidityPctHigh }
 
 //NewLiquidityPctHigh returns a new LiquidityPctHighField initialized with val
 func NewLiquidityPctHigh(val float64) *LiquidityPctHighField {
@@ -8063,10 +8075,10 @@ func NewLiquidityPctHigh(val float64) *LiquidityPctHighField {
 }
 
 //LiquidityPctLowField is a PERCENTAGE field
-type LiquidityPctLowField struct{ fix.PercentageValue }
+type LiquidityPctLowField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.LiquidityPctLow (402)
-func (f LiquidityPctLowField) Tag() fix.Tag { return tag.LiquidityPctLow }
+func (f LiquidityPctLowField) Tag() quickfix.Tag { return tag.LiquidityPctLow }
 
 //NewLiquidityPctLow returns a new LiquidityPctLowField initialized with val
 func NewLiquidityPctLow(val float64) *LiquidityPctLowField {
@@ -8076,10 +8088,10 @@ func NewLiquidityPctLow(val float64) *LiquidityPctLowField {
 }
 
 //LiquidityValueField is a AMT field
-type LiquidityValueField struct{ fix.AmtValue }
+type LiquidityValueField struct{ quickfix.AmtValue }
 
 //Tag returns tag.LiquidityValue (404)
-func (f LiquidityValueField) Tag() fix.Tag { return tag.LiquidityValue }
+func (f LiquidityValueField) Tag() quickfix.Tag { return tag.LiquidityValue }
 
 //NewLiquidityValue returns a new LiquidityValueField initialized with val
 func NewLiquidityValue(val float64) *LiquidityValueField {
@@ -8089,10 +8101,10 @@ func NewLiquidityValue(val float64) *LiquidityValueField {
 }
 
 //ListExecInstField is a STRING field
-type ListExecInstField struct{ fix.StringValue }
+type ListExecInstField struct{ quickfix.StringValue }
 
 //Tag returns tag.ListExecInst (69)
-func (f ListExecInstField) Tag() fix.Tag { return tag.ListExecInst }
+func (f ListExecInstField) Tag() quickfix.Tag { return tag.ListExecInst }
 
 //NewListExecInst returns a new ListExecInstField initialized with val
 func NewListExecInst(val string) *ListExecInstField {
@@ -8102,10 +8114,10 @@ func NewListExecInst(val string) *ListExecInstField {
 }
 
 //ListExecInstTypeField is a CHAR field
-type ListExecInstTypeField struct{ fix.CharValue }
+type ListExecInstTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.ListExecInstType (433)
-func (f ListExecInstTypeField) Tag() fix.Tag { return tag.ListExecInstType }
+func (f ListExecInstTypeField) Tag() quickfix.Tag { return tag.ListExecInstType }
 
 //NewListExecInstType returns a new ListExecInstTypeField initialized with val
 func NewListExecInstType(val string) *ListExecInstTypeField {
@@ -8115,10 +8127,10 @@ func NewListExecInstType(val string) *ListExecInstTypeField {
 }
 
 //ListIDField is a STRING field
-type ListIDField struct{ fix.StringValue }
+type ListIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ListID (66)
-func (f ListIDField) Tag() fix.Tag { return tag.ListID }
+func (f ListIDField) Tag() quickfix.Tag { return tag.ListID }
 
 //NewListID returns a new ListIDField initialized with val
 func NewListID(val string) *ListIDField {
@@ -8128,10 +8140,10 @@ func NewListID(val string) *ListIDField {
 }
 
 //ListMethodField is a INT field
-type ListMethodField struct{ fix.IntValue }
+type ListMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.ListMethod (1198)
-func (f ListMethodField) Tag() fix.Tag { return tag.ListMethod }
+func (f ListMethodField) Tag() quickfix.Tag { return tag.ListMethod }
 
 //NewListMethod returns a new ListMethodField initialized with val
 func NewListMethod(val int) *ListMethodField {
@@ -8141,10 +8153,10 @@ func NewListMethod(val int) *ListMethodField {
 }
 
 //ListNameField is a STRING field
-type ListNameField struct{ fix.StringValue }
+type ListNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.ListName (392)
-func (f ListNameField) Tag() fix.Tag { return tag.ListName }
+func (f ListNameField) Tag() quickfix.Tag { return tag.ListName }
 
 //NewListName returns a new ListNameField initialized with val
 func NewListName(val string) *ListNameField {
@@ -8154,10 +8166,10 @@ func NewListName(val string) *ListNameField {
 }
 
 //ListNoOrdsField is a INT field
-type ListNoOrdsField struct{ fix.IntValue }
+type ListNoOrdsField struct{ quickfix.IntValue }
 
 //Tag returns tag.ListNoOrds (68)
-func (f ListNoOrdsField) Tag() fix.Tag { return tag.ListNoOrds }
+func (f ListNoOrdsField) Tag() quickfix.Tag { return tag.ListNoOrds }
 
 //NewListNoOrds returns a new ListNoOrdsField initialized with val
 func NewListNoOrds(val int) *ListNoOrdsField {
@@ -8167,10 +8179,10 @@ func NewListNoOrds(val int) *ListNoOrdsField {
 }
 
 //ListOrderStatusField is a INT field
-type ListOrderStatusField struct{ fix.IntValue }
+type ListOrderStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.ListOrderStatus (431)
-func (f ListOrderStatusField) Tag() fix.Tag { return tag.ListOrderStatus }
+func (f ListOrderStatusField) Tag() quickfix.Tag { return tag.ListOrderStatus }
 
 //NewListOrderStatus returns a new ListOrderStatusField initialized with val
 func NewListOrderStatus(val int) *ListOrderStatusField {
@@ -8180,10 +8192,10 @@ func NewListOrderStatus(val int) *ListOrderStatusField {
 }
 
 //ListRejectReasonField is a INT field
-type ListRejectReasonField struct{ fix.IntValue }
+type ListRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.ListRejectReason (1386)
-func (f ListRejectReasonField) Tag() fix.Tag { return tag.ListRejectReason }
+func (f ListRejectReasonField) Tag() quickfix.Tag { return tag.ListRejectReason }
 
 //NewListRejectReason returns a new ListRejectReasonField initialized with val
 func NewListRejectReason(val int) *ListRejectReasonField {
@@ -8193,10 +8205,10 @@ func NewListRejectReason(val int) *ListRejectReasonField {
 }
 
 //ListSeqNoField is a INT field
-type ListSeqNoField struct{ fix.IntValue }
+type ListSeqNoField struct{ quickfix.IntValue }
 
 //Tag returns tag.ListSeqNo (67)
-func (f ListSeqNoField) Tag() fix.Tag { return tag.ListSeqNo }
+func (f ListSeqNoField) Tag() quickfix.Tag { return tag.ListSeqNo }
 
 //NewListSeqNo returns a new ListSeqNoField initialized with val
 func NewListSeqNo(val int) *ListSeqNoField {
@@ -8206,10 +8218,10 @@ func NewListSeqNo(val int) *ListSeqNoField {
 }
 
 //ListStatusTextField is a STRING field
-type ListStatusTextField struct{ fix.StringValue }
+type ListStatusTextField struct{ quickfix.StringValue }
 
 //Tag returns tag.ListStatusText (444)
-func (f ListStatusTextField) Tag() fix.Tag { return tag.ListStatusText }
+func (f ListStatusTextField) Tag() quickfix.Tag { return tag.ListStatusText }
 
 //NewListStatusText returns a new ListStatusTextField initialized with val
 func NewListStatusText(val string) *ListStatusTextField {
@@ -8219,10 +8231,10 @@ func NewListStatusText(val string) *ListStatusTextField {
 }
 
 //ListStatusTypeField is a INT field
-type ListStatusTypeField struct{ fix.IntValue }
+type ListStatusTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ListStatusType (429)
-func (f ListStatusTypeField) Tag() fix.Tag { return tag.ListStatusType }
+func (f ListStatusTypeField) Tag() quickfix.Tag { return tag.ListStatusType }
 
 //NewListStatusType returns a new ListStatusTypeField initialized with val
 func NewListStatusType(val int) *ListStatusTypeField {
@@ -8232,10 +8244,10 @@ func NewListStatusType(val int) *ListStatusTypeField {
 }
 
 //ListUpdateActionField is a CHAR field
-type ListUpdateActionField struct{ fix.CharValue }
+type ListUpdateActionField struct{ quickfix.CharValue }
 
 //Tag returns tag.ListUpdateAction (1324)
-func (f ListUpdateActionField) Tag() fix.Tag { return tag.ListUpdateAction }
+func (f ListUpdateActionField) Tag() quickfix.Tag { return tag.ListUpdateAction }
 
 //NewListUpdateAction returns a new ListUpdateActionField initialized with val
 func NewListUpdateAction(val string) *ListUpdateActionField {
@@ -8245,10 +8257,10 @@ func NewListUpdateAction(val string) *ListUpdateActionField {
 }
 
 //LocaleOfIssueField is a STRING field
-type LocaleOfIssueField struct{ fix.StringValue }
+type LocaleOfIssueField struct{ quickfix.StringValue }
 
 //Tag returns tag.LocaleOfIssue (472)
-func (f LocaleOfIssueField) Tag() fix.Tag { return tag.LocaleOfIssue }
+func (f LocaleOfIssueField) Tag() quickfix.Tag { return tag.LocaleOfIssue }
 
 //NewLocaleOfIssue returns a new LocaleOfIssueField initialized with val
 func NewLocaleOfIssue(val string) *LocaleOfIssueField {
@@ -8258,10 +8270,10 @@ func NewLocaleOfIssue(val string) *LocaleOfIssueField {
 }
 
 //LocateReqdField is a BOOLEAN field
-type LocateReqdField struct{ fix.BooleanValue }
+type LocateReqdField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.LocateReqd (114)
-func (f LocateReqdField) Tag() fix.Tag { return tag.LocateReqd }
+func (f LocateReqdField) Tag() quickfix.Tag { return tag.LocateReqd }
 
 //NewLocateReqd returns a new LocateReqdField initialized with val
 func NewLocateReqd(val bool) *LocateReqdField {
@@ -8271,10 +8283,10 @@ func NewLocateReqd(val bool) *LocateReqdField {
 }
 
 //LocationIDField is a STRING field
-type LocationIDField struct{ fix.StringValue }
+type LocationIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.LocationID (283)
-func (f LocationIDField) Tag() fix.Tag { return tag.LocationID }
+func (f LocationIDField) Tag() quickfix.Tag { return tag.LocationID }
 
 //NewLocationID returns a new LocationIDField initialized with val
 func NewLocationID(val string) *LocationIDField {
@@ -8284,10 +8296,10 @@ func NewLocationID(val string) *LocationIDField {
 }
 
 //LongQtyField is a QTY field
-type LongQtyField struct{ fix.QtyValue }
+type LongQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.LongQty (704)
-func (f LongQtyField) Tag() fix.Tag { return tag.LongQty }
+func (f LongQtyField) Tag() quickfix.Tag { return tag.LongQty }
 
 //NewLongQty returns a new LongQtyField initialized with val
 func NewLongQty(val float64) *LongQtyField {
@@ -8297,10 +8309,10 @@ func NewLongQty(val float64) *LongQtyField {
 }
 
 //LotTypeField is a CHAR field
-type LotTypeField struct{ fix.CharValue }
+type LotTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.LotType (1093)
-func (f LotTypeField) Tag() fix.Tag { return tag.LotType }
+func (f LotTypeField) Tag() quickfix.Tag { return tag.LotType }
 
 //NewLotType returns a new LotTypeField initialized with val
 func NewLotType(val string) *LotTypeField {
@@ -8310,10 +8322,10 @@ func NewLotType(val string) *LotTypeField {
 }
 
 //LowLimitPriceField is a PRICE field
-type LowLimitPriceField struct{ fix.PriceValue }
+type LowLimitPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LowLimitPrice (1148)
-func (f LowLimitPriceField) Tag() fix.Tag { return tag.LowLimitPrice }
+func (f LowLimitPriceField) Tag() quickfix.Tag { return tag.LowLimitPrice }
 
 //NewLowLimitPrice returns a new LowLimitPriceField initialized with val
 func NewLowLimitPrice(val float64) *LowLimitPriceField {
@@ -8323,10 +8335,10 @@ func NewLowLimitPrice(val float64) *LowLimitPriceField {
 }
 
 //LowPxField is a PRICE field
-type LowPxField struct{ fix.PriceValue }
+type LowPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.LowPx (333)
-func (f LowPxField) Tag() fix.Tag { return tag.LowPx }
+func (f LowPxField) Tag() quickfix.Tag { return tag.LowPx }
 
 //NewLowPx returns a new LowPxField initialized with val
 func NewLowPx(val float64) *LowPxField {
@@ -8336,10 +8348,10 @@ func NewLowPx(val float64) *LowPxField {
 }
 
 //MDBookTypeField is a INT field
-type MDBookTypeField struct{ fix.IntValue }
+type MDBookTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDBookType (1021)
-func (f MDBookTypeField) Tag() fix.Tag { return tag.MDBookType }
+func (f MDBookTypeField) Tag() quickfix.Tag { return tag.MDBookType }
 
 //NewMDBookType returns a new MDBookTypeField initialized with val
 func NewMDBookType(val int) *MDBookTypeField {
@@ -8349,10 +8361,10 @@ func NewMDBookType(val int) *MDBookTypeField {
 }
 
 //MDEntryBuyerField is a STRING field
-type MDEntryBuyerField struct{ fix.StringValue }
+type MDEntryBuyerField struct{ quickfix.StringValue }
 
 //Tag returns tag.MDEntryBuyer (288)
-func (f MDEntryBuyerField) Tag() fix.Tag { return tag.MDEntryBuyer }
+func (f MDEntryBuyerField) Tag() quickfix.Tag { return tag.MDEntryBuyer }
 
 //NewMDEntryBuyer returns a new MDEntryBuyerField initialized with val
 func NewMDEntryBuyer(val string) *MDEntryBuyerField {
@@ -8362,16 +8374,16 @@ func NewMDEntryBuyer(val string) *MDEntryBuyerField {
 }
 
 //MDEntryDateField is a UTCDATEONLY field
-type MDEntryDateField struct{ fix.UTCDateOnlyValue }
+type MDEntryDateField struct{ quickfix.UTCDateOnlyValue }
 
 //Tag returns tag.MDEntryDate (272)
-func (f MDEntryDateField) Tag() fix.Tag { return tag.MDEntryDate }
+func (f MDEntryDateField) Tag() quickfix.Tag { return tag.MDEntryDate }
 
 //MDEntryForwardPointsField is a PRICEOFFSET field
-type MDEntryForwardPointsField struct{ fix.PriceOffsetValue }
+type MDEntryForwardPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.MDEntryForwardPoints (1027)
-func (f MDEntryForwardPointsField) Tag() fix.Tag { return tag.MDEntryForwardPoints }
+func (f MDEntryForwardPointsField) Tag() quickfix.Tag { return tag.MDEntryForwardPoints }
 
 //NewMDEntryForwardPoints returns a new MDEntryForwardPointsField initialized with val
 func NewMDEntryForwardPoints(val float64) *MDEntryForwardPointsField {
@@ -8381,10 +8393,10 @@ func NewMDEntryForwardPoints(val float64) *MDEntryForwardPointsField {
 }
 
 //MDEntryIDField is a STRING field
-type MDEntryIDField struct{ fix.StringValue }
+type MDEntryIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MDEntryID (278)
-func (f MDEntryIDField) Tag() fix.Tag { return tag.MDEntryID }
+func (f MDEntryIDField) Tag() quickfix.Tag { return tag.MDEntryID }
 
 //NewMDEntryID returns a new MDEntryIDField initialized with val
 func NewMDEntryID(val string) *MDEntryIDField {
@@ -8394,10 +8406,10 @@ func NewMDEntryID(val string) *MDEntryIDField {
 }
 
 //MDEntryOriginatorField is a STRING field
-type MDEntryOriginatorField struct{ fix.StringValue }
+type MDEntryOriginatorField struct{ quickfix.StringValue }
 
 //Tag returns tag.MDEntryOriginator (282)
-func (f MDEntryOriginatorField) Tag() fix.Tag { return tag.MDEntryOriginator }
+func (f MDEntryOriginatorField) Tag() quickfix.Tag { return tag.MDEntryOriginator }
 
 //NewMDEntryOriginator returns a new MDEntryOriginatorField initialized with val
 func NewMDEntryOriginator(val string) *MDEntryOriginatorField {
@@ -8407,10 +8419,10 @@ func NewMDEntryOriginator(val string) *MDEntryOriginatorField {
 }
 
 //MDEntryPositionNoField is a INT field
-type MDEntryPositionNoField struct{ fix.IntValue }
+type MDEntryPositionNoField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDEntryPositionNo (290)
-func (f MDEntryPositionNoField) Tag() fix.Tag { return tag.MDEntryPositionNo }
+func (f MDEntryPositionNoField) Tag() quickfix.Tag { return tag.MDEntryPositionNo }
 
 //NewMDEntryPositionNo returns a new MDEntryPositionNoField initialized with val
 func NewMDEntryPositionNo(val int) *MDEntryPositionNoField {
@@ -8420,10 +8432,10 @@ func NewMDEntryPositionNo(val int) *MDEntryPositionNoField {
 }
 
 //MDEntryPxField is a PRICE field
-type MDEntryPxField struct{ fix.PriceValue }
+type MDEntryPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.MDEntryPx (270)
-func (f MDEntryPxField) Tag() fix.Tag { return tag.MDEntryPx }
+func (f MDEntryPxField) Tag() quickfix.Tag { return tag.MDEntryPx }
 
 //NewMDEntryPx returns a new MDEntryPxField initialized with val
 func NewMDEntryPx(val float64) *MDEntryPxField {
@@ -8433,10 +8445,10 @@ func NewMDEntryPx(val float64) *MDEntryPxField {
 }
 
 //MDEntryRefIDField is a STRING field
-type MDEntryRefIDField struct{ fix.StringValue }
+type MDEntryRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MDEntryRefID (280)
-func (f MDEntryRefIDField) Tag() fix.Tag { return tag.MDEntryRefID }
+func (f MDEntryRefIDField) Tag() quickfix.Tag { return tag.MDEntryRefID }
 
 //NewMDEntryRefID returns a new MDEntryRefIDField initialized with val
 func NewMDEntryRefID(val string) *MDEntryRefIDField {
@@ -8446,10 +8458,10 @@ func NewMDEntryRefID(val string) *MDEntryRefIDField {
 }
 
 //MDEntrySellerField is a STRING field
-type MDEntrySellerField struct{ fix.StringValue }
+type MDEntrySellerField struct{ quickfix.StringValue }
 
 //Tag returns tag.MDEntrySeller (289)
-func (f MDEntrySellerField) Tag() fix.Tag { return tag.MDEntrySeller }
+func (f MDEntrySellerField) Tag() quickfix.Tag { return tag.MDEntrySeller }
 
 //NewMDEntrySeller returns a new MDEntrySellerField initialized with val
 func NewMDEntrySeller(val string) *MDEntrySellerField {
@@ -8459,10 +8471,10 @@ func NewMDEntrySeller(val string) *MDEntrySellerField {
 }
 
 //MDEntrySizeField is a QTY field
-type MDEntrySizeField struct{ fix.QtyValue }
+type MDEntrySizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MDEntrySize (271)
-func (f MDEntrySizeField) Tag() fix.Tag { return tag.MDEntrySize }
+func (f MDEntrySizeField) Tag() quickfix.Tag { return tag.MDEntrySize }
 
 //NewMDEntrySize returns a new MDEntrySizeField initialized with val
 func NewMDEntrySize(val float64) *MDEntrySizeField {
@@ -8472,10 +8484,10 @@ func NewMDEntrySize(val float64) *MDEntrySizeField {
 }
 
 //MDEntrySpotRateField is a FLOAT field
-type MDEntrySpotRateField struct{ fix.FloatValue }
+type MDEntrySpotRateField struct{ quickfix.FloatValue }
 
 //Tag returns tag.MDEntrySpotRate (1026)
-func (f MDEntrySpotRateField) Tag() fix.Tag { return tag.MDEntrySpotRate }
+func (f MDEntrySpotRateField) Tag() quickfix.Tag { return tag.MDEntrySpotRate }
 
 //NewMDEntrySpotRate returns a new MDEntrySpotRateField initialized with val
 func NewMDEntrySpotRate(val float64) *MDEntrySpotRateField {
@@ -8485,16 +8497,16 @@ func NewMDEntrySpotRate(val float64) *MDEntrySpotRateField {
 }
 
 //MDEntryTimeField is a UTCTIMEONLY field
-type MDEntryTimeField struct{ fix.UTCTimeOnlyValue }
+type MDEntryTimeField struct{ quickfix.UTCTimeOnlyValue }
 
 //Tag returns tag.MDEntryTime (273)
-func (f MDEntryTimeField) Tag() fix.Tag { return tag.MDEntryTime }
+func (f MDEntryTimeField) Tag() quickfix.Tag { return tag.MDEntryTime }
 
 //MDEntryTypeField is a CHAR field
-type MDEntryTypeField struct{ fix.CharValue }
+type MDEntryTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.MDEntryType (269)
-func (f MDEntryTypeField) Tag() fix.Tag { return tag.MDEntryType }
+func (f MDEntryTypeField) Tag() quickfix.Tag { return tag.MDEntryType }
 
 //NewMDEntryType returns a new MDEntryTypeField initialized with val
 func NewMDEntryType(val string) *MDEntryTypeField {
@@ -8504,10 +8516,10 @@ func NewMDEntryType(val string) *MDEntryTypeField {
 }
 
 //MDFeedTypeField is a STRING field
-type MDFeedTypeField struct{ fix.StringValue }
+type MDFeedTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.MDFeedType (1022)
-func (f MDFeedTypeField) Tag() fix.Tag { return tag.MDFeedType }
+func (f MDFeedTypeField) Tag() quickfix.Tag { return tag.MDFeedType }
 
 //NewMDFeedType returns a new MDFeedTypeField initialized with val
 func NewMDFeedType(val string) *MDFeedTypeField {
@@ -8517,10 +8529,10 @@ func NewMDFeedType(val string) *MDFeedTypeField {
 }
 
 //MDImplicitDeleteField is a BOOLEAN field
-type MDImplicitDeleteField struct{ fix.BooleanValue }
+type MDImplicitDeleteField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.MDImplicitDelete (547)
-func (f MDImplicitDeleteField) Tag() fix.Tag { return tag.MDImplicitDelete }
+func (f MDImplicitDeleteField) Tag() quickfix.Tag { return tag.MDImplicitDelete }
 
 //NewMDImplicitDelete returns a new MDImplicitDeleteField initialized with val
 func NewMDImplicitDelete(val bool) *MDImplicitDeleteField {
@@ -8530,10 +8542,10 @@ func NewMDImplicitDelete(val bool) *MDImplicitDeleteField {
 }
 
 //MDMktField is a EXCHANGE field
-type MDMktField struct{ fix.ExchangeValue }
+type MDMktField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.MDMkt (275)
-func (f MDMktField) Tag() fix.Tag { return tag.MDMkt }
+func (f MDMktField) Tag() quickfix.Tag { return tag.MDMkt }
 
 //NewMDMkt returns a new MDMktField initialized with val
 func NewMDMkt(val string) *MDMktField {
@@ -8543,10 +8555,10 @@ func NewMDMkt(val string) *MDMktField {
 }
 
 //MDOriginTypeField is a INT field
-type MDOriginTypeField struct{ fix.IntValue }
+type MDOriginTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDOriginType (1024)
-func (f MDOriginTypeField) Tag() fix.Tag { return tag.MDOriginType }
+func (f MDOriginTypeField) Tag() quickfix.Tag { return tag.MDOriginType }
 
 //NewMDOriginType returns a new MDOriginTypeField initialized with val
 func NewMDOriginType(val int) *MDOriginTypeField {
@@ -8556,10 +8568,10 @@ func NewMDOriginType(val int) *MDOriginTypeField {
 }
 
 //MDPriceLevelField is a INT field
-type MDPriceLevelField struct{ fix.IntValue }
+type MDPriceLevelField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDPriceLevel (1023)
-func (f MDPriceLevelField) Tag() fix.Tag { return tag.MDPriceLevel }
+func (f MDPriceLevelField) Tag() quickfix.Tag { return tag.MDPriceLevel }
 
 //NewMDPriceLevel returns a new MDPriceLevelField initialized with val
 func NewMDPriceLevel(val int) *MDPriceLevelField {
@@ -8569,10 +8581,10 @@ func NewMDPriceLevel(val int) *MDPriceLevelField {
 }
 
 //MDQuoteTypeField is a INT field
-type MDQuoteTypeField struct{ fix.IntValue }
+type MDQuoteTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDQuoteType (1070)
-func (f MDQuoteTypeField) Tag() fix.Tag { return tag.MDQuoteType }
+func (f MDQuoteTypeField) Tag() quickfix.Tag { return tag.MDQuoteType }
 
 //NewMDQuoteType returns a new MDQuoteTypeField initialized with val
 func NewMDQuoteType(val int) *MDQuoteTypeField {
@@ -8582,10 +8594,10 @@ func NewMDQuoteType(val int) *MDQuoteTypeField {
 }
 
 //MDReportIDField is a INT field
-type MDReportIDField struct{ fix.IntValue }
+type MDReportIDField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDReportID (963)
-func (f MDReportIDField) Tag() fix.Tag { return tag.MDReportID }
+func (f MDReportIDField) Tag() quickfix.Tag { return tag.MDReportID }
 
 //NewMDReportID returns a new MDReportIDField initialized with val
 func NewMDReportID(val int) *MDReportIDField {
@@ -8595,10 +8607,10 @@ func NewMDReportID(val int) *MDReportIDField {
 }
 
 //MDReqIDField is a STRING field
-type MDReqIDField struct{ fix.StringValue }
+type MDReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MDReqID (262)
-func (f MDReqIDField) Tag() fix.Tag { return tag.MDReqID }
+func (f MDReqIDField) Tag() quickfix.Tag { return tag.MDReqID }
 
 //NewMDReqID returns a new MDReqIDField initialized with val
 func NewMDReqID(val string) *MDReqIDField {
@@ -8608,10 +8620,10 @@ func NewMDReqID(val string) *MDReqIDField {
 }
 
 //MDReqRejReasonField is a CHAR field
-type MDReqRejReasonField struct{ fix.CharValue }
+type MDReqRejReasonField struct{ quickfix.CharValue }
 
 //Tag returns tag.MDReqRejReason (281)
-func (f MDReqRejReasonField) Tag() fix.Tag { return tag.MDReqRejReason }
+func (f MDReqRejReasonField) Tag() quickfix.Tag { return tag.MDReqRejReason }
 
 //NewMDReqRejReason returns a new MDReqRejReasonField initialized with val
 func NewMDReqRejReason(val string) *MDReqRejReasonField {
@@ -8621,10 +8633,10 @@ func NewMDReqRejReason(val string) *MDReqRejReasonField {
 }
 
 //MDSecSizeField is a QTY field
-type MDSecSizeField struct{ fix.QtyValue }
+type MDSecSizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MDSecSize (1179)
-func (f MDSecSizeField) Tag() fix.Tag { return tag.MDSecSize }
+func (f MDSecSizeField) Tag() quickfix.Tag { return tag.MDSecSize }
 
 //NewMDSecSize returns a new MDSecSizeField initialized with val
 func NewMDSecSize(val float64) *MDSecSizeField {
@@ -8634,10 +8646,10 @@ func NewMDSecSize(val float64) *MDSecSizeField {
 }
 
 //MDSecSizeTypeField is a INT field
-type MDSecSizeTypeField struct{ fix.IntValue }
+type MDSecSizeTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDSecSizeType (1178)
-func (f MDSecSizeTypeField) Tag() fix.Tag { return tag.MDSecSizeType }
+func (f MDSecSizeTypeField) Tag() quickfix.Tag { return tag.MDSecSizeType }
 
 //NewMDSecSizeType returns a new MDSecSizeTypeField initialized with val
 func NewMDSecSizeType(val int) *MDSecSizeTypeField {
@@ -8647,10 +8659,10 @@ func NewMDSecSizeType(val int) *MDSecSizeTypeField {
 }
 
 //MDStreamIDField is a STRING field
-type MDStreamIDField struct{ fix.StringValue }
+type MDStreamIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MDStreamID (1500)
-func (f MDStreamIDField) Tag() fix.Tag { return tag.MDStreamID }
+func (f MDStreamIDField) Tag() quickfix.Tag { return tag.MDStreamID }
 
 //NewMDStreamID returns a new MDStreamIDField initialized with val
 func NewMDStreamID(val string) *MDStreamIDField {
@@ -8660,10 +8672,10 @@ func NewMDStreamID(val string) *MDStreamIDField {
 }
 
 //MDSubBookTypeField is a INT field
-type MDSubBookTypeField struct{ fix.IntValue }
+type MDSubBookTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDSubBookType (1173)
-func (f MDSubBookTypeField) Tag() fix.Tag { return tag.MDSubBookType }
+func (f MDSubBookTypeField) Tag() quickfix.Tag { return tag.MDSubBookType }
 
 //NewMDSubBookType returns a new MDSubBookTypeField initialized with val
 func NewMDSubBookType(val int) *MDSubBookTypeField {
@@ -8673,10 +8685,10 @@ func NewMDSubBookType(val int) *MDSubBookTypeField {
 }
 
 //MDUpdateActionField is a CHAR field
-type MDUpdateActionField struct{ fix.CharValue }
+type MDUpdateActionField struct{ quickfix.CharValue }
 
 //Tag returns tag.MDUpdateAction (279)
-func (f MDUpdateActionField) Tag() fix.Tag { return tag.MDUpdateAction }
+func (f MDUpdateActionField) Tag() quickfix.Tag { return tag.MDUpdateAction }
 
 //NewMDUpdateAction returns a new MDUpdateActionField initialized with val
 func NewMDUpdateAction(val string) *MDUpdateActionField {
@@ -8686,10 +8698,10 @@ func NewMDUpdateAction(val string) *MDUpdateActionField {
 }
 
 //MDUpdateTypeField is a INT field
-type MDUpdateTypeField struct{ fix.IntValue }
+type MDUpdateTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MDUpdateType (265)
-func (f MDUpdateTypeField) Tag() fix.Tag { return tag.MDUpdateType }
+func (f MDUpdateTypeField) Tag() quickfix.Tag { return tag.MDUpdateType }
 
 //NewMDUpdateType returns a new MDUpdateTypeField initialized with val
 func NewMDUpdateType(val int) *MDUpdateTypeField {
@@ -8699,10 +8711,10 @@ func NewMDUpdateType(val int) *MDUpdateTypeField {
 }
 
 //MailingDtlsField is a STRING field
-type MailingDtlsField struct{ fix.StringValue }
+type MailingDtlsField struct{ quickfix.StringValue }
 
 //Tag returns tag.MailingDtls (474)
-func (f MailingDtlsField) Tag() fix.Tag { return tag.MailingDtls }
+func (f MailingDtlsField) Tag() quickfix.Tag { return tag.MailingDtls }
 
 //NewMailingDtls returns a new MailingDtlsField initialized with val
 func NewMailingDtls(val string) *MailingDtlsField {
@@ -8712,10 +8724,10 @@ func NewMailingDtls(val string) *MailingDtlsField {
 }
 
 //MailingInstField is a STRING field
-type MailingInstField struct{ fix.StringValue }
+type MailingInstField struct{ quickfix.StringValue }
 
 //Tag returns tag.MailingInst (482)
-func (f MailingInstField) Tag() fix.Tag { return tag.MailingInst }
+func (f MailingInstField) Tag() quickfix.Tag { return tag.MailingInst }
 
 //NewMailingInst returns a new MailingInstField initialized with val
 func NewMailingInst(val string) *MailingInstField {
@@ -8725,10 +8737,10 @@ func NewMailingInst(val string) *MailingInstField {
 }
 
 //ManualOrderIndicatorField is a BOOLEAN field
-type ManualOrderIndicatorField struct{ fix.BooleanValue }
+type ManualOrderIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ManualOrderIndicator (1028)
-func (f ManualOrderIndicatorField) Tag() fix.Tag { return tag.ManualOrderIndicator }
+func (f ManualOrderIndicatorField) Tag() quickfix.Tag { return tag.ManualOrderIndicator }
 
 //NewManualOrderIndicator returns a new ManualOrderIndicatorField initialized with val
 func NewManualOrderIndicator(val bool) *ManualOrderIndicatorField {
@@ -8738,10 +8750,10 @@ func NewManualOrderIndicator(val bool) *ManualOrderIndicatorField {
 }
 
 //MarginExcessField is a AMT field
-type MarginExcessField struct{ fix.AmtValue }
+type MarginExcessField struct{ quickfix.AmtValue }
 
 //Tag returns tag.MarginExcess (899)
-func (f MarginExcessField) Tag() fix.Tag { return tag.MarginExcess }
+func (f MarginExcessField) Tag() quickfix.Tag { return tag.MarginExcess }
 
 //NewMarginExcess returns a new MarginExcessField initialized with val
 func NewMarginExcess(val float64) *MarginExcessField {
@@ -8751,10 +8763,10 @@ func NewMarginExcess(val float64) *MarginExcessField {
 }
 
 //MarginRatioField is a PERCENTAGE field
-type MarginRatioField struct{ fix.PercentageValue }
+type MarginRatioField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.MarginRatio (898)
-func (f MarginRatioField) Tag() fix.Tag { return tag.MarginRatio }
+func (f MarginRatioField) Tag() quickfix.Tag { return tag.MarginRatio }
 
 //NewMarginRatio returns a new MarginRatioField initialized with val
 func NewMarginRatio(val float64) *MarginRatioField {
@@ -8764,10 +8776,10 @@ func NewMarginRatio(val float64) *MarginRatioField {
 }
 
 //MarketDepthField is a INT field
-type MarketDepthField struct{ fix.IntValue }
+type MarketDepthField struct{ quickfix.IntValue }
 
 //Tag returns tag.MarketDepth (264)
-func (f MarketDepthField) Tag() fix.Tag { return tag.MarketDepth }
+func (f MarketDepthField) Tag() quickfix.Tag { return tag.MarketDepth }
 
 //NewMarketDepth returns a new MarketDepthField initialized with val
 func NewMarketDepth(val int) *MarketDepthField {
@@ -8777,10 +8789,10 @@ func NewMarketDepth(val int) *MarketDepthField {
 }
 
 //MarketIDField is a EXCHANGE field
-type MarketIDField struct{ fix.ExchangeValue }
+type MarketIDField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.MarketID (1301)
-func (f MarketIDField) Tag() fix.Tag { return tag.MarketID }
+func (f MarketIDField) Tag() quickfix.Tag { return tag.MarketID }
 
 //NewMarketID returns a new MarketIDField initialized with val
 func NewMarketID(val string) *MarketIDField {
@@ -8790,10 +8802,10 @@ func NewMarketID(val string) *MarketIDField {
 }
 
 //MarketReportIDField is a STRING field
-type MarketReportIDField struct{ fix.StringValue }
+type MarketReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MarketReportID (1394)
-func (f MarketReportIDField) Tag() fix.Tag { return tag.MarketReportID }
+func (f MarketReportIDField) Tag() quickfix.Tag { return tag.MarketReportID }
 
 //NewMarketReportID returns a new MarketReportIDField initialized with val
 func NewMarketReportID(val string) *MarketReportIDField {
@@ -8803,10 +8815,10 @@ func NewMarketReportID(val string) *MarketReportIDField {
 }
 
 //MarketReqIDField is a STRING field
-type MarketReqIDField struct{ fix.StringValue }
+type MarketReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MarketReqID (1393)
-func (f MarketReqIDField) Tag() fix.Tag { return tag.MarketReqID }
+func (f MarketReqIDField) Tag() quickfix.Tag { return tag.MarketReqID }
 
 //NewMarketReqID returns a new MarketReqIDField initialized with val
 func NewMarketReqID(val string) *MarketReqIDField {
@@ -8816,10 +8828,10 @@ func NewMarketReqID(val string) *MarketReqIDField {
 }
 
 //MarketSegmentDescField is a STRING field
-type MarketSegmentDescField struct{ fix.StringValue }
+type MarketSegmentDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.MarketSegmentDesc (1396)
-func (f MarketSegmentDescField) Tag() fix.Tag { return tag.MarketSegmentDesc }
+func (f MarketSegmentDescField) Tag() quickfix.Tag { return tag.MarketSegmentDesc }
 
 //NewMarketSegmentDesc returns a new MarketSegmentDescField initialized with val
 func NewMarketSegmentDesc(val string) *MarketSegmentDescField {
@@ -8829,10 +8841,10 @@ func NewMarketSegmentDesc(val string) *MarketSegmentDescField {
 }
 
 //MarketSegmentIDField is a STRING field
-type MarketSegmentIDField struct{ fix.StringValue }
+type MarketSegmentIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MarketSegmentID (1300)
-func (f MarketSegmentIDField) Tag() fix.Tag { return tag.MarketSegmentID }
+func (f MarketSegmentIDField) Tag() quickfix.Tag { return tag.MarketSegmentID }
 
 //NewMarketSegmentID returns a new MarketSegmentIDField initialized with val
 func NewMarketSegmentID(val string) *MarketSegmentIDField {
@@ -8842,10 +8854,10 @@ func NewMarketSegmentID(val string) *MarketSegmentIDField {
 }
 
 //MarketUpdateActionField is a CHAR field
-type MarketUpdateActionField struct{ fix.CharValue }
+type MarketUpdateActionField struct{ quickfix.CharValue }
 
 //Tag returns tag.MarketUpdateAction (1395)
-func (f MarketUpdateActionField) Tag() fix.Tag { return tag.MarketUpdateAction }
+func (f MarketUpdateActionField) Tag() quickfix.Tag { return tag.MarketUpdateAction }
 
 //NewMarketUpdateAction returns a new MarketUpdateActionField initialized with val
 func NewMarketUpdateAction(val string) *MarketUpdateActionField {
@@ -8855,10 +8867,10 @@ func NewMarketUpdateAction(val string) *MarketUpdateActionField {
 }
 
 //MassActionRejectReasonField is a INT field
-type MassActionRejectReasonField struct{ fix.IntValue }
+type MassActionRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.MassActionRejectReason (1376)
-func (f MassActionRejectReasonField) Tag() fix.Tag { return tag.MassActionRejectReason }
+func (f MassActionRejectReasonField) Tag() quickfix.Tag { return tag.MassActionRejectReason }
 
 //NewMassActionRejectReason returns a new MassActionRejectReasonField initialized with val
 func NewMassActionRejectReason(val int) *MassActionRejectReasonField {
@@ -8868,10 +8880,10 @@ func NewMassActionRejectReason(val int) *MassActionRejectReasonField {
 }
 
 //MassActionReportIDField is a STRING field
-type MassActionReportIDField struct{ fix.StringValue }
+type MassActionReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MassActionReportID (1369)
-func (f MassActionReportIDField) Tag() fix.Tag { return tag.MassActionReportID }
+func (f MassActionReportIDField) Tag() quickfix.Tag { return tag.MassActionReportID }
 
 //NewMassActionReportID returns a new MassActionReportIDField initialized with val
 func NewMassActionReportID(val string) *MassActionReportIDField {
@@ -8881,10 +8893,10 @@ func NewMassActionReportID(val string) *MassActionReportIDField {
 }
 
 //MassActionResponseField is a INT field
-type MassActionResponseField struct{ fix.IntValue }
+type MassActionResponseField struct{ quickfix.IntValue }
 
 //Tag returns tag.MassActionResponse (1375)
-func (f MassActionResponseField) Tag() fix.Tag { return tag.MassActionResponse }
+func (f MassActionResponseField) Tag() quickfix.Tag { return tag.MassActionResponse }
 
 //NewMassActionResponse returns a new MassActionResponseField initialized with val
 func NewMassActionResponse(val int) *MassActionResponseField {
@@ -8894,10 +8906,10 @@ func NewMassActionResponse(val int) *MassActionResponseField {
 }
 
 //MassActionScopeField is a INT field
-type MassActionScopeField struct{ fix.IntValue }
+type MassActionScopeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MassActionScope (1374)
-func (f MassActionScopeField) Tag() fix.Tag { return tag.MassActionScope }
+func (f MassActionScopeField) Tag() quickfix.Tag { return tag.MassActionScope }
 
 //NewMassActionScope returns a new MassActionScopeField initialized with val
 func NewMassActionScope(val int) *MassActionScopeField {
@@ -8907,10 +8919,10 @@ func NewMassActionScope(val int) *MassActionScopeField {
 }
 
 //MassActionTypeField is a INT field
-type MassActionTypeField struct{ fix.IntValue }
+type MassActionTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MassActionType (1373)
-func (f MassActionTypeField) Tag() fix.Tag { return tag.MassActionType }
+func (f MassActionTypeField) Tag() quickfix.Tag { return tag.MassActionType }
 
 //NewMassActionType returns a new MassActionTypeField initialized with val
 func NewMassActionType(val int) *MassActionTypeField {
@@ -8920,10 +8932,10 @@ func NewMassActionType(val int) *MassActionTypeField {
 }
 
 //MassCancelRejectReasonField is a INT field
-type MassCancelRejectReasonField struct{ fix.IntValue }
+type MassCancelRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.MassCancelRejectReason (532)
-func (f MassCancelRejectReasonField) Tag() fix.Tag { return tag.MassCancelRejectReason }
+func (f MassCancelRejectReasonField) Tag() quickfix.Tag { return tag.MassCancelRejectReason }
 
 //NewMassCancelRejectReason returns a new MassCancelRejectReasonField initialized with val
 func NewMassCancelRejectReason(val int) *MassCancelRejectReasonField {
@@ -8933,10 +8945,10 @@ func NewMassCancelRejectReason(val int) *MassCancelRejectReasonField {
 }
 
 //MassCancelRequestTypeField is a CHAR field
-type MassCancelRequestTypeField struct{ fix.CharValue }
+type MassCancelRequestTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.MassCancelRequestType (530)
-func (f MassCancelRequestTypeField) Tag() fix.Tag { return tag.MassCancelRequestType }
+func (f MassCancelRequestTypeField) Tag() quickfix.Tag { return tag.MassCancelRequestType }
 
 //NewMassCancelRequestType returns a new MassCancelRequestTypeField initialized with val
 func NewMassCancelRequestType(val string) *MassCancelRequestTypeField {
@@ -8946,10 +8958,10 @@ func NewMassCancelRequestType(val string) *MassCancelRequestTypeField {
 }
 
 //MassCancelResponseField is a CHAR field
-type MassCancelResponseField struct{ fix.CharValue }
+type MassCancelResponseField struct{ quickfix.CharValue }
 
 //Tag returns tag.MassCancelResponse (531)
-func (f MassCancelResponseField) Tag() fix.Tag { return tag.MassCancelResponse }
+func (f MassCancelResponseField) Tag() quickfix.Tag { return tag.MassCancelResponse }
 
 //NewMassCancelResponse returns a new MassCancelResponseField initialized with val
 func NewMassCancelResponse(val string) *MassCancelResponseField {
@@ -8959,10 +8971,10 @@ func NewMassCancelResponse(val string) *MassCancelResponseField {
 }
 
 //MassStatusReqIDField is a STRING field
-type MassStatusReqIDField struct{ fix.StringValue }
+type MassStatusReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MassStatusReqID (584)
-func (f MassStatusReqIDField) Tag() fix.Tag { return tag.MassStatusReqID }
+func (f MassStatusReqIDField) Tag() quickfix.Tag { return tag.MassStatusReqID }
 
 //NewMassStatusReqID returns a new MassStatusReqIDField initialized with val
 func NewMassStatusReqID(val string) *MassStatusReqIDField {
@@ -8972,10 +8984,10 @@ func NewMassStatusReqID(val string) *MassStatusReqIDField {
 }
 
 //MassStatusReqTypeField is a INT field
-type MassStatusReqTypeField struct{ fix.IntValue }
+type MassStatusReqTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.MassStatusReqType (585)
-func (f MassStatusReqTypeField) Tag() fix.Tag { return tag.MassStatusReqType }
+func (f MassStatusReqTypeField) Tag() quickfix.Tag { return tag.MassStatusReqType }
 
 //NewMassStatusReqType returns a new MassStatusReqTypeField initialized with val
 func NewMassStatusReqType(val int) *MassStatusReqTypeField {
@@ -8985,10 +8997,10 @@ func NewMassStatusReqType(val int) *MassStatusReqTypeField {
 }
 
 //MatchAlgorithmField is a STRING field
-type MatchAlgorithmField struct{ fix.StringValue }
+type MatchAlgorithmField struct{ quickfix.StringValue }
 
 //Tag returns tag.MatchAlgorithm (1142)
-func (f MatchAlgorithmField) Tag() fix.Tag { return tag.MatchAlgorithm }
+func (f MatchAlgorithmField) Tag() quickfix.Tag { return tag.MatchAlgorithm }
 
 //NewMatchAlgorithm returns a new MatchAlgorithmField initialized with val
 func NewMatchAlgorithm(val string) *MatchAlgorithmField {
@@ -8998,10 +9010,10 @@ func NewMatchAlgorithm(val string) *MatchAlgorithmField {
 }
 
 //MatchIncrementField is a QTY field
-type MatchIncrementField struct{ fix.QtyValue }
+type MatchIncrementField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MatchIncrement (1089)
-func (f MatchIncrementField) Tag() fix.Tag { return tag.MatchIncrement }
+func (f MatchIncrementField) Tag() quickfix.Tag { return tag.MatchIncrement }
 
 //NewMatchIncrement returns a new MatchIncrementField initialized with val
 func NewMatchIncrement(val float64) *MatchIncrementField {
@@ -9011,10 +9023,10 @@ func NewMatchIncrement(val float64) *MatchIncrementField {
 }
 
 //MatchStatusField is a CHAR field
-type MatchStatusField struct{ fix.CharValue }
+type MatchStatusField struct{ quickfix.CharValue }
 
 //Tag returns tag.MatchStatus (573)
-func (f MatchStatusField) Tag() fix.Tag { return tag.MatchStatus }
+func (f MatchStatusField) Tag() quickfix.Tag { return tag.MatchStatus }
 
 //NewMatchStatus returns a new MatchStatusField initialized with val
 func NewMatchStatus(val string) *MatchStatusField {
@@ -9024,10 +9036,10 @@ func NewMatchStatus(val string) *MatchStatusField {
 }
 
 //MatchTypeField is a STRING field
-type MatchTypeField struct{ fix.StringValue }
+type MatchTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.MatchType (574)
-func (f MatchTypeField) Tag() fix.Tag { return tag.MatchType }
+func (f MatchTypeField) Tag() quickfix.Tag { return tag.MatchType }
 
 //NewMatchType returns a new MatchTypeField initialized with val
 func NewMatchType(val string) *MatchTypeField {
@@ -9037,10 +9049,10 @@ func NewMatchType(val string) *MatchTypeField {
 }
 
 //MaturityDateField is a LOCALMKTDATE field
-type MaturityDateField struct{ fix.LocalMktDateValue }
+type MaturityDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.MaturityDate (541)
-func (f MaturityDateField) Tag() fix.Tag { return tag.MaturityDate }
+func (f MaturityDateField) Tag() quickfix.Tag { return tag.MaturityDate }
 
 //NewMaturityDate returns a new MaturityDateField initialized with val
 func NewMaturityDate(val string) *MaturityDateField {
@@ -9050,10 +9062,10 @@ func NewMaturityDate(val string) *MaturityDateField {
 }
 
 //MaturityDayField is a DAYOFMONTH field
-type MaturityDayField struct{ fix.DayOfMonthValue }
+type MaturityDayField struct{ quickfix.DayOfMonthValue }
 
 //Tag returns tag.MaturityDay (205)
-func (f MaturityDayField) Tag() fix.Tag { return tag.MaturityDay }
+func (f MaturityDayField) Tag() quickfix.Tag { return tag.MaturityDay }
 
 //NewMaturityDay returns a new MaturityDayField initialized with val
 func NewMaturityDay(val int) *MaturityDayField {
@@ -9063,10 +9075,10 @@ func NewMaturityDay(val int) *MaturityDayField {
 }
 
 //MaturityMonthYearField is a MONTHYEAR field
-type MaturityMonthYearField struct{ fix.MonthYearValue }
+type MaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.MaturityMonthYear (200)
-func (f MaturityMonthYearField) Tag() fix.Tag { return tag.MaturityMonthYear }
+func (f MaturityMonthYearField) Tag() quickfix.Tag { return tag.MaturityMonthYear }
 
 //NewMaturityMonthYear returns a new MaturityMonthYearField initialized with val
 func NewMaturityMonthYear(val string) *MaturityMonthYearField {
@@ -9076,10 +9088,10 @@ func NewMaturityMonthYear(val string) *MaturityMonthYearField {
 }
 
 //MaturityMonthYearFormatField is a INT field
-type MaturityMonthYearFormatField struct{ fix.IntValue }
+type MaturityMonthYearFormatField struct{ quickfix.IntValue }
 
 //Tag returns tag.MaturityMonthYearFormat (1303)
-func (f MaturityMonthYearFormatField) Tag() fix.Tag { return tag.MaturityMonthYearFormat }
+func (f MaturityMonthYearFormatField) Tag() quickfix.Tag { return tag.MaturityMonthYearFormat }
 
 //NewMaturityMonthYearFormat returns a new MaturityMonthYearFormatField initialized with val
 func NewMaturityMonthYearFormat(val int) *MaturityMonthYearFormatField {
@@ -9089,10 +9101,10 @@ func NewMaturityMonthYearFormat(val int) *MaturityMonthYearFormatField {
 }
 
 //MaturityMonthYearIncrementField is a INT field
-type MaturityMonthYearIncrementField struct{ fix.IntValue }
+type MaturityMonthYearIncrementField struct{ quickfix.IntValue }
 
 //Tag returns tag.MaturityMonthYearIncrement (1229)
-func (f MaturityMonthYearIncrementField) Tag() fix.Tag { return tag.MaturityMonthYearIncrement }
+func (f MaturityMonthYearIncrementField) Tag() quickfix.Tag { return tag.MaturityMonthYearIncrement }
 
 //NewMaturityMonthYearIncrement returns a new MaturityMonthYearIncrementField initialized with val
 func NewMaturityMonthYearIncrement(val int) *MaturityMonthYearIncrementField {
@@ -9102,10 +9114,10 @@ func NewMaturityMonthYearIncrement(val int) *MaturityMonthYearIncrementField {
 }
 
 //MaturityMonthYearIncrementUnitsField is a INT field
-type MaturityMonthYearIncrementUnitsField struct{ fix.IntValue }
+type MaturityMonthYearIncrementUnitsField struct{ quickfix.IntValue }
 
 //Tag returns tag.MaturityMonthYearIncrementUnits (1302)
-func (f MaturityMonthYearIncrementUnitsField) Tag() fix.Tag {
+func (f MaturityMonthYearIncrementUnitsField) Tag() quickfix.Tag {
 	return tag.MaturityMonthYearIncrementUnits
 }
 
@@ -9117,10 +9129,10 @@ func NewMaturityMonthYearIncrementUnits(val int) *MaturityMonthYearIncrementUnit
 }
 
 //MaturityNetMoneyField is a AMT field
-type MaturityNetMoneyField struct{ fix.AmtValue }
+type MaturityNetMoneyField struct{ quickfix.AmtValue }
 
 //Tag returns tag.MaturityNetMoney (890)
-func (f MaturityNetMoneyField) Tag() fix.Tag { return tag.MaturityNetMoney }
+func (f MaturityNetMoneyField) Tag() quickfix.Tag { return tag.MaturityNetMoney }
 
 //NewMaturityNetMoney returns a new MaturityNetMoneyField initialized with val
 func NewMaturityNetMoney(val float64) *MaturityNetMoneyField {
@@ -9130,10 +9142,10 @@ func NewMaturityNetMoney(val float64) *MaturityNetMoneyField {
 }
 
 //MaturityRuleIDField is a STRING field
-type MaturityRuleIDField struct{ fix.StringValue }
+type MaturityRuleIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.MaturityRuleID (1222)
-func (f MaturityRuleIDField) Tag() fix.Tag { return tag.MaturityRuleID }
+func (f MaturityRuleIDField) Tag() quickfix.Tag { return tag.MaturityRuleID }
 
 //NewMaturityRuleID returns a new MaturityRuleIDField initialized with val
 func NewMaturityRuleID(val string) *MaturityRuleIDField {
@@ -9143,16 +9155,16 @@ func NewMaturityRuleID(val string) *MaturityRuleIDField {
 }
 
 //MaturityTimeField is a TZTIMEONLY field
-type MaturityTimeField struct{ fix.TZTimeOnlyValue }
+type MaturityTimeField struct{ quickfix.TZTimeOnlyValue }
 
 //Tag returns tag.MaturityTime (1079)
-func (f MaturityTimeField) Tag() fix.Tag { return tag.MaturityTime }
+func (f MaturityTimeField) Tag() quickfix.Tag { return tag.MaturityTime }
 
 //MaxFloorField is a QTY field
-type MaxFloorField struct{ fix.QtyValue }
+type MaxFloorField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MaxFloor (111)
-func (f MaxFloorField) Tag() fix.Tag { return tag.MaxFloor }
+func (f MaxFloorField) Tag() quickfix.Tag { return tag.MaxFloor }
 
 //NewMaxFloor returns a new MaxFloorField initialized with val
 func NewMaxFloor(val float64) *MaxFloorField {
@@ -9162,10 +9174,10 @@ func NewMaxFloor(val float64) *MaxFloorField {
 }
 
 //MaxMessageSizeField is a LENGTH field
-type MaxMessageSizeField struct{ fix.LengthValue }
+type MaxMessageSizeField struct{ quickfix.LengthValue }
 
 //Tag returns tag.MaxMessageSize (383)
-func (f MaxMessageSizeField) Tag() fix.Tag { return tag.MaxMessageSize }
+func (f MaxMessageSizeField) Tag() quickfix.Tag { return tag.MaxMessageSize }
 
 //NewMaxMessageSize returns a new MaxMessageSizeField initialized with val
 func NewMaxMessageSize(val int) *MaxMessageSizeField {
@@ -9175,10 +9187,10 @@ func NewMaxMessageSize(val int) *MaxMessageSizeField {
 }
 
 //MaxPriceLevelsField is a INT field
-type MaxPriceLevelsField struct{ fix.IntValue }
+type MaxPriceLevelsField struct{ quickfix.IntValue }
 
 //Tag returns tag.MaxPriceLevels (1090)
-func (f MaxPriceLevelsField) Tag() fix.Tag { return tag.MaxPriceLevels }
+func (f MaxPriceLevelsField) Tag() quickfix.Tag { return tag.MaxPriceLevels }
 
 //NewMaxPriceLevels returns a new MaxPriceLevelsField initialized with val
 func NewMaxPriceLevels(val int) *MaxPriceLevelsField {
@@ -9188,10 +9200,10 @@ func NewMaxPriceLevels(val int) *MaxPriceLevelsField {
 }
 
 //MaxPriceVariationField is a FLOAT field
-type MaxPriceVariationField struct{ fix.FloatValue }
+type MaxPriceVariationField struct{ quickfix.FloatValue }
 
 //Tag returns tag.MaxPriceVariation (1143)
-func (f MaxPriceVariationField) Tag() fix.Tag { return tag.MaxPriceVariation }
+func (f MaxPriceVariationField) Tag() quickfix.Tag { return tag.MaxPriceVariation }
 
 //NewMaxPriceVariation returns a new MaxPriceVariationField initialized with val
 func NewMaxPriceVariation(val float64) *MaxPriceVariationField {
@@ -9201,10 +9213,10 @@ func NewMaxPriceVariation(val float64) *MaxPriceVariationField {
 }
 
 //MaxShowField is a QTY field
-type MaxShowField struct{ fix.QtyValue }
+type MaxShowField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MaxShow (210)
-func (f MaxShowField) Tag() fix.Tag { return tag.MaxShow }
+func (f MaxShowField) Tag() quickfix.Tag { return tag.MaxShow }
 
 //NewMaxShow returns a new MaxShowField initialized with val
 func NewMaxShow(val float64) *MaxShowField {
@@ -9214,10 +9226,10 @@ func NewMaxShow(val float64) *MaxShowField {
 }
 
 //MaxTradeVolField is a QTY field
-type MaxTradeVolField struct{ fix.QtyValue }
+type MaxTradeVolField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MaxTradeVol (1140)
-func (f MaxTradeVolField) Tag() fix.Tag { return tag.MaxTradeVol }
+func (f MaxTradeVolField) Tag() quickfix.Tag { return tag.MaxTradeVol }
 
 //NewMaxTradeVol returns a new MaxTradeVolField initialized with val
 func NewMaxTradeVol(val float64) *MaxTradeVolField {
@@ -9227,10 +9239,10 @@ func NewMaxTradeVol(val float64) *MaxTradeVolField {
 }
 
 //MessageEncodingField is a STRING field
-type MessageEncodingField struct{ fix.StringValue }
+type MessageEncodingField struct{ quickfix.StringValue }
 
 //Tag returns tag.MessageEncoding (347)
-func (f MessageEncodingField) Tag() fix.Tag { return tag.MessageEncoding }
+func (f MessageEncodingField) Tag() quickfix.Tag { return tag.MessageEncoding }
 
 //NewMessageEncoding returns a new MessageEncodingField initialized with val
 func NewMessageEncoding(val string) *MessageEncodingField {
@@ -9240,10 +9252,10 @@ func NewMessageEncoding(val string) *MessageEncodingField {
 }
 
 //MessageEventSourceField is a STRING field
-type MessageEventSourceField struct{ fix.StringValue }
+type MessageEventSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.MessageEventSource (1011)
-func (f MessageEventSourceField) Tag() fix.Tag { return tag.MessageEventSource }
+func (f MessageEventSourceField) Tag() quickfix.Tag { return tag.MessageEventSource }
 
 //NewMessageEventSource returns a new MessageEventSourceField initialized with val
 func NewMessageEventSource(val string) *MessageEventSourceField {
@@ -9253,10 +9265,10 @@ func NewMessageEventSource(val string) *MessageEventSourceField {
 }
 
 //MidPxField is a PRICE field
-type MidPxField struct{ fix.PriceValue }
+type MidPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.MidPx (631)
-func (f MidPxField) Tag() fix.Tag { return tag.MidPx }
+func (f MidPxField) Tag() quickfix.Tag { return tag.MidPx }
 
 //NewMidPx returns a new MidPxField initialized with val
 func NewMidPx(val float64) *MidPxField {
@@ -9266,10 +9278,10 @@ func NewMidPx(val float64) *MidPxField {
 }
 
 //MidYieldField is a PERCENTAGE field
-type MidYieldField struct{ fix.PercentageValue }
+type MidYieldField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.MidYield (633)
-func (f MidYieldField) Tag() fix.Tag { return tag.MidYield }
+func (f MidYieldField) Tag() quickfix.Tag { return tag.MidYield }
 
 //NewMidYield returns a new MidYieldField initialized with val
 func NewMidYield(val float64) *MidYieldField {
@@ -9279,10 +9291,10 @@ func NewMidYield(val float64) *MidYieldField {
 }
 
 //MinBidSizeField is a QTY field
-type MinBidSizeField struct{ fix.QtyValue }
+type MinBidSizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MinBidSize (647)
-func (f MinBidSizeField) Tag() fix.Tag { return tag.MinBidSize }
+func (f MinBidSizeField) Tag() quickfix.Tag { return tag.MinBidSize }
 
 //NewMinBidSize returns a new MinBidSizeField initialized with val
 func NewMinBidSize(val float64) *MinBidSizeField {
@@ -9292,10 +9304,10 @@ func NewMinBidSize(val float64) *MinBidSizeField {
 }
 
 //MinLotSizeField is a QTY field
-type MinLotSizeField struct{ fix.QtyValue }
+type MinLotSizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MinLotSize (1231)
-func (f MinLotSizeField) Tag() fix.Tag { return tag.MinLotSize }
+func (f MinLotSizeField) Tag() quickfix.Tag { return tag.MinLotSize }
 
 //NewMinLotSize returns a new MinLotSizeField initialized with val
 func NewMinLotSize(val float64) *MinLotSizeField {
@@ -9305,10 +9317,10 @@ func NewMinLotSize(val float64) *MinLotSizeField {
 }
 
 //MinOfferSizeField is a QTY field
-type MinOfferSizeField struct{ fix.QtyValue }
+type MinOfferSizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MinOfferSize (648)
-func (f MinOfferSizeField) Tag() fix.Tag { return tag.MinOfferSize }
+func (f MinOfferSizeField) Tag() quickfix.Tag { return tag.MinOfferSize }
 
 //NewMinOfferSize returns a new MinOfferSizeField initialized with val
 func NewMinOfferSize(val float64) *MinOfferSizeField {
@@ -9318,10 +9330,10 @@ func NewMinOfferSize(val float64) *MinOfferSizeField {
 }
 
 //MinPriceIncrementField is a FLOAT field
-type MinPriceIncrementField struct{ fix.FloatValue }
+type MinPriceIncrementField struct{ quickfix.FloatValue }
 
 //Tag returns tag.MinPriceIncrement (969)
-func (f MinPriceIncrementField) Tag() fix.Tag { return tag.MinPriceIncrement }
+func (f MinPriceIncrementField) Tag() quickfix.Tag { return tag.MinPriceIncrement }
 
 //NewMinPriceIncrement returns a new MinPriceIncrementField initialized with val
 func NewMinPriceIncrement(val float64) *MinPriceIncrementField {
@@ -9331,10 +9343,10 @@ func NewMinPriceIncrement(val float64) *MinPriceIncrementField {
 }
 
 //MinPriceIncrementAmountField is a AMT field
-type MinPriceIncrementAmountField struct{ fix.AmtValue }
+type MinPriceIncrementAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.MinPriceIncrementAmount (1146)
-func (f MinPriceIncrementAmountField) Tag() fix.Tag { return tag.MinPriceIncrementAmount }
+func (f MinPriceIncrementAmountField) Tag() quickfix.Tag { return tag.MinPriceIncrementAmount }
 
 //NewMinPriceIncrementAmount returns a new MinPriceIncrementAmountField initialized with val
 func NewMinPriceIncrementAmount(val float64) *MinPriceIncrementAmountField {
@@ -9344,10 +9356,10 @@ func NewMinPriceIncrementAmount(val float64) *MinPriceIncrementAmountField {
 }
 
 //MinQtyField is a QTY field
-type MinQtyField struct{ fix.QtyValue }
+type MinQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MinQty (110)
-func (f MinQtyField) Tag() fix.Tag { return tag.MinQty }
+func (f MinQtyField) Tag() quickfix.Tag { return tag.MinQty }
 
 //NewMinQty returns a new MinQtyField initialized with val
 func NewMinQty(val float64) *MinQtyField {
@@ -9357,10 +9369,10 @@ func NewMinQty(val float64) *MinQtyField {
 }
 
 //MinTradeVolField is a QTY field
-type MinTradeVolField struct{ fix.QtyValue }
+type MinTradeVolField struct{ quickfix.QtyValue }
 
 //Tag returns tag.MinTradeVol (562)
-func (f MinTradeVolField) Tag() fix.Tag { return tag.MinTradeVol }
+func (f MinTradeVolField) Tag() quickfix.Tag { return tag.MinTradeVol }
 
 //NewMinTradeVol returns a new MinTradeVolField initialized with val
 func NewMinTradeVol(val float64) *MinTradeVolField {
@@ -9370,10 +9382,10 @@ func NewMinTradeVol(val float64) *MinTradeVolField {
 }
 
 //MiscFeeAmtField is a AMT field
-type MiscFeeAmtField struct{ fix.AmtValue }
+type MiscFeeAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.MiscFeeAmt (137)
-func (f MiscFeeAmtField) Tag() fix.Tag { return tag.MiscFeeAmt }
+func (f MiscFeeAmtField) Tag() quickfix.Tag { return tag.MiscFeeAmt }
 
 //NewMiscFeeAmt returns a new MiscFeeAmtField initialized with val
 func NewMiscFeeAmt(val float64) *MiscFeeAmtField {
@@ -9383,10 +9395,10 @@ func NewMiscFeeAmt(val float64) *MiscFeeAmtField {
 }
 
 //MiscFeeBasisField is a INT field
-type MiscFeeBasisField struct{ fix.IntValue }
+type MiscFeeBasisField struct{ quickfix.IntValue }
 
 //Tag returns tag.MiscFeeBasis (891)
-func (f MiscFeeBasisField) Tag() fix.Tag { return tag.MiscFeeBasis }
+func (f MiscFeeBasisField) Tag() quickfix.Tag { return tag.MiscFeeBasis }
 
 //NewMiscFeeBasis returns a new MiscFeeBasisField initialized with val
 func NewMiscFeeBasis(val int) *MiscFeeBasisField {
@@ -9396,10 +9408,10 @@ func NewMiscFeeBasis(val int) *MiscFeeBasisField {
 }
 
 //MiscFeeCurrField is a CURRENCY field
-type MiscFeeCurrField struct{ fix.CurrencyValue }
+type MiscFeeCurrField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.MiscFeeCurr (138)
-func (f MiscFeeCurrField) Tag() fix.Tag { return tag.MiscFeeCurr }
+func (f MiscFeeCurrField) Tag() quickfix.Tag { return tag.MiscFeeCurr }
 
 //NewMiscFeeCurr returns a new MiscFeeCurrField initialized with val
 func NewMiscFeeCurr(val string) *MiscFeeCurrField {
@@ -9409,10 +9421,10 @@ func NewMiscFeeCurr(val string) *MiscFeeCurrField {
 }
 
 //MiscFeeTypeField is a STRING field
-type MiscFeeTypeField struct{ fix.StringValue }
+type MiscFeeTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.MiscFeeType (139)
-func (f MiscFeeTypeField) Tag() fix.Tag { return tag.MiscFeeType }
+func (f MiscFeeTypeField) Tag() quickfix.Tag { return tag.MiscFeeType }
 
 //NewMiscFeeType returns a new MiscFeeTypeField initialized with val
 func NewMiscFeeType(val string) *MiscFeeTypeField {
@@ -9422,10 +9434,10 @@ func NewMiscFeeType(val string) *MiscFeeTypeField {
 }
 
 //MktBidPxField is a PRICE field
-type MktBidPxField struct{ fix.PriceValue }
+type MktBidPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.MktBidPx (645)
-func (f MktBidPxField) Tag() fix.Tag { return tag.MktBidPx }
+func (f MktBidPxField) Tag() quickfix.Tag { return tag.MktBidPx }
 
 //NewMktBidPx returns a new MktBidPxField initialized with val
 func NewMktBidPx(val float64) *MktBidPxField {
@@ -9435,10 +9447,10 @@ func NewMktBidPx(val float64) *MktBidPxField {
 }
 
 //MktOfferPxField is a PRICE field
-type MktOfferPxField struct{ fix.PriceValue }
+type MktOfferPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.MktOfferPx (646)
-func (f MktOfferPxField) Tag() fix.Tag { return tag.MktOfferPx }
+func (f MktOfferPxField) Tag() quickfix.Tag { return tag.MktOfferPx }
 
 //NewMktOfferPx returns a new MktOfferPxField initialized with val
 func NewMktOfferPx(val float64) *MktOfferPxField {
@@ -9448,10 +9460,10 @@ func NewMktOfferPx(val float64) *MktOfferPxField {
 }
 
 //ModelTypeField is a INT field
-type ModelTypeField struct{ fix.IntValue }
+type ModelTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ModelType (1434)
-func (f ModelTypeField) Tag() fix.Tag { return tag.ModelType }
+func (f ModelTypeField) Tag() quickfix.Tag { return tag.ModelType }
 
 //NewModelType returns a new ModelTypeField initialized with val
 func NewModelType(val int) *ModelTypeField {
@@ -9461,10 +9473,10 @@ func NewModelType(val int) *ModelTypeField {
 }
 
 //MoneyLaunderingStatusField is a CHAR field
-type MoneyLaunderingStatusField struct{ fix.CharValue }
+type MoneyLaunderingStatusField struct{ quickfix.CharValue }
 
 //Tag returns tag.MoneyLaunderingStatus (481)
-func (f MoneyLaunderingStatusField) Tag() fix.Tag { return tag.MoneyLaunderingStatus }
+func (f MoneyLaunderingStatusField) Tag() quickfix.Tag { return tag.MoneyLaunderingStatus }
 
 //NewMoneyLaunderingStatus returns a new MoneyLaunderingStatusField initialized with val
 func NewMoneyLaunderingStatus(val string) *MoneyLaunderingStatusField {
@@ -9474,10 +9486,10 @@ func NewMoneyLaunderingStatus(val string) *MoneyLaunderingStatusField {
 }
 
 //MsgDirectionField is a CHAR field
-type MsgDirectionField struct{ fix.CharValue }
+type MsgDirectionField struct{ quickfix.CharValue }
 
 //Tag returns tag.MsgDirection (385)
-func (f MsgDirectionField) Tag() fix.Tag { return tag.MsgDirection }
+func (f MsgDirectionField) Tag() quickfix.Tag { return tag.MsgDirection }
 
 //NewMsgDirection returns a new MsgDirectionField initialized with val
 func NewMsgDirection(val string) *MsgDirectionField {
@@ -9487,10 +9499,10 @@ func NewMsgDirection(val string) *MsgDirectionField {
 }
 
 //MsgSeqNumField is a SEQNUM field
-type MsgSeqNumField struct{ fix.SeqNumValue }
+type MsgSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.MsgSeqNum (34)
-func (f MsgSeqNumField) Tag() fix.Tag { return tag.MsgSeqNum }
+func (f MsgSeqNumField) Tag() quickfix.Tag { return tag.MsgSeqNum }
 
 //NewMsgSeqNum returns a new MsgSeqNumField initialized with val
 func NewMsgSeqNum(val int) *MsgSeqNumField {
@@ -9500,10 +9512,10 @@ func NewMsgSeqNum(val int) *MsgSeqNumField {
 }
 
 //MsgTypeField is a STRING field
-type MsgTypeField struct{ fix.StringValue }
+type MsgTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.MsgType (35)
-func (f MsgTypeField) Tag() fix.Tag { return tag.MsgType }
+func (f MsgTypeField) Tag() quickfix.Tag { return tag.MsgType }
 
 //NewMsgType returns a new MsgTypeField initialized with val
 func NewMsgType(val string) *MsgTypeField {
@@ -9513,10 +9525,10 @@ func NewMsgType(val string) *MsgTypeField {
 }
 
 //MultiLegReportingTypeField is a CHAR field
-type MultiLegReportingTypeField struct{ fix.CharValue }
+type MultiLegReportingTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.MultiLegReportingType (442)
-func (f MultiLegReportingTypeField) Tag() fix.Tag { return tag.MultiLegReportingType }
+func (f MultiLegReportingTypeField) Tag() quickfix.Tag { return tag.MultiLegReportingType }
 
 //NewMultiLegReportingType returns a new MultiLegReportingTypeField initialized with val
 func NewMultiLegReportingType(val string) *MultiLegReportingTypeField {
@@ -9526,10 +9538,10 @@ func NewMultiLegReportingType(val string) *MultiLegReportingTypeField {
 }
 
 //MultiLegRptTypeReqField is a INT field
-type MultiLegRptTypeReqField struct{ fix.IntValue }
+type MultiLegRptTypeReqField struct{ quickfix.IntValue }
 
 //Tag returns tag.MultiLegRptTypeReq (563)
-func (f MultiLegRptTypeReqField) Tag() fix.Tag { return tag.MultiLegRptTypeReq }
+func (f MultiLegRptTypeReqField) Tag() quickfix.Tag { return tag.MultiLegRptTypeReq }
 
 //NewMultiLegRptTypeReq returns a new MultiLegRptTypeReqField initialized with val
 func NewMultiLegRptTypeReq(val int) *MultiLegRptTypeReqField {
@@ -9539,10 +9551,10 @@ func NewMultiLegRptTypeReq(val int) *MultiLegRptTypeReqField {
 }
 
 //MultilegModelField is a INT field
-type MultilegModelField struct{ fix.IntValue }
+type MultilegModelField struct{ quickfix.IntValue }
 
 //Tag returns tag.MultilegModel (1377)
-func (f MultilegModelField) Tag() fix.Tag { return tag.MultilegModel }
+func (f MultilegModelField) Tag() quickfix.Tag { return tag.MultilegModel }
 
 //NewMultilegModel returns a new MultilegModelField initialized with val
 func NewMultilegModel(val int) *MultilegModelField {
@@ -9552,10 +9564,10 @@ func NewMultilegModel(val int) *MultilegModelField {
 }
 
 //MultilegPriceMethodField is a INT field
-type MultilegPriceMethodField struct{ fix.IntValue }
+type MultilegPriceMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.MultilegPriceMethod (1378)
-func (f MultilegPriceMethodField) Tag() fix.Tag { return tag.MultilegPriceMethod }
+func (f MultilegPriceMethodField) Tag() quickfix.Tag { return tag.MultilegPriceMethod }
 
 //NewMultilegPriceMethod returns a new MultilegPriceMethodField initialized with val
 func NewMultilegPriceMethod(val int) *MultilegPriceMethodField {
@@ -9565,10 +9577,10 @@ func NewMultilegPriceMethod(val int) *MultilegPriceMethodField {
 }
 
 //NTPositionLimitField is a INT field
-type NTPositionLimitField struct{ fix.IntValue }
+type NTPositionLimitField struct{ quickfix.IntValue }
 
 //Tag returns tag.NTPositionLimit (971)
-func (f NTPositionLimitField) Tag() fix.Tag { return tag.NTPositionLimit }
+func (f NTPositionLimitField) Tag() quickfix.Tag { return tag.NTPositionLimit }
 
 //NewNTPositionLimit returns a new NTPositionLimitField initialized with val
 func NewNTPositionLimit(val int) *NTPositionLimitField {
@@ -9578,10 +9590,10 @@ func NewNTPositionLimit(val int) *NTPositionLimitField {
 }
 
 //Nested2PartyIDField is a STRING field
-type Nested2PartyIDField struct{ fix.StringValue }
+type Nested2PartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.Nested2PartyID (757)
-func (f Nested2PartyIDField) Tag() fix.Tag { return tag.Nested2PartyID }
+func (f Nested2PartyIDField) Tag() quickfix.Tag { return tag.Nested2PartyID }
 
 //NewNested2PartyID returns a new Nested2PartyIDField initialized with val
 func NewNested2PartyID(val string) *Nested2PartyIDField {
@@ -9591,10 +9603,10 @@ func NewNested2PartyID(val string) *Nested2PartyIDField {
 }
 
 //Nested2PartyIDSourceField is a CHAR field
-type Nested2PartyIDSourceField struct{ fix.CharValue }
+type Nested2PartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.Nested2PartyIDSource (758)
-func (f Nested2PartyIDSourceField) Tag() fix.Tag { return tag.Nested2PartyIDSource }
+func (f Nested2PartyIDSourceField) Tag() quickfix.Tag { return tag.Nested2PartyIDSource }
 
 //NewNested2PartyIDSource returns a new Nested2PartyIDSourceField initialized with val
 func NewNested2PartyIDSource(val string) *Nested2PartyIDSourceField {
@@ -9604,10 +9616,10 @@ func NewNested2PartyIDSource(val string) *Nested2PartyIDSourceField {
 }
 
 //Nested2PartyRoleField is a INT field
-type Nested2PartyRoleField struct{ fix.IntValue }
+type Nested2PartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.Nested2PartyRole (759)
-func (f Nested2PartyRoleField) Tag() fix.Tag { return tag.Nested2PartyRole }
+func (f Nested2PartyRoleField) Tag() quickfix.Tag { return tag.Nested2PartyRole }
 
 //NewNested2PartyRole returns a new Nested2PartyRoleField initialized with val
 func NewNested2PartyRole(val int) *Nested2PartyRoleField {
@@ -9617,10 +9629,10 @@ func NewNested2PartyRole(val int) *Nested2PartyRoleField {
 }
 
 //Nested2PartySubIDField is a STRING field
-type Nested2PartySubIDField struct{ fix.StringValue }
+type Nested2PartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.Nested2PartySubID (760)
-func (f Nested2PartySubIDField) Tag() fix.Tag { return tag.Nested2PartySubID }
+func (f Nested2PartySubIDField) Tag() quickfix.Tag { return tag.Nested2PartySubID }
 
 //NewNested2PartySubID returns a new Nested2PartySubIDField initialized with val
 func NewNested2PartySubID(val string) *Nested2PartySubIDField {
@@ -9630,10 +9642,10 @@ func NewNested2PartySubID(val string) *Nested2PartySubIDField {
 }
 
 //Nested2PartySubIDTypeField is a INT field
-type Nested2PartySubIDTypeField struct{ fix.IntValue }
+type Nested2PartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.Nested2PartySubIDType (807)
-func (f Nested2PartySubIDTypeField) Tag() fix.Tag { return tag.Nested2PartySubIDType }
+func (f Nested2PartySubIDTypeField) Tag() quickfix.Tag { return tag.Nested2PartySubIDType }
 
 //NewNested2PartySubIDType returns a new Nested2PartySubIDTypeField initialized with val
 func NewNested2PartySubIDType(val int) *Nested2PartySubIDTypeField {
@@ -9643,10 +9655,10 @@ func NewNested2PartySubIDType(val int) *Nested2PartySubIDTypeField {
 }
 
 //Nested3PartyIDField is a STRING field
-type Nested3PartyIDField struct{ fix.StringValue }
+type Nested3PartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.Nested3PartyID (949)
-func (f Nested3PartyIDField) Tag() fix.Tag { return tag.Nested3PartyID }
+func (f Nested3PartyIDField) Tag() quickfix.Tag { return tag.Nested3PartyID }
 
 //NewNested3PartyID returns a new Nested3PartyIDField initialized with val
 func NewNested3PartyID(val string) *Nested3PartyIDField {
@@ -9656,10 +9668,10 @@ func NewNested3PartyID(val string) *Nested3PartyIDField {
 }
 
 //Nested3PartyIDSourceField is a CHAR field
-type Nested3PartyIDSourceField struct{ fix.CharValue }
+type Nested3PartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.Nested3PartyIDSource (950)
-func (f Nested3PartyIDSourceField) Tag() fix.Tag { return tag.Nested3PartyIDSource }
+func (f Nested3PartyIDSourceField) Tag() quickfix.Tag { return tag.Nested3PartyIDSource }
 
 //NewNested3PartyIDSource returns a new Nested3PartyIDSourceField initialized with val
 func NewNested3PartyIDSource(val string) *Nested3PartyIDSourceField {
@@ -9669,10 +9681,10 @@ func NewNested3PartyIDSource(val string) *Nested3PartyIDSourceField {
 }
 
 //Nested3PartyRoleField is a INT field
-type Nested3PartyRoleField struct{ fix.IntValue }
+type Nested3PartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.Nested3PartyRole (951)
-func (f Nested3PartyRoleField) Tag() fix.Tag { return tag.Nested3PartyRole }
+func (f Nested3PartyRoleField) Tag() quickfix.Tag { return tag.Nested3PartyRole }
 
 //NewNested3PartyRole returns a new Nested3PartyRoleField initialized with val
 func NewNested3PartyRole(val int) *Nested3PartyRoleField {
@@ -9682,10 +9694,10 @@ func NewNested3PartyRole(val int) *Nested3PartyRoleField {
 }
 
 //Nested3PartySubIDField is a STRING field
-type Nested3PartySubIDField struct{ fix.StringValue }
+type Nested3PartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.Nested3PartySubID (953)
-func (f Nested3PartySubIDField) Tag() fix.Tag { return tag.Nested3PartySubID }
+func (f Nested3PartySubIDField) Tag() quickfix.Tag { return tag.Nested3PartySubID }
 
 //NewNested3PartySubID returns a new Nested3PartySubIDField initialized with val
 func NewNested3PartySubID(val string) *Nested3PartySubIDField {
@@ -9695,10 +9707,10 @@ func NewNested3PartySubID(val string) *Nested3PartySubIDField {
 }
 
 //Nested3PartySubIDTypeField is a INT field
-type Nested3PartySubIDTypeField struct{ fix.IntValue }
+type Nested3PartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.Nested3PartySubIDType (954)
-func (f Nested3PartySubIDTypeField) Tag() fix.Tag { return tag.Nested3PartySubIDType }
+func (f Nested3PartySubIDTypeField) Tag() quickfix.Tag { return tag.Nested3PartySubIDType }
 
 //NewNested3PartySubIDType returns a new Nested3PartySubIDTypeField initialized with val
 func NewNested3PartySubIDType(val int) *Nested3PartySubIDTypeField {
@@ -9708,10 +9720,10 @@ func NewNested3PartySubIDType(val int) *Nested3PartySubIDTypeField {
 }
 
 //Nested4PartyIDField is a STRING field
-type Nested4PartyIDField struct{ fix.StringValue }
+type Nested4PartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.Nested4PartyID (1415)
-func (f Nested4PartyIDField) Tag() fix.Tag { return tag.Nested4PartyID }
+func (f Nested4PartyIDField) Tag() quickfix.Tag { return tag.Nested4PartyID }
 
 //NewNested4PartyID returns a new Nested4PartyIDField initialized with val
 func NewNested4PartyID(val string) *Nested4PartyIDField {
@@ -9721,10 +9733,10 @@ func NewNested4PartyID(val string) *Nested4PartyIDField {
 }
 
 //Nested4PartyIDSourceField is a CHAR field
-type Nested4PartyIDSourceField struct{ fix.CharValue }
+type Nested4PartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.Nested4PartyIDSource (1416)
-func (f Nested4PartyIDSourceField) Tag() fix.Tag { return tag.Nested4PartyIDSource }
+func (f Nested4PartyIDSourceField) Tag() quickfix.Tag { return tag.Nested4PartyIDSource }
 
 //NewNested4PartyIDSource returns a new Nested4PartyIDSourceField initialized with val
 func NewNested4PartyIDSource(val string) *Nested4PartyIDSourceField {
@@ -9734,10 +9746,10 @@ func NewNested4PartyIDSource(val string) *Nested4PartyIDSourceField {
 }
 
 //Nested4PartyRoleField is a INT field
-type Nested4PartyRoleField struct{ fix.IntValue }
+type Nested4PartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.Nested4PartyRole (1417)
-func (f Nested4PartyRoleField) Tag() fix.Tag { return tag.Nested4PartyRole }
+func (f Nested4PartyRoleField) Tag() quickfix.Tag { return tag.Nested4PartyRole }
 
 //NewNested4PartyRole returns a new Nested4PartyRoleField initialized with val
 func NewNested4PartyRole(val int) *Nested4PartyRoleField {
@@ -9747,10 +9759,10 @@ func NewNested4PartyRole(val int) *Nested4PartyRoleField {
 }
 
 //Nested4PartySubIDField is a STRING field
-type Nested4PartySubIDField struct{ fix.StringValue }
+type Nested4PartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.Nested4PartySubID (1412)
-func (f Nested4PartySubIDField) Tag() fix.Tag { return tag.Nested4PartySubID }
+func (f Nested4PartySubIDField) Tag() quickfix.Tag { return tag.Nested4PartySubID }
 
 //NewNested4PartySubID returns a new Nested4PartySubIDField initialized with val
 func NewNested4PartySubID(val string) *Nested4PartySubIDField {
@@ -9760,10 +9772,10 @@ func NewNested4PartySubID(val string) *Nested4PartySubIDField {
 }
 
 //Nested4PartySubIDTypeField is a INT field
-type Nested4PartySubIDTypeField struct{ fix.IntValue }
+type Nested4PartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.Nested4PartySubIDType (1411)
-func (f Nested4PartySubIDTypeField) Tag() fix.Tag { return tag.Nested4PartySubIDType }
+func (f Nested4PartySubIDTypeField) Tag() quickfix.Tag { return tag.Nested4PartySubIDType }
 
 //NewNested4PartySubIDType returns a new Nested4PartySubIDTypeField initialized with val
 func NewNested4PartySubIDType(val int) *Nested4PartySubIDTypeField {
@@ -9773,10 +9785,10 @@ func NewNested4PartySubIDType(val int) *Nested4PartySubIDTypeField {
 }
 
 //NestedInstrAttribTypeField is a INT field
-type NestedInstrAttribTypeField struct{ fix.IntValue }
+type NestedInstrAttribTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.NestedInstrAttribType (1210)
-func (f NestedInstrAttribTypeField) Tag() fix.Tag { return tag.NestedInstrAttribType }
+func (f NestedInstrAttribTypeField) Tag() quickfix.Tag { return tag.NestedInstrAttribType }
 
 //NewNestedInstrAttribType returns a new NestedInstrAttribTypeField initialized with val
 func NewNestedInstrAttribType(val int) *NestedInstrAttribTypeField {
@@ -9786,10 +9798,10 @@ func NewNestedInstrAttribType(val int) *NestedInstrAttribTypeField {
 }
 
 //NestedInstrAttribValueField is a STRING field
-type NestedInstrAttribValueField struct{ fix.StringValue }
+type NestedInstrAttribValueField struct{ quickfix.StringValue }
 
 //Tag returns tag.NestedInstrAttribValue (1211)
-func (f NestedInstrAttribValueField) Tag() fix.Tag { return tag.NestedInstrAttribValue }
+func (f NestedInstrAttribValueField) Tag() quickfix.Tag { return tag.NestedInstrAttribValue }
 
 //NewNestedInstrAttribValue returns a new NestedInstrAttribValueField initialized with val
 func NewNestedInstrAttribValue(val string) *NestedInstrAttribValueField {
@@ -9799,10 +9811,10 @@ func NewNestedInstrAttribValue(val string) *NestedInstrAttribValueField {
 }
 
 //NestedPartyIDField is a STRING field
-type NestedPartyIDField struct{ fix.StringValue }
+type NestedPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NestedPartyID (524)
-func (f NestedPartyIDField) Tag() fix.Tag { return tag.NestedPartyID }
+func (f NestedPartyIDField) Tag() quickfix.Tag { return tag.NestedPartyID }
 
 //NewNestedPartyID returns a new NestedPartyIDField initialized with val
 func NewNestedPartyID(val string) *NestedPartyIDField {
@@ -9812,10 +9824,10 @@ func NewNestedPartyID(val string) *NestedPartyIDField {
 }
 
 //NestedPartyIDSourceField is a CHAR field
-type NestedPartyIDSourceField struct{ fix.CharValue }
+type NestedPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.NestedPartyIDSource (525)
-func (f NestedPartyIDSourceField) Tag() fix.Tag { return tag.NestedPartyIDSource }
+func (f NestedPartyIDSourceField) Tag() quickfix.Tag { return tag.NestedPartyIDSource }
 
 //NewNestedPartyIDSource returns a new NestedPartyIDSourceField initialized with val
 func NewNestedPartyIDSource(val string) *NestedPartyIDSourceField {
@@ -9825,10 +9837,10 @@ func NewNestedPartyIDSource(val string) *NestedPartyIDSourceField {
 }
 
 //NestedPartyRoleField is a INT field
-type NestedPartyRoleField struct{ fix.IntValue }
+type NestedPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.NestedPartyRole (538)
-func (f NestedPartyRoleField) Tag() fix.Tag { return tag.NestedPartyRole }
+func (f NestedPartyRoleField) Tag() quickfix.Tag { return tag.NestedPartyRole }
 
 //NewNestedPartyRole returns a new NestedPartyRoleField initialized with val
 func NewNestedPartyRole(val int) *NestedPartyRoleField {
@@ -9838,10 +9850,10 @@ func NewNestedPartyRole(val int) *NestedPartyRoleField {
 }
 
 //NestedPartySubIDField is a STRING field
-type NestedPartySubIDField struct{ fix.StringValue }
+type NestedPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NestedPartySubID (545)
-func (f NestedPartySubIDField) Tag() fix.Tag { return tag.NestedPartySubID }
+func (f NestedPartySubIDField) Tag() quickfix.Tag { return tag.NestedPartySubID }
 
 //NewNestedPartySubID returns a new NestedPartySubIDField initialized with val
 func NewNestedPartySubID(val string) *NestedPartySubIDField {
@@ -9851,10 +9863,10 @@ func NewNestedPartySubID(val string) *NestedPartySubIDField {
 }
 
 //NestedPartySubIDTypeField is a INT field
-type NestedPartySubIDTypeField struct{ fix.IntValue }
+type NestedPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.NestedPartySubIDType (805)
-func (f NestedPartySubIDTypeField) Tag() fix.Tag { return tag.NestedPartySubIDType }
+func (f NestedPartySubIDTypeField) Tag() quickfix.Tag { return tag.NestedPartySubIDType }
 
 //NewNestedPartySubIDType returns a new NestedPartySubIDTypeField initialized with val
 func NewNestedPartySubIDType(val int) *NestedPartySubIDTypeField {
@@ -9864,10 +9876,10 @@ func NewNestedPartySubIDType(val int) *NestedPartySubIDTypeField {
 }
 
 //NetChgPrevDayField is a PRICEOFFSET field
-type NetChgPrevDayField struct{ fix.PriceOffsetValue }
+type NetChgPrevDayField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.NetChgPrevDay (451)
-func (f NetChgPrevDayField) Tag() fix.Tag { return tag.NetChgPrevDay }
+func (f NetChgPrevDayField) Tag() quickfix.Tag { return tag.NetChgPrevDay }
 
 //NewNetChgPrevDay returns a new NetChgPrevDayField initialized with val
 func NewNetChgPrevDay(val float64) *NetChgPrevDayField {
@@ -9877,10 +9889,10 @@ func NewNetChgPrevDay(val float64) *NetChgPrevDayField {
 }
 
 //NetGrossIndField is a INT field
-type NetGrossIndField struct{ fix.IntValue }
+type NetGrossIndField struct{ quickfix.IntValue }
 
 //Tag returns tag.NetGrossInd (430)
-func (f NetGrossIndField) Tag() fix.Tag { return tag.NetGrossInd }
+func (f NetGrossIndField) Tag() quickfix.Tag { return tag.NetGrossInd }
 
 //NewNetGrossInd returns a new NetGrossIndField initialized with val
 func NewNetGrossInd(val int) *NetGrossIndField {
@@ -9890,10 +9902,10 @@ func NewNetGrossInd(val int) *NetGrossIndField {
 }
 
 //NetMoneyField is a AMT field
-type NetMoneyField struct{ fix.AmtValue }
+type NetMoneyField struct{ quickfix.AmtValue }
 
 //Tag returns tag.NetMoney (118)
-func (f NetMoneyField) Tag() fix.Tag { return tag.NetMoney }
+func (f NetMoneyField) Tag() quickfix.Tag { return tag.NetMoney }
 
 //NewNetMoney returns a new NetMoneyField initialized with val
 func NewNetMoney(val float64) *NetMoneyField {
@@ -9903,10 +9915,10 @@ func NewNetMoney(val float64) *NetMoneyField {
 }
 
 //NetworkRequestIDField is a STRING field
-type NetworkRequestIDField struct{ fix.StringValue }
+type NetworkRequestIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NetworkRequestID (933)
-func (f NetworkRequestIDField) Tag() fix.Tag { return tag.NetworkRequestID }
+func (f NetworkRequestIDField) Tag() quickfix.Tag { return tag.NetworkRequestID }
 
 //NewNetworkRequestID returns a new NetworkRequestIDField initialized with val
 func NewNetworkRequestID(val string) *NetworkRequestIDField {
@@ -9916,10 +9928,10 @@ func NewNetworkRequestID(val string) *NetworkRequestIDField {
 }
 
 //NetworkRequestTypeField is a INT field
-type NetworkRequestTypeField struct{ fix.IntValue }
+type NetworkRequestTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.NetworkRequestType (935)
-func (f NetworkRequestTypeField) Tag() fix.Tag { return tag.NetworkRequestType }
+func (f NetworkRequestTypeField) Tag() quickfix.Tag { return tag.NetworkRequestType }
 
 //NewNetworkRequestType returns a new NetworkRequestTypeField initialized with val
 func NewNetworkRequestType(val int) *NetworkRequestTypeField {
@@ -9929,10 +9941,10 @@ func NewNetworkRequestType(val int) *NetworkRequestTypeField {
 }
 
 //NetworkResponseIDField is a STRING field
-type NetworkResponseIDField struct{ fix.StringValue }
+type NetworkResponseIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NetworkResponseID (932)
-func (f NetworkResponseIDField) Tag() fix.Tag { return tag.NetworkResponseID }
+func (f NetworkResponseIDField) Tag() quickfix.Tag { return tag.NetworkResponseID }
 
 //NewNetworkResponseID returns a new NetworkResponseIDField initialized with val
 func NewNetworkResponseID(val string) *NetworkResponseIDField {
@@ -9942,10 +9954,10 @@ func NewNetworkResponseID(val string) *NetworkResponseIDField {
 }
 
 //NetworkStatusResponseTypeField is a INT field
-type NetworkStatusResponseTypeField struct{ fix.IntValue }
+type NetworkStatusResponseTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.NetworkStatusResponseType (937)
-func (f NetworkStatusResponseTypeField) Tag() fix.Tag { return tag.NetworkStatusResponseType }
+func (f NetworkStatusResponseTypeField) Tag() quickfix.Tag { return tag.NetworkStatusResponseType }
 
 //NewNetworkStatusResponseType returns a new NetworkStatusResponseTypeField initialized with val
 func NewNetworkStatusResponseType(val int) *NetworkStatusResponseTypeField {
@@ -9955,10 +9967,10 @@ func NewNetworkStatusResponseType(val int) *NetworkStatusResponseTypeField {
 }
 
 //NewPasswordField is a STRING field
-type NewPasswordField struct{ fix.StringValue }
+type NewPasswordField struct{ quickfix.StringValue }
 
 //Tag returns tag.NewPassword (925)
-func (f NewPasswordField) Tag() fix.Tag { return tag.NewPassword }
+func (f NewPasswordField) Tag() quickfix.Tag { return tag.NewPassword }
 
 //NewNewPassword returns a new NewPasswordField initialized with val
 func NewNewPassword(val string) *NewPasswordField {
@@ -9968,10 +9980,10 @@ func NewNewPassword(val string) *NewPasswordField {
 }
 
 //NewSeqNoField is a SEQNUM field
-type NewSeqNoField struct{ fix.SeqNumValue }
+type NewSeqNoField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.NewSeqNo (36)
-func (f NewSeqNoField) Tag() fix.Tag { return tag.NewSeqNo }
+func (f NewSeqNoField) Tag() quickfix.Tag { return tag.NewSeqNo }
 
 //NewNewSeqNo returns a new NewSeqNoField initialized with val
 func NewNewSeqNo(val int) *NewSeqNoField {
@@ -9981,10 +9993,10 @@ func NewNewSeqNo(val int) *NewSeqNoField {
 }
 
 //NewsCategoryField is a INT field
-type NewsCategoryField struct{ fix.IntValue }
+type NewsCategoryField struct{ quickfix.IntValue }
 
 //Tag returns tag.NewsCategory (1473)
-func (f NewsCategoryField) Tag() fix.Tag { return tag.NewsCategory }
+func (f NewsCategoryField) Tag() quickfix.Tag { return tag.NewsCategory }
 
 //NewNewsCategory returns a new NewsCategoryField initialized with val
 func NewNewsCategory(val int) *NewsCategoryField {
@@ -9994,10 +10006,10 @@ func NewNewsCategory(val int) *NewsCategoryField {
 }
 
 //NewsIDField is a STRING field
-type NewsIDField struct{ fix.StringValue }
+type NewsIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NewsID (1472)
-func (f NewsIDField) Tag() fix.Tag { return tag.NewsID }
+func (f NewsIDField) Tag() quickfix.Tag { return tag.NewsID }
 
 //NewNewsID returns a new NewsIDField initialized with val
 func NewNewsID(val string) *NewsIDField {
@@ -10007,10 +10019,10 @@ func NewNewsID(val string) *NewsIDField {
 }
 
 //NewsRefIDField is a STRING field
-type NewsRefIDField struct{ fix.StringValue }
+type NewsRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NewsRefID (1476)
-func (f NewsRefIDField) Tag() fix.Tag { return tag.NewsRefID }
+func (f NewsRefIDField) Tag() quickfix.Tag { return tag.NewsRefID }
 
 //NewNewsRefID returns a new NewsRefIDField initialized with val
 func NewNewsRefID(val string) *NewsRefIDField {
@@ -10020,10 +10032,10 @@ func NewNewsRefID(val string) *NewsRefIDField {
 }
 
 //NewsRefTypeField is a INT field
-type NewsRefTypeField struct{ fix.IntValue }
+type NewsRefTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.NewsRefType (1477)
-func (f NewsRefTypeField) Tag() fix.Tag { return tag.NewsRefType }
+func (f NewsRefTypeField) Tag() quickfix.Tag { return tag.NewsRefType }
 
 //NewNewsRefType returns a new NewsRefTypeField initialized with val
 func NewNewsRefType(val int) *NewsRefTypeField {
@@ -10033,10 +10045,10 @@ func NewNewsRefType(val int) *NewsRefTypeField {
 }
 
 //NextExpectedMsgSeqNumField is a SEQNUM field
-type NextExpectedMsgSeqNumField struct{ fix.SeqNumValue }
+type NextExpectedMsgSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.NextExpectedMsgSeqNum (789)
-func (f NextExpectedMsgSeqNumField) Tag() fix.Tag { return tag.NextExpectedMsgSeqNum }
+func (f NextExpectedMsgSeqNumField) Tag() quickfix.Tag { return tag.NextExpectedMsgSeqNum }
 
 //NewNextExpectedMsgSeqNum returns a new NextExpectedMsgSeqNumField initialized with val
 func NewNextExpectedMsgSeqNum(val int) *NextExpectedMsgSeqNumField {
@@ -10046,10 +10058,10 @@ func NewNextExpectedMsgSeqNum(val int) *NextExpectedMsgSeqNumField {
 }
 
 //NoAffectedOrdersField is a NUMINGROUP field
-type NoAffectedOrdersField struct{ fix.NumInGroupValue }
+type NoAffectedOrdersField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoAffectedOrders (534)
-func (f NoAffectedOrdersField) Tag() fix.Tag { return tag.NoAffectedOrders }
+func (f NoAffectedOrdersField) Tag() quickfix.Tag { return tag.NoAffectedOrders }
 
 //NewNoAffectedOrders returns a new NoAffectedOrdersField initialized with val
 func NewNoAffectedOrders(val int) *NoAffectedOrdersField {
@@ -10059,10 +10071,10 @@ func NewNoAffectedOrders(val int) *NoAffectedOrdersField {
 }
 
 //NoAllocsField is a NUMINGROUP field
-type NoAllocsField struct{ fix.NumInGroupValue }
+type NoAllocsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoAllocs (78)
-func (f NoAllocsField) Tag() fix.Tag { return tag.NoAllocs }
+func (f NoAllocsField) Tag() quickfix.Tag { return tag.NoAllocs }
 
 //NewNoAllocs returns a new NoAllocsField initialized with val
 func NewNoAllocs(val int) *NoAllocsField {
@@ -10072,10 +10084,10 @@ func NewNoAllocs(val int) *NoAllocsField {
 }
 
 //NoAltMDSourceField is a NUMINGROUP field
-type NoAltMDSourceField struct{ fix.NumInGroupValue }
+type NoAltMDSourceField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoAltMDSource (816)
-func (f NoAltMDSourceField) Tag() fix.Tag { return tag.NoAltMDSource }
+func (f NoAltMDSourceField) Tag() quickfix.Tag { return tag.NoAltMDSource }
 
 //NewNoAltMDSource returns a new NoAltMDSourceField initialized with val
 func NewNoAltMDSource(val int) *NoAltMDSourceField {
@@ -10085,10 +10097,10 @@ func NewNoAltMDSource(val int) *NoAltMDSourceField {
 }
 
 //NoApplIDsField is a NUMINGROUP field
-type NoApplIDsField struct{ fix.NumInGroupValue }
+type NoApplIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoApplIDs (1351)
-func (f NoApplIDsField) Tag() fix.Tag { return tag.NoApplIDs }
+func (f NoApplIDsField) Tag() quickfix.Tag { return tag.NoApplIDs }
 
 //NewNoApplIDs returns a new NoApplIDsField initialized with val
 func NewNoApplIDs(val int) *NoApplIDsField {
@@ -10098,10 +10110,10 @@ func NewNoApplIDs(val int) *NoApplIDsField {
 }
 
 //NoAsgnReqsField is a NUMINGROUP field
-type NoAsgnReqsField struct{ fix.NumInGroupValue }
+type NoAsgnReqsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoAsgnReqs (1499)
-func (f NoAsgnReqsField) Tag() fix.Tag { return tag.NoAsgnReqs }
+func (f NoAsgnReqsField) Tag() quickfix.Tag { return tag.NoAsgnReqs }
 
 //NewNoAsgnReqs returns a new NoAsgnReqsField initialized with val
 func NewNoAsgnReqs(val int) *NoAsgnReqsField {
@@ -10111,10 +10123,10 @@ func NewNoAsgnReqs(val int) *NoAsgnReqsField {
 }
 
 //NoBidComponentsField is a NUMINGROUP field
-type NoBidComponentsField struct{ fix.NumInGroupValue }
+type NoBidComponentsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoBidComponents (420)
-func (f NoBidComponentsField) Tag() fix.Tag { return tag.NoBidComponents }
+func (f NoBidComponentsField) Tag() quickfix.Tag { return tag.NoBidComponents }
 
 //NewNoBidComponents returns a new NoBidComponentsField initialized with val
 func NewNoBidComponents(val int) *NoBidComponentsField {
@@ -10124,10 +10136,10 @@ func NewNoBidComponents(val int) *NoBidComponentsField {
 }
 
 //NoBidDescriptorsField is a NUMINGROUP field
-type NoBidDescriptorsField struct{ fix.NumInGroupValue }
+type NoBidDescriptorsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoBidDescriptors (398)
-func (f NoBidDescriptorsField) Tag() fix.Tag { return tag.NoBidDescriptors }
+func (f NoBidDescriptorsField) Tag() quickfix.Tag { return tag.NoBidDescriptors }
 
 //NewNoBidDescriptors returns a new NoBidDescriptorsField initialized with val
 func NewNoBidDescriptors(val int) *NoBidDescriptorsField {
@@ -10137,10 +10149,10 @@ func NewNoBidDescriptors(val int) *NoBidDescriptorsField {
 }
 
 //NoCapacitiesField is a NUMINGROUP field
-type NoCapacitiesField struct{ fix.NumInGroupValue }
+type NoCapacitiesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoCapacities (862)
-func (f NoCapacitiesField) Tag() fix.Tag { return tag.NoCapacities }
+func (f NoCapacitiesField) Tag() quickfix.Tag { return tag.NoCapacities }
 
 //NewNoCapacities returns a new NoCapacitiesField initialized with val
 func NewNoCapacities(val int) *NoCapacitiesField {
@@ -10150,10 +10162,10 @@ func NewNoCapacities(val int) *NoCapacitiesField {
 }
 
 //NoClearingInstructionsField is a NUMINGROUP field
-type NoClearingInstructionsField struct{ fix.NumInGroupValue }
+type NoClearingInstructionsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoClearingInstructions (576)
-func (f NoClearingInstructionsField) Tag() fix.Tag { return tag.NoClearingInstructions }
+func (f NoClearingInstructionsField) Tag() quickfix.Tag { return tag.NoClearingInstructions }
 
 //NewNoClearingInstructions returns a new NoClearingInstructionsField initialized with val
 func NewNoClearingInstructions(val int) *NoClearingInstructionsField {
@@ -10163,10 +10175,10 @@ func NewNoClearingInstructions(val int) *NoClearingInstructionsField {
 }
 
 //NoCollInquiryQualifierField is a NUMINGROUP field
-type NoCollInquiryQualifierField struct{ fix.NumInGroupValue }
+type NoCollInquiryQualifierField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoCollInquiryQualifier (938)
-func (f NoCollInquiryQualifierField) Tag() fix.Tag { return tag.NoCollInquiryQualifier }
+func (f NoCollInquiryQualifierField) Tag() quickfix.Tag { return tag.NoCollInquiryQualifier }
 
 //NewNoCollInquiryQualifier returns a new NoCollInquiryQualifierField initialized with val
 func NewNoCollInquiryQualifier(val int) *NoCollInquiryQualifierField {
@@ -10176,10 +10188,10 @@ func NewNoCollInquiryQualifier(val int) *NoCollInquiryQualifierField {
 }
 
 //NoCompIDsField is a NUMINGROUP field
-type NoCompIDsField struct{ fix.NumInGroupValue }
+type NoCompIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoCompIDs (936)
-func (f NoCompIDsField) Tag() fix.Tag { return tag.NoCompIDs }
+func (f NoCompIDsField) Tag() quickfix.Tag { return tag.NoCompIDs }
 
 //NewNoCompIDs returns a new NoCompIDsField initialized with val
 func NewNoCompIDs(val int) *NoCompIDsField {
@@ -10189,10 +10201,10 @@ func NewNoCompIDs(val int) *NoCompIDsField {
 }
 
 //NoComplexEventDatesField is a NUMINGROUP field
-type NoComplexEventDatesField struct{ fix.NumInGroupValue }
+type NoComplexEventDatesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoComplexEventDates (1491)
-func (f NoComplexEventDatesField) Tag() fix.Tag { return tag.NoComplexEventDates }
+func (f NoComplexEventDatesField) Tag() quickfix.Tag { return tag.NoComplexEventDates }
 
 //NewNoComplexEventDates returns a new NoComplexEventDatesField initialized with val
 func NewNoComplexEventDates(val int) *NoComplexEventDatesField {
@@ -10202,10 +10214,10 @@ func NewNoComplexEventDates(val int) *NoComplexEventDatesField {
 }
 
 //NoComplexEventTimesField is a NUMINGROUP field
-type NoComplexEventTimesField struct{ fix.NumInGroupValue }
+type NoComplexEventTimesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoComplexEventTimes (1494)
-func (f NoComplexEventTimesField) Tag() fix.Tag { return tag.NoComplexEventTimes }
+func (f NoComplexEventTimesField) Tag() quickfix.Tag { return tag.NoComplexEventTimes }
 
 //NewNoComplexEventTimes returns a new NoComplexEventTimesField initialized with val
 func NewNoComplexEventTimes(val int) *NoComplexEventTimesField {
@@ -10215,10 +10227,10 @@ func NewNoComplexEventTimes(val int) *NoComplexEventTimesField {
 }
 
 //NoComplexEventsField is a NUMINGROUP field
-type NoComplexEventsField struct{ fix.NumInGroupValue }
+type NoComplexEventsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoComplexEvents (1483)
-func (f NoComplexEventsField) Tag() fix.Tag { return tag.NoComplexEvents }
+func (f NoComplexEventsField) Tag() quickfix.Tag { return tag.NoComplexEvents }
 
 //NewNoComplexEvents returns a new NoComplexEventsField initialized with val
 func NewNoComplexEvents(val int) *NoComplexEventsField {
@@ -10228,10 +10240,10 @@ func NewNoComplexEvents(val int) *NoComplexEventsField {
 }
 
 //NoContAmtsField is a NUMINGROUP field
-type NoContAmtsField struct{ fix.NumInGroupValue }
+type NoContAmtsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoContAmts (518)
-func (f NoContAmtsField) Tag() fix.Tag { return tag.NoContAmts }
+func (f NoContAmtsField) Tag() quickfix.Tag { return tag.NoContAmts }
 
 //NewNoContAmts returns a new NoContAmtsField initialized with val
 func NewNoContAmts(val int) *NoContAmtsField {
@@ -10241,10 +10253,10 @@ func NewNoContAmts(val int) *NoContAmtsField {
 }
 
 //NoContextPartyIDsField is a NUMINGROUP field
-type NoContextPartyIDsField struct{ fix.NumInGroupValue }
+type NoContextPartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoContextPartyIDs (1522)
-func (f NoContextPartyIDsField) Tag() fix.Tag { return tag.NoContextPartyIDs }
+func (f NoContextPartyIDsField) Tag() quickfix.Tag { return tag.NoContextPartyIDs }
 
 //NewNoContextPartyIDs returns a new NoContextPartyIDsField initialized with val
 func NewNoContextPartyIDs(val int) *NoContextPartyIDsField {
@@ -10254,10 +10266,10 @@ func NewNoContextPartyIDs(val int) *NoContextPartyIDsField {
 }
 
 //NoContextPartySubIDsField is a NUMINGROUP field
-type NoContextPartySubIDsField struct{ fix.NumInGroupValue }
+type NoContextPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoContextPartySubIDs (1526)
-func (f NoContextPartySubIDsField) Tag() fix.Tag { return tag.NoContextPartySubIDs }
+func (f NoContextPartySubIDsField) Tag() quickfix.Tag { return tag.NoContextPartySubIDs }
 
 //NewNoContextPartySubIDs returns a new NoContextPartySubIDsField initialized with val
 func NewNoContextPartySubIDs(val int) *NoContextPartySubIDsField {
@@ -10267,10 +10279,10 @@ func NewNoContextPartySubIDs(val int) *NoContextPartySubIDsField {
 }
 
 //NoContraBrokersField is a NUMINGROUP field
-type NoContraBrokersField struct{ fix.NumInGroupValue }
+type NoContraBrokersField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoContraBrokers (382)
-func (f NoContraBrokersField) Tag() fix.Tag { return tag.NoContraBrokers }
+func (f NoContraBrokersField) Tag() quickfix.Tag { return tag.NoContraBrokers }
 
 //NewNoContraBrokers returns a new NoContraBrokersField initialized with val
 func NewNoContraBrokers(val int) *NoContraBrokersField {
@@ -10280,10 +10292,10 @@ func NewNoContraBrokers(val int) *NoContraBrokersField {
 }
 
 //NoDatesField is a INT field
-type NoDatesField struct{ fix.IntValue }
+type NoDatesField struct{ quickfix.IntValue }
 
 //Tag returns tag.NoDates (580)
-func (f NoDatesField) Tag() fix.Tag { return tag.NoDates }
+func (f NoDatesField) Tag() quickfix.Tag { return tag.NoDates }
 
 //NewNoDates returns a new NoDatesField initialized with val
 func NewNoDates(val int) *NoDatesField {
@@ -10293,10 +10305,10 @@ func NewNoDates(val int) *NoDatesField {
 }
 
 //NoDerivativeEventsField is a NUMINGROUP field
-type NoDerivativeEventsField struct{ fix.NumInGroupValue }
+type NoDerivativeEventsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeEvents (1286)
-func (f NoDerivativeEventsField) Tag() fix.Tag { return tag.NoDerivativeEvents }
+func (f NoDerivativeEventsField) Tag() quickfix.Tag { return tag.NoDerivativeEvents }
 
 //NewNoDerivativeEvents returns a new NoDerivativeEventsField initialized with val
 func NewNoDerivativeEvents(val int) *NoDerivativeEventsField {
@@ -10306,10 +10318,10 @@ func NewNoDerivativeEvents(val int) *NoDerivativeEventsField {
 }
 
 //NoDerivativeInstrAttribField is a NUMINGROUP field
-type NoDerivativeInstrAttribField struct{ fix.NumInGroupValue }
+type NoDerivativeInstrAttribField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeInstrAttrib (1311)
-func (f NoDerivativeInstrAttribField) Tag() fix.Tag { return tag.NoDerivativeInstrAttrib }
+func (f NoDerivativeInstrAttribField) Tag() quickfix.Tag { return tag.NoDerivativeInstrAttrib }
 
 //NewNoDerivativeInstrAttrib returns a new NoDerivativeInstrAttribField initialized with val
 func NewNoDerivativeInstrAttrib(val int) *NoDerivativeInstrAttribField {
@@ -10319,10 +10331,12 @@ func NewNoDerivativeInstrAttrib(val int) *NoDerivativeInstrAttribField {
 }
 
 //NoDerivativeInstrumentPartiesField is a NUMINGROUP field
-type NoDerivativeInstrumentPartiesField struct{ fix.NumInGroupValue }
+type NoDerivativeInstrumentPartiesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeInstrumentParties (1292)
-func (f NoDerivativeInstrumentPartiesField) Tag() fix.Tag { return tag.NoDerivativeInstrumentParties }
+func (f NoDerivativeInstrumentPartiesField) Tag() quickfix.Tag {
+	return tag.NoDerivativeInstrumentParties
+}
 
 //NewNoDerivativeInstrumentParties returns a new NoDerivativeInstrumentPartiesField initialized with val
 func NewNoDerivativeInstrumentParties(val int) *NoDerivativeInstrumentPartiesField {
@@ -10332,10 +10346,10 @@ func NewNoDerivativeInstrumentParties(val int) *NoDerivativeInstrumentPartiesFie
 }
 
 //NoDerivativeInstrumentPartySubIDsField is a NUMINGROUP field
-type NoDerivativeInstrumentPartySubIDsField struct{ fix.NumInGroupValue }
+type NoDerivativeInstrumentPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeInstrumentPartySubIDs (1296)
-func (f NoDerivativeInstrumentPartySubIDsField) Tag() fix.Tag {
+func (f NoDerivativeInstrumentPartySubIDsField) Tag() quickfix.Tag {
 	return tag.NoDerivativeInstrumentPartySubIDs
 }
 
@@ -10347,10 +10361,10 @@ func NewNoDerivativeInstrumentPartySubIDs(val int) *NoDerivativeInstrumentPartyS
 }
 
 //NoDerivativeSecurityAltIDField is a NUMINGROUP field
-type NoDerivativeSecurityAltIDField struct{ fix.NumInGroupValue }
+type NoDerivativeSecurityAltIDField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoDerivativeSecurityAltID (1218)
-func (f NoDerivativeSecurityAltIDField) Tag() fix.Tag { return tag.NoDerivativeSecurityAltID }
+func (f NoDerivativeSecurityAltIDField) Tag() quickfix.Tag { return tag.NoDerivativeSecurityAltID }
 
 //NewNoDerivativeSecurityAltID returns a new NoDerivativeSecurityAltIDField initialized with val
 func NewNoDerivativeSecurityAltID(val int) *NoDerivativeSecurityAltIDField {
@@ -10360,10 +10374,10 @@ func NewNoDerivativeSecurityAltID(val int) *NoDerivativeSecurityAltIDField {
 }
 
 //NoDistribInstsField is a NUMINGROUP field
-type NoDistribInstsField struct{ fix.NumInGroupValue }
+type NoDistribInstsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoDistribInsts (510)
-func (f NoDistribInstsField) Tag() fix.Tag { return tag.NoDistribInsts }
+func (f NoDistribInstsField) Tag() quickfix.Tag { return tag.NoDistribInsts }
 
 //NewNoDistribInsts returns a new NoDistribInstsField initialized with val
 func NewNoDistribInsts(val int) *NoDistribInstsField {
@@ -10373,10 +10387,10 @@ func NewNoDistribInsts(val int) *NoDistribInstsField {
 }
 
 //NoDlvyInstField is a NUMINGROUP field
-type NoDlvyInstField struct{ fix.NumInGroupValue }
+type NoDlvyInstField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoDlvyInst (85)
-func (f NoDlvyInstField) Tag() fix.Tag { return tag.NoDlvyInst }
+func (f NoDlvyInstField) Tag() quickfix.Tag { return tag.NoDlvyInst }
 
 //NewNoDlvyInst returns a new NoDlvyInstField initialized with val
 func NewNoDlvyInst(val int) *NoDlvyInstField {
@@ -10386,10 +10400,10 @@ func NewNoDlvyInst(val int) *NoDlvyInstField {
 }
 
 //NoEventsField is a NUMINGROUP field
-type NoEventsField struct{ fix.NumInGroupValue }
+type NoEventsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoEvents (864)
-func (f NoEventsField) Tag() fix.Tag { return tag.NoEvents }
+func (f NoEventsField) Tag() quickfix.Tag { return tag.NoEvents }
 
 //NewNoEvents returns a new NoEventsField initialized with val
 func NewNoEvents(val int) *NoEventsField {
@@ -10399,10 +10413,10 @@ func NewNoEvents(val int) *NoEventsField {
 }
 
 //NoExecInstRulesField is a NUMINGROUP field
-type NoExecInstRulesField struct{ fix.NumInGroupValue }
+type NoExecInstRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoExecInstRules (1232)
-func (f NoExecInstRulesField) Tag() fix.Tag { return tag.NoExecInstRules }
+func (f NoExecInstRulesField) Tag() quickfix.Tag { return tag.NoExecInstRules }
 
 //NewNoExecInstRules returns a new NoExecInstRulesField initialized with val
 func NewNoExecInstRules(val int) *NoExecInstRulesField {
@@ -10412,10 +10426,10 @@ func NewNoExecInstRules(val int) *NoExecInstRulesField {
 }
 
 //NoExecsField is a NUMINGROUP field
-type NoExecsField struct{ fix.NumInGroupValue }
+type NoExecsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoExecs (124)
-func (f NoExecsField) Tag() fix.Tag { return tag.NoExecs }
+func (f NoExecsField) Tag() quickfix.Tag { return tag.NoExecs }
 
 //NewNoExecs returns a new NoExecsField initialized with val
 func NewNoExecs(val int) *NoExecsField {
@@ -10425,10 +10439,10 @@ func NewNoExecs(val int) *NoExecsField {
 }
 
 //NoExpirationField is a NUMINGROUP field
-type NoExpirationField struct{ fix.NumInGroupValue }
+type NoExpirationField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoExpiration (981)
-func (f NoExpirationField) Tag() fix.Tag { return tag.NoExpiration }
+func (f NoExpirationField) Tag() quickfix.Tag { return tag.NoExpiration }
 
 //NewNoExpiration returns a new NoExpirationField initialized with val
 func NewNoExpiration(val int) *NoExpirationField {
@@ -10438,10 +10452,10 @@ func NewNoExpiration(val int) *NoExpirationField {
 }
 
 //NoFillsField is a NUMINGROUP field
-type NoFillsField struct{ fix.NumInGroupValue }
+type NoFillsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoFills (1362)
-func (f NoFillsField) Tag() fix.Tag { return tag.NoFills }
+func (f NoFillsField) Tag() quickfix.Tag { return tag.NoFills }
 
 //NewNoFills returns a new NoFillsField initialized with val
 func NewNoFills(val int) *NoFillsField {
@@ -10451,10 +10465,10 @@ func NewNoFills(val int) *NoFillsField {
 }
 
 //NoHopsField is a NUMINGROUP field
-type NoHopsField struct{ fix.NumInGroupValue }
+type NoHopsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoHops (627)
-func (f NoHopsField) Tag() fix.Tag { return tag.NoHops }
+func (f NoHopsField) Tag() quickfix.Tag { return tag.NoHops }
 
 //NewNoHops returns a new NoHopsField initialized with val
 func NewNoHops(val int) *NoHopsField {
@@ -10464,10 +10478,10 @@ func NewNoHops(val int) *NoHopsField {
 }
 
 //NoIOIQualifiersField is a NUMINGROUP field
-type NoIOIQualifiersField struct{ fix.NumInGroupValue }
+type NoIOIQualifiersField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoIOIQualifiers (199)
-func (f NoIOIQualifiersField) Tag() fix.Tag { return tag.NoIOIQualifiers }
+func (f NoIOIQualifiersField) Tag() quickfix.Tag { return tag.NoIOIQualifiers }
 
 //NewNoIOIQualifiers returns a new NoIOIQualifiersField initialized with val
 func NewNoIOIQualifiers(val int) *NoIOIQualifiersField {
@@ -10477,10 +10491,10 @@ func NewNoIOIQualifiers(val int) *NoIOIQualifiersField {
 }
 
 //NoInstrAttribField is a NUMINGROUP field
-type NoInstrAttribField struct{ fix.NumInGroupValue }
+type NoInstrAttribField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoInstrAttrib (870)
-func (f NoInstrAttribField) Tag() fix.Tag { return tag.NoInstrAttrib }
+func (f NoInstrAttribField) Tag() quickfix.Tag { return tag.NoInstrAttrib }
 
 //NewNoInstrAttrib returns a new NoInstrAttribField initialized with val
 func NewNoInstrAttrib(val int) *NoInstrAttribField {
@@ -10490,10 +10504,10 @@ func NewNoInstrAttrib(val int) *NoInstrAttribField {
 }
 
 //NoInstrumentPartiesField is a NUMINGROUP field
-type NoInstrumentPartiesField struct{ fix.NumInGroupValue }
+type NoInstrumentPartiesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoInstrumentParties (1018)
-func (f NoInstrumentPartiesField) Tag() fix.Tag { return tag.NoInstrumentParties }
+func (f NoInstrumentPartiesField) Tag() quickfix.Tag { return tag.NoInstrumentParties }
 
 //NewNoInstrumentParties returns a new NoInstrumentPartiesField initialized with val
 func NewNoInstrumentParties(val int) *NoInstrumentPartiesField {
@@ -10503,10 +10517,10 @@ func NewNoInstrumentParties(val int) *NoInstrumentPartiesField {
 }
 
 //NoInstrumentPartySubIDsField is a NUMINGROUP field
-type NoInstrumentPartySubIDsField struct{ fix.NumInGroupValue }
+type NoInstrumentPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoInstrumentPartySubIDs (1052)
-func (f NoInstrumentPartySubIDsField) Tag() fix.Tag { return tag.NoInstrumentPartySubIDs }
+func (f NoInstrumentPartySubIDsField) Tag() quickfix.Tag { return tag.NoInstrumentPartySubIDs }
 
 //NewNoInstrumentPartySubIDs returns a new NoInstrumentPartySubIDsField initialized with val
 func NewNoInstrumentPartySubIDs(val int) *NoInstrumentPartySubIDsField {
@@ -10516,10 +10530,10 @@ func NewNoInstrumentPartySubIDs(val int) *NoInstrumentPartySubIDsField {
 }
 
 //NoLegAllocsField is a NUMINGROUP field
-type NoLegAllocsField struct{ fix.NumInGroupValue }
+type NoLegAllocsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoLegAllocs (670)
-func (f NoLegAllocsField) Tag() fix.Tag { return tag.NoLegAllocs }
+func (f NoLegAllocsField) Tag() quickfix.Tag { return tag.NoLegAllocs }
 
 //NewNoLegAllocs returns a new NoLegAllocsField initialized with val
 func NewNoLegAllocs(val int) *NoLegAllocsField {
@@ -10529,10 +10543,10 @@ func NewNoLegAllocs(val int) *NoLegAllocsField {
 }
 
 //NoLegSecurityAltIDField is a STRING field
-type NoLegSecurityAltIDField struct{ fix.StringValue }
+type NoLegSecurityAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NoLegSecurityAltID (604)
-func (f NoLegSecurityAltIDField) Tag() fix.Tag { return tag.NoLegSecurityAltID }
+func (f NoLegSecurityAltIDField) Tag() quickfix.Tag { return tag.NoLegSecurityAltID }
 
 //NewNoLegSecurityAltID returns a new NoLegSecurityAltIDField initialized with val
 func NewNoLegSecurityAltID(val string) *NoLegSecurityAltIDField {
@@ -10542,10 +10556,10 @@ func NewNoLegSecurityAltID(val string) *NoLegSecurityAltIDField {
 }
 
 //NoLegStipulationsField is a NUMINGROUP field
-type NoLegStipulationsField struct{ fix.NumInGroupValue }
+type NoLegStipulationsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoLegStipulations (683)
-func (f NoLegStipulationsField) Tag() fix.Tag { return tag.NoLegStipulations }
+func (f NoLegStipulationsField) Tag() quickfix.Tag { return tag.NoLegStipulations }
 
 //NewNoLegStipulations returns a new NoLegStipulationsField initialized with val
 func NewNoLegStipulations(val int) *NoLegStipulationsField {
@@ -10555,10 +10569,10 @@ func NewNoLegStipulations(val int) *NoLegStipulationsField {
 }
 
 //NoLegsField is a NUMINGROUP field
-type NoLegsField struct{ fix.NumInGroupValue }
+type NoLegsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoLegs (555)
-func (f NoLegsField) Tag() fix.Tag { return tag.NoLegs }
+func (f NoLegsField) Tag() quickfix.Tag { return tag.NoLegs }
 
 //NewNoLegs returns a new NoLegsField initialized with val
 func NewNoLegs(val int) *NoLegsField {
@@ -10568,10 +10582,10 @@ func NewNoLegs(val int) *NoLegsField {
 }
 
 //NoLinesOfTextField is a NUMINGROUP field
-type NoLinesOfTextField struct{ fix.NumInGroupValue }
+type NoLinesOfTextField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoLinesOfText (33)
-func (f NoLinesOfTextField) Tag() fix.Tag { return tag.NoLinesOfText }
+func (f NoLinesOfTextField) Tag() quickfix.Tag { return tag.NoLinesOfText }
 
 //NewNoLinesOfText returns a new NoLinesOfTextField initialized with val
 func NewNoLinesOfText(val int) *NoLinesOfTextField {
@@ -10581,10 +10595,10 @@ func NewNoLinesOfText(val int) *NoLinesOfTextField {
 }
 
 //NoLotTypeRulesField is a NUMINGROUP field
-type NoLotTypeRulesField struct{ fix.NumInGroupValue }
+type NoLotTypeRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoLotTypeRules (1234)
-func (f NoLotTypeRulesField) Tag() fix.Tag { return tag.NoLotTypeRules }
+func (f NoLotTypeRulesField) Tag() quickfix.Tag { return tag.NoLotTypeRules }
 
 //NewNoLotTypeRules returns a new NoLotTypeRulesField initialized with val
 func NewNoLotTypeRules(val int) *NoLotTypeRulesField {
@@ -10594,10 +10608,10 @@ func NewNoLotTypeRules(val int) *NoLotTypeRulesField {
 }
 
 //NoMDEntriesField is a NUMINGROUP field
-type NoMDEntriesField struct{ fix.NumInGroupValue }
+type NoMDEntriesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoMDEntries (268)
-func (f NoMDEntriesField) Tag() fix.Tag { return tag.NoMDEntries }
+func (f NoMDEntriesField) Tag() quickfix.Tag { return tag.NoMDEntries }
 
 //NewNoMDEntries returns a new NoMDEntriesField initialized with val
 func NewNoMDEntries(val int) *NoMDEntriesField {
@@ -10607,10 +10621,10 @@ func NewNoMDEntries(val int) *NoMDEntriesField {
 }
 
 //NoMDEntryTypesField is a NUMINGROUP field
-type NoMDEntryTypesField struct{ fix.NumInGroupValue }
+type NoMDEntryTypesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoMDEntryTypes (267)
-func (f NoMDEntryTypesField) Tag() fix.Tag { return tag.NoMDEntryTypes }
+func (f NoMDEntryTypesField) Tag() quickfix.Tag { return tag.NoMDEntryTypes }
 
 //NewNoMDEntryTypes returns a new NoMDEntryTypesField initialized with val
 func NewNoMDEntryTypes(val int) *NoMDEntryTypesField {
@@ -10620,10 +10634,10 @@ func NewNoMDEntryTypes(val int) *NoMDEntryTypesField {
 }
 
 //NoMDFeedTypesField is a NUMINGROUP field
-type NoMDFeedTypesField struct{ fix.NumInGroupValue }
+type NoMDFeedTypesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoMDFeedTypes (1141)
-func (f NoMDFeedTypesField) Tag() fix.Tag { return tag.NoMDFeedTypes }
+func (f NoMDFeedTypesField) Tag() quickfix.Tag { return tag.NoMDFeedTypes }
 
 //NewNoMDFeedTypes returns a new NoMDFeedTypesField initialized with val
 func NewNoMDFeedTypes(val int) *NoMDFeedTypesField {
@@ -10633,10 +10647,10 @@ func NewNoMDFeedTypes(val int) *NoMDFeedTypesField {
 }
 
 //NoMarketSegmentsField is a NUMINGROUP field
-type NoMarketSegmentsField struct{ fix.NumInGroupValue }
+type NoMarketSegmentsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoMarketSegments (1310)
-func (f NoMarketSegmentsField) Tag() fix.Tag { return tag.NoMarketSegments }
+func (f NoMarketSegmentsField) Tag() quickfix.Tag { return tag.NoMarketSegments }
 
 //NewNoMarketSegments returns a new NoMarketSegmentsField initialized with val
 func NewNoMarketSegments(val int) *NoMarketSegmentsField {
@@ -10646,10 +10660,10 @@ func NewNoMarketSegments(val int) *NoMarketSegmentsField {
 }
 
 //NoMatchRulesField is a NUMINGROUP field
-type NoMatchRulesField struct{ fix.NumInGroupValue }
+type NoMatchRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoMatchRules (1235)
-func (f NoMatchRulesField) Tag() fix.Tag { return tag.NoMatchRules }
+func (f NoMatchRulesField) Tag() quickfix.Tag { return tag.NoMatchRules }
 
 //NewNoMatchRules returns a new NoMatchRulesField initialized with val
 func NewNoMatchRules(val int) *NoMatchRulesField {
@@ -10659,10 +10673,10 @@ func NewNoMatchRules(val int) *NoMatchRulesField {
 }
 
 //NoMaturityRulesField is a NUMINGROUP field
-type NoMaturityRulesField struct{ fix.NumInGroupValue }
+type NoMaturityRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoMaturityRules (1236)
-func (f NoMaturityRulesField) Tag() fix.Tag { return tag.NoMaturityRules }
+func (f NoMaturityRulesField) Tag() quickfix.Tag { return tag.NoMaturityRules }
 
 //NewNoMaturityRules returns a new NoMaturityRulesField initialized with val
 func NewNoMaturityRules(val int) *NoMaturityRulesField {
@@ -10672,10 +10686,10 @@ func NewNoMaturityRules(val int) *NoMaturityRulesField {
 }
 
 //NoMiscFeesField is a NUMINGROUP field
-type NoMiscFeesField struct{ fix.NumInGroupValue }
+type NoMiscFeesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoMiscFees (136)
-func (f NoMiscFeesField) Tag() fix.Tag { return tag.NoMiscFees }
+func (f NoMiscFeesField) Tag() quickfix.Tag { return tag.NoMiscFees }
 
 //NewNoMiscFees returns a new NoMiscFeesField initialized with val
 func NewNoMiscFees(val int) *NoMiscFeesField {
@@ -10685,10 +10699,10 @@ func NewNoMiscFees(val int) *NoMiscFeesField {
 }
 
 //NoMsgTypesField is a NUMINGROUP field
-type NoMsgTypesField struct{ fix.NumInGroupValue }
+type NoMsgTypesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoMsgTypes (384)
-func (f NoMsgTypesField) Tag() fix.Tag { return tag.NoMsgTypes }
+func (f NoMsgTypesField) Tag() quickfix.Tag { return tag.NoMsgTypes }
 
 //NewNoMsgTypes returns a new NoMsgTypesField initialized with val
 func NewNoMsgTypes(val int) *NoMsgTypesField {
@@ -10698,10 +10712,10 @@ func NewNoMsgTypes(val int) *NoMsgTypesField {
 }
 
 //NoNested2PartyIDsField is a NUMINGROUP field
-type NoNested2PartyIDsField struct{ fix.NumInGroupValue }
+type NoNested2PartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNested2PartyIDs (756)
-func (f NoNested2PartyIDsField) Tag() fix.Tag { return tag.NoNested2PartyIDs }
+func (f NoNested2PartyIDsField) Tag() quickfix.Tag { return tag.NoNested2PartyIDs }
 
 //NewNoNested2PartyIDs returns a new NoNested2PartyIDsField initialized with val
 func NewNoNested2PartyIDs(val int) *NoNested2PartyIDsField {
@@ -10711,10 +10725,10 @@ func NewNoNested2PartyIDs(val int) *NoNested2PartyIDsField {
 }
 
 //NoNested2PartySubIDsField is a NUMINGROUP field
-type NoNested2PartySubIDsField struct{ fix.NumInGroupValue }
+type NoNested2PartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNested2PartySubIDs (806)
-func (f NoNested2PartySubIDsField) Tag() fix.Tag { return tag.NoNested2PartySubIDs }
+func (f NoNested2PartySubIDsField) Tag() quickfix.Tag { return tag.NoNested2PartySubIDs }
 
 //NewNoNested2PartySubIDs returns a new NoNested2PartySubIDsField initialized with val
 func NewNoNested2PartySubIDs(val int) *NoNested2PartySubIDsField {
@@ -10724,10 +10738,10 @@ func NewNoNested2PartySubIDs(val int) *NoNested2PartySubIDsField {
 }
 
 //NoNested3PartyIDsField is a NUMINGROUP field
-type NoNested3PartyIDsField struct{ fix.NumInGroupValue }
+type NoNested3PartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNested3PartyIDs (948)
-func (f NoNested3PartyIDsField) Tag() fix.Tag { return tag.NoNested3PartyIDs }
+func (f NoNested3PartyIDsField) Tag() quickfix.Tag { return tag.NoNested3PartyIDs }
 
 //NewNoNested3PartyIDs returns a new NoNested3PartyIDsField initialized with val
 func NewNoNested3PartyIDs(val int) *NoNested3PartyIDsField {
@@ -10737,10 +10751,10 @@ func NewNoNested3PartyIDs(val int) *NoNested3PartyIDsField {
 }
 
 //NoNested3PartySubIDsField is a NUMINGROUP field
-type NoNested3PartySubIDsField struct{ fix.NumInGroupValue }
+type NoNested3PartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNested3PartySubIDs (952)
-func (f NoNested3PartySubIDsField) Tag() fix.Tag { return tag.NoNested3PartySubIDs }
+func (f NoNested3PartySubIDsField) Tag() quickfix.Tag { return tag.NoNested3PartySubIDs }
 
 //NewNoNested3PartySubIDs returns a new NoNested3PartySubIDsField initialized with val
 func NewNoNested3PartySubIDs(val int) *NoNested3PartySubIDsField {
@@ -10750,10 +10764,10 @@ func NewNoNested3PartySubIDs(val int) *NoNested3PartySubIDsField {
 }
 
 //NoNested4PartyIDsField is a NUMINGROUP field
-type NoNested4PartyIDsField struct{ fix.NumInGroupValue }
+type NoNested4PartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNested4PartyIDs (1414)
-func (f NoNested4PartyIDsField) Tag() fix.Tag { return tag.NoNested4PartyIDs }
+func (f NoNested4PartyIDsField) Tag() quickfix.Tag { return tag.NoNested4PartyIDs }
 
 //NewNoNested4PartyIDs returns a new NoNested4PartyIDsField initialized with val
 func NewNoNested4PartyIDs(val int) *NoNested4PartyIDsField {
@@ -10763,10 +10777,10 @@ func NewNoNested4PartyIDs(val int) *NoNested4PartyIDsField {
 }
 
 //NoNested4PartySubIDsField is a NUMINGROUP field
-type NoNested4PartySubIDsField struct{ fix.NumInGroupValue }
+type NoNested4PartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNested4PartySubIDs (1413)
-func (f NoNested4PartySubIDsField) Tag() fix.Tag { return tag.NoNested4PartySubIDs }
+func (f NoNested4PartySubIDsField) Tag() quickfix.Tag { return tag.NoNested4PartySubIDs }
 
 //NewNoNested4PartySubIDs returns a new NoNested4PartySubIDsField initialized with val
 func NewNoNested4PartySubIDs(val int) *NoNested4PartySubIDsField {
@@ -10776,10 +10790,10 @@ func NewNoNested4PartySubIDs(val int) *NoNested4PartySubIDsField {
 }
 
 //NoNestedInstrAttribField is a NUMINGROUP field
-type NoNestedInstrAttribField struct{ fix.NumInGroupValue }
+type NoNestedInstrAttribField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNestedInstrAttrib (1312)
-func (f NoNestedInstrAttribField) Tag() fix.Tag { return tag.NoNestedInstrAttrib }
+func (f NoNestedInstrAttribField) Tag() quickfix.Tag { return tag.NoNestedInstrAttrib }
 
 //NewNoNestedInstrAttrib returns a new NoNestedInstrAttribField initialized with val
 func NewNoNestedInstrAttrib(val int) *NoNestedInstrAttribField {
@@ -10789,10 +10803,10 @@ func NewNoNestedInstrAttrib(val int) *NoNestedInstrAttribField {
 }
 
 //NoNestedPartyIDsField is a NUMINGROUP field
-type NoNestedPartyIDsField struct{ fix.NumInGroupValue }
+type NoNestedPartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNestedPartyIDs (539)
-func (f NoNestedPartyIDsField) Tag() fix.Tag { return tag.NoNestedPartyIDs }
+func (f NoNestedPartyIDsField) Tag() quickfix.Tag { return tag.NoNestedPartyIDs }
 
 //NewNoNestedPartyIDs returns a new NoNestedPartyIDsField initialized with val
 func NewNoNestedPartyIDs(val int) *NoNestedPartyIDsField {
@@ -10802,10 +10816,10 @@ func NewNoNestedPartyIDs(val int) *NoNestedPartyIDsField {
 }
 
 //NoNestedPartySubIDsField is a NUMINGROUP field
-type NoNestedPartySubIDsField struct{ fix.NumInGroupValue }
+type NoNestedPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNestedPartySubIDs (804)
-func (f NoNestedPartySubIDsField) Tag() fix.Tag { return tag.NoNestedPartySubIDs }
+func (f NoNestedPartySubIDsField) Tag() quickfix.Tag { return tag.NoNestedPartySubIDs }
 
 //NewNoNestedPartySubIDs returns a new NoNestedPartySubIDsField initialized with val
 func NewNoNestedPartySubIDs(val int) *NoNestedPartySubIDsField {
@@ -10815,10 +10829,10 @@ func NewNoNestedPartySubIDs(val int) *NoNestedPartySubIDsField {
 }
 
 //NoNewsRefIDsField is a NUMINGROUP field
-type NoNewsRefIDsField struct{ fix.NumInGroupValue }
+type NoNewsRefIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNewsRefIDs (1475)
-func (f NoNewsRefIDsField) Tag() fix.Tag { return tag.NoNewsRefIDs }
+func (f NoNewsRefIDsField) Tag() quickfix.Tag { return tag.NoNewsRefIDs }
 
 //NewNoNewsRefIDs returns a new NoNewsRefIDsField initialized with val
 func NewNoNewsRefIDs(val int) *NoNewsRefIDsField {
@@ -10828,10 +10842,10 @@ func NewNoNewsRefIDs(val int) *NoNewsRefIDsField {
 }
 
 //NoNotAffectedOrdersField is a NUMINGROUP field
-type NoNotAffectedOrdersField struct{ fix.NumInGroupValue }
+type NoNotAffectedOrdersField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoNotAffectedOrders (1370)
-func (f NoNotAffectedOrdersField) Tag() fix.Tag { return tag.NoNotAffectedOrders }
+func (f NoNotAffectedOrdersField) Tag() quickfix.Tag { return tag.NoNotAffectedOrders }
 
 //NewNoNotAffectedOrders returns a new NoNotAffectedOrdersField initialized with val
 func NewNoNotAffectedOrders(val int) *NoNotAffectedOrdersField {
@@ -10841,10 +10855,10 @@ func NewNoNotAffectedOrders(val int) *NoNotAffectedOrdersField {
 }
 
 //NoOfLegUnderlyingsField is a NUMINGROUP field
-type NoOfLegUnderlyingsField struct{ fix.NumInGroupValue }
+type NoOfLegUnderlyingsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoOfLegUnderlyings (1342)
-func (f NoOfLegUnderlyingsField) Tag() fix.Tag { return tag.NoOfLegUnderlyings }
+func (f NoOfLegUnderlyingsField) Tag() quickfix.Tag { return tag.NoOfLegUnderlyings }
 
 //NewNoOfLegUnderlyings returns a new NoOfLegUnderlyingsField initialized with val
 func NewNoOfLegUnderlyings(val int) *NoOfLegUnderlyingsField {
@@ -10854,10 +10868,10 @@ func NewNoOfLegUnderlyings(val int) *NoOfLegUnderlyingsField {
 }
 
 //NoOfSecSizesField is a NUMINGROUP field
-type NoOfSecSizesField struct{ fix.NumInGroupValue }
+type NoOfSecSizesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoOfSecSizes (1177)
-func (f NoOfSecSizesField) Tag() fix.Tag { return tag.NoOfSecSizes }
+func (f NoOfSecSizesField) Tag() quickfix.Tag { return tag.NoOfSecSizes }
 
 //NewNoOfSecSizes returns a new NoOfSecSizesField initialized with val
 func NewNoOfSecSizes(val int) *NoOfSecSizesField {
@@ -10867,10 +10881,10 @@ func NewNoOfSecSizes(val int) *NoOfSecSizesField {
 }
 
 //NoOrdTypeRulesField is a NUMINGROUP field
-type NoOrdTypeRulesField struct{ fix.NumInGroupValue }
+type NoOrdTypeRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoOrdTypeRules (1237)
-func (f NoOrdTypeRulesField) Tag() fix.Tag { return tag.NoOrdTypeRules }
+func (f NoOrdTypeRulesField) Tag() quickfix.Tag { return tag.NoOrdTypeRules }
 
 //NewNoOrdTypeRules returns a new NoOrdTypeRulesField initialized with val
 func NewNoOrdTypeRules(val int) *NoOrdTypeRulesField {
@@ -10880,10 +10894,10 @@ func NewNoOrdTypeRules(val int) *NoOrdTypeRulesField {
 }
 
 //NoOrdersField is a NUMINGROUP field
-type NoOrdersField struct{ fix.NumInGroupValue }
+type NoOrdersField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoOrders (73)
-func (f NoOrdersField) Tag() fix.Tag { return tag.NoOrders }
+func (f NoOrdersField) Tag() quickfix.Tag { return tag.NoOrders }
 
 //NewNoOrders returns a new NoOrdersField initialized with val
 func NewNoOrders(val int) *NoOrdersField {
@@ -10893,10 +10907,10 @@ func NewNoOrders(val int) *NoOrdersField {
 }
 
 //NoPartyAltIDsField is a NUMINGROUP field
-type NoPartyAltIDsField struct{ fix.NumInGroupValue }
+type NoPartyAltIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPartyAltIDs (1516)
-func (f NoPartyAltIDsField) Tag() fix.Tag { return tag.NoPartyAltIDs }
+func (f NoPartyAltIDsField) Tag() quickfix.Tag { return tag.NoPartyAltIDs }
 
 //NewNoPartyAltIDs returns a new NoPartyAltIDsField initialized with val
 func NewNoPartyAltIDs(val int) *NoPartyAltIDsField {
@@ -10906,10 +10920,10 @@ func NewNoPartyAltIDs(val int) *NoPartyAltIDsField {
 }
 
 //NoPartyAltSubIDsField is a NUMINGROUP field
-type NoPartyAltSubIDsField struct{ fix.NumInGroupValue }
+type NoPartyAltSubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPartyAltSubIDs (1519)
-func (f NoPartyAltSubIDsField) Tag() fix.Tag { return tag.NoPartyAltSubIDs }
+func (f NoPartyAltSubIDsField) Tag() quickfix.Tag { return tag.NoPartyAltSubIDs }
 
 //NewNoPartyAltSubIDs returns a new NoPartyAltSubIDsField initialized with val
 func NewNoPartyAltSubIDs(val int) *NoPartyAltSubIDsField {
@@ -10919,10 +10933,10 @@ func NewNoPartyAltSubIDs(val int) *NoPartyAltSubIDsField {
 }
 
 //NoPartyIDsField is a NUMINGROUP field
-type NoPartyIDsField struct{ fix.NumInGroupValue }
+type NoPartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPartyIDs (453)
-func (f NoPartyIDsField) Tag() fix.Tag { return tag.NoPartyIDs }
+func (f NoPartyIDsField) Tag() quickfix.Tag { return tag.NoPartyIDs }
 
 //NewNoPartyIDs returns a new NoPartyIDsField initialized with val
 func NewNoPartyIDs(val int) *NoPartyIDsField {
@@ -10932,10 +10946,10 @@ func NewNoPartyIDs(val int) *NoPartyIDsField {
 }
 
 //NoPartyListField is a NUMINGROUP field
-type NoPartyListField struct{ fix.NumInGroupValue }
+type NoPartyListField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPartyList (1513)
-func (f NoPartyListField) Tag() fix.Tag { return tag.NoPartyList }
+func (f NoPartyListField) Tag() quickfix.Tag { return tag.NoPartyList }
 
 //NewNoPartyList returns a new NoPartyListField initialized with val
 func NewNoPartyList(val int) *NoPartyListField {
@@ -10945,10 +10959,10 @@ func NewNoPartyList(val int) *NoPartyListField {
 }
 
 //NoPartyListResponseTypesField is a NUMINGROUP field
-type NoPartyListResponseTypesField struct{ fix.NumInGroupValue }
+type NoPartyListResponseTypesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPartyListResponseTypes (1506)
-func (f NoPartyListResponseTypesField) Tag() fix.Tag { return tag.NoPartyListResponseTypes }
+func (f NoPartyListResponseTypesField) Tag() quickfix.Tag { return tag.NoPartyListResponseTypes }
 
 //NewNoPartyListResponseTypes returns a new NoPartyListResponseTypesField initialized with val
 func NewNoPartyListResponseTypes(val int) *NoPartyListResponseTypesField {
@@ -10958,10 +10972,10 @@ func NewNoPartyListResponseTypes(val int) *NoPartyListResponseTypesField {
 }
 
 //NoPartyRelationshipsField is a NUMINGROUP field
-type NoPartyRelationshipsField struct{ fix.NumInGroupValue }
+type NoPartyRelationshipsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPartyRelationships (1514)
-func (f NoPartyRelationshipsField) Tag() fix.Tag { return tag.NoPartyRelationships }
+func (f NoPartyRelationshipsField) Tag() quickfix.Tag { return tag.NoPartyRelationships }
 
 //NewNoPartyRelationships returns a new NoPartyRelationshipsField initialized with val
 func NewNoPartyRelationships(val int) *NoPartyRelationshipsField {
@@ -10971,10 +10985,10 @@ func NewNoPartyRelationships(val int) *NoPartyRelationshipsField {
 }
 
 //NoPartySubIDsField is a NUMINGROUP field
-type NoPartySubIDsField struct{ fix.NumInGroupValue }
+type NoPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPartySubIDs (802)
-func (f NoPartySubIDsField) Tag() fix.Tag { return tag.NoPartySubIDs }
+func (f NoPartySubIDsField) Tag() quickfix.Tag { return tag.NoPartySubIDs }
 
 //NewNoPartySubIDs returns a new NoPartySubIDsField initialized with val
 func NewNoPartySubIDs(val int) *NoPartySubIDsField {
@@ -10984,10 +10998,10 @@ func NewNoPartySubIDs(val int) *NoPartySubIDsField {
 }
 
 //NoPosAmtField is a NUMINGROUP field
-type NoPosAmtField struct{ fix.NumInGroupValue }
+type NoPosAmtField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPosAmt (753)
-func (f NoPosAmtField) Tag() fix.Tag { return tag.NoPosAmt }
+func (f NoPosAmtField) Tag() quickfix.Tag { return tag.NoPosAmt }
 
 //NewNoPosAmt returns a new NoPosAmtField initialized with val
 func NewNoPosAmt(val int) *NoPosAmtField {
@@ -10997,10 +11011,10 @@ func NewNoPosAmt(val int) *NoPosAmtField {
 }
 
 //NoPositionsField is a NUMINGROUP field
-type NoPositionsField struct{ fix.NumInGroupValue }
+type NoPositionsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoPositions (702)
-func (f NoPositionsField) Tag() fix.Tag { return tag.NoPositions }
+func (f NoPositionsField) Tag() quickfix.Tag { return tag.NoPositions }
 
 //NewNoPositions returns a new NoPositionsField initialized with val
 func NewNoPositions(val int) *NoPositionsField {
@@ -11010,10 +11024,10 @@ func NewNoPositions(val int) *NoPositionsField {
 }
 
 //NoQuoteEntriesField is a NUMINGROUP field
-type NoQuoteEntriesField struct{ fix.NumInGroupValue }
+type NoQuoteEntriesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoQuoteEntries (295)
-func (f NoQuoteEntriesField) Tag() fix.Tag { return tag.NoQuoteEntries }
+func (f NoQuoteEntriesField) Tag() quickfix.Tag { return tag.NoQuoteEntries }
 
 //NewNoQuoteEntries returns a new NoQuoteEntriesField initialized with val
 func NewNoQuoteEntries(val int) *NoQuoteEntriesField {
@@ -11023,10 +11037,10 @@ func NewNoQuoteEntries(val int) *NoQuoteEntriesField {
 }
 
 //NoQuoteQualifiersField is a NUMINGROUP field
-type NoQuoteQualifiersField struct{ fix.NumInGroupValue }
+type NoQuoteQualifiersField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoQuoteQualifiers (735)
-func (f NoQuoteQualifiersField) Tag() fix.Tag { return tag.NoQuoteQualifiers }
+func (f NoQuoteQualifiersField) Tag() quickfix.Tag { return tag.NoQuoteQualifiers }
 
 //NewNoQuoteQualifiers returns a new NoQuoteQualifiersField initialized with val
 func NewNoQuoteQualifiers(val int) *NoQuoteQualifiersField {
@@ -11036,10 +11050,10 @@ func NewNoQuoteQualifiers(val int) *NoQuoteQualifiersField {
 }
 
 //NoQuoteSetsField is a NUMINGROUP field
-type NoQuoteSetsField struct{ fix.NumInGroupValue }
+type NoQuoteSetsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoQuoteSets (296)
-func (f NoQuoteSetsField) Tag() fix.Tag { return tag.NoQuoteSets }
+func (f NoQuoteSetsField) Tag() quickfix.Tag { return tag.NoQuoteSets }
 
 //NewNoQuoteSets returns a new NoQuoteSetsField initialized with val
 func NewNoQuoteSets(val int) *NoQuoteSetsField {
@@ -11049,10 +11063,10 @@ func NewNoQuoteSets(val int) *NoQuoteSetsField {
 }
 
 //NoRateSourcesField is a NUMINGROUP field
-type NoRateSourcesField struct{ fix.NumInGroupValue }
+type NoRateSourcesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRateSources (1445)
-func (f NoRateSourcesField) Tag() fix.Tag { return tag.NoRateSources }
+func (f NoRateSourcesField) Tag() quickfix.Tag { return tag.NoRateSources }
 
 //NewNoRateSources returns a new NoRateSourcesField initialized with val
 func NewNoRateSources(val int) *NoRateSourcesField {
@@ -11062,10 +11076,10 @@ func NewNoRateSources(val int) *NoRateSourcesField {
 }
 
 //NoRegistDtlsField is a NUMINGROUP field
-type NoRegistDtlsField struct{ fix.NumInGroupValue }
+type NoRegistDtlsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRegistDtls (473)
-func (f NoRegistDtlsField) Tag() fix.Tag { return tag.NoRegistDtls }
+func (f NoRegistDtlsField) Tag() quickfix.Tag { return tag.NoRegistDtls }
 
 //NewNoRegistDtls returns a new NoRegistDtlsField initialized with val
 func NewNoRegistDtls(val int) *NoRegistDtlsField {
@@ -11075,10 +11089,10 @@ func NewNoRegistDtls(val int) *NoRegistDtlsField {
 }
 
 //NoRelatedContextPartyIDsField is a NUMINGROUP field
-type NoRelatedContextPartyIDsField struct{ fix.NumInGroupValue }
+type NoRelatedContextPartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedContextPartyIDs (1575)
-func (f NoRelatedContextPartyIDsField) Tag() fix.Tag { return tag.NoRelatedContextPartyIDs }
+func (f NoRelatedContextPartyIDsField) Tag() quickfix.Tag { return tag.NoRelatedContextPartyIDs }
 
 //NewNoRelatedContextPartyIDs returns a new NoRelatedContextPartyIDsField initialized with val
 func NewNoRelatedContextPartyIDs(val int) *NoRelatedContextPartyIDsField {
@@ -11088,10 +11102,10 @@ func NewNoRelatedContextPartyIDs(val int) *NoRelatedContextPartyIDsField {
 }
 
 //NoRelatedContextPartySubIDsField is a NUMINGROUP field
-type NoRelatedContextPartySubIDsField struct{ fix.NumInGroupValue }
+type NoRelatedContextPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedContextPartySubIDs (1579)
-func (f NoRelatedContextPartySubIDsField) Tag() fix.Tag { return tag.NoRelatedContextPartySubIDs }
+func (f NoRelatedContextPartySubIDsField) Tag() quickfix.Tag { return tag.NoRelatedContextPartySubIDs }
 
 //NewNoRelatedContextPartySubIDs returns a new NoRelatedContextPartySubIDsField initialized with val
 func NewNoRelatedContextPartySubIDs(val int) *NoRelatedContextPartySubIDsField {
@@ -11101,10 +11115,10 @@ func NewNoRelatedContextPartySubIDs(val int) *NoRelatedContextPartySubIDsField {
 }
 
 //NoRelatedPartyAltIDsField is a NUMINGROUP field
-type NoRelatedPartyAltIDsField struct{ fix.NumInGroupValue }
+type NoRelatedPartyAltIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedPartyAltIDs (1569)
-func (f NoRelatedPartyAltIDsField) Tag() fix.Tag { return tag.NoRelatedPartyAltIDs }
+func (f NoRelatedPartyAltIDsField) Tag() quickfix.Tag { return tag.NoRelatedPartyAltIDs }
 
 //NewNoRelatedPartyAltIDs returns a new NoRelatedPartyAltIDsField initialized with val
 func NewNoRelatedPartyAltIDs(val int) *NoRelatedPartyAltIDsField {
@@ -11114,10 +11128,10 @@ func NewNoRelatedPartyAltIDs(val int) *NoRelatedPartyAltIDsField {
 }
 
 //NoRelatedPartyAltSubIDsField is a NUMINGROUP field
-type NoRelatedPartyAltSubIDsField struct{ fix.NumInGroupValue }
+type NoRelatedPartyAltSubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedPartyAltSubIDs (1572)
-func (f NoRelatedPartyAltSubIDsField) Tag() fix.Tag { return tag.NoRelatedPartyAltSubIDs }
+func (f NoRelatedPartyAltSubIDsField) Tag() quickfix.Tag { return tag.NoRelatedPartyAltSubIDs }
 
 //NewNoRelatedPartyAltSubIDs returns a new NoRelatedPartyAltSubIDsField initialized with val
 func NewNoRelatedPartyAltSubIDs(val int) *NoRelatedPartyAltSubIDsField {
@@ -11127,10 +11141,10 @@ func NewNoRelatedPartyAltSubIDs(val int) *NoRelatedPartyAltSubIDsField {
 }
 
 //NoRelatedPartyIDsField is a NUMINGROUP field
-type NoRelatedPartyIDsField struct{ fix.NumInGroupValue }
+type NoRelatedPartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedPartyIDs (1562)
-func (f NoRelatedPartyIDsField) Tag() fix.Tag { return tag.NoRelatedPartyIDs }
+func (f NoRelatedPartyIDsField) Tag() quickfix.Tag { return tag.NoRelatedPartyIDs }
 
 //NewNoRelatedPartyIDs returns a new NoRelatedPartyIDsField initialized with val
 func NewNoRelatedPartyIDs(val int) *NoRelatedPartyIDsField {
@@ -11140,10 +11154,10 @@ func NewNoRelatedPartyIDs(val int) *NoRelatedPartyIDsField {
 }
 
 //NoRelatedPartySubIDsField is a NUMINGROUP field
-type NoRelatedPartySubIDsField struct{ fix.NumInGroupValue }
+type NoRelatedPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedPartySubIDs (1566)
-func (f NoRelatedPartySubIDsField) Tag() fix.Tag { return tag.NoRelatedPartySubIDs }
+func (f NoRelatedPartySubIDsField) Tag() quickfix.Tag { return tag.NoRelatedPartySubIDs }
 
 //NewNoRelatedPartySubIDs returns a new NoRelatedPartySubIDsField initialized with val
 func NewNoRelatedPartySubIDs(val int) *NoRelatedPartySubIDsField {
@@ -11153,10 +11167,10 @@ func NewNoRelatedPartySubIDs(val int) *NoRelatedPartySubIDsField {
 }
 
 //NoRelatedSymField is a NUMINGROUP field
-type NoRelatedSymField struct{ fix.NumInGroupValue }
+type NoRelatedSymField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelatedSym (146)
-func (f NoRelatedSymField) Tag() fix.Tag { return tag.NoRelatedSym }
+func (f NoRelatedSymField) Tag() quickfix.Tag { return tag.NoRelatedSym }
 
 //NewNoRelatedSym returns a new NoRelatedSymField initialized with val
 func NewNoRelatedSym(val int) *NoRelatedSymField {
@@ -11166,10 +11180,12 @@ func NewNoRelatedSym(val int) *NoRelatedSymField {
 }
 
 //NoRelationshipRiskInstrumentsField is a NUMINGROUP field
-type NoRelationshipRiskInstrumentsField struct{ fix.NumInGroupValue }
+type NoRelationshipRiskInstrumentsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelationshipRiskInstruments (1587)
-func (f NoRelationshipRiskInstrumentsField) Tag() fix.Tag { return tag.NoRelationshipRiskInstruments }
+func (f NoRelationshipRiskInstrumentsField) Tag() quickfix.Tag {
+	return tag.NoRelationshipRiskInstruments
+}
 
 //NewNoRelationshipRiskInstruments returns a new NoRelationshipRiskInstrumentsField initialized with val
 func NewNoRelationshipRiskInstruments(val int) *NoRelationshipRiskInstrumentsField {
@@ -11179,10 +11195,10 @@ func NewNoRelationshipRiskInstruments(val int) *NoRelationshipRiskInstrumentsFie
 }
 
 //NoRelationshipRiskLimitsField is a NUMINGROUP field
-type NoRelationshipRiskLimitsField struct{ fix.NumInGroupValue }
+type NoRelationshipRiskLimitsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelationshipRiskLimits (1582)
-func (f NoRelationshipRiskLimitsField) Tag() fix.Tag { return tag.NoRelationshipRiskLimits }
+func (f NoRelationshipRiskLimitsField) Tag() quickfix.Tag { return tag.NoRelationshipRiskLimits }
 
 //NewNoRelationshipRiskLimits returns a new NoRelationshipRiskLimitsField initialized with val
 func NewNoRelationshipRiskLimits(val int) *NoRelationshipRiskLimitsField {
@@ -11192,10 +11208,10 @@ func NewNoRelationshipRiskLimits(val int) *NoRelationshipRiskLimitsField {
 }
 
 //NoRelationshipRiskSecurityAltIDField is a NUMINGROUP field
-type NoRelationshipRiskSecurityAltIDField struct{ fix.NumInGroupValue }
+type NoRelationshipRiskSecurityAltIDField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelationshipRiskSecurityAltID (1593)
-func (f NoRelationshipRiskSecurityAltIDField) Tag() fix.Tag {
+func (f NoRelationshipRiskSecurityAltIDField) Tag() quickfix.Tag {
 	return tag.NoRelationshipRiskSecurityAltID
 }
 
@@ -11207,10 +11223,10 @@ func NewNoRelationshipRiskSecurityAltID(val int) *NoRelationshipRiskSecurityAltI
 }
 
 //NoRelationshipRiskWarningLevelsField is a NUMINGROUP field
-type NoRelationshipRiskWarningLevelsField struct{ fix.NumInGroupValue }
+type NoRelationshipRiskWarningLevelsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRelationshipRiskWarningLevels (1613)
-func (f NoRelationshipRiskWarningLevelsField) Tag() fix.Tag {
+func (f NoRelationshipRiskWarningLevelsField) Tag() quickfix.Tag {
 	return tag.NoRelationshipRiskWarningLevels
 }
 
@@ -11222,10 +11238,10 @@ func NewNoRelationshipRiskWarningLevels(val int) *NoRelationshipRiskWarningLevel
 }
 
 //NoRequestedPartyRolesField is a NUMINGROUP field
-type NoRequestedPartyRolesField struct{ fix.NumInGroupValue }
+type NoRequestedPartyRolesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRequestedPartyRoles (1508)
-func (f NoRequestedPartyRolesField) Tag() fix.Tag { return tag.NoRequestedPartyRoles }
+func (f NoRequestedPartyRolesField) Tag() quickfix.Tag { return tag.NoRequestedPartyRoles }
 
 //NewNoRequestedPartyRoles returns a new NoRequestedPartyRolesField initialized with val
 func NewNoRequestedPartyRoles(val int) *NoRequestedPartyRolesField {
@@ -11235,10 +11251,10 @@ func NewNoRequestedPartyRoles(val int) *NoRequestedPartyRolesField {
 }
 
 //NoRiskInstrumentsField is a NUMINGROUP field
-type NoRiskInstrumentsField struct{ fix.NumInGroupValue }
+type NoRiskInstrumentsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRiskInstruments (1534)
-func (f NoRiskInstrumentsField) Tag() fix.Tag { return tag.NoRiskInstruments }
+func (f NoRiskInstrumentsField) Tag() quickfix.Tag { return tag.NoRiskInstruments }
 
 //NewNoRiskInstruments returns a new NoRiskInstrumentsField initialized with val
 func NewNoRiskInstruments(val int) *NoRiskInstrumentsField {
@@ -11248,10 +11264,10 @@ func NewNoRiskInstruments(val int) *NoRiskInstrumentsField {
 }
 
 //NoRiskLimitsField is a NUMINGROUP field
-type NoRiskLimitsField struct{ fix.NumInGroupValue }
+type NoRiskLimitsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRiskLimits (1529)
-func (f NoRiskLimitsField) Tag() fix.Tag { return tag.NoRiskLimits }
+func (f NoRiskLimitsField) Tag() quickfix.Tag { return tag.NoRiskLimits }
 
 //NewNoRiskLimits returns a new NoRiskLimitsField initialized with val
 func NewNoRiskLimits(val int) *NoRiskLimitsField {
@@ -11261,10 +11277,10 @@ func NewNoRiskLimits(val int) *NoRiskLimitsField {
 }
 
 //NoRiskSecurityAltIDField is a NUMINGROUP field
-type NoRiskSecurityAltIDField struct{ fix.NumInGroupValue }
+type NoRiskSecurityAltIDField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRiskSecurityAltID (1540)
-func (f NoRiskSecurityAltIDField) Tag() fix.Tag { return tag.NoRiskSecurityAltID }
+func (f NoRiskSecurityAltIDField) Tag() quickfix.Tag { return tag.NoRiskSecurityAltID }
 
 //NewNoRiskSecurityAltID returns a new NoRiskSecurityAltIDField initialized with val
 func NewNoRiskSecurityAltID(val int) *NoRiskSecurityAltIDField {
@@ -11274,10 +11290,10 @@ func NewNoRiskSecurityAltID(val int) *NoRiskSecurityAltIDField {
 }
 
 //NoRiskWarningLevelsField is a NUMINGROUP field
-type NoRiskWarningLevelsField struct{ fix.NumInGroupValue }
+type NoRiskWarningLevelsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRiskWarningLevels (1559)
-func (f NoRiskWarningLevelsField) Tag() fix.Tag { return tag.NoRiskWarningLevels }
+func (f NoRiskWarningLevelsField) Tag() quickfix.Tag { return tag.NoRiskWarningLevels }
 
 //NewNoRiskWarningLevels returns a new NoRiskWarningLevelsField initialized with val
 func NewNoRiskWarningLevels(val int) *NoRiskWarningLevelsField {
@@ -11287,10 +11303,10 @@ func NewNoRiskWarningLevels(val int) *NoRiskWarningLevelsField {
 }
 
 //NoRootPartyIDsField is a NUMINGROUP field
-type NoRootPartyIDsField struct{ fix.NumInGroupValue }
+type NoRootPartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRootPartyIDs (1116)
-func (f NoRootPartyIDsField) Tag() fix.Tag { return tag.NoRootPartyIDs }
+func (f NoRootPartyIDsField) Tag() quickfix.Tag { return tag.NoRootPartyIDs }
 
 //NewNoRootPartyIDs returns a new NoRootPartyIDsField initialized with val
 func NewNoRootPartyIDs(val int) *NoRootPartyIDsField {
@@ -11300,10 +11316,10 @@ func NewNoRootPartyIDs(val int) *NoRootPartyIDsField {
 }
 
 //NoRootPartySubIDsField is a NUMINGROUP field
-type NoRootPartySubIDsField struct{ fix.NumInGroupValue }
+type NoRootPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRootPartySubIDs (1120)
-func (f NoRootPartySubIDsField) Tag() fix.Tag { return tag.NoRootPartySubIDs }
+func (f NoRootPartySubIDsField) Tag() quickfix.Tag { return tag.NoRootPartySubIDs }
 
 //NewNoRootPartySubIDs returns a new NoRootPartySubIDsField initialized with val
 func NewNoRootPartySubIDs(val int) *NoRootPartySubIDsField {
@@ -11313,10 +11329,10 @@ func NewNoRootPartySubIDs(val int) *NoRootPartySubIDsField {
 }
 
 //NoRoutingIDsField is a NUMINGROUP field
-type NoRoutingIDsField struct{ fix.NumInGroupValue }
+type NoRoutingIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoRoutingIDs (215)
-func (f NoRoutingIDsField) Tag() fix.Tag { return tag.NoRoutingIDs }
+func (f NoRoutingIDsField) Tag() quickfix.Tag { return tag.NoRoutingIDs }
 
 //NewNoRoutingIDs returns a new NoRoutingIDsField initialized with val
 func NewNoRoutingIDs(val int) *NoRoutingIDsField {
@@ -11326,10 +11342,10 @@ func NewNoRoutingIDs(val int) *NoRoutingIDsField {
 }
 
 //NoRptsField is a INT field
-type NoRptsField struct{ fix.IntValue }
+type NoRptsField struct{ quickfix.IntValue }
 
 //Tag returns tag.NoRpts (82)
-func (f NoRptsField) Tag() fix.Tag { return tag.NoRpts }
+func (f NoRptsField) Tag() quickfix.Tag { return tag.NoRpts }
 
 //NewNoRpts returns a new NoRptsField initialized with val
 func NewNoRpts(val int) *NoRptsField {
@@ -11339,10 +11355,10 @@ func NewNoRpts(val int) *NoRptsField {
 }
 
 //NoSecurityAltIDField is a NUMINGROUP field
-type NoSecurityAltIDField struct{ fix.NumInGroupValue }
+type NoSecurityAltIDField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSecurityAltID (454)
-func (f NoSecurityAltIDField) Tag() fix.Tag { return tag.NoSecurityAltID }
+func (f NoSecurityAltIDField) Tag() quickfix.Tag { return tag.NoSecurityAltID }
 
 //NewNoSecurityAltID returns a new NoSecurityAltIDField initialized with val
 func NewNoSecurityAltID(val int) *NoSecurityAltIDField {
@@ -11352,10 +11368,10 @@ func NewNoSecurityAltID(val int) *NoSecurityAltIDField {
 }
 
 //NoSecurityTypesField is a NUMINGROUP field
-type NoSecurityTypesField struct{ fix.NumInGroupValue }
+type NoSecurityTypesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSecurityTypes (558)
-func (f NoSecurityTypesField) Tag() fix.Tag { return tag.NoSecurityTypes }
+func (f NoSecurityTypesField) Tag() quickfix.Tag { return tag.NoSecurityTypes }
 
 //NewNoSecurityTypes returns a new NoSecurityTypesField initialized with val
 func NewNoSecurityTypes(val int) *NoSecurityTypesField {
@@ -11365,10 +11381,10 @@ func NewNoSecurityTypes(val int) *NoSecurityTypesField {
 }
 
 //NoSettlDetailsField is a NUMINGROUP field
-type NoSettlDetailsField struct{ fix.NumInGroupValue }
+type NoSettlDetailsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSettlDetails (1158)
-func (f NoSettlDetailsField) Tag() fix.Tag { return tag.NoSettlDetails }
+func (f NoSettlDetailsField) Tag() quickfix.Tag { return tag.NoSettlDetails }
 
 //NewNoSettlDetails returns a new NoSettlDetailsField initialized with val
 func NewNoSettlDetails(val int) *NoSettlDetailsField {
@@ -11378,10 +11394,10 @@ func NewNoSettlDetails(val int) *NoSettlDetailsField {
 }
 
 //NoSettlInstField is a NUMINGROUP field
-type NoSettlInstField struct{ fix.NumInGroupValue }
+type NoSettlInstField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSettlInst (778)
-func (f NoSettlInstField) Tag() fix.Tag { return tag.NoSettlInst }
+func (f NoSettlInstField) Tag() quickfix.Tag { return tag.NoSettlInst }
 
 //NewNoSettlInst returns a new NoSettlInstField initialized with val
 func NewNoSettlInst(val int) *NoSettlInstField {
@@ -11391,10 +11407,10 @@ func NewNoSettlInst(val int) *NoSettlInstField {
 }
 
 //NoSettlObligField is a NUMINGROUP field
-type NoSettlObligField struct{ fix.NumInGroupValue }
+type NoSettlObligField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSettlOblig (1165)
-func (f NoSettlObligField) Tag() fix.Tag { return tag.NoSettlOblig }
+func (f NoSettlObligField) Tag() quickfix.Tag { return tag.NoSettlOblig }
 
 //NewNoSettlOblig returns a new NoSettlObligField initialized with val
 func NewNoSettlOblig(val int) *NoSettlObligField {
@@ -11404,10 +11420,10 @@ func NewNoSettlOblig(val int) *NoSettlObligField {
 }
 
 //NoSettlPartyIDsField is a NUMINGROUP field
-type NoSettlPartyIDsField struct{ fix.NumInGroupValue }
+type NoSettlPartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSettlPartyIDs (781)
-func (f NoSettlPartyIDsField) Tag() fix.Tag { return tag.NoSettlPartyIDs }
+func (f NoSettlPartyIDsField) Tag() quickfix.Tag { return tag.NoSettlPartyIDs }
 
 //NewNoSettlPartyIDs returns a new NoSettlPartyIDsField initialized with val
 func NewNoSettlPartyIDs(val int) *NoSettlPartyIDsField {
@@ -11417,10 +11433,10 @@ func NewNoSettlPartyIDs(val int) *NoSettlPartyIDsField {
 }
 
 //NoSettlPartySubIDsField is a NUMINGROUP field
-type NoSettlPartySubIDsField struct{ fix.NumInGroupValue }
+type NoSettlPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSettlPartySubIDs (801)
-func (f NoSettlPartySubIDsField) Tag() fix.Tag { return tag.NoSettlPartySubIDs }
+func (f NoSettlPartySubIDsField) Tag() quickfix.Tag { return tag.NoSettlPartySubIDs }
 
 //NewNoSettlPartySubIDs returns a new NoSettlPartySubIDsField initialized with val
 func NewNoSettlPartySubIDs(val int) *NoSettlPartySubIDsField {
@@ -11430,10 +11446,10 @@ func NewNoSettlPartySubIDs(val int) *NoSettlPartySubIDsField {
 }
 
 //NoSideTrdRegTSField is a NUMINGROUP field
-type NoSideTrdRegTSField struct{ fix.NumInGroupValue }
+type NoSideTrdRegTSField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSideTrdRegTS (1016)
-func (f NoSideTrdRegTSField) Tag() fix.Tag { return tag.NoSideTrdRegTS }
+func (f NoSideTrdRegTSField) Tag() quickfix.Tag { return tag.NoSideTrdRegTS }
 
 //NewNoSideTrdRegTS returns a new NoSideTrdRegTSField initialized with val
 func NewNoSideTrdRegTS(val int) *NoSideTrdRegTSField {
@@ -11443,10 +11459,10 @@ func NewNoSideTrdRegTS(val int) *NoSideTrdRegTSField {
 }
 
 //NoSidesField is a NUMINGROUP field
-type NoSidesField struct{ fix.NumInGroupValue }
+type NoSidesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoSides (552)
-func (f NoSidesField) Tag() fix.Tag { return tag.NoSides }
+func (f NoSidesField) Tag() quickfix.Tag { return tag.NoSides }
 
 //NewNoSides returns a new NoSidesField initialized with val
 func NewNoSides(val int) *NoSidesField {
@@ -11456,10 +11472,10 @@ func NewNoSides(val int) *NoSidesField {
 }
 
 //NoStatsIndicatorsField is a NUMINGROUP field
-type NoStatsIndicatorsField struct{ fix.NumInGroupValue }
+type NoStatsIndicatorsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoStatsIndicators (1175)
-func (f NoStatsIndicatorsField) Tag() fix.Tag { return tag.NoStatsIndicators }
+func (f NoStatsIndicatorsField) Tag() quickfix.Tag { return tag.NoStatsIndicators }
 
 //NewNoStatsIndicators returns a new NoStatsIndicatorsField initialized with val
 func NewNoStatsIndicators(val int) *NoStatsIndicatorsField {
@@ -11469,10 +11485,10 @@ func NewNoStatsIndicators(val int) *NoStatsIndicatorsField {
 }
 
 //NoStipulationsField is a NUMINGROUP field
-type NoStipulationsField struct{ fix.NumInGroupValue }
+type NoStipulationsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoStipulations (232)
-func (f NoStipulationsField) Tag() fix.Tag { return tag.NoStipulations }
+func (f NoStipulationsField) Tag() quickfix.Tag { return tag.NoStipulations }
 
 //NewNoStipulations returns a new NoStipulationsField initialized with val
 func NewNoStipulations(val int) *NoStipulationsField {
@@ -11482,10 +11498,10 @@ func NewNoStipulations(val int) *NoStipulationsField {
 }
 
 //NoStrategyParametersField is a NUMINGROUP field
-type NoStrategyParametersField struct{ fix.NumInGroupValue }
+type NoStrategyParametersField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoStrategyParameters (957)
-func (f NoStrategyParametersField) Tag() fix.Tag { return tag.NoStrategyParameters }
+func (f NoStrategyParametersField) Tag() quickfix.Tag { return tag.NoStrategyParameters }
 
 //NewNoStrategyParameters returns a new NoStrategyParametersField initialized with val
 func NewNoStrategyParameters(val int) *NoStrategyParametersField {
@@ -11495,10 +11511,10 @@ func NewNoStrategyParameters(val int) *NoStrategyParametersField {
 }
 
 //NoStrikeRulesField is a NUMINGROUP field
-type NoStrikeRulesField struct{ fix.NumInGroupValue }
+type NoStrikeRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoStrikeRules (1201)
-func (f NoStrikeRulesField) Tag() fix.Tag { return tag.NoStrikeRules }
+func (f NoStrikeRulesField) Tag() quickfix.Tag { return tag.NoStrikeRules }
 
 //NewNoStrikeRules returns a new NoStrikeRulesField initialized with val
 func NewNoStrikeRules(val int) *NoStrikeRulesField {
@@ -11508,10 +11524,10 @@ func NewNoStrikeRules(val int) *NoStrikeRulesField {
 }
 
 //NoStrikesField is a NUMINGROUP field
-type NoStrikesField struct{ fix.NumInGroupValue }
+type NoStrikesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoStrikes (428)
-func (f NoStrikesField) Tag() fix.Tag { return tag.NoStrikes }
+func (f NoStrikesField) Tag() quickfix.Tag { return tag.NoStrikes }
 
 //NewNoStrikes returns a new NoStrikesField initialized with val
 func NewNoStrikes(val int) *NoStrikesField {
@@ -11521,10 +11537,10 @@ func NewNoStrikes(val int) *NoStrikesField {
 }
 
 //NoTargetPartyIDsField is a NUMINGROUP field
-type NoTargetPartyIDsField struct{ fix.NumInGroupValue }
+type NoTargetPartyIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoTargetPartyIDs (1461)
-func (f NoTargetPartyIDsField) Tag() fix.Tag { return tag.NoTargetPartyIDs }
+func (f NoTargetPartyIDsField) Tag() quickfix.Tag { return tag.NoTargetPartyIDs }
 
 //NewNoTargetPartyIDs returns a new NoTargetPartyIDsField initialized with val
 func NewNoTargetPartyIDs(val int) *NoTargetPartyIDsField {
@@ -11534,10 +11550,10 @@ func NewNoTargetPartyIDs(val int) *NoTargetPartyIDsField {
 }
 
 //NoTickRulesField is a NUMINGROUP field
-type NoTickRulesField struct{ fix.NumInGroupValue }
+type NoTickRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoTickRules (1205)
-func (f NoTickRulesField) Tag() fix.Tag { return tag.NoTickRules }
+func (f NoTickRulesField) Tag() quickfix.Tag { return tag.NoTickRules }
 
 //NewNoTickRules returns a new NoTickRulesField initialized with val
 func NewNoTickRules(val int) *NoTickRulesField {
@@ -11547,10 +11563,10 @@ func NewNoTickRules(val int) *NoTickRulesField {
 }
 
 //NoTimeInForceRulesField is a NUMINGROUP field
-type NoTimeInForceRulesField struct{ fix.NumInGroupValue }
+type NoTimeInForceRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoTimeInForceRules (1239)
-func (f NoTimeInForceRulesField) Tag() fix.Tag { return tag.NoTimeInForceRules }
+func (f NoTimeInForceRulesField) Tag() quickfix.Tag { return tag.NoTimeInForceRules }
 
 //NewNoTimeInForceRules returns a new NoTimeInForceRulesField initialized with val
 func NewNoTimeInForceRules(val int) *NoTimeInForceRulesField {
@@ -11560,10 +11576,10 @@ func NewNoTimeInForceRules(val int) *NoTimeInForceRulesField {
 }
 
 //NoTradesField is a NUMINGROUP field
-type NoTradesField struct{ fix.NumInGroupValue }
+type NoTradesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoTrades (897)
-func (f NoTradesField) Tag() fix.Tag { return tag.NoTrades }
+func (f NoTradesField) Tag() quickfix.Tag { return tag.NoTrades }
 
 //NewNoTrades returns a new NoTradesField initialized with val
 func NewNoTrades(val int) *NoTradesField {
@@ -11573,10 +11589,10 @@ func NewNoTrades(val int) *NoTradesField {
 }
 
 //NoTradingSessionRulesField is a NUMINGROUP field
-type NoTradingSessionRulesField struct{ fix.NumInGroupValue }
+type NoTradingSessionRulesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoTradingSessionRules (1309)
-func (f NoTradingSessionRulesField) Tag() fix.Tag { return tag.NoTradingSessionRules }
+func (f NoTradingSessionRulesField) Tag() quickfix.Tag { return tag.NoTradingSessionRules }
 
 //NewNoTradingSessionRules returns a new NoTradingSessionRulesField initialized with val
 func NewNoTradingSessionRules(val int) *NoTradingSessionRulesField {
@@ -11586,10 +11602,10 @@ func NewNoTradingSessionRules(val int) *NoTradingSessionRulesField {
 }
 
 //NoTradingSessionsField is a NUMINGROUP field
-type NoTradingSessionsField struct{ fix.NumInGroupValue }
+type NoTradingSessionsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoTradingSessions (386)
-func (f NoTradingSessionsField) Tag() fix.Tag { return tag.NoTradingSessions }
+func (f NoTradingSessionsField) Tag() quickfix.Tag { return tag.NoTradingSessions }
 
 //NewNoTradingSessions returns a new NoTradingSessionsField initialized with val
 func NewNoTradingSessions(val int) *NoTradingSessionsField {
@@ -11599,10 +11615,10 @@ func NewNoTradingSessions(val int) *NoTradingSessionsField {
 }
 
 //NoTrdRegTimestampsField is a NUMINGROUP field
-type NoTrdRegTimestampsField struct{ fix.NumInGroupValue }
+type NoTrdRegTimestampsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoTrdRegTimestamps (768)
-func (f NoTrdRegTimestampsField) Tag() fix.Tag { return tag.NoTrdRegTimestamps }
+func (f NoTrdRegTimestampsField) Tag() quickfix.Tag { return tag.NoTrdRegTimestamps }
 
 //NewNoTrdRegTimestamps returns a new NoTrdRegTimestampsField initialized with val
 func NewNoTrdRegTimestamps(val int) *NoTrdRegTimestampsField {
@@ -11612,10 +11628,10 @@ func NewNoTrdRegTimestamps(val int) *NoTrdRegTimestampsField {
 }
 
 //NoTrdRepIndicatorsField is a NUMINGROUP field
-type NoTrdRepIndicatorsField struct{ fix.NumInGroupValue }
+type NoTrdRepIndicatorsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoTrdRepIndicators (1387)
-func (f NoTrdRepIndicatorsField) Tag() fix.Tag { return tag.NoTrdRepIndicators }
+func (f NoTrdRepIndicatorsField) Tag() quickfix.Tag { return tag.NoTrdRepIndicators }
 
 //NewNoTrdRepIndicators returns a new NoTrdRepIndicatorsField initialized with val
 func NewNoTrdRepIndicators(val int) *NoTrdRepIndicatorsField {
@@ -11625,10 +11641,10 @@ func NewNoTrdRepIndicators(val int) *NoTrdRepIndicatorsField {
 }
 
 //NoUnderlyingAmountsField is a NUMINGROUP field
-type NoUnderlyingAmountsField struct{ fix.NumInGroupValue }
+type NoUnderlyingAmountsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyingAmounts (984)
-func (f NoUnderlyingAmountsField) Tag() fix.Tag { return tag.NoUnderlyingAmounts }
+func (f NoUnderlyingAmountsField) Tag() quickfix.Tag { return tag.NoUnderlyingAmounts }
 
 //NewNoUnderlyingAmounts returns a new NoUnderlyingAmountsField initialized with val
 func NewNoUnderlyingAmounts(val int) *NoUnderlyingAmountsField {
@@ -11638,10 +11654,10 @@ func NewNoUnderlyingAmounts(val int) *NoUnderlyingAmountsField {
 }
 
 //NoUnderlyingLegSecurityAltIDField is a NUMINGROUP field
-type NoUnderlyingLegSecurityAltIDField struct{ fix.NumInGroupValue }
+type NoUnderlyingLegSecurityAltIDField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyingLegSecurityAltID (1334)
-func (f NoUnderlyingLegSecurityAltIDField) Tag() fix.Tag { return tag.NoUnderlyingLegSecurityAltID }
+func (f NoUnderlyingLegSecurityAltIDField) Tag() quickfix.Tag { return tag.NoUnderlyingLegSecurityAltID }
 
 //NewNoUnderlyingLegSecurityAltID returns a new NoUnderlyingLegSecurityAltIDField initialized with val
 func NewNoUnderlyingLegSecurityAltID(val int) *NoUnderlyingLegSecurityAltIDField {
@@ -11651,10 +11667,10 @@ func NewNoUnderlyingLegSecurityAltID(val int) *NoUnderlyingLegSecurityAltIDField
 }
 
 //NoUnderlyingSecurityAltIDField is a NUMINGROUP field
-type NoUnderlyingSecurityAltIDField struct{ fix.NumInGroupValue }
+type NoUnderlyingSecurityAltIDField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyingSecurityAltID (457)
-func (f NoUnderlyingSecurityAltIDField) Tag() fix.Tag { return tag.NoUnderlyingSecurityAltID }
+func (f NoUnderlyingSecurityAltIDField) Tag() quickfix.Tag { return tag.NoUnderlyingSecurityAltID }
 
 //NewNoUnderlyingSecurityAltID returns a new NoUnderlyingSecurityAltIDField initialized with val
 func NewNoUnderlyingSecurityAltID(val int) *NoUnderlyingSecurityAltIDField {
@@ -11664,10 +11680,10 @@ func NewNoUnderlyingSecurityAltID(val int) *NoUnderlyingSecurityAltIDField {
 }
 
 //NoUnderlyingStipsField is a NUMINGROUP field
-type NoUnderlyingStipsField struct{ fix.NumInGroupValue }
+type NoUnderlyingStipsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyingStips (887)
-func (f NoUnderlyingStipsField) Tag() fix.Tag { return tag.NoUnderlyingStips }
+func (f NoUnderlyingStipsField) Tag() quickfix.Tag { return tag.NoUnderlyingStips }
 
 //NewNoUnderlyingStips returns a new NoUnderlyingStipsField initialized with val
 func NewNoUnderlyingStips(val int) *NoUnderlyingStipsField {
@@ -11677,10 +11693,10 @@ func NewNoUnderlyingStips(val int) *NoUnderlyingStipsField {
 }
 
 //NoUnderlyingsField is a NUMINGROUP field
-type NoUnderlyingsField struct{ fix.NumInGroupValue }
+type NoUnderlyingsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoUnderlyings (711)
-func (f NoUnderlyingsField) Tag() fix.Tag { return tag.NoUnderlyings }
+func (f NoUnderlyingsField) Tag() quickfix.Tag { return tag.NoUnderlyings }
 
 //NewNoUnderlyings returns a new NoUnderlyingsField initialized with val
 func NewNoUnderlyings(val int) *NoUnderlyingsField {
@@ -11690,10 +11706,10 @@ func NewNoUnderlyings(val int) *NoUnderlyingsField {
 }
 
 //NoUndlyInstrumentPartiesField is a NUMINGROUP field
-type NoUndlyInstrumentPartiesField struct{ fix.NumInGroupValue }
+type NoUndlyInstrumentPartiesField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoUndlyInstrumentParties (1058)
-func (f NoUndlyInstrumentPartiesField) Tag() fix.Tag { return tag.NoUndlyInstrumentParties }
+func (f NoUndlyInstrumentPartiesField) Tag() quickfix.Tag { return tag.NoUndlyInstrumentParties }
 
 //NewNoUndlyInstrumentParties returns a new NoUndlyInstrumentPartiesField initialized with val
 func NewNoUndlyInstrumentParties(val int) *NoUndlyInstrumentPartiesField {
@@ -11703,10 +11719,10 @@ func NewNoUndlyInstrumentParties(val int) *NoUndlyInstrumentPartiesField {
 }
 
 //NoUndlyInstrumentPartySubIDsField is a NUMINGROUP field
-type NoUndlyInstrumentPartySubIDsField struct{ fix.NumInGroupValue }
+type NoUndlyInstrumentPartySubIDsField struct{ quickfix.NumInGroupValue }
 
 //Tag returns tag.NoUndlyInstrumentPartySubIDs (1062)
-func (f NoUndlyInstrumentPartySubIDsField) Tag() fix.Tag { return tag.NoUndlyInstrumentPartySubIDs }
+func (f NoUndlyInstrumentPartySubIDsField) Tag() quickfix.Tag { return tag.NoUndlyInstrumentPartySubIDs }
 
 //NewNoUndlyInstrumentPartySubIDs returns a new NoUndlyInstrumentPartySubIDsField initialized with val
 func NewNoUndlyInstrumentPartySubIDs(val int) *NoUndlyInstrumentPartySubIDsField {
@@ -11716,10 +11732,10 @@ func NewNoUndlyInstrumentPartySubIDs(val int) *NoUndlyInstrumentPartySubIDsField
 }
 
 //NotAffOrigClOrdIDField is a STRING field
-type NotAffOrigClOrdIDField struct{ fix.StringValue }
+type NotAffOrigClOrdIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NotAffOrigClOrdID (1372)
-func (f NotAffOrigClOrdIDField) Tag() fix.Tag { return tag.NotAffOrigClOrdID }
+func (f NotAffOrigClOrdIDField) Tag() quickfix.Tag { return tag.NotAffOrigClOrdID }
 
 //NewNotAffOrigClOrdID returns a new NotAffOrigClOrdIDField initialized with val
 func NewNotAffOrigClOrdID(val string) *NotAffOrigClOrdIDField {
@@ -11729,10 +11745,10 @@ func NewNotAffOrigClOrdID(val string) *NotAffOrigClOrdIDField {
 }
 
 //NotAffectedOrderIDField is a STRING field
-type NotAffectedOrderIDField struct{ fix.StringValue }
+type NotAffectedOrderIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.NotAffectedOrderID (1371)
-func (f NotAffectedOrderIDField) Tag() fix.Tag { return tag.NotAffectedOrderID }
+func (f NotAffectedOrderIDField) Tag() quickfix.Tag { return tag.NotAffectedOrderID }
 
 //NewNotAffectedOrderID returns a new NotAffectedOrderIDField initialized with val
 func NewNotAffectedOrderID(val string) *NotAffectedOrderIDField {
@@ -11742,10 +11758,10 @@ func NewNotAffectedOrderID(val string) *NotAffectedOrderIDField {
 }
 
 //NotifyBrokerOfCreditField is a BOOLEAN field
-type NotifyBrokerOfCreditField struct{ fix.BooleanValue }
+type NotifyBrokerOfCreditField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.NotifyBrokerOfCredit (208)
-func (f NotifyBrokerOfCreditField) Tag() fix.Tag { return tag.NotifyBrokerOfCredit }
+func (f NotifyBrokerOfCreditField) Tag() quickfix.Tag { return tag.NotifyBrokerOfCredit }
 
 //NewNotifyBrokerOfCredit returns a new NotifyBrokerOfCreditField initialized with val
 func NewNotifyBrokerOfCredit(val bool) *NotifyBrokerOfCreditField {
@@ -11755,10 +11771,12 @@ func NewNotifyBrokerOfCredit(val bool) *NotifyBrokerOfCreditField {
 }
 
 //NotionalPercentageOutstandingField is a PERCENTAGE field
-type NotionalPercentageOutstandingField struct{ fix.PercentageValue }
+type NotionalPercentageOutstandingField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.NotionalPercentageOutstanding (1451)
-func (f NotionalPercentageOutstandingField) Tag() fix.Tag { return tag.NotionalPercentageOutstanding }
+func (f NotionalPercentageOutstandingField) Tag() quickfix.Tag {
+	return tag.NotionalPercentageOutstanding
+}
 
 //NewNotionalPercentageOutstanding returns a new NotionalPercentageOutstandingField initialized with val
 func NewNotionalPercentageOutstanding(val float64) *NotionalPercentageOutstandingField {
@@ -11768,10 +11786,10 @@ func NewNotionalPercentageOutstanding(val float64) *NotionalPercentageOutstandin
 }
 
 //NumBiddersField is a INT field
-type NumBiddersField struct{ fix.IntValue }
+type NumBiddersField struct{ quickfix.IntValue }
 
 //Tag returns tag.NumBidders (417)
-func (f NumBiddersField) Tag() fix.Tag { return tag.NumBidders }
+func (f NumBiddersField) Tag() quickfix.Tag { return tag.NumBidders }
 
 //NewNumBidders returns a new NumBiddersField initialized with val
 func NewNumBidders(val int) *NumBiddersField {
@@ -11781,10 +11799,10 @@ func NewNumBidders(val int) *NumBiddersField {
 }
 
 //NumDaysInterestField is a INT field
-type NumDaysInterestField struct{ fix.IntValue }
+type NumDaysInterestField struct{ quickfix.IntValue }
 
 //Tag returns tag.NumDaysInterest (157)
-func (f NumDaysInterestField) Tag() fix.Tag { return tag.NumDaysInterest }
+func (f NumDaysInterestField) Tag() quickfix.Tag { return tag.NumDaysInterest }
 
 //NewNumDaysInterest returns a new NumDaysInterestField initialized with val
 func NewNumDaysInterest(val int) *NumDaysInterestField {
@@ -11794,10 +11812,10 @@ func NewNumDaysInterest(val int) *NumDaysInterestField {
 }
 
 //NumTicketsField is a INT field
-type NumTicketsField struct{ fix.IntValue }
+type NumTicketsField struct{ quickfix.IntValue }
 
 //Tag returns tag.NumTickets (395)
-func (f NumTicketsField) Tag() fix.Tag { return tag.NumTickets }
+func (f NumTicketsField) Tag() quickfix.Tag { return tag.NumTickets }
 
 //NewNumTickets returns a new NumTicketsField initialized with val
 func NewNumTickets(val int) *NumTicketsField {
@@ -11807,10 +11825,10 @@ func NewNumTickets(val int) *NumTicketsField {
 }
 
 //NumberOfOrdersField is a INT field
-type NumberOfOrdersField struct{ fix.IntValue }
+type NumberOfOrdersField struct{ quickfix.IntValue }
 
 //Tag returns tag.NumberOfOrders (346)
-func (f NumberOfOrdersField) Tag() fix.Tag { return tag.NumberOfOrders }
+func (f NumberOfOrdersField) Tag() quickfix.Tag { return tag.NumberOfOrders }
 
 //NewNumberOfOrders returns a new NumberOfOrdersField initialized with val
 func NewNumberOfOrders(val int) *NumberOfOrdersField {
@@ -11820,10 +11838,10 @@ func NewNumberOfOrders(val int) *NumberOfOrdersField {
 }
 
 //OddLotField is a BOOLEAN field
-type OddLotField struct{ fix.BooleanValue }
+type OddLotField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.OddLot (575)
-func (f OddLotField) Tag() fix.Tag { return tag.OddLot }
+func (f OddLotField) Tag() quickfix.Tag { return tag.OddLot }
 
 //NewOddLot returns a new OddLotField initialized with val
 func NewOddLot(val bool) *OddLotField {
@@ -11833,10 +11851,10 @@ func NewOddLot(val bool) *OddLotField {
 }
 
 //OfferForwardPointsField is a PRICEOFFSET field
-type OfferForwardPointsField struct{ fix.PriceOffsetValue }
+type OfferForwardPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.OfferForwardPoints (191)
-func (f OfferForwardPointsField) Tag() fix.Tag { return tag.OfferForwardPoints }
+func (f OfferForwardPointsField) Tag() quickfix.Tag { return tag.OfferForwardPoints }
 
 //NewOfferForwardPoints returns a new OfferForwardPointsField initialized with val
 func NewOfferForwardPoints(val float64) *OfferForwardPointsField {
@@ -11846,10 +11864,10 @@ func NewOfferForwardPoints(val float64) *OfferForwardPointsField {
 }
 
 //OfferForwardPoints2Field is a PRICEOFFSET field
-type OfferForwardPoints2Field struct{ fix.PriceOffsetValue }
+type OfferForwardPoints2Field struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.OfferForwardPoints2 (643)
-func (f OfferForwardPoints2Field) Tag() fix.Tag { return tag.OfferForwardPoints2 }
+func (f OfferForwardPoints2Field) Tag() quickfix.Tag { return tag.OfferForwardPoints2 }
 
 //NewOfferForwardPoints2 returns a new OfferForwardPoints2Field initialized with val
 func NewOfferForwardPoints2(val float64) *OfferForwardPoints2Field {
@@ -11859,10 +11877,10 @@ func NewOfferForwardPoints2(val float64) *OfferForwardPoints2Field {
 }
 
 //OfferPxField is a PRICE field
-type OfferPxField struct{ fix.PriceValue }
+type OfferPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.OfferPx (133)
-func (f OfferPxField) Tag() fix.Tag { return tag.OfferPx }
+func (f OfferPxField) Tag() quickfix.Tag { return tag.OfferPx }
 
 //NewOfferPx returns a new OfferPxField initialized with val
 func NewOfferPx(val float64) *OfferPxField {
@@ -11872,10 +11890,10 @@ func NewOfferPx(val float64) *OfferPxField {
 }
 
 //OfferSizeField is a QTY field
-type OfferSizeField struct{ fix.QtyValue }
+type OfferSizeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.OfferSize (135)
-func (f OfferSizeField) Tag() fix.Tag { return tag.OfferSize }
+func (f OfferSizeField) Tag() quickfix.Tag { return tag.OfferSize }
 
 //NewOfferSize returns a new OfferSizeField initialized with val
 func NewOfferSize(val float64) *OfferSizeField {
@@ -11885,10 +11903,10 @@ func NewOfferSize(val float64) *OfferSizeField {
 }
 
 //OfferSpotRateField is a PRICE field
-type OfferSpotRateField struct{ fix.PriceValue }
+type OfferSpotRateField struct{ quickfix.PriceValue }
 
 //Tag returns tag.OfferSpotRate (190)
-func (f OfferSpotRateField) Tag() fix.Tag { return tag.OfferSpotRate }
+func (f OfferSpotRateField) Tag() quickfix.Tag { return tag.OfferSpotRate }
 
 //NewOfferSpotRate returns a new OfferSpotRateField initialized with val
 func NewOfferSpotRate(val float64) *OfferSpotRateField {
@@ -11898,10 +11916,10 @@ func NewOfferSpotRate(val float64) *OfferSpotRateField {
 }
 
 //OfferSwapPointsField is a PRICEOFFSET field
-type OfferSwapPointsField struct{ fix.PriceOffsetValue }
+type OfferSwapPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.OfferSwapPoints (1066)
-func (f OfferSwapPointsField) Tag() fix.Tag { return tag.OfferSwapPoints }
+func (f OfferSwapPointsField) Tag() quickfix.Tag { return tag.OfferSwapPoints }
 
 //NewOfferSwapPoints returns a new OfferSwapPointsField initialized with val
 func NewOfferSwapPoints(val float64) *OfferSwapPointsField {
@@ -11911,10 +11929,10 @@ func NewOfferSwapPoints(val float64) *OfferSwapPointsField {
 }
 
 //OfferYieldField is a PERCENTAGE field
-type OfferYieldField struct{ fix.PercentageValue }
+type OfferYieldField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.OfferYield (634)
-func (f OfferYieldField) Tag() fix.Tag { return tag.OfferYield }
+func (f OfferYieldField) Tag() quickfix.Tag { return tag.OfferYield }
 
 //NewOfferYield returns a new OfferYieldField initialized with val
 func NewOfferYield(val float64) *OfferYieldField {
@@ -11924,10 +11942,10 @@ func NewOfferYield(val float64) *OfferYieldField {
 }
 
 //OnBehalfOfCompIDField is a STRING field
-type OnBehalfOfCompIDField struct{ fix.StringValue }
+type OnBehalfOfCompIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OnBehalfOfCompID (115)
-func (f OnBehalfOfCompIDField) Tag() fix.Tag { return tag.OnBehalfOfCompID }
+func (f OnBehalfOfCompIDField) Tag() quickfix.Tag { return tag.OnBehalfOfCompID }
 
 //NewOnBehalfOfCompID returns a new OnBehalfOfCompIDField initialized with val
 func NewOnBehalfOfCompID(val string) *OnBehalfOfCompIDField {
@@ -11937,10 +11955,10 @@ func NewOnBehalfOfCompID(val string) *OnBehalfOfCompIDField {
 }
 
 //OnBehalfOfLocationIDField is a STRING field
-type OnBehalfOfLocationIDField struct{ fix.StringValue }
+type OnBehalfOfLocationIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OnBehalfOfLocationID (144)
-func (f OnBehalfOfLocationIDField) Tag() fix.Tag { return tag.OnBehalfOfLocationID }
+func (f OnBehalfOfLocationIDField) Tag() quickfix.Tag { return tag.OnBehalfOfLocationID }
 
 //NewOnBehalfOfLocationID returns a new OnBehalfOfLocationIDField initialized with val
 func NewOnBehalfOfLocationID(val string) *OnBehalfOfLocationIDField {
@@ -11950,16 +11968,16 @@ func NewOnBehalfOfLocationID(val string) *OnBehalfOfLocationIDField {
 }
 
 //OnBehalfOfSendingTimeField is a UTCTIMESTAMP field
-type OnBehalfOfSendingTimeField struct{ fix.UTCTimestampValue }
+type OnBehalfOfSendingTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.OnBehalfOfSendingTime (370)
-func (f OnBehalfOfSendingTimeField) Tag() fix.Tag { return tag.OnBehalfOfSendingTime }
+func (f OnBehalfOfSendingTimeField) Tag() quickfix.Tag { return tag.OnBehalfOfSendingTime }
 
 //OnBehalfOfSubIDField is a STRING field
-type OnBehalfOfSubIDField struct{ fix.StringValue }
+type OnBehalfOfSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OnBehalfOfSubID (116)
-func (f OnBehalfOfSubIDField) Tag() fix.Tag { return tag.OnBehalfOfSubID }
+func (f OnBehalfOfSubIDField) Tag() quickfix.Tag { return tag.OnBehalfOfSubID }
 
 //NewOnBehalfOfSubID returns a new OnBehalfOfSubIDField initialized with val
 func NewOnBehalfOfSubID(val string) *OnBehalfOfSubIDField {
@@ -11969,10 +11987,10 @@ func NewOnBehalfOfSubID(val string) *OnBehalfOfSubIDField {
 }
 
 //OpenCloseField is a CHAR field
-type OpenCloseField struct{ fix.CharValue }
+type OpenCloseField struct{ quickfix.CharValue }
 
 //Tag returns tag.OpenClose (77)
-func (f OpenCloseField) Tag() fix.Tag { return tag.OpenClose }
+func (f OpenCloseField) Tag() quickfix.Tag { return tag.OpenClose }
 
 //NewOpenClose returns a new OpenCloseField initialized with val
 func NewOpenClose(val string) *OpenCloseField {
@@ -11982,10 +12000,10 @@ func NewOpenClose(val string) *OpenCloseField {
 }
 
 //OpenCloseSettlFlagField is a MULTIPLECHARVALUE field
-type OpenCloseSettlFlagField struct{ fix.MultipleCharValue }
+type OpenCloseSettlFlagField struct{ quickfix.MultipleCharValue }
 
 //Tag returns tag.OpenCloseSettlFlag (286)
-func (f OpenCloseSettlFlagField) Tag() fix.Tag { return tag.OpenCloseSettlFlag }
+func (f OpenCloseSettlFlagField) Tag() quickfix.Tag { return tag.OpenCloseSettlFlag }
 
 //NewOpenCloseSettlFlag returns a new OpenCloseSettlFlagField initialized with val
 func NewOpenCloseSettlFlag(val string) *OpenCloseSettlFlagField {
@@ -11995,10 +12013,10 @@ func NewOpenCloseSettlFlag(val string) *OpenCloseSettlFlagField {
 }
 
 //OpenCloseSettleFlagField is a MULTIPLEVALUESTRING field
-type OpenCloseSettleFlagField struct{ fix.MultipleStringValue }
+type OpenCloseSettleFlagField struct{ quickfix.MultipleStringValue }
 
 //Tag returns tag.OpenCloseSettleFlag (286)
-func (f OpenCloseSettleFlagField) Tag() fix.Tag { return tag.OpenCloseSettleFlag }
+func (f OpenCloseSettleFlagField) Tag() quickfix.Tag { return tag.OpenCloseSettleFlag }
 
 //NewOpenCloseSettleFlag returns a new OpenCloseSettleFlagField initialized with val
 func NewOpenCloseSettleFlag(val string) *OpenCloseSettleFlagField {
@@ -12008,10 +12026,10 @@ func NewOpenCloseSettleFlag(val string) *OpenCloseSettleFlagField {
 }
 
 //OpenInterestField is a AMT field
-type OpenInterestField struct{ fix.AmtValue }
+type OpenInterestField struct{ quickfix.AmtValue }
 
 //Tag returns tag.OpenInterest (746)
-func (f OpenInterestField) Tag() fix.Tag { return tag.OpenInterest }
+func (f OpenInterestField) Tag() quickfix.Tag { return tag.OpenInterest }
 
 //NewOpenInterest returns a new OpenInterestField initialized with val
 func NewOpenInterest(val float64) *OpenInterestField {
@@ -12021,10 +12039,10 @@ func NewOpenInterest(val float64) *OpenInterestField {
 }
 
 //OptAttributeField is a CHAR field
-type OptAttributeField struct{ fix.CharValue }
+type OptAttributeField struct{ quickfix.CharValue }
 
 //Tag returns tag.OptAttribute (206)
-func (f OptAttributeField) Tag() fix.Tag { return tag.OptAttribute }
+func (f OptAttributeField) Tag() quickfix.Tag { return tag.OptAttribute }
 
 //NewOptAttribute returns a new OptAttributeField initialized with val
 func NewOptAttribute(val string) *OptAttributeField {
@@ -12034,10 +12052,10 @@ func NewOptAttribute(val string) *OptAttributeField {
 }
 
 //OptPayAmountField is a AMT field
-type OptPayAmountField struct{ fix.AmtValue }
+type OptPayAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.OptPayAmount (1195)
-func (f OptPayAmountField) Tag() fix.Tag { return tag.OptPayAmount }
+func (f OptPayAmountField) Tag() quickfix.Tag { return tag.OptPayAmount }
 
 //NewOptPayAmount returns a new OptPayAmountField initialized with val
 func NewOptPayAmount(val float64) *OptPayAmountField {
@@ -12047,10 +12065,10 @@ func NewOptPayAmount(val float64) *OptPayAmountField {
 }
 
 //OptPayoutAmountField is a AMT field
-type OptPayoutAmountField struct{ fix.AmtValue }
+type OptPayoutAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.OptPayoutAmount (1195)
-func (f OptPayoutAmountField) Tag() fix.Tag { return tag.OptPayoutAmount }
+func (f OptPayoutAmountField) Tag() quickfix.Tag { return tag.OptPayoutAmount }
 
 //NewOptPayoutAmount returns a new OptPayoutAmountField initialized with val
 func NewOptPayoutAmount(val float64) *OptPayoutAmountField {
@@ -12060,10 +12078,10 @@ func NewOptPayoutAmount(val float64) *OptPayoutAmountField {
 }
 
 //OptPayoutTypeField is a INT field
-type OptPayoutTypeField struct{ fix.IntValue }
+type OptPayoutTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.OptPayoutType (1482)
-func (f OptPayoutTypeField) Tag() fix.Tag { return tag.OptPayoutType }
+func (f OptPayoutTypeField) Tag() quickfix.Tag { return tag.OptPayoutType }
 
 //NewOptPayoutType returns a new OptPayoutTypeField initialized with val
 func NewOptPayoutType(val int) *OptPayoutTypeField {
@@ -12073,10 +12091,10 @@ func NewOptPayoutType(val int) *OptPayoutTypeField {
 }
 
 //OrdRejReasonField is a INT field
-type OrdRejReasonField struct{ fix.IntValue }
+type OrdRejReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.OrdRejReason (103)
-func (f OrdRejReasonField) Tag() fix.Tag { return tag.OrdRejReason }
+func (f OrdRejReasonField) Tag() quickfix.Tag { return tag.OrdRejReason }
 
 //NewOrdRejReason returns a new OrdRejReasonField initialized with val
 func NewOrdRejReason(val int) *OrdRejReasonField {
@@ -12086,10 +12104,10 @@ func NewOrdRejReason(val int) *OrdRejReasonField {
 }
 
 //OrdStatusField is a CHAR field
-type OrdStatusField struct{ fix.CharValue }
+type OrdStatusField struct{ quickfix.CharValue }
 
 //Tag returns tag.OrdStatus (39)
-func (f OrdStatusField) Tag() fix.Tag { return tag.OrdStatus }
+func (f OrdStatusField) Tag() quickfix.Tag { return tag.OrdStatus }
 
 //NewOrdStatus returns a new OrdStatusField initialized with val
 func NewOrdStatus(val string) *OrdStatusField {
@@ -12099,10 +12117,10 @@ func NewOrdStatus(val string) *OrdStatusField {
 }
 
 //OrdStatusReqIDField is a STRING field
-type OrdStatusReqIDField struct{ fix.StringValue }
+type OrdStatusReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OrdStatusReqID (790)
-func (f OrdStatusReqIDField) Tag() fix.Tag { return tag.OrdStatusReqID }
+func (f OrdStatusReqIDField) Tag() quickfix.Tag { return tag.OrdStatusReqID }
 
 //NewOrdStatusReqID returns a new OrdStatusReqIDField initialized with val
 func NewOrdStatusReqID(val string) *OrdStatusReqIDField {
@@ -12112,10 +12130,10 @@ func NewOrdStatusReqID(val string) *OrdStatusReqIDField {
 }
 
 //OrdTypeField is a CHAR field
-type OrdTypeField struct{ fix.CharValue }
+type OrdTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.OrdType (40)
-func (f OrdTypeField) Tag() fix.Tag { return tag.OrdType }
+func (f OrdTypeField) Tag() quickfix.Tag { return tag.OrdType }
 
 //NewOrdType returns a new OrdTypeField initialized with val
 func NewOrdType(val string) *OrdTypeField {
@@ -12125,10 +12143,10 @@ func NewOrdType(val string) *OrdTypeField {
 }
 
 //OrderAvgPxField is a PRICE field
-type OrderAvgPxField struct{ fix.PriceValue }
+type OrderAvgPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.OrderAvgPx (799)
-func (f OrderAvgPxField) Tag() fix.Tag { return tag.OrderAvgPx }
+func (f OrderAvgPxField) Tag() quickfix.Tag { return tag.OrderAvgPx }
 
 //NewOrderAvgPx returns a new OrderAvgPxField initialized with val
 func NewOrderAvgPx(val float64) *OrderAvgPxField {
@@ -12138,10 +12156,10 @@ func NewOrderAvgPx(val float64) *OrderAvgPxField {
 }
 
 //OrderBookingQtyField is a QTY field
-type OrderBookingQtyField struct{ fix.QtyValue }
+type OrderBookingQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.OrderBookingQty (800)
-func (f OrderBookingQtyField) Tag() fix.Tag { return tag.OrderBookingQty }
+func (f OrderBookingQtyField) Tag() quickfix.Tag { return tag.OrderBookingQty }
 
 //NewOrderBookingQty returns a new OrderBookingQtyField initialized with val
 func NewOrderBookingQty(val float64) *OrderBookingQtyField {
@@ -12151,10 +12169,10 @@ func NewOrderBookingQty(val float64) *OrderBookingQtyField {
 }
 
 //OrderCapacityField is a CHAR field
-type OrderCapacityField struct{ fix.CharValue }
+type OrderCapacityField struct{ quickfix.CharValue }
 
 //Tag returns tag.OrderCapacity (528)
-func (f OrderCapacityField) Tag() fix.Tag { return tag.OrderCapacity }
+func (f OrderCapacityField) Tag() quickfix.Tag { return tag.OrderCapacity }
 
 //NewOrderCapacity returns a new OrderCapacityField initialized with val
 func NewOrderCapacity(val string) *OrderCapacityField {
@@ -12164,10 +12182,10 @@ func NewOrderCapacity(val string) *OrderCapacityField {
 }
 
 //OrderCapacityQtyField is a QTY field
-type OrderCapacityQtyField struct{ fix.QtyValue }
+type OrderCapacityQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.OrderCapacityQty (863)
-func (f OrderCapacityQtyField) Tag() fix.Tag { return tag.OrderCapacityQty }
+func (f OrderCapacityQtyField) Tag() quickfix.Tag { return tag.OrderCapacityQty }
 
 //NewOrderCapacityQty returns a new OrderCapacityQtyField initialized with val
 func NewOrderCapacityQty(val float64) *OrderCapacityQtyField {
@@ -12177,10 +12195,10 @@ func NewOrderCapacityQty(val float64) *OrderCapacityQtyField {
 }
 
 //OrderCategoryField is a CHAR field
-type OrderCategoryField struct{ fix.CharValue }
+type OrderCategoryField struct{ quickfix.CharValue }
 
 //Tag returns tag.OrderCategory (1115)
-func (f OrderCategoryField) Tag() fix.Tag { return tag.OrderCategory }
+func (f OrderCategoryField) Tag() quickfix.Tag { return tag.OrderCategory }
 
 //NewOrderCategory returns a new OrderCategoryField initialized with val
 func NewOrderCategory(val string) *OrderCategoryField {
@@ -12190,10 +12208,10 @@ func NewOrderCategory(val string) *OrderCategoryField {
 }
 
 //OrderDelayField is a INT field
-type OrderDelayField struct{ fix.IntValue }
+type OrderDelayField struct{ quickfix.IntValue }
 
 //Tag returns tag.OrderDelay (1428)
-func (f OrderDelayField) Tag() fix.Tag { return tag.OrderDelay }
+func (f OrderDelayField) Tag() quickfix.Tag { return tag.OrderDelay }
 
 //NewOrderDelay returns a new OrderDelayField initialized with val
 func NewOrderDelay(val int) *OrderDelayField {
@@ -12203,10 +12221,10 @@ func NewOrderDelay(val int) *OrderDelayField {
 }
 
 //OrderDelayUnitField is a INT field
-type OrderDelayUnitField struct{ fix.IntValue }
+type OrderDelayUnitField struct{ quickfix.IntValue }
 
 //Tag returns tag.OrderDelayUnit (1429)
-func (f OrderDelayUnitField) Tag() fix.Tag { return tag.OrderDelayUnit }
+func (f OrderDelayUnitField) Tag() quickfix.Tag { return tag.OrderDelayUnit }
 
 //NewOrderDelayUnit returns a new OrderDelayUnitField initialized with val
 func NewOrderDelayUnit(val int) *OrderDelayUnitField {
@@ -12216,10 +12234,10 @@ func NewOrderDelayUnit(val int) *OrderDelayUnitField {
 }
 
 //OrderHandlingInstSourceField is a INT field
-type OrderHandlingInstSourceField struct{ fix.IntValue }
+type OrderHandlingInstSourceField struct{ quickfix.IntValue }
 
 //Tag returns tag.OrderHandlingInstSource (1032)
-func (f OrderHandlingInstSourceField) Tag() fix.Tag { return tag.OrderHandlingInstSource }
+func (f OrderHandlingInstSourceField) Tag() quickfix.Tag { return tag.OrderHandlingInstSource }
 
 //NewOrderHandlingInstSource returns a new OrderHandlingInstSourceField initialized with val
 func NewOrderHandlingInstSource(val int) *OrderHandlingInstSourceField {
@@ -12229,10 +12247,10 @@ func NewOrderHandlingInstSource(val int) *OrderHandlingInstSourceField {
 }
 
 //OrderIDField is a STRING field
-type OrderIDField struct{ fix.StringValue }
+type OrderIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OrderID (37)
-func (f OrderIDField) Tag() fix.Tag { return tag.OrderID }
+func (f OrderIDField) Tag() quickfix.Tag { return tag.OrderID }
 
 //NewOrderID returns a new OrderIDField initialized with val
 func NewOrderID(val string) *OrderIDField {
@@ -12242,10 +12260,10 @@ func NewOrderID(val string) *OrderIDField {
 }
 
 //OrderInputDeviceField is a STRING field
-type OrderInputDeviceField struct{ fix.StringValue }
+type OrderInputDeviceField struct{ quickfix.StringValue }
 
 //Tag returns tag.OrderInputDevice (821)
-func (f OrderInputDeviceField) Tag() fix.Tag { return tag.OrderInputDevice }
+func (f OrderInputDeviceField) Tag() quickfix.Tag { return tag.OrderInputDevice }
 
 //NewOrderInputDevice returns a new OrderInputDeviceField initialized with val
 func NewOrderInputDevice(val string) *OrderInputDeviceField {
@@ -12255,10 +12273,10 @@ func NewOrderInputDevice(val string) *OrderInputDeviceField {
 }
 
 //OrderPercentField is a PERCENTAGE field
-type OrderPercentField struct{ fix.PercentageValue }
+type OrderPercentField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.OrderPercent (516)
-func (f OrderPercentField) Tag() fix.Tag { return tag.OrderPercent }
+func (f OrderPercentField) Tag() quickfix.Tag { return tag.OrderPercent }
 
 //NewOrderPercent returns a new OrderPercentField initialized with val
 func NewOrderPercent(val float64) *OrderPercentField {
@@ -12268,10 +12286,10 @@ func NewOrderPercent(val float64) *OrderPercentField {
 }
 
 //OrderQtyField is a QTY field
-type OrderQtyField struct{ fix.QtyValue }
+type OrderQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.OrderQty (38)
-func (f OrderQtyField) Tag() fix.Tag { return tag.OrderQty }
+func (f OrderQtyField) Tag() quickfix.Tag { return tag.OrderQty }
 
 //NewOrderQty returns a new OrderQtyField initialized with val
 func NewOrderQty(val float64) *OrderQtyField {
@@ -12281,10 +12299,10 @@ func NewOrderQty(val float64) *OrderQtyField {
 }
 
 //OrderQty2Field is a QTY field
-type OrderQty2Field struct{ fix.QtyValue }
+type OrderQty2Field struct{ quickfix.QtyValue }
 
 //Tag returns tag.OrderQty2 (192)
-func (f OrderQty2Field) Tag() fix.Tag { return tag.OrderQty2 }
+func (f OrderQty2Field) Tag() quickfix.Tag { return tag.OrderQty2 }
 
 //NewOrderQty2 returns a new OrderQty2Field initialized with val
 func NewOrderQty2(val float64) *OrderQty2Field {
@@ -12294,10 +12312,10 @@ func NewOrderQty2(val float64) *OrderQty2Field {
 }
 
 //OrderRestrictionsField is a MULTIPLECHARVALUE field
-type OrderRestrictionsField struct{ fix.MultipleCharValue }
+type OrderRestrictionsField struct{ quickfix.MultipleCharValue }
 
 //Tag returns tag.OrderRestrictions (529)
-func (f OrderRestrictionsField) Tag() fix.Tag { return tag.OrderRestrictions }
+func (f OrderRestrictionsField) Tag() quickfix.Tag { return tag.OrderRestrictions }
 
 //NewOrderRestrictions returns a new OrderRestrictionsField initialized with val
 func NewOrderRestrictions(val string) *OrderRestrictionsField {
@@ -12307,10 +12325,10 @@ func NewOrderRestrictions(val string) *OrderRestrictionsField {
 }
 
 //OrigClOrdIDField is a STRING field
-type OrigClOrdIDField struct{ fix.StringValue }
+type OrigClOrdIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OrigClOrdID (41)
-func (f OrigClOrdIDField) Tag() fix.Tag { return tag.OrigClOrdID }
+func (f OrigClOrdIDField) Tag() quickfix.Tag { return tag.OrigClOrdID }
 
 //NewOrigClOrdID returns a new OrigClOrdIDField initialized with val
 func NewOrigClOrdID(val string) *OrigClOrdIDField {
@@ -12320,10 +12338,10 @@ func NewOrigClOrdID(val string) *OrigClOrdIDField {
 }
 
 //OrigCrossIDField is a STRING field
-type OrigCrossIDField struct{ fix.StringValue }
+type OrigCrossIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OrigCrossID (551)
-func (f OrigCrossIDField) Tag() fix.Tag { return tag.OrigCrossID }
+func (f OrigCrossIDField) Tag() quickfix.Tag { return tag.OrigCrossID }
 
 //NewOrigCrossID returns a new OrigCrossIDField initialized with val
 func NewOrigCrossID(val string) *OrigCrossIDField {
@@ -12333,10 +12351,10 @@ func NewOrigCrossID(val string) *OrigCrossIDField {
 }
 
 //OrigCustOrderCapacityField is a INT field
-type OrigCustOrderCapacityField struct{ fix.IntValue }
+type OrigCustOrderCapacityField struct{ quickfix.IntValue }
 
 //Tag returns tag.OrigCustOrderCapacity (1432)
-func (f OrigCustOrderCapacityField) Tag() fix.Tag { return tag.OrigCustOrderCapacity }
+func (f OrigCustOrderCapacityField) Tag() quickfix.Tag { return tag.OrigCustOrderCapacity }
 
 //NewOrigCustOrderCapacity returns a new OrigCustOrderCapacityField initialized with val
 func NewOrigCustOrderCapacity(val int) *OrigCustOrderCapacityField {
@@ -12346,16 +12364,16 @@ func NewOrigCustOrderCapacity(val int) *OrigCustOrderCapacityField {
 }
 
 //OrigOrdModTimeField is a UTCTIMESTAMP field
-type OrigOrdModTimeField struct{ fix.UTCTimestampValue }
+type OrigOrdModTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.OrigOrdModTime (586)
-func (f OrigOrdModTimeField) Tag() fix.Tag { return tag.OrigOrdModTime }
+func (f OrigOrdModTimeField) Tag() quickfix.Tag { return tag.OrigOrdModTime }
 
 //OrigPosReqRefIDField is a STRING field
-type OrigPosReqRefIDField struct{ fix.StringValue }
+type OrigPosReqRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OrigPosReqRefID (713)
-func (f OrigPosReqRefIDField) Tag() fix.Tag { return tag.OrigPosReqRefID }
+func (f OrigPosReqRefIDField) Tag() quickfix.Tag { return tag.OrigPosReqRefID }
 
 //NewOrigPosReqRefID returns a new OrigPosReqRefIDField initialized with val
 func NewOrigPosReqRefID(val string) *OrigPosReqRefIDField {
@@ -12365,10 +12383,10 @@ func NewOrigPosReqRefID(val string) *OrigPosReqRefIDField {
 }
 
 //OrigSecondaryTradeIDField is a STRING field
-type OrigSecondaryTradeIDField struct{ fix.StringValue }
+type OrigSecondaryTradeIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OrigSecondaryTradeID (1127)
-func (f OrigSecondaryTradeIDField) Tag() fix.Tag { return tag.OrigSecondaryTradeID }
+func (f OrigSecondaryTradeIDField) Tag() quickfix.Tag { return tag.OrigSecondaryTradeID }
 
 //NewOrigSecondaryTradeID returns a new OrigSecondaryTradeIDField initialized with val
 func NewOrigSecondaryTradeID(val string) *OrigSecondaryTradeIDField {
@@ -12378,22 +12396,22 @@ func NewOrigSecondaryTradeID(val string) *OrigSecondaryTradeIDField {
 }
 
 //OrigSendingTimeField is a UTCTIMESTAMP field
-type OrigSendingTimeField struct{ fix.UTCTimestampValue }
+type OrigSendingTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.OrigSendingTime (122)
-func (f OrigSendingTimeField) Tag() fix.Tag { return tag.OrigSendingTime }
+func (f OrigSendingTimeField) Tag() quickfix.Tag { return tag.OrigSendingTime }
 
 //OrigTimeField is a UTCTIMESTAMP field
-type OrigTimeField struct{ fix.UTCTimestampValue }
+type OrigTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.OrigTime (42)
-func (f OrigTimeField) Tag() fix.Tag { return tag.OrigTime }
+func (f OrigTimeField) Tag() quickfix.Tag { return tag.OrigTime }
 
 //OrigTradeDateField is a LOCALMKTDATE field
-type OrigTradeDateField struct{ fix.LocalMktDateValue }
+type OrigTradeDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.OrigTradeDate (1125)
-func (f OrigTradeDateField) Tag() fix.Tag { return tag.OrigTradeDate }
+func (f OrigTradeDateField) Tag() quickfix.Tag { return tag.OrigTradeDate }
 
 //NewOrigTradeDate returns a new OrigTradeDateField initialized with val
 func NewOrigTradeDate(val string) *OrigTradeDateField {
@@ -12403,10 +12421,10 @@ func NewOrigTradeDate(val string) *OrigTradeDateField {
 }
 
 //OrigTradeHandlingInstrField is a CHAR field
-type OrigTradeHandlingInstrField struct{ fix.CharValue }
+type OrigTradeHandlingInstrField struct{ quickfix.CharValue }
 
 //Tag returns tag.OrigTradeHandlingInstr (1124)
-func (f OrigTradeHandlingInstrField) Tag() fix.Tag { return tag.OrigTradeHandlingInstr }
+func (f OrigTradeHandlingInstrField) Tag() quickfix.Tag { return tag.OrigTradeHandlingInstr }
 
 //NewOrigTradeHandlingInstr returns a new OrigTradeHandlingInstrField initialized with val
 func NewOrigTradeHandlingInstr(val string) *OrigTradeHandlingInstrField {
@@ -12416,10 +12434,10 @@ func NewOrigTradeHandlingInstr(val string) *OrigTradeHandlingInstrField {
 }
 
 //OrigTradeIDField is a STRING field
-type OrigTradeIDField struct{ fix.StringValue }
+type OrigTradeIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.OrigTradeID (1126)
-func (f OrigTradeIDField) Tag() fix.Tag { return tag.OrigTradeID }
+func (f OrigTradeIDField) Tag() quickfix.Tag { return tag.OrigTradeID }
 
 //NewOrigTradeID returns a new OrigTradeIDField initialized with val
 func NewOrigTradeID(val string) *OrigTradeIDField {
@@ -12429,10 +12447,10 @@ func NewOrigTradeID(val string) *OrigTradeIDField {
 }
 
 //OriginalNotionalPercentageOutstandingField is a PERCENTAGE field
-type OriginalNotionalPercentageOutstandingField struct{ fix.PercentageValue }
+type OriginalNotionalPercentageOutstandingField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.OriginalNotionalPercentageOutstanding (1452)
-func (f OriginalNotionalPercentageOutstandingField) Tag() fix.Tag {
+func (f OriginalNotionalPercentageOutstandingField) Tag() quickfix.Tag {
 	return tag.OriginalNotionalPercentageOutstanding
 }
 
@@ -12444,10 +12462,10 @@ func NewOriginalNotionalPercentageOutstanding(val float64) *OriginalNotionalPerc
 }
 
 //OutMainCntryUIndexField is a AMT field
-type OutMainCntryUIndexField struct{ fix.AmtValue }
+type OutMainCntryUIndexField struct{ quickfix.AmtValue }
 
 //Tag returns tag.OutMainCntryUIndex (412)
-func (f OutMainCntryUIndexField) Tag() fix.Tag { return tag.OutMainCntryUIndex }
+func (f OutMainCntryUIndexField) Tag() quickfix.Tag { return tag.OutMainCntryUIndex }
 
 //NewOutMainCntryUIndex returns a new OutMainCntryUIndexField initialized with val
 func NewOutMainCntryUIndex(val float64) *OutMainCntryUIndexField {
@@ -12457,10 +12475,10 @@ func NewOutMainCntryUIndex(val float64) *OutMainCntryUIndexField {
 }
 
 //OutsideIndexPctField is a PERCENTAGE field
-type OutsideIndexPctField struct{ fix.PercentageValue }
+type OutsideIndexPctField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.OutsideIndexPct (407)
-func (f OutsideIndexPctField) Tag() fix.Tag { return tag.OutsideIndexPct }
+func (f OutsideIndexPctField) Tag() quickfix.Tag { return tag.OutsideIndexPct }
 
 //NewOutsideIndexPct returns a new OutsideIndexPctField initialized with val
 func NewOutsideIndexPct(val float64) *OutsideIndexPctField {
@@ -12470,10 +12488,10 @@ func NewOutsideIndexPct(val float64) *OutsideIndexPctField {
 }
 
 //OwnerTypeField is a INT field
-type OwnerTypeField struct{ fix.IntValue }
+type OwnerTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.OwnerType (522)
-func (f OwnerTypeField) Tag() fix.Tag { return tag.OwnerType }
+func (f OwnerTypeField) Tag() quickfix.Tag { return tag.OwnerType }
 
 //NewOwnerType returns a new OwnerTypeField initialized with val
 func NewOwnerType(val int) *OwnerTypeField {
@@ -12483,10 +12501,10 @@ func NewOwnerType(val int) *OwnerTypeField {
 }
 
 //OwnershipTypeField is a CHAR field
-type OwnershipTypeField struct{ fix.CharValue }
+type OwnershipTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.OwnershipType (517)
-func (f OwnershipTypeField) Tag() fix.Tag { return tag.OwnershipType }
+func (f OwnershipTypeField) Tag() quickfix.Tag { return tag.OwnershipType }
 
 //NewOwnershipType returns a new OwnershipTypeField initialized with val
 func NewOwnershipType(val string) *OwnershipTypeField {
@@ -12496,10 +12514,10 @@ func NewOwnershipType(val string) *OwnershipTypeField {
 }
 
 //ParentMktSegmIDField is a STRING field
-type ParentMktSegmIDField struct{ fix.StringValue }
+type ParentMktSegmIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ParentMktSegmID (1325)
-func (f ParentMktSegmIDField) Tag() fix.Tag { return tag.ParentMktSegmID }
+func (f ParentMktSegmIDField) Tag() quickfix.Tag { return tag.ParentMktSegmID }
 
 //NewParentMktSegmID returns a new ParentMktSegmIDField initialized with val
 func NewParentMktSegmID(val string) *ParentMktSegmIDField {
@@ -12509,10 +12527,10 @@ func NewParentMktSegmID(val string) *ParentMktSegmIDField {
 }
 
 //ParticipationRateField is a PERCENTAGE field
-type ParticipationRateField struct{ fix.PercentageValue }
+type ParticipationRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.ParticipationRate (849)
-func (f ParticipationRateField) Tag() fix.Tag { return tag.ParticipationRate }
+func (f ParticipationRateField) Tag() quickfix.Tag { return tag.ParticipationRate }
 
 //NewParticipationRate returns a new ParticipationRateField initialized with val
 func NewParticipationRate(val float64) *ParticipationRateField {
@@ -12522,10 +12540,10 @@ func NewParticipationRate(val float64) *ParticipationRateField {
 }
 
 //PartyAltIDField is a STRING field
-type PartyAltIDField struct{ fix.StringValue }
+type PartyAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PartyAltID (1517)
-func (f PartyAltIDField) Tag() fix.Tag { return tag.PartyAltID }
+func (f PartyAltIDField) Tag() quickfix.Tag { return tag.PartyAltID }
 
 //NewPartyAltID returns a new PartyAltIDField initialized with val
 func NewPartyAltID(val string) *PartyAltIDField {
@@ -12535,10 +12553,10 @@ func NewPartyAltID(val string) *PartyAltIDField {
 }
 
 //PartyAltIDSourceField is a CHAR field
-type PartyAltIDSourceField struct{ fix.CharValue }
+type PartyAltIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.PartyAltIDSource (1518)
-func (f PartyAltIDSourceField) Tag() fix.Tag { return tag.PartyAltIDSource }
+func (f PartyAltIDSourceField) Tag() quickfix.Tag { return tag.PartyAltIDSource }
 
 //NewPartyAltIDSource returns a new PartyAltIDSourceField initialized with val
 func NewPartyAltIDSource(val string) *PartyAltIDSourceField {
@@ -12548,10 +12566,10 @@ func NewPartyAltIDSource(val string) *PartyAltIDSourceField {
 }
 
 //PartyAltSubIDField is a STRING field
-type PartyAltSubIDField struct{ fix.StringValue }
+type PartyAltSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PartyAltSubID (1520)
-func (f PartyAltSubIDField) Tag() fix.Tag { return tag.PartyAltSubID }
+func (f PartyAltSubIDField) Tag() quickfix.Tag { return tag.PartyAltSubID }
 
 //NewPartyAltSubID returns a new PartyAltSubIDField initialized with val
 func NewPartyAltSubID(val string) *PartyAltSubIDField {
@@ -12561,10 +12579,10 @@ func NewPartyAltSubID(val string) *PartyAltSubIDField {
 }
 
 //PartyAltSubIDTypeField is a INT field
-type PartyAltSubIDTypeField struct{ fix.IntValue }
+type PartyAltSubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PartyAltSubIDType (1521)
-func (f PartyAltSubIDTypeField) Tag() fix.Tag { return tag.PartyAltSubIDType }
+func (f PartyAltSubIDTypeField) Tag() quickfix.Tag { return tag.PartyAltSubIDType }
 
 //NewPartyAltSubIDType returns a new PartyAltSubIDTypeField initialized with val
 func NewPartyAltSubIDType(val int) *PartyAltSubIDTypeField {
@@ -12574,10 +12592,10 @@ func NewPartyAltSubIDType(val int) *PartyAltSubIDTypeField {
 }
 
 //PartyDetailsListReportIDField is a STRING field
-type PartyDetailsListReportIDField struct{ fix.StringValue }
+type PartyDetailsListReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PartyDetailsListReportID (1510)
-func (f PartyDetailsListReportIDField) Tag() fix.Tag { return tag.PartyDetailsListReportID }
+func (f PartyDetailsListReportIDField) Tag() quickfix.Tag { return tag.PartyDetailsListReportID }
 
 //NewPartyDetailsListReportID returns a new PartyDetailsListReportIDField initialized with val
 func NewPartyDetailsListReportID(val string) *PartyDetailsListReportIDField {
@@ -12587,10 +12605,10 @@ func NewPartyDetailsListReportID(val string) *PartyDetailsListReportIDField {
 }
 
 //PartyDetailsListRequestIDField is a STRING field
-type PartyDetailsListRequestIDField struct{ fix.StringValue }
+type PartyDetailsListRequestIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PartyDetailsListRequestID (1505)
-func (f PartyDetailsListRequestIDField) Tag() fix.Tag { return tag.PartyDetailsListRequestID }
+func (f PartyDetailsListRequestIDField) Tag() quickfix.Tag { return tag.PartyDetailsListRequestID }
 
 //NewPartyDetailsListRequestID returns a new PartyDetailsListRequestIDField initialized with val
 func NewPartyDetailsListRequestID(val string) *PartyDetailsListRequestIDField {
@@ -12600,10 +12618,10 @@ func NewPartyDetailsListRequestID(val string) *PartyDetailsListRequestIDField {
 }
 
 //PartyDetailsRequestResultField is a INT field
-type PartyDetailsRequestResultField struct{ fix.IntValue }
+type PartyDetailsRequestResultField struct{ quickfix.IntValue }
 
 //Tag returns tag.PartyDetailsRequestResult (1511)
-func (f PartyDetailsRequestResultField) Tag() fix.Tag { return tag.PartyDetailsRequestResult }
+func (f PartyDetailsRequestResultField) Tag() quickfix.Tag { return tag.PartyDetailsRequestResult }
 
 //NewPartyDetailsRequestResult returns a new PartyDetailsRequestResultField initialized with val
 func NewPartyDetailsRequestResult(val int) *PartyDetailsRequestResultField {
@@ -12613,10 +12631,10 @@ func NewPartyDetailsRequestResult(val int) *PartyDetailsRequestResultField {
 }
 
 //PartyIDField is a STRING field
-type PartyIDField struct{ fix.StringValue }
+type PartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PartyID (448)
-func (f PartyIDField) Tag() fix.Tag { return tag.PartyID }
+func (f PartyIDField) Tag() quickfix.Tag { return tag.PartyID }
 
 //NewPartyID returns a new PartyIDField initialized with val
 func NewPartyID(val string) *PartyIDField {
@@ -12626,10 +12644,10 @@ func NewPartyID(val string) *PartyIDField {
 }
 
 //PartyIDSourceField is a CHAR field
-type PartyIDSourceField struct{ fix.CharValue }
+type PartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.PartyIDSource (447)
-func (f PartyIDSourceField) Tag() fix.Tag { return tag.PartyIDSource }
+func (f PartyIDSourceField) Tag() quickfix.Tag { return tag.PartyIDSource }
 
 //NewPartyIDSource returns a new PartyIDSourceField initialized with val
 func NewPartyIDSource(val string) *PartyIDSourceField {
@@ -12639,10 +12657,10 @@ func NewPartyIDSource(val string) *PartyIDSourceField {
 }
 
 //PartyListResponseTypeField is a INT field
-type PartyListResponseTypeField struct{ fix.IntValue }
+type PartyListResponseTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PartyListResponseType (1507)
-func (f PartyListResponseTypeField) Tag() fix.Tag { return tag.PartyListResponseType }
+func (f PartyListResponseTypeField) Tag() quickfix.Tag { return tag.PartyListResponseType }
 
 //NewPartyListResponseType returns a new PartyListResponseTypeField initialized with val
 func NewPartyListResponseType(val int) *PartyListResponseTypeField {
@@ -12652,10 +12670,10 @@ func NewPartyListResponseType(val int) *PartyListResponseTypeField {
 }
 
 //PartyRelationshipField is a INT field
-type PartyRelationshipField struct{ fix.IntValue }
+type PartyRelationshipField struct{ quickfix.IntValue }
 
 //Tag returns tag.PartyRelationship (1515)
-func (f PartyRelationshipField) Tag() fix.Tag { return tag.PartyRelationship }
+func (f PartyRelationshipField) Tag() quickfix.Tag { return tag.PartyRelationship }
 
 //NewPartyRelationship returns a new PartyRelationshipField initialized with val
 func NewPartyRelationship(val int) *PartyRelationshipField {
@@ -12665,10 +12683,10 @@ func NewPartyRelationship(val int) *PartyRelationshipField {
 }
 
 //PartyRoleField is a INT field
-type PartyRoleField struct{ fix.IntValue }
+type PartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.PartyRole (452)
-func (f PartyRoleField) Tag() fix.Tag { return tag.PartyRole }
+func (f PartyRoleField) Tag() quickfix.Tag { return tag.PartyRole }
 
 //NewPartyRole returns a new PartyRoleField initialized with val
 func NewPartyRole(val int) *PartyRoleField {
@@ -12678,10 +12696,10 @@ func NewPartyRole(val int) *PartyRoleField {
 }
 
 //PartySubIDField is a STRING field
-type PartySubIDField struct{ fix.StringValue }
+type PartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PartySubID (523)
-func (f PartySubIDField) Tag() fix.Tag { return tag.PartySubID }
+func (f PartySubIDField) Tag() quickfix.Tag { return tag.PartySubID }
 
 //NewPartySubID returns a new PartySubIDField initialized with val
 func NewPartySubID(val string) *PartySubIDField {
@@ -12691,10 +12709,10 @@ func NewPartySubID(val string) *PartySubIDField {
 }
 
 //PartySubIDTypeField is a INT field
-type PartySubIDTypeField struct{ fix.IntValue }
+type PartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PartySubIDType (803)
-func (f PartySubIDTypeField) Tag() fix.Tag { return tag.PartySubIDType }
+func (f PartySubIDTypeField) Tag() quickfix.Tag { return tag.PartySubIDType }
 
 //NewPartySubIDType returns a new PartySubIDTypeField initialized with val
 func NewPartySubIDType(val int) *PartySubIDTypeField {
@@ -12704,10 +12722,10 @@ func NewPartySubIDType(val int) *PartySubIDTypeField {
 }
 
 //PasswordField is a STRING field
-type PasswordField struct{ fix.StringValue }
+type PasswordField struct{ quickfix.StringValue }
 
 //Tag returns tag.Password (554)
-func (f PasswordField) Tag() fix.Tag { return tag.Password }
+func (f PasswordField) Tag() quickfix.Tag { return tag.Password }
 
 //NewPassword returns a new PasswordField initialized with val
 func NewPassword(val string) *PasswordField {
@@ -12717,10 +12735,10 @@ func NewPassword(val string) *PasswordField {
 }
 
 //PaymentDateField is a LOCALMKTDATE field
-type PaymentDateField struct{ fix.LocalMktDateValue }
+type PaymentDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.PaymentDate (504)
-func (f PaymentDateField) Tag() fix.Tag { return tag.PaymentDate }
+func (f PaymentDateField) Tag() quickfix.Tag { return tag.PaymentDate }
 
 //NewPaymentDate returns a new PaymentDateField initialized with val
 func NewPaymentDate(val string) *PaymentDateField {
@@ -12730,10 +12748,10 @@ func NewPaymentDate(val string) *PaymentDateField {
 }
 
 //PaymentMethodField is a INT field
-type PaymentMethodField struct{ fix.IntValue }
+type PaymentMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.PaymentMethod (492)
-func (f PaymentMethodField) Tag() fix.Tag { return tag.PaymentMethod }
+func (f PaymentMethodField) Tag() quickfix.Tag { return tag.PaymentMethod }
 
 //NewPaymentMethod returns a new PaymentMethodField initialized with val
 func NewPaymentMethod(val int) *PaymentMethodField {
@@ -12743,10 +12761,10 @@ func NewPaymentMethod(val int) *PaymentMethodField {
 }
 
 //PaymentRefField is a STRING field
-type PaymentRefField struct{ fix.StringValue }
+type PaymentRefField struct{ quickfix.StringValue }
 
 //Tag returns tag.PaymentRef (476)
-func (f PaymentRefField) Tag() fix.Tag { return tag.PaymentRef }
+func (f PaymentRefField) Tag() quickfix.Tag { return tag.PaymentRef }
 
 //NewPaymentRef returns a new PaymentRefField initialized with val
 func NewPaymentRef(val string) *PaymentRefField {
@@ -12756,10 +12774,10 @@ func NewPaymentRef(val string) *PaymentRefField {
 }
 
 //PaymentRemitterIDField is a STRING field
-type PaymentRemitterIDField struct{ fix.StringValue }
+type PaymentRemitterIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PaymentRemitterID (505)
-func (f PaymentRemitterIDField) Tag() fix.Tag { return tag.PaymentRemitterID }
+func (f PaymentRemitterIDField) Tag() quickfix.Tag { return tag.PaymentRemitterID }
 
 //NewPaymentRemitterID returns a new PaymentRemitterIDField initialized with val
 func NewPaymentRemitterID(val string) *PaymentRemitterIDField {
@@ -12769,10 +12787,10 @@ func NewPaymentRemitterID(val string) *PaymentRemitterIDField {
 }
 
 //PctAtRiskField is a PERCENTAGE field
-type PctAtRiskField struct{ fix.PercentageValue }
+type PctAtRiskField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.PctAtRisk (869)
-func (f PctAtRiskField) Tag() fix.Tag { return tag.PctAtRisk }
+func (f PctAtRiskField) Tag() quickfix.Tag { return tag.PctAtRisk }
 
 //NewPctAtRisk returns a new PctAtRiskField initialized with val
 func NewPctAtRisk(val float64) *PctAtRiskField {
@@ -12782,10 +12800,10 @@ func NewPctAtRisk(val float64) *PctAtRiskField {
 }
 
 //PegDifferenceField is a PRICEOFFSET field
-type PegDifferenceField struct{ fix.PriceOffsetValue }
+type PegDifferenceField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.PegDifference (211)
-func (f PegDifferenceField) Tag() fix.Tag { return tag.PegDifference }
+func (f PegDifferenceField) Tag() quickfix.Tag { return tag.PegDifference }
 
 //NewPegDifference returns a new PegDifferenceField initialized with val
 func NewPegDifference(val float64) *PegDifferenceField {
@@ -12795,10 +12813,10 @@ func NewPegDifference(val float64) *PegDifferenceField {
 }
 
 //PegLimitTypeField is a INT field
-type PegLimitTypeField struct{ fix.IntValue }
+type PegLimitTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PegLimitType (837)
-func (f PegLimitTypeField) Tag() fix.Tag { return tag.PegLimitType }
+func (f PegLimitTypeField) Tag() quickfix.Tag { return tag.PegLimitType }
 
 //NewPegLimitType returns a new PegLimitTypeField initialized with val
 func NewPegLimitType(val int) *PegLimitTypeField {
@@ -12808,10 +12826,10 @@ func NewPegLimitType(val int) *PegLimitTypeField {
 }
 
 //PegMoveTypeField is a INT field
-type PegMoveTypeField struct{ fix.IntValue }
+type PegMoveTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PegMoveType (835)
-func (f PegMoveTypeField) Tag() fix.Tag { return tag.PegMoveType }
+func (f PegMoveTypeField) Tag() quickfix.Tag { return tag.PegMoveType }
 
 //NewPegMoveType returns a new PegMoveTypeField initialized with val
 func NewPegMoveType(val int) *PegMoveTypeField {
@@ -12821,10 +12839,10 @@ func NewPegMoveType(val int) *PegMoveTypeField {
 }
 
 //PegOffsetTypeField is a INT field
-type PegOffsetTypeField struct{ fix.IntValue }
+type PegOffsetTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PegOffsetType (836)
-func (f PegOffsetTypeField) Tag() fix.Tag { return tag.PegOffsetType }
+func (f PegOffsetTypeField) Tag() quickfix.Tag { return tag.PegOffsetType }
 
 //NewPegOffsetType returns a new PegOffsetTypeField initialized with val
 func NewPegOffsetType(val int) *PegOffsetTypeField {
@@ -12834,10 +12852,10 @@ func NewPegOffsetType(val int) *PegOffsetTypeField {
 }
 
 //PegOffsetValueField is a FLOAT field
-type PegOffsetValueField struct{ fix.FloatValue }
+type PegOffsetValueField struct{ quickfix.FloatValue }
 
 //Tag returns tag.PegOffsetValue (211)
-func (f PegOffsetValueField) Tag() fix.Tag { return tag.PegOffsetValue }
+func (f PegOffsetValueField) Tag() quickfix.Tag { return tag.PegOffsetValue }
 
 //NewPegOffsetValue returns a new PegOffsetValueField initialized with val
 func NewPegOffsetValue(val float64) *PegOffsetValueField {
@@ -12847,10 +12865,10 @@ func NewPegOffsetValue(val float64) *PegOffsetValueField {
 }
 
 //PegPriceTypeField is a INT field
-type PegPriceTypeField struct{ fix.IntValue }
+type PegPriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PegPriceType (1094)
-func (f PegPriceTypeField) Tag() fix.Tag { return tag.PegPriceType }
+func (f PegPriceTypeField) Tag() quickfix.Tag { return tag.PegPriceType }
 
 //NewPegPriceType returns a new PegPriceTypeField initialized with val
 func NewPegPriceType(val int) *PegPriceTypeField {
@@ -12860,10 +12878,10 @@ func NewPegPriceType(val int) *PegPriceTypeField {
 }
 
 //PegRoundDirectionField is a INT field
-type PegRoundDirectionField struct{ fix.IntValue }
+type PegRoundDirectionField struct{ quickfix.IntValue }
 
 //Tag returns tag.PegRoundDirection (838)
-func (f PegRoundDirectionField) Tag() fix.Tag { return tag.PegRoundDirection }
+func (f PegRoundDirectionField) Tag() quickfix.Tag { return tag.PegRoundDirection }
 
 //NewPegRoundDirection returns a new PegRoundDirectionField initialized with val
 func NewPegRoundDirection(val int) *PegRoundDirectionField {
@@ -12873,10 +12891,10 @@ func NewPegRoundDirection(val int) *PegRoundDirectionField {
 }
 
 //PegScopeField is a INT field
-type PegScopeField struct{ fix.IntValue }
+type PegScopeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PegScope (840)
-func (f PegScopeField) Tag() fix.Tag { return tag.PegScope }
+func (f PegScopeField) Tag() quickfix.Tag { return tag.PegScope }
 
 //NewPegScope returns a new PegScopeField initialized with val
 func NewPegScope(val int) *PegScopeField {
@@ -12886,10 +12904,10 @@ func NewPegScope(val int) *PegScopeField {
 }
 
 //PegSecurityDescField is a STRING field
-type PegSecurityDescField struct{ fix.StringValue }
+type PegSecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.PegSecurityDesc (1099)
-func (f PegSecurityDescField) Tag() fix.Tag { return tag.PegSecurityDesc }
+func (f PegSecurityDescField) Tag() quickfix.Tag { return tag.PegSecurityDesc }
 
 //NewPegSecurityDesc returns a new PegSecurityDescField initialized with val
 func NewPegSecurityDesc(val string) *PegSecurityDescField {
@@ -12899,10 +12917,10 @@ func NewPegSecurityDesc(val string) *PegSecurityDescField {
 }
 
 //PegSecurityIDField is a STRING field
-type PegSecurityIDField struct{ fix.StringValue }
+type PegSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PegSecurityID (1097)
-func (f PegSecurityIDField) Tag() fix.Tag { return tag.PegSecurityID }
+func (f PegSecurityIDField) Tag() quickfix.Tag { return tag.PegSecurityID }
 
 //NewPegSecurityID returns a new PegSecurityIDField initialized with val
 func NewPegSecurityID(val string) *PegSecurityIDField {
@@ -12912,10 +12930,10 @@ func NewPegSecurityID(val string) *PegSecurityIDField {
 }
 
 //PegSecurityIDSourceField is a STRING field
-type PegSecurityIDSourceField struct{ fix.StringValue }
+type PegSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.PegSecurityIDSource (1096)
-func (f PegSecurityIDSourceField) Tag() fix.Tag { return tag.PegSecurityIDSource }
+func (f PegSecurityIDSourceField) Tag() quickfix.Tag { return tag.PegSecurityIDSource }
 
 //NewPegSecurityIDSource returns a new PegSecurityIDSourceField initialized with val
 func NewPegSecurityIDSource(val string) *PegSecurityIDSourceField {
@@ -12925,10 +12943,10 @@ func NewPegSecurityIDSource(val string) *PegSecurityIDSourceField {
 }
 
 //PegSymbolField is a STRING field
-type PegSymbolField struct{ fix.StringValue }
+type PegSymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.PegSymbol (1098)
-func (f PegSymbolField) Tag() fix.Tag { return tag.PegSymbol }
+func (f PegSymbolField) Tag() quickfix.Tag { return tag.PegSymbol }
 
 //NewPegSymbol returns a new PegSymbolField initialized with val
 func NewPegSymbol(val string) *PegSymbolField {
@@ -12938,10 +12956,10 @@ func NewPegSymbol(val string) *PegSymbolField {
 }
 
 //PeggedPriceField is a PRICE field
-type PeggedPriceField struct{ fix.PriceValue }
+type PeggedPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.PeggedPrice (839)
-func (f PeggedPriceField) Tag() fix.Tag { return tag.PeggedPrice }
+func (f PeggedPriceField) Tag() quickfix.Tag { return tag.PeggedPrice }
 
 //NewPeggedPrice returns a new PeggedPriceField initialized with val
 func NewPeggedPrice(val float64) *PeggedPriceField {
@@ -12951,10 +12969,10 @@ func NewPeggedPrice(val float64) *PeggedPriceField {
 }
 
 //PeggedRefPriceField is a PRICE field
-type PeggedRefPriceField struct{ fix.PriceValue }
+type PeggedRefPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.PeggedRefPrice (1095)
-func (f PeggedRefPriceField) Tag() fix.Tag { return tag.PeggedRefPrice }
+func (f PeggedRefPriceField) Tag() quickfix.Tag { return tag.PeggedRefPrice }
 
 //NewPeggedRefPrice returns a new PeggedRefPriceField initialized with val
 func NewPeggedRefPrice(val float64) *PeggedRefPriceField {
@@ -12964,10 +12982,10 @@ func NewPeggedRefPrice(val float64) *PeggedRefPriceField {
 }
 
 //PoolField is a STRING field
-type PoolField struct{ fix.StringValue }
+type PoolField struct{ quickfix.StringValue }
 
 //Tag returns tag.Pool (691)
-func (f PoolField) Tag() fix.Tag { return tag.Pool }
+func (f PoolField) Tag() quickfix.Tag { return tag.Pool }
 
 //NewPool returns a new PoolField initialized with val
 func NewPool(val string) *PoolField {
@@ -12977,10 +12995,10 @@ func NewPool(val string) *PoolField {
 }
 
 //PosAmtField is a AMT field
-type PosAmtField struct{ fix.AmtValue }
+type PosAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.PosAmt (708)
-func (f PosAmtField) Tag() fix.Tag { return tag.PosAmt }
+func (f PosAmtField) Tag() quickfix.Tag { return tag.PosAmt }
 
 //NewPosAmt returns a new PosAmtField initialized with val
 func NewPosAmt(val float64) *PosAmtField {
@@ -12990,10 +13008,10 @@ func NewPosAmt(val float64) *PosAmtField {
 }
 
 //PosAmtTypeField is a STRING field
-type PosAmtTypeField struct{ fix.StringValue }
+type PosAmtTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.PosAmtType (707)
-func (f PosAmtTypeField) Tag() fix.Tag { return tag.PosAmtType }
+func (f PosAmtTypeField) Tag() quickfix.Tag { return tag.PosAmtType }
 
 //NewPosAmtType returns a new PosAmtTypeField initialized with val
 func NewPosAmtType(val string) *PosAmtTypeField {
@@ -13003,10 +13021,10 @@ func NewPosAmtType(val string) *PosAmtTypeField {
 }
 
 //PosMaintActionField is a INT field
-type PosMaintActionField struct{ fix.IntValue }
+type PosMaintActionField struct{ quickfix.IntValue }
 
 //Tag returns tag.PosMaintAction (712)
-func (f PosMaintActionField) Tag() fix.Tag { return tag.PosMaintAction }
+func (f PosMaintActionField) Tag() quickfix.Tag { return tag.PosMaintAction }
 
 //NewPosMaintAction returns a new PosMaintActionField initialized with val
 func NewPosMaintAction(val int) *PosMaintActionField {
@@ -13016,10 +13034,10 @@ func NewPosMaintAction(val int) *PosMaintActionField {
 }
 
 //PosMaintResultField is a INT field
-type PosMaintResultField struct{ fix.IntValue }
+type PosMaintResultField struct{ quickfix.IntValue }
 
 //Tag returns tag.PosMaintResult (723)
-func (f PosMaintResultField) Tag() fix.Tag { return tag.PosMaintResult }
+func (f PosMaintResultField) Tag() quickfix.Tag { return tag.PosMaintResult }
 
 //NewPosMaintResult returns a new PosMaintResultField initialized with val
 func NewPosMaintResult(val int) *PosMaintResultField {
@@ -13029,10 +13047,10 @@ func NewPosMaintResult(val int) *PosMaintResultField {
 }
 
 //PosMaintRptIDField is a STRING field
-type PosMaintRptIDField struct{ fix.StringValue }
+type PosMaintRptIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PosMaintRptID (721)
-func (f PosMaintRptIDField) Tag() fix.Tag { return tag.PosMaintRptID }
+func (f PosMaintRptIDField) Tag() quickfix.Tag { return tag.PosMaintRptID }
 
 //NewPosMaintRptID returns a new PosMaintRptIDField initialized with val
 func NewPosMaintRptID(val string) *PosMaintRptIDField {
@@ -13042,10 +13060,10 @@ func NewPosMaintRptID(val string) *PosMaintRptIDField {
 }
 
 //PosMaintRptRefIDField is a STRING field
-type PosMaintRptRefIDField struct{ fix.StringValue }
+type PosMaintRptRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PosMaintRptRefID (714)
-func (f PosMaintRptRefIDField) Tag() fix.Tag { return tag.PosMaintRptRefID }
+func (f PosMaintRptRefIDField) Tag() quickfix.Tag { return tag.PosMaintRptRefID }
 
 //NewPosMaintRptRefID returns a new PosMaintRptRefIDField initialized with val
 func NewPosMaintRptRefID(val string) *PosMaintRptRefIDField {
@@ -13055,10 +13073,10 @@ func NewPosMaintRptRefID(val string) *PosMaintRptRefIDField {
 }
 
 //PosMaintStatusField is a INT field
-type PosMaintStatusField struct{ fix.IntValue }
+type PosMaintStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.PosMaintStatus (722)
-func (f PosMaintStatusField) Tag() fix.Tag { return tag.PosMaintStatus }
+func (f PosMaintStatusField) Tag() quickfix.Tag { return tag.PosMaintStatus }
 
 //NewPosMaintStatus returns a new PosMaintStatusField initialized with val
 func NewPosMaintStatus(val int) *PosMaintStatusField {
@@ -13068,10 +13086,10 @@ func NewPosMaintStatus(val int) *PosMaintStatusField {
 }
 
 //PosQtyStatusField is a INT field
-type PosQtyStatusField struct{ fix.IntValue }
+type PosQtyStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.PosQtyStatus (706)
-func (f PosQtyStatusField) Tag() fix.Tag { return tag.PosQtyStatus }
+func (f PosQtyStatusField) Tag() quickfix.Tag { return tag.PosQtyStatus }
 
 //NewPosQtyStatus returns a new PosQtyStatusField initialized with val
 func NewPosQtyStatus(val int) *PosQtyStatusField {
@@ -13081,10 +13099,10 @@ func NewPosQtyStatus(val int) *PosQtyStatusField {
 }
 
 //PosReqIDField is a STRING field
-type PosReqIDField struct{ fix.StringValue }
+type PosReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.PosReqID (710)
-func (f PosReqIDField) Tag() fix.Tag { return tag.PosReqID }
+func (f PosReqIDField) Tag() quickfix.Tag { return tag.PosReqID }
 
 //NewPosReqID returns a new PosReqIDField initialized with val
 func NewPosReqID(val string) *PosReqIDField {
@@ -13094,10 +13112,10 @@ func NewPosReqID(val string) *PosReqIDField {
 }
 
 //PosReqResultField is a INT field
-type PosReqResultField struct{ fix.IntValue }
+type PosReqResultField struct{ quickfix.IntValue }
 
 //Tag returns tag.PosReqResult (728)
-func (f PosReqResultField) Tag() fix.Tag { return tag.PosReqResult }
+func (f PosReqResultField) Tag() quickfix.Tag { return tag.PosReqResult }
 
 //NewPosReqResult returns a new PosReqResultField initialized with val
 func NewPosReqResult(val int) *PosReqResultField {
@@ -13107,10 +13125,10 @@ func NewPosReqResult(val int) *PosReqResultField {
 }
 
 //PosReqStatusField is a INT field
-type PosReqStatusField struct{ fix.IntValue }
+type PosReqStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.PosReqStatus (729)
-func (f PosReqStatusField) Tag() fix.Tag { return tag.PosReqStatus }
+func (f PosReqStatusField) Tag() quickfix.Tag { return tag.PosReqStatus }
 
 //NewPosReqStatus returns a new PosReqStatusField initialized with val
 func NewPosReqStatus(val int) *PosReqStatusField {
@@ -13120,10 +13138,10 @@ func NewPosReqStatus(val int) *PosReqStatusField {
 }
 
 //PosReqTypeField is a INT field
-type PosReqTypeField struct{ fix.IntValue }
+type PosReqTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PosReqType (724)
-func (f PosReqTypeField) Tag() fix.Tag { return tag.PosReqType }
+func (f PosReqTypeField) Tag() quickfix.Tag { return tag.PosReqType }
 
 //NewPosReqType returns a new PosReqTypeField initialized with val
 func NewPosReqType(val int) *PosReqTypeField {
@@ -13133,10 +13151,10 @@ func NewPosReqType(val int) *PosReqTypeField {
 }
 
 //PosTransTypeField is a INT field
-type PosTransTypeField struct{ fix.IntValue }
+type PosTransTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PosTransType (709)
-func (f PosTransTypeField) Tag() fix.Tag { return tag.PosTransType }
+func (f PosTransTypeField) Tag() quickfix.Tag { return tag.PosTransType }
 
 //NewPosTransType returns a new PosTransTypeField initialized with val
 func NewPosTransType(val int) *PosTransTypeField {
@@ -13146,10 +13164,10 @@ func NewPosTransType(val int) *PosTransTypeField {
 }
 
 //PosTypeField is a STRING field
-type PosTypeField struct{ fix.StringValue }
+type PosTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.PosType (703)
-func (f PosTypeField) Tag() fix.Tag { return tag.PosType }
+func (f PosTypeField) Tag() quickfix.Tag { return tag.PosType }
 
 //NewPosType returns a new PosTypeField initialized with val
 func NewPosType(val string) *PosTypeField {
@@ -13159,10 +13177,10 @@ func NewPosType(val string) *PosTypeField {
 }
 
 //PositionCurrencyField is a STRING field
-type PositionCurrencyField struct{ fix.StringValue }
+type PositionCurrencyField struct{ quickfix.StringValue }
 
 //Tag returns tag.PositionCurrency (1055)
-func (f PositionCurrencyField) Tag() fix.Tag { return tag.PositionCurrency }
+func (f PositionCurrencyField) Tag() quickfix.Tag { return tag.PositionCurrency }
 
 //NewPositionCurrency returns a new PositionCurrencyField initialized with val
 func NewPositionCurrency(val string) *PositionCurrencyField {
@@ -13172,10 +13190,10 @@ func NewPositionCurrency(val string) *PositionCurrencyField {
 }
 
 //PositionEffectField is a CHAR field
-type PositionEffectField struct{ fix.CharValue }
+type PositionEffectField struct{ quickfix.CharValue }
 
 //Tag returns tag.PositionEffect (77)
-func (f PositionEffectField) Tag() fix.Tag { return tag.PositionEffect }
+func (f PositionEffectField) Tag() quickfix.Tag { return tag.PositionEffect }
 
 //NewPositionEffect returns a new PositionEffectField initialized with val
 func NewPositionEffect(val string) *PositionEffectField {
@@ -13185,10 +13203,10 @@ func NewPositionEffect(val string) *PositionEffectField {
 }
 
 //PositionLimitField is a INT field
-type PositionLimitField struct{ fix.IntValue }
+type PositionLimitField struct{ quickfix.IntValue }
 
 //Tag returns tag.PositionLimit (970)
-func (f PositionLimitField) Tag() fix.Tag { return tag.PositionLimit }
+func (f PositionLimitField) Tag() quickfix.Tag { return tag.PositionLimit }
 
 //NewPositionLimit returns a new PositionLimitField initialized with val
 func NewPositionLimit(val int) *PositionLimitField {
@@ -13198,10 +13216,10 @@ func NewPositionLimit(val int) *PositionLimitField {
 }
 
 //PossDupFlagField is a BOOLEAN field
-type PossDupFlagField struct{ fix.BooleanValue }
+type PossDupFlagField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.PossDupFlag (43)
-func (f PossDupFlagField) Tag() fix.Tag { return tag.PossDupFlag }
+func (f PossDupFlagField) Tag() quickfix.Tag { return tag.PossDupFlag }
 
 //NewPossDupFlag returns a new PossDupFlagField initialized with val
 func NewPossDupFlag(val bool) *PossDupFlagField {
@@ -13211,10 +13229,10 @@ func NewPossDupFlag(val bool) *PossDupFlagField {
 }
 
 //PossResendField is a BOOLEAN field
-type PossResendField struct{ fix.BooleanValue }
+type PossResendField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.PossResend (97)
-func (f PossResendField) Tag() fix.Tag { return tag.PossResend }
+func (f PossResendField) Tag() quickfix.Tag { return tag.PossResend }
 
 //NewPossResend returns a new PossResendField initialized with val
 func NewPossResend(val bool) *PossResendField {
@@ -13224,10 +13242,10 @@ func NewPossResend(val bool) *PossResendField {
 }
 
 //PreTradeAnonymityField is a BOOLEAN field
-type PreTradeAnonymityField struct{ fix.BooleanValue }
+type PreTradeAnonymityField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.PreTradeAnonymity (1091)
-func (f PreTradeAnonymityField) Tag() fix.Tag { return tag.PreTradeAnonymity }
+func (f PreTradeAnonymityField) Tag() quickfix.Tag { return tag.PreTradeAnonymity }
 
 //NewPreTradeAnonymity returns a new PreTradeAnonymityField initialized with val
 func NewPreTradeAnonymity(val bool) *PreTradeAnonymityField {
@@ -13237,10 +13255,10 @@ func NewPreTradeAnonymity(val bool) *PreTradeAnonymityField {
 }
 
 //PreallocMethodField is a CHAR field
-type PreallocMethodField struct{ fix.CharValue }
+type PreallocMethodField struct{ quickfix.CharValue }
 
 //Tag returns tag.PreallocMethod (591)
-func (f PreallocMethodField) Tag() fix.Tag { return tag.PreallocMethod }
+func (f PreallocMethodField) Tag() quickfix.Tag { return tag.PreallocMethod }
 
 //NewPreallocMethod returns a new PreallocMethodField initialized with val
 func NewPreallocMethod(val string) *PreallocMethodField {
@@ -13250,10 +13268,10 @@ func NewPreallocMethod(val string) *PreallocMethodField {
 }
 
 //PrevClosePxField is a PRICE field
-type PrevClosePxField struct{ fix.PriceValue }
+type PrevClosePxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.PrevClosePx (140)
-func (f PrevClosePxField) Tag() fix.Tag { return tag.PrevClosePx }
+func (f PrevClosePxField) Tag() quickfix.Tag { return tag.PrevClosePx }
 
 //NewPrevClosePx returns a new PrevClosePxField initialized with val
 func NewPrevClosePx(val float64) *PrevClosePxField {
@@ -13263,10 +13281,10 @@ func NewPrevClosePx(val float64) *PrevClosePxField {
 }
 
 //PreviouslyReportedField is a BOOLEAN field
-type PreviouslyReportedField struct{ fix.BooleanValue }
+type PreviouslyReportedField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.PreviouslyReported (570)
-func (f PreviouslyReportedField) Tag() fix.Tag { return tag.PreviouslyReported }
+func (f PreviouslyReportedField) Tag() quickfix.Tag { return tag.PreviouslyReported }
 
 //NewPreviouslyReported returns a new PreviouslyReportedField initialized with val
 func NewPreviouslyReported(val bool) *PreviouslyReportedField {
@@ -13276,10 +13294,10 @@ func NewPreviouslyReported(val bool) *PreviouslyReportedField {
 }
 
 //PriceField is a PRICE field
-type PriceField struct{ fix.PriceValue }
+type PriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.Price (44)
-func (f PriceField) Tag() fix.Tag { return tag.Price }
+func (f PriceField) Tag() quickfix.Tag { return tag.Price }
 
 //NewPrice returns a new PriceField initialized with val
 func NewPrice(val float64) *PriceField {
@@ -13289,10 +13307,10 @@ func NewPrice(val float64) *PriceField {
 }
 
 //Price2Field is a PRICE field
-type Price2Field struct{ fix.PriceValue }
+type Price2Field struct{ quickfix.PriceValue }
 
 //Tag returns tag.Price2 (640)
-func (f Price2Field) Tag() fix.Tag { return tag.Price2 }
+func (f Price2Field) Tag() quickfix.Tag { return tag.Price2 }
 
 //NewPrice2 returns a new Price2Field initialized with val
 func NewPrice2(val float64) *Price2Field {
@@ -13302,10 +13320,10 @@ func NewPrice2(val float64) *Price2Field {
 }
 
 //PriceDeltaField is a FLOAT field
-type PriceDeltaField struct{ fix.FloatValue }
+type PriceDeltaField struct{ quickfix.FloatValue }
 
 //Tag returns tag.PriceDelta (811)
-func (f PriceDeltaField) Tag() fix.Tag { return tag.PriceDelta }
+func (f PriceDeltaField) Tag() quickfix.Tag { return tag.PriceDelta }
 
 //NewPriceDelta returns a new PriceDeltaField initialized with val
 func NewPriceDelta(val float64) *PriceDeltaField {
@@ -13315,10 +13333,10 @@ func NewPriceDelta(val float64) *PriceDeltaField {
 }
 
 //PriceImprovementField is a PRICEOFFSET field
-type PriceImprovementField struct{ fix.PriceOffsetValue }
+type PriceImprovementField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.PriceImprovement (639)
-func (f PriceImprovementField) Tag() fix.Tag { return tag.PriceImprovement }
+func (f PriceImprovementField) Tag() quickfix.Tag { return tag.PriceImprovement }
 
 //NewPriceImprovement returns a new PriceImprovementField initialized with val
 func NewPriceImprovement(val float64) *PriceImprovementField {
@@ -13328,10 +13346,10 @@ func NewPriceImprovement(val float64) *PriceImprovementField {
 }
 
 //PriceLimitTypeField is a INT field
-type PriceLimitTypeField struct{ fix.IntValue }
+type PriceLimitTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PriceLimitType (1306)
-func (f PriceLimitTypeField) Tag() fix.Tag { return tag.PriceLimitType }
+func (f PriceLimitTypeField) Tag() quickfix.Tag { return tag.PriceLimitType }
 
 //NewPriceLimitType returns a new PriceLimitTypeField initialized with val
 func NewPriceLimitType(val int) *PriceLimitTypeField {
@@ -13341,10 +13359,10 @@ func NewPriceLimitType(val int) *PriceLimitTypeField {
 }
 
 //PriceProtectionScopeField is a CHAR field
-type PriceProtectionScopeField struct{ fix.CharValue }
+type PriceProtectionScopeField struct{ quickfix.CharValue }
 
 //Tag returns tag.PriceProtectionScope (1092)
-func (f PriceProtectionScopeField) Tag() fix.Tag { return tag.PriceProtectionScope }
+func (f PriceProtectionScopeField) Tag() quickfix.Tag { return tag.PriceProtectionScope }
 
 //NewPriceProtectionScope returns a new PriceProtectionScopeField initialized with val
 func NewPriceProtectionScope(val string) *PriceProtectionScopeField {
@@ -13354,10 +13372,10 @@ func NewPriceProtectionScope(val string) *PriceProtectionScopeField {
 }
 
 //PriceQuoteMethodField is a STRING field
-type PriceQuoteMethodField struct{ fix.StringValue }
+type PriceQuoteMethodField struct{ quickfix.StringValue }
 
 //Tag returns tag.PriceQuoteMethod (1196)
-func (f PriceQuoteMethodField) Tag() fix.Tag { return tag.PriceQuoteMethod }
+func (f PriceQuoteMethodField) Tag() quickfix.Tag { return tag.PriceQuoteMethod }
 
 //NewPriceQuoteMethod returns a new PriceQuoteMethodField initialized with val
 func NewPriceQuoteMethod(val string) *PriceQuoteMethodField {
@@ -13367,10 +13385,10 @@ func NewPriceQuoteMethod(val string) *PriceQuoteMethodField {
 }
 
 //PriceTypeField is a INT field
-type PriceTypeField struct{ fix.IntValue }
+type PriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.PriceType (423)
-func (f PriceTypeField) Tag() fix.Tag { return tag.PriceType }
+func (f PriceTypeField) Tag() quickfix.Tag { return tag.PriceType }
 
 //NewPriceType returns a new PriceTypeField initialized with val
 func NewPriceType(val int) *PriceTypeField {
@@ -13380,10 +13398,10 @@ func NewPriceType(val int) *PriceTypeField {
 }
 
 //PriceUnitOfMeasureField is a STRING field
-type PriceUnitOfMeasureField struct{ fix.StringValue }
+type PriceUnitOfMeasureField struct{ quickfix.StringValue }
 
 //Tag returns tag.PriceUnitOfMeasure (1191)
-func (f PriceUnitOfMeasureField) Tag() fix.Tag { return tag.PriceUnitOfMeasure }
+func (f PriceUnitOfMeasureField) Tag() quickfix.Tag { return tag.PriceUnitOfMeasure }
 
 //NewPriceUnitOfMeasure returns a new PriceUnitOfMeasureField initialized with val
 func NewPriceUnitOfMeasure(val string) *PriceUnitOfMeasureField {
@@ -13393,10 +13411,10 @@ func NewPriceUnitOfMeasure(val string) *PriceUnitOfMeasureField {
 }
 
 //PriceUnitOfMeasureQtyField is a QTY field
-type PriceUnitOfMeasureQtyField struct{ fix.QtyValue }
+type PriceUnitOfMeasureQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.PriceUnitOfMeasureQty (1192)
-func (f PriceUnitOfMeasureQtyField) Tag() fix.Tag { return tag.PriceUnitOfMeasureQty }
+func (f PriceUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.PriceUnitOfMeasureQty }
 
 //NewPriceUnitOfMeasureQty returns a new PriceUnitOfMeasureQtyField initialized with val
 func NewPriceUnitOfMeasureQty(val float64) *PriceUnitOfMeasureQtyField {
@@ -13406,10 +13424,10 @@ func NewPriceUnitOfMeasureQty(val float64) *PriceUnitOfMeasureQtyField {
 }
 
 //PriorSettlPriceField is a PRICE field
-type PriorSettlPriceField struct{ fix.PriceValue }
+type PriorSettlPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.PriorSettlPrice (734)
-func (f PriorSettlPriceField) Tag() fix.Tag { return tag.PriorSettlPrice }
+func (f PriorSettlPriceField) Tag() quickfix.Tag { return tag.PriorSettlPrice }
 
 //NewPriorSettlPrice returns a new PriorSettlPriceField initialized with val
 func NewPriorSettlPrice(val float64) *PriorSettlPriceField {
@@ -13419,10 +13437,10 @@ func NewPriorSettlPrice(val float64) *PriorSettlPriceField {
 }
 
 //PriorSpreadIndicatorField is a BOOLEAN field
-type PriorSpreadIndicatorField struct{ fix.BooleanValue }
+type PriorSpreadIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.PriorSpreadIndicator (720)
-func (f PriorSpreadIndicatorField) Tag() fix.Tag { return tag.PriorSpreadIndicator }
+func (f PriorSpreadIndicatorField) Tag() quickfix.Tag { return tag.PriorSpreadIndicator }
 
 //NewPriorSpreadIndicator returns a new PriorSpreadIndicatorField initialized with val
 func NewPriorSpreadIndicator(val bool) *PriorSpreadIndicatorField {
@@ -13432,10 +13450,10 @@ func NewPriorSpreadIndicator(val bool) *PriorSpreadIndicatorField {
 }
 
 //PriorityIndicatorField is a INT field
-type PriorityIndicatorField struct{ fix.IntValue }
+type PriorityIndicatorField struct{ quickfix.IntValue }
 
 //Tag returns tag.PriorityIndicator (638)
-func (f PriorityIndicatorField) Tag() fix.Tag { return tag.PriorityIndicator }
+func (f PriorityIndicatorField) Tag() quickfix.Tag { return tag.PriorityIndicator }
 
 //NewPriorityIndicator returns a new PriorityIndicatorField initialized with val
 func NewPriorityIndicator(val int) *PriorityIndicatorField {
@@ -13445,10 +13463,10 @@ func NewPriorityIndicator(val int) *PriorityIndicatorField {
 }
 
 //PrivateQuoteField is a BOOLEAN field
-type PrivateQuoteField struct{ fix.BooleanValue }
+type PrivateQuoteField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.PrivateQuote (1171)
-func (f PrivateQuoteField) Tag() fix.Tag { return tag.PrivateQuote }
+func (f PrivateQuoteField) Tag() quickfix.Tag { return tag.PrivateQuote }
 
 //NewPrivateQuote returns a new PrivateQuoteField initialized with val
 func NewPrivateQuote(val bool) *PrivateQuoteField {
@@ -13458,10 +13476,10 @@ func NewPrivateQuote(val bool) *PrivateQuoteField {
 }
 
 //ProcessCodeField is a CHAR field
-type ProcessCodeField struct{ fix.CharValue }
+type ProcessCodeField struct{ quickfix.CharValue }
 
 //Tag returns tag.ProcessCode (81)
-func (f ProcessCodeField) Tag() fix.Tag { return tag.ProcessCode }
+func (f ProcessCodeField) Tag() quickfix.Tag { return tag.ProcessCode }
 
 //NewProcessCode returns a new ProcessCodeField initialized with val
 func NewProcessCode(val string) *ProcessCodeField {
@@ -13471,10 +13489,10 @@ func NewProcessCode(val string) *ProcessCodeField {
 }
 
 //ProductField is a INT field
-type ProductField struct{ fix.IntValue }
+type ProductField struct{ quickfix.IntValue }
 
 //Tag returns tag.Product (460)
-func (f ProductField) Tag() fix.Tag { return tag.Product }
+func (f ProductField) Tag() quickfix.Tag { return tag.Product }
 
 //NewProduct returns a new ProductField initialized with val
 func NewProduct(val int) *ProductField {
@@ -13484,10 +13502,10 @@ func NewProduct(val int) *ProductField {
 }
 
 //ProductComplexField is a STRING field
-type ProductComplexField struct{ fix.StringValue }
+type ProductComplexField struct{ quickfix.StringValue }
 
 //Tag returns tag.ProductComplex (1227)
-func (f ProductComplexField) Tag() fix.Tag { return tag.ProductComplex }
+func (f ProductComplexField) Tag() quickfix.Tag { return tag.ProductComplex }
 
 //NewProductComplex returns a new ProductComplexField initialized with val
 func NewProductComplex(val string) *ProductComplexField {
@@ -13497,10 +13515,10 @@ func NewProductComplex(val string) *ProductComplexField {
 }
 
 //ProgPeriodIntervalField is a INT field
-type ProgPeriodIntervalField struct{ fix.IntValue }
+type ProgPeriodIntervalField struct{ quickfix.IntValue }
 
 //Tag returns tag.ProgPeriodInterval (415)
-func (f ProgPeriodIntervalField) Tag() fix.Tag { return tag.ProgPeriodInterval }
+func (f ProgPeriodIntervalField) Tag() quickfix.Tag { return tag.ProgPeriodInterval }
 
 //NewProgPeriodInterval returns a new ProgPeriodIntervalField initialized with val
 func NewProgPeriodInterval(val int) *ProgPeriodIntervalField {
@@ -13510,10 +13528,10 @@ func NewProgPeriodInterval(val int) *ProgPeriodIntervalField {
 }
 
 //ProgRptReqsField is a INT field
-type ProgRptReqsField struct{ fix.IntValue }
+type ProgRptReqsField struct{ quickfix.IntValue }
 
 //Tag returns tag.ProgRptReqs (414)
-func (f ProgRptReqsField) Tag() fix.Tag { return tag.ProgRptReqs }
+func (f ProgRptReqsField) Tag() quickfix.Tag { return tag.ProgRptReqs }
 
 //NewProgRptReqs returns a new ProgRptReqsField initialized with val
 func NewProgRptReqs(val int) *ProgRptReqsField {
@@ -13523,10 +13541,10 @@ func NewProgRptReqs(val int) *ProgRptReqsField {
 }
 
 //PublishTrdIndicatorField is a BOOLEAN field
-type PublishTrdIndicatorField struct{ fix.BooleanValue }
+type PublishTrdIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.PublishTrdIndicator (852)
-func (f PublishTrdIndicatorField) Tag() fix.Tag { return tag.PublishTrdIndicator }
+func (f PublishTrdIndicatorField) Tag() quickfix.Tag { return tag.PublishTrdIndicator }
 
 //NewPublishTrdIndicator returns a new PublishTrdIndicatorField initialized with val
 func NewPublishTrdIndicator(val bool) *PublishTrdIndicatorField {
@@ -13536,10 +13554,10 @@ func NewPublishTrdIndicator(val bool) *PublishTrdIndicatorField {
 }
 
 //PutOrCallField is a INT field
-type PutOrCallField struct{ fix.IntValue }
+type PutOrCallField struct{ quickfix.IntValue }
 
 //Tag returns tag.PutOrCall (201)
-func (f PutOrCallField) Tag() fix.Tag { return tag.PutOrCall }
+func (f PutOrCallField) Tag() quickfix.Tag { return tag.PutOrCall }
 
 //NewPutOrCall returns a new PutOrCallField initialized with val
 func NewPutOrCall(val int) *PutOrCallField {
@@ -13549,10 +13567,10 @@ func NewPutOrCall(val int) *PutOrCallField {
 }
 
 //QtyTypeField is a INT field
-type QtyTypeField struct{ fix.IntValue }
+type QtyTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.QtyType (854)
-func (f QtyTypeField) Tag() fix.Tag { return tag.QtyType }
+func (f QtyTypeField) Tag() quickfix.Tag { return tag.QtyType }
 
 //NewQtyType returns a new QtyTypeField initialized with val
 func NewQtyType(val int) *QtyTypeField {
@@ -13562,10 +13580,10 @@ func NewQtyType(val int) *QtyTypeField {
 }
 
 //QuantityField is a QTY field
-type QuantityField struct{ fix.QtyValue }
+type QuantityField struct{ quickfix.QtyValue }
 
 //Tag returns tag.Quantity (53)
-func (f QuantityField) Tag() fix.Tag { return tag.Quantity }
+func (f QuantityField) Tag() quickfix.Tag { return tag.Quantity }
 
 //NewQuantity returns a new QuantityField initialized with val
 func NewQuantity(val float64) *QuantityField {
@@ -13575,10 +13593,10 @@ func NewQuantity(val float64) *QuantityField {
 }
 
 //QuantityDateField is a LOCALMKTDATE field
-type QuantityDateField struct{ fix.LocalMktDateValue }
+type QuantityDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.QuantityDate (976)
-func (f QuantityDateField) Tag() fix.Tag { return tag.QuantityDate }
+func (f QuantityDateField) Tag() quickfix.Tag { return tag.QuantityDate }
 
 //NewQuantityDate returns a new QuantityDateField initialized with val
 func NewQuantityDate(val string) *QuantityDateField {
@@ -13588,10 +13606,10 @@ func NewQuantityDate(val string) *QuantityDateField {
 }
 
 //QuantityTypeField is a INT field
-type QuantityTypeField struct{ fix.IntValue }
+type QuantityTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuantityType (465)
-func (f QuantityTypeField) Tag() fix.Tag { return tag.QuantityType }
+func (f QuantityTypeField) Tag() quickfix.Tag { return tag.QuantityType }
 
 //NewQuantityType returns a new QuantityTypeField initialized with val
 func NewQuantityType(val int) *QuantityTypeField {
@@ -13601,10 +13619,10 @@ func NewQuantityType(val int) *QuantityTypeField {
 }
 
 //QuoteAckStatusField is a INT field
-type QuoteAckStatusField struct{ fix.IntValue }
+type QuoteAckStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteAckStatus (297)
-func (f QuoteAckStatusField) Tag() fix.Tag { return tag.QuoteAckStatus }
+func (f QuoteAckStatusField) Tag() quickfix.Tag { return tag.QuoteAckStatus }
 
 //NewQuoteAckStatus returns a new QuoteAckStatusField initialized with val
 func NewQuoteAckStatus(val int) *QuoteAckStatusField {
@@ -13614,10 +13632,10 @@ func NewQuoteAckStatus(val int) *QuoteAckStatusField {
 }
 
 //QuoteCancelTypeField is a INT field
-type QuoteCancelTypeField struct{ fix.IntValue }
+type QuoteCancelTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteCancelType (298)
-func (f QuoteCancelTypeField) Tag() fix.Tag { return tag.QuoteCancelType }
+func (f QuoteCancelTypeField) Tag() quickfix.Tag { return tag.QuoteCancelType }
 
 //NewQuoteCancelType returns a new QuoteCancelTypeField initialized with val
 func NewQuoteCancelType(val int) *QuoteCancelTypeField {
@@ -13627,10 +13645,10 @@ func NewQuoteCancelType(val int) *QuoteCancelTypeField {
 }
 
 //QuoteConditionField is a MULTIPLESTRINGVALUE field
-type QuoteConditionField struct{ fix.MultipleStringValue }
+type QuoteConditionField struct{ quickfix.MultipleStringValue }
 
 //Tag returns tag.QuoteCondition (276)
-func (f QuoteConditionField) Tag() fix.Tag { return tag.QuoteCondition }
+func (f QuoteConditionField) Tag() quickfix.Tag { return tag.QuoteCondition }
 
 //NewQuoteCondition returns a new QuoteConditionField initialized with val
 func NewQuoteCondition(val string) *QuoteConditionField {
@@ -13640,10 +13658,10 @@ func NewQuoteCondition(val string) *QuoteConditionField {
 }
 
 //QuoteEntryIDField is a STRING field
-type QuoteEntryIDField struct{ fix.StringValue }
+type QuoteEntryIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.QuoteEntryID (299)
-func (f QuoteEntryIDField) Tag() fix.Tag { return tag.QuoteEntryID }
+func (f QuoteEntryIDField) Tag() quickfix.Tag { return tag.QuoteEntryID }
 
 //NewQuoteEntryID returns a new QuoteEntryIDField initialized with val
 func NewQuoteEntryID(val string) *QuoteEntryIDField {
@@ -13653,10 +13671,10 @@ func NewQuoteEntryID(val string) *QuoteEntryIDField {
 }
 
 //QuoteEntryRejectReasonField is a INT field
-type QuoteEntryRejectReasonField struct{ fix.IntValue }
+type QuoteEntryRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteEntryRejectReason (368)
-func (f QuoteEntryRejectReasonField) Tag() fix.Tag { return tag.QuoteEntryRejectReason }
+func (f QuoteEntryRejectReasonField) Tag() quickfix.Tag { return tag.QuoteEntryRejectReason }
 
 //NewQuoteEntryRejectReason returns a new QuoteEntryRejectReasonField initialized with val
 func NewQuoteEntryRejectReason(val int) *QuoteEntryRejectReasonField {
@@ -13666,10 +13684,10 @@ func NewQuoteEntryRejectReason(val int) *QuoteEntryRejectReasonField {
 }
 
 //QuoteEntryStatusField is a INT field
-type QuoteEntryStatusField struct{ fix.IntValue }
+type QuoteEntryStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteEntryStatus (1167)
-func (f QuoteEntryStatusField) Tag() fix.Tag { return tag.QuoteEntryStatus }
+func (f QuoteEntryStatusField) Tag() quickfix.Tag { return tag.QuoteEntryStatus }
 
 //NewQuoteEntryStatus returns a new QuoteEntryStatusField initialized with val
 func NewQuoteEntryStatus(val int) *QuoteEntryStatusField {
@@ -13679,10 +13697,10 @@ func NewQuoteEntryStatus(val int) *QuoteEntryStatusField {
 }
 
 //QuoteIDField is a STRING field
-type QuoteIDField struct{ fix.StringValue }
+type QuoteIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.QuoteID (117)
-func (f QuoteIDField) Tag() fix.Tag { return tag.QuoteID }
+func (f QuoteIDField) Tag() quickfix.Tag { return tag.QuoteID }
 
 //NewQuoteID returns a new QuoteIDField initialized with val
 func NewQuoteID(val string) *QuoteIDField {
@@ -13692,10 +13710,10 @@ func NewQuoteID(val string) *QuoteIDField {
 }
 
 //QuoteMsgIDField is a STRING field
-type QuoteMsgIDField struct{ fix.StringValue }
+type QuoteMsgIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.QuoteMsgID (1166)
-func (f QuoteMsgIDField) Tag() fix.Tag { return tag.QuoteMsgID }
+func (f QuoteMsgIDField) Tag() quickfix.Tag { return tag.QuoteMsgID }
 
 //NewQuoteMsgID returns a new QuoteMsgIDField initialized with val
 func NewQuoteMsgID(val string) *QuoteMsgIDField {
@@ -13705,10 +13723,10 @@ func NewQuoteMsgID(val string) *QuoteMsgIDField {
 }
 
 //QuotePriceTypeField is a INT field
-type QuotePriceTypeField struct{ fix.IntValue }
+type QuotePriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuotePriceType (692)
-func (f QuotePriceTypeField) Tag() fix.Tag { return tag.QuotePriceType }
+func (f QuotePriceTypeField) Tag() quickfix.Tag { return tag.QuotePriceType }
 
 //NewQuotePriceType returns a new QuotePriceTypeField initialized with val
 func NewQuotePriceType(val int) *QuotePriceTypeField {
@@ -13718,10 +13736,10 @@ func NewQuotePriceType(val int) *QuotePriceTypeField {
 }
 
 //QuoteQualifierField is a CHAR field
-type QuoteQualifierField struct{ fix.CharValue }
+type QuoteQualifierField struct{ quickfix.CharValue }
 
 //Tag returns tag.QuoteQualifier (695)
-func (f QuoteQualifierField) Tag() fix.Tag { return tag.QuoteQualifier }
+func (f QuoteQualifierField) Tag() quickfix.Tag { return tag.QuoteQualifier }
 
 //NewQuoteQualifier returns a new QuoteQualifierField initialized with val
 func NewQuoteQualifier(val string) *QuoteQualifierField {
@@ -13731,10 +13749,10 @@ func NewQuoteQualifier(val string) *QuoteQualifierField {
 }
 
 //QuoteRejectReasonField is a INT field
-type QuoteRejectReasonField struct{ fix.IntValue }
+type QuoteRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteRejectReason (300)
-func (f QuoteRejectReasonField) Tag() fix.Tag { return tag.QuoteRejectReason }
+func (f QuoteRejectReasonField) Tag() quickfix.Tag { return tag.QuoteRejectReason }
 
 //NewQuoteRejectReason returns a new QuoteRejectReasonField initialized with val
 func NewQuoteRejectReason(val int) *QuoteRejectReasonField {
@@ -13744,10 +13762,10 @@ func NewQuoteRejectReason(val int) *QuoteRejectReasonField {
 }
 
 //QuoteReqIDField is a STRING field
-type QuoteReqIDField struct{ fix.StringValue }
+type QuoteReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.QuoteReqID (131)
-func (f QuoteReqIDField) Tag() fix.Tag { return tag.QuoteReqID }
+func (f QuoteReqIDField) Tag() quickfix.Tag { return tag.QuoteReqID }
 
 //NewQuoteReqID returns a new QuoteReqIDField initialized with val
 func NewQuoteReqID(val string) *QuoteReqIDField {
@@ -13757,10 +13775,10 @@ func NewQuoteReqID(val string) *QuoteReqIDField {
 }
 
 //QuoteRequestRejectReasonField is a INT field
-type QuoteRequestRejectReasonField struct{ fix.IntValue }
+type QuoteRequestRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteRequestRejectReason (658)
-func (f QuoteRequestRejectReasonField) Tag() fix.Tag { return tag.QuoteRequestRejectReason }
+func (f QuoteRequestRejectReasonField) Tag() quickfix.Tag { return tag.QuoteRequestRejectReason }
 
 //NewQuoteRequestRejectReason returns a new QuoteRequestRejectReasonField initialized with val
 func NewQuoteRequestRejectReason(val int) *QuoteRequestRejectReasonField {
@@ -13770,10 +13788,10 @@ func NewQuoteRequestRejectReason(val int) *QuoteRequestRejectReasonField {
 }
 
 //QuoteRequestTypeField is a INT field
-type QuoteRequestTypeField struct{ fix.IntValue }
+type QuoteRequestTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteRequestType (303)
-func (f QuoteRequestTypeField) Tag() fix.Tag { return tag.QuoteRequestType }
+func (f QuoteRequestTypeField) Tag() quickfix.Tag { return tag.QuoteRequestType }
 
 //NewQuoteRequestType returns a new QuoteRequestTypeField initialized with val
 func NewQuoteRequestType(val int) *QuoteRequestTypeField {
@@ -13783,10 +13801,10 @@ func NewQuoteRequestType(val int) *QuoteRequestTypeField {
 }
 
 //QuoteRespIDField is a STRING field
-type QuoteRespIDField struct{ fix.StringValue }
+type QuoteRespIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.QuoteRespID (693)
-func (f QuoteRespIDField) Tag() fix.Tag { return tag.QuoteRespID }
+func (f QuoteRespIDField) Tag() quickfix.Tag { return tag.QuoteRespID }
 
 //NewQuoteRespID returns a new QuoteRespIDField initialized with val
 func NewQuoteRespID(val string) *QuoteRespIDField {
@@ -13796,10 +13814,10 @@ func NewQuoteRespID(val string) *QuoteRespIDField {
 }
 
 //QuoteRespTypeField is a INT field
-type QuoteRespTypeField struct{ fix.IntValue }
+type QuoteRespTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteRespType (694)
-func (f QuoteRespTypeField) Tag() fix.Tag { return tag.QuoteRespType }
+func (f QuoteRespTypeField) Tag() quickfix.Tag { return tag.QuoteRespType }
 
 //NewQuoteRespType returns a new QuoteRespTypeField initialized with val
 func NewQuoteRespType(val int) *QuoteRespTypeField {
@@ -13809,10 +13827,10 @@ func NewQuoteRespType(val int) *QuoteRespTypeField {
 }
 
 //QuoteResponseLevelField is a INT field
-type QuoteResponseLevelField struct{ fix.IntValue }
+type QuoteResponseLevelField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteResponseLevel (301)
-func (f QuoteResponseLevelField) Tag() fix.Tag { return tag.QuoteResponseLevel }
+func (f QuoteResponseLevelField) Tag() quickfix.Tag { return tag.QuoteResponseLevel }
 
 //NewQuoteResponseLevel returns a new QuoteResponseLevelField initialized with val
 func NewQuoteResponseLevel(val int) *QuoteResponseLevelField {
@@ -13822,10 +13840,10 @@ func NewQuoteResponseLevel(val int) *QuoteResponseLevelField {
 }
 
 //QuoteSetIDField is a STRING field
-type QuoteSetIDField struct{ fix.StringValue }
+type QuoteSetIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.QuoteSetID (302)
-func (f QuoteSetIDField) Tag() fix.Tag { return tag.QuoteSetID }
+func (f QuoteSetIDField) Tag() quickfix.Tag { return tag.QuoteSetID }
 
 //NewQuoteSetID returns a new QuoteSetIDField initialized with val
 func NewQuoteSetID(val string) *QuoteSetIDField {
@@ -13835,16 +13853,16 @@ func NewQuoteSetID(val string) *QuoteSetIDField {
 }
 
 //QuoteSetValidUntilTimeField is a UTCTIMESTAMP field
-type QuoteSetValidUntilTimeField struct{ fix.UTCTimestampValue }
+type QuoteSetValidUntilTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.QuoteSetValidUntilTime (367)
-func (f QuoteSetValidUntilTimeField) Tag() fix.Tag { return tag.QuoteSetValidUntilTime }
+func (f QuoteSetValidUntilTimeField) Tag() quickfix.Tag { return tag.QuoteSetValidUntilTime }
 
 //QuoteStatusField is a INT field
-type QuoteStatusField struct{ fix.IntValue }
+type QuoteStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteStatus (297)
-func (f QuoteStatusField) Tag() fix.Tag { return tag.QuoteStatus }
+func (f QuoteStatusField) Tag() quickfix.Tag { return tag.QuoteStatus }
 
 //NewQuoteStatus returns a new QuoteStatusField initialized with val
 func NewQuoteStatus(val int) *QuoteStatusField {
@@ -13854,10 +13872,10 @@ func NewQuoteStatus(val int) *QuoteStatusField {
 }
 
 //QuoteStatusReqIDField is a STRING field
-type QuoteStatusReqIDField struct{ fix.StringValue }
+type QuoteStatusReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.QuoteStatusReqID (649)
-func (f QuoteStatusReqIDField) Tag() fix.Tag { return tag.QuoteStatusReqID }
+func (f QuoteStatusReqIDField) Tag() quickfix.Tag { return tag.QuoteStatusReqID }
 
 //NewQuoteStatusReqID returns a new QuoteStatusReqIDField initialized with val
 func NewQuoteStatusReqID(val string) *QuoteStatusReqIDField {
@@ -13867,10 +13885,10 @@ func NewQuoteStatusReqID(val string) *QuoteStatusReqIDField {
 }
 
 //QuoteTypeField is a INT field
-type QuoteTypeField struct{ fix.IntValue }
+type QuoteTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.QuoteType (537)
-func (f QuoteTypeField) Tag() fix.Tag { return tag.QuoteType }
+func (f QuoteTypeField) Tag() quickfix.Tag { return tag.QuoteType }
 
 //NewQuoteType returns a new QuoteTypeField initialized with val
 func NewQuoteType(val int) *QuoteTypeField {
@@ -13880,10 +13898,10 @@ func NewQuoteType(val int) *QuoteTypeField {
 }
 
 //RFQReqIDField is a STRING field
-type RFQReqIDField struct{ fix.StringValue }
+type RFQReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RFQReqID (644)
-func (f RFQReqIDField) Tag() fix.Tag { return tag.RFQReqID }
+func (f RFQReqIDField) Tag() quickfix.Tag { return tag.RFQReqID }
 
 //NewRFQReqID returns a new RFQReqIDField initialized with val
 func NewRFQReqID(val string) *RFQReqIDField {
@@ -13893,10 +13911,10 @@ func NewRFQReqID(val string) *RFQReqIDField {
 }
 
 //RateSourceField is a INT field
-type RateSourceField struct{ fix.IntValue }
+type RateSourceField struct{ quickfix.IntValue }
 
 //Tag returns tag.RateSource (1446)
-func (f RateSourceField) Tag() fix.Tag { return tag.RateSource }
+func (f RateSourceField) Tag() quickfix.Tag { return tag.RateSource }
 
 //NewRateSource returns a new RateSourceField initialized with val
 func NewRateSource(val int) *RateSourceField {
@@ -13906,10 +13924,10 @@ func NewRateSource(val int) *RateSourceField {
 }
 
 //RateSourceTypeField is a INT field
-type RateSourceTypeField struct{ fix.IntValue }
+type RateSourceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RateSourceType (1447)
-func (f RateSourceTypeField) Tag() fix.Tag { return tag.RateSourceType }
+func (f RateSourceTypeField) Tag() quickfix.Tag { return tag.RateSourceType }
 
 //NewRateSourceType returns a new RateSourceTypeField initialized with val
 func NewRateSourceType(val int) *RateSourceTypeField {
@@ -13919,10 +13937,10 @@ func NewRateSourceType(val int) *RateSourceTypeField {
 }
 
 //RatioQtyField is a QTY field
-type RatioQtyField struct{ fix.QtyValue }
+type RatioQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.RatioQty (319)
-func (f RatioQtyField) Tag() fix.Tag { return tag.RatioQty }
+func (f RatioQtyField) Tag() quickfix.Tag { return tag.RatioQty }
 
 //NewRatioQty returns a new RatioQtyField initialized with val
 func NewRatioQty(val float64) *RatioQtyField {
@@ -13932,10 +13950,10 @@ func NewRatioQty(val float64) *RatioQtyField {
 }
 
 //RawDataField is a DATA field
-type RawDataField struct{ fix.DataValue }
+type RawDataField struct{ quickfix.DataValue }
 
 //Tag returns tag.RawData (96)
-func (f RawDataField) Tag() fix.Tag { return tag.RawData }
+func (f RawDataField) Tag() quickfix.Tag { return tag.RawData }
 
 //NewRawData returns a new RawDataField initialized with val
 func NewRawData(val string) *RawDataField {
@@ -13945,10 +13963,10 @@ func NewRawData(val string) *RawDataField {
 }
 
 //RawDataLengthField is a LENGTH field
-type RawDataLengthField struct{ fix.LengthValue }
+type RawDataLengthField struct{ quickfix.LengthValue }
 
 //Tag returns tag.RawDataLength (95)
-func (f RawDataLengthField) Tag() fix.Tag { return tag.RawDataLength }
+func (f RawDataLengthField) Tag() quickfix.Tag { return tag.RawDataLength }
 
 //NewRawDataLength returns a new RawDataLengthField initialized with val
 func NewRawDataLength(val int) *RawDataLengthField {
@@ -13958,10 +13976,10 @@ func NewRawDataLength(val int) *RawDataLengthField {
 }
 
 //ReceivedDeptIDField is a STRING field
-type ReceivedDeptIDField struct{ fix.StringValue }
+type ReceivedDeptIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.ReceivedDeptID (1030)
-func (f ReceivedDeptIDField) Tag() fix.Tag { return tag.ReceivedDeptID }
+func (f ReceivedDeptIDField) Tag() quickfix.Tag { return tag.ReceivedDeptID }
 
 //NewReceivedDeptID returns a new ReceivedDeptIDField initialized with val
 func NewReceivedDeptID(val string) *ReceivedDeptIDField {
@@ -13971,10 +13989,10 @@ func NewReceivedDeptID(val string) *ReceivedDeptIDField {
 }
 
 //RedemptionDateField is a LOCALMKTDATE field
-type RedemptionDateField struct{ fix.LocalMktDateValue }
+type RedemptionDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.RedemptionDate (240)
-func (f RedemptionDateField) Tag() fix.Tag { return tag.RedemptionDate }
+func (f RedemptionDateField) Tag() quickfix.Tag { return tag.RedemptionDate }
 
 //NewRedemptionDate returns a new RedemptionDateField initialized with val
 func NewRedemptionDate(val string) *RedemptionDateField {
@@ -13984,10 +14002,10 @@ func NewRedemptionDate(val string) *RedemptionDateField {
 }
 
 //RefAllocIDField is a STRING field
-type RefAllocIDField struct{ fix.StringValue }
+type RefAllocIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefAllocID (72)
-func (f RefAllocIDField) Tag() fix.Tag { return tag.RefAllocID }
+func (f RefAllocIDField) Tag() quickfix.Tag { return tag.RefAllocID }
 
 //NewRefAllocID returns a new RefAllocIDField initialized with val
 func NewRefAllocID(val string) *RefAllocIDField {
@@ -13997,10 +14015,10 @@ func NewRefAllocID(val string) *RefAllocIDField {
 }
 
 //RefApplExtIDField is a INT field
-type RefApplExtIDField struct{ fix.IntValue }
+type RefApplExtIDField struct{ quickfix.IntValue }
 
 //Tag returns tag.RefApplExtID (1406)
-func (f RefApplExtIDField) Tag() fix.Tag { return tag.RefApplExtID }
+func (f RefApplExtIDField) Tag() quickfix.Tag { return tag.RefApplExtID }
 
 //NewRefApplExtID returns a new RefApplExtIDField initialized with val
 func NewRefApplExtID(val int) *RefApplExtIDField {
@@ -14010,10 +14028,10 @@ func NewRefApplExtID(val int) *RefApplExtIDField {
 }
 
 //RefApplIDField is a STRING field
-type RefApplIDField struct{ fix.StringValue }
+type RefApplIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefApplID (1355)
-func (f RefApplIDField) Tag() fix.Tag { return tag.RefApplID }
+func (f RefApplIDField) Tag() quickfix.Tag { return tag.RefApplID }
 
 //NewRefApplID returns a new RefApplIDField initialized with val
 func NewRefApplID(val string) *RefApplIDField {
@@ -14023,10 +14041,10 @@ func NewRefApplID(val string) *RefApplIDField {
 }
 
 //RefApplLastSeqNumField is a SEQNUM field
-type RefApplLastSeqNumField struct{ fix.SeqNumValue }
+type RefApplLastSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.RefApplLastSeqNum (1357)
-func (f RefApplLastSeqNumField) Tag() fix.Tag { return tag.RefApplLastSeqNum }
+func (f RefApplLastSeqNumField) Tag() quickfix.Tag { return tag.RefApplLastSeqNum }
 
 //NewRefApplLastSeqNum returns a new RefApplLastSeqNumField initialized with val
 func NewRefApplLastSeqNum(val int) *RefApplLastSeqNumField {
@@ -14036,10 +14054,10 @@ func NewRefApplLastSeqNum(val int) *RefApplLastSeqNumField {
 }
 
 //RefApplReqIDField is a STRING field
-type RefApplReqIDField struct{ fix.StringValue }
+type RefApplReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefApplReqID (1433)
-func (f RefApplReqIDField) Tag() fix.Tag { return tag.RefApplReqID }
+func (f RefApplReqIDField) Tag() quickfix.Tag { return tag.RefApplReqID }
 
 //NewRefApplReqID returns a new RefApplReqIDField initialized with val
 func NewRefApplReqID(val string) *RefApplReqIDField {
@@ -14049,10 +14067,10 @@ func NewRefApplReqID(val string) *RefApplReqIDField {
 }
 
 //RefApplVerIDField is a STRING field
-type RefApplVerIDField struct{ fix.StringValue }
+type RefApplVerIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefApplVerID (1130)
-func (f RefApplVerIDField) Tag() fix.Tag { return tag.RefApplVerID }
+func (f RefApplVerIDField) Tag() quickfix.Tag { return tag.RefApplVerID }
 
 //NewRefApplVerID returns a new RefApplVerIDField initialized with val
 func NewRefApplVerID(val string) *RefApplVerIDField {
@@ -14062,10 +14080,10 @@ func NewRefApplVerID(val string) *RefApplVerIDField {
 }
 
 //RefCompIDField is a STRING field
-type RefCompIDField struct{ fix.StringValue }
+type RefCompIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefCompID (930)
-func (f RefCompIDField) Tag() fix.Tag { return tag.RefCompID }
+func (f RefCompIDField) Tag() quickfix.Tag { return tag.RefCompID }
 
 //NewRefCompID returns a new RefCompIDField initialized with val
 func NewRefCompID(val string) *RefCompIDField {
@@ -14075,10 +14093,10 @@ func NewRefCompID(val string) *RefCompIDField {
 }
 
 //RefCstmApplVerIDField is a STRING field
-type RefCstmApplVerIDField struct{ fix.StringValue }
+type RefCstmApplVerIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefCstmApplVerID (1131)
-func (f RefCstmApplVerIDField) Tag() fix.Tag { return tag.RefCstmApplVerID }
+func (f RefCstmApplVerIDField) Tag() quickfix.Tag { return tag.RefCstmApplVerID }
 
 //NewRefCstmApplVerID returns a new RefCstmApplVerIDField initialized with val
 func NewRefCstmApplVerID(val string) *RefCstmApplVerIDField {
@@ -14088,10 +14106,10 @@ func NewRefCstmApplVerID(val string) *RefCstmApplVerIDField {
 }
 
 //RefMsgTypeField is a STRING field
-type RefMsgTypeField struct{ fix.StringValue }
+type RefMsgTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefMsgType (372)
-func (f RefMsgTypeField) Tag() fix.Tag { return tag.RefMsgType }
+func (f RefMsgTypeField) Tag() quickfix.Tag { return tag.RefMsgType }
 
 //NewRefMsgType returns a new RefMsgTypeField initialized with val
 func NewRefMsgType(val string) *RefMsgTypeField {
@@ -14101,10 +14119,10 @@ func NewRefMsgType(val string) *RefMsgTypeField {
 }
 
 //RefOrdIDReasonField is a INT field
-type RefOrdIDReasonField struct{ fix.IntValue }
+type RefOrdIDReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.RefOrdIDReason (1431)
-func (f RefOrdIDReasonField) Tag() fix.Tag { return tag.RefOrdIDReason }
+func (f RefOrdIDReasonField) Tag() quickfix.Tag { return tag.RefOrdIDReason }
 
 //NewRefOrdIDReason returns a new RefOrdIDReasonField initialized with val
 func NewRefOrdIDReason(val int) *RefOrdIDReasonField {
@@ -14114,10 +14132,10 @@ func NewRefOrdIDReason(val int) *RefOrdIDReasonField {
 }
 
 //RefOrderIDField is a STRING field
-type RefOrderIDField struct{ fix.StringValue }
+type RefOrderIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefOrderID (1080)
-func (f RefOrderIDField) Tag() fix.Tag { return tag.RefOrderID }
+func (f RefOrderIDField) Tag() quickfix.Tag { return tag.RefOrderID }
 
 //NewRefOrderID returns a new RefOrderIDField initialized with val
 func NewRefOrderID(val string) *RefOrderIDField {
@@ -14127,10 +14145,10 @@ func NewRefOrderID(val string) *RefOrderIDField {
 }
 
 //RefOrderIDSourceField is a CHAR field
-type RefOrderIDSourceField struct{ fix.CharValue }
+type RefOrderIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.RefOrderIDSource (1081)
-func (f RefOrderIDSourceField) Tag() fix.Tag { return tag.RefOrderIDSource }
+func (f RefOrderIDSourceField) Tag() quickfix.Tag { return tag.RefOrderIDSource }
 
 //NewRefOrderIDSource returns a new RefOrderIDSourceField initialized with val
 func NewRefOrderIDSource(val string) *RefOrderIDSourceField {
@@ -14140,10 +14158,10 @@ func NewRefOrderIDSource(val string) *RefOrderIDSourceField {
 }
 
 //RefSeqNumField is a SEQNUM field
-type RefSeqNumField struct{ fix.SeqNumValue }
+type RefSeqNumField struct{ quickfix.SeqNumValue }
 
 //Tag returns tag.RefSeqNum (45)
-func (f RefSeqNumField) Tag() fix.Tag { return tag.RefSeqNum }
+func (f RefSeqNumField) Tag() quickfix.Tag { return tag.RefSeqNum }
 
 //NewRefSeqNum returns a new RefSeqNumField initialized with val
 func NewRefSeqNum(val int) *RefSeqNumField {
@@ -14153,10 +14171,10 @@ func NewRefSeqNum(val int) *RefSeqNumField {
 }
 
 //RefSubIDField is a STRING field
-type RefSubIDField struct{ fix.StringValue }
+type RefSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RefSubID (931)
-func (f RefSubIDField) Tag() fix.Tag { return tag.RefSubID }
+func (f RefSubIDField) Tag() quickfix.Tag { return tag.RefSubID }
 
 //NewRefSubID returns a new RefSubIDField initialized with val
 func NewRefSubID(val string) *RefSubIDField {
@@ -14166,10 +14184,10 @@ func NewRefSubID(val string) *RefSubIDField {
 }
 
 //RefTagIDField is a INT field
-type RefTagIDField struct{ fix.IntValue }
+type RefTagIDField struct{ quickfix.IntValue }
 
 //Tag returns tag.RefTagID (371)
-func (f RefTagIDField) Tag() fix.Tag { return tag.RefTagID }
+func (f RefTagIDField) Tag() quickfix.Tag { return tag.RefTagID }
 
 //NewRefTagID returns a new RefTagIDField initialized with val
 func NewRefTagID(val int) *RefTagIDField {
@@ -14179,10 +14197,10 @@ func NewRefTagID(val int) *RefTagIDField {
 }
 
 //ReferencePageField is a STRING field
-type ReferencePageField struct{ fix.StringValue }
+type ReferencePageField struct{ quickfix.StringValue }
 
 //Tag returns tag.ReferencePage (1448)
-func (f ReferencePageField) Tag() fix.Tag { return tag.ReferencePage }
+func (f ReferencePageField) Tag() quickfix.Tag { return tag.ReferencePage }
 
 //NewReferencePage returns a new ReferencePageField initialized with val
 func NewReferencePage(val string) *ReferencePageField {
@@ -14192,10 +14210,10 @@ func NewReferencePage(val string) *ReferencePageField {
 }
 
 //RefreshIndicatorField is a BOOLEAN field
-type RefreshIndicatorField struct{ fix.BooleanValue }
+type RefreshIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.RefreshIndicator (1187)
-func (f RefreshIndicatorField) Tag() fix.Tag { return tag.RefreshIndicator }
+func (f RefreshIndicatorField) Tag() quickfix.Tag { return tag.RefreshIndicator }
 
 //NewRefreshIndicator returns a new RefreshIndicatorField initialized with val
 func NewRefreshIndicator(val bool) *RefreshIndicatorField {
@@ -14205,10 +14223,10 @@ func NewRefreshIndicator(val bool) *RefreshIndicatorField {
 }
 
 //RefreshQtyField is a QTY field
-type RefreshQtyField struct{ fix.QtyValue }
+type RefreshQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.RefreshQty (1088)
-func (f RefreshQtyField) Tag() fix.Tag { return tag.RefreshQty }
+func (f RefreshQtyField) Tag() quickfix.Tag { return tag.RefreshQty }
 
 //NewRefreshQty returns a new RefreshQtyField initialized with val
 func NewRefreshQty(val float64) *RefreshQtyField {
@@ -14218,10 +14236,10 @@ func NewRefreshQty(val float64) *RefreshQtyField {
 }
 
 //RegistAcctTypeField is a STRING field
-type RegistAcctTypeField struct{ fix.StringValue }
+type RegistAcctTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RegistAcctType (493)
-func (f RegistAcctTypeField) Tag() fix.Tag { return tag.RegistAcctType }
+func (f RegistAcctTypeField) Tag() quickfix.Tag { return tag.RegistAcctType }
 
 //NewRegistAcctType returns a new RegistAcctTypeField initialized with val
 func NewRegistAcctType(val string) *RegistAcctTypeField {
@@ -14231,10 +14249,10 @@ func NewRegistAcctType(val string) *RegistAcctTypeField {
 }
 
 //RegistDetlsField is a STRING field
-type RegistDetlsField struct{ fix.StringValue }
+type RegistDetlsField struct{ quickfix.StringValue }
 
 //Tag returns tag.RegistDetls (509)
-func (f RegistDetlsField) Tag() fix.Tag { return tag.RegistDetls }
+func (f RegistDetlsField) Tag() quickfix.Tag { return tag.RegistDetls }
 
 //NewRegistDetls returns a new RegistDetlsField initialized with val
 func NewRegistDetls(val string) *RegistDetlsField {
@@ -14244,10 +14262,10 @@ func NewRegistDetls(val string) *RegistDetlsField {
 }
 
 //RegistDtlsField is a STRING field
-type RegistDtlsField struct{ fix.StringValue }
+type RegistDtlsField struct{ quickfix.StringValue }
 
 //Tag returns tag.RegistDtls (509)
-func (f RegistDtlsField) Tag() fix.Tag { return tag.RegistDtls }
+func (f RegistDtlsField) Tag() quickfix.Tag { return tag.RegistDtls }
 
 //NewRegistDtls returns a new RegistDtlsField initialized with val
 func NewRegistDtls(val string) *RegistDtlsField {
@@ -14257,10 +14275,10 @@ func NewRegistDtls(val string) *RegistDtlsField {
 }
 
 //RegistEmailField is a STRING field
-type RegistEmailField struct{ fix.StringValue }
+type RegistEmailField struct{ quickfix.StringValue }
 
 //Tag returns tag.RegistEmail (511)
-func (f RegistEmailField) Tag() fix.Tag { return tag.RegistEmail }
+func (f RegistEmailField) Tag() quickfix.Tag { return tag.RegistEmail }
 
 //NewRegistEmail returns a new RegistEmailField initialized with val
 func NewRegistEmail(val string) *RegistEmailField {
@@ -14270,10 +14288,10 @@ func NewRegistEmail(val string) *RegistEmailField {
 }
 
 //RegistIDField is a STRING field
-type RegistIDField struct{ fix.StringValue }
+type RegistIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RegistID (513)
-func (f RegistIDField) Tag() fix.Tag { return tag.RegistID }
+func (f RegistIDField) Tag() quickfix.Tag { return tag.RegistID }
 
 //NewRegistID returns a new RegistIDField initialized with val
 func NewRegistID(val string) *RegistIDField {
@@ -14283,10 +14301,10 @@ func NewRegistID(val string) *RegistIDField {
 }
 
 //RegistRefIDField is a STRING field
-type RegistRefIDField struct{ fix.StringValue }
+type RegistRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RegistRefID (508)
-func (f RegistRefIDField) Tag() fix.Tag { return tag.RegistRefID }
+func (f RegistRefIDField) Tag() quickfix.Tag { return tag.RegistRefID }
 
 //NewRegistRefID returns a new RegistRefIDField initialized with val
 func NewRegistRefID(val string) *RegistRefIDField {
@@ -14296,10 +14314,10 @@ func NewRegistRefID(val string) *RegistRefIDField {
 }
 
 //RegistRejReasonCodeField is a INT field
-type RegistRejReasonCodeField struct{ fix.IntValue }
+type RegistRejReasonCodeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RegistRejReasonCode (507)
-func (f RegistRejReasonCodeField) Tag() fix.Tag { return tag.RegistRejReasonCode }
+func (f RegistRejReasonCodeField) Tag() quickfix.Tag { return tag.RegistRejReasonCode }
 
 //NewRegistRejReasonCode returns a new RegistRejReasonCodeField initialized with val
 func NewRegistRejReasonCode(val int) *RegistRejReasonCodeField {
@@ -14309,10 +14327,10 @@ func NewRegistRejReasonCode(val int) *RegistRejReasonCodeField {
 }
 
 //RegistRejReasonTextField is a STRING field
-type RegistRejReasonTextField struct{ fix.StringValue }
+type RegistRejReasonTextField struct{ quickfix.StringValue }
 
 //Tag returns tag.RegistRejReasonText (496)
-func (f RegistRejReasonTextField) Tag() fix.Tag { return tag.RegistRejReasonText }
+func (f RegistRejReasonTextField) Tag() quickfix.Tag { return tag.RegistRejReasonText }
 
 //NewRegistRejReasonText returns a new RegistRejReasonTextField initialized with val
 func NewRegistRejReasonText(val string) *RegistRejReasonTextField {
@@ -14322,10 +14340,10 @@ func NewRegistRejReasonText(val string) *RegistRejReasonTextField {
 }
 
 //RegistStatusField is a CHAR field
-type RegistStatusField struct{ fix.CharValue }
+type RegistStatusField struct{ quickfix.CharValue }
 
 //Tag returns tag.RegistStatus (506)
-func (f RegistStatusField) Tag() fix.Tag { return tag.RegistStatus }
+func (f RegistStatusField) Tag() quickfix.Tag { return tag.RegistStatus }
 
 //NewRegistStatus returns a new RegistStatusField initialized with val
 func NewRegistStatus(val string) *RegistStatusField {
@@ -14335,10 +14353,10 @@ func NewRegistStatus(val string) *RegistStatusField {
 }
 
 //RegistTransTypeField is a CHAR field
-type RegistTransTypeField struct{ fix.CharValue }
+type RegistTransTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.RegistTransType (514)
-func (f RegistTransTypeField) Tag() fix.Tag { return tag.RegistTransType }
+func (f RegistTransTypeField) Tag() quickfix.Tag { return tag.RegistTransType }
 
 //NewRegistTransType returns a new RegistTransTypeField initialized with val
 func NewRegistTransType(val string) *RegistTransTypeField {
@@ -14348,10 +14366,10 @@ func NewRegistTransType(val string) *RegistTransTypeField {
 }
 
 //RejectTextField is a STRING field
-type RejectTextField struct{ fix.StringValue }
+type RejectTextField struct{ quickfix.StringValue }
 
 //Tag returns tag.RejectText (1328)
-func (f RejectTextField) Tag() fix.Tag { return tag.RejectText }
+func (f RejectTextField) Tag() quickfix.Tag { return tag.RejectText }
 
 //NewRejectText returns a new RejectTextField initialized with val
 func NewRejectText(val string) *RejectTextField {
@@ -14361,16 +14379,16 @@ func NewRejectText(val string) *RejectTextField {
 }
 
 //RelSymTransactTimeField is a UTCTIMESTAMP field
-type RelSymTransactTimeField struct{ fix.UTCTimestampValue }
+type RelSymTransactTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.RelSymTransactTime (1504)
-func (f RelSymTransactTimeField) Tag() fix.Tag { return tag.RelSymTransactTime }
+func (f RelSymTransactTimeField) Tag() quickfix.Tag { return tag.RelSymTransactTime }
 
 //RelatdSymField is a STRING field
-type RelatdSymField struct{ fix.StringValue }
+type RelatdSymField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelatdSym (46)
-func (f RelatdSymField) Tag() fix.Tag { return tag.RelatdSym }
+func (f RelatdSymField) Tag() quickfix.Tag { return tag.RelatdSym }
 
 //NewRelatdSym returns a new RelatdSymField initialized with val
 func NewRelatdSym(val string) *RelatdSymField {
@@ -14380,10 +14398,10 @@ func NewRelatdSym(val string) *RelatdSymField {
 }
 
 //RelatedContextPartyIDField is a STRING field
-type RelatedContextPartyIDField struct{ fix.StringValue }
+type RelatedContextPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelatedContextPartyID (1576)
-func (f RelatedContextPartyIDField) Tag() fix.Tag { return tag.RelatedContextPartyID }
+func (f RelatedContextPartyIDField) Tag() quickfix.Tag { return tag.RelatedContextPartyID }
 
 //NewRelatedContextPartyID returns a new RelatedContextPartyIDField initialized with val
 func NewRelatedContextPartyID(val string) *RelatedContextPartyIDField {
@@ -14393,10 +14411,10 @@ func NewRelatedContextPartyID(val string) *RelatedContextPartyIDField {
 }
 
 //RelatedContextPartyIDSourceField is a CHAR field
-type RelatedContextPartyIDSourceField struct{ fix.CharValue }
+type RelatedContextPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.RelatedContextPartyIDSource (1577)
-func (f RelatedContextPartyIDSourceField) Tag() fix.Tag { return tag.RelatedContextPartyIDSource }
+func (f RelatedContextPartyIDSourceField) Tag() quickfix.Tag { return tag.RelatedContextPartyIDSource }
 
 //NewRelatedContextPartyIDSource returns a new RelatedContextPartyIDSourceField initialized with val
 func NewRelatedContextPartyIDSource(val string) *RelatedContextPartyIDSourceField {
@@ -14406,10 +14424,10 @@ func NewRelatedContextPartyIDSource(val string) *RelatedContextPartyIDSourceFiel
 }
 
 //RelatedContextPartyRoleField is a INT field
-type RelatedContextPartyRoleField struct{ fix.IntValue }
+type RelatedContextPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelatedContextPartyRole (1578)
-func (f RelatedContextPartyRoleField) Tag() fix.Tag { return tag.RelatedContextPartyRole }
+func (f RelatedContextPartyRoleField) Tag() quickfix.Tag { return tag.RelatedContextPartyRole }
 
 //NewRelatedContextPartyRole returns a new RelatedContextPartyRoleField initialized with val
 func NewRelatedContextPartyRole(val int) *RelatedContextPartyRoleField {
@@ -14419,10 +14437,10 @@ func NewRelatedContextPartyRole(val int) *RelatedContextPartyRoleField {
 }
 
 //RelatedContextPartySubIDField is a STRING field
-type RelatedContextPartySubIDField struct{ fix.StringValue }
+type RelatedContextPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelatedContextPartySubID (1580)
-func (f RelatedContextPartySubIDField) Tag() fix.Tag { return tag.RelatedContextPartySubID }
+func (f RelatedContextPartySubIDField) Tag() quickfix.Tag { return tag.RelatedContextPartySubID }
 
 //NewRelatedContextPartySubID returns a new RelatedContextPartySubIDField initialized with val
 func NewRelatedContextPartySubID(val string) *RelatedContextPartySubIDField {
@@ -14432,10 +14450,10 @@ func NewRelatedContextPartySubID(val string) *RelatedContextPartySubIDField {
 }
 
 //RelatedContextPartySubIDTypeField is a INT field
-type RelatedContextPartySubIDTypeField struct{ fix.IntValue }
+type RelatedContextPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelatedContextPartySubIDType (1581)
-func (f RelatedContextPartySubIDTypeField) Tag() fix.Tag { return tag.RelatedContextPartySubIDType }
+func (f RelatedContextPartySubIDTypeField) Tag() quickfix.Tag { return tag.RelatedContextPartySubIDType }
 
 //NewRelatedContextPartySubIDType returns a new RelatedContextPartySubIDTypeField initialized with val
 func NewRelatedContextPartySubIDType(val int) *RelatedContextPartySubIDTypeField {
@@ -14445,10 +14463,10 @@ func NewRelatedContextPartySubIDType(val int) *RelatedContextPartySubIDTypeField
 }
 
 //RelatedPartyAltIDField is a STRING field
-type RelatedPartyAltIDField struct{ fix.StringValue }
+type RelatedPartyAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelatedPartyAltID (1570)
-func (f RelatedPartyAltIDField) Tag() fix.Tag { return tag.RelatedPartyAltID }
+func (f RelatedPartyAltIDField) Tag() quickfix.Tag { return tag.RelatedPartyAltID }
 
 //NewRelatedPartyAltID returns a new RelatedPartyAltIDField initialized with val
 func NewRelatedPartyAltID(val string) *RelatedPartyAltIDField {
@@ -14458,10 +14476,10 @@ func NewRelatedPartyAltID(val string) *RelatedPartyAltIDField {
 }
 
 //RelatedPartyAltIDSourceField is a CHAR field
-type RelatedPartyAltIDSourceField struct{ fix.CharValue }
+type RelatedPartyAltIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.RelatedPartyAltIDSource (1571)
-func (f RelatedPartyAltIDSourceField) Tag() fix.Tag { return tag.RelatedPartyAltIDSource }
+func (f RelatedPartyAltIDSourceField) Tag() quickfix.Tag { return tag.RelatedPartyAltIDSource }
 
 //NewRelatedPartyAltIDSource returns a new RelatedPartyAltIDSourceField initialized with val
 func NewRelatedPartyAltIDSource(val string) *RelatedPartyAltIDSourceField {
@@ -14471,10 +14489,10 @@ func NewRelatedPartyAltIDSource(val string) *RelatedPartyAltIDSourceField {
 }
 
 //RelatedPartyAltSubIDField is a STRING field
-type RelatedPartyAltSubIDField struct{ fix.StringValue }
+type RelatedPartyAltSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelatedPartyAltSubID (1573)
-func (f RelatedPartyAltSubIDField) Tag() fix.Tag { return tag.RelatedPartyAltSubID }
+func (f RelatedPartyAltSubIDField) Tag() quickfix.Tag { return tag.RelatedPartyAltSubID }
 
 //NewRelatedPartyAltSubID returns a new RelatedPartyAltSubIDField initialized with val
 func NewRelatedPartyAltSubID(val string) *RelatedPartyAltSubIDField {
@@ -14484,10 +14502,10 @@ func NewRelatedPartyAltSubID(val string) *RelatedPartyAltSubIDField {
 }
 
 //RelatedPartyAltSubIDTypeField is a INT field
-type RelatedPartyAltSubIDTypeField struct{ fix.IntValue }
+type RelatedPartyAltSubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelatedPartyAltSubIDType (1574)
-func (f RelatedPartyAltSubIDTypeField) Tag() fix.Tag { return tag.RelatedPartyAltSubIDType }
+func (f RelatedPartyAltSubIDTypeField) Tag() quickfix.Tag { return tag.RelatedPartyAltSubIDType }
 
 //NewRelatedPartyAltSubIDType returns a new RelatedPartyAltSubIDTypeField initialized with val
 func NewRelatedPartyAltSubIDType(val int) *RelatedPartyAltSubIDTypeField {
@@ -14497,10 +14515,10 @@ func NewRelatedPartyAltSubIDType(val int) *RelatedPartyAltSubIDTypeField {
 }
 
 //RelatedPartyIDField is a STRING field
-type RelatedPartyIDField struct{ fix.StringValue }
+type RelatedPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelatedPartyID (1563)
-func (f RelatedPartyIDField) Tag() fix.Tag { return tag.RelatedPartyID }
+func (f RelatedPartyIDField) Tag() quickfix.Tag { return tag.RelatedPartyID }
 
 //NewRelatedPartyID returns a new RelatedPartyIDField initialized with val
 func NewRelatedPartyID(val string) *RelatedPartyIDField {
@@ -14510,10 +14528,10 @@ func NewRelatedPartyID(val string) *RelatedPartyIDField {
 }
 
 //RelatedPartyIDSourceField is a CHAR field
-type RelatedPartyIDSourceField struct{ fix.CharValue }
+type RelatedPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.RelatedPartyIDSource (1564)
-func (f RelatedPartyIDSourceField) Tag() fix.Tag { return tag.RelatedPartyIDSource }
+func (f RelatedPartyIDSourceField) Tag() quickfix.Tag { return tag.RelatedPartyIDSource }
 
 //NewRelatedPartyIDSource returns a new RelatedPartyIDSourceField initialized with val
 func NewRelatedPartyIDSource(val string) *RelatedPartyIDSourceField {
@@ -14523,10 +14541,10 @@ func NewRelatedPartyIDSource(val string) *RelatedPartyIDSourceField {
 }
 
 //RelatedPartyRoleField is a INT field
-type RelatedPartyRoleField struct{ fix.IntValue }
+type RelatedPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelatedPartyRole (1565)
-func (f RelatedPartyRoleField) Tag() fix.Tag { return tag.RelatedPartyRole }
+func (f RelatedPartyRoleField) Tag() quickfix.Tag { return tag.RelatedPartyRole }
 
 //NewRelatedPartyRole returns a new RelatedPartyRoleField initialized with val
 func NewRelatedPartyRole(val int) *RelatedPartyRoleField {
@@ -14536,10 +14554,10 @@ func NewRelatedPartyRole(val int) *RelatedPartyRoleField {
 }
 
 //RelatedPartySubIDField is a STRING field
-type RelatedPartySubIDField struct{ fix.StringValue }
+type RelatedPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelatedPartySubID (1567)
-func (f RelatedPartySubIDField) Tag() fix.Tag { return tag.RelatedPartySubID }
+func (f RelatedPartySubIDField) Tag() quickfix.Tag { return tag.RelatedPartySubID }
 
 //NewRelatedPartySubID returns a new RelatedPartySubIDField initialized with val
 func NewRelatedPartySubID(val string) *RelatedPartySubIDField {
@@ -14549,10 +14567,10 @@ func NewRelatedPartySubID(val string) *RelatedPartySubIDField {
 }
 
 //RelatedPartySubIDTypeField is a INT field
-type RelatedPartySubIDTypeField struct{ fix.IntValue }
+type RelatedPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelatedPartySubIDType (1568)
-func (f RelatedPartySubIDTypeField) Tag() fix.Tag { return tag.RelatedPartySubIDType }
+func (f RelatedPartySubIDTypeField) Tag() quickfix.Tag { return tag.RelatedPartySubIDType }
 
 //NewRelatedPartySubIDType returns a new RelatedPartySubIDTypeField initialized with val
 func NewRelatedPartySubIDType(val int) *RelatedPartySubIDTypeField {
@@ -14562,10 +14580,10 @@ func NewRelatedPartySubIDType(val int) *RelatedPartySubIDTypeField {
 }
 
 //RelationshipRiskCFICodeField is a STRING field
-type RelationshipRiskCFICodeField struct{ fix.StringValue }
+type RelationshipRiskCFICodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskCFICode (1599)
-func (f RelationshipRiskCFICodeField) Tag() fix.Tag { return tag.RelationshipRiskCFICode }
+func (f RelationshipRiskCFICodeField) Tag() quickfix.Tag { return tag.RelationshipRiskCFICode }
 
 //NewRelationshipRiskCFICode returns a new RelationshipRiskCFICodeField initialized with val
 func NewRelationshipRiskCFICode(val string) *RelationshipRiskCFICodeField {
@@ -14575,10 +14593,10 @@ func NewRelationshipRiskCFICode(val string) *RelationshipRiskCFICodeField {
 }
 
 //RelationshipRiskCouponRateField is a PERCENTAGE field
-type RelationshipRiskCouponRateField struct{ fix.PercentageValue }
+type RelationshipRiskCouponRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.RelationshipRiskCouponRate (1608)
-func (f RelationshipRiskCouponRateField) Tag() fix.Tag { return tag.RelationshipRiskCouponRate }
+func (f RelationshipRiskCouponRateField) Tag() quickfix.Tag { return tag.RelationshipRiskCouponRate }
 
 //NewRelationshipRiskCouponRate returns a new RelationshipRiskCouponRateField initialized with val
 func NewRelationshipRiskCouponRate(val float64) *RelationshipRiskCouponRateField {
@@ -14588,10 +14606,10 @@ func NewRelationshipRiskCouponRate(val float64) *RelationshipRiskCouponRateField
 }
 
 //RelationshipRiskEncodedSecurityDescField is a DATA field
-type RelationshipRiskEncodedSecurityDescField struct{ fix.DataValue }
+type RelationshipRiskEncodedSecurityDescField struct{ quickfix.DataValue }
 
 //Tag returns tag.RelationshipRiskEncodedSecurityDesc (1619)
-func (f RelationshipRiskEncodedSecurityDescField) Tag() fix.Tag {
+func (f RelationshipRiskEncodedSecurityDescField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskEncodedSecurityDesc
 }
 
@@ -14603,10 +14621,10 @@ func NewRelationshipRiskEncodedSecurityDesc(val string) *RelationshipRiskEncoded
 }
 
 //RelationshipRiskEncodedSecurityDescLenField is a LENGTH field
-type RelationshipRiskEncodedSecurityDescLenField struct{ fix.LengthValue }
+type RelationshipRiskEncodedSecurityDescLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.RelationshipRiskEncodedSecurityDescLen (1618)
-func (f RelationshipRiskEncodedSecurityDescLenField) Tag() fix.Tag {
+func (f RelationshipRiskEncodedSecurityDescLenField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskEncodedSecurityDescLen
 }
 
@@ -14618,10 +14636,10 @@ func NewRelationshipRiskEncodedSecurityDescLen(val int) *RelationshipRiskEncoded
 }
 
 //RelationshipRiskFlexibleIndicatorField is a BOOLEAN field
-type RelationshipRiskFlexibleIndicatorField struct{ fix.BooleanValue }
+type RelationshipRiskFlexibleIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.RelationshipRiskFlexibleIndicator (1607)
-func (f RelationshipRiskFlexibleIndicatorField) Tag() fix.Tag {
+func (f RelationshipRiskFlexibleIndicatorField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskFlexibleIndicator
 }
 
@@ -14633,10 +14651,10 @@ func NewRelationshipRiskFlexibleIndicator(val bool) *RelationshipRiskFlexibleInd
 }
 
 //RelationshipRiskInstrumentMultiplierField is a FLOAT field
-type RelationshipRiskInstrumentMultiplierField struct{ fix.FloatValue }
+type RelationshipRiskInstrumentMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.RelationshipRiskInstrumentMultiplier (1612)
-func (f RelationshipRiskInstrumentMultiplierField) Tag() fix.Tag {
+func (f RelationshipRiskInstrumentMultiplierField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskInstrumentMultiplier
 }
 
@@ -14648,10 +14666,10 @@ func NewRelationshipRiskInstrumentMultiplier(val float64) *RelationshipRiskInstr
 }
 
 //RelationshipRiskInstrumentOperatorField is a INT field
-type RelationshipRiskInstrumentOperatorField struct{ fix.IntValue }
+type RelationshipRiskInstrumentOperatorField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelationshipRiskInstrumentOperator (1588)
-func (f RelationshipRiskInstrumentOperatorField) Tag() fix.Tag {
+func (f RelationshipRiskInstrumentOperatorField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskInstrumentOperator
 }
 
@@ -14663,10 +14681,10 @@ func NewRelationshipRiskInstrumentOperator(val int) *RelationshipRiskInstrumentO
 }
 
 //RelationshipRiskInstrumentSettlTypeField is a STRING field
-type RelationshipRiskInstrumentSettlTypeField struct{ fix.StringValue }
+type RelationshipRiskInstrumentSettlTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskInstrumentSettlType (1611)
-func (f RelationshipRiskInstrumentSettlTypeField) Tag() fix.Tag {
+func (f RelationshipRiskInstrumentSettlTypeField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskInstrumentSettlType
 }
 
@@ -14678,10 +14696,10 @@ func NewRelationshipRiskInstrumentSettlType(val string) *RelationshipRiskInstrum
 }
 
 //RelationshipRiskLimitAmountField is a AMT field
-type RelationshipRiskLimitAmountField struct{ fix.AmtValue }
+type RelationshipRiskLimitAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.RelationshipRiskLimitAmount (1584)
-func (f RelationshipRiskLimitAmountField) Tag() fix.Tag { return tag.RelationshipRiskLimitAmount }
+func (f RelationshipRiskLimitAmountField) Tag() quickfix.Tag { return tag.RelationshipRiskLimitAmount }
 
 //NewRelationshipRiskLimitAmount returns a new RelationshipRiskLimitAmountField initialized with val
 func NewRelationshipRiskLimitAmount(val float64) *RelationshipRiskLimitAmountField {
@@ -14691,10 +14709,12 @@ func NewRelationshipRiskLimitAmount(val float64) *RelationshipRiskLimitAmountFie
 }
 
 //RelationshipRiskLimitCurrencyField is a CURRENCY field
-type RelationshipRiskLimitCurrencyField struct{ fix.CurrencyValue }
+type RelationshipRiskLimitCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.RelationshipRiskLimitCurrency (1585)
-func (f RelationshipRiskLimitCurrencyField) Tag() fix.Tag { return tag.RelationshipRiskLimitCurrency }
+func (f RelationshipRiskLimitCurrencyField) Tag() quickfix.Tag {
+	return tag.RelationshipRiskLimitCurrency
+}
 
 //NewRelationshipRiskLimitCurrency returns a new RelationshipRiskLimitCurrencyField initialized with val
 func NewRelationshipRiskLimitCurrency(val string) *RelationshipRiskLimitCurrencyField {
@@ -14704,10 +14724,12 @@ func NewRelationshipRiskLimitCurrency(val string) *RelationshipRiskLimitCurrency
 }
 
 //RelationshipRiskLimitPlatformField is a STRING field
-type RelationshipRiskLimitPlatformField struct{ fix.StringValue }
+type RelationshipRiskLimitPlatformField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskLimitPlatform (1586)
-func (f RelationshipRiskLimitPlatformField) Tag() fix.Tag { return tag.RelationshipRiskLimitPlatform }
+func (f RelationshipRiskLimitPlatformField) Tag() quickfix.Tag {
+	return tag.RelationshipRiskLimitPlatform
+}
 
 //NewRelationshipRiskLimitPlatform returns a new RelationshipRiskLimitPlatformField initialized with val
 func NewRelationshipRiskLimitPlatform(val string) *RelationshipRiskLimitPlatformField {
@@ -14717,10 +14739,10 @@ func NewRelationshipRiskLimitPlatform(val string) *RelationshipRiskLimitPlatform
 }
 
 //RelationshipRiskLimitTypeField is a INT field
-type RelationshipRiskLimitTypeField struct{ fix.IntValue }
+type RelationshipRiskLimitTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelationshipRiskLimitType (1583)
-func (f RelationshipRiskLimitTypeField) Tag() fix.Tag { return tag.RelationshipRiskLimitType }
+func (f RelationshipRiskLimitTypeField) Tag() quickfix.Tag { return tag.RelationshipRiskLimitType }
 
 //NewRelationshipRiskLimitType returns a new RelationshipRiskLimitTypeField initialized with val
 func NewRelationshipRiskLimitType(val int) *RelationshipRiskLimitTypeField {
@@ -14730,10 +14752,10 @@ func NewRelationshipRiskLimitType(val int) *RelationshipRiskLimitTypeField {
 }
 
 //RelationshipRiskMaturityMonthYearField is a MONTHYEAR field
-type RelationshipRiskMaturityMonthYearField struct{ fix.MonthYearValue }
+type RelationshipRiskMaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.RelationshipRiskMaturityMonthYear (1602)
-func (f RelationshipRiskMaturityMonthYearField) Tag() fix.Tag {
+func (f RelationshipRiskMaturityMonthYearField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskMaturityMonthYear
 }
 
@@ -14745,16 +14767,16 @@ func NewRelationshipRiskMaturityMonthYear(val string) *RelationshipRiskMaturityM
 }
 
 //RelationshipRiskMaturityTimeField is a TZTIMEONLY field
-type RelationshipRiskMaturityTimeField struct{ fix.TZTimeOnlyValue }
+type RelationshipRiskMaturityTimeField struct{ quickfix.TZTimeOnlyValue }
 
 //Tag returns tag.RelationshipRiskMaturityTime (1603)
-func (f RelationshipRiskMaturityTimeField) Tag() fix.Tag { return tag.RelationshipRiskMaturityTime }
+func (f RelationshipRiskMaturityTimeField) Tag() quickfix.Tag { return tag.RelationshipRiskMaturityTime }
 
 //RelationshipRiskProductField is a INT field
-type RelationshipRiskProductField struct{ fix.IntValue }
+type RelationshipRiskProductField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelationshipRiskProduct (1596)
-func (f RelationshipRiskProductField) Tag() fix.Tag { return tag.RelationshipRiskProduct }
+func (f RelationshipRiskProductField) Tag() quickfix.Tag { return tag.RelationshipRiskProduct }
 
 //NewRelationshipRiskProduct returns a new RelationshipRiskProductField initialized with val
 func NewRelationshipRiskProduct(val int) *RelationshipRiskProductField {
@@ -14764,10 +14786,12 @@ func NewRelationshipRiskProduct(val int) *RelationshipRiskProductField {
 }
 
 //RelationshipRiskProductComplexField is a STRING field
-type RelationshipRiskProductComplexField struct{ fix.StringValue }
+type RelationshipRiskProductComplexField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskProductComplex (1597)
-func (f RelationshipRiskProductComplexField) Tag() fix.Tag { return tag.RelationshipRiskProductComplex }
+func (f RelationshipRiskProductComplexField) Tag() quickfix.Tag {
+	return tag.RelationshipRiskProductComplex
+}
 
 //NewRelationshipRiskProductComplex returns a new RelationshipRiskProductComplexField initialized with val
 func NewRelationshipRiskProductComplex(val string) *RelationshipRiskProductComplexField {
@@ -14777,10 +14801,10 @@ func NewRelationshipRiskProductComplex(val string) *RelationshipRiskProductCompl
 }
 
 //RelationshipRiskPutOrCallField is a INT field
-type RelationshipRiskPutOrCallField struct{ fix.IntValue }
+type RelationshipRiskPutOrCallField struct{ quickfix.IntValue }
 
 //Tag returns tag.RelationshipRiskPutOrCall (1606)
-func (f RelationshipRiskPutOrCallField) Tag() fix.Tag { return tag.RelationshipRiskPutOrCall }
+func (f RelationshipRiskPutOrCallField) Tag() quickfix.Tag { return tag.RelationshipRiskPutOrCall }
 
 //NewRelationshipRiskPutOrCall returns a new RelationshipRiskPutOrCallField initialized with val
 func NewRelationshipRiskPutOrCall(val int) *RelationshipRiskPutOrCallField {
@@ -14790,10 +14814,10 @@ func NewRelationshipRiskPutOrCall(val int) *RelationshipRiskPutOrCallField {
 }
 
 //RelationshipRiskRestructuringTypeField is a STRING field
-type RelationshipRiskRestructuringTypeField struct{ fix.StringValue }
+type RelationshipRiskRestructuringTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskRestructuringType (1604)
-func (f RelationshipRiskRestructuringTypeField) Tag() fix.Tag {
+func (f RelationshipRiskRestructuringTypeField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskRestructuringType
 }
 
@@ -14805,10 +14829,12 @@ func NewRelationshipRiskRestructuringType(val string) *RelationshipRiskRestructu
 }
 
 //RelationshipRiskSecurityAltIDField is a STRING field
-type RelationshipRiskSecurityAltIDField struct{ fix.StringValue }
+type RelationshipRiskSecurityAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityAltID (1594)
-func (f RelationshipRiskSecurityAltIDField) Tag() fix.Tag { return tag.RelationshipRiskSecurityAltID }
+func (f RelationshipRiskSecurityAltIDField) Tag() quickfix.Tag {
+	return tag.RelationshipRiskSecurityAltID
+}
 
 //NewRelationshipRiskSecurityAltID returns a new RelationshipRiskSecurityAltIDField initialized with val
 func NewRelationshipRiskSecurityAltID(val string) *RelationshipRiskSecurityAltIDField {
@@ -14818,10 +14844,10 @@ func NewRelationshipRiskSecurityAltID(val string) *RelationshipRiskSecurityAltID
 }
 
 //RelationshipRiskSecurityAltIDSourceField is a STRING field
-type RelationshipRiskSecurityAltIDSourceField struct{ fix.StringValue }
+type RelationshipRiskSecurityAltIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityAltIDSource (1595)
-func (f RelationshipRiskSecurityAltIDSourceField) Tag() fix.Tag {
+func (f RelationshipRiskSecurityAltIDSourceField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskSecurityAltIDSource
 }
 
@@ -14833,10 +14859,10 @@ func NewRelationshipRiskSecurityAltIDSource(val string) *RelationshipRiskSecurit
 }
 
 //RelationshipRiskSecurityDescField is a STRING field
-type RelationshipRiskSecurityDescField struct{ fix.StringValue }
+type RelationshipRiskSecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityDesc (1610)
-func (f RelationshipRiskSecurityDescField) Tag() fix.Tag { return tag.RelationshipRiskSecurityDesc }
+func (f RelationshipRiskSecurityDescField) Tag() quickfix.Tag { return tag.RelationshipRiskSecurityDesc }
 
 //NewRelationshipRiskSecurityDesc returns a new RelationshipRiskSecurityDescField initialized with val
 func NewRelationshipRiskSecurityDesc(val string) *RelationshipRiskSecurityDescField {
@@ -14846,10 +14872,10 @@ func NewRelationshipRiskSecurityDesc(val string) *RelationshipRiskSecurityDescFi
 }
 
 //RelationshipRiskSecurityExchangeField is a EXCHANGE field
-type RelationshipRiskSecurityExchangeField struct{ fix.ExchangeValue }
+type RelationshipRiskSecurityExchangeField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.RelationshipRiskSecurityExchange (1609)
-func (f RelationshipRiskSecurityExchangeField) Tag() fix.Tag {
+func (f RelationshipRiskSecurityExchangeField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskSecurityExchange
 }
 
@@ -14861,10 +14887,12 @@ func NewRelationshipRiskSecurityExchange(val string) *RelationshipRiskSecurityEx
 }
 
 //RelationshipRiskSecurityGroupField is a STRING field
-type RelationshipRiskSecurityGroupField struct{ fix.StringValue }
+type RelationshipRiskSecurityGroupField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityGroup (1598)
-func (f RelationshipRiskSecurityGroupField) Tag() fix.Tag { return tag.RelationshipRiskSecurityGroup }
+func (f RelationshipRiskSecurityGroupField) Tag() quickfix.Tag {
+	return tag.RelationshipRiskSecurityGroup
+}
 
 //NewRelationshipRiskSecurityGroup returns a new RelationshipRiskSecurityGroupField initialized with val
 func NewRelationshipRiskSecurityGroup(val string) *RelationshipRiskSecurityGroupField {
@@ -14874,10 +14902,10 @@ func NewRelationshipRiskSecurityGroup(val string) *RelationshipRiskSecurityGroup
 }
 
 //RelationshipRiskSecurityIDField is a STRING field
-type RelationshipRiskSecurityIDField struct{ fix.StringValue }
+type RelationshipRiskSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityID (1591)
-func (f RelationshipRiskSecurityIDField) Tag() fix.Tag { return tag.RelationshipRiskSecurityID }
+func (f RelationshipRiskSecurityIDField) Tag() quickfix.Tag { return tag.RelationshipRiskSecurityID }
 
 //NewRelationshipRiskSecurityID returns a new RelationshipRiskSecurityIDField initialized with val
 func NewRelationshipRiskSecurityID(val string) *RelationshipRiskSecurityIDField {
@@ -14887,10 +14915,10 @@ func NewRelationshipRiskSecurityID(val string) *RelationshipRiskSecurityIDField 
 }
 
 //RelationshipRiskSecurityIDSourceField is a STRING field
-type RelationshipRiskSecurityIDSourceField struct{ fix.StringValue }
+type RelationshipRiskSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityIDSource (1592)
-func (f RelationshipRiskSecurityIDSourceField) Tag() fix.Tag {
+func (f RelationshipRiskSecurityIDSourceField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskSecurityIDSource
 }
 
@@ -14902,10 +14930,10 @@ func NewRelationshipRiskSecurityIDSource(val string) *RelationshipRiskSecurityID
 }
 
 //RelationshipRiskSecuritySubTypeField is a STRING field
-type RelationshipRiskSecuritySubTypeField struct{ fix.StringValue }
+type RelationshipRiskSecuritySubTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecuritySubType (1601)
-func (f RelationshipRiskSecuritySubTypeField) Tag() fix.Tag {
+func (f RelationshipRiskSecuritySubTypeField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskSecuritySubType
 }
 
@@ -14917,10 +14945,10 @@ func NewRelationshipRiskSecuritySubType(val string) *RelationshipRiskSecuritySub
 }
 
 //RelationshipRiskSecurityTypeField is a STRING field
-type RelationshipRiskSecurityTypeField struct{ fix.StringValue }
+type RelationshipRiskSecurityTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSecurityType (1600)
-func (f RelationshipRiskSecurityTypeField) Tag() fix.Tag { return tag.RelationshipRiskSecurityType }
+func (f RelationshipRiskSecurityTypeField) Tag() quickfix.Tag { return tag.RelationshipRiskSecurityType }
 
 //NewRelationshipRiskSecurityType returns a new RelationshipRiskSecurityTypeField initialized with val
 func NewRelationshipRiskSecurityType(val string) *RelationshipRiskSecurityTypeField {
@@ -14930,10 +14958,10 @@ func NewRelationshipRiskSecurityType(val string) *RelationshipRiskSecurityTypeFi
 }
 
 //RelationshipRiskSeniorityField is a STRING field
-type RelationshipRiskSeniorityField struct{ fix.StringValue }
+type RelationshipRiskSeniorityField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSeniority (1605)
-func (f RelationshipRiskSeniorityField) Tag() fix.Tag { return tag.RelationshipRiskSeniority }
+func (f RelationshipRiskSeniorityField) Tag() quickfix.Tag { return tag.RelationshipRiskSeniority }
 
 //NewRelationshipRiskSeniority returns a new RelationshipRiskSeniorityField initialized with val
 func NewRelationshipRiskSeniority(val string) *RelationshipRiskSeniorityField {
@@ -14943,10 +14971,10 @@ func NewRelationshipRiskSeniority(val string) *RelationshipRiskSeniorityField {
 }
 
 //RelationshipRiskSymbolField is a STRING field
-type RelationshipRiskSymbolField struct{ fix.StringValue }
+type RelationshipRiskSymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSymbol (1589)
-func (f RelationshipRiskSymbolField) Tag() fix.Tag { return tag.RelationshipRiskSymbol }
+func (f RelationshipRiskSymbolField) Tag() quickfix.Tag { return tag.RelationshipRiskSymbol }
 
 //NewRelationshipRiskSymbol returns a new RelationshipRiskSymbolField initialized with val
 func NewRelationshipRiskSymbol(val string) *RelationshipRiskSymbolField {
@@ -14956,10 +14984,10 @@ func NewRelationshipRiskSymbol(val string) *RelationshipRiskSymbolField {
 }
 
 //RelationshipRiskSymbolSfxField is a STRING field
-type RelationshipRiskSymbolSfxField struct{ fix.StringValue }
+type RelationshipRiskSymbolSfxField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskSymbolSfx (1590)
-func (f RelationshipRiskSymbolSfxField) Tag() fix.Tag { return tag.RelationshipRiskSymbolSfx }
+func (f RelationshipRiskSymbolSfxField) Tag() quickfix.Tag { return tag.RelationshipRiskSymbolSfx }
 
 //NewRelationshipRiskSymbolSfx returns a new RelationshipRiskSymbolSfxField initialized with val
 func NewRelationshipRiskSymbolSfx(val string) *RelationshipRiskSymbolSfxField {
@@ -14969,10 +14997,10 @@ func NewRelationshipRiskSymbolSfx(val string) *RelationshipRiskSymbolSfxField {
 }
 
 //RelationshipRiskWarningLevelNameField is a STRING field
-type RelationshipRiskWarningLevelNameField struct{ fix.StringValue }
+type RelationshipRiskWarningLevelNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.RelationshipRiskWarningLevelName (1615)
-func (f RelationshipRiskWarningLevelNameField) Tag() fix.Tag {
+func (f RelationshipRiskWarningLevelNameField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskWarningLevelName
 }
 
@@ -14984,10 +15012,10 @@ func NewRelationshipRiskWarningLevelName(val string) *RelationshipRiskWarningLev
 }
 
 //RelationshipRiskWarningLevelPercentField is a PERCENTAGE field
-type RelationshipRiskWarningLevelPercentField struct{ fix.PercentageValue }
+type RelationshipRiskWarningLevelPercentField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.RelationshipRiskWarningLevelPercent (1614)
-func (f RelationshipRiskWarningLevelPercentField) Tag() fix.Tag {
+func (f RelationshipRiskWarningLevelPercentField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskWarningLevelPercent
 }
 
@@ -14999,10 +15027,10 @@ func NewRelationshipRiskWarningLevelPercent(val float64) *RelationshipRiskWarnin
 }
 
 //RepoCollateralSecurityTypeField is a INT field
-type RepoCollateralSecurityTypeField struct{ fix.IntValue }
+type RepoCollateralSecurityTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RepoCollateralSecurityType (239)
-func (f RepoCollateralSecurityTypeField) Tag() fix.Tag { return tag.RepoCollateralSecurityType }
+func (f RepoCollateralSecurityTypeField) Tag() quickfix.Tag { return tag.RepoCollateralSecurityType }
 
 //NewRepoCollateralSecurityType returns a new RepoCollateralSecurityTypeField initialized with val
 func NewRepoCollateralSecurityType(val int) *RepoCollateralSecurityTypeField {
@@ -15012,10 +15040,10 @@ func NewRepoCollateralSecurityType(val int) *RepoCollateralSecurityTypeField {
 }
 
 //ReportToExchField is a BOOLEAN field
-type ReportToExchField struct{ fix.BooleanValue }
+type ReportToExchField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ReportToExch (113)
-func (f ReportToExchField) Tag() fix.Tag { return tag.ReportToExch }
+func (f ReportToExchField) Tag() quickfix.Tag { return tag.ReportToExch }
 
 //NewReportToExch returns a new ReportToExchField initialized with val
 func NewReportToExch(val bool) *ReportToExchField {
@@ -15025,10 +15053,10 @@ func NewReportToExch(val bool) *ReportToExchField {
 }
 
 //ReportedPxField is a PRICE field
-type ReportedPxField struct{ fix.PriceValue }
+type ReportedPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.ReportedPx (861)
-func (f ReportedPxField) Tag() fix.Tag { return tag.ReportedPx }
+func (f ReportedPxField) Tag() quickfix.Tag { return tag.ReportedPx }
 
 //NewReportedPx returns a new ReportedPxField initialized with val
 func NewReportedPx(val float64) *ReportedPxField {
@@ -15038,10 +15066,10 @@ func NewReportedPx(val float64) *ReportedPxField {
 }
 
 //ReportedPxDiffField is a BOOLEAN field
-type ReportedPxDiffField struct{ fix.BooleanValue }
+type ReportedPxDiffField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ReportedPxDiff (1134)
-func (f ReportedPxDiffField) Tag() fix.Tag { return tag.ReportedPxDiff }
+func (f ReportedPxDiffField) Tag() quickfix.Tag { return tag.ReportedPxDiff }
 
 //NewReportedPxDiff returns a new ReportedPxDiffField initialized with val
 func NewReportedPxDiff(val bool) *ReportedPxDiffField {
@@ -15051,10 +15079,10 @@ func NewReportedPxDiff(val bool) *ReportedPxDiffField {
 }
 
 //RepurchaseRateField is a PERCENTAGE field
-type RepurchaseRateField struct{ fix.PercentageValue }
+type RepurchaseRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.RepurchaseRate (227)
-func (f RepurchaseRateField) Tag() fix.Tag { return tag.RepurchaseRate }
+func (f RepurchaseRateField) Tag() quickfix.Tag { return tag.RepurchaseRate }
 
 //NewRepurchaseRate returns a new RepurchaseRateField initialized with val
 func NewRepurchaseRate(val float64) *RepurchaseRateField {
@@ -15064,10 +15092,10 @@ func NewRepurchaseRate(val float64) *RepurchaseRateField {
 }
 
 //RepurchaseTermField is a INT field
-type RepurchaseTermField struct{ fix.IntValue }
+type RepurchaseTermField struct{ quickfix.IntValue }
 
 //Tag returns tag.RepurchaseTerm (226)
-func (f RepurchaseTermField) Tag() fix.Tag { return tag.RepurchaseTerm }
+func (f RepurchaseTermField) Tag() quickfix.Tag { return tag.RepurchaseTerm }
 
 //NewRepurchaseTerm returns a new RepurchaseTermField initialized with val
 func NewRepurchaseTerm(val int) *RepurchaseTermField {
@@ -15077,10 +15105,10 @@ func NewRepurchaseTerm(val int) *RepurchaseTermField {
 }
 
 //RequestedPartyRoleField is a INT field
-type RequestedPartyRoleField struct{ fix.IntValue }
+type RequestedPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.RequestedPartyRole (1509)
-func (f RequestedPartyRoleField) Tag() fix.Tag { return tag.RequestedPartyRole }
+func (f RequestedPartyRoleField) Tag() quickfix.Tag { return tag.RequestedPartyRole }
 
 //NewRequestedPartyRole returns a new RequestedPartyRoleField initialized with val
 func NewRequestedPartyRole(val int) *RequestedPartyRoleField {
@@ -15090,10 +15118,10 @@ func NewRequestedPartyRole(val int) *RequestedPartyRoleField {
 }
 
 //ResetSeqNumFlagField is a BOOLEAN field
-type ResetSeqNumFlagField struct{ fix.BooleanValue }
+type ResetSeqNumFlagField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ResetSeqNumFlag (141)
-func (f ResetSeqNumFlagField) Tag() fix.Tag { return tag.ResetSeqNumFlag }
+func (f ResetSeqNumFlagField) Tag() quickfix.Tag { return tag.ResetSeqNumFlag }
 
 //NewResetSeqNumFlag returns a new ResetSeqNumFlagField initialized with val
 func NewResetSeqNumFlag(val bool) *ResetSeqNumFlagField {
@@ -15103,10 +15131,10 @@ func NewResetSeqNumFlag(val bool) *ResetSeqNumFlagField {
 }
 
 //RespondentTypeField is a INT field
-type RespondentTypeField struct{ fix.IntValue }
+type RespondentTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RespondentType (1172)
-func (f RespondentTypeField) Tag() fix.Tag { return tag.RespondentType }
+func (f RespondentTypeField) Tag() quickfix.Tag { return tag.RespondentType }
 
 //NewRespondentType returns a new RespondentTypeField initialized with val
 func NewRespondentType(val int) *RespondentTypeField {
@@ -15116,10 +15144,10 @@ func NewRespondentType(val int) *RespondentTypeField {
 }
 
 //ResponseDestinationField is a STRING field
-type ResponseDestinationField struct{ fix.StringValue }
+type ResponseDestinationField struct{ quickfix.StringValue }
 
 //Tag returns tag.ResponseDestination (726)
-func (f ResponseDestinationField) Tag() fix.Tag { return tag.ResponseDestination }
+func (f ResponseDestinationField) Tag() quickfix.Tag { return tag.ResponseDestination }
 
 //NewResponseDestination returns a new ResponseDestinationField initialized with val
 func NewResponseDestination(val string) *ResponseDestinationField {
@@ -15129,10 +15157,10 @@ func NewResponseDestination(val string) *ResponseDestinationField {
 }
 
 //ResponseTransportTypeField is a INT field
-type ResponseTransportTypeField struct{ fix.IntValue }
+type ResponseTransportTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.ResponseTransportType (725)
-func (f ResponseTransportTypeField) Tag() fix.Tag { return tag.ResponseTransportType }
+func (f ResponseTransportTypeField) Tag() quickfix.Tag { return tag.ResponseTransportType }
 
 //NewResponseTransportType returns a new ResponseTransportTypeField initialized with val
 func NewResponseTransportType(val int) *ResponseTransportTypeField {
@@ -15142,10 +15170,10 @@ func NewResponseTransportType(val int) *ResponseTransportTypeField {
 }
 
 //RestructuringTypeField is a STRING field
-type RestructuringTypeField struct{ fix.StringValue }
+type RestructuringTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RestructuringType (1449)
-func (f RestructuringTypeField) Tag() fix.Tag { return tag.RestructuringType }
+func (f RestructuringTypeField) Tag() quickfix.Tag { return tag.RestructuringType }
 
 //NewRestructuringType returns a new RestructuringTypeField initialized with val
 func NewRestructuringType(val string) *RestructuringTypeField {
@@ -15155,10 +15183,10 @@ func NewRestructuringType(val string) *RestructuringTypeField {
 }
 
 //ReversalIndicatorField is a BOOLEAN field
-type ReversalIndicatorField struct{ fix.BooleanValue }
+type ReversalIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.ReversalIndicator (700)
-func (f ReversalIndicatorField) Tag() fix.Tag { return tag.ReversalIndicator }
+func (f ReversalIndicatorField) Tag() quickfix.Tag { return tag.ReversalIndicator }
 
 //NewReversalIndicator returns a new ReversalIndicatorField initialized with val
 func NewReversalIndicator(val bool) *ReversalIndicatorField {
@@ -15168,10 +15196,10 @@ func NewReversalIndicator(val bool) *ReversalIndicatorField {
 }
 
 //RiskCFICodeField is a STRING field
-type RiskCFICodeField struct{ fix.StringValue }
+type RiskCFICodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskCFICode (1546)
-func (f RiskCFICodeField) Tag() fix.Tag { return tag.RiskCFICode }
+func (f RiskCFICodeField) Tag() quickfix.Tag { return tag.RiskCFICode }
 
 //NewRiskCFICode returns a new RiskCFICodeField initialized with val
 func NewRiskCFICode(val string) *RiskCFICodeField {
@@ -15181,10 +15209,10 @@ func NewRiskCFICode(val string) *RiskCFICodeField {
 }
 
 //RiskCouponRateField is a PERCENTAGE field
-type RiskCouponRateField struct{ fix.PercentageValue }
+type RiskCouponRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.RiskCouponRate (1555)
-func (f RiskCouponRateField) Tag() fix.Tag { return tag.RiskCouponRate }
+func (f RiskCouponRateField) Tag() quickfix.Tag { return tag.RiskCouponRate }
 
 //NewRiskCouponRate returns a new RiskCouponRateField initialized with val
 func NewRiskCouponRate(val float64) *RiskCouponRateField {
@@ -15194,10 +15222,10 @@ func NewRiskCouponRate(val float64) *RiskCouponRateField {
 }
 
 //RiskEncodedSecurityDescField is a DATA field
-type RiskEncodedSecurityDescField struct{ fix.DataValue }
+type RiskEncodedSecurityDescField struct{ quickfix.DataValue }
 
 //Tag returns tag.RiskEncodedSecurityDesc (1621)
-func (f RiskEncodedSecurityDescField) Tag() fix.Tag { return tag.RiskEncodedSecurityDesc }
+func (f RiskEncodedSecurityDescField) Tag() quickfix.Tag { return tag.RiskEncodedSecurityDesc }
 
 //NewRiskEncodedSecurityDesc returns a new RiskEncodedSecurityDescField initialized with val
 func NewRiskEncodedSecurityDesc(val string) *RiskEncodedSecurityDescField {
@@ -15207,10 +15235,10 @@ func NewRiskEncodedSecurityDesc(val string) *RiskEncodedSecurityDescField {
 }
 
 //RiskEncodedSecurityDescLenField is a LENGTH field
-type RiskEncodedSecurityDescLenField struct{ fix.LengthValue }
+type RiskEncodedSecurityDescLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.RiskEncodedSecurityDescLen (1620)
-func (f RiskEncodedSecurityDescLenField) Tag() fix.Tag { return tag.RiskEncodedSecurityDescLen }
+func (f RiskEncodedSecurityDescLenField) Tag() quickfix.Tag { return tag.RiskEncodedSecurityDescLen }
 
 //NewRiskEncodedSecurityDescLen returns a new RiskEncodedSecurityDescLenField initialized with val
 func NewRiskEncodedSecurityDescLen(val int) *RiskEncodedSecurityDescLenField {
@@ -15220,10 +15248,10 @@ func NewRiskEncodedSecurityDescLen(val int) *RiskEncodedSecurityDescLenField {
 }
 
 //RiskFlexibleIndicatorField is a BOOLEAN field
-type RiskFlexibleIndicatorField struct{ fix.BooleanValue }
+type RiskFlexibleIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.RiskFlexibleIndicator (1554)
-func (f RiskFlexibleIndicatorField) Tag() fix.Tag { return tag.RiskFlexibleIndicator }
+func (f RiskFlexibleIndicatorField) Tag() quickfix.Tag { return tag.RiskFlexibleIndicator }
 
 //NewRiskFlexibleIndicator returns a new RiskFlexibleIndicatorField initialized with val
 func NewRiskFlexibleIndicator(val bool) *RiskFlexibleIndicatorField {
@@ -15233,10 +15261,10 @@ func NewRiskFlexibleIndicator(val bool) *RiskFlexibleIndicatorField {
 }
 
 //RiskFreeRateField is a FLOAT field
-type RiskFreeRateField struct{ fix.FloatValue }
+type RiskFreeRateField struct{ quickfix.FloatValue }
 
 //Tag returns tag.RiskFreeRate (1190)
-func (f RiskFreeRateField) Tag() fix.Tag { return tag.RiskFreeRate }
+func (f RiskFreeRateField) Tag() quickfix.Tag { return tag.RiskFreeRate }
 
 //NewRiskFreeRate returns a new RiskFreeRateField initialized with val
 func NewRiskFreeRate(val float64) *RiskFreeRateField {
@@ -15246,10 +15274,10 @@ func NewRiskFreeRate(val float64) *RiskFreeRateField {
 }
 
 //RiskInstrumentMultiplierField is a FLOAT field
-type RiskInstrumentMultiplierField struct{ fix.FloatValue }
+type RiskInstrumentMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.RiskInstrumentMultiplier (1558)
-func (f RiskInstrumentMultiplierField) Tag() fix.Tag { return tag.RiskInstrumentMultiplier }
+func (f RiskInstrumentMultiplierField) Tag() quickfix.Tag { return tag.RiskInstrumentMultiplier }
 
 //NewRiskInstrumentMultiplier returns a new RiskInstrumentMultiplierField initialized with val
 func NewRiskInstrumentMultiplier(val float64) *RiskInstrumentMultiplierField {
@@ -15259,10 +15287,10 @@ func NewRiskInstrumentMultiplier(val float64) *RiskInstrumentMultiplierField {
 }
 
 //RiskInstrumentOperatorField is a INT field
-type RiskInstrumentOperatorField struct{ fix.IntValue }
+type RiskInstrumentOperatorField struct{ quickfix.IntValue }
 
 //Tag returns tag.RiskInstrumentOperator (1535)
-func (f RiskInstrumentOperatorField) Tag() fix.Tag { return tag.RiskInstrumentOperator }
+func (f RiskInstrumentOperatorField) Tag() quickfix.Tag { return tag.RiskInstrumentOperator }
 
 //NewRiskInstrumentOperator returns a new RiskInstrumentOperatorField initialized with val
 func NewRiskInstrumentOperator(val int) *RiskInstrumentOperatorField {
@@ -15272,10 +15300,10 @@ func NewRiskInstrumentOperator(val int) *RiskInstrumentOperatorField {
 }
 
 //RiskInstrumentSettlTypeField is a STRING field
-type RiskInstrumentSettlTypeField struct{ fix.StringValue }
+type RiskInstrumentSettlTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskInstrumentSettlType (1557)
-func (f RiskInstrumentSettlTypeField) Tag() fix.Tag { return tag.RiskInstrumentSettlType }
+func (f RiskInstrumentSettlTypeField) Tag() quickfix.Tag { return tag.RiskInstrumentSettlType }
 
 //NewRiskInstrumentSettlType returns a new RiskInstrumentSettlTypeField initialized with val
 func NewRiskInstrumentSettlType(val string) *RiskInstrumentSettlTypeField {
@@ -15285,10 +15313,10 @@ func NewRiskInstrumentSettlType(val string) *RiskInstrumentSettlTypeField {
 }
 
 //RiskLimitAmountField is a AMT field
-type RiskLimitAmountField struct{ fix.AmtValue }
+type RiskLimitAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.RiskLimitAmount (1531)
-func (f RiskLimitAmountField) Tag() fix.Tag { return tag.RiskLimitAmount }
+func (f RiskLimitAmountField) Tag() quickfix.Tag { return tag.RiskLimitAmount }
 
 //NewRiskLimitAmount returns a new RiskLimitAmountField initialized with val
 func NewRiskLimitAmount(val float64) *RiskLimitAmountField {
@@ -15298,10 +15326,10 @@ func NewRiskLimitAmount(val float64) *RiskLimitAmountField {
 }
 
 //RiskLimitCurrencyField is a CURRENCY field
-type RiskLimitCurrencyField struct{ fix.CurrencyValue }
+type RiskLimitCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.RiskLimitCurrency (1532)
-func (f RiskLimitCurrencyField) Tag() fix.Tag { return tag.RiskLimitCurrency }
+func (f RiskLimitCurrencyField) Tag() quickfix.Tag { return tag.RiskLimitCurrency }
 
 //NewRiskLimitCurrency returns a new RiskLimitCurrencyField initialized with val
 func NewRiskLimitCurrency(val string) *RiskLimitCurrencyField {
@@ -15311,10 +15339,10 @@ func NewRiskLimitCurrency(val string) *RiskLimitCurrencyField {
 }
 
 //RiskLimitPlatformField is a STRING field
-type RiskLimitPlatformField struct{ fix.StringValue }
+type RiskLimitPlatformField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskLimitPlatform (1533)
-func (f RiskLimitPlatformField) Tag() fix.Tag { return tag.RiskLimitPlatform }
+func (f RiskLimitPlatformField) Tag() quickfix.Tag { return tag.RiskLimitPlatform }
 
 //NewRiskLimitPlatform returns a new RiskLimitPlatformField initialized with val
 func NewRiskLimitPlatform(val string) *RiskLimitPlatformField {
@@ -15324,10 +15352,10 @@ func NewRiskLimitPlatform(val string) *RiskLimitPlatformField {
 }
 
 //RiskLimitTypeField is a INT field
-type RiskLimitTypeField struct{ fix.IntValue }
+type RiskLimitTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RiskLimitType (1530)
-func (f RiskLimitTypeField) Tag() fix.Tag { return tag.RiskLimitType }
+func (f RiskLimitTypeField) Tag() quickfix.Tag { return tag.RiskLimitType }
 
 //NewRiskLimitType returns a new RiskLimitTypeField initialized with val
 func NewRiskLimitType(val int) *RiskLimitTypeField {
@@ -15337,10 +15365,10 @@ func NewRiskLimitType(val int) *RiskLimitTypeField {
 }
 
 //RiskMaturityMonthYearField is a MONTHYEAR field
-type RiskMaturityMonthYearField struct{ fix.MonthYearValue }
+type RiskMaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.RiskMaturityMonthYear (1549)
-func (f RiskMaturityMonthYearField) Tag() fix.Tag { return tag.RiskMaturityMonthYear }
+func (f RiskMaturityMonthYearField) Tag() quickfix.Tag { return tag.RiskMaturityMonthYear }
 
 //NewRiskMaturityMonthYear returns a new RiskMaturityMonthYearField initialized with val
 func NewRiskMaturityMonthYear(val string) *RiskMaturityMonthYearField {
@@ -15350,16 +15378,16 @@ func NewRiskMaturityMonthYear(val string) *RiskMaturityMonthYearField {
 }
 
 //RiskMaturityTimeField is a TZTIMEONLY field
-type RiskMaturityTimeField struct{ fix.TZTimeOnlyValue }
+type RiskMaturityTimeField struct{ quickfix.TZTimeOnlyValue }
 
 //Tag returns tag.RiskMaturityTime (1550)
-func (f RiskMaturityTimeField) Tag() fix.Tag { return tag.RiskMaturityTime }
+func (f RiskMaturityTimeField) Tag() quickfix.Tag { return tag.RiskMaturityTime }
 
 //RiskProductField is a INT field
-type RiskProductField struct{ fix.IntValue }
+type RiskProductField struct{ quickfix.IntValue }
 
 //Tag returns tag.RiskProduct (1543)
-func (f RiskProductField) Tag() fix.Tag { return tag.RiskProduct }
+func (f RiskProductField) Tag() quickfix.Tag { return tag.RiskProduct }
 
 //NewRiskProduct returns a new RiskProductField initialized with val
 func NewRiskProduct(val int) *RiskProductField {
@@ -15369,10 +15397,10 @@ func NewRiskProduct(val int) *RiskProductField {
 }
 
 //RiskProductComplexField is a STRING field
-type RiskProductComplexField struct{ fix.StringValue }
+type RiskProductComplexField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskProductComplex (1544)
-func (f RiskProductComplexField) Tag() fix.Tag { return tag.RiskProductComplex }
+func (f RiskProductComplexField) Tag() quickfix.Tag { return tag.RiskProductComplex }
 
 //NewRiskProductComplex returns a new RiskProductComplexField initialized with val
 func NewRiskProductComplex(val string) *RiskProductComplexField {
@@ -15382,10 +15410,10 @@ func NewRiskProductComplex(val string) *RiskProductComplexField {
 }
 
 //RiskPutOrCallField is a INT field
-type RiskPutOrCallField struct{ fix.IntValue }
+type RiskPutOrCallField struct{ quickfix.IntValue }
 
 //Tag returns tag.RiskPutOrCall (1553)
-func (f RiskPutOrCallField) Tag() fix.Tag { return tag.RiskPutOrCall }
+func (f RiskPutOrCallField) Tag() quickfix.Tag { return tag.RiskPutOrCall }
 
 //NewRiskPutOrCall returns a new RiskPutOrCallField initialized with val
 func NewRiskPutOrCall(val int) *RiskPutOrCallField {
@@ -15395,10 +15423,10 @@ func NewRiskPutOrCall(val int) *RiskPutOrCallField {
 }
 
 //RiskRestructuringTypeField is a STRING field
-type RiskRestructuringTypeField struct{ fix.StringValue }
+type RiskRestructuringTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskRestructuringType (1551)
-func (f RiskRestructuringTypeField) Tag() fix.Tag { return tag.RiskRestructuringType }
+func (f RiskRestructuringTypeField) Tag() quickfix.Tag { return tag.RiskRestructuringType }
 
 //NewRiskRestructuringType returns a new RiskRestructuringTypeField initialized with val
 func NewRiskRestructuringType(val string) *RiskRestructuringTypeField {
@@ -15408,10 +15436,10 @@ func NewRiskRestructuringType(val string) *RiskRestructuringTypeField {
 }
 
 //RiskSecurityAltIDField is a STRING field
-type RiskSecurityAltIDField struct{ fix.StringValue }
+type RiskSecurityAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSecurityAltID (1541)
-func (f RiskSecurityAltIDField) Tag() fix.Tag { return tag.RiskSecurityAltID }
+func (f RiskSecurityAltIDField) Tag() quickfix.Tag { return tag.RiskSecurityAltID }
 
 //NewRiskSecurityAltID returns a new RiskSecurityAltIDField initialized with val
 func NewRiskSecurityAltID(val string) *RiskSecurityAltIDField {
@@ -15421,10 +15449,10 @@ func NewRiskSecurityAltID(val string) *RiskSecurityAltIDField {
 }
 
 //RiskSecurityAltIDSourceField is a STRING field
-type RiskSecurityAltIDSourceField struct{ fix.StringValue }
+type RiskSecurityAltIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSecurityAltIDSource (1542)
-func (f RiskSecurityAltIDSourceField) Tag() fix.Tag { return tag.RiskSecurityAltIDSource }
+func (f RiskSecurityAltIDSourceField) Tag() quickfix.Tag { return tag.RiskSecurityAltIDSource }
 
 //NewRiskSecurityAltIDSource returns a new RiskSecurityAltIDSourceField initialized with val
 func NewRiskSecurityAltIDSource(val string) *RiskSecurityAltIDSourceField {
@@ -15434,10 +15462,10 @@ func NewRiskSecurityAltIDSource(val string) *RiskSecurityAltIDSourceField {
 }
 
 //RiskSecurityDescField is a STRING field
-type RiskSecurityDescField struct{ fix.StringValue }
+type RiskSecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSecurityDesc (1556)
-func (f RiskSecurityDescField) Tag() fix.Tag { return tag.RiskSecurityDesc }
+func (f RiskSecurityDescField) Tag() quickfix.Tag { return tag.RiskSecurityDesc }
 
 //NewRiskSecurityDesc returns a new RiskSecurityDescField initialized with val
 func NewRiskSecurityDesc(val string) *RiskSecurityDescField {
@@ -15447,10 +15475,10 @@ func NewRiskSecurityDesc(val string) *RiskSecurityDescField {
 }
 
 //RiskSecurityExchangeField is a EXCHANGE field
-type RiskSecurityExchangeField struct{ fix.ExchangeValue }
+type RiskSecurityExchangeField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.RiskSecurityExchange (1616)
-func (f RiskSecurityExchangeField) Tag() fix.Tag { return tag.RiskSecurityExchange }
+func (f RiskSecurityExchangeField) Tag() quickfix.Tag { return tag.RiskSecurityExchange }
 
 //NewRiskSecurityExchange returns a new RiskSecurityExchangeField initialized with val
 func NewRiskSecurityExchange(val string) *RiskSecurityExchangeField {
@@ -15460,10 +15488,10 @@ func NewRiskSecurityExchange(val string) *RiskSecurityExchangeField {
 }
 
 //RiskSecurityGroupField is a STRING field
-type RiskSecurityGroupField struct{ fix.StringValue }
+type RiskSecurityGroupField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSecurityGroup (1545)
-func (f RiskSecurityGroupField) Tag() fix.Tag { return tag.RiskSecurityGroup }
+func (f RiskSecurityGroupField) Tag() quickfix.Tag { return tag.RiskSecurityGroup }
 
 //NewRiskSecurityGroup returns a new RiskSecurityGroupField initialized with val
 func NewRiskSecurityGroup(val string) *RiskSecurityGroupField {
@@ -15473,10 +15501,10 @@ func NewRiskSecurityGroup(val string) *RiskSecurityGroupField {
 }
 
 //RiskSecurityIDField is a STRING field
-type RiskSecurityIDField struct{ fix.StringValue }
+type RiskSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSecurityID (1538)
-func (f RiskSecurityIDField) Tag() fix.Tag { return tag.RiskSecurityID }
+func (f RiskSecurityIDField) Tag() quickfix.Tag { return tag.RiskSecurityID }
 
 //NewRiskSecurityID returns a new RiskSecurityIDField initialized with val
 func NewRiskSecurityID(val string) *RiskSecurityIDField {
@@ -15486,10 +15514,10 @@ func NewRiskSecurityID(val string) *RiskSecurityIDField {
 }
 
 //RiskSecurityIDSourceField is a STRING field
-type RiskSecurityIDSourceField struct{ fix.StringValue }
+type RiskSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSecurityIDSource (1539)
-func (f RiskSecurityIDSourceField) Tag() fix.Tag { return tag.RiskSecurityIDSource }
+func (f RiskSecurityIDSourceField) Tag() quickfix.Tag { return tag.RiskSecurityIDSource }
 
 //NewRiskSecurityIDSource returns a new RiskSecurityIDSourceField initialized with val
 func NewRiskSecurityIDSource(val string) *RiskSecurityIDSourceField {
@@ -15499,10 +15527,10 @@ func NewRiskSecurityIDSource(val string) *RiskSecurityIDSourceField {
 }
 
 //RiskSecuritySubTypeField is a STRING field
-type RiskSecuritySubTypeField struct{ fix.StringValue }
+type RiskSecuritySubTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSecuritySubType (1548)
-func (f RiskSecuritySubTypeField) Tag() fix.Tag { return tag.RiskSecuritySubType }
+func (f RiskSecuritySubTypeField) Tag() quickfix.Tag { return tag.RiskSecuritySubType }
 
 //NewRiskSecuritySubType returns a new RiskSecuritySubTypeField initialized with val
 func NewRiskSecuritySubType(val string) *RiskSecuritySubTypeField {
@@ -15512,10 +15540,10 @@ func NewRiskSecuritySubType(val string) *RiskSecuritySubTypeField {
 }
 
 //RiskSecurityTypeField is a STRING field
-type RiskSecurityTypeField struct{ fix.StringValue }
+type RiskSecurityTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSecurityType (1547)
-func (f RiskSecurityTypeField) Tag() fix.Tag { return tag.RiskSecurityType }
+func (f RiskSecurityTypeField) Tag() quickfix.Tag { return tag.RiskSecurityType }
 
 //NewRiskSecurityType returns a new RiskSecurityTypeField initialized with val
 func NewRiskSecurityType(val string) *RiskSecurityTypeField {
@@ -15525,10 +15553,10 @@ func NewRiskSecurityType(val string) *RiskSecurityTypeField {
 }
 
 //RiskSeniorityField is a STRING field
-type RiskSeniorityField struct{ fix.StringValue }
+type RiskSeniorityField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSeniority (1552)
-func (f RiskSeniorityField) Tag() fix.Tag { return tag.RiskSeniority }
+func (f RiskSeniorityField) Tag() quickfix.Tag { return tag.RiskSeniority }
 
 //NewRiskSeniority returns a new RiskSeniorityField initialized with val
 func NewRiskSeniority(val string) *RiskSeniorityField {
@@ -15538,10 +15566,10 @@ func NewRiskSeniority(val string) *RiskSeniorityField {
 }
 
 //RiskSymbolField is a STRING field
-type RiskSymbolField struct{ fix.StringValue }
+type RiskSymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSymbol (1536)
-func (f RiskSymbolField) Tag() fix.Tag { return tag.RiskSymbol }
+func (f RiskSymbolField) Tag() quickfix.Tag { return tag.RiskSymbol }
 
 //NewRiskSymbol returns a new RiskSymbolField initialized with val
 func NewRiskSymbol(val string) *RiskSymbolField {
@@ -15551,10 +15579,10 @@ func NewRiskSymbol(val string) *RiskSymbolField {
 }
 
 //RiskSymbolSfxField is a STRING field
-type RiskSymbolSfxField struct{ fix.StringValue }
+type RiskSymbolSfxField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskSymbolSfx (1537)
-func (f RiskSymbolSfxField) Tag() fix.Tag { return tag.RiskSymbolSfx }
+func (f RiskSymbolSfxField) Tag() quickfix.Tag { return tag.RiskSymbolSfx }
 
 //NewRiskSymbolSfx returns a new RiskSymbolSfxField initialized with val
 func NewRiskSymbolSfx(val string) *RiskSymbolSfxField {
@@ -15564,10 +15592,10 @@ func NewRiskSymbolSfx(val string) *RiskSymbolSfxField {
 }
 
 //RiskWarningLevelNameField is a STRING field
-type RiskWarningLevelNameField struct{ fix.StringValue }
+type RiskWarningLevelNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.RiskWarningLevelName (1561)
-func (f RiskWarningLevelNameField) Tag() fix.Tag { return tag.RiskWarningLevelName }
+func (f RiskWarningLevelNameField) Tag() quickfix.Tag { return tag.RiskWarningLevelName }
 
 //NewRiskWarningLevelName returns a new RiskWarningLevelNameField initialized with val
 func NewRiskWarningLevelName(val string) *RiskWarningLevelNameField {
@@ -15577,10 +15605,10 @@ func NewRiskWarningLevelName(val string) *RiskWarningLevelNameField {
 }
 
 //RiskWarningLevelPercentField is a PERCENTAGE field
-type RiskWarningLevelPercentField struct{ fix.PercentageValue }
+type RiskWarningLevelPercentField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.RiskWarningLevelPercent (1560)
-func (f RiskWarningLevelPercentField) Tag() fix.Tag { return tag.RiskWarningLevelPercent }
+func (f RiskWarningLevelPercentField) Tag() quickfix.Tag { return tag.RiskWarningLevelPercent }
 
 //NewRiskWarningLevelPercent returns a new RiskWarningLevelPercentField initialized with val
 func NewRiskWarningLevelPercent(val float64) *RiskWarningLevelPercentField {
@@ -15590,10 +15618,10 @@ func NewRiskWarningLevelPercent(val float64) *RiskWarningLevelPercentField {
 }
 
 //RndPxField is a PRICE field
-type RndPxField struct{ fix.PriceValue }
+type RndPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.RndPx (991)
-func (f RndPxField) Tag() fix.Tag { return tag.RndPx }
+func (f RndPxField) Tag() quickfix.Tag { return tag.RndPx }
 
 //NewRndPx returns a new RndPxField initialized with val
 func NewRndPx(val float64) *RndPxField {
@@ -15603,10 +15631,10 @@ func NewRndPx(val float64) *RndPxField {
 }
 
 //RootPartyIDField is a STRING field
-type RootPartyIDField struct{ fix.StringValue }
+type RootPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RootPartyID (1117)
-func (f RootPartyIDField) Tag() fix.Tag { return tag.RootPartyID }
+func (f RootPartyIDField) Tag() quickfix.Tag { return tag.RootPartyID }
 
 //NewRootPartyID returns a new RootPartyIDField initialized with val
 func NewRootPartyID(val string) *RootPartyIDField {
@@ -15616,10 +15644,10 @@ func NewRootPartyID(val string) *RootPartyIDField {
 }
 
 //RootPartyIDSourceField is a CHAR field
-type RootPartyIDSourceField struct{ fix.CharValue }
+type RootPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.RootPartyIDSource (1118)
-func (f RootPartyIDSourceField) Tag() fix.Tag { return tag.RootPartyIDSource }
+func (f RootPartyIDSourceField) Tag() quickfix.Tag { return tag.RootPartyIDSource }
 
 //NewRootPartyIDSource returns a new RootPartyIDSourceField initialized with val
 func NewRootPartyIDSource(val string) *RootPartyIDSourceField {
@@ -15629,10 +15657,10 @@ func NewRootPartyIDSource(val string) *RootPartyIDSourceField {
 }
 
 //RootPartyRoleField is a INT field
-type RootPartyRoleField struct{ fix.IntValue }
+type RootPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.RootPartyRole (1119)
-func (f RootPartyRoleField) Tag() fix.Tag { return tag.RootPartyRole }
+func (f RootPartyRoleField) Tag() quickfix.Tag { return tag.RootPartyRole }
 
 //NewRootPartyRole returns a new RootPartyRoleField initialized with val
 func NewRootPartyRole(val int) *RootPartyRoleField {
@@ -15642,10 +15670,10 @@ func NewRootPartyRole(val int) *RootPartyRoleField {
 }
 
 //RootPartySubIDField is a STRING field
-type RootPartySubIDField struct{ fix.StringValue }
+type RootPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RootPartySubID (1121)
-func (f RootPartySubIDField) Tag() fix.Tag { return tag.RootPartySubID }
+func (f RootPartySubIDField) Tag() quickfix.Tag { return tag.RootPartySubID }
 
 //NewRootPartySubID returns a new RootPartySubIDField initialized with val
 func NewRootPartySubID(val string) *RootPartySubIDField {
@@ -15655,10 +15683,10 @@ func NewRootPartySubID(val string) *RootPartySubIDField {
 }
 
 //RootPartySubIDTypeField is a INT field
-type RootPartySubIDTypeField struct{ fix.IntValue }
+type RootPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RootPartySubIDType (1122)
-func (f RootPartySubIDTypeField) Tag() fix.Tag { return tag.RootPartySubIDType }
+func (f RootPartySubIDTypeField) Tag() quickfix.Tag { return tag.RootPartySubIDType }
 
 //NewRootPartySubIDType returns a new RootPartySubIDTypeField initialized with val
 func NewRootPartySubIDType(val int) *RootPartySubIDTypeField {
@@ -15668,10 +15696,10 @@ func NewRootPartySubIDType(val int) *RootPartySubIDTypeField {
 }
 
 //RoundLotField is a QTY field
-type RoundLotField struct{ fix.QtyValue }
+type RoundLotField struct{ quickfix.QtyValue }
 
 //Tag returns tag.RoundLot (561)
-func (f RoundLotField) Tag() fix.Tag { return tag.RoundLot }
+func (f RoundLotField) Tag() quickfix.Tag { return tag.RoundLot }
 
 //NewRoundLot returns a new RoundLotField initialized with val
 func NewRoundLot(val float64) *RoundLotField {
@@ -15681,10 +15709,10 @@ func NewRoundLot(val float64) *RoundLotField {
 }
 
 //RoundingDirectionField is a CHAR field
-type RoundingDirectionField struct{ fix.CharValue }
+type RoundingDirectionField struct{ quickfix.CharValue }
 
 //Tag returns tag.RoundingDirection (468)
-func (f RoundingDirectionField) Tag() fix.Tag { return tag.RoundingDirection }
+func (f RoundingDirectionField) Tag() quickfix.Tag { return tag.RoundingDirection }
 
 //NewRoundingDirection returns a new RoundingDirectionField initialized with val
 func NewRoundingDirection(val string) *RoundingDirectionField {
@@ -15694,10 +15722,10 @@ func NewRoundingDirection(val string) *RoundingDirectionField {
 }
 
 //RoundingModulusField is a FLOAT field
-type RoundingModulusField struct{ fix.FloatValue }
+type RoundingModulusField struct{ quickfix.FloatValue }
 
 //Tag returns tag.RoundingModulus (469)
-func (f RoundingModulusField) Tag() fix.Tag { return tag.RoundingModulus }
+func (f RoundingModulusField) Tag() quickfix.Tag { return tag.RoundingModulus }
 
 //NewRoundingModulus returns a new RoundingModulusField initialized with val
 func NewRoundingModulus(val float64) *RoundingModulusField {
@@ -15707,10 +15735,10 @@ func NewRoundingModulus(val float64) *RoundingModulusField {
 }
 
 //RoutingIDField is a STRING field
-type RoutingIDField struct{ fix.StringValue }
+type RoutingIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.RoutingID (217)
-func (f RoutingIDField) Tag() fix.Tag { return tag.RoutingID }
+func (f RoutingIDField) Tag() quickfix.Tag { return tag.RoutingID }
 
 //NewRoutingID returns a new RoutingIDField initialized with val
 func NewRoutingID(val string) *RoutingIDField {
@@ -15720,10 +15748,10 @@ func NewRoutingID(val string) *RoutingIDField {
 }
 
 //RoutingTypeField is a INT field
-type RoutingTypeField struct{ fix.IntValue }
+type RoutingTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.RoutingType (216)
-func (f RoutingTypeField) Tag() fix.Tag { return tag.RoutingType }
+func (f RoutingTypeField) Tag() quickfix.Tag { return tag.RoutingType }
 
 //NewRoutingType returns a new RoutingTypeField initialized with val
 func NewRoutingType(val int) *RoutingTypeField {
@@ -15733,10 +15761,10 @@ func NewRoutingType(val int) *RoutingTypeField {
 }
 
 //RptSeqField is a INT field
-type RptSeqField struct{ fix.IntValue }
+type RptSeqField struct{ quickfix.IntValue }
 
 //Tag returns tag.RptSeq (83)
-func (f RptSeqField) Tag() fix.Tag { return tag.RptSeq }
+func (f RptSeqField) Tag() quickfix.Tag { return tag.RptSeq }
 
 //NewRptSeq returns a new RptSeqField initialized with val
 func NewRptSeq(val int) *RptSeqField {
@@ -15746,10 +15774,10 @@ func NewRptSeq(val int) *RptSeqField {
 }
 
 //RptSysField is a STRING field
-type RptSysField struct{ fix.StringValue }
+type RptSysField struct{ quickfix.StringValue }
 
 //Tag returns tag.RptSys (1135)
-func (f RptSysField) Tag() fix.Tag { return tag.RptSys }
+func (f RptSysField) Tag() quickfix.Tag { return tag.RptSys }
 
 //NewRptSys returns a new RptSysField initialized with val
 func NewRptSys(val string) *RptSysField {
@@ -15759,10 +15787,10 @@ func NewRptSys(val string) *RptSysField {
 }
 
 //Rule80AField is a CHAR field
-type Rule80AField struct{ fix.CharValue }
+type Rule80AField struct{ quickfix.CharValue }
 
 //Tag returns tag.Rule80A (47)
-func (f Rule80AField) Tag() fix.Tag { return tag.Rule80A }
+func (f Rule80AField) Tag() quickfix.Tag { return tag.Rule80A }
 
 //NewRule80A returns a new Rule80AField initialized with val
 func NewRule80A(val string) *Rule80AField {
@@ -15772,10 +15800,10 @@ func NewRule80A(val string) *Rule80AField {
 }
 
 //ScopeField is a MULTIPLECHARVALUE field
-type ScopeField struct{ fix.MultipleCharValue }
+type ScopeField struct{ quickfix.MultipleCharValue }
 
 //Tag returns tag.Scope (546)
-func (f ScopeField) Tag() fix.Tag { return tag.Scope }
+func (f ScopeField) Tag() quickfix.Tag { return tag.Scope }
 
 //NewScope returns a new ScopeField initialized with val
 func NewScope(val string) *ScopeField {
@@ -15785,10 +15813,10 @@ func NewScope(val string) *ScopeField {
 }
 
 //SecDefStatusField is a INT field
-type SecDefStatusField struct{ fix.IntValue }
+type SecDefStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecDefStatus (653)
-func (f SecDefStatusField) Tag() fix.Tag { return tag.SecDefStatus }
+func (f SecDefStatusField) Tag() quickfix.Tag { return tag.SecDefStatus }
 
 //NewSecDefStatus returns a new SecDefStatusField initialized with val
 func NewSecDefStatus(val int) *SecDefStatusField {
@@ -15798,10 +15826,10 @@ func NewSecDefStatus(val int) *SecDefStatusField {
 }
 
 //SecondaryAllocIDField is a STRING field
-type SecondaryAllocIDField struct{ fix.StringValue }
+type SecondaryAllocIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryAllocID (793)
-func (f SecondaryAllocIDField) Tag() fix.Tag { return tag.SecondaryAllocID }
+func (f SecondaryAllocIDField) Tag() quickfix.Tag { return tag.SecondaryAllocID }
 
 //NewSecondaryAllocID returns a new SecondaryAllocIDField initialized with val
 func NewSecondaryAllocID(val string) *SecondaryAllocIDField {
@@ -15811,10 +15839,10 @@ func NewSecondaryAllocID(val string) *SecondaryAllocIDField {
 }
 
 //SecondaryClOrdIDField is a STRING field
-type SecondaryClOrdIDField struct{ fix.StringValue }
+type SecondaryClOrdIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryClOrdID (526)
-func (f SecondaryClOrdIDField) Tag() fix.Tag { return tag.SecondaryClOrdID }
+func (f SecondaryClOrdIDField) Tag() quickfix.Tag { return tag.SecondaryClOrdID }
 
 //NewSecondaryClOrdID returns a new SecondaryClOrdIDField initialized with val
 func NewSecondaryClOrdID(val string) *SecondaryClOrdIDField {
@@ -15824,10 +15852,10 @@ func NewSecondaryClOrdID(val string) *SecondaryClOrdIDField {
 }
 
 //SecondaryDisplayQtyField is a QTY field
-type SecondaryDisplayQtyField struct{ fix.QtyValue }
+type SecondaryDisplayQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.SecondaryDisplayQty (1082)
-func (f SecondaryDisplayQtyField) Tag() fix.Tag { return tag.SecondaryDisplayQty }
+func (f SecondaryDisplayQtyField) Tag() quickfix.Tag { return tag.SecondaryDisplayQty }
 
 //NewSecondaryDisplayQty returns a new SecondaryDisplayQtyField initialized with val
 func NewSecondaryDisplayQty(val float64) *SecondaryDisplayQtyField {
@@ -15837,10 +15865,10 @@ func NewSecondaryDisplayQty(val float64) *SecondaryDisplayQtyField {
 }
 
 //SecondaryExecIDField is a STRING field
-type SecondaryExecIDField struct{ fix.StringValue }
+type SecondaryExecIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryExecID (527)
-func (f SecondaryExecIDField) Tag() fix.Tag { return tag.SecondaryExecID }
+func (f SecondaryExecIDField) Tag() quickfix.Tag { return tag.SecondaryExecID }
 
 //NewSecondaryExecID returns a new SecondaryExecIDField initialized with val
 func NewSecondaryExecID(val string) *SecondaryExecIDField {
@@ -15850,10 +15878,10 @@ func NewSecondaryExecID(val string) *SecondaryExecIDField {
 }
 
 //SecondaryFirmTradeIDField is a STRING field
-type SecondaryFirmTradeIDField struct{ fix.StringValue }
+type SecondaryFirmTradeIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryFirmTradeID (1042)
-func (f SecondaryFirmTradeIDField) Tag() fix.Tag { return tag.SecondaryFirmTradeID }
+func (f SecondaryFirmTradeIDField) Tag() quickfix.Tag { return tag.SecondaryFirmTradeID }
 
 //NewSecondaryFirmTradeID returns a new SecondaryFirmTradeIDField initialized with val
 func NewSecondaryFirmTradeID(val string) *SecondaryFirmTradeIDField {
@@ -15863,10 +15891,10 @@ func NewSecondaryFirmTradeID(val string) *SecondaryFirmTradeIDField {
 }
 
 //SecondaryHighLimitPriceField is a PRICE field
-type SecondaryHighLimitPriceField struct{ fix.PriceValue }
+type SecondaryHighLimitPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.SecondaryHighLimitPrice (1230)
-func (f SecondaryHighLimitPriceField) Tag() fix.Tag { return tag.SecondaryHighLimitPrice }
+func (f SecondaryHighLimitPriceField) Tag() quickfix.Tag { return tag.SecondaryHighLimitPrice }
 
 //NewSecondaryHighLimitPrice returns a new SecondaryHighLimitPriceField initialized with val
 func NewSecondaryHighLimitPrice(val float64) *SecondaryHighLimitPriceField {
@@ -15876,10 +15904,10 @@ func NewSecondaryHighLimitPrice(val float64) *SecondaryHighLimitPriceField {
 }
 
 //SecondaryIndividualAllocIDField is a STRING field
-type SecondaryIndividualAllocIDField struct{ fix.StringValue }
+type SecondaryIndividualAllocIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryIndividualAllocID (989)
-func (f SecondaryIndividualAllocIDField) Tag() fix.Tag { return tag.SecondaryIndividualAllocID }
+func (f SecondaryIndividualAllocIDField) Tag() quickfix.Tag { return tag.SecondaryIndividualAllocID }
 
 //NewSecondaryIndividualAllocID returns a new SecondaryIndividualAllocIDField initialized with val
 func NewSecondaryIndividualAllocID(val string) *SecondaryIndividualAllocIDField {
@@ -15889,10 +15917,10 @@ func NewSecondaryIndividualAllocID(val string) *SecondaryIndividualAllocIDField 
 }
 
 //SecondaryLowLimitPriceField is a PRICE field
-type SecondaryLowLimitPriceField struct{ fix.PriceValue }
+type SecondaryLowLimitPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.SecondaryLowLimitPrice (1221)
-func (f SecondaryLowLimitPriceField) Tag() fix.Tag { return tag.SecondaryLowLimitPrice }
+func (f SecondaryLowLimitPriceField) Tag() quickfix.Tag { return tag.SecondaryLowLimitPrice }
 
 //NewSecondaryLowLimitPrice returns a new SecondaryLowLimitPriceField initialized with val
 func NewSecondaryLowLimitPrice(val float64) *SecondaryLowLimitPriceField {
@@ -15902,10 +15930,10 @@ func NewSecondaryLowLimitPrice(val float64) *SecondaryLowLimitPriceField {
 }
 
 //SecondaryOrderIDField is a STRING field
-type SecondaryOrderIDField struct{ fix.StringValue }
+type SecondaryOrderIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryOrderID (198)
-func (f SecondaryOrderIDField) Tag() fix.Tag { return tag.SecondaryOrderID }
+func (f SecondaryOrderIDField) Tag() quickfix.Tag { return tag.SecondaryOrderID }
 
 //NewSecondaryOrderID returns a new SecondaryOrderIDField initialized with val
 func NewSecondaryOrderID(val string) *SecondaryOrderIDField {
@@ -15915,10 +15943,10 @@ func NewSecondaryOrderID(val string) *SecondaryOrderIDField {
 }
 
 //SecondaryPriceLimitTypeField is a INT field
-type SecondaryPriceLimitTypeField struct{ fix.IntValue }
+type SecondaryPriceLimitTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecondaryPriceLimitType (1305)
-func (f SecondaryPriceLimitTypeField) Tag() fix.Tag { return tag.SecondaryPriceLimitType }
+func (f SecondaryPriceLimitTypeField) Tag() quickfix.Tag { return tag.SecondaryPriceLimitType }
 
 //NewSecondaryPriceLimitType returns a new SecondaryPriceLimitTypeField initialized with val
 func NewSecondaryPriceLimitType(val int) *SecondaryPriceLimitTypeField {
@@ -15928,10 +15956,10 @@ func NewSecondaryPriceLimitType(val int) *SecondaryPriceLimitTypeField {
 }
 
 //SecondaryTradeIDField is a STRING field
-type SecondaryTradeIDField struct{ fix.StringValue }
+type SecondaryTradeIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryTradeID (1040)
-func (f SecondaryTradeIDField) Tag() fix.Tag { return tag.SecondaryTradeID }
+func (f SecondaryTradeIDField) Tag() quickfix.Tag { return tag.SecondaryTradeID }
 
 //NewSecondaryTradeID returns a new SecondaryTradeIDField initialized with val
 func NewSecondaryTradeID(val string) *SecondaryTradeIDField {
@@ -15941,10 +15969,10 @@ func NewSecondaryTradeID(val string) *SecondaryTradeIDField {
 }
 
 //SecondaryTradeReportIDField is a STRING field
-type SecondaryTradeReportIDField struct{ fix.StringValue }
+type SecondaryTradeReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryTradeReportID (818)
-func (f SecondaryTradeReportIDField) Tag() fix.Tag { return tag.SecondaryTradeReportID }
+func (f SecondaryTradeReportIDField) Tag() quickfix.Tag { return tag.SecondaryTradeReportID }
 
 //NewSecondaryTradeReportID returns a new SecondaryTradeReportIDField initialized with val
 func NewSecondaryTradeReportID(val string) *SecondaryTradeReportIDField {
@@ -15954,10 +15982,10 @@ func NewSecondaryTradeReportID(val string) *SecondaryTradeReportIDField {
 }
 
 //SecondaryTradeReportRefIDField is a STRING field
-type SecondaryTradeReportRefIDField struct{ fix.StringValue }
+type SecondaryTradeReportRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecondaryTradeReportRefID (881)
-func (f SecondaryTradeReportRefIDField) Tag() fix.Tag { return tag.SecondaryTradeReportRefID }
+func (f SecondaryTradeReportRefIDField) Tag() quickfix.Tag { return tag.SecondaryTradeReportRefID }
 
 //NewSecondaryTradeReportRefID returns a new SecondaryTradeReportRefIDField initialized with val
 func NewSecondaryTradeReportRefID(val string) *SecondaryTradeReportRefIDField {
@@ -15967,10 +15995,12 @@ func NewSecondaryTradeReportRefID(val string) *SecondaryTradeReportRefIDField {
 }
 
 //SecondaryTradingReferencePriceField is a PRICE field
-type SecondaryTradingReferencePriceField struct{ fix.PriceValue }
+type SecondaryTradingReferencePriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.SecondaryTradingReferencePrice (1240)
-func (f SecondaryTradingReferencePriceField) Tag() fix.Tag { return tag.SecondaryTradingReferencePrice }
+func (f SecondaryTradingReferencePriceField) Tag() quickfix.Tag {
+	return tag.SecondaryTradingReferencePrice
+}
 
 //NewSecondaryTradingReferencePrice returns a new SecondaryTradingReferencePriceField initialized with val
 func NewSecondaryTradingReferencePrice(val float64) *SecondaryTradingReferencePriceField {
@@ -15980,10 +16010,10 @@ func NewSecondaryTradingReferencePrice(val float64) *SecondaryTradingReferencePr
 }
 
 //SecondaryTrdTypeField is a INT field
-type SecondaryTrdTypeField struct{ fix.IntValue }
+type SecondaryTrdTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecondaryTrdType (855)
-func (f SecondaryTrdTypeField) Tag() fix.Tag { return tag.SecondaryTrdType }
+func (f SecondaryTrdTypeField) Tag() quickfix.Tag { return tag.SecondaryTrdType }
 
 //NewSecondaryTrdType returns a new SecondaryTrdTypeField initialized with val
 func NewSecondaryTrdType(val int) *SecondaryTrdTypeField {
@@ -15993,10 +16023,10 @@ func NewSecondaryTrdType(val int) *SecondaryTrdTypeField {
 }
 
 //SecureDataField is a DATA field
-type SecureDataField struct{ fix.DataValue }
+type SecureDataField struct{ quickfix.DataValue }
 
 //Tag returns tag.SecureData (91)
-func (f SecureDataField) Tag() fix.Tag { return tag.SecureData }
+func (f SecureDataField) Tag() quickfix.Tag { return tag.SecureData }
 
 //NewSecureData returns a new SecureDataField initialized with val
 func NewSecureData(val string) *SecureDataField {
@@ -16006,10 +16036,10 @@ func NewSecureData(val string) *SecureDataField {
 }
 
 //SecureDataLenField is a LENGTH field
-type SecureDataLenField struct{ fix.LengthValue }
+type SecureDataLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.SecureDataLen (90)
-func (f SecureDataLenField) Tag() fix.Tag { return tag.SecureDataLen }
+func (f SecureDataLenField) Tag() quickfix.Tag { return tag.SecureDataLen }
 
 //NewSecureDataLen returns a new SecureDataLenField initialized with val
 func NewSecureDataLen(val int) *SecureDataLenField {
@@ -16019,10 +16049,10 @@ func NewSecureDataLen(val int) *SecureDataLenField {
 }
 
 //SecurityAltIDField is a STRING field
-type SecurityAltIDField struct{ fix.StringValue }
+type SecurityAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityAltID (455)
-func (f SecurityAltIDField) Tag() fix.Tag { return tag.SecurityAltID }
+func (f SecurityAltIDField) Tag() quickfix.Tag { return tag.SecurityAltID }
 
 //NewSecurityAltID returns a new SecurityAltIDField initialized with val
 func NewSecurityAltID(val string) *SecurityAltIDField {
@@ -16032,10 +16062,10 @@ func NewSecurityAltID(val string) *SecurityAltIDField {
 }
 
 //SecurityAltIDSourceField is a STRING field
-type SecurityAltIDSourceField struct{ fix.StringValue }
+type SecurityAltIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityAltIDSource (456)
-func (f SecurityAltIDSourceField) Tag() fix.Tag { return tag.SecurityAltIDSource }
+func (f SecurityAltIDSourceField) Tag() quickfix.Tag { return tag.SecurityAltIDSource }
 
 //NewSecurityAltIDSource returns a new SecurityAltIDSourceField initialized with val
 func NewSecurityAltIDSource(val string) *SecurityAltIDSourceField {
@@ -16045,10 +16075,10 @@ func NewSecurityAltIDSource(val string) *SecurityAltIDSourceField {
 }
 
 //SecurityDescField is a STRING field
-type SecurityDescField struct{ fix.StringValue }
+type SecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityDesc (107)
-func (f SecurityDescField) Tag() fix.Tag { return tag.SecurityDesc }
+func (f SecurityDescField) Tag() quickfix.Tag { return tag.SecurityDesc }
 
 //NewSecurityDesc returns a new SecurityDescField initialized with val
 func NewSecurityDesc(val string) *SecurityDescField {
@@ -16058,10 +16088,10 @@ func NewSecurityDesc(val string) *SecurityDescField {
 }
 
 //SecurityExchangeField is a EXCHANGE field
-type SecurityExchangeField struct{ fix.ExchangeValue }
+type SecurityExchangeField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.SecurityExchange (207)
-func (f SecurityExchangeField) Tag() fix.Tag { return tag.SecurityExchange }
+func (f SecurityExchangeField) Tag() quickfix.Tag { return tag.SecurityExchange }
 
 //NewSecurityExchange returns a new SecurityExchangeField initialized with val
 func NewSecurityExchange(val string) *SecurityExchangeField {
@@ -16071,10 +16101,10 @@ func NewSecurityExchange(val string) *SecurityExchangeField {
 }
 
 //SecurityGroupField is a STRING field
-type SecurityGroupField struct{ fix.StringValue }
+type SecurityGroupField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityGroup (1151)
-func (f SecurityGroupField) Tag() fix.Tag { return tag.SecurityGroup }
+func (f SecurityGroupField) Tag() quickfix.Tag { return tag.SecurityGroup }
 
 //NewSecurityGroup returns a new SecurityGroupField initialized with val
 func NewSecurityGroup(val string) *SecurityGroupField {
@@ -16084,10 +16114,10 @@ func NewSecurityGroup(val string) *SecurityGroupField {
 }
 
 //SecurityIDField is a STRING field
-type SecurityIDField struct{ fix.StringValue }
+type SecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityID (48)
-func (f SecurityIDField) Tag() fix.Tag { return tag.SecurityID }
+func (f SecurityIDField) Tag() quickfix.Tag { return tag.SecurityID }
 
 //NewSecurityID returns a new SecurityIDField initialized with val
 func NewSecurityID(val string) *SecurityIDField {
@@ -16097,10 +16127,10 @@ func NewSecurityID(val string) *SecurityIDField {
 }
 
 //SecurityIDSourceField is a STRING field
-type SecurityIDSourceField struct{ fix.StringValue }
+type SecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityIDSource (22)
-func (f SecurityIDSourceField) Tag() fix.Tag { return tag.SecurityIDSource }
+func (f SecurityIDSourceField) Tag() quickfix.Tag { return tag.SecurityIDSource }
 
 //NewSecurityIDSource returns a new SecurityIDSourceField initialized with val
 func NewSecurityIDSource(val string) *SecurityIDSourceField {
@@ -16110,10 +16140,10 @@ func NewSecurityIDSource(val string) *SecurityIDSourceField {
 }
 
 //SecurityListDescField is a STRING field
-type SecurityListDescField struct{ fix.StringValue }
+type SecurityListDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityListDesc (1467)
-func (f SecurityListDescField) Tag() fix.Tag { return tag.SecurityListDesc }
+func (f SecurityListDescField) Tag() quickfix.Tag { return tag.SecurityListDesc }
 
 //NewSecurityListDesc returns a new SecurityListDescField initialized with val
 func NewSecurityListDesc(val string) *SecurityListDescField {
@@ -16123,10 +16153,10 @@ func NewSecurityListDesc(val string) *SecurityListDescField {
 }
 
 //SecurityListIDField is a STRING field
-type SecurityListIDField struct{ fix.StringValue }
+type SecurityListIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityListID (1465)
-func (f SecurityListIDField) Tag() fix.Tag { return tag.SecurityListID }
+func (f SecurityListIDField) Tag() quickfix.Tag { return tag.SecurityListID }
 
 //NewSecurityListID returns a new SecurityListIDField initialized with val
 func NewSecurityListID(val string) *SecurityListIDField {
@@ -16136,10 +16166,10 @@ func NewSecurityListID(val string) *SecurityListIDField {
 }
 
 //SecurityListRefIDField is a STRING field
-type SecurityListRefIDField struct{ fix.StringValue }
+type SecurityListRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityListRefID (1466)
-func (f SecurityListRefIDField) Tag() fix.Tag { return tag.SecurityListRefID }
+func (f SecurityListRefIDField) Tag() quickfix.Tag { return tag.SecurityListRefID }
 
 //NewSecurityListRefID returns a new SecurityListRefIDField initialized with val
 func NewSecurityListRefID(val string) *SecurityListRefIDField {
@@ -16149,10 +16179,10 @@ func NewSecurityListRefID(val string) *SecurityListRefIDField {
 }
 
 //SecurityListRequestTypeField is a INT field
-type SecurityListRequestTypeField struct{ fix.IntValue }
+type SecurityListRequestTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityListRequestType (559)
-func (f SecurityListRequestTypeField) Tag() fix.Tag { return tag.SecurityListRequestType }
+func (f SecurityListRequestTypeField) Tag() quickfix.Tag { return tag.SecurityListRequestType }
 
 //NewSecurityListRequestType returns a new SecurityListRequestTypeField initialized with val
 func NewSecurityListRequestType(val int) *SecurityListRequestTypeField {
@@ -16162,10 +16192,10 @@ func NewSecurityListRequestType(val int) *SecurityListRequestTypeField {
 }
 
 //SecurityListTypeField is a INT field
-type SecurityListTypeField struct{ fix.IntValue }
+type SecurityListTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityListType (1470)
-func (f SecurityListTypeField) Tag() fix.Tag { return tag.SecurityListType }
+func (f SecurityListTypeField) Tag() quickfix.Tag { return tag.SecurityListType }
 
 //NewSecurityListType returns a new SecurityListTypeField initialized with val
 func NewSecurityListType(val int) *SecurityListTypeField {
@@ -16175,10 +16205,10 @@ func NewSecurityListType(val int) *SecurityListTypeField {
 }
 
 //SecurityListTypeSourceField is a INT field
-type SecurityListTypeSourceField struct{ fix.IntValue }
+type SecurityListTypeSourceField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityListTypeSource (1471)
-func (f SecurityListTypeSourceField) Tag() fix.Tag { return tag.SecurityListTypeSource }
+func (f SecurityListTypeSourceField) Tag() quickfix.Tag { return tag.SecurityListTypeSource }
 
 //NewSecurityListTypeSource returns a new SecurityListTypeSourceField initialized with val
 func NewSecurityListTypeSource(val int) *SecurityListTypeSourceField {
@@ -16188,10 +16218,10 @@ func NewSecurityListTypeSource(val int) *SecurityListTypeSourceField {
 }
 
 //SecurityReportIDField is a INT field
-type SecurityReportIDField struct{ fix.IntValue }
+type SecurityReportIDField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityReportID (964)
-func (f SecurityReportIDField) Tag() fix.Tag { return tag.SecurityReportID }
+func (f SecurityReportIDField) Tag() quickfix.Tag { return tag.SecurityReportID }
 
 //NewSecurityReportID returns a new SecurityReportIDField initialized with val
 func NewSecurityReportID(val int) *SecurityReportIDField {
@@ -16201,10 +16231,10 @@ func NewSecurityReportID(val int) *SecurityReportIDField {
 }
 
 //SecurityReqIDField is a STRING field
-type SecurityReqIDField struct{ fix.StringValue }
+type SecurityReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityReqID (320)
-func (f SecurityReqIDField) Tag() fix.Tag { return tag.SecurityReqID }
+func (f SecurityReqIDField) Tag() quickfix.Tag { return tag.SecurityReqID }
 
 //NewSecurityReqID returns a new SecurityReqIDField initialized with val
 func NewSecurityReqID(val string) *SecurityReqIDField {
@@ -16214,10 +16244,10 @@ func NewSecurityReqID(val string) *SecurityReqIDField {
 }
 
 //SecurityRequestResultField is a INT field
-type SecurityRequestResultField struct{ fix.IntValue }
+type SecurityRequestResultField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityRequestResult (560)
-func (f SecurityRequestResultField) Tag() fix.Tag { return tag.SecurityRequestResult }
+func (f SecurityRequestResultField) Tag() quickfix.Tag { return tag.SecurityRequestResult }
 
 //NewSecurityRequestResult returns a new SecurityRequestResultField initialized with val
 func NewSecurityRequestResult(val int) *SecurityRequestResultField {
@@ -16227,10 +16257,10 @@ func NewSecurityRequestResult(val int) *SecurityRequestResultField {
 }
 
 //SecurityRequestTypeField is a INT field
-type SecurityRequestTypeField struct{ fix.IntValue }
+type SecurityRequestTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityRequestType (321)
-func (f SecurityRequestTypeField) Tag() fix.Tag { return tag.SecurityRequestType }
+func (f SecurityRequestTypeField) Tag() quickfix.Tag { return tag.SecurityRequestType }
 
 //NewSecurityRequestType returns a new SecurityRequestTypeField initialized with val
 func NewSecurityRequestType(val int) *SecurityRequestTypeField {
@@ -16240,10 +16270,10 @@ func NewSecurityRequestType(val int) *SecurityRequestTypeField {
 }
 
 //SecurityResponseIDField is a STRING field
-type SecurityResponseIDField struct{ fix.StringValue }
+type SecurityResponseIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityResponseID (322)
-func (f SecurityResponseIDField) Tag() fix.Tag { return tag.SecurityResponseID }
+func (f SecurityResponseIDField) Tag() quickfix.Tag { return tag.SecurityResponseID }
 
 //NewSecurityResponseID returns a new SecurityResponseIDField initialized with val
 func NewSecurityResponseID(val string) *SecurityResponseIDField {
@@ -16253,10 +16283,10 @@ func NewSecurityResponseID(val string) *SecurityResponseIDField {
 }
 
 //SecurityResponseTypeField is a INT field
-type SecurityResponseTypeField struct{ fix.IntValue }
+type SecurityResponseTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityResponseType (323)
-func (f SecurityResponseTypeField) Tag() fix.Tag { return tag.SecurityResponseType }
+func (f SecurityResponseTypeField) Tag() quickfix.Tag { return tag.SecurityResponseType }
 
 //NewSecurityResponseType returns a new SecurityResponseTypeField initialized with val
 func NewSecurityResponseType(val int) *SecurityResponseTypeField {
@@ -16266,10 +16296,10 @@ func NewSecurityResponseType(val int) *SecurityResponseTypeField {
 }
 
 //SecuritySettlAgentAcctNameField is a STRING field
-type SecuritySettlAgentAcctNameField struct{ fix.StringValue }
+type SecuritySettlAgentAcctNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentAcctName (179)
-func (f SecuritySettlAgentAcctNameField) Tag() fix.Tag { return tag.SecuritySettlAgentAcctName }
+func (f SecuritySettlAgentAcctNameField) Tag() quickfix.Tag { return tag.SecuritySettlAgentAcctName }
 
 //NewSecuritySettlAgentAcctName returns a new SecuritySettlAgentAcctNameField initialized with val
 func NewSecuritySettlAgentAcctName(val string) *SecuritySettlAgentAcctNameField {
@@ -16279,10 +16309,10 @@ func NewSecuritySettlAgentAcctName(val string) *SecuritySettlAgentAcctNameField 
 }
 
 //SecuritySettlAgentAcctNumField is a STRING field
-type SecuritySettlAgentAcctNumField struct{ fix.StringValue }
+type SecuritySettlAgentAcctNumField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentAcctNum (178)
-func (f SecuritySettlAgentAcctNumField) Tag() fix.Tag { return tag.SecuritySettlAgentAcctNum }
+func (f SecuritySettlAgentAcctNumField) Tag() quickfix.Tag { return tag.SecuritySettlAgentAcctNum }
 
 //NewSecuritySettlAgentAcctNum returns a new SecuritySettlAgentAcctNumField initialized with val
 func NewSecuritySettlAgentAcctNum(val string) *SecuritySettlAgentAcctNumField {
@@ -16292,10 +16322,10 @@ func NewSecuritySettlAgentAcctNum(val string) *SecuritySettlAgentAcctNumField {
 }
 
 //SecuritySettlAgentCodeField is a STRING field
-type SecuritySettlAgentCodeField struct{ fix.StringValue }
+type SecuritySettlAgentCodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentCode (177)
-func (f SecuritySettlAgentCodeField) Tag() fix.Tag { return tag.SecuritySettlAgentCode }
+func (f SecuritySettlAgentCodeField) Tag() quickfix.Tag { return tag.SecuritySettlAgentCode }
 
 //NewSecuritySettlAgentCode returns a new SecuritySettlAgentCodeField initialized with val
 func NewSecuritySettlAgentCode(val string) *SecuritySettlAgentCodeField {
@@ -16305,10 +16335,12 @@ func NewSecuritySettlAgentCode(val string) *SecuritySettlAgentCodeField {
 }
 
 //SecuritySettlAgentContactNameField is a STRING field
-type SecuritySettlAgentContactNameField struct{ fix.StringValue }
+type SecuritySettlAgentContactNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentContactName (180)
-func (f SecuritySettlAgentContactNameField) Tag() fix.Tag { return tag.SecuritySettlAgentContactName }
+func (f SecuritySettlAgentContactNameField) Tag() quickfix.Tag {
+	return tag.SecuritySettlAgentContactName
+}
 
 //NewSecuritySettlAgentContactName returns a new SecuritySettlAgentContactNameField initialized with val
 func NewSecuritySettlAgentContactName(val string) *SecuritySettlAgentContactNameField {
@@ -16318,10 +16350,12 @@ func NewSecuritySettlAgentContactName(val string) *SecuritySettlAgentContactName
 }
 
 //SecuritySettlAgentContactPhoneField is a STRING field
-type SecuritySettlAgentContactPhoneField struct{ fix.StringValue }
+type SecuritySettlAgentContactPhoneField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentContactPhone (181)
-func (f SecuritySettlAgentContactPhoneField) Tag() fix.Tag { return tag.SecuritySettlAgentContactPhone }
+func (f SecuritySettlAgentContactPhoneField) Tag() quickfix.Tag {
+	return tag.SecuritySettlAgentContactPhone
+}
 
 //NewSecuritySettlAgentContactPhone returns a new SecuritySettlAgentContactPhoneField initialized with val
 func NewSecuritySettlAgentContactPhone(val string) *SecuritySettlAgentContactPhoneField {
@@ -16331,10 +16365,10 @@ func NewSecuritySettlAgentContactPhone(val string) *SecuritySettlAgentContactPho
 }
 
 //SecuritySettlAgentNameField is a STRING field
-type SecuritySettlAgentNameField struct{ fix.StringValue }
+type SecuritySettlAgentNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecuritySettlAgentName (176)
-func (f SecuritySettlAgentNameField) Tag() fix.Tag { return tag.SecuritySettlAgentName }
+func (f SecuritySettlAgentNameField) Tag() quickfix.Tag { return tag.SecuritySettlAgentName }
 
 //NewSecuritySettlAgentName returns a new SecuritySettlAgentNameField initialized with val
 func NewSecuritySettlAgentName(val string) *SecuritySettlAgentNameField {
@@ -16344,10 +16378,10 @@ func NewSecuritySettlAgentName(val string) *SecuritySettlAgentNameField {
 }
 
 //SecurityStatusField is a STRING field
-type SecurityStatusField struct{ fix.StringValue }
+type SecurityStatusField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityStatus (965)
-func (f SecurityStatusField) Tag() fix.Tag { return tag.SecurityStatus }
+func (f SecurityStatusField) Tag() quickfix.Tag { return tag.SecurityStatus }
 
 //NewSecurityStatus returns a new SecurityStatusField initialized with val
 func NewSecurityStatus(val string) *SecurityStatusField {
@@ -16357,10 +16391,10 @@ func NewSecurityStatus(val string) *SecurityStatusField {
 }
 
 //SecurityStatusReqIDField is a STRING field
-type SecurityStatusReqIDField struct{ fix.StringValue }
+type SecurityStatusReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityStatusReqID (324)
-func (f SecurityStatusReqIDField) Tag() fix.Tag { return tag.SecurityStatusReqID }
+func (f SecurityStatusReqIDField) Tag() quickfix.Tag { return tag.SecurityStatusReqID }
 
 //NewSecurityStatusReqID returns a new SecurityStatusReqIDField initialized with val
 func NewSecurityStatusReqID(val string) *SecurityStatusReqIDField {
@@ -16370,10 +16404,10 @@ func NewSecurityStatusReqID(val string) *SecurityStatusReqIDField {
 }
 
 //SecuritySubTypeField is a STRING field
-type SecuritySubTypeField struct{ fix.StringValue }
+type SecuritySubTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecuritySubType (762)
-func (f SecuritySubTypeField) Tag() fix.Tag { return tag.SecuritySubType }
+func (f SecuritySubTypeField) Tag() quickfix.Tag { return tag.SecuritySubType }
 
 //NewSecuritySubType returns a new SecuritySubTypeField initialized with val
 func NewSecuritySubType(val string) *SecuritySubTypeField {
@@ -16383,10 +16417,10 @@ func NewSecuritySubType(val string) *SecuritySubTypeField {
 }
 
 //SecurityTradingEventField is a INT field
-type SecurityTradingEventField struct{ fix.IntValue }
+type SecurityTradingEventField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityTradingEvent (1174)
-func (f SecurityTradingEventField) Tag() fix.Tag { return tag.SecurityTradingEvent }
+func (f SecurityTradingEventField) Tag() quickfix.Tag { return tag.SecurityTradingEvent }
 
 //NewSecurityTradingEvent returns a new SecurityTradingEventField initialized with val
 func NewSecurityTradingEvent(val int) *SecurityTradingEventField {
@@ -16396,10 +16430,10 @@ func NewSecurityTradingEvent(val int) *SecurityTradingEventField {
 }
 
 //SecurityTradingStatusField is a INT field
-type SecurityTradingStatusField struct{ fix.IntValue }
+type SecurityTradingStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.SecurityTradingStatus (326)
-func (f SecurityTradingStatusField) Tag() fix.Tag { return tag.SecurityTradingStatus }
+func (f SecurityTradingStatusField) Tag() quickfix.Tag { return tag.SecurityTradingStatus }
 
 //NewSecurityTradingStatus returns a new SecurityTradingStatusField initialized with val
 func NewSecurityTradingStatus(val int) *SecurityTradingStatusField {
@@ -16409,10 +16443,10 @@ func NewSecurityTradingStatus(val int) *SecurityTradingStatusField {
 }
 
 //SecurityTypeField is a STRING field
-type SecurityTypeField struct{ fix.StringValue }
+type SecurityTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityType (167)
-func (f SecurityTypeField) Tag() fix.Tag { return tag.SecurityType }
+func (f SecurityTypeField) Tag() quickfix.Tag { return tag.SecurityType }
 
 //NewSecurityType returns a new SecurityTypeField initialized with val
 func NewSecurityType(val string) *SecurityTypeField {
@@ -16422,10 +16456,10 @@ func NewSecurityType(val string) *SecurityTypeField {
 }
 
 //SecurityUpdateActionField is a CHAR field
-type SecurityUpdateActionField struct{ fix.CharValue }
+type SecurityUpdateActionField struct{ quickfix.CharValue }
 
 //Tag returns tag.SecurityUpdateAction (980)
-func (f SecurityUpdateActionField) Tag() fix.Tag { return tag.SecurityUpdateAction }
+func (f SecurityUpdateActionField) Tag() quickfix.Tag { return tag.SecurityUpdateAction }
 
 //NewSecurityUpdateAction returns a new SecurityUpdateActionField initialized with val
 func NewSecurityUpdateAction(val string) *SecurityUpdateActionField {
@@ -16435,10 +16469,10 @@ func NewSecurityUpdateAction(val string) *SecurityUpdateActionField {
 }
 
 //SecurityXMLField is a XMLDATA field
-type SecurityXMLField struct{ fix.XMLDataValue }
+type SecurityXMLField struct{ quickfix.XMLDataValue }
 
 //Tag returns tag.SecurityXML (1185)
-func (f SecurityXMLField) Tag() fix.Tag { return tag.SecurityXML }
+func (f SecurityXMLField) Tag() quickfix.Tag { return tag.SecurityXML }
 
 //NewSecurityXML returns a new SecurityXMLField initialized with val
 func NewSecurityXML(val string) *SecurityXMLField {
@@ -16448,10 +16482,10 @@ func NewSecurityXML(val string) *SecurityXMLField {
 }
 
 //SecurityXMLLenField is a LENGTH field
-type SecurityXMLLenField struct{ fix.LengthValue }
+type SecurityXMLLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.SecurityXMLLen (1184)
-func (f SecurityXMLLenField) Tag() fix.Tag { return tag.SecurityXMLLen }
+func (f SecurityXMLLenField) Tag() quickfix.Tag { return tag.SecurityXMLLen }
 
 //NewSecurityXMLLen returns a new SecurityXMLLenField initialized with val
 func NewSecurityXMLLen(val int) *SecurityXMLLenField {
@@ -16461,10 +16495,10 @@ func NewSecurityXMLLen(val int) *SecurityXMLLenField {
 }
 
 //SecurityXMLSchemaField is a STRING field
-type SecurityXMLSchemaField struct{ fix.StringValue }
+type SecurityXMLSchemaField struct{ quickfix.StringValue }
 
 //Tag returns tag.SecurityXMLSchema (1186)
-func (f SecurityXMLSchemaField) Tag() fix.Tag { return tag.SecurityXMLSchema }
+func (f SecurityXMLSchemaField) Tag() quickfix.Tag { return tag.SecurityXMLSchema }
 
 //NewSecurityXMLSchema returns a new SecurityXMLSchemaField initialized with val
 func NewSecurityXMLSchema(val string) *SecurityXMLSchemaField {
@@ -16474,10 +16508,10 @@ func NewSecurityXMLSchema(val string) *SecurityXMLSchemaField {
 }
 
 //SellVolumeField is a QTY field
-type SellVolumeField struct{ fix.QtyValue }
+type SellVolumeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.SellVolume (331)
-func (f SellVolumeField) Tag() fix.Tag { return tag.SellVolume }
+func (f SellVolumeField) Tag() quickfix.Tag { return tag.SellVolume }
 
 //NewSellVolume returns a new SellVolumeField initialized with val
 func NewSellVolume(val float64) *SellVolumeField {
@@ -16487,10 +16521,10 @@ func NewSellVolume(val float64) *SellVolumeField {
 }
 
 //SellerDaysField is a INT field
-type SellerDaysField struct{ fix.IntValue }
+type SellerDaysField struct{ quickfix.IntValue }
 
 //Tag returns tag.SellerDays (287)
-func (f SellerDaysField) Tag() fix.Tag { return tag.SellerDays }
+func (f SellerDaysField) Tag() quickfix.Tag { return tag.SellerDays }
 
 //NewSellerDays returns a new SellerDaysField initialized with val
 func NewSellerDays(val int) *SellerDaysField {
@@ -16500,10 +16534,10 @@ func NewSellerDays(val int) *SellerDaysField {
 }
 
 //SenderCompIDField is a STRING field
-type SenderCompIDField struct{ fix.StringValue }
+type SenderCompIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SenderCompID (49)
-func (f SenderCompIDField) Tag() fix.Tag { return tag.SenderCompID }
+func (f SenderCompIDField) Tag() quickfix.Tag { return tag.SenderCompID }
 
 //NewSenderCompID returns a new SenderCompIDField initialized with val
 func NewSenderCompID(val string) *SenderCompIDField {
@@ -16513,10 +16547,10 @@ func NewSenderCompID(val string) *SenderCompIDField {
 }
 
 //SenderLocationIDField is a STRING field
-type SenderLocationIDField struct{ fix.StringValue }
+type SenderLocationIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SenderLocationID (142)
-func (f SenderLocationIDField) Tag() fix.Tag { return tag.SenderLocationID }
+func (f SenderLocationIDField) Tag() quickfix.Tag { return tag.SenderLocationID }
 
 //NewSenderLocationID returns a new SenderLocationIDField initialized with val
 func NewSenderLocationID(val string) *SenderLocationIDField {
@@ -16526,10 +16560,10 @@ func NewSenderLocationID(val string) *SenderLocationIDField {
 }
 
 //SenderSubIDField is a STRING field
-type SenderSubIDField struct{ fix.StringValue }
+type SenderSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SenderSubID (50)
-func (f SenderSubIDField) Tag() fix.Tag { return tag.SenderSubID }
+func (f SenderSubIDField) Tag() quickfix.Tag { return tag.SenderSubID }
 
 //NewSenderSubID returns a new SenderSubIDField initialized with val
 func NewSenderSubID(val string) *SenderSubIDField {
@@ -16539,10 +16573,10 @@ func NewSenderSubID(val string) *SenderSubIDField {
 }
 
 //SendingDateField is a LOCALMKTDATE field
-type SendingDateField struct{ fix.LocalMktDateValue }
+type SendingDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.SendingDate (51)
-func (f SendingDateField) Tag() fix.Tag { return tag.SendingDate }
+func (f SendingDateField) Tag() quickfix.Tag { return tag.SendingDate }
 
 //NewSendingDate returns a new SendingDateField initialized with val
 func NewSendingDate(val string) *SendingDateField {
@@ -16552,16 +16586,16 @@ func NewSendingDate(val string) *SendingDateField {
 }
 
 //SendingTimeField is a UTCTIMESTAMP field
-type SendingTimeField struct{ fix.UTCTimestampValue }
+type SendingTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.SendingTime (52)
-func (f SendingTimeField) Tag() fix.Tag { return tag.SendingTime }
+func (f SendingTimeField) Tag() quickfix.Tag { return tag.SendingTime }
 
 //SeniorityField is a STRING field
-type SeniorityField struct{ fix.StringValue }
+type SeniorityField struct{ quickfix.StringValue }
 
 //Tag returns tag.Seniority (1450)
-func (f SeniorityField) Tag() fix.Tag { return tag.Seniority }
+func (f SeniorityField) Tag() quickfix.Tag { return tag.Seniority }
 
 //NewSeniority returns a new SeniorityField initialized with val
 func NewSeniority(val string) *SeniorityField {
@@ -16571,10 +16605,10 @@ func NewSeniority(val string) *SeniorityField {
 }
 
 //SessionRejectReasonField is a INT field
-type SessionRejectReasonField struct{ fix.IntValue }
+type SessionRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.SessionRejectReason (373)
-func (f SessionRejectReasonField) Tag() fix.Tag { return tag.SessionRejectReason }
+func (f SessionRejectReasonField) Tag() quickfix.Tag { return tag.SessionRejectReason }
 
 //NewSessionRejectReason returns a new SessionRejectReasonField initialized with val
 func NewSessionRejectReason(val int) *SessionRejectReasonField {
@@ -16584,10 +16618,10 @@ func NewSessionRejectReason(val int) *SessionRejectReasonField {
 }
 
 //SessionStatusField is a INT field
-type SessionStatusField struct{ fix.IntValue }
+type SessionStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.SessionStatus (1409)
-func (f SessionStatusField) Tag() fix.Tag { return tag.SessionStatus }
+func (f SessionStatusField) Tag() quickfix.Tag { return tag.SessionStatus }
 
 //NewSessionStatus returns a new SessionStatusField initialized with val
 func NewSessionStatus(val int) *SessionStatusField {
@@ -16597,10 +16631,10 @@ func NewSessionStatus(val int) *SessionStatusField {
 }
 
 //SettlBrkrCodeField is a STRING field
-type SettlBrkrCodeField struct{ fix.StringValue }
+type SettlBrkrCodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlBrkrCode (174)
-func (f SettlBrkrCodeField) Tag() fix.Tag { return tag.SettlBrkrCode }
+func (f SettlBrkrCodeField) Tag() quickfix.Tag { return tag.SettlBrkrCode }
 
 //NewSettlBrkrCode returns a new SettlBrkrCodeField initialized with val
 func NewSettlBrkrCode(val string) *SettlBrkrCodeField {
@@ -16610,10 +16644,10 @@ func NewSettlBrkrCode(val string) *SettlBrkrCodeField {
 }
 
 //SettlCurrAmtField is a AMT field
-type SettlCurrAmtField struct{ fix.AmtValue }
+type SettlCurrAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.SettlCurrAmt (119)
-func (f SettlCurrAmtField) Tag() fix.Tag { return tag.SettlCurrAmt }
+func (f SettlCurrAmtField) Tag() quickfix.Tag { return tag.SettlCurrAmt }
 
 //NewSettlCurrAmt returns a new SettlCurrAmtField initialized with val
 func NewSettlCurrAmt(val float64) *SettlCurrAmtField {
@@ -16623,10 +16657,10 @@ func NewSettlCurrAmt(val float64) *SettlCurrAmtField {
 }
 
 //SettlCurrBidFxRateField is a FLOAT field
-type SettlCurrBidFxRateField struct{ fix.FloatValue }
+type SettlCurrBidFxRateField struct{ quickfix.FloatValue }
 
 //Tag returns tag.SettlCurrBidFxRate (656)
-func (f SettlCurrBidFxRateField) Tag() fix.Tag { return tag.SettlCurrBidFxRate }
+func (f SettlCurrBidFxRateField) Tag() quickfix.Tag { return tag.SettlCurrBidFxRate }
 
 //NewSettlCurrBidFxRate returns a new SettlCurrBidFxRateField initialized with val
 func NewSettlCurrBidFxRate(val float64) *SettlCurrBidFxRateField {
@@ -16636,10 +16670,10 @@ func NewSettlCurrBidFxRate(val float64) *SettlCurrBidFxRateField {
 }
 
 //SettlCurrFxRateField is a FLOAT field
-type SettlCurrFxRateField struct{ fix.FloatValue }
+type SettlCurrFxRateField struct{ quickfix.FloatValue }
 
 //Tag returns tag.SettlCurrFxRate (155)
-func (f SettlCurrFxRateField) Tag() fix.Tag { return tag.SettlCurrFxRate }
+func (f SettlCurrFxRateField) Tag() quickfix.Tag { return tag.SettlCurrFxRate }
 
 //NewSettlCurrFxRate returns a new SettlCurrFxRateField initialized with val
 func NewSettlCurrFxRate(val float64) *SettlCurrFxRateField {
@@ -16649,10 +16683,10 @@ func NewSettlCurrFxRate(val float64) *SettlCurrFxRateField {
 }
 
 //SettlCurrFxRateCalcField is a CHAR field
-type SettlCurrFxRateCalcField struct{ fix.CharValue }
+type SettlCurrFxRateCalcField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlCurrFxRateCalc (156)
-func (f SettlCurrFxRateCalcField) Tag() fix.Tag { return tag.SettlCurrFxRateCalc }
+func (f SettlCurrFxRateCalcField) Tag() quickfix.Tag { return tag.SettlCurrFxRateCalc }
 
 //NewSettlCurrFxRateCalc returns a new SettlCurrFxRateCalcField initialized with val
 func NewSettlCurrFxRateCalc(val string) *SettlCurrFxRateCalcField {
@@ -16662,10 +16696,10 @@ func NewSettlCurrFxRateCalc(val string) *SettlCurrFxRateCalcField {
 }
 
 //SettlCurrOfferFxRateField is a FLOAT field
-type SettlCurrOfferFxRateField struct{ fix.FloatValue }
+type SettlCurrOfferFxRateField struct{ quickfix.FloatValue }
 
 //Tag returns tag.SettlCurrOfferFxRate (657)
-func (f SettlCurrOfferFxRateField) Tag() fix.Tag { return tag.SettlCurrOfferFxRate }
+func (f SettlCurrOfferFxRateField) Tag() quickfix.Tag { return tag.SettlCurrOfferFxRate }
 
 //NewSettlCurrOfferFxRate returns a new SettlCurrOfferFxRateField initialized with val
 func NewSettlCurrOfferFxRate(val float64) *SettlCurrOfferFxRateField {
@@ -16675,10 +16709,10 @@ func NewSettlCurrOfferFxRate(val float64) *SettlCurrOfferFxRateField {
 }
 
 //SettlCurrencyField is a CURRENCY field
-type SettlCurrencyField struct{ fix.CurrencyValue }
+type SettlCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.SettlCurrency (120)
-func (f SettlCurrencyField) Tag() fix.Tag { return tag.SettlCurrency }
+func (f SettlCurrencyField) Tag() quickfix.Tag { return tag.SettlCurrency }
 
 //NewSettlCurrency returns a new SettlCurrencyField initialized with val
 func NewSettlCurrency(val string) *SettlCurrencyField {
@@ -16688,10 +16722,10 @@ func NewSettlCurrency(val string) *SettlCurrencyField {
 }
 
 //SettlDateField is a LOCALMKTDATE field
-type SettlDateField struct{ fix.LocalMktDateValue }
+type SettlDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.SettlDate (64)
-func (f SettlDateField) Tag() fix.Tag { return tag.SettlDate }
+func (f SettlDateField) Tag() quickfix.Tag { return tag.SettlDate }
 
 //NewSettlDate returns a new SettlDateField initialized with val
 func NewSettlDate(val string) *SettlDateField {
@@ -16701,10 +16735,10 @@ func NewSettlDate(val string) *SettlDateField {
 }
 
 //SettlDate2Field is a LOCALMKTDATE field
-type SettlDate2Field struct{ fix.LocalMktDateValue }
+type SettlDate2Field struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.SettlDate2 (193)
-func (f SettlDate2Field) Tag() fix.Tag { return tag.SettlDate2 }
+func (f SettlDate2Field) Tag() quickfix.Tag { return tag.SettlDate2 }
 
 //NewSettlDate2 returns a new SettlDate2Field initialized with val
 func NewSettlDate2(val string) *SettlDate2Field {
@@ -16714,10 +16748,10 @@ func NewSettlDate2(val string) *SettlDate2Field {
 }
 
 //SettlDeliveryTypeField is a INT field
-type SettlDeliveryTypeField struct{ fix.IntValue }
+type SettlDeliveryTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SettlDeliveryType (172)
-func (f SettlDeliveryTypeField) Tag() fix.Tag { return tag.SettlDeliveryType }
+func (f SettlDeliveryTypeField) Tag() quickfix.Tag { return tag.SettlDeliveryType }
 
 //NewSettlDeliveryType returns a new SettlDeliveryTypeField initialized with val
 func NewSettlDeliveryType(val int) *SettlDeliveryTypeField {
@@ -16727,10 +16761,10 @@ func NewSettlDeliveryType(val int) *SettlDeliveryTypeField {
 }
 
 //SettlDepositoryCodeField is a STRING field
-type SettlDepositoryCodeField struct{ fix.StringValue }
+type SettlDepositoryCodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlDepositoryCode (173)
-func (f SettlDepositoryCodeField) Tag() fix.Tag { return tag.SettlDepositoryCode }
+func (f SettlDepositoryCodeField) Tag() quickfix.Tag { return tag.SettlDepositoryCode }
 
 //NewSettlDepositoryCode returns a new SettlDepositoryCodeField initialized with val
 func NewSettlDepositoryCode(val string) *SettlDepositoryCodeField {
@@ -16740,10 +16774,10 @@ func NewSettlDepositoryCode(val string) *SettlDepositoryCodeField {
 }
 
 //SettlInstCodeField is a STRING field
-type SettlInstCodeField struct{ fix.StringValue }
+type SettlInstCodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlInstCode (175)
-func (f SettlInstCodeField) Tag() fix.Tag { return tag.SettlInstCode }
+func (f SettlInstCodeField) Tag() quickfix.Tag { return tag.SettlInstCode }
 
 //NewSettlInstCode returns a new SettlInstCodeField initialized with val
 func NewSettlInstCode(val string) *SettlInstCodeField {
@@ -16753,10 +16787,10 @@ func NewSettlInstCode(val string) *SettlInstCodeField {
 }
 
 //SettlInstIDField is a STRING field
-type SettlInstIDField struct{ fix.StringValue }
+type SettlInstIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlInstID (162)
-func (f SettlInstIDField) Tag() fix.Tag { return tag.SettlInstID }
+func (f SettlInstIDField) Tag() quickfix.Tag { return tag.SettlInstID }
 
 //NewSettlInstID returns a new SettlInstIDField initialized with val
 func NewSettlInstID(val string) *SettlInstIDField {
@@ -16766,10 +16800,10 @@ func NewSettlInstID(val string) *SettlInstIDField {
 }
 
 //SettlInstModeField is a CHAR field
-type SettlInstModeField struct{ fix.CharValue }
+type SettlInstModeField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlInstMode (160)
-func (f SettlInstModeField) Tag() fix.Tag { return tag.SettlInstMode }
+func (f SettlInstModeField) Tag() quickfix.Tag { return tag.SettlInstMode }
 
 //NewSettlInstMode returns a new SettlInstModeField initialized with val
 func NewSettlInstMode(val string) *SettlInstModeField {
@@ -16779,10 +16813,10 @@ func NewSettlInstMode(val string) *SettlInstModeField {
 }
 
 //SettlInstMsgIDField is a STRING field
-type SettlInstMsgIDField struct{ fix.StringValue }
+type SettlInstMsgIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlInstMsgID (777)
-func (f SettlInstMsgIDField) Tag() fix.Tag { return tag.SettlInstMsgID }
+func (f SettlInstMsgIDField) Tag() quickfix.Tag { return tag.SettlInstMsgID }
 
 //NewSettlInstMsgID returns a new SettlInstMsgIDField initialized with val
 func NewSettlInstMsgID(val string) *SettlInstMsgIDField {
@@ -16792,10 +16826,10 @@ func NewSettlInstMsgID(val string) *SettlInstMsgIDField {
 }
 
 //SettlInstRefIDField is a STRING field
-type SettlInstRefIDField struct{ fix.StringValue }
+type SettlInstRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlInstRefID (214)
-func (f SettlInstRefIDField) Tag() fix.Tag { return tag.SettlInstRefID }
+func (f SettlInstRefIDField) Tag() quickfix.Tag { return tag.SettlInstRefID }
 
 //NewSettlInstRefID returns a new SettlInstRefIDField initialized with val
 func NewSettlInstRefID(val string) *SettlInstRefIDField {
@@ -16805,10 +16839,10 @@ func NewSettlInstRefID(val string) *SettlInstRefIDField {
 }
 
 //SettlInstReqIDField is a STRING field
-type SettlInstReqIDField struct{ fix.StringValue }
+type SettlInstReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlInstReqID (791)
-func (f SettlInstReqIDField) Tag() fix.Tag { return tag.SettlInstReqID }
+func (f SettlInstReqIDField) Tag() quickfix.Tag { return tag.SettlInstReqID }
 
 //NewSettlInstReqID returns a new SettlInstReqIDField initialized with val
 func NewSettlInstReqID(val string) *SettlInstReqIDField {
@@ -16818,10 +16852,10 @@ func NewSettlInstReqID(val string) *SettlInstReqIDField {
 }
 
 //SettlInstReqRejCodeField is a INT field
-type SettlInstReqRejCodeField struct{ fix.IntValue }
+type SettlInstReqRejCodeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SettlInstReqRejCode (792)
-func (f SettlInstReqRejCodeField) Tag() fix.Tag { return tag.SettlInstReqRejCode }
+func (f SettlInstReqRejCodeField) Tag() quickfix.Tag { return tag.SettlInstReqRejCode }
 
 //NewSettlInstReqRejCode returns a new SettlInstReqRejCodeField initialized with val
 func NewSettlInstReqRejCode(val int) *SettlInstReqRejCodeField {
@@ -16831,10 +16865,10 @@ func NewSettlInstReqRejCode(val int) *SettlInstReqRejCodeField {
 }
 
 //SettlInstSourceField is a CHAR field
-type SettlInstSourceField struct{ fix.CharValue }
+type SettlInstSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlInstSource (165)
-func (f SettlInstSourceField) Tag() fix.Tag { return tag.SettlInstSource }
+func (f SettlInstSourceField) Tag() quickfix.Tag { return tag.SettlInstSource }
 
 //NewSettlInstSource returns a new SettlInstSourceField initialized with val
 func NewSettlInstSource(val string) *SettlInstSourceField {
@@ -16844,10 +16878,10 @@ func NewSettlInstSource(val string) *SettlInstSourceField {
 }
 
 //SettlInstTransTypeField is a CHAR field
-type SettlInstTransTypeField struct{ fix.CharValue }
+type SettlInstTransTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlInstTransType (163)
-func (f SettlInstTransTypeField) Tag() fix.Tag { return tag.SettlInstTransType }
+func (f SettlInstTransTypeField) Tag() quickfix.Tag { return tag.SettlInstTransType }
 
 //NewSettlInstTransType returns a new SettlInstTransTypeField initialized with val
 func NewSettlInstTransType(val string) *SettlInstTransTypeField {
@@ -16857,10 +16891,10 @@ func NewSettlInstTransType(val string) *SettlInstTransTypeField {
 }
 
 //SettlLocationField is a STRING field
-type SettlLocationField struct{ fix.StringValue }
+type SettlLocationField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlLocation (166)
-func (f SettlLocationField) Tag() fix.Tag { return tag.SettlLocation }
+func (f SettlLocationField) Tag() quickfix.Tag { return tag.SettlLocation }
 
 //NewSettlLocation returns a new SettlLocationField initialized with val
 func NewSettlLocation(val string) *SettlLocationField {
@@ -16870,10 +16904,10 @@ func NewSettlLocation(val string) *SettlLocationField {
 }
 
 //SettlMethodField is a CHAR field
-type SettlMethodField struct{ fix.CharValue }
+type SettlMethodField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlMethod (1193)
-func (f SettlMethodField) Tag() fix.Tag { return tag.SettlMethod }
+func (f SettlMethodField) Tag() quickfix.Tag { return tag.SettlMethod }
 
 //NewSettlMethod returns a new SettlMethodField initialized with val
 func NewSettlMethod(val string) *SettlMethodField {
@@ -16883,10 +16917,10 @@ func NewSettlMethod(val string) *SettlMethodField {
 }
 
 //SettlObligIDField is a STRING field
-type SettlObligIDField struct{ fix.StringValue }
+type SettlObligIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlObligID (1161)
-func (f SettlObligIDField) Tag() fix.Tag { return tag.SettlObligID }
+func (f SettlObligIDField) Tag() quickfix.Tag { return tag.SettlObligID }
 
 //NewSettlObligID returns a new SettlObligIDField initialized with val
 func NewSettlObligID(val string) *SettlObligIDField {
@@ -16896,10 +16930,10 @@ func NewSettlObligID(val string) *SettlObligIDField {
 }
 
 //SettlObligModeField is a INT field
-type SettlObligModeField struct{ fix.IntValue }
+type SettlObligModeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SettlObligMode (1159)
-func (f SettlObligModeField) Tag() fix.Tag { return tag.SettlObligMode }
+func (f SettlObligModeField) Tag() quickfix.Tag { return tag.SettlObligMode }
 
 //NewSettlObligMode returns a new SettlObligModeField initialized with val
 func NewSettlObligMode(val int) *SettlObligModeField {
@@ -16909,10 +16943,10 @@ func NewSettlObligMode(val int) *SettlObligModeField {
 }
 
 //SettlObligMsgIDField is a STRING field
-type SettlObligMsgIDField struct{ fix.StringValue }
+type SettlObligMsgIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlObligMsgID (1160)
-func (f SettlObligMsgIDField) Tag() fix.Tag { return tag.SettlObligMsgID }
+func (f SettlObligMsgIDField) Tag() quickfix.Tag { return tag.SettlObligMsgID }
 
 //NewSettlObligMsgID returns a new SettlObligMsgIDField initialized with val
 func NewSettlObligMsgID(val string) *SettlObligMsgIDField {
@@ -16922,10 +16956,10 @@ func NewSettlObligMsgID(val string) *SettlObligMsgIDField {
 }
 
 //SettlObligRefIDField is a STRING field
-type SettlObligRefIDField struct{ fix.StringValue }
+type SettlObligRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlObligRefID (1163)
-func (f SettlObligRefIDField) Tag() fix.Tag { return tag.SettlObligRefID }
+func (f SettlObligRefIDField) Tag() quickfix.Tag { return tag.SettlObligRefID }
 
 //NewSettlObligRefID returns a new SettlObligRefIDField initialized with val
 func NewSettlObligRefID(val string) *SettlObligRefIDField {
@@ -16935,10 +16969,10 @@ func NewSettlObligRefID(val string) *SettlObligRefIDField {
 }
 
 //SettlObligSourceField is a CHAR field
-type SettlObligSourceField struct{ fix.CharValue }
+type SettlObligSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlObligSource (1164)
-func (f SettlObligSourceField) Tag() fix.Tag { return tag.SettlObligSource }
+func (f SettlObligSourceField) Tag() quickfix.Tag { return tag.SettlObligSource }
 
 //NewSettlObligSource returns a new SettlObligSourceField initialized with val
 func NewSettlObligSource(val string) *SettlObligSourceField {
@@ -16948,10 +16982,10 @@ func NewSettlObligSource(val string) *SettlObligSourceField {
 }
 
 //SettlObligTransTypeField is a CHAR field
-type SettlObligTransTypeField struct{ fix.CharValue }
+type SettlObligTransTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlObligTransType (1162)
-func (f SettlObligTransTypeField) Tag() fix.Tag { return tag.SettlObligTransType }
+func (f SettlObligTransTypeField) Tag() quickfix.Tag { return tag.SettlObligTransType }
 
 //NewSettlObligTransType returns a new SettlObligTransTypeField initialized with val
 func NewSettlObligTransType(val string) *SettlObligTransTypeField {
@@ -16961,10 +16995,10 @@ func NewSettlObligTransType(val string) *SettlObligTransTypeField {
 }
 
 //SettlPartyIDField is a STRING field
-type SettlPartyIDField struct{ fix.StringValue }
+type SettlPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlPartyID (782)
-func (f SettlPartyIDField) Tag() fix.Tag { return tag.SettlPartyID }
+func (f SettlPartyIDField) Tag() quickfix.Tag { return tag.SettlPartyID }
 
 //NewSettlPartyID returns a new SettlPartyIDField initialized with val
 func NewSettlPartyID(val string) *SettlPartyIDField {
@@ -16974,10 +17008,10 @@ func NewSettlPartyID(val string) *SettlPartyIDField {
 }
 
 //SettlPartyIDSourceField is a CHAR field
-type SettlPartyIDSourceField struct{ fix.CharValue }
+type SettlPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlPartyIDSource (783)
-func (f SettlPartyIDSourceField) Tag() fix.Tag { return tag.SettlPartyIDSource }
+func (f SettlPartyIDSourceField) Tag() quickfix.Tag { return tag.SettlPartyIDSource }
 
 //NewSettlPartyIDSource returns a new SettlPartyIDSourceField initialized with val
 func NewSettlPartyIDSource(val string) *SettlPartyIDSourceField {
@@ -16987,10 +17021,10 @@ func NewSettlPartyIDSource(val string) *SettlPartyIDSourceField {
 }
 
 //SettlPartyRoleField is a INT field
-type SettlPartyRoleField struct{ fix.IntValue }
+type SettlPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.SettlPartyRole (784)
-func (f SettlPartyRoleField) Tag() fix.Tag { return tag.SettlPartyRole }
+func (f SettlPartyRoleField) Tag() quickfix.Tag { return tag.SettlPartyRole }
 
 //NewSettlPartyRole returns a new SettlPartyRoleField initialized with val
 func NewSettlPartyRole(val int) *SettlPartyRoleField {
@@ -17000,10 +17034,10 @@ func NewSettlPartyRole(val int) *SettlPartyRoleField {
 }
 
 //SettlPartySubIDField is a STRING field
-type SettlPartySubIDField struct{ fix.StringValue }
+type SettlPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlPartySubID (785)
-func (f SettlPartySubIDField) Tag() fix.Tag { return tag.SettlPartySubID }
+func (f SettlPartySubIDField) Tag() quickfix.Tag { return tag.SettlPartySubID }
 
 //NewSettlPartySubID returns a new SettlPartySubIDField initialized with val
 func NewSettlPartySubID(val string) *SettlPartySubIDField {
@@ -17013,10 +17047,10 @@ func NewSettlPartySubID(val string) *SettlPartySubIDField {
 }
 
 //SettlPartySubIDTypeField is a INT field
-type SettlPartySubIDTypeField struct{ fix.IntValue }
+type SettlPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SettlPartySubIDType (786)
-func (f SettlPartySubIDTypeField) Tag() fix.Tag { return tag.SettlPartySubIDType }
+func (f SettlPartySubIDTypeField) Tag() quickfix.Tag { return tag.SettlPartySubIDType }
 
 //NewSettlPartySubIDType returns a new SettlPartySubIDTypeField initialized with val
 func NewSettlPartySubIDType(val int) *SettlPartySubIDTypeField {
@@ -17026,10 +17060,10 @@ func NewSettlPartySubIDType(val int) *SettlPartySubIDTypeField {
 }
 
 //SettlPriceField is a PRICE field
-type SettlPriceField struct{ fix.PriceValue }
+type SettlPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.SettlPrice (730)
-func (f SettlPriceField) Tag() fix.Tag { return tag.SettlPrice }
+func (f SettlPriceField) Tag() quickfix.Tag { return tag.SettlPrice }
 
 //NewSettlPrice returns a new SettlPriceField initialized with val
 func NewSettlPrice(val float64) *SettlPriceField {
@@ -17039,10 +17073,10 @@ func NewSettlPrice(val float64) *SettlPriceField {
 }
 
 //SettlPriceTypeField is a INT field
-type SettlPriceTypeField struct{ fix.IntValue }
+type SettlPriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SettlPriceType (731)
-func (f SettlPriceTypeField) Tag() fix.Tag { return tag.SettlPriceType }
+func (f SettlPriceTypeField) Tag() quickfix.Tag { return tag.SettlPriceType }
 
 //NewSettlPriceType returns a new SettlPriceTypeField initialized with val
 func NewSettlPriceType(val int) *SettlPriceTypeField {
@@ -17052,10 +17086,10 @@ func NewSettlPriceType(val int) *SettlPriceTypeField {
 }
 
 //SettlSessIDField is a STRING field
-type SettlSessIDField struct{ fix.StringValue }
+type SettlSessIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlSessID (716)
-func (f SettlSessIDField) Tag() fix.Tag { return tag.SettlSessID }
+func (f SettlSessIDField) Tag() quickfix.Tag { return tag.SettlSessID }
 
 //NewSettlSessID returns a new SettlSessIDField initialized with val
 func NewSettlSessID(val string) *SettlSessIDField {
@@ -17065,10 +17099,10 @@ func NewSettlSessID(val string) *SettlSessIDField {
 }
 
 //SettlSessSubIDField is a STRING field
-type SettlSessSubIDField struct{ fix.StringValue }
+type SettlSessSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlSessSubID (717)
-func (f SettlSessSubIDField) Tag() fix.Tag { return tag.SettlSessSubID }
+func (f SettlSessSubIDField) Tag() quickfix.Tag { return tag.SettlSessSubID }
 
 //NewSettlSessSubID returns a new SettlSessSubIDField initialized with val
 func NewSettlSessSubID(val string) *SettlSessSubIDField {
@@ -17078,10 +17112,10 @@ func NewSettlSessSubID(val string) *SettlSessSubIDField {
 }
 
 //SettlTypeField is a STRING field
-type SettlTypeField struct{ fix.StringValue }
+type SettlTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettlType (63)
-func (f SettlTypeField) Tag() fix.Tag { return tag.SettlType }
+func (f SettlTypeField) Tag() quickfix.Tag { return tag.SettlType }
 
 //NewSettlType returns a new SettlTypeField initialized with val
 func NewSettlType(val string) *SettlTypeField {
@@ -17091,10 +17125,10 @@ func NewSettlType(val string) *SettlTypeField {
 }
 
 //SettleOnOpenFlagField is a STRING field
-type SettleOnOpenFlagField struct{ fix.StringValue }
+type SettleOnOpenFlagField struct{ quickfix.StringValue }
 
 //Tag returns tag.SettleOnOpenFlag (966)
-func (f SettleOnOpenFlagField) Tag() fix.Tag { return tag.SettleOnOpenFlag }
+func (f SettleOnOpenFlagField) Tag() quickfix.Tag { return tag.SettleOnOpenFlag }
 
 //NewSettleOnOpenFlag returns a new SettleOnOpenFlagField initialized with val
 func NewSettleOnOpenFlag(val string) *SettleOnOpenFlagField {
@@ -17104,10 +17138,10 @@ func NewSettleOnOpenFlag(val string) *SettleOnOpenFlagField {
 }
 
 //SettlementCycleNoField is a INT field
-type SettlementCycleNoField struct{ fix.IntValue }
+type SettlementCycleNoField struct{ quickfix.IntValue }
 
 //Tag returns tag.SettlementCycleNo (1153)
-func (f SettlementCycleNoField) Tag() fix.Tag { return tag.SettlementCycleNo }
+func (f SettlementCycleNoField) Tag() quickfix.Tag { return tag.SettlementCycleNo }
 
 //NewSettlementCycleNo returns a new SettlementCycleNoField initialized with val
 func NewSettlementCycleNo(val int) *SettlementCycleNoField {
@@ -17117,10 +17151,10 @@ func NewSettlementCycleNo(val int) *SettlementCycleNoField {
 }
 
 //SettlmntTypField is a CHAR field
-type SettlmntTypField struct{ fix.CharValue }
+type SettlmntTypField struct{ quickfix.CharValue }
 
 //Tag returns tag.SettlmntTyp (63)
-func (f SettlmntTypField) Tag() fix.Tag { return tag.SettlmntTyp }
+func (f SettlmntTypField) Tag() quickfix.Tag { return tag.SettlmntTyp }
 
 //NewSettlmntTyp returns a new SettlmntTypField initialized with val
 func NewSettlmntTyp(val string) *SettlmntTypField {
@@ -17130,10 +17164,10 @@ func NewSettlmntTyp(val string) *SettlmntTypField {
 }
 
 //SharedCommissionField is a AMT field
-type SharedCommissionField struct{ fix.AmtValue }
+type SharedCommissionField struct{ quickfix.AmtValue }
 
 //Tag returns tag.SharedCommission (858)
-func (f SharedCommissionField) Tag() fix.Tag { return tag.SharedCommission }
+func (f SharedCommissionField) Tag() quickfix.Tag { return tag.SharedCommission }
 
 //NewSharedCommission returns a new SharedCommissionField initialized with val
 func NewSharedCommission(val float64) *SharedCommissionField {
@@ -17143,10 +17177,10 @@ func NewSharedCommission(val float64) *SharedCommissionField {
 }
 
 //SharesField is a QTY field
-type SharesField struct{ fix.QtyValue }
+type SharesField struct{ quickfix.QtyValue }
 
 //Tag returns tag.Shares (53)
-func (f SharesField) Tag() fix.Tag { return tag.Shares }
+func (f SharesField) Tag() quickfix.Tag { return tag.Shares }
 
 //NewShares returns a new SharesField initialized with val
 func NewShares(val float64) *SharesField {
@@ -17156,10 +17190,10 @@ func NewShares(val float64) *SharesField {
 }
 
 //ShortQtyField is a QTY field
-type ShortQtyField struct{ fix.QtyValue }
+type ShortQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.ShortQty (705)
-func (f ShortQtyField) Tag() fix.Tag { return tag.ShortQty }
+func (f ShortQtyField) Tag() quickfix.Tag { return tag.ShortQty }
 
 //NewShortQty returns a new ShortQtyField initialized with val
 func NewShortQty(val float64) *ShortQtyField {
@@ -17169,10 +17203,10 @@ func NewShortQty(val float64) *ShortQtyField {
 }
 
 //ShortSaleReasonField is a INT field
-type ShortSaleReasonField struct{ fix.IntValue }
+type ShortSaleReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.ShortSaleReason (853)
-func (f ShortSaleReasonField) Tag() fix.Tag { return tag.ShortSaleReason }
+func (f ShortSaleReasonField) Tag() quickfix.Tag { return tag.ShortSaleReason }
 
 //NewShortSaleReason returns a new ShortSaleReasonField initialized with val
 func NewShortSaleReason(val int) *ShortSaleReasonField {
@@ -17182,10 +17216,10 @@ func NewShortSaleReason(val int) *ShortSaleReasonField {
 }
 
 //SideField is a CHAR field
-type SideField struct{ fix.CharValue }
+type SideField struct{ quickfix.CharValue }
 
 //Tag returns tag.Side (54)
-func (f SideField) Tag() fix.Tag { return tag.Side }
+func (f SideField) Tag() quickfix.Tag { return tag.Side }
 
 //NewSide returns a new SideField initialized with val
 func NewSide(val string) *SideField {
@@ -17195,10 +17229,10 @@ func NewSide(val string) *SideField {
 }
 
 //SideComplianceIDField is a STRING field
-type SideComplianceIDField struct{ fix.StringValue }
+type SideComplianceIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SideComplianceID (659)
-func (f SideComplianceIDField) Tag() fix.Tag { return tag.SideComplianceID }
+func (f SideComplianceIDField) Tag() quickfix.Tag { return tag.SideComplianceID }
 
 //NewSideComplianceID returns a new SideComplianceIDField initialized with val
 func NewSideComplianceID(val string) *SideComplianceIDField {
@@ -17208,10 +17242,10 @@ func NewSideComplianceID(val string) *SideComplianceIDField {
 }
 
 //SideCurrencyField is a CURRENCY field
-type SideCurrencyField struct{ fix.CurrencyValue }
+type SideCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.SideCurrency (1154)
-func (f SideCurrencyField) Tag() fix.Tag { return tag.SideCurrency }
+func (f SideCurrencyField) Tag() quickfix.Tag { return tag.SideCurrency }
 
 //NewSideCurrency returns a new SideCurrencyField initialized with val
 func NewSideCurrency(val string) *SideCurrencyField {
@@ -17221,10 +17255,10 @@ func NewSideCurrency(val string) *SideCurrencyField {
 }
 
 //SideExecIDField is a STRING field
-type SideExecIDField struct{ fix.StringValue }
+type SideExecIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SideExecID (1427)
-func (f SideExecIDField) Tag() fix.Tag { return tag.SideExecID }
+func (f SideExecIDField) Tag() quickfix.Tag { return tag.SideExecID }
 
 //NewSideExecID returns a new SideExecIDField initialized with val
 func NewSideExecID(val string) *SideExecIDField {
@@ -17234,10 +17268,10 @@ func NewSideExecID(val string) *SideExecIDField {
 }
 
 //SideFillStationCdField is a STRING field
-type SideFillStationCdField struct{ fix.StringValue }
+type SideFillStationCdField struct{ quickfix.StringValue }
 
 //Tag returns tag.SideFillStationCd (1006)
-func (f SideFillStationCdField) Tag() fix.Tag { return tag.SideFillStationCd }
+func (f SideFillStationCdField) Tag() quickfix.Tag { return tag.SideFillStationCd }
 
 //NewSideFillStationCd returns a new SideFillStationCdField initialized with val
 func NewSideFillStationCd(val string) *SideFillStationCdField {
@@ -17247,10 +17281,10 @@ func NewSideFillStationCd(val string) *SideFillStationCdField {
 }
 
 //SideGrossTradeAmtField is a AMT field
-type SideGrossTradeAmtField struct{ fix.AmtValue }
+type SideGrossTradeAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.SideGrossTradeAmt (1072)
-func (f SideGrossTradeAmtField) Tag() fix.Tag { return tag.SideGrossTradeAmt }
+func (f SideGrossTradeAmtField) Tag() quickfix.Tag { return tag.SideGrossTradeAmt }
 
 //NewSideGrossTradeAmt returns a new SideGrossTradeAmtField initialized with val
 func NewSideGrossTradeAmt(val float64) *SideGrossTradeAmtField {
@@ -17260,10 +17294,10 @@ func NewSideGrossTradeAmt(val float64) *SideGrossTradeAmtField {
 }
 
 //SideLastQtyField is a INT field
-type SideLastQtyField struct{ fix.IntValue }
+type SideLastQtyField struct{ quickfix.IntValue }
 
 //Tag returns tag.SideLastQty (1009)
-func (f SideLastQtyField) Tag() fix.Tag { return tag.SideLastQty }
+func (f SideLastQtyField) Tag() quickfix.Tag { return tag.SideLastQty }
 
 //NewSideLastQty returns a new SideLastQtyField initialized with val
 func NewSideLastQty(val int) *SideLastQtyField {
@@ -17273,10 +17307,10 @@ func NewSideLastQty(val int) *SideLastQtyField {
 }
 
 //SideLiquidityIndField is a INT field
-type SideLiquidityIndField struct{ fix.IntValue }
+type SideLiquidityIndField struct{ quickfix.IntValue }
 
 //Tag returns tag.SideLiquidityInd (1444)
-func (f SideLiquidityIndField) Tag() fix.Tag { return tag.SideLiquidityInd }
+func (f SideLiquidityIndField) Tag() quickfix.Tag { return tag.SideLiquidityInd }
 
 //NewSideLiquidityInd returns a new SideLiquidityIndField initialized with val
 func NewSideLiquidityInd(val int) *SideLiquidityIndField {
@@ -17286,10 +17320,10 @@ func NewSideLiquidityInd(val int) *SideLiquidityIndField {
 }
 
 //SideMultiLegReportingTypeField is a INT field
-type SideMultiLegReportingTypeField struct{ fix.IntValue }
+type SideMultiLegReportingTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SideMultiLegReportingType (752)
-func (f SideMultiLegReportingTypeField) Tag() fix.Tag { return tag.SideMultiLegReportingType }
+func (f SideMultiLegReportingTypeField) Tag() quickfix.Tag { return tag.SideMultiLegReportingType }
 
 //NewSideMultiLegReportingType returns a new SideMultiLegReportingTypeField initialized with val
 func NewSideMultiLegReportingType(val int) *SideMultiLegReportingTypeField {
@@ -17299,10 +17333,10 @@ func NewSideMultiLegReportingType(val int) *SideMultiLegReportingTypeField {
 }
 
 //SideQtyField is a INT field
-type SideQtyField struct{ fix.IntValue }
+type SideQtyField struct{ quickfix.IntValue }
 
 //Tag returns tag.SideQty (1009)
-func (f SideQtyField) Tag() fix.Tag { return tag.SideQty }
+func (f SideQtyField) Tag() quickfix.Tag { return tag.SideQty }
 
 //NewSideQty returns a new SideQtyField initialized with val
 func NewSideQty(val int) *SideQtyField {
@@ -17312,10 +17346,10 @@ func NewSideQty(val int) *SideQtyField {
 }
 
 //SideReasonCdField is a STRING field
-type SideReasonCdField struct{ fix.StringValue }
+type SideReasonCdField struct{ quickfix.StringValue }
 
 //Tag returns tag.SideReasonCd (1007)
-func (f SideReasonCdField) Tag() fix.Tag { return tag.SideReasonCd }
+func (f SideReasonCdField) Tag() quickfix.Tag { return tag.SideReasonCd }
 
 //NewSideReasonCd returns a new SideReasonCdField initialized with val
 func NewSideReasonCd(val string) *SideReasonCdField {
@@ -17325,10 +17359,10 @@ func NewSideReasonCd(val string) *SideReasonCdField {
 }
 
 //SideSettlCurrencyField is a CURRENCY field
-type SideSettlCurrencyField struct{ fix.CurrencyValue }
+type SideSettlCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.SideSettlCurrency (1155)
-func (f SideSettlCurrencyField) Tag() fix.Tag { return tag.SideSettlCurrency }
+func (f SideSettlCurrencyField) Tag() quickfix.Tag { return tag.SideSettlCurrency }
 
 //NewSideSettlCurrency returns a new SideSettlCurrencyField initialized with val
 func NewSideSettlCurrency(val string) *SideSettlCurrencyField {
@@ -17338,16 +17372,16 @@ func NewSideSettlCurrency(val string) *SideSettlCurrencyField {
 }
 
 //SideTimeInForceField is a UTCTIMESTAMP field
-type SideTimeInForceField struct{ fix.UTCTimestampValue }
+type SideTimeInForceField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.SideTimeInForce (962)
-func (f SideTimeInForceField) Tag() fix.Tag { return tag.SideTimeInForce }
+func (f SideTimeInForceField) Tag() quickfix.Tag { return tag.SideTimeInForce }
 
 //SideTradeReportIDField is a STRING field
-type SideTradeReportIDField struct{ fix.StringValue }
+type SideTradeReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.SideTradeReportID (1005)
-func (f SideTradeReportIDField) Tag() fix.Tag { return tag.SideTradeReportID }
+func (f SideTradeReportIDField) Tag() quickfix.Tag { return tag.SideTradeReportID }
 
 //NewSideTradeReportID returns a new SideTradeReportIDField initialized with val
 func NewSideTradeReportID(val string) *SideTradeReportIDField {
@@ -17357,16 +17391,16 @@ func NewSideTradeReportID(val string) *SideTradeReportIDField {
 }
 
 //SideTrdRegTimestampField is a UTCTIMESTAMP field
-type SideTrdRegTimestampField struct{ fix.UTCTimestampValue }
+type SideTrdRegTimestampField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.SideTrdRegTimestamp (1012)
-func (f SideTrdRegTimestampField) Tag() fix.Tag { return tag.SideTrdRegTimestamp }
+func (f SideTrdRegTimestampField) Tag() quickfix.Tag { return tag.SideTrdRegTimestamp }
 
 //SideTrdRegTimestampSrcField is a STRING field
-type SideTrdRegTimestampSrcField struct{ fix.StringValue }
+type SideTrdRegTimestampSrcField struct{ quickfix.StringValue }
 
 //Tag returns tag.SideTrdRegTimestampSrc (1014)
-func (f SideTrdRegTimestampSrcField) Tag() fix.Tag { return tag.SideTrdRegTimestampSrc }
+func (f SideTrdRegTimestampSrcField) Tag() quickfix.Tag { return tag.SideTrdRegTimestampSrc }
 
 //NewSideTrdRegTimestampSrc returns a new SideTrdRegTimestampSrcField initialized with val
 func NewSideTrdRegTimestampSrc(val string) *SideTrdRegTimestampSrcField {
@@ -17376,10 +17410,10 @@ func NewSideTrdRegTimestampSrc(val string) *SideTrdRegTimestampSrcField {
 }
 
 //SideTrdRegTimestampTypeField is a INT field
-type SideTrdRegTimestampTypeField struct{ fix.IntValue }
+type SideTrdRegTimestampTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.SideTrdRegTimestampType (1013)
-func (f SideTrdRegTimestampTypeField) Tag() fix.Tag { return tag.SideTrdRegTimestampType }
+func (f SideTrdRegTimestampTypeField) Tag() quickfix.Tag { return tag.SideTrdRegTimestampType }
 
 //NewSideTrdRegTimestampType returns a new SideTrdRegTimestampTypeField initialized with val
 func NewSideTrdRegTimestampType(val int) *SideTrdRegTimestampTypeField {
@@ -17389,10 +17423,10 @@ func NewSideTrdRegTimestampType(val int) *SideTrdRegTimestampTypeField {
 }
 
 //SideTrdSubTypField is a INT field
-type SideTrdSubTypField struct{ fix.IntValue }
+type SideTrdSubTypField struct{ quickfix.IntValue }
 
 //Tag returns tag.SideTrdSubTyp (1008)
-func (f SideTrdSubTypField) Tag() fix.Tag { return tag.SideTrdSubTyp }
+func (f SideTrdSubTypField) Tag() quickfix.Tag { return tag.SideTrdSubTyp }
 
 //NewSideTrdSubTyp returns a new SideTrdSubTypField initialized with val
 func NewSideTrdSubTyp(val int) *SideTrdSubTypField {
@@ -17402,10 +17436,10 @@ func NewSideTrdSubTyp(val int) *SideTrdSubTypField {
 }
 
 //SideValue1Field is a AMT field
-type SideValue1Field struct{ fix.AmtValue }
+type SideValue1Field struct{ quickfix.AmtValue }
 
 //Tag returns tag.SideValue1 (396)
-func (f SideValue1Field) Tag() fix.Tag { return tag.SideValue1 }
+func (f SideValue1Field) Tag() quickfix.Tag { return tag.SideValue1 }
 
 //NewSideValue1 returns a new SideValue1Field initialized with val
 func NewSideValue1(val float64) *SideValue1Field {
@@ -17415,10 +17449,10 @@ func NewSideValue1(val float64) *SideValue1Field {
 }
 
 //SideValue2Field is a AMT field
-type SideValue2Field struct{ fix.AmtValue }
+type SideValue2Field struct{ quickfix.AmtValue }
 
 //Tag returns tag.SideValue2 (397)
-func (f SideValue2Field) Tag() fix.Tag { return tag.SideValue2 }
+func (f SideValue2Field) Tag() quickfix.Tag { return tag.SideValue2 }
 
 //NewSideValue2 returns a new SideValue2Field initialized with val
 func NewSideValue2(val float64) *SideValue2Field {
@@ -17428,10 +17462,10 @@ func NewSideValue2(val float64) *SideValue2Field {
 }
 
 //SideValueIndField is a INT field
-type SideValueIndField struct{ fix.IntValue }
+type SideValueIndField struct{ quickfix.IntValue }
 
 //Tag returns tag.SideValueInd (401)
-func (f SideValueIndField) Tag() fix.Tag { return tag.SideValueInd }
+func (f SideValueIndField) Tag() quickfix.Tag { return tag.SideValueInd }
 
 //NewSideValueInd returns a new SideValueIndField initialized with val
 func NewSideValueInd(val int) *SideValueIndField {
@@ -17441,10 +17475,10 @@ func NewSideValueInd(val int) *SideValueIndField {
 }
 
 //SignatureField is a DATA field
-type SignatureField struct{ fix.DataValue }
+type SignatureField struct{ quickfix.DataValue }
 
 //Tag returns tag.Signature (89)
-func (f SignatureField) Tag() fix.Tag { return tag.Signature }
+func (f SignatureField) Tag() quickfix.Tag { return tag.Signature }
 
 //NewSignature returns a new SignatureField initialized with val
 func NewSignature(val string) *SignatureField {
@@ -17454,10 +17488,10 @@ func NewSignature(val string) *SignatureField {
 }
 
 //SignatureLengthField is a LENGTH field
-type SignatureLengthField struct{ fix.LengthValue }
+type SignatureLengthField struct{ quickfix.LengthValue }
 
 //Tag returns tag.SignatureLength (93)
-func (f SignatureLengthField) Tag() fix.Tag { return tag.SignatureLength }
+func (f SignatureLengthField) Tag() quickfix.Tag { return tag.SignatureLength }
 
 //NewSignatureLength returns a new SignatureLengthField initialized with val
 func NewSignatureLength(val int) *SignatureLengthField {
@@ -17467,10 +17501,10 @@ func NewSignatureLength(val int) *SignatureLengthField {
 }
 
 //SolicitedFlagField is a BOOLEAN field
-type SolicitedFlagField struct{ fix.BooleanValue }
+type SolicitedFlagField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.SolicitedFlag (377)
-func (f SolicitedFlagField) Tag() fix.Tag { return tag.SolicitedFlag }
+func (f SolicitedFlagField) Tag() quickfix.Tag { return tag.SolicitedFlag }
 
 //NewSolicitedFlag returns a new SolicitedFlagField initialized with val
 func NewSolicitedFlag(val bool) *SolicitedFlagField {
@@ -17480,10 +17514,10 @@ func NewSolicitedFlag(val bool) *SolicitedFlagField {
 }
 
 //SpreadField is a PRICEOFFSET field
-type SpreadField struct{ fix.PriceOffsetValue }
+type SpreadField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.Spread (218)
-func (f SpreadField) Tag() fix.Tag { return tag.Spread }
+func (f SpreadField) Tag() quickfix.Tag { return tag.Spread }
 
 //NewSpread returns a new SpreadField initialized with val
 func NewSpread(val float64) *SpreadField {
@@ -17493,10 +17527,10 @@ func NewSpread(val float64) *SpreadField {
 }
 
 //SpreadToBenchmarkField is a PRICEOFFSET field
-type SpreadToBenchmarkField struct{ fix.PriceOffsetValue }
+type SpreadToBenchmarkField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.SpreadToBenchmark (218)
-func (f SpreadToBenchmarkField) Tag() fix.Tag { return tag.SpreadToBenchmark }
+func (f SpreadToBenchmarkField) Tag() quickfix.Tag { return tag.SpreadToBenchmark }
 
 //NewSpreadToBenchmark returns a new SpreadToBenchmarkField initialized with val
 func NewSpreadToBenchmark(val float64) *SpreadToBenchmarkField {
@@ -17506,10 +17540,10 @@ func NewSpreadToBenchmark(val float64) *SpreadToBenchmarkField {
 }
 
 //StandInstDbIDField is a STRING field
-type StandInstDbIDField struct{ fix.StringValue }
+type StandInstDbIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.StandInstDbID (171)
-func (f StandInstDbIDField) Tag() fix.Tag { return tag.StandInstDbID }
+func (f StandInstDbIDField) Tag() quickfix.Tag { return tag.StandInstDbID }
 
 //NewStandInstDbID returns a new StandInstDbIDField initialized with val
 func NewStandInstDbID(val string) *StandInstDbIDField {
@@ -17519,10 +17553,10 @@ func NewStandInstDbID(val string) *StandInstDbIDField {
 }
 
 //StandInstDbNameField is a STRING field
-type StandInstDbNameField struct{ fix.StringValue }
+type StandInstDbNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.StandInstDbName (170)
-func (f StandInstDbNameField) Tag() fix.Tag { return tag.StandInstDbName }
+func (f StandInstDbNameField) Tag() quickfix.Tag { return tag.StandInstDbName }
 
 //NewStandInstDbName returns a new StandInstDbNameField initialized with val
 func NewStandInstDbName(val string) *StandInstDbNameField {
@@ -17532,10 +17566,10 @@ func NewStandInstDbName(val string) *StandInstDbNameField {
 }
 
 //StandInstDbTypeField is a INT field
-type StandInstDbTypeField struct{ fix.IntValue }
+type StandInstDbTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.StandInstDbType (169)
-func (f StandInstDbTypeField) Tag() fix.Tag { return tag.StandInstDbType }
+func (f StandInstDbTypeField) Tag() quickfix.Tag { return tag.StandInstDbType }
 
 //NewStandInstDbType returns a new StandInstDbTypeField initialized with val
 func NewStandInstDbType(val int) *StandInstDbTypeField {
@@ -17545,10 +17579,10 @@ func NewStandInstDbType(val int) *StandInstDbTypeField {
 }
 
 //StartCashField is a AMT field
-type StartCashField struct{ fix.AmtValue }
+type StartCashField struct{ quickfix.AmtValue }
 
 //Tag returns tag.StartCash (921)
-func (f StartCashField) Tag() fix.Tag { return tag.StartCash }
+func (f StartCashField) Tag() quickfix.Tag { return tag.StartCash }
 
 //NewStartCash returns a new StartCashField initialized with val
 func NewStartCash(val float64) *StartCashField {
@@ -17558,10 +17592,10 @@ func NewStartCash(val float64) *StartCashField {
 }
 
 //StartDateField is a LOCALMKTDATE field
-type StartDateField struct{ fix.LocalMktDateValue }
+type StartDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.StartDate (916)
-func (f StartDateField) Tag() fix.Tag { return tag.StartDate }
+func (f StartDateField) Tag() quickfix.Tag { return tag.StartDate }
 
 //NewStartDate returns a new StartDateField initialized with val
 func NewStartDate(val string) *StartDateField {
@@ -17571,10 +17605,10 @@ func NewStartDate(val string) *StartDateField {
 }
 
 //StartMaturityMonthYearField is a MONTHYEAR field
-type StartMaturityMonthYearField struct{ fix.MonthYearValue }
+type StartMaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.StartMaturityMonthYear (1241)
-func (f StartMaturityMonthYearField) Tag() fix.Tag { return tag.StartMaturityMonthYear }
+func (f StartMaturityMonthYearField) Tag() quickfix.Tag { return tag.StartMaturityMonthYear }
 
 //NewStartMaturityMonthYear returns a new StartMaturityMonthYearField initialized with val
 func NewStartMaturityMonthYear(val string) *StartMaturityMonthYearField {
@@ -17584,10 +17618,10 @@ func NewStartMaturityMonthYear(val string) *StartMaturityMonthYearField {
 }
 
 //StartStrikePxRangeField is a PRICE field
-type StartStrikePxRangeField struct{ fix.PriceValue }
+type StartStrikePxRangeField struct{ quickfix.PriceValue }
 
 //Tag returns tag.StartStrikePxRange (1202)
-func (f StartStrikePxRangeField) Tag() fix.Tag { return tag.StartStrikePxRange }
+func (f StartStrikePxRangeField) Tag() quickfix.Tag { return tag.StartStrikePxRange }
 
 //NewStartStrikePxRange returns a new StartStrikePxRangeField initialized with val
 func NewStartStrikePxRange(val float64) *StartStrikePxRangeField {
@@ -17597,10 +17631,10 @@ func NewStartStrikePxRange(val float64) *StartStrikePxRangeField {
 }
 
 //StartTickPriceRangeField is a PRICE field
-type StartTickPriceRangeField struct{ fix.PriceValue }
+type StartTickPriceRangeField struct{ quickfix.PriceValue }
 
 //Tag returns tag.StartTickPriceRange (1206)
-func (f StartTickPriceRangeField) Tag() fix.Tag { return tag.StartTickPriceRange }
+func (f StartTickPriceRangeField) Tag() quickfix.Tag { return tag.StartTickPriceRange }
 
 //NewStartTickPriceRange returns a new StartTickPriceRangeField initialized with val
 func NewStartTickPriceRange(val float64) *StartTickPriceRangeField {
@@ -17610,10 +17644,10 @@ func NewStartTickPriceRange(val float64) *StartTickPriceRangeField {
 }
 
 //StateOrProvinceOfIssueField is a STRING field
-type StateOrProvinceOfIssueField struct{ fix.StringValue }
+type StateOrProvinceOfIssueField struct{ quickfix.StringValue }
 
 //Tag returns tag.StateOrProvinceOfIssue (471)
-func (f StateOrProvinceOfIssueField) Tag() fix.Tag { return tag.StateOrProvinceOfIssue }
+func (f StateOrProvinceOfIssueField) Tag() quickfix.Tag { return tag.StateOrProvinceOfIssue }
 
 //NewStateOrProvinceOfIssue returns a new StateOrProvinceOfIssueField initialized with val
 func NewStateOrProvinceOfIssue(val string) *StateOrProvinceOfIssueField {
@@ -17623,10 +17657,10 @@ func NewStateOrProvinceOfIssue(val string) *StateOrProvinceOfIssueField {
 }
 
 //StatsTypeField is a INT field
-type StatsTypeField struct{ fix.IntValue }
+type StatsTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.StatsType (1176)
-func (f StatsTypeField) Tag() fix.Tag { return tag.StatsType }
+func (f StatsTypeField) Tag() quickfix.Tag { return tag.StatsType }
 
 //NewStatsType returns a new StatsTypeField initialized with val
 func NewStatsType(val int) *StatsTypeField {
@@ -17636,10 +17670,10 @@ func NewStatsType(val int) *StatsTypeField {
 }
 
 //StatusTextField is a STRING field
-type StatusTextField struct{ fix.StringValue }
+type StatusTextField struct{ quickfix.StringValue }
 
 //Tag returns tag.StatusText (929)
-func (f StatusTextField) Tag() fix.Tag { return tag.StatusText }
+func (f StatusTextField) Tag() quickfix.Tag { return tag.StatusText }
 
 //NewStatusText returns a new StatusTextField initialized with val
 func NewStatusText(val string) *StatusTextField {
@@ -17649,10 +17683,10 @@ func NewStatusText(val string) *StatusTextField {
 }
 
 //StatusValueField is a INT field
-type StatusValueField struct{ fix.IntValue }
+type StatusValueField struct{ quickfix.IntValue }
 
 //Tag returns tag.StatusValue (928)
-func (f StatusValueField) Tag() fix.Tag { return tag.StatusValue }
+func (f StatusValueField) Tag() quickfix.Tag { return tag.StatusValue }
 
 //NewStatusValue returns a new StatusValueField initialized with val
 func NewStatusValue(val int) *StatusValueField {
@@ -17662,10 +17696,10 @@ func NewStatusValue(val int) *StatusValueField {
 }
 
 //StipulationTypeField is a STRING field
-type StipulationTypeField struct{ fix.StringValue }
+type StipulationTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.StipulationType (233)
-func (f StipulationTypeField) Tag() fix.Tag { return tag.StipulationType }
+func (f StipulationTypeField) Tag() quickfix.Tag { return tag.StipulationType }
 
 //NewStipulationType returns a new StipulationTypeField initialized with val
 func NewStipulationType(val string) *StipulationTypeField {
@@ -17675,10 +17709,10 @@ func NewStipulationType(val string) *StipulationTypeField {
 }
 
 //StipulationValueField is a STRING field
-type StipulationValueField struct{ fix.StringValue }
+type StipulationValueField struct{ quickfix.StringValue }
 
 //Tag returns tag.StipulationValue (234)
-func (f StipulationValueField) Tag() fix.Tag { return tag.StipulationValue }
+func (f StipulationValueField) Tag() quickfix.Tag { return tag.StipulationValue }
 
 //NewStipulationValue returns a new StipulationValueField initialized with val
 func NewStipulationValue(val string) *StipulationValueField {
@@ -17688,10 +17722,10 @@ func NewStipulationValue(val string) *StipulationValueField {
 }
 
 //StopPxField is a PRICE field
-type StopPxField struct{ fix.PriceValue }
+type StopPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.StopPx (99)
-func (f StopPxField) Tag() fix.Tag { return tag.StopPx }
+func (f StopPxField) Tag() quickfix.Tag { return tag.StopPx }
 
 //NewStopPx returns a new StopPxField initialized with val
 func NewStopPx(val float64) *StopPxField {
@@ -17701,10 +17735,10 @@ func NewStopPx(val float64) *StopPxField {
 }
 
 //StrategyParameterNameField is a STRING field
-type StrategyParameterNameField struct{ fix.StringValue }
+type StrategyParameterNameField struct{ quickfix.StringValue }
 
 //Tag returns tag.StrategyParameterName (958)
-func (f StrategyParameterNameField) Tag() fix.Tag { return tag.StrategyParameterName }
+func (f StrategyParameterNameField) Tag() quickfix.Tag { return tag.StrategyParameterName }
 
 //NewStrategyParameterName returns a new StrategyParameterNameField initialized with val
 func NewStrategyParameterName(val string) *StrategyParameterNameField {
@@ -17714,10 +17748,10 @@ func NewStrategyParameterName(val string) *StrategyParameterNameField {
 }
 
 //StrategyParameterTypeField is a INT field
-type StrategyParameterTypeField struct{ fix.IntValue }
+type StrategyParameterTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.StrategyParameterType (959)
-func (f StrategyParameterTypeField) Tag() fix.Tag { return tag.StrategyParameterType }
+func (f StrategyParameterTypeField) Tag() quickfix.Tag { return tag.StrategyParameterType }
 
 //NewStrategyParameterType returns a new StrategyParameterTypeField initialized with val
 func NewStrategyParameterType(val int) *StrategyParameterTypeField {
@@ -17727,10 +17761,10 @@ func NewStrategyParameterType(val int) *StrategyParameterTypeField {
 }
 
 //StrategyParameterValueField is a STRING field
-type StrategyParameterValueField struct{ fix.StringValue }
+type StrategyParameterValueField struct{ quickfix.StringValue }
 
 //Tag returns tag.StrategyParameterValue (960)
-func (f StrategyParameterValueField) Tag() fix.Tag { return tag.StrategyParameterValue }
+func (f StrategyParameterValueField) Tag() quickfix.Tag { return tag.StrategyParameterValue }
 
 //NewStrategyParameterValue returns a new StrategyParameterValueField initialized with val
 func NewStrategyParameterValue(val string) *StrategyParameterValueField {
@@ -17740,10 +17774,10 @@ func NewStrategyParameterValue(val string) *StrategyParameterValueField {
 }
 
 //StreamAsgnAckTypeField is a INT field
-type StreamAsgnAckTypeField struct{ fix.IntValue }
+type StreamAsgnAckTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.StreamAsgnAckType (1503)
-func (f StreamAsgnAckTypeField) Tag() fix.Tag { return tag.StreamAsgnAckType }
+func (f StreamAsgnAckTypeField) Tag() quickfix.Tag { return tag.StreamAsgnAckType }
 
 //NewStreamAsgnAckType returns a new StreamAsgnAckTypeField initialized with val
 func NewStreamAsgnAckType(val int) *StreamAsgnAckTypeField {
@@ -17753,10 +17787,10 @@ func NewStreamAsgnAckType(val int) *StreamAsgnAckTypeField {
 }
 
 //StreamAsgnRejReasonField is a INT field
-type StreamAsgnRejReasonField struct{ fix.IntValue }
+type StreamAsgnRejReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.StreamAsgnRejReason (1502)
-func (f StreamAsgnRejReasonField) Tag() fix.Tag { return tag.StreamAsgnRejReason }
+func (f StreamAsgnRejReasonField) Tag() quickfix.Tag { return tag.StreamAsgnRejReason }
 
 //NewStreamAsgnRejReason returns a new StreamAsgnRejReasonField initialized with val
 func NewStreamAsgnRejReason(val int) *StreamAsgnRejReasonField {
@@ -17766,10 +17800,10 @@ func NewStreamAsgnRejReason(val int) *StreamAsgnRejReasonField {
 }
 
 //StreamAsgnReqIDField is a STRING field
-type StreamAsgnReqIDField struct{ fix.StringValue }
+type StreamAsgnReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.StreamAsgnReqID (1497)
-func (f StreamAsgnReqIDField) Tag() fix.Tag { return tag.StreamAsgnReqID }
+func (f StreamAsgnReqIDField) Tag() quickfix.Tag { return tag.StreamAsgnReqID }
 
 //NewStreamAsgnReqID returns a new StreamAsgnReqIDField initialized with val
 func NewStreamAsgnReqID(val string) *StreamAsgnReqIDField {
@@ -17779,10 +17813,10 @@ func NewStreamAsgnReqID(val string) *StreamAsgnReqIDField {
 }
 
 //StreamAsgnReqTypeField is a INT field
-type StreamAsgnReqTypeField struct{ fix.IntValue }
+type StreamAsgnReqTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.StreamAsgnReqType (1498)
-func (f StreamAsgnReqTypeField) Tag() fix.Tag { return tag.StreamAsgnReqType }
+func (f StreamAsgnReqTypeField) Tag() quickfix.Tag { return tag.StreamAsgnReqType }
 
 //NewStreamAsgnReqType returns a new StreamAsgnReqTypeField initialized with val
 func NewStreamAsgnReqType(val int) *StreamAsgnReqTypeField {
@@ -17792,10 +17826,10 @@ func NewStreamAsgnReqType(val int) *StreamAsgnReqTypeField {
 }
 
 //StreamAsgnRptIDField is a STRING field
-type StreamAsgnRptIDField struct{ fix.StringValue }
+type StreamAsgnRptIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.StreamAsgnRptID (1501)
-func (f StreamAsgnRptIDField) Tag() fix.Tag { return tag.StreamAsgnRptID }
+func (f StreamAsgnRptIDField) Tag() quickfix.Tag { return tag.StreamAsgnRptID }
 
 //NewStreamAsgnRptID returns a new StreamAsgnRptIDField initialized with val
 func NewStreamAsgnRptID(val string) *StreamAsgnRptIDField {
@@ -17805,10 +17839,10 @@ func NewStreamAsgnRptID(val string) *StreamAsgnRptIDField {
 }
 
 //StreamAsgnTypeField is a INT field
-type StreamAsgnTypeField struct{ fix.IntValue }
+type StreamAsgnTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.StreamAsgnType (1617)
-func (f StreamAsgnTypeField) Tag() fix.Tag { return tag.StreamAsgnType }
+func (f StreamAsgnTypeField) Tag() quickfix.Tag { return tag.StreamAsgnType }
 
 //NewStreamAsgnType returns a new StreamAsgnTypeField initialized with val
 func NewStreamAsgnType(val int) *StreamAsgnTypeField {
@@ -17818,10 +17852,10 @@ func NewStreamAsgnType(val int) *StreamAsgnTypeField {
 }
 
 //StrikeCurrencyField is a CURRENCY field
-type StrikeCurrencyField struct{ fix.CurrencyValue }
+type StrikeCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.StrikeCurrency (947)
-func (f StrikeCurrencyField) Tag() fix.Tag { return tag.StrikeCurrency }
+func (f StrikeCurrencyField) Tag() quickfix.Tag { return tag.StrikeCurrency }
 
 //NewStrikeCurrency returns a new StrikeCurrencyField initialized with val
 func NewStrikeCurrency(val string) *StrikeCurrencyField {
@@ -17831,10 +17865,10 @@ func NewStrikeCurrency(val string) *StrikeCurrencyField {
 }
 
 //StrikeExerciseStyleField is a INT field
-type StrikeExerciseStyleField struct{ fix.IntValue }
+type StrikeExerciseStyleField struct{ quickfix.IntValue }
 
 //Tag returns tag.StrikeExerciseStyle (1304)
-func (f StrikeExerciseStyleField) Tag() fix.Tag { return tag.StrikeExerciseStyle }
+func (f StrikeExerciseStyleField) Tag() quickfix.Tag { return tag.StrikeExerciseStyle }
 
 //NewStrikeExerciseStyle returns a new StrikeExerciseStyleField initialized with val
 func NewStrikeExerciseStyle(val int) *StrikeExerciseStyleField {
@@ -17844,10 +17878,10 @@ func NewStrikeExerciseStyle(val int) *StrikeExerciseStyleField {
 }
 
 //StrikeIncrementField is a FLOAT field
-type StrikeIncrementField struct{ fix.FloatValue }
+type StrikeIncrementField struct{ quickfix.FloatValue }
 
 //Tag returns tag.StrikeIncrement (1204)
-func (f StrikeIncrementField) Tag() fix.Tag { return tag.StrikeIncrement }
+func (f StrikeIncrementField) Tag() quickfix.Tag { return tag.StrikeIncrement }
 
 //NewStrikeIncrement returns a new StrikeIncrementField initialized with val
 func NewStrikeIncrement(val float64) *StrikeIncrementField {
@@ -17857,10 +17891,10 @@ func NewStrikeIncrement(val float64) *StrikeIncrementField {
 }
 
 //StrikeMultiplierField is a FLOAT field
-type StrikeMultiplierField struct{ fix.FloatValue }
+type StrikeMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.StrikeMultiplier (967)
-func (f StrikeMultiplierField) Tag() fix.Tag { return tag.StrikeMultiplier }
+func (f StrikeMultiplierField) Tag() quickfix.Tag { return tag.StrikeMultiplier }
 
 //NewStrikeMultiplier returns a new StrikeMultiplierField initialized with val
 func NewStrikeMultiplier(val float64) *StrikeMultiplierField {
@@ -17870,10 +17904,10 @@ func NewStrikeMultiplier(val float64) *StrikeMultiplierField {
 }
 
 //StrikePriceField is a PRICE field
-type StrikePriceField struct{ fix.PriceValue }
+type StrikePriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.StrikePrice (202)
-func (f StrikePriceField) Tag() fix.Tag { return tag.StrikePrice }
+func (f StrikePriceField) Tag() quickfix.Tag { return tag.StrikePrice }
 
 //NewStrikePrice returns a new StrikePriceField initialized with val
 func NewStrikePrice(val float64) *StrikePriceField {
@@ -17883,10 +17917,10 @@ func NewStrikePrice(val float64) *StrikePriceField {
 }
 
 //StrikePriceBoundaryMethodField is a INT field
-type StrikePriceBoundaryMethodField struct{ fix.IntValue }
+type StrikePriceBoundaryMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.StrikePriceBoundaryMethod (1479)
-func (f StrikePriceBoundaryMethodField) Tag() fix.Tag { return tag.StrikePriceBoundaryMethod }
+func (f StrikePriceBoundaryMethodField) Tag() quickfix.Tag { return tag.StrikePriceBoundaryMethod }
 
 //NewStrikePriceBoundaryMethod returns a new StrikePriceBoundaryMethodField initialized with val
 func NewStrikePriceBoundaryMethod(val int) *StrikePriceBoundaryMethodField {
@@ -17896,10 +17930,10 @@ func NewStrikePriceBoundaryMethod(val int) *StrikePriceBoundaryMethodField {
 }
 
 //StrikePriceBoundaryPrecisionField is a PERCENTAGE field
-type StrikePriceBoundaryPrecisionField struct{ fix.PercentageValue }
+type StrikePriceBoundaryPrecisionField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.StrikePriceBoundaryPrecision (1480)
-func (f StrikePriceBoundaryPrecisionField) Tag() fix.Tag { return tag.StrikePriceBoundaryPrecision }
+func (f StrikePriceBoundaryPrecisionField) Tag() quickfix.Tag { return tag.StrikePriceBoundaryPrecision }
 
 //NewStrikePriceBoundaryPrecision returns a new StrikePriceBoundaryPrecisionField initialized with val
 func NewStrikePriceBoundaryPrecision(val float64) *StrikePriceBoundaryPrecisionField {
@@ -17909,10 +17943,12 @@ func NewStrikePriceBoundaryPrecision(val float64) *StrikePriceBoundaryPrecisionF
 }
 
 //StrikePriceDeterminationMethodField is a INT field
-type StrikePriceDeterminationMethodField struct{ fix.IntValue }
+type StrikePriceDeterminationMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.StrikePriceDeterminationMethod (1478)
-func (f StrikePriceDeterminationMethodField) Tag() fix.Tag { return tag.StrikePriceDeterminationMethod }
+func (f StrikePriceDeterminationMethodField) Tag() quickfix.Tag {
+	return tag.StrikePriceDeterminationMethod
+}
 
 //NewStrikePriceDeterminationMethod returns a new StrikePriceDeterminationMethodField initialized with val
 func NewStrikePriceDeterminationMethod(val int) *StrikePriceDeterminationMethodField {
@@ -17922,10 +17958,10 @@ func NewStrikePriceDeterminationMethod(val int) *StrikePriceDeterminationMethodF
 }
 
 //StrikeRuleIDField is a STRING field
-type StrikeRuleIDField struct{ fix.StringValue }
+type StrikeRuleIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.StrikeRuleID (1223)
-func (f StrikeRuleIDField) Tag() fix.Tag { return tag.StrikeRuleID }
+func (f StrikeRuleIDField) Tag() quickfix.Tag { return tag.StrikeRuleID }
 
 //NewStrikeRuleID returns a new StrikeRuleIDField initialized with val
 func NewStrikeRuleID(val string) *StrikeRuleIDField {
@@ -17935,16 +17971,16 @@ func NewStrikeRuleID(val string) *StrikeRuleIDField {
 }
 
 //StrikeTimeField is a UTCTIMESTAMP field
-type StrikeTimeField struct{ fix.UTCTimestampValue }
+type StrikeTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.StrikeTime (443)
-func (f StrikeTimeField) Tag() fix.Tag { return tag.StrikeTime }
+func (f StrikeTimeField) Tag() quickfix.Tag { return tag.StrikeTime }
 
 //StrikeValueField is a FLOAT field
-type StrikeValueField struct{ fix.FloatValue }
+type StrikeValueField struct{ quickfix.FloatValue }
 
 //Tag returns tag.StrikeValue (968)
-func (f StrikeValueField) Tag() fix.Tag { return tag.StrikeValue }
+func (f StrikeValueField) Tag() quickfix.Tag { return tag.StrikeValue }
 
 //NewStrikeValue returns a new StrikeValueField initialized with val
 func NewStrikeValue(val float64) *StrikeValueField {
@@ -17954,10 +17990,10 @@ func NewStrikeValue(val float64) *StrikeValueField {
 }
 
 //SubjectField is a STRING field
-type SubjectField struct{ fix.StringValue }
+type SubjectField struct{ quickfix.StringValue }
 
 //Tag returns tag.Subject (147)
-func (f SubjectField) Tag() fix.Tag { return tag.Subject }
+func (f SubjectField) Tag() quickfix.Tag { return tag.Subject }
 
 //NewSubject returns a new SubjectField initialized with val
 func NewSubject(val string) *SubjectField {
@@ -17967,10 +18003,10 @@ func NewSubject(val string) *SubjectField {
 }
 
 //SubscriptionRequestTypeField is a CHAR field
-type SubscriptionRequestTypeField struct{ fix.CharValue }
+type SubscriptionRequestTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.SubscriptionRequestType (263)
-func (f SubscriptionRequestTypeField) Tag() fix.Tag { return tag.SubscriptionRequestType }
+func (f SubscriptionRequestTypeField) Tag() quickfix.Tag { return tag.SubscriptionRequestType }
 
 //NewSubscriptionRequestType returns a new SubscriptionRequestTypeField initialized with val
 func NewSubscriptionRequestType(val string) *SubscriptionRequestTypeField {
@@ -17980,10 +18016,10 @@ func NewSubscriptionRequestType(val string) *SubscriptionRequestTypeField {
 }
 
 //SwapPointsField is a PRICEOFFSET field
-type SwapPointsField struct{ fix.PriceOffsetValue }
+type SwapPointsField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.SwapPoints (1069)
-func (f SwapPointsField) Tag() fix.Tag { return tag.SwapPoints }
+func (f SwapPointsField) Tag() quickfix.Tag { return tag.SwapPoints }
 
 //NewSwapPoints returns a new SwapPointsField initialized with val
 func NewSwapPoints(val float64) *SwapPointsField {
@@ -17993,10 +18029,10 @@ func NewSwapPoints(val float64) *SwapPointsField {
 }
 
 //SymbolField is a STRING field
-type SymbolField struct{ fix.StringValue }
+type SymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.Symbol (55)
-func (f SymbolField) Tag() fix.Tag { return tag.Symbol }
+func (f SymbolField) Tag() quickfix.Tag { return tag.Symbol }
 
 //NewSymbol returns a new SymbolField initialized with val
 func NewSymbol(val string) *SymbolField {
@@ -18006,10 +18042,10 @@ func NewSymbol(val string) *SymbolField {
 }
 
 //SymbolSfxField is a STRING field
-type SymbolSfxField struct{ fix.StringValue }
+type SymbolSfxField struct{ quickfix.StringValue }
 
 //Tag returns tag.SymbolSfx (65)
-func (f SymbolSfxField) Tag() fix.Tag { return tag.SymbolSfx }
+func (f SymbolSfxField) Tag() quickfix.Tag { return tag.SymbolSfx }
 
 //NewSymbolSfx returns a new SymbolSfxField initialized with val
 func NewSymbolSfx(val string) *SymbolSfxField {
@@ -18019,16 +18055,16 @@ func NewSymbolSfx(val string) *SymbolSfxField {
 }
 
 //TZTransactTimeField is a TZTIMESTAMP field
-type TZTransactTimeField struct{ fix.TZTimestampValue }
+type TZTransactTimeField struct{ quickfix.TZTimestampValue }
 
 //Tag returns tag.TZTransactTime (1132)
-func (f TZTransactTimeField) Tag() fix.Tag { return tag.TZTransactTime }
+func (f TZTransactTimeField) Tag() quickfix.Tag { return tag.TZTransactTime }
 
 //TargetCompIDField is a STRING field
-type TargetCompIDField struct{ fix.StringValue }
+type TargetCompIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TargetCompID (56)
-func (f TargetCompIDField) Tag() fix.Tag { return tag.TargetCompID }
+func (f TargetCompIDField) Tag() quickfix.Tag { return tag.TargetCompID }
 
 //NewTargetCompID returns a new TargetCompIDField initialized with val
 func NewTargetCompID(val string) *TargetCompIDField {
@@ -18038,10 +18074,10 @@ func NewTargetCompID(val string) *TargetCompIDField {
 }
 
 //TargetLocationIDField is a STRING field
-type TargetLocationIDField struct{ fix.StringValue }
+type TargetLocationIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TargetLocationID (143)
-func (f TargetLocationIDField) Tag() fix.Tag { return tag.TargetLocationID }
+func (f TargetLocationIDField) Tag() quickfix.Tag { return tag.TargetLocationID }
 
 //NewTargetLocationID returns a new TargetLocationIDField initialized with val
 func NewTargetLocationID(val string) *TargetLocationIDField {
@@ -18051,10 +18087,10 @@ func NewTargetLocationID(val string) *TargetLocationIDField {
 }
 
 //TargetPartyIDField is a STRING field
-type TargetPartyIDField struct{ fix.StringValue }
+type TargetPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TargetPartyID (1462)
-func (f TargetPartyIDField) Tag() fix.Tag { return tag.TargetPartyID }
+func (f TargetPartyIDField) Tag() quickfix.Tag { return tag.TargetPartyID }
 
 //NewTargetPartyID returns a new TargetPartyIDField initialized with val
 func NewTargetPartyID(val string) *TargetPartyIDField {
@@ -18064,10 +18100,10 @@ func NewTargetPartyID(val string) *TargetPartyIDField {
 }
 
 //TargetPartyIDSourceField is a CHAR field
-type TargetPartyIDSourceField struct{ fix.CharValue }
+type TargetPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.TargetPartyIDSource (1463)
-func (f TargetPartyIDSourceField) Tag() fix.Tag { return tag.TargetPartyIDSource }
+func (f TargetPartyIDSourceField) Tag() quickfix.Tag { return tag.TargetPartyIDSource }
 
 //NewTargetPartyIDSource returns a new TargetPartyIDSourceField initialized with val
 func NewTargetPartyIDSource(val string) *TargetPartyIDSourceField {
@@ -18077,10 +18113,10 @@ func NewTargetPartyIDSource(val string) *TargetPartyIDSourceField {
 }
 
 //TargetPartyRoleField is a INT field
-type TargetPartyRoleField struct{ fix.IntValue }
+type TargetPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.TargetPartyRole (1464)
-func (f TargetPartyRoleField) Tag() fix.Tag { return tag.TargetPartyRole }
+func (f TargetPartyRoleField) Tag() quickfix.Tag { return tag.TargetPartyRole }
 
 //NewTargetPartyRole returns a new TargetPartyRoleField initialized with val
 func NewTargetPartyRole(val int) *TargetPartyRoleField {
@@ -18090,10 +18126,10 @@ func NewTargetPartyRole(val int) *TargetPartyRoleField {
 }
 
 //TargetStrategyField is a INT field
-type TargetStrategyField struct{ fix.IntValue }
+type TargetStrategyField struct{ quickfix.IntValue }
 
 //Tag returns tag.TargetStrategy (847)
-func (f TargetStrategyField) Tag() fix.Tag { return tag.TargetStrategy }
+func (f TargetStrategyField) Tag() quickfix.Tag { return tag.TargetStrategy }
 
 //NewTargetStrategy returns a new TargetStrategyField initialized with val
 func NewTargetStrategy(val int) *TargetStrategyField {
@@ -18103,10 +18139,10 @@ func NewTargetStrategy(val int) *TargetStrategyField {
 }
 
 //TargetStrategyParametersField is a STRING field
-type TargetStrategyParametersField struct{ fix.StringValue }
+type TargetStrategyParametersField struct{ quickfix.StringValue }
 
 //Tag returns tag.TargetStrategyParameters (848)
-func (f TargetStrategyParametersField) Tag() fix.Tag { return tag.TargetStrategyParameters }
+func (f TargetStrategyParametersField) Tag() quickfix.Tag { return tag.TargetStrategyParameters }
 
 //NewTargetStrategyParameters returns a new TargetStrategyParametersField initialized with val
 func NewTargetStrategyParameters(val string) *TargetStrategyParametersField {
@@ -18116,10 +18152,10 @@ func NewTargetStrategyParameters(val string) *TargetStrategyParametersField {
 }
 
 //TargetStrategyPerformanceField is a FLOAT field
-type TargetStrategyPerformanceField struct{ fix.FloatValue }
+type TargetStrategyPerformanceField struct{ quickfix.FloatValue }
 
 //Tag returns tag.TargetStrategyPerformance (850)
-func (f TargetStrategyPerformanceField) Tag() fix.Tag { return tag.TargetStrategyPerformance }
+func (f TargetStrategyPerformanceField) Tag() quickfix.Tag { return tag.TargetStrategyPerformance }
 
 //NewTargetStrategyPerformance returns a new TargetStrategyPerformanceField initialized with val
 func NewTargetStrategyPerformance(val float64) *TargetStrategyPerformanceField {
@@ -18129,10 +18165,10 @@ func NewTargetStrategyPerformance(val float64) *TargetStrategyPerformanceField {
 }
 
 //TargetSubIDField is a STRING field
-type TargetSubIDField struct{ fix.StringValue }
+type TargetSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TargetSubID (57)
-func (f TargetSubIDField) Tag() fix.Tag { return tag.TargetSubID }
+func (f TargetSubIDField) Tag() quickfix.Tag { return tag.TargetSubID }
 
 //NewTargetSubID returns a new TargetSubIDField initialized with val
 func NewTargetSubID(val string) *TargetSubIDField {
@@ -18142,10 +18178,10 @@ func NewTargetSubID(val string) *TargetSubIDField {
 }
 
 //TaxAdvantageTypeField is a INT field
-type TaxAdvantageTypeField struct{ fix.IntValue }
+type TaxAdvantageTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TaxAdvantageType (495)
-func (f TaxAdvantageTypeField) Tag() fix.Tag { return tag.TaxAdvantageType }
+func (f TaxAdvantageTypeField) Tag() quickfix.Tag { return tag.TaxAdvantageType }
 
 //NewTaxAdvantageType returns a new TaxAdvantageTypeField initialized with val
 func NewTaxAdvantageType(val int) *TaxAdvantageTypeField {
@@ -18155,10 +18191,10 @@ func NewTaxAdvantageType(val int) *TaxAdvantageTypeField {
 }
 
 //TerminationTypeField is a INT field
-type TerminationTypeField struct{ fix.IntValue }
+type TerminationTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TerminationType (788)
-func (f TerminationTypeField) Tag() fix.Tag { return tag.TerminationType }
+func (f TerminationTypeField) Tag() quickfix.Tag { return tag.TerminationType }
 
 //NewTerminationType returns a new TerminationTypeField initialized with val
 func NewTerminationType(val int) *TerminationTypeField {
@@ -18168,10 +18204,10 @@ func NewTerminationType(val int) *TerminationTypeField {
 }
 
 //TestMessageIndicatorField is a BOOLEAN field
-type TestMessageIndicatorField struct{ fix.BooleanValue }
+type TestMessageIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.TestMessageIndicator (464)
-func (f TestMessageIndicatorField) Tag() fix.Tag { return tag.TestMessageIndicator }
+func (f TestMessageIndicatorField) Tag() quickfix.Tag { return tag.TestMessageIndicator }
 
 //NewTestMessageIndicator returns a new TestMessageIndicatorField initialized with val
 func NewTestMessageIndicator(val bool) *TestMessageIndicatorField {
@@ -18181,10 +18217,10 @@ func NewTestMessageIndicator(val bool) *TestMessageIndicatorField {
 }
 
 //TestReqIDField is a STRING field
-type TestReqIDField struct{ fix.StringValue }
+type TestReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TestReqID (112)
-func (f TestReqIDField) Tag() fix.Tag { return tag.TestReqID }
+func (f TestReqIDField) Tag() quickfix.Tag { return tag.TestReqID }
 
 //NewTestReqID returns a new TestReqIDField initialized with val
 func NewTestReqID(val string) *TestReqIDField {
@@ -18194,10 +18230,10 @@ func NewTestReqID(val string) *TestReqIDField {
 }
 
 //TextField is a STRING field
-type TextField struct{ fix.StringValue }
+type TextField struct{ quickfix.StringValue }
 
 //Tag returns tag.Text (58)
-func (f TextField) Tag() fix.Tag { return tag.Text }
+func (f TextField) Tag() quickfix.Tag { return tag.Text }
 
 //NewText returns a new TextField initialized with val
 func NewText(val string) *TextField {
@@ -18207,10 +18243,10 @@ func NewText(val string) *TextField {
 }
 
 //ThresholdAmountField is a PRICEOFFSET field
-type ThresholdAmountField struct{ fix.PriceOffsetValue }
+type ThresholdAmountField struct{ quickfix.PriceOffsetValue }
 
 //Tag returns tag.ThresholdAmount (834)
-func (f ThresholdAmountField) Tag() fix.Tag { return tag.ThresholdAmount }
+func (f ThresholdAmountField) Tag() quickfix.Tag { return tag.ThresholdAmount }
 
 //NewThresholdAmount returns a new ThresholdAmountField initialized with val
 func NewThresholdAmount(val float64) *ThresholdAmountField {
@@ -18220,10 +18256,10 @@ func NewThresholdAmount(val float64) *ThresholdAmountField {
 }
 
 //TickDirectionField is a CHAR field
-type TickDirectionField struct{ fix.CharValue }
+type TickDirectionField struct{ quickfix.CharValue }
 
 //Tag returns tag.TickDirection (274)
-func (f TickDirectionField) Tag() fix.Tag { return tag.TickDirection }
+func (f TickDirectionField) Tag() quickfix.Tag { return tag.TickDirection }
 
 //NewTickDirection returns a new TickDirectionField initialized with val
 func NewTickDirection(val string) *TickDirectionField {
@@ -18233,10 +18269,10 @@ func NewTickDirection(val string) *TickDirectionField {
 }
 
 //TickIncrementField is a PRICE field
-type TickIncrementField struct{ fix.PriceValue }
+type TickIncrementField struct{ quickfix.PriceValue }
 
 //Tag returns tag.TickIncrement (1208)
-func (f TickIncrementField) Tag() fix.Tag { return tag.TickIncrement }
+func (f TickIncrementField) Tag() quickfix.Tag { return tag.TickIncrement }
 
 //NewTickIncrement returns a new TickIncrementField initialized with val
 func NewTickIncrement(val float64) *TickIncrementField {
@@ -18246,10 +18282,10 @@ func NewTickIncrement(val float64) *TickIncrementField {
 }
 
 //TickRuleTypeField is a INT field
-type TickRuleTypeField struct{ fix.IntValue }
+type TickRuleTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TickRuleType (1209)
-func (f TickRuleTypeField) Tag() fix.Tag { return tag.TickRuleType }
+func (f TickRuleTypeField) Tag() quickfix.Tag { return tag.TickRuleType }
 
 //NewTickRuleType returns a new TickRuleTypeField initialized with val
 func NewTickRuleType(val int) *TickRuleTypeField {
@@ -18259,10 +18295,10 @@ func NewTickRuleType(val int) *TickRuleTypeField {
 }
 
 //TierCodeField is a STRING field
-type TierCodeField struct{ fix.StringValue }
+type TierCodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.TierCode (994)
-func (f TierCodeField) Tag() fix.Tag { return tag.TierCode }
+func (f TierCodeField) Tag() quickfix.Tag { return tag.TierCode }
 
 //NewTierCode returns a new TierCodeField initialized with val
 func NewTierCode(val string) *TierCodeField {
@@ -18272,10 +18308,10 @@ func NewTierCode(val string) *TierCodeField {
 }
 
 //TimeBracketField is a STRING field
-type TimeBracketField struct{ fix.StringValue }
+type TimeBracketField struct{ quickfix.StringValue }
 
 //Tag returns tag.TimeBracket (943)
-func (f TimeBracketField) Tag() fix.Tag { return tag.TimeBracket }
+func (f TimeBracketField) Tag() quickfix.Tag { return tag.TimeBracket }
 
 //NewTimeBracket returns a new TimeBracketField initialized with val
 func NewTimeBracket(val string) *TimeBracketField {
@@ -18285,10 +18321,10 @@ func NewTimeBracket(val string) *TimeBracketField {
 }
 
 //TimeInForceField is a CHAR field
-type TimeInForceField struct{ fix.CharValue }
+type TimeInForceField struct{ quickfix.CharValue }
 
 //Tag returns tag.TimeInForce (59)
-func (f TimeInForceField) Tag() fix.Tag { return tag.TimeInForce }
+func (f TimeInForceField) Tag() quickfix.Tag { return tag.TimeInForce }
 
 //NewTimeInForce returns a new TimeInForceField initialized with val
 func NewTimeInForce(val string) *TimeInForceField {
@@ -18298,10 +18334,10 @@ func NewTimeInForce(val string) *TimeInForceField {
 }
 
 //TimeToExpirationField is a FLOAT field
-type TimeToExpirationField struct{ fix.FloatValue }
+type TimeToExpirationField struct{ quickfix.FloatValue }
 
 //Tag returns tag.TimeToExpiration (1189)
-func (f TimeToExpirationField) Tag() fix.Tag { return tag.TimeToExpiration }
+func (f TimeToExpirationField) Tag() quickfix.Tag { return tag.TimeToExpiration }
 
 //NewTimeToExpiration returns a new TimeToExpirationField initialized with val
 func NewTimeToExpiration(val float64) *TimeToExpirationField {
@@ -18311,10 +18347,10 @@ func NewTimeToExpiration(val float64) *TimeToExpirationField {
 }
 
 //TimeUnitField is a STRING field
-type TimeUnitField struct{ fix.StringValue }
+type TimeUnitField struct{ quickfix.StringValue }
 
 //Tag returns tag.TimeUnit (997)
-func (f TimeUnitField) Tag() fix.Tag { return tag.TimeUnit }
+func (f TimeUnitField) Tag() quickfix.Tag { return tag.TimeUnit }
 
 //NewTimeUnit returns a new TimeUnitField initialized with val
 func NewTimeUnit(val string) *TimeUnitField {
@@ -18324,10 +18360,10 @@ func NewTimeUnit(val string) *TimeUnitField {
 }
 
 //TotNoAccQuotesField is a INT field
-type TotNoAccQuotesField struct{ fix.IntValue }
+type TotNoAccQuotesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoAccQuotes (1169)
-func (f TotNoAccQuotesField) Tag() fix.Tag { return tag.TotNoAccQuotes }
+func (f TotNoAccQuotesField) Tag() quickfix.Tag { return tag.TotNoAccQuotes }
 
 //NewTotNoAccQuotes returns a new TotNoAccQuotesField initialized with val
 func NewTotNoAccQuotes(val int) *TotNoAccQuotesField {
@@ -18337,10 +18373,10 @@ func NewTotNoAccQuotes(val int) *TotNoAccQuotesField {
 }
 
 //TotNoAllocsField is a INT field
-type TotNoAllocsField struct{ fix.IntValue }
+type TotNoAllocsField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoAllocs (892)
-func (f TotNoAllocsField) Tag() fix.Tag { return tag.TotNoAllocs }
+func (f TotNoAllocsField) Tag() quickfix.Tag { return tag.TotNoAllocs }
 
 //NewTotNoAllocs returns a new TotNoAllocsField initialized with val
 func NewTotNoAllocs(val int) *TotNoAllocsField {
@@ -18350,10 +18386,10 @@ func NewTotNoAllocs(val int) *TotNoAllocsField {
 }
 
 //TotNoCxldQuotesField is a INT field
-type TotNoCxldQuotesField struct{ fix.IntValue }
+type TotNoCxldQuotesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoCxldQuotes (1168)
-func (f TotNoCxldQuotesField) Tag() fix.Tag { return tag.TotNoCxldQuotes }
+func (f TotNoCxldQuotesField) Tag() quickfix.Tag { return tag.TotNoCxldQuotes }
 
 //NewTotNoCxldQuotes returns a new TotNoCxldQuotesField initialized with val
 func NewTotNoCxldQuotes(val int) *TotNoCxldQuotesField {
@@ -18363,10 +18399,10 @@ func NewTotNoCxldQuotes(val int) *TotNoCxldQuotesField {
 }
 
 //TotNoFillsField is a INT field
-type TotNoFillsField struct{ fix.IntValue }
+type TotNoFillsField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoFills (1361)
-func (f TotNoFillsField) Tag() fix.Tag { return tag.TotNoFills }
+func (f TotNoFillsField) Tag() quickfix.Tag { return tag.TotNoFills }
 
 //NewTotNoFills returns a new TotNoFillsField initialized with val
 func NewTotNoFills(val int) *TotNoFillsField {
@@ -18376,10 +18412,10 @@ func NewTotNoFills(val int) *TotNoFillsField {
 }
 
 //TotNoOrdersField is a INT field
-type TotNoOrdersField struct{ fix.IntValue }
+type TotNoOrdersField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoOrders (68)
-func (f TotNoOrdersField) Tag() fix.Tag { return tag.TotNoOrders }
+func (f TotNoOrdersField) Tag() quickfix.Tag { return tag.TotNoOrders }
 
 //NewTotNoOrders returns a new TotNoOrdersField initialized with val
 func NewTotNoOrders(val int) *TotNoOrdersField {
@@ -18389,10 +18425,10 @@ func NewTotNoOrders(val int) *TotNoOrdersField {
 }
 
 //TotNoPartyListField is a INT field
-type TotNoPartyListField struct{ fix.IntValue }
+type TotNoPartyListField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoPartyList (1512)
-func (f TotNoPartyListField) Tag() fix.Tag { return tag.TotNoPartyList }
+func (f TotNoPartyListField) Tag() quickfix.Tag { return tag.TotNoPartyList }
 
 //NewTotNoPartyList returns a new TotNoPartyListField initialized with val
 func NewTotNoPartyList(val int) *TotNoPartyListField {
@@ -18402,10 +18438,10 @@ func NewTotNoPartyList(val int) *TotNoPartyListField {
 }
 
 //TotNoQuoteEntriesField is a INT field
-type TotNoQuoteEntriesField struct{ fix.IntValue }
+type TotNoQuoteEntriesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoQuoteEntries (304)
-func (f TotNoQuoteEntriesField) Tag() fix.Tag { return tag.TotNoQuoteEntries }
+func (f TotNoQuoteEntriesField) Tag() quickfix.Tag { return tag.TotNoQuoteEntries }
 
 //NewTotNoQuoteEntries returns a new TotNoQuoteEntriesField initialized with val
 func NewTotNoQuoteEntries(val int) *TotNoQuoteEntriesField {
@@ -18415,10 +18451,10 @@ func NewTotNoQuoteEntries(val int) *TotNoQuoteEntriesField {
 }
 
 //TotNoRejQuotesField is a INT field
-type TotNoRejQuotesField struct{ fix.IntValue }
+type TotNoRejQuotesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoRejQuotes (1170)
-func (f TotNoRejQuotesField) Tag() fix.Tag { return tag.TotNoRejQuotes }
+func (f TotNoRejQuotesField) Tag() quickfix.Tag { return tag.TotNoRejQuotes }
 
 //NewTotNoRejQuotes returns a new TotNoRejQuotesField initialized with val
 func NewTotNoRejQuotes(val int) *TotNoRejQuotesField {
@@ -18428,10 +18464,10 @@ func NewTotNoRejQuotes(val int) *TotNoRejQuotesField {
 }
 
 //TotNoRelatedSymField is a INT field
-type TotNoRelatedSymField struct{ fix.IntValue }
+type TotNoRelatedSymField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoRelatedSym (393)
-func (f TotNoRelatedSymField) Tag() fix.Tag { return tag.TotNoRelatedSym }
+func (f TotNoRelatedSymField) Tag() quickfix.Tag { return tag.TotNoRelatedSym }
 
 //NewTotNoRelatedSym returns a new TotNoRelatedSymField initialized with val
 func NewTotNoRelatedSym(val int) *TotNoRelatedSymField {
@@ -18441,10 +18477,10 @@ func NewTotNoRelatedSym(val int) *TotNoRelatedSymField {
 }
 
 //TotNoSecurityTypesField is a INT field
-type TotNoSecurityTypesField struct{ fix.IntValue }
+type TotNoSecurityTypesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoSecurityTypes (557)
-func (f TotNoSecurityTypesField) Tag() fix.Tag { return tag.TotNoSecurityTypes }
+func (f TotNoSecurityTypesField) Tag() quickfix.Tag { return tag.TotNoSecurityTypes }
 
 //NewTotNoSecurityTypes returns a new TotNoSecurityTypesField initialized with val
 func NewTotNoSecurityTypes(val int) *TotNoSecurityTypesField {
@@ -18454,10 +18490,10 @@ func NewTotNoSecurityTypes(val int) *TotNoSecurityTypesField {
 }
 
 //TotNoStrikesField is a INT field
-type TotNoStrikesField struct{ fix.IntValue }
+type TotNoStrikesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNoStrikes (422)
-func (f TotNoStrikesField) Tag() fix.Tag { return tag.TotNoStrikes }
+func (f TotNoStrikesField) Tag() quickfix.Tag { return tag.TotNoStrikes }
 
 //NewTotNoStrikes returns a new TotNoStrikesField initialized with val
 func NewTotNoStrikes(val int) *TotNoStrikesField {
@@ -18467,10 +18503,10 @@ func NewTotNoStrikes(val int) *TotNoStrikesField {
 }
 
 //TotNumAssignmentReportsField is a INT field
-type TotNumAssignmentReportsField struct{ fix.IntValue }
+type TotNumAssignmentReportsField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNumAssignmentReports (832)
-func (f TotNumAssignmentReportsField) Tag() fix.Tag { return tag.TotNumAssignmentReports }
+func (f TotNumAssignmentReportsField) Tag() quickfix.Tag { return tag.TotNumAssignmentReports }
 
 //NewTotNumAssignmentReports returns a new TotNumAssignmentReportsField initialized with val
 func NewTotNumAssignmentReports(val int) *TotNumAssignmentReportsField {
@@ -18480,10 +18516,10 @@ func NewTotNumAssignmentReports(val int) *TotNumAssignmentReportsField {
 }
 
 //TotNumReportsField is a INT field
-type TotNumReportsField struct{ fix.IntValue }
+type TotNumReportsField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNumReports (911)
-func (f TotNumReportsField) Tag() fix.Tag { return tag.TotNumReports }
+func (f TotNumReportsField) Tag() quickfix.Tag { return tag.TotNumReports }
 
 //NewTotNumReports returns a new TotNumReportsField initialized with val
 func NewTotNumReports(val int) *TotNumReportsField {
@@ -18493,10 +18529,10 @@ func NewTotNumReports(val int) *TotNumReportsField {
 }
 
 //TotNumTradeReportsField is a INT field
-type TotNumTradeReportsField struct{ fix.IntValue }
+type TotNumTradeReportsField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotNumTradeReports (748)
-func (f TotNumTradeReportsField) Tag() fix.Tag { return tag.TotNumTradeReports }
+func (f TotNumTradeReportsField) Tag() quickfix.Tag { return tag.TotNumTradeReports }
 
 //NewTotNumTradeReports returns a new TotNumTradeReportsField initialized with val
 func NewTotNumTradeReports(val int) *TotNumTradeReportsField {
@@ -18506,10 +18542,10 @@ func NewTotNumTradeReports(val int) *TotNumTradeReportsField {
 }
 
 //TotQuoteEntriesField is a INT field
-type TotQuoteEntriesField struct{ fix.IntValue }
+type TotQuoteEntriesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotQuoteEntries (304)
-func (f TotQuoteEntriesField) Tag() fix.Tag { return tag.TotQuoteEntries }
+func (f TotQuoteEntriesField) Tag() quickfix.Tag { return tag.TotQuoteEntries }
 
 //NewTotQuoteEntries returns a new TotQuoteEntriesField initialized with val
 func NewTotQuoteEntries(val int) *TotQuoteEntriesField {
@@ -18519,10 +18555,10 @@ func NewTotQuoteEntries(val int) *TotQuoteEntriesField {
 }
 
 //TotalAccruedInterestAmtField is a AMT field
-type TotalAccruedInterestAmtField struct{ fix.AmtValue }
+type TotalAccruedInterestAmtField struct{ quickfix.AmtValue }
 
 //Tag returns tag.TotalAccruedInterestAmt (540)
-func (f TotalAccruedInterestAmtField) Tag() fix.Tag { return tag.TotalAccruedInterestAmt }
+func (f TotalAccruedInterestAmtField) Tag() quickfix.Tag { return tag.TotalAccruedInterestAmt }
 
 //NewTotalAccruedInterestAmt returns a new TotalAccruedInterestAmtField initialized with val
 func NewTotalAccruedInterestAmt(val float64) *TotalAccruedInterestAmtField {
@@ -18532,10 +18568,10 @@ func NewTotalAccruedInterestAmt(val float64) *TotalAccruedInterestAmtField {
 }
 
 //TotalAffectedOrdersField is a INT field
-type TotalAffectedOrdersField struct{ fix.IntValue }
+type TotalAffectedOrdersField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotalAffectedOrders (533)
-func (f TotalAffectedOrdersField) Tag() fix.Tag { return tag.TotalAffectedOrders }
+func (f TotalAffectedOrdersField) Tag() quickfix.Tag { return tag.TotalAffectedOrders }
 
 //NewTotalAffectedOrders returns a new TotalAffectedOrdersField initialized with val
 func NewTotalAffectedOrders(val int) *TotalAffectedOrdersField {
@@ -18545,10 +18581,10 @@ func NewTotalAffectedOrders(val int) *TotalAffectedOrdersField {
 }
 
 //TotalNetValueField is a AMT field
-type TotalNetValueField struct{ fix.AmtValue }
+type TotalNetValueField struct{ quickfix.AmtValue }
 
 //Tag returns tag.TotalNetValue (900)
-func (f TotalNetValueField) Tag() fix.Tag { return tag.TotalNetValue }
+func (f TotalNetValueField) Tag() quickfix.Tag { return tag.TotalNetValue }
 
 //NewTotalNetValue returns a new TotalNetValueField initialized with val
 func NewTotalNetValue(val float64) *TotalNetValueField {
@@ -18558,10 +18594,10 @@ func NewTotalNetValue(val float64) *TotalNetValueField {
 }
 
 //TotalNumPosReportsField is a INT field
-type TotalNumPosReportsField struct{ fix.IntValue }
+type TotalNumPosReportsField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotalNumPosReports (727)
-func (f TotalNumPosReportsField) Tag() fix.Tag { return tag.TotalNumPosReports }
+func (f TotalNumPosReportsField) Tag() quickfix.Tag { return tag.TotalNumPosReports }
 
 //NewTotalNumPosReports returns a new TotalNumPosReportsField initialized with val
 func NewTotalNumPosReports(val int) *TotalNumPosReportsField {
@@ -18571,10 +18607,10 @@ func NewTotalNumPosReports(val int) *TotalNumPosReportsField {
 }
 
 //TotalNumSecuritiesField is a INT field
-type TotalNumSecuritiesField struct{ fix.IntValue }
+type TotalNumSecuritiesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotalNumSecurities (393)
-func (f TotalNumSecuritiesField) Tag() fix.Tag { return tag.TotalNumSecurities }
+func (f TotalNumSecuritiesField) Tag() quickfix.Tag { return tag.TotalNumSecurities }
 
 //NewTotalNumSecurities returns a new TotalNumSecuritiesField initialized with val
 func NewTotalNumSecurities(val int) *TotalNumSecuritiesField {
@@ -18584,10 +18620,10 @@ func NewTotalNumSecurities(val int) *TotalNumSecuritiesField {
 }
 
 //TotalNumSecurityTypesField is a INT field
-type TotalNumSecurityTypesField struct{ fix.IntValue }
+type TotalNumSecurityTypesField struct{ quickfix.IntValue }
 
 //Tag returns tag.TotalNumSecurityTypes (557)
-func (f TotalNumSecurityTypesField) Tag() fix.Tag { return tag.TotalNumSecurityTypes }
+func (f TotalNumSecurityTypesField) Tag() quickfix.Tag { return tag.TotalNumSecurityTypes }
 
 //NewTotalNumSecurityTypes returns a new TotalNumSecurityTypesField initialized with val
 func NewTotalNumSecurityTypes(val int) *TotalNumSecurityTypesField {
@@ -18597,10 +18633,10 @@ func NewTotalNumSecurityTypes(val int) *TotalNumSecurityTypesField {
 }
 
 //TotalTakedownField is a AMT field
-type TotalTakedownField struct{ fix.AmtValue }
+type TotalTakedownField struct{ quickfix.AmtValue }
 
 //Tag returns tag.TotalTakedown (237)
-func (f TotalTakedownField) Tag() fix.Tag { return tag.TotalTakedown }
+func (f TotalTakedownField) Tag() quickfix.Tag { return tag.TotalTakedown }
 
 //NewTotalTakedown returns a new TotalTakedownField initialized with val
 func NewTotalTakedown(val float64) *TotalTakedownField {
@@ -18610,10 +18646,10 @@ func NewTotalTakedown(val float64) *TotalTakedownField {
 }
 
 //TotalVolumeTradedField is a QTY field
-type TotalVolumeTradedField struct{ fix.QtyValue }
+type TotalVolumeTradedField struct{ quickfix.QtyValue }
 
 //Tag returns tag.TotalVolumeTraded (387)
-func (f TotalVolumeTradedField) Tag() fix.Tag { return tag.TotalVolumeTraded }
+func (f TotalVolumeTradedField) Tag() quickfix.Tag { return tag.TotalVolumeTraded }
 
 //NewTotalVolumeTraded returns a new TotalVolumeTradedField initialized with val
 func NewTotalVolumeTraded(val float64) *TotalVolumeTradedField {
@@ -18623,34 +18659,34 @@ func NewTotalVolumeTraded(val float64) *TotalVolumeTradedField {
 }
 
 //TotalVolumeTradedDateField is a UTCDATEONLY field
-type TotalVolumeTradedDateField struct{ fix.UTCDateOnlyValue }
+type TotalVolumeTradedDateField struct{ quickfix.UTCDateOnlyValue }
 
 //Tag returns tag.TotalVolumeTradedDate (449)
-func (f TotalVolumeTradedDateField) Tag() fix.Tag { return tag.TotalVolumeTradedDate }
+func (f TotalVolumeTradedDateField) Tag() quickfix.Tag { return tag.TotalVolumeTradedDate }
 
 //TotalVolumeTradedTimeField is a UTCTIMEONLY field
-type TotalVolumeTradedTimeField struct{ fix.UTCTimeOnlyValue }
+type TotalVolumeTradedTimeField struct{ quickfix.UTCTimeOnlyValue }
 
 //Tag returns tag.TotalVolumeTradedTime (450)
-func (f TotalVolumeTradedTimeField) Tag() fix.Tag { return tag.TotalVolumeTradedTime }
+func (f TotalVolumeTradedTimeField) Tag() quickfix.Tag { return tag.TotalVolumeTradedTime }
 
 //TradSesCloseTimeField is a UTCTIMESTAMP field
-type TradSesCloseTimeField struct{ fix.UTCTimestampValue }
+type TradSesCloseTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.TradSesCloseTime (344)
-func (f TradSesCloseTimeField) Tag() fix.Tag { return tag.TradSesCloseTime }
+func (f TradSesCloseTimeField) Tag() quickfix.Tag { return tag.TradSesCloseTime }
 
 //TradSesEndTimeField is a UTCTIMESTAMP field
-type TradSesEndTimeField struct{ fix.UTCTimestampValue }
+type TradSesEndTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.TradSesEndTime (345)
-func (f TradSesEndTimeField) Tag() fix.Tag { return tag.TradSesEndTime }
+func (f TradSesEndTimeField) Tag() quickfix.Tag { return tag.TradSesEndTime }
 
 //TradSesEventField is a INT field
-type TradSesEventField struct{ fix.IntValue }
+type TradSesEventField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradSesEvent (1368)
-func (f TradSesEventField) Tag() fix.Tag { return tag.TradSesEvent }
+func (f TradSesEventField) Tag() quickfix.Tag { return tag.TradSesEvent }
 
 //NewTradSesEvent returns a new TradSesEventField initialized with val
 func NewTradSesEvent(val int) *TradSesEventField {
@@ -18660,10 +18696,10 @@ func NewTradSesEvent(val int) *TradSesEventField {
 }
 
 //TradSesMethodField is a INT field
-type TradSesMethodField struct{ fix.IntValue }
+type TradSesMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradSesMethod (338)
-func (f TradSesMethodField) Tag() fix.Tag { return tag.TradSesMethod }
+func (f TradSesMethodField) Tag() quickfix.Tag { return tag.TradSesMethod }
 
 //NewTradSesMethod returns a new TradSesMethodField initialized with val
 func NewTradSesMethod(val int) *TradSesMethodField {
@@ -18673,10 +18709,10 @@ func NewTradSesMethod(val int) *TradSesMethodField {
 }
 
 //TradSesModeField is a INT field
-type TradSesModeField struct{ fix.IntValue }
+type TradSesModeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradSesMode (339)
-func (f TradSesModeField) Tag() fix.Tag { return tag.TradSesMode }
+func (f TradSesModeField) Tag() quickfix.Tag { return tag.TradSesMode }
 
 //NewTradSesMode returns a new TradSesModeField initialized with val
 func NewTradSesMode(val int) *TradSesModeField {
@@ -18686,22 +18722,22 @@ func NewTradSesMode(val int) *TradSesModeField {
 }
 
 //TradSesOpenTimeField is a UTCTIMESTAMP field
-type TradSesOpenTimeField struct{ fix.UTCTimestampValue }
+type TradSesOpenTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.TradSesOpenTime (342)
-func (f TradSesOpenTimeField) Tag() fix.Tag { return tag.TradSesOpenTime }
+func (f TradSesOpenTimeField) Tag() quickfix.Tag { return tag.TradSesOpenTime }
 
 //TradSesPreCloseTimeField is a UTCTIMESTAMP field
-type TradSesPreCloseTimeField struct{ fix.UTCTimestampValue }
+type TradSesPreCloseTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.TradSesPreCloseTime (343)
-func (f TradSesPreCloseTimeField) Tag() fix.Tag { return tag.TradSesPreCloseTime }
+func (f TradSesPreCloseTimeField) Tag() quickfix.Tag { return tag.TradSesPreCloseTime }
 
 //TradSesReqIDField is a STRING field
-type TradSesReqIDField struct{ fix.StringValue }
+type TradSesReqIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradSesReqID (335)
-func (f TradSesReqIDField) Tag() fix.Tag { return tag.TradSesReqID }
+func (f TradSesReqIDField) Tag() quickfix.Tag { return tag.TradSesReqID }
 
 //NewTradSesReqID returns a new TradSesReqIDField initialized with val
 func NewTradSesReqID(val string) *TradSesReqIDField {
@@ -18711,16 +18747,16 @@ func NewTradSesReqID(val string) *TradSesReqIDField {
 }
 
 //TradSesStartTimeField is a UTCTIMESTAMP field
-type TradSesStartTimeField struct{ fix.UTCTimestampValue }
+type TradSesStartTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.TradSesStartTime (341)
-func (f TradSesStartTimeField) Tag() fix.Tag { return tag.TradSesStartTime }
+func (f TradSesStartTimeField) Tag() quickfix.Tag { return tag.TradSesStartTime }
 
 //TradSesStatusField is a INT field
-type TradSesStatusField struct{ fix.IntValue }
+type TradSesStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradSesStatus (340)
-func (f TradSesStatusField) Tag() fix.Tag { return tag.TradSesStatus }
+func (f TradSesStatusField) Tag() quickfix.Tag { return tag.TradSesStatus }
 
 //NewTradSesStatus returns a new TradSesStatusField initialized with val
 func NewTradSesStatus(val int) *TradSesStatusField {
@@ -18730,10 +18766,10 @@ func NewTradSesStatus(val int) *TradSesStatusField {
 }
 
 //TradSesStatusRejReasonField is a INT field
-type TradSesStatusRejReasonField struct{ fix.IntValue }
+type TradSesStatusRejReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradSesStatusRejReason (567)
-func (f TradSesStatusRejReasonField) Tag() fix.Tag { return tag.TradSesStatusRejReason }
+func (f TradSesStatusRejReasonField) Tag() quickfix.Tag { return tag.TradSesStatusRejReason }
 
 //NewTradSesStatusRejReason returns a new TradSesStatusRejReasonField initialized with val
 func NewTradSesStatusRejReason(val int) *TradSesStatusRejReasonField {
@@ -18743,10 +18779,10 @@ func NewTradSesStatusRejReason(val int) *TradSesStatusRejReasonField {
 }
 
 //TradSesUpdateActionField is a CHAR field
-type TradSesUpdateActionField struct{ fix.CharValue }
+type TradSesUpdateActionField struct{ quickfix.CharValue }
 
 //Tag returns tag.TradSesUpdateAction (1327)
-func (f TradSesUpdateActionField) Tag() fix.Tag { return tag.TradSesUpdateAction }
+func (f TradSesUpdateActionField) Tag() quickfix.Tag { return tag.TradSesUpdateAction }
 
 //NewTradSesUpdateAction returns a new TradSesUpdateActionField initialized with val
 func NewTradSesUpdateAction(val string) *TradSesUpdateActionField {
@@ -18756,10 +18792,10 @@ func NewTradSesUpdateAction(val string) *TradSesUpdateActionField {
 }
 
 //TradeAllocIndicatorField is a INT field
-type TradeAllocIndicatorField struct{ fix.IntValue }
+type TradeAllocIndicatorField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradeAllocIndicator (826)
-func (f TradeAllocIndicatorField) Tag() fix.Tag { return tag.TradeAllocIndicator }
+func (f TradeAllocIndicatorField) Tag() quickfix.Tag { return tag.TradeAllocIndicator }
 
 //NewTradeAllocIndicator returns a new TradeAllocIndicatorField initialized with val
 func NewTradeAllocIndicator(val int) *TradeAllocIndicatorField {
@@ -18769,10 +18805,10 @@ func NewTradeAllocIndicator(val int) *TradeAllocIndicatorField {
 }
 
 //TradeConditionField is a MULTIPLESTRINGVALUE field
-type TradeConditionField struct{ fix.MultipleStringValue }
+type TradeConditionField struct{ quickfix.MultipleStringValue }
 
 //Tag returns tag.TradeCondition (277)
-func (f TradeConditionField) Tag() fix.Tag { return tag.TradeCondition }
+func (f TradeConditionField) Tag() quickfix.Tag { return tag.TradeCondition }
 
 //NewTradeCondition returns a new TradeConditionField initialized with val
 func NewTradeCondition(val string) *TradeConditionField {
@@ -18782,10 +18818,10 @@ func NewTradeCondition(val string) *TradeConditionField {
 }
 
 //TradeDateField is a LOCALMKTDATE field
-type TradeDateField struct{ fix.LocalMktDateValue }
+type TradeDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.TradeDate (75)
-func (f TradeDateField) Tag() fix.Tag { return tag.TradeDate }
+func (f TradeDateField) Tag() quickfix.Tag { return tag.TradeDate }
 
 //NewTradeDate returns a new TradeDateField initialized with val
 func NewTradeDate(val string) *TradeDateField {
@@ -18795,10 +18831,10 @@ func NewTradeDate(val string) *TradeDateField {
 }
 
 //TradeHandlingInstrField is a CHAR field
-type TradeHandlingInstrField struct{ fix.CharValue }
+type TradeHandlingInstrField struct{ quickfix.CharValue }
 
 //Tag returns tag.TradeHandlingInstr (1123)
-func (f TradeHandlingInstrField) Tag() fix.Tag { return tag.TradeHandlingInstr }
+func (f TradeHandlingInstrField) Tag() quickfix.Tag { return tag.TradeHandlingInstr }
 
 //NewTradeHandlingInstr returns a new TradeHandlingInstrField initialized with val
 func NewTradeHandlingInstr(val string) *TradeHandlingInstrField {
@@ -18808,10 +18844,10 @@ func NewTradeHandlingInstr(val string) *TradeHandlingInstrField {
 }
 
 //TradeIDField is a STRING field
-type TradeIDField struct{ fix.StringValue }
+type TradeIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradeID (1003)
-func (f TradeIDField) Tag() fix.Tag { return tag.TradeID }
+func (f TradeIDField) Tag() quickfix.Tag { return tag.TradeID }
 
 //NewTradeID returns a new TradeIDField initialized with val
 func NewTradeID(val string) *TradeIDField {
@@ -18821,10 +18857,10 @@ func NewTradeID(val string) *TradeIDField {
 }
 
 //TradeInputDeviceField is a STRING field
-type TradeInputDeviceField struct{ fix.StringValue }
+type TradeInputDeviceField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradeInputDevice (579)
-func (f TradeInputDeviceField) Tag() fix.Tag { return tag.TradeInputDevice }
+func (f TradeInputDeviceField) Tag() quickfix.Tag { return tag.TradeInputDevice }
 
 //NewTradeInputDevice returns a new TradeInputDeviceField initialized with val
 func NewTradeInputDevice(val string) *TradeInputDeviceField {
@@ -18834,10 +18870,10 @@ func NewTradeInputDevice(val string) *TradeInputDeviceField {
 }
 
 //TradeInputSourceField is a STRING field
-type TradeInputSourceField struct{ fix.StringValue }
+type TradeInputSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradeInputSource (578)
-func (f TradeInputSourceField) Tag() fix.Tag { return tag.TradeInputSource }
+func (f TradeInputSourceField) Tag() quickfix.Tag { return tag.TradeInputSource }
 
 //NewTradeInputSource returns a new TradeInputSourceField initialized with val
 func NewTradeInputSource(val string) *TradeInputSourceField {
@@ -18847,10 +18883,10 @@ func NewTradeInputSource(val string) *TradeInputSourceField {
 }
 
 //TradeLegRefIDField is a STRING field
-type TradeLegRefIDField struct{ fix.StringValue }
+type TradeLegRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradeLegRefID (824)
-func (f TradeLegRefIDField) Tag() fix.Tag { return tag.TradeLegRefID }
+func (f TradeLegRefIDField) Tag() quickfix.Tag { return tag.TradeLegRefID }
 
 //NewTradeLegRefID returns a new TradeLegRefIDField initialized with val
 func NewTradeLegRefID(val string) *TradeLegRefIDField {
@@ -18860,10 +18896,10 @@ func NewTradeLegRefID(val string) *TradeLegRefIDField {
 }
 
 //TradeLinkIDField is a STRING field
-type TradeLinkIDField struct{ fix.StringValue }
+type TradeLinkIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradeLinkID (820)
-func (f TradeLinkIDField) Tag() fix.Tag { return tag.TradeLinkID }
+func (f TradeLinkIDField) Tag() quickfix.Tag { return tag.TradeLinkID }
 
 //NewTradeLinkID returns a new TradeLinkIDField initialized with val
 func NewTradeLinkID(val string) *TradeLinkIDField {
@@ -18873,10 +18909,10 @@ func NewTradeLinkID(val string) *TradeLinkIDField {
 }
 
 //TradeOriginationDateField is a LOCALMKTDATE field
-type TradeOriginationDateField struct{ fix.LocalMktDateValue }
+type TradeOriginationDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.TradeOriginationDate (229)
-func (f TradeOriginationDateField) Tag() fix.Tag { return tag.TradeOriginationDate }
+func (f TradeOriginationDateField) Tag() quickfix.Tag { return tag.TradeOriginationDate }
 
 //NewTradeOriginationDate returns a new TradeOriginationDateField initialized with val
 func NewTradeOriginationDate(val string) *TradeOriginationDateField {
@@ -18886,10 +18922,10 @@ func NewTradeOriginationDate(val string) *TradeOriginationDateField {
 }
 
 //TradePublishIndicatorField is a INT field
-type TradePublishIndicatorField struct{ fix.IntValue }
+type TradePublishIndicatorField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradePublishIndicator (1390)
-func (f TradePublishIndicatorField) Tag() fix.Tag { return tag.TradePublishIndicator }
+func (f TradePublishIndicatorField) Tag() quickfix.Tag { return tag.TradePublishIndicator }
 
 //NewTradePublishIndicator returns a new TradePublishIndicatorField initialized with val
 func NewTradePublishIndicator(val int) *TradePublishIndicatorField {
@@ -18899,10 +18935,10 @@ func NewTradePublishIndicator(val int) *TradePublishIndicatorField {
 }
 
 //TradeReportIDField is a STRING field
-type TradeReportIDField struct{ fix.StringValue }
+type TradeReportIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradeReportID (571)
-func (f TradeReportIDField) Tag() fix.Tag { return tag.TradeReportID }
+func (f TradeReportIDField) Tag() quickfix.Tag { return tag.TradeReportID }
 
 //NewTradeReportID returns a new TradeReportIDField initialized with val
 func NewTradeReportID(val string) *TradeReportIDField {
@@ -18912,10 +18948,10 @@ func NewTradeReportID(val string) *TradeReportIDField {
 }
 
 //TradeReportRefIDField is a STRING field
-type TradeReportRefIDField struct{ fix.StringValue }
+type TradeReportRefIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradeReportRefID (572)
-func (f TradeReportRefIDField) Tag() fix.Tag { return tag.TradeReportRefID }
+func (f TradeReportRefIDField) Tag() quickfix.Tag { return tag.TradeReportRefID }
 
 //NewTradeReportRefID returns a new TradeReportRefIDField initialized with val
 func NewTradeReportRefID(val string) *TradeReportRefIDField {
@@ -18925,10 +18961,10 @@ func NewTradeReportRefID(val string) *TradeReportRefIDField {
 }
 
 //TradeReportRejectReasonField is a INT field
-type TradeReportRejectReasonField struct{ fix.IntValue }
+type TradeReportRejectReasonField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradeReportRejectReason (751)
-func (f TradeReportRejectReasonField) Tag() fix.Tag { return tag.TradeReportRejectReason }
+func (f TradeReportRejectReasonField) Tag() quickfix.Tag { return tag.TradeReportRejectReason }
 
 //NewTradeReportRejectReason returns a new TradeReportRejectReasonField initialized with val
 func NewTradeReportRejectReason(val int) *TradeReportRejectReasonField {
@@ -18938,10 +18974,10 @@ func NewTradeReportRejectReason(val int) *TradeReportRejectReasonField {
 }
 
 //TradeReportTransTypeField is a INT field
-type TradeReportTransTypeField struct{ fix.IntValue }
+type TradeReportTransTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradeReportTransType (487)
-func (f TradeReportTransTypeField) Tag() fix.Tag { return tag.TradeReportTransType }
+func (f TradeReportTransTypeField) Tag() quickfix.Tag { return tag.TradeReportTransType }
 
 //NewTradeReportTransType returns a new TradeReportTransTypeField initialized with val
 func NewTradeReportTransType(val int) *TradeReportTransTypeField {
@@ -18951,10 +18987,10 @@ func NewTradeReportTransType(val int) *TradeReportTransTypeField {
 }
 
 //TradeReportTypeField is a INT field
-type TradeReportTypeField struct{ fix.IntValue }
+type TradeReportTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradeReportType (856)
-func (f TradeReportTypeField) Tag() fix.Tag { return tag.TradeReportType }
+func (f TradeReportTypeField) Tag() quickfix.Tag { return tag.TradeReportType }
 
 //NewTradeReportType returns a new TradeReportTypeField initialized with val
 func NewTradeReportType(val int) *TradeReportTypeField {
@@ -18964,10 +19000,10 @@ func NewTradeReportType(val int) *TradeReportTypeField {
 }
 
 //TradeRequestIDField is a STRING field
-type TradeRequestIDField struct{ fix.StringValue }
+type TradeRequestIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradeRequestID (568)
-func (f TradeRequestIDField) Tag() fix.Tag { return tag.TradeRequestID }
+func (f TradeRequestIDField) Tag() quickfix.Tag { return tag.TradeRequestID }
 
 //NewTradeRequestID returns a new TradeRequestIDField initialized with val
 func NewTradeRequestID(val string) *TradeRequestIDField {
@@ -18977,10 +19013,10 @@ func NewTradeRequestID(val string) *TradeRequestIDField {
 }
 
 //TradeRequestResultField is a INT field
-type TradeRequestResultField struct{ fix.IntValue }
+type TradeRequestResultField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradeRequestResult (749)
-func (f TradeRequestResultField) Tag() fix.Tag { return tag.TradeRequestResult }
+func (f TradeRequestResultField) Tag() quickfix.Tag { return tag.TradeRequestResult }
 
 //NewTradeRequestResult returns a new TradeRequestResultField initialized with val
 func NewTradeRequestResult(val int) *TradeRequestResultField {
@@ -18990,10 +19026,10 @@ func NewTradeRequestResult(val int) *TradeRequestResultField {
 }
 
 //TradeRequestStatusField is a INT field
-type TradeRequestStatusField struct{ fix.IntValue }
+type TradeRequestStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradeRequestStatus (750)
-func (f TradeRequestStatusField) Tag() fix.Tag { return tag.TradeRequestStatus }
+func (f TradeRequestStatusField) Tag() quickfix.Tag { return tag.TradeRequestStatus }
 
 //NewTradeRequestStatus returns a new TradeRequestStatusField initialized with val
 func NewTradeRequestStatus(val int) *TradeRequestStatusField {
@@ -19003,10 +19039,10 @@ func NewTradeRequestStatus(val int) *TradeRequestStatusField {
 }
 
 //TradeRequestTypeField is a INT field
-type TradeRequestTypeField struct{ fix.IntValue }
+type TradeRequestTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TradeRequestType (569)
-func (f TradeRequestTypeField) Tag() fix.Tag { return tag.TradeRequestType }
+func (f TradeRequestTypeField) Tag() quickfix.Tag { return tag.TradeRequestType }
 
 //NewTradeRequestType returns a new TradeRequestTypeField initialized with val
 func NewTradeRequestType(val int) *TradeRequestTypeField {
@@ -19016,10 +19052,10 @@ func NewTradeRequestType(val int) *TradeRequestTypeField {
 }
 
 //TradeTypeField is a CHAR field
-type TradeTypeField struct{ fix.CharValue }
+type TradeTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.TradeType (418)
-func (f TradeTypeField) Tag() fix.Tag { return tag.TradeType }
+func (f TradeTypeField) Tag() quickfix.Tag { return tag.TradeType }
 
 //NewTradeType returns a new TradeTypeField initialized with val
 func NewTradeType(val string) *TradeTypeField {
@@ -19029,10 +19065,10 @@ func NewTradeType(val string) *TradeTypeField {
 }
 
 //TradeVolumeField is a QTY field
-type TradeVolumeField struct{ fix.QtyValue }
+type TradeVolumeField struct{ quickfix.QtyValue }
 
 //Tag returns tag.TradeVolume (1020)
-func (f TradeVolumeField) Tag() fix.Tag { return tag.TradeVolume }
+func (f TradeVolumeField) Tag() quickfix.Tag { return tag.TradeVolume }
 
 //NewTradeVolume returns a new TradeVolumeField initialized with val
 func NewTradeVolume(val float64) *TradeVolumeField {
@@ -19042,10 +19078,10 @@ func NewTradeVolume(val float64) *TradeVolumeField {
 }
 
 //TradedFlatSwitchField is a BOOLEAN field
-type TradedFlatSwitchField struct{ fix.BooleanValue }
+type TradedFlatSwitchField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.TradedFlatSwitch (258)
-func (f TradedFlatSwitchField) Tag() fix.Tag { return tag.TradedFlatSwitch }
+func (f TradedFlatSwitchField) Tag() quickfix.Tag { return tag.TradedFlatSwitch }
 
 //NewTradedFlatSwitch returns a new TradedFlatSwitchField initialized with val
 func NewTradedFlatSwitch(val bool) *TradedFlatSwitchField {
@@ -19055,10 +19091,10 @@ func NewTradedFlatSwitch(val bool) *TradedFlatSwitchField {
 }
 
 //TradingCurrencyField is a CURRENCY field
-type TradingCurrencyField struct{ fix.CurrencyValue }
+type TradingCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.TradingCurrency (1245)
-func (f TradingCurrencyField) Tag() fix.Tag { return tag.TradingCurrency }
+func (f TradingCurrencyField) Tag() quickfix.Tag { return tag.TradingCurrency }
 
 //NewTradingCurrency returns a new TradingCurrencyField initialized with val
 func NewTradingCurrency(val string) *TradingCurrencyField {
@@ -19068,10 +19104,10 @@ func NewTradingCurrency(val string) *TradingCurrencyField {
 }
 
 //TradingReferencePriceField is a PRICE field
-type TradingReferencePriceField struct{ fix.PriceValue }
+type TradingReferencePriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.TradingReferencePrice (1150)
-func (f TradingReferencePriceField) Tag() fix.Tag { return tag.TradingReferencePrice }
+func (f TradingReferencePriceField) Tag() quickfix.Tag { return tag.TradingReferencePrice }
 
 //NewTradingReferencePrice returns a new TradingReferencePriceField initialized with val
 func NewTradingReferencePrice(val float64) *TradingReferencePriceField {
@@ -19081,10 +19117,10 @@ func NewTradingReferencePrice(val float64) *TradingReferencePriceField {
 }
 
 //TradingSessionDescField is a STRING field
-type TradingSessionDescField struct{ fix.StringValue }
+type TradingSessionDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradingSessionDesc (1326)
-func (f TradingSessionDescField) Tag() fix.Tag { return tag.TradingSessionDesc }
+func (f TradingSessionDescField) Tag() quickfix.Tag { return tag.TradingSessionDesc }
 
 //NewTradingSessionDesc returns a new TradingSessionDescField initialized with val
 func NewTradingSessionDesc(val string) *TradingSessionDescField {
@@ -19094,10 +19130,10 @@ func NewTradingSessionDesc(val string) *TradingSessionDescField {
 }
 
 //TradingSessionIDField is a STRING field
-type TradingSessionIDField struct{ fix.StringValue }
+type TradingSessionIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradingSessionID (336)
-func (f TradingSessionIDField) Tag() fix.Tag { return tag.TradingSessionID }
+func (f TradingSessionIDField) Tag() quickfix.Tag { return tag.TradingSessionID }
 
 //NewTradingSessionID returns a new TradingSessionIDField initialized with val
 func NewTradingSessionID(val string) *TradingSessionIDField {
@@ -19107,10 +19143,10 @@ func NewTradingSessionID(val string) *TradingSessionIDField {
 }
 
 //TradingSessionSubIDField is a STRING field
-type TradingSessionSubIDField struct{ fix.StringValue }
+type TradingSessionSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TradingSessionSubID (625)
-func (f TradingSessionSubIDField) Tag() fix.Tag { return tag.TradingSessionSubID }
+func (f TradingSessionSubIDField) Tag() quickfix.Tag { return tag.TradingSessionSubID }
 
 //NewTradingSessionSubID returns a new TradingSessionSubIDField initialized with val
 func NewTradingSessionSubID(val string) *TradingSessionSubIDField {
@@ -19120,22 +19156,22 @@ func NewTradingSessionSubID(val string) *TradingSessionSubIDField {
 }
 
 //TransBkdTimeField is a UTCTIMESTAMP field
-type TransBkdTimeField struct{ fix.UTCTimestampValue }
+type TransBkdTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.TransBkdTime (483)
-func (f TransBkdTimeField) Tag() fix.Tag { return tag.TransBkdTime }
+func (f TransBkdTimeField) Tag() quickfix.Tag { return tag.TransBkdTime }
 
 //TransactTimeField is a UTCTIMESTAMP field
-type TransactTimeField struct{ fix.UTCTimestampValue }
+type TransactTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.TransactTime (60)
-func (f TransactTimeField) Tag() fix.Tag { return tag.TransactTime }
+func (f TransactTimeField) Tag() quickfix.Tag { return tag.TransactTime }
 
 //TransferReasonField is a STRING field
-type TransferReasonField struct{ fix.StringValue }
+type TransferReasonField struct{ quickfix.StringValue }
 
 //Tag returns tag.TransferReason (830)
-func (f TransferReasonField) Tag() fix.Tag { return tag.TransferReason }
+func (f TransferReasonField) Tag() quickfix.Tag { return tag.TransferReason }
 
 //NewTransferReason returns a new TransferReasonField initialized with val
 func NewTransferReason(val string) *TransferReasonField {
@@ -19145,10 +19181,10 @@ func NewTransferReason(val string) *TransferReasonField {
 }
 
 //TrdMatchIDField is a STRING field
-type TrdMatchIDField struct{ fix.StringValue }
+type TrdMatchIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TrdMatchID (880)
-func (f TrdMatchIDField) Tag() fix.Tag { return tag.TrdMatchID }
+func (f TrdMatchIDField) Tag() quickfix.Tag { return tag.TrdMatchID }
 
 //NewTrdMatchID returns a new TrdMatchIDField initialized with val
 func NewTrdMatchID(val string) *TrdMatchIDField {
@@ -19158,16 +19194,16 @@ func NewTrdMatchID(val string) *TrdMatchIDField {
 }
 
 //TrdRegTimestampField is a UTCTIMESTAMP field
-type TrdRegTimestampField struct{ fix.UTCTimestampValue }
+type TrdRegTimestampField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.TrdRegTimestamp (769)
-func (f TrdRegTimestampField) Tag() fix.Tag { return tag.TrdRegTimestamp }
+func (f TrdRegTimestampField) Tag() quickfix.Tag { return tag.TrdRegTimestamp }
 
 //TrdRegTimestampOriginField is a STRING field
-type TrdRegTimestampOriginField struct{ fix.StringValue }
+type TrdRegTimestampOriginField struct{ quickfix.StringValue }
 
 //Tag returns tag.TrdRegTimestampOrigin (771)
-func (f TrdRegTimestampOriginField) Tag() fix.Tag { return tag.TrdRegTimestampOrigin }
+func (f TrdRegTimestampOriginField) Tag() quickfix.Tag { return tag.TrdRegTimestampOrigin }
 
 //NewTrdRegTimestampOrigin returns a new TrdRegTimestampOriginField initialized with val
 func NewTrdRegTimestampOrigin(val string) *TrdRegTimestampOriginField {
@@ -19177,10 +19213,10 @@ func NewTrdRegTimestampOrigin(val string) *TrdRegTimestampOriginField {
 }
 
 //TrdRegTimestampTypeField is a INT field
-type TrdRegTimestampTypeField struct{ fix.IntValue }
+type TrdRegTimestampTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TrdRegTimestampType (770)
-func (f TrdRegTimestampTypeField) Tag() fix.Tag { return tag.TrdRegTimestampType }
+func (f TrdRegTimestampTypeField) Tag() quickfix.Tag { return tag.TrdRegTimestampType }
 
 //NewTrdRegTimestampType returns a new TrdRegTimestampTypeField initialized with val
 func NewTrdRegTimestampType(val int) *TrdRegTimestampTypeField {
@@ -19190,10 +19226,10 @@ func NewTrdRegTimestampType(val int) *TrdRegTimestampTypeField {
 }
 
 //TrdRepIndicatorField is a BOOLEAN field
-type TrdRepIndicatorField struct{ fix.BooleanValue }
+type TrdRepIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.TrdRepIndicator (1389)
-func (f TrdRepIndicatorField) Tag() fix.Tag { return tag.TrdRepIndicator }
+func (f TrdRepIndicatorField) Tag() quickfix.Tag { return tag.TrdRepIndicator }
 
 //NewTrdRepIndicator returns a new TrdRepIndicatorField initialized with val
 func NewTrdRepIndicator(val bool) *TrdRepIndicatorField {
@@ -19203,10 +19239,10 @@ func NewTrdRepIndicator(val bool) *TrdRepIndicatorField {
 }
 
 //TrdRepPartyRoleField is a INT field
-type TrdRepPartyRoleField struct{ fix.IntValue }
+type TrdRepPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.TrdRepPartyRole (1388)
-func (f TrdRepPartyRoleField) Tag() fix.Tag { return tag.TrdRepPartyRole }
+func (f TrdRepPartyRoleField) Tag() quickfix.Tag { return tag.TrdRepPartyRole }
 
 //NewTrdRepPartyRole returns a new TrdRepPartyRoleField initialized with val
 func NewTrdRepPartyRole(val int) *TrdRepPartyRoleField {
@@ -19216,10 +19252,10 @@ func NewTrdRepPartyRole(val int) *TrdRepPartyRoleField {
 }
 
 //TrdRptStatusField is a INT field
-type TrdRptStatusField struct{ fix.IntValue }
+type TrdRptStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.TrdRptStatus (939)
-func (f TrdRptStatusField) Tag() fix.Tag { return tag.TrdRptStatus }
+func (f TrdRptStatusField) Tag() quickfix.Tag { return tag.TrdRptStatus }
 
 //NewTrdRptStatus returns a new TrdRptStatusField initialized with val
 func NewTrdRptStatus(val int) *TrdRptStatusField {
@@ -19229,10 +19265,10 @@ func NewTrdRptStatus(val int) *TrdRptStatusField {
 }
 
 //TrdSubTypeField is a INT field
-type TrdSubTypeField struct{ fix.IntValue }
+type TrdSubTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TrdSubType (829)
-func (f TrdSubTypeField) Tag() fix.Tag { return tag.TrdSubType }
+func (f TrdSubTypeField) Tag() quickfix.Tag { return tag.TrdSubType }
 
 //NewTrdSubType returns a new TrdSubTypeField initialized with val
 func NewTrdSubType(val int) *TrdSubTypeField {
@@ -19242,10 +19278,10 @@ func NewTrdSubType(val int) *TrdSubTypeField {
 }
 
 //TrdTypeField is a INT field
-type TrdTypeField struct{ fix.IntValue }
+type TrdTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.TrdType (828)
-func (f TrdTypeField) Tag() fix.Tag { return tag.TrdType }
+func (f TrdTypeField) Tag() quickfix.Tag { return tag.TrdType }
 
 //NewTrdType returns a new TrdTypeField initialized with val
 func NewTrdType(val int) *TrdTypeField {
@@ -19255,10 +19291,10 @@ func NewTrdType(val int) *TrdTypeField {
 }
 
 //TriggerActionField is a CHAR field
-type TriggerActionField struct{ fix.CharValue }
+type TriggerActionField struct{ quickfix.CharValue }
 
 //Tag returns tag.TriggerAction (1101)
-func (f TriggerActionField) Tag() fix.Tag { return tag.TriggerAction }
+func (f TriggerActionField) Tag() quickfix.Tag { return tag.TriggerAction }
 
 //NewTriggerAction returns a new TriggerActionField initialized with val
 func NewTriggerAction(val string) *TriggerActionField {
@@ -19268,10 +19304,10 @@ func NewTriggerAction(val string) *TriggerActionField {
 }
 
 //TriggerNewPriceField is a PRICE field
-type TriggerNewPriceField struct{ fix.PriceValue }
+type TriggerNewPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.TriggerNewPrice (1110)
-func (f TriggerNewPriceField) Tag() fix.Tag { return tag.TriggerNewPrice }
+func (f TriggerNewPriceField) Tag() quickfix.Tag { return tag.TriggerNewPrice }
 
 //NewTriggerNewPrice returns a new TriggerNewPriceField initialized with val
 func NewTriggerNewPrice(val float64) *TriggerNewPriceField {
@@ -19281,10 +19317,10 @@ func NewTriggerNewPrice(val float64) *TriggerNewPriceField {
 }
 
 //TriggerNewQtyField is a QTY field
-type TriggerNewQtyField struct{ fix.QtyValue }
+type TriggerNewQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.TriggerNewQty (1112)
-func (f TriggerNewQtyField) Tag() fix.Tag { return tag.TriggerNewQty }
+func (f TriggerNewQtyField) Tag() quickfix.Tag { return tag.TriggerNewQty }
 
 //NewTriggerNewQty returns a new TriggerNewQtyField initialized with val
 func NewTriggerNewQty(val float64) *TriggerNewQtyField {
@@ -19294,10 +19330,10 @@ func NewTriggerNewQty(val float64) *TriggerNewQtyField {
 }
 
 //TriggerOrderTypeField is a CHAR field
-type TriggerOrderTypeField struct{ fix.CharValue }
+type TriggerOrderTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.TriggerOrderType (1111)
-func (f TriggerOrderTypeField) Tag() fix.Tag { return tag.TriggerOrderType }
+func (f TriggerOrderTypeField) Tag() quickfix.Tag { return tag.TriggerOrderType }
 
 //NewTriggerOrderType returns a new TriggerOrderTypeField initialized with val
 func NewTriggerOrderType(val string) *TriggerOrderTypeField {
@@ -19307,10 +19343,10 @@ func NewTriggerOrderType(val string) *TriggerOrderTypeField {
 }
 
 //TriggerPriceField is a PRICE field
-type TriggerPriceField struct{ fix.PriceValue }
+type TriggerPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.TriggerPrice (1102)
-func (f TriggerPriceField) Tag() fix.Tag { return tag.TriggerPrice }
+func (f TriggerPriceField) Tag() quickfix.Tag { return tag.TriggerPrice }
 
 //NewTriggerPrice returns a new TriggerPriceField initialized with val
 func NewTriggerPrice(val float64) *TriggerPriceField {
@@ -19320,10 +19356,10 @@ func NewTriggerPrice(val float64) *TriggerPriceField {
 }
 
 //TriggerPriceDirectionField is a CHAR field
-type TriggerPriceDirectionField struct{ fix.CharValue }
+type TriggerPriceDirectionField struct{ quickfix.CharValue }
 
 //Tag returns tag.TriggerPriceDirection (1109)
-func (f TriggerPriceDirectionField) Tag() fix.Tag { return tag.TriggerPriceDirection }
+func (f TriggerPriceDirectionField) Tag() quickfix.Tag { return tag.TriggerPriceDirection }
 
 //NewTriggerPriceDirection returns a new TriggerPriceDirectionField initialized with val
 func NewTriggerPriceDirection(val string) *TriggerPriceDirectionField {
@@ -19333,10 +19369,10 @@ func NewTriggerPriceDirection(val string) *TriggerPriceDirectionField {
 }
 
 //TriggerPriceTypeField is a CHAR field
-type TriggerPriceTypeField struct{ fix.CharValue }
+type TriggerPriceTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.TriggerPriceType (1107)
-func (f TriggerPriceTypeField) Tag() fix.Tag { return tag.TriggerPriceType }
+func (f TriggerPriceTypeField) Tag() quickfix.Tag { return tag.TriggerPriceType }
 
 //NewTriggerPriceType returns a new TriggerPriceTypeField initialized with val
 func NewTriggerPriceType(val string) *TriggerPriceTypeField {
@@ -19346,10 +19382,10 @@ func NewTriggerPriceType(val string) *TriggerPriceTypeField {
 }
 
 //TriggerPriceTypeScopeField is a CHAR field
-type TriggerPriceTypeScopeField struct{ fix.CharValue }
+type TriggerPriceTypeScopeField struct{ quickfix.CharValue }
 
 //Tag returns tag.TriggerPriceTypeScope (1108)
-func (f TriggerPriceTypeScopeField) Tag() fix.Tag { return tag.TriggerPriceTypeScope }
+func (f TriggerPriceTypeScopeField) Tag() quickfix.Tag { return tag.TriggerPriceTypeScope }
 
 //NewTriggerPriceTypeScope returns a new TriggerPriceTypeScopeField initialized with val
 func NewTriggerPriceTypeScope(val string) *TriggerPriceTypeScopeField {
@@ -19359,10 +19395,10 @@ func NewTriggerPriceTypeScope(val string) *TriggerPriceTypeScopeField {
 }
 
 //TriggerSecurityDescField is a STRING field
-type TriggerSecurityDescField struct{ fix.StringValue }
+type TriggerSecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.TriggerSecurityDesc (1106)
-func (f TriggerSecurityDescField) Tag() fix.Tag { return tag.TriggerSecurityDesc }
+func (f TriggerSecurityDescField) Tag() quickfix.Tag { return tag.TriggerSecurityDesc }
 
 //NewTriggerSecurityDesc returns a new TriggerSecurityDescField initialized with val
 func NewTriggerSecurityDesc(val string) *TriggerSecurityDescField {
@@ -19372,10 +19408,10 @@ func NewTriggerSecurityDesc(val string) *TriggerSecurityDescField {
 }
 
 //TriggerSecurityIDField is a STRING field
-type TriggerSecurityIDField struct{ fix.StringValue }
+type TriggerSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TriggerSecurityID (1104)
-func (f TriggerSecurityIDField) Tag() fix.Tag { return tag.TriggerSecurityID }
+func (f TriggerSecurityIDField) Tag() quickfix.Tag { return tag.TriggerSecurityID }
 
 //NewTriggerSecurityID returns a new TriggerSecurityIDField initialized with val
 func NewTriggerSecurityID(val string) *TriggerSecurityIDField {
@@ -19385,10 +19421,10 @@ func NewTriggerSecurityID(val string) *TriggerSecurityIDField {
 }
 
 //TriggerSecurityIDSourceField is a STRING field
-type TriggerSecurityIDSourceField struct{ fix.StringValue }
+type TriggerSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.TriggerSecurityIDSource (1105)
-func (f TriggerSecurityIDSourceField) Tag() fix.Tag { return tag.TriggerSecurityIDSource }
+func (f TriggerSecurityIDSourceField) Tag() quickfix.Tag { return tag.TriggerSecurityIDSource }
 
 //NewTriggerSecurityIDSource returns a new TriggerSecurityIDSourceField initialized with val
 func NewTriggerSecurityIDSource(val string) *TriggerSecurityIDSourceField {
@@ -19398,10 +19434,10 @@ func NewTriggerSecurityIDSource(val string) *TriggerSecurityIDSourceField {
 }
 
 //TriggerSymbolField is a STRING field
-type TriggerSymbolField struct{ fix.StringValue }
+type TriggerSymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.TriggerSymbol (1103)
-func (f TriggerSymbolField) Tag() fix.Tag { return tag.TriggerSymbol }
+func (f TriggerSymbolField) Tag() quickfix.Tag { return tag.TriggerSymbol }
 
 //NewTriggerSymbol returns a new TriggerSymbolField initialized with val
 func NewTriggerSymbol(val string) *TriggerSymbolField {
@@ -19411,10 +19447,10 @@ func NewTriggerSymbol(val string) *TriggerSymbolField {
 }
 
 //TriggerTradingSessionIDField is a STRING field
-type TriggerTradingSessionIDField struct{ fix.StringValue }
+type TriggerTradingSessionIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TriggerTradingSessionID (1113)
-func (f TriggerTradingSessionIDField) Tag() fix.Tag { return tag.TriggerTradingSessionID }
+func (f TriggerTradingSessionIDField) Tag() quickfix.Tag { return tag.TriggerTradingSessionID }
 
 //NewTriggerTradingSessionID returns a new TriggerTradingSessionIDField initialized with val
 func NewTriggerTradingSessionID(val string) *TriggerTradingSessionIDField {
@@ -19424,10 +19460,10 @@ func NewTriggerTradingSessionID(val string) *TriggerTradingSessionIDField {
 }
 
 //TriggerTradingSessionSubIDField is a STRING field
-type TriggerTradingSessionSubIDField struct{ fix.StringValue }
+type TriggerTradingSessionSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.TriggerTradingSessionSubID (1114)
-func (f TriggerTradingSessionSubIDField) Tag() fix.Tag { return tag.TriggerTradingSessionSubID }
+func (f TriggerTradingSessionSubIDField) Tag() quickfix.Tag { return tag.TriggerTradingSessionSubID }
 
 //NewTriggerTradingSessionSubID returns a new TriggerTradingSessionSubIDField initialized with val
 func NewTriggerTradingSessionSubID(val string) *TriggerTradingSessionSubIDField {
@@ -19437,10 +19473,10 @@ func NewTriggerTradingSessionSubID(val string) *TriggerTradingSessionSubIDField 
 }
 
 //TriggerTypeField is a CHAR field
-type TriggerTypeField struct{ fix.CharValue }
+type TriggerTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.TriggerType (1100)
-func (f TriggerTypeField) Tag() fix.Tag { return tag.TriggerType }
+func (f TriggerTypeField) Tag() quickfix.Tag { return tag.TriggerType }
 
 //NewTriggerType returns a new TriggerTypeField initialized with val
 func NewTriggerType(val string) *TriggerTypeField {
@@ -19450,10 +19486,10 @@ func NewTriggerType(val string) *TriggerTypeField {
 }
 
 //URLLinkField is a STRING field
-type URLLinkField struct{ fix.StringValue }
+type URLLinkField struct{ quickfix.StringValue }
 
 //Tag returns tag.URLLink (149)
-func (f URLLinkField) Tag() fix.Tag { return tag.URLLink }
+func (f URLLinkField) Tag() quickfix.Tag { return tag.URLLink }
 
 //NewURLLink returns a new URLLinkField initialized with val
 func NewURLLink(val string) *URLLinkField {
@@ -19463,10 +19499,10 @@ func NewURLLink(val string) *URLLinkField {
 }
 
 //UnderlyingAdjustedQuantityField is a QTY field
-type UnderlyingAdjustedQuantityField struct{ fix.QtyValue }
+type UnderlyingAdjustedQuantityField struct{ quickfix.QtyValue }
 
 //Tag returns tag.UnderlyingAdjustedQuantity (1044)
-func (f UnderlyingAdjustedQuantityField) Tag() fix.Tag { return tag.UnderlyingAdjustedQuantity }
+func (f UnderlyingAdjustedQuantityField) Tag() quickfix.Tag { return tag.UnderlyingAdjustedQuantity }
 
 //NewUnderlyingAdjustedQuantity returns a new UnderlyingAdjustedQuantityField initialized with val
 func NewUnderlyingAdjustedQuantity(val float64) *UnderlyingAdjustedQuantityField {
@@ -19476,10 +19512,10 @@ func NewUnderlyingAdjustedQuantity(val float64) *UnderlyingAdjustedQuantityField
 }
 
 //UnderlyingAllocationPercentField is a PERCENTAGE field
-type UnderlyingAllocationPercentField struct{ fix.PercentageValue }
+type UnderlyingAllocationPercentField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.UnderlyingAllocationPercent (972)
-func (f UnderlyingAllocationPercentField) Tag() fix.Tag { return tag.UnderlyingAllocationPercent }
+func (f UnderlyingAllocationPercentField) Tag() quickfix.Tag { return tag.UnderlyingAllocationPercent }
 
 //NewUnderlyingAllocationPercent returns a new UnderlyingAllocationPercentField initialized with val
 func NewUnderlyingAllocationPercent(val float64) *UnderlyingAllocationPercentField {
@@ -19489,10 +19525,10 @@ func NewUnderlyingAllocationPercent(val float64) *UnderlyingAllocationPercentFie
 }
 
 //UnderlyingAttachmentPointField is a PERCENTAGE field
-type UnderlyingAttachmentPointField struct{ fix.PercentageValue }
+type UnderlyingAttachmentPointField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.UnderlyingAttachmentPoint (1459)
-func (f UnderlyingAttachmentPointField) Tag() fix.Tag { return tag.UnderlyingAttachmentPoint }
+func (f UnderlyingAttachmentPointField) Tag() quickfix.Tag { return tag.UnderlyingAttachmentPoint }
 
 //NewUnderlyingAttachmentPoint returns a new UnderlyingAttachmentPointField initialized with val
 func NewUnderlyingAttachmentPoint(val float64) *UnderlyingAttachmentPointField {
@@ -19502,10 +19538,10 @@ func NewUnderlyingAttachmentPoint(val float64) *UnderlyingAttachmentPointField {
 }
 
 //UnderlyingCFICodeField is a STRING field
-type UnderlyingCFICodeField struct{ fix.StringValue }
+type UnderlyingCFICodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingCFICode (463)
-func (f UnderlyingCFICodeField) Tag() fix.Tag { return tag.UnderlyingCFICode }
+func (f UnderlyingCFICodeField) Tag() quickfix.Tag { return tag.UnderlyingCFICode }
 
 //NewUnderlyingCFICode returns a new UnderlyingCFICodeField initialized with val
 func NewUnderlyingCFICode(val string) *UnderlyingCFICodeField {
@@ -19515,10 +19551,10 @@ func NewUnderlyingCFICode(val string) *UnderlyingCFICodeField {
 }
 
 //UnderlyingCPProgramField is a STRING field
-type UnderlyingCPProgramField struct{ fix.StringValue }
+type UnderlyingCPProgramField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingCPProgram (877)
-func (f UnderlyingCPProgramField) Tag() fix.Tag { return tag.UnderlyingCPProgram }
+func (f UnderlyingCPProgramField) Tag() quickfix.Tag { return tag.UnderlyingCPProgram }
 
 //NewUnderlyingCPProgram returns a new UnderlyingCPProgramField initialized with val
 func NewUnderlyingCPProgram(val string) *UnderlyingCPProgramField {
@@ -19528,10 +19564,10 @@ func NewUnderlyingCPProgram(val string) *UnderlyingCPProgramField {
 }
 
 //UnderlyingCPRegTypeField is a STRING field
-type UnderlyingCPRegTypeField struct{ fix.StringValue }
+type UnderlyingCPRegTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingCPRegType (878)
-func (f UnderlyingCPRegTypeField) Tag() fix.Tag { return tag.UnderlyingCPRegType }
+func (f UnderlyingCPRegTypeField) Tag() quickfix.Tag { return tag.UnderlyingCPRegType }
 
 //NewUnderlyingCPRegType returns a new UnderlyingCPRegTypeField initialized with val
 func NewUnderlyingCPRegType(val string) *UnderlyingCPRegTypeField {
@@ -19541,10 +19577,10 @@ func NewUnderlyingCPRegType(val string) *UnderlyingCPRegTypeField {
 }
 
 //UnderlyingCapValueField is a AMT field
-type UnderlyingCapValueField struct{ fix.AmtValue }
+type UnderlyingCapValueField struct{ quickfix.AmtValue }
 
 //Tag returns tag.UnderlyingCapValue (1038)
-func (f UnderlyingCapValueField) Tag() fix.Tag { return tag.UnderlyingCapValue }
+func (f UnderlyingCapValueField) Tag() quickfix.Tag { return tag.UnderlyingCapValue }
 
 //NewUnderlyingCapValue returns a new UnderlyingCapValueField initialized with val
 func NewUnderlyingCapValue(val float64) *UnderlyingCapValueField {
@@ -19554,10 +19590,10 @@ func NewUnderlyingCapValue(val float64) *UnderlyingCapValueField {
 }
 
 //UnderlyingCashAmountField is a AMT field
-type UnderlyingCashAmountField struct{ fix.AmtValue }
+type UnderlyingCashAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.UnderlyingCashAmount (973)
-func (f UnderlyingCashAmountField) Tag() fix.Tag { return tag.UnderlyingCashAmount }
+func (f UnderlyingCashAmountField) Tag() quickfix.Tag { return tag.UnderlyingCashAmount }
 
 //NewUnderlyingCashAmount returns a new UnderlyingCashAmountField initialized with val
 func NewUnderlyingCashAmount(val float64) *UnderlyingCashAmountField {
@@ -19567,10 +19603,10 @@ func NewUnderlyingCashAmount(val float64) *UnderlyingCashAmountField {
 }
 
 //UnderlyingCashTypeField is a STRING field
-type UnderlyingCashTypeField struct{ fix.StringValue }
+type UnderlyingCashTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingCashType (974)
-func (f UnderlyingCashTypeField) Tag() fix.Tag { return tag.UnderlyingCashType }
+func (f UnderlyingCashTypeField) Tag() quickfix.Tag { return tag.UnderlyingCashType }
 
 //NewUnderlyingCashType returns a new UnderlyingCashTypeField initialized with val
 func NewUnderlyingCashType(val string) *UnderlyingCashTypeField {
@@ -19580,10 +19616,10 @@ func NewUnderlyingCashType(val string) *UnderlyingCashTypeField {
 }
 
 //UnderlyingCollectAmountField is a AMT field
-type UnderlyingCollectAmountField struct{ fix.AmtValue }
+type UnderlyingCollectAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.UnderlyingCollectAmount (986)
-func (f UnderlyingCollectAmountField) Tag() fix.Tag { return tag.UnderlyingCollectAmount }
+func (f UnderlyingCollectAmountField) Tag() quickfix.Tag { return tag.UnderlyingCollectAmount }
 
 //NewUnderlyingCollectAmount returns a new UnderlyingCollectAmountField initialized with val
 func NewUnderlyingCollectAmount(val float64) *UnderlyingCollectAmountField {
@@ -19593,10 +19629,10 @@ func NewUnderlyingCollectAmount(val float64) *UnderlyingCollectAmountField {
 }
 
 //UnderlyingContractMultiplierField is a FLOAT field
-type UnderlyingContractMultiplierField struct{ fix.FloatValue }
+type UnderlyingContractMultiplierField struct{ quickfix.FloatValue }
 
 //Tag returns tag.UnderlyingContractMultiplier (436)
-func (f UnderlyingContractMultiplierField) Tag() fix.Tag { return tag.UnderlyingContractMultiplier }
+func (f UnderlyingContractMultiplierField) Tag() quickfix.Tag { return tag.UnderlyingContractMultiplier }
 
 //NewUnderlyingContractMultiplier returns a new UnderlyingContractMultiplierField initialized with val
 func NewUnderlyingContractMultiplier(val float64) *UnderlyingContractMultiplierField {
@@ -19606,10 +19642,10 @@ func NewUnderlyingContractMultiplier(val float64) *UnderlyingContractMultiplierF
 }
 
 //UnderlyingContractMultiplierUnitField is a INT field
-type UnderlyingContractMultiplierUnitField struct{ fix.IntValue }
+type UnderlyingContractMultiplierUnitField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingContractMultiplierUnit (1437)
-func (f UnderlyingContractMultiplierUnitField) Tag() fix.Tag {
+func (f UnderlyingContractMultiplierUnitField) Tag() quickfix.Tag {
 	return tag.UnderlyingContractMultiplierUnit
 }
 
@@ -19621,10 +19657,10 @@ func NewUnderlyingContractMultiplierUnit(val int) *UnderlyingContractMultiplierU
 }
 
 //UnderlyingCountryOfIssueField is a COUNTRY field
-type UnderlyingCountryOfIssueField struct{ fix.CountryValue }
+type UnderlyingCountryOfIssueField struct{ quickfix.CountryValue }
 
 //Tag returns tag.UnderlyingCountryOfIssue (592)
-func (f UnderlyingCountryOfIssueField) Tag() fix.Tag { return tag.UnderlyingCountryOfIssue }
+func (f UnderlyingCountryOfIssueField) Tag() quickfix.Tag { return tag.UnderlyingCountryOfIssue }
 
 //NewUnderlyingCountryOfIssue returns a new UnderlyingCountryOfIssueField initialized with val
 func NewUnderlyingCountryOfIssue(val string) *UnderlyingCountryOfIssueField {
@@ -19634,10 +19670,10 @@ func NewUnderlyingCountryOfIssue(val string) *UnderlyingCountryOfIssueField {
 }
 
 //UnderlyingCouponPaymentDateField is a LOCALMKTDATE field
-type UnderlyingCouponPaymentDateField struct{ fix.LocalMktDateValue }
+type UnderlyingCouponPaymentDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingCouponPaymentDate (241)
-func (f UnderlyingCouponPaymentDateField) Tag() fix.Tag { return tag.UnderlyingCouponPaymentDate }
+func (f UnderlyingCouponPaymentDateField) Tag() quickfix.Tag { return tag.UnderlyingCouponPaymentDate }
 
 //NewUnderlyingCouponPaymentDate returns a new UnderlyingCouponPaymentDateField initialized with val
 func NewUnderlyingCouponPaymentDate(val string) *UnderlyingCouponPaymentDateField {
@@ -19647,10 +19683,10 @@ func NewUnderlyingCouponPaymentDate(val string) *UnderlyingCouponPaymentDateFiel
 }
 
 //UnderlyingCouponRateField is a PERCENTAGE field
-type UnderlyingCouponRateField struct{ fix.PercentageValue }
+type UnderlyingCouponRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.UnderlyingCouponRate (435)
-func (f UnderlyingCouponRateField) Tag() fix.Tag { return tag.UnderlyingCouponRate }
+func (f UnderlyingCouponRateField) Tag() quickfix.Tag { return tag.UnderlyingCouponRate }
 
 //NewUnderlyingCouponRate returns a new UnderlyingCouponRateField initialized with val
 func NewUnderlyingCouponRate(val float64) *UnderlyingCouponRateField {
@@ -19660,10 +19696,10 @@ func NewUnderlyingCouponRate(val float64) *UnderlyingCouponRateField {
 }
 
 //UnderlyingCreditRatingField is a STRING field
-type UnderlyingCreditRatingField struct{ fix.StringValue }
+type UnderlyingCreditRatingField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingCreditRating (256)
-func (f UnderlyingCreditRatingField) Tag() fix.Tag { return tag.UnderlyingCreditRating }
+func (f UnderlyingCreditRatingField) Tag() quickfix.Tag { return tag.UnderlyingCreditRating }
 
 //NewUnderlyingCreditRating returns a new UnderlyingCreditRatingField initialized with val
 func NewUnderlyingCreditRating(val string) *UnderlyingCreditRatingField {
@@ -19673,10 +19709,10 @@ func NewUnderlyingCreditRating(val string) *UnderlyingCreditRatingField {
 }
 
 //UnderlyingCurrencyField is a CURRENCY field
-type UnderlyingCurrencyField struct{ fix.CurrencyValue }
+type UnderlyingCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.UnderlyingCurrency (318)
-func (f UnderlyingCurrencyField) Tag() fix.Tag { return tag.UnderlyingCurrency }
+func (f UnderlyingCurrencyField) Tag() quickfix.Tag { return tag.UnderlyingCurrency }
 
 //NewUnderlyingCurrency returns a new UnderlyingCurrencyField initialized with val
 func NewUnderlyingCurrency(val string) *UnderlyingCurrencyField {
@@ -19686,10 +19722,10 @@ func NewUnderlyingCurrency(val string) *UnderlyingCurrencyField {
 }
 
 //UnderlyingCurrentValueField is a AMT field
-type UnderlyingCurrentValueField struct{ fix.AmtValue }
+type UnderlyingCurrentValueField struct{ quickfix.AmtValue }
 
 //Tag returns tag.UnderlyingCurrentValue (885)
-func (f UnderlyingCurrentValueField) Tag() fix.Tag { return tag.UnderlyingCurrentValue }
+func (f UnderlyingCurrentValueField) Tag() quickfix.Tag { return tag.UnderlyingCurrentValue }
 
 //NewUnderlyingCurrentValue returns a new UnderlyingCurrentValueField initialized with val
 func NewUnderlyingCurrentValue(val float64) *UnderlyingCurrentValueField {
@@ -19699,10 +19735,10 @@ func NewUnderlyingCurrentValue(val float64) *UnderlyingCurrentValueField {
 }
 
 //UnderlyingDeliveryAmountField is a AMT field
-type UnderlyingDeliveryAmountField struct{ fix.AmtValue }
+type UnderlyingDeliveryAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.UnderlyingDeliveryAmount (1037)
-func (f UnderlyingDeliveryAmountField) Tag() fix.Tag { return tag.UnderlyingDeliveryAmount }
+func (f UnderlyingDeliveryAmountField) Tag() quickfix.Tag { return tag.UnderlyingDeliveryAmount }
 
 //NewUnderlyingDeliveryAmount returns a new UnderlyingDeliveryAmountField initialized with val
 func NewUnderlyingDeliveryAmount(val float64) *UnderlyingDeliveryAmountField {
@@ -19712,10 +19748,10 @@ func NewUnderlyingDeliveryAmount(val float64) *UnderlyingDeliveryAmountField {
 }
 
 //UnderlyingDetachmentPointField is a PERCENTAGE field
-type UnderlyingDetachmentPointField struct{ fix.PercentageValue }
+type UnderlyingDetachmentPointField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.UnderlyingDetachmentPoint (1460)
-func (f UnderlyingDetachmentPointField) Tag() fix.Tag { return tag.UnderlyingDetachmentPoint }
+func (f UnderlyingDetachmentPointField) Tag() quickfix.Tag { return tag.UnderlyingDetachmentPoint }
 
 //NewUnderlyingDetachmentPoint returns a new UnderlyingDetachmentPointField initialized with val
 func NewUnderlyingDetachmentPoint(val float64) *UnderlyingDetachmentPointField {
@@ -19725,10 +19761,10 @@ func NewUnderlyingDetachmentPoint(val float64) *UnderlyingDetachmentPointField {
 }
 
 //UnderlyingDirtyPriceField is a PRICE field
-type UnderlyingDirtyPriceField struct{ fix.PriceValue }
+type UnderlyingDirtyPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.UnderlyingDirtyPrice (882)
-func (f UnderlyingDirtyPriceField) Tag() fix.Tag { return tag.UnderlyingDirtyPrice }
+func (f UnderlyingDirtyPriceField) Tag() quickfix.Tag { return tag.UnderlyingDirtyPrice }
 
 //NewUnderlyingDirtyPrice returns a new UnderlyingDirtyPriceField initialized with val
 func NewUnderlyingDirtyPrice(val float64) *UnderlyingDirtyPriceField {
@@ -19738,10 +19774,10 @@ func NewUnderlyingDirtyPrice(val float64) *UnderlyingDirtyPriceField {
 }
 
 //UnderlyingEndPriceField is a PRICE field
-type UnderlyingEndPriceField struct{ fix.PriceValue }
+type UnderlyingEndPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.UnderlyingEndPrice (883)
-func (f UnderlyingEndPriceField) Tag() fix.Tag { return tag.UnderlyingEndPrice }
+func (f UnderlyingEndPriceField) Tag() quickfix.Tag { return tag.UnderlyingEndPrice }
 
 //NewUnderlyingEndPrice returns a new UnderlyingEndPriceField initialized with val
 func NewUnderlyingEndPrice(val float64) *UnderlyingEndPriceField {
@@ -19751,10 +19787,10 @@ func NewUnderlyingEndPrice(val float64) *UnderlyingEndPriceField {
 }
 
 //UnderlyingEndValueField is a AMT field
-type UnderlyingEndValueField struct{ fix.AmtValue }
+type UnderlyingEndValueField struct{ quickfix.AmtValue }
 
 //Tag returns tag.UnderlyingEndValue (886)
-func (f UnderlyingEndValueField) Tag() fix.Tag { return tag.UnderlyingEndValue }
+func (f UnderlyingEndValueField) Tag() quickfix.Tag { return tag.UnderlyingEndValue }
 
 //NewUnderlyingEndValue returns a new UnderlyingEndValueField initialized with val
 func NewUnderlyingEndValue(val float64) *UnderlyingEndValueField {
@@ -19764,10 +19800,10 @@ func NewUnderlyingEndValue(val float64) *UnderlyingEndValueField {
 }
 
 //UnderlyingExerciseStyleField is a INT field
-type UnderlyingExerciseStyleField struct{ fix.IntValue }
+type UnderlyingExerciseStyleField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingExerciseStyle (1419)
-func (f UnderlyingExerciseStyleField) Tag() fix.Tag { return tag.UnderlyingExerciseStyle }
+func (f UnderlyingExerciseStyleField) Tag() quickfix.Tag { return tag.UnderlyingExerciseStyle }
 
 //NewUnderlyingExerciseStyle returns a new UnderlyingExerciseStyleField initialized with val
 func NewUnderlyingExerciseStyle(val int) *UnderlyingExerciseStyleField {
@@ -19777,10 +19813,10 @@ func NewUnderlyingExerciseStyle(val int) *UnderlyingExerciseStyleField {
 }
 
 //UnderlyingFXRateField is a FLOAT field
-type UnderlyingFXRateField struct{ fix.FloatValue }
+type UnderlyingFXRateField struct{ quickfix.FloatValue }
 
 //Tag returns tag.UnderlyingFXRate (1045)
-func (f UnderlyingFXRateField) Tag() fix.Tag { return tag.UnderlyingFXRate }
+func (f UnderlyingFXRateField) Tag() quickfix.Tag { return tag.UnderlyingFXRate }
 
 //NewUnderlyingFXRate returns a new UnderlyingFXRateField initialized with val
 func NewUnderlyingFXRate(val float64) *UnderlyingFXRateField {
@@ -19790,10 +19826,10 @@ func NewUnderlyingFXRate(val float64) *UnderlyingFXRateField {
 }
 
 //UnderlyingFXRateCalcField is a CHAR field
-type UnderlyingFXRateCalcField struct{ fix.CharValue }
+type UnderlyingFXRateCalcField struct{ quickfix.CharValue }
 
 //Tag returns tag.UnderlyingFXRateCalc (1046)
-func (f UnderlyingFXRateCalcField) Tag() fix.Tag { return tag.UnderlyingFXRateCalc }
+func (f UnderlyingFXRateCalcField) Tag() quickfix.Tag { return tag.UnderlyingFXRateCalc }
 
 //NewUnderlyingFXRateCalc returns a new UnderlyingFXRateCalcField initialized with val
 func NewUnderlyingFXRateCalc(val string) *UnderlyingFXRateCalcField {
@@ -19803,10 +19839,10 @@ func NewUnderlyingFXRateCalc(val string) *UnderlyingFXRateCalcField {
 }
 
 //UnderlyingFactorField is a FLOAT field
-type UnderlyingFactorField struct{ fix.FloatValue }
+type UnderlyingFactorField struct{ quickfix.FloatValue }
 
 //Tag returns tag.UnderlyingFactor (246)
-func (f UnderlyingFactorField) Tag() fix.Tag { return tag.UnderlyingFactor }
+func (f UnderlyingFactorField) Tag() quickfix.Tag { return tag.UnderlyingFactor }
 
 //NewUnderlyingFactor returns a new UnderlyingFactorField initialized with val
 func NewUnderlyingFactor(val float64) *UnderlyingFactorField {
@@ -19816,10 +19852,10 @@ func NewUnderlyingFactor(val float64) *UnderlyingFactorField {
 }
 
 //UnderlyingFlowScheduleTypeField is a INT field
-type UnderlyingFlowScheduleTypeField struct{ fix.IntValue }
+type UnderlyingFlowScheduleTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingFlowScheduleType (1441)
-func (f UnderlyingFlowScheduleTypeField) Tag() fix.Tag { return tag.UnderlyingFlowScheduleType }
+func (f UnderlyingFlowScheduleTypeField) Tag() quickfix.Tag { return tag.UnderlyingFlowScheduleType }
 
 //NewUnderlyingFlowScheduleType returns a new UnderlyingFlowScheduleTypeField initialized with val
 func NewUnderlyingFlowScheduleType(val int) *UnderlyingFlowScheduleTypeField {
@@ -19829,10 +19865,10 @@ func NewUnderlyingFlowScheduleType(val int) *UnderlyingFlowScheduleTypeField {
 }
 
 //UnderlyingIDSourceField is a STRING field
-type UnderlyingIDSourceField struct{ fix.StringValue }
+type UnderlyingIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingIDSource (305)
-func (f UnderlyingIDSourceField) Tag() fix.Tag { return tag.UnderlyingIDSource }
+func (f UnderlyingIDSourceField) Tag() quickfix.Tag { return tag.UnderlyingIDSource }
 
 //NewUnderlyingIDSource returns a new UnderlyingIDSourceField initialized with val
 func NewUnderlyingIDSource(val string) *UnderlyingIDSourceField {
@@ -19842,10 +19878,10 @@ func NewUnderlyingIDSource(val string) *UnderlyingIDSourceField {
 }
 
 //UnderlyingInstrRegistryField is a STRING field
-type UnderlyingInstrRegistryField struct{ fix.StringValue }
+type UnderlyingInstrRegistryField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingInstrRegistry (595)
-func (f UnderlyingInstrRegistryField) Tag() fix.Tag { return tag.UnderlyingInstrRegistry }
+func (f UnderlyingInstrRegistryField) Tag() quickfix.Tag { return tag.UnderlyingInstrRegistry }
 
 //NewUnderlyingInstrRegistry returns a new UnderlyingInstrRegistryField initialized with val
 func NewUnderlyingInstrRegistry(val string) *UnderlyingInstrRegistryField {
@@ -19855,10 +19891,10 @@ func NewUnderlyingInstrRegistry(val string) *UnderlyingInstrRegistryField {
 }
 
 //UnderlyingInstrumentPartyIDField is a STRING field
-type UnderlyingInstrumentPartyIDField struct{ fix.StringValue }
+type UnderlyingInstrumentPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingInstrumentPartyID (1059)
-func (f UnderlyingInstrumentPartyIDField) Tag() fix.Tag { return tag.UnderlyingInstrumentPartyID }
+func (f UnderlyingInstrumentPartyIDField) Tag() quickfix.Tag { return tag.UnderlyingInstrumentPartyID }
 
 //NewUnderlyingInstrumentPartyID returns a new UnderlyingInstrumentPartyIDField initialized with val
 func NewUnderlyingInstrumentPartyID(val string) *UnderlyingInstrumentPartyIDField {
@@ -19868,10 +19904,10 @@ func NewUnderlyingInstrumentPartyID(val string) *UnderlyingInstrumentPartyIDFiel
 }
 
 //UnderlyingInstrumentPartyIDSourceField is a CHAR field
-type UnderlyingInstrumentPartyIDSourceField struct{ fix.CharValue }
+type UnderlyingInstrumentPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.UnderlyingInstrumentPartyIDSource (1060)
-func (f UnderlyingInstrumentPartyIDSourceField) Tag() fix.Tag {
+func (f UnderlyingInstrumentPartyIDSourceField) Tag() quickfix.Tag {
 	return tag.UnderlyingInstrumentPartyIDSource
 }
 
@@ -19883,10 +19919,12 @@ func NewUnderlyingInstrumentPartyIDSource(val string) *UnderlyingInstrumentParty
 }
 
 //UnderlyingInstrumentPartyRoleField is a INT field
-type UnderlyingInstrumentPartyRoleField struct{ fix.IntValue }
+type UnderlyingInstrumentPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingInstrumentPartyRole (1061)
-func (f UnderlyingInstrumentPartyRoleField) Tag() fix.Tag { return tag.UnderlyingInstrumentPartyRole }
+func (f UnderlyingInstrumentPartyRoleField) Tag() quickfix.Tag {
+	return tag.UnderlyingInstrumentPartyRole
+}
 
 //NewUnderlyingInstrumentPartyRole returns a new UnderlyingInstrumentPartyRoleField initialized with val
 func NewUnderlyingInstrumentPartyRole(val int) *UnderlyingInstrumentPartyRoleField {
@@ -19896,10 +19934,12 @@ func NewUnderlyingInstrumentPartyRole(val int) *UnderlyingInstrumentPartyRoleFie
 }
 
 //UnderlyingInstrumentPartySubIDField is a STRING field
-type UnderlyingInstrumentPartySubIDField struct{ fix.StringValue }
+type UnderlyingInstrumentPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingInstrumentPartySubID (1063)
-func (f UnderlyingInstrumentPartySubIDField) Tag() fix.Tag { return tag.UnderlyingInstrumentPartySubID }
+func (f UnderlyingInstrumentPartySubIDField) Tag() quickfix.Tag {
+	return tag.UnderlyingInstrumentPartySubID
+}
 
 //NewUnderlyingInstrumentPartySubID returns a new UnderlyingInstrumentPartySubIDField initialized with val
 func NewUnderlyingInstrumentPartySubID(val string) *UnderlyingInstrumentPartySubIDField {
@@ -19909,10 +19949,10 @@ func NewUnderlyingInstrumentPartySubID(val string) *UnderlyingInstrumentPartySub
 }
 
 //UnderlyingInstrumentPartySubIDTypeField is a INT field
-type UnderlyingInstrumentPartySubIDTypeField struct{ fix.IntValue }
+type UnderlyingInstrumentPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingInstrumentPartySubIDType (1064)
-func (f UnderlyingInstrumentPartySubIDTypeField) Tag() fix.Tag {
+func (f UnderlyingInstrumentPartySubIDTypeField) Tag() quickfix.Tag {
 	return tag.UnderlyingInstrumentPartySubIDType
 }
 
@@ -19924,10 +19964,10 @@ func NewUnderlyingInstrumentPartySubIDType(val int) *UnderlyingInstrumentPartySu
 }
 
 //UnderlyingIssueDateField is a LOCALMKTDATE field
-type UnderlyingIssueDateField struct{ fix.LocalMktDateValue }
+type UnderlyingIssueDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingIssueDate (242)
-func (f UnderlyingIssueDateField) Tag() fix.Tag { return tag.UnderlyingIssueDate }
+func (f UnderlyingIssueDateField) Tag() quickfix.Tag { return tag.UnderlyingIssueDate }
 
 //NewUnderlyingIssueDate returns a new UnderlyingIssueDateField initialized with val
 func NewUnderlyingIssueDate(val string) *UnderlyingIssueDateField {
@@ -19937,10 +19977,10 @@ func NewUnderlyingIssueDate(val string) *UnderlyingIssueDateField {
 }
 
 //UnderlyingIssuerField is a STRING field
-type UnderlyingIssuerField struct{ fix.StringValue }
+type UnderlyingIssuerField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingIssuer (306)
-func (f UnderlyingIssuerField) Tag() fix.Tag { return tag.UnderlyingIssuer }
+func (f UnderlyingIssuerField) Tag() quickfix.Tag { return tag.UnderlyingIssuer }
 
 //NewUnderlyingIssuer returns a new UnderlyingIssuerField initialized with val
 func NewUnderlyingIssuer(val string) *UnderlyingIssuerField {
@@ -19950,10 +19990,10 @@ func NewUnderlyingIssuer(val string) *UnderlyingIssuerField {
 }
 
 //UnderlyingLastPxField is a PRICE field
-type UnderlyingLastPxField struct{ fix.PriceValue }
+type UnderlyingLastPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.UnderlyingLastPx (651)
-func (f UnderlyingLastPxField) Tag() fix.Tag { return tag.UnderlyingLastPx }
+func (f UnderlyingLastPxField) Tag() quickfix.Tag { return tag.UnderlyingLastPx }
 
 //NewUnderlyingLastPx returns a new UnderlyingLastPxField initialized with val
 func NewUnderlyingLastPx(val float64) *UnderlyingLastPxField {
@@ -19963,10 +20003,10 @@ func NewUnderlyingLastPx(val float64) *UnderlyingLastPxField {
 }
 
 //UnderlyingLastQtyField is a QTY field
-type UnderlyingLastQtyField struct{ fix.QtyValue }
+type UnderlyingLastQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.UnderlyingLastQty (652)
-func (f UnderlyingLastQtyField) Tag() fix.Tag { return tag.UnderlyingLastQty }
+func (f UnderlyingLastQtyField) Tag() quickfix.Tag { return tag.UnderlyingLastQty }
 
 //NewUnderlyingLastQty returns a new UnderlyingLastQtyField initialized with val
 func NewUnderlyingLastQty(val float64) *UnderlyingLastQtyField {
@@ -19976,10 +20016,10 @@ func NewUnderlyingLastQty(val float64) *UnderlyingLastQtyField {
 }
 
 //UnderlyingLegCFICodeField is a STRING field
-type UnderlyingLegCFICodeField struct{ fix.StringValue }
+type UnderlyingLegCFICodeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegCFICode (1344)
-func (f UnderlyingLegCFICodeField) Tag() fix.Tag { return tag.UnderlyingLegCFICode }
+func (f UnderlyingLegCFICodeField) Tag() quickfix.Tag { return tag.UnderlyingLegCFICode }
 
 //NewUnderlyingLegCFICode returns a new UnderlyingLegCFICodeField initialized with val
 func NewUnderlyingLegCFICode(val string) *UnderlyingLegCFICodeField {
@@ -19989,10 +20029,10 @@ func NewUnderlyingLegCFICode(val string) *UnderlyingLegCFICodeField {
 }
 
 //UnderlyingLegMaturityDateField is a LOCALMKTDATE field
-type UnderlyingLegMaturityDateField struct{ fix.LocalMktDateValue }
+type UnderlyingLegMaturityDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingLegMaturityDate (1345)
-func (f UnderlyingLegMaturityDateField) Tag() fix.Tag { return tag.UnderlyingLegMaturityDate }
+func (f UnderlyingLegMaturityDateField) Tag() quickfix.Tag { return tag.UnderlyingLegMaturityDate }
 
 //NewUnderlyingLegMaturityDate returns a new UnderlyingLegMaturityDateField initialized with val
 func NewUnderlyingLegMaturityDate(val string) *UnderlyingLegMaturityDateField {
@@ -20002,10 +20042,12 @@ func NewUnderlyingLegMaturityDate(val string) *UnderlyingLegMaturityDateField {
 }
 
 //UnderlyingLegMaturityMonthYearField is a MONTHYEAR field
-type UnderlyingLegMaturityMonthYearField struct{ fix.MonthYearValue }
+type UnderlyingLegMaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.UnderlyingLegMaturityMonthYear (1339)
-func (f UnderlyingLegMaturityMonthYearField) Tag() fix.Tag { return tag.UnderlyingLegMaturityMonthYear }
+func (f UnderlyingLegMaturityMonthYearField) Tag() quickfix.Tag {
+	return tag.UnderlyingLegMaturityMonthYear
+}
 
 //NewUnderlyingLegMaturityMonthYear returns a new UnderlyingLegMaturityMonthYearField initialized with val
 func NewUnderlyingLegMaturityMonthYear(val string) *UnderlyingLegMaturityMonthYearField {
@@ -20015,16 +20057,16 @@ func NewUnderlyingLegMaturityMonthYear(val string) *UnderlyingLegMaturityMonthYe
 }
 
 //UnderlyingLegMaturityTimeField is a TZTIMEONLY field
-type UnderlyingLegMaturityTimeField struct{ fix.TZTimeOnlyValue }
+type UnderlyingLegMaturityTimeField struct{ quickfix.TZTimeOnlyValue }
 
 //Tag returns tag.UnderlyingLegMaturityTime (1405)
-func (f UnderlyingLegMaturityTimeField) Tag() fix.Tag { return tag.UnderlyingLegMaturityTime }
+func (f UnderlyingLegMaturityTimeField) Tag() quickfix.Tag { return tag.UnderlyingLegMaturityTime }
 
 //UnderlyingLegOptAttributeField is a CHAR field
-type UnderlyingLegOptAttributeField struct{ fix.CharValue }
+type UnderlyingLegOptAttributeField struct{ quickfix.CharValue }
 
 //Tag returns tag.UnderlyingLegOptAttribute (1391)
-func (f UnderlyingLegOptAttributeField) Tag() fix.Tag { return tag.UnderlyingLegOptAttribute }
+func (f UnderlyingLegOptAttributeField) Tag() quickfix.Tag { return tag.UnderlyingLegOptAttribute }
 
 //NewUnderlyingLegOptAttribute returns a new UnderlyingLegOptAttributeField initialized with val
 func NewUnderlyingLegOptAttribute(val string) *UnderlyingLegOptAttributeField {
@@ -20034,10 +20076,10 @@ func NewUnderlyingLegOptAttribute(val string) *UnderlyingLegOptAttributeField {
 }
 
 //UnderlyingLegPutOrCallField is a INT field
-type UnderlyingLegPutOrCallField struct{ fix.IntValue }
+type UnderlyingLegPutOrCallField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingLegPutOrCall (1343)
-func (f UnderlyingLegPutOrCallField) Tag() fix.Tag { return tag.UnderlyingLegPutOrCall }
+func (f UnderlyingLegPutOrCallField) Tag() quickfix.Tag { return tag.UnderlyingLegPutOrCall }
 
 //NewUnderlyingLegPutOrCall returns a new UnderlyingLegPutOrCallField initialized with val
 func NewUnderlyingLegPutOrCall(val int) *UnderlyingLegPutOrCallField {
@@ -20047,10 +20089,10 @@ func NewUnderlyingLegPutOrCall(val int) *UnderlyingLegPutOrCallField {
 }
 
 //UnderlyingLegSecurityAltIDField is a STRING field
-type UnderlyingLegSecurityAltIDField struct{ fix.StringValue }
+type UnderlyingLegSecurityAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityAltID (1335)
-func (f UnderlyingLegSecurityAltIDField) Tag() fix.Tag { return tag.UnderlyingLegSecurityAltID }
+func (f UnderlyingLegSecurityAltIDField) Tag() quickfix.Tag { return tag.UnderlyingLegSecurityAltID }
 
 //NewUnderlyingLegSecurityAltID returns a new UnderlyingLegSecurityAltIDField initialized with val
 func NewUnderlyingLegSecurityAltID(val string) *UnderlyingLegSecurityAltIDField {
@@ -20060,10 +20102,10 @@ func NewUnderlyingLegSecurityAltID(val string) *UnderlyingLegSecurityAltIDField 
 }
 
 //UnderlyingLegSecurityAltIDSourceField is a STRING field
-type UnderlyingLegSecurityAltIDSourceField struct{ fix.StringValue }
+type UnderlyingLegSecurityAltIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityAltIDSource (1336)
-func (f UnderlyingLegSecurityAltIDSourceField) Tag() fix.Tag {
+func (f UnderlyingLegSecurityAltIDSourceField) Tag() quickfix.Tag {
 	return tag.UnderlyingLegSecurityAltIDSource
 }
 
@@ -20075,10 +20117,10 @@ func NewUnderlyingLegSecurityAltIDSource(val string) *UnderlyingLegSecurityAltID
 }
 
 //UnderlyingLegSecurityDescField is a STRING field
-type UnderlyingLegSecurityDescField struct{ fix.StringValue }
+type UnderlyingLegSecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityDesc (1392)
-func (f UnderlyingLegSecurityDescField) Tag() fix.Tag { return tag.UnderlyingLegSecurityDesc }
+func (f UnderlyingLegSecurityDescField) Tag() quickfix.Tag { return tag.UnderlyingLegSecurityDesc }
 
 //NewUnderlyingLegSecurityDesc returns a new UnderlyingLegSecurityDescField initialized with val
 func NewUnderlyingLegSecurityDesc(val string) *UnderlyingLegSecurityDescField {
@@ -20088,10 +20130,12 @@ func NewUnderlyingLegSecurityDesc(val string) *UnderlyingLegSecurityDescField {
 }
 
 //UnderlyingLegSecurityExchangeField is a STRING field
-type UnderlyingLegSecurityExchangeField struct{ fix.StringValue }
+type UnderlyingLegSecurityExchangeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityExchange (1341)
-func (f UnderlyingLegSecurityExchangeField) Tag() fix.Tag { return tag.UnderlyingLegSecurityExchange }
+func (f UnderlyingLegSecurityExchangeField) Tag() quickfix.Tag {
+	return tag.UnderlyingLegSecurityExchange
+}
 
 //NewUnderlyingLegSecurityExchange returns a new UnderlyingLegSecurityExchangeField initialized with val
 func NewUnderlyingLegSecurityExchange(val string) *UnderlyingLegSecurityExchangeField {
@@ -20101,10 +20145,10 @@ func NewUnderlyingLegSecurityExchange(val string) *UnderlyingLegSecurityExchange
 }
 
 //UnderlyingLegSecurityIDField is a STRING field
-type UnderlyingLegSecurityIDField struct{ fix.StringValue }
+type UnderlyingLegSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityID (1332)
-func (f UnderlyingLegSecurityIDField) Tag() fix.Tag { return tag.UnderlyingLegSecurityID }
+func (f UnderlyingLegSecurityIDField) Tag() quickfix.Tag { return tag.UnderlyingLegSecurityID }
 
 //NewUnderlyingLegSecurityID returns a new UnderlyingLegSecurityIDField initialized with val
 func NewUnderlyingLegSecurityID(val string) *UnderlyingLegSecurityIDField {
@@ -20114,10 +20158,12 @@ func NewUnderlyingLegSecurityID(val string) *UnderlyingLegSecurityIDField {
 }
 
 //UnderlyingLegSecurityIDSourceField is a STRING field
-type UnderlyingLegSecurityIDSourceField struct{ fix.StringValue }
+type UnderlyingLegSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityIDSource (1333)
-func (f UnderlyingLegSecurityIDSourceField) Tag() fix.Tag { return tag.UnderlyingLegSecurityIDSource }
+func (f UnderlyingLegSecurityIDSourceField) Tag() quickfix.Tag {
+	return tag.UnderlyingLegSecurityIDSource
+}
 
 //NewUnderlyingLegSecurityIDSource returns a new UnderlyingLegSecurityIDSourceField initialized with val
 func NewUnderlyingLegSecurityIDSource(val string) *UnderlyingLegSecurityIDSourceField {
@@ -20127,10 +20173,10 @@ func NewUnderlyingLegSecurityIDSource(val string) *UnderlyingLegSecurityIDSource
 }
 
 //UnderlyingLegSecuritySubTypeField is a STRING field
-type UnderlyingLegSecuritySubTypeField struct{ fix.StringValue }
+type UnderlyingLegSecuritySubTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecuritySubType (1338)
-func (f UnderlyingLegSecuritySubTypeField) Tag() fix.Tag { return tag.UnderlyingLegSecuritySubType }
+func (f UnderlyingLegSecuritySubTypeField) Tag() quickfix.Tag { return tag.UnderlyingLegSecuritySubType }
 
 //NewUnderlyingLegSecuritySubType returns a new UnderlyingLegSecuritySubTypeField initialized with val
 func NewUnderlyingLegSecuritySubType(val string) *UnderlyingLegSecuritySubTypeField {
@@ -20140,10 +20186,10 @@ func NewUnderlyingLegSecuritySubType(val string) *UnderlyingLegSecuritySubTypeFi
 }
 
 //UnderlyingLegSecurityTypeField is a STRING field
-type UnderlyingLegSecurityTypeField struct{ fix.StringValue }
+type UnderlyingLegSecurityTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSecurityType (1337)
-func (f UnderlyingLegSecurityTypeField) Tag() fix.Tag { return tag.UnderlyingLegSecurityType }
+func (f UnderlyingLegSecurityTypeField) Tag() quickfix.Tag { return tag.UnderlyingLegSecurityType }
 
 //NewUnderlyingLegSecurityType returns a new UnderlyingLegSecurityTypeField initialized with val
 func NewUnderlyingLegSecurityType(val string) *UnderlyingLegSecurityTypeField {
@@ -20153,10 +20199,10 @@ func NewUnderlyingLegSecurityType(val string) *UnderlyingLegSecurityTypeField {
 }
 
 //UnderlyingLegStrikePriceField is a PRICE field
-type UnderlyingLegStrikePriceField struct{ fix.PriceValue }
+type UnderlyingLegStrikePriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.UnderlyingLegStrikePrice (1340)
-func (f UnderlyingLegStrikePriceField) Tag() fix.Tag { return tag.UnderlyingLegStrikePrice }
+func (f UnderlyingLegStrikePriceField) Tag() quickfix.Tag { return tag.UnderlyingLegStrikePrice }
 
 //NewUnderlyingLegStrikePrice returns a new UnderlyingLegStrikePriceField initialized with val
 func NewUnderlyingLegStrikePrice(val float64) *UnderlyingLegStrikePriceField {
@@ -20166,10 +20212,10 @@ func NewUnderlyingLegStrikePrice(val float64) *UnderlyingLegStrikePriceField {
 }
 
 //UnderlyingLegSymbolField is a STRING field
-type UnderlyingLegSymbolField struct{ fix.StringValue }
+type UnderlyingLegSymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSymbol (1330)
-func (f UnderlyingLegSymbolField) Tag() fix.Tag { return tag.UnderlyingLegSymbol }
+func (f UnderlyingLegSymbolField) Tag() quickfix.Tag { return tag.UnderlyingLegSymbol }
 
 //NewUnderlyingLegSymbol returns a new UnderlyingLegSymbolField initialized with val
 func NewUnderlyingLegSymbol(val string) *UnderlyingLegSymbolField {
@@ -20179,10 +20225,10 @@ func NewUnderlyingLegSymbol(val string) *UnderlyingLegSymbolField {
 }
 
 //UnderlyingLegSymbolSfxField is a STRING field
-type UnderlyingLegSymbolSfxField struct{ fix.StringValue }
+type UnderlyingLegSymbolSfxField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLegSymbolSfx (1331)
-func (f UnderlyingLegSymbolSfxField) Tag() fix.Tag { return tag.UnderlyingLegSymbolSfx }
+func (f UnderlyingLegSymbolSfxField) Tag() quickfix.Tag { return tag.UnderlyingLegSymbolSfx }
 
 //NewUnderlyingLegSymbolSfx returns a new UnderlyingLegSymbolSfxField initialized with val
 func NewUnderlyingLegSymbolSfx(val string) *UnderlyingLegSymbolSfxField {
@@ -20192,10 +20238,10 @@ func NewUnderlyingLegSymbolSfx(val string) *UnderlyingLegSymbolSfxField {
 }
 
 //UnderlyingLocaleOfIssueField is a STRING field
-type UnderlyingLocaleOfIssueField struct{ fix.StringValue }
+type UnderlyingLocaleOfIssueField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingLocaleOfIssue (594)
-func (f UnderlyingLocaleOfIssueField) Tag() fix.Tag { return tag.UnderlyingLocaleOfIssue }
+func (f UnderlyingLocaleOfIssueField) Tag() quickfix.Tag { return tag.UnderlyingLocaleOfIssue }
 
 //NewUnderlyingLocaleOfIssue returns a new UnderlyingLocaleOfIssueField initialized with val
 func NewUnderlyingLocaleOfIssue(val string) *UnderlyingLocaleOfIssueField {
@@ -20205,10 +20251,10 @@ func NewUnderlyingLocaleOfIssue(val string) *UnderlyingLocaleOfIssueField {
 }
 
 //UnderlyingMaturityDateField is a LOCALMKTDATE field
-type UnderlyingMaturityDateField struct{ fix.LocalMktDateValue }
+type UnderlyingMaturityDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingMaturityDate (542)
-func (f UnderlyingMaturityDateField) Tag() fix.Tag { return tag.UnderlyingMaturityDate }
+func (f UnderlyingMaturityDateField) Tag() quickfix.Tag { return tag.UnderlyingMaturityDate }
 
 //NewUnderlyingMaturityDate returns a new UnderlyingMaturityDateField initialized with val
 func NewUnderlyingMaturityDate(val string) *UnderlyingMaturityDateField {
@@ -20218,10 +20264,10 @@ func NewUnderlyingMaturityDate(val string) *UnderlyingMaturityDateField {
 }
 
 //UnderlyingMaturityDayField is a DAYOFMONTH field
-type UnderlyingMaturityDayField struct{ fix.DayOfMonthValue }
+type UnderlyingMaturityDayField struct{ quickfix.DayOfMonthValue }
 
 //Tag returns tag.UnderlyingMaturityDay (314)
-func (f UnderlyingMaturityDayField) Tag() fix.Tag { return tag.UnderlyingMaturityDay }
+func (f UnderlyingMaturityDayField) Tag() quickfix.Tag { return tag.UnderlyingMaturityDay }
 
 //NewUnderlyingMaturityDay returns a new UnderlyingMaturityDayField initialized with val
 func NewUnderlyingMaturityDay(val int) *UnderlyingMaturityDayField {
@@ -20231,10 +20277,10 @@ func NewUnderlyingMaturityDay(val int) *UnderlyingMaturityDayField {
 }
 
 //UnderlyingMaturityMonthYearField is a MONTHYEAR field
-type UnderlyingMaturityMonthYearField struct{ fix.MonthYearValue }
+type UnderlyingMaturityMonthYearField struct{ quickfix.MonthYearValue }
 
 //Tag returns tag.UnderlyingMaturityMonthYear (313)
-func (f UnderlyingMaturityMonthYearField) Tag() fix.Tag { return tag.UnderlyingMaturityMonthYear }
+func (f UnderlyingMaturityMonthYearField) Tag() quickfix.Tag { return tag.UnderlyingMaturityMonthYear }
 
 //NewUnderlyingMaturityMonthYear returns a new UnderlyingMaturityMonthYearField initialized with val
 func NewUnderlyingMaturityMonthYear(val string) *UnderlyingMaturityMonthYearField {
@@ -20244,16 +20290,16 @@ func NewUnderlyingMaturityMonthYear(val string) *UnderlyingMaturityMonthYearFiel
 }
 
 //UnderlyingMaturityTimeField is a TZTIMEONLY field
-type UnderlyingMaturityTimeField struct{ fix.TZTimeOnlyValue }
+type UnderlyingMaturityTimeField struct{ quickfix.TZTimeOnlyValue }
 
 //Tag returns tag.UnderlyingMaturityTime (1213)
-func (f UnderlyingMaturityTimeField) Tag() fix.Tag { return tag.UnderlyingMaturityTime }
+func (f UnderlyingMaturityTimeField) Tag() quickfix.Tag { return tag.UnderlyingMaturityTime }
 
 //UnderlyingNotionalPercentageOutstandingField is a PERCENTAGE field
-type UnderlyingNotionalPercentageOutstandingField struct{ fix.PercentageValue }
+type UnderlyingNotionalPercentageOutstandingField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.UnderlyingNotionalPercentageOutstanding (1455)
-func (f UnderlyingNotionalPercentageOutstandingField) Tag() fix.Tag {
+func (f UnderlyingNotionalPercentageOutstandingField) Tag() quickfix.Tag {
 	return tag.UnderlyingNotionalPercentageOutstanding
 }
 
@@ -20265,10 +20311,10 @@ func NewUnderlyingNotionalPercentageOutstanding(val float64) *UnderlyingNotional
 }
 
 //UnderlyingOptAttributeField is a CHAR field
-type UnderlyingOptAttributeField struct{ fix.CharValue }
+type UnderlyingOptAttributeField struct{ quickfix.CharValue }
 
 //Tag returns tag.UnderlyingOptAttribute (317)
-func (f UnderlyingOptAttributeField) Tag() fix.Tag { return tag.UnderlyingOptAttribute }
+func (f UnderlyingOptAttributeField) Tag() quickfix.Tag { return tag.UnderlyingOptAttribute }
 
 //NewUnderlyingOptAttribute returns a new UnderlyingOptAttributeField initialized with val
 func NewUnderlyingOptAttribute(val string) *UnderlyingOptAttributeField {
@@ -20278,10 +20324,10 @@ func NewUnderlyingOptAttribute(val string) *UnderlyingOptAttributeField {
 }
 
 //UnderlyingOriginalNotionalPercentageOutstandingField is a PERCENTAGE field
-type UnderlyingOriginalNotionalPercentageOutstandingField struct{ fix.PercentageValue }
+type UnderlyingOriginalNotionalPercentageOutstandingField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.UnderlyingOriginalNotionalPercentageOutstanding (1456)
-func (f UnderlyingOriginalNotionalPercentageOutstandingField) Tag() fix.Tag {
+func (f UnderlyingOriginalNotionalPercentageOutstandingField) Tag() quickfix.Tag {
 	return tag.UnderlyingOriginalNotionalPercentageOutstanding
 }
 
@@ -20293,10 +20339,10 @@ func NewUnderlyingOriginalNotionalPercentageOutstanding(val float64) *Underlying
 }
 
 //UnderlyingPayAmountField is a AMT field
-type UnderlyingPayAmountField struct{ fix.AmtValue }
+type UnderlyingPayAmountField struct{ quickfix.AmtValue }
 
 //Tag returns tag.UnderlyingPayAmount (985)
-func (f UnderlyingPayAmountField) Tag() fix.Tag { return tag.UnderlyingPayAmount }
+func (f UnderlyingPayAmountField) Tag() quickfix.Tag { return tag.UnderlyingPayAmount }
 
 //NewUnderlyingPayAmount returns a new UnderlyingPayAmountField initialized with val
 func NewUnderlyingPayAmount(val float64) *UnderlyingPayAmountField {
@@ -20306,10 +20352,10 @@ func NewUnderlyingPayAmount(val float64) *UnderlyingPayAmountField {
 }
 
 //UnderlyingPriceDeterminationMethodField is a INT field
-type UnderlyingPriceDeterminationMethodField struct{ fix.IntValue }
+type UnderlyingPriceDeterminationMethodField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingPriceDeterminationMethod (1481)
-func (f UnderlyingPriceDeterminationMethodField) Tag() fix.Tag {
+func (f UnderlyingPriceDeterminationMethodField) Tag() quickfix.Tag {
 	return tag.UnderlyingPriceDeterminationMethod
 }
 
@@ -20321,10 +20367,10 @@ func NewUnderlyingPriceDeterminationMethod(val int) *UnderlyingPriceDeterminatio
 }
 
 //UnderlyingPriceUnitOfMeasureField is a STRING field
-type UnderlyingPriceUnitOfMeasureField struct{ fix.StringValue }
+type UnderlyingPriceUnitOfMeasureField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingPriceUnitOfMeasure (1424)
-func (f UnderlyingPriceUnitOfMeasureField) Tag() fix.Tag { return tag.UnderlyingPriceUnitOfMeasure }
+func (f UnderlyingPriceUnitOfMeasureField) Tag() quickfix.Tag { return tag.UnderlyingPriceUnitOfMeasure }
 
 //NewUnderlyingPriceUnitOfMeasure returns a new UnderlyingPriceUnitOfMeasureField initialized with val
 func NewUnderlyingPriceUnitOfMeasure(val string) *UnderlyingPriceUnitOfMeasureField {
@@ -20334,10 +20380,10 @@ func NewUnderlyingPriceUnitOfMeasure(val string) *UnderlyingPriceUnitOfMeasureFi
 }
 
 //UnderlyingPriceUnitOfMeasureQtyField is a QTY field
-type UnderlyingPriceUnitOfMeasureQtyField struct{ fix.QtyValue }
+type UnderlyingPriceUnitOfMeasureQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.UnderlyingPriceUnitOfMeasureQty (1425)
-func (f UnderlyingPriceUnitOfMeasureQtyField) Tag() fix.Tag {
+func (f UnderlyingPriceUnitOfMeasureQtyField) Tag() quickfix.Tag {
 	return tag.UnderlyingPriceUnitOfMeasureQty
 }
 
@@ -20349,10 +20395,10 @@ func NewUnderlyingPriceUnitOfMeasureQty(val float64) *UnderlyingPriceUnitOfMeasu
 }
 
 //UnderlyingProductField is a INT field
-type UnderlyingProductField struct{ fix.IntValue }
+type UnderlyingProductField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingProduct (462)
-func (f UnderlyingProductField) Tag() fix.Tag { return tag.UnderlyingProduct }
+func (f UnderlyingProductField) Tag() quickfix.Tag { return tag.UnderlyingProduct }
 
 //NewUnderlyingProduct returns a new UnderlyingProductField initialized with val
 func NewUnderlyingProduct(val int) *UnderlyingProductField {
@@ -20362,10 +20408,10 @@ func NewUnderlyingProduct(val int) *UnderlyingProductField {
 }
 
 //UnderlyingPutOrCallField is a INT field
-type UnderlyingPutOrCallField struct{ fix.IntValue }
+type UnderlyingPutOrCallField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingPutOrCall (315)
-func (f UnderlyingPutOrCallField) Tag() fix.Tag { return tag.UnderlyingPutOrCall }
+func (f UnderlyingPutOrCallField) Tag() quickfix.Tag { return tag.UnderlyingPutOrCall }
 
 //NewUnderlyingPutOrCall returns a new UnderlyingPutOrCallField initialized with val
 func NewUnderlyingPutOrCall(val int) *UnderlyingPutOrCallField {
@@ -20375,10 +20421,10 @@ func NewUnderlyingPutOrCall(val int) *UnderlyingPutOrCallField {
 }
 
 //UnderlyingPxField is a PRICE field
-type UnderlyingPxField struct{ fix.PriceValue }
+type UnderlyingPxField struct{ quickfix.PriceValue }
 
 //Tag returns tag.UnderlyingPx (810)
-func (f UnderlyingPxField) Tag() fix.Tag { return tag.UnderlyingPx }
+func (f UnderlyingPxField) Tag() quickfix.Tag { return tag.UnderlyingPx }
 
 //NewUnderlyingPx returns a new UnderlyingPxField initialized with val
 func NewUnderlyingPx(val float64) *UnderlyingPxField {
@@ -20388,10 +20434,10 @@ func NewUnderlyingPx(val float64) *UnderlyingPxField {
 }
 
 //UnderlyingQtyField is a QTY field
-type UnderlyingQtyField struct{ fix.QtyValue }
+type UnderlyingQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.UnderlyingQty (879)
-func (f UnderlyingQtyField) Tag() fix.Tag { return tag.UnderlyingQty }
+func (f UnderlyingQtyField) Tag() quickfix.Tag { return tag.UnderlyingQty }
 
 //NewUnderlyingQty returns a new UnderlyingQtyField initialized with val
 func NewUnderlyingQty(val float64) *UnderlyingQtyField {
@@ -20401,10 +20447,10 @@ func NewUnderlyingQty(val float64) *UnderlyingQtyField {
 }
 
 //UnderlyingRedemptionDateField is a LOCALMKTDATE field
-type UnderlyingRedemptionDateField struct{ fix.LocalMktDateValue }
+type UnderlyingRedemptionDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingRedemptionDate (247)
-func (f UnderlyingRedemptionDateField) Tag() fix.Tag { return tag.UnderlyingRedemptionDate }
+func (f UnderlyingRedemptionDateField) Tag() quickfix.Tag { return tag.UnderlyingRedemptionDate }
 
 //NewUnderlyingRedemptionDate returns a new UnderlyingRedemptionDateField initialized with val
 func NewUnderlyingRedemptionDate(val string) *UnderlyingRedemptionDateField {
@@ -20414,10 +20460,10 @@ func NewUnderlyingRedemptionDate(val string) *UnderlyingRedemptionDateField {
 }
 
 //UnderlyingRepoCollateralSecurityTypeField is a INT field
-type UnderlyingRepoCollateralSecurityTypeField struct{ fix.IntValue }
+type UnderlyingRepoCollateralSecurityTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingRepoCollateralSecurityType (243)
-func (f UnderlyingRepoCollateralSecurityTypeField) Tag() fix.Tag {
+func (f UnderlyingRepoCollateralSecurityTypeField) Tag() quickfix.Tag {
 	return tag.UnderlyingRepoCollateralSecurityType
 }
 
@@ -20429,10 +20475,10 @@ func NewUnderlyingRepoCollateralSecurityType(val int) *UnderlyingRepoCollateralS
 }
 
 //UnderlyingRepurchaseRateField is a PERCENTAGE field
-type UnderlyingRepurchaseRateField struct{ fix.PercentageValue }
+type UnderlyingRepurchaseRateField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.UnderlyingRepurchaseRate (245)
-func (f UnderlyingRepurchaseRateField) Tag() fix.Tag { return tag.UnderlyingRepurchaseRate }
+func (f UnderlyingRepurchaseRateField) Tag() quickfix.Tag { return tag.UnderlyingRepurchaseRate }
 
 //NewUnderlyingRepurchaseRate returns a new UnderlyingRepurchaseRateField initialized with val
 func NewUnderlyingRepurchaseRate(val float64) *UnderlyingRepurchaseRateField {
@@ -20442,10 +20488,10 @@ func NewUnderlyingRepurchaseRate(val float64) *UnderlyingRepurchaseRateField {
 }
 
 //UnderlyingRepurchaseTermField is a INT field
-type UnderlyingRepurchaseTermField struct{ fix.IntValue }
+type UnderlyingRepurchaseTermField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingRepurchaseTerm (244)
-func (f UnderlyingRepurchaseTermField) Tag() fix.Tag { return tag.UnderlyingRepurchaseTerm }
+func (f UnderlyingRepurchaseTermField) Tag() quickfix.Tag { return tag.UnderlyingRepurchaseTerm }
 
 //NewUnderlyingRepurchaseTerm returns a new UnderlyingRepurchaseTermField initialized with val
 func NewUnderlyingRepurchaseTerm(val int) *UnderlyingRepurchaseTermField {
@@ -20455,10 +20501,10 @@ func NewUnderlyingRepurchaseTerm(val int) *UnderlyingRepurchaseTermField {
 }
 
 //UnderlyingRestructuringTypeField is a STRING field
-type UnderlyingRestructuringTypeField struct{ fix.StringValue }
+type UnderlyingRestructuringTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingRestructuringType (1453)
-func (f UnderlyingRestructuringTypeField) Tag() fix.Tag { return tag.UnderlyingRestructuringType }
+func (f UnderlyingRestructuringTypeField) Tag() quickfix.Tag { return tag.UnderlyingRestructuringType }
 
 //NewUnderlyingRestructuringType returns a new UnderlyingRestructuringTypeField initialized with val
 func NewUnderlyingRestructuringType(val string) *UnderlyingRestructuringTypeField {
@@ -20468,10 +20514,10 @@ func NewUnderlyingRestructuringType(val string) *UnderlyingRestructuringTypeFiel
 }
 
 //UnderlyingSecurityAltIDField is a STRING field
-type UnderlyingSecurityAltIDField struct{ fix.StringValue }
+type UnderlyingSecurityAltIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityAltID (458)
-func (f UnderlyingSecurityAltIDField) Tag() fix.Tag { return tag.UnderlyingSecurityAltID }
+func (f UnderlyingSecurityAltIDField) Tag() quickfix.Tag { return tag.UnderlyingSecurityAltID }
 
 //NewUnderlyingSecurityAltID returns a new UnderlyingSecurityAltIDField initialized with val
 func NewUnderlyingSecurityAltID(val string) *UnderlyingSecurityAltIDField {
@@ -20481,10 +20527,12 @@ func NewUnderlyingSecurityAltID(val string) *UnderlyingSecurityAltIDField {
 }
 
 //UnderlyingSecurityAltIDSourceField is a STRING field
-type UnderlyingSecurityAltIDSourceField struct{ fix.StringValue }
+type UnderlyingSecurityAltIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityAltIDSource (459)
-func (f UnderlyingSecurityAltIDSourceField) Tag() fix.Tag { return tag.UnderlyingSecurityAltIDSource }
+func (f UnderlyingSecurityAltIDSourceField) Tag() quickfix.Tag {
+	return tag.UnderlyingSecurityAltIDSource
+}
 
 //NewUnderlyingSecurityAltIDSource returns a new UnderlyingSecurityAltIDSourceField initialized with val
 func NewUnderlyingSecurityAltIDSource(val string) *UnderlyingSecurityAltIDSourceField {
@@ -20494,10 +20542,10 @@ func NewUnderlyingSecurityAltIDSource(val string) *UnderlyingSecurityAltIDSource
 }
 
 //UnderlyingSecurityDescField is a STRING field
-type UnderlyingSecurityDescField struct{ fix.StringValue }
+type UnderlyingSecurityDescField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityDesc (307)
-func (f UnderlyingSecurityDescField) Tag() fix.Tag { return tag.UnderlyingSecurityDesc }
+func (f UnderlyingSecurityDescField) Tag() quickfix.Tag { return tag.UnderlyingSecurityDesc }
 
 //NewUnderlyingSecurityDesc returns a new UnderlyingSecurityDescField initialized with val
 func NewUnderlyingSecurityDesc(val string) *UnderlyingSecurityDescField {
@@ -20507,10 +20555,10 @@ func NewUnderlyingSecurityDesc(val string) *UnderlyingSecurityDescField {
 }
 
 //UnderlyingSecurityExchangeField is a EXCHANGE field
-type UnderlyingSecurityExchangeField struct{ fix.ExchangeValue }
+type UnderlyingSecurityExchangeField struct{ quickfix.ExchangeValue }
 
 //Tag returns tag.UnderlyingSecurityExchange (308)
-func (f UnderlyingSecurityExchangeField) Tag() fix.Tag { return tag.UnderlyingSecurityExchange }
+func (f UnderlyingSecurityExchangeField) Tag() quickfix.Tag { return tag.UnderlyingSecurityExchange }
 
 //NewUnderlyingSecurityExchange returns a new UnderlyingSecurityExchangeField initialized with val
 func NewUnderlyingSecurityExchange(val string) *UnderlyingSecurityExchangeField {
@@ -20520,10 +20568,10 @@ func NewUnderlyingSecurityExchange(val string) *UnderlyingSecurityExchangeField 
 }
 
 //UnderlyingSecurityIDField is a STRING field
-type UnderlyingSecurityIDField struct{ fix.StringValue }
+type UnderlyingSecurityIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityID (309)
-func (f UnderlyingSecurityIDField) Tag() fix.Tag { return tag.UnderlyingSecurityID }
+func (f UnderlyingSecurityIDField) Tag() quickfix.Tag { return tag.UnderlyingSecurityID }
 
 //NewUnderlyingSecurityID returns a new UnderlyingSecurityIDField initialized with val
 func NewUnderlyingSecurityID(val string) *UnderlyingSecurityIDField {
@@ -20533,10 +20581,10 @@ func NewUnderlyingSecurityID(val string) *UnderlyingSecurityIDField {
 }
 
 //UnderlyingSecurityIDSourceField is a STRING field
-type UnderlyingSecurityIDSourceField struct{ fix.StringValue }
+type UnderlyingSecurityIDSourceField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityIDSource (305)
-func (f UnderlyingSecurityIDSourceField) Tag() fix.Tag { return tag.UnderlyingSecurityIDSource }
+func (f UnderlyingSecurityIDSourceField) Tag() quickfix.Tag { return tag.UnderlyingSecurityIDSource }
 
 //NewUnderlyingSecurityIDSource returns a new UnderlyingSecurityIDSourceField initialized with val
 func NewUnderlyingSecurityIDSource(val string) *UnderlyingSecurityIDSourceField {
@@ -20546,10 +20594,10 @@ func NewUnderlyingSecurityIDSource(val string) *UnderlyingSecurityIDSourceField 
 }
 
 //UnderlyingSecuritySubTypeField is a STRING field
-type UnderlyingSecuritySubTypeField struct{ fix.StringValue }
+type UnderlyingSecuritySubTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSecuritySubType (763)
-func (f UnderlyingSecuritySubTypeField) Tag() fix.Tag { return tag.UnderlyingSecuritySubType }
+func (f UnderlyingSecuritySubTypeField) Tag() quickfix.Tag { return tag.UnderlyingSecuritySubType }
 
 //NewUnderlyingSecuritySubType returns a new UnderlyingSecuritySubTypeField initialized with val
 func NewUnderlyingSecuritySubType(val string) *UnderlyingSecuritySubTypeField {
@@ -20559,10 +20607,10 @@ func NewUnderlyingSecuritySubType(val string) *UnderlyingSecuritySubTypeField {
 }
 
 //UnderlyingSecurityTypeField is a STRING field
-type UnderlyingSecurityTypeField struct{ fix.StringValue }
+type UnderlyingSecurityTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSecurityType (310)
-func (f UnderlyingSecurityTypeField) Tag() fix.Tag { return tag.UnderlyingSecurityType }
+func (f UnderlyingSecurityTypeField) Tag() quickfix.Tag { return tag.UnderlyingSecurityType }
 
 //NewUnderlyingSecurityType returns a new UnderlyingSecurityTypeField initialized with val
 func NewUnderlyingSecurityType(val string) *UnderlyingSecurityTypeField {
@@ -20572,10 +20620,10 @@ func NewUnderlyingSecurityType(val string) *UnderlyingSecurityTypeField {
 }
 
 //UnderlyingSeniorityField is a STRING field
-type UnderlyingSeniorityField struct{ fix.StringValue }
+type UnderlyingSeniorityField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSeniority (1454)
-func (f UnderlyingSeniorityField) Tag() fix.Tag { return tag.UnderlyingSeniority }
+func (f UnderlyingSeniorityField) Tag() quickfix.Tag { return tag.UnderlyingSeniority }
 
 //NewUnderlyingSeniority returns a new UnderlyingSeniorityField initialized with val
 func NewUnderlyingSeniority(val string) *UnderlyingSeniorityField {
@@ -20585,10 +20633,10 @@ func NewUnderlyingSeniority(val string) *UnderlyingSeniorityField {
 }
 
 //UnderlyingSettlMethodField is a STRING field
-type UnderlyingSettlMethodField struct{ fix.StringValue }
+type UnderlyingSettlMethodField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSettlMethod (1039)
-func (f UnderlyingSettlMethodField) Tag() fix.Tag { return tag.UnderlyingSettlMethod }
+func (f UnderlyingSettlMethodField) Tag() quickfix.Tag { return tag.UnderlyingSettlMethod }
 
 //NewUnderlyingSettlMethod returns a new UnderlyingSettlMethodField initialized with val
 func NewUnderlyingSettlMethod(val string) *UnderlyingSettlMethodField {
@@ -20598,10 +20646,10 @@ func NewUnderlyingSettlMethod(val string) *UnderlyingSettlMethodField {
 }
 
 //UnderlyingSettlPriceField is a PRICE field
-type UnderlyingSettlPriceField struct{ fix.PriceValue }
+type UnderlyingSettlPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.UnderlyingSettlPrice (732)
-func (f UnderlyingSettlPriceField) Tag() fix.Tag { return tag.UnderlyingSettlPrice }
+func (f UnderlyingSettlPriceField) Tag() quickfix.Tag { return tag.UnderlyingSettlPrice }
 
 //NewUnderlyingSettlPrice returns a new UnderlyingSettlPriceField initialized with val
 func NewUnderlyingSettlPrice(val float64) *UnderlyingSettlPriceField {
@@ -20611,10 +20659,10 @@ func NewUnderlyingSettlPrice(val float64) *UnderlyingSettlPriceField {
 }
 
 //UnderlyingSettlPriceTypeField is a INT field
-type UnderlyingSettlPriceTypeField struct{ fix.IntValue }
+type UnderlyingSettlPriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingSettlPriceType (733)
-func (f UnderlyingSettlPriceTypeField) Tag() fix.Tag { return tag.UnderlyingSettlPriceType }
+func (f UnderlyingSettlPriceTypeField) Tag() quickfix.Tag { return tag.UnderlyingSettlPriceType }
 
 //NewUnderlyingSettlPriceType returns a new UnderlyingSettlPriceTypeField initialized with val
 func NewUnderlyingSettlPriceType(val int) *UnderlyingSettlPriceTypeField {
@@ -20624,10 +20672,10 @@ func NewUnderlyingSettlPriceType(val int) *UnderlyingSettlPriceTypeField {
 }
 
 //UnderlyingSettlementDateField is a LOCALMKTDATE field
-type UnderlyingSettlementDateField struct{ fix.LocalMktDateValue }
+type UnderlyingSettlementDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.UnderlyingSettlementDate (987)
-func (f UnderlyingSettlementDateField) Tag() fix.Tag { return tag.UnderlyingSettlementDate }
+func (f UnderlyingSettlementDateField) Tag() quickfix.Tag { return tag.UnderlyingSettlementDate }
 
 //NewUnderlyingSettlementDate returns a new UnderlyingSettlementDateField initialized with val
 func NewUnderlyingSettlementDate(val string) *UnderlyingSettlementDateField {
@@ -20637,10 +20685,10 @@ func NewUnderlyingSettlementDate(val string) *UnderlyingSettlementDateField {
 }
 
 //UnderlyingSettlementStatusField is a STRING field
-type UnderlyingSettlementStatusField struct{ fix.StringValue }
+type UnderlyingSettlementStatusField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSettlementStatus (988)
-func (f UnderlyingSettlementStatusField) Tag() fix.Tag { return tag.UnderlyingSettlementStatus }
+func (f UnderlyingSettlementStatusField) Tag() quickfix.Tag { return tag.UnderlyingSettlementStatus }
 
 //NewUnderlyingSettlementStatus returns a new UnderlyingSettlementStatusField initialized with val
 func NewUnderlyingSettlementStatus(val string) *UnderlyingSettlementStatusField {
@@ -20650,10 +20698,10 @@ func NewUnderlyingSettlementStatus(val string) *UnderlyingSettlementStatusField 
 }
 
 //UnderlyingSettlementTypeField is a INT field
-type UnderlyingSettlementTypeField struct{ fix.IntValue }
+type UnderlyingSettlementTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.UnderlyingSettlementType (975)
-func (f UnderlyingSettlementTypeField) Tag() fix.Tag { return tag.UnderlyingSettlementType }
+func (f UnderlyingSettlementTypeField) Tag() quickfix.Tag { return tag.UnderlyingSettlementType }
 
 //NewUnderlyingSettlementType returns a new UnderlyingSettlementTypeField initialized with val
 func NewUnderlyingSettlementType(val int) *UnderlyingSettlementTypeField {
@@ -20663,10 +20711,10 @@ func NewUnderlyingSettlementType(val int) *UnderlyingSettlementTypeField {
 }
 
 //UnderlyingStartValueField is a AMT field
-type UnderlyingStartValueField struct{ fix.AmtValue }
+type UnderlyingStartValueField struct{ quickfix.AmtValue }
 
 //Tag returns tag.UnderlyingStartValue (884)
-func (f UnderlyingStartValueField) Tag() fix.Tag { return tag.UnderlyingStartValue }
+func (f UnderlyingStartValueField) Tag() quickfix.Tag { return tag.UnderlyingStartValue }
 
 //NewUnderlyingStartValue returns a new UnderlyingStartValueField initialized with val
 func NewUnderlyingStartValue(val float64) *UnderlyingStartValueField {
@@ -20676,10 +20724,10 @@ func NewUnderlyingStartValue(val float64) *UnderlyingStartValueField {
 }
 
 //UnderlyingStateOrProvinceOfIssueField is a STRING field
-type UnderlyingStateOrProvinceOfIssueField struct{ fix.StringValue }
+type UnderlyingStateOrProvinceOfIssueField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingStateOrProvinceOfIssue (593)
-func (f UnderlyingStateOrProvinceOfIssueField) Tag() fix.Tag {
+func (f UnderlyingStateOrProvinceOfIssueField) Tag() quickfix.Tag {
 	return tag.UnderlyingStateOrProvinceOfIssue
 }
 
@@ -20691,10 +20739,10 @@ func NewUnderlyingStateOrProvinceOfIssue(val string) *UnderlyingStateOrProvinceO
 }
 
 //UnderlyingStipTypeField is a STRING field
-type UnderlyingStipTypeField struct{ fix.StringValue }
+type UnderlyingStipTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingStipType (888)
-func (f UnderlyingStipTypeField) Tag() fix.Tag { return tag.UnderlyingStipType }
+func (f UnderlyingStipTypeField) Tag() quickfix.Tag { return tag.UnderlyingStipType }
 
 //NewUnderlyingStipType returns a new UnderlyingStipTypeField initialized with val
 func NewUnderlyingStipType(val string) *UnderlyingStipTypeField {
@@ -20704,10 +20752,10 @@ func NewUnderlyingStipType(val string) *UnderlyingStipTypeField {
 }
 
 //UnderlyingStipValueField is a STRING field
-type UnderlyingStipValueField struct{ fix.StringValue }
+type UnderlyingStipValueField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingStipValue (889)
-func (f UnderlyingStipValueField) Tag() fix.Tag { return tag.UnderlyingStipValue }
+func (f UnderlyingStipValueField) Tag() quickfix.Tag { return tag.UnderlyingStipValue }
 
 //NewUnderlyingStipValue returns a new UnderlyingStipValueField initialized with val
 func NewUnderlyingStipValue(val string) *UnderlyingStipValueField {
@@ -20717,10 +20765,10 @@ func NewUnderlyingStipValue(val string) *UnderlyingStipValueField {
 }
 
 //UnderlyingStrikeCurrencyField is a CURRENCY field
-type UnderlyingStrikeCurrencyField struct{ fix.CurrencyValue }
+type UnderlyingStrikeCurrencyField struct{ quickfix.CurrencyValue }
 
 //Tag returns tag.UnderlyingStrikeCurrency (941)
-func (f UnderlyingStrikeCurrencyField) Tag() fix.Tag { return tag.UnderlyingStrikeCurrency }
+func (f UnderlyingStrikeCurrencyField) Tag() quickfix.Tag { return tag.UnderlyingStrikeCurrency }
 
 //NewUnderlyingStrikeCurrency returns a new UnderlyingStrikeCurrencyField initialized with val
 func NewUnderlyingStrikeCurrency(val string) *UnderlyingStrikeCurrencyField {
@@ -20730,10 +20778,10 @@ func NewUnderlyingStrikeCurrency(val string) *UnderlyingStrikeCurrencyField {
 }
 
 //UnderlyingStrikePriceField is a PRICE field
-type UnderlyingStrikePriceField struct{ fix.PriceValue }
+type UnderlyingStrikePriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.UnderlyingStrikePrice (316)
-func (f UnderlyingStrikePriceField) Tag() fix.Tag { return tag.UnderlyingStrikePrice }
+func (f UnderlyingStrikePriceField) Tag() quickfix.Tag { return tag.UnderlyingStrikePrice }
 
 //NewUnderlyingStrikePrice returns a new UnderlyingStrikePriceField initialized with val
 func NewUnderlyingStrikePrice(val float64) *UnderlyingStrikePriceField {
@@ -20743,10 +20791,10 @@ func NewUnderlyingStrikePrice(val float64) *UnderlyingStrikePriceField {
 }
 
 //UnderlyingSymbolField is a STRING field
-type UnderlyingSymbolField struct{ fix.StringValue }
+type UnderlyingSymbolField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSymbol (311)
-func (f UnderlyingSymbolField) Tag() fix.Tag { return tag.UnderlyingSymbol }
+func (f UnderlyingSymbolField) Tag() quickfix.Tag { return tag.UnderlyingSymbol }
 
 //NewUnderlyingSymbol returns a new UnderlyingSymbolField initialized with val
 func NewUnderlyingSymbol(val string) *UnderlyingSymbolField {
@@ -20756,10 +20804,10 @@ func NewUnderlyingSymbol(val string) *UnderlyingSymbolField {
 }
 
 //UnderlyingSymbolSfxField is a STRING field
-type UnderlyingSymbolSfxField struct{ fix.StringValue }
+type UnderlyingSymbolSfxField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingSymbolSfx (312)
-func (f UnderlyingSymbolSfxField) Tag() fix.Tag { return tag.UnderlyingSymbolSfx }
+func (f UnderlyingSymbolSfxField) Tag() quickfix.Tag { return tag.UnderlyingSymbolSfx }
 
 //NewUnderlyingSymbolSfx returns a new UnderlyingSymbolSfxField initialized with val
 func NewUnderlyingSymbolSfx(val string) *UnderlyingSymbolSfxField {
@@ -20769,10 +20817,10 @@ func NewUnderlyingSymbolSfx(val string) *UnderlyingSymbolSfxField {
 }
 
 //UnderlyingTimeUnitField is a STRING field
-type UnderlyingTimeUnitField struct{ fix.StringValue }
+type UnderlyingTimeUnitField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingTimeUnit (1000)
-func (f UnderlyingTimeUnitField) Tag() fix.Tag { return tag.UnderlyingTimeUnit }
+func (f UnderlyingTimeUnitField) Tag() quickfix.Tag { return tag.UnderlyingTimeUnit }
 
 //NewUnderlyingTimeUnit returns a new UnderlyingTimeUnitField initialized with val
 func NewUnderlyingTimeUnit(val string) *UnderlyingTimeUnitField {
@@ -20782,10 +20830,10 @@ func NewUnderlyingTimeUnit(val string) *UnderlyingTimeUnitField {
 }
 
 //UnderlyingTradingSessionIDField is a STRING field
-type UnderlyingTradingSessionIDField struct{ fix.StringValue }
+type UnderlyingTradingSessionIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingTradingSessionID (822)
-func (f UnderlyingTradingSessionIDField) Tag() fix.Tag { return tag.UnderlyingTradingSessionID }
+func (f UnderlyingTradingSessionIDField) Tag() quickfix.Tag { return tag.UnderlyingTradingSessionID }
 
 //NewUnderlyingTradingSessionID returns a new UnderlyingTradingSessionIDField initialized with val
 func NewUnderlyingTradingSessionID(val string) *UnderlyingTradingSessionIDField {
@@ -20795,10 +20843,12 @@ func NewUnderlyingTradingSessionID(val string) *UnderlyingTradingSessionIDField 
 }
 
 //UnderlyingTradingSessionSubIDField is a STRING field
-type UnderlyingTradingSessionSubIDField struct{ fix.StringValue }
+type UnderlyingTradingSessionSubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingTradingSessionSubID (823)
-func (f UnderlyingTradingSessionSubIDField) Tag() fix.Tag { return tag.UnderlyingTradingSessionSubID }
+func (f UnderlyingTradingSessionSubIDField) Tag() quickfix.Tag {
+	return tag.UnderlyingTradingSessionSubID
+}
 
 //NewUnderlyingTradingSessionSubID returns a new UnderlyingTradingSessionSubIDField initialized with val
 func NewUnderlyingTradingSessionSubID(val string) *UnderlyingTradingSessionSubIDField {
@@ -20808,10 +20858,10 @@ func NewUnderlyingTradingSessionSubID(val string) *UnderlyingTradingSessionSubID
 }
 
 //UnderlyingUnitOfMeasureField is a STRING field
-type UnderlyingUnitOfMeasureField struct{ fix.StringValue }
+type UnderlyingUnitOfMeasureField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnderlyingUnitOfMeasure (998)
-func (f UnderlyingUnitOfMeasureField) Tag() fix.Tag { return tag.UnderlyingUnitOfMeasure }
+func (f UnderlyingUnitOfMeasureField) Tag() quickfix.Tag { return tag.UnderlyingUnitOfMeasure }
 
 //NewUnderlyingUnitOfMeasure returns a new UnderlyingUnitOfMeasureField initialized with val
 func NewUnderlyingUnitOfMeasure(val string) *UnderlyingUnitOfMeasureField {
@@ -20821,10 +20871,10 @@ func NewUnderlyingUnitOfMeasure(val string) *UnderlyingUnitOfMeasureField {
 }
 
 //UnderlyingUnitOfMeasureQtyField is a QTY field
-type UnderlyingUnitOfMeasureQtyField struct{ fix.QtyValue }
+type UnderlyingUnitOfMeasureQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.UnderlyingUnitOfMeasureQty (1423)
-func (f UnderlyingUnitOfMeasureQtyField) Tag() fix.Tag { return tag.UnderlyingUnitOfMeasureQty }
+func (f UnderlyingUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.UnderlyingUnitOfMeasureQty }
 
 //NewUnderlyingUnitOfMeasureQty returns a new UnderlyingUnitOfMeasureQtyField initialized with val
 func NewUnderlyingUnitOfMeasureQty(val float64) *UnderlyingUnitOfMeasureQtyField {
@@ -20834,10 +20884,10 @@ func NewUnderlyingUnitOfMeasureQty(val float64) *UnderlyingUnitOfMeasureQtyField
 }
 
 //UndlyInstrumentPartyIDField is a STRING field
-type UndlyInstrumentPartyIDField struct{ fix.StringValue }
+type UndlyInstrumentPartyIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UndlyInstrumentPartyID (1059)
-func (f UndlyInstrumentPartyIDField) Tag() fix.Tag { return tag.UndlyInstrumentPartyID }
+func (f UndlyInstrumentPartyIDField) Tag() quickfix.Tag { return tag.UndlyInstrumentPartyID }
 
 //NewUndlyInstrumentPartyID returns a new UndlyInstrumentPartyIDField initialized with val
 func NewUndlyInstrumentPartyID(val string) *UndlyInstrumentPartyIDField {
@@ -20847,10 +20897,10 @@ func NewUndlyInstrumentPartyID(val string) *UndlyInstrumentPartyIDField {
 }
 
 //UndlyInstrumentPartyIDSourceField is a CHAR field
-type UndlyInstrumentPartyIDSourceField struct{ fix.CharValue }
+type UndlyInstrumentPartyIDSourceField struct{ quickfix.CharValue }
 
 //Tag returns tag.UndlyInstrumentPartyIDSource (1060)
-func (f UndlyInstrumentPartyIDSourceField) Tag() fix.Tag { return tag.UndlyInstrumentPartyIDSource }
+func (f UndlyInstrumentPartyIDSourceField) Tag() quickfix.Tag { return tag.UndlyInstrumentPartyIDSource }
 
 //NewUndlyInstrumentPartyIDSource returns a new UndlyInstrumentPartyIDSourceField initialized with val
 func NewUndlyInstrumentPartyIDSource(val string) *UndlyInstrumentPartyIDSourceField {
@@ -20860,10 +20910,10 @@ func NewUndlyInstrumentPartyIDSource(val string) *UndlyInstrumentPartyIDSourceFi
 }
 
 //UndlyInstrumentPartyRoleField is a INT field
-type UndlyInstrumentPartyRoleField struct{ fix.IntValue }
+type UndlyInstrumentPartyRoleField struct{ quickfix.IntValue }
 
 //Tag returns tag.UndlyInstrumentPartyRole (1061)
-func (f UndlyInstrumentPartyRoleField) Tag() fix.Tag { return tag.UndlyInstrumentPartyRole }
+func (f UndlyInstrumentPartyRoleField) Tag() quickfix.Tag { return tag.UndlyInstrumentPartyRole }
 
 //NewUndlyInstrumentPartyRole returns a new UndlyInstrumentPartyRoleField initialized with val
 func NewUndlyInstrumentPartyRole(val int) *UndlyInstrumentPartyRoleField {
@@ -20873,10 +20923,10 @@ func NewUndlyInstrumentPartyRole(val int) *UndlyInstrumentPartyRoleField {
 }
 
 //UndlyInstrumentPartySubIDField is a STRING field
-type UndlyInstrumentPartySubIDField struct{ fix.StringValue }
+type UndlyInstrumentPartySubIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UndlyInstrumentPartySubID (1063)
-func (f UndlyInstrumentPartySubIDField) Tag() fix.Tag { return tag.UndlyInstrumentPartySubID }
+func (f UndlyInstrumentPartySubIDField) Tag() quickfix.Tag { return tag.UndlyInstrumentPartySubID }
 
 //NewUndlyInstrumentPartySubID returns a new UndlyInstrumentPartySubIDField initialized with val
 func NewUndlyInstrumentPartySubID(val string) *UndlyInstrumentPartySubIDField {
@@ -20886,10 +20936,12 @@ func NewUndlyInstrumentPartySubID(val string) *UndlyInstrumentPartySubIDField {
 }
 
 //UndlyInstrumentPartySubIDTypeField is a INT field
-type UndlyInstrumentPartySubIDTypeField struct{ fix.IntValue }
+type UndlyInstrumentPartySubIDTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.UndlyInstrumentPartySubIDType (1064)
-func (f UndlyInstrumentPartySubIDTypeField) Tag() fix.Tag { return tag.UndlyInstrumentPartySubIDType }
+func (f UndlyInstrumentPartySubIDTypeField) Tag() quickfix.Tag {
+	return tag.UndlyInstrumentPartySubIDType
+}
 
 //NewUndlyInstrumentPartySubIDType returns a new UndlyInstrumentPartySubIDTypeField initialized with val
 func NewUndlyInstrumentPartySubIDType(val int) *UndlyInstrumentPartySubIDTypeField {
@@ -20899,10 +20951,10 @@ func NewUndlyInstrumentPartySubIDType(val int) *UndlyInstrumentPartySubIDTypeFie
 }
 
 //UnitOfMeasureField is a STRING field
-type UnitOfMeasureField struct{ fix.StringValue }
+type UnitOfMeasureField struct{ quickfix.StringValue }
 
 //Tag returns tag.UnitOfMeasure (996)
-func (f UnitOfMeasureField) Tag() fix.Tag { return tag.UnitOfMeasure }
+func (f UnitOfMeasureField) Tag() quickfix.Tag { return tag.UnitOfMeasure }
 
 //NewUnitOfMeasure returns a new UnitOfMeasureField initialized with val
 func NewUnitOfMeasure(val string) *UnitOfMeasureField {
@@ -20912,10 +20964,10 @@ func NewUnitOfMeasure(val string) *UnitOfMeasureField {
 }
 
 //UnitOfMeasureQtyField is a QTY field
-type UnitOfMeasureQtyField struct{ fix.QtyValue }
+type UnitOfMeasureQtyField struct{ quickfix.QtyValue }
 
 //Tag returns tag.UnitOfMeasureQty (1147)
-func (f UnitOfMeasureQtyField) Tag() fix.Tag { return tag.UnitOfMeasureQty }
+func (f UnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.UnitOfMeasureQty }
 
 //NewUnitOfMeasureQty returns a new UnitOfMeasureQtyField initialized with val
 func NewUnitOfMeasureQty(val float64) *UnitOfMeasureQtyField {
@@ -20925,10 +20977,10 @@ func NewUnitOfMeasureQty(val float64) *UnitOfMeasureQtyField {
 }
 
 //UnsolicitedIndicatorField is a BOOLEAN field
-type UnsolicitedIndicatorField struct{ fix.BooleanValue }
+type UnsolicitedIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.UnsolicitedIndicator (325)
-func (f UnsolicitedIndicatorField) Tag() fix.Tag { return tag.UnsolicitedIndicator }
+func (f UnsolicitedIndicatorField) Tag() quickfix.Tag { return tag.UnsolicitedIndicator }
 
 //NewUnsolicitedIndicator returns a new UnsolicitedIndicatorField initialized with val
 func NewUnsolicitedIndicator(val bool) *UnsolicitedIndicatorField {
@@ -20938,10 +20990,10 @@ func NewUnsolicitedIndicator(val bool) *UnsolicitedIndicatorField {
 }
 
 //UrgencyField is a CHAR field
-type UrgencyField struct{ fix.CharValue }
+type UrgencyField struct{ quickfix.CharValue }
 
 //Tag returns tag.Urgency (61)
-func (f UrgencyField) Tag() fix.Tag { return tag.Urgency }
+func (f UrgencyField) Tag() quickfix.Tag { return tag.Urgency }
 
 //NewUrgency returns a new UrgencyField initialized with val
 func NewUrgency(val string) *UrgencyField {
@@ -20951,10 +21003,10 @@ func NewUrgency(val string) *UrgencyField {
 }
 
 //UserRequestIDField is a STRING field
-type UserRequestIDField struct{ fix.StringValue }
+type UserRequestIDField struct{ quickfix.StringValue }
 
 //Tag returns tag.UserRequestID (923)
-func (f UserRequestIDField) Tag() fix.Tag { return tag.UserRequestID }
+func (f UserRequestIDField) Tag() quickfix.Tag { return tag.UserRequestID }
 
 //NewUserRequestID returns a new UserRequestIDField initialized with val
 func NewUserRequestID(val string) *UserRequestIDField {
@@ -20964,10 +21016,10 @@ func NewUserRequestID(val string) *UserRequestIDField {
 }
 
 //UserRequestTypeField is a INT field
-type UserRequestTypeField struct{ fix.IntValue }
+type UserRequestTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.UserRequestType (924)
-func (f UserRequestTypeField) Tag() fix.Tag { return tag.UserRequestType }
+func (f UserRequestTypeField) Tag() quickfix.Tag { return tag.UserRequestType }
 
 //NewUserRequestType returns a new UserRequestTypeField initialized with val
 func NewUserRequestType(val int) *UserRequestTypeField {
@@ -20977,10 +21029,10 @@ func NewUserRequestType(val int) *UserRequestTypeField {
 }
 
 //UserStatusField is a INT field
-type UserStatusField struct{ fix.IntValue }
+type UserStatusField struct{ quickfix.IntValue }
 
 //Tag returns tag.UserStatus (926)
-func (f UserStatusField) Tag() fix.Tag { return tag.UserStatus }
+func (f UserStatusField) Tag() quickfix.Tag { return tag.UserStatus }
 
 //NewUserStatus returns a new UserStatusField initialized with val
 func NewUserStatus(val int) *UserStatusField {
@@ -20990,10 +21042,10 @@ func NewUserStatus(val int) *UserStatusField {
 }
 
 //UserStatusTextField is a STRING field
-type UserStatusTextField struct{ fix.StringValue }
+type UserStatusTextField struct{ quickfix.StringValue }
 
 //Tag returns tag.UserStatusText (927)
-func (f UserStatusTextField) Tag() fix.Tag { return tag.UserStatusText }
+func (f UserStatusTextField) Tag() quickfix.Tag { return tag.UserStatusText }
 
 //NewUserStatusText returns a new UserStatusTextField initialized with val
 func NewUserStatusText(val string) *UserStatusTextField {
@@ -21003,10 +21055,10 @@ func NewUserStatusText(val string) *UserStatusTextField {
 }
 
 //UsernameField is a STRING field
-type UsernameField struct{ fix.StringValue }
+type UsernameField struct{ quickfix.StringValue }
 
 //Tag returns tag.Username (553)
-func (f UsernameField) Tag() fix.Tag { return tag.Username }
+func (f UsernameField) Tag() quickfix.Tag { return tag.Username }
 
 //NewUsername returns a new UsernameField initialized with val
 func NewUsername(val string) *UsernameField {
@@ -21016,16 +21068,16 @@ func NewUsername(val string) *UsernameField {
 }
 
 //ValidUntilTimeField is a UTCTIMESTAMP field
-type ValidUntilTimeField struct{ fix.UTCTimestampValue }
+type ValidUntilTimeField struct{ quickfix.UTCTimestampValue }
 
 //Tag returns tag.ValidUntilTime (62)
-func (f ValidUntilTimeField) Tag() fix.Tag { return tag.ValidUntilTime }
+func (f ValidUntilTimeField) Tag() quickfix.Tag { return tag.ValidUntilTime }
 
 //ValuationMethodField is a STRING field
-type ValuationMethodField struct{ fix.StringValue }
+type ValuationMethodField struct{ quickfix.StringValue }
 
 //Tag returns tag.ValuationMethod (1197)
-func (f ValuationMethodField) Tag() fix.Tag { return tag.ValuationMethod }
+func (f ValuationMethodField) Tag() quickfix.Tag { return tag.ValuationMethod }
 
 //NewValuationMethod returns a new ValuationMethodField initialized with val
 func NewValuationMethod(val string) *ValuationMethodField {
@@ -21035,10 +21087,10 @@ func NewValuationMethod(val string) *ValuationMethodField {
 }
 
 //ValueOfFuturesField is a AMT field
-type ValueOfFuturesField struct{ fix.AmtValue }
+type ValueOfFuturesField struct{ quickfix.AmtValue }
 
 //Tag returns tag.ValueOfFutures (408)
-func (f ValueOfFuturesField) Tag() fix.Tag { return tag.ValueOfFutures }
+func (f ValueOfFuturesField) Tag() quickfix.Tag { return tag.ValueOfFutures }
 
 //NewValueOfFutures returns a new ValueOfFuturesField initialized with val
 func NewValueOfFutures(val float64) *ValueOfFuturesField {
@@ -21048,10 +21100,10 @@ func NewValueOfFutures(val float64) *ValueOfFuturesField {
 }
 
 //VenueTypeField is a CHAR field
-type VenueTypeField struct{ fix.CharValue }
+type VenueTypeField struct{ quickfix.CharValue }
 
 //Tag returns tag.VenueType (1430)
-func (f VenueTypeField) Tag() fix.Tag { return tag.VenueType }
+func (f VenueTypeField) Tag() quickfix.Tag { return tag.VenueType }
 
 //NewVenueType returns a new VenueTypeField initialized with val
 func NewVenueType(val string) *VenueTypeField {
@@ -21061,10 +21113,10 @@ func NewVenueType(val string) *VenueTypeField {
 }
 
 //VolatilityField is a FLOAT field
-type VolatilityField struct{ fix.FloatValue }
+type VolatilityField struct{ quickfix.FloatValue }
 
 //Tag returns tag.Volatility (1188)
-func (f VolatilityField) Tag() fix.Tag { return tag.Volatility }
+func (f VolatilityField) Tag() quickfix.Tag { return tag.Volatility }
 
 //NewVolatility returns a new VolatilityField initialized with val
 func NewVolatility(val float64) *VolatilityField {
@@ -21074,10 +21126,10 @@ func NewVolatility(val float64) *VolatilityField {
 }
 
 //WaveNoField is a STRING field
-type WaveNoField struct{ fix.StringValue }
+type WaveNoField struct{ quickfix.StringValue }
 
 //Tag returns tag.WaveNo (105)
-func (f WaveNoField) Tag() fix.Tag { return tag.WaveNo }
+func (f WaveNoField) Tag() quickfix.Tag { return tag.WaveNo }
 
 //NewWaveNo returns a new WaveNoField initialized with val
 func NewWaveNo(val string) *WaveNoField {
@@ -21087,10 +21139,10 @@ func NewWaveNo(val string) *WaveNoField {
 }
 
 //WorkingIndicatorField is a BOOLEAN field
-type WorkingIndicatorField struct{ fix.BooleanValue }
+type WorkingIndicatorField struct{ quickfix.BooleanValue }
 
 //Tag returns tag.WorkingIndicator (636)
-func (f WorkingIndicatorField) Tag() fix.Tag { return tag.WorkingIndicator }
+func (f WorkingIndicatorField) Tag() quickfix.Tag { return tag.WorkingIndicator }
 
 //NewWorkingIndicator returns a new WorkingIndicatorField initialized with val
 func NewWorkingIndicator(val bool) *WorkingIndicatorField {
@@ -21100,10 +21152,10 @@ func NewWorkingIndicator(val bool) *WorkingIndicatorField {
 }
 
 //WtAverageLiquidityField is a PERCENTAGE field
-type WtAverageLiquidityField struct{ fix.PercentageValue }
+type WtAverageLiquidityField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.WtAverageLiquidity (410)
-func (f WtAverageLiquidityField) Tag() fix.Tag { return tag.WtAverageLiquidity }
+func (f WtAverageLiquidityField) Tag() quickfix.Tag { return tag.WtAverageLiquidity }
 
 //NewWtAverageLiquidity returns a new WtAverageLiquidityField initialized with val
 func NewWtAverageLiquidity(val float64) *WtAverageLiquidityField {
@@ -21113,10 +21165,10 @@ func NewWtAverageLiquidity(val float64) *WtAverageLiquidityField {
 }
 
 //XmlDataField is a DATA field
-type XmlDataField struct{ fix.DataValue }
+type XmlDataField struct{ quickfix.DataValue }
 
 //Tag returns tag.XmlData (213)
-func (f XmlDataField) Tag() fix.Tag { return tag.XmlData }
+func (f XmlDataField) Tag() quickfix.Tag { return tag.XmlData }
 
 //NewXmlData returns a new XmlDataField initialized with val
 func NewXmlData(val string) *XmlDataField {
@@ -21126,10 +21178,10 @@ func NewXmlData(val string) *XmlDataField {
 }
 
 //XmlDataLenField is a LENGTH field
-type XmlDataLenField struct{ fix.LengthValue }
+type XmlDataLenField struct{ quickfix.LengthValue }
 
 //Tag returns tag.XmlDataLen (212)
-func (f XmlDataLenField) Tag() fix.Tag { return tag.XmlDataLen }
+func (f XmlDataLenField) Tag() quickfix.Tag { return tag.XmlDataLen }
 
 //NewXmlDataLen returns a new XmlDataLenField initialized with val
 func NewXmlDataLen(val int) *XmlDataLenField {
@@ -21139,10 +21191,10 @@ func NewXmlDataLen(val int) *XmlDataLenField {
 }
 
 //YieldField is a PERCENTAGE field
-type YieldField struct{ fix.PercentageValue }
+type YieldField struct{ quickfix.PercentageValue }
 
 //Tag returns tag.Yield (236)
-func (f YieldField) Tag() fix.Tag { return tag.Yield }
+func (f YieldField) Tag() quickfix.Tag { return tag.Yield }
 
 //NewYield returns a new YieldField initialized with val
 func NewYield(val float64) *YieldField {
@@ -21152,10 +21204,10 @@ func NewYield(val float64) *YieldField {
 }
 
 //YieldCalcDateField is a LOCALMKTDATE field
-type YieldCalcDateField struct{ fix.LocalMktDateValue }
+type YieldCalcDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.YieldCalcDate (701)
-func (f YieldCalcDateField) Tag() fix.Tag { return tag.YieldCalcDate }
+func (f YieldCalcDateField) Tag() quickfix.Tag { return tag.YieldCalcDate }
 
 //NewYieldCalcDate returns a new YieldCalcDateField initialized with val
 func NewYieldCalcDate(val string) *YieldCalcDateField {
@@ -21165,10 +21217,10 @@ func NewYieldCalcDate(val string) *YieldCalcDateField {
 }
 
 //YieldRedemptionDateField is a LOCALMKTDATE field
-type YieldRedemptionDateField struct{ fix.LocalMktDateValue }
+type YieldRedemptionDateField struct{ quickfix.LocalMktDateValue }
 
 //Tag returns tag.YieldRedemptionDate (696)
-func (f YieldRedemptionDateField) Tag() fix.Tag { return tag.YieldRedemptionDate }
+func (f YieldRedemptionDateField) Tag() quickfix.Tag { return tag.YieldRedemptionDate }
 
 //NewYieldRedemptionDate returns a new YieldRedemptionDateField initialized with val
 func NewYieldRedemptionDate(val string) *YieldRedemptionDateField {
@@ -21178,10 +21230,10 @@ func NewYieldRedemptionDate(val string) *YieldRedemptionDateField {
 }
 
 //YieldRedemptionPriceField is a PRICE field
-type YieldRedemptionPriceField struct{ fix.PriceValue }
+type YieldRedemptionPriceField struct{ quickfix.PriceValue }
 
 //Tag returns tag.YieldRedemptionPrice (697)
-func (f YieldRedemptionPriceField) Tag() fix.Tag { return tag.YieldRedemptionPrice }
+func (f YieldRedemptionPriceField) Tag() quickfix.Tag { return tag.YieldRedemptionPrice }
 
 //NewYieldRedemptionPrice returns a new YieldRedemptionPriceField initialized with val
 func NewYieldRedemptionPrice(val float64) *YieldRedemptionPriceField {
@@ -21191,10 +21243,10 @@ func NewYieldRedemptionPrice(val float64) *YieldRedemptionPriceField {
 }
 
 //YieldRedemptionPriceTypeField is a INT field
-type YieldRedemptionPriceTypeField struct{ fix.IntValue }
+type YieldRedemptionPriceTypeField struct{ quickfix.IntValue }
 
 //Tag returns tag.YieldRedemptionPriceType (698)
-func (f YieldRedemptionPriceTypeField) Tag() fix.Tag { return tag.YieldRedemptionPriceType }
+func (f YieldRedemptionPriceTypeField) Tag() quickfix.Tag { return tag.YieldRedemptionPriceType }
 
 //NewYieldRedemptionPriceType returns a new YieldRedemptionPriceTypeField initialized with val
 func NewYieldRedemptionPriceType(val int) *YieldRedemptionPriceTypeField {
@@ -21204,10 +21256,10 @@ func NewYieldRedemptionPriceType(val int) *YieldRedemptionPriceTypeField {
 }
 
 //YieldTypeField is a STRING field
-type YieldTypeField struct{ fix.StringValue }
+type YieldTypeField struct{ quickfix.StringValue }
 
 //Tag returns tag.YieldType (235)
-func (f YieldTypeField) Tag() fix.Tag { return tag.YieldType }
+func (f YieldTypeField) Tag() quickfix.Tag { return tag.YieldType }
 
 //NewYieldType returns a new YieldTypeField initialized with val
 func NewYieldType(val string) *YieldTypeField {

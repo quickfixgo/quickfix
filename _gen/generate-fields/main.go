@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/_gen"
+	"github.com/quickfixgo/quickfix/datadictionary"
 	"os"
 	"sort"
 )
@@ -13,7 +13,6 @@ var (
 	fieldMap     map[string]int
 	fieldTypeMap map[string]*datadictionary.FieldType
 	sortedTags   []string
-	pkg          = "fix"
 )
 
 func usage() {
@@ -48,14 +47,14 @@ func genEnums() {
 		fileOut += ")\n"
 	}
 
-	gen.WriteFile("fix/enum/enums.go", fileOut)
+	gen.WriteFile("enum/enums.go", fileOut)
 }
 
 func genFields() {
 	fileOut := "package field\n"
 	fileOut += "import(\n"
-	fileOut += "\"github.com/quickfixgo/quickfix/fix\"\n"
-	fileOut += "\"github.com/quickfixgo/quickfix/fix/tag\"\n"
+	fileOut += "\"github.com/quickfixgo/quickfix\"\n"
+	fileOut += "\"github.com/quickfixgo/quickfix/tag\"\n"
 	fileOut += ")\n"
 
 	for _, tag := range sortedTags {
@@ -151,9 +150,9 @@ func genFields() {
 		}
 
 		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name, field.Type)
-		fileOut += fmt.Sprintf("type %vField struct { fix.%v }\n", field.Name, baseType)
+		fileOut += fmt.Sprintf("type %vField struct { quickfix.%v }\n", field.Name, baseType)
 		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name, field.Tag)
-		fileOut += fmt.Sprintf("func (f %vField) Tag() fix.Tag {return tag.%v}\n", field.Name, field.Name)
+		fileOut += fmt.Sprintf("func (f %vField) Tag() quickfix.Tag {return tag.%v}\n", field.Name, field.Name)
 
 		switch goType {
 		case "string", "int", "float64", "bool":
@@ -166,20 +165,20 @@ func genFields() {
 		}
 	}
 
-	gen.WriteFile("fix/field/fields.go", fileOut)
+	gen.WriteFile("field/fields.go", fileOut)
 }
 
 func genTags() {
 	fileOut := "package tag\n"
-	fileOut += "import(\"github.com/quickfixgo/quickfix/fix\")\n"
+	fileOut += "import(\"github.com/quickfixgo/quickfix\")\n"
 
 	fileOut += "const (\n"
 	for _, tag := range sortedTags {
-		fileOut += fmt.Sprintf("%v fix.Tag = %v\n", tag, fieldMap[tag])
+		fileOut += fmt.Sprintf("%v quickfix.Tag = %v\n", tag, fieldMap[tag])
 	}
 	fileOut += ")\n"
 
-	gen.WriteFile("fix/tag/tag_numbers.go", fileOut)
+	gen.WriteFile("tag/tag_numbers.go", fileOut)
 }
 
 func main() {

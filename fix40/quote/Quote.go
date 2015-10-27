@@ -3,8 +3,8 @@ package quote
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a Quote wrapper for the generic Message type
@@ -168,13 +168,13 @@ func (m Message) GetValidUntilTime(f *field.ValidUntilTimeField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for Quote.
+//New returns an initialized Message with specified required fields for Quote.
 func New(
 	quoteid *field.QuoteIDField,
 	symbol *field.SymbolField,
 	bidpx *field.BidPxField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX40))
 	builder.Header.Set(field.NewMsgType("S"))
 	builder.Body.Set(quoteid)
 	builder.Body.Set(symbol)
@@ -190,5 +190,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX40, "S", r
+	return enum.BeginStringFIX40, "S", r
 }

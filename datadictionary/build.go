@@ -2,7 +2,6 @@ package datadictionary
 
 import (
 	"fmt"
-	"github.com/quickfixgo/quickfix/fix"
 )
 
 type builder struct {
@@ -124,7 +123,7 @@ func (b builder) buildMessageDefs() error {
 
 func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) {
 	m := &MessageDef{Name: xmlMessage.Name, MsgType: xmlMessage.MsgType}
-	m.Fields = make(map[fix.Tag]*FieldDef)
+	m.Fields = make(map[int]*FieldDef)
 	m.FieldsInDeclarationOrder = make([]*FieldDef, 0)
 	m.RequiredTags = make(TagSet)
 	m.Tags = make(TagSet)
@@ -213,7 +212,7 @@ func (b builder) buildFieldDef(xmlField *XMLComponentMember) (*FieldDef, error) 
 }
 
 func (b builder) buildFieldTypes() {
-	b.dict.FieldTypeByTag = make(map[fix.Tag]*FieldType)
+	b.dict.FieldTypeByTag = make(map[int]*FieldType)
 	b.dict.FieldTypeByName = make(map[string]*FieldType)
 	for _, f := range b.doc.Fields {
 		field := buildFieldType(f)
@@ -223,7 +222,7 @@ func (b builder) buildFieldTypes() {
 }
 
 func buildFieldType(xmlField *XMLField) *FieldType {
-	field := FieldType{Name: xmlField.Name, Tag: fix.Tag(xmlField.Number), Type: xmlField.Type}
+	field := FieldType{Name: xmlField.Name, Tag: xmlField.Number, Type: xmlField.Type}
 
 	if len(xmlField.Values) > 0 {
 		field.Enums = make(map[string]Enum)

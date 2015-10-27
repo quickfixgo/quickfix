@@ -1,15 +1,10 @@
 package quickfix
 
-import (
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/tag"
-)
-
 type logonState struct{}
 
 func (s logonState) FixMsgIn(session *Session, msg Message) (nextState sessionState) {
-	msgType := new(fix.StringValue)
-	if err := msg.Header.GetField(tag.MsgType, msgType); err == nil && msgType.Value == "A" {
+	msgType := new(StringValue)
+	if err := msg.Header.GetField(tagMsgType, msgType); err == nil && msgType.Value == "A" {
 		if err := session.handleLogon(msg); err != nil {
 			session.log.OnEvent(err.Error())
 			return latentState{}

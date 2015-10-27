@@ -3,8 +3,8 @@ package quotecancel
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a QuoteCancel wrapper for the generic Message type
@@ -132,12 +132,12 @@ func (m Message) GetNoQuoteEntries(f *field.NoQuoteEntriesField) quickfix.Messag
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for QuoteCancel.
+//New returns an initialized Message with specified required fields for QuoteCancel.
 func New(
 	quoteid *field.QuoteIDField,
 	quotecanceltype *field.QuoteCancelTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
 	builder.Header.Set(field.NewMsgType("Z"))
 	builder.Body.Set(quoteid)
 	builder.Body.Set(quotecanceltype)
@@ -152,5 +152,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX43, "Z", r
+	return enum.BeginStringFIX43, "Z", r
 }

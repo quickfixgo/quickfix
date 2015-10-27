@@ -3,8 +3,7 @@ package quickfix
 import (
 	"bytes"
 	"fmt"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/tag"
+	"github.com/quickfixgo/quickfix/enum"
 	"time"
 )
 
@@ -64,7 +63,7 @@ func parseMessage(rawMessage []byte) (Message, error) {
 	var err error
 
 	//message must start with begin string, body length, msg type
-	if rawMessage, err = extractSpecificField(&msg.fields[fieldIndex], tag.BeginString, rawMessage); err != nil {
+	if rawMessage, err = extractSpecificField(&msg.fields[fieldIndex], tagBeginString, rawMessage); err != nil {
 		return msg, err
 	}
 
@@ -72,7 +71,7 @@ func parseMessage(rawMessage []byte) (Message, error) {
 	fieldIndex++
 
 	parsedFieldBytes := &msg.fields[fieldIndex]
-	if rawMessage, err = extractSpecificField(parsedFieldBytes, tag.BodyLength, rawMessage); err != nil {
+	if rawMessage, err = extractSpecificField(parsedFieldBytes, tagBodyLength, rawMessage); err != nil {
 		return msg, err
 	}
 
@@ -80,7 +79,7 @@ func parseMessage(rawMessage []byte) (Message, error) {
 	fieldIndex++
 
 	parsedFieldBytes = &msg.fields[fieldIndex]
-	if rawMessage, err = extractSpecificField(parsedFieldBytes, tag.MsgType, rawMessage); err != nil {
+	if rawMessage, err = extractSpecificField(parsedFieldBytes, tagMsgType, rawMessage); err != nil {
 		return msg, err
 	}
 
@@ -97,16 +96,16 @@ func parseMessage(rawMessage []byte) (Message, error) {
 		}
 
 		switch {
-		case tag.IsHeader(parsedFieldBytes.Tag):
+		case parsedFieldBytes.Tag.IsHeader():
 			msg.Header.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
-		case tag.IsTrailer(parsedFieldBytes.Tag):
+		case parsedFieldBytes.Tag.IsTrailer():
 			msg.Trailer.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		default:
 			foundBody = true
 			trailerBytes = rawMessage
 			msg.Body.fieldLookup[parsedFieldBytes.Tag] = parsedFieldBytes
 		}
-		if parsedFieldBytes.Tag == tag.CheckSum {
+		if parsedFieldBytes.Tag == tagCheckSum {
 			break
 		}
 
@@ -125,14 +124,14 @@ func parseMessage(rawMessage []byte) (Message, error) {
 	length := 0
 	for _, field := range msg.fields {
 		switch field.Tag {
-		case tag.BeginString, tag.BodyLength, tag.CheckSum: //tags do not contribute to length
+		case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
 		default:
 			length += field.Length()
 		}
 	}
 
-	bodyLength := new(fix.IntValue)
-	msg.Header.GetField(tag.BodyLength, bodyLength)
+	bodyLength := new(IntValue)
+	msg.Header.GetField(tagBodyLength, bodyLength)
 	if bodyLength.Value != length {
 		return msg, parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
 	}
@@ -144,39 +143,39 @@ func parseMessage(rawMessage []byte) (Message, error) {
 func (m Message) reverseRoute() Message {
 	reverseMsg := NewMessage()
 
-	copy := func(src fix.Tag, dest fix.Tag) {
-		if field := new(fix.StringValue); m.Header.GetField(src, field) == nil {
+	copy := func(src Tag, dest Tag) {
+		if field := new(StringValue); m.Header.GetField(src, field) == nil {
 			if len(field.Value) != 0 {
 				reverseMsg.Header.SetField(dest, field)
 			}
 		}
 	}
 
-	copy(tag.SenderCompID, tag.TargetCompID)
-	copy(tag.SenderSubID, tag.TargetSubID)
-	copy(tag.SenderLocationID, tag.TargetLocationID)
+	copy(tagSenderCompID, tagTargetCompID)
+	copy(tagSenderSubID, tagTargetSubID)
+	copy(tagSenderLocationID, tagTargetLocationID)
 
-	copy(tag.TargetCompID, tag.SenderCompID)
-	copy(tag.TargetSubID, tag.SenderSubID)
-	copy(tag.TargetLocationID, tag.SenderLocationID)
+	copy(tagTargetCompID, tagSenderCompID)
+	copy(tagTargetSubID, tagSenderSubID)
+	copy(tagTargetLocationID, tagSenderLocationID)
 
-	copy(tag.OnBehalfOfCompID, tag.DeliverToCompID)
-	copy(tag.OnBehalfOfSubID, tag.DeliverToSubID)
-	copy(tag.DeliverToCompID, tag.OnBehalfOfCompID)
-	copy(tag.DeliverToSubID, tag.OnBehalfOfSubID)
+	copy(tagOnBehalfOfCompID, tagDeliverToCompID)
+	copy(tagOnBehalfOfSubID, tagDeliverToSubID)
+	copy(tagDeliverToCompID, tagOnBehalfOfCompID)
+	copy(tagDeliverToSubID, tagOnBehalfOfSubID)
 
 	//tags added in 4.1
-	if beginString := new(fix.StringValue); m.Header.GetField(tag.BeginString, beginString) == nil {
-		if beginString.Value != fix.BeginString_FIX40 {
-			copy(tag.OnBehalfOfLocationID, tag.DeliverToLocationID)
-			copy(tag.DeliverToLocationID, tag.OnBehalfOfLocationID)
+	if beginString := new(StringValue); m.Header.GetField(tagBeginString, beginString) == nil {
+		if beginString.Value != enum.BeginStringFIX40 {
+			copy(tagOnBehalfOfLocationID, tagDeliverToLocationID)
+			copy(tagDeliverToLocationID, tagOnBehalfOfLocationID)
 		}
 	}
 
 	return reverseMsg
 }
 
-func extractSpecificField(field *fieldBytes, expectedTag fix.Tag, buffer []byte) (remBuffer []byte, err error) {
+func extractSpecificField(field *fieldBytes, expectedTag Tag, buffer []byte) (remBuffer []byte, err error) {
 	remBuffer, err = extractField(field, buffer)
 	switch {
 	case err != nil:
@@ -205,8 +204,8 @@ func (m *Message) String() string {
 	return string(m.rawMessage)
 }
 
-func newCheckSum(value int) *fix.StringField {
-	return fix.NewStringField(tag.CheckSum, fmt.Sprintf("%03d", value))
+func newCheckSum(value int) *StringField {
+	return NewStringField(tagCheckSum, fmt.Sprintf("%03d", value))
 }
 
 func (m *Message) Build() ([]byte, error) {
@@ -224,7 +223,7 @@ func (m *Message) Build() ([]byte, error) {
 
 func (m Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
-	m.Header.Set(fix.NewIntField(tag.BodyLength, bodyLength))
+	m.Header.Set(NewIntField(tagBodyLength, bodyLength))
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
 	m.Trailer.Set(newCheckSum(checkSum))
 }

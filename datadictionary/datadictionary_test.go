@@ -1,7 +1,6 @@
 package datadictionary
 
 import (
-	"github.com/quickfixgo/quickfix/fix/tag"
 	. "gopkg.in/check.v1"
 )
 
@@ -36,16 +35,16 @@ func (s *DataDictionaryTests) TestComponents(c *C) {
 }
 
 func (s *DataDictionaryTests) TestFieldsByTag(c *C) {
-	f, ok := s.dict.FieldTypeByTag[tag.ContraLegRefID]
+	f, ok := s.dict.FieldTypeByTag[655]
 	c.Check(ok, Equals, true)
-	c.Check(f.Tag, Equals, tag.ContraLegRefID)
+	c.Check(f.Tag, Equals, 655)
 	c.Check(f.Name, Equals, "ContraLegRefID")
 	c.Check(f.Type, Equals, "STRING")
 	c.Check(f.Enums, IsNil)
 
-	f, ok = s.dict.FieldTypeByTag[tag.QuoteRequestRejectReason]
+	f, ok = s.dict.FieldTypeByTag[658]
 	c.Check(ok, Equals, true)
-	c.Check(f.Tag, Equals, tag.QuoteRequestRejectReason)
+	c.Check(f.Tag, Equals, 658)
 	c.Check(f.Name, Equals, "QuoteRequestRejectReason")
 	c.Check(f.Type, Equals, "INT")
 
@@ -72,21 +71,21 @@ func (s *DataDictionaryTests) TestMessageRequiredTags(c *C) {
 	m, ok := s.dict.Messages["D"]
 	c.Check(ok, Equals, true)
 
-	_, required := m.RequiredTags[tag.ClOrdID]
+	_, required := m.RequiredTags[11]
 	c.Check(required, Equals, true)
-	_, required = m.RequiredTags[tag.SecondaryClOrdID]
+	_, required = m.RequiredTags[526]
 	c.Check(required, Equals, false)
 
-	_, required = s.dict.Header.RequiredTags[tag.BeginString]
+	_, required = s.dict.Header.RequiredTags[8]
 	c.Check(required, Equals, true)
 
-	_, required = s.dict.Header.RequiredTags[tag.OnBehalfOfCompID]
+	_, required = s.dict.Header.RequiredTags[115]
 	c.Check(required, Equals, false)
 
-	_, required = s.dict.Trailer.RequiredTags[tag.CheckSum]
+	_, required = s.dict.Trailer.RequiredTags[10]
 	c.Check(required, Equals, true)
 
-	_, required = s.dict.Trailer.RequiredTags[tag.Signature]
+	_, required = s.dict.Trailer.RequiredTags[89]
 	c.Check(required, Equals, false)
 
 }
@@ -95,20 +94,20 @@ func (s *DataDictionaryTests) TestMessageTags(c *C) {
 	m, ok := s.dict.Messages["D"]
 	c.Check(ok, Equals, true)
 
-	_, known := m.Tags[tag.ClOrdID]
+	_, known := m.Tags[11]
 	c.Check(known, Equals, true)
-	_, known = m.Tags[tag.SecondaryClOrdID]
-	c.Check(known, Equals, true)
-
-	_, known = s.dict.Header.Tags[tag.BeginString]
+	_, known = m.Tags[526]
 	c.Check(known, Equals, true)
 
-	_, known = s.dict.Header.Tags[tag.OnBehalfOfCompID]
+	_, known = s.dict.Header.Tags[8]
 	c.Check(known, Equals, true)
 
-	_, known = s.dict.Trailer.Tags[tag.CheckSum]
+	_, known = s.dict.Header.Tags[115]
 	c.Check(known, Equals, true)
 
-	_, known = s.dict.Trailer.Tags[tag.Signature]
+	_, known = s.dict.Trailer.Tags[10]
+	c.Check(known, Equals, true)
+
+	_, known = s.dict.Trailer.Tags[89]
 	c.Check(known, Equals, true)
 }

@@ -3,8 +3,8 @@ package rfqrequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a RFQRequest wrapper for the generic Message type
@@ -48,12 +48,12 @@ func (m Message) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeFiel
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for RFQRequest.
+//New returns an initialized Message with specified required fields for RFQRequest.
 func New(
 	rfqreqid *field.RFQReqIDField,
 	norelatedsym *field.NoRelatedSymField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
 	builder.Header.Set(field.NewMsgType("AH"))
 	builder.Body.Set(rfqreqid)
 	builder.Body.Set(norelatedsym)
@@ -68,5 +68,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX44, "AH", r
+	return enum.BeginStringFIX44, "AH", r
 }

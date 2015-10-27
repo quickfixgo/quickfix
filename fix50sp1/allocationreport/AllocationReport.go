@@ -3,12 +3,8 @@ package allocationreport
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a AllocationReport wrapper for the generic Message type
@@ -2092,7 +2088,7 @@ func (m Message) GetNoPosAmt(f *field.NoPosAmtField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for AllocationReport.
+//New returns an initialized Message with specified required fields for AllocationReport.
 func New(
 	allocreportid *field.AllocReportIDField,
 	alloctranstype *field.AllocTransTypeField,
@@ -2103,7 +2099,7 @@ func New(
 	avgpx *field.AvgPxField,
 	tradedate *field.TradeDateField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("AS"))
 	builder.Body.Set(allocreportid)

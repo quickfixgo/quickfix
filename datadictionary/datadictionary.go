@@ -3,7 +3,6 @@ package datadictionary
 
 import (
 	"encoding/xml"
-	"github.com/quickfixgo/quickfix/fix"
 	"os"
 )
 
@@ -13,7 +12,7 @@ type DataDictionary struct {
 	Major           int
 	Minor           int
 	ServicePack     int
-	FieldTypeByTag  map[fix.Tag]*FieldType
+	FieldTypeByTag  map[int]*FieldType
 	FieldTypeByName map[string]*FieldType
 	Messages        map[string]*MessageDef
 	Components      map[string]*Component
@@ -27,10 +26,10 @@ type Component struct {
 }
 
 //TagSet is set for tags.
-type TagSet map[fix.Tag]struct{}
+type TagSet map[int]struct{}
 
 //Add adds a tag to the tagset.
-func (t TagSet) Add(tag fix.Tag) {
+func (t TagSet) Add(tag int) {
 	t[tag] = struct{}{}
 }
 
@@ -46,8 +45,8 @@ func (f FieldDef) IsGroup() bool {
 	return len(f.ChildFields) > 0
 }
 
-func (f FieldDef) childTags() []fix.Tag {
-	tags := make([]fix.Tag, 0, len(f.ChildFields))
+func (f FieldDef) childTags() []int {
+	tags := make([]int, 0, len(f.ChildFields))
 
 	for _, f := range f.ChildFields {
 		tags = append(tags, f.Tag)
@@ -59,8 +58,8 @@ func (f FieldDef) childTags() []fix.Tag {
 	return tags
 }
 
-func (f FieldDef) requiredChildTags() []fix.Tag {
-	tags := make([]fix.Tag, 0)
+func (f FieldDef) requiredChildTags() []int {
+	tags := make([]int, 0)
 
 	for _, f := range f.ChildFields {
 		if !f.Required {
@@ -78,8 +77,8 @@ func (f FieldDef) requiredChildTags() []fix.Tag {
 
 //FieldType holds information relating to a field.  Includes Tag, type, and enums, if defined.
 type FieldType struct {
-	Name string
-	fix.Tag
+	Name  string
+	Tag   int
 	Type  string
 	Enums map[string]Enum
 }
@@ -94,7 +93,7 @@ type Enum struct {
 type MessageDef struct {
 	Name                     string
 	MsgType                  string
-	Fields                   map[fix.Tag]*FieldDef
+	Fields                   map[int]*FieldDef
 	FieldsInDeclarationOrder []*FieldDef
 
 	RequiredTags TagSet

@@ -1,9 +1,7 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/enum"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
 )
 
 type routeKey struct {
@@ -31,45 +29,41 @@ func (c MessageRouter) AddRoute(beginString string, msgType string, router Messa
 
 //Route may be called from the fromApp/fromAdmin callbacks. Messages that cannot be routed will be rejected with UnsupportedMessageType.
 func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectError {
-	beginString := &field.BeginStringField{}
-	err := msg.Header.Get(beginString)
-
-	if err != nil {
-		return err
+	beginString := new(StringField)
+	if err := msg.Header.GetField(tagBeginString, beginString); err != nil {
+		return nil
 	}
 
-	msgType := &field.MsgTypeField{}
-	err = msg.Header.Get(msgType)
-
-	if err != nil {
+	msgType := new(StringField)
+	if err := msg.Header.GetField(tagMsgType, msgType); err != nil {
 		return err
 	}
 
 	return c.tryRoute(beginString, msgType, msg, sessionID)
 }
 
-func (c MessageRouter) tryRoute(beginString *field.BeginStringField, msgType *field.MsgTypeField, msg Message, sessionID SessionID) MessageRejectError {
+func (c MessageRouter) tryRoute(beginString *StringField, msgType *StringField, msg Message, sessionID SessionID) MessageRejectError {
 
-	if beginString.Value == fix.BeginString_FIXT11 && !fix.IsAdminMessageType(msgType.Value) {
-		applVerID := &field.ApplVerIDField{}
-		if err := msg.Header.Get(applVerID); err != nil {
+	if beginString.Value == enum.BeginStringFIXT11 && !isAdminMessageType(msgType.Value) {
+		applVerID := new(StringValue)
+		if err := msg.Header.GetField(tagApplVerID, applVerID); err != nil {
 			session, _ := LookupSession(sessionID)
 			applVerID.Value = session.TargetDefaultApplicationVersionID()
 		}
 
 		switch applVerID.Value {
 		case enum.ApplVerID_FIX40:
-			beginString.Value = fix.BeginString_FIX40
+			beginString.Value = enum.BeginStringFIX40
 		case enum.ApplVerID_FIX41:
-			beginString.Value = fix.BeginString_FIX41
+			beginString.Value = enum.BeginStringFIX41
 		case enum.ApplVerID_FIX42:
-			beginString.Value = fix.BeginString_FIX42
+			beginString.Value = enum.BeginStringFIX42
 		case enum.ApplVerID_FIX43:
-			beginString.Value = fix.BeginString_FIX43
+			beginString.Value = enum.BeginStringFIX43
 		case enum.ApplVerID_FIX44:
-			beginString.Value = fix.BeginString_FIX44
+			beginString.Value = enum.BeginStringFIX44
 		case enum.ApplVerID_FIX50, enum.ApplVerID_FIX50SP1, enum.ApplVerID_FIX50SP2:
-			beginString.Value = fix.BeginString_FIX50
+			beginString.Value = enum.BeginStringFIX50
 		}
 
 		return c.tryRoute(beginString, msgType, msg, sessionID)

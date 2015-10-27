@@ -3,8 +3,8 @@ package marketdatarequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a MarketDataRequest wrapper for the generic Message type
@@ -144,7 +144,7 @@ func (m Message) GetNoTradingSessions(f *field.NoTradingSessionsField) quickfix.
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for MarketDataRequest.
+//New returns an initialized Message with specified required fields for MarketDataRequest.
 func New(
 	mdreqid *field.MDReqIDField,
 	subscriptionrequesttype *field.SubscriptionRequestTypeField,
@@ -152,7 +152,7 @@ func New(
 	nomdentrytypes *field.NoMDEntryTypesField,
 	norelatedsym *field.NoRelatedSymField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
 	builder.Header.Set(field.NewMsgType("V"))
 	builder.Body.Set(mdreqid)
 	builder.Body.Set(subscriptionrequesttype)
@@ -170,5 +170,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX43, "V", r
+	return enum.BeginStringFIX43, "V", r
 }

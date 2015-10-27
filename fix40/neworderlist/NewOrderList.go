@@ -3,8 +3,8 @@ package neworderlist
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a NewOrderList wrapper for the generic Message type
@@ -480,7 +480,7 @@ func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for NewOrderList.
+//New returns an initialized Message with specified required fields for NewOrderList.
 func New(
 	listid *field.ListIDField,
 	listseqno *field.ListSeqNoField,
@@ -492,7 +492,7 @@ func New(
 	orderqty *field.OrderQtyField,
 	ordtype *field.OrdTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX40))
 	builder.Header.Set(field.NewMsgType("E"))
 	builder.Body.Set(listid)
 	builder.Body.Set(listseqno)
@@ -514,5 +514,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX40, "E", r
+	return enum.BeginStringFIX40, "E", r
 }

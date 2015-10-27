@@ -3,8 +3,8 @@ package quoterequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a QuoteRequest wrapper for the generic Message type
@@ -132,12 +132,12 @@ func (m Message) GetOrderQty(f *field.OrderQtyField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for QuoteRequest.
+//New returns an initialized Message with specified required fields for QuoteRequest.
 func New(
 	quotereqid *field.QuoteReqIDField,
 	symbol *field.SymbolField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX40))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX40))
 	builder.Header.Set(field.NewMsgType("R"))
 	builder.Body.Set(quotereqid)
 	builder.Body.Set(symbol)
@@ -152,5 +152,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX40, "R", r
+	return enum.BeginStringFIX40, "R", r
 }

@@ -3,12 +3,8 @@ package assignmentreport
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a AssignmentReport wrapper for the generic Message type
@@ -988,12 +984,12 @@ func (m Message) GetPriorSettlPrice(f *field.PriorSettlPriceField) quickfix.Mess
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for AssignmentReport.
+//New returns an initialized Message with specified required fields for AssignmentReport.
 func New(
 	asgnrptid *field.AsgnRptIDField,
 	clearingbusinessdate *field.ClearingBusinessDateField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("AW"))
 	builder.Body.Set(asgnrptid)
@@ -1009,5 +1005,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX50, "AW", r
+	return enum.BeginStringFIX50, "AW", r
 }

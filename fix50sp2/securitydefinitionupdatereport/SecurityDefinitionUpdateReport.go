@@ -3,12 +3,8 @@ package securitydefinitionupdatereport
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a SecurityDefinitionUpdateReport wrapper for the generic Message type
@@ -1519,7 +1515,7 @@ func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRej
 //New returns an initialized Message with specified required fields for SecurityDefinitionUpdateReport.
 func New() Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
 	builder.Header.Set(field.NewMsgType("BP"))
 	return builder

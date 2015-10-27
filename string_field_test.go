@@ -1,20 +1,20 @@
-package fix
+package quickfix
 
 import (
 	"bytes"
 	"testing"
 )
 
-func TestNewFloatField(t *testing.T) {
+func TestNewStringField(t *testing.T) {
 	var tests = []struct {
 		tag Tag
-		val float64
+		val string
 	}{
-		{Tag(1), 5.0},
+		{Tag(1), "CWB"},
 	}
 
 	for _, test := range tests {
-		field := NewFloatField(test.tag, test.val)
+		field := NewStringField(test.tag, test.val)
 
 		if field.Tag() != test.tag {
 			t.Errorf("got tag %v; want %v", field.Tag(), test.tag)
@@ -26,12 +26,12 @@ func TestNewFloatField(t *testing.T) {
 	}
 }
 
-func TestFloatFieldWrite(t *testing.T) {
+func TestStringFieldWrite(t *testing.T) {
 	var tests = []struct {
-		field *FloatField
+		field *StringField
 		val   []byte
 	}{
-		{NewFloatField(1, 5.0), []byte("5")},
+		{NewStringField(1, "CWB"), []byte("CWB")},
 	}
 
 	for _, test := range tests {
@@ -43,26 +43,26 @@ func TestFloatFieldWrite(t *testing.T) {
 	}
 }
 
-func TestFloatFieldRead(t *testing.T) {
+func TestStringFieldRead(t *testing.T) {
 	var tests = []struct {
 		bytes       []byte
-		value       float64
+		value       string
 		expectError bool
 	}{
-		{[]byte("15"), 15.0, false},
-		{[]byte("blah"), 0.0, true},
-		{[]byte("+200.00"), 0.0, true},
+		{[]byte("blah"), "blah", false},
 	}
 
 	for _, test := range tests {
-		field := new(FloatField)
-		if err := field.Read(test.bytes); err != nil {
-			if !test.expectError {
-				t.Errorf("UnExpected '%v'", err)
-			}
-		} else if test.expectError {
+		field := new(StringField)
+		err := field.Read(test.bytes)
+
+		if test.expectError && err == nil {
 			t.Errorf("Expected error for %v", test.bytes)
-		} else if field.Value != test.value {
+		} else if !test.expectError && err != nil {
+			t.Errorf("UnExpected '%v'", err)
+		}
+
+		if field.Value != test.value {
 			t.Errorf("got %v want %v", field.Value, test.value)
 		}
 	}

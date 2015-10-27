@@ -3,12 +3,8 @@ package liststatus
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a ListStatus wrapper for the generic Message type
@@ -160,7 +156,7 @@ func (m Message) GetNoOrders(f *field.NoOrdersField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for ListStatus.
+//New returns an initialized Message with specified required fields for ListStatus.
 func New(
 	listid *field.ListIDField,
 	liststatustype *field.ListStatusTypeField,
@@ -170,7 +166,7 @@ func New(
 	totnoorders *field.TotNoOrdersField,
 	noorders *field.NoOrdersField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
 	builder.Header.Set(field.NewMsgType("N"))
 	builder.Body.Set(listid)
@@ -191,5 +187,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX50, "N", r
+	return enum.BeginStringFIX50, "N", r
 }

@@ -3,8 +3,8 @@ package securitylist
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a SecurityList wrapper for the generic Message type
@@ -84,13 +84,13 @@ func (m Message) GetNoRelatedSym(f *field.NoRelatedSymField) quickfix.MessageRej
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for SecurityList.
+//New returns an initialized Message with specified required fields for SecurityList.
 func New(
 	securityreqid *field.SecurityReqIDField,
 	securityresponseid *field.SecurityResponseIDField,
 	securityrequestresult *field.SecurityRequestResultField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
 	builder.Header.Set(field.NewMsgType("y"))
 	builder.Body.Set(securityreqid)
 	builder.Body.Set(securityresponseid)
@@ -106,5 +106,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX44, "y", r
+	return enum.BeginStringFIX44, "y", r
 }

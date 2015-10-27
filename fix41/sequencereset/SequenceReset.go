@@ -3,8 +3,8 @@ package sequencereset
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a SequenceReset wrapper for the generic Message type
@@ -36,11 +36,11 @@ func (m Message) GetNewSeqNo(f *field.NewSeqNoField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for SequenceReset.
+//New returns an initialized Message with specified required fields for SequenceReset.
 func New(
 	newseqno *field.NewSeqNoField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX41))
 	builder.Header.Set(field.NewMsgType("4"))
 	builder.Body.Set(newseqno)
 	return builder
@@ -54,5 +54,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX41, "4", r
+	return enum.BeginStringFIX41, "4", r
 }

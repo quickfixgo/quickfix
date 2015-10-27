@@ -3,8 +3,8 @@ package indicationofinterest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a IndicationofInterest wrapper for the generic Message type
@@ -348,7 +348,7 @@ func (m Message) GetURLLink(f *field.URLLinkField) quickfix.MessageRejectError {
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for IndicationofInterest.
+//New returns an initialized Message with specified required fields for IndicationofInterest.
 func New(
 	ioiid *field.IOIidField,
 	ioitranstype *field.IOITransTypeField,
@@ -356,7 +356,7 @@ func New(
 	side *field.SideField,
 	ioishares *field.IOISharesField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX41))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX41))
 	builder.Header.Set(field.NewMsgType("6"))
 	builder.Body.Set(ioiid)
 	builder.Body.Set(ioitranstype)
@@ -374,5 +374,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX41, "6", r
+	return enum.BeginStringFIX41, "6", r
 }

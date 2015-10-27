@@ -3,8 +3,8 @@ package marketdataincrementalrefresh
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a MarketDataIncrementalRefresh wrapper for the generic Message type
@@ -60,11 +60,11 @@ func (m Message) GetApplQueueResolution(f *field.ApplQueueResolutionField) quick
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for MarketDataIncrementalRefresh.
+//New returns an initialized Message with specified required fields for MarketDataIncrementalRefresh.
 func New(
 	nomdentries *field.NoMDEntriesField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
 	builder.Header.Set(field.NewMsgType("X"))
 	builder.Body.Set(nomdentries)
 	return builder
@@ -78,5 +78,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX44, "X", r
+	return enum.BeginStringFIX44, "X", r
 }

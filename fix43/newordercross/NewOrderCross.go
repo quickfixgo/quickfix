@@ -3,8 +3,8 @@ package newordercross
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a NewOrderCross wrapper for the generic Message type
@@ -972,7 +972,7 @@ func (m Message) GetNetMoney(f *field.NetMoneyField) quickfix.MessageRejectError
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for NewOrderCross.
+//New returns an initialized Message with specified required fields for NewOrderCross.
 func New(
 	crossid *field.CrossIDField,
 	crosstype *field.CrossTypeField,
@@ -982,7 +982,7 @@ func New(
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX43))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
 	builder.Header.Set(field.NewMsgType("s"))
 	builder.Body.Set(crossid)
 	builder.Body.Set(crosstype)
@@ -1002,5 +1002,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX43, "s", r
+	return enum.BeginStringFIX43, "s", r
 }

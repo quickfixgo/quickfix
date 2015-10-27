@@ -3,8 +3,8 @@ package securitystatus
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a SecurityStatus wrapper for the generic Message type
@@ -828,10 +828,10 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for SecurityStatus.
+//New returns an initialized Message with specified required fields for SecurityStatus.
 func New() Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
 	builder.Header.Set(field.NewMsgType("f"))
 	return builder
 }
@@ -844,5 +844,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX44, "f", r
+	return enum.BeginStringFIX44, "f", r
 }

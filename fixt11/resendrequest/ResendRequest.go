@@ -3,8 +3,8 @@ package resendrequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a ResendRequest wrapper for the generic Message type
@@ -41,7 +41,7 @@ func New(
 	beginseqno *field.BeginSeqNoField,
 	endseqno *field.EndSeqNoField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewMsgType("2"))
 	builder.Body.Set(beginseqno)
 	builder.Body.Set(endseqno)
@@ -56,5 +56,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIXT11, "2", r
+	return enum.BeginStringFIXT11, "2", r
 }

@@ -3,8 +3,8 @@ package collateralassignment
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a CollateralAssignment wrapper for the generic Message type
@@ -1296,14 +1296,14 @@ func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejec
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for CollateralAssignment.
+//New returns an initialized Message with specified required fields for CollateralAssignment.
 func New(
 	collasgnid *field.CollAsgnIDField,
 	collasgnreason *field.CollAsgnReasonField,
 	collasgntranstype *field.CollAsgnTransTypeField,
 	transacttime *field.TransactTimeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIX44))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
 	builder.Header.Set(field.NewMsgType("AY"))
 	builder.Body.Set(collasgnid)
 	builder.Body.Set(collasgnreason)
@@ -1320,5 +1320,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(Message{msg}, sessionID)
 	}
-	return fix.BeginString_FIX44, "AY", r
+	return enum.BeginStringFIX44, "AY", r
 }

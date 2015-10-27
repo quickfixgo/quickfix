@@ -3,12 +3,8 @@ package multilegordercancelreplace
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/fix"
-	"github.com/quickfixgo/quickfix/fix/field"
-)
-
-import (
-	"github.com/quickfixgo/quickfix/fix/enum"
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 //Message is a MultilegOrderCancelReplace wrapper for the generic Message type
@@ -2452,14 +2448,14 @@ func (m Message) GetRiskFreeRate(f *field.RiskFreeRateField) quickfix.MessageRej
 	return m.Body.Get(f)
 }
 
-//New returns an initialized MessageBuilder with specified required fields for MultilegOrderCancelReplace.
+//New returns an initialized Message with specified required fields for MultilegOrderCancelReplace.
 func New(
 	side *field.SideField,
 	nolegs *field.NoLegsField,
 	transacttime *field.TransactTimeField,
 	ordtype *field.OrdTypeField) Message {
 	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(fix.BeginString_FIXT11))
+	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
 	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
 	builder.Header.Set(field.NewMsgType("AC"))
 	builder.Body.Set(side)
