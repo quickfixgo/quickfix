@@ -15,17 +15,20 @@ const (
 	utcTimestampNoMillisFormat = "20060102-15:04:05"
 )
 
-func (f *UTCTimestampValue) Read(tv []TagValue) (err error) {
+func (f *UTCTimestampValue) Read(tv TagValues) (TagValues, error) {
 	bytes := tv[0].Value
+	var err error
 	//with millisecs
 	if f.Value, err = time.Parse(utcTimestampFormat, string(bytes)); err == nil {
-		return
+		return tv[1:], nil
 	}
 
 	//w/o millisecs
-	f.Value, err = time.Parse(utcTimestampNoMillisFormat, string(bytes))
+	if f.Value, err = time.Parse(utcTimestampNoMillisFormat, string(bytes)); err != nil {
+		return tv, err
+	}
 
-	return
+	return tv[1:], nil
 }
 
 func (f UTCTimestampValue) Write() []byte {
@@ -34,6 +37,10 @@ func (f UTCTimestampValue) Write() []byte {
 	}
 
 	return []byte(f.Value.UTC().Format(utcTimestampFormat))
+}
+
+func (f UTCTimestampValue) Clone() FieldValue {
+	return &UTCTimestampValue{f.Value, f.NoMillis}
 }
 
 //UTCTimestampField is a generic utctimestamp Field Type. Implements Field

@@ -9,7 +9,7 @@ type BooleanValue struct {
 	Value bool
 }
 
-func (f *BooleanValue) Read(tv []TagValue) error {
+func (f *BooleanValue) Read(tv TagValues) (TagValues, error) {
 	bytes := tv[0].Value
 	switch string(bytes) {
 	case "Y":
@@ -17,10 +17,10 @@ func (f *BooleanValue) Read(tv []TagValue) error {
 	case "N":
 		f.Value = false
 	default:
-		return errors.New("Invalid Value for bool: " + string(bytes))
+		return tv, errors.New("Invalid Value for bool: " + string(bytes))
 	}
 
-	return nil
+	return tv[1:], nil
 }
 
 func (f BooleanValue) Write() []byte {
@@ -29,6 +29,10 @@ func (f BooleanValue) Write() []byte {
 	}
 
 	return []byte("N")
+}
+
+func (f BooleanValue) Clone() FieldValue {
+	return &BooleanValue{f.Value}
 }
 
 //BooleanField is a generic boolean Field Type, Implements Field.

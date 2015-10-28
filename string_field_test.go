@@ -54,7 +54,7 @@ func TestStringFieldRead(t *testing.T) {
 
 	for _, test := range tests {
 		field := new(StringField)
-		err := field.Read([]TagValue{TagValue{Value: test.bytes}})
+		_, err := field.Read([]TagValue{TagValue{Value: test.bytes}})
 
 		if test.expectError && err == nil {
 			t.Errorf("Expected error for %v", test.bytes)

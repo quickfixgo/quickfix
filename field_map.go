@@ -96,7 +96,7 @@ func (m FieldMap) GetField(tag Tag, parser FieldValue) MessageRejectError {
 		return conditionallyRequiredFieldMissing(tag)
 	}
 
-	if err := parser.Read(tagValues[0:1]); err != nil {
+	if _, err := parser.Read(tagValues); err != nil {
 		return incorrectDataFormatForValue(tag)
 	}
 
@@ -131,9 +131,7 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 
 	for _, tag := range tags {
 		if fields, ok := m.tagLookup[tag]; ok {
-			for _, field := range fields {
-				buffer.Write(field.bytes)
-			}
+			buffer.Write(fields[0].bytes)
 		}
 	}
 }
@@ -141,12 +139,11 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 func (m FieldMap) total() int {
 	total := 0
 	for _, fields := range m.tagLookup {
-		for _, field := range fields {
-			switch field.Tag {
-			case tagCheckSum: //tag does not contribute to total
-			default:
-				total += field.total()
-			}
+		field := fields[0]
+		switch field.Tag {
+		case tagCheckSum: //tag does not contribute to total
+		default:
+			total += field.total()
 		}
 	}
 
@@ -156,12 +153,11 @@ func (m FieldMap) total() int {
 func (m FieldMap) length() int {
 	length := 0
 	for _, fields := range m.tagLookup {
-		for _, field := range fields {
-			switch field.Tag {
-			case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
-			default:
-				length += field.length()
-			}
+		field := fields[0]
+		switch field.Tag {
+		case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
+		default:
+			length += field.length()
 		}
 	}
 
