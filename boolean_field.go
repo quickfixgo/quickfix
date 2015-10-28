@@ -9,7 +9,8 @@ type BooleanValue struct {
 	Value bool
 }
 
-func (f *BooleanValue) Read(bytes []byte) error {
+func (f *BooleanValue) Read(tv []TagValue) error {
+	bytes := tv[0].Value
 	switch string(bytes) {
 	case "Y":
 		f.Value = true

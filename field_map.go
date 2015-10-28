@@ -8,21 +8,21 @@ import (
 
 //FieldMap is a collection of fix fields that make up a fix message.
 type FieldMap struct {
-	fieldLookup map[Tag]*fieldBytes
-	fieldOrder
+	tagLookup map[Tag][]TagValue
+	tagOrder
 }
 
-// fieldOrder true if tag i should occur before tag j
-type fieldOrder func(i, j Tag) bool
+// tagOrder true if tag i should occur before tag j
+type tagOrder func(i, j Tag) bool
 
-type fieldSort struct {
+type tagSort struct {
 	tags    []Tag
-	compare fieldOrder
+	compare tagOrder
 }
 
-func (t fieldSort) Len() int           { return len(t.tags) }
-func (t fieldSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tags[i] }
-func (t fieldSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
+func (t tagSort) Len() int           { return len(t.tags) }
+func (t tagSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tags[i] }
+func (t tagSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
 //in the message header, the first 3 tags in the message header must be 8,9,35
 func headerFieldOrder(i, j Tag) bool {
@@ -67,14 +67,14 @@ func trailerFieldOrder(i, j Tag) bool {
 	return i < j
 }
 
-func (m *FieldMap) init(ordering fieldOrder) {
-	m.fieldLookup = make(map[Tag]*fieldBytes)
-	m.fieldOrder = ordering
+func (m *FieldMap) init(ordering tagOrder) {
+	m.tagLookup = make(map[Tag][]TagValue)
+	m.tagOrder = ordering
 }
 
 func (m FieldMap) Tags() []Tag {
-	tags := make([]Tag, 0, len(m.fieldLookup))
-	for t := range m.fieldLookup {
+	tags := make([]Tag, 0, len(m.tagLookup))
+	for t := range m.tagLookup {
 		tags = append(tags, t)
 	}
 
@@ -86,18 +86,17 @@ func (m FieldMap) Get(parser Field) MessageRejectError {
 }
 
 func (m FieldMap) Has(tag Tag) bool {
-	_, ok := m.fieldLookup[tag]
+	_, ok := m.tagLookup[tag]
 	return ok
 }
 
 func (m FieldMap) GetField(tag Tag, parser FieldValue) MessageRejectError {
-	field, ok := m.fieldLookup[tag]
-
+	tagValues, ok := m.tagLookup[tag]
 	if !ok {
 		return conditionallyRequiredFieldMissing(tag)
 	}
 
-	if err := parser.Read(field.Value); err != nil {
+	if err := parser.Read(tagValues[0:1]); err != nil {
 		return incorrectDataFormatForValue(tag)
 	}
 
@@ -105,20 +104,25 @@ func (m FieldMap) GetField(tag Tag, parser FieldValue) MessageRejectError {
 }
 
 func (m FieldMap) SetField(tag Tag, field FieldValue) {
-	m.fieldLookup[tag] = newFieldBytes(tag, field.Write())
+	tValues := make([]TagValue, 1)
+	tValues[0].init(tag, field.Write())
+	m.tagLookup[tag] = tValues
 }
 
 func (m FieldMap) Set(field Field) {
-	m.fieldLookup[field.Tag()] = newFieldBytes(field.Tag(), field.Write())
+	tValues := make([]TagValue, 1)
+	tValues[0].init(field.Tag(), field.Write())
+
+	m.tagLookup[field.Tag()] = tValues
 }
 
 func (m FieldMap) sortedTags() []Tag {
-	sortedTags := make([]Tag, len(m.fieldLookup))
-	for tag := range m.fieldLookup {
+	sortedTags := make([]Tag, len(m.tagLookup))
+	for tag := range m.tagLookup {
 		sortedTags = append(sortedTags, tag)
 	}
 
-	sort.Sort(fieldSort{sortedTags, m.fieldOrder})
+	sort.Sort(tagSort{sortedTags, m.tagOrder})
 	return sortedTags
 }
 
@@ -126,19 +130,23 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 	tags := m.sortedTags()
 
 	for _, tag := range tags {
-		if field, ok := m.fieldLookup[tag]; ok {
-			buffer.Write(field.Data)
+		if fields, ok := m.tagLookup[tag]; ok {
+			for _, field := range fields {
+				buffer.Write(field.bytes)
+			}
 		}
 	}
 }
 
 func (m FieldMap) total() int {
 	total := 0
-	for t, field := range m.fieldLookup {
-		switch t {
-		case tagCheckSum: //tag does not contribute to total
-		default:
-			total += field.Total()
+	for _, fields := range m.tagLookup {
+		for _, field := range fields {
+			switch field.Tag {
+			case tagCheckSum: //tag does not contribute to total
+			default:
+				total += field.total()
+			}
 		}
 	}
 
@@ -147,11 +155,13 @@ func (m FieldMap) total() int {
 
 func (m FieldMap) length() int {
 	length := 0
-	for t := range m.fieldLookup {
-		switch t {
-		case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
-		default:
-			length += m.fieldLookup[t].Length()
+	for _, fields := range m.tagLookup {
+		for _, field := range fields {
+			switch field.Tag {
+			case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
+			default:
+				length += field.length()
+			}
 		}
 	}
 

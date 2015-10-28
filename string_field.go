@@ -5,8 +5,8 @@ type StringValue struct {
 	Value string
 }
 
-func (f *StringValue) Read(bytes []byte) error {
-	f.Value = string(bytes)
+func (f *StringValue) Read(tv []TagValue) error {
+	f.Value = string(tv[0].Value)
 	return nil
 }
 

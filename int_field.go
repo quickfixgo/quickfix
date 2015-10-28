@@ -14,18 +14,18 @@ const (
 	ascii9 = 57
 )
 
-//Atoi is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
-func Atoi(d []byte) (int, error) {
+//atoi is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
+func atoi(d []byte) (int, error) {
 	if d[0] == asciiMinus {
-		n, err := ParseUInt(d[1:])
+		n, err := parseUInt(d[1:])
 		return (-1) * n, err
 	}
 
-	return ParseUInt(d)
+	return parseUInt(d)
 }
 
-//ParseUInt is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
-func ParseUInt(d []byte) (n int, err error) {
+//parseUInt is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
+func parseUInt(d []byte) (n int, err error) {
 	if len(d) == 0 {
 		err = errors.New("empty bytes")
 		return
@@ -48,8 +48,8 @@ type IntValue struct {
 	Value int
 }
 
-func (f *IntValue) Read(bytes []byte) (err error) {
-	f.Value, err = Atoi(bytes)
+func (f *IntValue) Read(tv []TagValue) (err error) {
+	f.Value, err = atoi(tv[0].Value)
 
 	return
 }
