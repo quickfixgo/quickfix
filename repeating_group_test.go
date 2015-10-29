@@ -10,13 +10,13 @@ func TestRepeatingGroup_Write(t *testing.T) {
 		groups   []Group
 		expected []byte
 	}{
-		{[]Group{{RepeatingGroupField{Tag(1), &StringValue{"hello"}}}},
+		{[]Group{{RepeatingGroupField{Tag(1), NewFIXString("hello")}}},
 			[]byte("11=hello")},
-		{[]Group{{RepeatingGroupField{Tag(1), &StringValue{"hello"}}, RepeatingGroupField{Tag(2), &StringValue{"world"}}}},
+		{[]Group{{RepeatingGroupField{Tag(1), NewFIXString("hello")}, RepeatingGroupField{Tag(2), NewFIXString("world")}}},
 			[]byte("11=hello2=world")},
-		{[]Group{{RepeatingGroupField{Tag(1), &StringValue{"hello"}}}, {RepeatingGroupField{Tag(1), &StringValue{"world"}}}},
+		{[]Group{{RepeatingGroupField{Tag(1), NewFIXString("hello")}}, {RepeatingGroupField{Tag(1), NewFIXString("world")}}},
 			[]byte("21=hello1=world")},
-		{[]Group{{RepeatingGroupField{Tag(1), &StringValue{"hello"}}, RepeatingGroupField{Tag(2), &StringValue{"world"}}}, {RepeatingGroupField{Tag(1), &StringValue{"goodbye"}}}},
+		{[]Group{{RepeatingGroupField{Tag(1), NewFIXString("hello")}, RepeatingGroupField{Tag(2), NewFIXString("world")}}, {RepeatingGroupField{Tag(1), NewFIXString("goodbye")}}},
 			[]byte("21=hello2=world1=goodbye")},
 	}
 
@@ -35,8 +35,8 @@ func TestRepeatingGroup_Write(t *testing.T) {
 
 func TestRepeatingGroup_Read(t *testing.T) {
 
-	singleFieldTemplate := Group{RepeatingGroupField{Tag(1), &StringValue{}}}
-	multiFieldTemplate := Group{RepeatingGroupField{Tag(1), &StringValue{}}, RepeatingGroupField{Tag(2), &StringValue{}}, RepeatingGroupField{Tag(3), &StringValue{}}}
+	singleFieldTemplate := Group{RepeatingGroupField{Tag(1), new(FIXString)}}
+	multiFieldTemplate := Group{RepeatingGroupField{Tag(1), new(FIXString)}, RepeatingGroupField{Tag(2), new(FIXString)}, RepeatingGroupField{Tag(3), new(FIXString)}}
 
 	tests := []struct {
 		groupTemplate      Group
@@ -123,7 +123,7 @@ func TestRepeatingGroup_ReadComplete(t *testing.T) {
 		t.Error("Unexpected error, ", err)
 	}
 
-	template := Group{RepeatingGroupField{Tag(269), &StringValue{""}}, RepeatingGroupField{Tag(270), &StringValue{""}}, RepeatingGroupField{Tag(271), &StringValue{""}}, RepeatingGroupField{Tag(272), &StringValue{""}}, RepeatingGroupField{Tag(273), &StringValue{""}}}
+	template := Group{RepeatingGroupField{Tag(269), new(FIXString)}, RepeatingGroupField{Tag(270), new(FIXString)}, RepeatingGroupField{Tag(271), new(FIXString)}, RepeatingGroupField{Tag(272), new(FIXString)}, RepeatingGroupField{Tag(273), new(FIXString)}}
 	f := RepeatingGroup{GroupTemplate: template}
 	err = msg.Body.GetField(Tag(268), &f)
 	if err != nil {

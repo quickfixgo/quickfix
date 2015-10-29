@@ -3,8 +3,8 @@ package quickfix
 type logonState struct{}
 
 func (s logonState) FixMsgIn(session *Session, msg Message) (nextState sessionState) {
-	msgType := new(StringValue)
-	if err := msg.Header.GetField(tagMsgType, msgType); err == nil && msgType.Value == "A" {
+	var msgType FIXString
+	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil && string(msgType) == "A" {
 		if err := session.handleLogon(msg); err != nil {
 			session.log.OnEvent(err.Error())
 			return latentState{}

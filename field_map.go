@@ -90,7 +90,7 @@ func (m FieldMap) Has(tag Tag) bool {
 	return ok
 }
 
-func (m FieldMap) GetField(tag Tag, parser FieldValue) MessageRejectError {
+func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError {
 	tagValues, ok := m.tagLookup[tag]
 	if !ok {
 		return conditionallyRequiredFieldMissing(tag)
@@ -103,13 +103,13 @@ func (m FieldMap) GetField(tag Tag, parser FieldValue) MessageRejectError {
 	return nil
 }
 
-func (m FieldMap) SetField(tag Tag, field FieldValue) {
+func (m FieldMap) SetField(tag Tag, field FieldValueWriter) {
 	tValues := make([]TagValue, 1)
 	tValues[0].init(tag, field.Write())
 	m.tagLookup[tag] = tValues
 }
 
-func (m FieldMap) Set(field Field) {
+func (m FieldMap) Set(field FieldWriter) {
 	tValues := make([]TagValue, 1)
 	tValues[0].init(field.Tag(), field.Write())
 
