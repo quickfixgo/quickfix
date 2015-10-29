@@ -67,7 +67,7 @@ func parseMessage(rawMessage []byte) (Message, error) {
 		return msg, err
 	}
 
-	msg.Header.tagLookup[msg.fields[fieldIndex].Tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.tagLookup[msg.fields[fieldIndex].Tag] = msg.fields[fieldIndex:]
 	fieldIndex++
 
 	parsedFieldBytes := &msg.fields[fieldIndex]
@@ -75,7 +75,7 @@ func parseMessage(rawMessage []byte) (Message, error) {
 		return msg, err
 	}
 
-	msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex:]
 	fieldIndex++
 
 	parsedFieldBytes = &msg.fields[fieldIndex]
@@ -83,7 +83,7 @@ func parseMessage(rawMessage []byte) (Message, error) {
 		return msg, err
 	}
 
-	msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex:]
 	fieldIndex++
 
 	trailerBytes := []byte{}
@@ -97,13 +97,13 @@ func parseMessage(rawMessage []byte) (Message, error) {
 
 		switch {
 		case parsedFieldBytes.Tag.IsHeader():
-			msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+			msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex:]
 		case parsedFieldBytes.Tag.IsTrailer():
-			msg.Trailer.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+			msg.Trailer.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex:]
 		default:
 			foundBody = true
 			trailerBytes = rawMessage
-			msg.Body.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+			msg.Body.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex:]
 		}
 		if parsedFieldBytes.Tag == tagCheckSum {
 			break

@@ -26,7 +26,7 @@ func TestIntField_Write(t *testing.T) {
 
 func TestIntField_Read(t *testing.T) {
 	field := new(IntField)
-	err := field.Read([]TagValue{TagValue{Value: []byte("15")}})
+	_, err := field.Read([]TagValue{TagValue{Value: []byte("15")}})
 
 	if err != nil {
 		t.Error("Unexpected error", err)
@@ -36,7 +36,7 @@ func TestIntField_Read(t *testing.T) {
 		t.Error("unexpected value", field.Value)
 	}
 
-	err = field.Read([]TagValue{TagValue{Value: []byte("blah")}})
+	_, err = field.Read([]TagValue{TagValue{Value: []byte("blah")}})
 
 	if err == nil {
 		t.Error("expected error")

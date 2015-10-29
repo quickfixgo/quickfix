@@ -48,14 +48,21 @@ type IntValue struct {
 	Value int
 }
 
-func (f *IntValue) Read(tv []TagValue) (err error) {
-	f.Value, err = atoi(tv[0].Value)
+func (f *IntValue) Read(tv TagValues) (TagValues, error) {
+	var err error
+	if f.Value, err = atoi(tv[0].Value); err != nil {
+		return tv, err
+	}
 
-	return
+	return tv[1:], nil
 }
 
 func (f IntValue) Write() []byte {
 	return []byte(strconv.Itoa(f.Value))
+}
+
+func (f IntValue) Clone() FieldValue {
+	return &IntValue{f.Value}
 }
 
 //IntField is a generic int Field Type, implements Field

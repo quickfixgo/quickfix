@@ -139,7 +139,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []Tag
 	numInGroupTag := fieldStack[0].Tag
 	numInGroup := new(IntValue)
 
-	if err := numInGroup.Read(fieldStack); err != nil {
+	if _, err := numInGroup.Read(fieldStack); err != nil {
 		return nil, incorrectDataFormatForValue(numInGroupTag)
 	}
 
@@ -335,7 +335,7 @@ func validateField(d *datadictionary.DataDictionary, validFields datadictionary.
 		prototype = new(PercentageValue)
 	}
 
-	if err := prototype.Read([]TagValue{field}); err != nil {
+	if _, err := prototype.Read(TagValues{field}); err != nil {
 		return incorrectDataFormatForValue(field.Tag)
 	}
 

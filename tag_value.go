@@ -10,9 +10,11 @@ import (
 type TagValue struct {
 	Tag
 	Value []byte
-
 	bytes []byte
 }
+
+//TagValues is a slice of TagValue
+type TagValues []TagValue
 
 func (tv *TagValue) init(tag Tag, value []byte) {
 	var buf bytes.Buffer
