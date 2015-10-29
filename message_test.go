@@ -57,12 +57,12 @@ func TestMessage_parseOutOfOrder(t *testing.T) {
 func TestMessage_Build(t *testing.T) {
 	builder := NewMessage()
 
-	builder.Header.Set(NewStringField(tagBeginString, enum.BeginStringFIX44))
-	builder.Header.Set(NewStringField(tagMsgType, "A"))
-	builder.Header.Set(NewStringField(tagSendingTime, "20140615-19:49:56"))
+	builder.Header.SetField(tagBeginString, FIXString(enum.BeginStringFIX44))
+	builder.Header.SetField(tagMsgType, FIXString("A"))
+	builder.Header.SetField(tagSendingTime, FIXString("20140615-19:49:56"))
 
-	builder.Body.Set(NewStringField(Tag(553), "my_user"))
-	builder.Body.Set(NewStringField(Tag(554), "secret"))
+	builder.Body.SetField(Tag(553), FIXString("my_user"))
+	builder.Body.SetField(Tag(554), FIXString("secret"))
 
 	expectedBytes := []byte("8=FIX.4.49=4935=A52=20140615-19:49:56553=my_user554=secret10=072")
 	result, err := builder.Build()
@@ -80,8 +80,8 @@ func TestMessage_ReBuild(t *testing.T) {
 
 	msg, _ := parseMessage(rawMsg)
 
-	msg.Header.Set(NewStringField(tagOrigSendingTime, "20140515-19:49:56.659"))
-	msg.Header.Set(NewStringField(tagSendingTime, "20140615-19:49:56"))
+	msg.Header.SetField(tagOrigSendingTime, FIXString("20140515-19:49:56.659"))
+	msg.Header.SetField(tagSendingTime, FIXString("20140615-19:49:56"))
 
 	msg.Build()
 
@@ -122,14 +122,14 @@ func TestMessage_reverseRoute(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		field := new(StringValue)
-		err := builder.Header.GetField(tc.tag, field)
+		var field FIXString
+		err := builder.Header.GetField(tc.tag, &field)
 		if err != nil {
 			t.Error("Unexpected error, ", err)
 		}
 
-		if field.Value != tc.expectedValue {
-			t.Errorf("Expected %v got %v", tc.expectedValue, field.Value)
+		if string(field) != tc.expectedValue {
+			t.Errorf("Expected %v got %v", tc.expectedValue, field)
 		}
 	}
 }

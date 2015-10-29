@@ -29,47 +29,47 @@ func (c MessageRouter) AddRoute(beginString string, msgType string, router Messa
 
 //Route may be called from the fromApp/fromAdmin callbacks. Messages that cannot be routed will be rejected with UnsupportedMessageType.
 func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectError {
-	beginString := new(StringField)
-	if err := msg.Header.GetField(tagBeginString, beginString); err != nil {
+	var beginString FIXString
+	if err := msg.Header.GetField(tagBeginString, &beginString); err != nil {
 		return nil
 	}
 
-	msgType := new(StringField)
-	if err := msg.Header.GetField(tagMsgType, msgType); err != nil {
+	var msgType FIXString
+	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
 		return err
 	}
 
 	return c.tryRoute(beginString, msgType, msg, sessionID)
 }
 
-func (c MessageRouter) tryRoute(beginString *StringField, msgType *StringField, msg Message, sessionID SessionID) MessageRejectError {
+func (c MessageRouter) tryRoute(beginString FIXString, msgType FIXString, msg Message, sessionID SessionID) MessageRejectError {
 
-	if beginString.Value == enum.BeginStringFIXT11 && !isAdminMessageType(msgType.Value) {
-		applVerID := new(StringValue)
-		if err := msg.Header.GetField(tagApplVerID, applVerID); err != nil {
+	if string(beginString) == enum.BeginStringFIXT11 && !isAdminMessageType(string(msgType)) {
+		var applVerID FIXString
+		if err := msg.Header.GetField(tagApplVerID, &applVerID); err != nil {
 			session, _ := LookupSession(sessionID)
-			applVerID.Value = session.TargetDefaultApplicationVersionID()
+			applVerID = FIXString(session.TargetDefaultApplicationVersionID())
 		}
 
-		switch applVerID.Value {
+		switch string(applVerID) {
 		case enum.ApplVerID_FIX40:
-			beginString.Value = enum.BeginStringFIX40
+			beginString = enum.BeginStringFIX40
 		case enum.ApplVerID_FIX41:
-			beginString.Value = enum.BeginStringFIX41
+			beginString = enum.BeginStringFIX41
 		case enum.ApplVerID_FIX42:
-			beginString.Value = enum.BeginStringFIX42
+			beginString = enum.BeginStringFIX42
 		case enum.ApplVerID_FIX43:
-			beginString.Value = enum.BeginStringFIX43
+			beginString = enum.BeginStringFIX43
 		case enum.ApplVerID_FIX44:
-			beginString.Value = enum.BeginStringFIX44
+			beginString = enum.BeginStringFIX44
 		case enum.ApplVerID_FIX50, enum.ApplVerID_FIX50SP1, enum.ApplVerID_FIX50SP2:
-			beginString.Value = enum.BeginStringFIX50
+			beginString = enum.BeginStringFIX50
 		}
 
 		return c.tryRoute(beginString, msgType, msg, sessionID)
 	}
 
-	route, ok := c.routes[routeKey{beginString.Value, msgType.Value}]
+	route, ok := c.routes[routeKey{string(beginString), string(msgType)}]
 
 	if !ok {
 		return unsupportedMessageType()

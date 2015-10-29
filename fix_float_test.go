@@ -5,33 +5,12 @@ import (
 	"testing"
 )
 
-func TestNewFloatField(t *testing.T) {
+func TestFloatWrite(t *testing.T) {
 	var tests = []struct {
-		tag Tag
-		val float64
-	}{
-		{Tag(1), 5.0},
-	}
-
-	for _, test := range tests {
-		field := NewFloatField(test.tag, test.val)
-
-		if field.Tag() != test.tag {
-			t.Errorf("got tag %v; want %v", field.Tag(), test.tag)
-		}
-
-		if field.Value != test.val {
-			t.Errorf("got val %v; want %v", field.Value, test.val)
-		}
-	}
-}
-
-func TestFloatFieldWrite(t *testing.T) {
-	var tests = []struct {
-		field *FloatField
+		field FIXFloat
 		val   []byte
 	}{
-		{NewFloatField(1, 5.0), []byte("5")},
+		{FIXFloat(5.0), []byte("5")},
 	}
 
 	for _, test := range tests {
@@ -43,7 +22,7 @@ func TestFloatFieldWrite(t *testing.T) {
 	}
 }
 
-func TestFloatFieldRead(t *testing.T) {
+func TestFloatRead(t *testing.T) {
 	var tests = []struct {
 		bytes       []byte
 		value       float64
@@ -55,15 +34,15 @@ func TestFloatFieldRead(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		field := new(FloatField)
+		var field FIXFloat
 		if _, err := field.Read([]TagValue{TagValue{Value: test.bytes}}); err != nil {
 			if !test.expectError {
 				t.Errorf("UnExpected '%v'", err)
 			}
 		} else if test.expectError {
 			t.Errorf("Expected error for %v", test.bytes)
-		} else if field.Value != test.value {
-			t.Errorf("got %v want %v", field.Value, test.value)
+		} else if float64(field) != test.value {
+			t.Errorf("got %v want %v", field, test.value)
 		}
 	}
 }

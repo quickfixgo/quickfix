@@ -69,16 +69,16 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		return
 	}
 
-	beginString := new(StringValue)
-	msg.Header.GetField(tagBeginString, beginString)
+	var beginString FIXString
+	msg.Header.GetField(tagBeginString, &beginString)
 
-	senderCompID := new(StringValue)
-	msg.Header.GetField(tagSenderCompID, senderCompID)
+	var senderCompID FIXString
+	msg.Header.GetField(tagSenderCompID, &senderCompID)
 
-	targetCompID := new(StringValue)
-	msg.Header.GetField(tagTargetCompID, targetCompID)
+	var targetCompID FIXString
+	msg.Header.GetField(tagTargetCompID, &targetCompID)
 
-	sessID := SessionID{BeginString: beginString.Value, SenderCompID: targetCompID.Value, TargetCompID: senderCompID.Value}
+	sessID := SessionID{BeginString: string(beginString), SenderCompID: string(targetCompID), TargetCompID: string(senderCompID)}
 	qualifiedSessID, validID := qualifiedSessionIDs[sessID]
 
 	if !validID {

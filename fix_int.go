@@ -43,37 +43,29 @@ func parseUInt(d []byte) (n int, err error) {
 	return
 }
 
-//IntValue is a Container for int, implements FieldValue
-type IntValue struct {
-	Value int
+//FIXInt is a FIX Int Value, implements FieldValue
+type FIXInt int
+
+//NewFIXInt returns an initialized FIXInt
+func NewFIXInt(val int) *FIXInt {
+	i := FIXInt(val)
+	return &i
 }
 
-func (f *IntValue) Read(tv TagValues) (TagValues, error) {
-	var err error
-	if f.Value, err = atoi(tv[0].Value); err != nil {
+func (f *FIXInt) Read(tv TagValues) (TagValues, error) {
+	i, err := atoi(tv[0].Value)
+	if err != nil {
 		return tv, err
 	}
-
+	*f = FIXInt(i)
 	return tv[1:], nil
 }
 
-func (f IntValue) Write() []byte {
-	return []byte(strconv.Itoa(f.Value))
+func (f FIXInt) Write() []byte {
+	return []byte(strconv.Itoa(int(f)))
 }
 
-func (f IntValue) Clone() FieldValue {
-	return &IntValue{f.Value}
-}
-
-//IntField is a generic int Field Type, implements Field
-type IntField struct {
-	tagContainer
-	IntValue
-}
-
-func NewIntField(tag Tag, value int) *IntField {
-	var f IntField
-	f.tag = tag
-	f.Value = value
-	return &f
+func (f FIXInt) Clone() FieldValue {
+	clone := f
+	return &clone
 }

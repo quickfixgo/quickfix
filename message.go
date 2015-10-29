@@ -130,10 +130,10 @@ func parseMessage(rawMessage []byte) (Message, error) {
 		}
 	}
 
-	bodyLength := new(IntValue)
-	msg.Header.GetField(tagBodyLength, bodyLength)
-	if bodyLength.Value != length {
-		return msg, parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength.Value, length)}
+	var bodyLength FIXInt
+	msg.Header.GetField(tagBodyLength, &bodyLength)
+	if length != int(bodyLength) {
+		return msg, parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
 	}
 
 	return msg, nil
@@ -144,8 +144,9 @@ func (m Message) reverseRoute() Message {
 	reverseMsg := NewMessage()
 
 	copy := func(src Tag, dest Tag) {
-		if field := new(StringValue); m.Header.GetField(src, field) == nil {
-			if len(field.Value) != 0 {
+		var field FIXString
+		if m.Header.GetField(src, &field) == nil {
+			if len(field) != 0 {
 				reverseMsg.Header.SetField(dest, field)
 			}
 		}
@@ -165,8 +166,9 @@ func (m Message) reverseRoute() Message {
 	copy(tagDeliverToSubID, tagOnBehalfOfSubID)
 
 	//tags added in 4.1
-	if beginString := new(StringValue); m.Header.GetField(tagBeginString, beginString) == nil {
-		if beginString.Value != enum.BeginStringFIX40 {
+	var beginString FIXString
+	if m.Header.GetField(tagBeginString, &beginString) == nil {
+		if string(beginString) != enum.BeginStringFIX40 {
 			copy(tagOnBehalfOfLocationID, tagDeliverToLocationID)
 			copy(tagDeliverToLocationID, tagOnBehalfOfLocationID)
 		}
@@ -204,8 +206,8 @@ func (m *Message) String() string {
 	return string(m.rawMessage)
 }
 
-func newCheckSum(value int) *StringField {
-	return NewStringField(tagCheckSum, fmt.Sprintf("%03d", value))
+func newCheckSum(value int) FIXString {
+	return FIXString(fmt.Sprintf("%03d", value))
 }
 
 func (m *Message) Build() ([]byte, error) {
@@ -223,7 +225,7 @@ func (m *Message) Build() ([]byte, error) {
 
 func (m Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
-	m.Header.Set(NewIntField(tagBodyLength, bodyLength))
+	m.Header.SetField(tagBodyLength, FIXInt(bodyLength))
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
-	m.Trailer.Set(newCheckSum(checkSum))
+	m.Trailer.SetField(tagCheckSum, newCheckSum(checkSum))
 }
