@@ -5,28 +5,77 @@ import (
 	"testing"
 )
 
-func TestRepeatingGroup_Write(t *testing.T) {
+func TestRepeatingGroup_Add(t *testing.T) {
+	f := RepeatingGroup{GroupTemplate: GroupTemplate{RepeatingGroupField{1, new(FIXString)}}}
+
 	var tests = []struct {
-		groups   []Group
-		expected []byte
+		expectedLen int
 	}{
-		{[]Group{{RepeatingGroupField{Tag(1), NewFIXString("hello")}}},
-			[]byte("11=hello")},
-		{[]Group{{RepeatingGroupField{Tag(1), NewFIXString("hello")}, RepeatingGroupField{Tag(2), NewFIXString("world")}}},
-			[]byte("11=hello2=world")},
-		{[]Group{{RepeatingGroupField{Tag(1), NewFIXString("hello")}}, {RepeatingGroupField{Tag(1), NewFIXString("world")}}},
-			[]byte("21=hello1=world")},
-		{[]Group{{RepeatingGroupField{Tag(1), NewFIXString("hello")}, RepeatingGroupField{Tag(2), NewFIXString("world")}}, {RepeatingGroupField{Tag(1), NewFIXString("goodbye")}}},
-			[]byte("21=hello2=world1=goodbye")},
+		{1},
+		{2},
 	}
 
 	for _, test := range tests {
-		var f RepeatingGroup
-		for _, group := range test.groups {
-			f.AddGroup(group)
+		g := f.Add()
+		if len(f.Groups) != test.expectedLen {
+			t.Errorf("Expected %v groups, got %v", test.expectedLen, len(f.Groups))
 		}
 
-		fieldBytes := f.Write()
+		g.SetField(Tag(1), FIXString("hello"))
+
+		if !f.Groups[test.expectedLen-1].Has(Tag(1)) {
+			t.Errorf("expected tag in group %v", test.expectedLen)
+		}
+
+		var v FIXString
+		f.Groups[test.expectedLen-1].GetField(Tag(1), &v)
+
+		if string(v) != "hello" {
+			t.Errorf("expected hello in group %v", test.expectedLen)
+		}
+	}
+}
+
+func TestRepeatingGroup_Write(t *testing.T) {
+	f1 := RepeatingGroup{GroupTemplate: GroupTemplate{
+		RepeatingGroupField{1, new(FIXString)},
+		RepeatingGroupField{2, new(FIXString)},
+	}}
+
+	f1.Add().SetField(Tag(1), FIXString("hello"))
+
+	f2 := RepeatingGroup{GroupTemplate: GroupTemplate{
+		RepeatingGroupField{1, new(FIXString)},
+		RepeatingGroupField{2, new(FIXString)},
+	}}
+	f2.Add().SetField(Tag(1), FIXString("hello")).SetField(Tag(2), FIXString("world"))
+
+	f3 := RepeatingGroup{GroupTemplate: GroupTemplate{
+		RepeatingGroupField{1, new(FIXString)},
+		RepeatingGroupField{2, new(FIXString)},
+	}}
+	f3.Add().SetField(Tag(1), FIXString("hello"))
+	f3.Add().SetField(Tag(1), FIXString("world"))
+
+	f4 := RepeatingGroup{GroupTemplate: GroupTemplate{
+		RepeatingGroupField{1, new(FIXString)},
+		RepeatingGroupField{2, new(FIXString)},
+	}}
+	f4.Add().SetField(Tag(1), FIXString("hello")).SetField(Tag(2), FIXString("world"))
+	f4.Add().SetField(Tag(1), FIXString("goodbye"))
+
+	var tests = []struct {
+		f        RepeatingGroup
+		expected []byte
+	}{
+		{f1, []byte("11=hello")},
+		{f2, []byte("11=hello2=world")},
+		{f3, []byte("21=hello1=world")},
+		{f4, []byte("21=hello2=world1=goodbye")},
+	}
+
+	for _, test := range tests {
+		fieldBytes := test.f.Write()
 		if !bytes.Equal(test.expected, fieldBytes) {
 			t.Errorf("expected %s got %s", test.expected, fieldBytes)
 		}
@@ -35,78 +84,71 @@ func TestRepeatingGroup_Write(t *testing.T) {
 
 func TestRepeatingGroup_Read(t *testing.T) {
 
-	singleFieldTemplate := Group{RepeatingGroupField{Tag(1), new(FIXString)}}
-	multiFieldTemplate := Group{RepeatingGroupField{Tag(1), new(FIXString)}, RepeatingGroupField{Tag(2), new(FIXString)}, RepeatingGroupField{Tag(3), new(FIXString)}}
+	singleFieldTemplate := GroupTemplate{RepeatingGroupField{Tag(1), new(FIXString)}}
+	multiFieldTemplate := GroupTemplate{RepeatingGroupField{Tag(1), new(FIXString)}, RepeatingGroupField{Tag(2), new(FIXString)}, RepeatingGroupField{Tag(3), new(FIXString)}}
 
 	tests := []struct {
-		groupTemplate      Group
-		tv                 TagValues
-		expectedGroupNum   int
-		expectedGroupBytes [][][]byte
+		groupTemplate    GroupTemplate
+		tv               TagValues
+		expectedGroupTvs []TagValues
 	}{
-		{singleFieldTemplate, TagValues{TagValue{Value: []byte("0")}}, 0, [][][]byte{}},
-		{singleFieldTemplate, TagValues{TagValue{Value: []byte("1")}, TagValue{Tag: Tag(1), Value: []byte("hello")}}, 1,
-			[][][]byte{
-				[][]byte{
-					[]byte("hello")}}},
-		{singleFieldTemplate, TagValues{TagValue{Value: []byte("1")}, TagValue{Tag: Tag(1), Value: []byte("hello")}, TagValue{Tag: Tag(2), Value: []byte("not in group")}}, 1,
-			[][][]byte{
-				[][]byte{
-					[]byte("hello")}}},
-		{singleFieldTemplate, TagValues{TagValue{Value: []byte("2")}, TagValue{Tag: Tag(1), Value: []byte("hello")}, TagValue{Tag: Tag(1), Value: []byte("world")}}, 2,
-			[][][]byte{
-				[][]byte{[]byte("hello")},
-				[][]byte{[]byte("world")}}},
-		{multiFieldTemplate, TagValues{
-			TagValue{Value: []byte("2")},
-			TagValue{Tag: Tag(1), Value: []byte("hello")},
-			TagValue{Tag: Tag(1), Value: []byte("goodbye")},
-			TagValue{Tag: Tag(2), Value: []byte("cruel")},
-			TagValue{Tag: Tag(3), Value: []byte("world")},
-		}, 2,
-			[][][]byte{
-				[][]byte{[]byte("hello")},
-				[][]byte{[]byte("goodbye"), []byte("cruel"), []byte("world")}}},
-		{multiFieldTemplate, TagValues{
-			TagValue{Value: []byte("3")},
-			TagValue{Tag: Tag(1), Value: []byte("hello")},
-			TagValue{Tag: Tag(1), Value: []byte("goodbye")},
-			TagValue{Tag: Tag(2), Value: []byte("cruel")},
-			TagValue{Tag: Tag(3), Value: []byte("world")},
-			TagValue{Tag: Tag(1), Value: []byte("another")},
-		}, 3,
-			[][][]byte{
-				[][]byte{[]byte("hello")},
-				[][]byte{[]byte("goodbye"), []byte("cruel"), []byte("world")},
-				[][]byte{[]byte("another")}}},
+		{singleFieldTemplate, TagValues{TagValue{Value: []byte("0")}},
+			[]TagValues{}},
+		{singleFieldTemplate, TagValues{TagValue{Value: []byte("1")}, TagValue{Tag: Tag(1), Value: []byte("hello")}},
+			[]TagValues{TagValues{TagValue{Tag: Tag(1), Value: []byte("hello")}}}},
+		{singleFieldTemplate,
+			TagValues{TagValue{Value: []byte("1")},
+				TagValue{Tag: Tag(1), Value: []byte("hello")},
+				TagValue{Tag: Tag(2), Value: []byte("not in group")}},
+			[]TagValues{
+				TagValues{TagValue{Tag: Tag(1), Value: []byte("hello")}}}},
+		{singleFieldTemplate,
+			TagValues{TagValue{Value: []byte("2")},
+				TagValue{Tag: Tag(1), Value: []byte("hello")},
+				TagValue{Tag: Tag(1), Value: []byte("world")}},
+			[]TagValues{
+				TagValues{TagValue{Tag: Tag(1), Value: []byte("hello")}},
+				TagValues{TagValue{Tag: Tag(1), Value: []byte("world")}},
+			}},
+		{multiFieldTemplate,
+			TagValues{
+				TagValue{Value: []byte("2")},
+				TagValue{Tag: Tag(1), Value: []byte("hello")},
+				TagValue{Tag: Tag(1), Value: []byte("goodbye")}, TagValue{Tag: Tag(2), Value: []byte("cruel")}, TagValue{Tag: Tag(3), Value: []byte("world")},
+			},
+			[]TagValues{
+				TagValues{TagValue{Tag: Tag(1), Value: []byte("hello")}},
+				TagValues{TagValue{Tag: Tag(1), Value: []byte("goodbye")}, TagValue{Tag: Tag(2), Value: []byte("cruel")}, TagValue{Tag: Tag(3), Value: []byte("world")}},
+			}},
+		{multiFieldTemplate,
+			TagValues{
+				TagValue{Value: []byte("3")},
+				TagValue{Tag: Tag(1), Value: []byte("hello")},
+				TagValue{Tag: Tag(1), Value: []byte("goodbye")}, TagValue{Tag: Tag(2), Value: []byte("cruel")}, TagValue{Tag: Tag(3), Value: []byte("world")},
+				TagValue{Tag: Tag(1), Value: []byte("another")},
+			},
+			[]TagValues{
+				TagValues{TagValue{Tag: Tag(1), Value: []byte("hello")}},
+				TagValues{TagValue{Tag: Tag(1), Value: []byte("goodbye")}, TagValue{Tag: Tag(2), Value: []byte("cruel")}, TagValue{Tag: Tag(3), Value: []byte("world")}},
+				TagValues{TagValue{Tag: Tag(1), Value: []byte("another")}},
+			}},
 	}
 
 	for _, test := range tests {
 		f := RepeatingGroup{GroupTemplate: test.groupTemplate}
 
 		f.Read(test.tv)
-		if len(f.Groups) != test.expectedGroupNum {
-			t.Errorf("expected %v groups, got %v", test.expectedGroupNum, len(f.Groups))
+		if len(f.Groups) != len(test.expectedGroupTvs) {
+			t.Errorf("expected %v groups, got %v", len(test.expectedGroupTvs), len(f.Groups))
 		}
 
-		var allGroupBytes [][][]byte
-		for _, group := range f.Groups {
-			var groupBytes [][]byte
-			for _, field := range group {
-				groupBytes = append(groupBytes, field.Write())
-			}
+		for g, group := range f.Groups {
+			for _, expected := range test.expectedGroupTvs[g] {
+				var actual FIXString
+				group.GetField(expected.Tag, &actual)
 
-			allGroupBytes = append(allGroupBytes, groupBytes)
-		}
-
-		for i, groupBytes := range allGroupBytes {
-			if len(groupBytes) != len(test.expectedGroupBytes[i]) {
-				t.Errorf("Expected %v fields for group %v (%s) got %v (%s)", len(test.expectedGroupBytes[i]), i, test.expectedGroupBytes[i], len(groupBytes), groupBytes)
-			}
-
-			for j, fieldBytes := range groupBytes {
-				if !bytes.Equal(fieldBytes, test.expectedGroupBytes[i][j]) {
-					t.Errorf("Expected '%s' for field %v of group %v, got '%s'", test.expectedGroupBytes[i][j], j, i, fieldBytes)
+				if !bytes.Equal(expected.Value, []byte(actual)) {
+					t.Errorf("%v, %v: expected %s, got %s", g, expected.Tag, expected.Value, actual)
 				}
 			}
 		}
@@ -123,7 +165,14 @@ func TestRepeatingGroup_ReadComplete(t *testing.T) {
 		t.Error("Unexpected error, ", err)
 	}
 
-	template := Group{RepeatingGroupField{Tag(269), new(FIXString)}, RepeatingGroupField{Tag(270), new(FIXString)}, RepeatingGroupField{Tag(271), new(FIXString)}, RepeatingGroupField{Tag(272), new(FIXString)}, RepeatingGroupField{Tag(273), new(FIXString)}}
+	template := GroupTemplate{
+		RepeatingGroupField{Tag(269), new(FIXString)},
+		RepeatingGroupField{Tag(270), new(FIXString)},
+		RepeatingGroupField{Tag(271), new(FIXString)},
+		RepeatingGroupField{Tag(272), new(FIXString)},
+		RepeatingGroupField{Tag(273), new(FIXString)},
+	}
+
 	f := RepeatingGroup{GroupTemplate: template}
 	err = msg.Body.GetField(Tag(268), &f)
 	if err != nil {
@@ -140,27 +189,31 @@ func TestRepeatingGroup_ReadComplete(t *testing.T) {
 		[]Tag{Tag(269), Tag(270), Tag(272), Tag(273)},
 		[]Tag{Tag(269), Tag(271), Tag(272), Tag(273)},
 	}
-	expectedGroupBytes := [][][]byte{
-		[][]byte{[]byte("4"), []byte("0.07499"), []byte("20151027"), []byte("18:41:52.698")},
-		[][]byte{[]byte("7"), []byte("0.07501"), []byte("20151027"), []byte("18:41:52.698")},
-		[][]byte{[]byte("8"), []byte("0.07494"), []byte("20151027"), []byte("18:41:52.698")},
-		[][]byte{[]byte("B"), []byte("60"), []byte("20151027"), []byte("18:41:52.698")},
+
+	expectedGroupValues := [][]FIXString{
+		[]FIXString{FIXString("4"), FIXString("0.07499"), FIXString("20151027"), FIXString("18:41:52.698")},
+		[]FIXString{FIXString("7"), FIXString("0.07501"), FIXString("20151027"), FIXString("18:41:52.698")},
+		[]FIXString{FIXString("8"), FIXString("0.07494"), FIXString("20151027"), FIXString("18:41:52.698")},
+		[]FIXString{FIXString("B"), FIXString("60"), FIXString("20151027"), FIXString("18:41:52.698")},
 	}
 
 	for i, group := range f.Groups {
-		if len(group) != len(expectedGroupTags[i]) {
-			t.Errorf("expected %v tags in group %v got %v", len(expectedGroupTags[i]), i, len(group))
-		}
 
-		for j, field := range group {
-			if field.Tag != expectedGroupTags[i][j] {
-				t.Errorf("expected %v in group %v, field %v got %v", expectedGroupTags[i][j], i, j, field.Tag)
+		for j, tag := range expectedGroupTags[i] {
+			if !group.Has(tag) {
+				t.Errorf("expected %v in group %v", expectedGroupTags[i][j], i)
+				continue
 			}
 
-			if !bytes.Equal(field.Write(), expectedGroupBytes[i][j]) {
-				t.Errorf("Expected '%s' for field %v of group %v, got '%s'", expectedGroupBytes[i][j], j, i, field.Write())
+			var actual FIXString
+			if err := group.GetField(tag, &actual); err != nil {
+				t.Errorf("error getting field %v from group %v", tag, i)
+				continue
 			}
 
+			if expectedGroupValues[i][j] != actual {
+				t.Errorf("Expected %v got %v", expectedGroupTags[i][j], actual)
+			}
 		}
 	}
 }
