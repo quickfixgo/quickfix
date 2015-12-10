@@ -79,12 +79,26 @@ func TestRepeatingGroup_Read(t *testing.T) {
 				[][]byte{[]byte("hello")},
 				[][]byte{[]byte("goodbye"), []byte("cruel"), []byte("world")},
 				[][]byte{[]byte("another")}}},
+		{multiFieldTemplate, TagValues{
+			TagValue{Value: []byte("2")},
+			TagValue{Tag: Tag(4), Value: []byte("not in template 1")},
+			TagValue{Tag: Tag(1), Value: []byte("hello")},
+			TagValue{Tag: Tag(5), Value: []byte("not in template 2")},
+			TagValue{Tag: Tag(2), Value: []byte("world")},
+			TagValue{Tag: Tag(1), Value: []byte("another")},
+		}, 2,
+			[][][]byte{
+				[][]byte{[]byte("hello"), []byte("world")},
+				[][]byte{[]byte("another")}}},
 	}
 
 	for _, test := range tests {
 		f := RepeatingGroup{GroupTemplate: test.groupTemplate}
 
-		f.Read(test.tv)
+		_, err := f.Read(test.tv)
+		if err != nil {
+			t.Error(err)
+		}
 		if len(f.Groups) != test.expectedGroupNum {
 			t.Errorf("expected %v groups, got %v", test.expectedGroupNum, len(f.Groups))
 		}
