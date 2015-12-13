@@ -56,7 +56,7 @@ func TestRepeatingGroup_ReadError(t *testing.T) {
 		f := RepeatingGroup{GroupTemplate: singleFieldTemplate}
 		_, err := f.Read(s.tv)
 		if err == nil || len(f.Groups) != s.expectedGroupNum {
-			t.Error("Should have raised an error because expected group number is wrong: %v instead of %v", len(f.Groups), s.expectedGroupNum)
+			t.Errorf("Should have raised an error because expected group number is wrong: %v instead of %v", len(f.Groups), s.expectedGroupNum)
 		}
 	}
 }
