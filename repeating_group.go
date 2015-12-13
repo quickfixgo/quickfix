@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bytes"
 	"strconv"
+	"fmt"
 )
 
 type RepeatingGroupField struct {
@@ -90,6 +91,9 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 		}
 	}
 
+	if len(f.Groups) != expectedGroupSize {
+		return tv, fmt.Errorf("Only found %v instead of %v expected groups, is template wrong?", len(group), expectedGroupSize)
+	}
 	return tv, err
 }
 

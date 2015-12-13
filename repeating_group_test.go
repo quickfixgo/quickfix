@@ -33,6 +33,34 @@ func TestRepeatingGroup_Write(t *testing.T) {
 	}
 }
 
+func TestRepeatingGroup_ReadError(t *testing.T) {
+	singleFieldTemplate := Group{RepeatingGroupField{Tag(1), new(FIXString)}}
+	tests := []struct {
+		tv               TagValues
+		expectedGroupNum int}{
+		{
+			TagValues{
+				TagValue{Value: []byte("1")},
+				TagValue{Tag: Tag(2), Value: []byte("not in template")},
+				TagValue{Tag: Tag(1), Value: []byte("hello")},
+			}, 0},
+		{
+			TagValues{
+				TagValue{Value: []byte("2")},
+				TagValue{Tag: Tag(1), Value: []byte("hello")},
+				TagValue{Tag: Tag(2), Value: []byte("not in template")},
+				TagValue{Tag: Tag(1), Value: []byte("hello")},
+			}, 1}}
+
+	for _, s := range tests {
+		f := RepeatingGroup{GroupTemplate: singleFieldTemplate}
+		_, err := f.Read(s.tv)
+		if err == nil || len(f.Groups) != s.expectedGroupNum {
+			t.Error("Should have raised an error because expected group number is wrong: %v instead of %v", len(f.Groups), s.expectedGroupNum)
+		}
+	}
+}
+
 func TestRepeatingGroup_Read(t *testing.T) {
 
 	singleFieldTemplate := Group{RepeatingGroupField{Tag(1), new(FIXString)}}
@@ -84,7 +112,10 @@ func TestRepeatingGroup_Read(t *testing.T) {
 	for _, test := range tests {
 		f := RepeatingGroup{GroupTemplate: test.groupTemplate}
 
-		f.Read(test.tv)
+		_, err := f.Read(test.tv)
+		if err != nil {
+			t.Error(err)
+		}
 		if len(f.Groups) != test.expectedGroupNum {
 			t.Errorf("expected %v groups, got %v", test.expectedGroupNum, len(f.Groups))
 		}
