@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"bytes"
+	"math"
 	"strconv"
 	"fmt"
 )
@@ -11,30 +12,33 @@ type RepeatingGroupField struct {
 	FieldValue
 }
 
-type Group []RepeatingGroupField
+type GroupTemplate []RepeatingGroupField
+type Group struct{ FieldMap }
 
 type RepeatingGroup struct {
-	GroupTemplate Group
-	Groups        []Group
+	GroupTemplate
+	Groups []Group
 }
 
-func (f *RepeatingGroup) AddGroup(group Group) {
-	f.Groups = append(f.Groups, group)
+func (f *RepeatingGroup) Add() Group {
+	var g Group
+	g.init(f.groupTagOrder())
+
+	f.Groups = append(f.Groups, g)
+	return g
 }
 
 func (f RepeatingGroup) Write() []byte {
 	buf := bytes.NewBufferString(strconv.Itoa(len(f.Groups)))
+	buf.WriteString("")
 
 	for _, group := range f.Groups {
-		for _, field := range group {
-			buf.WriteString("")
-			buf.WriteString(strconv.Itoa(int(field.Tag)))
-			buf.WriteString("=")
-			buf.Write(field.Write())
-		}
+		group.write(buf)
 	}
 
-	return buf.Bytes()
+	//remove the last soh char
+	bytes := buf.Bytes()
+	return bytes[:len(bytes)-1]
 }
 
 func (f RepeatingGroup) findFieldInGroupTemplate(t Tag) (field RepeatingGroupField, ok bool) {
@@ -48,6 +52,28 @@ func (f RepeatingGroup) findFieldInGroupTemplate(t Tag) (field RepeatingGroupFie
 	}
 
 	return
+}
+
+func (f RepeatingGroup) groupTagOrder() tagOrder {
+	tagMap := make(map[Tag]int)
+	for i, f := range f.GroupTemplate {
+		tagMap[f.Tag] = i
+	}
+
+	return func(i, j Tag) bool {
+		orderi := math.MaxInt64
+		orderj := math.MaxInt64
+
+		if iIndex, ok := tagMap[i]; ok {
+			orderi = iIndex
+		}
+
+		if jIndex, ok := tagMap[j]; ok {
+			orderj = jIndex
+		}
+
+		return orderi < orderj
+	}
 }
 
 func (f RepeatingGroup) isDelimiter(t Tag) bool {
@@ -66,7 +92,9 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 	}
 
 	tv = tv[1:]
+	tagOrdering := f.groupTagOrder()
 	var group Group
+	group.init(tagOrdering)
 	for len(tv) > 0 {
 		field, ok := f.findFieldInGroupTemplate(tv[0].Tag)
 		if !ok {
@@ -79,29 +107,24 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 		}
 
 		if f.isDelimiter(field.Tag) {
-			group = Group{field}
-			f.Groups = append(f.Groups, group)
-		} else {
-			if len(group) == 0 {
-				// didn't get initial delimiter
-				break
-			}
+			group = Group{}
+			group.init(tagOrdering)
 
-			group = append(group, field)
-			f.Groups[len(f.Groups)-1] = group
+			f.Groups = append(f.Groups, group)
 		}
+
+		group.SetField(field.Tag, field)
 	}
 
 	if len(f.Groups) != expectedGroupSize {
-		return tv, fmt.Errorf("Only found %v instead of %v expected groups, is template wrong?", len(group), expectedGroupSize)
+		return tv, fmt.Errorf("Only found %v instead of %v expected groups, is template wrong?", len(f.Groups), expectedGroupSize)
 	}
 	return tv, err
 }
 
 func (f RepeatingGroup) Clone() FieldValue {
 	var clone RepeatingGroup
-
-	clone.GroupTemplate = make(Group, len(f.GroupTemplate))
+	clone.GroupTemplate = make(GroupTemplate, len(f.GroupTemplate))
 	clone.Groups = make([]Group, len(f.Groups))
 
 	for i, field := range f.GroupTemplate {
@@ -109,11 +132,7 @@ func (f RepeatingGroup) Clone() FieldValue {
 	}
 
 	for i, group := range f.Groups {
-		clone.Groups[i] = make(Group, len(group))
-
-		for j, field := range group {
-			clone.Groups[i][j] = RepeatingGroupField{field.Tag, field.FieldValue.Clone()}
-		}
+		clone.Groups[i].init(group.tagOrder)
 	}
 
 	return &clone
