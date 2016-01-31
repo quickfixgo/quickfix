@@ -103,17 +103,18 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 	return nil
 }
 
-func (m FieldMap) SetField(tag Tag, field FieldValueWriter) {
+func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
 	tValues := make([]TagValue, 1)
 	tValues[0].init(tag, field.Write())
 	m.tagLookup[tag] = tValues
+	return m
 }
 
-func (m FieldMap) Set(field FieldWriter) {
+func (m FieldMap) Set(field FieldWriter) FieldMap {
 	tValues := make([]TagValue, 1)
 	tValues[0].init(field.Tag(), field.Write())
-
 	m.tagLookup[field.Tag()] = tValues
+	return m
 }
 
 func (m FieldMap) sortedTags() []Tag {
