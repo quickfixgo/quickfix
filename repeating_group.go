@@ -2,9 +2,9 @@ package quickfix
 
 import (
 	"bytes"
+	"fmt"
 	"math"
 	"strconv"
-	"fmt"
 )
 
 type RepeatingGroupField struct {
