@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"bytes"
+	"fmt"
 	"math"
 	"strconv"
 )
@@ -114,6 +115,9 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 		group.SetField(field.Tag, field)
 	}
 
+	if len(f.Groups) != expectedGroupSize {
+		return tv, fmt.Errorf("Only found %v instead of %v expected groups, is template wrong?", len(f.Groups), expectedGroupSize)
+	}
 	return tv, err
 }
 
