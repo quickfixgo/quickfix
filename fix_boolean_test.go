@@ -37,7 +37,7 @@ func TestFIXBooleanFieldRead(t *testing.T) {
 
 	for _, test := range tests {
 		var val FIXBoolean
-		_, err := val.Read([]TagValue{TagValue{Value: test.bytes}})
+		err := val.Read(test.bytes)
 
 		if test.expectError && err == nil {
 			t.Errorf("Expected error for %v", test.bytes)

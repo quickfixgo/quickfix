@@ -33,7 +33,7 @@ func TestFIXStringRead(t *testing.T) {
 
 	for _, test := range tests {
 		var field FIXString
-		_, err := field.Read([]TagValue{TagValue{Value: test.bytes}})
+		err := field.Read(test.bytes)
 
 		if test.expectError && err == nil {
 			t.Errorf("Expected error for %v", test.bytes)

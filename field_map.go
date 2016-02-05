@@ -96,6 +96,19 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 		return conditionallyRequiredFieldMissing(tag)
 	}
 
+	if err := parser.Read(tagValues[0].Value); err != nil {
+		return incorrectDataFormatForValue(tag)
+	}
+
+	return nil
+}
+
+func (m FieldMap) GetGroupField(tag Tag, parser *RepeatingGroup) MessageRejectError {
+	tagValues, ok := m.tagLookup[tag]
+	if !ok {
+		return conditionallyRequiredFieldMissing(tag)
+	}
+
 	if _, err := parser.Read(tagValues); err != nil {
 		return incorrectDataFormatForValue(tag)
 	}

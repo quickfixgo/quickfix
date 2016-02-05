@@ -13,16 +13,11 @@ func (f FIXString) String() string {
 	return string(f)
 }
 
-func (f *FIXString) Read(tv TagValues) (TagValues, error) {
-	*f = FIXString(tv[0].Value)
-	return tv[1:], nil
+func (f *FIXString) Read(bytes []byte) (err error) {
+	*f = FIXString(bytes)
+	return
 }
 
 func (f FIXString) Write() []byte {
 	return []byte(f)
-}
-
-func (f FIXString) Clone() FieldValue {
-	clone := f
-	return &clone
 }

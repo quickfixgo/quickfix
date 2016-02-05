@@ -128,6 +128,10 @@ func TestParser_ReadMessage(t *testing.T) {
 			t.Errorf("Expected %v got %v", tc.expectedBytes, string(msg))
 		}
 
+		if len(tc.expectedBytes) != cap(msg) {
+			t.Errorf("Expected capacity %v got %v", len(tc.expectedBytes), cap(msg))
+		}
+
 		if cap(parser.buffer) != tc.expectedBufferCap {
 			t.Errorf("Expected capacity %v got %v", tc.expectedBufferCap, cap(parser.buffer))
 		}

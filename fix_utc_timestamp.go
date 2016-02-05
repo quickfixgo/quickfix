@@ -15,20 +15,19 @@ const (
 	utcTimestampNoMillisFormat = "20060102-15:04:05"
 )
 
-func (f *FIXUTCTimestamp) Read(tv TagValues) (TagValues, error) {
-	bytes := tv[0].Value
+func (f *FIXUTCTimestamp) Read(bytes []byte) error {
 	var err error
 	//with millisecs
 	if f.Value, err = time.Parse(utcTimestampFormat, string(bytes)); err == nil {
-		return tv[1:], nil
+		return nil
 	}
 
 	//w/o millisecs
 	if f.Value, err = time.Parse(utcTimestampNoMillisFormat, string(bytes)); err != nil {
-		return tv, err
+		return err
 	}
 
-	return tv[1:], nil
+	return nil
 }
 
 func (f FIXUTCTimestamp) Write() []byte {
@@ -37,8 +36,4 @@ func (f FIXUTCTimestamp) Write() []byte {
 	}
 
 	return []byte(f.Value.UTC().Format(utcTimestampFormat))
-}
-
-func (f FIXUTCTimestamp) Clone() FieldValue {
-	return &FIXUTCTimestamp{f.Value, f.NoMillis}
 }

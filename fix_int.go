@@ -52,20 +52,15 @@ func NewFIXInt(val int) *FIXInt {
 	return &i
 }
 
-func (f *FIXInt) Read(tv TagValues) (TagValues, error) {
-	i, err := atoi(tv[0].Value)
+func (f *FIXInt) Read(bytes []byte) error {
+	i, err := atoi(bytes)
 	if err != nil {
-		return tv, err
+		return err
 	}
 	*f = FIXInt(i)
-	return tv[1:], nil
+	return nil
 }
 
 func (f FIXInt) Write() []byte {
 	return []byte(strconv.Itoa(int(f)))
-}
-
-func (f FIXInt) Clone() FieldValue {
-	clone := f
-	return &clone
 }
