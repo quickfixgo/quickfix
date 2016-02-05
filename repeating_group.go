@@ -98,7 +98,8 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 	for len(tv) > 0 {
 		field, ok := f.findFieldInGroupTemplate(tv[0].Tag)
 		if !ok {
-			break
+			tv = tv[1:]
+			continue
 		}
 
 		if tv, err = field.Read(tv); err != nil {
