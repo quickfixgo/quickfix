@@ -1,7 +1,6 @@
 package quickfix
 
 import (
-	"bytes"
 	"fmt"
 	"math"
 	"strconv"
@@ -22,12 +21,12 @@ type GroupItem interface {
 }
 
 type protoGroupElement struct {
-	tagMethod func() Tag
+	tag Tag
 }
 
-func (t protoGroupElement) Tag() Tag { return t.tagMethod() }
+func (t protoGroupElement) Tag() Tag { return t.tag }
 func (t protoGroupElement) Read(tv TagValues) (TagValues, error) {
-	if tv[0].Tag == t.tagMethod() {
+	if tv[0].Tag == t.tag {
 		return tv[1:], nil
 	}
 
@@ -36,15 +35,17 @@ func (t protoGroupElement) Read(tv TagValues) (TagValues, error) {
 
 //GroupElement returns a GroupItem made up of a single field
 func GroupElement(tag Tag) GroupItem {
-	t := struct{ protoGroupElement }{}
-	t.tagMethod = func() Tag { return tag }
-	return t
+	return protoGroupElement{tag: tag}
 }
 
+//GroupTemplate specifies the group item order for a RepeatingGroup
 type GroupTemplate []GroupItem
+
 type Group struct{ FieldMap }
 
+//RepeatingGroup is a FIX Repeating Group type
 type RepeatingGroup struct {
+	Tag
 	GroupTemplate
 	Groups []Group
 }
@@ -58,17 +59,23 @@ func (f *RepeatingGroup) Add() Group {
 	return g
 }
 
-func (f RepeatingGroup) Write() []byte {
-	buf := bytes.NewBufferString(strconv.Itoa(len(f.Groups)))
-	buf.WriteString("")
+//TagValues returns TagValues for all Items in the repeating group ordered by
+//Group sequence and Group template order
+func (f RepeatingGroup) TagValues() TagValues {
+	tvs := make(TagValues, 1, 1)
+	tvs[0].init(f.Tag, []byte(strconv.Itoa(len(f.Groups))))
 
 	for _, group := range f.Groups {
-		group.write(buf)
+		tags := group.sortedTags()
+
+		for _, tag := range tags {
+			if fields, ok := group.tagLookup[tag]; ok {
+				tvs = append(tvs, fields...)
+			}
+		}
 	}
 
-	//remove the last soh char
-	bytes := buf.Bytes()
-	return bytes[:len(bytes)-1]
+	return tvs
 }
 
 func (f RepeatingGroup) findItemInGroupTemplate(t Tag) (item GroupItem, ok bool) {
@@ -120,7 +127,7 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 		return tv[1:], nil
 	}
 
-	tv = tv[1:]
+	tv = tv[1:cap(tv)]
 	tagOrdering := f.groupTagOrder()
 	var group Group
 	group.init(tagOrdering)

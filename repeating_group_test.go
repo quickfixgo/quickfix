@@ -36,28 +36,28 @@ func TestRepeatingGroup_Add(t *testing.T) {
 	}
 }
 
-func TestRepeatingGroup_Write(t *testing.T) {
-	f1 := RepeatingGroup{GroupTemplate: GroupTemplate{
+func TestRepeatingGroup_TagValues(t *testing.T) {
+	f1 := RepeatingGroup{Tag: 10, GroupTemplate: GroupTemplate{
 		GroupElement(1),
 		GroupElement(2),
 	}}
 
 	f1.Add().SetField(Tag(1), FIXString("hello"))
 
-	f2 := RepeatingGroup{GroupTemplate: GroupTemplate{
+	f2 := RepeatingGroup{Tag: 11, GroupTemplate: GroupTemplate{
 		GroupElement(1),
 		GroupElement(2),
 	}}
 	f2.Add().SetField(Tag(1), FIXString("hello")).SetField(Tag(2), FIXString("world"))
 
-	f3 := RepeatingGroup{GroupTemplate: GroupTemplate{
+	f3 := RepeatingGroup{Tag: 12, GroupTemplate: GroupTemplate{
 		GroupElement(1),
 		GroupElement(2),
 	}}
 	f3.Add().SetField(Tag(1), FIXString("hello"))
 	f3.Add().SetField(Tag(1), FIXString("world"))
 
-	f4 := RepeatingGroup{GroupTemplate: GroupTemplate{
+	f4 := RepeatingGroup{Tag: 13, GroupTemplate: GroupTemplate{
 		GroupElement(1),
 		GroupElement(2),
 	}}
@@ -68,16 +68,20 @@ func TestRepeatingGroup_Write(t *testing.T) {
 		f        RepeatingGroup
 		expected []byte
 	}{
-		{f1, []byte("11=hello")},
-		{f2, []byte("11=hello2=world")},
-		{f3, []byte("21=hello1=world")},
-		{f4, []byte("21=hello2=world1=goodbye")},
+		{f1, []byte("10=11=hello")},
+		{f2, []byte("11=11=hello2=world")},
+		{f3, []byte("12=21=hello1=world")},
+		{f4, []byte("13=21=hello2=world1=goodbye")},
 	}
 
 	for _, test := range tests {
-		fieldBytes := test.f.Write()
-		if !bytes.Equal(test.expected, fieldBytes) {
-			t.Errorf("expected %s got %s", test.expected, fieldBytes)
+		tvbytes := []byte{}
+		for _, tv := range test.f.TagValues() {
+			tvbytes = append(tvbytes, tv.bytes...)
+		}
+
+		if !bytes.Equal(test.expected, tvbytes) {
+			t.Errorf("expected %s got %s", test.expected, tvbytes)
 		}
 	}
 }
@@ -205,8 +209,8 @@ func TestRepeatingGroup_ReadComplete(t *testing.T) {
 		GroupElement(273),
 	}
 
-	f := RepeatingGroup{GroupTemplate: template}
-	err = msg.Body.GetGroupField(Tag(268), &f)
+	f := RepeatingGroup{Tag: 268, GroupTemplate: template}
+	err = msg.Body.GetGroup(&f)
 	if err != nil {
 		t.Error("Unexpected error, ", err)
 	}
