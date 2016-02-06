@@ -6,7 +6,7 @@ import (
 )
 
 func TestRepeatingGroup_Add(t *testing.T) {
-	f := RepeatingGroup{GroupTemplate: GroupTemplate{RepeatingGroupField{1, new(FIXString)}}}
+	f := RepeatingGroup{GroupTemplate: GroupTemplate{GroupElement(1)}}
 
 	var tests = []struct {
 		expectedLen int
@@ -36,30 +36,30 @@ func TestRepeatingGroup_Add(t *testing.T) {
 	}
 }
 
-func TestRepeatingGroup_Write(t *testing.T) {
-	f1 := RepeatingGroup{GroupTemplate: GroupTemplate{
-		RepeatingGroupField{1, new(FIXString)},
-		RepeatingGroupField{2, new(FIXString)},
+func TestRepeatingGroup_TagValues(t *testing.T) {
+	f1 := RepeatingGroup{Tag: 10, GroupTemplate: GroupTemplate{
+		GroupElement(1),
+		GroupElement(2),
 	}}
 
 	f1.Add().SetField(Tag(1), FIXString("hello"))
 
-	f2 := RepeatingGroup{GroupTemplate: GroupTemplate{
-		RepeatingGroupField{1, new(FIXString)},
-		RepeatingGroupField{2, new(FIXString)},
+	f2 := RepeatingGroup{Tag: 11, GroupTemplate: GroupTemplate{
+		GroupElement(1),
+		GroupElement(2),
 	}}
 	f2.Add().SetField(Tag(1), FIXString("hello")).SetField(Tag(2), FIXString("world"))
 
-	f3 := RepeatingGroup{GroupTemplate: GroupTemplate{
-		RepeatingGroupField{1, new(FIXString)},
-		RepeatingGroupField{2, new(FIXString)},
+	f3 := RepeatingGroup{Tag: 12, GroupTemplate: GroupTemplate{
+		GroupElement(1),
+		GroupElement(2),
 	}}
 	f3.Add().SetField(Tag(1), FIXString("hello"))
 	f3.Add().SetField(Tag(1), FIXString("world"))
 
-	f4 := RepeatingGroup{GroupTemplate: GroupTemplate{
-		RepeatingGroupField{1, new(FIXString)},
-		RepeatingGroupField{2, new(FIXString)},
+	f4 := RepeatingGroup{Tag: 13, GroupTemplate: GroupTemplate{
+		GroupElement(1),
+		GroupElement(2),
 	}}
 	f4.Add().SetField(Tag(1), FIXString("hello")).SetField(Tag(2), FIXString("world"))
 	f4.Add().SetField(Tag(1), FIXString("goodbye"))
@@ -68,22 +68,26 @@ func TestRepeatingGroup_Write(t *testing.T) {
 		f        RepeatingGroup
 		expected []byte
 	}{
-		{f1, []byte("11=hello")},
-		{f2, []byte("11=hello2=world")},
-		{f3, []byte("21=hello1=world")},
-		{f4, []byte("21=hello2=world1=goodbye")},
+		{f1, []byte("10=11=hello")},
+		{f2, []byte("11=11=hello2=world")},
+		{f3, []byte("12=21=hello1=world")},
+		{f4, []byte("13=21=hello2=world1=goodbye")},
 	}
 
 	for _, test := range tests {
-		fieldBytes := test.f.Write()
-		if !bytes.Equal(test.expected, fieldBytes) {
-			t.Errorf("expected %s got %s", test.expected, fieldBytes)
+		tvbytes := []byte{}
+		for _, tv := range test.f.TagValues() {
+			tvbytes = append(tvbytes, tv.bytes...)
+		}
+
+		if !bytes.Equal(test.expected, tvbytes) {
+			t.Errorf("expected %s got %s", test.expected, tvbytes)
 		}
 	}
 }
 
 func TestRepeatingGroup_ReadError(t *testing.T) {
-	singleFieldTemplate := GroupTemplate{RepeatingGroupField{Tag(1), new(FIXString)}}
+	singleFieldTemplate := GroupTemplate{GroupElement(1)}
 	tests := []struct {
 		tv               TagValues
 		expectedGroupNum int
@@ -113,8 +117,8 @@ func TestRepeatingGroup_ReadError(t *testing.T) {
 
 func TestRepeatingGroup_Read(t *testing.T) {
 
-	singleFieldTemplate := GroupTemplate{RepeatingGroupField{Tag(1), new(FIXString)}}
-	multiFieldTemplate := GroupTemplate{RepeatingGroupField{Tag(1), new(FIXString)}, RepeatingGroupField{Tag(2), new(FIXString)}, RepeatingGroupField{Tag(3), new(FIXString)}}
+	singleFieldTemplate := GroupTemplate{GroupElement(1)}
+	multiFieldTemplate := GroupTemplate{GroupElement(1), GroupElement(2), GroupElement(3)}
 
 	tests := []struct {
 		groupTemplate    GroupTemplate
@@ -198,15 +202,15 @@ func TestRepeatingGroup_ReadComplete(t *testing.T) {
 	}
 
 	template := GroupTemplate{
-		RepeatingGroupField{Tag(269), new(FIXString)},
-		RepeatingGroupField{Tag(270), new(FIXString)},
-		RepeatingGroupField{Tag(271), new(FIXString)},
-		RepeatingGroupField{Tag(272), new(FIXString)},
-		RepeatingGroupField{Tag(273), new(FIXString)},
+		GroupElement(269),
+		GroupElement(270),
+		GroupElement(271),
+		GroupElement(272),
+		GroupElement(273),
 	}
 
-	f := RepeatingGroup{GroupTemplate: template}
-	err = msg.Body.GetField(Tag(268), &f)
+	f := RepeatingGroup{Tag: 268, GroupTemplate: template}
+	err = msg.Body.GetGroup(&f)
 	if err != nil {
 		t.Error("Unexpected error, ", err)
 	}

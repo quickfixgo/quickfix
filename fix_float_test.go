@@ -35,7 +35,7 @@ func TestFloatRead(t *testing.T) {
 
 	for _, test := range tests {
 		var field FIXFloat
-		if _, err := field.Read([]TagValue{TagValue{Value: test.bytes}}); err != nil {
+		if err := field.Read(test.bytes); err != nil {
 			if !test.expectError {
 				t.Errorf("UnExpected '%v'", err)
 			}

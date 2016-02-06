@@ -96,8 +96,21 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 		return conditionallyRequiredFieldMissing(tag)
 	}
 
-	if _, err := parser.Read(tagValues); err != nil {
+	if err := parser.Read(tagValues[0].Value); err != nil {
 		return incorrectDataFormatForValue(tag)
+	}
+
+	return nil
+}
+
+func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
+	tagValues, ok := m.tagLookup[parser.Tag]
+	if !ok {
+		return conditionallyRequiredFieldMissing(parser.Tag)
+	}
+
+	if _, err := parser.Read(tagValues); err != nil {
+		return incorrectDataFormatForValue(parser.Tag)
 	}
 
 	return nil
@@ -117,6 +130,11 @@ func (m FieldMap) Set(field FieldWriter) FieldMap {
 	return m
 }
 
+func (m FieldMap) SetGroup(field RepeatingGroup) FieldMap {
+	m.tagLookup[field.Tag] = field.TagValues()
+	return m
+}
+
 func (m FieldMap) sortedTags() []Tag {
 	sortedTags := make([]Tag, len(m.tagLookup))
 	for tag := range m.tagLookup {
@@ -132,7 +150,9 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 
 	for _, tag := range tags {
 		if fields, ok := m.tagLookup[tag]; ok {
-			buffer.Write(fields[0].bytes)
+			for _, tv := range fields {
+				buffer.Write(tv.bytes)
+			}
 		}
 	}
 }
@@ -140,11 +160,12 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 func (m FieldMap) total() int {
 	total := 0
 	for _, fields := range m.tagLookup {
-		field := fields[0]
-		switch field.Tag {
-		case tagCheckSum: //tag does not contribute to total
-		default:
-			total += field.total()
+		for _, tv := range fields {
+			switch tv.Tag {
+			case tagCheckSum: //tag does not contribute to total
+			default:
+				total += tv.total()
+			}
 		}
 	}
 
@@ -154,11 +175,12 @@ func (m FieldMap) total() int {
 func (m FieldMap) length() int {
 	length := 0
 	for _, fields := range m.tagLookup {
-		field := fields[0]
-		switch field.Tag {
-		case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
-		default:
-			length += field.length()
+		for _, tv := range fields {
+			switch tv.Tag {
+			case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
+			default:
+				length += tv.length()
+			}
 		}
 	}
 

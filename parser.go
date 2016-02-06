@@ -114,7 +114,7 @@ func (p *parser) ReadMessage() ([]byte, error) {
 		return []byte{}, err
 	}
 
-	msgBytes := p.buffer[:index]
+	msgBytes := p.buffer[:index:index]
 	p.buffer = p.buffer[index:]
 
 	return msgBytes, nil

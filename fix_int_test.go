@@ -15,7 +15,7 @@ func TestInt_Write(t *testing.T) {
 
 func TestInt_Read(t *testing.T) {
 	var field FIXInt
-	_, err := field.Read([]TagValue{TagValue{Value: []byte("15")}})
+	err := field.Read([]byte("15"))
 
 	if err != nil {
 		t.Error("Unexpected error", err)
@@ -25,7 +25,7 @@ func TestInt_Read(t *testing.T) {
 		t.Error("unexpected value", field)
 	}
 
-	_, err = field.Read([]TagValue{TagValue{Value: []byte("blah")}})
+	err = field.Read([]byte("blah"))
 
 	if err == nil {
 		t.Error("expected error")
@@ -37,6 +37,6 @@ func BenchmarkInt_Read(b *testing.B) {
 	var field FIXInt
 
 	for i := 0; i < b.N; i++ {
-		field.Read([]TagValue{TagValue{Value: intBytes}})
+		field.Read(intBytes)
 	}
 }
