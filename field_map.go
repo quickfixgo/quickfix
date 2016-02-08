@@ -123,6 +123,11 @@ func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
 	return m
 }
 
+//Clear purges all fields from field map
+func (m *FieldMap) Clear() {
+	m.tagLookup = make(map[Tag][]TagValue)
+}
+
 func (m FieldMap) Set(field FieldWriter) FieldMap {
 	tValues := make([]TagValue, 1)
 	tValues[0].init(field.Tag(), field.Write())

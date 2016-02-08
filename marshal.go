@@ -12,11 +12,8 @@ type encoder struct {
 
 func (e encoder) encodeField(f reflect.StructField, t reflect.Type, v reflect.Value) {
 	if f.Tag.Get("fix") != "" {
-		fixTag, err := strconv.Atoi(f.Tag.Get("fix"))
-		if err != nil {
-			panic(err)
-		}
-		e.encodeValue(Tag(fixTag), v)
+		tag, omitEmpty := parseStructTag(f.Tag.Get("fix"))
+		e.encodeValue(tag, v, omitEmpty)
 	}
 
 	switch v.Kind() {
@@ -32,13 +29,13 @@ func (e encoder) encodeField(f reflect.StructField, t reflect.Type, v reflect.Va
 	}
 }
 
-func (e encoder) encodeValue(fixTag Tag, v reflect.Value) {
+func (e encoder) encodeValue(fixTag Tag, v reflect.Value, omitEmpty bool) {
 	switch v.Kind() {
 	case reflect.Ptr:
 		if v.IsNil() {
 			return
 		}
-		e.encodeValue(fixTag, v.Elem())
+		e.encodeValue(fixTag, v.Elem(), omitEmpty)
 	case reflect.Struct:
 		switch t := v.Interface().(type) {
 		case time.Time:
@@ -54,6 +51,9 @@ func (e encoder) encodeValue(fixTag Tag, v reflect.Value) {
 	case reflect.Float32, reflect.Float64:
 		e.FieldMap.SetField(fixTag, FIXFloat(v.Float()))
 	case reflect.Slice:
+		if v.Len() == 0 && omitEmpty {
+			return
+		}
 		elem := v.Type().Elem()
 		if elem.Kind() != reflect.Struct {
 			panic("repeating group must be a slice of type struct")

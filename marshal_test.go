@@ -236,6 +236,42 @@ func TestMarshal_RepeatingGroups(t *testing.T) {
 	}
 }
 
+func TestMarshal_OmitEmpty(t *testing.T) {
+	type Group1 struct {
+		StringField1 string  `fix:"8"`
+		StringField2 *string `fix:"9"`
+	}
+
+	type Group2 struct {
+		IntField1 int `fix:"1"`
+		IntField2 int `fix:"2"`
+	}
+
+	type Message struct {
+		FIXMsgType  string   `fix:"0"`
+		GroupField1 []Group1 `fix:"100"`
+		StringField string   `fix:"112"`
+		GroupField2 []Group2 `fix:"101,omitempty"`
+	}
+
+	m := Message{}
+	fixMsg := quickfix.Marshal(m)
+
+	if fixMsg.Body.Has(quickfix.Tag(101)) {
+		t.Error("Unexpected tag for empty group")
+	}
+
+	f := new(quickfix.FIXInt)
+
+	if err := fixMsg.Body.GetField(quickfix.Tag(100), f); err != nil {
+		t.Errorf("Unexpected Error %v", err)
+	}
+
+	if *f != 0 {
+		t.Errorf("Expected 0 got %v", *f)
+	}
+}
+
 func TestMarshal_HeaderTrailer(t *testing.T) {
 	type Header struct {
 		StringField string `fix:"49"`
