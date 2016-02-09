@@ -4,6 +4,20 @@ import (
 	"testing"
 )
 
+func TestFieldMap_Clear(t *testing.T) {
+	fMap := FieldMap{}
+	fMap.init(normalFieldOrder)
+
+	fMap.SetField(1, FIXString("hello"))
+	fMap.SetField(2, FIXString("world"))
+
+	fMap.Clear()
+
+	if fMap.Has(1) || fMap.Has(2) {
+		t.Error("All fields should be cleared")
+	}
+}
+
 func TestFieldMap_SetAndGet(t *testing.T) {
 	fMap := FieldMap{}
 	fMap.init(normalFieldOrder)

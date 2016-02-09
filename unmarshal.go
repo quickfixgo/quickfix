@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"reflect"
-	"strconv"
 	"time"
 )
 
@@ -57,13 +56,8 @@ func (d decoder) decodeValue(fixTag Tag, t reflect.Type, v reflect.Value) Messag
 		template := make(GroupTemplate, elem.NumField())
 		for i := 0; i < elem.NumField(); i++ {
 			sf := elem.Field(i)
-			fixTag, err := strconv.Atoi(sf.Tag.Get("fix"))
-
-			if err != nil {
-				panic(err)
-			}
-
-			template[i] = GroupElement(Tag(fixTag))
+			fixTag, _ := parseStructTag(sf.Tag.Get("fix"))
+			template[i] = GroupElement(fixTag)
 		}
 		repeatingGroup := RepeatingGroup{Tag: fixTag, GroupTemplate: template}
 		if err := d.FieldMap.GetGroup(&repeatingGroup); err != nil {
@@ -90,12 +84,8 @@ func (d decoder) decodeValue(fixTag Tag, t reflect.Type, v reflect.Value) Messag
 
 func (d decoder) decodeField(sf reflect.StructField, t reflect.Type, v reflect.Value) MessageRejectError {
 	if sf.Tag.Get("fix") != "" {
-		fixTag, err := strconv.Atoi(sf.Tag.Get("fix"))
-		if err != nil {
-			panic(err)
-		}
-
-		if !d.FieldMap.Has(Tag(fixTag)) {
+		fixTag, _ := parseStructTag(sf.Tag.Get("fix"))
+		if !d.FieldMap.Has(fixTag) {
 			return nil
 		}
 
