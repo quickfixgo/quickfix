@@ -12,8 +12,8 @@ type encoder struct {
 
 func (e encoder) encodeField(f reflect.StructField, t reflect.Type, v reflect.Value) {
 	if f.Tag.Get("fix") != "" {
-		tag, omitEmpty := parseStructTag(f.Tag.Get("fix"))
-		e.encodeValue(tag, v, omitEmpty)
+		tag, omitEmpty, defaultVal := parseStructTag(f.Tag.Get("fix"))
+		e.encodeValue(tag, v, omitEmpty, defaultVal)
 	}
 
 	switch v.Kind() {
@@ -29,13 +29,18 @@ func (e encoder) encodeField(f reflect.StructField, t reflect.Type, v reflect.Va
 	}
 }
 
-func (e encoder) encodeValue(fixTag Tag, v reflect.Value, omitEmpty bool) {
+func (e encoder) encodeValue(fixTag Tag, v reflect.Value, omitEmpty bool, defaultVal *string) {
+	if defaultVal != nil {
+		e.FieldMap.SetField(fixTag, FIXString(*defaultVal))
+		return
+	}
+
 	switch v.Kind() {
 	case reflect.Ptr:
 		if v.IsNil() {
 			return
 		}
-		e.encodeValue(fixTag, v.Elem(), omitEmpty)
+		e.encodeValue(fixTag, v.Elem(), omitEmpty, defaultVal)
 	case reflect.Struct:
 		switch t := v.Interface().(type) {
 		case time.Time:

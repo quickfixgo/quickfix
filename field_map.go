@@ -93,7 +93,7 @@ func (m FieldMap) Has(tag Tag) bool {
 func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError {
 	tagValues, ok := m.tagLookup[tag]
 	if !ok {
-		return conditionallyRequiredFieldMissing(tag)
+		return ConditionallyRequiredFieldMissing(tag)
 	}
 
 	if err := parser.Read(tagValues[0].Value); err != nil {
@@ -106,7 +106,7 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
 	tagValues, ok := m.tagLookup[parser.Tag]
 	if !ok {
-		return conditionallyRequiredFieldMissing(parser.Tag)
+		return ConditionallyRequiredFieldMissing(parser.Tag)
 	}
 
 	if _, err := parser.Read(tagValues); err != nil {
