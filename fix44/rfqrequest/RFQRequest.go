@@ -4,61 +4,59 @@ package rfqrequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix44"
+	"github.com/quickfixgo/quickfix/fix44/instrument"
+	"github.com/quickfixgo/quickfix/fix44/instrumentleg"
+	"github.com/quickfixgo/quickfix/fix44/underlyinginstrument"
 )
 
-//Message is a RFQRequest wrapper for the generic Message type
+//NoRelatedSym is a repeating group in RFQRequest
+type NoRelatedSym struct {
+	//Instrument Component
+	Instrument instrument.Component
+	//NoUnderlyings is a non-required field for NoRelatedSym.
+	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
+	//NoLegs is a non-required field for NoRelatedSym.
+	NoLegs []NoLegs `fix:"555,omitempty"`
+	//PrevClosePx is a non-required field for NoRelatedSym.
+	PrevClosePx *float64 `fix:"140"`
+	//QuoteRequestType is a non-required field for NoRelatedSym.
+	QuoteRequestType *int `fix:"303"`
+	//QuoteType is a non-required field for NoRelatedSym.
+	QuoteType *int `fix:"537"`
+	//TradingSessionID is a non-required field for NoRelatedSym.
+	TradingSessionID *string `fix:"336"`
+	//TradingSessionSubID is a non-required field for NoRelatedSym.
+	TradingSessionSubID *string `fix:"625"`
+}
+
+//NoUnderlyings is a repeating group in NoRelatedSym
+type NoUnderlyings struct {
+	//UnderlyingInstrument Component
+	UnderlyingInstrument underlyinginstrument.Component
+}
+
+//NoLegs is a repeating group in NoRelatedSym
+type NoLegs struct {
+	//InstrumentLeg Component
+	InstrumentLeg instrumentleg.Component
+}
+
+//Message is a RFQRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"AH"`
+	Header     fix44.Header
+	//RFQReqID is a required field for RFQRequest.
+	RFQReqID string `fix:"644"`
+	//NoRelatedSym is a required field for RFQRequest.
+	NoRelatedSym []NoRelatedSym `fix:"146"`
+	//SubscriptionRequestType is a non-required field for RFQRequest.
+	SubscriptionRequestType *string `fix:"263"`
+	Trailer                 fix44.Trailer
 }
 
-//RFQReqID is a required field for RFQRequest.
-func (m Message) RFQReqID() (*field.RFQReqIDField, quickfix.MessageRejectError) {
-	f := &field.RFQReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRFQReqID reads a RFQReqID from RFQRequest.
-func (m Message) GetRFQReqID(f *field.RFQReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoRelatedSym is a required field for RFQRequest.
-func (m Message) NoRelatedSym() (*field.NoRelatedSymField, quickfix.MessageRejectError) {
-	f := &field.NoRelatedSymField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoRelatedSym reads a NoRelatedSym from RFQRequest.
-func (m Message) GetNoRelatedSym(f *field.NoRelatedSymField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SubscriptionRequestType is a non-required field for RFQRequest.
-func (m Message) SubscriptionRequestType() (*field.SubscriptionRequestTypeField, quickfix.MessageRejectError) {
-	f := &field.SubscriptionRequestTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSubscriptionRequestType reads a SubscriptionRequestType from RFQRequest.
-func (m Message) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for RFQRequest.
-func New(
-	rfqreqid *field.RFQReqIDField,
-	norelatedsym *field.NoRelatedSymField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
-	builder.Header.Set(field.NewMsgType("AH"))
-	builder.Body.Set(rfqreqid)
-	builder.Body.Set(norelatedsym)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -66,7 +64,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX44, "AH", r
 }

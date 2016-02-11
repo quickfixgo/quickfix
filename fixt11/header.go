@@ -1,6 +1,9 @@
 package fixt11
 
-import "time"
+import (
+	"github.com/quickfixgo/quickfix/fixt11/hopgrp"
+	"time"
+)
 
 //Header is the fixt11 Header type
 type Header struct {
@@ -56,8 +59,8 @@ type Header struct {
 	MessageEncoding *string `fix:"347"`
 	//LastMsgSeqNumProcessed is a non-required field for Header.
 	LastMsgSeqNumProcessed *int `fix:"369"`
-	//NoHops is a non-required field for Header.
-	NoHops *int `fix:"627"`
+	//HopGrp Component
+	HopGrp hopgrp.Component
 	//ApplVerID is a non-required field for Header.
 	ApplVerID *string `fix:"1128"`
 	//CstmApplVerID is a non-required field for Header.

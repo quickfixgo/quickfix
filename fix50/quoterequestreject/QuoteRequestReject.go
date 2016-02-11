@@ -4,112 +4,33 @@ package quoterequestreject
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50/quotreqrjctgrp"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
-//Message is a QuoteRequestReject wrapper for the generic Message type
+//Message is a QuoteRequestReject FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"AG"`
+	Header     fixt11.Header
+	//QuoteReqID is a required field for QuoteRequestReject.
+	QuoteReqID string `fix:"131"`
+	//RFQReqID is a non-required field for QuoteRequestReject.
+	RFQReqID *string `fix:"644"`
+	//QuoteRequestRejectReason is a required field for QuoteRequestReject.
+	QuoteRequestRejectReason int `fix:"658"`
+	//QuotReqRjctGrp Component
+	QuotReqRjctGrp quotreqrjctgrp.Component
+	//Text is a non-required field for QuoteRequestReject.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for QuoteRequestReject.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for QuoteRequestReject.
+	EncodedText *string `fix:"355"`
+	Trailer     fixt11.Trailer
 }
 
-//QuoteReqID is a required field for QuoteRequestReject.
-func (m Message) QuoteReqID() (*field.QuoteReqIDField, quickfix.MessageRejectError) {
-	f := &field.QuoteReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteReqID reads a QuoteReqID from QuoteRequestReject.
-func (m Message) GetQuoteReqID(f *field.QuoteReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//RFQReqID is a non-required field for QuoteRequestReject.
-func (m Message) RFQReqID() (*field.RFQReqIDField, quickfix.MessageRejectError) {
-	f := &field.RFQReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRFQReqID reads a RFQReqID from QuoteRequestReject.
-func (m Message) GetRFQReqID(f *field.RFQReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteRequestRejectReason is a required field for QuoteRequestReject.
-func (m Message) QuoteRequestRejectReason() (*field.QuoteRequestRejectReasonField, quickfix.MessageRejectError) {
-	f := &field.QuoteRequestRejectReasonField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteRequestRejectReason reads a QuoteRequestRejectReason from QuoteRequestReject.
-func (m Message) GetQuoteRequestRejectReason(f *field.QuoteRequestRejectReasonField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoRelatedSym is a required field for QuoteRequestReject.
-func (m Message) NoRelatedSym() (*field.NoRelatedSymField, quickfix.MessageRejectError) {
-	f := &field.NoRelatedSymField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoRelatedSym reads a NoRelatedSym from QuoteRequestReject.
-func (m Message) GetNoRelatedSym(f *field.NoRelatedSymField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for QuoteRequestReject.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from QuoteRequestReject.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for QuoteRequestReject.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from QuoteRequestReject.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for QuoteRequestReject.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from QuoteRequestReject.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for QuoteRequestReject.
-func New(
-	quotereqid *field.QuoteReqIDField,
-	quoterequestrejectreason *field.QuoteRequestRejectReasonField,
-	norelatedsym *field.NoRelatedSymField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AG"))
-	builder.Body.Set(quotereqid)
-	builder.Body.Set(quoterequestrejectreason)
-	builder.Body.Set(norelatedsym)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -117,7 +38,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX50, "AG", r
 }

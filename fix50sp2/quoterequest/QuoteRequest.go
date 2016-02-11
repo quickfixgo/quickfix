@@ -4,194 +4,48 @@ package quoterequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50sp2/quotreqgrp"
+	"github.com/quickfixgo/quickfix/fix50sp2/rootparties"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
-//Message is a QuoteRequest wrapper for the generic Message type
+//Message is a QuoteRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"R"`
+	Header     fixt11.Header
+	//QuoteReqID is a required field for QuoteRequest.
+	QuoteReqID string `fix:"131"`
+	//RFQReqID is a non-required field for QuoteRequest.
+	RFQReqID *string `fix:"644"`
+	//ClOrdID is a non-required field for QuoteRequest.
+	ClOrdID *string `fix:"11"`
+	//OrderCapacity is a non-required field for QuoteRequest.
+	OrderCapacity *string `fix:"528"`
+	//QuotReqGrp Component
+	QuotReqGrp quotreqgrp.Component
+	//Text is a non-required field for QuoteRequest.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for QuoteRequest.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for QuoteRequest.
+	EncodedText *string `fix:"355"`
+	//RootParties Component
+	RootParties rootparties.Component
+	//PrivateQuote is a non-required field for QuoteRequest.
+	PrivateQuote *bool `fix:"1171"`
+	//RespondentType is a non-required field for QuoteRequest.
+	RespondentType *int `fix:"1172"`
+	//PreTradeAnonymity is a non-required field for QuoteRequest.
+	PreTradeAnonymity *bool `fix:"1091"`
+	//BookingType is a non-required field for QuoteRequest.
+	BookingType *int `fix:"775"`
+	//OrderRestrictions is a non-required field for QuoteRequest.
+	OrderRestrictions *string `fix:"529"`
+	Trailer           fixt11.Trailer
 }
 
-//QuoteReqID is a required field for QuoteRequest.
-func (m Message) QuoteReqID() (*field.QuoteReqIDField, quickfix.MessageRejectError) {
-	f := &field.QuoteReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteReqID reads a QuoteReqID from QuoteRequest.
-func (m Message) GetQuoteReqID(f *field.QuoteReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//RFQReqID is a non-required field for QuoteRequest.
-func (m Message) RFQReqID() (*field.RFQReqIDField, quickfix.MessageRejectError) {
-	f := &field.RFQReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRFQReqID reads a RFQReqID from QuoteRequest.
-func (m Message) GetRFQReqID(f *field.RFQReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ClOrdID is a non-required field for QuoteRequest.
-func (m Message) ClOrdID() (*field.ClOrdIDField, quickfix.MessageRejectError) {
-	f := &field.ClOrdIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetClOrdID reads a ClOrdID from QuoteRequest.
-func (m Message) GetClOrdID(f *field.ClOrdIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//OrderCapacity is a non-required field for QuoteRequest.
-func (m Message) OrderCapacity() (*field.OrderCapacityField, quickfix.MessageRejectError) {
-	f := &field.OrderCapacityField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetOrderCapacity reads a OrderCapacity from QuoteRequest.
-func (m Message) GetOrderCapacity(f *field.OrderCapacityField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoRelatedSym is a required field for QuoteRequest.
-func (m Message) NoRelatedSym() (*field.NoRelatedSymField, quickfix.MessageRejectError) {
-	f := &field.NoRelatedSymField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoRelatedSym reads a NoRelatedSym from QuoteRequest.
-func (m Message) GetNoRelatedSym(f *field.NoRelatedSymField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for QuoteRequest.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from QuoteRequest.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for QuoteRequest.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from QuoteRequest.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for QuoteRequest.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from QuoteRequest.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoRootPartyIDs is a non-required field for QuoteRequest.
-func (m Message) NoRootPartyIDs() (*field.NoRootPartyIDsField, quickfix.MessageRejectError) {
-	f := &field.NoRootPartyIDsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoRootPartyIDs reads a NoRootPartyIDs from QuoteRequest.
-func (m Message) GetNoRootPartyIDs(f *field.NoRootPartyIDsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PrivateQuote is a non-required field for QuoteRequest.
-func (m Message) PrivateQuote() (*field.PrivateQuoteField, quickfix.MessageRejectError) {
-	f := &field.PrivateQuoteField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPrivateQuote reads a PrivateQuote from QuoteRequest.
-func (m Message) GetPrivateQuote(f *field.PrivateQuoteField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//RespondentType is a non-required field for QuoteRequest.
-func (m Message) RespondentType() (*field.RespondentTypeField, quickfix.MessageRejectError) {
-	f := &field.RespondentTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRespondentType reads a RespondentType from QuoteRequest.
-func (m Message) GetRespondentType(f *field.RespondentTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PreTradeAnonymity is a non-required field for QuoteRequest.
-func (m Message) PreTradeAnonymity() (*field.PreTradeAnonymityField, quickfix.MessageRejectError) {
-	f := &field.PreTradeAnonymityField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPreTradeAnonymity reads a PreTradeAnonymity from QuoteRequest.
-func (m Message) GetPreTradeAnonymity(f *field.PreTradeAnonymityField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//BookingType is a non-required field for QuoteRequest.
-func (m Message) BookingType() (*field.BookingTypeField, quickfix.MessageRejectError) {
-	f := &field.BookingTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetBookingType reads a BookingType from QuoteRequest.
-func (m Message) GetBookingType(f *field.BookingTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//OrderRestrictions is a non-required field for QuoteRequest.
-func (m Message) OrderRestrictions() (*field.OrderRestrictionsField, quickfix.MessageRejectError) {
-	f := &field.OrderRestrictionsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetOrderRestrictions reads a OrderRestrictions from QuoteRequest.
-func (m Message) GetOrderRestrictions(f *field.OrderRestrictionsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for QuoteRequest.
-func New(
-	quotereqid *field.QuoteReqIDField,
-	norelatedsym *field.NoRelatedSymField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("R"))
-	builder.Body.Set(quotereqid)
-	builder.Body.Set(norelatedsym)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -199,7 +53,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP2, "R", r
 }

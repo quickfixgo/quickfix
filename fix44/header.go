@@ -1,6 +1,18 @@
 package fix44
 
-import "time"
+import (
+	"time"
+)
+
+//NoHops is a repeating group in Header
+type NoHops struct {
+	//HopCompID is a non-required field for NoHops.
+	HopCompID *string `fix:"628"`
+	//HopSendingTime is a non-required field for NoHops.
+	HopSendingTime *time.Time `fix:"629"`
+	//HopRefID is a non-required field for NoHops.
+	HopRefID *int `fix:"630"`
+}
 
 //Header is the fix44 Header type
 type Header struct {
@@ -57,5 +69,5 @@ type Header struct {
 	//LastMsgSeqNumProcessed is a non-required field for Header.
 	LastMsgSeqNumProcessed *int `fix:"369"`
 	//NoHops is a non-required field for Header.
-	NoHops *int `fix:"627"`
+	NoHops []NoHops `fix:"627,omitempty"`
 }

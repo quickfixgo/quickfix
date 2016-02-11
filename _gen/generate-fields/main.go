@@ -77,6 +77,10 @@ func genFields() {
 			fallthrough
 		case "LOCALMKTDATE":
 			fallthrough
+		case "TIME":
+			fallthrough
+		case "DATE":
+			fallthrough
 		case "EXCHANGE":
 			fallthrough
 		case "LANGUAGE":
@@ -179,6 +183,7 @@ func main() {
 		spec, err := datadictionary.Parse(dataDict)
 
 		if err != nil {
+			fmt.Println(dataDict)
 			panic(err)
 		}
 

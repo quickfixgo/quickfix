@@ -4,120 +4,36 @@ package marketdataincrementalrefresh
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50/mdincgrp"
+	"github.com/quickfixgo/quickfix/fix50/routinggrp"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
-//Message is a MarketDataIncrementalRefresh wrapper for the generic Message type
+//Message is a MarketDataIncrementalRefresh FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"X"`
+	Header     fixt11.Header
+	//MDReqID is a non-required field for MarketDataIncrementalRefresh.
+	MDReqID *string `fix:"262"`
+	//MDIncGrp Component
+	MDIncGrp mdincgrp.Component
+	//ApplQueueDepth is a non-required field for MarketDataIncrementalRefresh.
+	ApplQueueDepth *int `fix:"813"`
+	//ApplQueueResolution is a non-required field for MarketDataIncrementalRefresh.
+	ApplQueueResolution *int `fix:"814"`
+	//MDBookType is a non-required field for MarketDataIncrementalRefresh.
+	MDBookType *int `fix:"1021"`
+	//MDFeedType is a non-required field for MarketDataIncrementalRefresh.
+	MDFeedType *string `fix:"1022"`
+	//TradeDate is a non-required field for MarketDataIncrementalRefresh.
+	TradeDate *string `fix:"75"`
+	//RoutingGrp Component
+	RoutingGrp routinggrp.Component
+	Trailer    fixt11.Trailer
 }
 
-//MDReqID is a non-required field for MarketDataIncrementalRefresh.
-func (m Message) MDReqID() (*field.MDReqIDField, quickfix.MessageRejectError) {
-	f := &field.MDReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMDReqID reads a MDReqID from MarketDataIncrementalRefresh.
-func (m Message) GetMDReqID(f *field.MDReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoMDEntries is a required field for MarketDataIncrementalRefresh.
-func (m Message) NoMDEntries() (*field.NoMDEntriesField, quickfix.MessageRejectError) {
-	f := &field.NoMDEntriesField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoMDEntries reads a NoMDEntries from MarketDataIncrementalRefresh.
-func (m Message) GetNoMDEntries(f *field.NoMDEntriesField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ApplQueueDepth is a non-required field for MarketDataIncrementalRefresh.
-func (m Message) ApplQueueDepth() (*field.ApplQueueDepthField, quickfix.MessageRejectError) {
-	f := &field.ApplQueueDepthField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetApplQueueDepth reads a ApplQueueDepth from MarketDataIncrementalRefresh.
-func (m Message) GetApplQueueDepth(f *field.ApplQueueDepthField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ApplQueueResolution is a non-required field for MarketDataIncrementalRefresh.
-func (m Message) ApplQueueResolution() (*field.ApplQueueResolutionField, quickfix.MessageRejectError) {
-	f := &field.ApplQueueResolutionField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetApplQueueResolution reads a ApplQueueResolution from MarketDataIncrementalRefresh.
-func (m Message) GetApplQueueResolution(f *field.ApplQueueResolutionField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MDBookType is a non-required field for MarketDataIncrementalRefresh.
-func (m Message) MDBookType() (*field.MDBookTypeField, quickfix.MessageRejectError) {
-	f := &field.MDBookTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMDBookType reads a MDBookType from MarketDataIncrementalRefresh.
-func (m Message) GetMDBookType(f *field.MDBookTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MDFeedType is a non-required field for MarketDataIncrementalRefresh.
-func (m Message) MDFeedType() (*field.MDFeedTypeField, quickfix.MessageRejectError) {
-	f := &field.MDFeedTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMDFeedType reads a MDFeedType from MarketDataIncrementalRefresh.
-func (m Message) GetMDFeedType(f *field.MDFeedTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TradeDate is a non-required field for MarketDataIncrementalRefresh.
-func (m Message) TradeDate() (*field.TradeDateField, quickfix.MessageRejectError) {
-	f := &field.TradeDateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTradeDate reads a TradeDate from MarketDataIncrementalRefresh.
-func (m Message) GetTradeDate(f *field.TradeDateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoRoutingIDs is a non-required field for MarketDataIncrementalRefresh.
-func (m Message) NoRoutingIDs() (*field.NoRoutingIDsField, quickfix.MessageRejectError) {
-	f := &field.NoRoutingIDsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoRoutingIDs reads a NoRoutingIDs from MarketDataIncrementalRefresh.
-func (m Message) GetNoRoutingIDs(f *field.NoRoutingIDsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for MarketDataIncrementalRefresh.
-func New(
-	nomdentries *field.NoMDEntriesField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("X"))
-	builder.Body.Set(nomdentries)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -125,7 +41,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX50, "X", r
 }

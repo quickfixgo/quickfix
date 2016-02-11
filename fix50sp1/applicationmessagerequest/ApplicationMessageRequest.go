@@ -4,98 +4,31 @@ package applicationmessagerequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50sp1/applidrequestgrp"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
-//Message is a ApplicationMessageRequest wrapper for the generic Message type
+//Message is a ApplicationMessageRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"BW"`
+	Header     fixt11.Header
+	//ApplReqID is a required field for ApplicationMessageRequest.
+	ApplReqID string `fix:"1346"`
+	//ApplReqType is a required field for ApplicationMessageRequest.
+	ApplReqType int `fix:"1347"`
+	//ApplIDRequestGrp Component
+	ApplIDRequestGrp applidrequestgrp.Component
+	//Text is a non-required field for ApplicationMessageRequest.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for ApplicationMessageRequest.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for ApplicationMessageRequest.
+	EncodedText *string `fix:"355"`
+	Trailer     fixt11.Trailer
 }
 
-//ApplReqID is a required field for ApplicationMessageRequest.
-func (m Message) ApplReqID() (*field.ApplReqIDField, quickfix.MessageRejectError) {
-	f := &field.ApplReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetApplReqID reads a ApplReqID from ApplicationMessageRequest.
-func (m Message) GetApplReqID(f *field.ApplReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ApplReqType is a required field for ApplicationMessageRequest.
-func (m Message) ApplReqType() (*field.ApplReqTypeField, quickfix.MessageRejectError) {
-	f := &field.ApplReqTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetApplReqType reads a ApplReqType from ApplicationMessageRequest.
-func (m Message) GetApplReqType(f *field.ApplReqTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoApplIDs is a non-required field for ApplicationMessageRequest.
-func (m Message) NoApplIDs() (*field.NoApplIDsField, quickfix.MessageRejectError) {
-	f := &field.NoApplIDsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoApplIDs reads a NoApplIDs from ApplicationMessageRequest.
-func (m Message) GetNoApplIDs(f *field.NoApplIDsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for ApplicationMessageRequest.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from ApplicationMessageRequest.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for ApplicationMessageRequest.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from ApplicationMessageRequest.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for ApplicationMessageRequest.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from ApplicationMessageRequest.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for ApplicationMessageRequest.
-func New(
-	applreqid *field.ApplReqIDField,
-	applreqtype *field.ApplReqTypeField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("BW"))
-	builder.Body.Set(applreqid)
-	builder.Body.Set(applreqtype)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -103,7 +36,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP1, "BW", r
 }

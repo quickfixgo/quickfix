@@ -4,146 +4,41 @@ package adjustedpositionreport
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50sp2/instrmtgrp"
+	"github.com/quickfixgo/quickfix/fix50sp2/parties"
+	"github.com/quickfixgo/quickfix/fix50sp2/positionqty"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
-//Message is a AdjustedPositionReport wrapper for the generic Message type
+//Message is a AdjustedPositionReport FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"BL"`
+	Header     fixt11.Header
+	//PosMaintRptID is a required field for AdjustedPositionReport.
+	PosMaintRptID string `fix:"721"`
+	//PosReqType is a non-required field for AdjustedPositionReport.
+	PosReqType *int `fix:"724"`
+	//ClearingBusinessDate is a required field for AdjustedPositionReport.
+	ClearingBusinessDate string `fix:"715"`
+	//SettlSessID is a non-required field for AdjustedPositionReport.
+	SettlSessID *string `fix:"716"`
+	//Parties Component
+	Parties parties.Component
+	//PositionQty Component
+	PositionQty positionqty.Component
+	//InstrmtGrp Component
+	InstrmtGrp instrmtgrp.Component
+	//SettlPrice is a non-required field for AdjustedPositionReport.
+	SettlPrice *float64 `fix:"730"`
+	//PriorSettlPrice is a non-required field for AdjustedPositionReport.
+	PriorSettlPrice *float64 `fix:"734"`
+	//PosMaintRptRefID is a non-required field for AdjustedPositionReport.
+	PosMaintRptRefID *string `fix:"714"`
+	Trailer          fixt11.Trailer
 }
 
-//PosMaintRptID is a required field for AdjustedPositionReport.
-func (m Message) PosMaintRptID() (*field.PosMaintRptIDField, quickfix.MessageRejectError) {
-	f := &field.PosMaintRptIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPosMaintRptID reads a PosMaintRptID from AdjustedPositionReport.
-func (m Message) GetPosMaintRptID(f *field.PosMaintRptIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PosReqType is a non-required field for AdjustedPositionReport.
-func (m Message) PosReqType() (*field.PosReqTypeField, quickfix.MessageRejectError) {
-	f := &field.PosReqTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPosReqType reads a PosReqType from AdjustedPositionReport.
-func (m Message) GetPosReqType(f *field.PosReqTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ClearingBusinessDate is a required field for AdjustedPositionReport.
-func (m Message) ClearingBusinessDate() (*field.ClearingBusinessDateField, quickfix.MessageRejectError) {
-	f := &field.ClearingBusinessDateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetClearingBusinessDate reads a ClearingBusinessDate from AdjustedPositionReport.
-func (m Message) GetClearingBusinessDate(f *field.ClearingBusinessDateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SettlSessID is a non-required field for AdjustedPositionReport.
-func (m Message) SettlSessID() (*field.SettlSessIDField, quickfix.MessageRejectError) {
-	f := &field.SettlSessIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSettlSessID reads a SettlSessID from AdjustedPositionReport.
-func (m Message) GetSettlSessID(f *field.SettlSessIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoPartyIDs is a non-required field for AdjustedPositionReport.
-func (m Message) NoPartyIDs() (*field.NoPartyIDsField, quickfix.MessageRejectError) {
-	f := &field.NoPartyIDsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoPartyIDs reads a NoPartyIDs from AdjustedPositionReport.
-func (m Message) GetNoPartyIDs(f *field.NoPartyIDsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoPositions is a non-required field for AdjustedPositionReport.
-func (m Message) NoPositions() (*field.NoPositionsField, quickfix.MessageRejectError) {
-	f := &field.NoPositionsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoPositions reads a NoPositions from AdjustedPositionReport.
-func (m Message) GetNoPositions(f *field.NoPositionsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoRelatedSym is a non-required field for AdjustedPositionReport.
-func (m Message) NoRelatedSym() (*field.NoRelatedSymField, quickfix.MessageRejectError) {
-	f := &field.NoRelatedSymField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoRelatedSym reads a NoRelatedSym from AdjustedPositionReport.
-func (m Message) GetNoRelatedSym(f *field.NoRelatedSymField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SettlPrice is a non-required field for AdjustedPositionReport.
-func (m Message) SettlPrice() (*field.SettlPriceField, quickfix.MessageRejectError) {
-	f := &field.SettlPriceField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSettlPrice reads a SettlPrice from AdjustedPositionReport.
-func (m Message) GetSettlPrice(f *field.SettlPriceField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PriorSettlPrice is a non-required field for AdjustedPositionReport.
-func (m Message) PriorSettlPrice() (*field.PriorSettlPriceField, quickfix.MessageRejectError) {
-	f := &field.PriorSettlPriceField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPriorSettlPrice reads a PriorSettlPrice from AdjustedPositionReport.
-func (m Message) GetPriorSettlPrice(f *field.PriorSettlPriceField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PosMaintRptRefID is a non-required field for AdjustedPositionReport.
-func (m Message) PosMaintRptRefID() (*field.PosMaintRptRefIDField, quickfix.MessageRejectError) {
-	f := &field.PosMaintRptRefIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPosMaintRptRefID reads a PosMaintRptRefID from AdjustedPositionReport.
-func (m Message) GetPosMaintRptRefID(f *field.PosMaintRptRefIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for AdjustedPositionReport.
-func New(
-	posmaintrptid *field.PosMaintRptIDField,
-	clearingbusinessdate *field.ClearingBusinessDateField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("BL"))
-	builder.Body.Set(posmaintrptid)
-	builder.Body.Set(clearingbusinessdate)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -151,7 +46,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP2, "BL", r
 }

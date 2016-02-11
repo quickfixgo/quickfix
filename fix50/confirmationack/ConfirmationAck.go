@@ -4,138 +4,37 @@ package confirmationack
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fixt11"
+	"time"
 )
 
-//Message is a ConfirmationAck wrapper for the generic Message type
+//Message is a ConfirmationAck FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"AU"`
+	Header     fixt11.Header
+	//ConfirmID is a required field for ConfirmationAck.
+	ConfirmID string `fix:"664"`
+	//TradeDate is a required field for ConfirmationAck.
+	TradeDate string `fix:"75"`
+	//TransactTime is a required field for ConfirmationAck.
+	TransactTime time.Time `fix:"60"`
+	//AffirmStatus is a required field for ConfirmationAck.
+	AffirmStatus int `fix:"940"`
+	//ConfirmRejReason is a non-required field for ConfirmationAck.
+	ConfirmRejReason *int `fix:"774"`
+	//MatchStatus is a non-required field for ConfirmationAck.
+	MatchStatus *string `fix:"573"`
+	//Text is a non-required field for ConfirmationAck.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for ConfirmationAck.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for ConfirmationAck.
+	EncodedText *string `fix:"355"`
+	Trailer     fixt11.Trailer
 }
 
-//ConfirmID is a required field for ConfirmationAck.
-func (m Message) ConfirmID() (*field.ConfirmIDField, quickfix.MessageRejectError) {
-	f := &field.ConfirmIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetConfirmID reads a ConfirmID from ConfirmationAck.
-func (m Message) GetConfirmID(f *field.ConfirmIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TradeDate is a required field for ConfirmationAck.
-func (m Message) TradeDate() (*field.TradeDateField, quickfix.MessageRejectError) {
-	f := &field.TradeDateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTradeDate reads a TradeDate from ConfirmationAck.
-func (m Message) GetTradeDate(f *field.TradeDateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TransactTime is a required field for ConfirmationAck.
-func (m Message) TransactTime() (*field.TransactTimeField, quickfix.MessageRejectError) {
-	f := &field.TransactTimeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTransactTime reads a TransactTime from ConfirmationAck.
-func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AffirmStatus is a required field for ConfirmationAck.
-func (m Message) AffirmStatus() (*field.AffirmStatusField, quickfix.MessageRejectError) {
-	f := &field.AffirmStatusField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAffirmStatus reads a AffirmStatus from ConfirmationAck.
-func (m Message) GetAffirmStatus(f *field.AffirmStatusField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ConfirmRejReason is a non-required field for ConfirmationAck.
-func (m Message) ConfirmRejReason() (*field.ConfirmRejReasonField, quickfix.MessageRejectError) {
-	f := &field.ConfirmRejReasonField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetConfirmRejReason reads a ConfirmRejReason from ConfirmationAck.
-func (m Message) GetConfirmRejReason(f *field.ConfirmRejReasonField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MatchStatus is a non-required field for ConfirmationAck.
-func (m Message) MatchStatus() (*field.MatchStatusField, quickfix.MessageRejectError) {
-	f := &field.MatchStatusField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMatchStatus reads a MatchStatus from ConfirmationAck.
-func (m Message) GetMatchStatus(f *field.MatchStatusField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for ConfirmationAck.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from ConfirmationAck.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for ConfirmationAck.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from ConfirmationAck.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for ConfirmationAck.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from ConfirmationAck.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for ConfirmationAck.
-func New(
-	confirmid *field.ConfirmIDField,
-	tradedate *field.TradeDateField,
-	transacttime *field.TransactTimeField,
-	affirmstatus *field.AffirmStatusField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("AU"))
-	builder.Body.Set(confirmid)
-	builder.Body.Set(tradedate)
-	builder.Body.Set(transacttime)
-	builder.Body.Set(affirmstatus)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -143,7 +42,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX50, "AU", r
 }

@@ -4,35 +4,20 @@ package testrequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix42"
 )
 
-//Message is a TestRequest wrapper for the generic Message type
+//Message is a TestRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"1"`
+	Header     fix42.Header
+	//TestReqID is a required field for TestRequest.
+	TestReqID string `fix:"112"`
+	Trailer   fix42.Trailer
 }
 
-//TestReqID is a required field for TestRequest.
-func (m Message) TestReqID() (*field.TestReqIDField, quickfix.MessageRejectError) {
-	f := &field.TestReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTestReqID reads a TestReqID from TestRequest.
-func (m Message) GetTestReqID(f *field.TestReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for TestRequest.
-func New(
-	testreqid *field.TestReqIDField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX42))
-	builder.Header.Set(field.NewMsgType("1"))
-	builder.Body.Set(testreqid)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -40,7 +25,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX42, "1", r
 }

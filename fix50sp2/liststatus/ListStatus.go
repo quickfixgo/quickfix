@@ -4,204 +4,48 @@ package liststatus
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50sp2/ordliststatgrp"
+	"github.com/quickfixgo/quickfix/fixt11"
+	"time"
 )
 
-//Message is a ListStatus wrapper for the generic Message type
+//Message is a ListStatus FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"N"`
+	Header     fixt11.Header
+	//ListID is a required field for ListStatus.
+	ListID string `fix:"66"`
+	//ListStatusType is a required field for ListStatus.
+	ListStatusType int `fix:"429"`
+	//NoRpts is a required field for ListStatus.
+	NoRpts int `fix:"82"`
+	//ListOrderStatus is a required field for ListStatus.
+	ListOrderStatus int `fix:"431"`
+	//RptSeq is a required field for ListStatus.
+	RptSeq int `fix:"83"`
+	//ListStatusText is a non-required field for ListStatus.
+	ListStatusText *string `fix:"444"`
+	//EncodedListStatusTextLen is a non-required field for ListStatus.
+	EncodedListStatusTextLen *int `fix:"445"`
+	//EncodedListStatusText is a non-required field for ListStatus.
+	EncodedListStatusText *string `fix:"446"`
+	//TransactTime is a non-required field for ListStatus.
+	TransactTime *time.Time `fix:"60"`
+	//TotNoOrders is a required field for ListStatus.
+	TotNoOrders int `fix:"68"`
+	//LastFragment is a non-required field for ListStatus.
+	LastFragment *bool `fix:"893"`
+	//OrdListStatGrp Component
+	OrdListStatGrp ordliststatgrp.Component
+	//ContingencyType is a non-required field for ListStatus.
+	ContingencyType *int `fix:"1385"`
+	//ListRejectReason is a non-required field for ListStatus.
+	ListRejectReason *int `fix:"1386"`
+	Trailer          fixt11.Trailer
 }
 
-//ListID is a required field for ListStatus.
-func (m Message) ListID() (*field.ListIDField, quickfix.MessageRejectError) {
-	f := &field.ListIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListID reads a ListID from ListStatus.
-func (m Message) GetListID(f *field.ListIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ListStatusType is a required field for ListStatus.
-func (m Message) ListStatusType() (*field.ListStatusTypeField, quickfix.MessageRejectError) {
-	f := &field.ListStatusTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListStatusType reads a ListStatusType from ListStatus.
-func (m Message) GetListStatusType(f *field.ListStatusTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoRpts is a required field for ListStatus.
-func (m Message) NoRpts() (*field.NoRptsField, quickfix.MessageRejectError) {
-	f := &field.NoRptsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoRpts reads a NoRpts from ListStatus.
-func (m Message) GetNoRpts(f *field.NoRptsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ListOrderStatus is a required field for ListStatus.
-func (m Message) ListOrderStatus() (*field.ListOrderStatusField, quickfix.MessageRejectError) {
-	f := &field.ListOrderStatusField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListOrderStatus reads a ListOrderStatus from ListStatus.
-func (m Message) GetListOrderStatus(f *field.ListOrderStatusField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//RptSeq is a required field for ListStatus.
-func (m Message) RptSeq() (*field.RptSeqField, quickfix.MessageRejectError) {
-	f := &field.RptSeqField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRptSeq reads a RptSeq from ListStatus.
-func (m Message) GetRptSeq(f *field.RptSeqField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ListStatusText is a non-required field for ListStatus.
-func (m Message) ListStatusText() (*field.ListStatusTextField, quickfix.MessageRejectError) {
-	f := &field.ListStatusTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListStatusText reads a ListStatusText from ListStatus.
-func (m Message) GetListStatusText(f *field.ListStatusTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedListStatusTextLen is a non-required field for ListStatus.
-func (m Message) EncodedListStatusTextLen() (*field.EncodedListStatusTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedListStatusTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedListStatusTextLen reads a EncodedListStatusTextLen from ListStatus.
-func (m Message) GetEncodedListStatusTextLen(f *field.EncodedListStatusTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedListStatusText is a non-required field for ListStatus.
-func (m Message) EncodedListStatusText() (*field.EncodedListStatusTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedListStatusTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedListStatusText reads a EncodedListStatusText from ListStatus.
-func (m Message) GetEncodedListStatusText(f *field.EncodedListStatusTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TransactTime is a non-required field for ListStatus.
-func (m Message) TransactTime() (*field.TransactTimeField, quickfix.MessageRejectError) {
-	f := &field.TransactTimeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTransactTime reads a TransactTime from ListStatus.
-func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TotNoOrders is a required field for ListStatus.
-func (m Message) TotNoOrders() (*field.TotNoOrdersField, quickfix.MessageRejectError) {
-	f := &field.TotNoOrdersField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTotNoOrders reads a TotNoOrders from ListStatus.
-func (m Message) GetTotNoOrders(f *field.TotNoOrdersField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//LastFragment is a non-required field for ListStatus.
-func (m Message) LastFragment() (*field.LastFragmentField, quickfix.MessageRejectError) {
-	f := &field.LastFragmentField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetLastFragment reads a LastFragment from ListStatus.
-func (m Message) GetLastFragment(f *field.LastFragmentField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoOrders is a required field for ListStatus.
-func (m Message) NoOrders() (*field.NoOrdersField, quickfix.MessageRejectError) {
-	f := &field.NoOrdersField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoOrders reads a NoOrders from ListStatus.
-func (m Message) GetNoOrders(f *field.NoOrdersField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ContingencyType is a non-required field for ListStatus.
-func (m Message) ContingencyType() (*field.ContingencyTypeField, quickfix.MessageRejectError) {
-	f := &field.ContingencyTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetContingencyType reads a ContingencyType from ListStatus.
-func (m Message) GetContingencyType(f *field.ContingencyTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ListRejectReason is a non-required field for ListStatus.
-func (m Message) ListRejectReason() (*field.ListRejectReasonField, quickfix.MessageRejectError) {
-	f := &field.ListRejectReasonField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListRejectReason reads a ListRejectReason from ListStatus.
-func (m Message) GetListRejectReason(f *field.ListRejectReasonField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for ListStatus.
-func New(
-	listid *field.ListIDField,
-	liststatustype *field.ListStatusTypeField,
-	norpts *field.NoRptsField,
-	listorderstatus *field.ListOrderStatusField,
-	rptseq *field.RptSeqField,
-	totnoorders *field.TotNoOrdersField,
-	noorders *field.NoOrdersField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("N"))
-	builder.Body.Set(listid)
-	builder.Body.Set(liststatustype)
-	builder.Body.Set(norpts)
-	builder.Body.Set(listorderstatus)
-	builder.Body.Set(rptseq)
-	builder.Body.Set(totnoorders)
-	builder.Body.Set(noorders)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -209,7 +53,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP2, "N", r
 }

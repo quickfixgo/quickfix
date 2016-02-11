@@ -4,204 +4,50 @@ package massquoteacknowledgement
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50sp1/parties"
+	"github.com/quickfixgo/quickfix/fix50sp1/quotsetackgrp"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
-//Message is a MassQuoteAcknowledgement wrapper for the generic Message type
+//Message is a MassQuoteAcknowledgement FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"b"`
+	Header     fixt11.Header
+	//QuoteReqID is a non-required field for MassQuoteAcknowledgement.
+	QuoteReqID *string `fix:"131"`
+	//QuoteID is a non-required field for MassQuoteAcknowledgement.
+	QuoteID *string `fix:"117"`
+	//QuoteStatus is a required field for MassQuoteAcknowledgement.
+	QuoteStatus int `fix:"297"`
+	//QuoteRejectReason is a non-required field for MassQuoteAcknowledgement.
+	QuoteRejectReason *int `fix:"300"`
+	//QuoteResponseLevel is a non-required field for MassQuoteAcknowledgement.
+	QuoteResponseLevel *int `fix:"301"`
+	//QuoteType is a non-required field for MassQuoteAcknowledgement.
+	QuoteType *int `fix:"537"`
+	//Parties Component
+	Parties parties.Component
+	//Account is a non-required field for MassQuoteAcknowledgement.
+	Account *string `fix:"1"`
+	//AcctIDSource is a non-required field for MassQuoteAcknowledgement.
+	AcctIDSource *int `fix:"660"`
+	//AccountType is a non-required field for MassQuoteAcknowledgement.
+	AccountType *int `fix:"581"`
+	//Text is a non-required field for MassQuoteAcknowledgement.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for MassQuoteAcknowledgement.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for MassQuoteAcknowledgement.
+	EncodedText *string `fix:"355"`
+	//QuotSetAckGrp Component
+	QuotSetAckGrp quotsetackgrp.Component
+	//QuoteCancelType is a non-required field for MassQuoteAcknowledgement.
+	QuoteCancelType *int `fix:"298"`
+	Trailer         fixt11.Trailer
 }
 
-//QuoteReqID is a non-required field for MassQuoteAcknowledgement.
-func (m Message) QuoteReqID() (*field.QuoteReqIDField, quickfix.MessageRejectError) {
-	f := &field.QuoteReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteReqID reads a QuoteReqID from MassQuoteAcknowledgement.
-func (m Message) GetQuoteReqID(f *field.QuoteReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteID is a non-required field for MassQuoteAcknowledgement.
-func (m Message) QuoteID() (*field.QuoteIDField, quickfix.MessageRejectError) {
-	f := &field.QuoteIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteID reads a QuoteID from MassQuoteAcknowledgement.
-func (m Message) GetQuoteID(f *field.QuoteIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteStatus is a required field for MassQuoteAcknowledgement.
-func (m Message) QuoteStatus() (*field.QuoteStatusField, quickfix.MessageRejectError) {
-	f := &field.QuoteStatusField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteStatus reads a QuoteStatus from MassQuoteAcknowledgement.
-func (m Message) GetQuoteStatus(f *field.QuoteStatusField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteRejectReason is a non-required field for MassQuoteAcknowledgement.
-func (m Message) QuoteRejectReason() (*field.QuoteRejectReasonField, quickfix.MessageRejectError) {
-	f := &field.QuoteRejectReasonField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteRejectReason reads a QuoteRejectReason from MassQuoteAcknowledgement.
-func (m Message) GetQuoteRejectReason(f *field.QuoteRejectReasonField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteResponseLevel is a non-required field for MassQuoteAcknowledgement.
-func (m Message) QuoteResponseLevel() (*field.QuoteResponseLevelField, quickfix.MessageRejectError) {
-	f := &field.QuoteResponseLevelField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteResponseLevel reads a QuoteResponseLevel from MassQuoteAcknowledgement.
-func (m Message) GetQuoteResponseLevel(f *field.QuoteResponseLevelField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteType is a non-required field for MassQuoteAcknowledgement.
-func (m Message) QuoteType() (*field.QuoteTypeField, quickfix.MessageRejectError) {
-	f := &field.QuoteTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteType reads a QuoteType from MassQuoteAcknowledgement.
-func (m Message) GetQuoteType(f *field.QuoteTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoPartyIDs is a non-required field for MassQuoteAcknowledgement.
-func (m Message) NoPartyIDs() (*field.NoPartyIDsField, quickfix.MessageRejectError) {
-	f := &field.NoPartyIDsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoPartyIDs reads a NoPartyIDs from MassQuoteAcknowledgement.
-func (m Message) GetNoPartyIDs(f *field.NoPartyIDsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Account is a non-required field for MassQuoteAcknowledgement.
-func (m Message) Account() (*field.AccountField, quickfix.MessageRejectError) {
-	f := &field.AccountField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAccount reads a Account from MassQuoteAcknowledgement.
-func (m Message) GetAccount(f *field.AccountField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AcctIDSource is a non-required field for MassQuoteAcknowledgement.
-func (m Message) AcctIDSource() (*field.AcctIDSourceField, quickfix.MessageRejectError) {
-	f := &field.AcctIDSourceField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAcctIDSource reads a AcctIDSource from MassQuoteAcknowledgement.
-func (m Message) GetAcctIDSource(f *field.AcctIDSourceField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AccountType is a non-required field for MassQuoteAcknowledgement.
-func (m Message) AccountType() (*field.AccountTypeField, quickfix.MessageRejectError) {
-	f := &field.AccountTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAccountType reads a AccountType from MassQuoteAcknowledgement.
-func (m Message) GetAccountType(f *field.AccountTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for MassQuoteAcknowledgement.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from MassQuoteAcknowledgement.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for MassQuoteAcknowledgement.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from MassQuoteAcknowledgement.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for MassQuoteAcknowledgement.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from MassQuoteAcknowledgement.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoQuoteSets is a non-required field for MassQuoteAcknowledgement.
-func (m Message) NoQuoteSets() (*field.NoQuoteSetsField, quickfix.MessageRejectError) {
-	f := &field.NoQuoteSetsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoQuoteSets reads a NoQuoteSets from MassQuoteAcknowledgement.
-func (m Message) GetNoQuoteSets(f *field.NoQuoteSetsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteCancelType is a non-required field for MassQuoteAcknowledgement.
-func (m Message) QuoteCancelType() (*field.QuoteCancelTypeField, quickfix.MessageRejectError) {
-	f := &field.QuoteCancelTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteCancelType reads a QuoteCancelType from MassQuoteAcknowledgement.
-func (m Message) GetQuoteCancelType(f *field.QuoteCancelTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for MassQuoteAcknowledgement.
-func New(
-	quotestatus *field.QuoteStatusField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("b"))
-	builder.Body.Set(quotestatus)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -209,7 +55,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP1, "b", r
 }

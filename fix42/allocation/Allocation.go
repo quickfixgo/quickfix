@@ -4,587 +4,197 @@ package allocation
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix42"
+	"time"
 )
 
-//Message is a Allocation wrapper for the generic Message type
+//NoOrders is a repeating group in Allocation
+type NoOrders struct {
+	//ClOrdID is a non-required field for NoOrders.
+	ClOrdID *string `fix:"11"`
+	//OrderID is a non-required field for NoOrders.
+	OrderID *string `fix:"37"`
+	//SecondaryOrderID is a non-required field for NoOrders.
+	SecondaryOrderID *string `fix:"198"`
+	//ListID is a non-required field for NoOrders.
+	ListID *string `fix:"66"`
+	//WaveNo is a non-required field for NoOrders.
+	WaveNo *string `fix:"105"`
+}
+
+//NoExecs is a repeating group in Allocation
+type NoExecs struct {
+	//LastShares is a non-required field for NoExecs.
+	LastShares *float64 `fix:"32"`
+	//ExecID is a non-required field for NoExecs.
+	ExecID *string `fix:"17"`
+	//LastPx is a non-required field for NoExecs.
+	LastPx *float64 `fix:"31"`
+	//LastCapacity is a non-required field for NoExecs.
+	LastCapacity *string `fix:"29"`
+}
+
+//NoAllocs is a repeating group in Allocation
+type NoAllocs struct {
+	//AllocAccount is a non-required field for NoAllocs.
+	AllocAccount *string `fix:"79"`
+	//AllocPrice is a non-required field for NoAllocs.
+	AllocPrice *float64 `fix:"366"`
+	//AllocShares is a required field for NoAllocs.
+	AllocShares float64 `fix:"80"`
+	//ProcessCode is a non-required field for NoAllocs.
+	ProcessCode *string `fix:"81"`
+	//BrokerOfCredit is a non-required field for NoAllocs.
+	BrokerOfCredit *string `fix:"92"`
+	//NotifyBrokerOfCredit is a non-required field for NoAllocs.
+	NotifyBrokerOfCredit *bool `fix:"208"`
+	//AllocHandlInst is a non-required field for NoAllocs.
+	AllocHandlInst *int `fix:"209"`
+	//AllocText is a non-required field for NoAllocs.
+	AllocText *string `fix:"161"`
+	//EncodedAllocTextLen is a non-required field for NoAllocs.
+	EncodedAllocTextLen *int `fix:"360"`
+	//EncodedAllocText is a non-required field for NoAllocs.
+	EncodedAllocText *string `fix:"361"`
+	//ExecBroker is a non-required field for NoAllocs.
+	ExecBroker *string `fix:"76"`
+	//ClientID is a non-required field for NoAllocs.
+	ClientID *string `fix:"109"`
+	//Commission is a non-required field for NoAllocs.
+	Commission *float64 `fix:"12"`
+	//CommType is a non-required field for NoAllocs.
+	CommType *string `fix:"13"`
+	//AllocAvgPx is a non-required field for NoAllocs.
+	AllocAvgPx *float64 `fix:"153"`
+	//AllocNetMoney is a non-required field for NoAllocs.
+	AllocNetMoney *float64 `fix:"154"`
+	//SettlCurrAmt is a non-required field for NoAllocs.
+	SettlCurrAmt *float64 `fix:"119"`
+	//SettlCurrency is a non-required field for NoAllocs.
+	SettlCurrency *string `fix:"120"`
+	//SettlCurrFxRate is a non-required field for NoAllocs.
+	SettlCurrFxRate *float64 `fix:"155"`
+	//SettlCurrFxRateCalc is a non-required field for NoAllocs.
+	SettlCurrFxRateCalc *string `fix:"156"`
+	//AccruedInterestAmt is a non-required field for NoAllocs.
+	AccruedInterestAmt *float64 `fix:"159"`
+	//SettlInstMode is a non-required field for NoAllocs.
+	SettlInstMode *string `fix:"160"`
+	//NoMiscFees is a non-required field for NoAllocs.
+	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
+}
+
+//NoMiscFees is a repeating group in NoAllocs
+type NoMiscFees struct {
+	//MiscFeeAmt is a non-required field for NoMiscFees.
+	MiscFeeAmt *float64 `fix:"137"`
+	//MiscFeeCurr is a non-required field for NoMiscFees.
+	MiscFeeCurr *string `fix:"138"`
+	//MiscFeeType is a non-required field for NoMiscFees.
+	MiscFeeType *string `fix:"139"`
+}
+
+//Message is a Allocation FIX Message
 type Message struct {
-	quickfix.Message
-}
-
-//AllocID is a required field for Allocation.
-func (m Message) AllocID() (*field.AllocIDField, quickfix.MessageRejectError) {
-	f := &field.AllocIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocID reads a AllocID from Allocation.
-func (m Message) GetAllocID(f *field.AllocIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocTransType is a required field for Allocation.
-func (m Message) AllocTransType() (*field.AllocTransTypeField, quickfix.MessageRejectError) {
-	f := &field.AllocTransTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocTransType reads a AllocTransType from Allocation.
-func (m Message) GetAllocTransType(f *field.AllocTransTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//RefAllocID is a non-required field for Allocation.
-func (m Message) RefAllocID() (*field.RefAllocIDField, quickfix.MessageRejectError) {
-	f := &field.RefAllocIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRefAllocID reads a RefAllocID from Allocation.
-func (m Message) GetRefAllocID(f *field.RefAllocIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocLinkID is a non-required field for Allocation.
-func (m Message) AllocLinkID() (*field.AllocLinkIDField, quickfix.MessageRejectError) {
-	f := &field.AllocLinkIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocLinkID reads a AllocLinkID from Allocation.
-func (m Message) GetAllocLinkID(f *field.AllocLinkIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocLinkType is a non-required field for Allocation.
-func (m Message) AllocLinkType() (*field.AllocLinkTypeField, quickfix.MessageRejectError) {
-	f := &field.AllocLinkTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocLinkType reads a AllocLinkType from Allocation.
-func (m Message) GetAllocLinkType(f *field.AllocLinkTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoOrders is a non-required field for Allocation.
-func (m Message) NoOrders() (*field.NoOrdersField, quickfix.MessageRejectError) {
-	f := &field.NoOrdersField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoOrders reads a NoOrders from Allocation.
-func (m Message) GetNoOrders(f *field.NoOrdersField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoExecs is a non-required field for Allocation.
-func (m Message) NoExecs() (*field.NoExecsField, quickfix.MessageRejectError) {
-	f := &field.NoExecsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoExecs reads a NoExecs from Allocation.
-func (m Message) GetNoExecs(f *field.NoExecsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Side is a required field for Allocation.
-func (m Message) Side() (*field.SideField, quickfix.MessageRejectError) {
-	f := &field.SideField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSide reads a Side from Allocation.
-func (m Message) GetSide(f *field.SideField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Symbol is a required field for Allocation.
-func (m Message) Symbol() (*field.SymbolField, quickfix.MessageRejectError) {
-	f := &field.SymbolField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSymbol reads a Symbol from Allocation.
-func (m Message) GetSymbol(f *field.SymbolField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SymbolSfx is a non-required field for Allocation.
-func (m Message) SymbolSfx() (*field.SymbolSfxField, quickfix.MessageRejectError) {
-	f := &field.SymbolSfxField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSymbolSfx reads a SymbolSfx from Allocation.
-func (m Message) GetSymbolSfx(f *field.SymbolSfxField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityID is a non-required field for Allocation.
-func (m Message) SecurityID() (*field.SecurityIDField, quickfix.MessageRejectError) {
-	f := &field.SecurityIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityID reads a SecurityID from Allocation.
-func (m Message) GetSecurityID(f *field.SecurityIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//IDSource is a non-required field for Allocation.
-func (m Message) IDSource() (*field.IDSourceField, quickfix.MessageRejectError) {
-	f := &field.IDSourceField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetIDSource reads a IDSource from Allocation.
-func (m Message) GetIDSource(f *field.IDSourceField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityType is a non-required field for Allocation.
-func (m Message) SecurityType() (*field.SecurityTypeField, quickfix.MessageRejectError) {
-	f := &field.SecurityTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityType reads a SecurityType from Allocation.
-func (m Message) GetSecurityType(f *field.SecurityTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MaturityMonthYear is a non-required field for Allocation.
-func (m Message) MaturityMonthYear() (*field.MaturityMonthYearField, quickfix.MessageRejectError) {
-	f := &field.MaturityMonthYearField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMaturityMonthYear reads a MaturityMonthYear from Allocation.
-func (m Message) GetMaturityMonthYear(f *field.MaturityMonthYearField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MaturityDay is a non-required field for Allocation.
-func (m Message) MaturityDay() (*field.MaturityDayField, quickfix.MessageRejectError) {
-	f := &field.MaturityDayField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMaturityDay reads a MaturityDay from Allocation.
-func (m Message) GetMaturityDay(f *field.MaturityDayField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PutOrCall is a non-required field for Allocation.
-func (m Message) PutOrCall() (*field.PutOrCallField, quickfix.MessageRejectError) {
-	f := &field.PutOrCallField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPutOrCall reads a PutOrCall from Allocation.
-func (m Message) GetPutOrCall(f *field.PutOrCallField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//StrikePrice is a non-required field for Allocation.
-func (m Message) StrikePrice() (*field.StrikePriceField, quickfix.MessageRejectError) {
-	f := &field.StrikePriceField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetStrikePrice reads a StrikePrice from Allocation.
-func (m Message) GetStrikePrice(f *field.StrikePriceField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//OptAttribute is a non-required field for Allocation.
-func (m Message) OptAttribute() (*field.OptAttributeField, quickfix.MessageRejectError) {
-	f := &field.OptAttributeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetOptAttribute reads a OptAttribute from Allocation.
-func (m Message) GetOptAttribute(f *field.OptAttributeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ContractMultiplier is a non-required field for Allocation.
-func (m Message) ContractMultiplier() (*field.ContractMultiplierField, quickfix.MessageRejectError) {
-	f := &field.ContractMultiplierField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetContractMultiplier reads a ContractMultiplier from Allocation.
-func (m Message) GetContractMultiplier(f *field.ContractMultiplierField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//CouponRate is a non-required field for Allocation.
-func (m Message) CouponRate() (*field.CouponRateField, quickfix.MessageRejectError) {
-	f := &field.CouponRateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetCouponRate reads a CouponRate from Allocation.
-func (m Message) GetCouponRate(f *field.CouponRateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityExchange is a non-required field for Allocation.
-func (m Message) SecurityExchange() (*field.SecurityExchangeField, quickfix.MessageRejectError) {
-	f := &field.SecurityExchangeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityExchange reads a SecurityExchange from Allocation.
-func (m Message) GetSecurityExchange(f *field.SecurityExchangeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Issuer is a non-required field for Allocation.
-func (m Message) Issuer() (*field.IssuerField, quickfix.MessageRejectError) {
-	f := &field.IssuerField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetIssuer reads a Issuer from Allocation.
-func (m Message) GetIssuer(f *field.IssuerField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedIssuerLen is a non-required field for Allocation.
-func (m Message) EncodedIssuerLen() (*field.EncodedIssuerLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedIssuerLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedIssuerLen reads a EncodedIssuerLen from Allocation.
-func (m Message) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedIssuer is a non-required field for Allocation.
-func (m Message) EncodedIssuer() (*field.EncodedIssuerField, quickfix.MessageRejectError) {
-	f := &field.EncodedIssuerField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedIssuer reads a EncodedIssuer from Allocation.
-func (m Message) GetEncodedIssuer(f *field.EncodedIssuerField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityDesc is a non-required field for Allocation.
-func (m Message) SecurityDesc() (*field.SecurityDescField, quickfix.MessageRejectError) {
-	f := &field.SecurityDescField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityDesc reads a SecurityDesc from Allocation.
-func (m Message) GetSecurityDesc(f *field.SecurityDescField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedSecurityDescLen is a non-required field for Allocation.
-func (m Message) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedSecurityDescLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from Allocation.
-func (m Message) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedSecurityDesc is a non-required field for Allocation.
-func (m Message) EncodedSecurityDesc() (*field.EncodedSecurityDescField, quickfix.MessageRejectError) {
-	f := &field.EncodedSecurityDescField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedSecurityDesc reads a EncodedSecurityDesc from Allocation.
-func (m Message) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Shares is a required field for Allocation.
-func (m Message) Shares() (*field.SharesField, quickfix.MessageRejectError) {
-	f := &field.SharesField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetShares reads a Shares from Allocation.
-func (m Message) GetShares(f *field.SharesField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//LastMkt is a non-required field for Allocation.
-func (m Message) LastMkt() (*field.LastMktField, quickfix.MessageRejectError) {
-	f := &field.LastMktField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetLastMkt reads a LastMkt from Allocation.
-func (m Message) GetLastMkt(f *field.LastMktField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TradingSessionID is a non-required field for Allocation.
-func (m Message) TradingSessionID() (*field.TradingSessionIDField, quickfix.MessageRejectError) {
-	f := &field.TradingSessionIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTradingSessionID reads a TradingSessionID from Allocation.
-func (m Message) GetTradingSessionID(f *field.TradingSessionIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AvgPx is a required field for Allocation.
-func (m Message) AvgPx() (*field.AvgPxField, quickfix.MessageRejectError) {
-	f := &field.AvgPxField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAvgPx reads a AvgPx from Allocation.
-func (m Message) GetAvgPx(f *field.AvgPxField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Currency is a non-required field for Allocation.
-func (m Message) Currency() (*field.CurrencyField, quickfix.MessageRejectError) {
-	f := &field.CurrencyField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetCurrency reads a Currency from Allocation.
-func (m Message) GetCurrency(f *field.CurrencyField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AvgPrxPrecision is a non-required field for Allocation.
-func (m Message) AvgPrxPrecision() (*field.AvgPrxPrecisionField, quickfix.MessageRejectError) {
-	f := &field.AvgPrxPrecisionField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAvgPrxPrecision reads a AvgPrxPrecision from Allocation.
-func (m Message) GetAvgPrxPrecision(f *field.AvgPrxPrecisionField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TradeDate is a required field for Allocation.
-func (m Message) TradeDate() (*field.TradeDateField, quickfix.MessageRejectError) {
-	f := &field.TradeDateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTradeDate reads a TradeDate from Allocation.
-func (m Message) GetTradeDate(f *field.TradeDateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TransactTime is a non-required field for Allocation.
-func (m Message) TransactTime() (*field.TransactTimeField, quickfix.MessageRejectError) {
-	f := &field.TransactTimeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTransactTime reads a TransactTime from Allocation.
-func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SettlmntTyp is a non-required field for Allocation.
-func (m Message) SettlmntTyp() (*field.SettlmntTypField, quickfix.MessageRejectError) {
-	f := &field.SettlmntTypField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSettlmntTyp reads a SettlmntTyp from Allocation.
-func (m Message) GetSettlmntTyp(f *field.SettlmntTypField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//FutSettDate is a non-required field for Allocation.
-func (m Message) FutSettDate() (*field.FutSettDateField, quickfix.MessageRejectError) {
-	f := &field.FutSettDateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetFutSettDate reads a FutSettDate from Allocation.
-func (m Message) GetFutSettDate(f *field.FutSettDateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//GrossTradeAmt is a non-required field for Allocation.
-func (m Message) GrossTradeAmt() (*field.GrossTradeAmtField, quickfix.MessageRejectError) {
-	f := &field.GrossTradeAmtField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetGrossTradeAmt reads a GrossTradeAmt from Allocation.
-func (m Message) GetGrossTradeAmt(f *field.GrossTradeAmtField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NetMoney is a non-required field for Allocation.
-func (m Message) NetMoney() (*field.NetMoneyField, quickfix.MessageRejectError) {
-	f := &field.NetMoneyField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNetMoney reads a NetMoney from Allocation.
-func (m Message) GetNetMoney(f *field.NetMoneyField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//OpenClose is a non-required field for Allocation.
-func (m Message) OpenClose() (*field.OpenCloseField, quickfix.MessageRejectError) {
-	f := &field.OpenCloseField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetOpenClose reads a OpenClose from Allocation.
-func (m Message) GetOpenClose(f *field.OpenCloseField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for Allocation.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from Allocation.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for Allocation.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from Allocation.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for Allocation.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from Allocation.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NumDaysInterest is a non-required field for Allocation.
-func (m Message) NumDaysInterest() (*field.NumDaysInterestField, quickfix.MessageRejectError) {
-	f := &field.NumDaysInterestField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNumDaysInterest reads a NumDaysInterest from Allocation.
-func (m Message) GetNumDaysInterest(f *field.NumDaysInterestField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AccruedInterestRate is a non-required field for Allocation.
-func (m Message) AccruedInterestRate() (*field.AccruedInterestRateField, quickfix.MessageRejectError) {
-	f := &field.AccruedInterestRateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAccruedInterestRate reads a AccruedInterestRate from Allocation.
-func (m Message) GetAccruedInterestRate(f *field.AccruedInterestRateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoAllocs is a non-required field for Allocation.
-func (m Message) NoAllocs() (*field.NoAllocsField, quickfix.MessageRejectError) {
-	f := &field.NoAllocsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoAllocs reads a NoAllocs from Allocation.
-func (m Message) GetNoAllocs(f *field.NoAllocsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for Allocation.
-func New(
-	allocid *field.AllocIDField,
-	alloctranstype *field.AllocTransTypeField,
-	side *field.SideField,
-	symbol *field.SymbolField,
-	shares *field.SharesField,
-	avgpx *field.AvgPxField,
-	tradedate *field.TradeDateField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX42))
-	builder.Header.Set(field.NewMsgType("J"))
-	builder.Body.Set(allocid)
-	builder.Body.Set(alloctranstype)
-	builder.Body.Set(side)
-	builder.Body.Set(symbol)
-	builder.Body.Set(shares)
-	builder.Body.Set(avgpx)
-	builder.Body.Set(tradedate)
-	return builder
-}
+	FIXMsgType string `fix:"J"`
+	Header     fix42.Header
+	//AllocID is a required field for Allocation.
+	AllocID string `fix:"70"`
+	//AllocTransType is a required field for Allocation.
+	AllocTransType string `fix:"71"`
+	//RefAllocID is a non-required field for Allocation.
+	RefAllocID *string `fix:"72"`
+	//AllocLinkID is a non-required field for Allocation.
+	AllocLinkID *string `fix:"196"`
+	//AllocLinkType is a non-required field for Allocation.
+	AllocLinkType *int `fix:"197"`
+	//NoOrders is a non-required field for Allocation.
+	NoOrders []NoOrders `fix:"73,omitempty"`
+	//NoExecs is a non-required field for Allocation.
+	NoExecs []NoExecs `fix:"124,omitempty"`
+	//Side is a required field for Allocation.
+	Side string `fix:"54"`
+	//Symbol is a required field for Allocation.
+	Symbol string `fix:"55"`
+	//SymbolSfx is a non-required field for Allocation.
+	SymbolSfx *string `fix:"65"`
+	//SecurityID is a non-required field for Allocation.
+	SecurityID *string `fix:"48"`
+	//IDSource is a non-required field for Allocation.
+	IDSource *string `fix:"22"`
+	//SecurityType is a non-required field for Allocation.
+	SecurityType *string `fix:"167"`
+	//MaturityMonthYear is a non-required field for Allocation.
+	MaturityMonthYear *string `fix:"200"`
+	//MaturityDay is a non-required field for Allocation.
+	MaturityDay *int `fix:"205"`
+	//PutOrCall is a non-required field for Allocation.
+	PutOrCall *int `fix:"201"`
+	//StrikePrice is a non-required field for Allocation.
+	StrikePrice *float64 `fix:"202"`
+	//OptAttribute is a non-required field for Allocation.
+	OptAttribute *string `fix:"206"`
+	//ContractMultiplier is a non-required field for Allocation.
+	ContractMultiplier *float64 `fix:"231"`
+	//CouponRate is a non-required field for Allocation.
+	CouponRate *float64 `fix:"223"`
+	//SecurityExchange is a non-required field for Allocation.
+	SecurityExchange *string `fix:"207"`
+	//Issuer is a non-required field for Allocation.
+	Issuer *string `fix:"106"`
+	//EncodedIssuerLen is a non-required field for Allocation.
+	EncodedIssuerLen *int `fix:"348"`
+	//EncodedIssuer is a non-required field for Allocation.
+	EncodedIssuer *string `fix:"349"`
+	//SecurityDesc is a non-required field for Allocation.
+	SecurityDesc *string `fix:"107"`
+	//EncodedSecurityDescLen is a non-required field for Allocation.
+	EncodedSecurityDescLen *int `fix:"350"`
+	//EncodedSecurityDesc is a non-required field for Allocation.
+	EncodedSecurityDesc *string `fix:"351"`
+	//Shares is a required field for Allocation.
+	Shares float64 `fix:"53"`
+	//LastMkt is a non-required field for Allocation.
+	LastMkt *string `fix:"30"`
+	//TradingSessionID is a non-required field for Allocation.
+	TradingSessionID *string `fix:"336"`
+	//AvgPx is a required field for Allocation.
+	AvgPx float64 `fix:"6"`
+	//Currency is a non-required field for Allocation.
+	Currency *string `fix:"15"`
+	//AvgPrxPrecision is a non-required field for Allocation.
+	AvgPrxPrecision *int `fix:"74"`
+	//TradeDate is a required field for Allocation.
+	TradeDate string `fix:"75"`
+	//TransactTime is a non-required field for Allocation.
+	TransactTime *time.Time `fix:"60"`
+	//SettlmntTyp is a non-required field for Allocation.
+	SettlmntTyp *string `fix:"63"`
+	//FutSettDate is a non-required field for Allocation.
+	FutSettDate *string `fix:"64"`
+	//GrossTradeAmt is a non-required field for Allocation.
+	GrossTradeAmt *float64 `fix:"381"`
+	//NetMoney is a non-required field for Allocation.
+	NetMoney *float64 `fix:"118"`
+	//OpenClose is a non-required field for Allocation.
+	OpenClose *string `fix:"77"`
+	//Text is a non-required field for Allocation.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for Allocation.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for Allocation.
+	EncodedText *string `fix:"355"`
+	//NumDaysInterest is a non-required field for Allocation.
+	NumDaysInterest *int `fix:"157"`
+	//AccruedInterestRate is a non-required field for Allocation.
+	AccruedInterestRate *float64 `fix:"158"`
+	//NoAllocs is a non-required field for Allocation.
+	NoAllocs []NoAllocs `fix:"78,omitempty"`
+	Trailer  fix42.Trailer
+}
+
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -592,7 +202,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX42, "J", r
 }

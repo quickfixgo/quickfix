@@ -4,99 +4,74 @@ package quotecancel
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix42"
 )
 
-//Message is a QuoteCancel wrapper for the generic Message type
+//NoQuoteEntries is a repeating group in QuoteCancel
+type NoQuoteEntries struct {
+	//Symbol is a required field for NoQuoteEntries.
+	Symbol string `fix:"55"`
+	//SymbolSfx is a non-required field for NoQuoteEntries.
+	SymbolSfx *string `fix:"65"`
+	//SecurityID is a non-required field for NoQuoteEntries.
+	SecurityID *string `fix:"48"`
+	//IDSource is a non-required field for NoQuoteEntries.
+	IDSource *string `fix:"22"`
+	//SecurityType is a non-required field for NoQuoteEntries.
+	SecurityType *string `fix:"167"`
+	//MaturityMonthYear is a non-required field for NoQuoteEntries.
+	MaturityMonthYear *string `fix:"200"`
+	//MaturityDay is a non-required field for NoQuoteEntries.
+	MaturityDay *int `fix:"205"`
+	//PutOrCall is a non-required field for NoQuoteEntries.
+	PutOrCall *int `fix:"201"`
+	//StrikePrice is a non-required field for NoQuoteEntries.
+	StrikePrice *float64 `fix:"202"`
+	//OptAttribute is a non-required field for NoQuoteEntries.
+	OptAttribute *string `fix:"206"`
+	//ContractMultiplier is a non-required field for NoQuoteEntries.
+	ContractMultiplier *float64 `fix:"231"`
+	//CouponRate is a non-required field for NoQuoteEntries.
+	CouponRate *float64 `fix:"223"`
+	//SecurityExchange is a non-required field for NoQuoteEntries.
+	SecurityExchange *string `fix:"207"`
+	//Issuer is a non-required field for NoQuoteEntries.
+	Issuer *string `fix:"106"`
+	//EncodedIssuerLen is a non-required field for NoQuoteEntries.
+	EncodedIssuerLen *int `fix:"348"`
+	//EncodedIssuer is a non-required field for NoQuoteEntries.
+	EncodedIssuer *string `fix:"349"`
+	//SecurityDesc is a non-required field for NoQuoteEntries.
+	SecurityDesc *string `fix:"107"`
+	//EncodedSecurityDescLen is a non-required field for NoQuoteEntries.
+	EncodedSecurityDescLen *int `fix:"350"`
+	//EncodedSecurityDesc is a non-required field for NoQuoteEntries.
+	EncodedSecurityDesc *string `fix:"351"`
+	//UnderlyingSymbol is a non-required field for NoQuoteEntries.
+	UnderlyingSymbol *string `fix:"311"`
+}
+
+//Message is a QuoteCancel FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"Z"`
+	Header     fix42.Header
+	//QuoteReqID is a non-required field for QuoteCancel.
+	QuoteReqID *string `fix:"131"`
+	//QuoteID is a required field for QuoteCancel.
+	QuoteID string `fix:"117"`
+	//QuoteCancelType is a required field for QuoteCancel.
+	QuoteCancelType int `fix:"298"`
+	//QuoteResponseLevel is a non-required field for QuoteCancel.
+	QuoteResponseLevel *int `fix:"301"`
+	//TradingSessionID is a non-required field for QuoteCancel.
+	TradingSessionID *string `fix:"336"`
+	//NoQuoteEntries is a required field for QuoteCancel.
+	NoQuoteEntries []NoQuoteEntries `fix:"295"`
+	Trailer        fix42.Trailer
 }
 
-//QuoteReqID is a non-required field for QuoteCancel.
-func (m Message) QuoteReqID() (*field.QuoteReqIDField, quickfix.MessageRejectError) {
-	f := &field.QuoteReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteReqID reads a QuoteReqID from QuoteCancel.
-func (m Message) GetQuoteReqID(f *field.QuoteReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteID is a required field for QuoteCancel.
-func (m Message) QuoteID() (*field.QuoteIDField, quickfix.MessageRejectError) {
-	f := &field.QuoteIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteID reads a QuoteID from QuoteCancel.
-func (m Message) GetQuoteID(f *field.QuoteIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteCancelType is a required field for QuoteCancel.
-func (m Message) QuoteCancelType() (*field.QuoteCancelTypeField, quickfix.MessageRejectError) {
-	f := &field.QuoteCancelTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteCancelType reads a QuoteCancelType from QuoteCancel.
-func (m Message) GetQuoteCancelType(f *field.QuoteCancelTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteResponseLevel is a non-required field for QuoteCancel.
-func (m Message) QuoteResponseLevel() (*field.QuoteResponseLevelField, quickfix.MessageRejectError) {
-	f := &field.QuoteResponseLevelField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteResponseLevel reads a QuoteResponseLevel from QuoteCancel.
-func (m Message) GetQuoteResponseLevel(f *field.QuoteResponseLevelField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TradingSessionID is a non-required field for QuoteCancel.
-func (m Message) TradingSessionID() (*field.TradingSessionIDField, quickfix.MessageRejectError) {
-	f := &field.TradingSessionIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTradingSessionID reads a TradingSessionID from QuoteCancel.
-func (m Message) GetTradingSessionID(f *field.TradingSessionIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoQuoteEntries is a required field for QuoteCancel.
-func (m Message) NoQuoteEntries() (*field.NoQuoteEntriesField, quickfix.MessageRejectError) {
-	f := &field.NoQuoteEntriesField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoQuoteEntries reads a NoQuoteEntries from QuoteCancel.
-func (m Message) GetNoQuoteEntries(f *field.NoQuoteEntriesField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for QuoteCancel.
-func New(
-	quoteid *field.QuoteIDField,
-	quotecanceltype *field.QuoteCancelTypeField,
-	noquoteentries *field.NoQuoteEntriesField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX42))
-	builder.Header.Set(field.NewMsgType("Z"))
-	builder.Body.Set(quoteid)
-	builder.Body.Set(quotecanceltype)
-	builder.Body.Set(noquoteentries)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -104,7 +79,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX42, "Z", r
 }

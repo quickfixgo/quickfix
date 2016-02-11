@@ -4,278 +4,63 @@ package allocationreportack
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50sp1/allocackgrp"
+	"github.com/quickfixgo/quickfix/fix50sp1/parties"
+	"github.com/quickfixgo/quickfix/fixt11"
+	"time"
 )
 
-//Message is a AllocationReportAck wrapper for the generic Message type
+//Message is a AllocationReportAck FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"AT"`
+	Header     fixt11.Header
+	//AllocReportID is a required field for AllocationReportAck.
+	AllocReportID string `fix:"755"`
+	//AllocID is a required field for AllocationReportAck.
+	AllocID string `fix:"70"`
+	//Parties Component
+	Parties parties.Component
+	//SecondaryAllocID is a non-required field for AllocationReportAck.
+	SecondaryAllocID *string `fix:"793"`
+	//TradeDate is a non-required field for AllocationReportAck.
+	TradeDate *string `fix:"75"`
+	//TransactTime is a non-required field for AllocationReportAck.
+	TransactTime *time.Time `fix:"60"`
+	//AllocStatus is a non-required field for AllocationReportAck.
+	AllocStatus *int `fix:"87"`
+	//AllocRejCode is a non-required field for AllocationReportAck.
+	AllocRejCode *int `fix:"88"`
+	//AllocReportType is a non-required field for AllocationReportAck.
+	AllocReportType *int `fix:"794"`
+	//AllocIntermedReqType is a non-required field for AllocationReportAck.
+	AllocIntermedReqType *int `fix:"808"`
+	//MatchStatus is a non-required field for AllocationReportAck.
+	MatchStatus *string `fix:"573"`
+	//Product is a non-required field for AllocationReportAck.
+	Product *int `fix:"460"`
+	//SecurityType is a non-required field for AllocationReportAck.
+	SecurityType *string `fix:"167"`
+	//Text is a non-required field for AllocationReportAck.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for AllocationReportAck.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for AllocationReportAck.
+	EncodedText *string `fix:"355"`
+	//AllocAckGrp Component
+	AllocAckGrp allocackgrp.Component
+	//ClearingBusinessDate is a non-required field for AllocationReportAck.
+	ClearingBusinessDate *string `fix:"715"`
+	//AvgPxIndicator is a non-required field for AllocationReportAck.
+	AvgPxIndicator *int `fix:"819"`
+	//Quantity is a non-required field for AllocationReportAck.
+	Quantity *float64 `fix:"53"`
+	//AllocTransType is a non-required field for AllocationReportAck.
+	AllocTransType *string `fix:"71"`
+	Trailer        fixt11.Trailer
 }
 
-//AllocReportID is a required field for AllocationReportAck.
-func (m Message) AllocReportID() (*field.AllocReportIDField, quickfix.MessageRejectError) {
-	f := &field.AllocReportIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocReportID reads a AllocReportID from AllocationReportAck.
-func (m Message) GetAllocReportID(f *field.AllocReportIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocID is a required field for AllocationReportAck.
-func (m Message) AllocID() (*field.AllocIDField, quickfix.MessageRejectError) {
-	f := &field.AllocIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocID reads a AllocID from AllocationReportAck.
-func (m Message) GetAllocID(f *field.AllocIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoPartyIDs is a non-required field for AllocationReportAck.
-func (m Message) NoPartyIDs() (*field.NoPartyIDsField, quickfix.MessageRejectError) {
-	f := &field.NoPartyIDsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoPartyIDs reads a NoPartyIDs from AllocationReportAck.
-func (m Message) GetNoPartyIDs(f *field.NoPartyIDsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecondaryAllocID is a non-required field for AllocationReportAck.
-func (m Message) SecondaryAllocID() (*field.SecondaryAllocIDField, quickfix.MessageRejectError) {
-	f := &field.SecondaryAllocIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecondaryAllocID reads a SecondaryAllocID from AllocationReportAck.
-func (m Message) GetSecondaryAllocID(f *field.SecondaryAllocIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TradeDate is a non-required field for AllocationReportAck.
-func (m Message) TradeDate() (*field.TradeDateField, quickfix.MessageRejectError) {
-	f := &field.TradeDateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTradeDate reads a TradeDate from AllocationReportAck.
-func (m Message) GetTradeDate(f *field.TradeDateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TransactTime is a non-required field for AllocationReportAck.
-func (m Message) TransactTime() (*field.TransactTimeField, quickfix.MessageRejectError) {
-	f := &field.TransactTimeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTransactTime reads a TransactTime from AllocationReportAck.
-func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocStatus is a non-required field for AllocationReportAck.
-func (m Message) AllocStatus() (*field.AllocStatusField, quickfix.MessageRejectError) {
-	f := &field.AllocStatusField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocStatus reads a AllocStatus from AllocationReportAck.
-func (m Message) GetAllocStatus(f *field.AllocStatusField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocRejCode is a non-required field for AllocationReportAck.
-func (m Message) AllocRejCode() (*field.AllocRejCodeField, quickfix.MessageRejectError) {
-	f := &field.AllocRejCodeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocRejCode reads a AllocRejCode from AllocationReportAck.
-func (m Message) GetAllocRejCode(f *field.AllocRejCodeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocReportType is a non-required field for AllocationReportAck.
-func (m Message) AllocReportType() (*field.AllocReportTypeField, quickfix.MessageRejectError) {
-	f := &field.AllocReportTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocReportType reads a AllocReportType from AllocationReportAck.
-func (m Message) GetAllocReportType(f *field.AllocReportTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocIntermedReqType is a non-required field for AllocationReportAck.
-func (m Message) AllocIntermedReqType() (*field.AllocIntermedReqTypeField, quickfix.MessageRejectError) {
-	f := &field.AllocIntermedReqTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocIntermedReqType reads a AllocIntermedReqType from AllocationReportAck.
-func (m Message) GetAllocIntermedReqType(f *field.AllocIntermedReqTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MatchStatus is a non-required field for AllocationReportAck.
-func (m Message) MatchStatus() (*field.MatchStatusField, quickfix.MessageRejectError) {
-	f := &field.MatchStatusField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMatchStatus reads a MatchStatus from AllocationReportAck.
-func (m Message) GetMatchStatus(f *field.MatchStatusField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Product is a non-required field for AllocationReportAck.
-func (m Message) Product() (*field.ProductField, quickfix.MessageRejectError) {
-	f := &field.ProductField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetProduct reads a Product from AllocationReportAck.
-func (m Message) GetProduct(f *field.ProductField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityType is a non-required field for AllocationReportAck.
-func (m Message) SecurityType() (*field.SecurityTypeField, quickfix.MessageRejectError) {
-	f := &field.SecurityTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityType reads a SecurityType from AllocationReportAck.
-func (m Message) GetSecurityType(f *field.SecurityTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for AllocationReportAck.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from AllocationReportAck.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for AllocationReportAck.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from AllocationReportAck.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for AllocationReportAck.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from AllocationReportAck.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoAllocs is a non-required field for AllocationReportAck.
-func (m Message) NoAllocs() (*field.NoAllocsField, quickfix.MessageRejectError) {
-	f := &field.NoAllocsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoAllocs reads a NoAllocs from AllocationReportAck.
-func (m Message) GetNoAllocs(f *field.NoAllocsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ClearingBusinessDate is a non-required field for AllocationReportAck.
-func (m Message) ClearingBusinessDate() (*field.ClearingBusinessDateField, quickfix.MessageRejectError) {
-	f := &field.ClearingBusinessDateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetClearingBusinessDate reads a ClearingBusinessDate from AllocationReportAck.
-func (m Message) GetClearingBusinessDate(f *field.ClearingBusinessDateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AvgPxIndicator is a non-required field for AllocationReportAck.
-func (m Message) AvgPxIndicator() (*field.AvgPxIndicatorField, quickfix.MessageRejectError) {
-	f := &field.AvgPxIndicatorField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAvgPxIndicator reads a AvgPxIndicator from AllocationReportAck.
-func (m Message) GetAvgPxIndicator(f *field.AvgPxIndicatorField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Quantity is a non-required field for AllocationReportAck.
-func (m Message) Quantity() (*field.QuantityField, quickfix.MessageRejectError) {
-	f := &field.QuantityField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuantity reads a Quantity from AllocationReportAck.
-func (m Message) GetQuantity(f *field.QuantityField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocTransType is a non-required field for AllocationReportAck.
-func (m Message) AllocTransType() (*field.AllocTransTypeField, quickfix.MessageRejectError) {
-	f := &field.AllocTransTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocTransType reads a AllocTransType from AllocationReportAck.
-func (m Message) GetAllocTransType(f *field.AllocTransTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for AllocationReportAck.
-func New(
-	allocreportid *field.AllocReportIDField,
-	allocid *field.AllocIDField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP1))
-	builder.Header.Set(field.NewMsgType("AT"))
-	builder.Body.Set(allocreportid)
-	builder.Body.Set(allocid)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -283,7 +68,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP1, "AT", r
 }

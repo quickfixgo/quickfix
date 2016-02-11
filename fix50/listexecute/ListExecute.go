@@ -4,110 +4,33 @@ package listexecute
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fixt11"
+	"time"
 )
 
-//Message is a ListExecute wrapper for the generic Message type
+//Message is a ListExecute FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"L"`
+	Header     fixt11.Header
+	//ListID is a required field for ListExecute.
+	ListID string `fix:"66"`
+	//ClientBidID is a non-required field for ListExecute.
+	ClientBidID *string `fix:"391"`
+	//BidID is a non-required field for ListExecute.
+	BidID *string `fix:"390"`
+	//TransactTime is a required field for ListExecute.
+	TransactTime time.Time `fix:"60"`
+	//Text is a non-required field for ListExecute.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for ListExecute.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for ListExecute.
+	EncodedText *string `fix:"355"`
+	Trailer     fixt11.Trailer
 }
 
-//ListID is a required field for ListExecute.
-func (m Message) ListID() (*field.ListIDField, quickfix.MessageRejectError) {
-	f := &field.ListIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListID reads a ListID from ListExecute.
-func (m Message) GetListID(f *field.ListIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ClientBidID is a non-required field for ListExecute.
-func (m Message) ClientBidID() (*field.ClientBidIDField, quickfix.MessageRejectError) {
-	f := &field.ClientBidIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetClientBidID reads a ClientBidID from ListExecute.
-func (m Message) GetClientBidID(f *field.ClientBidIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//BidID is a non-required field for ListExecute.
-func (m Message) BidID() (*field.BidIDField, quickfix.MessageRejectError) {
-	f := &field.BidIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetBidID reads a BidID from ListExecute.
-func (m Message) GetBidID(f *field.BidIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TransactTime is a required field for ListExecute.
-func (m Message) TransactTime() (*field.TransactTimeField, quickfix.MessageRejectError) {
-	f := &field.TransactTimeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTransactTime reads a TransactTime from ListExecute.
-func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for ListExecute.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from ListExecute.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for ListExecute.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from ListExecute.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for ListExecute.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from ListExecute.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for ListExecute.
-func New(
-	listid *field.ListIDField,
-	transacttime *field.TransactTimeField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("L"))
-	builder.Body.Set(listid)
-	builder.Body.Set(transacttime)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -115,7 +38,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX50, "L", r
 }

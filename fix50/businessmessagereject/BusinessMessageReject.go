@@ -4,110 +4,32 @@ package businessmessagereject
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
-//Message is a BusinessMessageReject wrapper for the generic Message type
+//Message is a BusinessMessageReject FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"j"`
+	Header     fixt11.Header
+	//RefSeqNum is a non-required field for BusinessMessageReject.
+	RefSeqNum *int `fix:"45"`
+	//RefMsgType is a required field for BusinessMessageReject.
+	RefMsgType string `fix:"372"`
+	//BusinessRejectRefID is a non-required field for BusinessMessageReject.
+	BusinessRejectRefID *string `fix:"379"`
+	//BusinessRejectReason is a required field for BusinessMessageReject.
+	BusinessRejectReason int `fix:"380"`
+	//Text is a non-required field for BusinessMessageReject.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for BusinessMessageReject.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for BusinessMessageReject.
+	EncodedText *string `fix:"355"`
+	Trailer     fixt11.Trailer
 }
 
-//RefSeqNum is a non-required field for BusinessMessageReject.
-func (m Message) RefSeqNum() (*field.RefSeqNumField, quickfix.MessageRejectError) {
-	f := &field.RefSeqNumField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRefSeqNum reads a RefSeqNum from BusinessMessageReject.
-func (m Message) GetRefSeqNum(f *field.RefSeqNumField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//RefMsgType is a required field for BusinessMessageReject.
-func (m Message) RefMsgType() (*field.RefMsgTypeField, quickfix.MessageRejectError) {
-	f := &field.RefMsgTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRefMsgType reads a RefMsgType from BusinessMessageReject.
-func (m Message) GetRefMsgType(f *field.RefMsgTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//BusinessRejectRefID is a non-required field for BusinessMessageReject.
-func (m Message) BusinessRejectRefID() (*field.BusinessRejectRefIDField, quickfix.MessageRejectError) {
-	f := &field.BusinessRejectRefIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetBusinessRejectRefID reads a BusinessRejectRefID from BusinessMessageReject.
-func (m Message) GetBusinessRejectRefID(f *field.BusinessRejectRefIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//BusinessRejectReason is a required field for BusinessMessageReject.
-func (m Message) BusinessRejectReason() (*field.BusinessRejectReasonField, quickfix.MessageRejectError) {
-	f := &field.BusinessRejectReasonField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetBusinessRejectReason reads a BusinessRejectReason from BusinessMessageReject.
-func (m Message) GetBusinessRejectReason(f *field.BusinessRejectReasonField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for BusinessMessageReject.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from BusinessMessageReject.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for BusinessMessageReject.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from BusinessMessageReject.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for BusinessMessageReject.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from BusinessMessageReject.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for BusinessMessageReject.
-func New(
-	refmsgtype *field.RefMsgTypeField,
-	businessrejectreason *field.BusinessRejectReasonField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50))
-	builder.Header.Set(field.NewMsgType("j"))
-	builder.Body.Set(refmsgtype)
-	builder.Body.Set(businessrejectreason)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -115,7 +37,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX50, "j", r
 }

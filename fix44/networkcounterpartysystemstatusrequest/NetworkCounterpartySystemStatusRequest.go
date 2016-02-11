@@ -4,61 +4,36 @@ package networkcounterpartysystemstatusrequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix44"
 )
 
-//Message is a NetworkCounterpartySystemStatusRequest wrapper for the generic Message type
+//NoCompIDs is a repeating group in NetworkCounterpartySystemStatusRequest
+type NoCompIDs struct {
+	//RefCompID is a non-required field for NoCompIDs.
+	RefCompID *string `fix:"930"`
+	//RefSubID is a non-required field for NoCompIDs.
+	RefSubID *string `fix:"931"`
+	//LocationID is a non-required field for NoCompIDs.
+	LocationID *string `fix:"283"`
+	//DeskID is a non-required field for NoCompIDs.
+	DeskID *string `fix:"284"`
+}
+
+//Message is a NetworkCounterpartySystemStatusRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"BC"`
+	Header     fix44.Header
+	//NetworkRequestType is a required field for NetworkCounterpartySystemStatusRequest.
+	NetworkRequestType int `fix:"935"`
+	//NetworkRequestID is a required field for NetworkCounterpartySystemStatusRequest.
+	NetworkRequestID string `fix:"933"`
+	//NoCompIDs is a non-required field for NetworkCounterpartySystemStatusRequest.
+	NoCompIDs []NoCompIDs `fix:"936,omitempty"`
+	Trailer   fix44.Trailer
 }
 
-//NetworkRequestType is a required field for NetworkCounterpartySystemStatusRequest.
-func (m Message) NetworkRequestType() (*field.NetworkRequestTypeField, quickfix.MessageRejectError) {
-	f := &field.NetworkRequestTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNetworkRequestType reads a NetworkRequestType from NetworkCounterpartySystemStatusRequest.
-func (m Message) GetNetworkRequestType(f *field.NetworkRequestTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NetworkRequestID is a required field for NetworkCounterpartySystemStatusRequest.
-func (m Message) NetworkRequestID() (*field.NetworkRequestIDField, quickfix.MessageRejectError) {
-	f := &field.NetworkRequestIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNetworkRequestID reads a NetworkRequestID from NetworkCounterpartySystemStatusRequest.
-func (m Message) GetNetworkRequestID(f *field.NetworkRequestIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoCompIDs is a non-required field for NetworkCounterpartySystemStatusRequest.
-func (m Message) NoCompIDs() (*field.NoCompIDsField, quickfix.MessageRejectError) {
-	f := &field.NoCompIDsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoCompIDs reads a NoCompIDs from NetworkCounterpartySystemStatusRequest.
-func (m Message) GetNoCompIDs(f *field.NoCompIDsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for NetworkCounterpartySystemStatusRequest.
-func New(
-	networkrequesttype *field.NetworkRequestTypeField,
-	networkrequestid *field.NetworkRequestIDField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
-	builder.Header.Set(field.NewMsgType("BC"))
-	builder.Body.Set(networkrequesttype)
-	builder.Body.Set(networkrequestid)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -66,7 +41,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX44, "BC", r
 }

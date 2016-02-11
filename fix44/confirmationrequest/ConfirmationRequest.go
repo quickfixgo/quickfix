@@ -4,183 +4,68 @@ package confirmationrequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix44"
+	"github.com/quickfixgo/quickfix/fix44/nestedparties2"
+	"time"
 )
 
-//Message is a ConfirmationRequest wrapper for the generic Message type
+//NoOrders is a repeating group in ConfirmationRequest
+type NoOrders struct {
+	//ClOrdID is a non-required field for NoOrders.
+	ClOrdID *string `fix:"11"`
+	//OrderID is a non-required field for NoOrders.
+	OrderID *string `fix:"37"`
+	//SecondaryOrderID is a non-required field for NoOrders.
+	SecondaryOrderID *string `fix:"198"`
+	//SecondaryClOrdID is a non-required field for NoOrders.
+	SecondaryClOrdID *string `fix:"526"`
+	//ListID is a non-required field for NoOrders.
+	ListID *string `fix:"66"`
+	//NestedParties2 Component
+	NestedParties2 nestedparties2.Component
+	//OrderQty is a non-required field for NoOrders.
+	OrderQty *float64 `fix:"38"`
+	//OrderAvgPx is a non-required field for NoOrders.
+	OrderAvgPx *float64 `fix:"799"`
+	//OrderBookingQty is a non-required field for NoOrders.
+	OrderBookingQty *float64 `fix:"800"`
+}
+
+//Message is a ConfirmationRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"BH"`
+	Header     fix44.Header
+	//ConfirmReqID is a required field for ConfirmationRequest.
+	ConfirmReqID string `fix:"859"`
+	//ConfirmType is a required field for ConfirmationRequest.
+	ConfirmType int `fix:"773"`
+	//NoOrders is a non-required field for ConfirmationRequest.
+	NoOrders []NoOrders `fix:"73,omitempty"`
+	//AllocID is a non-required field for ConfirmationRequest.
+	AllocID *string `fix:"70"`
+	//SecondaryAllocID is a non-required field for ConfirmationRequest.
+	SecondaryAllocID *string `fix:"793"`
+	//IndividualAllocID is a non-required field for ConfirmationRequest.
+	IndividualAllocID *string `fix:"467"`
+	//TransactTime is a required field for ConfirmationRequest.
+	TransactTime time.Time `fix:"60"`
+	//AllocAccount is a non-required field for ConfirmationRequest.
+	AllocAccount *string `fix:"79"`
+	//AllocAcctIDSource is a non-required field for ConfirmationRequest.
+	AllocAcctIDSource *int `fix:"661"`
+	//AllocAccountType is a non-required field for ConfirmationRequest.
+	AllocAccountType *int `fix:"798"`
+	//Text is a non-required field for ConfirmationRequest.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for ConfirmationRequest.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for ConfirmationRequest.
+	EncodedText *string `fix:"355"`
+	Trailer     fix44.Trailer
 }
 
-//ConfirmReqID is a required field for ConfirmationRequest.
-func (m Message) ConfirmReqID() (*field.ConfirmReqIDField, quickfix.MessageRejectError) {
-	f := &field.ConfirmReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetConfirmReqID reads a ConfirmReqID from ConfirmationRequest.
-func (m Message) GetConfirmReqID(f *field.ConfirmReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ConfirmType is a required field for ConfirmationRequest.
-func (m Message) ConfirmType() (*field.ConfirmTypeField, quickfix.MessageRejectError) {
-	f := &field.ConfirmTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetConfirmType reads a ConfirmType from ConfirmationRequest.
-func (m Message) GetConfirmType(f *field.ConfirmTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoOrders is a non-required field for ConfirmationRequest.
-func (m Message) NoOrders() (*field.NoOrdersField, quickfix.MessageRejectError) {
-	f := &field.NoOrdersField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoOrders reads a NoOrders from ConfirmationRequest.
-func (m Message) GetNoOrders(f *field.NoOrdersField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocID is a non-required field for ConfirmationRequest.
-func (m Message) AllocID() (*field.AllocIDField, quickfix.MessageRejectError) {
-	f := &field.AllocIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocID reads a AllocID from ConfirmationRequest.
-func (m Message) GetAllocID(f *field.AllocIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecondaryAllocID is a non-required field for ConfirmationRequest.
-func (m Message) SecondaryAllocID() (*field.SecondaryAllocIDField, quickfix.MessageRejectError) {
-	f := &field.SecondaryAllocIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecondaryAllocID reads a SecondaryAllocID from ConfirmationRequest.
-func (m Message) GetSecondaryAllocID(f *field.SecondaryAllocIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//IndividualAllocID is a non-required field for ConfirmationRequest.
-func (m Message) IndividualAllocID() (*field.IndividualAllocIDField, quickfix.MessageRejectError) {
-	f := &field.IndividualAllocIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetIndividualAllocID reads a IndividualAllocID from ConfirmationRequest.
-func (m Message) GetIndividualAllocID(f *field.IndividualAllocIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TransactTime is a required field for ConfirmationRequest.
-func (m Message) TransactTime() (*field.TransactTimeField, quickfix.MessageRejectError) {
-	f := &field.TransactTimeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTransactTime reads a TransactTime from ConfirmationRequest.
-func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocAccount is a non-required field for ConfirmationRequest.
-func (m Message) AllocAccount() (*field.AllocAccountField, quickfix.MessageRejectError) {
-	f := &field.AllocAccountField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocAccount reads a AllocAccount from ConfirmationRequest.
-func (m Message) GetAllocAccount(f *field.AllocAccountField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocAcctIDSource is a non-required field for ConfirmationRequest.
-func (m Message) AllocAcctIDSource() (*field.AllocAcctIDSourceField, quickfix.MessageRejectError) {
-	f := &field.AllocAcctIDSourceField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocAcctIDSource reads a AllocAcctIDSource from ConfirmationRequest.
-func (m Message) GetAllocAcctIDSource(f *field.AllocAcctIDSourceField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllocAccountType is a non-required field for ConfirmationRequest.
-func (m Message) AllocAccountType() (*field.AllocAccountTypeField, quickfix.MessageRejectError) {
-	f := &field.AllocAccountTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllocAccountType reads a AllocAccountType from ConfirmationRequest.
-func (m Message) GetAllocAccountType(f *field.AllocAccountTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for ConfirmationRequest.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from ConfirmationRequest.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for ConfirmationRequest.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from ConfirmationRequest.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for ConfirmationRequest.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from ConfirmationRequest.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for ConfirmationRequest.
-func New(
-	confirmreqid *field.ConfirmReqIDField,
-	confirmtype *field.ConfirmTypeField,
-	transacttime *field.TransactTimeField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
-	builder.Header.Set(field.NewMsgType("BH"))
-	builder.Body.Set(confirmreqid)
-	builder.Body.Set(confirmtype)
-	builder.Body.Set(transacttime)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -188,7 +73,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX44, "BH", r
 }
