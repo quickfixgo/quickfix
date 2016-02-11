@@ -5,11 +5,13 @@ get:
 	go get gopkg.in/check.v1
 
 GEN_MESSAGES = go run _gen/generate-messages/main.go
+GEN_COMPONENTS = go run _gen/generate-components/main.go
 GEN_FIELDS = go run _gen/generate-fields/main.go
 FIXVERS = FIX40 FIX41 FIX42 FIX43 FIX44 FIX50 FIX50SP1 FIX50SP2 FIXT11
 
 generate:
 	$(GEN_FIELDS) $(foreach vers, $(FIXVERS), spec/$(vers).xml)
+	$(foreach vers, $(FIXVERS), $(GEN_COMPONENTS) spec/$(vers).xml;)
 	$(foreach vers, $(FIXVERS), $(GEN_MESSAGES) spec/$(vers).xml;)
 
 fmt:

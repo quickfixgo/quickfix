@@ -65,6 +65,11 @@ func ValueIsIncorrect(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Value is incorrect (out of range) for this tag", rejectReasonValueIsIncorrect, &tag)
 }
 
+//ConditionallyRequiredFieldMissing indicates that the requested field could not be found in the FIX message.
+func ConditionallyRequiredFieldMissing(tag Tag) MessageRejectError {
+	return NewBusinessMessageRejectError("Conditionally required field missing", rejectReasonConditionallyRequiredFieldMissing, &tag)
+}
+
 //valueIsIncorrectNoTag returns an error indicating a field with value that is not valid.
 //FIXME: to be compliant with legacy tests, for certain value issues, do not include reftag? (11c_NewSeqNoLess)
 func valueIsIncorrectNoTag() MessageRejectError {
@@ -114,11 +119,6 @@ func tagSpecifiedWithoutAValue(tag Tag) MessageRejectError {
 //invalidTagNumber returns a validation error for messages with invalid tags.
 func invalidTagNumber(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Invalid tag number", rejectReasonInvalidTagNumber, &tag)
-}
-
-//conditionallyRequiredFieldMissing indicates that the requested field could not be found in the FIX message.
-func conditionallyRequiredFieldMissing(tag Tag) MessageRejectError {
-	return NewBusinessMessageRejectError("Conditionally required field missing", rejectReasonConditionallyRequiredFieldMissing, &tag)
 }
 
 //compIDProblem creates a reject for msg where msg has invalid comp id values.

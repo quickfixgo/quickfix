@@ -27,6 +27,7 @@ func (f *FIXUTCTimestamp) Read(bytes []byte) error {
 		return err
 	}
 
+	f.NoMillis = true
 	return nil
 }
 

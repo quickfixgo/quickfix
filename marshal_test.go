@@ -236,6 +236,38 @@ func TestMarshal_RepeatingGroups(t *testing.T) {
 	}
 }
 
+func TestMarshal_Default(t *testing.T) {
+	type Message struct {
+		FIXMsgType   string  `fix:"0"`
+		StringField1 string  `fix:"10,default=hello"`
+		StringField2 *string `fix:"11,default=world"`
+	}
+
+	m := Message{}
+	fixMsg := quickfix.Marshal(m)
+
+	var tests = []struct {
+		quickfix.Tag
+		expected string
+	}{
+		{quickfix.Tag(10), "hello"},
+		{quickfix.Tag(11), "world"},
+	}
+
+	for _, test := range tests {
+		var f quickfix.FIXString
+		if err := fixMsg.Body.GetField(test.Tag, &f); err != nil {
+			t.Errorf("Unexpected Error for tag %v: %v", test.Tag, err)
+		}
+
+		if string(f) != test.expected {
+			t.Errorf("Expected default value %v got %v", test.expected, f)
+		}
+
+	}
+
+}
+
 func TestMarshal_OmitEmpty(t *testing.T) {
 	type Group1 struct {
 		StringField1 string  `fix:"8"`
@@ -312,7 +344,7 @@ func TestMarshal_HeaderTrailer(t *testing.T) {
 		}
 
 		if !bytes.Equal(test.expected, test.fieldValue.Write()) {
-			t.Errorf("Expected %s got %s", test.expected, test.fieldValue.Write())
+			t.Errorf("Expected '%s' got '%s'", test.expected, test.fieldValue.Write())
 		}
 	}
 }

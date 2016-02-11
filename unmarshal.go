@@ -56,7 +56,7 @@ func (d decoder) decodeValue(fixTag Tag, t reflect.Type, v reflect.Value) Messag
 		template := make(GroupTemplate, elem.NumField())
 		for i := 0; i < elem.NumField(); i++ {
 			sf := elem.Field(i)
-			fixTag, _ := parseStructTag(sf.Tag.Get("fix"))
+			fixTag, _, _ := parseStructTag(sf.Tag.Get("fix"))
 			template[i] = GroupElement(fixTag)
 		}
 		repeatingGroup := RepeatingGroup{Tag: fixTag, GroupTemplate: template}
@@ -84,7 +84,7 @@ func (d decoder) decodeValue(fixTag Tag, t reflect.Type, v reflect.Value) Messag
 
 func (d decoder) decodeField(sf reflect.StructField, t reflect.Type, v reflect.Value) MessageRejectError {
 	if sf.Tag.Get("fix") != "" {
-		fixTag, _ := parseStructTag(sf.Tag.Get("fix"))
+		fixTag, _, _ := parseStructTag(sf.Tag.Get("fix"))
 		if !d.FieldMap.Has(fixTag) {
 			return nil
 		}
