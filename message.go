@@ -22,8 +22,11 @@ type Message struct {
 	bodyBytes []byte
 
 	//field bytes as they appear in the raw message
-	fields []TagValue
+	fields []tagValue
 }
+
+//Message marshals itself
+func (m Message) Marshal() Message { return m }
 
 //parseError is returned when bytes cannot be parsed as a FIX message.
 type parseError struct {
@@ -57,7 +60,7 @@ func parseMessage(rawMessage []byte) (Message, error) {
 			fieldCount++
 		}
 	}
-	msg.fields = make([]TagValue, fieldCount)
+	msg.fields = make([]tagValue, fieldCount)
 
 	fieldIndex := 0
 	var err error
@@ -177,7 +180,7 @@ func (m Message) reverseRoute() Message {
 	return reverseMsg
 }
 
-func extractSpecificField(field *TagValue, expectedTag Tag, buffer []byte) (remBuffer []byte, err error) {
+func extractSpecificField(field *tagValue, expectedTag Tag, buffer []byte) (remBuffer []byte, err error) {
 	remBuffer, err = extractField(field, buffer)
 	switch {
 	case err != nil:
@@ -190,7 +193,7 @@ func extractSpecificField(field *TagValue, expectedTag Tag, buffer []byte) (remB
 	return
 }
 
-func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, err error) {
+func extractField(parsedFieldBytes *tagValue, buffer []byte) (remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
 		err = parseError{OrigError: "extractField: No Trailing Delim in " + string(buffer)}

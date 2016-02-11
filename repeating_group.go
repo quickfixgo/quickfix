@@ -11,13 +11,13 @@ type GroupItem interface {
 	//Tag returns the tag identifying this GroupItem
 	Tag() Tag
 
-	//Parameter to Read is TagValues.  For most fields, only the first TagValue will be required.
-	//The length of the slice extends from the TagValue mapped to the field to be read through the
+	//Parameter to Read is tagValues.  For most fields, only the first tagValue will be required.
+	//The length of the slice extends from the tagValue mapped to the field to be read through the
 	//following fields. This can be useful for GroupItems made up of repeating groups.
 	//
-	//The Read function returns the remaining TagValues not processed by the GroupItem. If there was a
+	//The Read function returns the remaining tagValues not processed by the GroupItem. If there was a
 	//problem reading the field, an error may be returned
-	Read(TagValues) (TagValues, error)
+	read(tagValues) (tagValues, error)
 }
 
 type protoGroupElement struct {
@@ -25,7 +25,7 @@ type protoGroupElement struct {
 }
 
 func (t protoGroupElement) Tag() Tag { return t.tag }
-func (t protoGroupElement) Read(tv TagValues) (TagValues, error) {
+func (t protoGroupElement) read(tv tagValues) (tagValues, error) {
 	if tv[0].Tag == t.tag {
 		return tv[1:], nil
 	}
@@ -59,10 +59,10 @@ func (f *RepeatingGroup) Add() Group {
 	return g
 }
 
-//TagValues returns TagValues for all Items in the repeating group ordered by
+//tagValues returns tagValues for all Items in the repeating group ordered by
 //Group sequence and Group template order
-func (f RepeatingGroup) TagValues() TagValues {
-	tvs := make(TagValues, 1, 1)
+func (f RepeatingGroup) tagValues() tagValues {
+	tvs := make(tagValues, 1, 1)
 	tvs[0].init(f.Tag, []byte(strconv.Itoa(len(f.Groups))))
 
 	for _, group := range f.Groups {
@@ -116,7 +116,7 @@ func (f RepeatingGroup) isDelimiter(t Tag) bool {
 	return t == f.GroupTemplate[0].Tag()
 }
 
-func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
+func (f *RepeatingGroup) read(tv tagValues) (tagValues, error) {
 	expectedGroupSize, err := atoi(tv[0].Value)
 	if err != nil {
 		return tv, err
@@ -137,7 +137,7 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 		}
 
 		tvRange := tv
-		if tv, err = field.Read(tv); err != nil {
+		if tv, err = field.read(tv); err != nil {
 			return tv, err
 		}
 

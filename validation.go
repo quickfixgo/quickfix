@@ -97,7 +97,7 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 	return nil
 }
 
-func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []TagValue) ([]TagValue, MessageRejectError) {
+func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []tagValue) ([]tagValue, MessageRejectError) {
 	var fieldDef *datadictionary.FieldDef
 	var ok bool
 	var err MessageRejectError
@@ -123,7 +123,7 @@ func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []TagVa
 	return fields, nil
 }
 
-func validateVisitField(fieldDef *datadictionary.FieldDef, fields []TagValue) ([]TagValue, MessageRejectError) {
+func validateVisitField(fieldDef *datadictionary.FieldDef, fields []tagValue) ([]tagValue, MessageRejectError) {
 	var err MessageRejectError
 
 	if fieldDef.IsGroup() {
@@ -135,7 +135,7 @@ func validateVisitField(fieldDef *datadictionary.FieldDef, fields []TagValue) ([
 	return fields[1:], nil
 }
 
-func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []TagValue) ([]TagValue, MessageRejectError) {
+func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tagValue) ([]tagValue, MessageRejectError) {
 	numInGroupTag := fieldStack[0].Tag
 	var numInGroup FIXInt
 
@@ -256,7 +256,7 @@ func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadicti
 	return nil
 }
 
-func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field TagValue) MessageRejectError {
+func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field tagValue) MessageRejectError {
 	if len(field.Value) == 0 {
 		return tagSpecifiedWithoutAValue(field.Tag)
 	}
