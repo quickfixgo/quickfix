@@ -4,95 +4,30 @@ package securitytyperequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix43"
 )
 
-//Message is a SecurityTypeRequest wrapper for the generic Message type
+//Message is a SecurityTypeRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"v"`
+	Header     fix43.Header
+	//SecurityReqID is a required field for SecurityTypeRequest.
+	SecurityReqID string `fix:"320"`
+	//Text is a non-required field for SecurityTypeRequest.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for SecurityTypeRequest.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for SecurityTypeRequest.
+	EncodedText *string `fix:"355"`
+	//TradingSessionID is a non-required field for SecurityTypeRequest.
+	TradingSessionID *string `fix:"336"`
+	//TradingSessionSubID is a non-required field for SecurityTypeRequest.
+	TradingSessionSubID *string `fix:"625"`
+	Trailer             fix43.Trailer
 }
 
-//SecurityReqID is a required field for SecurityTypeRequest.
-func (m Message) SecurityReqID() (*field.SecurityReqIDField, quickfix.MessageRejectError) {
-	f := &field.SecurityReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityReqID reads a SecurityReqID from SecurityTypeRequest.
-func (m Message) GetSecurityReqID(f *field.SecurityReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for SecurityTypeRequest.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from SecurityTypeRequest.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for SecurityTypeRequest.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from SecurityTypeRequest.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for SecurityTypeRequest.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from SecurityTypeRequest.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TradingSessionID is a non-required field for SecurityTypeRequest.
-func (m Message) TradingSessionID() (*field.TradingSessionIDField, quickfix.MessageRejectError) {
-	f := &field.TradingSessionIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTradingSessionID reads a TradingSessionID from SecurityTypeRequest.
-func (m Message) GetTradingSessionID(f *field.TradingSessionIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TradingSessionSubID is a non-required field for SecurityTypeRequest.
-func (m Message) TradingSessionSubID() (*field.TradingSessionSubIDField, quickfix.MessageRejectError) {
-	f := &field.TradingSessionSubIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTradingSessionSubID reads a TradingSessionSubID from SecurityTypeRequest.
-func (m Message) GetTradingSessionSubID(f *field.TradingSessionSubIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for SecurityTypeRequest.
-func New(
-	securityreqid *field.SecurityReqIDField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
-	builder.Header.Set(field.NewMsgType("v"))
-	builder.Body.Set(securityreqid)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -100,7 +35,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX43, "v", r
 }

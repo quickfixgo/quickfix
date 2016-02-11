@@ -4,257 +4,252 @@ package neworderlist
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix44"
+	"github.com/quickfixgo/quickfix/fix44/commissiondata"
+	"github.com/quickfixgo/quickfix/fix44/discretioninstructions"
+	"github.com/quickfixgo/quickfix/fix44/instrument"
+	"github.com/quickfixgo/quickfix/fix44/nestedparties"
+	"github.com/quickfixgo/quickfix/fix44/orderqtydata"
+	"github.com/quickfixgo/quickfix/fix44/parties"
+	"github.com/quickfixgo/quickfix/fix44/peginstructions"
+	"github.com/quickfixgo/quickfix/fix44/spreadorbenchmarkcurvedata"
+	"github.com/quickfixgo/quickfix/fix44/stipulations"
+	"github.com/quickfixgo/quickfix/fix44/underlyinginstrument"
+	"github.com/quickfixgo/quickfix/fix44/yielddata"
+	"time"
 )
 
-//Message is a NewOrderList wrapper for the generic Message type
+//NoOrders is a repeating group in NewOrderList
+type NoOrders struct {
+	//ClOrdID is a required field for NoOrders.
+	ClOrdID string `fix:"11"`
+	//SecondaryClOrdID is a non-required field for NoOrders.
+	SecondaryClOrdID *string `fix:"526"`
+	//ListSeqNo is a required field for NoOrders.
+	ListSeqNo int `fix:"67"`
+	//ClOrdLinkID is a non-required field for NoOrders.
+	ClOrdLinkID *string `fix:"583"`
+	//SettlInstMode is a non-required field for NoOrders.
+	SettlInstMode *string `fix:"160"`
+	//Parties Component
+	Parties parties.Component
+	//TradeOriginationDate is a non-required field for NoOrders.
+	TradeOriginationDate *string `fix:"229"`
+	//TradeDate is a non-required field for NoOrders.
+	TradeDate *string `fix:"75"`
+	//Account is a non-required field for NoOrders.
+	Account *string `fix:"1"`
+	//AcctIDSource is a non-required field for NoOrders.
+	AcctIDSource *int `fix:"660"`
+	//AccountType is a non-required field for NoOrders.
+	AccountType *int `fix:"581"`
+	//DayBookingInst is a non-required field for NoOrders.
+	DayBookingInst *string `fix:"589"`
+	//BookingUnit is a non-required field for NoOrders.
+	BookingUnit *string `fix:"590"`
+	//AllocID is a non-required field for NoOrders.
+	AllocID *string `fix:"70"`
+	//PreallocMethod is a non-required field for NoOrders.
+	PreallocMethod *string `fix:"591"`
+	//NoAllocs is a non-required field for NoOrders.
+	NoAllocs []NoAllocs `fix:"78,omitempty"`
+	//SettlType is a non-required field for NoOrders.
+	SettlType *string `fix:"63"`
+	//SettlDate is a non-required field for NoOrders.
+	SettlDate *string `fix:"64"`
+	//CashMargin is a non-required field for NoOrders.
+	CashMargin *string `fix:"544"`
+	//ClearingFeeIndicator is a non-required field for NoOrders.
+	ClearingFeeIndicator *string `fix:"635"`
+	//HandlInst is a non-required field for NoOrders.
+	HandlInst *string `fix:"21"`
+	//ExecInst is a non-required field for NoOrders.
+	ExecInst *string `fix:"18"`
+	//MinQty is a non-required field for NoOrders.
+	MinQty *float64 `fix:"110"`
+	//MaxFloor is a non-required field for NoOrders.
+	MaxFloor *float64 `fix:"111"`
+	//ExDestination is a non-required field for NoOrders.
+	ExDestination *string `fix:"100"`
+	//NoTradingSessions is a non-required field for NoOrders.
+	NoTradingSessions []NoTradingSessions `fix:"386,omitempty"`
+	//ProcessCode is a non-required field for NoOrders.
+	ProcessCode *string `fix:"81"`
+	//Instrument Component
+	Instrument instrument.Component
+	//NoUnderlyings is a non-required field for NoOrders.
+	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
+	//PrevClosePx is a non-required field for NoOrders.
+	PrevClosePx *float64 `fix:"140"`
+	//Side is a required field for NoOrders.
+	Side string `fix:"54"`
+	//SideValueInd is a non-required field for NoOrders.
+	SideValueInd *int `fix:"401"`
+	//LocateReqd is a non-required field for NoOrders.
+	LocateReqd *bool `fix:"114"`
+	//TransactTime is a non-required field for NoOrders.
+	TransactTime *time.Time `fix:"60"`
+	//Stipulations Component
+	Stipulations stipulations.Component
+	//QtyType is a non-required field for NoOrders.
+	QtyType *int `fix:"854"`
+	//OrderQtyData Component
+	OrderQtyData orderqtydata.Component
+	//OrdType is a non-required field for NoOrders.
+	OrdType *string `fix:"40"`
+	//PriceType is a non-required field for NoOrders.
+	PriceType *int `fix:"423"`
+	//Price is a non-required field for NoOrders.
+	Price *float64 `fix:"44"`
+	//StopPx is a non-required field for NoOrders.
+	StopPx *float64 `fix:"99"`
+	//SpreadOrBenchmarkCurveData Component
+	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	//YieldData Component
+	YieldData yielddata.Component
+	//Currency is a non-required field for NoOrders.
+	Currency *string `fix:"15"`
+	//ComplianceID is a non-required field for NoOrders.
+	ComplianceID *string `fix:"376"`
+	//SolicitedFlag is a non-required field for NoOrders.
+	SolicitedFlag *bool `fix:"377"`
+	//IOIID is a non-required field for NoOrders.
+	IOIID *string `fix:"23"`
+	//QuoteID is a non-required field for NoOrders.
+	QuoteID *string `fix:"117"`
+	//TimeInForce is a non-required field for NoOrders.
+	TimeInForce *string `fix:"59"`
+	//EffectiveTime is a non-required field for NoOrders.
+	EffectiveTime *time.Time `fix:"168"`
+	//ExpireDate is a non-required field for NoOrders.
+	ExpireDate *string `fix:"432"`
+	//ExpireTime is a non-required field for NoOrders.
+	ExpireTime *time.Time `fix:"126"`
+	//GTBookingInst is a non-required field for NoOrders.
+	GTBookingInst *int `fix:"427"`
+	//CommissionData Component
+	CommissionData commissiondata.Component
+	//OrderCapacity is a non-required field for NoOrders.
+	OrderCapacity *string `fix:"528"`
+	//OrderRestrictions is a non-required field for NoOrders.
+	OrderRestrictions *string `fix:"529"`
+	//CustOrderCapacity is a non-required field for NoOrders.
+	CustOrderCapacity *int `fix:"582"`
+	//ForexReq is a non-required field for NoOrders.
+	ForexReq *bool `fix:"121"`
+	//SettlCurrency is a non-required field for NoOrders.
+	SettlCurrency *string `fix:"120"`
+	//BookingType is a non-required field for NoOrders.
+	BookingType *int `fix:"775"`
+	//Text is a non-required field for NoOrders.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for NoOrders.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for NoOrders.
+	EncodedText *string `fix:"355"`
+	//SettlDate2 is a non-required field for NoOrders.
+	SettlDate2 *string `fix:"193"`
+	//OrderQty2 is a non-required field for NoOrders.
+	OrderQty2 *float64 `fix:"192"`
+	//Price2 is a non-required field for NoOrders.
+	Price2 *float64 `fix:"640"`
+	//PositionEffect is a non-required field for NoOrders.
+	PositionEffect *string `fix:"77"`
+	//CoveredOrUncovered is a non-required field for NoOrders.
+	CoveredOrUncovered *int `fix:"203"`
+	//MaxShow is a non-required field for NoOrders.
+	MaxShow *float64 `fix:"210"`
+	//PegInstructions Component
+	PegInstructions peginstructions.Component
+	//DiscretionInstructions Component
+	DiscretionInstructions discretioninstructions.Component
+	//TargetStrategy is a non-required field for NoOrders.
+	TargetStrategy *int `fix:"847"`
+	//TargetStrategyParameters is a non-required field for NoOrders.
+	TargetStrategyParameters *string `fix:"848"`
+	//ParticipationRate is a non-required field for NoOrders.
+	ParticipationRate *float64 `fix:"849"`
+	//Designation is a non-required field for NoOrders.
+	Designation *string `fix:"494"`
+}
+
+//NoAllocs is a repeating group in NoOrders
+type NoAllocs struct {
+	//AllocAccount is a non-required field for NoAllocs.
+	AllocAccount *string `fix:"79"`
+	//AllocAcctIDSource is a non-required field for NoAllocs.
+	AllocAcctIDSource *int `fix:"661"`
+	//AllocSettlCurrency is a non-required field for NoAllocs.
+	AllocSettlCurrency *string `fix:"736"`
+	//IndividualAllocID is a non-required field for NoAllocs.
+	IndividualAllocID *string `fix:"467"`
+	//NestedParties Component
+	NestedParties nestedparties.Component
+	//AllocQty is a non-required field for NoAllocs.
+	AllocQty *float64 `fix:"80"`
+}
+
+//NoTradingSessions is a repeating group in NoOrders
+type NoTradingSessions struct {
+	//TradingSessionID is a non-required field for NoTradingSessions.
+	TradingSessionID *string `fix:"336"`
+	//TradingSessionSubID is a non-required field for NoTradingSessions.
+	TradingSessionSubID *string `fix:"625"`
+}
+
+//NoUnderlyings is a repeating group in NoOrders
+type NoUnderlyings struct {
+	//UnderlyingInstrument Component
+	UnderlyingInstrument underlyinginstrument.Component
+}
+
+//Message is a NewOrderList FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"E"`
+	Header     fix44.Header
+	//ListID is a required field for NewOrderList.
+	ListID string `fix:"66"`
+	//BidID is a non-required field for NewOrderList.
+	BidID *string `fix:"390"`
+	//ClientBidID is a non-required field for NewOrderList.
+	ClientBidID *string `fix:"391"`
+	//ProgRptReqs is a non-required field for NewOrderList.
+	ProgRptReqs *int `fix:"414"`
+	//BidType is a required field for NewOrderList.
+	BidType int `fix:"394"`
+	//ProgPeriodInterval is a non-required field for NewOrderList.
+	ProgPeriodInterval *int `fix:"415"`
+	//CancellationRights is a non-required field for NewOrderList.
+	CancellationRights *string `fix:"480"`
+	//MoneyLaunderingStatus is a non-required field for NewOrderList.
+	MoneyLaunderingStatus *string `fix:"481"`
+	//RegistID is a non-required field for NewOrderList.
+	RegistID *string `fix:"513"`
+	//ListExecInstType is a non-required field for NewOrderList.
+	ListExecInstType *string `fix:"433"`
+	//ListExecInst is a non-required field for NewOrderList.
+	ListExecInst *string `fix:"69"`
+	//EncodedListExecInstLen is a non-required field for NewOrderList.
+	EncodedListExecInstLen *int `fix:"352"`
+	//EncodedListExecInst is a non-required field for NewOrderList.
+	EncodedListExecInst *string `fix:"353"`
+	//AllowableOneSidednessPct is a non-required field for NewOrderList.
+	AllowableOneSidednessPct *float64 `fix:"765"`
+	//AllowableOneSidednessValue is a non-required field for NewOrderList.
+	AllowableOneSidednessValue *float64 `fix:"766"`
+	//AllowableOneSidednessCurr is a non-required field for NewOrderList.
+	AllowableOneSidednessCurr *string `fix:"767"`
+	//TotNoOrders is a required field for NewOrderList.
+	TotNoOrders int `fix:"68"`
+	//LastFragment is a non-required field for NewOrderList.
+	LastFragment *bool `fix:"893"`
+	//NoOrders is a required field for NewOrderList.
+	NoOrders []NoOrders `fix:"73"`
+	Trailer  fix44.Trailer
 }
 
-//ListID is a required field for NewOrderList.
-func (m Message) ListID() (*field.ListIDField, quickfix.MessageRejectError) {
-	f := &field.ListIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListID reads a ListID from NewOrderList.
-func (m Message) GetListID(f *field.ListIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//BidID is a non-required field for NewOrderList.
-func (m Message) BidID() (*field.BidIDField, quickfix.MessageRejectError) {
-	f := &field.BidIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetBidID reads a BidID from NewOrderList.
-func (m Message) GetBidID(f *field.BidIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ClientBidID is a non-required field for NewOrderList.
-func (m Message) ClientBidID() (*field.ClientBidIDField, quickfix.MessageRejectError) {
-	f := &field.ClientBidIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetClientBidID reads a ClientBidID from NewOrderList.
-func (m Message) GetClientBidID(f *field.ClientBidIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ProgRptReqs is a non-required field for NewOrderList.
-func (m Message) ProgRptReqs() (*field.ProgRptReqsField, quickfix.MessageRejectError) {
-	f := &field.ProgRptReqsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetProgRptReqs reads a ProgRptReqs from NewOrderList.
-func (m Message) GetProgRptReqs(f *field.ProgRptReqsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//BidType is a required field for NewOrderList.
-func (m Message) BidType() (*field.BidTypeField, quickfix.MessageRejectError) {
-	f := &field.BidTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetBidType reads a BidType from NewOrderList.
-func (m Message) GetBidType(f *field.BidTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ProgPeriodInterval is a non-required field for NewOrderList.
-func (m Message) ProgPeriodInterval() (*field.ProgPeriodIntervalField, quickfix.MessageRejectError) {
-	f := &field.ProgPeriodIntervalField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetProgPeriodInterval reads a ProgPeriodInterval from NewOrderList.
-func (m Message) GetProgPeriodInterval(f *field.ProgPeriodIntervalField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//CancellationRights is a non-required field for NewOrderList.
-func (m Message) CancellationRights() (*field.CancellationRightsField, quickfix.MessageRejectError) {
-	f := &field.CancellationRightsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetCancellationRights reads a CancellationRights from NewOrderList.
-func (m Message) GetCancellationRights(f *field.CancellationRightsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MoneyLaunderingStatus is a non-required field for NewOrderList.
-func (m Message) MoneyLaunderingStatus() (*field.MoneyLaunderingStatusField, quickfix.MessageRejectError) {
-	f := &field.MoneyLaunderingStatusField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMoneyLaunderingStatus reads a MoneyLaunderingStatus from NewOrderList.
-func (m Message) GetMoneyLaunderingStatus(f *field.MoneyLaunderingStatusField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//RegistID is a non-required field for NewOrderList.
-func (m Message) RegistID() (*field.RegistIDField, quickfix.MessageRejectError) {
-	f := &field.RegistIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRegistID reads a RegistID from NewOrderList.
-func (m Message) GetRegistID(f *field.RegistIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ListExecInstType is a non-required field for NewOrderList.
-func (m Message) ListExecInstType() (*field.ListExecInstTypeField, quickfix.MessageRejectError) {
-	f := &field.ListExecInstTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListExecInstType reads a ListExecInstType from NewOrderList.
-func (m Message) GetListExecInstType(f *field.ListExecInstTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ListExecInst is a non-required field for NewOrderList.
-func (m Message) ListExecInst() (*field.ListExecInstField, quickfix.MessageRejectError) {
-	f := &field.ListExecInstField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListExecInst reads a ListExecInst from NewOrderList.
-func (m Message) GetListExecInst(f *field.ListExecInstField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedListExecInstLen is a non-required field for NewOrderList.
-func (m Message) EncodedListExecInstLen() (*field.EncodedListExecInstLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedListExecInstLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedListExecInstLen reads a EncodedListExecInstLen from NewOrderList.
-func (m Message) GetEncodedListExecInstLen(f *field.EncodedListExecInstLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedListExecInst is a non-required field for NewOrderList.
-func (m Message) EncodedListExecInst() (*field.EncodedListExecInstField, quickfix.MessageRejectError) {
-	f := &field.EncodedListExecInstField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedListExecInst reads a EncodedListExecInst from NewOrderList.
-func (m Message) GetEncodedListExecInst(f *field.EncodedListExecInstField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllowableOneSidednessPct is a non-required field for NewOrderList.
-func (m Message) AllowableOneSidednessPct() (*field.AllowableOneSidednessPctField, quickfix.MessageRejectError) {
-	f := &field.AllowableOneSidednessPctField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllowableOneSidednessPct reads a AllowableOneSidednessPct from NewOrderList.
-func (m Message) GetAllowableOneSidednessPct(f *field.AllowableOneSidednessPctField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllowableOneSidednessValue is a non-required field for NewOrderList.
-func (m Message) AllowableOneSidednessValue() (*field.AllowableOneSidednessValueField, quickfix.MessageRejectError) {
-	f := &field.AllowableOneSidednessValueField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllowableOneSidednessValue reads a AllowableOneSidednessValue from NewOrderList.
-func (m Message) GetAllowableOneSidednessValue(f *field.AllowableOneSidednessValueField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AllowableOneSidednessCurr is a non-required field for NewOrderList.
-func (m Message) AllowableOneSidednessCurr() (*field.AllowableOneSidednessCurrField, quickfix.MessageRejectError) {
-	f := &field.AllowableOneSidednessCurrField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAllowableOneSidednessCurr reads a AllowableOneSidednessCurr from NewOrderList.
-func (m Message) GetAllowableOneSidednessCurr(f *field.AllowableOneSidednessCurrField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TotNoOrders is a required field for NewOrderList.
-func (m Message) TotNoOrders() (*field.TotNoOrdersField, quickfix.MessageRejectError) {
-	f := &field.TotNoOrdersField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTotNoOrders reads a TotNoOrders from NewOrderList.
-func (m Message) GetTotNoOrders(f *field.TotNoOrdersField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//LastFragment is a non-required field for NewOrderList.
-func (m Message) LastFragment() (*field.LastFragmentField, quickfix.MessageRejectError) {
-	f := &field.LastFragmentField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetLastFragment reads a LastFragment from NewOrderList.
-func (m Message) GetLastFragment(f *field.LastFragmentField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoOrders is a required field for NewOrderList.
-func (m Message) NoOrders() (*field.NoOrdersField, quickfix.MessageRejectError) {
-	f := &field.NoOrdersField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoOrders reads a NoOrders from NewOrderList.
-func (m Message) GetNoOrders(f *field.NoOrdersField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for NewOrderList.
-func New(
-	listid *field.ListIDField,
-	bidtype *field.BidTypeField,
-	totnoorders *field.TotNoOrdersField,
-	noorders *field.NoOrdersField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
-	builder.Header.Set(field.NewMsgType("E"))
-	builder.Body.Set(listid)
-	builder.Body.Set(bidtype)
-	builder.Body.Set(totnoorders)
-	builder.Body.Set(noorders)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -262,7 +257,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX44, "E", r
 }

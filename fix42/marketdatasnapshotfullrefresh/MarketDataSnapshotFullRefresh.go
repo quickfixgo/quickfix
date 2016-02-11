@@ -4,313 +4,131 @@ package marketdatasnapshotfullrefresh
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix42"
+	"time"
 )
 
-//Message is a MarketDataSnapshotFullRefresh wrapper for the generic Message type
+//NoMDEntries is a repeating group in MarketDataSnapshotFullRefresh
+type NoMDEntries struct {
+	//MDEntryType is a required field for NoMDEntries.
+	MDEntryType string `fix:"269"`
+	//MDEntryPx is a required field for NoMDEntries.
+	MDEntryPx float64 `fix:"270"`
+	//Currency is a non-required field for NoMDEntries.
+	Currency *string `fix:"15"`
+	//MDEntrySize is a non-required field for NoMDEntries.
+	MDEntrySize *float64 `fix:"271"`
+	//MDEntryDate is a non-required field for NoMDEntries.
+	MDEntryDate *string `fix:"272"`
+	//MDEntryTime is a non-required field for NoMDEntries.
+	MDEntryTime *string `fix:"273"`
+	//TickDirection is a non-required field for NoMDEntries.
+	TickDirection *string `fix:"274"`
+	//MDMkt is a non-required field for NoMDEntries.
+	MDMkt *string `fix:"275"`
+	//TradingSessionID is a non-required field for NoMDEntries.
+	TradingSessionID *string `fix:"336"`
+	//QuoteCondition is a non-required field for NoMDEntries.
+	QuoteCondition *string `fix:"276"`
+	//TradeCondition is a non-required field for NoMDEntries.
+	TradeCondition *string `fix:"277"`
+	//MDEntryOriginator is a non-required field for NoMDEntries.
+	MDEntryOriginator *string `fix:"282"`
+	//LocationID is a non-required field for NoMDEntries.
+	LocationID *string `fix:"283"`
+	//DeskID is a non-required field for NoMDEntries.
+	DeskID *string `fix:"284"`
+	//OpenCloseSettleFlag is a non-required field for NoMDEntries.
+	OpenCloseSettleFlag *string `fix:"286"`
+	//TimeInForce is a non-required field for NoMDEntries.
+	TimeInForce *string `fix:"59"`
+	//ExpireDate is a non-required field for NoMDEntries.
+	ExpireDate *string `fix:"432"`
+	//ExpireTime is a non-required field for NoMDEntries.
+	ExpireTime *time.Time `fix:"126"`
+	//MinQty is a non-required field for NoMDEntries.
+	MinQty *float64 `fix:"110"`
+	//ExecInst is a non-required field for NoMDEntries.
+	ExecInst *string `fix:"18"`
+	//SellerDays is a non-required field for NoMDEntries.
+	SellerDays *int `fix:"287"`
+	//OrderID is a non-required field for NoMDEntries.
+	OrderID *string `fix:"37"`
+	//QuoteEntryID is a non-required field for NoMDEntries.
+	QuoteEntryID *string `fix:"299"`
+	//MDEntryBuyer is a non-required field for NoMDEntries.
+	MDEntryBuyer *string `fix:"288"`
+	//MDEntrySeller is a non-required field for NoMDEntries.
+	MDEntrySeller *string `fix:"289"`
+	//NumberOfOrders is a non-required field for NoMDEntries.
+	NumberOfOrders *int `fix:"346"`
+	//MDEntryPositionNo is a non-required field for NoMDEntries.
+	MDEntryPositionNo *int `fix:"290"`
+	//Text is a non-required field for NoMDEntries.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for NoMDEntries.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for NoMDEntries.
+	EncodedText *string `fix:"355"`
+}
+
+//Message is a MarketDataSnapshotFullRefresh FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"W"`
+	Header     fix42.Header
+	//MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
+	MDReqID *string `fix:"262"`
+	//Symbol is a required field for MarketDataSnapshotFullRefresh.
+	Symbol string `fix:"55"`
+	//SymbolSfx is a non-required field for MarketDataSnapshotFullRefresh.
+	SymbolSfx *string `fix:"65"`
+	//SecurityID is a non-required field for MarketDataSnapshotFullRefresh.
+	SecurityID *string `fix:"48"`
+	//IDSource is a non-required field for MarketDataSnapshotFullRefresh.
+	IDSource *string `fix:"22"`
+	//SecurityType is a non-required field for MarketDataSnapshotFullRefresh.
+	SecurityType *string `fix:"167"`
+	//MaturityMonthYear is a non-required field for MarketDataSnapshotFullRefresh.
+	MaturityMonthYear *string `fix:"200"`
+	//MaturityDay is a non-required field for MarketDataSnapshotFullRefresh.
+	MaturityDay *int `fix:"205"`
+	//PutOrCall is a non-required field for MarketDataSnapshotFullRefresh.
+	PutOrCall *int `fix:"201"`
+	//StrikePrice is a non-required field for MarketDataSnapshotFullRefresh.
+	StrikePrice *float64 `fix:"202"`
+	//OptAttribute is a non-required field for MarketDataSnapshotFullRefresh.
+	OptAttribute *string `fix:"206"`
+	//ContractMultiplier is a non-required field for MarketDataSnapshotFullRefresh.
+	ContractMultiplier *float64 `fix:"231"`
+	//CouponRate is a non-required field for MarketDataSnapshotFullRefresh.
+	CouponRate *float64 `fix:"223"`
+	//SecurityExchange is a non-required field for MarketDataSnapshotFullRefresh.
+	SecurityExchange *string `fix:"207"`
+	//Issuer is a non-required field for MarketDataSnapshotFullRefresh.
+	Issuer *string `fix:"106"`
+	//EncodedIssuerLen is a non-required field for MarketDataSnapshotFullRefresh.
+	EncodedIssuerLen *int `fix:"348"`
+	//EncodedIssuer is a non-required field for MarketDataSnapshotFullRefresh.
+	EncodedIssuer *string `fix:"349"`
+	//SecurityDesc is a non-required field for MarketDataSnapshotFullRefresh.
+	SecurityDesc *string `fix:"107"`
+	//EncodedSecurityDescLen is a non-required field for MarketDataSnapshotFullRefresh.
+	EncodedSecurityDescLen *int `fix:"350"`
+	//EncodedSecurityDesc is a non-required field for MarketDataSnapshotFullRefresh.
+	EncodedSecurityDesc *string `fix:"351"`
+	//FinancialStatus is a non-required field for MarketDataSnapshotFullRefresh.
+	FinancialStatus *string `fix:"291"`
+	//CorporateAction is a non-required field for MarketDataSnapshotFullRefresh.
+	CorporateAction *string `fix:"292"`
+	//TotalVolumeTraded is a non-required field for MarketDataSnapshotFullRefresh.
+	TotalVolumeTraded *float64 `fix:"387"`
+	//NoMDEntries is a required field for MarketDataSnapshotFullRefresh.
+	NoMDEntries []NoMDEntries `fix:"268"`
+	Trailer     fix42.Trailer
 }
 
-//MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) MDReqID() (*field.MDReqIDField, quickfix.MessageRejectError) {
-	f := &field.MDReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMDReqID reads a MDReqID from MarketDataSnapshotFullRefresh.
-func (m Message) GetMDReqID(f *field.MDReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Symbol is a required field for MarketDataSnapshotFullRefresh.
-func (m Message) Symbol() (*field.SymbolField, quickfix.MessageRejectError) {
-	f := &field.SymbolField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSymbol reads a Symbol from MarketDataSnapshotFullRefresh.
-func (m Message) GetSymbol(f *field.SymbolField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SymbolSfx is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) SymbolSfx() (*field.SymbolSfxField, quickfix.MessageRejectError) {
-	f := &field.SymbolSfxField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSymbolSfx reads a SymbolSfx from MarketDataSnapshotFullRefresh.
-func (m Message) GetSymbolSfx(f *field.SymbolSfxField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityID is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) SecurityID() (*field.SecurityIDField, quickfix.MessageRejectError) {
-	f := &field.SecurityIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityID reads a SecurityID from MarketDataSnapshotFullRefresh.
-func (m Message) GetSecurityID(f *field.SecurityIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//IDSource is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) IDSource() (*field.IDSourceField, quickfix.MessageRejectError) {
-	f := &field.IDSourceField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetIDSource reads a IDSource from MarketDataSnapshotFullRefresh.
-func (m Message) GetIDSource(f *field.IDSourceField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityType is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) SecurityType() (*field.SecurityTypeField, quickfix.MessageRejectError) {
-	f := &field.SecurityTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityType reads a SecurityType from MarketDataSnapshotFullRefresh.
-func (m Message) GetSecurityType(f *field.SecurityTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MaturityMonthYear is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) MaturityMonthYear() (*field.MaturityMonthYearField, quickfix.MessageRejectError) {
-	f := &field.MaturityMonthYearField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMaturityMonthYear reads a MaturityMonthYear from MarketDataSnapshotFullRefresh.
-func (m Message) GetMaturityMonthYear(f *field.MaturityMonthYearField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MaturityDay is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) MaturityDay() (*field.MaturityDayField, quickfix.MessageRejectError) {
-	f := &field.MaturityDayField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMaturityDay reads a MaturityDay from MarketDataSnapshotFullRefresh.
-func (m Message) GetMaturityDay(f *field.MaturityDayField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PutOrCall is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) PutOrCall() (*field.PutOrCallField, quickfix.MessageRejectError) {
-	f := &field.PutOrCallField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPutOrCall reads a PutOrCall from MarketDataSnapshotFullRefresh.
-func (m Message) GetPutOrCall(f *field.PutOrCallField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//StrikePrice is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) StrikePrice() (*field.StrikePriceField, quickfix.MessageRejectError) {
-	f := &field.StrikePriceField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetStrikePrice reads a StrikePrice from MarketDataSnapshotFullRefresh.
-func (m Message) GetStrikePrice(f *field.StrikePriceField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//OptAttribute is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) OptAttribute() (*field.OptAttributeField, quickfix.MessageRejectError) {
-	f := &field.OptAttributeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetOptAttribute reads a OptAttribute from MarketDataSnapshotFullRefresh.
-func (m Message) GetOptAttribute(f *field.OptAttributeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ContractMultiplier is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) ContractMultiplier() (*field.ContractMultiplierField, quickfix.MessageRejectError) {
-	f := &field.ContractMultiplierField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetContractMultiplier reads a ContractMultiplier from MarketDataSnapshotFullRefresh.
-func (m Message) GetContractMultiplier(f *field.ContractMultiplierField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//CouponRate is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) CouponRate() (*field.CouponRateField, quickfix.MessageRejectError) {
-	f := &field.CouponRateField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetCouponRate reads a CouponRate from MarketDataSnapshotFullRefresh.
-func (m Message) GetCouponRate(f *field.CouponRateField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityExchange is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) SecurityExchange() (*field.SecurityExchangeField, quickfix.MessageRejectError) {
-	f := &field.SecurityExchangeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityExchange reads a SecurityExchange from MarketDataSnapshotFullRefresh.
-func (m Message) GetSecurityExchange(f *field.SecurityExchangeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Issuer is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) Issuer() (*field.IssuerField, quickfix.MessageRejectError) {
-	f := &field.IssuerField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetIssuer reads a Issuer from MarketDataSnapshotFullRefresh.
-func (m Message) GetIssuer(f *field.IssuerField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedIssuerLen is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) EncodedIssuerLen() (*field.EncodedIssuerLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedIssuerLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedIssuerLen reads a EncodedIssuerLen from MarketDataSnapshotFullRefresh.
-func (m Message) GetEncodedIssuerLen(f *field.EncodedIssuerLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedIssuer is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) EncodedIssuer() (*field.EncodedIssuerField, quickfix.MessageRejectError) {
-	f := &field.EncodedIssuerField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedIssuer reads a EncodedIssuer from MarketDataSnapshotFullRefresh.
-func (m Message) GetEncodedIssuer(f *field.EncodedIssuerField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityDesc is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) SecurityDesc() (*field.SecurityDescField, quickfix.MessageRejectError) {
-	f := &field.SecurityDescField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityDesc reads a SecurityDesc from MarketDataSnapshotFullRefresh.
-func (m Message) GetSecurityDesc(f *field.SecurityDescField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedSecurityDescLen is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) EncodedSecurityDescLen() (*field.EncodedSecurityDescLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedSecurityDescLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedSecurityDescLen reads a EncodedSecurityDescLen from MarketDataSnapshotFullRefresh.
-func (m Message) GetEncodedSecurityDescLen(f *field.EncodedSecurityDescLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedSecurityDesc is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) EncodedSecurityDesc() (*field.EncodedSecurityDescField, quickfix.MessageRejectError) {
-	f := &field.EncodedSecurityDescField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedSecurityDesc reads a EncodedSecurityDesc from MarketDataSnapshotFullRefresh.
-func (m Message) GetEncodedSecurityDesc(f *field.EncodedSecurityDescField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//FinancialStatus is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) FinancialStatus() (*field.FinancialStatusField, quickfix.MessageRejectError) {
-	f := &field.FinancialStatusField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetFinancialStatus reads a FinancialStatus from MarketDataSnapshotFullRefresh.
-func (m Message) GetFinancialStatus(f *field.FinancialStatusField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//CorporateAction is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) CorporateAction() (*field.CorporateActionField, quickfix.MessageRejectError) {
-	f := &field.CorporateActionField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetCorporateAction reads a CorporateAction from MarketDataSnapshotFullRefresh.
-func (m Message) GetCorporateAction(f *field.CorporateActionField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TotalVolumeTraded is a non-required field for MarketDataSnapshotFullRefresh.
-func (m Message) TotalVolumeTraded() (*field.TotalVolumeTradedField, quickfix.MessageRejectError) {
-	f := &field.TotalVolumeTradedField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTotalVolumeTraded reads a TotalVolumeTraded from MarketDataSnapshotFullRefresh.
-func (m Message) GetTotalVolumeTraded(f *field.TotalVolumeTradedField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoMDEntries is a required field for MarketDataSnapshotFullRefresh.
-func (m Message) NoMDEntries() (*field.NoMDEntriesField, quickfix.MessageRejectError) {
-	f := &field.NoMDEntriesField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoMDEntries reads a NoMDEntries from MarketDataSnapshotFullRefresh.
-func (m Message) GetNoMDEntries(f *field.NoMDEntriesField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for MarketDataSnapshotFullRefresh.
-func New(
-	symbol *field.SymbolField,
-	nomdentries *field.NoMDEntriesField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX42))
-	builder.Header.Set(field.NewMsgType("W"))
-	builder.Body.Set(symbol)
-	builder.Body.Set(nomdentries)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -318,7 +136,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX42, "W", r
 }

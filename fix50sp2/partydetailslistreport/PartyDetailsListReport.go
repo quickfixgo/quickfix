@@ -4,180 +4,40 @@ package partydetailslistreport
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50sp2/applicationsequencecontrol"
+	"github.com/quickfixgo/quickfix/fix50sp2/partylistgrp"
+	"github.com/quickfixgo/quickfix/fixt11"
 )
 
-//Message is a PartyDetailsListReport wrapper for the generic Message type
+//Message is a PartyDetailsListReport FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"CG"`
+	Header     fixt11.Header
+	//ApplicationSequenceControl Component
+	ApplicationSequenceControl applicationsequencecontrol.Component
+	//PartyDetailsListReportID is a required field for PartyDetailsListReport.
+	PartyDetailsListReportID string `fix:"1510"`
+	//PartyDetailsListRequestID is a non-required field for PartyDetailsListReport.
+	PartyDetailsListRequestID *string `fix:"1505"`
+	//PartyDetailsRequestResult is a non-required field for PartyDetailsListReport.
+	PartyDetailsRequestResult *int `fix:"1511"`
+	//TotNoPartyList is a non-required field for PartyDetailsListReport.
+	TotNoPartyList *int `fix:"1512"`
+	//LastFragment is a non-required field for PartyDetailsListReport.
+	LastFragment *bool `fix:"893"`
+	//PartyListGrp Component
+	PartyListGrp partylistgrp.Component
+	//Text is a non-required field for PartyDetailsListReport.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for PartyDetailsListReport.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for PartyDetailsListReport.
+	EncodedText *string `fix:"355"`
+	Trailer     fixt11.Trailer
 }
 
-//ApplID is a non-required field for PartyDetailsListReport.
-func (m Message) ApplID() (*field.ApplIDField, quickfix.MessageRejectError) {
-	f := &field.ApplIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetApplID reads a ApplID from PartyDetailsListReport.
-func (m Message) GetApplID(f *field.ApplIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ApplSeqNum is a non-required field for PartyDetailsListReport.
-func (m Message) ApplSeqNum() (*field.ApplSeqNumField, quickfix.MessageRejectError) {
-	f := &field.ApplSeqNumField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetApplSeqNum reads a ApplSeqNum from PartyDetailsListReport.
-func (m Message) GetApplSeqNum(f *field.ApplSeqNumField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ApplLastSeqNum is a non-required field for PartyDetailsListReport.
-func (m Message) ApplLastSeqNum() (*field.ApplLastSeqNumField, quickfix.MessageRejectError) {
-	f := &field.ApplLastSeqNumField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetApplLastSeqNum reads a ApplLastSeqNum from PartyDetailsListReport.
-func (m Message) GetApplLastSeqNum(f *field.ApplLastSeqNumField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ApplResendFlag is a non-required field for PartyDetailsListReport.
-func (m Message) ApplResendFlag() (*field.ApplResendFlagField, quickfix.MessageRejectError) {
-	f := &field.ApplResendFlagField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetApplResendFlag reads a ApplResendFlag from PartyDetailsListReport.
-func (m Message) GetApplResendFlag(f *field.ApplResendFlagField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PartyDetailsListReportID is a required field for PartyDetailsListReport.
-func (m Message) PartyDetailsListReportID() (*field.PartyDetailsListReportIDField, quickfix.MessageRejectError) {
-	f := &field.PartyDetailsListReportIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPartyDetailsListReportID reads a PartyDetailsListReportID from PartyDetailsListReport.
-func (m Message) GetPartyDetailsListReportID(f *field.PartyDetailsListReportIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PartyDetailsListRequestID is a non-required field for PartyDetailsListReport.
-func (m Message) PartyDetailsListRequestID() (*field.PartyDetailsListRequestIDField, quickfix.MessageRejectError) {
-	f := &field.PartyDetailsListRequestIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPartyDetailsListRequestID reads a PartyDetailsListRequestID from PartyDetailsListReport.
-func (m Message) GetPartyDetailsListRequestID(f *field.PartyDetailsListRequestIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//PartyDetailsRequestResult is a non-required field for PartyDetailsListReport.
-func (m Message) PartyDetailsRequestResult() (*field.PartyDetailsRequestResultField, quickfix.MessageRejectError) {
-	f := &field.PartyDetailsRequestResultField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetPartyDetailsRequestResult reads a PartyDetailsRequestResult from PartyDetailsListReport.
-func (m Message) GetPartyDetailsRequestResult(f *field.PartyDetailsRequestResultField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TotNoPartyList is a non-required field for PartyDetailsListReport.
-func (m Message) TotNoPartyList() (*field.TotNoPartyListField, quickfix.MessageRejectError) {
-	f := &field.TotNoPartyListField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTotNoPartyList reads a TotNoPartyList from PartyDetailsListReport.
-func (m Message) GetTotNoPartyList(f *field.TotNoPartyListField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//LastFragment is a non-required field for PartyDetailsListReport.
-func (m Message) LastFragment() (*field.LastFragmentField, quickfix.MessageRejectError) {
-	f := &field.LastFragmentField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetLastFragment reads a LastFragment from PartyDetailsListReport.
-func (m Message) GetLastFragment(f *field.LastFragmentField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoPartyList is a non-required field for PartyDetailsListReport.
-func (m Message) NoPartyList() (*field.NoPartyListField, quickfix.MessageRejectError) {
-	f := &field.NoPartyListField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoPartyList reads a NoPartyList from PartyDetailsListReport.
-func (m Message) GetNoPartyList(f *field.NoPartyListField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for PartyDetailsListReport.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from PartyDetailsListReport.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for PartyDetailsListReport.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from PartyDetailsListReport.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for PartyDetailsListReport.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from PartyDetailsListReport.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for PartyDetailsListReport.
-func New(
-	partydetailslistreportid *field.PartyDetailsListReportIDField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIXT11))
-	builder.Header.Set(field.NewDefaultApplVerID(enum.ApplVerID_FIX50SP2))
-	builder.Header.Set(field.NewMsgType("CG"))
-	builder.Body.Set(partydetailslistreportid)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -185,7 +45,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.ApplVerID_FIX50SP2, "CG", r
 }

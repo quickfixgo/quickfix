@@ -4,63 +4,49 @@ package liststrikeprice
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix43"
+	"github.com/quickfixgo/quickfix/fix43/instrument"
 )
 
-//Message is a ListStrikePrice wrapper for the generic Message type
+//NoStrikes is a repeating group in ListStrikePrice
+type NoStrikes struct {
+	//Instrument Component
+	Instrument instrument.Component
+	//PrevClosePx is a non-required field for NoStrikes.
+	PrevClosePx *float64 `fix:"140"`
+	//ClOrdID is a non-required field for NoStrikes.
+	ClOrdID *string `fix:"11"`
+	//SecondaryClOrdID is a non-required field for NoStrikes.
+	SecondaryClOrdID *string `fix:"526"`
+	//Side is a non-required field for NoStrikes.
+	Side *string `fix:"54"`
+	//Price is a required field for NoStrikes.
+	Price float64 `fix:"44"`
+	//Currency is a non-required field for NoStrikes.
+	Currency *string `fix:"15"`
+	//Text is a non-required field for NoStrikes.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for NoStrikes.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for NoStrikes.
+	EncodedText *string `fix:"355"`
+}
+
+//Message is a ListStrikePrice FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"m"`
+	Header     fix43.Header
+	//ListID is a required field for ListStrikePrice.
+	ListID string `fix:"66"`
+	//TotNoStrikes is a required field for ListStrikePrice.
+	TotNoStrikes int `fix:"422"`
+	//NoStrikes is a required field for ListStrikePrice.
+	NoStrikes []NoStrikes `fix:"428"`
+	Trailer   fix43.Trailer
 }
 
-//ListID is a required field for ListStrikePrice.
-func (m Message) ListID() (*field.ListIDField, quickfix.MessageRejectError) {
-	f := &field.ListIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetListID reads a ListID from ListStrikePrice.
-func (m Message) GetListID(f *field.ListIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TotNoStrikes is a required field for ListStrikePrice.
-func (m Message) TotNoStrikes() (*field.TotNoStrikesField, quickfix.MessageRejectError) {
-	f := &field.TotNoStrikesField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTotNoStrikes reads a TotNoStrikes from ListStrikePrice.
-func (m Message) GetTotNoStrikes(f *field.TotNoStrikesField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoStrikes is a required field for ListStrikePrice.
-func (m Message) NoStrikes() (*field.NoStrikesField, quickfix.MessageRejectError) {
-	f := &field.NoStrikesField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoStrikes reads a NoStrikes from ListStrikePrice.
-func (m Message) GetNoStrikes(f *field.NoStrikesField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for ListStrikePrice.
-func New(
-	listid *field.ListIDField,
-	totnostrikes *field.TotNoStrikesField,
-	nostrikes *field.NoStrikesField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
-	builder.Header.Set(field.NewMsgType("m"))
-	builder.Body.Set(listid)
-	builder.Body.Set(totnostrikes)
-	builder.Body.Set(nostrikes)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -68,7 +54,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX43, "m", r
 }

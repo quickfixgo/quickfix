@@ -1,6 +1,8 @@
 package fix42
 
-import "time"
+import (
+	"time"
+)
 
 //Header is the fix42 Header type
 type Header struct {

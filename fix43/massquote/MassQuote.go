@@ -4,145 +4,110 @@ package massquote
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix43"
+	"github.com/quickfixgo/quickfix/fix43/instrument"
+	"github.com/quickfixgo/quickfix/fix43/parties"
+	"github.com/quickfixgo/quickfix/fix43/underlyinginstrument"
+	"time"
 )
 
-//Message is a MassQuote wrapper for the generic Message type
+//NoQuoteSets is a repeating group in MassQuote
+type NoQuoteSets struct {
+	//QuoteSetID is a required field for NoQuoteSets.
+	QuoteSetID string `fix:"302"`
+	//UnderlyingInstrument Component
+	UnderlyingInstrument underlyinginstrument.Component
+	//QuoteSetValidUntilTime is a non-required field for NoQuoteSets.
+	QuoteSetValidUntilTime *time.Time `fix:"367"`
+	//TotQuoteEntries is a required field for NoQuoteSets.
+	TotQuoteEntries int `fix:"304"`
+	//NoQuoteEntries is a required field for NoQuoteSets.
+	NoQuoteEntries []NoQuoteEntries `fix:"295"`
+}
+
+//NoQuoteEntries is a repeating group in NoQuoteSets
+type NoQuoteEntries struct {
+	//QuoteEntryID is a required field for NoQuoteEntries.
+	QuoteEntryID string `fix:"299"`
+	//Instrument Component
+	Instrument instrument.Component
+	//BidPx is a non-required field for NoQuoteEntries.
+	BidPx *float64 `fix:"132"`
+	//OfferPx is a non-required field for NoQuoteEntries.
+	OfferPx *float64 `fix:"133"`
+	//BidSize is a non-required field for NoQuoteEntries.
+	BidSize *float64 `fix:"134"`
+	//OfferSize is a non-required field for NoQuoteEntries.
+	OfferSize *float64 `fix:"135"`
+	//ValidUntilTime is a non-required field for NoQuoteEntries.
+	ValidUntilTime *time.Time `fix:"62"`
+	//BidSpotRate is a non-required field for NoQuoteEntries.
+	BidSpotRate *float64 `fix:"188"`
+	//OfferSpotRate is a non-required field for NoQuoteEntries.
+	OfferSpotRate *float64 `fix:"190"`
+	//BidForwardPoints is a non-required field for NoQuoteEntries.
+	BidForwardPoints *float64 `fix:"189"`
+	//OfferForwardPoints is a non-required field for NoQuoteEntries.
+	OfferForwardPoints *float64 `fix:"191"`
+	//MidPx is a non-required field for NoQuoteEntries.
+	MidPx *float64 `fix:"631"`
+	//BidYield is a non-required field for NoQuoteEntries.
+	BidYield *float64 `fix:"632"`
+	//MidYield is a non-required field for NoQuoteEntries.
+	MidYield *float64 `fix:"633"`
+	//OfferYield is a non-required field for NoQuoteEntries.
+	OfferYield *float64 `fix:"634"`
+	//TransactTime is a non-required field for NoQuoteEntries.
+	TransactTime *time.Time `fix:"60"`
+	//TradingSessionID is a non-required field for NoQuoteEntries.
+	TradingSessionID *string `fix:"336"`
+	//TradingSessionSubID is a non-required field for NoQuoteEntries.
+	TradingSessionSubID *string `fix:"625"`
+	//FutSettDate is a non-required field for NoQuoteEntries.
+	FutSettDate *string `fix:"64"`
+	//OrdType is a non-required field for NoQuoteEntries.
+	OrdType *string `fix:"40"`
+	//FutSettDate2 is a non-required field for NoQuoteEntries.
+	FutSettDate2 *string `fix:"193"`
+	//OrderQty2 is a non-required field for NoQuoteEntries.
+	OrderQty2 *float64 `fix:"192"`
+	//BidForwardPoints2 is a non-required field for NoQuoteEntries.
+	BidForwardPoints2 *float64 `fix:"642"`
+	//OfferForwardPoints2 is a non-required field for NoQuoteEntries.
+	OfferForwardPoints2 *float64 `fix:"643"`
+	//Currency is a non-required field for NoQuoteEntries.
+	Currency *string `fix:"15"`
+}
+
+//Message is a MassQuote FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"i"`
+	Header     fix43.Header
+	//QuoteReqID is a non-required field for MassQuote.
+	QuoteReqID *string `fix:"131"`
+	//QuoteID is a required field for MassQuote.
+	QuoteID string `fix:"117"`
+	//QuoteType is a non-required field for MassQuote.
+	QuoteType *int `fix:"537"`
+	//QuoteResponseLevel is a non-required field for MassQuote.
+	QuoteResponseLevel *int `fix:"301"`
+	//Parties Component
+	Parties parties.Component
+	//Account is a non-required field for MassQuote.
+	Account *string `fix:"1"`
+	//AccountType is a non-required field for MassQuote.
+	AccountType *int `fix:"581"`
+	//DefBidSize is a non-required field for MassQuote.
+	DefBidSize *float64 `fix:"293"`
+	//DefOfferSize is a non-required field for MassQuote.
+	DefOfferSize *float64 `fix:"294"`
+	//NoQuoteSets is a required field for MassQuote.
+	NoQuoteSets []NoQuoteSets `fix:"296"`
+	Trailer     fix43.Trailer
 }
 
-//QuoteReqID is a non-required field for MassQuote.
-func (m Message) QuoteReqID() (*field.QuoteReqIDField, quickfix.MessageRejectError) {
-	f := &field.QuoteReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteReqID reads a QuoteReqID from MassQuote.
-func (m Message) GetQuoteReqID(f *field.QuoteReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteID is a required field for MassQuote.
-func (m Message) QuoteID() (*field.QuoteIDField, quickfix.MessageRejectError) {
-	f := &field.QuoteIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteID reads a QuoteID from MassQuote.
-func (m Message) GetQuoteID(f *field.QuoteIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteType is a non-required field for MassQuote.
-func (m Message) QuoteType() (*field.QuoteTypeField, quickfix.MessageRejectError) {
-	f := &field.QuoteTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteType reads a QuoteType from MassQuote.
-func (m Message) GetQuoteType(f *field.QuoteTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//QuoteResponseLevel is a non-required field for MassQuote.
-func (m Message) QuoteResponseLevel() (*field.QuoteResponseLevelField, quickfix.MessageRejectError) {
-	f := &field.QuoteResponseLevelField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetQuoteResponseLevel reads a QuoteResponseLevel from MassQuote.
-func (m Message) GetQuoteResponseLevel(f *field.QuoteResponseLevelField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoPartyIDs is a non-required field for MassQuote.
-func (m Message) NoPartyIDs() (*field.NoPartyIDsField, quickfix.MessageRejectError) {
-	f := &field.NoPartyIDsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoPartyIDs reads a NoPartyIDs from MassQuote.
-func (m Message) GetNoPartyIDs(f *field.NoPartyIDsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Account is a non-required field for MassQuote.
-func (m Message) Account() (*field.AccountField, quickfix.MessageRejectError) {
-	f := &field.AccountField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAccount reads a Account from MassQuote.
-func (m Message) GetAccount(f *field.AccountField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AccountType is a non-required field for MassQuote.
-func (m Message) AccountType() (*field.AccountTypeField, quickfix.MessageRejectError) {
-	f := &field.AccountTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAccountType reads a AccountType from MassQuote.
-func (m Message) GetAccountType(f *field.AccountTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//DefBidSize is a non-required field for MassQuote.
-func (m Message) DefBidSize() (*field.DefBidSizeField, quickfix.MessageRejectError) {
-	f := &field.DefBidSizeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetDefBidSize reads a DefBidSize from MassQuote.
-func (m Message) GetDefBidSize(f *field.DefBidSizeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//DefOfferSize is a non-required field for MassQuote.
-func (m Message) DefOfferSize() (*field.DefOfferSizeField, quickfix.MessageRejectError) {
-	f := &field.DefOfferSizeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetDefOfferSize reads a DefOfferSize from MassQuote.
-func (m Message) GetDefOfferSize(f *field.DefOfferSizeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoQuoteSets is a required field for MassQuote.
-func (m Message) NoQuoteSets() (*field.NoQuoteSetsField, quickfix.MessageRejectError) {
-	f := &field.NoQuoteSetsField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoQuoteSets reads a NoQuoteSets from MassQuote.
-func (m Message) GetNoQuoteSets(f *field.NoQuoteSetsField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for MassQuote.
-func New(
-	quoteid *field.QuoteIDField,
-	noquotesets *field.NoQuoteSetsField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX43))
-	builder.Header.Set(field.NewMsgType("i"))
-	builder.Body.Set(quoteid)
-	builder.Body.Set(noquotesets)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -150,7 +115,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX43, "i", r
 }

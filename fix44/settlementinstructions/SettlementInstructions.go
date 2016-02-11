@@ -4,147 +4,87 @@ package settlementinstructions
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix44"
+	"github.com/quickfixgo/quickfix/fix44/parties"
+	"github.com/quickfixgo/quickfix/fix44/settlinstructionsdata"
+	"time"
 )
 
-//Message is a SettlementInstructions wrapper for the generic Message type
+//NoSettlInst is a repeating group in SettlementInstructions
+type NoSettlInst struct {
+	//SettlInstID is a non-required field for NoSettlInst.
+	SettlInstID *string `fix:"162"`
+	//SettlInstTransType is a non-required field for NoSettlInst.
+	SettlInstTransType *string `fix:"163"`
+	//SettlInstRefID is a non-required field for NoSettlInst.
+	SettlInstRefID *string `fix:"214"`
+	//Parties Component
+	Parties parties.Component
+	//Side is a non-required field for NoSettlInst.
+	Side *string `fix:"54"`
+	//Product is a non-required field for NoSettlInst.
+	Product *int `fix:"460"`
+	//SecurityType is a non-required field for NoSettlInst.
+	SecurityType *string `fix:"167"`
+	//CFICode is a non-required field for NoSettlInst.
+	CFICode *string `fix:"461"`
+	//EffectiveTime is a non-required field for NoSettlInst.
+	EffectiveTime *time.Time `fix:"168"`
+	//ExpireTime is a non-required field for NoSettlInst.
+	ExpireTime *time.Time `fix:"126"`
+	//LastUpdateTime is a non-required field for NoSettlInst.
+	LastUpdateTime *time.Time `fix:"779"`
+	//SettlInstructionsData Component
+	SettlInstructionsData settlinstructionsdata.Component
+	//PaymentMethod is a non-required field for NoSettlInst.
+	PaymentMethod *int `fix:"492"`
+	//PaymentRef is a non-required field for NoSettlInst.
+	PaymentRef *string `fix:"476"`
+	//CardHolderName is a non-required field for NoSettlInst.
+	CardHolderName *string `fix:"488"`
+	//CardNumber is a non-required field for NoSettlInst.
+	CardNumber *string `fix:"489"`
+	//CardStartDate is a non-required field for NoSettlInst.
+	CardStartDate *string `fix:"503"`
+	//CardExpDate is a non-required field for NoSettlInst.
+	CardExpDate *string `fix:"490"`
+	//CardIssNum is a non-required field for NoSettlInst.
+	CardIssNum *string `fix:"491"`
+	//PaymentDate is a non-required field for NoSettlInst.
+	PaymentDate *string `fix:"504"`
+	//PaymentRemitterID is a non-required field for NoSettlInst.
+	PaymentRemitterID *string `fix:"505"`
+}
+
+//Message is a SettlementInstructions FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"T"`
+	Header     fix44.Header
+	//SettlInstMsgID is a required field for SettlementInstructions.
+	SettlInstMsgID string `fix:"777"`
+	//SettlInstReqID is a non-required field for SettlementInstructions.
+	SettlInstReqID *string `fix:"791"`
+	//SettlInstMode is a required field for SettlementInstructions.
+	SettlInstMode string `fix:"160"`
+	//SettlInstReqRejCode is a non-required field for SettlementInstructions.
+	SettlInstReqRejCode *int `fix:"792"`
+	//Text is a non-required field for SettlementInstructions.
+	Text *string `fix:"58"`
+	//EncodedTextLen is a non-required field for SettlementInstructions.
+	EncodedTextLen *int `fix:"354"`
+	//EncodedText is a non-required field for SettlementInstructions.
+	EncodedText *string `fix:"355"`
+	//ClOrdID is a non-required field for SettlementInstructions.
+	ClOrdID *string `fix:"11"`
+	//TransactTime is a required field for SettlementInstructions.
+	TransactTime time.Time `fix:"60"`
+	//NoSettlInst is a non-required field for SettlementInstructions.
+	NoSettlInst []NoSettlInst `fix:"778,omitempty"`
+	Trailer     fix44.Trailer
 }
 
-//SettlInstMsgID is a required field for SettlementInstructions.
-func (m Message) SettlInstMsgID() (*field.SettlInstMsgIDField, quickfix.MessageRejectError) {
-	f := &field.SettlInstMsgIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSettlInstMsgID reads a SettlInstMsgID from SettlementInstructions.
-func (m Message) GetSettlInstMsgID(f *field.SettlInstMsgIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SettlInstReqID is a non-required field for SettlementInstructions.
-func (m Message) SettlInstReqID() (*field.SettlInstReqIDField, quickfix.MessageRejectError) {
-	f := &field.SettlInstReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSettlInstReqID reads a SettlInstReqID from SettlementInstructions.
-func (m Message) GetSettlInstReqID(f *field.SettlInstReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SettlInstMode is a required field for SettlementInstructions.
-func (m Message) SettlInstMode() (*field.SettlInstModeField, quickfix.MessageRejectError) {
-	f := &field.SettlInstModeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSettlInstMode reads a SettlInstMode from SettlementInstructions.
-func (m Message) GetSettlInstMode(f *field.SettlInstModeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SettlInstReqRejCode is a non-required field for SettlementInstructions.
-func (m Message) SettlInstReqRejCode() (*field.SettlInstReqRejCodeField, quickfix.MessageRejectError) {
-	f := &field.SettlInstReqRejCodeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSettlInstReqRejCode reads a SettlInstReqRejCode from SettlementInstructions.
-func (m Message) GetSettlInstReqRejCode(f *field.SettlInstReqRejCodeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for SettlementInstructions.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from SettlementInstructions.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedTextLen is a non-required field for SettlementInstructions.
-func (m Message) EncodedTextLen() (*field.EncodedTextLenField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextLenField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedTextLen reads a EncodedTextLen from SettlementInstructions.
-func (m Message) GetEncodedTextLen(f *field.EncodedTextLenField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//EncodedText is a non-required field for SettlementInstructions.
-func (m Message) EncodedText() (*field.EncodedTextField, quickfix.MessageRejectError) {
-	f := &field.EncodedTextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetEncodedText reads a EncodedText from SettlementInstructions.
-func (m Message) GetEncodedText(f *field.EncodedTextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ClOrdID is a non-required field for SettlementInstructions.
-func (m Message) ClOrdID() (*field.ClOrdIDField, quickfix.MessageRejectError) {
-	f := &field.ClOrdIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetClOrdID reads a ClOrdID from SettlementInstructions.
-func (m Message) GetClOrdID(f *field.ClOrdIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//TransactTime is a required field for SettlementInstructions.
-func (m Message) TransactTime() (*field.TransactTimeField, quickfix.MessageRejectError) {
-	f := &field.TransactTimeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetTransactTime reads a TransactTime from SettlementInstructions.
-func (m Message) GetTransactTime(f *field.TransactTimeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoSettlInst is a non-required field for SettlementInstructions.
-func (m Message) NoSettlInst() (*field.NoSettlInstField, quickfix.MessageRejectError) {
-	f := &field.NoSettlInstField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoSettlInst reads a NoSettlInst from SettlementInstructions.
-func (m Message) GetNoSettlInst(f *field.NoSettlInstField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for SettlementInstructions.
-func New(
-	settlinstmsgid *field.SettlInstMsgIDField,
-	settlinstmode *field.SettlInstModeField,
-	transacttime *field.TransactTimeField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX44))
-	builder.Header.Set(field.NewMsgType("T"))
-	builder.Body.Set(settlinstmsgid)
-	builder.Body.Set(settlinstmode)
-	builder.Body.Set(transacttime)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -152,7 +92,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX44, "T", r
 }

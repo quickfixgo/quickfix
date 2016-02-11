@@ -4,47 +4,22 @@ package reject
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix41"
 )
 
-//Message is a Reject wrapper for the generic Message type
+//Message is a Reject FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"3"`
+	Header     fix41.Header
+	//RefSeqNum is a required field for Reject.
+	RefSeqNum int `fix:"45"`
+	//Text is a non-required field for Reject.
+	Text    *string `fix:"58"`
+	Trailer fix41.Trailer
 }
 
-//RefSeqNum is a required field for Reject.
-func (m Message) RefSeqNum() (*field.RefSeqNumField, quickfix.MessageRejectError) {
-	f := &field.RefSeqNumField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetRefSeqNum reads a RefSeqNum from Reject.
-func (m Message) GetRefSeqNum(f *field.RefSeqNumField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Text is a non-required field for Reject.
-func (m Message) Text() (*field.TextField, quickfix.MessageRejectError) {
-	f := &field.TextField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetText reads a Text from Reject.
-func (m Message) GetText(f *field.TextField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for Reject.
-func New(
-	refseqnum *field.RefSeqNumField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX41))
-	builder.Header.Set(field.NewMsgType("3"))
-	builder.Body.Set(refseqnum)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -52,7 +27,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX41, "3", r
 }

@@ -4,135 +4,36 @@ package orderstatusrequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix40"
 )
 
-//Message is a OrderStatusRequest wrapper for the generic Message type
+//Message is a OrderStatusRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"H"`
+	Header     fix40.Header
+	//OrderID is a non-required field for OrderStatusRequest.
+	OrderID *string `fix:"37"`
+	//ClOrdID is a required field for OrderStatusRequest.
+	ClOrdID string `fix:"11"`
+	//ClientID is a non-required field for OrderStatusRequest.
+	ClientID *string `fix:"109"`
+	//ExecBroker is a non-required field for OrderStatusRequest.
+	ExecBroker *string `fix:"76"`
+	//Symbol is a required field for OrderStatusRequest.
+	Symbol string `fix:"55"`
+	//SymbolSfx is a non-required field for OrderStatusRequest.
+	SymbolSfx *string `fix:"65"`
+	//Issuer is a non-required field for OrderStatusRequest.
+	Issuer *string `fix:"106"`
+	//SecurityDesc is a non-required field for OrderStatusRequest.
+	SecurityDesc *string `fix:"107"`
+	//Side is a required field for OrderStatusRequest.
+	Side    string `fix:"54"`
+	Trailer fix40.Trailer
 }
 
-//OrderID is a non-required field for OrderStatusRequest.
-func (m Message) OrderID() (*field.OrderIDField, quickfix.MessageRejectError) {
-	f := &field.OrderIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetOrderID reads a OrderID from OrderStatusRequest.
-func (m Message) GetOrderID(f *field.OrderIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ClOrdID is a required field for OrderStatusRequest.
-func (m Message) ClOrdID() (*field.ClOrdIDField, quickfix.MessageRejectError) {
-	f := &field.ClOrdIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetClOrdID reads a ClOrdID from OrderStatusRequest.
-func (m Message) GetClOrdID(f *field.ClOrdIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ClientID is a non-required field for OrderStatusRequest.
-func (m Message) ClientID() (*field.ClientIDField, quickfix.MessageRejectError) {
-	f := &field.ClientIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetClientID reads a ClientID from OrderStatusRequest.
-func (m Message) GetClientID(f *field.ClientIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//ExecBroker is a non-required field for OrderStatusRequest.
-func (m Message) ExecBroker() (*field.ExecBrokerField, quickfix.MessageRejectError) {
-	f := &field.ExecBrokerField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetExecBroker reads a ExecBroker from OrderStatusRequest.
-func (m Message) GetExecBroker(f *field.ExecBrokerField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Symbol is a required field for OrderStatusRequest.
-func (m Message) Symbol() (*field.SymbolField, quickfix.MessageRejectError) {
-	f := &field.SymbolField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSymbol reads a Symbol from OrderStatusRequest.
-func (m Message) GetSymbol(f *field.SymbolField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SymbolSfx is a non-required field for OrderStatusRequest.
-func (m Message) SymbolSfx() (*field.SymbolSfxField, quickfix.MessageRejectError) {
-	f := &field.SymbolSfxField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSymbolSfx reads a SymbolSfx from OrderStatusRequest.
-func (m Message) GetSymbolSfx(f *field.SymbolSfxField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Issuer is a non-required field for OrderStatusRequest.
-func (m Message) Issuer() (*field.IssuerField, quickfix.MessageRejectError) {
-	f := &field.IssuerField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetIssuer reads a Issuer from OrderStatusRequest.
-func (m Message) GetIssuer(f *field.IssuerField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SecurityDesc is a non-required field for OrderStatusRequest.
-func (m Message) SecurityDesc() (*field.SecurityDescField, quickfix.MessageRejectError) {
-	f := &field.SecurityDescField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSecurityDesc reads a SecurityDesc from OrderStatusRequest.
-func (m Message) GetSecurityDesc(f *field.SecurityDescField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//Side is a required field for OrderStatusRequest.
-func (m Message) Side() (*field.SideField, quickfix.MessageRejectError) {
-	f := &field.SideField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSide reads a Side from OrderStatusRequest.
-func (m Message) GetSide(f *field.SideField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for OrderStatusRequest.
-func New(
-	clordid *field.ClOrdIDField,
-	symbol *field.SymbolField,
-	side *field.SideField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX40))
-	builder.Header.Set(field.NewMsgType("H"))
-	builder.Body.Set(clordid)
-	builder.Body.Set(symbol)
-	builder.Body.Set(side)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -140,7 +41,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX40, "H", r
 }

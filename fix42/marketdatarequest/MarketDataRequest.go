@@ -4,115 +4,82 @@ package marketdatarequest
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix42"
 )
 
-//Message is a MarketDataRequest wrapper for the generic Message type
+//NoMDEntryTypes is a repeating group in MarketDataRequest
+type NoMDEntryTypes struct {
+	//MDEntryType is a required field for NoMDEntryTypes.
+	MDEntryType string `fix:"269"`
+}
+
+//NoRelatedSym is a repeating group in MarketDataRequest
+type NoRelatedSym struct {
+	//Symbol is a required field for NoRelatedSym.
+	Symbol string `fix:"55"`
+	//SymbolSfx is a non-required field for NoRelatedSym.
+	SymbolSfx *string `fix:"65"`
+	//SecurityID is a non-required field for NoRelatedSym.
+	SecurityID *string `fix:"48"`
+	//IDSource is a non-required field for NoRelatedSym.
+	IDSource *string `fix:"22"`
+	//SecurityType is a non-required field for NoRelatedSym.
+	SecurityType *string `fix:"167"`
+	//MaturityMonthYear is a non-required field for NoRelatedSym.
+	MaturityMonthYear *string `fix:"200"`
+	//MaturityDay is a non-required field for NoRelatedSym.
+	MaturityDay *int `fix:"205"`
+	//PutOrCall is a non-required field for NoRelatedSym.
+	PutOrCall *int `fix:"201"`
+	//StrikePrice is a non-required field for NoRelatedSym.
+	StrikePrice *float64 `fix:"202"`
+	//OptAttribute is a non-required field for NoRelatedSym.
+	OptAttribute *string `fix:"206"`
+	//ContractMultiplier is a non-required field for NoRelatedSym.
+	ContractMultiplier *float64 `fix:"231"`
+	//CouponRate is a non-required field for NoRelatedSym.
+	CouponRate *float64 `fix:"223"`
+	//SecurityExchange is a non-required field for NoRelatedSym.
+	SecurityExchange *string `fix:"207"`
+	//Issuer is a non-required field for NoRelatedSym.
+	Issuer *string `fix:"106"`
+	//EncodedIssuerLen is a non-required field for NoRelatedSym.
+	EncodedIssuerLen *int `fix:"348"`
+	//EncodedIssuer is a non-required field for NoRelatedSym.
+	EncodedIssuer *string `fix:"349"`
+	//SecurityDesc is a non-required field for NoRelatedSym.
+	SecurityDesc *string `fix:"107"`
+	//EncodedSecurityDescLen is a non-required field for NoRelatedSym.
+	EncodedSecurityDescLen *int `fix:"350"`
+	//EncodedSecurityDesc is a non-required field for NoRelatedSym.
+	EncodedSecurityDesc *string `fix:"351"`
+	//TradingSessionID is a non-required field for NoRelatedSym.
+	TradingSessionID *string `fix:"336"`
+}
+
+//Message is a MarketDataRequest FIX Message
 type Message struct {
-	quickfix.Message
+	FIXMsgType string `fix:"V"`
+	Header     fix42.Header
+	//MDReqID is a required field for MarketDataRequest.
+	MDReqID string `fix:"262"`
+	//SubscriptionRequestType is a required field for MarketDataRequest.
+	SubscriptionRequestType string `fix:"263"`
+	//MarketDepth is a required field for MarketDataRequest.
+	MarketDepth int `fix:"264"`
+	//MDUpdateType is a non-required field for MarketDataRequest.
+	MDUpdateType *int `fix:"265"`
+	//AggregatedBook is a non-required field for MarketDataRequest.
+	AggregatedBook *bool `fix:"266"`
+	//NoMDEntryTypes is a required field for MarketDataRequest.
+	NoMDEntryTypes []NoMDEntryTypes `fix:"267"`
+	//NoRelatedSym is a required field for MarketDataRequest.
+	NoRelatedSym []NoRelatedSym `fix:"146"`
+	Trailer      fix42.Trailer
 }
 
-//MDReqID is a required field for MarketDataRequest.
-func (m Message) MDReqID() (*field.MDReqIDField, quickfix.MessageRejectError) {
-	f := &field.MDReqIDField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMDReqID reads a MDReqID from MarketDataRequest.
-func (m Message) GetMDReqID(f *field.MDReqIDField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//SubscriptionRequestType is a required field for MarketDataRequest.
-func (m Message) SubscriptionRequestType() (*field.SubscriptionRequestTypeField, quickfix.MessageRejectError) {
-	f := &field.SubscriptionRequestTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetSubscriptionRequestType reads a SubscriptionRequestType from MarketDataRequest.
-func (m Message) GetSubscriptionRequestType(f *field.SubscriptionRequestTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MarketDepth is a required field for MarketDataRequest.
-func (m Message) MarketDepth() (*field.MarketDepthField, quickfix.MessageRejectError) {
-	f := &field.MarketDepthField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMarketDepth reads a MarketDepth from MarketDataRequest.
-func (m Message) GetMarketDepth(f *field.MarketDepthField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//MDUpdateType is a non-required field for MarketDataRequest.
-func (m Message) MDUpdateType() (*field.MDUpdateTypeField, quickfix.MessageRejectError) {
-	f := &field.MDUpdateTypeField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetMDUpdateType reads a MDUpdateType from MarketDataRequest.
-func (m Message) GetMDUpdateType(f *field.MDUpdateTypeField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//AggregatedBook is a non-required field for MarketDataRequest.
-func (m Message) AggregatedBook() (*field.AggregatedBookField, quickfix.MessageRejectError) {
-	f := &field.AggregatedBookField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetAggregatedBook reads a AggregatedBook from MarketDataRequest.
-func (m Message) GetAggregatedBook(f *field.AggregatedBookField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoMDEntryTypes is a required field for MarketDataRequest.
-func (m Message) NoMDEntryTypes() (*field.NoMDEntryTypesField, quickfix.MessageRejectError) {
-	f := &field.NoMDEntryTypesField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoMDEntryTypes reads a NoMDEntryTypes from MarketDataRequest.
-func (m Message) GetNoMDEntryTypes(f *field.NoMDEntryTypesField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//NoRelatedSym is a required field for MarketDataRequest.
-func (m Message) NoRelatedSym() (*field.NoRelatedSymField, quickfix.MessageRejectError) {
-	f := &field.NoRelatedSymField{}
-	err := m.Body.Get(f)
-	return f, err
-}
-
-//GetNoRelatedSym reads a NoRelatedSym from MarketDataRequest.
-func (m Message) GetNoRelatedSym(f *field.NoRelatedSymField) quickfix.MessageRejectError {
-	return m.Body.Get(f)
-}
-
-//New returns an initialized Message with specified required fields for MarketDataRequest.
-func New(
-	mdreqid *field.MDReqIDField,
-	subscriptionrequesttype *field.SubscriptionRequestTypeField,
-	marketdepth *field.MarketDepthField,
-	nomdentrytypes *field.NoMDEntryTypesField,
-	norelatedsym *field.NoRelatedSymField) Message {
-	builder := Message{Message: quickfix.NewMessage()}
-	builder.Header.Set(field.NewBeginString(enum.BeginStringFIX42))
-	builder.Header.Set(field.NewMsgType("V"))
-	builder.Body.Set(mdreqid)
-	builder.Body.Set(subscriptionrequesttype)
-	builder.Body.Set(marketdepth)
-	builder.Body.Set(nomdentrytypes)
-	builder.Body.Set(norelatedsym)
-	return builder
-}
+//Marshal converts Message to a quickfix.Message instance
+func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
@@ -120,7 +87,11 @@ type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRe
 //Route returns the beginstring, message type, and MessageRoute for this Mesage type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		return router(Message{msg}, sessionID)
+		m := new(Message)
+		if err := quickfix.Unmarshal(msg, m); err != nil {
+			return err
+		}
+		return router(*m, sessionID)
 	}
 	return enum.BeginStringFIX42, "V", r
 }

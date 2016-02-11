@@ -22,6 +22,7 @@ type DataDictionary struct {
 
 //Component is a grouping of fields.
 type Component struct {
+	Name   string
 	Fields []*FieldDef
 }
 
@@ -33,9 +34,10 @@ func (t TagSet) Add(tag int) {
 	t[tag] = struct{}{}
 }
 
-//FieldDef models a field belonging to a message.
+//FieldDef models a field or component belonging to a message.
 type FieldDef struct {
 	*FieldType
+	Component   *Component
 	Required    bool
 	ChildFields []*FieldDef
 }
@@ -45,10 +47,17 @@ func (f FieldDef) IsGroup() bool {
 	return len(f.ChildFields) > 0
 }
 
+func (f FieldDef) IsComponent() bool {
+	return f.Component != nil
+}
+
 func (f FieldDef) childTags() []int {
 	tags := make([]int, 0, len(f.ChildFields))
 
 	for _, f := range f.ChildFields {
+		if f.IsComponent() {
+			continue
+		}
 		tags = append(tags, f.Tag)
 		for _, t := range f.childTags() {
 			tags = append(tags, t)
