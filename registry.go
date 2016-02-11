@@ -4,8 +4,14 @@ import (
 	"fmt"
 )
 
-//Send determines the session to send msgBuilder using header fields BeginString, TargetCompID, SenderCompID
-func Send(msg Message) (err error) {
+//Marshaler Marshals self to quickfix.Message type
+type Marshaler interface {
+	Marshal() Message
+}
+
+//Send determines the session to send Marshaler using header fields BeginString, TargetCompID, SenderCompID
+func Send(m Marshaler) (err error) {
+	msg := m.Marshal()
 	var beginString FIXString
 	if err := msg.Header.GetField(tagBeginString, &beginString); err != nil {
 		return err
@@ -27,7 +33,8 @@ func Send(msg Message) (err error) {
 	return SendToTarget(msg, sessionID)
 }
 
-func SendToTarget(msg Message, sessionID SessionID) error {
+func SendToTarget(m Marshaler, sessionID SessionID) error {
+	msg := m.Marshal()
 	session, err := LookupSession(sessionID)
 	if err != nil {
 		return err

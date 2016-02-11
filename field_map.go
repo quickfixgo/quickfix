@@ -8,7 +8,7 @@ import (
 
 //FieldMap is a collection of fix fields that make up a fix message.
 type FieldMap struct {
-	tagLookup map[Tag][]TagValue
+	tagLookup map[Tag][]tagValue
 	tagOrder
 }
 
@@ -68,7 +68,7 @@ func trailerFieldOrder(i, j Tag) bool {
 }
 
 func (m *FieldMap) init(ordering tagOrder) {
-	m.tagLookup = make(map[Tag][]TagValue)
+	m.tagLookup = make(map[Tag][]tagValue)
 	m.tagOrder = ordering
 }
 
@@ -109,7 +109,7 @@ func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
 		return ConditionallyRequiredFieldMissing(parser.Tag)
 	}
 
-	if _, err := parser.Read(tagValues); err != nil {
+	if _, err := parser.read(tagValues); err != nil {
 		return incorrectDataFormatForValue(parser.Tag)
 	}
 
@@ -117,7 +117,7 @@ func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
 }
 
 func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
-	tValues := make([]TagValue, 1)
+	tValues := make([]tagValue, 1)
 	tValues[0].init(tag, field.Write())
 	m.tagLookup[tag] = tValues
 	return m
@@ -125,18 +125,18 @@ func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
 
 //Clear purges all fields from field map
 func (m *FieldMap) Clear() {
-	m.tagLookup = make(map[Tag][]TagValue)
+	m.tagLookup = make(map[Tag][]tagValue)
 }
 
 func (m FieldMap) Set(field FieldWriter) FieldMap {
-	tValues := make([]TagValue, 1)
+	tValues := make([]tagValue, 1)
 	tValues[0].init(field.Tag(), field.Write())
 	m.tagLookup[field.Tag()] = tValues
 	return m
 }
 
 func (m FieldMap) SetGroup(field RepeatingGroup) FieldMap {
-	m.tagLookup[field.Tag] = field.TagValues()
+	m.tagLookup[field.Tag] = field.tagValues()
 	return m
 }
 

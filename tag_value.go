@@ -6,17 +6,17 @@ import (
 	"strconv"
 )
 
-//TagValue is a low-level FIX field abstraction
-type TagValue struct {
+//tagValue is a low-level FIX field abstraction
+type tagValue struct {
 	Tag
 	Value []byte
 	bytes []byte
 }
 
-//TagValues is a slice of TagValue
-type TagValues []TagValue
+//tagValues is a slice of tagValue
+type tagValues []tagValue
 
-func (tv *TagValue) init(tag Tag, value []byte) {
+func (tv *tagValue) init(tag Tag, value []byte) {
 	var buf bytes.Buffer
 	buf.WriteString(strconv.Itoa(int(tag)))
 	buf.WriteString("=")
@@ -28,18 +28,18 @@ func (tv *TagValue) init(tag Tag, value []byte) {
 	tv.Value = value
 }
 
-func (tv *TagValue) parse(rawFieldBytes []byte) (err error) {
+func (tv *tagValue) parse(rawFieldBytes []byte) (err error) {
 	sepIndex := bytes.IndexByte(rawFieldBytes, '=')
 
 	if sepIndex == -1 {
-		err = fmt.Errorf("TagValue.Parse: No '=' in '%s'", rawFieldBytes)
+		err = fmt.Errorf("tagValue.Parse: No '=' in '%s'", rawFieldBytes)
 		return
 	}
 
 	parsedTag, err := atoi(rawFieldBytes[:sepIndex])
 
 	if err != nil {
-		err = fmt.Errorf("TagValue.Parse: %s", err.Error())
+		err = fmt.Errorf("tagValue.Parse: %s", err.Error())
 		return
 	}
 
@@ -50,11 +50,11 @@ func (tv *TagValue) parse(rawFieldBytes []byte) (err error) {
 	return
 }
 
-func (tv TagValue) String() string {
+func (tv tagValue) String() string {
 	return string(tv.bytes)
 }
 
-func (tv TagValue) total() int {
+func (tv tagValue) total() int {
 	total := 0
 
 	for _, b := range []byte(tv.bytes) {
@@ -64,6 +64,6 @@ func (tv TagValue) total() int {
 	return total
 }
 
-func (tv TagValue) length() int {
+func (tv tagValue) length() int {
 	return len(tv.bytes)
 }
