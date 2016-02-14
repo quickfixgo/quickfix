@@ -3,7 +3,7 @@ Package quickfix is a full featured messaging engine for the FIX protocol.  It i
 
 Creating your QuickFIX Application
 
-Creating a FIX application is as easy as implementing the QuickFIX Application interface. By implementing these interface methods in your derived class, you are requesting to be notified of events that occur on the FIX engine.  The function that you should be most aware of is fromApp.
+Creating a FIX application is as easy as implementing the QuickFIX Application interface. By implementing these interface methods in your derived type, you are requesting to be notified of events that occur on the FIX engine.  The function that you should be most aware of is fromApp.
 
 Here are explanations of what these functions provide for you.
 
@@ -49,7 +49,7 @@ The sample code below shows how you might start up a FIX acceptor which listens 
 	flag.Parse()
 	fileName := flag.Arg(0)
 
-	//FooApplication is your class that implements the Application interface
+	//FooApplication is your type that implements the Application interface
 	var app FooApplication
 
 	cfg, _ := os.Open(fileName)
@@ -62,5 +62,27 @@ The sample code below shows how you might start up a FIX acceptor which listens 
 	//for condition == true { do something }
 	acceptor.Stop()
  }
+
+Configuring QuickFIX
+
+A QuickFIXGo acceptor or initiator can maintain as many FIX sessions as you would like. A FIX session is identified by a group of settings defined within the configuration section for a session (or inherited from the default section). The identification settings are:
+
+ | Setting      | Required? |
+ |--------------|-----------|
+ | BeginString  |     Y     |
+ | SenderCompID |     Y     |
+ | SenderSubID  |     N     |
+ | TargetCompID |     Y     |
+ | TargetSubID  |     N     |
+
+The sender settings are your identification and the target settings are for the counterparty. A SessionQualifier can also be use to disambiguate otherwise identical sessions.
+
+Each of the sessions can have several settings associated with them. Some of these settings may not be known at compile time and are therefore passed around in a struct called SessionSettings.
+
+SessionSettings can be read in from any input stream such as a file stream. If you decide to write your own components, (storage for a particular database, a new kind of connector etc...), you may also use the session settings to store settings for your custom component.
+
+A settings file is set up with two types of heading, a [DEFAULT] and a [SESSION] heading. [SESSION] tells QuickFIX/Go that a new Session is being defined. [DEFAULT] is a place that you can define settings which will be inherited by sessions that don't explicitly define them. If you do not provide a setting that QuickFIX/Go needs, it will return an error indicating that a setting is missing or improperly formatted.
+
+See the quickfix/config package for settings you can associate with a session based on the default components provided with QuickFIX/Go.
 */
 package quickfix
