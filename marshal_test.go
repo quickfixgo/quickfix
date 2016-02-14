@@ -193,9 +193,9 @@ func TestMarshal_RepeatingGroups(t *testing.T) {
 
 	s := "world"
 	m := Message{
-		GroupField1: []Group1{Group1{StringField1: "hello", StringField2: &s}, Group1{StringField1: "goodbye"}, Group1{StringField1: "OHHAI", StringField2: &s}},
+		GroupField1: []Group1{{StringField1: "hello", StringField2: &s}, {StringField1: "goodbye"}, {StringField1: "OHHAI", StringField2: &s}},
 		StringField: "world",
-		GroupField2: []Group2{Group2{IntField1: 1, IntField2: 42}},
+		GroupField2: []Group2{{IntField1: 1, IntField2: 42}},
 	}
 	fixMsg := quickfix.Marshal(m)
 

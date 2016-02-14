@@ -128,20 +128,20 @@ func TestRepeatingGroup_Read(t *testing.T) {
 		{singleFieldTemplate, tagValues{tagValue{Value: []byte("0")}},
 			[]tagValues{}},
 		{singleFieldTemplate, tagValues{tagValue{Value: []byte("1")}, tagValue{Tag: Tag(1), Value: []byte("hello")}},
-			[]tagValues{tagValues{tagValue{Tag: Tag(1), Value: []byte("hello")}}}},
+			[]tagValues{{tagValue{Tag: Tag(1), Value: []byte("hello")}}}},
 		{singleFieldTemplate,
 			tagValues{tagValue{Value: []byte("1")},
 				tagValue{Tag: Tag(1), Value: []byte("hello")},
 				tagValue{Tag: Tag(2), Value: []byte("not in group")}},
 			[]tagValues{
-				tagValues{tagValue{Tag: Tag(1), Value: []byte("hello")}}}},
+				{tagValue{Tag: Tag(1), Value: []byte("hello")}}}},
 		{singleFieldTemplate,
 			tagValues{tagValue{Value: []byte("2")},
 				tagValue{Tag: Tag(1), Value: []byte("hello")},
 				tagValue{Tag: Tag(1), Value: []byte("world")}},
 			[]tagValues{
-				tagValues{tagValue{Tag: Tag(1), Value: []byte("hello")}},
-				tagValues{tagValue{Tag: Tag(1), Value: []byte("world")}},
+				{tagValue{Tag: Tag(1), Value: []byte("hello")}},
+				{tagValue{Tag: Tag(1), Value: []byte("world")}},
 			}},
 		{multiFieldTemplate,
 			tagValues{
@@ -150,8 +150,8 @@ func TestRepeatingGroup_Read(t *testing.T) {
 				tagValue{Tag: Tag(1), Value: []byte("goodbye")}, tagValue{Tag: Tag(2), Value: []byte("cruel")}, tagValue{Tag: Tag(3), Value: []byte("world")},
 			},
 			[]tagValues{
-				tagValues{tagValue{Tag: Tag(1), Value: []byte("hello")}},
-				tagValues{tagValue{Tag: Tag(1), Value: []byte("goodbye")}, tagValue{Tag: Tag(2), Value: []byte("cruel")}, tagValue{Tag: Tag(3), Value: []byte("world")}},
+				{tagValue{Tag: Tag(1), Value: []byte("hello")}},
+				{tagValue{Tag: Tag(1), Value: []byte("goodbye")}, tagValue{Tag: Tag(2), Value: []byte("cruel")}, tagValue{Tag: Tag(3), Value: []byte("world")}},
 			}},
 		{multiFieldTemplate,
 			tagValues{
@@ -161,9 +161,9 @@ func TestRepeatingGroup_Read(t *testing.T) {
 				tagValue{Tag: Tag(1), Value: []byte("another")},
 			},
 			[]tagValues{
-				tagValues{tagValue{Tag: Tag(1), Value: []byte("hello")}},
-				tagValues{tagValue{Tag: Tag(1), Value: []byte("goodbye")}, tagValue{Tag: Tag(2), Value: []byte("cruel")}, tagValue{Tag: Tag(3), Value: []byte("world")}},
-				tagValues{tagValue{Tag: Tag(1), Value: []byte("another")}},
+				{tagValue{Tag: Tag(1), Value: []byte("hello")}},
+				{tagValue{Tag: Tag(1), Value: []byte("goodbye")}, tagValue{Tag: Tag(2), Value: []byte("cruel")}, tagValue{Tag: Tag(3), Value: []byte("world")}},
+				{tagValue{Tag: Tag(1), Value: []byte("another")}},
 			}},
 	}
 
@@ -220,17 +220,17 @@ func TestRepeatingGroup_ReadComplete(t *testing.T) {
 	}
 
 	expectedGroupTags := [][]Tag{
-		[]Tag{Tag(269), Tag(270), Tag(272), Tag(273)},
-		[]Tag{Tag(269), Tag(270), Tag(272), Tag(273)},
-		[]Tag{Tag(269), Tag(270), Tag(272), Tag(273)},
-		[]Tag{Tag(269), Tag(271), Tag(272), Tag(273)},
+		{Tag(269), Tag(270), Tag(272), Tag(273)},
+		{Tag(269), Tag(270), Tag(272), Tag(273)},
+		{Tag(269), Tag(270), Tag(272), Tag(273)},
+		{Tag(269), Tag(271), Tag(272), Tag(273)},
 	}
 
 	expectedGroupValues := [][]FIXString{
-		[]FIXString{FIXString("4"), FIXString("0.07499"), FIXString("20151027"), FIXString("18:41:52.698")},
-		[]FIXString{FIXString("7"), FIXString("0.07501"), FIXString("20151027"), FIXString("18:41:52.698")},
-		[]FIXString{FIXString("8"), FIXString("0.07494"), FIXString("20151027"), FIXString("18:41:52.698")},
-		[]FIXString{FIXString("B"), FIXString("60"), FIXString("20151027"), FIXString("18:41:52.698")},
+		{FIXString("4"), FIXString("0.07499"), FIXString("20151027"), FIXString("18:41:52.698")},
+		{FIXString("7"), FIXString("0.07501"), FIXString("20151027"), FIXString("18:41:52.698")},
+		{FIXString("8"), FIXString("0.07494"), FIXString("20151027"), FIXString("18:41:52.698")},
+		{FIXString("B"), FIXString("60"), FIXString("20151027"), FIXString("18:41:52.698")},
 	}
 
 	for i, group := range f.Groups {
