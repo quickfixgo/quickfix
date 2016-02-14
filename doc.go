@@ -84,5 +84,89 @@ SessionSettings can be read in from any input stream such as a file stream. If y
 A settings file is set up with two types of heading, a [DEFAULT] and a [SESSION] heading. [SESSION] tells QuickFIX/Go that a new Session is being defined. [DEFAULT] is a place that you can define settings which will be inherited by sessions that don't explicitly define them. If you do not provide a setting that QuickFIX/Go needs, it will return an error indicating that a setting is missing or improperly formatted.
 
 See the quickfix/config package for settings you can associate with a session based on the default components provided with QuickFIX/Go.
+
+Here is a typical initiator settings file you might find for a firm that wants to connect to several ECNs.
+
+ # default settings for sessions
+ [DEFAULT]
+ FileLogPath=log
+ SenderCompID=TW
+
+ # session definition
+ [SESSION]
+ # inherit FileLogPath, SenderCompID from default
+ BeginString=FIX.4.1
+ TargetCompID=ARCA
+ HeartBtInt=20
+ SocketConnectPort=9823
+ SocketConnectHost=123.123.123.123
+ DataDictionary=somewhere/FIX41.xml
+
+ [SESSION]
+ BeginString=FIX.4.0
+ TargetCompID=ISLD
+ HeartBtInt=30
+ SocketConnectPort=8323
+ SocketConnectHost=23.23.23.23
+ DataDictionary=somewhere/FIX40.xml
+
+ [SESSION]
+ BeginString=FIX.4.2
+ TargetCompID=INCA
+ HeartBtInt=30
+ SocketConnectPort=6523
+ SocketConnectHost=3.3.3.3
+ DataDictionary=somewhere/FIX42.xml
+
+Receiving Messages
+
+Most of the messages you will be interested in looking at will be arriving in your FromApp function of your application.  All messages have a header and trailer.  If you want to get Header or Trailer fields, you must access those fields from the Header or Trailer embedded Struct.  All other fields are accessible in the Body embedded struct.
+
+QuickFIX/Go has a type for all messages, components, and fields defined in the standard spec.  The easiest and most typesafe method of receiving messages is by using the quickfix MessageRouter generated message types.
+
+ import "github.com/quickfixgo/quickfix/fix42/newordersingle"
+
+ type MyApplication struct {
+	*quickfix.MessageRouter
+ }
+
+ func (m *MyApplication) init() {
+	m.MessageRouter=quickfix.NewMessageRouter()
+	m.AddRoute(newordersingle.Route(m.onNewOrderSingle))
+ }
+
+ func (m *MyApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
+	return m.Route(msg, sessionID)
+ }
+
+ func (m *MyApplication) onNewOrderSingle(msg newordersingle.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
+	price:=msg.Price
+	clordID:=msg.ClOrdID
+
+	return
+ }
+
+You can also bypass the MessageRouter and type safe classes by inspecting the Message directly.  The preferred way of doing this is to use the quickfix generated Field types.
+
+ import "github.com/quickfixgo/quickfix/field"
+
+ func (m *MyApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
+	price:=new(field.PriceField)
+	if err=msg.Body.Get(field); err!=nil {
+		return
+	}
+
+	clordid:=new(field.ClOrdID)
+	err=msg.Body.Get(field)
+	return
+ }
+
+
+Or you can go the least type safe route.
+ func (m *MyApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
+	field:=new(quickfix.FIXString)
+	err:=msg.Body.GetField(quickfix.Tag(44), field)
+	return
+ }
 */
 package quickfix
