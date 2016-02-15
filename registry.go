@@ -33,6 +33,7 @@ func Send(m Marshaler) (err error) {
 	return SendToTarget(msg, sessionID)
 }
 
+//SendToTarget sends a message based on the sessionID. Convenient for use in FromApp since it provides a session ID for incoming messages
 func SendToTarget(m Marshaler, sessionID SessionID) error {
 	msg := m.Marshal()
 	session, err := LookupSession(sessionID)
