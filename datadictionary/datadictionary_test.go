@@ -1,113 +1,191 @@
 package datadictionary
 
 import (
-	. "gopkg.in/check.v1"
+	"testing"
 )
 
-var _ = Suite(&DataDictionaryTests{})
-
-type DataDictionaryTests struct {
-	dict *DataDictionary
+func TestParseBadPath(t *testing.T) {
+	if _, err := Parse("../spec/bogus.xml"); err == nil {
+		t.Error("Expected err")
+	}
 }
 
-func (s *DataDictionaryTests) SetUpTest(c *C) {
-	dict, err := Parse("../spec/FIX43.xml")
-	c.Check(err, IsNil)
-	c.Check(dict, NotNil)
-
-	s.dict = dict
-}
-
-func (s *DataDictionaryTests) TestParseBadPath(c *C) {
-	_, err := Parse("../spec/bogus.xml")
-	c.Check(err, NotNil)
-}
-
-func (s *DataDictionaryTests) TestParseRecursiveComponents(c *C) {
+func TestParseRecursiveComponents(t *testing.T) {
 	dict, err := Parse("../spec/FIX44.xml")
-	c.Check(err, IsNil)
-	c.Check(dict, NotNil)
+
+	if dict == nil {
+		t.Error("Dictionary is nil")
+	}
+
+	if err != nil {
+		t.Errorf("Unexpected err: %v", err)
+	}
 }
 
-func (s *DataDictionaryTests) TestComponents(c *C) {
-	_, ok := s.dict.Components["SpreadOrBenchmarkCurveData"]
-	c.Check(ok, Equals, true)
+var cachedDataDictionary *DataDictionary
+
+func dict() (*DataDictionary, error) {
+	if cachedXmlDoc != nil {
+		return cachedDataDictionary, nil
+	}
+
+	var err error
+	cachedDataDictionary, err = Parse("../spec/FIX43.xml")
+	return cachedDataDictionary, err
 }
 
-func (s *DataDictionaryTests) TestFieldsByTag(c *C) {
-	f, ok := s.dict.FieldTypeByTag[655]
-	c.Check(ok, Equals, true)
-	c.Check(f.Tag, Equals, 655)
-	c.Check(f.Name, Equals, "ContraLegRefID")
-	c.Check(f.Type, Equals, "STRING")
-	c.Check(f.Enums, IsNil)
-
-	f, ok = s.dict.FieldTypeByTag[658]
-	c.Check(ok, Equals, true)
-	c.Check(f.Tag, Equals, 658)
-	c.Check(f.Name, Equals, "QuoteRequestRejectReason")
-	c.Check(f.Type, Equals, "INT")
-
-	c.Check(f.Enums, NotNil)
-	c.Check(len(f.Enums), Equals, 6)
-	c.Check(f.Enums["1"].Value, Equals, "1")
-	c.Check(f.Enums["1"].Description, Equals, "UNKNOWN_SYMBOL")
+func TestComponents(t *testing.T) {
+	d, _ := dict()
+	if _, ok := d.Components["SpreadOrBenchmarkCurveData"]; ok != true {
+		t.Error("Component not found")
+	}
 }
 
-func (s *DataDictionaryTests) TestMessages(c *C) {
-	_, ok := s.dict.Messages["D"]
-	c.Check(ok, Equals, true)
+func TestFieldsByTag(t *testing.T) {
+	d, _ := dict()
+
+	var tests = []struct {
+		Tag         int
+		Name        string
+		Type        string
+		EnumsAreNil bool
+	}{
+		{655, "ContraLegRefID", "STRING", true},
+		{658, "QuoteRequestRejectReason", "INT", false},
+	}
+
+	for _, test := range tests {
+		f, ok := d.FieldTypeByTag[test.Tag]
+
+		if !ok {
+			t.Errorf("%v not found", test.Tag)
+		}
+
+		if f.Name != test.Name {
+			t.Errorf("Expected %v got %v", test.Name, f.Name)
+		}
+
+		if f.Type != test.Type {
+			t.Errorf("Expected %v got %v", test.Type, f.Type)
+		}
+
+		switch {
+
+		case f.Enums != nil && test.EnumsAreNil:
+			t.Errorf("Expected no enums")
+		case f.Enums == nil && !test.EnumsAreNil:
+			t.Errorf("Expected enums")
+		}
+	}
 }
 
-func (s *DataDictionaryTests) TestHeader(c *C) {
-	c.Check(s.dict.Header, NotNil)
+func TestEnumFieldsByTag(t *testing.T) {
+
+	d, _ := dict()
+	f, _ := d.FieldTypeByTag[658]
+
+	var tests = []struct {
+		Value       string
+		Description string
+	}{
+		{"1", "UNKNOWN_SYMBOL"},
+		{"2", "EXCHANGE"},
+		{"3", "QUOTE_REQUEST_EXCEEDS_LIMIT"},
+		{"4", "TOO_LATE_TO_ENTER"},
+		{"5", "INVALID_PRICE"},
+		{"6", "NOT_AUTHORIZED_TO_REQUEST_QUOTE"},
+	}
+
+	if len(f.Enums) != len(tests) {
+		t.Errorf("Expected %v enums got %v", len(tests), len(f.Enums))
+	}
+
+	for _, test := range tests {
+		if enum, ok := f.Enums[test.Value]; !ok {
+			t.Errorf("Expected Enum %v", test.Value)
+		} else {
+
+			if enum.Value != test.Value {
+				t.Errorf("Expected value %v got %v", test.Value, enum.Value)
+			}
+
+			if enum.Description != test.Description {
+				t.Errorf("Expected description %v got %v", test.Description, enum.Description)
+			}
+		}
+	}
 }
 
-func (s *DataDictionaryTests) TestTrailer(c *C) {
-	c.Check(s.dict.Trailer, NotNil)
+func TestDataDictionaryMessages(t *testing.T) {
+	d, _ := dict()
+	_, ok := d.Messages["D"]
+	if !ok {
+		t.Error("Did not find message")
+	}
 }
 
-func (s *DataDictionaryTests) TestMessageRequiredTags(c *C) {
-	m, ok := s.dict.Messages["D"]
-	c.Check(ok, Equals, true)
-
-	_, required := m.RequiredTags[11]
-	c.Check(required, Equals, true)
-	_, required = m.RequiredTags[526]
-	c.Check(required, Equals, false)
-
-	_, required = s.dict.Header.RequiredTags[8]
-	c.Check(required, Equals, true)
-
-	_, required = s.dict.Header.RequiredTags[115]
-	c.Check(required, Equals, false)
-
-	_, required = s.dict.Trailer.RequiredTags[10]
-	c.Check(required, Equals, true)
-
-	_, required = s.dict.Trailer.RequiredTags[89]
-	c.Check(required, Equals, false)
-
+func TestDataDictionaryHeader(t *testing.T) {
+	d, _ := dict()
+	if d.Header == nil {
+		t.Error("Did not find header")
+	}
 }
 
-func (s *DataDictionaryTests) TestMessageTags(c *C) {
-	m, ok := s.dict.Messages["D"]
-	c.Check(ok, Equals, true)
+func TestDataDictionaryTrailer(t *testing.T) {
+	d, _ := dict()
+	if d.Trailer == nil {
+		t.Error("Did not find trailer")
+	}
+}
 
-	_, known := m.Tags[11]
-	c.Check(known, Equals, true)
-	_, known = m.Tags[526]
-	c.Check(known, Equals, true)
+func TestMessageRequiredTags(t *testing.T) {
+	d, _ := dict()
 
-	_, known = s.dict.Header.Tags[8]
-	c.Check(known, Equals, true)
+	nos, _ := d.Messages["D"]
 
-	_, known = s.dict.Header.Tags[115]
-	c.Check(known, Equals, true)
+	var tests = []struct {
+		*MessageDef
+		Tag      int
+		Required bool
+	}{
+		{nos, 11, true},
+		{nos, 526, false},
+		{d.Header, 8, true},
+		{d.Header, 115, false},
+		{d.Trailer, 10, true},
+		{d.Trailer, 89, false},
+	}
 
-	_, known = s.dict.Trailer.Tags[10]
-	c.Check(known, Equals, true)
+	for _, test := range tests {
+		switch _, required := test.MessageDef.RequiredTags[test.Tag]; {
+		case required && !test.Required:
+			t.Errorf("%v should not be required", test.Tag)
+		case !required && test.Required:
+			t.Errorf("%v should not required", test.Tag)
+		}
+	}
+}
 
-	_, known = s.dict.Trailer.Tags[89]
-	c.Check(known, Equals, true)
+func TestMessageTags(t *testing.T) {
+	d, _ := dict()
+
+	nos, _ := d.Messages["D"]
+
+	var tests = []struct {
+		*MessageDef
+		Tag int
+	}{
+		{nos, 11},
+		{nos, 526},
+		{d.Header, 8},
+		{d.Header, 115},
+		{d.Trailer, 10},
+		{d.Trailer, 89},
+	}
+
+	for _, test := range tests {
+		if _, known := test.MessageDef.Tags[test.Tag]; !known {
+			t.Errorf("%v is not known", test.Tag)
+		}
+	}
 }

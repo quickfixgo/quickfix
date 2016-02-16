@@ -2,7 +2,6 @@ all: vet test
 
 get:
 	go get github.com/golang/lint/golint
-	go get gopkg.in/check.v1
 
 GEN_MESSAGES = go run _gen/generate-messages/main.go
 GEN_COMPONENTS = go run _gen/generate-components/main.go

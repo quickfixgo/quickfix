@@ -2,19 +2,17 @@ package datadictionary
 
 import (
 	"encoding/xml"
-	. "gopkg.in/check.v1"
+	"reflect"
 	"testing"
 )
 
-func Test(t *testing.T) { TestingT(t) }
+var cachedXmlDoc *XMLDoc
 
-type XMLTests struct {
-	doc *XMLDoc
-}
+func xmlDoc() (*XMLDoc, error) {
+	if cachedXmlDoc != nil {
+		return cachedXmlDoc, nil
+	}
 
-var _ = Suite(&XMLTests{})
-
-func (s *XMLTests) SetUpTest(c *C) {
 	data := `
 		<fix major='4' type='FIX' servicepack='0' minor='3'>
 			<header>
@@ -83,62 +81,106 @@ func (s *XMLTests) SetUpTest(c *C) {
 		</fix>
 	`
 
-	s.doc = new(XMLDoc)
-	err := xml.Unmarshal([]byte(data), s.doc)
-	c.Check(err, IsNil)
+	cachedXmlDoc = new(XMLDoc)
+	err := xml.Unmarshal([]byte(data), cachedXmlDoc)
+
+	return cachedXmlDoc, err
 }
 
-func (s *XMLTests) TestBoilerPlate(c *C) {
-	c.Check(s.doc.Type, Equals, "FIX")
-	c.Check(s.doc.Major, Equals, 4)
-	c.Check(s.doc.Minor, Equals, 3)
-	c.Check(s.doc.ServicePack, Equals, 0)
+func TestBoilerPlate(t *testing.T) {
+	doc, err := xmlDoc()
+
+	if err != nil {
+		t.Fatalf("Unexpected error %v", err)
+	}
+
+	var tests = []struct {
+		Value         interface{}
+		ExpectedValue interface{}
+	}{
+		{doc.Type, "FIX"},
+		{doc.Major, 4},
+		{doc.Minor, 3},
+		{doc.ServicePack, 0},
+	}
+
+	for _, test := range tests {
+		if !reflect.DeepEqual(test.Value, test.ExpectedValue) {
+			t.Errorf("Expected %v got %v", test.ExpectedValue, test.Value)
+		}
+	}
 }
 
-func (s *XMLTests) TestHeader(c *C) {
-	c.Check(s.doc.Header, NotNil)
-	BeginString := s.doc.Header.Members[0]
-	c.Check(BeginString.XMLName.Local, Equals, "field")
-	c.Check(BeginString.Name, Equals, "BeginString")
-	c.Check(BeginString.Required, Equals, "Y")
+func TestComponentMembers(t *testing.T) {
+	doc, err := xmlDoc()
 
-	NoHops := s.doc.Header.Members[1]
-	c.Check(NoHops.XMLName.Local, Equals, "group")
-	c.Check(NoHops.Name, Equals, "NoHops")
-	c.Check(NoHops.Required, Equals, "N")
+	if err != nil {
+		t.Fatalf("Unexpected error %v", err)
+	}
 
-	HopCompID := NoHops.Members[0]
-	c.Check(HopCompID.XMLName.Local, Equals, "field")
-	c.Check(HopCompID.Name, Equals, "HopCompID")
-	c.Check(HopCompID.Required, Equals, "N")
+	if doc.Header == nil {
+		t.Fatal("Header is nil")
+	}
+
+	var tests = []struct {
+		Value        *XMLComponentMember
+		XMLNameLocal string
+		Name         string
+		Required     string
+	}{
+		{doc.Header.Members[0], "field", "BeginString", "Y"},
+		{doc.Header.Members[1], "group", "NoHops", "N"},
+		{doc.Header.Members[1].Members[0], "field", "HopCompID", "N"},
+		{doc.Trailer.Members[0], "field", "SignatureLength", "N"},
+		{doc.Messages[0].Members[0], "field", "TestReqID", "N"},
+		{doc.Messages[1].Members[3], "component", "Instrument", "Y"},
+		{doc.Messages[1].Members[4], "group", "NoRoutingIDs", "N"},
+		{doc.Messages[1].Members[4].Members[0], "field", "RoutingType", "N"},
+		{doc.Messages[1].Members[4].Members[1], "field", "RoutingID", "N"},
+	}
+
+	for _, test := range tests {
+		if test.Value.XMLName.Local != test.XMLNameLocal {
+			t.Errorf("%v: Expected XMLName Local %v got %v", test.Name, test.XMLNameLocal, test.Value.XMLName.Local)
+		}
+
+		if test.Value.Name != test.Name {
+			t.Errorf("%v: Expected Name %v got %v", test.Name, test.Name, test.Value.Name)
+		}
+
+		if test.Value.Required != test.Required {
+			t.Errorf("%v: Expected Required %v got %v", test.Name, test.Required, test.Value.Required)
+		}
+	}
 }
 
-func (s *XMLTests) TestTrailer(c *C) {
-	c.Check(s.doc.Trailer, NotNil)
-	SignatureLength := s.doc.Trailer.Members[0]
-	c.Check(SignatureLength.XMLName.Local, Equals, "field")
-	c.Check(SignatureLength.Name, Equals, "SignatureLength")
-	c.Check(SignatureLength.Required, Equals, "N")
-}
+func TestMessages(t *testing.T) {
+	doc, err := xmlDoc()
+	if err != nil {
+		t.Fatalf("Unexpected error %v", err)
+	}
 
-func (s *XMLTests) TestMessages(c *C) {
-	c.Check(s.doc.Messages, NotNil)
-	heartbeat := s.doc.Messages[0]
-	c.Check(heartbeat.Name, Equals, "Heartbeat")
-	c.Check(heartbeat.MsgCat, Equals, "admin")
-	c.Check(heartbeat.MsgType, Equals, "0")
+	var tests = []struct {
+		Value   *XMLComponent
+		Name    string
+		MsgCat  string
+		MsgType string
+	}{
+		{doc.Messages[0], "Heartbeat", "admin", "0"},
+	}
 
-	testReqID := heartbeat.Members[0]
-	c.Check(testReqID.Name, Equals, "TestReqID")
+	for _, test := range tests {
+		if test.Value.Name != test.Name {
+			t.Errorf("Expected Name %v got %v", test.Name, test.Value.Name)
+		}
 
-	ioi := s.doc.Messages[1]
-	instrument := ioi.Members[3]
-	c.Check(instrument.Name, Equals, "Instrument")
-	c.Check(instrument.XMLName.Local, Equals, "component")
+		if test.Value.MsgCat != test.MsgCat {
+			t.Errorf("Expected MsgCat %v got %v", test.MsgCat, test.Value.MsgCat)
+		}
 
-	noRoutingIDs := ioi.Members[4]
-	c.Check(noRoutingIDs.Name, Equals, "NoRoutingIDs")
-	c.Check(noRoutingIDs.XMLName.Local, Equals, "group")
-	c.Check(noRoutingIDs.Members[0].Name, Equals, "RoutingType")
-	c.Check(noRoutingIDs.Members[1].Name, Equals, "RoutingID")
+		if test.Value.MsgType != test.MsgType {
+			t.Errorf("Expected MsgType %v got %v", test.MsgType, test.Value.MsgType)
+		}
+
+	}
 }

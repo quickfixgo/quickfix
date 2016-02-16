@@ -13,9 +13,9 @@ See [examples](https://github.com/quickfixgo/examples) for some simple examples 
 Build and Test
 --------------
 
-QuickFIX/Go has build dependencies for testing. To fetch Go dependencies, run `make get`. Acceptance tests depend on ruby in path.
-
 The default make target runs [go vet](https://godoc.org/golang.org/x/tools/cmd/vet) and unit tests.
+
+QuickFIX/Go acceptance tests depend on ruby in path.
 
 To run acceptance tests,
 
