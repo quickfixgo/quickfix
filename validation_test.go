@@ -2,15 +2,74 @@ package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/datadictionary"
-	. "gopkg.in/check.v1"
+	"testing"
 	"time"
 )
 
-var _ = Suite(&ValidationTests{})
+type validateTest struct {
+	TestName string
+	*datadictionary.DataDictionary
+	MessageBytes         []byte
+	ExpectedRejectReason int
+	ExpectedRefTagID     *Tag
+	DoNotExpectReject    bool
+}
 
-type ValidationTests struct{}
+func TestValidate(t *testing.T) {
+	var tests = []validateTest{
+		tcInvalidTagNumberHeader(),
+		tcInvalidTagNumberBody(),
+		tcInvalidTagNumberTrailer(),
+		tcTagSpecifiedWithoutAValue(),
+		tcInvalidMsgType(),
+		tcValueIsIncorrect(),
+		tcIncorrectDataFormatForValue(),
+		tcTagSpecifiedOutOfRequiredOrder(),
+		tcTagAppearsMoreThanOnce(),
+		tcFloatValidation(),
+		tcTagNotDefinedForMessage(),
+		tcTagIsDefinedForMessage(),
+		tcFieldNotFoundBody(),
+		tcFieldNotFoundHeader(),
+	}
 
-func (s *ValidationTests) createFIX40NewOrderSingle() Message {
+	for _, test := range tests {
+		msg, _ := parseMessage(test.MessageBytes)
+		reject := validate(test.DataDictionary, msg)
+
+		switch {
+		case reject == nil && test.DoNotExpectReject:
+			continue
+
+		case reject != nil && test.DoNotExpectReject:
+			t.Errorf("%v: Unexpected reject: %v", test.TestName, reject)
+			continue
+
+		case reject == nil:
+			t.Errorf("%v: Expected reject", test.TestName)
+			continue
+		}
+
+		if reject.RejectReason() != test.ExpectedRejectReason {
+			t.Errorf("%v: Expected reason %v got %v", test.TestName, test.ExpectedRejectReason, reject.RejectReason())
+		}
+
+		switch {
+		case reject.RefTagID() == nil && test.ExpectedRefTagID == nil:
+		//ok, expected and actual ref tag not set
+		case reject.RefTagID() != nil && test.ExpectedRefTagID == nil:
+			t.Errorf("%v: Unexpected RefTag '%v'", test.TestName, *reject.RefTagID())
+		case reject.RefTagID() == nil && test.ExpectedRefTagID != nil:
+			t.Errorf("%v: Expected RefTag '%v'", test.TestName, *test.ExpectedRefTagID)
+		case *reject.RefTagID() == *test.ExpectedRefTagID:
+			//ok, tags equal
+		default:
+			t.Errorf("%v: Expected RefTag '%v' got '%v'", test.TestName, *test.ExpectedRefTagID, *reject.RefTagID())
+		}
+	}
+}
+
+func createFIX40NewOrderSingle() Message {
 	msg := NewMessage()
 	msg.Header.SetField(tagMsgType, FIXString("D"))
 	msg.Header.SetField(tagBeginString, FIXString("FIX.4.0"))
@@ -32,7 +91,7 @@ func (s *ValidationTests) createFIX40NewOrderSingle() Message {
 	return msg
 }
 
-func (s *ValidationTests) createFIX43NewOrderSingle() Message {
+func createFIX43NewOrderSingle() Message {
 	msg := NewMessage()
 	msg.Header.SetField(tagMsgType, FIXString("D"))
 	msg.Header.SetField(tagBeginString, FIXString("FIX.4.3"))
@@ -55,219 +114,272 @@ func (s *ValidationTests) createFIX43NewOrderSingle() Message {
 	return msg
 }
 
-func (s *ValidationTests) TestValidateInvalidTagNumber(c *C) {
+func tcInvalidTagNumberHeader() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	invalidHeaderFieldMessage := createFIX40NewOrderSingle()
+	tag := Tag(9999)
+	invalidHeaderFieldMessage.Header.SetField(tag, FIXString("hello"))
+	msgBytes, _ := invalidHeaderFieldMessage.Build()
 
-	builder := s.createFIX40NewOrderSingle()
-	builder.Header.SetField(9999, FIXString("hello"))
-	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
-	c.Check(*reject.RefTagID(), Equals, Tag(9999))
+	return validateTest{
+		TestName:             "Invalid Tag Number Header",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonInvalidTagNumber,
+		ExpectedRefTagID:     &tag,
+	}
+}
+func tcInvalidTagNumberBody() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	invalidBodyFieldMessage := createFIX40NewOrderSingle()
+	tag := Tag(9999)
+	invalidBodyFieldMessage.Body.SetField(tag, FIXString("hello"))
+	msgBytes, _ := invalidBodyFieldMessage.Build()
 
-	builder = s.createFIX40NewOrderSingle()
-	builder.Trailer.SetField(9999, FIXString("hello"))
-	msgBytes, _ = builder.Build()
-	msg, _ = parseMessage(msgBytes)
-
-	reject = validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
-	c.Check(*reject.RefTagID(), Equals, Tag(9999))
-
-	builder = s.createFIX40NewOrderSingle()
-	builder.Body.SetField(9999, FIXString("hello"))
-	msgBytes, _ = builder.Build()
-	msg, _ = parseMessage(msgBytes)
-
-	reject = validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidTagNumber)
-	c.Check(*reject.RefTagID(), Equals, Tag(9999))
+	return validateTest{
+		TestName:             "Invalid Tag Number Body",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonInvalidTagNumber,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestValidateTagNotDefinedForMessage(c *C) {
+func tcInvalidTagNumberTrailer() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	invalidTrailerFieldMessage := createFIX40NewOrderSingle()
+	tag := Tag(9999)
+	invalidTrailerFieldMessage.Trailer.SetField(tag, FIXString("hello"))
+	msgBytes, _ := invalidTrailerFieldMessage.Build()
 
-	builder := s.createFIX40NewOrderSingle()
-	builder.Body.SetField(41, FIXString("hello"))
-	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
-
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonTagNotDefinedForThisMessageType)
-	c.Check(*reject.RefTagID(), Equals, Tag(41))
+	return validateTest{
+		TestName:             "Invalid Tag Number Trailer",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonInvalidTagNumber,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestValidateTagNotDefinedForMessageComponent(c *C) {
-	dict, err := datadictionary.Parse("spec/FIX43.xml")
-	c.Check(err, IsNil)
-	builder := s.createFIX43NewOrderSingle()
-	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
+func tcTagNotDefinedForMessage() validateTest {
+	dict40, _ := datadictionary.Parse("spec/FIX40.xml")
 
-	reject := validate(dict, msg)
-	c.Check(reject, IsNil)
+	invalidMsg := createFIX40NewOrderSingle()
+	tag := Tag(41)
+	invalidMsg.Body.SetField(tag, FIXString("hello"))
+	msgBytes, _ := invalidMsg.Build()
+
+	return validateTest{
+		TestName:             "Tag Not Defined For Message",
+		DataDictionary:       dict40,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonTagNotDefinedForThisMessageType,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestValidateFieldNotFound(c *C) {
+func tcTagIsDefinedForMessage() validateTest {
+	//compare to tcTagIsNotDefinedForMessage
+	dict43, _ := datadictionary.Parse("spec/FIX43.xml")
+	validMsg := createFIX43NewOrderSingle()
+	msgBytes, _ := validMsg.Build()
+
+	return validateTest{
+		TestName:          "TagIsDefinedForMessage",
+		DataDictionary:    dict43,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
+	}
+}
+
+func tcFieldNotFoundBody() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	invalidMsg1 := NewMessage()
+	invalidMsg1.Header.SetField(tagMsgType, FIXString("D")).
+		SetField(tagBeginString, FIXString("FIX.4.0")).
+		SetField(tagBodyLength, FIXString("0")).
+		SetField(tagSenderCompID, FIXString("0")).
+		SetField(tagTargetCompID, FIXString("0")).
+		SetField(tagMsgSeqNum, FIXString("0")).
+		SetField(tagSendingTime, FIXUTCTimestamp{Value: time.Now()})
+	invalidMsg1.Trailer.SetField(tagCheckSum, FIXString("000"))
 
-	builder := NewMessage()
-	builder.Header.SetField(tagMsgType, FIXString("D"))
-	builder.Header.SetField(tagBeginString, FIXString("FIX.4.0"))
-	builder.Header.SetField(tagBodyLength, FIXString("0"))
-	builder.Header.SetField(tagSenderCompID, FIXString("0"))
-	builder.Header.SetField(tagTargetCompID, FIXString("0"))
-	builder.Header.SetField(tagMsgSeqNum, FIXString("0"))
-	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Value: time.Now()})
-	builder.Trailer.SetField(tagCheckSum, FIXString("000"))
+	invalidMsg1.Body.SetField(Tag(11), FIXString("A")).
+		SetField(Tag(21), FIXString("A")).
+		SetField(Tag(55), FIXString("A")).
+		SetField(Tag(54), FIXString("A")).
+		SetField(Tag(38), FIXString("A"))
 
-	builder.Body.SetField(Tag(11), FIXString("A"))
-	builder.Body.SetField(Tag(21), FIXString("A"))
-	builder.Body.SetField(Tag(55), FIXString("A"))
-	builder.Body.SetField(Tag(54), FIXString("A"))
-	builder.Body.SetField(Tag(38), FIXString("A"))
-
+	tag := Tag(40)
 	//ord type is required
-	//builder.Body.SetField(Tag(40), "A"))
-	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
+	//invalidMsg1.Body.SetField(Tag(40), "A"))
 
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonRequiredTagMissing)
-	c.Check(*reject.RefTagID(), Equals, Tag(40))
+	msgBytes, _ := invalidMsg1.Build()
 
-	builder = NewMessage()
-	builder.Trailer.SetField(tagCheckSum, FIXString("000"))
-	builder.Body.SetField(Tag(11), FIXString("A"))
-	builder.Body.SetField(Tag(21), FIXString("A"))
-	builder.Body.SetField(Tag(55), FIXString("A"))
-	builder.Body.SetField(Tag(54), FIXString("A"))
-	builder.Body.SetField(Tag(38), FIXString("A"))
+	return validateTest{
+		TestName:             "FieldNotFoundBody",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonRequiredTagMissing,
+		ExpectedRefTagID:     &tag,
+	}
+}
 
-	builder.Header.SetField(tagMsgType, FIXString("D"))
-	builder.Header.SetField(tagBeginString, FIXString("FIX.4.0"))
-	builder.Header.SetField(tagBodyLength, FIXString("0"))
-	builder.Header.SetField(tagSenderCompID, FIXString("0"))
-	builder.Header.SetField(tagTargetCompID, FIXString("0"))
-	builder.Header.SetField(tagMsgSeqNum, FIXString("0"))
+func tcFieldNotFoundHeader() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+
+	invalidMsg2 := NewMessage()
+	invalidMsg2.Trailer.SetField(tagCheckSum, FIXString("000"))
+	invalidMsg2.Body.SetField(Tag(11), FIXString("A")).
+		SetField(Tag(21), FIXString("A")).
+		SetField(Tag(55), FIXString("A")).
+		SetField(Tag(54), FIXString("A")).
+		SetField(Tag(38), FIXString("A"))
+
+	invalidMsg2.Header.SetField(tagMsgType, FIXString("D")).
+		SetField(tagBeginString, FIXString("FIX.4.0")).
+		SetField(tagBodyLength, FIXString("0")).
+		SetField(tagSenderCompID, FIXString("0")).
+		SetField(tagTargetCompID, FIXString("0")).
+		SetField(tagMsgSeqNum, FIXString("0"))
 	//sending time is required
-	//msg.Header.FieldMap.SetField(tag.SendingTime, "0"))
+	//invalidMsg2.Header.FieldMap.SetField(tag.SendingTime, "0"))
 
-	msgBytes, _ = builder.Build()
-	msg, _ = parseMessage(msgBytes)
+	tag := tagSendingTime
+	msgBytes, _ := invalidMsg2.Build()
 
-	reject = validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonRequiredTagMissing)
-	c.Check(*reject.RefTagID(), Equals, tagSendingTime)
+	return validateTest{
+		TestName:             "FieldNotFoundHeader",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonRequiredTagMissing,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestValidateTagSpecifiedWithoutAValue(c *C) {
+func tcTagSpecifiedWithoutAValue() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
-	builder := s.createFIX40NewOrderSingle()
-	builder.Body.SetField(Tag(109), FIXString(""))
+	builder := createFIX40NewOrderSingle()
+
+	bogusTag := Tag(109)
+	builder.Body.SetField(bogusTag, FIXString(""))
 	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonTagSpecifiedWithoutAValue)
-	c.Check(*reject.RefTagID(), Equals, Tag(109))
+	return validateTest{
+		TestName:             "Tag SpecifiedWithoutAValue",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonTagSpecifiedWithoutAValue,
+		ExpectedRefTagID:     &bogusTag,
+	}
 }
 
-func (s *ValidationTests) TestValidateInvalidMsgType(c *C) {
+func tcInvalidMsgType() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
-
-	builder := s.createFIX40NewOrderSingle()
+	builder := createFIX40NewOrderSingle()
 	builder.Header.SetField(tagMsgType, FIXString("z"))
 	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonInvalidMsgType)
+	return validateTest{
+		TestName:             "Invalid MsgType",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonInvalidMsgType,
+	}
 }
 
-func (s *ValidationTests) TestValidateValueIsIncorrect(c *C) {
+func tcValueIsIncorrect() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
-	builder := s.createFIX40NewOrderSingle()
-	builder.Body.SetField(Tag(21), FIXString("4"))
+
+	tag := Tag(21)
+	builder := createFIX40NewOrderSingle()
+	builder.Body.SetField(tag, FIXString("4"))
 	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonValueIsIncorrect)
-	c.Check(*reject.RefTagID(), Equals, Tag(21))
+	return validateTest{
+		TestName:             "ValueIsIncorrect",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonValueIsIncorrect,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestValidateIncorrectDataFormatForValue(c *C) {
+func tcIncorrectDataFormatForValue() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
-	builder := s.createFIX40NewOrderSingle()
-	builder.Body.SetField(Tag(38), FIXString("+200.00"))
+	builder := createFIX40NewOrderSingle()
+	tag := Tag(38)
+	builder.Body.SetField(tag, FIXString("+200.00"))
 	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectDataFormatForValue)
-	c.Check(*reject.RefTagID(), Equals, Tag(38))
+	return validateTest{
+		TestName:             "IncorrectDataFormatForValue",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonIncorrectDataFormatForValue,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestValidateTagSpecifiedOutOfRequiredOrder(c *C) {
+func tcTagSpecifiedOutOfRequiredOrder() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
-	builder := s.createFIX40NewOrderSingle()
+	builder := createFIX40NewOrderSingle()
+	tag := tagOnBehalfOfCompID
 	//should be in header
-	builder.Body.SetField(tagOnBehalfOfCompID, FIXString("CWB"))
+	builder.Body.SetField(tag, FIXString("CWB"))
 	msgBytes, _ := builder.Build()
-	msg, _ := parseMessage(msgBytes)
 
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonTagSpecifiedOutOfRequiredOrder)
-	c.Check(*reject.RefTagID(), Equals, tagOnBehalfOfCompID)
+	return validateTest{
+		TestName:             "Tag specified out of required order",
+		DataDictionary:       dict,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonTagSpecifiedOutOfRequiredOrder,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestValidateTagAppearsMoreThanOnce(c *C) {
-
-	msg, err := parseMessage([]byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"))
-	c.Check(err, IsNil)
-
+func tcTagAppearsMoreThanOnce() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonTagAppearsMoreThanOnce)
-	c.Check(*reject.RefTagID(), Equals, Tag(40))
+	tag := Tag(40)
+
+	return validateTest{
+		TestName:       "Tag appears more than once",
+		DataDictionary: dict,
+		MessageBytes: []byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"),
+		ExpectedRejectReason: rejectReasonTagAppearsMoreThanOnce,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestFloatValidation(c *C) {
-	msg, err := parseMessage([]byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"))
-	c.Check(err, IsNil)
-
+func tcFloatValidation() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX42.xml")
-	reject := validate(dict, msg)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectDataFormatForValue)
+	tag := Tag(38)
+	return validateTest{
+		TestName:       "FloatValidation",
+		DataDictionary: dict,
+		MessageBytes: []byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"),
+		ExpectedRejectReason: rejectReasonIncorrectDataFormatForValue,
+		ExpectedRefTagID:     &tag,
+	}
 }
 
-func (s *ValidationTests) TestValidateVisitField(c *C) {
+func TestValidateVisitField(t *testing.T) {
 	fieldType := &datadictionary.FieldType{Name: "myfield", Tag: 11, Type: "STRING"}
 	fieldDef := &datadictionary.FieldDef{FieldType: fieldType}
 
 	TagValues := make([]tagValue, 1)
 	TagValues[0].init(Tag(11), []byte("value"))
 	remFields, reject := validateVisitField(fieldDef, TagValues)
-	c.Check(len(remFields), Equals, 0)
-	c.Check(reject, IsNil)
+	if len(remFields) != 0 {
+		t.Errorf("Expected len %v got %v", 0, len(remFields))
+	}
+
+	if reject != nil {
+		t.Errorf("Unexpected Reject %v", reject)
+	}
 }
 
-func (s *ValidationTests) TestValidateVisitFieldGroup(c *C) {
+func TestValidateVisitFieldGroup(t *testing.T) {
 	fieldType1 := &datadictionary.FieldType{Name: "myfield", Tag: 2, Type: "STRING"}
 	fieldDef1 := &datadictionary.FieldDef{FieldType: fieldType1, ChildFields: []*datadictionary.FieldDef{}}
 
@@ -282,57 +394,71 @@ func (s *ValidationTests) TestValidateVisitFieldGroup(c *C) {
 	repField1.init(Tag(2), []byte("a"))
 	repField2.init(Tag(3), []byte("a"))
 
-	//non-repeating
 	var groupID tagValue
 	groupID.init(Tag(1), []byte("1"))
-	fields := []tagValue{groupID, repField1}
-	remFields, reject := validateVisitGroupField(groupFieldDef, fields)
-	c.Check(len(remFields), Equals, 0)
-	c.Check(reject, IsNil)
 
-	fields = []tagValue{groupID, repField1, repField2}
-	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
-	c.Check(len(remFields), Equals, 0)
-	c.Check(reject, IsNil)
-
-	//test with trailing tag not in group
 	var otherField tagValue
 	otherField.init(Tag(500), []byte("blah"))
-	fields = []tagValue{groupID, repField1, repField2, otherField}
-	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
-	c.Check(len(remFields), Equals, 1)
-	c.Check(reject, IsNil)
 
-	//repeats
-	groupID.init(Tag(1), []byte("2"))
-	fields = []tagValue{groupID, repField1, repField2, repField1, repField2, otherField}
-	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
-	c.Check(len(remFields), Equals, 1)
-	c.Check(reject, IsNil)
+	var groupID2 tagValue
+	groupID2.init(Tag(1), []byte("2"))
 
-	groupID.init(Tag(1), []byte("3"))
-	fields = []tagValue{groupID, repField1, repField2, repField1, repField2, repField1, repField2, otherField}
-	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
-	c.Check(len(remFields), Equals, 1)
-	c.Check(reject, IsNil)
+	var groupID3 tagValue
+	groupID3.init(Tag(1), []byte("3"))
 
-	//REJECT: group size declared > actual group size
-	groupID.init(Tag(1), []byte("3"))
-	fields = []tagValue{groupID, repField1, repField2, repField1, repField2, otherField}
-	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectNumInGroupCountForRepeatingGroup)
+	var tests = []struct {
+		fields               tagValues
+		expectedRemFields    int
+		expectReject         bool
+		expectedRejectReason int
+	}{
+		//non-repeating
+		{fields: tagValues{groupID, repField1},
+			expectedRemFields: 0},
+		{fields: tagValues{groupID, repField1, repField2},
+			expectedRemFields: 0},
+		//test with trailing tag not in group
+		{fields: tagValues{groupID, repField1, repField2, otherField},
+			expectedRemFields: 1},
+		//repeats
+		{fields: tagValues{groupID2, repField1, repField2, repField1, repField2, otherField},
+			expectedRemFields: 1},
+		//REJECT: group size declared > actual group size
+		{expectReject: true,
+			fields:               tagValues{groupID3, repField1, repField2, repField1, repField2, otherField},
+			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
+		},
+		{expectReject: true,
+			fields:               tagValues{groupID3, repField1, repField1, otherField},
+			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
+		},
+		//REJECT: group size declared < actual group size
+		{expectReject: true,
+			fields:               tagValues{groupID, repField1, repField2, repField1, repField2, otherField},
+			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
+		},
+	}
 
-	groupID.init(Tag(1), []byte("3"))
-	fields = []tagValue{groupID, repField1, repField1, otherField}
-	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectNumInGroupCountForRepeatingGroup)
+	for _, test := range tests {
+		remFields, reject := validateVisitGroupField(groupFieldDef, test.fields)
 
-	//REJECT: group size declared < actual group size
-	groupID.init(Tag(1), []byte("1"))
-	fields = []tagValue{groupID, repField1, repField2, repField1, repField2, otherField}
-	remFields, reject = validateVisitGroupField(groupFieldDef, fields)
-	c.Check(reject, NotNil)
-	c.Check(reject.RejectReason(), Equals, rejectReasonIncorrectNumInGroupCountForRepeatingGroup)
+		if test.expectReject {
+			if reject == nil {
+				t.Error("Expected Reject")
+			}
+
+			if reject.RejectReason() != test.expectedRejectReason {
+				t.Errorf("Expected reject reason %v got %v", test.expectedRejectReason, reject.RejectReason())
+			}
+			continue
+		}
+
+		if reject != nil {
+			t.Errorf("Unexpected reject: %v", reject)
+		}
+
+		if len(remFields) != test.expectedRemFields {
+			t.Errorf("Expected len %v got %v", test.expectedRemFields, len(remFields))
+		}
+	}
 }
