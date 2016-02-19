@@ -23,7 +23,7 @@ lint:
 	golint .
 
 test:
-	go test -v . ./datadictionary
+	go test -v -cover . ./datadictionary
 
 _build_all:
 	go build -v ./...

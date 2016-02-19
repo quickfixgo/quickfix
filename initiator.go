@@ -3,7 +3,6 @@ package quickfix
 import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/config"
-	"net"
 )
 
 //Initiator initiates connections and processes messages for all sessions.
@@ -31,13 +30,9 @@ func (i *Initiator) Start() error {
 			return fmt.Errorf("error on SocketConnectPort: %v", err)
 		}
 
-		conn, err := net.Dial("tcp", fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort))
-		if err != nil {
-			return err
-		}
-
 		i.quitChans[sessionID] = make(chan bool)
-		go handleInitiatorConnection(conn, i.globalLog, sessionID, i.quitChans[sessionID])
+		address := fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort)
+		go handleInitiatorConnection(address, i.globalLog, sessionID, i.quitChans[sessionID])
 	}
 
 	return nil
@@ -49,7 +44,7 @@ func (i *Initiator) Stop() {
 		_ = recover() // suppress sending on closed channel error
 	}()
 	for _, channel := range i.quitChans {
-		channel <- true
+		close(channel)
 	}
 }
 
