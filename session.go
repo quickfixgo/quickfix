@@ -107,21 +107,21 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 	return nil
 }
 
-func (s *Session) initiate() (chan []byte, error) {
+//kicks off session as an initiator
+func (s *Session) initiate(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.currentState = logonState{}
-	s.messageOut = make(chan []byte)
 	s.messageStash = make(map[int]Message)
 	s.initiateLogon = true
 
-	return s.messageOut, nil
+	s.run(msgIn, msgOut, quit)
 }
 
-func (s *Session) accept() (chan []byte, error) {
+//kicks off session as an acceptor
+func (s *Session) accept(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.currentState = logonState{}
-	s.messageOut = make(chan []byte)
 	s.messageStash = make(map[int]Message)
 
-	return s.messageOut, nil
+	s.run(msgIn, msgOut, quit)
 }
 
 func (s *Session) onDisconnect() {
@@ -467,10 +467,10 @@ type fixIn struct {
 	receiveTime time.Time
 }
 
-func (s *Session) run(msgIn chan fixIn, quit chan bool) {
+func (s *Session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
+	s.messageOut = msgOut
 	defer func() {
-		close(quit)
-		s.messageOut <- nil
+		close(s.messageOut)
 		s.onDisconnect()
 	}()
 

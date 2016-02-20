@@ -56,7 +56,7 @@ func (a *Acceptor) Stop() {
 		_ = recover() // suppress sending on closed channel error
 	}()
 	for _, channel := range a.quitChans {
-		channel <- true
+		close(channel)
 	}
 }
 
