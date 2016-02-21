@@ -1,6 +1,6 @@
 package quickfix
 
 type sessionState interface {
-	FixMsgIn(*Session, Message) (nextState sessionState)
-	Timeout(*Session, event) (nextState sessionState)
+	FixMsgIn(*session, Message) (nextState sessionState)
+	Timeout(*session, event) (nextState sessionState)
 }

@@ -4,7 +4,7 @@ type resendState struct {
 	inSession
 }
 
-func (state resendState) FixMsgIn(session *Session, msg Message) (nextState sessionState) {
+func (state resendState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	for ok := true; ok; {
 		nextState = state.inSession.FixMsgIn(session, msg)
 

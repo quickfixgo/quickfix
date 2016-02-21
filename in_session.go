@@ -8,7 +8,7 @@ import (
 type inSession struct {
 }
 
-func (state inSession) FixMsgIn(session *Session, msg Message) (nextState sessionState) {
+func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
 		switch string(msgType) {
@@ -39,7 +39,7 @@ func (state inSession) FixMsgIn(session *Session, msg Message) (nextState sessio
 	return state
 }
 
-func (state inSession) Timeout(session *Session, event event) (nextState sessionState) {
+func (state inSession) Timeout(session *session, event event) (nextState sessionState) {
 	switch event {
 	case needHeartbeat:
 		heartBt := NewMessage()
@@ -56,7 +56,7 @@ func (state inSession) Timeout(session *Session, event event) (nextState session
 	return state
 }
 
-func (state inSession) handleLogon(session *Session, msg Message) (nextState sessionState) {
+func (state inSession) handleLogon(session *session, msg Message) (nextState sessionState) {
 	if err := session.handleLogon(msg); err != nil {
 		return state.initiateLogout(session, "")
 	}
@@ -64,7 +64,7 @@ func (state inSession) handleLogon(session *Session, msg Message) (nextState ses
 	return state
 }
 
-func (state inSession) handleLogout(session *Session, msg Message) (nextState sessionState) {
+func (state inSession) handleLogout(session *session, msg Message) (nextState sessionState) {
 	session.log.OnEvent("Received logout request")
 	state.generateLogout(session)
 	session.application.OnLogout(session.sessionID)
@@ -72,7 +72,7 @@ func (state inSession) handleLogout(session *Session, msg Message) (nextState se
 	return latentState{}
 }
 
-func (state inSession) handleSequenceReset(session *Session, msg Message) (nextState sessionState) {
+func (state inSession) handleSequenceReset(session *session, msg Message) (nextState sessionState) {
 	var gapFillFlag FIXBoolean
 	msg.Body.GetField(tagGapFillFlag, &gapFillFlag)
 
@@ -97,7 +97,7 @@ func (state inSession) handleSequenceReset(session *Session, msg Message) (nextS
 	return state
 }
 
-func (state inSession) handleResendRequest(session *Session, msg Message) (nextState sessionState) {
+func (state inSession) handleResendRequest(session *session, msg Message) (nextState sessionState) {
 	if err := session.verifyIgnoreSeqNumTooHighOrLow(msg); err != nil {
 		return state.processReject(session, msg, err)
 	}
@@ -131,7 +131,7 @@ func (state inSession) handleResendRequest(session *Session, msg Message) (nextS
 	return state
 }
 
-func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int) {
+func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int) {
 	msgs := session.store.GetMessages(beginSeqNo, endSeqNo)
 
 	seqNum := beginSeqNo
@@ -172,7 +172,7 @@ func (state inSession) resendMessages(session *Session, beginSeqNo, endSeqNo int
 	}
 }
 
-func (state inSession) handleTestRequest(session *Session, msg Message) (nextState sessionState) {
+func (state inSession) handleTestRequest(session *session, msg Message) (nextState sessionState) {
 	if err := session.verify(msg); err != nil {
 		return state.processReject(session, msg, err)
 	}
@@ -192,7 +192,7 @@ func (state inSession) handleTestRequest(session *Session, msg Message) (nextSta
 	return state
 }
 
-func (state inSession) processReject(session *Session, msg Message, rej MessageRejectError) (nextState sessionState) {
+func (state inSession) processReject(session *session, msg Message, rej MessageRejectError) (nextState sessionState) {
 	switch TypedError := rej.(type) {
 	case targetTooHigh:
 
@@ -222,7 +222,7 @@ func (state inSession) processReject(session *Session, msg Message, rej MessageR
 	}
 }
 
-func (state inSession) doTargetTooLow(session *Session, msg Message, rej targetTooLow) (nextState sessionState) {
+func (state inSession) doTargetTooLow(session *session, msg Message, rej targetTooLow) (nextState sessionState) {
 	var posDupFlag FIXBoolean
 	if err := msg.Header.GetField(tagPossDupFlag, &posDupFlag); err == nil && posDupFlag {
 
@@ -251,14 +251,14 @@ func (state inSession) doTargetTooLow(session *Session, msg Message, rej targetT
 	return state
 }
 
-func (state *inSession) initiateLogout(session *Session, reason string) (nextState logoutState) {
+func (state *inSession) initiateLogout(session *session, reason string) (nextState logoutState) {
 	state.generateLogoutWithReason(session, reason)
 	time.AfterFunc(time.Duration(2)*time.Second, func() { session.sessionEvent <- logoutTimeout })
 
 	return
 }
 
-func (state *inSession) generateSequenceReset(session *Session, beginSeqNo int, endSeqNo int) {
+func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, endSeqNo int) {
 	sequenceReset := NewMessage()
 	session.fillDefaultHeader(sequenceReset)
 
@@ -278,11 +278,11 @@ func (state *inSession) generateSequenceReset(session *Session, beginSeqNo int, 
 	session.sendBytes(msgBytes)
 }
 
-func (state *inSession) generateLogout(session *Session) {
+func (state *inSession) generateLogout(session *session) {
 	state.generateLogoutWithReason(session, "")
 }
 
-func (state *inSession) generateLogoutWithReason(session *Session, reason string) {
+func (state *inSession) generateLogoutWithReason(session *session, reason string) {
 	reply := NewMessage()
 	reply.Header.SetField(tagMsgType, FIXString("5"))
 	reply.Header.SetField(tagBeginString, FIXString(session.sessionID.BeginString))

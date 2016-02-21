@@ -16,7 +16,7 @@ func getBuilder() Message {
 }
 
 func TestSession_CheckCorrectCompID(t *testing.T) {
-	session := Session{}
+	session := session{}
 	session.sessionID.TargetCompID = "TAR"
 	session.sessionID.SenderCompID = "SND"
 
@@ -77,7 +77,7 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 }
 
 func TestSession_CheckBeginString(t *testing.T) {
-	session := Session{
+	session := session{
 		sessionID: SessionID{BeginString: "FIX.4.2"},
 	}
 
@@ -107,7 +107,7 @@ func TestSession_CheckBeginString(t *testing.T) {
 
 func TestSession_CheckTargetTooHigh(t *testing.T) {
 	store, _ := NewMemoryStoreFactory().Create(SessionID{})
-	session := Session{store: store}
+	session := session{store: store}
 	builder := getBuilder()
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
@@ -148,7 +148,7 @@ func TestSession_CheckTargetTooHigh(t *testing.T) {
 }
 
 func TestSession_CheckSendingTime(t *testing.T) {
-	session := Session{}
+	session := session{}
 	builder := getBuilder()
 	msgBytes, _ := builder.Build()
 	msg, _ := parseMessage(msgBytes)
@@ -204,7 +204,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 
 func TestSession_CheckTargetTooLow(t *testing.T) {
 	store, _ := NewMemoryStoreFactory().Create(SessionID{})
-	session := Session{store: store}
+	session := session{store: store}
 
 	builder := getBuilder()
 	msgBytes, _ := builder.Build()
@@ -293,7 +293,7 @@ func TestSession_CheckToAdminCalled(t *testing.T) {
 		<-otherEnd
 	}()
 
-	session := Session{store: store, application: app, messageOut: otherEnd}
+	session := session{store: store, application: app, messageOut: otherEnd}
 	session.toSend = make(chan Message)
 	session.sessionEvent = make(chan event)
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
@@ -339,7 +339,7 @@ func TestSession_CheckToAppCalled(t *testing.T) {
 		<-otherEnd
 	}()
 
-	session := Session{store: store, application: app, messageOut: otherEnd}
+	session := session{store: store, application: app, messageOut: otherEnd}
 	session.toSend = make(chan Message)
 	session.sessionEvent = make(chan event)
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}

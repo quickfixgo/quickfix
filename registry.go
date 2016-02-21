@@ -36,7 +36,7 @@ func Send(m Marshaler) (err error) {
 //SendToTarget sends a message based on the sessionID. Convenient for use in FromApp since it provides a session ID for incoming messages
 func SendToTarget(m Marshaler, sessionID SessionID) error {
 	msg := m.Marshal()
-	session, err := LookupSession(sessionID)
+	session, err := lookupSession(sessionID)
 	if err != nil {
 		return err
 	}
@@ -48,16 +48,16 @@ func SendToTarget(m Marshaler, sessionID SessionID) error {
 
 type sessionActivate struct {
 	SessionID
-	reply chan *Session
+	reply chan *session
 }
 
 type sessionResource struct {
-	session *Session
+	session *session
 	active  bool
 }
 
 type sessionLookupResponse struct {
-	session *Session
+	session *session
 	err     error
 }
 
@@ -67,7 +67,7 @@ type sessionLookup struct {
 }
 
 type registry struct {
-	newSession chan *Session
+	newSession chan *session
 	activate   chan sessionActivate
 	deactivate chan SessionID
 	lookup     chan sessionLookup
@@ -77,7 +77,7 @@ var sessions *registry
 
 func init() {
 	sessions = new(registry)
-	sessions.newSession = make(chan *Session)
+	sessions.newSession = make(chan *session)
 	sessions.activate = make(chan sessionActivate)
 	sessions.deactivate = make(chan SessionID)
 	sessions.lookup = make(chan sessionLookup)
@@ -85,8 +85,8 @@ func init() {
 	go sessions.sessionResourceServerLoop()
 }
 
-func activate(sessionID SessionID) *Session {
-	response := make(chan *Session)
+func activate(sessionID SessionID) *session {
+	response := make(chan *session)
 	sessions.activate <- sessionActivate{sessionID, response}
 	return <-response
 }
@@ -95,8 +95,8 @@ func deactivate(sessionID SessionID) {
 	sessions.deactivate <- sessionID
 }
 
-//LookupSession returns the Session associated with the sessionID.
-func LookupSession(sessionID SessionID) (*Session, error) {
+//lookupSession returns the Session associated with the sessionID.
+func lookupSession(sessionID SessionID) (*session, error) {
 	responseChannel := make(chan sessionLookupResponse)
 	sessions.lookup <- sessionLookup{sessionID, responseChannel}
 

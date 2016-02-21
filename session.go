@@ -9,7 +9,7 @@ import (
 )
 
 //The Session is the primary FIX abstraction for message communication
-type Session struct {
+type session struct {
 	store MessageStore
 
 	log       Log
@@ -39,13 +39,13 @@ type Session struct {
 
 //TargetDefaultApplicationVersionID returns the default application version ID for messages received by this version.
 //Applicable for For FIX.T.1 sessions.
-func (s *Session) TargetDefaultApplicationVersionID() string {
+func (s *session) TargetDefaultApplicationVersionID() string {
 	return s.targetDefaultApplVerID
 }
 
 //Creates Session, associates with internal session registry
 func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) error {
-	session := &Session{sessionID: sessionID}
+	session := &session{sessionID: sessionID}
 
 	if sessionID.BeginString == enum.BeginStringFIXT11 {
 		defaultApplVerID, err := settings.Setting(config.DefaultApplVerID)
@@ -108,7 +108,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 }
 
 //kicks off session as an initiator
-func (s *Session) initiate(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
+func (s *session) initiate(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.currentState = logonState{}
 	s.messageStash = make(map[int]Message)
 	s.initiateLogon = true
@@ -117,19 +117,19 @@ func (s *Session) initiate(msgIn chan fixIn, msgOut chan []byte, quit chan bool)
 }
 
 //kicks off session as an acceptor
-func (s *Session) accept(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
+func (s *session) accept(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.currentState = logonState{}
 	s.messageStash = make(map[int]Message)
 
 	s.run(msgIn, msgOut, quit)
 }
 
-func (s *Session) onDisconnect() {
+func (s *session) onDisconnect() {
 	s.application.OnLogout(s.sessionID)
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *Session) insertSendingTime(header FieldMap) {
+func (s *session) insertSendingTime(header FieldMap) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
@@ -139,7 +139,7 @@ func (s *Session) insertSendingTime(header FieldMap) {
 	}
 }
 
-func (s *Session) fillDefaultHeader(msg Message) {
+func (s *session) fillDefaultHeader(msg Message) {
 	msg.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
 	msg.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
 	msg.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
@@ -147,7 +147,7 @@ func (s *Session) fillDefaultHeader(msg Message) {
 	s.insertSendingTime(msg.Header)
 }
 
-func (s *Session) resend(msg Message) {
+func (s *session) resend(msg Message) {
 	msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
 
 	var origSendingTime FIXString
@@ -161,7 +161,7 @@ func (s *Session) resend(msg Message) {
 	s.sendBytes(msg.rawMessage)
 }
 
-func (s *Session) send(msg Message) {
+func (s *session) send(msg Message) {
 	s.fillDefaultHeader(msg)
 
 	seqNum := s.store.NextSenderMsgSeqNum()
@@ -182,14 +182,14 @@ func (s *Session) send(msg Message) {
 	}
 }
 
-func (s *Session) sendBytes(msg []byte) {
+func (s *session) sendBytes(msg []byte) {
 
 	s.log.OnOutgoing(string(msg))
 	s.messageOut <- msg
 	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 }
 
-func (s *Session) doTargetTooHigh(reject targetTooHigh) {
+func (s *session) doTargetTooHigh(reject targetTooHigh) {
 	resend := NewMessage()
 	resend.Header.SetField(tagMsgType, FIXString("2"))
 	resend.Body.SetField(tagBeginSeqNo, FIXInt(reject.ExpectedTarget))
@@ -203,7 +203,7 @@ func (s *Session) doTargetTooHigh(reject targetTooHigh) {
 	s.send(resend)
 }
 
-func (s *Session) handleLogon(msg Message) error {
+func (s *session) handleLogon(msg Message) error {
 	//Grab default app ver id from fixt.1.1 logon
 	if s.sessionID.BeginString == enum.BeginStringFIXT11 {
 		var targetApplVerID FIXString
@@ -271,19 +271,19 @@ func (s *Session) handleLogon(msg Message) error {
 	return nil
 }
 
-func (s *Session) verify(msg Message) MessageRejectError {
+func (s *session) verify(msg Message) MessageRejectError {
 	return s.verifySelect(msg, true, true)
 }
 
-func (s *Session) verifyIgnoreSeqNumTooHigh(msg Message) MessageRejectError {
+func (s *session) verifyIgnoreSeqNumTooHigh(msg Message) MessageRejectError {
 	return s.verifySelect(msg, false, true)
 }
 
-func (s *Session) verifyIgnoreSeqNumTooHighOrLow(msg Message) MessageRejectError {
+func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg Message) MessageRejectError {
 	return s.verifySelect(msg, false, false)
 }
 
-func (s *Session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool) MessageRejectError {
+func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool) MessageRejectError {
 	if reject := s.checkBeginString(msg); reject != nil {
 		return reject
 	}
@@ -331,7 +331,7 @@ func (s *Session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 	return s.fromCallback(msg)
 }
 
-func (s *Session) fromCallback(msg Message) MessageRejectError {
+func (s *session) fromCallback(msg Message) MessageRejectError {
 	var msgType FIXString
 	if msg.Header.GetField(tagMsgType, &msgType); isAdminMessageType(string(msgType)) {
 		return s.application.FromAdmin(msg, s.sessionID)
@@ -340,7 +340,7 @@ func (s *Session) fromCallback(msg Message) MessageRejectError {
 	return s.application.FromApp(msg, s.sessionID)
 }
 
-func (s *Session) checkTargetTooLow(msg Message) MessageRejectError {
+func (s *session) checkTargetTooLow(msg Message) MessageRejectError {
 	var seqNum FIXInt
 	switch err := msg.Header.GetField(tagMsgSeqNum, &seqNum); {
 	case err != nil:
@@ -352,7 +352,7 @@ func (s *Session) checkTargetTooLow(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *Session) checkTargetTooHigh(msg Message) MessageRejectError {
+func (s *session) checkTargetTooHigh(msg Message) MessageRejectError {
 	var seqNum FIXInt
 	switch err := msg.Header.GetField(tagMsgSeqNum, &seqNum); {
 	case err != nil:
@@ -364,7 +364,7 @@ func (s *Session) checkTargetTooHigh(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *Session) checkCompID(msg Message) MessageRejectError {
+func (s *session) checkCompID(msg Message) MessageRejectError {
 	var senderCompID FIXString
 	var targetCompID FIXString
 
@@ -387,7 +387,7 @@ func (s *Session) checkCompID(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *Session) checkSendingTime(msg Message) MessageRejectError {
+func (s *session) checkSendingTime(msg Message) MessageRejectError {
 	if ok := msg.Header.Has(tagSendingTime); !ok {
 		return requiredTagMissing(tagSendingTime)
 	}
@@ -404,7 +404,7 @@ func (s *Session) checkSendingTime(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *Session) checkBeginString(msg Message) MessageRejectError {
+func (s *session) checkBeginString(msg Message) MessageRejectError {
 	var beginString FIXString
 	switch err := msg.Header.GetField(tagBeginString, &beginString); {
 	case err != nil:
@@ -416,7 +416,7 @@ func (s *Session) checkBeginString(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *Session) doReject(msg Message, rej MessageRejectError) {
+func (s *session) doReject(msg Message, rej MessageRejectError) {
 	reply := msg.reverseRoute()
 
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
@@ -467,7 +467,7 @@ type fixIn struct {
 	receiveTime time.Time
 }
 
-func (s *Session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
+func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.messageOut = msgOut
 	defer func() {
 		close(s.messageOut)

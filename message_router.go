@@ -47,7 +47,7 @@ func (c MessageRouter) tryRoute(beginString FIXString, msgType FIXString, msg Me
 	if string(beginString) == enum.BeginStringFIXT11 && !isAdminMessageType(string(msgType)) {
 		var applVerID FIXString
 		if err := msg.Header.GetField(tagApplVerID, &applVerID); err != nil {
-			session, _ := LookupSession(sessionID)
+			session, _ := lookupSession(sessionID)
 			applVerID = FIXString(session.TargetDefaultApplicationVersionID())
 		}
 
