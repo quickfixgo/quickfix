@@ -159,7 +159,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 		t.Error("Expected error")
 	}
 	if err.RejectReason() != rejectReasonRequiredTagMissing {
-		t.Error("Reject reason not expected, got ", err.RejectReason)
+		t.Error("Reject reason not expected, got ", err.RejectReason())
 	}
 
 	//sending time too late
@@ -173,7 +173,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 		t.Error("Expected error")
 	}
 	if err.RejectReason() != rejectReasonSendingTimeAccuracyProblem {
-		t.Error("Reject reason not expected, got ", err.RejectReason)
+		t.Error("Reject reason not expected, got ", err.RejectReason())
 	}
 
 	//future sending time
@@ -187,7 +187,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 		t.Error("Expected error")
 	}
 	if err.RejectReason() != rejectReasonSendingTimeAccuracyProblem {
-		t.Error("Reject reason not expected, got ", err.RejectReason)
+		t.Error("Reject reason not expected, got ", err.RejectReason())
 	}
 
 	//sending time ok
