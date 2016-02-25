@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/enum"
+	"sync"
 	"time"
 )
 
@@ -16,11 +17,15 @@ type session struct {
 	sessionID SessionID
 
 	messageOut chan []byte
-	toSend     chan Message
 
-	sessionEvent            chan event
-	application             Application
-	currentState            sessionState
+	//application messages are queued up to be sent during the run loop.
+	toSend []Message
+	//mutex for access to toSend
+	sendMutex sync.Mutex
+
+	sessionEvent chan event
+	application  Application
+	sessionState
 	stateTimer              eventTimer
 	peerTimer               eventTimer
 	messageStash            map[int]Message
@@ -95,12 +100,10 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 		return err
 	}
 
-	session.toSend = make(chan Message)
 	session.sessionEvent = make(chan event)
 	session.application = application
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
-
 	application.OnCreate(session.sessionID)
 	sessions.newSession <- session
 
@@ -109,7 +112,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 
 //kicks off session as an initiator
 func (s *session) initiate(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
-	s.currentState = logonState{}
+	s.sessionState = logonState{}
 	s.messageStash = make(map[int]Message)
 	s.initiateLogon = true
 
@@ -118,7 +121,7 @@ func (s *session) initiate(msgIn chan fixIn, msgOut chan []byte, quit chan bool)
 
 //kicks off session as an acceptor
 func (s *session) accept(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
-	s.currentState = logonState{}
+	s.sessionState = logonState{}
 	s.messageStash = make(map[int]Message)
 
 	s.run(msgIn, msgOut, quit)
@@ -161,6 +164,30 @@ func (s *session) resend(msg Message) {
 	s.sendBytes(msg.rawMessage)
 }
 
+//queueForSend will queue up a message to be sent by the session during the next iteration of the run loop
+func (s *session) queueForSend(msg Message) {
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
+	s.toSend = append(s.toSend, msg)
+}
+
+//sends queued messages if session is logged on
+func (s *session) sendQueued() {
+	if !s.IsLoggedOn() {
+		return
+	}
+
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
+
+	for _, msg := range s.toSend {
+		s.send(msg)
+	}
+
+	s.toSend = s.toSend[:0]
+}
+
+//send should NOT be called outside of the run loop
 func (s *session) send(msg Message) {
 	s.fillDefaultHeader(msg)
 
@@ -183,7 +210,6 @@ func (s *session) send(msg Message) {
 }
 
 func (s *session) sendBytes(msg []byte) {
-
 	s.log.OnOutgoing(string(msg))
 	s.messageOut <- msg
 	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
@@ -469,13 +495,13 @@ type fixIn struct {
 
 func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.messageOut = msgOut
+
 	defer func() {
 		close(s.messageOut)
 		s.onDisconnect()
 	}()
 
 	if s.initiateLogon {
-
 		if s.resetOnLogon {
 			s.store.Reset()
 		}
@@ -500,10 +526,12 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 
 	for {
 
-		switch s.currentState.(type) {
+		switch s.sessionState.(type) {
 		case latentState:
 			return
 		}
+
+		s.sendQueued()
 
 		select {
 		case fixIn, ok := <-msgIn:
@@ -513,21 +541,18 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
 					msg.ReceiveTime = fixIn.receiveTime
-					s.currentState = s.currentState.FixMsgIn(s, msg)
+					s.sessionState = s.FixMsgIn(s, msg)
 				}
 			} else {
 				return
 			}
 			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
 
-		case msg := <-s.toSend:
-			s.send(msg)
-
 		case <-quit:
 			return
 
 		case evt := <-s.sessionEvent:
-			s.currentState = s.currentState.Timeout(s, evt)
+			s.sessionState = s.Timeout(s, evt)
 		}
 	}
 }

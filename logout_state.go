@@ -3,6 +3,9 @@ package quickfix
 type logoutState struct {
 }
 
+func (state logoutState) String() string { return "Logout State" }
+func (s logoutState) IsLoggedOn() bool   { return false }
+
 func (state logoutState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	return state
 }

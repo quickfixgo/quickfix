@@ -8,6 +8,9 @@ import (
 type inSession struct {
 }
 
+func (state inSession) String() string   { return "In Session" }
+func (state inSession) IsLoggedOn() bool { return true }
+
 func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
@@ -196,7 +199,7 @@ func (state inSession) processReject(session *session, msg Message, rej MessageR
 	switch TypedError := rej.(type) {
 	case targetTooHigh:
 
-		switch session.currentState.(type) {
+		switch session.sessionState.(type) {
 		default:
 			session.doTargetTooHigh(TypedError)
 		case resendState:

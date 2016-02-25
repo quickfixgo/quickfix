@@ -8,8 +8,7 @@ func (state resendState) FixMsgIn(session *session, msg Message) (nextState sess
 	for ok := true; ok; {
 		nextState = state.inSession.FixMsgIn(session, msg)
 
-		switch nextState.(type) {
-		case logoutState, latentState, resendState:
+		if !nextState.IsLoggedOn() {
 			return
 		}
 
