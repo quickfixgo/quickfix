@@ -16,6 +16,8 @@ func (t *eventTimer) Reset(timeout time.Duration) (ok bool) {
 		ok = true
 	}
 
-	t.timer = time.AfterFunc(timeout, t.Task)
+	if t.Task != nil {
+		t.timer = time.AfterFunc(timeout, t.Task)
+	}
 	return
 }

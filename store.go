@@ -64,14 +64,18 @@ func (store *memoryStore) Reset() {
 	store.senderMsgSeqNum = 0
 	store.targetMsgSeqNum = 0
 	store.creationTime = time.Now()
-	store.messageMap = make(map[int][]byte)
+	store.messageMap = nil
 }
 
 func (store *memoryStore) Refresh() {
 	//nop, nothing to refresh
 }
 
-func (store memoryStore) SaveMessage(seqNum int, msg []byte) {
+func (store *memoryStore) SaveMessage(seqNum int, msg []byte) {
+	if store.messageMap == nil {
+		store.messageMap = make(map[int][]byte)
+	}
+
 	store.messageMap[seqNum] = msg
 }
 
@@ -93,7 +97,9 @@ func (store memoryStore) GetMessages(beginSeqNum, endSeqNum int) chan []byte {
 type memoryStoreFactory struct{}
 
 func (f memoryStoreFactory) Create(sessionID SessionID) (MessageStore, error) {
-	return &memoryStore{messageMap: make(map[int][]byte)}, nil
+	var m memoryStore
+	m.Reset()
+	return &m, nil
 }
 
 //NewMemoryStoreFactory returns a MessageStoreFactory instance that created in-memory MessageStores

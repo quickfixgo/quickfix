@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bytes"
 	"testing"
+	"time"
 )
 
 func TestMemoryStore_IncMsgSeqNum(t *testing.T) {
@@ -97,6 +98,20 @@ func TestMemoryStore_GetMessages(t *testing.T) {
 
 			expected = expected[1:]
 		}
+	}
+}
+
+func TestMemoryStoreFactory_Create(t *testing.T) {
+	t0 := time.Now()
+	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+	t1 := time.Now()
+
+	if store.CreationTime().Before(t0) {
+		t.Errorf("Expected %v to be before %v", t0, store.CreationTime())
+	}
+
+	if store.CreationTime().After(t1) {
+		t.Errorf("Expected %v to be after %v", t1, store.CreationTime())
 	}
 }
 

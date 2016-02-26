@@ -2,6 +2,9 @@ package quickfix
 
 type logonState struct{}
 
+func (state logonState) String() string { return "Logon State" }
+func (s logonState) IsLoggedOn() bool   { return false }
+
 func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil && string(msgType) == "A" {
