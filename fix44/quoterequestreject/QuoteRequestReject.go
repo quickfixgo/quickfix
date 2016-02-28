@@ -90,6 +90,33 @@ type NoRelatedSym struct {
 	Parties parties.Component
 }
 
+func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
+func (m *NoRelatedSym) SetPrevClosePx(v float64)                   { m.PrevClosePx = &v }
+func (m *NoRelatedSym) SetQuoteRequestType(v int)                  { m.QuoteRequestType = &v }
+func (m *NoRelatedSym) SetQuoteType(v int)                         { m.QuoteType = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)               { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)            { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetTradeOriginationDate(v string)           { m.TradeOriginationDate = &v }
+func (m *NoRelatedSym) SetSide(v string)                           { m.Side = &v }
+func (m *NoRelatedSym) SetQtyType(v int)                           { m.QtyType = &v }
+func (m *NoRelatedSym) SetSettlType(v string)                      { m.SettlType = &v }
+func (m *NoRelatedSym) SetSettlDate(v string)                      { m.SettlDate = &v }
+func (m *NoRelatedSym) SetSettlDate2(v string)                     { m.SettlDate2 = &v }
+func (m *NoRelatedSym) SetOrderQty2(v float64)                     { m.OrderQty2 = &v }
+func (m *NoRelatedSym) SetCurrency(v string)                       { m.Currency = &v }
+func (m *NoRelatedSym) SetAccount(v string)                        { m.Account = &v }
+func (m *NoRelatedSym) SetAcctIDSource(v int)                      { m.AcctIDSource = &v }
+func (m *NoRelatedSym) SetAccountType(v int)                       { m.AccountType = &v }
+func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                       { m.NoLegs = v }
+func (m *NoRelatedSym) SetNoQuoteQualifiers(v []NoQuoteQualifiers) { m.NoQuoteQualifiers = v }
+func (m *NoRelatedSym) SetQuotePriceType(v int)                    { m.QuotePriceType = &v }
+func (m *NoRelatedSym) SetOrdType(v string)                        { m.OrdType = &v }
+func (m *NoRelatedSym) SetExpireTime(v time.Time)                  { m.ExpireTime = &v }
+func (m *NoRelatedSym) SetTransactTime(v time.Time)                { m.TransactTime = &v }
+func (m *NoRelatedSym) SetPriceType(v int)                         { m.PriceType = &v }
+func (m *NoRelatedSym) SetPrice(v float64)                         { m.Price = &v }
+func (m *NoRelatedSym) SetPrice2(v float64)                        { m.Price2 = &v }
+
 //NoUnderlyings is a repeating group in NoRelatedSym
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
@@ -116,11 +143,18 @@ type NoLegs struct {
 	LegBenchmarkCurveData legbenchmarkcurvedata.Component
 }
 
+func (m *NoLegs) SetLegQty(v float64)      { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)     { m.LegSwapType = &v }
+func (m *NoLegs) SetLegSettlType(v string) { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string) { m.LegSettlDate = &v }
+
 //NoQuoteQualifiers is a repeating group in NoRelatedSym
 type NoQuoteQualifiers struct {
 	//QuoteQualifier is a non-required field for NoQuoteQualifiers.
 	QuoteQualifier *string `fix:"695"`
 }
+
+func (m *NoQuoteQualifiers) SetQuoteQualifier(v string) { m.QuoteQualifier = &v }
 
 //Message is a QuoteRequestReject FIX Message
 type Message struct {
@@ -145,6 +179,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetQuoteReqID(v string)            { m.QuoteReqID = v }
+func (m *Message) SetRFQReqID(v string)              { m.RFQReqID = &v }
+func (m *Message) SetQuoteRequestRejectReason(v int) { m.QuoteRequestRejectReason = v }
+func (m *Message) SetNoRelatedSym(v []NoRelatedSym)  { m.NoRelatedSym = v }
+func (m *Message) SetText(v string)                  { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)           { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)           { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

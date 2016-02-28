@@ -35,6 +35,15 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoRelatedSym) SetCurrency(v string)            { m.Currency = &v }
+func (m *NoRelatedSym) SetExpirationCycle(v int)        { m.ExpirationCycle = &v }
+func (m *NoRelatedSym) SetNoLegs(v []NoLegs)            { m.NoLegs = v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetText(v string)                { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)         { m.EncodedText = &v }
+
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
 	//InstrumentLeg Component
@@ -64,6 +73,13 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = v }
+func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = v }
+func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = v }
+func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
+func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

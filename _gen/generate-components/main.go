@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"github.com/quickfixgo/quickfix/_gen"
@@ -158,7 +159,7 @@ func genComponentImports() (fileOut string) {
 	}
 
 	fileOut += "import(\n"
-	for i, _ := range imports {
+	for i := range imports {
 		fileOut += fmt.Sprintf("\"%v\"\n", i)
 	}
 	fileOut += ")\n"
@@ -225,6 +226,12 @@ func genHeader(header *datadictionary.MessageDef) {
 	fileOut += genComponentImports()
 	fileOut += delayOut
 
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, "Header", header.FieldsInDeclarationOrder); err != nil {
+		panic(err)
+	}
+	fileOut += writer.String()
+
 	gen.WriteFile(path.Join(pkg, "header.go"), fileOut)
 }
 
@@ -237,6 +244,12 @@ func genTrailer(trailer *datadictionary.MessageDef) {
 		fileOut += writeField(field, "Trailer")
 	}
 	fileOut += "}\n"
+
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, "Trailer", trailer.FieldsInDeclarationOrder); err != nil {
+		panic(err)
+	}
+	fileOut += writer.String()
 
 	gen.WriteFile(path.Join(pkg, "trailer.go"), fileOut)
 }
@@ -258,7 +271,18 @@ func genComponent(name string, component *datadictionary.Component) {
 	fileOut += delayOut
 	fileOut += "func New() *Component { return new(Component)}\n"
 
+	fileOut += genComponentSetters(component)
+
 	gen.WriteFile(path.Join(pkg, strings.ToLower(name), name+".go"), fileOut)
+}
+
+func genComponentSetters(component *datadictionary.Component) string {
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, "Component", component.Fields); err != nil {
+		panic(err)
+	}
+
+	return writer.String()
 }
 
 func main() {

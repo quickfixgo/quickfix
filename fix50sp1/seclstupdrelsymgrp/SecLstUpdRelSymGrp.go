@@ -54,3 +54,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

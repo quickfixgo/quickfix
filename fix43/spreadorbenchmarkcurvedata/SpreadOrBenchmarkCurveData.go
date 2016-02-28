@@ -13,3 +13,8 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetSpread(v float64)                { m.Spread = &v }
+func (m *Component) SetBenchmarkCurveCurrency(v string) { m.BenchmarkCurveCurrency = &v }
+func (m *Component) SetBenchmarkCurveName(v string)     { m.BenchmarkCurveName = &v }
+func (m *Component) SetBenchmarkCurvePoint(v string)    { m.BenchmarkCurvePoint = &v }

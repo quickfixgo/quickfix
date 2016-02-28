@@ -13,3 +13,8 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetCommission(v float64)   { m.Commission = &v }
+func (m *Component) SetCommType(v string)      { m.CommType = &v }
+func (m *Component) SetCommCurrency(v string)  { m.CommCurrency = &v }
+func (m *Component) SetFundRenewWaiv(v string) { m.FundRenewWaiv = &v }

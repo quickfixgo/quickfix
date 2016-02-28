@@ -17,3 +17,10 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetYieldType(v string)             { m.YieldType = &v }
+func (m *Component) SetYield(v float64)                { m.Yield = &v }
+func (m *Component) SetYieldCalcDate(v string)         { m.YieldCalcDate = &v }
+func (m *Component) SetYieldRedemptionDate(v string)   { m.YieldRedemptionDate = &v }
+func (m *Component) SetYieldRedemptionPrice(v float64) { m.YieldRedemptionPrice = &v }
+func (m *Component) SetYieldRedemptionPriceType(v int) { m.YieldRedemptionPriceType = &v }

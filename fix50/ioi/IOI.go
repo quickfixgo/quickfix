@@ -85,6 +85,24 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetIOIID(v string)             { m.IOIID = v }
+func (m *Message) SetIOITransType(v string)      { m.IOITransType = v }
+func (m *Message) SetIOIRefID(v string)          { m.IOIRefID = &v }
+func (m *Message) SetSide(v string)              { m.Side = v }
+func (m *Message) SetQtyType(v int)              { m.QtyType = &v }
+func (m *Message) SetIOIQty(v string)            { m.IOIQty = v }
+func (m *Message) SetCurrency(v string)          { m.Currency = &v }
+func (m *Message) SetPriceType(v int)            { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)            { m.Price = &v }
+func (m *Message) SetValidUntilTime(v time.Time) { m.ValidUntilTime = &v }
+func (m *Message) SetIOIQltyInd(v string)        { m.IOIQltyInd = &v }
+func (m *Message) SetIOINaturalFlag(v bool)      { m.IOINaturalFlag = &v }
+func (m *Message) SetText(v string)              { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)       { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)       { m.EncodedText = &v }
+func (m *Message) SetTransactTime(v time.Time)   { m.TransactTime = &v }
+func (m *Message) SetURLLink(v string)           { m.URLLink = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

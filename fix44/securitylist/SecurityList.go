@@ -55,6 +55,18 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
+func (m *NoRelatedSym) SetCurrency(v string)               { m.Currency = &v }
+func (m *NoRelatedSym) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
+func (m *NoRelatedSym) SetRoundLot(v float64)              { m.RoundLot = &v }
+func (m *NoRelatedSym) SetMinTradeVol(v float64)           { m.MinTradeVol = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)       { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetExpirationCycle(v int)           { m.ExpirationCycle = &v }
+func (m *NoRelatedSym) SetText(v string)                   { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)            { m.EncodedText = &v }
+
 //NoUnderlyings is a repeating group in NoRelatedSym
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
@@ -74,6 +86,9 @@ type NoLegs struct {
 	//LegBenchmarkCurveData Component
 	LegBenchmarkCurveData legbenchmarkcurvedata.Component
 }
+
+func (m *NoLegs) SetLegSwapType(v int)     { m.LegSwapType = &v }
+func (m *NoLegs) SetLegSettlType(v string) { m.LegSettlType = &v }
 
 //Message is a SecurityList FIX Message
 type Message struct {
@@ -96,6 +111,13 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = v }
+func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = v }
+func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = v }
+func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
+func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

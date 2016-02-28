@@ -15,3 +15,9 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetOrderQty(v float64)         { m.OrderQty = &v }
+func (m *Component) SetCashOrderQty(v float64)     { m.CashOrderQty = &v }
+func (m *Component) SetOrderPercent(v float64)     { m.OrderPercent = &v }
+func (m *Component) SetRoundingDirection(v string) { m.RoundingDirection = &v }
+func (m *Component) SetRoundingModulus(v float64)  { m.RoundingModulus = &v }

@@ -42,6 +42,16 @@ type NoLegs struct {
 	LegLastPx *float64 `fix:"637"`
 }
 
+func (m *NoLegs) SetLegQty(v float64)            { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)           { m.LegSwapType = &v }
+func (m *NoLegs) SetLegPositionEffect(v string)  { m.LegPositionEffect = &v }
+func (m *NoLegs) SetLegCoveredOrUncovered(v int) { m.LegCoveredOrUncovered = &v }
+func (m *NoLegs) SetLegRefID(v string)           { m.LegRefID = &v }
+func (m *NoLegs) SetLegPrice(v float64)          { m.LegPrice = &v }
+func (m *NoLegs) SetLegSettlType(v string)       { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string)       { m.LegSettlDate = &v }
+func (m *NoLegs) SetLegLastPx(v float64)         { m.LegLastPx = &v }
+
 //NoAllocs is a repeating group in TradeCaptureReportAck
 type NoAllocs struct {
 	//AllocAccount is a non-required field for NoAllocs.
@@ -57,6 +67,12 @@ type NoAllocs struct {
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
+
+func (m *NoAllocs) SetAllocAccount(v string)       { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)     { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetAllocSettlCurrency(v string) { m.AllocSettlCurrency = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)  { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetAllocQty(v float64)          { m.AllocQty = &v }
 
 //Message is a TradeCaptureReportAck FIX Message
 type Message struct {
@@ -141,6 +157,42 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTradeReportID(v string)             { m.TradeReportID = v }
+func (m *Message) SetTradeReportTransType(v int)         { m.TradeReportTransType = &v }
+func (m *Message) SetTradeReportType(v int)              { m.TradeReportType = &v }
+func (m *Message) SetTrdType(v int)                      { m.TrdType = &v }
+func (m *Message) SetTrdSubType(v int)                   { m.TrdSubType = &v }
+func (m *Message) SetSecondaryTrdType(v int)             { m.SecondaryTrdType = &v }
+func (m *Message) SetTransferReason(v string)            { m.TransferReason = &v }
+func (m *Message) SetExecType(v string)                  { m.ExecType = v }
+func (m *Message) SetTradeReportRefID(v string)          { m.TradeReportRefID = &v }
+func (m *Message) SetSecondaryTradeReportRefID(v string) { m.SecondaryTradeReportRefID = &v }
+func (m *Message) SetTrdRptStatus(v int)                 { m.TrdRptStatus = &v }
+func (m *Message) SetTradeReportRejectReason(v int)      { m.TradeReportRejectReason = &v }
+func (m *Message) SetSecondaryTradeReportID(v string)    { m.SecondaryTradeReportID = &v }
+func (m *Message) SetSubscriptionRequestType(v string)   { m.SubscriptionRequestType = &v }
+func (m *Message) SetTradeLinkID(v string)               { m.TradeLinkID = &v }
+func (m *Message) SetTrdMatchID(v string)                { m.TrdMatchID = &v }
+func (m *Message) SetExecID(v string)                    { m.ExecID = &v }
+func (m *Message) SetSecondaryExecID(v string)           { m.SecondaryExecID = &v }
+func (m *Message) SetTransactTime(v time.Time)           { m.TransactTime = &v }
+func (m *Message) SetResponseTransportType(v int)        { m.ResponseTransportType = &v }
+func (m *Message) SetResponseDestination(v string)       { m.ResponseDestination = &v }
+func (m *Message) SetText(v string)                      { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)               { m.EncodedText = &v }
+func (m *Message) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
+func (m *Message) SetClearingFeeIndicator(v string)      { m.ClearingFeeIndicator = &v }
+func (m *Message) SetOrderCapacity(v string)             { m.OrderCapacity = &v }
+func (m *Message) SetOrderRestrictions(v string)         { m.OrderRestrictions = &v }
+func (m *Message) SetCustOrderCapacity(v int)            { m.CustOrderCapacity = &v }
+func (m *Message) SetAccount(v string)                   { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                 { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                  { m.AccountType = &v }
+func (m *Message) SetPositionEffect(v string)            { m.PositionEffect = &v }
+func (m *Message) SetPreallocMethod(v string)            { m.PreallocMethod = &v }
+func (m *Message) SetNoAllocs(v []NoAllocs)              { m.NoAllocs = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

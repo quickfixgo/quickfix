@@ -19,6 +19,9 @@ type NoRoutingIDs struct {
 	RoutingID *string `fix:"217"`
 }
 
+func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }
+func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
+
 //NoRelatedSym is a repeating group in News
 type NoRelatedSym struct {
 	//Instrument Component
@@ -46,6 +49,10 @@ type NoLinesOfText struct {
 	//EncodedText is a non-required field for NoLinesOfText.
 	EncodedText *string `fix:"355"`
 }
+
+func (m *NoLinesOfText) SetText(v string)        { m.Text = v }
+func (m *NoLinesOfText) SetEncodedTextLen(v int) { m.EncodedTextLen = &v }
+func (m *NoLinesOfText) SetEncodedText(v string) { m.EncodedText = &v }
 
 //Message is a News FIX Message
 type Message struct {
@@ -82,6 +89,20 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrigTime(v time.Time)            { m.OrigTime = &v }
+func (m *Message) SetUrgency(v string)                { m.Urgency = &v }
+func (m *Message) SetHeadline(v string)               { m.Headline = v }
+func (m *Message) SetEncodedHeadlineLen(v int)        { m.EncodedHeadlineLen = &v }
+func (m *Message) SetEncodedHeadline(v string)        { m.EncodedHeadline = &v }
+func (m *Message) SetNoRoutingIDs(v []NoRoutingIDs)   { m.NoRoutingIDs = v }
+func (m *Message) SetNoRelatedSym(v []NoRelatedSym)   { m.NoRelatedSym = v }
+func (m *Message) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
+func (m *Message) SetNoLinesOfText(v []NoLinesOfText) { m.NoLinesOfText = v }
+func (m *Message) SetURLLink(v string)                { m.URLLink = &v }
+func (m *Message) SetRawDataLength(v int)             { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)                { m.RawData = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

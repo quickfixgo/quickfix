@@ -11,3 +11,7 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetSecurityXMLLen(v int)       { m.SecurityXMLLen = &v }
+func (m *Component) SetSecurityXML(v string)       { m.SecurityXML = &v }
+func (m *Component) SetSecurityXMLSchema(v string) { m.SecurityXMLSchema = &v }

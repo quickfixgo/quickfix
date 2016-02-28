@@ -45,3 +45,22 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetUnderlyingLegSymbol(v string)           { m.UnderlyingLegSymbol = &v }
+func (m *Component) SetUnderlyingLegSymbolSfx(v string)        { m.UnderlyingLegSymbolSfx = &v }
+func (m *Component) SetUnderlyingLegSecurityID(v string)       { m.UnderlyingLegSecurityID = &v }
+func (m *Component) SetUnderlyingLegSecurityIDSource(v string) { m.UnderlyingLegSecurityIDSource = &v }
+func (m *Component) SetNoUnderlyingLegSecurityAltID(v []NoUnderlyingLegSecurityAltID) {
+	m.NoUnderlyingLegSecurityAltID = v
+}
+func (m *Component) SetUnderlyingLegCFICode(v string)           { m.UnderlyingLegCFICode = &v }
+func (m *Component) SetUnderlyingLegSecurityType(v string)      { m.UnderlyingLegSecurityType = &v }
+func (m *Component) SetUnderlyingLegSecuritySubType(v string)   { m.UnderlyingLegSecuritySubType = &v }
+func (m *Component) SetUnderlyingLegMaturityMonthYear(v string) { m.UnderlyingLegMaturityMonthYear = &v }
+func (m *Component) SetUnderlyingLegMaturityDate(v string)      { m.UnderlyingLegMaturityDate = &v }
+func (m *Component) SetUnderlyingLegMaturityTime(v string)      { m.UnderlyingLegMaturityTime = &v }
+func (m *Component) SetUnderlyingLegStrikePrice(v float64)      { m.UnderlyingLegStrikePrice = &v }
+func (m *Component) SetUnderlyingLegOptAttribute(v string)      { m.UnderlyingLegOptAttribute = &v }
+func (m *Component) SetUnderlyingLegPutOrCall(v int)            { m.UnderlyingLegPutOrCall = &v }
+func (m *Component) SetUnderlyingLegSecurityExchange(v string)  { m.UnderlyingLegSecurityExchange = &v }
+func (m *Component) SetUnderlyingLegSecurityDesc(v string)      { m.UnderlyingLegSecurityDesc = &v }

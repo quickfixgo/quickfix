@@ -13,3 +13,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoRequestedPartyRoles(v []NoRequestedPartyRoles) { m.NoRequestedPartyRoles = v }

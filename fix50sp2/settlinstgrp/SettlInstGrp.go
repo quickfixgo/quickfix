@@ -61,3 +61,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoSettlInst(v []NoSettlInst) { m.NoSettlInst = v }

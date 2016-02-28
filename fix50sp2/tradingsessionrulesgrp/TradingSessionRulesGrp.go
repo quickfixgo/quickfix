@@ -21,3 +21,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoTradingSessionRules(v []NoTradingSessionRules) { m.NoTradingSessionRules = v }

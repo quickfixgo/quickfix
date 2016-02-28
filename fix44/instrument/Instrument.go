@@ -109,3 +109,46 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetSymbol(v string)                     { m.Symbol = &v }
+func (m *Component) SetSymbolSfx(v string)                  { m.SymbolSfx = &v }
+func (m *Component) SetSecurityID(v string)                 { m.SecurityID = &v }
+func (m *Component) SetSecurityIDSource(v string)           { m.SecurityIDSource = &v }
+func (m *Component) SetNoSecurityAltID(v []NoSecurityAltID) { m.NoSecurityAltID = v }
+func (m *Component) SetProduct(v int)                       { m.Product = &v }
+func (m *Component) SetCFICode(v string)                    { m.CFICode = &v }
+func (m *Component) SetSecurityType(v string)               { m.SecurityType = &v }
+func (m *Component) SetSecuritySubType(v string)            { m.SecuritySubType = &v }
+func (m *Component) SetMaturityMonthYear(v string)          { m.MaturityMonthYear = &v }
+func (m *Component) SetMaturityDate(v string)               { m.MaturityDate = &v }
+func (m *Component) SetCouponPaymentDate(v string)          { m.CouponPaymentDate = &v }
+func (m *Component) SetIssueDate(v string)                  { m.IssueDate = &v }
+func (m *Component) SetRepoCollateralSecurityType(v int)    { m.RepoCollateralSecurityType = &v }
+func (m *Component) SetRepurchaseTerm(v int)                { m.RepurchaseTerm = &v }
+func (m *Component) SetRepurchaseRate(v float64)            { m.RepurchaseRate = &v }
+func (m *Component) SetFactor(v float64)                    { m.Factor = &v }
+func (m *Component) SetCreditRating(v string)               { m.CreditRating = &v }
+func (m *Component) SetInstrRegistry(v string)              { m.InstrRegistry = &v }
+func (m *Component) SetCountryOfIssue(v string)             { m.CountryOfIssue = &v }
+func (m *Component) SetStateOrProvinceOfIssue(v string)     { m.StateOrProvinceOfIssue = &v }
+func (m *Component) SetLocaleOfIssue(v string)              { m.LocaleOfIssue = &v }
+func (m *Component) SetRedemptionDate(v string)             { m.RedemptionDate = &v }
+func (m *Component) SetStrikePrice(v float64)               { m.StrikePrice = &v }
+func (m *Component) SetStrikeCurrency(v string)             { m.StrikeCurrency = &v }
+func (m *Component) SetOptAttribute(v string)               { m.OptAttribute = &v }
+func (m *Component) SetContractMultiplier(v float64)        { m.ContractMultiplier = &v }
+func (m *Component) SetCouponRate(v float64)                { m.CouponRate = &v }
+func (m *Component) SetSecurityExchange(v string)           { m.SecurityExchange = &v }
+func (m *Component) SetIssuer(v string)                     { m.Issuer = &v }
+func (m *Component) SetEncodedIssuerLen(v int)              { m.EncodedIssuerLen = &v }
+func (m *Component) SetEncodedIssuer(v string)              { m.EncodedIssuer = &v }
+func (m *Component) SetSecurityDesc(v string)               { m.SecurityDesc = &v }
+func (m *Component) SetEncodedSecurityDescLen(v int)        { m.EncodedSecurityDescLen = &v }
+func (m *Component) SetEncodedSecurityDesc(v string)        { m.EncodedSecurityDesc = &v }
+func (m *Component) SetPool(v string)                       { m.Pool = &v }
+func (m *Component) SetContractSettlMonth(v string)         { m.ContractSettlMonth = &v }
+func (m *Component) SetCPProgram(v int)                     { m.CPProgram = &v }
+func (m *Component) SetCPRegType(v string)                  { m.CPRegType = &v }
+func (m *Component) SetNoEvents(v []NoEvents)               { m.NoEvents = v }
+func (m *Component) SetDatedDate(v string)                  { m.DatedDate = &v }
+func (m *Component) SetInterestAccrualDate(v string)        { m.InterestAccrualDate = &v }

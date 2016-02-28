@@ -29,3 +29,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoBidComponents(v []NoBidComponents) { m.NoBidComponents = v }

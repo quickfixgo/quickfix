@@ -15,3 +15,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoUnderlyingStips(v []NoUnderlyingStips) { m.NoUnderlyingStips = v }

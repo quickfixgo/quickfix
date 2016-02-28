@@ -9,3 +9,6 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetYieldType(v string) { m.YieldType = &v }
+func (m *Component) SetYield(v float64)    { m.Yield = &v }

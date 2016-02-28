@@ -26,3 +26,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }

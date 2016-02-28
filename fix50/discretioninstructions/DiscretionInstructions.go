@@ -19,3 +19,11 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetDiscretionInst(v string)         { m.DiscretionInst = &v }
+func (m *Component) SetDiscretionOffsetValue(v float64) { m.DiscretionOffsetValue = &v }
+func (m *Component) SetDiscretionMoveType(v int)        { m.DiscretionMoveType = &v }
+func (m *Component) SetDiscretionOffsetType(v int)      { m.DiscretionOffsetType = &v }
+func (m *Component) SetDiscretionLimitType(v int)       { m.DiscretionLimitType = &v }
+func (m *Component) SetDiscretionRoundDirection(v int)  { m.DiscretionRoundDirection = &v }
+func (m *Component) SetDiscretionScope(v int)           { m.DiscretionScope = &v }

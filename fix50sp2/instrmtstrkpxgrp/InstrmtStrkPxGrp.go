@@ -38,3 +38,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoStrikes(v []NoStrikes) { m.NoStrikes = v }

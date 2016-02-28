@@ -50,3 +50,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoSettlOblig(v []NoSettlOblig) { m.NoSettlOblig = v }

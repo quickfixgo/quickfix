@@ -73,6 +73,29 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetPosMaintRptID(v string)           { m.PosMaintRptID = v }
+func (m *Message) SetPosReqID(v string)                { m.PosReqID = &v }
+func (m *Message) SetTotalNumPosReports(v int)         { m.TotalNumPosReports = &v }
+func (m *Message) SetUnsolicitedIndicator(v bool)      { m.UnsolicitedIndicator = &v }
+func (m *Message) SetPosReqResult(v int)               { m.PosReqResult = v }
+func (m *Message) SetPosReqStatus(v int)               { m.PosReqStatus = v }
+func (m *Message) SetAccount(v string)                 { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)               { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                { m.AccountType = &v }
+func (m *Message) SetCurrency(v string)                { m.Currency = &v }
+func (m *Message) SetResponseTransportType(v int)      { m.ResponseTransportType = &v }
+func (m *Message) SetResponseDestination(v string)     { m.ResponseDestination = &v }
+func (m *Message) SetText(v string)                    { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)             { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)             { m.EncodedText = &v }
+func (m *Message) SetPosReqType(v int)                 { m.PosReqType = &v }
+func (m *Message) SetMatchStatus(v string)             { m.MatchStatus = &v }
+func (m *Message) SetClearingBusinessDate(v string)    { m.ClearingBusinessDate = &v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
+func (m *Message) SetSettlSessID(v string)             { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)          { m.SettlSessSubID = &v }
+func (m *Message) SetSettlCurrency(v string)           { m.SettlCurrency = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

@@ -46,3 +46,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoLegs(v []NoLegs) { m.NoLegs = v }

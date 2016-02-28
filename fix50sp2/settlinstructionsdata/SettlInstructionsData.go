@@ -29,3 +29,9 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetSettlDeliveryType(v int)   { m.SettlDeliveryType = &v }
+func (m *Component) SetStandInstDbType(v int)     { m.StandInstDbType = &v }
+func (m *Component) SetStandInstDbName(v string)  { m.StandInstDbName = &v }
+func (m *Component) SetStandInstDbID(v string)    { m.StandInstDbID = &v }
+func (m *Component) SetNoDlvyInst(v []NoDlvyInst) { m.NoDlvyInst = v }

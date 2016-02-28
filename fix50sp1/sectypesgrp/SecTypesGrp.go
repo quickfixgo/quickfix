@@ -19,3 +19,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoSecurityTypes(v []NoSecurityTypes) { m.NoSecurityTypes = v }

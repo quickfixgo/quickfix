@@ -29,6 +29,14 @@ type NoRegistDtls struct {
 	InvestorCountryOfResidence *string `fix:"475"`
 }
 
+func (m *NoRegistDtls) SetRegistDtls(v string)                 { m.RegistDtls = &v }
+func (m *NoRegistDtls) SetRegistEmail(v string)                { m.RegistEmail = &v }
+func (m *NoRegistDtls) SetMailingDtls(v string)                { m.MailingDtls = &v }
+func (m *NoRegistDtls) SetMailingInst(v string)                { m.MailingInst = &v }
+func (m *NoRegistDtls) SetOwnerType(v int)                     { m.OwnerType = &v }
+func (m *NoRegistDtls) SetDateOfBirth(v string)                { m.DateOfBirth = &v }
+func (m *NoRegistDtls) SetInvestorCountryOfResidence(v string) { m.InvestorCountryOfResidence = &v }
+
 //NoDistribInsts is a repeating group in RegistrationInstructions
 type NoDistribInsts struct {
 	//DistribPaymentMethod is a non-required field for NoDistribInsts.
@@ -48,6 +56,15 @@ type NoDistribInsts struct {
 	//CashDistribAgentAcctName is a non-required field for NoDistribInsts.
 	CashDistribAgentAcctName *string `fix:"502"`
 }
+
+func (m *NoDistribInsts) SetDistribPaymentMethod(v int)          { m.DistribPaymentMethod = &v }
+func (m *NoDistribInsts) SetDistribPercentage(v float64)         { m.DistribPercentage = &v }
+func (m *NoDistribInsts) SetCashDistribCurr(v string)            { m.CashDistribCurr = &v }
+func (m *NoDistribInsts) SetCashDistribAgentName(v string)       { m.CashDistribAgentName = &v }
+func (m *NoDistribInsts) SetCashDistribAgentCode(v string)       { m.CashDistribAgentCode = &v }
+func (m *NoDistribInsts) SetCashDistribAgentAcctNumber(v string) { m.CashDistribAgentAcctNumber = &v }
+func (m *NoDistribInsts) SetCashDistribPayRef(v string)          { m.CashDistribPayRef = &v }
+func (m *NoDistribInsts) SetCashDistribAgentAcctName(v string)   { m.CashDistribAgentAcctName = &v }
 
 //Message is a RegistrationInstructions FIX Message
 type Message struct {
@@ -82,6 +99,18 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetRegistID(v string)                 { m.RegistID = v }
+func (m *Message) SetRegistTransType(v string)          { m.RegistTransType = v }
+func (m *Message) SetRegistRefID(v string)              { m.RegistRefID = v }
+func (m *Message) SetClOrdID(v string)                  { m.ClOrdID = &v }
+func (m *Message) SetAccount(v string)                  { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                { m.AcctIDSource = &v }
+func (m *Message) SetRegistAcctType(v string)           { m.RegistAcctType = &v }
+func (m *Message) SetTaxAdvantageType(v int)            { m.TaxAdvantageType = &v }
+func (m *Message) SetOwnershipType(v string)            { m.OwnershipType = &v }
+func (m *Message) SetNoRegistDtls(v []NoRegistDtls)     { m.NoRegistDtls = v }
+func (m *Message) SetNoDistribInsts(v []NoDistribInsts) { m.NoDistribInsts = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

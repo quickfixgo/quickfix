@@ -19,3 +19,7 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetDeliveryForm(v int)              { m.DeliveryForm = &v }
+func (m *Component) SetPctAtRisk(v float64)             { m.PctAtRisk = &v }
+func (m *Component) SetNoInstrAttrib(v []NoInstrAttrib) { m.NoInstrAttrib = v }

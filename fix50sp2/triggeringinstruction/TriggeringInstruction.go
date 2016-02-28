@@ -35,3 +35,19 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetTriggerType(v string)                { m.TriggerType = &v }
+func (m *Component) SetTriggerAction(v string)              { m.TriggerAction = &v }
+func (m *Component) SetTriggerPrice(v float64)              { m.TriggerPrice = &v }
+func (m *Component) SetTriggerSymbol(v string)              { m.TriggerSymbol = &v }
+func (m *Component) SetTriggerSecurityID(v string)          { m.TriggerSecurityID = &v }
+func (m *Component) SetTriggerSecurityIDSource(v string)    { m.TriggerSecurityIDSource = &v }
+func (m *Component) SetTriggerSecurityDesc(v string)        { m.TriggerSecurityDesc = &v }
+func (m *Component) SetTriggerPriceType(v string)           { m.TriggerPriceType = &v }
+func (m *Component) SetTriggerPriceTypeScope(v string)      { m.TriggerPriceTypeScope = &v }
+func (m *Component) SetTriggerPriceDirection(v string)      { m.TriggerPriceDirection = &v }
+func (m *Component) SetTriggerNewPrice(v float64)           { m.TriggerNewPrice = &v }
+func (m *Component) SetTriggerOrderType(v string)           { m.TriggerOrderType = &v }
+func (m *Component) SetTriggerNewQty(v float64)             { m.TriggerNewQty = &v }
+func (m *Component) SetTriggerTradingSessionID(v string)    { m.TriggerTradingSessionID = &v }
+func (m *Component) SetTriggerTradingSessionSubID(v string) { m.TriggerTradingSessionSubID = &v }

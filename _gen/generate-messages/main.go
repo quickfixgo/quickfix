@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"github.com/quickfixgo/quickfix/_gen"
@@ -47,7 +48,7 @@ import(
 `
 	fileOut += fmt.Sprintf("\"github.com/quickfixgo/quickfix/%v\"\n", headerTrailerPkg())
 
-	for i, _ := range imports {
+	for i := range imports {
 		fileOut += fmt.Sprintf("\"%v\"\n", i)
 	}
 	fileOut += ")\n"
@@ -172,6 +173,13 @@ func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut
 
 	fileOut += "}\n"
 
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, field.Name, field.ChildFields); err != nil {
+		panic(err)
+	}
+	fileOut += writer.String()
+	fileOut += "\n"
+
 	return
 }
 
@@ -231,6 +239,14 @@ func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary
 	return fileOut
 }
 
+func genMessageSetters(msg *datadictionary.MessageDef) string {
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, "Message", msg.FieldsInDeclarationOrder); err != nil {
+		panic(err)
+	}
+	return writer.String()
+}
+
 func genMessageRoute(msg *datadictionary.MessageDef) string {
 	var beginStringEnum string
 	if fixSpec.FIXType == "FIXT" {
@@ -284,6 +300,7 @@ func genMessagePkg(msg *datadictionary.MessageDef) {
 
 	fileOut += genMessageImports()
 	fileOut += delayOut
+	fileOut += genMessageSetters(msg)
 	fileOut += genMessageRoute(msg)
 
 	gen.WriteFile(path.Join(pkg, strings.ToLower(msg.Name), msg.Name+".go"), fileOut)

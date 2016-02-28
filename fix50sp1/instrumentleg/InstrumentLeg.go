@@ -117,3 +117,56 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetLegSymbol(v string)                        { m.LegSymbol = &v }
+func (m *Component) SetLegSymbolSfx(v string)                     { m.LegSymbolSfx = &v }
+func (m *Component) SetLegSecurityID(v string)                    { m.LegSecurityID = &v }
+func (m *Component) SetLegSecurityIDSource(v string)              { m.LegSecurityIDSource = &v }
+func (m *Component) SetNoLegSecurityAltID(v []NoLegSecurityAltID) { m.NoLegSecurityAltID = v }
+func (m *Component) SetLegProduct(v int)                          { m.LegProduct = &v }
+func (m *Component) SetLegCFICode(v string)                       { m.LegCFICode = &v }
+func (m *Component) SetLegSecurityType(v string)                  { m.LegSecurityType = &v }
+func (m *Component) SetLegSecuritySubType(v string)               { m.LegSecuritySubType = &v }
+func (m *Component) SetLegMaturityMonthYear(v string)             { m.LegMaturityMonthYear = &v }
+func (m *Component) SetLegMaturityDate(v string)                  { m.LegMaturityDate = &v }
+func (m *Component) SetLegCouponPaymentDate(v string)             { m.LegCouponPaymentDate = &v }
+func (m *Component) SetLegIssueDate(v string)                     { m.LegIssueDate = &v }
+func (m *Component) SetLegRepoCollateralSecurityType(v int)       { m.LegRepoCollateralSecurityType = &v }
+func (m *Component) SetLegRepurchaseTerm(v int)                   { m.LegRepurchaseTerm = &v }
+func (m *Component) SetLegRepurchaseRate(v float64)               { m.LegRepurchaseRate = &v }
+func (m *Component) SetLegFactor(v float64)                       { m.LegFactor = &v }
+func (m *Component) SetLegCreditRating(v string)                  { m.LegCreditRating = &v }
+func (m *Component) SetLegInstrRegistry(v string)                 { m.LegInstrRegistry = &v }
+func (m *Component) SetLegCountryOfIssue(v string)                { m.LegCountryOfIssue = &v }
+func (m *Component) SetLegStateOrProvinceOfIssue(v string)        { m.LegStateOrProvinceOfIssue = &v }
+func (m *Component) SetLegLocaleOfIssue(v string)                 { m.LegLocaleOfIssue = &v }
+func (m *Component) SetLegRedemptionDate(v string)                { m.LegRedemptionDate = &v }
+func (m *Component) SetLegStrikePrice(v float64)                  { m.LegStrikePrice = &v }
+func (m *Component) SetLegStrikeCurrency(v string)                { m.LegStrikeCurrency = &v }
+func (m *Component) SetLegOptAttribute(v string)                  { m.LegOptAttribute = &v }
+func (m *Component) SetLegContractMultiplier(v float64)           { m.LegContractMultiplier = &v }
+func (m *Component) SetLegCouponRate(v float64)                   { m.LegCouponRate = &v }
+func (m *Component) SetLegSecurityExchange(v string)              { m.LegSecurityExchange = &v }
+func (m *Component) SetLegIssuer(v string)                        { m.LegIssuer = &v }
+func (m *Component) SetEncodedLegIssuerLen(v int)                 { m.EncodedLegIssuerLen = &v }
+func (m *Component) SetEncodedLegIssuer(v string)                 { m.EncodedLegIssuer = &v }
+func (m *Component) SetLegSecurityDesc(v string)                  { m.LegSecurityDesc = &v }
+func (m *Component) SetEncodedLegSecurityDescLen(v int)           { m.EncodedLegSecurityDescLen = &v }
+func (m *Component) SetEncodedLegSecurityDesc(v string)           { m.EncodedLegSecurityDesc = &v }
+func (m *Component) SetLegRatioQty(v float64)                     { m.LegRatioQty = &v }
+func (m *Component) SetLegSide(v string)                          { m.LegSide = &v }
+func (m *Component) SetLegCurrency(v string)                      { m.LegCurrency = &v }
+func (m *Component) SetLegPool(v string)                          { m.LegPool = &v }
+func (m *Component) SetLegDatedDate(v string)                     { m.LegDatedDate = &v }
+func (m *Component) SetLegContractSettlMonth(v string)            { m.LegContractSettlMonth = &v }
+func (m *Component) SetLegInterestAccrualDate(v string)           { m.LegInterestAccrualDate = &v }
+func (m *Component) SetLegUnitOfMeasure(v string)                 { m.LegUnitOfMeasure = &v }
+func (m *Component) SetLegTimeUnit(v string)                      { m.LegTimeUnit = &v }
+func (m *Component) SetLegOptionRatio(v float64)                  { m.LegOptionRatio = &v }
+func (m *Component) SetLegPrice(v float64)                        { m.LegPrice = &v }
+func (m *Component) SetLegMaturityTime(v string)                  { m.LegMaturityTime = &v }
+func (m *Component) SetLegPutOrCall(v int)                        { m.LegPutOrCall = &v }
+func (m *Component) SetLegExerciseStyle(v int)                    { m.LegExerciseStyle = &v }
+func (m *Component) SetLegUnitOfMeasureQty(v float64)             { m.LegUnitOfMeasureQty = &v }
+func (m *Component) SetLegPriceUnitOfMeasure(v string)            { m.LegPriceUnitOfMeasure = &v }
+func (m *Component) SetLegPriceUnitOfMeasureQty(v float64)        { m.LegPriceUnitOfMeasureQty = &v }

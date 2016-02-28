@@ -173,6 +173,73 @@ type NoOrders struct {
 	Designation *string `fix:"494"`
 }
 
+func (m *NoOrders) SetClOrdID(v string)                        { m.ClOrdID = v }
+func (m *NoOrders) SetSecondaryClOrdID(v string)               { m.SecondaryClOrdID = &v }
+func (m *NoOrders) SetListSeqNo(v int)                         { m.ListSeqNo = v }
+func (m *NoOrders) SetClOrdLinkID(v string)                    { m.ClOrdLinkID = &v }
+func (m *NoOrders) SetSettlInstMode(v string)                  { m.SettlInstMode = &v }
+func (m *NoOrders) SetTradeOriginationDate(v string)           { m.TradeOriginationDate = &v }
+func (m *NoOrders) SetTradeDate(v string)                      { m.TradeDate = &v }
+func (m *NoOrders) SetAccount(v string)                        { m.Account = &v }
+func (m *NoOrders) SetAcctIDSource(v int)                      { m.AcctIDSource = &v }
+func (m *NoOrders) SetAccountType(v int)                       { m.AccountType = &v }
+func (m *NoOrders) SetDayBookingInst(v string)                 { m.DayBookingInst = &v }
+func (m *NoOrders) SetBookingUnit(v string)                    { m.BookingUnit = &v }
+func (m *NoOrders) SetAllocID(v string)                        { m.AllocID = &v }
+func (m *NoOrders) SetPreallocMethod(v string)                 { m.PreallocMethod = &v }
+func (m *NoOrders) SetNoAllocs(v []NoAllocs)                   { m.NoAllocs = v }
+func (m *NoOrders) SetSettlType(v string)                      { m.SettlType = &v }
+func (m *NoOrders) SetSettlDate(v string)                      { m.SettlDate = &v }
+func (m *NoOrders) SetCashMargin(v string)                     { m.CashMargin = &v }
+func (m *NoOrders) SetClearingFeeIndicator(v string)           { m.ClearingFeeIndicator = &v }
+func (m *NoOrders) SetHandlInst(v string)                      { m.HandlInst = &v }
+func (m *NoOrders) SetExecInst(v string)                       { m.ExecInst = &v }
+func (m *NoOrders) SetMinQty(v float64)                        { m.MinQty = &v }
+func (m *NoOrders) SetMaxFloor(v float64)                      { m.MaxFloor = &v }
+func (m *NoOrders) SetExDestination(v string)                  { m.ExDestination = &v }
+func (m *NoOrders) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
+func (m *NoOrders) SetProcessCode(v string)                    { m.ProcessCode = &v }
+func (m *NoOrders) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
+func (m *NoOrders) SetPrevClosePx(v float64)                   { m.PrevClosePx = &v }
+func (m *NoOrders) SetSide(v string)                           { m.Side = v }
+func (m *NoOrders) SetSideValueInd(v int)                      { m.SideValueInd = &v }
+func (m *NoOrders) SetLocateReqd(v bool)                       { m.LocateReqd = &v }
+func (m *NoOrders) SetTransactTime(v time.Time)                { m.TransactTime = &v }
+func (m *NoOrders) SetQtyType(v int)                           { m.QtyType = &v }
+func (m *NoOrders) SetOrdType(v string)                        { m.OrdType = &v }
+func (m *NoOrders) SetPriceType(v int)                         { m.PriceType = &v }
+func (m *NoOrders) SetPrice(v float64)                         { m.Price = &v }
+func (m *NoOrders) SetStopPx(v float64)                        { m.StopPx = &v }
+func (m *NoOrders) SetCurrency(v string)                       { m.Currency = &v }
+func (m *NoOrders) SetComplianceID(v string)                   { m.ComplianceID = &v }
+func (m *NoOrders) SetSolicitedFlag(v bool)                    { m.SolicitedFlag = &v }
+func (m *NoOrders) SetIOIID(v string)                          { m.IOIID = &v }
+func (m *NoOrders) SetQuoteID(v string)                        { m.QuoteID = &v }
+func (m *NoOrders) SetTimeInForce(v string)                    { m.TimeInForce = &v }
+func (m *NoOrders) SetEffectiveTime(v time.Time)               { m.EffectiveTime = &v }
+func (m *NoOrders) SetExpireDate(v string)                     { m.ExpireDate = &v }
+func (m *NoOrders) SetExpireTime(v time.Time)                  { m.ExpireTime = &v }
+func (m *NoOrders) SetGTBookingInst(v int)                     { m.GTBookingInst = &v }
+func (m *NoOrders) SetOrderCapacity(v string)                  { m.OrderCapacity = &v }
+func (m *NoOrders) SetOrderRestrictions(v string)              { m.OrderRestrictions = &v }
+func (m *NoOrders) SetCustOrderCapacity(v int)                 { m.CustOrderCapacity = &v }
+func (m *NoOrders) SetForexReq(v bool)                         { m.ForexReq = &v }
+func (m *NoOrders) SetSettlCurrency(v string)                  { m.SettlCurrency = &v }
+func (m *NoOrders) SetBookingType(v int)                       { m.BookingType = &v }
+func (m *NoOrders) SetText(v string)                           { m.Text = &v }
+func (m *NoOrders) SetEncodedTextLen(v int)                    { m.EncodedTextLen = &v }
+func (m *NoOrders) SetEncodedText(v string)                    { m.EncodedText = &v }
+func (m *NoOrders) SetSettlDate2(v string)                     { m.SettlDate2 = &v }
+func (m *NoOrders) SetOrderQty2(v float64)                     { m.OrderQty2 = &v }
+func (m *NoOrders) SetPrice2(v float64)                        { m.Price2 = &v }
+func (m *NoOrders) SetPositionEffect(v string)                 { m.PositionEffect = &v }
+func (m *NoOrders) SetCoveredOrUncovered(v int)                { m.CoveredOrUncovered = &v }
+func (m *NoOrders) SetMaxShow(v float64)                       { m.MaxShow = &v }
+func (m *NoOrders) SetTargetStrategy(v int)                    { m.TargetStrategy = &v }
+func (m *NoOrders) SetTargetStrategyParameters(v string)       { m.TargetStrategyParameters = &v }
+func (m *NoOrders) SetParticipationRate(v float64)             { m.ParticipationRate = &v }
+func (m *NoOrders) SetDesignation(v string)                    { m.Designation = &v }
+
 //NoAllocs is a repeating group in NoOrders
 type NoAllocs struct {
 	//AllocAccount is a non-required field for NoAllocs.
@@ -189,6 +256,12 @@ type NoAllocs struct {
 	AllocQty *float64 `fix:"80"`
 }
 
+func (m *NoAllocs) SetAllocAccount(v string)       { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)     { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetAllocSettlCurrency(v string) { m.AllocSettlCurrency = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)  { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetAllocQty(v float64)          { m.AllocQty = &v }
+
 //NoTradingSessions is a repeating group in NoOrders
 type NoTradingSessions struct {
 	//TradingSessionID is a non-required field for NoTradingSessions.
@@ -196,6 +269,9 @@ type NoTradingSessions struct {
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
 }
+
+func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
 
 //NoUnderlyings is a repeating group in NoOrders
 type NoUnderlyings struct {
@@ -250,6 +326,26 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetListID(v string)                      { m.ListID = v }
+func (m *Message) SetBidID(v string)                       { m.BidID = &v }
+func (m *Message) SetClientBidID(v string)                 { m.ClientBidID = &v }
+func (m *Message) SetProgRptReqs(v int)                    { m.ProgRptReqs = &v }
+func (m *Message) SetBidType(v int)                        { m.BidType = v }
+func (m *Message) SetProgPeriodInterval(v int)             { m.ProgPeriodInterval = &v }
+func (m *Message) SetCancellationRights(v string)          { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)       { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                    { m.RegistID = &v }
+func (m *Message) SetListExecInstType(v string)            { m.ListExecInstType = &v }
+func (m *Message) SetListExecInst(v string)                { m.ListExecInst = &v }
+func (m *Message) SetEncodedListExecInstLen(v int)         { m.EncodedListExecInstLen = &v }
+func (m *Message) SetEncodedListExecInst(v string)         { m.EncodedListExecInst = &v }
+func (m *Message) SetAllowableOneSidednessPct(v float64)   { m.AllowableOneSidednessPct = &v }
+func (m *Message) SetAllowableOneSidednessValue(v float64) { m.AllowableOneSidednessValue = &v }
+func (m *Message) SetAllowableOneSidednessCurr(v string)   { m.AllowableOneSidednessCurr = &v }
+func (m *Message) SetTotNoOrders(v int)                    { m.TotNoOrders = v }
+func (m *Message) SetLastFragment(v bool)                  { m.LastFragment = &v }
+func (m *Message) SetNoOrders(v []NoOrders)                { m.NoOrders = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

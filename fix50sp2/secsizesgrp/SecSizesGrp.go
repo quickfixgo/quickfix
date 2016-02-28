@@ -15,3 +15,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoOfSecSizes(v []NoOfSecSizes) { m.NoOfSecSizes = v }

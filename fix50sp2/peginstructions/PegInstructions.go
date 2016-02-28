@@ -27,3 +27,15 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetPegOffsetValue(v float64)     { m.PegOffsetValue = &v }
+func (m *Component) SetPegMoveType(v int)            { m.PegMoveType = &v }
+func (m *Component) SetPegOffsetType(v int)          { m.PegOffsetType = &v }
+func (m *Component) SetPegLimitType(v int)           { m.PegLimitType = &v }
+func (m *Component) SetPegRoundDirection(v int)      { m.PegRoundDirection = &v }
+func (m *Component) SetPegScope(v int)               { m.PegScope = &v }
+func (m *Component) SetPegPriceType(v int)           { m.PegPriceType = &v }
+func (m *Component) SetPegSecurityIDSource(v string) { m.PegSecurityIDSource = &v }
+func (m *Component) SetPegSecurityID(v string)       { m.PegSecurityID = &v }
+func (m *Component) SetPegSymbol(v string)           { m.PegSymbol = &v }
+func (m *Component) SetPegSecurityDesc(v string)     { m.PegSecurityDesc = &v }

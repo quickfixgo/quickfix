@@ -34,6 +34,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetClientID(v string)        { m.ClientID = &v }
+func (m *Message) SetExecBroker(v string)      { m.ExecBroker = &v }
+func (m *Message) SetAllocID(v int)            { m.AllocID = v }
+func (m *Message) SetTradeDate(v string)       { m.TradeDate = v }
+func (m *Message) SetTransactTime(v time.Time) { m.TransactTime = &v }
+func (m *Message) SetAllocStatus(v int)        { m.AllocStatus = v }
+func (m *Message) SetAllocRejCode(v int)       { m.AllocRejCode = &v }
+func (m *Message) SetText(v string)            { m.Text = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

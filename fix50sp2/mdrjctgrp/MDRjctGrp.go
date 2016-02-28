@@ -13,3 +13,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoAltMDSource(v []NoAltMDSource) { m.NoAltMDSource = v }

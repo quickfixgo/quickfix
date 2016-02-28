@@ -56,6 +56,26 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetOrderID(v string)              { m.OrderID = v }
+func (m *Message) SetSecondaryOrderID(v string)     { m.SecondaryOrderID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)     { m.SecondaryClOrdID = &v }
+func (m *Message) SetClOrdID(v string)              { m.ClOrdID = v }
+func (m *Message) SetClOrdLinkID(v string)          { m.ClOrdLinkID = &v }
+func (m *Message) SetOrigClOrdID(v string)          { m.OrigClOrdID = v }
+func (m *Message) SetOrdStatus(v string)            { m.OrdStatus = v }
+func (m *Message) SetWorkingIndicator(v bool)       { m.WorkingIndicator = &v }
+func (m *Message) SetOrigOrdModTime(v time.Time)    { m.OrigOrdModTime = &v }
+func (m *Message) SetListID(v string)               { m.ListID = &v }
+func (m *Message) SetAccount(v string)              { m.Account = &v }
+func (m *Message) SetAccountType(v int)             { m.AccountType = &v }
+func (m *Message) SetTradeOriginationDate(v string) { m.TradeOriginationDate = &v }
+func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }
+func (m *Message) SetCxlRejResponseTo(v string)     { m.CxlRejResponseTo = v }
+func (m *Message) SetCxlRejReason(v int)            { m.CxlRejReason = &v }
+func (m *Message) SetText(v string)                 { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

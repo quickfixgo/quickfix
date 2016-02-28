@@ -100,11 +100,54 @@ type NoSides struct {
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
 }
 
+func (m *NoSides) SetSide(v string)                                     { m.Side = v }
+func (m *NoSides) SetOrderID(v string)                                  { m.OrderID = v }
+func (m *NoSides) SetSecondaryOrderID(v string)                         { m.SecondaryOrderID = &v }
+func (m *NoSides) SetClOrdID(v string)                                  { m.ClOrdID = &v }
+func (m *NoSides) SetAccount(v string)                                  { m.Account = &v }
+func (m *NoSides) SetAccountType(v int)                                 { m.AccountType = &v }
+func (m *NoSides) SetProcessCode(v string)                              { m.ProcessCode = &v }
+func (m *NoSides) SetOddLot(v bool)                                     { m.OddLot = &v }
+func (m *NoSides) SetNoClearingInstructions(v []NoClearingInstructions) { m.NoClearingInstructions = v }
+func (m *NoSides) SetClearingFeeIndicator(v string)                     { m.ClearingFeeIndicator = &v }
+func (m *NoSides) SetTradeInputSource(v string)                         { m.TradeInputSource = &v }
+func (m *NoSides) SetTradeInputDevice(v string)                         { m.TradeInputDevice = &v }
+func (m *NoSides) SetCurrency(v string)                                 { m.Currency = &v }
+func (m *NoSides) SetComplianceID(v string)                             { m.ComplianceID = &v }
+func (m *NoSides) SetSolicitedFlag(v bool)                              { m.SolicitedFlag = &v }
+func (m *NoSides) SetOrderCapacity(v string)                            { m.OrderCapacity = &v }
+func (m *NoSides) SetOrderRestrictions(v string)                        { m.OrderRestrictions = &v }
+func (m *NoSides) SetCustOrderCapacity(v int)                           { m.CustOrderCapacity = &v }
+func (m *NoSides) SetTransBkdTime(v time.Time)                          { m.TransBkdTime = &v }
+func (m *NoSides) SetTradingSessionID(v string)                         { m.TradingSessionID = &v }
+func (m *NoSides) SetTradingSessionSubID(v string)                      { m.TradingSessionSubID = &v }
+func (m *NoSides) SetGrossTradeAmt(v float64)                           { m.GrossTradeAmt = &v }
+func (m *NoSides) SetNumDaysInterest(v int)                             { m.NumDaysInterest = &v }
+func (m *NoSides) SetExDate(v string)                                   { m.ExDate = &v }
+func (m *NoSides) SetAccruedInterestRate(v float64)                     { m.AccruedInterestRate = &v }
+func (m *NoSides) SetAccruedInterestAmt(v float64)                      { m.AccruedInterestAmt = &v }
+func (m *NoSides) SetConcession(v float64)                              { m.Concession = &v }
+func (m *NoSides) SetTotalTakedown(v float64)                           { m.TotalTakedown = &v }
+func (m *NoSides) SetNetMoney(v float64)                                { m.NetMoney = &v }
+func (m *NoSides) SetSettlCurrAmt(v float64)                            { m.SettlCurrAmt = &v }
+func (m *NoSides) SetSettlCurrency(v string)                            { m.SettlCurrency = &v }
+func (m *NoSides) SetSettlCurrFxRate(v float64)                         { m.SettlCurrFxRate = &v }
+func (m *NoSides) SetSettlCurrFxRateCalc(v string)                      { m.SettlCurrFxRateCalc = &v }
+func (m *NoSides) SetPositionEffect(v string)                           { m.PositionEffect = &v }
+func (m *NoSides) SetText(v string)                                     { m.Text = &v }
+func (m *NoSides) SetEncodedTextLen(v int)                              { m.EncodedTextLen = &v }
+func (m *NoSides) SetEncodedText(v string)                              { m.EncodedText = &v }
+func (m *NoSides) SetMultiLegReportingType(v string)                    { m.MultiLegReportingType = &v }
+func (m *NoSides) SetNoContAmts(v []NoContAmts)                         { m.NoContAmts = v }
+func (m *NoSides) SetNoMiscFees(v []NoMiscFees)                         { m.NoMiscFees = v }
+
 //NoClearingInstructions is a repeating group in NoSides
 type NoClearingInstructions struct {
 	//ClearingInstruction is a non-required field for NoClearingInstructions.
 	ClearingInstruction *int `fix:"577"`
 }
+
+func (m *NoClearingInstructions) SetClearingInstruction(v int) { m.ClearingInstruction = &v }
 
 //NoContAmts is a repeating group in NoSides
 type NoContAmts struct {
@@ -116,6 +159,10 @@ type NoContAmts struct {
 	ContAmtCurr *string `fix:"521"`
 }
 
+func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }
+func (m *NoContAmts) SetContAmtValue(v float64) { m.ContAmtValue = &v }
+func (m *NoContAmts) SetContAmtCurr(v string)   { m.ContAmtCurr = &v }
+
 //NoMiscFees is a repeating group in NoSides
 type NoMiscFees struct {
 	//MiscFeeAmt is a non-required field for NoMiscFees.
@@ -125,6 +172,10 @@ type NoMiscFees struct {
 	//MiscFeeType is a non-required field for NoMiscFees.
 	MiscFeeType *string `fix:"139"`
 }
+
+func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
+func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
+func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
 
 //Message is a TradeCaptureReport FIX Message
 type Message struct {
@@ -181,6 +232,28 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTradeReportID(v string)        { m.TradeReportID = v }
+func (m *Message) SetTradeReportTransType(v string) { m.TradeReportTransType = &v }
+func (m *Message) SetTradeRequestID(v string)       { m.TradeRequestID = &v }
+func (m *Message) SetExecType(v string)             { m.ExecType = v }
+func (m *Message) SetTradeReportRefID(v string)     { m.TradeReportRefID = &v }
+func (m *Message) SetExecID(v string)               { m.ExecID = &v }
+func (m *Message) SetSecondaryExecID(v string)      { m.SecondaryExecID = &v }
+func (m *Message) SetExecRestatementReason(v int)   { m.ExecRestatementReason = &v }
+func (m *Message) SetPreviouslyReported(v bool)     { m.PreviouslyReported = v }
+func (m *Message) SetLastQty(v float64)             { m.LastQty = v }
+func (m *Message) SetLastPx(v float64)              { m.LastPx = v }
+func (m *Message) SetLastSpotRate(v float64)        { m.LastSpotRate = &v }
+func (m *Message) SetLastForwardPoints(v float64)   { m.LastForwardPoints = &v }
+func (m *Message) SetLastMkt(v string)              { m.LastMkt = &v }
+func (m *Message) SetTradeDate(v string)            { m.TradeDate = v }
+func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = v }
+func (m *Message) SetSettlmntTyp(v string)          { m.SettlmntTyp = &v }
+func (m *Message) SetFutSettDate(v string)          { m.FutSettDate = &v }
+func (m *Message) SetMatchStatus(v string)          { m.MatchStatus = &v }
+func (m *Message) SetMatchType(v string)            { m.MatchType = &v }
+func (m *Message) SetNoSides(v []NoSides)           { m.NoSides = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

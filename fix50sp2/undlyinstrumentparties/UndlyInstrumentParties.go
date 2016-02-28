@@ -23,3 +23,7 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoUndlyInstrumentParties(v []NoUndlyInstrumentParties) {
+	m.NoUndlyInstrumentParties = v
+}

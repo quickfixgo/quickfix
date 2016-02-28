@@ -15,3 +15,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoContextPartySubIDs(v []NoContextPartySubIDs) { m.NoContextPartySubIDs = v }

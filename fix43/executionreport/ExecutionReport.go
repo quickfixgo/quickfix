@@ -31,6 +31,12 @@ type NoContraBrokers struct {
 	ContraLegRefID *string `fix:"655"`
 }
 
+func (m *NoContraBrokers) SetContraBroker(v string)       { m.ContraBroker = &v }
+func (m *NoContraBrokers) SetContraTrader(v string)       { m.ContraTrader = &v }
+func (m *NoContraBrokers) SetContraTradeQty(v float64)    { m.ContraTradeQty = &v }
+func (m *NoContraBrokers) SetContraTradeTime(v time.Time) { m.ContraTradeTime = &v }
+func (m *NoContraBrokers) SetContraLegRefID(v string)     { m.ContraLegRefID = &v }
+
 //NoContAmts is a repeating group in ExecutionReport
 type NoContAmts struct {
 	//ContAmtType is a non-required field for NoContAmts.
@@ -40,6 +46,10 @@ type NoContAmts struct {
 	//ContAmtCurr is a non-required field for NoContAmts.
 	ContAmtCurr *string `fix:"521"`
 }
+
+func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }
+func (m *NoContAmts) SetContAmtValue(v float64) { m.ContAmtValue = &v }
+func (m *NoContAmts) SetContAmtCurr(v string)   { m.ContAmtCurr = &v }
 
 //NoLegs is a repeating group in ExecutionReport
 type NoLegs struct {
@@ -62,6 +72,14 @@ type NoLegs struct {
 	//LegLastPx is a non-required field for NoLegs.
 	LegLastPx *float64 `fix:"637"`
 }
+
+func (m *NoLegs) SetLegPositionEffect(v string)  { m.LegPositionEffect = &v }
+func (m *NoLegs) SetLegCoveredOrUncovered(v int) { m.LegCoveredOrUncovered = &v }
+func (m *NoLegs) SetLegRefID(v string)           { m.LegRefID = &v }
+func (m *NoLegs) SetLegPrice(v float64)          { m.LegPrice = &v }
+func (m *NoLegs) SetLegSettlmntTyp(v string)     { m.LegSettlmntTyp = &v }
+func (m *NoLegs) SetLegFutSettDate(v string)     { m.LegFutSettDate = &v }
+func (m *NoLegs) SetLegLastPx(v float64)         { m.LegLastPx = &v }
 
 //Message is a ExecutionReport FIX Message
 type Message struct {
@@ -304,6 +322,116 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)                    { m.OrderID = v }
+func (m *Message) SetSecondaryOrderID(v string)           { m.SecondaryOrderID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)           { m.SecondaryClOrdID = &v }
+func (m *Message) SetSecondaryExecID(v string)            { m.SecondaryExecID = &v }
+func (m *Message) SetClOrdID(v string)                    { m.ClOrdID = &v }
+func (m *Message) SetOrigClOrdID(v string)                { m.OrigClOrdID = &v }
+func (m *Message) SetClOrdLinkID(v string)                { m.ClOrdLinkID = &v }
+func (m *Message) SetTradeOriginationDate(v string)       { m.TradeOriginationDate = &v }
+func (m *Message) SetNoContraBrokers(v []NoContraBrokers) { m.NoContraBrokers = v }
+func (m *Message) SetListID(v string)                     { m.ListID = &v }
+func (m *Message) SetCrossID(v string)                    { m.CrossID = &v }
+func (m *Message) SetOrigCrossID(v string)                { m.OrigCrossID = &v }
+func (m *Message) SetCrossType(v int)                     { m.CrossType = &v }
+func (m *Message) SetExecID(v string)                     { m.ExecID = v }
+func (m *Message) SetExecRefID(v string)                  { m.ExecRefID = &v }
+func (m *Message) SetExecType(v string)                   { m.ExecType = v }
+func (m *Message) SetOrdStatus(v string)                  { m.OrdStatus = v }
+func (m *Message) SetWorkingIndicator(v bool)             { m.WorkingIndicator = &v }
+func (m *Message) SetOrdRejReason(v int)                  { m.OrdRejReason = &v }
+func (m *Message) SetExecRestatementReason(v int)         { m.ExecRestatementReason = &v }
+func (m *Message) SetAccount(v string)                    { m.Account = &v }
+func (m *Message) SetAccountType(v int)                   { m.AccountType = &v }
+func (m *Message) SetDayBookingInst(v string)             { m.DayBookingInst = &v }
+func (m *Message) SetBookingUnit(v string)                { m.BookingUnit = &v }
+func (m *Message) SetPreallocMethod(v string)             { m.PreallocMethod = &v }
+func (m *Message) SetSettlmntTyp(v string)                { m.SettlmntTyp = &v }
+func (m *Message) SetFutSettDate(v string)                { m.FutSettDate = &v }
+func (m *Message) SetCashMargin(v string)                 { m.CashMargin = &v }
+func (m *Message) SetClearingFeeIndicator(v string)       { m.ClearingFeeIndicator = &v }
+func (m *Message) SetSide(v string)                       { m.Side = v }
+func (m *Message) SetQuantityType(v int)                  { m.QuantityType = &v }
+func (m *Message) SetOrdType(v string)                    { m.OrdType = &v }
+func (m *Message) SetPriceType(v int)                     { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                     { m.Price = &v }
+func (m *Message) SetStopPx(v float64)                    { m.StopPx = &v }
+func (m *Message) SetPegDifference(v float64)             { m.PegDifference = &v }
+func (m *Message) SetDiscretionInst(v string)             { m.DiscretionInst = &v }
+func (m *Message) SetDiscretionOffset(v float64)          { m.DiscretionOffset = &v }
+func (m *Message) SetCurrency(v string)                   { m.Currency = &v }
+func (m *Message) SetComplianceID(v string)               { m.ComplianceID = &v }
+func (m *Message) SetSolicitedFlag(v bool)                { m.SolicitedFlag = &v }
+func (m *Message) SetTimeInForce(v string)                { m.TimeInForce = &v }
+func (m *Message) SetEffectiveTime(v time.Time)           { m.EffectiveTime = &v }
+func (m *Message) SetExpireDate(v string)                 { m.ExpireDate = &v }
+func (m *Message) SetExpireTime(v time.Time)              { m.ExpireTime = &v }
+func (m *Message) SetExecInst(v string)                   { m.ExecInst = &v }
+func (m *Message) SetOrderCapacity(v string)              { m.OrderCapacity = &v }
+func (m *Message) SetOrderRestrictions(v string)          { m.OrderRestrictions = &v }
+func (m *Message) SetCustOrderCapacity(v int)             { m.CustOrderCapacity = &v }
+func (m *Message) SetRule80A(v string)                    { m.Rule80A = &v }
+func (m *Message) SetLastQty(v float64)                   { m.LastQty = &v }
+func (m *Message) SetUnderlyingLastQty(v float64)         { m.UnderlyingLastQty = &v }
+func (m *Message) SetLastPx(v float64)                    { m.LastPx = &v }
+func (m *Message) SetUnderlyingLastPx(v float64)          { m.UnderlyingLastPx = &v }
+func (m *Message) SetLastSpotRate(v float64)              { m.LastSpotRate = &v }
+func (m *Message) SetLastForwardPoints(v float64)         { m.LastForwardPoints = &v }
+func (m *Message) SetLastMkt(v string)                    { m.LastMkt = &v }
+func (m *Message) SetTradingSessionID(v string)           { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)        { m.TradingSessionSubID = &v }
+func (m *Message) SetLastCapacity(v string)               { m.LastCapacity = &v }
+func (m *Message) SetLeavesQty(v float64)                 { m.LeavesQty = v }
+func (m *Message) SetCumQty(v float64)                    { m.CumQty = v }
+func (m *Message) SetAvgPx(v float64)                     { m.AvgPx = v }
+func (m *Message) SetDayOrderQty(v float64)               { m.DayOrderQty = &v }
+func (m *Message) SetDayCumQty(v float64)                 { m.DayCumQty = &v }
+func (m *Message) SetDayAvgPx(v float64)                  { m.DayAvgPx = &v }
+func (m *Message) SetGTBookingInst(v int)                 { m.GTBookingInst = &v }
+func (m *Message) SetTradeDate(v string)                  { m.TradeDate = &v }
+func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
+func (m *Message) SetReportToExch(v bool)                 { m.ReportToExch = &v }
+func (m *Message) SetGrossTradeAmt(v float64)             { m.GrossTradeAmt = &v }
+func (m *Message) SetNumDaysInterest(v int)               { m.NumDaysInterest = &v }
+func (m *Message) SetExDate(v string)                     { m.ExDate = &v }
+func (m *Message) SetAccruedInterestRate(v float64)       { m.AccruedInterestRate = &v }
+func (m *Message) SetAccruedInterestAmt(v float64)        { m.AccruedInterestAmt = &v }
+func (m *Message) SetTradedFlatSwitch(v bool)             { m.TradedFlatSwitch = &v }
+func (m *Message) SetBasisFeatureDate(v string)           { m.BasisFeatureDate = &v }
+func (m *Message) SetBasisFeaturePrice(v float64)         { m.BasisFeaturePrice = &v }
+func (m *Message) SetConcession(v float64)                { m.Concession = &v }
+func (m *Message) SetTotalTakedown(v float64)             { m.TotalTakedown = &v }
+func (m *Message) SetNetMoney(v float64)                  { m.NetMoney = &v }
+func (m *Message) SetSettlCurrAmt(v float64)              { m.SettlCurrAmt = &v }
+func (m *Message) SetSettlCurrency(v string)              { m.SettlCurrency = &v }
+func (m *Message) SetSettlCurrFxRate(v float64)           { m.SettlCurrFxRate = &v }
+func (m *Message) SetSettlCurrFxRateCalc(v string)        { m.SettlCurrFxRateCalc = &v }
+func (m *Message) SetHandlInst(v string)                  { m.HandlInst = &v }
+func (m *Message) SetMinQty(v float64)                    { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v float64)                  { m.MaxFloor = &v }
+func (m *Message) SetPositionEffect(v string)             { m.PositionEffect = &v }
+func (m *Message) SetMaxShow(v float64)                   { m.MaxShow = &v }
+func (m *Message) SetText(v string)                       { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                { m.EncodedText = &v }
+func (m *Message) SetFutSettDate2(v string)               { m.FutSettDate2 = &v }
+func (m *Message) SetOrderQty2(v float64)                 { m.OrderQty2 = &v }
+func (m *Message) SetLastForwardPoints2(v float64)        { m.LastForwardPoints2 = &v }
+func (m *Message) SetMultiLegReportingType(v string)      { m.MultiLegReportingType = &v }
+func (m *Message) SetCancellationRights(v string)         { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)      { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                   { m.RegistID = &v }
+func (m *Message) SetDesignation(v string)                { m.Designation = &v }
+func (m *Message) SetTransBkdTime(v time.Time)            { m.TransBkdTime = &v }
+func (m *Message) SetExecValuationPoint(v time.Time)      { m.ExecValuationPoint = &v }
+func (m *Message) SetExecPriceType(v string)              { m.ExecPriceType = &v }
+func (m *Message) SetExecPriceAdjustment(v float64)       { m.ExecPriceAdjustment = &v }
+func (m *Message) SetPriorityIndicator(v int)             { m.PriorityIndicator = &v }
+func (m *Message) SetPriceImprovement(v float64)          { m.PriceImprovement = &v }
+func (m *Message) SetNoContAmts(v []NoContAmts)           { m.NoContAmts = v }
+func (m *Message) SetNoLegs(v []NoLegs)                   { m.NoLegs = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

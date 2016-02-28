@@ -51,3 +51,9 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoOrdTypeRules(v []NoOrdTypeRules)         { m.NoOrdTypeRules = v }
+func (m *Component) SetNoTimeInForceRules(v []NoTimeInForceRules) { m.NoTimeInForceRules = v }
+func (m *Component) SetNoExecInstRules(v []NoExecInstRules)       { m.NoExecInstRules = v }
+func (m *Component) SetNoMatchRules(v []NoMatchRules)             { m.NoMatchRules = v }
+func (m *Component) SetNoMDFeedTypes(v []NoMDFeedTypes)           { m.NoMDFeedTypes = v }

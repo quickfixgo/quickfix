@@ -11,3 +11,7 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetDerivativeSecurityXMLLen(v int)       { m.DerivativeSecurityXMLLen = &v }
+func (m *Component) SetDerivativeSecurityXML(v string)       { m.DerivativeSecurityXML = &v }
+func (m *Component) SetDerivativeSecurityXMLSchema(v string) { m.DerivativeSecurityXMLSchema = &v }

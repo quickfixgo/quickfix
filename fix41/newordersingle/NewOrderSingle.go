@@ -120,6 +120,58 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetClOrdID(v string)           { m.ClOrdID = v }
+func (m *Message) SetClientID(v string)          { m.ClientID = &v }
+func (m *Message) SetExecBroker(v string)        { m.ExecBroker = &v }
+func (m *Message) SetAccount(v string)           { m.Account = &v }
+func (m *Message) SetSettlmntTyp(v string)       { m.SettlmntTyp = &v }
+func (m *Message) SetFutSettDate(v string)       { m.FutSettDate = &v }
+func (m *Message) SetHandlInst(v string)         { m.HandlInst = v }
+func (m *Message) SetExecInst(v string)          { m.ExecInst = &v }
+func (m *Message) SetMinQty(v int)               { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v int)             { m.MaxFloor = &v }
+func (m *Message) SetExDestination(v string)     { m.ExDestination = &v }
+func (m *Message) SetProcessCode(v string)       { m.ProcessCode = &v }
+func (m *Message) SetSymbol(v string)            { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)         { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)        { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)          { m.IDSource = &v }
+func (m *Message) SetSecurityType(v string)      { m.SecurityType = &v }
+func (m *Message) SetMaturityMonthYear(v string) { m.MaturityMonthYear = &v }
+func (m *Message) SetMaturityDay(v int)          { m.MaturityDay = &v }
+func (m *Message) SetPutOrCall(v int)            { m.PutOrCall = &v }
+func (m *Message) SetStrikePrice(v float64)      { m.StrikePrice = &v }
+func (m *Message) SetOptAttribute(v string)      { m.OptAttribute = &v }
+func (m *Message) SetSecurityExchange(v string)  { m.SecurityExchange = &v }
+func (m *Message) SetIssuer(v string)            { m.Issuer = &v }
+func (m *Message) SetSecurityDesc(v string)      { m.SecurityDesc = &v }
+func (m *Message) SetPrevClosePx(v float64)      { m.PrevClosePx = &v }
+func (m *Message) SetSide(v string)              { m.Side = v }
+func (m *Message) SetLocateReqd(v string)        { m.LocateReqd = &v }
+func (m *Message) SetOrderQty(v int)             { m.OrderQty = &v }
+func (m *Message) SetCashOrderQty(v float64)     { m.CashOrderQty = &v }
+func (m *Message) SetOrdType(v string)           { m.OrdType = v }
+func (m *Message) SetPrice(v float64)            { m.Price = &v }
+func (m *Message) SetStopPx(v float64)           { m.StopPx = &v }
+func (m *Message) SetCurrency(v string)          { m.Currency = &v }
+func (m *Message) SetIOIid(v string)             { m.IOIid = &v }
+func (m *Message) SetQuoteID(v string)           { m.QuoteID = &v }
+func (m *Message) SetTimeInForce(v string)       { m.TimeInForce = &v }
+func (m *Message) SetExpireTime(v time.Time)     { m.ExpireTime = &v }
+func (m *Message) SetCommission(v float64)       { m.Commission = &v }
+func (m *Message) SetCommType(v string)          { m.CommType = &v }
+func (m *Message) SetRule80A(v string)           { m.Rule80A = &v }
+func (m *Message) SetForexReq(v string)          { m.ForexReq = &v }
+func (m *Message) SetSettlCurrency(v string)     { m.SettlCurrency = &v }
+func (m *Message) SetText(v string)              { m.Text = &v }
+func (m *Message) SetFutSettDate2(v string)      { m.FutSettDate2 = &v }
+func (m *Message) SetOrderQty2(v float64)        { m.OrderQty2 = &v }
+func (m *Message) SetOpenClose(v string)         { m.OpenClose = &v }
+func (m *Message) SetCoveredOrUncovered(v int)   { m.CoveredOrUncovered = &v }
+func (m *Message) SetCustomerOrFirm(v int)       { m.CustomerOrFirm = &v }
+func (m *Message) SetMaxShow(v int)              { m.MaxShow = &v }
+func (m *Message) SetPegDifference(v float64)    { m.PegDifference = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

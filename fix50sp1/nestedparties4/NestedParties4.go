@@ -23,3 +23,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoNested4PartyIDs(v []NoNested4PartyIDs) { m.NoNested4PartyIDs = v }

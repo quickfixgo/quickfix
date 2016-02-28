@@ -19,6 +19,9 @@ type SubscriptionRequestType struct {
 	LegPrice *float64 `fix:"566"`
 }
 
+func (m *SubscriptionRequestType) SetLegOptionRatio(v float64) { m.LegOptionRatio = &v }
+func (m *SubscriptionRequestType) SetLegPrice(v float64)       { m.LegPrice = &v }
+
 //Message is a SecurityDefinitionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"c"`
@@ -56,6 +59,19 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityReqID(v string)       { m.SecurityReqID = v }
+func (m *Message) SetSecurityRequestType(v int)    { m.SecurityRequestType = v }
+func (m *Message) SetCurrency(v string)            { m.Currency = &v }
+func (m *Message) SetText(v string)                { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)         { m.EncodedText = &v }
+func (m *Message) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+func (m *Message) SetExpirationCycle(v int)        { m.ExpirationCycle = &v }
+func (m *Message) SetSubscriptionRequestType(v []SubscriptionRequestType) {
+	m.SubscriptionRequestType = v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

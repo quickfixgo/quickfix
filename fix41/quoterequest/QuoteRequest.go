@@ -59,6 +59,28 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetQuoteReqID(v string)        { m.QuoteReqID = v }
+func (m *Message) SetSymbol(v string)            { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)         { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)        { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)          { m.IDSource = &v }
+func (m *Message) SetSecurityType(v string)      { m.SecurityType = &v }
+func (m *Message) SetMaturityMonthYear(v string) { m.MaturityMonthYear = &v }
+func (m *Message) SetMaturityDay(v int)          { m.MaturityDay = &v }
+func (m *Message) SetPutOrCall(v int)            { m.PutOrCall = &v }
+func (m *Message) SetStrikePrice(v float64)      { m.StrikePrice = &v }
+func (m *Message) SetOptAttribute(v string)      { m.OptAttribute = &v }
+func (m *Message) SetSecurityExchange(v string)  { m.SecurityExchange = &v }
+func (m *Message) SetIssuer(v string)            { m.Issuer = &v }
+func (m *Message) SetSecurityDesc(v string)      { m.SecurityDesc = &v }
+func (m *Message) SetPrevClosePx(v float64)      { m.PrevClosePx = &v }
+func (m *Message) SetSide(v string)              { m.Side = &v }
+func (m *Message) SetOrderQty(v int)             { m.OrderQty = &v }
+func (m *Message) SetFutSettDate(v string)       { m.FutSettDate = &v }
+func (m *Message) SetOrdType(v string)           { m.OrdType = &v }
+func (m *Message) SetFutSettDate2(v string)      { m.FutSettDate2 = &v }
+func (m *Message) SetOrderQty2(v float64)        { m.OrderQty2 = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

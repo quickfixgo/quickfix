@@ -119,6 +119,41 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetCollRespID(v string)             { m.CollRespID = v }
+func (m *Message) SetCollAsgnID(v string)             { m.CollAsgnID = &v }
+func (m *Message) SetCollReqID(v string)              { m.CollReqID = &v }
+func (m *Message) SetCollAsgnReason(v int)            { m.CollAsgnReason = &v }
+func (m *Message) SetCollAsgnTransType(v int)         { m.CollAsgnTransType = &v }
+func (m *Message) SetCollAsgnRespType(v int)          { m.CollAsgnRespType = v }
+func (m *Message) SetCollAsgnRejectReason(v int)      { m.CollAsgnRejectReason = &v }
+func (m *Message) SetTransactTime(v time.Time)        { m.TransactTime = v }
+func (m *Message) SetAccount(v string)                { m.Account = &v }
+func (m *Message) SetAccountType(v int)               { m.AccountType = &v }
+func (m *Message) SetClOrdID(v string)                { m.ClOrdID = &v }
+func (m *Message) SetOrderID(v string)                { m.OrderID = &v }
+func (m *Message) SetSecondaryOrderID(v string)       { m.SecondaryOrderID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)       { m.SecondaryClOrdID = &v }
+func (m *Message) SetSettlDate(v string)              { m.SettlDate = &v }
+func (m *Message) SetQuantity(v float64)              { m.Quantity = &v }
+func (m *Message) SetQtyType(v int)                   { m.QtyType = &v }
+func (m *Message) SetCurrency(v string)               { m.Currency = &v }
+func (m *Message) SetMarginExcess(v float64)          { m.MarginExcess = &v }
+func (m *Message) SetTotalNetValue(v float64)         { m.TotalNetValue = &v }
+func (m *Message) SetCashOutstanding(v float64)       { m.CashOutstanding = &v }
+func (m *Message) SetSide(v string)                   { m.Side = &v }
+func (m *Message) SetPrice(v float64)                 { m.Price = &v }
+func (m *Message) SetPriceType(v int)                 { m.PriceType = &v }
+func (m *Message) SetAccruedInterestAmt(v float64)    { m.AccruedInterestAmt = &v }
+func (m *Message) SetEndAccruedInterestAmt(v float64) { m.EndAccruedInterestAmt = &v }
+func (m *Message) SetStartCash(v float64)             { m.StartCash = &v }
+func (m *Message) SetEndCash(v float64)               { m.EndCash = &v }
+func (m *Message) SetText(v string)                   { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
+func (m *Message) SetCollApplType(v int)              { m.CollApplType = &v }
+func (m *Message) SetFinancialStatus(v string)        { m.FinancialStatus = &v }
+func (m *Message) SetClearingBusinessDate(v string)   { m.ClearingBusinessDate = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

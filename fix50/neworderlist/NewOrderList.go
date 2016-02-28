@@ -59,6 +59,25 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetListID(v string)                      { m.ListID = v }
+func (m *Message) SetBidID(v string)                       { m.BidID = &v }
+func (m *Message) SetClientBidID(v string)                 { m.ClientBidID = &v }
+func (m *Message) SetProgRptReqs(v int)                    { m.ProgRptReqs = &v }
+func (m *Message) SetBidType(v int)                        { m.BidType = v }
+func (m *Message) SetProgPeriodInterval(v int)             { m.ProgPeriodInterval = &v }
+func (m *Message) SetCancellationRights(v string)          { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)       { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                    { m.RegistID = &v }
+func (m *Message) SetListExecInstType(v string)            { m.ListExecInstType = &v }
+func (m *Message) SetListExecInst(v string)                { m.ListExecInst = &v }
+func (m *Message) SetEncodedListExecInstLen(v int)         { m.EncodedListExecInstLen = &v }
+func (m *Message) SetEncodedListExecInst(v string)         { m.EncodedListExecInst = &v }
+func (m *Message) SetAllowableOneSidednessPct(v float64)   { m.AllowableOneSidednessPct = &v }
+func (m *Message) SetAllowableOneSidednessValue(v float64) { m.AllowableOneSidednessValue = &v }
+func (m *Message) SetAllowableOneSidednessCurr(v string)   { m.AllowableOneSidednessCurr = &v }
+func (m *Message) SetTotNoOrders(v int)                    { m.TotNoOrders = v }
+func (m *Message) SetLastFragment(v bool)                  { m.LastFragment = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

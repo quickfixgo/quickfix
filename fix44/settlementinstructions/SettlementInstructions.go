@@ -56,6 +56,26 @@ type NoSettlInst struct {
 	PaymentRemitterID *string `fix:"505"`
 }
 
+func (m *NoSettlInst) SetSettlInstID(v string)        { m.SettlInstID = &v }
+func (m *NoSettlInst) SetSettlInstTransType(v string) { m.SettlInstTransType = &v }
+func (m *NoSettlInst) SetSettlInstRefID(v string)     { m.SettlInstRefID = &v }
+func (m *NoSettlInst) SetSide(v string)               { m.Side = &v }
+func (m *NoSettlInst) SetProduct(v int)               { m.Product = &v }
+func (m *NoSettlInst) SetSecurityType(v string)       { m.SecurityType = &v }
+func (m *NoSettlInst) SetCFICode(v string)            { m.CFICode = &v }
+func (m *NoSettlInst) SetEffectiveTime(v time.Time)   { m.EffectiveTime = &v }
+func (m *NoSettlInst) SetExpireTime(v time.Time)      { m.ExpireTime = &v }
+func (m *NoSettlInst) SetLastUpdateTime(v time.Time)  { m.LastUpdateTime = &v }
+func (m *NoSettlInst) SetPaymentMethod(v int)         { m.PaymentMethod = &v }
+func (m *NoSettlInst) SetPaymentRef(v string)         { m.PaymentRef = &v }
+func (m *NoSettlInst) SetCardHolderName(v string)     { m.CardHolderName = &v }
+func (m *NoSettlInst) SetCardNumber(v string)         { m.CardNumber = &v }
+func (m *NoSettlInst) SetCardStartDate(v string)      { m.CardStartDate = &v }
+func (m *NoSettlInst) SetCardExpDate(v string)        { m.CardExpDate = &v }
+func (m *NoSettlInst) SetCardIssNum(v string)         { m.CardIssNum = &v }
+func (m *NoSettlInst) SetPaymentDate(v string)        { m.PaymentDate = &v }
+func (m *NoSettlInst) SetPaymentRemitterID(v string)  { m.PaymentRemitterID = &v }
+
 //Message is a SettlementInstructions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"T"`
@@ -85,6 +105,17 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSettlInstMsgID(v string)     { m.SettlInstMsgID = v }
+func (m *Message) SetSettlInstReqID(v string)     { m.SettlInstReqID = &v }
+func (m *Message) SetSettlInstMode(v string)      { m.SettlInstMode = v }
+func (m *Message) SetSettlInstReqRejCode(v int)   { m.SettlInstReqRejCode = &v }
+func (m *Message) SetText(v string)               { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)        { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)        { m.EncodedText = &v }
+func (m *Message) SetClOrdID(v string)            { m.ClOrdID = &v }
+func (m *Message) SetTransactTime(v time.Time)    { m.TransactTime = v }
+func (m *Message) SetNoSettlInst(v []NoSettlInst) { m.NoSettlInst = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

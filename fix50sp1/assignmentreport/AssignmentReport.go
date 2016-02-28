@@ -82,6 +82,29 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetAsgnRptID(v string)             { m.AsgnRptID = v }
+func (m *Message) SetTotNumAssignmentReports(v int)  { m.TotNumAssignmentReports = &v }
+func (m *Message) SetLastRptRequested(v bool)        { m.LastRptRequested = &v }
+func (m *Message) SetAccount(v string)               { m.Account = &v }
+func (m *Message) SetAccountType(v int)              { m.AccountType = &v }
+func (m *Message) SetCurrency(v string)              { m.Currency = &v }
+func (m *Message) SetThresholdAmount(v float64)      { m.ThresholdAmount = &v }
+func (m *Message) SetSettlPrice(v float64)           { m.SettlPrice = &v }
+func (m *Message) SetSettlPriceType(v int)           { m.SettlPriceType = &v }
+func (m *Message) SetUnderlyingSettlPrice(v float64) { m.UnderlyingSettlPrice = &v }
+func (m *Message) SetExpireDate(v string)            { m.ExpireDate = &v }
+func (m *Message) SetAssignmentMethod(v string)      { m.AssignmentMethod = &v }
+func (m *Message) SetAssignmentUnit(v float64)       { m.AssignmentUnit = &v }
+func (m *Message) SetOpenInterest(v float64)         { m.OpenInterest = &v }
+func (m *Message) SetExerciseMethod(v string)        { m.ExerciseMethod = &v }
+func (m *Message) SetSettlSessID(v string)           { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)        { m.SettlSessSubID = &v }
+func (m *Message) SetClearingBusinessDate(v string)  { m.ClearingBusinessDate = v }
+func (m *Message) SetText(v string)                  { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)           { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)           { m.EncodedText = &v }
+func (m *Message) SetPriorSettlPrice(v float64)      { m.PriorSettlPrice = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

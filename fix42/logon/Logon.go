@@ -15,6 +15,9 @@ type NoMsgTypes struct {
 	MsgDirection *string `fix:"385"`
 }
 
+func (m *NoMsgTypes) SetRefMsgType(v string)   { m.RefMsgType = &v }
+func (m *NoMsgTypes) SetMsgDirection(v string) { m.MsgDirection = &v }
+
 //Message is a Logon FIX Message
 type Message struct {
 	FIXMsgType string `fix:"A"`
@@ -38,6 +41,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetEncryptMethod(v int)       { m.EncryptMethod = v }
+func (m *Message) SetHeartBtInt(v int)          { m.HeartBtInt = v }
+func (m *Message) SetRawDataLength(v int)       { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)          { m.RawData = &v }
+func (m *Message) SetResetSeqNumFlag(v bool)    { m.ResetSeqNumFlag = &v }
+func (m *Message) SetMaxMessageSize(v int)      { m.MaxMessageSize = &v }
+func (m *Message) SetNoMsgTypes(v []NoMsgTypes) { m.NoMsgTypes = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

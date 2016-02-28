@@ -14,6 +14,8 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
+func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
+
 //NoRoutingIDs is a repeating group in IndicationofInterest
 type NoRoutingIDs struct {
 	//RoutingType is a non-required field for NoRoutingIDs.
@@ -21,6 +23,9 @@ type NoRoutingIDs struct {
 	//RoutingID is a non-required field for NoRoutingIDs.
 	RoutingID *string `fix:"217"`
 }
+
+func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }
+func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 
 //Message is a IndicationofInterest FIX Message
 type Message struct {
@@ -107,6 +112,45 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetIOIid(v string)                      { m.IOIid = v }
+func (m *Message) SetIOITransType(v string)               { m.IOITransType = v }
+func (m *Message) SetIOIRefID(v string)                   { m.IOIRefID = &v }
+func (m *Message) SetSymbol(v string)                     { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)                  { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)                 { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)                   { m.IDSource = &v }
+func (m *Message) SetSecurityType(v string)               { m.SecurityType = &v }
+func (m *Message) SetMaturityMonthYear(v string)          { m.MaturityMonthYear = &v }
+func (m *Message) SetMaturityDay(v int)                   { m.MaturityDay = &v }
+func (m *Message) SetPutOrCall(v int)                     { m.PutOrCall = &v }
+func (m *Message) SetStrikePrice(v float64)               { m.StrikePrice = &v }
+func (m *Message) SetOptAttribute(v string)               { m.OptAttribute = &v }
+func (m *Message) SetContractMultiplier(v float64)        { m.ContractMultiplier = &v }
+func (m *Message) SetCouponRate(v float64)                { m.CouponRate = &v }
+func (m *Message) SetSecurityExchange(v string)           { m.SecurityExchange = &v }
+func (m *Message) SetIssuer(v string)                     { m.Issuer = &v }
+func (m *Message) SetEncodedIssuerLen(v int)              { m.EncodedIssuerLen = &v }
+func (m *Message) SetEncodedIssuer(v string)              { m.EncodedIssuer = &v }
+func (m *Message) SetSecurityDesc(v string)               { m.SecurityDesc = &v }
+func (m *Message) SetEncodedSecurityDescLen(v int)        { m.EncodedSecurityDescLen = &v }
+func (m *Message) SetEncodedSecurityDesc(v string)        { m.EncodedSecurityDesc = &v }
+func (m *Message) SetSide(v string)                       { m.Side = v }
+func (m *Message) SetIOIShares(v string)                  { m.IOIShares = v }
+func (m *Message) SetPrice(v float64)                     { m.Price = &v }
+func (m *Message) SetCurrency(v string)                   { m.Currency = &v }
+func (m *Message) SetValidUntilTime(v time.Time)          { m.ValidUntilTime = &v }
+func (m *Message) SetIOIQltyInd(v string)                 { m.IOIQltyInd = &v }
+func (m *Message) SetIOINaturalFlag(v bool)               { m.IOINaturalFlag = &v }
+func (m *Message) SetNoIOIQualifiers(v []NoIOIQualifiers) { m.NoIOIQualifiers = v }
+func (m *Message) SetText(v string)                       { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                { m.EncodedText = &v }
+func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
+func (m *Message) SetURLLink(v string)                    { m.URLLink = &v }
+func (m *Message) SetNoRoutingIDs(v []NoRoutingIDs)       { m.NoRoutingIDs = v }
+func (m *Message) SetSpreadToBenchmark(v float64)         { m.SpreadToBenchmark = &v }
+func (m *Message) SetBenchmark(v string)                  { m.Benchmark = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

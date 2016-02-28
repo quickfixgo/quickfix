@@ -13,3 +13,8 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetApplID(v string)       { m.ApplID = &v }
+func (m *Component) SetApplSeqNum(v int)      { m.ApplSeqNum = &v }
+func (m *Component) SetApplLastSeqNum(v int)  { m.ApplLastSeqNum = &v }
+func (m *Component) SetApplResendFlag(v bool) { m.ApplResendFlag = &v }

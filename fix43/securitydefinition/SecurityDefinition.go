@@ -17,6 +17,8 @@ type NoLegs struct {
 	LegCurrency *string `fix:"556"`
 }
 
+func (m *NoLegs) SetLegCurrency(v string) { m.LegCurrency = &v }
+
 //Message is a SecurityDefinition FIX Message
 type Message struct {
 	FIXMsgType string `fix:"d"`
@@ -52,6 +54,19 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityReqID(v string)       { m.SecurityReqID = v }
+func (m *Message) SetSecurityResponseID(v string)  { m.SecurityResponseID = v }
+func (m *Message) SetSecurityResponseType(v int)   { m.SecurityResponseType = v }
+func (m *Message) SetCurrency(v string)            { m.Currency = &v }
+func (m *Message) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+func (m *Message) SetText(v string)                { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)         { m.EncodedText = &v }
+func (m *Message) SetNoLegs(v []NoLegs)            { m.NoLegs = v }
+func (m *Message) SetRoundLot(v float64)           { m.RoundLot = &v }
+func (m *Message) SetMinTradeVol(v float64)        { m.MinTradeVol = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

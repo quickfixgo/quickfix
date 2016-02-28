@@ -72,3 +72,11 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetPartyID(v string)                        { m.PartyID = v }
+func (m *Component) SetPartyIDSource(v string)                  { m.PartyIDSource = v }
+func (m *Component) SetPartyRole(v int)                         { m.PartyRole = v }
+func (m *Component) SetNoPartySubIDs(v []NoPartySubIDs)         { m.NoPartySubIDs = v }
+func (m *Component) SetNoPartyAltIDs(v []NoPartyAltIDs)         { m.NoPartyAltIDs = v }
+func (m *Component) SetNoContextPartyIDs(v []NoContextPartyIDs) { m.NoContextPartyIDs = v }
+func (m *Component) SetNoRiskLimits(v []NoRiskLimits)           { m.NoRiskLimits = v }

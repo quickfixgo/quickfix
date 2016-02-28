@@ -20,6 +20,11 @@ type NoOrders struct {
 	WaveNo *string `fix:"105"`
 }
 
+func (m *NoOrders) SetClOrdID(v string) { m.ClOrdID = v }
+func (m *NoOrders) SetOrderID(v string) { m.OrderID = &v }
+func (m *NoOrders) SetListID(v string)  { m.ListID = &v }
+func (m *NoOrders) SetWaveNo(v string)  { m.WaveNo = &v }
+
 //NoExecs is a repeating group in Allocation
 type NoExecs struct {
 	//ExecID is a non-required field for NoExecs.
@@ -32,6 +37,11 @@ type NoExecs struct {
 	LastMkt *string `fix:"30"`
 }
 
+func (m *NoExecs) SetExecID(v int)     { m.ExecID = &v }
+func (m *NoExecs) SetLastShares(v int) { m.LastShares = &v }
+func (m *NoExecs) SetLastPx(v float64) { m.LastPx = &v }
+func (m *NoExecs) SetLastMkt(v string) { m.LastMkt = &v }
+
 //NoMiscFees is a repeating group in Allocation
 type NoMiscFees struct {
 	//MiscFeeAmt is a non-required field for NoMiscFees.
@@ -41,6 +51,10 @@ type NoMiscFees struct {
 	//MiscFeeType is a non-required field for NoMiscFees.
 	MiscFeeType *string `fix:"139"`
 }
+
+func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
+func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
+func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
 
 //NoAllocs is a repeating group in Allocation
 type NoAllocs struct {
@@ -65,6 +79,17 @@ type NoAllocs struct {
 	//DlvyInst is a non-required field for NoAllocs.
 	DlvyInst *string `fix:"86"`
 }
+
+func (m *NoAllocs) SetAllocAccount(v string)   { m.AllocAccount = v }
+func (m *NoAllocs) SetAllocShares(v int)       { m.AllocShares = v }
+func (m *NoAllocs) SetProcessCode(v string)    { m.ProcessCode = &v }
+func (m *NoAllocs) SetExecBroker(v string)     { m.ExecBroker = &v }
+func (m *NoAllocs) SetClientID(v string)       { m.ClientID = &v }
+func (m *NoAllocs) SetCommission(v float64)    { m.Commission = &v }
+func (m *NoAllocs) SetCommType(v string)       { m.CommType = &v }
+func (m *NoAllocs) SetNoDlvyInst(v int)        { m.NoDlvyInst = &v }
+func (m *NoAllocs) SetBrokerOfCredit(v string) { m.BrokerOfCredit = &v }
+func (m *NoAllocs) SetDlvyInst(v string)       { m.DlvyInst = &v }
 
 //Message is a Allocation FIX Message
 type Message struct {
@@ -129,6 +154,34 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetAllocID(v int)             { m.AllocID = v }
+func (m *Message) SetAllocTransType(v string)   { m.AllocTransType = v }
+func (m *Message) SetRefAllocID(v int)          { m.RefAllocID = &v }
+func (m *Message) SetNoOrders(v []NoOrders)     { m.NoOrders = v }
+func (m *Message) SetNoExecs(v []NoExecs)       { m.NoExecs = v }
+func (m *Message) SetSide(v string)             { m.Side = v }
+func (m *Message) SetSymbol(v string)           { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)        { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)       { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)         { m.IDSource = &v }
+func (m *Message) SetIssuer(v string)           { m.Issuer = &v }
+func (m *Message) SetSecurityDesc(v string)     { m.SecurityDesc = &v }
+func (m *Message) SetShares(v int)              { m.Shares = v }
+func (m *Message) SetAvgPx(v float64)           { m.AvgPx = v }
+func (m *Message) SetCurrency(v string)         { m.Currency = &v }
+func (m *Message) SetAvgPrxPrecision(v int)     { m.AvgPrxPrecision = &v }
+func (m *Message) SetTradeDate(v string)        { m.TradeDate = v }
+func (m *Message) SetTransactTime(v time.Time)  { m.TransactTime = &v }
+func (m *Message) SetSettlmntTyp(v string)      { m.SettlmntTyp = &v }
+func (m *Message) SetFutSettDate(v string)      { m.FutSettDate = &v }
+func (m *Message) SetNetMoney(v float64)        { m.NetMoney = &v }
+func (m *Message) SetNoMiscFees(v []NoMiscFees) { m.NoMiscFees = v }
+func (m *Message) SetSettlCurrAmt(v float64)    { m.SettlCurrAmt = &v }
+func (m *Message) SetSettlCurrency(v string)    { m.SettlCurrency = &v }
+func (m *Message) SetOpenClose(v string)        { m.OpenClose = &v }
+func (m *Message) SetText(v string)             { m.Text = &v }
+func (m *Message) SetNoAllocs(v []NoAllocs)     { m.NoAllocs = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

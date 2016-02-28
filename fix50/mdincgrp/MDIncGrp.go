@@ -137,3 +137,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }

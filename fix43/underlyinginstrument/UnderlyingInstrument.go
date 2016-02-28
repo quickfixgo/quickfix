@@ -79,3 +79,45 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetUnderlyingSymbol(v string)           { m.UnderlyingSymbol = &v }
+func (m *Component) SetUnderlyingSymbolSfx(v string)        { m.UnderlyingSymbolSfx = &v }
+func (m *Component) SetUnderlyingSecurityID(v string)       { m.UnderlyingSecurityID = &v }
+func (m *Component) SetUnderlyingSecurityIDSource(v string) { m.UnderlyingSecurityIDSource = &v }
+func (m *Component) SetNoUnderlyingSecurityAltID(v []NoUnderlyingSecurityAltID) {
+	m.NoUnderlyingSecurityAltID = v
+}
+func (m *Component) SetUnderlyingProduct(v int)              { m.UnderlyingProduct = &v }
+func (m *Component) SetUnderlyingCFICode(v string)           { m.UnderlyingCFICode = &v }
+func (m *Component) SetUnderlyingSecurityType(v string)      { m.UnderlyingSecurityType = &v }
+func (m *Component) SetUnderlyingMaturityMonthYear(v string) { m.UnderlyingMaturityMonthYear = &v }
+func (m *Component) SetUnderlyingMaturityDate(v string)      { m.UnderlyingMaturityDate = &v }
+func (m *Component) SetUnderlyingCouponPaymentDate(v string) { m.UnderlyingCouponPaymentDate = &v }
+func (m *Component) SetUnderlyingIssueDate(v string)         { m.UnderlyingIssueDate = &v }
+func (m *Component) SetUnderlyingRepoCollateralSecurityType(v int) {
+	m.UnderlyingRepoCollateralSecurityType = &v
+}
+func (m *Component) SetUnderlyingRepurchaseTerm(v int)     { m.UnderlyingRepurchaseTerm = &v }
+func (m *Component) SetUnderlyingRepurchaseRate(v float64) { m.UnderlyingRepurchaseRate = &v }
+func (m *Component) SetUnderlyingFactor(v float64)         { m.UnderlyingFactor = &v }
+func (m *Component) SetUnderlyingCreditRating(v string)    { m.UnderlyingCreditRating = &v }
+func (m *Component) SetUnderlyingInstrRegistry(v string)   { m.UnderlyingInstrRegistry = &v }
+func (m *Component) SetUnderlyingCountryOfIssue(v string)  { m.UnderlyingCountryOfIssue = &v }
+func (m *Component) SetUnderlyingStateOrProvinceOfIssue(v string) {
+	m.UnderlyingStateOrProvinceOfIssue = &v
+}
+func (m *Component) SetUnderlyingLocaleOfIssue(v string)       { m.UnderlyingLocaleOfIssue = &v }
+func (m *Component) SetUnderlyingRedemptionDate(v string)      { m.UnderlyingRedemptionDate = &v }
+func (m *Component) SetUnderlyingStrikePrice(v float64)        { m.UnderlyingStrikePrice = &v }
+func (m *Component) SetUnderlyingOptAttribute(v string)        { m.UnderlyingOptAttribute = &v }
+func (m *Component) SetUnderlyingContractMultiplier(v float64) { m.UnderlyingContractMultiplier = &v }
+func (m *Component) SetUnderlyingCouponRate(v float64)         { m.UnderlyingCouponRate = &v }
+func (m *Component) SetUnderlyingSecurityExchange(v string)    { m.UnderlyingSecurityExchange = &v }
+func (m *Component) SetUnderlyingIssuer(v string)              { m.UnderlyingIssuer = &v }
+func (m *Component) SetEncodedUnderlyingIssuerLen(v int)       { m.EncodedUnderlyingIssuerLen = &v }
+func (m *Component) SetEncodedUnderlyingIssuer(v string)       { m.EncodedUnderlyingIssuer = &v }
+func (m *Component) SetUnderlyingSecurityDesc(v string)        { m.UnderlyingSecurityDesc = &v }
+func (m *Component) SetEncodedUnderlyingSecurityDescLen(v int) {
+	m.EncodedUnderlyingSecurityDescLen = &v
+}
+func (m *Component) SetEncodedUnderlyingSecurityDesc(v string) { m.EncodedUnderlyingSecurityDesc = &v }

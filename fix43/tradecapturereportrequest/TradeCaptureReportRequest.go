@@ -18,6 +18,9 @@ type NoDates struct {
 	TransactTime *time.Time `fix:"60"`
 }
 
+func (m *NoDates) SetTradeDate(v string)       { m.TradeDate = &v }
+func (m *NoDates) SetTransactTime(v time.Time) { m.TransactTime = &v }
+
 //Message is a TradeCaptureReportRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AD"`
@@ -59,6 +62,21 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTradeRequestID(v string)          { m.TradeRequestID = v }
+func (m *Message) SetTradeRequestType(v int)           { m.TradeRequestType = v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
+func (m *Message) SetExecID(v string)                  { m.ExecID = &v }
+func (m *Message) SetOrderID(v string)                 { m.OrderID = &v }
+func (m *Message) SetClOrdID(v string)                 { m.ClOrdID = &v }
+func (m *Message) SetMatchStatus(v string)             { m.MatchStatus = &v }
+func (m *Message) SetNoDates(v []NoDates)              { m.NoDates = v }
+func (m *Message) SetSide(v string)                    { m.Side = &v }
+func (m *Message) SetText(v string)                    { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)             { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)             { m.EncodedText = &v }
+func (m *Message) SetTradeInputSource(v string)        { m.TradeInputSource = &v }
+func (m *Message) SetTradeInputDevice(v string)        { m.TradeInputDevice = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

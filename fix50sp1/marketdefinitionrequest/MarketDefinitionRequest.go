@@ -27,6 +27,12 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetMarketReqID(v string)             { m.MarketReqID = v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
+func (m *Message) SetMarketID(v string)                { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string)         { m.MarketSegmentID = &v }
+func (m *Message) SetParentMktSegmID(v string)         { m.ParentMktSegmID = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

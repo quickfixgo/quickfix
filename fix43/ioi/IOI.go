@@ -16,6 +16,8 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
+func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
+
 //NoRoutingIDs is a repeating group in IOI
 type NoRoutingIDs struct {
 	//RoutingType is a non-required field for NoRoutingIDs.
@@ -23,6 +25,9 @@ type NoRoutingIDs struct {
 	//RoutingID is a non-required field for NoRoutingIDs.
 	RoutingID *string `fix:"217"`
 }
+
+func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }
+func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 
 //Message is a IOI FIX Message
 type Message struct {
@@ -77,6 +82,27 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetIOIid(v string)                      { m.IOIid = v }
+func (m *Message) SetIOITransType(v string)               { m.IOITransType = v }
+func (m *Message) SetIOIRefID(v string)                   { m.IOIRefID = &v }
+func (m *Message) SetSide(v string)                       { m.Side = v }
+func (m *Message) SetQuantityType(v int)                  { m.QuantityType = &v }
+func (m *Message) SetIOIQty(v string)                     { m.IOIQty = v }
+func (m *Message) SetPriceType(v int)                     { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                     { m.Price = &v }
+func (m *Message) SetCurrency(v string)                   { m.Currency = &v }
+func (m *Message) SetValidUntilTime(v time.Time)          { m.ValidUntilTime = &v }
+func (m *Message) SetIOIQltyInd(v string)                 { m.IOIQltyInd = &v }
+func (m *Message) SetIOINaturalFlag(v bool)               { m.IOINaturalFlag = &v }
+func (m *Message) SetNoIOIQualifiers(v []NoIOIQualifiers) { m.NoIOIQualifiers = v }
+func (m *Message) SetText(v string)                       { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                { m.EncodedText = &v }
+func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
+func (m *Message) SetURLLink(v string)                    { m.URLLink = &v }
+func (m *Message) SetNoRoutingIDs(v []NoRoutingIDs)       { m.NoRoutingIDs = v }
+func (m *Message) SetBenchmark(v string)                  { m.Benchmark = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

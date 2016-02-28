@@ -241,3 +241,96 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetSymbol(v string)                             { m.Symbol = &v }
+func (m *Component) SetSymbolSfx(v string)                          { m.SymbolSfx = &v }
+func (m *Component) SetSecurityID(v string)                         { m.SecurityID = &v }
+func (m *Component) SetSecurityIDSource(v string)                   { m.SecurityIDSource = &v }
+func (m *Component) SetNoSecurityAltID(v []NoSecurityAltID)         { m.NoSecurityAltID = v }
+func (m *Component) SetProduct(v int)                               { m.Product = &v }
+func (m *Component) SetCFICode(v string)                            { m.CFICode = &v }
+func (m *Component) SetSecurityType(v string)                       { m.SecurityType = &v }
+func (m *Component) SetSecuritySubType(v string)                    { m.SecuritySubType = &v }
+func (m *Component) SetMaturityMonthYear(v string)                  { m.MaturityMonthYear = &v }
+func (m *Component) SetMaturityDate(v string)                       { m.MaturityDate = &v }
+func (m *Component) SetCouponPaymentDate(v string)                  { m.CouponPaymentDate = &v }
+func (m *Component) SetIssueDate(v string)                          { m.IssueDate = &v }
+func (m *Component) SetRepoCollateralSecurityType(v int)            { m.RepoCollateralSecurityType = &v }
+func (m *Component) SetRepurchaseTerm(v int)                        { m.RepurchaseTerm = &v }
+func (m *Component) SetRepurchaseRate(v float64)                    { m.RepurchaseRate = &v }
+func (m *Component) SetFactor(v float64)                            { m.Factor = &v }
+func (m *Component) SetCreditRating(v string)                       { m.CreditRating = &v }
+func (m *Component) SetInstrRegistry(v string)                      { m.InstrRegistry = &v }
+func (m *Component) SetCountryOfIssue(v string)                     { m.CountryOfIssue = &v }
+func (m *Component) SetStateOrProvinceOfIssue(v string)             { m.StateOrProvinceOfIssue = &v }
+func (m *Component) SetLocaleOfIssue(v string)                      { m.LocaleOfIssue = &v }
+func (m *Component) SetRedemptionDate(v string)                     { m.RedemptionDate = &v }
+func (m *Component) SetStrikePrice(v float64)                       { m.StrikePrice = &v }
+func (m *Component) SetStrikeCurrency(v string)                     { m.StrikeCurrency = &v }
+func (m *Component) SetOptAttribute(v string)                       { m.OptAttribute = &v }
+func (m *Component) SetContractMultiplier(v float64)                { m.ContractMultiplier = &v }
+func (m *Component) SetCouponRate(v float64)                        { m.CouponRate = &v }
+func (m *Component) SetSecurityExchange(v string)                   { m.SecurityExchange = &v }
+func (m *Component) SetIssuer(v string)                             { m.Issuer = &v }
+func (m *Component) SetEncodedIssuerLen(v int)                      { m.EncodedIssuerLen = &v }
+func (m *Component) SetEncodedIssuer(v string)                      { m.EncodedIssuer = &v }
+func (m *Component) SetSecurityDesc(v string)                       { m.SecurityDesc = &v }
+func (m *Component) SetEncodedSecurityDescLen(v int)                { m.EncodedSecurityDescLen = &v }
+func (m *Component) SetEncodedSecurityDesc(v string)                { m.EncodedSecurityDesc = &v }
+func (m *Component) SetPool(v string)                               { m.Pool = &v }
+func (m *Component) SetContractSettlMonth(v string)                 { m.ContractSettlMonth = &v }
+func (m *Component) SetCPProgram(v int)                             { m.CPProgram = &v }
+func (m *Component) SetCPRegType(v string)                          { m.CPRegType = &v }
+func (m *Component) SetNoEvents(v []NoEvents)                       { m.NoEvents = v }
+func (m *Component) SetDatedDate(v string)                          { m.DatedDate = &v }
+func (m *Component) SetInterestAccrualDate(v string)                { m.InterestAccrualDate = &v }
+func (m *Component) SetSecurityStatus(v string)                     { m.SecurityStatus = &v }
+func (m *Component) SetSettleOnOpenFlag(v string)                   { m.SettleOnOpenFlag = &v }
+func (m *Component) SetInstrmtAssignmentMethod(v string)            { m.InstrmtAssignmentMethod = &v }
+func (m *Component) SetStrikeMultiplier(v float64)                  { m.StrikeMultiplier = &v }
+func (m *Component) SetStrikeValue(v float64)                       { m.StrikeValue = &v }
+func (m *Component) SetMinPriceIncrement(v float64)                 { m.MinPriceIncrement = &v }
+func (m *Component) SetPositionLimit(v int)                         { m.PositionLimit = &v }
+func (m *Component) SetNTPositionLimit(v int)                       { m.NTPositionLimit = &v }
+func (m *Component) SetNoInstrumentParties(v []NoInstrumentParties) { m.NoInstrumentParties = v }
+func (m *Component) SetUnitOfMeasure(v string)                      { m.UnitOfMeasure = &v }
+func (m *Component) SetTimeUnit(v string)                           { m.TimeUnit = &v }
+func (m *Component) SetMaturityTime(v string)                       { m.MaturityTime = &v }
+func (m *Component) SetSecurityGroup(v string)                      { m.SecurityGroup = &v }
+func (m *Component) SetMinPriceIncrementAmount(v float64)           { m.MinPriceIncrementAmount = &v }
+func (m *Component) SetUnitOfMeasureQty(v float64)                  { m.UnitOfMeasureQty = &v }
+func (m *Component) SetSecurityXMLLen(v int)                        { m.SecurityXMLLen = &v }
+func (m *Component) SetSecurityXML(v string)                        { m.SecurityXML = &v }
+func (m *Component) SetSecurityXMLSchema(v string)                  { m.SecurityXMLSchema = &v }
+func (m *Component) SetProductComplex(v string)                     { m.ProductComplex = &v }
+func (m *Component) SetPriceUnitOfMeasure(v string)                 { m.PriceUnitOfMeasure = &v }
+func (m *Component) SetPriceUnitOfMeasureQty(v float64)             { m.PriceUnitOfMeasureQty = &v }
+func (m *Component) SetSettlMethod(v string)                        { m.SettlMethod = &v }
+func (m *Component) SetExerciseStyle(v int)                         { m.ExerciseStyle = &v }
+func (m *Component) SetOptPayoutAmount(v float64)                   { m.OptPayoutAmount = &v }
+func (m *Component) SetPriceQuoteMethod(v string)                   { m.PriceQuoteMethod = &v }
+func (m *Component) SetListMethod(v int)                            { m.ListMethod = &v }
+func (m *Component) SetCapPrice(v float64)                          { m.CapPrice = &v }
+func (m *Component) SetFloorPrice(v float64)                        { m.FloorPrice = &v }
+func (m *Component) SetPutOrCall(v int)                             { m.PutOrCall = &v }
+func (m *Component) SetFlexibleIndicator(v bool)                    { m.FlexibleIndicator = &v }
+func (m *Component) SetFlexProductEligibilityIndicator(v bool)      { m.FlexProductEligibilityIndicator = &v }
+func (m *Component) SetValuationMethod(v string)                    { m.ValuationMethod = &v }
+func (m *Component) SetContractMultiplierUnit(v int)                { m.ContractMultiplierUnit = &v }
+func (m *Component) SetFlowScheduleType(v int)                      { m.FlowScheduleType = &v }
+func (m *Component) SetRestructuringType(v string)                  { m.RestructuringType = &v }
+func (m *Component) SetSeniority(v string)                          { m.Seniority = &v }
+func (m *Component) SetNotionalPercentageOutstanding(v float64)     { m.NotionalPercentageOutstanding = &v }
+func (m *Component) SetOriginalNotionalPercentageOutstanding(v float64) {
+	m.OriginalNotionalPercentageOutstanding = &v
+}
+func (m *Component) SetAttachmentPoint(v float64)              { m.AttachmentPoint = &v }
+func (m *Component) SetDetachmentPoint(v float64)              { m.DetachmentPoint = &v }
+func (m *Component) SetStrikePriceDeterminationMethod(v int)   { m.StrikePriceDeterminationMethod = &v }
+func (m *Component) SetStrikePriceBoundaryMethod(v int)        { m.StrikePriceBoundaryMethod = &v }
+func (m *Component) SetStrikePriceBoundaryPrecision(v float64) { m.StrikePriceBoundaryPrecision = &v }
+func (m *Component) SetUnderlyingPriceDeterminationMethod(v int) {
+	m.UnderlyingPriceDeterminationMethod = &v
+}
+func (m *Component) SetOptPayoutType(v int)                 { m.OptPayoutType = &v }
+func (m *Component) SetNoComplexEvents(v []NoComplexEvents) { m.NoComplexEvents = v }

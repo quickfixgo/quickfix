@@ -111,6 +111,52 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetSettlInstID(v string)                    { m.SettlInstID = v }
+func (m *Message) SetSettlInstTransType(v string)             { m.SettlInstTransType = v }
+func (m *Message) SetSettlInstRefID(v string)                 { m.SettlInstRefID = v }
+func (m *Message) SetSettlInstMode(v string)                  { m.SettlInstMode = v }
+func (m *Message) SetSettlInstSource(v string)                { m.SettlInstSource = v }
+func (m *Message) SetAllocAccount(v string)                   { m.AllocAccount = v }
+func (m *Message) SetIndividualAllocID(v string)              { m.IndividualAllocID = &v }
+func (m *Message) SetClOrdID(v string)                        { m.ClOrdID = &v }
+func (m *Message) SetTradeDate(v string)                      { m.TradeDate = &v }
+func (m *Message) SetAllocID(v string)                        { m.AllocID = &v }
+func (m *Message) SetLastMkt(v string)                        { m.LastMkt = &v }
+func (m *Message) SetTradingSessionID(v string)               { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)            { m.TradingSessionSubID = &v }
+func (m *Message) SetSide(v string)                           { m.Side = &v }
+func (m *Message) SetSecurityType(v string)                   { m.SecurityType = &v }
+func (m *Message) SetEffectiveTime(v time.Time)               { m.EffectiveTime = &v }
+func (m *Message) SetTransactTime(v time.Time)                { m.TransactTime = v }
+func (m *Message) SetStandInstDbType(v int)                   { m.StandInstDbType = &v }
+func (m *Message) SetStandInstDbName(v string)                { m.StandInstDbName = &v }
+func (m *Message) SetStandInstDbID(v string)                  { m.StandInstDbID = &v }
+func (m *Message) SetSettlDeliveryType(v int)                 { m.SettlDeliveryType = &v }
+func (m *Message) SetSettlDepositoryCode(v string)            { m.SettlDepositoryCode = &v }
+func (m *Message) SetSettlBrkrCode(v string)                  { m.SettlBrkrCode = &v }
+func (m *Message) SetSettlInstCode(v string)                  { m.SettlInstCode = &v }
+func (m *Message) SetSecuritySettlAgentName(v string)         { m.SecuritySettlAgentName = &v }
+func (m *Message) SetSecuritySettlAgentCode(v string)         { m.SecuritySettlAgentCode = &v }
+func (m *Message) SetSecuritySettlAgentAcctNum(v string)      { m.SecuritySettlAgentAcctNum = &v }
+func (m *Message) SetSecuritySettlAgentAcctName(v string)     { m.SecuritySettlAgentAcctName = &v }
+func (m *Message) SetSecuritySettlAgentContactName(v string)  { m.SecuritySettlAgentContactName = &v }
+func (m *Message) SetSecuritySettlAgentContactPhone(v string) { m.SecuritySettlAgentContactPhone = &v }
+func (m *Message) SetCashSettlAgentName(v string)             { m.CashSettlAgentName = &v }
+func (m *Message) SetCashSettlAgentCode(v string)             { m.CashSettlAgentCode = &v }
+func (m *Message) SetCashSettlAgentAcctNum(v string)          { m.CashSettlAgentAcctNum = &v }
+func (m *Message) SetCashSettlAgentAcctName(v string)         { m.CashSettlAgentAcctName = &v }
+func (m *Message) SetCashSettlAgentContactName(v string)      { m.CashSettlAgentContactName = &v }
+func (m *Message) SetCashSettlAgentContactPhone(v string)     { m.CashSettlAgentContactPhone = &v }
+func (m *Message) SetPaymentMethod(v int)                     { m.PaymentMethod = &v }
+func (m *Message) SetPaymentRef(v string)                     { m.PaymentRef = &v }
+func (m *Message) SetCardHolderName(v string)                 { m.CardHolderName = &v }
+func (m *Message) SetCardNumber(v string)                     { m.CardNumber = &v }
+func (m *Message) SetCardStartDate(v string)                  { m.CardStartDate = &v }
+func (m *Message) SetCardExpDate(v string)                    { m.CardExpDate = &v }
+func (m *Message) SetCardIssNo(v string)                      { m.CardIssNo = &v }
+func (m *Message) SetPaymentDate(v string)                    { m.PaymentDate = &v }
+func (m *Message) SetPaymentRemitterID(v string)              { m.PaymentRemitterID = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

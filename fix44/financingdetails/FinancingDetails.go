@@ -23,3 +23,13 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetAgreementDesc(v string)     { m.AgreementDesc = &v }
+func (m *Component) SetAgreementID(v string)       { m.AgreementID = &v }
+func (m *Component) SetAgreementDate(v string)     { m.AgreementDate = &v }
+func (m *Component) SetAgreementCurrency(v string) { m.AgreementCurrency = &v }
+func (m *Component) SetTerminationType(v int)      { m.TerminationType = &v }
+func (m *Component) SetStartDate(v string)         { m.StartDate = &v }
+func (m *Component) SetEndDate(v string)           { m.EndDate = &v }
+func (m *Component) SetDeliveryType(v int)         { m.DeliveryType = &v }
+func (m *Component) SetMarginRatio(v float64)      { m.MarginRatio = &v }

@@ -15,3 +15,7 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoDerivativeSecurityAltID(v []NoDerivativeSecurityAltID) {
+	m.NoDerivativeSecurityAltID = v
+}

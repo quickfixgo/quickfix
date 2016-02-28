@@ -69,6 +69,25 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetClOrdID(v string)               { m.ClOrdID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)      { m.SecondaryClOrdID = &v }
+func (m *Message) SetOrderID(v string)               { m.OrderID = v }
+func (m *Message) SetSecondaryOrderID(v string)      { m.SecondaryOrderID = &v }
+func (m *Message) SetMassCancelRequestType(v string) { m.MassCancelRequestType = v }
+func (m *Message) SetMassCancelResponse(v string)    { m.MassCancelResponse = v }
+func (m *Message) SetMassCancelRejectReason(v int)   { m.MassCancelRejectReason = &v }
+func (m *Message) SetTotalAffectedOrders(v int)      { m.TotalAffectedOrders = &v }
+func (m *Message) SetTradingSessionID(v string)      { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)   { m.TradingSessionSubID = &v }
+func (m *Message) SetSide(v string)                  { m.Side = &v }
+func (m *Message) SetTransactTime(v time.Time)       { m.TransactTime = &v }
+func (m *Message) SetText(v string)                  { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)           { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)           { m.EncodedText = &v }
+func (m *Message) SetMassActionReportID(v string)    { m.MassActionReportID = v }
+func (m *Message) SetMarketID(v string)              { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string)       { m.MarketSegmentID = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

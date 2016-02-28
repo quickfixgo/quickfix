@@ -83,3 +83,22 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoTickRules(v []NoTickRules)                     { m.NoTickRules = v }
+func (m *Component) SetNoLotTypeRules(v []NoLotTypeRules)               { m.NoLotTypeRules = v }
+func (m *Component) SetPriceLimitType(v int)                            { m.PriceLimitType = &v }
+func (m *Component) SetLowLimitPrice(v float64)                         { m.LowLimitPrice = &v }
+func (m *Component) SetHighLimitPrice(v float64)                        { m.HighLimitPrice = &v }
+func (m *Component) SetTradingReferencePrice(v float64)                 { m.TradingReferencePrice = &v }
+func (m *Component) SetExpirationCycle(v int)                           { m.ExpirationCycle = &v }
+func (m *Component) SetMinTradeVol(v float64)                           { m.MinTradeVol = &v }
+func (m *Component) SetMaxTradeVol(v float64)                           { m.MaxTradeVol = &v }
+func (m *Component) SetMaxPriceVariation(v float64)                     { m.MaxPriceVariation = &v }
+func (m *Component) SetImpliedMarketIndicator(v int)                    { m.ImpliedMarketIndicator = &v }
+func (m *Component) SetTradingCurrency(v string)                        { m.TradingCurrency = &v }
+func (m *Component) SetRoundLot(v float64)                              { m.RoundLot = &v }
+func (m *Component) SetMultilegModel(v int)                             { m.MultilegModel = &v }
+func (m *Component) SetMultilegPriceMethod(v int)                       { m.MultilegPriceMethod = &v }
+func (m *Component) SetPriceType(v int)                                 { m.PriceType = &v }
+func (m *Component) SetNoTradingSessionRules(v []NoTradingSessionRules) { m.NoTradingSessionRules = v }
+func (m *Component) SetNoNestedInstrAttrib(v []NoNestedInstrAttrib)     { m.NoNestedInstrAttrib = v }

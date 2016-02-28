@@ -13,3 +13,10 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetSecondaryPriceLimitType(v int)     { m.SecondaryPriceLimitType = &v }
+func (m *Component) SetSecondaryLowLimitPrice(v float64)  { m.SecondaryLowLimitPrice = &v }
+func (m *Component) SetSecondaryHighLimitPrice(v float64) { m.SecondaryHighLimitPrice = &v }
+func (m *Component) SetSecondaryTradingReferencePrice(v float64) {
+	m.SecondaryTradingReferencePrice = &v
+}

@@ -25,3 +25,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoPositions(v []NoPositions) { m.NoPositions = v }

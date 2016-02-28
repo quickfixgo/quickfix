@@ -13,6 +13,8 @@ type NoAltMDSource struct {
 	AltMDSourceID *string `fix:"817"`
 }
 
+func (m *NoAltMDSource) SetAltMDSourceID(v string) { m.AltMDSourceID = &v }
+
 //Message is a MarketDataRequestReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Y"`
@@ -34,6 +36,13 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetMDReqID(v string)                { m.MDReqID = v }
+func (m *Message) SetMDReqRejReason(v string)         { m.MDReqRejReason = &v }
+func (m *Message) SetNoAltMDSource(v []NoAltMDSource) { m.NoAltMDSource = v }
+func (m *Message) SetText(v string)                   { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

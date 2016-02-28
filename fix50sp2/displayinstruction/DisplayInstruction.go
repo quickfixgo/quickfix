@@ -21,3 +21,12 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetSecondaryDisplayQty(v float64) { m.SecondaryDisplayQty = &v }
+func (m *Component) SetDisplayWhen(v string)          { m.DisplayWhen = &v }
+func (m *Component) SetDisplayMethod(v string)        { m.DisplayMethod = &v }
+func (m *Component) SetDisplayLowQty(v float64)       { m.DisplayLowQty = &v }
+func (m *Component) SetDisplayHighQty(v float64)      { m.DisplayHighQty = &v }
+func (m *Component) SetDisplayMinIncr(v float64)      { m.DisplayMinIncr = &v }
+func (m *Component) SetRefreshQty(v float64)          { m.RefreshQty = &v }
+func (m *Component) SetDisplayQty(v float64)          { m.DisplayQty = &v }

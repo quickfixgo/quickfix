@@ -15,3 +15,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoRiskSecurityAltID(v []NoRiskSecurityAltID) { m.NoRiskSecurityAltID = v }

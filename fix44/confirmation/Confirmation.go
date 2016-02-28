@@ -43,6 +43,15 @@ type NoOrders struct {
 	OrderBookingQty *float64 `fix:"800"`
 }
 
+func (m *NoOrders) SetClOrdID(v string)          { m.ClOrdID = &v }
+func (m *NoOrders) SetOrderID(v string)          { m.OrderID = &v }
+func (m *NoOrders) SetSecondaryOrderID(v string) { m.SecondaryOrderID = &v }
+func (m *NoOrders) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }
+func (m *NoOrders) SetListID(v string)           { m.ListID = &v }
+func (m *NoOrders) SetOrderQty(v float64)        { m.OrderQty = &v }
+func (m *NoOrders) SetOrderAvgPx(v float64)      { m.OrderAvgPx = &v }
+func (m *NoOrders) SetOrderBookingQty(v float64) { m.OrderBookingQty = &v }
+
 //NoUnderlyings is a repeating group in Confirmation
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
@@ -65,6 +74,10 @@ type NoCapacities struct {
 	OrderCapacityQty float64 `fix:"863"`
 }
 
+func (m *NoCapacities) SetOrderCapacity(v string)     { m.OrderCapacity = v }
+func (m *NoCapacities) SetOrderRestrictions(v string) { m.OrderRestrictions = &v }
+func (m *NoCapacities) SetOrderCapacityQty(v float64) { m.OrderCapacityQty = v }
+
 //NoMiscFees is a repeating group in Confirmation
 type NoMiscFees struct {
 	//MiscFeeAmt is a non-required field for NoMiscFees.
@@ -76,6 +89,11 @@ type NoMiscFees struct {
 	//MiscFeeBasis is a non-required field for NoMiscFees.
 	MiscFeeBasis *int `fix:"891"`
 }
+
+func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
+func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
+func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
+func (m *NoMiscFees) SetMiscFeeBasis(v int)   { m.MiscFeeBasis = &v }
 
 //Message is a Confirmation FIX Message
 type Message struct {
@@ -216,6 +234,62 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetConfirmID(v string)              { m.ConfirmID = v }
+func (m *Message) SetConfirmRefID(v string)           { m.ConfirmRefID = &v }
+func (m *Message) SetConfirmReqID(v string)           { m.ConfirmReqID = &v }
+func (m *Message) SetConfirmTransType(v int)          { m.ConfirmTransType = v }
+func (m *Message) SetConfirmType(v int)               { m.ConfirmType = v }
+func (m *Message) SetCopyMsgIndicator(v bool)         { m.CopyMsgIndicator = &v }
+func (m *Message) SetLegalConfirm(v bool)             { m.LegalConfirm = &v }
+func (m *Message) SetConfirmStatus(v int)             { m.ConfirmStatus = v }
+func (m *Message) SetNoOrders(v []NoOrders)           { m.NoOrders = v }
+func (m *Message) SetAllocID(v string)                { m.AllocID = &v }
+func (m *Message) SetSecondaryAllocID(v string)       { m.SecondaryAllocID = &v }
+func (m *Message) SetIndividualAllocID(v string)      { m.IndividualAllocID = &v }
+func (m *Message) SetTransactTime(v time.Time)        { m.TransactTime = v }
+func (m *Message) SetTradeDate(v string)              { m.TradeDate = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
+func (m *Message) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
+func (m *Message) SetAllocQty(v float64)              { m.AllocQty = v }
+func (m *Message) SetQtyType(v int)                   { m.QtyType = &v }
+func (m *Message) SetSide(v string)                   { m.Side = v }
+func (m *Message) SetCurrency(v string)               { m.Currency = &v }
+func (m *Message) SetLastMkt(v string)                { m.LastMkt = &v }
+func (m *Message) SetNoCapacities(v []NoCapacities)   { m.NoCapacities = v }
+func (m *Message) SetAllocAccount(v string)           { m.AllocAccount = v }
+func (m *Message) SetAllocAcctIDSource(v int)         { m.AllocAcctIDSource = &v }
+func (m *Message) SetAllocAccountType(v int)          { m.AllocAccountType = &v }
+func (m *Message) SetAvgPx(v float64)                 { m.AvgPx = v }
+func (m *Message) SetAvgPxPrecision(v int)            { m.AvgPxPrecision = &v }
+func (m *Message) SetPriceType(v int)                 { m.PriceType = &v }
+func (m *Message) SetAvgParPx(v float64)              { m.AvgParPx = &v }
+func (m *Message) SetReportedPx(v float64)            { m.ReportedPx = &v }
+func (m *Message) SetText(v string)                   { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
+func (m *Message) SetProcessCode(v string)            { m.ProcessCode = &v }
+func (m *Message) SetGrossTradeAmt(v float64)         { m.GrossTradeAmt = v }
+func (m *Message) SetNumDaysInterest(v int)           { m.NumDaysInterest = &v }
+func (m *Message) SetExDate(v string)                 { m.ExDate = &v }
+func (m *Message) SetAccruedInterestRate(v float64)   { m.AccruedInterestRate = &v }
+func (m *Message) SetAccruedInterestAmt(v float64)    { m.AccruedInterestAmt = &v }
+func (m *Message) SetInterestAtMaturity(v float64)    { m.InterestAtMaturity = &v }
+func (m *Message) SetEndAccruedInterestAmt(v float64) { m.EndAccruedInterestAmt = &v }
+func (m *Message) SetStartCash(v float64)             { m.StartCash = &v }
+func (m *Message) SetEndCash(v float64)               { m.EndCash = &v }
+func (m *Message) SetConcession(v float64)            { m.Concession = &v }
+func (m *Message) SetTotalTakedown(v float64)         { m.TotalTakedown = &v }
+func (m *Message) SetNetMoney(v float64)              { m.NetMoney = v }
+func (m *Message) SetMaturityNetMoney(v float64)      { m.MaturityNetMoney = &v }
+func (m *Message) SetSettlCurrAmt(v float64)          { m.SettlCurrAmt = &v }
+func (m *Message) SetSettlCurrency(v string)          { m.SettlCurrency = &v }
+func (m *Message) SetSettlCurrFxRate(v float64)       { m.SettlCurrFxRate = &v }
+func (m *Message) SetSettlCurrFxRateCalc(v string)    { m.SettlCurrFxRateCalc = &v }
+func (m *Message) SetSettlType(v string)              { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)              { m.SettlDate = &v }
+func (m *Message) SetSharedCommission(v float64)      { m.SharedCommission = &v }
+func (m *Message) SetNoMiscFees(v []NoMiscFees)       { m.NoMiscFees = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

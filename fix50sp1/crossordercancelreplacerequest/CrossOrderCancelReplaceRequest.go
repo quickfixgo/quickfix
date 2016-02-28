@@ -146,6 +146,50 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+func (m *Message) SetOrderID(v string)                  { m.OrderID = &v }
+func (m *Message) SetCrossID(v string)                  { m.CrossID = v }
+func (m *Message) SetOrigCrossID(v string)              { m.OrigCrossID = v }
+func (m *Message) SetCrossType(v int)                   { m.CrossType = v }
+func (m *Message) SetCrossPrioritization(v int)         { m.CrossPrioritization = v }
+func (m *Message) SetSettlType(v string)                { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                { m.SettlDate = &v }
+func (m *Message) SetHandlInst(v string)                { m.HandlInst = &v }
+func (m *Message) SetExecInst(v string)                 { m.ExecInst = &v }
+func (m *Message) SetMinQty(v float64)                  { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v float64)                { m.MaxFloor = &v }
+func (m *Message) SetExDestination(v string)            { m.ExDestination = &v }
+func (m *Message) SetProcessCode(v string)              { m.ProcessCode = &v }
+func (m *Message) SetPrevClosePx(v float64)             { m.PrevClosePx = &v }
+func (m *Message) SetLocateReqd(v bool)                 { m.LocateReqd = &v }
+func (m *Message) SetTransactTime(v time.Time)          { m.TransactTime = v }
+func (m *Message) SetOrdType(v string)                  { m.OrdType = v }
+func (m *Message) SetPriceType(v int)                   { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                   { m.Price = &v }
+func (m *Message) SetStopPx(v float64)                  { m.StopPx = &v }
+func (m *Message) SetCurrency(v string)                 { m.Currency = &v }
+func (m *Message) SetComplianceID(v string)             { m.ComplianceID = &v }
+func (m *Message) SetIOIID(v string)                    { m.IOIID = &v }
+func (m *Message) SetQuoteID(v string)                  { m.QuoteID = &v }
+func (m *Message) SetTimeInForce(v string)              { m.TimeInForce = &v }
+func (m *Message) SetEffectiveTime(v time.Time)         { m.EffectiveTime = &v }
+func (m *Message) SetExpireDate(v string)               { m.ExpireDate = &v }
+func (m *Message) SetExpireTime(v time.Time)            { m.ExpireTime = &v }
+func (m *Message) SetGTBookingInst(v int)               { m.GTBookingInst = &v }
+func (m *Message) SetMaxShow(v float64)                 { m.MaxShow = &v }
+func (m *Message) SetTargetStrategy(v int)              { m.TargetStrategy = &v }
+func (m *Message) SetTargetStrategyParameters(v string) { m.TargetStrategyParameters = &v }
+func (m *Message) SetParticipationRate(v float64)       { m.ParticipationRate = &v }
+func (m *Message) SetCancellationRights(v string)       { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)    { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                 { m.RegistID = &v }
+func (m *Message) SetDesignation(v string)              { m.Designation = &v }
+func (m *Message) SetHostCrossID(v string)              { m.HostCrossID = &v }
+func (m *Message) SetTransBkdTime(v time.Time)          { m.TransBkdTime = &v }
+func (m *Message) SetMatchIncrement(v float64)          { m.MatchIncrement = &v }
+func (m *Message) SetMaxPriceLevels(v int)              { m.MaxPriceLevels = &v }
+func (m *Message) SetPriceProtectionScope(v string)     { m.PriceProtectionScope = &v }
+func (m *Message) SetExDestinationIDSource(v string)    { m.ExDestinationIDSource = &v }
+
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 

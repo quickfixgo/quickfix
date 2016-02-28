@@ -23,3 +23,5 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetNoMsgTypes(v []NoMsgTypes) { m.NoMsgTypes = v }

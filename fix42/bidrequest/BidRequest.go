@@ -34,6 +34,18 @@ type NoBidDescriptors struct {
 	ValueOfFutures *float64 `fix:"408"`
 }
 
+func (m *NoBidDescriptors) SetBidDescriptorType(v int)      { m.BidDescriptorType = &v }
+func (m *NoBidDescriptors) SetBidDescriptor(v string)       { m.BidDescriptor = &v }
+func (m *NoBidDescriptors) SetSideValueInd(v int)           { m.SideValueInd = &v }
+func (m *NoBidDescriptors) SetLiquidityValue(v float64)     { m.LiquidityValue = &v }
+func (m *NoBidDescriptors) SetLiquidityNumSecurities(v int) { m.LiquidityNumSecurities = &v }
+func (m *NoBidDescriptors) SetLiquidityPctLow(v float64)    { m.LiquidityPctLow = &v }
+func (m *NoBidDescriptors) SetLiquidityPctHigh(v float64)   { m.LiquidityPctHigh = &v }
+func (m *NoBidDescriptors) SetEFPTrackingError(v float64)   { m.EFPTrackingError = &v }
+func (m *NoBidDescriptors) SetFairValue(v float64)          { m.FairValue = &v }
+func (m *NoBidDescriptors) SetOutsideIndexPct(v float64)    { m.OutsideIndexPct = &v }
+func (m *NoBidDescriptors) SetValueOfFutures(v float64)     { m.ValueOfFutures = &v }
+
 //NoBidComponents is a repeating group in BidRequest
 type NoBidComponents struct {
 	//ListID is a non-required field for NoBidComponents.
@@ -51,6 +63,14 @@ type NoBidComponents struct {
 	//Account is a non-required field for NoBidComponents.
 	Account *string `fix:"1"`
 }
+
+func (m *NoBidComponents) SetListID(v string)           { m.ListID = &v }
+func (m *NoBidComponents) SetSide(v string)             { m.Side = &v }
+func (m *NoBidComponents) SetTradingSessionID(v string) { m.TradingSessionID = &v }
+func (m *NoBidComponents) SetNetGrossInd(v int)         { m.NetGrossInd = &v }
+func (m *NoBidComponents) SetSettlmntTyp(v string)      { m.SettlmntTyp = &v }
+func (m *NoBidComponents) SetFutSettDate(v string)      { m.FutSettDate = &v }
+func (m *NoBidComponents) SetAccount(v string)          { m.Account = &v }
 
 //Message is a BidRequest FIX Message
 type Message struct {
@@ -119,6 +139,36 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetBidID(v string)                        { m.BidID = &v }
+func (m *Message) SetClientBidID(v string)                  { m.ClientBidID = v }
+func (m *Message) SetBidRequestTransType(v string)          { m.BidRequestTransType = v }
+func (m *Message) SetListName(v string)                     { m.ListName = &v }
+func (m *Message) SetTotalNumSecurities(v int)              { m.TotalNumSecurities = v }
+func (m *Message) SetBidType(v int)                         { m.BidType = v }
+func (m *Message) SetNumTickets(v int)                      { m.NumTickets = &v }
+func (m *Message) SetCurrency(v string)                     { m.Currency = &v }
+func (m *Message) SetSideValue1(v float64)                  { m.SideValue1 = &v }
+func (m *Message) SetSideValue2(v float64)                  { m.SideValue2 = &v }
+func (m *Message) SetNoBidDescriptors(v []NoBidDescriptors) { m.NoBidDescriptors = v }
+func (m *Message) SetNoBidComponents(v []NoBidComponents)   { m.NoBidComponents = v }
+func (m *Message) SetLiquidityIndType(v int)                { m.LiquidityIndType = &v }
+func (m *Message) SetWtAverageLiquidity(v float64)          { m.WtAverageLiquidity = &v }
+func (m *Message) SetExchangeForPhysical(v bool)            { m.ExchangeForPhysical = &v }
+func (m *Message) SetOutMainCntryUIndex(v float64)          { m.OutMainCntryUIndex = &v }
+func (m *Message) SetCrossPercent(v float64)                { m.CrossPercent = &v }
+func (m *Message) SetProgRptReqs(v int)                     { m.ProgRptReqs = &v }
+func (m *Message) SetProgPeriodInterval(v int)              { m.ProgPeriodInterval = &v }
+func (m *Message) SetIncTaxInd(v int)                       { m.IncTaxInd = &v }
+func (m *Message) SetForexReq(v bool)                       { m.ForexReq = &v }
+func (m *Message) SetNumBidders(v int)                      { m.NumBidders = &v }
+func (m *Message) SetTradeDate(v string)                    { m.TradeDate = &v }
+func (m *Message) SetTradeType(v string)                    { m.TradeType = v }
+func (m *Message) SetBasisPxType(v string)                  { m.BasisPxType = v }
+func (m *Message) SetStrikeTime(v time.Time)                { m.StrikeTime = &v }
+func (m *Message) SetText(v string)                         { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                  { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                  { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -85,3 +85,42 @@ type Component struct {
 }
 
 func New() *Component { return new(Component) }
+
+func (m *Component) SetOrderID(v string)              { m.OrderID = &v }
+func (m *Component) SetSecondaryOrderID(v string)     { m.SecondaryOrderID = &v }
+func (m *Component) SetClOrdID(v string)              { m.ClOrdID = &v }
+func (m *Component) SetSecondaryClOrdID(v string)     { m.SecondaryClOrdID = &v }
+func (m *Component) SetListID(v string)               { m.ListID = &v }
+func (m *Component) SetRefOrderID(v string)           { m.RefOrderID = &v }
+func (m *Component) SetRefOrderIDSource(v string)     { m.RefOrderIDSource = &v }
+func (m *Component) SetRefOrdIDReason(v int)          { m.RefOrdIDReason = &v }
+func (m *Component) SetOrdType(v string)              { m.OrdType = &v }
+func (m *Component) SetPrice(v float64)               { m.Price = &v }
+func (m *Component) SetStopPx(v float64)              { m.StopPx = &v }
+func (m *Component) SetExecInst(v string)             { m.ExecInst = &v }
+func (m *Component) SetOrdStatus(v string)            { m.OrdStatus = &v }
+func (m *Component) SetOrderQty(v float64)            { m.OrderQty = &v }
+func (m *Component) SetCashOrderQty(v float64)        { m.CashOrderQty = &v }
+func (m *Component) SetOrderPercent(v float64)        { m.OrderPercent = &v }
+func (m *Component) SetRoundingDirection(v string)    { m.RoundingDirection = &v }
+func (m *Component) SetRoundingModulus(v float64)     { m.RoundingModulus = &v }
+func (m *Component) SetLeavesQty(v float64)           { m.LeavesQty = &v }
+func (m *Component) SetCumQty(v float64)              { m.CumQty = &v }
+func (m *Component) SetTimeInForce(v string)          { m.TimeInForce = &v }
+func (m *Component) SetExpireTime(v time.Time)        { m.ExpireTime = &v }
+func (m *Component) SetSecondaryDisplayQty(v float64) { m.SecondaryDisplayQty = &v }
+func (m *Component) SetDisplayWhen(v string)          { m.DisplayWhen = &v }
+func (m *Component) SetDisplayMethod(v string)        { m.DisplayMethod = &v }
+func (m *Component) SetDisplayLowQty(v float64)       { m.DisplayLowQty = &v }
+func (m *Component) SetDisplayHighQty(v float64)      { m.DisplayHighQty = &v }
+func (m *Component) SetDisplayMinIncr(v float64)      { m.DisplayMinIncr = &v }
+func (m *Component) SetRefreshQty(v float64)          { m.RefreshQty = &v }
+func (m *Component) SetDisplayQty(v float64)          { m.DisplayQty = &v }
+func (m *Component) SetOrderCapacity(v string)        { m.OrderCapacity = &v }
+func (m *Component) SetOrderRestrictions(v string)    { m.OrderRestrictions = &v }
+func (m *Component) SetOrigCustOrderCapacity(v int)   { m.OrigCustOrderCapacity = &v }
+func (m *Component) SetOrderInputDevice(v string)     { m.OrderInputDevice = &v }
+func (m *Component) SetLotType(v string)              { m.LotType = &v }
+func (m *Component) SetTransBkdTime(v time.Time)      { m.TransBkdTime = &v }
+func (m *Component) SetOrigOrdModTime(v time.Time)    { m.OrigOrdModTime = &v }
+func (m *Component) SetBookingType(v int)             { m.BookingType = &v }

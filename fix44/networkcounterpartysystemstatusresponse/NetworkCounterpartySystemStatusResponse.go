@@ -23,6 +23,13 @@ type NoCompIDs struct {
 	StatusText *string `fix:"929"`
 }
 
+func (m *NoCompIDs) SetRefCompID(v string)  { m.RefCompID = &v }
+func (m *NoCompIDs) SetRefSubID(v string)   { m.RefSubID = &v }
+func (m *NoCompIDs) SetLocationID(v string) { m.LocationID = &v }
+func (m *NoCompIDs) SetDeskID(v string)     { m.DeskID = &v }
+func (m *NoCompIDs) SetStatusValue(v int)   { m.StatusValue = &v }
+func (m *NoCompIDs) SetStatusText(v string) { m.StatusText = &v }
+
 //Message is a NetworkCounterpartySystemStatusResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BD"`
@@ -42,6 +49,12 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetNetworkStatusResponseType(v int) { m.NetworkStatusResponseType = v }
+func (m *Message) SetNetworkRequestID(v string)       { m.NetworkRequestID = &v }
+func (m *Message) SetNetworkResponseID(v string)      { m.NetworkResponseID = v }
+func (m *Message) SetLastNetworkResponseID(v string)  { m.LastNetworkResponseID = &v }
+func (m *Message) SetNoCompIDs(v []NoCompIDs)         { m.NoCompIDs = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
