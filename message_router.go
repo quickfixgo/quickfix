@@ -9,7 +9,7 @@ type routeKey struct {
 	MsgType     string
 }
 
-//A MessageRoute is a function can process a fromApp/fromAdmin callback
+//A MessageRoute is a function that can process a fromApp/fromAdmin callback
 type MessageRoute func(msg Message, sessionID SessionID) MessageRejectError
 
 //A MessageRouter is a mutex for MessageRoutes
