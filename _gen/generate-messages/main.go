@@ -41,7 +41,7 @@ func genMessages() {
 
 func genMessageImports() string {
 	fileOut := `
-import( 
+import(
   "github.com/quickfixgo/quickfix"
   "github.com/quickfixgo/quickfix/enum"
 `
@@ -247,7 +247,7 @@ func genMessageRoute(msg *datadictionary.MessageDef) string {
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
-//Route returns the beginstring, message type, and MessageRoute for this Mesage type
+//Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string,string,quickfix.MessageRoute) {
 	r:=func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		m:=new(Message)
