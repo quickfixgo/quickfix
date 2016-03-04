@@ -44,16 +44,16 @@ func (helper *helper) Close() {
 	os.RemoveAll(helper.fileStoreRootPath)
 }
 
-func TestFileStore_SetNextMsgSeqNum_IncrNextMsgSeqNum(t *testing.T) {
+func TestFileStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum(t *testing.T) {
 	// Given a FileStore with the following sender and target seqnums
-	helper := newFileStoreTestHelper(t, "TestFileStore_SetNextMsgSeqNum_IncrNextMsgSeqNum")
+	helper := newFileStoreTestHelper(t, "TestFileStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum")
 	defer helper.Close()
 	helper.FileStore.SetNextSenderMsgSeqNum(867)
 	helper.FileStore.SetNextTargetMsgSeqNum(5309)
 
 	// When the store is closed and re-opened
 	helper.FileStore.Close()
-	helper = newFileStoreTestHelper(t, "TestFileStore_SetNextMsgSeqNum_IncrNextMsgSeqNum")
+	helper = newFileStoreTestHelper(t, "TestFileStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum")
 	defer helper.Close()
 
 	// Then the sender and target seqnums should still be
@@ -70,7 +70,7 @@ func TestFileStore_SetNextMsgSeqNum_IncrNextMsgSeqNum(t *testing.T) {
 
 	// When the store is closed and re-opened
 	helper.FileStore.Close()
-	helper = newFileStoreTestHelper(t, "TestFileStore_SetNextMsgSeqNum_IncrNextMsgSeqNum")
+	helper = newFileStoreTestHelper(t, "TestFileStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum")
 	defer helper.Close()
 
 	// Then the sender and target seqnums should still be
