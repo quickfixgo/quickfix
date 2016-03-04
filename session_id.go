@@ -6,7 +6,7 @@ import (
 
 // SessionID is a unique identifer of a Session
 type SessionID struct {
-	BeginString, TargetCompID, SenderCompID, Qualifier string
+	BeginString, TargetCompID, TargetSubID, TargetLocationID, SenderCompID, SenderSubID, SenderLocationID, Qualifier string
 }
 
 func (s SessionID) String() string {
