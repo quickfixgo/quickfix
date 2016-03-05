@@ -7,7 +7,7 @@ import (
 //NoBidComponents is a repeating group in BidCompRspGrp
 type NoBidComponents struct {
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//ListID is a non-required field for NoBidComponents.
 	ListID *string `fix:"66"`
 	//Country is a non-required field for NoBidComponents.
@@ -38,10 +38,10 @@ type NoBidComponents struct {
 	EncodedText *string `fix:"355"`
 }
 
-//Component is a fix50 BidCompRspGrp Component
-type Component struct {
+//BidCompRspGrp is a fix50 Component
+type BidCompRspGrp struct {
 	//NoBidComponents is a required field for BidCompRspGrp.
 	NoBidComponents []NoBidComponents `fix:"420"`
 }
 
-func New() *Component { return new(Component) }
+func (m *BidCompRspGrp) SetNoBidComponents(v []NoBidComponents) { m.NoBidComponents = v }

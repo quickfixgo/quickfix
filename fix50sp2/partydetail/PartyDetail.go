@@ -22,7 +22,7 @@ type NoPartyAltIDs struct {
 	//PartyAltIDSource is a non-required field for NoPartyAltIDs.
 	PartyAltIDSource *string `fix:"1518"`
 	//AltPtysSubGrp Component
-	AltPtysSubGrp altptyssubgrp.Component
+	altptyssubgrp.AltPtysSubGrp
 }
 
 //NoContextPartyIDs is a repeating group in PartyDetail
@@ -34,7 +34,7 @@ type NoContextPartyIDs struct {
 	//ContextPartyRole is a non-required field for NoContextPartyIDs.
 	ContextPartyRole *int `fix:"1525"`
 	//ContextPtysSubGrp Component
-	ContextPtysSubGrp contextptyssubgrp.Component
+	contextptyssubgrp.ContextPtysSubGrp
 }
 
 //NoRiskLimits is a repeating group in PartyDetail
@@ -48,13 +48,13 @@ type NoRiskLimits struct {
 	//RiskLimitPlatform is a non-required field for NoRiskLimits.
 	RiskLimitPlatform *string `fix:"1533"`
 	//RiskInstrumentScope Component
-	RiskInstrumentScope riskinstrumentscope.Component
+	riskinstrumentscope.RiskInstrumentScope
 	//RiskWarningLevels Component
-	RiskWarningLevels riskwarninglevels.Component
+	riskwarninglevels.RiskWarningLevels
 }
 
-//Component is a fix50sp2 PartyDetail Component
-type Component struct {
+//PartyDetail is a fix50sp2 Component
+type PartyDetail struct {
 	//PartyID is a required field for PartyDetail.
 	PartyID string `fix:"448"`
 	//PartyIDSource is a required field for PartyDetail.
@@ -71,4 +71,10 @@ type Component struct {
 	NoRiskLimits []NoRiskLimits `fix:"1529,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *PartyDetail) SetPartyID(v string)                        { m.PartyID = v }
+func (m *PartyDetail) SetPartyIDSource(v string)                  { m.PartyIDSource = v }
+func (m *PartyDetail) SetPartyRole(v int)                         { m.PartyRole = v }
+func (m *PartyDetail) SetNoPartySubIDs(v []NoPartySubIDs)         { m.NoPartySubIDs = v }
+func (m *PartyDetail) SetNoPartyAltIDs(v []NoPartyAltIDs)         { m.NoPartyAltIDs = v }
+func (m *PartyDetail) SetNoContextPartyIDs(v []NoContextPartyIDs) { m.NoContextPartyIDs = v }
+func (m *PartyDetail) SetNoRiskLimits(v []NoRiskLimits)           { m.NoRiskLimits = v }

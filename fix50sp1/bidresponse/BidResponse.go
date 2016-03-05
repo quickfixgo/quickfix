@@ -11,18 +11,21 @@ import (
 //Message is a BidResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"l"`
-	Header     fixt11.Header
+	fixt11.Header
 	//BidID is a non-required field for BidResponse.
 	BidID *string `fix:"390"`
 	//ClientBidID is a non-required field for BidResponse.
 	ClientBidID *string `fix:"391"`
 	//BidCompRspGrp Component
-	BidCompRspGrp bidcomprspgrp.Component
-	Trailer       fixt11.Trailer
+	bidcomprspgrp.BidCompRspGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetBidID(v string)       { m.BidID = &v }
+func (m *Message) SetClientBidID(v string) { m.ClientBidID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

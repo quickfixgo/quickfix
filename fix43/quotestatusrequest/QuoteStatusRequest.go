@@ -12,15 +12,15 @@ import (
 //Message is a QuoteStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"a"`
-	Header     fix43.Header
+	fix43.Header
 	//QuoteStatusReqID is a non-required field for QuoteStatusRequest.
 	QuoteStatusReqID *string `fix:"649"`
 	//QuoteID is a non-required field for QuoteStatusRequest.
 	QuoteID *string `fix:"117"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for QuoteStatusRequest.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for QuoteStatusRequest.
@@ -31,11 +31,19 @@ type Message struct {
 	TradingSessionSubID *string `fix:"625"`
 	//SubscriptionRequestType is a non-required field for QuoteStatusRequest.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetQuoteStatusReqID(v string)        { m.QuoteStatusReqID = &v }
+func (m *Message) SetQuoteID(v string)                 { m.QuoteID = &v }
+func (m *Message) SetAccount(v string)                 { m.Account = &v }
+func (m *Message) SetAccountType(v int)                { m.AccountType = &v }
+func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)     { m.TradingSessionSubID = &v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

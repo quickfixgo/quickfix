@@ -16,7 +16,7 @@ import (
 //Message is a MarketDefinition FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BU"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MarketReportID is a required field for MarketDefinition.
 	MarketReportID string `fix:"1394"`
 	//MarketReqID is a non-required field for MarketDefinition.
@@ -36,13 +36,13 @@ type Message struct {
 	//Currency is a non-required field for MarketDefinition.
 	Currency *string `fix:"15"`
 	//BaseTradingRules Component
-	BaseTradingRules basetradingrules.Component
+	basetradingrules.BaseTradingRules
 	//OrdTypeRules Component
-	OrdTypeRules ordtyperules.Component
+	ordtyperules.OrdTypeRules
 	//TimeInForceRules Component
-	TimeInForceRules timeinforcerules.Component
+	timeinforcerules.TimeInForceRules
 	//ExecInstRules Component
-	ExecInstRules execinstrules.Component
+	execinstrules.ExecInstRules
 	//TransactTime is a non-required field for MarketDefinition.
 	TransactTime *time.Time `fix:"60"`
 	//Text is a non-required field for MarketDefinition.
@@ -52,12 +52,26 @@ type Message struct {
 	//EncodedText is a non-required field for MarketDefinition.
 	EncodedText *string `fix:"355"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetMarketReportID(v string)     { m.MarketReportID = v }
+func (m *Message) SetMarketReqID(v string)        { m.MarketReqID = &v }
+func (m *Message) SetMarketID(v string)           { m.MarketID = v }
+func (m *Message) SetMarketSegmentID(v string)    { m.MarketSegmentID = &v }
+func (m *Message) SetMarketSegmentDesc(v string)  { m.MarketSegmentDesc = &v }
+func (m *Message) SetEncodedMktSegmDescLen(v int) { m.EncodedMktSegmDescLen = &v }
+func (m *Message) SetEncodedMktSegmDesc(v string) { m.EncodedMktSegmDesc = &v }
+func (m *Message) SetParentMktSegmID(v string)    { m.ParentMktSegmID = &v }
+func (m *Message) SetCurrency(v string)           { m.Currency = &v }
+func (m *Message) SetTransactTime(v time.Time)    { m.TransactTime = &v }
+func (m *Message) SetText(v string)               { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)        { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)        { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -65,21 +65,53 @@ type NoStrikes struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoStrikes) SetSymbol(v string)              { m.Symbol = v }
+func (m *NoStrikes) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
+func (m *NoStrikes) SetSecurityID(v string)          { m.SecurityID = &v }
+func (m *NoStrikes) SetIDSource(v string)            { m.IDSource = &v }
+func (m *NoStrikes) SetSecurityType(v string)        { m.SecurityType = &v }
+func (m *NoStrikes) SetMaturityMonthYear(v string)   { m.MaturityMonthYear = &v }
+func (m *NoStrikes) SetMaturityDay(v int)            { m.MaturityDay = &v }
+func (m *NoStrikes) SetPutOrCall(v int)              { m.PutOrCall = &v }
+func (m *NoStrikes) SetStrikePrice(v float64)        { m.StrikePrice = &v }
+func (m *NoStrikes) SetOptAttribute(v string)        { m.OptAttribute = &v }
+func (m *NoStrikes) SetContractMultiplier(v float64) { m.ContractMultiplier = &v }
+func (m *NoStrikes) SetCouponRate(v float64)         { m.CouponRate = &v }
+func (m *NoStrikes) SetSecurityExchange(v string)    { m.SecurityExchange = &v }
+func (m *NoStrikes) SetIssuer(v string)              { m.Issuer = &v }
+func (m *NoStrikes) SetEncodedIssuerLen(v int)       { m.EncodedIssuerLen = &v }
+func (m *NoStrikes) SetEncodedIssuer(v string)       { m.EncodedIssuer = &v }
+func (m *NoStrikes) SetSecurityDesc(v string)        { m.SecurityDesc = &v }
+func (m *NoStrikes) SetEncodedSecurityDescLen(v int) { m.EncodedSecurityDescLen = &v }
+func (m *NoStrikes) SetEncodedSecurityDesc(v string) { m.EncodedSecurityDesc = &v }
+func (m *NoStrikes) SetPrevClosePx(v float64)        { m.PrevClosePx = &v }
+func (m *NoStrikes) SetClOrdID(v string)             { m.ClOrdID = &v }
+func (m *NoStrikes) SetSide(v string)                { m.Side = &v }
+func (m *NoStrikes) SetPrice(v float64)              { m.Price = v }
+func (m *NoStrikes) SetCurrency(v string)            { m.Currency = &v }
+func (m *NoStrikes) SetText(v string)                { m.Text = &v }
+func (m *NoStrikes) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
+func (m *NoStrikes) SetEncodedText(v string)         { m.EncodedText = &v }
+
 //Message is a ListStrikePrice FIX Message
 type Message struct {
 	FIXMsgType string `fix:"m"`
-	Header     fix42.Header
+	fix42.Header
 	//ListID is a required field for ListStrikePrice.
 	ListID string `fix:"66"`
 	//TotNoStrikes is a required field for ListStrikePrice.
 	TotNoStrikes int `fix:"422"`
 	//NoStrikes is a required field for ListStrikePrice.
 	NoStrikes []NoStrikes `fix:"428"`
-	Trailer   fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetListID(v string)         { m.ListID = v }
+func (m *Message) SetTotNoStrikes(v int)      { m.TotNoStrikes = v }
+func (m *Message) SetNoStrikes(v []NoStrikes) { m.NoStrikes = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -16,15 +16,15 @@ type NoRiskLimits struct {
 	//RiskLimitPlatform is a non-required field for NoRiskLimits.
 	RiskLimitPlatform *string `fix:"1533"`
 	//RiskInstrumentScope Component
-	RiskInstrumentScope riskinstrumentscope.Component
+	riskinstrumentscope.RiskInstrumentScope
 	//RiskWarningLevels Component
-	RiskWarningLevels riskwarninglevels.Component
+	riskwarninglevels.RiskWarningLevels
 }
 
-//Component is a fix50sp2 RiskLimits Component
-type Component struct {
+//RiskLimits is a fix50sp2 Component
+type RiskLimits struct {
 	//NoRiskLimits is a non-required field for RiskLimits.
 	NoRiskLimits []NoRiskLimits `fix:"1529,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *RiskLimits) SetNoRiskLimits(v []NoRiskLimits) { m.NoRiskLimits = v }

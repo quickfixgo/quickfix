@@ -20,8 +20,8 @@ type NoEvents struct {
 	EventText *string `fix:"868"`
 }
 
-//Component is a fix44 Instrument Component
-type Component struct {
+//Instrument is a fix44 Component
+type Instrument struct {
 	//Symbol is a non-required field for Instrument.
 	Symbol *string `fix:"55"`
 	//SymbolSfx is a non-required field for Instrument.
@@ -108,4 +108,45 @@ type Component struct {
 	InterestAccrualDate *string `fix:"874"`
 }
 
-func New() *Component { return new(Component) }
+func (m *Instrument) SetSymbol(v string)                     { m.Symbol = &v }
+func (m *Instrument) SetSymbolSfx(v string)                  { m.SymbolSfx = &v }
+func (m *Instrument) SetSecurityID(v string)                 { m.SecurityID = &v }
+func (m *Instrument) SetSecurityIDSource(v string)           { m.SecurityIDSource = &v }
+func (m *Instrument) SetNoSecurityAltID(v []NoSecurityAltID) { m.NoSecurityAltID = v }
+func (m *Instrument) SetProduct(v int)                       { m.Product = &v }
+func (m *Instrument) SetCFICode(v string)                    { m.CFICode = &v }
+func (m *Instrument) SetSecurityType(v string)               { m.SecurityType = &v }
+func (m *Instrument) SetSecuritySubType(v string)            { m.SecuritySubType = &v }
+func (m *Instrument) SetMaturityMonthYear(v string)          { m.MaturityMonthYear = &v }
+func (m *Instrument) SetMaturityDate(v string)               { m.MaturityDate = &v }
+func (m *Instrument) SetCouponPaymentDate(v string)          { m.CouponPaymentDate = &v }
+func (m *Instrument) SetIssueDate(v string)                  { m.IssueDate = &v }
+func (m *Instrument) SetRepoCollateralSecurityType(v int)    { m.RepoCollateralSecurityType = &v }
+func (m *Instrument) SetRepurchaseTerm(v int)                { m.RepurchaseTerm = &v }
+func (m *Instrument) SetRepurchaseRate(v float64)            { m.RepurchaseRate = &v }
+func (m *Instrument) SetFactor(v float64)                    { m.Factor = &v }
+func (m *Instrument) SetCreditRating(v string)               { m.CreditRating = &v }
+func (m *Instrument) SetInstrRegistry(v string)              { m.InstrRegistry = &v }
+func (m *Instrument) SetCountryOfIssue(v string)             { m.CountryOfIssue = &v }
+func (m *Instrument) SetStateOrProvinceOfIssue(v string)     { m.StateOrProvinceOfIssue = &v }
+func (m *Instrument) SetLocaleOfIssue(v string)              { m.LocaleOfIssue = &v }
+func (m *Instrument) SetRedemptionDate(v string)             { m.RedemptionDate = &v }
+func (m *Instrument) SetStrikePrice(v float64)               { m.StrikePrice = &v }
+func (m *Instrument) SetStrikeCurrency(v string)             { m.StrikeCurrency = &v }
+func (m *Instrument) SetOptAttribute(v string)               { m.OptAttribute = &v }
+func (m *Instrument) SetContractMultiplier(v float64)        { m.ContractMultiplier = &v }
+func (m *Instrument) SetCouponRate(v float64)                { m.CouponRate = &v }
+func (m *Instrument) SetSecurityExchange(v string)           { m.SecurityExchange = &v }
+func (m *Instrument) SetIssuer(v string)                     { m.Issuer = &v }
+func (m *Instrument) SetEncodedIssuerLen(v int)              { m.EncodedIssuerLen = &v }
+func (m *Instrument) SetEncodedIssuer(v string)              { m.EncodedIssuer = &v }
+func (m *Instrument) SetSecurityDesc(v string)               { m.SecurityDesc = &v }
+func (m *Instrument) SetEncodedSecurityDescLen(v int)        { m.EncodedSecurityDescLen = &v }
+func (m *Instrument) SetEncodedSecurityDesc(v string)        { m.EncodedSecurityDesc = &v }
+func (m *Instrument) SetPool(v string)                       { m.Pool = &v }
+func (m *Instrument) SetContractSettlMonth(v string)         { m.ContractSettlMonth = &v }
+func (m *Instrument) SetCPProgram(v int)                     { m.CPProgram = &v }
+func (m *Instrument) SetCPRegType(v string)                  { m.CPRegType = &v }
+func (m *Instrument) SetNoEvents(v []NoEvents)               { m.NoEvents = v }
+func (m *Instrument) SetDatedDate(v string)                  { m.DatedDate = &v }
+func (m *Instrument) SetInterestAccrualDate(v string)        { m.InterestAccrualDate = &v }

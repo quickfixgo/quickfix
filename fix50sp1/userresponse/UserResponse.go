@@ -10,7 +10,7 @@ import (
 //Message is a UserResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BF"`
-	Header     fixt11.Header
+	fixt11.Header
 	//UserRequestID is a required field for UserResponse.
 	UserRequestID string `fix:"923"`
 	//Username is a required field for UserResponse.
@@ -19,11 +19,16 @@ type Message struct {
 	UserStatus *int `fix:"926"`
 	//UserStatusText is a non-required field for UserResponse.
 	UserStatusText *string `fix:"927"`
-	Trailer        fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetUserRequestID(v string)  { m.UserRequestID = v }
+func (m *Message) SetUsername(v string)       { m.Username = v }
+func (m *Message) SetUserStatus(v int)        { m.UserStatus = &v }
+func (m *Message) SetUserStatusText(v string) { m.UserStatusText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -13,7 +13,7 @@ import (
 //Message is a OrderMassCancelRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"q"`
-	Header     fix44.Header
+	fix44.Header
 	//ClOrdID is a required field for OrderMassCancelRequest.
 	ClOrdID string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for OrderMassCancelRequest.
@@ -25,9 +25,9 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for OrderMassCancelRequest.
 	TradingSessionSubID *string `fix:"625"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassCancelRequest.
 	Side *string `fix:"54"`
 	//TransactTime is a required field for OrderMassCancelRequest.
@@ -38,11 +38,22 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for OrderMassCancelRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetClOrdID(v string)               { m.ClOrdID = v }
+func (m *Message) SetSecondaryClOrdID(v string)      { m.SecondaryClOrdID = &v }
+func (m *Message) SetMassCancelRequestType(v string) { m.MassCancelRequestType = v }
+func (m *Message) SetTradingSessionID(v string)      { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)   { m.TradingSessionSubID = &v }
+func (m *Message) SetSide(v string)                  { m.Side = &v }
+func (m *Message) SetTransactTime(v time.Time)       { m.TransactTime = v }
+func (m *Message) SetText(v string)                  { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)           { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)           { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

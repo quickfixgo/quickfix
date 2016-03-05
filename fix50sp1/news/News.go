@@ -17,7 +17,7 @@ import (
 //Message is a News FIX Message
 type Message struct {
 	FIXMsgType string `fix:"B"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrigTime is a non-required field for News.
 	OrigTime *time.Time `fix:"42"`
 	//Urgency is a non-required field for News.
@@ -29,15 +29,15 @@ type Message struct {
 	//EncodedHeadline is a non-required field for News.
 	EncodedHeadline *string `fix:"359"`
 	//RoutingGrp Component
-	RoutingGrp routinggrp.Component
+	routinggrp.RoutingGrp
 	//InstrmtGrp Component
-	InstrmtGrp instrmtgrp.Component
+	instrmtgrp.InstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//LinesOfTextGrp Component
-	LinesOfTextGrp linesoftextgrp.Component
+	linesoftextgrp.LinesOfTextGrp
 	//URLLink is a non-required field for News.
 	URLLink *string `fix:"149"`
 	//RawDataLength is a non-required field for News.
@@ -45,12 +45,21 @@ type Message struct {
 	//RawData is a non-required field for News.
 	RawData *string `fix:"96"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrigTime(v time.Time)     { m.OrigTime = &v }
+func (m *Message) SetUrgency(v string)         { m.Urgency = &v }
+func (m *Message) SetHeadline(v string)        { m.Headline = v }
+func (m *Message) SetEncodedHeadlineLen(v int) { m.EncodedHeadlineLen = &v }
+func (m *Message) SetEncodedHeadline(v string) { m.EncodedHeadline = &v }
+func (m *Message) SetURLLink(v string)         { m.URLLink = &v }
+func (m *Message) SetRawDataLength(v int)      { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)         { m.RawData = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

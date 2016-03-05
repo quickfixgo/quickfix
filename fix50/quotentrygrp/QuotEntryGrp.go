@@ -11,9 +11,9 @@ type NoQuoteEntries struct {
 	//QuoteEntryID is a required field for NoQuoteEntries.
 	QuoteEntryID string `fix:"299"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//BidPx is a non-required field for NoQuoteEntries.
 	BidPx *float64 `fix:"132"`
 	//OfferPx is a non-required field for NoQuoteEntries.
@@ -62,10 +62,10 @@ type NoQuoteEntries struct {
 	Currency *string `fix:"15"`
 }
 
-//Component is a fix50 QuotEntryGrp Component
-type Component struct {
+//QuotEntryGrp is a fix50 Component
+type QuotEntryGrp struct {
 	//NoQuoteEntries is a required field for QuotEntryGrp.
 	NoQuoteEntries []NoQuoteEntries `fix:"295"`
 }
 
-func New() *Component { return new(Component) }
+func (m *QuotEntryGrp) SetNoQuoteEntries(v []NoQuoteEntries) { m.NoQuoteEntries = v }

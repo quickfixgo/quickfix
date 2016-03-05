@@ -22,7 +22,7 @@ import (
 //Message is a CollateralResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AZ"`
-	Header     fixt11.Header
+	fixt11.Header
 	//CollRespID is a required field for CollateralResponse.
 	CollRespID string `fix:"904"`
 	//CollAsgnID is a non-required field for CollateralResponse.
@@ -40,7 +40,7 @@ type Message struct {
 	//TransactTime is a required field for CollateralResponse.
 	TransactTime time.Time `fix:"60"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for CollateralResponse.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralResponse.
@@ -54,13 +54,13 @@ type Message struct {
 	//SecondaryClOrdID is a non-required field for CollateralResponse.
 	SecondaryClOrdID *string `fix:"526"`
 	//ExecCollGrp Component
-	ExecCollGrp execcollgrp.Component
+	execcollgrp.ExecCollGrp
 	//TrdCollGrp Component
-	TrdCollGrp trdcollgrp.Component
+	trdcollgrp.TrdCollGrp
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralResponse.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralResponse.
@@ -70,9 +70,9 @@ type Message struct {
 	//Currency is a non-required field for CollateralResponse.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtCollGrp Component
-	UndInstrmtCollGrp undinstrmtcollgrp.Component
+	undinstrmtcollgrp.UndInstrmtCollGrp
 	//MarginExcess is a non-required field for CollateralResponse.
 	MarginExcess *float64 `fix:"899"`
 	//TotalNetValue is a non-required field for CollateralResponse.
@@ -80,11 +80,11 @@ type Message struct {
 	//CashOutstanding is a non-required field for CollateralResponse.
 	CashOutstanding *float64 `fix:"901"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//Side is a non-required field for CollateralResponse.
 	Side *string `fix:"54"`
 	//MiscFeesGrp Component
-	MiscFeesGrp miscfeesgrp.Component
+	miscfeesgrp.MiscFeesGrp
 	//Price is a non-required field for CollateralResponse.
 	Price *float64 `fix:"44"`
 	//PriceType is a non-required field for CollateralResponse.
@@ -98,9 +98,9 @@ type Message struct {
 	//EndCash is a non-required field for CollateralResponse.
 	EndCash *float64 `fix:"922"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//Text is a non-required field for CollateralResponse.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for CollateralResponse.
@@ -113,11 +113,46 @@ type Message struct {
 	FinancialStatus *string `fix:"291"`
 	//ClearingBusinessDate is a non-required field for CollateralResponse.
 	ClearingBusinessDate *string `fix:"715"`
-	Trailer              fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetCollRespID(v string)             { m.CollRespID = v }
+func (m *Message) SetCollAsgnID(v string)             { m.CollAsgnID = &v }
+func (m *Message) SetCollReqID(v string)              { m.CollReqID = &v }
+func (m *Message) SetCollAsgnReason(v int)            { m.CollAsgnReason = &v }
+func (m *Message) SetCollAsgnTransType(v int)         { m.CollAsgnTransType = &v }
+func (m *Message) SetCollAsgnRespType(v int)          { m.CollAsgnRespType = v }
+func (m *Message) SetCollAsgnRejectReason(v int)      { m.CollAsgnRejectReason = &v }
+func (m *Message) SetTransactTime(v time.Time)        { m.TransactTime = v }
+func (m *Message) SetAccount(v string)                { m.Account = &v }
+func (m *Message) SetAccountType(v int)               { m.AccountType = &v }
+func (m *Message) SetClOrdID(v string)                { m.ClOrdID = &v }
+func (m *Message) SetOrderID(v string)                { m.OrderID = &v }
+func (m *Message) SetSecondaryOrderID(v string)       { m.SecondaryOrderID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)       { m.SecondaryClOrdID = &v }
+func (m *Message) SetSettlDate(v string)              { m.SettlDate = &v }
+func (m *Message) SetQuantity(v float64)              { m.Quantity = &v }
+func (m *Message) SetQtyType(v int)                   { m.QtyType = &v }
+func (m *Message) SetCurrency(v string)               { m.Currency = &v }
+func (m *Message) SetMarginExcess(v float64)          { m.MarginExcess = &v }
+func (m *Message) SetTotalNetValue(v float64)         { m.TotalNetValue = &v }
+func (m *Message) SetCashOutstanding(v float64)       { m.CashOutstanding = &v }
+func (m *Message) SetSide(v string)                   { m.Side = &v }
+func (m *Message) SetPrice(v float64)                 { m.Price = &v }
+func (m *Message) SetPriceType(v int)                 { m.PriceType = &v }
+func (m *Message) SetAccruedInterestAmt(v float64)    { m.AccruedInterestAmt = &v }
+func (m *Message) SetEndAccruedInterestAmt(v float64) { m.EndAccruedInterestAmt = &v }
+func (m *Message) SetStartCash(v float64)             { m.StartCash = &v }
+func (m *Message) SetEndCash(v float64)               { m.EndCash = &v }
+func (m *Message) SetText(v string)                   { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
+func (m *Message) SetCollApplType(v int)              { m.CollApplType = &v }
+func (m *Message) SetFinancialStatus(v string)        { m.FinancialStatus = &v }
+func (m *Message) SetClearingBusinessDate(v string)   { m.ClearingBusinessDate = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

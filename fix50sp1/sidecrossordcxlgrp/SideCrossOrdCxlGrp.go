@@ -21,13 +21,13 @@ type NoSides struct {
 	//OrigOrdModTime is a non-required field for NoSides.
 	OrigOrdModTime *time.Time `fix:"586"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoSides.
 	TradeDate *string `fix:"75"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//ComplianceID is a non-required field for NoSides.
 	ComplianceID *string `fix:"376"`
 	//Text is a non-required field for NoSides.
@@ -38,10 +38,10 @@ type NoSides struct {
 	EncodedText *string `fix:"355"`
 }
 
-//Component is a fix50sp1 SideCrossOrdCxlGrp Component
-type Component struct {
+//SideCrossOrdCxlGrp is a fix50sp1 Component
+type SideCrossOrdCxlGrp struct {
 	//NoSides is a required field for SideCrossOrdCxlGrp.
 	NoSides []NoSides `fix:"552"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SideCrossOrdCxlGrp) SetNoSides(v []NoSides) { m.NoSides = v }

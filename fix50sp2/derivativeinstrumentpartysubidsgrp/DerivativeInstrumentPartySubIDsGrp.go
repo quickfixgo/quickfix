@@ -8,10 +8,12 @@ type NoDerivativeInstrumentPartySubIDs struct {
 	DerivativeInstrumentPartySubIDType *int `fix:"1298"`
 }
 
-//Component is a fix50sp2 DerivativeInstrumentPartySubIDsGrp Component
-type Component struct {
+//DerivativeInstrumentPartySubIDsGrp is a fix50sp2 Component
+type DerivativeInstrumentPartySubIDsGrp struct {
 	//NoDerivativeInstrumentPartySubIDs is a non-required field for DerivativeInstrumentPartySubIDsGrp.
 	NoDerivativeInstrumentPartySubIDs []NoDerivativeInstrumentPartySubIDs `fix:"1296,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *DerivativeInstrumentPartySubIDsGrp) SetNoDerivativeInstrumentPartySubIDs(v []NoDerivativeInstrumentPartySubIDs) {
+	m.NoDerivativeInstrumentPartySubIDs = v
+}

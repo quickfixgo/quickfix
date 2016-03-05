@@ -10,7 +10,7 @@ import (
 //Message is a QuoteRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"R"`
-	Header     fix40.Header
+	fix40.Header
 	//QuoteReqID is a required field for QuoteRequest.
 	QuoteReqID string `fix:"131"`
 	//Symbol is a required field for QuoteRequest.
@@ -31,11 +31,22 @@ type Message struct {
 	Side *string `fix:"54"`
 	//OrderQty is a non-required field for QuoteRequest.
 	OrderQty *int `fix:"38"`
-	Trailer  fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetQuoteReqID(v string)   { m.QuoteReqID = v }
+func (m *Message) SetSymbol(v string)       { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)    { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)   { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)     { m.IDSource = &v }
+func (m *Message) SetIssuer(v string)       { m.Issuer = &v }
+func (m *Message) SetSecurityDesc(v string) { m.SecurityDesc = &v }
+func (m *Message) SetPrevClosePx(v float64) { m.PrevClosePx = &v }
+func (m *Message) SetSide(v string)         { m.Side = &v }
+func (m *Message) SetOrderQty(v int)        { m.OrderQty = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -11,7 +11,7 @@ import (
 //NoStrikes is a repeating group in ListStrikePrice
 type NoStrikes struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//PrevClosePx is a non-required field for NoStrikes.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoStrikes.
@@ -32,21 +32,35 @@ type NoStrikes struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoStrikes) SetPrevClosePx(v float64)     { m.PrevClosePx = &v }
+func (m *NoStrikes) SetClOrdID(v string)          { m.ClOrdID = &v }
+func (m *NoStrikes) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }
+func (m *NoStrikes) SetSide(v string)             { m.Side = &v }
+func (m *NoStrikes) SetPrice(v float64)           { m.Price = v }
+func (m *NoStrikes) SetCurrency(v string)         { m.Currency = &v }
+func (m *NoStrikes) SetText(v string)             { m.Text = &v }
+func (m *NoStrikes) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *NoStrikes) SetEncodedText(v string)      { m.EncodedText = &v }
+
 //Message is a ListStrikePrice FIX Message
 type Message struct {
 	FIXMsgType string `fix:"m"`
-	Header     fix43.Header
+	fix43.Header
 	//ListID is a required field for ListStrikePrice.
 	ListID string `fix:"66"`
 	//TotNoStrikes is a required field for ListStrikePrice.
 	TotNoStrikes int `fix:"422"`
 	//NoStrikes is a required field for ListStrikePrice.
 	NoStrikes []NoStrikes `fix:"428"`
-	Trailer   fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetListID(v string)         { m.ListID = v }
+func (m *Message) SetTotNoStrikes(v int)      { m.TotNoStrikes = v }
+func (m *Message) SetNoStrikes(v []NoStrikes) { m.NoStrikes = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

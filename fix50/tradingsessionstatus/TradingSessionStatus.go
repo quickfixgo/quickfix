@@ -12,7 +12,7 @@ import (
 //Message is a TradingSessionStatus FIX Message
 type Message struct {
 	FIXMsgType string `fix:"h"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradSesReqID is a non-required field for TradingSessionStatus.
 	TradSesReqID *string `fix:"335"`
 	//TradingSessionID is a required field for TradingSessionStatus.
@@ -48,12 +48,30 @@ type Message struct {
 	//EncodedText is a non-required field for TradingSessionStatus.
 	EncodedText *string `fix:"355"`
 	//Instrument Component
-	Instrument instrument.Component
-	Trailer    fixt11.Trailer
+	instrument.Instrument
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTradSesReqID(v string)           { m.TradSesReqID = &v }
+func (m *Message) SetTradingSessionID(v string)       { m.TradingSessionID = v }
+func (m *Message) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }
+func (m *Message) SetTradSesMethod(v int)             { m.TradSesMethod = &v }
+func (m *Message) SetTradSesMode(v int)               { m.TradSesMode = &v }
+func (m *Message) SetUnsolicitedIndicator(v bool)     { m.UnsolicitedIndicator = &v }
+func (m *Message) SetTradSesStatus(v int)             { m.TradSesStatus = v }
+func (m *Message) SetTradSesStatusRejReason(v int)    { m.TradSesStatusRejReason = &v }
+func (m *Message) SetTradSesStartTime(v time.Time)    { m.TradSesStartTime = &v }
+func (m *Message) SetTradSesOpenTime(v time.Time)     { m.TradSesOpenTime = &v }
+func (m *Message) SetTradSesPreCloseTime(v time.Time) { m.TradSesPreCloseTime = &v }
+func (m *Message) SetTradSesCloseTime(v time.Time)    { m.TradSesCloseTime = &v }
+func (m *Message) SetTradSesEndTime(v time.Time)      { m.TradSesEndTime = &v }
+func (m *Message) SetTotalVolumeTraded(v float64)     { m.TotalVolumeTraded = &v }
+func (m *Message) SetText(v string)                   { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

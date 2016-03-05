@@ -10,10 +10,10 @@ type NoContAmts struct {
 	ContAmtCurr *string `fix:"521"`
 }
 
-//Component is a fix50sp2 ContAmtGrp Component
-type Component struct {
+//ContAmtGrp is a fix50sp2 Component
+type ContAmtGrp struct {
 	//NoContAmts is a non-required field for ContAmtGrp.
 	NoContAmts []NoContAmts `fix:"518,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *ContAmtGrp) SetNoContAmts(v []NoContAmts) { m.NoContAmts = v }

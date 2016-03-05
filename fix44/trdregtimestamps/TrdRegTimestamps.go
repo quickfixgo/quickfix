@@ -14,10 +14,10 @@ type NoTrdRegTimestamps struct {
 	TrdRegTimestampOrigin *string `fix:"771"`
 }
 
-//Component is a fix44 TrdRegTimestamps Component
-type Component struct {
+//TrdRegTimestamps is a fix44 Component
+type TrdRegTimestamps struct {
 	//NoTrdRegTimestamps is a non-required field for TrdRegTimestamps.
 	NoTrdRegTimestamps []NoTrdRegTimestamps `fix:"768,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TrdRegTimestamps) SetNoTrdRegTimestamps(v []NoTrdRegTimestamps) { m.NoTrdRegTimestamps = v }

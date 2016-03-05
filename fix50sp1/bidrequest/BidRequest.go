@@ -13,7 +13,7 @@ import (
 //Message is a BidRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"k"`
-	Header     fixt11.Header
+	fixt11.Header
 	//BidID is a non-required field for BidRequest.
 	BidID *string `fix:"390"`
 	//ClientBidID is a required field for BidRequest.
@@ -35,9 +35,9 @@ type Message struct {
 	//SideValue2 is a non-required field for BidRequest.
 	SideValue2 *float64 `fix:"397"`
 	//BidDescReqGrp Component
-	BidDescReqGrp biddescreqgrp.Component
+	biddescreqgrp.BidDescReqGrp
 	//BidCompReqGrp Component
-	BidCompReqGrp bidcompreqgrp.Component
+	bidcompreqgrp.BidCompReqGrp
 	//LiquidityIndType is a non-required field for BidRequest.
 	LiquidityIndType *int `fix:"409"`
 	//WtAverageLiquidity is a non-required field for BidRequest.
@@ -72,11 +72,39 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for BidRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetBidID(v string)               { m.BidID = &v }
+func (m *Message) SetClientBidID(v string)         { m.ClientBidID = v }
+func (m *Message) SetBidRequestTransType(v string) { m.BidRequestTransType = v }
+func (m *Message) SetListName(v string)            { m.ListName = &v }
+func (m *Message) SetTotNoRelatedSym(v int)        { m.TotNoRelatedSym = v }
+func (m *Message) SetBidType(v int)                { m.BidType = v }
+func (m *Message) SetNumTickets(v int)             { m.NumTickets = &v }
+func (m *Message) SetCurrency(v string)            { m.Currency = &v }
+func (m *Message) SetSideValue1(v float64)         { m.SideValue1 = &v }
+func (m *Message) SetSideValue2(v float64)         { m.SideValue2 = &v }
+func (m *Message) SetLiquidityIndType(v int)       { m.LiquidityIndType = &v }
+func (m *Message) SetWtAverageLiquidity(v float64) { m.WtAverageLiquidity = &v }
+func (m *Message) SetExchangeForPhysical(v bool)   { m.ExchangeForPhysical = &v }
+func (m *Message) SetOutMainCntryUIndex(v float64) { m.OutMainCntryUIndex = &v }
+func (m *Message) SetCrossPercent(v float64)       { m.CrossPercent = &v }
+func (m *Message) SetProgRptReqs(v int)            { m.ProgRptReqs = &v }
+func (m *Message) SetProgPeriodInterval(v int)     { m.ProgPeriodInterval = &v }
+func (m *Message) SetIncTaxInd(v int)              { m.IncTaxInd = &v }
+func (m *Message) SetForexReq(v bool)              { m.ForexReq = &v }
+func (m *Message) SetNumBidders(v int)             { m.NumBidders = &v }
+func (m *Message) SetTradeDate(v string)           { m.TradeDate = &v }
+func (m *Message) SetBidTradeType(v string)        { m.BidTradeType = v }
+func (m *Message) SetBasisPxType(v string)         { m.BasisPxType = v }
+func (m *Message) SetStrikeTime(v time.Time)       { m.StrikeTime = &v }
+func (m *Message) SetText(v string)                { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)         { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

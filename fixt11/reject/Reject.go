@@ -10,7 +10,7 @@ import (
 //Message is a Reject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"3"`
-	Header     fixt11.Header
+	fixt11.Header
 	//RefSeqNum is a required field for Reject.
 	RefSeqNum int `fix:"45"`
 	//RefTagID is a non-required field for Reject.
@@ -25,11 +25,19 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for Reject.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetRefSeqNum(v int)           { m.RefSeqNum = v }
+func (m *Message) SetRefTagID(v int)            { m.RefTagID = &v }
+func (m *Message) SetRefMsgType(v string)       { m.RefMsgType = &v }
+func (m *Message) SetSessionRejectReason(v int) { m.SessionRejectReason = &v }
+func (m *Message) SetText(v string)             { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)      { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

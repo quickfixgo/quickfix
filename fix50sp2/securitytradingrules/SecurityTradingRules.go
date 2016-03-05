@@ -31,7 +31,7 @@ type NoTradingSessionRules struct {
 	//TradingSessionSubID is a non-required field for NoTradingSessionRules.
 	TradingSessionSubID *string `fix:"625"`
 	//TradingSessionRules Component
-	TradingSessionRules tradingsessionrules.Component
+	tradingsessionrules.TradingSessionRules
 }
 
 //NoNestedInstrAttrib is a repeating group in SecurityTradingRules
@@ -42,8 +42,8 @@ type NoNestedInstrAttrib struct {
 	NestedInstrAttribValue *string `fix:"1211"`
 }
 
-//Component is a fix50sp2 SecurityTradingRules Component
-type Component struct {
+//SecurityTradingRules is a fix50sp2 Component
+type SecurityTradingRules struct {
 	//NoTickRules is a non-required field for SecurityTradingRules.
 	NoTickRules []NoTickRules `fix:"1205,omitempty"`
 	//NoLotTypeRules is a non-required field for SecurityTradingRules.
@@ -82,4 +82,25 @@ type Component struct {
 	NoNestedInstrAttrib []NoNestedInstrAttrib `fix:"1312,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SecurityTradingRules) SetNoTickRules(v []NoTickRules)       { m.NoTickRules = v }
+func (m *SecurityTradingRules) SetNoLotTypeRules(v []NoLotTypeRules) { m.NoLotTypeRules = v }
+func (m *SecurityTradingRules) SetPriceLimitType(v int)              { m.PriceLimitType = &v }
+func (m *SecurityTradingRules) SetLowLimitPrice(v float64)           { m.LowLimitPrice = &v }
+func (m *SecurityTradingRules) SetHighLimitPrice(v float64)          { m.HighLimitPrice = &v }
+func (m *SecurityTradingRules) SetTradingReferencePrice(v float64)   { m.TradingReferencePrice = &v }
+func (m *SecurityTradingRules) SetExpirationCycle(v int)             { m.ExpirationCycle = &v }
+func (m *SecurityTradingRules) SetMinTradeVol(v float64)             { m.MinTradeVol = &v }
+func (m *SecurityTradingRules) SetMaxTradeVol(v float64)             { m.MaxTradeVol = &v }
+func (m *SecurityTradingRules) SetMaxPriceVariation(v float64)       { m.MaxPriceVariation = &v }
+func (m *SecurityTradingRules) SetImpliedMarketIndicator(v int)      { m.ImpliedMarketIndicator = &v }
+func (m *SecurityTradingRules) SetTradingCurrency(v string)          { m.TradingCurrency = &v }
+func (m *SecurityTradingRules) SetRoundLot(v float64)                { m.RoundLot = &v }
+func (m *SecurityTradingRules) SetMultilegModel(v int)               { m.MultilegModel = &v }
+func (m *SecurityTradingRules) SetMultilegPriceMethod(v int)         { m.MultilegPriceMethod = &v }
+func (m *SecurityTradingRules) SetPriceType(v int)                   { m.PriceType = &v }
+func (m *SecurityTradingRules) SetNoTradingSessionRules(v []NoTradingSessionRules) {
+	m.NoTradingSessionRules = v
+}
+func (m *SecurityTradingRules) SetNoNestedInstrAttrib(v []NoNestedInstrAttrib) {
+	m.NoNestedInstrAttrib = v
+}

@@ -14,17 +14,17 @@ import (
 //Message is a PartyDetailsListRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"CF"`
-	Header     fixt11.Header
+	fixt11.Header
 	//PartyDetailsListRequestID is a required field for PartyDetailsListRequest.
 	PartyDetailsListRequestID string `fix:"1505"`
 	//PartyListResponseTypeGrp Component
-	PartyListResponseTypeGrp partylistresponsetypegrp.Component
+	partylistresponsetypegrp.PartyListResponseTypeGrp
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//RequestedPartyRoleGrp Component
-	RequestedPartyRoleGrp requestedpartyrolegrp.Component
+	requestedpartyrolegrp.RequestedPartyRoleGrp
 	//PartyRelationships Component
-	PartyRelationships partyrelationships.Component
+	partyrelationships.PartyRelationships
 	//SubscriptionRequestType is a non-required field for PartyDetailsListRequest.
 	SubscriptionRequestType *string `fix:"263"`
 	//Text is a non-required field for PartyDetailsListRequest.
@@ -33,11 +33,17 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for PartyDetailsListRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetPartyDetailsListRequestID(v string) { m.PartyDetailsListRequestID = v }
+func (m *Message) SetSubscriptionRequestType(v string)   { m.SubscriptionRequestType = &v }
+func (m *Message) SetText(v string)                      { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)               { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

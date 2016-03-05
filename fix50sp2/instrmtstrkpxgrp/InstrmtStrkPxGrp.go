@@ -8,9 +8,9 @@ import (
 //NoStrikes is a repeating group in InstrmtStrkPxGrp
 type NoStrikes struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NoStrikes.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoStrikes.
@@ -31,10 +31,10 @@ type NoStrikes struct {
 	EncodedText *string `fix:"355"`
 }
 
-//Component is a fix50sp2 InstrmtStrkPxGrp Component
-type Component struct {
+//InstrmtStrkPxGrp is a fix50sp2 Component
+type InstrmtStrkPxGrp struct {
 	//NoStrikes is a required field for InstrmtStrkPxGrp.
 	NoStrikes []NoStrikes `fix:"428"`
 }
 
-func New() *Component { return new(Component) }
+func (m *InstrmtStrkPxGrp) SetNoStrikes(v []NoStrikes) { m.NoStrikes = v }

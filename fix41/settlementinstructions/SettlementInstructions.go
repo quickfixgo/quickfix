@@ -11,7 +11,7 @@ import (
 //Message is a SettlementInstructions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"T"`
-	Header     fix41.Header
+	fix41.Header
 	//SettlInstID is a required field for SettlementInstructions.
 	SettlInstID string `fix:"162"`
 	//SettlInstTransType is a required field for SettlementInstructions.
@@ -80,11 +80,46 @@ type Message struct {
 	CashSettlAgentContactName *string `fix:"186"`
 	//CashSettlAgentContactPhone is a non-required field for SettlementInstructions.
 	CashSettlAgentContactPhone *string `fix:"187"`
-	Trailer                    fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSettlInstID(v string)                    { m.SettlInstID = v }
+func (m *Message) SetSettlInstTransType(v string)             { m.SettlInstTransType = v }
+func (m *Message) SetSettlInstMode(v string)                  { m.SettlInstMode = v }
+func (m *Message) SetSettlInstSource(v string)                { m.SettlInstSource = v }
+func (m *Message) SetAllocAccount(v string)                   { m.AllocAccount = v }
+func (m *Message) SetSettlLocation(v string)                  { m.SettlLocation = &v }
+func (m *Message) SetTradeDate(v string)                      { m.TradeDate = &v }
+func (m *Message) SetAllocID(v string)                        { m.AllocID = &v }
+func (m *Message) SetLastMkt(v string)                        { m.LastMkt = &v }
+func (m *Message) SetSide(v string)                           { m.Side = &v }
+func (m *Message) SetSecurityType(v string)                   { m.SecurityType = &v }
+func (m *Message) SetEffectiveTime(v time.Time)               { m.EffectiveTime = &v }
+func (m *Message) SetTransactTime(v time.Time)                { m.TransactTime = v }
+func (m *Message) SetClientID(v string)                       { m.ClientID = &v }
+func (m *Message) SetExecBroker(v string)                     { m.ExecBroker = &v }
+func (m *Message) SetStandInstDbType(v int)                   { m.StandInstDbType = &v }
+func (m *Message) SetStandInstDbName(v string)                { m.StandInstDbName = &v }
+func (m *Message) SetStandInstDbID(v string)                  { m.StandInstDbID = &v }
+func (m *Message) SetSettlDeliveryType(v int)                 { m.SettlDeliveryType = &v }
+func (m *Message) SetSettlDepositoryCode(v string)            { m.SettlDepositoryCode = &v }
+func (m *Message) SetSettlBrkrCode(v string)                  { m.SettlBrkrCode = &v }
+func (m *Message) SetSettlInstCode(v string)                  { m.SettlInstCode = &v }
+func (m *Message) SetSecuritySettlAgentName(v string)         { m.SecuritySettlAgentName = &v }
+func (m *Message) SetSecuritySettlAgentCode(v string)         { m.SecuritySettlAgentCode = &v }
+func (m *Message) SetSecuritySettlAgentAcctNum(v string)      { m.SecuritySettlAgentAcctNum = &v }
+func (m *Message) SetSecuritySettlAgentAcctName(v string)     { m.SecuritySettlAgentAcctName = &v }
+func (m *Message) SetSecuritySettlAgentContactName(v string)  { m.SecuritySettlAgentContactName = &v }
+func (m *Message) SetSecuritySettlAgentContactPhone(v string) { m.SecuritySettlAgentContactPhone = &v }
+func (m *Message) SetCashSettlAgentName(v string)             { m.CashSettlAgentName = &v }
+func (m *Message) SetCashSettlAgentCode(v string)             { m.CashSettlAgentCode = &v }
+func (m *Message) SetCashSettlAgentAcctNum(v string)          { m.CashSettlAgentAcctNum = &v }
+func (m *Message) SetCashSettlAgentAcctName(v string)         { m.CashSettlAgentAcctName = &v }
+func (m *Message) SetCashSettlAgentContactName(v string)      { m.CashSettlAgentContactName = &v }
+func (m *Message) SetCashSettlAgentContactPhone(v string)     { m.CashSettlAgentContactPhone = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

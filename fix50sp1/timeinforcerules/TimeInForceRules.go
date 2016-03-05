@@ -6,10 +6,10 @@ type NoTimeInForceRules struct {
 	TimeInForce *string `fix:"59"`
 }
 
-//Component is a fix50sp1 TimeInForceRules Component
-type Component struct {
+//TimeInForceRules is a fix50sp1 Component
+type TimeInForceRules struct {
 	//NoTimeInForceRules is a non-required field for TimeInForceRules.
 	NoTimeInForceRules []NoTimeInForceRules `fix:"1239,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TimeInForceRules) SetNoTimeInForceRules(v []NoTimeInForceRules) { m.NoTimeInForceRules = v }

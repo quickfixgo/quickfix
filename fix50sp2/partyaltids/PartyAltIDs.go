@@ -11,13 +11,13 @@ type NoPartyAltIDs struct {
 	//PartyAltIDSource is a non-required field for NoPartyAltIDs.
 	PartyAltIDSource *string `fix:"1518"`
 	//AltPtysSubGrp Component
-	AltPtysSubGrp altptyssubgrp.Component
+	altptyssubgrp.AltPtysSubGrp
 }
 
-//Component is a fix50sp2 PartyAltIDs Component
-type Component struct {
+//PartyAltIDs is a fix50sp2 Component
+type PartyAltIDs struct {
 	//NoPartyAltIDs is a non-required field for PartyAltIDs.
 	NoPartyAltIDs []NoPartyAltIDs `fix:"1516,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *PartyAltIDs) SetNoPartyAltIDs(v []NoPartyAltIDs) { m.NoPartyAltIDs = v }

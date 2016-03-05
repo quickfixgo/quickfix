@@ -8,8 +8,8 @@ type NoUnderlyingLegSecurityAltID struct {
 	UnderlyingLegSecurityAltIDSource *string `fix:"1336"`
 }
 
-//Component is a fix50sp1 UnderlyingLegInstrument Component
-type Component struct {
+//UnderlyingLegInstrument is a fix50sp1 Component
+type UnderlyingLegInstrument struct {
 	//UnderlyingLegSymbol is a non-required field for UnderlyingLegInstrument.
 	UnderlyingLegSymbol *string `fix:"1330"`
 	//UnderlyingLegSymbolSfx is a non-required field for UnderlyingLegInstrument.
@@ -44,4 +44,41 @@ type Component struct {
 	UnderlyingLegSecurityDesc *string `fix:"1392"`
 }
 
-func New() *Component { return new(Component) }
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSymbol(v string)     { m.UnderlyingLegSymbol = &v }
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSymbolSfx(v string)  { m.UnderlyingLegSymbolSfx = &v }
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityID(v string) { m.UnderlyingLegSecurityID = &v }
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityIDSource(v string) {
+	m.UnderlyingLegSecurityIDSource = &v
+}
+func (m *UnderlyingLegInstrument) SetNoUnderlyingLegSecurityAltID(v []NoUnderlyingLegSecurityAltID) {
+	m.NoUnderlyingLegSecurityAltID = v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegCFICode(v string) { m.UnderlyingLegCFICode = &v }
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityType(v string) {
+	m.UnderlyingLegSecurityType = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSecuritySubType(v string) {
+	m.UnderlyingLegSecuritySubType = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegMaturityMonthYear(v string) {
+	m.UnderlyingLegMaturityMonthYear = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegMaturityDate(v string) {
+	m.UnderlyingLegMaturityDate = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegMaturityTime(v string) {
+	m.UnderlyingLegMaturityTime = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegStrikePrice(v float64) {
+	m.UnderlyingLegStrikePrice = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegOptAttribute(v string) {
+	m.UnderlyingLegOptAttribute = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegPutOrCall(v int) { m.UnderlyingLegPutOrCall = &v }
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityExchange(v string) {
+	m.UnderlyingLegSecurityExchange = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityDesc(v string) {
+	m.UnderlyingLegSecurityDesc = &v
+}

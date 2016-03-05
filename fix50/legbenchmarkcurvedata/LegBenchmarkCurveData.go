@@ -1,7 +1,7 @@
 package legbenchmarkcurvedata
 
-//Component is a fix50 LegBenchmarkCurveData Component
-type Component struct {
+//LegBenchmarkCurveData is a fix50 Component
+type LegBenchmarkCurveData struct {
 	//LegBenchmarkCurveCurrency is a non-required field for LegBenchmarkCurveData.
 	LegBenchmarkCurveCurrency *string `fix:"676"`
 	//LegBenchmarkCurveName is a non-required field for LegBenchmarkCurveData.
@@ -14,4 +14,10 @@ type Component struct {
 	LegBenchmarkPriceType *int `fix:"680"`
 }
 
-func New() *Component { return new(Component) }
+func (m *LegBenchmarkCurveData) SetLegBenchmarkCurveCurrency(v string) {
+	m.LegBenchmarkCurveCurrency = &v
+}
+func (m *LegBenchmarkCurveData) SetLegBenchmarkCurveName(v string)  { m.LegBenchmarkCurveName = &v }
+func (m *LegBenchmarkCurveData) SetLegBenchmarkCurvePoint(v string) { m.LegBenchmarkCurvePoint = &v }
+func (m *LegBenchmarkCurveData) SetLegBenchmarkPrice(v float64)     { m.LegBenchmarkPrice = &v }
+func (m *LegBenchmarkCurveData) SetLegBenchmarkPriceType(v int)     { m.LegBenchmarkPriceType = &v }

@@ -11,24 +11,30 @@ import (
 //Message is a ApplicationMessageRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BW"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ApplReqID is a required field for ApplicationMessageRequest.
 	ApplReqID string `fix:"1346"`
 	//ApplReqType is a required field for ApplicationMessageRequest.
 	ApplReqType int `fix:"1347"`
 	//ApplIDRequestGrp Component
-	ApplIDRequestGrp applidrequestgrp.Component
+	applidrequestgrp.ApplIDRequestGrp
 	//Text is a non-required field for ApplicationMessageRequest.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for ApplicationMessageRequest.
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ApplicationMessageRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetApplReqID(v string)   { m.ApplReqID = v }
+func (m *Message) SetApplReqType(v int)    { m.ApplReqType = v }
+func (m *Message) SetText(v string)        { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int) { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string) { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

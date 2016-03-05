@@ -10,19 +10,19 @@ type NoQuoteSets struct {
 	//QuoteSetID is a non-required field for NoQuoteSets.
 	QuoteSetID *string `fix:"302"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//TotNoQuoteEntries is a non-required field for NoQuoteSets.
 	TotNoQuoteEntries *int `fix:"304"`
 	//LastFragment is a non-required field for NoQuoteSets.
 	LastFragment *bool `fix:"893"`
 	//QuotEntryAckGrp Component
-	QuotEntryAckGrp quotentryackgrp.Component
+	quotentryackgrp.QuotEntryAckGrp
 }
 
-//Component is a fix50 QuotSetAckGrp Component
-type Component struct {
+//QuotSetAckGrp is a fix50 Component
+type QuotSetAckGrp struct {
 	//NoQuoteSets is a non-required field for QuotSetAckGrp.
 	NoQuoteSets []NoQuoteSets `fix:"296,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *QuotSetAckGrp) SetNoQuoteSets(v []NoQuoteSets) { m.NoQuoteSets = v }

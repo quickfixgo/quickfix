@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"github.com/quickfixgo/quickfix/_gen"
@@ -36,121 +37,6 @@ func packageString() (s string) {
 	return
 }
 
-func writeField(field *datadictionary.FieldDef, componentName string) (s string) {
-	if field.IsComponent() {
-		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Component.Name))] = true
-
-		s += fmt.Sprintf("//%v Component\n", field.Component.Name)
-		s += fmt.Sprintf("%v %v.Component\n", field.Component.Name, strings.ToLower(field.Component.Name))
-		return
-	}
-
-	if field.Required {
-		s += fmt.Sprintf("//%v is a required field for %v.\n", field.Name, componentName)
-	} else {
-		s += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, componentName)
-	}
-
-	if field.IsGroup() {
-		if field.Required {
-			s += fmt.Sprintf("%v []%v `fix:\"%v\"`\n", field.Name, field.Name, field.Tag)
-		} else {
-			s += fmt.Sprintf("%v []%v `fix:\"%v,omitempty\"`\n", field.Name, field.Name, field.Tag)
-		}
-		return
-	}
-
-	goType := ""
-	switch field.Type {
-	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
-		fallthrough
-	case "MULTIPLECHARVALUE":
-		fallthrough
-	case "CHAR":
-		fallthrough
-	case "CURRENCY":
-		fallthrough
-	case "DATA":
-		fallthrough
-	case "MONTHYEAR":
-		fallthrough
-	case "LOCALMKTDATE":
-		fallthrough
-	case "EXCHANGE":
-		fallthrough
-	case "LANGUAGE":
-		fallthrough
-	case "XMLDATA":
-		fallthrough
-	case "COUNTRY":
-		fallthrough
-	case "UTCTIMEONLY":
-		fallthrough
-	case "UTCDATEONLY":
-		fallthrough
-	case "UTCDATE":
-		fallthrough
-	case "TZTIMEONLY":
-		fallthrough
-	case "TZTIMESTAMP":
-		fallthrough
-	case "STRING":
-		goType = "string"
-
-	case "BOOLEAN":
-		goType = "bool"
-
-	case "LENGTH":
-		fallthrough
-	case "DAYOFMONTH":
-		fallthrough
-	case "NUMINGROUP":
-		fallthrough
-	case "SEQNUM":
-		fallthrough
-	case "INT":
-		goType = "int"
-
-	case "TIME":
-		fallthrough
-	case "UTCTIMESTAMP":
-		imports["time"] = true
-		goType = "time.Time"
-
-	case "QTY":
-		fallthrough
-	case "AMT":
-		fallthrough
-	case "PRICE":
-		fallthrough
-	case "PRICEOFFSET":
-		fallthrough
-	case "PERCENTAGE":
-		fallthrough
-	case "FLOAT":
-		goType = "float64"
-
-	default:
-		fmt.Printf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag)
-	}
-
-	fixTags := strconv.Itoa(field.Tag)
-	if field.Tag == 8 {
-		if fixSpec.Major == 4 {
-			fixTags = fmt.Sprintf("%v,default=FIX.%v.%v", fixTags, fixSpec.Major, fixSpec.Minor)
-		} else {
-			fixTags = fixTags + ",default=FIXT.1.1"
-		}
-	}
-
-	if field.Required {
-		s += fmt.Sprintf("%v %v `fix:\"%v\"`\n", field.Name, goType, fixTags)
-	} else {
-		s += fmt.Sprintf("%v *%v `fix:\"%v\"`\n", field.Name, goType, fixTags)
-	}
-	return
-}
-
 func genComponentImports() (fileOut string) {
 
 	if len(imports) == 0 {
@@ -158,7 +44,7 @@ func genComponentImports() (fileOut string) {
 	}
 
 	fileOut += "import(\n"
-	for i, _ := range imports {
+	for i := range imports {
 		fileOut += fmt.Sprintf("\"%v\"\n", i)
 	}
 	fileOut += ")\n"
@@ -184,11 +70,25 @@ func collectGroups(parent string, field *datadictionary.FieldDef, groups []group
 	return groups
 }
 
+func writeFieldDeclaration(field *datadictionary.FieldDef, componentName string) string {
+	switch {
+	case field.IsComponent():
+		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Component.Name))] = true
+	case !field.IsGroup():
+		goType := gen.FixFieldTypeToGoType(field.Type)
+		if goType == "time.Time" {
+			imports["time"] = true
+		}
+	}
+
+	return gen.WriteFieldDeclaration(fixSpec.Major, fixSpec.Minor, field, componentName)
+}
+
 func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
 	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name, parent)
 	fileOut += fmt.Sprintf("type %v struct {\n", field.Name)
 	for _, groupField := range field.ChildFields {
-		fileOut += writeField(groupField, field.Name)
+		fileOut += writeFieldDeclaration(groupField, field.Name)
 	}
 
 	fileOut += "}\n"
@@ -217,13 +117,19 @@ func genHeader(header *datadictionary.MessageDef) {
 	delayOut += fmt.Sprintf("//Header is the %v Header type\n", pkg)
 	delayOut += "type Header struct {\n"
 	for _, field := range header.FieldsInDeclarationOrder {
-		delayOut += writeField(field, "Header")
+		delayOut += writeFieldDeclaration(field, "Header")
 	}
 	delayOut += "}\n"
 
 	fileOut := packageString()
 	fileOut += genComponentImports()
 	fileOut += delayOut
+
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, "Header", header.FieldsInDeclarationOrder); err != nil {
+		panic(err)
+	}
+	fileOut += writer.String()
 
 	gen.WriteFile(path.Join(pkg, "header.go"), fileOut)
 }
@@ -234,9 +140,15 @@ func genTrailer(trailer *datadictionary.MessageDef) {
 	fileOut += fmt.Sprintf("//Trailer is the %v Trailer type\n", pkg)
 	fileOut += "type Trailer struct {\n"
 	for _, field := range trailer.FieldsInDeclarationOrder {
-		fileOut += writeField(field, "Trailer")
+		fileOut += writeFieldDeclaration(field, "Trailer")
 	}
 	fileOut += "}\n"
+
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, "Trailer", trailer.FieldsInDeclarationOrder); err != nil {
+		panic(err)
+	}
+	fileOut += writer.String()
 
 	gen.WriteFile(path.Join(pkg, "trailer.go"), fileOut)
 }
@@ -246,19 +158,29 @@ func genComponent(name string, component *datadictionary.Component) {
 
 	//delay output to determine imports
 	delayOut := genGroupDeclarations(name, component.Fields)
-	delayOut += fmt.Sprintf("//Component is a %v %v Component\n", pkg, name)
-	delayOut += "type Component struct {\n"
+	delayOut += fmt.Sprintf("//%v is a %v Component\n", name, pkg)
+	delayOut += fmt.Sprintf("type %v struct {\n", name)
 	for _, field := range component.Fields {
-		delayOut += writeField(field, name)
+		delayOut += writeFieldDeclaration(field, name)
 	}
 	delayOut += "}\n"
 
 	fileOut := fmt.Sprintf("package %v\n", strings.ToLower(name))
 	fileOut += genComponentImports()
 	fileOut += delayOut
-	fileOut += "func New() *Component { return new(Component)}\n"
+
+	fileOut += genComponentSetters(component)
 
 	gen.WriteFile(path.Join(pkg, strings.ToLower(name), name+".go"), fileOut)
+}
+
+func genComponentSetters(component *datadictionary.Component) string {
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, component.Name, component.Fields); err != nil {
+		panic(err)
+	}
+
+	return writer.String()
 }
 
 func main() {

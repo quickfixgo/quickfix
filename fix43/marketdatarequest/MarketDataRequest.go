@@ -14,10 +14,12 @@ type NoMDEntryTypes struct {
 	MDEntryType string `fix:"269"`
 }
 
+func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
+
 //NoRelatedSym is a repeating group in MarketDataRequest
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 }
 
 //NoTradingSessions is a repeating group in MarketDataRequest
@@ -28,10 +30,13 @@ type NoTradingSessions struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+
 //Message is a MarketDataRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"V"`
-	Header     fix43.Header
+	fix43.Header
 	//MDReqID is a required field for MarketDataRequest.
 	MDReqID string `fix:"262"`
 	//SubscriptionRequestType is a required field for MarketDataRequest.
@@ -54,11 +59,23 @@ type Message struct {
 	NoRelatedSym []NoRelatedSym `fix:"146"`
 	//NoTradingSessions is a non-required field for MarketDataRequest.
 	NoTradingSessions []NoTradingSessions `fix:"386,omitempty"`
-	Trailer           fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetMDReqID(v string)                        { m.MDReqID = v }
+func (m *Message) SetSubscriptionRequestType(v string)        { m.SubscriptionRequestType = v }
+func (m *Message) SetMarketDepth(v int)                       { m.MarketDepth = v }
+func (m *Message) SetMDUpdateType(v int)                      { m.MDUpdateType = &v }
+func (m *Message) SetAggregatedBook(v bool)                   { m.AggregatedBook = &v }
+func (m *Message) SetOpenCloseSettleFlag(v string)            { m.OpenCloseSettleFlag = &v }
+func (m *Message) SetScope(v string)                          { m.Scope = &v }
+func (m *Message) SetMDImplicitDelete(v bool)                 { m.MDImplicitDelete = &v }
+func (m *Message) SetNoMDEntryTypes(v []NoMDEntryTypes)       { m.NoMDEntryTypes = v }
+func (m *Message) SetNoRelatedSym(v []NoRelatedSym)           { m.NoRelatedSym = v }
+func (m *Message) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

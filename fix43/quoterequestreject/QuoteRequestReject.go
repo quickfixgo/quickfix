@@ -15,7 +15,7 @@ import (
 //NoRelatedSym is a repeating group in QuoteRequestReject
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//PrevClosePx is a non-required field for NoRelatedSym.
 	PrevClosePx *float64 `fix:"140"`
 	//QuoteRequestType is a non-required field for NoRelatedSym.
@@ -29,7 +29,7 @@ type NoRelatedSym struct {
 	//TradeOriginationDate is a non-required field for NoRelatedSym.
 	TradeOriginationDate *string `fix:"229"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//Side is a non-required field for NoRelatedSym.
 	Side *string `fix:"54"`
 	//QuantityType is a non-required field for NoRelatedSym.
@@ -55,7 +55,7 @@ type NoRelatedSym struct {
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//PriceType is a non-required field for NoRelatedSym.
 	PriceType *int `fix:"423"`
 	//Price is a non-required field for NoRelatedSym.
@@ -63,13 +63,35 @@ type NoRelatedSym struct {
 	//Price2 is a non-required field for NoRelatedSym.
 	Price2 *float64 `fix:"640"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 }
+
+func (m *NoRelatedSym) SetPrevClosePx(v float64)         { m.PrevClosePx = &v }
+func (m *NoRelatedSym) SetQuoteRequestType(v int)        { m.QuoteRequestType = &v }
+func (m *NoRelatedSym) SetQuoteType(v int)               { m.QuoteType = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)     { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)  { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetTradeOriginationDate(v string) { m.TradeOriginationDate = &v }
+func (m *NoRelatedSym) SetSide(v string)                 { m.Side = &v }
+func (m *NoRelatedSym) SetQuantityType(v int)            { m.QuantityType = &v }
+func (m *NoRelatedSym) SetOrderQty(v float64)            { m.OrderQty = &v }
+func (m *NoRelatedSym) SetCashOrderQty(v float64)        { m.CashOrderQty = &v }
+func (m *NoRelatedSym) SetSettlmntTyp(v string)          { m.SettlmntTyp = &v }
+func (m *NoRelatedSym) SetFutSettDate(v string)          { m.FutSettDate = &v }
+func (m *NoRelatedSym) SetOrdType(v string)              { m.OrdType = &v }
+func (m *NoRelatedSym) SetFutSettDate2(v string)         { m.FutSettDate2 = &v }
+func (m *NoRelatedSym) SetOrderQty2(v float64)           { m.OrderQty2 = &v }
+func (m *NoRelatedSym) SetExpireTime(v time.Time)        { m.ExpireTime = &v }
+func (m *NoRelatedSym) SetTransactTime(v time.Time)      { m.TransactTime = &v }
+func (m *NoRelatedSym) SetCurrency(v string)             { m.Currency = &v }
+func (m *NoRelatedSym) SetPriceType(v int)               { m.PriceType = &v }
+func (m *NoRelatedSym) SetPrice(v float64)               { m.Price = &v }
+func (m *NoRelatedSym) SetPrice2(v float64)              { m.Price2 = &v }
 
 //Message is a QuoteRequestReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AG"`
-	Header     fix43.Header
+	fix43.Header
 	//QuoteReqID is a required field for QuoteRequestReject.
 	QuoteReqID string `fix:"131"`
 	//RFQReqID is a non-required field for QuoteRequestReject.
@@ -84,11 +106,19 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for QuoteRequestReject.
 	EncodedText *string `fix:"355"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetQuoteReqID(v string)            { m.QuoteReqID = v }
+func (m *Message) SetRFQReqID(v string)              { m.RFQReqID = &v }
+func (m *Message) SetQuoteRequestRejectReason(v int) { m.QuoteRequestRejectReason = v }
+func (m *Message) SetNoRelatedSym(v []NoRelatedSym)  { m.NoRelatedSym = v }
+func (m *Message) SetText(v string)                  { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)           { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)           { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

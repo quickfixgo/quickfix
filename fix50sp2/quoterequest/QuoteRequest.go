@@ -12,7 +12,7 @@ import (
 //Message is a QuoteRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"R"`
-	Header     fixt11.Header
+	fixt11.Header
 	//QuoteReqID is a required field for QuoteRequest.
 	QuoteReqID string `fix:"131"`
 	//RFQReqID is a non-required field for QuoteRequest.
@@ -22,7 +22,7 @@ type Message struct {
 	//OrderCapacity is a non-required field for QuoteRequest.
 	OrderCapacity *string `fix:"528"`
 	//QuotReqGrp Component
-	QuotReqGrp quotreqgrp.Component
+	quotreqgrp.QuotReqGrp
 	//Text is a non-required field for QuoteRequest.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for QuoteRequest.
@@ -30,7 +30,7 @@ type Message struct {
 	//EncodedText is a non-required field for QuoteRequest.
 	EncodedText *string `fix:"355"`
 	//RootParties Component
-	RootParties rootparties.Component
+	rootparties.RootParties
 	//PrivateQuote is a non-required field for QuoteRequest.
 	PrivateQuote *bool `fix:"1171"`
 	//RespondentType is a non-required field for QuoteRequest.
@@ -41,11 +41,24 @@ type Message struct {
 	BookingType *int `fix:"775"`
 	//OrderRestrictions is a non-required field for QuoteRequest.
 	OrderRestrictions *string `fix:"529"`
-	Trailer           fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetQuoteReqID(v string)        { m.QuoteReqID = v }
+func (m *Message) SetRFQReqID(v string)          { m.RFQReqID = &v }
+func (m *Message) SetClOrdID(v string)           { m.ClOrdID = &v }
+func (m *Message) SetOrderCapacity(v string)     { m.OrderCapacity = &v }
+func (m *Message) SetText(v string)              { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)       { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)       { m.EncodedText = &v }
+func (m *Message) SetPrivateQuote(v bool)        { m.PrivateQuote = &v }
+func (m *Message) SetRespondentType(v int)       { m.RespondentType = &v }
+func (m *Message) SetPreTradeAnonymity(v bool)   { m.PreTradeAnonymity = &v }
+func (m *Message) SetBookingType(v int)          { m.BookingType = &v }
+func (m *Message) SetOrderRestrictions(v string) { m.OrderRestrictions = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

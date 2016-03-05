@@ -1,7 +1,7 @@
 package commissiondata
 
-//Component is a fix50sp1 CommissionData Component
-type Component struct {
+//CommissionData is a fix50sp1 Component
+type CommissionData struct {
 	//Commission is a non-required field for CommissionData.
 	Commission *float64 `fix:"12"`
 	//CommType is a non-required field for CommissionData.
@@ -12,4 +12,7 @@ type Component struct {
 	FundRenewWaiv *string `fix:"497"`
 }
 
-func New() *Component { return new(Component) }
+func (m *CommissionData) SetCommission(v float64)   { m.Commission = &v }
+func (m *CommissionData) SetCommType(v string)      { m.CommType = &v }
+func (m *CommissionData) SetCommCurrency(v string)  { m.CommCurrency = &v }
+func (m *CommissionData) SetFundRenewWaiv(v string) { m.FundRenewWaiv = &v }

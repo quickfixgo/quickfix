@@ -14,7 +14,7 @@ import (
 //Message is a ExecutionAcknowledgement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BN"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrderID is a required field for ExecutionAcknowledgement.
 	OrderID string `fix:"37"`
 	//SecondaryOrderID is a non-required field for ExecutionAcknowledgement.
@@ -28,15 +28,15 @@ type Message struct {
 	//DKReason is a non-required field for ExecutionAcknowledgement.
 	DKReason *string `fix:"127"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//Side is a required field for ExecutionAcknowledgement.
 	Side string `fix:"54"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//LastQty is a non-required field for ExecutionAcknowledgement.
 	LastQty *float64 `fix:"32"`
 	//LastPx is a non-required field for ExecutionAcknowledgement.
@@ -55,11 +55,28 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ExecutionAcknowledgement.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)          { m.OrderID = v }
+func (m *Message) SetSecondaryOrderID(v string) { m.SecondaryOrderID = &v }
+func (m *Message) SetClOrdID(v string)          { m.ClOrdID = &v }
+func (m *Message) SetExecAckStatus(v string)    { m.ExecAckStatus = v }
+func (m *Message) SetExecID(v string)           { m.ExecID = v }
+func (m *Message) SetDKReason(v string)         { m.DKReason = &v }
+func (m *Message) SetSide(v string)             { m.Side = v }
+func (m *Message) SetLastQty(v float64)         { m.LastQty = &v }
+func (m *Message) SetLastPx(v float64)          { m.LastPx = &v }
+func (m *Message) SetPriceType(v int)           { m.PriceType = &v }
+func (m *Message) SetLastParPx(v float64)       { m.LastParPx = &v }
+func (m *Message) SetCumQty(v float64)          { m.CumQty = &v }
+func (m *Message) SetAvgPx(v float64)           { m.AvgPx = &v }
+func (m *Message) SetText(v string)             { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)      { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

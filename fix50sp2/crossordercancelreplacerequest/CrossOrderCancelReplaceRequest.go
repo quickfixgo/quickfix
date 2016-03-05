@@ -25,7 +25,7 @@ import (
 //Message is a CrossOrderCancelReplaceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"t"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrderID is a non-required field for CrossOrderCancelReplaceRequest.
 	OrderID *string `fix:"37"`
 	//CrossID is a required field for CrossOrderCancelReplaceRequest.
@@ -37,13 +37,13 @@ type Message struct {
 	//CrossPrioritization is a required field for CrossOrderCancelReplaceRequest.
 	CrossPrioritization int `fix:"550"`
 	//SideCrossOrdModGrp Component
-	SideCrossOrdModGrp sidecrossordmodgrp.Component
+	sidecrossordmodgrp.SideCrossOrdModGrp
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//SettlType is a non-required field for CrossOrderCancelReplaceRequest.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for CrossOrderCancelReplaceRequest.
@@ -59,7 +59,7 @@ type Message struct {
 	//ExDestination is a non-required field for CrossOrderCancelReplaceRequest.
 	ExDestination *string `fix:"100"`
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//ProcessCode is a non-required field for CrossOrderCancelReplaceRequest.
 	ProcessCode *string `fix:"81"`
 	//PrevClosePx is a non-required field for CrossOrderCancelReplaceRequest.
@@ -69,7 +69,7 @@ type Message struct {
 	//TransactTime is a required field for CrossOrderCancelReplaceRequest.
 	TransactTime time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//OrdType is a required field for CrossOrderCancelReplaceRequest.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for CrossOrderCancelReplaceRequest.
@@ -79,9 +79,9 @@ type Message struct {
 	//StopPx is a non-required field for CrossOrderCancelReplaceRequest.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for CrossOrderCancelReplaceRequest.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for CrossOrderCancelReplaceRequest.
@@ -103,9 +103,9 @@ type Message struct {
 	//MaxShow is a non-required field for CrossOrderCancelReplaceRequest.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for CrossOrderCancelReplaceRequest.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for CrossOrderCancelReplaceRequest.
@@ -121,30 +121,74 @@ type Message struct {
 	//Designation is a non-required field for CrossOrderCancelReplaceRequest.
 	Designation *string `fix:"494"`
 	//StrategyParametersGrp Component
-	StrategyParametersGrp strategyparametersgrp.Component
+	strategyparametersgrp.StrategyParametersGrp
 	//HostCrossID is a non-required field for CrossOrderCancelReplaceRequest.
 	HostCrossID *string `fix:"961"`
 	//TransBkdTime is a non-required field for CrossOrderCancelReplaceRequest.
 	TransBkdTime *time.Time `fix:"483"`
 	//RootParties Component
-	RootParties rootparties.Component
+	rootparties.RootParties
 	//MatchIncrement is a non-required field for CrossOrderCancelReplaceRequest.
 	MatchIncrement *float64 `fix:"1089"`
 	//MaxPriceLevels is a non-required field for CrossOrderCancelReplaceRequest.
 	MaxPriceLevels *int `fix:"1090"`
 	//DisplayInstruction Component
-	DisplayInstruction displayinstruction.Component
+	displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for CrossOrderCancelReplaceRequest.
 	PriceProtectionScope *string `fix:"1092"`
 	//TriggeringInstruction Component
-	TriggeringInstruction triggeringinstruction.Component
+	triggeringinstruction.TriggeringInstruction
 	//ExDestinationIDSource is a non-required field for CrossOrderCancelReplaceRequest.
 	ExDestinationIDSource *string `fix:"1133"`
-	Trailer               fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)                  { m.OrderID = &v }
+func (m *Message) SetCrossID(v string)                  { m.CrossID = v }
+func (m *Message) SetOrigCrossID(v string)              { m.OrigCrossID = v }
+func (m *Message) SetCrossType(v int)                   { m.CrossType = v }
+func (m *Message) SetCrossPrioritization(v int)         { m.CrossPrioritization = v }
+func (m *Message) SetSettlType(v string)                { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                { m.SettlDate = &v }
+func (m *Message) SetHandlInst(v string)                { m.HandlInst = &v }
+func (m *Message) SetExecInst(v string)                 { m.ExecInst = &v }
+func (m *Message) SetMinQty(v float64)                  { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v float64)                { m.MaxFloor = &v }
+func (m *Message) SetExDestination(v string)            { m.ExDestination = &v }
+func (m *Message) SetProcessCode(v string)              { m.ProcessCode = &v }
+func (m *Message) SetPrevClosePx(v float64)             { m.PrevClosePx = &v }
+func (m *Message) SetLocateReqd(v bool)                 { m.LocateReqd = &v }
+func (m *Message) SetTransactTime(v time.Time)          { m.TransactTime = v }
+func (m *Message) SetOrdType(v string)                  { m.OrdType = v }
+func (m *Message) SetPriceType(v int)                   { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                   { m.Price = &v }
+func (m *Message) SetStopPx(v float64)                  { m.StopPx = &v }
+func (m *Message) SetCurrency(v string)                 { m.Currency = &v }
+func (m *Message) SetComplianceID(v string)             { m.ComplianceID = &v }
+func (m *Message) SetIOIID(v string)                    { m.IOIID = &v }
+func (m *Message) SetQuoteID(v string)                  { m.QuoteID = &v }
+func (m *Message) SetTimeInForce(v string)              { m.TimeInForce = &v }
+func (m *Message) SetEffectiveTime(v time.Time)         { m.EffectiveTime = &v }
+func (m *Message) SetExpireDate(v string)               { m.ExpireDate = &v }
+func (m *Message) SetExpireTime(v time.Time)            { m.ExpireTime = &v }
+func (m *Message) SetGTBookingInst(v int)               { m.GTBookingInst = &v }
+func (m *Message) SetMaxShow(v float64)                 { m.MaxShow = &v }
+func (m *Message) SetTargetStrategy(v int)              { m.TargetStrategy = &v }
+func (m *Message) SetTargetStrategyParameters(v string) { m.TargetStrategyParameters = &v }
+func (m *Message) SetParticipationRate(v float64)       { m.ParticipationRate = &v }
+func (m *Message) SetCancellationRights(v string)       { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)    { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                 { m.RegistID = &v }
+func (m *Message) SetDesignation(v string)              { m.Designation = &v }
+func (m *Message) SetHostCrossID(v string)              { m.HostCrossID = &v }
+func (m *Message) SetTransBkdTime(v time.Time)          { m.TransBkdTime = &v }
+func (m *Message) SetMatchIncrement(v float64)          { m.MatchIncrement = &v }
+func (m *Message) SetMaxPriceLevels(v int)              { m.MaxPriceLevels = &v }
+func (m *Message) SetPriceProtectionScope(v string)     { m.PriceProtectionScope = &v }
+func (m *Message) SetExDestinationIDSource(v string)    { m.ExDestinationIDSource = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

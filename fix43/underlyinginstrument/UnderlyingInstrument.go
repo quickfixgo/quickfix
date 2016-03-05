@@ -8,8 +8,8 @@ type NoUnderlyingSecurityAltID struct {
 	UnderlyingSecurityAltIDSource *string `fix:"459"`
 }
 
-//Component is a fix43 UnderlyingInstrument Component
-type Component struct {
+//UnderlyingInstrument is a fix43 Component
+type UnderlyingInstrument struct {
 	//UnderlyingSymbol is a non-required field for UnderlyingInstrument.
 	UnderlyingSymbol *string `fix:"311"`
 	//UnderlyingSymbolSfx is a non-required field for UnderlyingInstrument.
@@ -78,4 +78,56 @@ type Component struct {
 	EncodedUnderlyingSecurityDesc *string `fix:"365"`
 }
 
-func New() *Component { return new(Component) }
+func (m *UnderlyingInstrument) SetUnderlyingSymbol(v string)     { m.UnderlyingSymbol = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSymbolSfx(v string)  { m.UnderlyingSymbolSfx = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityID(v string) { m.UnderlyingSecurityID = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityIDSource(v string) {
+	m.UnderlyingSecurityIDSource = &v
+}
+func (m *UnderlyingInstrument) SetNoUnderlyingSecurityAltID(v []NoUnderlyingSecurityAltID) {
+	m.NoUnderlyingSecurityAltID = v
+}
+func (m *UnderlyingInstrument) SetUnderlyingProduct(v int)         { m.UnderlyingProduct = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCFICode(v string)      { m.UnderlyingCFICode = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityType(v string) { m.UnderlyingSecurityType = &v }
+func (m *UnderlyingInstrument) SetUnderlyingMaturityMonthYear(v string) {
+	m.UnderlyingMaturityMonthYear = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingMaturityDate(v string) { m.UnderlyingMaturityDate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCouponPaymentDate(v string) {
+	m.UnderlyingCouponPaymentDate = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingIssueDate(v string) { m.UnderlyingIssueDate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingRepoCollateralSecurityType(v int) {
+	m.UnderlyingRepoCollateralSecurityType = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingRepurchaseTerm(v int)     { m.UnderlyingRepurchaseTerm = &v }
+func (m *UnderlyingInstrument) SetUnderlyingRepurchaseRate(v float64) { m.UnderlyingRepurchaseRate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingFactor(v float64)         { m.UnderlyingFactor = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCreditRating(v string)    { m.UnderlyingCreditRating = &v }
+func (m *UnderlyingInstrument) SetUnderlyingInstrRegistry(v string)   { m.UnderlyingInstrRegistry = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCountryOfIssue(v string)  { m.UnderlyingCountryOfIssue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStateOrProvinceOfIssue(v string) {
+	m.UnderlyingStateOrProvinceOfIssue = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingLocaleOfIssue(v string)  { m.UnderlyingLocaleOfIssue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingRedemptionDate(v string) { m.UnderlyingRedemptionDate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStrikePrice(v float64)   { m.UnderlyingStrikePrice = &v }
+func (m *UnderlyingInstrument) SetUnderlyingOptAttribute(v string)   { m.UnderlyingOptAttribute = &v }
+func (m *UnderlyingInstrument) SetUnderlyingContractMultiplier(v float64) {
+	m.UnderlyingContractMultiplier = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingCouponRate(v float64) { m.UnderlyingCouponRate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityExchange(v string) {
+	m.UnderlyingSecurityExchange = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingIssuer(v string)        { m.UnderlyingIssuer = &v }
+func (m *UnderlyingInstrument) SetEncodedUnderlyingIssuerLen(v int) { m.EncodedUnderlyingIssuerLen = &v }
+func (m *UnderlyingInstrument) SetEncodedUnderlyingIssuer(v string) { m.EncodedUnderlyingIssuer = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityDesc(v string)  { m.UnderlyingSecurityDesc = &v }
+func (m *UnderlyingInstrument) SetEncodedUnderlyingSecurityDescLen(v int) {
+	m.EncodedUnderlyingSecurityDescLen = &v
+}
+func (m *UnderlyingInstrument) SetEncodedUnderlyingSecurityDesc(v string) {
+	m.EncodedUnderlyingSecurityDesc = &v
+}

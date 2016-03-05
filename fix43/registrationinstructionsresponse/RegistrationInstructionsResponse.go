@@ -11,7 +11,7 @@ import (
 //Message is a RegistrationInstructionsResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"p"`
-	Header     fix43.Header
+	fix43.Header
 	//RegistID is a required field for RegistrationInstructionsResponse.
 	RegistID string `fix:"513"`
 	//RegistTransType is a required field for RegistrationInstructionsResponse.
@@ -21,7 +21,7 @@ type Message struct {
 	//ClOrdID is a non-required field for RegistrationInstructionsResponse.
 	ClOrdID *string `fix:"11"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for RegistrationInstructionsResponse.
 	Account *string `fix:"1"`
 	//RegistStatus is a required field for RegistrationInstructionsResponse.
@@ -30,11 +30,20 @@ type Message struct {
 	RegistRejReasonCode *int `fix:"507"`
 	//RegistRejReasonText is a non-required field for RegistrationInstructionsResponse.
 	RegistRejReasonText *string `fix:"496"`
-	Trailer             fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetRegistID(v string)            { m.RegistID = v }
+func (m *Message) SetRegistTransType(v string)     { m.RegistTransType = v }
+func (m *Message) SetRegistRefID(v string)         { m.RegistRefID = v }
+func (m *Message) SetClOrdID(v string)             { m.ClOrdID = &v }
+func (m *Message) SetAccount(v string)             { m.Account = &v }
+func (m *Message) SetRegistStatus(v string)        { m.RegistStatus = v }
+func (m *Message) SetRegistRejReasonCode(v int)    { m.RegistRejReasonCode = &v }
+func (m *Message) SetRegistRejReasonText(v string) { m.RegistRejReasonText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

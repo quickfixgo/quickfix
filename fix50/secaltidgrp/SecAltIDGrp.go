@@ -8,10 +8,10 @@ type NoSecurityAltID struct {
 	SecurityAltIDSource *string `fix:"456"`
 }
 
-//Component is a fix50 SecAltIDGrp Component
-type Component struct {
+//SecAltIDGrp is a fix50 Component
+type SecAltIDGrp struct {
 	//NoSecurityAltID is a non-required field for SecAltIDGrp.
 	NoSecurityAltID []NoSecurityAltID `fix:"454,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SecAltIDGrp) SetNoSecurityAltID(v []NoSecurityAltID) { m.NoSecurityAltID = v }

@@ -16,7 +16,7 @@ import (
 //Message is a OrderMassActionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BZ"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ClOrdID is a non-required field for OrderMassActionReport.
 	ClOrdID *string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for OrderMassActionReport.
@@ -34,7 +34,7 @@ type Message struct {
 	//TotalAffectedOrders is a non-required field for OrderMassActionReport.
 	TotalAffectedOrders *int `fix:"533"`
 	//AffectedOrdGrp Component
-	AffectedOrdGrp affectedordgrp.Component
+	affectedordgrp.AffectedOrdGrp
 	//MarketID is a non-required field for OrderMassActionReport.
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for OrderMassActionReport.
@@ -44,11 +44,11 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for OrderMassActionReport.
 	TradingSessionSubID *string `fix:"625"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassActionReport.
 	Side *string `fix:"54"`
 	//TransactTime is a non-required field for OrderMassActionReport.
@@ -60,12 +60,30 @@ type Message struct {
 	//EncodedText is a non-required field for OrderMassActionReport.
 	EncodedText *string `fix:"355"`
 	//NotAffectedOrdersGrp Component
-	NotAffectedOrdersGrp notaffectedordersgrp.Component
-	Trailer              fixt11.Trailer
+	notaffectedordersgrp.NotAffectedOrdersGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetClOrdID(v string)             { m.ClOrdID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)    { m.SecondaryClOrdID = &v }
+func (m *Message) SetMassActionReportID(v string)  { m.MassActionReportID = v }
+func (m *Message) SetMassActionType(v int)         { m.MassActionType = v }
+func (m *Message) SetMassActionScope(v int)        { m.MassActionScope = v }
+func (m *Message) SetMassActionResponse(v int)     { m.MassActionResponse = v }
+func (m *Message) SetMassActionRejectReason(v int) { m.MassActionRejectReason = &v }
+func (m *Message) SetTotalAffectedOrders(v int)    { m.TotalAffectedOrders = &v }
+func (m *Message) SetMarketID(v string)            { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string)     { m.MarketSegmentID = &v }
+func (m *Message) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+func (m *Message) SetSide(v string)                { m.Side = &v }
+func (m *Message) SetTransactTime(v time.Time)     { m.TransactTime = &v }
+func (m *Message) SetText(v string)                { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)         { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

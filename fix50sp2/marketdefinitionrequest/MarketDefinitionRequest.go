@@ -10,7 +10,7 @@ import (
 //Message is a MarketDefinitionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BT"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MarketReqID is a required field for MarketDefinitionRequest.
 	MarketReqID string `fix:"1393"`
 	//SubscriptionRequestType is a required field for MarketDefinitionRequest.
@@ -21,11 +21,17 @@ type Message struct {
 	MarketSegmentID *string `fix:"1300"`
 	//ParentMktSegmID is a non-required field for MarketDefinitionRequest.
 	ParentMktSegmID *string `fix:"1325"`
-	Trailer         fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetMarketReqID(v string)             { m.MarketReqID = v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
+func (m *Message) SetMarketID(v string)                { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string)         { m.MarketSegmentID = &v }
+func (m *Message) SetParentMktSegmID(v string)         { m.ParentMktSegmID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

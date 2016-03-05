@@ -8,10 +8,10 @@ type NoTrdRepIndicators struct {
 	TrdRepIndicator *bool `fix:"1389"`
 }
 
-//Component is a fix50sp1 TrdRepIndicatorsGrp Component
-type Component struct {
+//TrdRepIndicatorsGrp is a fix50sp1 Component
+type TrdRepIndicatorsGrp struct {
 	//NoTrdRepIndicators is a non-required field for TrdRepIndicatorsGrp.
 	NoTrdRepIndicators []NoTrdRepIndicators `fix:"1387,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TrdRepIndicatorsGrp) SetNoTrdRepIndicators(v []NoTrdRepIndicators) { m.NoTrdRepIndicators = v }

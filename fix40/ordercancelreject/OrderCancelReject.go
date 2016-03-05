@@ -10,7 +10,7 @@ import (
 //Message is a OrderCancelReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"9"`
-	Header     fix40.Header
+	fix40.Header
 	//OrderID is a required field for OrderCancelReject.
 	OrderID string `fix:"37"`
 	//ClOrdID is a required field for OrderCancelReject.
@@ -24,12 +24,20 @@ type Message struct {
 	//CxlRejReason is a non-required field for OrderCancelReject.
 	CxlRejReason *int `fix:"102"`
 	//Text is a non-required field for OrderCancelReject.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)    { m.OrderID = v }
+func (m *Message) SetClOrdID(v string)    { m.ClOrdID = v }
+func (m *Message) SetClientID(v string)   { m.ClientID = &v }
+func (m *Message) SetExecBroker(v string) { m.ExecBroker = &v }
+func (m *Message) SetListID(v string)     { m.ListID = &v }
+func (m *Message) SetCxlRejReason(v int)  { m.CxlRejReason = &v }
+func (m *Message) SetText(v string)       { m.Text = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

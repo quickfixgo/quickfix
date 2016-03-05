@@ -10,14 +10,16 @@ import (
 //Message is a Logout FIX Message
 type Message struct {
 	FIXMsgType string `fix:"5"`
-	Header     fix41.Header
+	fix41.Header
 	//Text is a non-required field for Logout.
-	Text    *string `fix:"58"`
-	Trailer fix41.Trailer
+	Text *string `fix:"58"`
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetText(v string) { m.Text = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

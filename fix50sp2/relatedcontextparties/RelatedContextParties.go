@@ -13,13 +13,15 @@ type NoRelatedContextPartyIDs struct {
 	//RelatedContextPartyRole is a non-required field for NoRelatedContextPartyIDs.
 	RelatedContextPartyRole *int `fix:"1578"`
 	//RelatedContextPtysSubGrp Component
-	RelatedContextPtysSubGrp relatedcontextptyssubgrp.Component
+	relatedcontextptyssubgrp.RelatedContextPtysSubGrp
 }
 
-//Component is a fix50sp2 RelatedContextParties Component
-type Component struct {
+//RelatedContextParties is a fix50sp2 Component
+type RelatedContextParties struct {
 	//NoRelatedContextPartyIDs is a non-required field for RelatedContextParties.
 	NoRelatedContextPartyIDs []NoRelatedContextPartyIDs `fix:"1575,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *RelatedContextParties) SetNoRelatedContextPartyIDs(v []NoRelatedContextPartyIDs) {
+	m.NoRelatedContextPartyIDs = v
+}

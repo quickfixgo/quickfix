@@ -31,15 +31,15 @@ type NoAllocs struct {
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//AllocPositionEffect is a non-required field for NoAllocs.
 	AllocPositionEffect *string `fix:"1047"`
 }
 
-//Component is a fix50sp2 AllocAckGrp Component
-type Component struct {
+//AllocAckGrp is a fix50sp2 Component
+type AllocAckGrp struct {
 	//NoAllocs is a non-required field for AllocAckGrp.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *AllocAckGrp) SetNoAllocs(v []NoAllocs) { m.NoAllocs = v }

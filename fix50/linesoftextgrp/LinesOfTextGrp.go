@@ -10,10 +10,10 @@ type NoLinesOfText struct {
 	EncodedText *string `fix:"355"`
 }
 
-//Component is a fix50 LinesOfTextGrp Component
-type Component struct {
+//LinesOfTextGrp is a fix50 Component
+type LinesOfTextGrp struct {
 	//NoLinesOfText is a required field for LinesOfTextGrp.
 	NoLinesOfText []NoLinesOfText `fix:"33"`
 }
 
-func New() *Component { return new(Component) }
+func (m *LinesOfTextGrp) SetNoLinesOfText(v []NoLinesOfText) { m.NoLinesOfText = v }

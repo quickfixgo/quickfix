@@ -8,10 +8,12 @@ type NoUnderlyingSecurityAltID struct {
 	UnderlyingSecurityAltIDSource *string `fix:"459"`
 }
 
-//Component is a fix50sp2 UndSecAltIDGrp Component
-type Component struct {
+//UndSecAltIDGrp is a fix50sp2 Component
+type UndSecAltIDGrp struct {
 	//NoUnderlyingSecurityAltID is a non-required field for UndSecAltIDGrp.
 	NoUnderlyingSecurityAltID []NoUnderlyingSecurityAltID `fix:"457,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *UndSecAltIDGrp) SetNoUnderlyingSecurityAltID(v []NoUnderlyingSecurityAltID) {
+	m.NoUnderlyingSecurityAltID = v
+}

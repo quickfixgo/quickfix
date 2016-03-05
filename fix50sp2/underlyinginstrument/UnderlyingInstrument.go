@@ -29,11 +29,11 @@ type NoUndlyInstrumentParties struct {
 	//UnderlyingInstrumentPartyRole is a non-required field for NoUndlyInstrumentParties.
 	UnderlyingInstrumentPartyRole *int `fix:"1061"`
 	//UndlyInstrumentPtysSubGrp Component
-	UndlyInstrumentPtysSubGrp undlyinstrumentptyssubgrp.Component
+	undlyinstrumentptyssubgrp.UndlyInstrumentPtysSubGrp
 }
 
-//Component is a fix50sp2 UnderlyingInstrument Component
-type Component struct {
+//UnderlyingInstrument is a fix50sp2 Component
+type UnderlyingInstrument struct {
 	//UnderlyingSymbol is a non-required field for UnderlyingInstrument.
 	UnderlyingSymbol *string `fix:"311"`
 	//UnderlyingSymbolSfx is a non-required field for UnderlyingInstrument.
@@ -180,4 +180,121 @@ type Component struct {
 	UnderlyingDetachmentPoint *float64 `fix:"1460"`
 }
 
-func New() *Component { return new(Component) }
+func (m *UnderlyingInstrument) SetUnderlyingSymbol(v string)     { m.UnderlyingSymbol = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSymbolSfx(v string)  { m.UnderlyingSymbolSfx = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityID(v string) { m.UnderlyingSecurityID = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityIDSource(v string) {
+	m.UnderlyingSecurityIDSource = &v
+}
+func (m *UnderlyingInstrument) SetNoUnderlyingSecurityAltID(v []NoUnderlyingSecurityAltID) {
+	m.NoUnderlyingSecurityAltID = v
+}
+func (m *UnderlyingInstrument) SetUnderlyingProduct(v int)         { m.UnderlyingProduct = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCFICode(v string)      { m.UnderlyingCFICode = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityType(v string) { m.UnderlyingSecurityType = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecuritySubType(v string) {
+	m.UnderlyingSecuritySubType = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingMaturityMonthYear(v string) {
+	m.UnderlyingMaturityMonthYear = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingMaturityDate(v string) { m.UnderlyingMaturityDate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCouponPaymentDate(v string) {
+	m.UnderlyingCouponPaymentDate = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingIssueDate(v string) { m.UnderlyingIssueDate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingRepoCollateralSecurityType(v int) {
+	m.UnderlyingRepoCollateralSecurityType = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingRepurchaseTerm(v int)     { m.UnderlyingRepurchaseTerm = &v }
+func (m *UnderlyingInstrument) SetUnderlyingRepurchaseRate(v float64) { m.UnderlyingRepurchaseRate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingFactor(v float64)         { m.UnderlyingFactor = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCreditRating(v string)    { m.UnderlyingCreditRating = &v }
+func (m *UnderlyingInstrument) SetUnderlyingInstrRegistry(v string)   { m.UnderlyingInstrRegistry = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCountryOfIssue(v string)  { m.UnderlyingCountryOfIssue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStateOrProvinceOfIssue(v string) {
+	m.UnderlyingStateOrProvinceOfIssue = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingLocaleOfIssue(v string)  { m.UnderlyingLocaleOfIssue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingRedemptionDate(v string) { m.UnderlyingRedemptionDate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStrikePrice(v float64)   { m.UnderlyingStrikePrice = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStrikeCurrency(v string) { m.UnderlyingStrikeCurrency = &v }
+func (m *UnderlyingInstrument) SetUnderlyingOptAttribute(v string)   { m.UnderlyingOptAttribute = &v }
+func (m *UnderlyingInstrument) SetUnderlyingContractMultiplier(v float64) {
+	m.UnderlyingContractMultiplier = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingCouponRate(v float64) { m.UnderlyingCouponRate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityExchange(v string) {
+	m.UnderlyingSecurityExchange = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingIssuer(v string)        { m.UnderlyingIssuer = &v }
+func (m *UnderlyingInstrument) SetEncodedUnderlyingIssuerLen(v int) { m.EncodedUnderlyingIssuerLen = &v }
+func (m *UnderlyingInstrument) SetEncodedUnderlyingIssuer(v string) { m.EncodedUnderlyingIssuer = &v }
+func (m *UnderlyingInstrument) SetUnderlyingSecurityDesc(v string)  { m.UnderlyingSecurityDesc = &v }
+func (m *UnderlyingInstrument) SetEncodedUnderlyingSecurityDescLen(v int) {
+	m.EncodedUnderlyingSecurityDescLen = &v
+}
+func (m *UnderlyingInstrument) SetEncodedUnderlyingSecurityDesc(v string) {
+	m.EncodedUnderlyingSecurityDesc = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingCPProgram(v string)            { m.UnderlyingCPProgram = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCPRegType(v string)            { m.UnderlyingCPRegType = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCurrency(v string)             { m.UnderlyingCurrency = &v }
+func (m *UnderlyingInstrument) SetUnderlyingQty(v float64)                 { m.UnderlyingQty = &v }
+func (m *UnderlyingInstrument) SetUnderlyingPx(v float64)                  { m.UnderlyingPx = &v }
+func (m *UnderlyingInstrument) SetUnderlyingDirtyPrice(v float64)          { m.UnderlyingDirtyPrice = &v }
+func (m *UnderlyingInstrument) SetUnderlyingEndPrice(v float64)            { m.UnderlyingEndPrice = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStartValue(v float64)          { m.UnderlyingStartValue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCurrentValue(v float64)        { m.UnderlyingCurrentValue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingEndValue(v float64)            { m.UnderlyingEndValue = &v }
+func (m *UnderlyingInstrument) SetNoUnderlyingStips(v []NoUnderlyingStips) { m.NoUnderlyingStips = v }
+func (m *UnderlyingInstrument) SetUnderlyingAllocationPercent(v float64) {
+	m.UnderlyingAllocationPercent = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingSettlementType(v int)   { m.UnderlyingSettlementType = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCashAmount(v float64)   { m.UnderlyingCashAmount = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCashType(v string)      { m.UnderlyingCashType = &v }
+func (m *UnderlyingInstrument) SetUnderlyingUnitOfMeasure(v string) { m.UnderlyingUnitOfMeasure = &v }
+func (m *UnderlyingInstrument) SetUnderlyingTimeUnit(v string)      { m.UnderlyingTimeUnit = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCapValue(v float64)     { m.UnderlyingCapValue = &v }
+func (m *UnderlyingInstrument) SetNoUndlyInstrumentParties(v []NoUndlyInstrumentParties) {
+	m.NoUndlyInstrumentParties = v
+}
+func (m *UnderlyingInstrument) SetUnderlyingSettlMethod(v string) { m.UnderlyingSettlMethod = &v }
+func (m *UnderlyingInstrument) SetUnderlyingAdjustedQuantity(v float64) {
+	m.UnderlyingAdjustedQuantity = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingFXRate(v float64)      { m.UnderlyingFXRate = &v }
+func (m *UnderlyingInstrument) SetUnderlyingFXRateCalc(v string)   { m.UnderlyingFXRateCalc = &v }
+func (m *UnderlyingInstrument) SetUnderlyingMaturityTime(v string) { m.UnderlyingMaturityTime = &v }
+func (m *UnderlyingInstrument) SetUnderlyingPutOrCall(v int)       { m.UnderlyingPutOrCall = &v }
+func (m *UnderlyingInstrument) SetUnderlyingExerciseStyle(v int)   { m.UnderlyingExerciseStyle = &v }
+func (m *UnderlyingInstrument) SetUnderlyingUnitOfMeasureQty(v float64) {
+	m.UnderlyingUnitOfMeasureQty = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingPriceUnitOfMeasure(v string) {
+	m.UnderlyingPriceUnitOfMeasure = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingPriceUnitOfMeasureQty(v float64) {
+	m.UnderlyingPriceUnitOfMeasureQty = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingContractMultiplierUnit(v int) {
+	m.UnderlyingContractMultiplierUnit = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingFlowScheduleType(v int) { m.UnderlyingFlowScheduleType = &v }
+func (m *UnderlyingInstrument) SetUnderlyingRestructuringType(v string) {
+	m.UnderlyingRestructuringType = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingSeniority(v string) { m.UnderlyingSeniority = &v }
+func (m *UnderlyingInstrument) SetUnderlyingNotionalPercentageOutstanding(v float64) {
+	m.UnderlyingNotionalPercentageOutstanding = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingOriginalNotionalPercentageOutstanding(v float64) {
+	m.UnderlyingOriginalNotionalPercentageOutstanding = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingAttachmentPoint(v float64) {
+	m.UnderlyingAttachmentPoint = &v
+}
+func (m *UnderlyingInstrument) SetUnderlyingDetachmentPoint(v float64) {
+	m.UnderlyingDetachmentPoint = &v
+}

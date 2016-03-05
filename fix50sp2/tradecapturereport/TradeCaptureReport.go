@@ -23,7 +23,7 @@ import (
 //Message is a TradeCaptureReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AE"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradeReportID is a non-required field for TradeCaptureReport.
 	TradeReportID *string `fix:"571"`
 	//TradeReportTransType is a non-required field for TradeCaptureReport.
@@ -71,15 +71,15 @@ type Message struct {
 	//PriceType is a non-required field for TradeCaptureReport.
 	PriceType *int `fix:"423"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//QtyType is a non-required field for TradeCaptureReport.
 	QtyType *int `fix:"854"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//UnderlyingTradingSessionID is a non-required field for TradeCaptureReport.
 	UnderlyingTradingSessionID *string `fix:"822"`
 	//UnderlyingTradingSessionSubID is a non-required field for TradeCaptureReport.
@@ -103,21 +103,21 @@ type Message struct {
 	//AvgPx is a non-required field for TradeCaptureReport.
 	AvgPx *float64 `fix:"6"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//AvgPxIndicator is a non-required field for TradeCaptureReport.
 	AvgPxIndicator *int `fix:"819"`
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//MultiLegReportingType is a non-required field for TradeCaptureReport.
 	MultiLegReportingType *string `fix:"442"`
 	//TradeLegRefID is a non-required field for TradeCaptureReport.
 	TradeLegRefID *string `fix:"824"`
 	//TrdInstrmtLegGrp Component
-	TrdInstrmtLegGrp trdinstrmtleggrp.Component
+	trdinstrmtleggrp.TrdInstrmtLegGrp
 	//TransactTime is a non-required field for TradeCaptureReport.
 	TransactTime *time.Time `fix:"60"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//SettlType is a non-required field for TradeCaptureReport.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for TradeCaptureReport.
@@ -127,7 +127,7 @@ type Message struct {
 	//MatchType is a non-required field for TradeCaptureReport.
 	MatchType *string `fix:"574"`
 	//TrdCapRptSideGrp Component
-	TrdCapRptSideGrp trdcaprptsidegrp.Component
+	trdcaprptsidegrp.TrdCapRptSideGrp
 	//CopyMsgIndicator is a non-required field for TradeCaptureReport.
 	CopyMsgIndicator *bool `fix:"797"`
 	//PublishTrdIndicator is a non-required field for TradeCaptureReport.
@@ -167,7 +167,7 @@ type Message struct {
 	//GrossTradeAmt is a non-required field for TradeCaptureReport.
 	GrossTradeAmt *float64 `fix:"381"`
 	//RootParties Component
-	RootParties rootparties.Component
+	rootparties.RootParties
 	//TradeHandlingInstr is a non-required field for TradeCaptureReport.
 	TradeHandlingInstr *string `fix:"1123"`
 	//OrigTradeHandlingInstr is a non-required field for TradeCaptureReport.
@@ -199,22 +199,104 @@ type Message struct {
 	//CurrencyRatio is a non-required field for TradeCaptureReport.
 	CurrencyRatio *float64 `fix:"1382"`
 	//TrdRepIndicatorsGrp Component
-	TrdRepIndicatorsGrp trdrepindicatorsgrp.Component
+	trdrepindicatorsgrp.TrdRepIndicatorsGrp
 	//TradePublishIndicator is a non-required field for TradeCaptureReport.
 	TradePublishIndicator *int `fix:"1390"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
+	applicationsequencecontrol.ApplicationSequenceControl
 	//VenueType is a non-required field for TradeCaptureReport.
 	VenueType *string `fix:"1430"`
 	//MarketSegmentID is a non-required field for TradeCaptureReport.
 	MarketSegmentID *string `fix:"1300"`
 	//MarketID is a non-required field for TradeCaptureReport.
 	MarketID *string `fix:"1301"`
-	Trailer  fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTradeReportID(v string)                 { m.TradeReportID = &v }
+func (m *Message) SetTradeReportTransType(v int)             { m.TradeReportTransType = &v }
+func (m *Message) SetTradeReportType(v int)                  { m.TradeReportType = &v }
+func (m *Message) SetTradeRequestID(v string)                { m.TradeRequestID = &v }
+func (m *Message) SetTrdType(v int)                          { m.TrdType = &v }
+func (m *Message) SetTrdSubType(v int)                       { m.TrdSubType = &v }
+func (m *Message) SetSecondaryTrdType(v int)                 { m.SecondaryTrdType = &v }
+func (m *Message) SetTransferReason(v string)                { m.TransferReason = &v }
+func (m *Message) SetExecType(v string)                      { m.ExecType = &v }
+func (m *Message) SetTotNumTradeReports(v int)               { m.TotNumTradeReports = &v }
+func (m *Message) SetLastRptRequested(v bool)                { m.LastRptRequested = &v }
+func (m *Message) SetUnsolicitedIndicator(v bool)            { m.UnsolicitedIndicator = &v }
+func (m *Message) SetSubscriptionRequestType(v string)       { m.SubscriptionRequestType = &v }
+func (m *Message) SetTradeReportRefID(v string)              { m.TradeReportRefID = &v }
+func (m *Message) SetSecondaryTradeReportRefID(v string)     { m.SecondaryTradeReportRefID = &v }
+func (m *Message) SetSecondaryTradeReportID(v string)        { m.SecondaryTradeReportID = &v }
+func (m *Message) SetTradeLinkID(v string)                   { m.TradeLinkID = &v }
+func (m *Message) SetTrdMatchID(v string)                    { m.TrdMatchID = &v }
+func (m *Message) SetExecID(v string)                        { m.ExecID = &v }
+func (m *Message) SetSecondaryExecID(v string)               { m.SecondaryExecID = &v }
+func (m *Message) SetExecRestatementReason(v int)            { m.ExecRestatementReason = &v }
+func (m *Message) SetPreviouslyReported(v bool)              { m.PreviouslyReported = &v }
+func (m *Message) SetPriceType(v int)                        { m.PriceType = &v }
+func (m *Message) SetQtyType(v int)                          { m.QtyType = &v }
+func (m *Message) SetUnderlyingTradingSessionID(v string)    { m.UnderlyingTradingSessionID = &v }
+func (m *Message) SetUnderlyingTradingSessionSubID(v string) { m.UnderlyingTradingSessionSubID = &v }
+func (m *Message) SetLastQty(v float64)                      { m.LastQty = v }
+func (m *Message) SetLastPx(v float64)                       { m.LastPx = v }
+func (m *Message) SetLastParPx(v float64)                    { m.LastParPx = &v }
+func (m *Message) SetLastSpotRate(v float64)                 { m.LastSpotRate = &v }
+func (m *Message) SetLastForwardPoints(v float64)            { m.LastForwardPoints = &v }
+func (m *Message) SetLastMkt(v string)                       { m.LastMkt = &v }
+func (m *Message) SetTradeDate(v string)                     { m.TradeDate = &v }
+func (m *Message) SetClearingBusinessDate(v string)          { m.ClearingBusinessDate = &v }
+func (m *Message) SetAvgPx(v float64)                        { m.AvgPx = &v }
+func (m *Message) SetAvgPxIndicator(v int)                   { m.AvgPxIndicator = &v }
+func (m *Message) SetMultiLegReportingType(v string)         { m.MultiLegReportingType = &v }
+func (m *Message) SetTradeLegRefID(v string)                 { m.TradeLegRefID = &v }
+func (m *Message) SetTransactTime(v time.Time)               { m.TransactTime = &v }
+func (m *Message) SetSettlType(v string)                     { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                     { m.SettlDate = &v }
+func (m *Message) SetMatchStatus(v string)                   { m.MatchStatus = &v }
+func (m *Message) SetMatchType(v string)                     { m.MatchType = &v }
+func (m *Message) SetCopyMsgIndicator(v bool)                { m.CopyMsgIndicator = &v }
+func (m *Message) SetPublishTrdIndicator(v bool)             { m.PublishTrdIndicator = &v }
+func (m *Message) SetShortSaleReason(v int)                  { m.ShortSaleReason = &v }
+func (m *Message) SetTrdRptStatus(v int)                     { m.TrdRptStatus = &v }
+func (m *Message) SetAsOfIndicator(v string)                 { m.AsOfIndicator = &v }
+func (m *Message) SetSettlSessID(v string)                   { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)                { m.SettlSessSubID = &v }
+func (m *Message) SetTierCode(v string)                      { m.TierCode = &v }
+func (m *Message) SetMessageEventSource(v string)            { m.MessageEventSource = &v }
+func (m *Message) SetLastUpdateTime(v time.Time)             { m.LastUpdateTime = &v }
+func (m *Message) SetRndPx(v float64)                        { m.RndPx = &v }
+func (m *Message) SetTradeID(v string)                       { m.TradeID = &v }
+func (m *Message) SetSecondaryTradeID(v string)              { m.SecondaryTradeID = &v }
+func (m *Message) SetFirmTradeID(v string)                   { m.FirmTradeID = &v }
+func (m *Message) SetSecondaryFirmTradeID(v string)          { m.SecondaryFirmTradeID = &v }
+func (m *Message) SetCalculatedCcyLastQty(v float64)         { m.CalculatedCcyLastQty = &v }
+func (m *Message) SetLastSwapPoints(v float64)               { m.LastSwapPoints = &v }
+func (m *Message) SetUnderlyingSettlementDate(v string)      { m.UnderlyingSettlementDate = &v }
+func (m *Message) SetGrossTradeAmt(v float64)                { m.GrossTradeAmt = &v }
+func (m *Message) SetTradeHandlingInstr(v string)            { m.TradeHandlingInstr = &v }
+func (m *Message) SetOrigTradeHandlingInstr(v string)        { m.OrigTradeHandlingInstr = &v }
+func (m *Message) SetOrigTradeDate(v string)                 { m.OrigTradeDate = &v }
+func (m *Message) SetOrigTradeID(v string)                   { m.OrigTradeID = &v }
+func (m *Message) SetOrigSecondaryTradeID(v string)          { m.OrigSecondaryTradeID = &v }
+func (m *Message) SetTZTransactTime(v string)                { m.TZTransactTime = &v }
+func (m *Message) SetReportedPxDiff(v bool)                  { m.ReportedPxDiff = &v }
+func (m *Message) SetCurrency(v string)                      { m.Currency = &v }
+func (m *Message) SetSettlCurrency(v string)                 { m.SettlCurrency = &v }
+func (m *Message) SetRejectText(v string)                    { m.RejectText = &v }
+func (m *Message) SetFeeMultiplier(v float64)                { m.FeeMultiplier = &v }
+func (m *Message) SetVolatility(v float64)                   { m.Volatility = &v }
+func (m *Message) SetDividendYield(v float64)                { m.DividendYield = &v }
+func (m *Message) SetRiskFreeRate(v float64)                 { m.RiskFreeRate = &v }
+func (m *Message) SetCurrencyRatio(v float64)                { m.CurrencyRatio = &v }
+func (m *Message) SetTradePublishIndicator(v int)            { m.TradePublishIndicator = &v }
+func (m *Message) SetVenueType(v string)                     { m.VenueType = &v }
+func (m *Message) SetMarketSegmentID(v string)               { m.MarketSegmentID = &v }
+func (m *Message) SetMarketID(v string)                      { m.MarketID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

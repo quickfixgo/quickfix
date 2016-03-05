@@ -1,7 +1,7 @@
 package yielddata
 
-//Component is a fix50sp2 YieldData Component
-type Component struct {
+//YieldData is a fix50sp2 Component
+type YieldData struct {
 	//YieldType is a non-required field for YieldData.
 	YieldType *string `fix:"235"`
 	//Yield is a non-required field for YieldData.
@@ -16,4 +16,9 @@ type Component struct {
 	YieldRedemptionPriceType *int `fix:"698"`
 }
 
-func New() *Component { return new(Component) }
+func (m *YieldData) SetYieldType(v string)             { m.YieldType = &v }
+func (m *YieldData) SetYield(v float64)                { m.Yield = &v }
+func (m *YieldData) SetYieldCalcDate(v string)         { m.YieldCalcDate = &v }
+func (m *YieldData) SetYieldRedemptionDate(v string)   { m.YieldRedemptionDate = &v }
+func (m *YieldData) SetYieldRedemptionPrice(v float64) { m.YieldRedemptionPrice = &v }
+func (m *YieldData) SetYieldRedemptionPriceType(v int) { m.YieldRedemptionPriceType = &v }

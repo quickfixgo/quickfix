@@ -9,3 +9,7 @@ type Trailer struct {
 	//CheckSum is a required field for Trailer.
 	CheckSum string `fix:"10"`
 }
+
+func (m *Trailer) SetSignatureLength(v int) { m.SignatureLength = &v }
+func (m *Trailer) SetSignature(v string)    { m.Signature = &v }
+func (m *Trailer) SetCheckSum(v string)     { m.CheckSum = v }

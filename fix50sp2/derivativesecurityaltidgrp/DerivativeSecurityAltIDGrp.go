@@ -8,10 +8,12 @@ type NoDerivativeSecurityAltID struct {
 	DerivativeSecurityAltIDSource *string `fix:"1220"`
 }
 
-//Component is a fix50sp2 DerivativeSecurityAltIDGrp Component
-type Component struct {
+//DerivativeSecurityAltIDGrp is a fix50sp2 Component
+type DerivativeSecurityAltIDGrp struct {
 	//NoDerivativeSecurityAltID is a non-required field for DerivativeSecurityAltIDGrp.
 	NoDerivativeSecurityAltID []NoDerivativeSecurityAltID `fix:"1218,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *DerivativeSecurityAltIDGrp) SetNoDerivativeSecurityAltID(v []NoDerivativeSecurityAltID) {
+	m.NoDerivativeSecurityAltID = v
+}

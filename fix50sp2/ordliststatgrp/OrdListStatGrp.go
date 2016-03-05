@@ -30,10 +30,10 @@ type NoOrders struct {
 	OrderID *string `fix:"37"`
 }
 
-//Component is a fix50sp2 OrdListStatGrp Component
-type Component struct {
+//OrdListStatGrp is a fix50sp2 Component
+type OrdListStatGrp struct {
 	//NoOrders is a required field for OrdListStatGrp.
 	NoOrders []NoOrders `fix:"73"`
 }
 
-func New() *Component { return new(Component) }
+func (m *OrdListStatGrp) SetNoOrders(v []NoOrders) { m.NoOrders = v }

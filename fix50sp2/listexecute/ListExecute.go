@@ -11,7 +11,7 @@ import (
 //Message is a ListExecute FIX Message
 type Message struct {
 	FIXMsgType string `fix:"L"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ListID is a required field for ListExecute.
 	ListID string `fix:"66"`
 	//ClientBidID is a non-required field for ListExecute.
@@ -26,11 +26,19 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ListExecute.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetListID(v string)          { m.ListID = v }
+func (m *Message) SetClientBidID(v string)     { m.ClientBidID = &v }
+func (m *Message) SetBidID(v string)           { m.BidID = &v }
+func (m *Message) SetTransactTime(v time.Time) { m.TransactTime = v }
+func (m *Message) SetText(v string)            { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)     { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)     { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

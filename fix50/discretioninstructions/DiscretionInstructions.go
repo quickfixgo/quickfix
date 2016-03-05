@@ -1,7 +1,7 @@
 package discretioninstructions
 
-//Component is a fix50 DiscretionInstructions Component
-type Component struct {
+//DiscretionInstructions is a fix50 Component
+type DiscretionInstructions struct {
 	//DiscretionInst is a non-required field for DiscretionInstructions.
 	DiscretionInst *string `fix:"388"`
 	//DiscretionOffsetValue is a non-required field for DiscretionInstructions.
@@ -18,4 +18,10 @@ type Component struct {
 	DiscretionScope *int `fix:"846"`
 }
 
-func New() *Component { return new(Component) }
+func (m *DiscretionInstructions) SetDiscretionInst(v string)         { m.DiscretionInst = &v }
+func (m *DiscretionInstructions) SetDiscretionOffsetValue(v float64) { m.DiscretionOffsetValue = &v }
+func (m *DiscretionInstructions) SetDiscretionMoveType(v int)        { m.DiscretionMoveType = &v }
+func (m *DiscretionInstructions) SetDiscretionOffsetType(v int)      { m.DiscretionOffsetType = &v }
+func (m *DiscretionInstructions) SetDiscretionLimitType(v int)       { m.DiscretionLimitType = &v }
+func (m *DiscretionInstructions) SetDiscretionRoundDirection(v int)  { m.DiscretionRoundDirection = &v }
+func (m *DiscretionInstructions) SetDiscretionScope(v int)           { m.DiscretionScope = &v }

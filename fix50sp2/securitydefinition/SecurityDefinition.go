@@ -20,7 +20,7 @@ import (
 //Message is a SecurityDefinition FIX Message
 type Message struct {
 	FIXMsgType string `fix:"d"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReqID is a non-required field for SecurityDefinition.
 	SecurityReqID *string `fix:"320"`
 	//SecurityResponseID is a non-required field for SecurityDefinition.
@@ -28,11 +28,11 @@ type Message struct {
 	//SecurityResponseType is a non-required field for SecurityDefinition.
 	SecurityResponseType *int `fix:"323"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Currency is a non-required field for SecurityDefinition.
 	Currency *string `fix:"15"`
 	//Text is a non-required field for SecurityDefinition.
@@ -42,30 +42,42 @@ type Message struct {
 	//EncodedText is a non-required field for SecurityDefinition.
 	EncodedText *string `fix:"355"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//SecurityReportID is a non-required field for SecurityDefinition.
 	SecurityReportID *int `fix:"964"`
 	//ClearingBusinessDate is a non-required field for SecurityDefinition.
 	ClearingBusinessDate *string `fix:"715"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//CorporateAction is a non-required field for SecurityDefinition.
 	CorporateAction *string `fix:"292"`
 	//MarketSegmentGrp Component
-	MarketSegmentGrp marketsegmentgrp.Component
+	marketsegmentgrp.MarketSegmentGrp
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
+	applicationsequencecontrol.ApplicationSequenceControl
 	//TransactTime is a non-required field for SecurityDefinition.
 	TransactTime *time.Time `fix:"60"`
-	Trailer      fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
+func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
+func (m *Message) SetSecurityResponseType(v int)    { m.SecurityResponseType = &v }
+func (m *Message) SetCurrency(v string)             { m.Currency = &v }
+func (m *Message) SetText(v string)                 { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
+func (m *Message) SetSecurityReportID(v int)        { m.SecurityReportID = &v }
+func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
+func (m *Message) SetCorporateAction(v string)      { m.CorporateAction = &v }
+func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

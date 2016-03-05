@@ -12,13 +12,13 @@ import (
 //NoStrikes is a repeating group in ListStrikePrice
 type NoStrikes struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 }
 
 //NoUnderlyings is a repeating group in ListStrikePrice
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//PrevClosePx is a non-required field for NoUnderlyings.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoUnderlyings.
@@ -39,10 +39,20 @@ type NoUnderlyings struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoUnderlyings) SetPrevClosePx(v float64)     { m.PrevClosePx = &v }
+func (m *NoUnderlyings) SetClOrdID(v string)          { m.ClOrdID = &v }
+func (m *NoUnderlyings) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }
+func (m *NoUnderlyings) SetSide(v string)             { m.Side = &v }
+func (m *NoUnderlyings) SetPrice(v float64)           { m.Price = v }
+func (m *NoUnderlyings) SetCurrency(v string)         { m.Currency = &v }
+func (m *NoUnderlyings) SetText(v string)             { m.Text = &v }
+func (m *NoUnderlyings) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *NoUnderlyings) SetEncodedText(v string)      { m.EncodedText = &v }
+
 //Message is a ListStrikePrice FIX Message
 type Message struct {
 	FIXMsgType string `fix:"m"`
-	Header     fix44.Header
+	fix44.Header
 	//ListID is a required field for ListStrikePrice.
 	ListID string `fix:"66"`
 	//TotNoStrikes is a required field for ListStrikePrice.
@@ -53,11 +63,17 @@ type Message struct {
 	NoStrikes []NoStrikes `fix:"428"`
 	//NoUnderlyings is a non-required field for ListStrikePrice.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
-	Trailer       fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetListID(v string)                 { m.ListID = v }
+func (m *Message) SetTotNoStrikes(v int)              { m.TotNoStrikes = v }
+func (m *Message) SetLastFragment(v bool)             { m.LastFragment = &v }
+func (m *Message) SetNoStrikes(v []NoStrikes)         { m.NoStrikes = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

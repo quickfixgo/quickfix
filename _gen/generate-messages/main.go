@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"github.com/quickfixgo/quickfix/_gen"
@@ -47,130 +48,42 @@ import(
 `
 	fileOut += fmt.Sprintf("\"github.com/quickfixgo/quickfix/%v\"\n", headerTrailerPkg())
 
-	for i, _ := range imports {
+	for i := range imports {
 		fileOut += fmt.Sprintf("\"%v\"\n", i)
 	}
 	fileOut += ")\n"
 	return fileOut
 }
 
-func genFieldDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
-	if field.IsComponent() {
+func writeFieldDeclaration(field *datadictionary.FieldDef, componentName string) string {
+	switch {
+	case field.IsComponent():
 		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Component.Name))] = true
-		fileOut += fmt.Sprintf("//%v Component\n", field.Component.Name)
-		fileOut += fmt.Sprintf("%v %v.Component\n", field.Component.Name, strings.ToLower(field.Component.Name))
-		return
-	}
-
-	if field.Required {
-		fileOut += fmt.Sprintf("//%v is a required field for %v.\n", field.Name, parent)
-	} else {
-		fileOut += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, parent)
-	}
-	if field.IsGroup() {
-		if field.Required {
-			fileOut += fmt.Sprintf("%v []%v `fix:\"%v\"`\n", field.Name, field.Name, field.Tag)
-		} else {
-			fileOut += fmt.Sprintf("%v []%v `fix:\"%v,omitempty\"`\n", field.Name, field.Name, field.Tag)
+	case !field.IsGroup():
+		goType := gen.FixFieldTypeToGoType(field.Type)
+		if goType == "time.Time" {
+			imports["time"] = true
 		}
-		return
 	}
 
-	goType := ""
-	switch field.Type {
-	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
-		fallthrough
-	case "MULTIPLECHARVALUE":
-		fallthrough
-	case "CHAR":
-		fallthrough
-	case "CURRENCY":
-		fallthrough
-	case "DATA":
-		fallthrough
-	case "MONTHYEAR":
-		fallthrough
-	case "LOCALMKTDATE":
-		fallthrough
-	case "DATE":
-		fallthrough
-	case "EXCHANGE":
-		fallthrough
-	case "LANGUAGE":
-		fallthrough
-	case "XMLDATA":
-		fallthrough
-	case "COUNTRY":
-		fallthrough
-	case "UTCTIMEONLY":
-		fallthrough
-	case "UTCDATE":
-		fallthrough
-	case "UTCDATEONLY":
-		fallthrough
-	case "TZTIMEONLY":
-		fallthrough
-	case "TZTIMESTAMP":
-		fallthrough
-	case "STRING":
-		goType = "string"
-
-	case "BOOLEAN":
-		goType = "bool"
-
-	case "LENGTH":
-		fallthrough
-	case "DAYOFMONTH":
-		fallthrough
-	case "NUMINGROUP":
-		fallthrough
-	case "SEQNUM":
-		fallthrough
-	case "INT":
-		goType = "int"
-
-	case "TIME":
-		fallthrough
-	case "UTCTIMESTAMP":
-		imports["time"] = true
-		goType = "time.Time"
-
-	case "QTY":
-		fallthrough
-	case "QUANTITY":
-		fallthrough
-	case "AMT":
-		fallthrough
-	case "PRICE":
-		fallthrough
-	case "PRICEOFFSET":
-		fallthrough
-	case "PERCENTAGE":
-		fallthrough
-	case "FLOAT":
-		goType = "float64"
-
-	default:
-		fmt.Printf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag)
-	}
-
-	if field.Required {
-		fileOut += fmt.Sprintf("%v %v `fix:\"%v\"`\n", field.Name, goType, field.Tag)
-	} else {
-		fileOut += fmt.Sprintf("%v *%v `fix:\"%v\"`\n", field.Name, goType, field.Tag)
-	}
-
-	return
+	return gen.WriteFieldDeclaration(fixSpec.Major, fixSpec.Minor, field, componentName)
 }
 
 func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
 	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name, parent)
 	fileOut += fmt.Sprintf("type %v struct {\n", field.Name)
 	for _, groupField := range field.ChildFields {
-		fileOut += genFieldDeclaration(groupField, field.Name)
+		fileOut += writeFieldDeclaration(groupField, field.Name)
 	}
 
 	fileOut += "}\n"
+
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, field.Name, field.ChildFields); err != nil {
+		panic(err)
+	}
+	fileOut += writer.String()
+	fileOut += "\n"
 
 	return
 }
@@ -219,16 +132,24 @@ func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary
 	fileOut := fmt.Sprintf("//Message is a %v FIX Message\n", msg.Name)
 	fileOut += "type Message struct {\n"
 	fileOut += fmt.Sprintf("FIXMsgType string   `fix:\"%v\"`\n", msg.MsgType)
-	fileOut += fmt.Sprintf("Header %v.Header\n", headerTrailerPkg())
+	fileOut += fmt.Sprintf("%v.Header\n", headerTrailerPkg())
 	for _, field := range msg.FieldsInDeclarationOrder {
-		fileOut += genFieldDeclaration(field, msg.Name)
+		fileOut += writeFieldDeclaration(field, msg.Name)
 	}
-	fileOut += fmt.Sprintf("Trailer %v.Trailer\n", headerTrailerPkg())
+	fileOut += fmt.Sprintf("%v.Trailer\n", headerTrailerPkg())
 	fileOut += "}\n"
 	fileOut += "//Marshal converts Message to a quickfix.Message instance\n"
 	fileOut += "func (m Message) Marshal() quickfix.Message {return quickfix.Marshal(m)}\n"
 
 	return fileOut
+}
+
+func genMessageSetters(msg *datadictionary.MessageDef) string {
+	writer := new(bytes.Buffer)
+	if err := gen.WriteFieldSetters(writer, "Message", msg.FieldsInDeclarationOrder); err != nil {
+		panic(err)
+	}
+	return writer.String()
 }
 
 func genMessageRoute(msg *datadictionary.MessageDef) string {
@@ -284,6 +205,7 @@ func genMessagePkg(msg *datadictionary.MessageDef) {
 
 	fileOut += genMessageImports()
 	fileOut += delayOut
+	fileOut += genMessageSetters(msg)
 	fileOut += genMessageRoute(msg)
 
 	gen.WriteFile(path.Join(pkg, strings.ToLower(msg.Name), msg.Name+".go"), fileOut)

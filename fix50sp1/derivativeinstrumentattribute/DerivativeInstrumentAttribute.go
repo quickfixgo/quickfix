@@ -8,10 +8,12 @@ type NoDerivativeInstrAttrib struct {
 	DerivativeInstrAttribValue *string `fix:"1314"`
 }
 
-//Component is a fix50sp1 DerivativeInstrumentAttribute Component
-type Component struct {
+//DerivativeInstrumentAttribute is a fix50sp1 Component
+type DerivativeInstrumentAttribute struct {
 	//NoDerivativeInstrAttrib is a non-required field for DerivativeInstrumentAttribute.
 	NoDerivativeInstrAttrib []NoDerivativeInstrAttrib `fix:"1311,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *DerivativeInstrumentAttribute) SetNoDerivativeInstrAttrib(v []NoDerivativeInstrAttrib) {
+	m.NoDerivativeInstrAttrib = v
+}

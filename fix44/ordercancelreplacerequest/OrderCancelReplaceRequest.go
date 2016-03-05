@@ -30,10 +30,16 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
+
+func (m *NoAllocs) SetAllocAccount(v string)       { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)     { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetAllocSettlCurrency(v string) { m.AllocSettlCurrency = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)  { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetAllocQty(v float64)          { m.AllocQty = &v }
 
 //NoTradingSessions is a repeating group in OrderCancelReplaceRequest
 type NoTradingSessions struct {
@@ -43,20 +49,23 @@ type NoTradingSessions struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+
 //NoUnderlyings is a repeating group in OrderCancelReplaceRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //Message is a OrderCancelReplaceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"G"`
-	Header     fix44.Header
+	fix44.Header
 	//OrderID is a non-required field for OrderCancelReplaceRequest.
 	OrderID *string `fix:"37"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for OrderCancelReplaceRequest.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for OrderCancelReplaceRequest.
@@ -110,9 +119,9 @@ type Message struct {
 	//NoTradingSessions is a non-required field for OrderCancelReplaceRequest.
 	NoTradingSessions []NoTradingSessions `fix:"386,omitempty"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for OrderCancelReplaceRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Side is a required field for OrderCancelReplaceRequest.
@@ -122,7 +131,7 @@ type Message struct {
 	//QtyType is a non-required field for OrderCancelReplaceRequest.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for OrderCancelReplaceRequest.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for OrderCancelReplaceRequest.
@@ -132,13 +141,13 @@ type Message struct {
 	//StopPx is a non-required field for OrderCancelReplaceRequest.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for OrderCancelReplaceRequest.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for OrderCancelReplaceRequest.
@@ -162,7 +171,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for OrderCancelReplaceRequest.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for OrderCancelReplaceRequest.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for OrderCancelReplaceRequest.
@@ -203,11 +212,78 @@ type Message struct {
 	RegistID *string `fix:"513"`
 	//Designation is a non-required field for OrderCancelReplaceRequest.
 	Designation *string `fix:"494"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)                        { m.OrderID = &v }
+func (m *Message) SetTradeOriginationDate(v string)           { m.TradeOriginationDate = &v }
+func (m *Message) SetTradeDate(v string)                      { m.TradeDate = &v }
+func (m *Message) SetOrigClOrdID(v string)                    { m.OrigClOrdID = v }
+func (m *Message) SetClOrdID(v string)                        { m.ClOrdID = v }
+func (m *Message) SetSecondaryClOrdID(v string)               { m.SecondaryClOrdID = &v }
+func (m *Message) SetClOrdLinkID(v string)                    { m.ClOrdLinkID = &v }
+func (m *Message) SetListID(v string)                         { m.ListID = &v }
+func (m *Message) SetOrigOrdModTime(v time.Time)              { m.OrigOrdModTime = &v }
+func (m *Message) SetAccount(v string)                        { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                      { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                       { m.AccountType = &v }
+func (m *Message) SetDayBookingInst(v string)                 { m.DayBookingInst = &v }
+func (m *Message) SetBookingUnit(v string)                    { m.BookingUnit = &v }
+func (m *Message) SetPreallocMethod(v string)                 { m.PreallocMethod = &v }
+func (m *Message) SetAllocID(v string)                        { m.AllocID = &v }
+func (m *Message) SetNoAllocs(v []NoAllocs)                   { m.NoAllocs = v }
+func (m *Message) SetSettlType(v string)                      { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                      { m.SettlDate = &v }
+func (m *Message) SetCashMargin(v string)                     { m.CashMargin = &v }
+func (m *Message) SetClearingFeeIndicator(v string)           { m.ClearingFeeIndicator = &v }
+func (m *Message) SetHandlInst(v string)                      { m.HandlInst = &v }
+func (m *Message) SetExecInst(v string)                       { m.ExecInst = &v }
+func (m *Message) SetMinQty(v float64)                        { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v float64)                      { m.MaxFloor = &v }
+func (m *Message) SetExDestination(v string)                  { m.ExDestination = &v }
+func (m *Message) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
+func (m *Message) SetSide(v string)                           { m.Side = v }
+func (m *Message) SetTransactTime(v time.Time)                { m.TransactTime = v }
+func (m *Message) SetQtyType(v int)                           { m.QtyType = &v }
+func (m *Message) SetOrdType(v string)                        { m.OrdType = v }
+func (m *Message) SetPriceType(v int)                         { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                         { m.Price = &v }
+func (m *Message) SetStopPx(v float64)                        { m.StopPx = &v }
+func (m *Message) SetTargetStrategy(v int)                    { m.TargetStrategy = &v }
+func (m *Message) SetTargetStrategyParameters(v string)       { m.TargetStrategyParameters = &v }
+func (m *Message) SetParticipationRate(v float64)             { m.ParticipationRate = &v }
+func (m *Message) SetComplianceID(v string)                   { m.ComplianceID = &v }
+func (m *Message) SetSolicitedFlag(v bool)                    { m.SolicitedFlag = &v }
+func (m *Message) SetCurrency(v string)                       { m.Currency = &v }
+func (m *Message) SetTimeInForce(v string)                    { m.TimeInForce = &v }
+func (m *Message) SetEffectiveTime(v time.Time)               { m.EffectiveTime = &v }
+func (m *Message) SetExpireDate(v string)                     { m.ExpireDate = &v }
+func (m *Message) SetExpireTime(v time.Time)                  { m.ExpireTime = &v }
+func (m *Message) SetGTBookingInst(v int)                     { m.GTBookingInst = &v }
+func (m *Message) SetOrderCapacity(v string)                  { m.OrderCapacity = &v }
+func (m *Message) SetOrderRestrictions(v string)              { m.OrderRestrictions = &v }
+func (m *Message) SetCustOrderCapacity(v int)                 { m.CustOrderCapacity = &v }
+func (m *Message) SetForexReq(v bool)                         { m.ForexReq = &v }
+func (m *Message) SetSettlCurrency(v string)                  { m.SettlCurrency = &v }
+func (m *Message) SetBookingType(v int)                       { m.BookingType = &v }
+func (m *Message) SetText(v string)                           { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                    { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                    { m.EncodedText = &v }
+func (m *Message) SetSettlDate2(v string)                     { m.SettlDate2 = &v }
+func (m *Message) SetOrderQty2(v float64)                     { m.OrderQty2 = &v }
+func (m *Message) SetPrice2(v float64)                        { m.Price2 = &v }
+func (m *Message) SetPositionEffect(v string)                 { m.PositionEffect = &v }
+func (m *Message) SetCoveredOrUncovered(v int)                { m.CoveredOrUncovered = &v }
+func (m *Message) SetMaxShow(v float64)                       { m.MaxShow = &v }
+func (m *Message) SetLocateReqd(v bool)                       { m.LocateReqd = &v }
+func (m *Message) SetCancellationRights(v string)             { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)          { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                       { m.RegistID = &v }
+func (m *Message) SetDesignation(v string)                    { m.Designation = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

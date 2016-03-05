@@ -8,8 +8,8 @@ type NoInstrAttrib struct {
 	InstrAttribValue *string `fix:"872"`
 }
 
-//Component is a fix44 InstrumentExtension Component
-type Component struct {
+//InstrumentExtension is a fix44 Component
+type InstrumentExtension struct {
 	//DeliveryForm is a non-required field for InstrumentExtension.
 	DeliveryForm *int `fix:"668"`
 	//PctAtRisk is a non-required field for InstrumentExtension.
@@ -18,4 +18,6 @@ type Component struct {
 	NoInstrAttrib []NoInstrAttrib `fix:"870,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *InstrumentExtension) SetDeliveryForm(v int)              { m.DeliveryForm = &v }
+func (m *InstrumentExtension) SetPctAtRisk(v float64)             { m.PctAtRisk = &v }
+func (m *InstrumentExtension) SetNoInstrAttrib(v []NoInstrAttrib) { m.NoInstrAttrib = v }

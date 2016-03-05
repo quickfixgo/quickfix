@@ -17,13 +17,13 @@ type NoStrikeRules struct {
 	//StrikeExerciseStyle is a non-required field for NoStrikeRules.
 	StrikeExerciseStyle *int `fix:"1304"`
 	//MaturityRules Component
-	MaturityRules maturityrules.Component
+	maturityrules.MaturityRules
 }
 
-//Component is a fix50sp1 StrikeRules Component
-type Component struct {
+//StrikeRules is a fix50sp1 Component
+type StrikeRules struct {
 	//NoStrikeRules is a non-required field for StrikeRules.
 	NoStrikeRules []NoStrikeRules `fix:"1201,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *StrikeRules) SetNoStrikeRules(v []NoStrikeRules) { m.NoStrikeRules = v }

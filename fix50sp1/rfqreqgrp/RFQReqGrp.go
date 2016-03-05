@@ -9,11 +9,11 @@ import (
 //NoRelatedSym is a repeating group in RFQReqGrp
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//PrevClosePx is a non-required field for NoRelatedSym.
 	PrevClosePx *float64 `fix:"140"`
 	//QuoteRequestType is a non-required field for NoRelatedSym.
@@ -26,10 +26,10 @@ type NoRelatedSym struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
-//Component is a fix50sp1 RFQReqGrp Component
-type Component struct {
+//RFQReqGrp is a fix50sp1 Component
+type RFQReqGrp struct {
 	//NoRelatedSym is a required field for RFQReqGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146"`
 }
 
-func New() *Component { return new(Component) }
+func (m *RFQReqGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

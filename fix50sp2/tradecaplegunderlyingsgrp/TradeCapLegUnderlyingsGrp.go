@@ -7,13 +7,15 @@ import (
 //NoOfLegUnderlyings is a repeating group in TradeCapLegUnderlyingsGrp
 type NoOfLegUnderlyings struct {
 	//UnderlyingLegInstrument Component
-	UnderlyingLegInstrument underlyingleginstrument.Component
+	underlyingleginstrument.UnderlyingLegInstrument
 }
 
-//Component is a fix50sp2 TradeCapLegUnderlyingsGrp Component
-type Component struct {
+//TradeCapLegUnderlyingsGrp is a fix50sp2 Component
+type TradeCapLegUnderlyingsGrp struct {
 	//NoOfLegUnderlyings is a non-required field for TradeCapLegUnderlyingsGrp.
 	NoOfLegUnderlyings []NoOfLegUnderlyings `fix:"1342,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TradeCapLegUnderlyingsGrp) SetNoOfLegUnderlyings(v []NoOfLegUnderlyings) {
+	m.NoOfLegUnderlyings = v
+}

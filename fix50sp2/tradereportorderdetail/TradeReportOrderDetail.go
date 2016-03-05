@@ -4,8 +4,8 @@ import (
 	"time"
 )
 
-//Component is a fix50sp2 TradeReportOrderDetail Component
-type Component struct {
+//TradeReportOrderDetail is a fix50sp2 Component
+type TradeReportOrderDetail struct {
 	//OrderID is a non-required field for TradeReportOrderDetail.
 	OrderID *string `fix:"37"`
 	//SecondaryOrderID is a non-required field for TradeReportOrderDetail.
@@ -84,4 +84,41 @@ type Component struct {
 	BookingType *int `fix:"775"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TradeReportOrderDetail) SetOrderID(v string)              { m.OrderID = &v }
+func (m *TradeReportOrderDetail) SetSecondaryOrderID(v string)     { m.SecondaryOrderID = &v }
+func (m *TradeReportOrderDetail) SetClOrdID(v string)              { m.ClOrdID = &v }
+func (m *TradeReportOrderDetail) SetSecondaryClOrdID(v string)     { m.SecondaryClOrdID = &v }
+func (m *TradeReportOrderDetail) SetListID(v string)               { m.ListID = &v }
+func (m *TradeReportOrderDetail) SetRefOrderID(v string)           { m.RefOrderID = &v }
+func (m *TradeReportOrderDetail) SetRefOrderIDSource(v string)     { m.RefOrderIDSource = &v }
+func (m *TradeReportOrderDetail) SetRefOrdIDReason(v int)          { m.RefOrdIDReason = &v }
+func (m *TradeReportOrderDetail) SetOrdType(v string)              { m.OrdType = &v }
+func (m *TradeReportOrderDetail) SetPrice(v float64)               { m.Price = &v }
+func (m *TradeReportOrderDetail) SetStopPx(v float64)              { m.StopPx = &v }
+func (m *TradeReportOrderDetail) SetExecInst(v string)             { m.ExecInst = &v }
+func (m *TradeReportOrderDetail) SetOrdStatus(v string)            { m.OrdStatus = &v }
+func (m *TradeReportOrderDetail) SetOrderQty(v float64)            { m.OrderQty = &v }
+func (m *TradeReportOrderDetail) SetCashOrderQty(v float64)        { m.CashOrderQty = &v }
+func (m *TradeReportOrderDetail) SetOrderPercent(v float64)        { m.OrderPercent = &v }
+func (m *TradeReportOrderDetail) SetRoundingDirection(v string)    { m.RoundingDirection = &v }
+func (m *TradeReportOrderDetail) SetRoundingModulus(v float64)     { m.RoundingModulus = &v }
+func (m *TradeReportOrderDetail) SetLeavesQty(v float64)           { m.LeavesQty = &v }
+func (m *TradeReportOrderDetail) SetCumQty(v float64)              { m.CumQty = &v }
+func (m *TradeReportOrderDetail) SetTimeInForce(v string)          { m.TimeInForce = &v }
+func (m *TradeReportOrderDetail) SetExpireTime(v time.Time)        { m.ExpireTime = &v }
+func (m *TradeReportOrderDetail) SetSecondaryDisplayQty(v float64) { m.SecondaryDisplayQty = &v }
+func (m *TradeReportOrderDetail) SetDisplayWhen(v string)          { m.DisplayWhen = &v }
+func (m *TradeReportOrderDetail) SetDisplayMethod(v string)        { m.DisplayMethod = &v }
+func (m *TradeReportOrderDetail) SetDisplayLowQty(v float64)       { m.DisplayLowQty = &v }
+func (m *TradeReportOrderDetail) SetDisplayHighQty(v float64)      { m.DisplayHighQty = &v }
+func (m *TradeReportOrderDetail) SetDisplayMinIncr(v float64)      { m.DisplayMinIncr = &v }
+func (m *TradeReportOrderDetail) SetRefreshQty(v float64)          { m.RefreshQty = &v }
+func (m *TradeReportOrderDetail) SetDisplayQty(v float64)          { m.DisplayQty = &v }
+func (m *TradeReportOrderDetail) SetOrderCapacity(v string)        { m.OrderCapacity = &v }
+func (m *TradeReportOrderDetail) SetOrderRestrictions(v string)    { m.OrderRestrictions = &v }
+func (m *TradeReportOrderDetail) SetOrigCustOrderCapacity(v int)   { m.OrigCustOrderCapacity = &v }
+func (m *TradeReportOrderDetail) SetOrderInputDevice(v string)     { m.OrderInputDevice = &v }
+func (m *TradeReportOrderDetail) SetLotType(v string)              { m.LotType = &v }
+func (m *TradeReportOrderDetail) SetTransBkdTime(v time.Time)      { m.TransBkdTime = &v }
+func (m *TradeReportOrderDetail) SetOrigOrdModTime(v time.Time)    { m.OrigOrdModTime = &v }
+func (m *TradeReportOrderDetail) SetBookingType(v int)             { m.BookingType = &v }

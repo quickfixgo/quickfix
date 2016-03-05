@@ -1,7 +1,7 @@
 package secondarypricelimits
 
-//Component is a fix50sp1 SecondaryPriceLimits Component
-type Component struct {
+//SecondaryPriceLimits is a fix50sp1 Component
+type SecondaryPriceLimits struct {
 	//SecondaryPriceLimitType is a non-required field for SecondaryPriceLimits.
 	SecondaryPriceLimitType *int `fix:"1305"`
 	//SecondaryLowLimitPrice is a non-required field for SecondaryPriceLimits.
@@ -12,4 +12,9 @@ type Component struct {
 	SecondaryTradingReferencePrice *float64 `fix:"1240"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SecondaryPriceLimits) SetSecondaryPriceLimitType(v int)     { m.SecondaryPriceLimitType = &v }
+func (m *SecondaryPriceLimits) SetSecondaryLowLimitPrice(v float64)  { m.SecondaryLowLimitPrice = &v }
+func (m *SecondaryPriceLimits) SetSecondaryHighLimitPrice(v float64) { m.SecondaryHighLimitPrice = &v }
+func (m *SecondaryPriceLimits) SetSecondaryTradingReferencePrice(v float64) {
+	m.SecondaryTradingReferencePrice = &v
+}

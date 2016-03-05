@@ -8,10 +8,12 @@ type NoNotAffectedOrders struct {
 	NotAffectedOrderID *string `fix:"1371"`
 }
 
-//Component is a fix50sp1 NotAffectedOrdersGrp Component
-type Component struct {
+//NotAffectedOrdersGrp is a fix50sp1 Component
+type NotAffectedOrdersGrp struct {
 	//NoNotAffectedOrders is a non-required field for NotAffectedOrdersGrp.
 	NoNotAffectedOrders []NoNotAffectedOrders `fix:"1370,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *NotAffectedOrdersGrp) SetNoNotAffectedOrders(v []NoNotAffectedOrders) {
+	m.NoNotAffectedOrders = v
+}

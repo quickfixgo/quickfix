@@ -10,10 +10,12 @@ type NoStrategyParameters struct {
 	StrategyParameterValue *string `fix:"960"`
 }
 
-//Component is a fix50sp2 StrategyParametersGrp Component
-type Component struct {
+//StrategyParametersGrp is a fix50sp2 Component
+type StrategyParametersGrp struct {
 	//NoStrategyParameters is a non-required field for StrategyParametersGrp.
 	NoStrategyParameters []NoStrategyParameters `fix:"957,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *StrategyParametersGrp) SetNoStrategyParameters(v []NoStrategyParameters) {
+	m.NoStrategyParameters = v
+}
