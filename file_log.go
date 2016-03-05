@@ -58,7 +58,7 @@ func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 	return logFactory, nil
 }
 
-func (f fileLogFactory) buildFileLog(prefix string, logPath string) (fileLog, error) {
+func newFileLog(prefix string, logPath string) (fileLog, error) {
 	l := fileLog{}
 
 	eventLogName := path.Join(logPath, prefix+".event.current.log")
@@ -68,7 +68,7 @@ func (f fileLogFactory) buildFileLog(prefix string, logPath string) (fileLog, er
 		return l, err
 	}
 
-	fileFlags := os.O_RDWR | os.O_CREATE
+	fileFlags := os.O_RDWR | os.O_CREATE | os.O_APPEND
 	eventFile, err := os.OpenFile(eventLogName, fileFlags, os.ModePerm)
 	if err != nil {
 		return l, err
@@ -86,7 +86,7 @@ func (f fileLogFactory) buildFileLog(prefix string, logPath string) (fileLog, er
 }
 
 func (f fileLogFactory) Create() (Log, error) {
-	return f.buildFileLog("GLOBAL", f.globalLogPath)
+	return newFileLog("GLOBAL", f.globalLogPath)
 }
 
 func (f fileLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
@@ -101,5 +101,5 @@ func (f fileLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
 		prefixParts = append(prefixParts, sessionID.Qualifier)
 	}
 
-	return f.buildFileLog(strings.Join(prefixParts, "-"), logPath)
+	return newFileLog(strings.Join(prefixParts, "-"), logPath)
 }
