@@ -24,7 +24,7 @@ import (
 //Message is a MultilegOrderCancelReplace FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AC"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrderID is a non-required field for MultilegOrderCancelReplace.
 	OrderID *string `fix:"37"`
 	//OrigClOrdID is a required field for MultilegOrderCancelReplace.
@@ -38,7 +38,7 @@ type Message struct {
 	//OrigOrdModTime is a non-required field for MultilegOrderCancelReplace.
 	OrigOrdModTime *time.Time `fix:"586"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for MultilegOrderCancelReplace.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for MultilegOrderCancelReplace.
@@ -58,7 +58,7 @@ type Message struct {
 	//AllocID is a non-required field for MultilegOrderCancelReplace.
 	AllocID *string `fix:"70"`
 	//PreAllocMlegGrp Component
-	PreAllocMlegGrp preallocmleggrp.Component
+	preallocmleggrp.PreAllocMlegGrp
 	//SettlType is a non-required field for MultilegOrderCancelReplace.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for MultilegOrderCancelReplace.
@@ -78,19 +78,19 @@ type Message struct {
 	//ExDestination is a non-required field for MultilegOrderCancelReplace.
 	ExDestination *string `fix:"100"`
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//ProcessCode is a non-required field for MultilegOrderCancelReplace.
 	ProcessCode *string `fix:"81"`
 	//Side is a required field for MultilegOrderCancelReplace.
 	Side string `fix:"54"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for MultilegOrderCancelReplace.
 	PrevClosePx *float64 `fix:"140"`
 	//LegOrdGrp Component
-	LegOrdGrp legordgrp.Component
+	legordgrp.LegOrdGrp
 	//LocateReqd is a non-required field for MultilegOrderCancelReplace.
 	LocateReqd *bool `fix:"114"`
 	//TransactTime is a required field for MultilegOrderCancelReplace.
@@ -98,7 +98,7 @@ type Message struct {
 	//QtyType is a non-required field for MultilegOrderCancelReplace.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for MultilegOrderCancelReplace.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for MultilegOrderCancelReplace.
@@ -128,7 +128,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for MultilegOrderCancelReplace.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for MultilegOrderCancelReplace.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for MultilegOrderCancelReplace.
@@ -154,9 +154,9 @@ type Message struct {
 	//MaxShow is a non-required field for MultilegOrderCancelReplace.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for MultilegOrderCancelReplace.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for MultilegOrderCancelReplace.
@@ -174,24 +174,24 @@ type Message struct {
 	//MultiLegRptTypeReq is a non-required field for MultilegOrderCancelReplace.
 	MultiLegRptTypeReq *int `fix:"563"`
 	//StrategyParametersGrp Component
-	StrategyParametersGrp strategyparametersgrp.Component
+	strategyparametersgrp.StrategyParametersGrp
 	//MatchIncrement is a non-required field for MultilegOrderCancelReplace.
 	MatchIncrement *float64 `fix:"1089"`
 	//MaxPriceLevels is a non-required field for MultilegOrderCancelReplace.
 	MaxPriceLevels *int `fix:"1090"`
 	//DisplayInstruction Component
-	DisplayInstruction displayinstruction.Component
+	displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for MultilegOrderCancelReplace.
 	PriceProtectionScope *string `fix:"1092"`
 	//TriggeringInstruction Component
-	TriggeringInstruction triggeringinstruction.Component
+	triggeringinstruction.TriggeringInstruction
 	//PreTradeAnonymity is a non-required field for MultilegOrderCancelReplace.
 	PreTradeAnonymity *bool `fix:"1091"`
 	//ExDestinationIDSource is a non-required field for MultilegOrderCancelReplace.
 	ExDestinationIDSource *string `fix:"1133"`
 	//SwapPoints is a non-required field for MultilegOrderCancelReplace.
 	SwapPoints *float64 `fix:"1069"`
-	Trailer    fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

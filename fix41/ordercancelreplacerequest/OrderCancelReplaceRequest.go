@@ -11,7 +11,7 @@ import (
 //Message is a OrderCancelReplaceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"G"`
-	Header     fix41.Header
+	fix41.Header
 	//OrderID is a non-required field for OrderCancelReplaceRequest.
 	OrderID *string `fix:"37"`
 	//ClientID is a non-required field for OrderCancelReplaceRequest.
@@ -112,7 +112,7 @@ type Message struct {
 	MaxShow *int `fix:"210"`
 	//LocateReqd is a non-required field for OrderCancelReplaceRequest.
 	LocateReqd *string `fix:"114"`
-	Trailer    fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

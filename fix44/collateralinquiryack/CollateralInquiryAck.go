@@ -42,19 +42,19 @@ func (m *NoTrades) SetSecondaryTradeReportID(v string) { m.SecondaryTradeReportI
 //NoLegs is a repeating group in CollateralInquiryAck
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in CollateralInquiryAck
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //Message is a CollateralInquiryAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BG"`
-	Header     fix44.Header
+	fix44.Header
 	//CollInquiryID is a required field for CollateralInquiryAck.
 	CollInquiryID string `fix:"909"`
 	//CollInquiryStatus is a required field for CollateralInquiryAck.
@@ -66,7 +66,7 @@ type Message struct {
 	//TotNumReports is a non-required field for CollateralInquiryAck.
 	TotNumReports *int `fix:"911"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for CollateralInquiryAck.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralInquiryAck.
@@ -84,9 +84,9 @@ type Message struct {
 	//NoTrades is a non-required field for CollateralInquiryAck.
 	NoTrades []NoTrades `fix:"897,omitempty"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralInquiryAck.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralInquiryAck.
@@ -119,7 +119,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for CollateralInquiryAck.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -18,7 +18,7 @@ import (
 //Message is a CollateralInquiryAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BG"`
-	Header     fixt11.Header
+	fixt11.Header
 	//CollInquiryID is a required field for CollateralInquiryAck.
 	CollInquiryID string `fix:"909"`
 	//CollInquiryStatus is a required field for CollateralInquiryAck.
@@ -26,11 +26,11 @@ type Message struct {
 	//CollInquiryResult is a non-required field for CollateralInquiryAck.
 	CollInquiryResult *int `fix:"946"`
 	//CollInqQualGrp Component
-	CollInqQualGrp collinqqualgrp.Component
+	collinqqualgrp.CollInqQualGrp
 	//TotNumReports is a non-required field for CollateralInquiryAck.
 	TotNumReports *int `fix:"911"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for CollateralInquiryAck.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralInquiryAck.
@@ -44,13 +44,13 @@ type Message struct {
 	//SecondaryClOrdID is a non-required field for CollateralInquiryAck.
 	SecondaryClOrdID *string `fix:"526"`
 	//ExecCollGrp Component
-	ExecCollGrp execcollgrp.Component
+	execcollgrp.ExecCollGrp
 	//TrdCollGrp Component
-	TrdCollGrp trdcollgrp.Component
+	trdcollgrp.TrdCollGrp
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralInquiryAck.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralInquiryAck.
@@ -60,9 +60,9 @@ type Message struct {
 	//Currency is a non-required field for CollateralInquiryAck.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//TradingSessionID is a non-required field for CollateralInquiryAck.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for CollateralInquiryAck.
@@ -83,7 +83,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for CollateralInquiryAck.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -38,13 +38,13 @@ func (m *NoTrades) SetSecondaryTradeReportID(v string) { m.SecondaryTradeReportI
 //NoLegs is a repeating group in CollateralRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in CollateralRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//CollAction is a non-required field for NoUnderlyings.
 	CollAction *int `fix:"944"`
 }
@@ -71,7 +71,7 @@ func (m *NoMiscFees) SetMiscFeeBasis(v int)   { m.MiscFeeBasis = &v }
 //Message is a CollateralRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AX"`
-	Header     fix44.Header
+	fix44.Header
 	//CollReqID is a required field for CollateralRequest.
 	CollReqID string `fix:"894"`
 	//CollAsgnReason is a required field for CollateralRequest.
@@ -81,7 +81,7 @@ type Message struct {
 	//ExpireTime is a non-required field for CollateralRequest.
 	ExpireTime *time.Time `fix:"126"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for CollateralRequest.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralRequest.
@@ -99,9 +99,9 @@ type Message struct {
 	//NoTrades is a non-required field for CollateralRequest.
 	NoTrades []NoTrades `fix:"897,omitempty"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralRequest.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralRequest.
@@ -121,7 +121,7 @@ type Message struct {
 	//CashOutstanding is a non-required field for CollateralRequest.
 	CashOutstanding *float64 `fix:"901"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//Side is a non-required field for CollateralRequest.
 	Side *string `fix:"54"`
 	//NoMiscFees is a non-required field for CollateralRequest.
@@ -139,9 +139,9 @@ type Message struct {
 	//EndCash is a non-required field for CollateralRequest.
 	EndCash *float64 `fix:"922"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//TradingSessionID is a non-required field for CollateralRequest.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for CollateralRequest.
@@ -158,7 +158,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for CollateralRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

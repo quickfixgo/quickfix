@@ -14,7 +14,7 @@ import (
 //Message is a MarketDataRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"V"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MDReqID is a required field for MarketDataRequest.
 	MDReqID string `fix:"262"`
 	//SubscriptionRequestType is a required field for MarketDataRequest.
@@ -32,11 +32,11 @@ type Message struct {
 	//MDImplicitDelete is a non-required field for MarketDataRequest.
 	MDImplicitDelete *bool `fix:"547"`
 	//MDReqGrp Component
-	MDReqGrp mdreqgrp.Component
+	mdreqgrp.MDReqGrp
 	//InstrmtMDReqGrp Component
-	InstrmtMDReqGrp instrmtmdreqgrp.Component
+	instrmtmdreqgrp.InstrmtMDReqGrp
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//ApplQueueAction is a non-required field for MarketDataRequest.
 	ApplQueueAction *int `fix:"815"`
 	//ApplQueueMax is a non-required field for MarketDataRequest.
@@ -44,8 +44,8 @@ type Message struct {
 	//MDQuoteType is a non-required field for MarketDataRequest.
 	MDQuoteType *int `fix:"1070"`
 	//Parties Component
-	Parties parties.Component
-	Trailer fixt11.Trailer
+	parties.Parties
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

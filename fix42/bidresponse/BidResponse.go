@@ -60,14 +60,14 @@ func (m *NoBidComponents) SetEncodedText(v string)      { m.EncodedText = &v }
 //Message is a BidResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"l"`
-	Header     fix42.Header
+	fix42.Header
 	//BidID is a non-required field for BidResponse.
 	BidID *string `fix:"390"`
 	//ClientBidID is a non-required field for BidResponse.
 	ClientBidID *string `fix:"391"`
 	//NoBidComponents is a required field for BidResponse.
 	NoBidComponents []NoBidComponents `fix:"420"`
-	Trailer         fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

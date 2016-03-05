@@ -6,12 +6,12 @@ type NoRequestedPartyRoles struct {
 	RequestedPartyRole *int `fix:"1509"`
 }
 
-//Component is a fix50sp2 RequestedPartyRoleGrp Component
-type Component struct {
+//RequestedPartyRoleGrp is a fix50sp2 Component
+type RequestedPartyRoleGrp struct {
 	//NoRequestedPartyRoles is a non-required field for RequestedPartyRoleGrp.
 	NoRequestedPartyRoles []NoRequestedPartyRoles `fix:"1508,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRequestedPartyRoles(v []NoRequestedPartyRoles) { m.NoRequestedPartyRoles = v }
+func (m *RequestedPartyRoleGrp) SetNoRequestedPartyRoles(v []NoRequestedPartyRoles) {
+	m.NoRequestedPartyRoles = v
+}

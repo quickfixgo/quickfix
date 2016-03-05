@@ -25,7 +25,7 @@ func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
 //Message is a ExecutionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"8"`
-	Header     fix40.Header
+	fix40.Header
 	//OrderID is a required field for ExecutionReport.
 	OrderID string `fix:"37"`
 	//ClOrdID is a non-required field for ExecutionReport.
@@ -115,8 +115,8 @@ type Message struct {
 	//SettlCurrency is a non-required field for ExecutionReport.
 	SettlCurrency *string `fix:"120"`
 	//Text is a non-required field for ExecutionReport.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

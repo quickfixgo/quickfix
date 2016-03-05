@@ -15,9 +15,9 @@ import (
 //NoQuoteEntries is a repeating group in QuoteCancel
 type NoQuoteEntries struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for NoQuoteEntries.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for NoQuoteEntries.
@@ -30,19 +30,19 @@ func (m *NoQuoteEntries) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
 //NoUnderlyings is a repeating group in NoQuoteEntries
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in NoQuoteEntries
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a QuoteCancel FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Z"`
-	Header     fix44.Header
+	fix44.Header
 	//QuoteReqID is a non-required field for QuoteCancel.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a required field for QuoteCancel.
@@ -52,7 +52,7 @@ type Message struct {
 	//QuoteResponseLevel is a non-required field for QuoteCancel.
 	QuoteResponseLevel *int `fix:"301"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for QuoteCancel.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for QuoteCancel.
@@ -65,7 +65,7 @@ type Message struct {
 	TradingSessionSubID *string `fix:"625"`
 	//NoQuoteEntries is a non-required field for QuoteCancel.
 	NoQuoteEntries []NoQuoteEntries `fix:"295,omitempty"`
-	Trailer        fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -14,19 +14,19 @@ import (
 //NoLegs is a repeating group in RequestForPositionsAck
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in RequestForPositionsAck
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //Message is a RequestForPositionsAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AO"`
-	Header     fix44.Header
+	fix44.Header
 	//PosMaintRptID is a required field for RequestForPositionsAck.
 	PosMaintRptID string `fix:"721"`
 	//PosReqID is a non-required field for RequestForPositionsAck.
@@ -40,7 +40,7 @@ type Message struct {
 	//PosReqStatus is a required field for RequestForPositionsAck.
 	PosReqStatus int `fix:"729"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a required field for RequestForPositionsAck.
 	Account string `fix:"1"`
 	//AcctIDSource is a non-required field for RequestForPositionsAck.
@@ -48,7 +48,7 @@ type Message struct {
 	//AccountType is a required field for RequestForPositionsAck.
 	AccountType int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for RequestForPositionsAck.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for RequestForPositionsAck.
@@ -65,7 +65,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for RequestForPositionsAck.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

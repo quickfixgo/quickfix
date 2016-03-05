@@ -18,12 +18,10 @@ type NoSecurityTypes struct {
 	TransactTime *time.Time `fix:"60"`
 }
 
-//Component is a fix50sp2 SecTypesGrp Component
-type Component struct {
+//SecTypesGrp is a fix50sp2 Component
+type SecTypesGrp struct {
 	//NoSecurityTypes is a non-required field for SecTypesGrp.
 	NoSecurityTypes []NoSecurityTypes `fix:"558,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoSecurityTypes(v []NoSecurityTypes) { m.NoSecurityTypes = v }
+func (m *SecTypesGrp) SetNoSecurityTypes(v []NoSecurityTypes) { m.NoSecurityTypes = v }

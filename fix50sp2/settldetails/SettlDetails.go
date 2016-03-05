@@ -9,15 +9,13 @@ type NoSettlDetails struct {
 	//SettlObligSource is a non-required field for NoSettlDetails.
 	SettlObligSource *string `fix:"1164"`
 	//SettlParties Component
-	SettlParties settlparties.Component
+	settlparties.SettlParties
 }
 
-//Component is a fix50sp2 SettlDetails Component
-type Component struct {
+//SettlDetails is a fix50sp2 Component
+type SettlDetails struct {
 	//NoSettlDetails is a non-required field for SettlDetails.
 	NoSettlDetails []NoSettlDetails `fix:"1158,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoSettlDetails(v []NoSettlDetails) { m.NoSettlDetails = v }
+func (m *SettlDetails) SetNoSettlDetails(v []NoSettlDetails) { m.NoSettlDetails = v }

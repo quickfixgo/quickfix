@@ -24,7 +24,7 @@ type NoMDEntries struct {
 	//MDEntryRefID is a non-required field for NoMDEntries.
 	MDEntryRefID *string `fix:"280"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for NoMDEntries.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for NoMDEntries.
@@ -147,19 +147,19 @@ func (m *NoMDEntries) SetEncodedText(v string)            { m.EncodedText = &v }
 //NoUnderlyings is a repeating group in NoMDEntries
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in NoMDEntries
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a MarketDataIncrementalRefresh FIX Message
 type Message struct {
 	FIXMsgType string `fix:"X"`
-	Header     fix44.Header
+	fix44.Header
 	//MDReqID is a non-required field for MarketDataIncrementalRefresh.
 	MDReqID *string `fix:"262"`
 	//NoMDEntries is a required field for MarketDataIncrementalRefresh.
@@ -168,7 +168,7 @@ type Message struct {
 	ApplQueueDepth *int `fix:"813"`
 	//ApplQueueResolution is a non-required field for MarketDataIncrementalRefresh.
 	ApplQueueResolution *int `fix:"814"`
-	Trailer             fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -11,7 +11,7 @@ import (
 //Message is a NewOrderList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"E"`
-	Header     fix40.Header
+	fix40.Header
 	//ListID is a required field for NewOrderList.
 	ListID string `fix:"66"`
 	//WaveNo is a non-required field for NewOrderList.
@@ -89,8 +89,8 @@ type Message struct {
 	//SettlCurrency is a non-required field for NewOrderList.
 	SettlCurrency *string `fix:"120"`
 	//Text is a non-required field for NewOrderList.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

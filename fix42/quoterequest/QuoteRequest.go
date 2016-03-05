@@ -109,12 +109,12 @@ func (m *NoRelatedSym) SetCurrency(v string)            { m.Currency = &v }
 //Message is a QuoteRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"R"`
-	Header     fix42.Header
+	fix42.Header
 	//QuoteReqID is a required field for QuoteRequest.
 	QuoteReqID string `fix:"131"`
 	//NoRelatedSym is a required field for QuoteRequest.
 	NoRelatedSym []NoRelatedSym `fix:"146"`
-	Trailer      fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

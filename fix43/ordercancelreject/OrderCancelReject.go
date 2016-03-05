@@ -11,7 +11,7 @@ import (
 //Message is a OrderCancelReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"9"`
-	Header     fix43.Header
+	fix43.Header
 	//OrderID is a required field for OrderCancelReject.
 	OrderID string `fix:"37"`
 	//SecondaryOrderID is a non-required field for OrderCancelReject.
@@ -50,7 +50,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for OrderCancelReject.
 	EncodedText *string `fix:"355"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -8,12 +8,10 @@ type NoOfSecSizes struct {
 	MDSecSize *float64 `fix:"1179"`
 }
 
-//Component is a fix50sp1 SecSizesGrp Component
-type Component struct {
+//SecSizesGrp is a fix50sp1 Component
+type SecSizesGrp struct {
 	//NoOfSecSizes is a non-required field for SecSizesGrp.
 	NoOfSecSizes []NoOfSecSizes `fix:"1177,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoOfSecSizes(v []NoOfSecSizes) { m.NoOfSecSizes = v }
+func (m *SecSizesGrp) SetNoOfSecSizes(v []NoOfSecSizes) { m.NoOfSecSizes = v }

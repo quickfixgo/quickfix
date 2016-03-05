@@ -15,17 +15,15 @@ type NoPositions struct {
 	//PosQtyStatus is a non-required field for NoPositions.
 	PosQtyStatus *int `fix:"706"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//QuantityDate is a non-required field for NoPositions.
 	QuantityDate *string `fix:"976"`
 }
 
-//Component is a fix50 PositionQty Component
-type Component struct {
+//PositionQty is a fix50 Component
+type PositionQty struct {
 	//NoPositions is a non-required field for PositionQty.
 	NoPositions []NoPositions `fix:"702,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoPositions(v []NoPositions) { m.NoPositions = v }
+func (m *PositionQty) SetNoPositions(v []NoPositions) { m.NoPositions = v }

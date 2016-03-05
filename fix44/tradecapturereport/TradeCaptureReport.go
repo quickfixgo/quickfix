@@ -26,25 +26,25 @@ import (
 //NoUnderlyings is a repeating group in TradeCaptureReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in TradeCaptureReport
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegPrice is a non-required field for NoLegs.
@@ -82,7 +82,7 @@ type NoSides struct {
 	//ListID is a non-required field for NoSides.
 	ListID *string `fix:"66"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for NoSides.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoSides.
@@ -128,7 +128,7 @@ type NoSides struct {
 	//TimeBracket is a non-required field for NoSides.
 	TimeBracket *string `fix:"943"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//GrossTradeAmt is a non-required field for NoSides.
 	GrossTradeAmt *float64 `fix:"381"`
 	//NumDaysInterest is a non-required field for NoSides.
@@ -174,7 +174,7 @@ type NoSides struct {
 	//NoContAmts is a non-required field for NoSides.
 	NoContAmts []NoContAmts `fix:"518,omitempty"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//NoMiscFees is a non-required field for NoSides.
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
 	//ExchangeRule is a non-required field for NoSides.
@@ -305,7 +305,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
@@ -319,7 +319,7 @@ func (m *NoAllocs) SetAllocQty(v float64)          { m.AllocQty = &v }
 //Message is a TradeCaptureReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AE"`
-	Header     fix44.Header
+	fix44.Header
 	//TradeReportID is a required field for TradeCaptureReport.
 	TradeReportID string `fix:"571"`
 	//TradeReportTransType is a non-required field for TradeCaptureReport.
@@ -369,15 +369,15 @@ type Message struct {
 	//PriceType is a non-required field for TradeCaptureReport.
 	PriceType *int `fix:"423"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//QtyType is a non-required field for TradeCaptureReport.
 	QtyType *int `fix:"854"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//NoUnderlyings is a non-required field for TradeCaptureReport.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//UnderlyingTradingSessionID is a non-required field for TradeCaptureReport.
@@ -403,11 +403,11 @@ type Message struct {
 	//AvgPx is a non-required field for TradeCaptureReport.
 	AvgPx *float64 `fix:"6"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//AvgPxIndicator is a non-required field for TradeCaptureReport.
 	AvgPxIndicator *int `fix:"819"`
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//MultiLegReportingType is a non-required field for TradeCaptureReport.
 	MultiLegReportingType *string `fix:"442"`
 	//TradeLegRefID is a non-required field for TradeCaptureReport.
@@ -417,7 +417,7 @@ type Message struct {
 	//TransactTime is a required field for TradeCaptureReport.
 	TransactTime time.Time `fix:"60"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//SettlType is a non-required field for TradeCaptureReport.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for TradeCaptureReport.
@@ -428,7 +428,7 @@ type Message struct {
 	MatchType *string `fix:"574"`
 	//NoSides is a required field for TradeCaptureReport.
 	NoSides []NoSides `fix:"552"`
-	Trailer fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

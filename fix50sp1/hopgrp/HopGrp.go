@@ -14,12 +14,10 @@ type NoHops struct {
 	HopRefID *int `fix:"630"`
 }
 
-//Component is a fix50sp1 HopGrp Component
-type Component struct {
+//HopGrp is a fix50sp1 Component
+type HopGrp struct {
 	//NoHops is a non-required field for HopGrp.
 	NoHops []NoHops `fix:"627,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoHops(v []NoHops) { m.NoHops = v }
+func (m *HopGrp) SetNoHops(v []NoHops) { m.NoHops = v }

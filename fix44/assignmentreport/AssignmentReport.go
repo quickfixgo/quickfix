@@ -16,19 +16,19 @@ import (
 //NoLegs is a repeating group in AssignmentReport
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in AssignmentReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //Message is a AssignmentReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AW"`
-	Header     fix44.Header
+	fix44.Header
 	//AsgnRptID is a required field for AssignmentReport.
 	AsgnRptID string `fix:"833"`
 	//TotNumAssignmentReports is a non-required field for AssignmentReport.
@@ -36,13 +36,13 @@ type Message struct {
 	//LastRptRequested is a non-required field for AssignmentReport.
 	LastRptRequested *bool `fix:"912"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for AssignmentReport.
 	Account *string `fix:"1"`
 	//AccountType is a required field for AssignmentReport.
 	AccountType int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for AssignmentReport.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for AssignmentReport.
@@ -50,9 +50,9 @@ type Message struct {
 	//NoUnderlyings is a non-required field for AssignmentReport.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//ThresholdAmount is a non-required field for AssignmentReport.
 	ThresholdAmount *float64 `fix:"834"`
 	//SettlPrice is a required field for AssignmentReport.
@@ -83,7 +83,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for AssignmentReport.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -21,7 +21,7 @@ import (
 //Message is a Quote FIX Message
 type Message struct {
 	FIXMsgType string `fix:"S"`
-	Header     fixt11.Header
+	fixt11.Header
 	//QuoteReqID is a non-required field for Quote.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a required field for Quote.
@@ -31,25 +31,25 @@ type Message struct {
 	//QuoteType is a non-required field for Quote.
 	QuoteType *int `fix:"537"`
 	//QuotQualGrp Component
-	QuotQualGrp quotqualgrp.Component
+	quotqualgrp.QuotQualGrp
 	//QuoteResponseLevel is a non-required field for Quote.
 	QuoteResponseLevel *int `fix:"301"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradingSessionID is a non-required field for Quote.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for Quote.
 	TradingSessionSubID *string `fix:"625"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Side is a non-required field for Quote.
 	Side *string `fix:"54"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//SettlType is a non-required field for Quote.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for Quote.
@@ -61,7 +61,7 @@ type Message struct {
 	//Currency is a non-required field for Quote.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//Account is a non-required field for Quote.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for Quote.
@@ -69,7 +69,7 @@ type Message struct {
 	//AccountType is a non-required field for Quote.
 	AccountType *int `fix:"581"`
 	//LegQuotGrp Component
-	LegQuotGrp legquotgrp.Component
+	legquotgrp.LegQuotGrp
 	//BidPx is a non-required field for Quote.
 	BidPx *float64 `fix:"132"`
 	//OfferPx is a non-required field for Quote.
@@ -131,9 +131,9 @@ type Message struct {
 	//PriceType is a non-required field for Quote.
 	PriceType *int `fix:"423"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Text is a non-required field for Quote.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for Quote.
@@ -151,8 +151,8 @@ type Message struct {
 	//PrivateQuote is a non-required field for Quote.
 	PrivateQuote *bool `fix:"1171"`
 	//MinQty is a non-required field for Quote.
-	MinQty  *float64 `fix:"110"`
-	Trailer fixt11.Trailer
+	MinQty *float64 `fix:"110"`
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

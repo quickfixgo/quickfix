@@ -13,15 +13,13 @@ type NoNestedPartyIDs struct {
 	//NestedPartyRole is a non-required field for NoNestedPartyIDs.
 	NestedPartyRole *int `fix:"538"`
 	//NstdPtysSubGrp Component
-	NstdPtysSubGrp nstdptyssubgrp.Component
+	nstdptyssubgrp.NstdPtysSubGrp
 }
 
-//Component is a fix50sp2 NestedParties Component
-type Component struct {
+//NestedParties is a fix50sp2 Component
+type NestedParties struct {
 	//NoNestedPartyIDs is a non-required field for NestedParties.
 	NoNestedPartyIDs []NoNestedPartyIDs `fix:"539,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoNestedPartyIDs(v []NoNestedPartyIDs) { m.NoNestedPartyIDs = v }
+func (m *NestedParties) SetNoNestedPartyIDs(v []NoNestedPartyIDs) { m.NoNestedPartyIDs = v }

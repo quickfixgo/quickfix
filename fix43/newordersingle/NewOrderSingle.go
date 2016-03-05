@@ -23,7 +23,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
@@ -46,7 +46,7 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //Message is a NewOrderSingle FIX Message
 type Message struct {
 	FIXMsgType string `fix:"D"`
-	Header     fix43.Header
+	fix43.Header
 	//ClOrdID is a required field for NewOrderSingle.
 	ClOrdID string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for NewOrderSingle.
@@ -54,7 +54,7 @@ type Message struct {
 	//ClOrdLinkID is a non-required field for NewOrderSingle.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NewOrderSingle.
 	TradeOriginationDate *string `fix:"229"`
 	//Account is a non-required field for NewOrderSingle.
@@ -92,7 +92,7 @@ type Message struct {
 	//ProcessCode is a non-required field for NewOrderSingle.
 	ProcessCode *string `fix:"81"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//PrevClosePx is a non-required field for NewOrderSingle.
 	PrevClosePx *float64 `fix:"140"`
 	//Side is a required field for NewOrderSingle.
@@ -102,11 +102,11 @@ type Message struct {
 	//TransactTime is a required field for NewOrderSingle.
 	TransactTime time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//QuantityType is a non-required field for NewOrderSingle.
 	QuantityType *int `fix:"465"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for NewOrderSingle.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderSingle.
@@ -116,9 +116,9 @@ type Message struct {
 	//StopPx is a non-required field for NewOrderSingle.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for NewOrderSingle.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NewOrderSingle.
@@ -140,7 +140,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for NewOrderSingle.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NewOrderSingle.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NewOrderSingle.
@@ -191,7 +191,7 @@ type Message struct {
 	AccruedInterestAmt *float64 `fix:"159"`
 	//NetMoney is a non-required field for NewOrderSingle.
 	NetMoney *float64 `fix:"118"`
-	Trailer  fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

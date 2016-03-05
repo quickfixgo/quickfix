@@ -10,7 +10,7 @@ import (
 //Message is a Logon FIX Message
 type Message struct {
 	FIXMsgType string `fix:"A"`
-	Header     fix41.Header
+	fix41.Header
 	//EncryptMethod is a required field for Logon.
 	EncryptMethod int `fix:"98"`
 	//HeartBtInt is a required field for Logon.
@@ -21,7 +21,7 @@ type Message struct {
 	RawData *string `fix:"96"`
 	//ResetSeqNumFlag is a non-required field for Logon.
 	ResetSeqNumFlag *string `fix:"141"`
-	Trailer         fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

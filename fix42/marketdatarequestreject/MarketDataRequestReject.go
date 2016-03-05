@@ -10,7 +10,7 @@ import (
 //Message is a MarketDataRequestReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Y"`
-	Header     fix42.Header
+	fix42.Header
 	//MDReqID is a required field for MarketDataRequestReject.
 	MDReqID string `fix:"262"`
 	//MDReqRejReason is a non-required field for MarketDataRequestReject.
@@ -21,7 +21,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for MarketDataRequestReject.
 	EncodedText *string `fix:"355"`
-	Trailer     fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

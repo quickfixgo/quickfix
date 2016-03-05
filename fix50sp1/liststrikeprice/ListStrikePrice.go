@@ -11,7 +11,7 @@ import (
 //Message is a ListStrikePrice FIX Message
 type Message struct {
 	FIXMsgType string `fix:"m"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ListID is a required field for ListStrikePrice.
 	ListID string `fix:"66"`
 	//TotNoStrikes is a required field for ListStrikePrice.
@@ -19,8 +19,8 @@ type Message struct {
 	//LastFragment is a non-required field for ListStrikePrice.
 	LastFragment *bool `fix:"893"`
 	//InstrmtStrkPxGrp Component
-	InstrmtStrkPxGrp instrmtstrkpxgrp.Component
-	Trailer          fixt11.Trailer
+	instrmtstrkpxgrp.InstrmtStrkPxGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

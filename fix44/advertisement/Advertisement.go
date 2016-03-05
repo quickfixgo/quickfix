@@ -14,19 +14,19 @@ import (
 //NoLegs is a repeating group in Advertisement
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in Advertisement
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //Message is a Advertisement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"7"`
-	Header     fix44.Header
+	fix44.Header
 	//AdvId is a required field for Advertisement.
 	AdvId string `fix:"2"`
 	//AdvTransType is a required field for Advertisement.
@@ -34,7 +34,7 @@ type Message struct {
 	//AdvRefID is a non-required field for Advertisement.
 	AdvRefID *string `fix:"3"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoLegs is a non-required field for Advertisement.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//NoUnderlyings is a non-required field for Advertisement.
@@ -67,7 +67,7 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for Advertisement.
 	TradingSessionSubID *string `fix:"625"`
-	Trailer             fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

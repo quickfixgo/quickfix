@@ -11,7 +11,7 @@ import (
 //Message is a SettlementInstructions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"T"`
-	Header     fix41.Header
+	fix41.Header
 	//SettlInstID is a required field for SettlementInstructions.
 	SettlInstID string `fix:"162"`
 	//SettlInstTransType is a required field for SettlementInstructions.
@@ -80,7 +80,7 @@ type Message struct {
 	CashSettlAgentContactName *string `fix:"186"`
 	//CashSettlAgentContactPhone is a non-required field for SettlementInstructions.
 	CashSettlAgentContactPhone *string `fix:"187"`
-	Trailer                    fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

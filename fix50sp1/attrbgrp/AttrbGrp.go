@@ -8,12 +8,10 @@ type NoInstrAttrib struct {
 	InstrAttribValue *string `fix:"872"`
 }
 
-//Component is a fix50sp1 AttrbGrp Component
-type Component struct {
+//AttrbGrp is a fix50sp1 Component
+type AttrbGrp struct {
 	//NoInstrAttrib is a non-required field for AttrbGrp.
 	NoInstrAttrib []NoInstrAttrib `fix:"870,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoInstrAttrib(v []NoInstrAttrib) { m.NoInstrAttrib = v }
+func (m *AttrbGrp) SetNoInstrAttrib(v []NoInstrAttrib) { m.NoInstrAttrib = v }

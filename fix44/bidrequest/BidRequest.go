@@ -81,7 +81,7 @@ func (m *NoBidComponents) SetAcctIDSource(v int)           { m.AcctIDSource = &v
 //Message is a BidRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"k"`
-	Header     fix44.Header
+	fix44.Header
 	//BidID is a non-required field for BidRequest.
 	BidID *string `fix:"390"`
 	//ClientBidID is a required field for BidRequest.
@@ -140,7 +140,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for BidRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

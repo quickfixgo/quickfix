@@ -106,7 +106,7 @@ type NoMDEntries struct {
 	//MDEntryID is a non-required field for NoMDEntries.
 	MDEntryID *string `fix:"278"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//SecondaryOrderID is a non-required field for NoMDEntries.
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.
@@ -114,11 +114,11 @@ type NoMDEntries struct {
 	//PriceType is a non-required field for NoMDEntries.
 	PriceType *int `fix:"423"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//SecSizesGrp Component
-	SecSizesGrp secsizesgrp.Component
+	secsizesgrp.SecSizesGrp
 	//LotType is a non-required field for NoMDEntries.
 	LotType *string `fix:"1093"`
 	//SecurityTradingStatus is a non-required field for NoMDEntries.
@@ -128,7 +128,7 @@ type NoMDEntries struct {
 	//SettlCurrency is a non-required field for NoMDEntries.
 	SettlCurrency *string `fix:"120"`
 	//RateSource Component
-	RateSource ratesource.Component
+	ratesource.RateSource
 	//TrdType is a non-required field for NoMDEntries.
 	TrdType *int `fix:"828"`
 	//FirstPx is a non-required field for NoMDEntries.
@@ -137,12 +137,10 @@ type NoMDEntries struct {
 	LastPx *float64 `fix:"31"`
 }
 
-//Component is a fix50sp2 MDFullGrp Component
-type Component struct {
+//MDFullGrp is a fix50sp2 Component
+type MDFullGrp struct {
 	//NoMDEntries is a required field for MDFullGrp.
 	NoMDEntries []NoMDEntries `fix:"268"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }
+func (m *MDFullGrp) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }

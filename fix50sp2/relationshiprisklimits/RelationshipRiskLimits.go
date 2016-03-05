@@ -16,19 +16,17 @@ type NoRelationshipRiskLimits struct {
 	//RelationshipRiskLimitPlatform is a non-required field for NoRelationshipRiskLimits.
 	RelationshipRiskLimitPlatform *string `fix:"1586"`
 	//RelationshipRiskInstrumentScope Component
-	RelationshipRiskInstrumentScope relationshipriskinstrumentscope.Component
+	relationshipriskinstrumentscope.RelationshipRiskInstrumentScope
 	//RelationshipRiskWarningLevels Component
-	RelationshipRiskWarningLevels relationshipriskwarninglevels.Component
+	relationshipriskwarninglevels.RelationshipRiskWarningLevels
 }
 
-//Component is a fix50sp2 RelationshipRiskLimits Component
-type Component struct {
+//RelationshipRiskLimits is a fix50sp2 Component
+type RelationshipRiskLimits struct {
 	//NoRelationshipRiskLimits is a non-required field for RelationshipRiskLimits.
 	NoRelationshipRiskLimits []NoRelationshipRiskLimits `fix:"1582,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelationshipRiskLimits(v []NoRelationshipRiskLimits) {
+func (m *RelationshipRiskLimits) SetNoRelationshipRiskLimits(v []NoRelationshipRiskLimits) {
 	m.NoRelationshipRiskLimits = v
 }

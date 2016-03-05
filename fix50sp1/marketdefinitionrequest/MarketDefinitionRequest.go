@@ -10,7 +10,7 @@ import (
 //Message is a MarketDefinitionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BT"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MarketReqID is a required field for MarketDefinitionRequest.
 	MarketReqID string `fix:"1393"`
 	//SubscriptionRequestType is a required field for MarketDefinitionRequest.
@@ -21,7 +21,7 @@ type Message struct {
 	MarketSegmentID *string `fix:"1300"`
 	//ParentMktSegmID is a non-required field for MarketDefinitionRequest.
 	ParentMktSegmID *string `fix:"1325"`
-	Trailer         fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

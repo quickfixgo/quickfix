@@ -27,7 +27,7 @@ func (m *NoAffectedOrders) SetAffectedSecondaryOrderID(v string) { m.AffectedSec
 //Message is a OrderMassCancelReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"r"`
-	Header     fix44.Header
+	fix44.Header
 	//ClOrdID is a non-required field for OrderMassCancelReport.
 	ClOrdID *string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for OrderMassCancelReport.
@@ -51,9 +51,9 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for OrderMassCancelReport.
 	TradingSessionSubID *string `fix:"625"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassCancelReport.
 	Side *string `fix:"54"`
 	//TransactTime is a non-required field for OrderMassCancelReport.
@@ -64,7 +64,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for OrderMassCancelReport.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -18,12 +18,10 @@ type NoEvents struct {
 	EventTime *time.Time `fix:"1145"`
 }
 
-//Component is a fix50sp1 EvntGrp Component
-type Component struct {
+//EvntGrp is a fix50sp1 Component
+type EvntGrp struct {
 	//NoEvents is a non-required field for EvntGrp.
 	NoEvents []NoEvents `fix:"864,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoEvents(v []NoEvents) { m.NoEvents = v }
+func (m *EvntGrp) SetNoEvents(v []NoEvents) { m.NoEvents = v }

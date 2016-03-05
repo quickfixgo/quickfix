@@ -10,7 +10,7 @@ import (
 //Message is a UserRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BE"`
-	Header     fixt11.Header
+	fixt11.Header
 	//UserRequestID is a required field for UserRequest.
 	UserRequestID string `fix:"923"`
 	//UserRequestType is a required field for UserRequest.
@@ -35,7 +35,7 @@ type Message struct {
 	EncryptedNewPasswordLen *int `fix:"1403"`
 	//EncryptedNewPassword is a non-required field for UserRequest.
 	EncryptedNewPassword *string `fix:"1404"`
-	Trailer              fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

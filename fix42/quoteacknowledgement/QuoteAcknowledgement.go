@@ -151,7 +151,7 @@ func (m *NoQuoteEntries) SetQuoteEntryRejectReason(v int) { m.QuoteEntryRejectRe
 //Message is a QuoteAcknowledgement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"b"`
-	Header     fix42.Header
+	fix42.Header
 	//QuoteReqID is a non-required field for QuoteAcknowledgement.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a non-required field for QuoteAcknowledgement.
@@ -168,7 +168,7 @@ type Message struct {
 	Text *string `fix:"58"`
 	//NoQuoteSets is a non-required field for QuoteAcknowledgement.
 	NoQuoteSets []NoQuoteSets `fix:"296,omitempty"`
-	Trailer     fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

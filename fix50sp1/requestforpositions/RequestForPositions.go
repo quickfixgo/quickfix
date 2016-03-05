@@ -16,7 +16,7 @@ import (
 //Message is a RequestForPositions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AN"`
-	Header     fixt11.Header
+	fixt11.Header
 	//PosReqID is a required field for RequestForPositions.
 	PosReqID string `fix:"710"`
 	//PosReqType is a required field for RequestForPositions.
@@ -26,7 +26,7 @@ type Message struct {
 	//SubscriptionRequestType is a non-required field for RequestForPositions.
 	SubscriptionRequestType *string `fix:"263"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for RequestForPositions.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for RequestForPositions.
@@ -34,13 +34,13 @@ type Message struct {
 	//AccountType is a non-required field for RequestForPositions.
 	AccountType *int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for RequestForPositions.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//ClearingBusinessDate is a required field for RequestForPositions.
 	ClearingBusinessDate string `fix:"715"`
 	//SettlSessID is a non-required field for RequestForPositions.
@@ -48,7 +48,7 @@ type Message struct {
 	//SettlSessSubID is a non-required field for RequestForPositions.
 	SettlSessSubID *string `fix:"717"`
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//TransactTime is a required field for RequestForPositions.
 	TransactTime time.Time `fix:"60"`
 	//ResponseTransportType is a non-required field for RequestForPositions.
@@ -63,7 +63,7 @@ type Message struct {
 	EncodedText *string `fix:"355"`
 	//SettlCurrency is a non-required field for RequestForPositions.
 	SettlCurrency *string `fix:"120"`
-	Trailer       fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

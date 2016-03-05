@@ -16,7 +16,7 @@ import (
 //Message is a OrderMassActionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BZ"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ClOrdID is a non-required field for OrderMassActionReport.
 	ClOrdID *string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for OrderMassActionReport.
@@ -34,7 +34,7 @@ type Message struct {
 	//TotalAffectedOrders is a non-required field for OrderMassActionReport.
 	TotalAffectedOrders *int `fix:"533"`
 	//AffectedOrdGrp Component
-	AffectedOrdGrp affectedordgrp.Component
+	affectedordgrp.AffectedOrdGrp
 	//MarketID is a non-required field for OrderMassActionReport.
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for OrderMassActionReport.
@@ -44,11 +44,11 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for OrderMassActionReport.
 	TradingSessionSubID *string `fix:"625"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassActionReport.
 	Side *string `fix:"54"`
 	//TransactTime is a non-required field for OrderMassActionReport.
@@ -60,8 +60,8 @@ type Message struct {
 	//EncodedText is a non-required field for OrderMassActionReport.
 	EncodedText *string `fix:"355"`
 	//NotAffectedOrdersGrp Component
-	NotAffectedOrdersGrp notaffectedordersgrp.Component
-	Trailer              fixt11.Trailer
+	notaffectedordersgrp.NotAffectedOrdersGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

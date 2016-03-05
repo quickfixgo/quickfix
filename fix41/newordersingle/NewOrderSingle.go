@@ -11,7 +11,7 @@ import (
 //Message is a NewOrderSingle FIX Message
 type Message struct {
 	FIXMsgType string `fix:"D"`
-	Header     fix41.Header
+	fix41.Header
 	//ClOrdID is a required field for NewOrderSingle.
 	ClOrdID string `fix:"11"`
 	//ClientID is a non-required field for NewOrderSingle.
@@ -114,7 +114,7 @@ type Message struct {
 	MaxShow *int `fix:"210"`
 	//PegDifference is a non-required field for NewOrderSingle.
 	PegDifference *float64 `fix:"211"`
-	Trailer       fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

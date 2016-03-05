@@ -17,13 +17,13 @@ import (
 //NoLegs is a repeating group in PositionMaintenanceReport
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in PositionMaintenanceReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoTradingSessions is a repeating group in PositionMaintenanceReport
@@ -40,7 +40,7 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //Message is a PositionMaintenanceReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AM"`
-	Header     fix44.Header
+	fix44.Header
 	//PosMaintRptID is a required field for PositionMaintenanceReport.
 	PosMaintRptID string `fix:"721"`
 	//PosTransType is a required field for PositionMaintenanceReport.
@@ -62,7 +62,7 @@ type Message struct {
 	//SettlSessSubID is a non-required field for PositionMaintenanceReport.
 	SettlSessSubID *string `fix:"717"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a required field for PositionMaintenanceReport.
 	Account string `fix:"1"`
 	//AcctIDSource is a non-required field for PositionMaintenanceReport.
@@ -70,7 +70,7 @@ type Message struct {
 	//AccountType is a required field for PositionMaintenanceReport.
 	AccountType int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for PositionMaintenanceReport.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for PositionMaintenanceReport.
@@ -82,9 +82,9 @@ type Message struct {
 	//TransactTime is a required field for PositionMaintenanceReport.
 	TransactTime time.Time `fix:"60"`
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//AdjustmentType is a non-required field for PositionMaintenanceReport.
 	AdjustmentType *int `fix:"718"`
 	//ThresholdAmount is a non-required field for PositionMaintenanceReport.
@@ -95,7 +95,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for PositionMaintenanceReport.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

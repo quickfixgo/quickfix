@@ -28,7 +28,7 @@ func (m *NoContraBrokers) SetContraTradeTime(v time.Time) { m.ContraTradeTime = 
 //Message is a ExecutionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"8"`
-	Header     fix42.Header
+	fix42.Header
 	//OrderID is a required field for ExecutionReport.
 	OrderID string `fix:"37"`
 	//SecondaryOrderID is a non-required field for ExecutionReport.
@@ -213,7 +213,7 @@ type Message struct {
 	ClearingAccount *string `fix:"440"`
 	//MultiLegReportingType is a non-required field for ExecutionReport.
 	MultiLegReportingType *string `fix:"442"`
-	Trailer               fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

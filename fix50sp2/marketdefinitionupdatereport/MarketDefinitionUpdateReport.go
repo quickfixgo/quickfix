@@ -16,7 +16,7 @@ import (
 //Message is a MarketDefinitionUpdateReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BV"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MarketReportID is a required field for MarketDefinitionUpdateReport.
 	MarketReportID string `fix:"1394"`
 	//MarketReqID is a non-required field for MarketDefinitionUpdateReport.
@@ -38,13 +38,13 @@ type Message struct {
 	//Currency is a non-required field for MarketDefinitionUpdateReport.
 	Currency *string `fix:"15"`
 	//BaseTradingRules Component
-	BaseTradingRules basetradingrules.Component
+	basetradingrules.BaseTradingRules
 	//OrdTypeRules Component
-	OrdTypeRules ordtyperules.Component
+	ordtyperules.OrdTypeRules
 	//TimeInForceRules Component
-	TimeInForceRules timeinforcerules.Component
+	timeinforcerules.TimeInForceRules
 	//ExecInstRules Component
-	ExecInstRules execinstrules.Component
+	execinstrules.ExecInstRules
 	//TransactTime is a non-required field for MarketDefinitionUpdateReport.
 	TransactTime *time.Time `fix:"60"`
 	//Text is a non-required field for MarketDefinitionUpdateReport.
@@ -54,8 +54,8 @@ type Message struct {
 	//EncodedText is a non-required field for MarketDefinitionUpdateReport.
 	EncodedText *string `fix:"355"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

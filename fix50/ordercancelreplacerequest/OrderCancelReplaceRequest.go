@@ -27,11 +27,11 @@ import (
 //Message is a OrderCancelReplaceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"G"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrderID is a non-required field for OrderCancelReplaceRequest.
 	OrderID *string `fix:"37"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for OrderCancelReplaceRequest.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for OrderCancelReplaceRequest.
@@ -63,7 +63,7 @@ type Message struct {
 	//AllocID is a non-required field for OrderCancelReplaceRequest.
 	AllocID *string `fix:"70"`
 	//PreAllocGrp Component
-	PreAllocGrp preallocgrp.Component
+	preallocgrp.PreAllocGrp
 	//SettlType is a non-required field for OrderCancelReplaceRequest.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for OrderCancelReplaceRequest.
@@ -83,13 +83,13 @@ type Message struct {
 	//ExDestination is a non-required field for OrderCancelReplaceRequest.
 	ExDestination *string `fix:"100"`
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Side is a required field for OrderCancelReplaceRequest.
 	Side string `fix:"54"`
 	//TransactTime is a required field for OrderCancelReplaceRequest.
@@ -97,7 +97,7 @@ type Message struct {
 	//QtyType is a non-required field for OrderCancelReplaceRequest.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for OrderCancelReplaceRequest.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for OrderCancelReplaceRequest.
@@ -107,13 +107,13 @@ type Message struct {
 	//StopPx is a non-required field for OrderCancelReplaceRequest.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for OrderCancelReplaceRequest.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for OrderCancelReplaceRequest.
@@ -137,7 +137,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for OrderCancelReplaceRequest.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for OrderCancelReplaceRequest.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for OrderCancelReplaceRequest.
@@ -179,7 +179,7 @@ type Message struct {
 	//Designation is a non-required field for OrderCancelReplaceRequest.
 	Designation *string `fix:"494"`
 	//StrategyParametersGrp Component
-	StrategyParametersGrp strategyparametersgrp.Component
+	strategyparametersgrp.StrategyParametersGrp
 	//ManualOrderIndicator is a non-required field for OrderCancelReplaceRequest.
 	ManualOrderIndicator *bool `fix:"1028"`
 	//CustDirectedOrder is a non-required field for OrderCancelReplaceRequest.
@@ -191,22 +191,22 @@ type Message struct {
 	//OrderHandlingInstSource is a non-required field for OrderCancelReplaceRequest.
 	OrderHandlingInstSource *int `fix:"1032"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//MatchIncrement is a non-required field for OrderCancelReplaceRequest.
 	MatchIncrement *float64 `fix:"1089"`
 	//MaxPriceLevels is a non-required field for OrderCancelReplaceRequest.
 	MaxPriceLevels *int `fix:"1090"`
 	//DisplayInstruction Component
-	DisplayInstruction displayinstruction.Component
+	displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for OrderCancelReplaceRequest.
 	PriceProtectionScope *string `fix:"1092"`
 	//TriggeringInstruction Component
-	TriggeringInstruction triggeringinstruction.Component
+	triggeringinstruction.TriggeringInstruction
 	//PreTradeAnonymity is a non-required field for OrderCancelReplaceRequest.
 	PreTradeAnonymity *bool `fix:"1091"`
 	//ExDestinationIDSource is a non-required field for OrderCancelReplaceRequest.
 	ExDestinationIDSource *string `fix:"1133"`
-	Trailer               fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

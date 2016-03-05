@@ -12,17 +12,15 @@ type NoMarketSegments struct {
 	//MarketSegmentID is a non-required field for NoMarketSegments.
 	MarketSegmentID *string `fix:"1300"`
 	//SecurityTradingRules Component
-	SecurityTradingRules securitytradingrules.Component
+	securitytradingrules.SecurityTradingRules
 	//StrikeRules Component
-	StrikeRules strikerules.Component
+	strikerules.StrikeRules
 }
 
-//Component is a fix50sp2 MarketSegmentGrp Component
-type Component struct {
+//MarketSegmentGrp is a fix50sp2 Component
+type MarketSegmentGrp struct {
 	//NoMarketSegments is a non-required field for MarketSegmentGrp.
 	NoMarketSegments []NoMarketSegments `fix:"1310,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoMarketSegments(v []NoMarketSegments) { m.NoMarketSegments = v }
+func (m *MarketSegmentGrp) SetNoMarketSegments(v []NoMarketSegments) { m.NoMarketSegments = v }

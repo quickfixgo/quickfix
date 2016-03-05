@@ -10,7 +10,7 @@ import (
 //Message is a OrderStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"H"`
-	Header     fix40.Header
+	fix40.Header
 	//OrderID is a non-required field for OrderStatusRequest.
 	OrderID *string `fix:"37"`
 	//ClOrdID is a required field for OrderStatusRequest.
@@ -28,8 +28,8 @@ type Message struct {
 	//SecurityDesc is a non-required field for OrderStatusRequest.
 	SecurityDesc *string `fix:"107"`
 	//Side is a required field for OrderStatusRequest.
-	Side    string `fix:"54"`
-	Trailer fix40.Trailer
+	Side string `fix:"54"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

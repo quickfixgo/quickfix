@@ -12,13 +12,13 @@ import (
 //NoStrikes is a repeating group in ListStrikePrice
 type NoStrikes struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 }
 
 //NoUnderlyings is a repeating group in ListStrikePrice
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//PrevClosePx is a non-required field for NoUnderlyings.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoUnderlyings.
@@ -52,7 +52,7 @@ func (m *NoUnderlyings) SetEncodedText(v string)      { m.EncodedText = &v }
 //Message is a ListStrikePrice FIX Message
 type Message struct {
 	FIXMsgType string `fix:"m"`
-	Header     fix44.Header
+	fix44.Header
 	//ListID is a required field for ListStrikePrice.
 	ListID string `fix:"66"`
 	//TotNoStrikes is a required field for ListStrikePrice.
@@ -63,7 +63,7 @@ type Message struct {
 	NoStrikes []NoStrikes `fix:"428"`
 	//NoUnderlyings is a non-required field for ListStrikePrice.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
-	Trailer       fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

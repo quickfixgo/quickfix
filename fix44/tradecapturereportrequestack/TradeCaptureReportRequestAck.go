@@ -13,19 +13,19 @@ import (
 //NoUnderlyings is a repeating group in TradeCaptureReportRequestAck
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in TradeCaptureReportRequestAck
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a TradeCaptureReportRequestAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AQ"`
-	Header     fix44.Header
+	fix44.Header
 	//TradeRequestID is a required field for TradeCaptureReportRequestAck.
 	TradeRequestID string `fix:"568"`
 	//TradeRequestType is a required field for TradeCaptureReportRequestAck.
@@ -39,7 +39,7 @@ type Message struct {
 	//TradeRequestStatus is a required field for TradeCaptureReportRequestAck.
 	TradeRequestStatus int `fix:"750"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for TradeCaptureReportRequestAck.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for TradeCaptureReportRequestAck.
@@ -56,7 +56,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for TradeCaptureReportRequestAck.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -11,13 +11,13 @@ import (
 //Message is a DerivativeSecurityListRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"z"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReqID is a required field for DerivativeSecurityListRequest.
 	SecurityReqID string `fix:"320"`
 	//SecurityListRequestType is a required field for DerivativeSecurityListRequest.
 	SecurityListRequestType int `fix:"559"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//SecuritySubType is a non-required field for DerivativeSecurityListRequest.
 	SecuritySubType *string `fix:"762"`
 	//Currency is a non-required field for DerivativeSecurityListRequest.
@@ -34,7 +34,7 @@ type Message struct {
 	TradingSessionSubID *string `fix:"625"`
 	//SubscriptionRequestType is a non-required field for DerivativeSecurityListRequest.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

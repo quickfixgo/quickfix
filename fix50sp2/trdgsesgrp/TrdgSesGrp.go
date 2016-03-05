@@ -8,12 +8,10 @@ type NoTradingSessions struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
-//Component is a fix50sp2 TrdgSesGrp Component
-type Component struct {
+//TrdgSesGrp is a fix50sp2 Component
+type TrdgSesGrp struct {
 	//NoTradingSessions is a non-required field for TrdgSesGrp.
 	NoTradingSessions []NoTradingSessions `fix:"386,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
+func (m *TrdgSesGrp) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }

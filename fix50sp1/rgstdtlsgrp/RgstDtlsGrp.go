@@ -15,7 +15,7 @@ type NoRegistDtls struct {
 	//MailingInst is a non-required field for NoRegistDtls.
 	MailingInst *string `fix:"482"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//OwnerType is a non-required field for NoRegistDtls.
 	OwnerType *int `fix:"522"`
 	//DateOfBirth is a non-required field for NoRegistDtls.
@@ -24,12 +24,10 @@ type NoRegistDtls struct {
 	InvestorCountryOfResidence *string `fix:"475"`
 }
 
-//Component is a fix50sp1 RgstDtlsGrp Component
-type Component struct {
+//RgstDtlsGrp is a fix50sp1 Component
+type RgstDtlsGrp struct {
 	//NoRegistDtls is a non-required field for RgstDtlsGrp.
 	NoRegistDtls []NoRegistDtls `fix:"473,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRegistDtls(v []NoRegistDtls) { m.NoRegistDtls = v }
+func (m *RgstDtlsGrp) SetNoRegistDtls(v []NoRegistDtls) { m.NoRegistDtls = v }

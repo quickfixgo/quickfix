@@ -6,14 +6,12 @@ type NoClearingInstructions struct {
 	ClearingInstruction *int `fix:"577"`
 }
 
-//Component is a fix50sp2 ClrInstGrp Component
-type Component struct {
+//ClrInstGrp is a fix50sp2 Component
+type ClrInstGrp struct {
 	//NoClearingInstructions is a non-required field for ClrInstGrp.
 	NoClearingInstructions []NoClearingInstructions `fix:"576,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoClearingInstructions(v []NoClearingInstructions) {
+func (m *ClrInstGrp) SetNoClearingInstructions(v []NoClearingInstructions) {
 	m.NoClearingInstructions = v
 }

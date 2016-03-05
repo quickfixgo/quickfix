@@ -28,7 +28,7 @@ import (
 //Message is a NewOrderSingle FIX Message
 type Message struct {
 	FIXMsgType string `fix:"D"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ClOrdID is a required field for NewOrderSingle.
 	ClOrdID string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for NewOrderSingle.
@@ -36,7 +36,7 @@ type Message struct {
 	//ClOrdLinkID is a non-required field for NewOrderSingle.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NewOrderSingle.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NewOrderSingle.
@@ -56,7 +56,7 @@ type Message struct {
 	//AllocID is a non-required field for NewOrderSingle.
 	AllocID *string `fix:"70"`
 	//PreAllocGrp Component
-	PreAllocGrp preallocgrp.Component
+	preallocgrp.PreAllocGrp
 	//SettlType is a non-required field for NewOrderSingle.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NewOrderSingle.
@@ -76,15 +76,15 @@ type Message struct {
 	//ExDestination is a non-required field for NewOrderSingle.
 	ExDestination *string `fix:"100"`
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//ProcessCode is a non-required field for NewOrderSingle.
 	ProcessCode *string `fix:"81"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NewOrderSingle.
 	PrevClosePx *float64 `fix:"140"`
 	//Side is a required field for NewOrderSingle.
@@ -94,11 +94,11 @@ type Message struct {
 	//TransactTime is a required field for NewOrderSingle.
 	TransactTime time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//QtyType is a non-required field for NewOrderSingle.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for NewOrderSingle.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderSingle.
@@ -108,9 +108,9 @@ type Message struct {
 	//StopPx is a non-required field for NewOrderSingle.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for NewOrderSingle.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NewOrderSingle.
@@ -132,7 +132,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for NewOrderSingle.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NewOrderSingle.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NewOrderSingle.
@@ -164,9 +164,9 @@ type Message struct {
 	//MaxShow is a non-required field for NewOrderSingle.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for NewOrderSingle.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for NewOrderSingle.
@@ -182,7 +182,7 @@ type Message struct {
 	//Designation is a non-required field for NewOrderSingle.
 	Designation *string `fix:"494"`
 	//StrategyParametersGrp Component
-	StrategyParametersGrp strategyparametersgrp.Component
+	strategyparametersgrp.StrategyParametersGrp
 	//ManualOrderIndicator is a non-required field for NewOrderSingle.
 	ManualOrderIndicator *bool `fix:"1028"`
 	//CustDirectedOrder is a non-required field for NewOrderSingle.
@@ -194,17 +194,17 @@ type Message struct {
 	//OrderHandlingInstSource is a non-required field for NewOrderSingle.
 	OrderHandlingInstSource *int `fix:"1032"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//MatchIncrement is a non-required field for NewOrderSingle.
 	MatchIncrement *float64 `fix:"1089"`
 	//MaxPriceLevels is a non-required field for NewOrderSingle.
 	MaxPriceLevels *int `fix:"1090"`
 	//DisplayInstruction Component
-	DisplayInstruction displayinstruction.Component
+	displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for NewOrderSingle.
 	PriceProtectionScope *string `fix:"1092"`
 	//TriggeringInstruction Component
-	TriggeringInstruction triggeringinstruction.Component
+	triggeringinstruction.TriggeringInstruction
 	//PreTradeAnonymity is a non-required field for NewOrderSingle.
 	PreTradeAnonymity *bool `fix:"1091"`
 	//RefOrderID is a non-required field for NewOrderSingle.
@@ -213,7 +213,7 @@ type Message struct {
 	RefOrderIDSource *string `fix:"1081"`
 	//ExDestinationIDSource is a non-required field for NewOrderSingle.
 	ExDestinationIDSource *string `fix:"1133"`
-	Trailer               fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

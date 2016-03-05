@@ -6,12 +6,10 @@ type NoOrdTypeRules struct {
 	OrdType *string `fix:"40"`
 }
 
-//Component is a fix50sp2 OrdTypeRules Component
-type Component struct {
+//OrdTypeRules is a fix50sp2 Component
+type OrdTypeRules struct {
 	//NoOrdTypeRules is a non-required field for OrdTypeRules.
 	NoOrdTypeRules []NoOrdTypeRules `fix:"1237,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoOrdTypeRules(v []NoOrdTypeRules) { m.NoOrdTypeRules = v }
+func (m *OrdTypeRules) SetNoOrdTypeRules(v []NoOrdTypeRules) { m.NoOrdTypeRules = v }

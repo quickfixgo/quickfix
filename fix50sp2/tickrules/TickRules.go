@@ -12,12 +12,10 @@ type NoTickRules struct {
 	TickRuleType *int `fix:"1209"`
 }
 
-//Component is a fix50sp2 TickRules Component
-type Component struct {
+//TickRules is a fix50sp2 Component
+type TickRules struct {
 	//NoTickRules is a non-required field for TickRules.
 	NoTickRules []NoTickRules `fix:"1205,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoTickRules(v []NoTickRules) { m.NoTickRules = v }
+func (m *TickRules) SetNoTickRules(v []NoTickRules) { m.NoTickRules = v }

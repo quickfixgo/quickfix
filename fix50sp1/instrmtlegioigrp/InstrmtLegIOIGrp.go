@@ -8,19 +8,17 @@ import (
 //NoLegs is a repeating group in InstrmtLegIOIGrp
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegIOIQty is a non-required field for NoLegs.
 	LegIOIQty *string `fix:"682"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 }
 
-//Component is a fix50sp1 InstrmtLegIOIGrp Component
-type Component struct {
+//InstrmtLegIOIGrp is a fix50sp1 Component
+type InstrmtLegIOIGrp struct {
 	//NoLegs is a non-required field for InstrmtLegIOIGrp.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoLegs(v []NoLegs) { m.NoLegs = v }
+func (m *InstrmtLegIOIGrp) SetNoLegs(v []NoLegs) { m.NoLegs = v }

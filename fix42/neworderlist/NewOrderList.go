@@ -257,7 +257,7 @@ func (m *NoTradingSessions) SetTradingSessionID(v string) { m.TradingSessionID =
 //Message is a NewOrderList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"E"`
-	Header     fix42.Header
+	fix42.Header
 	//ListID is a required field for NewOrderList.
 	ListID string `fix:"66"`
 	//BidID is a non-required field for NewOrderList.
@@ -282,7 +282,7 @@ type Message struct {
 	TotNoOrders int `fix:"68"`
 	//NoOrders is a required field for NewOrderList.
 	NoOrders []NoOrders `fix:"73"`
-	Trailer  fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

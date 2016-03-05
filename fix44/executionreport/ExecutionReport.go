@@ -45,7 +45,7 @@ func (m *NoContraBrokers) SetContraLegRefID(v string)     { m.ContraLegRefID = &
 //NoUnderlyings is a repeating group in ExecutionReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoContAmts is a repeating group in ExecutionReport
@@ -65,19 +65,19 @@ func (m *NoContAmts) SetContAmtCurr(v string)   { m.ContAmtCurr = &v }
 //NoLegs is a repeating group in ExecutionReport
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegPrice is a non-required field for NoLegs.
@@ -120,7 +120,7 @@ func (m *NoMiscFees) SetMiscFeeBasis(v int)   { m.MiscFeeBasis = &v }
 //Message is a ExecutionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"8"`
-	Header     fix44.Header
+	fix44.Header
 	//OrderID is a required field for ExecutionReport.
 	OrderID string `fix:"37"`
 	//SecondaryOrderID is a non-required field for ExecutionReport.
@@ -146,7 +146,7 @@ type Message struct {
 	//LastRptRequested is a non-required field for ExecutionReport.
 	LastRptRequested *bool `fix:"912"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for ExecutionReport.
 	TradeOriginationDate *string `fix:"229"`
 	//NoContraBrokers is a non-required field for ExecutionReport.
@@ -194,19 +194,19 @@ type Message struct {
 	//ClearingFeeIndicator is a non-required field for ExecutionReport.
 	ClearingFeeIndicator *string `fix:"635"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for ExecutionReport.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Side is a required field for ExecutionReport.
 	Side string `fix:"54"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//QtyType is a non-required field for ExecutionReport.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a non-required field for ExecutionReport.
 	OrdType *string `fix:"40"`
 	//PriceType is a non-required field for ExecutionReport.
@@ -216,9 +216,9 @@ type Message struct {
 	//StopPx is a non-required field for ExecutionReport.
 	StopPx *float64 `fix:"99"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//PeggedPrice is a non-required field for ExecutionReport.
 	PeggedPrice *float64 `fix:"839"`
 	//DiscretionPrice is a non-required field for ExecutionReport.
@@ -298,11 +298,11 @@ type Message struct {
 	//ReportToExch is a non-required field for ExecutionReport.
 	ReportToExch *bool `fix:"113"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//GrossTradeAmt is a non-required field for ExecutionReport.
 	GrossTradeAmt *float64 `fix:"381"`
 	//NumDaysInterest is a non-required field for ExecutionReport.
@@ -397,7 +397,7 @@ type Message struct {
 	CopyMsgIndicator *bool `fix:"797"`
 	//NoMiscFees is a non-required field for ExecutionReport.
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
-	Trailer    fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -11,7 +11,7 @@ import (
 //Message is a SecurityListUpdateReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BK"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReportID is a non-required field for SecurityListUpdateReport.
 	SecurityReportID *int `fix:"964"`
 	//SecurityReqID is a non-required field for SecurityListUpdateReport.
@@ -31,8 +31,8 @@ type Message struct {
 	//LastFragment is a non-required field for SecurityListUpdateReport.
 	LastFragment *bool `fix:"893"`
 	//SecLstUpdRelSymGrp Component
-	SecLstUpdRelSymGrp seclstupdrelsymgrp.Component
-	Trailer            fixt11.Trailer
+	seclstupdrelsymgrp.SecLstUpdRelSymGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

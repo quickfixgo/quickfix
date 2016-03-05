@@ -10,10 +10,10 @@ import (
 //Message is a TestRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"1"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TestReqID is a required field for TestRequest.
 	TestReqID string `fix:"112"`
-	Trailer   fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

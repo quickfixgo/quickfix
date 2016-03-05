@@ -11,7 +11,7 @@ import (
 //Message is a NewOrderSingle FIX Message
 type Message struct {
 	FIXMsgType string `fix:"D"`
-	Header     fix40.Header
+	fix40.Header
 	//ClOrdID is a required field for NewOrderSingle.
 	ClOrdID string `fix:"11"`
 	//ClientID is a non-required field for NewOrderSingle.
@@ -83,8 +83,8 @@ type Message struct {
 	//SettlCurrency is a non-required field for NewOrderSingle.
 	SettlCurrency *string `fix:"120"`
 	//Text is a non-required field for NewOrderSingle.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

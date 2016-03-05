@@ -10,7 +10,7 @@ import (
 //Message is a QuoteRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"R"`
-	Header     fix40.Header
+	fix40.Header
 	//QuoteReqID is a required field for QuoteRequest.
 	QuoteReqID string `fix:"131"`
 	//Symbol is a required field for QuoteRequest.
@@ -31,7 +31,7 @@ type Message struct {
 	Side *string `fix:"54"`
 	//OrderQty is a non-required field for QuoteRequest.
 	OrderQty *int `fix:"38"`
-	Trailer  fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

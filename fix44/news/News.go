@@ -25,19 +25,19 @@ func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 //NoRelatedSym is a repeating group in News
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 }
 
 //NoLegs is a repeating group in News
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in News
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLinesOfText is a repeating group in News
@@ -57,7 +57,7 @@ func (m *NoLinesOfText) SetEncodedText(v string) { m.EncodedText = &v }
 //Message is a News FIX Message
 type Message struct {
 	FIXMsgType string `fix:"B"`
-	Header     fix44.Header
+	fix44.Header
 	//OrigTime is a non-required field for News.
 	OrigTime *time.Time `fix:"42"`
 	//Urgency is a non-required field for News.
@@ -84,7 +84,7 @@ type Message struct {
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for News.
 	RawData *string `fix:"96"`
-	Trailer fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

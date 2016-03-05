@@ -17,17 +17,17 @@ import (
 //Message is a SecurityDefinitionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"c"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReqID is a required field for SecurityDefinitionRequest.
 	SecurityReqID string `fix:"320"`
 	//SecurityRequestType is a required field for SecurityDefinitionRequest.
 	SecurityRequestType int `fix:"321"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Currency is a non-required field for SecurityDefinitionRequest.
 	Currency *string `fix:"15"`
 	//Text is a non-required field for SecurityDefinitionRequest.
@@ -41,22 +41,22 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for SecurityDefinitionRequest.
 	TradingSessionSubID *string `fix:"625"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//ExpirationCycle is a non-required field for SecurityDefinitionRequest.
 	ExpirationCycle *int `fix:"827"`
 	//SubscriptionRequestType is a non-required field for SecurityDefinitionRequest.
 	SubscriptionRequestType *string `fix:"263"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//MarketID is a non-required field for SecurityDefinitionRequest.
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for SecurityDefinitionRequest.
 	MarketSegmentID *string `fix:"1300"`
-	Trailer         fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

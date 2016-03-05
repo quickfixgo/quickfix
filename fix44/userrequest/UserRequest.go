@@ -10,7 +10,7 @@ import (
 //Message is a UserRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BE"`
-	Header     fix44.Header
+	fix44.Header
 	//UserRequestID is a required field for UserRequest.
 	UserRequestID string `fix:"923"`
 	//UserRequestType is a required field for UserRequest.
@@ -25,7 +25,7 @@ type Message struct {
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for UserRequest.
 	RawData *string `fix:"96"`
-	Trailer fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -13,7 +13,7 @@ import (
 //Message is a TradingSessionStatus FIX Message
 type Message struct {
 	FIXMsgType string `fix:"h"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradSesReqID is a non-required field for TradingSessionStatus.
 	TradSesReqID *string `fix:"335"`
 	//TradingSessionID is a required field for TradingSessionStatus.
@@ -49,7 +49,7 @@ type Message struct {
 	//EncodedText is a non-required field for TradingSessionStatus.
 	EncodedText *string `fix:"355"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//MarketID is a non-required field for TradingSessionStatus.
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for TradingSessionStatus.
@@ -57,8 +57,8 @@ type Message struct {
 	//TradSesEvent is a non-required field for TradingSessionStatus.
 	TradSesEvent *int `fix:"1368"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

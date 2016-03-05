@@ -15,7 +15,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 	//AllocCustomerCapacity is a non-required field for NoAllocs.
@@ -28,12 +28,10 @@ type NoAllocs struct {
 	AllocClearingFeeIndicator *string `fix:"1136"`
 }
 
-//Component is a fix50sp2 TrdAllocGrp Component
-type Component struct {
+//TrdAllocGrp is a fix50sp2 Component
+type TrdAllocGrp struct {
 	//NoAllocs is a non-required field for TrdAllocGrp.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoAllocs(v []NoAllocs) { m.NoAllocs = v }
+func (m *TrdAllocGrp) SetNoAllocs(v []NoAllocs) { m.NoAllocs = v }

@@ -52,7 +52,7 @@ func (m *NoOrders) SetEncodedText(v string)      { m.EncodedText = &v }
 //Message is a ListStatus FIX Message
 type Message struct {
 	FIXMsgType string `fix:"N"`
-	Header     fix44.Header
+	fix44.Header
 	//ListID is a required field for ListStatus.
 	ListID string `fix:"66"`
 	//ListStatusType is a required field for ListStatus.
@@ -77,7 +77,7 @@ type Message struct {
 	LastFragment *bool `fix:"893"`
 	//NoOrders is a required field for ListStatus.
 	NoOrders []NoOrders `fix:"73"`
-	Trailer  fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

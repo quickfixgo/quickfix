@@ -31,7 +31,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties3 Component
-	NestedParties3 nestedparties3.Component
+	nestedparties3.NestedParties3
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
@@ -56,19 +56,19 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //NoUnderlyings is a repeating group in MultilegOrderCancelReplace
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in MultilegOrderCancelReplace
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//NoLegAllocs is a non-required field for NoLegs.
 	NoLegAllocs []NoLegAllocs `fix:"670,omitempty"`
 	//LegPositionEffect is a non-required field for NoLegs.
@@ -76,7 +76,7 @@ type NoLegs struct {
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegPrice is a non-required field for NoLegs.
@@ -104,7 +104,7 @@ type NoLegAllocs struct {
 	//LegIndividualAllocID is a non-required field for NoLegAllocs.
 	LegIndividualAllocID *string `fix:"672"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 	//LegAllocQty is a non-required field for NoLegAllocs.
 	LegAllocQty *float64 `fix:"673"`
 	//LegAllocAcctIDSource is a non-required field for NoLegAllocs.
@@ -122,7 +122,7 @@ func (m *NoLegAllocs) SetLegSettlCurrency(v string)     { m.LegSettlCurrency = &
 //Message is a MultilegOrderCancelReplace FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AC"`
-	Header     fix44.Header
+	fix44.Header
 	//OrderID is a non-required field for MultilegOrderCancelReplace.
 	OrderID *string `fix:"37"`
 	//OrigClOrdID is a required field for MultilegOrderCancelReplace.
@@ -136,7 +136,7 @@ type Message struct {
 	//OrigOrdModTime is a non-required field for MultilegOrderCancelReplace.
 	OrigOrdModTime *time.Time `fix:"586"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for MultilegOrderCancelReplace.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for MultilegOrderCancelReplace.
@@ -182,7 +182,7 @@ type Message struct {
 	//Side is a required field for MultilegOrderCancelReplace.
 	Side string `fix:"54"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for MultilegOrderCancelReplace.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//PrevClosePx is a non-required field for MultilegOrderCancelReplace.
@@ -196,7 +196,7 @@ type Message struct {
 	//QtyType is a non-required field for MultilegOrderCancelReplace.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for MultilegOrderCancelReplace.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for MultilegOrderCancelReplace.
@@ -226,7 +226,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for MultilegOrderCancelReplace.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for MultilegOrderCancelReplace.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for MultilegOrderCancelReplace.
@@ -252,9 +252,9 @@ type Message struct {
 	//MaxShow is a non-required field for MultilegOrderCancelReplace.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for MultilegOrderCancelReplace.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for MultilegOrderCancelReplace.
@@ -271,7 +271,7 @@ type Message struct {
 	Designation *string `fix:"494"`
 	//MultiLegRptTypeReq is a non-required field for MultilegOrderCancelReplace.
 	MultiLegRptTypeReq *int `fix:"563"`
-	Trailer            fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

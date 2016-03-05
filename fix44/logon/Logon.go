@@ -21,7 +21,7 @@ func (m *NoMsgTypes) SetMsgDirection(v string) { m.MsgDirection = &v }
 //Message is a Logon FIX Message
 type Message struct {
 	FIXMsgType string `fix:"A"`
-	Header     fix44.Header
+	fix44.Header
 	//EncryptMethod is a required field for Logon.
 	EncryptMethod int `fix:"98"`
 	//HeartBtInt is a required field for Logon.
@@ -44,7 +44,7 @@ type Message struct {
 	Username *string `fix:"553"`
 	//Password is a non-required field for Logon.
 	Password *string `fix:"554"`
-	Trailer  fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

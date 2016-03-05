@@ -10,13 +10,13 @@ import (
 //NoRelatedSym is a repeating group in RelSymDerivSecGrp
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//Text is a non-required field for NoRelatedSym.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for NoRelatedSym.
@@ -24,17 +24,15 @@ type NoRelatedSym struct {
 	//EncodedText is a non-required field for NoRelatedSym.
 	EncodedText *string `fix:"355"`
 	//SecondaryPriceLimits Component
-	SecondaryPriceLimits secondarypricelimits.Component
+	secondarypricelimits.SecondaryPriceLimits
 	//CorporateAction is a non-required field for NoRelatedSym.
 	CorporateAction *string `fix:"292"`
 }
 
-//Component is a fix50sp1 RelSymDerivSecGrp Component
-type Component struct {
+//RelSymDerivSecGrp is a fix50sp1 Component
+type RelSymDerivSecGrp struct {
 	//NoRelatedSym is a non-required field for RelSymDerivSecGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
+func (m *RelSymDerivSecGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

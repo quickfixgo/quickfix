@@ -24,7 +24,7 @@ import (
 //Message is a AllocationInstruction FIX Message
 type Message struct {
 	FIXMsgType string `fix:"J"`
-	Header     fixt11.Header
+	fixt11.Header
 	//AllocID is a required field for AllocationInstruction.
 	AllocID string `fix:"70"`
 	//AllocTransType is a required field for AllocationInstruction.
@@ -48,9 +48,9 @@ type Message struct {
 	//AllocNoOrdersType is a non-required field for AllocationInstruction.
 	AllocNoOrdersType *int `fix:"857"`
 	//OrdAllocGrp Component
-	OrdAllocGrp ordallocgrp.Component
+	ordallocgrp.OrdAllocGrp
 	//ExecAllocGrp Component
-	ExecAllocGrp execallocgrp.Component
+	execallocgrp.ExecAllocGrp
 	//PreviouslyReported is a non-required field for AllocationInstruction.
 	PreviouslyReported *bool `fix:"570"`
 	//ReversalIndicator is a non-required field for AllocationInstruction.
@@ -60,15 +60,15 @@ type Message struct {
 	//Side is a required field for AllocationInstruction.
 	Side string `fix:"54"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//Quantity is a required field for AllocationInstruction.
 	Quantity float64 `fix:"53"`
 	//QtyType is a non-required field for AllocationInstruction.
@@ -88,13 +88,13 @@ type Message struct {
 	//AvgParPx is a non-required field for AllocationInstruction.
 	AvgParPx *float64 `fix:"860"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Currency is a non-required field for AllocationInstruction.
 	Currency *string `fix:"15"`
 	//AvgPxPrecision is a non-required field for AllocationInstruction.
 	AvgPxPrecision *int `fix:"74"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeDate is a required field for AllocationInstruction.
 	TradeDate string `fix:"75"`
 	//TransactTime is a non-required field for AllocationInstruction.
@@ -142,17 +142,17 @@ type Message struct {
 	//LegalConfirm is a non-required field for AllocationInstruction.
 	LegalConfirm *bool `fix:"650"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//TotNoAllocs is a non-required field for AllocationInstruction.
 	TotNoAllocs *int `fix:"892"`
 	//LastFragment is a non-required field for AllocationInstruction.
 	LastFragment *bool `fix:"893"`
 	//AllocGrp Component
-	AllocGrp allocgrp.Component
+	allocgrp.AllocGrp
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//AvgPxIndicator is a non-required field for AllocationInstruction.
 	AvgPxIndicator *int `fix:"819"`
 	//ClearingBusinessDate is a non-required field for AllocationInstruction.
@@ -170,8 +170,8 @@ type Message struct {
 	//MessageEventSource is a non-required field for AllocationInstruction.
 	MessageEventSource *string `fix:"1011"`
 	//RndPx is a non-required field for AllocationInstruction.
-	RndPx   *float64 `fix:"991"`
-	Trailer fixt11.Trailer
+	RndPx *float64 `fix:"991"`
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

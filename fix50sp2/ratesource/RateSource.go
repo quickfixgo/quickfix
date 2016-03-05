@@ -10,12 +10,10 @@ type NoRateSources struct {
 	ReferencePage *string `fix:"1448"`
 }
 
-//Component is a fix50sp2 RateSource Component
-type Component struct {
+//RateSource is a fix50sp2 Component
+type RateSource struct {
 	//NoRateSources is a non-required field for RateSource.
 	NoRateSources []NoRateSources `fix:"1445,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRateSources(v []NoRateSources) { m.NoRateSources = v }
+func (m *RateSource) SetNoRateSources(v []NoRateSources) { m.NoRateSources = v }

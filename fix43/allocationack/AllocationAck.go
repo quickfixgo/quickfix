@@ -12,9 +12,9 @@ import (
 //Message is a AllocationAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"P"`
-	Header     fix43.Header
+	fix43.Header
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//AllocID is a required field for AllocationAck.
 	AllocID string `fix:"70"`
 	//TradeDate is a required field for AllocationAck.
@@ -33,7 +33,7 @@ type Message struct {
 	EncodedText *string `fix:"355"`
 	//LegalConfirm is a non-required field for AllocationAck.
 	LegalConfirm *bool `fix:"650"`
-	Trailer      fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

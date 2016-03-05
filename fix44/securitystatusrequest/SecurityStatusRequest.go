@@ -14,25 +14,25 @@ import (
 //NoUnderlyings is a repeating group in SecurityStatusRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in SecurityStatusRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a SecurityStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"e"`
-	Header     fix44.Header
+	fix44.Header
 	//SecurityStatusReqID is a required field for SecurityStatusRequest.
 	SecurityStatusReqID string `fix:"324"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//NoUnderlyings is a non-required field for SecurityStatusRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for SecurityStatusRequest.
@@ -45,7 +45,7 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for SecurityStatusRequest.
 	TradingSessionSubID *string `fix:"625"`
-	Trailer             fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -28,12 +28,10 @@ type NoOrders struct {
 	EncodedText *string `fix:"355"`
 }
 
-//Component is a fix50 OrdListStatGrp Component
-type Component struct {
+//OrdListStatGrp is a fix50 Component
+type OrdListStatGrp struct {
 	//NoOrders is a required field for OrdListStatGrp.
 	NoOrders []NoOrders `fix:"73"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoOrders(v []NoOrders) { m.NoOrders = v }
+func (m *OrdListStatGrp) SetNoOrders(v []NoOrders) { m.NoOrders = v }

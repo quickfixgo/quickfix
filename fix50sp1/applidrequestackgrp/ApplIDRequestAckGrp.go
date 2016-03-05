@@ -14,12 +14,10 @@ type NoApplIDs struct {
 	ApplResponseError *int `fix:"1354"`
 }
 
-//Component is a fix50sp1 ApplIDRequestAckGrp Component
-type Component struct {
+//ApplIDRequestAckGrp is a fix50sp1 Component
+type ApplIDRequestAckGrp struct {
 	//NoApplIDs is a non-required field for ApplIDRequestAckGrp.
 	NoApplIDs []NoApplIDs `fix:"1351,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoApplIDs(v []NoApplIDs) { m.NoApplIDs = v }
+func (m *ApplIDRequestAckGrp) SetNoApplIDs(v []NoApplIDs) { m.NoApplIDs = v }

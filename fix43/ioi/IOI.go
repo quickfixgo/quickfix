@@ -32,7 +32,7 @@ func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 //Message is a IOI FIX Message
 type Message struct {
 	FIXMsgType string `fix:"6"`
-	Header     fix43.Header
+	fix43.Header
 	//IOIid is a required field for IOI.
 	IOIid string `fix:"23"`
 	//IOITransType is a required field for IOI.
@@ -40,7 +40,7 @@ type Message struct {
 	//IOIRefID is a non-required field for IOI.
 	IOIRefID *string `fix:"26"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Side is a required field for IOI.
 	Side string `fix:"54"`
 	//QuantityType is a non-required field for IOI.
@@ -74,10 +74,10 @@ type Message struct {
 	//NoRoutingIDs is a non-required field for IOI.
 	NoRoutingIDs []NoRoutingIDs `fix:"215,omitempty"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Benchmark is a non-required field for IOI.
 	Benchmark *string `fix:"219"`
-	Trailer   fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

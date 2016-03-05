@@ -8,12 +8,12 @@ type NoRelatedPartySubIDs struct {
 	RelatedPartySubIDType *int `fix:"1568"`
 }
 
-//Component is a fix50sp2 RelatedPtysSubGrp Component
-type Component struct {
+//RelatedPtysSubGrp is a fix50sp2 Component
+type RelatedPtysSubGrp struct {
 	//NoRelatedPartySubIDs is a non-required field for RelatedPtysSubGrp.
 	NoRelatedPartySubIDs []NoRelatedPartySubIDs `fix:"1566,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelatedPartySubIDs(v []NoRelatedPartySubIDs) { m.NoRelatedPartySubIDs = v }
+func (m *RelatedPtysSubGrp) SetNoRelatedPartySubIDs(v []NoRelatedPartySubIDs) {
+	m.NoRelatedPartySubIDs = v
+}

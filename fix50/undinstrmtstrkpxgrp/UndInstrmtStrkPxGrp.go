@@ -7,7 +7,7 @@ import (
 //NoUnderlyings is a repeating group in UndInstrmtStrkPxGrp
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//PrevClosePx is a non-required field for NoUnderlyings.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoUnderlyings.
@@ -28,12 +28,10 @@ type NoUnderlyings struct {
 	EncodedText *string `fix:"355"`
 }
 
-//Component is a fix50 UndInstrmtStrkPxGrp Component
-type Component struct {
+//UndInstrmtStrkPxGrp is a fix50 Component
+type UndInstrmtStrkPxGrp struct {
 	//NoUnderlyings is a non-required field for UndInstrmtStrkPxGrp.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
+func (m *UndInstrmtStrkPxGrp) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }

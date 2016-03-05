@@ -25,11 +25,11 @@ type NoMDEntries struct {
 	//MDEntryRefID is a non-required field for NoMDEntries.
 	MDEntryRefID *string `fix:"280"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//FinancialStatus is a non-required field for NoMDEntries.
 	FinancialStatus *string `fix:"291"`
 	//CorporateAction is a non-required field for NoMDEntries.
@@ -127,7 +127,7 @@ type NoMDEntries struct {
 	//MDPriceLevel is a non-required field for NoMDEntries.
 	MDPriceLevel *int `fix:"1023"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//SecondaryOrderID is a non-required field for NoMDEntries.
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.
@@ -139,11 +139,11 @@ type NoMDEntries struct {
 	//PriceType is a non-required field for NoMDEntries.
 	PriceType *int `fix:"423"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//SecSizesGrp Component
-	SecSizesGrp secsizesgrp.Component
+	secsizesgrp.SecSizesGrp
 	//LotType is a non-required field for NoMDEntries.
 	LotType *string `fix:"1093"`
 	//SecurityTradingStatus is a non-required field for NoMDEntries.
@@ -161,15 +161,13 @@ type NoMDEntries struct {
 	//TransactTime is a non-required field for NoMDEntries.
 	TransactTime *time.Time `fix:"60"`
 	//StatsIndGrp Component
-	StatsIndGrp statsindgrp.Component
+	statsindgrp.StatsIndGrp
 }
 
-//Component is a fix50sp1 MDIncGrp Component
-type Component struct {
+//MDIncGrp is a fix50sp1 Component
+type MDIncGrp struct {
 	//NoMDEntries is a required field for MDIncGrp.
 	NoMDEntries []NoMDEntries `fix:"268"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }
+func (m *MDIncGrp) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }

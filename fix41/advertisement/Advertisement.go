@@ -11,7 +11,7 @@ import (
 //Message is a Advertisement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"7"`
-	Header     fix41.Header
+	fix41.Header
 	//AdvId is a required field for Advertisement.
 	AdvId string `fix:"2"`
 	//AdvTransType is a required field for Advertisement.
@@ -62,7 +62,7 @@ type Message struct {
 	URLLink *string `fix:"149"`
 	//LastMkt is a non-required field for Advertisement.
 	LastMkt *string `fix:"30"`
-	Trailer fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

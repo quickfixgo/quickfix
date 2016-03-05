@@ -113,11 +113,11 @@ func (m *NoMDEntries) SetEncodedText(v string)         { m.EncodedText = &v }
 //Message is a MarketDataSnapshotFullRefresh FIX Message
 type Message struct {
 	FIXMsgType string `fix:"W"`
-	Header     fix43.Header
+	fix43.Header
 	//MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
 	MDReqID *string `fix:"262"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancialStatus is a non-required field for MarketDataSnapshotFullRefresh.
 	FinancialStatus *string `fix:"291"`
 	//CorporateAction is a non-required field for MarketDataSnapshotFullRefresh.
@@ -132,7 +132,7 @@ type Message struct {
 	NetChgPrevDay *float64 `fix:"451"`
 	//NoMDEntries is a required field for MarketDataSnapshotFullRefresh.
 	NoMDEntries []NoMDEntries `fix:"268"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

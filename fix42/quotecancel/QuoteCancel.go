@@ -75,7 +75,7 @@ func (m *NoQuoteEntries) SetUnderlyingSymbol(v string)    { m.UnderlyingSymbol =
 //Message is a QuoteCancel FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Z"`
-	Header     fix42.Header
+	fix42.Header
 	//QuoteReqID is a non-required field for QuoteCancel.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a required field for QuoteCancel.
@@ -88,7 +88,7 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//NoQuoteEntries is a required field for QuoteCancel.
 	NoQuoteEntries []NoQuoteEntries `fix:"295"`
-	Trailer        fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -17,7 +17,7 @@ import (
 //Message is a AssignmentReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AW"`
-	Header     fixt11.Header
+	fixt11.Header
 	//AsgnRptID is a required field for AssignmentReport.
 	AsgnRptID string `fix:"833"`
 	//TotNumAssignmentReports is a non-required field for AssignmentReport.
@@ -25,23 +25,23 @@ type Message struct {
 	//LastRptRequested is a non-required field for AssignmentReport.
 	LastRptRequested *bool `fix:"912"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for AssignmentReport.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for AssignmentReport.
 	AccountType *int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for AssignmentReport.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//ThresholdAmount is a non-required field for AssignmentReport.
 	ThresholdAmount *float64 `fix:"834"`
 	//SettlPrice is a non-required field for AssignmentReport.
@@ -75,10 +75,10 @@ type Message struct {
 	//PriorSettlPrice is a non-required field for AssignmentReport.
 	PriorSettlPrice *float64 `fix:"734"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
+	applicationsequencecontrol.ApplicationSequenceControl
 	//PosReqID is a non-required field for AssignmentReport.
 	PosReqID *string `fix:"710"`
-	Trailer  fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

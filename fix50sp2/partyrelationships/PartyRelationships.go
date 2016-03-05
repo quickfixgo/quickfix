@@ -6,12 +6,12 @@ type NoPartyRelationships struct {
 	PartyRelationship *int `fix:"1515"`
 }
 
-//Component is a fix50sp2 PartyRelationships Component
-type Component struct {
+//PartyRelationships is a fix50sp2 Component
+type PartyRelationships struct {
 	//NoPartyRelationships is a non-required field for PartyRelationships.
 	NoPartyRelationships []NoPartyRelationships `fix:"1514,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoPartyRelationships(v []NoPartyRelationships) { m.NoPartyRelationships = v }
+func (m *PartyRelationships) SetNoPartyRelationships(v []NoPartyRelationships) {
+	m.NoPartyRelationships = v
+}

@@ -18,7 +18,7 @@ import (
 //Message is a PositionMaintenanceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AL"`
-	Header     fixt11.Header
+	fixt11.Header
 	//PosReqID is a non-required field for PositionMaintenanceRequest.
 	PosReqID *string `fix:"710"`
 	//PosTransType is a required field for PositionMaintenanceRequest.
@@ -36,7 +36,7 @@ type Message struct {
 	//SettlSessSubID is a non-required field for PositionMaintenanceRequest.
 	SettlSessSubID *string `fix:"717"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for PositionMaintenanceRequest.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for PositionMaintenanceRequest.
@@ -44,19 +44,19 @@ type Message struct {
 	//AccountType is a non-required field for PositionMaintenanceRequest.
 	AccountType *int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for PositionMaintenanceRequest.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//TransactTime is a non-required field for PositionMaintenanceRequest.
 	TransactTime *time.Time `fix:"60"`
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//AdjustmentType is a non-required field for PositionMaintenanceRequest.
 	AdjustmentType *int `fix:"718"`
 	//ContraryInstructionIndicator is a non-required field for PositionMaintenanceRequest.
@@ -72,10 +72,10 @@ type Message struct {
 	//EncodedText is a non-required field for PositionMaintenanceRequest.
 	EncodedText *string `fix:"355"`
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//SettlCurrency is a non-required field for PositionMaintenanceRequest.
 	SettlCurrency *string `fix:"120"`
-	Trailer       fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

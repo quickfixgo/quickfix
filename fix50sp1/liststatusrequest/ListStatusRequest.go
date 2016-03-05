@@ -10,7 +10,7 @@ import (
 //Message is a ListStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"M"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ListID is a required field for ListStatusRequest.
 	ListID string `fix:"66"`
 	//Text is a non-required field for ListStatusRequest.
@@ -19,7 +19,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ListStatusRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

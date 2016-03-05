@@ -11,7 +11,7 @@ import (
 //NoBidComponents is a repeating group in BidResponse
 type NoBidComponents struct {
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//ListID is a non-required field for NoBidComponents.
 	ListID *string `fix:"66"`
 	//Country is a non-required field for NoBidComponents.
@@ -60,14 +60,14 @@ func (m *NoBidComponents) SetEncodedText(v string)         { m.EncodedText = &v 
 //Message is a BidResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"l"`
-	Header     fix43.Header
+	fix43.Header
 	//BidID is a non-required field for BidResponse.
 	BidID *string `fix:"390"`
 	//ClientBidID is a non-required field for BidResponse.
 	ClientBidID *string `fix:"391"`
 	//NoBidComponents is a required field for BidResponse.
 	NoBidComponents []NoBidComponents `fix:"420"`
-	Trailer         fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

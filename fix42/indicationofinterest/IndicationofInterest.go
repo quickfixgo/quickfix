@@ -30,7 +30,7 @@ func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 //Message is a IndicationofInterest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"6"`
-	Header     fix42.Header
+	fix42.Header
 	//IOIid is a required field for IndicationofInterest.
 	IOIid string `fix:"23"`
 	//IOITransType is a required field for IndicationofInterest.
@@ -107,7 +107,7 @@ type Message struct {
 	SpreadToBenchmark *float64 `fix:"218"`
 	//Benchmark is a non-required field for IndicationofInterest.
 	Benchmark *string `fix:"219"`
-	Trailer   fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

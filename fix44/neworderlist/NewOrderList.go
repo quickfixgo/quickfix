@@ -32,7 +32,7 @@ type NoOrders struct {
 	//SettlInstMode is a non-required field for NoOrders.
 	SettlInstMode *string `fix:"160"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoOrders.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoOrders.
@@ -76,7 +76,7 @@ type NoOrders struct {
 	//ProcessCode is a non-required field for NoOrders.
 	ProcessCode *string `fix:"81"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for NoOrders.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//PrevClosePx is a non-required field for NoOrders.
@@ -90,11 +90,11 @@ type NoOrders struct {
 	//TransactTime is a non-required field for NoOrders.
 	TransactTime *time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//QtyType is a non-required field for NoOrders.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a non-required field for NoOrders.
 	OrdType *string `fix:"40"`
 	//PriceType is a non-required field for NoOrders.
@@ -104,9 +104,9 @@ type NoOrders struct {
 	//StopPx is a non-required field for NoOrders.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for NoOrders.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NoOrders.
@@ -128,7 +128,7 @@ type NoOrders struct {
 	//GTBookingInst is a non-required field for NoOrders.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NoOrders.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoOrders.
@@ -160,9 +160,9 @@ type NoOrders struct {
 	//MaxShow is a non-required field for NoOrders.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for NoOrders.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for NoOrders.
@@ -251,7 +251,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
@@ -276,13 +276,13 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //NoUnderlyings is a repeating group in NoOrders
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //Message is a NewOrderList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"E"`
-	Header     fix44.Header
+	fix44.Header
 	//ListID is a required field for NewOrderList.
 	ListID string `fix:"66"`
 	//BidID is a non-required field for NewOrderList.
@@ -321,7 +321,7 @@ type Message struct {
 	LastFragment *bool `fix:"893"`
 	//NoOrders is a required field for NewOrderList.
 	NoOrders []NoOrders `fix:"73"`
-	Trailer  fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

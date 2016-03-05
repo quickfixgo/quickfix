@@ -78,7 +78,7 @@ func (m *NoBidComponents) SetAccount(v string)             { m.Account = &v }
 //Message is a BidRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"k"`
-	Header     fix43.Header
+	fix43.Header
 	//BidID is a non-required field for BidRequest.
 	BidID *string `fix:"390"`
 	//ClientBidID is a required field for BidRequest.
@@ -137,7 +137,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for BidRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

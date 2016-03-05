@@ -27,7 +27,7 @@ func (m *NoOrders) SetAvgPx(v float64)  { m.AvgPx = v }
 //Message is a ListStatus FIX Message
 type Message struct {
 	FIXMsgType string `fix:"N"`
-	Header     fix40.Header
+	fix40.Header
 	//ListID is a required field for ListStatus.
 	ListID string `fix:"66"`
 	//WaveNo is a non-required field for ListStatus.
@@ -38,7 +38,7 @@ type Message struct {
 	RptSeq int `fix:"83"`
 	//NoOrders is a required field for ListStatus.
 	NoOrders []NoOrders `fix:"73"`
-	Trailer  fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

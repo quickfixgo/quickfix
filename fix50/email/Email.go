@@ -16,7 +16,7 @@ import (
 //Message is a Email FIX Message
 type Message struct {
 	FIXMsgType string `fix:"C"`
-	Header     fixt11.Header
+	fixt11.Header
 	//EmailThreadID is a required field for Email.
 	EmailThreadID string `fix:"164"`
 	//EmailType is a required field for Email.
@@ -30,24 +30,24 @@ type Message struct {
 	//EncodedSubject is a non-required field for Email.
 	EncodedSubject *string `fix:"357"`
 	//RoutingGrp Component
-	RoutingGrp routinggrp.Component
+	routinggrp.RoutingGrp
 	//InstrmtGrp Component
-	InstrmtGrp instrmtgrp.Component
+	instrmtgrp.InstrmtGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//OrderID is a non-required field for Email.
 	OrderID *string `fix:"37"`
 	//ClOrdID is a non-required field for Email.
 	ClOrdID *string `fix:"11"`
 	//LinesOfTextGrp Component
-	LinesOfTextGrp linesoftextgrp.Component
+	linesoftextgrp.LinesOfTextGrp
 	//RawDataLength is a non-required field for Email.
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for Email.
 	RawData *string `fix:"96"`
-	Trailer fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

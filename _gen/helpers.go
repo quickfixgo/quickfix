@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"io"
+	"strconv"
+	"strings"
 	"text/template"
 )
 
@@ -11,7 +13,7 @@ var fieldSetterTemplate *template.Template
 
 func init() {
 	tmplFuncs := make(template.FuncMap)
-	tmplFuncs["fixFieldTypeToGoType"] = fixFieldTypeToGoType
+	tmplFuncs["fixFieldTypeToGoType"] = FixFieldTypeToGoType
 
 	fieldSetterTemplate = template.Must(template.New("Setters").Funcs(tmplFuncs).Parse(`
 func (m *{{.Receiver}}) Set{{.Name}}(v {{ if .IsGroup}}[]{{.Name}}{{else}}{{fixFieldTypeToGoType .Type}}{{end}}) {
@@ -41,7 +43,47 @@ func WriteFieldSetters(writer io.Writer, receiver string, fields []*datadictiona
 	return nil
 }
 
-func fixFieldTypeToGoType(fieldType string) string {
+func WriteFieldDeclaration(fixSpecMajor int, fixSpecMinor int, field *datadictionary.FieldDef, componentName string) (s string) {
+	if field.IsComponent() {
+		s += fmt.Sprintf("//%v Component\n", field.Component.Name)
+		s += fmt.Sprintf("%v.%v\n", strings.ToLower(field.Component.Name), field.Component.Name)
+		return
+	}
+
+	if field.Required {
+		s += fmt.Sprintf("//%v is a required field for %v.\n", field.Name, componentName)
+	} else {
+		s += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, componentName)
+	}
+
+	if field.IsGroup() {
+		if field.Required {
+			s += fmt.Sprintf("%v []%v `fix:\"%v\"`\n", field.Name, field.Name, field.Tag)
+		} else {
+			s += fmt.Sprintf("%v []%v `fix:\"%v,omitempty\"`\n", field.Name, field.Name, field.Tag)
+		}
+		return
+	}
+
+	goType := FixFieldTypeToGoType(field.Type)
+	fixTags := strconv.Itoa(field.Tag)
+	if field.Tag == 8 {
+		if fixSpecMajor == 4 {
+			fixTags = fmt.Sprintf("%v,default=FIX.%v.%v", fixTags, fixSpecMajor, fixSpecMinor)
+		} else {
+			fixTags = fixTags + ",default=FIXT.1.1"
+		}
+	}
+
+	if field.Required {
+		s += fmt.Sprintf("%v %v `fix:\"%v\"`\n", field.Name, goType, fixTags)
+	} else {
+		s += fmt.Sprintf("%v *%v `fix:\"%v\"`\n", field.Name, goType, fixTags)
+	}
+	return
+}
+
+func FixFieldTypeToGoType(fieldType string) string {
 	switch fieldType {
 	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
 		fallthrough

@@ -13,7 +13,7 @@ import (
 //Message is a AdjustedPositionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BL"`
-	Header     fixt11.Header
+	fixt11.Header
 	//PosMaintRptID is a required field for AdjustedPositionReport.
 	PosMaintRptID string `fix:"721"`
 	//PosReqType is a non-required field for AdjustedPositionReport.
@@ -23,18 +23,18 @@ type Message struct {
 	//SettlSessID is a non-required field for AdjustedPositionReport.
 	SettlSessID *string `fix:"716"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//SettlPrice is a non-required field for AdjustedPositionReport.
 	SettlPrice *float64 `fix:"730"`
 	//PriorSettlPrice is a non-required field for AdjustedPositionReport.
 	PriorSettlPrice *float64 `fix:"734"`
 	//PosMaintRptRefID is a non-required field for AdjustedPositionReport.
 	PosMaintRptRefID *string `fix:"714"`
-	Trailer          fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

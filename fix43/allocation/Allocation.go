@@ -65,7 +65,7 @@ type NoAllocs struct {
 	//ProcessCode is a non-required field for NoAllocs.
 	ProcessCode *string `fix:"81"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//NotifyBrokerOfCredit is a non-required field for NoAllocs.
 	NotifyBrokerOfCredit *bool `fix:"208"`
 	//AllocHandlInst is a non-required field for NoAllocs.
@@ -77,7 +77,7 @@ type NoAllocs struct {
 	//EncodedAllocText is a non-required field for NoAllocs.
 	EncodedAllocText *string `fix:"361"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//AllocAvgPx is a non-required field for NoAllocs.
 	AllocAvgPx *float64 `fix:"153"`
 	//AllocNetMoney is a non-required field for NoAllocs.
@@ -135,7 +135,7 @@ func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
 //Message is a Allocation FIX Message
 type Message struct {
 	FIXMsgType string `fix:"J"`
-	Header     fix43.Header
+	fix43.Header
 	//AllocID is a required field for Allocation.
 	AllocID string `fix:"70"`
 	//AllocTransType is a required field for Allocation.
@@ -157,7 +157,7 @@ type Message struct {
 	//Side is a required field for Allocation.
 	Side string `fix:"54"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Quantity is a required field for Allocation.
 	Quantity float64 `fix:"53"`
 	//LastMkt is a non-required field for Allocation.
@@ -177,7 +177,7 @@ type Message struct {
 	//AvgPrxPrecision is a non-required field for Allocation.
 	AvgPrxPrecision *int `fix:"74"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeDate is a required field for Allocation.
 	TradeDate string `fix:"75"`
 	//TransactTime is a non-required field for Allocation.
@@ -212,7 +212,7 @@ type Message struct {
 	LegalConfirm *bool `fix:"650"`
 	//NoAllocs is a non-required field for Allocation.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
-	Trailer  fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

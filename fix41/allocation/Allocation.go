@@ -127,7 +127,7 @@ func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
 //Message is a Allocation FIX Message
 type Message struct {
 	FIXMsgType string `fix:"J"`
-	Header     fix41.Header
+	fix41.Header
 	//AllocID is a required field for Allocation.
 	AllocID string `fix:"70"`
 	//AllocTransType is a required field for Allocation.
@@ -200,7 +200,7 @@ type Message struct {
 	AccruedInterestRate *float64 `fix:"158"`
 	//NoAllocs is a non-required field for Allocation.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
-	Trailer  fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

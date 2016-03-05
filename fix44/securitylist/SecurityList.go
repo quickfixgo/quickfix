@@ -20,23 +20,23 @@ import (
 //NoRelatedSym is a repeating group in SecurityList
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for NoRelatedSym.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//NoLegs is a non-required field for NoRelatedSym.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//RoundLot is a non-required field for NoRelatedSym.
 	RoundLot *float64 `fix:"561"`
 	//MinTradeVol is a non-required field for NoRelatedSym.
@@ -70,21 +70,21 @@ func (m *NoRelatedSym) SetEncodedText(v string)            { m.EncodedText = &v 
 //NoUnderlyings is a repeating group in NoRelatedSym
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegSettlType is a non-required field for NoLegs.
 	LegSettlType *string `fix:"587"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//LegBenchmarkCurveData Component
-	LegBenchmarkCurveData legbenchmarkcurvedata.Component
+	legbenchmarkcurvedata.LegBenchmarkCurveData
 }
 
 func (m *NoLegs) SetLegSwapType(v int)     { m.LegSwapType = &v }
@@ -93,7 +93,7 @@ func (m *NoLegs) SetLegSettlType(v string) { m.LegSettlType = &v }
 //Message is a SecurityList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"y"`
-	Header     fix44.Header
+	fix44.Header
 	//SecurityReqID is a required field for SecurityList.
 	SecurityReqID string `fix:"320"`
 	//SecurityResponseID is a required field for SecurityList.
@@ -106,7 +106,7 @@ type Message struct {
 	LastFragment *bool `fix:"893"`
 	//NoRelatedSym is a non-required field for SecurityList.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
-	Trailer      fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

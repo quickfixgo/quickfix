@@ -83,7 +83,7 @@ func (m *NoRelatedSym) SetTradingSessionID(v string)    { m.TradingSessionID = &
 //Message is a MarketDataRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"V"`
-	Header     fix42.Header
+	fix42.Header
 	//MDReqID is a required field for MarketDataRequest.
 	MDReqID string `fix:"262"`
 	//SubscriptionRequestType is a required field for MarketDataRequest.
@@ -98,7 +98,7 @@ type Message struct {
 	NoMDEntryTypes []NoMDEntryTypes `fix:"267"`
 	//NoRelatedSym is a required field for MarketDataRequest.
 	NoRelatedSym []NoRelatedSym `fix:"146"`
-	Trailer      fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

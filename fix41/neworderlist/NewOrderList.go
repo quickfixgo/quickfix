@@ -11,7 +11,7 @@ import (
 //Message is a NewOrderList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"E"`
-	Header     fix41.Header
+	fix41.Header
 	//ListID is a required field for NewOrderList.
 	ListID string `fix:"66"`
 	//WaveNo is a non-required field for NewOrderList.
@@ -118,7 +118,7 @@ type Message struct {
 	CustomerOrFirm *int `fix:"204"`
 	//MaxShow is a non-required field for NewOrderList.
 	MaxShow *int `fix:"210"`
-	Trailer fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

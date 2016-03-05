@@ -11,11 +11,11 @@ import (
 //Message is a SecurityStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"e"`
-	Header     fix43.Header
+	fix43.Header
 	//SecurityStatusReqID is a required field for SecurityStatusRequest.
 	SecurityStatusReqID string `fix:"324"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for SecurityStatusRequest.
 	Currency *string `fix:"15"`
 	//SubscriptionRequestType is a required field for SecurityStatusRequest.
@@ -24,7 +24,7 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for SecurityStatusRequest.
 	TradingSessionSubID *string `fix:"625"`
-	Trailer             fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

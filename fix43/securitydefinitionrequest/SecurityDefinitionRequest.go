@@ -12,7 +12,7 @@ import (
 //NoLegs is a repeating group in SecurityDefinitionRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegCurrency is a non-required field for NoLegs.
 	LegCurrency *string `fix:"556"`
 }
@@ -22,13 +22,13 @@ func (m *NoLegs) SetLegCurrency(v string) { m.LegCurrency = &v }
 //Message is a SecurityDefinitionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"c"`
-	Header     fix43.Header
+	fix43.Header
 	//SecurityReqID is a required field for SecurityDefinitionRequest.
 	SecurityReqID string `fix:"320"`
 	//SecurityRequestType is a required field for SecurityDefinitionRequest.
 	SecurityRequestType int `fix:"321"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for SecurityDefinitionRequest.
 	Currency *string `fix:"15"`
 	//Text is a non-required field for SecurityDefinitionRequest.
@@ -45,7 +45,7 @@ type Message struct {
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//SubscriptionRequestType is a non-required field for SecurityDefinitionRequest.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

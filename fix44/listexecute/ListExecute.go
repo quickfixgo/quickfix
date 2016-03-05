@@ -11,7 +11,7 @@ import (
 //Message is a ListExecute FIX Message
 type Message struct {
 	FIXMsgType string `fix:"L"`
-	Header     fix44.Header
+	fix44.Header
 	//ListID is a required field for ListExecute.
 	ListID string `fix:"66"`
 	//ClientBidID is a non-required field for ListExecute.
@@ -26,7 +26,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ListExecute.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

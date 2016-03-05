@@ -17,11 +17,11 @@ import (
 //NoRelatedSym is a repeating group in QuotReqGrp
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NoRelatedSym.
 	PrevClosePx *float64 `fix:"140"`
 	//QuoteRequestType is a non-required field for NoRelatedSym.
@@ -39,7 +39,7 @@ type NoRelatedSym struct {
 	//QtyType is a non-required field for NoRelatedSym.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//SettlType is a non-required field for NoRelatedSym.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NoRelatedSym.
@@ -51,7 +51,7 @@ type NoRelatedSym struct {
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//Account is a non-required field for NoRelatedSym.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoRelatedSym.
@@ -59,9 +59,9 @@ type NoRelatedSym struct {
 	//AccountType is a non-required field for NoRelatedSym.
 	AccountType *int `fix:"581"`
 	//QuotReqLegsGrp Component
-	QuotReqLegsGrp quotreqlegsgrp.Component
+	quotreqlegsgrp.QuotReqLegsGrp
 	//QuotQualGrp Component
-	QuotQualGrp quotqualgrp.Component
+	quotqualgrp.QuotQualGrp
 	//QuotePriceType is a non-required field for NoRelatedSym.
 	QuotePriceType *int `fix:"692"`
 	//OrdType is a non-required field for NoRelatedSym.
@@ -73,7 +73,7 @@ type NoRelatedSym struct {
 	//TransactTime is a non-required field for NoRelatedSym.
 	TransactTime *time.Time `fix:"60"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//PriceType is a non-required field for NoRelatedSym.
 	PriceType *int `fix:"423"`
 	//Price is a non-required field for NoRelatedSym.
@@ -81,19 +81,17 @@ type NoRelatedSym struct {
 	//Price2 is a non-required field for NoRelatedSym.
 	Price2 *float64 `fix:"640"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//MinQty is a non-required field for NoRelatedSym.
 	MinQty *float64 `fix:"110"`
 }
 
-//Component is a fix50sp1 QuotReqGrp Component
-type Component struct {
+//QuotReqGrp is a fix50sp1 Component
+type QuotReqGrp struct {
 	//NoRelatedSym is a required field for QuotReqGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
+func (m *QuotReqGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

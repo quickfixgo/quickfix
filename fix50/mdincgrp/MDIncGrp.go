@@ -21,11 +21,11 @@ type NoMDEntries struct {
 	//MDEntryRefID is a non-required field for NoMDEntries.
 	MDEntryRefID *string `fix:"280"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//FinancialStatus is a non-required field for NoMDEntries.
 	FinancialStatus *string `fix:"291"`
 	//CorporateAction is a non-required field for NoMDEntries.
@@ -123,19 +123,17 @@ type NoMDEntries struct {
 	//MDPriceLevel is a non-required field for NoMDEntries.
 	MDPriceLevel *int `fix:"1023"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//SecondaryOrderID is a non-required field for NoMDEntries.
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.
 	OrdType *string `fix:"40"`
 }
 
-//Component is a fix50 MDIncGrp Component
-type Component struct {
+//MDIncGrp is a fix50 Component
+type MDIncGrp struct {
 	//NoMDEntries is a required field for MDIncGrp.
 	NoMDEntries []NoMDEntries `fix:"268"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }
+func (m *MDIncGrp) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }

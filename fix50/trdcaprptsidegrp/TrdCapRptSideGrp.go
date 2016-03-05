@@ -27,7 +27,7 @@ type NoSides struct {
 	//ListID is a non-required field for NoSides.
 	ListID *string `fix:"66"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for NoSides.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoSides.
@@ -39,7 +39,7 @@ type NoSides struct {
 	//OddLot is a non-required field for NoSides.
 	OddLot *bool `fix:"575"`
 	//ClrInstGrp Component
-	ClrInstGrp clrinstgrp.Component
+	clrinstgrp.ClrInstGrp
 	//TradeInputSource is a non-required field for NoSides.
 	TradeInputSource *string `fix:"578"`
 	//TradeInputDevice is a non-required field for NoSides.
@@ -71,7 +71,7 @@ type NoSides struct {
 	//TimeBracket is a non-required field for NoSides.
 	TimeBracket *string `fix:"943"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//NumDaysInterest is a non-required field for NoSides.
 	NumDaysInterest *int `fix:"157"`
 	//ExDate is a non-required field for NoSides.
@@ -113,11 +113,11 @@ type NoSides struct {
 	//SideMultiLegReportingType is a non-required field for NoSides.
 	SideMultiLegReportingType *int `fix:"752"`
 	//ContAmtGrp Component
-	ContAmtGrp contamtgrp.Component
+	contamtgrp.ContAmtGrp
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//MiscFeesGrp Component
-	MiscFeesGrp miscfeesgrp.Component
+	miscfeesgrp.MiscFeesGrp
 	//ExchangeRule is a non-required field for NoSides.
 	ExchangeRule *string `fix:"825"`
 	//TradeAllocIndicator is a non-required field for NoSides.
@@ -127,7 +127,7 @@ type NoSides struct {
 	//AllocID is a non-required field for NoSides.
 	AllocID *string `fix:"70"`
 	//TrdAllocGrp Component
-	TrdAllocGrp trdallocgrp.Component
+	trdallocgrp.TrdAllocGrp
 	//SideQty is a non-required field for NoSides.
 	SideQty *int `fix:"1009"`
 	//SideTradeReportID is a non-required field for NoSides.
@@ -141,7 +141,7 @@ type NoSides struct {
 	//SideTrdSubTyp is a non-required field for NoSides.
 	SideTrdSubTyp *int `fix:"1008"`
 	//SideTrdRegTS Component
-	SideTrdRegTS sidetrdregts.Component
+	sidetrdregts.SideTrdRegTS
 	//ExecRefID is a non-required field for NoSides.
 	ExecRefID *string `fix:"19"`
 	//LotType is a non-required field for NoSides.
@@ -154,12 +154,10 @@ type NoSides struct {
 	ExchangeSpecialInstructions *string `fix:"1139"`
 }
 
-//Component is a fix50 TrdCapRptSideGrp Component
-type Component struct {
+//TrdCapRptSideGrp is a fix50 Component
+type TrdCapRptSideGrp struct {
 	//NoSides is a required field for TrdCapRptSideGrp.
 	NoSides []NoSides `fix:"552"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoSides(v []NoSides) { m.NoSides = v }
+func (m *TrdCapRptSideGrp) SetNoSides(v []NoSides) { m.NoSides = v }

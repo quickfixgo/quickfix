@@ -8,12 +8,10 @@ type NoPartySubIDs struct {
 	PartySubIDType *int `fix:"803"`
 }
 
-//Component is a fix50 PtysSubGrp Component
-type Component struct {
+//PtysSubGrp is a fix50 Component
+type PtysSubGrp struct {
 	//NoPartySubIDs is a non-required field for PtysSubGrp.
 	NoPartySubIDs []NoPartySubIDs `fix:"802,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoPartySubIDs(v []NoPartySubIDs) { m.NoPartySubIDs = v }
+func (m *PtysSubGrp) SetNoPartySubIDs(v []NoPartySubIDs) { m.NoPartySubIDs = v }

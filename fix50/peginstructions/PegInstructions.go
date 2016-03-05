@@ -1,7 +1,7 @@
 package peginstructions
 
-//Component is a fix50 PegInstructions Component
-type Component struct {
+//PegInstructions is a fix50 Component
+type PegInstructions struct {
 	//PegOffsetValue is a non-required field for PegInstructions.
 	PegOffsetValue *float64 `fix:"211"`
 	//PegMoveType is a non-required field for PegInstructions.
@@ -26,16 +26,14 @@ type Component struct {
 	PegSecurityDesc *string `fix:"1099"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetPegOffsetValue(v float64)     { m.PegOffsetValue = &v }
-func (m *Component) SetPegMoveType(v int)            { m.PegMoveType = &v }
-func (m *Component) SetPegOffsetType(v int)          { m.PegOffsetType = &v }
-func (m *Component) SetPegLimitType(v int)           { m.PegLimitType = &v }
-func (m *Component) SetPegRoundDirection(v int)      { m.PegRoundDirection = &v }
-func (m *Component) SetPegScope(v int)               { m.PegScope = &v }
-func (m *Component) SetPegPriceType(v int)           { m.PegPriceType = &v }
-func (m *Component) SetPegSecurityIDSource(v string) { m.PegSecurityIDSource = &v }
-func (m *Component) SetPegSecurityID(v string)       { m.PegSecurityID = &v }
-func (m *Component) SetPegSymbol(v string)           { m.PegSymbol = &v }
-func (m *Component) SetPegSecurityDesc(v string)     { m.PegSecurityDesc = &v }
+func (m *PegInstructions) SetPegOffsetValue(v float64)     { m.PegOffsetValue = &v }
+func (m *PegInstructions) SetPegMoveType(v int)            { m.PegMoveType = &v }
+func (m *PegInstructions) SetPegOffsetType(v int)          { m.PegOffsetType = &v }
+func (m *PegInstructions) SetPegLimitType(v int)           { m.PegLimitType = &v }
+func (m *PegInstructions) SetPegRoundDirection(v int)      { m.PegRoundDirection = &v }
+func (m *PegInstructions) SetPegScope(v int)               { m.PegScope = &v }
+func (m *PegInstructions) SetPegPriceType(v int)           { m.PegPriceType = &v }
+func (m *PegInstructions) SetPegSecurityIDSource(v string) { m.PegSecurityIDSource = &v }
+func (m *PegInstructions) SetPegSecurityID(v string)       { m.PegSecurityID = &v }
+func (m *PegInstructions) SetPegSymbol(v string)           { m.PegSymbol = &v }
+func (m *PegInstructions) SetPegSecurityDesc(v string)     { m.PegSecurityDesc = &v }

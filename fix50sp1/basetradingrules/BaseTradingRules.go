@@ -20,8 +20,8 @@ type NoLotTypeRules struct {
 	MinLotSize *float64 `fix:"1231"`
 }
 
-//Component is a fix50sp1 BaseTradingRules Component
-type Component struct {
+//BaseTradingRules is a fix50sp1 Component
+type BaseTradingRules struct {
 	//NoTickRules is a non-required field for BaseTradingRules.
 	NoTickRules []NoTickRules `fix:"1205,omitempty"`
 	//NoLotTypeRules is a non-required field for BaseTradingRules.
@@ -56,21 +56,19 @@ type Component struct {
 	PriceType *int `fix:"423"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoTickRules(v []NoTickRules)       { m.NoTickRules = v }
-func (m *Component) SetNoLotTypeRules(v []NoLotTypeRules) { m.NoLotTypeRules = v }
-func (m *Component) SetPriceLimitType(v int)              { m.PriceLimitType = &v }
-func (m *Component) SetLowLimitPrice(v float64)           { m.LowLimitPrice = &v }
-func (m *Component) SetHighLimitPrice(v float64)          { m.HighLimitPrice = &v }
-func (m *Component) SetTradingReferencePrice(v float64)   { m.TradingReferencePrice = &v }
-func (m *Component) SetExpirationCycle(v int)             { m.ExpirationCycle = &v }
-func (m *Component) SetMinTradeVol(v float64)             { m.MinTradeVol = &v }
-func (m *Component) SetMaxTradeVol(v float64)             { m.MaxTradeVol = &v }
-func (m *Component) SetMaxPriceVariation(v float64)       { m.MaxPriceVariation = &v }
-func (m *Component) SetImpliedMarketIndicator(v int)      { m.ImpliedMarketIndicator = &v }
-func (m *Component) SetTradingCurrency(v string)          { m.TradingCurrency = &v }
-func (m *Component) SetRoundLot(v float64)                { m.RoundLot = &v }
-func (m *Component) SetMultilegModel(v int)               { m.MultilegModel = &v }
-func (m *Component) SetMultilegPriceMethod(v int)         { m.MultilegPriceMethod = &v }
-func (m *Component) SetPriceType(v int)                   { m.PriceType = &v }
+func (m *BaseTradingRules) SetNoTickRules(v []NoTickRules)       { m.NoTickRules = v }
+func (m *BaseTradingRules) SetNoLotTypeRules(v []NoLotTypeRules) { m.NoLotTypeRules = v }
+func (m *BaseTradingRules) SetPriceLimitType(v int)              { m.PriceLimitType = &v }
+func (m *BaseTradingRules) SetLowLimitPrice(v float64)           { m.LowLimitPrice = &v }
+func (m *BaseTradingRules) SetHighLimitPrice(v float64)          { m.HighLimitPrice = &v }
+func (m *BaseTradingRules) SetTradingReferencePrice(v float64)   { m.TradingReferencePrice = &v }
+func (m *BaseTradingRules) SetExpirationCycle(v int)             { m.ExpirationCycle = &v }
+func (m *BaseTradingRules) SetMinTradeVol(v float64)             { m.MinTradeVol = &v }
+func (m *BaseTradingRules) SetMaxTradeVol(v float64)             { m.MaxTradeVol = &v }
+func (m *BaseTradingRules) SetMaxPriceVariation(v float64)       { m.MaxPriceVariation = &v }
+func (m *BaseTradingRules) SetImpliedMarketIndicator(v int)      { m.ImpliedMarketIndicator = &v }
+func (m *BaseTradingRules) SetTradingCurrency(v string)          { m.TradingCurrency = &v }
+func (m *BaseTradingRules) SetRoundLot(v float64)                { m.RoundLot = &v }
+func (m *BaseTradingRules) SetMultilegModel(v int)               { m.MultilegModel = &v }
+func (m *BaseTradingRules) SetMultilegPriceMethod(v int)         { m.MultilegPriceMethod = &v }
+func (m *BaseTradingRules) SetPriceType(v int)                   { m.PriceType = &v }

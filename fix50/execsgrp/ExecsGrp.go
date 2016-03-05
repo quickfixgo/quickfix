@@ -6,12 +6,10 @@ type NoExecs struct {
 	ExecID *string `fix:"17"`
 }
 
-//Component is a fix50 ExecsGrp Component
-type Component struct {
+//ExecsGrp is a fix50 Component
+type ExecsGrp struct {
 	//NoExecs is a non-required field for ExecsGrp.
 	NoExecs []NoExecs `fix:"124,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoExecs(v []NoExecs) { m.NoExecs = v }
+func (m *ExecsGrp) SetNoExecs(v []NoExecs) { m.NoExecs = v }

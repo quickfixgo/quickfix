@@ -20,7 +20,7 @@ type NoRegistDtls struct {
 	//MailingInst is a non-required field for NoRegistDtls.
 	MailingInst *string `fix:"482"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//OwnerType is a non-required field for NoRegistDtls.
 	OwnerType *int `fix:"522"`
 	//DateOfBirth is a non-required field for NoRegistDtls.
@@ -69,7 +69,7 @@ func (m *NoDistribInsts) SetCashDistribAgentAcctName(v string)   { m.CashDistrib
 //Message is a RegistrationInstructions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"o"`
-	Header     fix44.Header
+	fix44.Header
 	//RegistID is a required field for RegistrationInstructions.
 	RegistID string `fix:"513"`
 	//RegistTransType is a required field for RegistrationInstructions.
@@ -79,7 +79,7 @@ type Message struct {
 	//ClOrdID is a non-required field for RegistrationInstructions.
 	ClOrdID *string `fix:"11"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for RegistrationInstructions.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for RegistrationInstructions.
@@ -94,7 +94,7 @@ type Message struct {
 	NoRegistDtls []NoRegistDtls `fix:"473,omitempty"`
 	//NoDistribInsts is a non-required field for RegistrationInstructions.
 	NoDistribInsts []NoDistribInsts `fix:"510,omitempty"`
-	Trailer        fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

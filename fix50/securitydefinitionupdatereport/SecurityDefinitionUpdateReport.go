@@ -13,7 +13,7 @@ import (
 //Message is a SecurityDefinitionUpdateReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BP"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReportID is a non-required field for SecurityDefinitionUpdateReport.
 	SecurityReportID *int `fix:"964"`
 	//SecurityReqID is a non-required field for SecurityDefinitionUpdateReport.
@@ -29,9 +29,9 @@ type Message struct {
 	//CorporateAction is a non-required field for SecurityDefinitionUpdateReport.
 	CorporateAction *string `fix:"292"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//Currency is a non-required field for SecurityDefinitionUpdateReport.
 	Currency *string `fix:"15"`
 	//TradingSessionID is a non-required field for SecurityDefinitionUpdateReport.
@@ -45,14 +45,14 @@ type Message struct {
 	//EncodedText is a non-required field for SecurityDefinitionUpdateReport.
 	EncodedText *string `fix:"355"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//ExpirationCycle is a non-required field for SecurityDefinitionUpdateReport.
 	ExpirationCycle *int `fix:"827"`
 	//RoundLot is a non-required field for SecurityDefinitionUpdateReport.
 	RoundLot *float64 `fix:"561"`
 	//MinTradeVol is a non-required field for SecurityDefinitionUpdateReport.
 	MinTradeVol *float64 `fix:"562"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

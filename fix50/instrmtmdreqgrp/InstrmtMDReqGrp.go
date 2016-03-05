@@ -9,11 +9,11 @@ import (
 //NoRelatedSym is a repeating group in InstrmtMDReqGrp
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//QuoteType is a non-required field for NoRelatedSym.
@@ -26,12 +26,10 @@ type NoRelatedSym struct {
 	MDEntrySize *float64 `fix:"271"`
 }
 
-//Component is a fix50 InstrmtMDReqGrp Component
-type Component struct {
+//InstrmtMDReqGrp is a fix50 Component
+type InstrmtMDReqGrp struct {
 	//NoRelatedSym is a required field for InstrmtMDReqGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
+func (m *InstrmtMDReqGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

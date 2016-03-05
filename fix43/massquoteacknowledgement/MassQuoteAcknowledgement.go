@@ -16,7 +16,7 @@ type NoQuoteSets struct {
 	//QuoteSetID is a non-required field for NoQuoteSets.
 	QuoteSetID *string `fix:"302"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//TotQuoteEntries is a non-required field for NoQuoteSets.
 	TotQuoteEntries *int `fix:"304"`
 	//NoQuoteEntries is a non-required field for NoQuoteSets.
@@ -32,7 +32,7 @@ type NoQuoteEntries struct {
 	//QuoteEntryID is a non-required field for NoQuoteEntries.
 	QuoteEntryID *string `fix:"299"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//BidPx is a non-required field for NoQuoteEntries.
 	BidPx *float64 `fix:"132"`
 	//OfferPx is a non-required field for NoQuoteEntries.
@@ -112,7 +112,7 @@ func (m *NoQuoteEntries) SetQuoteEntryRejectReason(v int)  { m.QuoteEntryRejectR
 //Message is a MassQuoteAcknowledgement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"b"`
-	Header     fix43.Header
+	fix43.Header
 	//QuoteReqID is a non-required field for MassQuoteAcknowledgement.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a non-required field for MassQuoteAcknowledgement.
@@ -126,7 +126,7 @@ type Message struct {
 	//QuoteType is a non-required field for MassQuoteAcknowledgement.
 	QuoteType *int `fix:"537"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for MassQuoteAcknowledgement.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for MassQuoteAcknowledgement.
@@ -135,7 +135,7 @@ type Message struct {
 	Text *string `fix:"58"`
 	//NoQuoteSets is a non-required field for MassQuoteAcknowledgement.
 	NoQuoteSets []NoQuoteSets `fix:"296,omitempty"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

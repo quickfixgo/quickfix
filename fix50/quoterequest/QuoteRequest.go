@@ -11,7 +11,7 @@ import (
 //Message is a QuoteRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"R"`
-	Header     fixt11.Header
+	fixt11.Header
 	//QuoteReqID is a required field for QuoteRequest.
 	QuoteReqID string `fix:"131"`
 	//RFQReqID is a non-required field for QuoteRequest.
@@ -21,14 +21,14 @@ type Message struct {
 	//OrderCapacity is a non-required field for QuoteRequest.
 	OrderCapacity *string `fix:"528"`
 	//QuotReqGrp Component
-	QuotReqGrp quotreqgrp.Component
+	quotreqgrp.QuotReqGrp
 	//Text is a non-required field for QuoteRequest.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for QuoteRequest.
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for QuoteRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

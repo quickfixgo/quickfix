@@ -21,15 +21,13 @@ type NoComplexEvents struct {
 	//ComplexEventCondition is a non-required field for NoComplexEvents.
 	ComplexEventCondition *int `fix:"1490"`
 	//ComplexEventDates Component
-	ComplexEventDates complexeventdates.Component
+	complexeventdates.ComplexEventDates
 }
 
-//Component is a fix50sp2 ComplexEvents Component
-type Component struct {
+//ComplexEvents is a fix50sp2 Component
+type ComplexEvents struct {
 	//NoComplexEvents is a non-required field for ComplexEvents.
 	NoComplexEvents []NoComplexEvents `fix:"1483,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoComplexEvents(v []NoComplexEvents) { m.NoComplexEvents = v }
+func (m *ComplexEvents) SetNoComplexEvents(v []NoComplexEvents) { m.NoComplexEvents = v }

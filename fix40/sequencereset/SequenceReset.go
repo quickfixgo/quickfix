@@ -10,12 +10,12 @@ import (
 //Message is a SequenceReset FIX Message
 type Message struct {
 	FIXMsgType string `fix:"4"`
-	Header     fix40.Header
+	fix40.Header
 	//GapFillFlag is a non-required field for SequenceReset.
 	GapFillFlag *string `fix:"123"`
 	//NewSeqNo is a required field for SequenceReset.
 	NewSeqNo int `fix:"36"`
-	Trailer  fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

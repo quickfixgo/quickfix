@@ -16,13 +16,13 @@ import (
 //NoLegs is a repeating group in PositionReport
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in PositionReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//UnderlyingSettlPrice is a required field for NoUnderlyings.
 	UnderlyingSettlPrice float64 `fix:"732"`
 	//UnderlyingSettlPriceType is a required field for NoUnderlyings.
@@ -35,7 +35,7 @@ func (m *NoUnderlyings) SetUnderlyingSettlPriceType(v int) { m.UnderlyingSettlPr
 //Message is a PositionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AP"`
-	Header     fix44.Header
+	fix44.Header
 	//PosMaintRptID is a required field for PositionReport.
 	PosMaintRptID string `fix:"721"`
 	//PosReqID is a non-required field for PositionReport.
@@ -57,7 +57,7 @@ type Message struct {
 	//SettlSessSubID is a non-required field for PositionReport.
 	SettlSessSubID *string `fix:"717"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a required field for PositionReport.
 	Account string `fix:"1"`
 	//AcctIDSource is a non-required field for PositionReport.
@@ -65,7 +65,7 @@ type Message struct {
 	//AccountType is a required field for PositionReport.
 	AccountType int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for PositionReport.
 	Currency *string `fix:"15"`
 	//SettlPrice is a required field for PositionReport.
@@ -79,9 +79,9 @@ type Message struct {
 	//NoUnderlyings is a non-required field for PositionReport.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//RegistStatus is a non-required field for PositionReport.
 	RegistStatus *string `fix:"506"`
 	//DeliveryDate is a non-required field for PositionReport.
@@ -92,7 +92,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for PositionReport.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

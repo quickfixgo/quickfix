@@ -12,12 +12,10 @@ type NoUnderlyingAmounts struct {
 	UnderlyingSettlementStatus *string `fix:"988"`
 }
 
-//Component is a fix50sp1 UnderlyingAmount Component
-type Component struct {
+//UnderlyingAmount is a fix50sp1 Component
+type UnderlyingAmount struct {
 	//NoUnderlyingAmounts is a non-required field for UnderlyingAmount.
 	NoUnderlyingAmounts []NoUnderlyingAmounts `fix:"984,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoUnderlyingAmounts(v []NoUnderlyingAmounts) { m.NoUnderlyingAmounts = v }
+func (m *UnderlyingAmount) SetNoUnderlyingAmounts(v []NoUnderlyingAmounts) { m.NoUnderlyingAmounts = v }

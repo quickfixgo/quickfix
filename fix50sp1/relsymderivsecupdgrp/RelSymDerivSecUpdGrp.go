@@ -12,15 +12,15 @@ type NoRelatedSym struct {
 	//ListUpdateAction is a non-required field for NoRelatedSym.
 	ListUpdateAction *string `fix:"1324"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//SecondaryPriceLimits Component
-	SecondaryPriceLimits secondarypricelimits.Component
+	secondarypricelimits.SecondaryPriceLimits
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//Text is a non-required field for NoRelatedSym.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for NoRelatedSym.
@@ -31,12 +31,10 @@ type NoRelatedSym struct {
 	CorporateAction *string `fix:"292"`
 }
 
-//Component is a fix50sp1 RelSymDerivSecUpdGrp Component
-type Component struct {
+//RelSymDerivSecUpdGrp is a fix50sp1 Component
+type RelSymDerivSecUpdGrp struct {
 	//NoRelatedSym is a non-required field for RelSymDerivSecUpdGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
+func (m *RelSymDerivSecUpdGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

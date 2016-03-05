@@ -8,12 +8,10 @@ type NoMatchRules struct {
 	MatchType *string `fix:"574"`
 }
 
-//Component is a fix50sp2 MatchRules Component
-type Component struct {
+//MatchRules is a fix50sp2 Component
+type MatchRules struct {
 	//NoMatchRules is a non-required field for MatchRules.
 	NoMatchRules []NoMatchRules `fix:"1235,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoMatchRules(v []NoMatchRules) { m.NoMatchRules = v }
+func (m *MatchRules) SetNoMatchRules(v []NoMatchRules) { m.NoMatchRules = v }

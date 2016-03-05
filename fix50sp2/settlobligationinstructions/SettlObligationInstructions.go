@@ -30,9 +30,9 @@ type NoSettlOblig struct {
 	//SettlDate is a non-required field for NoSettlOblig.
 	SettlDate *string `fix:"64"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//EffectiveTime is a non-required field for NoSettlOblig.
 	EffectiveTime *time.Time `fix:"168"`
 	//ExpireTime is a non-required field for NoSettlOblig.
@@ -40,15 +40,13 @@ type NoSettlOblig struct {
 	//LastUpdateTime is a non-required field for NoSettlOblig.
 	LastUpdateTime *time.Time `fix:"779"`
 	//SettlDetails Component
-	SettlDetails settldetails.Component
+	settldetails.SettlDetails
 }
 
-//Component is a fix50sp2 SettlObligationInstructions Component
-type Component struct {
+//SettlObligationInstructions is a fix50sp2 Component
+type SettlObligationInstructions struct {
 	//NoSettlOblig is a non-required field for SettlObligationInstructions.
 	NoSettlOblig []NoSettlOblig `fix:"1165,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoSettlOblig(v []NoSettlOblig) { m.NoSettlOblig = v }
+func (m *SettlObligationInstructions) SetNoSettlOblig(v []NoSettlOblig) { m.NoSettlOblig = v }

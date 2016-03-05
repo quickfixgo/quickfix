@@ -10,10 +10,10 @@ import (
 //Message is a Heartbeat FIX Message
 type Message struct {
 	FIXMsgType string `fix:"0"`
-	Header     fix42.Header
+	fix42.Header
 	//TestReqID is a non-required field for Heartbeat.
 	TestReqID *string `fix:"112"`
-	Trailer   fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

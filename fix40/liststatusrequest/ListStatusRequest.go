@@ -10,14 +10,14 @@ import (
 //Message is a ListStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"M"`
-	Header     fix40.Header
+	fix40.Header
 	//ListID is a required field for ListStatusRequest.
 	ListID string `fix:"66"`
 	//WaveNo is a non-required field for ListStatusRequest.
 	WaveNo *string `fix:"105"`
 	//Text is a non-required field for ListStatusRequest.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

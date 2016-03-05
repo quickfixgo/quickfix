@@ -13,7 +13,7 @@ import (
 //Message is a TradeCaptureReportRequestAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AQ"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradeRequestID is a required field for TradeCaptureReportRequestAck.
 	TradeRequestID string `fix:"568"`
 	//TradeRequestType is a required field for TradeCaptureReportRequestAck.
@@ -27,11 +27,11 @@ type Message struct {
 	//TradeRequestStatus is a required field for TradeCaptureReportRequestAck.
 	TradeRequestStatus int `fix:"750"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//MultiLegReportingType is a non-required field for TradeCaptureReportRequestAck.
 	MultiLegReportingType *string `fix:"442"`
 	//ResponseTransportType is a non-required field for TradeCaptureReportRequestAck.
@@ -54,7 +54,7 @@ type Message struct {
 	FirmTradeID *string `fix:"1041"`
 	//SecondaryFirmTradeID is a non-required field for TradeCaptureReportRequestAck.
 	SecondaryFirmTradeID *string `fix:"1042"`
-	Trailer              fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

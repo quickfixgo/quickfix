@@ -10,12 +10,10 @@ type NoTargetPartyIDs struct {
 	TargetPartyRole *int `fix:"1464"`
 }
 
-//Component is a fix50sp2 TargetParties Component
-type Component struct {
+//TargetParties is a fix50sp2 Component
+type TargetParties struct {
 	//NoTargetPartyIDs is a non-required field for TargetParties.
 	NoTargetPartyIDs []NoTargetPartyIDs `fix:"1461,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoTargetPartyIDs(v []NoTargetPartyIDs) { m.NoTargetPartyIDs = v }
+func (m *TargetParties) SetNoTargetPartyIDs(v []NoTargetPartyIDs) { m.NoTargetPartyIDs = v }

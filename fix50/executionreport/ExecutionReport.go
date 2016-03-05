@@ -30,7 +30,7 @@ import (
 //Message is a ExecutionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"8"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrderID is a required field for ExecutionReport.
 	OrderID string `fix:"37"`
 	//SecondaryOrderID is a non-required field for ExecutionReport.
@@ -56,11 +56,11 @@ type Message struct {
 	//LastRptRequested is a non-required field for ExecutionReport.
 	LastRptRequested *bool `fix:"912"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for ExecutionReport.
 	TradeOriginationDate *string `fix:"229"`
 	//ContraGrp Component
-	ContraGrp contragrp.Component
+	contragrp.ContraGrp
 	//ListID is a non-required field for ExecutionReport.
 	ListID *string `fix:"66"`
 	//CrossID is a non-required field for ExecutionReport.
@@ -104,19 +104,19 @@ type Message struct {
 	//ClearingFeeIndicator is a non-required field for ExecutionReport.
 	ClearingFeeIndicator *string `fix:"635"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Side is a required field for ExecutionReport.
 	Side string `fix:"54"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//QtyType is a non-required field for ExecutionReport.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a non-required field for ExecutionReport.
 	OrdType *string `fix:"40"`
 	//PriceType is a non-required field for ExecutionReport.
@@ -126,9 +126,9 @@ type Message struct {
 	//StopPx is a non-required field for ExecutionReport.
 	StopPx *float64 `fix:"99"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//PeggedPrice is a non-required field for ExecutionReport.
 	PeggedPrice *float64 `fix:"839"`
 	//DiscretionPrice is a non-required field for ExecutionReport.
@@ -208,11 +208,11 @@ type Message struct {
 	//ReportToExch is a non-required field for ExecutionReport.
 	ReportToExch *bool `fix:"113"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//GrossTradeAmt is a non-required field for ExecutionReport.
 	GrossTradeAmt *float64 `fix:"381"`
 	//NumDaysInterest is a non-required field for ExecutionReport.
@@ -300,15 +300,15 @@ type Message struct {
 	//LastLiquidityInd is a non-required field for ExecutionReport.
 	LastLiquidityInd *int `fix:"851"`
 	//ContAmtGrp Component
-	ContAmtGrp contamtgrp.Component
+	contamtgrp.ContAmtGrp
 	//InstrmtLegExecGrp Component
-	InstrmtLegExecGrp instrmtlegexecgrp.Component
+	instrmtlegexecgrp.InstrmtLegExecGrp
 	//CopyMsgIndicator is a non-required field for ExecutionReport.
 	CopyMsgIndicator *bool `fix:"797"`
 	//MiscFeesGrp Component
-	MiscFeesGrp miscfeesgrp.Component
+	miscfeesgrp.MiscFeesGrp
 	//StrategyParametersGrp Component
-	StrategyParametersGrp strategyparametersgrp.Component
+	strategyparametersgrp.StrategyParametersGrp
 	//HostCrossID is a non-required field for ExecutionReport.
 	HostCrossID *string `fix:"961"`
 	//ManualOrderIndicator is a non-required field for ExecutionReport.
@@ -322,7 +322,7 @@ type Message struct {
 	//OrderHandlingInstSource is a non-required field for ExecutionReport.
 	OrderHandlingInstSource *int `fix:"1032"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//AggressorIndicator is a non-required field for ExecutionReport.
 	AggressorIndicator *bool `fix:"1057"`
 	//CalculatedCcyLastQty is a non-required field for ExecutionReport.
@@ -338,7 +338,7 @@ type Message struct {
 	//PriceProtectionScope is a non-required field for ExecutionReport.
 	PriceProtectionScope *string `fix:"1092"`
 	//TriggeringInstruction Component
-	TriggeringInstruction triggeringinstruction.Component
+	triggeringinstruction.TriggeringInstruction
 	//PeggedRefPrice is a non-required field for ExecutionReport.
 	PeggedRefPrice *float64 `fix:"1095"`
 	//PreTradeAnonymity is a non-required field for ExecutionReport.
@@ -348,8 +348,8 @@ type Message struct {
 	//MaxPriceLevels is a non-required field for ExecutionReport.
 	MaxPriceLevels *int `fix:"1090"`
 	//DisplayInstruction Component
-	DisplayInstruction displayinstruction.Component
-	Trailer            fixt11.Trailer
+	displayinstruction.DisplayInstruction
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

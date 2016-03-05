@@ -17,7 +17,7 @@ type NoQuoteSets struct {
 	//QuoteSetID is a non-required field for NoQuoteSets.
 	QuoteSetID *string `fix:"302"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//TotNoQuoteEntries is a non-required field for NoQuoteSets.
 	TotNoQuoteEntries *int `fix:"304"`
 	//LastFragment is a non-required field for NoQuoteSets.
@@ -36,7 +36,7 @@ type NoQuoteEntries struct {
 	//QuoteEntryID is a non-required field for NoQuoteEntries.
 	QuoteEntryID *string `fix:"299"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoLegs is a non-required field for NoQuoteEntries.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//BidPx is a non-required field for NoQuoteEntries.
@@ -119,13 +119,13 @@ func (m *NoQuoteEntries) SetQuoteEntryRejectReason(v int)  { m.QuoteEntryRejectR
 //NoLegs is a repeating group in NoQuoteEntries
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a MassQuoteAcknowledgement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"b"`
-	Header     fix44.Header
+	fix44.Header
 	//QuoteReqID is a non-required field for MassQuoteAcknowledgement.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a non-required field for MassQuoteAcknowledgement.
@@ -139,7 +139,7 @@ type Message struct {
 	//QuoteType is a non-required field for MassQuoteAcknowledgement.
 	QuoteType *int `fix:"537"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for MassQuoteAcknowledgement.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for MassQuoteAcknowledgement.
@@ -154,7 +154,7 @@ type Message struct {
 	EncodedText *string `fix:"355"`
 	//NoQuoteSets is a non-required field for MassQuoteAcknowledgement.
 	NoQuoteSets []NoQuoteSets `fix:"296,omitempty"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

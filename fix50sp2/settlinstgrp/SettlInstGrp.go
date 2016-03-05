@@ -15,7 +15,7 @@ type NoSettlInst struct {
 	//SettlInstRefID is a non-required field for NoSettlInst.
 	SettlInstRefID *string `fix:"214"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Side is a non-required field for NoSettlInst.
 	Side *string `fix:"54"`
 	//Product is a non-required field for NoSettlInst.
@@ -31,7 +31,7 @@ type NoSettlInst struct {
 	//LastUpdateTime is a non-required field for NoSettlInst.
 	LastUpdateTime *time.Time `fix:"779"`
 	//SettlInstructionsData Component
-	SettlInstructionsData settlinstructionsdata.Component
+	settlinstructionsdata.SettlInstructionsData
 	//PaymentMethod is a non-required field for NoSettlInst.
 	PaymentMethod *int `fix:"492"`
 	//PaymentRef is a non-required field for NoSettlInst.
@@ -54,12 +54,10 @@ type NoSettlInst struct {
 	SettlCurrency *string `fix:"120"`
 }
 
-//Component is a fix50sp2 SettlInstGrp Component
-type Component struct {
+//SettlInstGrp is a fix50sp2 Component
+type SettlInstGrp struct {
 	//NoSettlInst is a non-required field for SettlInstGrp.
 	NoSettlInst []NoSettlInst `fix:"778,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoSettlInst(v []NoSettlInst) { m.NoSettlInst = v }
+func (m *SettlInstGrp) SetNoSettlInst(v []NoSettlInst) { m.NoSettlInst = v }

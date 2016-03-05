@@ -1,7 +1,7 @@
 package triggeringinstruction
 
-//Component is a fix50sp1 TriggeringInstruction Component
-type Component struct {
+//TriggeringInstruction is a fix50sp1 Component
+type TriggeringInstruction struct {
 	//TriggerType is a non-required field for TriggeringInstruction.
 	TriggerType *string `fix:"1100"`
 	//TriggerAction is a non-required field for TriggeringInstruction.
@@ -34,20 +34,20 @@ type Component struct {
 	TriggerTradingSessionSubID *string `fix:"1114"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetTriggerType(v string)                { m.TriggerType = &v }
-func (m *Component) SetTriggerAction(v string)              { m.TriggerAction = &v }
-func (m *Component) SetTriggerPrice(v float64)              { m.TriggerPrice = &v }
-func (m *Component) SetTriggerSymbol(v string)              { m.TriggerSymbol = &v }
-func (m *Component) SetTriggerSecurityID(v string)          { m.TriggerSecurityID = &v }
-func (m *Component) SetTriggerSecurityIDSource(v string)    { m.TriggerSecurityIDSource = &v }
-func (m *Component) SetTriggerSecurityDesc(v string)        { m.TriggerSecurityDesc = &v }
-func (m *Component) SetTriggerPriceType(v string)           { m.TriggerPriceType = &v }
-func (m *Component) SetTriggerPriceTypeScope(v string)      { m.TriggerPriceTypeScope = &v }
-func (m *Component) SetTriggerPriceDirection(v string)      { m.TriggerPriceDirection = &v }
-func (m *Component) SetTriggerNewPrice(v float64)           { m.TriggerNewPrice = &v }
-func (m *Component) SetTriggerOrderType(v string)           { m.TriggerOrderType = &v }
-func (m *Component) SetTriggerNewQty(v float64)             { m.TriggerNewQty = &v }
-func (m *Component) SetTriggerTradingSessionID(v string)    { m.TriggerTradingSessionID = &v }
-func (m *Component) SetTriggerTradingSessionSubID(v string) { m.TriggerTradingSessionSubID = &v }
+func (m *TriggeringInstruction) SetTriggerType(v string)             { m.TriggerType = &v }
+func (m *TriggeringInstruction) SetTriggerAction(v string)           { m.TriggerAction = &v }
+func (m *TriggeringInstruction) SetTriggerPrice(v float64)           { m.TriggerPrice = &v }
+func (m *TriggeringInstruction) SetTriggerSymbol(v string)           { m.TriggerSymbol = &v }
+func (m *TriggeringInstruction) SetTriggerSecurityID(v string)       { m.TriggerSecurityID = &v }
+func (m *TriggeringInstruction) SetTriggerSecurityIDSource(v string) { m.TriggerSecurityIDSource = &v }
+func (m *TriggeringInstruction) SetTriggerSecurityDesc(v string)     { m.TriggerSecurityDesc = &v }
+func (m *TriggeringInstruction) SetTriggerPriceType(v string)        { m.TriggerPriceType = &v }
+func (m *TriggeringInstruction) SetTriggerPriceTypeScope(v string)   { m.TriggerPriceTypeScope = &v }
+func (m *TriggeringInstruction) SetTriggerPriceDirection(v string)   { m.TriggerPriceDirection = &v }
+func (m *TriggeringInstruction) SetTriggerNewPrice(v float64)        { m.TriggerNewPrice = &v }
+func (m *TriggeringInstruction) SetTriggerOrderType(v string)        { m.TriggerOrderType = &v }
+func (m *TriggeringInstruction) SetTriggerNewQty(v float64)          { m.TriggerNewQty = &v }
+func (m *TriggeringInstruction) SetTriggerTradingSessionID(v string) { m.TriggerTradingSessionID = &v }
+func (m *TriggeringInstruction) SetTriggerTradingSessionSubID(v string) {
+	m.TriggerTradingSessionSubID = &v
+}

@@ -20,12 +20,10 @@ type NoNested2PartySubIDs struct {
 	Nested2PartySubIDType *int `fix:"807"`
 }
 
-//Component is a fix44 NestedParties2 Component
-type Component struct {
+//NestedParties2 is a fix44 Component
+type NestedParties2 struct {
 	//NoNested2PartyIDs is a non-required field for NestedParties2.
 	NoNested2PartyIDs []NoNested2PartyIDs `fix:"756,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoNested2PartyIDs(v []NoNested2PartyIDs) { m.NoNested2PartyIDs = v }
+func (m *NestedParties2) SetNoNested2PartyIDs(v []NoNested2PartyIDs) { m.NoNested2PartyIDs = v }

@@ -12,7 +12,7 @@ import (
 //Message is a ListStatus FIX Message
 type Message struct {
 	FIXMsgType string `fix:"N"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ListID is a required field for ListStatus.
 	ListID string `fix:"66"`
 	//ListStatusType is a required field for ListStatus.
@@ -36,12 +36,12 @@ type Message struct {
 	//LastFragment is a non-required field for ListStatus.
 	LastFragment *bool `fix:"893"`
 	//OrdListStatGrp Component
-	OrdListStatGrp ordliststatgrp.Component
+	ordliststatgrp.OrdListStatGrp
 	//ContingencyType is a non-required field for ListStatus.
 	ContingencyType *int `fix:"1385"`
 	//ListRejectReason is a non-required field for ListStatus.
 	ListRejectReason *int `fix:"1386"`
-	Trailer          fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

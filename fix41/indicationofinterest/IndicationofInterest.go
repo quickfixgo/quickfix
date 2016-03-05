@@ -19,7 +19,7 @@ func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
 //Message is a IndicationofInterest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"6"`
-	Header     fix41.Header
+	fix41.Header
 	//IOIid is a required field for IndicationofInterest.
 	IOIid string `fix:"23"`
 	//IOITransType is a required field for IndicationofInterest.
@@ -76,7 +76,7 @@ type Message struct {
 	TransactTime *time.Time `fix:"60"`
 	//URLLink is a non-required field for IndicationofInterest.
 	URLLink *string `fix:"149"`
-	Trailer fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

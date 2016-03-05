@@ -14,13 +14,13 @@ import (
 //Message is a OrderMassStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AF"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MassStatusReqID is a required field for OrderMassStatusRequest.
 	MassStatusReqID string `fix:"584"`
 	//MassStatusReqType is a required field for OrderMassStatusRequest.
 	MassStatusReqType int `fix:"585"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for OrderMassStatusRequest.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for OrderMassStatusRequest.
@@ -30,14 +30,14 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for OrderMassStatusRequest.
 	TradingSessionSubID *string `fix:"625"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassStatusRequest.
 	Side *string `fix:"54"`
 	//TargetParties Component
-	TargetParties targetparties.Component
-	Trailer       fixt11.Trailer
+	targetparties.TargetParties
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

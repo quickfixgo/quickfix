@@ -17,7 +17,7 @@ type NoRelationshipRiskInstruments struct {
 	//RelationshipRiskSecurityIDSource is a non-required field for NoRelationshipRiskInstruments.
 	RelationshipRiskSecurityIDSource *string `fix:"1592"`
 	//RelationshipRiskSecAltIDGrp Component
-	RelationshipRiskSecAltIDGrp relationshiprisksecaltidgrp.Component
+	relationshiprisksecaltidgrp.RelationshipRiskSecAltIDGrp
 	//RelationshipRiskProduct is a non-required field for NoRelationshipRiskInstruments.
 	RelationshipRiskProduct *int `fix:"1596"`
 	//RelationshipRiskProductComplex is a non-required field for NoRelationshipRiskInstruments.
@@ -58,14 +58,12 @@ type NoRelationshipRiskInstruments struct {
 	RelationshipRiskInstrumentMultiplier *float64 `fix:"1612"`
 }
 
-//Component is a fix50sp2 RelationshipRiskInstrumentScope Component
-type Component struct {
+//RelationshipRiskInstrumentScope is a fix50sp2 Component
+type RelationshipRiskInstrumentScope struct {
 	//NoRelationshipRiskInstruments is a non-required field for RelationshipRiskInstrumentScope.
 	NoRelationshipRiskInstruments []NoRelationshipRiskInstruments `fix:"1587,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelationshipRiskInstruments(v []NoRelationshipRiskInstruments) {
+func (m *RelationshipRiskInstrumentScope) SetNoRelationshipRiskInstruments(v []NoRelationshipRiskInstruments) {
 	m.NoRelationshipRiskInstruments = v
 }

@@ -23,7 +23,7 @@ import (
 //Message is a TradeCaptureReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AE"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradeReportID is a non-required field for TradeCaptureReport.
 	TradeReportID *string `fix:"571"`
 	//TradeReportTransType is a non-required field for TradeCaptureReport.
@@ -71,15 +71,15 @@ type Message struct {
 	//PriceType is a non-required field for TradeCaptureReport.
 	PriceType *int `fix:"423"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//QtyType is a non-required field for TradeCaptureReport.
 	QtyType *int `fix:"854"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//UnderlyingTradingSessionID is a non-required field for TradeCaptureReport.
 	UnderlyingTradingSessionID *string `fix:"822"`
 	//UnderlyingTradingSessionSubID is a non-required field for TradeCaptureReport.
@@ -103,21 +103,21 @@ type Message struct {
 	//AvgPx is a non-required field for TradeCaptureReport.
 	AvgPx *float64 `fix:"6"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//AvgPxIndicator is a non-required field for TradeCaptureReport.
 	AvgPxIndicator *int `fix:"819"`
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//MultiLegReportingType is a non-required field for TradeCaptureReport.
 	MultiLegReportingType *string `fix:"442"`
 	//TradeLegRefID is a non-required field for TradeCaptureReport.
 	TradeLegRefID *string `fix:"824"`
 	//TrdInstrmtLegGrp Component
-	TrdInstrmtLegGrp trdinstrmtleggrp.Component
+	trdinstrmtleggrp.TrdInstrmtLegGrp
 	//TransactTime is a non-required field for TradeCaptureReport.
 	TransactTime *time.Time `fix:"60"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//SettlType is a non-required field for TradeCaptureReport.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for TradeCaptureReport.
@@ -127,7 +127,7 @@ type Message struct {
 	//MatchType is a non-required field for TradeCaptureReport.
 	MatchType *string `fix:"574"`
 	//TrdCapRptSideGrp Component
-	TrdCapRptSideGrp trdcaprptsidegrp.Component
+	trdcaprptsidegrp.TrdCapRptSideGrp
 	//CopyMsgIndicator is a non-required field for TradeCaptureReport.
 	CopyMsgIndicator *bool `fix:"797"`
 	//PublishTrdIndicator is a non-required field for TradeCaptureReport.
@@ -167,7 +167,7 @@ type Message struct {
 	//GrossTradeAmt is a non-required field for TradeCaptureReport.
 	GrossTradeAmt *float64 `fix:"381"`
 	//RootParties Component
-	RootParties rootparties.Component
+	rootparties.RootParties
 	//TradeHandlingInstr is a non-required field for TradeCaptureReport.
 	TradeHandlingInstr *string `fix:"1123"`
 	//OrigTradeHandlingInstr is a non-required field for TradeCaptureReport.
@@ -199,18 +199,18 @@ type Message struct {
 	//CurrencyRatio is a non-required field for TradeCaptureReport.
 	CurrencyRatio *float64 `fix:"1382"`
 	//TrdRepIndicatorsGrp Component
-	TrdRepIndicatorsGrp trdrepindicatorsgrp.Component
+	trdrepindicatorsgrp.TrdRepIndicatorsGrp
 	//TradePublishIndicator is a non-required field for TradeCaptureReport.
 	TradePublishIndicator *int `fix:"1390"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
+	applicationsequencecontrol.ApplicationSequenceControl
 	//VenueType is a non-required field for TradeCaptureReport.
 	VenueType *string `fix:"1430"`
 	//MarketSegmentID is a non-required field for TradeCaptureReport.
 	MarketSegmentID *string `fix:"1300"`
 	//MarketID is a non-required field for TradeCaptureReport.
 	MarketID *string `fix:"1301"`
-	Trailer  fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

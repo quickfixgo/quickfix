@@ -12,7 +12,7 @@ import (
 //Message is a SecurityTypes FIX Message
 type Message struct {
 	FIXMsgType string `fix:"w"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReqID is a required field for SecurityTypes.
 	SecurityReqID string `fix:"320"`
 	//SecurityResponseID is a required field for SecurityTypes.
@@ -24,7 +24,7 @@ type Message struct {
 	//LastFragment is a non-required field for SecurityTypes.
 	LastFragment *bool `fix:"893"`
 	//SecTypesGrp Component
-	SecTypesGrp sectypesgrp.Component
+	sectypesgrp.SecTypesGrp
 	//Text is a non-required field for SecurityTypes.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for SecurityTypes.
@@ -42,8 +42,8 @@ type Message struct {
 	//MarketSegmentID is a non-required field for SecurityTypes.
 	MarketSegmentID *string `fix:"1300"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

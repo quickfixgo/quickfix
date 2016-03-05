@@ -34,7 +34,7 @@ type NoOrders struct {
 	//ListID is a non-required field for NoOrders.
 	ListID *string `fix:"66"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 	//OrderQty is a non-required field for NoOrders.
 	OrderQty *float64 `fix:"38"`
 	//OrderAvgPx is a non-required field for NoOrders.
@@ -78,13 +78,13 @@ func (m *NoExecs) SetLastCapacity(v string)    { m.LastCapacity = &v }
 //NoUnderlyings is a repeating group in AllocationInstruction
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in AllocationInstruction
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoAllocs is a repeating group in AllocationInstruction
@@ -104,7 +104,7 @@ type NoAllocs struct {
 	//ProcessCode is a non-required field for NoAllocs.
 	ProcessCode *string `fix:"81"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//NotifyBrokerOfCredit is a non-required field for NoAllocs.
 	NotifyBrokerOfCredit *bool `fix:"208"`
 	//AllocHandlInst is a non-required field for NoAllocs.
@@ -116,7 +116,7 @@ type NoAllocs struct {
 	//EncodedAllocText is a non-required field for NoAllocs.
 	EncodedAllocText *string `fix:"361"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//AllocAvgPx is a non-required field for NoAllocs.
 	AllocAvgPx *float64 `fix:"153"`
 	//AllocNetMoney is a non-required field for NoAllocs.
@@ -146,7 +146,7 @@ type NoAllocs struct {
 	//AllocSettlInstType is a non-required field for NoAllocs.
 	AllocSettlInstType *int `fix:"780"`
 	//SettlInstructionsData Component
-	SettlInstructionsData settlinstructionsdata.Component
+	settlinstructionsdata.SettlInstructionsData
 }
 
 func (m *NoAllocs) SetAllocAccount(v string)                             { m.AllocAccount = &v }
@@ -204,7 +204,7 @@ func (m *NoClearingInstructions) SetClearingInstruction(v int) { m.ClearingInstr
 //Message is a AllocationInstruction FIX Message
 type Message struct {
 	FIXMsgType string `fix:"J"`
-	Header     fix44.Header
+	fix44.Header
 	//AllocID is a required field for AllocationInstruction.
 	AllocID string `fix:"70"`
 	//AllocTransType is a required field for AllocationInstruction.
@@ -240,11 +240,11 @@ type Message struct {
 	//Side is a required field for AllocationInstruction.
 	Side string `fix:"54"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for AllocationInstruction.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for AllocationInstruction.
@@ -268,13 +268,13 @@ type Message struct {
 	//AvgParPx is a non-required field for AllocationInstruction.
 	AvgParPx *float64 `fix:"860"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Currency is a non-required field for AllocationInstruction.
 	Currency *string `fix:"15"`
 	//AvgPxPrecision is a non-required field for AllocationInstruction.
 	AvgPxPrecision *int `fix:"74"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeDate is a required field for AllocationInstruction.
 	TradeDate string `fix:"75"`
 	//TransactTime is a non-required field for AllocationInstruction.
@@ -322,16 +322,16 @@ type Message struct {
 	//LegalConfirm is a non-required field for AllocationInstruction.
 	LegalConfirm *bool `fix:"650"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//TotNoAllocs is a non-required field for AllocationInstruction.
 	TotNoAllocs *int `fix:"892"`
 	//LastFragment is a non-required field for AllocationInstruction.
 	LastFragment *bool `fix:"893"`
 	//NoAllocs is a non-required field for AllocationInstruction.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
-	Trailer  fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -12,7 +12,7 @@ import (
 //Message is a ListCancelRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"K"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ListID is a required field for ListCancelRequest.
 	ListID string `fix:"66"`
 	//TransactTime is a required field for ListCancelRequest.
@@ -28,8 +28,8 @@ type Message struct {
 	//EncodedText is a non-required field for ListCancelRequest.
 	EncodedText *string `fix:"355"`
 	//Parties Component
-	Parties parties.Component
-	Trailer fixt11.Trailer
+	parties.Parties
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

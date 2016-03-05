@@ -17,7 +17,7 @@ type NoQuoteSets struct {
 	//QuoteSetID is a required field for NoQuoteSets.
 	QuoteSetID string `fix:"302"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//QuoteSetValidUntilTime is a non-required field for NoQuoteSets.
 	QuoteSetValidUntilTime *time.Time `fix:"367"`
 	//TotNoQuoteEntries is a required field for NoQuoteSets.
@@ -39,7 +39,7 @@ type NoQuoteEntries struct {
 	//QuoteEntryID is a required field for NoQuoteEntries.
 	QuoteEntryID string `fix:"299"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoLegs is a non-required field for NoQuoteEntries.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//BidPx is a non-required field for NoQuoteEntries.
@@ -119,13 +119,13 @@ func (m *NoQuoteEntries) SetCurrency(v string)             { m.Currency = &v }
 //NoLegs is a repeating group in NoQuoteEntries
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a MassQuote FIX Message
 type Message struct {
 	FIXMsgType string `fix:"i"`
-	Header     fix44.Header
+	fix44.Header
 	//QuoteReqID is a non-required field for MassQuote.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a required field for MassQuote.
@@ -135,7 +135,7 @@ type Message struct {
 	//QuoteResponseLevel is a non-required field for MassQuote.
 	QuoteResponseLevel *int `fix:"301"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for MassQuote.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for MassQuote.
@@ -148,7 +148,7 @@ type Message struct {
 	DefOfferSize *float64 `fix:"294"`
 	//NoQuoteSets is a required field for MassQuote.
 	NoQuoteSets []NoQuoteSets `fix:"296"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

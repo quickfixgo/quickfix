@@ -13,7 +13,7 @@ import (
 //Message is a BidRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"k"`
-	Header     fixt11.Header
+	fixt11.Header
 	//BidID is a non-required field for BidRequest.
 	BidID *string `fix:"390"`
 	//ClientBidID is a required field for BidRequest.
@@ -35,9 +35,9 @@ type Message struct {
 	//SideValue2 is a non-required field for BidRequest.
 	SideValue2 *float64 `fix:"397"`
 	//BidDescReqGrp Component
-	BidDescReqGrp biddescreqgrp.Component
+	biddescreqgrp.BidDescReqGrp
 	//BidCompReqGrp Component
-	BidCompReqGrp bidcompreqgrp.Component
+	bidcompreqgrp.BidCompReqGrp
 	//LiquidityIndType is a non-required field for BidRequest.
 	LiquidityIndType *int `fix:"409"`
 	//WtAverageLiquidity is a non-required field for BidRequest.
@@ -72,7 +72,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for BidRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

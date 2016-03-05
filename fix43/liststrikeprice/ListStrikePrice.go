@@ -11,7 +11,7 @@ import (
 //NoStrikes is a repeating group in ListStrikePrice
 type NoStrikes struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//PrevClosePx is a non-required field for NoStrikes.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoStrikes.
@@ -45,14 +45,14 @@ func (m *NoStrikes) SetEncodedText(v string)      { m.EncodedText = &v }
 //Message is a ListStrikePrice FIX Message
 type Message struct {
 	FIXMsgType string `fix:"m"`
-	Header     fix43.Header
+	fix43.Header
 	//ListID is a required field for ListStrikePrice.
 	ListID string `fix:"66"`
 	//TotNoStrikes is a required field for ListStrikePrice.
 	TotNoStrikes int `fix:"422"`
 	//NoStrikes is a required field for ListStrikePrice.
 	NoStrikes []NoStrikes `fix:"428"`
-	Trailer   fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

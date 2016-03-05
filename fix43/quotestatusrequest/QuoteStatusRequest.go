@@ -12,15 +12,15 @@ import (
 //Message is a QuoteStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"a"`
-	Header     fix43.Header
+	fix43.Header
 	//QuoteStatusReqID is a non-required field for QuoteStatusRequest.
 	QuoteStatusReqID *string `fix:"649"`
 	//QuoteID is a non-required field for QuoteStatusRequest.
 	QuoteID *string `fix:"117"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for QuoteStatusRequest.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for QuoteStatusRequest.
@@ -31,7 +31,7 @@ type Message struct {
 	TradingSessionSubID *string `fix:"625"`
 	//SubscriptionRequestType is a non-required field for QuoteStatusRequest.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

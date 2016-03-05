@@ -14,27 +14,27 @@ import (
 //NoUnderlyings is a repeating group in SecurityDefinitionRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in SecurityDefinitionRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a SecurityDefinitionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"c"`
-	Header     fix44.Header
+	fix44.Header
 	//SecurityReqID is a required field for SecurityDefinitionRequest.
 	SecurityReqID string `fix:"320"`
 	//SecurityRequestType is a required field for SecurityDefinitionRequest.
 	SecurityRequestType int `fix:"321"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//NoUnderlyings is a non-required field for SecurityDefinitionRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Currency is a non-required field for SecurityDefinitionRequest.
@@ -55,7 +55,7 @@ type Message struct {
 	ExpirationCycle *int `fix:"827"`
 	//SubscriptionRequestType is a non-required field for SecurityDefinitionRequest.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

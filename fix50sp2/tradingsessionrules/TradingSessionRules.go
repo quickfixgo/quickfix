@@ -36,8 +36,8 @@ type NoMDFeedTypes struct {
 	MDBookType *int `fix:"1021"`
 }
 
-//Component is a fix50sp2 TradingSessionRules Component
-type Component struct {
+//TradingSessionRules is a fix50sp2 Component
+type TradingSessionRules struct {
 	//NoOrdTypeRules is a non-required field for TradingSessionRules.
 	NoOrdTypeRules []NoOrdTypeRules `fix:"1237,omitempty"`
 	//NoTimeInForceRules is a non-required field for TradingSessionRules.
@@ -50,10 +50,8 @@ type Component struct {
 	NoMDFeedTypes []NoMDFeedTypes `fix:"1141,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoOrdTypeRules(v []NoOrdTypeRules)         { m.NoOrdTypeRules = v }
-func (m *Component) SetNoTimeInForceRules(v []NoTimeInForceRules) { m.NoTimeInForceRules = v }
-func (m *Component) SetNoExecInstRules(v []NoExecInstRules)       { m.NoExecInstRules = v }
-func (m *Component) SetNoMatchRules(v []NoMatchRules)             { m.NoMatchRules = v }
-func (m *Component) SetNoMDFeedTypes(v []NoMDFeedTypes)           { m.NoMDFeedTypes = v }
+func (m *TradingSessionRules) SetNoOrdTypeRules(v []NoOrdTypeRules)         { m.NoOrdTypeRules = v }
+func (m *TradingSessionRules) SetNoTimeInForceRules(v []NoTimeInForceRules) { m.NoTimeInForceRules = v }
+func (m *TradingSessionRules) SetNoExecInstRules(v []NoExecInstRules)       { m.NoExecInstRules = v }
+func (m *TradingSessionRules) SetNoMatchRules(v []NoMatchRules)             { m.NoMatchRules = v }
+func (m *TradingSessionRules) SetNoMDFeedTypes(v []NoMDFeedTypes)           { m.NoMDFeedTypes = v }

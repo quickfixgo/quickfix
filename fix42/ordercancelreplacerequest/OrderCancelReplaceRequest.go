@@ -30,7 +30,7 @@ func (m *NoTradingSessions) SetTradingSessionID(v string) { m.TradingSessionID =
 //Message is a OrderCancelReplaceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"G"`
-	Header     fix42.Header
+	fix42.Header
 	//OrderID is a non-required field for OrderCancelReplaceRequest.
 	OrderID *string `fix:"37"`
 	//ClientID is a non-required field for OrderCancelReplaceRequest.
@@ -171,7 +171,7 @@ type Message struct {
 	ClearingFirm *string `fix:"439"`
 	//ClearingAccount is a non-required field for OrderCancelReplaceRequest.
 	ClearingAccount *string `fix:"440"`
-	Trailer         fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

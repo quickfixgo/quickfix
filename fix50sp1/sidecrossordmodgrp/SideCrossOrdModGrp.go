@@ -19,7 +19,7 @@ type NoSides struct {
 	//ClOrdLinkID is a non-required field for NoSides.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoSides.
@@ -39,13 +39,13 @@ type NoSides struct {
 	//AllocID is a non-required field for NoSides.
 	AllocID *string `fix:"70"`
 	//PreAllocGrp Component
-	PreAllocGrp preallocgrp.Component
+	preallocgrp.PreAllocGrp
 	//QtyType is a non-required field for NoSides.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NoSides.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoSides.
@@ -84,12 +84,10 @@ type NoSides struct {
 	OrigClOrdID *string `fix:"41"`
 }
 
-//Component is a fix50sp1 SideCrossOrdModGrp Component
-type Component struct {
+//SideCrossOrdModGrp is a fix50sp1 Component
+type SideCrossOrdModGrp struct {
 	//NoSides is a required field for SideCrossOrdModGrp.
 	NoSides []NoSides `fix:"552"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoSides(v []NoSides) { m.NoSides = v }
+func (m *SideCrossOrdModGrp) SetNoSides(v []NoSides) { m.NoSides = v }

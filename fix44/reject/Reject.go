@@ -10,7 +10,7 @@ import (
 //Message is a Reject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"3"`
-	Header     fix44.Header
+	fix44.Header
 	//RefSeqNum is a required field for Reject.
 	RefSeqNum int `fix:"45"`
 	//RefTagID is a non-required field for Reject.
@@ -25,7 +25,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for Reject.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

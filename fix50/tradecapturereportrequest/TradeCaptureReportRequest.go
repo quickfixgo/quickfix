@@ -17,7 +17,7 @@ import (
 //Message is a TradeCaptureReportRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AD"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradeRequestID is a required field for TradeCaptureReportRequest.
 	TradeRequestID string `fix:"568"`
 	//TradeRequestType is a required field for TradeCaptureReportRequest.
@@ -51,19 +51,19 @@ type Message struct {
 	//TrdMatchID is a non-required field for TradeCaptureReportRequest.
 	TrdMatchID *string `fix:"880"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//TrdCapDtGrp Component
-	TrdCapDtGrp trdcapdtgrp.Component
+	trdcapdtgrp.TrdCapDtGrp
 	//ClearingBusinessDate is a non-required field for TradeCaptureReportRequest.
 	ClearingBusinessDate *string `fix:"715"`
 	//TradingSessionID is a non-required field for TradeCaptureReportRequest.
@@ -102,7 +102,7 @@ type Message struct {
 	SecondaryFirmTradeID *string `fix:"1042"`
 	//TradeHandlingInstr is a non-required field for TradeCaptureReportRequest.
 	TradeHandlingInstr *string `fix:"1123"`
-	Trailer            fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

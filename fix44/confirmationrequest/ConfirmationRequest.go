@@ -22,7 +22,7 @@ type NoOrders struct {
 	//ListID is a non-required field for NoOrders.
 	ListID *string `fix:"66"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 	//OrderQty is a non-required field for NoOrders.
 	OrderQty *float64 `fix:"38"`
 	//OrderAvgPx is a non-required field for NoOrders.
@@ -43,7 +43,7 @@ func (m *NoOrders) SetOrderBookingQty(v float64) { m.OrderBookingQty = &v }
 //Message is a ConfirmationRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BH"`
-	Header     fix44.Header
+	fix44.Header
 	//ConfirmReqID is a required field for ConfirmationRequest.
 	ConfirmReqID string `fix:"859"`
 	//ConfirmType is a required field for ConfirmationRequest.
@@ -70,7 +70,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ConfirmationRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

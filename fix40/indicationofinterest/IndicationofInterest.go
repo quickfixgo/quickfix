@@ -11,7 +11,7 @@ import (
 //Message is a IndicationofInterest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"6"`
-	Header     fix40.Header
+	fix40.Header
 	//IOIid is a required field for IndicationofInterest.
 	IOIid int `fix:"23"`
 	//IOITransType is a required field for IndicationofInterest.
@@ -49,8 +49,8 @@ type Message struct {
 	//IOIQualifier is a non-required field for IndicationofInterest.
 	IOIQualifier *string `fix:"104"`
 	//Text is a non-required field for IndicationofInterest.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

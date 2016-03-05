@@ -28,13 +28,13 @@ type NoSides struct {
 	//OrigOrdModTime is a non-required field for NoSides.
 	OrigOrdModTime *time.Time `fix:"586"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoSides.
 	TradeDate *string `fix:"75"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//ComplianceID is a non-required field for NoSides.
 	ComplianceID *string `fix:"376"`
 	//Text is a non-required field for NoSides.
@@ -61,19 +61,19 @@ func (m *NoSides) SetEncodedText(v string)          { m.EncodedText = &v }
 //NoUnderlyings is a repeating group in CrossOrderCancelRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in CrossOrderCancelRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a CrossOrderCancelRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"u"`
-	Header     fix44.Header
+	fix44.Header
 	//OrderID is a non-required field for CrossOrderCancelRequest.
 	OrderID *string `fix:"37"`
 	//CrossID is a required field for CrossOrderCancelRequest.
@@ -87,14 +87,14 @@ type Message struct {
 	//NoSides is a required field for CrossOrderCancelRequest.
 	NoSides []NoSides `fix:"552"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for CrossOrderCancelRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for CrossOrderCancelRequest.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//TransactTime is a required field for CrossOrderCancelRequest.
 	TransactTime time.Time `fix:"60"`
-	Trailer      fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -16,13 +16,13 @@ import (
 //NoUnderlyings is a repeating group in OrderCancelRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //Message is a OrderCancelRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"F"`
-	Header     fix44.Header
+	fix44.Header
 	//OrigClOrdID is a required field for OrderCancelRequest.
 	OrigClOrdID string `fix:"41"`
 	//OrderID is a non-required field for OrderCancelRequest.
@@ -44,11 +44,11 @@ type Message struct {
 	//AccountType is a non-required field for OrderCancelRequest.
 	AccountType *int `fix:"581"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for OrderCancelRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Side is a required field for OrderCancelRequest.
@@ -56,7 +56,7 @@ type Message struct {
 	//TransactTime is a required field for OrderCancelRequest.
 	TransactTime time.Time `fix:"60"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//ComplianceID is a non-required field for OrderCancelRequest.
 	ComplianceID *string `fix:"376"`
 	//Text is a non-required field for OrderCancelRequest.
@@ -65,7 +65,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for OrderCancelRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

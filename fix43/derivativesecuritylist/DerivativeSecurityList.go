@@ -13,7 +13,7 @@ import (
 //NoRelatedSym is a repeating group in DerivativeSecurityList
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for NoRelatedSym.
@@ -41,7 +41,7 @@ func (m *NoRelatedSym) SetEncodedText(v string)         { m.EncodedText = &v }
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegCurrency is a non-required field for NoLegs.
 	LegCurrency *string `fix:"556"`
 }
@@ -51,7 +51,7 @@ func (m *NoLegs) SetLegCurrency(v string) { m.LegCurrency = &v }
 //Message is a DerivativeSecurityList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AA"`
-	Header     fix43.Header
+	fix43.Header
 	//SecurityReqID is a required field for DerivativeSecurityList.
 	SecurityReqID string `fix:"320"`
 	//SecurityResponseID is a required field for DerivativeSecurityList.
@@ -59,12 +59,12 @@ type Message struct {
 	//SecurityRequestResult is a required field for DerivativeSecurityList.
 	SecurityRequestResult int `fix:"560"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//TotalNumSecurities is a non-required field for DerivativeSecurityList.
 	TotalNumSecurities *int `fix:"393"`
 	//NoRelatedSym is a non-required field for DerivativeSecurityList.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
-	Trailer      fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -8,12 +8,12 @@ type NoNestedInstrAttrib struct {
 	NestedInstrAttribValue *string `fix:"1211"`
 }
 
-//Component is a fix50sp1 NestedInstrumentAttribute Component
-type Component struct {
+//NestedInstrumentAttribute is a fix50sp1 Component
+type NestedInstrumentAttribute struct {
 	//NoNestedInstrAttrib is a non-required field for NestedInstrumentAttribute.
 	NoNestedInstrAttrib []NoNestedInstrAttrib `fix:"1312,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoNestedInstrAttrib(v []NoNestedInstrAttrib) { m.NoNestedInstrAttrib = v }
+func (m *NestedInstrumentAttribute) SetNoNestedInstrAttrib(v []NoNestedInstrAttrib) {
+	m.NoNestedInstrAttrib = v
+}

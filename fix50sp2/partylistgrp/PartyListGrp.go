@@ -8,17 +8,15 @@ import (
 //NoPartyList is a repeating group in PartyListGrp
 type NoPartyList struct {
 	//PartyDetail Component
-	PartyDetail partydetail.Component
+	partydetail.PartyDetail
 	//RelatedPartyGrp Component
-	RelatedPartyGrp relatedpartygrp.Component
+	relatedpartygrp.RelatedPartyGrp
 }
 
-//Component is a fix50sp2 PartyListGrp Component
-type Component struct {
+//PartyListGrp is a fix50sp2 Component
+type PartyListGrp struct {
 	//NoPartyList is a non-required field for PartyListGrp.
 	NoPartyList []NoPartyList `fix:"1513,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoPartyList(v []NoPartyList) { m.NoPartyList = v }
+func (m *PartyListGrp) SetNoPartyList(v []NoPartyList) { m.NoPartyList = v }

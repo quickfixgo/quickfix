@@ -11,7 +11,7 @@ import (
 //Message is a Email FIX Message
 type Message struct {
 	FIXMsgType string `fix:"C"`
-	Header     fix40.Header
+	fix40.Header
 	//EmailType is a required field for Email.
 	EmailType string `fix:"94"`
 	//OrigTime is a non-required field for Email.
@@ -30,7 +30,7 @@ type Message struct {
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for Email.
 	RawData *string `fix:"96"`
-	Trailer fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

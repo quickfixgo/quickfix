@@ -27,7 +27,7 @@ type NoSides struct {
 	//ClOrdLinkID is a non-required field for NoSides.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//Account is a non-required field for NoSides.
@@ -45,9 +45,9 @@ type NoSides struct {
 	//QuantityType is a non-required field for NoSides.
 	QuantityType *int `fix:"465"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NoSides.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoSides.
@@ -112,7 +112,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
@@ -135,7 +135,7 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //Message is a NewOrderCross FIX Message
 type Message struct {
 	FIXMsgType string `fix:"s"`
-	Header     fix43.Header
+	fix43.Header
 	//CrossID is a required field for NewOrderCross.
 	CrossID string `fix:"548"`
 	//CrossType is a required field for NewOrderCross.
@@ -145,7 +145,7 @@ type Message struct {
 	//NoSides is a required field for NewOrderCross.
 	NoSides []NoSides `fix:"552"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//SettlmntTyp is a non-required field for NewOrderCross.
 	SettlmntTyp *string `fix:"63"`
 	//FutSettDate is a non-required field for NewOrderCross.
@@ -171,7 +171,7 @@ type Message struct {
 	//TransactTime is a required field for NewOrderCross.
 	TransactTime time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//OrdType is a required field for NewOrderCross.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderCross.
@@ -181,9 +181,9 @@ type Message struct {
 	//StopPx is a non-required field for NewOrderCross.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for NewOrderCross.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NewOrderCross.
@@ -224,7 +224,7 @@ type Message struct {
 	AccruedInterestAmt *float64 `fix:"159"`
 	//NetMoney is a non-required field for NewOrderCross.
 	NetMoney *float64 `fix:"118"`
-	Trailer  fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

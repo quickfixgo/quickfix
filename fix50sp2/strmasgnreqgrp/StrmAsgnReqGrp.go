@@ -8,17 +8,15 @@ import (
 //NoAsgnReqs is a repeating group in StrmAsgnReqGrp
 type NoAsgnReqs struct {
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//StrmAsgnReqInstrmtGrp Component
-	StrmAsgnReqInstrmtGrp strmasgnreqinstrmtgrp.Component
+	strmasgnreqinstrmtgrp.StrmAsgnReqInstrmtGrp
 }
 
-//Component is a fix50sp2 StrmAsgnReqGrp Component
-type Component struct {
+//StrmAsgnReqGrp is a fix50sp2 Component
+type StrmAsgnReqGrp struct {
 	//NoAsgnReqs is a non-required field for StrmAsgnReqGrp.
 	NoAsgnReqs []NoAsgnReqs `fix:"1499,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoAsgnReqs(v []NoAsgnReqs) { m.NoAsgnReqs = v }
+func (m *StrmAsgnReqGrp) SetNoAsgnReqs(v []NoAsgnReqs) { m.NoAsgnReqs = v }

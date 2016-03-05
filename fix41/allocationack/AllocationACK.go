@@ -11,7 +11,7 @@ import (
 //Message is a AllocationACK FIX Message
 type Message struct {
 	FIXMsgType string `fix:"P"`
-	Header     fix41.Header
+	fix41.Header
 	//ClientID is a non-required field for AllocationACK.
 	ClientID *string `fix:"109"`
 	//ExecBroker is a non-required field for AllocationACK.
@@ -27,8 +27,8 @@ type Message struct {
 	//AllocRejCode is a non-required field for AllocationACK.
 	AllocRejCode *int `fix:"88"`
 	//Text is a non-required field for AllocationACK.
-	Text    *string `fix:"58"`
-	Trailer fix41.Trailer
+	Text *string `fix:"58"`
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -96,14 +96,14 @@ func (m *NoStrikes) SetEncodedText(v string)         { m.EncodedText = &v }
 //Message is a ListStrikePrice FIX Message
 type Message struct {
 	FIXMsgType string `fix:"m"`
-	Header     fix42.Header
+	fix42.Header
 	//ListID is a required field for ListStrikePrice.
 	ListID string `fix:"66"`
 	//TotNoStrikes is a required field for ListStrikePrice.
 	TotNoStrikes int `fix:"422"`
 	//NoStrikes is a required field for ListStrikePrice.
 	NoStrikes []NoStrikes `fix:"428"`
-	Trailer   fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

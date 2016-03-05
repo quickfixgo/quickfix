@@ -10,14 +10,14 @@ import (
 //Message is a Logout FIX Message
 type Message struct {
 	FIXMsgType string `fix:"5"`
-	Header     fix44.Header
+	fix44.Header
 	//Text is a non-required field for Logout.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for Logout.
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for Logout.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

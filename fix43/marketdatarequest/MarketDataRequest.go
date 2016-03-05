@@ -19,7 +19,7 @@ func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
 //NoRelatedSym is a repeating group in MarketDataRequest
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 }
 
 //NoTradingSessions is a repeating group in MarketDataRequest
@@ -36,7 +36,7 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //Message is a MarketDataRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"V"`
-	Header     fix43.Header
+	fix43.Header
 	//MDReqID is a required field for MarketDataRequest.
 	MDReqID string `fix:"262"`
 	//SubscriptionRequestType is a required field for MarketDataRequest.
@@ -59,7 +59,7 @@ type Message struct {
 	NoRelatedSym []NoRelatedSym `fix:"146"`
 	//NoTradingSessions is a non-required field for MarketDataRequest.
 	NoTradingSessions []NoTradingSessions `fix:"386,omitempty"`
-	Trailer           fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

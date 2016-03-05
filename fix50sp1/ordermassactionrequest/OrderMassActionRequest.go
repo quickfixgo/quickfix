@@ -14,7 +14,7 @@ import (
 //Message is a OrderMassActionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"CA"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ClOrdID is a required field for OrderMassActionRequest.
 	ClOrdID string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for OrderMassActionRequest.
@@ -32,11 +32,11 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for OrderMassActionRequest.
 	TradingSessionSubID *string `fix:"625"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassActionRequest.
 	Side *string `fix:"54"`
 	//TransactTime is a required field for OrderMassActionRequest.
@@ -47,7 +47,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for OrderMassActionRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

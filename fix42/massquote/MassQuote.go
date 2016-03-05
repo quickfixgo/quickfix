@@ -200,7 +200,7 @@ func (m *NoQuoteEntries) SetCurrency(v string)            { m.Currency = &v }
 //Message is a MassQuote FIX Message
 type Message struct {
 	FIXMsgType string `fix:"i"`
-	Header     fix42.Header
+	fix42.Header
 	//QuoteReqID is a non-required field for MassQuote.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a required field for MassQuote.
@@ -213,7 +213,7 @@ type Message struct {
 	DefOfferSize *float64 `fix:"294"`
 	//NoQuoteSets is a required field for MassQuote.
 	NoQuoteSets []NoQuoteSets `fix:"296"`
-	Trailer     fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -11,13 +11,13 @@ import (
 //Message is a SecurityListRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"x"`
-	Header     fix43.Header
+	fix43.Header
 	//SecurityReqID is a required field for SecurityListRequest.
 	SecurityReqID string `fix:"320"`
 	//SecurityListRequestType is a required field for SecurityListRequest.
 	SecurityListRequestType int `fix:"559"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for SecurityListRequest.
 	Currency *string `fix:"15"`
 	//Text is a non-required field for SecurityListRequest.
@@ -32,7 +32,7 @@ type Message struct {
 	TradingSessionSubID *string `fix:"625"`
 	//SubscriptionRequestType is a non-required field for SecurityListRequest.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

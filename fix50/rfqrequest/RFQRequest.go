@@ -11,14 +11,14 @@ import (
 //Message is a RFQRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AH"`
-	Header     fixt11.Header
+	fixt11.Header
 	//RFQReqID is a required field for RFQRequest.
 	RFQReqID string `fix:"644"`
 	//RFQReqGrp Component
-	RFQReqGrp rfqreqgrp.Component
+	rfqreqgrp.RFQReqGrp
 	//SubscriptionRequestType is a non-required field for RFQRequest.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -26,7 +26,7 @@ import (
 //Message is a Confirmation FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AK"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ConfirmID is a required field for Confirmation.
 	ConfirmID string `fix:"664"`
 	//ConfirmRefID is a non-required field for Confirmation.
@@ -44,9 +44,9 @@ type Message struct {
 	//ConfirmStatus is a required field for Confirmation.
 	ConfirmStatus int `fix:"665"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//OrdAllocGrp Component
-	OrdAllocGrp ordallocgrp.Component
+	ordallocgrp.OrdAllocGrp
 	//AllocID is a non-required field for Confirmation.
 	AllocID *string `fix:"70"`
 	//SecondaryAllocID is a non-required field for Confirmation.
@@ -58,19 +58,19 @@ type Message struct {
 	//TradeDate is a required field for Confirmation.
 	TradeDate string `fix:"75"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//AllocQty is a required field for Confirmation.
 	AllocQty float64 `fix:"80"`
 	//QtyType is a non-required field for Confirmation.
@@ -82,7 +82,7 @@ type Message struct {
 	//LastMkt is a non-required field for Confirmation.
 	LastMkt *string `fix:"30"`
 	//CpctyConfGrp Component
-	CpctyConfGrp cpctyconfgrp.Component
+	cpctyconfgrp.CpctyConfGrp
 	//AllocAccount is a required field for Confirmation.
 	AllocAccount string `fix:"79"`
 	//AllocAcctIDSource is a non-required field for Confirmation.
@@ -98,7 +98,7 @@ type Message struct {
 	//AvgParPx is a non-required field for Confirmation.
 	AvgParPx *float64 `fix:"860"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//ReportedPx is a non-required field for Confirmation.
 	ReportedPx *float64 `fix:"861"`
 	//Text is a non-required field for Confirmation.
@@ -148,16 +148,16 @@ type Message struct {
 	//SettlDate is a non-required field for Confirmation.
 	SettlDate *string `fix:"64"`
 	//SettlInstructionsData Component
-	SettlInstructionsData settlinstructionsdata.Component
+	settlinstructionsdata.SettlInstructionsData
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//SharedCommission is a non-required field for Confirmation.
 	SharedCommission *float64 `fix:"858"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//MiscFeesGrp Component
-	MiscFeesGrp miscfeesgrp.Component
-	Trailer     fixt11.Trailer
+	miscfeesgrp.MiscFeesGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -6,12 +6,10 @@ type NoExecInstRules struct {
 	ExecInstValue *string `fix:"1308"`
 }
 
-//Component is a fix50sp2 ExecInstRules Component
-type Component struct {
+//ExecInstRules is a fix50sp2 Component
+type ExecInstRules struct {
 	//NoExecInstRules is a non-required field for ExecInstRules.
 	NoExecInstRules []NoExecInstRules `fix:"1232,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoExecInstRules(v []NoExecInstRules) { m.NoExecInstRules = v }
+func (m *ExecInstRules) SetNoExecInstRules(v []NoExecInstRules) { m.NoExecInstRules = v }

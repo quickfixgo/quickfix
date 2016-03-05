@@ -17,7 +17,7 @@ type NoRiskInstruments struct {
 	//RiskSecurityIDSource is a non-required field for NoRiskInstruments.
 	RiskSecurityIDSource *string `fix:"1539"`
 	//RiskSecAltIDGrp Component
-	RiskSecAltIDGrp risksecaltidgrp.Component
+	risksecaltidgrp.RiskSecAltIDGrp
 	//RiskProduct is a non-required field for NoRiskInstruments.
 	RiskProduct *int `fix:"1543"`
 	//RiskProductComplex is a non-required field for NoRiskInstruments.
@@ -58,12 +58,10 @@ type NoRiskInstruments struct {
 	RiskInstrumentMultiplier *float64 `fix:"1558"`
 }
 
-//Component is a fix50sp2 RiskInstrumentScope Component
-type Component struct {
+//RiskInstrumentScope is a fix50sp2 Component
+type RiskInstrumentScope struct {
 	//NoRiskInstruments is a non-required field for RiskInstrumentScope.
 	NoRiskInstruments []NoRiskInstruments `fix:"1534,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRiskInstruments(v []NoRiskInstruments) { m.NoRiskInstruments = v }
+func (m *RiskInstrumentScope) SetNoRiskInstruments(v []NoRiskInstruments) { m.NoRiskInstruments = v }

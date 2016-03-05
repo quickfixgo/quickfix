@@ -27,14 +27,14 @@ func (m *NoCompIDs) SetDeskID(v string)     { m.DeskID = &v }
 //Message is a NetworkCounterpartySystemStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BC"`
-	Header     fix44.Header
+	fix44.Header
 	//NetworkRequestType is a required field for NetworkCounterpartySystemStatusRequest.
 	NetworkRequestType int `fix:"935"`
 	//NetworkRequestID is a required field for NetworkCounterpartySystemStatusRequest.
 	NetworkRequestID string `fix:"933"`
 	//NoCompIDs is a non-required field for NetworkCounterpartySystemStatusRequest.
 	NoCompIDs []NoCompIDs `fix:"936,omitempty"`
-	Trailer   fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

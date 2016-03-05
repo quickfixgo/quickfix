@@ -15,15 +15,15 @@ import (
 //Message is a MarketDataSnapshotFullRefresh FIX Message
 type Message struct {
 	FIXMsgType string `fix:"W"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
 	MDReqID *string `fix:"262"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//FinancialStatus is a non-required field for MarketDataSnapshotFullRefresh.
 	FinancialStatus *string `fix:"291"`
 	//CorporateAction is a non-required field for MarketDataSnapshotFullRefresh.
@@ -31,7 +31,7 @@ type Message struct {
 	//NetChgPrevDay is a non-required field for MarketDataSnapshotFullRefresh.
 	NetChgPrevDay *float64 `fix:"451"`
 	//MDFullGrp Component
-	MDFullGrp mdfullgrp.Component
+	mdfullgrp.MDFullGrp
 	//ApplQueueDepth is a non-required field for MarketDataSnapshotFullRefresh.
 	ApplQueueDepth *int `fix:"813"`
 	//ApplQueueResolution is a non-required field for MarketDataSnapshotFullRefresh.
@@ -47,8 +47,8 @@ type Message struct {
 	//TradeDate is a non-required field for MarketDataSnapshotFullRefresh.
 	TradeDate *string `fix:"75"`
 	//RoutingGrp Component
-	RoutingGrp routinggrp.Component
-	Trailer    fixt11.Trailer
+	routinggrp.RoutingGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

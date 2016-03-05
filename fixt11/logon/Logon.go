@@ -11,7 +11,7 @@ import (
 //Message is a Logon FIX Message
 type Message struct {
 	FIXMsgType string `fix:"A"`
-	Header     fixt11.Header
+	fixt11.Header
 	//EncryptMethod is a required field for Logon.
 	EncryptMethod int `fix:"98"`
 	//HeartBtInt is a required field for Logon.
@@ -35,8 +35,8 @@ type Message struct {
 	//DefaultApplVerID is a required field for Logon.
 	DefaultApplVerID string `fix:"1137"`
 	//MsgTypeGrp Component
-	MsgTypeGrp msgtypegrp.Component
-	Trailer    fixt11.Trailer
+	msgtypegrp.MsgTypeGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

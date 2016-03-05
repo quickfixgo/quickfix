@@ -11,15 +11,15 @@ type NoTradingSessionRules struct {
 	//TradingSessionSubID is a non-required field for NoTradingSessionRules.
 	TradingSessionSubID *string `fix:"625"`
 	//TradingSessionRules Component
-	TradingSessionRules tradingsessionrules.Component
+	tradingsessionrules.TradingSessionRules
 }
 
-//Component is a fix50sp2 TradingSessionRulesGrp Component
-type Component struct {
+//TradingSessionRulesGrp is a fix50sp2 Component
+type TradingSessionRulesGrp struct {
 	//NoTradingSessionRules is a non-required field for TradingSessionRulesGrp.
 	NoTradingSessionRules []NoTradingSessionRules `fix:"1309,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoTradingSessionRules(v []NoTradingSessionRules) { m.NoTradingSessionRules = v }
+func (m *TradingSessionRulesGrp) SetNoTradingSessionRules(v []NoTradingSessionRules) {
+	m.NoTradingSessionRules = v
+}

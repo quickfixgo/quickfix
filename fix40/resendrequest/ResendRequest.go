@@ -10,12 +10,12 @@ import (
 //Message is a ResendRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"2"`
-	Header     fix40.Header
+	fix40.Header
 	//BeginSeqNo is a required field for ResendRequest.
 	BeginSeqNo int `fix:"7"`
 	//EndSeqNo is a required field for ResendRequest.
 	EndSeqNo int `fix:"16"`
-	Trailer  fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

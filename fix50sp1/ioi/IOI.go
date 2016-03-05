@@ -23,7 +23,7 @@ import (
 //Message is a IOI FIX Message
 type Message struct {
 	FIXMsgType string `fix:"6"`
-	Header     fixt11.Header
+	fixt11.Header
 	//IOIID is a required field for IOI.
 	IOIID string `fix:"23"`
 	//IOITransType is a required field for IOI.
@@ -31,25 +31,25 @@ type Message struct {
 	//IOIRefID is a non-required field for IOI.
 	IOIRefID *string `fix:"26"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Side is a required field for IOI.
 	Side string `fix:"54"`
 	//QtyType is a non-required field for IOI.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//IOIQty is a required field for IOI.
 	IOIQty string `fix:"27"`
 	//Currency is a non-required field for IOI.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//InstrmtLegIOIGrp Component
-	InstrmtLegIOIGrp instrmtlegioigrp.Component
+	instrmtlegioigrp.InstrmtLegIOIGrp
 	//PriceType is a non-required field for IOI.
 	PriceType *int `fix:"423"`
 	//Price is a non-required field for IOI.
@@ -61,7 +61,7 @@ type Message struct {
 	//IOINaturalFlag is a non-required field for IOI.
 	IOINaturalFlag *bool `fix:"130"`
 	//IOIQualGrp Component
-	IOIQualGrp ioiqualgrp.Component
+	ioiqualgrp.IOIQualGrp
 	//Text is a non-required field for IOI.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for IOI.
@@ -73,16 +73,16 @@ type Message struct {
 	//URLLink is a non-required field for IOI.
 	URLLink *string `fix:"149"`
 	//RoutingGrp Component
-	RoutingGrp routinggrp.Component
+	routinggrp.RoutingGrp
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

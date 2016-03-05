@@ -10,7 +10,7 @@ import (
 //Message is a BusinessMessageReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"j"`
-	Header     fixt11.Header
+	fixt11.Header
 	//RefSeqNum is a non-required field for BusinessMessageReject.
 	RefSeqNum *int `fix:"45"`
 	//RefMsgType is a required field for BusinessMessageReject.
@@ -31,7 +31,7 @@ type Message struct {
 	RefApplExtID *int `fix:"1406"`
 	//RefCstmApplVerID is a non-required field for BusinessMessageReject.
 	RefCstmApplVerID *string `fix:"1131"`
-	Trailer          fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

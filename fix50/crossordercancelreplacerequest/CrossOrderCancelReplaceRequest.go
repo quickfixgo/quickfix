@@ -25,7 +25,7 @@ import (
 //Message is a CrossOrderCancelReplaceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"t"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrderID is a non-required field for CrossOrderCancelReplaceRequest.
 	OrderID *string `fix:"37"`
 	//CrossID is a required field for CrossOrderCancelReplaceRequest.
@@ -37,13 +37,13 @@ type Message struct {
 	//CrossPrioritization is a required field for CrossOrderCancelReplaceRequest.
 	CrossPrioritization int `fix:"550"`
 	//SideCrossOrdModGrp Component
-	SideCrossOrdModGrp sidecrossordmodgrp.Component
+	sidecrossordmodgrp.SideCrossOrdModGrp
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//SettlType is a non-required field for CrossOrderCancelReplaceRequest.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for CrossOrderCancelReplaceRequest.
@@ -59,7 +59,7 @@ type Message struct {
 	//ExDestination is a non-required field for CrossOrderCancelReplaceRequest.
 	ExDestination *string `fix:"100"`
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//ProcessCode is a non-required field for CrossOrderCancelReplaceRequest.
 	ProcessCode *string `fix:"81"`
 	//PrevClosePx is a non-required field for CrossOrderCancelReplaceRequest.
@@ -69,7 +69,7 @@ type Message struct {
 	//TransactTime is a required field for CrossOrderCancelReplaceRequest.
 	TransactTime time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//OrdType is a required field for CrossOrderCancelReplaceRequest.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for CrossOrderCancelReplaceRequest.
@@ -79,9 +79,9 @@ type Message struct {
 	//StopPx is a non-required field for CrossOrderCancelReplaceRequest.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for CrossOrderCancelReplaceRequest.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for CrossOrderCancelReplaceRequest.
@@ -103,9 +103,9 @@ type Message struct {
 	//MaxShow is a non-required field for CrossOrderCancelReplaceRequest.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for CrossOrderCancelReplaceRequest.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for CrossOrderCancelReplaceRequest.
@@ -121,26 +121,26 @@ type Message struct {
 	//Designation is a non-required field for CrossOrderCancelReplaceRequest.
 	Designation *string `fix:"494"`
 	//StrategyParametersGrp Component
-	StrategyParametersGrp strategyparametersgrp.Component
+	strategyparametersgrp.StrategyParametersGrp
 	//HostCrossID is a non-required field for CrossOrderCancelReplaceRequest.
 	HostCrossID *string `fix:"961"`
 	//TransBkdTime is a non-required field for CrossOrderCancelReplaceRequest.
 	TransBkdTime *time.Time `fix:"483"`
 	//RootParties Component
-	RootParties rootparties.Component
+	rootparties.RootParties
 	//MatchIncrement is a non-required field for CrossOrderCancelReplaceRequest.
 	MatchIncrement *float64 `fix:"1089"`
 	//MaxPriceLevels is a non-required field for CrossOrderCancelReplaceRequest.
 	MaxPriceLevels *int `fix:"1090"`
 	//DisplayInstruction Component
-	DisplayInstruction displayinstruction.Component
+	displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for CrossOrderCancelReplaceRequest.
 	PriceProtectionScope *string `fix:"1092"`
 	//TriggeringInstruction Component
-	TriggeringInstruction triggeringinstruction.Component
+	triggeringinstruction.TriggeringInstruction
 	//ExDestinationIDSource is a non-required field for CrossOrderCancelReplaceRequest.
 	ExDestinationIDSource *string `fix:"1133"`
-	Trailer               fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

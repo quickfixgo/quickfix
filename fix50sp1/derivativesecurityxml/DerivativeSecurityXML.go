@@ -1,7 +1,7 @@
 package derivativesecurityxml
 
-//Component is a fix50sp1 DerivativeSecurityXML Component
-type Component struct {
+//DerivativeSecurityXML is a fix50sp1 Component
+type DerivativeSecurityXML struct {
 	//DerivativeSecurityXMLLen is a non-required field for DerivativeSecurityXML.
 	DerivativeSecurityXMLLen *int `fix:"1282"`
 	//DerivativeSecurityXML is a non-required field for DerivativeSecurityXML.
@@ -10,8 +10,8 @@ type Component struct {
 	DerivativeSecurityXMLSchema *string `fix:"1284"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetDerivativeSecurityXMLLen(v int)       { m.DerivativeSecurityXMLLen = &v }
-func (m *Component) SetDerivativeSecurityXML(v string)       { m.DerivativeSecurityXML = &v }
-func (m *Component) SetDerivativeSecurityXMLSchema(v string) { m.DerivativeSecurityXMLSchema = &v }
+func (m *DerivativeSecurityXML) SetDerivativeSecurityXMLLen(v int) { m.DerivativeSecurityXMLLen = &v }
+func (m *DerivativeSecurityXML) SetDerivativeSecurityXML(v string) { m.DerivativeSecurityXML = &v }
+func (m *DerivativeSecurityXML) SetDerivativeSecurityXMLSchema(v string) {
+	m.DerivativeSecurityXMLSchema = &v
+}

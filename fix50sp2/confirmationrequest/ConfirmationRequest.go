@@ -12,13 +12,13 @@ import (
 //Message is a ConfirmationRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BH"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ConfirmReqID is a required field for ConfirmationRequest.
 	ConfirmReqID string `fix:"859"`
 	//ConfirmType is a required field for ConfirmationRequest.
 	ConfirmType int `fix:"773"`
 	//OrdAllocGrp Component
-	OrdAllocGrp ordallocgrp.Component
+	ordallocgrp.OrdAllocGrp
 	//AllocID is a non-required field for ConfirmationRequest.
 	AllocID *string `fix:"70"`
 	//SecondaryAllocID is a non-required field for ConfirmationRequest.
@@ -39,7 +39,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ConfirmationRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

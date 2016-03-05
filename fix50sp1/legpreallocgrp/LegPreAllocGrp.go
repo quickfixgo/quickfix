@@ -17,15 +17,13 @@ type NoLegAllocs struct {
 	//LegAllocSettlCurrency is a non-required field for NoLegAllocs.
 	LegAllocSettlCurrency *string `fix:"1367"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 }
 
-//Component is a fix50sp1 LegPreAllocGrp Component
-type Component struct {
+//LegPreAllocGrp is a fix50sp1 Component
+type LegPreAllocGrp struct {
 	//NoLegAllocs is a non-required field for LegPreAllocGrp.
 	NoLegAllocs []NoLegAllocs `fix:"670,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoLegAllocs(v []NoLegAllocs) { m.NoLegAllocs = v }
+func (m *LegPreAllocGrp) SetNoLegAllocs(v []NoLegAllocs) { m.NoLegAllocs = v }

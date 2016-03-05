@@ -8,12 +8,10 @@ type NoRootPartySubIDs struct {
 	RootPartySubIDType *int `fix:"1122"`
 }
 
-//Component is a fix50sp2 RootSubParties Component
-type Component struct {
+//RootSubParties is a fix50sp2 Component
+type RootSubParties struct {
 	//NoRootPartySubIDs is a non-required field for RootSubParties.
 	NoRootPartySubIDs []NoRootPartySubIDs `fix:"1120,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRootPartySubIDs(v []NoRootPartySubIDs) { m.NoRootPartySubIDs = v }
+func (m *RootSubParties) SetNoRootPartySubIDs(v []NoRootPartySubIDs) { m.NoRootPartySubIDs = v }

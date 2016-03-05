@@ -15,7 +15,7 @@ import (
 //Message is a DerivativeSecurityListUpdateReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BR"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReqID is a non-required field for DerivativeSecurityListUpdateReport.
 	SecurityReqID *string `fix:"320"`
 	//SecurityResponseID is a non-required field for DerivativeSecurityListUpdateReport.
@@ -25,20 +25,20 @@ type Message struct {
 	//SecurityUpdateAction is a non-required field for DerivativeSecurityListUpdateReport.
 	SecurityUpdateAction *string `fix:"980"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//DerivativeSecurityDefinition Component
-	DerivativeSecurityDefinition derivativesecuritydefinition.Component
+	derivativesecuritydefinition.DerivativeSecurityDefinition
 	//TotNoRelatedSym is a non-required field for DerivativeSecurityListUpdateReport.
 	TotNoRelatedSym *int `fix:"393"`
 	//LastFragment is a non-required field for DerivativeSecurityListUpdateReport.
 	LastFragment *bool `fix:"893"`
 	//RelSymDerivSecUpdGrp Component
-	RelSymDerivSecUpdGrp relsymderivsecupdgrp.Component
+	relsymderivsecupdgrp.RelSymDerivSecUpdGrp
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
+	applicationsequencecontrol.ApplicationSequenceControl
 	//TransactTime is a non-required field for DerivativeSecurityListUpdateReport.
 	TransactTime *time.Time `fix:"60"`
-	Trailer      fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

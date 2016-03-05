@@ -10,7 +10,7 @@ import (
 //Message is a TradingSessionStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"g"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradSesReqID is a required field for TradingSessionStatusRequest.
 	TradSesReqID string `fix:"335"`
 	//TradingSessionID is a non-required field for TradingSessionStatusRequest.
@@ -25,7 +25,7 @@ type Message struct {
 	SubscriptionRequestType string `fix:"263"`
 	//SecurityExchange is a non-required field for TradingSessionStatusRequest.
 	SecurityExchange *string `fix:"207"`
-	Trailer          fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -30,7 +30,7 @@ func (m *NoTradingSessions) SetTradingSessionID(v string) { m.TradingSessionID =
 //Message is a NewOrderSingle FIX Message
 type Message struct {
 	FIXMsgType string `fix:"D"`
-	Header     fix42.Header
+	fix42.Header
 	//ClOrdID is a required field for NewOrderSingle.
 	ClOrdID string `fix:"11"`
 	//ClientID is a non-required field for NewOrderSingle.
@@ -173,7 +173,7 @@ type Message struct {
 	ClearingFirm *string `fix:"439"`
 	//ClearingAccount is a non-required field for NewOrderSingle.
 	ClearingAccount *string `fix:"440"`
-	Trailer         fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

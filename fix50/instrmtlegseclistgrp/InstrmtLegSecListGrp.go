@@ -9,23 +9,21 @@ import (
 //NoLegs is a repeating group in InstrmtLegSecListGrp
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegSettlType is a non-required field for NoLegs.
 	LegSettlType *string `fix:"587"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//LegBenchmarkCurveData Component
-	LegBenchmarkCurveData legbenchmarkcurvedata.Component
+	legbenchmarkcurvedata.LegBenchmarkCurveData
 }
 
-//Component is a fix50 InstrmtLegSecListGrp Component
-type Component struct {
+//InstrmtLegSecListGrp is a fix50 Component
+type InstrmtLegSecListGrp struct {
 	//NoLegs is a non-required field for InstrmtLegSecListGrp.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoLegs(v []NoLegs) { m.NoLegs = v }
+func (m *InstrmtLegSecListGrp) SetNoLegs(v []NoLegs) { m.NoLegs = v }

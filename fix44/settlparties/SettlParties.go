@@ -20,12 +20,10 @@ type NoSettlPartySubIDs struct {
 	SettlPartySubIDType *int `fix:"786"`
 }
 
-//Component is a fix44 SettlParties Component
-type Component struct {
+//SettlParties is a fix44 Component
+type SettlParties struct {
 	//NoSettlPartyIDs is a non-required field for SettlParties.
 	NoSettlPartyIDs []NoSettlPartyIDs `fix:"781,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoSettlPartyIDs(v []NoSettlPartyIDs) { m.NoSettlPartyIDs = v }
+func (m *SettlParties) SetNoSettlPartyIDs(v []NoSettlPartyIDs) { m.NoSettlPartyIDs = v }

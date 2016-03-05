@@ -23,9 +23,9 @@ import (
 //NoRelatedSym is a repeating group in QuoteRequestReject
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for NoRelatedSym.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//PrevClosePx is a non-required field for NoRelatedSym.
@@ -45,7 +45,7 @@ type NoRelatedSym struct {
 	//QtyType is a non-required field for NoRelatedSym.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//SettlType is a non-required field for NoRelatedSym.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NoRelatedSym.
@@ -57,7 +57,7 @@ type NoRelatedSym struct {
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//Account is a non-required field for NoRelatedSym.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoRelatedSym.
@@ -77,7 +77,7 @@ type NoRelatedSym struct {
 	//TransactTime is a non-required field for NoRelatedSym.
 	TransactTime *time.Time `fix:"60"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//PriceType is a non-required field for NoRelatedSym.
 	PriceType *int `fix:"423"`
 	//Price is a non-required field for NoRelatedSym.
@@ -85,9 +85,9 @@ type NoRelatedSym struct {
 	//Price2 is a non-required field for NoRelatedSym.
 	Price2 *float64 `fix:"640"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 }
 
 func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
@@ -120,13 +120,13 @@ func (m *NoRelatedSym) SetPrice2(v float64)                        { m.Price2 = 
 //NoUnderlyings is a repeating group in NoRelatedSym
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
@@ -136,11 +136,11 @@ type NoLegs struct {
 	//LegSettlDate is a non-required field for NoLegs.
 	LegSettlDate *string `fix:"588"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegBenchmarkCurveData Component
-	LegBenchmarkCurveData legbenchmarkcurvedata.Component
+	legbenchmarkcurvedata.LegBenchmarkCurveData
 }
 
 func (m *NoLegs) SetLegQty(v float64)      { m.LegQty = &v }
@@ -159,7 +159,7 @@ func (m *NoQuoteQualifiers) SetQuoteQualifier(v string) { m.QuoteQualifier = &v 
 //Message is a QuoteRequestReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AG"`
-	Header     fix44.Header
+	fix44.Header
 	//QuoteReqID is a required field for QuoteRequestReject.
 	QuoteReqID string `fix:"131"`
 	//RFQReqID is a non-required field for QuoteRequestReject.
@@ -174,7 +174,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for QuoteRequestReject.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

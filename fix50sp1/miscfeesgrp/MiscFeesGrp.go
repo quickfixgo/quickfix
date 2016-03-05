@@ -12,12 +12,10 @@ type NoMiscFees struct {
 	MiscFeeBasis *int `fix:"891"`
 }
 
-//Component is a fix50sp1 MiscFeesGrp Component
-type Component struct {
+//MiscFeesGrp is a fix50sp1 Component
+type MiscFeesGrp struct {
 	//NoMiscFees is a non-required field for MiscFeesGrp.
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoMiscFees(v []NoMiscFees) { m.NoMiscFees = v }
+func (m *MiscFeesGrp) SetNoMiscFees(v []NoMiscFees) { m.NoMiscFees = v }

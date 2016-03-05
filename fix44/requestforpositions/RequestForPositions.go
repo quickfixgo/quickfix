@@ -15,13 +15,13 @@ import (
 //NoLegs is a repeating group in RequestForPositions
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in RequestForPositions
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoTradingSessions is a repeating group in RequestForPositions
@@ -38,7 +38,7 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //Message is a RequestForPositions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AN"`
-	Header     fix44.Header
+	fix44.Header
 	//PosReqID is a required field for RequestForPositions.
 	PosReqID string `fix:"710"`
 	//PosReqType is a required field for RequestForPositions.
@@ -48,7 +48,7 @@ type Message struct {
 	//SubscriptionRequestType is a non-required field for RequestForPositions.
 	SubscriptionRequestType *string `fix:"263"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a required field for RequestForPositions.
 	Account string `fix:"1"`
 	//AcctIDSource is a non-required field for RequestForPositions.
@@ -56,7 +56,7 @@ type Message struct {
 	//AccountType is a required field for RequestForPositions.
 	AccountType int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for RequestForPositions.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for RequestForPositions.
@@ -83,7 +83,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for RequestForPositions.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

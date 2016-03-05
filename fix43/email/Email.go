@@ -23,7 +23,7 @@ func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 //NoRelatedSym is a repeating group in Email
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 }
 
 //LinesOfText is a repeating group in Email
@@ -43,7 +43,7 @@ func (m *LinesOfText) SetEncodedText(v string) { m.EncodedText = &v }
 //Message is a Email FIX Message
 type Message struct {
 	FIXMsgType string `fix:"C"`
-	Header     fix43.Header
+	fix43.Header
 	//EmailThreadID is a required field for Email.
 	EmailThreadID string `fix:"164"`
 	//EmailType is a required field for Email.
@@ -70,7 +70,7 @@ type Message struct {
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for Email.
 	RawData *string `fix:"96"`
-	Trailer fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

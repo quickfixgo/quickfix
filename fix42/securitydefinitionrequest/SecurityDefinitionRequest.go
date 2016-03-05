@@ -85,7 +85,7 @@ func (m *NoRelatedSym) SetUnderlyingCurrency(v string) { m.UnderlyingCurrency = 
 //Message is a SecurityDefinitionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"c"`
-	Header     fix42.Header
+	fix42.Header
 	//SecurityReqID is a required field for SecurityDefinitionRequest.
 	SecurityReqID string `fix:"320"`
 	//SecurityRequestType is a required field for SecurityDefinitionRequest.
@@ -140,7 +140,7 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//NoRelatedSym is a non-required field for SecurityDefinitionRequest.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
-	Trailer      fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

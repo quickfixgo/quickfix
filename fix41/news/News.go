@@ -63,7 +63,7 @@ func (m *LinesOfText) SetText(v string) { m.Text = v }
 //Message is a News FIX Message
 type Message struct {
 	FIXMsgType string `fix:"B"`
-	Header     fix41.Header
+	fix41.Header
 	//OrigTime is a non-required field for News.
 	OrigTime *time.Time `fix:"42"`
 	//Urgency is a non-required field for News.
@@ -80,7 +80,7 @@ type Message struct {
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for News.
 	RawData *string `fix:"96"`
-	Trailer fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -18,12 +18,10 @@ type NoContraBrokers struct {
 	ContraLegRefID *string `fix:"655"`
 }
 
-//Component is a fix50sp2 ContraGrp Component
-type Component struct {
+//ContraGrp is a fix50sp2 Component
+type ContraGrp struct {
 	//NoContraBrokers is a non-required field for ContraGrp.
 	NoContraBrokers []NoContraBrokers `fix:"382,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoContraBrokers(v []NoContraBrokers) { m.NoContraBrokers = v }
+func (m *ContraGrp) SetNoContraBrokers(v []NoContraBrokers) { m.NoContraBrokers = v }

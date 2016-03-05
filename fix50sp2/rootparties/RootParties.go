@@ -13,15 +13,13 @@ type NoRootPartyIDs struct {
 	//RootPartyRole is a non-required field for NoRootPartyIDs.
 	RootPartyRole *int `fix:"1119"`
 	//RootSubParties Component
-	RootSubParties rootsubparties.Component
+	rootsubparties.RootSubParties
 }
 
-//Component is a fix50sp2 RootParties Component
-type Component struct {
+//RootParties is a fix50sp2 Component
+type RootParties struct {
 	//NoRootPartyIDs is a non-required field for RootParties.
 	NoRootPartyIDs []NoRootPartyIDs `fix:"1116,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRootPartyIDs(v []NoRootPartyIDs) { m.NoRootPartyIDs = v }
+func (m *RootParties) SetNoRootPartyIDs(v []NoRootPartyIDs) { m.NoRootPartyIDs = v }

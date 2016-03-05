@@ -13,7 +13,7 @@ import (
 //Message is a QuoteCancel FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Z"`
-	Header     fixt11.Header
+	fixt11.Header
 	//QuoteReqID is a non-required field for QuoteCancel.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a non-required field for QuoteCancel.
@@ -23,7 +23,7 @@ type Message struct {
 	//QuoteResponseLevel is a non-required field for QuoteCancel.
 	QuoteResponseLevel *int `fix:"301"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for QuoteCancel.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for QuoteCancel.
@@ -35,14 +35,14 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for QuoteCancel.
 	TradingSessionSubID *string `fix:"625"`
 	//QuotCxlEntriesGrp Component
-	QuotCxlEntriesGrp quotcxlentriesgrp.Component
+	quotcxlentriesgrp.QuotCxlEntriesGrp
 	//QuoteMsgID is a non-required field for QuoteCancel.
 	QuoteMsgID *string `fix:"1166"`
 	//QuoteType is a non-required field for QuoteCancel.
 	QuoteType *int `fix:"537"`
 	//TargetParties Component
-	TargetParties targetparties.Component
-	Trailer       fixt11.Trailer
+	targetparties.TargetParties
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

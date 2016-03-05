@@ -13,11 +13,11 @@ import (
 //Message is a MarketDataIncrementalRefresh FIX Message
 type Message struct {
 	FIXMsgType string `fix:"X"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MDReqID is a non-required field for MarketDataIncrementalRefresh.
 	MDReqID *string `fix:"262"`
 	//MDIncGrp Component
-	MDIncGrp mdincgrp.Component
+	mdincgrp.MDIncGrp
 	//ApplQueueDepth is a non-required field for MarketDataIncrementalRefresh.
 	ApplQueueDepth *int `fix:"813"`
 	//ApplQueueResolution is a non-required field for MarketDataIncrementalRefresh.
@@ -29,10 +29,10 @@ type Message struct {
 	//TradeDate is a non-required field for MarketDataIncrementalRefresh.
 	TradeDate *string `fix:"75"`
 	//RoutingGrp Component
-	RoutingGrp routinggrp.Component
+	routinggrp.RoutingGrp
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

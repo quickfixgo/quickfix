@@ -7,7 +7,7 @@ import (
 //NoRelatedSym is a repeating group in StrmAsgnReqInstrmtGrp
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//SettlType is a non-required field for NoRelatedSym.
 	SettlType *string `fix:"63"`
 	//MDEntrySize is a non-required field for NoRelatedSym.
@@ -16,12 +16,10 @@ type NoRelatedSym struct {
 	MDStreamID *string `fix:"1500"`
 }
 
-//Component is a fix50sp2 StrmAsgnReqInstrmtGrp Component
-type Component struct {
+//StrmAsgnReqInstrmtGrp is a fix50sp2 Component
+type StrmAsgnReqInstrmtGrp struct {
 	//NoRelatedSym is a non-required field for StrmAsgnReqInstrmtGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
+func (m *StrmAsgnReqInstrmtGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

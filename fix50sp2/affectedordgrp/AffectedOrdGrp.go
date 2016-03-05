@@ -10,12 +10,10 @@ type NoAffectedOrders struct {
 	AffectedSecondaryOrderID *string `fix:"536"`
 }
 
-//Component is a fix50sp2 AffectedOrdGrp Component
-type Component struct {
+//AffectedOrdGrp is a fix50sp2 Component
+type AffectedOrdGrp struct {
 	//NoAffectedOrders is a non-required field for AffectedOrdGrp.
 	NoAffectedOrders []NoAffectedOrders `fix:"534,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoAffectedOrders(v []NoAffectedOrders) { m.NoAffectedOrders = v }
+func (m *AffectedOrdGrp) SetNoAffectedOrders(v []NoAffectedOrders) { m.NoAffectedOrders = v }

@@ -11,14 +11,14 @@ import (
 //Message is a NetworkCounterpartySystemStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BC"`
-	Header     fixt11.Header
+	fixt11.Header
 	//NetworkRequestType is a required field for NetworkCounterpartySystemStatusRequest.
 	NetworkRequestType int `fix:"935"`
 	//NetworkRequestID is a required field for NetworkCounterpartySystemStatusRequest.
 	NetworkRequestID string `fix:"933"`
 	//CompIDReqGrp Component
-	CompIDReqGrp compidreqgrp.Component
-	Trailer      fixt11.Trailer
+	compidreqgrp.CompIDReqGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

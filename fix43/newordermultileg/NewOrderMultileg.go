@@ -42,13 +42,13 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //NoLegs is a repeating group in NewOrderMultileg
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegPrice is a non-required field for NoLegs.
@@ -69,7 +69,7 @@ func (m *NoLegs) SetLegFutSettDate(v string)     { m.LegFutSettDate = &v }
 //Message is a NewOrderMultileg FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AB"`
-	Header     fix43.Header
+	fix43.Header
 	//ClOrdID is a required field for NewOrderMultileg.
 	ClOrdID string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for NewOrderMultileg.
@@ -77,7 +77,7 @@ type Message struct {
 	//ClOrdLinkID is a non-required field for NewOrderMultileg.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for NewOrderMultileg.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for NewOrderMultileg.
@@ -115,7 +115,7 @@ type Message struct {
 	//Side is a required field for NewOrderMultileg.
 	Side string `fix:"54"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//PrevClosePx is a non-required field for NewOrderMultileg.
 	PrevClosePx *float64 `fix:"140"`
 	//NoLegs is a required field for NewOrderMultileg.
@@ -127,7 +127,7 @@ type Message struct {
 	//QuantityType is a non-required field for NewOrderMultileg.
 	QuantityType *int `fix:"465"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for NewOrderMultileg.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderMultileg.
@@ -157,7 +157,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for NewOrderMultileg.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NewOrderMultileg.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NewOrderMultileg.
@@ -198,7 +198,7 @@ type Message struct {
 	MultiLegRptTypeReq *int `fix:"563"`
 	//NetMoney is a non-required field for NewOrderMultileg.
 	NetMoney *float64 `fix:"118"`
-	Trailer  fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

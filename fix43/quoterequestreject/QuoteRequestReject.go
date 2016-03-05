@@ -15,7 +15,7 @@ import (
 //NoRelatedSym is a repeating group in QuoteRequestReject
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//PrevClosePx is a non-required field for NoRelatedSym.
 	PrevClosePx *float64 `fix:"140"`
 	//QuoteRequestType is a non-required field for NoRelatedSym.
@@ -29,7 +29,7 @@ type NoRelatedSym struct {
 	//TradeOriginationDate is a non-required field for NoRelatedSym.
 	TradeOriginationDate *string `fix:"229"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//Side is a non-required field for NoRelatedSym.
 	Side *string `fix:"54"`
 	//QuantityType is a non-required field for NoRelatedSym.
@@ -55,7 +55,7 @@ type NoRelatedSym struct {
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//PriceType is a non-required field for NoRelatedSym.
 	PriceType *int `fix:"423"`
 	//Price is a non-required field for NoRelatedSym.
@@ -63,7 +63,7 @@ type NoRelatedSym struct {
 	//Price2 is a non-required field for NoRelatedSym.
 	Price2 *float64 `fix:"640"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 }
 
 func (m *NoRelatedSym) SetPrevClosePx(v float64)         { m.PrevClosePx = &v }
@@ -91,7 +91,7 @@ func (m *NoRelatedSym) SetPrice2(v float64)              { m.Price2 = &v }
 //Message is a QuoteRequestReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AG"`
-	Header     fix43.Header
+	fix43.Header
 	//QuoteReqID is a required field for QuoteRequestReject.
 	QuoteReqID string `fix:"131"`
 	//RFQReqID is a non-required field for QuoteRequestReject.
@@ -106,7 +106,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for QuoteRequestReject.
 	EncodedText *string `fix:"355"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -16,7 +16,7 @@ import (
 //Message is a CrossOrderCancelRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"u"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrderID is a non-required field for CrossOrderCancelRequest.
 	OrderID *string `fix:"37"`
 	//CrossID is a required field for CrossOrderCancelRequest.
@@ -28,20 +28,20 @@ type Message struct {
 	//CrossPrioritization is a required field for CrossOrderCancelRequest.
 	CrossPrioritization int `fix:"550"`
 	//SideCrossOrdCxlGrp Component
-	SideCrossOrdCxlGrp sidecrossordcxlgrp.Component
+	sidecrossordcxlgrp.SideCrossOrdCxlGrp
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//TransactTime is a required field for CrossOrderCancelRequest.
 	TransactTime time.Time `fix:"60"`
 	//HostCrossID is a non-required field for CrossOrderCancelRequest.
 	HostCrossID *string `fix:"961"`
 	//RootParties Component
-	RootParties rootparties.Component
-	Trailer     fixt11.Trailer
+	rootparties.RootParties
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

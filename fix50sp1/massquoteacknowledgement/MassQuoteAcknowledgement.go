@@ -12,7 +12,7 @@ import (
 //Message is a MassQuoteAcknowledgement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"b"`
-	Header     fixt11.Header
+	fixt11.Header
 	//QuoteReqID is a non-required field for MassQuoteAcknowledgement.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a non-required field for MassQuoteAcknowledgement.
@@ -26,7 +26,7 @@ type Message struct {
 	//QuoteType is a non-required field for MassQuoteAcknowledgement.
 	QuoteType *int `fix:"537"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for MassQuoteAcknowledgement.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for MassQuoteAcknowledgement.
@@ -40,10 +40,10 @@ type Message struct {
 	//EncodedText is a non-required field for MassQuoteAcknowledgement.
 	EncodedText *string `fix:"355"`
 	//QuotSetAckGrp Component
-	QuotSetAckGrp quotsetackgrp.Component
+	quotsetackgrp.QuotSetAckGrp
 	//QuoteCancelType is a non-required field for MassQuoteAcknowledgement.
 	QuoteCancelType *int `fix:"298"`
-	Trailer         fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

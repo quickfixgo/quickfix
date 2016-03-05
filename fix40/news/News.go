@@ -11,7 +11,7 @@ import (
 //Message is a News FIX Message
 type Message struct {
 	FIXMsgType string `fix:"B"`
-	Header     fix40.Header
+	fix40.Header
 	//OrigTime is a non-required field for News.
 	OrigTime *time.Time `fix:"42"`
 	//Urgency is a non-required field for News.
@@ -26,7 +26,7 @@ type Message struct {
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for News.
 	RawData *string `fix:"96"`
-	Trailer fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -184,12 +184,12 @@ func (m *NoMDEntries) SetEncodedText(v string)         { m.EncodedText = &v }
 //Message is a MarketDataIncrementalRefresh FIX Message
 type Message struct {
 	FIXMsgType string `fix:"X"`
-	Header     fix42.Header
+	fix42.Header
 	//MDReqID is a non-required field for MarketDataIncrementalRefresh.
 	MDReqID *string `fix:"262"`
 	//NoMDEntries is a required field for MarketDataIncrementalRefresh.
 	NoMDEntries []NoMDEntries `fix:"268"`
-	Trailer     fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

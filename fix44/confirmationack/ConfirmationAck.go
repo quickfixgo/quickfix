@@ -11,7 +11,7 @@ import (
 //Message is a ConfirmationAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AU"`
-	Header     fix44.Header
+	fix44.Header
 	//ConfirmID is a required field for ConfirmationAck.
 	ConfirmID string `fix:"664"`
 	//TradeDate is a required field for ConfirmationAck.
@@ -30,7 +30,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ConfirmationAck.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

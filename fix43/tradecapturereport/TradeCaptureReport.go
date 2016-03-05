@@ -23,7 +23,7 @@ type NoSides struct {
 	//ClOrdID is a non-required field for NoSides.
 	ClOrdID *string `fix:"11"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for NoSides.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for NoSides.
@@ -59,7 +59,7 @@ type NoSides struct {
 	//TradingSessionSubID is a non-required field for NoSides.
 	TradingSessionSubID *string `fix:"625"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//GrossTradeAmt is a non-required field for NoSides.
 	GrossTradeAmt *float64 `fix:"381"`
 	//NumDaysInterest is a non-required field for NoSides.
@@ -180,7 +180,7 @@ func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
 //Message is a TradeCaptureReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AE"`
-	Header     fix43.Header
+	fix43.Header
 	//TradeReportID is a required field for TradeCaptureReport.
 	TradeReportID string `fix:"571"`
 	//TradeReportTransType is a non-required field for TradeCaptureReport.
@@ -200,9 +200,9 @@ type Message struct {
 	//PreviouslyReported is a required field for TradeCaptureReport.
 	PreviouslyReported bool `fix:"570"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//LastQty is a required field for TradeCaptureReport.
 	LastQty float64 `fix:"32"`
 	//LastPx is a required field for TradeCaptureReport.
@@ -227,7 +227,7 @@ type Message struct {
 	MatchType *string `fix:"574"`
 	//NoSides is a required field for TradeCaptureReport.
 	NoSides []NoSides `fix:"552"`
-	Trailer fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

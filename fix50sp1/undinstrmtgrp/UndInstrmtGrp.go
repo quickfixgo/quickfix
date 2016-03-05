@@ -7,15 +7,13 @@ import (
 //NoUnderlyings is a repeating group in UndInstrmtGrp
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
-//Component is a fix50sp1 UndInstrmtGrp Component
-type Component struct {
+//UndInstrmtGrp is a fix50sp1 Component
+type UndInstrmtGrp struct {
 	//NoUnderlyings is a non-required field for UndInstrmtGrp.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
+func (m *UndInstrmtGrp) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }

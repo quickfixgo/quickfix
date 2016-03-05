@@ -12,14 +12,14 @@ import (
 //Message is a TradingSessionList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BJ"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradSesReqID is a non-required field for TradingSessionList.
 	TradSesReqID *string `fix:"335"`
 	//TrdSessLstGrp Component
-	TrdSessLstGrp trdsesslstgrp.Component
+	trdsesslstgrp.TrdSessLstGrp
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

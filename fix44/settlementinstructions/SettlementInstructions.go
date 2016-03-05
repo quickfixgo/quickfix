@@ -19,7 +19,7 @@ type NoSettlInst struct {
 	//SettlInstRefID is a non-required field for NoSettlInst.
 	SettlInstRefID *string `fix:"214"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Side is a non-required field for NoSettlInst.
 	Side *string `fix:"54"`
 	//Product is a non-required field for NoSettlInst.
@@ -35,7 +35,7 @@ type NoSettlInst struct {
 	//LastUpdateTime is a non-required field for NoSettlInst.
 	LastUpdateTime *time.Time `fix:"779"`
 	//SettlInstructionsData Component
-	SettlInstructionsData settlinstructionsdata.Component
+	settlinstructionsdata.SettlInstructionsData
 	//PaymentMethod is a non-required field for NoSettlInst.
 	PaymentMethod *int `fix:"492"`
 	//PaymentRef is a non-required field for NoSettlInst.
@@ -79,7 +79,7 @@ func (m *NoSettlInst) SetPaymentRemitterID(v string)  { m.PaymentRemitterID = &v
 //Message is a SettlementInstructions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"T"`
-	Header     fix44.Header
+	fix44.Header
 	//SettlInstMsgID is a required field for SettlementInstructions.
 	SettlInstMsgID string `fix:"777"`
 	//SettlInstReqID is a non-required field for SettlementInstructions.
@@ -100,7 +100,7 @@ type Message struct {
 	TransactTime time.Time `fix:"60"`
 	//NoSettlInst is a non-required field for SettlementInstructions.
 	NoSettlInst []NoSettlInst `fix:"778,omitempty"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

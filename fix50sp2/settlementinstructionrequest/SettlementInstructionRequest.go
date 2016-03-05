@@ -12,13 +12,13 @@ import (
 //Message is a SettlementInstructionRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AV"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SettlInstReqID is a required field for SettlementInstructionRequest.
 	SettlInstReqID string `fix:"791"`
 	//TransactTime is a required field for SettlementInstructionRequest.
 	TransactTime time.Time `fix:"60"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//AllocAccount is a non-required field for SettlementInstructionRequest.
 	AllocAccount *string `fix:"79"`
 	//AllocAcctIDSource is a non-required field for SettlementInstructionRequest.
@@ -45,7 +45,7 @@ type Message struct {
 	StandInstDbID *string `fix:"171"`
 	//SettlCurrency is a non-required field for SettlementInstructionRequest.
 	SettlCurrency *string `fix:"120"`
-	Trailer       fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

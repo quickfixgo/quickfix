@@ -10,7 +10,7 @@ import (
 //Message is a DontKnowTrade FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Q"`
-	Header     fix40.Header
+	fix40.Header
 	//OrderID is a non-required field for DontKnowTrade.
 	OrderID *string `fix:"37"`
 	//ExecID is a non-required field for DontKnowTrade.
@@ -28,8 +28,8 @@ type Message struct {
 	//LastPx is a required field for DontKnowTrade.
 	LastPx float64 `fix:"31"`
 	//Text is a non-required field for DontKnowTrade.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -17,19 +17,19 @@ import (
 //NoLegs is a repeating group in TradeCaptureReportAck
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegPrice is a non-required field for NoLegs.
@@ -63,7 +63,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
@@ -77,7 +77,7 @@ func (m *NoAllocs) SetAllocQty(v float64)          { m.AllocQty = &v }
 //Message is a TradeCaptureReportAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AR"`
-	Header     fix44.Header
+	fix44.Header
 	//TradeReportID is a required field for TradeCaptureReportAck.
 	TradeReportID string `fix:"571"`
 	//TradeReportTransType is a non-required field for TradeCaptureReportAck.
@@ -115,11 +115,11 @@ type Message struct {
 	//SecondaryExecID is a non-required field for TradeCaptureReportAck.
 	SecondaryExecID *string `fix:"527"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//TransactTime is a non-required field for TradeCaptureReportAck.
 	TransactTime *time.Time `fix:"60"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//ResponseTransportType is a non-required field for TradeCaptureReportAck.
 	ResponseTransportType *int `fix:"725"`
 	//ResponseDestination is a non-required field for TradeCaptureReportAck.
@@ -152,7 +152,7 @@ type Message struct {
 	PreallocMethod *string `fix:"591"`
 	//NoAllocs is a non-required field for TradeCaptureReportAck.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
-	Trailer  fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

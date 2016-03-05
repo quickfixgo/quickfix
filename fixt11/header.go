@@ -60,7 +60,7 @@ type Header struct {
 	//LastMsgSeqNumProcessed is a non-required field for Header.
 	LastMsgSeqNumProcessed *int `fix:"369"`
 	//HopGrp Component
-	HopGrp hopgrp.Component
+	hopgrp.HopGrp
 	//ApplVerID is a non-required field for Header.
 	ApplVerID *string `fix:"1128"`
 	//CstmApplVerID is a non-required field for Header.

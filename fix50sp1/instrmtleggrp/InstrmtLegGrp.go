@@ -7,15 +7,13 @@ import (
 //NoLegs is a repeating group in InstrmtLegGrp
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
-//Component is a fix50sp1 InstrmtLegGrp Component
-type Component struct {
+//InstrmtLegGrp is a fix50sp1 Component
+type InstrmtLegGrp struct {
 	//NoLegs is a non-required field for InstrmtLegGrp.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoLegs(v []NoLegs) { m.NoLegs = v }
+func (m *InstrmtLegGrp) SetNoLegs(v []NoLegs) { m.NoLegs = v }

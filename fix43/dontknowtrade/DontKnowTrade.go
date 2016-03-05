@@ -12,7 +12,7 @@ import (
 //Message is a DontKnowTrade FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Q"`
-	Header     fix43.Header
+	fix43.Header
 	//OrderID is a required field for DontKnowTrade.
 	OrderID string `fix:"37"`
 	//ExecID is a required field for DontKnowTrade.
@@ -20,11 +20,11 @@ type Message struct {
 	//DKReason is a required field for DontKnowTrade.
 	DKReason string `fix:"127"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Side is a required field for DontKnowTrade.
 	Side string `fix:"54"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//LastQty is a non-required field for DontKnowTrade.
 	LastQty *float64 `fix:"32"`
 	//LastPx is a non-required field for DontKnowTrade.
@@ -35,7 +35,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for DontKnowTrade.
 	EncodedText *string `fix:"355"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

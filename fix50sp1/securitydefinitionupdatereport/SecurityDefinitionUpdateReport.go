@@ -19,7 +19,7 @@ import (
 //Message is a SecurityDefinitionUpdateReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BP"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReportID is a non-required field for SecurityDefinitionUpdateReport.
 	SecurityReportID *int `fix:"964"`
 	//SecurityReqID is a non-required field for SecurityDefinitionUpdateReport.
@@ -35,9 +35,9 @@ type Message struct {
 	//CorporateAction is a non-required field for SecurityDefinitionUpdateReport.
 	CorporateAction *string `fix:"292"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Currency is a non-required field for SecurityDefinitionUpdateReport.
 	Currency *string `fix:"15"`
 	//Text is a non-required field for SecurityDefinitionUpdateReport.
@@ -47,20 +47,20 @@ type Message struct {
 	//EncodedText is a non-required field for SecurityDefinitionUpdateReport.
 	EncodedText *string `fix:"355"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//MarketSegmentGrp Component
-	MarketSegmentGrp marketsegmentgrp.Component
+	marketsegmentgrp.MarketSegmentGrp
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -33,7 +33,7 @@ func (m *NoCompIDs) SetStatusText(v string) { m.StatusText = &v }
 //Message is a NetworkCounterpartySystemStatusResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BD"`
-	Header     fix44.Header
+	fix44.Header
 	//NetworkStatusResponseType is a required field for NetworkCounterpartySystemStatusResponse.
 	NetworkStatusResponseType int `fix:"937"`
 	//NetworkRequestID is a non-required field for NetworkCounterpartySystemStatusResponse.
@@ -44,7 +44,7 @@ type Message struct {
 	LastNetworkResponseID *string `fix:"934"`
 	//NoCompIDs is a required field for NetworkCounterpartySystemStatusResponse.
 	NoCompIDs []NoCompIDs `fix:"936"`
-	Trailer   fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

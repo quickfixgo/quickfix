@@ -94,7 +94,7 @@ func (m *NoAllocs) SetDlvyInst(v string)       { m.DlvyInst = &v }
 //Message is a Allocation FIX Message
 type Message struct {
 	FIXMsgType string `fix:"J"`
-	Header     fix40.Header
+	fix40.Header
 	//AllocID is a required field for Allocation.
 	AllocID int `fix:"70"`
 	//AllocTransType is a required field for Allocation.
@@ -149,7 +149,7 @@ type Message struct {
 	Text *string `fix:"58"`
 	//NoAllocs is a required field for Allocation.
 	NoAllocs []NoAllocs `fix:"78"`
-	Trailer  fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -102,19 +102,17 @@ type NoMDEntries struct {
 	//MDEntryID is a non-required field for NoMDEntries.
 	MDEntryID *string `fix:"278"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//SecondaryOrderID is a non-required field for NoMDEntries.
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.
 	OrdType *string `fix:"40"`
 }
 
-//Component is a fix50 MDFullGrp Component
-type Component struct {
+//MDFullGrp is a fix50 Component
+type MDFullGrp struct {
 	//NoMDEntries is a required field for MDFullGrp.
 	NoMDEntries []NoMDEntries `fix:"268"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }
+func (m *MDFullGrp) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }

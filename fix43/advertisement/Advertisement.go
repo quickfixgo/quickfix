@@ -12,7 +12,7 @@ import (
 //Message is a Advertisement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"7"`
-	Header     fix43.Header
+	fix43.Header
 	//AdvId is a required field for Advertisement.
 	AdvId string `fix:"2"`
 	//AdvTransType is a required field for Advertisement.
@@ -20,7 +20,7 @@ type Message struct {
 	//AdvRefID is a non-required field for Advertisement.
 	AdvRefID *string `fix:"3"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//AdvSide is a required field for Advertisement.
 	AdvSide string `fix:"4"`
 	//Quantity is a required field for Advertisement.
@@ -47,7 +47,7 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for Advertisement.
 	TradingSessionSubID *string `fix:"625"`
-	Trailer             fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

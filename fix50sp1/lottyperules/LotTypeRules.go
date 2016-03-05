@@ -8,12 +8,10 @@ type NoLotTypeRules struct {
 	MinLotSize *float64 `fix:"1231"`
 }
 
-//Component is a fix50sp1 LotTypeRules Component
-type Component struct {
+//LotTypeRules is a fix50sp1 Component
+type LotTypeRules struct {
 	//NoLotTypeRules is a non-required field for LotTypeRules.
 	NoLotTypeRules []NoLotTypeRules `fix:"1234,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoLotTypeRules(v []NoLotTypeRules) { m.NoLotTypeRules = v }
+func (m *LotTypeRules) SetNoLotTypeRules(v []NoLotTypeRules) { m.NoLotTypeRules = v }

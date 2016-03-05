@@ -14,13 +14,13 @@ import (
 //NoUnderlyings is a repeating group in MarketDataSnapshotFullRefresh
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in MarketDataSnapshotFullRefresh
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoMDEntries is a repeating group in MarketDataSnapshotFullRefresh
@@ -130,11 +130,11 @@ func (m *NoMDEntries) SetEncodedText(v string)         { m.EncodedText = &v }
 //Message is a MarketDataSnapshotFullRefresh FIX Message
 type Message struct {
 	FIXMsgType string `fix:"W"`
-	Header     fix44.Header
+	fix44.Header
 	//MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
 	MDReqID *string `fix:"262"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for MarketDataSnapshotFullRefresh.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for MarketDataSnapshotFullRefresh.
@@ -151,7 +151,7 @@ type Message struct {
 	ApplQueueDepth *int `fix:"813"`
 	//ApplQueueResolution is a non-required field for MarketDataSnapshotFullRefresh.
 	ApplQueueResolution *int `fix:"814"`
-	Trailer             fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -20,17 +20,17 @@ import (
 //NoUnderlyings is a repeating group in IOI
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in IOI
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegIOIQty is a non-required field for NoLegs.
 	LegIOIQty *string `fix:"682"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 }
 
 func (m *NoLegs) SetLegIOIQty(v string) { m.LegIOIQty = &v }
@@ -57,7 +57,7 @@ func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 //Message is a IOI FIX Message
 type Message struct {
 	FIXMsgType string `fix:"6"`
-	Header     fix44.Header
+	fix44.Header
 	//IOIID is a required field for IOI.
 	IOIID string `fix:"23"`
 	//IOITransType is a required field for IOI.
@@ -65,9 +65,9 @@ type Message struct {
 	//IOIRefID is a non-required field for IOI.
 	IOIRefID *string `fix:"26"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for IOI.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Side is a required field for IOI.
@@ -75,13 +75,13 @@ type Message struct {
 	//QtyType is a non-required field for IOI.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//IOIQty is a required field for IOI.
 	IOIQty string `fix:"27"`
 	//Currency is a non-required field for IOI.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//NoLegs is a non-required field for IOI.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//PriceType is a non-required field for IOI.
@@ -109,10 +109,10 @@ type Message struct {
 	//NoRoutingIDs is a non-required field for IOI.
 	NoRoutingIDs []NoRoutingIDs `fix:"215,omitempty"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
-	Trailer   fix44.Trailer
+	yielddata.YieldData
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

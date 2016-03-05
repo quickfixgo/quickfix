@@ -22,7 +22,7 @@ type NoRelatedPartyAltIDs struct {
 	//RelatedPartyAltIDSource is a non-required field for NoRelatedPartyAltIDs.
 	RelatedPartyAltIDSource *string `fix:"1571"`
 	//RelatedAltPtysSubGrp Component
-	RelatedAltPtysSubGrp relatedaltptyssubgrp.Component
+	relatedaltptyssubgrp.RelatedAltPtysSubGrp
 }
 
 //NoRelatedContextPartyIDs is a repeating group in RelatedPartyDetail
@@ -34,7 +34,7 @@ type NoRelatedContextPartyIDs struct {
 	//RelatedContextPartyRole is a non-required field for NoRelatedContextPartyIDs.
 	RelatedContextPartyRole *int `fix:"1578"`
 	//RelatedContextPtysSubGrp Component
-	RelatedContextPtysSubGrp relatedcontextptyssubgrp.Component
+	relatedcontextptyssubgrp.RelatedContextPtysSubGrp
 }
 
 //NoRelationshipRiskLimits is a repeating group in RelatedPartyDetail
@@ -48,13 +48,13 @@ type NoRelationshipRiskLimits struct {
 	//RelationshipRiskLimitPlatform is a non-required field for NoRelationshipRiskLimits.
 	RelationshipRiskLimitPlatform *string `fix:"1586"`
 	//RelationshipRiskInstrumentScope Component
-	RelationshipRiskInstrumentScope relationshipriskinstrumentscope.Component
+	relationshipriskinstrumentscope.RelationshipRiskInstrumentScope
 	//RelationshipRiskWarningLevels Component
-	RelationshipRiskWarningLevels relationshipriskwarninglevels.Component
+	relationshipriskwarninglevels.RelationshipRiskWarningLevels
 }
 
-//Component is a fix50sp2 RelatedPartyDetail Component
-type Component struct {
+//RelatedPartyDetail is a fix50sp2 Component
+type RelatedPartyDetail struct {
 	//RelatedPartyID is a non-required field for RelatedPartyDetail.
 	RelatedPartyID *string `fix:"1563"`
 	//RelatedPartyIDSource is a non-required field for RelatedPartyDetail.
@@ -71,16 +71,18 @@ type Component struct {
 	NoRelationshipRiskLimits []NoRelationshipRiskLimits `fix:"1582,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetRelatedPartyID(v string)                       { m.RelatedPartyID = &v }
-func (m *Component) SetRelatedPartyIDSource(v string)                 { m.RelatedPartyIDSource = &v }
-func (m *Component) SetRelatedPartyRole(v int)                        { m.RelatedPartyRole = &v }
-func (m *Component) SetNoRelatedPartySubIDs(v []NoRelatedPartySubIDs) { m.NoRelatedPartySubIDs = v }
-func (m *Component) SetNoRelatedPartyAltIDs(v []NoRelatedPartyAltIDs) { m.NoRelatedPartyAltIDs = v }
-func (m *Component) SetNoRelatedContextPartyIDs(v []NoRelatedContextPartyIDs) {
+func (m *RelatedPartyDetail) SetRelatedPartyID(v string)       { m.RelatedPartyID = &v }
+func (m *RelatedPartyDetail) SetRelatedPartyIDSource(v string) { m.RelatedPartyIDSource = &v }
+func (m *RelatedPartyDetail) SetRelatedPartyRole(v int)        { m.RelatedPartyRole = &v }
+func (m *RelatedPartyDetail) SetNoRelatedPartySubIDs(v []NoRelatedPartySubIDs) {
+	m.NoRelatedPartySubIDs = v
+}
+func (m *RelatedPartyDetail) SetNoRelatedPartyAltIDs(v []NoRelatedPartyAltIDs) {
+	m.NoRelatedPartyAltIDs = v
+}
+func (m *RelatedPartyDetail) SetNoRelatedContextPartyIDs(v []NoRelatedContextPartyIDs) {
 	m.NoRelatedContextPartyIDs = v
 }
-func (m *Component) SetNoRelationshipRiskLimits(v []NoRelationshipRiskLimits) {
+func (m *RelatedPartyDetail) SetNoRelationshipRiskLimits(v []NoRelationshipRiskLimits) {
 	m.NoRelationshipRiskLimits = v
 }

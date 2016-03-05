@@ -7,15 +7,13 @@ import (
 //NoRelatedSym is a repeating group in InstrmtGrp
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 }
 
-//Component is a fix50sp2 InstrmtGrp Component
-type Component struct {
+//InstrmtGrp is a fix50sp2 Component
+type InstrmtGrp struct {
 	//NoRelatedSym is a non-required field for InstrmtGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
+func (m *InstrmtGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

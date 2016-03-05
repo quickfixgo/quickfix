@@ -41,11 +41,11 @@ func (m *NoAllocs) SetEncodedAllocText(v string)    { m.EncodedAllocText = &v }
 //Message is a AllocationInstructionAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"P"`
-	Header     fix44.Header
+	fix44.Header
 	//AllocID is a required field for AllocationInstructionAck.
 	AllocID string `fix:"70"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//SecondaryAllocID is a non-required field for AllocationInstructionAck.
 	SecondaryAllocID *string `fix:"793"`
 	//TradeDate is a non-required field for AllocationInstructionAck.
@@ -74,7 +74,7 @@ type Message struct {
 	EncodedText *string `fix:"355"`
 	//NoAllocs is a non-required field for AllocationInstructionAck.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
-	Trailer  fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

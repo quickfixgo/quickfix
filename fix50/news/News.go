@@ -16,7 +16,7 @@ import (
 //Message is a News FIX Message
 type Message struct {
 	FIXMsgType string `fix:"B"`
-	Header     fixt11.Header
+	fixt11.Header
 	//OrigTime is a non-required field for News.
 	OrigTime *time.Time `fix:"42"`
 	//Urgency is a non-required field for News.
@@ -28,22 +28,22 @@ type Message struct {
 	//EncodedHeadline is a non-required field for News.
 	EncodedHeadline *string `fix:"359"`
 	//RoutingGrp Component
-	RoutingGrp routinggrp.Component
+	routinggrp.RoutingGrp
 	//InstrmtGrp Component
-	InstrmtGrp instrmtgrp.Component
+	instrmtgrp.InstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//LinesOfTextGrp Component
-	LinesOfTextGrp linesoftextgrp.Component
+	linesoftextgrp.LinesOfTextGrp
 	//URLLink is a non-required field for News.
 	URLLink *string `fix:"149"`
 	//RawDataLength is a non-required field for News.
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for News.
 	RawData *string `fix:"96"`
-	Trailer fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

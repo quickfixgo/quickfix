@@ -31,7 +31,7 @@ type NoSides struct {
 	//ClOrdLinkID is a non-required field for NoSides.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoSides.
@@ -55,9 +55,9 @@ type NoSides struct {
 	//QtyType is a non-required field for NoSides.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NoSides.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoSides.
@@ -132,7 +132,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
@@ -146,13 +146,13 @@ func (m *NoAllocs) SetAllocQty(v float64)          { m.AllocQty = &v }
 //NoUnderlyings is a repeating group in NewOrderCross
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in NewOrderCross
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoTradingSessions is a repeating group in NewOrderCross
@@ -169,7 +169,7 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //Message is a NewOrderCross FIX Message
 type Message struct {
 	FIXMsgType string `fix:"s"`
-	Header     fix44.Header
+	fix44.Header
 	//CrossID is a required field for NewOrderCross.
 	CrossID string `fix:"548"`
 	//CrossType is a required field for NewOrderCross.
@@ -179,7 +179,7 @@ type Message struct {
 	//NoSides is a required field for NewOrderCross.
 	NoSides []NoSides `fix:"552"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for NewOrderCross.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for NewOrderCross.
@@ -209,7 +209,7 @@ type Message struct {
 	//TransactTime is a required field for NewOrderCross.
 	TransactTime time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//OrdType is a required field for NewOrderCross.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderCross.
@@ -219,9 +219,9 @@ type Message struct {
 	//StopPx is a non-required field for NewOrderCross.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for NewOrderCross.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NewOrderCross.
@@ -243,9 +243,9 @@ type Message struct {
 	//MaxShow is a non-required field for NewOrderCross.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for NewOrderCross.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for NewOrderCross.
@@ -260,7 +260,7 @@ type Message struct {
 	RegistID *string `fix:"513"`
 	//Designation is a non-required field for NewOrderCross.
 	Designation *string `fix:"494"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -16,7 +16,7 @@ import (
 //Message is a PositionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AP"`
-	Header     fixt11.Header
+	fixt11.Header
 	//PosMaintRptID is a required field for PositionReport.
 	PosMaintRptID string `fix:"721"`
 	//PosReqID is a non-required field for PositionReport.
@@ -38,7 +38,7 @@ type Message struct {
 	//SettlSessSubID is a non-required field for PositionReport.
 	SettlSessSubID *string `fix:"717"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for PositionReport.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for PositionReport.
@@ -46,7 +46,7 @@ type Message struct {
 	//AccountType is a non-required field for PositionReport.
 	AccountType *int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for PositionReport.
 	Currency *string `fix:"15"`
 	//SettlPrice is a non-required field for PositionReport.
@@ -56,13 +56,13 @@ type Message struct {
 	//PriorSettlPrice is a non-required field for PositionReport.
 	PriorSettlPrice *float64 `fix:"734"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//PosUndInstrmtGrp Component
-	PosUndInstrmtGrp posundinstrmtgrp.Component
+	posundinstrmtgrp.PosUndInstrmtGrp
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//RegistStatus is a non-required field for PositionReport.
 	RegistStatus *string `fix:"506"`
 	//DeliveryDate is a non-required field for PositionReport.
@@ -81,7 +81,7 @@ type Message struct {
 	SettlCurrency *string `fix:"120"`
 	//MessageEventSource is a non-required field for PositionReport.
 	MessageEventSource *string `fix:"1011"`
-	Trailer            fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

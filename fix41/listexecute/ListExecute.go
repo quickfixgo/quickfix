@@ -10,14 +10,14 @@ import (
 //Message is a ListExecute FIX Message
 type Message struct {
 	FIXMsgType string `fix:"L"`
-	Header     fix41.Header
+	fix41.Header
 	//ListID is a required field for ListExecute.
 	ListID string `fix:"66"`
 	//WaveNo is a non-required field for ListExecute.
 	WaveNo *string `fix:"105"`
 	//Text is a non-required field for ListExecute.
-	Text    *string `fix:"58"`
-	Trailer fix41.Trailer
+	Text *string `fix:"58"`
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

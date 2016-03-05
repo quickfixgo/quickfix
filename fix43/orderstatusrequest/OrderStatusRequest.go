@@ -12,7 +12,7 @@ import (
 //Message is a OrderStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"H"`
-	Header     fix43.Header
+	fix43.Header
 	//OrderID is a non-required field for OrderStatusRequest.
 	OrderID *string `fix:"37"`
 	//ClOrdID is a required field for OrderStatusRequest.
@@ -22,14 +22,14 @@ type Message struct {
 	//ClOrdLinkID is a non-required field for OrderStatusRequest.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for OrderStatusRequest.
 	Account *string `fix:"1"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Side is a required field for OrderStatusRequest.
-	Side    string `fix:"54"`
-	Trailer fix43.Trailer
+	Side string `fix:"54"`
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

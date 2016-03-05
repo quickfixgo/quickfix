@@ -17,7 +17,7 @@ type NoOrders struct {
 	//ListID is a non-required field for NoOrders.
 	ListID *string `fix:"66"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 	//OrderQty is a non-required field for NoOrders.
 	OrderQty *float64 `fix:"38"`
 	//OrderAvgPx is a non-required field for NoOrders.
@@ -26,12 +26,10 @@ type NoOrders struct {
 	OrderBookingQty *float64 `fix:"800"`
 }
 
-//Component is a fix50sp2 OrdAllocGrp Component
-type Component struct {
+//OrdAllocGrp is a fix50sp2 Component
+type OrdAllocGrp struct {
 	//NoOrders is a non-required field for OrdAllocGrp.
 	NoOrders []NoOrders `fix:"73,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoOrders(v []NoOrders) { m.NoOrders = v }
+func (m *OrdAllocGrp) SetNoOrders(v []NoOrders) { m.NoOrders = v }

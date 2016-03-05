@@ -11,7 +11,7 @@ import (
 //Message is a SecurityStatus FIX Message
 type Message struct {
 	FIXMsgType string `fix:"f"`
-	Header     fix42.Header
+	fix42.Header
 	//SecurityStatusReqID is a non-required field for SecurityStatus.
 	SecurityStatusReqID *string `fix:"324"`
 	//Symbol is a required field for SecurityStatus.
@@ -84,7 +84,7 @@ type Message struct {
 	TransactTime *time.Time `fix:"60"`
 	//Adjustment is a non-required field for SecurityStatus.
 	Adjustment *int `fix:"334"`
-	Trailer    fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -34,7 +34,7 @@ type NoOrders struct {
 	//ListID is a non-required field for NoOrders.
 	ListID *string `fix:"66"`
 	//NestedParties2 Component
-	NestedParties2 nestedparties2.Component
+	nestedparties2.NestedParties2
 	//OrderQty is a non-required field for NoOrders.
 	OrderQty *float64 `fix:"38"`
 	//OrderAvgPx is a non-required field for NoOrders.
@@ -55,13 +55,13 @@ func (m *NoOrders) SetOrderBookingQty(v float64) { m.OrderBookingQty = &v }
 //NoUnderlyings is a repeating group in Confirmation
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in Confirmation
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoCapacities is a repeating group in Confirmation
@@ -98,7 +98,7 @@ func (m *NoMiscFees) SetMiscFeeBasis(v int)   { m.MiscFeeBasis = &v }
 //Message is a Confirmation FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AK"`
-	Header     fix44.Header
+	fix44.Header
 	//ConfirmID is a required field for Confirmation.
 	ConfirmID string `fix:"664"`
 	//ConfirmRefID is a non-required field for Confirmation.
@@ -116,7 +116,7 @@ type Message struct {
 	//ConfirmStatus is a required field for Confirmation.
 	ConfirmStatus int `fix:"665"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//NoOrders is a non-required field for Confirmation.
 	NoOrders []NoOrders `fix:"73,omitempty"`
 	//AllocID is a non-required field for Confirmation.
@@ -130,19 +130,19 @@ type Message struct {
 	//TradeDate is a required field for Confirmation.
 	TradeDate string `fix:"75"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a required field for Confirmation.
 	NoUnderlyings []NoUnderlyings `fix:"711"`
 	//NoLegs is a required field for Confirmation.
 	NoLegs []NoLegs `fix:"555"`
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//AllocQty is a required field for Confirmation.
 	AllocQty float64 `fix:"80"`
 	//QtyType is a non-required field for Confirmation.
@@ -170,7 +170,7 @@ type Message struct {
 	//AvgParPx is a non-required field for Confirmation.
 	AvgParPx *float64 `fix:"860"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//ReportedPx is a non-required field for Confirmation.
 	ReportedPx *float64 `fix:"861"`
 	//Text is a non-required field for Confirmation.
@@ -220,16 +220,16 @@ type Message struct {
 	//SettlDate is a non-required field for Confirmation.
 	SettlDate *string `fix:"64"`
 	//SettlInstructionsData Component
-	SettlInstructionsData settlinstructionsdata.Component
+	settlinstructionsdata.SettlInstructionsData
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//SharedCommission is a non-required field for Confirmation.
 	SharedCommission *float64 `fix:"858"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//NoMiscFees is a non-required field for Confirmation.
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
-	Trailer    fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

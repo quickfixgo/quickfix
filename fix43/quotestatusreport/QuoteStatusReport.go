@@ -13,7 +13,7 @@ import (
 //Message is a QuoteStatusReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AI"`
-	Header     fix43.Header
+	fix43.Header
 	//QuoteStatusReqID is a non-required field for QuoteStatusReport.
 	QuoteStatusReqID *string `fix:"649"`
 	//QuoteReqID is a non-required field for QuoteStatusReport.
@@ -23,7 +23,7 @@ type Message struct {
 	//QuoteType is a non-required field for QuoteStatusReport.
 	QuoteType *int `fix:"537"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for QuoteStatusReport.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for QuoteStatusReport.
@@ -33,7 +33,7 @@ type Message struct {
 	//TradingSessionSubID is a non-required field for QuoteStatusReport.
 	TradingSessionSubID *string `fix:"625"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//BidPx is a non-required field for QuoteStatusReport.
 	BidPx *float64 `fix:"132"`
 	//OfferPx is a non-required field for QuoteStatusReport.
@@ -100,7 +100,7 @@ type Message struct {
 	ExDestination *string `fix:"100"`
 	//QuoteStatus is a non-required field for QuoteStatusReport.
 	QuoteStatus *int `fix:"297"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

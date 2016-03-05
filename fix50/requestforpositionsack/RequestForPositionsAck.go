@@ -14,7 +14,7 @@ import (
 //Message is a RequestForPositionsAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AO"`
-	Header     fixt11.Header
+	fixt11.Header
 	//PosMaintRptID is a required field for RequestForPositionsAck.
 	PosMaintRptID string `fix:"721"`
 	//PosReqID is a non-required field for RequestForPositionsAck.
@@ -28,7 +28,7 @@ type Message struct {
 	//PosReqStatus is a required field for RequestForPositionsAck.
 	PosReqStatus int `fix:"729"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for RequestForPositionsAck.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for RequestForPositionsAck.
@@ -36,13 +36,13 @@ type Message struct {
 	//AccountType is a non-required field for RequestForPositionsAck.
 	AccountType *int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for RequestForPositionsAck.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//ResponseTransportType is a non-required field for RequestForPositionsAck.
 	ResponseTransportType *int `fix:"725"`
 	//ResponseDestination is a non-required field for RequestForPositionsAck.
@@ -67,7 +67,7 @@ type Message struct {
 	SettlSessSubID *string `fix:"717"`
 	//SettlCurrency is a non-required field for RequestForPositionsAck.
 	SettlCurrency *string `fix:"120"`
-	Trailer       fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

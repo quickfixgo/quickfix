@@ -10,7 +10,7 @@ import (
 //Message is a TradingSessionListRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BI"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradSesReqID is a required field for TradingSessionListRequest.
 	TradSesReqID string `fix:"335"`
 	//TradingSessionID is a non-required field for TradingSessionListRequest.
@@ -29,7 +29,7 @@ type Message struct {
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for TradingSessionListRequest.
 	MarketSegmentID *string `fix:"1300"`
-	Trailer         fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

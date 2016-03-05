@@ -17,13 +17,13 @@ import (
 //NoUnderlyings is a repeating group in TradeCaptureReportRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in TradeCaptureReportRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoDates is a repeating group in TradeCaptureReportRequest
@@ -40,7 +40,7 @@ func (m *NoDates) SetTransactTime(v time.Time) { m.TransactTime = &v }
 //Message is a TradeCaptureReportRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AD"`
-	Header     fix44.Header
+	fix44.Header
 	//TradeRequestID is a required field for TradeCaptureReportRequest.
 	TradeRequestID string `fix:"568"`
 	//TradeRequestType is a required field for TradeCaptureReportRequest.
@@ -74,13 +74,13 @@ type Message struct {
 	//TrdMatchID is a non-required field for TradeCaptureReportRequest.
 	TrdMatchID *string `fix:"880"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for TradeCaptureReportRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for TradeCaptureReportRequest.
@@ -113,7 +113,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for TradeCaptureReportRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

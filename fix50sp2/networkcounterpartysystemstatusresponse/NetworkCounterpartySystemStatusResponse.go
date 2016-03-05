@@ -11,7 +11,7 @@ import (
 //Message is a NetworkCounterpartySystemStatusResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BD"`
-	Header     fixt11.Header
+	fixt11.Header
 	//NetworkStatusResponseType is a required field for NetworkCounterpartySystemStatusResponse.
 	NetworkStatusResponseType int `fix:"937"`
 	//NetworkRequestID is a non-required field for NetworkCounterpartySystemStatusResponse.
@@ -21,8 +21,8 @@ type Message struct {
 	//LastNetworkResponseID is a non-required field for NetworkCounterpartySystemStatusResponse.
 	LastNetworkResponseID *string `fix:"934"`
 	//CompIDStatGrp Component
-	CompIDStatGrp compidstatgrp.Component
-	Trailer       fixt11.Trailer
+	compidstatgrp.CompIDStatGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

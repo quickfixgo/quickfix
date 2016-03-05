@@ -22,7 +22,7 @@ import (
 //Message is a CollateralResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AZ"`
-	Header     fixt11.Header
+	fixt11.Header
 	//CollRespID is a required field for CollateralResponse.
 	CollRespID string `fix:"904"`
 	//CollAsgnID is a non-required field for CollateralResponse.
@@ -40,7 +40,7 @@ type Message struct {
 	//TransactTime is a required field for CollateralResponse.
 	TransactTime time.Time `fix:"60"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for CollateralResponse.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralResponse.
@@ -54,13 +54,13 @@ type Message struct {
 	//SecondaryClOrdID is a non-required field for CollateralResponse.
 	SecondaryClOrdID *string `fix:"526"`
 	//ExecCollGrp Component
-	ExecCollGrp execcollgrp.Component
+	execcollgrp.ExecCollGrp
 	//TrdCollGrp Component
-	TrdCollGrp trdcollgrp.Component
+	trdcollgrp.TrdCollGrp
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralResponse.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralResponse.
@@ -70,9 +70,9 @@ type Message struct {
 	//Currency is a non-required field for CollateralResponse.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtCollGrp Component
-	UndInstrmtCollGrp undinstrmtcollgrp.Component
+	undinstrmtcollgrp.UndInstrmtCollGrp
 	//MarginExcess is a non-required field for CollateralResponse.
 	MarginExcess *float64 `fix:"899"`
 	//TotalNetValue is a non-required field for CollateralResponse.
@@ -80,11 +80,11 @@ type Message struct {
 	//CashOutstanding is a non-required field for CollateralResponse.
 	CashOutstanding *float64 `fix:"901"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//Side is a non-required field for CollateralResponse.
 	Side *string `fix:"54"`
 	//MiscFeesGrp Component
-	MiscFeesGrp miscfeesgrp.Component
+	miscfeesgrp.MiscFeesGrp
 	//Price is a non-required field for CollateralResponse.
 	Price *float64 `fix:"44"`
 	//PriceType is a non-required field for CollateralResponse.
@@ -98,9 +98,9 @@ type Message struct {
 	//EndCash is a non-required field for CollateralResponse.
 	EndCash *float64 `fix:"922"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//Text is a non-required field for CollateralResponse.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for CollateralResponse.
@@ -113,7 +113,7 @@ type Message struct {
 	FinancialStatus *string `fix:"291"`
 	//ClearingBusinessDate is a non-required field for CollateralResponse.
 	ClearingBusinessDate *string `fix:"715"`
-	Trailer              fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

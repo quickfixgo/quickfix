@@ -13,15 +13,13 @@ type NoSettlPartyIDs struct {
 	//SettlPartyRole is a non-required field for NoSettlPartyIDs.
 	SettlPartyRole *int `fix:"784"`
 	//SettlPtysSubGrp Component
-	SettlPtysSubGrp settlptyssubgrp.Component
+	settlptyssubgrp.SettlPtysSubGrp
 }
 
-//Component is a fix50sp1 SettlParties Component
-type Component struct {
+//SettlParties is a fix50sp1 Component
+type SettlParties struct {
 	//NoSettlPartyIDs is a non-required field for SettlParties.
 	NoSettlPartyIDs []NoSettlPartyIDs `fix:"781,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoSettlPartyIDs(v []NoSettlPartyIDs) { m.NoSettlPartyIDs = v }
+func (m *SettlParties) SetNoSettlPartyIDs(v []NoSettlPartyIDs) { m.NoSettlPartyIDs = v }

@@ -14,19 +14,19 @@ import (
 //NoUnderlyings is a repeating group in DontKnowTrade
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in DontKnowTrade
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a DontKnowTrade FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Q"`
-	Header     fix44.Header
+	fix44.Header
 	//OrderID is a required field for DontKnowTrade.
 	OrderID string `fix:"37"`
 	//SecondaryOrderID is a non-required field for DontKnowTrade.
@@ -36,7 +36,7 @@ type Message struct {
 	//DKReason is a required field for DontKnowTrade.
 	DKReason string `fix:"127"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for DontKnowTrade.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for DontKnowTrade.
@@ -44,7 +44,7 @@ type Message struct {
 	//Side is a required field for DontKnowTrade.
 	Side string `fix:"54"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//LastQty is a non-required field for DontKnowTrade.
 	LastQty *float64 `fix:"32"`
 	//LastPx is a non-required field for DontKnowTrade.
@@ -55,7 +55,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for DontKnowTrade.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

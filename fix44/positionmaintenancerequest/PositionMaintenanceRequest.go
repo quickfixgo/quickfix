@@ -16,13 +16,13 @@ import (
 //NoLegs is a repeating group in PositionMaintenanceRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in PositionMaintenanceRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoTradingSessions is a repeating group in PositionMaintenanceRequest
@@ -39,7 +39,7 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //Message is a PositionMaintenanceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AL"`
-	Header     fix44.Header
+	fix44.Header
 	//PosReqID is a required field for PositionMaintenanceRequest.
 	PosReqID string `fix:"710"`
 	//PosTransType is a required field for PositionMaintenanceRequest.
@@ -57,7 +57,7 @@ type Message struct {
 	//SettlSessSubID is a non-required field for PositionMaintenanceRequest.
 	SettlSessSubID *string `fix:"717"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a required field for PositionMaintenanceRequest.
 	Account string `fix:"1"`
 	//AcctIDSource is a non-required field for PositionMaintenanceRequest.
@@ -65,7 +65,7 @@ type Message struct {
 	//AccountType is a required field for PositionMaintenanceRequest.
 	AccountType int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for PositionMaintenanceRequest.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for PositionMaintenanceRequest.
@@ -77,7 +77,7 @@ type Message struct {
 	//TransactTime is a required field for PositionMaintenanceRequest.
 	TransactTime time.Time `fix:"60"`
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//AdjustmentType is a non-required field for PositionMaintenanceRequest.
 	AdjustmentType *int `fix:"718"`
 	//ContraryInstructionIndicator is a non-required field for PositionMaintenanceRequest.
@@ -92,7 +92,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for PositionMaintenanceRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

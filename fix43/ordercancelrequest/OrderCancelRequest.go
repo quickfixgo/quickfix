@@ -14,7 +14,7 @@ import (
 //Message is a OrderCancelRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"F"`
-	Header     fix43.Header
+	fix43.Header
 	//OrigClOrdID is a required field for OrderCancelRequest.
 	OrigClOrdID string `fix:"41"`
 	//OrderID is a non-required field for OrderCancelRequest.
@@ -34,15 +34,15 @@ type Message struct {
 	//AccountType is a non-required field for OrderCancelRequest.
 	AccountType *int `fix:"581"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Side is a required field for OrderCancelRequest.
 	Side string `fix:"54"`
 	//TransactTime is a required field for OrderCancelRequest.
 	TransactTime time.Time `fix:"60"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//ComplianceID is a non-required field for OrderCancelRequest.
 	ComplianceID *string `fix:"376"`
 	//Text is a non-required field for OrderCancelRequest.
@@ -51,7 +51,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for OrderCancelRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

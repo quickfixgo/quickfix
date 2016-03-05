@@ -20,12 +20,10 @@ type NoDistribInsts struct {
 	CashDistribAgentAcctName *string `fix:"502"`
 }
 
-//Component is a fix50 RgstDistInstGrp Component
-type Component struct {
+//RgstDistInstGrp is a fix50 Component
+type RgstDistInstGrp struct {
 	//NoDistribInsts is a non-required field for RgstDistInstGrp.
 	NoDistribInsts []NoDistribInsts `fix:"510,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoDistribInsts(v []NoDistribInsts) { m.NoDistribInsts = v }
+func (m *RgstDistInstGrp) SetNoDistribInsts(v []NoDistribInsts) { m.NoDistribInsts = v }

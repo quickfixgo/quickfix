@@ -12,12 +12,10 @@ type NoCompIDs struct {
 	DeskID *string `fix:"284"`
 }
 
-//Component is a fix50sp2 CompIDReqGrp Component
-type Component struct {
+//CompIDReqGrp is a fix50sp2 Component
+type CompIDReqGrp struct {
 	//NoCompIDs is a non-required field for CompIDReqGrp.
 	NoCompIDs []NoCompIDs `fix:"936,omitempty"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoCompIDs(v []NoCompIDs) { m.NoCompIDs = v }
+func (m *CompIDReqGrp) SetNoCompIDs(v []NoCompIDs) { m.NoCompIDs = v }

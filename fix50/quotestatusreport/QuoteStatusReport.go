@@ -21,7 +21,7 @@ import (
 //Message is a QuoteStatusReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AI"`
-	Header     fixt11.Header
+	fixt11.Header
 	//QuoteStatusReqID is a non-required field for QuoteStatusReport.
 	QuoteStatusReqID *string `fix:"649"`
 	//QuoteReqID is a non-required field for QuoteStatusReport.
@@ -33,21 +33,21 @@ type Message struct {
 	//QuoteType is a non-required field for QuoteStatusReport.
 	QuoteType *int `fix:"537"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradingSessionID is a non-required field for QuoteStatusReport.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for QuoteStatusReport.
 	TradingSessionSubID *string `fix:"625"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Side is a non-required field for QuoteStatusReport.
 	Side *string `fix:"54"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//SettlType is a non-required field for QuoteStatusReport.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for QuoteStatusReport.
@@ -59,7 +59,7 @@ type Message struct {
 	//Currency is a non-required field for QuoteStatusReport.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//Account is a non-required field for QuoteStatusReport.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for QuoteStatusReport.
@@ -67,9 +67,9 @@ type Message struct {
 	//AccountType is a non-required field for QuoteStatusReport.
 	AccountType *int `fix:"581"`
 	//LegQuotStatGrp Component
-	LegQuotStatGrp legquotstatgrp.Component
+	legquotstatgrp.LegQuotStatGrp
 	//QuotQualGrp Component
-	QuotQualGrp quotqualgrp.Component
+	quotqualgrp.QuotQualGrp
 	//ExpireTime is a non-required field for QuoteStatusReport.
 	ExpireTime *time.Time `fix:"126"`
 	//Price is a non-required field for QuoteStatusReport.
@@ -77,9 +77,9 @@ type Message struct {
 	//PriceType is a non-required field for QuoteStatusReport.
 	PriceType *int `fix:"423"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//BidPx is a non-required field for QuoteStatusReport.
 	BidPx *float64 `fix:"132"`
 	//OfferPx is a non-required field for QuoteStatusReport.
@@ -146,7 +146,7 @@ type Message struct {
 	EncodedText *string `fix:"355"`
 	//ExDestinationIDSource is a non-required field for QuoteStatusReport.
 	ExDestinationIDSource *string `fix:"1133"`
-	Trailer               fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -25,7 +25,7 @@ func (m *ClearingBusinessDate) SetLegPrice(v float64)       { m.LegPrice = &v }
 //Message is a SecurityDefinition FIX Message
 type Message struct {
 	FIXMsgType string `fix:"d"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReqID is a non-required field for SecurityDefinition.
 	SecurityReqID *string `fix:"320"`
 	//SecurityResponseID is a non-required field for SecurityDefinition.
@@ -33,11 +33,11 @@ type Message struct {
 	//SecurityResponseType is a non-required field for SecurityDefinition.
 	SecurityResponseType *int `fix:"323"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Currency is a non-required field for SecurityDefinition.
 	Currency *string `fix:"15"`
 	//TradingSessionID is a non-required field for SecurityDefinition.
@@ -51,7 +51,7 @@ type Message struct {
 	//EncodedText is a non-required field for SecurityDefinition.
 	EncodedText *string `fix:"355"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//ExpirationCycle is a non-required field for SecurityDefinition.
 	ExpirationCycle *int `fix:"827"`
 	//RoundLot is a non-required field for SecurityDefinition.
@@ -62,7 +62,7 @@ type Message struct {
 	SecurityReportID *int `fix:"964"`
 	//ClearingBusinessDate is a non-required field for SecurityDefinition.
 	ClearingBusinessDate []ClearingBusinessDate `fix:"715,omitempty"`
-	Trailer              fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

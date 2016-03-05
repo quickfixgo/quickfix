@@ -10,7 +10,7 @@ import (
 //Message is a SecurityTypeRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"v"`
-	Header     fix43.Header
+	fix43.Header
 	//SecurityReqID is a required field for SecurityTypeRequest.
 	SecurityReqID string `fix:"320"`
 	//Text is a non-required field for SecurityTypeRequest.
@@ -23,7 +23,7 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for SecurityTypeRequest.
 	TradingSessionSubID *string `fix:"625"`
-	Trailer             fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

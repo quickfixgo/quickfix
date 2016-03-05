@@ -48,15 +48,13 @@ type NoTradingSessions struct {
 	//TradingSessionDesc is a non-required field for NoTradingSessions.
 	TradingSessionDesc *string `fix:"1326"`
 	//TradingSessionRules Component
-	TradingSessionRules tradingsessionrules.Component
+	tradingsessionrules.TradingSessionRules
 }
 
-//Component is a fix50sp1 TrdSessLstGrp Component
-type Component struct {
+//TrdSessLstGrp is a fix50sp1 Component
+type TrdSessLstGrp struct {
 	//NoTradingSessions is a required field for TrdSessLstGrp.
 	NoTradingSessions []NoTradingSessions `fix:"386"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
+func (m *TrdSessLstGrp) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }

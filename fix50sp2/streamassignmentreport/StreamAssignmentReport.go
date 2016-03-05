@@ -11,7 +11,7 @@ import (
 //Message is a StreamAssignmentReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"CD"`
-	Header     fixt11.Header
+	fixt11.Header
 	//StreamAsgnRptID is a required field for StreamAssignmentReport.
 	StreamAsgnRptID string `fix:"1501"`
 	//StreamAsgnReqType is a non-required field for StreamAssignmentReport.
@@ -19,8 +19,8 @@ type Message struct {
 	//StreamAsgnReqID is a non-required field for StreamAssignmentReport.
 	StreamAsgnReqID *string `fix:"1497"`
 	//StrmAsgnRptGrp Component
-	StrmAsgnRptGrp strmasgnrptgrp.Component
-	Trailer        fixt11.Trailer
+	strmasgnrptgrp.StrmAsgnRptGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

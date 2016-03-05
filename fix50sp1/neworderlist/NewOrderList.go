@@ -12,7 +12,7 @@ import (
 //Message is a NewOrderList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"E"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ListID is a required field for NewOrderList.
 	ListID string `fix:"66"`
 	//BidID is a non-required field for NewOrderList.
@@ -50,12 +50,12 @@ type Message struct {
 	//LastFragment is a non-required field for NewOrderList.
 	LastFragment *bool `fix:"893"`
 	//ListOrdGrp Component
-	ListOrdGrp listordgrp.Component
+	listordgrp.ListOrdGrp
 	//RootParties Component
-	RootParties rootparties.Component
+	rootparties.RootParties
 	//ContingencyType is a non-required field for NewOrderList.
 	ContingencyType *int `fix:"1385"`
-	Trailer         fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -11,7 +11,7 @@ import (
 //Message is a OrderCancelReplaceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"G"`
-	Header     fix40.Header
+	fix40.Header
 	//OrderID is a non-required field for OrderCancelReplaceRequest.
 	OrderID *string `fix:"37"`
 	//ClientID is a non-required field for OrderCancelReplaceRequest.
@@ -79,8 +79,8 @@ type Message struct {
 	//SettlCurrency is a non-required field for OrderCancelReplaceRequest.
 	SettlCurrency *string `fix:"120"`
 	//Text is a non-required field for OrderCancelReplaceRequest.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

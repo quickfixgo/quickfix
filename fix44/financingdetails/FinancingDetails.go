@@ -1,7 +1,7 @@
 package financingdetails
 
-//Component is a fix44 FinancingDetails Component
-type Component struct {
+//FinancingDetails is a fix44 Component
+type FinancingDetails struct {
 	//AgreementDesc is a non-required field for FinancingDetails.
 	AgreementDesc *string `fix:"913"`
 	//AgreementID is a non-required field for FinancingDetails.
@@ -22,14 +22,12 @@ type Component struct {
 	MarginRatio *float64 `fix:"898"`
 }
 
-func New() *Component { return new(Component) }
-
-func (m *Component) SetAgreementDesc(v string)     { m.AgreementDesc = &v }
-func (m *Component) SetAgreementID(v string)       { m.AgreementID = &v }
-func (m *Component) SetAgreementDate(v string)     { m.AgreementDate = &v }
-func (m *Component) SetAgreementCurrency(v string) { m.AgreementCurrency = &v }
-func (m *Component) SetTerminationType(v int)      { m.TerminationType = &v }
-func (m *Component) SetStartDate(v string)         { m.StartDate = &v }
-func (m *Component) SetEndDate(v string)           { m.EndDate = &v }
-func (m *Component) SetDeliveryType(v int)         { m.DeliveryType = &v }
-func (m *Component) SetMarginRatio(v float64)      { m.MarginRatio = &v }
+func (m *FinancingDetails) SetAgreementDesc(v string)     { m.AgreementDesc = &v }
+func (m *FinancingDetails) SetAgreementID(v string)       { m.AgreementID = &v }
+func (m *FinancingDetails) SetAgreementDate(v string)     { m.AgreementDate = &v }
+func (m *FinancingDetails) SetAgreementCurrency(v string) { m.AgreementCurrency = &v }
+func (m *FinancingDetails) SetTerminationType(v int)      { m.TerminationType = &v }
+func (m *FinancingDetails) SetStartDate(v string)         { m.StartDate = &v }
+func (m *FinancingDetails) SetEndDate(v string)           { m.EndDate = &v }
+func (m *FinancingDetails) SetDeliveryType(v int)         { m.DeliveryType = &v }
+func (m *FinancingDetails) SetMarginRatio(v float64)      { m.MarginRatio = &v }

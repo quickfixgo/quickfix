@@ -13,7 +13,7 @@ import (
 //NoRelatedSym is a repeating group in RFQRequest
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for NoRelatedSym.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for NoRelatedSym.
@@ -41,26 +41,26 @@ func (m *NoRelatedSym) SetTradingSessionSubID(v string)    { m.TradingSessionSub
 //NoUnderlyings is a repeating group in NoRelatedSym
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a RFQRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AH"`
-	Header     fix44.Header
+	fix44.Header
 	//RFQReqID is a required field for RFQRequest.
 	RFQReqID string `fix:"644"`
 	//NoRelatedSym is a required field for RFQRequest.
 	NoRelatedSym []NoRelatedSym `fix:"146"`
 	//SubscriptionRequestType is a non-required field for RFQRequest.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

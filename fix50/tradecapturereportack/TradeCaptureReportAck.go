@@ -18,7 +18,7 @@ import (
 //Message is a TradeCaptureReportAck FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AR"`
-	Header     fixt11.Header
+	fixt11.Header
 	//TradeReportID is a non-required field for TradeCaptureReportAck.
 	TradeReportID *string `fix:"571"`
 	//TradeReportTransType is a non-required field for TradeCaptureReportAck.
@@ -56,11 +56,11 @@ type Message struct {
 	//SecondaryExecID is a non-required field for TradeCaptureReportAck.
 	SecondaryExecID *string `fix:"527"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//TransactTime is a non-required field for TradeCaptureReportAck.
 	TransactTime *time.Time `fix:"60"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//ResponseTransportType is a non-required field for TradeCaptureReportAck.
 	ResponseTransportType *int `fix:"725"`
 	//ResponseDestination is a non-required field for TradeCaptureReportAck.
@@ -72,7 +72,7 @@ type Message struct {
 	//EncodedText is a non-required field for TradeCaptureReportAck.
 	EncodedText *string `fix:"355"`
 	//TrdInstrmtLegGrp Component
-	TrdInstrmtLegGrp trdinstrmtleggrp.Component
+	trdinstrmtleggrp.TrdInstrmtLegGrp
 	//ClearingFeeIndicator is a non-required field for TradeCaptureReportAck.
 	ClearingFeeIndicator *string `fix:"635"`
 	//OrdStatus is a non-required field for TradeCaptureReportAck.
@@ -132,7 +132,7 @@ type Message struct {
 	//SettlSessSubID is a non-required field for TradeCaptureReportAck.
 	SettlSessSubID *string `fix:"717"`
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//TierCode is a non-required field for TradeCaptureReportAck.
 	TierCode *string `fix:"994"`
 	//MessageEventSource is a non-required field for TradeCaptureReportAck.
@@ -142,7 +142,7 @@ type Message struct {
 	//RndPx is a non-required field for TradeCaptureReportAck.
 	RndPx *float64 `fix:"991"`
 	//TrdCapRptAckSideGrp Component
-	TrdCapRptAckSideGrp trdcaprptacksidegrp.Component
+	trdcaprptacksidegrp.TrdCapRptAckSideGrp
 	//AsOfIndicator is a non-required field for TradeCaptureReportAck.
 	AsOfIndicator *string `fix:"1015"`
 	//TradeID is a non-required field for TradeCaptureReportAck.
@@ -160,7 +160,7 @@ type Message struct {
 	//GrossTradeAmt is a non-required field for TradeCaptureReportAck.
 	GrossTradeAmt *float64 `fix:"381"`
 	//RootParties Component
-	RootParties rootparties.Component
+	rootparties.RootParties
 	//TradeHandlingInstr is a non-required field for TradeCaptureReportAck.
 	TradeHandlingInstr *string `fix:"1123"`
 	//OrigTradeHandlingInstr is a non-required field for TradeCaptureReportAck.
@@ -172,10 +172,10 @@ type Message struct {
 	//OrigSecondaryTradeID is a non-required field for TradeCaptureReportAck.
 	OrigSecondaryTradeID *string `fix:"1127"`
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//RptSys is a non-required field for TradeCaptureReportAck.
-	RptSys  *string `fix:"1135"`
-	Trailer fixt11.Trailer
+	RptSys *string `fix:"1135"`
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

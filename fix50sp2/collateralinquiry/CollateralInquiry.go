@@ -22,11 +22,11 @@ import (
 //Message is a CollateralInquiry FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BB"`
-	Header     fixt11.Header
+	fixt11.Header
 	//CollInquiryID is a required field for CollateralInquiry.
 	CollInquiryID string `fix:"909"`
 	//CollInqQualGrp Component
-	CollInqQualGrp collinqqualgrp.Component
+	collinqqualgrp.CollInqQualGrp
 	//SubscriptionRequestType is a non-required field for CollateralInquiry.
 	SubscriptionRequestType *string `fix:"263"`
 	//ResponseTransportType is a non-required field for CollateralInquiry.
@@ -34,7 +34,7 @@ type Message struct {
 	//ResponseDestination is a non-required field for CollateralInquiry.
 	ResponseDestination *string `fix:"726"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for CollateralInquiry.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralInquiry.
@@ -48,13 +48,13 @@ type Message struct {
 	//SecondaryClOrdID is a non-required field for CollateralInquiry.
 	SecondaryClOrdID *string `fix:"526"`
 	//ExecCollGrp Component
-	ExecCollGrp execcollgrp.Component
+	execcollgrp.ExecCollGrp
 	//TrdCollGrp Component
-	TrdCollGrp trdcollgrp.Component
+	trdcollgrp.TrdCollGrp
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralInquiry.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralInquiry.
@@ -64,9 +64,9 @@ type Message struct {
 	//Currency is a non-required field for CollateralInquiry.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//MarginExcess is a non-required field for CollateralInquiry.
 	MarginExcess *float64 `fix:"899"`
 	//TotalNetValue is a non-required field for CollateralInquiry.
@@ -74,7 +74,7 @@ type Message struct {
 	//CashOutstanding is a non-required field for CollateralInquiry.
 	CashOutstanding *float64 `fix:"901"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//Side is a non-required field for CollateralInquiry.
 	Side *string `fix:"54"`
 	//Price is a non-required field for CollateralInquiry.
@@ -90,11 +90,11 @@ type Message struct {
 	//EndCash is a non-required field for CollateralInquiry.
 	EndCash *float64 `fix:"922"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//SettlInstructionsData Component
-	SettlInstructionsData settlinstructionsdata.Component
+	settlinstructionsdata.SettlInstructionsData
 	//TradingSessionID is a non-required field for CollateralInquiry.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for CollateralInquiry.
@@ -111,7 +111,7 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for CollateralInquiry.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

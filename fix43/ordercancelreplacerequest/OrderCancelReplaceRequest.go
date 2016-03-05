@@ -22,7 +22,7 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
@@ -45,11 +45,11 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 //Message is a OrderCancelReplaceRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"G"`
-	Header     fix43.Header
+	fix43.Header
 	//OrderID is a non-required field for OrderCancelReplaceRequest.
 	OrderID *string `fix:"37"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for OrderCancelReplaceRequest.
 	TradeOriginationDate *string `fix:"229"`
 	//OrigClOrdID is a required field for OrderCancelReplaceRequest.
@@ -97,7 +97,7 @@ type Message struct {
 	//NoTradingSessions is a non-required field for OrderCancelReplaceRequest.
 	NoTradingSessions []NoTradingSessions `fix:"386,omitempty"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Side is a required field for OrderCancelReplaceRequest.
 	Side string `fix:"54"`
 	//TransactTime is a required field for OrderCancelReplaceRequest.
@@ -105,7 +105,7 @@ type Message struct {
 	//QuantityType is a non-required field for OrderCancelReplaceRequest.
 	QuantityType *int `fix:"465"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for OrderCancelReplaceRequest.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for OrderCancelReplaceRequest.
@@ -115,9 +115,9 @@ type Message struct {
 	//StopPx is a non-required field for OrderCancelReplaceRequest.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//PegDifference is a non-required field for OrderCancelReplaceRequest.
 	PegDifference *float64 `fix:"211"`
 	//DiscretionInst is a non-required field for OrderCancelReplaceRequest.
@@ -141,7 +141,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for OrderCancelReplaceRequest.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for OrderCancelReplaceRequest.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for OrderCancelReplaceRequest.
@@ -188,7 +188,7 @@ type Message struct {
 	AccruedInterestAmt *float64 `fix:"159"`
 	//NetMoney is a non-required field for OrderCancelReplaceRequest.
 	NetMoney *float64 `fix:"118"`
-	Trailer  fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

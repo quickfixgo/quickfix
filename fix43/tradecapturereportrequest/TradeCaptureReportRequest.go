@@ -24,7 +24,7 @@ func (m *NoDates) SetTransactTime(v time.Time) { m.TransactTime = &v }
 //Message is a TradeCaptureReportRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AD"`
-	Header     fix43.Header
+	fix43.Header
 	//TradeRequestID is a required field for TradeCaptureReportRequest.
 	TradeRequestID string `fix:"568"`
 	//TradeRequestType is a required field for TradeCaptureReportRequest.
@@ -40,9 +40,9 @@ type Message struct {
 	//MatchStatus is a non-required field for TradeCaptureReportRequest.
 	MatchStatus *string `fix:"573"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoDates is a non-required field for TradeCaptureReportRequest.
 	NoDates []NoDates `fix:"580,omitempty"`
 	//Side is a non-required field for TradeCaptureReportRequest.
@@ -57,7 +57,7 @@ type Message struct {
 	TradeInputSource *string `fix:"578"`
 	//TradeInputDevice is a non-required field for TradeCaptureReportRequest.
 	TradeInputDevice *string `fix:"579"`
-	Trailer          fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

@@ -27,7 +27,7 @@ func (m *NoSecurityTypes) SetCFICode(v string)         { m.CFICode = &v }
 //Message is a SecurityTypes FIX Message
 type Message struct {
 	FIXMsgType string `fix:"w"`
-	Header     fix44.Header
+	fix44.Header
 	//SecurityReqID is a required field for SecurityTypes.
 	SecurityReqID string `fix:"320"`
 	//SecurityResponseID is a required field for SecurityTypes.
@@ -52,7 +52,7 @@ type Message struct {
 	TradingSessionSubID *string `fix:"625"`
 	//SubscriptionRequestType is a non-required field for SecurityTypes.
 	SubscriptionRequestType *string `fix:"263"`
-	Trailer                 fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

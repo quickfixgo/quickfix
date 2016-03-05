@@ -13,7 +13,7 @@ import (
 //Message is a RegistrationInstructions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"o"`
-	Header     fixt11.Header
+	fixt11.Header
 	//RegistID is a required field for RegistrationInstructions.
 	RegistID string `fix:"513"`
 	//RegistTransType is a required field for RegistrationInstructions.
@@ -23,7 +23,7 @@ type Message struct {
 	//ClOrdID is a non-required field for RegistrationInstructions.
 	ClOrdID *string `fix:"11"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for RegistrationInstructions.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for RegistrationInstructions.
@@ -35,10 +35,10 @@ type Message struct {
 	//OwnershipType is a non-required field for RegistrationInstructions.
 	OwnershipType *string `fix:"517"`
 	//RgstDtlsGrp Component
-	RgstDtlsGrp rgstdtlsgrp.Component
+	rgstdtlsgrp.RgstDtlsGrp
 	//RgstDistInstGrp Component
-	RgstDistInstGrp rgstdistinstgrp.Component
-	Trailer         fixt11.Trailer
+	rgstdistinstgrp.RgstDistInstGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

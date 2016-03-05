@@ -12,13 +12,13 @@ import (
 //Message is a ApplicationMessageRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BW"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ApplReqID is a required field for ApplicationMessageRequest.
 	ApplReqID string `fix:"1346"`
 	//ApplReqType is a required field for ApplicationMessageRequest.
 	ApplReqType int `fix:"1347"`
 	//ApplIDRequestGrp Component
-	ApplIDRequestGrp applidrequestgrp.Component
+	applidrequestgrp.ApplIDRequestGrp
 	//Text is a non-required field for ApplicationMessageRequest.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for ApplicationMessageRequest.
@@ -26,8 +26,8 @@ type Message struct {
 	//EncodedText is a non-required field for ApplicationMessageRequest.
 	EncodedText *string `fix:"355"`
 	//Parties Component
-	Parties parties.Component
-	Trailer fixt11.Trailer
+	parties.Parties
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

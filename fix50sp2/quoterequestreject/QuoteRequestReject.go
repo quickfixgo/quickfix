@@ -12,7 +12,7 @@ import (
 //Message is a QuoteRequestReject FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AG"`
-	Header     fixt11.Header
+	fixt11.Header
 	//QuoteReqID is a required field for QuoteRequestReject.
 	QuoteReqID string `fix:"131"`
 	//RFQReqID is a non-required field for QuoteRequestReject.
@@ -20,7 +20,7 @@ type Message struct {
 	//QuoteRequestRejectReason is a required field for QuoteRequestReject.
 	QuoteRequestRejectReason int `fix:"658"`
 	//QuotReqRjctGrp Component
-	QuotReqRjctGrp quotreqrjctgrp.Component
+	quotreqrjctgrp.QuotReqRjctGrp
 	//Text is a non-required field for QuoteRequestReject.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for QuoteRequestReject.
@@ -28,14 +28,14 @@ type Message struct {
 	//EncodedText is a non-required field for QuoteRequestReject.
 	EncodedText *string `fix:"355"`
 	//RootParties Component
-	RootParties rootparties.Component
+	rootparties.RootParties
 	//PrivateQuote is a non-required field for QuoteRequestReject.
 	PrivateQuote *bool `fix:"1171"`
 	//RespondentType is a non-required field for QuoteRequestReject.
 	RespondentType *int `fix:"1172"`
 	//PreTradeAnonymity is a non-required field for QuoteRequestReject.
 	PreTradeAnonymity *bool `fix:"1091"`
-	Trailer           fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

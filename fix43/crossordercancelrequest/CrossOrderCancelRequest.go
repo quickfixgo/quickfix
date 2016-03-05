@@ -26,11 +26,11 @@ type NoSides struct {
 	//OrigOrdModTime is a non-required field for NoSides.
 	OrigOrdModTime *time.Time `fix:"586"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//ComplianceID is a non-required field for NoSides.
 	ComplianceID *string `fix:"376"`
 	//Text is a non-required field for NoSides.
@@ -56,7 +56,7 @@ func (m *NoSides) SetEncodedText(v string)          { m.EncodedText = &v }
 //Message is a CrossOrderCancelRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"u"`
-	Header     fix43.Header
+	fix43.Header
 	//OrderID is a non-required field for CrossOrderCancelRequest.
 	OrderID *string `fix:"37"`
 	//CrossID is a required field for CrossOrderCancelRequest.
@@ -70,10 +70,10 @@ type Message struct {
 	//NoSides is a required field for CrossOrderCancelRequest.
 	NoSides []NoSides `fix:"552"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//TransactTime is a required field for CrossOrderCancelRequest.
 	TransactTime time.Time `fix:"60"`
-	Trailer      fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance

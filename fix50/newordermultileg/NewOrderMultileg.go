@@ -24,7 +24,7 @@ import (
 //Message is a NewOrderMultileg FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AB"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ClOrdID is a required field for NewOrderMultileg.
 	ClOrdID string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for NewOrderMultileg.
@@ -32,7 +32,7 @@ type Message struct {
 	//ClOrdLinkID is a non-required field for NewOrderMultileg.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NewOrderMultileg.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NewOrderMultileg.
@@ -52,7 +52,7 @@ type Message struct {
 	//AllocID is a non-required field for NewOrderMultileg.
 	AllocID *string `fix:"70"`
 	//PreAllocMlegGrp Component
-	PreAllocMlegGrp preallocmleggrp.Component
+	preallocmleggrp.PreAllocMlegGrp
 	//SettlType is a non-required field for NewOrderMultileg.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NewOrderMultileg.
@@ -72,19 +72,19 @@ type Message struct {
 	//ExDestination is a non-required field for NewOrderMultileg.
 	ExDestination *string `fix:"100"`
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//ProcessCode is a non-required field for NewOrderMultileg.
 	ProcessCode *string `fix:"81"`
 	//Side is a required field for NewOrderMultileg.
 	Side string `fix:"54"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NewOrderMultileg.
 	PrevClosePx *float64 `fix:"140"`
 	//LegOrdGrp Component
-	LegOrdGrp legordgrp.Component
+	legordgrp.LegOrdGrp
 	//LocateReqd is a non-required field for NewOrderMultileg.
 	LocateReqd *bool `fix:"114"`
 	//TransactTime is a required field for NewOrderMultileg.
@@ -92,7 +92,7 @@ type Message struct {
 	//QtyType is a non-required field for NewOrderMultileg.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for NewOrderMultileg.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderMultileg.
@@ -122,7 +122,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for NewOrderMultileg.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NewOrderMultileg.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NewOrderMultileg.
@@ -148,9 +148,9 @@ type Message struct {
 	//MaxShow is a non-required field for NewOrderMultileg.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for NewOrderMultileg.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for NewOrderMultileg.
@@ -168,7 +168,7 @@ type Message struct {
 	//MultiLegRptTypeReq is a non-required field for NewOrderMultileg.
 	MultiLegRptTypeReq *int `fix:"563"`
 	//StrategyParametersGrp Component
-	StrategyParametersGrp strategyparametersgrp.Component
+	strategyparametersgrp.StrategyParametersGrp
 	//SwapPoints is a non-required field for NewOrderMultileg.
 	SwapPoints *float64 `fix:"1069"`
 	//MatchIncrement is a non-required field for NewOrderMultileg.
@@ -176,11 +176,11 @@ type Message struct {
 	//MaxPriceLevels is a non-required field for NewOrderMultileg.
 	MaxPriceLevels *int `fix:"1090"`
 	//DisplayInstruction Component
-	DisplayInstruction displayinstruction.Component
+	displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for NewOrderMultileg.
 	PriceProtectionScope *string `fix:"1092"`
 	//TriggeringInstruction Component
-	TriggeringInstruction triggeringinstruction.Component
+	triggeringinstruction.TriggeringInstruction
 	//RefOrderID is a non-required field for NewOrderMultileg.
 	RefOrderID *string `fix:"1080"`
 	//RefOrderIDSource is a non-required field for NewOrderMultileg.
@@ -189,7 +189,7 @@ type Message struct {
 	PreTradeAnonymity *bool `fix:"1091"`
 	//ExDestinationIDSource is a non-required field for NewOrderMultileg.
 	ExDestinationIDSource *string `fix:"1133"`
-	Trailer               fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
