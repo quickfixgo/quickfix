@@ -1,7 +1,7 @@
 package applicationsequencecontrol
 
-//Component is a fix50sp2 ApplicationSequenceControl Component
-type Component struct {
+//ApplicationSequenceControl is a fix50sp2 Component
+type ApplicationSequenceControl struct {
 	//ApplID is a non-required field for ApplicationSequenceControl.
 	ApplID *string `fix:"1180"`
 	//ApplSeqNum is a non-required field for ApplicationSequenceControl.
@@ -12,4 +12,7 @@ type Component struct {
 	ApplResendFlag *bool `fix:"1352"`
 }
 
-func New() *Component { return new(Component) }
+func (m *ApplicationSequenceControl) SetApplID(v string)       { m.ApplID = &v }
+func (m *ApplicationSequenceControl) SetApplSeqNum(v int)      { m.ApplSeqNum = &v }
+func (m *ApplicationSequenceControl) SetApplLastSeqNum(v int)  { m.ApplLastSeqNum = &v }
+func (m *ApplicationSequenceControl) SetApplResendFlag(v bool) { m.ApplResendFlag = &v }

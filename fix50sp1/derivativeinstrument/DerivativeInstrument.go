@@ -36,11 +36,11 @@ type NoDerivativeInstrumentParties struct {
 	//DerivativeInstrumentPartyRole is a non-required field for NoDerivativeInstrumentParties.
 	DerivativeInstrumentPartyRole *int `fix:"1295"`
 	//DerivativeInstrumentPartySubIDsGrp Component
-	DerivativeInstrumentPartySubIDsGrp derivativeinstrumentpartysubidsgrp.Component
+	derivativeinstrumentpartysubidsgrp.DerivativeInstrumentPartySubIDsGrp
 }
 
-//Component is a fix50sp1 DerivativeInstrument Component
-type Component struct {
+//DerivativeInstrument is a fix50sp1 Component
+type DerivativeInstrument struct {
 	//DerivativeSymbol is a non-required field for DerivativeInstrument.
 	DerivativeSymbol *string `fix:"1214"`
 	//DerivativeSymbolSfx is a non-required field for DerivativeInstrument.
@@ -163,4 +163,109 @@ type Component struct {
 	DerivativeSecurityXMLSchema *string `fix:"1284"`
 }
 
-func New() *Component { return new(Component) }
+func (m *DerivativeInstrument) SetDerivativeSymbol(v string)     { m.DerivativeSymbol = &v }
+func (m *DerivativeInstrument) SetDerivativeSymbolSfx(v string)  { m.DerivativeSymbolSfx = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityID(v string) { m.DerivativeSecurityID = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityIDSource(v string) {
+	m.DerivativeSecurityIDSource = &v
+}
+func (m *DerivativeInstrument) SetNoDerivativeSecurityAltID(v []NoDerivativeSecurityAltID) {
+	m.NoDerivativeSecurityAltID = v
+}
+func (m *DerivativeInstrument) SetDerivativeProduct(v int)           { m.DerivativeProduct = &v }
+func (m *DerivativeInstrument) SetDerivativeProductComplex(v string) { m.DerivativeProductComplex = &v }
+func (m *DerivativeInstrument) SetDerivFlexProductEligibilityIndicator(v bool) {
+	m.DerivFlexProductEligibilityIndicator = &v
+}
+func (m *DerivativeInstrument) SetDerivativeSecurityGroup(v string) { m.DerivativeSecurityGroup = &v }
+func (m *DerivativeInstrument) SetDerivativeCFICode(v string)       { m.DerivativeCFICode = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityType(v string)  { m.DerivativeSecurityType = &v }
+func (m *DerivativeInstrument) SetDerivativeSecuritySubType(v string) {
+	m.DerivativeSecuritySubType = &v
+}
+func (m *DerivativeInstrument) SetDerivativeMaturityMonthYear(v string) {
+	m.DerivativeMaturityMonthYear = &v
+}
+func (m *DerivativeInstrument) SetDerivativeMaturityDate(v string) { m.DerivativeMaturityDate = &v }
+func (m *DerivativeInstrument) SetDerivativeMaturityTime(v string) { m.DerivativeMaturityTime = &v }
+func (m *DerivativeInstrument) SetDerivativeSettleOnOpenFlag(v string) {
+	m.DerivativeSettleOnOpenFlag = &v
+}
+func (m *DerivativeInstrument) SetDerivativeInstrmtAssignmentMethod(v string) {
+	m.DerivativeInstrmtAssignmentMethod = &v
+}
+func (m *DerivativeInstrument) SetDerivativeSecurityStatus(v string) { m.DerivativeSecurityStatus = &v }
+func (m *DerivativeInstrument) SetDerivativeIssueDate(v string)      { m.DerivativeIssueDate = &v }
+func (m *DerivativeInstrument) SetDerivativeInstrRegistry(v string)  { m.DerivativeInstrRegistry = &v }
+func (m *DerivativeInstrument) SetDerivativeCountryOfIssue(v string) { m.DerivativeCountryOfIssue = &v }
+func (m *DerivativeInstrument) SetDerivativeStateOrProvinceOfIssue(v string) {
+	m.DerivativeStateOrProvinceOfIssue = &v
+}
+func (m *DerivativeInstrument) SetDerivativeStrikePrice(v float64)   { m.DerivativeStrikePrice = &v }
+func (m *DerivativeInstrument) SetDerivativeLocaleOfIssue(v string)  { m.DerivativeLocaleOfIssue = &v }
+func (m *DerivativeInstrument) SetDerivativeStrikeCurrency(v string) { m.DerivativeStrikeCurrency = &v }
+func (m *DerivativeInstrument) SetDerivativeStrikeMultiplier(v float64) {
+	m.DerivativeStrikeMultiplier = &v
+}
+func (m *DerivativeInstrument) SetDerivativeStrikeValue(v float64) { m.DerivativeStrikeValue = &v }
+func (m *DerivativeInstrument) SetDerivativeOptAttribute(v string) { m.DerivativeOptAttribute = &v }
+func (m *DerivativeInstrument) SetDerivativeContractMultiplier(v float64) {
+	m.DerivativeContractMultiplier = &v
+}
+func (m *DerivativeInstrument) SetDerivativeMinPriceIncrement(v float64) {
+	m.DerivativeMinPriceIncrement = &v
+}
+func (m *DerivativeInstrument) SetDerivativeMinPriceIncrementAmount(v float64) {
+	m.DerivativeMinPriceIncrementAmount = &v
+}
+func (m *DerivativeInstrument) SetDerivativeUnitOfMeasure(v string) { m.DerivativeUnitOfMeasure = &v }
+func (m *DerivativeInstrument) SetDerivativeUnitOfMeasureQty(v float64) {
+	m.DerivativeUnitOfMeasureQty = &v
+}
+func (m *DerivativeInstrument) SetDerivativePriceUnitOfMeasure(v string) {
+	m.DerivativePriceUnitOfMeasure = &v
+}
+func (m *DerivativeInstrument) SetDerivativePriceUnitOfMeasureQty(v float64) {
+	m.DerivativePriceUnitOfMeasureQty = &v
+}
+func (m *DerivativeInstrument) SetDerivativeExerciseStyle(v string) { m.DerivativeExerciseStyle = &v }
+func (m *DerivativeInstrument) SetDerivativeOptPayAmount(v float64) { m.DerivativeOptPayAmount = &v }
+func (m *DerivativeInstrument) SetDerivativeTimeUnit(v string)      { m.DerivativeTimeUnit = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityExchange(v string) {
+	m.DerivativeSecurityExchange = &v
+}
+func (m *DerivativeInstrument) SetDerivativePositionLimit(v int)    { m.DerivativePositionLimit = &v }
+func (m *DerivativeInstrument) SetDerivativeNTPositionLimit(v int)  { m.DerivativeNTPositionLimit = &v }
+func (m *DerivativeInstrument) SetDerivativeIssuer(v string)        { m.DerivativeIssuer = &v }
+func (m *DerivativeInstrument) SetDerivativeEncodedIssuerLen(v int) { m.DerivativeEncodedIssuerLen = &v }
+func (m *DerivativeInstrument) SetDerivativeEncodedIssuer(v string) { m.DerivativeEncodedIssuer = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityDesc(v string)  { m.DerivativeSecurityDesc = &v }
+func (m *DerivativeInstrument) SetDerivativeEncodedSecurityDescLen(v int) {
+	m.DerivativeEncodedSecurityDescLen = &v
+}
+func (m *DerivativeInstrument) SetDerivativeEncodedSecurityDesc(v string) {
+	m.DerivativeEncodedSecurityDesc = &v
+}
+func (m *DerivativeInstrument) SetDerivativeContractSettlMonth(v string) {
+	m.DerivativeContractSettlMonth = &v
+}
+func (m *DerivativeInstrument) SetNoDerivativeEvents(v []NoDerivativeEvents) { m.NoDerivativeEvents = v }
+func (m *DerivativeInstrument) SetNoDerivativeInstrumentParties(v []NoDerivativeInstrumentParties) {
+	m.NoDerivativeInstrumentParties = v
+}
+func (m *DerivativeInstrument) SetDerivativeSettlMethod(v string) { m.DerivativeSettlMethod = &v }
+func (m *DerivativeInstrument) SetDerivativePriceQuoteMethod(v string) {
+	m.DerivativePriceQuoteMethod = &v
+}
+func (m *DerivativeInstrument) SetDerivativeFuturesValuationMethod(v string) {
+	m.DerivativeFuturesValuationMethod = &v
+}
+func (m *DerivativeInstrument) SetDerivativeListMethod(v int)     { m.DerivativeListMethod = &v }
+func (m *DerivativeInstrument) SetDerivativeCapPrice(v float64)   { m.DerivativeCapPrice = &v }
+func (m *DerivativeInstrument) SetDerivativeFloorPrice(v float64) { m.DerivativeFloorPrice = &v }
+func (m *DerivativeInstrument) SetDerivativePutOrCall(v int)      { m.DerivativePutOrCall = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityXMLLen(v int) { m.DerivativeSecurityXMLLen = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityXML(v string) { m.DerivativeSecurityXML = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityXMLSchema(v string) {
+	m.DerivativeSecurityXMLSchema = &v
+}

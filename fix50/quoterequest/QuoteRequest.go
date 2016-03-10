@@ -11,7 +11,7 @@ import (
 //Message is a QuoteRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"R"`
-	Header     fixt11.Header
+	fixt11.Header
 	//QuoteReqID is a required field for QuoteRequest.
 	QuoteReqID string `fix:"131"`
 	//RFQReqID is a non-required field for QuoteRequest.
@@ -21,18 +21,26 @@ type Message struct {
 	//OrderCapacity is a non-required field for QuoteRequest.
 	OrderCapacity *string `fix:"528"`
 	//QuotReqGrp Component
-	QuotReqGrp quotreqgrp.Component
+	quotreqgrp.QuotReqGrp
 	//Text is a non-required field for QuoteRequest.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for QuoteRequest.
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for QuoteRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetQuoteReqID(v string)    { m.QuoteReqID = v }
+func (m *Message) SetRFQReqID(v string)      { m.RFQReqID = &v }
+func (m *Message) SetClOrdID(v string)       { m.ClOrdID = &v }
+func (m *Message) SetOrderCapacity(v string) { m.OrderCapacity = &v }
+func (m *Message) SetText(v string)          { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)   { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)   { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

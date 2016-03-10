@@ -10,7 +10,7 @@ import (
 //Message is a UserRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BE"`
-	Header     fixt11.Header
+	fixt11.Header
 	//UserRequestID is a required field for UserRequest.
 	UserRequestID string `fix:"923"`
 	//UserRequestType is a required field for UserRequest.
@@ -35,11 +35,24 @@ type Message struct {
 	EncryptedNewPasswordLen *int `fix:"1403"`
 	//EncryptedNewPassword is a non-required field for UserRequest.
 	EncryptedNewPassword *string `fix:"1404"`
-	Trailer              fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetUserRequestID(v string)        { m.UserRequestID = v }
+func (m *Message) SetUserRequestType(v int)         { m.UserRequestType = v }
+func (m *Message) SetUsername(v string)             { m.Username = v }
+func (m *Message) SetPassword(v string)             { m.Password = &v }
+func (m *Message) SetNewPassword(v string)          { m.NewPassword = &v }
+func (m *Message) SetRawDataLength(v int)           { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)              { m.RawData = &v }
+func (m *Message) SetEncryptedPasswordMethod(v int) { m.EncryptedPasswordMethod = &v }
+func (m *Message) SetEncryptedPasswordLen(v int)    { m.EncryptedPasswordLen = &v }
+func (m *Message) SetEncryptedPassword(v string)    { m.EncryptedPassword = &v }
+func (m *Message) SetEncryptedNewPasswordLen(v int) { m.EncryptedNewPasswordLen = &v }
+func (m *Message) SetEncryptedNewPassword(v string) { m.EncryptedNewPassword = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

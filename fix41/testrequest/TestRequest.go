@@ -10,14 +10,16 @@ import (
 //Message is a TestRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"1"`
-	Header     fix41.Header
+	fix41.Header
 	//TestReqID is a required field for TestRequest.
 	TestReqID string `fix:"112"`
-	Trailer   fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTestReqID(v string) { m.TestReqID = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

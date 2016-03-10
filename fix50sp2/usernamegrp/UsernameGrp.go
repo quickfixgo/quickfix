@@ -1,9 +1,9 @@
 package usernamegrp
 
-//Component is a fix50sp2 UsernameGrp Component
-type Component struct {
+//UsernameGrp is a fix50sp2 Component
+type UsernameGrp struct {
 	//Username is a non-required field for UsernameGrp.
 	Username *string `fix:"553"`
 }
 
-func New() *Component { return new(Component) }
+func (m *UsernameGrp) SetUsername(v string) { m.Username = &v }

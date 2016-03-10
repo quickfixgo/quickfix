@@ -10,10 +10,10 @@ type NoApplIDs struct {
 	ApplEndSeqNum *int `fix:"1183"`
 }
 
-//Component is a fix50sp1 ApplIDRequestGrp Component
-type Component struct {
+//ApplIDRequestGrp is a fix50sp1 Component
+type ApplIDRequestGrp struct {
 	//NoApplIDs is a non-required field for ApplIDRequestGrp.
 	NoApplIDs []NoApplIDs `fix:"1351,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *ApplIDRequestGrp) SetNoApplIDs(v []NoApplIDs) { m.NoApplIDs = v }

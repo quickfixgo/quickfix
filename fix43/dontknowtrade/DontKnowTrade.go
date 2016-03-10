@@ -12,7 +12,7 @@ import (
 //Message is a DontKnowTrade FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Q"`
-	Header     fix43.Header
+	fix43.Header
 	//OrderID is a required field for DontKnowTrade.
 	OrderID string `fix:"37"`
 	//ExecID is a required field for DontKnowTrade.
@@ -20,11 +20,11 @@ type Message struct {
 	//DKReason is a required field for DontKnowTrade.
 	DKReason string `fix:"127"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Side is a required field for DontKnowTrade.
 	Side string `fix:"54"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//LastQty is a non-required field for DontKnowTrade.
 	LastQty *float64 `fix:"32"`
 	//LastPx is a non-required field for DontKnowTrade.
@@ -35,11 +35,21 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for DontKnowTrade.
 	EncodedText *string `fix:"355"`
-	Trailer     fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)     { m.OrderID = v }
+func (m *Message) SetExecID(v string)      { m.ExecID = v }
+func (m *Message) SetDKReason(v string)    { m.DKReason = v }
+func (m *Message) SetSide(v string)        { m.Side = v }
+func (m *Message) SetLastQty(v float64)    { m.LastQty = &v }
+func (m *Message) SetLastPx(v float64)     { m.LastPx = &v }
+func (m *Message) SetText(v string)        { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int) { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string) { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

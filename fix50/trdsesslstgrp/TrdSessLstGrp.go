@@ -42,10 +42,10 @@ type NoTradingSessions struct {
 	EncodedText *string `fix:"355"`
 }
 
-//Component is a fix50 TrdSessLstGrp Component
-type Component struct {
+//TrdSessLstGrp is a fix50 Component
+type TrdSessLstGrp struct {
 	//NoTradingSessions is a required field for TrdSessLstGrp.
 	NoTradingSessions []NoTradingSessions `fix:"386"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TrdSessLstGrp) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }

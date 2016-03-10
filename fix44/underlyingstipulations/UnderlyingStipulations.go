@@ -8,10 +8,10 @@ type NoUnderlyingStips struct {
 	UnderlyingStipValue *string `fix:"889"`
 }
 
-//Component is a fix44 UnderlyingStipulations Component
-type Component struct {
+//UnderlyingStipulations is a fix44 Component
+type UnderlyingStipulations struct {
 	//NoUnderlyingStips is a non-required field for UnderlyingStipulations.
 	NoUnderlyingStips []NoUnderlyingStips `fix:"887,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *UnderlyingStipulations) SetNoUnderlyingStips(v []NoUnderlyingStips) { m.NoUnderlyingStips = v }

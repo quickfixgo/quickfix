@@ -8,10 +8,10 @@ type NoRiskWarningLevels struct {
 	RiskWarningLevelName *string `fix:"1561"`
 }
 
-//Component is a fix50sp2 RiskWarningLevels Component
-type Component struct {
+//RiskWarningLevels is a fix50sp2 Component
+type RiskWarningLevels struct {
 	//NoRiskWarningLevels is a non-required field for RiskWarningLevels.
 	NoRiskWarningLevels []NoRiskWarningLevels `fix:"1559,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *RiskWarningLevels) SetNoRiskWarningLevels(v []NoRiskWarningLevels) { m.NoRiskWarningLevels = v }

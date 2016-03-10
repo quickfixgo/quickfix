@@ -1,7 +1,7 @@
 package financingdetails
 
-//Component is a fix50 FinancingDetails Component
-type Component struct {
+//FinancingDetails is a fix50 Component
+type FinancingDetails struct {
 	//AgreementDesc is a non-required field for FinancingDetails.
 	AgreementDesc *string `fix:"913"`
 	//AgreementID is a non-required field for FinancingDetails.
@@ -22,4 +22,12 @@ type Component struct {
 	MarginRatio *float64 `fix:"898"`
 }
 
-func New() *Component { return new(Component) }
+func (m *FinancingDetails) SetAgreementDesc(v string)     { m.AgreementDesc = &v }
+func (m *FinancingDetails) SetAgreementID(v string)       { m.AgreementID = &v }
+func (m *FinancingDetails) SetAgreementDate(v string)     { m.AgreementDate = &v }
+func (m *FinancingDetails) SetAgreementCurrency(v string) { m.AgreementCurrency = &v }
+func (m *FinancingDetails) SetTerminationType(v int)      { m.TerminationType = &v }
+func (m *FinancingDetails) SetStartDate(v string)         { m.StartDate = &v }
+func (m *FinancingDetails) SetEndDate(v string)           { m.EndDate = &v }
+func (m *FinancingDetails) SetDeliveryType(v int)         { m.DeliveryType = &v }
+func (m *FinancingDetails) SetMarginRatio(v float64)      { m.MarginRatio = &v }

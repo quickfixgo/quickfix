@@ -12,13 +12,13 @@ import (
 //NoQuoteEntries is a repeating group in QuoteCancel
 type NoQuoteEntries struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 }
 
 //Message is a QuoteCancel FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Z"`
-	Header     fix43.Header
+	fix43.Header
 	//QuoteReqID is a non-required field for QuoteCancel.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a required field for QuoteCancel.
@@ -28,7 +28,7 @@ type Message struct {
 	//QuoteResponseLevel is a non-required field for QuoteCancel.
 	QuoteResponseLevel *int `fix:"301"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for QuoteCancel.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for QuoteCancel.
@@ -39,11 +39,21 @@ type Message struct {
 	TradingSessionSubID *string `fix:"625"`
 	//NoQuoteEntries is a non-required field for QuoteCancel.
 	NoQuoteEntries []NoQuoteEntries `fix:"295,omitempty"`
-	Trailer        fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetQuoteReqID(v string)               { m.QuoteReqID = &v }
+func (m *Message) SetQuoteID(v string)                  { m.QuoteID = v }
+func (m *Message) SetQuoteCancelType(v int)             { m.QuoteCancelType = v }
+func (m *Message) SetQuoteResponseLevel(v int)          { m.QuoteResponseLevel = &v }
+func (m *Message) SetAccount(v string)                  { m.Account = &v }
+func (m *Message) SetAccountType(v int)                 { m.AccountType = &v }
+func (m *Message) SetTradingSessionID(v string)         { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)      { m.TradingSessionSubID = &v }
+func (m *Message) SetNoQuoteEntries(v []NoQuoteEntries) { m.NoQuoteEntries = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

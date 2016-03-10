@@ -10,7 +10,7 @@ import (
 //Message is a Logon FIX Message
 type Message struct {
 	FIXMsgType string `fix:"A"`
-	Header     fix41.Header
+	fix41.Header
 	//EncryptMethod is a required field for Logon.
 	EncryptMethod int `fix:"98"`
 	//HeartBtInt is a required field for Logon.
@@ -21,11 +21,17 @@ type Message struct {
 	RawData *string `fix:"96"`
 	//ResetSeqNumFlag is a non-required field for Logon.
 	ResetSeqNumFlag *string `fix:"141"`
-	Trailer         fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetEncryptMethod(v int)      { m.EncryptMethod = v }
+func (m *Message) SetHeartBtInt(v int)         { m.HeartBtInt = v }
+func (m *Message) SetRawDataLength(v int)      { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)         { m.RawData = &v }
+func (m *Message) SetResetSeqNumFlag(v string) { m.ResetSeqNumFlag = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

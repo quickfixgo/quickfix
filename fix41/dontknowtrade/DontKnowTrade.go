@@ -10,7 +10,7 @@ import (
 //Message is a DontKnowTrade FIX Message
 type Message struct {
 	FIXMsgType string `fix:"Q"`
-	Header     fix41.Header
+	fix41.Header
 	//OrderID is a non-required field for DontKnowTrade.
 	OrderID *string `fix:"37"`
 	//ExecID is a non-required field for DontKnowTrade.
@@ -54,12 +54,35 @@ type Message struct {
 	//LastPx is a non-required field for DontKnowTrade.
 	LastPx *float64 `fix:"31"`
 	//Text is a non-required field for DontKnowTrade.
-	Text    *string `fix:"58"`
-	Trailer fix41.Trailer
+	Text *string `fix:"58"`
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)           { m.OrderID = &v }
+func (m *Message) SetExecID(v string)            { m.ExecID = &v }
+func (m *Message) SetDKReason(v string)          { m.DKReason = v }
+func (m *Message) SetSymbol(v string)            { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)         { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)        { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)          { m.IDSource = &v }
+func (m *Message) SetSecurityType(v string)      { m.SecurityType = &v }
+func (m *Message) SetMaturityMonthYear(v string) { m.MaturityMonthYear = &v }
+func (m *Message) SetMaturityDay(v int)          { m.MaturityDay = &v }
+func (m *Message) SetPutOrCall(v int)            { m.PutOrCall = &v }
+func (m *Message) SetStrikePrice(v float64)      { m.StrikePrice = &v }
+func (m *Message) SetOptAttribute(v string)      { m.OptAttribute = &v }
+func (m *Message) SetSecurityExchange(v string)  { m.SecurityExchange = &v }
+func (m *Message) SetIssuer(v string)            { m.Issuer = &v }
+func (m *Message) SetSecurityDesc(v string)      { m.SecurityDesc = &v }
+func (m *Message) SetSide(v string)              { m.Side = v }
+func (m *Message) SetOrderQty(v int)             { m.OrderQty = &v }
+func (m *Message) SetCashOrderQty(v float64)     { m.CashOrderQty = &v }
+func (m *Message) SetLastShares(v int)           { m.LastShares = &v }
+func (m *Message) SetLastPx(v float64)           { m.LastPx = &v }
+func (m *Message) SetText(v string)              { m.Text = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

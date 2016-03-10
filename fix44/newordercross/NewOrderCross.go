@@ -31,7 +31,7 @@ type NoSides struct {
 	//ClOrdLinkID is a non-required field for NoSides.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoSides.
@@ -55,9 +55,9 @@ type NoSides struct {
 	//QtyType is a non-required field for NoSides.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NoSides.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoSides.
@@ -90,6 +90,37 @@ type NoSides struct {
 	SideComplianceID *string `fix:"659"`
 }
 
+func (m *NoSides) SetSide(v string)                 { m.Side = v }
+func (m *NoSides) SetClOrdID(v string)              { m.ClOrdID = v }
+func (m *NoSides) SetSecondaryClOrdID(v string)     { m.SecondaryClOrdID = &v }
+func (m *NoSides) SetClOrdLinkID(v string)          { m.ClOrdLinkID = &v }
+func (m *NoSides) SetTradeOriginationDate(v string) { m.TradeOriginationDate = &v }
+func (m *NoSides) SetTradeDate(v string)            { m.TradeDate = &v }
+func (m *NoSides) SetAccount(v string)              { m.Account = &v }
+func (m *NoSides) SetAcctIDSource(v int)            { m.AcctIDSource = &v }
+func (m *NoSides) SetAccountType(v int)             { m.AccountType = &v }
+func (m *NoSides) SetDayBookingInst(v string)       { m.DayBookingInst = &v }
+func (m *NoSides) SetBookingUnit(v string)          { m.BookingUnit = &v }
+func (m *NoSides) SetPreallocMethod(v string)       { m.PreallocMethod = &v }
+func (m *NoSides) SetAllocID(v string)              { m.AllocID = &v }
+func (m *NoSides) SetNoAllocs(v []NoAllocs)         { m.NoAllocs = v }
+func (m *NoSides) SetQtyType(v int)                 { m.QtyType = &v }
+func (m *NoSides) SetOrderCapacity(v string)        { m.OrderCapacity = &v }
+func (m *NoSides) SetOrderRestrictions(v string)    { m.OrderRestrictions = &v }
+func (m *NoSides) SetCustOrderCapacity(v int)       { m.CustOrderCapacity = &v }
+func (m *NoSides) SetForexReq(v bool)               { m.ForexReq = &v }
+func (m *NoSides) SetSettlCurrency(v string)        { m.SettlCurrency = &v }
+func (m *NoSides) SetBookingType(v int)             { m.BookingType = &v }
+func (m *NoSides) SetText(v string)                 { m.Text = &v }
+func (m *NoSides) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
+func (m *NoSides) SetEncodedText(v string)          { m.EncodedText = &v }
+func (m *NoSides) SetPositionEffect(v string)       { m.PositionEffect = &v }
+func (m *NoSides) SetCoveredOrUncovered(v int)      { m.CoveredOrUncovered = &v }
+func (m *NoSides) SetCashMargin(v string)           { m.CashMargin = &v }
+func (m *NoSides) SetClearingFeeIndicator(v string) { m.ClearingFeeIndicator = &v }
+func (m *NoSides) SetSolicitedFlag(v bool)          { m.SolicitedFlag = &v }
+func (m *NoSides) SetSideComplianceID(v string)     { m.SideComplianceID = &v }
+
 //NoAllocs is a repeating group in NoSides
 type NoAllocs struct {
 	//AllocAccount is a non-required field for NoAllocs.
@@ -101,21 +132,27 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
 
+func (m *NoAllocs) SetAllocAccount(v string)       { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)     { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetAllocSettlCurrency(v string) { m.AllocSettlCurrency = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)  { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetAllocQty(v float64)          { m.AllocQty = &v }
+
 //NoUnderlyings is a repeating group in NewOrderCross
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in NewOrderCross
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoTradingSessions is a repeating group in NewOrderCross
@@ -126,10 +163,13 @@ type NoTradingSessions struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+
 //Message is a NewOrderCross FIX Message
 type Message struct {
 	FIXMsgType string `fix:"s"`
-	Header     fix44.Header
+	fix44.Header
 	//CrossID is a required field for NewOrderCross.
 	CrossID string `fix:"548"`
 	//CrossType is a required field for NewOrderCross.
@@ -139,7 +179,7 @@ type Message struct {
 	//NoSides is a required field for NewOrderCross.
 	NoSides []NoSides `fix:"552"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//NoUnderlyings is a non-required field for NewOrderCross.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for NewOrderCross.
@@ -169,7 +209,7 @@ type Message struct {
 	//TransactTime is a required field for NewOrderCross.
 	TransactTime time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//OrdType is a required field for NewOrderCross.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderCross.
@@ -179,9 +219,9 @@ type Message struct {
 	//StopPx is a non-required field for NewOrderCross.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for NewOrderCross.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NewOrderCross.
@@ -203,9 +243,9 @@ type Message struct {
 	//MaxShow is a non-required field for NewOrderCross.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for NewOrderCross.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for NewOrderCross.
@@ -220,11 +260,51 @@ type Message struct {
 	RegistID *string `fix:"513"`
 	//Designation is a non-required field for NewOrderCross.
 	Designation *string `fix:"494"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetCrossID(v string)                        { m.CrossID = v }
+func (m *Message) SetCrossType(v int)                         { m.CrossType = v }
+func (m *Message) SetCrossPrioritization(v int)               { m.CrossPrioritization = v }
+func (m *Message) SetNoSides(v []NoSides)                     { m.NoSides = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
+func (m *Message) SetNoLegs(v []NoLegs)                       { m.NoLegs = v }
+func (m *Message) SetSettlType(v string)                      { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                      { m.SettlDate = &v }
+func (m *Message) SetHandlInst(v string)                      { m.HandlInst = &v }
+func (m *Message) SetExecInst(v string)                       { m.ExecInst = &v }
+func (m *Message) SetMinQty(v float64)                        { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v float64)                      { m.MaxFloor = &v }
+func (m *Message) SetExDestination(v string)                  { m.ExDestination = &v }
+func (m *Message) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
+func (m *Message) SetProcessCode(v string)                    { m.ProcessCode = &v }
+func (m *Message) SetPrevClosePx(v float64)                   { m.PrevClosePx = &v }
+func (m *Message) SetLocateReqd(v bool)                       { m.LocateReqd = &v }
+func (m *Message) SetTransactTime(v time.Time)                { m.TransactTime = v }
+func (m *Message) SetOrdType(v string)                        { m.OrdType = v }
+func (m *Message) SetPriceType(v int)                         { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                         { m.Price = &v }
+func (m *Message) SetStopPx(v float64)                        { m.StopPx = &v }
+func (m *Message) SetCurrency(v string)                       { m.Currency = &v }
+func (m *Message) SetComplianceID(v string)                   { m.ComplianceID = &v }
+func (m *Message) SetIOIID(v string)                          { m.IOIID = &v }
+func (m *Message) SetQuoteID(v string)                        { m.QuoteID = &v }
+func (m *Message) SetTimeInForce(v string)                    { m.TimeInForce = &v }
+func (m *Message) SetEffectiveTime(v time.Time)               { m.EffectiveTime = &v }
+func (m *Message) SetExpireDate(v string)                     { m.ExpireDate = &v }
+func (m *Message) SetExpireTime(v time.Time)                  { m.ExpireTime = &v }
+func (m *Message) SetGTBookingInst(v int)                     { m.GTBookingInst = &v }
+func (m *Message) SetMaxShow(v float64)                       { m.MaxShow = &v }
+func (m *Message) SetTargetStrategy(v int)                    { m.TargetStrategy = &v }
+func (m *Message) SetTargetStrategyParameters(v string)       { m.TargetStrategyParameters = &v }
+func (m *Message) SetParticipationRate(v float64)             { m.ParticipationRate = &v }
+func (m *Message) SetCancellationRights(v string)             { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)          { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                       { m.RegistID = &v }
+func (m *Message) SetDesignation(v string)                    { m.Designation = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

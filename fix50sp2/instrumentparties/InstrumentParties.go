@@ -13,13 +13,13 @@ type NoInstrumentParties struct {
 	//InstrumentPartyRole is a non-required field for NoInstrumentParties.
 	InstrumentPartyRole *int `fix:"1051"`
 	//InstrumentPtysSubGrp Component
-	InstrumentPtysSubGrp instrumentptyssubgrp.Component
+	instrumentptyssubgrp.InstrumentPtysSubGrp
 }
 
-//Component is a fix50sp2 InstrumentParties Component
-type Component struct {
+//InstrumentParties is a fix50sp2 Component
+type InstrumentParties struct {
 	//NoInstrumentParties is a non-required field for InstrumentParties.
 	NoInstrumentParties []NoInstrumentParties `fix:"1018,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *InstrumentParties) SetNoInstrumentParties(v []NoInstrumentParties) { m.NoInstrumentParties = v }

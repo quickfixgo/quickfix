@@ -6,10 +6,10 @@ type NoStatsIndicators struct {
 	StatsType *int `fix:"1176"`
 }
 
-//Component is a fix50sp1 StatsIndGrp Component
-type Component struct {
+//StatsIndGrp is a fix50sp1 Component
+type StatsIndGrp struct {
 	//NoStatsIndicators is a non-required field for StatsIndGrp.
 	NoStatsIndicators []NoStatsIndicators `fix:"1175,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *StatsIndGrp) SetNoStatsIndicators(v []NoStatsIndicators) { m.NoStatsIndicators = v }

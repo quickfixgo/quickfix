@@ -8,10 +8,12 @@ type NoUndlyInstrumentPartySubIDs struct {
 	UndlyInstrumentPartySubIDType *int `fix:"1064"`
 }
 
-//Component is a fix50sp1 UndlyInstrumentPtysSubGrp Component
-type Component struct {
+//UndlyInstrumentPtysSubGrp is a fix50sp1 Component
+type UndlyInstrumentPtysSubGrp struct {
 	//NoUndlyInstrumentPartySubIDs is a non-required field for UndlyInstrumentPtysSubGrp.
 	NoUndlyInstrumentPartySubIDs []NoUndlyInstrumentPartySubIDs `fix:"1062,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *UndlyInstrumentPtysSubGrp) SetNoUndlyInstrumentPartySubIDs(v []NoUndlyInstrumentPartySubIDs) {
+	m.NoUndlyInstrumentPartySubIDs = v
+}

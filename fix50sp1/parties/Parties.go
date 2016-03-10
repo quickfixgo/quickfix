@@ -13,13 +13,13 @@ type NoPartyIDs struct {
 	//PartyRole is a non-required field for NoPartyIDs.
 	PartyRole *int `fix:"452"`
 	//PtysSubGrp Component
-	PtysSubGrp ptyssubgrp.Component
+	ptyssubgrp.PtysSubGrp
 }
 
-//Component is a fix50sp1 Parties Component
-type Component struct {
+//Parties is a fix50sp1 Component
+type Parties struct {
 	//NoPartyIDs is a non-required field for Parties.
 	NoPartyIDs []NoPartyIDs `fix:"453,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *Parties) SetNoPartyIDs(v []NoPartyIDs) { m.NoPartyIDs = v }

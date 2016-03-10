@@ -8,10 +8,10 @@ type NoLegSecurityAltID struct {
 	LegSecurityAltIDSource *string `fix:"606"`
 }
 
-//Component is a fix50 LegSecAltIDGrp Component
-type Component struct {
+//LegSecAltIDGrp is a fix50 Component
+type LegSecAltIDGrp struct {
 	//NoLegSecurityAltID is a non-required field for LegSecAltIDGrp.
 	NoLegSecurityAltID []NoLegSecurityAltID `fix:"604,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *LegSecAltIDGrp) SetNoLegSecurityAltID(v []NoLegSecurityAltID) { m.NoLegSecurityAltID = v }

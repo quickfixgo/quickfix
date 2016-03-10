@@ -38,16 +38,32 @@ type NoRelatedSym struct {
 	SecurityDesc *string `fix:"107"`
 }
 
+func (m *NoRelatedSym) SetRelatdSym(v string)         { m.RelatdSym = &v }
+func (m *NoRelatedSym) SetSymbolSfx(v string)         { m.SymbolSfx = &v }
+func (m *NoRelatedSym) SetSecurityID(v string)        { m.SecurityID = &v }
+func (m *NoRelatedSym) SetIDSource(v string)          { m.IDSource = &v }
+func (m *NoRelatedSym) SetSecurityType(v string)      { m.SecurityType = &v }
+func (m *NoRelatedSym) SetMaturityMonthYear(v string) { m.MaturityMonthYear = &v }
+func (m *NoRelatedSym) SetMaturityDay(v int)          { m.MaturityDay = &v }
+func (m *NoRelatedSym) SetPutOrCall(v int)            { m.PutOrCall = &v }
+func (m *NoRelatedSym) SetStrikePrice(v float64)      { m.StrikePrice = &v }
+func (m *NoRelatedSym) SetOptAttribute(v string)      { m.OptAttribute = &v }
+func (m *NoRelatedSym) SetSecurityExchange(v string)  { m.SecurityExchange = &v }
+func (m *NoRelatedSym) SetIssuer(v string)            { m.Issuer = &v }
+func (m *NoRelatedSym) SetSecurityDesc(v string)      { m.SecurityDesc = &v }
+
 //LinesOfText is a repeating group in Email
 type LinesOfText struct {
 	//Text is a required field for LinesOfText.
 	Text string `fix:"58"`
 }
 
+func (m *LinesOfText) SetText(v string) { m.Text = v }
+
 //Message is a Email FIX Message
 type Message struct {
 	FIXMsgType string `fix:"C"`
-	Header     fix41.Header
+	fix41.Header
 	//EmailThreadID is a required field for Email.
 	EmailThreadID string `fix:"164"`
 	//EmailType is a required field for Email.
@@ -68,11 +84,22 @@ type Message struct {
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for Email.
 	RawData *string `fix:"96"`
-	Trailer fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetEmailThreadID(v string)        { m.EmailThreadID = v }
+func (m *Message) SetEmailType(v string)            { m.EmailType = v }
+func (m *Message) SetOrigTime(v time.Time)          { m.OrigTime = &v }
+func (m *Message) SetSubject(v string)              { m.Subject = v }
+func (m *Message) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
+func (m *Message) SetOrderID(v string)              { m.OrderID = &v }
+func (m *Message) SetClOrdID(v string)              { m.ClOrdID = &v }
+func (m *Message) SetLinesOfText(v []LinesOfText)   { m.LinesOfText = v }
+func (m *Message) SetRawDataLength(v int)           { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)              { m.RawData = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

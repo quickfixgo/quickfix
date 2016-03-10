@@ -10,14 +10,16 @@ import (
 //Message is a Heartbeat FIX Message
 type Message struct {
 	FIXMsgType string `fix:"0"`
-	Header     fix43.Header
+	fix43.Header
 	//TestReqID is a non-required field for Heartbeat.
 	TestReqID *string `fix:"112"`
-	Trailer   fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTestReqID(v string) { m.TestReqID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

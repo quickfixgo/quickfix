@@ -15,15 +15,15 @@ type NoAllocs struct {
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
 	//NestedParties3 Component
-	NestedParties3 nestedparties3.Component
+	nestedparties3.NestedParties3
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
 
-//Component is a fix50sp2 PreAllocMlegGrp Component
-type Component struct {
+//PreAllocMlegGrp is a fix50sp2 Component
+type PreAllocMlegGrp struct {
 	//NoAllocs is a non-required field for PreAllocMlegGrp.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *PreAllocMlegGrp) SetNoAllocs(v []NoAllocs) { m.NoAllocs = v }

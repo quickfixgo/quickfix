@@ -16,10 +16,10 @@ type NoCompIDs struct {
 	StatusText *string `fix:"929"`
 }
 
-//Component is a fix50sp2 CompIDStatGrp Component
-type Component struct {
+//CompIDStatGrp is a fix50sp2 Component
+type CompIDStatGrp struct {
 	//NoCompIDs is a required field for CompIDStatGrp.
 	NoCompIDs []NoCompIDs `fix:"936"`
 }
 
-func New() *Component { return new(Component) }
+func (m *CompIDStatGrp) SetNoCompIDs(v []NoCompIDs) { m.NoCompIDs = v }

@@ -13,13 +13,15 @@ type NoDerivativeInstrumentParties struct {
 	//DerivativeInstrumentPartyRole is a non-required field for NoDerivativeInstrumentParties.
 	DerivativeInstrumentPartyRole *int `fix:"1295"`
 	//DerivativeInstrumentPartySubIDsGrp Component
-	DerivativeInstrumentPartySubIDsGrp derivativeinstrumentpartysubidsgrp.Component
+	derivativeinstrumentpartysubidsgrp.DerivativeInstrumentPartySubIDsGrp
 }
 
-//Component is a fix50sp2 DerivativeInstrumentParties Component
-type Component struct {
+//DerivativeInstrumentParties is a fix50sp2 Component
+type DerivativeInstrumentParties struct {
 	//NoDerivativeInstrumentParties is a non-required field for DerivativeInstrumentParties.
 	NoDerivativeInstrumentParties []NoDerivativeInstrumentParties `fix:"1292,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *DerivativeInstrumentParties) SetNoDerivativeInstrumentParties(v []NoDerivativeInstrumentParties) {
+	m.NoDerivativeInstrumentParties = v
+}

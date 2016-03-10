@@ -16,19 +16,19 @@ import (
 //NoLegs is a repeating group in AssignmentReport
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in AssignmentReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //Message is a AssignmentReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AW"`
-	Header     fix44.Header
+	fix44.Header
 	//AsgnRptID is a required field for AssignmentReport.
 	AsgnRptID string `fix:"833"`
 	//TotNumAssignmentReports is a non-required field for AssignmentReport.
@@ -36,13 +36,13 @@ type Message struct {
 	//LastRptRequested is a non-required field for AssignmentReport.
 	LastRptRequested *bool `fix:"912"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for AssignmentReport.
 	Account *string `fix:"1"`
 	//AccountType is a required field for AssignmentReport.
 	AccountType int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for AssignmentReport.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for AssignmentReport.
@@ -50,9 +50,9 @@ type Message struct {
 	//NoUnderlyings is a non-required field for AssignmentReport.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//ThresholdAmount is a non-required field for AssignmentReport.
 	ThresholdAmount *float64 `fix:"834"`
 	//SettlPrice is a required field for AssignmentReport.
@@ -83,11 +83,35 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for AssignmentReport.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetAsgnRptID(v string)              { m.AsgnRptID = v }
+func (m *Message) SetTotNumAssignmentReports(v int)   { m.TotNumAssignmentReports = &v }
+func (m *Message) SetLastRptRequested(v bool)         { m.LastRptRequested = &v }
+func (m *Message) SetAccount(v string)                { m.Account = &v }
+func (m *Message) SetAccountType(v int)               { m.AccountType = v }
+func (m *Message) SetCurrency(v string)               { m.Currency = &v }
+func (m *Message) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
+func (m *Message) SetThresholdAmount(v float64)       { m.ThresholdAmount = &v }
+func (m *Message) SetSettlPrice(v float64)            { m.SettlPrice = v }
+func (m *Message) SetSettlPriceType(v int)            { m.SettlPriceType = v }
+func (m *Message) SetUnderlyingSettlPrice(v float64)  { m.UnderlyingSettlPrice = v }
+func (m *Message) SetExpireDate(v string)             { m.ExpireDate = &v }
+func (m *Message) SetAssignmentMethod(v string)       { m.AssignmentMethod = v }
+func (m *Message) SetAssignmentUnit(v float64)        { m.AssignmentUnit = &v }
+func (m *Message) SetOpenInterest(v float64)          { m.OpenInterest = v }
+func (m *Message) SetExerciseMethod(v string)         { m.ExerciseMethod = v }
+func (m *Message) SetSettlSessID(v string)            { m.SettlSessID = v }
+func (m *Message) SetSettlSessSubID(v string)         { m.SettlSessSubID = v }
+func (m *Message) SetClearingBusinessDate(v string)   { m.ClearingBusinessDate = v }
+func (m *Message) SetText(v string)                   { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

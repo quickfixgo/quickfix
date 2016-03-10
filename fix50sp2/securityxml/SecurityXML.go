@@ -1,7 +1,7 @@
 package securityxml
 
-//Component is a fix50sp2 SecurityXML Component
-type Component struct {
+//SecurityXML is a fix50sp2 Component
+type SecurityXML struct {
 	//SecurityXMLLen is a non-required field for SecurityXML.
 	SecurityXMLLen *int `fix:"1184"`
 	//SecurityXML is a non-required field for SecurityXML.
@@ -10,4 +10,6 @@ type Component struct {
 	SecurityXMLSchema *string `fix:"1186"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SecurityXML) SetSecurityXMLLen(v int)       { m.SecurityXMLLen = &v }
+func (m *SecurityXML) SetSecurityXML(v string)       { m.SecurityXML = &v }
+func (m *SecurityXML) SetSecurityXMLSchema(v string) { m.SecurityXMLSchema = &v }

@@ -1,7 +1,7 @@
 package peginstructions
 
-//Component is a fix44 PegInstructions Component
-type Component struct {
+//PegInstructions is a fix44 Component
+type PegInstructions struct {
 	//PegOffsetValue is a non-required field for PegInstructions.
 	PegOffsetValue *float64 `fix:"211"`
 	//PegMoveType is a non-required field for PegInstructions.
@@ -16,4 +16,9 @@ type Component struct {
 	PegScope *int `fix:"840"`
 }
 
-func New() *Component { return new(Component) }
+func (m *PegInstructions) SetPegOffsetValue(v float64) { m.PegOffsetValue = &v }
+func (m *PegInstructions) SetPegMoveType(v int)        { m.PegMoveType = &v }
+func (m *PegInstructions) SetPegOffsetType(v int)      { m.PegOffsetType = &v }
+func (m *PegInstructions) SetPegLimitType(v int)       { m.PegLimitType = &v }
+func (m *PegInstructions) SetPegRoundDirection(v int)  { m.PegRoundDirection = &v }
+func (m *PegInstructions) SetPegScope(v int)           { m.PegScope = &v }

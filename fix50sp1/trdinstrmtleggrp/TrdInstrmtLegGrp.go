@@ -10,19 +10,19 @@ import (
 //NoLegs is a repeating group in TrdInstrmtLegGrp
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegSettlType is a non-required field for NoLegs.
@@ -44,7 +44,7 @@ type NoLegs struct {
 	//LegNumber is a non-required field for NoLegs.
 	LegNumber *int `fix:"1152"`
 	//TradeCapLegUnderlyingsGrp Component
-	TradeCapLegUnderlyingsGrp tradecaplegunderlyingsgrp.Component
+	tradecaplegunderlyingsgrp.TradeCapLegUnderlyingsGrp
 	//LegVolatility is a non-required field for NoLegs.
 	LegVolatility *float64 `fix:"1379"`
 	//LegDividendYield is a non-required field for NoLegs.
@@ -57,10 +57,10 @@ type NoLegs struct {
 	LegLastQty *float64 `fix:"1418"`
 }
 
-//Component is a fix50sp1 TrdInstrmtLegGrp Component
-type Component struct {
+//TrdInstrmtLegGrp is a fix50sp1 Component
+type TrdInstrmtLegGrp struct {
 	//NoLegs is a non-required field for TrdInstrmtLegGrp.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TrdInstrmtLegGrp) SetNoLegs(v []NoLegs) { m.NoLegs = v }

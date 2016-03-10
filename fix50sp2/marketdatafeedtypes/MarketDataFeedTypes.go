@@ -10,10 +10,10 @@ type NoMDFeedTypes struct {
 	MDBookType *int `fix:"1021"`
 }
 
-//Component is a fix50sp2 MarketDataFeedTypes Component
-type Component struct {
+//MarketDataFeedTypes is a fix50sp2 Component
+type MarketDataFeedTypes struct {
 	//NoMDFeedTypes is a non-required field for MarketDataFeedTypes.
 	NoMDFeedTypes []NoMDFeedTypes `fix:"1141,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *MarketDataFeedTypes) SetNoMDFeedTypes(v []NoMDFeedTypes) { m.NoMDFeedTypes = v }

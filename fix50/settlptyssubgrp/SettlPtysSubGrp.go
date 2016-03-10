@@ -8,10 +8,10 @@ type NoSettlPartySubIDs struct {
 	SettlPartySubIDType *int `fix:"786"`
 }
 
-//Component is a fix50 SettlPtysSubGrp Component
-type Component struct {
+//SettlPtysSubGrp is a fix50 Component
+type SettlPtysSubGrp struct {
 	//NoSettlPartySubIDs is a non-required field for SettlPtysSubGrp.
 	NoSettlPartySubIDs []NoSettlPartySubIDs `fix:"801,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SettlPtysSubGrp) SetNoSettlPartySubIDs(v []NoSettlPartySubIDs) { m.NoSettlPartySubIDs = v }

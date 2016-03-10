@@ -1,7 +1,7 @@
 package displayinstruction
 
-//Component is a fix50sp2 DisplayInstruction Component
-type Component struct {
+//DisplayInstruction is a fix50sp2 Component
+type DisplayInstruction struct {
 	//SecondaryDisplayQty is a non-required field for DisplayInstruction.
 	SecondaryDisplayQty *float64 `fix:"1082"`
 	//DisplayWhen is a non-required field for DisplayInstruction.
@@ -20,4 +20,11 @@ type Component struct {
 	DisplayQty *float64 `fix:"1138"`
 }
 
-func New() *Component { return new(Component) }
+func (m *DisplayInstruction) SetSecondaryDisplayQty(v float64) { m.SecondaryDisplayQty = &v }
+func (m *DisplayInstruction) SetDisplayWhen(v string)          { m.DisplayWhen = &v }
+func (m *DisplayInstruction) SetDisplayMethod(v string)        { m.DisplayMethod = &v }
+func (m *DisplayInstruction) SetDisplayLowQty(v float64)       { m.DisplayLowQty = &v }
+func (m *DisplayInstruction) SetDisplayHighQty(v float64)      { m.DisplayHighQty = &v }
+func (m *DisplayInstruction) SetDisplayMinIncr(v float64)      { m.DisplayMinIncr = &v }
+func (m *DisplayInstruction) SetRefreshQty(v float64)          { m.RefreshQty = &v }
+func (m *DisplayInstruction) SetDisplayQty(v float64)          { m.DisplayQty = &v }

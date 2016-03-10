@@ -8,15 +8,15 @@ import (
 //NoRelatedPartyIDs is a repeating group in RelatedPartyGrp
 type NoRelatedPartyIDs struct {
 	//RelatedPartyDetail Component
-	RelatedPartyDetail relatedpartydetail.Component
+	relatedpartydetail.RelatedPartyDetail
 	//PartyRelationships Component
-	PartyRelationships partyrelationships.Component
+	partyrelationships.PartyRelationships
 }
 
-//Component is a fix50sp2 RelatedPartyGrp Component
-type Component struct {
+//RelatedPartyGrp is a fix50sp2 Component
+type RelatedPartyGrp struct {
 	//NoRelatedPartyIDs is a non-required field for RelatedPartyGrp.
 	NoRelatedPartyIDs []NoRelatedPartyIDs `fix:"1562,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *RelatedPartyGrp) SetNoRelatedPartyIDs(v []NoRelatedPartyIDs) { m.NoRelatedPartyIDs = v }

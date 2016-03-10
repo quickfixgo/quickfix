@@ -11,7 +11,7 @@ import (
 //Message is a News FIX Message
 type Message struct {
 	FIXMsgType string `fix:"B"`
-	Header     fix40.Header
+	fix40.Header
 	//OrigTime is a non-required field for News.
 	OrigTime *time.Time `fix:"42"`
 	//Urgency is a non-required field for News.
@@ -26,11 +26,19 @@ type Message struct {
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for News.
 	RawData *string `fix:"96"`
-	Trailer fix40.Trailer
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrigTime(v time.Time) { m.OrigTime = &v }
+func (m *Message) SetUrgency(v string)     { m.Urgency = &v }
+func (m *Message) SetRelatdSym(v string)   { m.RelatdSym = &v }
+func (m *Message) SetLinesOfText(v int)    { m.LinesOfText = v }
+func (m *Message) SetText(v string)        { m.Text = v }
+func (m *Message) SetRawDataLength(v int)  { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)     { m.RawData = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

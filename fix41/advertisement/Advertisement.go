@@ -11,7 +11,7 @@ import (
 //Message is a Advertisement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"7"`
-	Header     fix41.Header
+	fix41.Header
 	//AdvId is a required field for Advertisement.
 	AdvId string `fix:"2"`
 	//AdvTransType is a required field for Advertisement.
@@ -62,11 +62,37 @@ type Message struct {
 	URLLink *string `fix:"149"`
 	//LastMkt is a non-required field for Advertisement.
 	LastMkt *string `fix:"30"`
-	Trailer fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetAdvId(v string)             { m.AdvId = v }
+func (m *Message) SetAdvTransType(v string)      { m.AdvTransType = v }
+func (m *Message) SetAdvRefID(v string)          { m.AdvRefID = &v }
+func (m *Message) SetSymbol(v string)            { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)         { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)        { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)          { m.IDSource = &v }
+func (m *Message) SetSecurityType(v string)      { m.SecurityType = &v }
+func (m *Message) SetMaturityMonthYear(v string) { m.MaturityMonthYear = &v }
+func (m *Message) SetMaturityDay(v int)          { m.MaturityDay = &v }
+func (m *Message) SetPutOrCall(v int)            { m.PutOrCall = &v }
+func (m *Message) SetStrikePrice(v float64)      { m.StrikePrice = &v }
+func (m *Message) SetOptAttribute(v string)      { m.OptAttribute = &v }
+func (m *Message) SetSecurityExchange(v string)  { m.SecurityExchange = &v }
+func (m *Message) SetIssuer(v string)            { m.Issuer = &v }
+func (m *Message) SetSecurityDesc(v string)      { m.SecurityDesc = &v }
+func (m *Message) SetAdvSide(v string)           { m.AdvSide = v }
+func (m *Message) SetShares(v int)               { m.Shares = v }
+func (m *Message) SetPrice(v float64)            { m.Price = &v }
+func (m *Message) SetCurrency(v string)          { m.Currency = &v }
+func (m *Message) SetTradeDate(v string)         { m.TradeDate = &v }
+func (m *Message) SetTransactTime(v time.Time)   { m.TransactTime = &v }
+func (m *Message) SetText(v string)              { m.Text = &v }
+func (m *Message) SetURLLink(v string)           { m.URLLink = &v }
+func (m *Message) SetLastMkt(v string)           { m.LastMkt = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

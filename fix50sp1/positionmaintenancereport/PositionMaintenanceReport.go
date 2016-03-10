@@ -18,7 +18,7 @@ import (
 //Message is a PositionMaintenanceReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AM"`
-	Header     fixt11.Header
+	fixt11.Header
 	//PosMaintRptID is a required field for PositionMaintenanceReport.
 	PosMaintRptID string `fix:"721"`
 	//PosTransType is a required field for PositionMaintenanceReport.
@@ -40,7 +40,7 @@ type Message struct {
 	//SettlSessSubID is a non-required field for PositionMaintenanceReport.
 	SettlSessSubID *string `fix:"717"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for PositionMaintenanceReport.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for PositionMaintenanceReport.
@@ -48,21 +48,21 @@ type Message struct {
 	//AccountType is a non-required field for PositionMaintenanceReport.
 	AccountType *int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for PositionMaintenanceReport.
 	Currency *string `fix:"15"`
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//TransactTime is a non-required field for PositionMaintenanceReport.
 	TransactTime *time.Time `fix:"60"`
 	//PositionQty Component
-	PositionQty positionqty.Component
+	positionqty.PositionQty
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//AdjustmentType is a non-required field for PositionMaintenanceReport.
 	AdjustmentType *int `fix:"718"`
 	//ThresholdAmount is a non-required field for PositionMaintenanceReport.
@@ -81,11 +81,36 @@ type Message struct {
 	PriorSpreadIndicator *bool `fix:"720"`
 	//PosMaintRptRefID is a non-required field for PositionMaintenanceReport.
 	PosMaintRptRefID *string `fix:"714"`
-	Trailer          fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetPosMaintRptID(v string)              { m.PosMaintRptID = v }
+func (m *Message) SetPosTransType(v int)                  { m.PosTransType = v }
+func (m *Message) SetPosReqID(v string)                   { m.PosReqID = &v }
+func (m *Message) SetPosMaintAction(v int)                { m.PosMaintAction = v }
+func (m *Message) SetOrigPosReqRefID(v string)            { m.OrigPosReqRefID = &v }
+func (m *Message) SetPosMaintStatus(v int)                { m.PosMaintStatus = v }
+func (m *Message) SetPosMaintResult(v int)                { m.PosMaintResult = &v }
+func (m *Message) SetClearingBusinessDate(v string)       { m.ClearingBusinessDate = v }
+func (m *Message) SetSettlSessID(v string)                { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)             { m.SettlSessSubID = &v }
+func (m *Message) SetAccount(v string)                    { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                  { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                   { m.AccountType = &v }
+func (m *Message) SetCurrency(v string)                   { m.Currency = &v }
+func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
+func (m *Message) SetAdjustmentType(v int)                { m.AdjustmentType = &v }
+func (m *Message) SetThresholdAmount(v float64)           { m.ThresholdAmount = &v }
+func (m *Message) SetText(v string)                       { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                { m.EncodedText = &v }
+func (m *Message) SetSettlCurrency(v string)              { m.SettlCurrency = &v }
+func (m *Message) SetContraryInstructionIndicator(v bool) { m.ContraryInstructionIndicator = &v }
+func (m *Message) SetPriorSpreadIndicator(v bool)         { m.PriorSpreadIndicator = &v }
+func (m *Message) SetPosMaintRptRefID(v string)           { m.PosMaintRptRefID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

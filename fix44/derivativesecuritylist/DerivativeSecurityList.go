@@ -14,13 +14,13 @@ import (
 //NoRelatedSym is a repeating group in DerivativeSecurityList
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//ExpirationCycle is a non-required field for NoRelatedSym.
 	ExpirationCycle *int `fix:"827"`
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//NoLegs is a non-required field for NoRelatedSym.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//TradingSessionID is a non-required field for NoRelatedSym.
@@ -35,16 +35,25 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoRelatedSym) SetCurrency(v string)            { m.Currency = &v }
+func (m *NoRelatedSym) SetExpirationCycle(v int)        { m.ExpirationCycle = &v }
+func (m *NoRelatedSym) SetNoLegs(v []NoLegs)            { m.NoLegs = v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetText(v string)                { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)         { m.EncodedText = &v }
+
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //Message is a DerivativeSecurityList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AA"`
-	Header     fix44.Header
+	fix44.Header
 	//SecurityReqID is a required field for DerivativeSecurityList.
 	SecurityReqID string `fix:"320"`
 	//SecurityResponseID is a required field for DerivativeSecurityList.
@@ -52,18 +61,25 @@ type Message struct {
 	//SecurityRequestResult is a required field for DerivativeSecurityList.
 	SecurityRequestResult int `fix:"560"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//TotNoRelatedSym is a non-required field for DerivativeSecurityList.
 	TotNoRelatedSym *int `fix:"393"`
 	//LastFragment is a non-required field for DerivativeSecurityList.
 	LastFragment *bool `fix:"893"`
 	//NoRelatedSym is a non-required field for DerivativeSecurityList.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
-	Trailer      fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = v }
+func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = v }
+func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = v }
+func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
+func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

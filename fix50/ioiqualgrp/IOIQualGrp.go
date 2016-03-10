@@ -6,10 +6,10 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
-//Component is a fix50 IOIQualGrp Component
-type Component struct {
+//IOIQualGrp is a fix50 Component
+type IOIQualGrp struct {
 	//NoIOIQualifiers is a non-required field for IOIQualGrp.
 	NoIOIQualifiers []NoIOIQualifiers `fix:"199,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *IOIQualGrp) SetNoIOIQualifiers(v []NoIOIQualifiers) { m.NoIOIQualifiers = v }

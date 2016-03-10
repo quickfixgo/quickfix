@@ -26,11 +26,11 @@ type NoSides struct {
 	//OrigOrdModTime is a non-required field for NoSides.
 	OrigOrdModTime *time.Time `fix:"586"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//ComplianceID is a non-required field for NoSides.
 	ComplianceID *string `fix:"376"`
 	//Text is a non-required field for NoSides.
@@ -41,10 +41,22 @@ type NoSides struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoSides) SetSide(v string)                 { m.Side = v }
+func (m *NoSides) SetOrigClOrdID(v string)          { m.OrigClOrdID = v }
+func (m *NoSides) SetClOrdID(v string)              { m.ClOrdID = v }
+func (m *NoSides) SetSecondaryClOrdID(v string)     { m.SecondaryClOrdID = &v }
+func (m *NoSides) SetClOrdLinkID(v string)          { m.ClOrdLinkID = &v }
+func (m *NoSides) SetOrigOrdModTime(v time.Time)    { m.OrigOrdModTime = &v }
+func (m *NoSides) SetTradeOriginationDate(v string) { m.TradeOriginationDate = &v }
+func (m *NoSides) SetComplianceID(v string)         { m.ComplianceID = &v }
+func (m *NoSides) SetText(v string)                 { m.Text = &v }
+func (m *NoSides) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
+func (m *NoSides) SetEncodedText(v string)          { m.EncodedText = &v }
+
 //Message is a CrossOrderCancelRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"u"`
-	Header     fix43.Header
+	fix43.Header
 	//OrderID is a non-required field for CrossOrderCancelRequest.
 	OrderID *string `fix:"37"`
 	//CrossID is a required field for CrossOrderCancelRequest.
@@ -58,14 +70,22 @@ type Message struct {
 	//NoSides is a required field for CrossOrderCancelRequest.
 	NoSides []NoSides `fix:"552"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//TransactTime is a required field for CrossOrderCancelRequest.
 	TransactTime time.Time `fix:"60"`
-	Trailer      fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)          { m.OrderID = &v }
+func (m *Message) SetCrossID(v string)          { m.CrossID = v }
+func (m *Message) SetOrigCrossID(v string)      { m.OrigCrossID = v }
+func (m *Message) SetCrossType(v int)           { m.CrossType = v }
+func (m *Message) SetCrossPrioritization(v int) { m.CrossPrioritization = v }
+func (m *Message) SetNoSides(v []NoSides)       { m.NoSides = v }
+func (m *Message) SetTransactTime(v time.Time)  { m.TransactTime = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

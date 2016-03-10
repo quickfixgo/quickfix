@@ -11,18 +11,21 @@ import (
 //Message is a StreamAssignmentRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"CC"`
-	Header     fixt11.Header
+	fixt11.Header
 	//StreamAsgnReqID is a required field for StreamAssignmentRequest.
 	StreamAsgnReqID string `fix:"1497"`
 	//StreamAsgnReqType is a required field for StreamAssignmentRequest.
 	StreamAsgnReqType int `fix:"1498"`
 	//StrmAsgnReqGrp Component
-	StrmAsgnReqGrp strmasgnreqgrp.Component
-	Trailer        fixt11.Trailer
+	strmasgnreqgrp.StrmAsgnReqGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetStreamAsgnReqID(v string) { m.StreamAsgnReqID = v }
+func (m *Message) SetStreamAsgnReqType(v int)  { m.StreamAsgnReqType = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

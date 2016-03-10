@@ -17,15 +17,15 @@ type NoApplIDs struct {
 	//ApplResponseError is a non-required field for NoApplIDs.
 	ApplResponseError *int `fix:"1354"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//RefApplReqID is a non-required field for NoApplIDs.
 	RefApplReqID *string `fix:"1433"`
 }
 
-//Component is a fix50sp2 ApplIDRequestAckGrp Component
-type Component struct {
+//ApplIDRequestAckGrp is a fix50sp2 Component
+type ApplIDRequestAckGrp struct {
 	//NoApplIDs is a non-required field for ApplIDRequestAckGrp.
 	NoApplIDs []NoApplIDs `fix:"1351,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *ApplIDRequestAckGrp) SetNoApplIDs(v []NoApplIDs) { m.NoApplIDs = v }

@@ -55,6 +55,31 @@ type NoQuoteSets struct {
 	NoQuoteEntries []NoQuoteEntries `fix:"295,omitempty"`
 }
 
+func (m *NoQuoteSets) SetQuoteSetID(v string)                    { m.QuoteSetID = &v }
+func (m *NoQuoteSets) SetUnderlyingSymbol(v string)              { m.UnderlyingSymbol = &v }
+func (m *NoQuoteSets) SetUnderlyingSymbolSfx(v string)           { m.UnderlyingSymbolSfx = &v }
+func (m *NoQuoteSets) SetUnderlyingSecurityID(v string)          { m.UnderlyingSecurityID = &v }
+func (m *NoQuoteSets) SetUnderlyingIDSource(v string)            { m.UnderlyingIDSource = &v }
+func (m *NoQuoteSets) SetUnderlyingSecurityType(v string)        { m.UnderlyingSecurityType = &v }
+func (m *NoQuoteSets) SetUnderlyingMaturityMonthYear(v string)   { m.UnderlyingMaturityMonthYear = &v }
+func (m *NoQuoteSets) SetUnderlyingMaturityDay(v int)            { m.UnderlyingMaturityDay = &v }
+func (m *NoQuoteSets) SetUnderlyingPutOrCall(v int)              { m.UnderlyingPutOrCall = &v }
+func (m *NoQuoteSets) SetUnderlyingStrikePrice(v float64)        { m.UnderlyingStrikePrice = &v }
+func (m *NoQuoteSets) SetUnderlyingOptAttribute(v string)        { m.UnderlyingOptAttribute = &v }
+func (m *NoQuoteSets) SetUnderlyingContractMultiplier(v float64) { m.UnderlyingContractMultiplier = &v }
+func (m *NoQuoteSets) SetUnderlyingCouponRate(v float64)         { m.UnderlyingCouponRate = &v }
+func (m *NoQuoteSets) SetUnderlyingSecurityExchange(v string)    { m.UnderlyingSecurityExchange = &v }
+func (m *NoQuoteSets) SetUnderlyingIssuer(v string)              { m.UnderlyingIssuer = &v }
+func (m *NoQuoteSets) SetEncodedUnderlyingIssuerLen(v int)       { m.EncodedUnderlyingIssuerLen = &v }
+func (m *NoQuoteSets) SetEncodedUnderlyingIssuer(v string)       { m.EncodedUnderlyingIssuer = &v }
+func (m *NoQuoteSets) SetUnderlyingSecurityDesc(v string)        { m.UnderlyingSecurityDesc = &v }
+func (m *NoQuoteSets) SetEncodedUnderlyingSecurityDescLen(v int) {
+	m.EncodedUnderlyingSecurityDescLen = &v
+}
+func (m *NoQuoteSets) SetEncodedUnderlyingSecurityDesc(v string) { m.EncodedUnderlyingSecurityDesc = &v }
+func (m *NoQuoteSets) SetTotQuoteEntries(v int)                  { m.TotQuoteEntries = &v }
+func (m *NoQuoteSets) SetNoQuoteEntries(v []NoQuoteEntries)      { m.NoQuoteEntries = v }
+
 //NoQuoteEntries is a repeating group in NoQuoteSets
 type NoQuoteEntries struct {
 	//QuoteEntryID is a non-required field for NoQuoteEntries.
@@ -101,10 +126,32 @@ type NoQuoteEntries struct {
 	QuoteEntryRejectReason *int `fix:"368"`
 }
 
+func (m *NoQuoteEntries) SetQuoteEntryID(v string)        { m.QuoteEntryID = &v }
+func (m *NoQuoteEntries) SetSymbol(v string)              { m.Symbol = &v }
+func (m *NoQuoteEntries) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
+func (m *NoQuoteEntries) SetSecurityID(v string)          { m.SecurityID = &v }
+func (m *NoQuoteEntries) SetIDSource(v string)            { m.IDSource = &v }
+func (m *NoQuoteEntries) SetSecurityType(v string)        { m.SecurityType = &v }
+func (m *NoQuoteEntries) SetMaturityMonthYear(v string)   { m.MaturityMonthYear = &v }
+func (m *NoQuoteEntries) SetMaturityDay(v int)            { m.MaturityDay = &v }
+func (m *NoQuoteEntries) SetPutOrCall(v int)              { m.PutOrCall = &v }
+func (m *NoQuoteEntries) SetStrikePrice(v float64)        { m.StrikePrice = &v }
+func (m *NoQuoteEntries) SetOptAttribute(v string)        { m.OptAttribute = &v }
+func (m *NoQuoteEntries) SetContractMultiplier(v float64) { m.ContractMultiplier = &v }
+func (m *NoQuoteEntries) SetCouponRate(v float64)         { m.CouponRate = &v }
+func (m *NoQuoteEntries) SetSecurityExchange(v string)    { m.SecurityExchange = &v }
+func (m *NoQuoteEntries) SetIssuer(v string)              { m.Issuer = &v }
+func (m *NoQuoteEntries) SetEncodedIssuerLen(v int)       { m.EncodedIssuerLen = &v }
+func (m *NoQuoteEntries) SetEncodedIssuer(v string)       { m.EncodedIssuer = &v }
+func (m *NoQuoteEntries) SetSecurityDesc(v string)        { m.SecurityDesc = &v }
+func (m *NoQuoteEntries) SetEncodedSecurityDescLen(v int) { m.EncodedSecurityDescLen = &v }
+func (m *NoQuoteEntries) SetEncodedSecurityDesc(v string) { m.EncodedSecurityDesc = &v }
+func (m *NoQuoteEntries) SetQuoteEntryRejectReason(v int) { m.QuoteEntryRejectReason = &v }
+
 //Message is a QuoteAcknowledgement FIX Message
 type Message struct {
 	FIXMsgType string `fix:"b"`
-	Header     fix42.Header
+	fix42.Header
 	//QuoteReqID is a non-required field for QuoteAcknowledgement.
 	QuoteReqID *string `fix:"131"`
 	//QuoteID is a non-required field for QuoteAcknowledgement.
@@ -121,11 +168,20 @@ type Message struct {
 	Text *string `fix:"58"`
 	//NoQuoteSets is a non-required field for QuoteAcknowledgement.
 	NoQuoteSets []NoQuoteSets `fix:"296,omitempty"`
-	Trailer     fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetQuoteReqID(v string)         { m.QuoteReqID = &v }
+func (m *Message) SetQuoteID(v string)            { m.QuoteID = &v }
+func (m *Message) SetQuoteAckStatus(v int)        { m.QuoteAckStatus = v }
+func (m *Message) SetQuoteRejectReason(v int)     { m.QuoteRejectReason = &v }
+func (m *Message) SetQuoteResponseLevel(v int)    { m.QuoteResponseLevel = &v }
+func (m *Message) SetTradingSessionID(v string)   { m.TradingSessionID = &v }
+func (m *Message) SetText(v string)               { m.Text = &v }
+func (m *Message) SetNoQuoteSets(v []NoQuoteSets) { m.NoQuoteSets = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

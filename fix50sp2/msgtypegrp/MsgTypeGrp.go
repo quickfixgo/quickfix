@@ -16,10 +16,10 @@ type NoMsgTypes struct {
 	DefaultVerIndicator *bool `fix:"1410"`
 }
 
-//Component is a fix50sp2 MsgTypeGrp Component
-type Component struct {
+//MsgTypeGrp is a fix50sp2 Component
+type MsgTypeGrp struct {
 	//NoMsgTypes is a non-required field for MsgTypeGrp.
 	NoMsgTypes []NoMsgTypes `fix:"384,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *MsgTypeGrp) SetNoMsgTypes(v []NoMsgTypes) { m.NoMsgTypes = v }

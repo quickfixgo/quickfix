@@ -22,6 +22,8 @@ type NoExecs struct {
 	ExecID *string `fix:"17"`
 }
 
+func (m *NoExecs) SetExecID(v string) { m.ExecID = &v }
+
 //NoTrades is a repeating group in CollateralRequest
 type NoTrades struct {
 	//TradeReportID is a non-required field for NoTrades.
@@ -30,19 +32,24 @@ type NoTrades struct {
 	SecondaryTradeReportID *string `fix:"818"`
 }
 
+func (m *NoTrades) SetTradeReportID(v string)          { m.TradeReportID = &v }
+func (m *NoTrades) SetSecondaryTradeReportID(v string) { m.SecondaryTradeReportID = &v }
+
 //NoLegs is a repeating group in CollateralRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in CollateralRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//CollAction is a non-required field for NoUnderlyings.
 	CollAction *int `fix:"944"`
 }
+
+func (m *NoUnderlyings) SetCollAction(v int) { m.CollAction = &v }
 
 //NoMiscFees is a repeating group in CollateralRequest
 type NoMiscFees struct {
@@ -56,10 +63,15 @@ type NoMiscFees struct {
 	MiscFeeBasis *int `fix:"891"`
 }
 
+func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
+func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
+func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
+func (m *NoMiscFees) SetMiscFeeBasis(v int)   { m.MiscFeeBasis = &v }
+
 //Message is a CollateralRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AX"`
-	Header     fix44.Header
+	fix44.Header
 	//CollReqID is a required field for CollateralRequest.
 	CollReqID string `fix:"894"`
 	//CollAsgnReason is a required field for CollateralRequest.
@@ -69,7 +81,7 @@ type Message struct {
 	//ExpireTime is a non-required field for CollateralRequest.
 	ExpireTime *time.Time `fix:"126"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a non-required field for CollateralRequest.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralRequest.
@@ -87,9 +99,9 @@ type Message struct {
 	//NoTrades is a non-required field for CollateralRequest.
 	NoTrades []NoTrades `fix:"897,omitempty"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralRequest.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralRequest.
@@ -109,7 +121,7 @@ type Message struct {
 	//CashOutstanding is a non-required field for CollateralRequest.
 	CashOutstanding *float64 `fix:"901"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//Side is a non-required field for CollateralRequest.
 	Side *string `fix:"54"`
 	//NoMiscFees is a non-required field for CollateralRequest.
@@ -127,9 +139,9 @@ type Message struct {
 	//EndCash is a non-required field for CollateralRequest.
 	EndCash *float64 `fix:"922"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//TradingSessionID is a non-required field for CollateralRequest.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for CollateralRequest.
@@ -146,11 +158,49 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for CollateralRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetCollReqID(v string)              { m.CollReqID = v }
+func (m *Message) SetCollAsgnReason(v int)            { m.CollAsgnReason = v }
+func (m *Message) SetTransactTime(v time.Time)        { m.TransactTime = v }
+func (m *Message) SetExpireTime(v time.Time)          { m.ExpireTime = &v }
+func (m *Message) SetAccount(v string)                { m.Account = &v }
+func (m *Message) SetAccountType(v int)               { m.AccountType = &v }
+func (m *Message) SetClOrdID(v string)                { m.ClOrdID = &v }
+func (m *Message) SetOrderID(v string)                { m.OrderID = &v }
+func (m *Message) SetSecondaryOrderID(v string)       { m.SecondaryOrderID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)       { m.SecondaryClOrdID = &v }
+func (m *Message) SetNoExecs(v []NoExecs)             { m.NoExecs = v }
+func (m *Message) SetNoTrades(v []NoTrades)           { m.NoTrades = v }
+func (m *Message) SetSettlDate(v string)              { m.SettlDate = &v }
+func (m *Message) SetQuantity(v float64)              { m.Quantity = &v }
+func (m *Message) SetQtyType(v int)                   { m.QtyType = &v }
+func (m *Message) SetCurrency(v string)               { m.Currency = &v }
+func (m *Message) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
+func (m *Message) SetMarginExcess(v float64)          { m.MarginExcess = &v }
+func (m *Message) SetTotalNetValue(v float64)         { m.TotalNetValue = &v }
+func (m *Message) SetCashOutstanding(v float64)       { m.CashOutstanding = &v }
+func (m *Message) SetSide(v string)                   { m.Side = &v }
+func (m *Message) SetNoMiscFees(v []NoMiscFees)       { m.NoMiscFees = v }
+func (m *Message) SetPrice(v float64)                 { m.Price = &v }
+func (m *Message) SetPriceType(v int)                 { m.PriceType = &v }
+func (m *Message) SetAccruedInterestAmt(v float64)    { m.AccruedInterestAmt = &v }
+func (m *Message) SetEndAccruedInterestAmt(v float64) { m.EndAccruedInterestAmt = &v }
+func (m *Message) SetStartCash(v float64)             { m.StartCash = &v }
+func (m *Message) SetEndCash(v float64)               { m.EndCash = &v }
+func (m *Message) SetTradingSessionID(v string)       { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }
+func (m *Message) SetSettlSessID(v string)            { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)         { m.SettlSessSubID = &v }
+func (m *Message) SetClearingBusinessDate(v string)   { m.ClearingBusinessDate = &v }
+func (m *Message) SetText(v string)                   { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

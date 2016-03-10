@@ -26,10 +26,10 @@ type NoBidDescriptors struct {
 	ValueOfFutures *float64 `fix:"408"`
 }
 
-//Component is a fix50sp2 BidDescReqGrp Component
-type Component struct {
+//BidDescReqGrp is a fix50sp2 Component
+type BidDescReqGrp struct {
 	//NoBidDescriptors is a non-required field for BidDescReqGrp.
 	NoBidDescriptors []NoBidDescriptors `fix:"398,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *BidDescReqGrp) SetNoBidDescriptors(v []NoBidDescriptors) { m.NoBidDescriptors = v }

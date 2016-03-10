@@ -10,18 +10,22 @@ import (
 //Message is a ListStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"M"`
-	Header     fix40.Header
+	fix40.Header
 	//ListID is a required field for ListStatusRequest.
 	ListID string `fix:"66"`
 	//WaveNo is a non-required field for ListStatusRequest.
 	WaveNo *string `fix:"105"`
 	//Text is a non-required field for ListStatusRequest.
-	Text    *string `fix:"58"`
-	Trailer fix40.Trailer
+	Text *string `fix:"58"`
+	fix40.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetListID(v string) { m.ListID = v }
+func (m *Message) SetWaveNo(v string) { m.WaveNo = &v }
+func (m *Message) SetText(v string)   { m.Text = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

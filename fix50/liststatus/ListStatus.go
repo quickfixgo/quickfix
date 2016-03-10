@@ -12,7 +12,7 @@ import (
 //Message is a ListStatus FIX Message
 type Message struct {
 	FIXMsgType string `fix:"N"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ListID is a required field for ListStatus.
 	ListID string `fix:"66"`
 	//ListStatusType is a required field for ListStatus.
@@ -36,12 +36,24 @@ type Message struct {
 	//LastFragment is a non-required field for ListStatus.
 	LastFragment *bool `fix:"893"`
 	//OrdListStatGrp Component
-	OrdListStatGrp ordliststatgrp.Component
-	Trailer        fixt11.Trailer
+	ordliststatgrp.OrdListStatGrp
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetListID(v string)                { m.ListID = v }
+func (m *Message) SetListStatusType(v int)           { m.ListStatusType = v }
+func (m *Message) SetNoRpts(v int)                   { m.NoRpts = v }
+func (m *Message) SetListOrderStatus(v int)          { m.ListOrderStatus = v }
+func (m *Message) SetRptSeq(v int)                   { m.RptSeq = v }
+func (m *Message) SetListStatusText(v string)        { m.ListStatusText = &v }
+func (m *Message) SetEncodedListStatusTextLen(v int) { m.EncodedListStatusTextLen = &v }
+func (m *Message) SetEncodedListStatusText(v string) { m.EncodedListStatusText = &v }
+func (m *Message) SetTransactTime(v time.Time)       { m.TransactTime = &v }
+func (m *Message) SetTotNoOrders(v int)              { m.TotNoOrders = v }
+func (m *Message) SetLastFragment(v bool)            { m.LastFragment = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

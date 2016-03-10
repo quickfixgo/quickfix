@@ -10,16 +10,19 @@ import (
 //Message is a ResendRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"2"`
-	Header     fix41.Header
+	fix41.Header
 	//BeginSeqNo is a required field for ResendRequest.
 	BeginSeqNo int `fix:"7"`
 	//EndSeqNo is a required field for ResendRequest.
 	EndSeqNo int `fix:"16"`
-	Trailer  fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetBeginSeqNo(v int) { m.BeginSeqNo = v }
+func (m *Message) SetEndSeqNo(v int)   { m.EndSeqNo = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

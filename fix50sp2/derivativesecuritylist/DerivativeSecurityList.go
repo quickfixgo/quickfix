@@ -15,7 +15,7 @@ import (
 //Message is a DerivativeSecurityList FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AA"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReqID is a non-required field for DerivativeSecurityList.
 	SecurityReqID *string `fix:"320"`
 	//SecurityResponseID is a non-required field for DerivativeSecurityList.
@@ -23,28 +23,37 @@ type Message struct {
 	//SecurityRequestResult is a non-required field for DerivativeSecurityList.
 	SecurityRequestResult *int `fix:"560"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//TotNoRelatedSym is a non-required field for DerivativeSecurityList.
 	TotNoRelatedSym *int `fix:"393"`
 	//LastFragment is a non-required field for DerivativeSecurityList.
 	LastFragment *bool `fix:"893"`
 	//RelSymDerivSecGrp Component
-	RelSymDerivSecGrp relsymderivsecgrp.Component
+	relsymderivsecgrp.RelSymDerivSecGrp
 	//DerivativeSecurityDefinition Component
-	DerivativeSecurityDefinition derivativesecuritydefinition.Component
+	derivativesecuritydefinition.DerivativeSecurityDefinition
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
+	applicationsequencecontrol.ApplicationSequenceControl
 	//SecurityReportID is a non-required field for DerivativeSecurityList.
 	SecurityReportID *int `fix:"964"`
 	//ClearingBusinessDate is a non-required field for DerivativeSecurityList.
 	ClearingBusinessDate *string `fix:"715"`
 	//TransactTime is a non-required field for DerivativeSecurityList.
 	TransactTime *time.Time `fix:"60"`
-	Trailer      fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
+func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
+func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = &v }
+func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
+func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetSecurityReportID(v int)        { m.SecurityReportID = &v }
+func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
+func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

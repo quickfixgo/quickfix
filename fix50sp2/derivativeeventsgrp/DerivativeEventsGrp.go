@@ -18,10 +18,10 @@ type NoDerivativeEvents struct {
 	DerivativeEventText *string `fix:"1291"`
 }
 
-//Component is a fix50sp2 DerivativeEventsGrp Component
-type Component struct {
+//DerivativeEventsGrp is a fix50sp2 Component
+type DerivativeEventsGrp struct {
 	//NoDerivativeEvents is a non-required field for DerivativeEventsGrp.
 	NoDerivativeEvents []NoDerivativeEvents `fix:"1286,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *DerivativeEventsGrp) SetNoDerivativeEvents(v []NoDerivativeEvents) { m.NoDerivativeEvents = v }

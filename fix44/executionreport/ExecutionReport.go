@@ -36,10 +36,16 @@ type NoContraBrokers struct {
 	ContraLegRefID *string `fix:"655"`
 }
 
+func (m *NoContraBrokers) SetContraBroker(v string)       { m.ContraBroker = &v }
+func (m *NoContraBrokers) SetContraTrader(v string)       { m.ContraTrader = &v }
+func (m *NoContraBrokers) SetContraTradeQty(v float64)    { m.ContraTradeQty = &v }
+func (m *NoContraBrokers) SetContraTradeTime(v time.Time) { m.ContraTradeTime = &v }
+func (m *NoContraBrokers) SetContraLegRefID(v string)     { m.ContraLegRefID = &v }
+
 //NoUnderlyings is a repeating group in ExecutionReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoContAmts is a repeating group in ExecutionReport
@@ -52,22 +58,26 @@ type NoContAmts struct {
 	ContAmtCurr *string `fix:"521"`
 }
 
+func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }
+func (m *NoContAmts) SetContAmtValue(v float64) { m.ContAmtValue = &v }
+func (m *NoContAmts) SetContAmtCurr(v string)   { m.ContAmtCurr = &v }
+
 //NoLegs is a repeating group in ExecutionReport
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegPrice is a non-required field for NoLegs.
@@ -79,6 +89,16 @@ type NoLegs struct {
 	//LegLastPx is a non-required field for NoLegs.
 	LegLastPx *float64 `fix:"637"`
 }
+
+func (m *NoLegs) SetLegQty(v float64)            { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)           { m.LegSwapType = &v }
+func (m *NoLegs) SetLegPositionEffect(v string)  { m.LegPositionEffect = &v }
+func (m *NoLegs) SetLegCoveredOrUncovered(v int) { m.LegCoveredOrUncovered = &v }
+func (m *NoLegs) SetLegRefID(v string)           { m.LegRefID = &v }
+func (m *NoLegs) SetLegPrice(v float64)          { m.LegPrice = &v }
+func (m *NoLegs) SetLegSettlType(v string)       { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string)       { m.LegSettlDate = &v }
+func (m *NoLegs) SetLegLastPx(v float64)         { m.LegLastPx = &v }
 
 //NoMiscFees is a repeating group in ExecutionReport
 type NoMiscFees struct {
@@ -92,10 +112,15 @@ type NoMiscFees struct {
 	MiscFeeBasis *int `fix:"891"`
 }
 
+func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
+func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
+func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
+func (m *NoMiscFees) SetMiscFeeBasis(v int)   { m.MiscFeeBasis = &v }
+
 //Message is a ExecutionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"8"`
-	Header     fix44.Header
+	fix44.Header
 	//OrderID is a required field for ExecutionReport.
 	OrderID string `fix:"37"`
 	//SecondaryOrderID is a non-required field for ExecutionReport.
@@ -121,7 +146,7 @@ type Message struct {
 	//LastRptRequested is a non-required field for ExecutionReport.
 	LastRptRequested *bool `fix:"912"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for ExecutionReport.
 	TradeOriginationDate *string `fix:"229"`
 	//NoContraBrokers is a non-required field for ExecutionReport.
@@ -169,19 +194,19 @@ type Message struct {
 	//ClearingFeeIndicator is a non-required field for ExecutionReport.
 	ClearingFeeIndicator *string `fix:"635"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for ExecutionReport.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Side is a required field for ExecutionReport.
 	Side string `fix:"54"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//QtyType is a non-required field for ExecutionReport.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a non-required field for ExecutionReport.
 	OrdType *string `fix:"40"`
 	//PriceType is a non-required field for ExecutionReport.
@@ -191,9 +216,9 @@ type Message struct {
 	//StopPx is a non-required field for ExecutionReport.
 	StopPx *float64 `fix:"99"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//PeggedPrice is a non-required field for ExecutionReport.
 	PeggedPrice *float64 `fix:"839"`
 	//DiscretionPrice is a non-required field for ExecutionReport.
@@ -273,11 +298,11 @@ type Message struct {
 	//ReportToExch is a non-required field for ExecutionReport.
 	ReportToExch *bool `fix:"113"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//GrossTradeAmt is a non-required field for ExecutionReport.
 	GrossTradeAmt *float64 `fix:"381"`
 	//NumDaysInterest is a non-required field for ExecutionReport.
@@ -372,11 +397,140 @@ type Message struct {
 	CopyMsgIndicator *bool `fix:"797"`
 	//NoMiscFees is a non-required field for ExecutionReport.
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
-	Trailer    fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetOrderID(v string)                    { m.OrderID = v }
+func (m *Message) SetSecondaryOrderID(v string)           { m.SecondaryOrderID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)           { m.SecondaryClOrdID = &v }
+func (m *Message) SetSecondaryExecID(v string)            { m.SecondaryExecID = &v }
+func (m *Message) SetClOrdID(v string)                    { m.ClOrdID = &v }
+func (m *Message) SetOrigClOrdID(v string)                { m.OrigClOrdID = &v }
+func (m *Message) SetClOrdLinkID(v string)                { m.ClOrdLinkID = &v }
+func (m *Message) SetQuoteRespID(v string)                { m.QuoteRespID = &v }
+func (m *Message) SetOrdStatusReqID(v string)             { m.OrdStatusReqID = &v }
+func (m *Message) SetMassStatusReqID(v string)            { m.MassStatusReqID = &v }
+func (m *Message) SetTotNumReports(v int)                 { m.TotNumReports = &v }
+func (m *Message) SetLastRptRequested(v bool)             { m.LastRptRequested = &v }
+func (m *Message) SetTradeOriginationDate(v string)       { m.TradeOriginationDate = &v }
+func (m *Message) SetNoContraBrokers(v []NoContraBrokers) { m.NoContraBrokers = v }
+func (m *Message) SetListID(v string)                     { m.ListID = &v }
+func (m *Message) SetCrossID(v string)                    { m.CrossID = &v }
+func (m *Message) SetOrigCrossID(v string)                { m.OrigCrossID = &v }
+func (m *Message) SetCrossType(v int)                     { m.CrossType = &v }
+func (m *Message) SetExecID(v string)                     { m.ExecID = v }
+func (m *Message) SetExecRefID(v string)                  { m.ExecRefID = &v }
+func (m *Message) SetExecType(v string)                   { m.ExecType = v }
+func (m *Message) SetOrdStatus(v string)                  { m.OrdStatus = v }
+func (m *Message) SetWorkingIndicator(v bool)             { m.WorkingIndicator = &v }
+func (m *Message) SetOrdRejReason(v int)                  { m.OrdRejReason = &v }
+func (m *Message) SetExecRestatementReason(v int)         { m.ExecRestatementReason = &v }
+func (m *Message) SetAccount(v string)                    { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                  { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                   { m.AccountType = &v }
+func (m *Message) SetDayBookingInst(v string)             { m.DayBookingInst = &v }
+func (m *Message) SetBookingUnit(v string)                { m.BookingUnit = &v }
+func (m *Message) SetPreallocMethod(v string)             { m.PreallocMethod = &v }
+func (m *Message) SetSettlType(v string)                  { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                  { m.SettlDate = &v }
+func (m *Message) SetCashMargin(v string)                 { m.CashMargin = &v }
+func (m *Message) SetClearingFeeIndicator(v string)       { m.ClearingFeeIndicator = &v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)     { m.NoUnderlyings = v }
+func (m *Message) SetSide(v string)                       { m.Side = v }
+func (m *Message) SetQtyType(v int)                       { m.QtyType = &v }
+func (m *Message) SetOrdType(v string)                    { m.OrdType = &v }
+func (m *Message) SetPriceType(v int)                     { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                     { m.Price = &v }
+func (m *Message) SetStopPx(v float64)                    { m.StopPx = &v }
+func (m *Message) SetPeggedPrice(v float64)               { m.PeggedPrice = &v }
+func (m *Message) SetDiscretionPrice(v float64)           { m.DiscretionPrice = &v }
+func (m *Message) SetTargetStrategy(v int)                { m.TargetStrategy = &v }
+func (m *Message) SetTargetStrategyParameters(v string)   { m.TargetStrategyParameters = &v }
+func (m *Message) SetParticipationRate(v float64)         { m.ParticipationRate = &v }
+func (m *Message) SetTargetStrategyPerformance(v float64) { m.TargetStrategyPerformance = &v }
+func (m *Message) SetCurrency(v string)                   { m.Currency = &v }
+func (m *Message) SetComplianceID(v string)               { m.ComplianceID = &v }
+func (m *Message) SetSolicitedFlag(v bool)                { m.SolicitedFlag = &v }
+func (m *Message) SetTimeInForce(v string)                { m.TimeInForce = &v }
+func (m *Message) SetEffectiveTime(v time.Time)           { m.EffectiveTime = &v }
+func (m *Message) SetExpireDate(v string)                 { m.ExpireDate = &v }
+func (m *Message) SetExpireTime(v time.Time)              { m.ExpireTime = &v }
+func (m *Message) SetExecInst(v string)                   { m.ExecInst = &v }
+func (m *Message) SetOrderCapacity(v string)              { m.OrderCapacity = &v }
+func (m *Message) SetOrderRestrictions(v string)          { m.OrderRestrictions = &v }
+func (m *Message) SetCustOrderCapacity(v int)             { m.CustOrderCapacity = &v }
+func (m *Message) SetLastQty(v float64)                   { m.LastQty = &v }
+func (m *Message) SetUnderlyingLastQty(v float64)         { m.UnderlyingLastQty = &v }
+func (m *Message) SetLastPx(v float64)                    { m.LastPx = &v }
+func (m *Message) SetUnderlyingLastPx(v float64)          { m.UnderlyingLastPx = &v }
+func (m *Message) SetLastParPx(v float64)                 { m.LastParPx = &v }
+func (m *Message) SetLastSpotRate(v float64)              { m.LastSpotRate = &v }
+func (m *Message) SetLastForwardPoints(v float64)         { m.LastForwardPoints = &v }
+func (m *Message) SetLastMkt(v string)                    { m.LastMkt = &v }
+func (m *Message) SetTradingSessionID(v string)           { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)        { m.TradingSessionSubID = &v }
+func (m *Message) SetTimeBracket(v string)                { m.TimeBracket = &v }
+func (m *Message) SetLastCapacity(v string)               { m.LastCapacity = &v }
+func (m *Message) SetLeavesQty(v float64)                 { m.LeavesQty = v }
+func (m *Message) SetCumQty(v float64)                    { m.CumQty = v }
+func (m *Message) SetAvgPx(v float64)                     { m.AvgPx = v }
+func (m *Message) SetDayOrderQty(v float64)               { m.DayOrderQty = &v }
+func (m *Message) SetDayCumQty(v float64)                 { m.DayCumQty = &v }
+func (m *Message) SetDayAvgPx(v float64)                  { m.DayAvgPx = &v }
+func (m *Message) SetGTBookingInst(v int)                 { m.GTBookingInst = &v }
+func (m *Message) SetTradeDate(v string)                  { m.TradeDate = &v }
+func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
+func (m *Message) SetReportToExch(v bool)                 { m.ReportToExch = &v }
+func (m *Message) SetGrossTradeAmt(v float64)             { m.GrossTradeAmt = &v }
+func (m *Message) SetNumDaysInterest(v int)               { m.NumDaysInterest = &v }
+func (m *Message) SetExDate(v string)                     { m.ExDate = &v }
+func (m *Message) SetAccruedInterestRate(v float64)       { m.AccruedInterestRate = &v }
+func (m *Message) SetAccruedInterestAmt(v float64)        { m.AccruedInterestAmt = &v }
+func (m *Message) SetInterestAtMaturity(v float64)        { m.InterestAtMaturity = &v }
+func (m *Message) SetEndAccruedInterestAmt(v float64)     { m.EndAccruedInterestAmt = &v }
+func (m *Message) SetStartCash(v float64)                 { m.StartCash = &v }
+func (m *Message) SetEndCash(v float64)                   { m.EndCash = &v }
+func (m *Message) SetTradedFlatSwitch(v bool)             { m.TradedFlatSwitch = &v }
+func (m *Message) SetBasisFeatureDate(v string)           { m.BasisFeatureDate = &v }
+func (m *Message) SetBasisFeaturePrice(v float64)         { m.BasisFeaturePrice = &v }
+func (m *Message) SetConcession(v float64)                { m.Concession = &v }
+func (m *Message) SetTotalTakedown(v float64)             { m.TotalTakedown = &v }
+func (m *Message) SetNetMoney(v float64)                  { m.NetMoney = &v }
+func (m *Message) SetSettlCurrAmt(v float64)              { m.SettlCurrAmt = &v }
+func (m *Message) SetSettlCurrency(v string)              { m.SettlCurrency = &v }
+func (m *Message) SetSettlCurrFxRate(v float64)           { m.SettlCurrFxRate = &v }
+func (m *Message) SetSettlCurrFxRateCalc(v string)        { m.SettlCurrFxRateCalc = &v }
+func (m *Message) SetHandlInst(v string)                  { m.HandlInst = &v }
+func (m *Message) SetMinQty(v float64)                    { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v float64)                  { m.MaxFloor = &v }
+func (m *Message) SetPositionEffect(v string)             { m.PositionEffect = &v }
+func (m *Message) SetMaxShow(v float64)                   { m.MaxShow = &v }
+func (m *Message) SetBookingType(v int)                   { m.BookingType = &v }
+func (m *Message) SetText(v string)                       { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                { m.EncodedText = &v }
+func (m *Message) SetSettlDate2(v string)                 { m.SettlDate2 = &v }
+func (m *Message) SetOrderQty2(v float64)                 { m.OrderQty2 = &v }
+func (m *Message) SetLastForwardPoints2(v float64)        { m.LastForwardPoints2 = &v }
+func (m *Message) SetMultiLegReportingType(v string)      { m.MultiLegReportingType = &v }
+func (m *Message) SetCancellationRights(v string)         { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)      { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                   { m.RegistID = &v }
+func (m *Message) SetDesignation(v string)                { m.Designation = &v }
+func (m *Message) SetTransBkdTime(v time.Time)            { m.TransBkdTime = &v }
+func (m *Message) SetExecValuationPoint(v time.Time)      { m.ExecValuationPoint = &v }
+func (m *Message) SetExecPriceType(v string)              { m.ExecPriceType = &v }
+func (m *Message) SetExecPriceAdjustment(v float64)       { m.ExecPriceAdjustment = &v }
+func (m *Message) SetPriorityIndicator(v int)             { m.PriorityIndicator = &v }
+func (m *Message) SetPriceImprovement(v float64)          { m.PriceImprovement = &v }
+func (m *Message) SetLastLiquidityInd(v int)              { m.LastLiquidityInd = &v }
+func (m *Message) SetNoContAmts(v []NoContAmts)           { m.NoContAmts = v }
+func (m *Message) SetNoLegs(v []NoLegs)                   { m.NoLegs = v }
+func (m *Message) SetCopyMsgIndicator(v bool)             { m.CopyMsgIndicator = &v }
+func (m *Message) SetNoMiscFees(v []NoMiscFees)           { m.NoMiscFees = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

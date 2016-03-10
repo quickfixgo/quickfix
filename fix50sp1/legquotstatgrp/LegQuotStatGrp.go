@@ -9,7 +9,7 @@ import (
 //NoLegs is a repeating group in LegQuotStatGrp
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
@@ -19,17 +19,17 @@ type NoLegs struct {
 	//LegSettlDate is a non-required field for NoLegs.
 	LegSettlDate *string `fix:"588"`
 	//LegStipulations Component
-	LegStipulations legstipulations.Component
+	legstipulations.LegStipulations
 	//NestedParties Component
-	NestedParties nestedparties.Component
+	nestedparties.NestedParties
 	//LegOrderQty is a non-required field for NoLegs.
 	LegOrderQty *float64 `fix:"685"`
 }
 
-//Component is a fix50sp1 LegQuotStatGrp Component
-type Component struct {
+//LegQuotStatGrp is a fix50sp1 Component
+type LegQuotStatGrp struct {
 	//NoLegs is a non-required field for LegQuotStatGrp.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *LegQuotStatGrp) SetNoLegs(v []NoLegs) { m.NoLegs = v }

@@ -8,10 +8,10 @@ type NoTrades struct {
 	SecondaryTradeReportID *string `fix:"818"`
 }
 
-//Component is a fix50sp1 TrdCollGrp Component
-type Component struct {
+//TrdCollGrp is a fix50sp1 Component
+type TrdCollGrp struct {
 	//NoTrades is a non-required field for TrdCollGrp.
 	NoTrades []NoTrades `fix:"897,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TrdCollGrp) SetNoTrades(v []NoTrades) { m.NoTrades = v }

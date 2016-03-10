@@ -14,10 +14,10 @@ type NoDates struct {
 	LastUpdateTime *time.Time `fix:"779"`
 }
 
-//Component is a fix50sp1 TrdCapDtGrp Component
-type Component struct {
+//TrdCapDtGrp is a fix50sp1 Component
+type TrdCapDtGrp struct {
 	//NoDates is a non-required field for TrdCapDtGrp.
 	NoDates []NoDates `fix:"580,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *TrdCapDtGrp) SetNoDates(v []NoDates) { m.NoDates = v }

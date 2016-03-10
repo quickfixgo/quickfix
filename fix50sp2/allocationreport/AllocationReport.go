@@ -25,7 +25,7 @@ import (
 //Message is a AllocationReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AS"`
-	Header     fixt11.Header
+	fixt11.Header
 	//AllocReportID is a required field for AllocationReport.
 	AllocReportID string `fix:"755"`
 	//AllocID is a non-required field for AllocationReport.
@@ -57,9 +57,9 @@ type Message struct {
 	//AllocNoOrdersType is a non-required field for AllocationReport.
 	AllocNoOrdersType *int `fix:"857"`
 	//OrdAllocGrp Component
-	OrdAllocGrp ordallocgrp.Component
+	ordallocgrp.OrdAllocGrp
 	//ExecAllocGrp Component
-	ExecAllocGrp execallocgrp.Component
+	execallocgrp.ExecAllocGrp
 	//PreviouslyReported is a non-required field for AllocationReport.
 	PreviouslyReported *bool `fix:"570"`
 	//ReversalIndicator is a non-required field for AllocationReport.
@@ -69,15 +69,15 @@ type Message struct {
 	//Side is a required field for AllocationReport.
 	Side string `fix:"54"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//Quantity is a required field for AllocationReport.
 	Quantity float64 `fix:"53"`
 	//QtyType is a non-required field for AllocationReport.
@@ -97,13 +97,13 @@ type Message struct {
 	//AvgParPx is a non-required field for AllocationReport.
 	AvgParPx *float64 `fix:"860"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Currency is a non-required field for AllocationReport.
 	Currency *string `fix:"15"`
 	//AvgPxPrecision is a non-required field for AllocationReport.
 	AvgPxPrecision *int `fix:"74"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeDate is a required field for AllocationReport.
 	TradeDate string `fix:"75"`
 	//TransactTime is a non-required field for AllocationReport.
@@ -151,15 +151,15 @@ type Message struct {
 	//LegalConfirm is a non-required field for AllocationReport.
 	LegalConfirm *bool `fix:"650"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//TotNoAllocs is a non-required field for AllocationReport.
 	TotNoAllocs *int `fix:"892"`
 	//LastFragment is a non-required field for AllocationReport.
 	LastFragment *bool `fix:"893"`
 	//AllocGrp Component
-	AllocGrp allocgrp.Component
+	allocgrp.AllocGrp
 	//ClearingBusinessDate is a non-required field for AllocationReport.
 	ClearingBusinessDate *string `fix:"715"`
 	//TrdType is a non-required field for AllocationReport.
@@ -181,14 +181,80 @@ type Message struct {
 	//AvgPxIndicator is a non-required field for AllocationReport.
 	AvgPxIndicator *int `fix:"819"`
 	//PositionAmountData Component
-	PositionAmountData positionamountdata.Component
+	positionamountdata.PositionAmountData
 	//RateSource Component
-	RateSource ratesource.Component
-	Trailer    fixt11.Trailer
+	ratesource.RateSource
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetAllocReportID(v string)            { m.AllocReportID = v }
+func (m *Message) SetAllocID(v string)                  { m.AllocID = &v }
+func (m *Message) SetAllocTransType(v string)           { m.AllocTransType = v }
+func (m *Message) SetAllocReportRefID(v string)         { m.AllocReportRefID = &v }
+func (m *Message) SetAllocCancReplaceReason(v int)      { m.AllocCancReplaceReason = &v }
+func (m *Message) SetSecondaryAllocID(v string)         { m.SecondaryAllocID = &v }
+func (m *Message) SetAllocReportType(v int)             { m.AllocReportType = v }
+func (m *Message) SetAllocStatus(v int)                 { m.AllocStatus = v }
+func (m *Message) SetAllocRejCode(v int)                { m.AllocRejCode = &v }
+func (m *Message) SetRefAllocID(v string)               { m.RefAllocID = &v }
+func (m *Message) SetAllocIntermedReqType(v int)        { m.AllocIntermedReqType = &v }
+func (m *Message) SetAllocLinkID(v string)              { m.AllocLinkID = &v }
+func (m *Message) SetAllocLinkType(v int)               { m.AllocLinkType = &v }
+func (m *Message) SetBookingRefID(v string)             { m.BookingRefID = &v }
+func (m *Message) SetAllocNoOrdersType(v int)           { m.AllocNoOrdersType = &v }
+func (m *Message) SetPreviouslyReported(v bool)         { m.PreviouslyReported = &v }
+func (m *Message) SetReversalIndicator(v bool)          { m.ReversalIndicator = &v }
+func (m *Message) SetMatchType(v string)                { m.MatchType = &v }
+func (m *Message) SetSide(v string)                     { m.Side = v }
+func (m *Message) SetQuantity(v float64)                { m.Quantity = v }
+func (m *Message) SetQtyType(v int)                     { m.QtyType = &v }
+func (m *Message) SetLastMkt(v string)                  { m.LastMkt = &v }
+func (m *Message) SetTradeOriginationDate(v string)     { m.TradeOriginationDate = &v }
+func (m *Message) SetTradingSessionID(v string)         { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)      { m.TradingSessionSubID = &v }
+func (m *Message) SetPriceType(v int)                   { m.PriceType = &v }
+func (m *Message) SetAvgPx(v float64)                   { m.AvgPx = v }
+func (m *Message) SetAvgParPx(v float64)                { m.AvgParPx = &v }
+func (m *Message) SetCurrency(v string)                 { m.Currency = &v }
+func (m *Message) SetAvgPxPrecision(v int)              { m.AvgPxPrecision = &v }
+func (m *Message) SetTradeDate(v string)                { m.TradeDate = v }
+func (m *Message) SetTransactTime(v time.Time)          { m.TransactTime = &v }
+func (m *Message) SetSettlType(v string)                { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                { m.SettlDate = &v }
+func (m *Message) SetBookingType(v int)                 { m.BookingType = &v }
+func (m *Message) SetGrossTradeAmt(v float64)           { m.GrossTradeAmt = &v }
+func (m *Message) SetConcession(v float64)              { m.Concession = &v }
+func (m *Message) SetTotalTakedown(v float64)           { m.TotalTakedown = &v }
+func (m *Message) SetNetMoney(v float64)                { m.NetMoney = &v }
+func (m *Message) SetPositionEffect(v string)           { m.PositionEffect = &v }
+func (m *Message) SetAutoAcceptIndicator(v bool)        { m.AutoAcceptIndicator = &v }
+func (m *Message) SetText(v string)                     { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)              { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)              { m.EncodedText = &v }
+func (m *Message) SetNumDaysInterest(v int)             { m.NumDaysInterest = &v }
+func (m *Message) SetAccruedInterestRate(v float64)     { m.AccruedInterestRate = &v }
+func (m *Message) SetAccruedInterestAmt(v float64)      { m.AccruedInterestAmt = &v }
+func (m *Message) SetTotalAccruedInterestAmt(v float64) { m.TotalAccruedInterestAmt = &v }
+func (m *Message) SetInterestAtMaturity(v float64)      { m.InterestAtMaturity = &v }
+func (m *Message) SetEndAccruedInterestAmt(v float64)   { m.EndAccruedInterestAmt = &v }
+func (m *Message) SetStartCash(v float64)               { m.StartCash = &v }
+func (m *Message) SetEndCash(v float64)                 { m.EndCash = &v }
+func (m *Message) SetLegalConfirm(v bool)               { m.LegalConfirm = &v }
+func (m *Message) SetTotNoAllocs(v int)                 { m.TotNoAllocs = &v }
+func (m *Message) SetLastFragment(v bool)               { m.LastFragment = &v }
+func (m *Message) SetClearingBusinessDate(v string)     { m.ClearingBusinessDate = &v }
+func (m *Message) SetTrdType(v int)                     { m.TrdType = &v }
+func (m *Message) SetTrdSubType(v int)                  { m.TrdSubType = &v }
+func (m *Message) SetMultiLegReportingType(v string)    { m.MultiLegReportingType = &v }
+func (m *Message) SetCustOrderCapacity(v int)           { m.CustOrderCapacity = &v }
+func (m *Message) SetTradeInputSource(v string)         { m.TradeInputSource = &v }
+func (m *Message) SetRndPx(v float64)                   { m.RndPx = &v }
+func (m *Message) SetMessageEventSource(v string)       { m.MessageEventSource = &v }
+func (m *Message) SetTradeInputDevice(v string)         { m.TradeInputDevice = &v }
+func (m *Message) SetAvgPxIndicator(v int)              { m.AvgPxIndicator = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

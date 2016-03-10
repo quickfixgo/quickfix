@@ -11,7 +11,7 @@ import (
 //NoBidComponents is a repeating group in BidResponse
 type NoBidComponents struct {
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//ListID is a non-required field for NoBidComponents.
 	ListID *string `fix:"66"`
 	//Country is a non-required field for NoBidComponents.
@@ -42,21 +42,40 @@ type NoBidComponents struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoBidComponents) SetListID(v string)              { m.ListID = &v }
+func (m *NoBidComponents) SetCountry(v string)             { m.Country = &v }
+func (m *NoBidComponents) SetSide(v string)                { m.Side = &v }
+func (m *NoBidComponents) SetPrice(v float64)              { m.Price = &v }
+func (m *NoBidComponents) SetPriceType(v int)              { m.PriceType = &v }
+func (m *NoBidComponents) SetFairValue(v float64)          { m.FairValue = &v }
+func (m *NoBidComponents) SetNetGrossInd(v int)            { m.NetGrossInd = &v }
+func (m *NoBidComponents) SetSettlmntTyp(v string)         { m.SettlmntTyp = &v }
+func (m *NoBidComponents) SetFutSettDate(v string)         { m.FutSettDate = &v }
+func (m *NoBidComponents) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoBidComponents) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+func (m *NoBidComponents) SetText(v string)                { m.Text = &v }
+func (m *NoBidComponents) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
+func (m *NoBidComponents) SetEncodedText(v string)         { m.EncodedText = &v }
+
 //Message is a BidResponse FIX Message
 type Message struct {
 	FIXMsgType string `fix:"l"`
-	Header     fix43.Header
+	fix43.Header
 	//BidID is a non-required field for BidResponse.
 	BidID *string `fix:"390"`
 	//ClientBidID is a non-required field for BidResponse.
 	ClientBidID *string `fix:"391"`
 	//NoBidComponents is a required field for BidResponse.
 	NoBidComponents []NoBidComponents `fix:"420"`
-	Trailer         fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetBidID(v string)                      { m.BidID = &v }
+func (m *Message) SetClientBidID(v string)                { m.ClientBidID = &v }
+func (m *Message) SetNoBidComponents(v []NoBidComponents) { m.NoBidComponents = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

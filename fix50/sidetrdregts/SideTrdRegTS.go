@@ -14,10 +14,10 @@ type NoSideTrdRegTS struct {
 	SideTrdRegTimestampSrc *string `fix:"1014"`
 }
 
-//Component is a fix50 SideTrdRegTS Component
-type Component struct {
+//SideTrdRegTS is a fix50 Component
+type SideTrdRegTS struct {
 	//NoSideTrdRegTS is a non-required field for SideTrdRegTS.
 	NoSideTrdRegTS []NoSideTrdRegTS `fix:"1016,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SideTrdRegTS) SetNoSideTrdRegTS(v []NoSideTrdRegTS) { m.NoSideTrdRegTS = v }

@@ -17,17 +17,17 @@ import (
 //NoRelatedSym is a repeating group in SecLstUpdRelSymGrp
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SecLstUpdRelSymsLegGrp Component
-	SecLstUpdRelSymsLegGrp seclstupdrelsymsleggrp.Component
+	seclstupdrelsymsleggrp.SecLstUpdRelSymsLegGrp
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Text is a non-required field for NoRelatedSym.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for NoRelatedSym.
@@ -35,25 +35,25 @@ type NoRelatedSym struct {
 	//EncodedText is a non-required field for NoRelatedSym.
 	EncodedText *string `fix:"355"`
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//ListUpdateAction is a non-required field for NoRelatedSym.
 	ListUpdateAction *string `fix:"1324"`
 	//SecurityTradingRules Component
-	SecurityTradingRules securitytradingrules.Component
+	securitytradingrules.SecurityTradingRules
 	//StrikeRules Component
-	StrikeRules strikerules.Component
+	strikerules.StrikeRules
 	//RelSymTransactTime is a non-required field for NoRelatedSym.
 	RelSymTransactTime *time.Time `fix:"1504"`
 }
 
-//Component is a fix50sp2 SecLstUpdRelSymGrp Component
-type Component struct {
+//SecLstUpdRelSymGrp is a fix50sp2 Component
+type SecLstUpdRelSymGrp struct {
 	//NoRelatedSym is a non-required field for SecLstUpdRelSymGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SecLstUpdRelSymGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

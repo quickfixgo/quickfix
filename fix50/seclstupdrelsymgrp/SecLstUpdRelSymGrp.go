@@ -14,17 +14,17 @@ import (
 //NoRelatedSym is a repeating group in SecLstUpdRelSymGrp
 type NoRelatedSym struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//SecLstUpdRelSymsLegGrp Component
-	SecLstUpdRelSymsLegGrp seclstupdrelsymsleggrp.Component
+	seclstupdrelsymsleggrp.SecLstUpdRelSymsLegGrp
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//RoundLot is a non-required field for NoRelatedSym.
 	RoundLot *float64 `fix:"561"`
 	//MinTradeVol is a non-required field for NoRelatedSym.
@@ -42,17 +42,17 @@ type NoRelatedSym struct {
 	//EncodedText is a non-required field for NoRelatedSym.
 	EncodedText *string `fix:"355"`
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 }
 
-//Component is a fix50 SecLstUpdRelSymGrp Component
-type Component struct {
+//SecLstUpdRelSymGrp is a fix50 Component
+type SecLstUpdRelSymGrp struct {
 	//NoRelatedSym is a non-required field for SecLstUpdRelSymGrp.
 	NoRelatedSym []NoRelatedSym `fix:"146,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SecLstUpdRelSymGrp) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

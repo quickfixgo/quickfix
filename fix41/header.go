@@ -51,3 +51,26 @@ type Header struct {
 	//OrigSendingTime is a non-required field for Header.
 	OrigSendingTime *time.Time `fix:"122"`
 }
+
+func (m *Header) SetBeginString(v string)          { m.BeginString = v }
+func (m *Header) SetBodyLength(v int)              { m.BodyLength = v }
+func (m *Header) SetMsgType(v string)              { m.MsgType = v }
+func (m *Header) SetSenderCompID(v string)         { m.SenderCompID = v }
+func (m *Header) SetTargetCompID(v string)         { m.TargetCompID = v }
+func (m *Header) SetOnBehalfOfCompID(v string)     { m.OnBehalfOfCompID = &v }
+func (m *Header) SetDeliverToCompID(v string)      { m.DeliverToCompID = &v }
+func (m *Header) SetSecureDataLen(v int)           { m.SecureDataLen = &v }
+func (m *Header) SetSecureData(v string)           { m.SecureData = &v }
+func (m *Header) SetMsgSeqNum(v int)               { m.MsgSeqNum = v }
+func (m *Header) SetSenderSubID(v string)          { m.SenderSubID = &v }
+func (m *Header) SetSenderLocationID(v string)     { m.SenderLocationID = &v }
+func (m *Header) SetTargetSubID(v string)          { m.TargetSubID = &v }
+func (m *Header) SetTargetLocationID(v string)     { m.TargetLocationID = &v }
+func (m *Header) SetOnBehalfOfSubID(v string)      { m.OnBehalfOfSubID = &v }
+func (m *Header) SetOnBehalfOfLocationID(v string) { m.OnBehalfOfLocationID = &v }
+func (m *Header) SetDeliverToSubID(v string)       { m.DeliverToSubID = &v }
+func (m *Header) SetDeliverToLocationID(v string)  { m.DeliverToLocationID = &v }
+func (m *Header) SetPossDupFlag(v string)          { m.PossDupFlag = &v }
+func (m *Header) SetPossResend(v string)           { m.PossResend = &v }
+func (m *Header) SetSendingTime(v time.Time)       { m.SendingTime = v }
+func (m *Header) SetOrigSendingTime(v time.Time)   { m.OrigSendingTime = &v }

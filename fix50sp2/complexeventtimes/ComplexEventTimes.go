@@ -8,10 +8,10 @@ type NoComplexEventTimes struct {
 	ComplexEventEndTime *string `fix:"1496"`
 }
 
-//Component is a fix50sp2 ComplexEventTimes Component
-type Component struct {
+//ComplexEventTimes is a fix50sp2 Component
+type ComplexEventTimes struct {
 	//NoComplexEventTimes is a non-required field for ComplexEventTimes.
 	NoComplexEventTimes []NoComplexEventTimes `fix:"1494,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *ComplexEventTimes) SetNoComplexEventTimes(v []NoComplexEventTimes) { m.NoComplexEventTimes = v }

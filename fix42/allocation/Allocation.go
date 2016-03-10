@@ -22,6 +22,12 @@ type NoOrders struct {
 	WaveNo *string `fix:"105"`
 }
 
+func (m *NoOrders) SetClOrdID(v string)          { m.ClOrdID = &v }
+func (m *NoOrders) SetOrderID(v string)          { m.OrderID = &v }
+func (m *NoOrders) SetSecondaryOrderID(v string) { m.SecondaryOrderID = &v }
+func (m *NoOrders) SetListID(v string)           { m.ListID = &v }
+func (m *NoOrders) SetWaveNo(v string)           { m.WaveNo = &v }
+
 //NoExecs is a repeating group in Allocation
 type NoExecs struct {
 	//LastShares is a non-required field for NoExecs.
@@ -33,6 +39,11 @@ type NoExecs struct {
 	//LastCapacity is a non-required field for NoExecs.
 	LastCapacity *string `fix:"29"`
 }
+
+func (m *NoExecs) SetLastShares(v float64)  { m.LastShares = &v }
+func (m *NoExecs) SetExecID(v string)       { m.ExecID = &v }
+func (m *NoExecs) SetLastPx(v float64)      { m.LastPx = &v }
+func (m *NoExecs) SetLastCapacity(v string) { m.LastCapacity = &v }
 
 //NoAllocs is a repeating group in Allocation
 type NoAllocs struct {
@@ -84,6 +95,30 @@ type NoAllocs struct {
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
 }
 
+func (m *NoAllocs) SetAllocAccount(v string)        { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocPrice(v float64)         { m.AllocPrice = &v }
+func (m *NoAllocs) SetAllocShares(v float64)        { m.AllocShares = v }
+func (m *NoAllocs) SetProcessCode(v string)         { m.ProcessCode = &v }
+func (m *NoAllocs) SetBrokerOfCredit(v string)      { m.BrokerOfCredit = &v }
+func (m *NoAllocs) SetNotifyBrokerOfCredit(v bool)  { m.NotifyBrokerOfCredit = &v }
+func (m *NoAllocs) SetAllocHandlInst(v int)         { m.AllocHandlInst = &v }
+func (m *NoAllocs) SetAllocText(v string)           { m.AllocText = &v }
+func (m *NoAllocs) SetEncodedAllocTextLen(v int)    { m.EncodedAllocTextLen = &v }
+func (m *NoAllocs) SetEncodedAllocText(v string)    { m.EncodedAllocText = &v }
+func (m *NoAllocs) SetExecBroker(v string)          { m.ExecBroker = &v }
+func (m *NoAllocs) SetClientID(v string)            { m.ClientID = &v }
+func (m *NoAllocs) SetCommission(v float64)         { m.Commission = &v }
+func (m *NoAllocs) SetCommType(v string)            { m.CommType = &v }
+func (m *NoAllocs) SetAllocAvgPx(v float64)         { m.AllocAvgPx = &v }
+func (m *NoAllocs) SetAllocNetMoney(v float64)      { m.AllocNetMoney = &v }
+func (m *NoAllocs) SetSettlCurrAmt(v float64)       { m.SettlCurrAmt = &v }
+func (m *NoAllocs) SetSettlCurrency(v string)       { m.SettlCurrency = &v }
+func (m *NoAllocs) SetSettlCurrFxRate(v float64)    { m.SettlCurrFxRate = &v }
+func (m *NoAllocs) SetSettlCurrFxRateCalc(v string) { m.SettlCurrFxRateCalc = &v }
+func (m *NoAllocs) SetAccruedInterestAmt(v float64) { m.AccruedInterestAmt = &v }
+func (m *NoAllocs) SetSettlInstMode(v string)       { m.SettlInstMode = &v }
+func (m *NoAllocs) SetNoMiscFees(v []NoMiscFees)    { m.NoMiscFees = v }
+
 //NoMiscFees is a repeating group in NoAllocs
 type NoMiscFees struct {
 	//MiscFeeAmt is a non-required field for NoMiscFees.
@@ -94,10 +129,14 @@ type NoMiscFees struct {
 	MiscFeeType *string `fix:"139"`
 }
 
+func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
+func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
+func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
+
 //Message is a Allocation FIX Message
 type Message struct {
 	FIXMsgType string `fix:"J"`
-	Header     fix42.Header
+	fix42.Header
 	//AllocID is a required field for Allocation.
 	AllocID string `fix:"70"`
 	//AllocTransType is a required field for Allocation.
@@ -190,11 +229,58 @@ type Message struct {
 	AccruedInterestRate *float64 `fix:"158"`
 	//NoAllocs is a non-required field for Allocation.
 	NoAllocs []NoAllocs `fix:"78,omitempty"`
-	Trailer  fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetAllocID(v string)              { m.AllocID = v }
+func (m *Message) SetAllocTransType(v string)       { m.AllocTransType = v }
+func (m *Message) SetRefAllocID(v string)           { m.RefAllocID = &v }
+func (m *Message) SetAllocLinkID(v string)          { m.AllocLinkID = &v }
+func (m *Message) SetAllocLinkType(v int)           { m.AllocLinkType = &v }
+func (m *Message) SetNoOrders(v []NoOrders)         { m.NoOrders = v }
+func (m *Message) SetNoExecs(v []NoExecs)           { m.NoExecs = v }
+func (m *Message) SetSide(v string)                 { m.Side = v }
+func (m *Message) SetSymbol(v string)               { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)            { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)           { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)             { m.IDSource = &v }
+func (m *Message) SetSecurityType(v string)         { m.SecurityType = &v }
+func (m *Message) SetMaturityMonthYear(v string)    { m.MaturityMonthYear = &v }
+func (m *Message) SetMaturityDay(v int)             { m.MaturityDay = &v }
+func (m *Message) SetPutOrCall(v int)               { m.PutOrCall = &v }
+func (m *Message) SetStrikePrice(v float64)         { m.StrikePrice = &v }
+func (m *Message) SetOptAttribute(v string)         { m.OptAttribute = &v }
+func (m *Message) SetContractMultiplier(v float64)  { m.ContractMultiplier = &v }
+func (m *Message) SetCouponRate(v float64)          { m.CouponRate = &v }
+func (m *Message) SetSecurityExchange(v string)     { m.SecurityExchange = &v }
+func (m *Message) SetIssuer(v string)               { m.Issuer = &v }
+func (m *Message) SetEncodedIssuerLen(v int)        { m.EncodedIssuerLen = &v }
+func (m *Message) SetEncodedIssuer(v string)        { m.EncodedIssuer = &v }
+func (m *Message) SetSecurityDesc(v string)         { m.SecurityDesc = &v }
+func (m *Message) SetEncodedSecurityDescLen(v int)  { m.EncodedSecurityDescLen = &v }
+func (m *Message) SetEncodedSecurityDesc(v string)  { m.EncodedSecurityDesc = &v }
+func (m *Message) SetShares(v float64)              { m.Shares = v }
+func (m *Message) SetLastMkt(v string)              { m.LastMkt = &v }
+func (m *Message) SetTradingSessionID(v string)     { m.TradingSessionID = &v }
+func (m *Message) SetAvgPx(v float64)               { m.AvgPx = v }
+func (m *Message) SetCurrency(v string)             { m.Currency = &v }
+func (m *Message) SetAvgPrxPrecision(v int)         { m.AvgPrxPrecision = &v }
+func (m *Message) SetTradeDate(v string)            { m.TradeDate = v }
+func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }
+func (m *Message) SetSettlmntTyp(v string)          { m.SettlmntTyp = &v }
+func (m *Message) SetFutSettDate(v string)          { m.FutSettDate = &v }
+func (m *Message) SetGrossTradeAmt(v float64)       { m.GrossTradeAmt = &v }
+func (m *Message) SetNetMoney(v float64)            { m.NetMoney = &v }
+func (m *Message) SetOpenClose(v string)            { m.OpenClose = &v }
+func (m *Message) SetText(v string)                 { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
+func (m *Message) SetNumDaysInterest(v int)         { m.NumDaysInterest = &v }
+func (m *Message) SetAccruedInterestRate(v float64) { m.AccruedInterestRate = &v }
+func (m *Message) SetNoAllocs(v []NoAllocs)         { m.NoAllocs = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

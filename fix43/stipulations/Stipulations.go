@@ -8,10 +8,10 @@ type NoStipulations struct {
 	StipulationValue *string `fix:"234"`
 }
 
-//Component is a fix43 Stipulations Component
-type Component struct {
+//Stipulations is a fix43 Component
+type Stipulations struct {
 	//NoStipulations is a non-required field for Stipulations.
 	NoStipulations []NoStipulations `fix:"232,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *Stipulations) SetNoStipulations(v []NoStipulations) { m.NoStipulations = v }

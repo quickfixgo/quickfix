@@ -14,10 +14,12 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
+func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
+
 //Message is a IndicationofInterest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"6"`
-	Header     fix41.Header
+	fix41.Header
 	//IOIid is a required field for IndicationofInterest.
 	IOIid string `fix:"23"`
 	//IOITransType is a required field for IndicationofInterest.
@@ -74,11 +76,40 @@ type Message struct {
 	TransactTime *time.Time `fix:"60"`
 	//URLLink is a non-required field for IndicationofInterest.
 	URLLink *string `fix:"149"`
-	Trailer fix41.Trailer
+	fix41.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetIOIid(v string)                      { m.IOIid = v }
+func (m *Message) SetIOITransType(v string)               { m.IOITransType = v }
+func (m *Message) SetIOIRefID(v string)                   { m.IOIRefID = &v }
+func (m *Message) SetSymbol(v string)                     { m.Symbol = v }
+func (m *Message) SetSymbolSfx(v string)                  { m.SymbolSfx = &v }
+func (m *Message) SetSecurityID(v string)                 { m.SecurityID = &v }
+func (m *Message) SetIDSource(v string)                   { m.IDSource = &v }
+func (m *Message) SetSecurityType(v string)               { m.SecurityType = &v }
+func (m *Message) SetMaturityMonthYear(v string)          { m.MaturityMonthYear = &v }
+func (m *Message) SetMaturityDay(v int)                   { m.MaturityDay = &v }
+func (m *Message) SetPutOrCall(v int)                     { m.PutOrCall = &v }
+func (m *Message) SetStrikePrice(v float64)               { m.StrikePrice = &v }
+func (m *Message) SetOptAttribute(v string)               { m.OptAttribute = &v }
+func (m *Message) SetSecurityExchange(v string)           { m.SecurityExchange = &v }
+func (m *Message) SetIssuer(v string)                     { m.Issuer = &v }
+func (m *Message) SetSecurityDesc(v string)               { m.SecurityDesc = &v }
+func (m *Message) SetSide(v string)                       { m.Side = v }
+func (m *Message) SetIOIShares(v string)                  { m.IOIShares = v }
+func (m *Message) SetPrice(v float64)                     { m.Price = &v }
+func (m *Message) SetCurrency(v string)                   { m.Currency = &v }
+func (m *Message) SetValidUntilTime(v time.Time)          { m.ValidUntilTime = &v }
+func (m *Message) SetIOIQltyInd(v string)                 { m.IOIQltyInd = &v }
+func (m *Message) SetIOIOthSvc(v string)                  { m.IOIOthSvc = &v }
+func (m *Message) SetIOINaturalFlag(v string)             { m.IOINaturalFlag = &v }
+func (m *Message) SetNoIOIQualifiers(v []NoIOIQualifiers) { m.NoIOIQualifiers = v }
+func (m *Message) SetText(v string)                       { m.Text = &v }
+func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
+func (m *Message) SetURLLink(v string)                    { m.URLLink = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -15,13 +15,13 @@ import (
 //NoLegs is a repeating group in RequestForPositions
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoUnderlyings is a repeating group in RequestForPositions
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoTradingSessions is a repeating group in RequestForPositions
@@ -32,10 +32,13 @@ type NoTradingSessions struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+
 //Message is a RequestForPositions FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AN"`
-	Header     fix44.Header
+	fix44.Header
 	//PosReqID is a required field for RequestForPositions.
 	PosReqID string `fix:"710"`
 	//PosReqType is a required field for RequestForPositions.
@@ -45,7 +48,7 @@ type Message struct {
 	//SubscriptionRequestType is a non-required field for RequestForPositions.
 	SubscriptionRequestType *string `fix:"263"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Account is a required field for RequestForPositions.
 	Account string `fix:"1"`
 	//AcctIDSource is a non-required field for RequestForPositions.
@@ -53,7 +56,7 @@ type Message struct {
 	//AccountType is a required field for RequestForPositions.
 	AccountType int `fix:"581"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for RequestForPositions.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for RequestForPositions.
@@ -80,11 +83,32 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for RequestForPositions.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetPosReqID(v string)                       { m.PosReqID = v }
+func (m *Message) SetPosReqType(v int)                        { m.PosReqType = v }
+func (m *Message) SetMatchStatus(v string)                    { m.MatchStatus = &v }
+func (m *Message) SetSubscriptionRequestType(v string)        { m.SubscriptionRequestType = &v }
+func (m *Message) SetAccount(v string)                        { m.Account = v }
+func (m *Message) SetAcctIDSource(v int)                      { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                       { m.AccountType = v }
+func (m *Message) SetCurrency(v string)                       { m.Currency = &v }
+func (m *Message) SetNoLegs(v []NoLegs)                       { m.NoLegs = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
+func (m *Message) SetClearingBusinessDate(v string)           { m.ClearingBusinessDate = v }
+func (m *Message) SetSettlSessID(v string)                    { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)                 { m.SettlSessSubID = &v }
+func (m *Message) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
+func (m *Message) SetTransactTime(v time.Time)                { m.TransactTime = v }
+func (m *Message) SetResponseTransportType(v int)             { m.ResponseTransportType = &v }
+func (m *Message) SetResponseDestination(v string)            { m.ResponseDestination = &v }
+func (m *Message) SetText(v string)                           { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                    { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                    { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

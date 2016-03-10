@@ -6,10 +6,12 @@ type NoPartyListResponseTypes struct {
 	PartyListResponseType int `fix:"1507"`
 }
 
-//Component is a fix50sp2 PartyListResponseTypeGrp Component
-type Component struct {
+//PartyListResponseTypeGrp is a fix50sp2 Component
+type PartyListResponseTypeGrp struct {
 	//NoPartyListResponseTypes is a required field for PartyListResponseTypeGrp.
 	NoPartyListResponseTypes []NoPartyListResponseTypes `fix:"1506"`
 }
 
-func New() *Component { return new(Component) }
+func (m *PartyListResponseTypeGrp) SetNoPartyListResponseTypes(v []NoPartyListResponseTypes) {
+	m.NoPartyListResponseTypes = v
+}

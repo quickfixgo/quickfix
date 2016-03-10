@@ -13,13 +13,15 @@ type NoUndlyInstrumentParties struct {
 	//UndlyInstrumentPartyRole is a non-required field for NoUndlyInstrumentParties.
 	UndlyInstrumentPartyRole *int `fix:"1061"`
 	//UndlyInstrumentPtysSubGrp Component
-	UndlyInstrumentPtysSubGrp undlyinstrumentptyssubgrp.Component
+	undlyinstrumentptyssubgrp.UndlyInstrumentPtysSubGrp
 }
 
-//Component is a fix50 UndlyInstrumentParties Component
-type Component struct {
+//UndlyInstrumentParties is a fix50 Component
+type UndlyInstrumentParties struct {
 	//NoUndlyInstrumentParties is a non-required field for UndlyInstrumentParties.
 	NoUndlyInstrumentParties []NoUndlyInstrumentParties `fix:"1058,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *UndlyInstrumentParties) SetNoUndlyInstrumentParties(v []NoUndlyInstrumentParties) {
+	m.NoUndlyInstrumentParties = v
+}

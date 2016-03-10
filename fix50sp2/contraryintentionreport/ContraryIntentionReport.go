@@ -16,7 +16,7 @@ import (
 //Message is a ContraryIntentionReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BO"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ContIntRptID is a required field for ContraryIntentionReport.
 	ContIntRptID string `fix:"977"`
 	//TransactTime is a non-required field for ContraryIntentionReport.
@@ -28,11 +28,11 @@ type Message struct {
 	//ClearingBusinessDate is a required field for ContraryIntentionReport.
 	ClearingBusinessDate string `fix:"715"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//ExpirationQty Component
-	ExpirationQty expirationqty.Component
+	expirationqty.ExpirationQty
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Text is a non-required field for ContraryIntentionReport.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for ContraryIntentionReport.
@@ -40,14 +40,23 @@ type Message struct {
 	//EncodedText is a non-required field for ContraryIntentionReport.
 	EncodedText *string `fix:"355"`
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetContIntRptID(v string)         { m.ContIntRptID = v }
+func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }
+func (m *Message) SetLateIndicator(v bool)          { m.LateIndicator = &v }
+func (m *Message) SetInputSource(v string)          { m.InputSource = &v }
+func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = v }
+func (m *Message) SetText(v string)                 { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -13,15 +13,15 @@ type NoFills struct {
 	//FillQty is a non-required field for NoFills.
 	FillQty *float64 `fix:"1365"`
 	//NestedParties4 Component
-	NestedParties4 nestedparties4.Component
+	nestedparties4.NestedParties4
 	//FillLiquidityInd is a non-required field for NoFills.
 	FillLiquidityInd *int `fix:"1443"`
 }
 
-//Component is a fix50sp2 FillsGrp Component
-type Component struct {
+//FillsGrp is a fix50sp2 Component
+type FillsGrp struct {
 	//NoFills is a non-required field for FillsGrp.
 	NoFills []NoFills `fix:"1362,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *FillsGrp) SetNoFills(v []NoFills) { m.NoFills = v }

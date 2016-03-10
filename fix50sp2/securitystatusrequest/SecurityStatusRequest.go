@@ -14,17 +14,17 @@ import (
 //Message is a SecurityStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"e"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityStatusReqID is a required field for SecurityStatusRequest.
 	SecurityStatusReqID string `fix:"324"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//Currency is a non-required field for SecurityStatusRequest.
 	Currency *string `fix:"15"`
 	//SubscriptionRequestType is a required field for SecurityStatusRequest.
@@ -37,11 +37,19 @@ type Message struct {
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for SecurityStatusRequest.
 	MarketSegmentID *string `fix:"1300"`
-	Trailer         fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityStatusReqID(v string)     { m.SecurityStatusReqID = v }
+func (m *Message) SetCurrency(v string)                { m.Currency = &v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
+func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)     { m.TradingSessionSubID = &v }
+func (m *Message) SetMarketID(v string)                { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string)         { m.MarketSegmentID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

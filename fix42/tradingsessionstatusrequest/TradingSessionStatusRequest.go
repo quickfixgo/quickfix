@@ -10,7 +10,7 @@ import (
 //Message is a TradingSessionStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"g"`
-	Header     fix42.Header
+	fix42.Header
 	//TradSesReqID is a required field for TradingSessionStatusRequest.
 	TradSesReqID string `fix:"335"`
 	//TradingSessionID is a non-required field for TradingSessionStatusRequest.
@@ -21,11 +21,17 @@ type Message struct {
 	TradSesMode *int `fix:"339"`
 	//SubscriptionRequestType is a required field for TradingSessionStatusRequest.
 	SubscriptionRequestType string `fix:"263"`
-	Trailer                 fix42.Trailer
+	fix42.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTradSesReqID(v string)            { m.TradSesReqID = v }
+func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
+func (m *Message) SetTradSesMethod(v int)              { m.TradSesMethod = &v }
+func (m *Message) SetTradSesMode(v int)                { m.TradSesMode = &v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -28,7 +28,7 @@ import (
 //Message is a NewOrderSingle FIX Message
 type Message struct {
 	FIXMsgType string `fix:"D"`
-	Header     fixt11.Header
+	fixt11.Header
 	//ClOrdID is a required field for NewOrderSingle.
 	ClOrdID string `fix:"11"`
 	//SecondaryClOrdID is a non-required field for NewOrderSingle.
@@ -36,7 +36,7 @@ type Message struct {
 	//ClOrdLinkID is a non-required field for NewOrderSingle.
 	ClOrdLinkID *string `fix:"583"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//TradeOriginationDate is a non-required field for NewOrderSingle.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NewOrderSingle.
@@ -56,7 +56,7 @@ type Message struct {
 	//AllocID is a non-required field for NewOrderSingle.
 	AllocID *string `fix:"70"`
 	//PreAllocGrp Component
-	PreAllocGrp preallocgrp.Component
+	preallocgrp.PreAllocGrp
 	//SettlType is a non-required field for NewOrderSingle.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NewOrderSingle.
@@ -76,15 +76,15 @@ type Message struct {
 	//ExDestination is a non-required field for NewOrderSingle.
 	ExDestination *string `fix:"100"`
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//ProcessCode is a non-required field for NewOrderSingle.
 	ProcessCode *string `fix:"81"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NewOrderSingle.
 	PrevClosePx *float64 `fix:"140"`
 	//Side is a required field for NewOrderSingle.
@@ -94,11 +94,11 @@ type Message struct {
 	//TransactTime is a required field for NewOrderSingle.
 	TransactTime time.Time `fix:"60"`
 	//Stipulations Component
-	Stipulations stipulations.Component
+	stipulations.Stipulations
 	//QtyType is a non-required field for NewOrderSingle.
 	QtyType *int `fix:"854"`
 	//OrderQtyData Component
-	OrderQtyData orderqtydata.Component
+	orderqtydata.OrderQtyData
 	//OrdType is a required field for NewOrderSingle.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderSingle.
@@ -108,9 +108,9 @@ type Message struct {
 	//StopPx is a non-required field for NewOrderSingle.
 	StopPx *float64 `fix:"99"`
 	//SpreadOrBenchmarkCurveData Component
-	SpreadOrBenchmarkCurveData spreadorbenchmarkcurvedata.Component
+	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//YieldData Component
-	YieldData yielddata.Component
+	yielddata.YieldData
 	//Currency is a non-required field for NewOrderSingle.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NewOrderSingle.
@@ -132,7 +132,7 @@ type Message struct {
 	//GTBookingInst is a non-required field for NewOrderSingle.
 	GTBookingInst *int `fix:"427"`
 	//CommissionData Component
-	CommissionData commissiondata.Component
+	commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NewOrderSingle.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NewOrderSingle.
@@ -164,9 +164,9 @@ type Message struct {
 	//MaxShow is a non-required field for NewOrderSingle.
 	MaxShow *float64 `fix:"210"`
 	//PegInstructions Component
-	PegInstructions peginstructions.Component
+	peginstructions.PegInstructions
 	//DiscretionInstructions Component
-	DiscretionInstructions discretioninstructions.Component
+	discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for NewOrderSingle.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for NewOrderSingle.
@@ -182,7 +182,7 @@ type Message struct {
 	//Designation is a non-required field for NewOrderSingle.
 	Designation *string `fix:"494"`
 	//StrategyParametersGrp Component
-	StrategyParametersGrp strategyparametersgrp.Component
+	strategyparametersgrp.StrategyParametersGrp
 	//ManualOrderIndicator is a non-required field for NewOrderSingle.
 	ManualOrderIndicator *bool `fix:"1028"`
 	//CustDirectedOrder is a non-required field for NewOrderSingle.
@@ -194,17 +194,17 @@ type Message struct {
 	//OrderHandlingInstSource is a non-required field for NewOrderSingle.
 	OrderHandlingInstSource *int `fix:"1032"`
 	//TrdRegTimestamps Component
-	TrdRegTimestamps trdregtimestamps.Component
+	trdregtimestamps.TrdRegTimestamps
 	//MatchIncrement is a non-required field for NewOrderSingle.
 	MatchIncrement *float64 `fix:"1089"`
 	//MaxPriceLevels is a non-required field for NewOrderSingle.
 	MaxPriceLevels *int `fix:"1090"`
 	//DisplayInstruction Component
-	DisplayInstruction displayinstruction.Component
+	displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for NewOrderSingle.
 	PriceProtectionScope *string `fix:"1092"`
 	//TriggeringInstruction Component
-	TriggeringInstruction triggeringinstruction.Component
+	triggeringinstruction.TriggeringInstruction
 	//PreTradeAnonymity is a non-required field for NewOrderSingle.
 	PreTradeAnonymity *bool `fix:"1091"`
 	//RefOrderID is a non-required field for NewOrderSingle.
@@ -213,11 +213,87 @@ type Message struct {
 	RefOrderIDSource *string `fix:"1081"`
 	//ExDestinationIDSource is a non-required field for NewOrderSingle.
 	ExDestinationIDSource *string `fix:"1133"`
-	Trailer               fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetClOrdID(v string)                  { m.ClOrdID = v }
+func (m *Message) SetSecondaryClOrdID(v string)         { m.SecondaryClOrdID = &v }
+func (m *Message) SetClOrdLinkID(v string)              { m.ClOrdLinkID = &v }
+func (m *Message) SetTradeOriginationDate(v string)     { m.TradeOriginationDate = &v }
+func (m *Message) SetTradeDate(v string)                { m.TradeDate = &v }
+func (m *Message) SetAccount(v string)                  { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                 { m.AccountType = &v }
+func (m *Message) SetDayBookingInst(v string)           { m.DayBookingInst = &v }
+func (m *Message) SetBookingUnit(v string)              { m.BookingUnit = &v }
+func (m *Message) SetPreallocMethod(v string)           { m.PreallocMethod = &v }
+func (m *Message) SetAllocID(v string)                  { m.AllocID = &v }
+func (m *Message) SetSettlType(v string)                { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                { m.SettlDate = &v }
+func (m *Message) SetCashMargin(v string)               { m.CashMargin = &v }
+func (m *Message) SetClearingFeeIndicator(v string)     { m.ClearingFeeIndicator = &v }
+func (m *Message) SetHandlInst(v string)                { m.HandlInst = &v }
+func (m *Message) SetExecInst(v string)                 { m.ExecInst = &v }
+func (m *Message) SetMinQty(v float64)                  { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v float64)                { m.MaxFloor = &v }
+func (m *Message) SetExDestination(v string)            { m.ExDestination = &v }
+func (m *Message) SetProcessCode(v string)              { m.ProcessCode = &v }
+func (m *Message) SetPrevClosePx(v float64)             { m.PrevClosePx = &v }
+func (m *Message) SetSide(v string)                     { m.Side = v }
+func (m *Message) SetLocateReqd(v bool)                 { m.LocateReqd = &v }
+func (m *Message) SetTransactTime(v time.Time)          { m.TransactTime = v }
+func (m *Message) SetQtyType(v int)                     { m.QtyType = &v }
+func (m *Message) SetOrdType(v string)                  { m.OrdType = v }
+func (m *Message) SetPriceType(v int)                   { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                   { m.Price = &v }
+func (m *Message) SetStopPx(v float64)                  { m.StopPx = &v }
+func (m *Message) SetCurrency(v string)                 { m.Currency = &v }
+func (m *Message) SetComplianceID(v string)             { m.ComplianceID = &v }
+func (m *Message) SetSolicitedFlag(v bool)              { m.SolicitedFlag = &v }
+func (m *Message) SetIOIID(v string)                    { m.IOIID = &v }
+func (m *Message) SetQuoteID(v string)                  { m.QuoteID = &v }
+func (m *Message) SetTimeInForce(v string)              { m.TimeInForce = &v }
+func (m *Message) SetEffectiveTime(v time.Time)         { m.EffectiveTime = &v }
+func (m *Message) SetExpireDate(v string)               { m.ExpireDate = &v }
+func (m *Message) SetExpireTime(v time.Time)            { m.ExpireTime = &v }
+func (m *Message) SetGTBookingInst(v int)               { m.GTBookingInst = &v }
+func (m *Message) SetOrderCapacity(v string)            { m.OrderCapacity = &v }
+func (m *Message) SetOrderRestrictions(v string)        { m.OrderRestrictions = &v }
+func (m *Message) SetCustOrderCapacity(v int)           { m.CustOrderCapacity = &v }
+func (m *Message) SetForexReq(v bool)                   { m.ForexReq = &v }
+func (m *Message) SetSettlCurrency(v string)            { m.SettlCurrency = &v }
+func (m *Message) SetBookingType(v int)                 { m.BookingType = &v }
+func (m *Message) SetText(v string)                     { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)              { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)              { m.EncodedText = &v }
+func (m *Message) SetSettlDate2(v string)               { m.SettlDate2 = &v }
+func (m *Message) SetOrderQty2(v float64)               { m.OrderQty2 = &v }
+func (m *Message) SetPrice2(v float64)                  { m.Price2 = &v }
+func (m *Message) SetPositionEffect(v string)           { m.PositionEffect = &v }
+func (m *Message) SetCoveredOrUncovered(v int)          { m.CoveredOrUncovered = &v }
+func (m *Message) SetMaxShow(v float64)                 { m.MaxShow = &v }
+func (m *Message) SetTargetStrategy(v int)              { m.TargetStrategy = &v }
+func (m *Message) SetTargetStrategyParameters(v string) { m.TargetStrategyParameters = &v }
+func (m *Message) SetParticipationRate(v float64)       { m.ParticipationRate = &v }
+func (m *Message) SetCancellationRights(v string)       { m.CancellationRights = &v }
+func (m *Message) SetMoneyLaunderingStatus(v string)    { m.MoneyLaunderingStatus = &v }
+func (m *Message) SetRegistID(v string)                 { m.RegistID = &v }
+func (m *Message) SetDesignation(v string)              { m.Designation = &v }
+func (m *Message) SetManualOrderIndicator(v bool)       { m.ManualOrderIndicator = &v }
+func (m *Message) SetCustDirectedOrder(v bool)          { m.CustDirectedOrder = &v }
+func (m *Message) SetReceivedDeptID(v string)           { m.ReceivedDeptID = &v }
+func (m *Message) SetCustOrderHandlingInst(v string)    { m.CustOrderHandlingInst = &v }
+func (m *Message) SetOrderHandlingInstSource(v int)     { m.OrderHandlingInstSource = &v }
+func (m *Message) SetMatchIncrement(v float64)          { m.MatchIncrement = &v }
+func (m *Message) SetMaxPriceLevels(v int)              { m.MaxPriceLevels = &v }
+func (m *Message) SetPriceProtectionScope(v string)     { m.PriceProtectionScope = &v }
+func (m *Message) SetPreTradeAnonymity(v bool)          { m.PreTradeAnonymity = &v }
+func (m *Message) SetRefOrderID(v string)               { m.RefOrderID = &v }
+func (m *Message) SetRefOrderIDSource(v string)         { m.RefOrderIDSource = &v }
+func (m *Message) SetExDestinationIDSource(v string)    { m.ExDestinationIDSource = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

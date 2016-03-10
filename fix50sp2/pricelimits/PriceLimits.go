@@ -1,7 +1,7 @@
 package pricelimits
 
-//Component is a fix50sp2 PriceLimits Component
-type Component struct {
+//PriceLimits is a fix50sp2 Component
+type PriceLimits struct {
 	//PriceLimitType is a non-required field for PriceLimits.
 	PriceLimitType *int `fix:"1306"`
 	//LowLimitPrice is a non-required field for PriceLimits.
@@ -12,4 +12,7 @@ type Component struct {
 	TradingReferencePrice *float64 `fix:"1150"`
 }
 
-func New() *Component { return new(Component) }
+func (m *PriceLimits) SetPriceLimitType(v int)            { m.PriceLimitType = &v }
+func (m *PriceLimits) SetLowLimitPrice(v float64)         { m.LowLimitPrice = &v }
+func (m *PriceLimits) SetHighLimitPrice(v float64)        { m.HighLimitPrice = &v }
+func (m *PriceLimits) SetTradingReferencePrice(v float64) { m.TradingReferencePrice = &v }

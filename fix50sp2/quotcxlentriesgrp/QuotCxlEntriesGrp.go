@@ -10,19 +10,19 @@ import (
 //NoQuoteEntries is a repeating group in QuotCxlEntriesGrp
 type NoQuoteEntries struct {
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 }
 
-//Component is a fix50sp2 QuotCxlEntriesGrp Component
-type Component struct {
+//QuotCxlEntriesGrp is a fix50sp2 Component
+type QuotCxlEntriesGrp struct {
 	//NoQuoteEntries is a non-required field for QuotCxlEntriesGrp.
 	NoQuoteEntries []NoQuoteEntries `fix:"295,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *QuotCxlEntriesGrp) SetNoQuoteEntries(v []NoQuoteEntries) { m.NoQuoteEntries = v }

@@ -16,7 +16,7 @@ import (
 //Message is a Email FIX Message
 type Message struct {
 	FIXMsgType string `fix:"C"`
-	Header     fixt11.Header
+	fixt11.Header
 	//EmailThreadID is a required field for Email.
 	EmailThreadID string `fix:"164"`
 	//EmailType is a required field for Email.
@@ -30,28 +30,39 @@ type Message struct {
 	//EncodedSubject is a non-required field for Email.
 	EncodedSubject *string `fix:"357"`
 	//RoutingGrp Component
-	RoutingGrp routinggrp.Component
+	routinggrp.RoutingGrp
 	//InstrmtGrp Component
-	InstrmtGrp instrmtgrp.Component
+	instrmtgrp.InstrmtGrp
 	//UndInstrmtGrp Component
-	UndInstrmtGrp undinstrmtgrp.Component
+	undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp Component
-	InstrmtLegGrp instrmtleggrp.Component
+	instrmtleggrp.InstrmtLegGrp
 	//OrderID is a non-required field for Email.
 	OrderID *string `fix:"37"`
 	//ClOrdID is a non-required field for Email.
 	ClOrdID *string `fix:"11"`
 	//LinesOfTextGrp Component
-	LinesOfTextGrp linesoftextgrp.Component
+	linesoftextgrp.LinesOfTextGrp
 	//RawDataLength is a non-required field for Email.
 	RawDataLength *int `fix:"95"`
 	//RawData is a non-required field for Email.
 	RawData *string `fix:"96"`
-	Trailer fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetEmailThreadID(v string)  { m.EmailThreadID = v }
+func (m *Message) SetEmailType(v string)      { m.EmailType = v }
+func (m *Message) SetOrigTime(v time.Time)    { m.OrigTime = &v }
+func (m *Message) SetSubject(v string)        { m.Subject = v }
+func (m *Message) SetEncodedSubjectLen(v int) { m.EncodedSubjectLen = &v }
+func (m *Message) SetEncodedSubject(v string) { m.EncodedSubject = &v }
+func (m *Message) SetOrderID(v string)        { m.OrderID = &v }
+func (m *Message) SetClOrdID(v string)        { m.ClOrdID = &v }
+func (m *Message) SetRawDataLength(v int)     { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)        { m.RawData = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

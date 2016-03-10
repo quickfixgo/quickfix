@@ -13,7 +13,7 @@ import (
 //Message is a MarketDataRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"V"`
-	Header     fixt11.Header
+	fixt11.Header
 	//MDReqID is a required field for MarketDataRequest.
 	MDReqID string `fix:"262"`
 	//SubscriptionRequestType is a required field for MarketDataRequest.
@@ -31,22 +31,34 @@ type Message struct {
 	//MDImplicitDelete is a non-required field for MarketDataRequest.
 	MDImplicitDelete *bool `fix:"547"`
 	//MDReqGrp Component
-	MDReqGrp mdreqgrp.Component
+	mdreqgrp.MDReqGrp
 	//InstrmtMDReqGrp Component
-	InstrmtMDReqGrp instrmtmdreqgrp.Component
+	instrmtmdreqgrp.InstrmtMDReqGrp
 	//TrdgSesGrp Component
-	TrdgSesGrp trdgsesgrp.Component
+	trdgsesgrp.TrdgSesGrp
 	//ApplQueueAction is a non-required field for MarketDataRequest.
 	ApplQueueAction *int `fix:"815"`
 	//ApplQueueMax is a non-required field for MarketDataRequest.
 	ApplQueueMax *int `fix:"812"`
 	//MDQuoteType is a non-required field for MarketDataRequest.
 	MDQuoteType *int `fix:"1070"`
-	Trailer     fixt11.Trailer
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetMDReqID(v string)                 { m.MDReqID = v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
+func (m *Message) SetMarketDepth(v int)                { m.MarketDepth = v }
+func (m *Message) SetMDUpdateType(v int)               { m.MDUpdateType = &v }
+func (m *Message) SetAggregatedBook(v bool)            { m.AggregatedBook = &v }
+func (m *Message) SetOpenCloseSettlFlag(v string)      { m.OpenCloseSettlFlag = &v }
+func (m *Message) SetScope(v string)                   { m.Scope = &v }
+func (m *Message) SetMDImplicitDelete(v bool)          { m.MDImplicitDelete = &v }
+func (m *Message) SetApplQueueAction(v int)            { m.ApplQueueAction = &v }
+func (m *Message) SetApplQueueMax(v int)               { m.ApplQueueMax = &v }
+func (m *Message) SetMDQuoteType(v int)                { m.MDQuoteType = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

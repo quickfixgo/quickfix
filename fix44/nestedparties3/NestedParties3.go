@@ -20,10 +20,10 @@ type NoNested3PartySubIDs struct {
 	Nested3PartySubIDType *int `fix:"954"`
 }
 
-//Component is a fix44 NestedParties3 Component
-type Component struct {
+//NestedParties3 is a fix44 Component
+type NestedParties3 struct {
 	//NoNested3PartyIDs is a non-required field for NestedParties3.
 	NoNested3PartyIDs []NoNested3PartyIDs `fix:"948,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *NestedParties3) SetNoNested3PartyIDs(v []NoNested3PartyIDs) { m.NoNested3PartyIDs = v }

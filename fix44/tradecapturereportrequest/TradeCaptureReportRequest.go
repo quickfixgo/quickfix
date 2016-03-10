@@ -17,13 +17,13 @@ import (
 //NoUnderlyings is a repeating group in TradeCaptureReportRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument Component
-	UnderlyingInstrument underlyinginstrument.Component
+	underlyinginstrument.UnderlyingInstrument
 }
 
 //NoLegs is a repeating group in TradeCaptureReportRequest
 type NoLegs struct {
 	//InstrumentLeg Component
-	InstrumentLeg instrumentleg.Component
+	instrumentleg.InstrumentLeg
 }
 
 //NoDates is a repeating group in TradeCaptureReportRequest
@@ -34,10 +34,13 @@ type NoDates struct {
 	TransactTime *time.Time `fix:"60"`
 }
 
+func (m *NoDates) SetTradeDate(v string)       { m.TradeDate = &v }
+func (m *NoDates) SetTransactTime(v time.Time) { m.TransactTime = &v }
+
 //Message is a TradeCaptureReportRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"AD"`
-	Header     fix44.Header
+	fix44.Header
 	//TradeRequestID is a required field for TradeCaptureReportRequest.
 	TradeRequestID string `fix:"568"`
 	//TradeRequestType is a required field for TradeCaptureReportRequest.
@@ -71,13 +74,13 @@ type Message struct {
 	//TrdMatchID is a non-required field for TradeCaptureReportRequest.
 	TrdMatchID *string `fix:"880"`
 	//Parties Component
-	Parties parties.Component
+	parties.Parties
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//InstrumentExtension Component
-	InstrumentExtension instrumentextension.Component
+	instrumentextension.InstrumentExtension
 	//FinancingDetails Component
-	FinancingDetails financingdetails.Component
+	financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for TradeCaptureReportRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for TradeCaptureReportRequest.
@@ -110,11 +113,44 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for TradeCaptureReportRequest.
 	EncodedText *string `fix:"355"`
-	Trailer     fix44.Trailer
+	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetTradeRequestID(v string)          { m.TradeRequestID = v }
+func (m *Message) SetTradeRequestType(v int)           { m.TradeRequestType = v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
+func (m *Message) SetTradeReportID(v string)           { m.TradeReportID = &v }
+func (m *Message) SetSecondaryTradeReportID(v string)  { m.SecondaryTradeReportID = &v }
+func (m *Message) SetExecID(v string)                  { m.ExecID = &v }
+func (m *Message) SetExecType(v string)                { m.ExecType = &v }
+func (m *Message) SetOrderID(v string)                 { m.OrderID = &v }
+func (m *Message) SetClOrdID(v string)                 { m.ClOrdID = &v }
+func (m *Message) SetMatchStatus(v string)             { m.MatchStatus = &v }
+func (m *Message) SetTrdType(v int)                    { m.TrdType = &v }
+func (m *Message) SetTrdSubType(v int)                 { m.TrdSubType = &v }
+func (m *Message) SetTransferReason(v string)          { m.TransferReason = &v }
+func (m *Message) SetSecondaryTrdType(v int)           { m.SecondaryTrdType = &v }
+func (m *Message) SetTradeLinkID(v string)             { m.TradeLinkID = &v }
+func (m *Message) SetTrdMatchID(v string)              { m.TrdMatchID = &v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)  { m.NoUnderlyings = v }
+func (m *Message) SetNoLegs(v []NoLegs)                { m.NoLegs = v }
+func (m *Message) SetNoDates(v []NoDates)              { m.NoDates = v }
+func (m *Message) SetClearingBusinessDate(v string)    { m.ClearingBusinessDate = &v }
+func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)     { m.TradingSessionSubID = &v }
+func (m *Message) SetTimeBracket(v string)             { m.TimeBracket = &v }
+func (m *Message) SetSide(v string)                    { m.Side = &v }
+func (m *Message) SetMultiLegReportingType(v string)   { m.MultiLegReportingType = &v }
+func (m *Message) SetTradeInputSource(v string)        { m.TradeInputSource = &v }
+func (m *Message) SetTradeInputDevice(v string)        { m.TradeInputDevice = &v }
+func (m *Message) SetResponseTransportType(v int)      { m.ResponseTransportType = &v }
+func (m *Message) SetResponseDestination(v string)     { m.ResponseDestination = &v }
+func (m *Message) SetText(v string)                    { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)             { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)             { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

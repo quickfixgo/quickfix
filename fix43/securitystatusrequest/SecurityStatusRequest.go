@@ -11,11 +11,11 @@ import (
 //Message is a SecurityStatusRequest FIX Message
 type Message struct {
 	FIXMsgType string `fix:"e"`
-	Header     fix43.Header
+	fix43.Header
 	//SecurityStatusReqID is a required field for SecurityStatusRequest.
 	SecurityStatusReqID string `fix:"324"`
 	//Instrument Component
-	Instrument instrument.Component
+	instrument.Instrument
 	//Currency is a non-required field for SecurityStatusRequest.
 	Currency *string `fix:"15"`
 	//SubscriptionRequestType is a required field for SecurityStatusRequest.
@@ -24,11 +24,17 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for SecurityStatusRequest.
 	TradingSessionSubID *string `fix:"625"`
-	Trailer             fix43.Trailer
+	fix43.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityStatusReqID(v string)     { m.SecurityStatusReqID = v }
+func (m *Message) SetCurrency(v string)                { m.Currency = &v }
+func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
+func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)     { m.TradingSessionSubID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

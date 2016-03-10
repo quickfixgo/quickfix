@@ -8,10 +8,10 @@ type NoRoutingIDs struct {
 	RoutingID *string `fix:"217"`
 }
 
-//Component is a fix50 RoutingGrp Component
-type Component struct {
+//RoutingGrp is a fix50 Component
+type RoutingGrp struct {
 	//NoRoutingIDs is a non-required field for RoutingGrp.
 	NoRoutingIDs []NoRoutingIDs `fix:"215,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *RoutingGrp) SetNoRoutingIDs(v []NoRoutingIDs) { m.NoRoutingIDs = v }

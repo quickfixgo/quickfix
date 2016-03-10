@@ -16,10 +16,10 @@ type NoMaturityRules struct {
 	MaturityMonthYearIncrement *int `fix:"1229"`
 }
 
-//Component is a fix50sp1 MaturityRules Component
-type Component struct {
+//MaturityRules is a fix50sp1 Component
+type MaturityRules struct {
 	//NoMaturityRules is a non-required field for MaturityRules.
 	NoMaturityRules []NoMaturityRules `fix:"1236,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *MaturityRules) SetNoMaturityRules(v []NoMaturityRules) { m.NoMaturityRules = v }

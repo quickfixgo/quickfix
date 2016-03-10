@@ -12,7 +12,7 @@ import (
 //Message is a SecurityListUpdateReport FIX Message
 type Message struct {
 	FIXMsgType string `fix:"BK"`
-	Header     fixt11.Header
+	fixt11.Header
 	//SecurityReportID is a non-required field for SecurityListUpdateReport.
 	SecurityReportID *int `fix:"964"`
 	//SecurityReqID is a non-required field for SecurityListUpdateReport.
@@ -32,18 +32,30 @@ type Message struct {
 	//LastFragment is a non-required field for SecurityListUpdateReport.
 	LastFragment *bool `fix:"893"`
 	//SecLstUpdRelSymGrp Component
-	SecLstUpdRelSymGrp seclstupdrelsymgrp.Component
+	seclstupdrelsymgrp.SecLstUpdRelSymGrp
 	//MarketID is a non-required field for SecurityListUpdateReport.
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for SecurityListUpdateReport.
 	MarketSegmentID *string `fix:"1300"`
 	//ApplicationSequenceControl Component
-	ApplicationSequenceControl applicationsequencecontrol.Component
-	Trailer                    fixt11.Trailer
+	applicationsequencecontrol.ApplicationSequenceControl
+	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+func (m *Message) SetSecurityReportID(v int)        { m.SecurityReportID = &v }
+func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
+func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
+func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = &v }
+func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
+func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
+func (m *Message) SetSecurityUpdateAction(v string) { m.SecurityUpdateAction = &v }
+func (m *Message) SetCorporateAction(v string)      { m.CorporateAction = &v }
+func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetMarketID(v string)             { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string)      { m.MarketSegmentID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

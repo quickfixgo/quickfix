@@ -12,10 +12,10 @@ type NoSecurityTypes struct {
 	CFICode *string `fix:"461"`
 }
 
-//Component is a fix50 SecTypesGrp Component
-type Component struct {
+//SecTypesGrp is a fix50 Component
+type SecTypesGrp struct {
 	//NoSecurityTypes is a non-required field for SecTypesGrp.
 	NoSecurityTypes []NoSecurityTypes `fix:"558,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *SecTypesGrp) SetNoSecurityTypes(v []NoSecurityTypes) { m.NoSecurityTypes = v }

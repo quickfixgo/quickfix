@@ -22,10 +22,10 @@ type NoBidComponents struct {
 	AcctIDSource *int `fix:"660"`
 }
 
-//Component is a fix50 BidCompReqGrp Component
-type Component struct {
+//BidCompReqGrp is a fix50 Component
+type BidCompReqGrp struct {
 	//NoBidComponents is a non-required field for BidCompReqGrp.
 	NoBidComponents []NoBidComponents `fix:"420,omitempty"`
 }
 
-func New() *Component { return new(Component) }
+func (m *BidCompReqGrp) SetNoBidComponents(v []NoBidComponents) { m.NoBidComponents = v }
