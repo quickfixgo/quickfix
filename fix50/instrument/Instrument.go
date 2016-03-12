@@ -1,40 +1,10 @@
 package instrument
 
 import (
-	"github.com/quickfixgo/quickfix/fix50/instrumentptyssubgrp"
+	"github.com/quickfixgo/quickfix/fix50/evntgrp"
+	"github.com/quickfixgo/quickfix/fix50/instrumentparties"
+	"github.com/quickfixgo/quickfix/fix50/secaltidgrp"
 )
-
-//NoSecurityAltID is a repeating group in Instrument
-type NoSecurityAltID struct {
-	//SecurityAltID is a non-required field for NoSecurityAltID.
-	SecurityAltID *string `fix:"455"`
-	//SecurityAltIDSource is a non-required field for NoSecurityAltID.
-	SecurityAltIDSource *string `fix:"456"`
-}
-
-//NoEvents is a repeating group in Instrument
-type NoEvents struct {
-	//EventType is a non-required field for NoEvents.
-	EventType *int `fix:"865"`
-	//EventDate is a non-required field for NoEvents.
-	EventDate *string `fix:"866"`
-	//EventPx is a non-required field for NoEvents.
-	EventPx *float64 `fix:"867"`
-	//EventText is a non-required field for NoEvents.
-	EventText *string `fix:"868"`
-}
-
-//NoInstrumentParties is a repeating group in Instrument
-type NoInstrumentParties struct {
-	//InstrumentPartyID is a non-required field for NoInstrumentParties.
-	InstrumentPartyID *string `fix:"1019"`
-	//InstrumentPartyIDSource is a non-required field for NoInstrumentParties.
-	InstrumentPartyIDSource *string `fix:"1050"`
-	//InstrumentPartyRole is a non-required field for NoInstrumentParties.
-	InstrumentPartyRole *int `fix:"1051"`
-	//InstrumentPtysSubGrp Component
-	instrumentptyssubgrp.InstrumentPtysSubGrp
-}
 
 //Instrument is a fix50 Component
 type Instrument struct {
@@ -46,8 +16,8 @@ type Instrument struct {
 	SecurityID *string `fix:"48"`
 	//SecurityIDSource is a non-required field for Instrument.
 	SecurityIDSource *string `fix:"22"`
-	//NoSecurityAltID is a non-required field for Instrument.
-	NoSecurityAltID []NoSecurityAltID `fix:"454,omitempty"`
+	//SecAltIDGrp Component
+	secaltidgrp.SecAltIDGrp
 	//Product is a non-required field for Instrument.
 	Product *int `fix:"460"`
 	//CFICode is a non-required field for Instrument.
@@ -116,8 +86,8 @@ type Instrument struct {
 	CPProgram *int `fix:"875"`
 	//CPRegType is a non-required field for Instrument.
 	CPRegType *string `fix:"876"`
-	//NoEvents is a non-required field for Instrument.
-	NoEvents []NoEvents `fix:"864,omitempty"`
+	//EvntGrp Component
+	evntgrp.EvntGrp
 	//DatedDate is a non-required field for Instrument.
 	DatedDate *string `fix:"873"`
 	//InterestAccrualDate is a non-required field for Instrument.
@@ -138,8 +108,8 @@ type Instrument struct {
 	PositionLimit *int `fix:"970"`
 	//NTPositionLimit is a non-required field for Instrument.
 	NTPositionLimit *int `fix:"971"`
-	//NoInstrumentParties is a non-required field for Instrument.
-	NoInstrumentParties []NoInstrumentParties `fix:"1018,omitempty"`
+	//InstrumentParties Component
+	instrumentparties.InstrumentParties
 	//UnitOfMeasure is a non-required field for Instrument.
 	UnitOfMeasure *string `fix:"996"`
 	//TimeUnit is a non-required field for Instrument.
@@ -148,57 +118,54 @@ type Instrument struct {
 	MaturityTime *string `fix:"1079"`
 }
 
-func (m *Instrument) SetSymbol(v string)                             { m.Symbol = &v }
-func (m *Instrument) SetSymbolSfx(v string)                          { m.SymbolSfx = &v }
-func (m *Instrument) SetSecurityID(v string)                         { m.SecurityID = &v }
-func (m *Instrument) SetSecurityIDSource(v string)                   { m.SecurityIDSource = &v }
-func (m *Instrument) SetNoSecurityAltID(v []NoSecurityAltID)         { m.NoSecurityAltID = v }
-func (m *Instrument) SetProduct(v int)                               { m.Product = &v }
-func (m *Instrument) SetCFICode(v string)                            { m.CFICode = &v }
-func (m *Instrument) SetSecurityType(v string)                       { m.SecurityType = &v }
-func (m *Instrument) SetSecuritySubType(v string)                    { m.SecuritySubType = &v }
-func (m *Instrument) SetMaturityMonthYear(v string)                  { m.MaturityMonthYear = &v }
-func (m *Instrument) SetMaturityDate(v string)                       { m.MaturityDate = &v }
-func (m *Instrument) SetCouponPaymentDate(v string)                  { m.CouponPaymentDate = &v }
-func (m *Instrument) SetIssueDate(v string)                          { m.IssueDate = &v }
-func (m *Instrument) SetRepoCollateralSecurityType(v int)            { m.RepoCollateralSecurityType = &v }
-func (m *Instrument) SetRepurchaseTerm(v int)                        { m.RepurchaseTerm = &v }
-func (m *Instrument) SetRepurchaseRate(v float64)                    { m.RepurchaseRate = &v }
-func (m *Instrument) SetFactor(v float64)                            { m.Factor = &v }
-func (m *Instrument) SetCreditRating(v string)                       { m.CreditRating = &v }
-func (m *Instrument) SetInstrRegistry(v string)                      { m.InstrRegistry = &v }
-func (m *Instrument) SetCountryOfIssue(v string)                     { m.CountryOfIssue = &v }
-func (m *Instrument) SetStateOrProvinceOfIssue(v string)             { m.StateOrProvinceOfIssue = &v }
-func (m *Instrument) SetLocaleOfIssue(v string)                      { m.LocaleOfIssue = &v }
-func (m *Instrument) SetRedemptionDate(v string)                     { m.RedemptionDate = &v }
-func (m *Instrument) SetStrikePrice(v float64)                       { m.StrikePrice = &v }
-func (m *Instrument) SetStrikeCurrency(v string)                     { m.StrikeCurrency = &v }
-func (m *Instrument) SetOptAttribute(v string)                       { m.OptAttribute = &v }
-func (m *Instrument) SetContractMultiplier(v float64)                { m.ContractMultiplier = &v }
-func (m *Instrument) SetCouponRate(v float64)                        { m.CouponRate = &v }
-func (m *Instrument) SetSecurityExchange(v string)                   { m.SecurityExchange = &v }
-func (m *Instrument) SetIssuer(v string)                             { m.Issuer = &v }
-func (m *Instrument) SetEncodedIssuerLen(v int)                      { m.EncodedIssuerLen = &v }
-func (m *Instrument) SetEncodedIssuer(v string)                      { m.EncodedIssuer = &v }
-func (m *Instrument) SetSecurityDesc(v string)                       { m.SecurityDesc = &v }
-func (m *Instrument) SetEncodedSecurityDescLen(v int)                { m.EncodedSecurityDescLen = &v }
-func (m *Instrument) SetEncodedSecurityDesc(v string)                { m.EncodedSecurityDesc = &v }
-func (m *Instrument) SetPool(v string)                               { m.Pool = &v }
-func (m *Instrument) SetContractSettlMonth(v string)                 { m.ContractSettlMonth = &v }
-func (m *Instrument) SetCPProgram(v int)                             { m.CPProgram = &v }
-func (m *Instrument) SetCPRegType(v string)                          { m.CPRegType = &v }
-func (m *Instrument) SetNoEvents(v []NoEvents)                       { m.NoEvents = v }
-func (m *Instrument) SetDatedDate(v string)                          { m.DatedDate = &v }
-func (m *Instrument) SetInterestAccrualDate(v string)                { m.InterestAccrualDate = &v }
-func (m *Instrument) SetSecurityStatus(v string)                     { m.SecurityStatus = &v }
-func (m *Instrument) SetSettleOnOpenFlag(v string)                   { m.SettleOnOpenFlag = &v }
-func (m *Instrument) SetInstrmtAssignmentMethod(v string)            { m.InstrmtAssignmentMethod = &v }
-func (m *Instrument) SetStrikeMultiplier(v float64)                  { m.StrikeMultiplier = &v }
-func (m *Instrument) SetStrikeValue(v float64)                       { m.StrikeValue = &v }
-func (m *Instrument) SetMinPriceIncrement(v float64)                 { m.MinPriceIncrement = &v }
-func (m *Instrument) SetPositionLimit(v int)                         { m.PositionLimit = &v }
-func (m *Instrument) SetNTPositionLimit(v int)                       { m.NTPositionLimit = &v }
-func (m *Instrument) SetNoInstrumentParties(v []NoInstrumentParties) { m.NoInstrumentParties = v }
-func (m *Instrument) SetUnitOfMeasure(v string)                      { m.UnitOfMeasure = &v }
-func (m *Instrument) SetTimeUnit(v string)                           { m.TimeUnit = &v }
-func (m *Instrument) SetMaturityTime(v string)                       { m.MaturityTime = &v }
+func (m *Instrument) SetSymbol(v string)                  { m.Symbol = &v }
+func (m *Instrument) SetSymbolSfx(v string)               { m.SymbolSfx = &v }
+func (m *Instrument) SetSecurityID(v string)              { m.SecurityID = &v }
+func (m *Instrument) SetSecurityIDSource(v string)        { m.SecurityIDSource = &v }
+func (m *Instrument) SetProduct(v int)                    { m.Product = &v }
+func (m *Instrument) SetCFICode(v string)                 { m.CFICode = &v }
+func (m *Instrument) SetSecurityType(v string)            { m.SecurityType = &v }
+func (m *Instrument) SetSecuritySubType(v string)         { m.SecuritySubType = &v }
+func (m *Instrument) SetMaturityMonthYear(v string)       { m.MaturityMonthYear = &v }
+func (m *Instrument) SetMaturityDate(v string)            { m.MaturityDate = &v }
+func (m *Instrument) SetCouponPaymentDate(v string)       { m.CouponPaymentDate = &v }
+func (m *Instrument) SetIssueDate(v string)               { m.IssueDate = &v }
+func (m *Instrument) SetRepoCollateralSecurityType(v int) { m.RepoCollateralSecurityType = &v }
+func (m *Instrument) SetRepurchaseTerm(v int)             { m.RepurchaseTerm = &v }
+func (m *Instrument) SetRepurchaseRate(v float64)         { m.RepurchaseRate = &v }
+func (m *Instrument) SetFactor(v float64)                 { m.Factor = &v }
+func (m *Instrument) SetCreditRating(v string)            { m.CreditRating = &v }
+func (m *Instrument) SetInstrRegistry(v string)           { m.InstrRegistry = &v }
+func (m *Instrument) SetCountryOfIssue(v string)          { m.CountryOfIssue = &v }
+func (m *Instrument) SetStateOrProvinceOfIssue(v string)  { m.StateOrProvinceOfIssue = &v }
+func (m *Instrument) SetLocaleOfIssue(v string)           { m.LocaleOfIssue = &v }
+func (m *Instrument) SetRedemptionDate(v string)          { m.RedemptionDate = &v }
+func (m *Instrument) SetStrikePrice(v float64)            { m.StrikePrice = &v }
+func (m *Instrument) SetStrikeCurrency(v string)          { m.StrikeCurrency = &v }
+func (m *Instrument) SetOptAttribute(v string)            { m.OptAttribute = &v }
+func (m *Instrument) SetContractMultiplier(v float64)     { m.ContractMultiplier = &v }
+func (m *Instrument) SetCouponRate(v float64)             { m.CouponRate = &v }
+func (m *Instrument) SetSecurityExchange(v string)        { m.SecurityExchange = &v }
+func (m *Instrument) SetIssuer(v string)                  { m.Issuer = &v }
+func (m *Instrument) SetEncodedIssuerLen(v int)           { m.EncodedIssuerLen = &v }
+func (m *Instrument) SetEncodedIssuer(v string)           { m.EncodedIssuer = &v }
+func (m *Instrument) SetSecurityDesc(v string)            { m.SecurityDesc = &v }
+func (m *Instrument) SetEncodedSecurityDescLen(v int)     { m.EncodedSecurityDescLen = &v }
+func (m *Instrument) SetEncodedSecurityDesc(v string)     { m.EncodedSecurityDesc = &v }
+func (m *Instrument) SetPool(v string)                    { m.Pool = &v }
+func (m *Instrument) SetContractSettlMonth(v string)      { m.ContractSettlMonth = &v }
+func (m *Instrument) SetCPProgram(v int)                  { m.CPProgram = &v }
+func (m *Instrument) SetCPRegType(v string)               { m.CPRegType = &v }
+func (m *Instrument) SetDatedDate(v string)               { m.DatedDate = &v }
+func (m *Instrument) SetInterestAccrualDate(v string)     { m.InterestAccrualDate = &v }
+func (m *Instrument) SetSecurityStatus(v string)          { m.SecurityStatus = &v }
+func (m *Instrument) SetSettleOnOpenFlag(v string)        { m.SettleOnOpenFlag = &v }
+func (m *Instrument) SetInstrmtAssignmentMethod(v string) { m.InstrmtAssignmentMethod = &v }
+func (m *Instrument) SetStrikeMultiplier(v float64)       { m.StrikeMultiplier = &v }
+func (m *Instrument) SetStrikeValue(v float64)            { m.StrikeValue = &v }
+func (m *Instrument) SetMinPriceIncrement(v float64)      { m.MinPriceIncrement = &v }
+func (m *Instrument) SetPositionLimit(v int)              { m.PositionLimit = &v }
+func (m *Instrument) SetNTPositionLimit(v int)            { m.NTPositionLimit = &v }
+func (m *Instrument) SetUnitOfMeasure(v string)           { m.UnitOfMeasure = &v }
+func (m *Instrument) SetTimeUnit(v string)                { m.TimeUnit = &v }
+func (m *Instrument) SetMaturityTime(v string)            { m.MaturityTime = &v }

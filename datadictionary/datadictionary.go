@@ -28,8 +28,12 @@ type MessagePart interface {
 
 //ComponentType is a grouping of fields.
 type ComponentType struct {
-	name  string
+	name string
+	// MessageParts in declaration order contained in this component
 	Parts []MessagePart
+	//All fields contained in this component. Includes fields encapsulated in
+	//components of this component
+	Fields []*FieldDef
 }
 
 //Name returns the name of this component type

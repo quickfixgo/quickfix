@@ -40,7 +40,7 @@ func (b *builder) build(doc *XMLDoc) (*DataDictionary, error) {
 	return b.dict, nil
 }
 
-func (b builder) findOrBuildComponent(xmlMember *XMLComponentMember) (*ComponentType, error) {
+func (b builder) findOrBuildComponentType(xmlMember *XMLComponentMember) (*ComponentType, error) {
 	if comp, preBuilt := b.dict.ComponentTypes[xmlMember.Name]; preBuilt {
 		return comp, nil
 	}
@@ -55,7 +55,7 @@ func (b builder) findOrBuildComponent(xmlMember *XMLComponentMember) (*Component
 	var comp *ComponentType
 	var err error
 
-	if comp, err = b.buildComponent(xmlComp); err != nil {
+	if comp, err = b.buildComponentType(xmlComp); err != nil {
 		return nil, err
 	}
 
@@ -64,27 +64,32 @@ func (b builder) findOrBuildComponent(xmlMember *XMLComponentMember) (*Component
 	return comp, nil
 }
 
-func (b builder) buildComponent(xmlComponent *XMLComponent) (*ComponentType, error) {
+func (b builder) buildComponentType(xmlComponent *XMLComponent) (*ComponentType, error) {
 	c := &ComponentType{name: xmlComponent.Name}
 
 	for _, member := range xmlComponent.Members {
 		if member.XMLName.Local == "component" {
-			var childComponent *ComponentType
+			var childComponentType *ComponentType
 			var err error
-			if childComponent, err = b.findOrBuildComponent(member); err != nil {
+			if childComponentType, err = b.findOrBuildComponentType(member); err != nil {
 				return nil, err
 			}
 
-			//FIXME
-			for _, part := range childComponent.Parts {
-				c.Parts = append(c.Parts, part)
+			childComponent := Component{
+				ComponentType: childComponentType,
+				required:      (member.Required == "Y"),
 			}
+
+			c.Parts = append(c.Parts, childComponent)
+			c.Fields = append(c.Fields, childComponentType.Fields...)
 		} else {
 			var field *FieldDef
 			var err error
 			if field, err = b.buildFieldDef(member); err != nil {
 				return nil, err
 			}
+
+			c.Fields = append(c.Fields, field)
 			c.Parts = append(c.Parts, field)
 		}
 	}
@@ -99,7 +104,7 @@ func (b builder) buildComponents() error {
 		if _, allReadyBuilt := b.dict.ComponentTypes[c.Name]; !allReadyBuilt {
 			var builtComponent *ComponentType
 			var err error
-			if builtComponent, err = b.buildComponent(c); err != nil {
+			if builtComponent, err = b.buildComponentType(c); err != nil {
 				return err
 			}
 			b.dict.ComponentTypes[c.Name] = builtComponent
@@ -136,12 +141,8 @@ func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) 
 				return nil, newUnknownComponent(member.Name)
 			}
 
-			for _, part := range comp.Parts {
-				switch f := part.(type) {
-				//FIXME: component?
-				case *FieldDef:
-					m.Fields[f.Tag] = f
-				}
+			for _, f := range comp.Fields {
+				m.Fields[f.Tag] = f
 			}
 
 			m.Parts = append(m.Parts, Component{ComponentType: comp, required: (member.Required == "Y")})
@@ -181,7 +182,7 @@ func (b builder) buildGroupFieldDef(xmlField *XMLComponentMember, groupFieldType
 		if member.XMLName.Local == "component" {
 			var err error
 			var comp *ComponentType
-			if comp, err = b.findOrBuildComponent(member); err != nil {
+			if comp, err = b.findOrBuildComponentType(member); err != nil {
 				return nil, err
 			}
 
