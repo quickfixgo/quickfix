@@ -167,7 +167,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tag
 				return fieldStack, err
 			}
 		} else {
-			if childDefs[0].Required {
+			if childDefs[0].Required() {
 				return fieldStack, requiredTagMissing(Tag(childDefs[0].Tag))
 			}
 		}

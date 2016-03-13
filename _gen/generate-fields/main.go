@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/quickfixgo/quickfix/_gen"
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"os"
 	"sort"
+
+	"github.com/quickfixgo/quickfix/_gen"
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 var (
@@ -138,16 +139,16 @@ func genFields() {
 			fmt.Printf("Unknown type '%v' for tag '%v'\n", field.Type, tag)
 		}
 
-		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name, field.Type)
-		fileOut += fmt.Sprintf("type %vField struct { quickfix.%v }\n", field.Name, baseType)
-		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name, field.Tag)
-		fileOut += fmt.Sprintf("func (f %vField) Tag() quickfix.Tag {return tag.%v}\n", field.Name, field.Name)
+		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name(), field.Type)
+		fileOut += fmt.Sprintf("type %vField struct { quickfix.%v }\n", field.Name(), baseType)
+		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name(), field.Tag)
+		fileOut += fmt.Sprintf("func (f %vField) Tag() quickfix.Tag {return tag.%v}\n", field.Name(), field.Name())
 
 		switch goType {
 		case "bool", "int", "float64", "string":
-			fileOut += fmt.Sprintf("//New%v returns a new %vField initialized with val\n", field.Name, field.Name)
-			fileOut += fmt.Sprintf("func New%v(val %v) *%vField {\n", field.Name, goType, field.Name)
-			fileOut += fmt.Sprintf("return &%vField{quickfix.%v(val)}\n", field.Name, baseType)
+			fileOut += fmt.Sprintf("//New%v returns a new %vField initialized with val\n", field.Name(), field.Name())
+			fileOut += fmt.Sprintf("func New%v(val %v) *%vField {\n", field.Name(), goType, field.Name())
+			fileOut += fmt.Sprintf("return &%vField{quickfix.%v(val)}\n", field.Name(), baseType)
 			fileOut += "}\n"
 		}
 	}
@@ -188,9 +189,9 @@ func main() {
 		}
 
 		for _, field := range spec.FieldTypeByTag {
-			fieldMap[field.Name] = int(field.Tag)
+			fieldMap[field.Name()] = int(field.Tag)
 
-			if oldField, ok := fieldTypeMap[field.Name]; ok {
+			if oldField, ok := fieldTypeMap[field.Name()]; ok {
 				//merge old enums with new
 				if len(oldField.Enums) > 0 && field.Enums == nil {
 					field.Enums = make(map[string]datadictionary.Enum)
@@ -214,7 +215,7 @@ func main() {
 				}
 			}
 
-			fieldTypeMap[field.Name] = field
+			fieldTypeMap[field.Name()] = field
 		}
 	}
 

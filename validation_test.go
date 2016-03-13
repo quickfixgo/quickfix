@@ -1,9 +1,10 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"testing"
 	"time"
+
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 type validateTest struct {
@@ -364,7 +365,7 @@ func tcFloatValidation() validateTest {
 }
 
 func TestValidateVisitField(t *testing.T) {
-	fieldType := &datadictionary.FieldType{Name: "myfield", Tag: 11, Type: "STRING"}
+	fieldType := datadictionary.NewFieldType("myfield", 11, "STRING")
 	fieldDef := &datadictionary.FieldDef{FieldType: fieldType}
 
 	TagValues := make([]tagValue, 1)
@@ -380,13 +381,13 @@ func TestValidateVisitField(t *testing.T) {
 }
 
 func TestValidateVisitFieldGroup(t *testing.T) {
-	fieldType1 := &datadictionary.FieldType{Name: "myfield", Tag: 2, Type: "STRING"}
+	fieldType1 := datadictionary.NewFieldType("myfield", 2, "STRING")
 	fieldDef1 := &datadictionary.FieldDef{FieldType: fieldType1, ChildFields: []*datadictionary.FieldDef{}}
 
-	fieldType2 := &datadictionary.FieldType{Name: "myfield", Tag: 3, Type: "STRING"}
+	fieldType2 := datadictionary.NewFieldType("myfield", 3, "STRING")
 	fieldDef2 := &datadictionary.FieldDef{FieldType: fieldType2, ChildFields: []*datadictionary.FieldDef{}}
 
-	groupFieldType := &datadictionary.FieldType{Name: "mygroupfield", Tag: 1, Type: "INT"}
+	groupFieldType := datadictionary.NewFieldType("mygroupfield", 1, "INT")
 	groupFieldDef := &datadictionary.FieldDef{FieldType: groupFieldType, ChildFields: []*datadictionary.FieldDef{fieldDef1, fieldDef2}}
 
 	var repField1 tagValue

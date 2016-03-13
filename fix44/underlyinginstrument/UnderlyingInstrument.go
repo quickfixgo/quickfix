@@ -1,19 +1,15 @@
 package underlyinginstrument
 
+import (
+	"github.com/quickfixgo/quickfix/fix44/underlyingstipulations"
+)
+
 //NoUnderlyingSecurityAltID is a repeating group in UnderlyingInstrument
 type NoUnderlyingSecurityAltID struct {
 	//UnderlyingSecurityAltID is a non-required field for NoUnderlyingSecurityAltID.
 	UnderlyingSecurityAltID *string `fix:"458"`
 	//UnderlyingSecurityAltIDSource is a non-required field for NoUnderlyingSecurityAltID.
 	UnderlyingSecurityAltIDSource *string `fix:"459"`
-}
-
-//NoUnderlyingStips is a repeating group in UnderlyingInstrument
-type NoUnderlyingStips struct {
-	//UnderlyingStipType is a non-required field for NoUnderlyingStips.
-	UnderlyingStipType *string `fix:"888"`
-	//UnderlyingStipValue is a non-required field for NoUnderlyingStips.
-	UnderlyingStipValue *string `fix:"889"`
 }
 
 //UnderlyingInstrument is a fix44 Component
@@ -108,8 +104,8 @@ type UnderlyingInstrument struct {
 	UnderlyingCurrentValue *float64 `fix:"885"`
 	//UnderlyingEndValue is a non-required field for UnderlyingInstrument.
 	UnderlyingEndValue *float64 `fix:"886"`
-	//NoUnderlyingStips is a non-required field for UnderlyingInstrument.
-	NoUnderlyingStips []NoUnderlyingStips `fix:"887,omitempty"`
+	//UnderlyingStipulations Component
+	underlyingstipulations.UnderlyingStipulations
 }
 
 func (m *UnderlyingInstrument) SetUnderlyingSymbol(v string)     { m.UnderlyingSymbol = &v }
@@ -169,14 +165,13 @@ func (m *UnderlyingInstrument) SetEncodedUnderlyingSecurityDescLen(v int) {
 func (m *UnderlyingInstrument) SetEncodedUnderlyingSecurityDesc(v string) {
 	m.EncodedUnderlyingSecurityDesc = &v
 }
-func (m *UnderlyingInstrument) SetUnderlyingCPProgram(v string)            { m.UnderlyingCPProgram = &v }
-func (m *UnderlyingInstrument) SetUnderlyingCPRegType(v string)            { m.UnderlyingCPRegType = &v }
-func (m *UnderlyingInstrument) SetUnderlyingCurrency(v string)             { m.UnderlyingCurrency = &v }
-func (m *UnderlyingInstrument) SetUnderlyingQty(v float64)                 { m.UnderlyingQty = &v }
-func (m *UnderlyingInstrument) SetUnderlyingPx(v float64)                  { m.UnderlyingPx = &v }
-func (m *UnderlyingInstrument) SetUnderlyingDirtyPrice(v float64)          { m.UnderlyingDirtyPrice = &v }
-func (m *UnderlyingInstrument) SetUnderlyingEndPrice(v float64)            { m.UnderlyingEndPrice = &v }
-func (m *UnderlyingInstrument) SetUnderlyingStartValue(v float64)          { m.UnderlyingStartValue = &v }
-func (m *UnderlyingInstrument) SetUnderlyingCurrentValue(v float64)        { m.UnderlyingCurrentValue = &v }
-func (m *UnderlyingInstrument) SetUnderlyingEndValue(v float64)            { m.UnderlyingEndValue = &v }
-func (m *UnderlyingInstrument) SetNoUnderlyingStips(v []NoUnderlyingStips) { m.NoUnderlyingStips = v }
+func (m *UnderlyingInstrument) SetUnderlyingCPProgram(v string)     { m.UnderlyingCPProgram = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCPRegType(v string)     { m.UnderlyingCPRegType = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCurrency(v string)      { m.UnderlyingCurrency = &v }
+func (m *UnderlyingInstrument) SetUnderlyingQty(v float64)          { m.UnderlyingQty = &v }
+func (m *UnderlyingInstrument) SetUnderlyingPx(v float64)           { m.UnderlyingPx = &v }
+func (m *UnderlyingInstrument) SetUnderlyingDirtyPrice(v float64)   { m.UnderlyingDirtyPrice = &v }
+func (m *UnderlyingInstrument) SetUnderlyingEndPrice(v float64)     { m.UnderlyingEndPrice = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStartValue(v float64)   { m.UnderlyingStartValue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCurrentValue(v float64) { m.UnderlyingCurrentValue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingEndValue(v float64)     { m.UnderlyingEndValue = &v }

@@ -4,13 +4,14 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"github.com/quickfixgo/quickfix/_gen"
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"os"
 	"path"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/quickfixgo/quickfix/_gen"
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 var (
@@ -55,31 +56,33 @@ import(
 	return fileOut
 }
 
-func writeFieldDeclaration(field *datadictionary.FieldDef, componentName string) string {
-	switch {
-	case field.IsComponent():
-		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Component.Name))] = true
-	case !field.IsGroup():
-		goType := gen.FixFieldTypeToGoType(field.Type)
-		if goType == "time.Time" {
-			imports["time"] = true
+func writeFieldDeclaration(part datadictionary.MessagePart, componentName string) string {
+	switch field := part.(type) {
+	case datadictionary.Component:
+		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Name()))] = true
+	case *datadictionary.FieldDef:
+		if !field.IsGroup() {
+			goType := gen.FixFieldTypeToGoType(field.Type)
+			if goType == "time.Time" {
+				imports["time"] = true
+			}
 		}
 	}
 
-	return gen.WriteFieldDeclaration(fixSpec.Major, fixSpec.Minor, field, componentName)
+	return gen.WriteFieldDeclaration(fixSpec.Major, fixSpec.Minor, part, componentName)
 }
 
 func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
-	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name, parent)
-	fileOut += fmt.Sprintf("type %v struct {\n", field.Name)
-	for _, groupField := range field.ChildFields {
-		fileOut += writeFieldDeclaration(groupField, field.Name)
+	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
+	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
+	for _, groupField := range field.Parts {
+		fileOut += writeFieldDeclaration(groupField, field.Name())
 	}
 
 	fileOut += "}\n"
 
 	writer := new(bytes.Buffer)
-	if err := gen.WriteFieldSetters(writer, field.Name, field.ChildFields); err != nil {
+	if err := gen.WriteFieldSetters(writer, field.Name(), field.Parts); err != nil {
 		panic(err)
 	}
 	fileOut += writer.String()
@@ -93,14 +96,17 @@ type group struct {
 	field  *datadictionary.FieldDef
 }
 
-func collectGroups(parent string, field *datadictionary.FieldDef, groups []group) []group {
-	if !field.IsGroup() {
-		return groups
-	}
+func collectGroups(parent string, part datadictionary.MessagePart, groups []group) []group {
+	switch field := part.(type) {
+	case *datadictionary.FieldDef:
+		if !field.IsGroup() {
+			return groups
+		}
 
-	groups = append(groups, group{parent, field})
-	for _, childField := range field.ChildFields {
-		groups = collectGroups(field.Name, childField, groups)
+		groups = append(groups, group{parent, field})
+		for _, childField := range field.Parts {
+			groups = collectGroups(field.Name(), childField, groups)
+		}
 	}
 
 	return groups
@@ -108,7 +114,7 @@ func collectGroups(parent string, field *datadictionary.FieldDef, groups []group
 
 func genGroupDeclarations(msg *datadictionary.MessageDef) (fileOut string) {
 	groups := []group{}
-	for _, field := range msg.FieldsInDeclarationOrder {
+	for _, field := range msg.Parts {
 		groups = collectGroups(msg.Name, field, groups)
 	}
 
@@ -128,12 +134,12 @@ func headerTrailerPkg() string {
 	return pkg
 }
 
-func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary.FieldDef) string {
+func genMessage(msg *datadictionary.MessageDef) string {
 	fileOut := fmt.Sprintf("//Message is a %v FIX Message\n", msg.Name)
 	fileOut += "type Message struct {\n"
 	fileOut += fmt.Sprintf("FIXMsgType string   `fix:\"%v\"`\n", msg.MsgType)
 	fileOut += fmt.Sprintf("%v.Header\n", headerTrailerPkg())
-	for _, field := range msg.FieldsInDeclarationOrder {
+	for _, field := range msg.Parts {
 		fileOut += writeFieldDeclaration(field, msg.Name)
 	}
 	fileOut += fmt.Sprintf("%v.Trailer\n", headerTrailerPkg())
@@ -146,7 +152,7 @@ func genMessage(msg *datadictionary.MessageDef, requiredFields []*datadictionary
 
 func genMessageSetters(msg *datadictionary.MessageDef) string {
 	writer := new(bytes.Buffer)
-	if err := gen.WriteFieldSetters(writer, "Message", msg.FieldsInDeclarationOrder); err != nil {
+	if err := gen.WriteFieldSetters(writer, "Message", msg.Parts); err != nil {
 		panic(err)
 	}
 	return writer.String()
@@ -185,13 +191,6 @@ func Route(router RouteOut) (string,string,quickfix.MessageRoute) {
 }
 
 func genMessagePkg(msg *datadictionary.MessageDef) {
-	requiredFields := make([]*datadictionary.FieldDef, 0, len(msg.FieldsInDeclarationOrder))
-	for _, field := range msg.FieldsInDeclarationOrder {
-		if field.Required {
-			requiredFields = append(requiredFields, field)
-		}
-	}
-
 	pkgName := strings.ToLower(msg.Name)
 	imports = make(map[string]bool)
 
@@ -201,7 +200,7 @@ func genMessagePkg(msg *datadictionary.MessageDef) {
 	//run through group and message declarations to collect required imports first
 	delayOut := ""
 	delayOut += genGroupDeclarations(msg)
-	delayOut += genMessage(msg, requiredFields)
+	delayOut += genMessage(msg)
 
 	fileOut += genMessageImports()
 	fileOut += delayOut

@@ -36,7 +36,7 @@ func dict() (*DataDictionary, error) {
 
 func TestComponents(t *testing.T) {
 	d, _ := dict()
-	if _, ok := d.Components["SpreadOrBenchmarkCurveData"]; ok != true {
+	if _, ok := d.ComponentTypes["SpreadOrBenchmarkCurveData"]; ok != true {
 		t.Error("Component not found")
 	}
 }
@@ -61,8 +61,8 @@ func TestFieldsByTag(t *testing.T) {
 			t.Errorf("%v not found", test.Tag)
 		}
 
-		if f.Name != test.Name {
-			t.Errorf("Expected %v got %v", test.Name, f.Name)
+		if f.Name() != test.Name {
+			t.Errorf("Expected %v got %v", test.Name, f.Name())
 		}
 
 		if f.Type != test.Type {

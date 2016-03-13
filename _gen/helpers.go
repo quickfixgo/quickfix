@@ -2,11 +2,12 @@ package gen
 
 import (
 	"fmt"
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"io"
 	"strconv"
 	"strings"
 	"text/template"
+
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 var fieldSetterTemplate *template.Template
@@ -23,62 +24,63 @@ func (m *{{.Receiver}}) Set{{.Name}}(v {{ if .IsGroup}}[]{{.Name}}{{else}}{{fixF
 {{- end}}}`))
 }
 
-//WriteFieldSetters generates setters appropriate for Messages, Components and Repeating Groups
-func WriteFieldSetters(writer io.Writer, receiver string, fields []*datadictionary.FieldDef) error {
+//WriteFieldSetters generates setters appropriate for Messages, Components or Repeating Groups
+func WriteFieldSetters(writer io.Writer, receiver string, parts []datadictionary.MessagePart) error {
 	type setter struct {
 		Receiver string
 		*datadictionary.FieldDef
 	}
 
-	for _, field := range fields {
-		if field.IsComponent() {
-			continue
-		}
-
-		if err := fieldSetterTemplate.Execute(writer, setter{receiver, field}); err != nil {
-			return err
+	for _, part := range parts {
+		switch field := part.(type) {
+		case *datadictionary.FieldDef:
+			if err := fieldSetterTemplate.Execute(writer, setter{receiver, field}); err != nil {
+				return err
+			}
 		}
 	}
 
 	return nil
 }
 
-func WriteFieldDeclaration(fixSpecMajor int, fixSpecMinor int, field *datadictionary.FieldDef, componentName string) (s string) {
-	if field.IsComponent() {
-		s += fmt.Sprintf("//%v Component\n", field.Component.Name)
-		s += fmt.Sprintf("%v.%v\n", strings.ToLower(field.Component.Name), field.Component.Name)
+func WriteFieldDeclaration(fixSpecMajor int, fixSpecMinor int, part datadictionary.MessagePart, componentName string) (s string) {
+	switch field := part.(type) {
+	case datadictionary.Component:
+		s += fmt.Sprintf("//%v Component\n", field.Name())
+		s += fmt.Sprintf("%v.%v\n", strings.ToLower(field.Name()), field.Name())
 		return
-	}
 
-	if field.Required {
-		s += fmt.Sprintf("//%v is a required field for %v.\n", field.Name, componentName)
-	} else {
-		s += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name, componentName)
-	}
-
-	if field.IsGroup() {
-		if field.Required {
-			s += fmt.Sprintf("%v []%v `fix:\"%v\"`\n", field.Name, field.Name, field.Tag)
+	case *datadictionary.FieldDef:
+		if field.Required() {
+			s += fmt.Sprintf("//%v is a required field for %v.\n", field.Name(), componentName)
 		} else {
-			s += fmt.Sprintf("%v []%v `fix:\"%v,omitempty\"`\n", field.Name, field.Name, field.Tag)
+			s += fmt.Sprintf("//%v is a non-required field for %v.\n", field.Name(), componentName)
 		}
-		return
-	}
 
-	goType := FixFieldTypeToGoType(field.Type)
-	fixTags := strconv.Itoa(field.Tag)
-	if field.Tag == 8 {
-		if fixSpecMajor == 4 {
-			fixTags = fmt.Sprintf("%v,default=FIX.%v.%v", fixTags, fixSpecMajor, fixSpecMinor)
+		if field.IsGroup() {
+			if field.Required() {
+				s += fmt.Sprintf("%v []%v `fix:\"%v\"`\n", field.Name(), field.Name(), field.Tag)
+			} else {
+				s += fmt.Sprintf("%v []%v `fix:\"%v,omitempty\"`\n", field.Name(), field.Name(), field.Tag)
+			}
+			return
+		}
+
+		goType := FixFieldTypeToGoType(field.Type)
+		fixTags := strconv.Itoa(field.Tag)
+		if field.Tag == 8 {
+			if fixSpecMajor == 4 {
+				fixTags = fmt.Sprintf("%v,default=FIX.%v.%v", fixTags, fixSpecMajor, fixSpecMinor)
+			} else {
+				fixTags = fixTags + ",default=FIXT.1.1"
+			}
+		}
+
+		if field.Required() {
+			s += fmt.Sprintf("%v %v `fix:\"%v\"`\n", field.Name(), goType, fixTags)
 		} else {
-			fixTags = fixTags + ",default=FIXT.1.1"
+			s += fmt.Sprintf("%v *%v `fix:\"%v\"`\n", field.Name(), goType, fixTags)
 		}
-	}
-
-	if field.Required {
-		s += fmt.Sprintf("%v %v `fix:\"%v\"`\n", field.Name, goType, fixTags)
-	} else {
-		s += fmt.Sprintf("%v *%v `fix:\"%v\"`\n", field.Name, goType, fixTags)
 	}
 	return
 }
