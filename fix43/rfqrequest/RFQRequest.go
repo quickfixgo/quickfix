@@ -10,7 +10,7 @@ import (
 
 //NoRelatedSym is a repeating group in RFQRequest
 type NoRelatedSym struct {
-	//Instrument Component
+	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
 	//PrevClosePx is a non-required field for NoRelatedSym.
 	PrevClosePx *float64 `fix:"140"`
@@ -24,11 +24,12 @@ type NoRelatedSym struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
-func (m *NoRelatedSym) SetPrevClosePx(v float64)        { m.PrevClosePx = &v }
-func (m *NoRelatedSym) SetQuoteRequestType(v int)       { m.QuoteRequestType = &v }
-func (m *NoRelatedSym) SetQuoteType(v int)              { m.QuoteType = &v }
-func (m *NoRelatedSym) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
-func (m *NoRelatedSym) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+func (m *NoRelatedSym) SetPrevClosePx(v float64)              { m.PrevClosePx = &v }
+func (m *NoRelatedSym) SetQuoteRequestType(v int)             { m.QuoteRequestType = &v }
+func (m *NoRelatedSym) SetQuoteType(v int)                    { m.QuoteType = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)          { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
 
 //Message is a RFQRequest FIX Message
 type Message struct {

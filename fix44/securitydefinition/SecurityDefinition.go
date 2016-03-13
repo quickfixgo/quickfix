@@ -13,15 +13,21 @@ import (
 
 //NoUnderlyings is a repeating group in SecurityDefinition
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in SecurityDefinition
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //Message is a SecurityDefinition FIX Message
 type Message struct {
@@ -33,10 +39,10 @@ type Message struct {
 	SecurityResponseID string `fix:"322"`
 	//SecurityResponseType is a required field for SecurityDefinition.
 	SecurityResponseType int `fix:"323"`
-	//Instrument Component
-	instrument.Instrument
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
+	//Instrument is a non-required component for SecurityDefinition.
+	Instrument *instrument.Instrument
+	//InstrumentExtension is a non-required component for SecurityDefinition.
+	InstrumentExtension *instrumentextension.InstrumentExtension
 	//NoUnderlyings is a non-required field for SecurityDefinition.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Currency is a non-required field for SecurityDefinition.
@@ -65,9 +71,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReqID(v string)          { m.SecurityReqID = v }
-func (m *Message) SetSecurityResponseID(v string)     { m.SecurityResponseID = v }
-func (m *Message) SetSecurityResponseType(v int)      { m.SecurityResponseType = v }
+func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = v }
+func (m *Message) SetSecurityResponseID(v string)        { m.SecurityResponseID = v }
+func (m *Message) SetSecurityResponseType(v int)         { m.SecurityResponseType = v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
+	m.InstrumentExtension = &v
+}
 func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
 func (m *Message) SetCurrency(v string)               { m.Currency = &v }
 func (m *Message) SetTradingSessionID(v string)       { m.TradingSessionID = &v }

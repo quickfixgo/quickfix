@@ -8,16 +8,16 @@ import (
 
 //NoRelatedSym is a repeating group in RelSymDerivSecGrp
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//ExpirationCycle is a non-required field for NoRelatedSym.
 	ExpirationCycle *int `fix:"827"`
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//InstrumentExtension is a non-required component for NoRelatedSym.
+	InstrumentExtension *instrumentextension.InstrumentExtension
+	//InstrmtLegGrp is a non-required component for NoRelatedSym.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 	//TradingSessionID is a non-required field for NoRelatedSym.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoRelatedSym.

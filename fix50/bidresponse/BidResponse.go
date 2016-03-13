@@ -16,7 +16,7 @@ type Message struct {
 	BidID *string `fix:"390"`
 	//ClientBidID is a non-required field for BidResponse.
 	ClientBidID *string `fix:"391"`
-	//BidCompRspGrp Component
+	//BidCompRspGrp is a required component for BidResponse.
 	bidcomprspgrp.BidCompRspGrp
 	fixt11.Trailer
 }
@@ -24,8 +24,9 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetBidID(v string)       { m.BidID = &v }
-func (m *Message) SetClientBidID(v string) { m.ClientBidID = &v }
+func (m *Message) SetBidID(v string)                              { m.BidID = &v }
+func (m *Message) SetClientBidID(v string)                        { m.ClientBidID = &v }
+func (m *Message) SetBidCompRspGrp(v bidcomprspgrp.BidCompRspGrp) { m.BidCompRspGrp = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

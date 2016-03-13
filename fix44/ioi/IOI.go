@@ -19,21 +19,27 @@ import (
 
 //NoUnderlyings is a repeating group in IOI
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in IOI
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegIOIQty is a non-required field for NoLegs.
 	LegIOIQty *string `fix:"682"`
-	//LegStipulations Component
-	legstipulations.LegStipulations
+	//LegStipulations is a non-required component for NoLegs.
+	LegStipulations *legstipulations.LegStipulations
 }
 
-func (m *NoLegs) SetLegIOIQty(v string) { m.LegIOIQty = &v }
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegIOIQty(v string)                                { m.LegIOIQty = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
 
 //NoIOIQualifiers is a repeating group in IOI
 type NoIOIQualifiers struct {
@@ -64,24 +70,24 @@ type Message struct {
 	IOITransType string `fix:"28"`
 	//IOIRefID is a non-required field for IOI.
 	IOIRefID *string `fix:"26"`
-	//Instrument Component
+	//Instrument is a required component for IOI.
 	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
+	//FinancingDetails is a non-required component for IOI.
+	FinancingDetails *financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for IOI.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Side is a required field for IOI.
 	Side string `fix:"54"`
 	//QtyType is a non-required field for IOI.
 	QtyType *int `fix:"854"`
-	//OrderQtyData Component
-	orderqtydata.OrderQtyData
+	//OrderQtyData is a non-required component for IOI.
+	OrderQtyData *orderqtydata.OrderQtyData
 	//IOIQty is a required field for IOI.
 	IOIQty string `fix:"27"`
 	//Currency is a non-required field for IOI.
 	Currency *string `fix:"15"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for IOI.
+	Stipulations *stipulations.Stipulations
 	//NoLegs is a non-required field for IOI.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//PriceType is a non-required field for IOI.
@@ -108,37 +114,45 @@ type Message struct {
 	URLLink *string `fix:"149"`
 	//NoRoutingIDs is a non-required field for IOI.
 	NoRoutingIDs []NoRoutingIDs `fix:"215,omitempty"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//YieldData Component
-	yielddata.YieldData
+	//SpreadOrBenchmarkCurveData is a non-required component for IOI.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//YieldData is a non-required component for IOI.
+	YieldData *yielddata.YieldData
 	fix44.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetIOIID(v string)                      { m.IOIID = v }
-func (m *Message) SetIOITransType(v string)               { m.IOITransType = v }
-func (m *Message) SetIOIRefID(v string)                   { m.IOIRefID = &v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings)     { m.NoUnderlyings = v }
-func (m *Message) SetSide(v string)                       { m.Side = v }
-func (m *Message) SetQtyType(v int)                       { m.QtyType = &v }
-func (m *Message) SetIOIQty(v string)                     { m.IOIQty = v }
-func (m *Message) SetCurrency(v string)                   { m.Currency = &v }
-func (m *Message) SetNoLegs(v []NoLegs)                   { m.NoLegs = v }
-func (m *Message) SetPriceType(v int)                     { m.PriceType = &v }
-func (m *Message) SetPrice(v float64)                     { m.Price = &v }
-func (m *Message) SetValidUntilTime(v time.Time)          { m.ValidUntilTime = &v }
-func (m *Message) SetIOIQltyInd(v string)                 { m.IOIQltyInd = &v }
-func (m *Message) SetIOINaturalFlag(v bool)               { m.IOINaturalFlag = &v }
-func (m *Message) SetNoIOIQualifiers(v []NoIOIQualifiers) { m.NoIOIQualifiers = v }
-func (m *Message) SetText(v string)                       { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)                { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)                { m.EncodedText = &v }
-func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
-func (m *Message) SetURLLink(v string)                    { m.URLLink = &v }
-func (m *Message) SetNoRoutingIDs(v []NoRoutingIDs)       { m.NoRoutingIDs = v }
+func (m *Message) SetIOIID(v string)                                       { m.IOIID = v }
+func (m *Message) SetIOITransType(v string)                                { m.IOITransType = v }
+func (m *Message) SetIOIRefID(v string)                                    { m.IOIRefID = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)                   { m.Instrument = v }
+func (m *Message) SetFinancingDetails(v financingdetails.FinancingDetails) { m.FinancingDetails = &v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)                      { m.NoUnderlyings = v }
+func (m *Message) SetSide(v string)                                        { m.Side = v }
+func (m *Message) SetQtyType(v int)                                        { m.QtyType = &v }
+func (m *Message) SetOrderQtyData(v orderqtydata.OrderQtyData)             { m.OrderQtyData = &v }
+func (m *Message) SetIOIQty(v string)                                      { m.IOIQty = v }
+func (m *Message) SetCurrency(v string)                                    { m.Currency = &v }
+func (m *Message) SetStipulations(v stipulations.Stipulations)             { m.Stipulations = &v }
+func (m *Message) SetNoLegs(v []NoLegs)                                    { m.NoLegs = v }
+func (m *Message) SetPriceType(v int)                                      { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                                      { m.Price = &v }
+func (m *Message) SetValidUntilTime(v time.Time)                           { m.ValidUntilTime = &v }
+func (m *Message) SetIOIQltyInd(v string)                                  { m.IOIQltyInd = &v }
+func (m *Message) SetIOINaturalFlag(v bool)                                { m.IOINaturalFlag = &v }
+func (m *Message) SetNoIOIQualifiers(v []NoIOIQualifiers)                  { m.NoIOIQualifiers = v }
+func (m *Message) SetText(v string)                                        { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                                 { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                                 { m.EncodedText = &v }
+func (m *Message) SetTransactTime(v time.Time)                             { m.TransactTime = &v }
+func (m *Message) SetURLLink(v string)                                     { m.URLLink = &v }
+func (m *Message) SetNoRoutingIDs(v []NoRoutingIDs)                        { m.NoRoutingIDs = v }
+func (m *Message) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *Message) SetYieldData(v yielddata.YieldData) { m.YieldData = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

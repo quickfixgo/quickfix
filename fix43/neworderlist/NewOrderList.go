@@ -28,8 +28,8 @@ type NoOrders struct {
 	ClOrdLinkID *string `fix:"583"`
 	//SettlInstMode is a non-required field for NoOrders.
 	SettlInstMode *string `fix:"160"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoOrders.
+	Parties *parties.Parties
 	//TradeOriginationDate is a non-required field for NoOrders.
 	TradeOriginationDate *string `fix:"229"`
 	//Account is a non-required field for NoOrders.
@@ -66,7 +66,7 @@ type NoOrders struct {
 	NoTradingSessions []NoTradingSessions `fix:"386,omitempty"`
 	//ProcessCode is a non-required field for NoOrders.
 	ProcessCode *string `fix:"81"`
-	//Instrument Component
+	//Instrument is a required component for NoOrders.
 	instrument.Instrument
 	//PrevClosePx is a non-required field for NoOrders.
 	PrevClosePx *float64 `fix:"140"`
@@ -78,11 +78,11 @@ type NoOrders struct {
 	LocateReqd *bool `fix:"114"`
 	//TransactTime is a non-required field for NoOrders.
 	TransactTime *time.Time `fix:"60"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for NoOrders.
+	Stipulations *stipulations.Stipulations
 	//QuantityType is a non-required field for NoOrders.
 	QuantityType *int `fix:"465"`
-	//OrderQtyData Component
+	//OrderQtyData is a required component for NoOrders.
 	orderqtydata.OrderQtyData
 	//OrdType is a non-required field for NoOrders.
 	OrdType *string `fix:"40"`
@@ -92,10 +92,10 @@ type NoOrders struct {
 	Price *float64 `fix:"44"`
 	//StopPx is a non-required field for NoOrders.
 	StopPx *float64 `fix:"99"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//YieldData Component
-	yielddata.YieldData
+	//SpreadOrBenchmarkCurveData is a non-required component for NoOrders.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//YieldData is a non-required component for NoOrders.
+	YieldData *yielddata.YieldData
 	//Currency is a non-required field for NoOrders.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NoOrders.
@@ -116,8 +116,8 @@ type NoOrders struct {
 	ExpireTime *time.Time `fix:"126"`
 	//GTBookingInst is a non-required field for NoOrders.
 	GTBookingInst *int `fix:"427"`
-	//CommissionData Component
-	commissiondata.CommissionData
+	//CommissionData is a non-required component for NoOrders.
+	CommissionData *commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NoOrders.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoOrders.
@@ -164,71 +164,80 @@ type NoOrders struct {
 	NetMoney *float64 `fix:"118"`
 }
 
-func (m *NoOrders) SetClOrdID(v string)                        { m.ClOrdID = v }
-func (m *NoOrders) SetSecondaryClOrdID(v string)               { m.SecondaryClOrdID = &v }
-func (m *NoOrders) SetListSeqNo(v int)                         { m.ListSeqNo = v }
-func (m *NoOrders) SetClOrdLinkID(v string)                    { m.ClOrdLinkID = &v }
-func (m *NoOrders) SetSettlInstMode(v string)                  { m.SettlInstMode = &v }
-func (m *NoOrders) SetTradeOriginationDate(v string)           { m.TradeOriginationDate = &v }
-func (m *NoOrders) SetAccount(v string)                        { m.Account = &v }
-func (m *NoOrders) SetAccountType(v int)                       { m.AccountType = &v }
-func (m *NoOrders) SetDayBookingInst(v string)                 { m.DayBookingInst = &v }
-func (m *NoOrders) SetBookingUnit(v string)                    { m.BookingUnit = &v }
-func (m *NoOrders) SetPreallocMethod(v string)                 { m.PreallocMethod = &v }
-func (m *NoOrders) SetNoAllocs(v []NoAllocs)                   { m.NoAllocs = v }
-func (m *NoOrders) SetSettlmntTyp(v string)                    { m.SettlmntTyp = &v }
-func (m *NoOrders) SetFutSettDate(v string)                    { m.FutSettDate = &v }
-func (m *NoOrders) SetCashMargin(v string)                     { m.CashMargin = &v }
-func (m *NoOrders) SetClearingFeeIndicator(v string)           { m.ClearingFeeIndicator = &v }
-func (m *NoOrders) SetHandlInst(v string)                      { m.HandlInst = &v }
-func (m *NoOrders) SetExecInst(v string)                       { m.ExecInst = &v }
-func (m *NoOrders) SetMinQty(v float64)                        { m.MinQty = &v }
-func (m *NoOrders) SetMaxFloor(v float64)                      { m.MaxFloor = &v }
-func (m *NoOrders) SetExDestination(v string)                  { m.ExDestination = &v }
-func (m *NoOrders) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
-func (m *NoOrders) SetProcessCode(v string)                    { m.ProcessCode = &v }
-func (m *NoOrders) SetPrevClosePx(v float64)                   { m.PrevClosePx = &v }
-func (m *NoOrders) SetSide(v string)                           { m.Side = v }
-func (m *NoOrders) SetSideValueInd(v int)                      { m.SideValueInd = &v }
-func (m *NoOrders) SetLocateReqd(v bool)                       { m.LocateReqd = &v }
-func (m *NoOrders) SetTransactTime(v time.Time)                { m.TransactTime = &v }
-func (m *NoOrders) SetQuantityType(v int)                      { m.QuantityType = &v }
-func (m *NoOrders) SetOrdType(v string)                        { m.OrdType = &v }
-func (m *NoOrders) SetPriceType(v int)                         { m.PriceType = &v }
-func (m *NoOrders) SetPrice(v float64)                         { m.Price = &v }
-func (m *NoOrders) SetStopPx(v float64)                        { m.StopPx = &v }
-func (m *NoOrders) SetCurrency(v string)                       { m.Currency = &v }
-func (m *NoOrders) SetComplianceID(v string)                   { m.ComplianceID = &v }
-func (m *NoOrders) SetSolicitedFlag(v bool)                    { m.SolicitedFlag = &v }
-func (m *NoOrders) SetIOIid(v string)                          { m.IOIid = &v }
-func (m *NoOrders) SetQuoteID(v string)                        { m.QuoteID = &v }
-func (m *NoOrders) SetTimeInForce(v string)                    { m.TimeInForce = &v }
-func (m *NoOrders) SetEffectiveTime(v time.Time)               { m.EffectiveTime = &v }
-func (m *NoOrders) SetExpireDate(v string)                     { m.ExpireDate = &v }
-func (m *NoOrders) SetExpireTime(v time.Time)                  { m.ExpireTime = &v }
-func (m *NoOrders) SetGTBookingInst(v int)                     { m.GTBookingInst = &v }
-func (m *NoOrders) SetOrderCapacity(v string)                  { m.OrderCapacity = &v }
-func (m *NoOrders) SetOrderRestrictions(v string)              { m.OrderRestrictions = &v }
-func (m *NoOrders) SetCustOrderCapacity(v int)                 { m.CustOrderCapacity = &v }
-func (m *NoOrders) SetRule80A(v string)                        { m.Rule80A = &v }
-func (m *NoOrders) SetForexReq(v bool)                         { m.ForexReq = &v }
-func (m *NoOrders) SetSettlCurrency(v string)                  { m.SettlCurrency = &v }
-func (m *NoOrders) SetText(v string)                           { m.Text = &v }
-func (m *NoOrders) SetEncodedTextLen(v int)                    { m.EncodedTextLen = &v }
-func (m *NoOrders) SetEncodedText(v string)                    { m.EncodedText = &v }
-func (m *NoOrders) SetFutSettDate2(v string)                   { m.FutSettDate2 = &v }
-func (m *NoOrders) SetOrderQty2(v float64)                     { m.OrderQty2 = &v }
-func (m *NoOrders) SetPrice2(v float64)                        { m.Price2 = &v }
-func (m *NoOrders) SetPositionEffect(v string)                 { m.PositionEffect = &v }
-func (m *NoOrders) SetCoveredOrUncovered(v int)                { m.CoveredOrUncovered = &v }
-func (m *NoOrders) SetMaxShow(v float64)                       { m.MaxShow = &v }
-func (m *NoOrders) SetPegDifference(v float64)                 { m.PegDifference = &v }
-func (m *NoOrders) SetDiscretionInst(v string)                 { m.DiscretionInst = &v }
-func (m *NoOrders) SetDiscretionOffset(v float64)              { m.DiscretionOffset = &v }
-func (m *NoOrders) SetDesignation(v string)                    { m.Designation = &v }
-func (m *NoOrders) SetAccruedInterestRate(v float64)           { m.AccruedInterestRate = &v }
-func (m *NoOrders) SetAccruedInterestAmt(v float64)            { m.AccruedInterestAmt = &v }
-func (m *NoOrders) SetNetMoney(v float64)                      { m.NetMoney = &v }
+func (m *NoOrders) SetClOrdID(v string)                         { m.ClOrdID = v }
+func (m *NoOrders) SetSecondaryClOrdID(v string)                { m.SecondaryClOrdID = &v }
+func (m *NoOrders) SetListSeqNo(v int)                          { m.ListSeqNo = v }
+func (m *NoOrders) SetClOrdLinkID(v string)                     { m.ClOrdLinkID = &v }
+func (m *NoOrders) SetSettlInstMode(v string)                   { m.SettlInstMode = &v }
+func (m *NoOrders) SetParties(v parties.Parties)                { m.Parties = &v }
+func (m *NoOrders) SetTradeOriginationDate(v string)            { m.TradeOriginationDate = &v }
+func (m *NoOrders) SetAccount(v string)                         { m.Account = &v }
+func (m *NoOrders) SetAccountType(v int)                        { m.AccountType = &v }
+func (m *NoOrders) SetDayBookingInst(v string)                  { m.DayBookingInst = &v }
+func (m *NoOrders) SetBookingUnit(v string)                     { m.BookingUnit = &v }
+func (m *NoOrders) SetPreallocMethod(v string)                  { m.PreallocMethod = &v }
+func (m *NoOrders) SetNoAllocs(v []NoAllocs)                    { m.NoAllocs = v }
+func (m *NoOrders) SetSettlmntTyp(v string)                     { m.SettlmntTyp = &v }
+func (m *NoOrders) SetFutSettDate(v string)                     { m.FutSettDate = &v }
+func (m *NoOrders) SetCashMargin(v string)                      { m.CashMargin = &v }
+func (m *NoOrders) SetClearingFeeIndicator(v string)            { m.ClearingFeeIndicator = &v }
+func (m *NoOrders) SetHandlInst(v string)                       { m.HandlInst = &v }
+func (m *NoOrders) SetExecInst(v string)                        { m.ExecInst = &v }
+func (m *NoOrders) SetMinQty(v float64)                         { m.MinQty = &v }
+func (m *NoOrders) SetMaxFloor(v float64)                       { m.MaxFloor = &v }
+func (m *NoOrders) SetExDestination(v string)                   { m.ExDestination = &v }
+func (m *NoOrders) SetNoTradingSessions(v []NoTradingSessions)  { m.NoTradingSessions = v }
+func (m *NoOrders) SetProcessCode(v string)                     { m.ProcessCode = &v }
+func (m *NoOrders) SetInstrument(v instrument.Instrument)       { m.Instrument = v }
+func (m *NoOrders) SetPrevClosePx(v float64)                    { m.PrevClosePx = &v }
+func (m *NoOrders) SetSide(v string)                            { m.Side = v }
+func (m *NoOrders) SetSideValueInd(v int)                       { m.SideValueInd = &v }
+func (m *NoOrders) SetLocateReqd(v bool)                        { m.LocateReqd = &v }
+func (m *NoOrders) SetTransactTime(v time.Time)                 { m.TransactTime = &v }
+func (m *NoOrders) SetStipulations(v stipulations.Stipulations) { m.Stipulations = &v }
+func (m *NoOrders) SetQuantityType(v int)                       { m.QuantityType = &v }
+func (m *NoOrders) SetOrderQtyData(v orderqtydata.OrderQtyData) { m.OrderQtyData = v }
+func (m *NoOrders) SetOrdType(v string)                         { m.OrdType = &v }
+func (m *NoOrders) SetPriceType(v int)                          { m.PriceType = &v }
+func (m *NoOrders) SetPrice(v float64)                          { m.Price = &v }
+func (m *NoOrders) SetStopPx(v float64)                         { m.StopPx = &v }
+func (m *NoOrders) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *NoOrders) SetYieldData(v yielddata.YieldData)                { m.YieldData = &v }
+func (m *NoOrders) SetCurrency(v string)                              { m.Currency = &v }
+func (m *NoOrders) SetComplianceID(v string)                          { m.ComplianceID = &v }
+func (m *NoOrders) SetSolicitedFlag(v bool)                           { m.SolicitedFlag = &v }
+func (m *NoOrders) SetIOIid(v string)                                 { m.IOIid = &v }
+func (m *NoOrders) SetQuoteID(v string)                               { m.QuoteID = &v }
+func (m *NoOrders) SetTimeInForce(v string)                           { m.TimeInForce = &v }
+func (m *NoOrders) SetEffectiveTime(v time.Time)                      { m.EffectiveTime = &v }
+func (m *NoOrders) SetExpireDate(v string)                            { m.ExpireDate = &v }
+func (m *NoOrders) SetExpireTime(v time.Time)                         { m.ExpireTime = &v }
+func (m *NoOrders) SetGTBookingInst(v int)                            { m.GTBookingInst = &v }
+func (m *NoOrders) SetCommissionData(v commissiondata.CommissionData) { m.CommissionData = &v }
+func (m *NoOrders) SetOrderCapacity(v string)                         { m.OrderCapacity = &v }
+func (m *NoOrders) SetOrderRestrictions(v string)                     { m.OrderRestrictions = &v }
+func (m *NoOrders) SetCustOrderCapacity(v int)                        { m.CustOrderCapacity = &v }
+func (m *NoOrders) SetRule80A(v string)                               { m.Rule80A = &v }
+func (m *NoOrders) SetForexReq(v bool)                                { m.ForexReq = &v }
+func (m *NoOrders) SetSettlCurrency(v string)                         { m.SettlCurrency = &v }
+func (m *NoOrders) SetText(v string)                                  { m.Text = &v }
+func (m *NoOrders) SetEncodedTextLen(v int)                           { m.EncodedTextLen = &v }
+func (m *NoOrders) SetEncodedText(v string)                           { m.EncodedText = &v }
+func (m *NoOrders) SetFutSettDate2(v string)                          { m.FutSettDate2 = &v }
+func (m *NoOrders) SetOrderQty2(v float64)                            { m.OrderQty2 = &v }
+func (m *NoOrders) SetPrice2(v float64)                               { m.Price2 = &v }
+func (m *NoOrders) SetPositionEffect(v string)                        { m.PositionEffect = &v }
+func (m *NoOrders) SetCoveredOrUncovered(v int)                       { m.CoveredOrUncovered = &v }
+func (m *NoOrders) SetMaxShow(v float64)                              { m.MaxShow = &v }
+func (m *NoOrders) SetPegDifference(v float64)                        { m.PegDifference = &v }
+func (m *NoOrders) SetDiscretionInst(v string)                        { m.DiscretionInst = &v }
+func (m *NoOrders) SetDiscretionOffset(v float64)                     { m.DiscretionOffset = &v }
+func (m *NoOrders) SetDesignation(v string)                           { m.Designation = &v }
+func (m *NoOrders) SetAccruedInterestRate(v float64)                  { m.AccruedInterestRate = &v }
+func (m *NoOrders) SetAccruedInterestAmt(v float64)                   { m.AccruedInterestAmt = &v }
+func (m *NoOrders) SetNetMoney(v float64)                             { m.NetMoney = &v }
 
 //NoAllocs is a repeating group in NoOrders
 type NoAllocs struct {
@@ -236,15 +245,16 @@ type NoAllocs struct {
 	AllocAccount *string `fix:"79"`
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoAllocs.
+	NestedParties *nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
 
-func (m *NoAllocs) SetAllocAccount(v string)      { m.AllocAccount = &v }
-func (m *NoAllocs) SetIndividualAllocID(v string) { m.IndividualAllocID = &v }
-func (m *NoAllocs) SetAllocQty(v float64)         { m.AllocQty = &v }
+func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)                  { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetNestedParties(v nestedparties.NestedParties) { m.NestedParties = &v }
+func (m *NoAllocs) SetAllocQty(v float64)                          { m.AllocQty = &v }
 
 //NoTradingSessions is a repeating group in NoOrders
 type NoTradingSessions struct {

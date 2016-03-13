@@ -6,8 +6,8 @@ import (
 
 //NoRelatedSym is a repeating group in StrmAsgnReqInstrmtGrp
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
 	//SettlType is a non-required field for NoRelatedSym.
 	SettlType *string `fix:"63"`
 	//MDEntrySize is a non-required field for NoRelatedSym.

@@ -27,15 +27,15 @@ type Message struct {
 	EncodedHeadlineLen *int `fix:"358"`
 	//EncodedHeadline is a non-required field for News.
 	EncodedHeadline *string `fix:"359"`
-	//RoutingGrp Component
-	routinggrp.RoutingGrp
-	//InstrmtGrp Component
-	instrmtgrp.InstrmtGrp
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
-	//LinesOfTextGrp Component
+	//RoutingGrp is a non-required component for News.
+	RoutingGrp *routinggrp.RoutingGrp
+	//InstrmtGrp is a non-required component for News.
+	InstrmtGrp *instrmtgrp.InstrmtGrp
+	//InstrmtLegGrp is a non-required component for News.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
+	//UndInstrmtGrp is a non-required component for News.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
+	//LinesOfTextGrp is a required component for News.
 	linesoftextgrp.LinesOfTextGrp
 	//URLLink is a non-required field for News.
 	URLLink *string `fix:"149"`
@@ -49,14 +49,19 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetOrigTime(v time.Time)     { m.OrigTime = &v }
-func (m *Message) SetUrgency(v string)         { m.Urgency = &v }
-func (m *Message) SetHeadline(v string)        { m.Headline = v }
-func (m *Message) SetEncodedHeadlineLen(v int) { m.EncodedHeadlineLen = &v }
-func (m *Message) SetEncodedHeadline(v string) { m.EncodedHeadline = &v }
-func (m *Message) SetURLLink(v string)         { m.URLLink = &v }
-func (m *Message) SetRawDataLength(v int)      { m.RawDataLength = &v }
-func (m *Message) SetRawData(v string)         { m.RawData = &v }
+func (m *Message) SetOrigTime(v time.Time)                           { m.OrigTime = &v }
+func (m *Message) SetUrgency(v string)                               { m.Urgency = &v }
+func (m *Message) SetHeadline(v string)                              { m.Headline = v }
+func (m *Message) SetEncodedHeadlineLen(v int)                       { m.EncodedHeadlineLen = &v }
+func (m *Message) SetEncodedHeadline(v string)                       { m.EncodedHeadline = &v }
+func (m *Message) SetRoutingGrp(v routinggrp.RoutingGrp)             { m.RoutingGrp = &v }
+func (m *Message) SetInstrmtGrp(v instrmtgrp.InstrmtGrp)             { m.InstrmtGrp = &v }
+func (m *Message) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp)    { m.InstrmtLegGrp = &v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp)    { m.UndInstrmtGrp = &v }
+func (m *Message) SetLinesOfTextGrp(v linesoftextgrp.LinesOfTextGrp) { m.LinesOfTextGrp = v }
+func (m *Message) SetURLLink(v string)                               { m.URLLink = &v }
+func (m *Message) SetRawDataLength(v int)                            { m.RawDataLength = &v }
+func (m *Message) SetRawData(v string)                               { m.RawData = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

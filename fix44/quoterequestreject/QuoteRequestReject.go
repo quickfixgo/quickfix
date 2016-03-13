@@ -22,10 +22,10 @@ import (
 
 //NoRelatedSym is a repeating group in QuoteRequestReject
 type NoRelatedSym struct {
-	//Instrument Component
+	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
+	//FinancingDetails is a non-required component for NoRelatedSym.
+	FinancingDetails *financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for NoRelatedSym.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//PrevClosePx is a non-required field for NoRelatedSym.
@@ -44,8 +44,8 @@ type NoRelatedSym struct {
 	Side *string `fix:"54"`
 	//QtyType is a non-required field for NoRelatedSym.
 	QtyType *int `fix:"854"`
-	//OrderQtyData Component
-	orderqtydata.OrderQtyData
+	//OrderQtyData is a non-required component for NoRelatedSym.
+	OrderQtyData *orderqtydata.OrderQtyData
 	//SettlType is a non-required field for NoRelatedSym.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NoRelatedSym.
@@ -56,8 +56,8 @@ type NoRelatedSym struct {
 	OrderQty2 *float64 `fix:"192"`
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for NoRelatedSym.
+	Stipulations *stipulations.Stipulations
 	//Account is a non-required field for NoRelatedSym.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoRelatedSym.
@@ -76,57 +76,72 @@ type NoRelatedSym struct {
 	ExpireTime *time.Time `fix:"126"`
 	//TransactTime is a non-required field for NoRelatedSym.
 	TransactTime *time.Time `fix:"60"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//SpreadOrBenchmarkCurveData is a non-required component for NoRelatedSym.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//PriceType is a non-required field for NoRelatedSym.
 	PriceType *int `fix:"423"`
 	//Price is a non-required field for NoRelatedSym.
 	Price *float64 `fix:"44"`
 	//Price2 is a non-required field for NoRelatedSym.
 	Price2 *float64 `fix:"640"`
-	//YieldData Component
-	yielddata.YieldData
-	//Parties Component
-	parties.Parties
+	//YieldData is a non-required component for NoRelatedSym.
+	YieldData *yielddata.YieldData
+	//Parties is a non-required component for NoRelatedSym.
+	Parties *parties.Parties
 }
 
-func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
-func (m *NoRelatedSym) SetPrevClosePx(v float64)                   { m.PrevClosePx = &v }
-func (m *NoRelatedSym) SetQuoteRequestType(v int)                  { m.QuoteRequestType = &v }
-func (m *NoRelatedSym) SetQuoteType(v int)                         { m.QuoteType = &v }
-func (m *NoRelatedSym) SetTradingSessionID(v string)               { m.TradingSessionID = &v }
-func (m *NoRelatedSym) SetTradingSessionSubID(v string)            { m.TradingSessionSubID = &v }
-func (m *NoRelatedSym) SetTradeOriginationDate(v string)           { m.TradeOriginationDate = &v }
-func (m *NoRelatedSym) SetSide(v string)                           { m.Side = &v }
-func (m *NoRelatedSym) SetQtyType(v int)                           { m.QtyType = &v }
-func (m *NoRelatedSym) SetSettlType(v string)                      { m.SettlType = &v }
-func (m *NoRelatedSym) SetSettlDate(v string)                      { m.SettlDate = &v }
-func (m *NoRelatedSym) SetSettlDate2(v string)                     { m.SettlDate2 = &v }
-func (m *NoRelatedSym) SetOrderQty2(v float64)                     { m.OrderQty2 = &v }
-func (m *NoRelatedSym) SetCurrency(v string)                       { m.Currency = &v }
-func (m *NoRelatedSym) SetAccount(v string)                        { m.Account = &v }
-func (m *NoRelatedSym) SetAcctIDSource(v int)                      { m.AcctIDSource = &v }
-func (m *NoRelatedSym) SetAccountType(v int)                       { m.AccountType = &v }
-func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                       { m.NoLegs = v }
-func (m *NoRelatedSym) SetNoQuoteQualifiers(v []NoQuoteQualifiers) { m.NoQuoteQualifiers = v }
-func (m *NoRelatedSym) SetQuotePriceType(v int)                    { m.QuotePriceType = &v }
-func (m *NoRelatedSym) SetOrdType(v string)                        { m.OrdType = &v }
-func (m *NoRelatedSym) SetExpireTime(v time.Time)                  { m.ExpireTime = &v }
-func (m *NoRelatedSym) SetTransactTime(v time.Time)                { m.TransactTime = &v }
-func (m *NoRelatedSym) SetPriceType(v int)                         { m.PriceType = &v }
-func (m *NoRelatedSym) SetPrice(v float64)                         { m.Price = &v }
-func (m *NoRelatedSym) SetPrice2(v float64)                        { m.Price2 = &v }
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+func (m *NoRelatedSym) SetFinancingDetails(v financingdetails.FinancingDetails) {
+	m.FinancingDetails = &v
+}
+func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings)          { m.NoUnderlyings = v }
+func (m *NoRelatedSym) SetPrevClosePx(v float64)                    { m.PrevClosePx = &v }
+func (m *NoRelatedSym) SetQuoteRequestType(v int)                   { m.QuoteRequestType = &v }
+func (m *NoRelatedSym) SetQuoteType(v int)                          { m.QuoteType = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)                { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)             { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetTradeOriginationDate(v string)            { m.TradeOriginationDate = &v }
+func (m *NoRelatedSym) SetSide(v string)                            { m.Side = &v }
+func (m *NoRelatedSym) SetQtyType(v int)                            { m.QtyType = &v }
+func (m *NoRelatedSym) SetOrderQtyData(v orderqtydata.OrderQtyData) { m.OrderQtyData = &v }
+func (m *NoRelatedSym) SetSettlType(v string)                       { m.SettlType = &v }
+func (m *NoRelatedSym) SetSettlDate(v string)                       { m.SettlDate = &v }
+func (m *NoRelatedSym) SetSettlDate2(v string)                      { m.SettlDate2 = &v }
+func (m *NoRelatedSym) SetOrderQty2(v float64)                      { m.OrderQty2 = &v }
+func (m *NoRelatedSym) SetCurrency(v string)                        { m.Currency = &v }
+func (m *NoRelatedSym) SetStipulations(v stipulations.Stipulations) { m.Stipulations = &v }
+func (m *NoRelatedSym) SetAccount(v string)                         { m.Account = &v }
+func (m *NoRelatedSym) SetAcctIDSource(v int)                       { m.AcctIDSource = &v }
+func (m *NoRelatedSym) SetAccountType(v int)                        { m.AccountType = &v }
+func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                        { m.NoLegs = v }
+func (m *NoRelatedSym) SetNoQuoteQualifiers(v []NoQuoteQualifiers)  { m.NoQuoteQualifiers = v }
+func (m *NoRelatedSym) SetQuotePriceType(v int)                     { m.QuotePriceType = &v }
+func (m *NoRelatedSym) SetOrdType(v string)                         { m.OrdType = &v }
+func (m *NoRelatedSym) SetExpireTime(v time.Time)                   { m.ExpireTime = &v }
+func (m *NoRelatedSym) SetTransactTime(v time.Time)                 { m.TransactTime = &v }
+func (m *NoRelatedSym) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *NoRelatedSym) SetPriceType(v int)                 { m.PriceType = &v }
+func (m *NoRelatedSym) SetPrice(v float64)                 { m.Price = &v }
+func (m *NoRelatedSym) SetPrice2(v float64)                { m.Price2 = &v }
+func (m *NoRelatedSym) SetYieldData(v yielddata.YieldData) { m.YieldData = &v }
+func (m *NoRelatedSym) SetParties(v parties.Parties)       { m.Parties = &v }
 
 //NoUnderlyings is a repeating group in NoRelatedSym
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
@@ -135,18 +150,24 @@ type NoLegs struct {
 	LegSettlType *string `fix:"587"`
 	//LegSettlDate is a non-required field for NoLegs.
 	LegSettlDate *string `fix:"588"`
-	//LegStipulations Component
-	legstipulations.LegStipulations
-	//NestedParties Component
-	nestedparties.NestedParties
-	//LegBenchmarkCurveData Component
-	legbenchmarkcurvedata.LegBenchmarkCurveData
+	//LegStipulations is a non-required component for NoLegs.
+	LegStipulations *legstipulations.LegStipulations
+	//NestedParties is a non-required component for NoLegs.
+	NestedParties *nestedparties.NestedParties
+	//LegBenchmarkCurveData is a non-required component for NoLegs.
+	LegBenchmarkCurveData *legbenchmarkcurvedata.LegBenchmarkCurveData
 }
 
-func (m *NoLegs) SetLegQty(v float64)      { m.LegQty = &v }
-func (m *NoLegs) SetLegSwapType(v int)     { m.LegSwapType = &v }
-func (m *NoLegs) SetLegSettlType(v string) { m.LegSettlType = &v }
-func (m *NoLegs) SetLegSettlDate(v string) { m.LegSettlDate = &v }
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
+func (m *NoLegs) SetLegSettlType(v string)                             { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string)                             { m.LegSettlDate = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
+func (m *NoLegs) SetNestedParties(v nestedparties.NestedParties)       { m.NestedParties = &v }
+func (m *NoLegs) SetLegBenchmarkCurveData(v legbenchmarkcurvedata.LegBenchmarkCurveData) {
+	m.LegBenchmarkCurveData = &v
+}
 
 //NoQuoteQualifiers is a repeating group in NoRelatedSym
 type NoQuoteQualifiers struct {

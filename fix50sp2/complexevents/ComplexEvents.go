@@ -20,8 +20,8 @@ type NoComplexEvents struct {
 	ComplexEventPriceTimeType *int `fix:"1489"`
 	//ComplexEventCondition is a non-required field for NoComplexEvents.
 	ComplexEventCondition *int `fix:"1490"`
-	//ComplexEventDates Component
-	complexeventdates.ComplexEventDates
+	//ComplexEventDates is a non-required component for NoComplexEvents.
+	ComplexEventDates *complexeventdates.ComplexEventDates
 }
 
 //ComplexEvents is a fix50sp2 Component

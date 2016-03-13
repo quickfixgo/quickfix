@@ -104,8 +104,8 @@ type UnderlyingInstrument struct {
 	UnderlyingCurrentValue *float64 `fix:"885"`
 	//UnderlyingEndValue is a non-required field for UnderlyingInstrument.
 	UnderlyingEndValue *float64 `fix:"886"`
-	//UnderlyingStipulations Component
-	underlyingstipulations.UnderlyingStipulations
+	//UnderlyingStipulations is a non-required component for UnderlyingInstrument.
+	UnderlyingStipulations *underlyingstipulations.UnderlyingStipulations
 }
 
 func (m *UnderlyingInstrument) SetUnderlyingSymbol(v string)     { m.UnderlyingSymbol = &v }
@@ -175,3 +175,6 @@ func (m *UnderlyingInstrument) SetUnderlyingEndPrice(v float64)     { m.Underlyi
 func (m *UnderlyingInstrument) SetUnderlyingStartValue(v float64)   { m.UnderlyingStartValue = &v }
 func (m *UnderlyingInstrument) SetUnderlyingCurrentValue(v float64) { m.UnderlyingCurrentValue = &v }
 func (m *UnderlyingInstrument) SetUnderlyingEndValue(v float64)     { m.UnderlyingEndValue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStipulations(v underlyingstipulations.UnderlyingStipulations) {
+	m.UnderlyingStipulations = &v
+}

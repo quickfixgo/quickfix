@@ -19,19 +19,23 @@ type Message struct {
 	TotNoStrikes int `fix:"422"`
 	//LastFragment is a non-required field for ListStrikePrice.
 	LastFragment *bool `fix:"893"`
-	//InstrmtStrkPxGrp Component
+	//InstrmtStrkPxGrp is a required component for ListStrikePrice.
 	instrmtstrkpxgrp.InstrmtStrkPxGrp
-	//UndInstrmtStrkPxGrp Component
-	undinstrmtstrkpxgrp.UndInstrmtStrkPxGrp
+	//UndInstrmtStrkPxGrp is a non-required component for ListStrikePrice.
+	UndInstrmtStrkPxGrp *undinstrmtstrkpxgrp.UndInstrmtStrkPxGrp
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetListID(v string)     { m.ListID = v }
-func (m *Message) SetTotNoStrikes(v int)  { m.TotNoStrikes = v }
-func (m *Message) SetLastFragment(v bool) { m.LastFragment = &v }
+func (m *Message) SetListID(v string)                                      { m.ListID = v }
+func (m *Message) SetTotNoStrikes(v int)                                   { m.TotNoStrikes = v }
+func (m *Message) SetLastFragment(v bool)                                  { m.LastFragment = &v }
+func (m *Message) SetInstrmtStrkPxGrp(v instrmtstrkpxgrp.InstrmtStrkPxGrp) { m.InstrmtStrkPxGrp = v }
+func (m *Message) SetUndInstrmtStrkPxGrp(v undinstrmtstrkpxgrp.UndInstrmtStrkPxGrp) {
+	m.UndInstrmtStrkPxGrp = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

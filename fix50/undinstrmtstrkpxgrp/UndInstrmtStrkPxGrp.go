@@ -6,8 +6,8 @@ import (
 
 //NoUnderlyings is a repeating group in UndInstrmtStrkPxGrp
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//PrevClosePx is a non-required field for NoUnderlyings.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoUnderlyings.

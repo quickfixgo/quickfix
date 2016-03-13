@@ -12,8 +12,8 @@ type NoRootPartyIDs struct {
 	RootPartyIDSource *string `fix:"1118"`
 	//RootPartyRole is a non-required field for NoRootPartyIDs.
 	RootPartyRole *int `fix:"1119"`
-	//RootSubParties Component
-	rootsubparties.RootSubParties
+	//RootSubParties is a non-required component for NoRootPartyIDs.
+	RootSubParties *rootsubparties.RootSubParties
 }
 
 //RootParties is a fix50sp1 Component

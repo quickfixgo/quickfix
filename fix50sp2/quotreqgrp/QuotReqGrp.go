@@ -17,12 +17,12 @@ import (
 
 //NoRelatedSym is a repeating group in QuotReqGrp
 type NoRelatedSym struct {
-	//Instrument Component
+	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//FinancingDetails is a non-required component for NoRelatedSym.
+	FinancingDetails *financingdetails.FinancingDetails
+	//UndInstrmtGrp is a non-required component for NoRelatedSym.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NoRelatedSym.
 	PrevClosePx *float64 `fix:"140"`
 	//QuoteRequestType is a non-required field for NoRelatedSym.
@@ -39,8 +39,8 @@ type NoRelatedSym struct {
 	Side *string `fix:"54"`
 	//QtyType is a non-required field for NoRelatedSym.
 	QtyType *int `fix:"854"`
-	//OrderQtyData Component
-	orderqtydata.OrderQtyData
+	//OrderQtyData is a non-required component for NoRelatedSym.
+	OrderQtyData *orderqtydata.OrderQtyData
 	//SettlType is a non-required field for NoRelatedSym.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NoRelatedSym.
@@ -51,18 +51,18 @@ type NoRelatedSym struct {
 	OrderQty2 *float64 `fix:"192"`
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for NoRelatedSym.
+	Stipulations *stipulations.Stipulations
 	//Account is a non-required field for NoRelatedSym.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoRelatedSym.
 	AcctIDSource *int `fix:"660"`
 	//AccountType is a non-required field for NoRelatedSym.
 	AccountType *int `fix:"581"`
-	//QuotReqLegsGrp Component
-	quotreqlegsgrp.QuotReqLegsGrp
-	//QuotQualGrp Component
-	quotqualgrp.QuotQualGrp
+	//QuotReqLegsGrp is a non-required component for NoRelatedSym.
+	QuotReqLegsGrp *quotreqlegsgrp.QuotReqLegsGrp
+	//QuotQualGrp is a non-required component for NoRelatedSym.
+	QuotQualGrp *quotqualgrp.QuotQualGrp
 	//QuotePriceType is a non-required field for NoRelatedSym.
 	QuotePriceType *int `fix:"692"`
 	//OrdType is a non-required field for NoRelatedSym.
@@ -73,24 +73,24 @@ type NoRelatedSym struct {
 	ExpireTime *time.Time `fix:"126"`
 	//TransactTime is a non-required field for NoRelatedSym.
 	TransactTime *time.Time `fix:"60"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//SpreadOrBenchmarkCurveData is a non-required component for NoRelatedSym.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//PriceType is a non-required field for NoRelatedSym.
 	PriceType *int `fix:"423"`
 	//Price is a non-required field for NoRelatedSym.
 	Price *float64 `fix:"44"`
 	//Price2 is a non-required field for NoRelatedSym.
 	Price2 *float64 `fix:"640"`
-	//YieldData Component
-	yielddata.YieldData
-	//Parties Component
-	parties.Parties
+	//YieldData is a non-required component for NoRelatedSym.
+	YieldData *yielddata.YieldData
+	//Parties is a non-required component for NoRelatedSym.
+	Parties *parties.Parties
 	//MinQty is a non-required field for NoRelatedSym.
 	MinQty *float64 `fix:"110"`
 	//SettlCurrency is a non-required field for NoRelatedSym.
 	SettlCurrency *string `fix:"120"`
-	//RateSource Component
-	ratesource.RateSource
+	//RateSource is a non-required component for NoRelatedSym.
+	RateSource *ratesource.RateSource
 }
 
 //QuotReqGrp is a fix50sp2 Component

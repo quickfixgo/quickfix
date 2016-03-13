@@ -14,30 +14,40 @@ import (
 
 //NoQuoteEntries is a repeating group in QuoteCancel
 type NoQuoteEntries struct {
-	//Instrument Component
-	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
+	//Instrument is a non-required component for NoQuoteEntries.
+	Instrument *instrument.Instrument
+	//FinancingDetails is a non-required component for NoQuoteEntries.
+	FinancingDetails *financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for NoQuoteEntries.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for NoQuoteEntries.
 	NoLegs []NoLegs `fix:"555,omitempty"`
 }
 
+func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoQuoteEntries) SetFinancingDetails(v financingdetails.FinancingDetails) {
+	m.FinancingDetails = &v
+}
 func (m *NoQuoteEntries) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
 func (m *NoQuoteEntries) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
 
 //NoUnderlyings is a repeating group in NoQuoteEntries
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in NoQuoteEntries
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //Message is a QuoteCancel FIX Message
 type Message struct {
@@ -51,8 +61,8 @@ type Message struct {
 	QuoteCancelType int `fix:"298"`
 	//QuoteResponseLevel is a non-required field for QuoteCancel.
 	QuoteResponseLevel *int `fix:"301"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for QuoteCancel.
+	Parties *parties.Parties
 	//Account is a non-required field for QuoteCancel.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for QuoteCancel.
@@ -75,6 +85,7 @@ func (m *Message) SetQuoteReqID(v string)               { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)                  { m.QuoteID = v }
 func (m *Message) SetQuoteCancelType(v int)             { m.QuoteCancelType = v }
 func (m *Message) SetQuoteResponseLevel(v int)          { m.QuoteResponseLevel = &v }
+func (m *Message) SetParties(v parties.Parties)         { m.Parties = &v }
 func (m *Message) SetAccount(v string)                  { m.Account = &v }
 func (m *Message) SetAcctIDSource(v int)                { m.AcctIDSource = &v }
 func (m *Message) SetAccountType(v int)                 { m.AccountType = &v }

@@ -39,7 +39,7 @@ type Message struct {
 	IOITransType string `fix:"28"`
 	//IOIRefID is a non-required field for IOI.
 	IOIRefID *string `fix:"26"`
-	//Instrument Component
+	//Instrument is a required component for IOI.
 	instrument.Instrument
 	//Side is a required field for IOI.
 	Side string `fix:"54"`
@@ -73,8 +73,8 @@ type Message struct {
 	URLLink *string `fix:"149"`
 	//NoRoutingIDs is a non-required field for IOI.
 	NoRoutingIDs []NoRoutingIDs `fix:"215,omitempty"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//SpreadOrBenchmarkCurveData is a non-required component for IOI.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//Benchmark is a non-required field for IOI.
 	Benchmark *string `fix:"219"`
 	fix43.Trailer
@@ -86,6 +86,7 @@ func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 func (m *Message) SetIOIid(v string)                      { m.IOIid = v }
 func (m *Message) SetIOITransType(v string)               { m.IOITransType = v }
 func (m *Message) SetIOIRefID(v string)                   { m.IOIRefID = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)  { m.Instrument = v }
 func (m *Message) SetSide(v string)                       { m.Side = v }
 func (m *Message) SetQuantityType(v int)                  { m.QuantityType = &v }
 func (m *Message) SetIOIQty(v string)                     { m.IOIQty = v }
@@ -102,7 +103,10 @@ func (m *Message) SetEncodedText(v string)                { m.EncodedText = &v }
 func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
 func (m *Message) SetURLLink(v string)                    { m.URLLink = &v }
 func (m *Message) SetNoRoutingIDs(v []NoRoutingIDs)       { m.NoRoutingIDs = v }
-func (m *Message) SetBenchmark(v string)                  { m.Benchmark = &v }
+func (m *Message) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *Message) SetBenchmark(v string) { m.Benchmark = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

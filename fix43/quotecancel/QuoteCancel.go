@@ -11,9 +11,11 @@ import (
 
 //NoQuoteEntries is a repeating group in QuoteCancel
 type NoQuoteEntries struct {
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for NoQuoteEntries.
+	Instrument *instrument.Instrument
 }
+
+func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 
 //Message is a QuoteCancel FIX Message
 type Message struct {
@@ -27,8 +29,8 @@ type Message struct {
 	QuoteCancelType int `fix:"298"`
 	//QuoteResponseLevel is a non-required field for QuoteCancel.
 	QuoteResponseLevel *int `fix:"301"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for QuoteCancel.
+	Parties *parties.Parties
 	//Account is a non-required field for QuoteCancel.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for QuoteCancel.
@@ -49,6 +51,7 @@ func (m *Message) SetQuoteReqID(v string)               { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)                  { m.QuoteID = v }
 func (m *Message) SetQuoteCancelType(v int)             { m.QuoteCancelType = v }
 func (m *Message) SetQuoteResponseLevel(v int)          { m.QuoteResponseLevel = &v }
+func (m *Message) SetParties(v parties.Parties)         { m.Parties = &v }
 func (m *Message) SetAccount(v string)                  { m.Account = &v }
 func (m *Message) SetAccountType(v int)                 { m.AccountType = &v }
 func (m *Message) SetTradingSessionID(v string)         { m.TradingSessionID = &v }

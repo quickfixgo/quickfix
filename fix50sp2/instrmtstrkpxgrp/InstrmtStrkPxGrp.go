@@ -7,10 +7,10 @@ import (
 
 //NoStrikes is a repeating group in InstrmtStrkPxGrp
 type NoStrikes struct {
-	//Instrument Component
+	//Instrument is a required component for NoStrikes.
 	instrument.Instrument
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//UndInstrmtGrp is a non-required component for NoStrikes.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NoStrikes.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoStrikes.

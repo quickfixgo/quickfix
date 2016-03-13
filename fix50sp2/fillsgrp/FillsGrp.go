@@ -12,8 +12,8 @@ type NoFills struct {
 	FillPx *float64 `fix:"1364"`
 	//FillQty is a non-required field for NoFills.
 	FillQty *float64 `fix:"1365"`
-	//NestedParties4 Component
-	nestedparties4.NestedParties4
+	//NestedParties4 is a non-required component for NoFills.
+	NestedParties4 *nestedparties4.NestedParties4
 	//FillLiquidityInd is a non-required field for NoFills.
 	FillLiquidityInd *int `fix:"1443"`
 }

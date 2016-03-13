@@ -8,12 +8,12 @@ import (
 
 //NoRelatedSym is a repeating group in RFQReqGrp
 type NoRelatedSym struct {
-	//Instrument Component
+	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//UndInstrmtGrp is a non-required component for NoRelatedSym.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
+	//InstrmtLegGrp is a non-required component for NoRelatedSym.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 	//PrevClosePx is a non-required field for NoRelatedSym.
 	PrevClosePx *float64 `fix:"140"`
 	//QuoteRequestType is a non-required field for NoRelatedSym.

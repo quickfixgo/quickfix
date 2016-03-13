@@ -12,7 +12,7 @@ import (
 
 //NoRelatedSym is a repeating group in RFQRequest
 type NoRelatedSym struct {
-	//Instrument Component
+	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
 	//NoUnderlyings is a non-required field for NoRelatedSym.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
@@ -30,25 +30,32 @@ type NoRelatedSym struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
-func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
-func (m *NoRelatedSym) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
-func (m *NoRelatedSym) SetPrevClosePx(v float64)           { m.PrevClosePx = &v }
-func (m *NoRelatedSym) SetQuoteRequestType(v int)          { m.QuoteRequestType = &v }
-func (m *NoRelatedSym) SetQuoteType(v int)                 { m.QuoteType = &v }
-func (m *NoRelatedSym) SetTradingSessionID(v string)       { m.TradingSessionID = &v }
-func (m *NoRelatedSym) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings)    { m.NoUnderlyings = v }
+func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
+func (m *NoRelatedSym) SetPrevClosePx(v float64)              { m.PrevClosePx = &v }
+func (m *NoRelatedSym) SetQuoteRequestType(v int)             { m.QuoteRequestType = &v }
+func (m *NoRelatedSym) SetQuoteType(v int)                    { m.QuoteType = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)          { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
 
 //NoUnderlyings is a repeating group in NoRelatedSym
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //Message is a RFQRequest FIX Message
 type Message struct {

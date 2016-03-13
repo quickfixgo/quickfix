@@ -17,8 +17,8 @@ type Message struct {
 	SettlInstReqID string `fix:"791"`
 	//TransactTime is a required field for SettlementInstructionRequest.
 	TransactTime time.Time `fix:"60"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for SettlementInstructionRequest.
+	Parties *parties.Parties
 	//AllocAccount is a non-required field for SettlementInstructionRequest.
 	AllocAccount *string `fix:"79"`
 	//AllocAcctIDSource is a non-required field for SettlementInstructionRequest.
@@ -53,6 +53,7 @@ func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 func (m *Message) SetSettlInstReqID(v string)    { m.SettlInstReqID = v }
 func (m *Message) SetTransactTime(v time.Time)   { m.TransactTime = v }
+func (m *Message) SetParties(v parties.Parties)  { m.Parties = &v }
 func (m *Message) SetAllocAccount(v string)      { m.AllocAccount = &v }
 func (m *Message) SetAllocAcctIDSource(v int)    { m.AllocAcctIDSource = &v }
 func (m *Message) SetSide(v string)              { m.Side = &v }

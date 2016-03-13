@@ -8,10 +8,20 @@ import (
 
 //SecurityTradingRules is a fix50sp2 Component
 type SecurityTradingRules struct {
-	//BaseTradingRules Component
-	basetradingrules.BaseTradingRules
-	//TradingSessionRulesGrp Component
-	tradingsessionrulesgrp.TradingSessionRulesGrp
-	//NestedInstrumentAttribute Component
-	nestedinstrumentattribute.NestedInstrumentAttribute
+	//BaseTradingRules is a non-required component for SecurityTradingRules.
+	BaseTradingRules *basetradingrules.BaseTradingRules
+	//TradingSessionRulesGrp is a non-required component for SecurityTradingRules.
+	TradingSessionRulesGrp *tradingsessionrulesgrp.TradingSessionRulesGrp
+	//NestedInstrumentAttribute is a non-required component for SecurityTradingRules.
+	NestedInstrumentAttribute *nestedinstrumentattribute.NestedInstrumentAttribute
+}
+
+func (m *SecurityTradingRules) SetBaseTradingRules(v basetradingrules.BaseTradingRules) {
+	m.BaseTradingRules = &v
+}
+func (m *SecurityTradingRules) SetTradingSessionRulesGrp(v tradingsessionrulesgrp.TradingSessionRulesGrp) {
+	m.TradingSessionRulesGrp = &v
+}
+func (m *SecurityTradingRules) SetNestedInstrumentAttribute(v nestedinstrumentattribute.NestedInstrumentAttribute) {
+	m.NestedInstrumentAttribute = &v
 }

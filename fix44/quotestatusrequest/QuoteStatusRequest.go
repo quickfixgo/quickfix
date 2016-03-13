@@ -14,15 +14,21 @@ import (
 
 //NoUnderlyings is a repeating group in QuoteStatusRequest
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in QuoteStatusRequest
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //Message is a QuoteStatusRequest FIX Message
 type Message struct {
@@ -32,16 +38,16 @@ type Message struct {
 	QuoteStatusReqID *string `fix:"649"`
 	//QuoteID is a non-required field for QuoteStatusRequest.
 	QuoteID *string `fix:"117"`
-	//Instrument Component
+	//Instrument is a required component for QuoteStatusRequest.
 	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
+	//FinancingDetails is a non-required component for QuoteStatusRequest.
+	FinancingDetails *financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for QuoteStatusRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for QuoteStatusRequest.
 	NoLegs []NoLegs `fix:"555,omitempty"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for QuoteStatusRequest.
+	Parties *parties.Parties
 	//Account is a non-required field for QuoteStatusRequest.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for QuoteStatusRequest.
@@ -60,16 +66,19 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetQuoteStatusReqID(v string)        { m.QuoteStatusReqID = &v }
-func (m *Message) SetQuoteID(v string)                 { m.QuoteID = &v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings)  { m.NoUnderlyings = v }
-func (m *Message) SetNoLegs(v []NoLegs)                { m.NoLegs = v }
-func (m *Message) SetAccount(v string)                 { m.Account = &v }
-func (m *Message) SetAcctIDSource(v int)               { m.AcctIDSource = &v }
-func (m *Message) SetAccountType(v int)                { m.AccountType = &v }
-func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
-func (m *Message) SetTradingSessionSubID(v string)     { m.TradingSessionSubID = &v }
-func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
+func (m *Message) SetQuoteStatusReqID(v string)                            { m.QuoteStatusReqID = &v }
+func (m *Message) SetQuoteID(v string)                                     { m.QuoteID = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)                   { m.Instrument = v }
+func (m *Message) SetFinancingDetails(v financingdetails.FinancingDetails) { m.FinancingDetails = &v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)                      { m.NoUnderlyings = v }
+func (m *Message) SetNoLegs(v []NoLegs)                                    { m.NoLegs = v }
+func (m *Message) SetParties(v parties.Parties)                            { m.Parties = &v }
+func (m *Message) SetAccount(v string)                                     { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                                   { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                                    { m.AccountType = &v }
+func (m *Message) SetTradingSessionID(v string)                            { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)                         { m.TradingSessionSubID = &v }
+func (m *Message) SetSubscriptionRequestType(v string)                     { m.SubscriptionRequestType = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

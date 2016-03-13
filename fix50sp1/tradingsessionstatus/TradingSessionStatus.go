@@ -48,42 +48,46 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for TradingSessionStatus.
 	EncodedText *string `fix:"355"`
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for TradingSessionStatus.
+	Instrument *instrument.Instrument
 	//MarketID is a non-required field for TradingSessionStatus.
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for TradingSessionStatus.
 	MarketSegmentID *string `fix:"1300"`
 	//TradSesEvent is a non-required field for TradingSessionStatus.
 	TradSesEvent *int `fix:"1368"`
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//ApplicationSequenceControl is a non-required component for TradingSessionStatus.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetTradSesReqID(v string)           { m.TradSesReqID = &v }
-func (m *Message) SetTradingSessionID(v string)       { m.TradingSessionID = v }
-func (m *Message) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }
-func (m *Message) SetTradSesMethod(v int)             { m.TradSesMethod = &v }
-func (m *Message) SetTradSesMode(v int)               { m.TradSesMode = &v }
-func (m *Message) SetUnsolicitedIndicator(v bool)     { m.UnsolicitedIndicator = &v }
-func (m *Message) SetTradSesStatus(v int)             { m.TradSesStatus = v }
-func (m *Message) SetTradSesStatusRejReason(v int)    { m.TradSesStatusRejReason = &v }
-func (m *Message) SetTradSesStartTime(v time.Time)    { m.TradSesStartTime = &v }
-func (m *Message) SetTradSesOpenTime(v time.Time)     { m.TradSesOpenTime = &v }
-func (m *Message) SetTradSesPreCloseTime(v time.Time) { m.TradSesPreCloseTime = &v }
-func (m *Message) SetTradSesCloseTime(v time.Time)    { m.TradSesCloseTime = &v }
-func (m *Message) SetTradSesEndTime(v time.Time)      { m.TradSesEndTime = &v }
-func (m *Message) SetTotalVolumeTraded(v float64)     { m.TotalVolumeTraded = &v }
-func (m *Message) SetText(v string)                   { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
-func (m *Message) SetMarketID(v string)               { m.MarketID = &v }
-func (m *Message) SetMarketSegmentID(v string)        { m.MarketSegmentID = &v }
-func (m *Message) SetTradSesEvent(v int)              { m.TradSesEvent = &v }
+func (m *Message) SetTradSesReqID(v string)              { m.TradSesReqID = &v }
+func (m *Message) SetTradingSessionID(v string)          { m.TradingSessionID = v }
+func (m *Message) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
+func (m *Message) SetTradSesMethod(v int)                { m.TradSesMethod = &v }
+func (m *Message) SetTradSesMode(v int)                  { m.TradSesMode = &v }
+func (m *Message) SetUnsolicitedIndicator(v bool)        { m.UnsolicitedIndicator = &v }
+func (m *Message) SetTradSesStatus(v int)                { m.TradSesStatus = v }
+func (m *Message) SetTradSesStatusRejReason(v int)       { m.TradSesStatusRejReason = &v }
+func (m *Message) SetTradSesStartTime(v time.Time)       { m.TradSesStartTime = &v }
+func (m *Message) SetTradSesOpenTime(v time.Time)        { m.TradSesOpenTime = &v }
+func (m *Message) SetTradSesPreCloseTime(v time.Time)    { m.TradSesPreCloseTime = &v }
+func (m *Message) SetTradSesCloseTime(v time.Time)       { m.TradSesCloseTime = &v }
+func (m *Message) SetTradSesEndTime(v time.Time)         { m.TradSesEndTime = &v }
+func (m *Message) SetTotalVolumeTraded(v float64)        { m.TotalVolumeTraded = &v }
+func (m *Message) SetText(v string)                      { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)               { m.EncodedText = &v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetMarketID(v string)                  { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string)           { m.MarketSegmentID = &v }
+func (m *Message) SetTradSesEvent(v int)                 { m.TradSesEvent = &v }
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

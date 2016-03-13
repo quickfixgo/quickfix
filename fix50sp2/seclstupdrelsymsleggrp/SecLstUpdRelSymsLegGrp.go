@@ -8,16 +8,16 @@ import (
 
 //NoLegs is a repeating group in SecLstUpdRelSymsLegGrp
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
 	//LegSettlType is a non-required field for NoLegs.
 	LegSettlType *string `fix:"587"`
-	//LegStipulations Component
-	legstipulations.LegStipulations
-	//LegBenchmarkCurveData Component
-	legbenchmarkcurvedata.LegBenchmarkCurveData
+	//LegStipulations is a non-required component for NoLegs.
+	LegStipulations *legstipulations.LegStipulations
+	//LegBenchmarkCurveData is a non-required component for NoLegs.
+	LegBenchmarkCurveData *legbenchmarkcurvedata.LegBenchmarkCurveData
 }
 
 //SecLstUpdRelSymsLegGrp is a fix50sp2 Component

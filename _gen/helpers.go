@@ -13,15 +13,24 @@ import (
 var fieldSetterTemplate *template.Template
 
 func init() {
-	tmplFuncs := make(template.FuncMap)
-	tmplFuncs["fixFieldTypeToGoType"] = FixFieldTypeToGoType
+	tmplFuncs := template.FuncMap{
+		"fixFieldTypeToGoType": FixFieldTypeToGoType,
+		"toLower":              strings.ToLower,
+	}
 
 	fieldSetterTemplate = template.Must(template.New("Setters").Funcs(tmplFuncs).Parse(`
+{{define "fieldSetter"}}
 func (m *{{.Receiver}}) Set{{.Name}}(v {{ if .IsGroup}}[]{{.Name}}{{else}}{{fixFieldTypeToGoType .Type}}{{end}}) {
 {{- if .IsGroup -}}m.{{.Name}} = v
 {{- else if .Required -}}m.{{.Name}} = v
 {{- else -}}m.{{.Name}} = &v
-{{- end}}}`))
+{{- end}}}{{end}}
+
+{{define "compSetter"}}
+func (m *{{.Receiver}}) Set{{.Name}}(v {{toLower .Name}}.{{ .Name}}) {
+{{- if .Required -}}m.{{.Name}} = v
+{{- else -}}m.{{.Name}} = &v
+{{- end}}}{{end}}`))
 }
 
 //WriteFieldSetters generates setters appropriate for Messages, Components or Repeating Groups
@@ -31,10 +40,19 @@ func WriteFieldSetters(writer io.Writer, receiver string, parts []datadictionary
 		*datadictionary.FieldDef
 	}
 
+	type componentSetter struct {
+		Receiver string
+		datadictionary.Component
+	}
+
 	for _, part := range parts {
 		switch field := part.(type) {
+		case datadictionary.Component:
+			if err := fieldSetterTemplate.ExecuteTemplate(writer, "compSetter", componentSetter{receiver, field}); err != nil {
+				return err
+			}
 		case *datadictionary.FieldDef:
-			if err := fieldSetterTemplate.Execute(writer, setter{receiver, field}); err != nil {
+			if err := fieldSetterTemplate.ExecuteTemplate(writer, "fieldSetter", setter{receiver, field}); err != nil {
 				return err
 			}
 		}
@@ -46,8 +64,13 @@ func WriteFieldSetters(writer io.Writer, receiver string, parts []datadictionary
 func WriteFieldDeclaration(fixSpecMajor int, fixSpecMinor int, part datadictionary.MessagePart, componentName string) (s string) {
 	switch field := part.(type) {
 	case datadictionary.Component:
-		s += fmt.Sprintf("//%v Component\n", field.Name())
-		s += fmt.Sprintf("%v.%v\n", strings.ToLower(field.Name()), field.Name())
+		if field.Required() {
+			s += fmt.Sprintf("//%v is a required component for %v.\n", field.Name(), componentName)
+			s += fmt.Sprintf("%v.%v\n", strings.ToLower(field.Name()), field.Name())
+		} else {
+			s += fmt.Sprintf("//%v is a non-required component for %v.\n", field.Name(), componentName)
+			s += fmt.Sprintf("%v *%v.%v\n", field.Name(), strings.ToLower(field.Name()), field.Name())
+		}
 		return
 
 	case *datadictionary.FieldDef:

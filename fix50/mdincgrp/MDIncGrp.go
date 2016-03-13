@@ -20,12 +20,12 @@ type NoMDEntries struct {
 	MDEntryID *string `fix:"278"`
 	//MDEntryRefID is a non-required field for NoMDEntries.
 	MDEntryRefID *string `fix:"280"`
-	//Instrument Component
-	instrument.Instrument
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//Instrument is a non-required component for NoMDEntries.
+	Instrument *instrument.Instrument
+	//UndInstrmtGrp is a non-required component for NoMDEntries.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
+	//InstrmtLegGrp is a non-required component for NoMDEntries.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 	//FinancialStatus is a non-required field for NoMDEntries.
 	FinancialStatus *string `fix:"291"`
 	//CorporateAction is a non-required field for NoMDEntries.
@@ -122,8 +122,8 @@ type NoMDEntries struct {
 	MDEntryForwardPoints *float64 `fix:"1027"`
 	//MDPriceLevel is a non-required field for NoMDEntries.
 	MDPriceLevel *int `fix:"1023"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoMDEntries.
+	Parties *parties.Parties
 	//SecondaryOrderID is a non-required field for NoMDEntries.
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.

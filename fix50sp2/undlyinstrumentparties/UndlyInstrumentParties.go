@@ -12,8 +12,8 @@ type NoUndlyInstrumentParties struct {
 	UnderlyingInstrumentPartyIDSource *string `fix:"1060"`
 	//UnderlyingInstrumentPartyRole is a non-required field for NoUndlyInstrumentParties.
 	UnderlyingInstrumentPartyRole *int `fix:"1061"`
-	//UndlyInstrumentPtysSubGrp Component
-	undlyinstrumentptyssubgrp.UndlyInstrumentPtysSubGrp
+	//UndlyInstrumentPtysSubGrp is a non-required component for NoUndlyInstrumentParties.
+	UndlyInstrumentPtysSubGrp *undlyinstrumentptyssubgrp.UndlyInstrumentPtysSubGrp
 }
 
 //UndlyInstrumentParties is a fix50sp2 Component

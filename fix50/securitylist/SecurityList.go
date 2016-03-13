@@ -22,8 +22,8 @@ type Message struct {
 	TotNoRelatedSym *int `fix:"393"`
 	//LastFragment is a non-required field for SecurityList.
 	LastFragment *bool `fix:"893"`
-	//SecListGrp Component
-	seclistgrp.SecListGrp
+	//SecListGrp is a non-required component for SecurityList.
+	SecListGrp *seclistgrp.SecListGrp
 	//SecurityReportID is a non-required field for SecurityList.
 	SecurityReportID *int `fix:"964"`
 	//ClearingBusinessDate is a non-required field for SecurityList.
@@ -34,13 +34,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
-func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
-func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = &v }
-func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
-func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
-func (m *Message) SetSecurityReportID(v int)        { m.SecurityReportID = &v }
-func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
+func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = &v }
+func (m *Message) SetSecurityResponseID(v string)        { m.SecurityResponseID = &v }
+func (m *Message) SetSecurityRequestResult(v int)        { m.SecurityRequestResult = &v }
+func (m *Message) SetTotNoRelatedSym(v int)              { m.TotNoRelatedSym = &v }
+func (m *Message) SetLastFragment(v bool)                { m.LastFragment = &v }
+func (m *Message) SetSecListGrp(v seclistgrp.SecListGrp) { m.SecListGrp = &v }
+func (m *Message) SetSecurityReportID(v int)             { m.SecurityReportID = &v }
+func (m *Message) SetClearingBusinessDate(v string)      { m.ClearingBusinessDate = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -16,16 +16,17 @@ type Message struct {
 	NetworkRequestType int `fix:"935"`
 	//NetworkRequestID is a required field for NetworkCounterpartySystemStatusRequest.
 	NetworkRequestID string `fix:"933"`
-	//CompIDReqGrp Component
-	compidreqgrp.CompIDReqGrp
+	//CompIDReqGrp is a non-required component for NetworkCounterpartySystemStatusRequest.
+	CompIDReqGrp *compidreqgrp.CompIDReqGrp
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetNetworkRequestType(v int)  { m.NetworkRequestType = v }
-func (m *Message) SetNetworkRequestID(v string) { m.NetworkRequestID = v }
+func (m *Message) SetNetworkRequestType(v int)                 { m.NetworkRequestType = v }
+func (m *Message) SetNetworkRequestID(v string)                { m.NetworkRequestID = v }
+func (m *Message) SetCompIDReqGrp(v compidreqgrp.CompIDReqGrp) { m.CompIDReqGrp = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

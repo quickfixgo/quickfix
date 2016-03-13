@@ -26,8 +26,8 @@ type Message struct {
 	QuoteResponseLevel *int `fix:"301"`
 	//QuoteType is a non-required field for MassQuoteAcknowledgement.
 	QuoteType *int `fix:"537"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for MassQuoteAcknowledgement.
+	Parties *parties.Parties
 	//Account is a non-required field for MassQuoteAcknowledgement.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for MassQuoteAcknowledgement.
@@ -40,31 +40,34 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for MassQuoteAcknowledgement.
 	EncodedText *string `fix:"355"`
-	//QuotSetAckGrp Component
-	quotsetackgrp.QuotSetAckGrp
+	//QuotSetAckGrp is a non-required component for MassQuoteAcknowledgement.
+	QuotSetAckGrp *quotsetackgrp.QuotSetAckGrp
 	//QuoteCancelType is a non-required field for MassQuoteAcknowledgement.
 	QuoteCancelType *int `fix:"298"`
-	//TargetParties Component
-	targetparties.TargetParties
+	//TargetParties is a non-required component for MassQuoteAcknowledgement.
+	TargetParties *targetparties.TargetParties
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetQuoteReqID(v string)      { m.QuoteReqID = &v }
-func (m *Message) SetQuoteID(v string)         { m.QuoteID = &v }
-func (m *Message) SetQuoteStatus(v int)        { m.QuoteStatus = v }
-func (m *Message) SetQuoteRejectReason(v int)  { m.QuoteRejectReason = &v }
-func (m *Message) SetQuoteResponseLevel(v int) { m.QuoteResponseLevel = &v }
-func (m *Message) SetQuoteType(v int)          { m.QuoteType = &v }
-func (m *Message) SetAccount(v string)         { m.Account = &v }
-func (m *Message) SetAcctIDSource(v int)       { m.AcctIDSource = &v }
-func (m *Message) SetAccountType(v int)        { m.AccountType = &v }
-func (m *Message) SetText(v string)            { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)     { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)     { m.EncodedText = &v }
-func (m *Message) SetQuoteCancelType(v int)    { m.QuoteCancelType = &v }
+func (m *Message) SetQuoteReqID(v string)                         { m.QuoteReqID = &v }
+func (m *Message) SetQuoteID(v string)                            { m.QuoteID = &v }
+func (m *Message) SetQuoteStatus(v int)                           { m.QuoteStatus = v }
+func (m *Message) SetQuoteRejectReason(v int)                     { m.QuoteRejectReason = &v }
+func (m *Message) SetQuoteResponseLevel(v int)                    { m.QuoteResponseLevel = &v }
+func (m *Message) SetQuoteType(v int)                             { m.QuoteType = &v }
+func (m *Message) SetParties(v parties.Parties)                   { m.Parties = &v }
+func (m *Message) SetAccount(v string)                            { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                          { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                           { m.AccountType = &v }
+func (m *Message) SetText(v string)                               { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                        { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                        { m.EncodedText = &v }
+func (m *Message) SetQuotSetAckGrp(v quotsetackgrp.QuotSetAckGrp) { m.QuotSetAckGrp = &v }
+func (m *Message) SetQuoteCancelType(v int)                       { m.QuoteCancelType = &v }
+func (m *Message) SetTargetParties(v targetparties.TargetParties) { m.TargetParties = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

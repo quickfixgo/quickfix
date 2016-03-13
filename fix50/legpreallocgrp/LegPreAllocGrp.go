@@ -10,8 +10,8 @@ type NoLegAllocs struct {
 	LegAllocAccount *string `fix:"671"`
 	//LegIndividualAllocID is a non-required field for NoLegAllocs.
 	LegIndividualAllocID *string `fix:"672"`
-	//NestedParties2 Component
-	nestedparties2.NestedParties2
+	//NestedParties2 is a non-required component for NoLegAllocs.
+	NestedParties2 *nestedparties2.NestedParties2
 	//LegAllocQty is a non-required field for NoLegAllocs.
 	LegAllocQty *float64 `fix:"673"`
 	//LegAllocAcctIDSource is a non-required field for NoLegAllocs.

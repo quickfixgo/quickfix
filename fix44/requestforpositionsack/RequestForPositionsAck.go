@@ -13,14 +13,20 @@ import (
 
 //NoLegs is a repeating group in RequestForPositionsAck
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in RequestForPositionsAck
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //Message is a RequestForPositionsAck FIX Message
@@ -39,7 +45,7 @@ type Message struct {
 	PosReqResult int `fix:"728"`
 	//PosReqStatus is a required field for RequestForPositionsAck.
 	PosReqStatus int `fix:"729"`
-	//Parties Component
+	//Parties is a required component for RequestForPositionsAck.
 	parties.Parties
 	//Account is a required field for RequestForPositionsAck.
 	Account string `fix:"1"`
@@ -47,8 +53,8 @@ type Message struct {
 	AcctIDSource *int `fix:"660"`
 	//AccountType is a required field for RequestForPositionsAck.
 	AccountType int `fix:"581"`
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for RequestForPositionsAck.
+	Instrument *instrument.Instrument
 	//Currency is a non-required field for RequestForPositionsAck.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for RequestForPositionsAck.
@@ -71,23 +77,25 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetPosMaintRptID(v string)          { m.PosMaintRptID = v }
-func (m *Message) SetPosReqID(v string)               { m.PosReqID = &v }
-func (m *Message) SetTotalNumPosReports(v int)        { m.TotalNumPosReports = &v }
-func (m *Message) SetUnsolicitedIndicator(v bool)     { m.UnsolicitedIndicator = &v }
-func (m *Message) SetPosReqResult(v int)              { m.PosReqResult = v }
-func (m *Message) SetPosReqStatus(v int)              { m.PosReqStatus = v }
-func (m *Message) SetAccount(v string)                { m.Account = v }
-func (m *Message) SetAcctIDSource(v int)              { m.AcctIDSource = &v }
-func (m *Message) SetAccountType(v int)               { m.AccountType = v }
-func (m *Message) SetCurrency(v string)               { m.Currency = &v }
-func (m *Message) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
-func (m *Message) SetResponseTransportType(v int)     { m.ResponseTransportType = &v }
-func (m *Message) SetResponseDestination(v string)    { m.ResponseDestination = &v }
-func (m *Message) SetText(v string)                   { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
+func (m *Message) SetPosMaintRptID(v string)             { m.PosMaintRptID = v }
+func (m *Message) SetPosReqID(v string)                  { m.PosReqID = &v }
+func (m *Message) SetTotalNumPosReports(v int)           { m.TotalNumPosReports = &v }
+func (m *Message) SetUnsolicitedIndicator(v bool)        { m.UnsolicitedIndicator = &v }
+func (m *Message) SetPosReqResult(v int)                 { m.PosReqResult = v }
+func (m *Message) SetPosReqStatus(v int)                 { m.PosReqStatus = v }
+func (m *Message) SetParties(v parties.Parties)          { m.Parties = v }
+func (m *Message) SetAccount(v string)                   { m.Account = v }
+func (m *Message) SetAcctIDSource(v int)                 { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                  { m.AccountType = v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetCurrency(v string)                  { m.Currency = &v }
+func (m *Message) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)    { m.NoUnderlyings = v }
+func (m *Message) SetResponseTransportType(v int)        { m.ResponseTransportType = &v }
+func (m *Message) SetResponseDestination(v string)       { m.ResponseDestination = &v }
+func (m *Message) SetText(v string)                      { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)               { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

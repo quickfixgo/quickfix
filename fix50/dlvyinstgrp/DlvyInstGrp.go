@@ -10,8 +10,8 @@ type NoDlvyInst struct {
 	SettlInstSource *string `fix:"165"`
 	//DlvyInstType is a non-required field for NoDlvyInst.
 	DlvyInstType *string `fix:"787"`
-	//SettlParties Component
-	settlparties.SettlParties
+	//SettlParties is a non-required component for NoDlvyInst.
+	SettlParties *settlparties.SettlParties
 }
 
 //DlvyInstGrp is a fix50 Component

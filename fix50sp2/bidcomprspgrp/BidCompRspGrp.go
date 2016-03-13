@@ -6,7 +6,7 @@ import (
 
 //NoBidComponents is a repeating group in BidCompRspGrp
 type NoBidComponents struct {
-	//CommissionData Component
+	//CommissionData is a required component for NoBidComponents.
 	commissiondata.CommissionData
 	//ListID is a non-required field for NoBidComponents.
 	ListID *string `fix:"66"`

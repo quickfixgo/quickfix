@@ -16,8 +16,8 @@ type NoApplIDs struct {
 	RefApplLastSeqNum *int `fix:"1357"`
 	//ApplResponseError is a non-required field for NoApplIDs.
 	ApplResponseError *int `fix:"1354"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoApplIDs.
+	NestedParties *nestedparties.NestedParties
 	//RefApplReqID is a non-required field for NoApplIDs.
 	RefApplReqID *string `fix:"1433"`
 }

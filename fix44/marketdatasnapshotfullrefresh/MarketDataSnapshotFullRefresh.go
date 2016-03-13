@@ -13,15 +13,21 @@ import (
 
 //NoUnderlyings is a repeating group in MarketDataSnapshotFullRefresh
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in MarketDataSnapshotFullRefresh
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoMDEntries is a repeating group in MarketDataSnapshotFullRefresh
 type NoMDEntries struct {
@@ -133,7 +139,7 @@ type Message struct {
 	fix44.Header
 	//MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
 	MDReqID *string `fix:"262"`
-	//Instrument Component
+	//Instrument is a required component for MarketDataSnapshotFullRefresh.
 	instrument.Instrument
 	//NoUnderlyings is a non-required field for MarketDataSnapshotFullRefresh.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
@@ -157,15 +163,16 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetMDReqID(v string)                { m.MDReqID = &v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
-func (m *Message) SetNoLegs(v []NoLegs)               { m.NoLegs = v }
-func (m *Message) SetFinancialStatus(v string)        { m.FinancialStatus = &v }
-func (m *Message) SetCorporateAction(v string)        { m.CorporateAction = &v }
-func (m *Message) SetNetChgPrevDay(v float64)         { m.NetChgPrevDay = &v }
-func (m *Message) SetNoMDEntries(v []NoMDEntries)     { m.NoMDEntries = v }
-func (m *Message) SetApplQueueDepth(v int)            { m.ApplQueueDepth = &v }
-func (m *Message) SetApplQueueResolution(v int)       { m.ApplQueueResolution = &v }
+func (m *Message) SetMDReqID(v string)                   { m.MDReqID = &v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)    { m.NoUnderlyings = v }
+func (m *Message) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
+func (m *Message) SetFinancialStatus(v string)           { m.FinancialStatus = &v }
+func (m *Message) SetCorporateAction(v string)           { m.CorporateAction = &v }
+func (m *Message) SetNetChgPrevDay(v float64)            { m.NetChgPrevDay = &v }
+func (m *Message) SetNoMDEntries(v []NoMDEntries)        { m.NoMDEntries = v }
+func (m *Message) SetApplQueueDepth(v int)               { m.ApplQueueDepth = &v }
+func (m *Message) SetApplQueueResolution(v int)          { m.ApplQueueResolution = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

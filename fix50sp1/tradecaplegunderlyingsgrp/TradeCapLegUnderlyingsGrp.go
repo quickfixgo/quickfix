@@ -6,8 +6,8 @@ import (
 
 //NoOfLegUnderlyings is a repeating group in TradeCapLegUnderlyingsGrp
 type NoOfLegUnderlyings struct {
-	//UnderlyingLegInstrument Component
-	underlyingleginstrument.UnderlyingLegInstrument
+	//UnderlyingLegInstrument is a non-required component for NoOfLegUnderlyings.
+	UnderlyingLegInstrument *underlyingleginstrument.UnderlyingLegInstrument
 }
 
 //TradeCapLegUnderlyingsGrp is a fix50sp1 Component

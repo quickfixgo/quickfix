@@ -39,10 +39,10 @@ type Message struct {
 	ClOrdID *string `fix:"11"`
 	//MatchStatus is a non-required field for TradeCaptureReportRequest.
 	MatchStatus *string `fix:"573"`
-	//Parties Component
-	parties.Parties
-	//Instrument Component
-	instrument.Instrument
+	//Parties is a non-required component for TradeCaptureReportRequest.
+	Parties *parties.Parties
+	//Instrument is a non-required component for TradeCaptureReportRequest.
+	Instrument *instrument.Instrument
 	//NoDates is a non-required field for TradeCaptureReportRequest.
 	NoDates []NoDates `fix:"580,omitempty"`
 	//Side is a non-required field for TradeCaptureReportRequest.
@@ -63,20 +63,22 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetTradeRequestID(v string)          { m.TradeRequestID = v }
-func (m *Message) SetTradeRequestType(v int)           { m.TradeRequestType = v }
-func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
-func (m *Message) SetExecID(v string)                  { m.ExecID = &v }
-func (m *Message) SetOrderID(v string)                 { m.OrderID = &v }
-func (m *Message) SetClOrdID(v string)                 { m.ClOrdID = &v }
-func (m *Message) SetMatchStatus(v string)             { m.MatchStatus = &v }
-func (m *Message) SetNoDates(v []NoDates)              { m.NoDates = v }
-func (m *Message) SetSide(v string)                    { m.Side = &v }
-func (m *Message) SetText(v string)                    { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)             { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)             { m.EncodedText = &v }
-func (m *Message) SetTradeInputSource(v string)        { m.TradeInputSource = &v }
-func (m *Message) SetTradeInputDevice(v string)        { m.TradeInputDevice = &v }
+func (m *Message) SetTradeRequestID(v string)            { m.TradeRequestID = v }
+func (m *Message) SetTradeRequestType(v int)             { m.TradeRequestType = v }
+func (m *Message) SetSubscriptionRequestType(v string)   { m.SubscriptionRequestType = &v }
+func (m *Message) SetExecID(v string)                    { m.ExecID = &v }
+func (m *Message) SetOrderID(v string)                   { m.OrderID = &v }
+func (m *Message) SetClOrdID(v string)                   { m.ClOrdID = &v }
+func (m *Message) SetMatchStatus(v string)               { m.MatchStatus = &v }
+func (m *Message) SetParties(v parties.Parties)          { m.Parties = &v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetNoDates(v []NoDates)                { m.NoDates = v }
+func (m *Message) SetSide(v string)                      { m.Side = &v }
+func (m *Message) SetText(v string)                      { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)               { m.EncodedText = &v }
+func (m *Message) SetTradeInputSource(v string)          { m.TradeInputSource = &v }
+func (m *Message) SetTradeInputDevice(v string)          { m.TradeInputDevice = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

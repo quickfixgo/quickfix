@@ -59,8 +59,8 @@ type Header struct {
 	MessageEncoding *string `fix:"347"`
 	//LastMsgSeqNumProcessed is a non-required field for Header.
 	LastMsgSeqNumProcessed *int `fix:"369"`
-	//HopGrp Component
-	hopgrp.HopGrp
+	//HopGrp is a non-required component for Header.
+	HopGrp *hopgrp.HopGrp
 	//ApplVerID is a non-required field for Header.
 	ApplVerID *string `fix:"1128"`
 	//CstmApplVerID is a non-required field for Header.
@@ -93,5 +93,6 @@ func (m *Header) SetXmlDataLen(v int)              { m.XmlDataLen = &v }
 func (m *Header) SetXmlData(v string)              { m.XmlData = &v }
 func (m *Header) SetMessageEncoding(v string)      { m.MessageEncoding = &v }
 func (m *Header) SetLastMsgSeqNumProcessed(v int)  { m.LastMsgSeqNumProcessed = &v }
+func (m *Header) SetHopGrp(v hopgrp.HopGrp)        { m.HopGrp = &v }
 func (m *Header) SetApplVerID(v string)            { m.ApplVerID = &v }
 func (m *Header) SetCstmApplVerID(v string)        { m.CstmApplVerID = &v }

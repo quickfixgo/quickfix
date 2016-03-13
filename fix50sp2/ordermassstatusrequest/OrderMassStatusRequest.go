@@ -19,8 +19,8 @@ type Message struct {
 	MassStatusReqID string `fix:"584"`
 	//MassStatusReqType is a required field for OrderMassStatusRequest.
 	MassStatusReqType int `fix:"585"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for OrderMassStatusRequest.
+	Parties *parties.Parties
 	//Account is a non-required field for OrderMassStatusRequest.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for OrderMassStatusRequest.
@@ -29,27 +29,33 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for OrderMassStatusRequest.
 	TradingSessionSubID *string `fix:"625"`
-	//Instrument Component
-	instrument.Instrument
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//Instrument is a non-required component for OrderMassStatusRequest.
+	Instrument *instrument.Instrument
+	//UnderlyingInstrument is a non-required component for OrderMassStatusRequest.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassStatusRequest.
 	Side *string `fix:"54"`
-	//TargetParties Component
-	targetparties.TargetParties
+	//TargetParties is a non-required component for OrderMassStatusRequest.
+	TargetParties *targetparties.TargetParties
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetMassStatusReqID(v string)     { m.MassStatusReqID = v }
-func (m *Message) SetMassStatusReqType(v int)      { m.MassStatusReqType = v }
-func (m *Message) SetAccount(v string)             { m.Account = &v }
-func (m *Message) SetAcctIDSource(v int)           { m.AcctIDSource = &v }
-func (m *Message) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
-func (m *Message) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
-func (m *Message) SetSide(v string)                { m.Side = &v }
+func (m *Message) SetMassStatusReqID(v string)           { m.MassStatusReqID = v }
+func (m *Message) SetMassStatusReqType(v int)            { m.MassStatusReqType = v }
+func (m *Message) SetParties(v parties.Parties)          { m.Parties = &v }
+func (m *Message) SetAccount(v string)                   { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                 { m.AcctIDSource = &v }
+func (m *Message) SetTradingSessionID(v string)          { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *Message) SetSide(v string)                               { m.Side = &v }
+func (m *Message) SetTargetParties(v targetparties.TargetParties) { m.TargetParties = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

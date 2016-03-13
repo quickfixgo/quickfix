@@ -15,10 +15,10 @@ type NoRiskLimits struct {
 	RiskLimitCurrency *string `fix:"1532"`
 	//RiskLimitPlatform is a non-required field for NoRiskLimits.
 	RiskLimitPlatform *string `fix:"1533"`
-	//RiskInstrumentScope Component
-	riskinstrumentscope.RiskInstrumentScope
-	//RiskWarningLevels Component
-	riskwarninglevels.RiskWarningLevels
+	//RiskInstrumentScope is a non-required component for NoRiskLimits.
+	RiskInstrumentScope *riskinstrumentscope.RiskInstrumentScope
+	//RiskWarningLevels is a non-required component for NoRiskLimits.
+	RiskWarningLevels *riskwarninglevels.RiskWarningLevels
 }
 
 //RiskLimits is a fix50sp2 Component

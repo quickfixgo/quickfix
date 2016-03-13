@@ -7,10 +7,10 @@ import (
 
 //NoRelatedPartyIDs is a repeating group in RelatedPartyGrp
 type NoRelatedPartyIDs struct {
-	//RelatedPartyDetail Component
-	relatedpartydetail.RelatedPartyDetail
-	//PartyRelationships Component
-	partyrelationships.PartyRelationships
+	//RelatedPartyDetail is a non-required component for NoRelatedPartyIDs.
+	RelatedPartyDetail *relatedpartydetail.RelatedPartyDetail
+	//PartyRelationships is a non-required component for NoRelatedPartyIDs.
+	PartyRelationships *partyrelationships.PartyRelationships
 }
 
 //RelatedPartyGrp is a fix50sp2 Component

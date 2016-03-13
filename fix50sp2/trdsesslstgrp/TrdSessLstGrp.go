@@ -47,8 +47,8 @@ type NoTradingSessions struct {
 	MarketSegmentID *string `fix:"1300"`
 	//TradingSessionDesc is a non-required field for NoTradingSessions.
 	TradingSessionDesc *string `fix:"1326"`
-	//TradingSessionRules Component
-	tradingsessionrules.TradingSessionRules
+	//TradingSessionRules is a non-required component for NoTradingSessions.
+	TradingSessionRules *tradingsessionrules.TradingSessionRules
 	//TransactTime is a non-required field for NoTradingSessions.
 	TransactTime *time.Time `fix:"60"`
 	//TradSesUpdateAction is a non-required field for NoTradingSessions.

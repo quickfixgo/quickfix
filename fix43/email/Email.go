@@ -22,9 +22,11 @@ func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 
 //NoRelatedSym is a repeating group in Email
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
 }
+
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 
 //LinesOfText is a repeating group in Email
 type LinesOfText struct {

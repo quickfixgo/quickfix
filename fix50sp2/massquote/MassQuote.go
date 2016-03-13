@@ -21,8 +21,8 @@ type Message struct {
 	QuoteType *int `fix:"537"`
 	//QuoteResponseLevel is a non-required field for MassQuote.
 	QuoteResponseLevel *int `fix:"301"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for MassQuote.
+	Parties *parties.Parties
 	//Account is a non-required field for MassQuote.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for MassQuote.
@@ -33,7 +33,7 @@ type Message struct {
 	DefBidSize *float64 `fix:"293"`
 	//DefOfferSize is a non-required field for MassQuote.
 	DefOfferSize *float64 `fix:"294"`
-	//QuotSetGrp Component
+	//QuotSetGrp is a required component for MassQuote.
 	quotsetgrp.QuotSetGrp
 	fixt11.Trailer
 }
@@ -41,15 +41,17 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetQuoteReqID(v string)      { m.QuoteReqID = &v }
-func (m *Message) SetQuoteID(v string)         { m.QuoteID = v }
-func (m *Message) SetQuoteType(v int)          { m.QuoteType = &v }
-func (m *Message) SetQuoteResponseLevel(v int) { m.QuoteResponseLevel = &v }
-func (m *Message) SetAccount(v string)         { m.Account = &v }
-func (m *Message) SetAcctIDSource(v int)       { m.AcctIDSource = &v }
-func (m *Message) SetAccountType(v int)        { m.AccountType = &v }
-func (m *Message) SetDefBidSize(v float64)     { m.DefBidSize = &v }
-func (m *Message) SetDefOfferSize(v float64)   { m.DefOfferSize = &v }
+func (m *Message) SetQuoteReqID(v string)                { m.QuoteReqID = &v }
+func (m *Message) SetQuoteID(v string)                   { m.QuoteID = v }
+func (m *Message) SetQuoteType(v int)                    { m.QuoteType = &v }
+func (m *Message) SetQuoteResponseLevel(v int)           { m.QuoteResponseLevel = &v }
+func (m *Message) SetParties(v parties.Parties)          { m.Parties = &v }
+func (m *Message) SetAccount(v string)                   { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                 { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                  { m.AccountType = &v }
+func (m *Message) SetDefBidSize(v float64)               { m.DefBidSize = &v }
+func (m *Message) SetDefOfferSize(v float64)             { m.DefOfferSize = &v }
+func (m *Message) SetQuotSetGrp(v quotsetgrp.QuotSetGrp) { m.QuotSetGrp = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

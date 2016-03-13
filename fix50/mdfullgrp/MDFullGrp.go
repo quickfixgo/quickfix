@@ -101,8 +101,8 @@ type NoMDEntries struct {
 	MDEntryForwardPoints *float64 `fix:"1027"`
 	//MDEntryID is a non-required field for NoMDEntries.
 	MDEntryID *string `fix:"278"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoMDEntries.
+	Parties *parties.Parties
 	//SecondaryOrderID is a non-required field for NoMDEntries.
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.

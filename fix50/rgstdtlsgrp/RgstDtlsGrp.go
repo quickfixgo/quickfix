@@ -14,8 +14,8 @@ type NoRegistDtls struct {
 	MailingDtls *string `fix:"474"`
 	//MailingInst is a non-required field for NoRegistDtls.
 	MailingInst *string `fix:"482"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoRegistDtls.
+	NestedParties *nestedparties.NestedParties
 	//OwnerType is a non-required field for NoRegistDtls.
 	OwnerType *int `fix:"522"`
 	//DateOfBirth is a non-required field for NoRegistDtls.

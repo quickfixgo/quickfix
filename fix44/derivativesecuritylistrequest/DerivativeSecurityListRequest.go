@@ -16,8 +16,8 @@ type Message struct {
 	SecurityReqID string `fix:"320"`
 	//SecurityListRequestType is a required field for DerivativeSecurityListRequest.
 	SecurityListRequestType int `fix:"559"`
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for DerivativeSecurityListRequest.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//SecuritySubType is a non-required field for DerivativeSecurityListRequest.
 	SecuritySubType *string `fix:"762"`
 	//Currency is a non-required field for DerivativeSecurityListRequest.
@@ -40,8 +40,11 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReqID(v string)           { m.SecurityReqID = v }
-func (m *Message) SetSecurityListRequestType(v int)    { m.SecurityListRequestType = v }
+func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = v }
+func (m *Message) SetSecurityListRequestType(v int) { m.SecurityListRequestType = v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
 func (m *Message) SetSecuritySubType(v string)         { m.SecuritySubType = &v }
 func (m *Message) SetCurrency(v string)                { m.Currency = &v }
 func (m *Message) SetText(v string)                    { m.Text = &v }

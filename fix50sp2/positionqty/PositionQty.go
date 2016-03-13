@@ -14,8 +14,8 @@ type NoPositions struct {
 	ShortQty *float64 `fix:"705"`
 	//PosQtyStatus is a non-required field for NoPositions.
 	PosQtyStatus *int `fix:"706"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoPositions.
+	NestedParties *nestedparties.NestedParties
 	//QuantityDate is a non-required field for NoPositions.
 	QuantityDate *string `fix:"976"`
 }

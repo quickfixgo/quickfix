@@ -31,8 +31,8 @@ type Message struct {
 	SecondaryClOrdID *string `fix:"526"`
 	//ClOrdLinkID is a non-required field for NewOrderMultileg.
 	ClOrdLinkID *string `fix:"583"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NewOrderMultileg.
+	Parties *parties.Parties
 	//TradeOriginationDate is a non-required field for NewOrderMultileg.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NewOrderMultileg.
@@ -51,8 +51,8 @@ type Message struct {
 	PreallocMethod *string `fix:"591"`
 	//AllocID is a non-required field for NewOrderMultileg.
 	AllocID *string `fix:"70"`
-	//PreAllocMlegGrp Component
-	preallocmleggrp.PreAllocMlegGrp
+	//PreAllocMlegGrp is a non-required component for NewOrderMultileg.
+	PreAllocMlegGrp *preallocmleggrp.PreAllocMlegGrp
 	//SettlType is a non-required field for NewOrderMultileg.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NewOrderMultileg.
@@ -71,28 +71,28 @@ type Message struct {
 	MaxFloor *float64 `fix:"111"`
 	//ExDestination is a non-required field for NewOrderMultileg.
 	ExDestination *string `fix:"100"`
-	//TrdgSesGrp Component
-	trdgsesgrp.TrdgSesGrp
+	//TrdgSesGrp is a non-required component for NewOrderMultileg.
+	TrdgSesGrp *trdgsesgrp.TrdgSesGrp
 	//ProcessCode is a non-required field for NewOrderMultileg.
 	ProcessCode *string `fix:"81"`
 	//Side is a required field for NewOrderMultileg.
 	Side string `fix:"54"`
-	//Instrument Component
-	instrument.Instrument
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//Instrument is a non-required component for NewOrderMultileg.
+	Instrument *instrument.Instrument
+	//UndInstrmtGrp is a non-required component for NewOrderMultileg.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NewOrderMultileg.
 	PrevClosePx *float64 `fix:"140"`
-	//LegOrdGrp Component
-	legordgrp.LegOrdGrp
+	//LegOrdGrp is a non-required component for NewOrderMultileg.
+	LegOrdGrp *legordgrp.LegOrdGrp
 	//LocateReqd is a non-required field for NewOrderMultileg.
 	LocateReqd *bool `fix:"114"`
 	//TransactTime is a required field for NewOrderMultileg.
 	TransactTime time.Time `fix:"60"`
 	//QtyType is a non-required field for NewOrderMultileg.
 	QtyType *int `fix:"854"`
-	//OrderQtyData Component
-	orderqtydata.OrderQtyData
+	//OrderQtyData is a non-required component for NewOrderMultileg.
+	OrderQtyData *orderqtydata.OrderQtyData
 	//OrdType is a required field for NewOrderMultileg.
 	OrdType string `fix:"40"`
 	//PriceType is a non-required field for NewOrderMultileg.
@@ -121,8 +121,8 @@ type Message struct {
 	ExpireTime *time.Time `fix:"126"`
 	//GTBookingInst is a non-required field for NewOrderMultileg.
 	GTBookingInst *int `fix:"427"`
-	//CommissionData Component
-	commissiondata.CommissionData
+	//CommissionData is a non-required component for NewOrderMultileg.
+	CommissionData *commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NewOrderMultileg.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NewOrderMultileg.
@@ -147,10 +147,10 @@ type Message struct {
 	CoveredOrUncovered *int `fix:"203"`
 	//MaxShow is a non-required field for NewOrderMultileg.
 	MaxShow *float64 `fix:"210"`
-	//PegInstructions Component
-	peginstructions.PegInstructions
-	//DiscretionInstructions Component
-	discretioninstructions.DiscretionInstructions
+	//PegInstructions is a non-required component for NewOrderMultileg.
+	PegInstructions *peginstructions.PegInstructions
+	//DiscretionInstructions is a non-required component for NewOrderMultileg.
+	DiscretionInstructions *discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for NewOrderMultileg.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for NewOrderMultileg.
@@ -167,20 +167,20 @@ type Message struct {
 	Designation *string `fix:"494"`
 	//MultiLegRptTypeReq is a non-required field for NewOrderMultileg.
 	MultiLegRptTypeReq *int `fix:"563"`
-	//StrategyParametersGrp Component
-	strategyparametersgrp.StrategyParametersGrp
+	//StrategyParametersGrp is a non-required component for NewOrderMultileg.
+	StrategyParametersGrp *strategyparametersgrp.StrategyParametersGrp
 	//SwapPoints is a non-required field for NewOrderMultileg.
 	SwapPoints *float64 `fix:"1069"`
 	//MatchIncrement is a non-required field for NewOrderMultileg.
 	MatchIncrement *float64 `fix:"1089"`
 	//MaxPriceLevels is a non-required field for NewOrderMultileg.
 	MaxPriceLevels *int `fix:"1090"`
-	//DisplayInstruction Component
-	displayinstruction.DisplayInstruction
+	//DisplayInstruction is a non-required component for NewOrderMultileg.
+	DisplayInstruction *displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for NewOrderMultileg.
 	PriceProtectionScope *string `fix:"1092"`
-	//TriggeringInstruction Component
-	triggeringinstruction.TriggeringInstruction
+	//TriggeringInstruction is a non-required component for NewOrderMultileg.
+	TriggeringInstruction *triggeringinstruction.TriggeringInstruction
 	//RefOrderID is a non-required field for NewOrderMultileg.
 	RefOrderID *string `fix:"1080"`
 	//RefOrderIDSource is a non-required field for NewOrderMultileg.
@@ -201,59 +201,71 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetClOrdID(v string)                  { m.ClOrdID = v }
-func (m *Message) SetSecondaryClOrdID(v string)         { m.SecondaryClOrdID = &v }
-func (m *Message) SetClOrdLinkID(v string)              { m.ClOrdLinkID = &v }
-func (m *Message) SetTradeOriginationDate(v string)     { m.TradeOriginationDate = &v }
-func (m *Message) SetTradeDate(v string)                { m.TradeDate = &v }
-func (m *Message) SetAccount(v string)                  { m.Account = &v }
-func (m *Message) SetAcctIDSource(v int)                { m.AcctIDSource = &v }
-func (m *Message) SetAccountType(v int)                 { m.AccountType = &v }
-func (m *Message) SetDayBookingInst(v string)           { m.DayBookingInst = &v }
-func (m *Message) SetBookingUnit(v string)              { m.BookingUnit = &v }
-func (m *Message) SetPreallocMethod(v string)           { m.PreallocMethod = &v }
-func (m *Message) SetAllocID(v string)                  { m.AllocID = &v }
-func (m *Message) SetSettlType(v string)                { m.SettlType = &v }
-func (m *Message) SetSettlDate(v string)                { m.SettlDate = &v }
-func (m *Message) SetCashMargin(v string)               { m.CashMargin = &v }
-func (m *Message) SetClearingFeeIndicator(v string)     { m.ClearingFeeIndicator = &v }
-func (m *Message) SetHandlInst(v string)                { m.HandlInst = &v }
-func (m *Message) SetExecInst(v string)                 { m.ExecInst = &v }
-func (m *Message) SetMinQty(v float64)                  { m.MinQty = &v }
-func (m *Message) SetMaxFloor(v float64)                { m.MaxFloor = &v }
-func (m *Message) SetExDestination(v string)            { m.ExDestination = &v }
-func (m *Message) SetProcessCode(v string)              { m.ProcessCode = &v }
-func (m *Message) SetSide(v string)                     { m.Side = v }
-func (m *Message) SetPrevClosePx(v float64)             { m.PrevClosePx = &v }
-func (m *Message) SetLocateReqd(v bool)                 { m.LocateReqd = &v }
-func (m *Message) SetTransactTime(v time.Time)          { m.TransactTime = v }
-func (m *Message) SetQtyType(v int)                     { m.QtyType = &v }
-func (m *Message) SetOrdType(v string)                  { m.OrdType = v }
-func (m *Message) SetPriceType(v int)                   { m.PriceType = &v }
-func (m *Message) SetPrice(v float64)                   { m.Price = &v }
-func (m *Message) SetStopPx(v float64)                  { m.StopPx = &v }
-func (m *Message) SetCurrency(v string)                 { m.Currency = &v }
-func (m *Message) SetComplianceID(v string)             { m.ComplianceID = &v }
-func (m *Message) SetSolicitedFlag(v bool)              { m.SolicitedFlag = &v }
-func (m *Message) SetIOIID(v string)                    { m.IOIID = &v }
-func (m *Message) SetQuoteID(v string)                  { m.QuoteID = &v }
-func (m *Message) SetTimeInForce(v string)              { m.TimeInForce = &v }
-func (m *Message) SetEffectiveTime(v time.Time)         { m.EffectiveTime = &v }
-func (m *Message) SetExpireDate(v string)               { m.ExpireDate = &v }
-func (m *Message) SetExpireTime(v time.Time)            { m.ExpireTime = &v }
-func (m *Message) SetGTBookingInst(v int)               { m.GTBookingInst = &v }
-func (m *Message) SetOrderCapacity(v string)            { m.OrderCapacity = &v }
-func (m *Message) SetOrderRestrictions(v string)        { m.OrderRestrictions = &v }
-func (m *Message) SetCustOrderCapacity(v int)           { m.CustOrderCapacity = &v }
-func (m *Message) SetForexReq(v bool)                   { m.ForexReq = &v }
-func (m *Message) SetSettlCurrency(v string)            { m.SettlCurrency = &v }
-func (m *Message) SetBookingType(v int)                 { m.BookingType = &v }
-func (m *Message) SetText(v string)                     { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)              { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)              { m.EncodedText = &v }
-func (m *Message) SetPositionEffect(v string)           { m.PositionEffect = &v }
-func (m *Message) SetCoveredOrUncovered(v int)          { m.CoveredOrUncovered = &v }
-func (m *Message) SetMaxShow(v float64)                 { m.MaxShow = &v }
+func (m *Message) SetClOrdID(v string)                                  { m.ClOrdID = v }
+func (m *Message) SetSecondaryClOrdID(v string)                         { m.SecondaryClOrdID = &v }
+func (m *Message) SetClOrdLinkID(v string)                              { m.ClOrdLinkID = &v }
+func (m *Message) SetParties(v parties.Parties)                         { m.Parties = &v }
+func (m *Message) SetTradeOriginationDate(v string)                     { m.TradeOriginationDate = &v }
+func (m *Message) SetTradeDate(v string)                                { m.TradeDate = &v }
+func (m *Message) SetAccount(v string)                                  { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                                { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                                 { m.AccountType = &v }
+func (m *Message) SetDayBookingInst(v string)                           { m.DayBookingInst = &v }
+func (m *Message) SetBookingUnit(v string)                              { m.BookingUnit = &v }
+func (m *Message) SetPreallocMethod(v string)                           { m.PreallocMethod = &v }
+func (m *Message) SetAllocID(v string)                                  { m.AllocID = &v }
+func (m *Message) SetPreAllocMlegGrp(v preallocmleggrp.PreAllocMlegGrp) { m.PreAllocMlegGrp = &v }
+func (m *Message) SetSettlType(v string)                                { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                                { m.SettlDate = &v }
+func (m *Message) SetCashMargin(v string)                               { m.CashMargin = &v }
+func (m *Message) SetClearingFeeIndicator(v string)                     { m.ClearingFeeIndicator = &v }
+func (m *Message) SetHandlInst(v string)                                { m.HandlInst = &v }
+func (m *Message) SetExecInst(v string)                                 { m.ExecInst = &v }
+func (m *Message) SetMinQty(v float64)                                  { m.MinQty = &v }
+func (m *Message) SetMaxFloor(v float64)                                { m.MaxFloor = &v }
+func (m *Message) SetExDestination(v string)                            { m.ExDestination = &v }
+func (m *Message) SetTrdgSesGrp(v trdgsesgrp.TrdgSesGrp)                { m.TrdgSesGrp = &v }
+func (m *Message) SetProcessCode(v string)                              { m.ProcessCode = &v }
+func (m *Message) SetSide(v string)                                     { m.Side = v }
+func (m *Message) SetInstrument(v instrument.Instrument)                { m.Instrument = &v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp)       { m.UndInstrmtGrp = &v }
+func (m *Message) SetPrevClosePx(v float64)                             { m.PrevClosePx = &v }
+func (m *Message) SetLegOrdGrp(v legordgrp.LegOrdGrp)                   { m.LegOrdGrp = &v }
+func (m *Message) SetLocateReqd(v bool)                                 { m.LocateReqd = &v }
+func (m *Message) SetTransactTime(v time.Time)                          { m.TransactTime = v }
+func (m *Message) SetQtyType(v int)                                     { m.QtyType = &v }
+func (m *Message) SetOrderQtyData(v orderqtydata.OrderQtyData)          { m.OrderQtyData = &v }
+func (m *Message) SetOrdType(v string)                                  { m.OrdType = v }
+func (m *Message) SetPriceType(v int)                                   { m.PriceType = &v }
+func (m *Message) SetPrice(v float64)                                   { m.Price = &v }
+func (m *Message) SetStopPx(v float64)                                  { m.StopPx = &v }
+func (m *Message) SetCurrency(v string)                                 { m.Currency = &v }
+func (m *Message) SetComplianceID(v string)                             { m.ComplianceID = &v }
+func (m *Message) SetSolicitedFlag(v bool)                              { m.SolicitedFlag = &v }
+func (m *Message) SetIOIID(v string)                                    { m.IOIID = &v }
+func (m *Message) SetQuoteID(v string)                                  { m.QuoteID = &v }
+func (m *Message) SetTimeInForce(v string)                              { m.TimeInForce = &v }
+func (m *Message) SetEffectiveTime(v time.Time)                         { m.EffectiveTime = &v }
+func (m *Message) SetExpireDate(v string)                               { m.ExpireDate = &v }
+func (m *Message) SetExpireTime(v time.Time)                            { m.ExpireTime = &v }
+func (m *Message) SetGTBookingInst(v int)                               { m.GTBookingInst = &v }
+func (m *Message) SetCommissionData(v commissiondata.CommissionData)    { m.CommissionData = &v }
+func (m *Message) SetOrderCapacity(v string)                            { m.OrderCapacity = &v }
+func (m *Message) SetOrderRestrictions(v string)                        { m.OrderRestrictions = &v }
+func (m *Message) SetCustOrderCapacity(v int)                           { m.CustOrderCapacity = &v }
+func (m *Message) SetForexReq(v bool)                                   { m.ForexReq = &v }
+func (m *Message) SetSettlCurrency(v string)                            { m.SettlCurrency = &v }
+func (m *Message) SetBookingType(v int)                                 { m.BookingType = &v }
+func (m *Message) SetText(v string)                                     { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                              { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                              { m.EncodedText = &v }
+func (m *Message) SetPositionEffect(v string)                           { m.PositionEffect = &v }
+func (m *Message) SetCoveredOrUncovered(v int)                          { m.CoveredOrUncovered = &v }
+func (m *Message) SetMaxShow(v float64)                                 { m.MaxShow = &v }
+func (m *Message) SetPegInstructions(v peginstructions.PegInstructions) { m.PegInstructions = &v }
+func (m *Message) SetDiscretionInstructions(v discretioninstructions.DiscretionInstructions) {
+	m.DiscretionInstructions = &v
+}
 func (m *Message) SetTargetStrategy(v int)              { m.TargetStrategy = &v }
 func (m *Message) SetTargetStrategyParameters(v string) { m.TargetStrategyParameters = &v }
 func (m *Message) SetParticipationRate(v float64)       { m.ParticipationRate = &v }
@@ -262,17 +274,26 @@ func (m *Message) SetMoneyLaunderingStatus(v string)    { m.MoneyLaunderingStatu
 func (m *Message) SetRegistID(v string)                 { m.RegistID = &v }
 func (m *Message) SetDesignation(v string)              { m.Designation = &v }
 func (m *Message) SetMultiLegRptTypeReq(v int)          { m.MultiLegRptTypeReq = &v }
-func (m *Message) SetSwapPoints(v float64)              { m.SwapPoints = &v }
-func (m *Message) SetMatchIncrement(v float64)          { m.MatchIncrement = &v }
-func (m *Message) SetMaxPriceLevels(v int)              { m.MaxPriceLevels = &v }
-func (m *Message) SetPriceProtectionScope(v string)     { m.PriceProtectionScope = &v }
-func (m *Message) SetRefOrderID(v string)               { m.RefOrderID = &v }
-func (m *Message) SetRefOrderIDSource(v string)         { m.RefOrderIDSource = &v }
-func (m *Message) SetPreTradeAnonymity(v bool)          { m.PreTradeAnonymity = &v }
-func (m *Message) SetExDestinationIDSource(v string)    { m.ExDestinationIDSource = &v }
-func (m *Message) SetMultilegModel(v int)               { m.MultilegModel = &v }
-func (m *Message) SetMultilegPriceMethod(v int)         { m.MultilegPriceMethod = &v }
-func (m *Message) SetRiskFreeRate(v float64)            { m.RiskFreeRate = &v }
+func (m *Message) SetStrategyParametersGrp(v strategyparametersgrp.StrategyParametersGrp) {
+	m.StrategyParametersGrp = &v
+}
+func (m *Message) SetSwapPoints(v float64)     { m.SwapPoints = &v }
+func (m *Message) SetMatchIncrement(v float64) { m.MatchIncrement = &v }
+func (m *Message) SetMaxPriceLevels(v int)     { m.MaxPriceLevels = &v }
+func (m *Message) SetDisplayInstruction(v displayinstruction.DisplayInstruction) {
+	m.DisplayInstruction = &v
+}
+func (m *Message) SetPriceProtectionScope(v string) { m.PriceProtectionScope = &v }
+func (m *Message) SetTriggeringInstruction(v triggeringinstruction.TriggeringInstruction) {
+	m.TriggeringInstruction = &v
+}
+func (m *Message) SetRefOrderID(v string)            { m.RefOrderID = &v }
+func (m *Message) SetRefOrderIDSource(v string)      { m.RefOrderIDSource = &v }
+func (m *Message) SetPreTradeAnonymity(v bool)       { m.PreTradeAnonymity = &v }
+func (m *Message) SetExDestinationIDSource(v string) { m.ExDestinationIDSource = &v }
+func (m *Message) SetMultilegModel(v int)            { m.MultilegModel = &v }
+func (m *Message) SetMultilegPriceMethod(v int)      { m.MultilegPriceMethod = &v }
+func (m *Message) SetRiskFreeRate(v float64)         { m.RiskFreeRate = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -25,12 +25,12 @@ type Message struct {
 	CollInquiryStatus int `fix:"945"`
 	//CollInquiryResult is a non-required field for CollateralInquiryAck.
 	CollInquiryResult *int `fix:"946"`
-	//CollInqQualGrp Component
-	collinqqualgrp.CollInqQualGrp
+	//CollInqQualGrp is a non-required component for CollateralInquiryAck.
+	CollInqQualGrp *collinqqualgrp.CollInqQualGrp
 	//TotNumReports is a non-required field for CollateralInquiryAck.
 	TotNumReports *int `fix:"911"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for CollateralInquiryAck.
+	Parties *parties.Parties
 	//Account is a non-required field for CollateralInquiryAck.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralInquiryAck.
@@ -43,14 +43,14 @@ type Message struct {
 	SecondaryOrderID *string `fix:"198"`
 	//SecondaryClOrdID is a non-required field for CollateralInquiryAck.
 	SecondaryClOrdID *string `fix:"526"`
-	//ExecCollGrp Component
-	execcollgrp.ExecCollGrp
-	//TrdCollGrp Component
-	trdcollgrp.TrdCollGrp
-	//Instrument Component
-	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
+	//ExecCollGrp is a non-required component for CollateralInquiryAck.
+	ExecCollGrp *execcollgrp.ExecCollGrp
+	//TrdCollGrp is a non-required component for CollateralInquiryAck.
+	TrdCollGrp *trdcollgrp.TrdCollGrp
+	//Instrument is a non-required component for CollateralInquiryAck.
+	Instrument *instrument.Instrument
+	//FinancingDetails is a non-required component for CollateralInquiryAck.
+	FinancingDetails *financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralInquiryAck.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralInquiryAck.
@@ -59,10 +59,10 @@ type Message struct {
 	QtyType *int `fix:"854"`
 	//Currency is a non-required field for CollateralInquiryAck.
 	Currency *string `fix:"15"`
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//InstrmtLegGrp is a non-required component for CollateralInquiryAck.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
+	//UndInstrmtGrp is a non-required component for CollateralInquiryAck.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//TradingSessionID is a non-required field for CollateralInquiryAck.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for CollateralInquiryAck.
@@ -89,30 +89,38 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetCollInquiryID(v string)        { m.CollInquiryID = v }
-func (m *Message) SetCollInquiryStatus(v int)       { m.CollInquiryStatus = v }
-func (m *Message) SetCollInquiryResult(v int)       { m.CollInquiryResult = &v }
-func (m *Message) SetTotNumReports(v int)           { m.TotNumReports = &v }
-func (m *Message) SetAccount(v string)              { m.Account = &v }
-func (m *Message) SetAccountType(v int)             { m.AccountType = &v }
-func (m *Message) SetClOrdID(v string)              { m.ClOrdID = &v }
-func (m *Message) SetOrderID(v string)              { m.OrderID = &v }
-func (m *Message) SetSecondaryOrderID(v string)     { m.SecondaryOrderID = &v }
-func (m *Message) SetSecondaryClOrdID(v string)     { m.SecondaryClOrdID = &v }
-func (m *Message) SetSettlDate(v string)            { m.SettlDate = &v }
-func (m *Message) SetQuantity(v float64)            { m.Quantity = &v }
-func (m *Message) SetQtyType(v int)                 { m.QtyType = &v }
-func (m *Message) SetCurrency(v string)             { m.Currency = &v }
-func (m *Message) SetTradingSessionID(v string)     { m.TradingSessionID = &v }
-func (m *Message) SetTradingSessionSubID(v string)  { m.TradingSessionSubID = &v }
-func (m *Message) SetSettlSessID(v string)          { m.SettlSessID = &v }
-func (m *Message) SetSettlSessSubID(v string)       { m.SettlSessSubID = &v }
-func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
-func (m *Message) SetResponseTransportType(v int)   { m.ResponseTransportType = &v }
-func (m *Message) SetResponseDestination(v string)  { m.ResponseDestination = &v }
-func (m *Message) SetText(v string)                 { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
+func (m *Message) SetCollInquiryID(v string)                               { m.CollInquiryID = v }
+func (m *Message) SetCollInquiryStatus(v int)                              { m.CollInquiryStatus = v }
+func (m *Message) SetCollInquiryResult(v int)                              { m.CollInquiryResult = &v }
+func (m *Message) SetCollInqQualGrp(v collinqqualgrp.CollInqQualGrp)       { m.CollInqQualGrp = &v }
+func (m *Message) SetTotNumReports(v int)                                  { m.TotNumReports = &v }
+func (m *Message) SetParties(v parties.Parties)                            { m.Parties = &v }
+func (m *Message) SetAccount(v string)                                     { m.Account = &v }
+func (m *Message) SetAccountType(v int)                                    { m.AccountType = &v }
+func (m *Message) SetClOrdID(v string)                                     { m.ClOrdID = &v }
+func (m *Message) SetOrderID(v string)                                     { m.OrderID = &v }
+func (m *Message) SetSecondaryOrderID(v string)                            { m.SecondaryOrderID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)                            { m.SecondaryClOrdID = &v }
+func (m *Message) SetExecCollGrp(v execcollgrp.ExecCollGrp)                { m.ExecCollGrp = &v }
+func (m *Message) SetTrdCollGrp(v trdcollgrp.TrdCollGrp)                   { m.TrdCollGrp = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)                   { m.Instrument = &v }
+func (m *Message) SetFinancingDetails(v financingdetails.FinancingDetails) { m.FinancingDetails = &v }
+func (m *Message) SetSettlDate(v string)                                   { m.SettlDate = &v }
+func (m *Message) SetQuantity(v float64)                                   { m.Quantity = &v }
+func (m *Message) SetQtyType(v int)                                        { m.QtyType = &v }
+func (m *Message) SetCurrency(v string)                                    { m.Currency = &v }
+func (m *Message) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp)          { m.InstrmtLegGrp = &v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp)          { m.UndInstrmtGrp = &v }
+func (m *Message) SetTradingSessionID(v string)                            { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)                         { m.TradingSessionSubID = &v }
+func (m *Message) SetSettlSessID(v string)                                 { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)                              { m.SettlSessSubID = &v }
+func (m *Message) SetClearingBusinessDate(v string)                        { m.ClearingBusinessDate = &v }
+func (m *Message) SetResponseTransportType(v int)                          { m.ResponseTransportType = &v }
+func (m *Message) SetResponseDestination(v string)                         { m.ResponseDestination = &v }
+func (m *Message) SetText(v string)                                        { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                                 { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                                 { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

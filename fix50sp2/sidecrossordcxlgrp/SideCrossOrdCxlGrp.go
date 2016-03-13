@@ -20,13 +20,13 @@ type NoSides struct {
 	ClOrdLinkID *string `fix:"583"`
 	//OrigOrdModTime is a non-required field for NoSides.
 	OrigOrdModTime *time.Time `fix:"586"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoSides.
+	Parties *parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoSides.
 	TradeDate *string `fix:"75"`
-	//OrderQtyData Component
+	//OrderQtyData is a required component for NoSides.
 	orderqtydata.OrderQtyData
 	//ComplianceID is a non-required field for NoSides.
 	ComplianceID *string `fix:"376"`

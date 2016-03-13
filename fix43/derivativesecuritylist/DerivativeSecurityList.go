@@ -12,8 +12,8 @@ import (
 
 //NoRelatedSym is a repeating group in DerivativeSecurityList
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for NoRelatedSym.
@@ -30,23 +30,25 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
-func (m *NoRelatedSym) SetCurrency(v string)            { m.Currency = &v }
-func (m *NoRelatedSym) SetNoLegs(v []NoLegs)            { m.NoLegs = v }
-func (m *NoRelatedSym) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
-func (m *NoRelatedSym) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
-func (m *NoRelatedSym) SetText(v string)                { m.Text = &v }
-func (m *NoRelatedSym) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
-func (m *NoRelatedSym) SetEncodedText(v string)         { m.EncodedText = &v }
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoRelatedSym) SetCurrency(v string)                  { m.Currency = &v }
+func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)          { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetText(v string)                      { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)               { m.EncodedText = &v }
 
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegCurrency is a non-required field for NoLegs.
 	LegCurrency *string `fix:"556"`
 }
 
-func (m *NoLegs) SetLegCurrency(v string) { m.LegCurrency = &v }
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegCurrency(v string)                        { m.LegCurrency = &v }
 
 //Message is a DerivativeSecurityList FIX Message
 type Message struct {
@@ -58,8 +60,8 @@ type Message struct {
 	SecurityResponseID string `fix:"322"`
 	//SecurityRequestResult is a required field for DerivativeSecurityList.
 	SecurityRequestResult int `fix:"560"`
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for DerivativeSecurityList.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//TotalNumSecurities is a non-required field for DerivativeSecurityList.
 	TotalNumSecurities *int `fix:"393"`
 	//NoRelatedSym is a non-required field for DerivativeSecurityList.
@@ -70,9 +72,12 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = v }
-func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = v }
-func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = v }
+func (m *Message) SetSecurityReqID(v string)      { m.SecurityReqID = v }
+func (m *Message) SetSecurityResponseID(v string) { m.SecurityResponseID = v }
+func (m *Message) SetSecurityRequestResult(v int) { m.SecurityRequestResult = v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
 func (m *Message) SetTotalNumSecurities(v int)      { m.TotalNumSecurities = &v }
 func (m *Message) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
 

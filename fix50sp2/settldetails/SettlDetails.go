@@ -8,8 +8,8 @@ import (
 type NoSettlDetails struct {
 	//SettlObligSource is a non-required field for NoSettlDetails.
 	SettlObligSource *string `fix:"1164"`
-	//SettlParties Component
-	settlparties.SettlParties
+	//SettlParties is a non-required component for NoSettlDetails.
+	SettlParties *settlparties.SettlParties
 }
 
 //SettlDetails is a fix50sp2 Component
