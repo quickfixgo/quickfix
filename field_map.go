@@ -103,6 +103,24 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 	return nil
 }
 
+// GetInt is a GetField wrapper for int fields
+func (m FieldMap) GetInt(tag Tag) (int, MessageRejectError) {
+	var val FIXInt
+	if err := m.GetField(tag, &val); err != nil {
+		return 0, err
+	}
+	return int(val), nil
+}
+
+// GetString is a GetField wrapper for string fields
+func (m FieldMap) GetString(tag Tag) (string, MessageRejectError) {
+	var val FIXString
+	if err := m.GetField(tag, &val); err != nil {
+		return "", err
+	}
+	return string(val), nil
+}
+
 func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
 	tagValues, ok := m.tagLookup[parser.Tag]
 	if !ok {
