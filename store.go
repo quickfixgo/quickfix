@@ -15,8 +15,8 @@ type MessageStore interface {
 
 	CreationTime() time.Time
 
-	SaveMessage(seqNum int, msg []byte)
-	GetMessages(beginSeqNum, endSeqNum int) chan []byte
+	SaveMessage(seqNum int, msg []byte) error
+	GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error)
 
 	Refresh() error
 	Reset() error
@@ -84,27 +84,23 @@ func (store *memoryStore) Close() error {
 	return nil
 }
 
-func (store *memoryStore) SaveMessage(seqNum int, msg []byte) {
+func (store *memoryStore) SaveMessage(seqNum int, msg []byte) error {
 	if store.messageMap == nil {
 		store.messageMap = make(map[int][]byte)
 	}
 
 	store.messageMap[seqNum] = msg
+	return nil
 }
 
-func (store memoryStore) GetMessages(beginSeqNum, endSeqNum int) chan []byte {
-	msgs := make(chan []byte)
-
-	go func() {
-		for seqNum := beginSeqNum; seqNum <= endSeqNum; seqNum++ {
-			if msg, ok := store.messageMap[seqNum]; ok {
-				msgs <- msg
-			}
+func (store memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+	var msgs [][]byte
+	for seqNum := beginSeqNum; seqNum <= endSeqNum; seqNum++ {
+		if m, ok := store.messageMap[seqNum]; ok {
+			msgs = append(msgs, m)
 		}
-		close(msgs)
-	}()
-
-	return msgs
+	}
+	return msgs, nil
 }
 
 type memoryStoreFactory struct{}
