@@ -31,8 +31,8 @@ type NoOrders struct {
 	ClOrdLinkID *string `fix:"583"`
 	//SettlInstMode is a non-required field for NoOrders.
 	SettlInstMode *string `fix:"160"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoOrders.
+	Parties *parties.Parties
 	//TradeOriginationDate is a non-required field for NoOrders.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoOrders.
@@ -51,8 +51,8 @@ type NoOrders struct {
 	AllocID *string `fix:"70"`
 	//PreallocMethod is a non-required field for NoOrders.
 	PreallocMethod *string `fix:"591"`
-	//PreAllocGrp Component
-	preallocgrp.PreAllocGrp
+	//PreAllocGrp is a non-required component for NoOrders.
+	PreAllocGrp *preallocgrp.PreAllocGrp
 	//SettlType is a non-required field for NoOrders.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for NoOrders.
@@ -71,14 +71,14 @@ type NoOrders struct {
 	MaxFloor *float64 `fix:"111"`
 	//ExDestination is a non-required field for NoOrders.
 	ExDestination *string `fix:"100"`
-	//TrdgSesGrp Component
-	trdgsesgrp.TrdgSesGrp
+	//TrdgSesGrp is a non-required component for NoOrders.
+	TrdgSesGrp *trdgsesgrp.TrdgSesGrp
 	//ProcessCode is a non-required field for NoOrders.
 	ProcessCode *string `fix:"81"`
-	//Instrument Component
+	//Instrument is a required component for NoOrders.
 	instrument.Instrument
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//UndInstrmtGrp is a non-required component for NoOrders.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//PrevClosePx is a non-required field for NoOrders.
 	PrevClosePx *float64 `fix:"140"`
 	//Side is a required field for NoOrders.
@@ -89,11 +89,11 @@ type NoOrders struct {
 	LocateReqd *bool `fix:"114"`
 	//TransactTime is a non-required field for NoOrders.
 	TransactTime *time.Time `fix:"60"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for NoOrders.
+	Stipulations *stipulations.Stipulations
 	//QtyType is a non-required field for NoOrders.
 	QtyType *int `fix:"854"`
-	//OrderQtyData Component
+	//OrderQtyData is a required component for NoOrders.
 	orderqtydata.OrderQtyData
 	//OrdType is a non-required field for NoOrders.
 	OrdType *string `fix:"40"`
@@ -103,10 +103,10 @@ type NoOrders struct {
 	Price *float64 `fix:"44"`
 	//StopPx is a non-required field for NoOrders.
 	StopPx *float64 `fix:"99"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//YieldData Component
-	yielddata.YieldData
+	//SpreadOrBenchmarkCurveData is a non-required component for NoOrders.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//YieldData is a non-required component for NoOrders.
+	YieldData *yielddata.YieldData
 	//Currency is a non-required field for NoOrders.
 	Currency *string `fix:"15"`
 	//ComplianceID is a non-required field for NoOrders.
@@ -127,8 +127,8 @@ type NoOrders struct {
 	ExpireTime *time.Time `fix:"126"`
 	//GTBookingInst is a non-required field for NoOrders.
 	GTBookingInst *int `fix:"427"`
-	//CommissionData Component
-	commissiondata.CommissionData
+	//CommissionData is a non-required component for NoOrders.
+	CommissionData *commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NoOrders.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoOrders.
@@ -159,10 +159,10 @@ type NoOrders struct {
 	CoveredOrUncovered *int `fix:"203"`
 	//MaxShow is a non-required field for NoOrders.
 	MaxShow *float64 `fix:"210"`
-	//PegInstructions Component
-	peginstructions.PegInstructions
-	//DiscretionInstructions Component
-	discretioninstructions.DiscretionInstructions
+	//PegInstructions is a non-required component for NoOrders.
+	PegInstructions *peginstructions.PegInstructions
+	//DiscretionInstructions is a non-required component for NoOrders.
+	DiscretionInstructions *discretioninstructions.DiscretionInstructions
 	//TargetStrategy is a non-required field for NoOrders.
 	TargetStrategy *int `fix:"847"`
 	//TargetStrategyParameters is a non-required field for NoOrders.
@@ -171,18 +171,18 @@ type NoOrders struct {
 	ParticipationRate *float64 `fix:"849"`
 	//Designation is a non-required field for NoOrders.
 	Designation *string `fix:"494"`
-	//StrategyParametersGrp Component
-	strategyparametersgrp.StrategyParametersGrp
+	//StrategyParametersGrp is a non-required component for NoOrders.
+	StrategyParametersGrp *strategyparametersgrp.StrategyParametersGrp
 	//MatchIncrement is a non-required field for NoOrders.
 	MatchIncrement *float64 `fix:"1089"`
 	//MaxPriceLevels is a non-required field for NoOrders.
 	MaxPriceLevels *int `fix:"1090"`
-	//DisplayInstruction Component
-	displayinstruction.DisplayInstruction
+	//DisplayInstruction is a non-required component for NoOrders.
+	DisplayInstruction *displayinstruction.DisplayInstruction
 	//PriceProtectionScope is a non-required field for NoOrders.
 	PriceProtectionScope *string `fix:"1092"`
-	//TriggeringInstruction Component
-	triggeringinstruction.TriggeringInstruction
+	//TriggeringInstruction is a non-required component for NoOrders.
+	TriggeringInstruction *triggeringinstruction.TriggeringInstruction
 	//RefOrderID is a non-required field for NoOrders.
 	RefOrderID *string `fix:"1080"`
 	//RefOrderIDSource is a non-required field for NoOrders.

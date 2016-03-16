@@ -14,15 +14,21 @@ import (
 
 //NoUnderlyings is a repeating group in SecurityListRequest
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in SecurityListRequest
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //Message is a SecurityListRequest FIX Message
 type Message struct {
@@ -32,12 +38,12 @@ type Message struct {
 	SecurityReqID string `fix:"320"`
 	//SecurityListRequestType is a required field for SecurityListRequest.
 	SecurityListRequestType int `fix:"559"`
-	//Instrument Component
-	instrument.Instrument
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
+	//Instrument is a non-required component for SecurityListRequest.
+	Instrument *instrument.Instrument
+	//InstrumentExtension is a non-required component for SecurityListRequest.
+	InstrumentExtension *instrumentextension.InstrumentExtension
+	//FinancingDetails is a non-required component for SecurityListRequest.
+	FinancingDetails *financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for SecurityListRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for SecurityListRequest.
@@ -62,17 +68,22 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReqID(v string)           { m.SecurityReqID = v }
-func (m *Message) SetSecurityListRequestType(v int)    { m.SecurityListRequestType = v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings)  { m.NoUnderlyings = v }
-func (m *Message) SetNoLegs(v []NoLegs)                { m.NoLegs = v }
-func (m *Message) SetCurrency(v string)                { m.Currency = &v }
-func (m *Message) SetText(v string)                    { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)             { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)             { m.EncodedText = &v }
-func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
-func (m *Message) SetTradingSessionSubID(v string)     { m.TradingSessionSubID = &v }
-func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
+func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = v }
+func (m *Message) SetSecurityListRequestType(v int)      { m.SecurityListRequestType = v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
+	m.InstrumentExtension = &v
+}
+func (m *Message) SetFinancingDetails(v financingdetails.FinancingDetails) { m.FinancingDetails = &v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)                      { m.NoUnderlyings = v }
+func (m *Message) SetNoLegs(v []NoLegs)                                    { m.NoLegs = v }
+func (m *Message) SetCurrency(v string)                                    { m.Currency = &v }
+func (m *Message) SetText(v string)                                        { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                                 { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                                 { m.EncodedText = &v }
+func (m *Message) SetTradingSessionID(v string)                            { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)                         { m.TradingSessionSubID = &v }
+func (m *Message) SetSubscriptionRequestType(v string)                     { m.SubscriptionRequestType = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

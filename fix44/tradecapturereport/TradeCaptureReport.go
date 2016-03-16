@@ -25,26 +25,30 @@ import (
 
 //NoUnderlyings is a repeating group in TradeCaptureReport
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in TradeCaptureReport
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
-	//LegStipulations Component
-	legstipulations.LegStipulations
+	//LegStipulations is a non-required component for NoLegs.
+	LegStipulations *legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoLegs.
+	NestedParties *nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegPrice is a non-required field for NoLegs.
@@ -57,15 +61,18 @@ type NoLegs struct {
 	LegLastPx *float64 `fix:"637"`
 }
 
-func (m *NoLegs) SetLegQty(v float64)            { m.LegQty = &v }
-func (m *NoLegs) SetLegSwapType(v int)           { m.LegSwapType = &v }
-func (m *NoLegs) SetLegPositionEffect(v string)  { m.LegPositionEffect = &v }
-func (m *NoLegs) SetLegCoveredOrUncovered(v int) { m.LegCoveredOrUncovered = &v }
-func (m *NoLegs) SetLegRefID(v string)           { m.LegRefID = &v }
-func (m *NoLegs) SetLegPrice(v float64)          { m.LegPrice = &v }
-func (m *NoLegs) SetLegSettlType(v string)       { m.LegSettlType = &v }
-func (m *NoLegs) SetLegSettlDate(v string)       { m.LegSettlDate = &v }
-func (m *NoLegs) SetLegLastPx(v float64)         { m.LegLastPx = &v }
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
+func (m *NoLegs) SetLegPositionEffect(v string)                        { m.LegPositionEffect = &v }
+func (m *NoLegs) SetLegCoveredOrUncovered(v int)                       { m.LegCoveredOrUncovered = &v }
+func (m *NoLegs) SetNestedParties(v nestedparties.NestedParties)       { m.NestedParties = &v }
+func (m *NoLegs) SetLegRefID(v string)                                 { m.LegRefID = &v }
+func (m *NoLegs) SetLegPrice(v float64)                                { m.LegPrice = &v }
+func (m *NoLegs) SetLegSettlType(v string)                             { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string)                             { m.LegSettlDate = &v }
+func (m *NoLegs) SetLegLastPx(v float64)                               { m.LegLastPx = &v }
 
 //NoSides is a repeating group in TradeCaptureReport
 type NoSides struct {
@@ -81,8 +88,8 @@ type NoSides struct {
 	SecondaryClOrdID *string `fix:"526"`
 	//ListID is a non-required field for NoSides.
 	ListID *string `fix:"66"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoSides.
+	Parties *parties.Parties
 	//Account is a non-required field for NoSides.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoSides.
@@ -127,8 +134,8 @@ type NoSides struct {
 	TradingSessionSubID *string `fix:"625"`
 	//TimeBracket is a non-required field for NoSides.
 	TimeBracket *string `fix:"943"`
-	//CommissionData Component
-	commissiondata.CommissionData
+	//CommissionData is a non-required component for NoSides.
+	CommissionData *commissiondata.CommissionData
 	//GrossTradeAmt is a non-required field for NoSides.
 	GrossTradeAmt *float64 `fix:"381"`
 	//NumDaysInterest is a non-required field for NoSides.
@@ -173,8 +180,8 @@ type NoSides struct {
 	SideMultiLegReportingType *int `fix:"752"`
 	//NoContAmts is a non-required field for NoSides.
 	NoContAmts []NoContAmts `fix:"518,omitempty"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for NoSides.
+	Stipulations *stipulations.Stipulations
 	//NoMiscFees is a non-required field for NoSides.
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
 	//ExchangeRule is a non-required field for NoSides.
@@ -201,6 +208,7 @@ func (m *NoSides) SetSecondaryOrderID(v string)                         { m.Seco
 func (m *NoSides) SetClOrdID(v string)                                  { m.ClOrdID = &v }
 func (m *NoSides) SetSecondaryClOrdID(v string)                         { m.SecondaryClOrdID = &v }
 func (m *NoSides) SetListID(v string)                                   { m.ListID = &v }
+func (m *NoSides) SetParties(v parties.Parties)                         { m.Parties = &v }
 func (m *NoSides) SetAccount(v string)                                  { m.Account = &v }
 func (m *NoSides) SetAcctIDSource(v int)                                { m.AcctIDSource = &v }
 func (m *NoSides) SetAccountType(v int)                                 { m.AccountType = &v }
@@ -223,6 +231,7 @@ func (m *NoSides) SetTransBkdTime(v time.Time)                          { m.Tran
 func (m *NoSides) SetTradingSessionID(v string)                         { m.TradingSessionID = &v }
 func (m *NoSides) SetTradingSessionSubID(v string)                      { m.TradingSessionSubID = &v }
 func (m *NoSides) SetTimeBracket(v string)                              { m.TimeBracket = &v }
+func (m *NoSides) SetCommissionData(v commissiondata.CommissionData)    { m.CommissionData = &v }
 func (m *NoSides) SetGrossTradeAmt(v float64)                           { m.GrossTradeAmt = &v }
 func (m *NoSides) SetNumDaysInterest(v int)                             { m.NumDaysInterest = &v }
 func (m *NoSides) SetExDate(v string)                                   { m.ExDate = &v }
@@ -245,6 +254,7 @@ func (m *NoSides) SetEncodedTextLen(v int)                              { m.Enco
 func (m *NoSides) SetEncodedText(v string)                              { m.EncodedText = &v }
 func (m *NoSides) SetSideMultiLegReportingType(v int)                   { m.SideMultiLegReportingType = &v }
 func (m *NoSides) SetNoContAmts(v []NoContAmts)                         { m.NoContAmts = v }
+func (m *NoSides) SetStipulations(v stipulations.Stipulations)          { m.Stipulations = &v }
 func (m *NoSides) SetNoMiscFees(v []NoMiscFees)                         { m.NoMiscFees = v }
 func (m *NoSides) SetExchangeRule(v string)                             { m.ExchangeRule = &v }
 func (m *NoSides) SetTradeAllocIndicator(v int)                         { m.TradeAllocIndicator = &v }
@@ -304,17 +314,18 @@ type NoAllocs struct {
 	AllocSettlCurrency *string `fix:"736"`
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
-	//NestedParties2 Component
-	nestedparties2.NestedParties2
+	//NestedParties2 is a non-required component for NoAllocs.
+	NestedParties2 *nestedparties2.NestedParties2
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }
 
-func (m *NoAllocs) SetAllocAccount(v string)       { m.AllocAccount = &v }
-func (m *NoAllocs) SetAllocAcctIDSource(v int)     { m.AllocAcctIDSource = &v }
-func (m *NoAllocs) SetAllocSettlCurrency(v string) { m.AllocSettlCurrency = &v }
-func (m *NoAllocs) SetIndividualAllocID(v string)  { m.IndividualAllocID = &v }
-func (m *NoAllocs) SetAllocQty(v float64)          { m.AllocQty = &v }
+func (m *NoAllocs) SetAllocAccount(v string)                          { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)                        { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetAllocSettlCurrency(v string)                    { m.AllocSettlCurrency = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)                     { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetNestedParties2(v nestedparties2.NestedParties2) { m.NestedParties2 = &v }
+func (m *NoAllocs) SetAllocQty(v float64)                             { m.AllocQty = &v }
 
 //Message is a TradeCaptureReport FIX Message
 type Message struct {
@@ -368,16 +379,16 @@ type Message struct {
 	PreviouslyReported bool `fix:"570"`
 	//PriceType is a non-required field for TradeCaptureReport.
 	PriceType *int `fix:"423"`
-	//Instrument Component
+	//Instrument is a required component for TradeCaptureReport.
 	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
-	//OrderQtyData Component
-	orderqtydata.OrderQtyData
+	//FinancingDetails is a non-required component for TradeCaptureReport.
+	FinancingDetails *financingdetails.FinancingDetails
+	//OrderQtyData is a non-required component for TradeCaptureReport.
+	OrderQtyData *orderqtydata.OrderQtyData
 	//QtyType is a non-required field for TradeCaptureReport.
 	QtyType *int `fix:"854"`
-	//YieldData Component
-	yielddata.YieldData
+	//YieldData is a non-required component for TradeCaptureReport.
+	YieldData *yielddata.YieldData
 	//NoUnderlyings is a non-required field for TradeCaptureReport.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//UnderlyingTradingSessionID is a non-required field for TradeCaptureReport.
@@ -402,12 +413,12 @@ type Message struct {
 	ClearingBusinessDate *string `fix:"715"`
 	//AvgPx is a non-required field for TradeCaptureReport.
 	AvgPx *float64 `fix:"6"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//SpreadOrBenchmarkCurveData is a non-required component for TradeCaptureReport.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//AvgPxIndicator is a non-required field for TradeCaptureReport.
 	AvgPxIndicator *int `fix:"819"`
-	//PositionAmountData Component
-	positionamountdata.PositionAmountData
+	//PositionAmountData is a non-required component for TradeCaptureReport.
+	PositionAmountData *positionamountdata.PositionAmountData
 	//MultiLegReportingType is a non-required field for TradeCaptureReport.
 	MultiLegReportingType *string `fix:"442"`
 	//TradeLegRefID is a non-required field for TradeCaptureReport.
@@ -416,8 +427,8 @@ type Message struct {
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//TransactTime is a required field for TradeCaptureReport.
 	TransactTime time.Time `fix:"60"`
-	//TrdRegTimestamps Component
-	trdregtimestamps.TrdRegTimestamps
+	//TrdRegTimestamps is a non-required component for TradeCaptureReport.
+	TrdRegTimestamps *trdregtimestamps.TrdRegTimestamps
 	//SettlType is a non-required field for TradeCaptureReport.
 	SettlType *string `fix:"63"`
 	//SettlDate is a non-required field for TradeCaptureReport.
@@ -434,53 +445,64 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetTradeReportID(v string)                 { m.TradeReportID = v }
-func (m *Message) SetTradeReportTransType(v int)             { m.TradeReportTransType = &v }
-func (m *Message) SetTradeReportType(v int)                  { m.TradeReportType = &v }
-func (m *Message) SetTradeRequestID(v string)                { m.TradeRequestID = &v }
-func (m *Message) SetTrdType(v int)                          { m.TrdType = &v }
-func (m *Message) SetTrdSubType(v int)                       { m.TrdSubType = &v }
-func (m *Message) SetSecondaryTrdType(v int)                 { m.SecondaryTrdType = &v }
-func (m *Message) SetTransferReason(v string)                { m.TransferReason = &v }
-func (m *Message) SetExecType(v string)                      { m.ExecType = &v }
-func (m *Message) SetTotNumTradeReports(v int)               { m.TotNumTradeReports = &v }
-func (m *Message) SetLastRptRequested(v bool)                { m.LastRptRequested = &v }
-func (m *Message) SetUnsolicitedIndicator(v bool)            { m.UnsolicitedIndicator = &v }
-func (m *Message) SetSubscriptionRequestType(v string)       { m.SubscriptionRequestType = &v }
-func (m *Message) SetTradeReportRefID(v string)              { m.TradeReportRefID = &v }
-func (m *Message) SetSecondaryTradeReportRefID(v string)     { m.SecondaryTradeReportRefID = &v }
-func (m *Message) SetSecondaryTradeReportID(v string)        { m.SecondaryTradeReportID = &v }
-func (m *Message) SetTradeLinkID(v string)                   { m.TradeLinkID = &v }
-func (m *Message) SetTrdMatchID(v string)                    { m.TrdMatchID = &v }
-func (m *Message) SetExecID(v string)                        { m.ExecID = &v }
-func (m *Message) SetOrdStatus(v string)                     { m.OrdStatus = &v }
-func (m *Message) SetSecondaryExecID(v string)               { m.SecondaryExecID = &v }
-func (m *Message) SetExecRestatementReason(v int)            { m.ExecRestatementReason = &v }
-func (m *Message) SetPreviouslyReported(v bool)              { m.PreviouslyReported = v }
-func (m *Message) SetPriceType(v int)                        { m.PriceType = &v }
-func (m *Message) SetQtyType(v int)                          { m.QtyType = &v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings)        { m.NoUnderlyings = v }
-func (m *Message) SetUnderlyingTradingSessionID(v string)    { m.UnderlyingTradingSessionID = &v }
-func (m *Message) SetUnderlyingTradingSessionSubID(v string) { m.UnderlyingTradingSessionSubID = &v }
-func (m *Message) SetLastQty(v float64)                      { m.LastQty = v }
-func (m *Message) SetLastPx(v float64)                       { m.LastPx = v }
-func (m *Message) SetLastParPx(v float64)                    { m.LastParPx = &v }
-func (m *Message) SetLastSpotRate(v float64)                 { m.LastSpotRate = &v }
-func (m *Message) SetLastForwardPoints(v float64)            { m.LastForwardPoints = &v }
-func (m *Message) SetLastMkt(v string)                       { m.LastMkt = &v }
-func (m *Message) SetTradeDate(v string)                     { m.TradeDate = v }
-func (m *Message) SetClearingBusinessDate(v string)          { m.ClearingBusinessDate = &v }
-func (m *Message) SetAvgPx(v float64)                        { m.AvgPx = &v }
-func (m *Message) SetAvgPxIndicator(v int)                   { m.AvgPxIndicator = &v }
-func (m *Message) SetMultiLegReportingType(v string)         { m.MultiLegReportingType = &v }
-func (m *Message) SetTradeLegRefID(v string)                 { m.TradeLegRefID = &v }
-func (m *Message) SetNoLegs(v []NoLegs)                      { m.NoLegs = v }
-func (m *Message) SetTransactTime(v time.Time)               { m.TransactTime = v }
-func (m *Message) SetSettlType(v string)                     { m.SettlType = &v }
-func (m *Message) SetSettlDate(v string)                     { m.SettlDate = &v }
-func (m *Message) SetMatchStatus(v string)                   { m.MatchStatus = &v }
-func (m *Message) SetMatchType(v string)                     { m.MatchType = &v }
-func (m *Message) SetNoSides(v []NoSides)                    { m.NoSides = v }
+func (m *Message) SetTradeReportID(v string)                               { m.TradeReportID = v }
+func (m *Message) SetTradeReportTransType(v int)                           { m.TradeReportTransType = &v }
+func (m *Message) SetTradeReportType(v int)                                { m.TradeReportType = &v }
+func (m *Message) SetTradeRequestID(v string)                              { m.TradeRequestID = &v }
+func (m *Message) SetTrdType(v int)                                        { m.TrdType = &v }
+func (m *Message) SetTrdSubType(v int)                                     { m.TrdSubType = &v }
+func (m *Message) SetSecondaryTrdType(v int)                               { m.SecondaryTrdType = &v }
+func (m *Message) SetTransferReason(v string)                              { m.TransferReason = &v }
+func (m *Message) SetExecType(v string)                                    { m.ExecType = &v }
+func (m *Message) SetTotNumTradeReports(v int)                             { m.TotNumTradeReports = &v }
+func (m *Message) SetLastRptRequested(v bool)                              { m.LastRptRequested = &v }
+func (m *Message) SetUnsolicitedIndicator(v bool)                          { m.UnsolicitedIndicator = &v }
+func (m *Message) SetSubscriptionRequestType(v string)                     { m.SubscriptionRequestType = &v }
+func (m *Message) SetTradeReportRefID(v string)                            { m.TradeReportRefID = &v }
+func (m *Message) SetSecondaryTradeReportRefID(v string)                   { m.SecondaryTradeReportRefID = &v }
+func (m *Message) SetSecondaryTradeReportID(v string)                      { m.SecondaryTradeReportID = &v }
+func (m *Message) SetTradeLinkID(v string)                                 { m.TradeLinkID = &v }
+func (m *Message) SetTrdMatchID(v string)                                  { m.TrdMatchID = &v }
+func (m *Message) SetExecID(v string)                                      { m.ExecID = &v }
+func (m *Message) SetOrdStatus(v string)                                   { m.OrdStatus = &v }
+func (m *Message) SetSecondaryExecID(v string)                             { m.SecondaryExecID = &v }
+func (m *Message) SetExecRestatementReason(v int)                          { m.ExecRestatementReason = &v }
+func (m *Message) SetPreviouslyReported(v bool)                            { m.PreviouslyReported = v }
+func (m *Message) SetPriceType(v int)                                      { m.PriceType = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)                   { m.Instrument = v }
+func (m *Message) SetFinancingDetails(v financingdetails.FinancingDetails) { m.FinancingDetails = &v }
+func (m *Message) SetOrderQtyData(v orderqtydata.OrderQtyData)             { m.OrderQtyData = &v }
+func (m *Message) SetQtyType(v int)                                        { m.QtyType = &v }
+func (m *Message) SetYieldData(v yielddata.YieldData)                      { m.YieldData = &v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)                      { m.NoUnderlyings = v }
+func (m *Message) SetUnderlyingTradingSessionID(v string)                  { m.UnderlyingTradingSessionID = &v }
+func (m *Message) SetUnderlyingTradingSessionSubID(v string)               { m.UnderlyingTradingSessionSubID = &v }
+func (m *Message) SetLastQty(v float64)                                    { m.LastQty = v }
+func (m *Message) SetLastPx(v float64)                                     { m.LastPx = v }
+func (m *Message) SetLastParPx(v float64)                                  { m.LastParPx = &v }
+func (m *Message) SetLastSpotRate(v float64)                               { m.LastSpotRate = &v }
+func (m *Message) SetLastForwardPoints(v float64)                          { m.LastForwardPoints = &v }
+func (m *Message) SetLastMkt(v string)                                     { m.LastMkt = &v }
+func (m *Message) SetTradeDate(v string)                                   { m.TradeDate = v }
+func (m *Message) SetClearingBusinessDate(v string)                        { m.ClearingBusinessDate = &v }
+func (m *Message) SetAvgPx(v float64)                                      { m.AvgPx = &v }
+func (m *Message) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *Message) SetAvgPxIndicator(v int) { m.AvgPxIndicator = &v }
+func (m *Message) SetPositionAmountData(v positionamountdata.PositionAmountData) {
+	m.PositionAmountData = &v
+}
+func (m *Message) SetMultiLegReportingType(v string)                       { m.MultiLegReportingType = &v }
+func (m *Message) SetTradeLegRefID(v string)                               { m.TradeLegRefID = &v }
+func (m *Message) SetNoLegs(v []NoLegs)                                    { m.NoLegs = v }
+func (m *Message) SetTransactTime(v time.Time)                             { m.TransactTime = v }
+func (m *Message) SetTrdRegTimestamps(v trdregtimestamps.TrdRegTimestamps) { m.TrdRegTimestamps = &v }
+func (m *Message) SetSettlType(v string)                                   { m.SettlType = &v }
+func (m *Message) SetSettlDate(v string)                                   { m.SettlDate = &v }
+func (m *Message) SetMatchStatus(v string)                                 { m.MatchStatus = &v }
+func (m *Message) SetMatchType(v string)                                   { m.MatchType = &v }
+func (m *Message) SetNoSides(v []NoSides)                                  { m.NoSides = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

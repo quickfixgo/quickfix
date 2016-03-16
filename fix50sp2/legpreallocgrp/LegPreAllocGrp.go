@@ -16,8 +16,8 @@ type NoLegAllocs struct {
 	LegAllocAcctIDSource *string `fix:"674"`
 	//LegAllocSettlCurrency is a non-required field for NoLegAllocs.
 	LegAllocSettlCurrency *string `fix:"1367"`
-	//NestedParties2 Component
-	nestedparties2.NestedParties2
+	//NestedParties2 is a non-required component for NoLegAllocs.
+	NestedParties2 *nestedparties2.NestedParties2
 }
 
 //LegPreAllocGrp is a fix50sp2 Component

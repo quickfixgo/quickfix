@@ -10,10 +10,10 @@ import (
 type NoQuoteEntries struct {
 	//QuoteEntryID is a non-required field for NoQuoteEntries.
 	QuoteEntryID *string `fix:"299"`
-	//Instrument Component
-	instrument.Instrument
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//Instrument is a non-required component for NoQuoteEntries.
+	Instrument *instrument.Instrument
+	//InstrmtLegGrp is a non-required component for NoQuoteEntries.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 	//BidPx is a non-required field for NoQuoteEntries.
 	BidPx *float64 `fix:"132"`
 	//OfferPx is a non-required field for NoQuoteEntries.

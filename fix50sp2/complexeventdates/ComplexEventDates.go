@@ -11,8 +11,8 @@ type NoComplexEventDates struct {
 	ComplexEventStartDate *time.Time `fix:"1492"`
 	//ComplexEventEndDate is a non-required field for NoComplexEventDates.
 	ComplexEventEndDate *time.Time `fix:"1493"`
-	//ComplexEventTimes Component
-	complexeventtimes.ComplexEventTimes
+	//ComplexEventTimes is a non-required component for NoComplexEventDates.
+	ComplexEventTimes *complexeventtimes.ComplexEventTimes
 }
 
 //ComplexEventDates is a fix50sp2 Component

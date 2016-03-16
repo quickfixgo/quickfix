@@ -13,15 +13,21 @@ import (
 
 //NoUnderlyings is a repeating group in SecurityDefinitionRequest
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in SecurityDefinitionRequest
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //Message is a SecurityDefinitionRequest FIX Message
 type Message struct {
@@ -31,10 +37,10 @@ type Message struct {
 	SecurityReqID string `fix:"320"`
 	//SecurityRequestType is a required field for SecurityDefinitionRequest.
 	SecurityRequestType int `fix:"321"`
-	//Instrument Component
-	instrument.Instrument
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
+	//Instrument is a non-required component for SecurityDefinitionRequest.
+	Instrument *instrument.Instrument
+	//InstrumentExtension is a non-required component for SecurityDefinitionRequest.
+	InstrumentExtension *instrumentextension.InstrumentExtension
 	//NoUnderlyings is a non-required field for SecurityDefinitionRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Currency is a non-required field for SecurityDefinitionRequest.
@@ -61,8 +67,12 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReqID(v string)           { m.SecurityReqID = v }
-func (m *Message) SetSecurityRequestType(v int)        { m.SecurityRequestType = v }
+func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = v }
+func (m *Message) SetSecurityRequestType(v int)          { m.SecurityRequestType = v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
+	m.InstrumentExtension = &v
+}
 func (m *Message) SetNoUnderlyings(v []NoUnderlyings)  { m.NoUnderlyings = v }
 func (m *Message) SetCurrency(v string)                { m.Currency = &v }
 func (m *Message) SetText(v string)                    { m.Text = &v }

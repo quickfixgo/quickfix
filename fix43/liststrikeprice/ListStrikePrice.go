@@ -10,7 +10,7 @@ import (
 
 //NoStrikes is a repeating group in ListStrikePrice
 type NoStrikes struct {
-	//Instrument Component
+	//Instrument is a required component for NoStrikes.
 	instrument.Instrument
 	//PrevClosePx is a non-required field for NoStrikes.
 	PrevClosePx *float64 `fix:"140"`
@@ -32,15 +32,16 @@ type NoStrikes struct {
 	EncodedText *string `fix:"355"`
 }
 
-func (m *NoStrikes) SetPrevClosePx(v float64)     { m.PrevClosePx = &v }
-func (m *NoStrikes) SetClOrdID(v string)          { m.ClOrdID = &v }
-func (m *NoStrikes) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }
-func (m *NoStrikes) SetSide(v string)             { m.Side = &v }
-func (m *NoStrikes) SetPrice(v float64)           { m.Price = v }
-func (m *NoStrikes) SetCurrency(v string)         { m.Currency = &v }
-func (m *NoStrikes) SetText(v string)             { m.Text = &v }
-func (m *NoStrikes) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
-func (m *NoStrikes) SetEncodedText(v string)      { m.EncodedText = &v }
+func (m *NoStrikes) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+func (m *NoStrikes) SetPrevClosePx(v float64)              { m.PrevClosePx = &v }
+func (m *NoStrikes) SetClOrdID(v string)                   { m.ClOrdID = &v }
+func (m *NoStrikes) SetSecondaryClOrdID(v string)          { m.SecondaryClOrdID = &v }
+func (m *NoStrikes) SetSide(v string)                      { m.Side = &v }
+func (m *NoStrikes) SetPrice(v float64)                    { m.Price = v }
+func (m *NoStrikes) SetCurrency(v string)                  { m.Currency = &v }
+func (m *NoStrikes) SetText(v string)                      { m.Text = &v }
+func (m *NoStrikes) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *NoStrikes) SetEncodedText(v string)               { m.EncodedText = &v }
 
 //Message is a ListStrikePrice FIX Message
 type Message struct {

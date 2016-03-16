@@ -1,18 +1,8 @@
 package settlinstructionsdata
 
 import (
-	"github.com/quickfixgo/quickfix/fix50sp1/settlparties"
+	"github.com/quickfixgo/quickfix/fix50sp1/dlvyinstgrp"
 )
-
-//NoDlvyInst is a repeating group in SettlInstructionsData
-type NoDlvyInst struct {
-	//SettlInstSource is a non-required field for NoDlvyInst.
-	SettlInstSource *string `fix:"165"`
-	//DlvyInstType is a non-required field for NoDlvyInst.
-	DlvyInstType *string `fix:"787"`
-	//SettlParties Component
-	settlparties.SettlParties
-}
 
 //SettlInstructionsData is a fix50sp1 Component
 type SettlInstructionsData struct {
@@ -24,12 +14,12 @@ type SettlInstructionsData struct {
 	StandInstDbName *string `fix:"170"`
 	//StandInstDbID is a non-required field for SettlInstructionsData.
 	StandInstDbID *string `fix:"171"`
-	//NoDlvyInst is a non-required field for SettlInstructionsData.
-	NoDlvyInst []NoDlvyInst `fix:"85,omitempty"`
+	//DlvyInstGrp is a non-required component for SettlInstructionsData.
+	DlvyInstGrp *dlvyinstgrp.DlvyInstGrp
 }
 
-func (m *SettlInstructionsData) SetSettlDeliveryType(v int)   { m.SettlDeliveryType = &v }
-func (m *SettlInstructionsData) SetStandInstDbType(v int)     { m.StandInstDbType = &v }
-func (m *SettlInstructionsData) SetStandInstDbName(v string)  { m.StandInstDbName = &v }
-func (m *SettlInstructionsData) SetStandInstDbID(v string)    { m.StandInstDbID = &v }
-func (m *SettlInstructionsData) SetNoDlvyInst(v []NoDlvyInst) { m.NoDlvyInst = v }
+func (m *SettlInstructionsData) SetSettlDeliveryType(v int)               { m.SettlDeliveryType = &v }
+func (m *SettlInstructionsData) SetStandInstDbType(v int)                 { m.StandInstDbType = &v }
+func (m *SettlInstructionsData) SetStandInstDbName(v string)              { m.StandInstDbName = &v }
+func (m *SettlInstructionsData) SetStandInstDbID(v string)                { m.StandInstDbID = &v }
+func (m *SettlInstructionsData) SetDlvyInstGrp(v dlvyinstgrp.DlvyInstGrp) { m.DlvyInstGrp = &v }

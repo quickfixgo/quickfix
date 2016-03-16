@@ -9,20 +9,20 @@ import (
 
 //NoLegs is a repeating group in TrdInstrmtLegGrp
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
-	//LegStipulations Component
-	legstipulations.LegStipulations
+	//LegStipulations is a non-required component for NoLegs.
+	LegStipulations *legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoLegs.
+	NestedParties *nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegSettlType is a non-required field for NoLegs.
@@ -43,8 +43,8 @@ type NoLegs struct {
 	LegGrossTradeAmt *float64 `fix:"1075"`
 	//LegNumber is a non-required field for NoLegs.
 	LegNumber *int `fix:"1152"`
-	//TradeCapLegUnderlyingsGrp Component
-	tradecaplegunderlyingsgrp.TradeCapLegUnderlyingsGrp
+	//TradeCapLegUnderlyingsGrp is a non-required component for NoLegs.
+	TradeCapLegUnderlyingsGrp *tradecaplegunderlyingsgrp.TradeCapLegUnderlyingsGrp
 	//LegVolatility is a non-required field for NoLegs.
 	LegVolatility *float64 `fix:"1379"`
 	//LegDividendYield is a non-required field for NoLegs.

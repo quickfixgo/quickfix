@@ -39,30 +39,30 @@ type Message struct {
 	SettlSessID *string `fix:"716"`
 	//SettlSessSubID is a non-required field for PositionMaintenanceReport.
 	SettlSessSubID *string `fix:"717"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for PositionMaintenanceReport.
+	Parties *parties.Parties
 	//Account is a non-required field for PositionMaintenanceReport.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for PositionMaintenanceReport.
 	AcctIDSource *int `fix:"660"`
 	//AccountType is a non-required field for PositionMaintenanceReport.
 	AccountType *int `fix:"581"`
-	//Instrument Component
+	//Instrument is a required component for PositionMaintenanceReport.
 	instrument.Instrument
 	//Currency is a non-required field for PositionMaintenanceReport.
 	Currency *string `fix:"15"`
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
-	//TrdgSesGrp Component
-	trdgsesgrp.TrdgSesGrp
+	//InstrmtLegGrp is a non-required component for PositionMaintenanceReport.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
+	//UndInstrmtGrp is a non-required component for PositionMaintenanceReport.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
+	//TrdgSesGrp is a non-required component for PositionMaintenanceReport.
+	TrdgSesGrp *trdgsesgrp.TrdgSesGrp
 	//TransactTime is a non-required field for PositionMaintenanceReport.
 	TransactTime *time.Time `fix:"60"`
-	//PositionQty Component
+	//PositionQty is a required component for PositionMaintenanceReport.
 	positionqty.PositionQty
-	//PositionAmountData Component
-	positionamountdata.PositionAmountData
+	//PositionAmountData is a non-required component for PositionMaintenanceReport.
+	PositionAmountData *positionamountdata.PositionAmountData
 	//AdjustmentType is a non-required field for PositionMaintenanceReport.
 	AdjustmentType *int `fix:"718"`
 	//ThresholdAmount is a non-required field for PositionMaintenanceReport.
@@ -87,21 +87,30 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetPosMaintRptID(v string)              { m.PosMaintRptID = v }
-func (m *Message) SetPosTransType(v int)                  { m.PosTransType = v }
-func (m *Message) SetPosReqID(v string)                   { m.PosReqID = &v }
-func (m *Message) SetPosMaintAction(v int)                { m.PosMaintAction = v }
-func (m *Message) SetOrigPosReqRefID(v string)            { m.OrigPosReqRefID = &v }
-func (m *Message) SetPosMaintStatus(v int)                { m.PosMaintStatus = v }
-func (m *Message) SetPosMaintResult(v int)                { m.PosMaintResult = &v }
-func (m *Message) SetClearingBusinessDate(v string)       { m.ClearingBusinessDate = v }
-func (m *Message) SetSettlSessID(v string)                { m.SettlSessID = &v }
-func (m *Message) SetSettlSessSubID(v string)             { m.SettlSessSubID = &v }
-func (m *Message) SetAccount(v string)                    { m.Account = &v }
-func (m *Message) SetAcctIDSource(v int)                  { m.AcctIDSource = &v }
-func (m *Message) SetAccountType(v int)                   { m.AccountType = &v }
-func (m *Message) SetCurrency(v string)                   { m.Currency = &v }
-func (m *Message) SetTransactTime(v time.Time)            { m.TransactTime = &v }
+func (m *Message) SetPosMaintRptID(v string)                      { m.PosMaintRptID = v }
+func (m *Message) SetPosTransType(v int)                          { m.PosTransType = v }
+func (m *Message) SetPosReqID(v string)                           { m.PosReqID = &v }
+func (m *Message) SetPosMaintAction(v int)                        { m.PosMaintAction = v }
+func (m *Message) SetOrigPosReqRefID(v string)                    { m.OrigPosReqRefID = &v }
+func (m *Message) SetPosMaintStatus(v int)                        { m.PosMaintStatus = v }
+func (m *Message) SetPosMaintResult(v int)                        { m.PosMaintResult = &v }
+func (m *Message) SetClearingBusinessDate(v string)               { m.ClearingBusinessDate = v }
+func (m *Message) SetSettlSessID(v string)                        { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)                     { m.SettlSessSubID = &v }
+func (m *Message) SetParties(v parties.Parties)                   { m.Parties = &v }
+func (m *Message) SetAccount(v string)                            { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                          { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                           { m.AccountType = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)          { m.Instrument = v }
+func (m *Message) SetCurrency(v string)                           { m.Currency = &v }
+func (m *Message) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *Message) SetTrdgSesGrp(v trdgsesgrp.TrdgSesGrp)          { m.TrdgSesGrp = &v }
+func (m *Message) SetTransactTime(v time.Time)                    { m.TransactTime = &v }
+func (m *Message) SetPositionQty(v positionqty.PositionQty)       { m.PositionQty = v }
+func (m *Message) SetPositionAmountData(v positionamountdata.PositionAmountData) {
+	m.PositionAmountData = &v
+}
 func (m *Message) SetAdjustmentType(v int)                { m.AdjustmentType = &v }
 func (m *Message) SetThresholdAmount(v float64)           { m.ThresholdAmount = &v }
 func (m *Message) SetText(v string)                       { m.Text = &v }

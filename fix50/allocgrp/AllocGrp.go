@@ -24,8 +24,8 @@ type NoAllocs struct {
 	IndividualAllocID *string `fix:"467"`
 	//ProcessCode is a non-required field for NoAllocs.
 	ProcessCode *string `fix:"81"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoAllocs.
+	NestedParties *nestedparties.NestedParties
 	//NotifyBrokerOfCredit is a non-required field for NoAllocs.
 	NotifyBrokerOfCredit *bool `fix:"208"`
 	//AllocHandlInst is a non-required field for NoAllocs.
@@ -36,8 +36,8 @@ type NoAllocs struct {
 	EncodedAllocTextLen *int `fix:"360"`
 	//EncodedAllocText is a non-required field for NoAllocs.
 	EncodedAllocText *string `fix:"361"`
-	//CommissionData Component
-	commissiondata.CommissionData
+	//CommissionData is a non-required component for NoAllocs.
+	CommissionData *commissiondata.CommissionData
 	//AllocAvgPx is a non-required field for NoAllocs.
 	AllocAvgPx *float64 `fix:"153"`
 	//AllocNetMoney is a non-required field for NoAllocs.
@@ -58,14 +58,14 @@ type NoAllocs struct {
 	AllocAccruedInterestAmt *float64 `fix:"742"`
 	//AllocInterestAtMaturity is a non-required field for NoAllocs.
 	AllocInterestAtMaturity *float64 `fix:"741"`
-	//MiscFeesGrp Component
-	miscfeesgrp.MiscFeesGrp
-	//ClrInstGrp Component
-	clrinstgrp.ClrInstGrp
+	//MiscFeesGrp is a non-required component for NoAllocs.
+	MiscFeesGrp *miscfeesgrp.MiscFeesGrp
+	//ClrInstGrp is a non-required component for NoAllocs.
+	ClrInstGrp *clrinstgrp.ClrInstGrp
 	//AllocSettlInstType is a non-required field for NoAllocs.
 	AllocSettlInstType *int `fix:"780"`
-	//SettlInstructionsData Component
-	settlinstructionsdata.SettlInstructionsData
+	//SettlInstructionsData is a non-required component for NoAllocs.
+	SettlInstructionsData *settlinstructionsdata.SettlInstructionsData
 	//SecondaryIndividualAllocID is a non-required field for NoAllocs.
 	SecondaryIndividualAllocID *string `fix:"989"`
 	//AllocMethod is a non-required field for NoAllocs.

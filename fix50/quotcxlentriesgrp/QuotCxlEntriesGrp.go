@@ -9,14 +9,14 @@ import (
 
 //NoQuoteEntries is a repeating group in QuotCxlEntriesGrp
 type NoQuoteEntries struct {
-	//Instrument Component
-	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//Instrument is a non-required component for NoQuoteEntries.
+	Instrument *instrument.Instrument
+	//FinancingDetails is a non-required component for NoQuoteEntries.
+	FinancingDetails *financingdetails.FinancingDetails
+	//UndInstrmtGrp is a non-required component for NoQuoteEntries.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
+	//InstrmtLegGrp is a non-required component for NoQuoteEntries.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 }
 
 //QuotCxlEntriesGrp is a fix50 Component

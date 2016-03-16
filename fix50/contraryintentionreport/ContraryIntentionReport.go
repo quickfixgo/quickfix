@@ -26,11 +26,11 @@ type Message struct {
 	InputSource *string `fix:"979"`
 	//ClearingBusinessDate is a required field for ContraryIntentionReport.
 	ClearingBusinessDate string `fix:"715"`
-	//Parties Component
+	//Parties is a required component for ContraryIntentionReport.
 	parties.Parties
-	//ExpirationQty Component
+	//ExpirationQty is a required component for ContraryIntentionReport.
 	expirationqty.ExpirationQty
-	//Instrument Component
+	//Instrument is a required component for ContraryIntentionReport.
 	instrument.Instrument
 	//Text is a non-required field for ContraryIntentionReport.
 	Text *string `fix:"58"`
@@ -38,22 +38,26 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ContraryIntentionReport.
 	EncodedText *string `fix:"355"`
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//UndInstrmtGrp is a non-required component for ContraryIntentionReport.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetContIntRptID(v string)         { m.ContIntRptID = v }
-func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }
-func (m *Message) SetLateIndicator(v bool)          { m.LateIndicator = &v }
-func (m *Message) SetInputSource(v string)          { m.InputSource = &v }
-func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = v }
-func (m *Message) SetText(v string)                 { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
+func (m *Message) SetContIntRptID(v string)                       { m.ContIntRptID = v }
+func (m *Message) SetTransactTime(v time.Time)                    { m.TransactTime = &v }
+func (m *Message) SetLateIndicator(v bool)                        { m.LateIndicator = &v }
+func (m *Message) SetInputSource(v string)                        { m.InputSource = &v }
+func (m *Message) SetClearingBusinessDate(v string)               { m.ClearingBusinessDate = v }
+func (m *Message) SetParties(v parties.Parties)                   { m.Parties = v }
+func (m *Message) SetExpirationQty(v expirationqty.ExpirationQty) { m.ExpirationQty = v }
+func (m *Message) SetInstrument(v instrument.Instrument)          { m.Instrument = v }
+func (m *Message) SetText(v string)                               { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                        { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                        { m.EncodedText = &v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

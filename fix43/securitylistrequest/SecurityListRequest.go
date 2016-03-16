@@ -16,8 +16,8 @@ type Message struct {
 	SecurityReqID string `fix:"320"`
 	//SecurityListRequestType is a required field for SecurityListRequest.
 	SecurityListRequestType int `fix:"559"`
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for SecurityListRequest.
+	Instrument *instrument.Instrument
 	//Currency is a non-required field for SecurityListRequest.
 	Currency *string `fix:"15"`
 	//Text is a non-required field for SecurityListRequest.
@@ -38,15 +38,16 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReqID(v string)           { m.SecurityReqID = v }
-func (m *Message) SetSecurityListRequestType(v int)    { m.SecurityListRequestType = v }
-func (m *Message) SetCurrency(v string)                { m.Currency = &v }
-func (m *Message) SetText(v string)                    { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)             { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)             { m.EncodedText = &v }
-func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
-func (m *Message) SetTradingSessionSubID(v string)     { m.TradingSessionSubID = &v }
-func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
+func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = v }
+func (m *Message) SetSecurityListRequestType(v int)      { m.SecurityListRequestType = v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetCurrency(v string)                  { m.Currency = &v }
+func (m *Message) SetText(v string)                      { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)               { m.EncodedText = &v }
+func (m *Message) SetTradingSessionID(v string)          { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
+func (m *Message) SetSubscriptionRequestType(v string)   { m.SubscriptionRequestType = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

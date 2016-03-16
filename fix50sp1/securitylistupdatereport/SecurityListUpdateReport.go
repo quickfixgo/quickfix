@@ -31,14 +31,14 @@ type Message struct {
 	CorporateAction *string `fix:"292"`
 	//LastFragment is a non-required field for SecurityListUpdateReport.
 	LastFragment *bool `fix:"893"`
-	//SecLstUpdRelSymGrp Component
-	seclstupdrelsymgrp.SecLstUpdRelSymGrp
+	//SecLstUpdRelSymGrp is a non-required component for SecurityListUpdateReport.
+	SecLstUpdRelSymGrp *seclstupdrelsymgrp.SecLstUpdRelSymGrp
 	//MarketID is a non-required field for SecurityListUpdateReport.
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for SecurityListUpdateReport.
 	MarketSegmentID *string `fix:"1300"`
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//ApplicationSequenceControl is a non-required component for SecurityListUpdateReport.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	fixt11.Trailer
 }
 
@@ -54,8 +54,14 @@ func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &
 func (m *Message) SetSecurityUpdateAction(v string) { m.SecurityUpdateAction = &v }
 func (m *Message) SetCorporateAction(v string)      { m.CorporateAction = &v }
 func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
-func (m *Message) SetMarketID(v string)             { m.MarketID = &v }
-func (m *Message) SetMarketSegmentID(v string)      { m.MarketSegmentID = &v }
+func (m *Message) SetSecLstUpdRelSymGrp(v seclstupdrelsymgrp.SecLstUpdRelSymGrp) {
+	m.SecLstUpdRelSymGrp = &v
+}
+func (m *Message) SetMarketID(v string)        { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string) { m.MarketSegmentID = &v }
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -11,10 +11,10 @@ type NoMarketSegments struct {
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for NoMarketSegments.
 	MarketSegmentID *string `fix:"1300"`
-	//SecurityTradingRules Component
-	securitytradingrules.SecurityTradingRules
-	//StrikeRules Component
-	strikerules.StrikeRules
+	//SecurityTradingRules is a non-required component for NoMarketSegments.
+	SecurityTradingRules *securitytradingrules.SecurityTradingRules
+	//StrikeRules is a non-required component for NoMarketSegments.
+	StrikeRules *strikerules.StrikeRules
 }
 
 //MarketSegmentGrp is a fix50sp2 Component

@@ -12,8 +12,8 @@ type NoNested4PartyIDs struct {
 	Nested4PartyIDSource *string `fix:"1416"`
 	//Nested4PartyRole is a non-required field for NoNested4PartyIDs.
 	Nested4PartyRole *int `fix:"1417"`
-	//NstdPtys4SubGrp Component
-	nstdptys4subgrp.NstdPtys4SubGrp
+	//NstdPtys4SubGrp is a non-required component for NoNested4PartyIDs.
+	NstdPtys4SubGrp *nstdptys4subgrp.NstdPtys4SubGrp
 }
 
 //NestedParties4 is a fix50sp2 Component

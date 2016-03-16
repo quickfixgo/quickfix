@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"github.com/quickfixgo/quickfix/_gen"
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"os"
 	"path"
 	"strconv"
 	"strings"
+
+	"github.com/quickfixgo/quickfix/_gen"
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 var (
@@ -57,38 +58,43 @@ type group struct {
 	field  *datadictionary.FieldDef
 }
 
-func collectGroups(parent string, field *datadictionary.FieldDef, groups []group) []group {
-	if !field.IsGroup() {
-		return groups
-	}
+func collectGroups(parent string, part datadictionary.MessagePart, groups []group) []group {
+	switch field := part.(type) {
+	case *datadictionary.FieldDef:
+		if !field.IsGroup() {
+			return groups
+		}
 
-	groups = append(groups, group{parent, field})
-	for _, childField := range field.ChildFields {
-		groups = collectGroups(field.Name, childField, groups)
+		groups = append(groups, group{parent, field})
+		for _, childField := range field.Parts {
+			groups = collectGroups(field.Name(), childField, groups)
+		}
 	}
 
 	return groups
 }
 
-func writeFieldDeclaration(field *datadictionary.FieldDef, componentName string) string {
-	switch {
-	case field.IsComponent():
-		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Component.Name))] = true
-	case !field.IsGroup():
-		goType := gen.FixFieldTypeToGoType(field.Type)
-		if goType == "time.Time" {
-			imports["time"] = true
+func writeFieldDeclaration(part datadictionary.MessagePart, componentName string) string {
+	switch field := part.(type) {
+	case datadictionary.Component:
+		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Name()))] = true
+	case *datadictionary.FieldDef:
+		if !field.IsGroup() {
+			goType := gen.FixFieldTypeToGoType(field.Type)
+			if goType == "time.Time" {
+				imports["time"] = true
+			}
 		}
 	}
 
-	return gen.WriteFieldDeclaration(fixSpec.Major, fixSpec.Minor, field, componentName)
+	return gen.WriteFieldDeclaration(fixSpec.Major, fixSpec.Minor, part, componentName)
 }
 
 func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
-	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name, parent)
-	fileOut += fmt.Sprintf("type %v struct {\n", field.Name)
-	for _, groupField := range field.ChildFields {
-		fileOut += writeFieldDeclaration(groupField, field.Name)
+	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
+	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
+	for _, groupField := range field.Parts {
+		fileOut += writeFieldDeclaration(groupField, field.Name())
 	}
 
 	fileOut += "}\n"
@@ -96,7 +102,7 @@ func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut
 	return
 }
 
-func genGroupDeclarations(name string, fields []*datadictionary.FieldDef) (fileOut string) {
+func genGroupDeclarations(name string, fields []datadictionary.MessagePart) (fileOut string) {
 	groups := []group{}
 	for _, field := range fields {
 		groups = collectGroups(name, field, groups)
@@ -113,10 +119,10 @@ func genHeader(header *datadictionary.MessageDef) {
 	imports = make(map[string]bool)
 
 	//delay field output to determine imports
-	delayOut := genGroupDeclarations("Header", header.FieldsInDeclarationOrder)
+	delayOut := genGroupDeclarations("Header", header.Parts)
 	delayOut += fmt.Sprintf("//Header is the %v Header type\n", pkg)
 	delayOut += "type Header struct {\n"
-	for _, field := range header.FieldsInDeclarationOrder {
+	for _, field := range header.Parts {
 		delayOut += writeFieldDeclaration(field, "Header")
 	}
 	delayOut += "}\n"
@@ -126,7 +132,7 @@ func genHeader(header *datadictionary.MessageDef) {
 	fileOut += delayOut
 
 	writer := new(bytes.Buffer)
-	if err := gen.WriteFieldSetters(writer, "Header", header.FieldsInDeclarationOrder); err != nil {
+	if err := gen.WriteFieldSetters(writer, "Header", header.Parts); err != nil {
 		panic(err)
 	}
 	fileOut += writer.String()
@@ -139,13 +145,13 @@ func genTrailer(trailer *datadictionary.MessageDef) {
 	fileOut := packageString()
 	fileOut += fmt.Sprintf("//Trailer is the %v Trailer type\n", pkg)
 	fileOut += "type Trailer struct {\n"
-	for _, field := range trailer.FieldsInDeclarationOrder {
+	for _, field := range trailer.Parts {
 		fileOut += writeFieldDeclaration(field, "Trailer")
 	}
 	fileOut += "}\n"
 
 	writer := new(bytes.Buffer)
-	if err := gen.WriteFieldSetters(writer, "Trailer", trailer.FieldsInDeclarationOrder); err != nil {
+	if err := gen.WriteFieldSetters(writer, "Trailer", trailer.Parts); err != nil {
 		panic(err)
 	}
 	fileOut += writer.String()
@@ -153,14 +159,14 @@ func genTrailer(trailer *datadictionary.MessageDef) {
 	gen.WriteFile(path.Join(pkg, "trailer.go"), fileOut)
 }
 
-func genComponent(name string, component *datadictionary.Component) {
+func genComponent(name string, component *datadictionary.ComponentType) {
 	imports = make(map[string]bool)
 
 	//delay output to determine imports
-	delayOut := genGroupDeclarations(name, component.Fields)
+	delayOut := genGroupDeclarations(name, component.Parts)
 	delayOut += fmt.Sprintf("//%v is a %v Component\n", name, pkg)
 	delayOut += fmt.Sprintf("type %v struct {\n", name)
-	for _, field := range component.Fields {
+	for _, field := range component.Parts {
 		delayOut += writeFieldDeclaration(field, name)
 	}
 	delayOut += "}\n"
@@ -174,9 +180,9 @@ func genComponent(name string, component *datadictionary.Component) {
 	gen.WriteFile(path.Join(pkg, strings.ToLower(name), name+".go"), fileOut)
 }
 
-func genComponentSetters(component *datadictionary.Component) string {
+func genComponentSetters(component *datadictionary.ComponentType) string {
 	writer := new(bytes.Buffer)
-	if err := gen.WriteFieldSetters(writer, component.Name, component.Fields); err != nil {
+	if err := gen.WriteFieldSetters(writer, component.Name(), component.Parts); err != nil {
 		panic(err)
 	}
 
@@ -216,7 +222,7 @@ func main() {
 		genTrailer(fixSpec.Trailer)
 	}
 
-	for name, component := range fixSpec.Components {
+	for name, component := range fixSpec.ComponentTypes {
 		genComponent(name, component)
 	}
 }

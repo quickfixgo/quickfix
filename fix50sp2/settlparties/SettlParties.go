@@ -12,8 +12,8 @@ type NoSettlPartyIDs struct {
 	SettlPartyIDSource *string `fix:"783"`
 	//SettlPartyRole is a non-required field for NoSettlPartyIDs.
 	SettlPartyRole *int `fix:"784"`
-	//SettlPtysSubGrp Component
-	settlptyssubgrp.SettlPtysSubGrp
+	//SettlPtysSubGrp is a non-required component for NoSettlPartyIDs.
+	SettlPtysSubGrp *settlptyssubgrp.SettlPtysSubGrp
 }
 
 //SettlParties is a fix50sp2 Component

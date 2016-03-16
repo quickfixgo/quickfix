@@ -29,18 +29,18 @@ type NoSettlOblig struct {
 	SettlCurrFxRate *float64 `fix:"155"`
 	//SettlDate is a non-required field for NoSettlOblig.
 	SettlDate *string `fix:"64"`
-	//Instrument Component
-	instrument.Instrument
-	//Parties Component
-	parties.Parties
+	//Instrument is a non-required component for NoSettlOblig.
+	Instrument *instrument.Instrument
+	//Parties is a non-required component for NoSettlOblig.
+	Parties *parties.Parties
 	//EffectiveTime is a non-required field for NoSettlOblig.
 	EffectiveTime *time.Time `fix:"168"`
 	//ExpireTime is a non-required field for NoSettlOblig.
 	ExpireTime *time.Time `fix:"126"`
 	//LastUpdateTime is a non-required field for NoSettlOblig.
 	LastUpdateTime *time.Time `fix:"779"`
-	//SettlDetails Component
-	settldetails.SettlDetails
+	//SettlDetails is a non-required component for NoSettlOblig.
+	SettlDetails *settldetails.SettlDetails
 }
 
 //SettlObligationInstructions is a fix50sp2 Component

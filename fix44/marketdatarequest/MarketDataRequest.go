@@ -20,7 +20,7 @@ func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
 
 //NoRelatedSym is a repeating group in MarketDataRequest
 type NoRelatedSym struct {
-	//Instrument Component
+	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
 	//NoUnderlyings is a non-required field for NoRelatedSym.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
@@ -34,6 +34,7 @@ type NoRelatedSym struct {
 	ApplQueueMax *int `fix:"812"`
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument)      { m.Instrument = v }
 func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
 func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                       { m.NoLegs = v }
 func (m *NoRelatedSym) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
@@ -42,15 +43,21 @@ func (m *NoRelatedSym) SetApplQueueMax(v int)                      { m.ApplQueue
 
 //NoUnderlyings is a repeating group in NoRelatedSym
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoTradingSessions is a repeating group in NoRelatedSym
 type NoTradingSessions struct {

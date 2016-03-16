@@ -12,15 +12,21 @@ import (
 
 //NoUnderlyings is a repeating group in TradeCaptureReportRequestAck
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in TradeCaptureReportRequestAck
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //Message is a TradeCaptureReportRequestAck FIX Message
 type Message struct {
@@ -38,7 +44,7 @@ type Message struct {
 	TradeRequestResult int `fix:"749"`
 	//TradeRequestStatus is a required field for TradeCaptureReportRequestAck.
 	TradeRequestStatus int `fix:"750"`
-	//Instrument Component
+	//Instrument is a required component for TradeCaptureReportRequestAck.
 	instrument.Instrument
 	//NoUnderlyings is a non-required field for TradeCaptureReportRequestAck.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
@@ -62,20 +68,21 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetTradeRequestID(v string)          { m.TradeRequestID = v }
-func (m *Message) SetTradeRequestType(v int)           { m.TradeRequestType = v }
-func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
-func (m *Message) SetTotNumTradeReports(v int)         { m.TotNumTradeReports = &v }
-func (m *Message) SetTradeRequestResult(v int)         { m.TradeRequestResult = v }
-func (m *Message) SetTradeRequestStatus(v int)         { m.TradeRequestStatus = v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings)  { m.NoUnderlyings = v }
-func (m *Message) SetNoLegs(v []NoLegs)                { m.NoLegs = v }
-func (m *Message) SetMultiLegReportingType(v string)   { m.MultiLegReportingType = &v }
-func (m *Message) SetResponseTransportType(v int)      { m.ResponseTransportType = &v }
-func (m *Message) SetResponseDestination(v string)     { m.ResponseDestination = &v }
-func (m *Message) SetText(v string)                    { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)             { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)             { m.EncodedText = &v }
+func (m *Message) SetTradeRequestID(v string)            { m.TradeRequestID = v }
+func (m *Message) SetTradeRequestType(v int)             { m.TradeRequestType = v }
+func (m *Message) SetSubscriptionRequestType(v string)   { m.SubscriptionRequestType = &v }
+func (m *Message) SetTotNumTradeReports(v int)           { m.TotNumTradeReports = &v }
+func (m *Message) SetTradeRequestResult(v int)           { m.TradeRequestResult = v }
+func (m *Message) SetTradeRequestStatus(v int)           { m.TradeRequestStatus = v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)    { m.NoUnderlyings = v }
+func (m *Message) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
+func (m *Message) SetMultiLegReportingType(v string)     { m.MultiLegReportingType = &v }
+func (m *Message) SetResponseTransportType(v int)        { m.ResponseTransportType = &v }
+func (m *Message) SetResponseDestination(v string)       { m.ResponseDestination = &v }
+func (m *Message) SetText(v string)                      { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)               { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

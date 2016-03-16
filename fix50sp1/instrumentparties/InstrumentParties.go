@@ -12,8 +12,8 @@ type NoInstrumentParties struct {
 	InstrumentPartyIDSource *string `fix:"1050"`
 	//InstrumentPartyRole is a non-required field for NoInstrumentParties.
 	InstrumentPartyRole *int `fix:"1051"`
-	//InstrumentPtysSubGrp Component
-	instrumentptyssubgrp.InstrumentPtysSubGrp
+	//InstrumentPtysSubGrp is a non-required component for NoInstrumentParties.
+	InstrumentPtysSubGrp *instrumentptyssubgrp.InstrumentPtysSubGrp
 }
 
 //InstrumentParties is a fix50sp1 Component

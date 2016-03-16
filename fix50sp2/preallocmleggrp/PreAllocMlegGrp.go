@@ -14,8 +14,8 @@ type NoAllocs struct {
 	AllocSettlCurrency *string `fix:"736"`
 	//IndividualAllocID is a non-required field for NoAllocs.
 	IndividualAllocID *string `fix:"467"`
-	//NestedParties3 Component
-	nestedparties3.NestedParties3
+	//NestedParties3 is a non-required component for NoAllocs.
+	NestedParties3 *nestedparties3.NestedParties3
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
 }

@@ -23,16 +23,16 @@ type Message struct {
 	ApplResponseType *int `fix:"1348"`
 	//ApplTotalMessageCount is a non-required field for ApplicationMessageRequestAck.
 	ApplTotalMessageCount *int `fix:"1349"`
-	//ApplIDRequestAckGrp Component
-	applidrequestackgrp.ApplIDRequestAckGrp
+	//ApplIDRequestAckGrp is a non-required component for ApplicationMessageRequestAck.
+	ApplIDRequestAckGrp *applidrequestackgrp.ApplIDRequestAckGrp
 	//Text is a non-required field for ApplicationMessageRequestAck.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for ApplicationMessageRequestAck.
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ApplicationMessageRequestAck.
 	EncodedText *string `fix:"355"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for ApplicationMessageRequestAck.
+	Parties *parties.Parties
 	fixt11.Trailer
 }
 
@@ -44,9 +44,13 @@ func (m *Message) SetApplReqID(v string)          { m.ApplReqID = &v }
 func (m *Message) SetApplReqType(v int)           { m.ApplReqType = &v }
 func (m *Message) SetApplResponseType(v int)      { m.ApplResponseType = &v }
 func (m *Message) SetApplTotalMessageCount(v int) { m.ApplTotalMessageCount = &v }
-func (m *Message) SetText(v string)               { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)        { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)        { m.EncodedText = &v }
+func (m *Message) SetApplIDRequestAckGrp(v applidrequestackgrp.ApplIDRequestAckGrp) {
+	m.ApplIDRequestAckGrp = &v
+}
+func (m *Message) SetText(v string)             { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)      { m.EncodedText = &v }
+func (m *Message) SetParties(v parties.Parties) { m.Parties = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

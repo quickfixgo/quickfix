@@ -15,20 +15,25 @@ import (
 
 //NoLegs is a repeating group in PositionReport
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in PositionReport
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//UnderlyingSettlPrice is a required field for NoUnderlyings.
 	UnderlyingSettlPrice float64 `fix:"732"`
 	//UnderlyingSettlPriceType is a required field for NoUnderlyings.
 	UnderlyingSettlPriceType int `fix:"733"`
 }
 
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
 func (m *NoUnderlyings) SetUnderlyingSettlPrice(v float64) { m.UnderlyingSettlPrice = v }
 func (m *NoUnderlyings) SetUnderlyingSettlPriceType(v int) { m.UnderlyingSettlPriceType = v }
 
@@ -56,7 +61,7 @@ type Message struct {
 	SettlSessID *string `fix:"716"`
 	//SettlSessSubID is a non-required field for PositionReport.
 	SettlSessSubID *string `fix:"717"`
-	//Parties Component
+	//Parties is a required component for PositionReport.
 	parties.Parties
 	//Account is a required field for PositionReport.
 	Account string `fix:"1"`
@@ -64,8 +69,8 @@ type Message struct {
 	AcctIDSource *int `fix:"660"`
 	//AccountType is a required field for PositionReport.
 	AccountType int `fix:"581"`
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for PositionReport.
+	Instrument *instrument.Instrument
 	//Currency is a non-required field for PositionReport.
 	Currency *string `fix:"15"`
 	//SettlPrice is a required field for PositionReport.
@@ -78,9 +83,9 @@ type Message struct {
 	NoLegs []NoLegs `fix:"555,omitempty"`
 	//NoUnderlyings is a non-required field for PositionReport.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
-	//PositionQty Component
+	//PositionQty is a required component for PositionReport.
 	positionqty.PositionQty
-	//PositionAmountData Component
+	//PositionAmountData is a required component for PositionReport.
 	positionamountdata.PositionAmountData
 	//RegistStatus is a non-required field for PositionReport.
 	RegistStatus *string `fix:"506"`
@@ -98,30 +103,36 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetPosMaintRptID(v string)           { m.PosMaintRptID = v }
-func (m *Message) SetPosReqID(v string)                { m.PosReqID = &v }
-func (m *Message) SetPosReqType(v int)                 { m.PosReqType = &v }
-func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
-func (m *Message) SetTotalNumPosReports(v int)         { m.TotalNumPosReports = &v }
-func (m *Message) SetUnsolicitedIndicator(v bool)      { m.UnsolicitedIndicator = &v }
-func (m *Message) SetPosReqResult(v int)               { m.PosReqResult = v }
-func (m *Message) SetClearingBusinessDate(v string)    { m.ClearingBusinessDate = v }
-func (m *Message) SetSettlSessID(v string)             { m.SettlSessID = &v }
-func (m *Message) SetSettlSessSubID(v string)          { m.SettlSessSubID = &v }
-func (m *Message) SetAccount(v string)                 { m.Account = v }
-func (m *Message) SetAcctIDSource(v int)               { m.AcctIDSource = &v }
-func (m *Message) SetAccountType(v int)                { m.AccountType = v }
-func (m *Message) SetCurrency(v string)                { m.Currency = &v }
-func (m *Message) SetSettlPrice(v float64)             { m.SettlPrice = v }
-func (m *Message) SetSettlPriceType(v int)             { m.SettlPriceType = v }
-func (m *Message) SetPriorSettlPrice(v float64)        { m.PriorSettlPrice = v }
-func (m *Message) SetNoLegs(v []NoLegs)                { m.NoLegs = v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings)  { m.NoUnderlyings = v }
-func (m *Message) SetRegistStatus(v string)            { m.RegistStatus = &v }
-func (m *Message) SetDeliveryDate(v string)            { m.DeliveryDate = &v }
-func (m *Message) SetText(v string)                    { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)             { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)             { m.EncodedText = &v }
+func (m *Message) SetPosMaintRptID(v string)                { m.PosMaintRptID = v }
+func (m *Message) SetPosReqID(v string)                     { m.PosReqID = &v }
+func (m *Message) SetPosReqType(v int)                      { m.PosReqType = &v }
+func (m *Message) SetSubscriptionRequestType(v string)      { m.SubscriptionRequestType = &v }
+func (m *Message) SetTotalNumPosReports(v int)              { m.TotalNumPosReports = &v }
+func (m *Message) SetUnsolicitedIndicator(v bool)           { m.UnsolicitedIndicator = &v }
+func (m *Message) SetPosReqResult(v int)                    { m.PosReqResult = v }
+func (m *Message) SetClearingBusinessDate(v string)         { m.ClearingBusinessDate = v }
+func (m *Message) SetSettlSessID(v string)                  { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)               { m.SettlSessSubID = &v }
+func (m *Message) SetParties(v parties.Parties)             { m.Parties = v }
+func (m *Message) SetAccount(v string)                      { m.Account = v }
+func (m *Message) SetAcctIDSource(v int)                    { m.AcctIDSource = &v }
+func (m *Message) SetAccountType(v int)                     { m.AccountType = v }
+func (m *Message) SetInstrument(v instrument.Instrument)    { m.Instrument = &v }
+func (m *Message) SetCurrency(v string)                     { m.Currency = &v }
+func (m *Message) SetSettlPrice(v float64)                  { m.SettlPrice = v }
+func (m *Message) SetSettlPriceType(v int)                  { m.SettlPriceType = v }
+func (m *Message) SetPriorSettlPrice(v float64)             { m.PriorSettlPrice = v }
+func (m *Message) SetNoLegs(v []NoLegs)                     { m.NoLegs = v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)       { m.NoUnderlyings = v }
+func (m *Message) SetPositionQty(v positionqty.PositionQty) { m.PositionQty = v }
+func (m *Message) SetPositionAmountData(v positionamountdata.PositionAmountData) {
+	m.PositionAmountData = v
+}
+func (m *Message) SetRegistStatus(v string) { m.RegistStatus = &v }
+func (m *Message) SetDeliveryDate(v string) { m.DeliveryDate = &v }
+func (m *Message) SetText(v string)         { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)  { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)  { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

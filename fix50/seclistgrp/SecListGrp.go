@@ -13,24 +13,24 @@ import (
 
 //NoRelatedSym is a repeating group in SecListGrp
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
+	//InstrumentExtension is a non-required component for NoRelatedSym.
+	InstrumentExtension *instrumentextension.InstrumentExtension
+	//FinancingDetails is a non-required component for NoRelatedSym.
+	FinancingDetails *financingdetails.FinancingDetails
+	//UndInstrmtGrp is a non-required component for NoRelatedSym.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
-	//Stipulations Component
-	stipulations.Stipulations
-	//InstrmtLegSecListGrp Component
-	instrmtlegseclistgrp.InstrmtLegSecListGrp
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//YieldData Component
-	yielddata.YieldData
+	//Stipulations is a non-required component for NoRelatedSym.
+	Stipulations *stipulations.Stipulations
+	//InstrmtLegSecListGrp is a non-required component for NoRelatedSym.
+	InstrmtLegSecListGrp *instrmtlegseclistgrp.InstrmtLegSecListGrp
+	//SpreadOrBenchmarkCurveData is a non-required component for NoRelatedSym.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//YieldData is a non-required component for NoRelatedSym.
+	YieldData *yielddata.YieldData
 	//RoundLot is a non-required field for NoRelatedSym.
 	RoundLot *float64 `fix:"561"`
 	//MinTradeVol is a non-required field for NoRelatedSym.

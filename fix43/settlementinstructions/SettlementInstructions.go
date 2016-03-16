@@ -47,8 +47,8 @@ type Message struct {
 	EffectiveTime *time.Time `fix:"168"`
 	//TransactTime is a required field for SettlementInstructions.
 	TransactTime time.Time `fix:"60"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for SettlementInstructions.
+	Parties *parties.Parties
 	//StandInstDbType is a non-required field for SettlementInstructions.
 	StandInstDbType *int `fix:"169"`
 	//StandInstDbName is a non-required field for SettlementInstructions.
@@ -128,6 +128,7 @@ func (m *Message) SetSide(v string)                           { m.Side = &v }
 func (m *Message) SetSecurityType(v string)                   { m.SecurityType = &v }
 func (m *Message) SetEffectiveTime(v time.Time)               { m.EffectiveTime = &v }
 func (m *Message) SetTransactTime(v time.Time)                { m.TransactTime = v }
+func (m *Message) SetParties(v parties.Parties)               { m.Parties = &v }
 func (m *Message) SetStandInstDbType(v int)                   { m.StandInstDbType = &v }
 func (m *Message) SetStandInstDbName(v string)                { m.StandInstDbName = &v }
 func (m *Message) SetStandInstDbID(v string)                  { m.StandInstDbID = &v }

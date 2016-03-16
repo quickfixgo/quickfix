@@ -13,15 +13,21 @@ import (
 
 //NoUnderlyings is a repeating group in SecurityStatusRequest
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoLegs is a repeating group in SecurityStatusRequest
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //Message is a SecurityStatusRequest FIX Message
 type Message struct {
@@ -29,10 +35,10 @@ type Message struct {
 	fix44.Header
 	//SecurityStatusReqID is a required field for SecurityStatusRequest.
 	SecurityStatusReqID string `fix:"324"`
-	//Instrument Component
+	//Instrument is a required component for SecurityStatusRequest.
 	instrument.Instrument
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
+	//InstrumentExtension is a non-required component for SecurityStatusRequest.
+	InstrumentExtension *instrumentextension.InstrumentExtension
 	//NoUnderlyings is a non-required field for SecurityStatusRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//NoLegs is a non-required field for SecurityStatusRequest.
@@ -51,7 +57,11 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityStatusReqID(v string)     { m.SecurityStatusReqID = v }
+func (m *Message) SetSecurityStatusReqID(v string)       { m.SecurityStatusReqID = v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+func (m *Message) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
+	m.InstrumentExtension = &v
+}
 func (m *Message) SetNoUnderlyings(v []NoUnderlyings)  { m.NoUnderlyings = v }
 func (m *Message) SetNoLegs(v []NoLegs)                { m.NoLegs = v }
 func (m *Message) SetCurrency(v string)                { m.Currency = &v }

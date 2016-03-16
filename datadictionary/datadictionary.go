@@ -15,16 +15,29 @@ type DataDictionary struct {
 	FieldTypeByTag  map[int]*FieldType
 	FieldTypeByName map[string]*FieldType
 	Messages        map[string]*MessageDef
-	Components      map[string]*Component
+	ComponentTypes  map[string]*ComponentType
 	Header          *MessageDef
 	Trailer         *MessageDef
 }
 
-//Component is a grouping of fields.
-type Component struct {
-	Name   string
+//MessagePart can represent a Field, Repeating Group, or Component
+type MessagePart interface {
+	Name() string
+	Required() bool
+}
+
+//ComponentType is a grouping of fields.
+type ComponentType struct {
+	name string
+	// MessageParts in declaration order contained in this component
+	Parts []MessagePart
+	//All fields contained in this component. Includes fields encapsulated in
+	//components of this component
 	Fields []*FieldDef
 }
+
+//Name returns the name of this component type
+func (c ComponentType) Name() string { return c.name }
 
 //TagSet is set for tags.
 type TagSet map[int]struct{}
@@ -34,30 +47,38 @@ func (t TagSet) Add(tag int) {
 	t[tag] = struct{}{}
 }
 
+//Component is a Component as it appears in a given MessageDef
+type Component struct {
+	*ComponentType
+	required bool
+}
+
+//Required returns true if this component is required for the containing
+//MessageDef
+func (c Component) Required() bool { return c.required }
+
 //FieldDef models a field or component belonging to a message.
 type FieldDef struct {
 	*FieldType
-	Component   *Component
-	Required    bool
+	required bool
+
+	Parts       []MessagePart
 	ChildFields []*FieldDef
 }
+
+//Required returns true if this FieldDef is required for the containing
+//MessageDef
+func (f FieldDef) Required() bool { return f.required }
 
 //IsGroup is true if the field is a repeating group.
 func (f FieldDef) IsGroup() bool {
 	return len(f.ChildFields) > 0
 }
 
-func (f FieldDef) IsComponent() bool {
-	return f.Component != nil
-}
-
 func (f FieldDef) childTags() []int {
 	tags := make([]int, 0, len(f.ChildFields))
 
 	for _, f := range f.ChildFields {
-		if f.IsComponent() {
-			continue
-		}
 		tags = append(tags, f.Tag)
 		for _, t := range f.childTags() {
 			tags = append(tags, t)
@@ -68,10 +89,10 @@ func (f FieldDef) childTags() []int {
 }
 
 func (f FieldDef) requiredChildTags() []int {
-	tags := make([]int, 0)
+	var tags []int
 
 	for _, f := range f.ChildFields {
-		if !f.Required {
+		if !f.Required() {
 			continue
 		}
 
@@ -86,11 +107,23 @@ func (f FieldDef) requiredChildTags() []int {
 
 //FieldType holds information relating to a field.  Includes Tag, type, and enums, if defined.
 type FieldType struct {
-	Name  string
+	name  string
 	Tag   int
 	Type  string
 	Enums map[string]Enum
 }
+
+//NewFieldType returns a pointer to an initialized FieldType
+func NewFieldType(name string, tag int, fixType string) *FieldType {
+	return &FieldType{
+		name: name,
+		Tag:  tag,
+		Type: fixType,
+	}
+}
+
+//Name returns the name for this FieldType
+func (f FieldType) Name() string { return f.name }
 
 //Enum is a container for value and description.
 type Enum struct {
@@ -100,10 +133,12 @@ type Enum struct {
 
 //MessageDef can apply to header, trailer, or body of a FIX Message.
 type MessageDef struct {
-	Name                     string
-	MsgType                  string
-	Fields                   map[int]*FieldDef
-	FieldsInDeclarationOrder []*FieldDef
+	Name    string
+	MsgType string
+	Fields  map[int]*FieldDef
+	//Parts are the MessageParts of contained in this MessageDef in declaration
+	//order
+	Parts []MessagePart
 
 	RequiredTags TagSet
 	Tags         TagSet

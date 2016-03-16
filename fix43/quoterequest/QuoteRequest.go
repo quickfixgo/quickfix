@@ -14,7 +14,7 @@ import (
 
 //NoRelatedSym is a repeating group in QuoteRequest
 type NoRelatedSym struct {
-	//Instrument Component
+	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
 	//PrevClosePx is a non-required field for NoRelatedSym.
 	PrevClosePx *float64 `fix:"140"`
@@ -28,8 +28,8 @@ type NoRelatedSym struct {
 	TradingSessionSubID *string `fix:"625"`
 	//TradeOriginationDate is a non-required field for NoRelatedSym.
 	TradeOriginationDate *string `fix:"229"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for NoRelatedSym.
+	Stipulations *stipulations.Stipulations
 	//Side is a non-required field for NoRelatedSym.
 	Side *string `fix:"54"`
 	//QuantityType is a non-required field for NoRelatedSym.
@@ -54,39 +54,45 @@ type NoRelatedSym struct {
 	TransactTime *time.Time `fix:"60"`
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//SpreadOrBenchmarkCurveData is a non-required component for NoRelatedSym.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
 	//PriceType is a non-required field for NoRelatedSym.
 	PriceType *int `fix:"423"`
 	//Price is a non-required field for NoRelatedSym.
 	Price *float64 `fix:"44"`
 	//Price2 is a non-required field for NoRelatedSym.
 	Price2 *float64 `fix:"640"`
-	//YieldData Component
-	yielddata.YieldData
+	//YieldData is a non-required component for NoRelatedSym.
+	YieldData *yielddata.YieldData
 }
 
-func (m *NoRelatedSym) SetPrevClosePx(v float64)         { m.PrevClosePx = &v }
-func (m *NoRelatedSym) SetQuoteRequestType(v int)        { m.QuoteRequestType = &v }
-func (m *NoRelatedSym) SetQuoteType(v int)               { m.QuoteType = &v }
-func (m *NoRelatedSym) SetTradingSessionID(v string)     { m.TradingSessionID = &v }
-func (m *NoRelatedSym) SetTradingSessionSubID(v string)  { m.TradingSessionSubID = &v }
-func (m *NoRelatedSym) SetTradeOriginationDate(v string) { m.TradeOriginationDate = &v }
-func (m *NoRelatedSym) SetSide(v string)                 { m.Side = &v }
-func (m *NoRelatedSym) SetQuantityType(v int)            { m.QuantityType = &v }
-func (m *NoRelatedSym) SetOrderQty(v float64)            { m.OrderQty = &v }
-func (m *NoRelatedSym) SetCashOrderQty(v float64)        { m.CashOrderQty = &v }
-func (m *NoRelatedSym) SetSettlmntTyp(v string)          { m.SettlmntTyp = &v }
-func (m *NoRelatedSym) SetFutSettDate(v string)          { m.FutSettDate = &v }
-func (m *NoRelatedSym) SetOrdType(v string)              { m.OrdType = &v }
-func (m *NoRelatedSym) SetFutSettDate2(v string)         { m.FutSettDate2 = &v }
-func (m *NoRelatedSym) SetOrderQty2(v float64)           { m.OrderQty2 = &v }
-func (m *NoRelatedSym) SetExpireTime(v time.Time)        { m.ExpireTime = &v }
-func (m *NoRelatedSym) SetTransactTime(v time.Time)      { m.TransactTime = &v }
-func (m *NoRelatedSym) SetCurrency(v string)             { m.Currency = &v }
-func (m *NoRelatedSym) SetPriceType(v int)               { m.PriceType = &v }
-func (m *NoRelatedSym) SetPrice(v float64)               { m.Price = &v }
-func (m *NoRelatedSym) SetPrice2(v float64)              { m.Price2 = &v }
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument)       { m.Instrument = v }
+func (m *NoRelatedSym) SetPrevClosePx(v float64)                    { m.PrevClosePx = &v }
+func (m *NoRelatedSym) SetQuoteRequestType(v int)                   { m.QuoteRequestType = &v }
+func (m *NoRelatedSym) SetQuoteType(v int)                          { m.QuoteType = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)                { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)             { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetTradeOriginationDate(v string)            { m.TradeOriginationDate = &v }
+func (m *NoRelatedSym) SetStipulations(v stipulations.Stipulations) { m.Stipulations = &v }
+func (m *NoRelatedSym) SetSide(v string)                            { m.Side = &v }
+func (m *NoRelatedSym) SetQuantityType(v int)                       { m.QuantityType = &v }
+func (m *NoRelatedSym) SetOrderQty(v float64)                       { m.OrderQty = &v }
+func (m *NoRelatedSym) SetCashOrderQty(v float64)                   { m.CashOrderQty = &v }
+func (m *NoRelatedSym) SetSettlmntTyp(v string)                     { m.SettlmntTyp = &v }
+func (m *NoRelatedSym) SetFutSettDate(v string)                     { m.FutSettDate = &v }
+func (m *NoRelatedSym) SetOrdType(v string)                         { m.OrdType = &v }
+func (m *NoRelatedSym) SetFutSettDate2(v string)                    { m.FutSettDate2 = &v }
+func (m *NoRelatedSym) SetOrderQty2(v float64)                      { m.OrderQty2 = &v }
+func (m *NoRelatedSym) SetExpireTime(v time.Time)                   { m.ExpireTime = &v }
+func (m *NoRelatedSym) SetTransactTime(v time.Time)                 { m.TransactTime = &v }
+func (m *NoRelatedSym) SetCurrency(v string)                        { m.Currency = &v }
+func (m *NoRelatedSym) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *NoRelatedSym) SetPriceType(v int)                 { m.PriceType = &v }
+func (m *NoRelatedSym) SetPrice(v float64)                 { m.Price = &v }
+func (m *NoRelatedSym) SetPrice2(v float64)                { m.Price2 = &v }
+func (m *NoRelatedSym) SetYieldData(v yielddata.YieldData) { m.YieldData = &v }
 
 //Message is a QuoteRequest FIX Message
 type Message struct {

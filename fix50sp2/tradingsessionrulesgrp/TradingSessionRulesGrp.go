@@ -10,8 +10,8 @@ type NoTradingSessionRules struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessionRules.
 	TradingSessionSubID *string `fix:"625"`
-	//TradingSessionRules Component
-	tradingsessionrules.TradingSessionRules
+	//TradingSessionRules is a non-required component for NoTradingSessionRules.
+	TradingSessionRules *tradingsessionrules.TradingSessionRules
 }
 
 //TradingSessionRulesGrp is a fix50sp2 Component

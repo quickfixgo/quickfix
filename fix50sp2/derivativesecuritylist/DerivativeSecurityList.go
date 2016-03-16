@@ -22,18 +22,18 @@ type Message struct {
 	SecurityResponseID *string `fix:"322"`
 	//SecurityRequestResult is a non-required field for DerivativeSecurityList.
 	SecurityRequestResult *int `fix:"560"`
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for DerivativeSecurityList.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//TotNoRelatedSym is a non-required field for DerivativeSecurityList.
 	TotNoRelatedSym *int `fix:"393"`
 	//LastFragment is a non-required field for DerivativeSecurityList.
 	LastFragment *bool `fix:"893"`
-	//RelSymDerivSecGrp Component
-	relsymderivsecgrp.RelSymDerivSecGrp
-	//DerivativeSecurityDefinition Component
-	derivativesecuritydefinition.DerivativeSecurityDefinition
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//RelSymDerivSecGrp is a non-required component for DerivativeSecurityList.
+	RelSymDerivSecGrp *relsymderivsecgrp.RelSymDerivSecGrp
+	//DerivativeSecurityDefinition is a non-required component for DerivativeSecurityList.
+	DerivativeSecurityDefinition *derivativesecuritydefinition.DerivativeSecurityDefinition
+	//ApplicationSequenceControl is a non-required component for DerivativeSecurityList.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	//SecurityReportID is a non-required field for DerivativeSecurityList.
 	SecurityReportID *int `fix:"964"`
 	//ClearingBusinessDate is a non-required field for DerivativeSecurityList.
@@ -46,11 +46,23 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
-func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
-func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = &v }
-func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
-func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetSecurityReqID(v string)      { m.SecurityReqID = &v }
+func (m *Message) SetSecurityResponseID(v string) { m.SecurityResponseID = &v }
+func (m *Message) SetSecurityRequestResult(v int) { m.SecurityRequestResult = &v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *Message) SetTotNoRelatedSym(v int) { m.TotNoRelatedSym = &v }
+func (m *Message) SetLastFragment(v bool)   { m.LastFragment = &v }
+func (m *Message) SetRelSymDerivSecGrp(v relsymderivsecgrp.RelSymDerivSecGrp) {
+	m.RelSymDerivSecGrp = &v
+}
+func (m *Message) SetDerivativeSecurityDefinition(v derivativesecuritydefinition.DerivativeSecurityDefinition) {
+	m.DerivativeSecurityDefinition = &v
+}
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 func (m *Message) SetSecurityReportID(v int)        { m.SecurityReportID = &v }
 func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
 func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }

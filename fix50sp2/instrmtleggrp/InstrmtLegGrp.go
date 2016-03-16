@@ -6,8 +6,8 @@ import (
 
 //NoLegs is a repeating group in InstrmtLegGrp
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
 //InstrmtLegGrp is a fix50sp2 Component

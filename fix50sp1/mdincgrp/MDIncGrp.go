@@ -24,12 +24,12 @@ type NoMDEntries struct {
 	MDEntryID *string `fix:"278"`
 	//MDEntryRefID is a non-required field for NoMDEntries.
 	MDEntryRefID *string `fix:"280"`
-	//Instrument Component
-	instrument.Instrument
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//Instrument is a non-required component for NoMDEntries.
+	Instrument *instrument.Instrument
+	//UndInstrmtGrp is a non-required component for NoMDEntries.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
+	//InstrmtLegGrp is a non-required component for NoMDEntries.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 	//FinancialStatus is a non-required field for NoMDEntries.
 	FinancialStatus *string `fix:"291"`
 	//CorporateAction is a non-required field for NoMDEntries.
@@ -126,8 +126,8 @@ type NoMDEntries struct {
 	MDEntryForwardPoints *float64 `fix:"1027"`
 	//MDPriceLevel is a non-required field for NoMDEntries.
 	MDPriceLevel *int `fix:"1023"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoMDEntries.
+	Parties *parties.Parties
 	//SecondaryOrderID is a non-required field for NoMDEntries.
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.
@@ -138,12 +138,12 @@ type NoMDEntries struct {
 	MarketDepth *int `fix:"264"`
 	//PriceType is a non-required field for NoMDEntries.
 	PriceType *int `fix:"423"`
-	//YieldData Component
-	yielddata.YieldData
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//SecSizesGrp Component
-	secsizesgrp.SecSizesGrp
+	//YieldData is a non-required component for NoMDEntries.
+	YieldData *yielddata.YieldData
+	//SpreadOrBenchmarkCurveData is a non-required component for NoMDEntries.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//SecSizesGrp is a non-required component for NoMDEntries.
+	SecSizesGrp *secsizesgrp.SecSizesGrp
 	//LotType is a non-required field for NoMDEntries.
 	LotType *string `fix:"1093"`
 	//SecurityTradingStatus is a non-required field for NoMDEntries.
@@ -160,8 +160,8 @@ type NoMDEntries struct {
 	TransBkdTime *time.Time `fix:"483"`
 	//TransactTime is a non-required field for NoMDEntries.
 	TransactTime *time.Time `fix:"60"`
-	//StatsIndGrp Component
-	statsindgrp.StatsIndGrp
+	//StatsIndGrp is a non-required component for NoMDEntries.
+	StatsIndGrp *statsindgrp.StatsIndGrp
 }
 
 //MDIncGrp is a fix50sp1 Component

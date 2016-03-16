@@ -1,12 +1,8 @@
 package underlyingleginstrument
 
-//NoUnderlyingLegSecurityAltID is a repeating group in UnderlyingLegInstrument
-type NoUnderlyingLegSecurityAltID struct {
-	//UnderlyingLegSecurityAltID is a non-required field for NoUnderlyingLegSecurityAltID.
-	UnderlyingLegSecurityAltID *string `fix:"1335"`
-	//UnderlyingLegSecurityAltIDSource is a non-required field for NoUnderlyingLegSecurityAltID.
-	UnderlyingLegSecurityAltIDSource *string `fix:"1336"`
-}
+import (
+	"github.com/quickfixgo/quickfix/fix50sp1/underlyinglegsecurityaltidgrp"
+)
 
 //UnderlyingLegInstrument is a fix50sp1 Component
 type UnderlyingLegInstrument struct {
@@ -18,8 +14,8 @@ type UnderlyingLegInstrument struct {
 	UnderlyingLegSecurityID *string `fix:"1332"`
 	//UnderlyingLegSecurityIDSource is a non-required field for UnderlyingLegInstrument.
 	UnderlyingLegSecurityIDSource *string `fix:"1333"`
-	//NoUnderlyingLegSecurityAltID is a non-required field for UnderlyingLegInstrument.
-	NoUnderlyingLegSecurityAltID []NoUnderlyingLegSecurityAltID `fix:"1334,omitempty"`
+	//UnderlyingLegSecurityAltIDGrp is a non-required component for UnderlyingLegInstrument.
+	UnderlyingLegSecurityAltIDGrp *underlyinglegsecurityaltidgrp.UnderlyingLegSecurityAltIDGrp
 	//UnderlyingLegCFICode is a non-required field for UnderlyingLegInstrument.
 	UnderlyingLegCFICode *string `fix:"1344"`
 	//UnderlyingLegSecurityType is a non-required field for UnderlyingLegInstrument.
@@ -50,8 +46,8 @@ func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityID(v string) { m.Under
 func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityIDSource(v string) {
 	m.UnderlyingLegSecurityIDSource = &v
 }
-func (m *UnderlyingLegInstrument) SetNoUnderlyingLegSecurityAltID(v []NoUnderlyingLegSecurityAltID) {
-	m.NoUnderlyingLegSecurityAltID = v
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityAltIDGrp(v underlyinglegsecurityaltidgrp.UnderlyingLegSecurityAltIDGrp) {
+	m.UnderlyingLegSecurityAltIDGrp = &v
 }
 func (m *UnderlyingLegInstrument) SetUnderlyingLegCFICode(v string) { m.UnderlyingLegCFICode = &v }
 func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityType(v string) {

@@ -34,10 +34,10 @@ type Message struct {
 	SecurityUpdateAction *string `fix:"980"`
 	//CorporateAction is a non-required field for SecurityDefinitionUpdateReport.
 	CorporateAction *string `fix:"292"`
-	//Instrument Component
-	instrument.Instrument
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//Instrument is a non-required component for SecurityDefinitionUpdateReport.
+	Instrument *instrument.Instrument
+	//UndInstrmtGrp is a non-required component for SecurityDefinitionUpdateReport.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//Currency is a non-required field for SecurityDefinitionUpdateReport.
 	Currency *string `fix:"15"`
 	//Text is a non-required field for SecurityDefinitionUpdateReport.
@@ -46,37 +46,52 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for SecurityDefinitionUpdateReport.
 	EncodedText *string `fix:"355"`
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
-	//Stipulations Component
-	stipulations.Stipulations
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//YieldData Component
-	yielddata.YieldData
-	//MarketSegmentGrp Component
-	marketsegmentgrp.MarketSegmentGrp
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//InstrmtLegGrp is a non-required component for SecurityDefinitionUpdateReport.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
+	//InstrumentExtension is a non-required component for SecurityDefinitionUpdateReport.
+	InstrumentExtension *instrumentextension.InstrumentExtension
+	//Stipulations is a non-required component for SecurityDefinitionUpdateReport.
+	Stipulations *stipulations.Stipulations
+	//SpreadOrBenchmarkCurveData is a non-required component for SecurityDefinitionUpdateReport.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//YieldData is a non-required component for SecurityDefinitionUpdateReport.
+	YieldData *yielddata.YieldData
+	//MarketSegmentGrp is a non-required component for SecurityDefinitionUpdateReport.
+	MarketSegmentGrp *marketsegmentgrp.MarketSegmentGrp
+	//ApplicationSequenceControl is a non-required component for SecurityDefinitionUpdateReport.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReportID(v int)        { m.SecurityReportID = &v }
-func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
-func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
-func (m *Message) SetSecurityResponseType(v int)    { m.SecurityResponseType = &v }
-func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
-func (m *Message) SetSecurityUpdateAction(v string) { m.SecurityUpdateAction = &v }
-func (m *Message) SetCorporateAction(v string)      { m.CorporateAction = &v }
-func (m *Message) SetCurrency(v string)             { m.Currency = &v }
-func (m *Message) SetText(v string)                 { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
+func (m *Message) SetSecurityReportID(v int)                      { m.SecurityReportID = &v }
+func (m *Message) SetSecurityReqID(v string)                      { m.SecurityReqID = &v }
+func (m *Message) SetSecurityResponseID(v string)                 { m.SecurityResponseID = &v }
+func (m *Message) SetSecurityResponseType(v int)                  { m.SecurityResponseType = &v }
+func (m *Message) SetClearingBusinessDate(v string)               { m.ClearingBusinessDate = &v }
+func (m *Message) SetSecurityUpdateAction(v string)               { m.SecurityUpdateAction = &v }
+func (m *Message) SetCorporateAction(v string)                    { m.CorporateAction = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)          { m.Instrument = &v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *Message) SetCurrency(v string)                           { m.Currency = &v }
+func (m *Message) SetText(v string)                               { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                        { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                        { m.EncodedText = &v }
+func (m *Message) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+func (m *Message) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
+	m.InstrumentExtension = &v
+}
+func (m *Message) SetStipulations(v stipulations.Stipulations) { m.Stipulations = &v }
+func (m *Message) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *Message) SetYieldData(v yielddata.YieldData)                      { m.YieldData = &v }
+func (m *Message) SetMarketSegmentGrp(v marketsegmentgrp.MarketSegmentGrp) { m.MarketSegmentGrp = &v }
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

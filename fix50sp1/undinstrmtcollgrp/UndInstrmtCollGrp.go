@@ -6,8 +6,8 @@ import (
 
 //NoUnderlyings is a repeating group in UndInstrmtCollGrp
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//CollAction is a non-required field for NoUnderlyings.
 	CollAction *int `fix:"944"`
 }

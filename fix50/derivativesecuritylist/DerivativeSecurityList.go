@@ -19,14 +19,14 @@ type Message struct {
 	SecurityResponseID string `fix:"322"`
 	//SecurityRequestResult is a required field for DerivativeSecurityList.
 	SecurityRequestResult int `fix:"560"`
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for DerivativeSecurityList.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//TotNoRelatedSym is a non-required field for DerivativeSecurityList.
 	TotNoRelatedSym *int `fix:"393"`
 	//LastFragment is a non-required field for DerivativeSecurityList.
 	LastFragment *bool `fix:"893"`
-	//RelSymDerivSecGrp Component
-	relsymderivsecgrp.RelSymDerivSecGrp
+	//RelSymDerivSecGrp is a non-required component for DerivativeSecurityList.
+	RelSymDerivSecGrp *relsymderivsecgrp.RelSymDerivSecGrp
 	fixt11.Trailer
 }
 
@@ -36,8 +36,14 @@ func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 func (m *Message) SetSecurityReqID(v string)      { m.SecurityReqID = v }
 func (m *Message) SetSecurityResponseID(v string) { m.SecurityResponseID = v }
 func (m *Message) SetSecurityRequestResult(v int) { m.SecurityRequestResult = v }
-func (m *Message) SetTotNoRelatedSym(v int)       { m.TotNoRelatedSym = &v }
-func (m *Message) SetLastFragment(v bool)         { m.LastFragment = &v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *Message) SetTotNoRelatedSym(v int) { m.TotNoRelatedSym = &v }
+func (m *Message) SetLastFragment(v bool)   { m.LastFragment = &v }
+func (m *Message) SetRelSymDerivSecGrp(v relsymderivsecgrp.RelSymDerivSecGrp) {
+	m.RelSymDerivSecGrp = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

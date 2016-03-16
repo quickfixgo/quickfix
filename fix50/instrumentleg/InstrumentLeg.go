@@ -1,12 +1,8 @@
 package instrumentleg
 
-//NoLegSecurityAltID is a repeating group in InstrumentLeg
-type NoLegSecurityAltID struct {
-	//LegSecurityAltID is a non-required field for NoLegSecurityAltID.
-	LegSecurityAltID *string `fix:"605"`
-	//LegSecurityAltIDSource is a non-required field for NoLegSecurityAltID.
-	LegSecurityAltIDSource *string `fix:"606"`
-}
+import (
+	"github.com/quickfixgo/quickfix/fix50/legsecaltidgrp"
+)
 
 //InstrumentLeg is a fix50 Component
 type InstrumentLeg struct {
@@ -18,8 +14,8 @@ type InstrumentLeg struct {
 	LegSecurityID *string `fix:"602"`
 	//LegSecurityIDSource is a non-required field for InstrumentLeg.
 	LegSecurityIDSource *string `fix:"603"`
-	//NoLegSecurityAltID is a non-required field for InstrumentLeg.
-	NoLegSecurityAltID []NoLegSecurityAltID `fix:"604,omitempty"`
+	//LegSecAltIDGrp is a non-required component for InstrumentLeg.
+	LegSecAltIDGrp *legsecaltidgrp.LegSecAltIDGrp
 	//LegProduct is a non-required field for InstrumentLeg.
 	LegProduct *int `fix:"607"`
 	//LegCFICode is a non-required field for InstrumentLeg.
@@ -100,47 +96,47 @@ type InstrumentLeg struct {
 	LegTimeUnit *string `fix:"1001"`
 }
 
-func (m *InstrumentLeg) SetLegSymbol(v string)                        { m.LegSymbol = &v }
-func (m *InstrumentLeg) SetLegSymbolSfx(v string)                     { m.LegSymbolSfx = &v }
-func (m *InstrumentLeg) SetLegSecurityID(v string)                    { m.LegSecurityID = &v }
-func (m *InstrumentLeg) SetLegSecurityIDSource(v string)              { m.LegSecurityIDSource = &v }
-func (m *InstrumentLeg) SetNoLegSecurityAltID(v []NoLegSecurityAltID) { m.NoLegSecurityAltID = v }
-func (m *InstrumentLeg) SetLegProduct(v int)                          { m.LegProduct = &v }
-func (m *InstrumentLeg) SetLegCFICode(v string)                       { m.LegCFICode = &v }
-func (m *InstrumentLeg) SetLegSecurityType(v string)                  { m.LegSecurityType = &v }
-func (m *InstrumentLeg) SetLegSecuritySubType(v string)               { m.LegSecuritySubType = &v }
-func (m *InstrumentLeg) SetLegMaturityMonthYear(v string)             { m.LegMaturityMonthYear = &v }
-func (m *InstrumentLeg) SetLegMaturityDate(v string)                  { m.LegMaturityDate = &v }
-func (m *InstrumentLeg) SetLegCouponPaymentDate(v string)             { m.LegCouponPaymentDate = &v }
-func (m *InstrumentLeg) SetLegIssueDate(v string)                     { m.LegIssueDate = &v }
-func (m *InstrumentLeg) SetLegRepoCollateralSecurityType(v int)       { m.LegRepoCollateralSecurityType = &v }
-func (m *InstrumentLeg) SetLegRepurchaseTerm(v int)                   { m.LegRepurchaseTerm = &v }
-func (m *InstrumentLeg) SetLegRepurchaseRate(v float64)               { m.LegRepurchaseRate = &v }
-func (m *InstrumentLeg) SetLegFactor(v float64)                       { m.LegFactor = &v }
-func (m *InstrumentLeg) SetLegCreditRating(v string)                  { m.LegCreditRating = &v }
-func (m *InstrumentLeg) SetLegInstrRegistry(v string)                 { m.LegInstrRegistry = &v }
-func (m *InstrumentLeg) SetLegCountryOfIssue(v string)                { m.LegCountryOfIssue = &v }
-func (m *InstrumentLeg) SetLegStateOrProvinceOfIssue(v string)        { m.LegStateOrProvinceOfIssue = &v }
-func (m *InstrumentLeg) SetLegLocaleOfIssue(v string)                 { m.LegLocaleOfIssue = &v }
-func (m *InstrumentLeg) SetLegRedemptionDate(v string)                { m.LegRedemptionDate = &v }
-func (m *InstrumentLeg) SetLegStrikePrice(v float64)                  { m.LegStrikePrice = &v }
-func (m *InstrumentLeg) SetLegStrikeCurrency(v string)                { m.LegStrikeCurrency = &v }
-func (m *InstrumentLeg) SetLegOptAttribute(v string)                  { m.LegOptAttribute = &v }
-func (m *InstrumentLeg) SetLegContractMultiplier(v float64)           { m.LegContractMultiplier = &v }
-func (m *InstrumentLeg) SetLegCouponRate(v float64)                   { m.LegCouponRate = &v }
-func (m *InstrumentLeg) SetLegSecurityExchange(v string)              { m.LegSecurityExchange = &v }
-func (m *InstrumentLeg) SetLegIssuer(v string)                        { m.LegIssuer = &v }
-func (m *InstrumentLeg) SetEncodedLegIssuerLen(v int)                 { m.EncodedLegIssuerLen = &v }
-func (m *InstrumentLeg) SetEncodedLegIssuer(v string)                 { m.EncodedLegIssuer = &v }
-func (m *InstrumentLeg) SetLegSecurityDesc(v string)                  { m.LegSecurityDesc = &v }
-func (m *InstrumentLeg) SetEncodedLegSecurityDescLen(v int)           { m.EncodedLegSecurityDescLen = &v }
-func (m *InstrumentLeg) SetEncodedLegSecurityDesc(v string)           { m.EncodedLegSecurityDesc = &v }
-func (m *InstrumentLeg) SetLegRatioQty(v float64)                     { m.LegRatioQty = &v }
-func (m *InstrumentLeg) SetLegSide(v string)                          { m.LegSide = &v }
-func (m *InstrumentLeg) SetLegCurrency(v string)                      { m.LegCurrency = &v }
-func (m *InstrumentLeg) SetLegPool(v string)                          { m.LegPool = &v }
-func (m *InstrumentLeg) SetLegDatedDate(v string)                     { m.LegDatedDate = &v }
-func (m *InstrumentLeg) SetLegContractSettlMonth(v string)            { m.LegContractSettlMonth = &v }
-func (m *InstrumentLeg) SetLegInterestAccrualDate(v string)           { m.LegInterestAccrualDate = &v }
-func (m *InstrumentLeg) SetLegUnitOfMeasure(v string)                 { m.LegUnitOfMeasure = &v }
-func (m *InstrumentLeg) SetLegTimeUnit(v string)                      { m.LegTimeUnit = &v }
+func (m *InstrumentLeg) SetLegSymbol(v string)                             { m.LegSymbol = &v }
+func (m *InstrumentLeg) SetLegSymbolSfx(v string)                          { m.LegSymbolSfx = &v }
+func (m *InstrumentLeg) SetLegSecurityID(v string)                         { m.LegSecurityID = &v }
+func (m *InstrumentLeg) SetLegSecurityIDSource(v string)                   { m.LegSecurityIDSource = &v }
+func (m *InstrumentLeg) SetLegSecAltIDGrp(v legsecaltidgrp.LegSecAltIDGrp) { m.LegSecAltIDGrp = &v }
+func (m *InstrumentLeg) SetLegProduct(v int)                               { m.LegProduct = &v }
+func (m *InstrumentLeg) SetLegCFICode(v string)                            { m.LegCFICode = &v }
+func (m *InstrumentLeg) SetLegSecurityType(v string)                       { m.LegSecurityType = &v }
+func (m *InstrumentLeg) SetLegSecuritySubType(v string)                    { m.LegSecuritySubType = &v }
+func (m *InstrumentLeg) SetLegMaturityMonthYear(v string)                  { m.LegMaturityMonthYear = &v }
+func (m *InstrumentLeg) SetLegMaturityDate(v string)                       { m.LegMaturityDate = &v }
+func (m *InstrumentLeg) SetLegCouponPaymentDate(v string)                  { m.LegCouponPaymentDate = &v }
+func (m *InstrumentLeg) SetLegIssueDate(v string)                          { m.LegIssueDate = &v }
+func (m *InstrumentLeg) SetLegRepoCollateralSecurityType(v int)            { m.LegRepoCollateralSecurityType = &v }
+func (m *InstrumentLeg) SetLegRepurchaseTerm(v int)                        { m.LegRepurchaseTerm = &v }
+func (m *InstrumentLeg) SetLegRepurchaseRate(v float64)                    { m.LegRepurchaseRate = &v }
+func (m *InstrumentLeg) SetLegFactor(v float64)                            { m.LegFactor = &v }
+func (m *InstrumentLeg) SetLegCreditRating(v string)                       { m.LegCreditRating = &v }
+func (m *InstrumentLeg) SetLegInstrRegistry(v string)                      { m.LegInstrRegistry = &v }
+func (m *InstrumentLeg) SetLegCountryOfIssue(v string)                     { m.LegCountryOfIssue = &v }
+func (m *InstrumentLeg) SetLegStateOrProvinceOfIssue(v string)             { m.LegStateOrProvinceOfIssue = &v }
+func (m *InstrumentLeg) SetLegLocaleOfIssue(v string)                      { m.LegLocaleOfIssue = &v }
+func (m *InstrumentLeg) SetLegRedemptionDate(v string)                     { m.LegRedemptionDate = &v }
+func (m *InstrumentLeg) SetLegStrikePrice(v float64)                       { m.LegStrikePrice = &v }
+func (m *InstrumentLeg) SetLegStrikeCurrency(v string)                     { m.LegStrikeCurrency = &v }
+func (m *InstrumentLeg) SetLegOptAttribute(v string)                       { m.LegOptAttribute = &v }
+func (m *InstrumentLeg) SetLegContractMultiplier(v float64)                { m.LegContractMultiplier = &v }
+func (m *InstrumentLeg) SetLegCouponRate(v float64)                        { m.LegCouponRate = &v }
+func (m *InstrumentLeg) SetLegSecurityExchange(v string)                   { m.LegSecurityExchange = &v }
+func (m *InstrumentLeg) SetLegIssuer(v string)                             { m.LegIssuer = &v }
+func (m *InstrumentLeg) SetEncodedLegIssuerLen(v int)                      { m.EncodedLegIssuerLen = &v }
+func (m *InstrumentLeg) SetEncodedLegIssuer(v string)                      { m.EncodedLegIssuer = &v }
+func (m *InstrumentLeg) SetLegSecurityDesc(v string)                       { m.LegSecurityDesc = &v }
+func (m *InstrumentLeg) SetEncodedLegSecurityDescLen(v int)                { m.EncodedLegSecurityDescLen = &v }
+func (m *InstrumentLeg) SetEncodedLegSecurityDesc(v string)                { m.EncodedLegSecurityDesc = &v }
+func (m *InstrumentLeg) SetLegRatioQty(v float64)                          { m.LegRatioQty = &v }
+func (m *InstrumentLeg) SetLegSide(v string)                               { m.LegSide = &v }
+func (m *InstrumentLeg) SetLegCurrency(v string)                           { m.LegCurrency = &v }
+func (m *InstrumentLeg) SetLegPool(v string)                               { m.LegPool = &v }
+func (m *InstrumentLeg) SetLegDatedDate(v string)                          { m.LegDatedDate = &v }
+func (m *InstrumentLeg) SetLegContractSettlMonth(v string)                 { m.LegContractSettlMonth = &v }
+func (m *InstrumentLeg) SetLegInterestAccrualDate(v string)                { m.LegInterestAccrualDate = &v }
+func (m *InstrumentLeg) SetLegUnitOfMeasure(v string)                      { m.LegUnitOfMeasure = &v }
+func (m *InstrumentLeg) SetLegTimeUnit(v string)                           { m.LegTimeUnit = &v }

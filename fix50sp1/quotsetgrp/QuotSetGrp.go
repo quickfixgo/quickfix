@@ -10,15 +10,15 @@ import (
 type NoQuoteSets struct {
 	//QuoteSetID is a required field for NoQuoteSets.
 	QuoteSetID string `fix:"302"`
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoQuoteSets.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//QuoteSetValidUntilTime is a non-required field for NoQuoteSets.
 	QuoteSetValidUntilTime *time.Time `fix:"367"`
 	//TotNoQuoteEntries is a required field for NoQuoteSets.
 	TotNoQuoteEntries int `fix:"304"`
 	//LastFragment is a non-required field for NoQuoteSets.
 	LastFragment *bool `fix:"893"`
-	//QuotEntryGrp Component
+	//QuotEntryGrp is a required component for NoQuoteSets.
 	quotentrygrp.QuotEntryGrp
 }
 

@@ -28,10 +28,10 @@ type Message struct {
 	SecurityUpdateAction *string `fix:"980"`
 	//CorporateAction is a non-required field for SecurityDefinitionUpdateReport.
 	CorporateAction *string `fix:"292"`
-	//Instrument Component
-	instrument.Instrument
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//Instrument is a non-required component for SecurityDefinitionUpdateReport.
+	Instrument *instrument.Instrument
+	//UnderlyingInstrument is a non-required component for SecurityDefinitionUpdateReport.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//Currency is a non-required field for SecurityDefinitionUpdateReport.
 	Currency *string `fix:"15"`
 	//TradingSessionID is a non-required field for SecurityDefinitionUpdateReport.
@@ -44,8 +44,8 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for SecurityDefinitionUpdateReport.
 	EncodedText *string `fix:"355"`
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//InstrmtLegGrp is a non-required component for SecurityDefinitionUpdateReport.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 	//ExpirationCycle is a non-required field for SecurityDefinitionUpdateReport.
 	ExpirationCycle *int `fix:"827"`
 	//RoundLot is a non-required field for SecurityDefinitionUpdateReport.
@@ -58,22 +58,27 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReportID(v int)        { m.SecurityReportID = &v }
-func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
-func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
-func (m *Message) SetSecurityResponseType(v int)    { m.SecurityResponseType = &v }
-func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
-func (m *Message) SetSecurityUpdateAction(v string) { m.SecurityUpdateAction = &v }
-func (m *Message) SetCorporateAction(v string)      { m.CorporateAction = &v }
-func (m *Message) SetCurrency(v string)             { m.Currency = &v }
-func (m *Message) SetTradingSessionID(v string)     { m.TradingSessionID = &v }
-func (m *Message) SetTradingSessionSubID(v string)  { m.TradingSessionSubID = &v }
-func (m *Message) SetText(v string)                 { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
-func (m *Message) SetExpirationCycle(v int)         { m.ExpirationCycle = &v }
-func (m *Message) SetRoundLot(v float64)            { m.RoundLot = &v }
-func (m *Message) SetMinTradeVol(v float64)         { m.MinTradeVol = &v }
+func (m *Message) SetSecurityReportID(v int)             { m.SecurityReportID = &v }
+func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = &v }
+func (m *Message) SetSecurityResponseID(v string)        { m.SecurityResponseID = &v }
+func (m *Message) SetSecurityResponseType(v int)         { m.SecurityResponseType = &v }
+func (m *Message) SetClearingBusinessDate(v string)      { m.ClearingBusinessDate = &v }
+func (m *Message) SetSecurityUpdateAction(v string)      { m.SecurityUpdateAction = &v }
+func (m *Message) SetCorporateAction(v string)           { m.CorporateAction = &v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *Message) SetCurrency(v string)                           { m.Currency = &v }
+func (m *Message) SetTradingSessionID(v string)                   { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)                { m.TradingSessionSubID = &v }
+func (m *Message) SetText(v string)                               { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                        { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                        { m.EncodedText = &v }
+func (m *Message) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+func (m *Message) SetExpirationCycle(v int)                       { m.ExpirationCycle = &v }
+func (m *Message) SetRoundLot(v float64)                          { m.RoundLot = &v }
+func (m *Message) SetMinTradeVol(v float64)                       { m.MinTradeVol = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

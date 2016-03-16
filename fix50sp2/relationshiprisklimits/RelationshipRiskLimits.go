@@ -15,10 +15,10 @@ type NoRelationshipRiskLimits struct {
 	RelationshipRiskLimitCurrency *string `fix:"1585"`
 	//RelationshipRiskLimitPlatform is a non-required field for NoRelationshipRiskLimits.
 	RelationshipRiskLimitPlatform *string `fix:"1586"`
-	//RelationshipRiskInstrumentScope Component
-	relationshipriskinstrumentscope.RelationshipRiskInstrumentScope
-	//RelationshipRiskWarningLevels Component
-	relationshipriskwarninglevels.RelationshipRiskWarningLevels
+	//RelationshipRiskInstrumentScope is a non-required component for NoRelationshipRiskLimits.
+	RelationshipRiskInstrumentScope *relationshipriskinstrumentscope.RelationshipRiskInstrumentScope
+	//RelationshipRiskWarningLevels is a non-required component for NoRelationshipRiskLimits.
+	RelationshipRiskWarningLevels *relationshipriskwarninglevels.RelationshipRiskWarningLevels
 }
 
 //RelationshipRiskLimits is a fix50sp2 Component

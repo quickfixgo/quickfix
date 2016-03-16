@@ -7,10 +7,10 @@ import (
 
 //NoAsgnReqs is a repeating group in StrmAsgnRptGrp
 type NoAsgnReqs struct {
-	//Parties Component
-	parties.Parties
-	//StrmAsgnRptInstrmtGrp Component
-	strmasgnrptinstrmtgrp.StrmAsgnRptInstrmtGrp
+	//Parties is a non-required component for NoAsgnReqs.
+	Parties *parties.Parties
+	//StrmAsgnRptInstrmtGrp is a non-required component for NoAsgnReqs.
+	StrmAsgnRptInstrmtGrp *strmasgnrptinstrmtgrp.StrmAsgnRptInstrmtGrp
 }
 
 //StrmAsgnRptGrp is a fix50sp2 Component

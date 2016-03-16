@@ -34,8 +34,8 @@ type Message struct {
 	TotNumReports *int `fix:"911"`
 	//LastRptRequested is a non-required field for CollateralReport.
 	LastRptRequested *bool `fix:"912"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for CollateralReport.
+	Parties *parties.Parties
 	//Account is a non-required field for CollateralReport.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for CollateralReport.
@@ -48,14 +48,14 @@ type Message struct {
 	SecondaryOrderID *string `fix:"198"`
 	//SecondaryClOrdID is a non-required field for CollateralReport.
 	SecondaryClOrdID *string `fix:"526"`
-	//ExecCollGrp Component
-	execcollgrp.ExecCollGrp
-	//TrdCollGrp Component
-	trdcollgrp.TrdCollGrp
-	//Instrument Component
-	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
+	//ExecCollGrp is a non-required component for CollateralReport.
+	ExecCollGrp *execcollgrp.ExecCollGrp
+	//TrdCollGrp is a non-required component for CollateralReport.
+	TrdCollGrp *trdcollgrp.TrdCollGrp
+	//Instrument is a non-required component for CollateralReport.
+	Instrument *instrument.Instrument
+	//FinancingDetails is a non-required component for CollateralReport.
+	FinancingDetails *financingdetails.FinancingDetails
 	//SettlDate is a non-required field for CollateralReport.
 	SettlDate *string `fix:"64"`
 	//Quantity is a non-required field for CollateralReport.
@@ -64,22 +64,22 @@ type Message struct {
 	QtyType *int `fix:"854"`
 	//Currency is a non-required field for CollateralReport.
 	Currency *string `fix:"15"`
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//InstrmtLegGrp is a non-required component for CollateralReport.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
+	//UndInstrmtGrp is a non-required component for CollateralReport.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//MarginExcess is a non-required field for CollateralReport.
 	MarginExcess *float64 `fix:"899"`
 	//TotalNetValue is a non-required field for CollateralReport.
 	TotalNetValue *float64 `fix:"900"`
 	//CashOutstanding is a non-required field for CollateralReport.
 	CashOutstanding *float64 `fix:"901"`
-	//TrdRegTimestamps Component
-	trdregtimestamps.TrdRegTimestamps
+	//TrdRegTimestamps is a non-required component for CollateralReport.
+	TrdRegTimestamps *trdregtimestamps.TrdRegTimestamps
 	//Side is a non-required field for CollateralReport.
 	Side *string `fix:"54"`
-	//MiscFeesGrp Component
-	miscfeesgrp.MiscFeesGrp
+	//MiscFeesGrp is a non-required component for CollateralReport.
+	MiscFeesGrp *miscfeesgrp.MiscFeesGrp
 	//Price is a non-required field for CollateralReport.
 	Price *float64 `fix:"44"`
 	//PriceType is a non-required field for CollateralReport.
@@ -92,12 +92,12 @@ type Message struct {
 	StartCash *float64 `fix:"921"`
 	//EndCash is a non-required field for CollateralReport.
 	EndCash *float64 `fix:"922"`
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//Stipulations Component
-	stipulations.Stipulations
-	//SettlInstructionsData Component
-	settlinstructionsdata.SettlInstructionsData
+	//SpreadOrBenchmarkCurveData is a non-required component for CollateralReport.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//Stipulations is a non-required component for CollateralReport.
+	Stipulations *stipulations.Stipulations
+	//SettlInstructionsData is a non-required component for CollateralReport.
+	SettlInstructionsData *settlinstructionsdata.SettlInstructionsData
 	//TradingSessionID is a non-required field for CollateralReport.
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for CollateralReport.
@@ -126,42 +126,58 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetCollRptID(v string)              { m.CollRptID = v }
-func (m *Message) SetCollInquiryID(v string)          { m.CollInquiryID = &v }
-func (m *Message) SetCollStatus(v int)                { m.CollStatus = v }
-func (m *Message) SetTotNumReports(v int)             { m.TotNumReports = &v }
-func (m *Message) SetLastRptRequested(v bool)         { m.LastRptRequested = &v }
-func (m *Message) SetAccount(v string)                { m.Account = &v }
-func (m *Message) SetAccountType(v int)               { m.AccountType = &v }
-func (m *Message) SetClOrdID(v string)                { m.ClOrdID = &v }
-func (m *Message) SetOrderID(v string)                { m.OrderID = &v }
-func (m *Message) SetSecondaryOrderID(v string)       { m.SecondaryOrderID = &v }
-func (m *Message) SetSecondaryClOrdID(v string)       { m.SecondaryClOrdID = &v }
-func (m *Message) SetSettlDate(v string)              { m.SettlDate = &v }
-func (m *Message) SetQuantity(v float64)              { m.Quantity = &v }
-func (m *Message) SetQtyType(v int)                   { m.QtyType = &v }
-func (m *Message) SetCurrency(v string)               { m.Currency = &v }
-func (m *Message) SetMarginExcess(v float64)          { m.MarginExcess = &v }
-func (m *Message) SetTotalNetValue(v float64)         { m.TotalNetValue = &v }
-func (m *Message) SetCashOutstanding(v float64)       { m.CashOutstanding = &v }
-func (m *Message) SetSide(v string)                   { m.Side = &v }
-func (m *Message) SetPrice(v float64)                 { m.Price = &v }
-func (m *Message) SetPriceType(v int)                 { m.PriceType = &v }
-func (m *Message) SetAccruedInterestAmt(v float64)    { m.AccruedInterestAmt = &v }
-func (m *Message) SetEndAccruedInterestAmt(v float64) { m.EndAccruedInterestAmt = &v }
-func (m *Message) SetStartCash(v float64)             { m.StartCash = &v }
-func (m *Message) SetEndCash(v float64)               { m.EndCash = &v }
-func (m *Message) SetTradingSessionID(v string)       { m.TradingSessionID = &v }
-func (m *Message) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }
-func (m *Message) SetSettlSessID(v string)            { m.SettlSessID = &v }
-func (m *Message) SetSettlSessSubID(v string)         { m.SettlSessSubID = &v }
-func (m *Message) SetClearingBusinessDate(v string)   { m.ClearingBusinessDate = &v }
-func (m *Message) SetText(v string)                   { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
-func (m *Message) SetTransactTime(v time.Time)        { m.TransactTime = &v }
-func (m *Message) SetCollApplType(v int)              { m.CollApplType = &v }
-func (m *Message) SetFinancialStatus(v string)        { m.FinancialStatus = &v }
+func (m *Message) SetCollRptID(v string)                                   { m.CollRptID = v }
+func (m *Message) SetCollInquiryID(v string)                               { m.CollInquiryID = &v }
+func (m *Message) SetCollStatus(v int)                                     { m.CollStatus = v }
+func (m *Message) SetTotNumReports(v int)                                  { m.TotNumReports = &v }
+func (m *Message) SetLastRptRequested(v bool)                              { m.LastRptRequested = &v }
+func (m *Message) SetParties(v parties.Parties)                            { m.Parties = &v }
+func (m *Message) SetAccount(v string)                                     { m.Account = &v }
+func (m *Message) SetAccountType(v int)                                    { m.AccountType = &v }
+func (m *Message) SetClOrdID(v string)                                     { m.ClOrdID = &v }
+func (m *Message) SetOrderID(v string)                                     { m.OrderID = &v }
+func (m *Message) SetSecondaryOrderID(v string)                            { m.SecondaryOrderID = &v }
+func (m *Message) SetSecondaryClOrdID(v string)                            { m.SecondaryClOrdID = &v }
+func (m *Message) SetExecCollGrp(v execcollgrp.ExecCollGrp)                { m.ExecCollGrp = &v }
+func (m *Message) SetTrdCollGrp(v trdcollgrp.TrdCollGrp)                   { m.TrdCollGrp = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)                   { m.Instrument = &v }
+func (m *Message) SetFinancingDetails(v financingdetails.FinancingDetails) { m.FinancingDetails = &v }
+func (m *Message) SetSettlDate(v string)                                   { m.SettlDate = &v }
+func (m *Message) SetQuantity(v float64)                                   { m.Quantity = &v }
+func (m *Message) SetQtyType(v int)                                        { m.QtyType = &v }
+func (m *Message) SetCurrency(v string)                                    { m.Currency = &v }
+func (m *Message) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp)          { m.InstrmtLegGrp = &v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp)          { m.UndInstrmtGrp = &v }
+func (m *Message) SetMarginExcess(v float64)                               { m.MarginExcess = &v }
+func (m *Message) SetTotalNetValue(v float64)                              { m.TotalNetValue = &v }
+func (m *Message) SetCashOutstanding(v float64)                            { m.CashOutstanding = &v }
+func (m *Message) SetTrdRegTimestamps(v trdregtimestamps.TrdRegTimestamps) { m.TrdRegTimestamps = &v }
+func (m *Message) SetSide(v string)                                        { m.Side = &v }
+func (m *Message) SetMiscFeesGrp(v miscfeesgrp.MiscFeesGrp)                { m.MiscFeesGrp = &v }
+func (m *Message) SetPrice(v float64)                                      { m.Price = &v }
+func (m *Message) SetPriceType(v int)                                      { m.PriceType = &v }
+func (m *Message) SetAccruedInterestAmt(v float64)                         { m.AccruedInterestAmt = &v }
+func (m *Message) SetEndAccruedInterestAmt(v float64)                      { m.EndAccruedInterestAmt = &v }
+func (m *Message) SetStartCash(v float64)                                  { m.StartCash = &v }
+func (m *Message) SetEndCash(v float64)                                    { m.EndCash = &v }
+func (m *Message) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *Message) SetStipulations(v stipulations.Stipulations) { m.Stipulations = &v }
+func (m *Message) SetSettlInstructionsData(v settlinstructionsdata.SettlInstructionsData) {
+	m.SettlInstructionsData = &v
+}
+func (m *Message) SetTradingSessionID(v string)     { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)  { m.TradingSessionSubID = &v }
+func (m *Message) SetSettlSessID(v string)          { m.SettlSessID = &v }
+func (m *Message) SetSettlSessSubID(v string)       { m.SettlSessSubID = &v }
+func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
+func (m *Message) SetText(v string)                 { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
+func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }
+func (m *Message) SetCollApplType(v int)            { m.CollApplType = &v }
+func (m *Message) SetFinancialStatus(v string)      { m.FinancialStatus = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

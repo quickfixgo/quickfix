@@ -18,9 +18,11 @@ func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
 
 //NoRelatedSym is a repeating group in MarketDataRequest
 type NoRelatedSym struct {
-	//Instrument Component
+	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
 }
+
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = v }
 
 //NoTradingSessions is a repeating group in MarketDataRequest
 type NoTradingSessions struct {

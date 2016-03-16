@@ -1,43 +1,11 @@
 package derivativeinstrument
 
 import (
-	"github.com/quickfixgo/quickfix/fix50sp1/derivativeinstrumentpartysubidsgrp"
-	"time"
+	"github.com/quickfixgo/quickfix/fix50sp1/derivativeeventsgrp"
+	"github.com/quickfixgo/quickfix/fix50sp1/derivativeinstrumentparties"
+	"github.com/quickfixgo/quickfix/fix50sp1/derivativesecurityaltidgrp"
+	"github.com/quickfixgo/quickfix/fix50sp1/derivativesecurityxml"
 )
-
-//NoDerivativeSecurityAltID is a repeating group in DerivativeInstrument
-type NoDerivativeSecurityAltID struct {
-	//DerivativeSecurityAltID is a non-required field for NoDerivativeSecurityAltID.
-	DerivativeSecurityAltID *string `fix:"1219"`
-	//DerivativeSecurityAltIDSource is a non-required field for NoDerivativeSecurityAltID.
-	DerivativeSecurityAltIDSource *string `fix:"1220"`
-}
-
-//NoDerivativeEvents is a repeating group in DerivativeInstrument
-type NoDerivativeEvents struct {
-	//DerivativeEventType is a non-required field for NoDerivativeEvents.
-	DerivativeEventType *int `fix:"1287"`
-	//DerivativeEventDate is a non-required field for NoDerivativeEvents.
-	DerivativeEventDate *string `fix:"1288"`
-	//DerivativeEventTime is a non-required field for NoDerivativeEvents.
-	DerivativeEventTime *time.Time `fix:"1289"`
-	//DerivativeEventPx is a non-required field for NoDerivativeEvents.
-	DerivativeEventPx *float64 `fix:"1290"`
-	//DerivativeEventText is a non-required field for NoDerivativeEvents.
-	DerivativeEventText *string `fix:"1291"`
-}
-
-//NoDerivativeInstrumentParties is a repeating group in DerivativeInstrument
-type NoDerivativeInstrumentParties struct {
-	//DerivativeInstrumentPartyID is a non-required field for NoDerivativeInstrumentParties.
-	DerivativeInstrumentPartyID *string `fix:"1293"`
-	//DerivativeInstrumentPartyIDSource is a non-required field for NoDerivativeInstrumentParties.
-	DerivativeInstrumentPartyIDSource *string `fix:"1294"`
-	//DerivativeInstrumentPartyRole is a non-required field for NoDerivativeInstrumentParties.
-	DerivativeInstrumentPartyRole *int `fix:"1295"`
-	//DerivativeInstrumentPartySubIDsGrp Component
-	derivativeinstrumentpartysubidsgrp.DerivativeInstrumentPartySubIDsGrp
-}
 
 //DerivativeInstrument is a fix50sp1 Component
 type DerivativeInstrument struct {
@@ -49,8 +17,8 @@ type DerivativeInstrument struct {
 	DerivativeSecurityID *string `fix:"1216"`
 	//DerivativeSecurityIDSource is a non-required field for DerivativeInstrument.
 	DerivativeSecurityIDSource *string `fix:"1217"`
-	//NoDerivativeSecurityAltID is a non-required field for DerivativeInstrument.
-	NoDerivativeSecurityAltID []NoDerivativeSecurityAltID `fix:"1218,omitempty"`
+	//DerivativeSecurityAltIDGrp is a non-required component for DerivativeInstrument.
+	DerivativeSecurityAltIDGrp *derivativesecurityaltidgrp.DerivativeSecurityAltIDGrp
 	//DerivativeProduct is a non-required field for DerivativeInstrument.
 	DerivativeProduct *int `fix:"1246"`
 	//DerivativeProductComplex is a non-required field for DerivativeInstrument.
@@ -137,10 +105,10 @@ type DerivativeInstrument struct {
 	DerivativeEncodedSecurityDesc *string `fix:"1281"`
 	//DerivativeContractSettlMonth is a non-required field for DerivativeInstrument.
 	DerivativeContractSettlMonth *string `fix:"1285"`
-	//NoDerivativeEvents is a non-required field for DerivativeInstrument.
-	NoDerivativeEvents []NoDerivativeEvents `fix:"1286,omitempty"`
-	//NoDerivativeInstrumentParties is a non-required field for DerivativeInstrument.
-	NoDerivativeInstrumentParties []NoDerivativeInstrumentParties `fix:"1292,omitempty"`
+	//DerivativeEventsGrp is a non-required component for DerivativeInstrument.
+	DerivativeEventsGrp *derivativeeventsgrp.DerivativeEventsGrp
+	//DerivativeInstrumentParties is a non-required component for DerivativeInstrument.
+	DerivativeInstrumentParties *derivativeinstrumentparties.DerivativeInstrumentParties
 	//DerivativeSettlMethod is a non-required field for DerivativeInstrument.
 	DerivativeSettlMethod *string `fix:"1317"`
 	//DerivativePriceQuoteMethod is a non-required field for DerivativeInstrument.
@@ -155,12 +123,8 @@ type DerivativeInstrument struct {
 	DerivativeFloorPrice *float64 `fix:"1322"`
 	//DerivativePutOrCall is a non-required field for DerivativeInstrument.
 	DerivativePutOrCall *int `fix:"1323"`
-	//DerivativeSecurityXMLLen is a non-required field for DerivativeInstrument.
-	DerivativeSecurityXMLLen *int `fix:"1282"`
-	//DerivativeSecurityXML is a non-required field for DerivativeInstrument.
-	DerivativeSecurityXML *string `fix:"1283"`
-	//DerivativeSecurityXMLSchema is a non-required field for DerivativeInstrument.
-	DerivativeSecurityXMLSchema *string `fix:"1284"`
+	//DerivativeSecurityXML is a non-required component for DerivativeInstrument.
+	DerivativeSecurityXML *derivativesecurityxml.DerivativeSecurityXML
 }
 
 func (m *DerivativeInstrument) SetDerivativeSymbol(v string)     { m.DerivativeSymbol = &v }
@@ -169,8 +133,8 @@ func (m *DerivativeInstrument) SetDerivativeSecurityID(v string) { m.DerivativeS
 func (m *DerivativeInstrument) SetDerivativeSecurityIDSource(v string) {
 	m.DerivativeSecurityIDSource = &v
 }
-func (m *DerivativeInstrument) SetNoDerivativeSecurityAltID(v []NoDerivativeSecurityAltID) {
-	m.NoDerivativeSecurityAltID = v
+func (m *DerivativeInstrument) SetDerivativeSecurityAltIDGrp(v derivativesecurityaltidgrp.DerivativeSecurityAltIDGrp) {
+	m.DerivativeSecurityAltIDGrp = &v
 }
 func (m *DerivativeInstrument) SetDerivativeProduct(v int)           { m.DerivativeProduct = &v }
 func (m *DerivativeInstrument) SetDerivativeProductComplex(v string) { m.DerivativeProductComplex = &v }
@@ -249,9 +213,11 @@ func (m *DerivativeInstrument) SetDerivativeEncodedSecurityDesc(v string) {
 func (m *DerivativeInstrument) SetDerivativeContractSettlMonth(v string) {
 	m.DerivativeContractSettlMonth = &v
 }
-func (m *DerivativeInstrument) SetNoDerivativeEvents(v []NoDerivativeEvents) { m.NoDerivativeEvents = v }
-func (m *DerivativeInstrument) SetNoDerivativeInstrumentParties(v []NoDerivativeInstrumentParties) {
-	m.NoDerivativeInstrumentParties = v
+func (m *DerivativeInstrument) SetDerivativeEventsGrp(v derivativeeventsgrp.DerivativeEventsGrp) {
+	m.DerivativeEventsGrp = &v
+}
+func (m *DerivativeInstrument) SetDerivativeInstrumentParties(v derivativeinstrumentparties.DerivativeInstrumentParties) {
+	m.DerivativeInstrumentParties = &v
 }
 func (m *DerivativeInstrument) SetDerivativeSettlMethod(v string) { m.DerivativeSettlMethod = &v }
 func (m *DerivativeInstrument) SetDerivativePriceQuoteMethod(v string) {
@@ -264,8 +230,6 @@ func (m *DerivativeInstrument) SetDerivativeListMethod(v int)     { m.Derivative
 func (m *DerivativeInstrument) SetDerivativeCapPrice(v float64)   { m.DerivativeCapPrice = &v }
 func (m *DerivativeInstrument) SetDerivativeFloorPrice(v float64) { m.DerivativeFloorPrice = &v }
 func (m *DerivativeInstrument) SetDerivativePutOrCall(v int)      { m.DerivativePutOrCall = &v }
-func (m *DerivativeInstrument) SetDerivativeSecurityXMLLen(v int) { m.DerivativeSecurityXMLLen = &v }
-func (m *DerivativeInstrument) SetDerivativeSecurityXML(v string) { m.DerivativeSecurityXML = &v }
-func (m *DerivativeInstrument) SetDerivativeSecurityXMLSchema(v string) {
-	m.DerivativeSecurityXMLSchema = &v
+func (m *DerivativeInstrument) SetDerivativeSecurityXML(v derivativesecurityxml.DerivativeSecurityXML) {
+	m.DerivativeSecurityXML = &v
 }

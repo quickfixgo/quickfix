@@ -1,36 +1,10 @@
 package underlyinginstrument
 
 import (
-	"github.com/quickfixgo/quickfix/fix50sp2/undlyinstrumentptyssubgrp"
+	"github.com/quickfixgo/quickfix/fix50sp2/underlyingstipulations"
+	"github.com/quickfixgo/quickfix/fix50sp2/undlyinstrumentparties"
+	"github.com/quickfixgo/quickfix/fix50sp2/undsecaltidgrp"
 )
-
-//NoUnderlyingSecurityAltID is a repeating group in UnderlyingInstrument
-type NoUnderlyingSecurityAltID struct {
-	//UnderlyingSecurityAltID is a non-required field for NoUnderlyingSecurityAltID.
-	UnderlyingSecurityAltID *string `fix:"458"`
-	//UnderlyingSecurityAltIDSource is a non-required field for NoUnderlyingSecurityAltID.
-	UnderlyingSecurityAltIDSource *string `fix:"459"`
-}
-
-//NoUnderlyingStips is a repeating group in UnderlyingInstrument
-type NoUnderlyingStips struct {
-	//UnderlyingStipType is a non-required field for NoUnderlyingStips.
-	UnderlyingStipType *string `fix:"888"`
-	//UnderlyingStipValue is a non-required field for NoUnderlyingStips.
-	UnderlyingStipValue *string `fix:"889"`
-}
-
-//NoUndlyInstrumentParties is a repeating group in UnderlyingInstrument
-type NoUndlyInstrumentParties struct {
-	//UnderlyingInstrumentPartyID is a non-required field for NoUndlyInstrumentParties.
-	UnderlyingInstrumentPartyID *string `fix:"1059"`
-	//UnderlyingInstrumentPartyIDSource is a non-required field for NoUndlyInstrumentParties.
-	UnderlyingInstrumentPartyIDSource *string `fix:"1060"`
-	//UnderlyingInstrumentPartyRole is a non-required field for NoUndlyInstrumentParties.
-	UnderlyingInstrumentPartyRole *int `fix:"1061"`
-	//UndlyInstrumentPtysSubGrp Component
-	undlyinstrumentptyssubgrp.UndlyInstrumentPtysSubGrp
-}
 
 //UnderlyingInstrument is a fix50sp2 Component
 type UnderlyingInstrument struct {
@@ -42,8 +16,8 @@ type UnderlyingInstrument struct {
 	UnderlyingSecurityID *string `fix:"309"`
 	//UnderlyingSecurityIDSource is a non-required field for UnderlyingInstrument.
 	UnderlyingSecurityIDSource *string `fix:"305"`
-	//NoUnderlyingSecurityAltID is a non-required field for UnderlyingInstrument.
-	NoUnderlyingSecurityAltID []NoUnderlyingSecurityAltID `fix:"457,omitempty"`
+	//UndSecAltIDGrp is a non-required component for UnderlyingInstrument.
+	UndSecAltIDGrp *undsecaltidgrp.UndSecAltIDGrp
 	//UnderlyingProduct is a non-required field for UnderlyingInstrument.
 	UnderlyingProduct *int `fix:"462"`
 	//UnderlyingCFICode is a non-required field for UnderlyingInstrument.
@@ -124,8 +98,8 @@ type UnderlyingInstrument struct {
 	UnderlyingCurrentValue *float64 `fix:"885"`
 	//UnderlyingEndValue is a non-required field for UnderlyingInstrument.
 	UnderlyingEndValue *float64 `fix:"886"`
-	//NoUnderlyingStips is a non-required field for UnderlyingInstrument.
-	NoUnderlyingStips []NoUnderlyingStips `fix:"887,omitempty"`
+	//UnderlyingStipulations is a non-required component for UnderlyingInstrument.
+	UnderlyingStipulations *underlyingstipulations.UnderlyingStipulations
 	//UnderlyingAllocationPercent is a non-required field for UnderlyingInstrument.
 	UnderlyingAllocationPercent *float64 `fix:"972"`
 	//UnderlyingSettlementType is a non-required field for UnderlyingInstrument.
@@ -140,8 +114,8 @@ type UnderlyingInstrument struct {
 	UnderlyingTimeUnit *string `fix:"1000"`
 	//UnderlyingCapValue is a non-required field for UnderlyingInstrument.
 	UnderlyingCapValue *float64 `fix:"1038"`
-	//NoUndlyInstrumentParties is a non-required field for UnderlyingInstrument.
-	NoUndlyInstrumentParties []NoUndlyInstrumentParties `fix:"1058,omitempty"`
+	//UndlyInstrumentParties is a non-required component for UnderlyingInstrument.
+	UndlyInstrumentParties *undlyinstrumentparties.UndlyInstrumentParties
 	//UnderlyingSettlMethod is a non-required field for UnderlyingInstrument.
 	UnderlyingSettlMethod *string `fix:"1039"`
 	//UnderlyingAdjustedQuantity is a non-required field for UnderlyingInstrument.
@@ -186,8 +160,8 @@ func (m *UnderlyingInstrument) SetUnderlyingSecurityID(v string) { m.UnderlyingS
 func (m *UnderlyingInstrument) SetUnderlyingSecurityIDSource(v string) {
 	m.UnderlyingSecurityIDSource = &v
 }
-func (m *UnderlyingInstrument) SetNoUnderlyingSecurityAltID(v []NoUnderlyingSecurityAltID) {
-	m.NoUnderlyingSecurityAltID = v
+func (m *UnderlyingInstrument) SetUndSecAltIDGrp(v undsecaltidgrp.UndSecAltIDGrp) {
+	m.UndSecAltIDGrp = &v
 }
 func (m *UnderlyingInstrument) SetUnderlyingProduct(v int)         { m.UnderlyingProduct = &v }
 func (m *UnderlyingInstrument) SetUnderlyingCFICode(v string)      { m.UnderlyingCFICode = &v }
@@ -237,17 +211,19 @@ func (m *UnderlyingInstrument) SetEncodedUnderlyingSecurityDescLen(v int) {
 func (m *UnderlyingInstrument) SetEncodedUnderlyingSecurityDesc(v string) {
 	m.EncodedUnderlyingSecurityDesc = &v
 }
-func (m *UnderlyingInstrument) SetUnderlyingCPProgram(v string)            { m.UnderlyingCPProgram = &v }
-func (m *UnderlyingInstrument) SetUnderlyingCPRegType(v string)            { m.UnderlyingCPRegType = &v }
-func (m *UnderlyingInstrument) SetUnderlyingCurrency(v string)             { m.UnderlyingCurrency = &v }
-func (m *UnderlyingInstrument) SetUnderlyingQty(v float64)                 { m.UnderlyingQty = &v }
-func (m *UnderlyingInstrument) SetUnderlyingPx(v float64)                  { m.UnderlyingPx = &v }
-func (m *UnderlyingInstrument) SetUnderlyingDirtyPrice(v float64)          { m.UnderlyingDirtyPrice = &v }
-func (m *UnderlyingInstrument) SetUnderlyingEndPrice(v float64)            { m.UnderlyingEndPrice = &v }
-func (m *UnderlyingInstrument) SetUnderlyingStartValue(v float64)          { m.UnderlyingStartValue = &v }
-func (m *UnderlyingInstrument) SetUnderlyingCurrentValue(v float64)        { m.UnderlyingCurrentValue = &v }
-func (m *UnderlyingInstrument) SetUnderlyingEndValue(v float64)            { m.UnderlyingEndValue = &v }
-func (m *UnderlyingInstrument) SetNoUnderlyingStips(v []NoUnderlyingStips) { m.NoUnderlyingStips = v }
+func (m *UnderlyingInstrument) SetUnderlyingCPProgram(v string)     { m.UnderlyingCPProgram = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCPRegType(v string)     { m.UnderlyingCPRegType = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCurrency(v string)      { m.UnderlyingCurrency = &v }
+func (m *UnderlyingInstrument) SetUnderlyingQty(v float64)          { m.UnderlyingQty = &v }
+func (m *UnderlyingInstrument) SetUnderlyingPx(v float64)           { m.UnderlyingPx = &v }
+func (m *UnderlyingInstrument) SetUnderlyingDirtyPrice(v float64)   { m.UnderlyingDirtyPrice = &v }
+func (m *UnderlyingInstrument) SetUnderlyingEndPrice(v float64)     { m.UnderlyingEndPrice = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStartValue(v float64)   { m.UnderlyingStartValue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingCurrentValue(v float64) { m.UnderlyingCurrentValue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingEndValue(v float64)     { m.UnderlyingEndValue = &v }
+func (m *UnderlyingInstrument) SetUnderlyingStipulations(v underlyingstipulations.UnderlyingStipulations) {
+	m.UnderlyingStipulations = &v
+}
 func (m *UnderlyingInstrument) SetUnderlyingAllocationPercent(v float64) {
 	m.UnderlyingAllocationPercent = &v
 }
@@ -257,8 +233,8 @@ func (m *UnderlyingInstrument) SetUnderlyingCashType(v string)      { m.Underlyi
 func (m *UnderlyingInstrument) SetUnderlyingUnitOfMeasure(v string) { m.UnderlyingUnitOfMeasure = &v }
 func (m *UnderlyingInstrument) SetUnderlyingTimeUnit(v string)      { m.UnderlyingTimeUnit = &v }
 func (m *UnderlyingInstrument) SetUnderlyingCapValue(v float64)     { m.UnderlyingCapValue = &v }
-func (m *UnderlyingInstrument) SetNoUndlyInstrumentParties(v []NoUndlyInstrumentParties) {
-	m.NoUndlyInstrumentParties = v
+func (m *UnderlyingInstrument) SetUndlyInstrumentParties(v undlyinstrumentparties.UndlyInstrumentParties) {
+	m.UndlyInstrumentParties = &v
 }
 func (m *UnderlyingInstrument) SetUnderlyingSettlMethod(v string) { m.UnderlyingSettlMethod = &v }
 func (m *UnderlyingInstrument) SetUnderlyingAdjustedQuantity(v float64) {

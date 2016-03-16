@@ -7,14 +7,14 @@ import (
 
 //NoUnderlyings is a repeating group in PosUndInstrmtGrp
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//UnderlyingSettlPrice is a non-required field for NoUnderlyings.
 	UnderlyingSettlPrice *float64 `fix:"732"`
 	//UnderlyingSettlPriceType is a non-required field for NoUnderlyings.
 	UnderlyingSettlPriceType *int `fix:"733"`
-	//UnderlyingAmount Component
-	underlyingamount.UnderlyingAmount
+	//UnderlyingAmount is a non-required component for NoUnderlyings.
+	UnderlyingAmount *underlyingamount.UnderlyingAmount
 	//UnderlyingDeliveryAmount is a non-required field for NoUnderlyings.
 	UnderlyingDeliveryAmount *float64 `fix:"1037"`
 }

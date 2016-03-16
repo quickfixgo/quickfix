@@ -16,8 +16,8 @@ type NoOrders struct {
 	SecondaryClOrdID *string `fix:"526"`
 	//ListID is a non-required field for NoOrders.
 	ListID *string `fix:"66"`
-	//NestedParties2 Component
-	nestedparties2.NestedParties2
+	//NestedParties2 is a non-required component for NoOrders.
+	NestedParties2 *nestedparties2.NestedParties2
 	//OrderQty is a non-required field for NoOrders.
 	OrderQty *float64 `fix:"38"`
 	//OrderAvgPx is a non-required field for NoOrders.

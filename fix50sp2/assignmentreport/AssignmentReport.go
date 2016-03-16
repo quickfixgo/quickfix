@@ -24,24 +24,24 @@ type Message struct {
 	TotNumAssignmentReports *int `fix:"832"`
 	//LastRptRequested is a non-required field for AssignmentReport.
 	LastRptRequested *bool `fix:"912"`
-	//Parties Component
+	//Parties is a required component for AssignmentReport.
 	parties.Parties
 	//Account is a non-required field for AssignmentReport.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for AssignmentReport.
 	AccountType *int `fix:"581"`
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for AssignmentReport.
+	Instrument *instrument.Instrument
 	//Currency is a non-required field for AssignmentReport.
 	Currency *string `fix:"15"`
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
-	//PositionQty Component
-	positionqty.PositionQty
-	//PositionAmountData Component
-	positionamountdata.PositionAmountData
+	//InstrmtLegGrp is a non-required component for AssignmentReport.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
+	//UndInstrmtGrp is a non-required component for AssignmentReport.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
+	//PositionQty is a non-required component for AssignmentReport.
+	PositionQty *positionqty.PositionQty
+	//PositionAmountData is a non-required component for AssignmentReport.
+	PositionAmountData *positionamountdata.PositionAmountData
 	//ThresholdAmount is a non-required field for AssignmentReport.
 	ThresholdAmount *float64 `fix:"834"`
 	//SettlPrice is a non-required field for AssignmentReport.
@@ -74,8 +74,8 @@ type Message struct {
 	EncodedText *string `fix:"355"`
 	//PriorSettlPrice is a non-required field for AssignmentReport.
 	PriorSettlPrice *float64 `fix:"734"`
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//ApplicationSequenceControl is a non-required component for AssignmentReport.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	//PosReqID is a non-required field for AssignmentReport.
 	PosReqID *string `fix:"710"`
 	fixt11.Trailer
@@ -84,12 +84,20 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetAsgnRptID(v string)             { m.AsgnRptID = v }
-func (m *Message) SetTotNumAssignmentReports(v int)  { m.TotNumAssignmentReports = &v }
-func (m *Message) SetLastRptRequested(v bool)        { m.LastRptRequested = &v }
-func (m *Message) SetAccount(v string)               { m.Account = &v }
-func (m *Message) SetAccountType(v int)              { m.AccountType = &v }
-func (m *Message) SetCurrency(v string)              { m.Currency = &v }
+func (m *Message) SetAsgnRptID(v string)                          { m.AsgnRptID = v }
+func (m *Message) SetTotNumAssignmentReports(v int)               { m.TotNumAssignmentReports = &v }
+func (m *Message) SetLastRptRequested(v bool)                     { m.LastRptRequested = &v }
+func (m *Message) SetParties(v parties.Parties)                   { m.Parties = v }
+func (m *Message) SetAccount(v string)                            { m.Account = &v }
+func (m *Message) SetAccountType(v int)                           { m.AccountType = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)          { m.Instrument = &v }
+func (m *Message) SetCurrency(v string)                           { m.Currency = &v }
+func (m *Message) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *Message) SetPositionQty(v positionqty.PositionQty)       { m.PositionQty = &v }
+func (m *Message) SetPositionAmountData(v positionamountdata.PositionAmountData) {
+	m.PositionAmountData = &v
+}
 func (m *Message) SetThresholdAmount(v float64)      { m.ThresholdAmount = &v }
 func (m *Message) SetSettlPrice(v float64)           { m.SettlPrice = &v }
 func (m *Message) SetSettlPriceType(v int)           { m.SettlPriceType = &v }
@@ -106,7 +114,10 @@ func (m *Message) SetText(v string)                  { m.Text = &v }
 func (m *Message) SetEncodedTextLen(v int)           { m.EncodedTextLen = &v }
 func (m *Message) SetEncodedText(v string)           { m.EncodedText = &v }
 func (m *Message) SetPriorSettlPrice(v float64)      { m.PriorSettlPrice = &v }
-func (m *Message) SetPosReqID(v string)              { m.PosReqID = &v }
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
+func (m *Message) SetPosReqID(v string) { m.PosReqID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

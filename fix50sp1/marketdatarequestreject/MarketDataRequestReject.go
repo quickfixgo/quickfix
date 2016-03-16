@@ -17,27 +17,29 @@ type Message struct {
 	MDReqID string `fix:"262"`
 	//MDReqRejReason is a non-required field for MarketDataRequestReject.
 	MDReqRejReason *string `fix:"281"`
-	//MDRjctGrp Component
-	mdrjctgrp.MDRjctGrp
+	//MDRjctGrp is a non-required component for MarketDataRequestReject.
+	MDRjctGrp *mdrjctgrp.MDRjctGrp
 	//Text is a non-required field for MarketDataRequestReject.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for MarketDataRequestReject.
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for MarketDataRequestReject.
 	EncodedText *string `fix:"355"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for MarketDataRequestReject.
+	Parties *parties.Parties
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetMDReqID(v string)        { m.MDReqID = v }
-func (m *Message) SetMDReqRejReason(v string) { m.MDReqRejReason = &v }
-func (m *Message) SetText(v string)           { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)    { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)    { m.EncodedText = &v }
+func (m *Message) SetMDReqID(v string)                { m.MDReqID = v }
+func (m *Message) SetMDReqRejReason(v string)         { m.MDReqRejReason = &v }
+func (m *Message) SetMDRjctGrp(v mdrjctgrp.MDRjctGrp) { m.MDRjctGrp = &v }
+func (m *Message) SetText(v string)                   { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)            { m.EncodedText = &v }
+func (m *Message) SetParties(v parties.Parties)       { m.Parties = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -18,8 +18,8 @@ type NoSides struct {
 	SecondaryClOrdID *string `fix:"526"`
 	//ClOrdLinkID is a non-required field for NoSides.
 	ClOrdLinkID *string `fix:"583"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoSides.
+	Parties *parties.Parties
 	//TradeOriginationDate is a non-required field for NoSides.
 	TradeOriginationDate *string `fix:"229"`
 	//TradeDate is a non-required field for NoSides.
@@ -38,14 +38,14 @@ type NoSides struct {
 	PreallocMethod *string `fix:"591"`
 	//AllocID is a non-required field for NoSides.
 	AllocID *string `fix:"70"`
-	//PreAllocGrp Component
-	preallocgrp.PreAllocGrp
+	//PreAllocGrp is a non-required component for NoSides.
+	PreAllocGrp *preallocgrp.PreAllocGrp
 	//QtyType is a non-required field for NoSides.
 	QtyType *int `fix:"854"`
-	//OrderQtyData Component
+	//OrderQtyData is a required component for NoSides.
 	orderqtydata.OrderQtyData
-	//CommissionData Component
-	commissiondata.CommissionData
+	//CommissionData is a non-required component for NoSides.
+	CommissionData *commissiondata.CommissionData
 	//OrderCapacity is a non-required field for NoSides.
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoSides.
