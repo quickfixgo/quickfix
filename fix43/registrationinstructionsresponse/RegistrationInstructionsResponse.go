@@ -20,8 +20,8 @@ type Message struct {
 	RegistRefID string `fix:"508"`
 	//ClOrdID is a non-required field for RegistrationInstructionsResponse.
 	ClOrdID *string `fix:"11"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for RegistrationInstructionsResponse.
+	Parties *parties.Parties
 	//Account is a non-required field for RegistrationInstructionsResponse.
 	Account *string `fix:"1"`
 	//RegistStatus is a required field for RegistrationInstructionsResponse.
@@ -40,6 +40,7 @@ func (m *Message) SetRegistID(v string)            { m.RegistID = v }
 func (m *Message) SetRegistTransType(v string)     { m.RegistTransType = v }
 func (m *Message) SetRegistRefID(v string)         { m.RegistRefID = v }
 func (m *Message) SetClOrdID(v string)             { m.ClOrdID = &v }
+func (m *Message) SetParties(v parties.Parties)    { m.Parties = &v }
 func (m *Message) SetAccount(v string)             { m.Account = &v }
 func (m *Message) SetRegistStatus(v string)        { m.RegistStatus = v }
 func (m *Message) SetRegistRejReasonCode(v int)    { m.RegistRejReasonCode = &v }

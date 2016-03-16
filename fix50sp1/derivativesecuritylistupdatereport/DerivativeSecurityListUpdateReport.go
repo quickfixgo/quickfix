@@ -23,18 +23,18 @@ type Message struct {
 	SecurityRequestResult *int `fix:"560"`
 	//SecurityUpdateAction is a non-required field for DerivativeSecurityListUpdateReport.
 	SecurityUpdateAction *string `fix:"980"`
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
-	//DerivativeSecurityDefinition Component
-	derivativesecuritydefinition.DerivativeSecurityDefinition
+	//UnderlyingInstrument is a non-required component for DerivativeSecurityListUpdateReport.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+	//DerivativeSecurityDefinition is a non-required component for DerivativeSecurityListUpdateReport.
+	DerivativeSecurityDefinition *derivativesecuritydefinition.DerivativeSecurityDefinition
 	//TotNoRelatedSym is a non-required field for DerivativeSecurityListUpdateReport.
 	TotNoRelatedSym *int `fix:"393"`
 	//LastFragment is a non-required field for DerivativeSecurityListUpdateReport.
 	LastFragment *bool `fix:"893"`
-	//RelSymDerivSecUpdGrp Component
-	relsymderivsecupdgrp.RelSymDerivSecUpdGrp
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//RelSymDerivSecUpdGrp is a non-required component for DerivativeSecurityListUpdateReport.
+	RelSymDerivSecUpdGrp *relsymderivsecupdgrp.RelSymDerivSecUpdGrp
+	//ApplicationSequenceControl is a non-required component for DerivativeSecurityListUpdateReport.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	fixt11.Trailer
 }
 
@@ -45,8 +45,20 @@ func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
 func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
 func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = &v }
 func (m *Message) SetSecurityUpdateAction(v string) { m.SecurityUpdateAction = &v }
-func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
-func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *Message) SetDerivativeSecurityDefinition(v derivativesecuritydefinition.DerivativeSecurityDefinition) {
+	m.DerivativeSecurityDefinition = &v
+}
+func (m *Message) SetTotNoRelatedSym(v int) { m.TotNoRelatedSym = &v }
+func (m *Message) SetLastFragment(v bool)   { m.LastFragment = &v }
+func (m *Message) SetRelSymDerivSecUpdGrp(v relsymderivsecupdgrp.RelSymDerivSecUpdGrp) {
+	m.RelSymDerivSecUpdGrp = &v
+}
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -16,8 +16,8 @@ type NoRiskInstruments struct {
 	RiskSecurityID *string `fix:"1538"`
 	//RiskSecurityIDSource is a non-required field for NoRiskInstruments.
 	RiskSecurityIDSource *string `fix:"1539"`
-	//RiskSecAltIDGrp Component
-	risksecaltidgrp.RiskSecAltIDGrp
+	//RiskSecAltIDGrp is a non-required component for NoRiskInstruments.
+	RiskSecAltIDGrp *risksecaltidgrp.RiskSecAltIDGrp
 	//RiskProduct is a non-required field for NoRiskInstruments.
 	RiskProduct *int `fix:"1543"`
 	//RiskProductComplex is a non-required field for NoRiskInstruments.

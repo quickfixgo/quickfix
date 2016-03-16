@@ -6,8 +6,8 @@ import (
 
 //NoRelatedSym is a repeating group in InstrmtGrp
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
 }
 
 //InstrmtGrp is a fix50 Component

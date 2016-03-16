@@ -19,8 +19,8 @@ type NoRegistDtls struct {
 	MailingDtls *string `fix:"474"`
 	//MailingInst is a non-required field for NoRegistDtls.
 	MailingInst *string `fix:"482"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoRegistDtls.
+	NestedParties *nestedparties.NestedParties
 	//OwnerType is a non-required field for NoRegistDtls.
 	OwnerType *int `fix:"522"`
 	//DateOfBirth is a non-required field for NoRegistDtls.
@@ -29,13 +29,14 @@ type NoRegistDtls struct {
 	InvestorCountryOfResidence *string `fix:"475"`
 }
 
-func (m *NoRegistDtls) SetRegistDetls(v string)                { m.RegistDetls = &v }
-func (m *NoRegistDtls) SetRegistEmail(v string)                { m.RegistEmail = &v }
-func (m *NoRegistDtls) SetMailingDtls(v string)                { m.MailingDtls = &v }
-func (m *NoRegistDtls) SetMailingInst(v string)                { m.MailingInst = &v }
-func (m *NoRegistDtls) SetOwnerType(v int)                     { m.OwnerType = &v }
-func (m *NoRegistDtls) SetDateOfBirth(v string)                { m.DateOfBirth = &v }
-func (m *NoRegistDtls) SetInvestorCountryOfResidence(v string) { m.InvestorCountryOfResidence = &v }
+func (m *NoRegistDtls) SetRegistDetls(v string)                        { m.RegistDetls = &v }
+func (m *NoRegistDtls) SetRegistEmail(v string)                        { m.RegistEmail = &v }
+func (m *NoRegistDtls) SetMailingDtls(v string)                        { m.MailingDtls = &v }
+func (m *NoRegistDtls) SetMailingInst(v string)                        { m.MailingInst = &v }
+func (m *NoRegistDtls) SetNestedParties(v nestedparties.NestedParties) { m.NestedParties = &v }
+func (m *NoRegistDtls) SetOwnerType(v int)                             { m.OwnerType = &v }
+func (m *NoRegistDtls) SetDateOfBirth(v string)                        { m.DateOfBirth = &v }
+func (m *NoRegistDtls) SetInvestorCountryOfResidence(v string)         { m.InvestorCountryOfResidence = &v }
 
 //NoDistribInsts is a repeating group in RegistrationInstructions
 type NoDistribInsts struct {
@@ -75,8 +76,8 @@ type Message struct {
 	RegistRefID string `fix:"508"`
 	//ClOrdID is a non-required field for RegistrationInstructions.
 	ClOrdID *string `fix:"11"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for RegistrationInstructions.
+	Parties *parties.Parties
 	//Account is a non-required field for RegistrationInstructions.
 	Account *string `fix:"1"`
 	//RegistAcctType is a non-required field for RegistrationInstructions.
@@ -99,6 +100,7 @@ func (m *Message) SetRegistID(v string)                 { m.RegistID = v }
 func (m *Message) SetRegistTransType(v string)          { m.RegistTransType = v }
 func (m *Message) SetRegistRefID(v string)              { m.RegistRefID = v }
 func (m *Message) SetClOrdID(v string)                  { m.ClOrdID = &v }
+func (m *Message) SetParties(v parties.Parties)         { m.Parties = &v }
 func (m *Message) SetAccount(v string)                  { m.Account = &v }
 func (m *Message) SetRegistAcctType(v string)           { m.RegistAcctType = &v }
 func (m *Message) SetTaxAdvantageType(v int)            { m.TaxAdvantageType = &v }

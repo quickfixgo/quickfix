@@ -16,8 +16,8 @@ type NoStrikeRules struct {
 	StrikeIncrement *float64 `fix:"1204"`
 	//StrikeExerciseStyle is a non-required field for NoStrikeRules.
 	StrikeExerciseStyle *int `fix:"1304"`
-	//MaturityRules Component
-	maturityrules.MaturityRules
+	//MaturityRules is a non-required component for NoStrikeRules.
+	MaturityRules *maturityrules.MaturityRules
 }
 
 //StrikeRules is a fix50sp2 Component

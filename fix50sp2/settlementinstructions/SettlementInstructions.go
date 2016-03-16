@@ -31,23 +31,24 @@ type Message struct {
 	ClOrdID *string `fix:"11"`
 	//TransactTime is a required field for SettlementInstructions.
 	TransactTime time.Time `fix:"60"`
-	//SettlInstGrp Component
-	settlinstgrp.SettlInstGrp
+	//SettlInstGrp is a non-required component for SettlementInstructions.
+	SettlInstGrp *settlinstgrp.SettlInstGrp
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSettlInstMsgID(v string)   { m.SettlInstMsgID = v }
-func (m *Message) SetSettlInstReqID(v string)   { m.SettlInstReqID = &v }
-func (m *Message) SetSettlInstMode(v string)    { m.SettlInstMode = v }
-func (m *Message) SetSettlInstReqRejCode(v int) { m.SettlInstReqRejCode = &v }
-func (m *Message) SetText(v string)             { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)      { m.EncodedText = &v }
-func (m *Message) SetClOrdID(v string)          { m.ClOrdID = &v }
-func (m *Message) SetTransactTime(v time.Time)  { m.TransactTime = v }
+func (m *Message) SetSettlInstMsgID(v string)                  { m.SettlInstMsgID = v }
+func (m *Message) SetSettlInstReqID(v string)                  { m.SettlInstReqID = &v }
+func (m *Message) SetSettlInstMode(v string)                   { m.SettlInstMode = v }
+func (m *Message) SetSettlInstReqRejCode(v int)                { m.SettlInstReqRejCode = &v }
+func (m *Message) SetText(v string)                            { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                     { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                     { m.EncodedText = &v }
+func (m *Message) SetClOrdID(v string)                         { m.ClOrdID = &v }
+func (m *Message) SetTransactTime(v time.Time)                 { m.TransactTime = v }
+func (m *Message) SetSettlInstGrp(v settlinstgrp.SettlInstGrp) { m.SettlInstGrp = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

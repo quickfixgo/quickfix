@@ -9,14 +9,14 @@ import (
 
 //NoLegs is a repeating group in InstrmtLegExecGrp
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
-	//LegStipulations Component
-	legstipulations.LegStipulations
+	//LegStipulations is a non-required component for NoLegs.
+	LegStipulations *legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
@@ -39,12 +39,12 @@ type NoLegs struct {
 	LegCalculatedCcyLastQty *float64 `fix:"1074"`
 	//LegGrossTradeAmt is a non-required field for NoLegs.
 	LegGrossTradeAmt *float64 `fix:"1075"`
-	//NestedParties3 Component
-	nestedparties3.NestedParties3
+	//NestedParties3 is a non-required component for NoLegs.
+	NestedParties3 *nestedparties3.NestedParties3
 	//LegAllocID is a non-required field for NoLegs.
 	LegAllocID *string `fix:"1366"`
-	//LegPreAllocGrp Component
-	legpreallocgrp.LegPreAllocGrp
+	//LegPreAllocGrp is a non-required component for NoLegs.
+	LegPreAllocGrp *legpreallocgrp.LegPreAllocGrp
 	//LegVolatility is a non-required field for NoLegs.
 	LegVolatility *float64 `fix:"1379"`
 	//LegDividendYield is a non-required field for NoLegs.

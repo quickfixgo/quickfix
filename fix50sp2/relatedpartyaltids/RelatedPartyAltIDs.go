@@ -10,8 +10,8 @@ type NoRelatedPartyAltIDs struct {
 	RelatedPartyAltID *string `fix:"1570"`
 	//RelatedPartyAltIDSource is a non-required field for NoRelatedPartyAltIDs.
 	RelatedPartyAltIDSource *string `fix:"1571"`
-	//RelatedAltPtysSubGrp Component
-	relatedaltptyssubgrp.RelatedAltPtysSubGrp
+	//RelatedAltPtysSubGrp is a non-required component for NoRelatedPartyAltIDs.
+	RelatedAltPtysSubGrp *relatedaltptyssubgrp.RelatedAltPtysSubGrp
 }
 
 //RelatedPartyAltIDs is a fix50sp2 Component

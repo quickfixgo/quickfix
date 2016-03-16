@@ -21,8 +21,8 @@ type NoMDEntries struct {
 	MDEntryID *string `fix:"278"`
 	//MDEntryRefID is a non-required field for NoMDEntries.
 	MDEntryRefID *string `fix:"280"`
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for NoMDEntries.
+	Instrument *instrument.Instrument
 	//FinancialStatus is a non-required field for NoMDEntries.
 	FinancialStatus *string `fix:"291"`
 	//CorporateAction is a non-required field for NoMDEntries.
@@ -99,48 +99,49 @@ type NoMDEntries struct {
 	EncodedText *string `fix:"355"`
 }
 
-func (m *NoMDEntries) SetMDUpdateAction(v string)        { m.MDUpdateAction = v }
-func (m *NoMDEntries) SetDeleteReason(v string)          { m.DeleteReason = &v }
-func (m *NoMDEntries) SetMDEntryType(v string)           { m.MDEntryType = &v }
-func (m *NoMDEntries) SetMDEntryID(v string)             { m.MDEntryID = &v }
-func (m *NoMDEntries) SetMDEntryRefID(v string)          { m.MDEntryRefID = &v }
-func (m *NoMDEntries) SetFinancialStatus(v string)       { m.FinancialStatus = &v }
-func (m *NoMDEntries) SetCorporateAction(v string)       { m.CorporateAction = &v }
-func (m *NoMDEntries) SetMDEntryPx(v float64)            { m.MDEntryPx = &v }
-func (m *NoMDEntries) SetCurrency(v string)              { m.Currency = &v }
-func (m *NoMDEntries) SetMDEntrySize(v float64)          { m.MDEntrySize = &v }
-func (m *NoMDEntries) SetMDEntryDate(v string)           { m.MDEntryDate = &v }
-func (m *NoMDEntries) SetMDEntryTime(v string)           { m.MDEntryTime = &v }
-func (m *NoMDEntries) SetTickDirection(v string)         { m.TickDirection = &v }
-func (m *NoMDEntries) SetMDMkt(v string)                 { m.MDMkt = &v }
-func (m *NoMDEntries) SetTradingSessionID(v string)      { m.TradingSessionID = &v }
-func (m *NoMDEntries) SetTradingSessionSubID(v string)   { m.TradingSessionSubID = &v }
-func (m *NoMDEntries) SetQuoteCondition(v string)        { m.QuoteCondition = &v }
-func (m *NoMDEntries) SetTradeCondition(v string)        { m.TradeCondition = &v }
-func (m *NoMDEntries) SetMDEntryOriginator(v string)     { m.MDEntryOriginator = &v }
-func (m *NoMDEntries) SetLocationID(v string)            { m.LocationID = &v }
-func (m *NoMDEntries) SetDeskID(v string)                { m.DeskID = &v }
-func (m *NoMDEntries) SetOpenCloseSettleFlag(v string)   { m.OpenCloseSettleFlag = &v }
-func (m *NoMDEntries) SetTimeInForce(v string)           { m.TimeInForce = &v }
-func (m *NoMDEntries) SetExpireDate(v string)            { m.ExpireDate = &v }
-func (m *NoMDEntries) SetExpireTime(v time.Time)         { m.ExpireTime = &v }
-func (m *NoMDEntries) SetMinQty(v float64)               { m.MinQty = &v }
-func (m *NoMDEntries) SetExecInst(v string)              { m.ExecInst = &v }
-func (m *NoMDEntries) SetSellerDays(v int)               { m.SellerDays = &v }
-func (m *NoMDEntries) SetOrderID(v string)               { m.OrderID = &v }
-func (m *NoMDEntries) SetQuoteEntryID(v string)          { m.QuoteEntryID = &v }
-func (m *NoMDEntries) SetMDEntryBuyer(v string)          { m.MDEntryBuyer = &v }
-func (m *NoMDEntries) SetMDEntrySeller(v string)         { m.MDEntrySeller = &v }
-func (m *NoMDEntries) SetNumberOfOrders(v int)           { m.NumberOfOrders = &v }
-func (m *NoMDEntries) SetMDEntryPositionNo(v int)        { m.MDEntryPositionNo = &v }
-func (m *NoMDEntries) SetScope(v string)                 { m.Scope = &v }
-func (m *NoMDEntries) SetTotalVolumeTraded(v float64)    { m.TotalVolumeTraded = &v }
-func (m *NoMDEntries) SetTotalVolumeTradedDate(v string) { m.TotalVolumeTradedDate = &v }
-func (m *NoMDEntries) SetTotalVolumeTradedTime(v string) { m.TotalVolumeTradedTime = &v }
-func (m *NoMDEntries) SetNetChgPrevDay(v float64)        { m.NetChgPrevDay = &v }
-func (m *NoMDEntries) SetText(v string)                  { m.Text = &v }
-func (m *NoMDEntries) SetEncodedTextLen(v int)           { m.EncodedTextLen = &v }
-func (m *NoMDEntries) SetEncodedText(v string)           { m.EncodedText = &v }
+func (m *NoMDEntries) SetMDUpdateAction(v string)            { m.MDUpdateAction = v }
+func (m *NoMDEntries) SetDeleteReason(v string)              { m.DeleteReason = &v }
+func (m *NoMDEntries) SetMDEntryType(v string)               { m.MDEntryType = &v }
+func (m *NoMDEntries) SetMDEntryID(v string)                 { m.MDEntryID = &v }
+func (m *NoMDEntries) SetMDEntryRefID(v string)              { m.MDEntryRefID = &v }
+func (m *NoMDEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoMDEntries) SetFinancialStatus(v string)           { m.FinancialStatus = &v }
+func (m *NoMDEntries) SetCorporateAction(v string)           { m.CorporateAction = &v }
+func (m *NoMDEntries) SetMDEntryPx(v float64)                { m.MDEntryPx = &v }
+func (m *NoMDEntries) SetCurrency(v string)                  { m.Currency = &v }
+func (m *NoMDEntries) SetMDEntrySize(v float64)              { m.MDEntrySize = &v }
+func (m *NoMDEntries) SetMDEntryDate(v string)               { m.MDEntryDate = &v }
+func (m *NoMDEntries) SetMDEntryTime(v string)               { m.MDEntryTime = &v }
+func (m *NoMDEntries) SetTickDirection(v string)             { m.TickDirection = &v }
+func (m *NoMDEntries) SetMDMkt(v string)                     { m.MDMkt = &v }
+func (m *NoMDEntries) SetTradingSessionID(v string)          { m.TradingSessionID = &v }
+func (m *NoMDEntries) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
+func (m *NoMDEntries) SetQuoteCondition(v string)            { m.QuoteCondition = &v }
+func (m *NoMDEntries) SetTradeCondition(v string)            { m.TradeCondition = &v }
+func (m *NoMDEntries) SetMDEntryOriginator(v string)         { m.MDEntryOriginator = &v }
+func (m *NoMDEntries) SetLocationID(v string)                { m.LocationID = &v }
+func (m *NoMDEntries) SetDeskID(v string)                    { m.DeskID = &v }
+func (m *NoMDEntries) SetOpenCloseSettleFlag(v string)       { m.OpenCloseSettleFlag = &v }
+func (m *NoMDEntries) SetTimeInForce(v string)               { m.TimeInForce = &v }
+func (m *NoMDEntries) SetExpireDate(v string)                { m.ExpireDate = &v }
+func (m *NoMDEntries) SetExpireTime(v time.Time)             { m.ExpireTime = &v }
+func (m *NoMDEntries) SetMinQty(v float64)                   { m.MinQty = &v }
+func (m *NoMDEntries) SetExecInst(v string)                  { m.ExecInst = &v }
+func (m *NoMDEntries) SetSellerDays(v int)                   { m.SellerDays = &v }
+func (m *NoMDEntries) SetOrderID(v string)                   { m.OrderID = &v }
+func (m *NoMDEntries) SetQuoteEntryID(v string)              { m.QuoteEntryID = &v }
+func (m *NoMDEntries) SetMDEntryBuyer(v string)              { m.MDEntryBuyer = &v }
+func (m *NoMDEntries) SetMDEntrySeller(v string)             { m.MDEntrySeller = &v }
+func (m *NoMDEntries) SetNumberOfOrders(v int)               { m.NumberOfOrders = &v }
+func (m *NoMDEntries) SetMDEntryPositionNo(v int)            { m.MDEntryPositionNo = &v }
+func (m *NoMDEntries) SetScope(v string)                     { m.Scope = &v }
+func (m *NoMDEntries) SetTotalVolumeTraded(v float64)        { m.TotalVolumeTraded = &v }
+func (m *NoMDEntries) SetTotalVolumeTradedDate(v string)     { m.TotalVolumeTradedDate = &v }
+func (m *NoMDEntries) SetTotalVolumeTradedTime(v string)     { m.TotalVolumeTradedTime = &v }
+func (m *NoMDEntries) SetNetChgPrevDay(v float64)            { m.NetChgPrevDay = &v }
+func (m *NoMDEntries) SetText(v string)                      { m.Text = &v }
+func (m *NoMDEntries) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *NoMDEntries) SetEncodedText(v string)               { m.EncodedText = &v }
 
 //Message is a MarketDataIncrementalRefresh FIX Message
 type Message struct {

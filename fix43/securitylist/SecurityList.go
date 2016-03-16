@@ -11,8 +11,8 @@ import (
 
 //NoRelatedSym is a repeating group in SecurityList
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for NoRelatedSym.
@@ -33,25 +33,27 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
-func (m *NoRelatedSym) SetCurrency(v string)            { m.Currency = &v }
-func (m *NoRelatedSym) SetNoLegs(v []NoLegs)            { m.NoLegs = v }
-func (m *NoRelatedSym) SetRoundLot(v float64)           { m.RoundLot = &v }
-func (m *NoRelatedSym) SetMinTradeVol(v float64)        { m.MinTradeVol = &v }
-func (m *NoRelatedSym) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
-func (m *NoRelatedSym) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
-func (m *NoRelatedSym) SetText(v string)                { m.Text = &v }
-func (m *NoRelatedSym) SetEncodedTextLen(v int)         { m.EncodedTextLen = &v }
-func (m *NoRelatedSym) SetEncodedText(v string)         { m.EncodedText = &v }
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoRelatedSym) SetCurrency(v string)                  { m.Currency = &v }
+func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
+func (m *NoRelatedSym) SetRoundLot(v float64)                 { m.RoundLot = &v }
+func (m *NoRelatedSym) SetMinTradeVol(v float64)              { m.MinTradeVol = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)          { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetText(v string)                      { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)               { m.EncodedText = &v }
 
 //NoLegs is a repeating group in NoRelatedSym
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegCurrency is a non-required field for NoLegs.
 	LegCurrency *string `fix:"556"`
 }
 
-func (m *NoLegs) SetLegCurrency(v string) { m.LegCurrency = &v }
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegCurrency(v string)                        { m.LegCurrency = &v }
 
 //Message is a SecurityList FIX Message
 type Message struct {

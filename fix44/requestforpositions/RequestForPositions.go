@@ -14,14 +14,20 @@ import (
 
 //NoLegs is a repeating group in RequestForPositions
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in RequestForPositions
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoTradingSessions is a repeating group in RequestForPositions
@@ -47,7 +53,7 @@ type Message struct {
 	MatchStatus *string `fix:"573"`
 	//SubscriptionRequestType is a non-required field for RequestForPositions.
 	SubscriptionRequestType *string `fix:"263"`
-	//Parties Component
+	//Parties is a required component for RequestForPositions.
 	parties.Parties
 	//Account is a required field for RequestForPositions.
 	Account string `fix:"1"`
@@ -55,8 +61,8 @@ type Message struct {
 	AcctIDSource *int `fix:"660"`
 	//AccountType is a required field for RequestForPositions.
 	AccountType int `fix:"581"`
-	//Instrument Component
-	instrument.Instrument
+	//Instrument is a non-required component for RequestForPositions.
+	Instrument *instrument.Instrument
 	//Currency is a non-required field for RequestForPositions.
 	Currency *string `fix:"15"`
 	//NoLegs is a non-required field for RequestForPositions.
@@ -93,9 +99,11 @@ func (m *Message) SetPosReqID(v string)                       { m.PosReqID = v }
 func (m *Message) SetPosReqType(v int)                        { m.PosReqType = v }
 func (m *Message) SetMatchStatus(v string)                    { m.MatchStatus = &v }
 func (m *Message) SetSubscriptionRequestType(v string)        { m.SubscriptionRequestType = &v }
+func (m *Message) SetParties(v parties.Parties)               { m.Parties = v }
 func (m *Message) SetAccount(v string)                        { m.Account = v }
 func (m *Message) SetAcctIDSource(v int)                      { m.AcctIDSource = &v }
 func (m *Message) SetAccountType(v int)                       { m.AccountType = v }
+func (m *Message) SetInstrument(v instrument.Instrument)      { m.Instrument = &v }
 func (m *Message) SetCurrency(v string)                       { m.Currency = &v }
 func (m *Message) SetNoLegs(v []NoLegs)                       { m.NoLegs = v }
 func (m *Message) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }

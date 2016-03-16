@@ -11,16 +11,16 @@ import (
 type NoRelatedSym struct {
 	//ListUpdateAction is a non-required field for NoRelatedSym.
 	ListUpdateAction *string `fix:"1324"`
-	//Instrument Component
-	instrument.Instrument
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
-	//SecondaryPriceLimits Component
-	secondarypricelimits.SecondaryPriceLimits
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
+	//InstrumentExtension is a non-required component for NoRelatedSym.
+	InstrumentExtension *instrumentextension.InstrumentExtension
+	//SecondaryPriceLimits is a non-required component for NoRelatedSym.
+	SecondaryPriceLimits *secondarypricelimits.SecondaryPriceLimits
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//InstrmtLegGrp is a non-required component for NoRelatedSym.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 	//Text is a non-required field for NoRelatedSym.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for NoRelatedSym.

@@ -116,7 +116,7 @@ type Message struct {
 	fix43.Header
 	//MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
 	MDReqID *string `fix:"262"`
-	//Instrument Component
+	//Instrument is a required component for MarketDataSnapshotFullRefresh.
 	instrument.Instrument
 	//FinancialStatus is a non-required field for MarketDataSnapshotFullRefresh.
 	FinancialStatus *string `fix:"291"`
@@ -138,14 +138,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetMDReqID(v string)               { m.MDReqID = &v }
-func (m *Message) SetFinancialStatus(v string)       { m.FinancialStatus = &v }
-func (m *Message) SetCorporateAction(v string)       { m.CorporateAction = &v }
-func (m *Message) SetTotalVolumeTraded(v float64)    { m.TotalVolumeTraded = &v }
-func (m *Message) SetTotalVolumeTradedDate(v string) { m.TotalVolumeTradedDate = &v }
-func (m *Message) SetTotalVolumeTradedTime(v string) { m.TotalVolumeTradedTime = &v }
-func (m *Message) SetNetChgPrevDay(v float64)        { m.NetChgPrevDay = &v }
-func (m *Message) SetNoMDEntries(v []NoMDEntries)    { m.NoMDEntries = v }
+func (m *Message) SetMDReqID(v string)                   { m.MDReqID = &v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+func (m *Message) SetFinancialStatus(v string)           { m.FinancialStatus = &v }
+func (m *Message) SetCorporateAction(v string)           { m.CorporateAction = &v }
+func (m *Message) SetTotalVolumeTraded(v float64)        { m.TotalVolumeTraded = &v }
+func (m *Message) SetTotalVolumeTradedDate(v string)     { m.TotalVolumeTradedDate = &v }
+func (m *Message) SetTotalVolumeTradedTime(v string)     { m.TotalVolumeTradedTime = &v }
+func (m *Message) SetNetChgPrevDay(v float64)            { m.NetChgPrevDay = &v }
+func (m *Message) SetNoMDEntries(v []NoMDEntries)        { m.NoMDEntries = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -8,20 +8,20 @@ import (
 
 //NoLegs is a repeating group in TrdInstrmtLegGrp
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegQty is a non-required field for NoLegs.
 	LegQty *float64 `fix:"687"`
 	//LegSwapType is a non-required field for NoLegs.
 	LegSwapType *int `fix:"690"`
-	//LegStipulations Component
-	legstipulations.LegStipulations
+	//LegStipulations is a non-required component for NoLegs.
+	LegStipulations *legstipulations.LegStipulations
 	//LegPositionEffect is a non-required field for NoLegs.
 	LegPositionEffect *string `fix:"564"`
 	//LegCoveredOrUncovered is a non-required field for NoLegs.
 	LegCoveredOrUncovered *int `fix:"565"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoLegs.
+	NestedParties *nestedparties.NestedParties
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
 	//LegPrice is a non-required field for NoLegs.

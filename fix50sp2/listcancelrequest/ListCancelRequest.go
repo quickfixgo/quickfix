@@ -27,8 +27,8 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ListCancelRequest.
 	EncodedText *string `fix:"355"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for ListCancelRequest.
+	Parties *parties.Parties
 	fixt11.Trailer
 }
 
@@ -42,6 +42,7 @@ func (m *Message) SetTradeDate(v string)            { m.TradeDate = &v }
 func (m *Message) SetText(v string)                 { m.Text = &v }
 func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
 func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
+func (m *Message) SetParties(v parties.Parties)     { m.Parties = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

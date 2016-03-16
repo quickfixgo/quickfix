@@ -6,7 +6,7 @@ import (
 
 //NoStrikes is a repeating group in InstrmtStrkPxGrp
 type NoStrikes struct {
-	//Instrument Component
+	//Instrument is a required component for NoStrikes.
 	instrument.Instrument
 }
 

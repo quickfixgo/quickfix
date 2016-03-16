@@ -17,27 +17,29 @@ type Message struct {
 	ApplReqID string `fix:"1346"`
 	//ApplReqType is a required field for ApplicationMessageRequest.
 	ApplReqType int `fix:"1347"`
-	//ApplIDRequestGrp Component
-	applidrequestgrp.ApplIDRequestGrp
+	//ApplIDRequestGrp is a non-required component for ApplicationMessageRequest.
+	ApplIDRequestGrp *applidrequestgrp.ApplIDRequestGrp
 	//Text is a non-required field for ApplicationMessageRequest.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for ApplicationMessageRequest.
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for ApplicationMessageRequest.
 	EncodedText *string `fix:"355"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for ApplicationMessageRequest.
+	Parties *parties.Parties
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetApplReqID(v string)   { m.ApplReqID = v }
-func (m *Message) SetApplReqType(v int)    { m.ApplReqType = v }
-func (m *Message) SetText(v string)        { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int) { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string) { m.EncodedText = &v }
+func (m *Message) SetApplReqID(v string)                                   { m.ApplReqID = v }
+func (m *Message) SetApplReqType(v int)                                    { m.ApplReqType = v }
+func (m *Message) SetApplIDRequestGrp(v applidrequestgrp.ApplIDRequestGrp) { m.ApplIDRequestGrp = &v }
+func (m *Message) SetText(v string)                                        { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                                 { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                                 { m.EncodedText = &v }
+func (m *Message) SetParties(v parties.Parties)                            { m.Parties = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

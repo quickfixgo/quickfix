@@ -12,8 +12,8 @@ type NoDerivativeInstrumentParties struct {
 	DerivativeInstrumentPartyIDSource *string `fix:"1294"`
 	//DerivativeInstrumentPartyRole is a non-required field for NoDerivativeInstrumentParties.
 	DerivativeInstrumentPartyRole *int `fix:"1295"`
-	//DerivativeInstrumentPartySubIDsGrp Component
-	derivativeinstrumentpartysubidsgrp.DerivativeInstrumentPartySubIDsGrp
+	//DerivativeInstrumentPartySubIDsGrp is a non-required component for NoDerivativeInstrumentParties.
+	DerivativeInstrumentPartySubIDsGrp *derivativeinstrumentpartysubidsgrp.DerivativeInstrumentPartySubIDsGrp
 }
 
 //DerivativeInstrumentParties is a fix50sp1 Component

@@ -16,8 +16,8 @@ type Message struct {
 	ApplReportID string `fix:"1356"`
 	//ApplReportType is a required field for ApplicationMessageReport.
 	ApplReportType int `fix:"1426"`
-	//ApplIDReportGrp Component
-	applidreportgrp.ApplIDReportGrp
+	//ApplIDReportGrp is a non-required component for ApplicationMessageReport.
+	ApplIDReportGrp *applidreportgrp.ApplIDReportGrp
 	//Text is a non-required field for ApplicationMessageReport.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for ApplicationMessageReport.
@@ -32,12 +32,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetApplReportID(v string) { m.ApplReportID = v }
-func (m *Message) SetApplReportType(v int)  { m.ApplReportType = v }
-func (m *Message) SetText(v string)         { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)  { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)  { m.EncodedText = &v }
-func (m *Message) SetApplReqID(v string)    { m.ApplReqID = &v }
+func (m *Message) SetApplReportID(v string)                             { m.ApplReportID = v }
+func (m *Message) SetApplReportType(v int)                              { m.ApplReportType = v }
+func (m *Message) SetApplIDReportGrp(v applidreportgrp.ApplIDReportGrp) { m.ApplIDReportGrp = &v }
+func (m *Message) SetText(v string)                                     { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                              { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                              { m.EncodedText = &v }
+func (m *Message) SetApplReqID(v string)                                { m.ApplReqID = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

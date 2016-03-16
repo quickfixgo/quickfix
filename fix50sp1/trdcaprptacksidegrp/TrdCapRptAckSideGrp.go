@@ -27,8 +27,8 @@ type NoSides struct {
 	SecondaryClOrdID *string `fix:"526"`
 	//ListID is a non-required field for NoSides.
 	ListID *string `fix:"66"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoSides.
+	Parties *parties.Parties
 	//Account is a non-required field for NoSides.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoSides.
@@ -39,8 +39,8 @@ type NoSides struct {
 	ProcessCode *string `fix:"81"`
 	//OddLot is a non-required field for NoSides.
 	OddLot *bool `fix:"575"`
-	//ClrInstGrp Component
-	clrinstgrp.ClrInstGrp
+	//ClrInstGrp is a non-required component for NoSides.
+	ClrInstGrp *clrinstgrp.ClrInstGrp
 	//TradeInputSource is a non-required field for NoSides.
 	TradeInputSource *string `fix:"578"`
 	//TradeInputDevice is a non-required field for NoSides.
@@ -69,8 +69,8 @@ type NoSides struct {
 	TradingSessionSubID *string `fix:"625"`
 	//TimeBracket is a non-required field for NoSides.
 	TimeBracket *string `fix:"943"`
-	//CommissionData Component
-	commissiondata.CommissionData
+	//CommissionData is a non-required component for NoSides.
+	CommissionData *commissiondata.CommissionData
 	//NumDaysInterest is a non-required field for NoSides.
 	NumDaysInterest *int `fix:"157"`
 	//ExDate is a non-required field for NoSides.
@@ -103,12 +103,12 @@ type NoSides struct {
 	PositionEffect *string `fix:"77"`
 	//SideMultiLegReportingType is a non-required field for NoSides.
 	SideMultiLegReportingType *int `fix:"752"`
-	//ContAmtGrp Component
-	contamtgrp.ContAmtGrp
-	//Stipulations Component
-	stipulations.Stipulations
-	//MiscFeesGrp Component
-	miscfeesgrp.MiscFeesGrp
+	//ContAmtGrp is a non-required component for NoSides.
+	ContAmtGrp *contamtgrp.ContAmtGrp
+	//Stipulations is a non-required component for NoSides.
+	Stipulations *stipulations.Stipulations
+	//MiscFeesGrp is a non-required component for NoSides.
+	MiscFeesGrp *miscfeesgrp.MiscFeesGrp
 	//ExchangeRule is a non-required field for NoSides.
 	ExchangeRule *string `fix:"825"`
 	//TradeAllocIndicator is a non-required field for NoSides.
@@ -117,8 +117,8 @@ type NoSides struct {
 	PreallocMethod *string `fix:"591"`
 	//AllocID is a non-required field for NoSides.
 	AllocID *string `fix:"70"`
-	//TrdAllocGrp Component
-	trdallocgrp.TrdAllocGrp
+	//TrdAllocGrp is a non-required component for NoSides.
+	TrdAllocGrp *trdallocgrp.TrdAllocGrp
 	//LotType is a non-required field for NoSides.
 	LotType *string `fix:"1093"`
 	//SideGrossTradeAmt is a non-required field for NoSides.
@@ -137,16 +137,16 @@ type NoSides struct {
 	RptSeq *int `fix:"83"`
 	//SideTrdSubTyp is a non-required field for NoSides.
 	SideTrdSubTyp *int `fix:"1008"`
-	//SideTrdRegTS Component
-	sidetrdregts.SideTrdRegTS
+	//SideTrdRegTS is a non-required component for NoSides.
+	SideTrdRegTS *sidetrdregts.SideTrdRegTS
 	//NetGrossInd is a non-required field for NoSides.
 	NetGrossInd *int `fix:"430"`
 	//SideCurrency is a non-required field for NoSides.
 	SideCurrency *string `fix:"1154"`
 	//SideSettlCurrency is a non-required field for NoSides.
 	SideSettlCurrency *string `fix:"1155"`
-	//SettlDetails Component
-	settldetails.SettlDetails
+	//SettlDetails is a non-required component for NoSides.
+	SettlDetails *settldetails.SettlDetails
 }
 
 //TrdCapRptAckSideGrp is a fix50sp1 Component

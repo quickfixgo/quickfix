@@ -7,12 +7,12 @@ import (
 
 //NoLegs is a repeating group in InstrmtLegIOIGrp
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegIOIQty is a non-required field for NoLegs.
 	LegIOIQty *string `fix:"682"`
-	//LegStipulations Component
-	legstipulations.LegStipulations
+	//LegStipulations is a non-required component for NoLegs.
+	LegStipulations *legstipulations.LegStipulations
 }
 
 //InstrmtLegIOIGrp is a fix50sp1 Component

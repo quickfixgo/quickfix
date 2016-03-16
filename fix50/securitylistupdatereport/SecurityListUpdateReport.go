@@ -30,8 +30,8 @@ type Message struct {
 	CorporateAction *string `fix:"292"`
 	//LastFragment is a non-required field for SecurityListUpdateReport.
 	LastFragment *bool `fix:"893"`
-	//SecLstUpdRelSymGrp Component
-	seclstupdrelsymgrp.SecLstUpdRelSymGrp
+	//SecLstUpdRelSymGrp is a non-required component for SecurityListUpdateReport.
+	SecLstUpdRelSymGrp *seclstupdrelsymgrp.SecLstUpdRelSymGrp
 	fixt11.Trailer
 }
 
@@ -47,6 +47,9 @@ func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &
 func (m *Message) SetSecurityUpdateAction(v string) { m.SecurityUpdateAction = &v }
 func (m *Message) SetCorporateAction(v string)      { m.CorporateAction = &v }
 func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetSecLstUpdRelSymGrp(v seclstupdrelsymgrp.SecLstUpdRelSymGrp) {
+	m.SecLstUpdRelSymGrp = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

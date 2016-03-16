@@ -15,14 +15,14 @@ type Message struct {
 	fixt11.Header
 	//RFQReqID is a required field for RFQRequest.
 	RFQReqID string `fix:"644"`
-	//RFQReqGrp Component
+	//RFQReqGrp is a required component for RFQRequest.
 	rfqreqgrp.RFQReqGrp
 	//SubscriptionRequestType is a non-required field for RFQRequest.
 	SubscriptionRequestType *string `fix:"263"`
 	//PrivateQuote is a non-required field for RFQRequest.
 	PrivateQuote *bool `fix:"1171"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for RFQRequest.
+	Parties *parties.Parties
 	fixt11.Trailer
 }
 
@@ -30,8 +30,10 @@ type Message struct {
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 func (m *Message) SetRFQReqID(v string)                { m.RFQReqID = v }
+func (m *Message) SetRFQReqGrp(v rfqreqgrp.RFQReqGrp)  { m.RFQReqGrp = v }
 func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
 func (m *Message) SetPrivateQuote(v bool)              { m.PrivateQuote = &v }
+func (m *Message) SetParties(v parties.Parties)        { m.Parties = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

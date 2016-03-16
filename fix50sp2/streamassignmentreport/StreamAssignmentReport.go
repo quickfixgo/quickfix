@@ -18,17 +18,18 @@ type Message struct {
 	StreamAsgnReqType *int `fix:"1498"`
 	//StreamAsgnReqID is a non-required field for StreamAssignmentReport.
 	StreamAsgnReqID *string `fix:"1497"`
-	//StrmAsgnRptGrp Component
-	strmasgnrptgrp.StrmAsgnRptGrp
+	//StrmAsgnRptGrp is a non-required component for StreamAssignmentReport.
+	StrmAsgnRptGrp *strmasgnrptgrp.StrmAsgnRptGrp
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetStreamAsgnRptID(v string) { m.StreamAsgnRptID = v }
-func (m *Message) SetStreamAsgnReqType(v int)  { m.StreamAsgnReqType = &v }
-func (m *Message) SetStreamAsgnReqID(v string) { m.StreamAsgnReqID = &v }
+func (m *Message) SetStreamAsgnRptID(v string)                       { m.StreamAsgnRptID = v }
+func (m *Message) SetStreamAsgnReqType(v int)                        { m.StreamAsgnReqType = &v }
+func (m *Message) SetStreamAsgnReqID(v string)                       { m.StreamAsgnReqID = &v }
+func (m *Message) SetStrmAsgnRptGrp(v strmasgnrptgrp.StrmAsgnRptGrp) { m.StrmAsgnRptGrp = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -37,14 +37,14 @@ type Message struct {
 	ParentMktSegmID *string `fix:"1325"`
 	//Currency is a non-required field for MarketDefinitionUpdateReport.
 	Currency *string `fix:"15"`
-	//BaseTradingRules Component
-	basetradingrules.BaseTradingRules
-	//OrdTypeRules Component
-	ordtyperules.OrdTypeRules
-	//TimeInForceRules Component
-	timeinforcerules.TimeInForceRules
-	//ExecInstRules Component
-	execinstrules.ExecInstRules
+	//BaseTradingRules is a non-required component for MarketDefinitionUpdateReport.
+	BaseTradingRules *basetradingrules.BaseTradingRules
+	//OrdTypeRules is a non-required component for MarketDefinitionUpdateReport.
+	OrdTypeRules *ordtyperules.OrdTypeRules
+	//TimeInForceRules is a non-required component for MarketDefinitionUpdateReport.
+	TimeInForceRules *timeinforcerules.TimeInForceRules
+	//ExecInstRules is a non-required component for MarketDefinitionUpdateReport.
+	ExecInstRules *execinstrules.ExecInstRules
 	//TransactTime is a non-required field for MarketDefinitionUpdateReport.
 	TransactTime *time.Time `fix:"60"`
 	//Text is a non-required field for MarketDefinitionUpdateReport.
@@ -53,28 +53,35 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for MarketDefinitionUpdateReport.
 	EncodedText *string `fix:"355"`
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//ApplicationSequenceControl is a non-required component for MarketDefinitionUpdateReport.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetMarketReportID(v string)     { m.MarketReportID = v }
-func (m *Message) SetMarketReqID(v string)        { m.MarketReqID = &v }
-func (m *Message) SetMarketUpdateAction(v string) { m.MarketUpdateAction = &v }
-func (m *Message) SetMarketID(v string)           { m.MarketID = v }
-func (m *Message) SetMarketSegmentID(v string)    { m.MarketSegmentID = &v }
-func (m *Message) SetMarketSegmentDesc(v string)  { m.MarketSegmentDesc = &v }
-func (m *Message) SetEncodedMktSegmDescLen(v int) { m.EncodedMktSegmDescLen = &v }
-func (m *Message) SetEncodedMktSegmDesc(v string) { m.EncodedMktSegmDesc = &v }
-func (m *Message) SetParentMktSegmID(v string)    { m.ParentMktSegmID = &v }
-func (m *Message) SetCurrency(v string)           { m.Currency = &v }
-func (m *Message) SetTransactTime(v time.Time)    { m.TransactTime = &v }
-func (m *Message) SetText(v string)               { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)        { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)        { m.EncodedText = &v }
+func (m *Message) SetMarketReportID(v string)                              { m.MarketReportID = v }
+func (m *Message) SetMarketReqID(v string)                                 { m.MarketReqID = &v }
+func (m *Message) SetMarketUpdateAction(v string)                          { m.MarketUpdateAction = &v }
+func (m *Message) SetMarketID(v string)                                    { m.MarketID = v }
+func (m *Message) SetMarketSegmentID(v string)                             { m.MarketSegmentID = &v }
+func (m *Message) SetMarketSegmentDesc(v string)                           { m.MarketSegmentDesc = &v }
+func (m *Message) SetEncodedMktSegmDescLen(v int)                          { m.EncodedMktSegmDescLen = &v }
+func (m *Message) SetEncodedMktSegmDesc(v string)                          { m.EncodedMktSegmDesc = &v }
+func (m *Message) SetParentMktSegmID(v string)                             { m.ParentMktSegmID = &v }
+func (m *Message) SetCurrency(v string)                                    { m.Currency = &v }
+func (m *Message) SetBaseTradingRules(v basetradingrules.BaseTradingRules) { m.BaseTradingRules = &v }
+func (m *Message) SetOrdTypeRules(v ordtyperules.OrdTypeRules)             { m.OrdTypeRules = &v }
+func (m *Message) SetTimeInForceRules(v timeinforcerules.TimeInForceRules) { m.TimeInForceRules = &v }
+func (m *Message) SetExecInstRules(v execinstrules.ExecInstRules)          { m.ExecInstRules = &v }
+func (m *Message) SetTransactTime(v time.Time)                             { m.TransactTime = &v }
+func (m *Message) SetText(v string)                                        { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                                 { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                                 { m.EncodedText = &v }
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

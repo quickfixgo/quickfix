@@ -12,8 +12,8 @@ type NoApplIDs struct {
 	ApplBegSeqNum *int `fix:"1182"`
 	//ApplEndSeqNum is a non-required field for NoApplIDs.
 	ApplEndSeqNum *int `fix:"1183"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoApplIDs.
+	NestedParties *nestedparties.NestedParties
 	//RefApplReqID is a non-required field for NoApplIDs.
 	RefApplReqID *string `fix:"1433"`
 }

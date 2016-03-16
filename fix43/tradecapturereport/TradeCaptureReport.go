@@ -22,8 +22,8 @@ type NoSides struct {
 	SecondaryOrderID *string `fix:"198"`
 	//ClOrdID is a non-required field for NoSides.
 	ClOrdID *string `fix:"11"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoSides.
+	Parties *parties.Parties
 	//Account is a non-required field for NoSides.
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for NoSides.
@@ -58,8 +58,8 @@ type NoSides struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoSides.
 	TradingSessionSubID *string `fix:"625"`
-	//CommissionData Component
-	commissiondata.CommissionData
+	//CommissionData is a non-required component for NoSides.
+	CommissionData *commissiondata.CommissionData
 	//GrossTradeAmt is a non-required field for NoSides.
 	GrossTradeAmt *float64 `fix:"381"`
 	//NumDaysInterest is a non-required field for NoSides.
@@ -104,6 +104,7 @@ func (m *NoSides) SetSide(v string)                                     { m.Side
 func (m *NoSides) SetOrderID(v string)                                  { m.OrderID = v }
 func (m *NoSides) SetSecondaryOrderID(v string)                         { m.SecondaryOrderID = &v }
 func (m *NoSides) SetClOrdID(v string)                                  { m.ClOrdID = &v }
+func (m *NoSides) SetParties(v parties.Parties)                         { m.Parties = &v }
 func (m *NoSides) SetAccount(v string)                                  { m.Account = &v }
 func (m *NoSides) SetAccountType(v int)                                 { m.AccountType = &v }
 func (m *NoSides) SetProcessCode(v string)                              { m.ProcessCode = &v }
@@ -121,6 +122,7 @@ func (m *NoSides) SetCustOrderCapacity(v int)                           { m.Cust
 func (m *NoSides) SetTransBkdTime(v time.Time)                          { m.TransBkdTime = &v }
 func (m *NoSides) SetTradingSessionID(v string)                         { m.TradingSessionID = &v }
 func (m *NoSides) SetTradingSessionSubID(v string)                      { m.TradingSessionSubID = &v }
+func (m *NoSides) SetCommissionData(v commissiondata.CommissionData)    { m.CommissionData = &v }
 func (m *NoSides) SetGrossTradeAmt(v float64)                           { m.GrossTradeAmt = &v }
 func (m *NoSides) SetNumDaysInterest(v int)                             { m.NumDaysInterest = &v }
 func (m *NoSides) SetExDate(v string)                                   { m.ExDate = &v }
@@ -199,10 +201,10 @@ type Message struct {
 	ExecRestatementReason *int `fix:"378"`
 	//PreviouslyReported is a required field for TradeCaptureReport.
 	PreviouslyReported bool `fix:"570"`
-	//Instrument Component
+	//Instrument is a required component for TradeCaptureReport.
 	instrument.Instrument
-	//OrderQtyData Component
-	orderqtydata.OrderQtyData
+	//OrderQtyData is a non-required component for TradeCaptureReport.
+	OrderQtyData *orderqtydata.OrderQtyData
 	//LastQty is a required field for TradeCaptureReport.
 	LastQty float64 `fix:"32"`
 	//LastPx is a required field for TradeCaptureReport.
@@ -233,27 +235,29 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetTradeReportID(v string)        { m.TradeReportID = v }
-func (m *Message) SetTradeReportTransType(v string) { m.TradeReportTransType = &v }
-func (m *Message) SetTradeRequestID(v string)       { m.TradeRequestID = &v }
-func (m *Message) SetExecType(v string)             { m.ExecType = v }
-func (m *Message) SetTradeReportRefID(v string)     { m.TradeReportRefID = &v }
-func (m *Message) SetExecID(v string)               { m.ExecID = &v }
-func (m *Message) SetSecondaryExecID(v string)      { m.SecondaryExecID = &v }
-func (m *Message) SetExecRestatementReason(v int)   { m.ExecRestatementReason = &v }
-func (m *Message) SetPreviouslyReported(v bool)     { m.PreviouslyReported = v }
-func (m *Message) SetLastQty(v float64)             { m.LastQty = v }
-func (m *Message) SetLastPx(v float64)              { m.LastPx = v }
-func (m *Message) SetLastSpotRate(v float64)        { m.LastSpotRate = &v }
-func (m *Message) SetLastForwardPoints(v float64)   { m.LastForwardPoints = &v }
-func (m *Message) SetLastMkt(v string)              { m.LastMkt = &v }
-func (m *Message) SetTradeDate(v string)            { m.TradeDate = v }
-func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = v }
-func (m *Message) SetSettlmntTyp(v string)          { m.SettlmntTyp = &v }
-func (m *Message) SetFutSettDate(v string)          { m.FutSettDate = &v }
-func (m *Message) SetMatchStatus(v string)          { m.MatchStatus = &v }
-func (m *Message) SetMatchType(v string)            { m.MatchType = &v }
-func (m *Message) SetNoSides(v []NoSides)           { m.NoSides = v }
+func (m *Message) SetTradeReportID(v string)                   { m.TradeReportID = v }
+func (m *Message) SetTradeReportTransType(v string)            { m.TradeReportTransType = &v }
+func (m *Message) SetTradeRequestID(v string)                  { m.TradeRequestID = &v }
+func (m *Message) SetExecType(v string)                        { m.ExecType = v }
+func (m *Message) SetTradeReportRefID(v string)                { m.TradeReportRefID = &v }
+func (m *Message) SetExecID(v string)                          { m.ExecID = &v }
+func (m *Message) SetSecondaryExecID(v string)                 { m.SecondaryExecID = &v }
+func (m *Message) SetExecRestatementReason(v int)              { m.ExecRestatementReason = &v }
+func (m *Message) SetPreviouslyReported(v bool)                { m.PreviouslyReported = v }
+func (m *Message) SetInstrument(v instrument.Instrument)       { m.Instrument = v }
+func (m *Message) SetOrderQtyData(v orderqtydata.OrderQtyData) { m.OrderQtyData = &v }
+func (m *Message) SetLastQty(v float64)                        { m.LastQty = v }
+func (m *Message) SetLastPx(v float64)                         { m.LastPx = v }
+func (m *Message) SetLastSpotRate(v float64)                   { m.LastSpotRate = &v }
+func (m *Message) SetLastForwardPoints(v float64)              { m.LastForwardPoints = &v }
+func (m *Message) SetLastMkt(v string)                         { m.LastMkt = &v }
+func (m *Message) SetTradeDate(v string)                       { m.TradeDate = v }
+func (m *Message) SetTransactTime(v time.Time)                 { m.TransactTime = v }
+func (m *Message) SetSettlmntTyp(v string)                     { m.SettlmntTyp = &v }
+func (m *Message) SetFutSettDate(v string)                     { m.FutSettDate = &v }
+func (m *Message) SetMatchStatus(v string)                     { m.MatchStatus = &v }
+func (m *Message) SetMatchType(v string)                       { m.MatchType = &v }
+func (m *Message) SetNoSides(v []NoSides)                      { m.NoSides = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

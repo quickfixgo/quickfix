@@ -12,8 +12,8 @@ type NoRelatedContextPartyIDs struct {
 	RelatedContextPartyIDSource *string `fix:"1577"`
 	//RelatedContextPartyRole is a non-required field for NoRelatedContextPartyIDs.
 	RelatedContextPartyRole *int `fix:"1578"`
-	//RelatedContextPtysSubGrp Component
-	relatedcontextptyssubgrp.RelatedContextPtysSubGrp
+	//RelatedContextPtysSubGrp is a non-required component for NoRelatedContextPartyIDs.
+	RelatedContextPtysSubGrp *relatedcontextptyssubgrp.RelatedContextPtysSubGrp
 }
 
 //RelatedContextParties is a fix50sp2 Component

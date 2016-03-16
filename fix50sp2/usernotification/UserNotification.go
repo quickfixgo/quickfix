@@ -12,8 +12,8 @@ import (
 type Message struct {
 	FIXMsgType string `fix:"CB"`
 	fixt11.Header
-	//UsernameGrp Component
-	usernamegrp.UsernameGrp
+	//UsernameGrp is a non-required component for UserNotification.
+	UsernameGrp *usernamegrp.UsernameGrp
 	//UserStatus is a required field for UserNotification.
 	UserStatus int `fix:"926"`
 	//Text is a non-required field for UserNotification.
@@ -28,10 +28,11 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetUserStatus(v int)     { m.UserStatus = v }
-func (m *Message) SetText(v string)        { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int) { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string) { m.EncodedText = &v }
+func (m *Message) SetUsernameGrp(v usernamegrp.UsernameGrp) { m.UsernameGrp = &v }
+func (m *Message) SetUserStatus(v int)                      { m.UserStatus = v }
+func (m *Message) SetText(v string)                         { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                  { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                  { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

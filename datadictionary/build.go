@@ -181,20 +181,18 @@ func (b builder) buildGroupFieldDef(xmlField *XMLComponentMember, groupFieldType
 	for _, member := range xmlField.Members {
 		if member.XMLName.Local == "component" {
 			var err error
-			var comp *ComponentType
-			if comp, err = b.findOrBuildComponentType(member); err != nil {
+			var compType *ComponentType
+			if compType, err = b.findOrBuildComponentType(member); err != nil {
 				return nil, err
 			}
 
-			parts = append(parts, Component{ComponentType: comp, required: (member.Required == "Y")})
-			//FIXME: set fields
-			for _, f := range comp.Parts {
-				switch field := f.(type) {
-				case *FieldDef:
-					fields = append(fields, field)
-				}
+			comp := Component{
+				ComponentType: compType,
+				required:      (member.Required == "Y"),
 			}
 
+			parts = append(parts, comp)
+			fields = append(fields, comp.Fields...)
 		} else {
 			var f *FieldDef
 			var err error

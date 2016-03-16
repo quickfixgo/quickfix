@@ -17,8 +17,8 @@ type DerivativeInstrument struct {
 	DerivativeSecurityID *string `fix:"1216"`
 	//DerivativeSecurityIDSource is a non-required field for DerivativeInstrument.
 	DerivativeSecurityIDSource *string `fix:"1217"`
-	//DerivativeSecurityAltIDGrp Component
-	derivativesecurityaltidgrp.DerivativeSecurityAltIDGrp
+	//DerivativeSecurityAltIDGrp is a non-required component for DerivativeInstrument.
+	DerivativeSecurityAltIDGrp *derivativesecurityaltidgrp.DerivativeSecurityAltIDGrp
 	//DerivativeProduct is a non-required field for DerivativeInstrument.
 	DerivativeProduct *int `fix:"1246"`
 	//DerivativeProductComplex is a non-required field for DerivativeInstrument.
@@ -105,10 +105,10 @@ type DerivativeInstrument struct {
 	DerivativeEncodedSecurityDesc *string `fix:"1281"`
 	//DerivativeContractSettlMonth is a non-required field for DerivativeInstrument.
 	DerivativeContractSettlMonth *string `fix:"1285"`
-	//DerivativeEventsGrp Component
-	derivativeeventsgrp.DerivativeEventsGrp
-	//DerivativeInstrumentParties Component
-	derivativeinstrumentparties.DerivativeInstrumentParties
+	//DerivativeEventsGrp is a non-required component for DerivativeInstrument.
+	DerivativeEventsGrp *derivativeeventsgrp.DerivativeEventsGrp
+	//DerivativeInstrumentParties is a non-required component for DerivativeInstrument.
+	DerivativeInstrumentParties *derivativeinstrumentparties.DerivativeInstrumentParties
 	//DerivativeSettlMethod is a non-required field for DerivativeInstrument.
 	DerivativeSettlMethod *string `fix:"1317"`
 	//DerivativePriceQuoteMethod is a non-required field for DerivativeInstrument.
@@ -123,8 +123,8 @@ type DerivativeInstrument struct {
 	DerivativeFloorPrice *float64 `fix:"1322"`
 	//DerivativePutOrCall is a non-required field for DerivativeInstrument.
 	DerivativePutOrCall *int `fix:"1323"`
-	//DerivativeSecurityXML Component
-	derivativesecurityxml.DerivativeSecurityXML
+	//DerivativeSecurityXML is a non-required component for DerivativeInstrument.
+	DerivativeSecurityXML *derivativesecurityxml.DerivativeSecurityXML
 	//DerivativeContractMultiplierUnit is a non-required field for DerivativeInstrument.
 	DerivativeContractMultiplierUnit *int `fix:"1438"`
 	//DerivativeFlowScheduleType is a non-required field for DerivativeInstrument.
@@ -136,6 +136,9 @@ func (m *DerivativeInstrument) SetDerivativeSymbolSfx(v string)  { m.DerivativeS
 func (m *DerivativeInstrument) SetDerivativeSecurityID(v string) { m.DerivativeSecurityID = &v }
 func (m *DerivativeInstrument) SetDerivativeSecurityIDSource(v string) {
 	m.DerivativeSecurityIDSource = &v
+}
+func (m *DerivativeInstrument) SetDerivativeSecurityAltIDGrp(v derivativesecurityaltidgrp.DerivativeSecurityAltIDGrp) {
+	m.DerivativeSecurityAltIDGrp = &v
 }
 func (m *DerivativeInstrument) SetDerivativeProduct(v int)           { m.DerivativeProduct = &v }
 func (m *DerivativeInstrument) SetDerivativeProductComplex(v string) { m.DerivativeProductComplex = &v }
@@ -214,6 +217,12 @@ func (m *DerivativeInstrument) SetDerivativeEncodedSecurityDesc(v string) {
 func (m *DerivativeInstrument) SetDerivativeContractSettlMonth(v string) {
 	m.DerivativeContractSettlMonth = &v
 }
+func (m *DerivativeInstrument) SetDerivativeEventsGrp(v derivativeeventsgrp.DerivativeEventsGrp) {
+	m.DerivativeEventsGrp = &v
+}
+func (m *DerivativeInstrument) SetDerivativeInstrumentParties(v derivativeinstrumentparties.DerivativeInstrumentParties) {
+	m.DerivativeInstrumentParties = &v
+}
 func (m *DerivativeInstrument) SetDerivativeSettlMethod(v string) { m.DerivativeSettlMethod = &v }
 func (m *DerivativeInstrument) SetDerivativePriceQuoteMethod(v string) {
 	m.DerivativePriceQuoteMethod = &v
@@ -225,6 +234,9 @@ func (m *DerivativeInstrument) SetDerivativeListMethod(v int)     { m.Derivative
 func (m *DerivativeInstrument) SetDerivativeCapPrice(v float64)   { m.DerivativeCapPrice = &v }
 func (m *DerivativeInstrument) SetDerivativeFloorPrice(v float64) { m.DerivativeFloorPrice = &v }
 func (m *DerivativeInstrument) SetDerivativePutOrCall(v int)      { m.DerivativePutOrCall = &v }
+func (m *DerivativeInstrument) SetDerivativeSecurityXML(v derivativesecurityxml.DerivativeSecurityXML) {
+	m.DerivativeSecurityXML = &v
+}
 func (m *DerivativeInstrument) SetDerivativeContractMultiplierUnit(v int) {
 	m.DerivativeContractMultiplierUnit = &v
 }

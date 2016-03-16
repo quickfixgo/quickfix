@@ -12,8 +12,8 @@ type NoContextPartyIDs struct {
 	ContextPartyIDSource *string `fix:"1524"`
 	//ContextPartyRole is a non-required field for NoContextPartyIDs.
 	ContextPartyRole *int `fix:"1525"`
-	//ContextPtysSubGrp Component
-	contextptyssubgrp.ContextPtysSubGrp
+	//ContextPtysSubGrp is a non-required component for NoContextPartyIDs.
+	ContextPtysSubGrp *contextptyssubgrp.ContextPtysSubGrp
 }
 
 //ContextParties is a fix50sp2 Component

@@ -22,8 +22,8 @@ type Message struct {
 	RegistRefID string `fix:"508"`
 	//ClOrdID is a non-required field for RegistrationInstructions.
 	ClOrdID *string `fix:"11"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for RegistrationInstructions.
+	Parties *parties.Parties
 	//Account is a non-required field for RegistrationInstructions.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for RegistrationInstructions.
@@ -34,25 +34,28 @@ type Message struct {
 	TaxAdvantageType *int `fix:"495"`
 	//OwnershipType is a non-required field for RegistrationInstructions.
 	OwnershipType *string `fix:"517"`
-	//RgstDtlsGrp Component
-	rgstdtlsgrp.RgstDtlsGrp
-	//RgstDistInstGrp Component
-	rgstdistinstgrp.RgstDistInstGrp
+	//RgstDtlsGrp is a non-required component for RegistrationInstructions.
+	RgstDtlsGrp *rgstdtlsgrp.RgstDtlsGrp
+	//RgstDistInstGrp is a non-required component for RegistrationInstructions.
+	RgstDistInstGrp *rgstdistinstgrp.RgstDistInstGrp
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetRegistID(v string)        { m.RegistID = v }
-func (m *Message) SetRegistTransType(v string) { m.RegistTransType = v }
-func (m *Message) SetRegistRefID(v string)     { m.RegistRefID = v }
-func (m *Message) SetClOrdID(v string)         { m.ClOrdID = &v }
-func (m *Message) SetAccount(v string)         { m.Account = &v }
-func (m *Message) SetAcctIDSource(v int)       { m.AcctIDSource = &v }
-func (m *Message) SetRegistAcctType(v string)  { m.RegistAcctType = &v }
-func (m *Message) SetTaxAdvantageType(v int)   { m.TaxAdvantageType = &v }
-func (m *Message) SetOwnershipType(v string)   { m.OwnershipType = &v }
+func (m *Message) SetRegistID(v string)                                 { m.RegistID = v }
+func (m *Message) SetRegistTransType(v string)                          { m.RegistTransType = v }
+func (m *Message) SetRegistRefID(v string)                              { m.RegistRefID = v }
+func (m *Message) SetClOrdID(v string)                                  { m.ClOrdID = &v }
+func (m *Message) SetParties(v parties.Parties)                         { m.Parties = &v }
+func (m *Message) SetAccount(v string)                                  { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                                { m.AcctIDSource = &v }
+func (m *Message) SetRegistAcctType(v string)                           { m.RegistAcctType = &v }
+func (m *Message) SetTaxAdvantageType(v int)                            { m.TaxAdvantageType = &v }
+func (m *Message) SetOwnershipType(v string)                            { m.OwnershipType = &v }
+func (m *Message) SetRgstDtlsGrp(v rgstdtlsgrp.RgstDtlsGrp)             { m.RgstDtlsGrp = &v }
+func (m *Message) SetRgstDistInstGrp(v rgstdistinstgrp.RgstDistInstGrp) { m.RgstDistInstGrp = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

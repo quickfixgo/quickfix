@@ -17,8 +17,8 @@ type Message struct {
 	ConfirmReqID string `fix:"859"`
 	//ConfirmType is a required field for ConfirmationRequest.
 	ConfirmType int `fix:"773"`
-	//OrdAllocGrp Component
-	ordallocgrp.OrdAllocGrp
+	//OrdAllocGrp is a non-required component for ConfirmationRequest.
+	OrdAllocGrp *ordallocgrp.OrdAllocGrp
 	//AllocID is a non-required field for ConfirmationRequest.
 	AllocID *string `fix:"70"`
 	//SecondaryAllocID is a non-required field for ConfirmationRequest.
@@ -45,18 +45,19 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetConfirmReqID(v string)      { m.ConfirmReqID = v }
-func (m *Message) SetConfirmType(v int)          { m.ConfirmType = v }
-func (m *Message) SetAllocID(v string)           { m.AllocID = &v }
-func (m *Message) SetSecondaryAllocID(v string)  { m.SecondaryAllocID = &v }
-func (m *Message) SetIndividualAllocID(v string) { m.IndividualAllocID = &v }
-func (m *Message) SetTransactTime(v time.Time)   { m.TransactTime = v }
-func (m *Message) SetAllocAccount(v string)      { m.AllocAccount = &v }
-func (m *Message) SetAllocAcctIDSource(v int)    { m.AllocAcctIDSource = &v }
-func (m *Message) SetAllocAccountType(v int)     { m.AllocAccountType = &v }
-func (m *Message) SetText(v string)              { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)       { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)       { m.EncodedText = &v }
+func (m *Message) SetConfirmReqID(v string)                 { m.ConfirmReqID = v }
+func (m *Message) SetConfirmType(v int)                     { m.ConfirmType = v }
+func (m *Message) SetOrdAllocGrp(v ordallocgrp.OrdAllocGrp) { m.OrdAllocGrp = &v }
+func (m *Message) SetAllocID(v string)                      { m.AllocID = &v }
+func (m *Message) SetSecondaryAllocID(v string)             { m.SecondaryAllocID = &v }
+func (m *Message) SetIndividualAllocID(v string)            { m.IndividualAllocID = &v }
+func (m *Message) SetTransactTime(v time.Time)              { m.TransactTime = v }
+func (m *Message) SetAllocAccount(v string)                 { m.AllocAccount = &v }
+func (m *Message) SetAllocAcctIDSource(v int)               { m.AllocAcctIDSource = &v }
+func (m *Message) SetAllocAccountType(v int)                { m.AllocAccountType = &v }
+func (m *Message) SetText(v string)                         { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                  { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                  { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

@@ -14,7 +14,7 @@ type Message struct {
 	fixt11.Header
 	//RFQReqID is a required field for RFQRequest.
 	RFQReqID string `fix:"644"`
-	//RFQReqGrp Component
+	//RFQReqGrp is a required component for RFQRequest.
 	rfqreqgrp.RFQReqGrp
 	//SubscriptionRequestType is a non-required field for RFQRequest.
 	SubscriptionRequestType *string `fix:"263"`
@@ -25,6 +25,7 @@ type Message struct {
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 func (m *Message) SetRFQReqID(v string)                { m.RFQReqID = v }
+func (m *Message) SetRFQReqGrp(v rfqreqgrp.RFQReqGrp)  { m.RFQReqGrp = v }
 func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message

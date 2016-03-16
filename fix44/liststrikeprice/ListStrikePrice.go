@@ -11,14 +11,16 @@ import (
 
 //NoStrikes is a repeating group in ListStrikePrice
 type NoStrikes struct {
-	//Instrument Component
+	//Instrument is a required component for NoStrikes.
 	instrument.Instrument
 }
 
+func (m *NoStrikes) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+
 //NoUnderlyings is a repeating group in ListStrikePrice
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//PrevClosePx is a non-required field for NoUnderlyings.
 	PrevClosePx *float64 `fix:"140"`
 	//ClOrdID is a non-required field for NoUnderlyings.
@@ -39,6 +41,9 @@ type NoUnderlyings struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
 func (m *NoUnderlyings) SetPrevClosePx(v float64)     { m.PrevClosePx = &v }
 func (m *NoUnderlyings) SetClOrdID(v string)          { m.ClOrdID = &v }
 func (m *NoUnderlyings) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }

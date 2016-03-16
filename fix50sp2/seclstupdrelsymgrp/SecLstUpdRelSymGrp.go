@@ -16,36 +16,36 @@ import (
 
 //NoRelatedSym is a repeating group in SecLstUpdRelSymGrp
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
-	//SecLstUpdRelSymsLegGrp Component
-	seclstupdrelsymsleggrp.SecLstUpdRelSymsLegGrp
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//YieldData Component
-	yielddata.YieldData
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
+	//InstrumentExtension is a non-required component for NoRelatedSym.
+	InstrumentExtension *instrumentextension.InstrumentExtension
+	//FinancingDetails is a non-required component for NoRelatedSym.
+	FinancingDetails *financingdetails.FinancingDetails
+	//SecLstUpdRelSymsLegGrp is a non-required component for NoRelatedSym.
+	SecLstUpdRelSymsLegGrp *seclstupdrelsymsleggrp.SecLstUpdRelSymsLegGrp
+	//SpreadOrBenchmarkCurveData is a non-required component for NoRelatedSym.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//YieldData is a non-required component for NoRelatedSym.
+	YieldData *yielddata.YieldData
 	//Text is a non-required field for NoRelatedSym.
 	Text *string `fix:"58"`
 	//EncodedTextLen is a non-required field for NoRelatedSym.
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoRelatedSym.
 	EncodedText *string `fix:"355"`
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
+	//UndInstrmtGrp is a non-required component for NoRelatedSym.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for NoRelatedSym.
+	Stipulations *stipulations.Stipulations
 	//ListUpdateAction is a non-required field for NoRelatedSym.
 	ListUpdateAction *string `fix:"1324"`
-	//SecurityTradingRules Component
-	securitytradingrules.SecurityTradingRules
-	//StrikeRules Component
-	strikerules.StrikeRules
+	//SecurityTradingRules is a non-required component for NoRelatedSym.
+	SecurityTradingRules *securitytradingrules.SecurityTradingRules
+	//StrikeRules is a non-required component for NoRelatedSym.
+	StrikeRules *strikerules.StrikeRules
 	//RelSymTransactTime is a non-required field for NoRelatedSym.
 	RelSymTransactTime *time.Time `fix:"1504"`
 }

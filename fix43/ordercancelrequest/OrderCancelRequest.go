@@ -33,15 +33,15 @@ type Message struct {
 	Account *string `fix:"1"`
 	//AccountType is a non-required field for OrderCancelRequest.
 	AccountType *int `fix:"581"`
-	//Parties Component
-	parties.Parties
-	//Instrument Component
+	//Parties is a non-required component for OrderCancelRequest.
+	Parties *parties.Parties
+	//Instrument is a required component for OrderCancelRequest.
 	instrument.Instrument
 	//Side is a required field for OrderCancelRequest.
 	Side string `fix:"54"`
 	//TransactTime is a required field for OrderCancelRequest.
 	TransactTime time.Time `fix:"60"`
-	//OrderQtyData Component
+	//OrderQtyData is a required component for OrderCancelRequest.
 	orderqtydata.OrderQtyData
 	//ComplianceID is a non-required field for OrderCancelRequest.
 	ComplianceID *string `fix:"376"`
@@ -57,21 +57,24 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetOrigClOrdID(v string)       { m.OrigClOrdID = v }
-func (m *Message) SetOrderID(v string)           { m.OrderID = &v }
-func (m *Message) SetClOrdID(v string)           { m.ClOrdID = v }
-func (m *Message) SetSecondaryClOrdID(v string)  { m.SecondaryClOrdID = &v }
-func (m *Message) SetClOrdLinkID(v string)       { m.ClOrdLinkID = &v }
-func (m *Message) SetListID(v string)            { m.ListID = &v }
-func (m *Message) SetOrigOrdModTime(v time.Time) { m.OrigOrdModTime = &v }
-func (m *Message) SetAccount(v string)           { m.Account = &v }
-func (m *Message) SetAccountType(v int)          { m.AccountType = &v }
-func (m *Message) SetSide(v string)              { m.Side = v }
-func (m *Message) SetTransactTime(v time.Time)   { m.TransactTime = v }
-func (m *Message) SetComplianceID(v string)      { m.ComplianceID = &v }
-func (m *Message) SetText(v string)              { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)       { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)       { m.EncodedText = &v }
+func (m *Message) SetOrigClOrdID(v string)                     { m.OrigClOrdID = v }
+func (m *Message) SetOrderID(v string)                         { m.OrderID = &v }
+func (m *Message) SetClOrdID(v string)                         { m.ClOrdID = v }
+func (m *Message) SetSecondaryClOrdID(v string)                { m.SecondaryClOrdID = &v }
+func (m *Message) SetClOrdLinkID(v string)                     { m.ClOrdLinkID = &v }
+func (m *Message) SetListID(v string)                          { m.ListID = &v }
+func (m *Message) SetOrigOrdModTime(v time.Time)               { m.OrigOrdModTime = &v }
+func (m *Message) SetAccount(v string)                         { m.Account = &v }
+func (m *Message) SetAccountType(v int)                        { m.AccountType = &v }
+func (m *Message) SetParties(v parties.Parties)                { m.Parties = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)       { m.Instrument = v }
+func (m *Message) SetSide(v string)                            { m.Side = v }
+func (m *Message) SetTransactTime(v time.Time)                 { m.TransactTime = v }
+func (m *Message) SetOrderQtyData(v orderqtydata.OrderQtyData) { m.OrderQtyData = v }
+func (m *Message) SetComplianceID(v string)                    { m.ComplianceID = &v }
+func (m *Message) SetText(v string)                            { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)                     { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)                     { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

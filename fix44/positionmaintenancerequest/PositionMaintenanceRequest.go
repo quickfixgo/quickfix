@@ -15,14 +15,20 @@ import (
 
 //NoLegs is a repeating group in PositionMaintenanceRequest
 type NoLegs struct {
-	//InstrumentLeg Component
-	instrumentleg.InstrumentLeg
+	//InstrumentLeg is a non-required component for NoLegs.
+	InstrumentLeg *instrumentleg.InstrumentLeg
 }
+
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in PositionMaintenanceRequest
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //NoTradingSessions is a repeating group in PositionMaintenanceRequest
@@ -56,7 +62,7 @@ type Message struct {
 	SettlSessID *string `fix:"716"`
 	//SettlSessSubID is a non-required field for PositionMaintenanceRequest.
 	SettlSessSubID *string `fix:"717"`
-	//Parties Component
+	//Parties is a required component for PositionMaintenanceRequest.
 	parties.Parties
 	//Account is a required field for PositionMaintenanceRequest.
 	Account string `fix:"1"`
@@ -64,7 +70,7 @@ type Message struct {
 	AcctIDSource *int `fix:"660"`
 	//AccountType is a required field for PositionMaintenanceRequest.
 	AccountType int `fix:"581"`
-	//Instrument Component
+	//Instrument is a required component for PositionMaintenanceRequest.
 	instrument.Instrument
 	//Currency is a non-required field for PositionMaintenanceRequest.
 	Currency *string `fix:"15"`
@@ -76,7 +82,7 @@ type Message struct {
 	NoTradingSessions []NoTradingSessions `fix:"386,omitempty"`
 	//TransactTime is a required field for PositionMaintenanceRequest.
 	TransactTime time.Time `fix:"60"`
-	//PositionQty Component
+	//PositionQty is a required component for PositionMaintenanceRequest.
 	positionqty.PositionQty
 	//AdjustmentType is a non-required field for PositionMaintenanceRequest.
 	AdjustmentType *int `fix:"718"`
@@ -106,14 +112,17 @@ func (m *Message) SetPosMaintRptRefID(v string)               { m.PosMaintRptRef
 func (m *Message) SetClearingBusinessDate(v string)           { m.ClearingBusinessDate = v }
 func (m *Message) SetSettlSessID(v string)                    { m.SettlSessID = &v }
 func (m *Message) SetSettlSessSubID(v string)                 { m.SettlSessSubID = &v }
+func (m *Message) SetParties(v parties.Parties)               { m.Parties = v }
 func (m *Message) SetAccount(v string)                        { m.Account = v }
 func (m *Message) SetAcctIDSource(v int)                      { m.AcctIDSource = &v }
 func (m *Message) SetAccountType(v int)                       { m.AccountType = v }
+func (m *Message) SetInstrument(v instrument.Instrument)      { m.Instrument = v }
 func (m *Message) SetCurrency(v string)                       { m.Currency = &v }
 func (m *Message) SetNoLegs(v []NoLegs)                       { m.NoLegs = v }
 func (m *Message) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
 func (m *Message) SetNoTradingSessions(v []NoTradingSessions) { m.NoTradingSessions = v }
 func (m *Message) SetTransactTime(v time.Time)                { m.TransactTime = v }
+func (m *Message) SetPositionQty(v positionqty.PositionQty)   { m.PositionQty = v }
 func (m *Message) SetAdjustmentType(v int)                    { m.AdjustmentType = &v }
 func (m *Message) SetContraryInstructionIndicator(v bool)     { m.ContraryInstructionIndicator = &v }
 func (m *Message) SetPriorSpreadIndicator(v bool)             { m.PriorSpreadIndicator = &v }

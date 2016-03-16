@@ -7,10 +7,10 @@ import (
 
 //NoPartyList is a repeating group in PartyListGrp
 type NoPartyList struct {
-	//PartyDetail Component
-	partydetail.PartyDetail
-	//RelatedPartyGrp Component
-	relatedpartygrp.RelatedPartyGrp
+	//PartyDetail is a non-required component for NoPartyList.
+	PartyDetail *partydetail.PartyDetail
+	//RelatedPartyGrp is a non-required component for NoPartyList.
+	RelatedPartyGrp *relatedpartygrp.RelatedPartyGrp
 }
 
 //PartyListGrp is a fix50sp2 Component

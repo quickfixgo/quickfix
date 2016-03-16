@@ -25,10 +25,10 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for OrderMassCancelRequest.
 	TradingSessionSubID *string `fix:"625"`
-	//Instrument Component
-	instrument.Instrument
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//Instrument is a non-required component for OrderMassCancelRequest.
+	Instrument *instrument.Instrument
+	//UnderlyingInstrument is a non-required component for OrderMassCancelRequest.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassCancelRequest.
 	Side *string `fix:"54"`
 	//TransactTime is a required field for OrderMassCancelRequest.
@@ -39,24 +39,29 @@ type Message struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for OrderMassCancelRequest.
 	EncodedText *string `fix:"355"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for OrderMassCancelRequest.
+	Parties *parties.Parties
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetClOrdID(v string)               { m.ClOrdID = v }
-func (m *Message) SetSecondaryClOrdID(v string)      { m.SecondaryClOrdID = &v }
-func (m *Message) SetMassCancelRequestType(v string) { m.MassCancelRequestType = v }
-func (m *Message) SetTradingSessionID(v string)      { m.TradingSessionID = &v }
-func (m *Message) SetTradingSessionSubID(v string)   { m.TradingSessionSubID = &v }
-func (m *Message) SetSide(v string)                  { m.Side = &v }
-func (m *Message) SetTransactTime(v time.Time)       { m.TransactTime = v }
-func (m *Message) SetText(v string)                  { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)           { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)           { m.EncodedText = &v }
+func (m *Message) SetClOrdID(v string)                   { m.ClOrdID = v }
+func (m *Message) SetSecondaryClOrdID(v string)          { m.SecondaryClOrdID = &v }
+func (m *Message) SetMassCancelRequestType(v string)     { m.MassCancelRequestType = v }
+func (m *Message) SetTradingSessionID(v string)          { m.TradingSessionID = &v }
+func (m *Message) SetTradingSessionSubID(v string)       { m.TradingSessionSubID = &v }
+func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *Message) SetSide(v string)             { m.Side = &v }
+func (m *Message) SetTransactTime(v time.Time)  { m.TransactTime = v }
+func (m *Message) SetText(v string)             { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)      { m.EncodedText = &v }
+func (m *Message) SetParties(v parties.Parties) { m.Parties = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

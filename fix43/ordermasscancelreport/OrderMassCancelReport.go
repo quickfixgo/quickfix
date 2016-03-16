@@ -50,10 +50,10 @@ type Message struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for OrderMassCancelReport.
 	TradingSessionSubID *string `fix:"625"`
-	//Instrument Component
-	instrument.Instrument
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//Instrument is a non-required component for OrderMassCancelReport.
+	Instrument *instrument.Instrument
+	//UnderlyingInstrument is a non-required component for OrderMassCancelReport.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//Side is a non-required field for OrderMassCancelReport.
 	Side *string `fix:"54"`
 	//TransactTime is a non-required field for OrderMassCancelReport.
@@ -81,11 +81,15 @@ func (m *Message) SetTotalAffectedOrders(v int)             { m.TotalAffectedOrd
 func (m *Message) SetNoAffectedOrders(v []NoAffectedOrders) { m.NoAffectedOrders = v }
 func (m *Message) SetTradingSessionID(v string)             { m.TradingSessionID = &v }
 func (m *Message) SetTradingSessionSubID(v string)          { m.TradingSessionSubID = &v }
-func (m *Message) SetSide(v string)                         { m.Side = &v }
-func (m *Message) SetTransactTime(v time.Time)              { m.TransactTime = &v }
-func (m *Message) SetText(v string)                         { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)                  { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)                  { m.EncodedText = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)    { m.Instrument = &v }
+func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *Message) SetSide(v string)            { m.Side = &v }
+func (m *Message) SetTransactTime(v time.Time) { m.TransactTime = &v }
+func (m *Message) SetText(v string)            { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)     { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)     { m.EncodedText = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

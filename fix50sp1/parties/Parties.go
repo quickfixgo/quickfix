@@ -12,8 +12,8 @@ type NoPartyIDs struct {
 	PartyIDSource *string `fix:"447"`
 	//PartyRole is a non-required field for NoPartyIDs.
 	PartyRole *int `fix:"452"`
-	//PtysSubGrp Component
-	ptyssubgrp.PtysSubGrp
+	//PtysSubGrp is a non-required component for NoPartyIDs.
+	PtysSubGrp *ptyssubgrp.PtysSubGrp
 }
 
 //Parties is a fix50sp1 Component

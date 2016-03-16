@@ -19,19 +19,19 @@ type Message struct {
 	fixt11.Header
 	//MDReqID is a non-required field for MarketDataSnapshotFullRefresh.
 	MDReqID *string `fix:"262"`
-	//Instrument Component
+	//Instrument is a required component for MarketDataSnapshotFullRefresh.
 	instrument.Instrument
-	//UndInstrmtGrp Component
-	undinstrmtgrp.UndInstrmtGrp
-	//InstrmtLegGrp Component
-	instrmtleggrp.InstrmtLegGrp
+	//UndInstrmtGrp is a non-required component for MarketDataSnapshotFullRefresh.
+	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
+	//InstrmtLegGrp is a non-required component for MarketDataSnapshotFullRefresh.
+	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 	//FinancialStatus is a non-required field for MarketDataSnapshotFullRefresh.
 	FinancialStatus *string `fix:"291"`
 	//CorporateAction is a non-required field for MarketDataSnapshotFullRefresh.
 	CorporateAction *string `fix:"292"`
 	//NetChgPrevDay is a non-required field for MarketDataSnapshotFullRefresh.
 	NetChgPrevDay *float64 `fix:"451"`
-	//MDFullGrp Component
+	//MDFullGrp is a required component for MarketDataSnapshotFullRefresh.
 	mdfullgrp.MDFullGrp
 	//ApplQueueDepth is a non-required field for MarketDataSnapshotFullRefresh.
 	ApplQueueDepth *int `fix:"813"`
@@ -47,8 +47,8 @@ type Message struct {
 	MDFeedType *string `fix:"1022"`
 	//TradeDate is a non-required field for MarketDataSnapshotFullRefresh.
 	TradeDate *string `fix:"75"`
-	//RoutingGrp Component
-	routinggrp.RoutingGrp
+	//RoutingGrp is a non-required component for MarketDataSnapshotFullRefresh.
+	RoutingGrp *routinggrp.RoutingGrp
 	//MDSubBookType is a non-required field for MarketDataSnapshotFullRefresh.
 	MDSubBookType *int `fix:"1173"`
 	//MarketDepth is a non-required field for MarketDataSnapshotFullRefresh.
@@ -57,29 +57,37 @@ type Message struct {
 	TotNumReports *int `fix:"911"`
 	//RefreshIndicator is a non-required field for MarketDataSnapshotFullRefresh.
 	RefreshIndicator *bool `fix:"1187"`
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//ApplicationSequenceControl is a non-required component for MarketDataSnapshotFullRefresh.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	fixt11.Trailer
 }
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetMDReqID(v string)              { m.MDReqID = &v }
-func (m *Message) SetFinancialStatus(v string)      { m.FinancialStatus = &v }
-func (m *Message) SetCorporateAction(v string)      { m.CorporateAction = &v }
-func (m *Message) SetNetChgPrevDay(v float64)       { m.NetChgPrevDay = &v }
-func (m *Message) SetApplQueueDepth(v int)          { m.ApplQueueDepth = &v }
-func (m *Message) SetApplQueueResolution(v int)     { m.ApplQueueResolution = &v }
-func (m *Message) SetMDReportID(v int)              { m.MDReportID = &v }
-func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
-func (m *Message) SetMDBookType(v int)              { m.MDBookType = &v }
-func (m *Message) SetMDFeedType(v string)           { m.MDFeedType = &v }
-func (m *Message) SetTradeDate(v string)            { m.TradeDate = &v }
-func (m *Message) SetMDSubBookType(v int)           { m.MDSubBookType = &v }
-func (m *Message) SetMarketDepth(v int)             { m.MarketDepth = &v }
-func (m *Message) SetTotNumReports(v int)           { m.TotNumReports = &v }
-func (m *Message) SetRefreshIndicator(v bool)       { m.RefreshIndicator = &v }
+func (m *Message) SetMDReqID(v string)                            { m.MDReqID = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)          { m.Instrument = v }
+func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *Message) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+func (m *Message) SetFinancialStatus(v string)                    { m.FinancialStatus = &v }
+func (m *Message) SetCorporateAction(v string)                    { m.CorporateAction = &v }
+func (m *Message) SetNetChgPrevDay(v float64)                     { m.NetChgPrevDay = &v }
+func (m *Message) SetMDFullGrp(v mdfullgrp.MDFullGrp)             { m.MDFullGrp = v }
+func (m *Message) SetApplQueueDepth(v int)                        { m.ApplQueueDepth = &v }
+func (m *Message) SetApplQueueResolution(v int)                   { m.ApplQueueResolution = &v }
+func (m *Message) SetMDReportID(v int)                            { m.MDReportID = &v }
+func (m *Message) SetClearingBusinessDate(v string)               { m.ClearingBusinessDate = &v }
+func (m *Message) SetMDBookType(v int)                            { m.MDBookType = &v }
+func (m *Message) SetMDFeedType(v string)                         { m.MDFeedType = &v }
+func (m *Message) SetTradeDate(v string)                          { m.TradeDate = &v }
+func (m *Message) SetRoutingGrp(v routinggrp.RoutingGrp)          { m.RoutingGrp = &v }
+func (m *Message) SetMDSubBookType(v int)                         { m.MDSubBookType = &v }
+func (m *Message) SetMarketDepth(v int)                           { m.MarketDepth = &v }
+func (m *Message) SetTotNumReports(v int)                         { m.TotNumReports = &v }
+func (m *Message) SetRefreshIndicator(v bool)                     { m.RefreshIndicator = &v }
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

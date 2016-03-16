@@ -13,18 +13,18 @@ import (
 
 //NoRelatedSym is a repeating group in SecLstUpdRelSymGrp
 type NoRelatedSym struct {
-	//Instrument Component
-	instrument.Instrument
-	//InstrumentExtension Component
-	instrumentextension.InstrumentExtension
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
-	//SecLstUpdRelSymsLegGrp Component
-	seclstupdrelsymsleggrp.SecLstUpdRelSymsLegGrp
-	//SpreadOrBenchmarkCurveData Component
-	spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
-	//YieldData Component
-	yielddata.YieldData
+	//Instrument is a non-required component for NoRelatedSym.
+	Instrument *instrument.Instrument
+	//InstrumentExtension is a non-required component for NoRelatedSym.
+	InstrumentExtension *instrumentextension.InstrumentExtension
+	//FinancingDetails is a non-required component for NoRelatedSym.
+	FinancingDetails *financingdetails.FinancingDetails
+	//SecLstUpdRelSymsLegGrp is a non-required component for NoRelatedSym.
+	SecLstUpdRelSymsLegGrp *seclstupdrelsymsleggrp.SecLstUpdRelSymsLegGrp
+	//SpreadOrBenchmarkCurveData is a non-required component for NoRelatedSym.
+	SpreadOrBenchmarkCurveData *spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData
+	//YieldData is a non-required component for NoRelatedSym.
+	YieldData *yielddata.YieldData
 	//RoundLot is a non-required field for NoRelatedSym.
 	RoundLot *float64 `fix:"561"`
 	//MinTradeVol is a non-required field for NoRelatedSym.
@@ -41,12 +41,12 @@ type NoRelatedSym struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoRelatedSym.
 	EncodedText *string `fix:"355"`
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoRelatedSym.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//Currency is a non-required field for NoRelatedSym.
 	Currency *string `fix:"15"`
-	//Stipulations Component
-	stipulations.Stipulations
+	//Stipulations is a non-required component for NoRelatedSym.
+	Stipulations *stipulations.Stipulations
 }
 
 //SecLstUpdRelSymGrp is a fix50 Component

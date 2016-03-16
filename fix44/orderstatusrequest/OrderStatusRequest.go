@@ -13,8 +13,12 @@ import (
 
 //NoUnderlyings is a repeating group in OrderStatusRequest
 type NoUnderlyings struct {
-	//UnderlyingInstrument Component
-	underlyinginstrument.UnderlyingInstrument
+	//UnderlyingInstrument is a non-required component for NoUnderlyings.
+	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
 }
 
 //Message is a OrderStatusRequest FIX Message
@@ -29,18 +33,18 @@ type Message struct {
 	SecondaryClOrdID *string `fix:"526"`
 	//ClOrdLinkID is a non-required field for OrderStatusRequest.
 	ClOrdLinkID *string `fix:"583"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for OrderStatusRequest.
+	Parties *parties.Parties
 	//OrdStatusReqID is a non-required field for OrderStatusRequest.
 	OrdStatusReqID *string `fix:"790"`
 	//Account is a non-required field for OrderStatusRequest.
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for OrderStatusRequest.
 	AcctIDSource *int `fix:"660"`
-	//Instrument Component
+	//Instrument is a required component for OrderStatusRequest.
 	instrument.Instrument
-	//FinancingDetails Component
-	financingdetails.FinancingDetails
+	//FinancingDetails is a non-required component for OrderStatusRequest.
+	FinancingDetails *financingdetails.FinancingDetails
 	//NoUnderlyings is a non-required field for OrderStatusRequest.
 	NoUnderlyings []NoUnderlyings `fix:"711,omitempty"`
 	//Side is a required field for OrderStatusRequest.
@@ -51,15 +55,18 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetOrderID(v string)                { m.OrderID = &v }
-func (m *Message) SetClOrdID(v string)                { m.ClOrdID = v }
-func (m *Message) SetSecondaryClOrdID(v string)       { m.SecondaryClOrdID = &v }
-func (m *Message) SetClOrdLinkID(v string)            { m.ClOrdLinkID = &v }
-func (m *Message) SetOrdStatusReqID(v string)         { m.OrdStatusReqID = &v }
-func (m *Message) SetAccount(v string)                { m.Account = &v }
-func (m *Message) SetAcctIDSource(v int)              { m.AcctIDSource = &v }
-func (m *Message) SetNoUnderlyings(v []NoUnderlyings) { m.NoUnderlyings = v }
-func (m *Message) SetSide(v string)                   { m.Side = v }
+func (m *Message) SetOrderID(v string)                                     { m.OrderID = &v }
+func (m *Message) SetClOrdID(v string)                                     { m.ClOrdID = v }
+func (m *Message) SetSecondaryClOrdID(v string)                            { m.SecondaryClOrdID = &v }
+func (m *Message) SetClOrdLinkID(v string)                                 { m.ClOrdLinkID = &v }
+func (m *Message) SetParties(v parties.Parties)                            { m.Parties = &v }
+func (m *Message) SetOrdStatusReqID(v string)                              { m.OrdStatusReqID = &v }
+func (m *Message) SetAccount(v string)                                     { m.Account = &v }
+func (m *Message) SetAcctIDSource(v int)                                   { m.AcctIDSource = &v }
+func (m *Message) SetInstrument(v instrument.Instrument)                   { m.Instrument = v }
+func (m *Message) SetFinancingDetails(v financingdetails.FinancingDetails) { m.FinancingDetails = &v }
+func (m *Message) SetNoUnderlyings(v []NoUnderlyings)                      { m.NoUnderlyings = v }
+func (m *Message) SetSide(v string)                                        { m.Side = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

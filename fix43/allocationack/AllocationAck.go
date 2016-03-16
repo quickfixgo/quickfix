@@ -13,8 +13,8 @@ import (
 type Message struct {
 	FIXMsgType string `fix:"P"`
 	fix43.Header
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for AllocationAck.
+	Parties *parties.Parties
 	//AllocID is a required field for AllocationAck.
 	AllocID string `fix:"70"`
 	//TradeDate is a required field for AllocationAck.
@@ -39,15 +39,16 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetAllocID(v string)         { m.AllocID = v }
-func (m *Message) SetTradeDate(v string)       { m.TradeDate = v }
-func (m *Message) SetTransactTime(v time.Time) { m.TransactTime = &v }
-func (m *Message) SetAllocStatus(v int)        { m.AllocStatus = v }
-func (m *Message) SetAllocRejCode(v int)       { m.AllocRejCode = &v }
-func (m *Message) SetText(v string)            { m.Text = &v }
-func (m *Message) SetEncodedTextLen(v int)     { m.EncodedTextLen = &v }
-func (m *Message) SetEncodedText(v string)     { m.EncodedText = &v }
-func (m *Message) SetLegalConfirm(v bool)      { m.LegalConfirm = &v }
+func (m *Message) SetParties(v parties.Parties) { m.Parties = &v }
+func (m *Message) SetAllocID(v string)          { m.AllocID = v }
+func (m *Message) SetTradeDate(v string)        { m.TradeDate = v }
+func (m *Message) SetTransactTime(v time.Time)  { m.TransactTime = &v }
+func (m *Message) SetAllocStatus(v int)         { m.AllocStatus = v }
+func (m *Message) SetAllocRejCode(v int)        { m.AllocRejCode = &v }
+func (m *Message) SetText(v string)             { m.Text = &v }
+func (m *Message) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *Message) SetEncodedText(v string)      { m.EncodedText = &v }
+func (m *Message) SetLegalConfirm(v bool)       { m.LegalConfirm = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

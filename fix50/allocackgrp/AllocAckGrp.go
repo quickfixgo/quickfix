@@ -30,8 +30,8 @@ type NoAllocs struct {
 	IndividualAllocType *int `fix:"992"`
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
-	//NestedParties Component
-	nestedparties.NestedParties
+	//NestedParties is a non-required component for NoAllocs.
+	NestedParties *nestedparties.NestedParties
 	//AllocPositionEffect is a non-required field for NoAllocs.
 	AllocPositionEffect *string `fix:"1047"`
 }

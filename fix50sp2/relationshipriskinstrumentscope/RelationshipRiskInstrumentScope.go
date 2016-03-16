@@ -16,8 +16,8 @@ type NoRelationshipRiskInstruments struct {
 	RelationshipRiskSecurityID *string `fix:"1591"`
 	//RelationshipRiskSecurityIDSource is a non-required field for NoRelationshipRiskInstruments.
 	RelationshipRiskSecurityIDSource *string `fix:"1592"`
-	//RelationshipRiskSecAltIDGrp Component
-	relationshiprisksecaltidgrp.RelationshipRiskSecAltIDGrp
+	//RelationshipRiskSecAltIDGrp is a non-required component for NoRelationshipRiskInstruments.
+	RelationshipRiskSecAltIDGrp *relationshiprisksecaltidgrp.RelationshipRiskSecAltIDGrp
 	//RelationshipRiskProduct is a non-required field for NoRelationshipRiskInstruments.
 	RelationshipRiskProduct *int `fix:"1596"`
 	//RelationshipRiskProductComplex is a non-required field for NoRelationshipRiskInstruments.

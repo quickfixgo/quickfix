@@ -15,16 +15,28 @@ type RelatedPartyDetail struct {
 	RelatedPartyIDSource *string `fix:"1564"`
 	//RelatedPartyRole is a non-required field for RelatedPartyDetail.
 	RelatedPartyRole *int `fix:"1565"`
-	//RelatedPtysSubGrp Component
-	relatedptyssubgrp.RelatedPtysSubGrp
-	//RelatedPartyAltIDs Component
-	relatedpartyaltids.RelatedPartyAltIDs
-	//RelatedContextParties Component
-	relatedcontextparties.RelatedContextParties
-	//RelationshipRiskLimits Component
-	relationshiprisklimits.RelationshipRiskLimits
+	//RelatedPtysSubGrp is a non-required component for RelatedPartyDetail.
+	RelatedPtysSubGrp *relatedptyssubgrp.RelatedPtysSubGrp
+	//RelatedPartyAltIDs is a non-required component for RelatedPartyDetail.
+	RelatedPartyAltIDs *relatedpartyaltids.RelatedPartyAltIDs
+	//RelatedContextParties is a non-required component for RelatedPartyDetail.
+	RelatedContextParties *relatedcontextparties.RelatedContextParties
+	//RelationshipRiskLimits is a non-required component for RelatedPartyDetail.
+	RelationshipRiskLimits *relationshiprisklimits.RelationshipRiskLimits
 }
 
 func (m *RelatedPartyDetail) SetRelatedPartyID(v string)       { m.RelatedPartyID = &v }
 func (m *RelatedPartyDetail) SetRelatedPartyIDSource(v string) { m.RelatedPartyIDSource = &v }
 func (m *RelatedPartyDetail) SetRelatedPartyRole(v int)        { m.RelatedPartyRole = &v }
+func (m *RelatedPartyDetail) SetRelatedPtysSubGrp(v relatedptyssubgrp.RelatedPtysSubGrp) {
+	m.RelatedPtysSubGrp = &v
+}
+func (m *RelatedPartyDetail) SetRelatedPartyAltIDs(v relatedpartyaltids.RelatedPartyAltIDs) {
+	m.RelatedPartyAltIDs = &v
+}
+func (m *RelatedPartyDetail) SetRelatedContextParties(v relatedcontextparties.RelatedContextParties) {
+	m.RelatedContextParties = &v
+}
+func (m *RelatedPartyDetail) SetRelationshipRiskLimits(v relationshiprisklimits.RelationshipRiskLimits) {
+	m.RelationshipRiskLimits = &v
+}

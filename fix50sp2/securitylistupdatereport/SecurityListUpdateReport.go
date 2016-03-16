@@ -32,14 +32,14 @@ type Message struct {
 	CorporateAction *string `fix:"292"`
 	//LastFragment is a non-required field for SecurityListUpdateReport.
 	LastFragment *bool `fix:"893"`
-	//SecLstUpdRelSymGrp Component
-	seclstupdrelsymgrp.SecLstUpdRelSymGrp
+	//SecLstUpdRelSymGrp is a non-required component for SecurityListUpdateReport.
+	SecLstUpdRelSymGrp *seclstupdrelsymgrp.SecLstUpdRelSymGrp
 	//MarketID is a non-required field for SecurityListUpdateReport.
 	MarketID *string `fix:"1301"`
 	//MarketSegmentID is a non-required field for SecurityListUpdateReport.
 	MarketSegmentID *string `fix:"1300"`
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//ApplicationSequenceControl is a non-required component for SecurityListUpdateReport.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	//SecurityListID is a non-required field for SecurityListUpdateReport.
 	SecurityListID *string `fix:"1465"`
 	//SecurityListRefID is a non-required field for SecurityListUpdateReport.
@@ -62,17 +62,23 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetSecurityReportID(v int)           { m.SecurityReportID = &v }
-func (m *Message) SetSecurityReqID(v string)           { m.SecurityReqID = &v }
-func (m *Message) SetSecurityResponseID(v string)      { m.SecurityResponseID = &v }
-func (m *Message) SetSecurityRequestResult(v int)      { m.SecurityRequestResult = &v }
-func (m *Message) SetTotNoRelatedSym(v int)            { m.TotNoRelatedSym = &v }
-func (m *Message) SetClearingBusinessDate(v string)    { m.ClearingBusinessDate = &v }
-func (m *Message) SetSecurityUpdateAction(v string)    { m.SecurityUpdateAction = &v }
-func (m *Message) SetCorporateAction(v string)         { m.CorporateAction = &v }
-func (m *Message) SetLastFragment(v bool)              { m.LastFragment = &v }
-func (m *Message) SetMarketID(v string)                { m.MarketID = &v }
-func (m *Message) SetMarketSegmentID(v string)         { m.MarketSegmentID = &v }
+func (m *Message) SetSecurityReportID(v int)        { m.SecurityReportID = &v }
+func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = &v }
+func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = &v }
+func (m *Message) SetSecurityRequestResult(v int)   { m.SecurityRequestResult = &v }
+func (m *Message) SetTotNoRelatedSym(v int)         { m.TotNoRelatedSym = &v }
+func (m *Message) SetClearingBusinessDate(v string) { m.ClearingBusinessDate = &v }
+func (m *Message) SetSecurityUpdateAction(v string) { m.SecurityUpdateAction = &v }
+func (m *Message) SetCorporateAction(v string)      { m.CorporateAction = &v }
+func (m *Message) SetLastFragment(v bool)           { m.LastFragment = &v }
+func (m *Message) SetSecLstUpdRelSymGrp(v seclstupdrelsymgrp.SecLstUpdRelSymGrp) {
+	m.SecLstUpdRelSymGrp = &v
+}
+func (m *Message) SetMarketID(v string)        { m.MarketID = &v }
+func (m *Message) SetMarketSegmentID(v string) { m.MarketSegmentID = &v }
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 func (m *Message) SetSecurityListID(v string)          { m.SecurityListID = &v }
 func (m *Message) SetSecurityListRefID(v string)       { m.SecurityListRefID = &v }
 func (m *Message) SetSecurityListDesc(v string)        { m.SecurityListDesc = &v }

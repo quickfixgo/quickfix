@@ -30,10 +30,10 @@ type Message struct {
 	EncodedText *string `fix:"355"`
 	//TransactTime is a non-required field for SettlementObligationReport.
 	TransactTime *time.Time `fix:"60"`
-	//SettlObligationInstructions Component
+	//SettlObligationInstructions is a required component for SettlementObligationReport.
 	settlobligationinstructions.SettlObligationInstructions
-	//ApplicationSequenceControl Component
-	applicationsequencecontrol.ApplicationSequenceControl
+	//ApplicationSequenceControl is a non-required component for SettlementObligationReport.
+	ApplicationSequenceControl *applicationsequencecontrol.ApplicationSequenceControl
 	fixt11.Trailer
 }
 
@@ -48,6 +48,12 @@ func (m *Message) SetText(v string)                 { m.Text = &v }
 func (m *Message) SetEncodedTextLen(v int)          { m.EncodedTextLen = &v }
 func (m *Message) SetEncodedText(v string)          { m.EncodedText = &v }
 func (m *Message) SetTransactTime(v time.Time)      { m.TransactTime = &v }
+func (m *Message) SetSettlObligationInstructions(v settlobligationinstructions.SettlObligationInstructions) {
+	m.SettlObligationInstructions = v
+}
+func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
+	m.ApplicationSequenceControl = &v
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

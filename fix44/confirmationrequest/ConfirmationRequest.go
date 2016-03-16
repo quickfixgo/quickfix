@@ -21,8 +21,8 @@ type NoOrders struct {
 	SecondaryClOrdID *string `fix:"526"`
 	//ListID is a non-required field for NoOrders.
 	ListID *string `fix:"66"`
-	//NestedParties2 Component
-	nestedparties2.NestedParties2
+	//NestedParties2 is a non-required component for NoOrders.
+	NestedParties2 *nestedparties2.NestedParties2
 	//OrderQty is a non-required field for NoOrders.
 	OrderQty *float64 `fix:"38"`
 	//OrderAvgPx is a non-required field for NoOrders.
@@ -31,14 +31,15 @@ type NoOrders struct {
 	OrderBookingQty *float64 `fix:"800"`
 }
 
-func (m *NoOrders) SetClOrdID(v string)          { m.ClOrdID = &v }
-func (m *NoOrders) SetOrderID(v string)          { m.OrderID = &v }
-func (m *NoOrders) SetSecondaryOrderID(v string) { m.SecondaryOrderID = &v }
-func (m *NoOrders) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }
-func (m *NoOrders) SetListID(v string)           { m.ListID = &v }
-func (m *NoOrders) SetOrderQty(v float64)        { m.OrderQty = &v }
-func (m *NoOrders) SetOrderAvgPx(v float64)      { m.OrderAvgPx = &v }
-func (m *NoOrders) SetOrderBookingQty(v float64) { m.OrderBookingQty = &v }
+func (m *NoOrders) SetClOrdID(v string)                               { m.ClOrdID = &v }
+func (m *NoOrders) SetOrderID(v string)                               { m.OrderID = &v }
+func (m *NoOrders) SetSecondaryOrderID(v string)                      { m.SecondaryOrderID = &v }
+func (m *NoOrders) SetSecondaryClOrdID(v string)                      { m.SecondaryClOrdID = &v }
+func (m *NoOrders) SetListID(v string)                                { m.ListID = &v }
+func (m *NoOrders) SetNestedParties2(v nestedparties2.NestedParties2) { m.NestedParties2 = &v }
+func (m *NoOrders) SetOrderQty(v float64)                             { m.OrderQty = &v }
+func (m *NoOrders) SetOrderAvgPx(v float64)                           { m.OrderAvgPx = &v }
+func (m *NoOrders) SetOrderBookingQty(v float64)                      { m.OrderBookingQty = &v }
 
 //Message is a ConfirmationRequest FIX Message
 type Message struct {

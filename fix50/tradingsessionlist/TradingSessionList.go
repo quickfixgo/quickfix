@@ -14,7 +14,7 @@ type Message struct {
 	fixt11.Header
 	//TradSesReqID is a non-required field for TradingSessionList.
 	TradSesReqID *string `fix:"335"`
-	//TrdSessLstGrp Component
+	//TrdSessLstGrp is a required component for TradingSessionList.
 	trdsesslstgrp.TrdSessLstGrp
 	fixt11.Trailer
 }
@@ -22,7 +22,8 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
-func (m *Message) SetTradSesReqID(v string) { m.TradSesReqID = &v }
+func (m *Message) SetTradSesReqID(v string)                       { m.TradSesReqID = &v }
+func (m *Message) SetTrdSessLstGrp(v trdsesslstgrp.TrdSessLstGrp) { m.TrdSessLstGrp = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError

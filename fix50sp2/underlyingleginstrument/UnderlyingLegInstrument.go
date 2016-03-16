@@ -14,8 +14,8 @@ type UnderlyingLegInstrument struct {
 	UnderlyingLegSecurityID *string `fix:"1332"`
 	//UnderlyingLegSecurityIDSource is a non-required field for UnderlyingLegInstrument.
 	UnderlyingLegSecurityIDSource *string `fix:"1333"`
-	//UnderlyingLegSecurityAltIDGrp Component
-	underlyinglegsecurityaltidgrp.UnderlyingLegSecurityAltIDGrp
+	//UnderlyingLegSecurityAltIDGrp is a non-required component for UnderlyingLegInstrument.
+	UnderlyingLegSecurityAltIDGrp *underlyinglegsecurityaltidgrp.UnderlyingLegSecurityAltIDGrp
 	//UnderlyingLegCFICode is a non-required field for UnderlyingLegInstrument.
 	UnderlyingLegCFICode *string `fix:"1344"`
 	//UnderlyingLegSecurityType is a non-required field for UnderlyingLegInstrument.
@@ -45,6 +45,9 @@ func (m *UnderlyingLegInstrument) SetUnderlyingLegSymbolSfx(v string)  { m.Under
 func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityID(v string) { m.UnderlyingLegSecurityID = &v }
 func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityIDSource(v string) {
 	m.UnderlyingLegSecurityIDSource = &v
+}
+func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityAltIDGrp(v underlyinglegsecurityaltidgrp.UnderlyingLegSecurityAltIDGrp) {
+	m.UnderlyingLegSecurityAltIDGrp = &v
 }
 func (m *UnderlyingLegInstrument) SetUnderlyingLegCFICode(v string) { m.UnderlyingLegCFICode = &v }
 func (m *UnderlyingLegInstrument) SetUnderlyingLegSecurityType(v string) {

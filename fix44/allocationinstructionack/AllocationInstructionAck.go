@@ -44,8 +44,8 @@ type Message struct {
 	fix44.Header
 	//AllocID is a required field for AllocationInstructionAck.
 	AllocID string `fix:"70"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for AllocationInstructionAck.
+	Parties *parties.Parties
 	//SecondaryAllocID is a non-required field for AllocationInstructionAck.
 	SecondaryAllocID *string `fix:"793"`
 	//TradeDate is a non-required field for AllocationInstructionAck.
@@ -81,6 +81,7 @@ type Message struct {
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
 func (m *Message) SetAllocID(v string)           { m.AllocID = v }
+func (m *Message) SetParties(v parties.Parties)  { m.Parties = &v }
 func (m *Message) SetSecondaryAllocID(v string)  { m.SecondaryAllocID = &v }
 func (m *Message) SetTradeDate(v string)         { m.TradeDate = &v }
 func (m *Message) SetTransactTime(v time.Time)   { m.TransactTime = v }

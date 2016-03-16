@@ -14,8 +14,8 @@ type NoSettlInst struct {
 	SettlInstTransType *string `fix:"163"`
 	//SettlInstRefID is a non-required field for NoSettlInst.
 	SettlInstRefID *string `fix:"214"`
-	//Parties Component
-	parties.Parties
+	//Parties is a non-required component for NoSettlInst.
+	Parties *parties.Parties
 	//Side is a non-required field for NoSettlInst.
 	Side *string `fix:"54"`
 	//Product is a non-required field for NoSettlInst.
@@ -30,8 +30,8 @@ type NoSettlInst struct {
 	ExpireTime *time.Time `fix:"126"`
 	//LastUpdateTime is a non-required field for NoSettlInst.
 	LastUpdateTime *time.Time `fix:"779"`
-	//SettlInstructionsData Component
-	settlinstructionsdata.SettlInstructionsData
+	//SettlInstructionsData is a non-required component for NoSettlInst.
+	SettlInstructionsData *settlinstructionsdata.SettlInstructionsData
 	//PaymentMethod is a non-required field for NoSettlInst.
 	PaymentMethod *int `fix:"492"`
 	//PaymentRef is a non-required field for NoSettlInst.
