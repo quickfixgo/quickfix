@@ -75,35 +75,6 @@ func newFileStore(sessionID SessionID, dirname string) (*fileStore, error) {
 	return store, nil
 }
 
-func closeFile(f *os.File) error {
-	if f != nil {
-		if err := f.Close(); err != nil {
-			if !os.IsNotExist(err) {
-				return err
-			}
-		}
-	}
-	return nil
-}
-
-func removeFile(fname string) error {
-	err := os.Remove(fname)
-	if (err != nil) && !os.IsNotExist(err) {
-		return err
-	}
-	return nil
-}
-
-// openOrCreateFile opens a file for reading and writing, creating it if necessary
-func openOrCreateFile(fname string, perm os.FileMode) (f *os.File, err error) {
-	if f, err = os.OpenFile(fname, os.O_RDWR, perm); err != nil {
-		if f, err = os.OpenFile(fname, os.O_RDWR|os.O_CREATE, perm); err != nil {
-			return nil, fmt.Errorf("error opening or creating file: %s: %s", fname, err.Error())
-		}
-	}
-	return f, nil
-}
-
 // Reset deletes the store files and sets the seqnums back to 1
 func (store *fileStore) Reset() error {
 	store.cache.Reset()
