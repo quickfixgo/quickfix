@@ -1,8 +1,9 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/enum"
 	"time"
+
+	"github.com/quickfixgo/quickfix/enum"
 )
 
 type inSession struct {
@@ -135,43 +136,34 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 }
 
 func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int) {
-	msgs := session.store.GetMessages(beginSeqNo, endSeqNo)
+	msgs, err := session.store.GetMessages(beginSeqNo, endSeqNo)
+	if err != nil {
+		session.log.OnEventf("error retrieving messages from store: %s", err.Error())
+		panic(err)
+	}
 
 	seqNum := beginSeqNo
 	nextSeqNum := seqNum
-
-	var msgBytes []byte
-	var ok bool
-	for {
-		if msgBytes, ok = <-msgs; !ok {
-			//gapfill for catch-up
-			if seqNum != nextSeqNum {
-				state.generateSequenceReset(session, seqNum, nextSeqNum)
-			}
-
-			return
-		}
-
+	for _, msgBytes := range msgs {
 		msg, _ := parseMessage(msgBytes)
+		msgType, _ := msg.Header.GetString(tagMsgType)
+		sentMessageSeqNum, _ := msg.Header.GetInt(tagMsgSeqNum)
 
-		var msgType FIXString
-		msg.Header.GetField(tagMsgType, &msgType)
-
-		var sentMessageSeqNum FIXInt
-		msg.Header.GetField(tagMsgSeqNum, &sentMessageSeqNum)
-
-		if isAdminMessageType(string(msgType)) {
-			nextSeqNum = int(sentMessageSeqNum) + 1
-		} else {
-
-			if seqNum != int(sentMessageSeqNum) {
-				state.generateSequenceReset(session, seqNum, int(sentMessageSeqNum))
-			}
-
-			session.resend(msg)
-			seqNum = int(sentMessageSeqNum) + 1
-			nextSeqNum = seqNum
+		if isAdminMessageType(msgType) {
+			nextSeqNum = sentMessageSeqNum + 1
+			continue
 		}
+
+		if seqNum != sentMessageSeqNum {
+			state.generateSequenceReset(session, seqNum, sentMessageSeqNum)
+		}
+		session.resend(msg)
+		seqNum = sentMessageSeqNum + 1
+		nextSeqNum = seqNum
+	}
+
+	if seqNum != nextSeqNum { // gapfill for catch-up
+		state.generateSequenceReset(session, seqNum, nextSeqNum)
 	}
 }
 

@@ -2,11 +2,11 @@ package quickfix
 
 import (
 	"fmt"
-	"github.com/quickfixgo/quickfix/config"
 	"log"
 	"os"
 	"path"
-	"strings"
+
+	"github.com/quickfixgo/quickfix/config"
 )
 
 type fileLog struct {
@@ -96,10 +96,6 @@ func (f fileLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
 		return nil, fmt.Errorf("logger not defined for %v", sessionID)
 	}
 
-	prefixParts := []string{sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID}
-	if len(sessionID.Qualifier) > 0 {
-		prefixParts = append(prefixParts, sessionID.Qualifier)
-	}
-
-	return newFileLog(strings.Join(prefixParts, "-"), logPath)
+	prefix := sessionIDFilenamePrefix(sessionID)
+	return newFileLog(prefix, logPath)
 }

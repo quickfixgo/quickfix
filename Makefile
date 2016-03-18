@@ -1,7 +1,7 @@
 all: vet test
 
 get:
-	go get github.com/golang/lint/golint
+	go get -t -d ./...
 
 GEN_MESSAGES = go run _gen/generate-messages/main.go
 GEN_COMPONENTS = go run _gen/generate-components/main.go
@@ -20,15 +20,16 @@ vet:
 	go vet ./...
 
 lint:
+	go get github.com/golang/lint/golint
 	golint .
 
-test:
+test: get
 	go test -v -cover . ./datadictionary
 
-_build_all:
+_build_all: get
 	go build -v ./...
 
-build_accept:
+build_accept: get
 	cd _test; go build -o echo_server
 
 build: _build_all build_accept

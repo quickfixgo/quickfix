@@ -1,64 +1,142 @@
 package quickfix
 
 import (
-	"bytes"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestMemoryStore_IncMsgSeqNum(t *testing.T) {
-	store, _ := NewMemoryStoreFactory().Create(SessionID{})
-
-	var testCases = []struct {
-		expectedNextSeqNum int
-	}{
-		{1}, {2}, {3},
-	}
-
-	for _, tc := range testCases {
-
-		if store.NextSenderMsgSeqNum() != tc.expectedNextSeqNum {
-			t.Errorf("Did not get expected sender seq num %v, got %v", tc.expectedNextSeqNum, store.NextSenderMsgSeqNum())
-		}
-
-		store.IncrNextSenderMsgSeqNum()
-
-		if store.NextTargetMsgSeqNum() != tc.expectedNextSeqNum {
-			t.Errorf("Did not get expected target seq num %v, got %v", tc.expectedNextSeqNum, store.NextTargetMsgSeqNum())
-		}
-
-		store.IncrNextTargetMsgSeqNum()
-	}
+// MessageStoreTestSuite is the suite of all tests that should be run against all MessageStore implementations
+type MessageStoreTestSuite struct {
+	suite.Suite
+	msgStore MessageStore
 }
 
-func TestMemoryStore_SetMsgSeqNum(t *testing.T) {
-	store, _ := NewMemoryStoreFactory().Create(SessionID{})
-	store.SetNextSenderMsgSeqNum(50)
-	store.SetNextTargetMsgSeqNum(30)
-
-	if store.NextSenderMsgSeqNum() != 50 {
-		t.Errorf("Did not get expected sender seq num %v, got %v", 50, store.NextSenderMsgSeqNum())
-	}
-
-	if store.NextTargetMsgSeqNum() != 30 {
-		t.Errorf("Did not get expected target seq num %v, got %v", 30, store.NextTargetMsgSeqNum())
-	}
+// MemoryStoreTestSuite runs all tests in the MessageStoreTestSuite against the MemoryStore implementation
+type MemoryStoreTestSuite struct {
+	MessageStoreTestSuite
 }
 
-func TestMemoryStore_GetMessages(t *testing.T) {
-	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+func (suite *MemoryStoreTestSuite) SetupTest() {
+	var err error
+	suite.msgStore, err = NewMemoryStoreFactory().Create(SessionID{})
+	require.Nil(suite.T(), err)
+}
 
-	messages := store.GetMessages(1, 2)
-	msg, ok := <-messages
+func TestMemoryStoreTestSuite(t *testing.T) {
+	suite.Run(t, new(MemoryStoreTestSuite))
+}
 
-	if ok != false {
-		t.Error("Did not expect messages from empty store", msg)
+func (suite *MessageStoreTestSuite) TestMessageStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum() {
+	t := suite.T()
+
+	// Given a MessageStore with the following sender and target seqnums
+	suite.msgStore.SetNextSenderMsgSeqNum(867)
+	suite.msgStore.SetNextTargetMsgSeqNum(5309)
+
+	// When the store is refreshed from its backing store
+	suite.msgStore.Refresh()
+
+	// Then the sender and target seqnums should still be
+	assert.Equal(t, 867, suite.msgStore.NextSenderMsgSeqNum())
+	assert.Equal(t, 5309, suite.msgStore.NextTargetMsgSeqNum())
+
+	// When the sender and target seqnums are incremented
+	require.Nil(t, suite.msgStore.IncrNextSenderMsgSeqNum())
+	require.Nil(t, suite.msgStore.IncrNextTargetMsgSeqNum())
+
+	// Then the sender and target seqnums should be
+	assert.Equal(t, 868, suite.msgStore.NextSenderMsgSeqNum())
+	assert.Equal(t, 5310, suite.msgStore.NextTargetMsgSeqNum())
+
+	// When the store is refreshed from its backing store
+	suite.msgStore.Refresh()
+
+	// Then the sender and target seqnums should still be
+	assert.Equal(t, 868, suite.msgStore.NextSenderMsgSeqNum())
+	assert.Equal(t, 5310, suite.msgStore.NextTargetMsgSeqNum())
+}
+
+func (suite *MessageStoreTestSuite) TestMessageStore_Reset() {
+	t := suite.T()
+
+	// Given a MessageStore with the following sender and target seqnums
+	suite.msgStore.SetNextSenderMsgSeqNum(1234)
+	suite.msgStore.SetNextTargetMsgSeqNum(5678)
+
+	// When the store is reset
+	require.Nil(t, suite.msgStore.Reset())
+
+	// Then the sender and target seqnums should be
+	assert.Equal(t, 1, suite.msgStore.NextSenderMsgSeqNum())
+	assert.Equal(t, 1, suite.msgStore.NextTargetMsgSeqNum())
+
+	// When the store is refreshed from its backing store
+	suite.msgStore.Refresh()
+
+	// Then the sender and target seqnums should still be
+	assert.Equal(t, 1, suite.msgStore.NextSenderMsgSeqNum())
+	assert.Equal(t, 1, suite.msgStore.NextTargetMsgSeqNum())
+}
+
+func (suite *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
+	t := suite.T()
+
+	// Given the following saved messages
+	expectedMsgsBySeqNum := map[int]string{
+		1: "In the frozen land of Nador",
+		2: "they were forced to eat Robin's minstrels",
+		3: "and there was much rejoicing",
+	}
+	for seqNum, msg := range expectedMsgsBySeqNum {
+		suite.msgStore.SaveMessage(seqNum, []byte(msg))
 	}
 
-	store.SaveMessage(1, []byte("hello"))
-	store.SaveMessage(2, []byte("cruel"))
-	store.SaveMessage(3, []byte("world"))
+	// When the messages are retrieved from the MessageStore
+	actualMsgs, err := suite.msgStore.GetMessages(1, 3)
+	require.Nil(t, err)
 
+	// Then the messages should be
+	require.Len(t, actualMsgs, 3)
+	assert.Equal(t, expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	assert.Equal(t, expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	assert.Equal(t, expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+
+	// When the store is refreshed from its backing store
+	suite.msgStore.Refresh()
+
+	// And the messages are retrieved from the MessageStore
+	actualMsgs, err = suite.msgStore.GetMessages(1, 3)
+	require.Nil(t, err)
+
+	// Then the messages should still be
+	require.Len(t, actualMsgs, 3)
+	assert.Equal(t, expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	assert.Equal(t, expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	assert.Equal(t, expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+}
+
+func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
+	// When messages are retrieved from an empty store
+	messages, err := suite.msgStore.GetMessages(1, 2)
+	require.Nil(suite.T(), err)
+
+	// Then no messages should be returned
+	require.Empty(suite.T(), messages, "Did not expect messages from empty store")
+}
+
+func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
+	t := suite.T()
+
+	// Given the following saved messages
+	suite.msgStore.SaveMessage(1, []byte("hello"))
+	suite.msgStore.SaveMessage(2, []byte("cruel"))
+	suite.msgStore.SaveMessage(3, []byte("world"))
+
+	// When the following requests are made to the store
 	var testCases = []struct {
 		beginSeqNo, endSeqNo int
 		expectedBytes        [][]byte
@@ -74,70 +152,21 @@ func TestMemoryStore_GetMessages(t *testing.T) {
 		{beginSeqNo: 4, endSeqNo: 10, expectedBytes: [][]byte{}},
 	}
 
+	// Then the returned messages should be
 	for _, tc := range testCases {
-		messages = store.GetMessages(tc.beginSeqNo, tc.endSeqNo)
-
-		expected := tc.expectedBytes
-		for {
-			msg, ok = <-messages
-
-			if len(expected) == 0 {
-				if ok == true {
-					t.Error("Did not expect additional messages", msg)
-				}
-				break
-			}
-
-			if ok != true {
-				t.Error("Did not get messages, expected ", expected[0])
-			}
-
-			if !bytes.Equal(msg, expected[0]) {
-				t.Error("Expected ", expected[0], " got ", msg)
-			}
-
-			expected = expected[1:]
+		actualMsgs, err := suite.msgStore.GetMessages(tc.beginSeqNo, tc.endSeqNo)
+		require.Nil(t, err)
+		require.Len(t, actualMsgs, len(tc.expectedBytes))
+		for i, expectedMsg := range tc.expectedBytes {
+			assert.Equal(t, string(expectedMsg), string(actualMsgs[i]))
 		}
 	}
 }
 
-func TestMemoryStoreFactory_Create(t *testing.T) {
+func (suite *MessageStoreTestSuite) TestMemoryStoreFactory_CreationTime() {
 	t0 := time.Now()
-	store, _ := NewMemoryStoreFactory().Create(SessionID{})
+	suite.msgStore.Reset()
 	t1 := time.Now()
-
-	if store.CreationTime().Before(t0) {
-		t.Errorf("Expected %v to be before %v", t0, store.CreationTime())
-	}
-
-	if store.CreationTime().After(t1) {
-		t.Errorf("Expected %v to be after %v", t1, store.CreationTime())
-	}
-}
-
-func TestMemoryStore_Reset(t *testing.T) {
-	store, _ := NewMemoryStoreFactory().Create(SessionID{})
-	store.SetNextSenderMsgSeqNum(50)
-	store.SetNextTargetMsgSeqNum(30)
-
-	store.SaveMessage(1, []byte("hello"))
-	store.SaveMessage(2, []byte("cruel"))
-	store.SaveMessage(3, []byte("world"))
-
-	store.Reset()
-
-	messages := store.GetMessages(1, 3)
-	msg, ok := <-messages
-
-	if ok {
-		t.Error("Did not expect messages, got ", string(msg))
-	}
-
-	if store.NextSenderMsgSeqNum() != 1 {
-		t.Error("SenderMsgSeqNum should reset")
-	}
-
-	if store.NextTargetMsgSeqNum() != 1 {
-		t.Error("TargetMsgSeqNum should reset")
-	}
+	require.True(suite.T(), suite.msgStore.CreationTime().After(t0))
+	require.True(suite.T(), suite.msgStore.CreationTime().Before(t1))
 }

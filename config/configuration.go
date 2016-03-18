@@ -15,4 +15,5 @@ const (
 	ResetOnLogon            string = "ResetOnLogon"
 	HeartBtInt              string = "HeartBtInt"
 	FileLogPath             string = "FileLogPath"
+	FileStorePath           string = "FileStorePath"
 )

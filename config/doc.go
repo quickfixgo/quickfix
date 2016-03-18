@@ -118,5 +118,9 @@ Socket port for listening to incoming connections, Only used with for acceptors.
 FileLogPath
 
 Directory to store logs.	Value must be valid directory for storing files, application must have write access.
+
+FileStorePath
+
+Directory to store sequence number and message files.  Only used with FileStoreFactory.
 */
 package config
