@@ -1,5 +1,10 @@
 package tickrules
 
+func New() *TickRules {
+	var m TickRules
+	return &m
+}
+
 //NoTickRules is a repeating group in TickRules
 type NoTickRules struct {
 	//StartTickPriceRange is a non-required field for NoTickRules.

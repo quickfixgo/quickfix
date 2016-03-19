@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/instrumentleg"
 )
 
+func New() *InstrmtLegGrp {
+	var m InstrmtLegGrp
+	return &m
+}
+
 //NoLegs is a repeating group in InstrmtLegGrp
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.

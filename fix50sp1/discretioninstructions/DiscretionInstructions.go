@@ -1,5 +1,10 @@
 package discretioninstructions
 
+func New() *DiscretionInstructions {
+	var m DiscretionInstructions
+	return &m
+}
+
 //DiscretionInstructions is a fix50sp1 Component
 type DiscretionInstructions struct {
 	//DiscretionInst is a non-required field for DiscretionInstructions.

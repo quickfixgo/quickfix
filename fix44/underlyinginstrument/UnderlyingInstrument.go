@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix44/underlyingstipulations"
 )
 
+func New() *UnderlyingInstrument {
+	var m UnderlyingInstrument
+	return &m
+}
+
 //NoUnderlyingSecurityAltID is a repeating group in UnderlyingInstrument
 type NoUnderlyingSecurityAltID struct {
 	//UnderlyingSecurityAltID is a non-required field for NoUnderlyingSecurityAltID.

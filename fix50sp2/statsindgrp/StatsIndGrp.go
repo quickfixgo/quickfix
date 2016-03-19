@@ -1,5 +1,10 @@
 package statsindgrp
 
+func New() *StatsIndGrp {
+	var m StatsIndGrp
+	return &m
+}
+
 //NoStatsIndicators is a repeating group in StatsIndGrp
 type NoStatsIndicators struct {
 	//StatsType is a non-required field for NoStatsIndicators.

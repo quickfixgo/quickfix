@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/underlyingleginstrument"
 )
 
+func New() *TradeCapLegUnderlyingsGrp {
+	var m TradeCapLegUnderlyingsGrp
+	return &m
+}
+
 //NoOfLegUnderlyings is a repeating group in TradeCapLegUnderlyingsGrp
 type NoOfLegUnderlyings struct {
 	//UnderlyingLegInstrument is a non-required component for NoOfLegUnderlyings.

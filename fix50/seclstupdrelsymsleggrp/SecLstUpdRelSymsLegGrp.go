@@ -6,6 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/legstipulations"
 )
 
+func New() *SecLstUpdRelSymsLegGrp {
+	var m SecLstUpdRelSymsLegGrp
+	return &m
+}
+
 //NoLegs is a repeating group in SecLstUpdRelSymsLegGrp
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.

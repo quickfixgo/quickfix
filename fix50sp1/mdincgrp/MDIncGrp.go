@@ -12,6 +12,12 @@ import (
 	"time"
 )
 
+func New(nomdentries []NoMDEntries) *MDIncGrp {
+	var m MDIncGrp
+	m.SetNoMDEntries(nomdentries)
+	return &m
+}
+
 //NoMDEntries is a repeating group in MDIncGrp
 type NoMDEntries struct {
 	//MDUpdateAction is a required field for NoMDEntries.

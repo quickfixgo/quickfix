@@ -1,5 +1,10 @@
 package matchrules
 
+func New() *MatchRules {
+	var m MatchRules
+	return &m
+}
+
 //NoMatchRules is a repeating group in MatchRules
 type NoMatchRules struct {
 	//MatchAlgorithm is a non-required field for NoMatchRules.

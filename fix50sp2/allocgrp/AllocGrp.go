@@ -8,6 +8,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/settlinstructionsdata"
 )
 
+func New() *AllocGrp {
+	var m AllocGrp
+	return &m
+}
+
 //NoAllocs is a repeating group in AllocGrp
 type NoAllocs struct {
 	//AllocAccount is a non-required field for NoAllocs.

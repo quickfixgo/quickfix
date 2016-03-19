@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+func New() *TrdCapDtGrp {
+	var m TrdCapDtGrp
+	return &m
+}
+
 //NoDates is a repeating group in TrdCapDtGrp
 type NoDates struct {
 	//TradeDate is a non-required field for NoDates.

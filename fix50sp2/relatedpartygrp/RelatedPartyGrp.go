@@ -5,6 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relatedpartydetail"
 )
 
+func New() *RelatedPartyGrp {
+	var m RelatedPartyGrp
+	return &m
+}
+
 //NoRelatedPartyIDs is a repeating group in RelatedPartyGrp
 type NoRelatedPartyIDs struct {
 	//RelatedPartyDetail is a non-required component for NoRelatedPartyIDs.

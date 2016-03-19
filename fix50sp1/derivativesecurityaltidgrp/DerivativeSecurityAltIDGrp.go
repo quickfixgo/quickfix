@@ -1,5 +1,10 @@
 package derivativesecurityaltidgrp
 
+func New() *DerivativeSecurityAltIDGrp {
+	var m DerivativeSecurityAltIDGrp
+	return &m
+}
+
 //NoDerivativeSecurityAltID is a repeating group in DerivativeSecurityAltIDGrp
 type NoDerivativeSecurityAltID struct {
 	//DerivativeSecurityAltID is a non-required field for NoDerivativeSecurityAltID.

@@ -1,5 +1,10 @@
 package applidreportgrp
 
+func New() *ApplIDReportGrp {
+	var m ApplIDReportGrp
+	return &m
+}
+
 //NoApplIDs is a repeating group in ApplIDReportGrp
 type NoApplIDs struct {
 	//RefApplID is a non-required field for NoApplIDs.

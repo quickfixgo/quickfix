@@ -1,5 +1,10 @@
 package attrbgrp
 
+func New() *AttrbGrp {
+	var m AttrbGrp
+	return &m
+}
+
 //NoInstrAttrib is a repeating group in AttrbGrp
 type NoInstrAttrib struct {
 	//InstrAttribType is a non-required field for NoInstrAttrib.

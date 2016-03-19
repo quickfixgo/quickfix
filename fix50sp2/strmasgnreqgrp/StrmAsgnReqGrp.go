@@ -5,6 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/strmasgnreqinstrmtgrp"
 )
 
+func New() *StrmAsgnReqGrp {
+	var m StrmAsgnReqGrp
+	return &m
+}
+
 //NoAsgnReqs is a repeating group in StrmAsgnReqGrp
 type NoAsgnReqs struct {
 	//Parties is a non-required component for NoAsgnReqs.

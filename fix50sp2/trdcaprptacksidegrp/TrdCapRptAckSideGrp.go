@@ -13,6 +13,12 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/trdallocgrp"
 )
 
+func New(nosides []NoSides) *TrdCapRptAckSideGrp {
+	var m TrdCapRptAckSideGrp
+	m.SetNoSides(nosides)
+	return &m
+}
+
 //NoSides is a repeating group in TrdCapRptAckSideGrp
 type NoSides struct {
 	//Side is a required field for NoSides.

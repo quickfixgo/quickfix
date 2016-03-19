@@ -1,5 +1,10 @@
 package instrumentextension
 
+func New() *InstrumentExtension {
+	var m InstrumentExtension
+	return &m
+}
+
 //NoInstrAttrib is a repeating group in InstrumentExtension
 type NoInstrAttrib struct {
 	//InstrAttribType is a non-required field for NoInstrAttrib.

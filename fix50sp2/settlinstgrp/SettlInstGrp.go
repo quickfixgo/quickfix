@@ -6,6 +6,11 @@ import (
 	"time"
 )
 
+func New() *SettlInstGrp {
+	var m SettlInstGrp
+	return &m
+}
+
 //NoSettlInst is a repeating group in SettlInstGrp
 type NoSettlInst struct {
 	//SettlInstID is a non-required field for NoSettlInst.

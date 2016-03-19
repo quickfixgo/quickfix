@@ -1,5 +1,10 @@
 package altptyssubgrp
 
+func New() *AltPtysSubGrp {
+	var m AltPtysSubGrp
+	return &m
+}
+
 //NoPartyAltSubIDs is a repeating group in AltPtysSubGrp
 type NoPartyAltSubIDs struct {
 	//PartyAltSubID is a non-required field for NoPartyAltSubIDs.

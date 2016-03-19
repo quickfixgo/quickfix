@@ -1,5 +1,10 @@
 package routinggrp
 
+func New() *RoutingGrp {
+	var m RoutingGrp
+	return &m
+}
+
 //NoRoutingIDs is a repeating group in RoutingGrp
 type NoRoutingIDs struct {
 	//RoutingType is a non-required field for NoRoutingIDs.

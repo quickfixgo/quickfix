@@ -1,5 +1,10 @@
 package complexeventtimes
 
+func New() *ComplexEventTimes {
+	var m ComplexEventTimes
+	return &m
+}
+
 //NoComplexEventTimes is a repeating group in ComplexEventTimes
 type NoComplexEventTimes struct {
 	//ComplexEventStartTime is a non-required field for NoComplexEventTimes.

@@ -1,5 +1,10 @@
 package newsrefgrp
 
+func New() *NewsRefGrp {
+	var m NewsRefGrp
+	return &m
+}
+
 //NoNewsRefIDs is a repeating group in NewsRefGrp
 type NoNewsRefIDs struct {
 	//NewsRefID is a non-required field for NoNewsRefIDs.

@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/undlyinstrumentptyssubgrp"
 )
 
+func New() *UndlyInstrumentParties {
+	var m UndlyInstrumentParties
+	return &m
+}
+
 //NoUndlyInstrumentParties is a repeating group in UndlyInstrumentParties
 type NoUndlyInstrumentParties struct {
 	//UndlyInstrumentPartyID is a non-required field for NoUndlyInstrumentParties.

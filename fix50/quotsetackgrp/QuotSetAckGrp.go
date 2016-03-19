@@ -5,6 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/underlyinginstrument"
 )
 
+func New() *QuotSetAckGrp {
+	var m QuotSetAckGrp
+	return &m
+}
+
 //NoQuoteSets is a repeating group in QuotSetAckGrp
 type NoQuoteSets struct {
 	//QuoteSetID is a non-required field for NoQuoteSets.

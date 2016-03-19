@@ -1,5 +1,11 @@
 package mdreqgrp
 
+func New(nomdentrytypes []NoMDEntryTypes) *MDReqGrp {
+	var m MDReqGrp
+	m.SetNoMDEntryTypes(nomdentrytypes)
+	return &m
+}
+
 //NoMDEntryTypes is a repeating group in MDReqGrp
 type NoMDEntryTypes struct {
 	//MDEntryType is a required field for NoMDEntryTypes.

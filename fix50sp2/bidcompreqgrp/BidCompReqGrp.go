@@ -1,5 +1,10 @@
 package bidcompreqgrp
 
+func New() *BidCompReqGrp {
+	var m BidCompReqGrp
+	return &m
+}
+
 //NoBidComponents is a repeating group in BidCompReqGrp
 type NoBidComponents struct {
 	//ListID is a non-required field for NoBidComponents.

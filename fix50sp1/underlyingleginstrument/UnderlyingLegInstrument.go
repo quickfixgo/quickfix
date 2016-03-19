@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/underlyinglegsecurityaltidgrp"
 )
 
+func New() *UnderlyingLegInstrument {
+	var m UnderlyingLegInstrument
+	return &m
+}
+
 //UnderlyingLegInstrument is a fix50sp1 Component
 type UnderlyingLegInstrument struct {
 	//UnderlyingLegSymbol is a non-required field for UnderlyingLegInstrument.

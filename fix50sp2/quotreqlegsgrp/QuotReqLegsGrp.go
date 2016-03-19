@@ -7,6 +7,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties"
 )
 
+func New() *QuotReqLegsGrp {
+	var m QuotReqLegsGrp
+	return &m
+}
+
 //NoLegs is a repeating group in QuotReqLegsGrp
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.

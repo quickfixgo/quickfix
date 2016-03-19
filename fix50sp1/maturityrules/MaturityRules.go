@@ -1,5 +1,10 @@
 package maturityrules
 
+func New() *MaturityRules {
+	var m MaturityRules
+	return &m
+}
+
 //NoMaturityRules is a repeating group in MaturityRules
 type NoMaturityRules struct {
 	//MaturityRuleID is a non-required field for NoMaturityRules.

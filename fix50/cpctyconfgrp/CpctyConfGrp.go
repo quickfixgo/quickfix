@@ -1,5 +1,11 @@
 package cpctyconfgrp
 
+func New(nocapacities []NoCapacities) *CpctyConfGrp {
+	var m CpctyConfGrp
+	m.SetNoCapacities(nocapacities)
+	return &m
+}
+
 //NoCapacities is a repeating group in CpctyConfGrp
 type NoCapacities struct {
 	//OrderCapacity is a required field for NoCapacities.

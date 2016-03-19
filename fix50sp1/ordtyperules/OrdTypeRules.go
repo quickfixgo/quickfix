@@ -1,5 +1,10 @@
 package ordtyperules
 
+func New() *OrdTypeRules {
+	var m OrdTypeRules
+	return &m
+}
+
 //NoOrdTypeRules is a repeating group in OrdTypeRules
 type NoOrdTypeRules struct {
 	//OrdType is a non-required field for NoOrdTypeRules.

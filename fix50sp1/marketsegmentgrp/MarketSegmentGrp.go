@@ -5,6 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/strikerules"
 )
 
+func New() *MarketSegmentGrp {
+	var m MarketSegmentGrp
+	return &m
+}
+
 //NoMarketSegments is a repeating group in MarketSegmentGrp
 type NoMarketSegments struct {
 	//MarketID is a non-required field for NoMarketSegments.

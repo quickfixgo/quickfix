@@ -1,5 +1,10 @@
 package peginstructions
 
+func New() *PegInstructions {
+	var m PegInstructions
+	return &m
+}
+
 //PegInstructions is a fix50sp1 Component
 type PegInstructions struct {
 	//PegOffsetValue is a non-required field for PegInstructions.

@@ -1,5 +1,10 @@
 package settlptyssubgrp
 
+func New() *SettlPtysSubGrp {
+	var m SettlPtysSubGrp
+	return &m
+}
+
 //NoSettlPartySubIDs is a repeating group in SettlPtysSubGrp
 type NoSettlPartySubIDs struct {
 	//SettlPartySubID is a non-required field for NoSettlPartySubIDs.

@@ -6,6 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/tradingsessionrulesgrp"
 )
 
+func New() *SecurityTradingRules {
+	var m SecurityTradingRules
+	return &m
+}
+
 //SecurityTradingRules is a fix50sp2 Component
 type SecurityTradingRules struct {
 	//BaseTradingRules is a non-required component for SecurityTradingRules.

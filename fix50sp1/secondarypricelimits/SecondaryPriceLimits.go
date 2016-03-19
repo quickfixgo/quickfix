@@ -1,5 +1,10 @@
 package secondarypricelimits
 
+func New() *SecondaryPriceLimits {
+	var m SecondaryPriceLimits
+	return &m
+}
+
 //SecondaryPriceLimits is a fix50sp1 Component
 type SecondaryPriceLimits struct {
 	//SecondaryPriceLimitType is a non-required field for SecondaryPriceLimits.

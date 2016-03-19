@@ -1,5 +1,10 @@
 package nestedinstrumentattribute
 
+func New() *NestedInstrumentAttribute {
+	var m NestedInstrumentAttribute
+	return &m
+}
+
 //NoNestedInstrAttrib is a repeating group in NestedInstrumentAttribute
 type NoNestedInstrAttrib struct {
 	//NestedInstrAttribType is a non-required field for NoNestedInstrAttrib.

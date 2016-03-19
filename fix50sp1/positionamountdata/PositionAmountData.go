@@ -1,5 +1,10 @@
 package positionamountdata
 
+func New() *PositionAmountData {
+	var m PositionAmountData
+	return &m
+}
+
 //NoPosAmt is a repeating group in PositionAmountData
 type NoPosAmt struct {
 	//PosAmtType is a non-required field for NoPosAmt.

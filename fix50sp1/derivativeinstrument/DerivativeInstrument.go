@@ -7,6 +7,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/derivativesecurityxml"
 )
 
+func New() *DerivativeInstrument {
+	var m DerivativeInstrument
+	return &m
+}
+
 //DerivativeInstrument is a fix50sp1 Component
 type DerivativeInstrument struct {
 	//DerivativeSymbol is a non-required field for DerivativeInstrument.

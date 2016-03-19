@@ -1,5 +1,10 @@
 package mdrjctgrp
 
+func New() *MDRjctGrp {
+	var m MDRjctGrp
+	return &m
+}
+
 //NoAltMDSource is a repeating group in MDRjctGrp
 type NoAltMDSource struct {
 	//AltMDSourceID is a non-required field for NoAltMDSource.

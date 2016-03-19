@@ -1,5 +1,10 @@
 package nestedparties2
 
+func New() *NestedParties2 {
+	var m NestedParties2
+	return &m
+}
+
 //NoNested2PartyIDs is a repeating group in NestedParties2
 type NoNested2PartyIDs struct {
 	//Nested2PartyID is a non-required field for NoNested2PartyIDs.

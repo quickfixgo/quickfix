@@ -1,5 +1,10 @@
 package relatedcontextptyssubgrp
 
+func New() *RelatedContextPtysSubGrp {
+	var m RelatedContextPtysSubGrp
+	return &m
+}
+
 //NoRelatedContextPartySubIDs is a repeating group in RelatedContextPtysSubGrp
 type NoRelatedContextPartySubIDs struct {
 	//RelatedContextPartySubID is a non-required field for NoRelatedContextPartySubIDs.

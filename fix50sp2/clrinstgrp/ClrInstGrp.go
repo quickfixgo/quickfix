@@ -1,5 +1,10 @@
 package clrinstgrp
 
+func New() *ClrInstGrp {
+	var m ClrInstGrp
+	return &m
+}
+
 //NoClearingInstructions is a repeating group in ClrInstGrp
 type NoClearingInstructions struct {
 	//ClearingInstruction is a non-required field for NoClearingInstructions.

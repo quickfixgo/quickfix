@@ -1,5 +1,10 @@
 package commissiondata
 
+func New() *CommissionData {
+	var m CommissionData
+	return &m
+}
+
 //CommissionData is a fix44 Component
 type CommissionData struct {
 	//Commission is a non-required field for CommissionData.

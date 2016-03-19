@@ -7,6 +7,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/secondarypricelimits"
 )
 
+func New() *RelSymDerivSecGrp {
+	var m RelSymDerivSecGrp
+	return &m
+}
+
 //NoRelatedSym is a repeating group in RelSymDerivSecGrp
 type NoRelatedSym struct {
 	//Instrument is a non-required component for NoRelatedSym.

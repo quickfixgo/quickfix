@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+func New() *SideTrdRegTS {
+	var m SideTrdRegTS
+	return &m
+}
+
 //NoSideTrdRegTS is a repeating group in SideTrdRegTS
 type NoSideTrdRegTS struct {
 	//SideTrdRegTimestamp is a non-required field for NoSideTrdRegTS.

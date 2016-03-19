@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/underlyinginstrument"
 )
 
+func New() *UndInstrmtCollGrp {
+	var m UndInstrmtCollGrp
+	return &m
+}
+
 //NoUnderlyings is a repeating group in UndInstrmtCollGrp
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.

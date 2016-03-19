@@ -1,5 +1,10 @@
 package legbenchmarkcurvedata
 
+func New() *LegBenchmarkCurveData {
+	var m LegBenchmarkCurveData
+	return &m
+}
+
 //LegBenchmarkCurveData is a fix50sp2 Component
 type LegBenchmarkCurveData struct {
 	//LegBenchmarkCurveCurrency is a non-required field for LegBenchmarkCurveData.

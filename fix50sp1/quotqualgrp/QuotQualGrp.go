@@ -1,5 +1,10 @@
 package quotqualgrp
 
+func New() *QuotQualGrp {
+	var m QuotQualGrp
+	return &m
+}
+
 //NoQuoteQualifiers is a repeating group in QuotQualGrp
 type NoQuoteQualifiers struct {
 	//QuoteQualifier is a non-required field for NoQuoteQualifiers.

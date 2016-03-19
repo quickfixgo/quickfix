@@ -1,5 +1,10 @@
 package pricelimits
 
+func New() *PriceLimits {
+	var m PriceLimits
+	return &m
+}
+
 //PriceLimits is a fix50sp1 Component
 type PriceLimits struct {
 	//PriceLimitType is a non-required field for PriceLimits.

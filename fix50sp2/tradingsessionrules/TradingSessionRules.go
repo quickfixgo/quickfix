@@ -8,6 +8,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/timeinforcerules"
 )
 
+func New() *TradingSessionRules {
+	var m TradingSessionRules
+	return &m
+}
+
 //TradingSessionRules is a fix50sp2 Component
 type TradingSessionRules struct {
 	//OrdTypeRules is a non-required component for TradingSessionRules.

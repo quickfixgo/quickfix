@@ -5,6 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/legstipulations"
 )
 
+func New() *InstrmtLegIOIGrp {
+	var m InstrmtLegIOIGrp
+	return &m
+}
+
 //NoLegs is a repeating group in InstrmtLegIOIGrp
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.

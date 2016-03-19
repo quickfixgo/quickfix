@@ -5,6 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relationshipriskwarninglevels"
 )
 
+func New() *RelationshipRiskLimits {
+	var m RelationshipRiskLimits
+	return &m
+}
+
 //NoRelationshipRiskLimits is a repeating group in RelationshipRiskLimits
 type NoRelationshipRiskLimits struct {
 	//RelationshipRiskLimitType is a non-required field for NoRelationshipRiskLimits.

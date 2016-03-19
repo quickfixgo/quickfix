@@ -1,5 +1,10 @@
 package applidrequestackgrp
 
+func New() *ApplIDRequestAckGrp {
+	var m ApplIDRequestAckGrp
+	return &m
+}
+
 //NoApplIDs is a repeating group in ApplIDRequestAckGrp
 type NoApplIDs struct {
 	//RefApplID is a non-required field for NoApplIDs.

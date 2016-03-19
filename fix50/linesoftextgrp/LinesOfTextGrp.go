@@ -1,5 +1,11 @@
 package linesoftextgrp
 
+func New(nolinesoftext []NoLinesOfText) *LinesOfTextGrp {
+	var m LinesOfTextGrp
+	m.SetNoLinesOfText(nolinesoftext)
+	return &m
+}
+
 //NoLinesOfText is a repeating group in LinesOfTextGrp
 type NoLinesOfText struct {
 	//Text is a required field for NoLinesOfText.

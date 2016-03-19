@@ -65,7 +65,7 @@ func (b builder) findOrBuildComponentType(xmlMember *XMLComponentMember) (*Compo
 }
 
 func (b builder) buildComponentType(xmlComponent *XMLComponent) (*ComponentType, error) {
-	c := &ComponentType{name: xmlComponent.Name}
+	var parts []MessagePart
 
 	for _, member := range xmlComponent.Members {
 		if member.XMLName.Local == "component" {
@@ -80,8 +80,7 @@ func (b builder) buildComponentType(xmlComponent *XMLComponent) (*ComponentType,
 				required:      (member.Required == "Y"),
 			}
 
-			c.Parts = append(c.Parts, childComponent)
-			c.Fields = append(c.Fields, childComponentType.Fields...)
+			parts = append(parts, childComponent)
 		} else {
 			var field *FieldDef
 			var err error
@@ -89,12 +88,11 @@ func (b builder) buildComponentType(xmlComponent *XMLComponent) (*ComponentType,
 				return nil, err
 			}
 
-			c.Fields = append(c.Fields, field)
-			c.Parts = append(c.Parts, field)
+			parts = append(parts, field)
 		}
 	}
 
-	return c, nil
+	return NewComponentType(xmlComponent.Name, parts), nil
 }
 
 func (b builder) buildComponents() error {
@@ -141,7 +139,7 @@ func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) 
 				return nil, newUnknownComponent(member.Name)
 			}
 
-			for _, f := range comp.Fields {
+			for _, f := range comp.Fields() {
 				m.Fields[f.Tag] = f
 			}
 
@@ -192,7 +190,7 @@ func (b builder) buildGroupFieldDef(xmlField *XMLComponentMember, groupFieldType
 			}
 
 			parts = append(parts, comp)
-			fields = append(fields, comp.Fields...)
+			fields = append(fields, comp.Fields()...)
 		} else {
 			var f *FieldDef
 			var err error

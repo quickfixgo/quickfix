@@ -1,5 +1,10 @@
 package rgstdistinstgrp
 
+func New() *RgstDistInstGrp {
+	var m RgstDistInstGrp
+	return &m
+}
+
 //NoDistribInsts is a repeating group in RgstDistInstGrp
 type NoDistribInsts struct {
 	//DistribPaymentMethod is a non-required field for NoDistribInsts.

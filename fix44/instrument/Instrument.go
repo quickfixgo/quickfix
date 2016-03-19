@@ -1,5 +1,10 @@
 package instrument
 
+func New() *Instrument {
+	var m Instrument
+	return &m
+}
+
 //NoSecurityAltID is a repeating group in Instrument
 type NoSecurityAltID struct {
 	//SecurityAltID is a non-required field for NoSecurityAltID.

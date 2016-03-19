@@ -1,5 +1,10 @@
 package execsgrp
 
+func New() *ExecsGrp {
+	var m ExecsGrp
+	return &m
+}
+
 //NoExecs is a repeating group in ExecsGrp
 type NoExecs struct {
 	//ExecID is a non-required field for NoExecs.

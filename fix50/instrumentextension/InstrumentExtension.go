@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/attrbgrp"
 )
 
+func New() *InstrumentExtension {
+	var m InstrumentExtension
+	return &m
+}
+
 //InstrumentExtension is a fix50 Component
 type InstrumentExtension struct {
 	//DeliveryForm is a non-required field for InstrumentExtension.

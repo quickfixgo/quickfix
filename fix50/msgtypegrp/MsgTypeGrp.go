@@ -1,5 +1,10 @@
 package msgtypegrp
 
+func New() *MsgTypeGrp {
+	var m MsgTypeGrp
+	return &m
+}
+
 //NoMsgTypes is a repeating group in MsgTypeGrp
 type NoMsgTypes struct {
 	//RefMsgType is a non-required field for NoMsgTypes.

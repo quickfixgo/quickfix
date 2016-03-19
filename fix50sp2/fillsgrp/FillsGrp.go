@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties4"
 )
 
+func New() *FillsGrp {
+	var m FillsGrp
+	return &m
+}
+
 //NoFills is a repeating group in FillsGrp
 type NoFills struct {
 	//FillExecID is a non-required field for NoFills.

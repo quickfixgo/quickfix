@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/risksecaltidgrp"
 )
 
+func New() *RiskInstrumentScope {
+	var m RiskInstrumentScope
+	return &m
+}
+
 //NoRiskInstruments is a repeating group in RiskInstrumentScope
 type NoRiskInstruments struct {
 	//RiskInstrumentOperator is a non-required field for NoRiskInstruments.

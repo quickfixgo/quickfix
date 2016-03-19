@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties"
 )
 
+func New() *RgstDtlsGrp {
+	var m RgstDtlsGrp
+	return &m
+}
+
 //NoRegistDtls is a repeating group in RgstDtlsGrp
 type NoRegistDtls struct {
 	//RegistDtls is a non-required field for NoRegistDtls.

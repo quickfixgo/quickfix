@@ -1,5 +1,10 @@
 package legsecaltidgrp
 
+func New() *LegSecAltIDGrp {
+	var m LegSecAltIDGrp
+	return &m
+}
+
 //NoLegSecurityAltID is a repeating group in LegSecAltIDGrp
 type NoLegSecurityAltID struct {
 	//LegSecurityAltID is a non-required field for NoLegSecurityAltID.

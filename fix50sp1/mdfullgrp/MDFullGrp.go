@@ -8,6 +8,12 @@ import (
 	"time"
 )
 
+func New(nomdentries []NoMDEntries) *MDFullGrp {
+	var m MDFullGrp
+	m.SetNoMDEntries(nomdentries)
+	return &m
+}
+
 //NoMDEntries is a repeating group in MDFullGrp
 type NoMDEntries struct {
 	//MDEntryType is a required field for NoMDEntries.

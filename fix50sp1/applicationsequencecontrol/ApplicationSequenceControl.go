@@ -1,5 +1,10 @@
 package applicationsequencecontrol
 
+func New() *ApplicationSequenceControl {
+	var m ApplicationSequenceControl
+	return &m
+}
+
 //ApplicationSequenceControl is a fix50sp1 Component
 type ApplicationSequenceControl struct {
 	//ApplID is a non-required field for ApplicationSequenceControl.

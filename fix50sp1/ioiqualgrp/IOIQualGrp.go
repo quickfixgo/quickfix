@@ -1,5 +1,10 @@
 package ioiqualgrp
 
+func New() *IOIQualGrp {
+	var m IOIQualGrp
+	return &m
+}
+
 //NoIOIQualifiers is a repeating group in IOIQualGrp
 type NoIOIQualifiers struct {
 	//IOIQualifier is a non-required field for NoIOIQualifiers.

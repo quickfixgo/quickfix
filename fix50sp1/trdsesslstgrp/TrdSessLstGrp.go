@@ -5,6 +5,12 @@ import (
 	"time"
 )
 
+func New(notradingsessions []NoTradingSessions) *TrdSessLstGrp {
+	var m TrdSessLstGrp
+	m.SetNoTradingSessions(notradingsessions)
+	return &m
+}
+
 //NoTradingSessions is a repeating group in TrdSessLstGrp
 type NoTradingSessions struct {
 	//TradingSessionID is a required field for NoTradingSessions.

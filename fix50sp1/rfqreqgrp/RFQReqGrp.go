@@ -6,6 +6,12 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/undinstrmtgrp"
 )
 
+func New(norelatedsym []NoRelatedSym) *RFQReqGrp {
+	var m RFQReqGrp
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
+
 //NoRelatedSym is a repeating group in RFQReqGrp
 type NoRelatedSym struct {
 	//Instrument is a required component for NoRelatedSym.

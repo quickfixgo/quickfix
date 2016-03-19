@@ -1,5 +1,10 @@
 package marketdatafeedtypes
 
+func New() *MarketDataFeedTypes {
+	var m MarketDataFeedTypes
+	return &m
+}
+
 //NoMDFeedTypes is a repeating group in MarketDataFeedTypes
 type NoMDFeedTypes struct {
 	//MDFeedType is a non-required field for NoMDFeedTypes.

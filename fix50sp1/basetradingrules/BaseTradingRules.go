@@ -6,6 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/tickrules"
 )
 
+func New() *BaseTradingRules {
+	var m BaseTradingRules
+	return &m
+}
+
 //BaseTradingRules is a fix50sp1 Component
 type BaseTradingRules struct {
 	//TickRules is a non-required component for BaseTradingRules.

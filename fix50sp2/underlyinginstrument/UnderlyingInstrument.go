@@ -6,6 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/undsecaltidgrp"
 )
 
+func New() *UnderlyingInstrument {
+	var m UnderlyingInstrument
+	return &m
+}
+
 //UnderlyingInstrument is a fix50sp2 Component
 type UnderlyingInstrument struct {
 	//UnderlyingSymbol is a non-required field for UnderlyingInstrument.

@@ -6,6 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/marketsegmentgrp"
 )
 
+func New() *DerivativeSecurityDefinition {
+	var m DerivativeSecurityDefinition
+	return &m
+}
+
 //DerivativeSecurityDefinition is a fix50sp2 Component
 type DerivativeSecurityDefinition struct {
 	//DerivativeInstrument is a non-required component for DerivativeSecurityDefinition.

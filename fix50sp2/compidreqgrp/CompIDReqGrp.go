@@ -1,5 +1,10 @@
 package compidreqgrp
 
+func New() *CompIDReqGrp {
+	var m CompIDReqGrp
+	return &m
+}
+
 //NoCompIDs is a repeating group in CompIDReqGrp
 type NoCompIDs struct {
 	//RefCompID is a non-required field for NoCompIDs.

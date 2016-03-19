@@ -1,5 +1,10 @@
 package derivativeinstrumentattribute
 
+func New() *DerivativeInstrumentAttribute {
+	var m DerivativeInstrumentAttribute
+	return &m
+}
+
 //NoDerivativeInstrAttrib is a repeating group in DerivativeInstrumentAttribute
 type NoDerivativeInstrAttrib struct {
 	//DerivativeInstrAttribType is a non-required field for NoDerivativeInstrAttrib.

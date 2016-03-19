@@ -7,6 +7,14 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/risklimits"
 )
 
+func New(partyid string, partyidsource string, partyrole int) *PartyDetail {
+	var m PartyDetail
+	m.SetPartyID(partyid)
+	m.SetPartyIDSource(partyidsource)
+	m.SetPartyRole(partyrole)
+	return &m
+}
+
 //PartyDetail is a fix50sp2 Component
 type PartyDetail struct {
 	//PartyID is a required field for PartyDetail.

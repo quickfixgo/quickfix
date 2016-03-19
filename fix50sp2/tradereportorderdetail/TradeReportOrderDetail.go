@@ -6,6 +6,11 @@ import (
 	"time"
 )
 
+func New() *TradeReportOrderDetail {
+	var m TradeReportOrderDetail
+	return &m
+}
+
 //TradeReportOrderDetail is a fix50sp2 Component
 type TradeReportOrderDetail struct {
 	//OrderID is a non-required field for TradeReportOrderDetail.

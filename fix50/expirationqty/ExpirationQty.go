@@ -1,5 +1,10 @@
 package expirationqty
 
+func New() *ExpirationQty {
+	var m ExpirationQty
+	return &m
+}
+
 //NoExpiration is a repeating group in ExpirationQty
 type NoExpiration struct {
 	//ExpType is a non-required field for NoExpiration.

@@ -4,6 +4,12 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/commissiondata"
 )
 
+func New(nobidcomponents []NoBidComponents) *BidCompRspGrp {
+	var m BidCompRspGrp
+	m.SetNoBidComponents(nobidcomponents)
+	return &m
+}
+
 //NoBidComponents is a repeating group in BidCompRspGrp
 type NoBidComponents struct {
 	//CommissionData is a required component for NoBidComponents.

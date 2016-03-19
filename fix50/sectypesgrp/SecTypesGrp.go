@@ -1,5 +1,10 @@
 package sectypesgrp
 
+func New() *SecTypesGrp {
+	var m SecTypesGrp
+	return &m
+}
+
 //NoSecurityTypes is a repeating group in SecTypesGrp
 type NoSecurityTypes struct {
 	//SecurityType is a non-required field for NoSecurityTypes.

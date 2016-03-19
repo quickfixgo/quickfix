@@ -5,6 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/riskwarninglevels"
 )
 
+func New() *RiskLimits {
+	var m RiskLimits
+	return &m
+}
+
 //NoRiskLimits is a repeating group in RiskLimits
 type NoRiskLimits struct {
 	//RiskLimitType is a non-required field for NoRiskLimits.
