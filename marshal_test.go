@@ -179,9 +179,14 @@ func TestMarshal_RepeatingGroups(t *testing.T) {
 		StringField2 *string `fix:"9"`
 	}
 
+	type AnonymousGroup struct {
+		IntField3 int `fix:"3"`
+	}
+
 	type Group2 struct {
 		IntField1 int `fix:"1"`
-		IntField2 int `fix:"2"`
+		IntField2 int `fix:"2, omitempty"`
+		AnonymousGroup
 	}
 
 	type Message struct {
@@ -195,7 +200,7 @@ func TestMarshal_RepeatingGroups(t *testing.T) {
 	m := Message{
 		GroupField1: []Group1{{StringField1: "hello", StringField2: &s}, {StringField1: "goodbye"}, {StringField1: "OHHAI", StringField2: &s}},
 		StringField: "world",
-		GroupField2: []Group2{{IntField1: 1, IntField2: 42}},
+		GroupField2: []Group2{{IntField1: 1, IntField2: 42, AnonymousGroup: AnonymousGroup{IntField3: 44}}},
 	}
 	fixMsg := quickfix.Marshal(m)
 
@@ -207,6 +212,7 @@ func TestMarshal_RepeatingGroups(t *testing.T) {
 	group2Template := quickfix.GroupTemplate{
 		quickfix.GroupElement(quickfix.Tag(1)),
 		quickfix.GroupElement(quickfix.Tag(2)),
+		quickfix.GroupElement(quickfix.Tag(3)),
 	}
 
 	var tests = []struct {
