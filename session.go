@@ -24,6 +24,7 @@ type session struct {
 	sendMutex sync.Mutex
 
 	sessionEvent chan event
+	messageEvent chan bool
 	application  Application
 	sessionState
 	stateTimer              eventTimer
@@ -101,6 +102,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 	}
 
 	session.sessionEvent = make(chan event)
+	session.messageEvent = make(chan bool)
 	session.application = application
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
@@ -169,6 +171,10 @@ func (s *session) queueForSend(msg Message) {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 	s.toSend = append(s.toSend, msg)
+	select {
+	case s.messageEvent <- true:
+	default:
+	}
 }
 
 //sends queued messages if session is logged on
@@ -553,6 +559,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 
 		case evt := <-s.sessionEvent:
 			s.sessionState = s.Timeout(s, evt)
+		case <-s.messageEvent:
 		}
 	}
 }
