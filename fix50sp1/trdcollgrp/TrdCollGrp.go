@@ -1,5 +1,10 @@
 package trdcollgrp
 
+func New() *TrdCollGrp {
+	var m TrdCollGrp
+	return &m
+}
+
 //NoTrades is a repeating group in TrdCollGrp
 type NoTrades struct {
 	//TradeReportID is a non-required field for NoTrades.

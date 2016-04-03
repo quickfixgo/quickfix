@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+func New() *ComplexEventDates {
+	var m ComplexEventDates
+	return &m
+}
+
 //NoComplexEventDates is a repeating group in ComplexEventDates
 type NoComplexEventDates struct {
 	//ComplexEventStartDate is a non-required field for NoComplexEventDates.

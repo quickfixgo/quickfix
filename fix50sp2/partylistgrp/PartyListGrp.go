@@ -5,6 +5,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relatedpartygrp"
 )
 
+func New() *PartyListGrp {
+	var m PartyListGrp
+	return &m
+}
+
 //NoPartyList is a repeating group in PartyListGrp
 type NoPartyList struct {
 	//PartyDetail is a non-required component for NoPartyList.

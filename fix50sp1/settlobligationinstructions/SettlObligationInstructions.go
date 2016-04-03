@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+func New() *SettlObligationInstructions {
+	var m SettlObligationInstructions
+	return &m
+}
+
 //NoSettlOblig is a repeating group in SettlObligationInstructions
 type NoSettlOblig struct {
 	//NetGrossInd is a non-required field for NoSettlOblig.

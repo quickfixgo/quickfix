@@ -1,5 +1,10 @@
 package stipulations
 
+func New() *Stipulations {
+	var m Stipulations
+	return &m
+}
+
 //NoStipulations is a repeating group in Stipulations
 type NoStipulations struct {
 	//StipulationType is a non-required field for NoStipulations.

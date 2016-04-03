@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/nestedparties2"
 )
 
+func New() *OrdAllocGrp {
+	var m OrdAllocGrp
+	return &m
+}
+
 //NoOrders is a repeating group in OrdAllocGrp
 type NoOrders struct {
 	//ClOrdID is a non-required field for NoOrders.

@@ -1,5 +1,10 @@
 package trdgsesgrp
 
+func New() *TrdgSesGrp {
+	var m TrdgSesGrp
+	return &m
+}
+
 //NoTradingSessions is a repeating group in TrdgSesGrp
 type NoTradingSessions struct {
 	//TradingSessionID is a non-required field for NoTradingSessions.

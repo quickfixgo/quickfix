@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/settlptyssubgrp"
 )
 
+func New() *SettlParties {
+	var m SettlParties
+	return &m
+}
+
 //NoSettlPartyIDs is a repeating group in SettlParties
 type NoSettlPartyIDs struct {
 	//SettlPartyID is a non-required field for NoSettlPartyIDs.

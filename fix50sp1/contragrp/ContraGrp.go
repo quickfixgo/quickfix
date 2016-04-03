@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+func New() *ContraGrp {
+	var m ContraGrp
+	return &m
+}
+
 //NoContraBrokers is a repeating group in ContraGrp
 type NoContraBrokers struct {
 	//ContraBroker is a non-required field for NoContraBrokers.

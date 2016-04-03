@@ -18,7 +18,6 @@ var (
 	pkg            string
 	fixSpec        *datadictionary.DataDictionary
 	sortedMsgTypes []string
-	imports        map[string]bool
 )
 
 func usage() {
@@ -41,43 +40,10 @@ func genMessages() {
 	}
 }
 
-func genMessageImports() string {
-	fileOut := `
-import(
-  "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/enum"
-`
-	fileOut += fmt.Sprintf("\"github.com/quickfixgo/quickfix/%v\"\n", headerTrailerPkg())
-
-	for i := range imports {
-		fileOut += fmt.Sprintf("\"%v\"\n", i)
-	}
-	fileOut += ")\n"
-	return fileOut
-}
-
-func writeFieldDeclaration(part datadictionary.MessagePart, componentName string) string {
-	switch field := part.(type) {
-	case datadictionary.Component:
-		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Name()))] = true
-	case *datadictionary.FieldDef:
-		if !field.IsGroup() {
-			goType := gen.FixFieldTypeToGoType(field.Type)
-			if goType == "time.Time" {
-				imports["time"] = true
-			}
-		}
-	}
-
-	return gen.WriteFieldDeclaration(fixSpec.Major, fixSpec.Minor, part, componentName)
-}
-
 func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
 	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
 	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
-	for _, groupField := range field.Parts {
-		fileOut += writeFieldDeclaration(groupField, field.Name())
-	}
+	fileOut += gen.WriteFieldDeclarations(fixSpec.Major, fixSpec.Minor, field.Parts, field.Name())
 
 	fileOut += "}\n"
 
@@ -125,24 +91,13 @@ func genGroupDeclarations(msg *datadictionary.MessageDef) (fileOut string) {
 	return
 }
 
-func headerTrailerPkg() string {
-	switch pkg {
-	case "fix50", "fix50sp1", "fix50sp2":
-		return "fixt11"
-	}
-
-	return pkg
-}
-
 func genMessage(msg *datadictionary.MessageDef) string {
 	fileOut := fmt.Sprintf("//Message is a %v FIX Message\n", msg.Name)
 	fileOut += "type Message struct {\n"
 	fileOut += fmt.Sprintf("FIXMsgType string   `fix:\"%v\"`\n", msg.MsgType)
-	fileOut += fmt.Sprintf("%v.Header\n", headerTrailerPkg())
-	for _, field := range msg.Parts {
-		fileOut += writeFieldDeclaration(field, msg.Name)
-	}
-	fileOut += fmt.Sprintf("%v.Trailer\n", headerTrailerPkg())
+	fileOut += fmt.Sprintf("%v.Header\n", gen.HeaderTrailerPkg(pkg))
+	fileOut += gen.WriteFieldDeclarations(fixSpec.Major, fixSpec.Minor, msg.Parts, msg.Name)
+	fileOut += fmt.Sprintf("%v.Trailer\n", gen.HeaderTrailerPkg(pkg))
 	fileOut += "}\n"
 	fileOut += "//Marshal converts Message to a quickfix.Message instance\n"
 	fileOut += "func (m Message) Marshal() quickfix.Message {return quickfix.Marshal(m)}\n"
@@ -192,18 +147,18 @@ func Route(router RouteOut) (string,string,quickfix.MessageRoute) {
 
 func genMessagePkg(msg *datadictionary.MessageDef) {
 	pkgName := strings.ToLower(msg.Name)
-	imports = make(map[string]bool)
-
 	fileOut := fmt.Sprintf("//Package %v msg type = %v.\n", pkgName, msg.MsgType)
-	fileOut += fmt.Sprintf("package %v\n", pkgName)
 
-	//run through group and message declarations to collect required imports first
-	delayOut := ""
-	delayOut += genGroupDeclarations(msg)
-	delayOut += genMessage(msg)
-
-	fileOut += genMessageImports()
-	fileOut += delayOut
+	writer := new(bytes.Buffer)
+	if err := gen.WritePackage(writer, pkgName); err != nil {
+		panic(err)
+	}
+	if err := gen.WriteMessageImports(writer, pkg, msg.Parts); err != nil {
+		panic(err)
+	}
+	fileOut += writer.String()
+	fileOut += genGroupDeclarations(msg)
+	fileOut += genMessage(msg)
 	fileOut += genMessageSetters(msg)
 	fileOut += genMessageRoute(msg)
 

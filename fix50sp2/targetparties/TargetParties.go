@@ -1,5 +1,10 @@
 package targetparties
 
+func New() *TargetParties {
+	var m TargetParties
+	return &m
+}
+
 //NoTargetPartyIDs is a repeating group in TargetParties
 type NoTargetPartyIDs struct {
 	//TargetPartyID is a non-required field for NoTargetPartyIDs.

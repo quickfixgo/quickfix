@@ -1,5 +1,10 @@
 package requestedpartyrolegrp
 
+func New() *RequestedPartyRoleGrp {
+	var m RequestedPartyRoleGrp
+	return &m
+}
+
 //NoRequestedPartyRoles is a repeating group in RequestedPartyRoleGrp
 type NoRequestedPartyRoles struct {
 	//RequestedPartyRole is a non-required field for NoRequestedPartyRoles.

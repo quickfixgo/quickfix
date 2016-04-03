@@ -1,5 +1,10 @@
 package undsecaltidgrp
 
+func New() *UndSecAltIDGrp {
+	var m UndSecAltIDGrp
+	return &m
+}
+
 //NoUnderlyingSecurityAltID is a repeating group in UndSecAltIDGrp
 type NoUnderlyingSecurityAltID struct {
 	//UnderlyingSecurityAltID is a non-required field for NoUnderlyingSecurityAltID.

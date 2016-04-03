@@ -1,5 +1,10 @@
 package triggeringinstruction
 
+func New() *TriggeringInstruction {
+	var m TriggeringInstruction
+	return &m
+}
+
 //TriggeringInstruction is a fix50sp1 Component
 type TriggeringInstruction struct {
 	//TriggerType is a non-required field for TriggeringInstruction.

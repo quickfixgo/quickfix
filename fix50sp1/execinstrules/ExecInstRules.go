@@ -1,5 +1,10 @@
 package execinstrules
 
+func New() *ExecInstRules {
+	var m ExecInstRules
+	return &m
+}
+
 //NoExecInstRules is a repeating group in ExecInstRules
 type NoExecInstRules struct {
 	//ExecInstValue is a non-required field for NoExecInstRules.

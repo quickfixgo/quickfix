@@ -1,5 +1,10 @@
 package yielddata
 
+func New() *YieldData {
+	var m YieldData
+	return &m
+}
+
 //YieldData is a fix50sp2 Component
 type YieldData struct {
 	//YieldType is a non-required field for YieldData.

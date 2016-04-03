@@ -1,5 +1,10 @@
 package orderqtydata
 
+func New() *OrderQtyData {
+	var m OrderQtyData
+	return &m
+}
+
 //OrderQtyData is a fix43 Component
 type OrderQtyData struct {
 	//OrderQty is a non-required field for OrderQtyData.

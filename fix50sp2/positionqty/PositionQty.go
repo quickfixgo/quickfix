@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties"
 )
 
+func New() *PositionQty {
+	var m PositionQty
+	return &m
+}
+
 //NoPositions is a repeating group in PositionQty
 type NoPositions struct {
 	//PosType is a non-required field for NoPositions.

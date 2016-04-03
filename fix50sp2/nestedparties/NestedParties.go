@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nstdptyssubgrp"
 )
 
+func New() *NestedParties {
+	var m NestedParties
+	return &m
+}
+
 //NoNestedPartyIDs is a repeating group in NestedParties
 type NoNestedPartyIDs struct {
 	//NestedPartyID is a non-required field for NoNestedPartyIDs.

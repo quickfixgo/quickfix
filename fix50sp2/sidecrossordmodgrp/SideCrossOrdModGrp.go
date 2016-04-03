@@ -8,6 +8,12 @@ import (
 	"time"
 )
 
+func New(nosides []NoSides) *SideCrossOrdModGrp {
+	var m SideCrossOrdModGrp
+	m.SetNoSides(nosides)
+	return &m
+}
+
 //NoSides is a repeating group in SideCrossOrdModGrp
 type NoSides struct {
 	//Side is a required field for NoSides.

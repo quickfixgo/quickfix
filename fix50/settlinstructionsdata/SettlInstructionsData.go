@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/dlvyinstgrp"
 )
 
+func New() *SettlInstructionsData {
+	var m SettlInstructionsData
+	return &m
+}
+
 //SettlInstructionsData is a fix50 Component
 type SettlInstructionsData struct {
 	//SettlDeliveryType is a non-required field for SettlInstructionsData.

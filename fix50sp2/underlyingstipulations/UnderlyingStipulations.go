@@ -1,5 +1,10 @@
 package underlyingstipulations
 
+func New() *UnderlyingStipulations {
+	var m UnderlyingStipulations
+	return &m
+}
+
 //NoUnderlyingStips is a repeating group in UnderlyingStipulations
 type NoUnderlyingStips struct {
 	//UnderlyingStipType is a non-required field for NoUnderlyingStips.

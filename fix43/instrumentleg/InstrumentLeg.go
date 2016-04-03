@@ -1,5 +1,10 @@
 package instrumentleg
 
+func New() *InstrumentLeg {
+	var m InstrumentLeg
+	return &m
+}
+
 //NoLegSecurityAltID is a repeating group in InstrumentLeg
 type NoLegSecurityAltID struct {
 	//LegSecurityAltID is a non-required field for NoLegSecurityAltID.

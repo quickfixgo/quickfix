@@ -6,6 +6,12 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/undinstrmtgrp"
 )
 
+func New(norelatedsym []NoRelatedSym) *InstrmtMDReqGrp {
+	var m InstrmtMDReqGrp
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
+
 //NoRelatedSym is a repeating group in InstrmtMDReqGrp
 type NoRelatedSym struct {
 	//Instrument is a required component for NoRelatedSym.

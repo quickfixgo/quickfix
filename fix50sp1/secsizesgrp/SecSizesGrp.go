@@ -1,5 +1,10 @@
 package secsizesgrp
 
+func New() *SecSizesGrp {
+	var m SecSizesGrp
+	return &m
+}
+
 //NoOfSecSizes is a repeating group in SecSizesGrp
 type NoOfSecSizes struct {
 	//MDSecSizeType is a non-required field for NoOfSecSizes.

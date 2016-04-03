@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relationshiprisksecaltidgrp"
 )
 
+func New() *RelationshipRiskInstrumentScope {
+	var m RelationshipRiskInstrumentScope
+	return &m
+}
+
 //NoRelationshipRiskInstruments is a repeating group in RelationshipRiskInstrumentScope
 type NoRelationshipRiskInstruments struct {
 	//RelationshipRiskInstrumentOperator is a non-required field for NoRelationshipRiskInstruments.

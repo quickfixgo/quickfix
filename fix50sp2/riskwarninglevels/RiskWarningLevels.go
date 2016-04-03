@@ -1,5 +1,10 @@
 package riskwarninglevels
 
+func New() *RiskWarningLevels {
+	var m RiskWarningLevels
+	return &m
+}
+
 //NoRiskWarningLevels is a repeating group in RiskWarningLevels
 type NoRiskWarningLevels struct {
 	//RiskWarningLevelPercent is a non-required field for NoRiskWarningLevels.

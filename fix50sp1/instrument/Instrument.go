@@ -7,6 +7,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/securityxml"
 )
 
+func New() *Instrument {
+	var m Instrument
+	return &m
+}
+
 //Instrument is a fix50sp1 Component
 type Instrument struct {
 	//Symbol is a non-required field for Instrument.

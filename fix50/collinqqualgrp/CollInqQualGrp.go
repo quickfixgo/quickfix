@@ -1,5 +1,10 @@
 package collinqqualgrp
 
+func New() *CollInqQualGrp {
+	var m CollInqQualGrp
+	return &m
+}
+
 //NoCollInquiryQualifier is a repeating group in CollInqQualGrp
 type NoCollInquiryQualifier struct {
 	//CollInquiryQualifier is a non-required field for NoCollInquiryQualifier.

@@ -7,6 +7,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/tradecaplegunderlyingsgrp"
 )
 
+func New() *TrdInstrmtLegGrp {
+	var m TrdInstrmtLegGrp
+	return &m
+}
+
 //NoLegs is a repeating group in TrdInstrmtLegGrp
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.

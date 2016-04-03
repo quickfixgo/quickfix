@@ -7,6 +7,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/undinstrmtgrp"
 )
 
+func New() *QuotCxlEntriesGrp {
+	var m QuotCxlEntriesGrp
+	return &m
+}
+
 //NoQuoteEntries is a repeating group in QuotCxlEntriesGrp
 type NoQuoteEntries struct {
 	//Instrument is a non-required component for NoQuoteEntries.

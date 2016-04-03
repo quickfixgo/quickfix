@@ -1,5 +1,10 @@
 package execallocgrp
 
+func New() *ExecAllocGrp {
+	var m ExecAllocGrp
+	return &m
+}
+
 //NoExecs is a repeating group in ExecAllocGrp
 type NoExecs struct {
 	//LastQty is a non-required field for NoExecs.

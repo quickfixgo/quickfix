@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/instrument"
 )
 
+func New() *StrmAsgnReqInstrmtGrp {
+	var m StrmAsgnReqInstrmtGrp
+	return &m
+}
+
 //NoRelatedSym is a repeating group in StrmAsgnReqInstrmtGrp
 type NoRelatedSym struct {
 	//Instrument is a non-required component for NoRelatedSym.

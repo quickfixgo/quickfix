@@ -19,6 +19,12 @@ import (
 	"time"
 )
 
+func New(noorders []NoOrders) *ListOrdGrp {
+	var m ListOrdGrp
+	m.SetNoOrders(noorders)
+	return &m
+}
+
 //NoOrders is a repeating group in ListOrdGrp
 type NoOrders struct {
 	//ClOrdID is a required field for NoOrders.

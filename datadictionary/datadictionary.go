@@ -28,16 +28,60 @@ type MessagePart interface {
 
 //ComponentType is a grouping of fields.
 type ComponentType struct {
-	name string
-	// MessageParts in declaration order contained in this component
-	Parts []MessagePart
-	//All fields contained in this component. Includes fields encapsulated in
-	//components of this component
-	Fields []*FieldDef
+	name           string
+	parts          []MessagePart
+	fields         []*FieldDef
+	requiredFields []*FieldDef
+	requiredParts  []MessagePart
+}
+
+//NewComponentType returns an initialized component type
+func NewComponentType(name string, parts []MessagePart) *ComponentType {
+	comp := ComponentType{
+		name:  name,
+		parts: parts,
+	}
+
+	for _, part := range parts {
+
+		if part.Required() {
+			comp.requiredParts = append(comp.RequiredParts(), part)
+		}
+
+		switch f := part.(type) {
+		case Component:
+			comp.fields = append(comp.fields, f.fields...)
+
+			if f.Required() {
+				comp.requiredFields = append(comp.requiredFields, f.requiredFields...)
+			}
+		case *FieldDef:
+			comp.fields = append(comp.fields, f)
+
+			if f.Required() {
+				comp.requiredFields = append(comp.requiredFields, f)
+			}
+		}
+	}
+
+	return &comp
 }
 
 //Name returns the name of this component type
 func (c ComponentType) Name() string { return c.name }
+
+//Fields returns all fields contained in this component. Includes fields
+//encapsulated in components of this component
+func (c ComponentType) Fields() []*FieldDef { return c.fields }
+
+//RequiredFields returns those fields that are required for this component
+func (c ComponentType) RequiredFields() []*FieldDef { return c.requiredFields }
+
+//RequiredParts returns those parts that are required for this component
+func (c ComponentType) RequiredParts() []MessagePart { return c.requiredParts }
+
+// Parts returns all parts in declaration order contained in this component
+func (c ComponentType) Parts() []MessagePart { return c.parts }
 
 //TagSet is set for tags.
 type TagSet map[int]struct{}

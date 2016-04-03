@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/derivativeinstrumentpartysubidsgrp"
 )
 
+func New() *DerivativeInstrumentParties {
+	var m DerivativeInstrumentParties
+	return &m
+}
+
 //NoDerivativeInstrumentParties is a repeating group in DerivativeInstrumentParties
 type NoDerivativeInstrumentParties struct {
 	//DerivativeInstrumentPartyID is a non-required field for NoDerivativeInstrumentParties.

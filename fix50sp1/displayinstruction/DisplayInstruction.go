@@ -1,5 +1,10 @@
 package displayinstruction
 
+func New() *DisplayInstruction {
+	var m DisplayInstruction
+	return &m
+}
+
 //DisplayInstruction is a fix50sp1 Component
 type DisplayInstruction struct {
 	//SecondaryDisplayQty is a non-required field for DisplayInstruction.

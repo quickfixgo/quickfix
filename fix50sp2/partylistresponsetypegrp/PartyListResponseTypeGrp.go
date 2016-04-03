@@ -1,5 +1,11 @@
 package partylistresponsetypegrp
 
+func New(nopartylistresponsetypes []NoPartyListResponseTypes) *PartyListResponseTypeGrp {
+	var m PartyListResponseTypeGrp
+	m.SetNoPartyListResponseTypes(nopartylistresponsetypes)
+	return &m
+}
+
 //NoPartyListResponseTypes is a repeating group in PartyListResponseTypeGrp
 type NoPartyListResponseTypes struct {
 	//PartyListResponseType is a required field for NoPartyListResponseTypes.

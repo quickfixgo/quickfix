@@ -1,5 +1,10 @@
 package ratesource
 
+func New() *RateSource {
+	var m RateSource
+	return &m
+}
+
 //NoRateSources is a repeating group in RateSource
 type NoRateSources struct {
 	//RateSource is a non-required field for NoRateSources.

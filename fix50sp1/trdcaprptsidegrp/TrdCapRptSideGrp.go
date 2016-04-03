@@ -13,6 +13,12 @@ import (
 	"time"
 )
 
+func New(nosides []NoSides) *TrdCapRptSideGrp {
+	var m TrdCapRptSideGrp
+	m.SetNoSides(nosides)
+	return &m
+}
+
 //NoSides is a repeating group in TrdCapRptSideGrp
 type NoSides struct {
 	//Side is a required field for NoSides.

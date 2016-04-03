@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/tradingsessionrules"
 )
 
+func New() *TradingSessionRulesGrp {
+	var m TradingSessionRulesGrp
+	return &m
+}
+
 //NoTradingSessionRules is a repeating group in TradingSessionRulesGrp
 type NoTradingSessionRules struct {
 	//TradingSessionID is a non-required field for NoTradingSessionRules.

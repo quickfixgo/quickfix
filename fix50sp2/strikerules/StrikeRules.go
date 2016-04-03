@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/maturityrules"
 )
 
+func New() *StrikeRules {
+	var m StrikeRules
+	return &m
+}
+
 //NoStrikeRules is a repeating group in StrikeRules
 type NoStrikeRules struct {
 	//StrikeRuleID is a non-required field for NoStrikeRules.

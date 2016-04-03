@@ -13,6 +13,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/yielddata"
 )
 
+func New() *SecLstUpdRelSymGrp {
+	var m SecLstUpdRelSymGrp
+	return &m
+}
+
 //NoRelatedSym is a repeating group in SecLstUpdRelSymGrp
 type NoRelatedSym struct {
 	//Instrument is a non-required component for NoRelatedSym.

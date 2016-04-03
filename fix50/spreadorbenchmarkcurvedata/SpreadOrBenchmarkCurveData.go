@@ -1,5 +1,10 @@
 package spreadorbenchmarkcurvedata
 
+func New() *SpreadOrBenchmarkCurveData {
+	var m SpreadOrBenchmarkCurveData
+	return &m
+}
+
 //SpreadOrBenchmarkCurveData is a fix50 Component
 type SpreadOrBenchmarkCurveData struct {
 	//Spread is a non-required field for SpreadOrBenchmarkCurveData.

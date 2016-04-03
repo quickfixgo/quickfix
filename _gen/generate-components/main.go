@@ -16,7 +16,6 @@ import (
 var (
 	pkg     string
 	fixSpec *datadictionary.DataDictionary
-	imports map[string]bool
 )
 
 func usage() {
@@ -31,26 +30,6 @@ func initPackage() {
 	if fixSpec.ServicePack != 0 {
 		pkg += "sp" + strconv.Itoa(fixSpec.ServicePack)
 	}
-}
-
-func packageString() (s string) {
-	s = fmt.Sprintf("package %v\n", pkg)
-	return
-}
-
-func genComponentImports() (fileOut string) {
-
-	if len(imports) == 0 {
-		return
-	}
-
-	fileOut += "import(\n"
-	for i := range imports {
-		fileOut += fmt.Sprintf("\"%v\"\n", i)
-	}
-	fileOut += ")\n"
-
-	return
 }
 
 type group struct {
@@ -74,28 +53,10 @@ func collectGroups(parent string, part datadictionary.MessagePart, groups []grou
 	return groups
 }
 
-func writeFieldDeclaration(part datadictionary.MessagePart, componentName string) string {
-	switch field := part.(type) {
-	case datadictionary.Component:
-		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(field.Name()))] = true
-	case *datadictionary.FieldDef:
-		if !field.IsGroup() {
-			goType := gen.FixFieldTypeToGoType(field.Type)
-			if goType == "time.Time" {
-				imports["time"] = true
-			}
-		}
-	}
-
-	return gen.WriteFieldDeclaration(fixSpec.Major, fixSpec.Minor, part, componentName)
-}
-
 func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
 	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
 	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
-	for _, groupField := range field.Parts {
-		fileOut += writeFieldDeclaration(groupField, field.Name())
-	}
+	fileOut += gen.WriteFieldDeclarations(fixSpec.Major, fixSpec.Minor, field.Parts, field.Name())
 
 	fileOut += "}\n"
 
@@ -116,22 +77,22 @@ func genGroupDeclarations(name string, fields []datadictionary.MessagePart) (fil
 }
 
 func genHeader(header *datadictionary.MessageDef) {
-	imports = make(map[string]bool)
-
-	//delay field output to determine imports
-	delayOut := genGroupDeclarations("Header", header.Parts)
-	delayOut += fmt.Sprintf("//Header is the %v Header type\n", pkg)
-	delayOut += "type Header struct {\n"
-	for _, field := range header.Parts {
-		delayOut += writeFieldDeclaration(field, "Header")
-	}
-	delayOut += "}\n"
-
-	fileOut := packageString()
-	fileOut += genComponentImports()
-	fileOut += delayOut
-
 	writer := new(bytes.Buffer)
+	if err := gen.WritePackage(writer, pkg); err != nil {
+		panic(err)
+	}
+	if err := gen.WriteComponentImports(writer, pkg, header.Parts); err != nil {
+		panic(err)
+	}
+
+	fileOut := writer.String()
+	fileOut += genGroupDeclarations("Header", header.Parts)
+	fileOut += fmt.Sprintf("//Header is the %v Header type\n", pkg)
+	fileOut += "type Header struct {\n"
+	fileOut += gen.WriteFieldDeclarations(fixSpec.Major, fixSpec.Minor, header.Parts, "Header")
+	fileOut += "}\n"
+
+	writer = new(bytes.Buffer)
 	if err := gen.WriteFieldSetters(writer, "Header", header.Parts); err != nil {
 		panic(err)
 	}
@@ -141,16 +102,21 @@ func genHeader(header *datadictionary.MessageDef) {
 }
 
 func genTrailer(trailer *datadictionary.MessageDef) {
-	imports = make(map[string]bool)
-	fileOut := packageString()
+	writer := new(bytes.Buffer)
+	if err := gen.WritePackage(writer, pkg); err != nil {
+		panic(err)
+	}
+	if err := gen.WriteComponentImports(writer, pkg, trailer.Parts); err != nil {
+		panic(err)
+	}
+	fileOut := writer.String()
+
 	fileOut += fmt.Sprintf("//Trailer is the %v Trailer type\n", pkg)
 	fileOut += "type Trailer struct {\n"
-	for _, field := range trailer.Parts {
-		fileOut += writeFieldDeclaration(field, "Trailer")
-	}
+	fileOut += gen.WriteFieldDeclarations(fixSpec.Major, fixSpec.Minor, trailer.Parts, "Trailer")
 	fileOut += "}\n"
 
-	writer := new(bytes.Buffer)
+	writer = new(bytes.Buffer)
 	if err := gen.WriteFieldSetters(writer, "Trailer", trailer.Parts); err != nil {
 		panic(err)
 	}
@@ -160,21 +126,24 @@ func genTrailer(trailer *datadictionary.MessageDef) {
 }
 
 func genComponent(name string, component *datadictionary.ComponentType) {
-	imports = make(map[string]bool)
-
-	//delay output to determine imports
-	delayOut := genGroupDeclarations(name, component.Parts)
-	delayOut += fmt.Sprintf("//%v is a %v Component\n", name, pkg)
-	delayOut += fmt.Sprintf("type %v struct {\n", name)
-	for _, field := range component.Parts {
-		delayOut += writeFieldDeclaration(field, name)
+	writer := new(bytes.Buffer)
+	if err := gen.WritePackage(writer, strings.ToLower(name)); err != nil {
+		panic(err)
 	}
-	delayOut += "}\n"
+	if err := gen.WriteComponentImports(writer, pkg, component.Parts()); err != nil {
+		panic(err)
+	}
 
-	fileOut := fmt.Sprintf("package %v\n", strings.ToLower(name))
-	fileOut += genComponentImports()
-	fileOut += delayOut
+	if err := gen.WriteNewComponent(writer, *component); err != nil {
+		panic(err)
+	}
 
+	fileOut := writer.String()
+	fileOut += genGroupDeclarations(name, component.Parts())
+	fileOut += fmt.Sprintf("//%v is a %v Component\n", name, pkg)
+	fileOut += fmt.Sprintf("type %v struct {\n", name)
+	fileOut += gen.WriteFieldDeclarations(fixSpec.Major, fixSpec.Minor, component.Parts(), name)
+	fileOut += "}\n"
 	fileOut += genComponentSetters(component)
 
 	gen.WriteFile(path.Join(pkg, strings.ToLower(name), name+".go"), fileOut)
@@ -182,7 +151,7 @@ func genComponent(name string, component *datadictionary.ComponentType) {
 
 func genComponentSetters(component *datadictionary.ComponentType) string {
 	writer := new(bytes.Buffer)
-	if err := gen.WriteFieldSetters(writer, component.Name(), component.Parts); err != nil {
+	if err := gen.WriteFieldSetters(writer, component.Name(), component.Parts()); err != nil {
 		panic(err)
 	}
 

@@ -1,5 +1,10 @@
 package trdrepindicatorsgrp
 
+func New() *TrdRepIndicatorsGrp {
+	var m TrdRepIndicatorsGrp
+	return &m
+}
+
 //NoTrdRepIndicators is a repeating group in TrdRepIndicatorsGrp
 type NoTrdRepIndicators struct {
 	//TrdRepPartyRole is a non-required field for NoTrdRepIndicators.

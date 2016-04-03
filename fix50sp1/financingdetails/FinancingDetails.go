@@ -1,5 +1,10 @@
 package financingdetails
 
+func New() *FinancingDetails {
+	var m FinancingDetails
+	return &m
+}
+
 //FinancingDetails is a fix50sp1 Component
 type FinancingDetails struct {
 	//AgreementDesc is a non-required field for FinancingDetails.

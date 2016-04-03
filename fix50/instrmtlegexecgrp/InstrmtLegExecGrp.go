@@ -6,6 +6,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/nestedparties"
 )
 
+func New() *InstrmtLegExecGrp {
+	var m InstrmtLegExecGrp
+	return &m
+}
+
 //NoLegs is a repeating group in InstrmtLegExecGrp
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.

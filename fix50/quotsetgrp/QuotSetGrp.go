@@ -6,6 +6,12 @@ import (
 	"time"
 )
 
+func New(noquotesets []NoQuoteSets) *QuotSetGrp {
+	var m QuotSetGrp
+	m.SetNoQuoteSets(noquotesets)
+	return &m
+}
+
 //NoQuoteSets is a repeating group in QuotSetGrp
 type NoQuoteSets struct {
 	//QuoteSetID is a required field for NoQuoteSets.

@@ -1,5 +1,10 @@
 package derivativeinstrumentpartysubidsgrp
 
+func New() *DerivativeInstrumentPartySubIDsGrp {
+	var m DerivativeInstrumentPartySubIDsGrp
+	return &m
+}
+
 //NoDerivativeInstrumentPartySubIDs is a repeating group in DerivativeInstrumentPartySubIDsGrp
 type NoDerivativeInstrumentPartySubIDs struct {
 	//DerivativeInstrumentPartySubID is a non-required field for NoDerivativeInstrumentPartySubIDs.

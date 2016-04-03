@@ -1,5 +1,10 @@
 package evntgrp
 
+func New() *EvntGrp {
+	var m EvntGrp
+	return &m
+}
+
 //NoEvents is a repeating group in EvntGrp
 type NoEvents struct {
 	//EventType is a non-required field for NoEvents.

@@ -14,6 +14,12 @@ import (
 	"time"
 )
 
+func New(norelatedsym []NoRelatedSym) *QuotReqGrp {
+	var m QuotReqGrp
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
+
 //NoRelatedSym is a repeating group in QuotReqGrp
 type NoRelatedSym struct {
 	//Instrument is a required component for NoRelatedSym.

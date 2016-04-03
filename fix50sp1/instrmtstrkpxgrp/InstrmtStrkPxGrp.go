@@ -5,6 +5,12 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/undinstrmtgrp"
 )
 
+func New(nostrikes []NoStrikes) *InstrmtStrkPxGrp {
+	var m InstrmtStrkPxGrp
+	m.SetNoStrikes(nostrikes)
+	return &m
+}
+
 //NoStrikes is a repeating group in InstrmtStrkPxGrp
 type NoStrikes struct {
 	//Instrument is a required component for NoStrikes.

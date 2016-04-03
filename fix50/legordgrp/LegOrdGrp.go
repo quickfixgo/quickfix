@@ -7,6 +7,12 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/nestedparties"
 )
 
+func New(nolegs []NoLegs) *LegOrdGrp {
+	var m LegOrdGrp
+	m.SetNoLegs(nolegs)
+	return &m
+}
+
 //NoLegs is a repeating group in LegOrdGrp
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.

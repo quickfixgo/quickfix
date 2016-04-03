@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties2"
 )
 
+func New() *LegPreAllocGrp {
+	var m LegPreAllocGrp
+	return &m
+}
+
 //NoLegAllocs is a repeating group in LegPreAllocGrp
 type NoLegAllocs struct {
 	//LegAllocAccount is a non-required field for NoLegAllocs.

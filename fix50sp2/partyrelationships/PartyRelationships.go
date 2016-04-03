@@ -1,5 +1,10 @@
 package partyrelationships
 
+func New() *PartyRelationships {
+	var m PartyRelationships
+	return &m
+}
+
 //NoPartyRelationships is a repeating group in PartyRelationships
 type NoPartyRelationships struct {
 	//PartyRelationship is a non-required field for NoPartyRelationships.

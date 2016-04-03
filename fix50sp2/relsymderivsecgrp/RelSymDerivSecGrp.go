@@ -8,6 +8,11 @@ import (
 	"time"
 )
 
+func New() *RelSymDerivSecGrp {
+	var m RelSymDerivSecGrp
+	return &m
+}
+
 //NoRelatedSym is a repeating group in RelSymDerivSecGrp
 type NoRelatedSym struct {
 	//Instrument is a non-required component for NoRelatedSym.

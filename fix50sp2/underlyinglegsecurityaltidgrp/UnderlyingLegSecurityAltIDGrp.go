@@ -1,5 +1,10 @@
 package underlyinglegsecurityaltidgrp
 
+func New() *UnderlyingLegSecurityAltIDGrp {
+	var m UnderlyingLegSecurityAltIDGrp
+	return &m
+}
+
 //NoUnderlyingLegSecurityAltID is a repeating group in UnderlyingLegSecurityAltIDGrp
 type NoUnderlyingLegSecurityAltID struct {
 	//UnderlyingLegSecurityAltID is a non-required field for NoUnderlyingLegSecurityAltID.

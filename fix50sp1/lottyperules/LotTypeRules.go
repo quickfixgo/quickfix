@@ -1,5 +1,10 @@
 package lottyperules
 
+func New() *LotTypeRules {
+	var m LotTypeRules
+	return &m
+}
+
 //NoLotTypeRules is a repeating group in LotTypeRules
 type NoLotTypeRules struct {
 	//LotType is a non-required field for NoLotTypeRules.

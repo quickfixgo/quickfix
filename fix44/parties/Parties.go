@@ -1,5 +1,10 @@
 package parties
 
+func New() *Parties {
+	var m Parties
+	return &m
+}
+
 //NoPartyIDs is a repeating group in Parties
 type NoPartyIDs struct {
 	//PartyID is a non-required field for NoPartyIDs.

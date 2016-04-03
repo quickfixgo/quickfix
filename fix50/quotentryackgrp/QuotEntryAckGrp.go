@@ -6,6 +6,11 @@ import (
 	"time"
 )
 
+func New() *QuotEntryAckGrp {
+	var m QuotEntryAckGrp
+	return &m
+}
+
 //NoQuoteEntries is a repeating group in QuotEntryAckGrp
 type NoQuoteEntries struct {
 	//QuoteEntryID is a non-required field for NoQuoteEntries.

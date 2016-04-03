@@ -1,5 +1,10 @@
 package contamtgrp
 
+func New() *ContAmtGrp {
+	var m ContAmtGrp
+	return &m
+}
+
 //NoContAmts is a repeating group in ContAmtGrp
 type NoContAmts struct {
 	//ContAmtType is a non-required field for NoContAmts.

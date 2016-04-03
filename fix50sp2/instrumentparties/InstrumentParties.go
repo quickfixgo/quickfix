@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/instrumentptyssubgrp"
 )
 
+func New() *InstrumentParties {
+	var m InstrumentParties
+	return &m
+}
+
 //NoInstrumentParties is a repeating group in InstrumentParties
 type NoInstrumentParties struct {
 	//InstrumentPartyID is a non-required field for NoInstrumentParties.

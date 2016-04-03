@@ -1,5 +1,10 @@
 package miscfeesgrp
 
+func New() *MiscFeesGrp {
+	var m MiscFeesGrp
+	return &m
+}
+
 //NoMiscFees is a repeating group in MiscFeesGrp
 type NoMiscFees struct {
 	//MiscFeeAmt is a non-required field for NoMiscFees.

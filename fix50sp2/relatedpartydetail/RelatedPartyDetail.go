@@ -7,6 +7,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relationshiprisklimits"
 )
 
+func New() *RelatedPartyDetail {
+	var m RelatedPartyDetail
+	return &m
+}
+
 //RelatedPartyDetail is a fix50sp2 Component
 type RelatedPartyDetail struct {
 	//RelatedPartyID is a non-required field for RelatedPartyDetail.

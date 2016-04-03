@@ -1,5 +1,10 @@
 package derivativesecurityxml
 
+func New() *DerivativeSecurityXML {
+	var m DerivativeSecurityXML
+	return &m
+}
+
 //DerivativeSecurityXML is a fix50sp1 Component
 type DerivativeSecurityXML struct {
 	//DerivativeSecurityXMLLen is a non-required field for DerivativeSecurityXML.

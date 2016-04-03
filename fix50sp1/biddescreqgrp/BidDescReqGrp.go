@@ -1,5 +1,10 @@
 package biddescreqgrp
 
+func New() *BidDescReqGrp {
+	var m BidDescReqGrp
+	return &m
+}
+
 //NoBidDescriptors is a repeating group in BidDescReqGrp
 type NoBidDescriptors struct {
 	//BidDescriptorType is a non-required field for NoBidDescriptors.

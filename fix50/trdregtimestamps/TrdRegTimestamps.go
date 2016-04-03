@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+func New() *TrdRegTimestamps {
+	var m TrdRegTimestamps
+	return &m
+}
+
 //NoTrdRegTimestamps is a repeating group in TrdRegTimestamps
 type NoTrdRegTimestamps struct {
 	//TrdRegTimestamp is a non-required field for NoTrdRegTimestamps.

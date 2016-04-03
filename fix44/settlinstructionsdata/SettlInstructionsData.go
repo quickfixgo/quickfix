@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix44/settlparties"
 )
 
+func New() *SettlInstructionsData {
+	var m SettlInstructionsData
+	return &m
+}
+
 //NoDlvyInst is a repeating group in SettlInstructionsData
 type NoDlvyInst struct {
 	//SettlInstSource is a non-required field for NoDlvyInst.

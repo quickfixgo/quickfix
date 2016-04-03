@@ -1,5 +1,10 @@
 package strategyparametersgrp
 
+func New() *StrategyParametersGrp {
+	var m StrategyParametersGrp
+	return &m
+}
+
 //NoStrategyParameters is a repeating group in StrategyParametersGrp
 type NoStrategyParameters struct {
 	//StrategyParameterName is a non-required field for NoStrategyParameters.

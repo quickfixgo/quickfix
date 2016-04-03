@@ -1,5 +1,10 @@
 package underlyingamount
 
+func New() *UnderlyingAmount {
+	var m UnderlyingAmount
+	return &m
+}
+
 //NoUnderlyingAmounts is a repeating group in UnderlyingAmount
 type NoUnderlyingAmounts struct {
 	//UnderlyingPayAmount is a non-required field for NoUnderlyingAmounts.

@@ -1,5 +1,11 @@
 package compidstatgrp
 
+func New(nocompids []NoCompIDs) *CompIDStatGrp {
+	var m CompIDStatGrp
+	m.SetNoCompIDs(nocompids)
+	return &m
+}
+
 //NoCompIDs is a repeating group in CompIDStatGrp
 type NoCompIDs struct {
 	//RefCompID is a required field for NoCompIDs.

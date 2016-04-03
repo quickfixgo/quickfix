@@ -1,5 +1,10 @@
 package notaffectedordersgrp
 
+func New() *NotAffectedOrdersGrp {
+	var m NotAffectedOrdersGrp
+	return &m
+}
+
 //NoNotAffectedOrders is a repeating group in NotAffectedOrdersGrp
 type NoNotAffectedOrders struct {
 	//NotAffOrigClOrdID is a non-required field for NoNotAffectedOrders.

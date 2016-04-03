@@ -1,5 +1,10 @@
 package securityxml
 
+func New() *SecurityXML {
+	var m SecurityXML
+	return &m
+}
+
 //SecurityXML is a fix50sp2 Component
 type SecurityXML struct {
 	//SecurityXMLLen is a non-required field for SecurityXML.

@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/rootsubparties"
 )
 
+func New() *RootParties {
+	var m RootParties
+	return &m
+}
+
 //NoRootPartyIDs is a repeating group in RootParties
 type NoRootPartyIDs struct {
 	//RootPartyID is a non-required field for NoRootPartyIDs.

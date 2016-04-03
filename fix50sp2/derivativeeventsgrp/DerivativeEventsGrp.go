@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+func New() *DerivativeEventsGrp {
+	var m DerivativeEventsGrp
+	return &m
+}
+
 //NoDerivativeEvents is a repeating group in DerivativeEventsGrp
 type NoDerivativeEvents struct {
 	//DerivativeEventType is a non-required field for NoDerivativeEvents.

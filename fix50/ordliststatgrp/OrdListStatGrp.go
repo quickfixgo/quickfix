@@ -1,5 +1,11 @@
 package ordliststatgrp
 
+func New(noorders []NoOrders) *OrdListStatGrp {
+	var m OrdListStatGrp
+	m.SetNoOrders(noorders)
+	return &m
+}
+
 //NoOrders is a repeating group in OrdListStatGrp
 type NoOrders struct {
 	//ClOrdID is a required field for NoOrders.

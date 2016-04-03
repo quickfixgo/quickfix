@@ -1,5 +1,10 @@
 package timeinforcerules
 
+func New() *TimeInForceRules {
+	var m TimeInForceRules
+	return &m
+}
+
 //NoTimeInForceRules is a repeating group in TimeInForceRules
 type NoTimeInForceRules struct {
 	//TimeInForce is a non-required field for NoTimeInForceRules.

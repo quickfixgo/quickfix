@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+func New() *HopGrp {
+	var m HopGrp
+	return &m
+}
+
 //NoHops is a repeating group in HopGrp
 type NoHops struct {
 	//HopCompID is a non-required field for NoHops.

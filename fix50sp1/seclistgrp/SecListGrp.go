@@ -13,6 +13,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/yielddata"
 )
 
+func New() *SecListGrp {
+	var m SecListGrp
+	return &m
+}
+
 //NoRelatedSym is a repeating group in SecListGrp
 type NoRelatedSym struct {
 	//Instrument is a non-required component for NoRelatedSym.

@@ -1,5 +1,10 @@
 package secaltidgrp
 
+func New() *SecAltIDGrp {
+	var m SecAltIDGrp
+	return &m
+}
+
 //NoSecurityAltID is a repeating group in SecAltIDGrp
 type NoSecurityAltID struct {
 	//SecurityAltID is a non-required field for NoSecurityAltID.

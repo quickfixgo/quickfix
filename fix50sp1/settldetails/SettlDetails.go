@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/settlparties"
 )
 
+func New() *SettlDetails {
+	var m SettlDetails
+	return &m
+}
+
 //NoSettlDetails is a repeating group in SettlDetails
 type NoSettlDetails struct {
 	//SettlObligSource is a non-required field for NoSettlDetails.

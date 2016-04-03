@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties"
 )
 
+func New() *AllocAckGrp {
+	var m AllocAckGrp
+	return &m
+}
+
 //NoAllocs is a repeating group in AllocAckGrp
 type NoAllocs struct {
 	//AllocAccount is a non-required field for NoAllocs.

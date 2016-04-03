@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/legsecaltidgrp"
 )
 
+func New() *InstrumentLeg {
+	var m InstrumentLeg
+	return &m
+}
+
 //InstrumentLeg is a fix50sp2 Component
 type InstrumentLeg struct {
 	//LegSymbol is a non-required field for InstrumentLeg.

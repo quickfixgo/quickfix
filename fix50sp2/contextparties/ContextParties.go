@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/contextptyssubgrp"
 )
 
+func New() *ContextParties {
+	var m ContextParties
+	return &m
+}
+
 //NoContextPartyIDs is a repeating group in ContextParties
 type NoContextPartyIDs struct {
 	//ContextPartyID is a non-required field for NoContextPartyIDs.

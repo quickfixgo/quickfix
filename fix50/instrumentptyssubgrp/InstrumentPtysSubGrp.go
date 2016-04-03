@@ -1,5 +1,10 @@
 package instrumentptyssubgrp
 
+func New() *InstrumentPtysSubGrp {
+	var m InstrumentPtysSubGrp
+	return &m
+}
+
 //NoInstrumentPartySubIDs is a repeating group in InstrumentPtysSubGrp
 type NoInstrumentPartySubIDs struct {
 	//InstrumentPartySubID is a non-required field for NoInstrumentPartySubIDs.

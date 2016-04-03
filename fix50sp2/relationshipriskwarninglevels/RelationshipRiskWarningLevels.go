@@ -1,5 +1,10 @@
 package relationshipriskwarninglevels
 
+func New() *RelationshipRiskWarningLevels {
+	var m RelationshipRiskWarningLevels
+	return &m
+}
+
 //NoRelationshipRiskWarningLevels is a repeating group in RelationshipRiskWarningLevels
 type NoRelationshipRiskWarningLevels struct {
 	//RelationshipRiskWarningLevelPercent is a non-required field for NoRelationshipRiskWarningLevels.

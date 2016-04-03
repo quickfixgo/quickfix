@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relatedaltptyssubgrp"
 )
 
+func New() *RelatedPartyAltIDs {
+	var m RelatedPartyAltIDs
+	return &m
+}
+
 //NoRelatedPartyAltIDs is a repeating group in RelatedPartyAltIDs
 type NoRelatedPartyAltIDs struct {
 	//RelatedPartyAltID is a non-required field for NoRelatedPartyAltIDs.

@@ -1,5 +1,10 @@
 package relationshiprisksecaltidgrp
 
+func New() *RelationshipRiskSecAltIDGrp {
+	var m RelationshipRiskSecAltIDGrp
+	return &m
+}
+
 //NoRelationshipRiskSecurityAltID is a repeating group in RelationshipRiskSecAltIDGrp
 type NoRelationshipRiskSecurityAltID struct {
 	//RelationshipRiskSecurityAltID is a non-required field for NoRelationshipRiskSecurityAltID.

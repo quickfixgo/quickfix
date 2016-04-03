@@ -1,5 +1,10 @@
 package legstipulations
 
+func New() *LegStipulations {
+	var m LegStipulations
+	return &m
+}
+
 //NoLegStipulations is a repeating group in LegStipulations
 type NoLegStipulations struct {
 	//LegStipulationType is a non-required field for NoLegStipulations.

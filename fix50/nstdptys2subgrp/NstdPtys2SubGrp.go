@@ -1,5 +1,10 @@
 package nstdptys2subgrp
 
+func New() *NstdPtys2SubGrp {
+	var m NstdPtys2SubGrp
+	return &m
+}
+
 //NoNested2PartySubIDs is a repeating group in NstdPtys2SubGrp
 type NoNested2PartySubIDs struct {
 	//Nested2PartySubID is a non-required field for NoNested2PartySubIDs.

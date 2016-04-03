@@ -4,6 +4,11 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/complexeventdates"
 )
 
+func New() *ComplexEvents {
+	var m ComplexEvents
+	return &m
+}
+
 //NoComplexEvents is a repeating group in ComplexEvents
 type NoComplexEvents struct {
 	//ComplexEventType is a non-required field for NoComplexEvents.
