@@ -21,6 +21,11 @@ type NoRelatedSym struct {
 	MDStreamID *string `fix:"1500"`
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoRelatedSym) SetSettlType(v string)                 { m.SettlType = &v }
+func (m *NoRelatedSym) SetMDEntrySize(v float64)              { m.MDEntrySize = &v }
+func (m *NoRelatedSym) SetMDStreamID(v string)                { m.MDStreamID = &v }
+
 //StrmAsgnReqInstrmtGrp is a fix50sp2 Component
 type StrmAsgnReqInstrmtGrp struct {
 	//NoRelatedSym is a non-required field for StrmAsgnReqInstrmtGrp.

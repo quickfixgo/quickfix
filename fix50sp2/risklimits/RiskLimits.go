@@ -26,6 +26,17 @@ type NoRiskLimits struct {
 	RiskWarningLevels *riskwarninglevels.RiskWarningLevels
 }
 
+func (m *NoRiskLimits) SetRiskLimitType(v int)        { m.RiskLimitType = &v }
+func (m *NoRiskLimits) SetRiskLimitAmount(v float64)  { m.RiskLimitAmount = &v }
+func (m *NoRiskLimits) SetRiskLimitCurrency(v string) { m.RiskLimitCurrency = &v }
+func (m *NoRiskLimits) SetRiskLimitPlatform(v string) { m.RiskLimitPlatform = &v }
+func (m *NoRiskLimits) SetRiskInstrumentScope(v riskinstrumentscope.RiskInstrumentScope) {
+	m.RiskInstrumentScope = &v
+}
+func (m *NoRiskLimits) SetRiskWarningLevels(v riskwarninglevels.RiskWarningLevels) {
+	m.RiskWarningLevels = &v
+}
+
 //RiskLimits is a fix50sp2 Component
 type RiskLimits struct {
 	//NoRiskLimits is a non-required field for RiskLimits.

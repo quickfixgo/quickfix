@@ -17,6 +17,9 @@ type NoSettlDetails struct {
 	SettlParties *settlparties.SettlParties
 }
 
+func (m *NoSettlDetails) SetSettlObligSource(v string)                { m.SettlObligSource = &v }
+func (m *NoSettlDetails) SetSettlParties(v settlparties.SettlParties) { m.SettlParties = &v }
+
 //SettlDetails is a fix50sp2 Component
 type SettlDetails struct {
 	//NoSettlDetails is a non-required field for SettlDetails.

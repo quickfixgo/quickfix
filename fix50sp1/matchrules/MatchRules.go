@@ -13,6 +13,9 @@ type NoMatchRules struct {
 	MatchType *string `fix:"574"`
 }
 
+func (m *NoMatchRules) SetMatchAlgorithm(v string) { m.MatchAlgorithm = &v }
+func (m *NoMatchRules) SetMatchType(v string)      { m.MatchType = &v }
+
 //MatchRules is a fix50sp1 Component
 type MatchRules struct {
 	//NoMatchRules is a non-required field for MatchRules.

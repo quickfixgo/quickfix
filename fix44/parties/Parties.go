@@ -17,6 +17,11 @@ type NoPartyIDs struct {
 	NoPartySubIDs []NoPartySubIDs `fix:"802,omitempty"`
 }
 
+func (m *NoPartyIDs) SetPartyID(v string)                { m.PartyID = &v }
+func (m *NoPartyIDs) SetPartyIDSource(v string)          { m.PartyIDSource = &v }
+func (m *NoPartyIDs) SetPartyRole(v int)                 { m.PartyRole = &v }
+func (m *NoPartyIDs) SetNoPartySubIDs(v []NoPartySubIDs) { m.NoPartySubIDs = v }
+
 //NoPartySubIDs is a repeating group in NoPartyIDs
 type NoPartySubIDs struct {
 	//PartySubID is a non-required field for NoPartySubIDs.
@@ -24,6 +29,9 @@ type NoPartySubIDs struct {
 	//PartySubIDType is a non-required field for NoPartySubIDs.
 	PartySubIDType *int `fix:"803"`
 }
+
+func (m *NoPartySubIDs) SetPartySubID(v string)  { m.PartySubID = &v }
+func (m *NoPartySubIDs) SetPartySubIDType(v int) { m.PartySubIDType = &v }
 
 //Parties is a fix44 Component
 type Parties struct {

@@ -21,6 +21,13 @@ type NoMsgTypes struct {
 	DefaultVerIndicator *bool `fix:"1410"`
 }
 
+func (m *NoMsgTypes) SetRefMsgType(v string)        { m.RefMsgType = &v }
+func (m *NoMsgTypes) SetMsgDirection(v string)      { m.MsgDirection = &v }
+func (m *NoMsgTypes) SetRefApplVerID(v string)      { m.RefApplVerID = &v }
+func (m *NoMsgTypes) SetRefCstmApplVerID(v string)  { m.RefCstmApplVerID = &v }
+func (m *NoMsgTypes) SetRefApplExtID(v int)         { m.RefApplExtID = &v }
+func (m *NoMsgTypes) SetDefaultVerIndicator(v bool) { m.DefaultVerIndicator = &v }
+
 //MsgTypeGrp is a fix50sp2 Component
 type MsgTypeGrp struct {
 	//NoMsgTypes is a non-required field for MsgTypeGrp.

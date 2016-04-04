@@ -11,6 +11,8 @@ type NoAltMDSource struct {
 	AltMDSourceID *string `fix:"817"`
 }
 
+func (m *NoAltMDSource) SetAltMDSourceID(v string) { m.AltMDSourceID = &v }
+
 //MDRjctGrp is a fix50 Component
 type MDRjctGrp struct {
 	//NoAltMDSource is a non-required field for MDRjctGrp.

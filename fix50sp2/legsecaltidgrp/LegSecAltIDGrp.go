@@ -13,6 +13,9 @@ type NoLegSecurityAltID struct {
 	LegSecurityAltIDSource *string `fix:"606"`
 }
 
+func (m *NoLegSecurityAltID) SetLegSecurityAltID(v string)       { m.LegSecurityAltID = &v }
+func (m *NoLegSecurityAltID) SetLegSecurityAltIDSource(v string) { m.LegSecurityAltIDSource = &v }
+
 //LegSecAltIDGrp is a fix50sp2 Component
 type LegSecAltIDGrp struct {
 	//NoLegSecurityAltID is a non-required field for LegSecAltIDGrp.

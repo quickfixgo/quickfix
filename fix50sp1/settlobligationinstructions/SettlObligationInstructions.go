@@ -48,6 +48,23 @@ type NoSettlOblig struct {
 	SettlDetails *settldetails.SettlDetails
 }
 
+func (m *NoSettlOblig) SetNetGrossInd(v int)                        { m.NetGrossInd = &v }
+func (m *NoSettlOblig) SetSettlObligID(v string)                    { m.SettlObligID = &v }
+func (m *NoSettlOblig) SetSettlObligTransType(v string)             { m.SettlObligTransType = &v }
+func (m *NoSettlOblig) SetSettlObligRefID(v string)                 { m.SettlObligRefID = &v }
+func (m *NoSettlOblig) SetCcyAmt(v float64)                         { m.CcyAmt = &v }
+func (m *NoSettlOblig) SetSettlCurrAmt(v float64)                   { m.SettlCurrAmt = &v }
+func (m *NoSettlOblig) SetCurrency(v string)                        { m.Currency = &v }
+func (m *NoSettlOblig) SetSettlCurrency(v string)                   { m.SettlCurrency = &v }
+func (m *NoSettlOblig) SetSettlCurrFxRate(v float64)                { m.SettlCurrFxRate = &v }
+func (m *NoSettlOblig) SetSettlDate(v string)                       { m.SettlDate = &v }
+func (m *NoSettlOblig) SetInstrument(v instrument.Instrument)       { m.Instrument = &v }
+func (m *NoSettlOblig) SetParties(v parties.Parties)                { m.Parties = &v }
+func (m *NoSettlOblig) SetEffectiveTime(v time.Time)                { m.EffectiveTime = &v }
+func (m *NoSettlOblig) SetExpireTime(v time.Time)                   { m.ExpireTime = &v }
+func (m *NoSettlOblig) SetLastUpdateTime(v time.Time)               { m.LastUpdateTime = &v }
+func (m *NoSettlOblig) SetSettlDetails(v settldetails.SettlDetails) { m.SettlDetails = &v }
+
 //SettlObligationInstructions is a fix50sp1 Component
 type SettlObligationInstructions struct {
 	//NoSettlOblig is a non-required field for SettlObligationInstructions.

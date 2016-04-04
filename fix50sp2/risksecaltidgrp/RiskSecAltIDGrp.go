@@ -13,6 +13,9 @@ type NoRiskSecurityAltID struct {
 	RiskSecurityAltIDSource *string `fix:"1542"`
 }
 
+func (m *NoRiskSecurityAltID) SetRiskSecurityAltID(v string)       { m.RiskSecurityAltID = &v }
+func (m *NoRiskSecurityAltID) SetRiskSecurityAltIDSource(v string) { m.RiskSecurityAltIDSource = &v }
+
 //RiskSecAltIDGrp is a fix50sp2 Component
 type RiskSecAltIDGrp struct {
 	//NoRiskSecurityAltID is a non-required field for RiskSecAltIDGrp.

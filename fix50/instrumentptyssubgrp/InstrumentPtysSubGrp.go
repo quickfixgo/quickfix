@@ -13,6 +13,9 @@ type NoInstrumentPartySubIDs struct {
 	InstrumentPartySubIDType *int `fix:"1054"`
 }
 
+func (m *NoInstrumentPartySubIDs) SetInstrumentPartySubID(v string)  { m.InstrumentPartySubID = &v }
+func (m *NoInstrumentPartySubIDs) SetInstrumentPartySubIDType(v int) { m.InstrumentPartySubIDType = &v }
+
 //InstrumentPtysSubGrp is a fix50 Component
 type InstrumentPtysSubGrp struct {
 	//NoInstrumentPartySubIDs is a non-required field for InstrumentPtysSubGrp.

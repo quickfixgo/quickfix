@@ -23,6 +23,12 @@ type NoContraBrokers struct {
 	ContraLegRefID *string `fix:"655"`
 }
 
+func (m *NoContraBrokers) SetContraBroker(v string)       { m.ContraBroker = &v }
+func (m *NoContraBrokers) SetContraTrader(v string)       { m.ContraTrader = &v }
+func (m *NoContraBrokers) SetContraTradeQty(v float64)    { m.ContraTradeQty = &v }
+func (m *NoContraBrokers) SetContraTradeTime(v time.Time) { m.ContraTradeTime = &v }
+func (m *NoContraBrokers) SetContraLegRefID(v string)     { m.ContraLegRefID = &v }
+
 //ContraGrp is a fix50sp2 Component
 type ContraGrp struct {
 	//NoContraBrokers is a non-required field for ContraGrp.

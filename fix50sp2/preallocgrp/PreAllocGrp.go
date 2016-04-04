@@ -25,6 +25,13 @@ type NoAllocs struct {
 	AllocQty *float64 `fix:"80"`
 }
 
+func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)                     { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetAllocSettlCurrency(v string)                 { m.AllocSettlCurrency = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)                  { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetNestedParties(v nestedparties.NestedParties) { m.NestedParties = &v }
+func (m *NoAllocs) SetAllocQty(v float64)                          { m.AllocQty = &v }
+
 //PreAllocGrp is a fix50sp2 Component
 type PreAllocGrp struct {
 	//NoAllocs is a non-required field for PreAllocGrp.

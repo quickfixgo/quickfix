@@ -21,6 +21,11 @@ type NoFills struct {
 	NestedParties4 *nestedparties4.NestedParties4
 }
 
+func (m *NoFills) SetFillExecID(v string)                            { m.FillExecID = &v }
+func (m *NoFills) SetFillPx(v float64)                               { m.FillPx = &v }
+func (m *NoFills) SetFillQty(v float64)                              { m.FillQty = &v }
+func (m *NoFills) SetNestedParties4(v nestedparties4.NestedParties4) { m.NestedParties4 = &v }
+
 //FillsGrp is a fix50sp1 Component
 type FillsGrp struct {
 	//NoFills is a non-required field for FillsGrp.

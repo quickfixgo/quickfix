@@ -19,6 +19,10 @@ type NoHops struct {
 	HopRefID *int `fix:"630"`
 }
 
+func (m *NoHops) SetHopCompID(v string)         { m.HopCompID = &v }
+func (m *NoHops) SetHopSendingTime(v time.Time) { m.HopSendingTime = &v }
+func (m *NoHops) SetHopRefID(v int)             { m.HopRefID = &v }
+
 //HopGrp is a fix50 Component
 type HopGrp struct {
 	//NoHops is a non-required field for HopGrp.

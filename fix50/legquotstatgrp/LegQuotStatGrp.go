@@ -31,6 +31,15 @@ type NoLegs struct {
 	LegOrderQty *float64 `fix:"685"`
 }
 
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
+func (m *NoLegs) SetLegSettlType(v string)                             { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string)                             { m.LegSettlDate = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
+func (m *NoLegs) SetNestedParties(v nestedparties.NestedParties)       { m.NestedParties = &v }
+func (m *NoLegs) SetLegOrderQty(v float64)                             { m.LegOrderQty = &v }
+
 //LegQuotStatGrp is a fix50 Component
 type LegQuotStatGrp struct {
 	//NoLegs is a non-required field for LegQuotStatGrp.

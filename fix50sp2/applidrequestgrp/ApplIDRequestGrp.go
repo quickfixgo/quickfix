@@ -23,6 +23,12 @@ type NoApplIDs struct {
 	RefApplReqID *string `fix:"1433"`
 }
 
+func (m *NoApplIDs) SetRefApplID(v string)                          { m.RefApplID = &v }
+func (m *NoApplIDs) SetApplBegSeqNum(v int)                         { m.ApplBegSeqNum = &v }
+func (m *NoApplIDs) SetApplEndSeqNum(v int)                         { m.ApplEndSeqNum = &v }
+func (m *NoApplIDs) SetNestedParties(v nestedparties.NestedParties) { m.NestedParties = &v }
+func (m *NoApplIDs) SetRefApplReqID(v string)                       { m.RefApplReqID = &v }
+
 //ApplIDRequestGrp is a fix50sp2 Component
 type ApplIDRequestGrp struct {
 	//NoApplIDs is a non-required field for ApplIDRequestGrp.

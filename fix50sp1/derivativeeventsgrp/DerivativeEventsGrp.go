@@ -23,6 +23,12 @@ type NoDerivativeEvents struct {
 	DerivativeEventText *string `fix:"1291"`
 }
 
+func (m *NoDerivativeEvents) SetDerivativeEventType(v int)       { m.DerivativeEventType = &v }
+func (m *NoDerivativeEvents) SetDerivativeEventDate(v string)    { m.DerivativeEventDate = &v }
+func (m *NoDerivativeEvents) SetDerivativeEventTime(v time.Time) { m.DerivativeEventTime = &v }
+func (m *NoDerivativeEvents) SetDerivativeEventPx(v float64)     { m.DerivativeEventPx = &v }
+func (m *NoDerivativeEvents) SetDerivativeEventText(v string)    { m.DerivativeEventText = &v }
+
 //DerivativeEventsGrp is a fix50sp1 Component
 type DerivativeEventsGrp struct {
 	//NoDerivativeEvents is a non-required field for DerivativeEventsGrp.

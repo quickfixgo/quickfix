@@ -24,6 +24,16 @@ type NoUnderlyings struct {
 	UnderlyingDeliveryAmount *float64 `fix:"1037"`
 }
 
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *NoUnderlyings) SetUnderlyingSettlPrice(v float64) { m.UnderlyingSettlPrice = &v }
+func (m *NoUnderlyings) SetUnderlyingSettlPriceType(v int) { m.UnderlyingSettlPriceType = &v }
+func (m *NoUnderlyings) SetUnderlyingAmount(v underlyingamount.UnderlyingAmount) {
+	m.UnderlyingAmount = &v
+}
+func (m *NoUnderlyings) SetUnderlyingDeliveryAmount(v float64) { m.UnderlyingDeliveryAmount = &v }
+
 //PosUndInstrmtGrp is a fix50 Component
 type PosUndInstrmtGrp struct {
 	//NoUnderlyings is a non-required field for PosUndInstrmtGrp.

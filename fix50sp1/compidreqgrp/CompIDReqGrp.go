@@ -17,6 +17,11 @@ type NoCompIDs struct {
 	DeskID *string `fix:"284"`
 }
 
+func (m *NoCompIDs) SetRefCompID(v string)  { m.RefCompID = &v }
+func (m *NoCompIDs) SetRefSubID(v string)   { m.RefSubID = &v }
+func (m *NoCompIDs) SetLocationID(v string) { m.LocationID = &v }
+func (m *NoCompIDs) SetDeskID(v string)     { m.DeskID = &v }
+
 //CompIDReqGrp is a fix50sp1 Component
 type CompIDReqGrp struct {
 	//NoCompIDs is a non-required field for CompIDReqGrp.

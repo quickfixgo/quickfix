@@ -19,6 +19,10 @@ type NoDates struct {
 	LastUpdateTime *time.Time `fix:"779"`
 }
 
+func (m *NoDates) SetTradeDate(v string)         { m.TradeDate = &v }
+func (m *NoDates) SetTransactTime(v time.Time)   { m.TransactTime = &v }
+func (m *NoDates) SetLastUpdateTime(v time.Time) { m.LastUpdateTime = &v }
+
 //TrdCapDtGrp is a fix50 Component
 type TrdCapDtGrp struct {
 	//NoDates is a non-required field for TrdCapDtGrp.

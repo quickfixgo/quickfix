@@ -36,6 +36,20 @@ type NoOrders struct {
 	OrderID *string `fix:"37"`
 }
 
+func (m *NoOrders) SetClOrdID(v string)          { m.ClOrdID = &v }
+func (m *NoOrders) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }
+func (m *NoOrders) SetCumQty(v float64)          { m.CumQty = v }
+func (m *NoOrders) SetOrdStatus(v string)        { m.OrdStatus = v }
+func (m *NoOrders) SetWorkingIndicator(v bool)   { m.WorkingIndicator = &v }
+func (m *NoOrders) SetLeavesQty(v float64)       { m.LeavesQty = v }
+func (m *NoOrders) SetCxlQty(v float64)          { m.CxlQty = v }
+func (m *NoOrders) SetAvgPx(v float64)           { m.AvgPx = v }
+func (m *NoOrders) SetOrdRejReason(v int)        { m.OrdRejReason = &v }
+func (m *NoOrders) SetText(v string)             { m.Text = &v }
+func (m *NoOrders) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *NoOrders) SetEncodedText(v string)      { m.EncodedText = &v }
+func (m *NoOrders) SetOrderID(v string)          { m.OrderID = &v }
+
 //OrdListStatGrp is a fix50sp2 Component
 type OrdListStatGrp struct {
 	//NoOrders is a required field for OrdListStatGrp.

@@ -32,6 +32,15 @@ type NoRelatedSym struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument)          { m.Instrument = v }
+func (m *NoRelatedSym) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *NoRelatedSym) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+func (m *NoRelatedSym) SetPrevClosePx(v float64)                       { m.PrevClosePx = &v }
+func (m *NoRelatedSym) SetQuoteRequestType(v int)                      { m.QuoteRequestType = &v }
+func (m *NoRelatedSym) SetQuoteType(v int)                             { m.QuoteType = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)                   { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)                { m.TradingSessionSubID = &v }
+
 //RFQReqGrp is a fix50 Component
 type RFQReqGrp struct {
 	//NoRelatedSym is a required field for RFQReqGrp.

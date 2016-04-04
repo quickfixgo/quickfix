@@ -13,6 +13,9 @@ type NoInstrAttrib struct {
 	InstrAttribValue *string `fix:"872"`
 }
 
+func (m *NoInstrAttrib) SetInstrAttribType(v int)     { m.InstrAttribType = &v }
+func (m *NoInstrAttrib) SetInstrAttribValue(v string) { m.InstrAttribValue = &v }
+
 //AttrbGrp is a fix50sp2 Component
 type AttrbGrp struct {
 	//NoInstrAttrib is a non-required field for AttrbGrp.

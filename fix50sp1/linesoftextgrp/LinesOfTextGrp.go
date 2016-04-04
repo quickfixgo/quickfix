@@ -16,6 +16,10 @@ type NoLinesOfText struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoLinesOfText) SetText(v string)        { m.Text = v }
+func (m *NoLinesOfText) SetEncodedTextLen(v int) { m.EncodedTextLen = &v }
+func (m *NoLinesOfText) SetEncodedText(v string) { m.EncodedText = &v }
+
 //LinesOfTextGrp is a fix50sp1 Component
 type LinesOfTextGrp struct {
 	//NoLinesOfText is a required field for LinesOfTextGrp.

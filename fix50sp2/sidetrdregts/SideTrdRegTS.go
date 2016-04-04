@@ -19,6 +19,10 @@ type NoSideTrdRegTS struct {
 	SideTrdRegTimestampSrc *string `fix:"1014"`
 }
 
+func (m *NoSideTrdRegTS) SetSideTrdRegTimestamp(v time.Time) { m.SideTrdRegTimestamp = &v }
+func (m *NoSideTrdRegTS) SetSideTrdRegTimestampType(v int)   { m.SideTrdRegTimestampType = &v }
+func (m *NoSideTrdRegTS) SetSideTrdRegTimestampSrc(v string) { m.SideTrdRegTimestampSrc = &v }
+
 //SideTrdRegTS is a fix50sp2 Component
 type SideTrdRegTS struct {
 	//NoSideTrdRegTS is a non-required field for SideTrdRegTS.

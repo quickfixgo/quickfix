@@ -11,6 +11,8 @@ type NoQuoteQualifiers struct {
 	QuoteQualifier *string `fix:"695"`
 }
 
+func (m *NoQuoteQualifiers) SetQuoteQualifier(v string) { m.QuoteQualifier = &v }
+
 //QuotQualGrp is a fix50sp1 Component
 type QuotQualGrp struct {
 	//NoQuoteQualifiers is a non-required field for QuotQualGrp.

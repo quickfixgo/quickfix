@@ -199,6 +199,102 @@ type NoOrders struct {
 	ExDestinationIDSource *string `fix:"1133"`
 }
 
+func (m *NoOrders) SetClOrdID(v string)                            { m.ClOrdID = v }
+func (m *NoOrders) SetSecondaryClOrdID(v string)                   { m.SecondaryClOrdID = &v }
+func (m *NoOrders) SetListSeqNo(v int)                             { m.ListSeqNo = v }
+func (m *NoOrders) SetClOrdLinkID(v string)                        { m.ClOrdLinkID = &v }
+func (m *NoOrders) SetSettlInstMode(v string)                      { m.SettlInstMode = &v }
+func (m *NoOrders) SetParties(v parties.Parties)                   { m.Parties = &v }
+func (m *NoOrders) SetTradeOriginationDate(v string)               { m.TradeOriginationDate = &v }
+func (m *NoOrders) SetTradeDate(v string)                          { m.TradeDate = &v }
+func (m *NoOrders) SetAccount(v string)                            { m.Account = &v }
+func (m *NoOrders) SetAcctIDSource(v int)                          { m.AcctIDSource = &v }
+func (m *NoOrders) SetAccountType(v int)                           { m.AccountType = &v }
+func (m *NoOrders) SetDayBookingInst(v string)                     { m.DayBookingInst = &v }
+func (m *NoOrders) SetBookingUnit(v string)                        { m.BookingUnit = &v }
+func (m *NoOrders) SetAllocID(v string)                            { m.AllocID = &v }
+func (m *NoOrders) SetPreallocMethod(v string)                     { m.PreallocMethod = &v }
+func (m *NoOrders) SetPreAllocGrp(v preallocgrp.PreAllocGrp)       { m.PreAllocGrp = &v }
+func (m *NoOrders) SetSettlType(v string)                          { m.SettlType = &v }
+func (m *NoOrders) SetSettlDate(v string)                          { m.SettlDate = &v }
+func (m *NoOrders) SetCashMargin(v string)                         { m.CashMargin = &v }
+func (m *NoOrders) SetClearingFeeIndicator(v string)               { m.ClearingFeeIndicator = &v }
+func (m *NoOrders) SetHandlInst(v string)                          { m.HandlInst = &v }
+func (m *NoOrders) SetExecInst(v string)                           { m.ExecInst = &v }
+func (m *NoOrders) SetMinQty(v float64)                            { m.MinQty = &v }
+func (m *NoOrders) SetMaxFloor(v float64)                          { m.MaxFloor = &v }
+func (m *NoOrders) SetExDestination(v string)                      { m.ExDestination = &v }
+func (m *NoOrders) SetTrdgSesGrp(v trdgsesgrp.TrdgSesGrp)          { m.TrdgSesGrp = &v }
+func (m *NoOrders) SetProcessCode(v string)                        { m.ProcessCode = &v }
+func (m *NoOrders) SetInstrument(v instrument.Instrument)          { m.Instrument = v }
+func (m *NoOrders) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *NoOrders) SetPrevClosePx(v float64)                       { m.PrevClosePx = &v }
+func (m *NoOrders) SetSide(v string)                               { m.Side = v }
+func (m *NoOrders) SetSideValueInd(v int)                          { m.SideValueInd = &v }
+func (m *NoOrders) SetLocateReqd(v bool)                           { m.LocateReqd = &v }
+func (m *NoOrders) SetTransactTime(v time.Time)                    { m.TransactTime = &v }
+func (m *NoOrders) SetStipulations(v stipulations.Stipulations)    { m.Stipulations = &v }
+func (m *NoOrders) SetQtyType(v int)                               { m.QtyType = &v }
+func (m *NoOrders) SetOrderQtyData(v orderqtydata.OrderQtyData)    { m.OrderQtyData = v }
+func (m *NoOrders) SetOrdType(v string)                            { m.OrdType = &v }
+func (m *NoOrders) SetPriceType(v int)                             { m.PriceType = &v }
+func (m *NoOrders) SetPrice(v float64)                             { m.Price = &v }
+func (m *NoOrders) SetStopPx(v float64)                            { m.StopPx = &v }
+func (m *NoOrders) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *NoOrders) SetYieldData(v yielddata.YieldData)                   { m.YieldData = &v }
+func (m *NoOrders) SetCurrency(v string)                                 { m.Currency = &v }
+func (m *NoOrders) SetComplianceID(v string)                             { m.ComplianceID = &v }
+func (m *NoOrders) SetSolicitedFlag(v bool)                              { m.SolicitedFlag = &v }
+func (m *NoOrders) SetIOIID(v string)                                    { m.IOIID = &v }
+func (m *NoOrders) SetQuoteID(v string)                                  { m.QuoteID = &v }
+func (m *NoOrders) SetTimeInForce(v string)                              { m.TimeInForce = &v }
+func (m *NoOrders) SetEffectiveTime(v time.Time)                         { m.EffectiveTime = &v }
+func (m *NoOrders) SetExpireDate(v string)                               { m.ExpireDate = &v }
+func (m *NoOrders) SetExpireTime(v time.Time)                            { m.ExpireTime = &v }
+func (m *NoOrders) SetGTBookingInst(v int)                               { m.GTBookingInst = &v }
+func (m *NoOrders) SetCommissionData(v commissiondata.CommissionData)    { m.CommissionData = &v }
+func (m *NoOrders) SetOrderCapacity(v string)                            { m.OrderCapacity = &v }
+func (m *NoOrders) SetOrderRestrictions(v string)                        { m.OrderRestrictions = &v }
+func (m *NoOrders) SetCustOrderCapacity(v int)                           { m.CustOrderCapacity = &v }
+func (m *NoOrders) SetForexReq(v bool)                                   { m.ForexReq = &v }
+func (m *NoOrders) SetSettlCurrency(v string)                            { m.SettlCurrency = &v }
+func (m *NoOrders) SetBookingType(v int)                                 { m.BookingType = &v }
+func (m *NoOrders) SetText(v string)                                     { m.Text = &v }
+func (m *NoOrders) SetEncodedTextLen(v int)                              { m.EncodedTextLen = &v }
+func (m *NoOrders) SetEncodedText(v string)                              { m.EncodedText = &v }
+func (m *NoOrders) SetSettlDate2(v string)                               { m.SettlDate2 = &v }
+func (m *NoOrders) SetOrderQty2(v float64)                               { m.OrderQty2 = &v }
+func (m *NoOrders) SetPrice2(v float64)                                  { m.Price2 = &v }
+func (m *NoOrders) SetPositionEffect(v string)                           { m.PositionEffect = &v }
+func (m *NoOrders) SetCoveredOrUncovered(v int)                          { m.CoveredOrUncovered = &v }
+func (m *NoOrders) SetMaxShow(v float64)                                 { m.MaxShow = &v }
+func (m *NoOrders) SetPegInstructions(v peginstructions.PegInstructions) { m.PegInstructions = &v }
+func (m *NoOrders) SetDiscretionInstructions(v discretioninstructions.DiscretionInstructions) {
+	m.DiscretionInstructions = &v
+}
+func (m *NoOrders) SetTargetStrategy(v int)              { m.TargetStrategy = &v }
+func (m *NoOrders) SetTargetStrategyParameters(v string) { m.TargetStrategyParameters = &v }
+func (m *NoOrders) SetParticipationRate(v float64)       { m.ParticipationRate = &v }
+func (m *NoOrders) SetDesignation(v string)              { m.Designation = &v }
+func (m *NoOrders) SetStrategyParametersGrp(v strategyparametersgrp.StrategyParametersGrp) {
+	m.StrategyParametersGrp = &v
+}
+func (m *NoOrders) SetMatchIncrement(v float64) { m.MatchIncrement = &v }
+func (m *NoOrders) SetMaxPriceLevels(v int)     { m.MaxPriceLevels = &v }
+func (m *NoOrders) SetDisplayInstruction(v displayinstruction.DisplayInstruction) {
+	m.DisplayInstruction = &v
+}
+func (m *NoOrders) SetPriceProtectionScope(v string) { m.PriceProtectionScope = &v }
+func (m *NoOrders) SetTriggeringInstruction(v triggeringinstruction.TriggeringInstruction) {
+	m.TriggeringInstruction = &v
+}
+func (m *NoOrders) SetRefOrderID(v string)            { m.RefOrderID = &v }
+func (m *NoOrders) SetRefOrderIDSource(v string)      { m.RefOrderIDSource = &v }
+func (m *NoOrders) SetPreTradeAnonymity(v bool)       { m.PreTradeAnonymity = &v }
+func (m *NoOrders) SetExDestinationIDSource(v string) { m.ExDestinationIDSource = &v }
+
 //ListOrdGrp is a fix50 Component
 type ListOrdGrp struct {
 	//NoOrders is a required field for ListOrdGrp.

@@ -25,6 +25,13 @@ type NoLegAllocs struct {
 	NestedParties2 *nestedparties2.NestedParties2
 }
 
+func (m *NoLegAllocs) SetLegAllocAccount(v string)                       { m.LegAllocAccount = &v }
+func (m *NoLegAllocs) SetLegIndividualAllocID(v string)                  { m.LegIndividualAllocID = &v }
+func (m *NoLegAllocs) SetLegAllocQty(v float64)                          { m.LegAllocQty = &v }
+func (m *NoLegAllocs) SetLegAllocAcctIDSource(v string)                  { m.LegAllocAcctIDSource = &v }
+func (m *NoLegAllocs) SetLegAllocSettlCurrency(v string)                 { m.LegAllocSettlCurrency = &v }
+func (m *NoLegAllocs) SetNestedParties2(v nestedparties2.NestedParties2) { m.NestedParties2 = &v }
+
 //LegPreAllocGrp is a fix50sp2 Component
 type LegPreAllocGrp struct {
 	//NoLegAllocs is a non-required field for LegPreAllocGrp.

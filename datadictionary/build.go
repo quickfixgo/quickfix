@@ -174,7 +174,6 @@ func (b builder) buildMessageDef(xmlMessage *XMLComponent) (*MessageDef, error) 
 
 func (b builder) buildGroupFieldDef(xmlField *XMLComponentMember, groupFieldType *FieldType) (*FieldDef, error) {
 	var parts []MessagePart
-	var fields []*FieldDef
 
 	for _, member := range xmlField.Members {
 		if member.XMLName.Local == "component" {
@@ -190,7 +189,6 @@ func (b builder) buildGroupFieldDef(xmlField *XMLComponentMember, groupFieldType
 			}
 
 			parts = append(parts, comp)
-			fields = append(fields, comp.Fields()...)
 		} else {
 			var f *FieldDef
 			var err error
@@ -198,11 +196,10 @@ func (b builder) buildGroupFieldDef(xmlField *XMLComponentMember, groupFieldType
 				return nil, err
 			}
 			parts = append(parts, f)
-			fields = append(fields, f)
 		}
 	}
 
-	return &FieldDef{FieldType: groupFieldType, required: (xmlField.Required == "Y"), Parts: parts, ChildFields: fields}, nil
+	return NewGroupFieldDef(groupFieldType, (xmlField.Required == "Y"), parts), nil
 }
 
 func (b builder) buildFieldDef(xmlField *XMLComponentMember) (*FieldDef, error) {
@@ -218,7 +215,7 @@ func (b builder) buildFieldDef(xmlField *XMLComponentMember) (*FieldDef, error) 
 		return f, err
 	}
 
-	return &FieldDef{FieldType: fieldType, required: (xmlField.Required == "Y")}, nil
+	return NewFieldDef(fieldType, (xmlField.Required == "Y")), nil
 }
 
 func (b builder) buildFieldTypes() {

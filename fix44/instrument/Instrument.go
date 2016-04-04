@@ -13,6 +13,9 @@ type NoSecurityAltID struct {
 	SecurityAltIDSource *string `fix:"456"`
 }
 
+func (m *NoSecurityAltID) SetSecurityAltID(v string)       { m.SecurityAltID = &v }
+func (m *NoSecurityAltID) SetSecurityAltIDSource(v string) { m.SecurityAltIDSource = &v }
+
 //NoEvents is a repeating group in Instrument
 type NoEvents struct {
 	//EventType is a non-required field for NoEvents.
@@ -24,6 +27,11 @@ type NoEvents struct {
 	//EventText is a non-required field for NoEvents.
 	EventText *string `fix:"868"`
 }
+
+func (m *NoEvents) SetEventType(v int)    { m.EventType = &v }
+func (m *NoEvents) SetEventDate(v string) { m.EventDate = &v }
+func (m *NoEvents) SetEventPx(v float64)  { m.EventPx = &v }
+func (m *NoEvents) SetEventText(v string) { m.EventText = &v }
 
 //Instrument is a fix44 Component
 type Instrument struct {

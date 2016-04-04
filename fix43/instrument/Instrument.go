@@ -13,6 +13,9 @@ type NoSecurityAltID struct {
 	SecurityAltIDSource *string `fix:"456"`
 }
 
+func (m *NoSecurityAltID) SetSecurityAltID(v string)       { m.SecurityAltID = &v }
+func (m *NoSecurityAltID) SetSecurityAltIDSource(v string) { m.SecurityAltIDSource = &v }
+
 //Instrument is a fix43 Component
 type Instrument struct {
 	//Symbol is a non-required field for Instrument.

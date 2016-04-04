@@ -23,6 +23,12 @@ type NoFills struct {
 	FillLiquidityInd *int `fix:"1443"`
 }
 
+func (m *NoFills) SetFillExecID(v string)                            { m.FillExecID = &v }
+func (m *NoFills) SetFillPx(v float64)                               { m.FillPx = &v }
+func (m *NoFills) SetFillQty(v float64)                              { m.FillQty = &v }
+func (m *NoFills) SetNestedParties4(v nestedparties4.NestedParties4) { m.NestedParties4 = &v }
+func (m *NoFills) SetFillLiquidityInd(v int)                         { m.FillLiquidityInd = &v }
+
 //FillsGrp is a fix50sp2 Component
 type FillsGrp struct {
 	//NoFills is a non-required field for FillsGrp.

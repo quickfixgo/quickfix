@@ -59,6 +59,31 @@ type NoSettlInst struct {
 	SettlCurrency *string `fix:"120"`
 }
 
+func (m *NoSettlInst) SetSettlInstID(v string)        { m.SettlInstID = &v }
+func (m *NoSettlInst) SetSettlInstTransType(v string) { m.SettlInstTransType = &v }
+func (m *NoSettlInst) SetSettlInstRefID(v string)     { m.SettlInstRefID = &v }
+func (m *NoSettlInst) SetParties(v parties.Parties)   { m.Parties = &v }
+func (m *NoSettlInst) SetSide(v string)               { m.Side = &v }
+func (m *NoSettlInst) SetProduct(v int)               { m.Product = &v }
+func (m *NoSettlInst) SetSecurityType(v string)       { m.SecurityType = &v }
+func (m *NoSettlInst) SetCFICode(v string)            { m.CFICode = &v }
+func (m *NoSettlInst) SetEffectiveTime(v time.Time)   { m.EffectiveTime = &v }
+func (m *NoSettlInst) SetExpireTime(v time.Time)      { m.ExpireTime = &v }
+func (m *NoSettlInst) SetLastUpdateTime(v time.Time)  { m.LastUpdateTime = &v }
+func (m *NoSettlInst) SetSettlInstructionsData(v settlinstructionsdata.SettlInstructionsData) {
+	m.SettlInstructionsData = &v
+}
+func (m *NoSettlInst) SetPaymentMethod(v int)        { m.PaymentMethod = &v }
+func (m *NoSettlInst) SetPaymentRef(v string)        { m.PaymentRef = &v }
+func (m *NoSettlInst) SetCardHolderName(v string)    { m.CardHolderName = &v }
+func (m *NoSettlInst) SetCardNumber(v string)        { m.CardNumber = &v }
+func (m *NoSettlInst) SetCardStartDate(v string)     { m.CardStartDate = &v }
+func (m *NoSettlInst) SetCardExpDate(v string)       { m.CardExpDate = &v }
+func (m *NoSettlInst) SetCardIssNum(v string)        { m.CardIssNum = &v }
+func (m *NoSettlInst) SetPaymentDate(v string)       { m.PaymentDate = &v }
+func (m *NoSettlInst) SetPaymentRemitterID(v string) { m.PaymentRemitterID = &v }
+func (m *NoSettlInst) SetSettlCurrency(v string)     { m.SettlCurrency = &v }
+
 //SettlInstGrp is a fix50 Component
 type SettlInstGrp struct {
 	//NoSettlInst is a non-required field for SettlInstGrp.

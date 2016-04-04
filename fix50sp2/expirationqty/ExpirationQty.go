@@ -13,6 +13,9 @@ type NoExpiration struct {
 	ExpQty *float64 `fix:"983"`
 }
 
+func (m *NoExpiration) SetExpirationQtyType(v int) { m.ExpirationQtyType = &v }
+func (m *NoExpiration) SetExpQty(v float64)        { m.ExpQty = &v }
+
 //ExpirationQty is a fix50sp2 Component
 type ExpirationQty struct {
 	//NoExpiration is a non-required field for ExpirationQty.

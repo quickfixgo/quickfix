@@ -21,6 +21,15 @@ type NoMaturityRules struct {
 	MaturityMonthYearIncrement *int `fix:"1229"`
 }
 
+func (m *NoMaturityRules) SetMaturityRuleID(v string)       { m.MaturityRuleID = &v }
+func (m *NoMaturityRules) SetMaturityMonthYearFormat(v int) { m.MaturityMonthYearFormat = &v }
+func (m *NoMaturityRules) SetMaturityMonthYearIncrementUnits(v int) {
+	m.MaturityMonthYearIncrementUnits = &v
+}
+func (m *NoMaturityRules) SetStartMaturityMonthYear(v string)  { m.StartMaturityMonthYear = &v }
+func (m *NoMaturityRules) SetEndMaturityMonthYear(v string)    { m.EndMaturityMonthYear = &v }
+func (m *NoMaturityRules) SetMaturityMonthYearIncrement(v int) { m.MaturityMonthYearIncrement = &v }
+
 //MaturityRules is a fix50sp2 Component
 type MaturityRules struct {
 	//NoMaturityRules is a non-required field for MaturityRules.

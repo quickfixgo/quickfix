@@ -13,6 +13,13 @@ type NoDerivativeInstrAttrib struct {
 	DerivativeInstrAttribValue *string `fix:"1314"`
 }
 
+func (m *NoDerivativeInstrAttrib) SetDerivativeInstrAttribType(v int) {
+	m.DerivativeInstrAttribType = &v
+}
+func (m *NoDerivativeInstrAttrib) SetDerivativeInstrAttribValue(v string) {
+	m.DerivativeInstrAttribValue = &v
+}
+
 //DerivativeInstrumentAttribute is a fix50sp2 Component
 type DerivativeInstrumentAttribute struct {
 	//NoDerivativeInstrAttrib is a non-required field for DerivativeInstrumentAttribute.

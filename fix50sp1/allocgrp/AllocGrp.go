@@ -85,6 +85,43 @@ type NoAllocs struct {
 	ClearingFeeIndicator *string `fix:"635"`
 }
 
+func (m *NoAllocs) SetAllocAccount(v string)                          { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)                        { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetMatchStatus(v string)                           { m.MatchStatus = &v }
+func (m *NoAllocs) SetAllocPrice(v float64)                           { m.AllocPrice = &v }
+func (m *NoAllocs) SetAllocQty(v float64)                             { m.AllocQty = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)                     { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetProcessCode(v string)                           { m.ProcessCode = &v }
+func (m *NoAllocs) SetNestedParties(v nestedparties.NestedParties)    { m.NestedParties = &v }
+func (m *NoAllocs) SetNotifyBrokerOfCredit(v bool)                    { m.NotifyBrokerOfCredit = &v }
+func (m *NoAllocs) SetAllocHandlInst(v int)                           { m.AllocHandlInst = &v }
+func (m *NoAllocs) SetAllocText(v string)                             { m.AllocText = &v }
+func (m *NoAllocs) SetEncodedAllocTextLen(v int)                      { m.EncodedAllocTextLen = &v }
+func (m *NoAllocs) SetEncodedAllocText(v string)                      { m.EncodedAllocText = &v }
+func (m *NoAllocs) SetCommissionData(v commissiondata.CommissionData) { m.CommissionData = &v }
+func (m *NoAllocs) SetAllocAvgPx(v float64)                           { m.AllocAvgPx = &v }
+func (m *NoAllocs) SetAllocNetMoney(v float64)                        { m.AllocNetMoney = &v }
+func (m *NoAllocs) SetSettlCurrAmt(v float64)                         { m.SettlCurrAmt = &v }
+func (m *NoAllocs) SetAllocSettlCurrAmt(v float64)                    { m.AllocSettlCurrAmt = &v }
+func (m *NoAllocs) SetSettlCurrency(v string)                         { m.SettlCurrency = &v }
+func (m *NoAllocs) SetAllocSettlCurrency(v string)                    { m.AllocSettlCurrency = &v }
+func (m *NoAllocs) SetSettlCurrFxRate(v float64)                      { m.SettlCurrFxRate = &v }
+func (m *NoAllocs) SetSettlCurrFxRateCalc(v string)                   { m.SettlCurrFxRateCalc = &v }
+func (m *NoAllocs) SetAllocAccruedInterestAmt(v float64)              { m.AllocAccruedInterestAmt = &v }
+func (m *NoAllocs) SetAllocInterestAtMaturity(v float64)              { m.AllocInterestAtMaturity = &v }
+func (m *NoAllocs) SetMiscFeesGrp(v miscfeesgrp.MiscFeesGrp)          { m.MiscFeesGrp = &v }
+func (m *NoAllocs) SetClrInstGrp(v clrinstgrp.ClrInstGrp)             { m.ClrInstGrp = &v }
+func (m *NoAllocs) SetAllocSettlInstType(v int)                       { m.AllocSettlInstType = &v }
+func (m *NoAllocs) SetSettlInstructionsData(v settlinstructionsdata.SettlInstructionsData) {
+	m.SettlInstructionsData = &v
+}
+func (m *NoAllocs) SetSecondaryIndividualAllocID(v string) { m.SecondaryIndividualAllocID = &v }
+func (m *NoAllocs) SetAllocMethod(v int)                   { m.AllocMethod = &v }
+func (m *NoAllocs) SetAllocCustomerCapacity(v string)      { m.AllocCustomerCapacity = &v }
+func (m *NoAllocs) SetIndividualAllocType(v int)           { m.IndividualAllocType = &v }
+func (m *NoAllocs) SetAllocPositionEffect(v string)        { m.AllocPositionEffect = &v }
+func (m *NoAllocs) SetClearingFeeIndicator(v string)       { m.ClearingFeeIndicator = &v }
+
 //AllocGrp is a fix50sp1 Component
 type AllocGrp struct {
 	//NoAllocs is a non-required field for AllocGrp.

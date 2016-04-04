@@ -21,6 +21,13 @@ type NoInstrumentParties struct {
 	InstrumentPtysSubGrp *instrumentptyssubgrp.InstrumentPtysSubGrp
 }
 
+func (m *NoInstrumentParties) SetInstrumentPartyID(v string)       { m.InstrumentPartyID = &v }
+func (m *NoInstrumentParties) SetInstrumentPartyIDSource(v string) { m.InstrumentPartyIDSource = &v }
+func (m *NoInstrumentParties) SetInstrumentPartyRole(v int)        { m.InstrumentPartyRole = &v }
+func (m *NoInstrumentParties) SetInstrumentPtysSubGrp(v instrumentptyssubgrp.InstrumentPtysSubGrp) {
+	m.InstrumentPtysSubGrp = &v
+}
+
 //InstrumentParties is a fix50 Component
 type InstrumentParties struct {
 	//NoInstrumentParties is a non-required field for InstrumentParties.

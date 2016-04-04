@@ -53,16 +53,6 @@ func collectGroups(parent string, part datadictionary.MessagePart, groups []grou
 	return groups
 }
 
-func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
-	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
-	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
-	fileOut += gen.WriteFieldDeclarations(fixSpec.Major, fixSpec.Minor, field.Parts, field.Name())
-
-	fileOut += "}\n"
-
-	return
-}
-
 func genGroupDeclarations(name string, fields []datadictionary.MessagePart) (fileOut string) {
 	groups := []group{}
 	for _, field := range fields {
@@ -70,7 +60,7 @@ func genGroupDeclarations(name string, fields []datadictionary.MessagePart) (fil
 	}
 
 	for _, group := range groups {
-		fileOut += genGroupDeclaration(group.field, group.parent)
+		fileOut += gen.WriteGroupDeclaration(fixSpec.Major, fixSpec.Minor, group.field, group.parent)
 	}
 
 	return

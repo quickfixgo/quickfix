@@ -16,6 +16,10 @@ type NoCapacities struct {
 	OrderCapacityQty float64 `fix:"863"`
 }
 
+func (m *NoCapacities) SetOrderCapacity(v string)     { m.OrderCapacity = v }
+func (m *NoCapacities) SetOrderRestrictions(v string) { m.OrderRestrictions = &v }
+func (m *NoCapacities) SetOrderCapacityQty(v float64) { m.OrderCapacityQty = v }
+
 //CpctyConfGrp is a fix50sp2 Component
 type CpctyConfGrp struct {
 	//NoCapacities is a required field for CpctyConfGrp.

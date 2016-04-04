@@ -13,6 +13,13 @@ type NoDerivativeSecurityAltID struct {
 	DerivativeSecurityAltIDSource *string `fix:"1220"`
 }
 
+func (m *NoDerivativeSecurityAltID) SetDerivativeSecurityAltID(v string) {
+	m.DerivativeSecurityAltID = &v
+}
+func (m *NoDerivativeSecurityAltID) SetDerivativeSecurityAltIDSource(v string) {
+	m.DerivativeSecurityAltIDSource = &v
+}
+
 //DerivativeSecurityAltIDGrp is a fix50sp2 Component
 type DerivativeSecurityAltIDGrp struct {
 	//NoDerivativeSecurityAltID is a non-required field for DerivativeSecurityAltIDGrp.

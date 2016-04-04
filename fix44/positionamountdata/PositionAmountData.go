@@ -13,6 +13,9 @@ type NoPosAmt struct {
 	PosAmt *float64 `fix:"708"`
 }
 
+func (m *NoPosAmt) SetPosAmtType(v string) { m.PosAmtType = &v }
+func (m *NoPosAmt) SetPosAmt(v float64)    { m.PosAmt = &v }
+
 //PositionAmountData is a fix44 Component
 type PositionAmountData struct {
 	//NoPosAmt is a non-required field for PositionAmountData.

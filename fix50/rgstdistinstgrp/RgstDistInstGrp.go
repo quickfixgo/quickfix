@@ -25,6 +25,15 @@ type NoDistribInsts struct {
 	CashDistribAgentAcctName *string `fix:"502"`
 }
 
+func (m *NoDistribInsts) SetDistribPaymentMethod(v int)          { m.DistribPaymentMethod = &v }
+func (m *NoDistribInsts) SetDistribPercentage(v float64)         { m.DistribPercentage = &v }
+func (m *NoDistribInsts) SetCashDistribCurr(v string)            { m.CashDistribCurr = &v }
+func (m *NoDistribInsts) SetCashDistribAgentName(v string)       { m.CashDistribAgentName = &v }
+func (m *NoDistribInsts) SetCashDistribAgentCode(v string)       { m.CashDistribAgentCode = &v }
+func (m *NoDistribInsts) SetCashDistribAgentAcctNumber(v string) { m.CashDistribAgentAcctNumber = &v }
+func (m *NoDistribInsts) SetCashDistribPayRef(v string)          { m.CashDistribPayRef = &v }
+func (m *NoDistribInsts) SetCashDistribAgentAcctName(v string)   { m.CashDistribAgentAcctName = &v }
+
 //RgstDistInstGrp is a fix50 Component
 type RgstDistInstGrp struct {
 	//NoDistribInsts is a non-required field for RgstDistInstGrp.

@@ -21,6 +21,11 @@ type NoRootPartyIDs struct {
 	RootSubParties *rootsubparties.RootSubParties
 }
 
+func (m *NoRootPartyIDs) SetRootPartyID(v string)                           { m.RootPartyID = &v }
+func (m *NoRootPartyIDs) SetRootPartyIDSource(v string)                     { m.RootPartyIDSource = &v }
+func (m *NoRootPartyIDs) SetRootPartyRole(v int)                            { m.RootPartyRole = &v }
+func (m *NoRootPartyIDs) SetRootSubParties(v rootsubparties.RootSubParties) { m.RootSubParties = &v }
+
 //RootParties is a fix50 Component
 type RootParties struct {
 	//NoRootPartyIDs is a non-required field for RootParties.

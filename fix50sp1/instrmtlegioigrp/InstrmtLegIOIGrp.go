@@ -20,6 +20,10 @@ type NoLegs struct {
 	LegStipulations *legstipulations.LegStipulations
 }
 
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegIOIQty(v string)                                { m.LegIOIQty = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
+
 //InstrmtLegIOIGrp is a fix50sp1 Component
 type InstrmtLegIOIGrp struct {
 	//NoLegs is a non-required field for InstrmtLegIOIGrp.

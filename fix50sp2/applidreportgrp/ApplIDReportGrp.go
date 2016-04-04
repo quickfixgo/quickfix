@@ -15,6 +15,10 @@ type NoApplIDs struct {
 	RefApplLastSeqNum *int `fix:"1357"`
 }
 
+func (m *NoApplIDs) SetRefApplID(v string)      { m.RefApplID = &v }
+func (m *NoApplIDs) SetApplNewSeqNum(v int)     { m.ApplNewSeqNum = &v }
+func (m *NoApplIDs) SetRefApplLastSeqNum(v int) { m.RefApplLastSeqNum = &v }
+
 //ApplIDReportGrp is a fix50sp2 Component
 type ApplIDReportGrp struct {
 	//NoApplIDs is a non-required field for ApplIDReportGrp.

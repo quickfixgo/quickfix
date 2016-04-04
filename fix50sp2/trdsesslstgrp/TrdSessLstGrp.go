@@ -61,6 +61,32 @@ type NoTradingSessions struct {
 	TradSesUpdateAction *string `fix:"1327"`
 }
 
+func (m *NoTradingSessions) SetTradingSessionID(v string)       { m.TradingSessionID = v }
+func (m *NoTradingSessions) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }
+func (m *NoTradingSessions) SetSecurityExchange(v string)       { m.SecurityExchange = &v }
+func (m *NoTradingSessions) SetTradSesMethod(v int)             { m.TradSesMethod = &v }
+func (m *NoTradingSessions) SetTradSesMode(v int)               { m.TradSesMode = &v }
+func (m *NoTradingSessions) SetUnsolicitedIndicator(v bool)     { m.UnsolicitedIndicator = &v }
+func (m *NoTradingSessions) SetTradSesStatus(v int)             { m.TradSesStatus = v }
+func (m *NoTradingSessions) SetTradSesStatusRejReason(v int)    { m.TradSesStatusRejReason = &v }
+func (m *NoTradingSessions) SetTradSesStartTime(v time.Time)    { m.TradSesStartTime = &v }
+func (m *NoTradingSessions) SetTradSesOpenTime(v time.Time)     { m.TradSesOpenTime = &v }
+func (m *NoTradingSessions) SetTradSesPreCloseTime(v time.Time) { m.TradSesPreCloseTime = &v }
+func (m *NoTradingSessions) SetTradSesCloseTime(v time.Time)    { m.TradSesCloseTime = &v }
+func (m *NoTradingSessions) SetTradSesEndTime(v time.Time)      { m.TradSesEndTime = &v }
+func (m *NoTradingSessions) SetTotalVolumeTraded(v float64)     { m.TotalVolumeTraded = &v }
+func (m *NoTradingSessions) SetText(v string)                   { m.Text = &v }
+func (m *NoTradingSessions) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *NoTradingSessions) SetEncodedText(v string)            { m.EncodedText = &v }
+func (m *NoTradingSessions) SetMarketID(v string)               { m.MarketID = &v }
+func (m *NoTradingSessions) SetMarketSegmentID(v string)        { m.MarketSegmentID = &v }
+func (m *NoTradingSessions) SetTradingSessionDesc(v string)     { m.TradingSessionDesc = &v }
+func (m *NoTradingSessions) SetTradingSessionRules(v tradingsessionrules.TradingSessionRules) {
+	m.TradingSessionRules = &v
+}
+func (m *NoTradingSessions) SetTransactTime(v time.Time)     { m.TransactTime = &v }
+func (m *NoTradingSessions) SetTradSesUpdateAction(v string) { m.TradSesUpdateAction = &v }
+
 //TrdSessLstGrp is a fix50sp2 Component
 type TrdSessLstGrp struct {
 	//NoTradingSessions is a required field for TrdSessLstGrp.

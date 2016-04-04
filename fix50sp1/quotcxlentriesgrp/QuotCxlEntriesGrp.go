@@ -24,6 +24,13 @@ type NoQuoteEntries struct {
 	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
 }
 
+func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoQuoteEntries) SetFinancingDetails(v financingdetails.FinancingDetails) {
+	m.FinancingDetails = &v
+}
+func (m *NoQuoteEntries) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *NoQuoteEntries) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+
 //QuotCxlEntriesGrp is a fix50sp1 Component
 type QuotCxlEntriesGrp struct {
 	//NoQuoteEntries is a non-required field for QuotCxlEntriesGrp.

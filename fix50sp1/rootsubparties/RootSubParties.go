@@ -13,6 +13,9 @@ type NoRootPartySubIDs struct {
 	RootPartySubIDType *int `fix:"1122"`
 }
 
+func (m *NoRootPartySubIDs) SetRootPartySubID(v string)  { m.RootPartySubID = &v }
+func (m *NoRootPartySubIDs) SetRootPartySubIDType(v int) { m.RootPartySubIDType = &v }
+
 //RootSubParties is a fix50sp1 Component
 type RootSubParties struct {
 	//NoRootPartySubIDs is a non-required field for RootSubParties.

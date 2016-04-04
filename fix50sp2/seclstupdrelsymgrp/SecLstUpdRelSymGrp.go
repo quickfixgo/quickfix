@@ -55,6 +55,33 @@ type NoRelatedSym struct {
 	RelSymTransactTime *time.Time `fix:"1504"`
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoRelatedSym) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
+	m.InstrumentExtension = &v
+}
+func (m *NoRelatedSym) SetFinancingDetails(v financingdetails.FinancingDetails) {
+	m.FinancingDetails = &v
+}
+func (m *NoRelatedSym) SetSecLstUpdRelSymsLegGrp(v seclstupdrelsymsleggrp.SecLstUpdRelSymsLegGrp) {
+	m.SecLstUpdRelSymsLegGrp = &v
+}
+func (m *NoRelatedSym) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *NoRelatedSym) SetYieldData(v yielddata.YieldData)             { m.YieldData = &v }
+func (m *NoRelatedSym) SetText(v string)                               { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)                        { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)                        { m.EncodedText = &v }
+func (m *NoRelatedSym) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *NoRelatedSym) SetCurrency(v string)                           { m.Currency = &v }
+func (m *NoRelatedSym) SetStipulations(v stipulations.Stipulations)    { m.Stipulations = &v }
+func (m *NoRelatedSym) SetListUpdateAction(v string)                   { m.ListUpdateAction = &v }
+func (m *NoRelatedSym) SetSecurityTradingRules(v securitytradingrules.SecurityTradingRules) {
+	m.SecurityTradingRules = &v
+}
+func (m *NoRelatedSym) SetStrikeRules(v strikerules.StrikeRules) { m.StrikeRules = &v }
+func (m *NoRelatedSym) SetRelSymTransactTime(v time.Time)        { m.RelSymTransactTime = &v }
+
 //SecLstUpdRelSymGrp is a fix50sp2 Component
 type SecLstUpdRelSymGrp struct {
 	//NoRelatedSym is a non-required field for SecLstUpdRelSymGrp.

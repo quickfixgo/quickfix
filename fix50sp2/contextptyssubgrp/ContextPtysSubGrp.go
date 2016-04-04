@@ -13,6 +13,9 @@ type NoContextPartySubIDs struct {
 	ContextPartySubIDType *int `fix:"1528"`
 }
 
+func (m *NoContextPartySubIDs) SetContextPartySubID(v string)  { m.ContextPartySubID = &v }
+func (m *NoContextPartySubIDs) SetContextPartySubIDType(v int) { m.ContextPartySubIDType = &v }
+
 //ContextPtysSubGrp is a fix50sp2 Component
 type ContextPtysSubGrp struct {
 	//NoContextPartySubIDs is a non-required field for ContextPtysSubGrp.

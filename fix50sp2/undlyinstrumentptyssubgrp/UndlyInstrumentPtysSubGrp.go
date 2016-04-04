@@ -13,6 +13,13 @@ type NoUndlyInstrumentPartySubIDs struct {
 	UnderlyingInstrumentPartySubIDType *int `fix:"1064"`
 }
 
+func (m *NoUndlyInstrumentPartySubIDs) SetUnderlyingInstrumentPartySubID(v string) {
+	m.UnderlyingInstrumentPartySubID = &v
+}
+func (m *NoUndlyInstrumentPartySubIDs) SetUnderlyingInstrumentPartySubIDType(v int) {
+	m.UnderlyingInstrumentPartySubIDType = &v
+}
+
 //UndlyInstrumentPtysSubGrp is a fix50sp2 Component
 type UndlyInstrumentPtysSubGrp struct {
 	//NoUndlyInstrumentPartySubIDs is a non-required field for UndlyInstrumentPtysSubGrp.

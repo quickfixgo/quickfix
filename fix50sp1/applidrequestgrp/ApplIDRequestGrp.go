@@ -15,6 +15,10 @@ type NoApplIDs struct {
 	ApplEndSeqNum *int `fix:"1183"`
 }
 
+func (m *NoApplIDs) SetRefApplID(v string)  { m.RefApplID = &v }
+func (m *NoApplIDs) SetApplBegSeqNum(v int) { m.ApplBegSeqNum = &v }
+func (m *NoApplIDs) SetApplEndSeqNum(v int) { m.ApplEndSeqNum = &v }
+
 //ApplIDRequestGrp is a fix50sp1 Component
 type ApplIDRequestGrp struct {
 	//NoApplIDs is a non-required field for ApplIDRequestGrp.
