@@ -18,6 +18,11 @@ type NoAsgnReqs struct {
 	StrmAsgnRptInstrmtGrp *strmasgnrptinstrmtgrp.StrmAsgnRptInstrmtGrp
 }
 
+func (m *NoAsgnReqs) SetParties(v parties.Parties) { m.Parties = &v }
+func (m *NoAsgnReqs) SetStrmAsgnRptInstrmtGrp(v strmasgnrptinstrmtgrp.StrmAsgnRptInstrmtGrp) {
+	m.StrmAsgnRptInstrmtGrp = &v
+}
+
 //StrmAsgnRptGrp is a fix50sp2 Component
 type StrmAsgnRptGrp struct {
 	//NoAsgnReqs is a non-required field for StrmAsgnRptGrp.

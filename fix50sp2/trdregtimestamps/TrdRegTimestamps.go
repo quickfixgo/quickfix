@@ -25,6 +25,13 @@ type NoTrdRegTimestamps struct {
 	DeskOrderHandlingInst *string `fix:"1035"`
 }
 
+func (m *NoTrdRegTimestamps) SetTrdRegTimestamp(v time.Time)    { m.TrdRegTimestamp = &v }
+func (m *NoTrdRegTimestamps) SetTrdRegTimestampType(v int)      { m.TrdRegTimestampType = &v }
+func (m *NoTrdRegTimestamps) SetTrdRegTimestampOrigin(v string) { m.TrdRegTimestampOrigin = &v }
+func (m *NoTrdRegTimestamps) SetDeskType(v string)              { m.DeskType = &v }
+func (m *NoTrdRegTimestamps) SetDeskTypeSource(v int)           { m.DeskTypeSource = &v }
+func (m *NoTrdRegTimestamps) SetDeskOrderHandlingInst(v string) { m.DeskOrderHandlingInst = &v }
+
 //TrdRegTimestamps is a fix50sp2 Component
 type TrdRegTimestamps struct {
 	//NoTrdRegTimestamps is a non-required field for TrdRegTimestamps.

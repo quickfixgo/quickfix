@@ -15,6 +15,8 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
+
 //InstrmtLegGrp is a fix50sp2 Component
 type InstrmtLegGrp struct {
 	//NoLegs is a non-required field for InstrmtLegGrp.

@@ -17,6 +17,13 @@ type NoUnderlyingAmounts struct {
 	UnderlyingSettlementStatus *string `fix:"988"`
 }
 
+func (m *NoUnderlyingAmounts) SetUnderlyingPayAmount(v float64)     { m.UnderlyingPayAmount = &v }
+func (m *NoUnderlyingAmounts) SetUnderlyingCollectAmount(v float64) { m.UnderlyingCollectAmount = &v }
+func (m *NoUnderlyingAmounts) SetUnderlyingSettlementDate(v string) { m.UnderlyingSettlementDate = &v }
+func (m *NoUnderlyingAmounts) SetUnderlyingSettlementStatus(v string) {
+	m.UnderlyingSettlementStatus = &v
+}
+
 //UnderlyingAmount is a fix50 Component
 type UnderlyingAmount struct {
 	//NoUnderlyingAmounts is a non-required field for UnderlyingAmount.

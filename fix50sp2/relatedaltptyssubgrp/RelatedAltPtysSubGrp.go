@@ -13,6 +13,9 @@ type NoRelatedPartyAltSubIDs struct {
 	RelatedPartyAltSubIDType *int `fix:"1574"`
 }
 
+func (m *NoRelatedPartyAltSubIDs) SetRelatedPartyAltSubID(v string)  { m.RelatedPartyAltSubID = &v }
+func (m *NoRelatedPartyAltSubIDs) SetRelatedPartyAltSubIDType(v int) { m.RelatedPartyAltSubIDType = &v }
+
 //RelatedAltPtysSubGrp is a fix50sp2 Component
 type RelatedAltPtysSubGrp struct {
 	//NoRelatedPartyAltSubIDs is a non-required field for RelatedAltPtysSubGrp.

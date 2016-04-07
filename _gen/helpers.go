@@ -1,6 +1,7 @@
 package gen
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"strconv"
@@ -160,6 +161,23 @@ func WriteFieldDeclarations(fixSpecMajor int, fixSpecMinor int, parts []datadict
 	for _, part := range parts {
 		s += writeFieldDeclaration(fixSpecMajor, fixSpecMinor, part, componentName)
 	}
+	return
+}
+
+func WriteGroupDeclaration(fixSpecMajor, fixSpecMinor int, field *datadictionary.FieldDef, parent string) (fileOut string) {
+	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
+	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
+	fileOut += WriteFieldDeclarations(fixSpecMajor, fixSpecMinor, field.Parts, field.Name())
+
+	fileOut += "}\n"
+
+	writer := new(bytes.Buffer)
+	if err := WriteFieldSetters(writer, field.Name(), field.Parts); err != nil {
+		panic(err)
+	}
+	fileOut += writer.String()
+	fileOut += "\n"
+
 	return
 }
 

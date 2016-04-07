@@ -17,6 +17,11 @@ type NoTickRules struct {
 	TickRuleType *int `fix:"1209"`
 }
 
+func (m *NoTickRules) SetStartTickPriceRange(v float64) { m.StartTickPriceRange = &v }
+func (m *NoTickRules) SetEndTickPriceRange(v float64)   { m.EndTickPriceRange = &v }
+func (m *NoTickRules) SetTickIncrement(v float64)       { m.TickIncrement = &v }
+func (m *NoTickRules) SetTickRuleType(v int)            { m.TickRuleType = &v }
+
 //TickRules is a fix50sp2 Component
 type TickRules struct {
 	//NoTickRules is a non-required field for TickRules.

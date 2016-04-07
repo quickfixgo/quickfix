@@ -151,6 +151,73 @@ type NoSides struct {
 	SideLiquidityInd *int `fix:"1444"`
 }
 
+func (m *NoSides) SetSide(v string)                                  { m.Side = v }
+func (m *NoSides) SetParties(v parties.Parties)                      { m.Parties = &v }
+func (m *NoSides) SetAccount(v string)                               { m.Account = &v }
+func (m *NoSides) SetAcctIDSource(v int)                             { m.AcctIDSource = &v }
+func (m *NoSides) SetAccountType(v int)                              { m.AccountType = &v }
+func (m *NoSides) SetProcessCode(v string)                           { m.ProcessCode = &v }
+func (m *NoSides) SetOddLot(v bool)                                  { m.OddLot = &v }
+func (m *NoSides) SetClrInstGrp(v clrinstgrp.ClrInstGrp)             { m.ClrInstGrp = &v }
+func (m *NoSides) SetTradeInputSource(v string)                      { m.TradeInputSource = &v }
+func (m *NoSides) SetTradeInputDevice(v string)                      { m.TradeInputDevice = &v }
+func (m *NoSides) SetComplianceID(v string)                          { m.ComplianceID = &v }
+func (m *NoSides) SetSolicitedFlag(v bool)                           { m.SolicitedFlag = &v }
+func (m *NoSides) SetCustOrderCapacity(v int)                        { m.CustOrderCapacity = &v }
+func (m *NoSides) SetTradingSessionID(v string)                      { m.TradingSessionID = &v }
+func (m *NoSides) SetTradingSessionSubID(v string)                   { m.TradingSessionSubID = &v }
+func (m *NoSides) SetTimeBracket(v string)                           { m.TimeBracket = &v }
+func (m *NoSides) SetCommissionData(v commissiondata.CommissionData) { m.CommissionData = &v }
+func (m *NoSides) SetNumDaysInterest(v int)                          { m.NumDaysInterest = &v }
+func (m *NoSides) SetExDate(v string)                                { m.ExDate = &v }
+func (m *NoSides) SetAccruedInterestRate(v float64)                  { m.AccruedInterestRate = &v }
+func (m *NoSides) SetAccruedInterestAmt(v float64)                   { m.AccruedInterestAmt = &v }
+func (m *NoSides) SetInterestAtMaturity(v float64)                   { m.InterestAtMaturity = &v }
+func (m *NoSides) SetEndAccruedInterestAmt(v float64)                { m.EndAccruedInterestAmt = &v }
+func (m *NoSides) SetStartCash(v float64)                            { m.StartCash = &v }
+func (m *NoSides) SetEndCash(v float64)                              { m.EndCash = &v }
+func (m *NoSides) SetConcession(v float64)                           { m.Concession = &v }
+func (m *NoSides) SetTotalTakedown(v float64)                        { m.TotalTakedown = &v }
+func (m *NoSides) SetNetMoney(v float64)                             { m.NetMoney = &v }
+func (m *NoSides) SetSettlCurrAmt(v float64)                         { m.SettlCurrAmt = &v }
+func (m *NoSides) SetSettlCurrFxRate(v float64)                      { m.SettlCurrFxRate = &v }
+func (m *NoSides) SetSettlCurrFxRateCalc(v string)                   { m.SettlCurrFxRateCalc = &v }
+func (m *NoSides) SetPositionEffect(v string)                        { m.PositionEffect = &v }
+func (m *NoSides) SetText(v string)                                  { m.Text = &v }
+func (m *NoSides) SetEncodedTextLen(v int)                           { m.EncodedTextLen = &v }
+func (m *NoSides) SetEncodedText(v string)                           { m.EncodedText = &v }
+func (m *NoSides) SetSideMultiLegReportingType(v int)                { m.SideMultiLegReportingType = &v }
+func (m *NoSides) SetContAmtGrp(v contamtgrp.ContAmtGrp)             { m.ContAmtGrp = &v }
+func (m *NoSides) SetStipulations(v stipulations.Stipulations)       { m.Stipulations = &v }
+func (m *NoSides) SetMiscFeesGrp(v miscfeesgrp.MiscFeesGrp)          { m.MiscFeesGrp = &v }
+func (m *NoSides) SetExchangeRule(v string)                          { m.ExchangeRule = &v }
+func (m *NoSides) SetTradeAllocIndicator(v int)                      { m.TradeAllocIndicator = &v }
+func (m *NoSides) SetPreallocMethod(v string)                        { m.PreallocMethod = &v }
+func (m *NoSides) SetAllocID(v string)                               { m.AllocID = &v }
+func (m *NoSides) SetTrdAllocGrp(v trdallocgrp.TrdAllocGrp)          { m.TrdAllocGrp = &v }
+func (m *NoSides) SetSideLastQty(v int)                              { m.SideLastQty = &v }
+func (m *NoSides) SetSideTradeReportID(v string)                     { m.SideTradeReportID = &v }
+func (m *NoSides) SetSideFillStationCd(v string)                     { m.SideFillStationCd = &v }
+func (m *NoSides) SetSideReasonCd(v string)                          { m.SideReasonCd = &v }
+func (m *NoSides) SetRptSeq(v int)                                   { m.RptSeq = &v }
+func (m *NoSides) SetSideTrdSubTyp(v int)                            { m.SideTrdSubTyp = &v }
+func (m *NoSides) SetSideTrdRegTS(v sidetrdregts.SideTrdRegTS)       { m.SideTrdRegTS = &v }
+func (m *NoSides) SetSideGrossTradeAmt(v float64)                    { m.SideGrossTradeAmt = &v }
+func (m *NoSides) SetAggressorIndicator(v bool)                      { m.AggressorIndicator = &v }
+func (m *NoSides) SetExchangeSpecialInstructions(v string)           { m.ExchangeSpecialInstructions = &v }
+func (m *NoSides) SetNetGrossInd(v int)                              { m.NetGrossInd = &v }
+func (m *NoSides) SetSideCurrency(v string)                          { m.SideCurrency = &v }
+func (m *NoSides) SetSideSettlCurrency(v string)                     { m.SideSettlCurrency = &v }
+func (m *NoSides) SetSettlDetails(v settldetails.SettlDetails)       { m.SettlDetails = &v }
+func (m *NoSides) SetOrderCategory(v string)                         { m.OrderCategory = &v }
+func (m *NoSides) SetTradeReportOrderDetail(v tradereportorderdetail.TradeReportOrderDetail) {
+	m.TradeReportOrderDetail = &v
+}
+func (m *NoSides) SetSideExecID(v string)    { m.SideExecID = &v }
+func (m *NoSides) SetOrderDelay(v int)       { m.OrderDelay = &v }
+func (m *NoSides) SetOrderDelayUnit(v int)   { m.OrderDelayUnit = &v }
+func (m *NoSides) SetSideLiquidityInd(v int) { m.SideLiquidityInd = &v }
+
 //TrdCapRptSideGrp is a fix50sp2 Component
 type TrdCapRptSideGrp struct {
 	//NoSides is a required field for TrdCapRptSideGrp.

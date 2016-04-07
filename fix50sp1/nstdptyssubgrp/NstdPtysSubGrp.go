@@ -13,6 +13,9 @@ type NoNestedPartySubIDs struct {
 	NestedPartySubIDType *int `fix:"805"`
 }
 
+func (m *NoNestedPartySubIDs) SetNestedPartySubID(v string)  { m.NestedPartySubID = &v }
+func (m *NoNestedPartySubIDs) SetNestedPartySubIDType(v int) { m.NestedPartySubIDType = &v }
+
 //NstdPtysSubGrp is a fix50sp1 Component
 type NstdPtysSubGrp struct {
 	//NoNestedPartySubIDs is a non-required field for NstdPtysSubGrp.

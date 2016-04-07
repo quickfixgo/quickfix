@@ -21,6 +21,13 @@ type NoNested3PartyIDs struct {
 	NstdPtys3SubGrp *nstdptys3subgrp.NstdPtys3SubGrp
 }
 
+func (m *NoNested3PartyIDs) SetNested3PartyID(v string)       { m.Nested3PartyID = &v }
+func (m *NoNested3PartyIDs) SetNested3PartyIDSource(v string) { m.Nested3PartyIDSource = &v }
+func (m *NoNested3PartyIDs) SetNested3PartyRole(v int)        { m.Nested3PartyRole = &v }
+func (m *NoNested3PartyIDs) SetNstdPtys3SubGrp(v nstdptys3subgrp.NstdPtys3SubGrp) {
+	m.NstdPtys3SubGrp = &v
+}
+
 //NestedParties3 is a fix50 Component
 type NestedParties3 struct {
 	//NoNested3PartyIDs is a non-required field for NestedParties3.

@@ -46,6 +46,24 @@ type NoLegs struct {
 	LegOfferForwardPoints *float64 `fix:"1068"`
 }
 
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
+func (m *NoLegs) SetLegSettlType(v string)                             { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string)                             { m.LegSettlDate = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
+func (m *NoLegs) SetNestedParties(v nestedparties.NestedParties)       { m.NestedParties = &v }
+func (m *NoLegs) SetLegPriceType(v int)                                { m.LegPriceType = &v }
+func (m *NoLegs) SetLegBidPx(v float64)                                { m.LegBidPx = &v }
+func (m *NoLegs) SetLegOfferPx(v float64)                              { m.LegOfferPx = &v }
+func (m *NoLegs) SetLegBenchmarkCurveData(v legbenchmarkcurvedata.LegBenchmarkCurveData) {
+	m.LegBenchmarkCurveData = &v
+}
+func (m *NoLegs) SetLegOrderQty(v float64)           { m.LegOrderQty = &v }
+func (m *NoLegs) SetLegRefID(v string)               { m.LegRefID = &v }
+func (m *NoLegs) SetLegBidForwardPoints(v float64)   { m.LegBidForwardPoints = &v }
+func (m *NoLegs) SetLegOfferForwardPoints(v float64) { m.LegOfferForwardPoints = &v }
+
 //LegQuotGrp is a fix50sp1 Component
 type LegQuotGrp struct {
 	//NoLegs is a non-required field for LegQuotGrp.

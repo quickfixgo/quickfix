@@ -44,6 +44,22 @@ type NoBidComponents struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoBidComponents) SetCommissionData(v commissiondata.CommissionData) { m.CommissionData = v }
+func (m *NoBidComponents) SetListID(v string)                                { m.ListID = &v }
+func (m *NoBidComponents) SetCountry(v string)                               { m.Country = &v }
+func (m *NoBidComponents) SetSide(v string)                                  { m.Side = &v }
+func (m *NoBidComponents) SetPrice(v float64)                                { m.Price = &v }
+func (m *NoBidComponents) SetPriceType(v int)                                { m.PriceType = &v }
+func (m *NoBidComponents) SetFairValue(v float64)                            { m.FairValue = &v }
+func (m *NoBidComponents) SetNetGrossInd(v int)                              { m.NetGrossInd = &v }
+func (m *NoBidComponents) SetSettlType(v string)                             { m.SettlType = &v }
+func (m *NoBidComponents) SetSettlDate(v string)                             { m.SettlDate = &v }
+func (m *NoBidComponents) SetTradingSessionID(v string)                      { m.TradingSessionID = &v }
+func (m *NoBidComponents) SetTradingSessionSubID(v string)                   { m.TradingSessionSubID = &v }
+func (m *NoBidComponents) SetText(v string)                                  { m.Text = &v }
+func (m *NoBidComponents) SetEncodedTextLen(v int)                           { m.EncodedTextLen = &v }
+func (m *NoBidComponents) SetEncodedText(v string)                           { m.EncodedText = &v }
+
 //BidCompRspGrp is a fix50sp2 Component
 type BidCompRspGrp struct {
 	//NoBidComponents is a required field for BidCompRspGrp.

@@ -31,6 +31,18 @@ type NoBidDescriptors struct {
 	ValueOfFutures *float64 `fix:"408"`
 }
 
+func (m *NoBidDescriptors) SetBidDescriptorType(v int)      { m.BidDescriptorType = &v }
+func (m *NoBidDescriptors) SetBidDescriptor(v string)       { m.BidDescriptor = &v }
+func (m *NoBidDescriptors) SetSideValueInd(v int)           { m.SideValueInd = &v }
+func (m *NoBidDescriptors) SetLiquidityValue(v float64)     { m.LiquidityValue = &v }
+func (m *NoBidDescriptors) SetLiquidityNumSecurities(v int) { m.LiquidityNumSecurities = &v }
+func (m *NoBidDescriptors) SetLiquidityPctLow(v float64)    { m.LiquidityPctLow = &v }
+func (m *NoBidDescriptors) SetLiquidityPctHigh(v float64)   { m.LiquidityPctHigh = &v }
+func (m *NoBidDescriptors) SetEFPTrackingError(v float64)   { m.EFPTrackingError = &v }
+func (m *NoBidDescriptors) SetFairValue(v float64)          { m.FairValue = &v }
+func (m *NoBidDescriptors) SetOutsideIndexPct(v float64)    { m.OutsideIndexPct = &v }
+func (m *NoBidDescriptors) SetValueOfFutures(v float64)     { m.ValueOfFutures = &v }
+
 //BidDescReqGrp is a fix50sp1 Component
 type BidDescReqGrp struct {
 	//NoBidDescriptors is a non-required field for BidDescReqGrp.

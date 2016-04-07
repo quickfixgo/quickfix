@@ -45,6 +45,21 @@ type NoLegs struct {
 	LegOrderQty *float64 `fix:"685"`
 }
 
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
+func (m *NoLegs) SetLegPreAllocGrp(v legpreallocgrp.LegPreAllocGrp)    { m.LegPreAllocGrp = &v }
+func (m *NoLegs) SetLegPositionEffect(v string)                        { m.LegPositionEffect = &v }
+func (m *NoLegs) SetLegCoveredOrUncovered(v int)                       { m.LegCoveredOrUncovered = &v }
+func (m *NoLegs) SetNestedParties(v nestedparties.NestedParties)       { m.NestedParties = &v }
+func (m *NoLegs) SetLegRefID(v string)                                 { m.LegRefID = &v }
+func (m *NoLegs) SetLegPrice(v float64)                                { m.LegPrice = &v }
+func (m *NoLegs) SetLegSettlType(v string)                             { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string)                             { m.LegSettlDate = &v }
+func (m *NoLegs) SetLegOptionRatio(v float64)                          { m.LegOptionRatio = &v }
+func (m *NoLegs) SetLegOrderQty(v float64)                             { m.LegOrderQty = &v }
+
 //LegOrdGrp is a fix50 Component
 type LegOrdGrp struct {
 	//NoLegs is a required field for LegOrdGrp.

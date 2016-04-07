@@ -13,6 +13,13 @@ type NoUnderlyingSecurityAltID struct {
 	UnderlyingSecurityAltIDSource *string `fix:"459"`
 }
 
+func (m *NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltID(v string) {
+	m.UnderlyingSecurityAltID = &v
+}
+func (m *NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltIDSource(v string) {
+	m.UnderlyingSecurityAltIDSource = &v
+}
+
 //UndSecAltIDGrp is a fix50 Component
 type UndSecAltIDGrp struct {
 	//NoUnderlyingSecurityAltID is a non-required field for UndSecAltIDGrp.

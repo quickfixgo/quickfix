@@ -34,6 +34,20 @@ type NoRelatedSym struct {
 	CorporateAction *string `fix:"292"`
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoRelatedSym) SetCurrency(v string)                  { m.Currency = &v }
+func (m *NoRelatedSym) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
+	m.InstrumentExtension = &v
+}
+func (m *NoRelatedSym) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+func (m *NoRelatedSym) SetText(v string)                               { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)                        { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)                        { m.EncodedText = &v }
+func (m *NoRelatedSym) SetSecondaryPriceLimits(v secondarypricelimits.SecondaryPriceLimits) {
+	m.SecondaryPriceLimits = &v
+}
+func (m *NoRelatedSym) SetCorporateAction(v string) { m.CorporateAction = &v }
+
 //RelSymDerivSecGrp is a fix50sp1 Component
 type RelSymDerivSecGrp struct {
 	//NoRelatedSym is a non-required field for RelSymDerivSecGrp.

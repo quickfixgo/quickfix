@@ -18,6 +18,13 @@ type NoRelatedPartyIDs struct {
 	PartyRelationships *partyrelationships.PartyRelationships
 }
 
+func (m *NoRelatedPartyIDs) SetRelatedPartyDetail(v relatedpartydetail.RelatedPartyDetail) {
+	m.RelatedPartyDetail = &v
+}
+func (m *NoRelatedPartyIDs) SetPartyRelationships(v partyrelationships.PartyRelationships) {
+	m.PartyRelationships = &v
+}
+
 //RelatedPartyGrp is a fix50sp2 Component
 type RelatedPartyGrp struct {
 	//NoRelatedPartyIDs is a non-required field for RelatedPartyGrp.

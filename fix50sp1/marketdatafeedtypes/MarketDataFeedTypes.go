@@ -15,6 +15,10 @@ type NoMDFeedTypes struct {
 	MDBookType *int `fix:"1021"`
 }
 
+func (m *NoMDFeedTypes) SetMDFeedType(v string) { m.MDFeedType = &v }
+func (m *NoMDFeedTypes) SetMarketDepth(v int)   { m.MarketDepth = &v }
+func (m *NoMDFeedTypes) SetMDBookType(v int)    { m.MDBookType = &v }
+
 //MarketDataFeedTypes is a fix50sp1 Component
 type MarketDataFeedTypes struct {
 	//NoMDFeedTypes is a non-required field for MarketDataFeedTypes.

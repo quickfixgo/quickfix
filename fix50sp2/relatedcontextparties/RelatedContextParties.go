@@ -21,6 +21,15 @@ type NoRelatedContextPartyIDs struct {
 	RelatedContextPtysSubGrp *relatedcontextptyssubgrp.RelatedContextPtysSubGrp
 }
 
+func (m *NoRelatedContextPartyIDs) SetRelatedContextPartyID(v string) { m.RelatedContextPartyID = &v }
+func (m *NoRelatedContextPartyIDs) SetRelatedContextPartyIDSource(v string) {
+	m.RelatedContextPartyIDSource = &v
+}
+func (m *NoRelatedContextPartyIDs) SetRelatedContextPartyRole(v int) { m.RelatedContextPartyRole = &v }
+func (m *NoRelatedContextPartyIDs) SetRelatedContextPtysSubGrp(v relatedcontextptyssubgrp.RelatedContextPtysSubGrp) {
+	m.RelatedContextPtysSubGrp = &v
+}
+
 //RelatedContextParties is a fix50sp2 Component
 type RelatedContextParties struct {
 	//NoRelatedContextPartyIDs is a non-required field for RelatedContextParties.

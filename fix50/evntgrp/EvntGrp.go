@@ -17,6 +17,11 @@ type NoEvents struct {
 	EventText *string `fix:"868"`
 }
 
+func (m *NoEvents) SetEventType(v int)    { m.EventType = &v }
+func (m *NoEvents) SetEventDate(v string) { m.EventDate = &v }
+func (m *NoEvents) SetEventPx(v float64)  { m.EventPx = &v }
+func (m *NoEvents) SetEventText(v string) { m.EventText = &v }
+
 //EvntGrp is a fix50 Component
 type EvntGrp struct {
 	//NoEvents is a non-required field for EvntGrp.

@@ -18,6 +18,9 @@ type NoPartyList struct {
 	RelatedPartyGrp *relatedpartygrp.RelatedPartyGrp
 }
 
+func (m *NoPartyList) SetPartyDetail(v partydetail.PartyDetail)             { m.PartyDetail = &v }
+func (m *NoPartyList) SetRelatedPartyGrp(v relatedpartygrp.RelatedPartyGrp) { m.RelatedPartyGrp = &v }
+
 //PartyListGrp is a fix50sp2 Component
 type PartyListGrp struct {
 	//NoPartyList is a non-required field for PartyListGrp.

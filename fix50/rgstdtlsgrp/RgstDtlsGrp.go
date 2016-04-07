@@ -29,6 +29,15 @@ type NoRegistDtls struct {
 	InvestorCountryOfResidence *string `fix:"475"`
 }
 
+func (m *NoRegistDtls) SetRegistDtls(v string)                         { m.RegistDtls = &v }
+func (m *NoRegistDtls) SetRegistEmail(v string)                        { m.RegistEmail = &v }
+func (m *NoRegistDtls) SetMailingDtls(v string)                        { m.MailingDtls = &v }
+func (m *NoRegistDtls) SetMailingInst(v string)                        { m.MailingInst = &v }
+func (m *NoRegistDtls) SetNestedParties(v nestedparties.NestedParties) { m.NestedParties = &v }
+func (m *NoRegistDtls) SetOwnerType(v int)                             { m.OwnerType = &v }
+func (m *NoRegistDtls) SetDateOfBirth(v string)                        { m.DateOfBirth = &v }
+func (m *NoRegistDtls) SetInvestorCountryOfResidence(v string)         { m.InvestorCountryOfResidence = &v }
+
 //RgstDtlsGrp is a fix50 Component
 type RgstDtlsGrp struct {
 	//NoRegistDtls is a non-required field for RgstDtlsGrp.

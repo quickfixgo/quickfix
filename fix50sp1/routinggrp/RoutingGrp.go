@@ -13,6 +13,9 @@ type NoRoutingIDs struct {
 	RoutingID *string `fix:"217"`
 }
 
+func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }
+func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
+
 //RoutingGrp is a fix50sp1 Component
 type RoutingGrp struct {
 	//NoRoutingIDs is a non-required field for RoutingGrp.

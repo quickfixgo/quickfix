@@ -17,6 +17,11 @@ type NoMsgTypes struct {
 	RefCstmApplVerID *string `fix:"1131"`
 }
 
+func (m *NoMsgTypes) SetRefMsgType(v string)       { m.RefMsgType = &v }
+func (m *NoMsgTypes) SetMsgDirection(v string)     { m.MsgDirection = &v }
+func (m *NoMsgTypes) SetRefApplVerID(v string)     { m.RefApplVerID = &v }
+func (m *NoMsgTypes) SetRefCstmApplVerID(v string) { m.RefCstmApplVerID = &v }
+
 //MsgTypeGrp is a fixt11 Component
 type MsgTypeGrp struct {
 	//NoMsgTypes is a non-required field for MsgTypeGrp.

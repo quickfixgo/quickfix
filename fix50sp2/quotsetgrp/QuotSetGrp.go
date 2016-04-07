@@ -28,6 +28,15 @@ type NoQuoteSets struct {
 	quotentrygrp.QuotEntryGrp
 }
 
+func (m *NoQuoteSets) SetQuoteSetID(v string) { m.QuoteSetID = v }
+func (m *NoQuoteSets) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *NoQuoteSets) SetQuoteSetValidUntilTime(v time.Time)       { m.QuoteSetValidUntilTime = &v }
+func (m *NoQuoteSets) SetTotNoQuoteEntries(v int)                  { m.TotNoQuoteEntries = v }
+func (m *NoQuoteSets) SetLastFragment(v bool)                      { m.LastFragment = &v }
+func (m *NoQuoteSets) SetQuotEntryGrp(v quotentrygrp.QuotEntryGrp) { m.QuotEntryGrp = v }
+
 //QuotSetGrp is a fix50sp2 Component
 type QuotSetGrp struct {
 	//NoQuoteSets is a required field for QuotSetGrp.

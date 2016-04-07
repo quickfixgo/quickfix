@@ -63,6 +63,34 @@ type NoRiskInstruments struct {
 	RiskInstrumentMultiplier *float64 `fix:"1558"`
 }
 
+func (m *NoRiskInstruments) SetRiskInstrumentOperator(v int)  { m.RiskInstrumentOperator = &v }
+func (m *NoRiskInstruments) SetRiskSymbol(v string)           { m.RiskSymbol = &v }
+func (m *NoRiskInstruments) SetRiskSymbolSfx(v string)        { m.RiskSymbolSfx = &v }
+func (m *NoRiskInstruments) SetRiskSecurityID(v string)       { m.RiskSecurityID = &v }
+func (m *NoRiskInstruments) SetRiskSecurityIDSource(v string) { m.RiskSecurityIDSource = &v }
+func (m *NoRiskInstruments) SetRiskSecAltIDGrp(v risksecaltidgrp.RiskSecAltIDGrp) {
+	m.RiskSecAltIDGrp = &v
+}
+func (m *NoRiskInstruments) SetRiskProduct(v int)                  { m.RiskProduct = &v }
+func (m *NoRiskInstruments) SetRiskProductComplex(v string)        { m.RiskProductComplex = &v }
+func (m *NoRiskInstruments) SetRiskSecurityGroup(v string)         { m.RiskSecurityGroup = &v }
+func (m *NoRiskInstruments) SetRiskCFICode(v string)               { m.RiskCFICode = &v }
+func (m *NoRiskInstruments) SetRiskSecurityType(v string)          { m.RiskSecurityType = &v }
+func (m *NoRiskInstruments) SetRiskSecuritySubType(v string)       { m.RiskSecuritySubType = &v }
+func (m *NoRiskInstruments) SetRiskMaturityMonthYear(v string)     { m.RiskMaturityMonthYear = &v }
+func (m *NoRiskInstruments) SetRiskMaturityTime(v string)          { m.RiskMaturityTime = &v }
+func (m *NoRiskInstruments) SetRiskRestructuringType(v string)     { m.RiskRestructuringType = &v }
+func (m *NoRiskInstruments) SetRiskSeniority(v string)             { m.RiskSeniority = &v }
+func (m *NoRiskInstruments) SetRiskPutOrCall(v int)                { m.RiskPutOrCall = &v }
+func (m *NoRiskInstruments) SetRiskFlexibleIndicator(v bool)       { m.RiskFlexibleIndicator = &v }
+func (m *NoRiskInstruments) SetRiskCouponRate(v float64)           { m.RiskCouponRate = &v }
+func (m *NoRiskInstruments) SetRiskSecurityExchange(v string)      { m.RiskSecurityExchange = &v }
+func (m *NoRiskInstruments) SetRiskSecurityDesc(v string)          { m.RiskSecurityDesc = &v }
+func (m *NoRiskInstruments) SetRiskEncodedSecurityDescLen(v int)   { m.RiskEncodedSecurityDescLen = &v }
+func (m *NoRiskInstruments) SetRiskEncodedSecurityDesc(v string)   { m.RiskEncodedSecurityDesc = &v }
+func (m *NoRiskInstruments) SetRiskInstrumentSettlType(v string)   { m.RiskInstrumentSettlType = &v }
+func (m *NoRiskInstruments) SetRiskInstrumentMultiplier(v float64) { m.RiskInstrumentMultiplier = &v }
+
 //RiskInstrumentScope is a fix50sp2 Component
 type RiskInstrumentScope struct {
 	//NoRiskInstruments is a non-required field for RiskInstrumentScope.

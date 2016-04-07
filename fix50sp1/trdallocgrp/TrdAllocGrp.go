@@ -33,6 +33,17 @@ type NoAllocs struct {
 	AllocClearingFeeIndicator *string `fix:"1136"`
 }
 
+func (m *NoAllocs) SetAllocAccount(v string)                          { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)                        { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetAllocSettlCurrency(v string)                    { m.AllocSettlCurrency = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)                     { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetNestedParties2(v nestedparties2.NestedParties2) { m.NestedParties2 = &v }
+func (m *NoAllocs) SetAllocQty(v float64)                             { m.AllocQty = &v }
+func (m *NoAllocs) SetAllocCustomerCapacity(v string)                 { m.AllocCustomerCapacity = &v }
+func (m *NoAllocs) SetAllocMethod(v int)                              { m.AllocMethod = &v }
+func (m *NoAllocs) SetSecondaryIndividualAllocID(v string)            { m.SecondaryIndividualAllocID = &v }
+func (m *NoAllocs) SetAllocClearingFeeIndicator(v string)             { m.AllocClearingFeeIndicator = &v }
+
 //TrdAllocGrp is a fix50sp1 Component
 type TrdAllocGrp struct {
 	//NoAllocs is a non-required field for TrdAllocGrp.

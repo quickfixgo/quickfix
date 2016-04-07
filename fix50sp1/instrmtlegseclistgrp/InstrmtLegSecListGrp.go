@@ -25,6 +25,14 @@ type NoLegs struct {
 	LegBenchmarkCurveData *legbenchmarkcurvedata.LegBenchmarkCurveData
 }
 
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
+func (m *NoLegs) SetLegSettlType(v string)                             { m.LegSettlType = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
+func (m *NoLegs) SetLegBenchmarkCurveData(v legbenchmarkcurvedata.LegBenchmarkCurveData) {
+	m.LegBenchmarkCurveData = &v
+}
+
 //InstrmtLegSecListGrp is a fix50sp1 Component
 type InstrmtLegSecListGrp struct {
 	//NoLegs is a non-required field for InstrmtLegSecListGrp.

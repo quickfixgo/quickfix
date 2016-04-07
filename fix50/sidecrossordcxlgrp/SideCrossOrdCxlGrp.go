@@ -44,6 +44,21 @@ type NoSides struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoSides) SetSide(v string)                            { m.Side = v }
+func (m *NoSides) SetOrigClOrdID(v string)                     { m.OrigClOrdID = v }
+func (m *NoSides) SetClOrdID(v string)                         { m.ClOrdID = v }
+func (m *NoSides) SetSecondaryClOrdID(v string)                { m.SecondaryClOrdID = &v }
+func (m *NoSides) SetClOrdLinkID(v string)                     { m.ClOrdLinkID = &v }
+func (m *NoSides) SetOrigOrdModTime(v time.Time)               { m.OrigOrdModTime = &v }
+func (m *NoSides) SetParties(v parties.Parties)                { m.Parties = &v }
+func (m *NoSides) SetTradeOriginationDate(v string)            { m.TradeOriginationDate = &v }
+func (m *NoSides) SetTradeDate(v string)                       { m.TradeDate = &v }
+func (m *NoSides) SetOrderQtyData(v orderqtydata.OrderQtyData) { m.OrderQtyData = v }
+func (m *NoSides) SetComplianceID(v string)                    { m.ComplianceID = &v }
+func (m *NoSides) SetText(v string)                            { m.Text = &v }
+func (m *NoSides) SetEncodedTextLen(v int)                     { m.EncodedTextLen = &v }
+func (m *NoSides) SetEncodedText(v string)                     { m.EncodedText = &v }
+
 //SideCrossOrdCxlGrp is a fix50 Component
 type SideCrossOrdCxlGrp struct {
 	//NoSides is a required field for SideCrossOrdCxlGrp.

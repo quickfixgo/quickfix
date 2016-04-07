@@ -17,6 +17,11 @@ type NoUnderlyings struct {
 	CollAction *int `fix:"944"`
 }
 
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *NoUnderlyings) SetCollAction(v int) { m.CollAction = &v }
+
 //UndInstrmtCollGrp is a fix50sp2 Component
 type UndInstrmtCollGrp struct {
 	//NoUnderlyings is a non-required field for UndInstrmtCollGrp.

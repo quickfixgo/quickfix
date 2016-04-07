@@ -21,6 +21,13 @@ type NoContextPartyIDs struct {
 	ContextPtysSubGrp *contextptyssubgrp.ContextPtysSubGrp
 }
 
+func (m *NoContextPartyIDs) SetContextPartyID(v string)       { m.ContextPartyID = &v }
+func (m *NoContextPartyIDs) SetContextPartyIDSource(v string) { m.ContextPartyIDSource = &v }
+func (m *NoContextPartyIDs) SetContextPartyRole(v int)        { m.ContextPartyRole = &v }
+func (m *NoContextPartyIDs) SetContextPtysSubGrp(v contextptyssubgrp.ContextPtysSubGrp) {
+	m.ContextPtysSubGrp = &v
+}
+
 //ContextParties is a fix50sp2 Component
 type ContextParties struct {
 	//NoContextPartyIDs is a non-required field for ContextParties.

@@ -15,6 +15,10 @@ type NoTargetPartyIDs struct {
 	TargetPartyRole *int `fix:"1464"`
 }
 
+func (m *NoTargetPartyIDs) SetTargetPartyID(v string)       { m.TargetPartyID = &v }
+func (m *NoTargetPartyIDs) SetTargetPartyIDSource(v string) { m.TargetPartyIDSource = &v }
+func (m *NoTargetPartyIDs) SetTargetPartyRole(v int)        { m.TargetPartyRole = &v }
+
 //TargetParties is a fix50sp2 Component
 type TargetParties struct {
 	//NoTargetPartyIDs is a non-required field for TargetParties.

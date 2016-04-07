@@ -13,6 +13,9 @@ type NoLegStipulations struct {
 	LegStipulationValue *string `fix:"689"`
 }
 
+func (m *NoLegStipulations) SetLegStipulationType(v string)  { m.LegStipulationType = &v }
+func (m *NoLegStipulations) SetLegStipulationValue(v string) { m.LegStipulationValue = &v }
+
 //LegStipulations is a fix50sp1 Component
 type LegStipulations struct {
 	//NoLegStipulations is a non-required field for LegStipulations.

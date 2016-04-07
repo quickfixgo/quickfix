@@ -13,6 +13,9 @@ type NoNestedInstrAttrib struct {
 	NestedInstrAttribValue *string `fix:"1211"`
 }
 
+func (m *NoNestedInstrAttrib) SetNestedInstrAttribType(v int)     { m.NestedInstrAttribType = &v }
+func (m *NoNestedInstrAttrib) SetNestedInstrAttribValue(v string) { m.NestedInstrAttribValue = &v }
+
 //NestedInstrumentAttribute is a fix50sp1 Component
 type NestedInstrumentAttribute struct {
 	//NoNestedInstrAttrib is a non-required field for NestedInstrumentAttribute.

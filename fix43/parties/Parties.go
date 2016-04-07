@@ -17,6 +17,11 @@ type NoPartyIDs struct {
 	PartySubID *string `fix:"523"`
 }
 
+func (m *NoPartyIDs) SetPartyID(v string)       { m.PartyID = &v }
+func (m *NoPartyIDs) SetPartyIDSource(v string) { m.PartyIDSource = &v }
+func (m *NoPartyIDs) SetPartyRole(v int)        { m.PartyRole = &v }
+func (m *NoPartyIDs) SetPartySubID(v string)    { m.PartySubID = &v }
+
 //Parties is a fix43 Component
 type Parties struct {
 	//NoPartyIDs is a non-required field for Parties.

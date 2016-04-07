@@ -17,6 +17,13 @@ type NoNested2PartyIDs struct {
 	NoNested2PartySubIDs []NoNested2PartySubIDs `fix:"806,omitempty"`
 }
 
+func (m *NoNested2PartyIDs) SetNested2PartyID(v string)       { m.Nested2PartyID = &v }
+func (m *NoNested2PartyIDs) SetNested2PartyIDSource(v string) { m.Nested2PartyIDSource = &v }
+func (m *NoNested2PartyIDs) SetNested2PartyRole(v int)        { m.Nested2PartyRole = &v }
+func (m *NoNested2PartyIDs) SetNoNested2PartySubIDs(v []NoNested2PartySubIDs) {
+	m.NoNested2PartySubIDs = v
+}
+
 //NoNested2PartySubIDs is a repeating group in NoNested2PartyIDs
 type NoNested2PartySubIDs struct {
 	//Nested2PartySubID is a non-required field for NoNested2PartySubIDs.
@@ -24,6 +31,9 @@ type NoNested2PartySubIDs struct {
 	//Nested2PartySubIDType is a non-required field for NoNested2PartySubIDs.
 	Nested2PartySubIDType *int `fix:"807"`
 }
+
+func (m *NoNested2PartySubIDs) SetNested2PartySubID(v string)  { m.Nested2PartySubID = &v }
+func (m *NoNested2PartySubIDs) SetNested2PartySubIDType(v int) { m.Nested2PartySubIDType = &v }
 
 //NestedParties2 is a fix44 Component
 type NestedParties2 struct {

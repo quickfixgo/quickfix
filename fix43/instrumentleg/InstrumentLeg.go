@@ -13,6 +13,9 @@ type NoLegSecurityAltID struct {
 	LegSecurityAltIDSource *string `fix:"606"`
 }
 
+func (m *NoLegSecurityAltID) SetLegSecurityAltID(v string)       { m.LegSecurityAltID = &v }
+func (m *NoLegSecurityAltID) SetLegSecurityAltIDSource(v string) { m.LegSecurityAltIDSource = &v }
+
 //InstrumentLeg is a fix43 Component
 type InstrumentLeg struct {
 	//LegSymbol is a non-required field for InstrumentLeg.

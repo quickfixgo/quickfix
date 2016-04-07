@@ -13,6 +13,9 @@ type NoUnderlyingStips struct {
 	UnderlyingStipValue *string `fix:"889"`
 }
 
+func (m *NoUnderlyingStips) SetUnderlyingStipType(v string)  { m.UnderlyingStipType = &v }
+func (m *NoUnderlyingStips) SetUnderlyingStipValue(v string) { m.UnderlyingStipValue = &v }
+
 //UnderlyingStipulations is a fix50sp1 Component
 type UnderlyingStipulations struct {
 	//NoUnderlyingStips is a non-required field for UnderlyingStipulations.

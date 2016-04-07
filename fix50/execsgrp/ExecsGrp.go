@@ -11,6 +11,8 @@ type NoExecs struct {
 	ExecID *string `fix:"17"`
 }
 
+func (m *NoExecs) SetExecID(v string) { m.ExecID = &v }
+
 //ExecsGrp is a fix50 Component
 type ExecsGrp struct {
 	//NoExecs is a non-required field for ExecsGrp.

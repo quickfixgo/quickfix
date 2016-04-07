@@ -31,6 +31,16 @@ type NoOrders struct {
 	OrderBookingQty *float64 `fix:"800"`
 }
 
+func (m *NoOrders) SetClOrdID(v string)                               { m.ClOrdID = &v }
+func (m *NoOrders) SetOrderID(v string)                               { m.OrderID = &v }
+func (m *NoOrders) SetSecondaryOrderID(v string)                      { m.SecondaryOrderID = &v }
+func (m *NoOrders) SetSecondaryClOrdID(v string)                      { m.SecondaryClOrdID = &v }
+func (m *NoOrders) SetListID(v string)                                { m.ListID = &v }
+func (m *NoOrders) SetNestedParties2(v nestedparties2.NestedParties2) { m.NestedParties2 = &v }
+func (m *NoOrders) SetOrderQty(v float64)                             { m.OrderQty = &v }
+func (m *NoOrders) SetOrderAvgPx(v float64)                           { m.OrderAvgPx = &v }
+func (m *NoOrders) SetOrderBookingQty(v float64)                      { m.OrderBookingQty = &v }
+
 //OrdAllocGrp is a fix50sp2 Component
 type OrdAllocGrp struct {
 	//NoOrders is a non-required field for OrdAllocGrp.

@@ -15,6 +15,10 @@ type NoStrategyParameters struct {
 	StrategyParameterValue *string `fix:"960"`
 }
 
+func (m *NoStrategyParameters) SetStrategyParameterName(v string)  { m.StrategyParameterName = &v }
+func (m *NoStrategyParameters) SetStrategyParameterType(v int)     { m.StrategyParameterType = &v }
+func (m *NoStrategyParameters) SetStrategyParameterValue(v string) { m.StrategyParameterValue = &v }
+
 //StrategyParametersGrp is a fix50sp1 Component
 type StrategyParametersGrp struct {
 	//NoStrategyParameters is a non-required field for StrategyParametersGrp.

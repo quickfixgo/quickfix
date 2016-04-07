@@ -16,6 +16,8 @@ type NoStrikes struct {
 	instrument.Instrument
 }
 
+func (m *NoStrikes) SetInstrument(v instrument.Instrument) { m.Instrument = v }
+
 //InstrmtStrkPxGrp is a fix50 Component
 type InstrmtStrkPxGrp struct {
 	//NoStrikes is a required field for InstrmtStrkPxGrp.

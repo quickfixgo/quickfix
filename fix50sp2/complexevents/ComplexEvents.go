@@ -29,6 +29,21 @@ type NoComplexEvents struct {
 	ComplexEventDates *complexeventdates.ComplexEventDates
 }
 
+func (m *NoComplexEvents) SetComplexEventType(v int)           { m.ComplexEventType = &v }
+func (m *NoComplexEvents) SetComplexOptPayoutAmount(v float64) { m.ComplexOptPayoutAmount = &v }
+func (m *NoComplexEvents) SetComplexEventPrice(v float64)      { m.ComplexEventPrice = &v }
+func (m *NoComplexEvents) SetComplexEventPriceBoundaryMethod(v int) {
+	m.ComplexEventPriceBoundaryMethod = &v
+}
+func (m *NoComplexEvents) SetComplexEventPriceBoundaryPrecision(v float64) {
+	m.ComplexEventPriceBoundaryPrecision = &v
+}
+func (m *NoComplexEvents) SetComplexEventPriceTimeType(v int) { m.ComplexEventPriceTimeType = &v }
+func (m *NoComplexEvents) SetComplexEventCondition(v int)     { m.ComplexEventCondition = &v }
+func (m *NoComplexEvents) SetComplexEventDates(v complexeventdates.ComplexEventDates) {
+	m.ComplexEventDates = &v
+}
+
 //ComplexEvents is a fix50sp2 Component
 type ComplexEvents struct {
 	//NoComplexEvents is a non-required field for ComplexEvents.

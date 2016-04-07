@@ -13,6 +13,9 @@ type NoInstrAttrib struct {
 	InstrAttribValue *string `fix:"872"`
 }
 
+func (m *NoInstrAttrib) SetInstrAttribType(v int)     { m.InstrAttribType = &v }
+func (m *NoInstrAttrib) SetInstrAttribValue(v string) { m.InstrAttribValue = &v }
+
 //InstrumentExtension is a fix44 Component
 type InstrumentExtension struct {
 	//DeliveryForm is a non-required field for InstrumentExtension.
