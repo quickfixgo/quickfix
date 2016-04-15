@@ -17,6 +17,11 @@ type NoSettlPartyIDs struct {
 	NoSettlPartySubIDs []NoSettlPartySubIDs `fix:"801,omitempty"`
 }
 
+func (m *NoSettlPartyIDs) SetSettlPartyID(v string)                     { m.SettlPartyID = &v }
+func (m *NoSettlPartyIDs) SetSettlPartyIDSource(v string)               { m.SettlPartyIDSource = &v }
+func (m *NoSettlPartyIDs) SetSettlPartyRole(v int)                      { m.SettlPartyRole = &v }
+func (m *NoSettlPartyIDs) SetNoSettlPartySubIDs(v []NoSettlPartySubIDs) { m.NoSettlPartySubIDs = v }
+
 //NoSettlPartySubIDs is a repeating group in NoSettlPartyIDs
 type NoSettlPartySubIDs struct {
 	//SettlPartySubID is a non-required field for NoSettlPartySubIDs.
@@ -24,6 +29,9 @@ type NoSettlPartySubIDs struct {
 	//SettlPartySubIDType is a non-required field for NoSettlPartySubIDs.
 	SettlPartySubIDType *int `fix:"786"`
 }
+
+func (m *NoSettlPartySubIDs) SetSettlPartySubID(v string)  { m.SettlPartySubID = &v }
+func (m *NoSettlPartySubIDs) SetSettlPartySubIDType(v int) { m.SettlPartySubIDType = &v }
 
 //SettlParties is a fix44 Component
 type SettlParties struct {

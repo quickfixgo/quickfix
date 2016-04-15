@@ -13,6 +13,9 @@ type NoComplexEventTimes struct {
 	ComplexEventEndTime *string `fix:"1496"`
 }
 
+func (m *NoComplexEventTimes) SetComplexEventStartTime(v string) { m.ComplexEventStartTime = &v }
+func (m *NoComplexEventTimes) SetComplexEventEndTime(v string)   { m.ComplexEventEndTime = &v }
+
 //ComplexEventTimes is a fix50sp2 Component
 type ComplexEventTimes struct {
 	//NoComplexEventTimes is a non-required field for ComplexEventTimes.

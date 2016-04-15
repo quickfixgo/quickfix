@@ -13,6 +13,9 @@ type NoRiskWarningLevels struct {
 	RiskWarningLevelName *string `fix:"1561"`
 }
 
+func (m *NoRiskWarningLevels) SetRiskWarningLevelPercent(v float64) { m.RiskWarningLevelPercent = &v }
+func (m *NoRiskWarningLevels) SetRiskWarningLevelName(v string)     { m.RiskWarningLevelName = &v }
+
 //RiskWarningLevels is a fix50sp2 Component
 type RiskWarningLevels struct {
 	//NoRiskWarningLevels is a non-required field for RiskWarningLevels.

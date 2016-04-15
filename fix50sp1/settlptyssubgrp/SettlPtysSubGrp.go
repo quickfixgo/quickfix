@@ -13,6 +13,9 @@ type NoSettlPartySubIDs struct {
 	SettlPartySubIDType *int `fix:"786"`
 }
 
+func (m *NoSettlPartySubIDs) SetSettlPartySubID(v string)  { m.SettlPartySubID = &v }
+func (m *NoSettlPartySubIDs) SetSettlPartySubIDType(v int) { m.SettlPartySubIDType = &v }
+
 //SettlPtysSubGrp is a fix50sp1 Component
 type SettlPtysSubGrp struct {
 	//NoSettlPartySubIDs is a non-required field for SettlPtysSubGrp.

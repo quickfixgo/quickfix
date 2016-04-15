@@ -11,6 +11,8 @@ type NoRequestedPartyRoles struct {
 	RequestedPartyRole *int `fix:"1509"`
 }
 
+func (m *NoRequestedPartyRoles) SetRequestedPartyRole(v int) { m.RequestedPartyRole = &v }
+
 //RequestedPartyRoleGrp is a fix50sp2 Component
 type RequestedPartyRoleGrp struct {
 	//NoRequestedPartyRoles is a non-required field for RequestedPartyRoleGrp.

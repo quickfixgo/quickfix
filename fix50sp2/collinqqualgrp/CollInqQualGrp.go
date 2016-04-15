@@ -11,6 +11,8 @@ type NoCollInquiryQualifier struct {
 	CollInquiryQualifier *int `fix:"896"`
 }
 
+func (m *NoCollInquiryQualifier) SetCollInquiryQualifier(v int) { m.CollInquiryQualifier = &v }
+
 //CollInqQualGrp is a fix50sp2 Component
 type CollInqQualGrp struct {
 	//NoCollInquiryQualifier is a non-required field for CollInqQualGrp.

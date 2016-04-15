@@ -13,6 +13,9 @@ type NoStipulations struct {
 	StipulationValue *string `fix:"234"`
 }
 
+func (m *NoStipulations) SetStipulationType(v string)  { m.StipulationType = &v }
+func (m *NoStipulations) SetStipulationValue(v string) { m.StipulationValue = &v }
+
 //Stipulations is a fix50 Component
 type Stipulations struct {
 	//NoStipulations is a non-required field for Stipulations.

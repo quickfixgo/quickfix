@@ -54,6 +54,34 @@ type NoRelatedSym struct {
 	Stipulations *stipulations.Stipulations
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoRelatedSym) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
+	m.InstrumentExtension = &v
+}
+func (m *NoRelatedSym) SetFinancingDetails(v financingdetails.FinancingDetails) {
+	m.FinancingDetails = &v
+}
+func (m *NoRelatedSym) SetSecLstUpdRelSymsLegGrp(v seclstupdrelsymsleggrp.SecLstUpdRelSymsLegGrp) {
+	m.SecLstUpdRelSymsLegGrp = &v
+}
+func (m *NoRelatedSym) SetSpreadOrBenchmarkCurveData(v spreadorbenchmarkcurvedata.SpreadOrBenchmarkCurveData) {
+	m.SpreadOrBenchmarkCurveData = &v
+}
+func (m *NoRelatedSym) SetYieldData(v yielddata.YieldData) { m.YieldData = &v }
+func (m *NoRelatedSym) SetRoundLot(v float64)              { m.RoundLot = &v }
+func (m *NoRelatedSym) SetMinTradeVol(v float64)           { m.MinTradeVol = &v }
+func (m *NoRelatedSym) SetTradingSessionID(v string)       { m.TradingSessionID = &v }
+func (m *NoRelatedSym) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }
+func (m *NoRelatedSym) SetExpirationCycle(v int)           { m.ExpirationCycle = &v }
+func (m *NoRelatedSym) SetText(v string)                   { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)            { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)            { m.EncodedText = &v }
+func (m *NoRelatedSym) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *NoRelatedSym) SetCurrency(v string)                        { m.Currency = &v }
+func (m *NoRelatedSym) SetStipulations(v stipulations.Stipulations) { m.Stipulations = &v }
+
 //SecLstUpdRelSymGrp is a fix50 Component
 type SecLstUpdRelSymGrp struct {
 	//NoRelatedSym is a non-required field for SecLstUpdRelSymGrp.

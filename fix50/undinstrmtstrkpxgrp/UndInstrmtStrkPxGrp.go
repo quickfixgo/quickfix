@@ -33,6 +33,19 @@ type NoUnderlyings struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *NoUnderlyings) SetPrevClosePx(v float64)     { m.PrevClosePx = &v }
+func (m *NoUnderlyings) SetClOrdID(v string)          { m.ClOrdID = &v }
+func (m *NoUnderlyings) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }
+func (m *NoUnderlyings) SetSide(v string)             { m.Side = &v }
+func (m *NoUnderlyings) SetPrice(v float64)           { m.Price = v }
+func (m *NoUnderlyings) SetCurrency(v string)         { m.Currency = &v }
+func (m *NoUnderlyings) SetText(v string)             { m.Text = &v }
+func (m *NoUnderlyings) SetEncodedTextLen(v int)      { m.EncodedTextLen = &v }
+func (m *NoUnderlyings) SetEncodedText(v string)      { m.EncodedText = &v }
+
 //UndInstrmtStrkPxGrp is a fix50 Component
 type UndInstrmtStrkPxGrp struct {
 	//NoUnderlyings is a non-required field for UndInstrmtStrkPxGrp.

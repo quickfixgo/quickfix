@@ -11,6 +11,8 @@ type NoExecInstRules struct {
 	ExecInstValue *string `fix:"1308"`
 }
 
+func (m *NoExecInstRules) SetExecInstValue(v string) { m.ExecInstValue = &v }
+
 //ExecInstRules is a fix50sp2 Component
 type ExecInstRules struct {
 	//NoExecInstRules is a non-required field for ExecInstRules.

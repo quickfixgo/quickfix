@@ -21,6 +21,13 @@ type NoSettlPartyIDs struct {
 	SettlPtysSubGrp *settlptyssubgrp.SettlPtysSubGrp
 }
 
+func (m *NoSettlPartyIDs) SetSettlPartyID(v string)       { m.SettlPartyID = &v }
+func (m *NoSettlPartyIDs) SetSettlPartyIDSource(v string) { m.SettlPartyIDSource = &v }
+func (m *NoSettlPartyIDs) SetSettlPartyRole(v int)        { m.SettlPartyRole = &v }
+func (m *NoSettlPartyIDs) SetSettlPtysSubGrp(v settlptyssubgrp.SettlPtysSubGrp) {
+	m.SettlPtysSubGrp = &v
+}
+
 //SettlParties is a fix50 Component
 type SettlParties struct {
 	//NoSettlPartyIDs is a non-required field for SettlParties.

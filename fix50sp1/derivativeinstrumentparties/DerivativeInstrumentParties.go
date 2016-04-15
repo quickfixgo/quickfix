@@ -21,6 +21,19 @@ type NoDerivativeInstrumentParties struct {
 	DerivativeInstrumentPartySubIDsGrp *derivativeinstrumentpartysubidsgrp.DerivativeInstrumentPartySubIDsGrp
 }
 
+func (m *NoDerivativeInstrumentParties) SetDerivativeInstrumentPartyID(v string) {
+	m.DerivativeInstrumentPartyID = &v
+}
+func (m *NoDerivativeInstrumentParties) SetDerivativeInstrumentPartyIDSource(v string) {
+	m.DerivativeInstrumentPartyIDSource = &v
+}
+func (m *NoDerivativeInstrumentParties) SetDerivativeInstrumentPartyRole(v int) {
+	m.DerivativeInstrumentPartyRole = &v
+}
+func (m *NoDerivativeInstrumentParties) SetDerivativeInstrumentPartySubIDsGrp(v derivativeinstrumentpartysubidsgrp.DerivativeInstrumentPartySubIDsGrp) {
+	m.DerivativeInstrumentPartySubIDsGrp = &v
+}
+
 //DerivativeInstrumentParties is a fix50sp1 Component
 type DerivativeInstrumentParties struct {
 	//NoDerivativeInstrumentParties is a non-required field for DerivativeInstrumentParties.

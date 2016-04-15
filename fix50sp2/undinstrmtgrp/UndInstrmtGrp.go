@@ -15,6 +15,10 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+
 //UndInstrmtGrp is a fix50sp2 Component
 type UndInstrmtGrp struct {
 	//NoUnderlyings is a non-required field for UndInstrmtGrp.

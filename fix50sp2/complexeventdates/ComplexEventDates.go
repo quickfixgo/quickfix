@@ -20,6 +20,12 @@ type NoComplexEventDates struct {
 	ComplexEventTimes *complexeventtimes.ComplexEventTimes
 }
 
+func (m *NoComplexEventDates) SetComplexEventStartDate(v time.Time) { m.ComplexEventStartDate = &v }
+func (m *NoComplexEventDates) SetComplexEventEndDate(v time.Time)   { m.ComplexEventEndDate = &v }
+func (m *NoComplexEventDates) SetComplexEventTimes(v complexeventtimes.ComplexEventTimes) {
+	m.ComplexEventTimes = &v
+}
+
 //ComplexEventDates is a fix50sp2 Component
 type ComplexEventDates struct {
 	//NoComplexEventDates is a non-required field for ComplexEventDates.

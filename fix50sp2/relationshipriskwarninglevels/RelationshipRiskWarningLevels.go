@@ -13,6 +13,13 @@ type NoRelationshipRiskWarningLevels struct {
 	RelationshipRiskWarningLevelName *string `fix:"1615"`
 }
 
+func (m *NoRelationshipRiskWarningLevels) SetRelationshipRiskWarningLevelPercent(v float64) {
+	m.RelationshipRiskWarningLevelPercent = &v
+}
+func (m *NoRelationshipRiskWarningLevels) SetRelationshipRiskWarningLevelName(v string) {
+	m.RelationshipRiskWarningLevelName = &v
+}
+
 //RelationshipRiskWarningLevels is a fix50sp2 Component
 type RelationshipRiskWarningLevels struct {
 	//NoRelationshipRiskWarningLevels is a non-required field for RelationshipRiskWarningLevels.

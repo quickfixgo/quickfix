@@ -15,6 +15,10 @@ type NoAffectedOrders struct {
 	AffectedSecondaryOrderID *string `fix:"536"`
 }
 
+func (m *NoAffectedOrders) SetOrigClOrdID(v string)              { m.OrigClOrdID = &v }
+func (m *NoAffectedOrders) SetAffectedOrderID(v string)          { m.AffectedOrderID = &v }
+func (m *NoAffectedOrders) SetAffectedSecondaryOrderID(v string) { m.AffectedSecondaryOrderID = &v }
+
 //AffectedOrdGrp is a fix50 Component
 type AffectedOrdGrp struct {
 	//NoAffectedOrders is a non-required field for AffectedOrdGrp.

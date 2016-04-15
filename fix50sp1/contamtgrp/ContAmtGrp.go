@@ -15,6 +15,10 @@ type NoContAmts struct {
 	ContAmtCurr *string `fix:"521"`
 }
 
+func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }
+func (m *NoContAmts) SetContAmtValue(v float64) { m.ContAmtValue = &v }
+func (m *NoContAmts) SetContAmtCurr(v string)   { m.ContAmtCurr = &v }
+
 //ContAmtGrp is a fix50sp1 Component
 type ContAmtGrp struct {
 	//NoContAmts is a non-required field for ContAmtGrp.

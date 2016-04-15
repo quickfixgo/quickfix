@@ -11,6 +11,8 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
+func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
+
 //IOIQualGrp is a fix50sp1 Component
 type IOIQualGrp struct {
 	//NoIOIQualifiers is a non-required field for IOIQualGrp.

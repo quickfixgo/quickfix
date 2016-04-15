@@ -110,6 +110,37 @@ type FieldDef struct {
 	ChildFields []*FieldDef
 }
 
+//NewFieldDef returns an initialized FieldDef
+func NewFieldDef(fieldType *FieldType, required bool) *FieldDef {
+	return &FieldDef{
+		FieldType: fieldType,
+		required:  required,
+	}
+}
+
+//NewGroupFieldDef returns an initialized FieldDef for a repeating group
+func NewGroupFieldDef(fieldType *FieldType, required bool, parts []MessagePart) *FieldDef {
+	field := FieldDef{
+		FieldType: fieldType,
+		required:  required,
+		Parts:     parts,
+	}
+
+	for _, part := range parts {
+		if comp, ok := part.(Component); ok {
+			field.ChildFields = append(field.ChildFields, comp.Fields()...)
+		} else {
+			if child, ok := part.(*FieldDef); ok {
+				field.ChildFields = append(field.ChildFields, child)
+			} else {
+				panic("unknown part")
+			}
+		}
+	}
+
+	return &field
+}
+
 //Required returns true if this FieldDef is required for the containing
 //MessageDef
 func (f FieldDef) Required() bool { return f.required }

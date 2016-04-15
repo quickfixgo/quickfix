@@ -13,6 +13,9 @@ type NoTradingSessions struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+
 //TrdgSesGrp is a fix50sp2 Component
 type TrdgSesGrp struct {
 	//NoTradingSessions is a non-required field for TrdgSesGrp.

@@ -21,6 +21,19 @@ type NoUndlyInstrumentParties struct {
 	UndlyInstrumentPtysSubGrp *undlyinstrumentptyssubgrp.UndlyInstrumentPtysSubGrp
 }
 
+func (m *NoUndlyInstrumentParties) SetUnderlyingInstrumentPartyID(v string) {
+	m.UnderlyingInstrumentPartyID = &v
+}
+func (m *NoUndlyInstrumentParties) SetUnderlyingInstrumentPartyIDSource(v string) {
+	m.UnderlyingInstrumentPartyIDSource = &v
+}
+func (m *NoUndlyInstrumentParties) SetUnderlyingInstrumentPartyRole(v int) {
+	m.UnderlyingInstrumentPartyRole = &v
+}
+func (m *NoUndlyInstrumentParties) SetUndlyInstrumentPtysSubGrp(v undlyinstrumentptyssubgrp.UndlyInstrumentPtysSubGrp) {
+	m.UndlyInstrumentPtysSubGrp = &v
+}
+
 //UndlyInstrumentParties is a fix50sp2 Component
 type UndlyInstrumentParties struct {
 	//NoUndlyInstrumentParties is a non-required field for UndlyInstrumentParties.

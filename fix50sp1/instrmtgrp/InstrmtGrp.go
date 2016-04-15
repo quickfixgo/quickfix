@@ -15,6 +15,8 @@ type NoRelatedSym struct {
 	Instrument *instrument.Instrument
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+
 //InstrmtGrp is a fix50sp1 Component
 type InstrmtGrp struct {
 	//NoRelatedSym is a non-required field for InstrmtGrp.

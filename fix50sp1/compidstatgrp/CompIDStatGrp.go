@@ -22,6 +22,13 @@ type NoCompIDs struct {
 	StatusText *string `fix:"929"`
 }
 
+func (m *NoCompIDs) SetRefCompID(v string)  { m.RefCompID = v }
+func (m *NoCompIDs) SetRefSubID(v string)   { m.RefSubID = &v }
+func (m *NoCompIDs) SetLocationID(v string) { m.LocationID = &v }
+func (m *NoCompIDs) SetDeskID(v string)     { m.DeskID = &v }
+func (m *NoCompIDs) SetStatusValue(v int)   { m.StatusValue = v }
+func (m *NoCompIDs) SetStatusText(v string) { m.StatusText = &v }
+
 //CompIDStatGrp is a fix50sp1 Component
 type CompIDStatGrp struct {
 	//NoCompIDs is a required field for CompIDStatGrp.

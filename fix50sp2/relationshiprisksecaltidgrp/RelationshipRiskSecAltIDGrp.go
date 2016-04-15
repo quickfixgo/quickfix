@@ -13,6 +13,13 @@ type NoRelationshipRiskSecurityAltID struct {
 	RelationshipRiskSecurityAltIDSource *string `fix:"1595"`
 }
 
+func (m *NoRelationshipRiskSecurityAltID) SetRelationshipRiskSecurityAltID(v string) {
+	m.RelationshipRiskSecurityAltID = &v
+}
+func (m *NoRelationshipRiskSecurityAltID) SetRelationshipRiskSecurityAltIDSource(v string) {
+	m.RelationshipRiskSecurityAltIDSource = &v
+}
+
 //RelationshipRiskSecAltIDGrp is a fix50sp2 Component
 type RelationshipRiskSecAltIDGrp struct {
 	//NoRelationshipRiskSecurityAltID is a non-required field for RelationshipRiskSecAltIDGrp.

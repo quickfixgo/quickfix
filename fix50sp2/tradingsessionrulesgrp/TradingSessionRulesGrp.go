@@ -19,6 +19,12 @@ type NoTradingSessionRules struct {
 	TradingSessionRules *tradingsessionrules.TradingSessionRules
 }
 
+func (m *NoTradingSessionRules) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
+func (m *NoTradingSessionRules) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
+func (m *NoTradingSessionRules) SetTradingSessionRules(v tradingsessionrules.TradingSessionRules) {
+	m.TradingSessionRules = &v
+}
+
 //TradingSessionRulesGrp is a fix50sp2 Component
 type TradingSessionRulesGrp struct {
 	//NoTradingSessionRules is a non-required field for TradingSessionRulesGrp.

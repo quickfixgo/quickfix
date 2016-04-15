@@ -12,6 +12,8 @@ type NoMDEntryTypes struct {
 	MDEntryType string `fix:"269"`
 }
 
+func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
+
 //MDReqGrp is a fix50 Component
 type MDReqGrp struct {
 	//NoMDEntryTypes is a required field for MDReqGrp.

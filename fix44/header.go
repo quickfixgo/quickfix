@@ -14,6 +14,10 @@ type NoHops struct {
 	HopRefID *int `fix:"630"`
 }
 
+func (m *NoHops) SetHopCompID(v string)         { m.HopCompID = &v }
+func (m *NoHops) SetHopSendingTime(v time.Time) { m.HopSendingTime = &v }
+func (m *NoHops) SetHopRefID(v int)             { m.HopRefID = &v }
+
 //Header is the fix44 Header type
 type Header struct {
 	//BeginString is a required field for Header.

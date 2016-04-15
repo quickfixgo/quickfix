@@ -22,6 +22,13 @@ type NoMarketSegments struct {
 	StrikeRules *strikerules.StrikeRules
 }
 
+func (m *NoMarketSegments) SetMarketID(v string)        { m.MarketID = &v }
+func (m *NoMarketSegments) SetMarketSegmentID(v string) { m.MarketSegmentID = &v }
+func (m *NoMarketSegments) SetSecurityTradingRules(v securitytradingrules.SecurityTradingRules) {
+	m.SecurityTradingRules = &v
+}
+func (m *NoMarketSegments) SetStrikeRules(v strikerules.StrikeRules) { m.StrikeRules = &v }
+
 //MarketSegmentGrp is a fix50sp2 Component
 type MarketSegmentGrp struct {
 	//NoMarketSegments is a non-required field for MarketSegmentGrp.

@@ -32,6 +32,15 @@ type NoRelatedSym struct {
 	MDEntrySize *float64 `fix:"271"`
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument)          { m.Instrument = v }
+func (m *NoRelatedSym) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }
+func (m *NoRelatedSym) SetInstrmtLegGrp(v instrmtleggrp.InstrmtLegGrp) { m.InstrmtLegGrp = &v }
+func (m *NoRelatedSym) SetCurrency(v string)                           { m.Currency = &v }
+func (m *NoRelatedSym) SetQuoteType(v int)                             { m.QuoteType = &v }
+func (m *NoRelatedSym) SetSettlType(v string)                          { m.SettlType = &v }
+func (m *NoRelatedSym) SetSettlDate(v string)                          { m.SettlDate = &v }
+func (m *NoRelatedSym) SetMDEntrySize(v float64)                       { m.MDEntrySize = &v }
+
 //InstrmtMDReqGrp is a fix50 Component
 type InstrmtMDReqGrp struct {
 	//NoRelatedSym is a required field for InstrmtMDReqGrp.

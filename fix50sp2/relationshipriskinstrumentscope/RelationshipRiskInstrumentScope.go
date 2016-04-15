@@ -63,6 +63,82 @@ type NoRelationshipRiskInstruments struct {
 	RelationshipRiskInstrumentMultiplier *float64 `fix:"1612"`
 }
 
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskInstrumentOperator(v int) {
+	m.RelationshipRiskInstrumentOperator = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSymbol(v string) {
+	m.RelationshipRiskSymbol = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSymbolSfx(v string) {
+	m.RelationshipRiskSymbolSfx = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSecurityID(v string) {
+	m.RelationshipRiskSecurityID = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSecurityIDSource(v string) {
+	m.RelationshipRiskSecurityIDSource = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSecAltIDGrp(v relationshiprisksecaltidgrp.RelationshipRiskSecAltIDGrp) {
+	m.RelationshipRiskSecAltIDGrp = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskProduct(v int) {
+	m.RelationshipRiskProduct = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskProductComplex(v string) {
+	m.RelationshipRiskProductComplex = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSecurityGroup(v string) {
+	m.RelationshipRiskSecurityGroup = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskCFICode(v string) {
+	m.RelationshipRiskCFICode = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSecurityType(v string) {
+	m.RelationshipRiskSecurityType = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSecuritySubType(v string) {
+	m.RelationshipRiskSecuritySubType = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskMaturityMonthYear(v string) {
+	m.RelationshipRiskMaturityMonthYear = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskMaturityTime(v string) {
+	m.RelationshipRiskMaturityTime = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskRestructuringType(v string) {
+	m.RelationshipRiskRestructuringType = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSeniority(v string) {
+	m.RelationshipRiskSeniority = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskPutOrCall(v int) {
+	m.RelationshipRiskPutOrCall = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskFlexibleIndicator(v bool) {
+	m.RelationshipRiskFlexibleIndicator = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskCouponRate(v float64) {
+	m.RelationshipRiskCouponRate = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSecurityExchange(v string) {
+	m.RelationshipRiskSecurityExchange = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskSecurityDesc(v string) {
+	m.RelationshipRiskSecurityDesc = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskEncodedSecurityDescLen(v int) {
+	m.RelationshipRiskEncodedSecurityDescLen = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskEncodedSecurityDesc(v string) {
+	m.RelationshipRiskEncodedSecurityDesc = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskInstrumentSettlType(v string) {
+	m.RelationshipRiskInstrumentSettlType = &v
+}
+func (m *NoRelationshipRiskInstruments) SetRelationshipRiskInstrumentMultiplier(v float64) {
+	m.RelationshipRiskInstrumentMultiplier = &v
+}
+
 //RelationshipRiskInstrumentScope is a fix50sp2 Component
 type RelationshipRiskInstrumentScope struct {
 	//NoRelationshipRiskInstruments is a non-required field for RelationshipRiskInstrumentScope.

@@ -29,6 +29,15 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
+func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
+func (m *NoRelatedSym) SetSettlType(v string)                 { m.SettlType = &v }
+func (m *NoRelatedSym) SetStreamAsgnType(v int)               { m.StreamAsgnType = &v }
+func (m *NoRelatedSym) SetMDStreamID(v string)                { m.MDStreamID = &v }
+func (m *NoRelatedSym) SetStreamAsgnRejReason(v int)          { m.StreamAsgnRejReason = &v }
+func (m *NoRelatedSym) SetText(v string)                      { m.Text = &v }
+func (m *NoRelatedSym) SetEncodedTextLen(v int)               { m.EncodedTextLen = &v }
+func (m *NoRelatedSym) SetEncodedText(v string)               { m.EncodedText = &v }
+
 //StrmAsgnRptInstrmtGrp is a fix50sp2 Component
 type StrmAsgnRptInstrmtGrp struct {
 	//NoRelatedSym is a non-required field for StrmAsgnRptInstrmtGrp.

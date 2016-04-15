@@ -40,23 +40,6 @@ func genMessages() {
 	}
 }
 
-func genGroupDeclaration(field *datadictionary.FieldDef, parent string) (fileOut string) {
-	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
-	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
-	fileOut += gen.WriteFieldDeclarations(fixSpec.Major, fixSpec.Minor, field.Parts, field.Name())
-
-	fileOut += "}\n"
-
-	writer := new(bytes.Buffer)
-	if err := gen.WriteFieldSetters(writer, field.Name(), field.Parts); err != nil {
-		panic(err)
-	}
-	fileOut += writer.String()
-	fileOut += "\n"
-
-	return
-}
-
 type group struct {
 	parent string
 	field  *datadictionary.FieldDef
@@ -85,7 +68,7 @@ func genGroupDeclarations(msg *datadictionary.MessageDef) (fileOut string) {
 	}
 
 	for _, group := range groups {
-		fileOut += genGroupDeclaration(group.field, group.parent)
+		fileOut += gen.WriteGroupDeclaration(fixSpec.Major, fixSpec.Minor, group.field, group.parent)
 	}
 
 	return

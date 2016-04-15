@@ -11,6 +11,8 @@ type NoPartyRelationships struct {
 	PartyRelationship *int `fix:"1515"`
 }
 
+func (m *NoPartyRelationships) SetPartyRelationship(v int) { m.PartyRelationship = &v }
+
 //PartyRelationships is a fix50sp2 Component
 type PartyRelationships struct {
 	//NoPartyRelationships is a non-required field for PartyRelationships.

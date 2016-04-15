@@ -19,6 +19,10 @@ type NoDlvyInst struct {
 	SettlParties *settlparties.SettlParties
 }
 
+func (m *NoDlvyInst) SetSettlInstSource(v string)                 { m.SettlInstSource = &v }
+func (m *NoDlvyInst) SetDlvyInstType(v string)                    { m.DlvyInstType = &v }
+func (m *NoDlvyInst) SetSettlParties(v settlparties.SettlParties) { m.SettlParties = &v }
+
 //DlvyInstGrp is a fix50sp2 Component
 type DlvyInstGrp struct {
 	//NoDlvyInst is a non-required field for DlvyInstGrp.

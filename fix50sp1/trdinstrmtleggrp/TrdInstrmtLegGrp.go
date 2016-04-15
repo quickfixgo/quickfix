@@ -62,6 +62,32 @@ type NoLegs struct {
 	LegLastQty *float64 `fix:"1418"`
 }
 
+func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
+func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
+func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
+func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
+func (m *NoLegs) SetLegPositionEffect(v string)                        { m.LegPositionEffect = &v }
+func (m *NoLegs) SetLegCoveredOrUncovered(v int)                       { m.LegCoveredOrUncovered = &v }
+func (m *NoLegs) SetNestedParties(v nestedparties.NestedParties)       { m.NestedParties = &v }
+func (m *NoLegs) SetLegRefID(v string)                                 { m.LegRefID = &v }
+func (m *NoLegs) SetLegSettlType(v string)                             { m.LegSettlType = &v }
+func (m *NoLegs) SetLegSettlDate(v string)                             { m.LegSettlDate = &v }
+func (m *NoLegs) SetLegLastPx(v float64)                               { m.LegLastPx = &v }
+func (m *NoLegs) SetLegReportID(v string)                              { m.LegReportID = &v }
+func (m *NoLegs) SetLegSettlCurrency(v string)                         { m.LegSettlCurrency = &v }
+func (m *NoLegs) SetLegLastForwardPoints(v float64)                    { m.LegLastForwardPoints = &v }
+func (m *NoLegs) SetLegCalculatedCcyLastQty(v float64)                 { m.LegCalculatedCcyLastQty = &v }
+func (m *NoLegs) SetLegGrossTradeAmt(v float64)                        { m.LegGrossTradeAmt = &v }
+func (m *NoLegs) SetLegNumber(v int)                                   { m.LegNumber = &v }
+func (m *NoLegs) SetTradeCapLegUnderlyingsGrp(v tradecaplegunderlyingsgrp.TradeCapLegUnderlyingsGrp) {
+	m.TradeCapLegUnderlyingsGrp = &v
+}
+func (m *NoLegs) SetLegVolatility(v float64)    { m.LegVolatility = &v }
+func (m *NoLegs) SetLegDividendYield(v float64) { m.LegDividendYield = &v }
+func (m *NoLegs) SetLegCurrencyRatio(v float64) { m.LegCurrencyRatio = &v }
+func (m *NoLegs) SetLegExecInst(v string)       { m.LegExecInst = &v }
+func (m *NoLegs) SetLegLastQty(v float64)       { m.LegLastQty = &v }
+
 //TrdInstrmtLegGrp is a fix50sp1 Component
 type TrdInstrmtLegGrp struct {
 	//NoLegs is a non-required field for TrdInstrmtLegGrp.

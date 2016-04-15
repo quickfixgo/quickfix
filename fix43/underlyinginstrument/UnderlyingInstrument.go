@@ -13,6 +13,13 @@ type NoUnderlyingSecurityAltID struct {
 	UnderlyingSecurityAltIDSource *string `fix:"459"`
 }
 
+func (m *NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltID(v string) {
+	m.UnderlyingSecurityAltID = &v
+}
+func (m *NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltIDSource(v string) {
+	m.UnderlyingSecurityAltIDSource = &v
+}
+
 //UnderlyingInstrument is a fix43 Component
 type UnderlyingInstrument struct {
 	//UnderlyingSymbol is a non-required field for UnderlyingInstrument.

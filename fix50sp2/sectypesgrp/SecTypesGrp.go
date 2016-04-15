@@ -23,6 +23,12 @@ type NoSecurityTypes struct {
 	TransactTime *time.Time `fix:"60"`
 }
 
+func (m *NoSecurityTypes) SetSecurityType(v string)    { m.SecurityType = &v }
+func (m *NoSecurityTypes) SetSecuritySubType(v string) { m.SecuritySubType = &v }
+func (m *NoSecurityTypes) SetProduct(v int)            { m.Product = &v }
+func (m *NoSecurityTypes) SetCFICode(v string)         { m.CFICode = &v }
+func (m *NoSecurityTypes) SetTransactTime(v time.Time) { m.TransactTime = &v }
+
 //SecTypesGrp is a fix50sp2 Component
 type SecTypesGrp struct {
 	//NoSecurityTypes is a non-required field for SecTypesGrp.

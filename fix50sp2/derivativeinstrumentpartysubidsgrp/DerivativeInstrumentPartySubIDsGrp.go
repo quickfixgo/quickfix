@@ -13,6 +13,13 @@ type NoDerivativeInstrumentPartySubIDs struct {
 	DerivativeInstrumentPartySubIDType *int `fix:"1298"`
 }
 
+func (m *NoDerivativeInstrumentPartySubIDs) SetDerivativeInstrumentPartySubID(v string) {
+	m.DerivativeInstrumentPartySubID = &v
+}
+func (m *NoDerivativeInstrumentPartySubIDs) SetDerivativeInstrumentPartySubIDType(v int) {
+	m.DerivativeInstrumentPartySubIDType = &v
+}
+
 //DerivativeInstrumentPartySubIDsGrp is a fix50sp2 Component
 type DerivativeInstrumentPartySubIDsGrp struct {
 	//NoDerivativeInstrumentPartySubIDs is a non-required field for DerivativeInstrumentPartySubIDsGrp.

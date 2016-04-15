@@ -13,6 +13,9 @@ type NoOfSecSizes struct {
 	MDSecSize *float64 `fix:"1179"`
 }
 
+func (m *NoOfSecSizes) SetMDSecSizeType(v int) { m.MDSecSizeType = &v }
+func (m *NoOfSecSizes) SetMDSecSize(v float64) { m.MDSecSize = &v }
+
 //SecSizesGrp is a fix50sp2 Component
 type SecSizesGrp struct {
 	//NoOfSecSizes is a non-required field for SecSizesGrp.

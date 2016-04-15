@@ -13,6 +13,9 @@ type NoLotTypeRules struct {
 	MinLotSize *float64 `fix:"1231"`
 }
 
+func (m *NoLotTypeRules) SetLotType(v string)     { m.LotType = &v }
+func (m *NoLotTypeRules) SetMinLotSize(v float64) { m.MinLotSize = &v }
+
 //LotTypeRules is a fix50sp2 Component
 type LotTypeRules struct {
 	//NoLotTypeRules is a non-required field for LotTypeRules.

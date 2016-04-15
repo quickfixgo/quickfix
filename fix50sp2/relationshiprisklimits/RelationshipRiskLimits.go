@@ -26,6 +26,25 @@ type NoRelationshipRiskLimits struct {
 	RelationshipRiskWarningLevels *relationshipriskwarninglevels.RelationshipRiskWarningLevels
 }
 
+func (m *NoRelationshipRiskLimits) SetRelationshipRiskLimitType(v int) {
+	m.RelationshipRiskLimitType = &v
+}
+func (m *NoRelationshipRiskLimits) SetRelationshipRiskLimitAmount(v float64) {
+	m.RelationshipRiskLimitAmount = &v
+}
+func (m *NoRelationshipRiskLimits) SetRelationshipRiskLimitCurrency(v string) {
+	m.RelationshipRiskLimitCurrency = &v
+}
+func (m *NoRelationshipRiskLimits) SetRelationshipRiskLimitPlatform(v string) {
+	m.RelationshipRiskLimitPlatform = &v
+}
+func (m *NoRelationshipRiskLimits) SetRelationshipRiskInstrumentScope(v relationshipriskinstrumentscope.RelationshipRiskInstrumentScope) {
+	m.RelationshipRiskInstrumentScope = &v
+}
+func (m *NoRelationshipRiskLimits) SetRelationshipRiskWarningLevels(v relationshipriskwarninglevels.RelationshipRiskWarningLevels) {
+	m.RelationshipRiskWarningLevels = &v
+}
+
 //RelationshipRiskLimits is a fix50sp2 Component
 type RelationshipRiskLimits struct {
 	//NoRelationshipRiskLimits is a non-required field for RelationshipRiskLimits.

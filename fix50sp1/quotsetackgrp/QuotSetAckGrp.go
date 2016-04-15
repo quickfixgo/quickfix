@@ -30,6 +30,17 @@ type NoQuoteSets struct {
 	TotNoRejQuotes *int `fix:"1170"`
 }
 
+func (m *NoQuoteSets) SetQuoteSetID(v string) { m.QuoteSetID = &v }
+func (m *NoQuoteSets) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
+	m.UnderlyingInstrument = &v
+}
+func (m *NoQuoteSets) SetTotNoQuoteEntries(v int)                           { m.TotNoQuoteEntries = &v }
+func (m *NoQuoteSets) SetLastFragment(v bool)                               { m.LastFragment = &v }
+func (m *NoQuoteSets) SetQuotEntryAckGrp(v quotentryackgrp.QuotEntryAckGrp) { m.QuotEntryAckGrp = &v }
+func (m *NoQuoteSets) SetTotNoCxldQuotes(v int)                             { m.TotNoCxldQuotes = &v }
+func (m *NoQuoteSets) SetTotNoAccQuotes(v int)                              { m.TotNoAccQuotes = &v }
+func (m *NoQuoteSets) SetTotNoRejQuotes(v int)                              { m.TotNoRejQuotes = &v }
+
 //QuotSetAckGrp is a fix50sp1 Component
 type QuotSetAckGrp struct {
 	//NoQuoteSets is a non-required field for QuotSetAckGrp.

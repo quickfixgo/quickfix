@@ -90,6 +90,43 @@ type NoSides struct {
 	OrigClOrdID *string `fix:"41"`
 }
 
+func (m *NoSides) SetSide(v string)                                  { m.Side = v }
+func (m *NoSides) SetClOrdID(v string)                               { m.ClOrdID = v }
+func (m *NoSides) SetSecondaryClOrdID(v string)                      { m.SecondaryClOrdID = &v }
+func (m *NoSides) SetClOrdLinkID(v string)                           { m.ClOrdLinkID = &v }
+func (m *NoSides) SetParties(v parties.Parties)                      { m.Parties = &v }
+func (m *NoSides) SetTradeOriginationDate(v string)                  { m.TradeOriginationDate = &v }
+func (m *NoSides) SetTradeDate(v string)                             { m.TradeDate = &v }
+func (m *NoSides) SetAccount(v string)                               { m.Account = &v }
+func (m *NoSides) SetAcctIDSource(v int)                             { m.AcctIDSource = &v }
+func (m *NoSides) SetAccountType(v int)                              { m.AccountType = &v }
+func (m *NoSides) SetDayBookingInst(v string)                        { m.DayBookingInst = &v }
+func (m *NoSides) SetBookingUnit(v string)                           { m.BookingUnit = &v }
+func (m *NoSides) SetPreallocMethod(v string)                        { m.PreallocMethod = &v }
+func (m *NoSides) SetAllocID(v string)                               { m.AllocID = &v }
+func (m *NoSides) SetPreAllocGrp(v preallocgrp.PreAllocGrp)          { m.PreAllocGrp = &v }
+func (m *NoSides) SetQtyType(v int)                                  { m.QtyType = &v }
+func (m *NoSides) SetOrderQtyData(v orderqtydata.OrderQtyData)       { m.OrderQtyData = v }
+func (m *NoSides) SetCommissionData(v commissiondata.CommissionData) { m.CommissionData = &v }
+func (m *NoSides) SetOrderCapacity(v string)                         { m.OrderCapacity = &v }
+func (m *NoSides) SetOrderRestrictions(v string)                     { m.OrderRestrictions = &v }
+func (m *NoSides) SetCustOrderCapacity(v int)                        { m.CustOrderCapacity = &v }
+func (m *NoSides) SetForexReq(v bool)                                { m.ForexReq = &v }
+func (m *NoSides) SetSettlCurrency(v string)                         { m.SettlCurrency = &v }
+func (m *NoSides) SetBookingType(v int)                              { m.BookingType = &v }
+func (m *NoSides) SetText(v string)                                  { m.Text = &v }
+func (m *NoSides) SetEncodedTextLen(v int)                           { m.EncodedTextLen = &v }
+func (m *NoSides) SetEncodedText(v string)                           { m.EncodedText = &v }
+func (m *NoSides) SetPositionEffect(v string)                        { m.PositionEffect = &v }
+func (m *NoSides) SetCoveredOrUncovered(v int)                       { m.CoveredOrUncovered = &v }
+func (m *NoSides) SetCashMargin(v string)                            { m.CashMargin = &v }
+func (m *NoSides) SetClearingFeeIndicator(v string)                  { m.ClearingFeeIndicator = &v }
+func (m *NoSides) SetSolicitedFlag(v bool)                           { m.SolicitedFlag = &v }
+func (m *NoSides) SetSideComplianceID(v string)                      { m.SideComplianceID = &v }
+func (m *NoSides) SetSideTimeInForce(v time.Time)                    { m.SideTimeInForce = &v }
+func (m *NoSides) SetPreTradeAnonymity(v bool)                       { m.PreTradeAnonymity = &v }
+func (m *NoSides) SetOrigClOrdID(v string)                           { m.OrigClOrdID = &v }
+
 //SideCrossOrdModGrp is a fix50sp1 Component
 type SideCrossOrdModGrp struct {
 	//NoSides is a required field for SideCrossOrdModGrp.

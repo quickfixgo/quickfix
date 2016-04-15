@@ -21,6 +21,11 @@ type NoNestedPartyIDs struct {
 	NstdPtysSubGrp *nstdptyssubgrp.NstdPtysSubGrp
 }
 
+func (m *NoNestedPartyIDs) SetNestedPartyID(v string)                         { m.NestedPartyID = &v }
+func (m *NoNestedPartyIDs) SetNestedPartyIDSource(v string)                   { m.NestedPartyIDSource = &v }
+func (m *NoNestedPartyIDs) SetNestedPartyRole(v int)                          { m.NestedPartyRole = &v }
+func (m *NoNestedPartyIDs) SetNstdPtysSubGrp(v nstdptyssubgrp.NstdPtysSubGrp) { m.NstdPtysSubGrp = &v }
+
 //NestedParties is a fix50sp2 Component
 type NestedParties struct {
 	//NoNestedPartyIDs is a non-required field for NestedParties.

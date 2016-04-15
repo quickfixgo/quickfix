@@ -13,6 +13,9 @@ type NoTrades struct {
 	SecondaryTradeReportID *string `fix:"818"`
 }
 
+func (m *NoTrades) SetTradeReportID(v string)          { m.TradeReportID = &v }
+func (m *NoTrades) SetSecondaryTradeReportID(v string) { m.SecondaryTradeReportID = &v }
+
 //TrdCollGrp is a fix50sp2 Component
 type TrdCollGrp struct {
 	//NoTrades is a non-required field for TrdCollGrp.

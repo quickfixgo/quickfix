@@ -25,6 +25,13 @@ type NoStrikeRules struct {
 	MaturityRules *maturityrules.MaturityRules
 }
 
+func (m *NoStrikeRules) SetStrikeRuleID(v string)                       { m.StrikeRuleID = &v }
+func (m *NoStrikeRules) SetStartStrikePxRange(v float64)                { m.StartStrikePxRange = &v }
+func (m *NoStrikeRules) SetEndStrikePxRange(v float64)                  { m.EndStrikePxRange = &v }
+func (m *NoStrikeRules) SetStrikeIncrement(v float64)                   { m.StrikeIncrement = &v }
+func (m *NoStrikeRules) SetStrikeExerciseStyle(v int)                   { m.StrikeExerciseStyle = &v }
+func (m *NoStrikeRules) SetMaturityRules(v maturityrules.MaturityRules) { m.MaturityRules = &v }
+
 //StrikeRules is a fix50sp1 Component
 type StrikeRules struct {
 	//NoStrikeRules is a non-required field for StrikeRules.

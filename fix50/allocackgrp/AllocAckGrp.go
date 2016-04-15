@@ -41,6 +41,21 @@ type NoAllocs struct {
 	AllocPositionEffect *string `fix:"1047"`
 }
 
+func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }
+func (m *NoAllocs) SetAllocAcctIDSource(v int)                     { m.AllocAcctIDSource = &v }
+func (m *NoAllocs) SetAllocPrice(v float64)                        { m.AllocPrice = &v }
+func (m *NoAllocs) SetIndividualAllocID(v string)                  { m.IndividualAllocID = &v }
+func (m *NoAllocs) SetIndividualAllocRejCode(v int)                { m.IndividualAllocRejCode = &v }
+func (m *NoAllocs) SetAllocText(v string)                          { m.AllocText = &v }
+func (m *NoAllocs) SetEncodedAllocTextLen(v int)                   { m.EncodedAllocTextLen = &v }
+func (m *NoAllocs) SetEncodedAllocText(v string)                   { m.EncodedAllocText = &v }
+func (m *NoAllocs) SetSecondaryIndividualAllocID(v string)         { m.SecondaryIndividualAllocID = &v }
+func (m *NoAllocs) SetAllocCustomerCapacity(v string)              { m.AllocCustomerCapacity = &v }
+func (m *NoAllocs) SetIndividualAllocType(v int)                   { m.IndividualAllocType = &v }
+func (m *NoAllocs) SetAllocQty(v float64)                          { m.AllocQty = &v }
+func (m *NoAllocs) SetNestedParties(v nestedparties.NestedParties) { m.NestedParties = &v }
+func (m *NoAllocs) SetAllocPositionEffect(v string)                { m.AllocPositionEffect = &v }
+
 //AllocAckGrp is a fix50 Component
 type AllocAckGrp struct {
 	//NoAllocs is a non-required field for AllocAckGrp.

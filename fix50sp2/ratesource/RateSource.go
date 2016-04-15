@@ -15,6 +15,10 @@ type NoRateSources struct {
 	ReferencePage *string `fix:"1448"`
 }
 
+func (m *NoRateSources) SetRateSource(v int)       { m.RateSource = &v }
+func (m *NoRateSources) SetRateSourceType(v int)   { m.RateSourceType = &v }
+func (m *NoRateSources) SetReferencePage(v string) { m.ReferencePage = &v }
+
 //RateSource is a fix50sp2 Component
 type RateSource struct {
 	//NoRateSources is a non-required field for RateSource.

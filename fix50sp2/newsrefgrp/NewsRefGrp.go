@@ -13,6 +13,9 @@ type NoNewsRefIDs struct {
 	NewsRefType *int `fix:"1477"`
 }
 
+func (m *NoNewsRefIDs) SetNewsRefID(v string) { m.NewsRefID = &v }
+func (m *NoNewsRefIDs) SetNewsRefType(v int)  { m.NewsRefType = &v }
+
 //NewsRefGrp is a fix50sp2 Component
 type NewsRefGrp struct {
 	//NoNewsRefIDs is a non-required field for NewsRefGrp.

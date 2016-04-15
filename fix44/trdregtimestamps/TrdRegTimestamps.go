@@ -19,6 +19,10 @@ type NoTrdRegTimestamps struct {
 	TrdRegTimestampOrigin *string `fix:"771"`
 }
 
+func (m *NoTrdRegTimestamps) SetTrdRegTimestamp(v time.Time)    { m.TrdRegTimestamp = &v }
+func (m *NoTrdRegTimestamps) SetTrdRegTimestampType(v int)      { m.TrdRegTimestampType = &v }
+func (m *NoTrdRegTimestamps) SetTrdRegTimestampOrigin(v string) { m.TrdRegTimestampOrigin = &v }
+
 //TrdRegTimestamps is a fix44 Component
 type TrdRegTimestamps struct {
 	//NoTrdRegTimestamps is a non-required field for TrdRegTimestamps.

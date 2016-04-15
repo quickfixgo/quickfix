@@ -13,6 +13,9 @@ type NoNotAffectedOrders struct {
 	NotAffectedOrderID *string `fix:"1371"`
 }
 
+func (m *NoNotAffectedOrders) SetNotAffOrigClOrdID(v string)  { m.NotAffOrigClOrdID = &v }
+func (m *NoNotAffectedOrders) SetNotAffectedOrderID(v string) { m.NotAffectedOrderID = &v }
+
 //NotAffectedOrdersGrp is a fix50sp1 Component
 type NotAffectedOrdersGrp struct {
 	//NoNotAffectedOrders is a non-required field for NotAffectedOrdersGrp.

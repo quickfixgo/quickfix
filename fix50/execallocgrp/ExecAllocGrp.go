@@ -25,6 +25,15 @@ type NoExecs struct {
 	FirmTradeID *string `fix:"1041"`
 }
 
+func (m *NoExecs) SetLastQty(v float64)        { m.LastQty = &v }
+func (m *NoExecs) SetExecID(v string)          { m.ExecID = &v }
+func (m *NoExecs) SetSecondaryExecID(v string) { m.SecondaryExecID = &v }
+func (m *NoExecs) SetLastPx(v float64)         { m.LastPx = &v }
+func (m *NoExecs) SetLastParPx(v float64)      { m.LastParPx = &v }
+func (m *NoExecs) SetLastCapacity(v string)    { m.LastCapacity = &v }
+func (m *NoExecs) SetTradeID(v string)         { m.TradeID = &v }
+func (m *NoExecs) SetFirmTradeID(v string)     { m.FirmTradeID = &v }
+
 //ExecAllocGrp is a fix50 Component
 type ExecAllocGrp struct {
 	//NoExecs is a non-required field for ExecAllocGrp.

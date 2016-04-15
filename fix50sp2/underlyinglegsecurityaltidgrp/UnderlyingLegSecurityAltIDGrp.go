@@ -13,6 +13,13 @@ type NoUnderlyingLegSecurityAltID struct {
 	UnderlyingLegSecurityAltIDSource *string `fix:"1336"`
 }
 
+func (m *NoUnderlyingLegSecurityAltID) SetUnderlyingLegSecurityAltID(v string) {
+	m.UnderlyingLegSecurityAltID = &v
+}
+func (m *NoUnderlyingLegSecurityAltID) SetUnderlyingLegSecurityAltIDSource(v string) {
+	m.UnderlyingLegSecurityAltIDSource = &v
+}
+
 //UnderlyingLegSecurityAltIDGrp is a fix50sp2 Component
 type UnderlyingLegSecurityAltIDGrp struct {
 	//NoUnderlyingLegSecurityAltID is a non-required field for UnderlyingLegSecurityAltIDGrp.

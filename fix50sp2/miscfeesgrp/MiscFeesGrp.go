@@ -17,6 +17,11 @@ type NoMiscFees struct {
 	MiscFeeBasis *int `fix:"891"`
 }
 
+func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
+func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
+func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
+func (m *NoMiscFees) SetMiscFeeBasis(v int)   { m.MiscFeeBasis = &v }
+
 //MiscFeesGrp is a fix50sp2 Component
 type MiscFeesGrp struct {
 	//NoMiscFees is a non-required field for MiscFeesGrp.

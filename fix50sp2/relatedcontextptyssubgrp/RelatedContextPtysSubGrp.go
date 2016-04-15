@@ -13,6 +13,13 @@ type NoRelatedContextPartySubIDs struct {
 	RelatedContextPartySubIDType *int `fix:"1581"`
 }
 
+func (m *NoRelatedContextPartySubIDs) SetRelatedContextPartySubID(v string) {
+	m.RelatedContextPartySubID = &v
+}
+func (m *NoRelatedContextPartySubIDs) SetRelatedContextPartySubIDType(v int) {
+	m.RelatedContextPartySubIDType = &v
+}
+
 //RelatedContextPtysSubGrp is a fix50sp2 Component
 type RelatedContextPtysSubGrp struct {
 	//NoRelatedContextPartySubIDs is a non-required field for RelatedContextPtysSubGrp.

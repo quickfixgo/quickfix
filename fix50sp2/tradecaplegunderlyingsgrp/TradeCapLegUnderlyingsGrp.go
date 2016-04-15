@@ -15,6 +15,10 @@ type NoOfLegUnderlyings struct {
 	UnderlyingLegInstrument *underlyingleginstrument.UnderlyingLegInstrument
 }
 
+func (m *NoOfLegUnderlyings) SetUnderlyingLegInstrument(v underlyingleginstrument.UnderlyingLegInstrument) {
+	m.UnderlyingLegInstrument = &v
+}
+
 //TradeCapLegUnderlyingsGrp is a fix50sp2 Component
 type TradeCapLegUnderlyingsGrp struct {
 	//NoOfLegUnderlyings is a non-required field for TradeCapLegUnderlyingsGrp.
