@@ -92,7 +92,7 @@ func (suite *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 		3: "and there was much rejoicing",
 	}
 	for seqNum, msg := range expectedMsgsBySeqNum {
-		suite.msgStore.SaveMessage(seqNum, []byte(msg))
+		require.Nil(t, suite.msgStore.SaveMessage(seqNum, []byte(msg)))
 	}
 
 	// When the messages are retrieved from the MessageStore
@@ -132,9 +132,9 @@ func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges()
 	t := suite.T()
 
 	// Given the following saved messages
-	suite.msgStore.SaveMessage(1, []byte("hello"))
-	suite.msgStore.SaveMessage(2, []byte("cruel"))
-	suite.msgStore.SaveMessage(3, []byte("world"))
+	require.Nil(t, suite.msgStore.SaveMessage(1, []byte("hello")))
+	require.Nil(t, suite.msgStore.SaveMessage(2, []byte("cruel")))
+	require.Nil(t, suite.msgStore.SaveMessage(3, []byte("world")))
 
 	// When the following requests are made to the store
 	var testCases = []struct {
@@ -163,7 +163,7 @@ func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges()
 	}
 }
 
-func (suite *MessageStoreTestSuite) TestMemoryStoreFactory_CreationTime() {
+func (suite *MessageStoreTestSuite) TestMessageStore_CreationTime() {
 	t0 := time.Now()
 	suite.msgStore.Reset()
 	t1 := time.Now()

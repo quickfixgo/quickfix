@@ -16,4 +16,6 @@ const (
 	HeartBtInt              string = "HeartBtInt"
 	FileLogPath             string = "FileLogPath"
 	FileStorePath           string = "FileStorePath"
+	SQLDriver               string = "SQLDriver"
+	SQLDataSourceName       string = "SQLDataSourceName"
 )
