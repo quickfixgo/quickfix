@@ -122,5 +122,13 @@ Directory to store logs.	Value must be valid directory for storing files, applic
 FileStorePath
 
 Directory to store sequence number and message files.  Only used with FileStoreFactory.
+
+SQLDriver
+
+The name of the database driver to use (see https://github.com/golang/go/wiki/SQLDrivers for the list of available drivers).  Only used with SqlStoreFactory.
+
+SQLDataSourceName
+
+The driver-specific data source name of the database to use.  Only used with SqlStoreFactory.
 */
 package config

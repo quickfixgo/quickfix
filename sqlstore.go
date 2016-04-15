@@ -89,7 +89,7 @@ func (store *sqlStore) Reset() error {
 	return err
 }
 
-// Refresh closes the store sqls and then reloads from them
+// Refresh reloads the store from the database
 func (store *sqlStore) Refresh() error {
 	if err := store.cache.Reset(); err != nil {
 		return err
