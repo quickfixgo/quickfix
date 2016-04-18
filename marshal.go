@@ -31,6 +31,7 @@ func (e encoder) encodeField(f reflect.StructField, t reflect.Type, v reflect.Va
 }
 
 func (e encoder) encodeValue(fixTag Tag, v reflect.Value, omitEmpty bool, defaultVal *string) {
+
 	if defaultVal != nil {
 		e.FieldMap.SetField(fixTag, FIXString(*defaultVal))
 		return
@@ -72,10 +73,18 @@ func (e encoder) encodeValue(fixTag Tag, v reflect.Value, omitEmpty bool, defaul
 		walkFunc = func(t reflect.Type) {
 			for i := 0; i < t.NumField(); i++ {
 				sf := t.Field(i)
-				if sf.Anonymous {
-					walkFunc(sf.Type)
+
+				//recurse if item is a component, optional or not
+				elementType := sf.Type
+				if elementType.Kind() == reflect.Ptr {
+					elementType = elementType.Elem()
+				}
+
+				if elementType.Kind() == reflect.Struct {
+					walkFunc(elementType)
 					continue
 				}
+
 				afixTag, err := strconv.Atoi(strings.Split(sf.Tag.Get("fix"), ",")[0])
 
 				if err != nil {
