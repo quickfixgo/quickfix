@@ -15,6 +15,12 @@ type NoQuoteEntries struct {
 	Instrument *instrument.Instrument
 }
 
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries() *NoQuoteEntries {
+	var m NoQuoteEntries
+	return &m
+}
+
 func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 
 //Message is a QuoteCancel FIX Message

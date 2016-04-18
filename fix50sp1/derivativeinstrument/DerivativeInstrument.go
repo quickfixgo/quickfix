@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/derivativesecurityxml"
 )
 
+//New returns an initialized DerivativeInstrument instance
 func New() *DerivativeInstrument {
 	var m DerivativeInstrument
 	return &m

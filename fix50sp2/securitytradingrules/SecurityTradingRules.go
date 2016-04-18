@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/tradingsessionrulesgrp"
 )
 
+//New returns an initialized SecurityTradingRules instance
 func New() *SecurityTradingRules {
 	var m SecurityTradingRules
 	return &m

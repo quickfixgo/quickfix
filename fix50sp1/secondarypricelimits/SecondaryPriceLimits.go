@@ -1,5 +1,6 @@
 package secondarypricelimits
 
+//New returns an initialized SecondaryPriceLimits instance
 func New() *SecondaryPriceLimits {
 	var m SecondaryPriceLimits
 	return &m

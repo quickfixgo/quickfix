@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/nestedparties2"
 )
 
+//New returns an initialized LegPreAllocGrp instance
 func New() *LegPreAllocGrp {
 	var m LegPreAllocGrp
 	return &m
@@ -23,6 +24,12 @@ type NoLegAllocs struct {
 	LegAllocAcctIDSource *string `fix:"674"`
 	//LegSettlCurrency is a non-required field for NoLegAllocs.
 	LegSettlCurrency *string `fix:"675"`
+}
+
+//NewNoLegAllocs returns an initialized NoLegAllocs instance
+func NewNoLegAllocs() *NoLegAllocs {
+	var m NoLegAllocs
+	return &m
 }
 
 func (m *NoLegAllocs) SetLegAllocAccount(v string)                       { m.LegAllocAccount = &v }

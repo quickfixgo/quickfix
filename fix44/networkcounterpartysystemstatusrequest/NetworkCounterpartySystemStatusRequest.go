@@ -19,6 +19,12 @@ type NoCompIDs struct {
 	DeskID *string `fix:"284"`
 }
 
+//NewNoCompIDs returns an initialized NoCompIDs instance
+func NewNoCompIDs() *NoCompIDs {
+	var m NoCompIDs
+	return &m
+}
+
 func (m *NoCompIDs) SetRefCompID(v string)  { m.RefCompID = &v }
 func (m *NoCompIDs) SetRefSubID(v string)   { m.RefSubID = &v }
 func (m *NoCompIDs) SetLocationID(v string) { m.LocationID = &v }

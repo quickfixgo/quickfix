@@ -77,6 +77,13 @@ type NoMDEntries struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoMDEntries returns an initialized NoMDEntries instance
+func NewNoMDEntries(mdentrytype string) *NoMDEntries {
+	var m NoMDEntries
+	m.SetMDEntryType(mdentrytype)
+	return &m
+}
+
 func (m *NoMDEntries) SetMDEntryType(v string)         { m.MDEntryType = v }
 func (m *NoMDEntries) SetMDEntryPx(v float64)          { m.MDEntryPx = &v }
 func (m *NoMDEntries) SetCurrency(v string)            { m.Currency = &v }

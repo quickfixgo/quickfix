@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/commissiondata"
 )
 
+//New returns an initialized BidCompRspGrp instance
 func New(nobidcomponents []NoBidComponents) *BidCompRspGrp {
 	var m BidCompRspGrp
 	m.SetNoBidComponents(nobidcomponents)
@@ -42,6 +43,13 @@ type NoBidComponents struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoBidComponents.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoBidComponents returns an initialized NoBidComponents instance
+func NewNoBidComponents(commissiondata commissiondata.CommissionData) *NoBidComponents {
+	var m NoBidComponents
+	m.SetCommissionData(commissiondata)
+	return &m
 }
 
 func (m *NoBidComponents) SetCommissionData(v commissiondata.CommissionData) { m.CommissionData = v }

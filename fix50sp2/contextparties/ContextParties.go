@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/contextptyssubgrp"
 )
 
+//New returns an initialized ContextParties instance
 func New() *ContextParties {
 	var m ContextParties
 	return &m
@@ -19,6 +20,12 @@ type NoContextPartyIDs struct {
 	ContextPartyRole *int `fix:"1525"`
 	//ContextPtysSubGrp is a non-required component for NoContextPartyIDs.
 	ContextPtysSubGrp *contextptyssubgrp.ContextPtysSubGrp
+}
+
+//NewNoContextPartyIDs returns an initialized NoContextPartyIDs instance
+func NewNoContextPartyIDs() *NoContextPartyIDs {
+	var m NoContextPartyIDs
+	return &m
 }
 
 func (m *NoContextPartyIDs) SetContextPartyID(v string)       { m.ContextPartyID = &v }

@@ -65,6 +65,14 @@ type NoStrikes struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoStrikes returns an initialized NoStrikes instance
+func NewNoStrikes(symbol string, price float64) *NoStrikes {
+	var m NoStrikes
+	m.SetSymbol(symbol)
+	m.SetPrice(price)
+	return &m
+}
+
 func (m *NoStrikes) SetSymbol(v string)              { m.Symbol = v }
 func (m *NoStrikes) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
 func (m *NoStrikes) SetSecurityID(v string)          { m.SecurityID = &v }

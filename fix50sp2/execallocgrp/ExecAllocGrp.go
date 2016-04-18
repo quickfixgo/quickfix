@@ -1,5 +1,6 @@
 package execallocgrp
 
+//New returns an initialized ExecAllocGrp instance
 func New() *ExecAllocGrp {
 	var m ExecAllocGrp
 	return &m
@@ -23,6 +24,12 @@ type NoExecs struct {
 	TradeID *string `fix:"1003"`
 	//FirmTradeID is a non-required field for NoExecs.
 	FirmTradeID *string `fix:"1041"`
+}
+
+//NewNoExecs returns an initialized NoExecs instance
+func NewNoExecs() *NoExecs {
+	var m NoExecs
+	return &m
 }
 
 func (m *NoExecs) SetLastQty(v float64)        { m.LastQty = &v }

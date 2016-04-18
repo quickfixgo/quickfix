@@ -19,6 +19,12 @@ type SubscriptionRequestType struct {
 	LegPrice *float64 `fix:"566"`
 }
 
+//NewSubscriptionRequestType returns an initialized SubscriptionRequestType instance
+func NewSubscriptionRequestType() *SubscriptionRequestType {
+	var m SubscriptionRequestType
+	return &m
+}
+
 func (m *SubscriptionRequestType) SetLegOptionRatio(v float64) { m.LegOptionRatio = &v }
 func (m *SubscriptionRequestType) SetLegPrice(v float64)       { m.LegPrice = &v }
 

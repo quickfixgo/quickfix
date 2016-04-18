@@ -19,6 +19,12 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in PositionReport
@@ -29,6 +35,14 @@ type NoUnderlyings struct {
 	UnderlyingSettlPrice float64 `fix:"732"`
 	//UnderlyingSettlPriceType is a required field for NoUnderlyings.
 	UnderlyingSettlPriceType int `fix:"733"`
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings(underlyingsettlprice float64, underlyingsettlpricetype int) *NoUnderlyings {
+	var m NoUnderlyings
+	m.SetUnderlyingSettlPrice(underlyingsettlprice)
+	m.SetUnderlyingSettlPriceType(underlyingsettlpricetype)
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {

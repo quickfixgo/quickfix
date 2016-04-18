@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized TrdCapDtGrp instance
 func New() *TrdCapDtGrp {
 	var m TrdCapDtGrp
 	return &m
@@ -17,6 +18,12 @@ type NoDates struct {
 	TransactTime *time.Time `fix:"60"`
 	//LastUpdateTime is a non-required field for NoDates.
 	LastUpdateTime *time.Time `fix:"779"`
+}
+
+//NewNoDates returns an initialized NoDates instance
+func NewNoDates() *NoDates {
+	var m NoDates
+	return &m
 }
 
 func (m *NoDates) SetTradeDate(v string)         { m.TradeDate = &v }

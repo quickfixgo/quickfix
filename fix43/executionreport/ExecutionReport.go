@@ -31,6 +31,12 @@ type NoContraBrokers struct {
 	ContraLegRefID *string `fix:"655"`
 }
 
+//NewNoContraBrokers returns an initialized NoContraBrokers instance
+func NewNoContraBrokers() *NoContraBrokers {
+	var m NoContraBrokers
+	return &m
+}
+
 func (m *NoContraBrokers) SetContraBroker(v string)       { m.ContraBroker = &v }
 func (m *NoContraBrokers) SetContraTrader(v string)       { m.ContraTrader = &v }
 func (m *NoContraBrokers) SetContraTradeQty(v float64)    { m.ContraTradeQty = &v }
@@ -45,6 +51,12 @@ type NoContAmts struct {
 	ContAmtValue *float64 `fix:"520"`
 	//ContAmtCurr is a non-required field for NoContAmts.
 	ContAmtCurr *string `fix:"521"`
+}
+
+//NewNoContAmts returns an initialized NoContAmts instance
+func NewNoContAmts() *NoContAmts {
+	var m NoContAmts
+	return &m
 }
 
 func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }
@@ -71,6 +83,12 @@ type NoLegs struct {
 	LegFutSettDate *string `fix:"588"`
 	//LegLastPx is a non-required field for NoLegs.
 	LegLastPx *float64 `fix:"637"`
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }

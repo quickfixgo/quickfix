@@ -1,5 +1,6 @@
 package displayinstruction
 
+//New returns an initialized DisplayInstruction instance
 func New() *DisplayInstruction {
 	var m DisplayInstruction
 	return &m

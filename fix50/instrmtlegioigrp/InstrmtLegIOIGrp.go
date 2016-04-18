@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/legstipulations"
 )
 
+//New returns an initialized InstrmtLegIOIGrp instance
 func New() *InstrmtLegIOIGrp {
 	var m InstrmtLegIOIGrp
 	return &m
@@ -18,6 +19,12 @@ type NoLegs struct {
 	LegIOIQty *string `fix:"682"`
 	//LegStipulations is a non-required component for NoLegs.
 	LegStipulations *legstipulations.LegStipulations
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }

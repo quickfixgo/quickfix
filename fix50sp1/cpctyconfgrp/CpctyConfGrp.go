@@ -1,5 +1,6 @@
 package cpctyconfgrp
 
+//New returns an initialized CpctyConfGrp instance
 func New(nocapacities []NoCapacities) *CpctyConfGrp {
 	var m CpctyConfGrp
 	m.SetNoCapacities(nocapacities)
@@ -14,6 +15,14 @@ type NoCapacities struct {
 	OrderRestrictions *string `fix:"529"`
 	//OrderCapacityQty is a required field for NoCapacities.
 	OrderCapacityQty float64 `fix:"863"`
+}
+
+//NewNoCapacities returns an initialized NoCapacities instance
+func NewNoCapacities(ordercapacity string, ordercapacityqty float64) *NoCapacities {
+	var m NoCapacities
+	m.SetOrderCapacity(ordercapacity)
+	m.SetOrderCapacityQty(ordercapacityqty)
+	return &m
 }
 
 func (m *NoCapacities) SetOrderCapacity(v string)     { m.OrderCapacity = v }

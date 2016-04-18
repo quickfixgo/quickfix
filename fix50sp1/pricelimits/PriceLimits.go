@@ -1,5 +1,6 @@
 package pricelimits
 
+//New returns an initialized PriceLimits instance
 func New() *PriceLimits {
 	var m PriceLimits
 	return &m

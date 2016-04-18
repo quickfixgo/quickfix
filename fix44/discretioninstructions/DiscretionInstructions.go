@@ -1,5 +1,6 @@
 package discretioninstructions
 
+//New returns an initialized DiscretionInstructions instance
 func New() *DiscretionInstructions {
 	var m DiscretionInstructions
 	return &m

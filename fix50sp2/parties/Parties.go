@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/ptyssubgrp"
 )
 
+//New returns an initialized Parties instance
 func New() *Parties {
 	var m Parties
 	return &m
@@ -19,6 +20,12 @@ type NoPartyIDs struct {
 	PartyRole *int `fix:"452"`
 	//PtysSubGrp is a non-required component for NoPartyIDs.
 	PtysSubGrp *ptyssubgrp.PtysSubGrp
+}
+
+//NewNoPartyIDs returns an initialized NoPartyIDs instance
+func NewNoPartyIDs() *NoPartyIDs {
+	var m NoPartyIDs
+	return &m
 }
 
 func (m *NoPartyIDs) SetPartyID(v string)                   { m.PartyID = &v }

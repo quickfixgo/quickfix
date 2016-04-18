@@ -1,5 +1,6 @@
 package rgstdistinstgrp
 
+//New returns an initialized RgstDistInstGrp instance
 func New() *RgstDistInstGrp {
 	var m RgstDistInstGrp
 	return &m
@@ -23,6 +24,12 @@ type NoDistribInsts struct {
 	CashDistribPayRef *string `fix:"501"`
 	//CashDistribAgentAcctName is a non-required field for NoDistribInsts.
 	CashDistribAgentAcctName *string `fix:"502"`
+}
+
+//NewNoDistribInsts returns an initialized NoDistribInsts instance
+func NewNoDistribInsts() *NoDistribInsts {
+	var m NoDistribInsts
+	return &m
 }
 
 func (m *NoDistribInsts) SetDistribPaymentMethod(v int)          { m.DistribPaymentMethod = &v }

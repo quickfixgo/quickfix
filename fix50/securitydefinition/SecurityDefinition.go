@@ -19,6 +19,12 @@ type ClearingBusinessDate struct {
 	LegPrice *float64 `fix:"566"`
 }
 
+//NewClearingBusinessDate returns an initialized ClearingBusinessDate instance
+func NewClearingBusinessDate() *ClearingBusinessDate {
+	var m ClearingBusinessDate
+	return &m
+}
+
 func (m *ClearingBusinessDate) SetLegOptionRatio(v float64) { m.LegOptionRatio = &v }
 func (m *ClearingBusinessDate) SetLegPrice(v float64)       { m.LegPrice = &v }
 

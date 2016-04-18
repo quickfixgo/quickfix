@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/marketsegmentgrp"
 )
 
+//New returns an initialized DerivativeSecurityDefinition instance
 func New() *DerivativeSecurityDefinition {
 	var m DerivativeSecurityDefinition
 	return &m

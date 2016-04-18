@@ -1,5 +1,6 @@
 package applidrequestackgrp
 
+//New returns an initialized ApplIDRequestAckGrp instance
 func New() *ApplIDRequestAckGrp {
 	var m ApplIDRequestAckGrp
 	return &m
@@ -17,6 +18,12 @@ type NoApplIDs struct {
 	RefApplLastSeqNum *int `fix:"1357"`
 	//ApplResponseError is a non-required field for NoApplIDs.
 	ApplResponseError *int `fix:"1354"`
+}
+
+//NewNoApplIDs returns an initialized NoApplIDs instance
+func NewNoApplIDs() *NoApplIDs {
+	var m NoApplIDs
+	return &m
 }
 
 func (m *NoApplIDs) SetRefApplID(v string)      { m.RefApplID = &v }

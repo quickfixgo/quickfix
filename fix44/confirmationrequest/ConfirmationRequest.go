@@ -31,6 +31,12 @@ type NoOrders struct {
 	OrderBookingQty *float64 `fix:"800"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders() *NoOrders {
+	var m NoOrders
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)                               { m.ClOrdID = &v }
 func (m *NoOrders) SetOrderID(v string)                               { m.OrderID = &v }
 func (m *NoOrders) SetSecondaryOrderID(v string)                      { m.SecondaryOrderID = &v }

@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/underlyinginstrument"
 )
 
+//New returns an initialized UndInstrmtGrp instance
 func New() *UndInstrmtGrp {
 	var m UndInstrmtGrp
 	return &m
@@ -13,6 +14,12 @@ func New() *UndInstrmtGrp {
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {

@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized EvntGrp instance
 func New() *EvntGrp {
 	var m EvntGrp
 	return &m
@@ -21,6 +22,12 @@ type NoEvents struct {
 	EventText *string `fix:"868"`
 	//EventTime is a non-required field for NoEvents.
 	EventTime *time.Time `fix:"1145"`
+}
+
+//NewNoEvents returns an initialized NoEvents instance
+func NewNoEvents() *NoEvents {
+	var m NoEvents
+	return &m
 }
 
 func (m *NoEvents) SetEventType(v int)       { m.EventType = &v }

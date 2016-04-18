@@ -14,6 +14,12 @@ type NoHops struct {
 	HopRefID *int `fix:"630"`
 }
 
+//NewNoHops returns an initialized NoHops instance
+func NewNoHops() *NoHops {
+	var m NoHops
+	return &m
+}
+
 func (m *NoHops) SetHopCompID(v string)         { m.HopCompID = &v }
 func (m *NoHops) SetHopSendingTime(v time.Time) { m.HopSendingTime = &v }
 func (m *NoHops) SetHopRefID(v int)             { m.HopRefID = &v }

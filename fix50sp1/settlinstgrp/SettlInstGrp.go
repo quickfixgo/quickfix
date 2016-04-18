@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//New returns an initialized SettlInstGrp instance
 func New() *SettlInstGrp {
 	var m SettlInstGrp
 	return &m
@@ -57,6 +58,12 @@ type NoSettlInst struct {
 	PaymentRemitterID *string `fix:"505"`
 	//SettlCurrency is a non-required field for NoSettlInst.
 	SettlCurrency *string `fix:"120"`
+}
+
+//NewNoSettlInst returns an initialized NoSettlInst instance
+func NewNoSettlInst() *NoSettlInst {
+	var m NoSettlInst
+	return &m
 }
 
 func (m *NoSettlInst) SetSettlInstID(v string)        { m.SettlInstID = &v }

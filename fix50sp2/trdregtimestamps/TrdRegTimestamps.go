@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized TrdRegTimestamps instance
 func New() *TrdRegTimestamps {
 	var m TrdRegTimestamps
 	return &m
@@ -23,6 +24,12 @@ type NoTrdRegTimestamps struct {
 	DeskTypeSource *int `fix:"1034"`
 	//DeskOrderHandlingInst is a non-required field for NoTrdRegTimestamps.
 	DeskOrderHandlingInst *string `fix:"1035"`
+}
+
+//NewNoTrdRegTimestamps returns an initialized NoTrdRegTimestamps instance
+func NewNoTrdRegTimestamps() *NoTrdRegTimestamps {
+	var m NoTrdRegTimestamps
+	return &m
 }
 
 func (m *NoTrdRegTimestamps) SetTrdRegTimestamp(v time.Time)    { m.TrdRegTimestamp = &v }

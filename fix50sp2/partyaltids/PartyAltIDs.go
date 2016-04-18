@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/altptyssubgrp"
 )
 
+//New returns an initialized PartyAltIDs instance
 func New() *PartyAltIDs {
 	var m PartyAltIDs
 	return &m
@@ -17,6 +18,12 @@ type NoPartyAltIDs struct {
 	PartyAltIDSource *string `fix:"1518"`
 	//AltPtysSubGrp is a non-required component for NoPartyAltIDs.
 	AltPtysSubGrp *altptyssubgrp.AltPtysSubGrp
+}
+
+//NewNoPartyAltIDs returns an initialized NoPartyAltIDs instance
+func NewNoPartyAltIDs() *NoPartyAltIDs {
+	var m NoPartyAltIDs
+	return &m
 }
 
 func (m *NoPartyAltIDs) SetPartyAltID(v string)                         { m.PartyAltID = &v }

@@ -55,6 +55,12 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
+}
+
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 func (m *NoRelatedSym) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
 	m.InstrumentExtension = &v
@@ -85,6 +91,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -101,6 +113,12 @@ type NoLegs struct {
 	LegStipulations *legstipulations.LegStipulations
 	//LegBenchmarkCurveData is a non-required component for NoLegs.
 	LegBenchmarkCurveData *legbenchmarkcurvedata.LegBenchmarkCurveData
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }

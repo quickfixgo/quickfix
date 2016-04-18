@@ -99,6 +99,13 @@ type NoMDEntries struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoMDEntries returns an initialized NoMDEntries instance
+func NewNoMDEntries(mdupdateaction string) *NoMDEntries {
+	var m NoMDEntries
+	m.SetMDUpdateAction(mdupdateaction)
+	return &m
+}
+
 func (m *NoMDEntries) SetMDUpdateAction(v string)            { m.MDUpdateAction = v }
 func (m *NoMDEntries) SetDeleteReason(v string)              { m.DeleteReason = &v }
 func (m *NoMDEntries) SetMDEntryType(v string)               { m.MDEntryType = &v }

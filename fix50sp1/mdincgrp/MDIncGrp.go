@@ -12,6 +12,7 @@ import (
 	"time"
 )
 
+//New returns an initialized MDIncGrp instance
 func New(nomdentries []NoMDEntries) *MDIncGrp {
 	var m MDIncGrp
 	m.SetNoMDEntries(nomdentries)
@@ -168,6 +169,13 @@ type NoMDEntries struct {
 	TransactTime *time.Time `fix:"60"`
 	//StatsIndGrp is a non-required component for NoMDEntries.
 	StatsIndGrp *statsindgrp.StatsIndGrp
+}
+
+//NewNoMDEntries returns an initialized NoMDEntries instance
+func NewNoMDEntries(mdupdateaction string) *NoMDEntries {
+	var m NoMDEntries
+	m.SetMDUpdateAction(mdupdateaction)
+	return &m
 }
 
 func (m *NoMDEntries) SetMDUpdateAction(v string)                     { m.MDUpdateAction = v }

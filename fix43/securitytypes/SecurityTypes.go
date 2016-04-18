@@ -17,6 +17,12 @@ type NoSecurityTypes struct {
 	CFICode *string `fix:"461"`
 }
 
+//NewNoSecurityTypes returns an initialized NoSecurityTypes instance
+func NewNoSecurityTypes() *NoSecurityTypes {
+	var m NoSecurityTypes
+	return &m
+}
+
 func (m *NoSecurityTypes) SetSecurityType(v string) { m.SecurityType = &v }
 func (m *NoSecurityTypes) SetProduct(v int)         { m.Product = &v }
 func (m *NoSecurityTypes) SetCFICode(v string)      { m.CFICode = &v }

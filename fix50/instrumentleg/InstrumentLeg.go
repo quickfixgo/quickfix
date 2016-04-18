@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/legsecaltidgrp"
 )
 
+//New returns an initialized InstrumentLeg instance
 func New() *InstrumentLeg {
 	var m InstrumentLeg
 	return &m

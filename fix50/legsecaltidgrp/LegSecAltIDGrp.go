@@ -1,5 +1,6 @@
 package legsecaltidgrp
 
+//New returns an initialized LegSecAltIDGrp instance
 func New() *LegSecAltIDGrp {
 	var m LegSecAltIDGrp
 	return &m
@@ -11,6 +12,12 @@ type NoLegSecurityAltID struct {
 	LegSecurityAltID *string `fix:"605"`
 	//LegSecurityAltIDSource is a non-required field for NoLegSecurityAltID.
 	LegSecurityAltIDSource *string `fix:"606"`
+}
+
+//NewNoLegSecurityAltID returns an initialized NoLegSecurityAltID instance
+func NewNoLegSecurityAltID() *NoLegSecurityAltID {
+	var m NoLegSecurityAltID
+	return &m
 }
 
 func (m *NoLegSecurityAltID) SetLegSecurityAltID(v string)       { m.LegSecurityAltID = &v }

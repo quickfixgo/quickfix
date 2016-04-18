@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix44/nestedparties"
 )
 
+//New returns an initialized PositionQty instance
 func New() *PositionQty {
 	var m PositionQty
 	return &m
@@ -21,6 +22,12 @@ type NoPositions struct {
 	PosQtyStatus *int `fix:"706"`
 	//NestedParties is a non-required component for NoPositions.
 	NestedParties *nestedparties.NestedParties
+}
+
+//NewNoPositions returns an initialized NoPositions instance
+func NewNoPositions() *NoPositions {
+	var m NoPositions
+	return &m
 }
 
 func (m *NoPositions) SetPosType(v string)                            { m.PosType = &v }

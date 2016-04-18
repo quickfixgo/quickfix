@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/nestedparties"
 )
 
+//New returns an initialized AllocAckGrp instance
 func New() *AllocAckGrp {
 	var m AllocAckGrp
 	return &m
@@ -39,6 +40,12 @@ type NoAllocs struct {
 	NestedParties *nestedparties.NestedParties
 	//AllocPositionEffect is a non-required field for NoAllocs.
 	AllocPositionEffect *string `fix:"1047"`
+}
+
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
 }
 
 func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }

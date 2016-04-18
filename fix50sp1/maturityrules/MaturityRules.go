@@ -1,5 +1,6 @@
 package maturityrules
 
+//New returns an initialized MaturityRules instance
 func New() *MaturityRules {
 	var m MaturityRules
 	return &m
@@ -19,6 +20,12 @@ type NoMaturityRules struct {
 	EndMaturityMonthYear *string `fix:"1226"`
 	//MaturityMonthYearIncrement is a non-required field for NoMaturityRules.
 	MaturityMonthYearIncrement *int `fix:"1229"`
+}
+
+//NewNoMaturityRules returns an initialized NoMaturityRules instance
+func NewNoMaturityRules() *NoMaturityRules {
+	var m NoMaturityRules
+	return &m
 }
 
 func (m *NoMaturityRules) SetMaturityRuleID(v string)       { m.MaturityRuleID = &v }

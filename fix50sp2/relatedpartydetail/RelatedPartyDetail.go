@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relationshiprisklimits"
 )
 
+//New returns an initialized RelatedPartyDetail instance
 func New() *RelatedPartyDetail {
 	var m RelatedPartyDetail
 	return &m

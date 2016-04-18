@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized TrdSessLstGrp instance
 func New(notradingsessions []NoTradingSessions) *TrdSessLstGrp {
 	var m TrdSessLstGrp
 	m.SetNoTradingSessions(notradingsessions)
@@ -46,6 +47,14 @@ type NoTradingSessions struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoTradingSessions.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions(tradingsessionid string, tradsesstatus int) *NoTradingSessions {
+	var m NoTradingSessions
+	m.SetTradingSessionID(tradingsessionid)
+	m.SetTradSesStatus(tradsesstatus)
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)       { m.TradingSessionID = v }

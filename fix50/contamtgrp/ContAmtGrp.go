@@ -1,5 +1,6 @@
 package contamtgrp
 
+//New returns an initialized ContAmtGrp instance
 func New() *ContAmtGrp {
 	var m ContAmtGrp
 	return &m
@@ -13,6 +14,12 @@ type NoContAmts struct {
 	ContAmtValue *float64 `fix:"520"`
 	//ContAmtCurr is a non-required field for NoContAmts.
 	ContAmtCurr *string `fix:"521"`
+}
+
+//NewNoContAmts returns an initialized NoContAmts instance
+func NewNoContAmts() *NoContAmts {
+	var m NoContAmts
+	return &m
 }
 
 func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }

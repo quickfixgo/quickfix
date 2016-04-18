@@ -19,6 +19,16 @@ type NoOrders struct {
 	AvgPx float64 `fix:"6"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders(clordid string, cumqty int, cxlqty int, avgpx float64) *NoOrders {
+	var m NoOrders
+	m.SetClOrdID(clordid)
+	m.SetCumQty(cumqty)
+	m.SetCxlQty(cxlqty)
+	m.SetAvgPx(avgpx)
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string) { m.ClOrdID = v }
 func (m *NoOrders) SetCumQty(v int)     { m.CumQty = v }
 func (m *NoOrders) SetCxlQty(v int)     { m.CxlQty = v }

@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/underlyinglegsecurityaltidgrp"
 )
 
+//New returns an initialized UnderlyingLegInstrument instance
 func New() *UnderlyingLegInstrument {
 	var m UnderlyingLegInstrument
 	return &m

@@ -8,6 +8,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/settlinstructionsdata"
 )
 
+//New returns an initialized AllocGrp instance
 func New() *AllocGrp {
 	var m AllocGrp
 	return &m
@@ -83,6 +84,12 @@ type NoAllocs struct {
 	AllocPositionEffect *string `fix:"1047"`
 	//ClearingFeeIndicator is a non-required field for NoAllocs.
 	ClearingFeeIndicator *string `fix:"635"`
+}
+
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
 }
 
 func (m *NoAllocs) SetAllocAccount(v string)                          { m.AllocAccount = &v }

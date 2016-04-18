@@ -1,5 +1,6 @@
 package marketdatafeedtypes
 
+//New returns an initialized MarketDataFeedTypes instance
 func New() *MarketDataFeedTypes {
 	var m MarketDataFeedTypes
 	return &m
@@ -13,6 +14,12 @@ type NoMDFeedTypes struct {
 	MarketDepth *int `fix:"264"`
 	//MDBookType is a non-required field for NoMDFeedTypes.
 	MDBookType *int `fix:"1021"`
+}
+
+//NewNoMDFeedTypes returns an initialized NoMDFeedTypes instance
+func NewNoMDFeedTypes() *NoMDFeedTypes {
+	var m NoMDFeedTypes
+	return &m
 }
 
 func (m *NoMDFeedTypes) SetMDFeedType(v string) { m.MDFeedType = &v }

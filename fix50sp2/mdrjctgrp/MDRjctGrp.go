@@ -1,5 +1,6 @@
 package mdrjctgrp
 
+//New returns an initialized MDRjctGrp instance
 func New() *MDRjctGrp {
 	var m MDRjctGrp
 	return &m
@@ -9,6 +10,12 @@ func New() *MDRjctGrp {
 type NoAltMDSource struct {
 	//AltMDSourceID is a non-required field for NoAltMDSource.
 	AltMDSourceID *string `fix:"817"`
+}
+
+//NewNoAltMDSource returns an initialized NoAltMDSource instance
+func NewNoAltMDSource() *NoAltMDSource {
+	var m NoAltMDSource
+	return &m
 }
 
 func (m *NoAltMDSource) SetAltMDSourceID(v string) { m.AltMDSourceID = &v }

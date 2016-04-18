@@ -1,5 +1,6 @@
 package applidreportgrp
 
+//New returns an initialized ApplIDReportGrp instance
 func New() *ApplIDReportGrp {
 	var m ApplIDReportGrp
 	return &m
@@ -13,6 +14,12 @@ type NoApplIDs struct {
 	ApplNewSeqNum *int `fix:"1399"`
 	//RefApplLastSeqNum is a non-required field for NoApplIDs.
 	RefApplLastSeqNum *int `fix:"1357"`
+}
+
+//NewNoApplIDs returns an initialized NoApplIDs instance
+func NewNoApplIDs() *NoApplIDs {
+	var m NoApplIDs
+	return &m
 }
 
 func (m *NoApplIDs) SetRefApplID(v string)      { m.RefApplID = &v }

@@ -13,6 +13,13 @@ type NoMDEntryTypes struct {
 	MDEntryType string `fix:"269"`
 }
 
+//NewNoMDEntryTypes returns an initialized NoMDEntryTypes instance
+func NewNoMDEntryTypes(mdentrytype string) *NoMDEntryTypes {
+	var m NoMDEntryTypes
+	m.SetMDEntryType(mdentrytype)
+	return &m
+}
+
 func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
 
 //NoRelatedSym is a repeating group in MarketDataRequest
@@ -57,6 +64,13 @@ type NoRelatedSym struct {
 	EncodedSecurityDesc *string `fix:"351"`
 	//TradingSessionID is a non-required field for NoRelatedSym.
 	TradingSessionID *string `fix:"336"`
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(symbol string) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetSymbol(symbol)
+	return &m
 }
 
 func (m *NoRelatedSym) SetSymbol(v string)              { m.Symbol = v }

@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/strmasgnrptinstrmtgrp"
 )
 
+//New returns an initialized StrmAsgnRptGrp instance
 func New() *StrmAsgnRptGrp {
 	var m StrmAsgnRptGrp
 	return &m
@@ -16,6 +17,12 @@ type NoAsgnReqs struct {
 	Parties *parties.Parties
 	//StrmAsgnRptInstrmtGrp is a non-required component for NoAsgnReqs.
 	StrmAsgnRptInstrmtGrp *strmasgnrptinstrmtgrp.StrmAsgnRptInstrmtGrp
+}
+
+//NewNoAsgnReqs returns an initialized NoAsgnReqs instance
+func NewNoAsgnReqs() *NoAsgnReqs {
+	var m NoAsgnReqs
+	return &m
 }
 
 func (m *NoAsgnReqs) SetParties(v parties.Parties) { m.Parties = &v }

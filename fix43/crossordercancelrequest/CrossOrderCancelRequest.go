@@ -41,6 +41,16 @@ type NoSides struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string, origclordid string, clordid string, orderqtydata orderqtydata.OrderQtyData) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	m.SetOrigClOrdID(origclordid)
+	m.SetClOrdID(clordid)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
+}
+
 func (m *NoSides) SetSide(v string)                            { m.Side = v }
 func (m *NoSides) SetOrigClOrdID(v string)                     { m.OrigClOrdID = v }
 func (m *NoSides) SetClOrdID(v string)                         { m.ClOrdID = v }

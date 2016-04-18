@@ -1,5 +1,6 @@
 package strategyparametersgrp
 
+//New returns an initialized StrategyParametersGrp instance
 func New() *StrategyParametersGrp {
 	var m StrategyParametersGrp
 	return &m
@@ -13,6 +14,12 @@ type NoStrategyParameters struct {
 	StrategyParameterType *int `fix:"959"`
 	//StrategyParameterValue is a non-required field for NoStrategyParameters.
 	StrategyParameterValue *string `fix:"960"`
+}
+
+//NewNoStrategyParameters returns an initialized NoStrategyParameters instance
+func NewNoStrategyParameters() *NoStrategyParameters {
+	var m NoStrategyParameters
+	return &m
 }
 
 func (m *NoStrategyParameters) SetStrategyParameterName(v string)  { m.StrategyParameterName = &v }

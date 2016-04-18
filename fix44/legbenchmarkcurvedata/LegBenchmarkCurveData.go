@@ -1,5 +1,6 @@
 package legbenchmarkcurvedata
 
+//New returns an initialized LegBenchmarkCurveData instance
 func New() *LegBenchmarkCurveData {
 	var m LegBenchmarkCurveData
 	return &m

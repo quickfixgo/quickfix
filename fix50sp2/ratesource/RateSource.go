@@ -1,5 +1,6 @@
 package ratesource
 
+//New returns an initialized RateSource instance
 func New() *RateSource {
 	var m RateSource
 	return &m
@@ -13,6 +14,12 @@ type NoRateSources struct {
 	RateSourceType *int `fix:"1447"`
 	//ReferencePage is a non-required field for NoRateSources.
 	ReferencePage *string `fix:"1448"`
+}
+
+//NewNoRateSources returns an initialized NoRateSources instance
+func NewNoRateSources() *NoRateSources {
+	var m NoRateSources
+	return &m
 }
 
 func (m *NoRateSources) SetRateSource(v int)       { m.RateSource = &v }

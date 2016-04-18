@@ -1,5 +1,6 @@
 package riskwarninglevels
 
+//New returns an initialized RiskWarningLevels instance
 func New() *RiskWarningLevels {
 	var m RiskWarningLevels
 	return &m
@@ -11,6 +12,12 @@ type NoRiskWarningLevels struct {
 	RiskWarningLevelPercent *float64 `fix:"1560"`
 	//RiskWarningLevelName is a non-required field for NoRiskWarningLevels.
 	RiskWarningLevelName *string `fix:"1561"`
+}
+
+//NewNoRiskWarningLevels returns an initialized NoRiskWarningLevels instance
+func NewNoRiskWarningLevels() *NoRiskWarningLevels {
+	var m NoRiskWarningLevels
+	return &m
 }
 
 func (m *NoRiskWarningLevels) SetRiskWarningLevelPercent(v float64) { m.RiskWarningLevelPercent = &v }

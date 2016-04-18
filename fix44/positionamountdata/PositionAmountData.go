@@ -1,5 +1,6 @@
 package positionamountdata
 
+//New returns an initialized PositionAmountData instance
 func New() *PositionAmountData {
 	var m PositionAmountData
 	return &m
@@ -11,6 +12,12 @@ type NoPosAmt struct {
 	PosAmtType *string `fix:"707"`
 	//PosAmt is a non-required field for NoPosAmt.
 	PosAmt *float64 `fix:"708"`
+}
+
+//NewNoPosAmt returns an initialized NoPosAmt instance
+func NewNoPosAmt() *NoPosAmt {
+	var m NoPosAmt
+	return &m
 }
 
 func (m *NoPosAmt) SetPosAmtType(v string) { m.PosAmtType = &v }

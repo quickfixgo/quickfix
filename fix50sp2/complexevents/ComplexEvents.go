@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/complexeventdates"
 )
 
+//New returns an initialized ComplexEvents instance
 func New() *ComplexEvents {
 	var m ComplexEvents
 	return &m
@@ -27,6 +28,12 @@ type NoComplexEvents struct {
 	ComplexEventCondition *int `fix:"1490"`
 	//ComplexEventDates is a non-required component for NoComplexEvents.
 	ComplexEventDates *complexeventdates.ComplexEventDates
+}
+
+//NewNoComplexEvents returns an initialized NoComplexEvents instance
+func NewNoComplexEvents() *NoComplexEvents {
+	var m NoComplexEvents
+	return &m
 }
 
 func (m *NoComplexEvents) SetComplexEventType(v int)           { m.ComplexEventType = &v }

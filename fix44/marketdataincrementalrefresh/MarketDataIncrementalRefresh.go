@@ -101,6 +101,13 @@ type NoMDEntries struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoMDEntries returns an initialized NoMDEntries instance
+func NewNoMDEntries(mdupdateaction string) *NoMDEntries {
+	var m NoMDEntries
+	m.SetMDUpdateAction(mdupdateaction)
+	return &m
+}
+
 func (m *NoMDEntries) SetMDUpdateAction(v string)            { m.MDUpdateAction = v }
 func (m *NoMDEntries) SetDeleteReason(v string)              { m.DeleteReason = &v }
 func (m *NoMDEntries) SetMDEntryType(v string)               { m.MDEntryType = &v }
@@ -151,6 +158,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -159,6 +172,12 @@ func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.Underlyin
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.
 	InstrumentLeg *instrumentleg.InstrumentLeg
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }

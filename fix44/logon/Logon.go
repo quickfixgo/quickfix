@@ -15,6 +15,12 @@ type NoMsgTypes struct {
 	MsgDirection *string `fix:"385"`
 }
 
+//NewNoMsgTypes returns an initialized NoMsgTypes instance
+func NewNoMsgTypes() *NoMsgTypes {
+	var m NoMsgTypes
+	return &m
+}
+
 func (m *NoMsgTypes) SetRefMsgType(v string)   { m.RefMsgType = &v }
 func (m *NoMsgTypes) SetMsgDirection(v string) { m.MsgDirection = &v }
 

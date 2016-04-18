@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//New returns an initialized QuotSetAckGrp instance
 func New() *QuotSetAckGrp {
 	var m QuotSetAckGrp
 	return &m
@@ -31,6 +32,12 @@ type NoQuoteSets struct {
 	TotNoRejQuotes *int `fix:"1170"`
 	//QuoteSetValidUntilTime is a non-required field for NoQuoteSets.
 	QuoteSetValidUntilTime *time.Time `fix:"367"`
+}
+
+//NewNoQuoteSets returns an initialized NoQuoteSets instance
+func NewNoQuoteSets() *NoQuoteSets {
+	var m NoQuoteSets
+	return &m
 }
 
 func (m *NoQuoteSets) SetQuoteSetID(v string) { m.QuoteSetID = &v }

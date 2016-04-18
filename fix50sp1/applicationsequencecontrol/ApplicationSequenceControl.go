@@ -1,5 +1,6 @@
 package applicationsequencecontrol
 
+//New returns an initialized ApplicationSequenceControl instance
 func New() *ApplicationSequenceControl {
 	var m ApplicationSequenceControl
 	return &m

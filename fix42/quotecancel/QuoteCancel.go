@@ -51,6 +51,13 @@ type NoQuoteEntries struct {
 	UnderlyingSymbol *string `fix:"311"`
 }
 
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries(symbol string) *NoQuoteEntries {
+	var m NoQuoteEntries
+	m.SetSymbol(symbol)
+	return &m
+}
+
 func (m *NoQuoteEntries) SetSymbol(v string)              { m.Symbol = v }
 func (m *NoQuoteEntries) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
 func (m *NoQuoteEntries) SetSecurityID(v string)          { m.SecurityID = &v }

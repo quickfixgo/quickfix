@@ -14,6 +14,12 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
+//NewNoIOIQualifiers returns an initialized NoIOIQualifiers instance
+func NewNoIOIQualifiers() *NoIOIQualifiers {
+	var m NoIOIQualifiers
+	return &m
+}
+
 func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
 
 //Message is a IndicationofInterest FIX Message

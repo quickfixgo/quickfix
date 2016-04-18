@@ -1,5 +1,6 @@
 package underlyingamount
 
+//New returns an initialized UnderlyingAmount instance
 func New() *UnderlyingAmount {
 	var m UnderlyingAmount
 	return &m
@@ -15,6 +16,12 @@ type NoUnderlyingAmounts struct {
 	UnderlyingSettlementDate *string `fix:"987"`
 	//UnderlyingSettlementStatus is a non-required field for NoUnderlyingAmounts.
 	UnderlyingSettlementStatus *string `fix:"988"`
+}
+
+//NewNoUnderlyingAmounts returns an initialized NoUnderlyingAmounts instance
+func NewNoUnderlyingAmounts() *NoUnderlyingAmounts {
+	var m NoUnderlyingAmounts
+	return &m
 }
 
 func (m *NoUnderlyingAmounts) SetUnderlyingPayAmount(v float64)     { m.UnderlyingPayAmount = &v }

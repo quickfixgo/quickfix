@@ -15,6 +15,13 @@ type NoStrikes struct {
 	instrument.Instrument
 }
 
+//NewNoStrikes returns an initialized NoStrikes instance
+func NewNoStrikes(instrument instrument.Instrument) *NoStrikes {
+	var m NoStrikes
+	m.SetInstrument(instrument)
+	return &m
+}
+
 func (m *NoStrikes) SetInstrument(v instrument.Instrument) { m.Instrument = v }
 
 //NoUnderlyings is a repeating group in ListStrikePrice
@@ -39,6 +46,13 @@ type NoUnderlyings struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoUnderlyings.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings(price float64) *NoUnderlyings {
+	var m NoUnderlyings
+	m.SetPrice(price)
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {

@@ -18,6 +18,12 @@ type NoMiscFees struct {
 	MiscFeeType *string `fix:"139"`
 }
 
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
+}
+
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
 func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
 func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }

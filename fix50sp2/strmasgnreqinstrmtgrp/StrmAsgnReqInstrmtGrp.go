@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/instrument"
 )
 
+//New returns an initialized StrmAsgnReqInstrmtGrp instance
 func New() *StrmAsgnReqInstrmtGrp {
 	var m StrmAsgnReqInstrmtGrp
 	return &m
@@ -19,6 +20,12 @@ type NoRelatedSym struct {
 	MDEntrySize *float64 `fix:"271"`
 	//MDStreamID is a non-required field for NoRelatedSym.
 	MDStreamID *string `fix:"1500"`
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }

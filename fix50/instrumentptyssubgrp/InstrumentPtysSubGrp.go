@@ -1,5 +1,6 @@
 package instrumentptyssubgrp
 
+//New returns an initialized InstrumentPtysSubGrp instance
 func New() *InstrumentPtysSubGrp {
 	var m InstrumentPtysSubGrp
 	return &m
@@ -11,6 +12,12 @@ type NoInstrumentPartySubIDs struct {
 	InstrumentPartySubID *string `fix:"1053"`
 	//InstrumentPartySubIDType is a non-required field for NoInstrumentPartySubIDs.
 	InstrumentPartySubIDType *int `fix:"1054"`
+}
+
+//NewNoInstrumentPartySubIDs returns an initialized NoInstrumentPartySubIDs instance
+func NewNoInstrumentPartySubIDs() *NoInstrumentPartySubIDs {
+	var m NoInstrumentPartySubIDs
+	return &m
 }
 
 func (m *NoInstrumentPartySubIDs) SetInstrumentPartySubID(v string)  { m.InstrumentPartySubID = &v }

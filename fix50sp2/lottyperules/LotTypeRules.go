@@ -1,5 +1,6 @@
 package lottyperules
 
+//New returns an initialized LotTypeRules instance
 func New() *LotTypeRules {
 	var m LotTypeRules
 	return &m
@@ -11,6 +12,12 @@ type NoLotTypeRules struct {
 	LotType *string `fix:"1093"`
 	//MinLotSize is a non-required field for NoLotTypeRules.
 	MinLotSize *float64 `fix:"1231"`
+}
+
+//NewNoLotTypeRules returns an initialized NoLotTypeRules instance
+func NewNoLotTypeRules() *NoLotTypeRules {
+	var m NoLotTypeRules
+	return &m
 }
 
 func (m *NoLotTypeRules) SetLotType(v string)     { m.LotType = &v }

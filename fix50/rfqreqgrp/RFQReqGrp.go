@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/undinstrmtgrp"
 )
 
+//New returns an initialized RFQReqGrp instance
 func New(norelatedsym []NoRelatedSym) *RFQReqGrp {
 	var m RFQReqGrp
 	m.SetNoRelatedSym(norelatedsym)
@@ -30,6 +31,13 @@ type NoRelatedSym struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoRelatedSym.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(instrument instrument.Instrument) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetInstrument(instrument)
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument)          { m.Instrument = v }

@@ -1,5 +1,6 @@
 package sectypesgrp
 
+//New returns an initialized SecTypesGrp instance
 func New() *SecTypesGrp {
 	var m SecTypesGrp
 	return &m
@@ -15,6 +16,12 @@ type NoSecurityTypes struct {
 	Product *int `fix:"460"`
 	//CFICode is a non-required field for NoSecurityTypes.
 	CFICode *string `fix:"461"`
+}
+
+//NewNoSecurityTypes returns an initialized NoSecurityTypes instance
+func NewNoSecurityTypes() *NoSecurityTypes {
+	var m NoSecurityTypes
+	return &m
 }
 
 func (m *NoSecurityTypes) SetSecurityType(v string)    { m.SecurityType = &v }

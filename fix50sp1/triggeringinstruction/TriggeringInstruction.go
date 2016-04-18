@@ -1,5 +1,6 @@
 package triggeringinstruction
 
+//New returns an initialized TriggeringInstruction instance
 func New() *TriggeringInstruction {
 	var m TriggeringInstruction
 	return &m

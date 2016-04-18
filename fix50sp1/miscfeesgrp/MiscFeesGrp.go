@@ -1,5 +1,6 @@
 package miscfeesgrp
 
+//New returns an initialized MiscFeesGrp instance
 func New() *MiscFeesGrp {
 	var m MiscFeesGrp
 	return &m
@@ -15,6 +16,12 @@ type NoMiscFees struct {
 	MiscFeeType *string `fix:"139"`
 	//MiscFeeBasis is a non-required field for NoMiscFees.
 	MiscFeeBasis *int `fix:"891"`
+}
+
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
 }
 
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }

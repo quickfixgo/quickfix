@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relatedpartydetail"
 )
 
+//New returns an initialized RelatedPartyGrp instance
 func New() *RelatedPartyGrp {
 	var m RelatedPartyGrp
 	return &m
@@ -16,6 +17,12 @@ type NoRelatedPartyIDs struct {
 	RelatedPartyDetail *relatedpartydetail.RelatedPartyDetail
 	//PartyRelationships is a non-required component for NoRelatedPartyIDs.
 	PartyRelationships *partyrelationships.PartyRelationships
+}
+
+//NewNoRelatedPartyIDs returns an initialized NoRelatedPartyIDs instance
+func NewNoRelatedPartyIDs() *NoRelatedPartyIDs {
+	var m NoRelatedPartyIDs
+	return &m
 }
 
 func (m *NoRelatedPartyIDs) SetRelatedPartyDetail(v relatedpartydetail.RelatedPartyDetail) {

@@ -1,5 +1,6 @@
 package usernamegrp
 
+//New returns an initialized UsernameGrp instance
 func New() *UsernameGrp {
 	var m UsernameGrp
 	return &m

@@ -58,6 +58,16 @@ type NoQuoteSets struct {
 	NoQuoteEntries []NoQuoteEntries `fix:"295"`
 }
 
+//NewNoQuoteSets returns an initialized NoQuoteSets instance
+func NewNoQuoteSets(quotesetid string, underlyingsymbol string, totquoteentries int, noquoteentries []NoQuoteEntries) *NoQuoteSets {
+	var m NoQuoteSets
+	m.SetQuoteSetID(quotesetid)
+	m.SetUnderlyingSymbol(underlyingsymbol)
+	m.SetTotQuoteEntries(totquoteentries)
+	m.SetNoQuoteEntries(noquoteentries)
+	return &m
+}
+
 func (m *NoQuoteSets) SetQuoteSetID(v string)                    { m.QuoteSetID = v }
 func (m *NoQuoteSets) SetUnderlyingSymbol(v string)              { m.UnderlyingSymbol = v }
 func (m *NoQuoteSets) SetUnderlyingSymbolSfx(v string)           { m.UnderlyingSymbolSfx = &v }
@@ -158,6 +168,13 @@ type NoQuoteEntries struct {
 	OrderQty2 *float64 `fix:"192"`
 	//Currency is a non-required field for NoQuoteEntries.
 	Currency *string `fix:"15"`
+}
+
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries(quoteentryid string) *NoQuoteEntries {
+	var m NoQuoteEntries
+	m.SetQuoteEntryID(quoteentryid)
+	return &m
 }
 
 func (m *NoQuoteEntries) SetQuoteEntryID(v string)        { m.QuoteEntryID = v }

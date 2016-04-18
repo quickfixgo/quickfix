@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/settlptyssubgrp"
 )
 
+//New returns an initialized SettlParties instance
 func New() *SettlParties {
 	var m SettlParties
 	return &m
@@ -19,6 +20,12 @@ type NoSettlPartyIDs struct {
 	SettlPartyRole *int `fix:"784"`
 	//SettlPtysSubGrp is a non-required component for NoSettlPartyIDs.
 	SettlPtysSubGrp *settlptyssubgrp.SettlPtysSubGrp
+}
+
+//NewNoSettlPartyIDs returns an initialized NoSettlPartyIDs instance
+func NewNoSettlPartyIDs() *NoSettlPartyIDs {
+	var m NoSettlPartyIDs
+	return &m
 }
 
 func (m *NoSettlPartyIDs) SetSettlPartyID(v string)       { m.SettlPartyID = &v }

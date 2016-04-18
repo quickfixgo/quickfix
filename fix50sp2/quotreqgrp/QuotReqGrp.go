@@ -15,6 +15,7 @@ import (
 	"time"
 )
 
+//New returns an initialized QuotReqGrp instance
 func New(norelatedsym []NoRelatedSym) *QuotReqGrp {
 	var m QuotReqGrp
 	m.SetNoRelatedSym(norelatedsym)
@@ -97,6 +98,13 @@ type NoRelatedSym struct {
 	SettlCurrency *string `fix:"120"`
 	//RateSource is a non-required component for NoRelatedSym.
 	RateSource *ratesource.RateSource
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(instrument instrument.Instrument) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetInstrument(instrument)
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = v }
