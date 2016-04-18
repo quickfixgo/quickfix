@@ -39,6 +39,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized PartyDetailsListReport instance
+func New(partydetailslistreportid string) *Message {
+	var m Message
+	m.SetPartyDetailsListReportID(partydetailslistreportid)
+	return &m
+}
+
 func (m *Message) SetApplicationSequenceControl(v applicationsequencecontrol.ApplicationSequenceControl) {
 	m.ApplicationSequenceControl = &v
 }

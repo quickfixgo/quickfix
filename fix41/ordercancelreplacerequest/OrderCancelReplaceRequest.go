@@ -118,6 +118,18 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized OrderCancelReplaceRequest instance
+func New(origclordid string, clordid string, handlinst string, symbol string, side string, ordtype string) *Message {
+	var m Message
+	m.SetOrigClOrdID(origclordid)
+	m.SetClOrdID(clordid)
+	m.SetHandlInst(handlinst)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	m.SetOrdType(ordtype)
+	return &m
+}
+
 func (m *Message) SetOrderID(v string)           { m.OrderID = &v }
 func (m *Message) SetClientID(v string)          { m.ClientID = &v }
 func (m *Message) SetExecBroker(v string)        { m.ExecBroker = &v }

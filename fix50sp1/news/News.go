@@ -52,6 +52,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized News instance
+func New(headline string, linesoftextgrp linesoftextgrp.LinesOfTextGrp) *Message {
+	var m Message
+	m.SetHeadline(headline)
+	m.SetLinesOfTextGrp(linesoftextgrp)
+	return &m
+}
+
 func (m *Message) SetOrigTime(v time.Time)                           { m.OrigTime = &v }
 func (m *Message) SetUrgency(v string)                               { m.Urgency = &v }
 func (m *Message) SetHeadline(v string)                              { m.Headline = v }

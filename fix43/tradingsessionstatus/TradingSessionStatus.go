@@ -52,6 +52,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized TradingSessionStatus instance
+func New(tradingsessionid string, tradsesstatus int) *Message {
+	var m Message
+	m.SetTradingSessionID(tradingsessionid)
+	m.SetTradSesStatus(tradsesstatus)
+	return &m
+}
+
 func (m *Message) SetTradSesReqID(v string)           { m.TradSesReqID = &v }
 func (m *Message) SetTradingSessionID(v string)       { m.TradingSessionID = v }
 func (m *Message) SetTradingSessionSubID(v string)    { m.TradingSessionSubID = &v }

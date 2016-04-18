@@ -27,6 +27,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized Logon instance
+func New(encryptmethod int, heartbtint int) *Message {
+	var m Message
+	m.SetEncryptMethod(encryptmethod)
+	m.SetHeartBtInt(heartbtint)
+	return &m
+}
+
 func (m *Message) SetEncryptMethod(v int)      { m.EncryptMethod = v }
 func (m *Message) SetHeartBtInt(v int)         { m.HeartBtInt = v }
 func (m *Message) SetRawDataLength(v int)      { m.RawDataLength = &v }

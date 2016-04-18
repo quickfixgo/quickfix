@@ -27,6 +27,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized MarketDefinitionRequest instance
+func New(marketreqid string, subscriptionrequesttype string) *Message {
+	var m Message
+	m.SetMarketReqID(marketreqid)
+	m.SetSubscriptionRequestType(subscriptionrequesttype)
+	return &m
+}
+
 func (m *Message) SetMarketReqID(v string)             { m.MarketReqID = v }
 func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
 func (m *Message) SetMarketID(v string)                { m.MarketID = &v }

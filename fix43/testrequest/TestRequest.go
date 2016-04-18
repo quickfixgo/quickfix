@@ -19,6 +19,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized TestRequest instance
+func New(testreqid string) *Message {
+	var m Message
+	m.SetTestReqID(testreqid)
+	return &m
+}
+
 func (m *Message) SetTestReqID(v string) { m.TestReqID = v }
 
 //A RouteOut is the callback type that should be implemented for routing Message

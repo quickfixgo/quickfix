@@ -89,6 +89,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized CollateralInquiryAck instance
+func New(collinquiryid string, collinquirystatus int) *Message {
+	var m Message
+	m.SetCollInquiryID(collinquiryid)
+	m.SetCollInquiryStatus(collinquirystatus)
+	return &m
+}
+
 func (m *Message) SetCollInquiryID(v string)                               { m.CollInquiryID = v }
 func (m *Message) SetCollInquiryStatus(v int)                              { m.CollInquiryStatus = v }
 func (m *Message) SetCollInquiryResult(v int)                              { m.CollInquiryResult = &v }

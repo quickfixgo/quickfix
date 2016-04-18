@@ -157,6 +157,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized MassQuoteAcknowledgement instance
+func New(quotestatus int) *Message {
+	var m Message
+	m.SetQuoteStatus(quotestatus)
+	return &m
+}
+
 func (m *Message) SetQuoteReqID(v string)         { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)            { m.QuoteID = &v }
 func (m *Message) SetQuoteStatus(v int)           { m.QuoteStatus = v }

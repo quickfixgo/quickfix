@@ -28,6 +28,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized UserNotification instance
+func New(userstatus int) *Message {
+	var m Message
+	m.SetUserStatus(userstatus)
+	return &m
+}
+
 func (m *Message) SetUsernameGrp(v usernamegrp.UsernameGrp) { m.UsernameGrp = &v }
 func (m *Message) SetUserStatus(v int)                      { m.UserStatus = v }
 func (m *Message) SetText(v string)                         { m.Text = &v }

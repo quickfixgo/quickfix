@@ -49,6 +49,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized SettlementInstructionRequest instance
+func New(settlinstreqid string, transacttime time.Time) *Message {
+	var m Message
+	m.SetSettlInstReqID(settlinstreqid)
+	m.SetTransactTime(transacttime)
+	return &m
+}
+
 func (m *Message) SetSettlInstReqID(v string)    { m.SettlInstReqID = v }
 func (m *Message) SetTransactTime(v time.Time)   { m.TransactTime = v }
 func (m *Message) SetParties(v parties.Parties)  { m.Parties = &v }

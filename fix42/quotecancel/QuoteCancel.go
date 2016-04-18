@@ -101,6 +101,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized QuoteCancel instance
+func New(quoteid string, quotecanceltype int, noquoteentries []NoQuoteEntries) *Message {
+	var m Message
+	m.SetQuoteID(quoteid)
+	m.SetQuoteCancelType(quotecanceltype)
+	m.SetNoQuoteEntries(noquoteentries)
+	return &m
+}
+
 func (m *Message) SetQuoteReqID(v string)               { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)                  { m.QuoteID = v }
 func (m *Message) SetQuoteCancelType(v int)             { m.QuoteCancelType = v }

@@ -19,6 +19,12 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized Logout instance
+func New() *Message {
+	var m Message
+	return &m
+}
+
 func (m *Message) SetText(v string) { m.Text = &v }
 
 //A RouteOut is the callback type that should be implemented for routing Message

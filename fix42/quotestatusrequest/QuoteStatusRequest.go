@@ -61,6 +61,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized QuoteStatusRequest instance
+func New(symbol string) *Message {
+	var m Message
+	m.SetSymbol(symbol)
+	return &m
+}
+
 func (m *Message) SetQuoteID(v string)             { m.QuoteID = &v }
 func (m *Message) SetSymbol(v string)              { m.Symbol = v }
 func (m *Message) SetSymbolSfx(v string)           { m.SymbolSfx = &v }

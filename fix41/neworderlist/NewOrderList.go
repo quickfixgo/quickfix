@@ -124,6 +124,21 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized NewOrderList instance
+func New(listid string, listseqno int, listnoords int, clordid string, handlinst string, symbol string, side string, orderqty int, ordtype string) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetListSeqNo(listseqno)
+	m.SetListNoOrds(listnoords)
+	m.SetClOrdID(clordid)
+	m.SetHandlInst(handlinst)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	m.SetOrderQty(orderqty)
+	m.SetOrdType(ordtype)
+	return &m
+}
+
 func (m *Message) SetListID(v string)            { m.ListID = v }
 func (m *Message) SetWaveNo(v string)            { m.WaveNo = &v }
 func (m *Message) SetListSeqNo(v int)            { m.ListSeqNo = v }

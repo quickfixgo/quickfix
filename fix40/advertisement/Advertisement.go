@@ -48,6 +48,17 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized Advertisement instance
+func New(advid int, advtranstype string, symbol string, advside string, shares int) *Message {
+	var m Message
+	m.SetAdvId(advid)
+	m.SetAdvTransType(advtranstype)
+	m.SetSymbol(symbol)
+	m.SetAdvSide(advside)
+	m.SetShares(shares)
+	return &m
+}
+
 func (m *Message) SetAdvId(v int)              { m.AdvId = v }
 func (m *Message) SetAdvTransType(v string)    { m.AdvTransType = v }
 func (m *Message) SetAdvRefID(v int)           { m.AdvRefID = &v }

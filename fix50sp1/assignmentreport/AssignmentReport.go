@@ -82,6 +82,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized AssignmentReport instance
+func New(asgnrptid string, parties parties.Parties, clearingbusinessdate string) *Message {
+	var m Message
+	m.SetAsgnRptID(asgnrptid)
+	m.SetParties(parties)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	return &m
+}
+
 func (m *Message) SetAsgnRptID(v string)                          { m.AsgnRptID = v }
 func (m *Message) SetTotNumAssignmentReports(v int)               { m.TotNumAssignmentReports = &v }
 func (m *Message) SetLastRptRequested(v bool)                     { m.LastRptRequested = &v }

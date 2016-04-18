@@ -24,6 +24,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized NetworkCounterpartySystemStatusRequest instance
+func New(networkrequesttype int, networkrequestid string) *Message {
+	var m Message
+	m.SetNetworkRequestType(networkrequesttype)
+	m.SetNetworkRequestID(networkrequestid)
+	return &m
+}
+
 func (m *Message) SetNetworkRequestType(v int)                 { m.NetworkRequestType = v }
 func (m *Message) SetNetworkRequestID(v string)                { m.NetworkRequestID = v }
 func (m *Message) SetCompIDReqGrp(v compidreqgrp.CompIDReqGrp) { m.CompIDReqGrp = &v }

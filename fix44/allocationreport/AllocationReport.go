@@ -399,6 +399,22 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized AllocationReport instance
+func New(allocreportid string, alloctranstype string, allocreporttype int, allocstatus int, allocnoorderstype int, side string, instrument instrument.Instrument, quantity float64, avgpx float64, tradedate string) *Message {
+	var m Message
+	m.SetAllocReportID(allocreportid)
+	m.SetAllocTransType(alloctranstype)
+	m.SetAllocReportType(allocreporttype)
+	m.SetAllocStatus(allocstatus)
+	m.SetAllocNoOrdersType(allocnoorderstype)
+	m.SetSide(side)
+	m.SetInstrument(instrument)
+	m.SetQuantity(quantity)
+	m.SetAvgPx(avgpx)
+	m.SetTradeDate(tradedate)
+	return &m
+}
+
 func (m *Message) SetAllocReportID(v string)             { m.AllocReportID = v }
 func (m *Message) SetAllocID(v string)                   { m.AllocID = &v }
 func (m *Message) SetAllocTransType(v string)            { m.AllocTransType = v }

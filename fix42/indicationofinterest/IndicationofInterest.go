@@ -125,6 +125,17 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized IndicationofInterest instance
+func New(ioiid string, ioitranstype string, symbol string, side string, ioishares string) *Message {
+	var m Message
+	m.SetIOIid(ioiid)
+	m.SetIOITransType(ioitranstype)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	m.SetIOIShares(ioishares)
+	return &m
+}
+
 func (m *Message) SetIOIid(v string)                      { m.IOIid = v }
 func (m *Message) SetIOITransType(v string)               { m.IOITransType = v }
 func (m *Message) SetIOIRefID(v string)                   { m.IOIRefID = &v }

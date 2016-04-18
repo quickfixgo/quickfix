@@ -21,6 +21,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized Reject instance
+func New(refseqnum int) *Message {
+	var m Message
+	m.SetRefSeqNum(refseqnum)
+	return &m
+}
+
 func (m *Message) SetRefSeqNum(v int) { m.RefSeqNum = v }
 func (m *Message) SetText(v string)   { m.Text = &v }
 

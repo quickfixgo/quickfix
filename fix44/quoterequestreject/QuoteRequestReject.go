@@ -226,6 +226,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized QuoteRequestReject instance
+func New(quotereqid string, quoterequestrejectreason int, norelatedsym []NoRelatedSym) *Message {
+	var m Message
+	m.SetQuoteReqID(quotereqid)
+	m.SetQuoteRequestRejectReason(quoterequestrejectreason)
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
+
 func (m *Message) SetQuoteReqID(v string)            { m.QuoteReqID = v }
 func (m *Message) SetRFQReqID(v string)              { m.RFQReqID = &v }
 func (m *Message) SetQuoteRequestRejectReason(v int) { m.QuoteRequestRejectReason = v }

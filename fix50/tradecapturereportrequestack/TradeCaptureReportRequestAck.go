@@ -60,6 +60,17 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized TradeCaptureReportRequestAck instance
+func New(traderequestid string, traderequesttype int, traderequestresult int, traderequeststatus int, instrument instrument.Instrument) *Message {
+	var m Message
+	m.SetTradeRequestID(traderequestid)
+	m.SetTradeRequestType(traderequesttype)
+	m.SetTradeRequestResult(traderequestresult)
+	m.SetTradeRequestStatus(traderequeststatus)
+	m.SetInstrument(instrument)
+	return &m
+}
+
 func (m *Message) SetTradeRequestID(v string)                     { m.TradeRequestID = v }
 func (m *Message) SetTradeRequestType(v int)                      { m.TradeRequestType = v }
 func (m *Message) SetSubscriptionRequestType(v string)            { m.SubscriptionRequestType = &v }

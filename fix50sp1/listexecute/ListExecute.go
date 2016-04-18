@@ -32,6 +32,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ListExecute instance
+func New(listid string, transacttime time.Time) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetTransactTime(transacttime)
+	return &m
+}
+
 func (m *Message) SetListID(v string)          { m.ListID = v }
 func (m *Message) SetClientBidID(v string)     { m.ClientBidID = &v }
 func (m *Message) SetBidID(v string)           { m.BidID = &v }

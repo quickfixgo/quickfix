@@ -127,6 +127,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized QuoteRequest instance
+func New(quotereqid string, norelatedsym []NoRelatedSym) *Message {
+	var m Message
+	m.SetQuoteReqID(quotereqid)
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
+
 func (m *Message) SetQuoteReqID(v string)           { m.QuoteReqID = v }
 func (m *Message) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }
 

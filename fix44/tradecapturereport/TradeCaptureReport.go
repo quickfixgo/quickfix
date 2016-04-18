@@ -489,6 +489,20 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized TradeCaptureReport instance
+func New(tradereportid string, previouslyreported bool, instrument instrument.Instrument, lastqty float64, lastpx float64, tradedate string, transacttime time.Time, nosides []NoSides) *Message {
+	var m Message
+	m.SetTradeReportID(tradereportid)
+	m.SetPreviouslyReported(previouslyreported)
+	m.SetInstrument(instrument)
+	m.SetLastQty(lastqty)
+	m.SetLastPx(lastpx)
+	m.SetTradeDate(tradedate)
+	m.SetTransactTime(transacttime)
+	m.SetNoSides(nosides)
+	return &m
+}
+
 func (m *Message) SetTradeReportID(v string)                               { m.TradeReportID = v }
 func (m *Message) SetTradeReportTransType(v int)                           { m.TradeReportTransType = &v }
 func (m *Message) SetTradeReportType(v int)                                { m.TradeReportType = &v }

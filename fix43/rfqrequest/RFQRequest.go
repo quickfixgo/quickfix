@@ -54,6 +54,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized RFQRequest instance
+func New(rfqreqid string, norelatedsym []NoRelatedSym) *Message {
+	var m Message
+	m.SetRFQReqID(rfqreqid)
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
+
 func (m *Message) SetRFQReqID(v string)                { m.RFQReqID = v }
 func (m *Message) SetNoRelatedSym(v []NoRelatedSym)    { m.NoRelatedSym = v }
 func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = &v }

@@ -86,6 +86,18 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized SettlementInstructions instance
+func New(settlinstid string, settlinsttranstype string, settlinstmode string, settlinstsource string, allocaccount string, transacttime time.Time) *Message {
+	var m Message
+	m.SetSettlInstID(settlinstid)
+	m.SetSettlInstTransType(settlinsttranstype)
+	m.SetSettlInstMode(settlinstmode)
+	m.SetSettlInstSource(settlinstsource)
+	m.SetAllocAccount(allocaccount)
+	m.SetTransactTime(transacttime)
+	return &m
+}
+
 func (m *Message) SetSettlInstID(v string)                    { m.SettlInstID = v }
 func (m *Message) SetSettlInstTransType(v string)             { m.SettlInstTransType = v }
 func (m *Message) SetSettlInstMode(v string)                  { m.SettlInstMode = v }

@@ -67,6 +67,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized MarketDataSnapshotFullRefresh instance
+func New(instrument instrument.Instrument, mdfullgrp mdfullgrp.MDFullGrp) *Message {
+	var m Message
+	m.SetInstrument(instrument)
+	m.SetMDFullGrp(mdfullgrp)
+	return &m
+}
+
 func (m *Message) SetMDReqID(v string)                            { m.MDReqID = &v }
 func (m *Message) SetInstrument(v instrument.Instrument)          { m.Instrument = v }
 func (m *Message) SetUndInstrmtGrp(v undinstrmtgrp.UndInstrmtGrp) { m.UndInstrmtGrp = &v }

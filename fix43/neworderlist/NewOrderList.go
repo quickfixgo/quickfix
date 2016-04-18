@@ -330,6 +330,16 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized NewOrderList instance
+func New(listid string, bidtype int, totnoorders int, noorders []NoOrders) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetBidType(bidtype)
+	m.SetTotNoOrders(totnoorders)
+	m.SetNoOrders(noorders)
+	return &m
+}
+
 func (m *Message) SetListID(v string)                { m.ListID = v }
 func (m *Message) SetBidID(v string)                 { m.BidID = &v }
 func (m *Message) SetClientBidID(v string)           { m.ClientBidID = &v }

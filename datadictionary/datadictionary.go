@@ -235,11 +235,15 @@ type MessageDef struct {
 	Fields  map[int]*FieldDef
 	//Parts are the MessageParts of contained in this MessageDef in declaration
 	//order
-	Parts []MessagePart
+	Parts         []MessagePart
+	requiredParts []MessagePart
 
 	RequiredTags TagSet
 	Tags         TagSet
 }
+
+//RequiredParts returns those parts that are required for this Message
+func (m MessageDef) RequiredParts() []MessagePart { return m.requiredParts }
 
 //NewMessageDef returns a pointer to an initialized MessageDef
 func NewMessageDef(name, msgType string, parts []MessagePart) *MessageDef {
@@ -253,6 +257,10 @@ func NewMessageDef(name, msgType string, parts []MessagePart) *MessageDef {
 	}
 
 	for _, part := range parts {
+		if part.Required() {
+			msg.requiredParts = append(msg.requiredParts, part)
+		}
+
 		if comp, ok := part.(Component); ok {
 			for _, f := range comp.Fields() {
 				msg.Fields[f.Tag] = f

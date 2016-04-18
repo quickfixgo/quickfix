@@ -45,6 +45,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ConfirmationRequest instance
+func New(confirmreqid string, confirmtype int, transacttime time.Time) *Message {
+	var m Message
+	m.SetConfirmReqID(confirmreqid)
+	m.SetConfirmType(confirmtype)
+	m.SetTransactTime(transacttime)
+	return &m
+}
+
 func (m *Message) SetConfirmReqID(v string)                 { m.ConfirmReqID = v }
 func (m *Message) SetConfirmType(v int)                     { m.ConfirmType = v }
 func (m *Message) SetOrdAllocGrp(v ordallocgrp.OrdAllocGrp) { m.OrdAllocGrp = &v }
