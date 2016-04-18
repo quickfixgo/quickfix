@@ -88,6 +88,16 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized AllocationReportAck instance
+func New(allocreportid string, allocid string, transacttime time.Time, allocstatus int) *Message {
+	var m Message
+	m.SetAllocReportID(allocreportid)
+	m.SetAllocID(allocid)
+	m.SetTransactTime(transacttime)
+	m.SetAllocStatus(allocstatus)
+	return &m
+}
+
 func (m *Message) SetAllocReportID(v string)     { m.AllocReportID = v }
 func (m *Message) SetAllocID(v string)           { m.AllocID = v }
 func (m *Message) SetParties(v parties.Parties)  { m.Parties = &v }

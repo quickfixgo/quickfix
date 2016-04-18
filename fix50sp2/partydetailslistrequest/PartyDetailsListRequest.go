@@ -39,6 +39,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized PartyDetailsListRequest instance
+func New(partydetailslistrequestid string, partylistresponsetypegrp partylistresponsetypegrp.PartyListResponseTypeGrp) *Message {
+	var m Message
+	m.SetPartyDetailsListRequestID(partydetailslistrequestid)
+	m.SetPartyListResponseTypeGrp(partylistresponsetypegrp)
+	return &m
+}
+
 func (m *Message) SetPartyDetailsListRequestID(v string) { m.PartyDetailsListRequestID = v }
 func (m *Message) SetPartyListResponseTypeGrp(v partylistresponsetypegrp.PartyListResponseTypeGrp) {
 	m.PartyListResponseTypeGrp = v

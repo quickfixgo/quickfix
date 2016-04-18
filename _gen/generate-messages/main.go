@@ -88,6 +88,12 @@ func genMessage(msg *datadictionary.MessageDef) string {
 	return fileOut
 }
 
+func genMessageNew(msg *datadictionary.MessageDef) string {
+	writer := new(bytes.Buffer)
+	gen.WriteNewMessage(writer, *msg)
+	return writer.String()
+}
+
 func genMessageSetters(msg *datadictionary.MessageDef) string {
 	writer := new(bytes.Buffer)
 	if err := gen.WriteFieldSetters(writer, "Message", msg.Parts); err != nil {
@@ -142,6 +148,7 @@ func genMessagePkg(msg *datadictionary.MessageDef) {
 	fileOut += writer.String()
 	fileOut += genGroupDeclarations(msg)
 	fileOut += genMessage(msg)
+	fileOut += genMessageNew(msg)
 	fileOut += genMessageSetters(msg)
 	fileOut += genMessageRoute(msg)
 

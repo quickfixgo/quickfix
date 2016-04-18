@@ -236,6 +236,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized MassQuote instance
+func New(quoteid string, noquotesets []NoQuoteSets) *Message {
+	var m Message
+	m.SetQuoteID(quoteid)
+	m.SetNoQuoteSets(noquotesets)
+	return &m
+}
+
 func (m *Message) SetQuoteReqID(v string)         { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)            { m.QuoteID = v }
 func (m *Message) SetQuoteResponseLevel(v int)    { m.QuoteResponseLevel = &v }

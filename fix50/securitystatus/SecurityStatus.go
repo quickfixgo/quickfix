@@ -74,6 +74,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized SecurityStatus instance
+func New(instrument instrument.Instrument) *Message {
+	var m Message
+	m.SetInstrument(instrument)
+	return &m
+}
+
 func (m *Message) SetSecurityStatusReqID(v string)       { m.SecurityStatusReqID = &v }
 func (m *Message) SetInstrument(v instrument.Instrument) { m.Instrument = v }
 func (m *Message) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {

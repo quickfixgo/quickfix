@@ -107,6 +107,26 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized AssignmentReport instance
+func New(asgnrptid string, parties parties.Parties, accounttype int, positionqty positionqty.PositionQty, positionamountdata positionamountdata.PositionAmountData, settlprice float64, settlpricetype int, underlyingsettlprice float64, assignmentmethod string, openinterest float64, exercisemethod string, settlsessid string, settlsesssubid string, clearingbusinessdate string) *Message {
+	var m Message
+	m.SetAsgnRptID(asgnrptid)
+	m.SetParties(parties)
+	m.SetAccountType(accounttype)
+	m.SetPositionQty(positionqty)
+	m.SetPositionAmountData(positionamountdata)
+	m.SetSettlPrice(settlprice)
+	m.SetSettlPriceType(settlpricetype)
+	m.SetUnderlyingSettlPrice(underlyingsettlprice)
+	m.SetAssignmentMethod(assignmentmethod)
+	m.SetOpenInterest(openinterest)
+	m.SetExerciseMethod(exercisemethod)
+	m.SetSettlSessID(settlsessid)
+	m.SetSettlSessSubID(settlsesssubid)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	return &m
+}
+
 func (m *Message) SetAsgnRptID(v string)                    { m.AsgnRptID = v }
 func (m *Message) SetTotNumAssignmentReports(v int)         { m.TotNumAssignmentReports = &v }
 func (m *Message) SetLastRptRequested(v bool)               { m.LastRptRequested = &v }

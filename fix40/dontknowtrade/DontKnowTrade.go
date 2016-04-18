@@ -35,6 +35,18 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized DontKnowTrade instance
+func New(dkreason string, symbol string, side string, orderqty int, lastshares int, lastpx float64) *Message {
+	var m Message
+	m.SetDKReason(dkreason)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	m.SetOrderQty(orderqty)
+	m.SetLastShares(lastshares)
+	m.SetLastPx(lastpx)
+	return &m
+}
+
 func (m *Message) SetOrderID(v string)  { m.OrderID = &v }
 func (m *Message) SetExecID(v int)      { m.ExecID = &v }
 func (m *Message) SetDKReason(v string) { m.DKReason = v }

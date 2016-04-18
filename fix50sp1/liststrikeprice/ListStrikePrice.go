@@ -26,6 +26,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ListStrikePrice instance
+func New(listid string, totnostrikes int, instrmtstrkpxgrp instrmtstrkpxgrp.InstrmtStrkPxGrp) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetTotNoStrikes(totnostrikes)
+	m.SetInstrmtStrkPxGrp(instrmtstrkpxgrp)
+	return &m
+}
+
 func (m *Message) SetListID(v string)                                      { m.ListID = v }
 func (m *Message) SetTotNoStrikes(v int)                                   { m.TotNoStrikes = v }
 func (m *Message) SetLastFragment(v bool)                                  { m.LastFragment = &v }

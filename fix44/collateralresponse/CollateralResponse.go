@@ -197,6 +197,17 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized CollateralResponse instance
+func New(collrespid string, collasgnid string, collasgnreason int, collasgnresptype int, transacttime time.Time) *Message {
+	var m Message
+	m.SetCollRespID(collrespid)
+	m.SetCollAsgnID(collasgnid)
+	m.SetCollAsgnReason(collasgnreason)
+	m.SetCollAsgnRespType(collasgnresptype)
+	m.SetTransactTime(transacttime)
+	return &m
+}
+
 func (m *Message) SetCollRespID(v string)                                  { m.CollRespID = v }
 func (m *Message) SetCollAsgnID(v string)                                  { m.CollAsgnID = v }
 func (m *Message) SetCollReqID(v string)                                   { m.CollReqID = &v }

@@ -25,6 +25,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ListStatusRequest instance
+func New(listid string) *Message {
+	var m Message
+	m.SetListID(listid)
+	return &m
+}
+
 func (m *Message) SetListID(v string)      { m.ListID = v }
 func (m *Message) SetText(v string)        { m.Text = &v }
 func (m *Message) SetEncodedTextLen(v int) { m.EncodedTextLen = &v }

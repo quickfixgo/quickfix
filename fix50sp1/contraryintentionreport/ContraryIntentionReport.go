@@ -49,6 +49,17 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ContraryIntentionReport instance
+func New(contintrptid string, clearingbusinessdate string, parties parties.Parties, expirationqty expirationqty.ExpirationQty, instrument instrument.Instrument) *Message {
+	var m Message
+	m.SetContIntRptID(contintrptid)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	m.SetParties(parties)
+	m.SetExpirationQty(expirationqty)
+	m.SetInstrument(instrument)
+	return &m
+}
+
 func (m *Message) SetContIntRptID(v string)                       { m.ContIntRptID = v }
 func (m *Message) SetTransactTime(v time.Time)                    { m.TransactTime = &v }
 func (m *Message) SetLateIndicator(v bool)                        { m.LateIndicator = &v }

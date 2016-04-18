@@ -87,6 +87,19 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized PositionMaintenanceReport instance
+func New(posmaintrptid string, postranstype int, posmaintaction int, posmaintstatus int, clearingbusinessdate string, instrument instrument.Instrument, positionqty positionqty.PositionQty) *Message {
+	var m Message
+	m.SetPosMaintRptID(posmaintrptid)
+	m.SetPosTransType(postranstype)
+	m.SetPosMaintAction(posmaintaction)
+	m.SetPosMaintStatus(posmaintstatus)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	m.SetInstrument(instrument)
+	m.SetPositionQty(positionqty)
+	return &m
+}
+
 func (m *Message) SetPosMaintRptID(v string)                      { m.PosMaintRptID = v }
 func (m *Message) SetPosTransType(v int)                          { m.PosTransType = v }
 func (m *Message) SetPosReqID(v string)                           { m.PosReqID = &v }

@@ -69,6 +69,17 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized RequestForPositions instance
+func New(posreqid string, posreqtype int, parties parties.Parties, clearingbusinessdate string, transacttime time.Time) *Message {
+	var m Message
+	m.SetPosReqID(posreqid)
+	m.SetPosReqType(posreqtype)
+	m.SetParties(parties)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	m.SetTransactTime(transacttime)
+	return &m
+}
+
 func (m *Message) SetPosReqID(v string)                           { m.PosReqID = v }
 func (m *Message) SetPosReqType(v int)                            { m.PosReqType = v }
 func (m *Message) SetMatchStatus(v string)                        { m.MatchStatus = &v }

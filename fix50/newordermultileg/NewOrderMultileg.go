@@ -195,6 +195,18 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized NewOrderMultileg instance
+func New(clordid string, side string, instrument instrument.Instrument, legordgrp legordgrp.LegOrdGrp, transacttime time.Time, ordtype string) *Message {
+	var m Message
+	m.SetClOrdID(clordid)
+	m.SetSide(side)
+	m.SetInstrument(instrument)
+	m.SetLegOrdGrp(legordgrp)
+	m.SetTransactTime(transacttime)
+	m.SetOrdType(ordtype)
+	return &m
+}
+
 func (m *Message) SetClOrdID(v string)                                  { m.ClOrdID = v }
 func (m *Message) SetSecondaryClOrdID(v string)                         { m.SecondaryClOrdID = &v }
 func (m *Message) SetClOrdLinkID(v string)                              { m.ClOrdLinkID = &v }

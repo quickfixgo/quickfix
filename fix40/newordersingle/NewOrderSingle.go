@@ -90,6 +90,18 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized NewOrderSingle instance
+func New(clordid string, handlinst string, symbol string, side string, orderqty int, ordtype string) *Message {
+	var m Message
+	m.SetClOrdID(clordid)
+	m.SetHandlInst(handlinst)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	m.SetOrderQty(orderqty)
+	m.SetOrdType(ordtype)
+	return &m
+}
+
 func (m *Message) SetClOrdID(v string)       { m.ClOrdID = v }
 func (m *Message) SetClientID(v string)      { m.ClientID = &v }
 func (m *Message) SetExecBroker(v string)    { m.ExecBroker = &v }

@@ -37,6 +37,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized BusinessMessageReject instance
+func New(refmsgtype string, businessrejectreason int) *Message {
+	var m Message
+	m.SetRefMsgType(refmsgtype)
+	m.SetBusinessRejectReason(businessrejectreason)
+	return &m
+}
+
 func (m *Message) SetRefSeqNum(v int)              { m.RefSeqNum = &v }
 func (m *Message) SetRefMsgType(v string)          { m.RefMsgType = v }
 func (m *Message) SetBusinessRejectRefID(v string) { m.BusinessRejectRefID = &v }

@@ -81,6 +81,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized BidResponse instance
+func New(nobidcomponents []NoBidComponents) *Message {
+	var m Message
+	m.SetNoBidComponents(nobidcomponents)
+	return &m
+}
+
 func (m *Message) SetBidID(v string)                      { m.BidID = &v }
 func (m *Message) SetClientBidID(v string)                { m.ClientBidID = &v }
 func (m *Message) SetNoBidComponents(v []NoBidComponents) { m.NoBidComponents = v }

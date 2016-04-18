@@ -34,6 +34,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized AllocationACK instance
+func New(allocid string, tradedate string, allocstatus int) *Message {
+	var m Message
+	m.SetAllocID(allocid)
+	m.SetTradeDate(tradedate)
+	m.SetAllocStatus(allocstatus)
+	return &m
+}
+
 func (m *Message) SetClientID(v string)        { m.ClientID = &v }
 func (m *Message) SetExecBroker(v string)      { m.ExecBroker = &v }
 func (m *Message) SetAllocID(v string)         { m.AllocID = v }

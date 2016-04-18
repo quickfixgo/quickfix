@@ -255,6 +255,20 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized NewOrderCross instance
+func New(crossid string, crosstype int, crossprioritization int, nosides []NoSides, instrument instrument.Instrument, handlinst string, transacttime time.Time, ordtype string) *Message {
+	var m Message
+	m.SetCrossID(crossid)
+	m.SetCrossType(crosstype)
+	m.SetCrossPrioritization(crossprioritization)
+	m.SetNoSides(nosides)
+	m.SetInstrument(instrument)
+	m.SetHandlInst(handlinst)
+	m.SetTransactTime(transacttime)
+	m.SetOrdType(ordtype)
+	return &m
+}
+
 func (m *Message) SetCrossID(v string)                         { m.CrossID = v }
 func (m *Message) SetCrossType(v int)                          { m.CrossType = v }
 func (m *Message) SetCrossPrioritization(v int)                { m.CrossPrioritization = v }

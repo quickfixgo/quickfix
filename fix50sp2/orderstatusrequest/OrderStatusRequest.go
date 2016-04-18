@@ -45,6 +45,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized OrderStatusRequest instance
+func New(instrument instrument.Instrument, side string) *Message {
+	var m Message
+	m.SetInstrument(instrument)
+	m.SetSide(side)
+	return &m
+}
+
 func (m *Message) SetOrderID(v string)                                     { m.OrderID = &v }
 func (m *Message) SetClOrdID(v string)                                     { m.ClOrdID = &v }
 func (m *Message) SetSecondaryClOrdID(v string)                            { m.SecondaryClOrdID = &v }

@@ -28,6 +28,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ListCancelRequest instance
+func New(listid string, transacttime time.Time) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetTransactTime(transacttime)
+	return &m
+}
+
 func (m *Message) SetListID(v string)          { m.ListID = v }
 func (m *Message) SetTransactTime(v time.Time) { m.TransactTime = v }
 func (m *Message) SetText(v string)            { m.Text = &v }

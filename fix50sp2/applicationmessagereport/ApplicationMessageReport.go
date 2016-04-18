@@ -32,6 +32,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ApplicationMessageReport instance
+func New(applreportid string, applreporttype int) *Message {
+	var m Message
+	m.SetApplReportID(applreportid)
+	m.SetApplReportType(applreporttype)
+	return &m
+}
+
 func (m *Message) SetApplReportID(v string)                             { m.ApplReportID = v }
 func (m *Message) SetApplReportType(v int)                              { m.ApplReportType = v }
 func (m *Message) SetApplIDReportGrp(v applidreportgrp.ApplIDReportGrp) { m.ApplIDReportGrp = &v }

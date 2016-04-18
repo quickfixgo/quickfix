@@ -202,6 +202,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized MarketDataIncrementalRefresh instance
+func New(nomdentries []NoMDEntries) *Message {
+	var m Message
+	m.SetNoMDEntries(nomdentries)
+	return &m
+}
+
 func (m *Message) SetMDReqID(v string)            { m.MDReqID = &v }
 func (m *Message) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }
 

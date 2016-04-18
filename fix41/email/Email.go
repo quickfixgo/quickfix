@@ -103,6 +103,16 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized Email instance
+func New(emailthreadid string, emailtype string, subject string, linesoftext []LinesOfText) *Message {
+	var m Message
+	m.SetEmailThreadID(emailthreadid)
+	m.SetEmailType(emailtype)
+	m.SetSubject(subject)
+	m.SetLinesOfText(linesoftext)
+	return &m
+}
+
 func (m *Message) SetEmailThreadID(v string)        { m.EmailThreadID = v }
 func (m *Message) SetEmailType(v string)            { m.EmailType = v }
 func (m *Message) SetOrigTime(v time.Time)          { m.OrigTime = &v }

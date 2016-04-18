@@ -320,6 +320,20 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized CrossOrderCancelReplaceRequest instance
+func New(crossid string, origcrossid string, crosstype int, crossprioritization int, nosides []NoSides, instrument instrument.Instrument, transacttime time.Time, ordtype string) *Message {
+	var m Message
+	m.SetCrossID(crossid)
+	m.SetOrigCrossID(origcrossid)
+	m.SetCrossType(crosstype)
+	m.SetCrossPrioritization(crossprioritization)
+	m.SetNoSides(nosides)
+	m.SetInstrument(instrument)
+	m.SetTransactTime(transacttime)
+	m.SetOrdType(ordtype)
+	return &m
+}
+
 func (m *Message) SetOrderID(v string)                         { m.OrderID = &v }
 func (m *Message) SetCrossID(v string)                         { m.CrossID = v }
 func (m *Message) SetOrigCrossID(v string)                     { m.OrigCrossID = v }

@@ -169,6 +169,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized MarketDataSnapshotFullRefresh instance
+func New(symbol string, nomdentries []NoMDEntries) *Message {
+	var m Message
+	m.SetSymbol(symbol)
+	m.SetNoMDEntries(nomdentries)
+	return &m
+}
+
 func (m *Message) SetMDReqID(v string)             { m.MDReqID = &v }
 func (m *Message) SetSymbol(v string)              { m.Symbol = v }
 func (m *Message) SetSymbolSfx(v string)           { m.SymbolSfx = &v }

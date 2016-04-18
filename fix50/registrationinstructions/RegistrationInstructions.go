@@ -44,6 +44,15 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized RegistrationInstructions instance
+func New(registid string, registtranstype string, registrefid string) *Message {
+	var m Message
+	m.SetRegistID(registid)
+	m.SetRegistTransType(registtranstype)
+	m.SetRegistRefID(registrefid)
+	return &m
+}
+
 func (m *Message) SetRegistID(v string)                                 { m.RegistID = v }
 func (m *Message) SetRegistTransType(v string)                          { m.RegistTransType = v }
 func (m *Message) SetRegistRefID(v string)                              { m.RegistRefID = v }
