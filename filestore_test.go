@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strings"
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
@@ -19,11 +19,23 @@ type FileStoreTestSuite struct {
 }
 
 func (suite *FileStoreTestSuite) SetupTest() {
-	var err error
-	settings := NewSessionSettings()
 	suite.fileStoreRootPath = path.Join(os.TempDir(), fmt.Sprintf("FileStoreTestSuite-%d", os.Getpid()))
-	settings.Set(config.FileStorePath, path.Join(suite.fileStoreRootPath, fmt.Sprintf("%d", time.Now().UnixNano())))
-	suite.msgStore, err = NewFileStoreFactory(settings).Create(SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"})
+	fileStorePath := path.Join(suite.fileStoreRootPath, fmt.Sprintf("%d", time.Now().UnixNano()))
+	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
+
+	// create settings
+	settings, err := ParseSettings(strings.NewReader(fmt.Sprintf(`
+[DEFAULT]
+FileStorePath=%s
+
+[SESSION]
+BeginString=%s
+SenderCompID=%s
+TargetCompID=%s`, fileStorePath, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
+	require.Nil(suite.T(), err)
+
+	// create store
+	suite.msgStore, err = NewFileStoreFactory(settings).Create(sessionID)
 	require.Nil(suite.T(), err)
 }
 
