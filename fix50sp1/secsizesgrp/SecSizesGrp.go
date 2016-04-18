@@ -1,5 +1,6 @@
 package secsizesgrp
 
+//New returns an initialized SecSizesGrp instance
 func New() *SecSizesGrp {
 	var m SecSizesGrp
 	return &m
@@ -11,6 +12,12 @@ type NoOfSecSizes struct {
 	MDSecSizeType *int `fix:"1178"`
 	//MDSecSize is a non-required field for NoOfSecSizes.
 	MDSecSize *float64 `fix:"1179"`
+}
+
+//NewNoOfSecSizes returns an initialized NoOfSecSizes instance
+func NewNoOfSecSizes() *NoOfSecSizes {
+	var m NoOfSecSizes
+	return &m
 }
 
 func (m *NoOfSecSizes) SetMDSecSizeType(v int) { m.MDSecSizeType = &v }

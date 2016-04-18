@@ -1,5 +1,6 @@
 package financingdetails
 
+//New returns an initialized FinancingDetails instance
 func New() *FinancingDetails {
 	var m FinancingDetails
 	return &m

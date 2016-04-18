@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relationshipriskwarninglevels"
 )
 
+//New returns an initialized RelationshipRiskLimits instance
 func New() *RelationshipRiskLimits {
 	var m RelationshipRiskLimits
 	return &m
@@ -24,6 +25,12 @@ type NoRelationshipRiskLimits struct {
 	RelationshipRiskInstrumentScope *relationshipriskinstrumentscope.RelationshipRiskInstrumentScope
 	//RelationshipRiskWarningLevels is a non-required component for NoRelationshipRiskLimits.
 	RelationshipRiskWarningLevels *relationshipriskwarninglevels.RelationshipRiskWarningLevels
+}
+
+//NewNoRelationshipRiskLimits returns an initialized NoRelationshipRiskLimits instance
+func NewNoRelationshipRiskLimits() *NoRelationshipRiskLimits {
+	var m NoRelationshipRiskLimits
+	return &m
 }
 
 func (m *NoRelationshipRiskLimits) SetRelationshipRiskLimitType(v int) {

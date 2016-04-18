@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/nestedparties4"
 )
 
+//New returns an initialized FillsGrp instance
 func New() *FillsGrp {
 	var m FillsGrp
 	return &m
@@ -19,6 +20,12 @@ type NoFills struct {
 	FillQty *float64 `fix:"1365"`
 	//NestedParties4 is a non-required component for NoFills.
 	NestedParties4 *nestedparties4.NestedParties4
+}
+
+//NewNoFills returns an initialized NoFills instance
+func NewNoFills() *NoFills {
+	var m NoFills
+	return &m
 }
 
 func (m *NoFills) SetFillExecID(v string)                            { m.FillExecID = &v }

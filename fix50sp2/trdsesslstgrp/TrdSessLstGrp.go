@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+//New returns an initialized TrdSessLstGrp instance
 func New(notradingsessions []NoTradingSessions) *TrdSessLstGrp {
 	var m TrdSessLstGrp
 	m.SetNoTradingSessions(notradingsessions)
@@ -59,6 +60,14 @@ type NoTradingSessions struct {
 	TransactTime *time.Time `fix:"60"`
 	//TradSesUpdateAction is a non-required field for NoTradingSessions.
 	TradSesUpdateAction *string `fix:"1327"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions(tradingsessionid string, tradsesstatus int) *NoTradingSessions {
+	var m NoTradingSessions
+	m.SetTradingSessionID(tradingsessionid)
+	m.SetTradSesStatus(tradsesstatus)
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)       { m.TradingSessionID = v }

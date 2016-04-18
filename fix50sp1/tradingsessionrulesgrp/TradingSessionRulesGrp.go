@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/tradingsessionrules"
 )
 
+//New returns an initialized TradingSessionRulesGrp instance
 func New() *TradingSessionRulesGrp {
 	var m TradingSessionRulesGrp
 	return &m
@@ -17,6 +18,12 @@ type NoTradingSessionRules struct {
 	TradingSessionSubID *string `fix:"625"`
 	//TradingSessionRules is a non-required component for NoTradingSessionRules.
 	TradingSessionRules *tradingsessionrules.TradingSessionRules
+}
+
+//NewNoTradingSessionRules returns an initialized NoTradingSessionRules instance
+func NewNoTradingSessionRules() *NoTradingSessionRules {
+	var m NoTradingSessionRules
+	return &m
 }
 
 func (m *NoTradingSessionRules) SetTradingSessionID(v string)    { m.TradingSessionID = &v }

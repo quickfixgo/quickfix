@@ -29,6 +29,12 @@ type NoRegistDtls struct {
 	InvestorCountryOfResidence *string `fix:"475"`
 }
 
+//NewNoRegistDtls returns an initialized NoRegistDtls instance
+func NewNoRegistDtls() *NoRegistDtls {
+	var m NoRegistDtls
+	return &m
+}
+
 func (m *NoRegistDtls) SetRegistDtls(v string)                         { m.RegistDtls = &v }
 func (m *NoRegistDtls) SetRegistEmail(v string)                        { m.RegistEmail = &v }
 func (m *NoRegistDtls) SetMailingDtls(v string)                        { m.MailingDtls = &v }
@@ -56,6 +62,12 @@ type NoDistribInsts struct {
 	CashDistribPayRef *string `fix:"501"`
 	//CashDistribAgentAcctName is a non-required field for NoDistribInsts.
 	CashDistribAgentAcctName *string `fix:"502"`
+}
+
+//NewNoDistribInsts returns an initialized NoDistribInsts instance
+func NewNoDistribInsts() *NoDistribInsts {
+	var m NoDistribInsts
+	return &m
 }
 
 func (m *NoDistribInsts) SetDistribPaymentMethod(v int)          { m.DistribPaymentMethod = &v }

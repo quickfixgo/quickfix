@@ -1,5 +1,6 @@
 package execcollgrp
 
+//New returns an initialized ExecCollGrp instance
 func New() *ExecCollGrp {
 	var m ExecCollGrp
 	return &m
@@ -9,6 +10,12 @@ func New() *ExecCollGrp {
 type NoExecs struct {
 	//ExecID is a non-required field for NoExecs.
 	ExecID *string `fix:"17"`
+}
+
+//NewNoExecs returns an initialized NoExecs instance
+func NewNoExecs() *NoExecs {
+	var m NoExecs
+	return &m
 }
 
 func (m *NoExecs) SetExecID(v string) { m.ExecID = &v }

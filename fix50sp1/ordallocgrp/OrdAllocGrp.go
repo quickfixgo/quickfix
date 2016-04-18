@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/nestedparties2"
 )
 
+//New returns an initialized OrdAllocGrp instance
 func New() *OrdAllocGrp {
 	var m OrdAllocGrp
 	return &m
@@ -29,6 +30,12 @@ type NoOrders struct {
 	OrderAvgPx *float64 `fix:"799"`
 	//OrderBookingQty is a non-required field for NoOrders.
 	OrderBookingQty *float64 `fix:"800"`
+}
+
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders() *NoOrders {
+	var m NoOrders
+	return &m
 }
 
 func (m *NoOrders) SetClOrdID(v string)                               { m.ClOrdID = &v }

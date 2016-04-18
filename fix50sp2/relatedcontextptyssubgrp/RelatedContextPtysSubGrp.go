@@ -1,5 +1,6 @@
 package relatedcontextptyssubgrp
 
+//New returns an initialized RelatedContextPtysSubGrp instance
 func New() *RelatedContextPtysSubGrp {
 	var m RelatedContextPtysSubGrp
 	return &m
@@ -11,6 +12,12 @@ type NoRelatedContextPartySubIDs struct {
 	RelatedContextPartySubID *string `fix:"1580"`
 	//RelatedContextPartySubIDType is a non-required field for NoRelatedContextPartySubIDs.
 	RelatedContextPartySubIDType *int `fix:"1581"`
+}
+
+//NewNoRelatedContextPartySubIDs returns an initialized NoRelatedContextPartySubIDs instance
+func NewNoRelatedContextPartySubIDs() *NoRelatedContextPartySubIDs {
+	var m NoRelatedContextPartySubIDs
+	return &m
 }
 
 func (m *NoRelatedContextPartySubIDs) SetRelatedContextPartySubID(v string) {

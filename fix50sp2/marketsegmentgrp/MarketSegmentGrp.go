@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/strikerules"
 )
 
+//New returns an initialized MarketSegmentGrp instance
 func New() *MarketSegmentGrp {
 	var m MarketSegmentGrp
 	return &m
@@ -20,6 +21,12 @@ type NoMarketSegments struct {
 	SecurityTradingRules *securitytradingrules.SecurityTradingRules
 	//StrikeRules is a non-required component for NoMarketSegments.
 	StrikeRules *strikerules.StrikeRules
+}
+
+//NewNoMarketSegments returns an initialized NoMarketSegments instance
+func NewNoMarketSegments() *NoMarketSegments {
+	var m NoMarketSegments
+	return &m
 }
 
 func (m *NoMarketSegments) SetMarketID(v string)        { m.MarketID = &v }

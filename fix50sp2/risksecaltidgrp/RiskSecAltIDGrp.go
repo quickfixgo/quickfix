@@ -1,5 +1,6 @@
 package risksecaltidgrp
 
+//New returns an initialized RiskSecAltIDGrp instance
 func New() *RiskSecAltIDGrp {
 	var m RiskSecAltIDGrp
 	return &m
@@ -11,6 +12,12 @@ type NoRiskSecurityAltID struct {
 	RiskSecurityAltID *string `fix:"1541"`
 	//RiskSecurityAltIDSource is a non-required field for NoRiskSecurityAltID.
 	RiskSecurityAltIDSource *string `fix:"1542"`
+}
+
+//NewNoRiskSecurityAltID returns an initialized NoRiskSecurityAltID instance
+func NewNoRiskSecurityAltID() *NoRiskSecurityAltID {
+	var m NoRiskSecurityAltID
+	return &m
 }
 
 func (m *NoRiskSecurityAltID) SetRiskSecurityAltID(v string)       { m.RiskSecurityAltID = &v }

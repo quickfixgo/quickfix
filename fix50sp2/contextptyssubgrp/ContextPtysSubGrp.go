@@ -1,5 +1,6 @@
 package contextptyssubgrp
 
+//New returns an initialized ContextPtysSubGrp instance
 func New() *ContextPtysSubGrp {
 	var m ContextPtysSubGrp
 	return &m
@@ -11,6 +12,12 @@ type NoContextPartySubIDs struct {
 	ContextPartySubID *string `fix:"1527"`
 	//ContextPartySubIDType is a non-required field for NoContextPartySubIDs.
 	ContextPartySubIDType *int `fix:"1528"`
+}
+
+//NewNoContextPartySubIDs returns an initialized NoContextPartySubIDs instance
+func NewNoContextPartySubIDs() *NoContextPartySubIDs {
+	var m NoContextPartySubIDs
+	return &m
 }
 
 func (m *NoContextPartySubIDs) SetContextPartySubID(v string)  { m.ContextPartySubID = &v }

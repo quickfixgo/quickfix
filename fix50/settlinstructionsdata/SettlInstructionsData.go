@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/dlvyinstgrp"
 )
 
+//New returns an initialized SettlInstructionsData instance
 func New() *SettlInstructionsData {
 	var m SettlInstructionsData
 	return &m

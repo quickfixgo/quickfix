@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/nestedparties"
 )
 
+//New returns an initialized PreAllocGrp instance
 func New() *PreAllocGrp {
 	var m PreAllocGrp
 	return &m
@@ -23,6 +24,12 @@ type NoAllocs struct {
 	NestedParties *nestedparties.NestedParties
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
+}
+
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
 }
 
 func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }

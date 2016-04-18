@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/underlyingleginstrument"
 )
 
+//New returns an initialized TradeCapLegUnderlyingsGrp instance
 func New() *TradeCapLegUnderlyingsGrp {
 	var m TradeCapLegUnderlyingsGrp
 	return &m
@@ -13,6 +14,12 @@ func New() *TradeCapLegUnderlyingsGrp {
 type NoOfLegUnderlyings struct {
 	//UnderlyingLegInstrument is a non-required component for NoOfLegUnderlyings.
 	UnderlyingLegInstrument *underlyingleginstrument.UnderlyingLegInstrument
+}
+
+//NewNoOfLegUnderlyings returns an initialized NoOfLegUnderlyings instance
+func NewNoOfLegUnderlyings() *NoOfLegUnderlyings {
+	var m NoOfLegUnderlyings
+	return &m
 }
 
 func (m *NoOfLegUnderlyings) SetUnderlyingLegInstrument(v underlyingleginstrument.UnderlyingLegInstrument) {

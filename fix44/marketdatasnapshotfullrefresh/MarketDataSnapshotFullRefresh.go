@@ -17,6 +17,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -25,6 +31,12 @@ func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.Underlyin
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.
 	InstrumentLeg *instrumentleg.InstrumentLeg
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
@@ -97,6 +109,13 @@ type NoMDEntries struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoMDEntries.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoMDEntries returns an initialized NoMDEntries instance
+func NewNoMDEntries(mdentrytype string) *NoMDEntries {
+	var m NoMDEntries
+	m.SetMDEntryType(mdentrytype)
+	return &m
 }
 
 func (m *NoMDEntries) SetMDEntryType(v string)         { m.MDEntryType = v }

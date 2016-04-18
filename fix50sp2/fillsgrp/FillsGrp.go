@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties4"
 )
 
+//New returns an initialized FillsGrp instance
 func New() *FillsGrp {
 	var m FillsGrp
 	return &m
@@ -21,6 +22,12 @@ type NoFills struct {
 	NestedParties4 *nestedparties4.NestedParties4
 	//FillLiquidityInd is a non-required field for NoFills.
 	FillLiquidityInd *int `fix:"1443"`
+}
+
+//NewNoFills returns an initialized NoFills instance
+func NewNoFills() *NoFills {
+	var m NoFills
+	return &m
 }
 
 func (m *NoFills) SetFillExecID(v string)                            { m.FillExecID = &v }

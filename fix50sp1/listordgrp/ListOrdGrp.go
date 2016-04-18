@@ -19,6 +19,7 @@ import (
 	"time"
 )
 
+//New returns an initialized ListOrdGrp instance
 func New(noorders []NoOrders) *ListOrdGrp {
 	var m ListOrdGrp
 	m.SetNoOrders(noorders)
@@ -197,6 +198,17 @@ type NoOrders struct {
 	PreTradeAnonymity *bool `fix:"1091"`
 	//ExDestinationIDSource is a non-required field for NoOrders.
 	ExDestinationIDSource *string `fix:"1133"`
+}
+
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders(clordid string, listseqno int, instrument instrument.Instrument, side string, orderqtydata orderqtydata.OrderQtyData) *NoOrders {
+	var m NoOrders
+	m.SetClOrdID(clordid)
+	m.SetListSeqNo(listseqno)
+	m.SetInstrument(instrument)
+	m.SetSide(side)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
 }
 
 func (m *NoOrders) SetClOrdID(v string)                            { m.ClOrdID = v }

@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relationshiprisksecaltidgrp"
 )
 
+//New returns an initialized RelationshipRiskInstrumentScope instance
 func New() *RelationshipRiskInstrumentScope {
 	var m RelationshipRiskInstrumentScope
 	return &m
@@ -61,6 +62,12 @@ type NoRelationshipRiskInstruments struct {
 	RelationshipRiskInstrumentSettlType *string `fix:"1611"`
 	//RelationshipRiskInstrumentMultiplier is a non-required field for NoRelationshipRiskInstruments.
 	RelationshipRiskInstrumentMultiplier *float64 `fix:"1612"`
+}
+
+//NewNoRelationshipRiskInstruments returns an initialized NoRelationshipRiskInstruments instance
+func NewNoRelationshipRiskInstruments() *NoRelationshipRiskInstruments {
+	var m NoRelationshipRiskInstruments
+	return &m
 }
 
 func (m *NoRelationshipRiskInstruments) SetRelationshipRiskInstrumentOperator(v int) {

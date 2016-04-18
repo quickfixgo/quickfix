@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/maturityrules"
 )
 
+//New returns an initialized StrikeRules instance
 func New() *StrikeRules {
 	var m StrikeRules
 	return &m
@@ -23,6 +24,12 @@ type NoStrikeRules struct {
 	StrikeExerciseStyle *int `fix:"1304"`
 	//MaturityRules is a non-required component for NoStrikeRules.
 	MaturityRules *maturityrules.MaturityRules
+}
+
+//NewNoStrikeRules returns an initialized NoStrikeRules instance
+func NewNoStrikeRules() *NoStrikeRules {
+	var m NoStrikeRules
+	return &m
 }
 
 func (m *NoStrikeRules) SetStrikeRuleID(v string)                       { m.StrikeRuleID = &v }

@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+//New returns an initialized SideCrossOrdModGrp instance
 func New(nosides []NoSides) *SideCrossOrdModGrp {
 	var m SideCrossOrdModGrp
 	m.SetNoSides(nosides)
@@ -88,6 +89,15 @@ type NoSides struct {
 	PreTradeAnonymity *bool `fix:"1091"`
 	//OrigClOrdID is a non-required field for NoSides.
 	OrigClOrdID *string `fix:"41"`
+}
+
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string, clordid string, orderqtydata orderqtydata.OrderQtyData) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	m.SetClOrdID(clordid)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
 }
 
 func (m *NoSides) SetSide(v string)                                  { m.Side = v }

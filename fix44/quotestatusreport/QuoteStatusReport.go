@@ -25,6 +25,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -47,6 +53,12 @@ type NoLegs struct {
 	NestedParties *nestedparties.NestedParties
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
 func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
 func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
@@ -59,6 +71,12 @@ func (m *NoLegs) SetNestedParties(v nestedparties.NestedParties)       { m.Neste
 type NoQuoteQualifiers struct {
 	//QuoteQualifier is a non-required field for NoQuoteQualifiers.
 	QuoteQualifier *string `fix:"695"`
+}
+
+//NewNoQuoteQualifiers returns an initialized NoQuoteQualifiers instance
+func NewNoQuoteQualifiers() *NoQuoteQualifiers {
+	var m NoQuoteQualifiers
+	return &m
 }
 
 func (m *NoQuoteQualifiers) SetQuoteQualifier(v string) { m.QuoteQualifier = &v }

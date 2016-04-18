@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized TrdRegTimestamps instance
 func New() *TrdRegTimestamps {
 	var m TrdRegTimestamps
 	return &m
@@ -17,6 +18,12 @@ type NoTrdRegTimestamps struct {
 	TrdRegTimestampType *int `fix:"770"`
 	//TrdRegTimestampOrigin is a non-required field for NoTrdRegTimestamps.
 	TrdRegTimestampOrigin *string `fix:"771"`
+}
+
+//NewNoTrdRegTimestamps returns an initialized NoTrdRegTimestamps instance
+func NewNoTrdRegTimestamps() *NoTrdRegTimestamps {
+	var m NoTrdRegTimestamps
+	return &m
 }
 
 func (m *NoTrdRegTimestamps) SetTrdRegTimestamp(v time.Time)    { m.TrdRegTimestamp = &v }

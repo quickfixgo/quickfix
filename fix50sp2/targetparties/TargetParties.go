@@ -1,5 +1,6 @@
 package targetparties
 
+//New returns an initialized TargetParties instance
 func New() *TargetParties {
 	var m TargetParties
 	return &m
@@ -13,6 +14,12 @@ type NoTargetPartyIDs struct {
 	TargetPartyIDSource *string `fix:"1463"`
 	//TargetPartyRole is a non-required field for NoTargetPartyIDs.
 	TargetPartyRole *int `fix:"1464"`
+}
+
+//NewNoTargetPartyIDs returns an initialized NoTargetPartyIDs instance
+func NewNoTargetPartyIDs() *NoTargetPartyIDs {
+	var m NoTargetPartyIDs
+	return &m
 }
 
 func (m *NoTargetPartyIDs) SetTargetPartyID(v string)       { m.TargetPartyID = &v }

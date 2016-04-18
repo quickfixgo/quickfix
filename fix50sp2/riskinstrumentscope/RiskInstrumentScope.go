@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/risksecaltidgrp"
 )
 
+//New returns an initialized RiskInstrumentScope instance
 func New() *RiskInstrumentScope {
 	var m RiskInstrumentScope
 	return &m
@@ -61,6 +62,12 @@ type NoRiskInstruments struct {
 	RiskInstrumentSettlType *string `fix:"1557"`
 	//RiskInstrumentMultiplier is a non-required field for NoRiskInstruments.
 	RiskInstrumentMultiplier *float64 `fix:"1558"`
+}
+
+//NewNoRiskInstruments returns an initialized NoRiskInstruments instance
+func NewNoRiskInstruments() *NoRiskInstruments {
+	var m NoRiskInstruments
+	return &m
 }
 
 func (m *NoRiskInstruments) SetRiskInstrumentOperator(v int)  { m.RiskInstrumentOperator = &v }

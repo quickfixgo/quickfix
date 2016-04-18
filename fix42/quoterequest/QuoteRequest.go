@@ -74,6 +74,13 @@ type NoRelatedSym struct {
 	Currency *string `fix:"15"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(symbol string) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetSymbol(symbol)
+	return &m
+}
+
 func (m *NoRelatedSym) SetSymbol(v string)              { m.Symbol = v }
 func (m *NoRelatedSym) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
 func (m *NoRelatedSym) SetSecurityID(v string)          { m.SecurityID = &v }

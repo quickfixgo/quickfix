@@ -1,5 +1,6 @@
 package execinstrules
 
+//New returns an initialized ExecInstRules instance
 func New() *ExecInstRules {
 	var m ExecInstRules
 	return &m
@@ -9,6 +10,12 @@ func New() *ExecInstRules {
 type NoExecInstRules struct {
 	//ExecInstValue is a non-required field for NoExecInstRules.
 	ExecInstValue *string `fix:"1308"`
+}
+
+//NewNoExecInstRules returns an initialized NoExecInstRules instance
+func NewNoExecInstRules() *NoExecInstRules {
+	var m NoExecInstRules
+	return &m
 }
 
 func (m *NoExecInstRules) SetExecInstValue(v string) { m.ExecInstValue = &v }

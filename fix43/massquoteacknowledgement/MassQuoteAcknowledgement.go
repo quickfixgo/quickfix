@@ -23,6 +23,12 @@ type NoQuoteSets struct {
 	NoQuoteEntries []NoQuoteEntries `fix:"295,omitempty"`
 }
 
+//NewNoQuoteSets returns an initialized NoQuoteSets instance
+func NewNoQuoteSets() *NoQuoteSets {
+	var m NoQuoteSets
+	return &m
+}
+
 func (m *NoQuoteSets) SetQuoteSetID(v string) { m.QuoteSetID = &v }
 func (m *NoQuoteSets) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
@@ -84,6 +90,12 @@ type NoQuoteEntries struct {
 	Currency *string `fix:"15"`
 	//QuoteEntryRejectReason is a non-required field for NoQuoteEntries.
 	QuoteEntryRejectReason *int `fix:"368"`
+}
+
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries() *NoQuoteEntries {
+	var m NoQuoteEntries
+	return &m
 }
 
 func (m *NoQuoteEntries) SetQuoteEntryID(v string)              { m.QuoteEntryID = &v }

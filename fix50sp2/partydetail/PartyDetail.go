@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/risklimits"
 )
 
+//New returns an initialized PartyDetail instance
 func New(partyid string, partyidsource string, partyrole int) *PartyDetail {
 	var m PartyDetail
 	m.SetPartyID(partyid)

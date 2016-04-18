@@ -1,5 +1,6 @@
 package legstipulations
 
+//New returns an initialized LegStipulations instance
 func New() *LegStipulations {
 	var m LegStipulations
 	return &m
@@ -11,6 +12,12 @@ type NoLegStipulations struct {
 	LegStipulationType *string `fix:"688"`
 	//LegStipulationValue is a non-required field for NoLegStipulations.
 	LegStipulationValue *string `fix:"689"`
+}
+
+//NewNoLegStipulations returns an initialized NoLegStipulations instance
+func NewNoLegStipulations() *NoLegStipulations {
+	var m NoLegStipulations
+	return &m
 }
 
 func (m *NoLegStipulations) SetLegStipulationType(v string)  { m.LegStipulationType = &v }

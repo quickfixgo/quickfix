@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//New returns an initialized SideCrossOrdCxlGrp instance
 func New(nosides []NoSides) *SideCrossOrdCxlGrp {
 	var m SideCrossOrdCxlGrp
 	m.SetNoSides(nosides)
@@ -42,6 +43,16 @@ type NoSides struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoSides.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string, origclordid string, clordid string, orderqtydata orderqtydata.OrderQtyData) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	m.SetOrigClOrdID(origclordid)
+	m.SetClOrdID(clordid)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
 }
 
 func (m *NoSides) SetSide(v string)                            { m.Side = v }

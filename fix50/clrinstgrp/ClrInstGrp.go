@@ -1,5 +1,6 @@
 package clrinstgrp
 
+//New returns an initialized ClrInstGrp instance
 func New() *ClrInstGrp {
 	var m ClrInstGrp
 	return &m
@@ -9,6 +10,12 @@ func New() *ClrInstGrp {
 type NoClearingInstructions struct {
 	//ClearingInstruction is a non-required field for NoClearingInstructions.
 	ClearingInstruction *int `fix:"577"`
+}
+
+//NewNoClearingInstructions returns an initialized NoClearingInstructions instance
+func NewNoClearingInstructions() *NoClearingInstructions {
+	var m NoClearingInstructions
+	return &m
 }
 
 func (m *NoClearingInstructions) SetClearingInstruction(v int) { m.ClearingInstruction = &v }

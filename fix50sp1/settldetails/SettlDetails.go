@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/settlparties"
 )
 
+//New returns an initialized SettlDetails instance
 func New() *SettlDetails {
 	var m SettlDetails
 	return &m
@@ -15,6 +16,12 @@ type NoSettlDetails struct {
 	SettlObligSource *string `fix:"1164"`
 	//SettlParties is a non-required component for NoSettlDetails.
 	SettlParties *settlparties.SettlParties
+}
+
+//NewNoSettlDetails returns an initialized NoSettlDetails instance
+func NewNoSettlDetails() *NoSettlDetails {
+	var m NoSettlDetails
+	return &m
 }
 
 func (m *NoSettlDetails) SetSettlObligSource(v string)                { m.SettlObligSource = &v }

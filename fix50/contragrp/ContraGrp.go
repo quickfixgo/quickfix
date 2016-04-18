@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized ContraGrp instance
 func New() *ContraGrp {
 	var m ContraGrp
 	return &m
@@ -21,6 +22,12 @@ type NoContraBrokers struct {
 	ContraTradeTime *time.Time `fix:"438"`
 	//ContraLegRefID is a non-required field for NoContraBrokers.
 	ContraLegRefID *string `fix:"655"`
+}
+
+//NewNoContraBrokers returns an initialized NoContraBrokers instance
+func NewNoContraBrokers() *NoContraBrokers {
+	var m NoContraBrokers
+	return &m
 }
 
 func (m *NoContraBrokers) SetContraBroker(v string)       { m.ContraBroker = &v }

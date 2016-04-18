@@ -1,5 +1,6 @@
 package nstdptys4subgrp
 
+//New returns an initialized NstdPtys4SubGrp instance
 func New() *NstdPtys4SubGrp {
 	var m NstdPtys4SubGrp
 	return &m
@@ -11,6 +12,12 @@ type NoNested4PartySubIDs struct {
 	Nested4PartySubID *string `fix:"1412"`
 	//Nested4PartySubIDType is a non-required field for NoNested4PartySubIDs.
 	Nested4PartySubIDType *int `fix:"1411"`
+}
+
+//NewNoNested4PartySubIDs returns an initialized NoNested4PartySubIDs instance
+func NewNoNested4PartySubIDs() *NoNested4PartySubIDs {
+	var m NoNested4PartySubIDs
+	return &m
 }
 
 func (m *NoNested4PartySubIDs) SetNested4PartySubID(v string)  { m.Nested4PartySubID = &v }

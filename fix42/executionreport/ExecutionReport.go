@@ -20,6 +20,12 @@ type NoContraBrokers struct {
 	ContraTradeTime *time.Time `fix:"438"`
 }
 
+//NewNoContraBrokers returns an initialized NoContraBrokers instance
+func NewNoContraBrokers() *NoContraBrokers {
+	var m NoContraBrokers
+	return &m
+}
+
 func (m *NoContraBrokers) SetContraBroker(v string)       { m.ContraBroker = &v }
 func (m *NoContraBrokers) SetContraTrader(v string)       { m.ContraTrader = &v }
 func (m *NoContraBrokers) SetContraTradeQty(v float64)    { m.ContraTradeQty = &v }

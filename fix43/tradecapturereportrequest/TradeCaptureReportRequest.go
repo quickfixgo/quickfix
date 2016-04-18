@@ -18,6 +18,12 @@ type NoDates struct {
 	TransactTime *time.Time `fix:"60"`
 }
 
+//NewNoDates returns an initialized NoDates instance
+func NewNoDates() *NoDates {
+	var m NoDates
+	return &m
+}
+
 func (m *NoDates) SetTradeDate(v string)       { m.TradeDate = &v }
 func (m *NoDates) SetTransactTime(v time.Time) { m.TransactTime = &v }
 

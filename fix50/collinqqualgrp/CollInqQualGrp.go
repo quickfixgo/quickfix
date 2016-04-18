@@ -1,5 +1,6 @@
 package collinqqualgrp
 
+//New returns an initialized CollInqQualGrp instance
 func New() *CollInqQualGrp {
 	var m CollInqQualGrp
 	return &m
@@ -9,6 +10,12 @@ func New() *CollInqQualGrp {
 type NoCollInquiryQualifier struct {
 	//CollInquiryQualifier is a non-required field for NoCollInquiryQualifier.
 	CollInquiryQualifier *int `fix:"896"`
+}
+
+//NewNoCollInquiryQualifier returns an initialized NoCollInquiryQualifier instance
+func NewNoCollInquiryQualifier() *NoCollInquiryQualifier {
+	var m NoCollInquiryQualifier
+	return &m
 }
 
 func (m *NoCollInquiryQualifier) SetCollInquiryQualifier(v int) { m.CollInquiryQualifier = &v }

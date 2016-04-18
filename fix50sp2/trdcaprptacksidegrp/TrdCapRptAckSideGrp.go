@@ -13,6 +13,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/trdallocgrp"
 )
 
+//New returns an initialized TrdCapRptAckSideGrp instance
 func New(nosides []NoSides) *TrdCapRptAckSideGrp {
 	var m TrdCapRptAckSideGrp
 	m.SetNoSides(nosides)
@@ -139,6 +140,13 @@ type NoSides struct {
 	OrderCategory *string `fix:"1115"`
 	//TradeReportOrderDetail is a non-required component for NoSides.
 	TradeReportOrderDetail *tradereportorderdetail.TradeReportOrderDetail
+}
+
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	return &m
 }
 
 func (m *NoSides) SetSide(v string)                                  { m.Side = v }

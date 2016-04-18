@@ -1,5 +1,6 @@
 package compidstatgrp
 
+//New returns an initialized CompIDStatGrp instance
 func New(nocompids []NoCompIDs) *CompIDStatGrp {
 	var m CompIDStatGrp
 	m.SetNoCompIDs(nocompids)
@@ -20,6 +21,14 @@ type NoCompIDs struct {
 	StatusValue int `fix:"928"`
 	//StatusText is a non-required field for NoCompIDs.
 	StatusText *string `fix:"929"`
+}
+
+//NewNoCompIDs returns an initialized NoCompIDs instance
+func NewNoCompIDs(refcompid string, statusvalue int) *NoCompIDs {
+	var m NoCompIDs
+	m.SetRefCompID(refcompid)
+	m.SetStatusValue(statusvalue)
+	return &m
 }
 
 func (m *NoCompIDs) SetRefCompID(v string)  { m.RefCompID = v }

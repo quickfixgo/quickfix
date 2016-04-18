@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+//New returns an initialized ComplexEventDates instance
 func New() *ComplexEventDates {
 	var m ComplexEventDates
 	return &m
@@ -18,6 +19,12 @@ type NoComplexEventDates struct {
 	ComplexEventEndDate *time.Time `fix:"1493"`
 	//ComplexEventTimes is a non-required component for NoComplexEventDates.
 	ComplexEventTimes *complexeventtimes.ComplexEventTimes
+}
+
+//NewNoComplexEventDates returns an initialized NoComplexEventDates instance
+func NewNoComplexEventDates() *NoComplexEventDates {
+	var m NoComplexEventDates
+	return &m
 }
 
 func (m *NoComplexEventDates) SetComplexEventStartDate(v time.Time) { m.ComplexEventStartDate = &v }

@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/undlyinstrumentptyssubgrp"
 )
 
+//New returns an initialized UndlyInstrumentParties instance
 func New() *UndlyInstrumentParties {
 	var m UndlyInstrumentParties
 	return &m
@@ -19,6 +20,12 @@ type NoUndlyInstrumentParties struct {
 	UnderlyingInstrumentPartyRole *int `fix:"1061"`
 	//UndlyInstrumentPtysSubGrp is a non-required component for NoUndlyInstrumentParties.
 	UndlyInstrumentPtysSubGrp *undlyinstrumentptyssubgrp.UndlyInstrumentPtysSubGrp
+}
+
+//NewNoUndlyInstrumentParties returns an initialized NoUndlyInstrumentParties instance
+func NewNoUndlyInstrumentParties() *NoUndlyInstrumentParties {
+	var m NoUndlyInstrumentParties
+	return &m
 }
 
 func (m *NoUndlyInstrumentParties) SetUnderlyingInstrumentPartyID(v string) {

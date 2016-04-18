@@ -1,5 +1,6 @@
 package stipulations
 
+//New returns an initialized Stipulations instance
 func New() *Stipulations {
 	var m Stipulations
 	return &m
@@ -11,6 +12,12 @@ type NoStipulations struct {
 	StipulationType *string `fix:"233"`
 	//StipulationValue is a non-required field for NoStipulations.
 	StipulationValue *string `fix:"234"`
+}
+
+//NewNoStipulations returns an initialized NoStipulations instance
+func NewNoStipulations() *NoStipulations {
+	var m NoStipulations
+	return &m
 }
 
 func (m *NoStipulations) SetStipulationType(v string)  { m.StipulationType = &v }

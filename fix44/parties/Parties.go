@@ -1,5 +1,6 @@
 package parties
 
+//New returns an initialized Parties instance
 func New() *Parties {
 	var m Parties
 	return &m
@@ -17,6 +18,12 @@ type NoPartyIDs struct {
 	NoPartySubIDs []NoPartySubIDs `fix:"802,omitempty"`
 }
 
+//NewNoPartyIDs returns an initialized NoPartyIDs instance
+func NewNoPartyIDs() *NoPartyIDs {
+	var m NoPartyIDs
+	return &m
+}
+
 func (m *NoPartyIDs) SetPartyID(v string)                { m.PartyID = &v }
 func (m *NoPartyIDs) SetPartyIDSource(v string)          { m.PartyIDSource = &v }
 func (m *NoPartyIDs) SetPartyRole(v int)                 { m.PartyRole = &v }
@@ -28,6 +35,12 @@ type NoPartySubIDs struct {
 	PartySubID *string `fix:"523"`
 	//PartySubIDType is a non-required field for NoPartySubIDs.
 	PartySubIDType *int `fix:"803"`
+}
+
+//NewNoPartySubIDs returns an initialized NoPartySubIDs instance
+func NewNoPartySubIDs() *NoPartySubIDs {
+	var m NoPartySubIDs
+	return &m
 }
 
 func (m *NoPartySubIDs) SetPartySubID(v string)  { m.PartySubID = &v }

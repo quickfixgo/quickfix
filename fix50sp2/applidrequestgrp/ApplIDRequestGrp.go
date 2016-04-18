@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties"
 )
 
+//New returns an initialized ApplIDRequestGrp instance
 func New() *ApplIDRequestGrp {
 	var m ApplIDRequestGrp
 	return &m
@@ -21,6 +22,12 @@ type NoApplIDs struct {
 	NestedParties *nestedparties.NestedParties
 	//RefApplReqID is a non-required field for NoApplIDs.
 	RefApplReqID *string `fix:"1433"`
+}
+
+//NewNoApplIDs returns an initialized NoApplIDs instance
+func NewNoApplIDs() *NoApplIDs {
+	var m NoApplIDs
+	return &m
 }
 
 func (m *NoApplIDs) SetRefApplID(v string)                          { m.RefApplID = &v }

@@ -1,5 +1,6 @@
 package underlyingstipulations
 
+//New returns an initialized UnderlyingStipulations instance
 func New() *UnderlyingStipulations {
 	var m UnderlyingStipulations
 	return &m
@@ -11,6 +12,12 @@ type NoUnderlyingStips struct {
 	UnderlyingStipType *string `fix:"888"`
 	//UnderlyingStipValue is a non-required field for NoUnderlyingStips.
 	UnderlyingStipValue *string `fix:"889"`
+}
+
+//NewNoUnderlyingStips returns an initialized NoUnderlyingStips instance
+func NewNoUnderlyingStips() *NoUnderlyingStips {
+	var m NoUnderlyingStips
+	return &m
 }
 
 func (m *NoUnderlyingStips) SetUnderlyingStipType(v string)  { m.UnderlyingStipType = &v }

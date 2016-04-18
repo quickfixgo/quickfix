@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/underlyinginstrument"
 )
 
+//New returns an initialized QuotSetAckGrp instance
 func New() *QuotSetAckGrp {
 	var m QuotSetAckGrp
 	return &m
@@ -22,6 +23,12 @@ type NoQuoteSets struct {
 	LastFragment *bool `fix:"893"`
 	//QuotEntryAckGrp is a non-required component for NoQuoteSets.
 	QuotEntryAckGrp *quotentryackgrp.QuotEntryAckGrp
+}
+
+//NewNoQuoteSets returns an initialized NoQuoteSets instance
+func NewNoQuoteSets() *NoQuoteSets {
+	var m NoQuoteSets
+	return &m
 }
 
 func (m *NoQuoteSets) SetQuoteSetID(v string) { m.QuoteSetID = &v }

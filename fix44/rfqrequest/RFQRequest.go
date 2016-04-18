@@ -30,6 +30,13 @@ type NoRelatedSym struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(instrument instrument.Instrument) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetInstrument(instrument)
+	return &m
+}
+
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = v }
 func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings)    { m.NoUnderlyings = v }
 func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
@@ -45,6 +52,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -53,6 +66,12 @@ func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.Underlyin
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.
 	InstrumentLeg *instrumentleg.InstrumentLeg
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }

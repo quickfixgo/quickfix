@@ -33,19 +33,35 @@ import ({{ range .}}
 )
 		{{ end}}
 
-		{{/* template writes out a constructor for message/component/group */}}
-		{{define "new"}}
-func New(
-	{{- range $index, $field := .RequiredParts -}}
-{{if $index}},{{end}}{{toLower $field.Name}} {{partAsGoType $field}}
-	{{- end }}) *{{.Name}} {
+
+{{/* template writes out a constructor for message and component type */}}
+{{define "new"}}
+//New returns an initialized {{.Name}} instance
+func New({{ template "parts_args" .RequiredParts}}) *{{.Name}} {
 	var m {{.Name}}
-	{{- range .RequiredFields}}
+	{{- range .RequiredParts}}
 	m.Set{{.Name}}({{toLower .Name}})
 	{{- end}}
 	return &m
 }
-		{{end}}
+{{end}}
+
+{{/* template writes out a constructor for group */}}
+{{define "newgroup"}}
+//New{{.Name}} returns an initialized {{.Name}} instance
+func New{{.Name}}({{ template "parts_args" .RequiredParts}}) *{{.Name}} {
+	var m {{.Name}}
+	{{- range .RequiredParts}}
+	m.Set{{.Name}}({{toLower .Name}})
+	{{- end}}
+	return &m
+}
+{{end}}
+
+{{/* template writes out a comma delimited list of parts to be used as an argument list*/}}
+{{define "parts_args"}}
+{{- range $index, $field := . }}{{if $index}},{{end}}{{toLower $field.Name}} {{partAsGoType $field}}{{ end }}
+{{- end }}
 
 {{define "fieldSetter"}}
 func (m *{{.Receiver}}) Set{{.Name}}(v {{ if .IsGroup}}[]{{.Name}}{{else}}{{fixFieldTypeToGoType .Type}}{{end}}) {
@@ -168,10 +184,13 @@ func WriteGroupDeclaration(fixSpecMajor, fixSpecMinor int, field *datadictionary
 	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
 	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
 	fileOut += WriteFieldDeclarations(fixSpecMajor, fixSpecMinor, field.Parts, field.Name())
-
 	fileOut += "}\n"
 
 	writer := new(bytes.Buffer)
+	if err := genTemplate.ExecuteTemplate(writer, "newgroup", *field); err != nil {
+		panic(err)
+	}
+
 	if err := WriteFieldSetters(writer, field.Name(), field.Parts); err != nil {
 		panic(err)
 	}

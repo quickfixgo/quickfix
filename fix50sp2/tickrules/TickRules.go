@@ -1,5 +1,6 @@
 package tickrules
 
+//New returns an initialized TickRules instance
 func New() *TickRules {
 	var m TickRules
 	return &m
@@ -15,6 +16,12 @@ type NoTickRules struct {
 	TickIncrement *float64 `fix:"1208"`
 	//TickRuleType is a non-required field for NoTickRules.
 	TickRuleType *int `fix:"1209"`
+}
+
+//NewNoTickRules returns an initialized NoTickRules instance
+func NewNoTickRules() *NoTickRules {
+	var m NoTickRules
+	return &m
 }
 
 func (m *NoTickRules) SetStartTickPriceRange(v float64) { m.StartTickPriceRange = &v }

@@ -1,5 +1,6 @@
 package partyrelationships
 
+//New returns an initialized PartyRelationships instance
 func New() *PartyRelationships {
 	var m PartyRelationships
 	return &m
@@ -9,6 +10,12 @@ func New() *PartyRelationships {
 type NoPartyRelationships struct {
 	//PartyRelationship is a non-required field for NoPartyRelationships.
 	PartyRelationship *int `fix:"1515"`
+}
+
+//NewNoPartyRelationships returns an initialized NoPartyRelationships instance
+func NewNoPartyRelationships() *NoPartyRelationships {
+	var m NoPartyRelationships
+	return &m
 }
 
 func (m *NoPartyRelationships) SetPartyRelationship(v int) { m.PartyRelationship = &v }

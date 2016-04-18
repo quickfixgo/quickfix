@@ -1,5 +1,6 @@
 package derivativeinstrumentattribute
 
+//New returns an initialized DerivativeInstrumentAttribute instance
 func New() *DerivativeInstrumentAttribute {
 	var m DerivativeInstrumentAttribute
 	return &m
@@ -11,6 +12,12 @@ type NoDerivativeInstrAttrib struct {
 	DerivativeInstrAttribType *int `fix:"1313"`
 	//DerivativeInstrAttribValue is a non-required field for NoDerivativeInstrAttrib.
 	DerivativeInstrAttribValue *string `fix:"1314"`
+}
+
+//NewNoDerivativeInstrAttrib returns an initialized NoDerivativeInstrAttrib instance
+func NewNoDerivativeInstrAttrib() *NoDerivativeInstrAttrib {
+	var m NoDerivativeInstrAttrib
+	return &m
 }
 
 func (m *NoDerivativeInstrAttrib) SetDerivativeInstrAttribType(v int) {

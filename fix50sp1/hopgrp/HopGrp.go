@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized HopGrp instance
 func New() *HopGrp {
 	var m HopGrp
 	return &m
@@ -17,6 +18,12 @@ type NoHops struct {
 	HopSendingTime *time.Time `fix:"629"`
 	//HopRefID is a non-required field for NoHops.
 	HopRefID *int `fix:"630"`
+}
+
+//NewNoHops returns an initialized NoHops instance
+func NewNoHops() *NoHops {
+	var m NoHops
+	return &m
 }
 
 func (m *NoHops) SetHopCompID(v string)         { m.HopCompID = &v }

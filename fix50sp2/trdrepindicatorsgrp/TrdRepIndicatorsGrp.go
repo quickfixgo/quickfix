@@ -1,5 +1,6 @@
 package trdrepindicatorsgrp
 
+//New returns an initialized TrdRepIndicatorsGrp instance
 func New() *TrdRepIndicatorsGrp {
 	var m TrdRepIndicatorsGrp
 	return &m
@@ -11,6 +12,12 @@ type NoTrdRepIndicators struct {
 	TrdRepPartyRole *int `fix:"1388"`
 	//TrdRepIndicator is a non-required field for NoTrdRepIndicators.
 	TrdRepIndicator *bool `fix:"1389"`
+}
+
+//NewNoTrdRepIndicators returns an initialized NoTrdRepIndicators instance
+func NewNoTrdRepIndicators() *NoTrdRepIndicators {
+	var m NoTrdRepIndicators
+	return &m
 }
 
 func (m *NoTrdRepIndicators) SetTrdRepPartyRole(v int)  { m.TrdRepPartyRole = &v }

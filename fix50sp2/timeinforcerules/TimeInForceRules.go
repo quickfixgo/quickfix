@@ -1,5 +1,6 @@
 package timeinforcerules
 
+//New returns an initialized TimeInForceRules instance
 func New() *TimeInForceRules {
 	var m TimeInForceRules
 	return &m
@@ -9,6 +10,12 @@ func New() *TimeInForceRules {
 type NoTimeInForceRules struct {
 	//TimeInForce is a non-required field for NoTimeInForceRules.
 	TimeInForce *string `fix:"59"`
+}
+
+//NewNoTimeInForceRules returns an initialized NoTimeInForceRules instance
+func NewNoTimeInForceRules() *NoTimeInForceRules {
+	var m NoTimeInForceRules
+	return &m
 }
 
 func (m *NoTimeInForceRules) SetTimeInForce(v string) { m.TimeInForce = &v }

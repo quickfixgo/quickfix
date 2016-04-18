@@ -1,5 +1,6 @@
 package ordliststatgrp
 
+//New returns an initialized OrdListStatGrp instance
 func New(noorders []NoOrders) *OrdListStatGrp {
 	var m OrdListStatGrp
 	m.SetNoOrders(noorders)
@@ -32,6 +33,18 @@ type NoOrders struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoOrders.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders(clordid string, cumqty float64, ordstatus string, leavesqty float64, cxlqty float64, avgpx float64) *NoOrders {
+	var m NoOrders
+	m.SetClOrdID(clordid)
+	m.SetCumQty(cumqty)
+	m.SetOrdStatus(ordstatus)
+	m.SetLeavesQty(leavesqty)
+	m.SetCxlQty(cxlqty)
+	m.SetAvgPx(avgpx)
+	return &m
 }
 
 func (m *NoOrders) SetClOrdID(v string)          { m.ClOrdID = v }

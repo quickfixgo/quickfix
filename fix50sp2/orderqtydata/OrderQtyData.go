@@ -1,5 +1,6 @@
 package orderqtydata
 
+//New returns an initialized OrderQtyData instance
 func New() *OrderQtyData {
 	var m OrderQtyData
 	return &m

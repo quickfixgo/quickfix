@@ -1,5 +1,6 @@
 package bidcompreqgrp
 
+//New returns an initialized BidCompReqGrp instance
 func New() *BidCompReqGrp {
 	var m BidCompReqGrp
 	return &m
@@ -25,6 +26,12 @@ type NoBidComponents struct {
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoBidComponents.
 	AcctIDSource *int `fix:"660"`
+}
+
+//NewNoBidComponents returns an initialized NoBidComponents instance
+func NewNoBidComponents() *NoBidComponents {
+	var m NoBidComponents
+	return &m
 }
 
 func (m *NoBidComponents) SetListID(v string)              { m.ListID = &v }

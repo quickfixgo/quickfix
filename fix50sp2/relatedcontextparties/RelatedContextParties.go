@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/relatedcontextptyssubgrp"
 )
 
+//New returns an initialized RelatedContextParties instance
 func New() *RelatedContextParties {
 	var m RelatedContextParties
 	return &m
@@ -19,6 +20,12 @@ type NoRelatedContextPartyIDs struct {
 	RelatedContextPartyRole *int `fix:"1578"`
 	//RelatedContextPtysSubGrp is a non-required component for NoRelatedContextPartyIDs.
 	RelatedContextPtysSubGrp *relatedcontextptyssubgrp.RelatedContextPtysSubGrp
+}
+
+//NewNoRelatedContextPartyIDs returns an initialized NoRelatedContextPartyIDs instance
+func NewNoRelatedContextPartyIDs() *NoRelatedContextPartyIDs {
+	var m NoRelatedContextPartyIDs
+	return &m
 }
 
 func (m *NoRelatedContextPartyIDs) SetRelatedContextPartyID(v string) { m.RelatedContextPartyID = &v }

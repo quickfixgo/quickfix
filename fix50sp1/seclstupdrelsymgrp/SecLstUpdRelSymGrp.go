@@ -13,6 +13,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/yielddata"
 )
 
+//New returns an initialized SecLstUpdRelSymGrp instance
 func New() *SecLstUpdRelSymGrp {
 	var m SecLstUpdRelSymGrp
 	return &m
@@ -50,6 +51,12 @@ type NoRelatedSym struct {
 	SecurityTradingRules *securitytradingrules.SecurityTradingRules
 	//StrikeRules is a non-required component for NoRelatedSym.
 	StrikeRules *strikerules.StrikeRules
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }

@@ -13,6 +13,12 @@ type NoAltMDSource struct {
 	AltMDSourceID *string `fix:"817"`
 }
 
+//NewNoAltMDSource returns an initialized NoAltMDSource instance
+func NewNoAltMDSource() *NoAltMDSource {
+	var m NoAltMDSource
+	return &m
+}
+
 func (m *NoAltMDSource) SetAltMDSourceID(v string) { m.AltMDSourceID = &v }
 
 //Message is a MarketDataRequestReject FIX Message

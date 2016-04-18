@@ -1,5 +1,6 @@
 package ordtyperules
 
+//New returns an initialized OrdTypeRules instance
 func New() *OrdTypeRules {
 	var m OrdTypeRules
 	return &m
@@ -9,6 +10,12 @@ func New() *OrdTypeRules {
 type NoOrdTypeRules struct {
 	//OrdType is a non-required field for NoOrdTypeRules.
 	OrdType *string `fix:"40"`
+}
+
+//NewNoOrdTypeRules returns an initialized NoOrdTypeRules instance
+func NewNoOrdTypeRules() *NoOrdTypeRules {
+	var m NoOrdTypeRules
+	return &m
 }
 
 func (m *NoOrdTypeRules) SetOrdType(v string) { m.OrdType = &v }

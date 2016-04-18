@@ -14,12 +14,26 @@ type NoMDEntryTypes struct {
 	MDEntryType string `fix:"269"`
 }
 
+//NewNoMDEntryTypes returns an initialized NoMDEntryTypes instance
+func NewNoMDEntryTypes(mdentrytype string) *NoMDEntryTypes {
+	var m NoMDEntryTypes
+	m.SetMDEntryType(mdentrytype)
+	return &m
+}
+
 func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
 
 //NoRelatedSym is a repeating group in MarketDataRequest
 type NoRelatedSym struct {
 	//Instrument is a required component for NoRelatedSym.
 	instrument.Instrument
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(instrument instrument.Instrument) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetInstrument(instrument)
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = v }
@@ -30,6 +44,12 @@ type NoTradingSessions struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }

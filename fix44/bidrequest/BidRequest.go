@@ -34,6 +34,12 @@ type NoBidDescriptors struct {
 	ValueOfFutures *float64 `fix:"408"`
 }
 
+//NewNoBidDescriptors returns an initialized NoBidDescriptors instance
+func NewNoBidDescriptors() *NoBidDescriptors {
+	var m NoBidDescriptors
+	return &m
+}
+
 func (m *NoBidDescriptors) SetBidDescriptorType(v int)      { m.BidDescriptorType = &v }
 func (m *NoBidDescriptors) SetBidDescriptor(v string)       { m.BidDescriptor = &v }
 func (m *NoBidDescriptors) SetSideValueInd(v int)           { m.SideValueInd = &v }
@@ -66,6 +72,12 @@ type NoBidComponents struct {
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoBidComponents.
 	AcctIDSource *int `fix:"660"`
+}
+
+//NewNoBidComponents returns an initialized NoBidComponents instance
+func NewNoBidComponents() *NoBidComponents {
+	var m NoBidComponents
+	return &m
 }
 
 func (m *NoBidComponents) SetListID(v string)              { m.ListID = &v }

@@ -29,6 +29,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -59,6 +65,12 @@ type NoLegs struct {
 	LegSettlDate *string `fix:"588"`
 	//LegLastPx is a non-required field for NoLegs.
 	LegLastPx *float64 `fix:"637"`
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
@@ -202,6 +214,14 @@ type NoSides struct {
 	ShortSaleReason *int `fix:"853"`
 }
 
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string, orderid string) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	m.SetOrderID(orderid)
+	return &m
+}
+
 func (m *NoSides) SetSide(v string)                                     { m.Side = v }
 func (m *NoSides) SetOrderID(v string)                                  { m.OrderID = v }
 func (m *NoSides) SetSecondaryOrderID(v string)                         { m.SecondaryOrderID = &v }
@@ -271,6 +291,12 @@ type NoClearingInstructions struct {
 	ClearingInstruction *int `fix:"577"`
 }
 
+//NewNoClearingInstructions returns an initialized NoClearingInstructions instance
+func NewNoClearingInstructions() *NoClearingInstructions {
+	var m NoClearingInstructions
+	return &m
+}
+
 func (m *NoClearingInstructions) SetClearingInstruction(v int) { m.ClearingInstruction = &v }
 
 //NoContAmts is a repeating group in NoSides
@@ -281,6 +307,12 @@ type NoContAmts struct {
 	ContAmtValue *float64 `fix:"520"`
 	//ContAmtCurr is a non-required field for NoContAmts.
 	ContAmtCurr *string `fix:"521"`
+}
+
+//NewNoContAmts returns an initialized NoContAmts instance
+func NewNoContAmts() *NoContAmts {
+	var m NoContAmts
+	return &m
 }
 
 func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }
@@ -297,6 +329,12 @@ type NoMiscFees struct {
 	MiscFeeType *string `fix:"139"`
 	//MiscFeeBasis is a non-required field for NoMiscFees.
 	MiscFeeBasis *int `fix:"891"`
+}
+
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
 }
 
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
@@ -318,6 +356,12 @@ type NoAllocs struct {
 	NestedParties2 *nestedparties2.NestedParties2
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
+}
+
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
 }
 
 func (m *NoAllocs) SetAllocAccount(v string)                          { m.AllocAccount = &v }

@@ -17,6 +17,12 @@ type NoLegs struct {
 	LegCurrency *string `fix:"556"`
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 func (m *NoLegs) SetLegCurrency(v string)                        { m.LegCurrency = &v }
 

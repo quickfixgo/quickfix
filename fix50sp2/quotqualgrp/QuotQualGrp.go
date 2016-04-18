@@ -1,5 +1,6 @@
 package quotqualgrp
 
+//New returns an initialized QuotQualGrp instance
 func New() *QuotQualGrp {
 	var m QuotQualGrp
 	return &m
@@ -9,6 +10,12 @@ func New() *QuotQualGrp {
 type NoQuoteQualifiers struct {
 	//QuoteQualifier is a non-required field for NoQuoteQualifiers.
 	QuoteQualifier *string `fix:"695"`
+}
+
+//NewNoQuoteQualifiers returns an initialized NoQuoteQualifiers instance
+func NewNoQuoteQualifiers() *NoQuoteQualifiers {
+	var m NoQuoteQualifiers
+	return &m
 }
 
 func (m *NoQuoteQualifiers) SetQuoteQualifier(v string) { m.QuoteQualifier = &v }

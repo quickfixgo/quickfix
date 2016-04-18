@@ -1,5 +1,6 @@
 package securityxml
 
+//New returns an initialized SecurityXML instance
 func New() *SecurityXML {
 	var m SecurityXML
 	return &m

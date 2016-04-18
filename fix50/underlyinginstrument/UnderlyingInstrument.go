@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/undsecaltidgrp"
 )
 
+//New returns an initialized UnderlyingInstrument instance
 func New() *UnderlyingInstrument {
 	var m UnderlyingInstrument
 	return &m

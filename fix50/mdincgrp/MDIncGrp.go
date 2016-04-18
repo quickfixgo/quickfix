@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+//New returns an initialized MDIncGrp instance
 func New(nomdentries []NoMDEntries) *MDIncGrp {
 	var m MDIncGrp
 	m.SetNoMDEntries(nomdentries)
@@ -134,6 +135,13 @@ type NoMDEntries struct {
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.
 	OrdType *string `fix:"40"`
+}
+
+//NewNoMDEntries returns an initialized NoMDEntries instance
+func NewNoMDEntries(mdupdateaction string) *NoMDEntries {
+	var m NoMDEntries
+	m.SetMDUpdateAction(mdupdateaction)
+	return &m
 }
 
 func (m *NoMDEntries) SetMDUpdateAction(v string)                     { m.MDUpdateAction = v }

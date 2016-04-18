@@ -29,6 +29,12 @@ type NoAllocs struct {
 	EncodedAllocText *string `fix:"361"`
 }
 
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
+}
+
 func (m *NoAllocs) SetAllocAccount(v string)        { m.AllocAccount = &v }
 func (m *NoAllocs) SetAllocAcctIDSource(v int)      { m.AllocAcctIDSource = &v }
 func (m *NoAllocs) SetAllocPrice(v float64)         { m.AllocPrice = &v }

@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/nestedparties2"
 )
 
+//New returns an initialized TrdAllocGrp instance
 func New() *TrdAllocGrp {
 	var m TrdAllocGrp
 	return &m
@@ -31,6 +32,12 @@ type NoAllocs struct {
 	SecondaryIndividualAllocID *string `fix:"989"`
 	//AllocClearingFeeIndicator is a non-required field for NoAllocs.
 	AllocClearingFeeIndicator *string `fix:"1136"`
+}
+
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
 }
 
 func (m *NoAllocs) SetAllocAccount(v string)                          { m.AllocAccount = &v }

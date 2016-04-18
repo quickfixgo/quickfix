@@ -1,5 +1,6 @@
 package partylistresponsetypegrp
 
+//New returns an initialized PartyListResponseTypeGrp instance
 func New(nopartylistresponsetypes []NoPartyListResponseTypes) *PartyListResponseTypeGrp {
 	var m PartyListResponseTypeGrp
 	m.SetNoPartyListResponseTypes(nopartylistresponsetypes)
@@ -10,6 +11,13 @@ func New(nopartylistresponsetypes []NoPartyListResponseTypes) *PartyListResponse
 type NoPartyListResponseTypes struct {
 	//PartyListResponseType is a required field for NoPartyListResponseTypes.
 	PartyListResponseType int `fix:"1507"`
+}
+
+//NewNoPartyListResponseTypes returns an initialized NoPartyListResponseTypes instance
+func NewNoPartyListResponseTypes(partylistresponsetype int) *NoPartyListResponseTypes {
+	var m NoPartyListResponseTypes
+	m.SetPartyListResponseType(partylistresponsetype)
+	return &m
 }
 
 func (m *NoPartyListResponseTypes) SetPartyListResponseType(v int) { m.PartyListResponseType = v }

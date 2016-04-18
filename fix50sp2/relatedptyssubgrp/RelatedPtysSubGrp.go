@@ -1,5 +1,6 @@
 package relatedptyssubgrp
 
+//New returns an initialized RelatedPtysSubGrp instance
 func New() *RelatedPtysSubGrp {
 	var m RelatedPtysSubGrp
 	return &m
@@ -11,6 +12,12 @@ type NoRelatedPartySubIDs struct {
 	RelatedPartySubID *string `fix:"1567"`
 	//RelatedPartySubIDType is a non-required field for NoRelatedPartySubIDs.
 	RelatedPartySubIDType *int `fix:"1568"`
+}
+
+//NewNoRelatedPartySubIDs returns an initialized NoRelatedPartySubIDs instance
+func NewNoRelatedPartySubIDs() *NoRelatedPartySubIDs {
+	var m NoRelatedPartySubIDs
+	return &m
 }
 
 func (m *NoRelatedPartySubIDs) SetRelatedPartySubID(v string)  { m.RelatedPartySubID = &v }

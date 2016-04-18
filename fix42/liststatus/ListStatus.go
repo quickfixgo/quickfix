@@ -32,6 +32,18 @@ type NoOrders struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders(clordid string, cumqty float64, ordstatus string, leavesqty float64, cxlqty float64, avgpx float64) *NoOrders {
+	var m NoOrders
+	m.SetClOrdID(clordid)
+	m.SetCumQty(cumqty)
+	m.SetOrdStatus(ordstatus)
+	m.SetLeavesQty(leavesqty)
+	m.SetCxlQty(cxlqty)
+	m.SetAvgPx(avgpx)
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)     { m.ClOrdID = v }
 func (m *NoOrders) SetCumQty(v float64)     { m.CumQty = v }
 func (m *NoOrders) SetOrdStatus(v string)   { m.OrdStatus = v }

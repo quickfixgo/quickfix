@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/instrumentleg"
 )
 
+//New returns an initialized InstrmtLegGrp instance
 func New() *InstrmtLegGrp {
 	var m InstrmtLegGrp
 	return &m
@@ -13,6 +14,12 @@ func New() *InstrmtLegGrp {
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.
 	InstrumentLeg *instrumentleg.InstrumentLeg
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }

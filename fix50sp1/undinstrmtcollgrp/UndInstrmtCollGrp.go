@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/underlyinginstrument"
 )
 
+//New returns an initialized UndInstrmtCollGrp instance
 func New() *UndInstrmtCollGrp {
 	var m UndInstrmtCollGrp
 	return &m
@@ -15,6 +16,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 	//CollAction is a non-required field for NoUnderlyings.
 	CollAction *int `fix:"944"`
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {

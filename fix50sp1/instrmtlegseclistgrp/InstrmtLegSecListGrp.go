@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/legstipulations"
 )
 
+//New returns an initialized InstrmtLegSecListGrp instance
 func New() *InstrmtLegSecListGrp {
 	var m InstrmtLegSecListGrp
 	return &m
@@ -23,6 +24,12 @@ type NoLegs struct {
 	LegStipulations *legstipulations.LegStipulations
 	//LegBenchmarkCurveData is a non-required component for NoLegs.
 	LegBenchmarkCurveData *legbenchmarkcurvedata.LegBenchmarkCurveData
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }

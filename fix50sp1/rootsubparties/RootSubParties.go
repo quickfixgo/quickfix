@@ -1,5 +1,6 @@
 package rootsubparties
 
+//New returns an initialized RootSubParties instance
 func New() *RootSubParties {
 	var m RootSubParties
 	return &m
@@ -11,6 +12,12 @@ type NoRootPartySubIDs struct {
 	RootPartySubID *string `fix:"1121"`
 	//RootPartySubIDType is a non-required field for NoRootPartySubIDs.
 	RootPartySubIDType *int `fix:"1122"`
+}
+
+//NewNoRootPartySubIDs returns an initialized NoRootPartySubIDs instance
+func NewNoRootPartySubIDs() *NoRootPartySubIDs {
+	var m NoRootPartySubIDs
+	return &m
 }
 
 func (m *NoRootPartySubIDs) SetRootPartySubID(v string)  { m.RootPartySubID = &v }

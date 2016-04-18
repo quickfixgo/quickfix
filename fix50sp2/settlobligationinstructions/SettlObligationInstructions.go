@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+//New returns an initialized SettlObligationInstructions instance
 func New() *SettlObligationInstructions {
 	var m SettlObligationInstructions
 	return &m
@@ -46,6 +47,12 @@ type NoSettlOblig struct {
 	LastUpdateTime *time.Time `fix:"779"`
 	//SettlDetails is a non-required component for NoSettlOblig.
 	SettlDetails *settldetails.SettlDetails
+}
+
+//NewNoSettlOblig returns an initialized NoSettlOblig instance
+func NewNoSettlOblig() *NoSettlOblig {
+	var m NoSettlOblig
+	return &m
 }
 
 func (m *NoSettlOblig) SetNetGrossInd(v int)                        { m.NetGrossInd = &v }

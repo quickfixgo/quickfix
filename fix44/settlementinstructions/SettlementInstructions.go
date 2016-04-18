@@ -56,6 +56,12 @@ type NoSettlInst struct {
 	PaymentRemitterID *string `fix:"505"`
 }
 
+//NewNoSettlInst returns an initialized NoSettlInst instance
+func NewNoSettlInst() *NoSettlInst {
+	var m NoSettlInst
+	return &m
+}
+
 func (m *NoSettlInst) SetSettlInstID(v string)        { m.SettlInstID = &v }
 func (m *NoSettlInst) SetSettlInstTransType(v string) { m.SettlInstTransType = &v }
 func (m *NoSettlInst) SetSettlInstRefID(v string)     { m.SettlInstRefID = &v }

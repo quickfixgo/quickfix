@@ -24,6 +24,13 @@ type NoRelatedSym struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(instrument instrument.Instrument) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetInstrument(instrument)
+	return &m
+}
+
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = v }
 func (m *NoRelatedSym) SetPrevClosePx(v float64)              { m.PrevClosePx = &v }
 func (m *NoRelatedSym) SetQuoteRequestType(v int)             { m.QuoteRequestType = &v }

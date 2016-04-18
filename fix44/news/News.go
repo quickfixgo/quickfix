@@ -19,6 +19,12 @@ type NoRoutingIDs struct {
 	RoutingID *string `fix:"217"`
 }
 
+//NewNoRoutingIDs returns an initialized NoRoutingIDs instance
+func NewNoRoutingIDs() *NoRoutingIDs {
+	var m NoRoutingIDs
+	return &m
+}
+
 func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }
 func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 
@@ -26,6 +32,12 @@ func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 type NoRelatedSym struct {
 	//Instrument is a non-required component for NoRelatedSym.
 	Instrument *instrument.Instrument
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
@@ -36,12 +48,24 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in News
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -56,6 +80,13 @@ type NoLinesOfText struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoLinesOfText.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoLinesOfText returns an initialized NoLinesOfText instance
+func NewNoLinesOfText(text string) *NoLinesOfText {
+	var m NoLinesOfText
+	m.SetText(text)
+	return &m
 }
 
 func (m *NoLinesOfText) SetText(v string)        { m.Text = v }

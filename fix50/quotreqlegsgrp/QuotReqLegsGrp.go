@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/nestedparties"
 )
 
+//New returns an initialized QuotReqLegsGrp instance
 func New() *QuotReqLegsGrp {
 	var m QuotReqLegsGrp
 	return &m
@@ -38,6 +39,12 @@ type NoLegs struct {
 	LegPrice *float64 `fix:"566"`
 	//LegRefID is a non-required field for NoLegs.
 	LegRefID *string `fix:"654"`
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }

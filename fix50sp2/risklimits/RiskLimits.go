@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/riskwarninglevels"
 )
 
+//New returns an initialized RiskLimits instance
 func New() *RiskLimits {
 	var m RiskLimits
 	return &m
@@ -24,6 +25,12 @@ type NoRiskLimits struct {
 	RiskInstrumentScope *riskinstrumentscope.RiskInstrumentScope
 	//RiskWarningLevels is a non-required component for NoRiskLimits.
 	RiskWarningLevels *riskwarninglevels.RiskWarningLevels
+}
+
+//NewNoRiskLimits returns an initialized NoRiskLimits instance
+func NewNoRiskLimits() *NoRiskLimits {
+	var m NoRiskLimits
+	return &m
 }
 
 func (m *NoRiskLimits) SetRiskLimitType(v int)        { m.RiskLimitType = &v }

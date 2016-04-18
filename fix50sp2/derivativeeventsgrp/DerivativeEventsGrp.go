@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized DerivativeEventsGrp instance
 func New() *DerivativeEventsGrp {
 	var m DerivativeEventsGrp
 	return &m
@@ -21,6 +22,12 @@ type NoDerivativeEvents struct {
 	DerivativeEventPx *float64 `fix:"1290"`
 	//DerivativeEventText is a non-required field for NoDerivativeEvents.
 	DerivativeEventText *string `fix:"1291"`
+}
+
+//NewNoDerivativeEvents returns an initialized NoDerivativeEvents instance
+func NewNoDerivativeEvents() *NoDerivativeEvents {
+	var m NoDerivativeEvents
+	return &m
 }
 
 func (m *NoDerivativeEvents) SetDerivativeEventType(v int)       { m.DerivativeEventType = &v }

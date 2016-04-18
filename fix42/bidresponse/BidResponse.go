@@ -41,6 +41,14 @@ type NoBidComponents struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoBidComponents returns an initialized NoBidComponents instance
+func NewNoBidComponents(commission float64, commtype string) *NoBidComponents {
+	var m NoBidComponents
+	m.SetCommission(commission)
+	m.SetCommType(commtype)
+	return &m
+}
+
 func (m *NoBidComponents) SetCommission(v float64)      { m.Commission = v }
 func (m *NoBidComponents) SetCommType(v string)         { m.CommType = v }
 func (m *NoBidComponents) SetListID(v string)           { m.ListID = &v }

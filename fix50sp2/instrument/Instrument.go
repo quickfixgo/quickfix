@@ -8,6 +8,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/securityxml"
 )
 
+//New returns an initialized Instrument instance
 func New() *Instrument {
 	var m Instrument
 	return &m
