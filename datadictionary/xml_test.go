@@ -126,17 +126,17 @@ func TestComponentMembers(t *testing.T) {
 		Value        *XMLComponentMember
 		XMLNameLocal string
 		Name         string
-		Required     string
+		Required     bool
 	}{
-		{doc.Header.Members[0], "field", "BeginString", "Y"},
-		{doc.Header.Members[1], "group", "NoHops", "N"},
-		{doc.Header.Members[1].Members[0], "field", "HopCompID", "N"},
-		{doc.Trailer.Members[0], "field", "SignatureLength", "N"},
-		{doc.Messages[0].Members[0], "field", "TestReqID", "N"},
-		{doc.Messages[1].Members[3], "component", "Instrument", "Y"},
-		{doc.Messages[1].Members[4], "group", "NoRoutingIDs", "N"},
-		{doc.Messages[1].Members[4].Members[0], "field", "RoutingType", "N"},
-		{doc.Messages[1].Members[4].Members[1], "field", "RoutingID", "N"},
+		{doc.Header.Members[0], "field", "BeginString", true},
+		{doc.Header.Members[1], "group", "NoHops", false},
+		{doc.Header.Members[1].Members[0], "field", "HopCompID", false},
+		{doc.Trailer.Members[0], "field", "SignatureLength", false},
+		{doc.Messages[0].Members[0], "field", "TestReqID", false},
+		{doc.Messages[1].Members[3], "component", "Instrument", true},
+		{doc.Messages[1].Members[4], "group", "NoRoutingIDs", false},
+		{doc.Messages[1].Members[4].Members[0], "field", "RoutingType", false},
+		{doc.Messages[1].Members[4].Members[1], "field", "RoutingID", false},
 	}
 
 	for _, test := range tests {
@@ -148,8 +148,8 @@ func TestComponentMembers(t *testing.T) {
 			t.Errorf("%v: Expected Name %v got %v", test.Name, test.Name, test.Value.Name)
 		}
 
-		if test.Value.Required != test.Required {
-			t.Errorf("%v: Expected Required %v got %v", test.Name, test.Required, test.Value.Required)
+		if test.Value.isRequired() != test.Required {
+			t.Errorf("%v: Expected Required %v got %v", test.Name, test.Required, test.Value.isRequired())
 		}
 	}
 }

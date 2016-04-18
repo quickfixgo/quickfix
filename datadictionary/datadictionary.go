@@ -106,8 +106,10 @@ type FieldDef struct {
 	*FieldType
 	required bool
 
-	Parts       []MessagePart
-	ChildFields []*FieldDef
+	Parts          []MessagePart
+	ChildFields    []*FieldDef
+	requiredParts  []MessagePart
+	requiredFields []*FieldDef
 }
 
 //NewFieldDef returns an initialized FieldDef
@@ -127,11 +129,23 @@ func NewGroupFieldDef(fieldType *FieldType, required bool, parts []MessagePart) 
 	}
 
 	for _, part := range parts {
+		if part.Required() {
+			field.requiredParts = append(field.requiredParts, part)
+		}
+
 		if comp, ok := part.(Component); ok {
 			field.ChildFields = append(field.ChildFields, comp.Fields()...)
+
+			if comp.required {
+				field.requiredFields = append(field.requiredFields, comp.requiredFields...)
+			}
 		} else {
 			if child, ok := part.(*FieldDef); ok {
 				field.ChildFields = append(field.ChildFields, child)
+
+				if child.required {
+					field.requiredFields = append(field.requiredFields, child)
+				}
 			} else {
 				panic("unknown part")
 			}
@@ -149,6 +163,14 @@ func (f FieldDef) Required() bool { return f.required }
 func (f FieldDef) IsGroup() bool {
 	return len(f.ChildFields) > 0
 }
+
+//RequiredParts returns those parts that are required for this FieldDef. IsGroup
+//must return true
+func (f FieldDef) RequiredParts() []MessagePart { return f.requiredParts }
+
+//RequiredFields returns those fields that are required for this FieldDef. IsGroup
+//must return true
+func (f FieldDef) RequiredFields() []*FieldDef { return f.requiredFields }
 
 func (f FieldDef) childTags() []int {
 	tags := make([]int, 0, len(f.ChildFields))
@@ -217,6 +239,46 @@ type MessageDef struct {
 
 	RequiredTags TagSet
 	Tags         TagSet
+}
+
+//NewMessageDef returns a pointer to an initialized MessageDef
+func NewMessageDef(name, msgType string, parts []MessagePart) *MessageDef {
+	msg := MessageDef{
+		Name:         name,
+		MsgType:      msgType,
+		Fields:       make(map[int]*FieldDef),
+		RequiredTags: make(TagSet),
+		Tags:         make(TagSet),
+		Parts:        parts,
+	}
+
+	for _, part := range parts {
+		if comp, ok := part.(Component); ok {
+			for _, f := range comp.Fields() {
+				msg.Fields[f.Tag] = f
+			}
+		} else if field, ok := part.(*FieldDef); ok {
+			msg.Fields[field.Tag] = field
+		} else {
+			panic("Unknown Part")
+		}
+	}
+
+	for _, f := range msg.Fields {
+		msg.Tags.Add(f.Tag)
+		for _, t := range f.childTags() {
+			msg.Tags.Add(t)
+		}
+
+		if f.Required() {
+			msg.RequiredTags.Add(f.Tag)
+			for _, t := range f.requiredChildTags() {
+				msg.RequiredTags.Add(t)
+			}
+		}
+	}
+
+	return &msg
 }
 
 //Parse loads and and build a datadictionary instance from an xml file.
