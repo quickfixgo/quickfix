@@ -1,9 +1,12 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/config"
 	"strings"
 	"testing"
+
+	"github.com/quickfixgo/quickfix/config"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestSettings_New(t *testing.T) {
@@ -264,6 +267,27 @@ DataDictionary=somewhere/FIX42.xml
 			t.Errorf("Expected %v, got %v", tc.expected, actual)
 		}
 	}
+}
+
+func TestSettings_ParseSettings_WithEqualsSignInValue(t *testing.T) {
+	s, err := ParseSettings(strings.NewReader(`
+[DEFAULT]
+ConnectionType=initiator
+SQLDriver=mysql
+SQLDataSourceName=root:root@/quickfix?parseTime=true&loc=UTC
+
+[SESSION]
+BeginString=FIX.4.2
+SenderCompID=SENDER
+TargetCompID=TARGET`))
+
+	require.Nil(t, err)
+	require.NotNil(t, s)
+
+	sessionSettings := s.SessionSettings()[SessionID{BeginString: "FIX.4.2", SenderCompID: "SENDER", TargetCompID: "TARGET"}]
+	val, err := sessionSettings.Setting("SQLDataSourceName")
+	assert.Nil(t, err)
+	assert.Equal(t, `root:root@/quickfix?parseTime=true&loc=UTC`, val)
 }
 
 func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
