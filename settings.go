@@ -3,9 +3,10 @@ package quickfix
 import (
 	"bufio"
 	"fmt"
-	"github.com/quickfixgo/quickfix/config"
 	"io"
 	"regexp"
+
+	"github.com/quickfixgo/quickfix/config"
 )
 
 //The Settings type represents a collection of global and session settings.
@@ -67,7 +68,7 @@ func ParseSettings(reader io.Reader) (*Settings, error) {
 	commentRegEx := regexp.MustCompile(`^#.*`)
 	defaultRegEx := regexp.MustCompile(`^\[(?i)DEFAULT\]\s*$`)
 	sessionRegEx := regexp.MustCompile(`^\[(?i)SESSION\]\s*$`)
-	settingRegEx := regexp.MustCompile(`^(.*)=(.*)$`)
+	settingRegEx := regexp.MustCompile(`^([^=]*)=(.*)$`)
 
 	var settings *SessionSettings
 
