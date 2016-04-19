@@ -164,6 +164,8 @@ func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges()
 }
 
 func (suite *MessageStoreTestSuite) TestMessageStore_CreationTime() {
+	assert.False(suite.T(), suite.msgStore.CreationTime().IsZero())
+
 	t0 := time.Now()
 	suite.msgStore.Reset()
 	t1 := time.Now()

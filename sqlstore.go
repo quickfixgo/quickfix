@@ -44,6 +44,7 @@ func newSQLStore(sessionID SessionID, driver string, dataSourceName string) (sto
 		sqlDriver:         driver,
 		sqlDataSourceName: dataSourceName,
 	}
+	store.cache.Reset()
 
 	if store.db, err = sql.Open(store.sqlDriver, store.sqlDataSourceName); err != nil {
 		return nil, err
