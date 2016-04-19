@@ -2,8 +2,6 @@ package quickfix
 
 import (
 	"reflect"
-	"strconv"
-	"strings"
 	"time"
 )
 
@@ -66,38 +64,7 @@ func (e encoder) encodeValue(fixTag Tag, v reflect.Value, omitEmpty bool, defaul
 			panic("repeating group must be a slice of type struct")
 		}
 
-		template := make(GroupTemplate, 0)
-
-		var walkFunc func(t reflect.Type)
-
-		walkFunc = func(t reflect.Type) {
-			for i := 0; i < t.NumField(); i++ {
-				sf := t.Field(i)
-
-				//recurse if item is a component, optional or not
-				elementType := sf.Type
-				if elementType.Kind() == reflect.Ptr {
-					elementType = elementType.Elem()
-				}
-
-				if elementType.Kind() == reflect.Struct {
-					walkFunc(elementType)
-					continue
-				}
-
-				afixTag, err := strconv.Atoi(strings.Split(sf.Tag.Get("fix"), ",")[0])
-
-				if err != nil {
-					panic(err)
-				}
-
-				template = append(template, GroupElement(Tag(afixTag)))
-			}
-		}
-
-		walkFunc(elem)
-
-		repeatingGroup := RepeatingGroup{Tag: fixTag, GroupTemplate: template}
+		repeatingGroup := RepeatingGroup{Tag: fixTag, GroupTemplate: buildGroupTemplate(elem)}
 
 		for i := 0; i < v.Len(); i++ {
 			group := repeatingGroup.Add()

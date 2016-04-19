@@ -1,9 +1,10 @@
 package quickfix_test
 
 import (
-	"github.com/quickfixgo/quickfix"
 	"testing"
 	"time"
+
+	"github.com/quickfixgo/quickfix"
 )
 
 func TestUnmarshal_Literals(t *testing.T) {
@@ -140,9 +141,22 @@ func TestUnmarshal_RepeatingGroups(t *testing.T) {
 		StringField2 *string `fix:"9"`
 	}
 
+	type AnonymousGroup struct {
+		IntField3 int `fix:"3"`
+	}
+
+	type GroupComponent1 struct {
+	}
+
+	type GroupComponent2 struct {
+	}
+
 	type Group2 struct {
 		IntField1 int `fix:"1"`
 		IntField2 int `fix:"2"`
+		AnonymousGroup
+		GroupComponent1
+		OptionalComponent *GroupComponent2
 	}
 
 	type Message struct {
@@ -160,11 +174,21 @@ func TestUnmarshal_RepeatingGroups(t *testing.T) {
 		quickfix.GroupElement(quickfix.Tag(9)),
 	}
 
+	group2Template := quickfix.GroupTemplate{
+		quickfix.GroupElement(quickfix.Tag(1)),
+		quickfix.GroupElement(quickfix.Tag(2)),
+		quickfix.GroupElement(quickfix.Tag(3)),
+	}
+
 	group1 := quickfix.RepeatingGroup{Tag: quickfix.Tag(100), GroupTemplate: group1Template}
 	group1.Add().SetField(quickfix.Tag(8), quickfix.FIXString("hello")).SetField(quickfix.Tag(9), quickfix.FIXString("world"))
 	group1.Add().SetField(quickfix.Tag(8), quickfix.FIXString("goodbye"))
 	group1.Add().SetField(quickfix.Tag(8), quickfix.FIXString("OHHAI")).SetField(quickfix.Tag(9), quickfix.FIXString("world"))
 	fixMsg.Body.SetGroup(group1)
+
+	group2 := quickfix.RepeatingGroup{Tag: quickfix.Tag(101), GroupTemplate: group2Template}
+	group2.Add().SetField(quickfix.Tag(1), quickfix.FIXInt(1)).SetField(quickfix.Tag(2), quickfix.FIXInt(2))
+	fixMsg.Body.SetGroup(group2)
 
 	var msgOut Message
 	quickfix.Unmarshal(fixMsg, &msgOut)

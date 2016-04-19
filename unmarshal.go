@@ -53,13 +53,8 @@ func (d decoder) decodeValue(fixTag Tag, t reflect.Type, v reflect.Value) Messag
 		if elem.Kind() != reflect.Struct {
 			panic("repeating group must be a slice of type struct")
 		}
-		template := make(GroupTemplate, elem.NumField())
-		for i := 0; i < elem.NumField(); i++ {
-			sf := elem.Field(i)
-			fixTag, _, _ := parseStructTag(sf.Tag.Get("fix"))
-			template[i] = GroupElement(fixTag)
-		}
-		repeatingGroup := RepeatingGroup{Tag: fixTag, GroupTemplate: template}
+
+		repeatingGroup := RepeatingGroup{Tag: fixTag, GroupTemplate: buildGroupTemplate(elem)}
 		if err := d.FieldMap.GetGroup(&repeatingGroup); err != nil {
 			return err
 		}
