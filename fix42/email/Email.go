@@ -16,6 +16,12 @@ type NoRoutingIDs struct {
 	RoutingID *string `fix:"217"`
 }
 
+//NewNoRoutingIDs returns an initialized NoRoutingIDs instance
+func NewNoRoutingIDs() *NoRoutingIDs {
+	var m NoRoutingIDs
+	return &m
+}
+
 func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }
 func (m *NoRoutingIDs) SetRoutingID(v string) { m.RoutingID = &v }
 
@@ -61,6 +67,12 @@ type NoRelatedSym struct {
 	EncodedSecurityDesc *string `fix:"351"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
+}
+
 func (m *NoRelatedSym) SetRelatdSym(v string)           { m.RelatdSym = &v }
 func (m *NoRelatedSym) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
 func (m *NoRelatedSym) SetSecurityID(v string)          { m.SecurityID = &v }
@@ -89,6 +101,13 @@ type LinesOfText struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for LinesOfText.
 	EncodedText *string `fix:"355"`
+}
+
+//NewLinesOfText returns an initialized LinesOfText instance
+func NewLinesOfText(text string) *LinesOfText {
+	var m LinesOfText
+	m.SetText(text)
+	return &m
 }
 
 func (m *LinesOfText) SetText(v string)        { m.Text = v }
@@ -130,6 +149,16 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized Email instance
+func New(emailthreadid string, emailtype string, subject string, linesoftext []LinesOfText) *Message {
+	var m Message
+	m.SetEmailThreadID(emailthreadid)
+	m.SetEmailType(emailtype)
+	m.SetSubject(subject)
+	m.SetLinesOfText(linesoftext)
+	return &m
+}
 
 func (m *Message) SetEmailThreadID(v string)        { m.EmailThreadID = v }
 func (m *Message) SetEmailType(v string)            { m.EmailType = v }

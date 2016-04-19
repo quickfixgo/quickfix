@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/instrument"
 )
 
+//New returns an initialized StrmAsgnRptInstrmtGrp instance
 func New() *StrmAsgnRptInstrmtGrp {
 	var m StrmAsgnRptInstrmtGrp
 	return &m
@@ -27,6 +28,12 @@ type NoRelatedSym struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoRelatedSym.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }

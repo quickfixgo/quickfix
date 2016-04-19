@@ -41,6 +41,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized MassQuote instance
+func New(quoteid string, quotsetgrp quotsetgrp.QuotSetGrp) *Message {
+	var m Message
+	m.SetQuoteID(quoteid)
+	m.SetQuotSetGrp(quotsetgrp)
+	return &m
+}
+
 func (m *Message) SetQuoteReqID(v string)                { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)                   { m.QuoteID = v }
 func (m *Message) SetQuoteType(v int)                    { m.QuoteType = &v }

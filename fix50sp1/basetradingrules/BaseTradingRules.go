@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/tickrules"
 )
 
+//New returns an initialized BaseTradingRules instance
 func New() *BaseTradingRules {
 	var m BaseTradingRules
 	return &m

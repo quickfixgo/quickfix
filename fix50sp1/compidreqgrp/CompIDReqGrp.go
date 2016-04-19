@@ -1,5 +1,6 @@
 package compidreqgrp
 
+//New returns an initialized CompIDReqGrp instance
 func New() *CompIDReqGrp {
 	var m CompIDReqGrp
 	return &m
@@ -15,6 +16,12 @@ type NoCompIDs struct {
 	LocationID *string `fix:"283"`
 	//DeskID is a non-required field for NoCompIDs.
 	DeskID *string `fix:"284"`
+}
+
+//NewNoCompIDs returns an initialized NoCompIDs instance
+func NewNoCompIDs() *NoCompIDs {
+	var m NoCompIDs
+	return &m
 }
 
 func (m *NoCompIDs) SetRefCompID(v string)  { m.RefCompID = &v }

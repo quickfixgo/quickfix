@@ -173,6 +173,17 @@ type NoOrders struct {
 	Designation *string `fix:"494"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders(clordid string, listseqno int, instrument instrument.Instrument, side string, orderqtydata orderqtydata.OrderQtyData) *NoOrders {
+	var m NoOrders
+	m.SetClOrdID(clordid)
+	m.SetListSeqNo(listseqno)
+	m.SetInstrument(instrument)
+	m.SetSide(side)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)                         { m.ClOrdID = v }
 func (m *NoOrders) SetSecondaryClOrdID(v string)                { m.SecondaryClOrdID = &v }
 func (m *NoOrders) SetListSeqNo(v int)                          { m.ListSeqNo = v }
@@ -269,6 +280,12 @@ type NoAllocs struct {
 	AllocQty *float64 `fix:"80"`
 }
 
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
+}
+
 func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }
 func (m *NoAllocs) SetAllocAcctIDSource(v int)                     { m.AllocAcctIDSource = &v }
 func (m *NoAllocs) SetAllocSettlCurrency(v string)                 { m.AllocSettlCurrency = &v }
@@ -284,6 +301,12 @@ type NoTradingSessions struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
+}
+
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
 func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
 
@@ -291,6 +314,12 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -344,6 +373,16 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized NewOrderList instance
+func New(listid string, bidtype int, totnoorders int, noorders []NoOrders) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetBidType(bidtype)
+	m.SetTotNoOrders(totnoorders)
+	m.SetNoOrders(noorders)
+	return &m
+}
 
 func (m *Message) SetListID(v string)                      { m.ListID = v }
 func (m *Message) SetBidID(v string)                       { m.BidID = &v }

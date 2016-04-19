@@ -20,12 +20,24 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in PositionMaintenanceReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -38,6 +50,12 @@ type NoTradingSessions struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
@@ -106,6 +124,24 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized PositionMaintenanceReport instance
+func New(posmaintrptid string, postranstype int, posmaintaction int, origposreqrefid string, posmaintstatus int, clearingbusinessdate string, account string, accounttype int, instrument instrument.Instrument, transacttime time.Time, positionqty positionqty.PositionQty, positionamountdata positionamountdata.PositionAmountData) *Message {
+	var m Message
+	m.SetPosMaintRptID(posmaintrptid)
+	m.SetPosTransType(postranstype)
+	m.SetPosMaintAction(posmaintaction)
+	m.SetOrigPosReqRefID(origposreqrefid)
+	m.SetPosMaintStatus(posmaintstatus)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	m.SetAccount(account)
+	m.SetAccountType(accounttype)
+	m.SetInstrument(instrument)
+	m.SetTransactTime(transacttime)
+	m.SetPositionQty(positionqty)
+	m.SetPositionAmountData(positionamountdata)
+	return &m
+}
 
 func (m *Message) SetPosMaintRptID(v string)                  { m.PosMaintRptID = v }
 func (m *Message) SetPosTransType(v int)                      { m.PosTransType = v }

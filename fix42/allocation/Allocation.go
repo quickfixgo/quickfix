@@ -22,6 +22,12 @@ type NoOrders struct {
 	WaveNo *string `fix:"105"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders() *NoOrders {
+	var m NoOrders
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)          { m.ClOrdID = &v }
 func (m *NoOrders) SetOrderID(v string)          { m.OrderID = &v }
 func (m *NoOrders) SetSecondaryOrderID(v string) { m.SecondaryOrderID = &v }
@@ -38,6 +44,12 @@ type NoExecs struct {
 	LastPx *float64 `fix:"31"`
 	//LastCapacity is a non-required field for NoExecs.
 	LastCapacity *string `fix:"29"`
+}
+
+//NewNoExecs returns an initialized NoExecs instance
+func NewNoExecs() *NoExecs {
+	var m NoExecs
+	return &m
 }
 
 func (m *NoExecs) SetLastShares(v float64)  { m.LastShares = &v }
@@ -95,6 +107,13 @@ type NoAllocs struct {
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
 }
 
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs(allocshares float64) *NoAllocs {
+	var m NoAllocs
+	m.SetAllocShares(allocshares)
+	return &m
+}
+
 func (m *NoAllocs) SetAllocAccount(v string)        { m.AllocAccount = &v }
 func (m *NoAllocs) SetAllocPrice(v float64)         { m.AllocPrice = &v }
 func (m *NoAllocs) SetAllocShares(v float64)        { m.AllocShares = v }
@@ -127,6 +146,12 @@ type NoMiscFees struct {
 	MiscFeeCurr *string `fix:"138"`
 	//MiscFeeType is a non-required field for NoMiscFees.
 	MiscFeeType *string `fix:"139"`
+}
+
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
 }
 
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
@@ -234,6 +259,19 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized Allocation instance
+func New(allocid string, alloctranstype string, side string, symbol string, shares float64, avgpx float64, tradedate string) *Message {
+	var m Message
+	m.SetAllocID(allocid)
+	m.SetAllocTransType(alloctranstype)
+	m.SetSide(side)
+	m.SetSymbol(symbol)
+	m.SetShares(shares)
+	m.SetAvgPx(avgpx)
+	m.SetTradeDate(tradedate)
+	return &m
+}
 
 func (m *Message) SetAllocID(v string)              { m.AllocID = v }
 func (m *Message) SetAllocTransType(v string)       { m.AllocTransType = v }

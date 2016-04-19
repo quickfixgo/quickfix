@@ -1,5 +1,6 @@
 package biddescreqgrp
 
+//New returns an initialized BidDescReqGrp instance
 func New() *BidDescReqGrp {
 	var m BidDescReqGrp
 	return &m
@@ -29,6 +30,12 @@ type NoBidDescriptors struct {
 	OutsideIndexPct *float64 `fix:"407"`
 	//ValueOfFutures is a non-required field for NoBidDescriptors.
 	ValueOfFutures *float64 `fix:"408"`
+}
+
+//NewNoBidDescriptors returns an initialized NoBidDescriptors instance
+func NewNoBidDescriptors() *NoBidDescriptors {
+	var m NoBidDescriptors
+	return &m
 }
 
 func (m *NoBidDescriptors) SetBidDescriptorType(v int)      { m.BidDescriptorType = &v }

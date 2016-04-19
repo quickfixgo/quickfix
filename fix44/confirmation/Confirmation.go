@@ -43,6 +43,12 @@ type NoOrders struct {
 	OrderBookingQty *float64 `fix:"800"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders() *NoOrders {
+	var m NoOrders
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)                               { m.ClOrdID = &v }
 func (m *NoOrders) SetOrderID(v string)                               { m.OrderID = &v }
 func (m *NoOrders) SetSecondaryOrderID(v string)                      { m.SecondaryOrderID = &v }
@@ -59,6 +65,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -67,6 +79,12 @@ func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.Underlyin
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.
 	InstrumentLeg *instrumentleg.InstrumentLeg
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
@@ -79,6 +97,14 @@ type NoCapacities struct {
 	OrderRestrictions *string `fix:"529"`
 	//OrderCapacityQty is a required field for NoCapacities.
 	OrderCapacityQty float64 `fix:"863"`
+}
+
+//NewNoCapacities returns an initialized NoCapacities instance
+func NewNoCapacities(ordercapacity string, ordercapacityqty float64) *NoCapacities {
+	var m NoCapacities
+	m.SetOrderCapacity(ordercapacity)
+	m.SetOrderCapacityQty(ordercapacityqty)
+	return &m
 }
 
 func (m *NoCapacities) SetOrderCapacity(v string)     { m.OrderCapacity = v }
@@ -95,6 +121,12 @@ type NoMiscFees struct {
 	MiscFeeType *string `fix:"139"`
 	//MiscFeeBasis is a non-required field for NoMiscFees.
 	MiscFeeBasis *int `fix:"891"`
+}
+
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
 }
 
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
@@ -241,6 +273,28 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized Confirmation instance
+func New(confirmid string, confirmtranstype int, confirmtype int, confirmstatus int, transacttime time.Time, tradedate string, instrument instrument.Instrument, nounderlyings []NoUnderlyings, nolegs []NoLegs, allocqty float64, side string, nocapacities []NoCapacities, allocaccount string, avgpx float64, grosstradeamt float64, netmoney float64) *Message {
+	var m Message
+	m.SetConfirmID(confirmid)
+	m.SetConfirmTransType(confirmtranstype)
+	m.SetConfirmType(confirmtype)
+	m.SetConfirmStatus(confirmstatus)
+	m.SetTransactTime(transacttime)
+	m.SetTradeDate(tradedate)
+	m.SetInstrument(instrument)
+	m.SetNoUnderlyings(nounderlyings)
+	m.SetNoLegs(nolegs)
+	m.SetAllocQty(allocqty)
+	m.SetSide(side)
+	m.SetNoCapacities(nocapacities)
+	m.SetAllocAccount(allocaccount)
+	m.SetAvgPx(avgpx)
+	m.SetGrossTradeAmt(grosstradeamt)
+	m.SetNetMoney(netmoney)
+	return &m
+}
 
 func (m *Message) SetConfirmID(v string)                                   { m.ConfirmID = v }
 func (m *Message) SetConfirmRefID(v string)                                { m.ConfirmRefID = &v }

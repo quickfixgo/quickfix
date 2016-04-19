@@ -21,6 +21,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ResendRequest instance
+func New(beginseqno int, endseqno int) *Message {
+	var m Message
+	m.SetBeginSeqNo(beginseqno)
+	m.SetEndSeqNo(endseqno)
+	return &m
+}
+
 func (m *Message) SetBeginSeqNo(v int) { m.BeginSeqNo = v }
 func (m *Message) SetEndSeqNo(v int)   { m.EndSeqNo = v }
 

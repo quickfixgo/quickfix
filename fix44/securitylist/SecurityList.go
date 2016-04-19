@@ -55,6 +55,12 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
+}
+
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 func (m *NoRelatedSym) SetInstrumentExtension(v instrumentextension.InstrumentExtension) {
 	m.InstrumentExtension = &v
@@ -85,6 +91,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -101,6 +113,12 @@ type NoLegs struct {
 	LegStipulations *legstipulations.LegStipulations
 	//LegBenchmarkCurveData is a non-required component for NoLegs.
 	LegBenchmarkCurveData *legbenchmarkcurvedata.LegBenchmarkCurveData
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
@@ -132,6 +150,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized SecurityList instance
+func New(securityreqid string, securityresponseid string, securityrequestresult int) *Message {
+	var m Message
+	m.SetSecurityReqID(securityreqid)
+	m.SetSecurityResponseID(securityresponseid)
+	m.SetSecurityRequestResult(securityrequestresult)
+	return &m
+}
 
 func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = v }
 func (m *Message) SetSecurityResponseID(v string)   { m.SecurityResponseID = v }

@@ -1,5 +1,6 @@
 package msgtypegrp
 
+//New returns an initialized MsgTypeGrp instance
 func New() *MsgTypeGrp {
 	var m MsgTypeGrp
 	return &m
@@ -15,6 +16,12 @@ type NoMsgTypes struct {
 	RefApplVerID *string `fix:"1130"`
 	//RefCstmApplVerID is a non-required field for NoMsgTypes.
 	RefCstmApplVerID *string `fix:"1131"`
+}
+
+//NewNoMsgTypes returns an initialized NoMsgTypes instance
+func NewNoMsgTypes() *NoMsgTypes {
+	var m NoMsgTypes
+	return &m
 }
 
 func (m *NoMsgTypes) SetRefMsgType(v string)       { m.RefMsgType = &v }

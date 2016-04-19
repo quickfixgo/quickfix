@@ -22,6 +22,12 @@ type NoExecs struct {
 	ExecID *string `fix:"17"`
 }
 
+//NewNoExecs returns an initialized NoExecs instance
+func NewNoExecs() *NoExecs {
+	var m NoExecs
+	return &m
+}
+
 func (m *NoExecs) SetExecID(v string) { m.ExecID = &v }
 
 //NoTrades is a repeating group in CollateralReport
@@ -30,6 +36,12 @@ type NoTrades struct {
 	TradeReportID *string `fix:"571"`
 	//SecondaryTradeReportID is a non-required field for NoTrades.
 	SecondaryTradeReportID *string `fix:"818"`
+}
+
+//NewNoTrades returns an initialized NoTrades instance
+func NewNoTrades() *NoTrades {
+	var m NoTrades
+	return &m
 }
 
 func (m *NoTrades) SetTradeReportID(v string)          { m.TradeReportID = &v }
@@ -41,12 +53,24 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in CollateralReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -63,6 +87,12 @@ type NoMiscFees struct {
 	MiscFeeType *string `fix:"139"`
 	//MiscFeeBasis is a non-required field for NoMiscFees.
 	MiscFeeBasis *int `fix:"891"`
+}
+
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
 }
 
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
@@ -169,6 +199,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized CollateralReport instance
+func New(collrptid string, collstatus int) *Message {
+	var m Message
+	m.SetCollRptID(collrptid)
+	m.SetCollStatus(collstatus)
+	return &m
+}
 
 func (m *Message) SetCollRptID(v string)                                   { m.CollRptID = v }
 func (m *Message) SetCollInquiryID(v string)                               { m.CollInquiryID = &v }

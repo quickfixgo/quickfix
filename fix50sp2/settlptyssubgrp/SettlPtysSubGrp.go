@@ -1,5 +1,6 @@
 package settlptyssubgrp
 
+//New returns an initialized SettlPtysSubGrp instance
 func New() *SettlPtysSubGrp {
 	var m SettlPtysSubGrp
 	return &m
@@ -11,6 +12,12 @@ type NoSettlPartySubIDs struct {
 	SettlPartySubID *string `fix:"785"`
 	//SettlPartySubIDType is a non-required field for NoSettlPartySubIDs.
 	SettlPartySubIDType *int `fix:"786"`
+}
+
+//NewNoSettlPartySubIDs returns an initialized NoSettlPartySubIDs instance
+func NewNoSettlPartySubIDs() *NoSettlPartySubIDs {
+	var m NoSettlPartySubIDs
+	return &m
 }
 
 func (m *NoSettlPartySubIDs) SetSettlPartySubID(v string)  { m.SettlPartySubID = &v }

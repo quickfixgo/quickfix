@@ -1,5 +1,6 @@
 package newsrefgrp
 
+//New returns an initialized NewsRefGrp instance
 func New() *NewsRefGrp {
 	var m NewsRefGrp
 	return &m
@@ -11,6 +12,12 @@ type NoNewsRefIDs struct {
 	NewsRefID *string `fix:"1476"`
 	//NewsRefType is a non-required field for NoNewsRefIDs.
 	NewsRefType *int `fix:"1477"`
+}
+
+//NewNoNewsRefIDs returns an initialized NoNewsRefIDs instance
+func NewNoNewsRefIDs() *NoNewsRefIDs {
+	var m NoNewsRefIDs
+	return &m
 }
 
 func (m *NoNewsRefIDs) SetNewsRefID(v string) { m.NewsRefID = &v }

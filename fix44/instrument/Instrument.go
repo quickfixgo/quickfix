@@ -1,5 +1,6 @@
 package instrument
 
+//New returns an initialized Instrument instance
 func New() *Instrument {
 	var m Instrument
 	return &m
@@ -11,6 +12,12 @@ type NoSecurityAltID struct {
 	SecurityAltID *string `fix:"455"`
 	//SecurityAltIDSource is a non-required field for NoSecurityAltID.
 	SecurityAltIDSource *string `fix:"456"`
+}
+
+//NewNoSecurityAltID returns an initialized NoSecurityAltID instance
+func NewNoSecurityAltID() *NoSecurityAltID {
+	var m NoSecurityAltID
+	return &m
 }
 
 func (m *NoSecurityAltID) SetSecurityAltID(v string)       { m.SecurityAltID = &v }
@@ -26,6 +33,12 @@ type NoEvents struct {
 	EventPx *float64 `fix:"867"`
 	//EventText is a non-required field for NoEvents.
 	EventText *string `fix:"868"`
+}
+
+//NewNoEvents returns an initialized NoEvents instance
+func NewNoEvents() *NoEvents {
+	var m NoEvents
+	return &m
 }
 
 func (m *NoEvents) SetEventType(v int)    { m.EventType = &v }

@@ -13,6 +13,13 @@ type NoMDEntryTypes struct {
 	MDEntryType string `fix:"269"`
 }
 
+//NewNoMDEntryTypes returns an initialized NoMDEntryTypes instance
+func NewNoMDEntryTypes(mdentrytype string) *NoMDEntryTypes {
+	var m NoMDEntryTypes
+	m.SetMDEntryType(mdentrytype)
+	return &m
+}
+
 func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
 
 //NoRelatedSym is a repeating group in MarketDataRequest
@@ -59,6 +66,13 @@ type NoRelatedSym struct {
 	TradingSessionID *string `fix:"336"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(symbol string) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetSymbol(symbol)
+	return &m
+}
+
 func (m *NoRelatedSym) SetSymbol(v string)              { m.Symbol = v }
 func (m *NoRelatedSym) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
 func (m *NoRelatedSym) SetSecurityID(v string)          { m.SecurityID = &v }
@@ -103,6 +117,17 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized MarketDataRequest instance
+func New(mdreqid string, subscriptionrequesttype string, marketdepth int, nomdentrytypes []NoMDEntryTypes, norelatedsym []NoRelatedSym) *Message {
+	var m Message
+	m.SetMDReqID(mdreqid)
+	m.SetSubscriptionRequestType(subscriptionrequesttype)
+	m.SetMarketDepth(marketdepth)
+	m.SetNoMDEntryTypes(nomdentrytypes)
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
 
 func (m *Message) SetMDReqID(v string)                  { m.MDReqID = v }
 func (m *Message) SetSubscriptionRequestType(v string)  { m.SubscriptionRequestType = v }

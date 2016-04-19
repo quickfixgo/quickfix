@@ -25,6 +25,15 @@ type NoQuoteSets struct {
 	NoQuoteEntries []NoQuoteEntries `fix:"295"`
 }
 
+//NewNoQuoteSets returns an initialized NoQuoteSets instance
+func NewNoQuoteSets(quotesetid string, totquoteentries int, noquoteentries []NoQuoteEntries) *NoQuoteSets {
+	var m NoQuoteSets
+	m.SetQuoteSetID(quotesetid)
+	m.SetTotQuoteEntries(totquoteentries)
+	m.SetNoQuoteEntries(noquoteentries)
+	return &m
+}
+
 func (m *NoQuoteSets) SetQuoteSetID(v string) { m.QuoteSetID = v }
 func (m *NoQuoteSets) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
@@ -87,6 +96,13 @@ type NoQuoteEntries struct {
 	Currency *string `fix:"15"`
 }
 
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries(quoteentryid string) *NoQuoteEntries {
+	var m NoQuoteEntries
+	m.SetQuoteEntryID(quoteentryid)
+	return &m
+}
+
 func (m *NoQuoteEntries) SetQuoteEntryID(v string)              { m.QuoteEntryID = v }
 func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 func (m *NoQuoteEntries) SetBidPx(v float64)                    { m.BidPx = &v }
@@ -142,6 +158,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized MassQuote instance
+func New(quoteid string, noquotesets []NoQuoteSets) *Message {
+	var m Message
+	m.SetQuoteID(quoteid)
+	m.SetNoQuoteSets(noquotesets)
+	return &m
+}
 
 func (m *Message) SetQuoteReqID(v string)         { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)            { m.QuoteID = v }

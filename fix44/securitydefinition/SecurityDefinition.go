@@ -17,6 +17,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -25,6 +31,12 @@ func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.Underlyin
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.
 	InstrumentLeg *instrumentleg.InstrumentLeg
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
@@ -70,6 +82,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized SecurityDefinition instance
+func New(securityreqid string, securityresponseid string, securityresponsetype int) *Message {
+	var m Message
+	m.SetSecurityReqID(securityreqid)
+	m.SetSecurityResponseID(securityresponseid)
+	m.SetSecurityResponseType(securityresponsetype)
+	return &m
+}
 
 func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = v }
 func (m *Message) SetSecurityResponseID(v string)        { m.SecurityResponseID = v }

@@ -1,5 +1,6 @@
 package derivativesecurityxml
 
+//New returns an initialized DerivativeSecurityXML instance
 func New() *DerivativeSecurityXML {
 	var m DerivativeSecurityXML
 	return &m

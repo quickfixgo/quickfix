@@ -164,6 +164,17 @@ type NoOrders struct {
 	NetMoney *float64 `fix:"118"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders(clordid string, listseqno int, instrument instrument.Instrument, side string, orderqtydata orderqtydata.OrderQtyData) *NoOrders {
+	var m NoOrders
+	m.SetClOrdID(clordid)
+	m.SetListSeqNo(listseqno)
+	m.SetInstrument(instrument)
+	m.SetSide(side)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)                         { m.ClOrdID = v }
 func (m *NoOrders) SetSecondaryClOrdID(v string)                { m.SecondaryClOrdID = &v }
 func (m *NoOrders) SetListSeqNo(v int)                          { m.ListSeqNo = v }
@@ -251,6 +262,12 @@ type NoAllocs struct {
 	AllocQty *float64 `fix:"80"`
 }
 
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
+}
+
 func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }
 func (m *NoAllocs) SetIndividualAllocID(v string)                  { m.IndividualAllocID = &v }
 func (m *NoAllocs) SetNestedParties(v nestedparties.NestedParties) { m.NestedParties = &v }
@@ -262,6 +279,12 @@ type NoTradingSessions struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
@@ -306,6 +329,16 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized NewOrderList instance
+func New(listid string, bidtype int, totnoorders int, noorders []NoOrders) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetBidType(bidtype)
+	m.SetTotNoOrders(totnoorders)
+	m.SetNoOrders(noorders)
+	return &m
+}
 
 func (m *Message) SetListID(v string)                { m.ListID = v }
 func (m *Message) SetBidID(v string)                 { m.BidID = &v }

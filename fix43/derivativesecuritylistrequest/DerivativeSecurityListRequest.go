@@ -38,6 +38,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized DerivativeSecurityListRequest instance
+func New(securityreqid string, securitylistrequesttype int) *Message {
+	var m Message
+	m.SetSecurityReqID(securityreqid)
+	m.SetSecurityListRequestType(securitylistrequesttype)
+	return &m
+}
+
 func (m *Message) SetSecurityReqID(v string)        { m.SecurityReqID = v }
 func (m *Message) SetSecurityListRequestType(v int) { m.SecurityListRequestType = v }
 func (m *Message) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {

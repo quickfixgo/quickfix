@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//New returns an initialized QuotEntryAckGrp instance
 func New() *QuotEntryAckGrp {
 	var m QuotEntryAckGrp
 	return &m
@@ -67,6 +68,12 @@ type NoQuoteEntries struct {
 	Currency *string `fix:"15"`
 	//QuoteEntryRejectReason is a non-required field for NoQuoteEntries.
 	QuoteEntryRejectReason *int `fix:"368"`
+}
+
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries() *NoQuoteEntries {
+	var m NoQuoteEntries
+	return &m
 }
 
 func (m *NoQuoteEntries) SetQuoteEntryID(v string)                       { m.QuoteEntryID = &v }

@@ -19,6 +19,12 @@ type NoCompIDs struct {
 	DeskID *string `fix:"284"`
 }
 
+//NewNoCompIDs returns an initialized NoCompIDs instance
+func NewNoCompIDs() *NoCompIDs {
+	var m NoCompIDs
+	return &m
+}
+
 func (m *NoCompIDs) SetRefCompID(v string)  { m.RefCompID = &v }
 func (m *NoCompIDs) SetRefSubID(v string)   { m.RefSubID = &v }
 func (m *NoCompIDs) SetLocationID(v string) { m.LocationID = &v }
@@ -39,6 +45,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized NetworkCounterpartySystemStatusRequest instance
+func New(networkrequesttype int, networkrequestid string) *Message {
+	var m Message
+	m.SetNetworkRequestType(networkrequesttype)
+	m.SetNetworkRequestID(networkrequestid)
+	return &m
+}
 
 func (m *Message) SetNetworkRequestType(v int)  { m.NetworkRequestType = v }
 func (m *Message) SetNetworkRequestID(v string) { m.NetworkRequestID = v }

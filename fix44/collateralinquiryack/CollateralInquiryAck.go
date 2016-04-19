@@ -18,12 +18,24 @@ type NoCollInquiryQualifier struct {
 	CollInquiryQualifier *int `fix:"896"`
 }
 
+//NewNoCollInquiryQualifier returns an initialized NoCollInquiryQualifier instance
+func NewNoCollInquiryQualifier() *NoCollInquiryQualifier {
+	var m NoCollInquiryQualifier
+	return &m
+}
+
 func (m *NoCollInquiryQualifier) SetCollInquiryQualifier(v int) { m.CollInquiryQualifier = &v }
 
 //NoExecs is a repeating group in CollateralInquiryAck
 type NoExecs struct {
 	//ExecID is a non-required field for NoExecs.
 	ExecID *string `fix:"17"`
+}
+
+//NewNoExecs returns an initialized NoExecs instance
+func NewNoExecs() *NoExecs {
+	var m NoExecs
+	return &m
 }
 
 func (m *NoExecs) SetExecID(v string) { m.ExecID = &v }
@@ -36,6 +48,12 @@ type NoTrades struct {
 	SecondaryTradeReportID *string `fix:"818"`
 }
 
+//NewNoTrades returns an initialized NoTrades instance
+func NewNoTrades() *NoTrades {
+	var m NoTrades
+	return &m
+}
+
 func (m *NoTrades) SetTradeReportID(v string)          { m.TradeReportID = &v }
 func (m *NoTrades) SetSecondaryTradeReportID(v string) { m.SecondaryTradeReportID = &v }
 
@@ -45,12 +63,24 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in CollateralInquiryAck
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -130,6 +160,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized CollateralInquiryAck instance
+func New(collinquiryid string, collinquirystatus int) *Message {
+	var m Message
+	m.SetCollInquiryID(collinquiryid)
+	m.SetCollInquiryStatus(collinquirystatus)
+	return &m
+}
 
 func (m *Message) SetCollInquiryID(v string)                               { m.CollInquiryID = v }
 func (m *Message) SetCollInquiryStatus(v int)                              { m.CollInquiryStatus = v }

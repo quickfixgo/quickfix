@@ -16,6 +16,13 @@ type NoMDEntryTypes struct {
 	MDEntryType string `fix:"269"`
 }
 
+//NewNoMDEntryTypes returns an initialized NoMDEntryTypes instance
+func NewNoMDEntryTypes(mdentrytype string) *NoMDEntryTypes {
+	var m NoMDEntryTypes
+	m.SetMDEntryType(mdentrytype)
+	return &m
+}
+
 func (m *NoMDEntryTypes) SetMDEntryType(v string) { m.MDEntryType = v }
 
 //NoRelatedSym is a repeating group in MarketDataRequest
@@ -34,6 +41,13 @@ type NoRelatedSym struct {
 	ApplQueueMax *int `fix:"812"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(instrument instrument.Instrument) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetInstrument(instrument)
+	return &m
+}
+
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument)      { m.Instrument = v }
 func (m *NoRelatedSym) SetNoUnderlyings(v []NoUnderlyings)         { m.NoUnderlyings = v }
 func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                       { m.NoLegs = v }
@@ -47,6 +61,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -57,6 +77,12 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoTradingSessions is a repeating group in NoRelatedSym
@@ -65,6 +91,12 @@ type NoTradingSessions struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
@@ -99,6 +131,17 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized MarketDataRequest instance
+func New(mdreqid string, subscriptionrequesttype string, marketdepth int, nomdentrytypes []NoMDEntryTypes, norelatedsym []NoRelatedSym) *Message {
+	var m Message
+	m.SetMDReqID(mdreqid)
+	m.SetSubscriptionRequestType(subscriptionrequesttype)
+	m.SetMarketDepth(marketdepth)
+	m.SetNoMDEntryTypes(nomdentrytypes)
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
 
 func (m *Message) SetMDReqID(v string)                  { m.MDReqID = v }
 func (m *Message) SetSubscriptionRequestType(v string)  { m.SubscriptionRequestType = v }

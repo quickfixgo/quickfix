@@ -1,5 +1,6 @@
 package requestedpartyrolegrp
 
+//New returns an initialized RequestedPartyRoleGrp instance
 func New() *RequestedPartyRoleGrp {
 	var m RequestedPartyRoleGrp
 	return &m
@@ -9,6 +10,12 @@ func New() *RequestedPartyRoleGrp {
 type NoRequestedPartyRoles struct {
 	//RequestedPartyRole is a non-required field for NoRequestedPartyRoles.
 	RequestedPartyRole *int `fix:"1509"`
+}
+
+//NewNoRequestedPartyRoles returns an initialized NoRequestedPartyRoles instance
+func NewNoRequestedPartyRoles() *NoRequestedPartyRoles {
+	var m NoRequestedPartyRoles
+	return &m
 }
 
 func (m *NoRequestedPartyRoles) SetRequestedPartyRole(v int) { m.RequestedPartyRole = &v }

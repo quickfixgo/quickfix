@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/nestedparties"
 )
 
+//New returns an initialized RgstDtlsGrp instance
 func New() *RgstDtlsGrp {
 	var m RgstDtlsGrp
 	return &m
@@ -27,6 +28,12 @@ type NoRegistDtls struct {
 	DateOfBirth *string `fix:"486"`
 	//InvestorCountryOfResidence is a non-required field for NoRegistDtls.
 	InvestorCountryOfResidence *string `fix:"475"`
+}
+
+//NewNoRegistDtls returns an initialized NoRegistDtls instance
+func NewNoRegistDtls() *NoRegistDtls {
+	var m NoRegistDtls
+	return &m
 }
 
 func (m *NoRegistDtls) SetRegistDtls(v string)                         { m.RegistDtls = &v }

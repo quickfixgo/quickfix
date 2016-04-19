@@ -20,6 +20,12 @@ type NoContraBrokers struct {
 	ContraTradeTime *time.Time `fix:"438"`
 }
 
+//NewNoContraBrokers returns an initialized NoContraBrokers instance
+func NewNoContraBrokers() *NoContraBrokers {
+	var m NoContraBrokers
+	return &m
+}
+
 func (m *NoContraBrokers) SetContraBroker(v string)       { m.ContraBroker = &v }
 func (m *NoContraBrokers) SetContraTrader(v string)       { m.ContraTrader = &v }
 func (m *NoContraBrokers) SetContraTradeQty(v float64)    { m.ContraTradeQty = &v }
@@ -218,6 +224,22 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized ExecutionReport instance
+func New(orderid string, execid string, exectranstype string, exectype string, ordstatus string, symbol string, side string, leavesqty float64, cumqty float64, avgpx float64) *Message {
+	var m Message
+	m.SetOrderID(orderid)
+	m.SetExecID(execid)
+	m.SetExecTransType(exectranstype)
+	m.SetExecType(exectype)
+	m.SetOrdStatus(ordstatus)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	m.SetLeavesQty(leavesqty)
+	m.SetCumQty(cumqty)
+	m.SetAvgPx(avgpx)
+	return &m
+}
 
 func (m *Message) SetOrderID(v string)                    { m.OrderID = v }
 func (m *Message) SetSecondaryOrderID(v string)           { m.SecondaryOrderID = &v }

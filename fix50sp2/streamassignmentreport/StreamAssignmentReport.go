@@ -26,6 +26,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized StreamAssignmentReport instance
+func New(streamasgnrptid string) *Message {
+	var m Message
+	m.SetStreamAsgnRptID(streamasgnrptid)
+	return &m
+}
+
 func (m *Message) SetStreamAsgnRptID(v string)                       { m.StreamAsgnRptID = v }
 func (m *Message) SetStreamAsgnReqType(v int)                        { m.StreamAsgnReqType = &v }
 func (m *Message) SetStreamAsgnReqID(v string)                       { m.StreamAsgnReqID = &v }

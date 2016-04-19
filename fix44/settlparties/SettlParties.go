@@ -1,5 +1,6 @@
 package settlparties
 
+//New returns an initialized SettlParties instance
 func New() *SettlParties {
 	var m SettlParties
 	return &m
@@ -17,6 +18,12 @@ type NoSettlPartyIDs struct {
 	NoSettlPartySubIDs []NoSettlPartySubIDs `fix:"801,omitempty"`
 }
 
+//NewNoSettlPartyIDs returns an initialized NoSettlPartyIDs instance
+func NewNoSettlPartyIDs() *NoSettlPartyIDs {
+	var m NoSettlPartyIDs
+	return &m
+}
+
 func (m *NoSettlPartyIDs) SetSettlPartyID(v string)                     { m.SettlPartyID = &v }
 func (m *NoSettlPartyIDs) SetSettlPartyIDSource(v string)               { m.SettlPartyIDSource = &v }
 func (m *NoSettlPartyIDs) SetSettlPartyRole(v int)                      { m.SettlPartyRole = &v }
@@ -28,6 +35,12 @@ type NoSettlPartySubIDs struct {
 	SettlPartySubID *string `fix:"785"`
 	//SettlPartySubIDType is a non-required field for NoSettlPartySubIDs.
 	SettlPartySubIDType *int `fix:"786"`
+}
+
+//NewNoSettlPartySubIDs returns an initialized NoSettlPartySubIDs instance
+func NewNoSettlPartySubIDs() *NoSettlPartySubIDs {
+	var m NoSettlPartySubIDs
+	return &m
 }
 
 func (m *NoSettlPartySubIDs) SetSettlPartySubID(v string)  { m.SettlPartySubID = &v }

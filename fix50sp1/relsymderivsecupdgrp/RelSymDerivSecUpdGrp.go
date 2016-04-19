@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/secondarypricelimits"
 )
 
+//New returns an initialized RelSymDerivSecUpdGrp instance
 func New() *RelSymDerivSecUpdGrp {
 	var m RelSymDerivSecUpdGrp
 	return &m
@@ -34,6 +35,12 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 	//CorporateAction is a non-required field for NoRelatedSym.
 	CorporateAction *string `fix:"292"`
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
 }
 
 func (m *NoRelatedSym) SetListUpdateAction(v string)          { m.ListUpdateAction = &v }

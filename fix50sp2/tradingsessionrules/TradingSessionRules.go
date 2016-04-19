@@ -8,6 +8,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/timeinforcerules"
 )
 
+//New returns an initialized TradingSessionRules instance
 func New() *TradingSessionRules {
 	var m TradingSessionRules
 	return &m

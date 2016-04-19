@@ -26,12 +26,24 @@ type NoQuoteQualifiers struct {
 	QuoteQualifier *string `fix:"695"`
 }
 
+//NewNoQuoteQualifiers returns an initialized NoQuoteQualifiers instance
+func NewNoQuoteQualifiers() *NoQuoteQualifiers {
+	var m NoQuoteQualifiers
+	return &m
+}
+
 func (m *NoQuoteQualifiers) SetQuoteQualifier(v string) { m.QuoteQualifier = &v }
 
 //NoUnderlyings is a repeating group in QuoteResponse
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -62,6 +74,12 @@ type NoLegs struct {
 	LegOfferPx *float64 `fix:"684"`
 	//LegBenchmarkCurveData is a non-required component for NoLegs.
 	LegBenchmarkCurveData *legbenchmarkcurvedata.LegBenchmarkCurveData
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
@@ -209,6 +227,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized QuoteResponse instance
+func New(quoterespid string, quoteresptype int, instrument instrument.Instrument) *Message {
+	var m Message
+	m.SetQuoteRespID(quoterespid)
+	m.SetQuoteRespType(quoteresptype)
+	m.SetInstrument(instrument)
+	return &m
+}
 
 func (m *Message) SetQuoteRespID(v string)                                 { m.QuoteRespID = v }
 func (m *Message) SetQuoteID(v string)                                     { m.QuoteID = &v }

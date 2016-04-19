@@ -19,12 +19,24 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in PositionMaintenanceRequest
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -37,6 +49,12 @@ type NoTradingSessions struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
@@ -103,6 +121,22 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized PositionMaintenanceRequest instance
+func New(posreqid string, postranstype int, posmaintaction int, clearingbusinessdate string, parties parties.Parties, account string, accounttype int, instrument instrument.Instrument, transacttime time.Time, positionqty positionqty.PositionQty) *Message {
+	var m Message
+	m.SetPosReqID(posreqid)
+	m.SetPosTransType(postranstype)
+	m.SetPosMaintAction(posmaintaction)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	m.SetParties(parties)
+	m.SetAccount(account)
+	m.SetAccountType(accounttype)
+	m.SetInstrument(instrument)
+	m.SetTransactTime(transacttime)
+	m.SetPositionQty(positionqty)
+	return &m
+}
 
 func (m *Message) SetPosReqID(v string)                       { m.PosReqID = v }
 func (m *Message) SetPosTransType(v int)                      { m.PosTransType = v }

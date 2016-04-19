@@ -1,5 +1,6 @@
 package derivativesecurityaltidgrp
 
+//New returns an initialized DerivativeSecurityAltIDGrp instance
 func New() *DerivativeSecurityAltIDGrp {
 	var m DerivativeSecurityAltIDGrp
 	return &m
@@ -11,6 +12,12 @@ type NoDerivativeSecurityAltID struct {
 	DerivativeSecurityAltID *string `fix:"1219"`
 	//DerivativeSecurityAltIDSource is a non-required field for NoDerivativeSecurityAltID.
 	DerivativeSecurityAltIDSource *string `fix:"1220"`
+}
+
+//NewNoDerivativeSecurityAltID returns an initialized NoDerivativeSecurityAltID instance
+func NewNoDerivativeSecurityAltID() *NoDerivativeSecurityAltID {
+	var m NoDerivativeSecurityAltID
+	return &m
 }
 
 func (m *NoDerivativeSecurityAltID) SetDerivativeSecurityAltID(v string) {

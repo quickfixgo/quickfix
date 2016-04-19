@@ -17,12 +17,24 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in RequestForPositionsAck
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -76,6 +88,18 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized RequestForPositionsAck instance
+func New(posmaintrptid string, posreqresult int, posreqstatus int, parties parties.Parties, account string, accounttype int) *Message {
+	var m Message
+	m.SetPosMaintRptID(posmaintrptid)
+	m.SetPosReqResult(posreqresult)
+	m.SetPosReqStatus(posreqstatus)
+	m.SetParties(parties)
+	m.SetAccount(account)
+	m.SetAccountType(accounttype)
+	return &m
+}
 
 func (m *Message) SetPosMaintRptID(v string)             { m.PosMaintRptID = v }
 func (m *Message) SetPosReqID(v string)                  { m.PosReqID = &v }

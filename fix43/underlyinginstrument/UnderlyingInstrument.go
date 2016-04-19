@@ -1,5 +1,6 @@
 package underlyinginstrument
 
+//New returns an initialized UnderlyingInstrument instance
 func New() *UnderlyingInstrument {
 	var m UnderlyingInstrument
 	return &m
@@ -11,6 +12,12 @@ type NoUnderlyingSecurityAltID struct {
 	UnderlyingSecurityAltID *string `fix:"458"`
 	//UnderlyingSecurityAltIDSource is a non-required field for NoUnderlyingSecurityAltID.
 	UnderlyingSecurityAltIDSource *string `fix:"459"`
+}
+
+//NewNoUnderlyingSecurityAltID returns an initialized NoUnderlyingSecurityAltID instance
+func NewNoUnderlyingSecurityAltID() *NoUnderlyingSecurityAltID {
+	var m NoUnderlyingSecurityAltID
+	return &m
 }
 
 func (m *NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltID(v string) {

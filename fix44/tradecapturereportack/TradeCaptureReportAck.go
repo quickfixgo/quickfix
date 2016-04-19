@@ -42,6 +42,12 @@ type NoLegs struct {
 	LegLastPx *float64 `fix:"637"`
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
 func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
 func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
@@ -69,6 +75,12 @@ type NoAllocs struct {
 	NestedParties2 *nestedparties2.NestedParties2
 	//AllocQty is a non-required field for NoAllocs.
 	AllocQty *float64 `fix:"80"`
+}
+
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
 }
 
 func (m *NoAllocs) SetAllocAccount(v string)                          { m.AllocAccount = &v }
@@ -161,6 +173,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized TradeCaptureReportAck instance
+func New(tradereportid string, exectype string, instrument instrument.Instrument) *Message {
+	var m Message
+	m.SetTradeReportID(tradereportid)
+	m.SetExecType(exectype)
+	m.SetInstrument(instrument)
+	return &m
+}
 
 func (m *Message) SetTradeReportID(v string)                               { m.TradeReportID = v }
 func (m *Message) SetTradeReportTransType(v int)                           { m.TradeReportTransType = &v }

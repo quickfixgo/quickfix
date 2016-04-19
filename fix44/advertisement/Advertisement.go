@@ -17,12 +17,24 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in Advertisement
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -78,6 +90,17 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized Advertisement instance
+func New(advid string, advtranstype string, instrument instrument.Instrument, advside string, quantity float64) *Message {
+	var m Message
+	m.SetAdvId(advid)
+	m.SetAdvTransType(advtranstype)
+	m.SetInstrument(instrument)
+	m.SetAdvSide(advside)
+	m.SetQuantity(quantity)
+	return &m
+}
 
 func (m *Message) SetAdvId(v string)                     { m.AdvId = v }
 func (m *Message) SetAdvTransType(v string)              { m.AdvTransType = v }

@@ -19,6 +19,12 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in PositionReport
@@ -29,6 +35,14 @@ type NoUnderlyings struct {
 	UnderlyingSettlPrice float64 `fix:"732"`
 	//UnderlyingSettlPriceType is a required field for NoUnderlyings.
 	UnderlyingSettlPriceType int `fix:"733"`
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings(underlyingsettlprice float64, underlyingsettlpricetype int) *NoUnderlyings {
+	var m NoUnderlyings
+	m.SetUnderlyingSettlPrice(underlyingsettlprice)
+	m.SetUnderlyingSettlPriceType(underlyingsettlpricetype)
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -102,6 +116,23 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized PositionReport instance
+func New(posmaintrptid string, posreqresult int, clearingbusinessdate string, parties parties.Parties, account string, accounttype int, settlprice float64, settlpricetype int, priorsettlprice float64, positionqty positionqty.PositionQty, positionamountdata positionamountdata.PositionAmountData) *Message {
+	var m Message
+	m.SetPosMaintRptID(posmaintrptid)
+	m.SetPosReqResult(posreqresult)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	m.SetParties(parties)
+	m.SetAccount(account)
+	m.SetAccountType(accounttype)
+	m.SetSettlPrice(settlprice)
+	m.SetSettlPriceType(settlpricetype)
+	m.SetPriorSettlPrice(priorsettlprice)
+	m.SetPositionQty(positionqty)
+	m.SetPositionAmountData(positionamountdata)
+	return &m
+}
 
 func (m *Message) SetPosMaintRptID(v string)                { m.PosMaintRptID = v }
 func (m *Message) SetPosReqID(v string)                     { m.PosReqID = &v }

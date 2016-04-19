@@ -7,11 +7,11 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/quickfixgo/quickfix/config"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
@@ -41,11 +41,21 @@ func (suite *SQLStoreTestSuite) SetupTest() {
 		require.Nil(suite.T(), err)
 	}
 
+	// create settings
+	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
+	settings, err := ParseSettings(strings.NewReader(fmt.Sprintf(`
+[DEFAULT]
+SQLDriver=%s
+SQLDataSourceName=%s
+
+[SESSION]
+BeginString=%s
+SenderCompID=%s
+TargetCompID=%s`, sqlDriver, sqlDsn, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
+	require.Nil(suite.T(), err)
+
 	// create store
-	settings := NewSessionSettings()
-	settings.Set(config.SQLDataSourceName, sqlDsn)
-	settings.Set(config.SQLDriver, sqlDriver)
-	suite.msgStore, err = NewSQLStoreFactory(settings).Create(SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"})
+	suite.msgStore, err = NewSQLStoreFactory(settings).Create(sessionID)
 	require.Nil(suite.T(), err)
 }
 

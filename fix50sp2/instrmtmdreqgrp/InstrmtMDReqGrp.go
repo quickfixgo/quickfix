@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/undinstrmtgrp"
 )
 
+//New returns an initialized InstrmtMDReqGrp instance
 func New(norelatedsym []NoRelatedSym) *InstrmtMDReqGrp {
 	var m InstrmtMDReqGrp
 	m.SetNoRelatedSym(norelatedsym)
@@ -32,6 +33,13 @@ type NoRelatedSym struct {
 	MDEntrySize *float64 `fix:"271"`
 	//MDStreamID is a non-required field for NoRelatedSym.
 	MDStreamID *string `fix:"1500"`
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(instrument instrument.Instrument) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetInstrument(instrument)
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument)          { m.Instrument = v }

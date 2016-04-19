@@ -15,6 +15,12 @@ type NoMsgTypes struct {
 	MsgDirection *string `fix:"385"`
 }
 
+//NewNoMsgTypes returns an initialized NoMsgTypes instance
+func NewNoMsgTypes() *NoMsgTypes {
+	var m NoMsgTypes
+	return &m
+}
+
 func (m *NoMsgTypes) SetRefMsgType(v string)   { m.RefMsgType = &v }
 func (m *NoMsgTypes) SetMsgDirection(v string) { m.MsgDirection = &v }
 
@@ -41,6 +47,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized Logon instance
+func New(encryptmethod int, heartbtint int) *Message {
+	var m Message
+	m.SetEncryptMethod(encryptmethod)
+	m.SetHeartBtInt(heartbtint)
+	return &m
+}
 
 func (m *Message) SetEncryptMethod(v int)       { m.EncryptMethod = v }
 func (m *Message) SetHeartBtInt(v int)          { m.HeartBtInt = v }

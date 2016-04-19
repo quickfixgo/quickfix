@@ -24,6 +24,12 @@ type NoQuoteEntries struct {
 	NoLegs []NoLegs `fix:"555,omitempty"`
 }
 
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries() *NoQuoteEntries {
+	var m NoQuoteEntries
+	return &m
+}
+
 func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 func (m *NoQuoteEntries) SetFinancingDetails(v financingdetails.FinancingDetails) {
 	m.FinancingDetails = &v
@@ -37,6 +43,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -45,6 +57,12 @@ func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.Underlyin
 type NoLegs struct {
 	//InstrumentLeg is a non-required component for NoLegs.
 	InstrumentLeg *instrumentleg.InstrumentLeg
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
@@ -80,6 +98,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized QuoteCancel instance
+func New(quoteid string, quotecanceltype int) *Message {
+	var m Message
+	m.SetQuoteID(quoteid)
+	m.SetQuoteCancelType(quotecanceltype)
+	return &m
+}
 
 func (m *Message) SetQuoteReqID(v string)               { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)                  { m.QuoteID = v }

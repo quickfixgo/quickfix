@@ -1,5 +1,6 @@
 package altptyssubgrp
 
+//New returns an initialized AltPtysSubGrp instance
 func New() *AltPtysSubGrp {
 	var m AltPtysSubGrp
 	return &m
@@ -11,6 +12,12 @@ type NoPartyAltSubIDs struct {
 	PartyAltSubID *string `fix:"1520"`
 	//PartyAltSubIDType is a non-required field for NoPartyAltSubIDs.
 	PartyAltSubIDType *int `fix:"1521"`
+}
+
+//NewNoPartyAltSubIDs returns an initialized NoPartyAltSubIDs instance
+func NewNoPartyAltSubIDs() *NoPartyAltSubIDs {
+	var m NoPartyAltSubIDs
+	return &m
 }
 
 func (m *NoPartyAltSubIDs) SetPartyAltSubID(v string)  { m.PartyAltSubID = &v }

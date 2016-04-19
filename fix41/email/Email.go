@@ -38,6 +38,12 @@ type NoRelatedSym struct {
 	SecurityDesc *string `fix:"107"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
+}
+
 func (m *NoRelatedSym) SetRelatdSym(v string)         { m.RelatdSym = &v }
 func (m *NoRelatedSym) SetSymbolSfx(v string)         { m.SymbolSfx = &v }
 func (m *NoRelatedSym) SetSecurityID(v string)        { m.SecurityID = &v }
@@ -56,6 +62,13 @@ func (m *NoRelatedSym) SetSecurityDesc(v string)      { m.SecurityDesc = &v }
 type LinesOfText struct {
 	//Text is a required field for LinesOfText.
 	Text string `fix:"58"`
+}
+
+//NewLinesOfText returns an initialized LinesOfText instance
+func NewLinesOfText(text string) *LinesOfText {
+	var m LinesOfText
+	m.SetText(text)
+	return &m
 }
 
 func (m *LinesOfText) SetText(v string) { m.Text = v }
@@ -89,6 +102,16 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized Email instance
+func New(emailthreadid string, emailtype string, subject string, linesoftext []LinesOfText) *Message {
+	var m Message
+	m.SetEmailThreadID(emailthreadid)
+	m.SetEmailType(emailtype)
+	m.SetSubject(subject)
+	m.SetLinesOfText(linesoftext)
+	return &m
+}
 
 func (m *Message) SetEmailThreadID(v string)        { m.EmailThreadID = v }
 func (m *Message) SetEmailType(v string)            { m.EmailType = v }

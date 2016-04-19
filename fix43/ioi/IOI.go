@@ -16,6 +16,12 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
+//NewNoIOIQualifiers returns an initialized NoIOIQualifiers instance
+func NewNoIOIQualifiers() *NoIOIQualifiers {
+	var m NoIOIQualifiers
+	return &m
+}
+
 func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
 
 //NoRoutingIDs is a repeating group in IOI
@@ -24,6 +30,12 @@ type NoRoutingIDs struct {
 	RoutingType *int `fix:"216"`
 	//RoutingID is a non-required field for NoRoutingIDs.
 	RoutingID *string `fix:"217"`
+}
+
+//NewNoRoutingIDs returns an initialized NoRoutingIDs instance
+func NewNoRoutingIDs() *NoRoutingIDs {
+	var m NoRoutingIDs
+	return &m
 }
 
 func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }
@@ -82,6 +94,17 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized IOI instance
+func New(ioiid string, ioitranstype string, instrument instrument.Instrument, side string, ioiqty string) *Message {
+	var m Message
+	m.SetIOIid(ioiid)
+	m.SetIOITransType(ioitranstype)
+	m.SetInstrument(instrument)
+	m.SetSide(side)
+	m.SetIOIQty(ioiqty)
+	return &m
+}
 
 func (m *Message) SetIOIid(v string)                      { m.IOIid = v }
 func (m *Message) SetIOITransType(v string)               { m.IOITransType = v }

@@ -1,5 +1,6 @@
 package matchrules
 
+//New returns an initialized MatchRules instance
 func New() *MatchRules {
 	var m MatchRules
 	return &m
@@ -11,6 +12,12 @@ type NoMatchRules struct {
 	MatchAlgorithm *string `fix:"1142"`
 	//MatchType is a non-required field for NoMatchRules.
 	MatchType *string `fix:"574"`
+}
+
+//NewNoMatchRules returns an initialized NoMatchRules instance
+func NewNoMatchRules() *NoMatchRules {
+	var m NoMatchRules
+	return &m
 }
 
 func (m *NoMatchRules) SetMatchAlgorithm(v string) { m.MatchAlgorithm = &v }

@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//New returns an initialized QuotSetGrp instance
 func New(noquotesets []NoQuoteSets) *QuotSetGrp {
 	var m QuotSetGrp
 	m.SetNoQuoteSets(noquotesets)
@@ -26,6 +27,15 @@ type NoQuoteSets struct {
 	LastFragment *bool `fix:"893"`
 	//QuotEntryGrp is a required component for NoQuoteSets.
 	quotentrygrp.QuotEntryGrp
+}
+
+//NewNoQuoteSets returns an initialized NoQuoteSets instance
+func NewNoQuoteSets(quotesetid string, totnoquoteentries int, quotentrygrp quotentrygrp.QuotEntryGrp) *NoQuoteSets {
+	var m NoQuoteSets
+	m.SetQuoteSetID(quotesetid)
+	m.SetTotNoQuoteEntries(totnoquoteentries)
+	m.SetQuotEntryGrp(quotentrygrp)
+	return &m
 }
 
 func (m *NoQuoteSets) SetQuoteSetID(v string) { m.QuoteSetID = v }

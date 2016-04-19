@@ -14,6 +14,12 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
+//NewNoIOIQualifiers returns an initialized NoIOIQualifiers instance
+func NewNoIOIQualifiers() *NoIOIQualifiers {
+	var m NoIOIQualifiers
+	return &m
+}
+
 func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
 
 //Message is a IndicationofInterest FIX Message
@@ -81,6 +87,17 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized IndicationofInterest instance
+func New(ioiid string, ioitranstype string, symbol string, side string, ioishares string) *Message {
+	var m Message
+	m.SetIOIid(ioiid)
+	m.SetIOITransType(ioitranstype)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	m.SetIOIShares(ioishares)
+	return &m
+}
 
 func (m *Message) SetIOIid(v string)                      { m.IOIid = v }
 func (m *Message) SetIOITransType(v string)               { m.IOITransType = v }

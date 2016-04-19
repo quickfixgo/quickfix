@@ -74,6 +74,13 @@ type NoRelatedSym struct {
 	Currency *string `fix:"15"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(symbol string) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetSymbol(symbol)
+	return &m
+}
+
 func (m *NoRelatedSym) SetSymbol(v string)              { m.Symbol = v }
 func (m *NoRelatedSym) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
 func (m *NoRelatedSym) SetSecurityID(v string)          { m.SecurityID = &v }
@@ -119,6 +126,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized QuoteRequest instance
+func New(quotereqid string, norelatedsym []NoRelatedSym) *Message {
+	var m Message
+	m.SetQuoteReqID(quotereqid)
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
 
 func (m *Message) SetQuoteReqID(v string)           { m.QuoteReqID = v }
 func (m *Message) SetNoRelatedSym(v []NoRelatedSym) { m.NoRelatedSym = v }

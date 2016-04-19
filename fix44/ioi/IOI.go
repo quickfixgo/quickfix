@@ -23,6 +23,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -37,6 +43,12 @@ type NoLegs struct {
 	LegStipulations *legstipulations.LegStipulations
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
 func (m *NoLegs) SetLegIOIQty(v string)                                { m.LegIOIQty = &v }
 func (m *NoLegs) SetLegStipulations(v legstipulations.LegStipulations) { m.LegStipulations = &v }
@@ -47,6 +59,12 @@ type NoIOIQualifiers struct {
 	IOIQualifier *string `fix:"104"`
 }
 
+//NewNoIOIQualifiers returns an initialized NoIOIQualifiers instance
+func NewNoIOIQualifiers() *NoIOIQualifiers {
+	var m NoIOIQualifiers
+	return &m
+}
+
 func (m *NoIOIQualifiers) SetIOIQualifier(v string) { m.IOIQualifier = &v }
 
 //NoRoutingIDs is a repeating group in IOI
@@ -55,6 +73,12 @@ type NoRoutingIDs struct {
 	RoutingType *int `fix:"216"`
 	//RoutingID is a non-required field for NoRoutingIDs.
 	RoutingID *string `fix:"217"`
+}
+
+//NewNoRoutingIDs returns an initialized NoRoutingIDs instance
+func NewNoRoutingIDs() *NoRoutingIDs {
+	var m NoRoutingIDs
+	return &m
 }
 
 func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }
@@ -123,6 +147,17 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized IOI instance
+func New(ioiid string, ioitranstype string, instrument instrument.Instrument, side string, ioiqty string) *Message {
+	var m Message
+	m.SetIOIID(ioiid)
+	m.SetIOITransType(ioitranstype)
+	m.SetInstrument(instrument)
+	m.SetSide(side)
+	m.SetIOIQty(ioiqty)
+	return &m
+}
 
 func (m *Message) SetIOIID(v string)                                       { m.IOIID = v }
 func (m *Message) SetIOITransType(v string)                                { m.IOITransType = v }

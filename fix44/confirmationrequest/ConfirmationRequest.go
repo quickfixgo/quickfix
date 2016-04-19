@@ -31,6 +31,12 @@ type NoOrders struct {
 	OrderBookingQty *float64 `fix:"800"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders() *NoOrders {
+	var m NoOrders
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)                               { m.ClOrdID = &v }
 func (m *NoOrders) SetOrderID(v string)                               { m.OrderID = &v }
 func (m *NoOrders) SetSecondaryOrderID(v string)                      { m.SecondaryOrderID = &v }
@@ -76,6 +82,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized ConfirmationRequest instance
+func New(confirmreqid string, confirmtype int, transacttime time.Time) *Message {
+	var m Message
+	m.SetConfirmReqID(confirmreqid)
+	m.SetConfirmType(confirmtype)
+	m.SetTransactTime(transacttime)
+	return &m
+}
 
 func (m *Message) SetConfirmReqID(v string)      { m.ConfirmReqID = v }
 func (m *Message) SetConfirmType(v int)          { m.ConfirmType = v }

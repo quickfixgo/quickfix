@@ -36,6 +36,12 @@ type NoContraBrokers struct {
 	ContraLegRefID *string `fix:"655"`
 }
 
+//NewNoContraBrokers returns an initialized NoContraBrokers instance
+func NewNoContraBrokers() *NoContraBrokers {
+	var m NoContraBrokers
+	return &m
+}
+
 func (m *NoContraBrokers) SetContraBroker(v string)       { m.ContraBroker = &v }
 func (m *NoContraBrokers) SetContraTrader(v string)       { m.ContraTrader = &v }
 func (m *NoContraBrokers) SetContraTradeQty(v float64)    { m.ContraTradeQty = &v }
@@ -46,6 +52,12 @@ func (m *NoContraBrokers) SetContraLegRefID(v string)     { m.ContraLegRefID = &
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -60,6 +72,12 @@ type NoContAmts struct {
 	ContAmtValue *float64 `fix:"520"`
 	//ContAmtCurr is a non-required field for NoContAmts.
 	ContAmtCurr *string `fix:"521"`
+}
+
+//NewNoContAmts returns an initialized NoContAmts instance
+func NewNoContAmts() *NoContAmts {
+	var m NoContAmts
+	return &m
 }
 
 func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }
@@ -94,6 +112,12 @@ type NoLegs struct {
 	LegLastPx *float64 `fix:"637"`
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
 func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
 func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
@@ -117,6 +141,12 @@ type NoMiscFees struct {
 	MiscFeeType *string `fix:"139"`
 	//MiscFeeBasis is a non-required field for NoMiscFees.
 	MiscFeeBasis *int `fix:"891"`
+}
+
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
 }
 
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
@@ -409,6 +439,21 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized ExecutionReport instance
+func New(orderid string, execid string, exectype string, ordstatus string, instrument instrument.Instrument, side string, leavesqty float64, cumqty float64, avgpx float64) *Message {
+	var m Message
+	m.SetOrderID(orderid)
+	m.SetExecID(execid)
+	m.SetExecType(exectype)
+	m.SetOrdStatus(ordstatus)
+	m.SetInstrument(instrument)
+	m.SetSide(side)
+	m.SetLeavesQty(leavesqty)
+	m.SetCumQty(cumqty)
+	m.SetAvgPx(avgpx)
+	return &m
+}
 
 func (m *Message) SetOrderID(v string)                                     { m.OrderID = v }
 func (m *Message) SetSecondaryOrderID(v string)                            { m.SecondaryOrderID = &v }

@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/nstdptys2subgrp"
 )
 
+//New returns an initialized NestedParties2 instance
 func New() *NestedParties2 {
 	var m NestedParties2
 	return &m
@@ -19,6 +20,12 @@ type NoNested2PartyIDs struct {
 	Nested2PartyRole *int `fix:"759"`
 	//NstdPtys2SubGrp is a non-required component for NoNested2PartyIDs.
 	NstdPtys2SubGrp *nstdptys2subgrp.NstdPtys2SubGrp
+}
+
+//NewNoNested2PartyIDs returns an initialized NoNested2PartyIDs instance
+func NewNoNested2PartyIDs() *NoNested2PartyIDs {
+	var m NoNested2PartyIDs
+	return &m
 }
 
 func (m *NoNested2PartyIDs) SetNested2PartyID(v string)       { m.Nested2PartyID = &v }

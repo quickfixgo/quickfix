@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+//New returns an initialized MDFullGrp instance
 func New(nomdentries []NoMDEntries) *MDFullGrp {
 	var m MDFullGrp
 	m.SetNoMDEntries(nomdentries)
@@ -113,6 +114,13 @@ type NoMDEntries struct {
 	SecondaryOrderID *string `fix:"198"`
 	//OrdType is a non-required field for NoMDEntries.
 	OrdType *string `fix:"40"`
+}
+
+//NewNoMDEntries returns an initialized NoMDEntries instance
+func NewNoMDEntries(mdentrytype string) *NoMDEntries {
+	var m NoMDEntries
+	m.SetMDEntryType(mdentrytype)
+	return &m
 }
 
 func (m *NoMDEntries) SetMDEntryType(v string)           { m.MDEntryType = v }

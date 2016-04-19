@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix44/settlparties"
 )
 
+//New returns an initialized SettlInstructionsData instance
 func New() *SettlInstructionsData {
 	var m SettlInstructionsData
 	return &m
@@ -17,6 +18,12 @@ type NoDlvyInst struct {
 	DlvyInstType *string `fix:"787"`
 	//SettlParties is a non-required component for NoDlvyInst.
 	SettlParties *settlparties.SettlParties
+}
+
+//NewNoDlvyInst returns an initialized NoDlvyInst instance
+func NewNoDlvyInst() *NoDlvyInst {
+	var m NoDlvyInst
+	return &m
 }
 
 func (m *NoDlvyInst) SetSettlInstSource(v string)                 { m.SettlInstSource = &v }

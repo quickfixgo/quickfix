@@ -382,6 +382,20 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ExecutionReport instance
+func New(orderid string, execid string, exectype string, ordstatus string, instrument instrument.Instrument, side string, leavesqty float64, cumqty float64) *Message {
+	var m Message
+	m.SetOrderID(orderid)
+	m.SetExecID(execid)
+	m.SetExecType(exectype)
+	m.SetOrdStatus(ordstatus)
+	m.SetInstrument(instrument)
+	m.SetSide(side)
+	m.SetLeavesQty(leavesqty)
+	m.SetCumQty(cumqty)
+	return &m
+}
+
 func (m *Message) SetOrderID(v string)                                     { m.OrderID = v }
 func (m *Message) SetSecondaryOrderID(v string)                            { m.SecondaryOrderID = &v }
 func (m *Message) SetSecondaryClOrdID(v string)                            { m.SecondaryClOrdID = &v }

@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//New returns an initialized QuotEntryGrp instance
 func New(noquoteentries []NoQuoteEntries) *QuotEntryGrp {
 	var m QuotEntryGrp
 	m.SetNoQuoteEntries(noquoteentries)
@@ -72,6 +73,13 @@ type NoQuoteEntries struct {
 	OrderCapacity *string `fix:"528"`
 	//OrderRestrictions is a non-required field for NoQuoteEntries.
 	OrderRestrictions *string `fix:"529"`
+}
+
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries(quoteentryid string) *NoQuoteEntries {
+	var m NoQuoteEntries
+	m.SetQuoteEntryID(quoteentryid)
+	return &m
 }
 
 func (m *NoQuoteEntries) SetQuoteEntryID(v string)                       { m.QuoteEntryID = v }

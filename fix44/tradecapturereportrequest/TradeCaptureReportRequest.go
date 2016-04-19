@@ -20,6 +20,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -30,6 +36,12 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoDates is a repeating group in TradeCaptureReportRequest
@@ -38,6 +50,12 @@ type NoDates struct {
 	TradeDate *string `fix:"75"`
 	//TransactTime is a non-required field for NoDates.
 	TransactTime *time.Time `fix:"60"`
+}
+
+//NewNoDates returns an initialized NoDates instance
+func NewNoDates() *NoDates {
+	var m NoDates
+	return &m
 }
 
 func (m *NoDates) SetTradeDate(v string)       { m.TradeDate = &v }
@@ -124,6 +142,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized TradeCaptureReportRequest instance
+func New(traderequestid string, traderequesttype int) *Message {
+	var m Message
+	m.SetTradeRequestID(traderequestid)
+	m.SetTradeRequestType(traderequesttype)
+	return &m
+}
 
 func (m *Message) SetTradeRequestID(v string)            { m.TradeRequestID = v }
 func (m *Message) SetTradeRequestType(v int)             { m.TradeRequestType = v }

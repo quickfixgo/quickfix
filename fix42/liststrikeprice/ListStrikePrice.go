@@ -65,6 +65,14 @@ type NoStrikes struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoStrikes returns an initialized NoStrikes instance
+func NewNoStrikes(symbol string, price float64) *NoStrikes {
+	var m NoStrikes
+	m.SetSymbol(symbol)
+	m.SetPrice(price)
+	return &m
+}
+
 func (m *NoStrikes) SetSymbol(v string)              { m.Symbol = v }
 func (m *NoStrikes) SetSymbolSfx(v string)           { m.SymbolSfx = &v }
 func (m *NoStrikes) SetSecurityID(v string)          { m.SecurityID = &v }
@@ -108,6 +116,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized ListStrikePrice instance
+func New(listid string, totnostrikes int, nostrikes []NoStrikes) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetTotNoStrikes(totnostrikes)
+	m.SetNoStrikes(nostrikes)
+	return &m
+}
 
 func (m *Message) SetListID(v string)         { m.ListID = v }
 func (m *Message) SetTotNoStrikes(v int)      { m.TotNoStrikes = v }

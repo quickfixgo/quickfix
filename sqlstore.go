@@ -2,13 +2,14 @@ package quickfix
 
 import (
 	"database/sql"
+	"fmt"
 	"time"
 
 	"github.com/quickfixgo/quickfix/config"
 )
 
 type sqlStoreFactory struct {
-	settings *SessionSettings
+	settings *Settings
 }
 
 type sqlStore struct {
@@ -20,17 +21,21 @@ type sqlStore struct {
 }
 
 // NewSQLStoreFactory returns a sql-based implementation of MessageStoreFactory
-func NewSQLStoreFactory(settings *SessionSettings) MessageStoreFactory {
+func NewSQLStoreFactory(settings *Settings) MessageStoreFactory {
 	return sqlStoreFactory{settings: settings}
 }
 
 // Create creates a new SQLStore implementation of the MessageStore interface
 func (f sqlStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
-	sqlDriver, err := f.settings.Setting(config.SQLDriver)
+	sessionSettings, ok := f.settings.SessionSettings()[sessionID]
+	if !ok {
+		return nil, fmt.Errorf("unknown session: %v", sessionID)
+	}
+	sqlDriver, err := sessionSettings.Setting(config.SQLDriver)
 	if err != nil {
 		return nil, err
 	}
-	sqlDataSourceName, err := f.settings.Setting(config.SQLDataSourceName)
+	sqlDataSourceName, err := sessionSettings.Setting(config.SQLDataSourceName)
 	if err != nil {
 		return nil, err
 	}

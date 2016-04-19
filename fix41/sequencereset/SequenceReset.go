@@ -21,6 +21,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized SequenceReset instance
+func New(newseqno int) *Message {
+	var m Message
+	m.SetNewSeqNo(newseqno)
+	return &m
+}
+
 func (m *Message) SetGapFillFlag(v string) { m.GapFillFlag = &v }
 func (m *Message) SetNewSeqNo(v int)       { m.NewSeqNo = v }
 

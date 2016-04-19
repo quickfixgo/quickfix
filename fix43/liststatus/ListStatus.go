@@ -36,6 +36,18 @@ type NoOrders struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders(clordid string, cumqty float64, ordstatus string, leavesqty float64, cxlqty float64, avgpx float64) *NoOrders {
+	var m NoOrders
+	m.SetClOrdID(clordid)
+	m.SetCumQty(cumqty)
+	m.SetOrdStatus(ordstatus)
+	m.SetLeavesQty(leavesqty)
+	m.SetCxlQty(cxlqty)
+	m.SetAvgPx(avgpx)
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)          { m.ClOrdID = v }
 func (m *NoOrders) SetSecondaryClOrdID(v string) { m.SecondaryClOrdID = &v }
 func (m *NoOrders) SetCumQty(v float64)          { m.CumQty = v }
@@ -80,6 +92,19 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized ListStatus instance
+func New(listid string, liststatustype int, norpts int, listorderstatus int, rptseq int, totnoorders int, noorders []NoOrders) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetListStatusType(liststatustype)
+	m.SetNoRpts(norpts)
+	m.SetListOrderStatus(listorderstatus)
+	m.SetRptSeq(rptseq)
+	m.SetTotNoOrders(totnoorders)
+	m.SetNoOrders(noorders)
+	return &m
+}
 
 func (m *Message) SetListID(v string)                { m.ListID = v }
 func (m *Message) SetListStatusType(v int)           { m.ListStatusType = v }

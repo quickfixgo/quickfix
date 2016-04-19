@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/nestedparties"
 )
 
+//New returns an initialized LegOrdGrp instance
 func New(nolegs []NoLegs) *LegOrdGrp {
 	var m LegOrdGrp
 	m.SetNoLegs(nolegs)
@@ -51,6 +52,12 @@ type NoLegs struct {
 	LegExecInst *string `fix:"1384"`
 	//LegSettlCurrency is a non-required field for NoLegs.
 	LegSettlCurrency *string `fix:"675"`
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }

@@ -99,6 +99,13 @@ type NoMDEntries struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoMDEntries returns an initialized NoMDEntries instance
+func NewNoMDEntries(mdupdateaction string) *NoMDEntries {
+	var m NoMDEntries
+	m.SetMDUpdateAction(mdupdateaction)
+	return &m
+}
+
 func (m *NoMDEntries) SetMDUpdateAction(v string)            { m.MDUpdateAction = v }
 func (m *NoMDEntries) SetDeleteReason(v string)              { m.DeleteReason = &v }
 func (m *NoMDEntries) SetMDEntryType(v string)               { m.MDEntryType = &v }
@@ -156,6 +163,13 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized MarketDataIncrementalRefresh instance
+func New(nomdentries []NoMDEntries) *Message {
+	var m Message
+	m.SetNoMDEntries(nomdentries)
+	return &m
+}
 
 func (m *Message) SetMDReqID(v string)            { m.MDReqID = &v }
 func (m *Message) SetNoMDEntries(v []NoMDEntries) { m.NoMDEntries = v }

@@ -30,6 +30,13 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized MarketDataRequestReject instance
+func New(mdreqid string) *Message {
+	var m Message
+	m.SetMDReqID(mdreqid)
+	return &m
+}
+
 func (m *Message) SetMDReqID(v string)                { m.MDReqID = v }
 func (m *Message) SetMDReqRejReason(v string)         { m.MDReqRejReason = &v }
 func (m *Message) SetMDRjctGrp(v mdrjctgrp.MDRjctGrp) { m.MDRjctGrp = &v }

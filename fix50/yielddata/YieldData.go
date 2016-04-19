@@ -1,5 +1,6 @@
 package yielddata
 
+//New returns an initialized YieldData instance
 func New() *YieldData {
 	var m YieldData
 	return &m

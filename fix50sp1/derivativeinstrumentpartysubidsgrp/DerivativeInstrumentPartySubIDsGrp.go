@@ -1,5 +1,6 @@
 package derivativeinstrumentpartysubidsgrp
 
+//New returns an initialized DerivativeInstrumentPartySubIDsGrp instance
 func New() *DerivativeInstrumentPartySubIDsGrp {
 	var m DerivativeInstrumentPartySubIDsGrp
 	return &m
@@ -11,6 +12,12 @@ type NoDerivativeInstrumentPartySubIDs struct {
 	DerivativeInstrumentPartySubID *string `fix:"1297"`
 	//DerivativeInstrumentPartySubIDType is a non-required field for NoDerivativeInstrumentPartySubIDs.
 	DerivativeInstrumentPartySubIDType *int `fix:"1298"`
+}
+
+//NewNoDerivativeInstrumentPartySubIDs returns an initialized NoDerivativeInstrumentPartySubIDs instance
+func NewNoDerivativeInstrumentPartySubIDs() *NoDerivativeInstrumentPartySubIDs {
+	var m NoDerivativeInstrumentPartySubIDs
+	return &m
 }
 
 func (m *NoDerivativeInstrumentPartySubIDs) SetDerivativeInstrumentPartySubID(v string) {

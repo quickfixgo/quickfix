@@ -78,6 +78,15 @@ type NoSides struct {
 	SideComplianceID *string `fix:"659"`
 }
 
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string, clordid string, orderqtydata orderqtydata.OrderQtyData) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	m.SetClOrdID(clordid)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
+}
+
 func (m *NoSides) SetSide(v string)                                  { m.Side = v }
 func (m *NoSides) SetClOrdID(v string)                               { m.ClOrdID = v }
 func (m *NoSides) SetSecondaryClOrdID(v string)                      { m.SecondaryClOrdID = &v }
@@ -120,6 +129,12 @@ type NoAllocs struct {
 	AllocQty *float64 `fix:"80"`
 }
 
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
+}
+
 func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }
 func (m *NoAllocs) SetIndividualAllocID(v string)                  { m.IndividualAllocID = &v }
 func (m *NoAllocs) SetNestedParties(v nestedparties.NestedParties) { m.NestedParties = &v }
@@ -131,6 +146,12 @@ type NoTradingSessions struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
@@ -233,6 +254,20 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized NewOrderCross instance
+func New(crossid string, crosstype int, crossprioritization int, nosides []NoSides, instrument instrument.Instrument, handlinst string, transacttime time.Time, ordtype string) *Message {
+	var m Message
+	m.SetCrossID(crossid)
+	m.SetCrossType(crosstype)
+	m.SetCrossPrioritization(crossprioritization)
+	m.SetNoSides(nosides)
+	m.SetInstrument(instrument)
+	m.SetHandlInst(handlinst)
+	m.SetTransactTime(transacttime)
+	m.SetOrdType(ordtype)
+	return &m
+}
 
 func (m *Message) SetCrossID(v string)                         { m.CrossID = v }
 func (m *Message) SetCrossType(v int)                          { m.CrossType = v }

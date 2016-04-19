@@ -30,6 +30,12 @@ type NoRelatedSym struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
+}
+
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 func (m *NoRelatedSym) SetCurrency(v string)                  { m.Currency = &v }
 func (m *NoRelatedSym) SetNoLegs(v []NoLegs)                  { m.NoLegs = v }
@@ -45,6 +51,12 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 	//LegCurrency is a non-required field for NoLegs.
 	LegCurrency *string `fix:"556"`
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
@@ -71,6 +83,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized DerivativeSecurityList instance
+func New(securityreqid string, securityresponseid string, securityrequestresult int) *Message {
+	var m Message
+	m.SetSecurityReqID(securityreqid)
+	m.SetSecurityResponseID(securityresponseid)
+	m.SetSecurityRequestResult(securityrequestresult)
+	return &m
+}
 
 func (m *Message) SetSecurityReqID(v string)      { m.SecurityReqID = v }
 func (m *Message) SetSecurityResponseID(v string) { m.SecurityResponseID = v }

@@ -20,6 +20,12 @@ type NoAffectedOrders struct {
 	AffectedSecondaryOrderID *string `fix:"536"`
 }
 
+//NewNoAffectedOrders returns an initialized NoAffectedOrders instance
+func NewNoAffectedOrders() *NoAffectedOrders {
+	var m NoAffectedOrders
+	return &m
+}
+
 func (m *NoAffectedOrders) SetOrigClOrdID(v string)              { m.OrigClOrdID = &v }
 func (m *NoAffectedOrders) SetAffectedOrderID(v string)          { m.AffectedOrderID = &v }
 func (m *NoAffectedOrders) SetAffectedSecondaryOrderID(v string) { m.AffectedSecondaryOrderID = &v }
@@ -69,6 +75,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized OrderMassCancelReport instance
+func New(orderid string, masscancelrequesttype string, masscancelresponse string) *Message {
+	var m Message
+	m.SetOrderID(orderid)
+	m.SetMassCancelRequestType(masscancelrequesttype)
+	m.SetMassCancelResponse(masscancelresponse)
+	return &m
+}
 
 func (m *Message) SetClOrdID(v string)                      { m.ClOrdID = &v }
 func (m *Message) SetSecondaryClOrdID(v string)             { m.SecondaryClOrdID = &v }

@@ -30,6 +30,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ApplicationMessageRequest instance
+func New(applreqid string, applreqtype int) *Message {
+	var m Message
+	m.SetApplReqID(applreqid)
+	m.SetApplReqType(applreqtype)
+	return &m
+}
+
 func (m *Message) SetApplReqID(v string)                                   { m.ApplReqID = v }
 func (m *Message) SetApplReqType(v int)                                    { m.ApplReqType = v }
 func (m *Message) SetApplIDRequestGrp(v applidrequestgrp.ApplIDRequestGrp) { m.ApplIDRequestGrp = &v }

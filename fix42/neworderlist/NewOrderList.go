@@ -160,6 +160,16 @@ type NoOrders struct {
 	ClearingAccount *string `fix:"440"`
 }
 
+//NewNoOrders returns an initialized NoOrders instance
+func NewNoOrders(clordid string, listseqno int, symbol string, side string) *NoOrders {
+	var m NoOrders
+	m.SetClOrdID(clordid)
+	m.SetListSeqNo(listseqno)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	return &m
+}
+
 func (m *NoOrders) SetClOrdID(v string)                        { m.ClOrdID = v }
 func (m *NoOrders) SetListSeqNo(v int)                         { m.ListSeqNo = v }
 func (m *NoOrders) SetSettlInstMode(v string)                  { m.SettlInstMode = &v }
@@ -243,6 +253,12 @@ type NoAllocs struct {
 	AllocShares *float64 `fix:"80"`
 }
 
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
+}
+
 func (m *NoAllocs) SetAllocAccount(v string) { m.AllocAccount = &v }
 func (m *NoAllocs) SetAllocShares(v float64) { m.AllocShares = &v }
 
@@ -250,6 +266,12 @@ func (m *NoAllocs) SetAllocShares(v float64) { m.AllocShares = &v }
 type NoTradingSessions struct {
 	//TradingSessionID is a non-required field for NoTradingSessions.
 	TradingSessionID *string `fix:"336"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string) { m.TradingSessionID = &v }
@@ -287,6 +309,16 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized NewOrderList instance
+func New(listid string, bidtype int, totnoorders int, noorders []NoOrders) *Message {
+	var m Message
+	m.SetListID(listid)
+	m.SetBidType(bidtype)
+	m.SetTotNoOrders(totnoorders)
+	m.SetNoOrders(noorders)
+	return &m
+}
 
 func (m *Message) SetListID(v string)              { m.ListID = v }
 func (m *Message) SetBidID(v string)               { m.BidID = &v }

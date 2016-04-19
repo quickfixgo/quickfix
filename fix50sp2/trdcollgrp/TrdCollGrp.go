@@ -1,5 +1,6 @@
 package trdcollgrp
 
+//New returns an initialized TrdCollGrp instance
 func New() *TrdCollGrp {
 	var m TrdCollGrp
 	return &m
@@ -11,6 +12,12 @@ type NoTrades struct {
 	TradeReportID *string `fix:"571"`
 	//SecondaryTradeReportID is a non-required field for NoTrades.
 	SecondaryTradeReportID *string `fix:"818"`
+}
+
+//NewNoTrades returns an initialized NoTrades instance
+func NewNoTrades() *NoTrades {
+	var m NoTrades
+	return &m
 }
 
 func (m *NoTrades) SetTradeReportID(v string)          { m.TradeReportID = &v }

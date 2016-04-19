@@ -34,6 +34,12 @@ type NoBidDescriptors struct {
 	ValueOfFutures *float64 `fix:"408"`
 }
 
+//NewNoBidDescriptors returns an initialized NoBidDescriptors instance
+func NewNoBidDescriptors() *NoBidDescriptors {
+	var m NoBidDescriptors
+	return &m
+}
+
 func (m *NoBidDescriptors) SetBidDescriptorType(v int)      { m.BidDescriptorType = &v }
 func (m *NoBidDescriptors) SetBidDescriptor(v string)       { m.BidDescriptor = &v }
 func (m *NoBidDescriptors) SetSideValueInd(v int)           { m.SideValueInd = &v }
@@ -66,6 +72,12 @@ type NoBidComponents struct {
 	Account *string `fix:"1"`
 	//AcctIDSource is a non-required field for NoBidComponents.
 	AcctIDSource *int `fix:"660"`
+}
+
+//NewNoBidComponents returns an initialized NoBidComponents instance
+func NewNoBidComponents() *NoBidComponents {
+	var m NoBidComponents
+	return &m
 }
 
 func (m *NoBidComponents) SetListID(v string)              { m.ListID = &v }
@@ -145,6 +157,18 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized BidRequest instance
+func New(clientbidid string, bidrequesttranstype string, totnorelatedsym int, bidtype int, bidtradetype string, basispxtype string) *Message {
+	var m Message
+	m.SetClientBidID(clientbidid)
+	m.SetBidRequestTransType(bidrequesttranstype)
+	m.SetTotNoRelatedSym(totnorelatedsym)
+	m.SetBidType(bidtype)
+	m.SetBidTradeType(bidtradetype)
+	m.SetBasisPxType(basispxtype)
+	return &m
+}
 
 func (m *Message) SetBidID(v string)                        { m.BidID = &v }
 func (m *Message) SetClientBidID(v string)                  { m.ClientBidID = v }

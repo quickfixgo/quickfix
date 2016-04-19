@@ -40,6 +40,14 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized OrderMassStatusRequest instance
+func New(massstatusreqid string, massstatusreqtype int) *Message {
+	var m Message
+	m.SetMassStatusReqID(massstatusreqid)
+	m.SetMassStatusReqType(massstatusreqtype)
+	return &m
+}
+
 func (m *Message) SetMassStatusReqID(v string)           { m.MassStatusReqID = v }
 func (m *Message) SetMassStatusReqType(v int)            { m.MassStatusReqType = v }
 func (m *Message) SetParties(v parties.Parties)          { m.Parties = &v }

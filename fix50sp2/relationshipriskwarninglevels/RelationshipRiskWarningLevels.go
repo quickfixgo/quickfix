@@ -1,5 +1,6 @@
 package relationshipriskwarninglevels
 
+//New returns an initialized RelationshipRiskWarningLevels instance
 func New() *RelationshipRiskWarningLevels {
 	var m RelationshipRiskWarningLevels
 	return &m
@@ -11,6 +12,12 @@ type NoRelationshipRiskWarningLevels struct {
 	RelationshipRiskWarningLevelPercent *float64 `fix:"1614"`
 	//RelationshipRiskWarningLevelName is a non-required field for NoRelationshipRiskWarningLevels.
 	RelationshipRiskWarningLevelName *string `fix:"1615"`
+}
+
+//NewNoRelationshipRiskWarningLevels returns an initialized NoRelationshipRiskWarningLevels instance
+func NewNoRelationshipRiskWarningLevels() *NoRelationshipRiskWarningLevels {
+	var m NoRelationshipRiskWarningLevels
+	return &m
 }
 
 func (m *NoRelationshipRiskWarningLevels) SetRelationshipRiskWarningLevelPercent(v float64) {

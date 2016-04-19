@@ -1,5 +1,6 @@
 package expirationqty
 
+//New returns an initialized ExpirationQty instance
 func New() *ExpirationQty {
 	var m ExpirationQty
 	return &m
@@ -11,6 +12,12 @@ type NoExpiration struct {
 	ExpirationQtyType *int `fix:"982"`
 	//ExpQty is a non-required field for NoExpiration.
 	ExpQty *float64 `fix:"983"`
+}
+
+//NewNoExpiration returns an initialized NoExpiration instance
+func NewNoExpiration() *NoExpiration {
+	var m NoExpiration
+	return &m
 }
 
 func (m *NoExpiration) SetExpirationQtyType(v int) { m.ExpirationQtyType = &v }

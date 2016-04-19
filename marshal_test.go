@@ -2,10 +2,11 @@ package quickfix_test
 
 import (
 	"bytes"
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/field"
 	"testing"
 	"time"
+
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
 )
 
 func TestMarshal_FIXMsgType(t *testing.T) {
@@ -183,10 +184,18 @@ func TestMarshal_RepeatingGroups(t *testing.T) {
 		IntField3 int `fix:"3"`
 	}
 
+	type GroupComponent1 struct {
+	}
+
+	type GroupComponent2 struct {
+	}
+
 	type Group2 struct {
 		IntField1 int `fix:"1"`
 		IntField2 int `fix:"2, omitempty"`
 		AnonymousGroup
+		GroupComponent1
+		OptionalComponent *GroupComponent2
 	}
 
 	type Message struct {

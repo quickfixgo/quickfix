@@ -100,6 +100,14 @@ type NoSides struct {
 	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
 }
 
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string, orderid string) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	m.SetOrderID(orderid)
+	return &m
+}
+
 func (m *NoSides) SetSide(v string)                                     { m.Side = v }
 func (m *NoSides) SetOrderID(v string)                                  { m.OrderID = v }
 func (m *NoSides) SetSecondaryOrderID(v string)                         { m.SecondaryOrderID = &v }
@@ -149,6 +157,12 @@ type NoClearingInstructions struct {
 	ClearingInstruction *int `fix:"577"`
 }
 
+//NewNoClearingInstructions returns an initialized NoClearingInstructions instance
+func NewNoClearingInstructions() *NoClearingInstructions {
+	var m NoClearingInstructions
+	return &m
+}
+
 func (m *NoClearingInstructions) SetClearingInstruction(v int) { m.ClearingInstruction = &v }
 
 //NoContAmts is a repeating group in NoSides
@@ -159,6 +173,12 @@ type NoContAmts struct {
 	ContAmtValue *float64 `fix:"520"`
 	//ContAmtCurr is a non-required field for NoContAmts.
 	ContAmtCurr *string `fix:"521"`
+}
+
+//NewNoContAmts returns an initialized NoContAmts instance
+func NewNoContAmts() *NoContAmts {
+	var m NoContAmts
+	return &m
 }
 
 func (m *NoContAmts) SetContAmtType(v int)      { m.ContAmtType = &v }
@@ -173,6 +193,12 @@ type NoMiscFees struct {
 	MiscFeeCurr *string `fix:"138"`
 	//MiscFeeType is a non-required field for NoMiscFees.
 	MiscFeeType *string `fix:"139"`
+}
+
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
 }
 
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
@@ -234,6 +260,21 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized TradeCaptureReport instance
+func New(tradereportid string, exectype string, previouslyreported bool, instrument instrument.Instrument, lastqty float64, lastpx float64, tradedate string, transacttime time.Time, nosides []NoSides) *Message {
+	var m Message
+	m.SetTradeReportID(tradereportid)
+	m.SetExecType(exectype)
+	m.SetPreviouslyReported(previouslyreported)
+	m.SetInstrument(instrument)
+	m.SetLastQty(lastqty)
+	m.SetLastPx(lastpx)
+	m.SetTradeDate(tradedate)
+	m.SetTransactTime(transacttime)
+	m.SetNoSides(nosides)
+	return &m
+}
 
 func (m *Message) SetTradeReportID(v string)                   { m.TradeReportID = v }
 func (m *Message) SetTradeReportTransType(v string)            { m.TradeReportTransType = &v }

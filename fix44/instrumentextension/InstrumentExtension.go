@@ -1,5 +1,6 @@
 package instrumentextension
 
+//New returns an initialized InstrumentExtension instance
 func New() *InstrumentExtension {
 	var m InstrumentExtension
 	return &m
@@ -11,6 +12,12 @@ type NoInstrAttrib struct {
 	InstrAttribType *int `fix:"871"`
 	//InstrAttribValue is a non-required field for NoInstrAttrib.
 	InstrAttribValue *string `fix:"872"`
+}
+
+//NewNoInstrAttrib returns an initialized NoInstrAttrib instance
+func NewNoInstrAttrib() *NoInstrAttrib {
+	var m NoInstrAttrib
+	return &m
 }
 
 func (m *NoInstrAttrib) SetInstrAttribType(v int)     { m.InstrAttribType = &v }

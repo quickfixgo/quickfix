@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized SecTypesGrp instance
 func New() *SecTypesGrp {
 	var m SecTypesGrp
 	return &m
@@ -21,6 +22,12 @@ type NoSecurityTypes struct {
 	CFICode *string `fix:"461"`
 	//TransactTime is a non-required field for NoSecurityTypes.
 	TransactTime *time.Time `fix:"60"`
+}
+
+//NewNoSecurityTypes returns an initialized NoSecurityTypes instance
+func NewNoSecurityTypes() *NoSecurityTypes {
+	var m NoSecurityTypes
+	return &m
 }
 
 func (m *NoSecurityTypes) SetSecurityType(v string)    { m.SecurityType = &v }

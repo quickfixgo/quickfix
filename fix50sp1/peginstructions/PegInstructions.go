@@ -1,5 +1,6 @@
 package peginstructions
 
+//New returns an initialized PegInstructions instance
 func New() *PegInstructions {
 	var m PegInstructions
 	return &m

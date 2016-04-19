@@ -18,6 +18,12 @@ type NoDates struct {
 	TransactTime *time.Time `fix:"60"`
 }
 
+//NewNoDates returns an initialized NoDates instance
+func NewNoDates() *NoDates {
+	var m NoDates
+	return &m
+}
+
 func (m *NoDates) SetTradeDate(v string)       { m.TradeDate = &v }
 func (m *NoDates) SetTransactTime(v time.Time) { m.TransactTime = &v }
 
@@ -62,6 +68,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized TradeCaptureReportRequest instance
+func New(traderequestid string, traderequesttype int) *Message {
+	var m Message
+	m.SetTradeRequestID(traderequestid)
+	m.SetTradeRequestType(traderequesttype)
+	return &m
+}
 
 func (m *Message) SetTradeRequestID(v string)            { m.TradeRequestID = v }
 func (m *Message) SetTradeRequestType(v int)             { m.TradeRequestType = v }

@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/nestedparties"
 )
 
+//New returns an initialized LegQuotStatGrp instance
 func New() *LegQuotStatGrp {
 	var m LegQuotStatGrp
 	return &m
@@ -29,6 +30,12 @@ type NoLegs struct {
 	NestedParties *nestedparties.NestedParties
 	//LegOrderQty is a non-required field for NoLegs.
 	LegOrderQty *float64 `fix:"685"`
+}
+
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
 }
 
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }

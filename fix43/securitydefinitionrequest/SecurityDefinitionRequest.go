@@ -17,6 +17,12 @@ type NoLegs struct {
 	LegCurrency *string `fix:"556"`
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 func (m *NoLegs) SetLegCurrency(v string)                        { m.LegCurrency = &v }
 
@@ -51,6 +57,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized SecurityDefinitionRequest instance
+func New(securityreqid string, securityrequesttype int) *Message {
+	var m Message
+	m.SetSecurityReqID(securityreqid)
+	m.SetSecurityRequestType(securityrequesttype)
+	return &m
+}
 
 func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = v }
 func (m *Message) SetSecurityRequestType(v int)          { m.SecurityRequestType = v }

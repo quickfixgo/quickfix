@@ -1,5 +1,6 @@
 package trdgsesgrp
 
+//New returns an initialized TrdgSesGrp instance
 func New() *TrdgSesGrp {
 	var m TrdgSesGrp
 	return &m
@@ -11,6 +12,12 @@ type NoTradingSessions struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }

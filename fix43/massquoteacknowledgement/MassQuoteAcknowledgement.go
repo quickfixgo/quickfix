@@ -23,6 +23,12 @@ type NoQuoteSets struct {
 	NoQuoteEntries []NoQuoteEntries `fix:"295,omitempty"`
 }
 
+//NewNoQuoteSets returns an initialized NoQuoteSets instance
+func NewNoQuoteSets() *NoQuoteSets {
+	var m NoQuoteSets
+	return &m
+}
+
 func (m *NoQuoteSets) SetQuoteSetID(v string) { m.QuoteSetID = &v }
 func (m *NoQuoteSets) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
@@ -86,6 +92,12 @@ type NoQuoteEntries struct {
 	QuoteEntryRejectReason *int `fix:"368"`
 }
 
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries() *NoQuoteEntries {
+	var m NoQuoteEntries
+	return &m
+}
+
 func (m *NoQuoteEntries) SetQuoteEntryID(v string)              { m.QuoteEntryID = &v }
 func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 func (m *NoQuoteEntries) SetBidPx(v float64)                    { m.BidPx = &v }
@@ -144,6 +156,13 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized MassQuoteAcknowledgement instance
+func New(quotestatus int) *Message {
+	var m Message
+	m.SetQuoteStatus(quotestatus)
+	return &m
+}
 
 func (m *Message) SetQuoteReqID(v string)         { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)            { m.QuoteID = &v }

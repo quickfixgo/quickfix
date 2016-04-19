@@ -1,5 +1,6 @@
 package routinggrp
 
+//New returns an initialized RoutingGrp instance
 func New() *RoutingGrp {
 	var m RoutingGrp
 	return &m
@@ -11,6 +12,12 @@ type NoRoutingIDs struct {
 	RoutingType *int `fix:"216"`
 	//RoutingID is a non-required field for NoRoutingIDs.
 	RoutingID *string `fix:"217"`
+}
+
+//NewNoRoutingIDs returns an initialized NoRoutingIDs instance
+func NewNoRoutingIDs() *NoRoutingIDs {
+	var m NoRoutingIDs
+	return &m
 }
 
 func (m *NoRoutingIDs) SetRoutingType(v int)  { m.RoutingType = &v }

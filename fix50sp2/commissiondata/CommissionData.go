@@ -1,5 +1,6 @@
 package commissiondata
 
+//New returns an initialized CommissionData instance
 func New() *CommissionData {
 	var m CommissionData
 	return &m

@@ -19,12 +19,24 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoUnderlyings is a repeating group in AssignmentReport
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -94,6 +106,26 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized AssignmentReport instance
+func New(asgnrptid string, parties parties.Parties, accounttype int, positionqty positionqty.PositionQty, positionamountdata positionamountdata.PositionAmountData, settlprice float64, settlpricetype int, underlyingsettlprice float64, assignmentmethod string, openinterest float64, exercisemethod string, settlsessid string, settlsesssubid string, clearingbusinessdate string) *Message {
+	var m Message
+	m.SetAsgnRptID(asgnrptid)
+	m.SetParties(parties)
+	m.SetAccountType(accounttype)
+	m.SetPositionQty(positionqty)
+	m.SetPositionAmountData(positionamountdata)
+	m.SetSettlPrice(settlprice)
+	m.SetSettlPriceType(settlpricetype)
+	m.SetUnderlyingSettlPrice(underlyingsettlprice)
+	m.SetAssignmentMethod(assignmentmethod)
+	m.SetOpenInterest(openinterest)
+	m.SetExerciseMethod(exercisemethod)
+	m.SetSettlSessID(settlsessid)
+	m.SetSettlSessSubID(settlsesssubid)
+	m.SetClearingBusinessDate(clearingbusinessdate)
+	return &m
+}
 
 func (m *Message) SetAsgnRptID(v string)                    { m.AsgnRptID = v }
 func (m *Message) SetTotNumAssignmentReports(v int)         { m.TotNumAssignmentReports = &v }

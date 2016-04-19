@@ -1,5 +1,6 @@
 package parties
 
+//New returns an initialized Parties instance
 func New() *Parties {
 	var m Parties
 	return &m
@@ -15,6 +16,12 @@ type NoPartyIDs struct {
 	PartyRole *int `fix:"452"`
 	//PartySubID is a non-required field for NoPartyIDs.
 	PartySubID *string `fix:"523"`
+}
+
+//NewNoPartyIDs returns an initialized NoPartyIDs instance
+func NewNoPartyIDs() *NoPartyIDs {
+	var m NoPartyIDs
+	return &m
 }
 
 func (m *NoPartyIDs) SetPartyID(v string)       { m.PartyID = &v }

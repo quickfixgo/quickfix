@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/rootsubparties"
 )
 
+//New returns an initialized RootParties instance
 func New() *RootParties {
 	var m RootParties
 	return &m
@@ -19,6 +20,12 @@ type NoRootPartyIDs struct {
 	RootPartyRole *int `fix:"1119"`
 	//RootSubParties is a non-required component for NoRootPartyIDs.
 	RootSubParties *rootsubparties.RootSubParties
+}
+
+//NewNoRootPartyIDs returns an initialized NoRootPartyIDs instance
+func NewNoRootPartyIDs() *NoRootPartyIDs {
+	var m NoRootPartyIDs
+	return &m
 }
 
 func (m *NoRootPartyIDs) SetRootPartyID(v string)                           { m.RootPartyID = &v }

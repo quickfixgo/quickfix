@@ -1,5 +1,6 @@
 package spreadorbenchmarkcurvedata
 
+//New returns an initialized SpreadOrBenchmarkCurveData instance
 func New() *SpreadOrBenchmarkCurveData {
 	var m SpreadOrBenchmarkCurveData
 	return &m

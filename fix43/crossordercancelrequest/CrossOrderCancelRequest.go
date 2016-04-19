@@ -41,6 +41,16 @@ type NoSides struct {
 	EncodedText *string `fix:"355"`
 }
 
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string, origclordid string, clordid string, orderqtydata orderqtydata.OrderQtyData) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	m.SetOrigClOrdID(origclordid)
+	m.SetClOrdID(clordid)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
+}
+
 func (m *NoSides) SetSide(v string)                            { m.Side = v }
 func (m *NoSides) SetOrigClOrdID(v string)                     { m.OrigClOrdID = v }
 func (m *NoSides) SetClOrdID(v string)                         { m.ClOrdID = v }
@@ -80,6 +90,19 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized CrossOrderCancelRequest instance
+func New(crossid string, origcrossid string, crosstype int, crossprioritization int, nosides []NoSides, instrument instrument.Instrument, transacttime time.Time) *Message {
+	var m Message
+	m.SetCrossID(crossid)
+	m.SetOrigCrossID(origcrossid)
+	m.SetCrossType(crosstype)
+	m.SetCrossPrioritization(crossprioritization)
+	m.SetNoSides(nosides)
+	m.SetInstrument(instrument)
+	m.SetTransactTime(transacttime)
+	return &m
+}
 
 func (m *Message) SetOrderID(v string)                   { m.OrderID = &v }
 func (m *Message) SetCrossID(v string)                   { m.CrossID = v }

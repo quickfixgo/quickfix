@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//New returns an initialized TradeReportOrderDetail instance
 func New() *TradeReportOrderDetail {
 	var m TradeReportOrderDetail
 	return &m

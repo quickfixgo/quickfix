@@ -19,6 +19,12 @@ type ClearingBusinessDate struct {
 	LegPrice *float64 `fix:"566"`
 }
 
+//NewClearingBusinessDate returns an initialized ClearingBusinessDate instance
+func NewClearingBusinessDate() *ClearingBusinessDate {
+	var m ClearingBusinessDate
+	return &m
+}
+
 func (m *ClearingBusinessDate) SetLegOptionRatio(v float64) { m.LegOptionRatio = &v }
 func (m *ClearingBusinessDate) SetLegPrice(v float64)       { m.LegPrice = &v }
 
@@ -67,6 +73,12 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized SecurityDefinition instance
+func New() *Message {
+	var m Message
+	return &m
+}
 
 func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = &v }
 func (m *Message) SetSecurityResponseID(v string)        { m.SecurityResponseID = &v }

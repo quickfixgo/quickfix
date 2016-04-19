@@ -19,6 +19,12 @@ type NoSecurityTypes struct {
 	CFICode *string `fix:"461"`
 }
 
+//NewNoSecurityTypes returns an initialized NoSecurityTypes instance
+func NewNoSecurityTypes() *NoSecurityTypes {
+	var m NoSecurityTypes
+	return &m
+}
+
 func (m *NoSecurityTypes) SetSecurityType(v string)    { m.SecurityType = &v }
 func (m *NoSecurityTypes) SetSecuritySubType(v string) { m.SecuritySubType = &v }
 func (m *NoSecurityTypes) SetProduct(v int)            { m.Product = &v }
@@ -57,6 +63,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized SecurityTypes instance
+func New(securityreqid string, securityresponseid string, securityresponsetype int) *Message {
+	var m Message
+	m.SetSecurityReqID(securityreqid)
+	m.SetSecurityResponseID(securityresponseid)
+	m.SetSecurityResponseType(securityresponsetype)
+	return &m
+}
 
 func (m *Message) SetSecurityReqID(v string)              { m.SecurityReqID = v }
 func (m *Message) SetSecurityResponseID(v string)         { m.SecurityResponseID = v }

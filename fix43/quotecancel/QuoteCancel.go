@@ -15,6 +15,12 @@ type NoQuoteEntries struct {
 	Instrument *instrument.Instrument
 }
 
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries() *NoQuoteEntries {
+	var m NoQuoteEntries
+	return &m
+}
+
 func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }
 
 //Message is a QuoteCancel FIX Message
@@ -46,6 +52,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized QuoteCancel instance
+func New(quoteid string, quotecanceltype int) *Message {
+	var m Message
+	m.SetQuoteID(quoteid)
+	m.SetQuoteCancelType(quotecanceltype)
+	return &m
+}
 
 func (m *Message) SetQuoteReqID(v string)               { m.QuoteReqID = &v }
 func (m *Message) SetQuoteID(v string)                  { m.QuoteID = v }

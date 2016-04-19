@@ -36,6 +36,12 @@ type NoAllocs struct {
 	AllocQty *float64 `fix:"80"`
 }
 
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
+}
+
 func (m *NoAllocs) SetAllocAccount(v string)                          { m.AllocAccount = &v }
 func (m *NoAllocs) SetAllocAcctIDSource(v int)                        { m.AllocAcctIDSource = &v }
 func (m *NoAllocs) SetAllocSettlCurrency(v string)                    { m.AllocSettlCurrency = &v }
@@ -51,6 +57,12 @@ type NoTradingSessions struct {
 	TradingSessionSubID *string `fix:"625"`
 }
 
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
+}
+
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
 func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionSubID = &v }
 
@@ -58,6 +70,12 @@ func (m *NoTradingSessions) SetTradingSessionSubID(v string) { m.TradingSessionS
 type NoUnderlyings struct {
 	//UnderlyingInstrument is a non-required component for NoUnderlyings.
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
@@ -92,6 +110,12 @@ type NoLegs struct {
 	LegSettlDate *string `fix:"588"`
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
 func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
 func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
@@ -119,6 +143,12 @@ type NoLegAllocs struct {
 	LegAllocAcctIDSource *string `fix:"674"`
 	//LegSettlCurrency is a non-required field for NoLegAllocs.
 	LegSettlCurrency *string `fix:"675"`
+}
+
+//NewNoLegAllocs returns an initialized NoLegAllocs instance
+func NewNoLegAllocs() *NoLegAllocs {
+	var m NoLegAllocs
+	return &m
 }
 
 func (m *NoLegAllocs) SetLegAllocAccount(v string)                       { m.LegAllocAccount = &v }
@@ -285,6 +315,20 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized MultilegOrderCancelReplace instance
+func New(origclordid string, clordid string, side string, instrument instrument.Instrument, nolegs []NoLegs, transacttime time.Time, orderqtydata orderqtydata.OrderQtyData, ordtype string) *Message {
+	var m Message
+	m.SetOrigClOrdID(origclordid)
+	m.SetClOrdID(clordid)
+	m.SetSide(side)
+	m.SetInstrument(instrument)
+	m.SetNoLegs(nolegs)
+	m.SetTransactTime(transacttime)
+	m.SetOrderQtyData(orderqtydata)
+	m.SetOrdType(ordtype)
+	return &m
+}
 
 func (m *Message) SetOrderID(v string)                                  { m.OrderID = &v }
 func (m *Message) SetOrigClOrdID(v string)                              { m.OrigClOrdID = v }

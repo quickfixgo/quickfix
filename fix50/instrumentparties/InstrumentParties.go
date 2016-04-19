@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/instrumentptyssubgrp"
 )
 
+//New returns an initialized InstrumentParties instance
 func New() *InstrumentParties {
 	var m InstrumentParties
 	return &m
@@ -19,6 +20,12 @@ type NoInstrumentParties struct {
 	InstrumentPartyRole *int `fix:"1051"`
 	//InstrumentPtysSubGrp is a non-required component for NoInstrumentParties.
 	InstrumentPtysSubGrp *instrumentptyssubgrp.InstrumentPtysSubGrp
+}
+
+//NewNoInstrumentParties returns an initialized NoInstrumentParties instance
+func NewNoInstrumentParties() *NoInstrumentParties {
+	var m NoInstrumentParties
+	return &m
 }
 
 func (m *NoInstrumentParties) SetInstrumentPartyID(v string)       { m.InstrumentPartyID = &v }

@@ -1,5 +1,6 @@
 package underlyinglegsecurityaltidgrp
 
+//New returns an initialized UnderlyingLegSecurityAltIDGrp instance
 func New() *UnderlyingLegSecurityAltIDGrp {
 	var m UnderlyingLegSecurityAltIDGrp
 	return &m
@@ -11,6 +12,12 @@ type NoUnderlyingLegSecurityAltID struct {
 	UnderlyingLegSecurityAltID *string `fix:"1335"`
 	//UnderlyingLegSecurityAltIDSource is a non-required field for NoUnderlyingLegSecurityAltID.
 	UnderlyingLegSecurityAltIDSource *string `fix:"1336"`
+}
+
+//NewNoUnderlyingLegSecurityAltID returns an initialized NoUnderlyingLegSecurityAltID instance
+func NewNoUnderlyingLegSecurityAltID() *NoUnderlyingLegSecurityAltID {
+	var m NoUnderlyingLegSecurityAltID
+	return &m
 }
 
 func (m *NoUnderlyingLegSecurityAltID) SetUnderlyingLegSecurityAltID(v string) {

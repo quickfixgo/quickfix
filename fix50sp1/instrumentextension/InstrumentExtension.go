@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/attrbgrp"
 )
 
+//New returns an initialized InstrumentExtension instance
 func New() *InstrumentExtension {
 	var m InstrumentExtension
 	return &m

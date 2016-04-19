@@ -36,6 +36,16 @@ type Message struct {
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
 
+//New returns an initialized ConfirmationAck instance
+func New(confirmid string, tradedate string, transacttime time.Time, affirmstatus int) *Message {
+	var m Message
+	m.SetConfirmID(confirmid)
+	m.SetTradeDate(tradedate)
+	m.SetTransactTime(transacttime)
+	m.SetAffirmStatus(affirmstatus)
+	return &m
+}
+
 func (m *Message) SetConfirmID(v string)       { m.ConfirmID = v }
 func (m *Message) SetTradeDate(v string)       { m.TradeDate = v }
 func (m *Message) SetTransactTime(v time.Time) { m.TransactTime = v }

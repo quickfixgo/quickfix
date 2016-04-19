@@ -5,6 +5,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp1/undinstrmtgrp"
 )
 
+//New returns an initialized InstrmtStrkPxGrp instance
 func New(nostrikes []NoStrikes) *InstrmtStrkPxGrp {
 	var m InstrmtStrkPxGrp
 	m.SetNoStrikes(nostrikes)
@@ -35,6 +36,13 @@ type NoStrikes struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoStrikes.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoStrikes returns an initialized NoStrikes instance
+func NewNoStrikes(instrument instrument.Instrument) *NoStrikes {
+	var m NoStrikes
+	m.SetInstrument(instrument)
+	return &m
 }
 
 func (m *NoStrikes) SetInstrument(v instrument.Instrument)          { m.Instrument = v }

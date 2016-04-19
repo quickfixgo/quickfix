@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//New returns an initialized SideTrdRegTS instance
 func New() *SideTrdRegTS {
 	var m SideTrdRegTS
 	return &m
@@ -17,6 +18,12 @@ type NoSideTrdRegTS struct {
 	SideTrdRegTimestampType *int `fix:"1013"`
 	//SideTrdRegTimestampSrc is a non-required field for NoSideTrdRegTS.
 	SideTrdRegTimestampSrc *string `fix:"1014"`
+}
+
+//NewNoSideTrdRegTS returns an initialized NoSideTrdRegTS instance
+func NewNoSideTrdRegTS() *NoSideTrdRegTS {
+	var m NoSideTrdRegTS
+	return &m
 }
 
 func (m *NoSideTrdRegTS) SetSideTrdRegTimestamp(v time.Time) { m.SideTrdRegTimestamp = &v }

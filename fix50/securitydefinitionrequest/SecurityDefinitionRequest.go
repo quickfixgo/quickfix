@@ -19,6 +19,12 @@ type SubscriptionRequestType struct {
 	LegPrice *float64 `fix:"566"`
 }
 
+//NewSubscriptionRequestType returns an initialized SubscriptionRequestType instance
+func NewSubscriptionRequestType() *SubscriptionRequestType {
+	var m SubscriptionRequestType
+	return &m
+}
+
 func (m *SubscriptionRequestType) SetLegOptionRatio(v float64) { m.LegOptionRatio = &v }
 func (m *SubscriptionRequestType) SetLegPrice(v float64)       { m.LegPrice = &v }
 
@@ -59,6 +65,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized SecurityDefinitionRequest instance
+func New(securityreqid string, securityrequesttype int) *Message {
+	var m Message
+	m.SetSecurityReqID(securityreqid)
+	m.SetSecurityRequestType(securityrequesttype)
+	return &m
+}
 
 func (m *Message) SetSecurityReqID(v string)             { m.SecurityReqID = v }
 func (m *Message) SetSecurityRequestType(v int)          { m.SecurityRequestType = v }

@@ -56,6 +56,12 @@ type NoSettlInst struct {
 	PaymentRemitterID *string `fix:"505"`
 }
 
+//NewNoSettlInst returns an initialized NoSettlInst instance
+func NewNoSettlInst() *NoSettlInst {
+	var m NoSettlInst
+	return &m
+}
+
 func (m *NoSettlInst) SetSettlInstID(v string)        { m.SettlInstID = &v }
 func (m *NoSettlInst) SetSettlInstTransType(v string) { m.SettlInstTransType = &v }
 func (m *NoSettlInst) SetSettlInstRefID(v string)     { m.SettlInstRefID = &v }
@@ -109,6 +115,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized SettlementInstructions instance
+func New(settlinstmsgid string, settlinstmode string, transacttime time.Time) *Message {
+	var m Message
+	m.SetSettlInstMsgID(settlinstmsgid)
+	m.SetSettlInstMode(settlinstmode)
+	m.SetTransactTime(transacttime)
+	return &m
+}
 
 func (m *Message) SetSettlInstMsgID(v string)     { m.SettlInstMsgID = v }
 func (m *Message) SetSettlInstReqID(v string)     { m.SettlInstReqID = &v }

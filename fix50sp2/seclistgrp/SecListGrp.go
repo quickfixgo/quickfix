@@ -14,6 +14,7 @@ import (
 	"time"
 )
 
+//New returns an initialized SecListGrp instance
 func New() *SecListGrp {
 	var m SecListGrp
 	return &m
@@ -51,6 +52,12 @@ type NoRelatedSym struct {
 	StrikeRules *strikerules.StrikeRules
 	//RelSymTransactTime is a non-required field for NoRelatedSym.
 	RelSymTransactTime *time.Time `fix:"1504"`
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
 }
 
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument) { m.Instrument = &v }

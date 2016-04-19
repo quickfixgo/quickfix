@@ -15,7 +15,7 @@ var genTemplate *template.Template
 
 func init() {
 	tmplFuncs := template.FuncMap{
-		"fixFieldTypeToGoType": FixFieldTypeToGoType,
+		"fixFieldTypeToGoType": fixFieldTypeToGoType,
 		"toLower":              strings.ToLower,
 		"partAsGoType":         partAsGoType,
 	}
@@ -33,19 +33,48 @@ import ({{ range .}}
 )
 		{{ end}}
 
-		{{/* template writes out a constructor for message/component/group */}}
-		{{define "new"}}
-func New(
-	{{- range $index, $field := .RequiredParts -}}
-{{if $index}},{{end}}{{toLower $field.Name}} {{partAsGoType $field}}
-	{{- end }}) *{{.Name}} {
+
+{{/* template writes out a constructor for component type */}}
+{{define "newcomponent"}}
+//New returns an initialized {{.Name}} instance
+func New({{ template "parts_args" .RequiredParts}}) *{{.Name}} {
 	var m {{.Name}}
-	{{- range .RequiredFields}}
-	m.Set{{.Name}}({{toLower .Name}})
-	{{- end}}
+	{{- template "set_parts" .RequiredParts}}
 	return &m
 }
-		{{end}}
+{{end}}
+
+{{/* template writes out a constructor for message type */}}
+{{define "newmessage"}}
+//New returns an initialized {{.Name}} instance
+func New({{ template "parts_args" .RequiredParts}}) *Message {
+	var m Message
+	{{- template "set_parts" .RequiredParts}}
+	return &m
+}
+{{end}}
+
+{{/* template writes out a constructor for group */}}
+{{define "newgroup"}}
+//New{{.Name}} returns an initialized {{.Name}} instance
+func New{{.Name}}({{ template "parts_args" .RequiredParts}}) *{{.Name}} {
+	var m {{.Name}}
+	{{- template "set_parts" .RequiredParts}}
+	return &m
+}
+{{end}}
+
+{{/* template writes out a comma delimited list of parts to be used as an argument list*/}}
+{{define "parts_args"}}
+{{- range $index, $field := . }}{{if $index}},{{end}}{{toLower $field.Name}} {{partAsGoType $field}}{{ end }}
+{{- end }}
+
+{{/* template sets  parts*/}}
+{{define "set_parts"}}
+{{- range .}}
+m.Set{{.Name}}({{toLower .Name}})
+{{- end}}
+{{- end}}
 
 {{define "fieldSetter"}}
 func (m *{{.Receiver}}) Set{{.Name}}(v {{ if .IsGroup}}[]{{.Name}}{{else}}{{fixFieldTypeToGoType .Type}}{{end}}) {
@@ -62,7 +91,11 @@ func (m *{{.Receiver}}) Set{{.Name}}(v {{toLower .Name}}.{{ .Name}}) {
 }
 
 func WriteNewComponent(writer io.Writer, comp datadictionary.ComponentType) error {
-	return genTemplate.ExecuteTemplate(writer, "new", comp)
+	return genTemplate.ExecuteTemplate(writer, "newcomponent", comp)
+}
+
+func WriteNewMessage(writer io.Writer, msg datadictionary.MessageDef) error {
+	return genTemplate.ExecuteTemplate(writer, "newmessage", msg)
 }
 
 //WriteFieldSetters generates setters appropriate for Messages, Components or Repeating Groups
@@ -148,7 +181,7 @@ func collectRequiredImports(imports map[string]interface{}, pkg string, part dat
 		panic("Expected FieldDef")
 	}
 
-	if fieldType := FixFieldTypeToGoType(field.Type); fieldType == "time.Time" {
+	if fieldType := fixFieldTypeToGoType(field.Type); fieldType == "time.Time" {
 		imports["time"] = nil
 	}
 
@@ -168,10 +201,13 @@ func WriteGroupDeclaration(fixSpecMajor, fixSpecMinor int, field *datadictionary
 	fileOut += fmt.Sprintf("//%v is a repeating group in %v\n", field.Name(), parent)
 	fileOut += fmt.Sprintf("type %v struct {\n", field.Name())
 	fileOut += WriteFieldDeclarations(fixSpecMajor, fixSpecMinor, field.Parts, field.Name())
-
 	fileOut += "}\n"
 
 	writer := new(bytes.Buffer)
+	if err := genTemplate.ExecuteTemplate(writer, "newgroup", *field); err != nil {
+		panic(err)
+	}
+
 	if err := WriteFieldSetters(writer, field.Name(), field.Parts); err != nil {
 		panic(err)
 	}
@@ -209,7 +245,7 @@ func writeFieldDeclaration(fixSpecMajor int, fixSpecMinor int, part datadictiona
 			return
 		}
 
-		goType := FixFieldTypeToGoType(field.Type)
+		goType := fixFieldTypeToGoType(field.Type)
 		fixTags := strconv.Itoa(field.Tag)
 		if field.Tag == 8 {
 			if fixSpecMajor == 4 {
@@ -242,10 +278,10 @@ func partAsGoType(part datadictionary.MessagePart) string {
 		return fmt.Sprintf("[]%v", field.Name())
 	}
 
-	return FixFieldTypeToGoType(field.Type)
+	return fixFieldTypeToGoType(field.Type)
 }
 
-func FixFieldTypeToGoType(fieldType string) string {
+func fixFieldTypeToGoType(fieldType string) string {
 	switch fieldType {
 	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
 		fallthrough

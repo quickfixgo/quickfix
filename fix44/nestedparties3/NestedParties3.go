@@ -1,5 +1,6 @@
 package nestedparties3
 
+//New returns an initialized NestedParties3 instance
 func New() *NestedParties3 {
 	var m NestedParties3
 	return &m
@@ -17,6 +18,12 @@ type NoNested3PartyIDs struct {
 	NoNested3PartySubIDs []NoNested3PartySubIDs `fix:"952,omitempty"`
 }
 
+//NewNoNested3PartyIDs returns an initialized NoNested3PartyIDs instance
+func NewNoNested3PartyIDs() *NoNested3PartyIDs {
+	var m NoNested3PartyIDs
+	return &m
+}
+
 func (m *NoNested3PartyIDs) SetNested3PartyID(v string)       { m.Nested3PartyID = &v }
 func (m *NoNested3PartyIDs) SetNested3PartyIDSource(v string) { m.Nested3PartyIDSource = &v }
 func (m *NoNested3PartyIDs) SetNested3PartyRole(v int)        { m.Nested3PartyRole = &v }
@@ -30,6 +37,12 @@ type NoNested3PartySubIDs struct {
 	Nested3PartySubID *string `fix:"953"`
 	//Nested3PartySubIDType is a non-required field for NoNested3PartySubIDs.
 	Nested3PartySubIDType *int `fix:"954"`
+}
+
+//NewNoNested3PartySubIDs returns an initialized NoNested3PartySubIDs instance
+func NewNoNested3PartySubIDs() *NoNested3PartySubIDs {
+	var m NoNested3PartySubIDs
+	return &m
 }
 
 func (m *NoNested3PartySubIDs) SetNested3PartySubID(v string)  { m.Nested3PartySubID = &v }

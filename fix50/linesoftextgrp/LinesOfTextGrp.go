@@ -1,5 +1,6 @@
 package linesoftextgrp
 
+//New returns an initialized LinesOfTextGrp instance
 func New(nolinesoftext []NoLinesOfText) *LinesOfTextGrp {
 	var m LinesOfTextGrp
 	m.SetNoLinesOfText(nolinesoftext)
@@ -14,6 +15,13 @@ type NoLinesOfText struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoLinesOfText.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoLinesOfText returns an initialized NoLinesOfText instance
+func NewNoLinesOfText(text string) *NoLinesOfText {
+	var m NoLinesOfText
+	m.SetText(text)
+	return &m
 }
 
 func (m *NoLinesOfText) SetText(v string)        { m.Text = v }

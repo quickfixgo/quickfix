@@ -29,6 +29,12 @@ type NoRegistDtls struct {
 	InvestorCountryOfResidence *string `fix:"475"`
 }
 
+//NewNoRegistDtls returns an initialized NoRegistDtls instance
+func NewNoRegistDtls() *NoRegistDtls {
+	var m NoRegistDtls
+	return &m
+}
+
 func (m *NoRegistDtls) SetRegistDetls(v string)                        { m.RegistDetls = &v }
 func (m *NoRegistDtls) SetRegistEmail(v string)                        { m.RegistEmail = &v }
 func (m *NoRegistDtls) SetMailingDtls(v string)                        { m.MailingDtls = &v }
@@ -54,6 +60,12 @@ type NoDistribInsts struct {
 	CashDistribAgentAcctNumber *string `fix:"500"`
 	//CashDistribPayRef is a non-required field for NoDistribInsts.
 	CashDistribPayRef *string `fix:"501"`
+}
+
+//NewNoDistribInsts returns an initialized NoDistribInsts instance
+func NewNoDistribInsts() *NoDistribInsts {
+	var m NoDistribInsts
+	return &m
 }
 
 func (m *NoDistribInsts) SetDistribPaymentMethod(v int)          { m.DistribPaymentMethod = &v }
@@ -95,6 +107,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized RegistrationInstructions instance
+func New(registid string, registtranstype string, registrefid string) *Message {
+	var m Message
+	m.SetRegistID(registid)
+	m.SetRegistTransType(registtranstype)
+	m.SetRegistRefID(registrefid)
+	return &m
+}
 
 func (m *Message) SetRegistID(v string)                 { m.RegistID = v }
 func (m *Message) SetRegistTransType(v string)          { m.RegistTransType = v }

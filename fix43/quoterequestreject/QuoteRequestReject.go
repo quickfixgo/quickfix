@@ -66,6 +66,13 @@ type NoRelatedSym struct {
 	YieldData *yielddata.YieldData
 }
 
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym(instrument instrument.Instrument) *NoRelatedSym {
+	var m NoRelatedSym
+	m.SetInstrument(instrument)
+	return &m
+}
+
 func (m *NoRelatedSym) SetInstrument(v instrument.Instrument)       { m.Instrument = v }
 func (m *NoRelatedSym) SetPrevClosePx(v float64)                    { m.PrevClosePx = &v }
 func (m *NoRelatedSym) SetQuoteRequestType(v int)                   { m.QuoteRequestType = &v }
@@ -117,6 +124,15 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized QuoteRequestReject instance
+func New(quotereqid string, quoterequestrejectreason int, norelatedsym []NoRelatedSym) *Message {
+	var m Message
+	m.SetQuoteReqID(quotereqid)
+	m.SetQuoteRequestRejectReason(quoterequestrejectreason)
+	m.SetNoRelatedSym(norelatedsym)
+	return &m
+}
 
 func (m *Message) SetQuoteReqID(v string)            { m.QuoteReqID = v }
 func (m *Message) SetRFQReqID(v string)              { m.RFQReqID = &v }

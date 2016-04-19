@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/derivativeinstrumentpartysubidsgrp"
 )
 
+//New returns an initialized DerivativeInstrumentParties instance
 func New() *DerivativeInstrumentParties {
 	var m DerivativeInstrumentParties
 	return &m
@@ -19,6 +20,12 @@ type NoDerivativeInstrumentParties struct {
 	DerivativeInstrumentPartyRole *int `fix:"1295"`
 	//DerivativeInstrumentPartySubIDsGrp is a non-required component for NoDerivativeInstrumentParties.
 	DerivativeInstrumentPartySubIDsGrp *derivativeinstrumentpartysubidsgrp.DerivativeInstrumentPartySubIDsGrp
+}
+
+//NewNoDerivativeInstrumentParties returns an initialized NoDerivativeInstrumentParties instance
+func NewNoDerivativeInstrumentParties() *NoDerivativeInstrumentParties {
+	var m NoDerivativeInstrumentParties
+	return &m
 }
 
 func (m *NoDerivativeInstrumentParties) SetDerivativeInstrumentPartyID(v string) {

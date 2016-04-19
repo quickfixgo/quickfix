@@ -94,6 +94,16 @@ type NoSides struct {
 	SideComplianceID *string `fix:"659"`
 }
 
+//NewNoSides returns an initialized NoSides instance
+func NewNoSides(side string, origclordid string, clordid string, orderqtydata orderqtydata.OrderQtyData) *NoSides {
+	var m NoSides
+	m.SetSide(side)
+	m.SetOrigClOrdID(origclordid)
+	m.SetClOrdID(clordid)
+	m.SetOrderQtyData(orderqtydata)
+	return &m
+}
+
 func (m *NoSides) SetSide(v string)                                  { m.Side = v }
 func (m *NoSides) SetOrigClOrdID(v string)                           { m.OrigClOrdID = v }
 func (m *NoSides) SetClOrdID(v string)                               { m.ClOrdID = v }
@@ -146,6 +156,12 @@ type NoAllocs struct {
 	AllocQty *float64 `fix:"80"`
 }
 
+//NewNoAllocs returns an initialized NoAllocs instance
+func NewNoAllocs() *NoAllocs {
+	var m NoAllocs
+	return &m
+}
+
 func (m *NoAllocs) SetAllocAccount(v string)                       { m.AllocAccount = &v }
 func (m *NoAllocs) SetAllocAcctIDSource(v int)                     { m.AllocAcctIDSource = &v }
 func (m *NoAllocs) SetAllocSettlCurrency(v string)                 { m.AllocSettlCurrency = &v }
@@ -159,6 +175,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -169,6 +191,12 @@ type NoLegs struct {
 	InstrumentLeg *instrumentleg.InstrumentLeg
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg) { m.InstrumentLeg = &v }
 
 //NoTradingSessions is a repeating group in CrossOrderCancelReplaceRequest
@@ -177,6 +205,12 @@ type NoTradingSessions struct {
 	TradingSessionID *string `fix:"336"`
 	//TradingSessionSubID is a non-required field for NoTradingSessions.
 	TradingSessionSubID *string `fix:"625"`
+}
+
+//NewNoTradingSessions returns an initialized NoTradingSessions instance
+func NewNoTradingSessions() *NoTradingSessions {
+	var m NoTradingSessions
+	return &m
 }
 
 func (m *NoTradingSessions) SetTradingSessionID(v string)    { m.TradingSessionID = &v }
@@ -285,6 +319,20 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized CrossOrderCancelReplaceRequest instance
+func New(crossid string, origcrossid string, crosstype int, crossprioritization int, nosides []NoSides, instrument instrument.Instrument, transacttime time.Time, ordtype string) *Message {
+	var m Message
+	m.SetCrossID(crossid)
+	m.SetOrigCrossID(origcrossid)
+	m.SetCrossType(crosstype)
+	m.SetCrossPrioritization(crossprioritization)
+	m.SetNoSides(nosides)
+	m.SetInstrument(instrument)
+	m.SetTransactTime(transacttime)
+	m.SetOrdType(ordtype)
+	return &m
+}
 
 func (m *Message) SetOrderID(v string)                         { m.OrderID = &v }
 func (m *Message) SetCrossID(v string)                         { m.CrossID = v }

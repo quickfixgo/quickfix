@@ -1,5 +1,6 @@
 package statsindgrp
 
+//New returns an initialized StatsIndGrp instance
 func New() *StatsIndGrp {
 	var m StatsIndGrp
 	return &m
@@ -9,6 +10,12 @@ func New() *StatsIndGrp {
 type NoStatsIndicators struct {
 	//StatsType is a non-required field for NoStatsIndicators.
 	StatsType *int `fix:"1176"`
+}
+
+//NewNoStatsIndicators returns an initialized NoStatsIndicators instance
+func NewNoStatsIndicators() *NoStatsIndicators {
+	var m NoStatsIndicators
+	return &m
 }
 
 func (m *NoStatsIndicators) SetStatsType(v int) { m.StatsType = &v }

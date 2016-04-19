@@ -25,6 +25,12 @@ type NoUnderlyings struct {
 	UnderlyingInstrument *underlyinginstrument.UnderlyingInstrument
 }
 
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings() *NoUnderlyings {
+	var m NoUnderlyings
+	return &m
+}
+
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {
 	m.UnderlyingInstrument = &v
 }
@@ -47,6 +53,12 @@ type NoLegs struct {
 	NestedParties *nestedparties.NestedParties
 }
 
+//NewNoLegs returns an initialized NoLegs instance
+func NewNoLegs() *NoLegs {
+	var m NoLegs
+	return &m
+}
+
 func (m *NoLegs) SetInstrumentLeg(v instrumentleg.InstrumentLeg)       { m.InstrumentLeg = &v }
 func (m *NoLegs) SetLegQty(v float64)                                  { m.LegQty = &v }
 func (m *NoLegs) SetLegSwapType(v int)                                 { m.LegSwapType = &v }
@@ -59,6 +71,12 @@ func (m *NoLegs) SetNestedParties(v nestedparties.NestedParties)       { m.Neste
 type NoQuoteQualifiers struct {
 	//QuoteQualifier is a non-required field for NoQuoteQualifiers.
 	QuoteQualifier *string `fix:"695"`
+}
+
+//NewNoQuoteQualifiers returns an initialized NoQuoteQualifiers instance
+func NewNoQuoteQualifiers() *NoQuoteQualifiers {
+	var m NoQuoteQualifiers
+	return &m
 }
 
 func (m *NoQuoteQualifiers) SetQuoteQualifier(v string) { m.QuoteQualifier = &v }
@@ -194,6 +212,14 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized QuoteStatusReport instance
+func New(quoteid string, instrument instrument.Instrument) *Message {
+	var m Message
+	m.SetQuoteID(quoteid)
+	m.SetInstrument(instrument)
+	return &m
+}
 
 func (m *Message) SetQuoteStatusReqID(v string)                            { m.QuoteStatusReqID = &v }
 func (m *Message) SetQuoteReqID(v string)                                  { m.QuoteReqID = &v }

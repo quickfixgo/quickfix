@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+//New returns an initialized RelSymDerivSecUpdGrp instance
 func New() *RelSymDerivSecUpdGrp {
 	var m RelSymDerivSecUpdGrp
 	return &m
@@ -37,6 +38,12 @@ type NoRelatedSym struct {
 	CorporateAction *string `fix:"292"`
 	//RelSymTransactTime is a non-required field for NoRelatedSym.
 	RelSymTransactTime *time.Time `fix:"1504"`
+}
+
+//NewNoRelatedSym returns an initialized NoRelatedSym instance
+func NewNoRelatedSym() *NoRelatedSym {
+	var m NoRelatedSym
+	return &m
 }
 
 func (m *NoRelatedSym) SetListUpdateAction(v string)          { m.ListUpdateAction = &v }

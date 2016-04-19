@@ -1,5 +1,6 @@
 package affectedordgrp
 
+//New returns an initialized AffectedOrdGrp instance
 func New() *AffectedOrdGrp {
 	var m AffectedOrdGrp
 	return &m
@@ -13,6 +14,12 @@ type NoAffectedOrders struct {
 	AffectedOrderID *string `fix:"535"`
 	//AffectedSecondaryOrderID is a non-required field for NoAffectedOrders.
 	AffectedSecondaryOrderID *string `fix:"536"`
+}
+
+//NewNoAffectedOrders returns an initialized NoAffectedOrders instance
+func NewNoAffectedOrders() *NoAffectedOrders {
+	var m NoAffectedOrders
+	return &m
 }
 
 func (m *NoAffectedOrders) SetOrigClOrdID(v string)              { m.OrigClOrdID = &v }

@@ -4,6 +4,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/underlyinginstrument"
 )
 
+//New returns an initialized UndInstrmtStrkPxGrp instance
 func New() *UndInstrmtStrkPxGrp {
 	var m UndInstrmtStrkPxGrp
 	return &m
@@ -31,6 +32,13 @@ type NoUnderlyings struct {
 	EncodedTextLen *int `fix:"354"`
 	//EncodedText is a non-required field for NoUnderlyings.
 	EncodedText *string `fix:"355"`
+}
+
+//NewNoUnderlyings returns an initialized NoUnderlyings instance
+func NewNoUnderlyings(price float64) *NoUnderlyings {
+	var m NoUnderlyings
+	m.SetPrice(price)
+	return &m
 }
 
 func (m *NoUnderlyings) SetUnderlyingInstrument(v underlyinginstrument.UnderlyingInstrument) {

@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50/undinstrmtgrp"
 )
 
+//New returns an initialized QuotCxlEntriesGrp instance
 func New() *QuotCxlEntriesGrp {
 	var m QuotCxlEntriesGrp
 	return &m
@@ -22,6 +23,12 @@ type NoQuoteEntries struct {
 	UndInstrmtGrp *undinstrmtgrp.UndInstrmtGrp
 	//InstrmtLegGrp is a non-required component for NoQuoteEntries.
 	InstrmtLegGrp *instrmtleggrp.InstrmtLegGrp
+}
+
+//NewNoQuoteEntries returns an initialized NoQuoteEntries instance
+func NewNoQuoteEntries() *NoQuoteEntries {
+	var m NoQuoteEntries
+	return &m
 }
 
 func (m *NoQuoteEntries) SetInstrument(v instrument.Instrument) { m.Instrument = &v }

@@ -18,6 +18,12 @@ type NoMiscFees struct {
 	MiscFeeType *string `fix:"139"`
 }
 
+//NewNoMiscFees returns an initialized NoMiscFees instance
+func NewNoMiscFees() *NoMiscFees {
+	var m NoMiscFees
+	return &m
+}
+
 func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
 func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
 func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
@@ -121,6 +127,23 @@ type Message struct {
 
 //Marshal converts Message to a quickfix.Message instance
 func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
+
+//New returns an initialized ExecutionReport instance
+func New(orderid string, execid int, exectranstype string, ordstatus string, symbol string, side string, orderqty int, lastshares int, lastpx float64, cumqty int, avgpx float64) *Message {
+	var m Message
+	m.SetOrderID(orderid)
+	m.SetExecID(execid)
+	m.SetExecTransType(exectranstype)
+	m.SetOrdStatus(ordstatus)
+	m.SetSymbol(symbol)
+	m.SetSide(side)
+	m.SetOrderQty(orderqty)
+	m.SetLastShares(lastshares)
+	m.SetLastPx(lastpx)
+	m.SetCumQty(cumqty)
+	m.SetAvgPx(avgpx)
+	return &m
+}
 
 func (m *Message) SetOrderID(v string)          { m.OrderID = v }
 func (m *Message) SetClOrdID(v string)          { m.ClOrdID = &v }

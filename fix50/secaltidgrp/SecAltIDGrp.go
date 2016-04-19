@@ -1,5 +1,6 @@
 package secaltidgrp
 
+//New returns an initialized SecAltIDGrp instance
 func New() *SecAltIDGrp {
 	var m SecAltIDGrp
 	return &m
@@ -11,6 +12,12 @@ type NoSecurityAltID struct {
 	SecurityAltID *string `fix:"455"`
 	//SecurityAltIDSource is a non-required field for NoSecurityAltID.
 	SecurityAltIDSource *string `fix:"456"`
+}
+
+//NewNoSecurityAltID returns an initialized NoSecurityAltID instance
+func NewNoSecurityAltID() *NoSecurityAltID {
+	var m NoSecurityAltID
+	return &m
 }
 
 func (m *NoSecurityAltID) SetSecurityAltID(v string)       { m.SecurityAltID = &v }
