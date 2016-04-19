@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"reflect"
 	"strconv"
 	"strings"
 )
@@ -27,4 +28,33 @@ func parseStructTag(goTag string) (tag Tag, omitEmpty bool, defaultVal *string) 
 	}
 
 	return
+}
+
+func buildGroupTemplate(elem reflect.Type) GroupTemplate {
+	template := make(GroupTemplate, 0)
+
+	var walkFunc func(t reflect.Type)
+
+	walkFunc = func(t reflect.Type) {
+		for i := 0; i < t.NumField(); i++ {
+			sf := t.Field(i)
+
+			//recurse if item is a component, optional or not
+			elementType := sf.Type
+			if elementType.Kind() == reflect.Ptr {
+				elementType = elementType.Elem()
+			}
+
+			if elementType.Kind() == reflect.Struct {
+				walkFunc(elementType)
+				continue
+			}
+
+			afixTag, _, _ := parseStructTag(sf.Tag.Get("fix"))
+			template = append(template, GroupElement(Tag(afixTag)))
+		}
+	}
+
+	walkFunc(elem)
+	return template
 }
