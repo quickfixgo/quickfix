@@ -141,7 +141,7 @@ func genFields() {
 
 		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name(), field.Type)
 		fileOut += fmt.Sprintf("type %vField struct { quickfix.%v }\n", field.Name(), baseType)
-		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name(), field.Tag)
+		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name(), field.Tag())
 		fileOut += fmt.Sprintf("func (f %vField) Tag() quickfix.Tag {return tag.%v}\n", field.Name(), field.Name())
 
 		switch goType {
@@ -189,7 +189,7 @@ func main() {
 		}
 
 		for _, field := range spec.FieldTypeByTag {
-			fieldMap[field.Name()] = int(field.Tag)
+			fieldMap[field.Name()] = field.Tag()
 
 			if oldField, ok := fieldTypeMap[field.Name()]; ok {
 				//merge old enums with new
