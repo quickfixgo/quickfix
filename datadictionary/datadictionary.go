@@ -26,6 +26,13 @@ type MessagePart interface {
 	Required() bool
 }
 
+//messagePartWithFields is a MessagePart with multiple Fields
+type messagePartWithFields interface {
+	MessagePart
+	Fields() []*FieldDef
+	RequiredFields() []*FieldDef
+}
+
 //ComponentType is a grouping of fields.
 type ComponentType struct {
 	name           string
@@ -45,15 +52,15 @@ func NewComponentType(name string, parts []MessagePart) *ComponentType {
 	for _, part := range parts {
 
 		if part.Required() {
-			comp.requiredParts = append(comp.RequiredParts(), part)
+			comp.requiredParts = append(comp.requiredParts, part)
 		}
 
 		switch f := part.(type) {
-		case Component:
-			comp.fields = append(comp.fields, f.fields...)
+		case messagePartWithFields:
+			comp.fields = append(comp.fields, f.Fields()...)
 
 			if f.Required() {
-				comp.requiredFields = append(comp.requiredFields, f.requiredFields...)
+				comp.requiredFields = append(comp.requiredFields, f.RequiredFields()...)
 			}
 		case *FieldDef:
 			comp.fields = append(comp.fields, f)
@@ -97,11 +104,19 @@ type Component struct {
 	required bool
 }
 
+//NewComponent returns an initialized Component instance
+func NewComponent(ct *ComponentType, required bool) *Component {
+	return &Component{
+		ComponentType: ct,
+		required:      required,
+	}
+}
+
 //Required returns true if this component is required for the containing
 //MessageDef
 func (c Component) Required() bool { return c.required }
 
-//FieldDef models a field or component belonging to a message.
+//FieldDef models a field belonging to a message.
 type FieldDef struct {
 	*FieldType
 	required bool
