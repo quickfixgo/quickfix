@@ -26,6 +26,13 @@ type MessagePart interface {
 	Required() bool
 }
 
+//messagePartWithFields is a MessagePart with multiple Fields
+type messagePartWithFields interface {
+	MessagePart
+	Fields() []*FieldDef
+	RequiredFields() []*FieldDef
+}
+
 //ComponentType is a grouping of fields.
 type ComponentType struct {
 	name           string
@@ -45,15 +52,15 @@ func NewComponentType(name string, parts []MessagePart) *ComponentType {
 	for _, part := range parts {
 
 		if part.Required() {
-			comp.requiredParts = append(comp.RequiredParts(), part)
+			comp.requiredParts = append(comp.requiredParts, part)
 		}
 
 		switch f := part.(type) {
-		case Component:
-			comp.fields = append(comp.fields, f.fields...)
+		case messagePartWithFields:
+			comp.fields = append(comp.fields, f.Fields()...)
 
 			if f.Required() {
-				comp.requiredFields = append(comp.requiredFields, f.requiredFields...)
+				comp.requiredFields = append(comp.requiredFields, f.RequiredFields()...)
 			}
 		case *FieldDef:
 			comp.fields = append(comp.fields, f)
@@ -97,11 +104,24 @@ type Component struct {
 	required bool
 }
 
+//NewComponent returns an initialized Component instance
+func NewComponent(ct *ComponentType, required bool) *Component {
+	return &Component{
+		ComponentType: ct,
+		required:      required,
+	}
+}
+
 //Required returns true if this component is required for the containing
 //MessageDef
 func (c Component) Required() bool { return c.required }
 
-//FieldDef models a field or component belonging to a message.
+//Field models a field or repeating group in a message
+type Field interface {
+	Tag() int
+}
+
+//FieldDef models a field belonging to a message.
 type FieldDef struct {
 	*FieldType
 	required bool
@@ -176,7 +196,7 @@ func (f FieldDef) childTags() []int {
 	tags := make([]int, 0, len(f.ChildFields))
 
 	for _, f := range f.ChildFields {
-		tags = append(tags, f.Tag)
+		tags = append(tags, f.Tag())
 		for _, t := range f.childTags() {
 			tags = append(tags, t)
 		}
@@ -193,7 +213,7 @@ func (f FieldDef) requiredChildTags() []int {
 			continue
 		}
 
-		tags = append(tags, f.Tag)
+		tags = append(tags, f.Tag())
 		for _, t := range f.requiredChildTags() {
 			tags = append(tags, t)
 		}
@@ -205,7 +225,7 @@ func (f FieldDef) requiredChildTags() []int {
 //FieldType holds information relating to a field.  Includes Tag, type, and enums, if defined.
 type FieldType struct {
 	name  string
-	Tag   int
+	tag   int
 	Type  string
 	Enums map[string]Enum
 }
@@ -214,13 +234,16 @@ type FieldType struct {
 func NewFieldType(name string, tag int, fixType string) *FieldType {
 	return &FieldType{
 		name: name,
-		Tag:  tag,
+		tag:  tag,
 		Type: fixType,
 	}
 }
 
 //Name returns the name for this FieldType
 func (f FieldType) Name() string { return f.name }
+
+//Tag returns the tag for this fieldType
+func (f FieldType) Tag() int { return f.tag }
 
 //Enum is a container for value and description.
 type Enum struct {
@@ -256,33 +279,39 @@ func NewMessageDef(name, msgType string, parts []MessagePart) *MessageDef {
 		Parts:        parts,
 	}
 
+	processField := func(field *FieldDef, allowRequired bool) {
+		msg.Fields[field.Tag()] = field
+		msg.Tags.Add(field.Tag())
+		for _, t := range field.childTags() {
+			msg.Tags.Add(t)
+		}
+
+		if allowRequired && field.Required() {
+			msg.RequiredTags.Add(field.Tag())
+			for _, t := range field.requiredChildTags() {
+				msg.RequiredTags.Add(t)
+			}
+		}
+	}
+
 	for _, part := range parts {
 		if part.Required() {
 			msg.requiredParts = append(msg.requiredParts, part)
 		}
 
-		if comp, ok := part.(Component); ok {
-			for _, f := range comp.Fields() {
-				msg.Fields[f.Tag] = f
+		switch pType := part.(type) {
+		case messagePartWithFields:
+			for _, f := range pType.Fields() {
+				//field if required in component is required in message only if
+				//component is required
+				processField(f, pType.Required())
 			}
-		} else if field, ok := part.(*FieldDef); ok {
-			msg.Fields[field.Tag] = field
-		} else {
+
+		case *FieldDef:
+			processField(pType, true)
+
+		default:
 			panic("Unknown Part")
-		}
-	}
-
-	for _, f := range msg.Fields {
-		msg.Tags.Add(f.Tag)
-		for _, t := range f.childTags() {
-			msg.Tags.Add(t)
-		}
-
-		if f.Required() {
-			msg.RequiredTags.Add(f.Tag)
-			for _, t := range f.requiredChildTags() {
-				msg.RequiredTags.Add(t)
-			}
 		}
 	}
 

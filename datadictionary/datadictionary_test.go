@@ -25,7 +25,7 @@ func TestParseRecursiveComponents(t *testing.T) {
 var cachedDataDictionary *DataDictionary
 
 func dict() (*DataDictionary, error) {
-	if cachedXmlDoc != nil {
+	if cachedDataDictionary != nil {
 		return cachedDataDictionary, nil
 	}
 

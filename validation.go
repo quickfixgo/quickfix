@@ -151,7 +151,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tag
 	for len(fieldStack) > 0 {
 
 		//start of repeating group
-		if int(fieldStack[0].Tag) == fieldDef.ChildFields[0].Tag {
+		if int(fieldStack[0].Tag) == fieldDef.ChildFields[0].Tag() {
 			childDefs = fieldDef.ChildFields
 			groupCount++
 		}
@@ -161,14 +161,14 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tag
 			break
 		}
 
-		if int(fieldStack[0].Tag) == childDefs[0].Tag {
+		if int(fieldStack[0].Tag) == childDefs[0].Tag() {
 			var err MessageRejectError
 			if fieldStack, err = validateVisitField(childDefs[0], fieldStack); err != nil {
 				return fieldStack, err
 			}
 		} else {
 			if childDefs[0].Required() {
-				return fieldStack, requiredTagMissing(Tag(childDefs[0].Tag))
+				return fieldStack, requiredTagMissing(Tag(childDefs[0].Tag()))
 			}
 		}
 
