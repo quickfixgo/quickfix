@@ -35,7 +35,7 @@ func TestValidate(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		msg, _ := parseMessage(test.MessageBytes)
+		msg, _ := ParseMessage(test.MessageBytes)
 		reject := validate(test.DataDictionary, msg)
 
 		switch {

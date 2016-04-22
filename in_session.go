@@ -145,7 +145,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	seqNum := beginSeqNo
 	nextSeqNum := seqNum
 	for _, msgBytes := range msgs {
-		msg, _ := parseMessage(msgBytes)
+		msg, _ := ParseMessage(msgBytes)
 		msgType, _ := msg.Header.GetString(tagMsgType)
 		sentMessageSeqNum, _ := msg.Header.GetInt(tagMsgSeqNum)
 

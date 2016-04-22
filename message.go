@@ -51,11 +51,6 @@ func (m *Message) Init() {
 
 //ParseMessage constructs a Message from a byte slice wrapping a FIX message.
 func ParseMessage(rawMessage []byte) (Message, error) {
-	return parseMessage(rawMessage)
-}
-
-//parseMessage constructs a Message from a byte slice wrapping a FIX message.
-func parseMessage(rawMessage []byte) (Message, error) {
 	msg := NewMessage()
 	msg.rawMessage = rawMessage
 
