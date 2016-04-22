@@ -6,7 +6,11 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix50sp1/instrument"
+	"github.com/quickfixgo/quickfix/fix50sp1/marketdatasnapshotfullrefresh"
+	"github.com/quickfixgo/quickfix/fix50sp1/mdfullgrp"
 )
 
 func TestMarshal_FIXMsgType(t *testing.T) {
@@ -362,4 +366,14 @@ func TestMarshal_HeaderTrailer(t *testing.T) {
 			t.Errorf("Expected '%s' got '%s'", test.expected, test.fieldValue.Write())
 		}
 	}
+}
+
+// [GH 109] https://github.com/quickfixgo/quickfix/issues/109
+func TestGH109_MarshalWillNotRecurseIntoTaggedStructFieldsAndCausePanic(t *testing.T) {
+	// When a message contains a non-component struct field (i.e. NoMDEntries.ExpireTime has type *time.Time)
+	grp := mdfullgrp.New([]mdfullgrp.NoMDEntries{mdfullgrp.NoMDEntries{MDEntryType: enum.MDEntryType_BID}})
+	msg := marketdatasnapshotfullrefresh.New(instrument.Instrument{}, *grp)
+
+	// Then parseStructTag should not cause `panic: strconv.ParseInt: parsing "": invalid syntax` when marshalling
+	msg.Marshal()
 }
