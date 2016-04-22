@@ -39,18 +39,19 @@ func buildGroupTemplate(elem reflect.Type) GroupTemplate {
 		for i := 0; i < t.NumField(); i++ {
 			sf := t.Field(i)
 
-			//recurse if item is a component, optional or not
 			elementType := sf.Type
 			if elementType.Kind() == reflect.Ptr {
 				elementType = elementType.Elem()
 			}
 
-			if elementType.Kind() == reflect.Struct {
+			// recurse if item is a component, optional or not
+			structTag := sf.Tag.Get("fix")
+			if structTag == "" && elementType.Kind() == reflect.Struct {
 				walkFunc(elementType)
 				continue
 			}
 
-			afixTag, _, _ := parseStructTag(sf.Tag.Get("fix"))
+			afixTag, _, _ := parseStructTag(structTag)
 			template = append(template, GroupElement(Tag(afixTag)))
 		}
 	}
