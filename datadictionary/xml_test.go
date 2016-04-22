@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-var cachedXmlDoc *XMLDoc
+var cachedXMLDoc *XMLDoc
 
 func xmlDoc() (*XMLDoc, error) {
-	if cachedXmlDoc != nil {
-		return cachedXmlDoc, nil
+	if cachedXMLDoc != nil {
+		return cachedXMLDoc, nil
 	}
 
 	data := `
@@ -81,10 +81,10 @@ func xmlDoc() (*XMLDoc, error) {
 		</fix>
 	`
 
-	cachedXmlDoc = new(XMLDoc)
-	err := xml.Unmarshal([]byte(data), cachedXmlDoc)
+	cachedXMLDoc = new(XMLDoc)
+	err := xml.Unmarshal([]byte(data), cachedXMLDoc)
 
-	return cachedXmlDoc, err
+	return cachedXMLDoc, err
 }
 
 func TestBoilerPlate(t *testing.T) {

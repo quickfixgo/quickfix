@@ -238,16 +238,16 @@ func writeFieldDeclaration(fixSpecMajor int, fixSpecMinor int, part datadictiona
 
 		if field.IsGroup() {
 			if field.Required() {
-				s += fmt.Sprintf("%v []%v `fix:\"%v\"`\n", field.Name(), field.Name(), field.Tag)
+				s += fmt.Sprintf("%v []%v `fix:\"%v\"`\n", field.Name(), field.Name(), field.Tag())
 			} else {
-				s += fmt.Sprintf("%v []%v `fix:\"%v,omitempty\"`\n", field.Name(), field.Name(), field.Tag)
+				s += fmt.Sprintf("%v []%v `fix:\"%v,omitempty\"`\n", field.Name(), field.Name(), field.Tag())
 			}
 			return
 		}
 
 		goType := fixFieldTypeToGoType(field.Type)
-		fixTags := strconv.Itoa(field.Tag)
-		if field.Tag == 8 {
+		fixTags := strconv.Itoa(field.Tag())
+		if field.Tag() == 8 {
 			if fixSpecMajor == 4 {
 				fixTags = fmt.Sprintf("%v,default=FIX.%v.%v", fixTags, fixSpecMajor, fixSpecMinor)
 			} else {

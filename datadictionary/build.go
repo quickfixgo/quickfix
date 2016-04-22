@@ -200,13 +200,13 @@ func (b builder) buildFieldTypes() {
 	b.dict.FieldTypeByName = make(map[string]*FieldType)
 	for _, f := range b.doc.Fields {
 		field := buildFieldType(f)
-		b.dict.FieldTypeByTag[field.Tag] = field
+		b.dict.FieldTypeByTag[field.Tag()] = field
 		b.dict.FieldTypeByName[field.Name()] = field
 	}
 }
 
 func buildFieldType(xmlField *XMLField) *FieldType {
-	field := FieldType{name: xmlField.Name, Tag: xmlField.Number, Type: xmlField.Type}
+	field := NewFieldType(xmlField.Name, xmlField.Number, xmlField.Type)
 
 	if len(xmlField.Values) > 0 {
 		field.Enums = make(map[string]Enum)
@@ -216,7 +216,7 @@ func buildFieldType(xmlField *XMLField) *FieldType {
 		}
 	}
 
-	return &field
+	return field
 }
 
 func newUnknownComponent(name string) error {
