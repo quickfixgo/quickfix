@@ -256,7 +256,7 @@ func TestUnmarshal_HeaderTrailer(t *testing.T) {
 }
 
 // [GH 103] https://github.com/quickfixgo/quickfix/issues/103
-func TestUnmarshal_FailsForRepeatingGroupWithoutCorrectGroupDelimter(t *testing.T) {
+func TestGH103_UnmarshalFailsForRepeatingGroupWithoutCorrectGroupDelimter(t *testing.T) {
 	// Given a message containing a repeating group WITHOUT the correct delimiter field (tag 55)
 	rawFix := []byte("8=FIXT.1.19=11735=V34=249=MDC52=20160419-22:58:50.94756=KMD262=req_A263=0264=5146=148=DORZ1722=99267=3269=0269=1269=210=194")
 	fixMsg, err := quickfix.ParseMessage(rawFix)
