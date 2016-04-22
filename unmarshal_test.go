@@ -5,6 +5,10 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/fix50sp1/marketdatarequest"
+	"github.com/quickfixgo/quickfix/tag"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestUnmarshal_Literals(t *testing.T) {
@@ -249,4 +253,39 @@ func TestUnmarshal_HeaderTrailer(t *testing.T) {
 		t.Errorf("Expected '%v' got '%v'", 3, msgOut.Trailer.IntField)
 	}
 
+}
+
+// [GH 103] https://github.com/quickfixgo/quickfix/issues/103
+func TestUnmarshal_FailsForRepeatingGroupWithoutCorrectGroupDelimter(t *testing.T) {
+	// Given a message containing a repeating group WITHOUT the correct delimiter field (tag 55)
+	rawFix := []byte("8=FIXT.1.19=11735=V34=249=MDC52=20160419-22:58:50.94756=KMD262=req_A263=0264=5146=148=DORZ1722=99267=3269=0269=1269=210=194")
+	fixMsg, err := quickfix.ParseMessage(rawFix)
+	require.Nil(t, err)
+
+	// When the message is unmarshaled
+	var msg marketdatarequest.Message
+	err = quickfix.Unmarshal(fixMsg, &msg)
+	require.NotNil(t, err)
+
+	// Then a message reject error should occur
+	msgRejErr, ok := err.(quickfix.MessageRejectError)
+	require.True(t, ok, "expected err to be a quickfix.MessageRejectError")
+
+	// And the ref tag id should be NoRelatedSym (146)
+	assert.NotNil(t, msgRejErr.RefTagID(), "expected RefTagID not to be nil")
+	assert.Equal(t, *msgRejErr.RefTagID(), tag.NoRelatedSym)
+
+	// And the reason should contain
+	assert.Contains(t, msgRejErr.Error(), "(group 146: template is wrong or delimiter 55 not found: expected 1 groups, but found 0)")
+
+	// Given a message containing a repeating group WITH the correct delimiter field (tag 55)
+	rawFix = []byte("8=FIXT.1.19=12535=V34=249=MDC52=20160419-22:58:50.94756=KMD262=req_A263=0264=5146=155=AAPL48=DORZ1722=99267=3269=0269=1269=210=194")
+	fixMsg, err = quickfix.ParseMessage(rawFix)
+	require.Nil(t, err)
+
+	// When the message is unmarshaled
+	err = quickfix.Unmarshal(fixMsg, &msg)
+
+	// Then no error should occur
+	require.Nil(t, err, "expected err to be nil, but got: %v", err)
 }

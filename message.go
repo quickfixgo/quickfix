@@ -3,8 +3,9 @@ package quickfix
 import (
 	"bytes"
 	"fmt"
-	"github.com/quickfixgo/quickfix/enum"
 	"time"
+
+	"github.com/quickfixgo/quickfix/enum"
 )
 
 //Message is a FIX Message abstraction.
@@ -46,6 +47,11 @@ func (m *Message) Init() {
 	m.Header.init(headerFieldOrder)
 	m.Body.init(normalFieldOrder)
 	m.Trailer.init(trailerFieldOrder)
+}
+
+//ParseMessage constructs a Message from a byte slice wrapping a FIX message.
+func ParseMessage(rawMessage []byte) (Message, error) {
+	return parseMessage(rawMessage)
 }
 
 //parseMessage constructs a Message from a byte slice wrapping a FIX message.

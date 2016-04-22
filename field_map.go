@@ -128,6 +128,9 @@ func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
 	}
 
 	if _, err := parser.read(tagValues); err != nil {
+		if msgRejErr, ok := err.(MessageRejectError); ok {
+			return msgRejErr
+		}
 		return incorrectDataFormatForValue(parser.Tag)
 	}
 

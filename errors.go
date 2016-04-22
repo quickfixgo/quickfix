@@ -19,6 +19,7 @@ const (
 	rejectReasonInvalidMsgType                            = 11
 	rejectReasonTagAppearsMoreThanOnce                    = 13
 	rejectReasonTagSpecifiedOutOfRequiredOrder            = 14
+	rejectReasonRepeatingGroupFieldsOutOfOrder            = 15
 	rejectReasonIncorrectNumInGroupCountForRepeatingGroup = 16
 )
 
@@ -58,6 +59,16 @@ func NewBusinessMessageRejectError(err string, rejectReason int, refTagID *Tag) 
 //incorrectDataFormatForValue returns an error indicating a field that cannot be parsed as the type required.
 func incorrectDataFormatForValue(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Incorrect data format for value", rejectReasonIncorrectDataFormatForValue, &tag)
+}
+
+//repeatingGroupFieldsOutOfOrder returns an error indicating a problem parsing repeating groups fields
+func repeatingGroupFieldsOutOfOrder(tag Tag, reason string) MessageRejectError {
+	if reason != "" {
+		reason = fmt.Sprintf("Repeating group fields out of order (%s)", reason)
+	} else {
+		reason = "Repeating group fields out of order"
+	}
+	return NewMessageRejectError(reason, rejectReasonRepeatingGroupFieldsOutOfOrder, &tag)
 }
 
 //ValueIsIncorrect returns an error indicating a field with value that is not valid.
