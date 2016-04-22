@@ -112,8 +112,12 @@ func (f RepeatingGroup) groupTagOrder() tagOrder {
 	}
 }
 
+func (f RepeatingGroup) delimiter() Tag {
+	return f.GroupTemplate[0].Tag()
+}
+
 func (f RepeatingGroup) isDelimiter(t Tag) bool {
-	return t == f.GroupTemplate[0].Tag()
+	return t == f.delimiter()
 }
 
 func (f *RepeatingGroup) read(tv tagValues) (tagValues, error) {
@@ -152,7 +156,7 @@ func (f *RepeatingGroup) read(tv tagValues) (tagValues, error) {
 	}
 
 	if len(f.Groups) != expectedGroupSize {
-		return tv, fmt.Errorf("Only found %v instead of %v expected groups, is template wrong?", len(f.Groups), expectedGroupSize)
+		return tv, repeatingGroupFieldsOutOfOrder(f.Tag, fmt.Sprintf("group %v: template is wrong or delimiter %v not found: expected %v groups, but found %v", f.Tag, f.delimiter(), expectedGroupSize, len(f.Groups)))
 	}
 
 	return tv, err

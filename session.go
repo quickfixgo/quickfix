@@ -543,7 +543,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		case fixIn, ok := <-msgIn:
 			if ok {
 				s.log.OnIncoming(string(fixIn.bytes))
-				if msg, err := parseMessage(fixIn.bytes); err != nil {
+				if msg, err := ParseMessage(fixIn.bytes); err != nil {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
 					msg.ReceiveTime = fixIn.receiveTime
