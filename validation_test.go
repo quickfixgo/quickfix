@@ -365,22 +365,9 @@ func tcFloatValidation() validateTest {
 }
 
 func TestValidateVisitField(t *testing.T) {
-	fieldType := datadictionary.NewFieldType("myfield", 11, "STRING")
-	fieldDef := &datadictionary.FieldDef{FieldType: fieldType}
+	fieldType0 := datadictionary.NewFieldType("myfield", 11, "STRING")
+	fieldDef0 := &datadictionary.FieldDef{FieldType: fieldType0}
 
-	TagValues := make([]tagValue, 1)
-	TagValues[0].init(Tag(11), []byte("value"))
-	remFields, reject := validateVisitField(fieldDef, TagValues)
-	if len(remFields) != 0 {
-		t.Errorf("Expected len %v got %v", 0, len(remFields))
-	}
-
-	if reject != nil {
-		t.Errorf("Unexpected Reject %v", reject)
-	}
-}
-
-func TestValidateVisitFieldGroup(t *testing.T) {
 	fieldType1 := datadictionary.NewFieldType("myfield", 2, "STRING")
 	fieldDef1 := &datadictionary.FieldDef{FieldType: fieldType1, ChildFields: []*datadictionary.FieldDef{}}
 
@@ -390,6 +377,9 @@ func TestValidateVisitFieldGroup(t *testing.T) {
 	groupFieldType := datadictionary.NewFieldType("mygroupfield", 1, "INT")
 	groupFieldDef := &datadictionary.FieldDef{FieldType: groupFieldType, ChildFields: []*datadictionary.FieldDef{fieldDef1, fieldDef2}}
 
+	var field tagValue
+	field.init(Tag(11), []byte("value"))
+
 	var repField1 tagValue
 	var repField2 tagValue
 	repField1.init(Tag(2), []byte("a"))
@@ -398,9 +388,6 @@ func TestValidateVisitFieldGroup(t *testing.T) {
 	var groupID tagValue
 	groupID.init(Tag(1), []byte("1"))
 
-	var otherField tagValue
-	otherField.init(Tag(500), []byte("blah"))
-
 	var groupID2 tagValue
 	groupID2.init(Tag(1), []byte("2"))
 
@@ -408,40 +395,53 @@ func TestValidateVisitFieldGroup(t *testing.T) {
 	groupID3.init(Tag(1), []byte("3"))
 
 	var tests = []struct {
+		fieldDef             *datadictionary.FieldDef
 		fields               tagValues
 		expectedRemFields    int
 		expectReject         bool
 		expectedRejectReason int
 	}{
 		//non-repeating
-		{fields: tagValues{groupID, repField1},
-			expectedRemFields: 0},
-		{fields: tagValues{groupID, repField1, repField2},
-			expectedRemFields: 0},
+		{expectedRemFields: 0,
+			fieldDef: fieldDef0,
+			fields:   tagValues{field}},
+		//single field group
+		{expectedRemFields: 0,
+			fieldDef: groupFieldDef,
+			fields:   tagValues{groupID, repField1}},
+		//multiple field group
+		{expectedRemFields: 0,
+			fieldDef: groupFieldDef,
+			fields:   tagValues{groupID, repField1, repField2}},
 		//test with trailing tag not in group
-		{fields: tagValues{groupID, repField1, repField2, otherField},
-			expectedRemFields: 1},
+		{expectedRemFields: 1,
+			fieldDef: groupFieldDef,
+			fields:   tagValues{groupID, repField1, repField2, field}},
 		//repeats
-		{fields: tagValues{groupID2, repField1, repField2, repField1, repField2, otherField},
-			expectedRemFields: 1},
+		{expectedRemFields: 1,
+			fieldDef: groupFieldDef,
+			fields:   tagValues{groupID2, repField1, repField2, repField1, repField2, field}},
 		//REJECT: group size declared > actual group size
 		{expectReject: true,
-			fields:               tagValues{groupID3, repField1, repField2, repField1, repField2, otherField},
+			fieldDef:             groupFieldDef,
+			fields:               tagValues{groupID3, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 		{expectReject: true,
-			fields:               tagValues{groupID3, repField1, repField1, otherField},
+			fieldDef:             groupFieldDef,
+			fields:               tagValues{groupID3, repField1, repField1, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 		//REJECT: group size declared < actual group size
 		{expectReject: true,
-			fields:               tagValues{groupID, repField1, repField2, repField1, repField2, otherField},
+			fieldDef:             groupFieldDef,
+			fields:               tagValues{groupID, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 	}
 
 	for _, test := range tests {
-		remFields, reject := validateVisitGroupField(groupFieldDef, test.fields)
+		remFields, reject := validateVisitField(test.fieldDef, test.fields)
 
 		if test.expectReject {
 			if reject == nil {
