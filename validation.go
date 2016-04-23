@@ -130,6 +130,8 @@ func validateVisitField(fieldDef *datadictionary.FieldDef, fields []tagValue) ([
 		if fields, err = validateVisitGroupField(fieldDef, fields); err != nil {
 			return nil, err
 		}
+
+		return fields, nil
 	}
 
 	return fields[1:], nil
