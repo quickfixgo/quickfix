@@ -111,5 +111,5 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 		}
 		return router(*m, sessionID)
 	}
-	return enum.BeginStringFIX50, "F", r
+	return enum.ApplVerID_FIX50, "F", r
 }

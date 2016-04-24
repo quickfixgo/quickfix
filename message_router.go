@@ -5,8 +5,8 @@ import (
 )
 
 type routeKey struct {
-	BeginString string
-	MsgType     string
+	FIXVersion string
+	MsgType    string
 }
 
 //A MessageRoute is a function that can process a fromApp/fromAdmin callback
@@ -39,12 +39,12 @@ func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectErro
 		return err
 	}
 
-	return c.tryRoute(beginString, msgType, msg, sessionID)
+	return c.tryRoute(string(beginString), string(msgType), msg, sessionID)
 }
 
-func (c MessageRouter) tryRoute(beginString FIXString, msgType FIXString, msg Message, sessionID SessionID) MessageRejectError {
-
-	if string(beginString) == enum.BeginStringFIXT11 && !isAdminMessageType(string(msgType)) {
+func (c MessageRouter) tryRoute(beginString string, msgType string, msg Message, sessionID SessionID) MessageRejectError {
+	fixVersion := beginString
+	if beginString == enum.BeginStringFIXT11 && !isAdminMessageType(msgType) {
 		var applVerID FIXString
 		if err := msg.Header.GetField(tagApplVerID, &applVerID); err != nil {
 			session, _ := lookupSession(sessionID)
@@ -53,23 +53,21 @@ func (c MessageRouter) tryRoute(beginString FIXString, msgType FIXString, msg Me
 
 		switch string(applVerID) {
 		case enum.ApplVerID_FIX40:
-			beginString = enum.BeginStringFIX40
+			fixVersion = enum.BeginStringFIX40
 		case enum.ApplVerID_FIX41:
-			beginString = enum.BeginStringFIX41
+			fixVersion = enum.BeginStringFIX41
 		case enum.ApplVerID_FIX42:
-			beginString = enum.BeginStringFIX42
+			fixVersion = enum.BeginStringFIX42
 		case enum.ApplVerID_FIX43:
-			beginString = enum.BeginStringFIX43
+			fixVersion = enum.BeginStringFIX43
 		case enum.ApplVerID_FIX44:
-			beginString = enum.BeginStringFIX44
-		case enum.ApplVerID_FIX50, enum.ApplVerID_FIX50SP1, enum.ApplVerID_FIX50SP2:
-			beginString = enum.BeginStringFIX50
+			fixVersion = enum.BeginStringFIX44
+		default:
+			fixVersion = string(applVerID)
 		}
-
-		return c.tryRoute(beginString, msgType, msg, sessionID)
 	}
 
-	route, ok := c.routes[routeKey{string(beginString), string(msgType)}]
+	route, ok := c.routes[routeKey{fixVersion, msgType}]
 
 	if !ok {
 		return unsupportedMessageType()
