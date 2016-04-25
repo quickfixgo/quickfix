@@ -108,7 +108,11 @@ func genMessageRoute(msg *datadictionary.MessageDef) string {
 		beginStringEnum = "enum.BeginStringFIXT11"
 	} else {
 		if fixSpec.ServicePack == 0 {
-			beginStringEnum = fmt.Sprintf("enum.BeginStringFIX%v%v", fixSpec.Major, fixSpec.Minor)
+			if fixSpec.Major != 5 {
+				beginStringEnum = fmt.Sprintf("enum.BeginStringFIX%v%v", fixSpec.Major, fixSpec.Minor)
+			} else {
+				beginStringEnum = fmt.Sprintf("enum.ApplVerID_FIX%v%v", fixSpec.Major, fixSpec.Minor)
+			}
 		} else {
 			beginStringEnum = fmt.Sprintf("enum.ApplVerID_FIX%v%vSP%v", fixSpec.Major, fixSpec.Minor, fixSpec.ServicePack)
 		}

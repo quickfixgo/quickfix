@@ -26,7 +26,7 @@ type Message struct {
 	fields []tagValue
 }
 
-//Message marshals itself
+//Marshal marshals the message itself
 func (m Message) Marshal() Message { return m }
 
 //parseError is returned when bytes cannot be parsed as a FIX message.
