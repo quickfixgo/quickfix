@@ -3,9 +3,9 @@ all: vet test
 get:
 	go get -t -d ./...
 
-GEN_MESSAGES = go run _gen/generate-messages/main.go
-GEN_COMPONENTS = go run _gen/generate-components/main.go
-GEN_FIELDS = go run _gen/generate-fields/main.go
+GEN_MESSAGES = go run gen/generate-messages/main.go
+GEN_COMPONENTS = go run gen/generate-components/main.go
+GEN_FIELDS = go run gen/generate-fields/main.go
 FIXVERS = FIX40 FIX41 FIX42 FIX43 FIX44 FIX50 FIX50SP1 FIX50SP2 FIXT11
 
 generate:

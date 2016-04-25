@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/quickfixgo/quickfix/_gen"
+	"github.com/quickfixgo/quickfix/gen"
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
