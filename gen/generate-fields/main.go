@@ -55,7 +55,7 @@ func genFields() {
 	fileOut := "package field\n"
 	fileOut += "import(\n"
 	fileOut += "\"github.com/quickfixgo/quickfix\"\n"
-	fileOut += "\"github.com/quickfixgo/quickfix/tag\"\n"
+	fileOut += "\"" + gen.GetImportPathRoot() + "/tag\"\n"
 	fileOut += ")\n"
 
 	for _, tag := range sortedTags {

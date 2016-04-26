@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"os"
+	"path"
 	"strconv"
 	"strings"
 	"text/template"
@@ -142,8 +144,8 @@ func WritePackage(writer io.Writer, pkg string) error {
 func WriteMessageImports(writer io.Writer, pkg string, parts []datadictionary.MessagePart) error {
 	imports := []string{
 		"github.com/quickfixgo/quickfix",
-		"github.com/quickfixgo/quickfix/enum",
-		fmt.Sprintf("github.com/quickfixgo/quickfix/%v", HeaderTrailerPkg(pkg)),
+		fmt.Sprintf("%s/enum", GetImportPathRoot()),
+		fmt.Sprintf("%s/%v", GetImportPathRoot(), HeaderTrailerPkg(pkg)),
 	}
 	return writeImports(writer, pkg, imports, parts)
 }
@@ -171,7 +173,7 @@ func writeImports(writer io.Writer, pkg string, imports []string, parts []datadi
 
 func collectRequiredImports(imports map[string]interface{}, pkg string, part datadictionary.MessagePart) {
 	if comp, ok := part.(datadictionary.Component); ok {
-		imports[fmt.Sprintf("github.com/quickfixgo/quickfix/%v/%v", pkg, strings.ToLower(comp.Name()))] = nil
+		imports[fmt.Sprintf("%s/%v/%v", GetImportPathRoot(), pkg, strings.ToLower(comp.Name()))] = nil
 
 		return
 	}
@@ -357,4 +359,18 @@ func fixFieldTypeToGoType(fieldType string) string {
 	default:
 		panic(fmt.Sprintf("Unknown type '%v'\n", fieldType))
 	}
+}
+
+// GetImportPathRoot returns the root path to use in import statements.
+// The root path is determined by stripping "$GOPATH/src/" from the current
+// working directory.  For example, when generating code within the QuickFIX/Go
+// source tree, the returned root path will be "github.com/quickfixgo/quickfix".
+func GetImportPathRoot() string {
+	pwd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	goSrcPath := path.Join(os.Getenv("GOPATH"), "src")
+	importPathRoot := strings.Replace(pwd, goSrcPath, "", 1)
+	return strings.TrimLeft(importPathRoot, "/")
 }
