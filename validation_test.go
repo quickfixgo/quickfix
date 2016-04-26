@@ -8,8 +8,8 @@ import (
 )
 
 type validateTest struct {
-	TestName string
-	*datadictionary.DataDictionary
+	TestName             string
+	Validator            validator
 	MessageBytes         []byte
 	ExpectedRejectReason int
 	ExpectedRefTagID     *Tag
@@ -25,7 +25,8 @@ func TestValidate(t *testing.T) {
 		tcInvalidMsgType(),
 		tcValueIsIncorrect(),
 		tcIncorrectDataFormatForValue(),
-		tcTagSpecifiedOutOfRequiredOrder(),
+		tcTagSpecifiedOutOfRequiredOrder_Header(),
+		tcTagSpecifiedOutOfRequiredOrder_Trailer(),
 		tcTagAppearsMoreThanOnce(),
 		tcFloatValidation(),
 		tcTagNotDefinedForMessage(),
@@ -36,7 +37,7 @@ func TestValidate(t *testing.T) {
 
 	for _, test := range tests {
 		msg, _ := ParseMessage(test.MessageBytes)
-		reject := validate(test.DataDictionary, msg)
+		reject := test.Validator.Validate(msg)
 
 		switch {
 		case reject == nil && test.DoNotExpectReject:
@@ -86,6 +87,7 @@ func createFIX40NewOrderSingle() Message {
 	msg.Body.SetField(Tag(54), FIXString("1"))
 	msg.Body.SetField(Tag(40), FIXString("1"))
 	msg.Body.SetField(Tag(38), FIXInt(5))
+	msg.Body.SetField(Tag(100), FIXString("0"))
 
 	msg.Trailer.SetField(tagCheckSum, FIXString("000"))
 
@@ -117,6 +119,7 @@ func createFIX43NewOrderSingle() Message {
 
 func tcInvalidTagNumberHeader() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	invalidHeaderFieldMessage := createFIX40NewOrderSingle()
 	tag := Tag(9999)
 	invalidHeaderFieldMessage.Header.SetField(tag, FIXString("hello"))
@@ -124,7 +127,7 @@ func tcInvalidTagNumberHeader() validateTest {
 
 	return validateTest{
 		TestName:             "Invalid Tag Number Header",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonInvalidTagNumber,
 		ExpectedRefTagID:     &tag,
@@ -132,6 +135,7 @@ func tcInvalidTagNumberHeader() validateTest {
 }
 func tcInvalidTagNumberBody() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	invalidBodyFieldMessage := createFIX40NewOrderSingle()
 	tag := Tag(9999)
 	invalidBodyFieldMessage.Body.SetField(tag, FIXString("hello"))
@@ -139,7 +143,7 @@ func tcInvalidTagNumberBody() validateTest {
 
 	return validateTest{
 		TestName:             "Invalid Tag Number Body",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonInvalidTagNumber,
 		ExpectedRefTagID:     &tag,
@@ -148,6 +152,7 @@ func tcInvalidTagNumberBody() validateTest {
 
 func tcInvalidTagNumberTrailer() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	invalidTrailerFieldMessage := createFIX40NewOrderSingle()
 	tag := Tag(9999)
 	invalidTrailerFieldMessage.Trailer.SetField(tag, FIXString("hello"))
@@ -155,7 +160,7 @@ func tcInvalidTagNumberTrailer() validateTest {
 
 	return validateTest{
 		TestName:             "Invalid Tag Number Trailer",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonInvalidTagNumber,
 		ExpectedRefTagID:     &tag,
@@ -163,8 +168,8 @@ func tcInvalidTagNumberTrailer() validateTest {
 }
 
 func tcTagNotDefinedForMessage() validateTest {
-	dict40, _ := datadictionary.Parse("spec/FIX40.xml")
-
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	invalidMsg := createFIX40NewOrderSingle()
 	tag := Tag(41)
 	invalidMsg.Body.SetField(tag, FIXString("hello"))
@@ -172,7 +177,7 @@ func tcTagNotDefinedForMessage() validateTest {
 
 	return validateTest{
 		TestName:             "Tag Not Defined For Message",
-		DataDictionary:       dict40,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonTagNotDefinedForThisMessageType,
 		ExpectedRefTagID:     &tag,
@@ -181,13 +186,14 @@ func tcTagNotDefinedForMessage() validateTest {
 
 func tcTagIsDefinedForMessage() validateTest {
 	//compare to tcTagIsNotDefinedForMessage
-	dict43, _ := datadictionary.Parse("spec/FIX43.xml")
+	dict, _ := datadictionary.Parse("spec/FIX43.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	validMsg := createFIX43NewOrderSingle()
 	msgBytes, _ := validMsg.Build()
 
 	return validateTest{
 		TestName:          "TagIsDefinedForMessage",
-		DataDictionary:    dict43,
+		Validator:         validator,
 		MessageBytes:      msgBytes,
 		DoNotExpectReject: true,
 	}
@@ -195,6 +201,7 @@ func tcTagIsDefinedForMessage() validateTest {
 
 func tcFieldNotFoundBody() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	invalidMsg1 := NewMessage()
 	invalidMsg1.Header.SetField(tagMsgType, FIXString("D")).
 		SetField(tagBeginString, FIXString("FIX.4.0")).
@@ -219,7 +226,7 @@ func tcFieldNotFoundBody() validateTest {
 
 	return validateTest{
 		TestName:             "FieldNotFoundBody",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonRequiredTagMissing,
 		ExpectedRefTagID:     &tag,
@@ -228,6 +235,7 @@ func tcFieldNotFoundBody() validateTest {
 
 func tcFieldNotFoundHeader() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 
 	invalidMsg2 := NewMessage()
 	invalidMsg2.Trailer.SetField(tagCheckSum, FIXString("000"))
@@ -251,7 +259,7 @@ func tcFieldNotFoundHeader() validateTest {
 
 	return validateTest{
 		TestName:             "FieldNotFoundHeader",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonRequiredTagMissing,
 		ExpectedRefTagID:     &tag,
@@ -260,6 +268,7 @@ func tcFieldNotFoundHeader() validateTest {
 
 func tcTagSpecifiedWithoutAValue() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	builder := createFIX40NewOrderSingle()
 
 	bogusTag := Tag(109)
@@ -268,7 +277,7 @@ func tcTagSpecifiedWithoutAValue() validateTest {
 
 	return validateTest{
 		TestName:             "Tag SpecifiedWithoutAValue",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonTagSpecifiedWithoutAValue,
 		ExpectedRefTagID:     &bogusTag,
@@ -277,13 +286,14 @@ func tcTagSpecifiedWithoutAValue() validateTest {
 
 func tcInvalidMsgType() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	builder := createFIX40NewOrderSingle()
 	builder.Header.SetField(tagMsgType, FIXString("z"))
 	msgBytes, _ := builder.Build()
 
 	return validateTest{
 		TestName:             "Invalid MsgType",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonInvalidMsgType,
 	}
@@ -291,6 +301,7 @@ func tcInvalidMsgType() validateTest {
 
 func tcValueIsIncorrect() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 
 	tag := Tag(21)
 	builder := createFIX40NewOrderSingle()
@@ -299,7 +310,7 @@ func tcValueIsIncorrect() validateTest {
 
 	return validateTest{
 		TestName:             "ValueIsIncorrect",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonValueIsIncorrect,
 		ExpectedRefTagID:     &tag,
@@ -308,6 +319,7 @@ func tcValueIsIncorrect() validateTest {
 
 func tcIncorrectDataFormatForValue() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	builder := createFIX40NewOrderSingle()
 	tag := Tag(38)
 	builder.Body.SetField(tag, FIXString("+200.00"))
@@ -315,15 +327,16 @@ func tcIncorrectDataFormatForValue() validateTest {
 
 	return validateTest{
 		TestName:             "IncorrectDataFormatForValue",
-		DataDictionary:       dict,
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonIncorrectDataFormatForValue,
 		ExpectedRefTagID:     &tag,
 	}
 }
 
-func tcTagSpecifiedOutOfRequiredOrder() validateTest {
+func tcTagSpecifiedOutOfRequiredOrder_Header() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	builder := createFIX40NewOrderSingle()
 	tag := tagOnBehalfOfCompID
 	//should be in header
@@ -331,21 +344,41 @@ func tcTagSpecifiedOutOfRequiredOrder() validateTest {
 	msgBytes, _ := builder.Build()
 
 	return validateTest{
-		TestName:             "Tag specified out of required order",
-		DataDictionary:       dict,
+		TestName:             "Tag specified out of required order in Header",
+		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonTagSpecifiedOutOfRequiredOrder,
 		ExpectedRefTagID:     &tag,
 	}
 }
 
+func tcTagSpecifiedOutOfRequiredOrder_Trailer() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
+	builder := createFIX40NewOrderSingle()
+	tag := tagSignature
+	//should be in trailer
+	builder.Body.SetField(tag, FIXString("SIG"))
+	msgBytes, _ := builder.Build()
+
+	refTag := Tag(100)
+	return validateTest{
+		TestName:             "Tag specified out of required order in Trailer",
+		Validator:            validator,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonTagSpecifiedOutOfRequiredOrder,
+		ExpectedRefTagID:     &refTag,
+	}
+}
+
 func tcTagAppearsMoreThanOnce() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	tag := Tag(40)
 
 	return validateTest{
-		TestName:       "Tag appears more than once",
-		DataDictionary: dict,
+		TestName:  "Tag appears more than once",
+		Validator: validator,
 		MessageBytes: []byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"),
 		ExpectedRejectReason: rejectReasonTagAppearsMoreThanOnce,
 		ExpectedRefTagID:     &tag,
@@ -354,10 +387,11 @@ func tcTagAppearsMoreThanOnce() validateTest {
 
 func tcFloatValidation() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX42.xml")
+	validator := &fixValidator{dataDictionary: dict}
 	tag := Tag(38)
 	return validateTest{
-		TestName:       "FloatValidation",
-		DataDictionary: dict,
+		TestName:  "FloatValidation",
+		Validator: validator,
 		MessageBytes: []byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"),
 		ExpectedRejectReason: rejectReasonIncorrectDataFormatForValue,
 		ExpectedRefTagID:     &tag,

@@ -4,22 +4,56 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
-//validate tests the message against the provided data dictionary.
-func validate(d *datadictionary.DataDictionary, msg Message) MessageRejectError {
+type validator interface {
+	Validate(Message) MessageRejectError
+}
+
+type fixValidator struct {
+	dataDictionary *datadictionary.DataDictionary
+}
+
+type fixtValidator struct {
+	transportDataDictionary *datadictionary.DataDictionary
+	appDataDictionary       *datadictionary.DataDictionary
+}
+
+//Validate tests the message against the provided data dictionary.
+func (v *fixValidator) Validate(msg Message) MessageRejectError {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
 		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
 			return requiredTagMissing(tagMsgType)
+		} else {
+			return err
 		}
+	} else {
+		return validateFIX(v.dataDictionary, string(msgType), msg)
+	}
+}
 
+//Validate tests the message against the provided transport and app data dictionaries.
+//If the message is an admin message, it will be validated against the transport data dictionary.
+func (v *fixtValidator) Validate(msg Message) MessageRejectError {
+	var msgType FIXString
+	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
+			return requiredTagMissing(tagMsgType)
+		} else {
+			return err
+		}
+	} else if isAdminMessageType(string(msgType)) {
+		return validateFIX(v.transportDataDictionary, string(msgType), msg)
+	} else {
+		return validateFIXT(v.transportDataDictionary, v.appDataDictionary, string(msgType), msg)
+	}
+}
+
+func validateFIX(d *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
+	if err := validateMsgType(d, msgType, msg); err != nil {
 		return err
 	}
 
-	if _, validMsgType := d.Messages[string(msgType)]; validMsgType == false {
-		return invalidMessageType()
-	}
-
-	if err := validateRequired(d, d, string(msgType), msg); err != nil {
+	if err := validateRequired(d, d, msgType, msg); err != nil {
 		return err
 	}
 
@@ -27,32 +61,23 @@ func validate(d *datadictionary.DataDictionary, msg Message) MessageRejectError 
 		return err
 	}
 
-	if err := validateFields(d, d, string(msgType), msg); err != nil {
+	if err := validateFields(d, d, msgType, msg); err != nil {
 		return err
 	}
 
-	if err := validateWalk(d, d, msg); err != nil {
+	if err := validateWalk(d, d, msgType, msg); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func validateFIXTApp(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msg Message) MessageRejectError {
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
-		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
-			return requiredTagMissing(tagMsgType)
-		}
-
+func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
+	if err := validateMsgType(appDD, msgType, msg); err != nil {
 		return err
 	}
 
-	if _, validMsgType := appDD.Messages[string(msgType)]; validMsgType == false {
-		return invalidMessageType()
-	}
-
-	if err := validateRequired(transportDD, appDD, string(msgType), msg); err != nil {
+	if err := validateRequired(transportDD, appDD, msgType, msg); err != nil {
 		return err
 	}
 
@@ -60,18 +85,25 @@ func validateFIXTApp(transportDD *datadictionary.DataDictionary, appDD *datadict
 		return err
 	}
 
-	if err := validateWalk(transportDD, appDD, msg); err != nil {
+	if err := validateWalk(transportDD, appDD, msgType, msg); err != nil {
 		return err
 	}
 
-	if err := validateFields(transportDD, appDD, string(msgType), msg); err != nil {
+	if err := validateFields(transportDD, appDD, msgType, msg); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msg Message) MessageRejectError {
+func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
+	if _, validMsgType := d.Messages[msgType]; validMsgType == false {
+		return invalidMessageType()
+	}
+	return nil
+}
+
+func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
 	remainingFields := msg.fields
 	var err MessageRejectError
 
@@ -79,10 +111,7 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 		return err
 	}
 
-	var msgType FIXString
-	msg.Header.GetField(tagMsgType, &msgType)
-
-	if remainingFields, err = validateWalkComponent(appDD.Messages[string(msgType)], remainingFields); err != nil {
+	if remainingFields, err = validateWalkComponent(appDD.Messages[msgType], remainingFields); err != nil {
 		return err
 	}
 
@@ -185,7 +214,6 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tag
 }
 
 func validateOrder(msg Message) MessageRejectError {
-
 	inHeader := true
 	inTrailer := false
 	for _, field := range msg.fields {

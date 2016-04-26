@@ -26,17 +26,15 @@ type session struct {
 	sessionEvent chan event
 	messageEvent chan bool
 	application  Application
+	validator
 	sessionState
-	stateTimer              eventTimer
-	peerTimer               eventTimer
-	messageStash            map[int]Message
-	dataDictionary          *datadictionary.DataDictionary
-	transportDataDictionary *datadictionary.DataDictionary
-	appDataDictionary       *datadictionary.DataDictionary
-	resetOnLogon            bool
-	initiateLogon           bool
-	heartBtInt              int
-	heartBeatTimeout        time.Duration
+	stateTimer       eventTimer
+	peerTimer        eventTimer
+	messageStash     map[int]Message
+	resetOnLogon     bool
+	initiateLogon    bool
+	heartBtInt       int
+	heartBeatTimeout time.Duration
 
 	//required on logon for FIX.T.1 messages
 	defaultApplVerID       string
@@ -53,31 +51,48 @@ func (s *session) TargetDefaultApplicationVersionID() string {
 func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) error {
 	session := &session{sessionID: sessionID}
 
-	if sessionID.BeginString == enum.BeginStringFIXT11 {
-		defaultApplVerID, err := settings.Setting(config.DefaultApplVerID)
-		if err != nil {
+	if sessionID.IsFIXT() {
+		if defaultApplVerID, err := settings.Setting(config.DefaultApplVerID); err == nil {
+			session.defaultApplVerID = defaultApplVerID
+		} else {
 			return requiredConfigurationMissing(config.DefaultApplVerID)
 		}
-		session.defaultApplVerID = defaultApplVerID
-	}
 
-	if dataDictionaryPath, err := settings.Setting(config.DataDictionary); err == nil {
-		if session.dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
-			return err
+		//If the transport or app data dictionary setting is set, the other also needs to be set.
+		hasTransportDataDictionary := settings.HasSetting(config.TransportDataDictionary)
+		hasAppDataDictionary := settings.HasSetting(config.AppDataDictionary)
+		if hasTransportDataDictionary != hasAppDataDictionary {
+			if hasTransportDataDictionary {
+				return requiredConfigurationMissing(config.AppDataDictionary)
+			} else {
+				return requiredConfigurationMissing(config.TransportDataDictionary)
+			}
 		}
-	}
 
-	if transportDataDictionaryPath, err := settings.Setting(config.TransportDataDictionary); err == nil {
-		if session.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
-			return err
+		var transportDataDictionary *datadictionary.DataDictionary
+		if transportDataDictionaryPath, err := settings.Setting(config.TransportDataDictionary); err == nil {
+			if transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
+				return err
+			}
 		}
-	}
 
-	//FIXME: tDictionary w/o appDictionary and vice versa should throw config error
-	if appDataDictionaryPath, err := settings.Setting(config.AppDataDictionary); err == nil {
-		if session.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
-			return err
+		var appDataDictionary *datadictionary.DataDictionary
+		if appDataDictionaryPath, err := settings.Setting(config.AppDataDictionary); err == nil {
+			if appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
+				return err
+			}
 		}
+
+		session.validator = &fixtValidator{transportDataDictionary, appDataDictionary}
+	} else {
+		var dataDictionary *datadictionary.DataDictionary
+		if dataDictionaryPath, err := settings.Setting(config.DataDictionary); err == nil {
+			if dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
+				return err
+			}
+		}
+
+		session.validator = &fixValidator{dataDictionary}
 	}
 
 	var err error
@@ -340,24 +355,8 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 		}
 	}
 
-	if s.dataDictionary != nil {
-		if reject := validate(s.dataDictionary, msg); reject != nil {
-			return reject
-		}
-	}
-
-	if s.transportDataDictionary != nil {
-		var msgType FIXString
-		msg.Header.GetField(tagMsgType, &msgType)
-		if isAdminMessageType(string(msgType)) {
-			if reject := validate(s.transportDataDictionary, msg); reject != nil {
-				return reject
-			}
-		} else {
-			if reject := validateFIXTApp(s.transportDataDictionary, s.appDataDictionary, msg); reject != nil {
-				return reject
-			}
-		}
+	if reject := s.validator.Validate(msg); reject != nil {
+		return reject
 	}
 
 	return s.fromCallback(msg)
