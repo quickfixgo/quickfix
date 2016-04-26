@@ -10,6 +10,7 @@ type SessionID struct {
 	BeginString, TargetCompID, TargetSubID, TargetLocationID, SenderCompID, SenderSubID, SenderLocationID, Qualifier string
 }
 
+//IsFIXT returns true if the SessionID has a FIXT BeginString
 func (s SessionID) IsFIXT() bool {
 	return s.BeginString == enum.BeginStringFIXT11
 }
