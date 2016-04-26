@@ -6,8 +6,8 @@ import (
 	"os"
 	"sort"
 
-	"github.com/quickfixgo/quickfix/gen"
 	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/gen"
 )
 
 var (
@@ -55,7 +55,7 @@ func genFields() {
 	fileOut := "package field\n"
 	fileOut += "import(\n"
 	fileOut += "\"github.com/quickfixgo/quickfix\"\n"
-	fileOut += "\"github.com/quickfixgo/quickfix/tag\"\n"
+	fileOut += "\"" + gen.GetImportPathRoot() + "/tag\"\n"
 	fileOut += ")\n"
 
 	for _, tag := range sortedTags {
@@ -92,6 +92,8 @@ func genFields() {
 			fallthrough
 		case "UTCTIMEONLY":
 			fallthrough
+		case "UTCDATE":
+			fallthrough
 		case "UTCDATEONLY":
 			fallthrough
 		case "TZTIMEONLY":
@@ -122,6 +124,8 @@ func genFields() {
 			baseType = "FIXUTCTimestamp"
 
 		case "QTY":
+			fallthrough
+		case "QUANTITY":
 			fallthrough
 		case "AMT":
 			fallthrough
