@@ -27,6 +27,8 @@ func TestValidate(t *testing.T) {
 		tcIncorrectDataFormatForValue(),
 		tcTagSpecifiedOutOfRequiredOrder_Header(),
 		tcTagSpecifiedOutOfRequiredOrder_Trailer(),
+		tcTagSpecifiedOutOfRequiredOrder_Disabled_Header(),
+		tcTagSpecifiedOutOfRequiredOrder_Disabled_Trailer(),
 		tcTagAppearsMoreThanOnce(),
 		tcFloatValidation(),
 		tcTagNotDefinedForMessage(),
@@ -337,6 +339,7 @@ func tcIncorrectDataFormatForValue() validateTest {
 func tcTagSpecifiedOutOfRequiredOrder_Header() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	validator := &fixValidator{dict, defaultValidatorSettings}
+
 	builder := createFIX40NewOrderSingle()
 	tag := tagOnBehalfOfCompID
 	//should be in header
@@ -355,6 +358,7 @@ func tcTagSpecifiedOutOfRequiredOrder_Header() validateTest {
 func tcTagSpecifiedOutOfRequiredOrder_Trailer() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	validator := &fixValidator{dict, defaultValidatorSettings}
+
 	builder := createFIX40NewOrderSingle()
 	tag := tagSignature
 	//should be in trailer
@@ -368,6 +372,44 @@ func tcTagSpecifiedOutOfRequiredOrder_Trailer() validateTest {
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonTagSpecifiedOutOfRequiredOrder,
 		ExpectedRefTagID:     &refTag,
+	}
+}
+
+func tcTagSpecifiedOutOfRequiredOrder_Disabled_Header() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dict, defaultValidatorSettings}
+	validator.settings.CheckFieldsOutOfOrder = false
+
+	builder := createFIX40NewOrderSingle()
+	tag := tagOnBehalfOfCompID
+	//should be in header
+	builder.Body.SetField(tag, FIXString("CWB"))
+	msgBytes, _ := builder.Build()
+
+	return validateTest{
+		TestName:          "Tag specified out of required order in Header - Disabled",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
+	}
+}
+
+func tcTagSpecifiedOutOfRequiredOrder_Disabled_Trailer() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dict, defaultValidatorSettings}
+	validator.settings.CheckFieldsOutOfOrder = false
+
+	builder := createFIX40NewOrderSingle()
+	tag := tagSignature
+	//should be in trailer
+	builder.Body.SetField(tag, FIXString("SIG"))
+	msgBytes, _ := builder.Build()
+
+	return validateTest{
+		TestName:          "Tag specified out of required order in Trailer - Disabled",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
 	}
 }
 
