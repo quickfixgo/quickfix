@@ -99,6 +99,14 @@ Value must be a valid XML data dictionary file. QuickFIX/Go comes with the follo
  FIX41.xml
  FIX40.xml
 
+ValidateFieldsOutOfOrder
+
+If set to N, fields that are out of order (i.e. body fields in the header, or header fields in the body) will not be rejected. Useful for connecting to systems which do not properly order fields. Valid Values:
+ Y
+ N
+
+Defaults to Y.
+
 HeartBtInt
 
 Heartbeat interval in seconds. Only used for initiators.	Value must be positive integer.
@@ -130,9 +138,5 @@ The name of the database driver to use (see https://github.com/golang/go/wiki/SQ
 SQLDataSourceName
 
 The driver-specific data source name of the database to use.  Only used with SqlStoreFactory.
-
-ValidateFieldsOutOfOrder
-
-If set to N, fields that are out of order (i.e. body fields in the header, or header fields in the body) will not be rejected. Useful for connecting to systems which do not properly order fields.
 */
 package config
