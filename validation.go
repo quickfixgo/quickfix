@@ -8,13 +8,25 @@ type validator interface {
 	Validate(Message) MessageRejectError
 }
 
+type validatorSettings struct {
+	CheckFieldsOutOfOrder bool
+}
+
+//Default configuration for message validation.
+//See http://www.quickfixengine.org/quickfix/doc/html/configuration.html.
+var defaultValidatorSettings = validatorSettings{
+	CheckFieldsOutOfOrder: true,
+}
+
 type fixValidator struct {
 	dataDictionary *datadictionary.DataDictionary
+	settings       validatorSettings
 }
 
 type fixtValidator struct {
 	transportDataDictionary *datadictionary.DataDictionary
 	appDataDictionary       *datadictionary.DataDictionary
+	settings                validatorSettings
 }
 
 //Validate tests the message against the provided data dictionary.
@@ -27,7 +39,7 @@ func (v *fixValidator) Validate(msg Message) MessageRejectError {
 			return err
 		}
 	} else {
-		return validateFIX(v.dataDictionary, string(msgType), msg)
+		return validateFIX(v.dataDictionary, v.settings, string(msgType), msg)
 	}
 }
 
@@ -42,13 +54,13 @@ func (v *fixtValidator) Validate(msg Message) MessageRejectError {
 			return err
 		}
 	} else if isAdminMessageType(string(msgType)) {
-		return validateFIX(v.transportDataDictionary, string(msgType), msg)
+		return validateFIX(v.transportDataDictionary, v.settings, string(msgType), msg)
 	} else {
-		return validateFIXT(v.transportDataDictionary, v.appDataDictionary, string(msgType), msg)
+		return validateFIXT(v.transportDataDictionary, v.appDataDictionary, v.settings, string(msgType), msg)
 	}
 }
 
-func validateFIX(d *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
+func validateFIX(d *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg Message) MessageRejectError {
 	if err := validateMsgType(d, msgType, msg); err != nil {
 		return err
 	}
@@ -57,8 +69,10 @@ func validateFIX(d *datadictionary.DataDictionary, msgType string, msg Message) 
 		return err
 	}
 
-	if err := validateOrder(msg); err != nil {
-		return err
+	if settings.CheckFieldsOutOfOrder {
+		if err := validateOrder(msg); err != nil {
+			return err
+		}
 	}
 
 	if err := validateFields(d, d, msgType, msg); err != nil {
@@ -72,7 +86,7 @@ func validateFIX(d *datadictionary.DataDictionary, msgType string, msg Message) 
 	return nil
 }
 
-func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
+func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg Message) MessageRejectError {
 	if err := validateMsgType(appDD, msgType, msg); err != nil {
 		return err
 	}
@@ -81,8 +95,10 @@ func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, msgType str
 		return err
 	}
 
-	if err := validateOrder(msg); err != nil {
-		return err
+	if settings.CheckFieldsOutOfOrder {
+		if err := validateOrder(msg); err != nil {
+			return err
+		}
 	}
 
 	if err := validateWalk(transportDD, appDD, msgType, msg); err != nil {
@@ -105,18 +121,38 @@ func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg Messa
 
 func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
 	remainingFields := msg.fields
+	iteratedTags := make(datadictionary.TagSet)
+
+	var messageDef *datadictionary.MessageDef
+	var fieldDef *datadictionary.FieldDef
 	var err MessageRejectError
+	var ok bool
 
-	if remainingFields, err = validateWalkComponent(transportDD.Header, remainingFields); err != nil {
-		return err
-	}
+	for len(remainingFields) > 0 {
+		field := remainingFields[0]
+		tag := field.Tag
 
-	if remainingFields, err = validateWalkComponent(appDD.Messages[msgType], remainingFields); err != nil {
-		return err
-	}
+		switch {
+		case tag.IsHeader():
+			messageDef = transportDD.Header
+		case tag.IsTrailer():
+			messageDef = transportDD.Trailer
+		default: // is body
+			messageDef = appDD.Messages[msgType]
+		}
 
-	if remainingFields, err = validateWalkComponent(transportDD.Trailer, remainingFields); err != nil {
-		return err
+		if fieldDef, ok = messageDef.Fields[int(tag)]; !ok {
+			return tagNotDefinedForThisMessageType(tag)
+		}
+
+		if _, duplicate := iteratedTags[int(tag)]; duplicate {
+			return tagAppearsMoreThanOnce(tag)
+		}
+		iteratedTags.Add(int(tag))
+
+		if remainingFields, err = validateVisitField(fieldDef, remainingFields); err != nil {
+			return err
+		}
 	}
 
 	if len(remainingFields) != 0 {
@@ -126,41 +162,14 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 	return nil
 }
 
-func validateWalkComponent(messageDef *datadictionary.MessageDef, fields []tagValue) ([]tagValue, MessageRejectError) {
-	var fieldDef *datadictionary.FieldDef
-	var ok bool
-	var err MessageRejectError
-	iteratedTags := make(datadictionary.TagSet)
-
-	for len(fields) > 0 {
-		field := fields[0]
-		//field not defined for this component
-		if fieldDef, ok = messageDef.Fields[int(field.Tag)]; !ok {
-			break
-		}
-
-		if _, duplicate := iteratedTags[int(field.Tag)]; duplicate {
-			return nil, tagAppearsMoreThanOnce(field.Tag)
-		}
-		iteratedTags.Add(int(field.Tag))
-
-		if fields, err = validateVisitField(fieldDef, fields); err != nil {
-			return nil, err
-		}
-	}
-
-	return fields, nil
-}
-
 func validateVisitField(fieldDef *datadictionary.FieldDef, fields []tagValue) ([]tagValue, MessageRejectError) {
-	var err MessageRejectError
-
 	if fieldDef.IsGroup() {
+		var err MessageRejectError
 		if fields, err = validateVisitGroupField(fieldDef, fields); err != nil {
 			return nil, err
+		} else {
+			return fields, nil
 		}
-
-		return fields, nil
 	}
 
 	return fields[1:], nil

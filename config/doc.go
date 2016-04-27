@@ -130,5 +130,9 @@ The name of the database driver to use (see https://github.com/golang/go/wiki/SQ
 SQLDataSourceName
 
 The driver-specific data source name of the database to use.  Only used with SqlStoreFactory.
+
+ValidateFieldsOutOfOrder
+
+If set to N, fields that are out of order (i.e. body fields in the header, or header fields in the body) will not be rejected. Useful for connecting to systems which do not properly order fields.
 */
 package config

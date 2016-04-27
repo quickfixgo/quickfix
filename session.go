@@ -51,6 +51,14 @@ func (s *session) TargetDefaultApplicationVersionID() string {
 func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) error {
 	session := &session{sessionID: sessionID}
 
+	var err error
+	var validatorSettings = defaultValidatorSettings
+	if settings.HasSetting(config.ValidateFieldsOutOfOrder) {
+		if validatorSettings.CheckFieldsOutOfOrder, err = settings.BoolSetting(config.ValidateFieldsOutOfOrder); err != nil {
+			return err
+		}
+	}
+
 	if sessionID.IsFIXT() {
 		if defaultApplVerID, err := settings.Setting(config.DefaultApplVerID); err == nil {
 			session.defaultApplVerID = defaultApplVerID
@@ -83,7 +91,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 			}
 		}
 
-		session.validator = &fixtValidator{transportDataDictionary, appDataDictionary}
+		session.validator = &fixtValidator{transportDataDictionary, appDataDictionary, validatorSettings}
 	} else {
 		var dataDictionary *datadictionary.DataDictionary
 		if dataDictionaryPath, err := settings.Setting(config.DataDictionary); err == nil {
@@ -92,10 +100,9 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 			}
 		}
 
-		session.validator = &fixValidator{dataDictionary}
+		session.validator = &fixValidator{dataDictionary, validatorSettings}
 	}
 
-	var err error
 	if settings.HasSetting(config.ResetOnLogon) {
 		if session.resetOnLogon, err = settings.BoolSetting(config.ResetOnLogon); err != nil {
 			return err
