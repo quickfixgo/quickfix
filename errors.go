@@ -56,8 +56,8 @@ func NewBusinessMessageRejectError(err string, rejectReason int, refTagID *Tag) 
 	return messageRejectError{text: err, rejectReason: rejectReason, refTagID: refTagID, isBusinessReject: true}
 }
 
-//incorrectDataFormatForValue returns an error indicating a field that cannot be parsed as the type required.
-func incorrectDataFormatForValue(tag Tag) MessageRejectError {
+//IncorrectDataFormatForValue returns an error indicating a field that cannot be parsed as the type required.
+func IncorrectDataFormatForValue(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Incorrect data format for value", rejectReasonIncorrectDataFormatForValue, &tag)
 }
 
@@ -87,18 +87,18 @@ func valueIsIncorrectNoTag() MessageRejectError {
 	return NewMessageRejectError("Value is incorrect (out of range) for this tag", rejectReasonValueIsIncorrect, nil)
 }
 
-//invalidMessageType returns an error to indicate an invalid message type
-func invalidMessageType() MessageRejectError {
+//InvalidMessageType returns an error to indicate an invalid message type
+func InvalidMessageType() MessageRejectError {
 	return NewMessageRejectError("Invalid MsgType", rejectReasonInvalidMsgType, nil)
 }
 
-//unsupportedMessageType returns an error to indicate an unhandled message.
-func unsupportedMessageType() MessageRejectError {
+//UnsupportedMessageType returns an error to indicate an unhandled message.
+func UnsupportedMessageType() MessageRejectError {
 	return NewBusinessMessageRejectError("Unsupported Message Type", rejectReasonUnsupportedMessageType, nil)
 }
 
-//tagNotDefinedForThisMessageType returns an error for an invalid tag appearing in a message.
-func tagNotDefinedForThisMessageType(tag Tag) MessageRejectError {
+//TagNotDefinedForThisMessageType returns an error for an invalid tag appearing in a message.
+func TagNotDefinedForThisMessageType(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Tag not defined for this message type", rejectReasonTagNotDefinedForThisMessageType, &tag)
 }
 
@@ -107,8 +107,8 @@ func tagAppearsMoreThanOnce(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Tag appears more than once", rejectReasonTagAppearsMoreThanOnce, &tag)
 }
 
-//requiredTagMissing returns a validation error when a required field cannot be found in a message.
-func requiredTagMissing(tag Tag) MessageRejectError {
+//RequiredTagMissing returns a validation error when a required field cannot be found in a message.
+func RequiredTagMissing(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Required tag missing", rejectReasonRequiredTagMissing, &tag)
 }
 
@@ -122,13 +122,13 @@ func tagSpecifiedOutOfRequiredOrder(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Tag specified out of required order", rejectReasonTagSpecifiedOutOfRequiredOrder, &tag)
 }
 
-//tagSpecifiedWithoutAValue returns a validation error for when a field has no value.
-func tagSpecifiedWithoutAValue(tag Tag) MessageRejectError {
+//TagSpecifiedWithoutAValue returns a validation error for when a field has no value.
+func TagSpecifiedWithoutAValue(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Tag specified without a value", rejectReasonTagSpecifiedWithoutAValue, &tag)
 }
 
-//invalidTagNumber returns a validation error for messages with invalid tags.
-func invalidTagNumber(tag Tag) MessageRejectError {
+//InvalidTagNumber returns a validation error for messages with invalid tags.
+func InvalidTagNumber(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Invalid tag number", rejectReasonInvalidTagNumber, &tag)
 }
 

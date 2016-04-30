@@ -109,14 +109,14 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 	var err error
 	var beginSeqNoField FIXInt
 	if err = msg.Body.GetField(tagBeginSeqNo, &beginSeqNoField); err != nil {
-		return state.processReject(session, msg, requiredTagMissing(tagBeginSeqNo))
+		return state.processReject(session, msg, RequiredTagMissing(tagBeginSeqNo))
 	}
 
 	beginSeqNo := beginSeqNoField
 
 	var endSeqNoField FIXInt
 	if err = msg.Body.GetField(tagEndSeqNo, &endSeqNoField); err != nil {
-		return state.processReject(session, msg, requiredTagMissing(tagEndSeqNo))
+		return state.processReject(session, msg, RequiredTagMissing(tagEndSeqNo))
 	}
 
 	endSeqNo := int(endSeqNoField)
@@ -223,7 +223,7 @@ func (state inSession) doTargetTooLow(session *session, msg Message, rej targetT
 
 		origSendingTime := new(FIXUTCTimestamp)
 		if err = msg.Header.GetField(tagOrigSendingTime, origSendingTime); err != nil {
-			session.doReject(msg, requiredTagMissing(tagOrigSendingTime))
+			session.doReject(msg, RequiredTagMissing(tagOrigSendingTime))
 			return state
 		}
 
