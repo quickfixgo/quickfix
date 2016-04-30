@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/quickfixgo/quickfix/gen"
 	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/quickfixgo/quickfix/gen"
 )
 
 var (

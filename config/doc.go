@@ -47,7 +47,7 @@ Required only for FIXT 1.1 (and newer). Ignored for earlier transport versions. 
 
 ResetOnLogon
 
-Determines if sequence numbers should be reset when recieving a logon request. Acceptors only.	Valid Values:
+Determines if sequence numbers should be reset when receiving a logon request. Acceptors only.	Valid Values:
  Y
  N
 

@@ -21,7 +21,7 @@ OnLogout notifies you when an FIX session is no longer online. This could happen
 
 	ToAdmin(message Message, sessionID SessionID)
 
-ToAdmin provides you with a peak at the administrative messages that are being sent from your FIX engine to the counter party. This is normally not useful for an application however it is provided for any logging you may wish to do. Notice that the Message is not const. This allows you to add fields before an adminstrative message is sent out.
+ToAdmin provides you with a peak at the administrative messages that are being sent from your FIX engine to the counter party. This is normally not useful for an application however it is provided for any logging you may wish to do. Notice that the Message is not const. This allows you to add fields before an administrative message is sent out.
 
 	ToApp(message Message, sessionID SessionID) error
 
