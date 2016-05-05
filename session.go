@@ -69,38 +69,34 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 		//If the transport or app data dictionary setting is set, the other also needs to be set.
 		hasTransportDataDictionary := settings.HasSetting(config.TransportDataDictionary)
 		hasAppDataDictionary := settings.HasSetting(config.AppDataDictionary)
-		if hasTransportDataDictionary != hasAppDataDictionary {
-			if hasTransportDataDictionary {
-				return requiredConfigurationMissing(config.AppDataDictionary)
-			} else {
-				return requiredConfigurationMissing(config.TransportDataDictionary)
-			}
-		}
-
-		var transportDataDictionary *datadictionary.DataDictionary
-		if transportDataDictionaryPath, err := settings.Setting(config.TransportDataDictionary); err == nil {
-			if transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
+		if hasTransportDataDictionary && hasAppDataDictionary {
+			transportDataDictionaryPath, _ := settings.Setting(config.TransportDataDictionary)
+			transportDataDictionary, err := datadictionary.Parse(transportDataDictionaryPath)
+			if err != nil {
 				return err
 			}
-		}
 
-		var appDataDictionary *datadictionary.DataDictionary
-		if appDataDictionaryPath, err := settings.Setting(config.AppDataDictionary); err == nil {
-			if appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
+			appDataDictionaryPath, _ := settings.Setting(config.AppDataDictionary)
+			appDataDictionary, err := datadictionary.Parse(appDataDictionaryPath)
+			if err != nil {
 				return err
 			}
-		}
 
-		session.validator = &fixtValidator{transportDataDictionary, appDataDictionary, validatorSettings}
+			session.validator = &fixtValidator{transportDataDictionary, appDataDictionary, validatorSettings}
+		} else if hasTransportDataDictionary {
+			return requiredConfigurationMissing(config.AppDataDictionary)
+		} else if hasAppDataDictionary {
+			return requiredConfigurationMissing(config.TransportDataDictionary)
+		}
 	} else {
 		var dataDictionary *datadictionary.DataDictionary
 		if dataDictionaryPath, err := settings.Setting(config.DataDictionary); err == nil {
 			if dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
 				return err
 			}
-		}
 
-		session.validator = &fixValidator{dataDictionary, validatorSettings}
+			session.validator = &fixValidator{dataDictionary, validatorSettings}
+		}
 	}
 
 	if settings.HasSetting(config.ResetOnLogon) {
@@ -362,8 +358,10 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 		}
 	}
 
-	if reject := s.validator.Validate(msg); reject != nil {
-		return reject
+	if s.validator != nil {
+		if reject := s.validator.Validate(msg); reject != nil {
+			return reject
+		}
 	}
 
 	return s.fromCallback(msg)
