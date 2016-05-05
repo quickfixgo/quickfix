@@ -382,7 +382,7 @@ func (s *session) checkTargetTooLow(msg Message) MessageRejectError {
 	var seqNum FIXInt
 	switch err := msg.Header.GetField(tagMsgSeqNum, &seqNum); {
 	case err != nil:
-		return requiredTagMissing(tagMsgSeqNum)
+		return RequiredTagMissing(tagMsgSeqNum)
 	case int(seqNum) < s.store.NextTargetMsgSeqNum():
 		return targetTooLow{ReceivedTarget: int(seqNum), ExpectedTarget: s.store.NextTargetMsgSeqNum()}
 	}
@@ -394,7 +394,7 @@ func (s *session) checkTargetTooHigh(msg Message) MessageRejectError {
 	var seqNum FIXInt
 	switch err := msg.Header.GetField(tagMsgSeqNum, &seqNum); {
 	case err != nil:
-		return requiredTagMissing(tagMsgSeqNum)
+		return RequiredTagMissing(tagMsgSeqNum)
 	case int(seqNum) > s.store.NextTargetMsgSeqNum():
 		return targetTooHigh{ReceivedTarget: int(seqNum), ExpectedTarget: s.store.NextTargetMsgSeqNum()}
 	}
@@ -411,13 +411,13 @@ func (s *session) checkCompID(msg Message) MessageRejectError {
 
 	switch {
 	case haveSender != nil:
-		return requiredTagMissing(tagSenderCompID)
+		return RequiredTagMissing(tagSenderCompID)
 	case haveTarget != nil:
-		return requiredTagMissing(tagTargetCompID)
+		return RequiredTagMissing(tagTargetCompID)
 	case len(targetCompID) == 0:
-		return tagSpecifiedWithoutAValue(tagTargetCompID)
+		return TagSpecifiedWithoutAValue(tagTargetCompID)
 	case len(senderCompID) == 0:
-		return tagSpecifiedWithoutAValue(tagSenderCompID)
+		return TagSpecifiedWithoutAValue(tagSenderCompID)
 	case s.sessionID.SenderCompID != string(targetCompID) || s.sessionID.TargetCompID != string(senderCompID):
 		return compIDProblem()
 	}
@@ -427,7 +427,7 @@ func (s *session) checkCompID(msg Message) MessageRejectError {
 
 func (s *session) checkSendingTime(msg Message) MessageRejectError {
 	if ok := msg.Header.Has(tagSendingTime); !ok {
-		return requiredTagMissing(tagSendingTime)
+		return RequiredTagMissing(tagSendingTime)
 	}
 
 	sendingTime := new(FIXUTCTimestamp)
@@ -446,7 +446,7 @@ func (s *session) checkBeginString(msg Message) MessageRejectError {
 	var beginString FIXString
 	switch err := msg.Header.GetField(tagBeginString, &beginString); {
 	case err != nil:
-		return requiredTagMissing(tagBeginString)
+		return RequiredTagMissing(tagBeginString)
 	case s.sessionID.BeginString != string(beginString):
 		return incorrectBeginString{}
 	}

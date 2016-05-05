@@ -72,6 +72,7 @@ func (m *FieldMap) init(ordering tagOrder) {
 	m.tagOrder = ordering
 }
 
+//Tags returns all of the Field Tags in this FieldMap
 func (m FieldMap) Tags() []Tag {
 	tags := make([]Tag, 0, len(m.tagLookup))
 	for t := range m.tagLookup {
@@ -81,15 +82,18 @@ func (m FieldMap) Tags() []Tag {
 	return tags
 }
 
+//Get parses out a field in this FieldMap. Returned reject may indicate the field is not present, or the field value is invalid.
 func (m FieldMap) Get(parser Field) MessageRejectError {
 	return m.GetField(parser.Tag(), parser)
 }
 
+//Has returns true if the Tag is present in this FieldMap
 func (m FieldMap) Has(tag Tag) bool {
 	_, ok := m.tagLookup[tag]
 	return ok
 }
 
+//GetField parses of a field with Tag tag. Returned reject may indicate the field is not present, or the field value is invalid.
 func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError {
 	tagValues, ok := m.tagLookup[tag]
 	if !ok {
@@ -97,13 +101,13 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 	}
 
 	if err := parser.Read(tagValues[0].Value); err != nil {
-		return incorrectDataFormatForValue(tag)
+		return IncorrectDataFormatForValue(tag)
 	}
 
 	return nil
 }
 
-// GetInt is a GetField wrapper for int fields
+//GetInt is a GetField wrapper for int fields
 func (m FieldMap) GetInt(tag Tag) (int, MessageRejectError) {
 	var val FIXInt
 	if err := m.GetField(tag, &val); err != nil {
@@ -112,7 +116,7 @@ func (m FieldMap) GetInt(tag Tag) (int, MessageRejectError) {
 	return int(val), nil
 }
 
-// GetString is a GetField wrapper for string fields
+//GetString is a GetField wrapper for string fields
 func (m FieldMap) GetString(tag Tag) (string, MessageRejectError) {
 	var val FIXString
 	if err := m.GetField(tag, &val); err != nil {
@@ -121,6 +125,7 @@ func (m FieldMap) GetString(tag Tag) (string, MessageRejectError) {
 	return string(val), nil
 }
 
+//GetGroup is a Get function specific to Group Fields.
 func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
 	tagValues, ok := m.tagLookup[parser.Tag]
 	if !ok {
@@ -131,12 +136,13 @@ func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
 		if msgRejErr, ok := err.(MessageRejectError); ok {
 			return msgRejErr
 		}
-		return incorrectDataFormatForValue(parser.Tag)
+		return IncorrectDataFormatForValue(parser.Tag)
 	}
 
 	return nil
 }
 
+//SetField sets the field with Tag tag
 func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
 	tValues := make([]tagValue, 1)
 	tValues[0].init(tag, field.Write())
@@ -149,6 +155,7 @@ func (m *FieldMap) Clear() {
 	m.tagLookup = make(map[Tag][]tagValue)
 }
 
+//Set is a setter for fields
 func (m FieldMap) Set(field FieldWriter) FieldMap {
 	tValues := make([]tagValue, 1)
 	tValues[0].init(field.Tag(), field.Write())
@@ -156,6 +163,7 @@ func (m FieldMap) Set(field FieldWriter) FieldMap {
 	return m
 }
 
+//SetGroup is a setter specific to group fields
 func (m FieldMap) SetGroup(field RepeatingGroup) FieldMap {
 	m.tagLookup[field.Tag] = field.tagValues()
 	return m

@@ -34,7 +34,7 @@ func (v *fixValidator) Validate(msg Message) MessageRejectError {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
 		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
-			return requiredTagMissing(tagMsgType)
+			return RequiredTagMissing(tagMsgType)
 		} else {
 			return err
 		}
@@ -49,7 +49,7 @@ func (v *fixtValidator) Validate(msg Message) MessageRejectError {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
 		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
-			return requiredTagMissing(tagMsgType)
+			return RequiredTagMissing(tagMsgType)
 		} else {
 			return err
 		}
@@ -114,7 +114,7 @@ func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings va
 
 func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
 	if _, validMsgType := d.Messages[msgType]; validMsgType == false {
-		return invalidMessageType()
+		return InvalidMessageType()
 	}
 	return nil
 }
@@ -142,7 +142,7 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 		}
 
 		if fieldDef, ok = messageDef.Fields[int(tag)]; !ok {
-			return tagNotDefinedForThisMessageType(tag)
+			return TagNotDefinedForThisMessageType(tag)
 		}
 
 		if _, duplicate := iteratedTags[int(tag)]; duplicate {
@@ -156,7 +156,7 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 	}
 
 	if len(remainingFields) != 0 {
-		return tagNotDefinedForThisMessageType(remainingFields[0].Tag)
+		return TagNotDefinedForThisMessageType(remainingFields[0].Tag)
 	}
 
 	return nil
@@ -180,7 +180,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tag
 	var numInGroup FIXInt
 
 	if err := numInGroup.Read(fieldStack[0].Value); err != nil {
-		return nil, incorrectDataFormatForValue(numInGroupTag)
+		return nil, IncorrectDataFormatForValue(numInGroupTag)
 	}
 
 	fieldStack = fieldStack[1:]
@@ -208,7 +208,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tag
 			}
 		} else {
 			if childDefs[0].Required() {
-				return fieldStack, requiredTagMissing(Tag(childDefs[0].Tag()))
+				return fieldStack, RequiredTagMissing(Tag(childDefs[0].Tag()))
 			}
 		}
 
@@ -265,7 +265,7 @@ func validateRequiredFieldMap(msg Message, requiredTags map[int]struct{}, fieldM
 		if err := fieldMap.GetField(Tag(required), field); err != nil {
 			//FIXME: add "has..." method?
 			if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
-				return requiredTagMissing(Tag(required))
+				return RequiredTagMissing(Tag(required))
 			}
 			return err
 		}
@@ -297,11 +297,11 @@ func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadicti
 
 func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field tagValue) MessageRejectError {
 	if len(field.Value) == 0 {
-		return tagSpecifiedWithoutAValue(field.Tag)
+		return TagSpecifiedWithoutAValue(field.Tag)
 	}
 
 	if _, valid := d.FieldTypeByTag[int(field.Tag)]; !valid {
-		return invalidTagNumber(field.Tag)
+		return InvalidTagNumber(field.Tag)
 	}
 
 	allowedValues := d.FieldTypeByTag[int(field.Tag)].Enums
@@ -380,7 +380,7 @@ func validateField(d *datadictionary.DataDictionary, validFields datadictionary.
 	}
 
 	if err := prototype.Read(field.Value); err != nil {
-		return incorrectDataFormatForValue(field.Tag)
+		return IncorrectDataFormatForValue(field.Tag)
 	}
 
 	return nil
