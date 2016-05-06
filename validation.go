@@ -31,33 +31,32 @@ type fixtValidator struct {
 
 //Validate tests the message against the provided data dictionary.
 func (v *fixValidator) Validate(msg Message) MessageRejectError {
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
-		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
-			return RequiredTagMissing(tagMsgType)
-		} else {
-			return err
-		}
-	} else {
-		return validateFIX(v.dataDictionary, v.settings, string(msgType), msg)
+	if !msg.Header.Has(tagMsgType) {
+		return RequiredTagMissing(tagMsgType)
 	}
+	msgType, err := msg.Header.GetString(tagMsgType)
+	if err != nil {
+		return err
+	}
+
+	return validateFIX(v.dataDictionary, v.settings, msgType, msg)
 }
 
 //Validate tests the message against the provided transport and app data dictionaries.
 //If the message is an admin message, it will be validated against the transport data dictionary.
 func (v *fixtValidator) Validate(msg Message) MessageRejectError {
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
-		if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
-			return RequiredTagMissing(tagMsgType)
-		} else {
-			return err
-		}
-	} else if isAdminMessageType(string(msgType)) {
-		return validateFIX(v.transportDataDictionary, v.settings, string(msgType), msg)
-	} else {
-		return validateFIXT(v.transportDataDictionary, v.appDataDictionary, v.settings, string(msgType), msg)
+	if !msg.Header.Has(tagMsgType) {
+		return RequiredTagMissing(tagMsgType)
 	}
+	msgType, err := msg.Header.GetString(tagMsgType)
+	if err != nil {
+		return err
+	}
+
+	if isAdminMessageType(msgType) {
+		return validateFIX(v.transportDataDictionary, v.settings, msgType, msg)
+	}
+	return validateFIXT(v.transportDataDictionary, v.appDataDictionary, v.settings, msgType, msg)
 }
 
 func validateFIX(d *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg Message) MessageRejectError {
@@ -167,9 +166,8 @@ func validateVisitField(fieldDef *datadictionary.FieldDef, fields []tagValue) ([
 		var err MessageRejectError
 		if fields, err = validateVisitGroupField(fieldDef, fields); err != nil {
 			return nil, err
-		} else {
-			return fields, nil
 		}
+		return fields, nil
 	}
 
 	return fields[1:], nil
@@ -261,13 +259,9 @@ func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadic
 
 func validateRequiredFieldMap(msg Message, requiredTags map[int]struct{}, fieldMap FieldMap) MessageRejectError {
 	for required := range requiredTags {
-		field := new(FIXString)
-		if err := fieldMap.GetField(Tag(required), field); err != nil {
-			//FIXME: add "has..." method?
-			if err.RejectReason() == rejectReasonConditionallyRequiredFieldMissing {
-				return RequiredTagMissing(Tag(required))
-			}
-			return err
+		requiredTag := Tag(required)
+		if !fieldMap.Has(requiredTag) {
+			return RequiredTagMissing(requiredTag)
 		}
 	}
 

@@ -288,9 +288,6 @@ func NewMessageDef(name, msgType string, parts []MessagePart) *MessageDef {
 
 		if allowRequired && field.Required() {
 			msg.RequiredTags.Add(field.Tag())
-			for _, t := range field.requiredChildTags() {
-				msg.RequiredTags.Add(t)
-			}
 		}
 	}
 
