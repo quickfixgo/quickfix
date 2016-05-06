@@ -59,7 +59,7 @@ func TestNewMessageDef(t *testing.T) {
 		{
 			parts:                 []datadictionary.MessagePart{requiredGroup1},
 			expectedTags:          datadictionary.TagSet{11: struct{}{}, 12: struct{}{}, 13: struct{}{}},
-			expectedRequiredTags:  datadictionary.TagSet{11: struct{}{}, 13: struct{}{}},
+			expectedRequiredTags:  datadictionary.TagSet{13: struct{}{}},
 			expectedRequiredParts: []datadictionary.MessagePart{requiredGroup1},
 		},
 		{
