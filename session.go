@@ -468,16 +468,16 @@ func (s *session) doReject(msg Message, rej MessageRejectError) {
 			case rej.RejectReason() > rejectReasonInvalidMsgType && s.sessionID.BeginString == enum.BeginStringFIX42:
 				//fix42 knows up to invalid msg type
 			}
+
+			if refTagID := rej.RefTagID(); refTagID != nil {
+				reply.Body.SetField(tagRefTagID, FIXInt(*refTagID))
+			}
 		}
 		reply.Body.SetField(tagText, FIXString(rej.Error()))
 
 		var msgType FIXString
 		if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
 			reply.Body.SetField(tagRefMsgType, msgType)
-		}
-
-		if refTagID := rej.RefTagID(); refTagID != nil {
-			reply.Body.SetField(tagRefTagID, FIXInt(*refTagID))
 		}
 	} else {
 		reply.Header.SetField(tagMsgType, FIXString("3"))
