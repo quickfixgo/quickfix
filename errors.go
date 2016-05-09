@@ -58,7 +58,7 @@ func NewBusinessMessageRejectError(err string, rejectReason int, refTagID *Tag) 
 
 //IncorrectDataFormatForValue returns an error indicating a field that cannot be parsed as the type required.
 func IncorrectDataFormatForValue(tag Tag) MessageRejectError {
-	return NewMessageRejectError("Incorrect data format for value", rejectReasonIncorrectDataFormatForValue, &tag)
+	return NewMessageRejectError(fmt.Sprintf("Field [%d] Contains badly formatted data.", tag), rejectReasonIncorrectDataFormatForValue, &tag)
 }
 
 //repeatingGroupFieldsOutOfOrder returns an error indicating a problem parsing repeating groups fields

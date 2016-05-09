@@ -54,9 +54,9 @@ func TestNewBusinessMessageRejectError(t *testing.T) {
 
 func TestIncorrectDataFormatForValue(t *testing.T) {
 	var (
-		expectedErrorString          = "Incorrect data format for value"
 		expectedRejectReason         = 6
 		expectedRefTagID         Tag = 44
+		expectedErrorString          = fmt.Sprintf("Field [%d] Contains badly formatted data.", expectedRefTagID)
 		expectedIsBusinessReject     = false
 	)
 	msgRej := IncorrectDataFormatForValue(expectedRefTagID)
