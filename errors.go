@@ -78,7 +78,7 @@ func ValueIsIncorrect(tag Tag) MessageRejectError {
 
 //ConditionallyRequiredFieldMissing indicates that the requested field could not be found in the FIX message.
 func ConditionallyRequiredFieldMissing(tag Tag) MessageRejectError {
-	return NewBusinessMessageRejectError("Conditionally required field missing", rejectReasonConditionallyRequiredFieldMissing, &tag)
+	return NewBusinessMessageRejectError(fmt.Sprintf("Conditionally Required Field Missing (%d)", tag), rejectReasonConditionallyRequiredFieldMissing, &tag)
 }
 
 //valueIsIncorrectNoTag returns an error indicating a field with value that is not valid.
