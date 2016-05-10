@@ -5,6 +5,17 @@ go:
   - 1.6
   - tip
 
+env:
+  - FIX_TEST=
+  - FIX_TEST=fix40
+  - FIX_TEST=fix41
+  - FIX_TEST=fix42
+  - FIX_TEST=fix43
+  - FIX_TEST=fix44
+  - FIX_TEST=fix50
+  - FIX_TEST=fix50sp1
+  - FIX_TEST=fix50sp2
+
 matrix:
   allow_failures:
     - go: tip
@@ -12,5 +23,4 @@ matrix:
 install: 
   - make get
 
-before_script: make generate
-script: make travis_test
+script: if [ -z "$FIX_TEST" ]; then make generate && make build && make; else make build_accept && make $FIX_TEST; fi
