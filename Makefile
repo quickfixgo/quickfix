@@ -54,7 +54,4 @@ fix50sp2:
 ACCEPT_SUITE=fix40 fix41 fix42 fix43 fix44 fix50 fix50sp1 fix50sp2 
 accept: $(ACCEPT_SUITE)
 
-
-travis_test: all build accept
-
 .PHONY: test $(ACCEPT_SUITE)
