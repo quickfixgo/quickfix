@@ -66,13 +66,13 @@ func genGroupDeclarations(name string, fields []datadictionary.MessagePart) (fil
 	return
 }
 
-func genHeader(header *datadictionary.MessageDef) {
+func genHeader(header *datadictionary.MessageDef) error {
 	writer := new(bytes.Buffer)
 	if err := gen.WritePackage(writer, pkg); err != nil {
-		panic(err)
+		return err
 	}
 	if err := gen.WriteComponentImports(writer, pkg, header.Parts); err != nil {
-		panic(err)
+		return err
 	}
 
 	fileOut := writer.String()
@@ -84,20 +84,20 @@ func genHeader(header *datadictionary.MessageDef) {
 
 	writer = new(bytes.Buffer)
 	if err := gen.WriteFieldSetters(writer, "Header", header.Parts); err != nil {
-		panic(err)
+		return err
 	}
 	fileOut += writer.String()
 
-	gen.WriteFile(path.Join(pkg, "header.go"), fileOut)
+	return gen.WriteFile(path.Join(pkg, "header.go"), fileOut)
 }
 
-func genTrailer(trailer *datadictionary.MessageDef) {
+func genTrailer(trailer *datadictionary.MessageDef) error {
 	writer := new(bytes.Buffer)
 	if err := gen.WritePackage(writer, pkg); err != nil {
-		panic(err)
+		return err
 	}
 	if err := gen.WriteComponentImports(writer, pkg, trailer.Parts); err != nil {
-		panic(err)
+		return err
 	}
 	fileOut := writer.String()
 
@@ -108,24 +108,24 @@ func genTrailer(trailer *datadictionary.MessageDef) {
 
 	writer = new(bytes.Buffer)
 	if err := gen.WriteFieldSetters(writer, "Trailer", trailer.Parts); err != nil {
-		panic(err)
+		return err
 	}
 	fileOut += writer.String()
 
-	gen.WriteFile(path.Join(pkg, "trailer.go"), fileOut)
+	return gen.WriteFile(path.Join(pkg, "trailer.go"), fileOut)
 }
 
-func genComponent(name string, component *datadictionary.ComponentType) {
+func genComponent(name string, component *datadictionary.ComponentType) error {
 	writer := new(bytes.Buffer)
 	if err := gen.WritePackage(writer, strings.ToLower(name)); err != nil {
-		panic(err)
+		return err
 	}
 	if err := gen.WriteComponentImports(writer, pkg, component.Parts()); err != nil {
-		panic(err)
+		return err
 	}
 
 	if err := gen.WriteNewComponent(writer, *component); err != nil {
-		panic(err)
+		return err
 	}
 
 	fileOut := writer.String()
@@ -136,7 +136,7 @@ func genComponent(name string, component *datadictionary.ComponentType) {
 	fileOut += "}\n"
 	fileOut += genComponentSetters(component)
 
-	gen.WriteFile(path.Join(pkg, strings.ToLower(name), name+".go"), fileOut)
+	return gen.WriteFile(path.Join(pkg, strings.ToLower(name), name+".go"), fileOut)
 }
 
 func genComponentSetters(component *datadictionary.ComponentType) string {
@@ -173,15 +173,18 @@ func main() {
 		panic(pkg + "/ is not a directory")
 	}
 
+	var h gen.ErrorHandler
 	switch pkg {
 	//uses fixt11 header/trailer
 	case "fix50", "fix50sp1", "fix50sp2":
 	default:
-		genHeader(fixSpec.Header)
-		genTrailer(fixSpec.Trailer)
+		h.Handle(genHeader(fixSpec.Header))
+		h.Handle(genTrailer(fixSpec.Trailer))
 	}
 
 	for name, component := range fixSpec.ComponentTypes {
-		genComponent(name, component)
+		h.Handle(genComponent(name, component))
 	}
+
+	os.Exit(h.ReturnCode)
 }

@@ -34,12 +34,6 @@ func initPackage() {
 	}
 }
 
-func genMessages() {
-	for _, m := range fixSpec.Messages {
-		genMessagePkg(m)
-	}
-}
-
 type group struct {
 	parent string
 	field  *datadictionary.FieldDef
@@ -138,16 +132,16 @@ func Route(router RouteOut) (string,string,quickfix.MessageRoute) {
 	return fileOut
 }
 
-func genMessagePkg(msg *datadictionary.MessageDef) {
+func genMessagePkg(msg *datadictionary.MessageDef) error {
 	pkgName := strings.ToLower(msg.Name)
 	fileOut := fmt.Sprintf("//Package %v msg type = %v.\n", pkgName, msg.MsgType)
 
 	writer := new(bytes.Buffer)
 	if err := gen.WritePackage(writer, pkgName); err != nil {
-		panic(err)
+		return err
 	}
 	if err := gen.WriteMessageImports(writer, pkg, msg.Parts); err != nil {
-		panic(err)
+		return err
 	}
 	fileOut += writer.String()
 	fileOut += genGroupDeclarations(msg)
@@ -156,7 +150,7 @@ func genMessagePkg(msg *datadictionary.MessageDef) {
 	fileOut += genMessageSetters(msg)
 	fileOut += genMessageRoute(msg)
 
-	gen.WriteFile(path.Join(pkg, strings.ToLower(msg.Name), msg.Name+".go"), fileOut)
+	return gen.WriteFile(path.Join(pkg, strings.ToLower(msg.Name), msg.Name+".go"), fileOut)
 }
 
 func main() {
@@ -193,5 +187,9 @@ func main() {
 		panic(pkg + "/ is not a directory")
 	}
 
-	genMessages()
+	var h gen.ErrorHandler
+	for _, m := range fixSpec.Messages {
+		h.Handle(genMessagePkg(m))
+	}
+	os.Exit(h.ReturnCode)
 }

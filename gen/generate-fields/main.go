@@ -22,7 +22,7 @@ func usage() {
 	os.Exit(2)
 }
 
-func genEnums() {
+func genEnums() error {
 	fileOut := "package enum\n"
 
 	for _, fieldName := range sortedTags {
@@ -48,10 +48,10 @@ func genEnums() {
 		fileOut += ")\n"
 	}
 
-	gen.WriteFile("enum/enums.go", fileOut)
+	return gen.WriteFile("enum/enums.go", fileOut)
 }
 
-func genFields() {
+func genFields() error {
 	fileOut := "package field\n"
 	fileOut += "import(\n"
 	fileOut += "\"github.com/quickfixgo/quickfix\"\n"
@@ -140,7 +140,7 @@ func genFields() {
 			goType = "float64"
 
 		default:
-			fmt.Printf("Unknown type '%v' for tag '%v'\n", field.Type, tag)
+			return fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, tag)
 		}
 
 		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name(), field.Type)
@@ -157,10 +157,10 @@ func genFields() {
 		}
 	}
 
-	gen.WriteFile("field/fields.go", fileOut)
+	return gen.WriteFile("field/fields.go", fileOut)
 }
 
-func genTags() {
+func genTags() error {
 	fileOut := "package tag\n"
 	fileOut += "import(\"github.com/quickfixgo/quickfix\")\n"
 
@@ -170,7 +170,7 @@ func genTags() {
 	}
 	fileOut += ")\n"
 
-	gen.WriteFile("tag/tag_numbers.go", fileOut)
+	return gen.WriteFile("tag/tag_numbers.go", fileOut)
 }
 
 func main() {
@@ -231,7 +231,9 @@ func main() {
 	}
 	sort.Strings(sortedTags)
 
-	genTags()
-	genFields()
-	genEnums()
+	var h gen.ErrorHandler
+	h.Handle(genTags())
+	h.Handle(genFields())
+	h.Handle(genEnums())
+	os.Exit(h.ReturnCode)
 }
