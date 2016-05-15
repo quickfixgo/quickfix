@@ -64,7 +64,7 @@ func (e encoder) encodeValue(fixTag Tag, v reflect.Value, omitEmpty bool, defaul
 			panic("repeating group must be a slice of type struct")
 		}
 
-		repeatingGroup := RepeatingGroup{Tag: fixTag, GroupTemplate: buildGroupTemplate(elem)}
+		repeatingGroup := NewRepeatingGroup(fixTag, buildGroupTemplate(elem))
 
 		for i := 0; i < v.Len(); i++ {
 			group := repeatingGroup.Add()

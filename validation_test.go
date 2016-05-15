@@ -453,26 +453,26 @@ func TestValidateVisitField(t *testing.T) {
 	groupFieldType := datadictionary.NewFieldType("mygroupfield", 1, "INT")
 	groupFieldDef := &datadictionary.FieldDef{FieldType: groupFieldType, ChildFields: []*datadictionary.FieldDef{fieldDef1, fieldDef2}}
 
-	var field tagValue
+	var field TagValue
 	field.init(Tag(11), []byte("value"))
 
-	var repField1 tagValue
-	var repField2 tagValue
+	var repField1 TagValue
+	var repField2 TagValue
 	repField1.init(Tag(2), []byte("a"))
 	repField2.init(Tag(3), []byte("a"))
 
-	var groupID tagValue
+	var groupID TagValue
 	groupID.init(Tag(1), []byte("1"))
 
-	var groupID2 tagValue
+	var groupID2 TagValue
 	groupID2.init(Tag(1), []byte("2"))
 
-	var groupID3 tagValue
+	var groupID3 TagValue
 	groupID3.init(Tag(1), []byte("3"))
 
 	var tests = []struct {
 		fieldDef             *datadictionary.FieldDef
-		fields               tagValues
+		fields               TagValues
 		expectedRemFields    int
 		expectReject         bool
 		expectedRejectReason int
@@ -480,38 +480,38 @@ func TestValidateVisitField(t *testing.T) {
 		//non-repeating
 		{expectedRemFields: 0,
 			fieldDef: fieldDef0,
-			fields:   tagValues{field}},
+			fields:   TagValues{field}},
 		//single field group
 		{expectedRemFields: 0,
 			fieldDef: groupFieldDef,
-			fields:   tagValues{groupID, repField1}},
+			fields:   TagValues{groupID, repField1}},
 		//multiple field group
 		{expectedRemFields: 0,
 			fieldDef: groupFieldDef,
-			fields:   tagValues{groupID, repField1, repField2}},
+			fields:   TagValues{groupID, repField1, repField2}},
 		//test with trailing tag not in group
 		{expectedRemFields: 1,
 			fieldDef: groupFieldDef,
-			fields:   tagValues{groupID, repField1, repField2, field}},
+			fields:   TagValues{groupID, repField1, repField2, field}},
 		//repeats
 		{expectedRemFields: 1,
 			fieldDef: groupFieldDef,
-			fields:   tagValues{groupID2, repField1, repField2, repField1, repField2, field}},
+			fields:   TagValues{groupID2, repField1, repField2, repField1, repField2, field}},
 		//REJECT: group size declared > actual group size
 		{expectReject: true,
 			fieldDef:             groupFieldDef,
-			fields:               tagValues{groupID3, repField1, repField2, repField1, repField2, field},
+			fields:               TagValues{groupID3, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 		{expectReject: true,
 			fieldDef:             groupFieldDef,
-			fields:               tagValues{groupID3, repField1, repField1, field},
+			fields:               TagValues{groupID3, repField1, repField1, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 		//REJECT: group size declared < actual group size
 		{expectReject: true,
 			fieldDef:             groupFieldDef,
-			fields:               tagValues{groupID, repField1, repField2, repField1, repField2, field},
+			fields:               TagValues{groupID, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 	}

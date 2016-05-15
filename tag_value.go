@@ -6,29 +6,29 @@ import (
 	"strconv"
 )
 
-//tagValue is a low-level FIX field abstraction
-type tagValue struct {
-	Tag
-	Value []byte
+//TagValue is a low-level FIX field abstraction
+type TagValue struct {
+	tag   Tag
+	value []byte
 	bytes []byte
 }
 
-//tagValues is a slice of tagValue
-type tagValues []tagValue
+//TagValues is a slice of TagValue
+type TagValues []TagValue
 
-func (tv *tagValue) init(tag Tag, value []byte) {
+func (tv *TagValue) init(tag Tag, value []byte) {
 	var buf bytes.Buffer
 	buf.WriteString(strconv.Itoa(int(tag)))
 	buf.WriteString("=")
 	buf.Write(value)
 	buf.WriteString("")
 
-	tv.Tag = tag
+	tv.tag = tag
 	tv.bytes = buf.Bytes()
-	tv.Value = value
+	tv.value = value
 }
 
-func (tv *tagValue) parse(rawFieldBytes []byte) (err error) {
+func (tv *TagValue) parse(rawFieldBytes []byte) (err error) {
 	sepIndex := bytes.IndexByte(rawFieldBytes, '=')
 
 	if sepIndex == -1 {
@@ -43,18 +43,18 @@ func (tv *tagValue) parse(rawFieldBytes []byte) (err error) {
 		return
 	}
 
-	tv.Tag = Tag(parsedTag)
-	tv.Value = rawFieldBytes[(sepIndex + 1):(len(rawFieldBytes) - 1)]
+	tv.tag = Tag(parsedTag)
+	tv.value = rawFieldBytes[(sepIndex + 1):(len(rawFieldBytes) - 1)]
 	tv.bytes = rawFieldBytes
 
 	return
 }
 
-func (tv tagValue) String() string {
+func (tv TagValue) String() string {
 	return string(tv.bytes)
 }
 
-func (tv tagValue) total() int {
+func (tv TagValue) total() int {
 	total := 0
 
 	for _, b := range []byte(tv.bytes) {
@@ -64,6 +64,6 @@ func (tv tagValue) total() int {
 	return total
 }
 
-func (tv tagValue) length() int {
+func (tv TagValue) length() int {
 	return len(tv.bytes)
 }
