@@ -79,8 +79,9 @@ func newFileLog(prefix string, logPath string) (fileLog, error) {
 		return l, err
 	}
 
-	l.eventLogger = log.New(eventFile, "", log.Ldate|log.Ltime|log.Lmicroseconds)
-	l.messageLogger = log.New(messageFile, "", 0)
+	logFlag := log.Ldate | log.Ltime | log.Lmicroseconds | log.LUTC
+	l.eventLogger = log.New(eventFile, "", logFlag)
+	l.messageLogger = log.New(messageFile, "", logFlag)
 
 	return l, nil
 }
