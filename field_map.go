@@ -8,7 +8,7 @@ import (
 
 //FieldMap is a collection of fix fields that make up a fix message.
 type FieldMap struct {
-	tagLookup map[Tag][]tagValue
+	tagLookup map[Tag]TagValues
 	tagOrder
 }
 
@@ -68,7 +68,7 @@ func trailerFieldOrder(i, j Tag) bool {
 }
 
 func (m *FieldMap) init(ordering tagOrder) {
-	m.tagLookup = make(map[Tag][]tagValue)
+	m.tagLookup = make(map[Tag]TagValues)
 	m.tagOrder = ordering
 }
 
@@ -100,7 +100,7 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 		return ConditionallyRequiredFieldMissing(tag)
 	}
 
-	if err := parser.Read(tagValues[0].Value); err != nil {
+	if err := parser.Read(tagValues[0].value); err != nil {
 		return IncorrectDataFormatForValue(tag)
 	}
 
@@ -126,17 +126,17 @@ func (m FieldMap) GetString(tag Tag) (string, MessageRejectError) {
 }
 
 //GetGroup is a Get function specific to Group Fields.
-func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
-	tagValues, ok := m.tagLookup[parser.Tag]
+func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
+	tagValues, ok := m.tagLookup[parser.Tag()]
 	if !ok {
-		return ConditionallyRequiredFieldMissing(parser.Tag)
+		return ConditionallyRequiredFieldMissing(parser.Tag())
 	}
 
-	if _, err := parser.read(tagValues); err != nil {
+	if _, err := parser.Read(tagValues); err != nil {
 		if msgRejErr, ok := err.(MessageRejectError); ok {
 			return msgRejErr
 		}
-		return IncorrectDataFormatForValue(parser.Tag)
+		return IncorrectDataFormatForValue(parser.Tag())
 	}
 
 	return nil
@@ -144,7 +144,7 @@ func (m FieldMap) GetGroup(parser *RepeatingGroup) MessageRejectError {
 
 //SetField sets the field with Tag tag
 func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
-	tValues := make([]tagValue, 1)
+	tValues := make(TagValues, 1)
 	tValues[0].init(tag, field.Write())
 	m.tagLookup[tag] = tValues
 	return m
@@ -152,20 +152,20 @@ func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
 
 //Clear purges all fields from field map
 func (m *FieldMap) Clear() {
-	m.tagLookup = make(map[Tag][]tagValue)
+	m.tagLookup = make(map[Tag]TagValues)
 }
 
 //Set is a setter for fields
 func (m FieldMap) Set(field FieldWriter) FieldMap {
-	tValues := make([]tagValue, 1)
+	tValues := make(TagValues, 1)
 	tValues[0].init(field.Tag(), field.Write())
 	m.tagLookup[field.Tag()] = tValues
 	return m
 }
 
 //SetGroup is a setter specific to group fields
-func (m FieldMap) SetGroup(field RepeatingGroup) FieldMap {
-	m.tagLookup[field.Tag] = field.tagValues()
+func (m FieldMap) SetGroup(field FieldGroupWriter) FieldMap {
+	m.tagLookup[field.Tag()] = field.Write()
 	return m
 }
 
@@ -195,7 +195,7 @@ func (m FieldMap) total() int {
 	total := 0
 	for _, fields := range m.tagLookup {
 		for _, tv := range fields {
-			switch tv.Tag {
+			switch tv.tag {
 			case tagCheckSum: //tag does not contribute to total
 			default:
 				total += tv.total()
@@ -210,7 +210,7 @@ func (m FieldMap) length() int {
 	length := 0
 	for _, fields := range m.tagLookup {
 		for _, tv := range fields {
-			switch tv.Tag {
+			switch tv.tag {
 			case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
 			default:
 				length += tv.length()

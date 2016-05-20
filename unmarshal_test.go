@@ -184,13 +184,13 @@ func TestUnmarshal_RepeatingGroups(t *testing.T) {
 		quickfix.GroupElement(quickfix.Tag(3)),
 	}
 
-	group1 := quickfix.RepeatingGroup{Tag: quickfix.Tag(100), GroupTemplate: group1Template}
+	group1 := quickfix.NewRepeatingGroup(quickfix.Tag(100), group1Template)
 	group1.Add().SetField(quickfix.Tag(8), quickfix.FIXString("hello")).SetField(quickfix.Tag(9), quickfix.FIXString("world"))
 	group1.Add().SetField(quickfix.Tag(8), quickfix.FIXString("goodbye"))
 	group1.Add().SetField(quickfix.Tag(8), quickfix.FIXString("OHHAI")).SetField(quickfix.Tag(9), quickfix.FIXString("world"))
 	fixMsg.Body.SetGroup(group1)
 
-	group2 := quickfix.RepeatingGroup{Tag: quickfix.Tag(101), GroupTemplate: group2Template}
+	group2 := quickfix.NewRepeatingGroup(quickfix.Tag(101), group2Template)
 	group2.Add().SetField(quickfix.Tag(1), quickfix.FIXInt(1)).SetField(quickfix.Tag(2), quickfix.FIXInt(2))
 	fixMsg.Body.SetGroup(group2)
 

@@ -243,14 +243,14 @@ func TestMarshal_RepeatingGroups(t *testing.T) {
 			continue
 		}
 
-		groupField := quickfix.RepeatingGroup{Tag: test.groupTag, GroupTemplate: test.template}
-		if err := fixMsg.Body.GetGroup(&groupField); err != nil {
+		groupField := quickfix.NewRepeatingGroup(test.groupTag, test.template)
+		if err := fixMsg.Body.GetGroup(groupField); err != nil {
 			t.Error("Unexpected error", err)
 			continue
 		}
 
-		if len(groupField.Groups) != test.expectedGroupSize {
-			t.Errorf("Expected group %v to have size %v, got %v", test.groupTag, test.expectedGroupSize, len(groupField.Groups))
+		if groupField.Len() != test.expectedGroupSize {
+			t.Errorf("Expected group %v to have size %v, got %v", test.groupTag, test.expectedGroupSize, groupField.Len())
 		}
 	}
 }

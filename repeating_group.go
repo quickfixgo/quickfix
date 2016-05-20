@@ -17,7 +17,7 @@ type GroupItem interface {
 	//
 	//The Read function returns the remaining tagValues not processed by the GroupItem. If there was a
 	//problem reading the field, an error may be returned
-	read(tagValues) (tagValues, error)
+	Read(TagValues) (TagValues, error)
 }
 
 type protoGroupElement struct {
@@ -25,8 +25,8 @@ type protoGroupElement struct {
 }
 
 func (t protoGroupElement) Tag() Tag { return t.tag }
-func (t protoGroupElement) read(tv tagValues) (tagValues, error) {
-	if tv[0].Tag == t.tag {
+func (t protoGroupElement) Read(tv TagValues) (TagValues, error) {
+	if tv[0].tag == t.tag {
 		return tv[1:], nil
 	}
 
@@ -41,13 +41,37 @@ func GroupElement(tag Tag) GroupItem {
 //GroupTemplate specifies the group item order for a RepeatingGroup
 type GroupTemplate []GroupItem
 
+//Group is a group of fields occuring in a repeating group
 type Group struct{ FieldMap }
 
 //RepeatingGroup is a FIX Repeating Group type
 type RepeatingGroup struct {
-	Tag
-	GroupTemplate
-	Groups []Group
+	tag      Tag
+	template GroupTemplate
+	groups   []Group
+}
+
+//NewRepeatingGroup returns an initilized RepeatingGroup instance
+func NewRepeatingGroup(tag Tag, template GroupTemplate) *RepeatingGroup {
+	return &RepeatingGroup{
+		tag:      tag,
+		template: template,
+	}
+}
+
+//Tag returns the Tag for this repeating Group
+func (f RepeatingGroup) Tag() Tag {
+	return f.tag
+}
+
+//Len returns the number of Groups in this RepeatingGroup
+func (f RepeatingGroup) Len() int {
+	return len(f.groups)
+}
+
+//Get returns the ith group in this RepeatingGroup
+func (f RepeatingGroup) Get(i int) Group {
+	return f.groups[i]
 }
 
 //Add appends a new group to the RepeatingGroup and returns the new Group
@@ -55,17 +79,17 @@ func (f *RepeatingGroup) Add() Group {
 	var g Group
 	g.init(f.groupTagOrder())
 
-	f.Groups = append(f.Groups, g)
+	f.groups = append(f.groups, g)
 	return g
 }
 
-//tagValues returns tagValues for all Items in the repeating group ordered by
+//Write returns tagValues for all Items in the repeating group ordered by
 //Group sequence and Group template order
-func (f RepeatingGroup) tagValues() tagValues {
-	tvs := make(tagValues, 1, 1)
-	tvs[0].init(f.Tag, []byte(strconv.Itoa(len(f.Groups))))
+func (f RepeatingGroup) Write() TagValues {
+	tvs := make(TagValues, 1, 1)
+	tvs[0].init(f.tag, []byte(strconv.Itoa(len(f.groups))))
 
-	for _, group := range f.Groups {
+	for _, group := range f.groups {
 		tags := group.sortedTags()
 
 		for _, tag := range tags {
@@ -79,7 +103,7 @@ func (f RepeatingGroup) tagValues() tagValues {
 }
 
 func (f RepeatingGroup) findItemInGroupTemplate(t Tag) (item GroupItem, ok bool) {
-	for _, templateField := range f.GroupTemplate {
+	for _, templateField := range f.template {
 		if t == templateField.Tag() {
 			ok = true
 			item = templateField
@@ -92,7 +116,7 @@ func (f RepeatingGroup) findItemInGroupTemplate(t Tag) (item GroupItem, ok bool)
 
 func (f RepeatingGroup) groupTagOrder() tagOrder {
 	tagMap := make(map[Tag]int)
-	for i, f := range f.GroupTemplate {
+	for i, f := range f.template {
 		tagMap[f.Tag()] = i
 	}
 
@@ -113,15 +137,15 @@ func (f RepeatingGroup) groupTagOrder() tagOrder {
 }
 
 func (f RepeatingGroup) delimiter() Tag {
-	return f.GroupTemplate[0].Tag()
+	return f.template[0].Tag()
 }
 
 func (f RepeatingGroup) isDelimiter(t Tag) bool {
 	return t == f.delimiter()
 }
 
-func (f *RepeatingGroup) read(tv tagValues) (tagValues, error) {
-	expectedGroupSize, err := atoi(tv[0].Value)
+func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
+	expectedGroupSize, err := atoi(tv[0].value)
 	if err != nil {
 		return tv, err
 	}
@@ -135,13 +159,13 @@ func (f *RepeatingGroup) read(tv tagValues) (tagValues, error) {
 	var group Group
 	group.init(tagOrdering)
 	for len(tv) > 0 {
-		field, ok := f.findItemInGroupTemplate(tv[0].Tag)
+		field, ok := f.findItemInGroupTemplate(tv[0].tag)
 		if !ok {
 			break
 		}
 
 		tvRange := tv
-		if tv, err = field.read(tv); err != nil {
+		if tv, err = field.Read(tv); err != nil {
 			return tv, err
 		}
 
@@ -149,14 +173,14 @@ func (f *RepeatingGroup) read(tv tagValues) (tagValues, error) {
 			group = Group{}
 			group.init(tagOrdering)
 
-			f.Groups = append(f.Groups, group)
+			f.groups = append(f.groups, group)
 		}
 
-		group.tagLookup[tvRange[0].Tag] = tvRange
+		group.tagLookup[tvRange[0].tag] = tvRange
 	}
 
-	if len(f.Groups) != expectedGroupSize {
-		return tv, repeatingGroupFieldsOutOfOrder(f.Tag, fmt.Sprintf("group %v: template is wrong or delimiter %v not found: expected %v groups, but found %v", f.Tag, f.delimiter(), expectedGroupSize, len(f.Groups)))
+	if len(f.groups) != expectedGroupSize {
+		return tv, repeatingGroupFieldsOutOfOrder(f.tag, fmt.Sprintf("group %v: template is wrong or delimiter %v not found: expected %v groups, but found %v", f.tag, f.delimiter(), expectedGroupSize, len(f.groups)))
 	}
 
 	return tv, err

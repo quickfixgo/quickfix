@@ -129,7 +129,7 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 
 	for len(remainingFields) > 0 {
 		field := remainingFields[0]
-		tag := field.Tag
+		tag := field.tag
 
 		switch {
 		case tag.IsHeader():
@@ -155,13 +155,13 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 	}
 
 	if len(remainingFields) != 0 {
-		return TagNotDefinedForThisMessageType(remainingFields[0].Tag)
+		return TagNotDefinedForThisMessageType(remainingFields[0].tag)
 	}
 
 	return nil
 }
 
-func validateVisitField(fieldDef *datadictionary.FieldDef, fields []tagValue) ([]tagValue, MessageRejectError) {
+func validateVisitField(fieldDef *datadictionary.FieldDef, fields []TagValue) ([]TagValue, MessageRejectError) {
 	if fieldDef.IsGroup() {
 		var err MessageRejectError
 		if fields, err = validateVisitGroupField(fieldDef, fields); err != nil {
@@ -173,11 +173,11 @@ func validateVisitField(fieldDef *datadictionary.FieldDef, fields []tagValue) ([
 	return fields[1:], nil
 }
 
-func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tagValue) ([]tagValue, MessageRejectError) {
-	numInGroupTag := fieldStack[0].Tag
+func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []TagValue) ([]TagValue, MessageRejectError) {
+	numInGroupTag := fieldStack[0].tag
 	var numInGroup FIXInt
 
-	if err := numInGroup.Read(fieldStack[0].Value); err != nil {
+	if err := numInGroup.Read(fieldStack[0].value); err != nil {
 		return nil, IncorrectDataFormatForValue(numInGroupTag)
 	}
 
@@ -189,7 +189,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tag
 	for len(fieldStack) > 0 {
 
 		//start of repeating group
-		if int(fieldStack[0].Tag) == fieldDef.ChildFields[0].Tag() {
+		if int(fieldStack[0].tag) == fieldDef.ChildFields[0].Tag() {
 			childDefs = fieldDef.ChildFields
 			groupCount++
 		}
@@ -199,7 +199,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []tag
 			break
 		}
 
-		if int(fieldStack[0].Tag) == childDefs[0].Tag() {
+		if int(fieldStack[0].tag) == childDefs[0].Tag() {
 			var err MessageRejectError
 			if fieldStack, err = validateVisitField(childDefs[0], fieldStack); err != nil {
 				return fieldStack, err
@@ -224,7 +224,7 @@ func validateOrder(msg Message) MessageRejectError {
 	inHeader := true
 	inTrailer := false
 	for _, field := range msg.fields {
-		t := field.Tag
+		t := field.tag
 		switch {
 		case inHeader && t.IsHeader():
 		case inHeader && !t.IsHeader():
@@ -271,11 +271,11 @@ func validateRequiredFieldMap(msg Message, requiredTags map[int]struct{}, fieldM
 func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message Message) MessageRejectError {
 	for _, field := range message.fields {
 		switch {
-		case field.Tag.IsHeader():
+		case field.tag.IsHeader():
 			if err := validateField(transportDD, transportDD.Header.Tags, field); err != nil {
 				return err
 			}
-		case field.Tag.IsTrailer():
+		case field.tag.IsTrailer():
 			if err := validateField(transportDD, transportDD.Trailer.Tags, field); err != nil {
 				return err
 			}
@@ -289,23 +289,23 @@ func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadicti
 	return nil
 }
 
-func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field tagValue) MessageRejectError {
-	if len(field.Value) == 0 {
-		return TagSpecifiedWithoutAValue(field.Tag)
+func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field TagValue) MessageRejectError {
+	if len(field.value) == 0 {
+		return TagSpecifiedWithoutAValue(field.tag)
 	}
 
-	if _, valid := d.FieldTypeByTag[int(field.Tag)]; !valid {
-		return InvalidTagNumber(field.Tag)
+	if _, valid := d.FieldTypeByTag[int(field.tag)]; !valid {
+		return InvalidTagNumber(field.tag)
 	}
 
-	allowedValues := d.FieldTypeByTag[int(field.Tag)].Enums
+	allowedValues := d.FieldTypeByTag[int(field.tag)].Enums
 	if len(allowedValues) != 0 {
-		if _, validValue := allowedValues[string(field.Value)]; !validValue {
-			return ValueIsIncorrect(field.Tag)
+		if _, validValue := allowedValues[string(field.value)]; !validValue {
+			return ValueIsIncorrect(field.tag)
 		}
 	}
 
-	fieldType := d.FieldTypeByTag[int(field.Tag)]
+	fieldType := d.FieldTypeByTag[int(field.tag)]
 	var prototype FieldValue
 	switch fieldType.Type {
 	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
@@ -373,8 +373,8 @@ func validateField(d *datadictionary.DataDictionary, validFields datadictionary.
 
 	}
 
-	if err := prototype.Read(field.Value); err != nil {
-		return IncorrectDataFormatForValue(field.Tag)
+	if err := prototype.Read(field.value); err != nil {
+		return IncorrectDataFormatForValue(field.tag)
 	}
 
 	return nil

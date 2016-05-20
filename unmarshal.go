@@ -54,15 +54,15 @@ func (d decoder) decodeValue(fixTag Tag, t reflect.Type, v reflect.Value) Messag
 			panic("repeating group must be a slice of type struct")
 		}
 
-		repeatingGroup := RepeatingGroup{Tag: fixTag, GroupTemplate: buildGroupTemplate(elem)}
-		if err := d.FieldMap.GetGroup(&repeatingGroup); err != nil {
+		repeatingGroup := NewRepeatingGroup(fixTag, buildGroupTemplate(elem))
+		if err := d.FieldMap.GetGroup(repeatingGroup); err != nil {
 			return err
 		}
 
-		v.Set(reflect.MakeSlice(v.Type(), len(repeatingGroup.Groups), len(repeatingGroup.Groups)))
+		v.Set(reflect.MakeSlice(v.Type(), repeatingGroup.Len(), repeatingGroup.Len()))
 
-		for i := 0; i < len(repeatingGroup.Groups); i++ {
-			groupDecoder := decoder{FieldMap: repeatingGroup.Groups[i].FieldMap}
+		for i := 0; i < repeatingGroup.Len(); i++ {
+			groupDecoder := decoder{FieldMap: repeatingGroup.Get(i).FieldMap}
 
 			for j := 0; j < v.Type().Elem().NumField(); j++ {
 				sf := v.Type().Elem().Field(j)

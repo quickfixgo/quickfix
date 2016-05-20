@@ -23,7 +23,7 @@ type Message struct {
 	bodyBytes []byte
 
 	//field bytes as they appear in the raw message
-	fields []tagValue
+	fields TagValues
 }
 
 //Marshal marshals the message itself
@@ -61,7 +61,7 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 			fieldCount++
 		}
 	}
-	msg.fields = make([]tagValue, fieldCount)
+	msg.fields = make(TagValues, fieldCount)
 
 	fieldIndex := 0
 	var err error
@@ -71,7 +71,7 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 		return msg, err
 	}
 
-	msg.Header.tagLookup[msg.fields[fieldIndex].Tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.tagLookup[msg.fields[fieldIndex].tag] = msg.fields[fieldIndex : fieldIndex+1]
 	fieldIndex++
 
 	parsedFieldBytes := &msg.fields[fieldIndex]
@@ -79,7 +79,7 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 		return msg, err
 	}
 
-	msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
 	fieldIndex++
 
 	parsedFieldBytes = &msg.fields[fieldIndex]
@@ -87,7 +87,7 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 		return msg, err
 	}
 
-	msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
 	fieldIndex++
 
 	trailerBytes := []byte{}
@@ -100,16 +100,16 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 		}
 
 		switch {
-		case parsedFieldBytes.Tag.IsHeader():
-			msg.Header.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
-		case parsedFieldBytes.Tag.IsTrailer():
-			msg.Trailer.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+		case parsedFieldBytes.tag.IsHeader():
+			msg.Header.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
+		case parsedFieldBytes.tag.IsTrailer():
+			msg.Trailer.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
 		default:
 			foundBody = true
 			trailerBytes = rawMessage
-			msg.Body.tagLookup[parsedFieldBytes.Tag] = msg.fields[fieldIndex : fieldIndex+1]
+			msg.Body.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
 		}
-		if parsedFieldBytes.Tag == tagCheckSum {
+		if parsedFieldBytes.tag == tagCheckSum {
 			break
 		}
 
@@ -127,7 +127,7 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 
 	length := 0
 	for _, field := range msg.fields {
-		switch field.Tag {
+		switch field.tag {
 		case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
 		default:
 			length += field.length()
@@ -135,7 +135,10 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 	}
 
 	var bodyLength FIXInt
-	msg.Header.GetField(tagBodyLength, &bodyLength)
+	if err := msg.Header.GetField(tagBodyLength, &bodyLength); err != nil {
+		return msg, parseError{OrigError: err.Error()}
+	}
+
 	if length != int(bodyLength) {
 		return msg, parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
 	}
@@ -181,20 +184,20 @@ func (m Message) reverseRoute() Message {
 	return reverseMsg
 }
 
-func extractSpecificField(field *tagValue, expectedTag Tag, buffer []byte) (remBuffer []byte, err error) {
+func extractSpecificField(field *TagValue, expectedTag Tag, buffer []byte) (remBuffer []byte, err error) {
 	remBuffer, err = extractField(field, buffer)
 	switch {
 	case err != nil:
 		return
-	case field.Tag != expectedTag:
-		err = parseError{OrigError: fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.Tag)}
+	case field.tag != expectedTag:
+		err = parseError{OrigError: fmt.Sprintf("extractSpecificField: Fields out of order, expected %d, got %d", expectedTag, field.tag)}
 		return
 	}
 
 	return
 }
 
-func extractField(parsedFieldBytes *tagValue, buffer []byte) (remBytes []byte, err error) {
+func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
 		err = parseError{OrigError: "extractField: No Trailing Delim in " + string(buffer)}
