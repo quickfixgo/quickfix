@@ -242,15 +242,15 @@ func validateOrder(msg Message) MessageRejectError {
 }
 
 func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message Message) MessageRejectError {
-	if err := validateRequiredFieldMap(message, transportDD.Header.RequiredTags, message.Header); err != nil {
+	if err := validateRequiredFieldMap(message, transportDD.Header.RequiredTags, message.Header.FieldMap); err != nil {
 		return err
 	}
 
-	if err := validateRequiredFieldMap(message, appDD.Messages[msgType].RequiredTags, message.Body); err != nil {
+	if err := validateRequiredFieldMap(message, appDD.Messages[msgType].RequiredTags, message.Body.FieldMap); err != nil {
 		return err
 	}
 
-	if err := validateRequiredFieldMap(message, transportDD.Trailer.RequiredTags, message.Trailer); err != nil {
+	if err := validateRequiredFieldMap(message, transportDD.Trailer.RequiredTags, message.Trailer.FieldMap); err != nil {
 		return err
 	}
 

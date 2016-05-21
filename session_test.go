@@ -1,14 +1,14 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/enum"
 	"testing"
 	"time"
+
+	"github.com/quickfixgo/quickfix/enum"
 )
 
 func buildMessage() Message {
-	builder := Message{}
-	builder.Init()
+	builder := NewMessage()
 	builder.Header.SetField(tagBeginString, FIXString(enum.BeginStringFIX40))
 	builder.Header.SetField(tagMsgType, FIXString("D"))
 	return builder

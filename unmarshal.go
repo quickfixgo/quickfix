@@ -124,11 +124,11 @@ func Unmarshal(m Message, v interface{}) MessageRejectError {
 		case "FIXMsgType":
 			continue
 		case "Header":
-			d.FieldMap = m.Header
+			d.FieldMap = m.Header.FieldMap
 		case "Trailer":
-			d.FieldMap = m.Trailer
+			d.FieldMap = m.Trailer.FieldMap
 		default:
-			d.FieldMap = m.Body
+			d.FieldMap = m.Body.FieldMap
 		}
 
 		if err := d.decodeField(sf, sf.Type, sv); err != nil {

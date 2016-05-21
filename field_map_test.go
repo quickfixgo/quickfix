@@ -5,8 +5,8 @@ import (
 )
 
 func TestFieldMap_Clear(t *testing.T) {
-	fMap := FieldMap{}
-	fMap.init(normalFieldOrder)
+	var fMap FieldMap
+	fMap.init()
 
 	fMap.SetField(1, FIXString("hello"))
 	fMap.SetField(2, FIXString("world"))
@@ -19,8 +19,8 @@ func TestFieldMap_Clear(t *testing.T) {
 }
 
 func TestFieldMap_SetAndGet(t *testing.T) {
-	fMap := FieldMap{}
-	fMap.init(normalFieldOrder)
+	var fMap FieldMap
+	fMap.init()
 
 	fMap.SetField(1, FIXString("hello"))
 	fMap.SetField(2, FIXString("world"))
@@ -57,8 +57,8 @@ func TestFieldMap_SetAndGet(t *testing.T) {
 }
 
 func TestFieldMap_Length(t *testing.T) {
-	fMap := FieldMap{}
-	fMap.init(normalFieldOrder)
+	var fMap FieldMap
+	fMap.init()
 	fMap.SetField(1, FIXString("hello"))
 	fMap.SetField(2, FIXString("world"))
 	fMap.SetField(8, FIXString("FIX.4.4"))
@@ -72,8 +72,8 @@ func TestFieldMap_Length(t *testing.T) {
 
 func TestFieldMap_Total(t *testing.T) {
 
-	fMap := FieldMap{}
-	fMap.init(normalFieldOrder)
+	var fMap FieldMap
+	fMap.init()
 	fMap.SetField(1, FIXString("hello"))
 	fMap.SetField(2, FIXString("world"))
 	fMap.SetField(8, FIXString("FIX.4.4"))

@@ -77,7 +77,7 @@ func (f RepeatingGroup) Get(i int) Group {
 //Add appends a new group to the RepeatingGroup and returns the new Group
 func (f *RepeatingGroup) Add() Group {
 	var g Group
-	g.init(f.groupTagOrder())
+	g.initWithOrdering(f.groupTagOrder())
 
 	f.groups = append(f.groups, g)
 	return g
@@ -157,7 +157,7 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 	tv = tv[1:cap(tv)]
 	tagOrdering := f.groupTagOrder()
 	var group Group
-	group.init(tagOrdering)
+	group.initWithOrdering(tagOrdering)
 	for len(tv) > 0 {
 		field, ok := f.findItemInGroupTemplate(tv[0].tag)
 		if !ok {
@@ -171,7 +171,7 @@ func (f *RepeatingGroup) Read(tv TagValues) (TagValues, error) {
 
 		if f.isDelimiter(field.Tag()) {
 			group = Group{}
-			group.init(tagOrdering)
+			group.initWithOrdering(tagOrdering)
 
 			f.groups = append(f.groups, group)
 		}

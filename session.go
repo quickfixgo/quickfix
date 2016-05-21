@@ -2,11 +2,12 @@ package quickfix
 
 import (
 	"fmt"
+	"sync"
+	"time"
+
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/enum"
-	"sync"
-	"time"
 )
 
 //The Session is the primary FIX abstraction for message communication
@@ -152,7 +153,7 @@ func (s *session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
 }
 
-func (s *session) insertSendingTime(header FieldMap) {
+func (s *session) insertSendingTime(header Header) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
