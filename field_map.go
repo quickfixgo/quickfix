@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"bytes"
-	"math"
 	"sort"
 )
 
@@ -24,50 +23,14 @@ func (t tagSort) Len() int           { return len(t.tags) }
 func (t tagSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tags[i] }
 func (t tagSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
-//in the message header, the first 3 tags in the message header must be 8,9,35
-func headerFieldOrder(i, j Tag) bool {
-	var ordering = func(t Tag) uint32 {
-		switch t {
-		case tagBeginString:
-			return 1
-		case tagBodyLength:
-			return 2
-		case tagMsgType:
-			return 3
-		}
-
-		return math.MaxUint32
-	}
-
-	orderi := ordering(i)
-	orderj := ordering(j)
-
-	switch {
-	case orderi < orderj:
-		return true
-	case orderi > orderj:
-		return false
-	}
-
-	return i < j
-}
-
-// In the body, ascending tags
+// ascending tags
 func normalFieldOrder(i, j Tag) bool { return i < j }
 
-// In the trailer, CheckSum (tag 10) must be last
-func trailerFieldOrder(i, j Tag) bool {
-	switch {
-	case i == tagCheckSum:
-		return false
-	case j == tagCheckSum:
-		return true
-	}
-
-	return i < j
+func (m *FieldMap) init() {
+	m.initWithOrdering(normalFieldOrder)
 }
 
-func (m *FieldMap) init(ordering tagOrder) {
+func (m *FieldMap) initWithOrdering(ordering tagOrder) {
 	m.tagLookup = make(map[Tag]TagValues)
 	m.tagOrder = ordering
 }

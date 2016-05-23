@@ -105,11 +105,11 @@ func Marshal(v interface{}) Message {
 			}
 			continue
 		case "Header":
-			e.FieldMap = m.Header
+			e.FieldMap = m.Header.FieldMap
 		case "Trailer":
-			e.FieldMap = m.Trailer
+			e.FieldMap = m.Trailer.FieldMap
 		default:
-			e.FieldMap = m.Body
+			e.FieldMap = m.Body.FieldMap
 		}
 
 		e.encodeField(sf, sf.Type, reflectValue.Field(i))

@@ -351,10 +351,10 @@ func TestMarshal_HeaderTrailer(t *testing.T) {
 		fixMsgPart quickfix.FieldMap
 		expected   []byte
 	}{
-		{quickfix.Tag(35), new(quickfix.FIXString), fixMsg.Header, []byte("0")},
-		{quickfix.Tag(49), new(quickfix.FIXString), fixMsg.Header, []byte("hello")},
-		{quickfix.Tag(112), new(quickfix.FIXString), fixMsg.Body, []byte("world")},
-		{quickfix.Tag(89), new(quickfix.FIXInt), fixMsg.Trailer, []byte("3")},
+		{quickfix.Tag(35), new(quickfix.FIXString), fixMsg.Header.FieldMap, []byte("0")},
+		{quickfix.Tag(49), new(quickfix.FIXString), fixMsg.Header.FieldMap, []byte("hello")},
+		{quickfix.Tag(112), new(quickfix.FIXString), fixMsg.Body.FieldMap, []byte("world")},
+		{quickfix.Tag(89), new(quickfix.FIXInt), fixMsg.Trailer.FieldMap, []byte("3")},
 	}
 
 	for _, test := range tests {

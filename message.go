@@ -3,16 +3,77 @@ package quickfix
 import (
 	"bytes"
 	"fmt"
+	"math"
 	"time"
 
 	"github.com/quickfixgo/quickfix/enum"
 )
 
+//Header is first section of a FIX Message
+type Header struct{ FieldMap }
+
+//Init initializes the Header instance
+func (h *Header) Init() {
+	//in the message header, the first 3 tags in the message header must be 8,9,35
+	h.initWithOrdering(func(i, j Tag) bool {
+		var ordering = func(t Tag) uint32 {
+			switch t {
+			case tagBeginString:
+				return 1
+			case tagBodyLength:
+				return 2
+			case tagMsgType:
+				return 3
+			}
+
+			return math.MaxUint32
+		}
+
+		orderi := ordering(i)
+		orderj := ordering(j)
+
+		switch {
+		case orderi < orderj:
+			return true
+		case orderi > orderj:
+			return false
+		}
+
+		return i < j
+	})
+}
+
+//Body is the primary application section of a FIX message
+type Body struct{ FieldMap }
+
+//Init initializes the FIX message
+func (b *Body) Init() {
+	b.init()
+}
+
+//Trailer is the last section of a FIX message
+type Trailer struct{ FieldMap }
+
+//Init initializes the FIX message
+func (t *Trailer) Init() {
+	// In the trailer, CheckSum (tag 10) must be last
+	t.initWithOrdering(func(i, j Tag) bool {
+		switch {
+		case i == tagCheckSum:
+			return false
+		case j == tagCheckSum:
+			return true
+		}
+
+		return i < j
+	})
+}
+
 //Message is a FIX Message abstraction.
 type Message struct {
-	Header  FieldMap
-	Trailer FieldMap
-	Body    FieldMap
+	Header  Header
+	Trailer Trailer
+	Body    Body
 
 	//ReceiveTime is the time that this message was read from the socket connection
 	ReceiveTime time.Time
@@ -38,15 +99,11 @@ func (e parseError) Error() string { return fmt.Sprintf("error parsing message: 
 
 //NewMessage returns a newly initialized Message instance
 func NewMessage() (m Message) {
-	m.Init()
-	return
-}
+	m.Header.Init()
+	m.Body.Init()
+	m.Trailer.Init()
 
-//Init initializes the Message instance
-func (m *Message) Init() {
-	m.Header.init(headerFieldOrder)
-	m.Body.init(normalFieldOrder)
-	m.Trailer.init(trailerFieldOrder)
+	return
 }
 
 //ParseMessage constructs a Message from a byte slice wrapping a FIX message.
