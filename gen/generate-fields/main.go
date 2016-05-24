@@ -1,13 +1,20 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"os"
 	"sort"
+	"text/template"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/gen"
+)
+
+var (
+	tagTemplate   *template.Template
+	fieldTemplate *template.Template
 )
 
 func usage() {
@@ -44,127 +51,161 @@ func genEnums(fieldTypes []*datadictionary.FieldType) error {
 	return gen.WriteFile("enum/enums.go", fileOut)
 }
 
-func genFields(fieldTypes []*datadictionary.FieldType) error {
-	fileOut := "package field\n"
-	fileOut += "import(\n"
-	fileOut += "\"github.com/quickfixgo/quickfix\"\n"
-	fileOut += "\"" + gen.GetImportPathRoot() + "/tag\"\n"
-	fileOut += ")\n"
+func baseType(field *datadictionary.FieldType) (baseType string, err error) {
+	switch field.Type {
+	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
+		fallthrough
+	case "MULTIPLECHARVALUE":
+		fallthrough
+	case "CHAR":
+		fallthrough
+	case "CURRENCY":
+		fallthrough
+	case "DATA":
+		fallthrough
+	case "MONTHYEAR":
+		fallthrough
+	case "LOCALMKTDATE":
+		fallthrough
+	case "TIME":
+		fallthrough
+	case "DATE":
+		fallthrough
+	case "EXCHANGE":
+		fallthrough
+	case "LANGUAGE":
+		fallthrough
+	case "XMLDATA":
+		fallthrough
+	case "COUNTRY":
+		fallthrough
+	case "UTCTIMEONLY":
+		fallthrough
+	case "UTCDATE":
+		fallthrough
+	case "UTCDATEONLY":
+		fallthrough
+	case "TZTIMEONLY":
+		fallthrough
+	case "TZTIMESTAMP":
+		fallthrough
+	case "STRING":
+		baseType = "FIXString"
 
-	for _, field := range fieldTypes {
+	case "BOOLEAN":
+		baseType = "FIXBoolean"
 
-		baseType := ""
-		goType := ""
-		switch field.Type {
-		case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
-			fallthrough
-		case "MULTIPLECHARVALUE":
-			fallthrough
-		case "CHAR":
-			fallthrough
-		case "CURRENCY":
-			fallthrough
-		case "DATA":
-			fallthrough
-		case "MONTHYEAR":
-			fallthrough
-		case "LOCALMKTDATE":
-			fallthrough
-		case "TIME":
-			fallthrough
-		case "DATE":
-			fallthrough
-		case "EXCHANGE":
-			fallthrough
-		case "LANGUAGE":
-			fallthrough
-		case "XMLDATA":
-			fallthrough
-		case "COUNTRY":
-			fallthrough
-		case "UTCTIMEONLY":
-			fallthrough
-		case "UTCDATE":
-			fallthrough
-		case "UTCDATEONLY":
-			fallthrough
-		case "TZTIMEONLY":
-			fallthrough
-		case "TZTIMESTAMP":
-			fallthrough
-		case "STRING":
-			baseType = "FIXString"
-			goType = "string"
+	case "LENGTH":
+		fallthrough
+	case "DAYOFMONTH":
+		fallthrough
+	case "NUMINGROUP":
+		fallthrough
+	case "SEQNUM":
+		fallthrough
+	case "INT":
+		baseType = "FIXInt"
 
-		case "BOOLEAN":
-			baseType = "FIXBoolean"
-			goType = "bool"
+	case "UTCTIMESTAMP":
+		baseType = "FIXUTCTimestamp"
 
-		case "LENGTH":
-			fallthrough
-		case "DAYOFMONTH":
-			fallthrough
-		case "NUMINGROUP":
-			fallthrough
-		case "SEQNUM":
-			fallthrough
-		case "INT":
-			baseType = "FIXInt"
-			goType = "int"
+	case "QTY":
+		fallthrough
+	case "QUANTITY":
+		fallthrough
+	case "AMT":
+		fallthrough
+	case "PRICE":
+		fallthrough
+	case "PRICEOFFSET":
+		fallthrough
+	case "PERCENTAGE":
+		fallthrough
+	case "FLOAT":
+		baseType = "FIXFloat"
 
-		case "UTCTIMESTAMP":
-			baseType = "FIXUTCTimestamp"
-
-		case "QTY":
-			fallthrough
-		case "QUANTITY":
-			fallthrough
-		case "AMT":
-			fallthrough
-		case "PRICE":
-			fallthrough
-		case "PRICEOFFSET":
-			fallthrough
-		case "PERCENTAGE":
-			fallthrough
-		case "FLOAT":
-			baseType = "FIXFloat"
-			goType = "float64"
-
-		default:
-			return fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag())
-		}
-
-		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name(), field.Type)
-		fileOut += fmt.Sprintf("type %vField struct { quickfix.%v }\n", field.Name(), baseType)
-		fileOut += fmt.Sprintf("//Tag returns tag.%v (%v)\n", field.Name(), field.Tag())
-		fileOut += fmt.Sprintf("func (f %vField) Tag() quickfix.Tag {return tag.%v}\n", field.Name(), field.Name())
-
-		switch goType {
-		case "bool", "int", "float64", "string":
-			fileOut += fmt.Sprintf("//New%v returns a new %vField initialized with val\n", field.Name(), field.Name())
-			fileOut += fmt.Sprintf("func New%v(val %v) *%vField {\n", field.Name(), goType, field.Name())
-			fileOut += fmt.Sprintf("return &%vField{quickfix.%v(val)}\n", field.Name(), baseType)
-			fileOut += "}\n"
-		}
+	default:
+		err = fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag())
 	}
 
-	return gen.WriteFile("field/fields.go", fileOut)
+	return
+}
+
+func genFields(fieldTypes []*datadictionary.FieldType) error {
+	writer := new(bytes.Buffer)
+
+	if err := fieldTemplate.Execute(writer, fieldTypes); err != nil {
+		return err
+	}
+
+	return gen.WriteFile("field/fields.go", writer.String())
 }
 
 func genTags(fieldTypes []*datadictionary.FieldType) error {
-	fileOut := "package tag\n"
-	fileOut += "import(\"github.com/quickfixgo/quickfix\")\n"
+	writer := new(bytes.Buffer)
 
-	fileOut += "const (\n"
-	for _, f := range fieldTypes {
-		fileOut += fmt.Sprintf("%v quickfix.Tag = %v\n", f.Name(), f.Tag())
+	if err := tagTemplate.Execute(writer, fieldTypes); err != nil {
+		return err
 	}
-	fileOut += ")\n"
 
-	return gen.WriteFile("tag/tag_numbers.go", fileOut)
+	return gen.WriteFile("tag/tag_numbers.go", writer.String())
 }
 
+func init() {
+	tmplFuncs := template.FuncMap{
+		"importRootPath": gen.GetImportPathRoot,
+		"baseType":       baseType,
+	}
+
+	tagTemplate = template.Must(template.New("Tag").Parse(`
+package tag
+import("github.com/quickfixgo/quickfix")
+
+const (
+{{- range .}}
+{{ .Name }} quickfix.Tag =  {{ .Tag }}
+{{- end }}
+)
+	`))
+
+	fieldTemplate = template.Must(template.New("Field").Funcs(tmplFuncs).Parse(`
+package field
+import(
+	"github.com/quickfixgo/quickfix"
+	"{{ importRootPath }}/tag"
+
+	"time"
+)
+
+{{- range . }}
+{{- $base_type := baseType . -}}
+//{{ .Name }}Field is a {{ .Type }} field
+type {{ .Name }}Field struct { quickfix.{{ $base_type }} }
+
+//Tag returns tag.{{ .Name }} ({{ .Tag }})
+func (f {{ .Name }}Field) Tag() quickfix.Tag { return tag.{{ .Name }} }
+
+{{ if eq $base_type "FIXUTCTimestamp" }} 
+//New{{ .Name }} returns a new {{ .Name }}Field initialized with val
+func New{{ .Name }}(val time.Time) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Value: val } } 
+}
+
+//New{{ .Name }}NoMillis returns a new {{ .Name }}Field initialized with val without millisecs
+func New{{ .Name }}NoMillis(val time.Time) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Value: val, NoMillis: true } } 
+}
+
+{{ else }}
+//New{{ .Name }} returns a new {{ .Name }}Field initialized with val
+func New{{ .Name }}(val quickfix.{{ $base_type }}) {{ .Name }}Field {
+	return {{ .Name }}Field{ val }
+}
+{{ end }}{{ end }}
+`))
+}
+
+//sort fieldtypes by name
 type byFieldName []*datadictionary.FieldType
 
 func (n byFieldName) Len() int           { return len(n) }
