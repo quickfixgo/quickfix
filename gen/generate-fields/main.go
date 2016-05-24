@@ -10,23 +10,16 @@ import (
 	"github.com/quickfixgo/quickfix/gen"
 )
 
-var (
-	fieldMap     map[string]int
-	fieldTypeMap map[string]*datadictionary.FieldType
-	sortedTags   []string
-)
-
 func usage() {
 	fmt.Fprintf(os.Stderr, "usage: generate-fields [flags] <path to data dictionary> ... \n")
 	flag.PrintDefaults()
 	os.Exit(2)
 }
 
-func genEnums() error {
+func genEnums(fieldTypes []*datadictionary.FieldType) error {
 	fileOut := "package enum\n"
 
-	for _, fieldName := range sortedTags {
-		fieldType, _ := fieldTypeMap[fieldName]
+	for _, fieldType := range fieldTypes {
 		if len(fieldType.Enums) == 0 {
 			continue
 		}
@@ -39,11 +32,11 @@ func genEnums() error {
 		}
 		sort.Strings(sortedEnums)
 
-		fileOut += fmt.Sprintf("//Enum values for %v\n", fieldName)
+		fileOut += fmt.Sprintf("//Enum values for %v\n", fieldType.Name())
 		fileOut += "const(\n"
 		for _, enumVal := range sortedEnums {
 			enum, _ := fieldType.Enums[enumVal]
-			fileOut += fmt.Sprintf("%v_%v = \"%v\"\n", fieldName, enum.Description, enum.Value)
+			fileOut += fmt.Sprintf("%v_%v = \"%v\"\n", fieldType.Name(), enum.Description, enum.Value)
 		}
 		fileOut += ")\n"
 	}
@@ -51,15 +44,14 @@ func genEnums() error {
 	return gen.WriteFile("enum/enums.go", fileOut)
 }
 
-func genFields() error {
+func genFields(fieldTypes []*datadictionary.FieldType) error {
 	fileOut := "package field\n"
 	fileOut += "import(\n"
 	fileOut += "\"github.com/quickfixgo/quickfix\"\n"
 	fileOut += "\"" + gen.GetImportPathRoot() + "/tag\"\n"
 	fileOut += ")\n"
 
-	for _, tag := range sortedTags {
-		field := fieldTypeMap[tag]
+	for _, field := range fieldTypes {
 
 		baseType := ""
 		goType := ""
@@ -140,7 +132,7 @@ func genFields() error {
 			goType = "float64"
 
 		default:
-			return fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, tag)
+			return fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag())
 		}
 
 		fileOut += fmt.Sprintf("//%vField is a %v field\n", field.Name(), field.Type)
@@ -160,18 +152,24 @@ func genFields() error {
 	return gen.WriteFile("field/fields.go", fileOut)
 }
 
-func genTags() error {
+func genTags(fieldTypes []*datadictionary.FieldType) error {
 	fileOut := "package tag\n"
 	fileOut += "import(\"github.com/quickfixgo/quickfix\")\n"
 
 	fileOut += "const (\n"
-	for _, tag := range sortedTags {
-		fileOut += fmt.Sprintf("%v quickfix.Tag = %v\n", tag, fieldMap[tag])
+	for _, f := range fieldTypes {
+		fileOut += fmt.Sprintf("%v quickfix.Tag = %v\n", f.Name(), f.Tag())
 	}
 	fileOut += ")\n"
 
 	return gen.WriteFile("tag/tag_numbers.go", fileOut)
 }
+
+type byFieldName []*datadictionary.FieldType
+
+func (n byFieldName) Len() int           { return len(n) }
+func (n byFieldName) Swap(i, j int)      { n[i], n[j] = n[j], n[i] }
+func (n byFieldName) Less(i, j int) bool { return n[i].Name() < n[j].Name() }
 
 func main() {
 	flag.Usage = usage
@@ -181,8 +179,7 @@ func main() {
 		usage()
 	}
 
-	fieldMap = make(map[string]int)
-	fieldTypeMap = make(map[string]*datadictionary.FieldType)
+	fieldTypeMap := make(map[string]*datadictionary.FieldType)
 
 	for _, dataDict := range flag.Args() {
 		spec, err := datadictionary.Parse(dataDict)
@@ -193,8 +190,6 @@ func main() {
 		}
 
 		for _, field := range spec.FieldTypeByTag {
-			fieldMap[field.Name()] = field.Tag()
-
 			if oldField, ok := fieldTypeMap[field.Name()]; ok {
 				//merge old enums with new
 				if len(oldField.Enums) > 0 && field.Enums == nil {
@@ -223,17 +218,18 @@ func main() {
 		}
 	}
 
-	sortedTags = make([]string, len(fieldMap))
+	fieldTypes := make([]*datadictionary.FieldType, len(fieldTypeMap))
 	i := 0
-	for f := range fieldMap {
-		sortedTags[i] = f
+	for _, fieldType := range fieldTypeMap {
+		fieldTypes[i] = fieldType
 		i++
 	}
-	sort.Strings(sortedTags)
+
+	sort.Sort(byFieldName(fieldTypes))
 
 	var h gen.ErrorHandler
-	h.Handle(genTags())
-	h.Handle(genFields())
-	h.Handle(genEnums())
+	h.Handle(genTags(fieldTypes))
+	h.Handle(genFields(fieldTypes))
+	h.Handle(genEnums(fieldTypes))
 	os.Exit(h.ReturnCode)
 }

@@ -127,7 +127,7 @@ type FieldDef struct {
 	required bool
 
 	Parts          []MessagePart
-	ChildFields    []*FieldDef
+	Fields         []*FieldDef
 	requiredParts  []MessagePart
 	requiredFields []*FieldDef
 }
@@ -154,14 +154,14 @@ func NewGroupFieldDef(fieldType *FieldType, required bool, parts []MessagePart) 
 		}
 
 		if comp, ok := part.(Component); ok {
-			field.ChildFields = append(field.ChildFields, comp.Fields()...)
+			field.Fields = append(field.Fields, comp.Fields()...)
 
 			if comp.required {
 				field.requiredFields = append(field.requiredFields, comp.requiredFields...)
 			}
 		} else {
 			if child, ok := part.(*FieldDef); ok {
-				field.ChildFields = append(field.ChildFields, child)
+				field.Fields = append(field.Fields, child)
 
 				if child.required {
 					field.requiredFields = append(field.requiredFields, child)
@@ -181,7 +181,7 @@ func (f FieldDef) Required() bool { return f.required }
 
 //IsGroup is true if the field is a repeating group.
 func (f FieldDef) IsGroup() bool {
-	return len(f.ChildFields) > 0
+	return len(f.Fields) > 0
 }
 
 //RequiredParts returns those parts that are required for this FieldDef. IsGroup
@@ -193,9 +193,9 @@ func (f FieldDef) RequiredParts() []MessagePart { return f.requiredParts }
 func (f FieldDef) RequiredFields() []*FieldDef { return f.requiredFields }
 
 func (f FieldDef) childTags() []int {
-	tags := make([]int, 0, len(f.ChildFields))
+	tags := make([]int, 0, len(f.Fields))
 
-	for _, f := range f.ChildFields {
+	for _, f := range f.Fields {
 		tags = append(tags, f.Tag())
 		for _, t := range f.childTags() {
 			tags = append(tags, t)
@@ -208,7 +208,7 @@ func (f FieldDef) childTags() []int {
 func (f FieldDef) requiredChildTags() []int {
 	var tags []int
 
-	for _, f := range f.ChildFields {
+	for _, f := range f.Fields {
 		if !f.Required() {
 			continue
 		}

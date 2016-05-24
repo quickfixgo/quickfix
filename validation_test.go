@@ -25,10 +25,10 @@ func TestValidate(t *testing.T) {
 		tcInvalidMsgType(),
 		tcValueIsIncorrect(),
 		tcIncorrectDataFormatForValue(),
-		tcTagSpecifiedOutOfRequiredOrder_Header(),
-		tcTagSpecifiedOutOfRequiredOrder_Trailer(),
-		tcTagSpecifiedOutOfRequiredOrder_Disabled_Header(),
-		tcTagSpecifiedOutOfRequiredOrder_Disabled_Trailer(),
+		tcTagSpecifiedOutOfRequiredOrderHeader(),
+		tcTagSpecifiedOutOfRequiredOrderTrailer(),
+		tcTagSpecifiedOutOfRequiredOrderDisabledHeader(),
+		tcTagSpecifiedOutOfRequiredOrderDisabledTrailer(),
 		tcTagAppearsMoreThanOnce(),
 		tcFloatValidation(),
 		tcTagNotDefinedForMessage(),
@@ -336,7 +336,7 @@ func tcIncorrectDataFormatForValue() validateTest {
 	}
 }
 
-func tcTagSpecifiedOutOfRequiredOrder_Header() validateTest {
+func tcTagSpecifiedOutOfRequiredOrderHeader() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	validator := &fixValidator{dict, defaultValidatorSettings}
 
@@ -355,7 +355,7 @@ func tcTagSpecifiedOutOfRequiredOrder_Header() validateTest {
 	}
 }
 
-func tcTagSpecifiedOutOfRequiredOrder_Trailer() validateTest {
+func tcTagSpecifiedOutOfRequiredOrderTrailer() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	validator := &fixValidator{dict, defaultValidatorSettings}
 
@@ -375,7 +375,7 @@ func tcTagSpecifiedOutOfRequiredOrder_Trailer() validateTest {
 	}
 }
 
-func tcTagSpecifiedOutOfRequiredOrder_Disabled_Header() validateTest {
+func tcTagSpecifiedOutOfRequiredOrderDisabledHeader() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	validator := &fixValidator{dict, defaultValidatorSettings}
 	validator.settings.CheckFieldsOutOfOrder = false
@@ -394,7 +394,7 @@ func tcTagSpecifiedOutOfRequiredOrder_Disabled_Header() validateTest {
 	}
 }
 
-func tcTagSpecifiedOutOfRequiredOrder_Disabled_Trailer() validateTest {
+func tcTagSpecifiedOutOfRequiredOrderDisabledTrailer() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	validator := &fixValidator{dict, defaultValidatorSettings}
 	validator.settings.CheckFieldsOutOfOrder = false
@@ -445,13 +445,13 @@ func TestValidateVisitField(t *testing.T) {
 	fieldDef0 := &datadictionary.FieldDef{FieldType: fieldType0}
 
 	fieldType1 := datadictionary.NewFieldType("myfield", 2, "STRING")
-	fieldDef1 := &datadictionary.FieldDef{FieldType: fieldType1, ChildFields: []*datadictionary.FieldDef{}}
+	fieldDef1 := &datadictionary.FieldDef{FieldType: fieldType1, Fields: []*datadictionary.FieldDef{}}
 
 	fieldType2 := datadictionary.NewFieldType("myfield", 3, "STRING")
-	fieldDef2 := &datadictionary.FieldDef{FieldType: fieldType2, ChildFields: []*datadictionary.FieldDef{}}
+	fieldDef2 := &datadictionary.FieldDef{FieldType: fieldType2, Fields: []*datadictionary.FieldDef{}}
 
 	groupFieldType := datadictionary.NewFieldType("mygroupfield", 1, "INT")
-	groupFieldDef := &datadictionary.FieldDef{FieldType: groupFieldType, ChildFields: []*datadictionary.FieldDef{fieldDef1, fieldDef2}}
+	groupFieldDef := &datadictionary.FieldDef{FieldType: groupFieldType, Fields: []*datadictionary.FieldDef{fieldDef1, fieldDef2}}
 
 	var field TagValue
 	field.init(Tag(11), []byte("value"))

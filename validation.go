@@ -189,8 +189,8 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []Tag
 	for len(fieldStack) > 0 {
 
 		//start of repeating group
-		if int(fieldStack[0].tag) == fieldDef.ChildFields[0].Tag() {
-			childDefs = fieldDef.ChildFields
+		if int(fieldStack[0].tag) == fieldDef.Fields[0].Tag() {
+			childDefs = fieldDef.Fields
 			groupCount++
 		}
 
