@@ -51,6 +51,23 @@ func genEnums(fieldTypes []*datadictionary.FieldType) error {
 	return gen.WriteFile("enum/enums.go", fileOut)
 }
 
+func goTypeFromBaseType(baseType string) (goType string) {
+	switch baseType {
+	case "FIXString":
+		goType = "string"
+	case "FIXBoolean":
+		goType = "bool"
+	case "FIXInt":
+		goType = "int"
+	case "FIXUTCTimestamp":
+		goType = "time.Time"
+	case "FIXFloat":
+		goType = "float64"
+	}
+
+	return
+}
+
 func baseType(field *datadictionary.FieldType) (baseType string, err error) {
 	switch field.Type {
 	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
@@ -153,8 +170,9 @@ func genTags(fieldTypes []*datadictionary.FieldType) error {
 
 func init() {
 	tmplFuncs := template.FuncMap{
-		"importRootPath": gen.GetImportPathRoot,
-		"baseType":       baseType,
+		"importRootPath":     gen.GetImportPathRoot,
+		"baseType":           baseType,
+		"goTypeFromBaseType": goTypeFromBaseType,
 	}
 
 	tagTemplate = template.Must(template.New("Tag").Parse(`
@@ -177,7 +195,7 @@ import(
 	"time"
 )
 
-{{- range . }}
+{{ range . }}
 {{- $base_type := baseType . -}}
 //{{ .Name }}Field is a {{ .Type }} field
 type {{ .Name }}Field struct { quickfix.{{ $base_type }} }
@@ -198,8 +216,8 @@ func New{{ .Name }}NoMillis(val time.Time) {{ .Name }}Field {
 
 {{ else }}
 //New{{ .Name }} returns a new {{ .Name }}Field initialized with val
-func New{{ .Name }}(val quickfix.{{ $base_type }}) {{ .Name }}Field {
-	return {{ .Name }}Field{ val }
+func New{{ .Name }}(val {{ goTypeFromBaseType $base_type }}) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.{{ $base_type }}(val) }
 }
 {{ end }}{{ end }}
 `))
