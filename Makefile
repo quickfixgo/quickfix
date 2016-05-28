@@ -3,15 +3,12 @@ all: vet test
 get:
 	go get -t -d ./...
 
-GEN_MESSAGES = go run gen/generate-messages/main.go
-GEN_COMPONENTS = go run gen/generate-components/main.go
+GEN_MESSAGES = go run cmd/generate/main.go
 GEN_FIELDS = go run gen/generate-fields/main.go
-FIXVERS = FIX40 FIX41 FIX42 FIX43 FIX44 FIX50 FIX50SP1 FIX50SP2 FIXT11
 
 generate:
-	$(GEN_FIELDS) $(foreach vers, $(FIXVERS), spec/$(vers).xml)
-	$(foreach vers, $(FIXVERS), $(GEN_COMPONENTS) spec/$(vers).xml;)
-	$(foreach vers, $(FIXVERS), $(GEN_MESSAGES) spec/$(vers).xml;)
+	$(GEN_FIELDS) spec/*.xml
+	$(GEN_MESSAGES) spec/*.xml
 
 fmt:
 	go fmt ./...
