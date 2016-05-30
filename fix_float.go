@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"fmt"
-	"regexp"
 	"strconv"
 )
 
@@ -22,8 +21,10 @@ func (f *FIXFloat) Read(bytes []byte) error {
 	}
 
 	//strconv allows values like "+100.00", which is not allowed for FIX float types
-	if valid, _ := regexp.MatchString("^[0-9.-]+$", string(bytes)); !valid {
-		return fmt.Errorf("invalid value %v", string(bytes))
+	for _, b := range bytes {
+		if b != '.' && b != '-' && !isDecimal(b) {
+			return fmt.Errorf("invalid value %v", string(bytes))
+		}
 	}
 
 	*f = FIXFloat(val)
@@ -33,4 +34,8 @@ func (f *FIXFloat) Read(bytes []byte) error {
 
 func (f FIXFloat) Write() []byte {
 	return []byte(strconv.FormatFloat(float64(f), 'f', -1, 64))
+}
+
+func isDecimal(b byte) bool {
+	return '0' <= b && b <= '9'
 }
