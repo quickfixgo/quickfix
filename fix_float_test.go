@@ -29,7 +29,12 @@ func TestFloatRead(t *testing.T) {
 		expectError bool
 	}{
 		{[]byte("15"), 15.0, false},
+		{[]byte("99.9"), 99.9, false},
+		{[]byte("0.00"), 0.0, false},
+		{[]byte("-99.9"), -99.9, false},
+		{[]byte("-99.9.9"), 0.0, true},
 		{[]byte("blah"), 0.0, true},
+		{[]byte("1.a1"), 0.0, true},
 		{[]byte("+200.00"), 0.0, true},
 	}
 
@@ -44,5 +49,13 @@ func TestFloatRead(t *testing.T) {
 		} else if float64(field) != test.value {
 			t.Errorf("got %v want %v", field, test.value)
 		}
+	}
+}
+
+func BenchmarkFloatRead(b *testing.B) {
+	val := []byte("15.1234")
+	for i := 0; i < b.N; i++ {
+		var field FIXFloat
+		field.Read(val)
 	}
 }
