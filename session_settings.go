@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"time"
 )
 
 //SessionSettings maps session settings to values with typed accessors.
@@ -59,6 +60,17 @@ func (s *SessionSettings) IntSetting(setting string) (int, error) {
 	}
 
 	return strconv.Atoi(stringVal)
+}
+
+//DurationSetting returns the requested setting parsed as a time.Duration.  Returns an error if the setting is not set or cannot be parsed as a time.Duration.
+func (s *SessionSettings) DurationSetting(setting string) (val time.Duration, err error) {
+	stringVal, err := s.Setting(setting)
+
+	if err != nil {
+		return
+	}
+
+	return time.ParseDuration(stringVal)
 }
 
 //BoolSetting returns the requested setting parsed as a boolean.  Returns an errror if the setting is not set or cannot be parsed as a bool.
