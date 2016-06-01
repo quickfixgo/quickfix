@@ -18,5 +18,6 @@ const (
 	FileStorePath            string = "FileStorePath"
 	SQLDriver                string = "SQLDriver"
 	SQLDataSourceName        string = "SQLDataSourceName"
+	SQLConnMaxLifetime       string = "SQLConnMaxLifetime"
 	ValidateFieldsOutOfOrder string = "ValidateFieldsOutOfOrder"
 )

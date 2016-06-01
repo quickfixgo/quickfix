@@ -13,11 +13,12 @@ type sqlStoreFactory struct {
 }
 
 type sqlStore struct {
-	sessionID         SessionID
-	cache             *memoryStore
-	sqlDriver         string
-	sqlDataSourceName string
-	db                *sql.DB
+	sessionID          SessionID
+	cache              *memoryStore
+	sqlDriver          string
+	sqlDataSourceName  string
+	sqlConnMaxLifetime time.Duration
+	db                 *sql.DB
 }
 
 // NewSQLStoreFactory returns a sql-based implementation of MessageStoreFactory
@@ -39,21 +40,31 @@ func (f sqlStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err
 	if err != nil {
 		return nil, err
 	}
-	return newSQLStore(sessionID, sqlDriver, sqlDataSourceName)
+	sqlConnMaxLifetime := 0 * time.Second
+	if sessionSettings.HasSetting(config.SQLConnMaxLifetime) {
+		sqlConnMaxLifetime, err = sessionSettings.DurationSetting(config.SQLConnMaxLifetime)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return newSQLStore(sessionID, sqlDriver, sqlDataSourceName, sqlConnMaxLifetime)
 }
 
-func newSQLStore(sessionID SessionID, driver string, dataSourceName string) (store *sqlStore, err error) {
+func newSQLStore(sessionID SessionID, driver string, dataSourceName string, connMaxLifetime time.Duration) (store *sqlStore, err error) {
 	store = &sqlStore{
-		sessionID:         sessionID,
-		cache:             &memoryStore{},
-		sqlDriver:         driver,
-		sqlDataSourceName: dataSourceName,
+		sessionID:          sessionID,
+		cache:              &memoryStore{},
+		sqlDriver:          driver,
+		sqlDataSourceName:  dataSourceName,
+		sqlConnMaxLifetime: connMaxLifetime,
 	}
 	store.cache.Reset()
 
 	if store.db, err = sql.Open(store.sqlDriver, store.sqlDataSourceName); err != nil {
 		return nil, err
 	}
+	store.db.SetConnMaxLifetime(store.sqlConnMaxLifetime)
+
 	if err = store.db.Ping(); err != nil { // ensure immediate connection
 		return nil, err
 	}

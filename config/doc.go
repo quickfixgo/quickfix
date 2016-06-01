@@ -138,5 +138,15 @@ The name of the database driver to use (see https://github.com/golang/go/wiki/SQ
 SQLDataSourceName
 
 The driver-specific data source name of the database to use.  Only used with SqlStoreFactory.
+
+SQLConnMaxLifetime
+
+SetConnMaxLifetime sets the maximum duration of time that a database connection may be reused (see https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime).  Defaults to zero, which causes connections to be reused forever.  Only used with SqlStoreFactory.
+
+If your database server has a config option to close inactive connections after some duration (e.g. MySQL "wait_timeout"), set SQLConnMaxLifetime to a value less than that duration.
+
+Example Values:
+ SQLConnMaxLifetime=14400s # 14400 seconds
+ SQLConnMaxLifetime=2h45m  # 2 hours and 45 minutes
 */
 package config
