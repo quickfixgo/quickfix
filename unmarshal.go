@@ -21,7 +21,7 @@ func (d decoder) decodeValue(fixTag Tag, t reflect.Type, v reflect.Value) Messag
 			if err := d.FieldMap.GetField(Tag(fixTag), fieldValue); err != nil {
 				return err
 			}
-			v.Set(reflect.ValueOf(fieldValue.Value))
+			v.Set(reflect.ValueOf(fieldValue.Time))
 		}
 	case reflect.String:
 		var fieldValue FIXString

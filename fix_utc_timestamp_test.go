@@ -1,9 +1,10 @@
 package quickfix_test
 
 import (
-	"github.com/quickfixgo/quickfix"
 	"testing"
 	"time"
+
+	"github.com/quickfixgo/quickfix"
 )
 
 func TestFIXUTCTimestampRead(t *testing.T) {
@@ -22,8 +23,8 @@ func TestFIXUTCTimestampRead(t *testing.T) {
 			t.Errorf("Unexpected error: %v", err)
 		}
 
-		if !f.Value.Equal(test.expectedTime) {
-			t.Errorf("For Time expected %v got %v", test.expectedTime, f.Value)
+		if !f.Time.Equal(test.expectedTime) {
+			t.Errorf("For Time expected %v got %v", test.expectedTime, f.Time)
 		}
 
 		if f.NoMillis != test.expectedNoMillis {

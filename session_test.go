@@ -14,6 +14,11 @@ func buildMessage() Message {
 	return builder
 }
 
+func newFIXString(val string) *FIXString {
+	s := FIXString(val)
+	return &s
+}
+
 func TestSession_CheckCorrectCompID(t *testing.T) {
 	session := session{}
 	session.sessionID.TargetCompID = "TAR"
@@ -26,19 +31,19 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 		rejectReason int
 	}{
 		{returnsError: true, rejectReason: rejectReasonRequiredTagMissing},
-		{senderCompID: NewFIXString("TAR"),
+		{senderCompID: newFIXString("TAR"),
 			returnsError: true,
 			rejectReason: rejectReasonRequiredTagMissing},
-		{senderCompID: NewFIXString("TAR"),
-			targetCompID: NewFIXString("JCD"),
+		{senderCompID: newFIXString("TAR"),
+			targetCompID: newFIXString("JCD"),
 			returnsError: true,
 			rejectReason: rejectReasonCompIDProblem},
-		{senderCompID: NewFIXString("JCD"),
-			targetCompID: NewFIXString("SND"),
+		{senderCompID: newFIXString("JCD"),
+			targetCompID: newFIXString("SND"),
 			returnsError: true,
 			rejectReason: rejectReasonCompIDProblem},
-		{senderCompID: NewFIXString("TAR"),
-			targetCompID: NewFIXString("SND"),
+		{senderCompID: newFIXString("TAR"),
+			targetCompID: newFIXString("SND"),
 			returnsError: false},
 	}
 
@@ -163,7 +168,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 
 	//sending time too late
 	sendingTime := time.Now().Add(time.Duration(-200) * time.Second)
-	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Value: sendingTime})
+	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 	msgBytes, _ = builder.Build()
 	msg, _ = ParseMessage(msgBytes)
 
@@ -177,7 +182,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 
 	//future sending time
 	sendingTime = time.Now().Add(time.Duration(200) * time.Second)
-	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Value: sendingTime})
+	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 	msgBytes, _ = builder.Build()
 	msg, _ = ParseMessage(msgBytes)
 
@@ -191,7 +196,7 @@ func TestSession_CheckSendingTime(t *testing.T) {
 
 	//sending time ok
 	sendingTime = time.Now()
-	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Value: sendingTime})
+	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 	msgBytes, _ = builder.Build()
 	msg, _ = ParseMessage(msgBytes)
 

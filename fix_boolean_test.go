@@ -2,11 +2,13 @@ package quickfix
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestBooleanFieldWrite(t *testing.T) {
-
+func TestBooleanWrite(t *testing.T) {
 	var tests = []struct {
 		val      FIXBoolean
 		expected []byte
@@ -17,14 +19,11 @@ func TestBooleanFieldWrite(t *testing.T) {
 
 	for _, test := range tests {
 		b := test.val.Write()
-
-		if !bytes.Equal(b, test.expected) {
-			t.Errorf("got %v; want %v", b, test.expected)
-		}
+		assert.True(t, bytes.Equal(b, test.expected), fmt.Sprintf("got %v; want %v", b, test.expected))
 	}
 }
 
-func TestFIXBooleanFieldRead(t *testing.T) {
+func TestFIXBooleanRead(t *testing.T) {
 	var tests = []struct {
 		bytes       []byte
 		expected    bool
@@ -39,14 +38,7 @@ func TestFIXBooleanFieldRead(t *testing.T) {
 		var val FIXBoolean
 		err := val.Read(test.bytes)
 
-		if test.expectError && err == nil {
-			t.Errorf("Expected error for %v", test.bytes)
-		} else if !test.expectError && err != nil {
-			t.Errorf("UnExpected '%v'", err)
-		}
-
-		if val != FIXBoolean(test.expected) {
-			t.Errorf("got %v want %v", val, test.expected)
-		}
+		assert.Equal(t, test.expectError, err != nil)
+		assert.Equal(t, test.expected, val.Bool())
 	}
 }

@@ -44,7 +44,7 @@ func (e encoder) encodeValue(fixTag Tag, v reflect.Value, omitEmpty bool, defaul
 	case reflect.Struct:
 		switch t := v.Interface().(type) {
 		case time.Time:
-			e.FieldMap.SetField(fixTag, FIXUTCTimestamp{Value: t})
+			e.FieldMap.SetField(fixTag, FIXUTCTimestamp{Time: t})
 		}
 	case reflect.String:
 		e.FieldMap.SetField(fixTag, FIXString(v.String()))

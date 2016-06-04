@@ -8,11 +8,8 @@ import (
 //FIXFloat is a FIX Float Value, implements FieldValue
 type FIXFloat float64
 
-//NewFIXFloat returns an initialized FIXFloat
-func NewFIXFloat(val float64) *FIXFloat {
-	f := FIXFloat(val)
-	return &f
-}
+//Float64 converts the FIXFloat value to float64
+func (f FIXFloat) Float64() float64 { return float64(f) }
 
 func (f *FIXFloat) Read(bytes []byte) error {
 	val, err := strconv.ParseFloat(string(bytes), 64)

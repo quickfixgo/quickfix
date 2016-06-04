@@ -28,7 +28,7 @@ func TestUnmarshal_Literals(t *testing.T) {
 	fixMsg.Body.SetField(quickfix.Tag(117), quickfix.FIXBoolean(true))
 	fixMsg.Body.SetField(quickfix.Tag(118), quickfix.FIXFloat(500.123))
 	tVal, _ := time.Parse("2006-Jan-02", "2014-Jun-16")
-	fixMsg.Body.SetField(quickfix.Tag(119), quickfix.FIXUTCTimestamp{Value: tVal})
+	fixMsg.Body.SetField(quickfix.Tag(119), quickfix.FIXUTCTimestamp{Time: tVal})
 
 	var msgOut Message
 	quickfix.Unmarshal(fixMsg, &msgOut)
@@ -69,7 +69,7 @@ func TestUnmarshal_LiteralsOptional(t *testing.T) {
 	fixMsg.Body.SetField(quickfix.Tag(115), quickfix.FIXBoolean(false))
 	fixMsg.Body.SetField(quickfix.Tag(116), quickfix.FIXFloat(500.123))
 	tVal, _ := time.Parse("2006-Jan-02", "2014-Jun-16")
-	fixMsg.Body.SetField(quickfix.Tag(117), quickfix.FIXUTCTimestamp{Value: tVal})
+	fixMsg.Body.SetField(quickfix.Tag(117), quickfix.FIXUTCTimestamp{Time: tVal})
 
 	var msgOut Message
 	quickfix.Unmarshal(fixMsg, &msgOut)

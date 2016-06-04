@@ -206,12 +206,12 @@ func (f {{ .Name }}Field) Tag() quickfix.Tag { return tag.{{ .Name }} }
 {{ if eq $base_type "FIXUTCTimestamp" }} 
 //New{{ .Name }} returns a new {{ .Name }}Field initialized with val
 func New{{ .Name }}(val time.Time) {{ .Name }}Field {
-	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Value: val } } 
+	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val } } 
 }
 
 //New{{ .Name }}NoMillis returns a new {{ .Name }}Field initialized with val without millisecs
 func New{{ .Name }}NoMillis(val time.Time) {{ .Name }}Field {
-	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Value: val, NoMillis: true } } 
+	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val, NoMillis: true } } 
 }
 
 {{ else }}

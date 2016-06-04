@@ -46,11 +46,8 @@ func parseUInt(d []byte) (n int, err error) {
 //FIXInt is a FIX Int Value, implements FieldValue
 type FIXInt int
 
-//NewFIXInt returns an initialized FIXInt
-func NewFIXInt(val int) *FIXInt {
-	i := FIXInt(val)
-	return &i
-}
+//Int converts the FIXInt value to int
+func (f FIXInt) Int() int { return int(f) }
 
 func (f *FIXInt) Read(bytes []byte) error {
 	i, err := atoi(bytes)

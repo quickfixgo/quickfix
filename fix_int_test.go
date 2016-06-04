@@ -2,37 +2,32 @@ package quickfix
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestInt_Write(t *testing.T) {
+func TestFIXInt_Write(t *testing.T) {
 	field := FIXInt(5)
-	bytes := field.Write()
 
-	if string(bytes) != "5" {
-		t.Error("Unexpected bytes ", bytes)
-	}
+	assert.Equal(t, "5", string(field.Write()))
 }
 
-func TestInt_Read(t *testing.T) {
+func TestFIXInt_Read(t *testing.T) {
 	var field FIXInt
 	err := field.Read([]byte("15"))
-
-	if err != nil {
-		t.Error("Unexpected error", err)
-	}
-
-	if int(field) != 15 {
-		t.Error("unexpected value", field)
-	}
+	assert.Nil(t, err, "Unexpected error")
+	assert.Equal(t, 15, int(field))
 
 	err = field.Read([]byte("blah"))
-
-	if err == nil {
-		t.Error("expected error")
-	}
+	assert.NotNil(t, err, "Unexpected error")
 }
 
-func BenchmarkInt_Read(b *testing.B) {
+func TestFIXInt_Int(t *testing.T) {
+	f := FIXInt(4)
+	assert.Equal(t, 4, f.Int())
+}
+
+func BenchmarkFIXInt_Read(b *testing.B) {
 	intBytes := []byte("1500")
 	var field FIXInt
 

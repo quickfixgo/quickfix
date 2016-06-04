@@ -81,7 +81,7 @@ func createFIX40NewOrderSingle() Message {
 	msg.Header.SetField(tagSenderCompID, FIXString("0"))
 	msg.Header.SetField(tagTargetCompID, FIXString("0"))
 	msg.Header.SetField(tagMsgSeqNum, FIXString("0"))
-	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Value: time.Now()})
+	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()})
 
 	msg.Body.SetField(Tag(11), FIXString("A"))
 	msg.Body.SetField(Tag(21), FIXString("1"))
@@ -104,7 +104,7 @@ func createFIX43NewOrderSingle() Message {
 	msg.Header.SetField(tagSenderCompID, FIXString("0"))
 	msg.Header.SetField(tagTargetCompID, FIXString("0"))
 	msg.Header.SetField(tagMsgSeqNum, FIXString("0"))
-	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Value: time.Now()})
+	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()})
 
 	msg.Body.SetField(Tag(11), FIXString("A"))
 	msg.Body.SetField(Tag(21), FIXString("1"))
@@ -112,7 +112,7 @@ func createFIX43NewOrderSingle() Message {
 	msg.Body.SetField(Tag(54), FIXString("1"))
 	msg.Body.SetField(Tag(38), FIXInt(5))
 	msg.Body.SetField(Tag(40), FIXString("1"))
-	msg.Body.SetField(Tag(60), FIXUTCTimestamp{Value: time.Now()})
+	msg.Body.SetField(Tag(60), FIXUTCTimestamp{Time: time.Now()})
 
 	msg.Trailer.SetField(tagCheckSum, FIXString("000"))
 
@@ -211,7 +211,7 @@ func tcFieldNotFoundBody() validateTest {
 		SetField(tagSenderCompID, FIXString("0")).
 		SetField(tagTargetCompID, FIXString("0")).
 		SetField(tagMsgSeqNum, FIXString("0")).
-		SetField(tagSendingTime, FIXUTCTimestamp{Value: time.Now()})
+		SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()})
 	invalidMsg1.Trailer.SetField(tagCheckSum, FIXString("000"))
 
 	invalidMsg1.Body.SetField(Tag(11), FIXString("A")).
