@@ -2006,12 +2006,12 @@ func (f ComplexEventEndDateField) Tag() quickfix.Tag { return tag.ComplexEventEn
 
 //NewComplexEventEndDate returns a new ComplexEventEndDateField initialized with val
 func NewComplexEventEndDate(val time.Time) ComplexEventEndDateField {
-	return ComplexEventEndDateField{quickfix.FIXUTCTimestamp{Value: val}}
+	return ComplexEventEndDateField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewComplexEventEndDateNoMillis returns a new ComplexEventEndDateField initialized with val without millisecs
 func NewComplexEventEndDateNoMillis(val time.Time) ComplexEventEndDateField {
-	return ComplexEventEndDateField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return ComplexEventEndDateField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //ComplexEventEndTimeField is a UTCTIMEONLY field
@@ -2081,12 +2081,12 @@ func (f ComplexEventStartDateField) Tag() quickfix.Tag { return tag.ComplexEvent
 
 //NewComplexEventStartDate returns a new ComplexEventStartDateField initialized with val
 func NewComplexEventStartDate(val time.Time) ComplexEventStartDateField {
-	return ComplexEventStartDateField{quickfix.FIXUTCTimestamp{Value: val}}
+	return ComplexEventStartDateField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewComplexEventStartDateNoMillis returns a new ComplexEventStartDateField initialized with val without millisecs
 func NewComplexEventStartDateNoMillis(val time.Time) ComplexEventStartDateField {
-	return ComplexEventStartDateField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return ComplexEventStartDateField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //ComplexEventStartTimeField is a UTCTIMEONLY field
@@ -2372,12 +2372,12 @@ func (f ContraTradeTimeField) Tag() quickfix.Tag { return tag.ContraTradeTime }
 
 //NewContraTradeTime returns a new ContraTradeTimeField initialized with val
 func NewContraTradeTime(val time.Time) ContraTradeTimeField {
-	return ContraTradeTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return ContraTradeTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewContraTradeTimeNoMillis returns a new ContraTradeTimeField initialized with val without millisecs
 func NewContraTradeTimeNoMillis(val time.Time) ContraTradeTimeField {
-	return ContraTradeTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return ContraTradeTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //ContraTraderField is a STRING field
@@ -3100,12 +3100,12 @@ func (f DerivativeEventTimeField) Tag() quickfix.Tag { return tag.DerivativeEven
 
 //NewDerivativeEventTime returns a new DerivativeEventTimeField initialized with val
 func NewDerivativeEventTime(val time.Time) DerivativeEventTimeField {
-	return DerivativeEventTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return DerivativeEventTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewDerivativeEventTimeNoMillis returns a new DerivativeEventTimeField initialized with val without millisecs
 func NewDerivativeEventTimeNoMillis(val time.Time) DerivativeEventTimeField {
-	return DerivativeEventTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return DerivativeEventTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //DerivativeEventTypeField is a INT field
@@ -4106,12 +4106,12 @@ func (f EffectiveTimeField) Tag() quickfix.Tag { return tag.EffectiveTime }
 
 //NewEffectiveTime returns a new EffectiveTimeField initialized with val
 func NewEffectiveTime(val time.Time) EffectiveTimeField {
-	return EffectiveTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return EffectiveTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewEffectiveTimeNoMillis returns a new EffectiveTimeField initialized with val without millisecs
 func NewEffectiveTimeNoMillis(val time.Time) EffectiveTimeField {
-	return EffectiveTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return EffectiveTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //EmailThreadIDField is a STRING field
@@ -4654,12 +4654,12 @@ func (f EventTimeField) Tag() quickfix.Tag { return tag.EventTime }
 
 //NewEventTime returns a new EventTimeField initialized with val
 func NewEventTime(val time.Time) EventTimeField {
-	return EventTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return EventTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewEventTimeNoMillis returns a new EventTimeField initialized with val without millisecs
 func NewEventTimeNoMillis(val time.Time) EventTimeField {
-	return EventTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return EventTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //EventTypeField is a INT field
@@ -4868,12 +4868,12 @@ func (f ExecValuationPointField) Tag() quickfix.Tag { return tag.ExecValuationPo
 
 //NewExecValuationPoint returns a new ExecValuationPointField initialized with val
 func NewExecValuationPoint(val time.Time) ExecValuationPointField {
-	return ExecValuationPointField{quickfix.FIXUTCTimestamp{Value: val}}
+	return ExecValuationPointField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewExecValuationPointNoMillis returns a new ExecValuationPointField initialized with val without millisecs
 func NewExecValuationPointNoMillis(val time.Time) ExecValuationPointField {
-	return ExecValuationPointField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return ExecValuationPointField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //ExerciseMethodField is a CHAR field
@@ -4961,12 +4961,12 @@ func (f ExpireTimeField) Tag() quickfix.Tag { return tag.ExpireTime }
 
 //NewExpireTime returns a new ExpireTimeField initialized with val
 func NewExpireTime(val time.Time) ExpireTimeField {
-	return ExpireTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return ExpireTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewExpireTimeNoMillis returns a new ExpireTimeField initialized with val without millisecs
 func NewExpireTimeNoMillis(val time.Time) ExpireTimeField {
-	return ExpireTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return ExpireTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //FactorField is a FLOAT field
@@ -5320,12 +5320,12 @@ func (f HopSendingTimeField) Tag() quickfix.Tag { return tag.HopSendingTime }
 
 //NewHopSendingTime returns a new HopSendingTimeField initialized with val
 func NewHopSendingTime(val time.Time) HopSendingTimeField {
-	return HopSendingTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return HopSendingTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewHopSendingTimeNoMillis returns a new HopSendingTimeField initialized with val without millisecs
 func NewHopSendingTimeNoMillis(val time.Time) HopSendingTimeField {
-	return HopSendingTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return HopSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //HostCrossIDField is a STRING field
@@ -5875,12 +5875,12 @@ func (f LastUpdateTimeField) Tag() quickfix.Tag { return tag.LastUpdateTime }
 
 //NewLastUpdateTime returns a new LastUpdateTimeField initialized with val
 func NewLastUpdateTime(val time.Time) LastUpdateTimeField {
-	return LastUpdateTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return LastUpdateTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewLastUpdateTimeNoMillis returns a new LastUpdateTimeField initialized with val without millisecs
 func NewLastUpdateTimeNoMillis(val time.Time) LastUpdateTimeField {
-	return LastUpdateTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return LastUpdateTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //LateIndicatorField is a BOOLEAN field
@@ -10296,12 +10296,12 @@ func (f OnBehalfOfSendingTimeField) Tag() quickfix.Tag { return tag.OnBehalfOfSe
 
 //NewOnBehalfOfSendingTime returns a new OnBehalfOfSendingTimeField initialized with val
 func NewOnBehalfOfSendingTime(val time.Time) OnBehalfOfSendingTimeField {
-	return OnBehalfOfSendingTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return OnBehalfOfSendingTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewOnBehalfOfSendingTimeNoMillis returns a new OnBehalfOfSendingTimeField initialized with val without millisecs
 func NewOnBehalfOfSendingTimeNoMillis(val time.Time) OnBehalfOfSendingTimeField {
-	return OnBehalfOfSendingTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return OnBehalfOfSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //OnBehalfOfSubIDField is a STRING field
@@ -10642,12 +10642,12 @@ func (f OrigOrdModTimeField) Tag() quickfix.Tag { return tag.OrigOrdModTime }
 
 //NewOrigOrdModTime returns a new OrigOrdModTimeField initialized with val
 func NewOrigOrdModTime(val time.Time) OrigOrdModTimeField {
-	return OrigOrdModTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return OrigOrdModTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewOrigOrdModTimeNoMillis returns a new OrigOrdModTimeField initialized with val without millisecs
 func NewOrigOrdModTimeNoMillis(val time.Time) OrigOrdModTimeField {
-	return OrigOrdModTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return OrigOrdModTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //OrigPosReqRefIDField is a STRING field
@@ -10680,12 +10680,12 @@ func (f OrigSendingTimeField) Tag() quickfix.Tag { return tag.OrigSendingTime }
 
 //NewOrigSendingTime returns a new OrigSendingTimeField initialized with val
 func NewOrigSendingTime(val time.Time) OrigSendingTimeField {
-	return OrigSendingTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return OrigSendingTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewOrigSendingTimeNoMillis returns a new OrigSendingTimeField initialized with val without millisecs
 func NewOrigSendingTimeNoMillis(val time.Time) OrigSendingTimeField {
-	return OrigSendingTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return OrigSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //OrigTimeField is a UTCTIMESTAMP field
@@ -10696,12 +10696,12 @@ func (f OrigTimeField) Tag() quickfix.Tag { return tag.OrigTime }
 
 //NewOrigTime returns a new OrigTimeField initialized with val
 func NewOrigTime(val time.Time) OrigTimeField {
-	return OrigTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return OrigTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewOrigTimeNoMillis returns a new OrigTimeField initialized with val without millisecs
 func NewOrigTimeNoMillis(val time.Time) OrigTimeField {
-	return OrigTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return OrigTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //OrigTradeDateField is a LOCALMKTDATE field
@@ -11935,12 +11935,12 @@ func (f QuoteSetValidUntilTimeField) Tag() quickfix.Tag { return tag.QuoteSetVal
 
 //NewQuoteSetValidUntilTime returns a new QuoteSetValidUntilTimeField initialized with val
 func NewQuoteSetValidUntilTime(val time.Time) QuoteSetValidUntilTimeField {
-	return QuoteSetValidUntilTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return QuoteSetValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewQuoteSetValidUntilTimeNoMillis returns a new QuoteSetValidUntilTimeField initialized with val without millisecs
 func NewQuoteSetValidUntilTimeNoMillis(val time.Time) QuoteSetValidUntilTimeField {
-	return QuoteSetValidUntilTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return QuoteSetValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //QuoteStatusField is a INT field
@@ -12391,12 +12391,12 @@ func (f RelSymTransactTimeField) Tag() quickfix.Tag { return tag.RelSymTransactT
 
 //NewRelSymTransactTime returns a new RelSymTransactTimeField initialized with val
 func NewRelSymTransactTime(val time.Time) RelSymTransactTimeField {
-	return RelSymTransactTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return RelSymTransactTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewRelSymTransactTimeNoMillis returns a new RelSymTransactTimeField initialized with val without millisecs
 func NewRelSymTransactTimeNoMillis(val time.Time) RelSymTransactTimeField {
-	return RelSymTransactTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return RelSymTransactTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //RelatdSymField is a STRING field
@@ -14288,12 +14288,12 @@ func (f SendingTimeField) Tag() quickfix.Tag { return tag.SendingTime }
 
 //NewSendingTime returns a new SendingTimeField initialized with val
 func NewSendingTime(val time.Time) SendingTimeField {
-	return SendingTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return SendingTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewSendingTimeNoMillis returns a new SendingTimeField initialized with val without millisecs
 func NewSendingTimeNoMillis(val time.Time) SendingTimeField {
-	return SendingTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return SendingTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //SeniorityField is a STRING field
@@ -14964,12 +14964,12 @@ func (f SideTimeInForceField) Tag() quickfix.Tag { return tag.SideTimeInForce }
 
 //NewSideTimeInForce returns a new SideTimeInForceField initialized with val
 func NewSideTimeInForce(val time.Time) SideTimeInForceField {
-	return SideTimeInForceField{quickfix.FIXUTCTimestamp{Value: val}}
+	return SideTimeInForceField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewSideTimeInForceNoMillis returns a new SideTimeInForceField initialized with val without millisecs
 func NewSideTimeInForceNoMillis(val time.Time) SideTimeInForceField {
-	return SideTimeInForceField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return SideTimeInForceField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //SideTradeReportIDField is a STRING field
@@ -14991,12 +14991,12 @@ func (f SideTrdRegTimestampField) Tag() quickfix.Tag { return tag.SideTrdRegTime
 
 //NewSideTrdRegTimestamp returns a new SideTrdRegTimestampField initialized with val
 func NewSideTrdRegTimestamp(val time.Time) SideTrdRegTimestampField {
-	return SideTrdRegTimestampField{quickfix.FIXUTCTimestamp{Value: val}}
+	return SideTrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewSideTrdRegTimestampNoMillis returns a new SideTrdRegTimestampField initialized with val without millisecs
 func NewSideTrdRegTimestampNoMillis(val time.Time) SideTrdRegTimestampField {
-	return SideTrdRegTimestampField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return SideTrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //SideTrdRegTimestampSrcField is a STRING field
@@ -15493,12 +15493,12 @@ func (f StrikeTimeField) Tag() quickfix.Tag { return tag.StrikeTime }
 
 //NewStrikeTime returns a new StrikeTimeField initialized with val
 func NewStrikeTime(val time.Time) StrikeTimeField {
-	return StrikeTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return StrikeTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewStrikeTimeNoMillis returns a new StrikeTimeField initialized with val without millisecs
 func NewStrikeTimeNoMillis(val time.Time) StrikeTimeField {
-	return StrikeTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return StrikeTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //StrikeValueField is a FLOAT field
@@ -16114,12 +16114,12 @@ func (f TradSesCloseTimeField) Tag() quickfix.Tag { return tag.TradSesCloseTime 
 
 //NewTradSesCloseTime returns a new TradSesCloseTimeField initialized with val
 func NewTradSesCloseTime(val time.Time) TradSesCloseTimeField {
-	return TradSesCloseTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return TradSesCloseTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewTradSesCloseTimeNoMillis returns a new TradSesCloseTimeField initialized with val without millisecs
 func NewTradSesCloseTimeNoMillis(val time.Time) TradSesCloseTimeField {
-	return TradSesCloseTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return TradSesCloseTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //TradSesEndTimeField is a UTCTIMESTAMP field
@@ -16130,12 +16130,12 @@ func (f TradSesEndTimeField) Tag() quickfix.Tag { return tag.TradSesEndTime }
 
 //NewTradSesEndTime returns a new TradSesEndTimeField initialized with val
 func NewTradSesEndTime(val time.Time) TradSesEndTimeField {
-	return TradSesEndTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return TradSesEndTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewTradSesEndTimeNoMillis returns a new TradSesEndTimeField initialized with val without millisecs
 func NewTradSesEndTimeNoMillis(val time.Time) TradSesEndTimeField {
-	return TradSesEndTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return TradSesEndTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //TradSesEventField is a INT field
@@ -16179,12 +16179,12 @@ func (f TradSesOpenTimeField) Tag() quickfix.Tag { return tag.TradSesOpenTime }
 
 //NewTradSesOpenTime returns a new TradSesOpenTimeField initialized with val
 func NewTradSesOpenTime(val time.Time) TradSesOpenTimeField {
-	return TradSesOpenTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return TradSesOpenTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewTradSesOpenTimeNoMillis returns a new TradSesOpenTimeField initialized with val without millisecs
 func NewTradSesOpenTimeNoMillis(val time.Time) TradSesOpenTimeField {
-	return TradSesOpenTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return TradSesOpenTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //TradSesPreCloseTimeField is a UTCTIMESTAMP field
@@ -16195,12 +16195,12 @@ func (f TradSesPreCloseTimeField) Tag() quickfix.Tag { return tag.TradSesPreClos
 
 //NewTradSesPreCloseTime returns a new TradSesPreCloseTimeField initialized with val
 func NewTradSesPreCloseTime(val time.Time) TradSesPreCloseTimeField {
-	return TradSesPreCloseTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return TradSesPreCloseTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewTradSesPreCloseTimeNoMillis returns a new TradSesPreCloseTimeField initialized with val without millisecs
 func NewTradSesPreCloseTimeNoMillis(val time.Time) TradSesPreCloseTimeField {
-	return TradSesPreCloseTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return TradSesPreCloseTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //TradSesReqIDField is a STRING field
@@ -16222,12 +16222,12 @@ func (f TradSesStartTimeField) Tag() quickfix.Tag { return tag.TradSesStartTime 
 
 //NewTradSesStartTime returns a new TradSesStartTimeField initialized with val
 func NewTradSesStartTime(val time.Time) TradSesStartTimeField {
-	return TradSesStartTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return TradSesStartTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewTradSesStartTimeNoMillis returns a new TradSesStartTimeField initialized with val without millisecs
 func NewTradSesStartTimeNoMillis(val time.Time) TradSesStartTimeField {
-	return TradSesStartTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return TradSesStartTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //TradSesStatusField is a INT field
@@ -16579,12 +16579,12 @@ func (f TransBkdTimeField) Tag() quickfix.Tag { return tag.TransBkdTime }
 
 //NewTransBkdTime returns a new TransBkdTimeField initialized with val
 func NewTransBkdTime(val time.Time) TransBkdTimeField {
-	return TransBkdTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return TransBkdTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewTransBkdTimeNoMillis returns a new TransBkdTimeField initialized with val without millisecs
 func NewTransBkdTimeNoMillis(val time.Time) TransBkdTimeField {
-	return TransBkdTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return TransBkdTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //TransactTimeField is a UTCTIMESTAMP field
@@ -16595,12 +16595,12 @@ func (f TransactTimeField) Tag() quickfix.Tag { return tag.TransactTime }
 
 //NewTransactTime returns a new TransactTimeField initialized with val
 func NewTransactTime(val time.Time) TransactTimeField {
-	return TransactTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return TransactTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewTransactTimeNoMillis returns a new TransactTimeField initialized with val without millisecs
 func NewTransactTimeNoMillis(val time.Time) TransactTimeField {
-	return TransactTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return TransactTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //TransferReasonField is a STRING field
@@ -16633,12 +16633,12 @@ func (f TrdRegTimestampField) Tag() quickfix.Tag { return tag.TrdRegTimestamp }
 
 //NewTrdRegTimestamp returns a new TrdRegTimestampField initialized with val
 func NewTrdRegTimestamp(val time.Time) TrdRegTimestampField {
-	return TrdRegTimestampField{quickfix.FIXUTCTimestamp{Value: val}}
+	return TrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewTrdRegTimestampNoMillis returns a new TrdRegTimestampField initialized with val without millisecs
 func NewTrdRegTimestampNoMillis(val time.Time) TrdRegTimestampField {
-	return TrdRegTimestampField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return TrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //TrdRegTimestampOriginField is a STRING field
@@ -18247,12 +18247,12 @@ func (f ValidUntilTimeField) Tag() quickfix.Tag { return tag.ValidUntilTime }
 
 //NewValidUntilTime returns a new ValidUntilTimeField initialized with val
 func NewValidUntilTime(val time.Time) ValidUntilTimeField {
-	return ValidUntilTimeField{quickfix.FIXUTCTimestamp{Value: val}}
+	return ValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val}}
 }
 
 //NewValidUntilTimeNoMillis returns a new ValidUntilTimeField initialized with val without millisecs
 func NewValidUntilTimeNoMillis(val time.Time) ValidUntilTimeField {
-	return ValidUntilTimeField{quickfix.FIXUTCTimestamp{Value: val, NoMillis: true}}
+	return ValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
 }
 
 //ValuationMethodField is a STRING field
