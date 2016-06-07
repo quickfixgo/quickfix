@@ -6,7 +6,7 @@ import (
 
 //FIXUTCTimestamp is a FIX UTC Timestamp value, implements FieldValue
 type FIXUTCTimestamp struct {
-	Value    time.Time
+	time.Time
 	NoMillis bool
 }
 
@@ -18,12 +18,12 @@ const (
 func (f *FIXUTCTimestamp) Read(bytes []byte) error {
 	var err error
 	//with millisecs
-	if f.Value, err = time.Parse(utcTimestampFormat, string(bytes)); err == nil {
+	if f.Time, err = time.Parse(utcTimestampFormat, string(bytes)); err == nil {
 		return nil
 	}
 
 	//w/o millisecs
-	if f.Value, err = time.Parse(utcTimestampNoMillisFormat, string(bytes)); err != nil {
+	if f.Time, err = time.Parse(utcTimestampNoMillisFormat, string(bytes)); err != nil {
 		return err
 	}
 
@@ -33,8 +33,8 @@ func (f *FIXUTCTimestamp) Read(bytes []byte) error {
 
 func (f FIXUTCTimestamp) Write() []byte {
 	if f.NoMillis {
-		return []byte(f.Value.UTC().Format(utcTimestampNoMillisFormat))
+		return []byte(f.UTC().Format(utcTimestampNoMillisFormat))
 	}
 
-	return []byte(f.Value.UTC().Format(utcTimestampFormat))
+	return []byte(f.UTC().Format(utcTimestampFormat))
 }

@@ -230,7 +230,7 @@ func (state inSession) doTargetTooLow(session *session, msg Message, rej targetT
 		sendingTime := new(FIXUTCTimestamp)
 		msg.Header.GetField(tagSendingTime, sendingTime)
 
-		if sendingTime.Value.Before(origSendingTime.Value) {
+		if sendingTime.Before(origSendingTime.Time) {
 			session.doReject(msg, sendingTimeAccuracyProblem())
 			return state.initiateLogout(session, "")
 		}

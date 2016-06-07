@@ -7,11 +7,8 @@ import (
 //FIXBoolean is a FIX Boolean value, implements FieldValue.
 type FIXBoolean bool
 
-//NewFIXBoolean returns an initialized FIXBoolean
-func NewFIXBoolean(val bool) *FIXBoolean {
-	b := FIXBoolean(val)
-	return &b
-}
+//Bool converts the FIXBoolean value to bool
+func (f FIXBoolean) Bool() bool { return bool(f) }
 
 func (f *FIXBoolean) Read(bytes []byte) error {
 	switch string(bytes) {

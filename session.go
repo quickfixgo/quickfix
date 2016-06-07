@@ -157,9 +157,9 @@ func (s *session) insertSendingTime(header Header) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
-		header.SetField(tagSendingTime, FIXUTCTimestamp{Value: sendingTime})
+		header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 	} else {
-		header.SetField(tagSendingTime, FIXUTCTimestamp{Value: sendingTime, NoMillis: true})
+		header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime, NoMillis: true})
 	}
 }
 
@@ -434,7 +434,7 @@ func (s *session) checkSendingTime(msg Message) MessageRejectError {
 		return err
 	}
 
-	if delta := time.Since(sendingTime.Value); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
+	if delta := time.Since(sendingTime.Time); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
 		return sendingTimeAccuracyProblem()
 	}
 
