@@ -1,64 +1,170 @@
-//Package userrequest msg type = BE.
 package userrequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-//Message is a UserRequest FIX Message
-type Message struct {
-	FIXMsgType string `fix:"BE"`
+//UserRequest is the fix44 UserRequest type, MsgType = BE
+type UserRequest struct {
 	fix44.Header
-	//UserRequestID is a required field for UserRequest.
-	UserRequestID string `fix:"923"`
-	//UserRequestType is a required field for UserRequest.
-	UserRequestType int `fix:"924"`
-	//Username is a required field for UserRequest.
-	Username string `fix:"553"`
-	//Password is a non-required field for UserRequest.
-	Password *string `fix:"554"`
-	//NewPassword is a non-required field for UserRequest.
-	NewPassword *string `fix:"925"`
-	//RawDataLength is a non-required field for UserRequest.
-	RawDataLength *int `fix:"95"`
-	//RawData is a non-required field for UserRequest.
-	RawData *string `fix:"96"`
+	quickfix.Body
 	fix44.Trailer
 }
 
-//Marshal converts Message to a quickfix.Message instance
-func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
-
-//New returns an initialized UserRequest instance
-func New(userrequestid string, userrequesttype int, username string) *Message {
-	var m Message
-	m.SetUserRequestID(userrequestid)
-	m.SetUserRequestType(userrequesttype)
-	m.SetUsername(username)
-	return &m
+//FromMessage creates a UserRequest from a quickfix.Message instance
+func FromMessage(m quickfix.Message) UserRequest {
+	return UserRequest{
+		Header:  fix44.Header{Header: m.Header},
+		Body:    m.Body,
+		Trailer: fix44.Trailer{Trailer: m.Trailer},
+	}
 }
 
-func (m *Message) SetUserRequestID(v string) { m.UserRequestID = v }
-func (m *Message) SetUserRequestType(v int)  { m.UserRequestType = v }
-func (m *Message) SetUsername(v string)      { m.Username = v }
-func (m *Message) SetPassword(v string)      { m.Password = &v }
-func (m *Message) SetNewPassword(v string)   { m.NewPassword = &v }
-func (m *Message) SetRawDataLength(v int)    { m.RawDataLength = &v }
-func (m *Message) SetRawData(v string)       { m.RawData = &v }
+//ToMessage returns a quickfix.Message instance
+func (m UserRequest) ToMessage() quickfix.Message {
+	return quickfix.Message{
+		Header:  m.Header.Header,
+		Body:    m.Body,
+		Trailer: m.Trailer.Trailer,
+	}
+}
+
+//New returns a UserRequest initialized with the required fields for UserRequest
+func New(userrequestid field.UserRequestIDField, userrequesttype field.UserRequestTypeField, username field.UsernameField) (m UserRequest) {
+	m.Header.Init()
+	m.Init()
+	m.Trailer.Init()
+
+	m.Header.Set(field.NewMsgType("BE"))
+	m.Set(userrequestid)
+	m.Set(userrequesttype)
+	m.Set(username)
+
+	return
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
+type RouteOut func(msg UserRequest, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		m := new(Message)
-		if err := quickfix.Unmarshal(msg, m); err != nil {
-			return err
-		}
-		return router(*m, sessionID)
+		return router(FromMessage(msg), sessionID)
 	}
-	return enum.BeginStringFIX44, "BE", r
+	return "FIX.4.4", "BE", r
+}
+
+//SetRawDataLength sets RawDataLength, Tag 95
+func (m UserRequest) SetRawDataLength(v int) {
+	m.Set(field.NewRawDataLength(v))
+}
+
+//SetRawData sets RawData, Tag 96
+func (m UserRequest) SetRawData(v string) {
+	m.Set(field.NewRawData(v))
+}
+
+//SetUsername sets Username, Tag 553
+func (m UserRequest) SetUsername(v string) {
+	m.Set(field.NewUsername(v))
+}
+
+//SetPassword sets Password, Tag 554
+func (m UserRequest) SetPassword(v string) {
+	m.Set(field.NewPassword(v))
+}
+
+//SetUserRequestID sets UserRequestID, Tag 923
+func (m UserRequest) SetUserRequestID(v string) {
+	m.Set(field.NewUserRequestID(v))
+}
+
+//SetUserRequestType sets UserRequestType, Tag 924
+func (m UserRequest) SetUserRequestType(v int) {
+	m.Set(field.NewUserRequestType(v))
+}
+
+//SetNewPassword sets NewPassword, Tag 925
+func (m UserRequest) SetNewPassword(v string) {
+	m.Set(field.NewNewPassword(v))
+}
+
+//GetRawDataLength gets RawDataLength, Tag 95
+func (m UserRequest) GetRawDataLength() (f field.RawDataLengthField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetRawData gets RawData, Tag 96
+func (m UserRequest) GetRawData() (f field.RawDataField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetUsername gets Username, Tag 553
+func (m UserRequest) GetUsername() (f field.UsernameField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetPassword gets Password, Tag 554
+func (m UserRequest) GetPassword() (f field.PasswordField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetUserRequestID gets UserRequestID, Tag 923
+func (m UserRequest) GetUserRequestID() (f field.UserRequestIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetUserRequestType gets UserRequestType, Tag 924
+func (m UserRequest) GetUserRequestType() (f field.UserRequestTypeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetNewPassword gets NewPassword, Tag 925
+func (m UserRequest) GetNewPassword() (f field.NewPasswordField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasRawDataLength returns true if RawDataLength is present, Tag 95
+func (m UserRequest) HasRawDataLength() bool {
+	return m.Has(tag.RawDataLength)
+}
+
+//HasRawData returns true if RawData is present, Tag 96
+func (m UserRequest) HasRawData() bool {
+	return m.Has(tag.RawData)
+}
+
+//HasUsername returns true if Username is present, Tag 553
+func (m UserRequest) HasUsername() bool {
+	return m.Has(tag.Username)
+}
+
+//HasPassword returns true if Password is present, Tag 554
+func (m UserRequest) HasPassword() bool {
+	return m.Has(tag.Password)
+}
+
+//HasUserRequestID returns true if UserRequestID is present, Tag 923
+func (m UserRequest) HasUserRequestID() bool {
+	return m.Has(tag.UserRequestID)
+}
+
+//HasUserRequestType returns true if UserRequestType is present, Tag 924
+func (m UserRequest) HasUserRequestType() bool {
+	return m.Has(tag.UserRequestType)
+}
+
+//HasNewPassword returns true if NewPassword is present, Tag 925
+func (m UserRequest) HasNewPassword() bool {
+	return m.Has(tag.NewPassword)
 }

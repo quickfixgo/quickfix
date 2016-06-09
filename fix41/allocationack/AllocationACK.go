@@ -1,68 +1,188 @@
-//Package allocationack msg type = P.
 package allocationack
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/fix41"
 	"time"
+
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix41"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-//Message is a AllocationACK FIX Message
-type Message struct {
-	FIXMsgType string `fix:"P"`
+//AllocationACK is the fix41 AllocationACK type, MsgType = P
+type AllocationACK struct {
 	fix41.Header
-	//ClientID is a non-required field for AllocationACK.
-	ClientID *string `fix:"109"`
-	//ExecBroker is a non-required field for AllocationACK.
-	ExecBroker *string `fix:"76"`
-	//AllocID is a required field for AllocationACK.
-	AllocID string `fix:"70"`
-	//TradeDate is a required field for AllocationACK.
-	TradeDate string `fix:"75"`
-	//TransactTime is a non-required field for AllocationACK.
-	TransactTime *time.Time `fix:"60"`
-	//AllocStatus is a required field for AllocationACK.
-	AllocStatus int `fix:"87"`
-	//AllocRejCode is a non-required field for AllocationACK.
-	AllocRejCode *int `fix:"88"`
-	//Text is a non-required field for AllocationACK.
-	Text *string `fix:"58"`
+	quickfix.Body
 	fix41.Trailer
 }
 
-//Marshal converts Message to a quickfix.Message instance
-func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
-
-//New returns an initialized AllocationACK instance
-func New(allocid string, tradedate string, allocstatus int) *Message {
-	var m Message
-	m.SetAllocID(allocid)
-	m.SetTradeDate(tradedate)
-	m.SetAllocStatus(allocstatus)
-	return &m
+//FromMessage creates a AllocationACK from a quickfix.Message instance
+func FromMessage(m quickfix.Message) AllocationACK {
+	return AllocationACK{
+		Header:  fix41.Header{Header: m.Header},
+		Body:    m.Body,
+		Trailer: fix41.Trailer{Trailer: m.Trailer},
+	}
 }
 
-func (m *Message) SetClientID(v string)        { m.ClientID = &v }
-func (m *Message) SetExecBroker(v string)      { m.ExecBroker = &v }
-func (m *Message) SetAllocID(v string)         { m.AllocID = v }
-func (m *Message) SetTradeDate(v string)       { m.TradeDate = v }
-func (m *Message) SetTransactTime(v time.Time) { m.TransactTime = &v }
-func (m *Message) SetAllocStatus(v int)        { m.AllocStatus = v }
-func (m *Message) SetAllocRejCode(v int)       { m.AllocRejCode = &v }
-func (m *Message) SetText(v string)            { m.Text = &v }
+//ToMessage returns a quickfix.Message instance
+func (m AllocationACK) ToMessage() quickfix.Message {
+	return quickfix.Message{
+		Header:  m.Header.Header,
+		Body:    m.Body,
+		Trailer: m.Trailer.Trailer,
+	}
+}
+
+//New returns a AllocationACK initialized with the required fields for AllocationACK
+func New(allocid field.AllocIDField, tradedate field.TradeDateField, allocstatus field.AllocStatusField) (m AllocationACK) {
+	m.Header.Init()
+	m.Init()
+	m.Trailer.Init()
+
+	m.Header.Set(field.NewMsgType("P"))
+	m.Set(allocid)
+	m.Set(tradedate)
+	m.Set(allocstatus)
+
+	return
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
+type RouteOut func(msg AllocationACK, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		m := new(Message)
-		if err := quickfix.Unmarshal(msg, m); err != nil {
-			return err
-		}
-		return router(*m, sessionID)
+		return router(FromMessage(msg), sessionID)
 	}
-	return enum.BeginStringFIX41, "P", r
+	return "FIX.4.1", "P", r
+}
+
+//SetText sets Text, Tag 58
+func (m AllocationACK) SetText(v string) {
+	m.Set(field.NewText(v))
+}
+
+//SetTransactTime sets TransactTime, Tag 60
+func (m AllocationACK) SetTransactTime(v time.Time) {
+	m.Set(field.NewTransactTime(v))
+}
+
+//SetAllocID sets AllocID, Tag 70
+func (m AllocationACK) SetAllocID(v string) {
+	m.Set(field.NewAllocID(v))
+}
+
+//SetTradeDate sets TradeDate, Tag 75
+func (m AllocationACK) SetTradeDate(v string) {
+	m.Set(field.NewTradeDate(v))
+}
+
+//SetExecBroker sets ExecBroker, Tag 76
+func (m AllocationACK) SetExecBroker(v string) {
+	m.Set(field.NewExecBroker(v))
+}
+
+//SetAllocStatus sets AllocStatus, Tag 87
+func (m AllocationACK) SetAllocStatus(v int) {
+	m.Set(field.NewAllocStatus(v))
+}
+
+//SetAllocRejCode sets AllocRejCode, Tag 88
+func (m AllocationACK) SetAllocRejCode(v int) {
+	m.Set(field.NewAllocRejCode(v))
+}
+
+//SetClientID sets ClientID, Tag 109
+func (m AllocationACK) SetClientID(v string) {
+	m.Set(field.NewClientID(v))
+}
+
+//GetText gets Text, Tag 58
+func (m AllocationACK) GetText() (f field.TextField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetTransactTime gets TransactTime, Tag 60
+func (m AllocationACK) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetAllocID gets AllocID, Tag 70
+func (m AllocationACK) GetAllocID() (f field.AllocIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetTradeDate gets TradeDate, Tag 75
+func (m AllocationACK) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetExecBroker gets ExecBroker, Tag 76
+func (m AllocationACK) GetExecBroker() (f field.ExecBrokerField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetAllocStatus gets AllocStatus, Tag 87
+func (m AllocationACK) GetAllocStatus() (f field.AllocStatusField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetAllocRejCode gets AllocRejCode, Tag 88
+func (m AllocationACK) GetAllocRejCode() (f field.AllocRejCodeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetClientID gets ClientID, Tag 109
+func (m AllocationACK) GetClientID() (f field.ClientIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasText returns true if Text is present, Tag 58
+func (m AllocationACK) HasText() bool {
+	return m.Has(tag.Text)
+}
+
+//HasTransactTime returns true if TransactTime is present, Tag 60
+func (m AllocationACK) HasTransactTime() bool {
+	return m.Has(tag.TransactTime)
+}
+
+//HasAllocID returns true if AllocID is present, Tag 70
+func (m AllocationACK) HasAllocID() bool {
+	return m.Has(tag.AllocID)
+}
+
+//HasTradeDate returns true if TradeDate is present, Tag 75
+func (m AllocationACK) HasTradeDate() bool {
+	return m.Has(tag.TradeDate)
+}
+
+//HasExecBroker returns true if ExecBroker is present, Tag 76
+func (m AllocationACK) HasExecBroker() bool {
+	return m.Has(tag.ExecBroker)
+}
+
+//HasAllocStatus returns true if AllocStatus is present, Tag 87
+func (m AllocationACK) HasAllocStatus() bool {
+	return m.Has(tag.AllocStatus)
+}
+
+//HasAllocRejCode returns true if AllocRejCode is present, Tag 88
+func (m AllocationACK) HasAllocRejCode() bool {
+	return m.Has(tag.AllocRejCode)
+}
+
+//HasClientID returns true if ClientID is present, Tag 109
+func (m AllocationACK) HasClientID() bool {
+	return m.Has(tag.ClientID)
 }

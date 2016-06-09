@@ -1,112 +1,426 @@
-//Package securitystatusrequest msg type = e.
 package securitystatusrequest
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix42"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-//Message is a SecurityStatusRequest FIX Message
-type Message struct {
-	FIXMsgType string `fix:"e"`
+//SecurityStatusRequest is the fix42 SecurityStatusRequest type, MsgType = e
+type SecurityStatusRequest struct {
 	fix42.Header
-	//SecurityStatusReqID is a required field for SecurityStatusRequest.
-	SecurityStatusReqID string `fix:"324"`
-	//Symbol is a required field for SecurityStatusRequest.
-	Symbol string `fix:"55"`
-	//SymbolSfx is a non-required field for SecurityStatusRequest.
-	SymbolSfx *string `fix:"65"`
-	//SecurityID is a non-required field for SecurityStatusRequest.
-	SecurityID *string `fix:"48"`
-	//IDSource is a non-required field for SecurityStatusRequest.
-	IDSource *string `fix:"22"`
-	//SecurityType is a non-required field for SecurityStatusRequest.
-	SecurityType *string `fix:"167"`
-	//MaturityMonthYear is a non-required field for SecurityStatusRequest.
-	MaturityMonthYear *string `fix:"200"`
-	//MaturityDay is a non-required field for SecurityStatusRequest.
-	MaturityDay *int `fix:"205"`
-	//PutOrCall is a non-required field for SecurityStatusRequest.
-	PutOrCall *int `fix:"201"`
-	//StrikePrice is a non-required field for SecurityStatusRequest.
-	StrikePrice *float64 `fix:"202"`
-	//OptAttribute is a non-required field for SecurityStatusRequest.
-	OptAttribute *string `fix:"206"`
-	//ContractMultiplier is a non-required field for SecurityStatusRequest.
-	ContractMultiplier *float64 `fix:"231"`
-	//CouponRate is a non-required field for SecurityStatusRequest.
-	CouponRate *float64 `fix:"223"`
-	//SecurityExchange is a non-required field for SecurityStatusRequest.
-	SecurityExchange *string `fix:"207"`
-	//Issuer is a non-required field for SecurityStatusRequest.
-	Issuer *string `fix:"106"`
-	//EncodedIssuerLen is a non-required field for SecurityStatusRequest.
-	EncodedIssuerLen *int `fix:"348"`
-	//EncodedIssuer is a non-required field for SecurityStatusRequest.
-	EncodedIssuer *string `fix:"349"`
-	//SecurityDesc is a non-required field for SecurityStatusRequest.
-	SecurityDesc *string `fix:"107"`
-	//EncodedSecurityDescLen is a non-required field for SecurityStatusRequest.
-	EncodedSecurityDescLen *int `fix:"350"`
-	//EncodedSecurityDesc is a non-required field for SecurityStatusRequest.
-	EncodedSecurityDesc *string `fix:"351"`
-	//Currency is a non-required field for SecurityStatusRequest.
-	Currency *string `fix:"15"`
-	//SubscriptionRequestType is a required field for SecurityStatusRequest.
-	SubscriptionRequestType string `fix:"263"`
-	//TradingSessionID is a non-required field for SecurityStatusRequest.
-	TradingSessionID *string `fix:"336"`
+	quickfix.Body
 	fix42.Trailer
 }
 
-//Marshal converts Message to a quickfix.Message instance
-func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
-
-//New returns an initialized SecurityStatusRequest instance
-func New(securitystatusreqid string, symbol string, subscriptionrequesttype string) *Message {
-	var m Message
-	m.SetSecurityStatusReqID(securitystatusreqid)
-	m.SetSymbol(symbol)
-	m.SetSubscriptionRequestType(subscriptionrequesttype)
-	return &m
+//FromMessage creates a SecurityStatusRequest from a quickfix.Message instance
+func FromMessage(m quickfix.Message) SecurityStatusRequest {
+	return SecurityStatusRequest{
+		Header:  fix42.Header{Header: m.Header},
+		Body:    m.Body,
+		Trailer: fix42.Trailer{Trailer: m.Trailer},
+	}
 }
 
-func (m *Message) SetSecurityStatusReqID(v string)     { m.SecurityStatusReqID = v }
-func (m *Message) SetSymbol(v string)                  { m.Symbol = v }
-func (m *Message) SetSymbolSfx(v string)               { m.SymbolSfx = &v }
-func (m *Message) SetSecurityID(v string)              { m.SecurityID = &v }
-func (m *Message) SetIDSource(v string)                { m.IDSource = &v }
-func (m *Message) SetSecurityType(v string)            { m.SecurityType = &v }
-func (m *Message) SetMaturityMonthYear(v string)       { m.MaturityMonthYear = &v }
-func (m *Message) SetMaturityDay(v int)                { m.MaturityDay = &v }
-func (m *Message) SetPutOrCall(v int)                  { m.PutOrCall = &v }
-func (m *Message) SetStrikePrice(v float64)            { m.StrikePrice = &v }
-func (m *Message) SetOptAttribute(v string)            { m.OptAttribute = &v }
-func (m *Message) SetContractMultiplier(v float64)     { m.ContractMultiplier = &v }
-func (m *Message) SetCouponRate(v float64)             { m.CouponRate = &v }
-func (m *Message) SetSecurityExchange(v string)        { m.SecurityExchange = &v }
-func (m *Message) SetIssuer(v string)                  { m.Issuer = &v }
-func (m *Message) SetEncodedIssuerLen(v int)           { m.EncodedIssuerLen = &v }
-func (m *Message) SetEncodedIssuer(v string)           { m.EncodedIssuer = &v }
-func (m *Message) SetSecurityDesc(v string)            { m.SecurityDesc = &v }
-func (m *Message) SetEncodedSecurityDescLen(v int)     { m.EncodedSecurityDescLen = &v }
-func (m *Message) SetEncodedSecurityDesc(v string)     { m.EncodedSecurityDesc = &v }
-func (m *Message) SetCurrency(v string)                { m.Currency = &v }
-func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
-func (m *Message) SetTradingSessionID(v string)        { m.TradingSessionID = &v }
+//ToMessage returns a quickfix.Message instance
+func (m SecurityStatusRequest) ToMessage() quickfix.Message {
+	return quickfix.Message{
+		Header:  m.Header.Header,
+		Body:    m.Body,
+		Trailer: m.Trailer.Trailer,
+	}
+}
+
+//New returns a SecurityStatusRequest initialized with the required fields for SecurityStatusRequest
+func New(securitystatusreqid field.SecurityStatusReqIDField, symbol field.SymbolField, subscriptionrequesttype field.SubscriptionRequestTypeField) (m SecurityStatusRequest) {
+	m.Header.Init()
+	m.Init()
+	m.Trailer.Init()
+
+	m.Header.Set(field.NewMsgType("e"))
+	m.Set(securitystatusreqid)
+	m.Set(symbol)
+	m.Set(subscriptionrequesttype)
+
+	return
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
+type RouteOut func(msg SecurityStatusRequest, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		m := new(Message)
-		if err := quickfix.Unmarshal(msg, m); err != nil {
-			return err
-		}
-		return router(*m, sessionID)
+		return router(FromMessage(msg), sessionID)
 	}
-	return enum.BeginStringFIX42, "e", r
+	return "FIX.4.2", "e", r
+}
+
+//SetCurrency sets Currency, Tag 15
+func (m SecurityStatusRequest) SetCurrency(v string) {
+	m.Set(field.NewCurrency(v))
+}
+
+//SetIDSource sets IDSource, Tag 22
+func (m SecurityStatusRequest) SetIDSource(v string) {
+	m.Set(field.NewIDSource(v))
+}
+
+//SetSecurityID sets SecurityID, Tag 48
+func (m SecurityStatusRequest) SetSecurityID(v string) {
+	m.Set(field.NewSecurityID(v))
+}
+
+//SetSymbol sets Symbol, Tag 55
+func (m SecurityStatusRequest) SetSymbol(v string) {
+	m.Set(field.NewSymbol(v))
+}
+
+//SetSymbolSfx sets SymbolSfx, Tag 65
+func (m SecurityStatusRequest) SetSymbolSfx(v string) {
+	m.Set(field.NewSymbolSfx(v))
+}
+
+//SetIssuer sets Issuer, Tag 106
+func (m SecurityStatusRequest) SetIssuer(v string) {
+	m.Set(field.NewIssuer(v))
+}
+
+//SetSecurityDesc sets SecurityDesc, Tag 107
+func (m SecurityStatusRequest) SetSecurityDesc(v string) {
+	m.Set(field.NewSecurityDesc(v))
+}
+
+//SetSecurityType sets SecurityType, Tag 167
+func (m SecurityStatusRequest) SetSecurityType(v string) {
+	m.Set(field.NewSecurityType(v))
+}
+
+//SetMaturityMonthYear sets MaturityMonthYear, Tag 200
+func (m SecurityStatusRequest) SetMaturityMonthYear(v string) {
+	m.Set(field.NewMaturityMonthYear(v))
+}
+
+//SetPutOrCall sets PutOrCall, Tag 201
+func (m SecurityStatusRequest) SetPutOrCall(v int) {
+	m.Set(field.NewPutOrCall(v))
+}
+
+//SetStrikePrice sets StrikePrice, Tag 202
+func (m SecurityStatusRequest) SetStrikePrice(v float64) {
+	m.Set(field.NewStrikePrice(v))
+}
+
+//SetMaturityDay sets MaturityDay, Tag 205
+func (m SecurityStatusRequest) SetMaturityDay(v int) {
+	m.Set(field.NewMaturityDay(v))
+}
+
+//SetOptAttribute sets OptAttribute, Tag 206
+func (m SecurityStatusRequest) SetOptAttribute(v string) {
+	m.Set(field.NewOptAttribute(v))
+}
+
+//SetSecurityExchange sets SecurityExchange, Tag 207
+func (m SecurityStatusRequest) SetSecurityExchange(v string) {
+	m.Set(field.NewSecurityExchange(v))
+}
+
+//SetCouponRate sets CouponRate, Tag 223
+func (m SecurityStatusRequest) SetCouponRate(v float64) {
+	m.Set(field.NewCouponRate(v))
+}
+
+//SetContractMultiplier sets ContractMultiplier, Tag 231
+func (m SecurityStatusRequest) SetContractMultiplier(v float64) {
+	m.Set(field.NewContractMultiplier(v))
+}
+
+//SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263
+func (m SecurityStatusRequest) SetSubscriptionRequestType(v string) {
+	m.Set(field.NewSubscriptionRequestType(v))
+}
+
+//SetSecurityStatusReqID sets SecurityStatusReqID, Tag 324
+func (m SecurityStatusRequest) SetSecurityStatusReqID(v string) {
+	m.Set(field.NewSecurityStatusReqID(v))
+}
+
+//SetTradingSessionID sets TradingSessionID, Tag 336
+func (m SecurityStatusRequest) SetTradingSessionID(v string) {
+	m.Set(field.NewTradingSessionID(v))
+}
+
+//SetEncodedIssuerLen sets EncodedIssuerLen, Tag 348
+func (m SecurityStatusRequest) SetEncodedIssuerLen(v int) {
+	m.Set(field.NewEncodedIssuerLen(v))
+}
+
+//SetEncodedIssuer sets EncodedIssuer, Tag 349
+func (m SecurityStatusRequest) SetEncodedIssuer(v string) {
+	m.Set(field.NewEncodedIssuer(v))
+}
+
+//SetEncodedSecurityDescLen sets EncodedSecurityDescLen, Tag 350
+func (m SecurityStatusRequest) SetEncodedSecurityDescLen(v int) {
+	m.Set(field.NewEncodedSecurityDescLen(v))
+}
+
+//SetEncodedSecurityDesc sets EncodedSecurityDesc, Tag 351
+func (m SecurityStatusRequest) SetEncodedSecurityDesc(v string) {
+	m.Set(field.NewEncodedSecurityDesc(v))
+}
+
+//GetCurrency gets Currency, Tag 15
+func (m SecurityStatusRequest) GetCurrency() (f field.CurrencyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetIDSource gets IDSource, Tag 22
+func (m SecurityStatusRequest) GetIDSource() (f field.IDSourceField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSecurityID gets SecurityID, Tag 48
+func (m SecurityStatusRequest) GetSecurityID() (f field.SecurityIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSymbol gets Symbol, Tag 55
+func (m SecurityStatusRequest) GetSymbol() (f field.SymbolField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSymbolSfx gets SymbolSfx, Tag 65
+func (m SecurityStatusRequest) GetSymbolSfx() (f field.SymbolSfxField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetIssuer gets Issuer, Tag 106
+func (m SecurityStatusRequest) GetIssuer() (f field.IssuerField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSecurityDesc gets SecurityDesc, Tag 107
+func (m SecurityStatusRequest) GetSecurityDesc() (f field.SecurityDescField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSecurityType gets SecurityType, Tag 167
+func (m SecurityStatusRequest) GetSecurityType() (f field.SecurityTypeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetMaturityMonthYear gets MaturityMonthYear, Tag 200
+func (m SecurityStatusRequest) GetMaturityMonthYear() (f field.MaturityMonthYearField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetPutOrCall gets PutOrCall, Tag 201
+func (m SecurityStatusRequest) GetPutOrCall() (f field.PutOrCallField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetStrikePrice gets StrikePrice, Tag 202
+func (m SecurityStatusRequest) GetStrikePrice() (f field.StrikePriceField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetMaturityDay gets MaturityDay, Tag 205
+func (m SecurityStatusRequest) GetMaturityDay() (f field.MaturityDayField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetOptAttribute gets OptAttribute, Tag 206
+func (m SecurityStatusRequest) GetOptAttribute() (f field.OptAttributeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSecurityExchange gets SecurityExchange, Tag 207
+func (m SecurityStatusRequest) GetSecurityExchange() (f field.SecurityExchangeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetCouponRate gets CouponRate, Tag 223
+func (m SecurityStatusRequest) GetCouponRate() (f field.CouponRateField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetContractMultiplier gets ContractMultiplier, Tag 231
+func (m SecurityStatusRequest) GetContractMultiplier() (f field.ContractMultiplierField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSubscriptionRequestType gets SubscriptionRequestType, Tag 263
+func (m SecurityStatusRequest) GetSubscriptionRequestType() (f field.SubscriptionRequestTypeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSecurityStatusReqID gets SecurityStatusReqID, Tag 324
+func (m SecurityStatusRequest) GetSecurityStatusReqID() (f field.SecurityStatusReqIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetTradingSessionID gets TradingSessionID, Tag 336
+func (m SecurityStatusRequest) GetTradingSessionID() (f field.TradingSessionIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetEncodedIssuerLen gets EncodedIssuerLen, Tag 348
+func (m SecurityStatusRequest) GetEncodedIssuerLen() (f field.EncodedIssuerLenField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetEncodedIssuer gets EncodedIssuer, Tag 349
+func (m SecurityStatusRequest) GetEncodedIssuer() (f field.EncodedIssuerField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetEncodedSecurityDescLen gets EncodedSecurityDescLen, Tag 350
+func (m SecurityStatusRequest) GetEncodedSecurityDescLen() (f field.EncodedSecurityDescLenField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetEncodedSecurityDesc gets EncodedSecurityDesc, Tag 351
+func (m SecurityStatusRequest) GetEncodedSecurityDesc() (f field.EncodedSecurityDescField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasCurrency returns true if Currency is present, Tag 15
+func (m SecurityStatusRequest) HasCurrency() bool {
+	return m.Has(tag.Currency)
+}
+
+//HasIDSource returns true if IDSource is present, Tag 22
+func (m SecurityStatusRequest) HasIDSource() bool {
+	return m.Has(tag.IDSource)
+}
+
+//HasSecurityID returns true if SecurityID is present, Tag 48
+func (m SecurityStatusRequest) HasSecurityID() bool {
+	return m.Has(tag.SecurityID)
+}
+
+//HasSymbol returns true if Symbol is present, Tag 55
+func (m SecurityStatusRequest) HasSymbol() bool {
+	return m.Has(tag.Symbol)
+}
+
+//HasSymbolSfx returns true if SymbolSfx is present, Tag 65
+func (m SecurityStatusRequest) HasSymbolSfx() bool {
+	return m.Has(tag.SymbolSfx)
+}
+
+//HasIssuer returns true if Issuer is present, Tag 106
+func (m SecurityStatusRequest) HasIssuer() bool {
+	return m.Has(tag.Issuer)
+}
+
+//HasSecurityDesc returns true if SecurityDesc is present, Tag 107
+func (m SecurityStatusRequest) HasSecurityDesc() bool {
+	return m.Has(tag.SecurityDesc)
+}
+
+//HasSecurityType returns true if SecurityType is present, Tag 167
+func (m SecurityStatusRequest) HasSecurityType() bool {
+	return m.Has(tag.SecurityType)
+}
+
+//HasMaturityMonthYear returns true if MaturityMonthYear is present, Tag 200
+func (m SecurityStatusRequest) HasMaturityMonthYear() bool {
+	return m.Has(tag.MaturityMonthYear)
+}
+
+//HasPutOrCall returns true if PutOrCall is present, Tag 201
+func (m SecurityStatusRequest) HasPutOrCall() bool {
+	return m.Has(tag.PutOrCall)
+}
+
+//HasStrikePrice returns true if StrikePrice is present, Tag 202
+func (m SecurityStatusRequest) HasStrikePrice() bool {
+	return m.Has(tag.StrikePrice)
+}
+
+//HasMaturityDay returns true if MaturityDay is present, Tag 205
+func (m SecurityStatusRequest) HasMaturityDay() bool {
+	return m.Has(tag.MaturityDay)
+}
+
+//HasOptAttribute returns true if OptAttribute is present, Tag 206
+func (m SecurityStatusRequest) HasOptAttribute() bool {
+	return m.Has(tag.OptAttribute)
+}
+
+//HasSecurityExchange returns true if SecurityExchange is present, Tag 207
+func (m SecurityStatusRequest) HasSecurityExchange() bool {
+	return m.Has(tag.SecurityExchange)
+}
+
+//HasCouponRate returns true if CouponRate is present, Tag 223
+func (m SecurityStatusRequest) HasCouponRate() bool {
+	return m.Has(tag.CouponRate)
+}
+
+//HasContractMultiplier returns true if ContractMultiplier is present, Tag 231
+func (m SecurityStatusRequest) HasContractMultiplier() bool {
+	return m.Has(tag.ContractMultiplier)
+}
+
+//HasSubscriptionRequestType returns true if SubscriptionRequestType is present, Tag 263
+func (m SecurityStatusRequest) HasSubscriptionRequestType() bool {
+	return m.Has(tag.SubscriptionRequestType)
+}
+
+//HasSecurityStatusReqID returns true if SecurityStatusReqID is present, Tag 324
+func (m SecurityStatusRequest) HasSecurityStatusReqID() bool {
+	return m.Has(tag.SecurityStatusReqID)
+}
+
+//HasTradingSessionID returns true if TradingSessionID is present, Tag 336
+func (m SecurityStatusRequest) HasTradingSessionID() bool {
+	return m.Has(tag.TradingSessionID)
+}
+
+//HasEncodedIssuerLen returns true if EncodedIssuerLen is present, Tag 348
+func (m SecurityStatusRequest) HasEncodedIssuerLen() bool {
+	return m.Has(tag.EncodedIssuerLen)
+}
+
+//HasEncodedIssuer returns true if EncodedIssuer is present, Tag 349
+func (m SecurityStatusRequest) HasEncodedIssuer() bool {
+	return m.Has(tag.EncodedIssuer)
+}
+
+//HasEncodedSecurityDescLen returns true if EncodedSecurityDescLen is present, Tag 350
+func (m SecurityStatusRequest) HasEncodedSecurityDescLen() bool {
+	return m.Has(tag.EncodedSecurityDescLen)
+}
+
+//HasEncodedSecurityDesc returns true if EncodedSecurityDesc is present, Tag 351
+func (m SecurityStatusRequest) HasEncodedSecurityDesc() bool {
+	return m.Has(tag.EncodedSecurityDesc)
 }

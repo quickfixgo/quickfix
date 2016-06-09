@@ -1,90 +1,247 @@
-//Package liststatus msg type = N.
 package liststatus
 
 import (
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix41"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-//NoOrders is a repeating group in ListStatus
-type NoOrders struct {
-	//ClOrdID is a required field for NoOrders.
-	ClOrdID string `fix:"11"`
-	//CumQty is a required field for NoOrders.
-	CumQty int `fix:"14"`
-	//LeavesQty is a required field for NoOrders.
-	LeavesQty int `fix:"151"`
-	//CxlQty is a required field for NoOrders.
-	CxlQty int `fix:"84"`
-	//AvgPx is a required field for NoOrders.
-	AvgPx float64 `fix:"6"`
-}
-
-//NewNoOrders returns an initialized NoOrders instance
-func NewNoOrders(clordid string, cumqty int, leavesqty int, cxlqty int, avgpx float64) *NoOrders {
-	var m NoOrders
-	m.SetClOrdID(clordid)
-	m.SetCumQty(cumqty)
-	m.SetLeavesQty(leavesqty)
-	m.SetCxlQty(cxlqty)
-	m.SetAvgPx(avgpx)
-	return &m
-}
-
-func (m *NoOrders) SetClOrdID(v string) { m.ClOrdID = v }
-func (m *NoOrders) SetCumQty(v int)     { m.CumQty = v }
-func (m *NoOrders) SetLeavesQty(v int)  { m.LeavesQty = v }
-func (m *NoOrders) SetCxlQty(v int)     { m.CxlQty = v }
-func (m *NoOrders) SetAvgPx(v float64)  { m.AvgPx = v }
-
-//Message is a ListStatus FIX Message
-type Message struct {
-	FIXMsgType string `fix:"N"`
+//ListStatus is the fix41 ListStatus type, MsgType = N
+type ListStatus struct {
 	fix41.Header
-	//ListID is a required field for ListStatus.
-	ListID string `fix:"66"`
-	//WaveNo is a non-required field for ListStatus.
-	WaveNo *string `fix:"105"`
-	//NoRpts is a required field for ListStatus.
-	NoRpts int `fix:"82"`
-	//RptSeq is a required field for ListStatus.
-	RptSeq int `fix:"83"`
-	//NoOrders is a required field for ListStatus.
-	NoOrders []NoOrders `fix:"73"`
+	quickfix.Body
 	fix41.Trailer
 }
 
-//Marshal converts Message to a quickfix.Message instance
-func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
-
-//New returns an initialized ListStatus instance
-func New(listid string, norpts int, rptseq int, noorders []NoOrders) *Message {
-	var m Message
-	m.SetListID(listid)
-	m.SetNoRpts(norpts)
-	m.SetRptSeq(rptseq)
-	m.SetNoOrders(noorders)
-	return &m
+//FromMessage creates a ListStatus from a quickfix.Message instance
+func FromMessage(m quickfix.Message) ListStatus {
+	return ListStatus{
+		Header:  fix41.Header{Header: m.Header},
+		Body:    m.Body,
+		Trailer: fix41.Trailer{Trailer: m.Trailer},
+	}
 }
 
-func (m *Message) SetListID(v string)       { m.ListID = v }
-func (m *Message) SetWaveNo(v string)       { m.WaveNo = &v }
-func (m *Message) SetNoRpts(v int)          { m.NoRpts = v }
-func (m *Message) SetRptSeq(v int)          { m.RptSeq = v }
-func (m *Message) SetNoOrders(v []NoOrders) { m.NoOrders = v }
+//ToMessage returns a quickfix.Message instance
+func (m ListStatus) ToMessage() quickfix.Message {
+	return quickfix.Message{
+		Header:  m.Header.Header,
+		Body:    m.Body,
+		Trailer: m.Trailer.Trailer,
+	}
+}
+
+//New returns a ListStatus initialized with the required fields for ListStatus
+func New(listid field.ListIDField, norpts field.NoRptsField, rptseq field.RptSeqField) (m ListStatus) {
+	m.Header.Init()
+	m.Init()
+	m.Trailer.Init()
+
+	m.Header.Set(field.NewMsgType("N"))
+	m.Set(listid)
+	m.Set(norpts)
+	m.Set(rptseq)
+
+	return
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
+type RouteOut func(msg ListStatus, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		m := new(Message)
-		if err := quickfix.Unmarshal(msg, m); err != nil {
-			return err
-		}
-		return router(*m, sessionID)
+		return router(FromMessage(msg), sessionID)
 	}
-	return enum.BeginStringFIX41, "N", r
+	return "FIX.4.1", "N", r
+}
+
+//SetListID sets ListID, Tag 66
+func (m ListStatus) SetListID(v string) {
+	m.Set(field.NewListID(v))
+}
+
+//SetNoOrders sets NoOrders, Tag 73
+func (m ListStatus) SetNoOrders(f NoOrdersRepeatingGroup) {
+	m.SetGroup(f)
+}
+
+//SetNoRpts sets NoRpts, Tag 82
+func (m ListStatus) SetNoRpts(v int) {
+	m.Set(field.NewNoRpts(v))
+}
+
+//SetRptSeq sets RptSeq, Tag 83
+func (m ListStatus) SetRptSeq(v int) {
+	m.Set(field.NewRptSeq(v))
+}
+
+//SetWaveNo sets WaveNo, Tag 105
+func (m ListStatus) SetWaveNo(v string) {
+	m.Set(field.NewWaveNo(v))
+}
+
+//GetListID gets ListID, Tag 66
+func (m ListStatus) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetNoOrders gets NoOrders, Tag 73
+func (m ListStatus) GetNoOrders() (NoOrdersRepeatingGroup, quickfix.MessageRejectError) {
+	f := NewNoOrdersRepeatingGroup()
+	err := m.GetGroup(f)
+	return f, err
+}
+
+//GetNoRpts gets NoRpts, Tag 82
+func (m ListStatus) GetNoRpts() (f field.NoRptsField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetRptSeq gets RptSeq, Tag 83
+func (m ListStatus) GetRptSeq() (f field.RptSeqField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetWaveNo gets WaveNo, Tag 105
+func (m ListStatus) GetWaveNo() (f field.WaveNoField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasListID returns true if ListID is present, Tag 66
+func (m ListStatus) HasListID() bool {
+	return m.Has(tag.ListID)
+}
+
+//HasNoOrders returns true if NoOrders is present, Tag 73
+func (m ListStatus) HasNoOrders() bool {
+	return m.Has(tag.NoOrders)
+}
+
+//HasNoRpts returns true if NoRpts is present, Tag 82
+func (m ListStatus) HasNoRpts() bool {
+	return m.Has(tag.NoRpts)
+}
+
+//HasRptSeq returns true if RptSeq is present, Tag 83
+func (m ListStatus) HasRptSeq() bool {
+	return m.Has(tag.RptSeq)
+}
+
+//HasWaveNo returns true if WaveNo is present, Tag 105
+func (m ListStatus) HasWaveNo() bool {
+	return m.Has(tag.WaveNo)
+}
+
+//NoOrders is a repeating group element, Tag 73
+type NoOrders struct {
+	quickfix.Group
+}
+
+//SetClOrdID sets ClOrdID, Tag 11
+func (m NoOrders) SetClOrdID(v string) {
+	m.Set(field.NewClOrdID(v))
+}
+
+//SetCumQty sets CumQty, Tag 14
+func (m NoOrders) SetCumQty(v float64) {
+	m.Set(field.NewCumQty(v))
+}
+
+//SetLeavesQty sets LeavesQty, Tag 151
+func (m NoOrders) SetLeavesQty(v float64) {
+	m.Set(field.NewLeavesQty(v))
+}
+
+//SetCxlQty sets CxlQty, Tag 84
+func (m NoOrders) SetCxlQty(v float64) {
+	m.Set(field.NewCxlQty(v))
+}
+
+//SetAvgPx sets AvgPx, Tag 6
+func (m NoOrders) SetAvgPx(v float64) {
+	m.Set(field.NewAvgPx(v))
+}
+
+//GetClOrdID gets ClOrdID, Tag 11
+func (m NoOrders) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetCumQty gets CumQty, Tag 14
+func (m NoOrders) GetCumQty() (f field.CumQtyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetLeavesQty gets LeavesQty, Tag 151
+func (m NoOrders) GetLeavesQty() (f field.LeavesQtyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetCxlQty gets CxlQty, Tag 84
+func (m NoOrders) GetCxlQty() (f field.CxlQtyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetAvgPx gets AvgPx, Tag 6
+func (m NoOrders) GetAvgPx() (f field.AvgPxField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasClOrdID returns true if ClOrdID is present, Tag 11
+func (m NoOrders) HasClOrdID() bool {
+	return m.Has(tag.ClOrdID)
+}
+
+//HasCumQty returns true if CumQty is present, Tag 14
+func (m NoOrders) HasCumQty() bool {
+	return m.Has(tag.CumQty)
+}
+
+//HasLeavesQty returns true if LeavesQty is present, Tag 151
+func (m NoOrders) HasLeavesQty() bool {
+	return m.Has(tag.LeavesQty)
+}
+
+//HasCxlQty returns true if CxlQty is present, Tag 84
+func (m NoOrders) HasCxlQty() bool {
+	return m.Has(tag.CxlQty)
+}
+
+//HasAvgPx returns true if AvgPx is present, Tag 6
+func (m NoOrders) HasAvgPx() bool {
+	return m.Has(tag.AvgPx)
+}
+
+//NoOrdersRepeatingGroup is a repeating group, Tag 73
+type NoOrdersRepeatingGroup struct {
+	*quickfix.RepeatingGroup
+}
+
+//NewNoOrdersRepeatingGroup returns an initialized, NoOrdersRepeatingGroup
+func NewNoOrdersRepeatingGroup() NoOrdersRepeatingGroup {
+	return NoOrdersRepeatingGroup{
+		quickfix.NewRepeatingGroup(tag.NoOrders,
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.ClOrdID), quickfix.GroupElement(tag.CumQty), quickfix.GroupElement(tag.LeavesQty), quickfix.GroupElement(tag.CxlQty), quickfix.GroupElement(tag.AvgPx)})}
+}
+
+//Add create and append a new NoOrders to this group
+func (m NoOrdersRepeatingGroup) Add() NoOrders {
+	g := m.RepeatingGroup.Add()
+	return NoOrders{g}
+}
+
+//Get returns the ith NoOrders in the NoOrdersRepeatinGroup
+func (m NoOrdersRepeatingGroup) Get(i int) NoOrders {
+	return NoOrders{m.RepeatingGroup.Get(i)}
 }
