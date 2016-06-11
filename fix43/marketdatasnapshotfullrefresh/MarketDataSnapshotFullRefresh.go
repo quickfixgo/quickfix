@@ -14,23 +14,27 @@ type MarketDataSnapshotFullRefresh struct {
 	fix43.Header
 	quickfix.Body
 	fix43.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
 //FromMessage creates a MarketDataSnapshotFullRefresh from a quickfix.Message instance
 func FromMessage(m quickfix.Message) MarketDataSnapshotFullRefresh {
 	return MarketDataSnapshotFullRefresh{
-		Header:  fix43.Header{Header: m.Header},
-		Body:    m.Body,
-		Trailer: fix43.Trailer{Trailer: m.Trailer},
+		Header:      fix43.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fix43.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
 func (m MarketDataSnapshotFullRefresh) ToMessage() quickfix.Message {
 	return quickfix.Message{
-		Header:  m.Header.Header,
-		Body:    m.Body,
-		Trailer: m.Trailer.Trailer,
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 

@@ -1,6 +1,8 @@
 package liststrikeprice
 
 import (
+	"time"
+
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
@@ -12,23 +14,27 @@ type ListStrikePrice struct {
 	fix44.Header
 	quickfix.Body
 	fix44.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
 //FromMessage creates a ListStrikePrice from a quickfix.Message instance
 func FromMessage(m quickfix.Message) ListStrikePrice {
 	return ListStrikePrice{
-		Header:  fix44.Header{Header: m.Header},
-		Body:    m.Body,
-		Trailer: fix44.Trailer{Trailer: m.Trailer},
+		Header:      fix44.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fix44.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
 func (m ListStrikePrice) ToMessage() quickfix.Message {
 	return quickfix.Message{
-		Header:  m.Header.Header,
-		Body:    m.Body,
-		Trailer: m.Trailer.Trailer,
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 

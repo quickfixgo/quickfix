@@ -1,6 +1,8 @@
 package derivativesecuritylist
 
 import (
+	"time"
+
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix43"
@@ -12,23 +14,27 @@ type DerivativeSecurityList struct {
 	fix43.Header
 	quickfix.Body
 	fix43.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
 //FromMessage creates a DerivativeSecurityList from a quickfix.Message instance
 func FromMessage(m quickfix.Message) DerivativeSecurityList {
 	return DerivativeSecurityList{
-		Header:  fix43.Header{Header: m.Header},
-		Body:    m.Body,
-		Trailer: fix43.Trailer{Trailer: m.Trailer},
+		Header:      fix43.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fix43.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
 func (m DerivativeSecurityList) ToMessage() quickfix.Message {
 	return quickfix.Message{
-		Header:  m.Header.Header,
-		Body:    m.Body,
-		Trailer: m.Trailer.Trailer,
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 

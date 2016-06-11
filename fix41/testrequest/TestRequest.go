@@ -1,6 +1,8 @@
 package testrequest
 
 import (
+	"time"
+
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix41"
@@ -12,23 +14,27 @@ type TestRequest struct {
 	fix41.Header
 	quickfix.Body
 	fix41.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
 //FromMessage creates a TestRequest from a quickfix.Message instance
 func FromMessage(m quickfix.Message) TestRequest {
 	return TestRequest{
-		Header:  fix41.Header{Header: m.Header},
-		Body:    m.Body,
-		Trailer: fix41.Trailer{Trailer: m.Trailer},
+		Header:      fix41.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fix41.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
 func (m TestRequest) ToMessage() quickfix.Message {
 	return quickfix.Message{
-		Header:  m.Header.Header,
-		Body:    m.Body,
-		Trailer: m.Trailer.Trailer,
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 

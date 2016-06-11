@@ -1,6 +1,8 @@
 package liststatus
 
 import (
+	"time"
+
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix40"
@@ -12,23 +14,27 @@ type ListStatus struct {
 	fix40.Header
 	quickfix.Body
 	fix40.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
 //FromMessage creates a ListStatus from a quickfix.Message instance
 func FromMessage(m quickfix.Message) ListStatus {
 	return ListStatus{
-		Header:  fix40.Header{Header: m.Header},
-		Body:    m.Body,
-		Trailer: fix40.Trailer{Trailer: m.Trailer},
+		Header:      fix40.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fix40.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
 func (m ListStatus) ToMessage() quickfix.Message {
 	return quickfix.Message{
-		Header:  m.Header.Header,
-		Body:    m.Body,
-		Trailer: m.Trailer.Trailer,
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 

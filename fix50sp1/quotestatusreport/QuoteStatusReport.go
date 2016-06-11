@@ -14,23 +14,27 @@ type QuoteStatusReport struct {
 	fixt11.Header
 	quickfix.Body
 	fixt11.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
 //FromMessage creates a QuoteStatusReport from a quickfix.Message instance
 func FromMessage(m quickfix.Message) QuoteStatusReport {
 	return QuoteStatusReport{
-		Header:  fixt11.Header{Header: m.Header},
-		Body:    m.Body,
-		Trailer: fixt11.Trailer{Trailer: m.Trailer},
+		Header:      fixt11.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fixt11.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
 func (m QuoteStatusReport) ToMessage() quickfix.Message {
 	return quickfix.Message{
-		Header:  m.Header.Header,
-		Body:    m.Body,
-		Trailer: m.Trailer.Trailer,
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
