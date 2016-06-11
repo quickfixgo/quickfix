@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -18,13 +19,18 @@ import (
 type fieldTypeMap map[string]*datadictionary.FieldType
 
 var (
-	headerTemplate   *template.Template
-	trailerTemplate  *template.Template
-	messageTemplate  *template.Template
-	globalFieldTypes fieldTypeMap
+	headerTemplate  *template.Template
+	trailerTemplate *template.Template
+	messageTemplate *template.Template
+	tagTemplate     *template.Template
+	fieldTemplate   *template.Template
+	enumTemplate    *template.Template
 
 	waitGroup sync.WaitGroup
 	errors    = make(chan error)
+
+	globalFieldTypesLookup fieldTypeMap
+	globalFieldTypes       []*datadictionary.FieldType
 )
 
 func usage() {
@@ -70,7 +76,7 @@ type component struct {
 
 func getGlobalFieldType(f *datadictionary.FieldDef) (t *datadictionary.FieldType, err error) {
 	var ok bool
-	t, ok = globalFieldTypes[f.Name()]
+	t, ok = globalFieldTypesLookup[f.Name()]
 	if !ok {
 		err = fmt.Errorf("Unknown global type for %v", f.Name())
 	}
@@ -511,6 +517,66 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 {{ template "hasers" . }}
 {{ template "groups" . }}
 	`))
+
+	tagTemplate = template.Must(template.New("Tag").Parse(`
+package tag
+import("github.com/quickfixgo/quickfix")
+
+const (
+{{- range .}}
+{{ .Name }} quickfix.Tag =  {{ .Tag }}
+{{- end }}
+)
+	`))
+
+	fieldTemplate = template.Must(template.New("Field").Funcs(tmplFuncs).Parse(`
+package field
+import(
+	"github.com/quickfixgo/quickfix"
+	"{{ importRootPath }}/tag"
+
+	"time"
+)
+
+{{ range . }}
+{{- $base_type := quickfixType . -}}
+//{{ .Name }}Field is a {{ .Type }} field
+type {{ .Name }}Field struct { quickfix.{{ $base_type }} }
+
+//Tag returns tag.{{ .Name }} ({{ .Tag }})
+func (f {{ .Name }}Field) Tag() quickfix.Tag { return tag.{{ .Name }} }
+
+{{ if eq $base_type "FIXUTCTimestamp" }} 
+//New{{ .Name }} returns a new {{ .Name }}Field initialized with val
+func New{{ .Name }}(val time.Time) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val } } 
+}
+
+//New{{ .Name }}NoMillis returns a new {{ .Name }}Field initialized with val without millisecs
+func New{{ .Name }}NoMillis(val time.Time) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val, NoMillis: true } } 
+}
+
+{{ else }}
+//New{{ .Name }} returns a new {{ .Name }}Field initialized with val
+func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.{{ $base_type }}(val) }
+}
+{{ end }}{{ end }}
+`))
+
+	enumTemplate = template.Must(template.New("Enum").Parse(`
+package enum
+{{ range $ft := . }}
+{{ if $ft.Enums }} 
+//Enum values for {{ $ft.Name }}
+const(
+{{ range $ft.Enums }}
+{{ $ft.Name }}_{{ .Description }} = "{{ .Value }}"
+{{- end }}
+)
+{{ end }}{{ end }}
+	`))
 }
 
 func genHeader(pkg string, spec *datadictionary.DataDictionary) {
@@ -574,13 +640,95 @@ func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadic
 	}
 }
 
-func buildGlobalFieldMap(specs []*datadictionary.DataDictionary) {
-	globalFieldTypes = make(fieldTypeMap)
+func genTags() {
+	defer waitGroup.Done()
+	writer := new(bytes.Buffer)
+
+	if err := tagTemplate.Execute(writer, globalFieldTypes); err != nil {
+		errors <- err
+		return
+	}
+
+	if err := gen.WriteFile("tag/tag_numbers.go", writer.String()); err != nil {
+		errors <- err
+	}
+}
+
+func genFields() {
+	defer waitGroup.Done()
+	writer := new(bytes.Buffer)
+
+	if err := fieldTemplate.Execute(writer, globalFieldTypes); err != nil {
+		errors <- err
+		return
+	}
+
+	if err := gen.WriteFile("field/fields.go", writer.String()); err != nil {
+		errors <- err
+	}
+}
+
+func genEnums() {
+	defer waitGroup.Done()
+	writer := new(bytes.Buffer)
+
+	if err := enumTemplate.Execute(writer, globalFieldTypes); err != nil {
+		errors <- err
+		return
+	}
+
+	if err := gen.WriteFile("enum/enums.go", writer.String()); err != nil {
+		errors <- err
+	}
+}
+
+//sort fieldtypes by name
+type byFieldName []*datadictionary.FieldType
+
+func (n byFieldName) Len() int           { return len(n) }
+func (n byFieldName) Swap(i, j int)      { n[i], n[j] = n[j], n[i] }
+func (n byFieldName) Less(i, j int) bool { return n[i].Name() < n[j].Name() }
+
+func buildGlobalFieldTypes(specs []*datadictionary.DataDictionary) {
+	globalFieldTypesLookup = make(fieldTypeMap)
 	for _, spec := range specs {
 		for _, field := range spec.FieldTypeByTag {
-			globalFieldTypes[field.Name()] = field
+			if oldField, ok := globalFieldTypesLookup[field.Name()]; ok {
+				//merge old enums with new
+				if len(oldField.Enums) > 0 && field.Enums == nil {
+					field.Enums = make(map[string]datadictionary.Enum)
+				}
+
+				for enumVal, enum := range oldField.Enums {
+					if _, ok := field.Enums[enumVal]; !ok {
+						//Verify an existing enum doesn't have the same description. Keep newer enum
+						okToKeepEnum := true
+						for _, newEnum := range field.Enums {
+							if newEnum.Description == enum.Description {
+								okToKeepEnum = false
+								break
+							}
+						}
+
+						if okToKeepEnum {
+							field.Enums[enumVal] = enum
+						}
+					}
+				}
+			}
+
+			globalFieldTypesLookup[field.Name()] = field
 		}
 	}
+
+	globalFieldTypes = make([]*datadictionary.FieldType, len(globalFieldTypesLookup))
+	i := 0
+	for _, fieldType := range globalFieldTypesLookup {
+		globalFieldTypes[i] = fieldType
+		i++
+	}
+
+	sort.Sort(byFieldName(globalFieldTypes))
 }
 
 func main() {
@@ -600,7 +748,14 @@ func main() {
 		}
 	}
 
-	buildGlobalFieldMap(specs)
+	buildGlobalFieldTypes(specs)
+
+	waitGroup.Add(1)
+	go genTags()
+	waitGroup.Add(1)
+	go genFields()
+	waitGroup.Add(1)
+	go genEnums()
 
 	for _, spec := range specs {
 		pkg := getPackageName(spec)

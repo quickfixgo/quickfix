@@ -3,12 +3,8 @@ all: vet test
 get:
 	go get -t -d ./...
 
-GEN_MESSAGES = go run cmd/generate/main.go
-GEN_FIELDS = go run gen/generate-fields/main.go
-
 generate:
-	$(GEN_FIELDS) spec/*.xml
-	$(GEN_MESSAGES) spec/*.xml
+	go run cmd/generate/*.go spec/*.xml
 
 fmt:
 	go fmt ./...
