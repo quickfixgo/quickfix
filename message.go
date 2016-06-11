@@ -87,8 +87,8 @@ type Message struct {
 	fields TagValues
 }
 
-//Marshal marshals the message itself
-func (m Message) Marshal() Message { return m }
+//ToMessage returns the message itself
+func (m Message) ToMessage() Message { return m }
 
 //parseError is returned when bytes cannot be parsed as a FIX message.
 type parseError struct {

@@ -4,14 +4,14 @@ import (
 	"fmt"
 )
 
-//Marshaler Marshals self to quickfix.Message type
-type Marshaler interface {
-	Marshal() Message
+//Messagable is a Message or something that can be converted to a Message
+type Messagable interface {
+	ToMessage() Message
 }
 
-//Send determines the session to send Marshaler using header fields BeginString, TargetCompID, SenderCompID
-func Send(m Marshaler) (err error) {
-	msg := m.Marshal()
+//Send determines the session to send Messagable using header fields BeginString, TargetCompID, SenderCompID
+func Send(m Messagable) (err error) {
+	msg := m.ToMessage()
 	var beginString FIXString
 	if err := msg.Header.GetField(tagBeginString, &beginString); err != nil {
 		return err
@@ -34,8 +34,8 @@ func Send(m Marshaler) (err error) {
 }
 
 //SendToTarget sends a message based on the sessionID. Convenient for use in FromApp since it provides a session ID for incoming messages
-func SendToTarget(m Marshaler, sessionID SessionID) error {
-	msg := m.Marshal()
+func SendToTarget(m Messagable, sessionID SessionID) error {
+	msg := m.ToMessage()
 	session, err := lookupSession(sessionID)
 	if err != nil {
 		return err

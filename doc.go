@@ -186,11 +186,11 @@ Sending Messages
 
 Messages can be sent to the counter party with the Send and SendToTarget functions.
 
- //Send determines the session to send Marshaler using header fields BeginString, TargetCompID, SenderCompID
- func Send(m Marshaler) error
+ //Send determines the session to send Messagable using header fields BeginString, TargetCompID, SenderCompID
+ func Send(m Messagable) error
 
- //SendToTarget sends a message based on the sessionID. Convenient for use in FromApp since it provides a session ID for incoming messages
- func SendToTarget(m Marshaler, sessionID SessionID) error
+ //SendToTarget sends Messagable based on the sessionID. Convenient for use in FromApp since it provides a session ID for incoming messages
+ func SendToTarget(m Messagable, sessionID SessionID) error
 
 */
 package quickfix
