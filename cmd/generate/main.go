@@ -439,9 +439,7 @@ type Trailer struct {
 package {{ .Package }}
 
 import(
-	{{- range collectExtraImports .MessageDef }}
-	"{{ . }}"
-	{{- end }}
+	"time"
 
 	"github.com/quickfixgo/quickfix"
 	"{{ importRootPath }}/field"
@@ -454,6 +452,8 @@ type {{ .Name }} struct {
 	{{ .TransportPackage }}.Header
 	quickfix.Body
 	{{ .TransportPackage }}.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
 //FromMessage creates a {{ .Name }} from a quickfix.Message instance
@@ -462,6 +462,7 @@ func FromMessage(m quickfix.Message) {{ .Name }} {
 		Header: {{ .TransportPackage }}.Header{ Header: m.Header },
 		Body: m.Body,
 		Trailer: {{ .TransportPackage }}.Trailer{ Trailer: m.Trailer },
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
@@ -471,6 +472,7 @@ func (m {{ .Name }}) ToMessage() quickfix.Message {
 		Header: m.Header.Header,
 		Body: m.Body,
 		Trailer: m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
 	}
 }
 
