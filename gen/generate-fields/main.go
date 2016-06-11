@@ -15,6 +15,7 @@ import (
 var (
 	tagTemplate   *template.Template
 	fieldTemplate *template.Template
+	enumTemplate  *template.Template
 )
 
 func usage() {
@@ -24,31 +25,13 @@ func usage() {
 }
 
 func genEnums(fieldTypes []*datadictionary.FieldType) error {
-	fileOut := "package enum\n"
+	writer := new(bytes.Buffer)
 
-	for _, fieldType := range fieldTypes {
-		if len(fieldType.Enums) == 0 {
-			continue
-		}
-
-		sortedEnums := make([]string, len(fieldType.Enums))
-		i := 0
-		for enum := range fieldType.Enums {
-			sortedEnums[i] = enum
-			i++
-		}
-		sort.Strings(sortedEnums)
-
-		fileOut += fmt.Sprintf("//Enum values for %v\n", fieldType.Name())
-		fileOut += "const(\n"
-		for _, enumVal := range sortedEnums {
-			enum, _ := fieldType.Enums[enumVal]
-			fileOut += fmt.Sprintf("%v_%v = \"%v\"\n", fieldType.Name(), enum.Description, enum.Value)
-		}
-		fileOut += ")\n"
+	if err := enumTemplate.Execute(writer, fieldTypes); err != nil {
+		return err
 	}
 
-	return gen.WriteFile("enum/enums.go", fileOut)
+	return gen.WriteFile("enum/enums.go", writer.String())
 }
 
 func quickfixValueType(quickfixType string) (valueType string) {
@@ -221,6 +204,19 @@ func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
 }
 {{ end }}{{ end }}
 `))
+
+	enumTemplate = template.Must(template.New("Enum").Parse(`
+package enum
+{{ range $ft := . }}
+{{ if $ft.Enums }} 
+//Enum values for {{ $ft.Name }}
+const(
+{{ range $ft.Enums }}
+{{ $ft.Name }}_{{ .Description }} = "{{ .Value }}"
+{{- end }}
+)
+{{ end }}{{ end }}
+	`))
 }
 
 //sort fieldtypes by name
