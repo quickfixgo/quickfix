@@ -1,48 +1,95 @@
-//Package resendrequest msg type = 2.
 package resendrequest
 
 import (
+	"time"
+
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix43"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-//Message is a ResendRequest FIX Message
-type Message struct {
-	FIXMsgType string `fix:"2"`
+//ResendRequest is the fix43 ResendRequest type, MsgType = 2
+type ResendRequest struct {
 	fix43.Header
-	//BeginSeqNo is a required field for ResendRequest.
-	BeginSeqNo int `fix:"7"`
-	//EndSeqNo is a required field for ResendRequest.
-	EndSeqNo int `fix:"16"`
+	quickfix.Body
 	fix43.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
-//Marshal converts Message to a quickfix.Message instance
-func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
-
-//New returns an initialized ResendRequest instance
-func New(beginseqno int, endseqno int) *Message {
-	var m Message
-	m.SetBeginSeqNo(beginseqno)
-	m.SetEndSeqNo(endseqno)
-	return &m
+//FromMessage creates a ResendRequest from a quickfix.Message instance
+func FromMessage(m quickfix.Message) ResendRequest {
+	return ResendRequest{
+		Header:      fix43.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fix43.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
+	}
 }
 
-func (m *Message) SetBeginSeqNo(v int) { m.BeginSeqNo = v }
-func (m *Message) SetEndSeqNo(v int)   { m.EndSeqNo = v }
+//ToMessage returns a quickfix.Message instance
+func (m ResendRequest) ToMessage() quickfix.Message {
+	return quickfix.Message{
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
+	}
+}
+
+//New returns a ResendRequest initialized with the required fields for ResendRequest
+func New(beginseqno field.BeginSeqNoField, endseqno field.EndSeqNoField) (m ResendRequest) {
+	m.Header.Init()
+	m.Init()
+	m.Trailer.Init()
+
+	m.Header.Set(field.NewMsgType("2"))
+	m.Set(beginseqno)
+	m.Set(endseqno)
+
+	return
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
+type RouteOut func(msg ResendRequest, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		m := new(Message)
-		if err := quickfix.Unmarshal(msg, m); err != nil {
-			return err
-		}
-		return router(*m, sessionID)
+		return router(FromMessage(msg), sessionID)
 	}
-	return enum.BeginStringFIX43, "2", r
+	return "FIX.4.3", "2", r
+}
+
+//SetBeginSeqNo sets BeginSeqNo, Tag 7
+func (m ResendRequest) SetBeginSeqNo(v int) {
+	m.Set(field.NewBeginSeqNo(v))
+}
+
+//SetEndSeqNo sets EndSeqNo, Tag 16
+func (m ResendRequest) SetEndSeqNo(v int) {
+	m.Set(field.NewEndSeqNo(v))
+}
+
+//GetBeginSeqNo gets BeginSeqNo, Tag 7
+func (m ResendRequest) GetBeginSeqNo() (f field.BeginSeqNoField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetEndSeqNo gets EndSeqNo, Tag 16
+func (m ResendRequest) GetEndSeqNo() (f field.EndSeqNoField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasBeginSeqNo returns true if BeginSeqNo is present, Tag 7
+func (m ResendRequest) HasBeginSeqNo() bool {
+	return m.Has(tag.BeginSeqNo)
+}
+
+//HasEndSeqNo returns true if EndSeqNo is present, Tag 16
+func (m ResendRequest) HasEndSeqNo() bool {
+	return m.Has(tag.EndSeqNo)
 }

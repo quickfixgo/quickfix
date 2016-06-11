@@ -51,24 +51,24 @@ func genEnums(fieldTypes []*datadictionary.FieldType) error {
 	return gen.WriteFile("enum/enums.go", fileOut)
 }
 
-func goTypeFromBaseType(baseType string) (goType string) {
-	switch baseType {
+func quickfixValueType(quickfixType string) (valueType string) {
+	switch quickfixType {
 	case "FIXString":
-		goType = "string"
+		valueType = "string"
 	case "FIXBoolean":
-		goType = "bool"
+		valueType = "bool"
 	case "FIXInt":
-		goType = "int"
+		valueType = "int"
 	case "FIXUTCTimestamp":
-		goType = "time.Time"
+		valueType = "time.Time"
 	case "FIXFloat":
-		goType = "float64"
+		valueType = "float64"
 	}
 
 	return
 }
 
-func baseType(field *datadictionary.FieldType) (baseType string, err error) {
+func quickfixType(field *datadictionary.FieldType) (quickfixType string, err error) {
 	switch field.Type {
 	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
 		fallthrough
@@ -107,10 +107,10 @@ func baseType(field *datadictionary.FieldType) (baseType string, err error) {
 	case "TZTIMESTAMP":
 		fallthrough
 	case "STRING":
-		baseType = "FIXString"
+		quickfixType = "FIXString"
 
 	case "BOOLEAN":
-		baseType = "FIXBoolean"
+		quickfixType = "FIXBoolean"
 
 	case "LENGTH":
 		fallthrough
@@ -121,10 +121,10 @@ func baseType(field *datadictionary.FieldType) (baseType string, err error) {
 	case "SEQNUM":
 		fallthrough
 	case "INT":
-		baseType = "FIXInt"
+		quickfixType = "FIXInt"
 
 	case "UTCTIMESTAMP":
-		baseType = "FIXUTCTimestamp"
+		quickfixType = "FIXUTCTimestamp"
 
 	case "QTY":
 		fallthrough
@@ -139,7 +139,7 @@ func baseType(field *datadictionary.FieldType) (baseType string, err error) {
 	case "PERCENTAGE":
 		fallthrough
 	case "FLOAT":
-		baseType = "FIXFloat"
+		quickfixType = "FIXFloat"
 
 	default:
 		err = fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag())
@@ -170,9 +170,9 @@ func genTags(fieldTypes []*datadictionary.FieldType) error {
 
 func init() {
 	tmplFuncs := template.FuncMap{
-		"importRootPath":     gen.GetImportPathRoot,
-		"baseType":           baseType,
-		"goTypeFromBaseType": goTypeFromBaseType,
+		"importRootPath":    gen.GetImportPathRoot,
+		"quickfixType":      quickfixType,
+		"quickfixValueType": quickfixValueType,
 	}
 
 	tagTemplate = template.Must(template.New("Tag").Parse(`
@@ -196,7 +196,7 @@ import(
 )
 
 {{ range . }}
-{{- $base_type := baseType . -}}
+{{- $base_type := quickfixType . -}}
 //{{ .Name }}Field is a {{ .Type }} field
 type {{ .Name }}Field struct { quickfix.{{ $base_type }} }
 
@@ -216,7 +216,7 @@ func New{{ .Name }}NoMillis(val time.Time) {{ .Name }}Field {
 
 {{ else }}
 //New{{ .Name }} returns a new {{ .Name }}Field initialized with val
-func New{{ .Name }}(val {{ goTypeFromBaseType $base_type }}) {{ .Name }}Field {
+func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
 	return {{ .Name }}Field{ quickfix.{{ $base_type }}(val) }
 }
 {{ end }}{{ end }}

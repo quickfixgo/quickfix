@@ -1,54 +1,127 @@
-//Package userresponse msg type = BF.
 package userresponse
 
 import (
+	"time"
+
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-//Message is a UserResponse FIX Message
-type Message struct {
-	FIXMsgType string `fix:"BF"`
+//UserResponse is the fix50 UserResponse type, MsgType = BF
+type UserResponse struct {
 	fixt11.Header
-	//UserRequestID is a required field for UserResponse.
-	UserRequestID string `fix:"923"`
-	//Username is a required field for UserResponse.
-	Username string `fix:"553"`
-	//UserStatus is a non-required field for UserResponse.
-	UserStatus *int `fix:"926"`
-	//UserStatusText is a non-required field for UserResponse.
-	UserStatusText *string `fix:"927"`
+	quickfix.Body
 	fixt11.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
-//Marshal converts Message to a quickfix.Message instance
-func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
-
-//New returns an initialized UserResponse instance
-func New(userrequestid string, username string) *Message {
-	var m Message
-	m.SetUserRequestID(userrequestid)
-	m.SetUsername(username)
-	return &m
+//FromMessage creates a UserResponse from a quickfix.Message instance
+func FromMessage(m quickfix.Message) UserResponse {
+	return UserResponse{
+		Header:      fixt11.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fixt11.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
+	}
 }
 
-func (m *Message) SetUserRequestID(v string)  { m.UserRequestID = v }
-func (m *Message) SetUsername(v string)       { m.Username = v }
-func (m *Message) SetUserStatus(v int)        { m.UserStatus = &v }
-func (m *Message) SetUserStatusText(v string) { m.UserStatusText = &v }
+//ToMessage returns a quickfix.Message instance
+func (m UserResponse) ToMessage() quickfix.Message {
+	return quickfix.Message{
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
+	}
+}
+
+//New returns a UserResponse initialized with the required fields for UserResponse
+func New(userrequestid field.UserRequestIDField, username field.UsernameField) (m UserResponse) {
+	m.Header.Init()
+	m.Init()
+	m.Trailer.Init()
+
+	m.Header.Set(field.NewMsgType("BF"))
+	m.Set(userrequestid)
+	m.Set(username)
+
+	return
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
+type RouteOut func(msg UserResponse, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		m := new(Message)
-		if err := quickfix.Unmarshal(msg, m); err != nil {
-			return err
-		}
-		return router(*m, sessionID)
+		return router(FromMessage(msg), sessionID)
 	}
-	return enum.ApplVerID_FIX50, "BF", r
+	return "7", "BF", r
+}
+
+//SetUsername sets Username, Tag 553
+func (m UserResponse) SetUsername(v string) {
+	m.Set(field.NewUsername(v))
+}
+
+//SetUserRequestID sets UserRequestID, Tag 923
+func (m UserResponse) SetUserRequestID(v string) {
+	m.Set(field.NewUserRequestID(v))
+}
+
+//SetUserStatus sets UserStatus, Tag 926
+func (m UserResponse) SetUserStatus(v int) {
+	m.Set(field.NewUserStatus(v))
+}
+
+//SetUserStatusText sets UserStatusText, Tag 927
+func (m UserResponse) SetUserStatusText(v string) {
+	m.Set(field.NewUserStatusText(v))
+}
+
+//GetUsername gets Username, Tag 553
+func (m UserResponse) GetUsername() (f field.UsernameField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetUserRequestID gets UserRequestID, Tag 923
+func (m UserResponse) GetUserRequestID() (f field.UserRequestIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetUserStatus gets UserStatus, Tag 926
+func (m UserResponse) GetUserStatus() (f field.UserStatusField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetUserStatusText gets UserStatusText, Tag 927
+func (m UserResponse) GetUserStatusText() (f field.UserStatusTextField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasUsername returns true if Username is present, Tag 553
+func (m UserResponse) HasUsername() bool {
+	return m.Has(tag.Username)
+}
+
+//HasUserRequestID returns true if UserRequestID is present, Tag 923
+func (m UserResponse) HasUserRequestID() bool {
+	return m.Has(tag.UserRequestID)
+}
+
+//HasUserStatus returns true if UserStatus is present, Tag 926
+func (m UserResponse) HasUserStatus() bool {
+	return m.Has(tag.UserStatus)
+}
+
+//HasUserStatusText returns true if UserStatusText is present, Tag 927
+func (m UserResponse) HasUserStatusText() bool {
+	return m.Has(tag.UserStatusText)
 }

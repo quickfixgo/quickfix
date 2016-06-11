@@ -1,207 +1,869 @@
-//Package executionreport msg type = 8.
 package executionreport
 
 import (
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
-	"github.com/quickfixgo/quickfix/fix40"
 	"time"
+
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix40"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-//NoMiscFees is a repeating group in ExecutionReport
-type NoMiscFees struct {
-	//MiscFeeAmt is a non-required field for NoMiscFees.
-	MiscFeeAmt *float64 `fix:"137"`
-	//MiscFeeCurr is a non-required field for NoMiscFees.
-	MiscFeeCurr *string `fix:"138"`
-	//MiscFeeType is a non-required field for NoMiscFees.
-	MiscFeeType *string `fix:"139"`
-}
-
-//NewNoMiscFees returns an initialized NoMiscFees instance
-func NewNoMiscFees() *NoMiscFees {
-	var m NoMiscFees
-	return &m
-}
-
-func (m *NoMiscFees) SetMiscFeeAmt(v float64) { m.MiscFeeAmt = &v }
-func (m *NoMiscFees) SetMiscFeeCurr(v string) { m.MiscFeeCurr = &v }
-func (m *NoMiscFees) SetMiscFeeType(v string) { m.MiscFeeType = &v }
-
-//Message is a ExecutionReport FIX Message
-type Message struct {
-	FIXMsgType string `fix:"8"`
+//ExecutionReport is the fix40 ExecutionReport type, MsgType = 8
+type ExecutionReport struct {
 	fix40.Header
-	//OrderID is a required field for ExecutionReport.
-	OrderID string `fix:"37"`
-	//ClOrdID is a non-required field for ExecutionReport.
-	ClOrdID *string `fix:"11"`
-	//ClientID is a non-required field for ExecutionReport.
-	ClientID *string `fix:"109"`
-	//ExecBroker is a non-required field for ExecutionReport.
-	ExecBroker *string `fix:"76"`
-	//ListID is a non-required field for ExecutionReport.
-	ListID *string `fix:"66"`
-	//ExecID is a required field for ExecutionReport.
-	ExecID int `fix:"17"`
-	//ExecTransType is a required field for ExecutionReport.
-	ExecTransType string `fix:"20"`
-	//ExecRefID is a non-required field for ExecutionReport.
-	ExecRefID *int `fix:"19"`
-	//OrdStatus is a required field for ExecutionReport.
-	OrdStatus string `fix:"39"`
-	//OrdRejReason is a non-required field for ExecutionReport.
-	OrdRejReason *int `fix:"103"`
-	//Account is a non-required field for ExecutionReport.
-	Account *string `fix:"1"`
-	//SettlmntTyp is a non-required field for ExecutionReport.
-	SettlmntTyp *string `fix:"63"`
-	//FutSettDate is a non-required field for ExecutionReport.
-	FutSettDate *string `fix:"64"`
-	//Symbol is a required field for ExecutionReport.
-	Symbol string `fix:"55"`
-	//SymbolSfx is a non-required field for ExecutionReport.
-	SymbolSfx *string `fix:"65"`
-	//SecurityID is a non-required field for ExecutionReport.
-	SecurityID *string `fix:"48"`
-	//IDSource is a non-required field for ExecutionReport.
-	IDSource *string `fix:"22"`
-	//Issuer is a non-required field for ExecutionReport.
-	Issuer *string `fix:"106"`
-	//SecurityDesc is a non-required field for ExecutionReport.
-	SecurityDesc *string `fix:"107"`
-	//Side is a required field for ExecutionReport.
-	Side string `fix:"54"`
-	//OrderQty is a required field for ExecutionReport.
-	OrderQty int `fix:"38"`
-	//OrdType is a non-required field for ExecutionReport.
-	OrdType *string `fix:"40"`
-	//Price is a non-required field for ExecutionReport.
-	Price *float64 `fix:"44"`
-	//StopPx is a non-required field for ExecutionReport.
-	StopPx *float64 `fix:"99"`
-	//Currency is a non-required field for ExecutionReport.
-	Currency *string `fix:"15"`
-	//TimeInForce is a non-required field for ExecutionReport.
-	TimeInForce *string `fix:"59"`
-	//ExpireTime is a non-required field for ExecutionReport.
-	ExpireTime *time.Time `fix:"126"`
-	//ExecInst is a non-required field for ExecutionReport.
-	ExecInst *string `fix:"18"`
-	//Rule80A is a non-required field for ExecutionReport.
-	Rule80A *string `fix:"47"`
-	//LastShares is a required field for ExecutionReport.
-	LastShares int `fix:"32"`
-	//LastPx is a required field for ExecutionReport.
-	LastPx float64 `fix:"31"`
-	//LastMkt is a non-required field for ExecutionReport.
-	LastMkt *string `fix:"30"`
-	//LastCapacity is a non-required field for ExecutionReport.
-	LastCapacity *string `fix:"29"`
-	//CumQty is a required field for ExecutionReport.
-	CumQty int `fix:"14"`
-	//AvgPx is a required field for ExecutionReport.
-	AvgPx float64 `fix:"6"`
-	//TradeDate is a non-required field for ExecutionReport.
-	TradeDate *string `fix:"75"`
-	//TransactTime is a non-required field for ExecutionReport.
-	TransactTime *time.Time `fix:"60"`
-	//ReportToExch is a non-required field for ExecutionReport.
-	ReportToExch *string `fix:"113"`
-	//Commission is a non-required field for ExecutionReport.
-	Commission *float64 `fix:"12"`
-	//CommType is a non-required field for ExecutionReport.
-	CommType *string `fix:"13"`
-	//NoMiscFees is a non-required field for ExecutionReport.
-	NoMiscFees []NoMiscFees `fix:"136,omitempty"`
-	//NetMoney is a non-required field for ExecutionReport.
-	NetMoney *float64 `fix:"118"`
-	//SettlCurrAmt is a non-required field for ExecutionReport.
-	SettlCurrAmt *float64 `fix:"119"`
-	//SettlCurrency is a non-required field for ExecutionReport.
-	SettlCurrency *string `fix:"120"`
-	//Text is a non-required field for ExecutionReport.
-	Text *string `fix:"58"`
+	quickfix.Body
 	fix40.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
-//Marshal converts Message to a quickfix.Message instance
-func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
-
-//New returns an initialized ExecutionReport instance
-func New(orderid string, execid int, exectranstype string, ordstatus string, symbol string, side string, orderqty int, lastshares int, lastpx float64, cumqty int, avgpx float64) *Message {
-	var m Message
-	m.SetOrderID(orderid)
-	m.SetExecID(execid)
-	m.SetExecTransType(exectranstype)
-	m.SetOrdStatus(ordstatus)
-	m.SetSymbol(symbol)
-	m.SetSide(side)
-	m.SetOrderQty(orderqty)
-	m.SetLastShares(lastshares)
-	m.SetLastPx(lastpx)
-	m.SetCumQty(cumqty)
-	m.SetAvgPx(avgpx)
-	return &m
+//FromMessage creates a ExecutionReport from a quickfix.Message instance
+func FromMessage(m quickfix.Message) ExecutionReport {
+	return ExecutionReport{
+		Header:      fix40.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fix40.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
+	}
 }
 
-func (m *Message) SetOrderID(v string)          { m.OrderID = v }
-func (m *Message) SetClOrdID(v string)          { m.ClOrdID = &v }
-func (m *Message) SetClientID(v string)         { m.ClientID = &v }
-func (m *Message) SetExecBroker(v string)       { m.ExecBroker = &v }
-func (m *Message) SetListID(v string)           { m.ListID = &v }
-func (m *Message) SetExecID(v int)              { m.ExecID = v }
-func (m *Message) SetExecTransType(v string)    { m.ExecTransType = v }
-func (m *Message) SetExecRefID(v int)           { m.ExecRefID = &v }
-func (m *Message) SetOrdStatus(v string)        { m.OrdStatus = v }
-func (m *Message) SetOrdRejReason(v int)        { m.OrdRejReason = &v }
-func (m *Message) SetAccount(v string)          { m.Account = &v }
-func (m *Message) SetSettlmntTyp(v string)      { m.SettlmntTyp = &v }
-func (m *Message) SetFutSettDate(v string)      { m.FutSettDate = &v }
-func (m *Message) SetSymbol(v string)           { m.Symbol = v }
-func (m *Message) SetSymbolSfx(v string)        { m.SymbolSfx = &v }
-func (m *Message) SetSecurityID(v string)       { m.SecurityID = &v }
-func (m *Message) SetIDSource(v string)         { m.IDSource = &v }
-func (m *Message) SetIssuer(v string)           { m.Issuer = &v }
-func (m *Message) SetSecurityDesc(v string)     { m.SecurityDesc = &v }
-func (m *Message) SetSide(v string)             { m.Side = v }
-func (m *Message) SetOrderQty(v int)            { m.OrderQty = v }
-func (m *Message) SetOrdType(v string)          { m.OrdType = &v }
-func (m *Message) SetPrice(v float64)           { m.Price = &v }
-func (m *Message) SetStopPx(v float64)          { m.StopPx = &v }
-func (m *Message) SetCurrency(v string)         { m.Currency = &v }
-func (m *Message) SetTimeInForce(v string)      { m.TimeInForce = &v }
-func (m *Message) SetExpireTime(v time.Time)    { m.ExpireTime = &v }
-func (m *Message) SetExecInst(v string)         { m.ExecInst = &v }
-func (m *Message) SetRule80A(v string)          { m.Rule80A = &v }
-func (m *Message) SetLastShares(v int)          { m.LastShares = v }
-func (m *Message) SetLastPx(v float64)          { m.LastPx = v }
-func (m *Message) SetLastMkt(v string)          { m.LastMkt = &v }
-func (m *Message) SetLastCapacity(v string)     { m.LastCapacity = &v }
-func (m *Message) SetCumQty(v int)              { m.CumQty = v }
-func (m *Message) SetAvgPx(v float64)           { m.AvgPx = v }
-func (m *Message) SetTradeDate(v string)        { m.TradeDate = &v }
-func (m *Message) SetTransactTime(v time.Time)  { m.TransactTime = &v }
-func (m *Message) SetReportToExch(v string)     { m.ReportToExch = &v }
-func (m *Message) SetCommission(v float64)      { m.Commission = &v }
-func (m *Message) SetCommType(v string)         { m.CommType = &v }
-func (m *Message) SetNoMiscFees(v []NoMiscFees) { m.NoMiscFees = v }
-func (m *Message) SetNetMoney(v float64)        { m.NetMoney = &v }
-func (m *Message) SetSettlCurrAmt(v float64)    { m.SettlCurrAmt = &v }
-func (m *Message) SetSettlCurrency(v string)    { m.SettlCurrency = &v }
-func (m *Message) SetText(v string)             { m.Text = &v }
+//ToMessage returns a quickfix.Message instance
+func (m ExecutionReport) ToMessage() quickfix.Message {
+	return quickfix.Message{
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
+	}
+}
+
+//New returns a ExecutionReport initialized with the required fields for ExecutionReport
+func New(orderid field.OrderIDField, execid field.ExecIDField, exectranstype field.ExecTransTypeField, ordstatus field.OrdStatusField, symbol field.SymbolField, side field.SideField, orderqty field.OrderQtyField, lastshares field.LastSharesField, lastpx field.LastPxField, cumqty field.CumQtyField, avgpx field.AvgPxField) (m ExecutionReport) {
+	m.Header.Init()
+	m.Init()
+	m.Trailer.Init()
+
+	m.Header.Set(field.NewMsgType("8"))
+	m.Set(orderid)
+	m.Set(execid)
+	m.Set(exectranstype)
+	m.Set(ordstatus)
+	m.Set(symbol)
+	m.Set(side)
+	m.Set(orderqty)
+	m.Set(lastshares)
+	m.Set(lastpx)
+	m.Set(cumqty)
+	m.Set(avgpx)
+
+	return
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
+type RouteOut func(msg ExecutionReport, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		m := new(Message)
-		if err := quickfix.Unmarshal(msg, m); err != nil {
-			return err
-		}
-		return router(*m, sessionID)
+		return router(FromMessage(msg), sessionID)
 	}
-	return enum.BeginStringFIX40, "8", r
+	return "FIX.4.0", "8", r
+}
+
+//SetAccount sets Account, Tag 1
+func (m ExecutionReport) SetAccount(v string) {
+	m.Set(field.NewAccount(v))
+}
+
+//SetAvgPx sets AvgPx, Tag 6
+func (m ExecutionReport) SetAvgPx(v float64) {
+	m.Set(field.NewAvgPx(v))
+}
+
+//SetClOrdID sets ClOrdID, Tag 11
+func (m ExecutionReport) SetClOrdID(v string) {
+	m.Set(field.NewClOrdID(v))
+}
+
+//SetCommission sets Commission, Tag 12
+func (m ExecutionReport) SetCommission(v float64) {
+	m.Set(field.NewCommission(v))
+}
+
+//SetCommType sets CommType, Tag 13
+func (m ExecutionReport) SetCommType(v string) {
+	m.Set(field.NewCommType(v))
+}
+
+//SetCumQty sets CumQty, Tag 14
+func (m ExecutionReport) SetCumQty(v float64) {
+	m.Set(field.NewCumQty(v))
+}
+
+//SetCurrency sets Currency, Tag 15
+func (m ExecutionReport) SetCurrency(v string) {
+	m.Set(field.NewCurrency(v))
+}
+
+//SetExecID sets ExecID, Tag 17
+func (m ExecutionReport) SetExecID(v string) {
+	m.Set(field.NewExecID(v))
+}
+
+//SetExecInst sets ExecInst, Tag 18
+func (m ExecutionReport) SetExecInst(v string) {
+	m.Set(field.NewExecInst(v))
+}
+
+//SetExecRefID sets ExecRefID, Tag 19
+func (m ExecutionReport) SetExecRefID(v string) {
+	m.Set(field.NewExecRefID(v))
+}
+
+//SetExecTransType sets ExecTransType, Tag 20
+func (m ExecutionReport) SetExecTransType(v string) {
+	m.Set(field.NewExecTransType(v))
+}
+
+//SetIDSource sets IDSource, Tag 22
+func (m ExecutionReport) SetIDSource(v string) {
+	m.Set(field.NewIDSource(v))
+}
+
+//SetLastCapacity sets LastCapacity, Tag 29
+func (m ExecutionReport) SetLastCapacity(v string) {
+	m.Set(field.NewLastCapacity(v))
+}
+
+//SetLastMkt sets LastMkt, Tag 30
+func (m ExecutionReport) SetLastMkt(v string) {
+	m.Set(field.NewLastMkt(v))
+}
+
+//SetLastPx sets LastPx, Tag 31
+func (m ExecutionReport) SetLastPx(v float64) {
+	m.Set(field.NewLastPx(v))
+}
+
+//SetLastShares sets LastShares, Tag 32
+func (m ExecutionReport) SetLastShares(v float64) {
+	m.Set(field.NewLastShares(v))
+}
+
+//SetOrderID sets OrderID, Tag 37
+func (m ExecutionReport) SetOrderID(v string) {
+	m.Set(field.NewOrderID(v))
+}
+
+//SetOrderQty sets OrderQty, Tag 38
+func (m ExecutionReport) SetOrderQty(v float64) {
+	m.Set(field.NewOrderQty(v))
+}
+
+//SetOrdStatus sets OrdStatus, Tag 39
+func (m ExecutionReport) SetOrdStatus(v string) {
+	m.Set(field.NewOrdStatus(v))
+}
+
+//SetOrdType sets OrdType, Tag 40
+func (m ExecutionReport) SetOrdType(v string) {
+	m.Set(field.NewOrdType(v))
+}
+
+//SetPrice sets Price, Tag 44
+func (m ExecutionReport) SetPrice(v float64) {
+	m.Set(field.NewPrice(v))
+}
+
+//SetRule80A sets Rule80A, Tag 47
+func (m ExecutionReport) SetRule80A(v string) {
+	m.Set(field.NewRule80A(v))
+}
+
+//SetSecurityID sets SecurityID, Tag 48
+func (m ExecutionReport) SetSecurityID(v string) {
+	m.Set(field.NewSecurityID(v))
+}
+
+//SetSide sets Side, Tag 54
+func (m ExecutionReport) SetSide(v string) {
+	m.Set(field.NewSide(v))
+}
+
+//SetSymbol sets Symbol, Tag 55
+func (m ExecutionReport) SetSymbol(v string) {
+	m.Set(field.NewSymbol(v))
+}
+
+//SetText sets Text, Tag 58
+func (m ExecutionReport) SetText(v string) {
+	m.Set(field.NewText(v))
+}
+
+//SetTimeInForce sets TimeInForce, Tag 59
+func (m ExecutionReport) SetTimeInForce(v string) {
+	m.Set(field.NewTimeInForce(v))
+}
+
+//SetTransactTime sets TransactTime, Tag 60
+func (m ExecutionReport) SetTransactTime(v time.Time) {
+	m.Set(field.NewTransactTime(v))
+}
+
+//SetSettlmntTyp sets SettlmntTyp, Tag 63
+func (m ExecutionReport) SetSettlmntTyp(v string) {
+	m.Set(field.NewSettlmntTyp(v))
+}
+
+//SetFutSettDate sets FutSettDate, Tag 64
+func (m ExecutionReport) SetFutSettDate(v string) {
+	m.Set(field.NewFutSettDate(v))
+}
+
+//SetSymbolSfx sets SymbolSfx, Tag 65
+func (m ExecutionReport) SetSymbolSfx(v string) {
+	m.Set(field.NewSymbolSfx(v))
+}
+
+//SetListID sets ListID, Tag 66
+func (m ExecutionReport) SetListID(v string) {
+	m.Set(field.NewListID(v))
+}
+
+//SetTradeDate sets TradeDate, Tag 75
+func (m ExecutionReport) SetTradeDate(v string) {
+	m.Set(field.NewTradeDate(v))
+}
+
+//SetExecBroker sets ExecBroker, Tag 76
+func (m ExecutionReport) SetExecBroker(v string) {
+	m.Set(field.NewExecBroker(v))
+}
+
+//SetStopPx sets StopPx, Tag 99
+func (m ExecutionReport) SetStopPx(v float64) {
+	m.Set(field.NewStopPx(v))
+}
+
+//SetOrdRejReason sets OrdRejReason, Tag 103
+func (m ExecutionReport) SetOrdRejReason(v int) {
+	m.Set(field.NewOrdRejReason(v))
+}
+
+//SetIssuer sets Issuer, Tag 106
+func (m ExecutionReport) SetIssuer(v string) {
+	m.Set(field.NewIssuer(v))
+}
+
+//SetSecurityDesc sets SecurityDesc, Tag 107
+func (m ExecutionReport) SetSecurityDesc(v string) {
+	m.Set(field.NewSecurityDesc(v))
+}
+
+//SetClientID sets ClientID, Tag 109
+func (m ExecutionReport) SetClientID(v string) {
+	m.Set(field.NewClientID(v))
+}
+
+//SetReportToExch sets ReportToExch, Tag 113
+func (m ExecutionReport) SetReportToExch(v bool) {
+	m.Set(field.NewReportToExch(v))
+}
+
+//SetNetMoney sets NetMoney, Tag 118
+func (m ExecutionReport) SetNetMoney(v float64) {
+	m.Set(field.NewNetMoney(v))
+}
+
+//SetSettlCurrAmt sets SettlCurrAmt, Tag 119
+func (m ExecutionReport) SetSettlCurrAmt(v float64) {
+	m.Set(field.NewSettlCurrAmt(v))
+}
+
+//SetSettlCurrency sets SettlCurrency, Tag 120
+func (m ExecutionReport) SetSettlCurrency(v string) {
+	m.Set(field.NewSettlCurrency(v))
+}
+
+//SetExpireTime sets ExpireTime, Tag 126
+func (m ExecutionReport) SetExpireTime(v time.Time) {
+	m.Set(field.NewExpireTime(v))
+}
+
+//SetNoMiscFees sets NoMiscFees, Tag 136
+func (m ExecutionReport) SetNoMiscFees(f NoMiscFeesRepeatingGroup) {
+	m.SetGroup(f)
+}
+
+//GetAccount gets Account, Tag 1
+func (m ExecutionReport) GetAccount() (f field.AccountField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetAvgPx gets AvgPx, Tag 6
+func (m ExecutionReport) GetAvgPx() (f field.AvgPxField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetClOrdID gets ClOrdID, Tag 11
+func (m ExecutionReport) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetCommission gets Commission, Tag 12
+func (m ExecutionReport) GetCommission() (f field.CommissionField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetCommType gets CommType, Tag 13
+func (m ExecutionReport) GetCommType() (f field.CommTypeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetCumQty gets CumQty, Tag 14
+func (m ExecutionReport) GetCumQty() (f field.CumQtyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetCurrency gets Currency, Tag 15
+func (m ExecutionReport) GetCurrency() (f field.CurrencyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetExecID gets ExecID, Tag 17
+func (m ExecutionReport) GetExecID() (f field.ExecIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetExecInst gets ExecInst, Tag 18
+func (m ExecutionReport) GetExecInst() (f field.ExecInstField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetExecRefID gets ExecRefID, Tag 19
+func (m ExecutionReport) GetExecRefID() (f field.ExecRefIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetExecTransType gets ExecTransType, Tag 20
+func (m ExecutionReport) GetExecTransType() (f field.ExecTransTypeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetIDSource gets IDSource, Tag 22
+func (m ExecutionReport) GetIDSource() (f field.IDSourceField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetLastCapacity gets LastCapacity, Tag 29
+func (m ExecutionReport) GetLastCapacity() (f field.LastCapacityField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetLastMkt gets LastMkt, Tag 30
+func (m ExecutionReport) GetLastMkt() (f field.LastMktField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetLastPx gets LastPx, Tag 31
+func (m ExecutionReport) GetLastPx() (f field.LastPxField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetLastShares gets LastShares, Tag 32
+func (m ExecutionReport) GetLastShares() (f field.LastSharesField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetOrderID gets OrderID, Tag 37
+func (m ExecutionReport) GetOrderID() (f field.OrderIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetOrderQty gets OrderQty, Tag 38
+func (m ExecutionReport) GetOrderQty() (f field.OrderQtyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetOrdStatus gets OrdStatus, Tag 39
+func (m ExecutionReport) GetOrdStatus() (f field.OrdStatusField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetOrdType gets OrdType, Tag 40
+func (m ExecutionReport) GetOrdType() (f field.OrdTypeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetPrice gets Price, Tag 44
+func (m ExecutionReport) GetPrice() (f field.PriceField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetRule80A gets Rule80A, Tag 47
+func (m ExecutionReport) GetRule80A() (f field.Rule80AField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSecurityID gets SecurityID, Tag 48
+func (m ExecutionReport) GetSecurityID() (f field.SecurityIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSide gets Side, Tag 54
+func (m ExecutionReport) GetSide() (f field.SideField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSymbol gets Symbol, Tag 55
+func (m ExecutionReport) GetSymbol() (f field.SymbolField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetText gets Text, Tag 58
+func (m ExecutionReport) GetText() (f field.TextField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetTimeInForce gets TimeInForce, Tag 59
+func (m ExecutionReport) GetTimeInForce() (f field.TimeInForceField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetTransactTime gets TransactTime, Tag 60
+func (m ExecutionReport) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSettlmntTyp gets SettlmntTyp, Tag 63
+func (m ExecutionReport) GetSettlmntTyp() (f field.SettlmntTypField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetFutSettDate gets FutSettDate, Tag 64
+func (m ExecutionReport) GetFutSettDate() (f field.FutSettDateField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSymbolSfx gets SymbolSfx, Tag 65
+func (m ExecutionReport) GetSymbolSfx() (f field.SymbolSfxField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetListID gets ListID, Tag 66
+func (m ExecutionReport) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetTradeDate gets TradeDate, Tag 75
+func (m ExecutionReport) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetExecBroker gets ExecBroker, Tag 76
+func (m ExecutionReport) GetExecBroker() (f field.ExecBrokerField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetStopPx gets StopPx, Tag 99
+func (m ExecutionReport) GetStopPx() (f field.StopPxField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetOrdRejReason gets OrdRejReason, Tag 103
+func (m ExecutionReport) GetOrdRejReason() (f field.OrdRejReasonField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetIssuer gets Issuer, Tag 106
+func (m ExecutionReport) GetIssuer() (f field.IssuerField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSecurityDesc gets SecurityDesc, Tag 107
+func (m ExecutionReport) GetSecurityDesc() (f field.SecurityDescField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetClientID gets ClientID, Tag 109
+func (m ExecutionReport) GetClientID() (f field.ClientIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetReportToExch gets ReportToExch, Tag 113
+func (m ExecutionReport) GetReportToExch() (f field.ReportToExchField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetNetMoney gets NetMoney, Tag 118
+func (m ExecutionReport) GetNetMoney() (f field.NetMoneyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSettlCurrAmt gets SettlCurrAmt, Tag 119
+func (m ExecutionReport) GetSettlCurrAmt() (f field.SettlCurrAmtField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetSettlCurrency gets SettlCurrency, Tag 120
+func (m ExecutionReport) GetSettlCurrency() (f field.SettlCurrencyField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetExpireTime gets ExpireTime, Tag 126
+func (m ExecutionReport) GetExpireTime() (f field.ExpireTimeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetNoMiscFees gets NoMiscFees, Tag 136
+func (m ExecutionReport) GetNoMiscFees() (NoMiscFeesRepeatingGroup, quickfix.MessageRejectError) {
+	f := NewNoMiscFeesRepeatingGroup()
+	err := m.GetGroup(f)
+	return f, err
+}
+
+//HasAccount returns true if Account is present, Tag 1
+func (m ExecutionReport) HasAccount() bool {
+	return m.Has(tag.Account)
+}
+
+//HasAvgPx returns true if AvgPx is present, Tag 6
+func (m ExecutionReport) HasAvgPx() bool {
+	return m.Has(tag.AvgPx)
+}
+
+//HasClOrdID returns true if ClOrdID is present, Tag 11
+func (m ExecutionReport) HasClOrdID() bool {
+	return m.Has(tag.ClOrdID)
+}
+
+//HasCommission returns true if Commission is present, Tag 12
+func (m ExecutionReport) HasCommission() bool {
+	return m.Has(tag.Commission)
+}
+
+//HasCommType returns true if CommType is present, Tag 13
+func (m ExecutionReport) HasCommType() bool {
+	return m.Has(tag.CommType)
+}
+
+//HasCumQty returns true if CumQty is present, Tag 14
+func (m ExecutionReport) HasCumQty() bool {
+	return m.Has(tag.CumQty)
+}
+
+//HasCurrency returns true if Currency is present, Tag 15
+func (m ExecutionReport) HasCurrency() bool {
+	return m.Has(tag.Currency)
+}
+
+//HasExecID returns true if ExecID is present, Tag 17
+func (m ExecutionReport) HasExecID() bool {
+	return m.Has(tag.ExecID)
+}
+
+//HasExecInst returns true if ExecInst is present, Tag 18
+func (m ExecutionReport) HasExecInst() bool {
+	return m.Has(tag.ExecInst)
+}
+
+//HasExecRefID returns true if ExecRefID is present, Tag 19
+func (m ExecutionReport) HasExecRefID() bool {
+	return m.Has(tag.ExecRefID)
+}
+
+//HasExecTransType returns true if ExecTransType is present, Tag 20
+func (m ExecutionReport) HasExecTransType() bool {
+	return m.Has(tag.ExecTransType)
+}
+
+//HasIDSource returns true if IDSource is present, Tag 22
+func (m ExecutionReport) HasIDSource() bool {
+	return m.Has(tag.IDSource)
+}
+
+//HasLastCapacity returns true if LastCapacity is present, Tag 29
+func (m ExecutionReport) HasLastCapacity() bool {
+	return m.Has(tag.LastCapacity)
+}
+
+//HasLastMkt returns true if LastMkt is present, Tag 30
+func (m ExecutionReport) HasLastMkt() bool {
+	return m.Has(tag.LastMkt)
+}
+
+//HasLastPx returns true if LastPx is present, Tag 31
+func (m ExecutionReport) HasLastPx() bool {
+	return m.Has(tag.LastPx)
+}
+
+//HasLastShares returns true if LastShares is present, Tag 32
+func (m ExecutionReport) HasLastShares() bool {
+	return m.Has(tag.LastShares)
+}
+
+//HasOrderID returns true if OrderID is present, Tag 37
+func (m ExecutionReport) HasOrderID() bool {
+	return m.Has(tag.OrderID)
+}
+
+//HasOrderQty returns true if OrderQty is present, Tag 38
+func (m ExecutionReport) HasOrderQty() bool {
+	return m.Has(tag.OrderQty)
+}
+
+//HasOrdStatus returns true if OrdStatus is present, Tag 39
+func (m ExecutionReport) HasOrdStatus() bool {
+	return m.Has(tag.OrdStatus)
+}
+
+//HasOrdType returns true if OrdType is present, Tag 40
+func (m ExecutionReport) HasOrdType() bool {
+	return m.Has(tag.OrdType)
+}
+
+//HasPrice returns true if Price is present, Tag 44
+func (m ExecutionReport) HasPrice() bool {
+	return m.Has(tag.Price)
+}
+
+//HasRule80A returns true if Rule80A is present, Tag 47
+func (m ExecutionReport) HasRule80A() bool {
+	return m.Has(tag.Rule80A)
+}
+
+//HasSecurityID returns true if SecurityID is present, Tag 48
+func (m ExecutionReport) HasSecurityID() bool {
+	return m.Has(tag.SecurityID)
+}
+
+//HasSide returns true if Side is present, Tag 54
+func (m ExecutionReport) HasSide() bool {
+	return m.Has(tag.Side)
+}
+
+//HasSymbol returns true if Symbol is present, Tag 55
+func (m ExecutionReport) HasSymbol() bool {
+	return m.Has(tag.Symbol)
+}
+
+//HasText returns true if Text is present, Tag 58
+func (m ExecutionReport) HasText() bool {
+	return m.Has(tag.Text)
+}
+
+//HasTimeInForce returns true if TimeInForce is present, Tag 59
+func (m ExecutionReport) HasTimeInForce() bool {
+	return m.Has(tag.TimeInForce)
+}
+
+//HasTransactTime returns true if TransactTime is present, Tag 60
+func (m ExecutionReport) HasTransactTime() bool {
+	return m.Has(tag.TransactTime)
+}
+
+//HasSettlmntTyp returns true if SettlmntTyp is present, Tag 63
+func (m ExecutionReport) HasSettlmntTyp() bool {
+	return m.Has(tag.SettlmntTyp)
+}
+
+//HasFutSettDate returns true if FutSettDate is present, Tag 64
+func (m ExecutionReport) HasFutSettDate() bool {
+	return m.Has(tag.FutSettDate)
+}
+
+//HasSymbolSfx returns true if SymbolSfx is present, Tag 65
+func (m ExecutionReport) HasSymbolSfx() bool {
+	return m.Has(tag.SymbolSfx)
+}
+
+//HasListID returns true if ListID is present, Tag 66
+func (m ExecutionReport) HasListID() bool {
+	return m.Has(tag.ListID)
+}
+
+//HasTradeDate returns true if TradeDate is present, Tag 75
+func (m ExecutionReport) HasTradeDate() bool {
+	return m.Has(tag.TradeDate)
+}
+
+//HasExecBroker returns true if ExecBroker is present, Tag 76
+func (m ExecutionReport) HasExecBroker() bool {
+	return m.Has(tag.ExecBroker)
+}
+
+//HasStopPx returns true if StopPx is present, Tag 99
+func (m ExecutionReport) HasStopPx() bool {
+	return m.Has(tag.StopPx)
+}
+
+//HasOrdRejReason returns true if OrdRejReason is present, Tag 103
+func (m ExecutionReport) HasOrdRejReason() bool {
+	return m.Has(tag.OrdRejReason)
+}
+
+//HasIssuer returns true if Issuer is present, Tag 106
+func (m ExecutionReport) HasIssuer() bool {
+	return m.Has(tag.Issuer)
+}
+
+//HasSecurityDesc returns true if SecurityDesc is present, Tag 107
+func (m ExecutionReport) HasSecurityDesc() bool {
+	return m.Has(tag.SecurityDesc)
+}
+
+//HasClientID returns true if ClientID is present, Tag 109
+func (m ExecutionReport) HasClientID() bool {
+	return m.Has(tag.ClientID)
+}
+
+//HasReportToExch returns true if ReportToExch is present, Tag 113
+func (m ExecutionReport) HasReportToExch() bool {
+	return m.Has(tag.ReportToExch)
+}
+
+//HasNetMoney returns true if NetMoney is present, Tag 118
+func (m ExecutionReport) HasNetMoney() bool {
+	return m.Has(tag.NetMoney)
+}
+
+//HasSettlCurrAmt returns true if SettlCurrAmt is present, Tag 119
+func (m ExecutionReport) HasSettlCurrAmt() bool {
+	return m.Has(tag.SettlCurrAmt)
+}
+
+//HasSettlCurrency returns true if SettlCurrency is present, Tag 120
+func (m ExecutionReport) HasSettlCurrency() bool {
+	return m.Has(tag.SettlCurrency)
+}
+
+//HasExpireTime returns true if ExpireTime is present, Tag 126
+func (m ExecutionReport) HasExpireTime() bool {
+	return m.Has(tag.ExpireTime)
+}
+
+//HasNoMiscFees returns true if NoMiscFees is present, Tag 136
+func (m ExecutionReport) HasNoMiscFees() bool {
+	return m.Has(tag.NoMiscFees)
+}
+
+//NoMiscFees is a repeating group element, Tag 136
+type NoMiscFees struct {
+	quickfix.Group
+}
+
+//SetMiscFeeAmt sets MiscFeeAmt, Tag 137
+func (m NoMiscFees) SetMiscFeeAmt(v float64) {
+	m.Set(field.NewMiscFeeAmt(v))
+}
+
+//SetMiscFeeCurr sets MiscFeeCurr, Tag 138
+func (m NoMiscFees) SetMiscFeeCurr(v string) {
+	m.Set(field.NewMiscFeeCurr(v))
+}
+
+//SetMiscFeeType sets MiscFeeType, Tag 139
+func (m NoMiscFees) SetMiscFeeType(v string) {
+	m.Set(field.NewMiscFeeType(v))
+}
+
+//GetMiscFeeAmt gets MiscFeeAmt, Tag 137
+func (m NoMiscFees) GetMiscFeeAmt() (f field.MiscFeeAmtField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetMiscFeeCurr gets MiscFeeCurr, Tag 138
+func (m NoMiscFees) GetMiscFeeCurr() (f field.MiscFeeCurrField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetMiscFeeType gets MiscFeeType, Tag 139
+func (m NoMiscFees) GetMiscFeeType() (f field.MiscFeeTypeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasMiscFeeAmt returns true if MiscFeeAmt is present, Tag 137
+func (m NoMiscFees) HasMiscFeeAmt() bool {
+	return m.Has(tag.MiscFeeAmt)
+}
+
+//HasMiscFeeCurr returns true if MiscFeeCurr is present, Tag 138
+func (m NoMiscFees) HasMiscFeeCurr() bool {
+	return m.Has(tag.MiscFeeCurr)
+}
+
+//HasMiscFeeType returns true if MiscFeeType is present, Tag 139
+func (m NoMiscFees) HasMiscFeeType() bool {
+	return m.Has(tag.MiscFeeType)
+}
+
+//NoMiscFeesRepeatingGroup is a repeating group, Tag 136
+type NoMiscFeesRepeatingGroup struct {
+	*quickfix.RepeatingGroup
+}
+
+//NewNoMiscFeesRepeatingGroup returns an initialized, NoMiscFeesRepeatingGroup
+func NewNoMiscFeesRepeatingGroup() NoMiscFeesRepeatingGroup {
+	return NoMiscFeesRepeatingGroup{
+		quickfix.NewRepeatingGroup(tag.NoMiscFees,
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.MiscFeeAmt), quickfix.GroupElement(tag.MiscFeeCurr), quickfix.GroupElement(tag.MiscFeeType)})}
+}
+
+//Add create and append a new NoMiscFees to this group
+func (m NoMiscFeesRepeatingGroup) Add() NoMiscFees {
+	g := m.RepeatingGroup.Add()
+	return NoMiscFees{g}
+}
+
+//Get returns the ith NoMiscFees in the NoMiscFeesRepeatinGroup
+func (m NoMiscFeesRepeatingGroup) Get(i int) NoMiscFees {
+	return NoMiscFees{m.RepeatingGroup.Get(i)}
 }

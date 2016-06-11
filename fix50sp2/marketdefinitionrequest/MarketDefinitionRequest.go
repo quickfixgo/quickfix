@@ -1,57 +1,143 @@
-//Package marketdefinitionrequest msg type = BT.
 package marketdefinitionrequest
 
 import (
+	"time"
+
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
+	"github.com/quickfixgo/quickfix/tag"
 )
 
-//Message is a MarketDefinitionRequest FIX Message
-type Message struct {
-	FIXMsgType string `fix:"BT"`
+//MarketDefinitionRequest is the fix50sp2 MarketDefinitionRequest type, MsgType = BT
+type MarketDefinitionRequest struct {
 	fixt11.Header
-	//MarketReqID is a required field for MarketDefinitionRequest.
-	MarketReqID string `fix:"1393"`
-	//SubscriptionRequestType is a required field for MarketDefinitionRequest.
-	SubscriptionRequestType string `fix:"263"`
-	//MarketID is a non-required field for MarketDefinitionRequest.
-	MarketID *string `fix:"1301"`
-	//MarketSegmentID is a non-required field for MarketDefinitionRequest.
-	MarketSegmentID *string `fix:"1300"`
-	//ParentMktSegmID is a non-required field for MarketDefinitionRequest.
-	ParentMktSegmID *string `fix:"1325"`
+	quickfix.Body
 	fixt11.Trailer
+	//ReceiveTime is the time that this message was read from the socket connection
+	ReceiveTime time.Time
 }
 
-//Marshal converts Message to a quickfix.Message instance
-func (m Message) Marshal() quickfix.Message { return quickfix.Marshal(m) }
-
-//New returns an initialized MarketDefinitionRequest instance
-func New(marketreqid string, subscriptionrequesttype string) *Message {
-	var m Message
-	m.SetMarketReqID(marketreqid)
-	m.SetSubscriptionRequestType(subscriptionrequesttype)
-	return &m
+//FromMessage creates a MarketDefinitionRequest from a quickfix.Message instance
+func FromMessage(m quickfix.Message) MarketDefinitionRequest {
+	return MarketDefinitionRequest{
+		Header:      fixt11.Header{Header: m.Header},
+		Body:        m.Body,
+		Trailer:     fixt11.Trailer{Trailer: m.Trailer},
+		ReceiveTime: m.ReceiveTime,
+	}
 }
 
-func (m *Message) SetMarketReqID(v string)             { m.MarketReqID = v }
-func (m *Message) SetSubscriptionRequestType(v string) { m.SubscriptionRequestType = v }
-func (m *Message) SetMarketID(v string)                { m.MarketID = &v }
-func (m *Message) SetMarketSegmentID(v string)         { m.MarketSegmentID = &v }
-func (m *Message) SetParentMktSegmID(v string)         { m.ParentMktSegmID = &v }
+//ToMessage returns a quickfix.Message instance
+func (m MarketDefinitionRequest) ToMessage() quickfix.Message {
+	return quickfix.Message{
+		Header:      m.Header.Header,
+		Body:        m.Body,
+		Trailer:     m.Trailer.Trailer,
+		ReceiveTime: m.ReceiveTime,
+	}
+}
+
+//New returns a MarketDefinitionRequest initialized with the required fields for MarketDefinitionRequest
+func New(marketreqid field.MarketReqIDField, subscriptionrequesttype field.SubscriptionRequestTypeField) (m MarketDefinitionRequest) {
+	m.Header.Init()
+	m.Init()
+	m.Trailer.Init()
+
+	m.Header.Set(field.NewMsgType("BT"))
+	m.Set(marketreqid)
+	m.Set(subscriptionrequesttype)
+
+	return
+}
 
 //A RouteOut is the callback type that should be implemented for routing Message
-type RouteOut func(msg Message, sessionID quickfix.SessionID) quickfix.MessageRejectError
+type RouteOut func(msg MarketDefinitionRequest, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-		m := new(Message)
-		if err := quickfix.Unmarshal(msg, m); err != nil {
-			return err
-		}
-		return router(*m, sessionID)
+		return router(FromMessage(msg), sessionID)
 	}
-	return enum.ApplVerID_FIX50SP2, "BT", r
+	return "9", "BT", r
+}
+
+//SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263
+func (m MarketDefinitionRequest) SetSubscriptionRequestType(v string) {
+	m.Set(field.NewSubscriptionRequestType(v))
+}
+
+//SetMarketSegmentID sets MarketSegmentID, Tag 1300
+func (m MarketDefinitionRequest) SetMarketSegmentID(v string) {
+	m.Set(field.NewMarketSegmentID(v))
+}
+
+//SetMarketID sets MarketID, Tag 1301
+func (m MarketDefinitionRequest) SetMarketID(v string) {
+	m.Set(field.NewMarketID(v))
+}
+
+//SetParentMktSegmID sets ParentMktSegmID, Tag 1325
+func (m MarketDefinitionRequest) SetParentMktSegmID(v string) {
+	m.Set(field.NewParentMktSegmID(v))
+}
+
+//SetMarketReqID sets MarketReqID, Tag 1393
+func (m MarketDefinitionRequest) SetMarketReqID(v string) {
+	m.Set(field.NewMarketReqID(v))
+}
+
+//GetSubscriptionRequestType gets SubscriptionRequestType, Tag 263
+func (m MarketDefinitionRequest) GetSubscriptionRequestType() (f field.SubscriptionRequestTypeField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetMarketSegmentID gets MarketSegmentID, Tag 1300
+func (m MarketDefinitionRequest) GetMarketSegmentID() (f field.MarketSegmentIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetMarketID gets MarketID, Tag 1301
+func (m MarketDefinitionRequest) GetMarketID() (f field.MarketIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetParentMktSegmID gets ParentMktSegmID, Tag 1325
+func (m MarketDefinitionRequest) GetParentMktSegmID() (f field.ParentMktSegmIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//GetMarketReqID gets MarketReqID, Tag 1393
+func (m MarketDefinitionRequest) GetMarketReqID() (f field.MarketReqIDField, err quickfix.MessageRejectError) {
+	err = m.Get(&f)
+	return
+}
+
+//HasSubscriptionRequestType returns true if SubscriptionRequestType is present, Tag 263
+func (m MarketDefinitionRequest) HasSubscriptionRequestType() bool {
+	return m.Has(tag.SubscriptionRequestType)
+}
+
+//HasMarketSegmentID returns true if MarketSegmentID is present, Tag 1300
+func (m MarketDefinitionRequest) HasMarketSegmentID() bool {
+	return m.Has(tag.MarketSegmentID)
+}
+
+//HasMarketID returns true if MarketID is present, Tag 1301
+func (m MarketDefinitionRequest) HasMarketID() bool {
+	return m.Has(tag.MarketID)
+}
+
+//HasParentMktSegmID returns true if ParentMktSegmID is present, Tag 1325
+func (m MarketDefinitionRequest) HasParentMktSegmID() bool {
+	return m.Has(tag.ParentMktSegmID)
+}
+
+//HasMarketReqID returns true if MarketReqID is present, Tag 1393
+func (m MarketDefinitionRequest) HasMarketReqID() bool {
+	return m.Has(tag.MarketReqID)
 }
