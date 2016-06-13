@@ -8,6 +8,7 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"sync"
 	"text/template"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
@@ -21,6 +22,9 @@ var (
 	trailerTemplate  *template.Template
 	messageTemplate  *template.Template
 	globalFieldTypes fieldTypeMap
+
+	waitGroup sync.WaitGroup
+	errors    = make(chan error)
 )
 
 func usage() {
@@ -509,7 +513,8 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	`))
 }
 
-func genHeader(pkg string, spec *datadictionary.DataDictionary) error {
+func genHeader(pkg string, spec *datadictionary.DataDictionary) {
+	defer waitGroup.Done()
 	writer := new(bytes.Buffer)
 	c := component{
 		Package:    pkg,
@@ -517,13 +522,17 @@ func genHeader(pkg string, spec *datadictionary.DataDictionary) error {
 		MessageDef: spec.Header,
 	}
 	if err := headerTemplate.Execute(writer, c); err != nil {
-		return err
+		errors <- err
+		return
 	}
 
-	return gen.WriteFile(path.Join(pkg, "header.go"), writer.String())
+	if err := gen.WriteFile(path.Join(pkg, "header.go"), writer.String()); err != nil {
+		errors <- err
+	}
 }
 
-func genTrailer(pkg string, spec *datadictionary.DataDictionary) error {
+func genTrailer(pkg string, spec *datadictionary.DataDictionary) {
+	defer waitGroup.Done()
 	writer := new(bytes.Buffer)
 	c := component{
 		Package:    pkg,
@@ -531,13 +540,17 @@ func genTrailer(pkg string, spec *datadictionary.DataDictionary) error {
 		MessageDef: spec.Trailer,
 	}
 	if err := trailerTemplate.Execute(writer, c); err != nil {
-		return err
+		errors <- err
+		return
 	}
 
-	return gen.WriteFile(path.Join(pkg, "trailer.go"), writer.String())
+	if err := gen.WriteFile(path.Join(pkg, "trailer.go"), writer.String()); err != nil {
+		errors <- err
+	}
 }
 
-func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadictionary.MessageDef) error {
+func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadictionary.MessageDef) {
+	defer waitGroup.Done()
 	pkgName := strings.ToLower(msg.Name)
 	transportPkg := getTransportPackageName(spec)
 
@@ -552,10 +565,13 @@ func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadic
 	}
 
 	if err := messageTemplate.Execute(writer, c); err != nil {
-		return err
+		errors <- err
+		return
 	}
 
-	return gen.WriteFile(path.Join(fixPkg, pkgName, msg.Name+".go"), writer.String())
+	if err := gen.WriteFile(path.Join(fixPkg, pkgName, msg.Name+".go"), writer.String()); err != nil {
+		errors <- err
+	}
 }
 
 func buildGlobalFieldMap(specs []*datadictionary.DataDictionary) {
@@ -586,7 +602,6 @@ func main() {
 
 	buildGlobalFieldMap(specs)
 
-	var h gen.ErrorHandler
 	for _, spec := range specs {
 		pkg := getPackageName(spec)
 
@@ -602,13 +617,27 @@ func main() {
 		//uses fixt11 header/trailer
 		case "fix50", "fix50sp1", "fix50sp2":
 		default:
-			h.Handle(genHeader(pkg, spec))
-			h.Handle(genTrailer(pkg, spec))
+			waitGroup.Add(1)
+			go genHeader(pkg, spec)
+
+			waitGroup.Add(1)
+			go genTrailer(pkg, spec)
 		}
 
 		for _, m := range spec.Messages {
-			h.Handle(genMessage(pkg, spec, m))
+			waitGroup.Add(1)
+			go genMessage(pkg, spec, m)
 		}
+	}
+
+	go func() {
+		waitGroup.Wait()
+		close(errors)
+	}()
+
+	var h gen.ErrorHandler
+	for err := range errors {
+		h.Handle(err)
 	}
 
 	os.Exit(h.ReturnCode)
