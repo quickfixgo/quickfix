@@ -315,6 +315,7 @@ func (s *session) handleLogon(msg Message) error {
 		switch TypedError := err.(type) {
 		case targetTooHigh:
 			s.doTargetTooHigh(TypedError)
+			return nil
 		}
 	}
 
