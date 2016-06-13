@@ -4,7 +4,7 @@ get:
 	go get -t -d ./...
 
 generate:
-	go run cmd/generate/*.go spec/*.xml
+	go run cmd/generate-fix/generate-fix.go spec/*.xml
 
 fmt:
 	go fmt ./...
