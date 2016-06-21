@@ -397,7 +397,7 @@ type NoPartyIDsRepeatingGroup struct {
 func NewNoPartyIDsRepeatingGroup() NoPartyIDsRepeatingGroup {
 	return NoPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), quickfix.GroupElement(tag.NoPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyIDs to this group
@@ -684,7 +684,7 @@ type NoNestedPartyIDsRepeatingGroup struct {
 func NewNoNestedPartyIDsRepeatingGroup() NoNestedPartyIDsRepeatingGroup {
 	return NoNestedPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoNestedPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.NestedPartyID), quickfix.GroupElement(tag.NestedPartyIDSource), quickfix.GroupElement(tag.NestedPartyRole), quickfix.GroupElement(tag.NoNestedPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.NestedPartyID), quickfix.GroupElement(tag.NestedPartyIDSource), quickfix.GroupElement(tag.NestedPartyRole), NewNoNestedPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoNestedPartyIDs to this group
@@ -707,7 +707,7 @@ type NoRegistDtlsRepeatingGroup struct {
 func NewNoRegistDtlsRepeatingGroup() NoRegistDtlsRepeatingGroup {
 	return NoRegistDtlsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRegistDtls,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RegistDtls), quickfix.GroupElement(tag.RegistEmail), quickfix.GroupElement(tag.MailingDtls), quickfix.GroupElement(tag.MailingInst), quickfix.GroupElement(tag.NoNestedPartyIDs), quickfix.GroupElement(tag.OwnerType), quickfix.GroupElement(tag.DateOfBirth), quickfix.GroupElement(tag.InvestorCountryOfResidence)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RegistDtls), quickfix.GroupElement(tag.RegistEmail), quickfix.GroupElement(tag.MailingDtls), quickfix.GroupElement(tag.MailingInst), NewNoNestedPartyIDsRepeatingGroup(), quickfix.GroupElement(tag.OwnerType), quickfix.GroupElement(tag.DateOfBirth), quickfix.GroupElement(tag.InvestorCountryOfResidence)})}
 }
 
 //Add create and append a new NoRegistDtls to this group

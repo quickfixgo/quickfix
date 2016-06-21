@@ -2995,7 +2995,7 @@ type NoPartyIDsRepeatingGroup struct {
 func NewNoPartyIDsRepeatingGroup() NoPartyIDsRepeatingGroup {
 	return NoPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), quickfix.GroupElement(tag.NoPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyIDs to this group
@@ -3436,7 +3436,7 @@ type NoInstrumentPartiesRepeatingGroup struct {
 func NewNoInstrumentPartiesRepeatingGroup() NoInstrumentPartiesRepeatingGroup {
 	return NoInstrumentPartiesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoInstrumentParties,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.InstrumentPartyID), quickfix.GroupElement(tag.InstrumentPartyIDSource), quickfix.GroupElement(tag.InstrumentPartyRole), quickfix.GroupElement(tag.NoInstrumentPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.InstrumentPartyID), quickfix.GroupElement(tag.InstrumentPartyIDSource), quickfix.GroupElement(tag.InstrumentPartyRole), NewNoInstrumentPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoInstrumentParties to this group
@@ -3589,7 +3589,7 @@ type NoUndlyInstrumentPartiesRepeatingGroup struct {
 func NewNoUndlyInstrumentPartiesRepeatingGroup() NoUndlyInstrumentPartiesRepeatingGroup {
 	return NoUndlyInstrumentPartiesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUndlyInstrumentParties,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingInstrumentPartyID), quickfix.GroupElement(tag.UnderlyingInstrumentPartyIDSource), quickfix.GroupElement(tag.UnderlyingInstrumentPartyRole), quickfix.GroupElement(tag.NoUndlyInstrumentPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingInstrumentPartyID), quickfix.GroupElement(tag.UnderlyingInstrumentPartyIDSource), quickfix.GroupElement(tag.UnderlyingInstrumentPartyRole), NewNoUndlyInstrumentPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoUndlyInstrumentParties to this group
@@ -3936,7 +3936,7 @@ type NoComplexEventDatesRepeatingGroup struct {
 func NewNoComplexEventDatesRepeatingGroup() NoComplexEventDatesRepeatingGroup {
 	return NoComplexEventDatesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoComplexEventDates,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.ComplexEventStartDate), quickfix.GroupElement(tag.ComplexEventEndDate), quickfix.GroupElement(tag.NoComplexEventTimes)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.ComplexEventStartDate), quickfix.GroupElement(tag.ComplexEventEndDate), NewNoComplexEventTimesRepeatingGroup()})}
 }
 
 //Add create and append a new NoComplexEventDates to this group
@@ -3959,7 +3959,7 @@ type NoComplexEventsRepeatingGroup struct {
 func NewNoComplexEventsRepeatingGroup() NoComplexEventsRepeatingGroup {
 	return NoComplexEventsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoComplexEvents,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.ComplexEventType), quickfix.GroupElement(tag.ComplexOptPayoutAmount), quickfix.GroupElement(tag.ComplexEventPrice), quickfix.GroupElement(tag.ComplexEventPriceBoundaryMethod), quickfix.GroupElement(tag.ComplexEventPriceBoundaryPrecision), quickfix.GroupElement(tag.ComplexEventPriceTimeType), quickfix.GroupElement(tag.ComplexEventCondition), quickfix.GroupElement(tag.NoComplexEventDates)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.ComplexEventType), quickfix.GroupElement(tag.ComplexOptPayoutAmount), quickfix.GroupElement(tag.ComplexEventPrice), quickfix.GroupElement(tag.ComplexEventPriceBoundaryMethod), quickfix.GroupElement(tag.ComplexEventPriceBoundaryPrecision), quickfix.GroupElement(tag.ComplexEventPriceTimeType), quickfix.GroupElement(tag.ComplexEventCondition), NewNoComplexEventDatesRepeatingGroup()})}
 }
 
 //Add create and append a new NoComplexEvents to this group

@@ -786,7 +786,7 @@ type NoPartyIDsRepeatingGroup struct {
 func NewNoPartyIDsRepeatingGroup() NoPartyIDsRepeatingGroup {
 	return NoPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), quickfix.GroupElement(tag.NoPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyIDs to this group
@@ -993,7 +993,7 @@ type NoSettlPartyIDsRepeatingGroup struct {
 func NewNoSettlPartyIDsRepeatingGroup() NoSettlPartyIDsRepeatingGroup {
 	return NoSettlPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoSettlPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.SettlPartyID), quickfix.GroupElement(tag.SettlPartyIDSource), quickfix.GroupElement(tag.SettlPartyRole), quickfix.GroupElement(tag.NoSettlPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.SettlPartyID), quickfix.GroupElement(tag.SettlPartyIDSource), quickfix.GroupElement(tag.SettlPartyRole), NewNoSettlPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoSettlPartyIDs to this group
@@ -1016,7 +1016,7 @@ type NoDlvyInstRepeatingGroup struct {
 func NewNoDlvyInstRepeatingGroup() NoDlvyInstRepeatingGroup {
 	return NoDlvyInstRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoDlvyInst,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.SettlInstSource), quickfix.GroupElement(tag.DlvyInstType), quickfix.GroupElement(tag.NoSettlPartyIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.SettlInstSource), quickfix.GroupElement(tag.DlvyInstType), NewNoSettlPartyIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoDlvyInst to this group
@@ -1039,7 +1039,7 @@ type NoSettlInstRepeatingGroup struct {
 func NewNoSettlInstRepeatingGroup() NoSettlInstRepeatingGroup {
 	return NoSettlInstRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoSettlInst,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.SettlInstID), quickfix.GroupElement(tag.SettlInstTransType), quickfix.GroupElement(tag.SettlInstRefID), quickfix.GroupElement(tag.NoPartyIDs), quickfix.GroupElement(tag.Side), quickfix.GroupElement(tag.Product), quickfix.GroupElement(tag.SecurityType), quickfix.GroupElement(tag.CFICode), quickfix.GroupElement(tag.EffectiveTime), quickfix.GroupElement(tag.ExpireTime), quickfix.GroupElement(tag.LastUpdateTime), quickfix.GroupElement(tag.SettlDeliveryType), quickfix.GroupElement(tag.StandInstDbType), quickfix.GroupElement(tag.StandInstDbName), quickfix.GroupElement(tag.StandInstDbID), quickfix.GroupElement(tag.NoDlvyInst), quickfix.GroupElement(tag.PaymentMethod), quickfix.GroupElement(tag.PaymentRef), quickfix.GroupElement(tag.CardHolderName), quickfix.GroupElement(tag.CardNumber), quickfix.GroupElement(tag.CardStartDate), quickfix.GroupElement(tag.CardExpDate), quickfix.GroupElement(tag.CardIssNum), quickfix.GroupElement(tag.PaymentDate), quickfix.GroupElement(tag.PaymentRemitterID), quickfix.GroupElement(tag.SettlCurrency)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.SettlInstID), quickfix.GroupElement(tag.SettlInstTransType), quickfix.GroupElement(tag.SettlInstRefID), NewNoPartyIDsRepeatingGroup(), quickfix.GroupElement(tag.Side), quickfix.GroupElement(tag.Product), quickfix.GroupElement(tag.SecurityType), quickfix.GroupElement(tag.CFICode), quickfix.GroupElement(tag.EffectiveTime), quickfix.GroupElement(tag.ExpireTime), quickfix.GroupElement(tag.LastUpdateTime), quickfix.GroupElement(tag.SettlDeliveryType), quickfix.GroupElement(tag.StandInstDbType), quickfix.GroupElement(tag.StandInstDbName), quickfix.GroupElement(tag.StandInstDbID), NewNoDlvyInstRepeatingGroup(), quickfix.GroupElement(tag.PaymentMethod), quickfix.GroupElement(tag.PaymentRef), quickfix.GroupElement(tag.CardHolderName), quickfix.GroupElement(tag.CardNumber), quickfix.GroupElement(tag.CardStartDate), quickfix.GroupElement(tag.CardExpDate), quickfix.GroupElement(tag.CardIssNum), quickfix.GroupElement(tag.PaymentDate), quickfix.GroupElement(tag.PaymentRemitterID), quickfix.GroupElement(tag.SettlCurrency)})}
 }
 
 //Add create and append a new NoSettlInst to this group

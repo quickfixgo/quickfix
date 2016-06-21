@@ -81,7 +81,7 @@ func ({{ template "receiver" }} {{ $.Name }}) Has{{ .Name}}() bool {
 
 {{ define "group_template" }}
 quickfix.GroupTemplate{
-{{- range $index, $field := . }}{{if $index}},{{end}}quickfix.GroupElement(tag.{{$field.Name}}){{ end }} }
+{{- range $index, $field := . }}{{if $index}},{{end}}{{if $field.IsGroup }}New{{ $field.Name }}RepeatingGroup(){{else}}quickfix.GroupElement(tag.{{$field.Name}}){{ end }}{{ end }} }
 {{- end }}
 
 {{ define "field_args" }}

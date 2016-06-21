@@ -330,7 +330,7 @@ type NoPartyIDsRepeatingGroup struct {
 func NewNoPartyIDsRepeatingGroup() NoPartyIDsRepeatingGroup {
 	return NoPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), quickfix.GroupElement(tag.NoPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyIDs to this group

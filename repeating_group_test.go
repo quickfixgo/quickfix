@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -191,6 +192,23 @@ func TestRepeatingGroup_Read(t *testing.T) {
 			}
 		}
 	}
+}
+
+func TestRepeatingGroup_ReadRecursive(t *testing.T) {
+	singleFieldTemplate := GroupTemplate{GroupElement(4)}
+	parentTemplate := GroupTemplate{GroupElement(2), NewRepeatingGroup(Tag(3), singleFieldTemplate), GroupElement(5)}
+
+	f := NewRepeatingGroup(Tag(1), parentTemplate)
+	_, err := f.Read(TagValues{
+		TagValue{value: []byte("2")},
+		TagValue{tag: Tag(2), value: []byte("hello")},
+		TagValue{tag: 3, value: []byte("1")}, TagValue{tag: 4, value: []byte("foo")},
+		TagValue{tag: Tag(2), value: []byte("world")},
+		TagValue{tag: 3, value: []byte("2")}, TagValue{tag: 4, value: []byte("foo")}, TagValue{tag: 4, value: []byte("bar")}, TagValue{tag: 5, value: []byte("fubar")},
+	})
+	require.Nil(t, err)
+
+	assert.Equal(t, 2, f.Len())
 }
 
 func TestRepeatingGroup_ReadComplete(t *testing.T) {

@@ -362,7 +362,7 @@ type NoPartyIDsRepeatingGroup struct {
 func NewNoPartyIDsRepeatingGroup() NoPartyIDsRepeatingGroup {
 	return NoPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), quickfix.GroupElement(tag.NoPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyIDs to this group
@@ -633,7 +633,7 @@ type NoNestedPartyIDsRepeatingGroup struct {
 func NewNoNestedPartyIDsRepeatingGroup() NoNestedPartyIDsRepeatingGroup {
 	return NoNestedPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoNestedPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.NestedPartyID), quickfix.GroupElement(tag.NestedPartyIDSource), quickfix.GroupElement(tag.NestedPartyRole), quickfix.GroupElement(tag.NoNestedPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.NestedPartyID), quickfix.GroupElement(tag.NestedPartyIDSource), quickfix.GroupElement(tag.NestedPartyRole), NewNoNestedPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoNestedPartyIDs to this group
@@ -656,7 +656,7 @@ type NoApplIDsRepeatingGroup struct {
 func NewNoApplIDsRepeatingGroup() NoApplIDsRepeatingGroup {
 	return NoApplIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoApplIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RefApplID), quickfix.GroupElement(tag.ApplBegSeqNum), quickfix.GroupElement(tag.ApplEndSeqNum), quickfix.GroupElement(tag.RefApplLastSeqNum), quickfix.GroupElement(tag.ApplResponseError), quickfix.GroupElement(tag.NoNestedPartyIDs), quickfix.GroupElement(tag.RefApplReqID)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RefApplID), quickfix.GroupElement(tag.ApplBegSeqNum), quickfix.GroupElement(tag.ApplEndSeqNum), quickfix.GroupElement(tag.RefApplLastSeqNum), quickfix.GroupElement(tag.ApplResponseError), NewNoNestedPartyIDsRepeatingGroup(), quickfix.GroupElement(tag.RefApplReqID)})}
 }
 
 //Add create and append a new NoApplIDs to this group

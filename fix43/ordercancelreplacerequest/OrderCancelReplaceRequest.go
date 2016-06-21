@@ -2065,7 +2065,7 @@ type NoAllocsRepeatingGroup struct {
 func NewNoAllocsRepeatingGroup() NoAllocsRepeatingGroup {
 	return NoAllocsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoAllocs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.AllocAccount), quickfix.GroupElement(tag.IndividualAllocID), quickfix.GroupElement(tag.NoNestedPartyIDs), quickfix.GroupElement(tag.AllocQty)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.AllocAccount), quickfix.GroupElement(tag.IndividualAllocID), NewNoNestedPartyIDsRepeatingGroup(), quickfix.GroupElement(tag.AllocQty)})}
 }
 
 //Add create and append a new NoAllocs to this group
