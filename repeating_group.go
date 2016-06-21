@@ -18,6 +18,9 @@ type GroupItem interface {
 	//The Read function returns the remaining tagValues not processed by the GroupItem. If there was a
 	//problem reading the field, an error may be returned
 	Read(TagValues) (TagValues, error)
+
+	//Clone makes a copy of this GroupItem
+	Clone() GroupItem
 }
 
 type protoGroupElement struct {
@@ -33,6 +36,8 @@ func (t protoGroupElement) Read(tv TagValues) (TagValues, error) {
 	return tv, nil
 }
 
+func (t protoGroupElement) Clone() GroupItem { return t }
+
 //GroupElement returns a GroupItem made up of a single field
 func GroupElement(tag Tag) GroupItem {
 	return protoGroupElement{tag: tag}
@@ -40,6 +45,16 @@ func GroupElement(tag Tag) GroupItem {
 
 //GroupTemplate specifies the group item order for a RepeatingGroup
 type GroupTemplate []GroupItem
+
+//Clone makes a copy of this GroupTemplate
+func (gt GroupTemplate) Clone() GroupTemplate {
+	clone := make(GroupTemplate, len(gt))
+	for i := range gt {
+		clone[i] = gt[i].Clone()
+	}
+
+	return clone
+}
 
 //Group is a group of fields occuring in a repeating group
 type Group struct{ FieldMap }
@@ -62,6 +77,14 @@ func NewRepeatingGroup(tag Tag, template GroupTemplate) *RepeatingGroup {
 //Tag returns the Tag for this repeating Group
 func (f RepeatingGroup) Tag() Tag {
 	return f.tag
+}
+
+//Clone makes a copy of this RepeatingGroup (tag, template)
+func (f RepeatingGroup) Clone() GroupItem {
+	return &RepeatingGroup{
+		tag:      f.tag,
+		template: f.template.Clone(),
+	}
 }
 
 //Len returns the number of Groups in this RepeatingGroup
@@ -106,7 +129,7 @@ func (f RepeatingGroup) findItemInGroupTemplate(t Tag) (item GroupItem, ok bool)
 	for _, templateField := range f.template {
 		if t == templateField.Tag() {
 			ok = true
-			item = templateField
+			item = templateField.Clone()
 			break
 		}
 	}
