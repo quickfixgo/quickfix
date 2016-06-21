@@ -769,7 +769,7 @@ type NoNestedPartyIDsRepeatingGroup struct {
 func NewNoNestedPartyIDsRepeatingGroup() NoNestedPartyIDsRepeatingGroup {
 	return NoNestedPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoNestedPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.NestedPartyID), quickfix.GroupElement(tag.NestedPartyIDSource), quickfix.GroupElement(tag.NestedPartyRole), quickfix.GroupElement(tag.NoNestedPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.NestedPartyID), quickfix.GroupElement(tag.NestedPartyIDSource), quickfix.GroupElement(tag.NestedPartyRole), NewNoNestedPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoNestedPartyIDs to this group
@@ -792,7 +792,7 @@ type NoAllocsRepeatingGroup struct {
 func NewNoAllocsRepeatingGroup() NoAllocsRepeatingGroup {
 	return NoAllocsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoAllocs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.AllocAccount), quickfix.GroupElement(tag.AllocAcctIDSource), quickfix.GroupElement(tag.AllocPrice), quickfix.GroupElement(tag.IndividualAllocID), quickfix.GroupElement(tag.IndividualAllocRejCode), quickfix.GroupElement(tag.AllocText), quickfix.GroupElement(tag.EncodedAllocTextLen), quickfix.GroupElement(tag.EncodedAllocText), quickfix.GroupElement(tag.SecondaryIndividualAllocID), quickfix.GroupElement(tag.AllocCustomerCapacity), quickfix.GroupElement(tag.IndividualAllocType), quickfix.GroupElement(tag.AllocQty), quickfix.GroupElement(tag.NoNestedPartyIDs), quickfix.GroupElement(tag.AllocPositionEffect)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.AllocAccount), quickfix.GroupElement(tag.AllocAcctIDSource), quickfix.GroupElement(tag.AllocPrice), quickfix.GroupElement(tag.IndividualAllocID), quickfix.GroupElement(tag.IndividualAllocRejCode), quickfix.GroupElement(tag.AllocText), quickfix.GroupElement(tag.EncodedAllocTextLen), quickfix.GroupElement(tag.EncodedAllocText), quickfix.GroupElement(tag.SecondaryIndividualAllocID), quickfix.GroupElement(tag.AllocCustomerCapacity), quickfix.GroupElement(tag.IndividualAllocType), quickfix.GroupElement(tag.AllocQty), NewNoNestedPartyIDsRepeatingGroup(), quickfix.GroupElement(tag.AllocPositionEffect)})}
 }
 
 //Add create and append a new NoAllocs to this group
@@ -945,7 +945,7 @@ type NoPartyIDsRepeatingGroup struct {
 func NewNoPartyIDsRepeatingGroup() NoPartyIDsRepeatingGroup {
 	return NoPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), quickfix.GroupElement(tag.NoPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyIDs to this group

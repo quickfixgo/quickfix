@@ -591,7 +591,7 @@ type NoPartyAltIDsRepeatingGroup struct {
 func NewNoPartyAltIDsRepeatingGroup() NoPartyAltIDsRepeatingGroup {
 	return NoPartyAltIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyAltIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyAltID), quickfix.GroupElement(tag.PartyAltIDSource), quickfix.GroupElement(tag.NoPartyAltSubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyAltID), quickfix.GroupElement(tag.PartyAltIDSource), NewNoPartyAltSubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyAltIDs to this group
@@ -744,7 +744,7 @@ type NoContextPartyIDsRepeatingGroup struct {
 func NewNoContextPartyIDsRepeatingGroup() NoContextPartyIDsRepeatingGroup {
 	return NoContextPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoContextPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.ContextPartyID), quickfix.GroupElement(tag.ContextPartyIDSource), quickfix.GroupElement(tag.ContextPartyRole), quickfix.GroupElement(tag.NoContextPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.ContextPartyID), quickfix.GroupElement(tag.ContextPartyIDSource), quickfix.GroupElement(tag.ContextPartyRole), NewNoContextPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoContextPartyIDs to this group
@@ -1336,7 +1336,7 @@ type NoRiskInstrumentsRepeatingGroup struct {
 func NewNoRiskInstrumentsRepeatingGroup() NoRiskInstrumentsRepeatingGroup {
 	return NoRiskInstrumentsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRiskInstruments,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RiskInstrumentOperator), quickfix.GroupElement(tag.RiskSymbol), quickfix.GroupElement(tag.RiskSymbolSfx), quickfix.GroupElement(tag.RiskSecurityID), quickfix.GroupElement(tag.RiskSecurityIDSource), quickfix.GroupElement(tag.NoRiskSecurityAltID), quickfix.GroupElement(tag.RiskProduct), quickfix.GroupElement(tag.RiskProductComplex), quickfix.GroupElement(tag.RiskSecurityGroup), quickfix.GroupElement(tag.RiskCFICode), quickfix.GroupElement(tag.RiskSecurityType), quickfix.GroupElement(tag.RiskSecuritySubType), quickfix.GroupElement(tag.RiskMaturityMonthYear), quickfix.GroupElement(tag.RiskMaturityTime), quickfix.GroupElement(tag.RiskRestructuringType), quickfix.GroupElement(tag.RiskSeniority), quickfix.GroupElement(tag.RiskPutOrCall), quickfix.GroupElement(tag.RiskFlexibleIndicator), quickfix.GroupElement(tag.RiskCouponRate), quickfix.GroupElement(tag.RiskSecurityExchange), quickfix.GroupElement(tag.RiskSecurityDesc), quickfix.GroupElement(tag.RiskEncodedSecurityDescLen), quickfix.GroupElement(tag.RiskEncodedSecurityDesc), quickfix.GroupElement(tag.RiskInstrumentSettlType), quickfix.GroupElement(tag.RiskInstrumentMultiplier)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RiskInstrumentOperator), quickfix.GroupElement(tag.RiskSymbol), quickfix.GroupElement(tag.RiskSymbolSfx), quickfix.GroupElement(tag.RiskSecurityID), quickfix.GroupElement(tag.RiskSecurityIDSource), NewNoRiskSecurityAltIDRepeatingGroup(), quickfix.GroupElement(tag.RiskProduct), quickfix.GroupElement(tag.RiskProductComplex), quickfix.GroupElement(tag.RiskSecurityGroup), quickfix.GroupElement(tag.RiskCFICode), quickfix.GroupElement(tag.RiskSecurityType), quickfix.GroupElement(tag.RiskSecuritySubType), quickfix.GroupElement(tag.RiskMaturityMonthYear), quickfix.GroupElement(tag.RiskMaturityTime), quickfix.GroupElement(tag.RiskRestructuringType), quickfix.GroupElement(tag.RiskSeniority), quickfix.GroupElement(tag.RiskPutOrCall), quickfix.GroupElement(tag.RiskFlexibleIndicator), quickfix.GroupElement(tag.RiskCouponRate), quickfix.GroupElement(tag.RiskSecurityExchange), quickfix.GroupElement(tag.RiskSecurityDesc), quickfix.GroupElement(tag.RiskEncodedSecurityDescLen), quickfix.GroupElement(tag.RiskEncodedSecurityDesc), quickfix.GroupElement(tag.RiskInstrumentSettlType), quickfix.GroupElement(tag.RiskInstrumentMultiplier)})}
 }
 
 //Add create and append a new NoRiskInstruments to this group
@@ -1419,7 +1419,7 @@ type NoRiskLimitsRepeatingGroup struct {
 func NewNoRiskLimitsRepeatingGroup() NoRiskLimitsRepeatingGroup {
 	return NoRiskLimitsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRiskLimits,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RiskLimitType), quickfix.GroupElement(tag.RiskLimitAmount), quickfix.GroupElement(tag.RiskLimitCurrency), quickfix.GroupElement(tag.RiskLimitPlatform), quickfix.GroupElement(tag.NoRiskInstruments), quickfix.GroupElement(tag.NoRiskWarningLevels)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RiskLimitType), quickfix.GroupElement(tag.RiskLimitAmount), quickfix.GroupElement(tag.RiskLimitCurrency), quickfix.GroupElement(tag.RiskLimitPlatform), NewNoRiskInstrumentsRepeatingGroup(), NewNoRiskWarningLevelsRepeatingGroup()})}
 }
 
 //Add create and append a new NoRiskLimits to this group
@@ -1754,7 +1754,7 @@ type NoRelatedPartyAltIDsRepeatingGroup struct {
 func NewNoRelatedPartyAltIDsRepeatingGroup() NoRelatedPartyAltIDsRepeatingGroup {
 	return NoRelatedPartyAltIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRelatedPartyAltIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelatedPartyAltID), quickfix.GroupElement(tag.RelatedPartyAltIDSource), quickfix.GroupElement(tag.NoRelatedPartyAltSubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelatedPartyAltID), quickfix.GroupElement(tag.RelatedPartyAltIDSource), NewNoRelatedPartyAltSubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoRelatedPartyAltIDs to this group
@@ -1907,7 +1907,7 @@ type NoRelatedContextPartyIDsRepeatingGroup struct {
 func NewNoRelatedContextPartyIDsRepeatingGroup() NoRelatedContextPartyIDsRepeatingGroup {
 	return NoRelatedContextPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRelatedContextPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelatedContextPartyID), quickfix.GroupElement(tag.RelatedContextPartyIDSource), quickfix.GroupElement(tag.RelatedContextPartyRole), quickfix.GroupElement(tag.NoRelatedContextPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelatedContextPartyID), quickfix.GroupElement(tag.RelatedContextPartyIDSource), quickfix.GroupElement(tag.RelatedContextPartyRole), NewNoRelatedContextPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoRelatedContextPartyIDs to this group
@@ -2499,7 +2499,7 @@ type NoRelationshipRiskInstrumentsRepeatingGroup struct {
 func NewNoRelationshipRiskInstrumentsRepeatingGroup() NoRelationshipRiskInstrumentsRepeatingGroup {
 	return NoRelationshipRiskInstrumentsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRelationshipRiskInstruments,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelationshipRiskInstrumentOperator), quickfix.GroupElement(tag.RelationshipRiskSymbol), quickfix.GroupElement(tag.RelationshipRiskSymbolSfx), quickfix.GroupElement(tag.RelationshipRiskSecurityID), quickfix.GroupElement(tag.RelationshipRiskSecurityIDSource), quickfix.GroupElement(tag.NoRelationshipRiskSecurityAltID), quickfix.GroupElement(tag.RelationshipRiskProduct), quickfix.GroupElement(tag.RelationshipRiskProductComplex), quickfix.GroupElement(tag.RelationshipRiskSecurityGroup), quickfix.GroupElement(tag.RelationshipRiskCFICode), quickfix.GroupElement(tag.RelationshipRiskSecurityType), quickfix.GroupElement(tag.RelationshipRiskSecuritySubType), quickfix.GroupElement(tag.RelationshipRiskMaturityMonthYear), quickfix.GroupElement(tag.RelationshipRiskMaturityTime), quickfix.GroupElement(tag.RelationshipRiskRestructuringType), quickfix.GroupElement(tag.RelationshipRiskSeniority), quickfix.GroupElement(tag.RelationshipRiskPutOrCall), quickfix.GroupElement(tag.RelationshipRiskFlexibleIndicator), quickfix.GroupElement(tag.RelationshipRiskCouponRate), quickfix.GroupElement(tag.RelationshipRiskSecurityExchange), quickfix.GroupElement(tag.RelationshipRiskSecurityDesc), quickfix.GroupElement(tag.RelationshipRiskEncodedSecurityDescLen), quickfix.GroupElement(tag.RelationshipRiskEncodedSecurityDesc), quickfix.GroupElement(tag.RelationshipRiskInstrumentSettlType), quickfix.GroupElement(tag.RelationshipRiskInstrumentMultiplier)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelationshipRiskInstrumentOperator), quickfix.GroupElement(tag.RelationshipRiskSymbol), quickfix.GroupElement(tag.RelationshipRiskSymbolSfx), quickfix.GroupElement(tag.RelationshipRiskSecurityID), quickfix.GroupElement(tag.RelationshipRiskSecurityIDSource), NewNoRelationshipRiskSecurityAltIDRepeatingGroup(), quickfix.GroupElement(tag.RelationshipRiskProduct), quickfix.GroupElement(tag.RelationshipRiskProductComplex), quickfix.GroupElement(tag.RelationshipRiskSecurityGroup), quickfix.GroupElement(tag.RelationshipRiskCFICode), quickfix.GroupElement(tag.RelationshipRiskSecurityType), quickfix.GroupElement(tag.RelationshipRiskSecuritySubType), quickfix.GroupElement(tag.RelationshipRiskMaturityMonthYear), quickfix.GroupElement(tag.RelationshipRiskMaturityTime), quickfix.GroupElement(tag.RelationshipRiskRestructuringType), quickfix.GroupElement(tag.RelationshipRiskSeniority), quickfix.GroupElement(tag.RelationshipRiskPutOrCall), quickfix.GroupElement(tag.RelationshipRiskFlexibleIndicator), quickfix.GroupElement(tag.RelationshipRiskCouponRate), quickfix.GroupElement(tag.RelationshipRiskSecurityExchange), quickfix.GroupElement(tag.RelationshipRiskSecurityDesc), quickfix.GroupElement(tag.RelationshipRiskEncodedSecurityDescLen), quickfix.GroupElement(tag.RelationshipRiskEncodedSecurityDesc), quickfix.GroupElement(tag.RelationshipRiskInstrumentSettlType), quickfix.GroupElement(tag.RelationshipRiskInstrumentMultiplier)})}
 }
 
 //Add create and append a new NoRelationshipRiskInstruments to this group
@@ -2582,7 +2582,7 @@ type NoRelationshipRiskLimitsRepeatingGroup struct {
 func NewNoRelationshipRiskLimitsRepeatingGroup() NoRelationshipRiskLimitsRepeatingGroup {
 	return NoRelationshipRiskLimitsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRelationshipRiskLimits,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelationshipRiskLimitType), quickfix.GroupElement(tag.RelationshipRiskLimitAmount), quickfix.GroupElement(tag.RelationshipRiskLimitCurrency), quickfix.GroupElement(tag.RelationshipRiskLimitPlatform), quickfix.GroupElement(tag.NoRelationshipRiskInstruments), quickfix.GroupElement(tag.NoRelationshipRiskWarningLevels)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelationshipRiskLimitType), quickfix.GroupElement(tag.RelationshipRiskLimitAmount), quickfix.GroupElement(tag.RelationshipRiskLimitCurrency), quickfix.GroupElement(tag.RelationshipRiskLimitPlatform), NewNoRelationshipRiskInstrumentsRepeatingGroup(), NewNoRelationshipRiskWarningLevelsRepeatingGroup()})}
 }
 
 //Add create and append a new NoRelationshipRiskLimits to this group
@@ -2649,7 +2649,7 @@ type NoRelatedPartyIDsRepeatingGroup struct {
 func NewNoRelatedPartyIDsRepeatingGroup() NoRelatedPartyIDsRepeatingGroup {
 	return NoRelatedPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRelatedPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelatedPartyID), quickfix.GroupElement(tag.RelatedPartyIDSource), quickfix.GroupElement(tag.RelatedPartyRole), quickfix.GroupElement(tag.NoRelatedPartySubIDs), quickfix.GroupElement(tag.NoRelatedPartyAltIDs), quickfix.GroupElement(tag.NoRelatedContextPartyIDs), quickfix.GroupElement(tag.NoRelationshipRiskLimits), quickfix.GroupElement(tag.NoPartyRelationships)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RelatedPartyID), quickfix.GroupElement(tag.RelatedPartyIDSource), quickfix.GroupElement(tag.RelatedPartyRole), NewNoRelatedPartySubIDsRepeatingGroup(), NewNoRelatedPartyAltIDsRepeatingGroup(), NewNoRelatedContextPartyIDsRepeatingGroup(), NewNoRelationshipRiskLimitsRepeatingGroup(), NewNoPartyRelationshipsRepeatingGroup()})}
 }
 
 //Add create and append a new NoRelatedPartyIDs to this group
@@ -2672,7 +2672,7 @@ type NoPartyListRepeatingGroup struct {
 func NewNoPartyListRepeatingGroup() NoPartyListRepeatingGroup {
 	return NoPartyListRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyList,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), quickfix.GroupElement(tag.NoPartySubIDs), quickfix.GroupElement(tag.NoPartyAltIDs), quickfix.GroupElement(tag.NoContextPartyIDs), quickfix.GroupElement(tag.NoRiskLimits), quickfix.GroupElement(tag.NoRelatedPartyIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup(), NewNoPartyAltIDsRepeatingGroup(), NewNoContextPartyIDsRepeatingGroup(), NewNoRiskLimitsRepeatingGroup(), NewNoRelatedPartyIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyList to this group

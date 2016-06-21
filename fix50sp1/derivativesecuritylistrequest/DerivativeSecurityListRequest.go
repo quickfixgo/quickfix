@@ -2503,7 +2503,7 @@ type NoUndlyInstrumentPartiesRepeatingGroup struct {
 func NewNoUndlyInstrumentPartiesRepeatingGroup() NoUndlyInstrumentPartiesRepeatingGroup {
 	return NoUndlyInstrumentPartiesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUndlyInstrumentParties,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UndlyInstrumentPartyID), quickfix.GroupElement(tag.UndlyInstrumentPartyIDSource), quickfix.GroupElement(tag.UndlyInstrumentPartyRole), quickfix.GroupElement(tag.NoUndlyInstrumentPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UndlyInstrumentPartyID), quickfix.GroupElement(tag.UndlyInstrumentPartyIDSource), quickfix.GroupElement(tag.UndlyInstrumentPartyRole), NewNoUndlyInstrumentPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoUndlyInstrumentParties to this group
@@ -2824,7 +2824,7 @@ type NoDerivativeInstrumentPartiesRepeatingGroup struct {
 func NewNoDerivativeInstrumentPartiesRepeatingGroup() NoDerivativeInstrumentPartiesRepeatingGroup {
 	return NoDerivativeInstrumentPartiesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoDerivativeInstrumentParties,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.DerivativeInstrumentPartyID), quickfix.GroupElement(tag.DerivativeInstrumentPartyIDSource), quickfix.GroupElement(tag.DerivativeInstrumentPartyRole), quickfix.GroupElement(tag.NoDerivativeInstrumentPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.DerivativeInstrumentPartyID), quickfix.GroupElement(tag.DerivativeInstrumentPartyIDSource), quickfix.GroupElement(tag.DerivativeInstrumentPartyRole), NewNoDerivativeInstrumentPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoDerivativeInstrumentParties to this group

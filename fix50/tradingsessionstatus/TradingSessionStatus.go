@@ -1492,7 +1492,7 @@ type NoInstrumentPartiesRepeatingGroup struct {
 func NewNoInstrumentPartiesRepeatingGroup() NoInstrumentPartiesRepeatingGroup {
 	return NoInstrumentPartiesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoInstrumentParties,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.InstrumentPartyID), quickfix.GroupElement(tag.InstrumentPartyIDSource), quickfix.GroupElement(tag.InstrumentPartyRole), quickfix.GroupElement(tag.NoInstrumentPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.InstrumentPartyID), quickfix.GroupElement(tag.InstrumentPartyIDSource), quickfix.GroupElement(tag.InstrumentPartyRole), NewNoInstrumentPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoInstrumentParties to this group

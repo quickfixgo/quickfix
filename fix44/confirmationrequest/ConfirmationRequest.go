@@ -561,7 +561,7 @@ type NoNested2PartyIDsRepeatingGroup struct {
 func NewNoNested2PartyIDsRepeatingGroup() NoNested2PartyIDsRepeatingGroup {
 	return NoNested2PartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoNested2PartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.Nested2PartyID), quickfix.GroupElement(tag.Nested2PartyIDSource), quickfix.GroupElement(tag.Nested2PartyRole), quickfix.GroupElement(tag.NoNested2PartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.Nested2PartyID), quickfix.GroupElement(tag.Nested2PartyIDSource), quickfix.GroupElement(tag.Nested2PartyRole), NewNoNested2PartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoNested2PartyIDs to this group
@@ -584,7 +584,7 @@ type NoOrdersRepeatingGroup struct {
 func NewNoOrdersRepeatingGroup() NoOrdersRepeatingGroup {
 	return NoOrdersRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoOrders,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.ClOrdID), quickfix.GroupElement(tag.OrderID), quickfix.GroupElement(tag.SecondaryOrderID), quickfix.GroupElement(tag.SecondaryClOrdID), quickfix.GroupElement(tag.ListID), quickfix.GroupElement(tag.NoNested2PartyIDs), quickfix.GroupElement(tag.OrderQty), quickfix.GroupElement(tag.OrderAvgPx), quickfix.GroupElement(tag.OrderBookingQty)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.ClOrdID), quickfix.GroupElement(tag.OrderID), quickfix.GroupElement(tag.SecondaryOrderID), quickfix.GroupElement(tag.SecondaryClOrdID), quickfix.GroupElement(tag.ListID), NewNoNested2PartyIDsRepeatingGroup(), quickfix.GroupElement(tag.OrderQty), quickfix.GroupElement(tag.OrderAvgPx), quickfix.GroupElement(tag.OrderBookingQty)})}
 }
 
 //Add create and append a new NoOrders to this group

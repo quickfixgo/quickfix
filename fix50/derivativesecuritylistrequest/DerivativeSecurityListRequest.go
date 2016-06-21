@@ -1412,7 +1412,7 @@ type NoUndlyInstrumentPartiesRepeatingGroup struct {
 func NewNoUndlyInstrumentPartiesRepeatingGroup() NoUndlyInstrumentPartiesRepeatingGroup {
 	return NoUndlyInstrumentPartiesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUndlyInstrumentParties,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UndlyInstrumentPartyID), quickfix.GroupElement(tag.UndlyInstrumentPartyIDSource), quickfix.GroupElement(tag.UndlyInstrumentPartyRole), quickfix.GroupElement(tag.NoUndlyInstrumentPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UndlyInstrumentPartyID), quickfix.GroupElement(tag.UndlyInstrumentPartyIDSource), quickfix.GroupElement(tag.UndlyInstrumentPartyRole), NewNoUndlyInstrumentPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoUndlyInstrumentParties to this group

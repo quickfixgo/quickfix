@@ -2165,7 +2165,7 @@ type NoInstrumentPartiesRepeatingGroup struct {
 func NewNoInstrumentPartiesRepeatingGroup() NoInstrumentPartiesRepeatingGroup {
 	return NoInstrumentPartiesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoInstrumentParties,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.InstrumentPartyID), quickfix.GroupElement(tag.InstrumentPartyIDSource), quickfix.GroupElement(tag.InstrumentPartyRole), quickfix.GroupElement(tag.NoInstrumentPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.InstrumentPartyID), quickfix.GroupElement(tag.InstrumentPartyIDSource), quickfix.GroupElement(tag.InstrumentPartyRole), NewNoInstrumentPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoInstrumentParties to this group
@@ -2436,7 +2436,7 @@ type NoComplexEventDatesRepeatingGroup struct {
 func NewNoComplexEventDatesRepeatingGroup() NoComplexEventDatesRepeatingGroup {
 	return NoComplexEventDatesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoComplexEventDates,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.ComplexEventStartDate), quickfix.GroupElement(tag.ComplexEventEndDate), quickfix.GroupElement(tag.NoComplexEventTimes)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.ComplexEventStartDate), quickfix.GroupElement(tag.ComplexEventEndDate), NewNoComplexEventTimesRepeatingGroup()})}
 }
 
 //Add create and append a new NoComplexEventDates to this group
@@ -2459,7 +2459,7 @@ type NoComplexEventsRepeatingGroup struct {
 func NewNoComplexEventsRepeatingGroup() NoComplexEventsRepeatingGroup {
 	return NoComplexEventsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoComplexEvents,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.ComplexEventType), quickfix.GroupElement(tag.ComplexOptPayoutAmount), quickfix.GroupElement(tag.ComplexEventPrice), quickfix.GroupElement(tag.ComplexEventPriceBoundaryMethod), quickfix.GroupElement(tag.ComplexEventPriceBoundaryPrecision), quickfix.GroupElement(tag.ComplexEventPriceTimeType), quickfix.GroupElement(tag.ComplexEventCondition), quickfix.GroupElement(tag.NoComplexEventDates)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.ComplexEventType), quickfix.GroupElement(tag.ComplexOptPayoutAmount), quickfix.GroupElement(tag.ComplexEventPrice), quickfix.GroupElement(tag.ComplexEventPriceBoundaryMethod), quickfix.GroupElement(tag.ComplexEventPriceBoundaryPrecision), quickfix.GroupElement(tag.ComplexEventPriceTimeType), quickfix.GroupElement(tag.ComplexEventCondition), NewNoComplexEventDatesRepeatingGroup()})}
 }
 
 //Add create and append a new NoComplexEvents to this group

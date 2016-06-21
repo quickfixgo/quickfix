@@ -569,7 +569,7 @@ type NoRegistDtlsRepeatingGroup struct {
 func NewNoRegistDtlsRepeatingGroup() NoRegistDtlsRepeatingGroup {
 	return NoRegistDtlsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoRegistDtls,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.RegistDetls), quickfix.GroupElement(tag.RegistEmail), quickfix.GroupElement(tag.MailingDtls), quickfix.GroupElement(tag.MailingInst), quickfix.GroupElement(tag.NoNestedPartyIDs), quickfix.GroupElement(tag.OwnerType), quickfix.GroupElement(tag.DateOfBirth), quickfix.GroupElement(tag.InvestorCountryOfResidence)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.RegistDetls), quickfix.GroupElement(tag.RegistEmail), quickfix.GroupElement(tag.MailingDtls), quickfix.GroupElement(tag.MailingInst), NewNoNestedPartyIDsRepeatingGroup(), quickfix.GroupElement(tag.OwnerType), quickfix.GroupElement(tag.DateOfBirth), quickfix.GroupElement(tag.InvestorCountryOfResidence)})}
 }
 
 //Add create and append a new NoRegistDtls to this group

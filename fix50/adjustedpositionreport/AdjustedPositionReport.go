@@ -1214,7 +1214,7 @@ type NoPartyIDsRepeatingGroup struct {
 func NewNoPartyIDsRepeatingGroup() NoPartyIDsRepeatingGroup {
 	return NoPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), quickfix.GroupElement(tag.NoPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoPartyIDs to this group
@@ -1529,7 +1529,7 @@ type NoNestedPartyIDsRepeatingGroup struct {
 func NewNoNestedPartyIDsRepeatingGroup() NoNestedPartyIDsRepeatingGroup {
 	return NoNestedPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoNestedPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.NestedPartyID), quickfix.GroupElement(tag.NestedPartyIDSource), quickfix.GroupElement(tag.NestedPartyRole), quickfix.GroupElement(tag.NoNestedPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.NestedPartyID), quickfix.GroupElement(tag.NestedPartyIDSource), quickfix.GroupElement(tag.NestedPartyRole), NewNoNestedPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoNestedPartyIDs to this group
@@ -1552,7 +1552,7 @@ type NoPositionsRepeatingGroup struct {
 func NewNoPositionsRepeatingGroup() NoPositionsRepeatingGroup {
 	return NoPositionsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPositions,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PosType), quickfix.GroupElement(tag.LongQty), quickfix.GroupElement(tag.ShortQty), quickfix.GroupElement(tag.PosQtyStatus), quickfix.GroupElement(tag.NoNestedPartyIDs), quickfix.GroupElement(tag.QuantityDate)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PosType), quickfix.GroupElement(tag.LongQty), quickfix.GroupElement(tag.ShortQty), quickfix.GroupElement(tag.PosQtyStatus), NewNoNestedPartyIDsRepeatingGroup(), quickfix.GroupElement(tag.QuantityDate)})}
 }
 
 //Add create and append a new NoPositions to this group
@@ -1797,7 +1797,7 @@ type NoInstrumentPartiesRepeatingGroup struct {
 func NewNoInstrumentPartiesRepeatingGroup() NoInstrumentPartiesRepeatingGroup {
 	return NoInstrumentPartiesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoInstrumentParties,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.InstrumentPartyID), quickfix.GroupElement(tag.InstrumentPartyIDSource), quickfix.GroupElement(tag.InstrumentPartyRole), quickfix.GroupElement(tag.NoInstrumentPartySubIDs)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.InstrumentPartyID), quickfix.GroupElement(tag.InstrumentPartyIDSource), quickfix.GroupElement(tag.InstrumentPartyRole), NewNoInstrumentPartySubIDsRepeatingGroup()})}
 }
 
 //Add create and append a new NoInstrumentParties to this group
