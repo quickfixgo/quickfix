@@ -42,14 +42,13 @@ func handleInitiatorConnection(address string, log Log, sessID SessionID, quit c
 }
 
 //Picks up session from net.Conn Acceptor
-func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionID]SessionID, log Log, quit chan bool, done chan int, cnxNumber int) {
+func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionID]SessionID, log Log, quit chan bool) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.OnEventf("Connection Terminated: %v", err)
 		}
 
 		netConn.Close()
-		done <- cnxNumber
 	}()
 
 	reader := bufio.NewReader(netConn)

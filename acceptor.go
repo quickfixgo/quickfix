@@ -15,8 +15,7 @@ type Acceptor struct {
 	storeFactory        MessageStoreFactory
 	globalLog           Log
 	qualifiedSessionIDs map[SessionID]SessionID
-	quitChans           map[int]chan bool
-	doneChannel         chan int
+	quitChan            chan bool
 }
 
 //Start accepting connections.
@@ -33,17 +32,10 @@ func (a *Acceptor) Start() (e error) {
 
 	connections := a.listenForConnections(server)
 
+	a.quitChan = make(chan bool)
 	go func() {
-		var i = 0
-		for {
-			select {
-			case cxn := <-connections:
-				a.quitChans[i] = make(chan bool)
-				go handleAcceptorConnection(cxn, a.qualifiedSessionIDs, a.globalLog, a.quitChans[i], a.doneChannel, i)
-				i++
-			case j := <-a.doneChannel:
-				delete(a.quitChans, j)
-			}
+		for cxn := range connections {
+			go handleAcceptorConnection(cxn, a.qualifiedSessionIDs, a.globalLog, a.quitChan)
 		}
 	}()
 
@@ -55,9 +47,7 @@ func (a *Acceptor) Stop() {
 	defer func() {
 		_ = recover() // suppress sending on closed channel error
 	}()
-	for _, channel := range a.quitChans {
-		close(channel)
-	}
+	close(a.quitChan)
 }
 
 //NewAcceptor creates and initializes a new Acceptor.
@@ -68,8 +58,6 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 	a.settings = settings
 	a.logFactory = logFactory
 	a.qualifiedSessionIDs = make(map[SessionID]SessionID)
-	a.quitChans = make(map[int]chan bool)
-	a.doneChannel = make(chan int, 10)
 
 	var err error
 	a.globalLog, err = logFactory.Create()
