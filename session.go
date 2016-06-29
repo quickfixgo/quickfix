@@ -107,8 +107,12 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 	}
 
 	if settings.HasSetting(config.HeartBtInt) {
-		if session.heartBtInt, err = settings.IntSetting(config.HeartBtInt); err != nil {
+		if heartBtInt, err := settings.IntSetting(config.HeartBtInt); err != nil {
 			return err
+		} else if heartBtInt <= 0 {
+			return fmt.Errorf("Heartbeat must be greater than zero")
+		} else {
+			session.heartBtInt = heartBtInt
 		}
 	}
 

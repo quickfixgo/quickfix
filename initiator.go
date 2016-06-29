@@ -75,6 +75,10 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 			return nil, requiredConfigurationMissing(config.SocketConnectPort)
 		}
 
+		if ok := s.HasSetting(config.HeartBtInt); !ok {
+			return nil, requiredConfigurationMissing(config.HeartBtInt)
+		}
+
 		err = createSession(sessionID, storeFactory, s, logFactory, app)
 		if err != nil {
 			return nil, err
