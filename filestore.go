@@ -49,7 +49,7 @@ func (f fileStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 	}
 	dirname, err := sessionSettings.Setting(config.FileStorePath)
 	if err != nil {
-		return nil, err
+		return nil, requiredConfigurationMissing(config.FileStorePath)
 	}
 	return newFileStore(sessionID, dirname)
 }
