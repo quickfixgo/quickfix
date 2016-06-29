@@ -13,11 +13,13 @@ type Initiator struct {
 	storeFactory    MessageStoreFactory
 	logFactory      LogFactory
 	globalLog       Log
-	quitChans       map[SessionID]chan bool
+	quitChan        chan bool
 }
 
 //Start Initiator.
 func (i *Initiator) Start() error {
+
+	i.quitChan = make(chan bool)
 
 	for sessionID, s := range i.sessionSettings {
 		socketConnectHost, err := s.Setting(config.SocketConnectHost)
@@ -30,9 +32,8 @@ func (i *Initiator) Start() error {
 			return fmt.Errorf("error on SocketConnectPort: %v", err)
 		}
 
-		i.quitChans[sessionID] = make(chan bool)
 		address := fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort)
-		go handleInitiatorConnection(address, i.globalLog, sessionID, i.quitChans[sessionID])
+		go handleInitiatorConnection(address, i.globalLog, sessionID, i.quitChan)
 	}
 
 	return nil
@@ -43,9 +44,7 @@ func (i *Initiator) Stop() {
 	defer func() {
 		_ = recover() // suppress sending on closed channel error
 	}()
-	for _, channel := range i.quitChans {
-		close(channel)
-	}
+	close(i.quitChan)
 }
 
 //NewInitiator creates and initializes a new Initiator.
@@ -56,7 +55,6 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 	i.settings = appSettings
 	i.sessionSettings = appSettings.SessionSettings()
 	i.logFactory = logFactory
-	i.quitChans = make(map[SessionID]chan bool)
 
 	var err error
 	i.globalLog, err = logFactory.Create()
