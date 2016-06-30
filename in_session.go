@@ -70,9 +70,9 @@ func (state inSession) handleLogon(session *session, msg Message) (nextState ses
 
 func (state inSession) handleLogout(session *session, msg Message) (nextState sessionState) {
 	session.log.OnEvent("Received logout request")
-	state.generateLogout(session)
-	session.application.OnLogout(session.sessionID)
+	session.log.OnEvent("Sending logout response")
 
+	state.generateLogout(session)
 	return latentState{}
 }
 
@@ -247,6 +247,7 @@ func (state inSession) doTargetTooLow(session *session, msg Message, rej targetT
 }
 
 func (state *inSession) initiateLogout(session *session, reason string) (nextState logoutState) {
+	session.log.OnEvent("Inititated logout request")
 	state.generateLogoutWithReason(session, reason)
 	time.AfterFunc(time.Duration(2)*time.Second, func() { session.sessionEvent <- logoutTimeout })
 
@@ -278,16 +279,15 @@ func (state *inSession) generateLogout(session *session) {
 }
 
 func (state *inSession) generateLogoutWithReason(session *session, reason string) {
-	reply := NewMessage()
-	reply.Header.SetField(tagMsgType, FIXString("5"))
-	reply.Header.SetField(tagBeginString, FIXString(session.sessionID.BeginString))
-	reply.Header.SetField(tagTargetCompID, FIXString(session.sessionID.TargetCompID))
-	reply.Header.SetField(tagSenderCompID, FIXString(session.sessionID.SenderCompID))
+	logout := NewMessage()
+	logout.Header.SetField(tagMsgType, FIXString("5"))
+	logout.Header.SetField(tagBeginString, FIXString(session.sessionID.BeginString))
+	logout.Header.SetField(tagTargetCompID, FIXString(session.sessionID.TargetCompID))
+	logout.Header.SetField(tagSenderCompID, FIXString(session.sessionID.SenderCompID))
 
 	if reason != "" {
-		reply.Body.SetField(tagText, FIXString(reason))
+		logout.Body.SetField(tagText, FIXString(reason))
 	}
 
-	session.send(reply)
-	session.log.OnEvent("Sending logout response")
+	session.send(logout)
 }

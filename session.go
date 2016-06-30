@@ -307,6 +307,8 @@ func (s *session) handleLogon(msg Message) error {
 
 		s.log.OnEvent("Responding to logon request")
 		s.send(reply)
+	} else {
+		s.log.OnEvent("Received logon response")
 	}
 
 	s.application.OnLogon(s.sessionID)
@@ -561,8 +563,12 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
 
 		case <-quit:
-			return
-
+			quit = nil // prevent infinitly receiving on a closed channel
+			if state, ok := s.sessionState.(inSession); ok {
+				s.sessionState = state.initiateLogout(s, "")
+			} else {
+				return
+			}
 		case evt := <-s.sessionEvent:
 			s.sessionState = s.Timeout(s, evt)
 		case <-s.messageEvent:
