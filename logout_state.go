@@ -8,17 +8,17 @@ func (s logoutState) IsLoggedOn() bool   { return false }
 
 func (state logoutState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
-		switch string(msgType) {
-		//logout
-		case "5":
-			session.log.OnEvent("Received logout response")
-			return latentState{}
-		default:
-			return state
-		}
-	} else {
+	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
 		return latentState{}
+	}
+
+	switch string(msgType) {
+	//logout
+	case "5":
+		session.log.OnEvent("Received logout response")
+		return latentState{}
+	default:
+		return state
 	}
 }
 
