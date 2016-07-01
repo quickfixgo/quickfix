@@ -107,6 +107,12 @@ If set to N, fields that are out of order (i.e. body fields in the header, or he
 
 Defaults to Y.
 
+ReconnectInterval
+
+Time between reconnection attempts in seconds. Only used for initiators.    Value must be positive integer.
+
+Defaults to 30
+
 HeartBtInt
 
 Heartbeat interval in seconds. Only used for initiators.	Value must be positive integer.

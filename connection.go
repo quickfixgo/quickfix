@@ -8,8 +8,7 @@ import (
 )
 
 //Picks up session from net.Conn Initiator
-func handleInitiatorConnection(address string, log Log, sessID SessionID, quit chan bool) {
-	reconnectInterval := 30 * time.Second
+func handleInitiatorConnection(address string, log Log, sessID SessionID, quit chan bool, reconnectInterval time.Duration) {
 	session := activate(sessID)
 	if session == nil {
 		log.OnEventf("Session not found for SessionID: %v", sessID)

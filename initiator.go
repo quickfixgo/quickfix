@@ -2,6 +2,8 @@ package quickfix
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -32,8 +34,17 @@ func (i *Initiator) Start() error {
 			return fmt.Errorf("error on SocketConnectPort: %v", err)
 		}
 
+		var reconnectInterval int = 30 // Default configuration (in seconds)
+		if s.HasSetting(config.ReconnectInterval) {
+			if reconnectInterval, err = s.IntSetting(config.ReconnectInterval); err != nil {
+				return fmt.Errorf("error on ReconnectInterval: %v", err)
+			} else if reconnectInterval <= 0 {
+				return fmt.Errorf("ReconnectInterval must be greater than zero")
+			}
+		}
+
 		address := fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort)
-		go handleInitiatorConnection(address, i.globalLog, sessionID, i.quitChan)
+		go handleInitiatorConnection(address, i.globalLog, sessionID, i.quitChan, time.Duration(reconnectInterval)*time.Second)
 	}
 
 	return nil
