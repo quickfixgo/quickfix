@@ -232,7 +232,10 @@ func (s *session) send(msg Message) {
 	if msgBytes, err := msg.Build(); err != nil {
 		panic(err)
 	} else {
-		s.store.SaveMessage(seqNum, msgBytes)
+		if err := s.store.SaveMessage(seqNum, msgBytes); err != nil {
+			s.log.OnEvent(err.Error())
+			panic(err)
+		}
 		s.sendBytes(msgBytes)
 		s.store.IncrNextSenderMsgSeqNum()
 	}
