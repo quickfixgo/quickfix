@@ -12,35 +12,63 @@ type inSession struct {
 func (state inSession) String() string   { return "In Session" }
 func (state inSession) IsLoggedOn() bool { return true }
 
+func (state inSession) VerifyMsgIn(session *session, msg Message) (err MessageRejectError) {
+	var msgType FIXString
+	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
+		switch string(msgType) {
+		case enum.MsgType_LOGON:
+			return session.verifyLogon(msg)
+		case enum.MsgType_LOGOUT:
+			return nil
+		case enum.MsgType_RESEND_REQUEST:
+			return session.verifyIgnoreSeqNumTooHighOrLow(msg)
+		case enum.MsgType_SEQUENCE_RESET:
+			var gapFillFlag FIXBoolean
+			msg.Body.GetField(tagGapFillFlag, &gapFillFlag)
+			return session.verifySelect(msg, bool(gapFillFlag), bool(gapFillFlag))
+		default:
+			return session.verify(msg)
+		}
+	}
+	return nil
+}
+
 func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
 		switch string(msgType) {
-		//logon
-		case "A":
-			return state.handleLogon(session, msg)
-		//logout
-		case "5":
-			return state.handleLogout(session, msg)
-		//test request
-		case "1":
+		case enum.MsgType_LOGON:
+			session.handleLogon(msg)
+			return state
+		case enum.MsgType_LOGOUT:
+			session.log.OnEvent("Received logout request")
+			session.log.OnEvent("Sending logout response")
+			state.generateLogout(session)
+			return latentState{}
+		case enum.MsgType_TEST_REQUEST:
 			return state.handleTestRequest(session, msg)
-		//resend request
-		case "2":
+		case enum.MsgType_RESEND_REQUEST:
 			return state.handleResendRequest(session, msg)
-		//sequence reset
-		case "4":
+		case enum.MsgType_SEQUENCE_RESET:
 			return state.handleSequenceReset(session, msg)
-		default:
-			if err := session.verify(msg); err != nil {
-				return state.processReject(session, msg, err)
-			}
 		}
 	}
 
 	session.store.IncrNextTargetMsgSeqNum()
-
 	return state
+}
+
+func (state inSession) FixMsgInRej(session *session, msg Message, rej MessageRejectError) (nextState sessionState) {
+	var msgType FIXString
+	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
+		switch string(msgType) {
+		case enum.MsgType_LOGON:
+			return state.initiateLogout(session, "")
+		case enum.MsgType_LOGOUT:
+			return latentState{}
+		}
+	}
+	return state.processReject(session, msg, rej)
 }
 
 func (state inSession) Timeout(session *session, event event) (nextState sessionState) {
@@ -60,30 +88,22 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 	return state
 }
 
-func (state inSession) handleLogon(session *session, msg Message) (nextState sessionState) {
-	if err := session.handleLogon(msg); err != nil {
-		return state.initiateLogout(session, "")
+func (state inSession) handleTestRequest(session *session, msg Message) (nextState sessionState) {
+	var testReq FIXString
+	if err := msg.Body.GetField(tagTestReqID, &testReq); err != nil {
+		session.log.OnEvent("Test Request with no testRequestID")
+	} else {
+		heartBt := NewMessage()
+		heartBt.Header.SetField(tagMsgType, FIXString("0"))
+		heartBt.Body.SetField(tagTestReqID, testReq)
+		session.send(heartBt)
 	}
 
+	session.store.IncrNextTargetMsgSeqNum()
 	return state
 }
 
-func (state inSession) handleLogout(session *session, msg Message) (nextState sessionState) {
-	session.log.OnEvent("Received logout request")
-	session.log.OnEvent("Sending logout response")
-
-	state.generateLogout(session)
-	return latentState{}
-}
-
 func (state inSession) handleSequenceReset(session *session, msg Message) (nextState sessionState) {
-	var gapFillFlag FIXBoolean
-	msg.Body.GetField(tagGapFillFlag, &gapFillFlag)
-
-	if err := session.verifySelect(msg, bool(gapFillFlag), bool(gapFillFlag)); err != nil {
-		return state.processReject(session, msg, err)
-	}
-
 	var newSeqNo FIXInt
 	if err := msg.Body.GetField(tagNewSeqNo, &newSeqNo); err == nil {
 		expectedSeqNum := FIXInt(session.store.NextTargetMsgSeqNum())
@@ -97,15 +117,10 @@ func (state inSession) handleSequenceReset(session *session, msg Message) (nextS
 			session.doReject(msg, valueIsIncorrectNoTag())
 		}
 	}
-
 	return state
 }
 
 func (state inSession) handleResendRequest(session *session, msg Message) (nextState sessionState) {
-	if err := session.verifyIgnoreSeqNumTooHighOrLow(msg); err != nil {
-		return state.processReject(session, msg, err)
-	}
-
 	var err error
 	var beginSeqNoField FIXInt
 	if err = msg.Body.GetField(tagBeginSeqNo, &beginSeqNoField); err != nil {
@@ -167,26 +182,6 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	}
 }
 
-func (state inSession) handleTestRequest(session *session, msg Message) (nextState sessionState) {
-	if err := session.verify(msg); err != nil {
-		return state.processReject(session, msg, err)
-	}
-
-	var testReq FIXString
-	if err := msg.Body.GetField(tagTestReqID, &testReq); err != nil {
-		session.log.OnEvent("Test Request with no testRequestID")
-	} else {
-		heartBt := NewMessage()
-		heartBt.Header.SetField(tagMsgType, FIXString("0"))
-		heartBt.Body.SetField(tagTestReqID, testReq)
-		session.send(heartBt)
-	}
-
-	session.store.IncrNextTargetMsgSeqNum()
-
-	return state
-}
-
 func (state inSession) processReject(session *session, msg Message, rej MessageRejectError) (nextState sessionState) {
 	switch TypedError := rej.(type) {
 	case targetTooHigh:
@@ -197,6 +192,7 @@ func (state inSession) processReject(session *session, msg Message, rej MessageR
 		case resendState:
 			//assumes target too high reject already sent
 		}
+
 		session.messageStash[TypedError.ReceivedTarget] = msg
 		return resendState{}
 

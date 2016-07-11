@@ -4,20 +4,29 @@ type resendState struct {
 	inSession
 }
 
+func (state resendState) String() string { return "Resend" }
+
 func (state resendState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
-	for ok := true; ok; {
-		nextState = state.inSession.FixMsgIn(session, msg)
+	return state.handleNextState(session, state.inSession.FixMsgIn(session, msg))
+}
 
-		if !nextState.IsLoggedOn() {
-			return
-		}
+func (state resendState) FixMsgInRej(session *session, msg Message, rej MessageRejectError) (nextState sessionState) {
+	return state.handleNextState(session, state.inSession.FixMsgInRej(session, msg, rej))
+}
 
-		msg, ok = session.messageStash[session.store.NextTargetMsgSeqNum()]
+func (state resendState) handleNextState(session *session, nextState sessionState) sessionState {
+	if !nextState.IsLoggedOn() || len(session.messageStash) == 0 {
+		return nextState
 	}
 
-	if len(session.messageStash) != 0 {
-		nextState = resendState{}
+	targetSeqNum := session.store.NextTargetMsgSeqNum()
+	if msg, ok := session.messageStash[targetSeqNum]; ok {
+		delete(session.messageStash, targetSeqNum)
+
+		// FIXME add a "resend" channel to the session loop to differentiate between
+		// new incoming fix messages, and stashed messages from the resend state
+		go func() { session.messageIn <- fixIn{msg.rawMessage, msg.ReceiveTime} }()
 	}
 
-	return
+	return resendState{}
 }

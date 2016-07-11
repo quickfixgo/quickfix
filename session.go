@@ -228,13 +228,13 @@ func (s *session) doTargetTooHigh(reject targetTooHigh) {
 	s.send(resend)
 }
 
-func (s *session) handleLogon(msg Message) error {
+func (s *session) verifyLogon(msg Message) MessageRejectError {
 	//Grab default app ver id from fixt.1.1 logon
 	if s.sessionID.BeginString == enum.BeginStringFIXT11 {
 		var targetApplVerID FIXString
 
 		if err := msg.Body.GetField(tagDefaultApplVerID, &targetApplVerID); err != nil {
-			return err
+			return RequiredTagMissing(tagDefaultApplVerID)
 		}
 
 		s.targetDefaultApplVerID = string(targetApplVerID)
@@ -254,10 +254,13 @@ func (s *session) handleLogon(msg Message) error {
 			}
 		}
 
-		if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
-			return err
-		}
+		return s.verifyIgnoreSeqNumTooHigh(msg)
+	}
+	return nil
+}
 
+func (s *session) handleLogon(msg Message) error {
+	if !s.initiateLogon {
 		reply := NewMessage()
 		reply.Header.SetField(tagMsgType, FIXString("A"))
 		reply.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
@@ -271,6 +274,8 @@ func (s *session) handleLogon(msg Message) error {
 			reply.Body.SetField(tagHeartBtInt, heartBtInt)
 		}
 
+		var resetSeqNumFlag FIXBoolean
+		msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag)
 		if resetSeqNumFlag {
 			reply.Body.SetField(tagResetSeqNumFlag, resetSeqNumFlag)
 		}
@@ -342,7 +347,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 		}
 	}
 
-	return s.fromCallback(msg)
+	return nil
 }
 
 func (s *session) fromCallback(msg Message) MessageRejectError {
@@ -489,9 +494,18 @@ type sendRequest struct {
 func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.messageIn = msgIn
 	s.messageOut = msgOut
+	s.toSend = make(chan sendRequest)
+
+	type fromCallback struct {
+		msg Message
+		rej MessageRejectError
+	}
+	fromCallbackCh := make(chan fromCallback)
 
 	defer func() {
 		close(s.messageOut)
+		close(s.toSend)
+		close(fromCallbackCh)
 		s.onDisconnect()
 	}()
 
@@ -539,13 +553,31 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
 					msg.ReceiveTime = fixIn.receiveTime
-					s.sessionState = s.FixMsgIn(s, msg)
+					if rej := s.sessionState.VerifyMsgIn(s, msg); rej != nil {
+						s.sessionState = s.sessionState.FixMsgInRej(s, msg, rej)
+					} else {
+						// "turn off" incoming fix messages until the call
+						// to FromAdmin/App returns
+						msgIn = nil
+						go func() {
+							fromCallbackCh <- fromCallback{msg, s.fromCallback(msg)}
+						}()
+					}
 				}
 			} else {
 				return
 			}
 			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+		case callback := <-fromCallbackCh:
+			// "turn on" incoming fix message now that
+			// FromAdmin/App has completed
+			msgIn = s.messageIn
 
+			if callback.rej == nil {
+				s.sessionState = s.sessionState.FixMsgIn(s, callback.msg)
+			} else {
+				s.sessionState = s.sessionState.FixMsgInRej(s, callback.msg, callback.rej)
+			}
 		case <-quit:
 			quit = nil // prevent infinitly receiving on a closed channel
 			if state, ok := s.sessionState.(inSession); ok {
