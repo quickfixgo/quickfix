@@ -19,6 +19,7 @@ type session struct {
 	messageOut chan []byte
 	messageIn  chan fixIn
 	toSend     chan sendRequest
+	resendIn   chan Message
 
 	sessionEvent chan event
 	messageEvent chan bool
@@ -495,6 +496,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.messageIn = msgIn
 	s.messageOut = msgOut
 	s.toSend = make(chan sendRequest)
+	s.resendIn = make(chan Message, 1)
 
 	type fromCallback struct {
 		msg Message
@@ -505,7 +507,6 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	defer func() {
 		close(s.messageOut)
 		close(s.toSend)
-		close(fromCallbackCh)
 		s.onDisconnect()
 	}()
 
@@ -532,6 +533,19 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		s.send(logon)
 	}
 
+	fixMsgIn := func(msg Message) {
+		if rej := s.sessionState.VerifyMsgIn(s, msg); rej != nil {
+			s.sessionState = s.sessionState.FixMsgInRej(s, msg, rej)
+		} else {
+			// "turn off" incoming fix messages until the call
+			// to FromAdmin/App returns
+			msgIn = nil
+			go func() {
+				fromCallbackCh <- fromCallback{msg, s.fromCallback(msg)}
+			}()
+		}
+	}
+
 	for {
 
 		switch s.sessionState.(type) {
@@ -553,21 +567,14 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
 					msg.ReceiveTime = fixIn.receiveTime
-					if rej := s.sessionState.VerifyMsgIn(s, msg); rej != nil {
-						s.sessionState = s.sessionState.FixMsgInRej(s, msg, rej)
-					} else {
-						// "turn off" incoming fix messages until the call
-						// to FromAdmin/App returns
-						msgIn = nil
-						go func() {
-							fromCallbackCh <- fromCallback{msg, s.fromCallback(msg)}
-						}()
-					}
+					fixMsgIn(msg)
 				}
 			} else {
 				return
 			}
 			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+		case msg := <-s.resendIn:
+			fixMsgIn(msg)
 		case callback := <-fromCallbackCh:
 			// "turn on" incoming fix message now that
 			// FromAdmin/App has completed

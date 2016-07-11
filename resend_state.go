@@ -22,10 +22,7 @@ func (state resendState) handleNextState(session *session, nextState sessionStat
 	targetSeqNum := session.store.NextTargetMsgSeqNum()
 	if msg, ok := session.messageStash[targetSeqNum]; ok {
 		delete(session.messageStash, targetSeqNum)
-
-		// FIXME add a "resend" channel to the session loop to differentiate between
-		// new incoming fix messages, and stashed messages from the resend state
-		go func() { session.messageIn <- fixIn{msg.rawMessage, msg.ReceiveTime} }()
+		session.resendIn <- msg
 	}
 
 	return resendState{}
