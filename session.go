@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"fmt"
-	"sync"
 	"time"
 
 	"github.com/quickfixgo/quickfix/config"
@@ -18,11 +17,8 @@ type session struct {
 	sessionID SessionID
 
 	messageOut chan []byte
-
-	//application messages are queued up to be sent during the run loop.
-	toSend []Message
-	//mutex for access to toSend
-	sendMutex sync.Mutex
+	messageIn  chan fixIn
+	toSend     chan sendRequest
 
 	sessionEvent chan event
 	messageEvent chan bool
@@ -189,35 +185,8 @@ func (s *session) resend(msg Message) {
 	s.sendBytes(msg.rawMessage)
 }
 
-//queueForSend will queue up a message to be sent by the session during the next iteration of the run loop
-func (s *session) queueForSend(msg Message) {
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
-	s.toSend = append(s.toSend, msg)
-	select {
-	case s.messageEvent <- true:
-	default:
-	}
-}
-
-//sends queued messages if session is logged on
-func (s *session) sendQueued() {
-	if !s.IsLoggedOn() {
-		return
-	}
-
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
-
-	for _, msg := range s.toSend {
-		s.send(msg)
-	}
-
-	s.toSend = s.toSend[:0]
-}
-
 //send should NOT be called outside of the run loop
-func (s *session) send(msg Message) {
+func (s *session) send(msg Message) error {
 	s.fillDefaultHeader(msg)
 
 	seqNum := s.store.NextSenderMsgSeqNum()
@@ -230,12 +199,13 @@ func (s *session) send(msg Message) {
 		s.application.ToApp(msg, s.sessionID)
 	}
 	if msgBytes, err := msg.Build(); err != nil {
-		panic(err)
+		return err
 	} else {
 		s.store.SaveMessage(seqNum, msgBytes)
 		s.sendBytes(msgBytes)
 		s.store.IncrNextSenderMsgSeqNum()
 	}
+	return nil
 }
 
 func (s *session) sendBytes(msg []byte) {
@@ -511,7 +481,13 @@ type fixIn struct {
 	receiveTime time.Time
 }
 
+type sendRequest struct {
+	msg Message
+	err chan error
+}
+
 func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
+	s.messageIn = msgIn
 	s.messageOut = msgOut
 
 	defer func() {
@@ -549,9 +525,13 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			return
 		}
 
-		s.sendQueued()
-
 		select {
+		case request := <-s.toSend:
+			if s.IsLoggedOn() {
+				request.err <- s.send(request.msg)
+			} else {
+				request.err <- fmt.Errorf("Not logged on")
+			}
 		case fixIn, ok := <-msgIn:
 			if ok {
 				s.log.OnIncoming(string(fixIn.bytes))
@@ -575,7 +555,6 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			}
 		case evt := <-s.sessionEvent:
 			s.sessionState = s.Timeout(s, evt)
-		case <-s.messageEvent:
 		}
 	}
 }
