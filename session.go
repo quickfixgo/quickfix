@@ -2,7 +2,6 @@ package quickfix
 
 import (
 	"fmt"
-	"sync"
 	"time"
 
 	"github.com/quickfixgo/quickfix/config"
@@ -18,11 +17,9 @@ type session struct {
 	sessionID SessionID
 
 	messageOut chan []byte
-
-	//application messages are queued up to be sent during the run loop.
-	toSend []Message
-	//mutex for access to toSend
-	sendMutex sync.Mutex
+	messageIn  chan fixIn
+	toSend     chan sendRequest
+	resendIn   chan Message
 
 	sessionEvent chan event
 	messageEvent chan bool
@@ -189,35 +186,8 @@ func (s *session) resend(msg Message) {
 	s.sendBytes(msg.rawMessage)
 }
 
-//queueForSend will queue up a message to be sent by the session during the next iteration of the run loop
-func (s *session) queueForSend(msg Message) {
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
-	s.toSend = append(s.toSend, msg)
-	select {
-	case s.messageEvent <- true:
-	default:
-	}
-}
-
-//sends queued messages if session is logged on
-func (s *session) sendQueued() {
-	if !s.IsLoggedOn() {
-		return
-	}
-
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
-
-	for _, msg := range s.toSend {
-		s.send(msg)
-	}
-
-	s.toSend = s.toSend[:0]
-}
-
 //send should NOT be called outside of the run loop
-func (s *session) send(msg Message) {
+func (s *session) send(msg Message) error {
 	s.fillDefaultHeader(msg)
 
 	seqNum := s.store.NextSenderMsgSeqNum()
@@ -230,12 +200,13 @@ func (s *session) send(msg Message) {
 		s.application.ToApp(msg, s.sessionID)
 	}
 	if msgBytes, err := msg.Build(); err != nil {
-		panic(err)
+		return err
 	} else {
 		s.store.SaveMessage(seqNum, msgBytes)
 		s.sendBytes(msgBytes)
 		s.store.IncrNextSenderMsgSeqNum()
 	}
+	return nil
 }
 
 func (s *session) sendBytes(msg []byte) {
@@ -258,13 +229,13 @@ func (s *session) doTargetTooHigh(reject targetTooHigh) {
 	s.send(resend)
 }
 
-func (s *session) handleLogon(msg Message) error {
+func (s *session) verifyLogon(msg Message) MessageRejectError {
 	//Grab default app ver id from fixt.1.1 logon
 	if s.sessionID.BeginString == enum.BeginStringFIXT11 {
 		var targetApplVerID FIXString
 
 		if err := msg.Body.GetField(tagDefaultApplVerID, &targetApplVerID); err != nil {
-			return err
+			return RequiredTagMissing(tagDefaultApplVerID)
 		}
 
 		s.targetDefaultApplVerID = string(targetApplVerID)
@@ -284,10 +255,13 @@ func (s *session) handleLogon(msg Message) error {
 			}
 		}
 
-		if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
-			return err
-		}
+		return s.verifyIgnoreSeqNumTooHigh(msg)
+	}
+	return nil
+}
 
+func (s *session) handleLogon(msg Message) error {
+	if !s.initiateLogon {
 		reply := NewMessage()
 		reply.Header.SetField(tagMsgType, FIXString("A"))
 		reply.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
@@ -301,6 +275,8 @@ func (s *session) handleLogon(msg Message) error {
 			reply.Body.SetField(tagHeartBtInt, heartBtInt)
 		}
 
+		var resetSeqNumFlag FIXBoolean
+		msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag)
 		if resetSeqNumFlag {
 			reply.Body.SetField(tagResetSeqNumFlag, resetSeqNumFlag)
 		}
@@ -372,7 +348,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 		}
 	}
 
-	return s.fromCallback(msg)
+	return nil
 }
 
 func (s *session) fromCallback(msg Message) MessageRejectError {
@@ -511,11 +487,26 @@ type fixIn struct {
 	receiveTime time.Time
 }
 
+type sendRequest struct {
+	msg Message
+	err chan error
+}
+
 func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
+	s.messageIn = msgIn
 	s.messageOut = msgOut
+	s.toSend = make(chan sendRequest)
+	s.resendIn = make(chan Message, 1)
+
+	type fromCallback struct {
+		msg Message
+		rej MessageRejectError
+	}
+	fromCallbackCh := make(chan fromCallback)
 
 	defer func() {
 		close(s.messageOut)
+		close(s.toSend)
 		s.onDisconnect()
 	}()
 
@@ -542,6 +533,19 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		s.send(logon)
 	}
 
+	fixMsgIn := func(msg Message) {
+		if rej := s.sessionState.VerifyMsgIn(s, msg); rej != nil {
+			s.sessionState = s.sessionState.FixMsgInRej(s, msg, rej)
+		} else {
+			// "turn off" incoming fix messages until the call
+			// to FromAdmin/App returns
+			msgIn = nil
+			go func() {
+				fromCallbackCh <- fromCallback{msg, s.fromCallback(msg)}
+			}()
+		}
+	}
+
 	for {
 
 		switch s.sessionState.(type) {
@@ -549,9 +553,13 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			return
 		}
 
-		s.sendQueued()
-
 		select {
+		case request := <-s.toSend:
+			if s.IsLoggedOn() {
+				request.err <- s.send(request.msg)
+			} else {
+				request.err <- fmt.Errorf("Not logged on")
+			}
 		case fixIn, ok := <-msgIn:
 			if ok {
 				s.log.OnIncoming(string(fixIn.bytes))
@@ -559,13 +567,24 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 					s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 				} else {
 					msg.ReceiveTime = fixIn.receiveTime
-					s.sessionState = s.FixMsgIn(s, msg)
+					fixMsgIn(msg)
 				}
 			} else {
 				return
 			}
 			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+		case msg := <-s.resendIn:
+			fixMsgIn(msg)
+		case callback := <-fromCallbackCh:
+			// "turn on" incoming fix message now that
+			// FromAdmin/App has completed
+			msgIn = s.messageIn
 
+			if callback.rej == nil {
+				s.sessionState = s.sessionState.FixMsgIn(s, callback.msg)
+			} else {
+				s.sessionState = s.sessionState.FixMsgInRej(s, callback.msg, callback.rej)
+			}
 		case <-quit:
 			quit = nil // prevent infinitly receiving on a closed channel
 			if state, ok := s.sessionState.(inSession); ok {
@@ -575,7 +594,6 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			}
 		case evt := <-s.sessionEvent:
 			s.sessionState = s.Timeout(s, evt)
-		case <-s.messageEvent:
 		}
 	}
 }

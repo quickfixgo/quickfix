@@ -41,11 +41,9 @@ func SendToTarget(m Messagable, sessionID SessionID) error {
 		return err
 	}
 
-	//NOTE: must queue for send here. otherwise, if not executed in same goroutine as session run loop,
-	//message may be sent on closed channel or sent outside of valid state
-	session.queueForSend(msg)
-
-	return nil
+	request := sendRequest{msg, make(chan error)}
+	session.toSend <- request
+	return <-request.err
 }
 
 type sessionActivate struct {

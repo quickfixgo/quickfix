@@ -116,9 +116,7 @@ func writeLoop(connection io.Writer, messageOut chan []byte) {
 }
 
 func readLoop(parser *parser, msgIn chan fixIn) {
-	defer func() {
-		close(msgIn)
-	}()
+	defer close(msgIn)
 
 	for {
 		msg, err := parser.ReadMessage()
