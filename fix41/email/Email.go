@@ -45,6 +45,7 @@ func New(emailthreadid field.EmailThreadIDField, emailtype field.EmailTypeField,
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("C"))
+	m.Header.Set(field.NewBeginString("FIX.4.1"))
 	m.Set(emailthreadid)
 	m.Set(emailtype)
 	m.Set(subject)

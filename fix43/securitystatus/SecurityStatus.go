@@ -45,6 +45,7 @@ func New() (m SecurityStatus) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("f"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 
 	return
 }

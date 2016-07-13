@@ -45,6 +45,7 @@ func New(posreqid field.PosReqIDField, posreqtype field.PosReqTypeField, account
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AN"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(posreqid)
 	m.Set(posreqtype)
 	m.Set(account)

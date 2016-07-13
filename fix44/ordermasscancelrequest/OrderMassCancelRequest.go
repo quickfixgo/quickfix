@@ -45,6 +45,7 @@ func New(clordid field.ClOrdIDField, masscancelrequesttype field.MassCancelReque
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("q"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(clordid)
 	m.Set(masscancelrequesttype)
 	m.Set(transacttime)

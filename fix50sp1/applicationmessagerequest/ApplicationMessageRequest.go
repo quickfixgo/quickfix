@@ -45,6 +45,7 @@ func New(applreqid field.ApplReqIDField, applreqtype field.ApplReqTypeField) (m 
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BW"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(applreqid)
 	m.Set(applreqtype)
 

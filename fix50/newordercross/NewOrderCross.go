@@ -45,6 +45,7 @@ func New(crossid field.CrossIDField, crosstype field.CrossTypeField, crosspriori
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("s"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(crossid)
 	m.Set(crosstype)
 	m.Set(crossprioritization)

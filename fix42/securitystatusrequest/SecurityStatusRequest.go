@@ -45,6 +45,7 @@ func New(securitystatusreqid field.SecurityStatusReqIDField, symbol field.Symbol
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("e"))
+	m.Header.Set(field.NewBeginString("FIX.4.2"))
 	m.Set(securitystatusreqid)
 	m.Set(symbol)
 	m.Set(subscriptionrequesttype)

@@ -45,6 +45,7 @@ func New(marketreportid field.MarketReportIDField, marketid field.MarketIDField)
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BV"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(marketreportid)
 	m.Set(marketid)
 

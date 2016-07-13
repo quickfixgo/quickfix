@@ -45,6 +45,7 @@ func New(clientbidid field.ClientBidIDField, bidrequesttranstype field.BidReques
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("k"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(clientbidid)
 	m.Set(bidrequesttranstype)
 	m.Set(totnorelatedsym)

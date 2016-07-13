@@ -45,6 +45,7 @@ func New(streamasgnacktype field.StreamAsgnAckTypeField, streamasgnrptid field.S
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("CE"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(streamasgnacktype)
 	m.Set(streamasgnrptid)
 

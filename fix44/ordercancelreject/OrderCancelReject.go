@@ -45,6 +45,7 @@ func New(orderid field.OrderIDField, clordid field.ClOrdIDField, origclordid fie
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("9"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(orderid)
 	m.Set(clordid)
 	m.Set(origclordid)

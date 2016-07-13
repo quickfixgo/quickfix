@@ -45,6 +45,7 @@ func New(tradingsessionid field.TradingSessionIDField, tradsesstatus field.TradS
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("h"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(tradingsessionid)
 	m.Set(tradsesstatus)
 

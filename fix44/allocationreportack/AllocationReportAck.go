@@ -45,6 +45,7 @@ func New(allocreportid field.AllocReportIDField, allocid field.AllocIDField, tra
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AT"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(allocreportid)
 	m.Set(allocid)
 	m.Set(transacttime)

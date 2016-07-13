@@ -45,6 +45,7 @@ func New(tradereportid field.TradeReportIDField, exectype field.ExecTypeField) (
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AR"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(tradereportid)
 	m.Set(exectype)
 

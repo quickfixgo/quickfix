@@ -45,6 +45,7 @@ func New(ioiid field.IOIIDField, ioitranstype field.IOITransTypeField, side fiel
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("6"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(ioiid)
 	m.Set(ioitranstype)
 	m.Set(side)

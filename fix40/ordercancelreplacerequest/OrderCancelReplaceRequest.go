@@ -45,6 +45,7 @@ func New(origclordid field.OrigClOrdIDField, clordid field.ClOrdIDField, handlin
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("G"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(origclordid)
 	m.Set(clordid)
 	m.Set(handlinst)

@@ -45,6 +45,7 @@ func New() (m Heartbeat) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("0"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 
 	return
 }

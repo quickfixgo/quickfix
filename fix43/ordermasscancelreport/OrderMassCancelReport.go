@@ -45,6 +45,7 @@ func New(orderid field.OrderIDField, masscancelrequesttype field.MassCancelReque
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("r"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 	m.Set(orderid)
 	m.Set(masscancelrequesttype)
 	m.Set(masscancelresponse)

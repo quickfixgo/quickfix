@@ -45,6 +45,7 @@ func New() (m SecurityDefinitionUpdateReport) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BP"))
+	m.Header.Set(field.NewBeginString("9"))
 
 	return
 }

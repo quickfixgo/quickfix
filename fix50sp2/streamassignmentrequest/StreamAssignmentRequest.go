@@ -45,6 +45,7 @@ func New(streamasgnreqid field.StreamAsgnReqIDField, streamasgnreqtype field.Str
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("CC"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(streamasgnreqid)
 	m.Set(streamasgnreqtype)
 

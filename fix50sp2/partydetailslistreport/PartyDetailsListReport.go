@@ -45,6 +45,7 @@ func New(partydetailslistreportid field.PartyDetailsListReportIDField) (m PartyD
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("CG"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(partydetailslistreportid)
 
 	return

@@ -45,6 +45,7 @@ func New(marketreqid field.MarketReqIDField, subscriptionrequesttype field.Subsc
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BT"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(marketreqid)
 	m.Set(subscriptionrequesttype)
 
