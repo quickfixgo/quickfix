@@ -227,6 +227,7 @@ func New({{template "field_args" $required_fields }}) (m {{ .Name }}) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("{{ .MessageDef.MsgType }}"))
+	m.Header.Set(field.NewBeginString("{{ routerBeginString .FIXSpec }}"))
 	{{- range $required_fields }}
 	m.Set({{ toLower .Name }})
 	{{- end }}
