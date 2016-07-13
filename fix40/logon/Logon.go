@@ -45,6 +45,7 @@ func New(encryptmethod field.EncryptMethodField, heartbtint field.HeartBtIntFiel
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("A"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(encryptmethod)
 	m.Set(heartbtint)
 

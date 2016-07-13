@@ -45,6 +45,7 @@ func New(listid field.ListIDField, transacttime field.TransactTimeField) (m List
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("L"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(listid)
 	m.Set(transacttime)
 

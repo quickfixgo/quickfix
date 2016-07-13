@@ -45,6 +45,7 @@ func New(securityresponseid field.SecurityResponseIDField) (m DerivativeSecurity
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AA"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(securityresponseid)
 
 	return

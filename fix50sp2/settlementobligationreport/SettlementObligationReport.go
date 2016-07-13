@@ -45,6 +45,7 @@ func New(settlobligmsgid field.SettlObligMsgIDField, settlobligmode field.SettlO
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BQ"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(settlobligmsgid)
 	m.Set(settlobligmode)
 

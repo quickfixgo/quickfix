@@ -45,6 +45,7 @@ func New(quotereqid field.QuoteReqIDField, symbol field.SymbolField) (m QuoteReq
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("R"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(quotereqid)
 	m.Set(symbol)
 

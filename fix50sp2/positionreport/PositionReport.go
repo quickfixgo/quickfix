@@ -45,6 +45,7 @@ func New(posmaintrptid field.PosMaintRptIDField, clearingbusinessdate field.Clea
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AP"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(posmaintrptid)
 	m.Set(clearingbusinessdate)
 

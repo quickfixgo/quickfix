@@ -45,6 +45,7 @@ func New(orderid field.OrderIDField, clordid field.ClOrdIDField) (m OrderCancelR
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("9"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(orderid)
 	m.Set(clordid)
 

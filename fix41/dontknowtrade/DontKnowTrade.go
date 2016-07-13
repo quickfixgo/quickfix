@@ -45,6 +45,7 @@ func New(dkreason field.DKReasonField, symbol field.SymbolField, side field.Side
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("Q"))
+	m.Header.Set(field.NewBeginString("FIX.4.1"))
 	m.Set(dkreason)
 	m.Set(symbol)
 	m.Set(side)

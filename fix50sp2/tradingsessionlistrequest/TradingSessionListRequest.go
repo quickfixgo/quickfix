@@ -45,6 +45,7 @@ func New(tradsesreqid field.TradSesReqIDField, subscriptionrequesttype field.Sub
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BI"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(tradsesreqid)
 	m.Set(subscriptionrequesttype)
 

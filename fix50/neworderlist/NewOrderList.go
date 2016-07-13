@@ -45,6 +45,7 @@ func New(listid field.ListIDField, bidtype field.BidTypeField, totnoorders field
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("E"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(listid)
 	m.Set(bidtype)
 	m.Set(totnoorders)

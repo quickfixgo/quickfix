@@ -45,6 +45,7 @@ func New(crossid field.CrossIDField, origcrossid field.OrigCrossIDField, crossty
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("t"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(crossid)
 	m.Set(origcrossid)
 	m.Set(crosstype)

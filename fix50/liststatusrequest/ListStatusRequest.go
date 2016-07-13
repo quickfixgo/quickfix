@@ -45,6 +45,7 @@ func New(listid field.ListIDField) (m ListStatusRequest) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("M"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(listid)
 
 	return

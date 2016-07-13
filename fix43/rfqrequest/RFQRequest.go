@@ -45,6 +45,7 @@ func New(rfqreqid field.RFQReqIDField) (m RFQRequest) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AH"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 	m.Set(rfqreqid)
 
 	return

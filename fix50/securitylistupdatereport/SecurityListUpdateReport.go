@@ -45,6 +45,7 @@ func New() (m SecurityListUpdateReport) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BK"))
+	m.Header.Set(field.NewBeginString("7"))
 
 	return
 }

@@ -45,6 +45,7 @@ func New(posmaintrptid field.PosMaintRptIDField, posreqresult field.PosReqResult
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AO"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(posmaintrptid)
 	m.Set(posreqresult)
 	m.Set(posreqstatus)

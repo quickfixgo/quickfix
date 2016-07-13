@@ -45,6 +45,7 @@ func New(beginseqno field.BeginSeqNoField, endseqno field.EndSeqNoField) (m Rese
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("2"))
+	m.Header.Set(field.NewBeginString("FIX.4.1"))
 	m.Set(beginseqno)
 	m.Set(endseqno)
 

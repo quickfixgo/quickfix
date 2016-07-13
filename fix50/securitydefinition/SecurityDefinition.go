@@ -45,6 +45,7 @@ func New() (m SecurityDefinition) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("d"))
+	m.Header.Set(field.NewBeginString("7"))
 
 	return
 }

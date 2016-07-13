@@ -45,6 +45,7 @@ func New(newseqno field.NewSeqNoField) (m SequenceReset) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("4"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 	m.Set(newseqno)
 
 	return

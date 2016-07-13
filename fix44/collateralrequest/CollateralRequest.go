@@ -45,6 +45,7 @@ func New(collreqid field.CollReqIDField, collasgnreason field.CollAsgnReasonFiel
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AX"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(collreqid)
 	m.Set(collasgnreason)
 	m.Set(transacttime)
