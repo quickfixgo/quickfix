@@ -11,6 +11,6 @@ Before proposing a large change, please discuss your change by raising an issue.
 
 ## Notes
 
-* If you report a bug and don not include a fix, please include a failing test
+* If you report a bug and do not include a fix, please include a failing test
 * Generally, contributions without tests will not be accepted
 * Contributions that fail the automated build will not be accepted
