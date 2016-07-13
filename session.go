@@ -187,7 +187,7 @@ func (s *session) resend(msg Message) {
 }
 
 //send should NOT be called outside of the run loop
-func (s *session) send(msg Message) error {
+func (s *session) send(msg Message) (err error) {
 	s.fillDefaultHeader(msg)
 
 	seqNum := s.store.NextSenderMsgSeqNum()
@@ -199,14 +199,18 @@ func (s *session) send(msg Message) error {
 	} else {
 		s.application.ToApp(msg, s.sessionID)
 	}
-	if msgBytes, err := msg.Build(); err != nil {
-		return err
-	} else {
-		s.store.SaveMessage(seqNum, msgBytes)
-		s.sendBytes(msgBytes)
-		s.store.IncrNextSenderMsgSeqNum()
+
+	var msgBytes []byte
+	if msgBytes, err = msg.Build(); err != nil {
+		return
 	}
-	return nil
+
+	if err = s.store.SaveMessage(seqNum, msgBytes); err == nil {
+		s.sendBytes(msgBytes)
+		err = s.store.IncrNextSenderMsgSeqNum()
+	}
+
+	return
 }
 
 func (s *session) sendBytes(msg []byte) {
