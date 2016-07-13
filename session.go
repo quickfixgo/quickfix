@@ -150,8 +150,8 @@ func (s *session) accept(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 }
 
 func (s *session) onDisconnect() {
-	s.application.OnLogout(s.sessionID)
 	s.log.OnEvent("Disconnected")
+	go s.application.OnLogout(s.sessionID)
 }
 
 func (s *session) insertSendingTime(header Header) {
@@ -295,8 +295,6 @@ func (s *session) handleLogon(msg Message) error {
 		s.log.OnEvent("Received logon response")
 	}
 
-	s.application.OnLogon(s.sessionID)
-
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		switch TypedError := err.(type) {
 		case targetTooHigh:
@@ -306,6 +304,7 @@ func (s *session) handleLogon(msg Message) error {
 	}
 
 	s.store.IncrNextTargetMsgSeqNum()
+	go s.application.OnLogon(s.sessionID)
 	return nil
 }
 
