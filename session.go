@@ -511,6 +511,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	defer func() {
 		close(s.messageOut)
 		close(s.toSend)
+		s.toSend = nil
 		s.onDisconnect()
 	}()
 
