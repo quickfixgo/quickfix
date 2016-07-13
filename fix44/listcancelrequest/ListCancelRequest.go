@@ -45,6 +45,7 @@ func New(listid field.ListIDField, transacttime field.TransactTimeField) (m List
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("K"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(listid)
 	m.Set(transacttime)
 

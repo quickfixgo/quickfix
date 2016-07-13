@@ -45,6 +45,7 @@ func New(linesoftext field.LinesOfTextField, text field.TextField) (m News) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("B"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(linesoftext)
 	m.Set(text)
 

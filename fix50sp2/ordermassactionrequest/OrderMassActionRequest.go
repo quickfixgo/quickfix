@@ -45,6 +45,7 @@ func New(clordid field.ClOrdIDField, massactiontype field.MassActionTypeField, m
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("CA"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(clordid)
 	m.Set(massactiontype)
 	m.Set(massactionscope)

@@ -45,6 +45,7 @@ func New(orderid field.OrderIDField, execid field.ExecIDField, exectranstype fie
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("8"))
+	m.Header.Set(field.NewBeginString("FIX.4.1"))
 	m.Set(orderid)
 	m.Set(execid)
 	m.Set(exectranstype)

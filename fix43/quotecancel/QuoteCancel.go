@@ -45,6 +45,7 @@ func New(quoteid field.QuoteIDField, quotecanceltype field.QuoteCancelTypeField)
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("Z"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 	m.Set(quoteid)
 	m.Set(quotecanceltype)
 

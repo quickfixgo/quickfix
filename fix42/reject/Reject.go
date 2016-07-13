@@ -45,6 +45,7 @@ func New(refseqnum field.RefSeqNumField) (m Reject) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("3"))
+	m.Header.Set(field.NewBeginString("FIX.4.2"))
 	m.Set(refseqnum)
 
 	return

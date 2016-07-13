@@ -45,6 +45,7 @@ func New(lastqty field.LastQtyField, lastpx field.LastPxField, tradedate field.T
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AE"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(lastqty)
 	m.Set(lastpx)
 	m.Set(tradedate)

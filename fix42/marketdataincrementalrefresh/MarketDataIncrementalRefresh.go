@@ -45,6 +45,7 @@ func New() (m MarketDataIncrementalRefresh) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("X"))
+	m.Header.Set(field.NewBeginString("FIX.4.2"))
 
 	return
 }

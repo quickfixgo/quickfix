@@ -45,6 +45,7 @@ func New(refmsgtype field.RefMsgTypeField, businessrejectreason field.BusinessRe
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("j"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(refmsgtype)
 	m.Set(businessrejectreason)
 

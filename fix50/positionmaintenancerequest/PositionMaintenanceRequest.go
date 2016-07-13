@@ -45,6 +45,7 @@ func New(postranstype field.PosTransTypeField, posmaintaction field.PosMaintActi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AL"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(postranstype)
 	m.Set(posmaintaction)
 	m.Set(clearingbusinessdate)

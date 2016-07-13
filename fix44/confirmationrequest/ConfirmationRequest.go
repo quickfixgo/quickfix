@@ -45,6 +45,7 @@ func New(confirmreqid field.ConfirmReqIDField, confirmtype field.ConfirmTypeFiel
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BH"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(confirmreqid)
 	m.Set(confirmtype)
 	m.Set(transacttime)

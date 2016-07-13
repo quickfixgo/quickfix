@@ -45,6 +45,7 @@ func New(orderid field.OrderIDField, execackstatus field.ExecAckStatusField, exe
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BN"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(orderid)
 	m.Set(execackstatus)
 	m.Set(execid)

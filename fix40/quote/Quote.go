@@ -45,6 +45,7 @@ func New(quoteid field.QuoteIDField, symbol field.SymbolField, bidpx field.BidPx
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("S"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(quoteid)
 	m.Set(symbol)
 	m.Set(bidpx)

@@ -45,6 +45,7 @@ func New(clordid field.ClOrdIDField, side field.SideField) (m OrderStatusRequest
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("H"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(clordid)
 	m.Set(side)
 

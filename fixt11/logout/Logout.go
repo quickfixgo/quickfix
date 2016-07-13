@@ -45,6 +45,7 @@ func New() (m Logout) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("5"))
+	m.Header.Set(field.NewBeginString("FIXT.1.1"))
 
 	return
 }

@@ -45,6 +45,7 @@ func New(allocid field.AllocIDField, alloctranstype field.AllocTransTypeField, a
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BM"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(allocid)
 	m.Set(alloctranstype)
 	m.Set(alloctype)

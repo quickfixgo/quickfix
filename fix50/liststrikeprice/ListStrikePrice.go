@@ -45,6 +45,7 @@ func New(listid field.ListIDField, totnostrikes field.TotNoStrikesField) (m List
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("m"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(listid)
 	m.Set(totnostrikes)
 

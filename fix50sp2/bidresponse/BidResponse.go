@@ -45,6 +45,7 @@ func New() (m BidResponse) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("l"))
+	m.Header.Set(field.NewBeginString("9"))
 
 	return
 }

@@ -45,6 +45,7 @@ func New(collrespid field.CollRespIDField, collasgnresptype field.CollAsgnRespTy
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AZ"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(collrespid)
 	m.Set(collasgnresptype)
 	m.Set(transacttime)

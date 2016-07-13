@@ -45,6 +45,7 @@ func New(posreqid field.PosReqIDField, postranstype field.PosTransTypeField, pos
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AL"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(posreqid)
 	m.Set(postranstype)
 	m.Set(posmaintaction)

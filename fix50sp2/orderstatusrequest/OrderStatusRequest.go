@@ -45,6 +45,7 @@ func New(side field.SideField) (m OrderStatusRequest) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("H"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(side)
 
 	return

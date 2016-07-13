@@ -45,6 +45,7 @@ func New(orderid field.OrderIDField, execid field.ExecIDField, dkreason field.DK
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("Q"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 	m.Set(orderid)
 	m.Set(execid)
 	m.Set(dkreason)

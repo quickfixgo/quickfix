@@ -45,6 +45,7 @@ func New(securityreqid field.SecurityReqIDField, securitylistrequesttype field.S
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("z"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(securityreqid)
 	m.Set(securitylistrequesttype)
 

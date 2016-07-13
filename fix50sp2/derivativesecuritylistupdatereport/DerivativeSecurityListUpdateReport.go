@@ -45,6 +45,7 @@ func New() (m DerivativeSecurityListUpdateReport) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BR"))
+	m.Header.Set(field.NewBeginString("9"))
 
 	return
 }

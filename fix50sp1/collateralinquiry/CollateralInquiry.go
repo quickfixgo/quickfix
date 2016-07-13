@@ -45,6 +45,7 @@ func New() (m CollateralInquiry) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BB"))
+	m.Header.Set(field.NewBeginString("8"))
 
 	return
 }
