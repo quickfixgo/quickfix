@@ -172,6 +172,18 @@ func (s *session) fillDefaultHeader(msg Message) {
 	s.insertSendingTime(msg.Header)
 }
 
+func (s *session) sendLogout(reason string) {
+	logout := NewMessage()
+	logout.Header.SetField(tagMsgType, FIXString("5"))
+	logout.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
+	logout.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
+	logout.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
+	if reason != "" {
+		logout.Body.SetField(tagText, FIXString(reason))
+	}
+	s.send(logout)
+}
+
 func (s *session) resend(msg Message) {
 	msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
 
@@ -308,6 +320,12 @@ func (s *session) handleLogon(msg Message) error {
 	s.store.IncrNextTargetMsgSeqNum()
 	go s.application.OnLogon(s.sessionID)
 	return nil
+}
+
+func (s *session) initiateLogout(reason string) {
+	s.log.OnEvent("Inititated logout request")
+	s.sendLogout(reason)
+	time.AfterFunc(time.Duration(2)*time.Second, func() { s.sessionEvent <- logoutTimeout })
 }
 
 func (s *session) verify(msg Message) MessageRejectError {
@@ -595,8 +613,9 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			}
 		case <-quit:
 			quit = nil // prevent infinitly receiving on a closed channel
-			if state, ok := s.sessionState.(inSession); ok {
-				s.sessionState = state.initiateLogout(s, "")
+			if s.IsLoggedOn() {
+				s.initiateLogout("")
+				s.sessionState = logoutState{}
 			} else {
 				return
 			}
