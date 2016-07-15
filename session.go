@@ -295,6 +295,8 @@ func (s *session) handleLogon(msg Message) error {
 		s.log.OnEvent("Received logon response")
 	}
 
+	s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		switch TypedError := err.(type) {
 		case targetTooHigh:
@@ -511,6 +513,8 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		close(s.messageOut)
 		close(s.toSend)
 		s.toSend = nil
+		s.stateTimer.Stop()
+		s.peerTimer.Stop()
 		s.onDisconnect()
 	}()
 
