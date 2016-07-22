@@ -308,6 +308,7 @@ func (s *session) handleLogon(msg Message) error {
 	}
 
 	s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+	go s.application.OnLogon(s.sessionID)
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		switch TypedError := err.(type) {
@@ -318,7 +319,6 @@ func (s *session) handleLogon(msg Message) error {
 	}
 
 	s.store.IncrNextTargetMsgSeqNum()
-	go s.application.OnLogon(s.sessionID)
 	return nil
 }
 
