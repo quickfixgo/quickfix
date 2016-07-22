@@ -127,6 +127,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
 	application.OnCreate(session.sessionID)
+	session.log.OnEvent("Created session")
 	sessions.newSession <- session
 
 	return nil
@@ -232,6 +233,8 @@ func (s *session) sendBytes(msg []byte) {
 }
 
 func (s *session) doTargetTooHigh(reject targetTooHigh) {
+	s.log.OnEventf("MsgSeqNum too high, expecting %v but received %v", reject.ExpectedTarget, reject.ReceivedTarget)
+
 	resend := NewMessage()
 	resend.Header.SetField(tagMsgType, FIXString("2"))
 	resend.Body.SetField(tagBeginSeqNo, FIXInt(reject.ExpectedTarget))
@@ -243,6 +246,8 @@ func (s *session) doTargetTooHigh(reject targetTooHigh) {
 	resend.Body.SetField(tagEndSeqNo, FIXInt(endSeqNum))
 
 	s.send(resend)
+
+	s.log.OnEventf("Sent ResendRequest FROM: %v TO: %v", reject.ExpectedTarget, endSeqNum)
 }
 
 func (s *session) verifyLogon(msg Message) MessageRejectError {

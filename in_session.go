@@ -83,6 +83,7 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 		testReq.Header.SetField(tagMsgType, FIXString("1"))
 		testReq.Body.SetField(tagTestReqID, FIXString("TEST"))
 		session.send(testReq)
+		session.log.OnEvent("Sent test request TEST")
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
 		return pendingTimeout{}
 	}
@@ -173,7 +174,10 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 		if seqNum != sentMessageSeqNum {
 			state.generateSequenceReset(session, seqNum, sentMessageSeqNum)
 		}
+
 		session.resend(msg)
+		session.log.OnEventf("Resending Message: %v", sentMessageSeqNum)
+
 		seqNum = sentMessageSeqNum + 1
 		nextSeqNum = seqNum
 	}
@@ -266,4 +270,6 @@ func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, 
 	//FIXME error check?
 	msgBytes, _ := sequenceReset.Build()
 	session.sendBytes(msgBytes)
+
+	session.log.OnEventf("Sent SequenceReset TO: %v", endSeqNo)
 }
