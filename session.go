@@ -39,6 +39,15 @@ type session struct {
 	targetDefaultApplVerID string
 }
 
+func (s *session) logError(err error) {
+	s.log.OnEvent(err.Error())
+}
+
+func (s *session) handleError(err error) sessionState {
+	s.logError(err)
+	return latentState{}
+}
+
 //TargetDefaultApplicationVersionID returns the default application version ID for messages received by this version.
 //Applicable for For FIX.T.1 sessions.
 func (s *session) TargetDefaultApplicationVersionID() string {
@@ -307,7 +316,9 @@ func (s *session) handleLogon(msg Message) error {
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		s.send(reply)
+		if err := s.send(reply); err != nil {
+			return err
+		}
 	} else {
 		s.log.OnEvent("Received logon response")
 	}
@@ -323,8 +334,7 @@ func (s *session) handleLogon(msg Message) error {
 		}
 	}
 
-	s.store.IncrNextTargetMsgSeqNum()
-	return nil
+	return s.store.IncrNextTargetMsgSeqNum()
 }
 
 func (s *session) initiateLogout(reason string) {
@@ -561,7 +571,10 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		}
 
 		s.log.OnEvent("Sending logon request")
-		s.send(logon)
+		if err := s.send(logon); err != nil {
+			s.logError(err)
+			return
+		}
 	}
 
 	fixMsgIn := func(msg Message) {

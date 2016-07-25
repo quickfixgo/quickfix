@@ -40,8 +40,9 @@ func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessio
 	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
 		switch string(msgType) {
 		case enum.MsgType_LOGON:
-			session.handleLogon(msg)
-			return
+			if err := session.handleLogon(msg); err != nil {
+				return session.handleError(err)
+			}
 		case enum.MsgType_LOGOUT:
 			session.log.OnEvent("Received logout request")
 			session.log.OnEvent("Sending logout response")
@@ -56,7 +57,9 @@ func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessio
 		}
 	}
 
-	session.store.IncrNextTargetMsgSeqNum()
+	if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
+		return session.handleError(err)
+	}
 	return
 }
 
@@ -79,12 +82,16 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 	case needHeartbeat:
 		heartBt := NewMessage()
 		heartBt.Header.SetField(tagMsgType, FIXString("0"))
-		session.send(heartBt)
+		if err := session.send(heartBt); err != nil {
+			return session.handleError(err)
+		}
 	case peerTimeout:
 		testReq := NewMessage()
 		testReq.Header.SetField(tagMsgType, FIXString("1"))
 		testReq.Body.SetField(tagTestReqID, FIXString("TEST"))
-		session.send(testReq)
+		if err := session.send(testReq); err != nil {
+			return session.handleError(err)
+		}
 		session.log.OnEvent("Sent test request TEST")
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
 		return pendingTimeout{}
@@ -100,10 +107,14 @@ func (state inSession) handleTestRequest(session *session, msg Message) (nextSta
 		heartBt := NewMessage()
 		heartBt.Header.SetField(tagMsgType, FIXString("0"))
 		heartBt.Body.SetField(tagTestReqID, testReq)
-		session.send(heartBt)
+		if err := session.send(heartBt); err != nil {
+			return session.handleError(err)
+		}
 	}
 
-	session.store.IncrNextTargetMsgSeqNum()
+	if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
+		return session.handleError(err)
+	}
 	return state
 }
 
@@ -115,7 +126,9 @@ func (state inSession) handleSequenceReset(session *session, msg Message) (nextS
 
 		switch {
 		case newSeqNo > expectedSeqNum:
-			session.store.SetNextTargetMsgSeqNum(int(newSeqNo))
+			if err := session.store.SetNextTargetMsgSeqNum(int(newSeqNo)); err != nil {
+				return session.handleError(err)
+			}
 		case newSeqNo < expectedSeqNum:
 			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
 			session.doReject(msg, valueIsIncorrectNoTag())
@@ -150,7 +163,9 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 	}
 
 	state.resendMessages(session, int(beginSeqNo), endSeqNo)
-	session.store.IncrNextTargetMsgSeqNum()
+	if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
+		return session.handleError(err)
+	}
 	return state
 }
 
@@ -217,7 +232,9 @@ func (state inSession) processReject(session *session, msg Message, rej MessageR
 		return logoutState{}
 	default:
 		session.doReject(msg, rej)
-		session.store.IncrNextTargetMsgSeqNum()
+		if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
+			return session.handleError(err)
+		}
 		return state
 	}
 }
