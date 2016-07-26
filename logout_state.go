@@ -18,6 +18,7 @@ func (state logoutState) FixMsgIn(session *session, msg Message) (nextState sess
 	switch string(msgType) {
 	case enum.MsgType_LOGOUT:
 		session.log.OnEvent("Received logout response")
+		session.store.IncrNextTargetMsgSeqNum()
 		return latentState{}
 	default:
 		return state
