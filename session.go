@@ -39,6 +39,15 @@ type session struct {
 	targetDefaultApplVerID string
 }
 
+func (s *session) logError(err error) {
+	s.log.OnEvent(err.Error())
+}
+
+func (s *session) handleError(err error) sessionState {
+	s.logError(err)
+	return latentState{}
+}
+
 //TargetDefaultApplicationVersionID returns the default application version ID for messages received by this version.
 //Applicable for For FIX.T.1 sessions.
 func (s *session) TargetDefaultApplicationVersionID() string {
@@ -173,7 +182,7 @@ func (s *session) fillDefaultHeader(msg Message) {
 	s.insertSendingTime(msg.Header)
 }
 
-func (s *session) sendLogout(reason string) {
+func (s *session) sendLogout(reason string) error {
 	logout := NewMessage()
 	logout.Header.SetField(tagMsgType, FIXString("5"))
 	logout.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
@@ -182,10 +191,10 @@ func (s *session) sendLogout(reason string) {
 	if reason != "" {
 		logout.Body.SetField(tagText, FIXString(reason))
 	}
-	s.send(logout)
+	return s.send(logout)
 }
 
-func (s *session) resend(msg Message) {
+func (s *session) resend(msg Message) error {
 	msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
 
 	var origSendingTime FIXString
@@ -195,8 +204,12 @@ func (s *session) resend(msg Message) {
 
 	s.insertSendingTime(msg.Header)
 
-	msg.Build()
+	if _, err := msg.Build(); err != nil {
+		return err
+	}
 	s.sendBytes(msg.rawMessage)
+
+	return nil
 }
 
 //send should NOT be called outside of the run loop
@@ -232,7 +245,7 @@ func (s *session) sendBytes(msg []byte) {
 	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
 }
 
-func (s *session) doTargetTooHigh(reject targetTooHigh) {
+func (s *session) doTargetTooHigh(reject targetTooHigh) error {
 	s.log.OnEventf("MsgSeqNum too high, expecting %v but received %v", reject.ExpectedTarget, reject.ReceivedTarget)
 
 	resend := NewMessage()
@@ -245,9 +258,13 @@ func (s *session) doTargetTooHigh(reject targetTooHigh) {
 	}
 	resend.Body.SetField(tagEndSeqNo, FIXInt(endSeqNum))
 
-	s.send(resend)
+	if err := s.send(resend); err != nil {
+		return err
+	}
 
 	s.log.OnEventf("Sent ResendRequest FROM: %v TO: %v", reject.ExpectedTarget, endSeqNum)
+
+	return nil
 }
 
 func (s *session) verifyLogon(msg Message) MessageRejectError {
@@ -278,6 +295,7 @@ func (s *session) verifyLogon(msg Message) MessageRejectError {
 
 		return s.verifyIgnoreSeqNumTooHigh(msg)
 	}
+
 	return nil
 }
 
@@ -307,7 +325,9 @@ func (s *session) handleLogon(msg Message) error {
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		s.send(reply)
+		if err := s.send(reply); err != nil {
+			return err
+		}
 	} else {
 		s.log.OnEvent("Received logon response")
 	}
@@ -318,19 +338,22 @@ func (s *session) handleLogon(msg Message) error {
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		switch TypedError := err.(type) {
 		case targetTooHigh:
-			s.doTargetTooHigh(TypedError)
-			return nil
+			return s.doTargetTooHigh(TypedError)
 		}
 	}
 
-	s.store.IncrNextTargetMsgSeqNum()
-	return nil
+	return s.store.IncrNextTargetMsgSeqNum()
 }
 
-func (s *session) initiateLogout(reason string) {
+func (s *session) initiateLogout(reason string) (err error) {
+	if err = s.sendLogout(reason); err != nil {
+		s.logError(err)
+		return
+	}
 	s.log.OnEvent("Inititated logout request")
-	s.sendLogout(reason)
 	time.AfterFunc(time.Duration(2)*time.Second, func() { s.sessionEvent <- logoutTimeout })
+
+	return
 }
 
 func (s *session) verify(msg Message) MessageRejectError {
@@ -464,7 +487,7 @@ func (s *session) checkBeginString(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *session) doReject(msg Message, rej MessageRejectError) {
+func (s *session) doReject(msg Message, rej MessageRejectError) error {
 	reply := msg.reverseRoute()
 
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
@@ -506,8 +529,8 @@ func (s *session) doReject(msg Message, rej MessageRejectError) {
 		reply.Body.SetField(tagRefSeqNum, seqNum)
 	}
 
-	s.send(reply)
 	s.log.OnEventf("Message Rejected: %v", rej.Error())
+	return s.send(reply)
 }
 
 type fixIn struct {
@@ -543,7 +566,10 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 
 	if s.initiateLogon {
 		if s.resetOnLogon {
-			s.store.Reset()
+			if err := s.store.Reset(); err != nil {
+				s.logError(err)
+				return
+			}
 		}
 
 		logon := NewMessage()
@@ -561,7 +587,10 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		}
 
 		s.log.OnEvent("Sending logon request")
-		s.send(logon)
+		if err := s.send(logon); err != nil {
+			s.logError(err)
+			return
+		}
 	}
 
 	fixMsgIn := func(msg Message) {
@@ -619,7 +648,10 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		case <-quit:
 			quit = nil // prevent infinitly receiving on a closed channel
 			if s.IsLoggedOn() {
-				s.initiateLogout("")
+				if err := s.initiateLogout(""); err != nil {
+					s.logError(err)
+					return
+				}
 				s.sessionState = logoutState{}
 			} else {
 				return

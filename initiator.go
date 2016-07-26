@@ -34,7 +34,7 @@ func (i *Initiator) Start() error {
 			return fmt.Errorf("error on SocketConnectPort: %v", err)
 		}
 
-		var reconnectInterval int = 30 // Default configuration (in seconds)
+		reconnectInterval := 30 // Default configuration (in seconds)
 		if s.HasSetting(config.ReconnectInterval) {
 			if reconnectInterval, err = s.IntSetting(config.ReconnectInterval); err != nil {
 				return fmt.Errorf("error on ReconnectInterval: %v", err)
