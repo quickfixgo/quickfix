@@ -34,17 +34,19 @@ func (state inSession) VerifyMsgIn(session *session, msg Message) (err MessageRe
 }
 
 func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessionState) {
+	nextState = state
+
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err == nil {
 		switch string(msgType) {
 		case enum.MsgType_LOGON:
 			session.handleLogon(msg)
-			return state
+			return
 		case enum.MsgType_LOGOUT:
 			session.log.OnEvent("Received logout request")
 			session.log.OnEvent("Sending logout response")
 			session.sendLogout("")
-			return latentState{}
+			nextState = latentState{}
 		case enum.MsgType_TEST_REQUEST:
 			return state.handleTestRequest(session, msg)
 		case enum.MsgType_RESEND_REQUEST:
@@ -55,7 +57,7 @@ func (state inSession) FixMsgIn(session *session, msg Message) (nextState sessio
 	}
 
 	session.store.IncrNextTargetMsgSeqNum()
-	return state
+	return
 }
 
 func (state inSession) FixMsgInRej(session *session, msg Message, rej MessageRejectError) (nextState sessionState) {
