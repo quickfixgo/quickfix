@@ -174,6 +174,14 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 		return session.handleError(err)
 	}
 
+	if err := session.checkTargetTooLow(msg); err != nil {
+		return state
+	}
+
+	if err := session.checkTargetTooHigh(msg); err != nil {
+		return state
+	}
+
 	if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
 		return session.handleError(err)
 	}
