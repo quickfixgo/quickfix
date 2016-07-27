@@ -100,7 +100,7 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 		}
 		session.log.OnEvent("Sent test request TEST")
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
-		return pendingTimeout{}
+		return pendingTimeout{state}
 	}
 	return state
 }
