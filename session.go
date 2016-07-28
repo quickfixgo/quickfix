@@ -130,6 +130,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 		return err
 	}
 
+	session.toSend = make(chan sendRequest)
 	session.sessionEvent = make(chan event)
 	session.messageEvent = make(chan bool)
 	session.application = application
@@ -212,6 +213,14 @@ func (s *session) resend(msg Message) error {
 	return nil
 }
 
+func (s *session) persist(seqNum int, msgBytes []byte) error {
+	if err := s.store.SaveMessage(seqNum, msgBytes); err != nil {
+		return err
+	}
+
+	return s.store.IncrNextSenderMsgSeqNum()
+}
+
 //send should NOT be called outside of the run loop
 func (s *session) send(msg Message) (err error) {
 	s.fillDefaultHeader(msg)
@@ -220,7 +229,11 @@ func (s *session) send(msg Message) (err error) {
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
 	var msgType FIXString
-	if msg.Header.GetField(tagMsgType, &msgType); isAdminMessageType(string(msgType)) {
+	if err = msg.Header.GetField(tagMsgType, &msgType); err != nil {
+		return err
+	}
+
+	if isAdminMessageType(string(msgType)) {
 		s.application.ToAdmin(msg, s.sessionID)
 	} else {
 		s.application.ToApp(msg, s.sessionID)
@@ -231,9 +244,19 @@ func (s *session) send(msg Message) (err error) {
 		return
 	}
 
-	if err = s.store.SaveMessage(seqNum, msgBytes); err == nil {
+	if err = s.persist(seqNum, msgBytes); err != nil {
+		return
+	}
+
+	if s.IsLoggedOn() {
 		s.sendBytes(msgBytes)
-		err = s.store.IncrNextSenderMsgSeqNum()
+	} else {
+		switch msgType {
+		case enum.MsgType_LOGON:
+			fallthrough
+		case enum.MsgType_RESEND_REQUEST:
+			s.sendBytes(msgBytes)
+		}
 	}
 
 	return
@@ -546,7 +569,6 @@ type sendRequest struct {
 func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.messageIn = msgIn
 	s.messageOut = msgOut
-	s.toSend = make(chan sendRequest)
 	s.resendIn = make(chan Message, 1)
 
 	type fromCallback struct {
@@ -557,8 +579,6 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 
 	defer func() {
 		close(s.messageOut)
-		close(s.toSend)
-		s.toSend = nil
 		s.stateTimer.Stop()
 		s.peerTimer.Stop()
 		s.onDisconnect()
@@ -615,11 +635,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 
 		select {
 		case request := <-s.toSend:
-			if s.IsLoggedOn() {
-				request.err <- s.send(request.msg)
-			} else {
-				request.err <- fmt.Errorf("Not logged on")
-			}
+			request.err <- s.send(request.msg)
 		case fixIn, ok := <-msgIn:
 			if ok {
 				s.log.OnIncoming(string(fixIn.bytes))

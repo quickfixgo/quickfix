@@ -39,8 +39,6 @@ func SendToTarget(m Messagable, sessionID SessionID) error {
 	session, err := lookupSession(sessionID)
 	if err != nil {
 		return err
-	} else if session.toSend == nil {
-		return fmt.Errorf("Not logged on")
 	}
 
 	request := sendRequest{msg, make(chan error)}
