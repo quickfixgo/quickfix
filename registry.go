@@ -41,9 +41,7 @@ func SendToTarget(m Messagable, sessionID SessionID) error {
 		return err
 	}
 
-	request := sendRequest{msg, make(chan error)}
-	session.toSend <- request
-	return <-request.err
+	return session.queueForSend(msg)
 }
 
 type sessionActivate struct {

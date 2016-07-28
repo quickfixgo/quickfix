@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix/enum"
+
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
@@ -251,8 +252,8 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 }
 
 type TestClient struct {
-	adminCalled int
-	appCalled   int
+	adminMessages []Message
+	appMessages   []Message
 }
 
 func (e *TestClient) OnCreate(sessionID SessionID) {
@@ -269,11 +270,11 @@ func (e *TestClient) FromAdmin(msg Message, sessionID SessionID) (reject Message
 }
 
 func (e *TestClient) ToAdmin(msg Message, sessionID SessionID) {
-	e.adminCalled = e.adminCalled + 1
+	e.adminMessages = append(e.adminMessages, msg)
 }
 
 func (e *TestClient) ToApp(msg Message, sessionID SessionID) (err error) {
-	e.appCalled = e.appCalled + 1
+	e.appMessages = append(e.appMessages, msg)
 	return nil
 }
 
@@ -285,14 +286,14 @@ type SessionSendTestSuite struct {
 	suite.Suite
 
 	*TestClient
-	session
+	*session
 	sendChannel chan []byte
 }
 
 func (suite *SessionSendTestSuite) SetupTest() {
-	suite.sendChannel = make(chan []byte, 1)
+	suite.sendChannel = make(chan []byte, 10)
 	suite.TestClient = new(TestClient)
-	suite.session = session{
+	suite.session = &session{
 		store:       new(memoryStore),
 		application: suite,
 		log:         nullLog{},
@@ -300,7 +301,7 @@ func (suite *SessionSendTestSuite) SetupTest() {
 	}
 }
 
-func (suite *SessionSendTestSuite) SentMessage() (msg []byte) {
+func (suite *SessionSendTestSuite) sentMessage() (msg []byte) {
 	select {
 	case msg = <-suite.sendChannel:
 	default:
@@ -312,134 +313,146 @@ func TestSessionSendTestSuite(t *testing.T) {
 	suite.Run(t, new(SessionSendTestSuite))
 }
 
-func (suite *SessionSendTestSuite) SendNewOrderSingle() {
+func (suite *SessionSendTestSuite) NewOrderSingle() Message {
 	msg := buildMessage()
 	msg.Header.SetField(tagMsgType, FIXString("D"))
-	require.Nil(suite.T(), suite.send(msg))
+	return msg
 }
 
-func (suite *SessionSendTestSuite) SendHeartbeat() {
+func (suite *SessionSendTestSuite) Heartbeat() Message {
 	msg := buildMessage()
 	msg.Header.SetField(tagMsgType, FIXString("0"))
-	require.Nil(suite.T(), suite.send(msg))
+	return msg
 }
 
-func (suite *SessionSendTestSuite) SendLogon() {
+func (suite *SessionSendTestSuite) Logon() Message {
 	msg := buildMessage()
 	msg.Header.SetField(tagMsgType, FIXString("A"))
-	require.Nil(suite.T(), suite.send(msg))
+	return msg
 }
 
-func (suite *SessionSendTestSuite) MessagePersisted() {
+func (suite *SessionSendTestSuite) shouldPersistMessage() {
 	suite.Equal(2, suite.store.NextSenderMsgSeqNum(), "The next sender sequence number should be incremented")
 	persistedMessages, err := suite.store.GetMessages(1, 1)
 	suite.Nil(err)
 	suite.Len(persistedMessages, 1, "The message should be persisted")
 }
 
-func (suite *SessionSendTestSuite) TestSendAppMessageLoggedOn() {
-	var tests = []struct {
-		sessionState
-	}{
-		{inSession{}},
-		{resendState{}},
-		{pendingTimeout{inSession{}}},
-		{pendingTimeout{resendState{}}},
-	}
-
-	for _, test := range tests {
-		suite.SetupTest()
-		suite.session.sessionState = test.sessionState
-
-		suite.SendNewOrderSingle()
-
-		suite.Equal(1, suite.appCalled, "ToApp should be called")
-		suite.MessagePersisted()
-		suite.NotNil(suite.SentMessage(), "The message should have been sent")
-	}
+func (suite *SessionSendTestSuite) shouldPersistMessageWithSequenceNum(expectedSeqNum int) {
+	suite.Equal(expectedSeqNum+1, suite.store.NextSenderMsgSeqNum(), "The next sender sequence number should be incremented")
+	persistedMessages, err := suite.store.GetMessages(expectedSeqNum, expectedSeqNum)
+	suite.Nil(err)
+	suite.Len(persistedMessages, 1, "The message should be persisted")
 }
 
-func (suite *SessionSendTestSuite) TestSendAdminMessageLoggedOn() {
-	var tests = []struct {
-		sessionState
-	}{
-		{inSession{}},
-		{resendState{}},
-		{pendingTimeout{inSession{}}},
-		{pendingTimeout{resendState{}}},
-	}
-
-	for _, test := range tests {
-		suite.SetupTest()
-		suite.session.sessionState = test.sessionState
-
-		suite.SendHeartbeat()
-
-		suite.Equal(1, suite.adminCalled, "ToAdmin should be called")
-		suite.MessagePersisted()
-		suite.NotNil(suite.SentMessage(), "The message should have been sent")
-	}
+func (suite *SessionSendTestSuite) shouldCallToApp() {
+	suite.Len(suite.appMessages, 1, "ToApp should be called")
+	suite.appMessages = []Message{}
 }
 
-func (suite *SessionSendTestSuite) TestSendAppMessageNotLoggedOn() {
-	var tests = []struct {
-		sessionState
-	}{
-		{logonState{}},
-		{logoutState{}},
-		{latentState{}},
-	}
-
-	for _, test := range tests {
-		suite.SetupTest()
-		suite.session.sessionState = test.sessionState
-
-		suite.SendNewOrderSingle()
-
-		suite.Equal(1, suite.appCalled, "ToApp should be called even if the message is not sent")
-		suite.MessagePersisted()
-		suite.Nil(suite.SentMessage(), "The message should not be sent")
-	}
+func (suite *SessionSendTestSuite) shouldCallToAdmin() {
+	suite.Len(suite.adminMessages, 1, "ToAdmin should be called")
+	suite.adminMessages = []Message{}
 }
 
-func (suite *SessionSendTestSuite) TestSendAdminMessageNotLoggedOnNotSent() {
-	var tests = []struct {
-		sessionState
-	}{
-		{logonState{}},
-		{logoutState{}},
-		{latentState{}},
-	}
-
-	for _, test := range tests {
-		suite.SetupTest()
-		suite.session.sessionState = test.sessionState
-
-		suite.SendHeartbeat()
-
-		suite.Equal(1, suite.adminCalled, "ToAdmin should be called even if the message is not sent")
-		suite.MessagePersisted()
-		suite.Nil(suite.SentMessage(), "The message should not be sent")
-	}
+func (suite *SessionSendTestSuite) shouldBeType(msg Message, expectedMsgType string) {
+	actual, err := msg.Header.GetString(tagMsgType)
+	suite.Nil(err, "Message doesn't have message type")
+	suite.Equal(expectedMsgType, actual)
 }
 
-func (suite *SessionSendTestSuite) TestSendAdminMessageNotLoggedOnIsSent() {
-	var tests = []struct {
-		sessionState
-	}{
-		{logonState{}},
-		{logoutState{}},
-		{latentState{}},
+func (suite *SessionSendTestSuite) lastToApp() Message {
+	suite.NotEmpty(suite.appMessages, "ToApp should be called")
+	return suite.appMessages[len(suite.appMessages)-1]
+}
+
+func (suite *SessionSendTestSuite) lastToAdmin() Message {
+	suite.NotEmpty(suite.appMessages, "ToAdmin should be called")
+	return suite.adminMessages[len(suite.adminMessages)-1]
+}
+
+func (suite *SessionSendTestSuite) shouldSendMessage() {
+	suite.NotNil(suite.sentMessage(), "The message should have been sent")
+}
+func (suite *SessionSendTestSuite) shouldNotSendMessage() {
+	suite.Nil(suite.sentMessage(), "The message should not have been sent")
+}
+
+func (suite *SessionSendTestSuite) shouldSendMessages(cnt int) {
+	for i := 0; i < cnt; i++ {
+		suite.shouldSendMessage()
 	}
 
-	for _, test := range tests {
-		suite.SetupTest()
-		suite.session.sessionState = test.sessionState
+	suite.shouldNotSendMessage()
+}
 
-		suite.SendLogon()
+func (suite *SessionSendTestSuite) sentMessageShouldBe(sentMsg []byte, msg Message) {
+	expectedBytes, _ := msg.Build()
+	suite.Equal(string(expectedBytes), string(sentMsg))
+}
 
-		suite.Equal(1, suite.adminCalled, "ToAdmin should be called")
-		suite.MessagePersisted()
-		suite.NotNil(suite.SentMessage(), "The message should be sent")
-	}
+func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
+	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
+
+	suite.shouldCallToApp()
+	suite.shouldPersistMessage()
+	suite.shouldNotSendMessage()
+}
+
+func (suite *SessionSendTestSuite) TestQueueForSendAdminMessage() {
+	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+
+	suite.shouldCallToAdmin()
+	suite.shouldPersistMessage()
+	suite.shouldNotSendMessage()
+}
+
+func (suite *SessionSendTestSuite) TestSendAppMessage() {
+	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+
+	suite.shouldCallToApp()
+	suite.shouldPersistMessage()
+	suite.shouldSendMessage()
+}
+
+func (suite *SessionSendTestSuite) TestSendAdminMessage() {
+	require.Nil(suite.T(), suite.send(suite.Heartbeat()))
+
+	suite.shouldCallToAdmin()
+	suite.shouldPersistMessage()
+	suite.shouldSendMessage()
+}
+
+func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
+	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	suite.shouldNotSendMessage()
+
+	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+	suite.shouldSendMessages(3)
+}
+
+func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
+	require.Nil(suite.T(), suite.dropAndSend(suite.Heartbeat()))
+
+	suite.shouldCallToAdmin()
+	suite.shouldPersistMessage()
+	suite.shouldSendMessage()
+}
+
+func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
+	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	suite.shouldNotSendMessage()
+
+	require.Nil(suite.T(), suite.dropAndSend(suite.Logon()))
+	msg := suite.lastToAdmin()
+	suite.shouldBeType(msg, enum.MsgType_LOGON)
+
+	//only one message sent
+	sentMsgBytes := suite.sentMessage()
+	suite.NotNil(sentMsgBytes)
+	suite.shouldNotSendMessage()
+
+	suite.sentMessageShouldBe(sentMsgBytes, msg)
 }

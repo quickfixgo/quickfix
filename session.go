@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/quickfixgo/quickfix/config"
@@ -18,8 +19,13 @@ type session struct {
 
 	messageOut chan []byte
 	messageIn  chan fixIn
-	toSend     chan sendRequest
 	resendIn   chan Message
+
+	//application messages are queued up for send here
+	toSend []Message
+
+	//mutex for access to toSend
+	sendMutex sync.Mutex
 
 	sessionEvent chan event
 	messageEvent chan bool
@@ -130,7 +136,6 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 		return err
 	}
 
-	session.toSend = make(chan sendRequest)
 	session.sessionEvent = make(chan event)
 	session.messageEvent = make(chan bool)
 	session.application = application
@@ -213,18 +218,58 @@ func (s *session) resend(msg Message) error {
 	return nil
 }
 
-func (s *session) persist(seqNum int, msgBytes []byte) error {
-	if err := s.store.SaveMessage(seqNum, msgBytes); err != nil {
-		return err
+//queueForSend will validate, persist, and queue the message for send
+func (s *session) queueForSend(msg Message) (err error) {
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
+
+	if err = s.prepMessageForSend(&msg); err != nil {
+		return
 	}
 
-	return s.store.IncrNextSenderMsgSeqNum()
+	s.toSend = append(s.toSend, msg)
+
+	select {
+	case s.messageEvent <- true:
+	default:
+	}
+
+	return
 }
 
-//send should NOT be called outside of the run loop
+//send will validate, persist, queue the message and send all messages in the queue
 func (s *session) send(msg Message) (err error) {
-	s.fillDefaultHeader(msg)
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
 
+	if err = s.prepMessageForSend(&msg); err != nil {
+		return
+	}
+
+	s.toSend = append(s.toSend, msg)
+	s.sendQueued()
+
+	return
+}
+
+//dropAndSend will validate and persist the message, then drops the send queue and sends the message
+func (s *session) dropAndSend(msg Message) (err error) {
+
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
+	if err = s.prepMessageForSend(&msg); err != nil {
+		return
+	}
+
+	s.dropQueued()
+	s.toSend = append(s.toSend, msg)
+	s.sendQueued()
+
+	return
+}
+
+func (s *session) prepMessageForSend(msg *Message) (err error) {
+	s.fillDefaultHeader(*msg)
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
@@ -234,9 +279,9 @@ func (s *session) send(msg Message) (err error) {
 	}
 
 	if isAdminMessageType(string(msgType)) {
-		s.application.ToAdmin(msg, s.sessionID)
+		s.application.ToAdmin(*msg, s.sessionID)
 	} else {
-		s.application.ToApp(msg, s.sessionID)
+		s.application.ToApp(*msg, s.sessionID)
 	}
 
 	var msgBytes []byte
@@ -244,22 +289,38 @@ func (s *session) send(msg Message) (err error) {
 		return
 	}
 
-	if err = s.persist(seqNum, msgBytes); err != nil {
-		return
+	return s.persist(seqNum, msgBytes)
+}
+
+func (s *session) persist(seqNum int, msgBytes []byte) error {
+	if err := s.store.SaveMessage(seqNum, msgBytes); err != nil {
+		return err
 	}
+
+	return s.store.IncrNextSenderMsgSeqNum()
+}
+
+func (s *session) sendQueued() {
+	for _, msg := range s.toSend {
+		s.sendBytes(msg.rawMessage)
+	}
+
+	s.dropQueued()
+}
+
+func (s *session) dropQueued() {
+	s.toSend = s.toSend[:0]
+}
+
+func (s *session) sendOrDropAppMessages() {
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
 
 	if s.IsLoggedOn() {
-		s.sendBytes(msgBytes)
+		s.sendQueued()
 	} else {
-		switch msgType {
-		case enum.MsgType_LOGON:
-			fallthrough
-		case enum.MsgType_RESEND_REQUEST:
-			s.sendBytes(msgBytes)
-		}
+		s.dropQueued()
 	}
-
-	return
 }
 
 func (s *session) sendBytes(msg []byte) {
@@ -348,7 +409,7 @@ func (s *session) handleLogon(msg Message) error {
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		if err := s.send(reply); err != nil {
+		if err := s.dropAndSend(reply); err != nil {
 			return err
 		}
 	} else {
@@ -561,11 +622,6 @@ type fixIn struct {
 	receiveTime time.Time
 }
 
-type sendRequest struct {
-	msg Message
-	err chan error
-}
-
 func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	s.messageIn = msgIn
 	s.messageOut = msgOut
@@ -607,7 +663,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		}
 
 		s.log.OnEvent("Sending logon request")
-		if err := s.send(logon); err != nil {
+		if err := s.dropAndSend(logon); err != nil {
 			s.logError(err)
 			return
 		}
@@ -627,15 +683,12 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	}
 
 	for {
-
 		switch s.sessionState.(type) {
 		case latentState:
 			return
 		}
 
 		select {
-		case request := <-s.toSend:
-			request.err <- s.send(request.msg)
 		case fixIn, ok := <-msgIn:
 			if ok {
 				s.log.OnIncoming(string(fixIn.bytes))
@@ -674,6 +727,8 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			}
 		case evt := <-s.sessionEvent:
 			s.sessionState = s.Timeout(s, evt)
+		case <-s.messageEvent:
+			s.sendOrDropAppMessages()
 		}
 	}
 }
