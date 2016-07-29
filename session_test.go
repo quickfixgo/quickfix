@@ -433,7 +433,7 @@ func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
 }
 
 func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
-	require.Nil(suite.T(), suite.dropAndSend(suite.Heartbeat()))
+	require.Nil(suite.T(), suite.dropAndSend(suite.Heartbeat(), false))
 
 	suite.shouldCallToAdmin()
 	suite.shouldPersistMessage()
@@ -445,9 +445,34 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
 	suite.shouldNotSendMessage()
 
-	require.Nil(suite.T(), suite.dropAndSend(suite.Logon()))
+	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), false))
 	msg := suite.lastToAdmin()
 	suite.shouldBeType(msg, enum.MsgType_LOGON)
+
+	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
+	suite.Nil(err)
+	suite.Equal(3, seqNum)
+
+	//only one message sent
+	sentMsgBytes := suite.sentMessage()
+	suite.NotNil(sentMsgBytes)
+	suite.shouldNotSendMessage()
+
+	suite.sentMessageShouldBe(sentMsgBytes, msg)
+}
+
+func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
+	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	suite.shouldNotSendMessage()
+
+	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), true))
+	msg := suite.lastToAdmin()
+
+	suite.shouldBeType(msg, enum.MsgType_LOGON)
+	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
+	suite.Nil(err)
+	suite.Equal(1, seqNum)
 
 	//only one message sent
 	sentMsgBytes := suite.sentMessage()
