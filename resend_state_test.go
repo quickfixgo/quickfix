@@ -16,13 +16,15 @@ func TestResendState_TimeoutPeerTimeout(t *testing.T) {
 		<-otherEnd
 	}()
 
-	session := &session{
-		store:       new(memoryStore),
-		application: new(TestClient),
-		messageOut:  otherEnd,
-		log:         nullLog{},
-	}
 	state := resendState{}
+	session := &session{
+		store:        new(memoryStore),
+		application:  new(TestClient),
+		messageOut:   otherEnd,
+		log:          nullLog{},
+		sessionState: state,
+	}
+
 	nextState := state.Timeout(session, peerTimeout)
 	assert.Equal(t, pendingTimeout{state}, nextState)
 }
@@ -33,13 +35,14 @@ func TestResendState_TimeoutUnchanged(t *testing.T) {
 		<-otherEnd
 	}()
 
-	session := &session{
-		store:       new(memoryStore),
-		application: new(TestClient),
-		messageOut:  otherEnd,
-		log:         nullLog{},
-	}
 	state := resendState{}
+	session := &session{
+		store:        new(memoryStore),
+		application:  new(TestClient),
+		messageOut:   otherEnd,
+		log:          nullLog{},
+		sessionState: state,
+	}
 
 	tests := []event{needHeartbeat, logonTimeout, logoutTimeout}
 

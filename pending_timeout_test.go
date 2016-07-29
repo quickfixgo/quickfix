@@ -7,26 +7,23 @@ import (
 )
 
 func TestPendingTimeout_SessionTimeout(t *testing.T) {
-	session := &session{
-		log: nullLog{},
-	}
-
 	tests := []pendingTimeout{
 		pendingTimeout{inSession{}},
 		pendingTimeout{resendState{}},
 	}
 
 	for _, state := range tests {
+		session := &session{
+			log:          nullLog{},
+			sessionState: state,
+		}
+
 		nextState := state.Timeout(session, peerTimeout)
 		assert.IsType(t, latentState{}, nextState)
 	}
 }
 
 func TestPendingTimeout_TimeoutUnchangedState(t *testing.T) {
-	session := &session{
-		log: nullLog{},
-	}
-
 	tests := []pendingTimeout{
 		pendingTimeout{inSession{}},
 		pendingTimeout{resendState{}},
@@ -35,6 +32,11 @@ func TestPendingTimeout_TimeoutUnchangedState(t *testing.T) {
 	testEvents := []event{needHeartbeat, logonTimeout, logoutTimeout}
 
 	for _, state := range tests {
+		session := &session{
+			log:          nullLog{},
+			sessionState: state,
+		}
+
 		for _, event := range testEvents {
 			nextState := state.Timeout(session, event)
 			assert.Equal(t, state, nextState)
