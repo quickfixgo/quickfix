@@ -59,6 +59,7 @@ func genHeader(pkg string, spec *datadictionary.DataDictionary) {
 		Package:    pkg,
 		Name:       "Header",
 		MessageDef: spec.Header,
+		FIXSpec:    spec,
 	}
 	if err := internal.HeaderTemplate.Execute(writer, c); err != nil {
 		errors <- err

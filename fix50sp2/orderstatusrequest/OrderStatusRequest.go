@@ -40,7 +40,7 @@ func (m OrderStatusRequest) ToMessage() quickfix.Message {
 
 //New returns a OrderStatusRequest initialized with the required fields for OrderStatusRequest
 func New(side field.SideField) (m OrderStatusRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

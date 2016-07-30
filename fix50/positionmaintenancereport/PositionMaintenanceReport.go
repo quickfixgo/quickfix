@@ -40,7 +40,7 @@ func (m PositionMaintenanceReport) ToMessage() quickfix.Message {
 
 //New returns a PositionMaintenanceReport initialized with the required fields for PositionMaintenanceReport
 func New(posmaintrptid field.PosMaintRptIDField, postranstype field.PosTransTypeField, posmaintaction field.PosMaintActionField, posmaintstatus field.PosMaintStatusField, clearingbusinessdate field.ClearingBusinessDateField) (m PositionMaintenanceReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

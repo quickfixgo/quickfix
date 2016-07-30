@@ -40,7 +40,7 @@ func (m RFQRequest) ToMessage() quickfix.Message {
 
 //New returns a RFQRequest initialized with the required fields for RFQRequest
 func New(rfqreqid field.RFQReqIDField) (m RFQRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

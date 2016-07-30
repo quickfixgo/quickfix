@@ -40,7 +40,7 @@ func (m ExecutionAcknowledgement) ToMessage() quickfix.Message {
 
 //New returns a ExecutionAcknowledgement initialized with the required fields for ExecutionAcknowledgement
 func New(orderid field.OrderIDField, execackstatus field.ExecAckStatusField, execid field.ExecIDField, side field.SideField) (m ExecutionAcknowledgement) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

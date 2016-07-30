@@ -40,7 +40,7 @@ func (m SecurityListUpdateReport) ToMessage() quickfix.Message {
 
 //New returns a SecurityListUpdateReport initialized with the required fields for SecurityListUpdateReport
 func New() (m SecurityListUpdateReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

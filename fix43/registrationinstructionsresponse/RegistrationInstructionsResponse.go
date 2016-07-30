@@ -40,7 +40,7 @@ func (m RegistrationInstructionsResponse) ToMessage() quickfix.Message {
 
 //New returns a RegistrationInstructionsResponse initialized with the required fields for RegistrationInstructionsResponse
 func New(registid field.RegistIDField, registtranstype field.RegistTransTypeField, registrefid field.RegistRefIDField, registstatus field.RegistStatusField) (m RegistrationInstructionsResponse) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m AssignmentReport) ToMessage() quickfix.Message {
 
 //New returns a AssignmentReport initialized with the required fields for AssignmentReport
 func New(asgnrptid field.AsgnRptIDField, accounttype field.AccountTypeField, settlprice field.SettlPriceField, settlpricetype field.SettlPriceTypeField, underlyingsettlprice field.UnderlyingSettlPriceField, assignmentmethod field.AssignmentMethodField, openinterest field.OpenInterestField, exercisemethod field.ExerciseMethodField, settlsessid field.SettlSessIDField, settlsesssubid field.SettlSessSubIDField, clearingbusinessdate field.ClearingBusinessDateField) (m AssignmentReport) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

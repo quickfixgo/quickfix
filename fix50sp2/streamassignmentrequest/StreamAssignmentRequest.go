@@ -40,7 +40,7 @@ func (m StreamAssignmentRequest) ToMessage() quickfix.Message {
 
 //New returns a StreamAssignmentRequest initialized with the required fields for StreamAssignmentRequest
 func New(streamasgnreqid field.StreamAsgnReqIDField, streamasgnreqtype field.StreamAsgnReqTypeField) (m StreamAssignmentRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

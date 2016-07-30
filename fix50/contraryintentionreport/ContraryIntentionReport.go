@@ -40,7 +40,7 @@ func (m ContraryIntentionReport) ToMessage() quickfix.Message {
 
 //New returns a ContraryIntentionReport initialized with the required fields for ContraryIntentionReport
 func New(contintrptid field.ContIntRptIDField, clearingbusinessdate field.ClearingBusinessDateField) (m ContraryIntentionReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m Logout) ToMessage() quickfix.Message {
 
 //New returns a Logout initialized with the required fields for Logout
 func New() (m Logout) {
-	m.Header.Init()
+	m.Header = fix41.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m Email) ToMessage() quickfix.Message {
 
 //New returns a Email initialized with the required fields for Email
 func New(emailtype field.EmailTypeField, linesoftext field.LinesOfTextField, text field.TextField) (m Email) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

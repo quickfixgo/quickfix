@@ -40,7 +40,7 @@ func (m MarketDataSnapshotFullRefresh) ToMessage() quickfix.Message {
 
 //New returns a MarketDataSnapshotFullRefresh initialized with the required fields for MarketDataSnapshotFullRefresh
 func New() (m MarketDataSnapshotFullRefresh) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

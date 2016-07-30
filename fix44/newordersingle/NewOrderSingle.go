@@ -40,7 +40,7 @@ func (m NewOrderSingle) ToMessage() quickfix.Message {
 
 //New returns a NewOrderSingle initialized with the required fields for NewOrderSingle
 func New(clordid field.ClOrdIDField, side field.SideField, transacttime field.TransactTimeField, ordtype field.OrdTypeField) (m NewOrderSingle) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

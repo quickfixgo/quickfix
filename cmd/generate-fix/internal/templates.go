@@ -18,6 +18,7 @@ func init() {
 	tmplFuncs := template.FuncMap{
 		"toLower":             strings.ToLower,
 		"requiredFields":      requiredFields,
+		"beginString":         beginString,
 		"routerBeginString":   routerBeginString,
 		"importRootPath":      getImportPathRoot,
 		"quickfixType":        quickfixType,
@@ -146,6 +147,13 @@ type Header struct {
 	quickfix.Header
 }
 
+//NewHeader returns a new, initialized Header instance
+func NewHeader() (h Header) {
+	h.Init()
+	h.SetBeginString("{{ beginString .FIXSpec }}")
+	return
+}
+
 {{ template "setters" .}}
 {{ template "getters" . }}
 {{ template "hasers" . }}
@@ -222,7 +230,7 @@ func (m {{ .Name }}) ToMessage() quickfix.Message {
 {{ $required_fields := requiredFields .MessageDef -}}
 //New returns a {{ .Name }} initialized with the required fields for {{ .Name }} 
 func New({{template "field_args" $required_fields }}) (m {{ .Name }}) {
-	m.Header.Init()
+	m.Header = {{ .TransportPackage }}.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

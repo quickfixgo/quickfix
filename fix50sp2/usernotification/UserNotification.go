@@ -40,7 +40,7 @@ func (m UserNotification) ToMessage() quickfix.Message {
 
 //New returns a UserNotification initialized with the required fields for UserNotification
 func New(userstatus field.UserStatusField) (m UserNotification) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

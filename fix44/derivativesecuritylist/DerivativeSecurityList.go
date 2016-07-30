@@ -40,7 +40,7 @@ func (m DerivativeSecurityList) ToMessage() quickfix.Message {
 
 //New returns a DerivativeSecurityList initialized with the required fields for DerivativeSecurityList
 func New(securityreqid field.SecurityReqIDField, securityresponseid field.SecurityResponseIDField, securityrequestresult field.SecurityRequestResultField) (m DerivativeSecurityList) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

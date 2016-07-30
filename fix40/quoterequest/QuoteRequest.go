@@ -40,7 +40,7 @@ func (m QuoteRequest) ToMessage() quickfix.Message {
 
 //New returns a QuoteRequest initialized with the required fields for QuoteRequest
 func New(quotereqid field.QuoteReqIDField, symbol field.SymbolField) (m QuoteRequest) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m RequestForPositions) ToMessage() quickfix.Message {
 
 //New returns a RequestForPositions initialized with the required fields for RequestForPositions
 func New(posreqid field.PosReqIDField, posreqtype field.PosReqTypeField, account field.AccountField, accounttype field.AccountTypeField, clearingbusinessdate field.ClearingBusinessDateField, transacttime field.TransactTimeField) (m RequestForPositions) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

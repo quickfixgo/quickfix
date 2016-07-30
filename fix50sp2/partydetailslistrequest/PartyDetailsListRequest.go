@@ -40,7 +40,7 @@ func (m PartyDetailsListRequest) ToMessage() quickfix.Message {
 
 //New returns a PartyDetailsListRequest initialized with the required fields for PartyDetailsListRequest
 func New(partydetailslistrequestid field.PartyDetailsListRequestIDField) (m PartyDetailsListRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

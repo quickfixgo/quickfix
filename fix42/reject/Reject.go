@@ -40,7 +40,7 @@ func (m Reject) ToMessage() quickfix.Message {
 
 //New returns a Reject initialized with the required fields for Reject
 func New(refseqnum field.RefSeqNumField) (m Reject) {
-	m.Header.Init()
+	m.Header = fix42.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

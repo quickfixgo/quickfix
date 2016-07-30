@@ -40,7 +40,7 @@ func (m CollateralRequest) ToMessage() quickfix.Message {
 
 //New returns a CollateralRequest initialized with the required fields for CollateralRequest
 func New(collreqid field.CollReqIDField, collasgnreason field.CollAsgnReasonField, transacttime field.TransactTimeField) (m CollateralRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

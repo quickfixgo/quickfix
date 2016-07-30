@@ -40,7 +40,7 @@ func (m NewOrderCross) ToMessage() quickfix.Message {
 
 //New returns a NewOrderCross initialized with the required fields for NewOrderCross
 func New(crossid field.CrossIDField, crosstype field.CrossTypeField, crossprioritization field.CrossPrioritizationField, handlinst field.HandlInstField, transacttime field.TransactTimeField, ordtype field.OrdTypeField) (m NewOrderCross) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

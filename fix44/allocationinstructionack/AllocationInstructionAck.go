@@ -40,7 +40,7 @@ func (m AllocationInstructionAck) ToMessage() quickfix.Message {
 
 //New returns a AllocationInstructionAck initialized with the required fields for AllocationInstructionAck
 func New(allocid field.AllocIDField, transacttime field.TransactTimeField, allocstatus field.AllocStatusField) (m AllocationInstructionAck) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

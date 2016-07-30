@@ -40,7 +40,7 @@ func (m SecurityStatusRequest) ToMessage() quickfix.Message {
 
 //New returns a SecurityStatusRequest initialized with the required fields for SecurityStatusRequest
 func New(securitystatusreqid field.SecurityStatusReqIDField, subscriptionrequesttype field.SubscriptionRequestTypeField) (m SecurityStatusRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m TradeCaptureReport) ToMessage() quickfix.Message {
 
 //New returns a TradeCaptureReport initialized with the required fields for TradeCaptureReport
 func New(tradereportid field.TradeReportIDField, previouslyreported field.PreviouslyReportedField, lastqty field.LastQtyField, lastpx field.LastPxField, tradedate field.TradeDateField, transacttime field.TransactTimeField) (m TradeCaptureReport) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

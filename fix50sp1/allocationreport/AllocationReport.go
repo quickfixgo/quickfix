@@ -40,7 +40,7 @@ func (m AllocationReport) ToMessage() quickfix.Message {
 
 //New returns a AllocationReport initialized with the required fields for AllocationReport
 func New(allocreportid field.AllocReportIDField, alloctranstype field.AllocTransTypeField, allocreporttype field.AllocReportTypeField, allocstatus field.AllocStatusField, side field.SideField, quantity field.QuantityField, avgpx field.AvgPxField, tradedate field.TradeDateField) (m AllocationReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

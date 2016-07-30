@@ -40,7 +40,7 @@ func (m TestRequest) ToMessage() quickfix.Message {
 
 //New returns a TestRequest initialized with the required fields for TestRequest
 func New(testreqid field.TestReqIDField) (m TestRequest) {
-	m.Header.Init()
+	m.Header = fix41.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

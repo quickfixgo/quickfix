@@ -40,7 +40,7 @@ func (m MarketDataRequestReject) ToMessage() quickfix.Message {
 
 //New returns a MarketDataRequestReject initialized with the required fields for MarketDataRequestReject
 func New(mdreqid field.MDReqIDField) (m MarketDataRequestReject) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

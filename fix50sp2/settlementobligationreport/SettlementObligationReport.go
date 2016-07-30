@@ -40,7 +40,7 @@ func (m SettlementObligationReport) ToMessage() quickfix.Message {
 
 //New returns a SettlementObligationReport initialized with the required fields for SettlementObligationReport
 func New(settlobligmsgid field.SettlObligMsgIDField, settlobligmode field.SettlObligModeField) (m SettlementObligationReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

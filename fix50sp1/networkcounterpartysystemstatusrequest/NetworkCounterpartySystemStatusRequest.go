@@ -40,7 +40,7 @@ func (m NetworkCounterpartySystemStatusRequest) ToMessage() quickfix.Message {
 
 //New returns a NetworkCounterpartySystemStatusRequest initialized with the required fields for NetworkCounterpartySystemStatusRequest
 func New(networkrequesttype field.NetworkRequestTypeField, networkrequestid field.NetworkRequestIDField) (m NetworkCounterpartySystemStatusRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

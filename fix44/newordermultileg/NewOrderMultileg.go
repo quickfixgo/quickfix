@@ -40,7 +40,7 @@ func (m NewOrderMultileg) ToMessage() quickfix.Message {
 
 //New returns a NewOrderMultileg initialized with the required fields for NewOrderMultileg
 func New(clordid field.ClOrdIDField, side field.SideField, transacttime field.TransactTimeField, ordtype field.OrdTypeField) (m NewOrderMultileg) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

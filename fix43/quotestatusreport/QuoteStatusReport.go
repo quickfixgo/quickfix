@@ -40,7 +40,7 @@ func (m QuoteStatusReport) ToMessage() quickfix.Message {
 
 //New returns a QuoteStatusReport initialized with the required fields for QuoteStatusReport
 func New(quoteid field.QuoteIDField) (m QuoteStatusReport) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

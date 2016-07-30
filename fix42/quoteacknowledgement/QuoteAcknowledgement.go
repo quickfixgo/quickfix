@@ -40,7 +40,7 @@ func (m QuoteAcknowledgement) ToMessage() quickfix.Message {
 
 //New returns a QuoteAcknowledgement initialized with the required fields for QuoteAcknowledgement
 func New(quoteackstatus field.QuoteAckStatusField) (m QuoteAcknowledgement) {
-	m.Header.Init()
+	m.Header = fix42.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

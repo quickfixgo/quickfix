@@ -13,6 +13,13 @@ type Header struct {
 	quickfix.Header
 }
 
+//NewHeader returns a new, initialized Header instance
+func NewHeader() (h Header) {
+	h.Init()
+	h.SetBeginString("FIX.4.2")
+	return
+}
+
 //SetBeginString sets BeginString, Tag 8
 func (h Header) SetBeginString(v string) {
 	h.Set(field.NewBeginString(v))

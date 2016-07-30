@@ -40,7 +40,7 @@ func (m IndicationofInterest) ToMessage() quickfix.Message {
 
 //New returns a IndicationofInterest initialized with the required fields for IndicationofInterest
 func New(ioiid field.IOIidField, ioitranstype field.IOITransTypeField, symbol field.SymbolField, side field.SideField, ioishares field.IOISharesField) (m IndicationofInterest) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

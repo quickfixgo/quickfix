@@ -40,7 +40,7 @@ func (m TradeCaptureReportAck) ToMessage() quickfix.Message {
 
 //New returns a TradeCaptureReportAck initialized with the required fields for TradeCaptureReportAck
 func New() (m TradeCaptureReportAck) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

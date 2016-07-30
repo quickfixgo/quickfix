@@ -40,7 +40,7 @@ func (m CollateralResponse) ToMessage() quickfix.Message {
 
 //New returns a CollateralResponse initialized with the required fields for CollateralResponse
 func New(collrespid field.CollRespIDField, collasgnid field.CollAsgnIDField, collasgnreason field.CollAsgnReasonField, collasgnresptype field.CollAsgnRespTypeField, transacttime field.TransactTimeField) (m CollateralResponse) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

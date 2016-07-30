@@ -40,7 +40,7 @@ func (m TradingSessionStatusRequest) ToMessage() quickfix.Message {
 
 //New returns a TradingSessionStatusRequest initialized with the required fields for TradingSessionStatusRequest
 func New(tradsesreqid field.TradSesReqIDField, subscriptionrequesttype field.SubscriptionRequestTypeField) (m TradingSessionStatusRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m ExecutionReport) ToMessage() quickfix.Message {
 
 //New returns a ExecutionReport initialized with the required fields for ExecutionReport
 func New(orderid field.OrderIDField, execid field.ExecIDField, exectype field.ExecTypeField, ordstatus field.OrdStatusField, side field.SideField, leavesqty field.LeavesQtyField, cumqty field.CumQtyField, avgpx field.AvgPxField) (m ExecutionReport) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

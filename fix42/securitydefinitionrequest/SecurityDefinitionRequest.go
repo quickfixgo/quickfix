@@ -40,7 +40,7 @@ func (m SecurityDefinitionRequest) ToMessage() quickfix.Message {
 
 //New returns a SecurityDefinitionRequest initialized with the required fields for SecurityDefinitionRequest
 func New(securityreqid field.SecurityReqIDField, securityrequesttype field.SecurityRequestTypeField) (m SecurityDefinitionRequest) {
-	m.Header.Init()
+	m.Header = fix42.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 
