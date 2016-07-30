@@ -45,6 +45,7 @@ func New(listid field.ListIDField, norpts field.NoRptsField, rptseq field.RptSeq
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("N"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(listid)
 	m.Set(norpts)
 	m.Set(rptseq)

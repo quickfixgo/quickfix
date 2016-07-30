@@ -45,6 +45,7 @@ func New(symbol field.SymbolField) (m QuoteStatusRequest) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("a"))
+	m.Header.Set(field.NewBeginString("FIX.4.2"))
 	m.Set(symbol)
 
 	return

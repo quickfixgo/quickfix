@@ -45,6 +45,7 @@ func New(clordid field.ClOrdIDField, side field.SideField, transacttime field.Tr
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("F"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(clordid)
 	m.Set(side)
 	m.Set(transacttime)

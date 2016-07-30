@@ -45,6 +45,7 @@ func New(allocid field.AllocIDField, tradedate field.TradeDateField, allocstatus
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("P"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(allocid)
 	m.Set(tradedate)
 	m.Set(allocstatus)

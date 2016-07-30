@@ -45,6 +45,7 @@ func New(allocreportid field.AllocReportIDField) (m AllocationReportAck) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AT"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(allocreportid)
 
 	return

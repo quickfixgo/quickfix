@@ -45,6 +45,7 @@ func New(quotestatus field.QuoteStatusField) (m MassQuoteAcknowledgement) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("b"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 	m.Set(quotestatus)
 
 	return

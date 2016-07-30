@@ -45,6 +45,7 @@ func New(quoteid field.QuoteIDField, symbol field.SymbolField) (m Quote) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("S"))
+	m.Header.Set(field.NewBeginString("FIX.4.1"))
 	m.Set(quoteid)
 	m.Set(symbol)
 

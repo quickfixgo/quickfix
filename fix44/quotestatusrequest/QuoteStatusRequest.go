@@ -45,6 +45,7 @@ func New() (m QuoteStatusRequest) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("a"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 
 	return
 }

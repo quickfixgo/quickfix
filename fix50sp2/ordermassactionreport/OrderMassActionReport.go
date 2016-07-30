@@ -45,6 +45,7 @@ func New(massactionreportid field.MassActionReportIDField, massactiontype field.
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BZ"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(massactionreportid)
 	m.Set(massactiontype)
 	m.Set(massactionscope)

@@ -45,6 +45,7 @@ func New(confirmid field.ConfirmIDField, tradedate field.TradeDateField, transac
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AU"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(confirmid)
 	m.Set(tradedate)
 	m.Set(transacttime)

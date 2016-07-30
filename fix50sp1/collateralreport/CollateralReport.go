@@ -45,6 +45,7 @@ func New(collrptid field.CollRptIDField, collstatus field.CollStatusField) (m Co
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BA"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(collrptid)
 	m.Set(collstatus)
 

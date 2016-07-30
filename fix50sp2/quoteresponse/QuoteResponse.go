@@ -45,6 +45,7 @@ func New(quoterespid field.QuoteRespIDField, quoteresptype field.QuoteRespTypeFi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AJ"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(quoterespid)
 	m.Set(quoteresptype)
 

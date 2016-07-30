@@ -45,6 +45,7 @@ func New(settlinstreqid field.SettlInstReqIDField, transacttime field.TransactTi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AV"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(settlinstreqid)
 	m.Set(transacttime)
 

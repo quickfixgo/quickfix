@@ -45,6 +45,7 @@ func New(traderequestid field.TradeRequestIDField, traderequesttype field.TradeR
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AQ"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(traderequestid)
 	m.Set(traderequesttype)
 	m.Set(traderequestresult)

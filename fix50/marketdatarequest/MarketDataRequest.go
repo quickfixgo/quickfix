@@ -45,6 +45,7 @@ func New(mdreqid field.MDReqIDField, subscriptionrequesttype field.SubscriptionR
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("V"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(mdreqid)
 	m.Set(subscriptionrequesttype)
 	m.Set(marketdepth)

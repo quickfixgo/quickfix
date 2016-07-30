@@ -45,6 +45,7 @@ func New(allocreportid field.AllocReportIDField, allocid field.AllocIDField) (m 
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AT"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(allocreportid)
 	m.Set(allocid)
 

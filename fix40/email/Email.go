@@ -45,6 +45,7 @@ func New(emailtype field.EmailTypeField, linesoftext field.LinesOfTextField, tex
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("C"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(emailtype)
 	m.Set(linesoftext)
 	m.Set(text)

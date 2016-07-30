@@ -45,6 +45,7 @@ func New(registid field.RegistIDField, registtranstype field.RegistTransTypeFiel
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("o"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(registid)
 	m.Set(registtranstype)
 	m.Set(registrefid)

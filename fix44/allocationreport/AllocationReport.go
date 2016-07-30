@@ -45,6 +45,7 @@ func New(allocreportid field.AllocReportIDField, alloctranstype field.AllocTrans
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AS"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(allocreportid)
 	m.Set(alloctranstype)
 	m.Set(allocreporttype)

@@ -45,6 +45,7 @@ func New(quotereqid field.QuoteReqIDField, quoterequestrejectreason field.QuoteR
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AG"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(quotereqid)
 	m.Set(quoterequestrejectreason)
 

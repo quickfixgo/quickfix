@@ -45,6 +45,7 @@ func New(listid field.ListIDField, liststatustype field.ListStatusTypeField, nor
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("N"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(listid)
 	m.Set(liststatustype)
 	m.Set(norpts)

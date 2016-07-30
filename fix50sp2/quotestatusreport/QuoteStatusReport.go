@@ -45,6 +45,7 @@ func New() (m QuoteStatusReport) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AI"))
+	m.Header.Set(field.NewBeginString("9"))
 
 	return
 }

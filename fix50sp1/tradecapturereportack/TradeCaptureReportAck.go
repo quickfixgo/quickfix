@@ -45,6 +45,7 @@ func New() (m TradeCaptureReportAck) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AR"))
+	m.Header.Set(field.NewBeginString("8"))
 
 	return
 }

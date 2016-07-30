@@ -45,6 +45,7 @@ func New(contintrptid field.ContIntRptIDField, clearingbusinessdate field.Cleari
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BO"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(contintrptid)
 	m.Set(clearingbusinessdate)
 

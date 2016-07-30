@@ -45,6 +45,7 @@ func New() (m SecurityList) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("y"))
+	m.Header.Set(field.NewBeginString("8"))
 
 	return
 }

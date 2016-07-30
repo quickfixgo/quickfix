@@ -45,6 +45,7 @@ func New(streamasgnrptid field.StreamAsgnRptIDField) (m StreamAssignmentReport) 
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("CD"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(streamasgnrptid)
 
 	return

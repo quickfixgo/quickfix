@@ -45,6 +45,7 @@ func New() (m DerivativeSecurityList) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AA"))
+	m.Header.Set(field.NewBeginString("9"))
 
 	return
 }

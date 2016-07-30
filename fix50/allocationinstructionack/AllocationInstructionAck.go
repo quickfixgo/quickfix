@@ -45,6 +45,7 @@ func New(allocid field.AllocIDField, allocstatus field.AllocStatusField) (m Allo
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("P"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(allocid)
 	m.Set(allocstatus)
 

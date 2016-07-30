@@ -45,6 +45,7 @@ func New(securityreqid field.SecurityReqIDField, securityresponseid field.Securi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("d"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(securityreqid)
 	m.Set(securityresponseid)
 	m.Set(securityresponsetype)

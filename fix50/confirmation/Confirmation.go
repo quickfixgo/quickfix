@@ -45,6 +45,7 @@ func New(confirmid field.ConfirmIDField, confirmtranstype field.ConfirmTransType
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AK"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(confirmid)
 	m.Set(confirmtranstype)
 	m.Set(confirmtype)

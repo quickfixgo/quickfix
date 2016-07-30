@@ -45,6 +45,7 @@ func New(asgnrptid field.AsgnRptIDField, clearingbusinessdate field.ClearingBusi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AW"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(asgnrptid)
 	m.Set(clearingbusinessdate)
 

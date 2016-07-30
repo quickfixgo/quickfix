@@ -45,6 +45,7 @@ func New(orderid field.OrderIDField, clordid field.ClOrdIDField, ordstatus field
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("9"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(orderid)
 	m.Set(clordid)
 	m.Set(ordstatus)

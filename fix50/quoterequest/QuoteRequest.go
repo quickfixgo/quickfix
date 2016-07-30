@@ -45,6 +45,7 @@ func New(quotereqid field.QuoteReqIDField) (m QuoteRequest) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("R"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(quotereqid)
 
 	return

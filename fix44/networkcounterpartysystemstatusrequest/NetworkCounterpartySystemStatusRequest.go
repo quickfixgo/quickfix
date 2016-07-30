@@ -45,6 +45,7 @@ func New(networkrequesttype field.NetworkRequestTypeField, networkrequestid fiel
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BC"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(networkrequesttype)
 	m.Set(networkrequestid)
 

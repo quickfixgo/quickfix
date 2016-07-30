@@ -45,6 +45,7 @@ func New(userstatus field.UserStatusField) (m UserNotification) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("CB"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(userstatus)
 
 	return

@@ -45,6 +45,7 @@ func New() (m MarketDataSnapshotFullRefresh) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("W"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 
 	return
 }

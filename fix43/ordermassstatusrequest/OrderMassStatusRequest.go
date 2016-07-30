@@ -45,6 +45,7 @@ func New(massstatusreqid field.MassStatusReqIDField, massstatusreqtype field.Mas
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AF"))
+	m.Header.Set(field.NewBeginString("FIX.4.3"))
 	m.Set(massstatusreqid)
 	m.Set(massstatusreqtype)
 

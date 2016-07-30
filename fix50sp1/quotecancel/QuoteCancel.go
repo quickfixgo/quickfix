@@ -45,6 +45,7 @@ func New(quotecanceltype field.QuoteCancelTypeField) (m QuoteCancel) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("Z"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(quotecanceltype)
 
 	return

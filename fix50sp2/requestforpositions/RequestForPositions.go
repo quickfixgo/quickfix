@@ -45,6 +45,7 @@ func New(posreqid field.PosReqIDField, posreqtype field.PosReqTypeField, clearin
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AN"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(posreqid)
 	m.Set(posreqtype)
 	m.Set(clearingbusinessdate)

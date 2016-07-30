@@ -45,6 +45,7 @@ func New(collrespid field.CollRespIDField, collasgnid field.CollAsgnIDField, col
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AZ"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(collrespid)
 	m.Set(collasgnid)
 	m.Set(collasgnreason)

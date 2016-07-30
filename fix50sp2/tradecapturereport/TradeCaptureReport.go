@@ -45,6 +45,7 @@ func New(lastqty field.LastQtyField, lastpx field.LastPxField) (m TradeCaptureRe
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AE"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(lastqty)
 	m.Set(lastpx)
 

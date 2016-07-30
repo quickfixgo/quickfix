@@ -45,6 +45,7 @@ func New(clientbidid field.ClientBidIDField, bidrequesttranstype field.BidReques
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("k"))
+	m.Header.Set(field.NewBeginString("FIX.4.2"))
 	m.Set(clientbidid)
 	m.Set(bidrequesttranstype)
 	m.Set(totalnumsecurities)

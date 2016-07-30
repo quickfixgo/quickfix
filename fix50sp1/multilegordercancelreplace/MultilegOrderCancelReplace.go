@@ -45,6 +45,7 @@ func New(side field.SideField, transacttime field.TransactTimeField, ordtype fie
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AC"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(side)
 	m.Set(transacttime)
 	m.Set(ordtype)

@@ -45,6 +45,7 @@ func New(collinquiryid field.CollInquiryIDField) (m CollateralInquiry) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BB"))
+	m.Header.Set(field.NewBeginString("9"))
 	m.Set(collinquiryid)
 
 	return

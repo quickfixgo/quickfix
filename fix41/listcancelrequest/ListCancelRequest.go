@@ -45,6 +45,7 @@ func New(listid field.ListIDField) (m ListCancelRequest) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("K"))
+	m.Header.Set(field.NewBeginString("FIX.4.1"))
 	m.Set(listid)
 
 	return

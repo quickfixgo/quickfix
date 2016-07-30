@@ -45,6 +45,7 @@ func New(mdreqid field.MDReqIDField) (m MarketDataRequestReject) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("Y"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(mdreqid)
 
 	return

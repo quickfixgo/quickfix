@@ -45,6 +45,7 @@ func New(settlinstmsgid field.SettlInstMsgIDField, settlinstmode field.SettlInst
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("T"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(settlinstmsgid)
 	m.Set(settlinstmode)
 	m.Set(transacttime)

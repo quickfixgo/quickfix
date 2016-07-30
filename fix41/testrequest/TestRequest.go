@@ -45,6 +45,7 @@ func New(testreqid field.TestReqIDField) (m TestRequest) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("1"))
+	m.Header.Set(field.NewBeginString("FIX.4.1"))
 	m.Set(testreqid)
 
 	return

@@ -45,6 +45,7 @@ func New(symbol field.SymbolField) (m MarketDataSnapshotFullRefresh) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("W"))
+	m.Header.Set(field.NewBeginString("FIX.4.2"))
 	m.Set(symbol)
 
 	return

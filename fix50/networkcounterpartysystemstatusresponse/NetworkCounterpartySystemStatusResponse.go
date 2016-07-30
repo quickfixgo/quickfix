@@ -45,6 +45,7 @@ func New(networkstatusresponsetype field.NetworkStatusResponseTypeField, network
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BD"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(networkstatusresponsetype)
 	m.Set(networkresponseid)
 

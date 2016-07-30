@@ -45,6 +45,7 @@ func New(headline field.HeadlineField) (m News) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("B"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(headline)
 
 	return

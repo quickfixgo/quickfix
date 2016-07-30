@@ -45,6 +45,7 @@ func New(applreportid field.ApplReportIDField, applreporttype field.ApplReportTy
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BY"))
+	m.Header.Set(field.NewBeginString("8"))
 	m.Set(applreportid)
 	m.Set(applreporttype)
 

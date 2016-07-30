@@ -45,6 +45,7 @@ func New(collasgnid field.CollAsgnIDField, collasgnreason field.CollAsgnReasonFi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AY"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(collasgnid)
 	m.Set(collasgnreason)
 	m.Set(collasgntranstype)

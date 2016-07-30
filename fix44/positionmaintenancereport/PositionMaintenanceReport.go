@@ -45,6 +45,7 @@ func New(posmaintrptid field.PosMaintRptIDField, postranstype field.PosTransType
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AM"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(posmaintrptid)
 	m.Set(postranstype)
 	m.Set(posmaintaction)

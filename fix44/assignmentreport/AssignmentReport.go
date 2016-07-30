@@ -45,6 +45,7 @@ func New(asgnrptid field.AsgnRptIDField, accounttype field.AccountTypeField, set
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AW"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(asgnrptid)
 	m.Set(accounttype)
 	m.Set(settlprice)

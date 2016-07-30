@@ -45,6 +45,7 @@ func New(userrequestid field.UserRequestIDField, userrequesttype field.UserReque
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BE"))
+	m.Header.Set(field.NewBeginString("7"))
 	m.Set(userrequestid)
 	m.Set(userrequesttype)
 	m.Set(username)

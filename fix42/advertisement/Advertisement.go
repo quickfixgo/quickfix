@@ -45,6 +45,7 @@ func New(advid field.AdvIdField, advtranstype field.AdvTransTypeField, symbol fi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("7"))
+	m.Header.Set(field.NewBeginString("FIX.4.2"))
 	m.Set(advid)
 	m.Set(advtranstype)
 	m.Set(symbol)

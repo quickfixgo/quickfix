@@ -45,6 +45,7 @@ func New(tradereportid field.TradeReportIDField, previouslyreported field.Previo
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("AE"))
+	m.Header.Set(field.NewBeginString("FIX.4.4"))
 	m.Set(tradereportid)
 	m.Set(previouslyreported)
 	m.Set(lastqty)

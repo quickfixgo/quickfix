@@ -45,6 +45,7 @@ func New(quoteackstatus field.QuoteAckStatusField) (m QuoteAcknowledgement) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("b"))
+	m.Header.Set(field.NewBeginString("FIX.4.2"))
 	m.Set(quoteackstatus)
 
 	return

@@ -45,6 +45,7 @@ func New(listid field.ListIDField, listseqno field.ListSeqNoField, listnoords fi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("E"))
+	m.Header.Set(field.NewBeginString("FIX.4.0"))
 	m.Set(listid)
 	m.Set(listseqno)
 	m.Set(listnoords)

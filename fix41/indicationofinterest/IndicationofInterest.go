@@ -45,6 +45,7 @@ func New(ioiid field.IOIidField, ioitranstype field.IOITransTypeField, symbol fi
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("6"))
+	m.Header.Set(field.NewBeginString("FIX.4.1"))
 	m.Set(ioiid)
 	m.Set(ioitranstype)
 	m.Set(symbol)

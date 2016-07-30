@@ -45,6 +45,7 @@ func New() (m TradingSessionList) {
 	m.Trailer.Init()
 
 	m.Header.Set(field.NewMsgType("BJ"))
+	m.Header.Set(field.NewBeginString("9"))
 
 	return
 }
