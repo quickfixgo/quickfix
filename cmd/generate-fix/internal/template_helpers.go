@@ -171,6 +171,14 @@ func requiredFields(m *datadictionary.MessageDef) (required []*datadictionary.Fi
 	return
 }
 
+func beginString(spec *datadictionary.DataDictionary) string {
+	if spec.FIXType == "FIXT" || spec.Major == 5 {
+		return "FIXT.1.1"
+	}
+
+	return fmt.Sprintf("FIX.%v.%v", spec.Major, spec.Minor)
+}
+
 func routerBeginString(spec *datadictionary.DataDictionary) (routerBeginString string) {
 	switch {
 	case spec.FIXType == "FIXT":
