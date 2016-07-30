@@ -40,7 +40,7 @@ func (m CrossOrderCancelReplaceRequest) ToMessage() quickfix.Message {
 
 //New returns a CrossOrderCancelReplaceRequest initialized with the required fields for CrossOrderCancelReplaceRequest
 func New(crossid field.CrossIDField, origcrossid field.OrigCrossIDField, crosstype field.CrossTypeField, crossprioritization field.CrossPrioritizationField, transacttime field.TransactTimeField, ordtype field.OrdTypeField) (m CrossOrderCancelReplaceRequest) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

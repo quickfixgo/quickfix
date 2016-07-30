@@ -40,7 +40,7 @@ func (m OrderMassStatusRequest) ToMessage() quickfix.Message {
 
 //New returns a OrderMassStatusRequest initialized with the required fields for OrderMassStatusRequest
 func New(massstatusreqid field.MassStatusReqIDField, massstatusreqtype field.MassStatusReqTypeField) (m OrderMassStatusRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

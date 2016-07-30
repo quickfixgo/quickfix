@@ -40,7 +40,7 @@ func (m CollateralInquiryAck) ToMessage() quickfix.Message {
 
 //New returns a CollateralInquiryAck initialized with the required fields for CollateralInquiryAck
 func New(collinquiryid field.CollInquiryIDField, collinquirystatus field.CollInquiryStatusField) (m CollateralInquiryAck) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

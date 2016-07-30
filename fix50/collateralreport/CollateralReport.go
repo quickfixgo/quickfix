@@ -40,7 +40,7 @@ func (m CollateralReport) ToMessage() quickfix.Message {
 
 //New returns a CollateralReport initialized with the required fields for CollateralReport
 func New(collrptid field.CollRptIDField, collstatus field.CollStatusField) (m CollateralReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

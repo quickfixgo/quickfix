@@ -40,7 +40,7 @@ func (m BusinessMessageReject) ToMessage() quickfix.Message {
 
 //New returns a BusinessMessageReject initialized with the required fields for BusinessMessageReject
 func New(refmsgtype field.RefMsgTypeField, businessrejectreason field.BusinessRejectReasonField) (m BusinessMessageReject) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m SequenceReset) ToMessage() quickfix.Message {
 
 //New returns a SequenceReset initialized with the required fields for SequenceReset
 func New(newseqno field.NewSeqNoField) (m SequenceReset) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

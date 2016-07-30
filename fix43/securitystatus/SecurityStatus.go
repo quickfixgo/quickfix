@@ -40,7 +40,7 @@ func (m SecurityStatus) ToMessage() quickfix.Message {
 
 //New returns a SecurityStatus initialized with the required fields for SecurityStatus
 func New() (m SecurityStatus) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

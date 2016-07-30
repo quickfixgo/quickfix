@@ -40,7 +40,7 @@ func (m SecurityTypes) ToMessage() quickfix.Message {
 
 //New returns a SecurityTypes initialized with the required fields for SecurityTypes
 func New(securityreqid field.SecurityReqIDField, securityresponseid field.SecurityResponseIDField, securityresponsetype field.SecurityResponseTypeField) (m SecurityTypes) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m CollateralInquiry) ToMessage() quickfix.Message {
 
 //New returns a CollateralInquiry initialized with the required fields for CollateralInquiry
 func New(collinquiryid field.CollInquiryIDField) (m CollateralInquiry) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m PositionMaintenanceRequest) ToMessage() quickfix.Message {
 
 //New returns a PositionMaintenanceRequest initialized with the required fields for PositionMaintenanceRequest
 func New(posreqid field.PosReqIDField, postranstype field.PosTransTypeField, posmaintaction field.PosMaintActionField, clearingbusinessdate field.ClearingBusinessDateField, account field.AccountField, accounttype field.AccountTypeField, transacttime field.TransactTimeField) (m PositionMaintenanceRequest) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

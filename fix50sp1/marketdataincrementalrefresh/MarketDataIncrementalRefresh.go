@@ -40,7 +40,7 @@ func (m MarketDataIncrementalRefresh) ToMessage() quickfix.Message {
 
 //New returns a MarketDataIncrementalRefresh initialized with the required fields for MarketDataIncrementalRefresh
 func New() (m MarketDataIncrementalRefresh) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

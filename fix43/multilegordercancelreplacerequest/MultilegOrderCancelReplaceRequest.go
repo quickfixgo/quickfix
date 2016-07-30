@@ -40,7 +40,7 @@ func (m MultilegOrderCancelReplaceRequest) ToMessage() quickfix.Message {
 
 //New returns a MultilegOrderCancelReplaceRequest initialized with the required fields for MultilegOrderCancelReplaceRequest
 func New(origclordid field.OrigClOrdIDField, clordid field.ClOrdIDField, handlinst field.HandlInstField, side field.SideField, transacttime field.TransactTimeField, ordtype field.OrdTypeField) (m MultilegOrderCancelReplaceRequest) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

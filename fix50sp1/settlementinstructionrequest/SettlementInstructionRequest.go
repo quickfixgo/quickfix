@@ -40,7 +40,7 @@ func (m SettlementInstructionRequest) ToMessage() quickfix.Message {
 
 //New returns a SettlementInstructionRequest initialized with the required fields for SettlementInstructionRequest
 func New(settlinstreqid field.SettlInstReqIDField, transacttime field.TransactTimeField) (m SettlementInstructionRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

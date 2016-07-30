@@ -40,7 +40,7 @@ func (m SettlementInstructions) ToMessage() quickfix.Message {
 
 //New returns a SettlementInstructions initialized with the required fields for SettlementInstructions
 func New(settlinstid field.SettlInstIDField, settlinsttranstype field.SettlInstTransTypeField, settlinstmode field.SettlInstModeField, settlinstsource field.SettlInstSourceField, allocaccount field.AllocAccountField, transacttime field.TransactTimeField) (m SettlementInstructions) {
-	m.Header.Init()
+	m.Header = fix41.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

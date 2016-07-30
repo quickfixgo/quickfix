@@ -40,7 +40,7 @@ func (m BidRequest) ToMessage() quickfix.Message {
 
 //New returns a BidRequest initialized with the required fields for BidRequest
 func New(clientbidid field.ClientBidIDField, bidrequesttranstype field.BidRequestTransTypeField, totalnumsecurities field.TotalNumSecuritiesField, bidtype field.BidTypeField, tradetype field.TradeTypeField, basispxtype field.BasisPxTypeField) (m BidRequest) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m QuoteCancel) ToMessage() quickfix.Message {
 
 //New returns a QuoteCancel initialized with the required fields for QuoteCancel
 func New(quotecanceltype field.QuoteCancelTypeField) (m QuoteCancel) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

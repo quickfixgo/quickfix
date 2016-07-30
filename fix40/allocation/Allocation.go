@@ -40,7 +40,7 @@ func (m Allocation) ToMessage() quickfix.Message {
 
 //New returns a Allocation initialized with the required fields for Allocation
 func New(allocid field.AllocIDField, alloctranstype field.AllocTransTypeField, side field.SideField, symbol field.SymbolField, shares field.SharesField, avgpx field.AvgPxField, tradedate field.TradeDateField) (m Allocation) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

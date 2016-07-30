@@ -40,7 +40,7 @@ func (m OrderCancelReject) ToMessage() quickfix.Message {
 
 //New returns a OrderCancelReject initialized with the required fields for OrderCancelReject
 func New(orderid field.OrderIDField, clordid field.ClOrdIDField) (m OrderCancelReject) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

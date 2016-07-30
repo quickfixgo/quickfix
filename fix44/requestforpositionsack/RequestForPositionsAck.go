@@ -40,7 +40,7 @@ func (m RequestForPositionsAck) ToMessage() quickfix.Message {
 
 //New returns a RequestForPositionsAck initialized with the required fields for RequestForPositionsAck
 func New(posmaintrptid field.PosMaintRptIDField, posreqresult field.PosReqResultField, posreqstatus field.PosReqStatusField, account field.AccountField, accounttype field.AccountTypeField) (m RequestForPositionsAck) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

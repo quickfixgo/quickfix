@@ -40,7 +40,7 @@ func (m SecurityListRequest) ToMessage() quickfix.Message {
 
 //New returns a SecurityListRequest initialized with the required fields for SecurityListRequest
 func New(securityreqid field.SecurityReqIDField, securitylistrequesttype field.SecurityListRequestTypeField) (m SecurityListRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

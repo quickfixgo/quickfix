@@ -40,7 +40,7 @@ func (m ListStrikePrice) ToMessage() quickfix.Message {
 
 //New returns a ListStrikePrice initialized with the required fields for ListStrikePrice
 func New(listid field.ListIDField, totnostrikes field.TotNoStrikesField) (m ListStrikePrice) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m DontKnowTrade) ToMessage() quickfix.Message {
 
 //New returns a DontKnowTrade initialized with the required fields for DontKnowTrade
 func New(orderid field.OrderIDField, execid field.ExecIDField, dkreason field.DKReasonField, side field.SideField) (m DontKnowTrade) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

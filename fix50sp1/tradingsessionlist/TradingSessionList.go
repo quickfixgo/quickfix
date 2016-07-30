@@ -40,7 +40,7 @@ func (m TradingSessionList) ToMessage() quickfix.Message {
 
 //New returns a TradingSessionList initialized with the required fields for TradingSessionList
 func New() (m TradingSessionList) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

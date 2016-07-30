@@ -40,7 +40,7 @@ func (m MassQuote) ToMessage() quickfix.Message {
 
 //New returns a MassQuote initialized with the required fields for MassQuote
 func New(quoteid field.QuoteIDField) (m MassQuote) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

@@ -40,7 +40,7 @@ func (m ListCancelRequest) ToMessage() quickfix.Message {
 
 //New returns a ListCancelRequest initialized with the required fields for ListCancelRequest
 func New(listid field.ListIDField) (m ListCancelRequest) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

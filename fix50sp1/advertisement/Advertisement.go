@@ -40,7 +40,7 @@ func (m Advertisement) ToMessage() quickfix.Message {
 
 //New returns a Advertisement initialized with the required fields for Advertisement
 func New(advid field.AdvIdField, advtranstype field.AdvTransTypeField, advside field.AdvSideField, quantity field.QuantityField) (m Advertisement) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

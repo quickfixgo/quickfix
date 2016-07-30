@@ -40,7 +40,7 @@ func (m ListExecute) ToMessage() quickfix.Message {
 
 //New returns a ListExecute initialized with the required fields for ListExecute
 func New(listid field.ListIDField, transacttime field.TransactTimeField) (m ListExecute) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

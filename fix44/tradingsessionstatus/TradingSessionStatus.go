@@ -40,7 +40,7 @@ func (m TradingSessionStatus) ToMessage() quickfix.Message {
 
 //New returns a TradingSessionStatus initialized with the required fields for TradingSessionStatus
 func New(tradingsessionid field.TradingSessionIDField, tradsesstatus field.TradSesStatusField) (m TradingSessionStatus) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

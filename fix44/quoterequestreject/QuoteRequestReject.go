@@ -40,7 +40,7 @@ func (m QuoteRequestReject) ToMessage() quickfix.Message {
 
 //New returns a QuoteRequestReject initialized with the required fields for QuoteRequestReject
 func New(quotereqid field.QuoteReqIDField, quoterequestrejectreason field.QuoteRequestRejectReasonField) (m QuoteRequestReject) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

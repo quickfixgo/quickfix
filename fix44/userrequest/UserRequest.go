@@ -40,7 +40,7 @@ func (m UserRequest) ToMessage() quickfix.Message {
 
 //New returns a UserRequest initialized with the required fields for UserRequest
 func New(userrequestid field.UserRequestIDField, userrequesttype field.UserRequestTypeField, username field.UsernameField) (m UserRequest) {
-	m.Header.Init()
+	m.Header = fix44.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

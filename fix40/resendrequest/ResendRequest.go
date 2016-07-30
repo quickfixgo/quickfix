@@ -40,7 +40,7 @@ func (m ResendRequest) ToMessage() quickfix.Message {
 
 //New returns a ResendRequest initialized with the required fields for ResendRequest
 func New(beginseqno field.BeginSeqNoField, endseqno field.EndSeqNoField) (m ResendRequest) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

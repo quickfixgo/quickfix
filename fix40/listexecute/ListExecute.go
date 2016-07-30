@@ -40,7 +40,7 @@ func (m ListExecute) ToMessage() quickfix.Message {
 
 //New returns a ListExecute initialized with the required fields for ListExecute
 func New(listid field.ListIDField) (m ListExecute) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

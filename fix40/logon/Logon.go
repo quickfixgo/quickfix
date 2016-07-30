@@ -40,7 +40,7 @@ func (m Logon) ToMessage() quickfix.Message {
 
 //New returns a Logon initialized with the required fields for Logon
 func New(encryptmethod field.EncryptMethodField, heartbtint field.HeartBtIntField) (m Logon) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

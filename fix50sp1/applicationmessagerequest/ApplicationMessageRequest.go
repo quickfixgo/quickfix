@@ -40,7 +40,7 @@ func (m ApplicationMessageRequest) ToMessage() quickfix.Message {
 
 //New returns a ApplicationMessageRequest initialized with the required fields for ApplicationMessageRequest
 func New(applreqid field.ApplReqIDField, applreqtype field.ApplReqTypeField) (m ApplicationMessageRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

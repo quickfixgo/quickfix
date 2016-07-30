@@ -40,7 +40,7 @@ func (m TradeCaptureReportRequest) ToMessage() quickfix.Message {
 
 //New returns a TradeCaptureReportRequest initialized with the required fields for TradeCaptureReportRequest
 func New(traderequestid field.TradeRequestIDField, traderequesttype field.TradeRequestTypeField) (m TradeCaptureReportRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

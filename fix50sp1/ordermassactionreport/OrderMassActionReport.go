@@ -40,7 +40,7 @@ func (m OrderMassActionReport) ToMessage() quickfix.Message {
 
 //New returns a OrderMassActionReport initialized with the required fields for OrderMassActionReport
 func New(massactionreportid field.MassActionReportIDField, massactiontype field.MassActionTypeField, massactionscope field.MassActionScopeField, massactionresponse field.MassActionResponseField) (m OrderMassActionReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

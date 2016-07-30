@@ -40,7 +40,7 @@ func (m ListStatus) ToMessage() quickfix.Message {
 
 //New returns a ListStatus initialized with the required fields for ListStatus
 func New(listid field.ListIDField, norpts field.NoRptsField, rptseq field.RptSeqField) (m ListStatus) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

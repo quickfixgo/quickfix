@@ -40,7 +40,7 @@ func (m BidResponse) ToMessage() quickfix.Message {
 
 //New returns a BidResponse initialized with the required fields for BidResponse
 func New() (m BidResponse) {
-	m.Header.Init()
+	m.Header = fix42.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

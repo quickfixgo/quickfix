@@ -40,7 +40,7 @@ func (m SecurityDefinition) ToMessage() quickfix.Message {
 
 //New returns a SecurityDefinition initialized with the required fields for SecurityDefinition
 func New(securityreqid field.SecurityReqIDField, securityresponseid field.SecurityResponseIDField, totalnumsecurities field.TotalNumSecuritiesField) (m SecurityDefinition) {
-	m.Header.Init()
+	m.Header = fix42.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

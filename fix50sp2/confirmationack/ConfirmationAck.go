@@ -40,7 +40,7 @@ func (m ConfirmationAck) ToMessage() quickfix.Message {
 
 //New returns a ConfirmationAck initialized with the required fields for ConfirmationAck
 func New(confirmid field.ConfirmIDField, tradedate field.TradeDateField, transacttime field.TransactTimeField, affirmstatus field.AffirmStatusField) (m ConfirmationAck) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

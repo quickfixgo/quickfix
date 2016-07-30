@@ -40,7 +40,7 @@ func (m DerivativeSecurityListUpdateReport) ToMessage() quickfix.Message {
 
 //New returns a DerivativeSecurityListUpdateReport initialized with the required fields for DerivativeSecurityListUpdateReport
 func New() (m DerivativeSecurityListUpdateReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

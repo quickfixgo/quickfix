@@ -40,7 +40,7 @@ func (m Confirmation) ToMessage() quickfix.Message {
 
 //New returns a Confirmation initialized with the required fields for Confirmation
 func New(confirmid field.ConfirmIDField, confirmtranstype field.ConfirmTransTypeField, confirmtype field.ConfirmTypeField, confirmstatus field.ConfirmStatusField, transacttime field.TransactTimeField, tradedate field.TradeDateField, allocqty field.AllocQtyField, side field.SideField, allocaccount field.AllocAccountField, avgpx field.AvgPxField, grosstradeamt field.GrossTradeAmtField, netmoney field.NetMoneyField) (m Confirmation) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

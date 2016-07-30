@@ -40,7 +40,7 @@ func (m SecurityDefinitionUpdateReport) ToMessage() quickfix.Message {
 
 //New returns a SecurityDefinitionUpdateReport initialized with the required fields for SecurityDefinitionUpdateReport
 func New() (m SecurityDefinitionUpdateReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

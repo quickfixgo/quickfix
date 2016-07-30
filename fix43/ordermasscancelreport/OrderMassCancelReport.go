@@ -40,7 +40,7 @@ func (m OrderMassCancelReport) ToMessage() quickfix.Message {
 
 //New returns a OrderMassCancelReport initialized with the required fields for OrderMassCancelReport
 func New(orderid field.OrderIDField, masscancelrequesttype field.MassCancelRequestTypeField, masscancelresponse field.MassCancelResponseField) (m OrderMassCancelReport) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

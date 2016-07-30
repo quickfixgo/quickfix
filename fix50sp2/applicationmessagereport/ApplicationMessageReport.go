@@ -40,7 +40,7 @@ func (m ApplicationMessageReport) ToMessage() quickfix.Message {
 
 //New returns a ApplicationMessageReport initialized with the required fields for ApplicationMessageReport
 func New(applreportid field.ApplReportIDField, applreporttype field.ApplReportTypeField) (m ApplicationMessageReport) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

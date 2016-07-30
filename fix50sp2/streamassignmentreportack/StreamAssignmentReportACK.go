@@ -40,7 +40,7 @@ func (m StreamAssignmentReportACK) ToMessage() quickfix.Message {
 
 //New returns a StreamAssignmentReportACK initialized with the required fields for StreamAssignmentReportACK
 func New(streamasgnacktype field.StreamAsgnAckTypeField, streamasgnrptid field.StreamAsgnRptIDField) (m StreamAssignmentReportACK) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

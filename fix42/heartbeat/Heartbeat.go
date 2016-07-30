@@ -40,7 +40,7 @@ func (m Heartbeat) ToMessage() quickfix.Message {
 
 //New returns a Heartbeat initialized with the required fields for Heartbeat
 func New() (m Heartbeat) {
-	m.Header.Init()
+	m.Header = fix42.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

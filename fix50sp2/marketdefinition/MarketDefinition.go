@@ -40,7 +40,7 @@ func (m MarketDefinition) ToMessage() quickfix.Message {
 
 //New returns a MarketDefinition initialized with the required fields for MarketDefinition
 func New(marketreportid field.MarketReportIDField, marketid field.MarketIDField) (m MarketDefinition) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

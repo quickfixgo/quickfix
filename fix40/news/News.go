@@ -40,7 +40,7 @@ func (m News) ToMessage() quickfix.Message {
 
 //New returns a News initialized with the required fields for News
 func New(linesoftext field.LinesOfTextField, text field.TextField) (m News) {
-	m.Header.Init()
+	m.Header = fix40.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

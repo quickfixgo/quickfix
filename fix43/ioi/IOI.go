@@ -40,7 +40,7 @@ func (m IOI) ToMessage() quickfix.Message {
 
 //New returns a IOI initialized with the required fields for IOI
 func New(ioiid field.IOIidField, ioitranstype field.IOITransTypeField, side field.SideField, ioiqty field.IOIQtyField) (m IOI) {
-	m.Header.Init()
+	m.Header = fix43.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 

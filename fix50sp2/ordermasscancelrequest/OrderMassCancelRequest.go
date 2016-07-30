@@ -40,7 +40,7 @@ func (m OrderMassCancelRequest) ToMessage() quickfix.Message {
 
 //New returns a OrderMassCancelRequest initialized with the required fields for OrderMassCancelRequest
 func New(clordid field.ClOrdIDField, masscancelrequesttype field.MassCancelRequestTypeField, transacttime field.TransactTimeField) (m OrderMassCancelRequest) {
-	m.Header.Init()
+	m.Header = fixt11.NewHeader()
 	m.Init()
 	m.Trailer.Init()
 
