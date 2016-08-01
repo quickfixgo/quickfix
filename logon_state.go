@@ -4,38 +4,23 @@ import "github.com/quickfixgo/quickfix/enum"
 
 type logonState struct{}
 
-func (state logonState) String() string { return "Logon State" }
-func (s logonState) IsLoggedOn() bool   { return false }
-
-func (s logonState) VerifyMsgIn(session *session, msg Message) MessageRejectError {
+func (s logonState) String() string   { return "Logon State" }
+func (s logonState) IsLoggedOn() bool { return false }
+func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
-		return RequiredTagMissing(tagMsgType)
+		return session.handleError(err)
 	}
 
-	switch string(msgType) {
-	case enum.MsgType_LOGON:
-		err := session.verifyLogon(msg)
-		if err != nil {
-			session.log.OnEvent(err.Error())
-		}
-		return err
-	default:
-		session.log.OnEventf("Invalid Session State: Received Msg %v while waiting for Logon", msg)
-		return InvalidMessageType()
-	}
-}
-
-func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
-	if err := session.handleLogon(msg); err != nil {
-		session.log.OnEvent(err.Error())
+	if string(msgType) != enum.MsgType_LOGON {
+		session.log.OnEventf("Invalid Session State: Received Msg %s while waiting for Logon", msg)
 		return latentState{}
 	}
-	return inSession{}
-}
 
-func (s logonState) FixMsgInRej(session *session, msg Message, err MessageRejectError) sessionState {
-	return latentState{}
+	if err := session.handleLogon(msg); err != nil {
+		return session.handleError(err)
+	}
+	return inSession{}
 }
 
 func (s logonState) Timeout(session *session, e event) (nextState sessionState) {
