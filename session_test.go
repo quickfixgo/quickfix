@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -252,6 +253,7 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 }
 
 type TestClient struct {
+	rejectToApp   bool
 	adminMessages []Message
 	appMessages   []Message
 }
@@ -275,6 +277,11 @@ func (e *TestClient) ToAdmin(msg Message, sessionID SessionID) {
 
 func (e *TestClient) ToApp(msg Message, sessionID SessionID) (err error) {
 	e.appMessages = append(e.appMessages, msg)
+
+	if e.rejectToApp {
+		return fmt.Errorf("Rejecting ToApp")
+	}
+
 	return nil
 }
 
@@ -329,6 +336,17 @@ func (suite *SessionSendTestSuite) Logon() Message {
 	msg := buildMessage()
 	msg.Header.SetField(tagMsgType, FIXString("A"))
 	return msg
+}
+
+func (suite *SessionSendTestSuite) rejectToApp() {
+	suite.TestClient.rejectToApp = true
+}
+
+func (suite *SessionSendTestSuite) shouldNotPersistMessage() {
+	suite.Equal(1, suite.store.NextSenderMsgSeqNum(), "The next sender sequence number should not be incremented")
+	persistedMessages, err := suite.store.GetMessages(1, 1)
+	suite.Nil(err)
+	suite.Len(persistedMessages, 0, "The message should not be persisted")
 }
 
 func (suite *SessionSendTestSuite) shouldPersistMessage() {
@@ -399,6 +417,18 @@ func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
 	suite.shouldNotSendMessage()
 }
 
+func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
+	suite.rejectToApp()
+	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
+
+	suite.shouldCallToApp()
+	suite.shouldNotPersistMessage()
+	suite.shouldNotSendMessage()
+
+	require.Nil(suite.T(), suite.send(suite.Heartbeat()))
+	suite.shouldSendMessages(1)
+}
+
 func (suite *SessionSendTestSuite) TestQueueForSendAdminMessage() {
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
 
@@ -413,6 +443,15 @@ func (suite *SessionSendTestSuite) TestSendAppMessage() {
 	suite.shouldCallToApp()
 	suite.shouldPersistMessage()
 	suite.shouldSendMessage()
+}
+
+func (suite *SessionSendTestSuite) TestSendAppDoNotSendMessage() {
+	suite.rejectToApp()
+	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+
+	suite.shouldCallToApp()
+	suite.shouldNotPersistMessage()
+	suite.shouldNotSendMessage()
 }
 
 func (suite *SessionSendTestSuite) TestSendAdminMessage() {

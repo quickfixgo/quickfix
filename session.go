@@ -218,12 +218,12 @@ func (s *session) resend(msg Message) error {
 }
 
 //queueForSend will validate, persist, and queue the message for send
-func (s *session) queueForSend(msg Message) (err error) {
+func (s *session) queueForSend(msg Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
-	if err = s.prepMessageForSend(&msg); err != nil {
-		return
+	if doNotSend, err := s.prepMessageForSend(&msg); err != nil || doNotSend {
+		return err
 	}
 
 	s.toSend = append(s.toSend, msg)
@@ -233,61 +233,65 @@ func (s *session) queueForSend(msg Message) (err error) {
 	default:
 	}
 
-	return
+	return nil
 }
 
 //send will validate, persist, queue the message and send all messages in the queue
-func (s *session) send(msg Message) (err error) {
+func (s *session) send(msg Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
-	if err = s.prepMessageForSend(&msg); err != nil {
-		return
+	if doNotSend, err := s.prepMessageForSend(&msg); err != nil || doNotSend {
+		return err
 	}
 
 	s.toSend = append(s.toSend, msg)
 	s.sendQueued()
 
-	return
+	return nil
 }
 
 //dropAndSend will optionally reset the store, validate and persist the message, then drops the send queue and sends the message.
-func (s *session) dropAndSend(msg Message, resetStore bool) (err error) {
+func (s *session) dropAndSend(msg Message, resetStore bool) error {
 
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
 	if resetStore {
-		if err = s.store.Reset(); err != nil {
+		if err := s.store.Reset(); err != nil {
 			return err
 		}
 	}
 
-	if err = s.prepMessageForSend(&msg); err != nil {
-		return
+	if doNotSend, err := s.prepMessageForSend(&msg); err != nil || doNotSend {
+		return err
 	}
 
 	s.dropQueued()
 	s.toSend = append(s.toSend, msg)
 	s.sendQueued()
 
-	return
+	return nil
 }
 
-func (s *session) prepMessageForSend(msg *Message) (err error) {
+func (s *session) prepMessageForSend(msg *Message) (doNotSend bool, err error) {
 	s.fillDefaultHeader(*msg)
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
 	var msgType FIXString
 	if err = msg.Header.GetField(tagMsgType, &msgType); err != nil {
-		return err
+		return
 	}
 
 	if isAdminMessageType(string(msgType)) {
 		s.application.ToAdmin(*msg, s.sessionID)
 	} else {
-		s.application.ToApp(*msg, s.sessionID)
+		if doNotSendErr := s.application.ToApp(*msg, s.sessionID); doNotSendErr != nil {
+			s.log.OnEventf("Do Not Send: %v", doNotSendErr)
+			doNotSend = true
+			return
+		}
 	}
 
 	var msgBytes []byte
@@ -295,7 +299,8 @@ func (s *session) prepMessageForSend(msg *Message) (err error) {
 		return
 	}
 
-	return s.persist(seqNum, msgBytes)
+	err = s.persist(seqNum, msgBytes)
+	return
 }
 
 func (s *session) persist(seqNum int, msgBytes []byte) error {
@@ -492,7 +497,11 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 
 func (s *session) fromCallback(msg Message) MessageRejectError {
 	var msgType FIXString
-	if msg.Header.GetField(tagMsgType, &msgType); isAdminMessageType(string(msgType)) {
+	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+		return err
+	}
+
+	if isAdminMessageType(string(msgType)) {
 		return s.application.FromAdmin(msg, s.sessionID)
 	}
 
