@@ -1,3 +1,45 @@
+## 0.4.0 (August 1, 2016)
+
+FEATURES
+
+* ReconnectInterval Initiator Configuration [GH 66, 161]
+
+ENHANCEMENTS
+
+* Generate Getters for messages [GH 118]
+* Drop generate-* apps into cmd/ [GH 125, 150]
+* Misc field type refactoring  [GH 145]
+* Cmd gen [GH 146, 147]
+* refactoring enum generation [GH 148]
+* pipelining generation [GH 149]
+* Sending a message to an unlogged-in session, results an error [GH 173, 182]
+* adds event logging related to session events [GH 175]
+* Error handling around session code enhancement [GH 176]
+* refactoring of session code [GH 183]
+* Gen header beginstring [GH 184]
+
+BUG FIXES
+
+* Do not incr target seq num when seq num too high  [GH 151]
+* can't parse securitylist message [GH 153, 155] 
+* Concurrent map operations on Acceptor.Stop()  [GH 156]
+* Return requiredConfigurationMissing when "FileStorePath" not found [GH 157]
+* Checks around HeartBtInt configuration [GH 158]
+* Removed complexity around closing Initiator sessions [GH 159]
+* Proper FIX logout sequence [GH 160]
+* Session logic doesn't account for a failure when calling messageStore methods (e.g. persisting a message) [GH 162]
+* Session event loop [GH 164]
+* Session event loop follow up [GH 165]
+* Handle OnLogon/Logout callbacks in user space [GH 167]
+* Session deadlocks if both initiator and acceptor enter the resend state [GH 169, 179]
+* Initiator.Stop() does not wait for Acceptor's logout response, causing a resend on next logon [GH 170, 172]
+* Reset peer timer after logon [GH 171]
+* Ensure OnLogon is called even if seq num too high [GH 174]
+* increment target seq num on logout [GH 177]
+* fixes bogus resend logic [GH 178]
+* Session forgets it is in resend state [GH 180, 181]
+* fixes donotsend logic [GH 185]
+
 ## 0.3.0 (June 3, 2016)
 
 FEATURES
