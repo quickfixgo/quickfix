@@ -1,22 +1,16 @@
 package quickfix
 
 import (
-	"fmt"
+	"errors"
 	"testing"
 	"time"
 
 	"github.com/quickfixgo/quickfix/enum"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
-
-func buildMessage() Message {
-	builder := NewMessage()
-	builder.Header.SetField(tagBeginString, FIXString(enum.BeginStringFIX40))
-	builder.Header.SetField(tagMsgType, FIXString("D"))
-	return builder
-}
 
 func newFIXString(val string) *FIXString {
 	s := FIXString(val)
@@ -52,35 +46,25 @@ func TestSession_CheckCorrectCompID(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		builder := buildMessage()
+		msg := NewMessage()
 
 		if tc.senderCompID != nil {
-			builder.Header.SetField(tagSenderCompID, tc.senderCompID)
+			msg.Header.SetField(tagSenderCompID, tc.senderCompID)
 		}
 
 		if tc.targetCompID != nil {
-			builder.Header.SetField(tagTargetCompID, tc.targetCompID)
+			msg.Header.SetField(tagTargetCompID, tc.targetCompID)
 		}
 
-		msgBytes, _ := builder.Build()
-		msg, _ := ParseMessage(msgBytes)
-		err := session.checkCompID(msg)
-
-		if err == nil {
-			if tc.returnsError {
-				t.Error("expected error")
-			}
-
-			return
-		}
+		rej := session.checkCompID(msg)
 
 		if !tc.returnsError {
-			t.Fatal("unexpected error", err)
+			require.Nil(t, rej)
+			continue
 		}
 
-		if err.RejectReason() != tc.rejectReason {
-			t.Errorf("expected %v got %v", tc.rejectReason, err.RejectReason())
-		}
+		require.NotNil(t, rej)
+		assert.Equal(t, tc.rejectReason, rej.RejectReason())
 	}
 }
 
@@ -89,257 +73,116 @@ func TestSession_CheckBeginString(t *testing.T) {
 		sessionID: SessionID{BeginString: "FIX.4.2"},
 	}
 
-	builder := buildMessage()
+	msg := NewMessage()
 
 	//wrong value
-	builder.Header.SetField(tagBeginString, FIXString("FIX.4.4"))
-	msgBytes, _ := builder.Build()
-	msg, _ := ParseMessage(msgBytes)
-
+	msg.Header.SetField(tagBeginString, FIXString("FIX.4.4"))
 	err := session.checkBeginString(msg)
-	if err == nil {
-		t.Error("Expected Error")
-	}
-	_ = err.(incorrectBeginString)
+	require.NotNil(t, err, "wrong begin string should return error")
+	assert.IsType(t, incorrectBeginString{}, err)
 
-	builder.Header.SetField(tagBeginString, FIXString(session.sessionID.BeginString))
-	msgBytes, _ = builder.Build()
-	msg, _ = ParseMessage(msgBytes)
-
+	msg.Header.SetField(tagBeginString, FIXString(session.sessionID.BeginString))
 	err = session.checkBeginString(msg)
-
-	if err != nil {
-		t.Error("Unexpected error", err)
-	}
+	assert.Nil(t, err)
 }
 
 func TestSession_CheckTargetTooHigh(t *testing.T) {
 	store := new(memoryStore)
 	session := session{store: store}
-	builder := buildMessage()
-	msgBytes, _ := builder.Build()
-	msg, _ := ParseMessage(msgBytes)
 
+	msg := NewMessage()
 	store.SetNextTargetMsgSeqNum(45)
 
-	//missing seq number
 	err := session.checkTargetTooHigh(msg)
+	require.NotNil(t, err, "missing sequence number should return error")
+	assert.Equal(t, rejectReasonRequiredTagMissing, err.RejectReason())
 
-	if err == nil {
-		t.Error("Expected error")
-	}
-
-	if err.RejectReason() != rejectReasonRequiredTagMissing {
-		t.Error("Expected required tag missing, got", err.RejectReason())
-	}
-
-	//too low
-	builder.Header.SetField(tagMsgSeqNum, FIXInt(47))
-	msgBytes, _ = builder.Build()
-	msg, _ = ParseMessage(msgBytes)
+	msg.Header.SetField(tagMsgSeqNum, FIXInt(47))
 	err = session.checkTargetTooHigh(msg)
-
-	if err == nil {
-		t.Error("Expected error")
-	}
-	_ = err.(targetTooHigh)
+	require.NotNil(t, err, "sequence number too high should return an error")
+	assert.IsType(t, targetTooHigh{}, err)
 
 	//spot on
-	builder.Header.SetField(tagMsgSeqNum, FIXInt(45))
-	msgBytes, _ = builder.Build()
-	msg, _ = ParseMessage(msgBytes)
-
+	msg.Header.SetField(tagMsgSeqNum, FIXInt(45))
 	err = session.checkTargetTooHigh(msg)
-	if err != nil {
-		t.Error("Unexpected error", err)
-	}
+	assert.Nil(t, err)
 }
 
 func TestSession_CheckSendingTime(t *testing.T) {
 	session := session{}
-	builder := buildMessage()
-	msgBytes, _ := builder.Build()
-	msg, _ := ParseMessage(msgBytes)
+	msg := NewMessage()
 
-	//missing sending time
 	err := session.checkSendingTime(msg)
-	if err == nil {
-		t.Error("Expected error")
-	}
-	if err.RejectReason() != rejectReasonRequiredTagMissing {
-		t.Error("Reject reason not expected, got ", err.RejectReason())
-	}
+	require.NotNil(t, err, "sending time is a required field")
+	assert.Equal(t, rejectReasonRequiredTagMissing, err.RejectReason())
 
-	//sending time too late
 	sendingTime := time.Now().Add(time.Duration(-200) * time.Second)
-	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
-	msgBytes, _ = builder.Build()
-	msg, _ = ParseMessage(msgBytes)
+	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 
 	err = session.checkSendingTime(msg)
-	if err == nil {
-		t.Error("Expected error")
-	}
-	if err.RejectReason() != rejectReasonSendingTimeAccuracyProblem {
-		t.Error("Reject reason not expected, got ", err.RejectReason())
-	}
+	require.NotNil(t, err, "sending time too late should give error")
+	assert.Equal(t, rejectReasonSendingTimeAccuracyProblem, err.RejectReason())
 
-	//future sending time
 	sendingTime = time.Now().Add(time.Duration(200) * time.Second)
-	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
-	msgBytes, _ = builder.Build()
-	msg, _ = ParseMessage(msgBytes)
+	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 
 	err = session.checkSendingTime(msg)
-	if err == nil {
-		t.Error("Expected error")
-	}
-	if err.RejectReason() != rejectReasonSendingTimeAccuracyProblem {
-		t.Error("Reject reason not expected, got ", err.RejectReason())
-	}
+	require.NotNil(t, err, "future sending time should give error")
+	assert.Equal(t, rejectReasonSendingTimeAccuracyProblem, err.RejectReason())
 
-	//sending time ok
 	sendingTime = time.Now()
-	builder.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
-	msgBytes, _ = builder.Build()
-	msg, _ = ParseMessage(msgBytes)
+	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 
 	err = session.checkSendingTime(msg)
-	if err != nil {
-		t.Error("Unexpected error ", err)
-	}
+	assert.Nil(t, err, "sending time should be ok")
 }
 
 func TestSession_CheckTargetTooLow(t *testing.T) {
 	store, _ := NewMemoryStoreFactory().Create(SessionID{})
 	session := session{store: store}
 
-	builder := buildMessage()
-	msgBytes, _ := builder.Build()
-	msg, _ := ParseMessage(msgBytes)
-
+	msg := NewMessage()
 	store.SetNextTargetMsgSeqNum(45)
 
-	//missing seq number
 	err := session.checkTargetTooLow(msg)
-	if err == nil {
-		t.Error("Expected error")
-	}
-
-	if err.RejectReason() != rejectReasonRequiredTagMissing {
-		t.Error("Unexpected reject reason", err.RejectReason())
-	}
+	require.NotNil(t, err, "sequence number is required")
+	assert.Equal(t, rejectReasonRequiredTagMissing, err.RejectReason())
 
 	//too low
-	builder.Header.SetField(tagMsgSeqNum, FIXInt(43))
-	msgBytes, _ = builder.Build()
-	msg, _ = ParseMessage(msgBytes)
-
+	msg.Header.SetField(tagMsgSeqNum, FIXInt(43))
 	err = session.checkTargetTooLow(msg)
-	if err == nil {
-		t.Error("Expected error")
-	}
-	_ = err.(targetTooLow)
+	require.NotNil(t, err, "sequence number too low should return error")
+	assert.IsType(t, targetTooLow{}, err)
 
 	//spot on
-	builder.Header.SetField(tagMsgSeqNum, FIXInt(45))
-	msgBytes, _ = builder.Build()
-	msg, _ = ParseMessage(msgBytes)
-
+	msg.Header.SetField(tagMsgSeqNum, FIXInt(45))
 	err = session.checkTargetTooLow(msg)
-	if err != nil {
-		t.Error("Unexpected error ", err)
-	}
-}
-
-type TestClient struct {
-	rejectToApp   bool
-	adminMessages []Message
-	appMessages   []Message
-}
-
-func (e *TestClient) OnCreate(sessionID SessionID) {
-}
-
-func (e *TestClient) OnLogon(sessionID SessionID) {
-}
-
-func (e *TestClient) OnLogout(sessionID SessionID) {
-}
-
-func (e *TestClient) FromAdmin(msg Message, sessionID SessionID) (reject MessageRejectError) {
-	return nil
-}
-
-func (e *TestClient) ToAdmin(msg Message, sessionID SessionID) {
-	e.adminMessages = append(e.adminMessages, msg)
-}
-
-func (e *TestClient) ToApp(msg Message, sessionID SessionID) (err error) {
-	e.appMessages = append(e.appMessages, msg)
-
-	if e.rejectToApp {
-		return fmt.Errorf("Rejecting ToApp")
-	}
-
-	return nil
-}
-
-func (e *TestClient) FromApp(msg Message, sessionID SessionID) (reject MessageRejectError) {
-	return nil
+	assert.Nil(t, err)
 }
 
 type SessionSendTestSuite struct {
 	suite.Suite
 
-	*TestClient
+	*messageFactory
+	*mockApp
+	receiver *mockSessionReceiver
 	*session
-	sendChannel chan []byte
 }
 
 func (suite *SessionSendTestSuite) SetupTest() {
-	suite.sendChannel = make(chan []byte, 10)
-	suite.TestClient = new(TestClient)
+	suite.mockApp = new(mockApp)
+	suite.messageFactory = new(messageFactory)
+	suite.receiver = newMockSessionReceiver()
 	suite.session = &session{
 		store:       new(memoryStore),
 		application: suite,
 		log:         nullLog{},
-		messageOut:  suite.sendChannel,
+		messageOut:  suite.receiver.sendChannel,
 	}
-}
-
-func (suite *SessionSendTestSuite) sentMessage() (msg []byte) {
-	select {
-	case msg = <-suite.sendChannel:
-	default:
-	}
-	return
 }
 
 func TestSessionSendTestSuite(t *testing.T) {
 	suite.Run(t, new(SessionSendTestSuite))
-}
-
-func (suite *SessionSendTestSuite) NewOrderSingle() Message {
-	msg := buildMessage()
-	msg.Header.SetField(tagMsgType, FIXString("D"))
-	return msg
-}
-
-func (suite *SessionSendTestSuite) Heartbeat() Message {
-	msg := buildMessage()
-	msg.Header.SetField(tagMsgType, FIXString("0"))
-	return msg
-}
-
-func (suite *SessionSendTestSuite) Logon() Message {
-	msg := buildMessage()
-	msg.Header.SetField(tagMsgType, FIXString("A"))
-	return msg
-}
-
-func (suite *SessionSendTestSuite) rejectToApp() {
-	suite.TestClient.rejectToApp = true
 }
 
 func (suite *SessionSendTestSuite) shouldNotPersistMessage() {
@@ -363,37 +206,17 @@ func (suite *SessionSendTestSuite) shouldPersistMessageWithSequenceNum(expectedS
 	suite.Len(persistedMessages, 1, "The message should be persisted")
 }
 
-func (suite *SessionSendTestSuite) shouldCallToApp() {
-	suite.Len(suite.appMessages, 1, "ToApp should be called")
-	suite.appMessages = []Message{}
-}
-
-func (suite *SessionSendTestSuite) shouldCallToAdmin() {
-	suite.Len(suite.adminMessages, 1, "ToAdmin should be called")
-	suite.adminMessages = []Message{}
-}
-
 func (suite *SessionSendTestSuite) shouldBeType(msg Message, expectedMsgType string) {
 	actual, err := msg.Header.GetString(tagMsgType)
 	suite.Nil(err, "Message doesn't have message type")
 	suite.Equal(expectedMsgType, actual)
 }
 
-func (suite *SessionSendTestSuite) lastToApp() Message {
-	suite.NotEmpty(suite.appMessages, "ToApp should be called")
-	return suite.appMessages[len(suite.appMessages)-1]
-}
-
-func (suite *SessionSendTestSuite) lastToAdmin() Message {
-	suite.NotEmpty(suite.appMessages, "ToAdmin should be called")
-	return suite.adminMessages[len(suite.adminMessages)-1]
-}
-
 func (suite *SessionSendTestSuite) shouldSendMessage() {
-	suite.NotNil(suite.sentMessage(), "The message should have been sent")
+	suite.NotNil(suite.receiver.LastMessage(), "The message should have been sent")
 }
 func (suite *SessionSendTestSuite) shouldNotSendMessage() {
-	suite.Nil(suite.sentMessage(), "The message should not have been sent")
+	suite.Nil(suite.receiver.LastMessage(), "The message should not have been sent")
 }
 
 func (suite *SessionSendTestSuite) shouldSendMessages(cnt int) {
@@ -410,82 +233,102 @@ func (suite *SessionSendTestSuite) sentMessageShouldBe(sentMsg []byte, msg Messa
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
+	suite.mockApp.On("ToApp").Return(nil)
 	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
 
-	suite.shouldCallToApp()
+	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldPersistMessage()
 	suite.shouldNotSendMessage()
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
-	suite.rejectToApp()
+	suite.mockApp.On("ToApp").Return(errors.New("donotsend"))
 	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
 
-	suite.shouldCallToApp()
+	suite.AssertExpectations(suite.T())
 	suite.shouldNotPersistMessage()
 	suite.shouldNotSendMessage()
 
+	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.send(suite.Heartbeat()))
+	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldSendMessages(1)
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendAdminMessage() {
+	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
 
-	suite.shouldCallToAdmin()
+	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldPersistMessage()
 	suite.shouldNotSendMessage()
 }
 
 func (suite *SessionSendTestSuite) TestSendAppMessage() {
+	suite.mockApp.On("ToApp").Return(nil)
 	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
 
-	suite.shouldCallToApp()
+	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldPersistMessage()
 	suite.shouldSendMessage()
 }
 
 func (suite *SessionSendTestSuite) TestSendAppDoNotSendMessage() {
-	suite.rejectToApp()
+	suite.On("ToApp").Return(errors.New("donotsend"))
 	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
 
-	suite.shouldCallToApp()
+	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldNotPersistMessage()
 	suite.shouldNotSendMessage()
 }
 
 func (suite *SessionSendTestSuite) TestSendAdminMessage() {
+	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.send(suite.Heartbeat()))
+	suite.mockApp.AssertExpectations(suite.T())
 
-	suite.shouldCallToAdmin()
 	suite.shouldPersistMessage()
 	suite.shouldSendMessage()
 }
 
 func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
+	suite.mockApp.On("ToApp").Return(nil)
+	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+
+	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldNotSendMessage()
 
+	suite.mockApp.On("ToApp").Return(nil)
 	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldSendMessages(3)
 }
 
 func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
-	require.Nil(suite.T(), suite.dropAndSend(suite.Heartbeat(), false))
+	suite.mockApp.On("ToAdmin")
+	suite.Require().Nil(suite.dropAndSend(suite.Heartbeat(), false))
+	suite.mockApp.AssertExpectations(suite.T())
 
-	suite.shouldCallToAdmin()
 	suite.shouldPersistMessage()
 	suite.shouldSendMessage()
 }
 
 func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
+	suite.mockApp.On("ToApp").Return(nil)
+	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	suite.mockApp.AssertExpectations(suite.T())
+
 	suite.shouldNotSendMessage()
 
+	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), false))
-	msg := suite.lastToAdmin()
+	suite.mockApp.AssertExpectations(suite.T())
+
+	msg := suite.mockApp.lastToAdmin
 	suite.shouldBeType(msg, enum.MsgType_LOGON)
 
 	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
@@ -493,7 +336,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	suite.Equal(3, seqNum)
 
 	//only one message sent
-	sentMsgBytes := suite.sentMessage()
+	sentMsgBytes := suite.receiver.LastMessage()
 	suite.NotNil(sentMsgBytes)
 	suite.shouldNotSendMessage()
 
@@ -501,12 +344,17 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 }
 
 func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
+	suite.mockApp.On("ToApp").Return(nil)
+	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldNotSendMessage()
 
+	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), true))
-	msg := suite.lastToAdmin()
+	suite.mockApp.AssertExpectations(suite.T())
+	msg := suite.mockApp.lastToAdmin
 
 	suite.shouldBeType(msg, enum.MsgType_LOGON)
 	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
@@ -514,7 +362,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.Equal(1, seqNum)
 
 	//only one message sent
-	sentMsgBytes := suite.sentMessage()
+	sentMsgBytes := suite.receiver.LastMessage()
 	suite.NotNil(sentMsgBytes)
 	suite.shouldNotSendMessage()
 
