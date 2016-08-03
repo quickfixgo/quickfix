@@ -174,10 +174,11 @@ func (suite *SessionSendTestSuite) SetupTest() {
 	suite.messageFactory = new(messageFactory)
 	suite.receiver = newMockSessionReceiver()
 	suite.session = &session{
-		store:       new(memoryStore),
-		application: suite,
-		log:         nullLog{},
-		messageOut:  suite.receiver.sendChannel,
+		store:        new(memoryStore),
+		application:  suite,
+		log:          nullLog{},
+		messageOut:   suite.receiver.sendChannel,
+		sessionState: inSession{},
 	}
 }
 
@@ -304,6 +305,22 @@ func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
 	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
 	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldSendMessages(3)
+}
+
+func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
+	suite.mockApp.On("ToApp").Return(nil)
+	suite.mockApp.On("ToAdmin")
+	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+
+	suite.mockApp.AssertExpectations(suite.T())
+	suite.shouldNotSendMessage()
+
+	suite.mockApp.On("ToApp").Return(nil)
+	suite.sessionState = logoutState{}
+	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+	suite.mockApp.AssertExpectations(suite.T())
+	suite.shouldNotSendMessage()
 }
 
 func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
