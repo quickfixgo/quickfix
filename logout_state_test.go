@@ -84,3 +84,22 @@ func (s *logoutStateTestSuite) TestFixMsgInLogout() {
 
 	s.Nil(s.receiver.LastMessage(), "nothing should be sent in logout state")
 }
+
+func (s *logoutStateTestSuite) TestFixMsgInLogoutResetOnLogout() {
+	s.session.resetOnLogout = true
+
+	s.mockApp.On("ToApp").Return(nil)
+	s.Nil(s.queueForSend(s.NewOrderSingle()))
+	s.mockApp.AssertExpectations(s.T())
+
+	s.mockApp.On("FromAdmin").Return(nil)
+	nextState := s.FixMsgIn(s.session, s.Logout())
+
+	s.mockApp.AssertExpectations(s.T())
+	s.IsType(latentState{}, nextState)
+	s.Equal(1, s.session.store.NextTargetMsgSeqNum())
+	s.Equal(1, s.session.store.NextSenderMsgSeqNum())
+
+	s.Nil(s.receiver.LastMessage(), "nothing should be sent in logout state")
+	s.Empty(s.session.toSend)
+}

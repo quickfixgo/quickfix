@@ -90,7 +90,7 @@ func TestSession_CheckTargetTooHigh(t *testing.T) {
 	session := session{store: store}
 
 	msg := NewMessage()
-	store.SetNextTargetMsgSeqNum(45)
+	require.Nil(t, store.SetNextTargetMsgSeqNum(45))
 
 	err := session.checkTargetTooHigh(msg)
 	require.NotNil(t, err, "missing sequence number should return error")
@@ -141,7 +141,7 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	session := session{store: store}
 
 	msg := NewMessage()
-	store.SetNextTargetMsgSeqNum(45)
+	require.Nil(t, store.SetNextTargetMsgSeqNum(45))
 
 	err := session.checkTargetTooLow(msg)
 	require.NotNil(t, err, "sequence number is required")

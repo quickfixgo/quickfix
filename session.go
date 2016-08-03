@@ -35,6 +35,7 @@ type session struct {
 	peerTimer        eventTimer
 	messageStash     map[int]Message
 	resetOnLogon     bool
+	resetOnLogout    bool
 	initiateLogon    bool
 	heartBtInt       int
 	heartBeatTimeout time.Duration
@@ -113,6 +114,12 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 
 	if settings.HasSetting(config.ResetOnLogon) {
 		if session.resetOnLogon, err = settings.BoolSetting(config.ResetOnLogon); err != nil {
+			return err
+		}
+	}
+
+	if settings.HasSetting(config.ResetOnLogout) {
+		if session.resetOnLogout, err = settings.BoolSetting(config.ResetOnLogout); err != nil {
 			return err
 		}
 	}
@@ -253,6 +260,15 @@ func (s *session) send(msg Message) error {
 	s.sendQueued()
 
 	return nil
+}
+
+//dropAndReset will drop the send queue and reset the message store
+func (s *session) dropAndReset() error {
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
+
+	s.dropQueued()
+	return s.store.Reset()
 }
 
 //dropAndSend will optionally reset the store, validate and persist the message, then drops the send queue and sends the message.

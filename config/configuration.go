@@ -13,6 +13,7 @@ const (
 	TransportDataDictionary  string = "TransportDataDictionary"
 	AppDataDictionary        string = "AppDataDictionary"
 	ResetOnLogon             string = "ResetOnLogon"
+	ResetOnLogout            string = "ResetOnLogout"
 	ReconnectInterval        string = "ReconnectInterval"
 	HeartBtInt               string = "HeartBtInt"
 	FileLogPath              string = "FileLogPath"
