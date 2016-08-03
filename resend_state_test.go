@@ -3,51 +3,59 @@ package quickfix
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestResendState_IsLoggedOn(t *testing.T) {
-	assert.True(t, resendState{}.IsLoggedOn())
+type resendStateTestSuite struct {
+	suite.Suite
+
+	*mockApp
+	state       resendState
+	sendChannel chan []byte
+	session     *session
 }
 
-func TestResendState_TimeoutPeerTimeout(t *testing.T) {
-	otherEnd := make(chan []byte)
-	go func() {
-		<-otherEnd
-	}()
-
-	state := resendState{}
-	session := &session{
-		store:        new(memoryStore),
-		application:  new(TestClient),
-		messageOut:   otherEnd,
-		log:          nullLog{},
-		sessionState: state,
-	}
-
-	nextState := state.Timeout(session, peerTimeout)
-	assert.Equal(t, pendingTimeout{state}, nextState)
+func TestResendStateTestSuite(t *testing.T) {
+	suite.Run(t, new(resendStateTestSuite))
 }
 
-func TestResendState_TimeoutUnchanged(t *testing.T) {
-	otherEnd := make(chan []byte)
-	go func() {
-		<-otherEnd
-	}()
-
-	state := resendState{}
-	session := &session{
+func (s *resendStateTestSuite) SetupTest() {
+	s.mockApp = new(mockApp)
+	s.sendChannel = make(chan []byte, 10)
+	s.session = &session{
 		store:        new(memoryStore),
-		application:  new(TestClient),
-		messageOut:   otherEnd,
+		application:  s.mockApp,
+		messageOut:   s.sendChannel,
 		log:          nullLog{},
-		sessionState: state,
+		sessionState: s.state,
 	}
+}
 
-	tests := []event{needHeartbeat, logonTimeout, logoutTimeout}
+func (s *resendStateTestSuite) TestIsLoggedOn() {
+	s.True(s.state.IsLoggedOn())
+}
+
+func (s *resendStateTestSuite) TestTimeoutPeerTimeout() {
+	s.mockApp.On("ToAdmin")
+	nextState := s.state.Timeout(s.session, peerTimeout)
+
+	s.mockApp.AssertExpectations(s.T())
+	s.Equal(pendingTimeout{s.state}, nextState)
+}
+
+func (s *resendStateTestSuite) TestTimeoutUnchangedIgnoreLogonLogoutTimeout() {
+	tests := []event{logonTimeout, logoutTimeout}
 
 	for _, event := range tests {
-		nextState := state.Timeout(session, event)
-		assert.Equal(t, state, nextState)
+		nextState := s.state.Timeout(s.session, event)
+		s.Equal(s.state, nextState)
 	}
+}
+
+func (s *resendStateTestSuite) TestTimeoutUnchangedNeedHeartbeat() {
+	s.mockApp.On("ToAdmin")
+	nextState := s.state.Timeout(s.session, needHeartbeat)
+
+	s.mockApp.AssertExpectations(s.T())
+	s.Equal(s.state, nextState)
 }
