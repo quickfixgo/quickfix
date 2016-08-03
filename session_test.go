@@ -1,7 +1,6 @@
 package quickfix
 
 import (
-	"errors"
 	"testing"
 	"time"
 
@@ -244,8 +243,8 @@ func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
-	suite.mockApp.On("ToApp").Return(errors.New("donotsend"))
-	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
+	suite.mockApp.On("ToApp").Return(DoNotSend)
+	suite.Equal(DoNotSend, suite.queueForSend(suite.NewOrderSingle()))
 
 	suite.AssertExpectations(suite.T())
 	suite.shouldNotPersistMessage()
@@ -276,8 +275,8 @@ func (suite *SessionSendTestSuite) TestSendAppMessage() {
 }
 
 func (suite *SessionSendTestSuite) TestSendAppDoNotSendMessage() {
-	suite.On("ToApp").Return(errors.New("donotsend"))
-	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+	suite.mockApp.On("ToApp").Return(DoNotSend)
+	suite.Equal(DoNotSend, suite.send(suite.NewOrderSingle()))
 
 	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldNotPersistMessage()
