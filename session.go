@@ -222,7 +222,7 @@ func (s *session) queueForSend(msg Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
-	if doNotSend, err := s.prepMessageForSend(&msg); err != nil || doNotSend {
+	if err := s.prepMessageForSend(&msg); err != nil {
 		return err
 	}
 
@@ -245,7 +245,7 @@ func (s *session) send(msg Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
-	if doNotSend, err := s.prepMessageForSend(&msg); err != nil || doNotSend {
+	if err := s.prepMessageForSend(&msg); err != nil {
 		return err
 	}
 
@@ -267,7 +267,7 @@ func (s *session) dropAndSend(msg Message, resetStore bool) error {
 		}
 	}
 
-	if doNotSend, err := s.prepMessageForSend(&msg); err != nil || doNotSend {
+	if err := s.prepMessageForSend(&msg); err != nil {
 		return err
 	}
 
@@ -278,33 +278,30 @@ func (s *session) dropAndSend(msg Message, resetStore bool) error {
 	return nil
 }
 
-func (s *session) prepMessageForSend(msg *Message) (doNotSend bool, err error) {
+func (s *session) prepMessageForSend(msg *Message) error {
 	s.fillDefaultHeader(*msg)
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
 	var msgType FIXString
-	if err = msg.Header.GetField(tagMsgType, &msgType); err != nil {
-		return
+	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+		return err
 	}
 
 	if isAdminMessageType(string(msgType)) {
 		s.application.ToAdmin(*msg, s.sessionID)
 	} else {
-		if doNotSendErr := s.application.ToApp(*msg, s.sessionID); doNotSendErr != nil {
-			s.log.OnEventf("Do Not Send: %v", doNotSendErr)
-			doNotSend = true
-			return
+		if err := s.application.ToApp(*msg, s.sessionID); err != nil {
+			return err
 		}
 	}
 
-	var msgBytes []byte
-	if msgBytes, err = msg.Build(); err != nil {
-		return
+	msgBytes, err := msg.Build()
+	if err == nil {
+		err = s.persist(seqNum, msgBytes)
 	}
 
-	err = s.persist(seqNum, msgBytes)
-	return
+	return err
 }
 
 func (s *session) persist(seqNum int, msgBytes []byte) error {

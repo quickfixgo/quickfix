@@ -1,8 +1,12 @@
 package quickfix
 
 import (
+	"errors"
 	"fmt"
 )
+
+//DoNotSend is a convenience error to indicate a DoNotSend in ToApp
+var DoNotSend = errors.New("Do Not Send")
 
 //rejectReason enum values.
 const (
