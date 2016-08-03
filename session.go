@@ -236,8 +236,12 @@ func (s *session) queueForSend(msg Message) error {
 	return nil
 }
 
-//send will validate, persist, queue the message and send all messages in the queue
+//send will validate, persist, queue the message. If the session is logged on, send all messages in the queue
 func (s *session) send(msg Message) error {
+	if !s.IsLoggedOn() {
+		return s.queueForSend(msg)
+	}
+
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
