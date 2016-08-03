@@ -91,6 +91,12 @@ func (state inSession) handleLogout(session *session, msg Message) (nextState se
 		session.logError(err)
 	}
 
+	if session.resetOnLogout {
+		if err := session.dropAndReset(); err != nil {
+			session.logError(err)
+		}
+	}
+
 	return latentState{}
 }
 

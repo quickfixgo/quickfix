@@ -53,6 +53,16 @@ Determines if sequence numbers should be reset when receiving a logon request. A
 
 Defaults to N.
 
+ResetOnLogout
+
+Determines if sequence numbers should be reset to 1 after a normal logout termination. Valid Values:
+ Y
+ N
+
+Defaults to N.
+
+
+
 Validation
 
 The following settings are specific to message validation.
