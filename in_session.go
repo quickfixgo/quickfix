@@ -29,12 +29,7 @@ func (state inSession) FixMsgIn(session *session, msg Message) sessionState {
 
 		return state
 	case enum.MsgType_LOGOUT:
-		session.log.OnEvent("Received logout request")
-		session.log.OnEvent("Sending logout response")
-		if err := session.sendLogout(""); err != nil {
-			session.logError(err)
-		}
-		return latentState{}
+		return state.handleLogout(session, msg)
 	case enum.MsgType_RESEND_REQUEST:
 		return state.handleResendRequest(session, msg)
 	case enum.MsgType_SEQUENCE_RESET:
@@ -74,6 +69,29 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 		return pendingTimeout{state}
 	}
 	return state
+}
+
+func (state inSession) handleLogout(session *session, msg Message) (nextState sessionState) {
+	if err := session.verifySelect(msg, false, false); err != nil {
+		return state.processReject(session, msg, err)
+	}
+
+	if session.IsLoggedOn() {
+		session.log.OnEvent("Received logout request")
+		session.log.OnEvent("Sending logout response")
+
+		if err := session.sendLogout(""); err != nil {
+			session.logError(err)
+		}
+	} else {
+		session.log.OnEvent("Received logout response")
+	}
+
+	if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
+		session.logError(err)
+	}
+
+	return latentState{}
 }
 
 func (state inSession) handleTestRequest(session *session, msg Message) (nextState sessionState) {

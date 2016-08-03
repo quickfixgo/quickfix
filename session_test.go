@@ -179,6 +179,7 @@ func (suite *SessionSendTestSuite) SetupTest() {
 		log:          nullLog{},
 		messageOut:   suite.receiver.sendChannel,
 		sessionState: inSession{},
+		sessionID:    SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"},
 	}
 }
 
@@ -316,11 +317,15 @@ func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
 	suite.mockApp.AssertExpectations(suite.T())
 	suite.shouldNotSendMessage()
 
-	suite.mockApp.On("ToApp").Return(nil)
-	suite.sessionState = logoutState{}
-	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
-	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldNotSendMessage()
+	var tests = []sessionState{logoutState{}, latentState{}, logonState{}}
+
+	for _, test := range tests {
+		suite.mockApp.On("ToApp").Return(nil)
+		suite.sessionState = test
+		require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+		suite.mockApp.AssertExpectations(suite.T())
+		suite.shouldNotSendMessage()
+	}
 }
 
 func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {

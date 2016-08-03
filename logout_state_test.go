@@ -79,5 +79,8 @@ func (s *logoutStateTestSuite) TestFixMsgInLogout() {
 
 	s.mockApp.AssertExpectations(s.T())
 	s.IsType(latentState{}, nextState)
-	s.Equal(2, s.store.NextTargetMsgSeqNum())
+	s.Equal(2, s.session.store.NextTargetMsgSeqNum())
+	s.Equal(1, s.session.store.NextSenderMsgSeqNum())
+
+	s.Nil(s.receiver.LastMessage(), "nothing should be sent in logout state")
 }
