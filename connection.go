@@ -2,13 +2,14 @@ package quickfix
 
 import (
 	"bufio"
+	"crypto/tls"
 	"io"
 	"net"
 	"time"
 )
 
 //Picks up session from net.Conn Initiator
-func handleInitiatorConnection(address string, log Log, sessID SessionID, quit chan bool, reconnectInterval time.Duration) {
+func handleInitiatorConnection(address string, log Log, sessID SessionID, quit chan bool, reconnectInterval time.Duration, tlsConfig *tls.Config) {
 	session := activate(sessID)
 	if session == nil {
 		log.OnEventf("Session not found for SessionID: %v", sessID)
@@ -21,9 +22,27 @@ func handleInitiatorConnection(address string, log Log, sessID SessionID, quit c
 		msgIn := make(chan fixIn)
 		msgOut := make(chan []byte)
 
-		netConn, err := net.Dial("tcp", address)
-		if err != nil {
-			goto reconnect
+		var netConn net.Conn
+		if tlsConfig != nil {
+			tlsConn, err := tls.Dial("tcp", address, tlsConfig)
+			if err != nil {
+				log.OnEventf("Failed to connect: %v", err)
+				goto reconnect
+			}
+
+			err = tlsConn.Handshake()
+			if err != nil {
+				log.OnEventf("Failed handshake:%v", err)
+				goto reconnect
+			}
+			netConn = tlsConn
+		} else {
+			var err error
+			netConn, err = net.Dial("tcp", address)
+			if err != nil {
+				log.OnEventf("Failed to connect: %v", err)
+				goto reconnect
+			}
 		}
 
 		go readLoop(newParser(bufio.NewReader(netConn)), msgIn)

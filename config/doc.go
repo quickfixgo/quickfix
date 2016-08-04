@@ -139,6 +139,18 @@ SocketAcceptPort
 
 Socket port for listening to incoming connections, Only used with for acceptors. Value must be	positive integer, valid open socket port.
 
+SocketPrivateKeyFile
+
+Private key to use for secure TLS connections.  Must be used with SocketCertificateFile.
+
+SocketCertificateFile
+
+Certificate to use for secure TLS connections. Must be used with SocketPrivateKeyFile.
+
+SocketCAFile
+
+Optional root CA to use for secure TLS connections. For acceptors, client certificates will be verified against this CA.  For initiators, clients will use the CA to verify the server certificate. If not configurated, initiators will verify the server certificate using the host's root CA set.
+
 FileLogPath
 
 Directory to store logs.	Value must be valid directory for storing files, application must have write access.
