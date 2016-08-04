@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"crypto/tls"
 	"fmt"
 	"time"
 
@@ -43,8 +44,12 @@ func (i *Initiator) Start() error {
 			}
 		}
 
+		var tlsConfig *tls.Config
+		if tlsConfig, err = loadTLSConfig(i.settings); err != nil {
+			return err
+		}
 		address := fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort)
-		go handleInitiatorConnection(address, i.globalLog, sessionID, i.quitChan, time.Duration(reconnectInterval)*time.Second)
+		go handleInitiatorConnection(address, i.globalLog, sessionID, i.quitChan, time.Duration(reconnectInterval)*time.Second, tlsConfig)
 	}
 
 	return nil

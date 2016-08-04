@@ -1,10 +1,12 @@
 package quickfix
 
 import (
+	"crypto/tls"
 	"fmt"
-	"github.com/quickfixgo/quickfix/config"
 	"net"
 	"strconv"
+
+	"github.com/quickfixgo/quickfix/config"
 )
 
 //Acceptor accepts connections from FIX clients and manages the associated sessions.
@@ -19,15 +21,27 @@ type Acceptor struct {
 }
 
 //Start accepting connections.
-func (a *Acceptor) Start() (e error) {
+func (a *Acceptor) Start() error {
 	port, err := a.settings.GlobalSettings().IntSetting(config.SocketAcceptPort)
 	if err != nil {
 		return fmt.Errorf("error fetching required SocketAcceptPort: %v", err)
 	}
 
-	server, err := net.Listen("tcp", ":"+strconv.Itoa(port))
-	if server == nil {
+	var tlsConfig *tls.Config
+	if tlsConfig, err = loadTLSConfig(a.settings); err != nil {
 		return err
+	}
+
+	var server net.Listener
+	address := ":" + strconv.Itoa(port)
+	if tlsConfig != nil {
+		if server, err = tls.Listen("tcp", address, tlsConfig); err != nil {
+			return err
+		}
+	} else {
+		if server, err = net.Listen("tcp", address); err != nil {
+			return err
+		}
 	}
 
 	connections := a.listenForConnections(server)
@@ -39,7 +53,7 @@ func (a *Acceptor) Start() (e error) {
 		}
 	}()
 
-	return
+	return nil
 }
 
 //Stop logs out existing sessions, close their connections, and stop accepting new connections.
