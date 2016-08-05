@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/enum"
 
 	"github.com/stretchr/testify/assert"
@@ -157,6 +158,71 @@ func TestSession_CheckTargetTooLow(t *testing.T) {
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(45))
 	err = session.checkTargetTooLow(msg)
 	assert.Nil(t, err)
+}
+
+type NewSessionTestSuite struct {
+	suite.Suite
+
+	SessionID
+	MessageStoreFactory
+	*SessionSettings
+	LogFactory
+	App *mockApp
+}
+
+func TestNewSessionTestSuite(t *testing.T) {
+	suite.Run(t, new(NewSessionTestSuite))
+}
+
+func (s *NewSessionTestSuite) SetupTest() {
+	s.SessionID = SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"}
+	s.MessageStoreFactory = NewMemoryStoreFactory()
+	s.SessionSettings = NewSessionSettings()
+	s.LogFactory = nullLogFactory{}
+	s.App = new(mockApp)
+}
+
+func (s *NewSessionTestSuite) TestDefaults() {
+	session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session)
+
+	s.False(session.resetOnLogon)
+	s.False(session.resetOnLogout)
+}
+
+func (s *NewSessionTestSuite) TestResetOnLogon() {
+	var tests = []struct {
+		setting  string
+		expected bool
+	}{{"Y", true}, {"N", false}}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.ResetOnLogon, test.setting)
+		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.resetOnLogon)
+	}
+}
+
+func (s *NewSessionTestSuite) TestResetOnLogout() {
+	var tests = []struct {
+		setting  string
+		expected bool
+	}{{"Y", true}, {"N", false}}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.ResetOnLogout, test.setting)
+		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.resetOnLogout)
+	}
 }
 
 type SessionSendTestSuite struct {

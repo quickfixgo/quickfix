@@ -50,6 +50,7 @@ func (e *mockApp) OnCreate(sessionID SessionID) {
 }
 
 func (e *mockApp) OnLogon(sessionID SessionID) {
+	e.Called()
 }
 
 func (e *mockApp) OnLogout(sessionID SessionID) {

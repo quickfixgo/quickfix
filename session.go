@@ -60,15 +60,14 @@ func (s *session) TargetDefaultApplicationVersionID() string {
 	return s.targetDefaultApplVerID
 }
 
-//Creates Session, associates with internal session registry
-func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) error {
+func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) (*session, error) {
 	session := &session{sessionID: sessionID}
 
 	var err error
 	var validatorSettings = defaultValidatorSettings
 	if settings.HasSetting(config.ValidateFieldsOutOfOrder) {
 		if validatorSettings.CheckFieldsOutOfOrder, err = settings.BoolSetting(config.ValidateFieldsOutOfOrder); err != nil {
-			return err
+			return session, err
 		}
 	}
 
@@ -76,7 +75,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 		if defaultApplVerID, err := settings.Setting(config.DefaultApplVerID); err == nil {
 			session.defaultApplVerID = defaultApplVerID
 		} else {
-			return requiredConfigurationMissing(config.DefaultApplVerID)
+			return session, requiredConfigurationMissing(config.DefaultApplVerID)
 		}
 
 		//If the transport or app data dictionary setting is set, the other also needs to be set.
@@ -86,26 +85,26 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 			transportDataDictionaryPath, _ := settings.Setting(config.TransportDataDictionary)
 			transportDataDictionary, err := datadictionary.Parse(transportDataDictionaryPath)
 			if err != nil {
-				return err
+				return session, err
 			}
 
 			appDataDictionaryPath, _ := settings.Setting(config.AppDataDictionary)
 			appDataDictionary, err := datadictionary.Parse(appDataDictionaryPath)
 			if err != nil {
-				return err
+				return session, err
 			}
 
 			session.validator = &fixtValidator{transportDataDictionary, appDataDictionary, validatorSettings}
 		} else if hasTransportDataDictionary {
-			return requiredConfigurationMissing(config.AppDataDictionary)
+			return session, requiredConfigurationMissing(config.AppDataDictionary)
 		} else if hasAppDataDictionary {
-			return requiredConfigurationMissing(config.TransportDataDictionary)
+			return session, requiredConfigurationMissing(config.TransportDataDictionary)
 		}
 	} else {
 		var dataDictionary *datadictionary.DataDictionary
 		if dataDictionaryPath, err := settings.Setting(config.DataDictionary); err == nil {
 			if dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
-				return err
+				return session, err
 			}
 
 			session.validator = &fixValidator{dataDictionary, validatorSettings}
@@ -114,32 +113,32 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 
 	if settings.HasSetting(config.ResetOnLogon) {
 		if session.resetOnLogon, err = settings.BoolSetting(config.ResetOnLogon); err != nil {
-			return err
+			return session, err
 		}
 	}
 
 	if settings.HasSetting(config.ResetOnLogout) {
 		if session.resetOnLogout, err = settings.BoolSetting(config.ResetOnLogout); err != nil {
-			return err
+			return session, err
 		}
 	}
 
 	if settings.HasSetting(config.HeartBtInt) {
 		if heartBtInt, err := settings.IntSetting(config.HeartBtInt); err != nil {
-			return err
+			return session, err
 		} else if heartBtInt <= 0 {
-			return fmt.Errorf("Heartbeat must be greater than zero")
+			return session, fmt.Errorf("Heartbeat must be greater than zero")
 		} else {
 			session.heartBtInt = heartBtInt
 		}
 	}
 
 	if session.log, err = logFactory.CreateSessionLog(session.sessionID); err != nil {
-		return err
+		return session, err
 	}
 
 	if session.store, err = storeFactory.Create(session.sessionID); err != nil {
-		return err
+		return session, err
 	}
 
 	session.sessionEvent = make(chan event)
@@ -147,6 +146,16 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 	session.application = application
 	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
 	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
+	return session, nil
+}
+
+//Creates Session, associates with internal session registry
+func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) error {
+	session, err := newSession(sessionID, storeFactory, settings, logFactory, application)
+	if err != nil {
+		return err
+	}
+
 	application.OnCreate(session.sessionID)
 	session.log.OnEvent("Created session")
 	sessions.newSession <- session
