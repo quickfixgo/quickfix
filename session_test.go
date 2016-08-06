@@ -6,6 +6,7 @@ import (
 
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/internal"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -189,6 +190,7 @@ func (s *NewSessionTestSuite) TestDefaults() {
 
 	s.False(session.resetOnLogon)
 	s.False(session.resetOnLogout)
+	s.Nil(session.sessionTime, "By default, start and end time unset")
 }
 
 func (s *NewSessionTestSuite) TestResetOnLogon() {
@@ -225,78 +227,53 @@ func (s *NewSessionTestSuite) TestResetOnLogout() {
 	}
 }
 
-type SessionSendTestSuite struct {
-	suite.Suite
+func (s *NewSessionTestSuite) TestStartAndEndTime() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session.sessionTime)
 
-	*messageFactory
-	*mockApp
-	receiver *mockSessionReceiver
-	*session
+	s.Equal(internal.NewTime(12, 0, 0), session.sessionTime.StartTime)
+	s.Equal(internal.NewTime(14, 0, 0), session.sessionTime.EndTime)
 }
 
-func (suite *SessionSendTestSuite) SetupTest() {
-	suite.mockApp = new(mockApp)
-	suite.messageFactory = new(messageFactory)
-	suite.receiver = newMockSessionReceiver()
-	suite.session = &session{
-		store:        new(memoryStore),
-		application:  suite,
-		log:          nullLog{},
-		messageOut:   suite.receiver.sendChannel,
-		sessionState: inSession{},
-		sessionID:    SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"},
-	}
+func (s *NewSessionTestSuite) TestMissingStartOrEndTime() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+
+	s.SetupTest()
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+}
+
+func (s *NewSessionTestSuite) TestStartOrEndTimeParseError() {
+	s.SessionSettings.Set(config.StartTime, "1200:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+
+	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "")
+
+	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+}
+
+type SessionSendTestSuite struct {
+	SessionSuite
 }
 
 func TestSessionSendTestSuite(t *testing.T) {
 	suite.Run(t, new(SessionSendTestSuite))
 }
 
-func (suite *SessionSendTestSuite) shouldNotPersistMessage() {
-	suite.Equal(1, suite.store.NextSenderMsgSeqNum(), "The next sender sequence number should not be incremented")
-	persistedMessages, err := suite.store.GetMessages(1, 1)
-	suite.Nil(err)
-	suite.Len(persistedMessages, 0, "The message should not be persisted")
-}
-
-func (suite *SessionSendTestSuite) shouldPersistMessage() {
-	suite.Equal(2, suite.store.NextSenderMsgSeqNum(), "The next sender sequence number should be incremented")
-	persistedMessages, err := suite.store.GetMessages(1, 1)
-	suite.Nil(err)
-	suite.Len(persistedMessages, 1, "The message should be persisted")
-}
-
-func (suite *SessionSendTestSuite) shouldPersistMessageWithSequenceNum(expectedSeqNum int) {
-	suite.Equal(expectedSeqNum+1, suite.store.NextSenderMsgSeqNum(), "The next sender sequence number should be incremented")
-	persistedMessages, err := suite.store.GetMessages(expectedSeqNum, expectedSeqNum)
-	suite.Nil(err)
-	suite.Len(persistedMessages, 1, "The message should be persisted")
-}
-
-func (suite *SessionSendTestSuite) shouldBeType(msg Message, expectedMsgType string) {
-	actual, err := msg.Header.GetString(tagMsgType)
-	suite.Nil(err, "Message doesn't have message type")
-	suite.Equal(expectedMsgType, actual)
-}
-
-func (suite *SessionSendTestSuite) shouldSendMessage() {
-	suite.NotNil(suite.receiver.LastMessage(), "The message should have been sent")
-}
-func (suite *SessionSendTestSuite) shouldNotSendMessage() {
-	suite.Nil(suite.receiver.LastMessage(), "The message should not have been sent")
-}
-
-func (suite *SessionSendTestSuite) shouldSendMessages(cnt int) {
-	for i := 0; i < cnt; i++ {
-		suite.shouldSendMessage()
-	}
-
-	suite.shouldNotSendMessage()
-}
-
-func (suite *SessionSendTestSuite) sentMessageShouldBe(sentMsg []byte, msg Message) {
-	expectedBytes, _ := msg.Build()
-	suite.Equal(string(expectedBytes), string(sentMsg))
+func (suite *SessionSendTestSuite) SetupTest() {
+	suite.Init()
+	suite.session.sessionState = inSession{}
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
@@ -304,8 +281,10 @@ func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
 	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
 
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldPersistMessage()
-	suite.shouldNotSendMessage()
+	suite.NoMessageSent()
+	suite.MessagePersisted(suite.mockApp.lastToApp)
+	suite.FieldEquals(tagMsgSeqNum, 1, suite.mockApp.lastToApp.Header)
+	suite.NextSenderMsgSeqNum(2)
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
@@ -313,13 +292,17 @@ func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
 	suite.Equal(DoNotSend, suite.queueForSend(suite.NewOrderSingle()))
 
 	suite.AssertExpectations(suite.T())
-	suite.shouldNotPersistMessage()
-	suite.shouldNotSendMessage()
+	suite.NoMessagePersisted(1)
+	suite.NoMessageSent()
+	suite.NextSenderMsgSeqNum(1)
 
 	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.send(suite.Heartbeat()))
+
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldSendMessages(1)
+	suite.LastToAdminMessageSent()
+	suite.MessagePersisted(suite.mockApp.lastToAdmin)
+	suite.NextSenderMsgSeqNum(2)
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendAdminMessage() {
@@ -327,8 +310,9 @@ func (suite *SessionSendTestSuite) TestQueueForSendAdminMessage() {
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
 
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldPersistMessage()
-	suite.shouldNotSendMessage()
+	suite.MessagePersisted(suite.mockApp.lastToAdmin)
+	suite.NoMessageSent()
+	suite.NextSenderMsgSeqNum(2)
 }
 
 func (suite *SessionSendTestSuite) TestSendAppMessage() {
@@ -336,8 +320,9 @@ func (suite *SessionSendTestSuite) TestSendAppMessage() {
 	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
 
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldPersistMessage()
-	suite.shouldSendMessage()
+	suite.MessagePersisted(suite.mockApp.lastToApp)
+	suite.LastToAppMessageSent()
+	suite.NextSenderMsgSeqNum(2)
 }
 
 func (suite *SessionSendTestSuite) TestSendAppDoNotSendMessage() {
@@ -345,8 +330,8 @@ func (suite *SessionSendTestSuite) TestSendAppDoNotSendMessage() {
 	suite.Equal(DoNotSend, suite.send(suite.NewOrderSingle()))
 
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldNotPersistMessage()
-	suite.shouldNotSendMessage()
+	suite.NextSenderMsgSeqNum(1)
+	suite.NoMessageSent()
 }
 
 func (suite *SessionSendTestSuite) TestSendAdminMessage() {
@@ -354,8 +339,8 @@ func (suite *SessionSendTestSuite) TestSendAdminMessage() {
 	require.Nil(suite.T(), suite.send(suite.Heartbeat()))
 	suite.mockApp.AssertExpectations(suite.T())
 
-	suite.shouldPersistMessage()
-	suite.shouldSendMessage()
+	suite.LastToAdminMessageSent()
+	suite.MessagePersisted(suite.mockApp.lastToAdmin)
 }
 
 func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
@@ -364,13 +349,20 @@ func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
 	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
 
+	order1 := suite.mockApp.lastToApp
+	heartbeat := suite.mockApp.lastToAdmin
+
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldNotSendMessage()
+	suite.NoMessageSent()
 
 	suite.mockApp.On("ToApp").Return(nil)
 	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldSendMessages(3)
+	order2 := suite.mockApp.lastToApp
+	suite.MessageSentEquals(order1)
+	suite.MessageSentEquals(heartbeat)
+	suite.MessageSentEquals(order2)
+	suite.NoMessageSent()
 }
 
 func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
@@ -380,7 +372,7 @@ func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
 
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldNotSendMessage()
+	suite.NoMessageSent()
 
 	var tests = []sessionState{logoutState{}, latentState{}, logonState{}}
 
@@ -389,7 +381,7 @@ func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
 		suite.sessionState = test
 		require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
 		suite.mockApp.AssertExpectations(suite.T())
-		suite.shouldNotSendMessage()
+		suite.NoMessageSent()
 	}
 }
 
@@ -398,8 +390,8 @@ func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
 	suite.Require().Nil(suite.dropAndSend(suite.Heartbeat(), false))
 	suite.mockApp.AssertExpectations(suite.T())
 
-	suite.shouldPersistMessage()
-	suite.shouldSendMessage()
+	suite.MessagePersisted(suite.mockApp.lastToAdmin)
+	suite.LastToAdminMessageSent()
 }
 
 func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
@@ -409,25 +401,19 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
 	suite.mockApp.AssertExpectations(suite.T())
 
-	suite.shouldNotSendMessage()
+	suite.NoMessageSent()
 
 	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), false))
 	suite.mockApp.AssertExpectations(suite.T())
 
 	msg := suite.mockApp.lastToAdmin
-	suite.shouldBeType(msg, enum.MsgType_LOGON)
-
-	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
-	suite.Nil(err)
-	suite.Equal(3, seqNum)
+	suite.MessageType(enum.MsgType_LOGON, msg)
+	suite.FieldEquals(tagMsgSeqNum, 3, msg.Header)
 
 	//only one message sent
-	sentMsgBytes := suite.receiver.LastMessage()
-	suite.NotNil(sentMsgBytes)
-	suite.shouldNotSendMessage()
-
-	suite.sentMessageShouldBe(sentMsgBytes, msg)
+	suite.LastToAdminMessageSent()
+	suite.NoMessageSent()
 }
 
 func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
@@ -436,22 +422,17 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
 	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
 	suite.mockApp.AssertExpectations(suite.T())
-	suite.shouldNotSendMessage()
+	suite.NoMessageSent()
 
 	suite.mockApp.On("ToAdmin")
 	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), true))
 	suite.mockApp.AssertExpectations(suite.T())
 	msg := suite.mockApp.lastToAdmin
 
-	suite.shouldBeType(msg, enum.MsgType_LOGON)
-	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
-	suite.Nil(err)
-	suite.Equal(1, seqNum)
+	suite.MessageType(enum.MsgType_LOGON, msg)
+	suite.FieldEquals(tagMsgSeqNum, 1, msg.Header)
 
 	//only one message sent
-	sentMsgBytes := suite.receiver.LastMessage()
-	suite.NotNil(sentMsgBytes)
-	suite.shouldNotSendMessage()
-
-	suite.sentMessageShouldBe(sentMsgBytes, msg)
+	suite.LastToAdminMessageSent()
+	suite.NoMessageSent()
 }

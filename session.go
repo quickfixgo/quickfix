@@ -8,6 +8,7 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/internal"
 )
 
 //The Session is the primary FIX abstraction for message communication
@@ -43,6 +44,8 @@ type session struct {
 	//required on logon for FIX.T.1 messages
 	defaultApplVerID       string
 	targetDefaultApplVerID string
+
+	sessionTime *internal.TimeRange
 }
 
 func (s *session) logError(err error) {
@@ -131,6 +134,32 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 		} else {
 			session.heartBtInt = heartBtInt
 		}
+	}
+
+	switch {
+	case !settings.HasSetting(config.StartTime) && !settings.HasSetting(config.EndTime):
+	//no session times
+	case settings.HasSetting(config.StartTime) && settings.HasSetting(config.EndTime):
+		var startTimeStr, endTimeStr string
+		if startTimeStr, err = settings.Setting(config.StartTime); err != nil {
+			return session, err
+		}
+
+		if endTimeStr, err = settings.Setting(config.EndTime); err != nil {
+			return session, err
+		}
+
+		session.sessionTime = new(internal.TimeRange)
+		if session.sessionTime.StartTime, err = internal.ParseTime(startTimeStr); err != nil {
+			return session, err
+		}
+		if session.sessionTime.EndTime, err = internal.ParseTime(endTimeStr); err != nil {
+			return session, err
+		}
+	case settings.HasSetting(config.StartTime):
+		return session, requiredConfigurationMissing(config.EndTime)
+	case settings.HasSetting(config.EndTime):
+		return session, requiredConfigurationMissing(config.StartTime)
 	}
 
 	if session.log, err = logFactory.CreateSessionLog(session.sessionID); err != nil {

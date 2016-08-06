@@ -17,7 +17,7 @@ lint:
 	golint .
 
 test: get
-	go test -v -cover . ./datadictionary
+	go test -v -cover . ./datadictionary ./internal
 
 _build_all: get
 	go build -v ./...

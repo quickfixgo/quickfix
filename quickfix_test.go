@@ -12,6 +12,10 @@ type KnowsFieldMap interface {
 	GetInt(Tag) (int, MessageRejectError)
 }
 
+func (s *QuickFIXSuite) MessageType(msgType string, msg Message) {
+	s.FieldEquals(tagMsgType, msgType, msg.Header)
+}
+
 func (s *QuickFIXSuite) FieldEquals(tag Tag, expectedValue interface{}, fieldMap KnowsFieldMap) {
 	s.Require().True(fieldMap.Has(tag), "Tag %v not set", tag)
 
@@ -27,6 +31,12 @@ func (s *QuickFIXSuite) FieldEquals(tag Tag, expectedValue interface{}, fieldMap
 	default:
 		s.FailNow("Field type not handled")
 	}
+}
+
+func (s *QuickFIXSuite) MessageEqualsBytes(msgBytes []byte, msg Message) {
+	_, err := msg.Build()
+	s.Require().Nil(err)
+	s.Equal(string(msg.rawMessage), string(msgBytes))
 }
 
 type SessionSuite struct {
@@ -50,14 +60,18 @@ func (s *SessionSuite) Init() {
 	}
 }
 
-func (s *SessionSuite) LastToAdminMessageSent() {
+func (s *SessionSuite) MessageSentEquals(msg Message) {
 	msgBytes := s.Receiver.LastMessage()
-	s.NotNil(msgBytes)
+	s.NotNil(msgBytes, "Message should have been sent")
+	s.MessageEqualsBytes(msgBytes, msg)
+}
 
-	_, err := s.mockApp.lastToAdmin.Build()
-	s.Nil(err)
+func (s *SessionSuite) LastToAppMessageSent() {
+	s.MessageSentEquals(s.mockApp.lastToApp)
+}
 
-	s.Equal(string(s.mockApp.lastToAdmin.rawMessage), string(msgBytes))
+func (s *SessionSuite) LastToAdminMessageSent() {
+	s.MessageSentEquals(s.mockApp.lastToAdmin)
 }
 
 func (s *SessionSuite) NoMessageSent() {
@@ -74,4 +88,21 @@ func (s *SessionSuite) NextTargetMsgSeqNum(expected int) {
 
 func (s *SessionSuite) NextSenderMsgSeqNum(expected int) {
 	s.Equal(expected, s.session.store.NextSenderMsgSeqNum(), "NextSenderMsgSeqNum should be ", expected)
+}
+
+func (s *SessionSuite) NoMessagePersisted(seqNum int) {
+	persistedMessages, err := s.session.store.GetMessages(seqNum, seqNum)
+	s.Nil(err)
+	s.Empty(persistedMessages, "The message should not be persisted")
+}
+
+func (s *SessionSuite) MessagePersisted(msg Message) {
+	var err error
+	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
+	s.Nil(err, "message should have seq num")
+
+	persistedMessages, err := s.session.store.GetMessages(seqNum, seqNum)
+	s.Nil(err)
+	s.Len(persistedMessages, 1, "a message should be stored at %v", seqNum)
+	s.MessageEqualsBytes(persistedMessages[0], msg)
 }
