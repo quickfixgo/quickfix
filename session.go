@@ -400,28 +400,33 @@ func (s *session) handleLogon(msg Message) error {
 		s.targetDefaultApplVerID = string(targetApplVerID)
 	}
 
-	if !s.initiateLogon {
+	resetStore := false
+	if s.initiateLogon {
+		s.log.OnEvent("Received logon response")
+	} else {
 		s.log.OnEvent("Received logon request")
-		resetStore := s.resetOnLogon
+		resetStore = s.resetOnLogon
+	}
 
-		var resetSeqNumFlag FIXBoolean
-		if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err == nil {
-			if resetSeqNumFlag {
-				s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
-				resetStore = true
-			}
+	var resetSeqNumFlag FIXBoolean
+	if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err == nil {
+		if resetSeqNumFlag {
+			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
+			resetStore = true
 		}
+	}
 
-		if resetStore {
-			if err := s.store.Reset(); err != nil {
-				return err
-			}
-		}
-
-		if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
+	if resetStore {
+		if err := s.store.Reset(); err != nil {
 			return err
 		}
+	}
 
+	if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
+		return err
+	}
+
+	if !s.initiateLogon {
 		reply := NewMessage()
 		reply.Header.SetField(tagMsgType, FIXString("A"))
 		reply.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
@@ -447,8 +452,6 @@ func (s *session) handleLogon(msg Message) error {
 		if err := s.dropAndSend(reply, resetStore); err != nil {
 			return err
 		}
-	} else {
-		s.log.OnEvent("Received logon response")
 	}
 
 	s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
