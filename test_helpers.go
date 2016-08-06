@@ -44,6 +44,7 @@ type mockApp struct {
 	mock.Mock
 
 	lastToAdmin Message
+	lastToApp   Message
 }
 
 func (e *mockApp) OnCreate(sessionID SessionID) {
@@ -70,6 +71,7 @@ func (e *mockApp) ToAdmin(msg Message, sessionID SessionID) {
 }
 
 func (e *mockApp) ToApp(msg Message, sessionID SessionID) (err error) {
+	e.lastToApp = msg
 	return e.Called().Error(0)
 }
 

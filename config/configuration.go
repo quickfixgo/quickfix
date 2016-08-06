@@ -12,6 +12,8 @@ const (
 	SocketCertificateFile    string = "SocketCertificateFile"
 	SocketCAFile             string = "SocketCAFile"
 	DefaultApplVerID         string = "DefaultApplVerID"
+	StartTime                string = "StartTime"
+	EndTime                  string = "EndTime"
 	DataDictionary           string = "DataDictionary"
 	TransportDataDictionary  string = "TransportDataDictionary"
 	AppDataDictionary        string = "AppDataDictionary"
