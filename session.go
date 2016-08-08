@@ -206,7 +206,6 @@ func (s *session) accept(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 
 func (s *session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
-	s.application.OnLogout(s.sessionID)
 }
 
 func (s *session) checkSessionTime(now time.Time) bool {
@@ -749,6 +748,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			s.sendOrDropAppMessages()
 		case fixIn, ok := <-msgIn:
 			if !ok {
+				s.Disconnected(s)
 				return
 			}
 			s.log.OnIncoming(string(fixIn.bytes))

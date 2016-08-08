@@ -8,14 +8,16 @@ type pendingTimeout struct {
 
 func (s pendingTimeout) Timeout(session *session, event internal.Event) (nextState sessionState) {
 	switch event {
+
+	default:
+		return s
+
 	case internal.PeerTimeout:
 		session.log.OnEvent("Session Timeout")
-		return latentState{}
-
 	case internal.SessionExpire:
 		session.sendLogoutAndReset()
-		return latentState{}
 	}
 
-	return s
+	return handleDisconnectState(session)
+
 }

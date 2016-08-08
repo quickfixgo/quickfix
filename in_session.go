@@ -70,7 +70,7 @@ func (state inSession) Timeout(session *session, event internal.Event) (nextStat
 		return pendingTimeout{state}
 	case internal.SessionExpire:
 		session.sendLogoutAndReset()
-		return latentState{}
+		return handleDisconnectState(session)
 	}
 
 	return state
@@ -102,7 +102,7 @@ func (state inSession) handleLogout(session *session, msg Message) (nextState se
 		}
 	}
 
-	return latentState{}
+	return handleDisconnectState(session)
 }
 
 func (state inSession) handleTestRequest(session *session, msg Message) (nextState sessionState) {

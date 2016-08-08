@@ -28,7 +28,10 @@ func (s *PendingTimeoutTestSuite) TestSessionTimeout() {
 	for _, state := range tests {
 		s.session.State = state
 
+		s.mockApp.On("OnLogout").Return(nil)
 		s.session.Timeout(s.session, internal.PeerTimeout)
+
+		s.mockApp.AssertExpectations(s.T())
 		s.State(latentState{})
 	}
 }
@@ -51,6 +54,23 @@ func (s *PendingTimeoutTestSuite) TestTimeoutUnchangedState() {
 	}
 }
 
+func (s *PendingTimeoutTestSuite) TestDisconnected() {
+	tests := []pendingTimeout{
+		pendingTimeout{inSession{}},
+		pendingTimeout{resendState{}},
+	}
+
+	for _, state := range tests {
+		s.SetupTest()
+		s.session.State = state
+
+		s.mockApp.On("OnLogout").Return(nil)
+		s.session.Disconnected(s.session)
+
+		s.mockApp.AssertExpectations(s.T())
+	}
+}
+
 func (s *PendingTimeoutTestSuite) TestTimeoutSessionExpire() {
 	tests := []pendingTimeout{
 		pendingTimeout{inSession{}},
@@ -69,6 +89,7 @@ func (s *PendingTimeoutTestSuite) TestTimeoutSessionExpire() {
 		s.session.State = state
 
 		s.mockApp.On("ToAdmin").Return(nil)
+		s.mockApp.On("OnLogout").Return(nil)
 		s.Timeout(s.session, internal.SessionExpire)
 
 		s.mockApp.AssertExpectations(s.T())
