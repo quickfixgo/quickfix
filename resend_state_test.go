@@ -3,6 +3,7 @@ package quickfix
 import (
 	"testing"
 
+	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -25,14 +26,14 @@ func (s *resendStateTestSuite) TestIsLoggedOn() {
 
 func (s *resendStateTestSuite) TestTimeoutPeerTimeout() {
 	s.mockApp.On("ToAdmin")
-	s.session.Timeout(s.session, peerTimeout)
+	s.session.Timeout(s.session, internal.PeerTimeout)
 
 	s.mockApp.AssertExpectations(s.T())
 	s.State(pendingTimeout{resendState{}})
 }
 
 func (s *resendStateTestSuite) TestTimeoutUnchangedIgnoreLogonLogoutTimeout() {
-	tests := []event{logonTimeout, logoutTimeout}
+	tests := []internal.Event{internal.LogonTimeout, internal.LogoutTimeout}
 
 	for _, event := range tests {
 		s.session.Timeout(s.session, event)
@@ -42,7 +43,7 @@ func (s *resendStateTestSuite) TestTimeoutUnchangedIgnoreLogonLogoutTimeout() {
 
 func (s *resendStateTestSuite) TestTimeoutUnchangedNeedHeartbeat() {
 	s.mockApp.On("ToAdmin")
-	s.session.Timeout(s.session, needHeartbeat)
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
 
 	s.mockApp.AssertExpectations(s.T())
 	s.State(resendState{})

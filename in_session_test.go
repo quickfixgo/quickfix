@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -62,7 +63,7 @@ func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
 
 func (s *InSessionTestSuite) TestTimeoutNeedHeartbeat() {
 	s.mockApp.On("ToAdmin").Return(nil)
-	s.session.Timeout(s.session, needHeartbeat)
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
 
 	s.mockApp.AssertExpectations(s.T())
 	s.State(inSession{})
@@ -73,11 +74,32 @@ func (s *InSessionTestSuite) TestTimeoutNeedHeartbeat() {
 
 func (s *InSessionTestSuite) TestTimeoutPeerTimeout() {
 	s.mockApp.On("ToAdmin").Return(nil)
-	s.session.Timeout(s.session, peerTimeout)
+	s.session.Timeout(s.session, internal.PeerTimeout)
 
 	s.mockApp.AssertExpectations(s.T())
 	s.State(pendingTimeout{inSession{}})
 	s.LastToAdminMessageSent()
 	s.MessageType(enum.MsgType_TEST_REQUEST, s.mockApp.lastToAdmin)
 	s.NextSenderMsgSeqNum(2)
+}
+
+func (s *InSessionTestSuite) TestTimeoutSessionExpire() {
+	s.mockApp.On("FromApp").Return(nil)
+	s.FixMsgIn(s.session, s.NewOrderSingle())
+	s.mockApp.AssertExpectations(s.T())
+	s.session.store.IncrNextSenderMsgSeqNum()
+
+	s.mockApp.On("ToAdmin").Return(nil)
+	s.Timeout(s.session, internal.SessionExpire)
+
+	s.mockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+	s.MessageType("5", s.mockApp.lastToAdmin)
+	s.FieldEquals(tagMsgSeqNum, 2, s.mockApp.lastToAdmin.Header)
+
+	s.State(latentState{})
+	s.NextTargetMsgSeqNum(1)
+	s.NextSenderMsgSeqNum(1)
+	s.NoMessageSent()
+	s.NoMessageQueued()
 }

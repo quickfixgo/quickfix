@@ -1,6 +1,9 @@
 package quickfix
 
-import "github.com/quickfixgo/quickfix/enum"
+import (
+	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/internal"
+)
 
 type logonState struct{}
 
@@ -23,9 +26,15 @@ func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionSt
 	return inSession{}
 }
 
-func (s logonState) Timeout(session *session, e event) (nextState sessionState) {
-	if e == logonTimeout {
+func (s logonState) Timeout(session *session, e internal.Event) (nextState sessionState) {
+	switch e {
+	case internal.LogonTimeout:
 		session.log.OnEvent("Timed out waiting for logon response")
+		return latentState{}
+	case internal.SessionExpire:
+		if err := session.dropAndReset(); err != nil {
+			session.logError(err)
+		}
 		return latentState{}
 	}
 
