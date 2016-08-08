@@ -263,6 +263,51 @@ func (s *NewSessionTestSuite) TestStartOrEndTimeParseError() {
 	s.NotNil(err)
 }
 
+type CheckSessionTimeTestSuite struct {
+	SessionSuite
+}
+
+func TestCheckSessionTimeTestSuite(t *testing.T) {
+	suite.Run(t, new(CheckSessionTimeTestSuite))
+}
+
+func (s *CheckSessionTimeTestSuite) SetupTest() {
+	s.Init()
+	s.session.store.Reset()
+}
+
+func (s *CheckSessionTimeTestSuite) TestNoStartTimeEndTime() {
+	s.session.sessionTime = nil
+	s.True(s.session.checkSessionTime(time.Now()))
+}
+
+func (s *CheckSessionTimeTestSuite) TestInRange() {
+	now := time.Now()
+	s.session.sessionTime = &internal.TimeRange{
+		StartTime: internal.NewTimeOfDay(now.Add(time.Duration(-1) * time.Hour).UTC().Clock()),
+		EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
+	}
+	s.True(s.session.checkSessionTime(now))
+}
+
+func (s *CheckSessionTimeTestSuite) TestNotInRange() {
+	now := time.Now()
+	s.session.sessionTime = &internal.TimeRange{
+		StartTime: internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
+		EndTime:   internal.NewTimeOfDay(now.Add(time.Duration(2) * time.Hour).UTC().Clock()),
+	}
+	s.False(s.session.checkSessionTime(now))
+}
+
+func (s *CheckSessionTimeTestSuite) TestInRangeButNotSameRangeAsStore() {
+	now := time.Now()
+	s.session.sessionTime = &internal.TimeRange{
+		StartTime: internal.NewTimeOfDay(now.Add(time.Duration(-1) * time.Hour).UTC().Clock()),
+		EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
+	}
+	s.False(s.session.checkSessionTime(now.AddDate(0, 0, 1)))
+}
+
 type SessionSendTestSuite struct {
 	SessionSuite
 }
