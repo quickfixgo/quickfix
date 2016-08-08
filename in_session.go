@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/internal"
 )
 
 type inSession struct {
@@ -49,15 +50,15 @@ func (state inSession) FixMsgIn(session *session, msg Message) sessionState {
 	return state
 }
 
-func (state inSession) Timeout(session *session, event event) (nextState sessionState) {
+func (state inSession) Timeout(session *session, event internal.Event) (nextState sessionState) {
 	switch event {
-	case needHeartbeat:
+	case internal.NeedHeartbeat:
 		heartBt := NewMessage()
 		heartBt.Header.SetField(tagMsgType, FIXString("0"))
 		if err := session.send(heartBt); err != nil {
 			return handleStateError(session, err)
 		}
-	case peerTimeout:
+	case internal.PeerTimeout:
 		testReq := NewMessage()
 		testReq.Header.SetField(tagMsgType, FIXString("1"))
 		testReq.Body.SetField(tagTestReqID, FIXString("TEST"))
@@ -67,7 +68,11 @@ func (state inSession) Timeout(session *session, event event) (nextState session
 		session.log.OnEvent("Sent test request TEST")
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
 		return pendingTimeout{state}
+	case internal.SessionExpire:
+		session.sendLogoutAndReset()
+		return latentState{}
 	}
+
 	return state
 }
 

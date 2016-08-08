@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix/enum"
+	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -26,17 +27,29 @@ func (s *LogonStateTestSuite) TestIsLoggedOn() {
 }
 
 func (s *LogonStateTestSuite) TestTimeoutLogonTimeout() {
-	s.Timeout(s.session, logonTimeout)
+	s.Timeout(s.session, internal.LogonTimeout)
 	s.State(latentState{})
 }
 
 func (s *LogonStateTestSuite) TestTimeoutNotLogonTimeout() {
-	tests := []event{peerTimeout, needHeartbeat, logoutTimeout}
+	tests := []internal.Event{internal.PeerTimeout, internal.NeedHeartbeat, internal.LogoutTimeout}
 
 	for _, test := range tests {
 		s.Timeout(s.session, test)
 		s.State(logonState{})
 	}
+}
+
+func (s *LogonStateTestSuite) TestTimeoutSessionExpire() {
+	s.session.store.IncrNextTargetMsgSeqNum()
+	s.session.store.IncrNextSenderMsgSeqNum()
+
+	s.Timeout(s.session, internal.SessionExpire)
+	s.State(latentState{})
+	s.NextTargetMsgSeqNum(1)
+	s.NextSenderMsgSeqNum(1)
+	s.NoMessageSent()
+	s.NoMessageQueued()
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInNotLogon() {

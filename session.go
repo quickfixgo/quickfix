@@ -27,13 +27,13 @@ type session struct {
 	//mutex for access to toSend
 	sendMutex sync.Mutex
 
-	sessionEvent chan event
+	sessionEvent chan internal.Event
 	messageEvent chan bool
 	application  Application
 	validator
 	stateMachine
-	stateTimer       eventTimer
-	peerTimer        eventTimer
+	stateTimer       internal.EventTimer
+	peerTimer        internal.EventTimer
 	messageStash     map[int]Message
 	resetOnLogon     bool
 	resetOnLogout    bool
@@ -165,11 +165,11 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 		return session, err
 	}
 
-	session.sessionEvent = make(chan event)
+	session.sessionEvent = make(chan internal.Event)
 	session.messageEvent = make(chan bool, 1)
 	session.application = application
-	session.stateTimer = eventTimer{Task: func() { session.sessionEvent <- needHeartbeat }}
-	session.peerTimer = eventTimer{Task: func() { session.sessionEvent <- peerTimeout }}
+	session.stateTimer = internal.EventTimer{Task: func() { session.sessionEvent <- internal.NeedHeartbeat }}
+	session.peerTimer = internal.EventTimer{Task: func() { session.sessionEvent <- internal.PeerTimeout }}
 	return session, nil
 }
 
@@ -225,6 +225,16 @@ func (s *session) fillDefaultHeader(msg Message) {
 	msg.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
 
 	s.insertSendingTime(msg.Header)
+}
+
+func (s *session) sendLogoutAndReset() {
+	if err := s.sendLogout(""); err != nil {
+		s.logError(err)
+	}
+
+	if err := s.dropAndReset(); err != nil {
+		s.logError(err)
+	}
 }
 
 func (s *session) sendLogout(reason string) error {
@@ -497,7 +507,7 @@ func (s *session) initiateLogout(reason string) (err error) {
 		return
 	}
 	s.log.OnEvent("Inititated logout request")
-	time.AfterFunc(time.Duration(2)*time.Second, func() { s.sessionEvent <- logoutTimeout })
+	time.AfterFunc(time.Duration(2)*time.Second, func() { s.sessionEvent <- internal.LogoutTimeout })
 
 	return
 }

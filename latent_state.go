@@ -1,5 +1,7 @@
 package quickfix
 
+import "github.com/quickfixgo/quickfix/internal"
+
 type latentState struct{}
 
 func (state latentState) String() string   { return "Latent State" }
@@ -10,6 +12,6 @@ func (state latentState) FixMsgIn(session *session, msg Message) (nextState sess
 	return state
 }
 
-func (state latentState) Timeout(*session, event) (nextState sessionState) {
+func (state latentState) Timeout(*session, internal.Event) (nextState sessionState) {
 	return state
 }

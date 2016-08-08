@@ -1,6 +1,10 @@
 package quickfix
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/quickfixgo/quickfix/internal"
+)
 
 type stateMachine struct {
 	State sessionState
@@ -10,7 +14,7 @@ func (sm *stateMachine) FixMsgIn(session *session, m Message) {
 	sm.State = sm.State.FixMsgIn(session, m)
 }
 
-func (sm *stateMachine) Timeout(session *session, e event) {
+func (sm *stateMachine) Timeout(session *session, e internal.Event) {
 	sm.State = sm.State.Timeout(session, e)
 }
 
@@ -31,7 +35,7 @@ type sessionState interface {
 	FixMsgIn(*session, Message) (nextState sessionState)
 
 	//Timeout is called by the session on a timeout event.
-	Timeout(*session, event) (nextState sessionState)
+	Timeout(*session, internal.Event) (nextState sessionState)
 
 	//IsLoggedOn returns true if state is logged on an in session, false otherwise
 	IsLoggedOn() bool
