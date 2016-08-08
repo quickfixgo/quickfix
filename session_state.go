@@ -2,6 +2,27 @@ package quickfix
 
 import "fmt"
 
+type stateMachine struct {
+	State sessionState
+}
+
+func (sm *stateMachine) FixMsgIn(session *session, m Message) {
+	sm.State = sm.State.FixMsgIn(session, m)
+}
+
+func (sm *stateMachine) Timeout(session *session, e event) {
+	sm.State = sm.State.Timeout(session, e)
+}
+
+func (sm *stateMachine) IsLoggedOn() bool {
+	return sm.State.IsLoggedOn()
+}
+
+func handleStateError(s *session, err error) sessionState {
+	s.logError(err)
+	return latentState{}
+}
+
 //sessionState is the current state of the session state machine. The session state determines how the session responds to
 //incoming messages, timeouts, and requests to send application messages.
 type sessionState interface {

@@ -7,12 +7,7 @@ import (
 )
 
 type resendStateTestSuite struct {
-	suite.Suite
-
-	*mockApp
-	state       resendState
-	sendChannel chan []byte
-	session     *session
+	SessionSuite
 }
 
 func TestResendStateTestSuite(t *testing.T) {
@@ -20,42 +15,35 @@ func TestResendStateTestSuite(t *testing.T) {
 }
 
 func (s *resendStateTestSuite) SetupTest() {
-	s.mockApp = new(mockApp)
-	s.sendChannel = make(chan []byte, 10)
-	s.session = &session{
-		store:        new(memoryStore),
-		application:  s.mockApp,
-		messageOut:   s.sendChannel,
-		log:          nullLog{},
-		sessionState: s.state,
-	}
+	s.Init()
+	s.session.State = resendState{}
 }
 
 func (s *resendStateTestSuite) TestIsLoggedOn() {
-	s.True(s.state.IsLoggedOn())
+	s.True(s.session.IsLoggedOn())
 }
 
 func (s *resendStateTestSuite) TestTimeoutPeerTimeout() {
 	s.mockApp.On("ToAdmin")
-	nextState := s.state.Timeout(s.session, peerTimeout)
+	s.session.Timeout(s.session, peerTimeout)
 
 	s.mockApp.AssertExpectations(s.T())
-	s.Equal(pendingTimeout{s.state}, nextState)
+	s.State(pendingTimeout{resendState{}})
 }
 
 func (s *resendStateTestSuite) TestTimeoutUnchangedIgnoreLogonLogoutTimeout() {
 	tests := []event{logonTimeout, logoutTimeout}
 
 	for _, event := range tests {
-		nextState := s.state.Timeout(s.session, event)
-		s.Equal(s.state, nextState)
+		s.session.Timeout(s.session, event)
+		s.State(resendState{})
 	}
 }
 
 func (s *resendStateTestSuite) TestTimeoutUnchangedNeedHeartbeat() {
 	s.mockApp.On("ToAdmin")
-	nextState := s.state.Timeout(s.session, needHeartbeat)
+	s.session.Timeout(s.session, needHeartbeat)
 
 	s.mockApp.AssertExpectations(s.T())
-	s.Equal(s.state, nextState)
+	s.State(resendState{})
 }

@@ -3,54 +3,39 @@ package quickfix
 import (
 	"testing"
 
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/stretchr/testify/suite"
 )
 
 type InSessionTestSuite struct {
-	suite.Suite
-
-	*messageFactory
-	*mockApp
-	*session
-	receiver *mockSessionReceiver
+	SessionSuite
 }
 
 func TestInSessionTestSuite(t *testing.T) {
 	suite.Run(t, new(InSessionTestSuite))
 }
 
-func (s *InSessionTestSuite) TestIsLoggedOn() {
-	s.True(s.session.IsLoggedOn())
+func (s *InSessionTestSuite) SetupTest() {
+	s.Init()
+	s.session.State = inSession{}
 }
 
-func (s *InSessionTestSuite) SetupTest() {
-	s.mockApp = new(mockApp)
-	s.messageFactory = new(messageFactory)
-	s.receiver = newMockSessionReceiver()
-	s.session = &session{
-		sessionState: inSession{},
-		sessionID:    SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"},
-		store:        new(memoryStore),
-		application:  s.mockApp,
-		log:          nullLog{},
-		messageOut:   s.receiver.sendChannel,
-	}
+func (s *InSessionTestSuite) TestIsLoggedOn() {
+	s.True(s.session.IsLoggedOn())
 }
 
 func (s *InSessionTestSuite) TestLogout() {
 	s.mockApp.On("FromAdmin").Return(nil)
 	s.mockApp.On("ToAdmin")
-	nextState := s.session.FixMsgIn(s.session, s.Logout())
+	s.session.FixMsgIn(s.session, s.Logout())
 
 	s.mockApp.AssertExpectations(s.T())
-	s.Equal(latentState{}, nextState)
-	s.NotNil(s.receiver.LastMessage())
-	msgType, err := s.mockApp.lastToAdmin.Header.GetString(tagMsgType)
-	s.Nil(err)
-	s.Equal("5", msgType)
+	s.State(latentState{})
 
-	s.Equal(2, s.session.store.NextSenderMsgSeqNum())
-	s.Equal(2, s.session.store.NextTargetMsgSeqNum())
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGOUT, s.mockApp.lastToAdmin)
+	s.NextTargetMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(2)
 }
 
 func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
@@ -62,16 +47,37 @@ func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
 
 	s.mockApp.On("FromAdmin").Return(nil)
 	s.mockApp.On("ToAdmin")
-	nextState := s.session.FixMsgIn(s.session, s.Logout())
+	s.session.FixMsgIn(s.session, s.Logout())
 
 	s.mockApp.AssertExpectations(s.T())
-	s.Equal(latentState{}, nextState)
-	s.NotNil(s.receiver.LastMessage())
-	msgType, err := s.mockApp.lastToAdmin.Header.GetString(tagMsgType)
-	s.Nil(err)
-	s.Equal("5", msgType)
+	s.State(latentState{})
+	s.LastToAppMessageSent()
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGOUT, s.mockApp.lastToAdmin)
 
-	s.Equal(1, s.session.store.NextSenderMsgSeqNum())
-	s.Equal(1, s.session.store.NextTargetMsgSeqNum())
-	s.Empty(s.session.toSend)
+	s.NextTargetMsgSeqNum(1)
+	s.NextSenderMsgSeqNum(1)
+	s.NoMessageQueued()
+}
+
+func (s *InSessionTestSuite) TestTimeoutNeedHeartbeat() {
+	s.mockApp.On("ToAdmin").Return(nil)
+	s.session.Timeout(s.session, needHeartbeat)
+
+	s.mockApp.AssertExpectations(s.T())
+	s.State(inSession{})
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_HEARTBEAT, s.mockApp.lastToAdmin)
+	s.NextSenderMsgSeqNum(2)
+}
+
+func (s *InSessionTestSuite) TestTimeoutPeerTimeout() {
+	s.mockApp.On("ToAdmin").Return(nil)
+	s.session.Timeout(s.session, peerTimeout)
+
+	s.mockApp.AssertExpectations(s.T())
+	s.State(pendingTimeout{inSession{}})
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_TEST_REQUEST, s.mockApp.lastToAdmin)
+	s.NextSenderMsgSeqNum(2)
 }

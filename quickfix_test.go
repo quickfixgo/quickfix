@@ -60,6 +60,10 @@ func (s *SessionSuite) Init() {
 	}
 }
 
+func (s *SessionSuite) State(state sessionState) {
+	s.Equal(state, s.session.State, "session state should be %v", state)
+}
+
 func (s *SessionSuite) MessageSentEquals(msg Message) {
 	msgBytes := s.Receiver.LastMessage()
 	s.NotNil(msgBytes, "Message should have been sent")

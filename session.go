@@ -31,7 +31,7 @@ type session struct {
 	messageEvent chan bool
 	application  Application
 	validator
-	sessionState
+	stateMachine
 	stateTimer       eventTimer
 	peerTimer        eventTimer
 	messageStash     map[int]Message
@@ -50,11 +50,6 @@ type session struct {
 
 func (s *session) logError(err error) {
 	s.log.OnEvent(err.Error())
-}
-
-func (s *session) handleError(err error) sessionState {
-	s.logError(err)
-	return latentState{}
 }
 
 //TargetDefaultApplicationVersionID returns the default application version ID for messages received by this version.
@@ -150,10 +145,10 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 		}
 
 		session.sessionTime = new(internal.TimeRange)
-		if session.sessionTime.StartTime, err = internal.ParseTime(startTimeStr); err != nil {
+		if session.sessionTime.StartTime, err = internal.ParseTimeOfDay(startTimeStr); err != nil {
 			return session, err
 		}
-		if session.sessionTime.EndTime, err = internal.ParseTime(endTimeStr); err != nil {
+		if session.sessionTime.EndTime, err = internal.ParseTimeOfDay(endTimeStr); err != nil {
 			return session, err
 		}
 	case settings.HasSetting(config.StartTime):
@@ -194,7 +189,7 @@ func createSession(sessionID SessionID, storeFactory MessageStoreFactory, settin
 
 //kicks off session as an initiator
 func (s *session) initiate(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
-	s.sessionState = logonState{}
+	s.State = logonState{}
 	s.messageStash = make(map[int]Message)
 	s.initiateLogon = true
 
@@ -203,7 +198,7 @@ func (s *session) initiate(msgIn chan fixIn, msgOut chan []byte, quit chan bool)
 
 //kicks off session as an acceptor
 func (s *session) accept(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
-	s.sessionState = logonState{}
+	s.State = logonState{}
 	s.messageStash = make(map[int]Message)
 
 	s.run(msgIn, msgOut, quit)
@@ -727,7 +722,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 	}
 
 	for {
-		switch s.sessionState.(type) {
+		switch s.State.(type) {
 		case latentState:
 			return
 		}
@@ -744,7 +739,7 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 				s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
 			} else {
 				msg.ReceiveTime = fixIn.receiveTime
-				s.sessionState = s.FixMsgIn(s, msg)
+				s.FixMsgIn(s, msg)
 			}
 			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
 		case <-quit:
@@ -757,9 +752,9 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 				s.logError(err)
 				return
 			}
-			s.sessionState = logoutState{}
+			s.State = logoutState{}
 		case evt := <-s.sessionEvent:
-			s.sessionState = s.Timeout(s, evt)
+			s.Timeout(s, evt)
 		}
 	}
 }

@@ -5,33 +5,39 @@ import (
 	"time"
 )
 
-//UTCTimeOnly represents the time of day in UTC
-type UTCTimeOnly struct {
-	seconds int
+//UTCTimeOfDay represents the time of day in UTC
+type UTCTimeOfDay struct {
+	hour, minute, second int
+}
+
+func (t UTCTimeOfDay) duration() time.Duration {
+	return time.Duration(t.second)*time.Second +
+		time.Duration(t.minute)*time.Minute +
+		time.Duration(t.hour)*time.Hour
 }
 
 const shortForm = "15:04:05"
 
 var errParseTime = errors.New("Time must be in the format HH:MM:SS")
 
-//NewTime returns a newly initialized UTCTimeOnly
-func NewTime(hour, minute, second int) UTCTimeOnly {
-	return UTCTimeOnly{second + minute*60 + hour*60*60}
+//NewTimeOfDay returns a newly initialized UTCTimeOfDay
+func NewTimeOfDay(hour, minute, second int) UTCTimeOfDay {
+	return UTCTimeOfDay{hour, minute, second}
 }
 
-//ParseTime parses a UTCTimeOnly from a string in the format HH:MM:SS
-func ParseTime(str string) (UTCTimeOnly, error) {
+//ParseTimeOfDay parses a UTCTimeOfDay from a string in the format HH:MM:SS
+func ParseTimeOfDay(str string) (UTCTimeOfDay, error) {
 	t, err := time.Parse(shortForm, str)
 	if err != nil {
-		return UTCTimeOnly{}, errParseTime
+		return UTCTimeOfDay{}, errParseTime
 	}
 
-	return NewTime(t.Clock()), nil
+	return NewTimeOfDay(t.Clock()), nil
 }
 
 //TimeRange represents a time band from StartTime to EndTime
 type TimeRange struct {
-	StartTime, EndTime UTCTimeOnly
+	StartTime, EndTime UTCTimeOfDay
 }
 
 //IsInRange returns true if time t is within in the time range
@@ -40,12 +46,35 @@ func (r *TimeRange) IsInRange(t time.Time) bool {
 		return true
 	}
 
-	ts := NewTime(t.UTC().Clock()).seconds
-	start := r.StartTime.seconds
-	end := r.EndTime.seconds
+	ts := NewTimeOfDay(t.UTC().Clock()).duration()
+	start := r.StartTime.duration()
+	end := r.EndTime.duration()
 
 	if start > end {
 		return !(end < ts && ts < start)
 	}
 	return start <= ts && ts <= end
+}
+
+//IsInSameRange determines if two points in time are in the same time range
+func (r *TimeRange) IsInSameRange(t1, t2 time.Time) bool {
+	if r == nil {
+		return true
+	}
+
+	if !(r.IsInRange(t1) && r.IsInRange(t2)) {
+		return false
+	}
+
+	if t2.Before(t1) {
+		t1, t2 = t2, t1
+	}
+
+	t1Time := NewTimeOfDay(t1.UTC().Clock())
+	sessionEnd := time.Date(t1.Year(), t1.Month(), t1.Day(), r.EndTime.hour, r.EndTime.minute, r.EndTime.second, 0, time.UTC)
+	if r.StartTime.duration() >= r.EndTime.duration() && t1Time.duration() > r.StartTime.duration() {
+		sessionEnd = sessionEnd.AddDate(0, 0, 1)
+	}
+
+	return t2.Before(sessionEnd)
 }
