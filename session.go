@@ -150,10 +150,10 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 		}
 
 		session.sessionTime = new(internal.TimeRange)
-		if session.sessionTime.StartTime, err = internal.ParseTime(startTimeStr); err != nil {
+		if session.sessionTime.StartTime, err = internal.ParseTimeOfDay(startTimeStr); err != nil {
 			return session, err
 		}
-		if session.sessionTime.EndTime, err = internal.ParseTime(endTimeStr); err != nil {
+		if session.sessionTime.EndTime, err = internal.ParseTimeOfDay(endTimeStr); err != nil {
 			return session, err
 		}
 	case settings.HasSetting(config.StartTime):

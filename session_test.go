@@ -234,8 +234,8 @@ func (s *NewSessionTestSuite) TestStartAndEndTime() {
 	s.Nil(err)
 	s.NotNil(session.sessionTime)
 
-	s.Equal(internal.NewTime(12, 0, 0), session.sessionTime.StartTime)
-	s.Equal(internal.NewTime(14, 0, 0), session.sessionTime.EndTime)
+	s.Equal(internal.NewTimeOfDay(12, 0, 0), session.sessionTime.StartTime)
+	s.Equal(internal.NewTimeOfDay(14, 0, 0), session.sessionTime.EndTime)
 }
 
 func (s *NewSessionTestSuite) TestMissingStartOrEndTime() {
