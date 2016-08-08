@@ -209,6 +209,10 @@ func (s *session) onDisconnect() {
 	s.application.OnLogout(s.sessionID)
 }
 
+func (s *session) checkSessionTime(now time.Time) bool {
+	return s.sessionTime.IsInSameRange(s.store.CreationTime(), now)
+}
+
 func (s *session) insertSendingTime(header Header) {
 	sendingTime := time.Now().UTC()
 
@@ -731,6 +735,9 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 		}
 	}
 
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
 	for {
 		switch s.State.(type) {
 		case latentState:
@@ -765,6 +772,10 @@ func (s *session) run(msgIn chan fixIn, msgOut chan []byte, quit chan bool) {
 			s.State = logoutState{}
 		case evt := <-s.sessionEvent:
 			s.Timeout(s, evt)
+		case now := <-ticker.C:
+			if !s.checkSessionTime(now) {
+				s.Timeout(s, internal.SessionExpire)
+			}
 		}
 	}
 }
