@@ -9,7 +9,7 @@ func (s logonState) IsLoggedOn() bool { return false }
 func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
-		return session.handleError(err)
+		return handleStateError(session, err)
 	}
 
 	if string(msgType) != enum.MsgType_LOGON {
@@ -18,7 +18,7 @@ func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionSt
 	}
 
 	if err := session.handleLogon(msg); err != nil {
-		return session.handleError(err)
+		return handleStateError(session, err)
 	}
 	return inSession{}
 }

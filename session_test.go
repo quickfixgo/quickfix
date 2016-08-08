@@ -273,7 +273,7 @@ func TestSessionSendTestSuite(t *testing.T) {
 
 func (suite *SessionSendTestSuite) SetupTest() {
 	suite.Init()
-	suite.session.sessionState = inSession{}
+	suite.session.State = inSession{}
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
@@ -378,7 +378,7 @@ func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
 
 	for _, test := range tests {
 		suite.mockApp.On("ToApp").Return(nil)
-		suite.sessionState = test
+		suite.session.State = test
 		require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
 		suite.mockApp.AssertExpectations(suite.T())
 		suite.NoMessageSent()

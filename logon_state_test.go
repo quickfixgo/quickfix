@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -17,7 +18,7 @@ func TestLogonStateTestSuite(t *testing.T) {
 
 func (s *LogonStateTestSuite) SetupTest() {
 	s.Init()
-	s.session.sessionState = logonState{}
+	s.session.stateMachine.State = logonState{}
 }
 
 func (s *LogonStateTestSuite) TestIsLoggedOn() {
@@ -25,24 +26,24 @@ func (s *LogonStateTestSuite) TestIsLoggedOn() {
 }
 
 func (s *LogonStateTestSuite) TestTimeoutLogonTimeout() {
-	nextState := s.Timeout(s.session, logonTimeout)
-	s.Equal(latentState{}, nextState)
+	s.Timeout(s.session, logonTimeout)
+	s.State(latentState{})
 }
 
 func (s *LogonStateTestSuite) TestTimeoutNotLogonTimeout() {
 	tests := []event{peerTimeout, needHeartbeat, logoutTimeout}
 
 	for _, test := range tests {
-		nextState := s.Timeout(s.session, test)
-		s.Equal(logonState{}, nextState)
+		s.Timeout(s.session, test)
+		s.State(logonState{})
 	}
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInNotLogon() {
-	nextState := s.FixMsgIn(s.session, s.NewOrderSingle())
+	s.FixMsgIn(s.session, s.NewOrderSingle())
 
 	s.mockApp.AssertExpectations(s.T())
-	s.Equal(latentState{}, nextState)
+	s.State(latentState{})
 	s.NextTargetMsgSeqNum(1)
 }
 
@@ -57,15 +58,15 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.mockApp.On("FromAdmin").Return(nil)
 	s.mockApp.On("OnLogon")
 	s.mockApp.On("ToAdmin")
-	nextState := s.FixMsgIn(s.session, logon)
+	s.FixMsgIn(s.session, logon)
 
 	s.mockApp.AssertExpectations(s.T())
 
-	s.Equal(inSession{}, nextState)
+	s.State(inSession{})
 	s.Equal(32*time.Second, s.session.heartBeatTimeout)
 
 	s.LastToAdminMessageSent()
-	s.FieldEquals(tagMsgType, "A", s.mockApp.lastToAdmin.Header)
+	s.MessageType(enum.MsgType_LOGON, s.mockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 32, s.mockApp.lastToAdmin.Body)
 
 	s.NextTargetMsgSeqNum(3)
@@ -83,10 +84,10 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
 
 	s.mockApp.On("FromAdmin").Return(nil)
 	s.mockApp.On("OnLogon")
-	nextState := s.FixMsgIn(s.session, logon)
+	s.FixMsgIn(s.session, logon)
 
 	s.mockApp.AssertExpectations(s.T())
-	s.Equal(inSession{}, nextState)
+	s.State(inSession{})
 
 	s.NextTargetMsgSeqNum(3)
 	s.NextSenderMsgSeqNum(2)
