@@ -7,8 +7,10 @@ import (
 
 type logonState struct{}
 
-func (s logonState) String() string   { return "Logon State" }
-func (s logonState) IsLoggedOn() bool { return false }
+func (s logonState) String() string    { return "Logon State" }
+func (s logonState) IsLoggedOn() bool  { return false }
+func (s logonState) IsConnected() bool { return true }
+
 func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	var msgType FIXString
 	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
@@ -39,5 +41,5 @@ func (s logonState) Timeout(session *session, e internal.Event) (nextState sessi
 		}
 	}
 
-	return handleDisconnectState(session)
+	return latentState{}
 }

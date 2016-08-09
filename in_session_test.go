@@ -25,6 +25,10 @@ func (s *InSessionTestSuite) TestIsLoggedOn() {
 	s.True(s.session.IsLoggedOn())
 }
 
+func (s *InSessionTestSuite) TestIsConnected() {
+	s.True(s.session.IsConnected())
+}
+
 func (s *InSessionTestSuite) TestLogout() {
 	s.mockApp.On("FromAdmin").Return(nil)
 	s.mockApp.On("ToAdmin")

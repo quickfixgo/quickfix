@@ -24,6 +24,10 @@ func (s *LogoutStateTestSuite) TestIsLoggedOn() {
 	s.False(s.session.IsLoggedOn())
 }
 
+func (s *LogoutStateTestSuite) TestIsConnected() {
+	s.True(s.session.IsConnected())
+}
+
 func (s *LogoutStateTestSuite) TestTimeoutLogoutTimeout() {
 	s.mockApp.On("OnLogout").Return(nil)
 	s.Timeout(s.session, internal.LogoutTimeout)

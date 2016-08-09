@@ -10,8 +10,9 @@ import (
 type inSession struct {
 }
 
-func (state inSession) String() string   { return "In Session" }
-func (state inSession) IsLoggedOn() bool { return true }
+func (state inSession) String() string    { return "In Session" }
+func (state inSession) IsLoggedOn() bool  { return true }
+func (state inSession) IsConnected() bool { return true }
 
 func (state inSession) FixMsgIn(session *session, msg Message) sessionState {
 	var msgType FIXString
@@ -70,7 +71,7 @@ func (state inSession) Timeout(session *session, event internal.Event) (nextStat
 		return pendingTimeout{state}
 	case internal.SessionExpire:
 		session.sendLogoutAndReset()
-		return handleDisconnectState(session)
+		return latentState{}
 	}
 
 	return state
@@ -102,7 +103,7 @@ func (state inSession) handleLogout(session *session, msg Message) (nextState se
 		}
 	}
 
-	return handleDisconnectState(session)
+	return latentState{}
 }
 
 func (state inSession) handleTestRequest(session *session, msg Message) (nextState sessionState) {

@@ -4,9 +4,9 @@ import "github.com/quickfixgo/quickfix/internal"
 
 type resendState struct{}
 
-func (s resendState) String() string { return "Resend" }
-
-func (s resendState) IsLoggedOn() bool { return true }
+func (s resendState) String() string    { return "Resend" }
+func (s resendState) IsLoggedOn() bool  { return true }
+func (s resendState) IsConnected() bool { return true }
 
 func (s resendState) Timeout(session *session, event internal.Event) (nextState sessionState) {
 	nextState = inSession{}.Timeout(session, event)

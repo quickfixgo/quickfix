@@ -18,6 +18,6 @@ func (s pendingTimeout) Timeout(session *session, event internal.Event) (nextSta
 		session.sendLogoutAndReset()
 	}
 
-	return handleDisconnectState(session)
+	return latentState{}
 
 }

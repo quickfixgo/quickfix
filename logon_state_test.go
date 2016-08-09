@@ -26,6 +26,10 @@ func (s *LogonStateTestSuite) TestIsLoggedOn() {
 	s.False(s.session.IsLoggedOn())
 }
 
+func (s *LogonStateTestSuite) TestIsConnected() {
+	s.True(s.session.IsConnected())
+}
+
 func (s *LogonStateTestSuite) TestTimeoutLogonTimeout() {
 	s.Timeout(s.session, internal.LogonTimeout)
 	s.State(latentState{})

@@ -11,27 +11,33 @@ type stateMachine struct {
 }
 
 func (sm *stateMachine) Disconnected(session *session) {
-	sm.State = handleDisconnectState(session)
+	sm.setState(session, latentState{})
 }
 
 func (sm *stateMachine) FixMsgIn(session *session, m Message) {
-	sm.State = sm.State.FixMsgIn(session, m)
+	if sm.State == nil {
+		return
+	}
+	sm.setState(session, sm.State.FixMsgIn(session, m))
 }
 
 func (sm *stateMachine) Timeout(session *session, e internal.Event) {
-	sm.State = sm.State.Timeout(session, e)
+	if sm.State == nil {
+		return
+	}
+
+	sm.setState(session, sm.State.Timeout(session, e))
 }
 
-func (sm *stateMachine) IsLoggedOn() bool {
-	return sm.State.IsLoggedOn()
+func (sm *stateMachine) setState(session *session, nextState sessionState) {
+	if sm.IsConnected() && !nextState.IsConnected() {
+		sm.handleDisconnectState(session)
+	}
+
+	sm.State = nextState
 }
 
-func handleStateError(s *session, err error) sessionState {
-	s.logError(err)
-	return handleDisconnectState(s)
-}
-
-func handleDisconnectState(s *session) sessionState {
+func (sm *stateMachine) handleDisconnectState(s *session) {
 	doOnLogout := s.IsLoggedOn()
 
 	switch s.State.(type) {
@@ -47,6 +53,19 @@ func handleDisconnectState(s *session) sessionState {
 		s.application.OnLogout(s.sessionID)
 	}
 
+	s.onDisconnect()
+}
+
+func (sm *stateMachine) IsLoggedOn() bool {
+	return sm.State.IsLoggedOn()
+}
+
+func (sm *stateMachine) IsConnected() bool {
+	return sm.State.IsConnected()
+}
+
+func handleStateError(s *session, err error) sessionState {
+	s.logError(err)
 	return latentState{}
 }
 
@@ -62,6 +81,9 @@ type sessionState interface {
 
 	//IsLoggedOn returns true if state is logged on an in session, false otherwise
 	IsLoggedOn() bool
+
+	//IsConnected returns true if the state is connected
+	IsConnected() bool
 
 	//debugging convenience
 	fmt.Stringer

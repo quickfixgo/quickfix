@@ -46,10 +46,9 @@ func (a *Acceptor) Start() error {
 
 	connections := a.listenForConnections(server)
 
-	a.quitChan = make(chan bool)
 	go func() {
 		for cxn := range connections {
-			go handleAcceptorConnection(cxn, a.qualifiedSessionIDs, a.globalLog, a.quitChan)
+			go handleAcceptorConnection(cxn, a.qualifiedSessionIDs, a.globalLog)
 		}
 	}()
 
@@ -66,12 +65,14 @@ func (a *Acceptor) Stop() {
 
 //NewAcceptor creates and initializes a new Acceptor.
 func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (*Acceptor, error) {
-	a := new(Acceptor)
-	a.app = app
-	a.storeFactory = storeFactory
-	a.settings = settings
-	a.logFactory = logFactory
-	a.qualifiedSessionIDs = make(map[SessionID]SessionID)
+	a := &Acceptor{
+		quitChan:            make(chan bool),
+		app:                 app,
+		storeFactory:        storeFactory,
+		settings:            settings,
+		logFactory:          logFactory,
+		qualifiedSessionIDs: make(map[SessionID]SessionID),
+	}
 
 	var err error
 	a.globalLog, err = logFactory.Create()
@@ -91,7 +92,7 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 		}
 		a.qualifiedSessionIDs[unqualifiedSessionID] = sessionID
 
-		if err = createSession(sessionID, storeFactory, sessionSettings, logFactory, app); err != nil {
+		if err = createSession(sessionID, storeFactory, sessionSettings, logFactory, app, a.quitChan); err != nil {
 			return nil, err
 		}
 	}

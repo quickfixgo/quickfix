@@ -24,6 +24,10 @@ func (s *resendStateTestSuite) TestIsLoggedOn() {
 	s.True(s.session.IsLoggedOn())
 }
 
+func (s *resendStateTestSuite) TestIsConnected() {
+	s.True(s.session.IsConnected())
+}
+
 func (s *resendStateTestSuite) TestTimeoutPeerTimeout() {
 	s.mockApp.On("ToAdmin")
 	s.session.Timeout(s.session, internal.PeerTimeout)

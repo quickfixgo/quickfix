@@ -22,8 +22,6 @@ type Initiator struct {
 //Start Initiator.
 func (i *Initiator) Start() error {
 
-	i.quitChan = make(chan bool)
-
 	for sessionID, s := range i.sessionSettings {
 		socketConnectHost, err := s.Setting(config.SocketConnectHost)
 		if err != nil {
@@ -49,7 +47,7 @@ func (i *Initiator) Start() error {
 			return err
 		}
 		address := fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort)
-		go handleInitiatorConnection(address, i.globalLog, sessionID, i.quitChan, time.Duration(reconnectInterval)*time.Second, tlsConfig)
+		go handleInitiatorConnection(address, i.globalLog, sessionID, time.Duration(reconnectInterval)*time.Second, tlsConfig)
 	}
 
 	return nil
@@ -65,12 +63,14 @@ func (i *Initiator) Stop() {
 
 //NewInitiator creates and initializes a new Initiator.
 func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings *Settings, logFactory LogFactory) (*Initiator, error) {
-	i := new(Initiator)
-	i.app = app
-	i.storeFactory = storeFactory
-	i.settings = appSettings
-	i.sessionSettings = appSettings.SessionSettings()
-	i.logFactory = logFactory
+	i := &Initiator{
+		quitChan:        make(chan bool),
+		app:             app,
+		storeFactory:    storeFactory,
+		settings:        appSettings,
+		sessionSettings: appSettings.SessionSettings(),
+		logFactory:      logFactory,
+	}
 
 	var err error
 	i.globalLog, err = logFactory.Create()
@@ -93,7 +93,7 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 			return nil, requiredConfigurationMissing(config.HeartBtInt)
 		}
 
-		err = createSession(sessionID, storeFactory, s, logFactory, app)
+		err = createSession(sessionID, storeFactory, s, logFactory, app, i.quitChan)
 		if err != nil {
 			return nil, err
 		}
