@@ -274,11 +274,13 @@ func TestCheckSessionTimeTestSuite(t *testing.T) {
 func (s *CheckSessionTimeTestSuite) SetupTest() {
 	s.Init()
 	s.session.store.Reset()
+	s.session.State = latentState{}
 }
 
 func (s *CheckSessionTimeTestSuite) TestNoStartTimeEndTime() {
 	s.session.sessionTime = nil
-	s.True(s.session.checkSessionTime(time.Now()))
+	s.session.CheckSessionTime(s.session, time.Now())
+	s.State(latentState{})
 }
 
 func (s *CheckSessionTimeTestSuite) TestInRange() {
@@ -287,7 +289,8 @@ func (s *CheckSessionTimeTestSuite) TestInRange() {
 		StartTime: internal.NewTimeOfDay(now.Add(time.Duration(-1) * time.Hour).UTC().Clock()),
 		EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
 	}
-	s.True(s.session.checkSessionTime(now))
+	s.session.CheckSessionTime(s.session, now)
+	s.State(latentState{})
 }
 
 func (s *CheckSessionTimeTestSuite) TestNotInRange() {
@@ -296,7 +299,8 @@ func (s *CheckSessionTimeTestSuite) TestNotInRange() {
 		StartTime: internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
 		EndTime:   internal.NewTimeOfDay(now.Add(time.Duration(2) * time.Hour).UTC().Clock()),
 	}
-	s.False(s.session.checkSessionTime(now))
+	s.session.CheckSessionTime(s.session, now)
+	s.State(notSessionTime{})
 }
 
 func (s *CheckSessionTimeTestSuite) TestInRangeButNotSameRangeAsStore() {
@@ -305,7 +309,8 @@ func (s *CheckSessionTimeTestSuite) TestInRangeButNotSameRangeAsStore() {
 		StartTime: internal.NewTimeOfDay(now.Add(time.Duration(-1) * time.Hour).UTC().Clock()),
 		EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
 	}
-	s.False(s.session.checkSessionTime(now.AddDate(0, 0, 1)))
+	s.session.CheckSessionTime(s.session, now.AddDate(0, 0, 1))
+	s.State(notSessionTime{})
 }
 
 type SessionSendTestSuite struct {

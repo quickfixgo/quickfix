@@ -218,10 +218,6 @@ func (s *session) accept(msgIn chan fixIn, msgOut chan []byte) {
 	}
 }
 
-func (s *session) checkSessionTime(now time.Time) bool {
-	return s.sessionTime.IsInSameRange(s.store.CreationTime(), now)
-}
-
 func (s *session) insertSendingTime(header Header) {
 	sendingTime := time.Now().UTC()
 
@@ -720,7 +716,55 @@ func (s *session) onDisconnect() {
 	s.messageIn = nil
 }
 
+func (s *session) onIncoming(m fixIn) {
+	s.log.OnIncoming(string(m.bytes))
+	if msg, err := ParseMessage(m.bytes); err != nil {
+		s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), m.bytes)
+	} else {
+		msg.ReceiveTime = m.receiveTime
+		s.FixMsgIn(s, msg)
+	}
+	s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+}
+
+func (s *session) onAdmin(msg interface{}) {
+	switch msg := msg.(type) {
+	case connect:
+		s.messageStash = make(map[int]Message)
+		s.messageIn = msg.messageIn
+		s.messageOut = msg.messageOut
+		s.initiateLogon = msg.initiateLogon
+
+		if s.initiateLogon {
+			logon := NewMessage()
+			logon.Header.SetField(tagMsgType, FIXString("A"))
+			logon.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
+			logon.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
+			logon.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
+			logon.Body.SetField(tagEncryptMethod, FIXString("0"))
+			logon.Body.SetField(tagHeartBtInt, FIXInt(s.heartBtInt))
+
+			s.heartBeatTimeout = time.Duration(s.heartBtInt) * time.Second
+
+			if len(s.defaultApplVerID) > 0 {
+				logon.Body.SetField(tagDefaultApplVerID, FIXString(s.defaultApplVerID))
+			}
+
+			s.log.OnEvent("Sending logon request")
+			if err := s.dropAndSend(logon, s.resetOnLogon); err != nil {
+				s.logError(err)
+				return
+			}
+		}
+
+		s.State = logonState{}
+	}
+}
+
 func (s *session) run() {
+	s.State = latentState{}
+	s.CheckSessionTime(s, time.Now())
+
 	ticker := time.NewTicker(time.Second)
 	defer func() {
 		s.stateTimer.Stop()
@@ -730,37 +774,9 @@ func (s *session) run() {
 
 	for {
 		select {
-		case a := <-s.admin:
-			switch msg := a.(type) {
-			case connect:
-				s.messageStash = make(map[int]Message)
-				s.messageIn = msg.messageIn
-				s.messageOut = msg.messageOut
-				s.initiateLogon = msg.initiateLogon
-				s.State = logonState{}
 
-				if s.initiateLogon {
-					logon := NewMessage()
-					logon.Header.SetField(tagMsgType, FIXString("A"))
-					logon.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
-					logon.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
-					logon.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
-					logon.Body.SetField(tagEncryptMethod, FIXString("0"))
-					logon.Body.SetField(tagHeartBtInt, FIXInt(s.heartBtInt))
-
-					s.heartBeatTimeout = time.Duration(s.heartBtInt) * time.Second
-
-					if len(s.defaultApplVerID) > 0 {
-						logon.Body.SetField(tagDefaultApplVerID, FIXString(s.defaultApplVerID))
-					}
-
-					s.log.OnEvent("Sending logon request")
-					if err := s.dropAndSend(logon, s.resetOnLogon); err != nil {
-						s.logError(err)
-						return
-					}
-				}
-			}
+		case msg := <-s.admin:
+			s.onAdmin(msg)
 
 		case <-s.messageEvent:
 			s.sendOrDropAppMessages()
@@ -770,15 +786,7 @@ func (s *session) run() {
 				s.Disconnected(s)
 				continue
 			}
-
-			s.log.OnIncoming(string(fixIn.bytes))
-			if msg, err := ParseMessage(fixIn.bytes); err != nil {
-				s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), fixIn.bytes)
-			} else {
-				msg.ReceiveTime = fixIn.receiveTime
-				s.FixMsgIn(s, msg)
-			}
-			s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+			s.onIncoming(fixIn)
 
 		case <-s.quit:
 			s.quit = nil // prevent infinitly receiving on a closed channel
@@ -796,9 +804,7 @@ func (s *session) run() {
 			s.Timeout(s, evt)
 
 		case now := <-ticker.C:
-			if !s.checkSessionTime(now) {
-				s.Timeout(s, internal.SessionExpire)
-			}
+			s.CheckSessionTime(s, now)
 		}
 	}
 }

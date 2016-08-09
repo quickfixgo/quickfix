@@ -28,6 +28,10 @@ func (s *LogoutStateTestSuite) TestIsConnected() {
 	s.True(s.session.IsConnected())
 }
 
+func (s *LogoutStateTestSuite) TestIsSessionTime() {
+	s.True(s.session.IsSessionTime())
+}
+
 func (s *LogoutStateTestSuite) TestTimeoutLogoutTimeout() {
 	s.mockApp.On("OnLogout").Return(nil)
 	s.Timeout(s.session, internal.LogoutTimeout)
@@ -45,21 +49,8 @@ func (s *LogoutStateTestSuite) TestTimeoutNotLogoutTimeout() {
 	}
 }
 
-func (s *LogoutStateTestSuite) TestTimeoutSessionExpire() {
-	s.mockApp.On("FromApp").Return(nil)
-	s.FixMsgIn(s.session, s.NewOrderSingle())
-	s.mockApp.AssertExpectations(s.T())
-	s.session.store.IncrNextSenderMsgSeqNum()
-
-	s.mockApp.On("OnLogout").Return(nil)
-	s.Timeout(s.session, internal.SessionExpire)
-
-	s.mockApp.AssertExpectations(s.T())
-	s.State(latentState{})
-	s.NextTargetMsgSeqNum(1)
-	s.NextSenderMsgSeqNum(1)
-	s.NoMessageSent()
-	s.NoMessageQueued()
+func (s *LogoutStateTestSuite) TestShutdownNow() {
+	s.session.State.ShutdownNow(s.session)
 }
 
 func (s *LogoutStateTestSuite) TestDisconnected() {

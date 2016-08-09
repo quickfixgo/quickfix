@@ -12,6 +12,4 @@ const (
 	LogonTimeout
 	//LogoutTimeout indicates the peer has not sent a logout request
 	LogoutTimeout
-	//SessionExpire indicates that the session has expired
-	SessionExpire
 )

@@ -2,7 +2,7 @@ package quickfix
 
 import "github.com/quickfixgo/quickfix/internal"
 
-type latentState struct{}
+type latentState struct{ inSessionTime }
 
 func (state latentState) String() string    { return "Latent State" }
 func (state latentState) IsLoggedOn() bool  { return false }
@@ -16,3 +16,5 @@ func (state latentState) FixMsgIn(session *session, msg Message) (nextState sess
 func (state latentState) Timeout(*session, internal.Event) (nextState sessionState) {
 	return state
 }
+
+func (state latentState) ShutdownNow(*session) {}

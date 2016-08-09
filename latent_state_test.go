@@ -26,3 +26,7 @@ func (s *LatentStateTestSuite) TestIsLoggedOn() {
 func (s *LatentStateTestSuite) TestIsConnected() {
 	s.False(s.session.IsConnected())
 }
+
+func (s *LatentStateTestSuite) TestIsSessionTime() {
+	s.True(s.session.IsSessionTime())
+}
