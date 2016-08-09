@@ -7,11 +7,9 @@ import (
 	"github.com/quickfixgo/quickfix/internal"
 )
 
-type inSession struct {
-}
+type inSession struct{ loggedOn }
 
-func (state inSession) String() string   { return "In Session" }
-func (state inSession) IsLoggedOn() bool { return true }
+func (state inSession) String() string { return "In Session" }
 
 func (state inSession) FixMsgIn(session *session, msg Message) sessionState {
 	var msgType FIXString
@@ -68,9 +66,6 @@ func (state inSession) Timeout(session *session, event internal.Event) (nextStat
 		session.log.OnEvent("Sent test request TEST")
 		session.peerTimer.Reset(time.Duration(int64(1.2 * float64(session.heartBeatTimeout))))
 		return pendingTimeout{state}
-	case internal.SessionExpire:
-		session.sendLogoutAndReset()
-		return handleDisconnectState(session)
 	}
 
 	return state
@@ -102,7 +97,7 @@ func (state inSession) handleLogout(session *session, msg Message) (nextState se
 		}
 	}
 
-	return handleDisconnectState(session)
+	return latentState{}
 }
 
 func (state inSession) handleTestRequest(session *session, msg Message) (nextState sessionState) {

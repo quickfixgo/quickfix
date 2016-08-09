@@ -25,6 +25,14 @@ func (s *InSessionTestSuite) TestIsLoggedOn() {
 	s.True(s.session.IsLoggedOn())
 }
 
+func (s *InSessionTestSuite) TestIsConnected() {
+	s.True(s.session.IsConnected())
+}
+
+func (s *InSessionTestSuite) TestIsSessionTime() {
+	s.True(s.session.IsSessionTime())
+}
+
 func (s *InSessionTestSuite) TestLogout() {
 	s.mockApp.On("FromAdmin").Return(nil)
 	s.mockApp.On("ToAdmin")
@@ -92,24 +100,17 @@ func (s *InSessionTestSuite) TestDisconnected() {
 	s.State(latentState{})
 }
 
-func (s *InSessionTestSuite) TestTimeoutSessionExpire() {
+func (s *InSessionTestSuite) TestShutdownNow() {
 	s.mockApp.On("FromApp").Return(nil)
 	s.FixMsgIn(s.session, s.NewOrderSingle())
 	s.mockApp.AssertExpectations(s.T())
 	s.session.store.IncrNextSenderMsgSeqNum()
 
 	s.mockApp.On("ToAdmin").Return(nil)
-	s.mockApp.On("OnLogout").Return(nil)
-	s.Timeout(s.session, internal.SessionExpire)
+	s.session.State.ShutdownNow(s.session)
 
 	s.mockApp.AssertExpectations(s.T())
 	s.LastToAdminMessageSent()
 	s.MessageType("5", s.mockApp.lastToAdmin)
 	s.FieldEquals(tagMsgSeqNum, 2, s.mockApp.lastToAdmin.Header)
-
-	s.State(latentState{})
-	s.NextTargetMsgSeqNum(1)
-	s.NextSenderMsgSeqNum(1)
-	s.NoMessageSent()
-	s.NoMessageQueued()
 }

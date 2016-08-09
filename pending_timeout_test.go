@@ -71,7 +71,7 @@ func (s *PendingTimeoutTestSuite) TestDisconnected() {
 	}
 }
 
-func (s *PendingTimeoutTestSuite) TestTimeoutSessionExpire() {
+func (s *PendingTimeoutTestSuite) TestShutdownNow() {
 	tests := []pendingTimeout{
 		pendingTimeout{inSession{}},
 		pendingTimeout{resendState{}},
@@ -89,18 +89,11 @@ func (s *PendingTimeoutTestSuite) TestTimeoutSessionExpire() {
 		s.session.State = state
 
 		s.mockApp.On("ToAdmin").Return(nil)
-		s.mockApp.On("OnLogout").Return(nil)
-		s.Timeout(s.session, internal.SessionExpire)
+		s.session.State.ShutdownNow(s.session)
 
 		s.mockApp.AssertExpectations(s.T())
 		s.LastToAdminMessageSent()
 		s.MessageType("5", s.mockApp.lastToAdmin)
 		s.FieldEquals(tagMsgSeqNum, 2, s.mockApp.lastToAdmin.Header)
-
-		s.State(latentState{})
-		s.NextTargetMsgSeqNum(1)
-		s.NextSenderMsgSeqNum(1)
-		s.NoMessageSent()
-		s.NoMessageQueued()
 	}
 }

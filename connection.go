@@ -9,7 +9,7 @@ import (
 )
 
 //Picks up session from net.Conn Initiator
-func handleInitiatorConnection(address string, log Log, sessID SessionID, quit chan bool, reconnectInterval time.Duration, tlsConfig *tls.Config) {
+func handleInitiatorConnection(address string, log Log, sessID SessionID, reconnectInterval time.Duration, tlsConfig *tls.Config) {
 	session := activate(sessID)
 	if session == nil {
 		log.OnEventf("Session not found for SessionID: %v", sessID)
@@ -46,11 +46,9 @@ func handleInitiatorConnection(address string, log Log, sessID SessionID, quit c
 		}
 
 		go readLoop(newParser(bufio.NewReader(netConn)), msgIn)
-		go func() {
-			writeLoop(netConn, msgOut)
-			netConn.Close()
-		}()
-		session.initiate(msgIn, msgOut, quit)
+		session.initiate(msgIn, msgOut)
+		writeLoop(netConn, msgOut)
+		netConn.Close()
 
 	reconnect:
 		log.OnEventf("%v Reconnecting in %v", sessID, reconnectInterval)
@@ -60,7 +58,7 @@ func handleInitiatorConnection(address string, log Log, sessID SessionID, quit c
 }
 
 //Picks up session from net.Conn Acceptor
-func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionID]SessionID, log Log, quit chan bool) {
+func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionID]SessionID, log Log) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.OnEventf("Connection Terminated: %v", err)
@@ -119,7 +117,7 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		readLoop(parser, msgIn)
 	}()
 
-	go session.accept(msgIn, msgOut, quit)
+	session.accept(msgIn, msgOut)
 	writeLoop(netConn, msgOut)
 }
 
