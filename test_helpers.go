@@ -55,6 +55,7 @@ func (e *mockApp) OnLogon(sessionID SessionID) {
 }
 
 func (e *mockApp) OnLogout(sessionID SessionID) {
+	e.Called()
 }
 
 func (e *mockApp) FromAdmin(msg Message, sessionID SessionID) (reject MessageRejectError) {

@@ -31,6 +31,16 @@ func (s *LogonStateTestSuite) TestTimeoutLogonTimeout() {
 	s.State(latentState{})
 }
 
+func (s *LogonStateTestSuite) TestTimeoutLogonTimeoutInitiatedLogon() {
+	s.session.initiateLogon = true
+
+	s.mockApp.On("OnLogout")
+	s.Timeout(s.session, internal.LogonTimeout)
+
+	s.mockApp.AssertExpectations(s.T())
+	s.State(latentState{})
+}
+
 func (s *LogonStateTestSuite) TestTimeoutNotLogonTimeout() {
 	tests := []internal.Event{internal.PeerTimeout, internal.NeedHeartbeat, internal.LogoutTimeout}
 
@@ -45,6 +55,28 @@ func (s *LogonStateTestSuite) TestTimeoutSessionExpire() {
 	s.session.store.IncrNextSenderMsgSeqNum()
 
 	s.Timeout(s.session, internal.SessionExpire)
+
+	s.State(latentState{})
+	s.NextTargetMsgSeqNum(1)
+	s.NextSenderMsgSeqNum(1)
+	s.NoMessageSent()
+	s.NoMessageQueued()
+}
+
+func (s *LogonStateTestSuite) TestDisconnected() {
+	s.session.Disconnected(s.session)
+	s.State(latentState{})
+}
+
+func (s *LogonStateTestSuite) TestTimeoutSessionExpireInitiateLogout() {
+	s.session.initiateLogon = true
+	s.session.store.IncrNextTargetMsgSeqNum()
+	s.session.store.IncrNextSenderMsgSeqNum()
+
+	s.mockApp.On("OnLogout")
+	s.Timeout(s.session, internal.SessionExpire)
+
+	s.mockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 	s.NextTargetMsgSeqNum(1)
 	s.NextSenderMsgSeqNum(1)

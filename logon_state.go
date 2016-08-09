@@ -28,15 +28,16 @@ func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionSt
 
 func (s logonState) Timeout(session *session, e internal.Event) (nextState sessionState) {
 	switch e {
+	default:
+		return s
+
 	case internal.LogonTimeout:
 		session.log.OnEvent("Timed out waiting for logon response")
-		return latentState{}
 	case internal.SessionExpire:
 		if err := session.dropAndReset(); err != nil {
 			session.logError(err)
 		}
-		return latentState{}
 	}
 
-	return s
+	return handleDisconnectState(session)
 }

@@ -28,6 +28,7 @@ func (s *InSessionTestSuite) TestIsLoggedOn() {
 func (s *InSessionTestSuite) TestLogout() {
 	s.mockApp.On("FromAdmin").Return(nil)
 	s.mockApp.On("ToAdmin")
+	s.mockApp.On("OnLogout")
 	s.session.FixMsgIn(s.session, s.Logout())
 
 	s.mockApp.AssertExpectations(s.T())
@@ -48,6 +49,7 @@ func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
 
 	s.mockApp.On("FromAdmin").Return(nil)
 	s.mockApp.On("ToAdmin")
+	s.mockApp.On("OnLogout")
 	s.session.FixMsgIn(s.session, s.Logout())
 
 	s.mockApp.AssertExpectations(s.T())
@@ -83,6 +85,13 @@ func (s *InSessionTestSuite) TestTimeoutPeerTimeout() {
 	s.NextSenderMsgSeqNum(2)
 }
 
+func (s *InSessionTestSuite) TestDisconnected() {
+	s.mockApp.On("OnLogout").Return(nil)
+	s.session.Disconnected(s.session)
+	s.mockApp.AssertExpectations(s.T())
+	s.State(latentState{})
+}
+
 func (s *InSessionTestSuite) TestTimeoutSessionExpire() {
 	s.mockApp.On("FromApp").Return(nil)
 	s.FixMsgIn(s.session, s.NewOrderSingle())
@@ -90,6 +99,7 @@ func (s *InSessionTestSuite) TestTimeoutSessionExpire() {
 	s.session.store.IncrNextSenderMsgSeqNum()
 
 	s.mockApp.On("ToAdmin").Return(nil)
+	s.mockApp.On("OnLogout").Return(nil)
 	s.Timeout(s.session, internal.SessionExpire)
 
 	s.mockApp.AssertExpectations(s.T())

@@ -10,6 +10,10 @@ type stateMachine struct {
 	State sessionState
 }
 
+func (sm *stateMachine) Disconnected(session *session) {
+	sm.State = handleDisconnectState(session)
+}
+
 func (sm *stateMachine) FixMsgIn(session *session, m Message) {
 	sm.State = sm.State.FixMsgIn(session, m)
 }
@@ -24,6 +28,25 @@ func (sm *stateMachine) IsLoggedOn() bool {
 
 func handleStateError(s *session, err error) sessionState {
 	s.logError(err)
+	return handleDisconnectState(s)
+}
+
+func handleDisconnectState(s *session) sessionState {
+	doOnLogout := s.IsLoggedOn()
+
+	switch s.State.(type) {
+	case logoutState:
+		s.application.OnLogout(s.sessionID)
+	case logonState:
+		if s.initiateLogon {
+			s.application.OnLogout(s.sessionID)
+		}
+	}
+
+	if doOnLogout {
+		s.application.OnLogout(s.sessionID)
+	}
+
 	return latentState{}
 }
 
