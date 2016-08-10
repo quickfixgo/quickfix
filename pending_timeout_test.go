@@ -19,6 +19,20 @@ func (s *PendingTimeoutTestSuite) SetupTest() {
 	s.Init()
 }
 
+func (s *PendingTimeoutTestSuite) TestIsConnectedIsLoggedOn() {
+	tests := []pendingTimeout{
+		pendingTimeout{inSession{}},
+		pendingTimeout{resendState{}},
+	}
+
+	for _, state := range tests {
+		s.session.State = state
+
+		s.True(s.session.IsConnected())
+		s.True(s.session.IsLoggedOn())
+	}
+}
+
 func (s *PendingTimeoutTestSuite) TestSessionTimeout() {
 	tests := []pendingTimeout{
 		pendingTimeout{inSession{}},
@@ -68,32 +82,6 @@ func (s *PendingTimeoutTestSuite) TestDisconnected() {
 		s.session.Disconnected(s.session)
 
 		s.mockApp.AssertExpectations(s.T())
-	}
-}
-
-func (s *PendingTimeoutTestSuite) TestShutdownNow() {
-	tests := []pendingTimeout{
-		pendingTimeout{inSession{}},
-		pendingTimeout{resendState{}},
-	}
-
-	for _, state := range tests {
-		s.SetupTest()
-		s.session.State = inSession{}
-
-		s.mockApp.On("FromApp").Return(nil)
-		s.FixMsgIn(s.session, s.NewOrderSingle())
-		s.mockApp.AssertExpectations(s.T())
-		s.session.store.IncrNextSenderMsgSeqNum()
-
-		s.session.State = state
-
-		s.mockApp.On("ToAdmin").Return(nil)
-		s.session.State.ShutdownNow(s.session)
-
-		s.mockApp.AssertExpectations(s.T())
-		s.LastToAdminMessageSent()
-		s.MessageType("5", s.mockApp.lastToAdmin)
-		s.FieldEquals(tagMsgSeqNum, 2, s.mockApp.lastToAdmin.Header)
+		s.State(latentState{})
 	}
 }

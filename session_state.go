@@ -12,7 +12,9 @@ type stateMachine struct {
 }
 
 func (sm *stateMachine) Disconnected(session *session) {
-	sm.setState(session, latentState{})
+	if sm.IsConnected() {
+		sm.setState(session, latentState{})
+	}
 }
 
 func (sm *stateMachine) FixMsgIn(session *session, m Message) {
@@ -24,21 +26,22 @@ func (sm *stateMachine) Timeout(session *session, e internal.Event) {
 }
 
 func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
+	if !session.sessionTime.IsInRange(now) {
+		sm.State.ShutdownNow(session)
+		sm.setState(session, notSessionTime{})
+		return
+	}
+
 	if !sm.IsSessionTime() {
-		if !session.sessionTime.IsInRange(now) {
-			return
-		}
 		sm.setState(session, latentState{})
 	}
 
 	if !session.sessionTime.IsInSameRange(session.store.CreationTime(), now) {
 		sm.State.ShutdownNow(session)
-
 		if err := session.dropAndReset(); err != nil {
 			session.logError(err)
 		}
-
-		sm.setState(session, notSessionTime{})
+		sm.setState(session, latentState{})
 	}
 }
 
@@ -55,10 +58,10 @@ func (sm *stateMachine) handleDisconnectState(s *session) {
 
 	switch s.State.(type) {
 	case logoutState:
-		s.application.OnLogout(s.sessionID)
+		doOnLogout = true
 	case logonState:
 		if s.initiateLogon {
-			s.application.OnLogout(s.sessionID)
+			doOnLogout = true
 		}
 	}
 

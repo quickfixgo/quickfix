@@ -278,39 +278,186 @@ func (s *CheckSessionTimeTestSuite) SetupTest() {
 }
 
 func (s *CheckSessionTimeTestSuite) TestNoStartTimeEndTime() {
-	s.session.sessionTime = nil
-	s.session.CheckSessionTime(s.session, time.Now())
-	s.State(latentState{})
+	var tests = []struct {
+		before, after sessionState
+	}{
+		{before: latentState{}},
+		{before: logonState{}},
+		{before: logoutState{}},
+		{before: inSession{}},
+		{before: resendState{}},
+		{before: pendingTimeout{resendState{}}},
+		{before: pendingTimeout{inSession{}}},
+		{before: notSessionTime{}, after: latentState{}},
+	}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.session.sessionTime = nil
+		s.session.State = test.before
+
+		s.session.CheckSessionTime(s.session, time.Now())
+		if test.after != nil {
+			s.State(test.after)
+		} else {
+			s.State(test.before)
+		}
+	}
 }
 
 func (s *CheckSessionTimeTestSuite) TestInRange() {
-	now := time.Now()
-	s.session.sessionTime = &internal.TimeRange{
-		StartTime: internal.NewTimeOfDay(now.Add(time.Duration(-1) * time.Hour).UTC().Clock()),
-		EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
+	var tests = []struct {
+		before, after sessionState
+		expectReset   bool
+	}{
+		{before: latentState{}},
+		{before: logonState{}},
+		{before: logoutState{}},
+		{before: inSession{}},
+		{before: resendState{}},
+		{before: pendingTimeout{resendState{}}},
+		{before: pendingTimeout{inSession{}}},
+		{before: notSessionTime{}, after: latentState{}, expectReset: true},
 	}
-	s.session.CheckSessionTime(s.session, now)
-	s.State(latentState{})
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.session.State = test.before
+
+		now := time.Now()
+		store := new(memoryStore)
+		if test.before.IsSessionTime() {
+			store.Reset()
+		} else {
+			store.creationTime = now.Add(time.Duration(-1) * time.Minute)
+		}
+		s.session.store = store
+		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
+		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
+
+		s.session.sessionTime = &internal.TimeRange{
+			StartTime: internal.NewTimeOfDay(now.UTC().Clock()),
+			EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
+		}
+
+		s.session.CheckSessionTime(s.session, now)
+		if test.after != nil {
+			s.State(test.after)
+		} else {
+			s.State(test.before)
+		}
+
+		if test.expectReset {
+			s.ExpectStoreReset()
+		} else {
+			s.NextSenderMsgSeqNum(2)
+			s.NextSenderMsgSeqNum(2)
+		}
+	}
 }
 
 func (s *CheckSessionTimeTestSuite) TestNotInRange() {
-	now := time.Now()
-	s.session.sessionTime = &internal.TimeRange{
-		StartTime: internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
-		EndTime:   internal.NewTimeOfDay(now.Add(time.Duration(2) * time.Hour).UTC().Clock()),
+	var tests = []struct {
+		before           sessionState
+		initiateLogon    bool
+		expectOnLogout   bool
+		expectSendLogout bool
+	}{
+		{before: latentState{}},
+		{before: logonState{}},
+		{before: logonState{}, initiateLogon: true, expectOnLogout: true},
+		{before: logoutState{}, expectOnLogout: true},
+		{before: inSession{}, expectOnLogout: true, expectSendLogout: true},
+		{before: resendState{}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{resendState{}}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{inSession{}}, expectOnLogout: true, expectSendLogout: true},
+		{before: notSessionTime{}},
 	}
-	s.session.CheckSessionTime(s.session, now)
-	s.State(notSessionTime{})
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.session.State = test.before
+		s.session.initiateLogon = test.initiateLogon
+		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
+		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
+
+		now := time.Now()
+		s.session.sessionTime = &internal.TimeRange{
+			StartTime: internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
+			EndTime:   internal.NewTimeOfDay(now.Add(time.Duration(2) * time.Hour).UTC().Clock()),
+		}
+
+		if test.expectOnLogout {
+			s.mockApp.On("OnLogout")
+		}
+		if test.expectSendLogout {
+			s.mockApp.On("ToAdmin")
+		}
+		s.session.CheckSessionTime(s.session, now)
+
+		s.mockApp.AssertExpectations(s.T())
+		s.State(notSessionTime{})
+
+		s.NextTargetMsgSeqNum(2)
+		if test.expectSendLogout {
+			s.LastToAdminMessageSent()
+			s.MessageType(enum.MsgType_LOGOUT, s.mockApp.lastToAdmin)
+			s.NextSenderMsgSeqNum(3)
+		} else {
+			s.NextSenderMsgSeqNum(2)
+		}
+	}
 }
 
 func (s *CheckSessionTimeTestSuite) TestInRangeButNotSameRangeAsStore() {
-	now := time.Now()
-	s.session.sessionTime = &internal.TimeRange{
-		StartTime: internal.NewTimeOfDay(now.Add(time.Duration(-1) * time.Hour).UTC().Clock()),
-		EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
+	var tests = []struct {
+		before           sessionState
+		initiateLogon    bool
+		expectOnLogout   bool
+		expectSendLogout bool
+	}{
+		{before: latentState{}},
+		{before: logonState{}},
+		{before: logonState{}, initiateLogon: true, expectOnLogout: true},
+		{before: logoutState{}, expectOnLogout: true},
+		{before: inSession{}, expectOnLogout: true, expectSendLogout: true},
+		{before: resendState{}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{resendState{}}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{inSession{}}, expectOnLogout: true, expectSendLogout: true},
+		{before: notSessionTime{}},
 	}
-	s.session.CheckSessionTime(s.session, now.AddDate(0, 0, 1))
-	s.State(notSessionTime{})
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.session.State = test.before
+		s.session.initiateLogon = test.initiateLogon
+		s.store.Reset()
+		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
+		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
+
+		now := time.Now()
+		s.session.sessionTime = &internal.TimeRange{
+			StartTime: internal.NewTimeOfDay(now.Add(time.Duration(-1) * time.Hour).UTC().Clock()),
+			EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
+		}
+
+		if test.expectOnLogout {
+			s.mockApp.On("OnLogout")
+		}
+		if test.expectSendLogout {
+			s.mockApp.On("ToAdmin")
+		}
+		s.session.CheckSessionTime(s.session, now.AddDate(0, 0, 1))
+
+		s.mockApp.AssertExpectations(s.T())
+		s.State(latentState{})
+		if test.expectSendLogout {
+			s.LastToAdminMessageSent()
+			s.MessageType(enum.MsgType_LOGOUT, s.mockApp.lastToAdmin)
+			s.FieldEquals(tagMsgSeqNum, 2, s.mockApp.lastToAdmin.Header)
+		}
+		s.ExpectStoreReset()
+	}
 }
 
 type SessionSendTestSuite struct {
