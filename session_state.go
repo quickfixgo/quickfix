@@ -8,7 +8,8 @@ import (
 )
 
 type stateMachine struct {
-	State sessionState
+	State              sessionState
+	notifyOnDisconnect chan<- interface{}
 }
 
 func (sm *stateMachine) Start(session *session) {
@@ -27,6 +28,11 @@ func (sm *stateMachine) Start(session *session) {
 	}
 
 	sm.setState(session, logonState{})
+}
+
+func (sm *stateMachine) Stop(session *session, notifyOnDisconnect chan<- interface{}) {
+	sm.notifyOnDisconnect = notifyOnDisconnect
+	sm.setState(session, sm.State.Stop(session))
 }
 
 func (sm *stateMachine) Disconnected(session *session) {
@@ -64,8 +70,15 @@ func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 }
 
 func (sm *stateMachine) setState(session *session, nextState sessionState) {
-	if sm.IsConnected() && !nextState.IsConnected() {
-		sm.handleDisconnectState(session)
+	if !nextState.IsConnected() {
+		if sm.IsConnected() {
+			sm.handleDisconnectState(session)
+		}
+
+		if sm.notifyOnDisconnect != nil {
+			close(sm.notifyOnDisconnect)
+			sm.notifyOnDisconnect = nil
+		}
 	}
 
 	sm.State = nextState
@@ -129,6 +142,9 @@ type sessionState interface {
 	//ShutdownNow terminates the session state immediately
 	ShutdownNow(*session)
 
+	//Stop triggers a clean stop
+	Stop(*session) (nextState sessionState)
+
 	//debugging convenience
 	fmt.Stringer
 }
@@ -154,4 +170,12 @@ func (loggedOn) ShutdownNow(s *session) {
 	if err := s.sendLogout(""); err != nil {
 		s.logError(err)
 	}
+}
+
+func (loggedOn) Stop(s *session) (nextState sessionState) {
+	if err := s.initiateLogout(""); err != nil {
+		return handleStateError(s, err)
+	}
+
+	return logoutState{}
 }

@@ -18,3 +18,6 @@ func (state latentState) Timeout(*session, internal.Event) (nextState sessionSta
 }
 
 func (state latentState) ShutdownNow(*session) {}
+func (state latentState) Stop(*session) (nextState sessionState) {
+	return state
+}

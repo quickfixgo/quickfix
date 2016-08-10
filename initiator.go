@@ -3,6 +3,7 @@ package quickfix
 import (
 	"crypto/tls"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/quickfixgo/quickfix/config"
@@ -16,11 +17,13 @@ type Initiator struct {
 	storeFactory    MessageStoreFactory
 	logFactory      LogFactory
 	globalLog       Log
-	quitChan        chan bool
+	stopChan        chan interface{}
+	wg              sync.WaitGroup
 }
 
 //Start Initiator.
 func (i *Initiator) Start() error {
+	i.stopChan = make(chan interface{})
 
 	for sessionID, s := range i.sessionSettings {
 		socketConnectHost, err := s.Setting(config.SocketConnectHost)
@@ -47,7 +50,12 @@ func (i *Initiator) Start() error {
 			return err
 		}
 		address := fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort)
-		go handleInitiatorConnection(address, i.globalLog, sessionID, time.Duration(reconnectInterval)*time.Second, tlsConfig)
+
+		i.wg.Add(1)
+		go func(sessID SessionID) {
+			handleInitiatorConnection(address, i.globalLog, sessID, time.Duration(reconnectInterval)*time.Second, tlsConfig, i.stopChan)
+			i.wg.Done()
+		}(sessionID)
 	}
 
 	return nil
@@ -55,16 +63,23 @@ func (i *Initiator) Start() error {
 
 //Stop Initiator.
 func (i *Initiator) Stop() {
-	defer func() {
-		_ = recover() // suppress sending on closed channel error
-	}()
-	close(i.quitChan)
+	close(i.stopChan)
+
+	for sessionID := range i.sessionSettings {
+		session, err := lookupSession(sessionID)
+		if err != nil {
+			i.globalLog.OnEventf("Error getting session: %v", err)
+		} else {
+			go session.disconnect()
+		}
+	}
+
+	i.wg.Wait()
 }
 
 //NewInitiator creates and initializes a new Initiator.
 func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings *Settings, logFactory LogFactory) (*Initiator, error) {
 	i := &Initiator{
-		quitChan:        make(chan bool),
 		app:             app,
 		storeFactory:    storeFactory,
 		settings:        appSettings,
@@ -93,7 +108,7 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 			return nil, requiredConfigurationMissing(config.HeartBtInt)
 		}
 
-		err = createSession(sessionID, storeFactory, s, logFactory, app, i.quitChan)
+		err = createSession(sessionID, storeFactory, s, logFactory, app)
 		if err != nil {
 			return nil, err
 		}

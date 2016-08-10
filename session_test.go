@@ -460,19 +460,19 @@ func (s *CheckSessionTimeTestSuite) TestInRangeButNotSameRangeAsStore() {
 	}
 }
 
-type SessionConnectTestSuite struct {
+type SessionAdminTestSuite struct {
 	SessionSuite
 }
 
-func TestSessionConnectTestSuite(t *testing.T) {
-	suite.Run(t, new(SessionConnectTestSuite))
+func TestSessionAdminTestSuite(t *testing.T) {
+	suite.Run(t, new(SessionAdminTestSuite))
 }
 
-func (s *SessionConnectTestSuite) SetupTest() {
+func (s *SessionAdminTestSuite) SetupTest() {
 	s.Init()
 }
 
-func (s *SessionConnectTestSuite) TestInitiateLogon() {
+func (s *SessionAdminTestSuite) TestConnectInitiateLogon() {
 	adminMsg := connect{
 		messageOut:    s.Receiver.sendChannel,
 		initiateLogon: true,
@@ -494,7 +494,7 @@ func (s *SessionConnectTestSuite) TestInitiateLogon() {
 	s.NextSenderMsgSeqNum(3)
 }
 
-func (s *SessionConnectTestSuite) TestAccept() {
+func (s *SessionAdminTestSuite) TestConnectAccept() {
 	adminMsg := connect{
 		messageOut: s.Receiver.sendChannel,
 	}
@@ -508,7 +508,7 @@ func (s *SessionConnectTestSuite) TestAccept() {
 	s.NextSenderMsgSeqNum(2)
 }
 
-func (s *SessionConnectTestSuite) TestNotInSession() {
+func (s *SessionAdminTestSuite) TestConnectNotInSession() {
 	var tests = []bool{true, false}
 
 	for _, doInitiateLogon := range tests {
@@ -528,6 +528,15 @@ func (s *SessionConnectTestSuite) TestNotInSession() {
 		s.Disconnected()
 		s.NextSenderMsgSeqNum(2)
 	}
+}
+
+func (s *SessionAdminTestSuite) TestDisconnect() {
+	s.session.State = logonState{}
+
+	req := make(disconnectReq)
+	go s.session.onAdmin(req)
+	_, ok := <-req
+	s.False(ok)
 }
 
 type SessionSendTestSuite struct {
