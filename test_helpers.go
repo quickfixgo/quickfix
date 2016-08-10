@@ -94,10 +94,11 @@ func newMockSessionReceiver() *mockSessionReceiver {
 	}
 }
 
-func (p *mockSessionReceiver) LastMessage() (msg []byte) {
+func (p *mockSessionReceiver) LastMessage() (msg []byte, ok bool) {
 	select {
-	case msg = <-p.sendChannel:
+	case msg, ok = <-p.sendChannel:
 	default:
+		ok = true
 	}
 
 	return

@@ -65,7 +65,8 @@ func (s *SessionSuite) State(state sessionState) {
 }
 
 func (s *SessionSuite) MessageSentEquals(msg Message) {
-	msgBytes := s.Receiver.LastMessage()
+	msgBytes, ok := s.Receiver.LastMessage()
+	s.True(ok, "Should be connected")
 	s.NotNil(msgBytes, "Message should have been sent")
 	s.MessageEqualsBytes(msgBytes, msg)
 }
@@ -78,8 +79,15 @@ func (s *SessionSuite) LastToAdminMessageSent() {
 	s.MessageSentEquals(s.mockApp.lastToAdmin)
 }
 
+func (s *SessionSuite) Disconnected() {
+	msg, ok := s.Receiver.LastMessage()
+	s.Nil(msg, "Expect disconnect, not message")
+	s.False(ok, "Expect disconnect")
+}
+
 func (s *SessionSuite) NoMessageSent() {
-	s.Nil(s.Receiver.LastMessage(), "no message should be sent")
+	msg, _ := s.Receiver.LastMessage()
+	s.Nil(msg, "no message should be sent")
 }
 
 func (s *SessionSuite) NoMessageQueued() {

@@ -460,6 +460,76 @@ func (s *CheckSessionTimeTestSuite) TestInRangeButNotSameRangeAsStore() {
 	}
 }
 
+type SessionConnectTestSuite struct {
+	SessionSuite
+}
+
+func TestSessionConnectTestSuite(t *testing.T) {
+	suite.Run(t, new(SessionConnectTestSuite))
+}
+
+func (s *SessionConnectTestSuite) SetupTest() {
+	s.Init()
+}
+
+func (s *SessionConnectTestSuite) TestInitiateLogon() {
+	adminMsg := connect{
+		messageOut:    s.Receiver.sendChannel,
+		initiateLogon: true,
+	}
+	s.session.State = latentState{}
+	s.session.heartBtInt = time.Duration(45) * time.Second
+	s.session.store.IncrNextSenderMsgSeqNum()
+
+	s.mockApp.On("ToAdmin")
+	s.session.onAdmin(adminMsg)
+
+	s.mockApp.AssertExpectations(s.T())
+	s.True(s.session.initiateLogon)
+	s.State(logonState{})
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGON, s.mockApp.lastToAdmin)
+	s.FieldEquals(tagHeartBtInt, 45, s.mockApp.lastToAdmin.Body)
+	s.FieldEquals(tagMsgSeqNum, 2, s.mockApp.lastToAdmin.Header)
+	s.NextSenderMsgSeqNum(3)
+}
+
+func (s *SessionConnectTestSuite) TestAccept() {
+	adminMsg := connect{
+		messageOut: s.Receiver.sendChannel,
+	}
+	s.session.State = latentState{}
+	s.session.store.IncrNextSenderMsgSeqNum()
+
+	s.session.onAdmin(adminMsg)
+	s.False(s.session.initiateLogon)
+	s.State(logonState{})
+	s.NoMessageSent()
+	s.NextSenderMsgSeqNum(2)
+}
+
+func (s *SessionConnectTestSuite) TestNotInSession() {
+	var tests = []bool{true, false}
+
+	for _, doInitiateLogon := range tests {
+		s.SetupTest()
+		s.session.State = notSessionTime{}
+		s.session.store.IncrNextSenderMsgSeqNum()
+
+		adminMsg := connect{
+			messageOut:    s.Receiver.sendChannel,
+			initiateLogon: doInitiateLogon,
+		}
+
+		s.session.onAdmin(adminMsg)
+
+		s.State(notSessionTime{})
+		s.NoMessageSent()
+		s.Disconnected()
+		s.NextSenderMsgSeqNum(2)
+	}
+}
+
 type SessionSendTestSuite struct {
 	SessionSuite
 }
