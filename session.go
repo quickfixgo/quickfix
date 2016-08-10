@@ -727,20 +727,16 @@ func (s *session) onIncoming(m fixIn) {
 func (s *session) onAdmin(msg interface{}) {
 	switch msg := msg.(type) {
 	case connect:
+		if s.IsConnected() {
+			s.log.OnEvent("Already connected")
+			return
+		}
+
 		s.messageStash = make(map[int]Message)
 		s.messageIn = msg.messageIn
 		s.messageOut = msg.messageOut
 		s.initiateLogon = msg.initiateLogon
-
-		if s.initiateLogon {
-			s.log.OnEvent("Sending logon request")
-			if err := s.sendLogon(false, false); err != nil {
-				s.logError(err)
-				return
-			}
-		}
-
-		s.State = logonState{}
+		s.Start(s)
 	}
 }
 
@@ -767,9 +763,9 @@ func (s *session) run() {
 		case fixIn, ok := <-s.messageIn:
 			if !ok {
 				s.Disconnected(s)
-				continue
+			} else {
+				s.onIncoming(fixIn)
 			}
-			s.onIncoming(fixIn)
 
 		case <-s.quit:
 			s.quit = nil // prevent infinitly receiving on a closed channel

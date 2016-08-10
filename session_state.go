@@ -11,6 +11,24 @@ type stateMachine struct {
 	State sessionState
 }
 
+func (sm *stateMachine) Start(session *session) {
+	if !sm.IsSessionTime() {
+		session.log.OnEvent("Not in session")
+		sm.handleDisconnectState(session)
+		return
+	}
+
+	if session.initiateLogon {
+		session.log.OnEvent("Sending logon request")
+		if err := session.sendLogon(false, false); err != nil {
+			session.logError(err)
+			return
+		}
+	}
+
+	sm.setState(session, logonState{})
+}
+
 func (sm *stateMachine) Disconnected(session *session) {
 	if sm.IsConnected() {
 		sm.setState(session, latentState{})
