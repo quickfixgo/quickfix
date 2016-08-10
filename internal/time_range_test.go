@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestParseTime(t *testing.T) {
@@ -139,6 +140,15 @@ func TestTimeRangeIsInSameRange(t *testing.T) {
 	time2 = time.Date(2016, time.January, 14, 19, 6, 0, 0, time.UTC)
 	assert.False(t, (&TimeRange{start, end}).IsInSameRange(time1, time2))
 	assert.False(t, (&TimeRange{start, end}).IsInSameRange(time2, time1))
+
+	loc, err := time.LoadLocation("America/Chicago")
+	require.Nil(t, err)
+	time1 = time.Date(2016, time.August, 10, 20, 53, 47, 397094815, loc)
+	time2 = time.Date(2016, time.August, 10, 20, 53, 47, 397094992, loc)
+	start = NewTimeOfDay(0, 53, 47)
+	end = NewTimeOfDay(2, 53, 47)
+	assert.True(t, (&TimeRange{start, end}).IsInSameRange(time1, time2))
+	assert.True(t, (&TimeRange{start, end}).IsInSameRange(time2, time1))
 
 	var tr *TimeRange
 	assert.True(t, tr.IsInSameRange(time1, time2), "always in same range if time range is nil")

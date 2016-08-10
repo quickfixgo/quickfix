@@ -91,7 +91,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.mockApp.AssertExpectations(s.T())
 
 	s.State(inSession{})
-	s.Equal(32*time.Second, s.session.heartBeatTimeout)
+	s.Equal(32*time.Second, s.session.heartBtInt)
 
 	s.LastToAdminMessageSent()
 	s.MessageType(enum.MsgType_LOGON, s.mockApp.lastToAdmin)

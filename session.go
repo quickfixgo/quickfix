@@ -32,14 +32,13 @@ type session struct {
 	application  Application
 	validator
 	stateMachine
-	stateTimer       internal.EventTimer
-	peerTimer        internal.EventTimer
-	messageStash     map[int]Message
-	resetOnLogon     bool
-	resetOnLogout    bool
-	initiateLogon    bool
-	heartBtInt       int
-	heartBeatTimeout time.Duration
+	stateTimer    internal.EventTimer
+	peerTimer     internal.EventTimer
+	messageStash  map[int]Message
+	resetOnLogon  bool
+	resetOnLogout bool
+	initiateLogon bool
+	heartBtInt    time.Duration
 
 	//required on logon for FIX.T.1 messages
 	defaultApplVerID       string
@@ -129,7 +128,7 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 		} else if heartBtInt <= 0 {
 			return session, fmt.Errorf("Heartbeat must be greater than zero")
 		} else {
-			session.heartBtInt = heartBtInt
+			session.heartBtInt = time.Duration(heartBtInt) * time.Second
 		}
 	}
 
@@ -236,14 +235,28 @@ func (s *session) fillDefaultHeader(msg Message) {
 	s.insertSendingTime(msg.Header)
 }
 
-func (s *session) sendLogoutAndReset() {
-	if err := s.sendLogout(""); err != nil {
-		s.logError(err)
+func (s *session) sendLogon(resetStore, setResetSeqNum bool) error {
+	logon := NewMessage()
+	logon.Header.SetField(tagMsgType, FIXString("A"))
+	logon.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
+	logon.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
+	logon.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
+	logon.Body.SetField(tagEncryptMethod, FIXString("0"))
+	logon.Body.SetField(tagHeartBtInt, FIXInt(s.heartBtInt.Seconds()))
+
+	if setResetSeqNum {
+		logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
 	}
 
-	if err := s.dropAndReset(); err != nil {
-		s.logError(err)
+	if len(s.defaultApplVerID) > 0 {
+		logon.Body.SetField(tagDefaultApplVerID, FIXString(s.defaultApplVerID))
 	}
+
+	if err := s.dropAndSend(logon, resetStore); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *session) sendLogout(reason string) error {
@@ -406,7 +419,7 @@ func (s *session) sendOrDropAppMessages() {
 func (s *session) sendBytes(msg []byte) {
 	s.log.OnOutgoing(string(msg))
 	s.messageOut <- msg
-	s.stateTimer.Reset(time.Duration(s.heartBeatTimeout))
+	s.stateTimer.Reset(s.heartBtInt)
 }
 
 func (s *session) doTargetTooHigh(reject targetTooHigh) error {
@@ -470,34 +483,18 @@ func (s *session) handleLogon(msg Message) error {
 	}
 
 	if !s.initiateLogon {
-		reply := NewMessage()
-		reply.Header.SetField(tagMsgType, FIXString("A"))
-		reply.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
-		reply.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
-		reply.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
-		reply.Body.SetField(tagEncryptMethod, FIXString("0"))
-
 		var heartBtInt FIXInt
 		if err := msg.Body.GetField(tagHeartBtInt, &heartBtInt); err == nil {
-			s.heartBeatTimeout = time.Duration(heartBtInt) * time.Second
-			reply.Body.SetField(tagHeartBtInt, heartBtInt)
-		}
-
-		if resetSeqNumFlag {
-			reply.Body.SetField(tagResetSeqNumFlag, resetSeqNumFlag)
-		}
-
-		if len(s.defaultApplVerID) > 0 {
-			reply.Body.SetField(tagDefaultApplVerID, FIXString(s.defaultApplVerID))
+			s.heartBtInt = time.Duration(heartBtInt) * time.Second
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		if err := s.dropAndSend(reply, resetStore); err != nil {
+		if err := s.sendLogon(resetStore, resetSeqNumFlag.Bool()); err != nil {
 			return err
 		}
 	}
 
-	s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.heartBtInt)))
 	s.application.OnLogon(s.sessionID)
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
@@ -724,7 +721,7 @@ func (s *session) onIncoming(m fixIn) {
 		msg.ReceiveTime = m.receiveTime
 		s.FixMsgIn(s, msg)
 	}
-	s.peerTimer.Reset(time.Duration(int64(1.2 * float64(s.heartBeatTimeout))))
+	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.heartBtInt)))
 }
 
 func (s *session) onAdmin(msg interface{}) {
@@ -736,22 +733,8 @@ func (s *session) onAdmin(msg interface{}) {
 		s.initiateLogon = msg.initiateLogon
 
 		if s.initiateLogon {
-			logon := NewMessage()
-			logon.Header.SetField(tagMsgType, FIXString("A"))
-			logon.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
-			logon.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
-			logon.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
-			logon.Body.SetField(tagEncryptMethod, FIXString("0"))
-			logon.Body.SetField(tagHeartBtInt, FIXInt(s.heartBtInt))
-
-			s.heartBeatTimeout = time.Duration(s.heartBtInt) * time.Second
-
-			if len(s.defaultApplVerID) > 0 {
-				logon.Body.SetField(tagDefaultApplVerID, FIXString(s.defaultApplVerID))
-			}
-
 			s.log.OnEvent("Sending logon request")
-			if err := s.dropAndSend(logon, s.resetOnLogon); err != nil {
+			if err := s.sendLogon(false, false); err != nil {
 				s.logError(err)
 				return
 			}
