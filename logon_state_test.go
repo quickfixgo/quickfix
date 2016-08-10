@@ -58,10 +58,6 @@ func (s *LogonStateTestSuite) TestTimeoutNotLogonTimeout() {
 	}
 }
 
-func (s *LogonStateTestSuite) TestShutdownNow() {
-	s.session.State.ShutdownNow(s.session)
-}
-
 func (s *LogonStateTestSuite) TestDisconnected() {
 	s.session.Disconnected(s.session)
 	s.State(latentState{})

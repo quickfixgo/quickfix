@@ -86,12 +86,17 @@ func (s *SessionSuite) NoMessageQueued() {
 	s.Empty(s.session.toSend, "no messages should be queueud")
 }
 
+func (s *SessionSuite) ExpectStoreReset() {
+	s.NextSenderMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(1)
+}
+
 func (s *SessionSuite) NextTargetMsgSeqNum(expected int) {
-	s.Equal(expected, s.session.store.NextTargetMsgSeqNum(), "NextTargetMsgSeqNum should be ", expected)
+	s.Equal(expected, s.session.store.NextTargetMsgSeqNum(), "NextTargetMsgSeqNum should be %v ", expected)
 }
 
 func (s *SessionSuite) NextSenderMsgSeqNum(expected int) {
-	s.Equal(expected, s.session.store.NextSenderMsgSeqNum(), "NextSenderMsgSeqNum should be ", expected)
+	s.Equal(expected, s.session.store.NextSenderMsgSeqNum(), "NextSenderMsgSeqNum should be %v", expected)
 }
 
 func (s *SessionSuite) NoMessagePersisted(seqNum int) {

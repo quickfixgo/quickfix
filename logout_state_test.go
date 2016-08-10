@@ -49,10 +49,6 @@ func (s *LogoutStateTestSuite) TestTimeoutNotLogoutTimeout() {
 	}
 }
 
-func (s *LogoutStateTestSuite) TestShutdownNow() {
-	s.session.State.ShutdownNow(s.session)
-}
-
 func (s *LogoutStateTestSuite) TestDisconnected() {
 	s.mockApp.On("OnLogout").Return(nil)
 	s.session.Disconnected(s.session)

@@ -19,14 +19,13 @@ func (s *LatentStateTestSuite) SetupTest() {
 	s.session.State = latentState{}
 }
 
-func (s *LatentStateTestSuite) TestIsLoggedOn() {
+func (s *LatentStateTestSuite) TestPreliminary() {
 	s.False(s.session.IsLoggedOn())
-}
-
-func (s *LatentStateTestSuite) TestIsConnected() {
 	s.False(s.session.IsConnected())
+	s.True(s.session.IsSessionTime())
 }
 
-func (s *LatentStateTestSuite) TestIsSessionTime() {
-	s.True(s.session.IsSessionTime())
+func (s *LatentStateTestSuite) TestDisconnected() {
+	s.session.Disconnected(s.session)
+	s.State(latentState{})
 }

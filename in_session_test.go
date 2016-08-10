@@ -99,18 +99,3 @@ func (s *InSessionTestSuite) TestDisconnected() {
 	s.mockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 }
-
-func (s *InSessionTestSuite) TestShutdownNow() {
-	s.mockApp.On("FromApp").Return(nil)
-	s.FixMsgIn(s.session, s.NewOrderSingle())
-	s.mockApp.AssertExpectations(s.T())
-	s.session.store.IncrNextSenderMsgSeqNum()
-
-	s.mockApp.On("ToAdmin").Return(nil)
-	s.session.State.ShutdownNow(s.session)
-
-	s.mockApp.AssertExpectations(s.T())
-	s.LastToAdminMessageSent()
-	s.MessageType("5", s.mockApp.lastToAdmin)
-	s.FieldEquals(tagMsgSeqNum, 2, s.mockApp.lastToAdmin.Header)
-}
