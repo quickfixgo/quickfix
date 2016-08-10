@@ -99,3 +99,31 @@ func (s *InSessionTestSuite) TestDisconnected() {
 	s.mockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 }
+
+func (s *InSessionTestSuite) TestStop() {
+	s.mockApp.On("ToAdmin")
+
+	notify := make(chan interface{})
+	s.session.Stop(s.session, notify)
+	s.mockApp.AssertExpectations(s.T())
+	s.State(logoutState{})
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGOUT, s.mockApp.lastToAdmin)
+
+	ok := true
+	select {
+	case _, ok = <-notify:
+	default:
+	}
+
+	s.True(ok)
+
+	s.mockApp.On("OnLogout")
+	s.session.Timeout(s.session, <-s.sessionEvent)
+	s.mockApp.AssertExpectations(s.T())
+	s.State(latentState{})
+
+	_, ok = <-notify
+	s.False(ok)
+	s.Disconnected()
+}

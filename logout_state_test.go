@@ -20,15 +20,9 @@ func (s *LogoutStateTestSuite) SetupTest() {
 	s.session.State = logoutState{}
 }
 
-func (s *LogoutStateTestSuite) TestIsLoggedOn() {
+func (s *LogoutStateTestSuite) TestPreliminary() {
 	s.False(s.session.IsLoggedOn())
-}
-
-func (s *LogoutStateTestSuite) TestIsConnected() {
 	s.True(s.session.IsConnected())
-}
-
-func (s *LogoutStateTestSuite) TestIsSessionTime() {
 	s.True(s.session.IsSessionTime())
 }
 
@@ -109,4 +103,18 @@ func (s *LogoutStateTestSuite) TestFixMsgInLogoutResetOnLogout() {
 
 	s.NoMessageSent()
 	s.NoMessageQueued()
+}
+
+func (s *LogoutStateTestSuite) TestStop() {
+	notify := make(chan interface{})
+	s.session.Stop(s.session, notify)
+	s.State(logoutState{})
+
+	ok := true
+	select {
+	case _, ok = <-notify:
+	default:
+	}
+
+	s.True(ok)
 }

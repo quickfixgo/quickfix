@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"strconv"
+	"sync"
 
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -17,7 +18,8 @@ type Acceptor struct {
 	storeFactory        MessageStoreFactory
 	globalLog           Log
 	qualifiedSessionIDs map[SessionID]SessionID
-	quitChan            chan bool
+	stopChan            chan interface{}
+	wg                  sync.WaitGroup
 }
 
 //Start accepting connections.
@@ -45,12 +47,8 @@ func (a *Acceptor) Start() error {
 	}
 
 	connections := a.listenForConnections(server)
-
-	go func() {
-		for cxn := range connections {
-			go handleAcceptorConnection(cxn, a.qualifiedSessionIDs, a.globalLog)
-		}
-	}()
+	a.wg.Add(1)
+	go a.run(server, connections)
 
 	return nil
 }
@@ -60,13 +58,15 @@ func (a *Acceptor) Stop() {
 	defer func() {
 		_ = recover() // suppress sending on closed channel error
 	}()
-	close(a.quitChan)
+
+	a.stopChan <- true
+	a.wg.Wait()
 }
 
 //NewAcceptor creates and initializes a new Acceptor.
 func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (*Acceptor, error) {
 	a := &Acceptor{
-		quitChan:            make(chan bool),
+		stopChan:            make(chan interface{}),
 		app:                 app,
 		storeFactory:        storeFactory,
 		settings:            settings,
@@ -92,7 +92,7 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 		}
 		a.qualifiedSessionIDs[unqualifiedSessionID] = sessionID
 
-		if err = createSession(sessionID, storeFactory, sessionSettings, logFactory, app, a.quitChan); err != nil {
+		if err = createSession(sessionID, storeFactory, sessionSettings, logFactory, app); err != nil {
 			return nil, err
 		}
 	}
@@ -106,9 +106,9 @@ func (a *Acceptor) listenForConnections(listener net.Listener) (ch chan net.Conn
 	go func() {
 		for {
 			netConn, err := listener.Accept()
-			if netConn == nil {
-				a.globalLog.OnEventf("Couldn't Accept: %v", err.Error())
-				continue
+			if err != nil {
+				close(ch)
+				return
 			}
 
 			ch <- netConn
@@ -116,4 +116,52 @@ func (a *Acceptor) listenForConnections(listener net.Listener) (ch chan net.Conn
 	}()
 
 	return ch
+}
+
+func (a *Acceptor) run(server net.Listener, connections chan net.Conn) {
+	defer func() {
+		a.wg.Done()
+	}()
+
+	var connGroup sync.WaitGroup
+	var pendingStop bool
+
+	for {
+		select {
+
+		case <-a.stopChan:
+			if err := server.Close(); err != nil {
+				a.globalLog.OnEvent(err.Error())
+			}
+
+			for sessionID := range a.qualifiedSessionIDs {
+				session, err := lookupSession(sessionID)
+				if err != nil {
+					a.globalLog.OnEventf("Error getting session: %v", err)
+				} else {
+					go session.disconnect()
+				}
+			}
+			pendingStop = true
+
+		case cxn, ok := <-connections:
+			if !ok {
+				connGroup.Wait()
+				return
+			}
+
+			if pendingStop {
+				if err := cxn.Close(); err != nil {
+					a.globalLog.OnEvent(err.Error())
+				}
+				continue
+			}
+
+			connGroup.Add(1)
+			go func() {
+				handleAcceptorConnection(cxn, a.qualifiedSessionIDs, a.globalLog)
+				connGroup.Done()
+			}()
+		}
+	}
 }

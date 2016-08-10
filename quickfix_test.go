@@ -1,6 +1,9 @@
 package quickfix
 
-import "github.com/stretchr/testify/suite"
+import (
+	"github.com/quickfixgo/quickfix/internal"
+	"github.com/stretchr/testify/suite"
+)
 
 type QuickFIXSuite struct {
 	suite.Suite
@@ -52,11 +55,12 @@ func (s *SessionSuite) Init() {
 	s.messageFactory = new(messageFactory)
 	s.Receiver = newMockSessionReceiver()
 	s.session = &session{
-		sessionID:   SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"},
-		store:       new(memoryStore),
-		application: s.mockApp,
-		log:         nullLog{},
-		messageOut:  s.Receiver.sendChannel,
+		sessionID:    SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"},
+		store:        new(memoryStore),
+		application:  s.mockApp,
+		log:          nullLog{},
+		messageOut:   s.Receiver.sendChannel,
+		sessionEvent: make(chan internal.Event),
 	}
 }
 

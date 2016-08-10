@@ -45,7 +45,6 @@ type session struct {
 	targetDefaultApplVerID string
 
 	sessionTime *internal.TimeRange
-	quit        <-chan bool
 	admin       chan interface{}
 }
 
@@ -178,14 +177,13 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 //Creates Session, associates with internal session registry
 func createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
-	logFactory LogFactory, application Application, quit <-chan bool,
+	logFactory LogFactory, application Application,
 ) error {
 	session, err := newSession(sessionID, storeFactory, settings, logFactory, application)
 	if err != nil {
 		return err
 	}
 
-	session.quit = quit
 	application.OnCreate(session.sessionID)
 	session.log.OnEvent("Created session")
 	sessions.newSession <- session
@@ -199,6 +197,8 @@ type connect struct {
 	messageIn     <-chan fixIn
 	initiateLogon bool
 }
+
+type disconnectReq chan interface{}
 
 //kicks off session as an initiator
 func (s *session) initiate(msgIn <-chan fixIn, msgOut chan<- []byte) {
@@ -215,6 +215,13 @@ func (s *session) accept(msgIn chan fixIn, msgOut chan []byte) {
 		messageOut: msgOut,
 		messageIn:  msgIn,
 	}
+}
+
+//blocks until the session has disconnected
+func (s *session) disconnect() {
+	req := make(disconnectReq)
+	s.admin <- req
+	<-req
 }
 
 func (s *session) insertSendingTime(header Header) {
@@ -705,6 +712,7 @@ type fixIn struct {
 }
 
 func (s *session) onDisconnect() {
+	s.log.OnEvent("Disconnected")
 	if s.messageOut != nil {
 		close(s.messageOut)
 		s.messageOut = nil
@@ -726,6 +734,7 @@ func (s *session) onIncoming(m fixIn) {
 
 func (s *session) onAdmin(msg interface{}) {
 	switch msg := msg.(type) {
+
 	case connect:
 		if s.IsConnected() {
 			s.log.OnEvent("Already connected")
@@ -737,6 +746,9 @@ func (s *session) onAdmin(msg interface{}) {
 		s.messageOut = msg.messageOut
 		s.initiateLogon = msg.initiateLogon
 		s.Start(s)
+
+	case disconnectReq:
+		s.Stop(s, msg)
 	}
 }
 
@@ -766,18 +778,6 @@ func (s *session) run() {
 			} else {
 				s.onIncoming(fixIn)
 			}
-
-		case <-s.quit:
-			s.quit = nil // prevent infinitly receiving on a closed channel
-			if !s.IsLoggedOn() {
-				return
-			}
-
-			if err := s.initiateLogout(""); err != nil {
-				s.logError(err)
-				return
-			}
-			s.State = logoutState{}
 
 		case evt := <-s.sessionEvent:
 			s.Timeout(s, evt)

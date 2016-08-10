@@ -9,7 +9,14 @@ import (
 )
 
 //Picks up session from net.Conn Initiator
-func handleInitiatorConnection(address string, log Log, sessID SessionID, reconnectInterval time.Duration, tlsConfig *tls.Config) {
+func handleInitiatorConnection(
+	address string,
+	log Log,
+	sessID SessionID,
+	reconnectInterval time.Duration,
+	tlsConfig *tls.Config,
+	stopChan <-chan interface{},
+) {
 	session := activate(sessID)
 	if session == nil {
 		log.OnEventf("Session not found for SessionID: %v", sessID)
@@ -47,13 +54,24 @@ func handleInitiatorConnection(address string, log Log, sessID SessionID, reconn
 
 		go readLoop(newParser(bufio.NewReader(netConn)), msgIn)
 		session.initiate(msgIn, msgOut)
-		writeLoop(netConn, msgOut)
-		netConn.Close()
+		writeLoop(netConn, msgOut, log)
+		if err := netConn.Close(); err != nil {
+			log.OnEvent(err.Error())
+		}
 
 	reconnect:
+		select {
+		case <-stopChan:
+			return
+		default:
+		}
+
 		log.OnEventf("%v Reconnecting in %v", sessID, reconnectInterval)
-		time.Sleep(reconnectInterval)
-		continue
+		select {
+		case <-time.After(reconnectInterval):
+		case <-stopChan:
+			return
+		}
 	}
 }
 
@@ -64,15 +82,17 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 			log.OnEventf("Connection Terminated: %v", err)
 		}
 
-		netConn.Close()
+		if err := netConn.Close(); err != nil {
+			log.OnEvent(err.Error())
+		}
 	}()
 
 	reader := bufio.NewReader(netConn)
 	parser := newParser(reader)
 
 	msgBytes, err := parser.ReadMessage()
-
 	if err != nil {
+		log.OnEvent(err.Error())
 		return
 	}
 
@@ -82,14 +102,27 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		return
 	}
 
+	var handleRequiredFieldError = func(err error) {
+		log.OnEvent(err.Error())
+	}
+
 	var beginString FIXString
-	msg.Header.GetField(tagBeginString, &beginString)
+	if err := msg.Header.GetField(tagBeginString, &beginString); err != nil {
+		handleRequiredFieldError(err)
+		return
+	}
 
 	var senderCompID FIXString
-	msg.Header.GetField(tagSenderCompID, &senderCompID)
+	if err := msg.Header.GetField(tagSenderCompID, &senderCompID); err != nil {
+		handleRequiredFieldError(err)
+		return
+	}
 
 	var targetCompID FIXString
-	msg.Header.GetField(tagTargetCompID, &targetCompID)
+	if err := msg.Header.GetField(tagTargetCompID, &targetCompID); err != nil {
+		handleRequiredFieldError(err)
+		return
+	}
 
 	sessID := SessionID{BeginString: string(beginString), SenderCompID: string(targetCompID), TargetCompID: string(senderCompID)}
 	qualifiedSessID, validID := qualifiedSessionIDs[sessID]
@@ -118,17 +151,19 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 	}()
 
 	session.accept(msgIn, msgOut)
-	writeLoop(netConn, msgOut)
+	writeLoop(netConn, msgOut, log)
 }
 
-func writeLoop(connection io.Writer, messageOut chan []byte) {
+func writeLoop(connection io.Writer, messageOut chan []byte, log Log) {
 	for {
 		msg, ok := <-messageOut
 		if !ok {
 			return
 		}
 
-		connection.Write(msg)
+		if _, err := connection.Write(msg); err != nil {
+			log.OnEvent(err.Error())
+		}
 	}
 }
 

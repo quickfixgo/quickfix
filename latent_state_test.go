@@ -29,3 +29,11 @@ func (s *LatentStateTestSuite) TestDisconnected() {
 	s.session.Disconnected(s.session)
 	s.State(latentState{})
 }
+
+func (s *LatentStateTestSuite) TestStop() {
+	notify := make(chan interface{})
+	s.session.Stop(s.session, notify)
+	s.State(latentState{})
+	_, ok := <-notify
+	s.False(ok)
+}

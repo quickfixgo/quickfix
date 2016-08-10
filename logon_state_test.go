@@ -22,15 +22,9 @@ func (s *LogonStateTestSuite) SetupTest() {
 	s.session.stateMachine.State = logonState{}
 }
 
-func (s *LogonStateTestSuite) TestIsLoggedOn() {
+func (s *LogonStateTestSuite) TestPreliminary() {
 	s.False(s.session.IsLoggedOn())
-}
-
-func (s *LogonStateTestSuite) TestIsConnected() {
 	s.True(s.session.IsConnected())
-}
-
-func (s *LogonStateTestSuite) TestIsSessionTime() {
 	s.True(s.session.IsSessionTime())
 }
 
@@ -115,4 +109,27 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
 
 	s.NextTargetMsgSeqNum(3)
 	s.NextSenderMsgSeqNum(2)
+}
+
+func (s *LogonStateTestSuite) TestStop() {
+	var tests = []bool{true, false}
+
+	for _, doInitiateLogon := range tests {
+		s.SetupTest()
+		s.session.initiateLogon = doInitiateLogon
+
+		if doInitiateLogon {
+			s.mockApp.On("OnLogout")
+		}
+
+		notify := make(chan interface{})
+		s.session.Stop(s.session, notify)
+
+		s.mockApp.AssertExpectations(s.T())
+		s.State(latentState{})
+
+		_, ok := <-notify
+		s.False(ok)
+		s.Disconnected()
+	}
 }
