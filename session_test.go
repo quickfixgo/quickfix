@@ -234,8 +234,10 @@ func (s *NewSessionTestSuite) TestStartAndEndTime() {
 	s.Nil(err)
 	s.NotNil(session.sessionTime)
 
-	s.Equal(internal.NewTimeOfDay(12, 0, 0), session.sessionTime.StartTime)
-	s.Equal(internal.NewTimeOfDay(14, 0, 0), session.sessionTime.EndTime)
+	s.Equal(
+		*internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0)),
+		*session.sessionTime,
+	)
 }
 
 func (s *NewSessionTestSuite) TestMissingStartOrEndTime() {
@@ -324,7 +326,7 @@ func (s *CheckSessionTimeTestSuite) TestInRange() {
 		s.SetupTest()
 		s.session.State = test.before
 
-		now := time.Now()
+		now := time.Now().UTC()
 		store := new(memoryStore)
 		if test.before.IsSessionTime() {
 			store.Reset()
@@ -335,10 +337,10 @@ func (s *CheckSessionTimeTestSuite) TestInRange() {
 		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
-		s.session.sessionTime = &internal.TimeRange{
-			StartTime: internal.NewTimeOfDay(now.UTC().Clock()),
-			EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
-		}
+		s.session.sessionTime = internal.NewUTCTimeRange(
+			internal.NewTimeOfDay(now.Clock()),
+			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+		)
 
 		s.session.CheckSessionTime(s.session, now)
 		if test.after != nil {
@@ -381,11 +383,11 @@ func (s *CheckSessionTimeTestSuite) TestNotInRange() {
 		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
-		now := time.Now()
-		s.session.sessionTime = &internal.TimeRange{
-			StartTime: internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
-			EndTime:   internal.NewTimeOfDay(now.Add(time.Duration(2) * time.Hour).UTC().Clock()),
-		}
+		now := time.Now().UTC()
+		s.session.sessionTime = internal.NewUTCTimeRange(
+			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+		)
 
 		if test.expectOnLogout {
 			s.mockApp.On("OnLogout")
@@ -435,11 +437,11 @@ func (s *CheckSessionTimeTestSuite) TestInRangeButNotSameRangeAsStore() {
 		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
-		now := time.Now()
-		s.session.sessionTime = &internal.TimeRange{
-			StartTime: internal.NewTimeOfDay(now.Add(time.Duration(-1) * time.Hour).UTC().Clock()),
-			EndTime:   internal.NewTimeOfDay(now.Add(time.Hour).UTC().Clock()),
-		}
+		now := time.Now().UTC()
+		s.session.sessionTime = internal.NewUTCTimeRange(
+			internal.NewTimeOfDay(now.Add(time.Duration(-1)*time.Hour).Clock()),
+			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+		)
 
 		if test.expectOnLogout {
 			s.mockApp.On("OnLogout")
