@@ -5,12 +5,12 @@ import (
 	"time"
 )
 
-//UTCTimeOfDay represents the time of day in UTC
-type UTCTimeOfDay struct {
+//TimeOfDay represents the time of day
+type TimeOfDay struct {
 	hour, minute, second int
 }
 
-func (t UTCTimeOfDay) duration() time.Duration {
+func (t TimeOfDay) duration() time.Duration {
 	return time.Duration(t.second)*time.Second +
 		time.Duration(t.minute)*time.Minute +
 		time.Duration(t.hour)*time.Hour
@@ -20,24 +20,39 @@ const shortForm = "15:04:05"
 
 var errParseTime = errors.New("Time must be in the format HH:MM:SS")
 
-//NewTimeOfDay returns a newly initialized UTCTimeOfDay
-func NewTimeOfDay(hour, minute, second int) UTCTimeOfDay {
-	return UTCTimeOfDay{hour, minute, second}
+//NewTimeOfDay returns a newly initialized TimeOfDay
+func NewTimeOfDay(hour, minute, second int) TimeOfDay {
+	return TimeOfDay{hour, minute, second}
 }
 
-//ParseTimeOfDay parses a UTCTimeOfDay from a string in the format HH:MM:SS
-func ParseTimeOfDay(str string) (UTCTimeOfDay, error) {
+//ParseTimeOfDay parses a TimeOfDay from a string in the format HH:MM:SS
+func ParseTimeOfDay(str string) (TimeOfDay, error) {
 	t, err := time.Parse(shortForm, str)
 	if err != nil {
-		return UTCTimeOfDay{}, errParseTime
+		return TimeOfDay{}, errParseTime
 	}
 
 	return NewTimeOfDay(t.Clock()), nil
 }
 
-//TimeRange represents a time band from StartTime to EndTime
+//TimeRange represents a time band in a given time zone
 type TimeRange struct {
-	StartTime, EndTime UTCTimeOfDay
+	startTime, endTime TimeOfDay
+	loc                *time.Location
+}
+
+//NewUTCTimeRange returns a time range in UTC
+func NewUTCTimeRange(start, end TimeOfDay) *TimeRange {
+	return &TimeRange{start, end, time.UTC}
+}
+
+//NewTimeRangeInLocation returns a time range in a given location
+func NewTimeRangeInLocation(start, end TimeOfDay, loc *time.Location) *TimeRange {
+	if loc == nil {
+		panic("time: missing Location in call to NewTimeRangeInLocation")
+	}
+
+	return &TimeRange{start, end, loc}
 }
 
 //IsInRange returns true if time t is within in the time range
@@ -46,9 +61,10 @@ func (r *TimeRange) IsInRange(t time.Time) bool {
 		return true
 	}
 
-	ts := NewTimeOfDay(t.UTC().Clock()).duration()
-	start := r.StartTime.duration()
-	end := r.EndTime.duration()
+	t = t.In(r.loc)
+	ts := NewTimeOfDay(t.Clock()).duration()
+	start := r.startTime.duration()
+	end := r.endTime.duration()
 
 	if start > end {
 		return !(end < ts && ts < start)
@@ -70,10 +86,10 @@ func (r *TimeRange) IsInSameRange(t1, t2 time.Time) bool {
 		t1, t2 = t2, t1
 	}
 
-	t1UTC := t1.UTC()
-	t1Time := NewTimeOfDay(t1UTC.Clock())
-	sessionEnd := time.Date(t1UTC.Year(), t1UTC.Month(), t1UTC.Day(), r.EndTime.hour, r.EndTime.minute, r.EndTime.second, 0, time.UTC)
-	if r.StartTime.duration() >= r.EndTime.duration() && t1Time.duration() >= r.StartTime.duration() {
+	t1 = t1.In(r.loc)
+	t1Time := NewTimeOfDay(t1.Clock())
+	sessionEnd := time.Date(t1.Year(), t1.Month(), t1.Day(), r.endTime.hour, r.endTime.minute, r.endTime.second, 0, r.loc)
+	if r.startTime.duration() >= r.endTime.duration() && t1Time.duration() >= r.startTime.duration() {
 		sessionEnd = sessionEnd.AddDate(0, 0, 1)
 	}
 
