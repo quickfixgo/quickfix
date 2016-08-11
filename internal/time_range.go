@@ -38,12 +38,13 @@ func ParseTimeOfDay(str string) (TimeOfDay, error) {
 //TimeRange represents a time band in a given time zone
 type TimeRange struct {
 	startTime, endTime TimeOfDay
+	startDay, endDay   *time.Weekday
 	loc                *time.Location
 }
 
 //NewUTCTimeRange returns a time range in UTC
 func NewUTCTimeRange(start, end TimeOfDay) *TimeRange {
-	return &TimeRange{start, end, time.UTC}
+	return NewTimeRangeInLocation(start, end, time.UTC)
 }
 
 //NewTimeRangeInLocation returns a time range in a given location
@@ -52,15 +53,24 @@ func NewTimeRangeInLocation(start, end TimeOfDay, loc *time.Location) *TimeRange
 		panic("time: missing Location in call to NewTimeRangeInLocation")
 	}
 
-	return &TimeRange{start, end, loc}
+	return &TimeRange{startTime: start, endTime: end, loc: loc}
 }
 
-//IsInRange returns true if time t is within in the time range
-func (r *TimeRange) IsInRange(t time.Time) bool {
-	if r == nil {
-		return true
-	}
+//NewUTCWeekRange returns a weekly TimeRange
+func NewUTCWeekRange(startTime, endTime TimeOfDay, startDay, endDay time.Weekday) *TimeRange {
+	return NewWeekRangeInLocation(startTime, endTime, startDay, endDay, time.UTC)
+}
 
+//NewWeekRangeInLocation returns a time range in a given location
+func NewWeekRangeInLocation(startTime, endTime TimeOfDay, startDay, endDay time.Weekday, loc *time.Location) *TimeRange {
+	r := NewTimeRangeInLocation(startTime, endTime, loc)
+	r.startDay = &startDay
+	r.endDay = &endDay
+
+	return r
+}
+
+func (r *TimeRange) isInTimeRange(t time.Time) bool {
 	t = t.In(r.loc)
 	ts := NewTimeOfDay(t.Clock()).duration()
 	start := r.startTime.duration()
@@ -70,6 +80,57 @@ func (r *TimeRange) IsInRange(t time.Time) bool {
 		return !(end < ts && ts < start)
 	}
 	return start <= ts && ts <= end
+}
+
+func (r *TimeRange) isInWeekRange(t time.Time) bool {
+	t = t.In(r.loc)
+	day := t.Weekday()
+
+	if *r.startDay == *r.endDay {
+		if day == *r.startDay {
+			return r.isInTimeRange(t)
+		}
+
+		return true
+	}
+
+	switch {
+	case *r.startDay < *r.endDay:
+		if day < *r.startDay || *r.endDay < day {
+			return false
+		}
+
+	default:
+		if *r.endDay < day && day < *r.startDay {
+			return false
+		}
+	}
+
+	timeOfDay := NewTimeOfDay(t.Clock())
+
+	if day == *r.startDay {
+		return timeOfDay.duration() >= r.startTime.duration()
+	}
+
+	if day == *r.endDay {
+		return timeOfDay.duration() <= r.endTime.duration()
+	}
+
+	return true
+}
+
+//IsInRange returns true if time t is within in the time range
+func (r *TimeRange) IsInRange(t time.Time) bool {
+	if r == nil {
+		return true
+	}
+
+	if r.startDay != nil {
+		return r.isInWeekRange(t)
+	}
+
+	return r.isInTimeRange(t)
+
 }
 
 //IsInSameRange determines if two points in time are in the same time range
@@ -88,10 +149,29 @@ func (r *TimeRange) IsInSameRange(t1, t2 time.Time) bool {
 
 	t1 = t1.In(r.loc)
 	t1Time := NewTimeOfDay(t1.Clock())
-	sessionEnd := time.Date(t1.Year(), t1.Month(), t1.Day(), r.endTime.hour, r.endTime.minute, r.endTime.second, 0, r.loc)
-	if r.startTime.duration() >= r.endTime.duration() && t1Time.duration() >= r.startTime.duration() {
-		sessionEnd = sessionEnd.AddDate(0, 0, 1)
+	dayOffset := 0
+
+	if r.endDay == nil {
+		if r.startTime.duration() >= r.endTime.duration() && t1Time.duration() >= r.startTime.duration() {
+			dayOffset = 1
+		}
+	} else {
+		switch {
+		case *r.endDay < t1.Weekday():
+			dayOffset = 7 + int(*(r.endDay)-t1.Weekday())
+
+		case t1.Weekday() == *r.endDay:
+			if r.endTime.duration() <= t1Time.duration() {
+				dayOffset = 7
+			}
+
+		default:
+			dayOffset = int(*(r.endDay) - t1.Weekday())
+		}
 	}
+
+	sessionEnd := time.Date(t1.Year(), t1.Month(), t1.Day(), r.endTime.hour, r.endTime.minute, r.endTime.second, 0, r.loc)
+	sessionEnd = sessionEnd.AddDate(0, 0, dayOffset)
 
 	return t2.Before(sessionEnd)
 }
