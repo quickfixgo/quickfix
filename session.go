@@ -154,7 +154,21 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 			return session, err
 		}
 
-		session.sessionTime = internal.NewUTCTimeRange(start, end)
+		if !settings.HasSetting(config.TimeZone) {
+			session.sessionTime = internal.NewUTCTimeRange(start, end)
+		} else {
+			locStr, err := settings.Setting(config.TimeZone)
+			if err != nil {
+				return session, err
+			}
+
+			loc, err := time.LoadLocation(locStr)
+			if err != nil {
+				return session, err
+			}
+
+			session.sessionTime = internal.NewTimeRangeInLocation(start, end, loc)
+		}
 
 	case settings.HasSetting(config.StartTime):
 		return session, requiredConfigurationMissing(config.EndTime)

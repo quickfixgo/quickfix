@@ -240,6 +240,21 @@ func (s *NewSessionTestSuite) TestStartAndEndTime() {
 	)
 }
 
+func (s *NewSessionTestSuite) TestStartAndEndTimeAndTimeZone() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.TimeZone, "Local")
+
+	session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session.sessionTime)
+
+	s.Equal(
+		*internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), time.Local),
+		*session.sessionTime,
+	)
+}
+
 func (s *NewSessionTestSuite) TestMissingStartOrEndTime() {
 	s.SessionSettings.Set(config.StartTime, "12:00:00")
 	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
@@ -262,6 +277,15 @@ func (s *NewSessionTestSuite) TestStartOrEndTimeParseError() {
 	s.SessionSettings.Set(config.EndTime, "")
 
 	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+}
+
+func (s *NewSessionTestSuite) TestInvalidTimeZone() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.TimeZone, "not valid")
+
+	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
 }
 
