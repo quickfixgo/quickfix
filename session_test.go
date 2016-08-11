@@ -255,6 +255,56 @@ func (s *NewSessionTestSuite) TestStartAndEndTimeAndTimeZone() {
 	)
 }
 
+func (s *NewSessionTestSuite) TestStartAndEndTimeAndStartAndEndDay() {
+	var tests = []struct {
+		startDay, endDay string
+	}{
+		{"Sunday", "Thursday"},
+		{"Sun", "Thu"},
+	}
+
+	for _, test := range tests {
+		s.SetupTest()
+
+		s.SessionSettings.Set(config.StartTime, "12:00:00")
+		s.SessionSettings.Set(config.EndTime, "14:00:00")
+		s.SessionSettings.Set(config.StartDay, test.startDay)
+		s.SessionSettings.Set(config.EndDay, test.endDay)
+
+		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session.sessionTime)
+
+		s.Equal(
+			*internal.NewUTCWeekRange(
+				internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
+				time.Sunday, time.Thursday,
+			),
+			*session.sessionTime,
+		)
+	}
+}
+
+func (s *NewSessionTestSuite) TestStartAndEndTimeAndStartAndEndDayAndTimeZone() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.StartDay, "Sunday")
+	s.SessionSettings.Set(config.EndDay, "Thursday")
+	s.SessionSettings.Set(config.TimeZone, "Local")
+
+	session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session.sessionTime)
+
+	s.Equal(
+		*internal.NewWeekRangeInLocation(
+			internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
+			time.Sunday, time.Thursday, time.Local,
+		),
+		*session.sessionTime,
+	)
+}
+
 func (s *NewSessionTestSuite) TestMissingStartOrEndTime() {
 	s.SessionSettings.Set(config.StartTime, "12:00:00")
 	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
@@ -286,6 +336,39 @@ func (s *NewSessionTestSuite) TestInvalidTimeZone() {
 	s.SessionSettings.Set(config.TimeZone, "not valid")
 
 	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+}
+
+func (s *NewSessionTestSuite) TestMissingStartOrEndDay() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.StartDay, "Thursday")
+	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+
+	s.SetupTest()
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.EndDay, "Sunday")
+	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+}
+
+func (s *NewSessionTestSuite) TestStartOrEndDayParseError() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.StartDay, "notvalid")
+	s.SessionSettings.Set(config.EndDay, "Sunday")
+	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+
+	s.SetupTest()
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.StartDay, "Sunday")
+	s.SessionSettings.Set(config.EndDay, "blah")
+
+	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
 }
 

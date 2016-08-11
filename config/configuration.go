@@ -14,6 +14,8 @@ const (
 	DefaultApplVerID         string = "DefaultApplVerID"
 	StartTime                string = "StartTime"
 	EndTime                  string = "EndTime"
+	StartDay                 string = "StartDay"
+	EndDay                   string = "EndDay"
 	TimeZone                 string = "TimeZone"
 	DataDictionary           string = "DataDictionary"
 	TransportDataDictionary  string = "TransportDataDictionary"

@@ -33,6 +33,8 @@ func TestNewUTCTimeRange(t *testing.T) {
 	r := NewUTCTimeRange(NewTimeOfDay(3, 0, 0), NewTimeOfDay(18, 0, 0))
 	assert.Equal(t, NewTimeOfDay(3, 0, 0), r.startTime)
 	assert.Equal(t, NewTimeOfDay(18, 0, 0), r.endTime)
+	assert.Nil(t, r.startDay)
+	assert.Nil(t, r.endDay)
 	assert.Equal(t, time.UTC, r.loc)
 }
 
@@ -40,6 +42,30 @@ func TestNewTimeRangeInLocation(t *testing.T) {
 	r := NewTimeRangeInLocation(NewTimeOfDay(3, 0, 0), NewTimeOfDay(18, 0, 0), time.Local)
 	assert.Equal(t, NewTimeOfDay(3, 0, 0), r.startTime)
 	assert.Equal(t, NewTimeOfDay(18, 0, 0), r.endTime)
+	assert.Nil(t, r.startDay)
+	assert.Nil(t, r.endDay)
+	assert.Equal(t, time.Local, r.loc)
+}
+
+func TestNewUTCWeekRange(t *testing.T) {
+	r := NewUTCWeekRange(NewTimeOfDay(3, 0, 0), NewTimeOfDay(18, 0, 0), time.Monday, time.Wednesday)
+	assert.Equal(t, NewTimeOfDay(3, 0, 0), r.startTime)
+	assert.Equal(t, NewTimeOfDay(18, 0, 0), r.endTime)
+	assert.NotNil(t, r.startDay)
+	assert.NotNil(t, r.endDay)
+	assert.Equal(t, time.Monday, *r.startDay)
+	assert.Equal(t, time.Wednesday, *r.endDay)
+	assert.Equal(t, time.UTC, r.loc)
+}
+
+func TestNewWeekRangeInLocation(t *testing.T) {
+	r := NewWeekRangeInLocation(NewTimeOfDay(3, 0, 0), NewTimeOfDay(18, 0, 0), time.Monday, time.Wednesday, time.Local)
+	assert.Equal(t, NewTimeOfDay(3, 0, 0), r.startTime)
+	assert.Equal(t, NewTimeOfDay(18, 0, 0), r.endTime)
+	assert.NotNil(t, r.startDay)
+	assert.NotNil(t, r.endDay)
+	assert.Equal(t, time.Monday, *r.startDay)
+	assert.Equal(t, time.Wednesday, *r.endDay)
 	assert.Equal(t, time.Local, r.loc)
 }
 
@@ -88,6 +114,78 @@ func TestTimeRangeIsInRange(t *testing.T) {
 
 	now = time.Date(2016, time.August, 10, 3, 1, 0, 0, time.UTC)
 	assert.True(t, NewTimeRangeInLocation(start, end, loc).IsInRange(now))
+}
+
+func TestTimeRangeIsInRangeWithDay(t *testing.T) {
+
+	startTime := NewTimeOfDay(3, 0, 0)
+	endTime := NewTimeOfDay(18, 0, 0)
+	startDay := time.Monday
+	endDay := time.Thursday
+
+	now := time.Date(2004, time.July, 28, 2, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 27, 18, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 26, 2, 59, 59, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 29, 18, 0, 1, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	startDay = time.Thursday
+	endDay = time.Monday
+
+	now = time.Date(2004, time.July, 24, 2, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 28, 2, 0, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 22, 3, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 26, 18, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 22, 2, 59, 59, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2004, time.July, 26, 18, 0, 1, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	startTime = NewTimeOfDay(9, 1, 0)
+	endTime = NewTimeOfDay(8, 59, 0)
+	startDay = time.Sunday
+	endDay = time.Sunday
+
+	now = time.Date(2006, time.December, 3, 8, 59, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2006, time.December, 3, 8, 59, 1, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2006, time.December, 3, 9, 1, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+	now = time.Date(2006, time.December, 3, 9, 0, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2006, time.December, 4, 8, 59, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2006, time.December, 4, 8, 59, 1, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2006, time.December, 4, 9, 1, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2006, time.December, 4, 9, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
 }
 
 func TestTimeRangeIsInSameRange(t *testing.T) {
@@ -189,4 +287,81 @@ func TestTimeRangeIsInSameRange(t *testing.T) {
 
 	var tr *TimeRange
 	assert.True(t, tr.IsInSameRange(time1, time2), "always in same range if time range is nil")
+}
+
+func TestTimeRangeIsInSameRangeWithDay(t *testing.T) {
+
+	startTime := NewTimeOfDay(3, 0, 0)
+	endTime := NewTimeOfDay(18, 0, 0)
+	startDay := time.Monday
+	endDay := time.Thursday
+
+	time1 := time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)
+	time2 := time.Date(2004, time.July, 25, 3, 0, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	time1 = time.Date(2004, time.July, 31, 3, 0, 0, 0, time.UTC)
+	time2 = time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	time1 = time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)
+	time2 = time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)
+
+	time1 = time.Date(2004, time.July, 26, 10, 0, 0, 0, time.UTC)
+	time2 = time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	time1 = time.Date(2004, time.July, 27, 10, 0, 0, 0, time.UTC)
+	time2 = time.Date(2004, time.July, 29, 2, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	time1 = time.Date(2004, time.July, 27, 10, 0, 0, 0, time.UTC)
+	time2 = time.Date(2004, time.July, 20, 3, 0, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	time1 = time.Date(2004, time.July, 27, 2, 0, 0, 0, time.UTC)
+	time2 = time.Date(2004, time.July, 20, 3, 0, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	time1 = time.Date(2004, time.July, 26, 2, 0, 0, 0, time.UTC)
+	time2 = time.Date(2004, time.July, 19, 3, 0, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	// Reset start/end time so that they fall within an hour of midnight
+	startTime = NewTimeOfDay(0, 5, 0)
+	endTime = NewTimeOfDay(23, 45, 0)
+
+	// Make it a week-long session
+	startDay = time.Sunday
+	endDay = time.Saturday
+
+	// Check that ST-->DST (Sunday is missing one hour) is handled
+	time1 = time.Date(2006, time.April, 4, 0, 0, 0, 0, time.UTC)
+	time2 = time.Date(2006, time.April, 3, 1, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	// Check that DST-->ST (Sunday has an extra hour) is handled
+	time1 = time.Date(2006, time.October, 30, 0, 0, 0, 0, time.UTC)
+	time2 = time.Date(2006, time.October, 31, 1, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	// Check that everything works across a year boundary
+	time1 = time.Date(2006, time.December, 31, 10, 10, 10, 0, time.UTC)
+	time2 = time.Date(2007, time.January, 1, 10, 10, 10, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	// Session days are the same
+	startDay = time.Sunday
+	endDay = time.Sunday
+	startTime = NewTimeOfDay(9, 1, 0)
+	endTime = NewTimeOfDay(8, 59, 0)
+	time1 = time.Date(2006, time.December, 3, 9, 1, 0, 0, time.UTC)
+	time2 = time.Date(2006, time.December, 3, 9, 1, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	time2 = time.Date(2006, time.December, 10, 9, 1, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
+
+	time2 = time.Date(2006, time.December, 4, 9, 1, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
 }
