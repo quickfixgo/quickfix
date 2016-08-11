@@ -45,6 +45,39 @@ Required only for FIXT 1.1 (and newer). Ignored for earlier transport versions. 
   3
   2
 
+TimeZone
+
+Time zone for this session; if specified, the session start and end will be converted from this zone to UTC.  Valid Values:
+
+ IANA Time zone ID (America/New_York, Asia/Tokyo, Europe/London, etc.)
+ Local (The Zone on host)
+
+Defaults to UTC.
+
+StartTime
+
+Time of day that this FIX session becomes activated. Valid Values:
+
+ time in the format of HH:MM:SS, time is represented in time zone configured by TimeZone
+
+EndTime
+
+Time of day that this FIX session becomes deactivated. Valid Values:
+
+ time in the format of HH:MM:SS, time is represented in time zone configured by TimeZone
+
+StartDay
+
+For week long sessions, the starting day of week for the session. Use in combination with StartTime. Valid Values:
+
+ Full day of week in English, or 3 letter abbreviation (i.e. Monday and Mon are valid)
+
+EndDay
+
+For week long sessions, the ending day of week for the session. Use in combination with EndTime. Valid Values:
+
+ Full day of week in English, or 3 letter abbreviation (i.e. Monday and Mon are valid)
+
 ResetOnLogon
 
 Determines if sequence numbers should be reset when receiving a logon request. Acceptors only.	Valid Values:
