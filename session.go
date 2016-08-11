@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"errors"
 	"fmt"
 	"sync"
 	"time"
@@ -257,9 +258,11 @@ func createSession(
 		return err
 	}
 
+	if err := registerSession(session); err != nil {
+		return err
+	}
 	application.OnCreate(session.sessionID)
 	session.log.OnEvent("Created session")
-	sessions.newSession <- session
 	go session.run()
 
 	return nil
@@ -269,25 +272,33 @@ type connect struct {
 	messageOut    chan<- []byte
 	messageIn     <-chan fixIn
 	initiateLogon bool
+	err           chan<- error
 }
 
 type disconnectReq chan interface{}
 
 //kicks off session as an initiator
-func (s *session) initiate(msgIn <-chan fixIn, msgOut chan<- []byte) {
+func (s *session) initiate(msgIn <-chan fixIn, msgOut chan<- []byte) error {
+	rep := make(chan error)
 	s.admin <- connect{
 		messageOut:    msgOut,
 		messageIn:     msgIn,
 		initiateLogon: true,
+		err:           rep,
 	}
+
+	return <-rep
 }
 
 //kicks off session as an acceptor
-func (s *session) accept(msgIn chan fixIn, msgOut chan []byte) {
+func (s *session) accept(msgIn chan fixIn, msgOut chan []byte) error {
+	rep := make(chan error)
 	s.admin <- connect{
 		messageOut: msgOut,
 		messageIn:  msgIn,
+		err:        rep,
 	}
+	return <-rep
 }
 
 //blocks until the session has disconnected
@@ -809,8 +820,16 @@ func (s *session) onAdmin(msg interface{}) {
 	switch msg := msg.(type) {
 
 	case connect:
+		defer func() {
+			if msg.err != nil {
+				close(msg.err)
+			}
+		}()
+
 		if s.IsConnected() {
-			s.log.OnEvent("Already connected")
+			if msg.err != nil {
+				msg.err <- errors.New("Already connected")
+			}
 			return
 		}
 
@@ -819,6 +838,8 @@ func (s *session) onAdmin(msg interface{}) {
 		s.messageOut = msg.messageOut
 		s.initiateLogon = msg.initiateLogon
 		s.Start(s)
+
+		return
 
 	case disconnectReq:
 		s.Stop(s, msg)

@@ -58,7 +58,7 @@ func (suite *MessageRouterTestSuite) givenTargetDefaultApplVerIDForSession(defau
 		sessionID:              sessionID,
 		targetDefaultApplVerID: defaultApplVerID,
 	}
-	sessions.newSession <- s
+	suite.Nil(registerSession(s))
 }
 
 func (suite *MessageRouterTestSuite) givenAFIX42NewOrderSingle() {
@@ -95,6 +95,10 @@ func (suite *MessageRouterTestSuite) resetRouter() {
 
 func (suite *MessageRouterTestSuite) SetupTest() {
 	suite.resetRouter()
+	sessionsLock.Lock()
+	defer sessionsLock.Unlock()
+
+	sessions = make(map[SessionID]*session)
 }
 
 func (suite *MessageRouterTestSuite) TestNoRoute() {
