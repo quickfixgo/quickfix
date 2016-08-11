@@ -58,6 +58,24 @@ func (s *session) TargetDefaultApplicationVersionID() string {
 	return s.targetDefaultApplVerID
 }
 
+var dayLookup = map[string]time.Weekday{
+	"Sunday":    time.Sunday,
+	"Monday":    time.Monday,
+	"Tuesday":   time.Tuesday,
+	"Wednesday": time.Wednesday,
+	"Thursday":  time.Thursday,
+	"Friday":    time.Friday,
+	"Saturday":  time.Saturday,
+
+	"Sun": time.Sunday,
+	"Mon": time.Monday,
+	"Tue": time.Tuesday,
+	"Wed": time.Wednesday,
+	"Thu": time.Thursday,
+	"Fri": time.Friday,
+	"Sat": time.Saturday,
+}
+
 func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) (*session, error) {
 	session := &session{sessionID: sessionID}
 
@@ -154,20 +172,56 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 			return session, err
 		}
 
-		if !settings.HasSetting(config.TimeZone) {
-			session.sessionTime = internal.NewUTCTimeRange(start, end)
-		} else {
+		loc := time.UTC
+		if settings.HasSetting(config.TimeZone) {
 			locStr, err := settings.Setting(config.TimeZone)
 			if err != nil {
 				return session, err
 			}
 
-			loc, err := time.LoadLocation(locStr)
+			loc, err = time.LoadLocation(locStr)
+			if err != nil {
+				return session, err
+			}
+		}
+
+		switch {
+		case !settings.HasSetting(config.StartDay) && !settings.HasSetting(config.EndDay):
+			session.sessionTime = internal.NewTimeRangeInLocation(start, end, loc)
+
+		case settings.HasSetting(config.StartDay) && settings.HasSetting(config.EndDay):
+			var startDayStr, endDayStr string
+			if startDayStr, err = settings.Setting(config.StartDay); err != nil {
+				return session, err
+			}
+
+			if endDayStr, err = settings.Setting(config.EndDay); err != nil {
+				return session, err
+			}
+
+			parseDay := func(dayStr string) (day time.Weekday, err error) {
+				day, ok := dayLookup[dayStr]
+				if !ok {
+					err = fmt.Errorf("Cannot parse %v", dayStr)
+				}
+				return
+			}
+
+			startDay, err := parseDay(startDayStr)
 			if err != nil {
 				return session, err
 			}
 
-			session.sessionTime = internal.NewTimeRangeInLocation(start, end, loc)
+			endDay, err := parseDay(endDayStr)
+			if err != nil {
+				return session, err
+			}
+
+			session.sessionTime = internal.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
+		case settings.HasSetting(config.StartDay):
+			return session, requiredConfigurationMissing(config.EndDay)
+		case settings.HasSetting(config.EndDay):
+			return session, requiredConfigurationMissing(config.StartDay)
 		}
 
 	case settings.HasSetting(config.StartTime):
