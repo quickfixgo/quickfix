@@ -73,7 +73,7 @@ func (r *TimeRange) IsInSameRange(t1, t2 time.Time) bool {
 	t1UTC := t1.UTC()
 	t1Time := NewTimeOfDay(t1UTC.Clock())
 	sessionEnd := time.Date(t1UTC.Year(), t1UTC.Month(), t1UTC.Day(), r.EndTime.hour, r.EndTime.minute, r.EndTime.second, 0, time.UTC)
-	if r.StartTime.duration() >= r.EndTime.duration() && t1Time.duration() > r.StartTime.duration() {
+	if r.StartTime.duration() >= r.EndTime.duration() && t1Time.duration() >= r.StartTime.duration() {
 		sessionEnd = sessionEnd.AddDate(0, 0, 1)
 	}
 
