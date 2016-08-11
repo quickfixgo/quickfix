@@ -135,9 +135,9 @@ func (a *Acceptor) run(server net.Listener, connections chan net.Conn) {
 			}
 
 			for sessionID := range a.qualifiedSessionIDs {
-				session, err := lookupSession(sessionID)
-				if err != nil {
-					a.globalLog.OnEventf("Error getting session: %v", err)
+				session, ok := lookupSession(sessionID)
+				if !ok {
+					a.globalLog.OnEventf("Session %v not found", sessionID)
 				} else {
 					go session.disconnect()
 				}

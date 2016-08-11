@@ -17,13 +17,11 @@ func handleInitiatorConnection(
 	tlsConfig *tls.Config,
 	stopChan <-chan interface{},
 ) {
-	session := activate(sessID)
-	if session == nil {
+	session, ok := lookupSession(sessID)
+	if !ok {
 		log.OnEventf("Session not found for SessionID: %v", sessID)
 		return
 	}
-
-	defer deactivate(sessID)
 
 	for {
 		msgIn := make(chan fixIn)
@@ -52,8 +50,12 @@ func handleInitiatorConnection(
 			}
 		}
 
+		if err := session.initiate(msgIn, msgOut); err != nil {
+			log.OnEventf("Failed to initiate: %v", err)
+			goto reconnect
+		}
+
 		go readLoop(newParser(bufio.NewReader(netConn)), msgIn)
-		session.initiate(msgIn, msgOut)
 		writeLoop(netConn, msgOut, log)
 		if err := netConn.Close(); err != nil {
 			log.OnEvent(err.Error())
@@ -132,25 +134,25 @@ func handleAcceptorConnection(netConn net.Conn, qualifiedSessionIDs map[SessionI
 		return
 	}
 
-	session := activate(qualifiedSessID)
-
-	if session == nil {
+	session, ok := lookupSession(qualifiedSessID)
+	if !ok {
 		log.OnEventf("Cannot activate session for incoming message: %v", msg.String())
 		return
 	}
-	defer func() {
-		deactivate(qualifiedSessID)
-	}()
 
 	msgIn := make(chan fixIn)
 	msgOut := make(chan []byte)
+
+	if err := session.accept(msgIn, msgOut); err != nil {
+		log.OnEventf("Unable to accept %v", err.Error())
+		return
+	}
 
 	go func() {
 		msgIn <- fixIn{msgBytes, parser.lastRead}
 		readLoop(parser, msgIn)
 	}()
 
-	session.accept(msgIn, msgOut)
 	writeLoop(netConn, msgOut, log)
 }
 

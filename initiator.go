@@ -66,9 +66,9 @@ func (i *Initiator) Stop() {
 	close(i.stopChan)
 
 	for sessionID := range i.sessionSettings {
-		session, err := lookupSession(sessionID)
-		if err != nil {
-			i.globalLog.OnEventf("Error getting session: %v", err)
+		session, ok := lookupSession(sessionID)
+		if !ok {
+			i.globalLog.OnEventf("Session %v not found", sessionID)
 		} else {
 			go session.disconnect()
 		}
