@@ -143,10 +143,19 @@ func TestTimeRangeIsInSameRange(t *testing.T) {
 
 	loc, err := time.LoadLocation("America/Chicago")
 	require.Nil(t, err)
+
 	time1 = time.Date(2016, time.August, 10, 20, 53, 47, 397094815, loc)
 	time2 = time.Date(2016, time.August, 10, 20, 53, 47, 397094992, loc)
 	start = NewTimeOfDay(0, 53, 47)
 	end = NewTimeOfDay(2, 53, 47)
+	assert.True(t, (&TimeRange{start, end}).IsInSameRange(time1, time2))
+	assert.True(t, (&TimeRange{start, end}).IsInSameRange(time2, time1))
+
+	start = NewTimeOfDay(23, 31, 0)
+	end = NewTimeOfDay(0, 31, 0)
+	time1 = time.Date(2016, time.August, 10, 18, 31, 0, 88414271, loc)
+	time2 = time.Date(2016, time.August, 10, 18, 31, 0, 88416914, loc)
+
 	assert.True(t, (&TimeRange{start, end}).IsInSameRange(time1, time2))
 	assert.True(t, (&TimeRange{start, end}).IsInSameRange(time2, time1))
 
