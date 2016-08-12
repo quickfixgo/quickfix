@@ -47,6 +47,7 @@ func (s *NewSessionTestSuite) TestDefaults() {
 	s.False(session.resetOnLogon)
 	s.False(session.resetOnLogout)
 	s.Nil(session.sessionTime, "By default, start and end time unset")
+	s.Equal("", session.defaultApplVerID)
 }
 
 func (s *NewSessionTestSuite) TestResetOnLogon() {
@@ -226,6 +227,36 @@ func (s *NewSessionTestSuite) TestStartOrEndDayParseError() {
 
 	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
+}
+
+func (s *NewSessionTestSuite) TestDefaultApplVerID() {
+	s.SessionID = SessionID{BeginString: enum.BeginStringFIXT11, TargetCompID: "TW", SenderCompID: "ISLD"}
+
+	var tests = []struct{ expected, config string }{
+		{"2", "2"},
+		{"2", "FIX.4.0"},
+		{"3", "3"},
+		{"3", "FIX.4.1"},
+		{"4", "4"},
+		{"4", "FIX.4.2"},
+		{"5", "5"},
+		{"5", "FIX.4.3"},
+		{"6", "6"},
+		{"6", "FIX.4.4"},
+		{"7", "7"},
+		{"7", "FIX.5.0"},
+		{"8", "8"},
+		{"8", "FIX.5.0SP1"},
+		{"9", "9"},
+		{"9", "FIX.5.0SP2"},
+	}
+
+	for _, test := range tests {
+		s.SessionSettings.Set(config.DefaultApplVerID, test.config)
+		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.Equal(test.expected, session.defaultApplVerID)
+	}
 }
 
 type SessionSuite struct {
@@ -708,6 +739,27 @@ func (s *SessionSuite) TestOnAdminConnectInitiateLogon() {
 	s.FieldEquals(tagHeartBtInt, 45, s.MockApp.lastToAdmin.Body)
 	s.FieldEquals(tagMsgSeqNum, 2, s.MockApp.lastToAdmin.Header)
 	s.NextSenderMsgSeqNum(3)
+}
+
+func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
+	s.session.sessionID.BeginString = enum.BeginStringFIXT11
+	s.session.defaultApplVerID = "8"
+
+	adminMsg := connect{
+		messageOut:    s.Receiver.sendChannel,
+		initiateLogon: true,
+	}
+	s.session.State = latentState{}
+
+	s.MockApp.On("ToAdmin")
+	s.session.onAdmin(adminMsg)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.True(s.session.initiateLogon)
+	s.State(logonState{})
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagDefaultApplVerID, "8", s.MockApp.lastToAdmin.Body)
 }
 
 func (s *SessionSuite) TestOnAdminConnectAccept() {
