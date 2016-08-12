@@ -252,20 +252,19 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 func createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
 	logFactory LogFactory, application Application,
-) error {
-	session, err := newSession(sessionID, storeFactory, settings, logFactory, application)
-	if err != nil {
-		return err
+) (session *session, err error) {
+
+	if session, err = newSession(sessionID, storeFactory, settings, logFactory, application); err != nil {
+		return
 	}
 
-	if err := registerSession(session); err != nil {
-		return err
+	if err = registerSession(session); err != nil {
+		return
 	}
 	application.OnCreate(session.sessionID)
 	session.log.OnEvent("Created session")
-	go session.run()
 
-	return nil
+	return
 }
 
 type connect struct {
@@ -274,8 +273,6 @@ type connect struct {
 	initiateLogon bool
 	err           chan<- error
 }
-
-type disconnectReq chan interface{}
 
 //kicks off session as an initiator
 func (s *session) initiate(msgIn <-chan fixIn, msgOut chan<- []byte) error {
@@ -301,11 +298,22 @@ func (s *session) accept(msgIn chan fixIn, msgOut chan []byte) error {
 	return <-rep
 }
 
-//blocks until the session has disconnected
-func (s *session) disconnect() {
-	req := make(disconnectReq)
-	s.admin <- req
-	<-req
+type stopReq struct{}
+
+func (s *session) stop() {
+	s.admin <- stopReq{}
+}
+
+type waitChan <-chan interface{}
+
+type waitForInSessionReq struct{ rep chan<- waitChan }
+
+func (s *session) waitForInSessionTime() {
+	rep := make(chan waitChan)
+	s.admin <- waitForInSessionReq{rep}
+	if wait, ok := <-rep; ok {
+		<-wait
+	}
 }
 
 func (s *session) insertSendingTime(header Header) {
@@ -820,35 +828,39 @@ func (s *session) onAdmin(msg interface{}) {
 	switch msg := msg.(type) {
 
 	case connect:
-		defer func() {
-			if msg.err != nil {
-				close(msg.err)
-			}
-		}()
 
 		if s.IsConnected() {
 			if msg.err != nil {
 				msg.err <- errors.New("Already connected")
+				close(msg.err)
 			}
 			return
 		}
 
-		s.messageStash = make(map[int]Message)
+		if msg.err != nil {
+			close(msg.err)
+		}
+
+		s.initiateLogon = msg.initiateLogon
 		s.messageIn = msg.messageIn
 		s.messageOut = msg.messageOut
-		s.initiateLogon = msg.initiateLogon
-		s.Start(s)
+		s.messageStash = make(map[int]Message)
 
-		return
+		s.Connect(s)
 
-	case disconnectReq:
-		s.Stop(s, msg)
+	case stopReq:
+		s.Stop(s)
+
+	case waitForInSessionReq:
+		if !s.IsSessionTime() {
+			msg.rep <- s.stateMachine.notifyOnInSessionTime
+		}
+		close(msg.rep)
 	}
 }
 
 func (s *session) run() {
-	s.State = latentState{}
-	s.CheckSessionTime(s, time.Now())
+	s.Start(s)
 
 	ticker := time.NewTicker(time.Second)
 	defer func() {
@@ -857,7 +869,7 @@ func (s *session) run() {
 		ticker.Stop()
 	}()
 
-	for {
+	for !s.Stopped() {
 		select {
 
 		case msg := <-s.admin:

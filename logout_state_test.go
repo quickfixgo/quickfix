@@ -106,15 +106,7 @@ func (s *LogoutStateTestSuite) TestFixMsgInLogoutResetOnLogout() {
 }
 
 func (s *LogoutStateTestSuite) TestStop() {
-	notify := make(chan interface{})
-	s.session.Stop(s.session, notify)
+	s.session.Stop(s.session)
 	s.State(logoutState{})
-
-	ok := true
-	select {
-	case _, ok = <-notify:
-	default:
-	}
-
-	s.True(ok)
+	s.NotStopped()
 }

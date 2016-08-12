@@ -83,6 +83,14 @@ func (s *SessionSuite) LastToAdminMessageSent() {
 	s.MessageSentEquals(s.mockApp.lastToAdmin)
 }
 
+func (s *SessionSuite) NotStopped() {
+	s.False(s.session.Stopped(), "session should not be stopped")
+}
+
+func (s *SessionSuite) Stopped() {
+	s.True(s.session.Stopped(), "session should be stopped")
+}
+
 func (s *SessionSuite) Disconnected() {
 	msg, ok := s.Receiver.LastMessage()
 	s.Nil(msg, "Expect disconnect, not message")
