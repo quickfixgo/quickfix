@@ -8,12 +8,7 @@ import (
 //TimeOfDay represents the time of day
 type TimeOfDay struct {
 	hour, minute, second int
-}
-
-func (t TimeOfDay) duration() time.Duration {
-	return time.Duration(t.second)*time.Second +
-		time.Duration(t.minute)*time.Minute +
-		time.Duration(t.hour)*time.Hour
+	d                    time.Duration
 }
 
 const shortForm = "15:04:05"
@@ -22,7 +17,11 @@ var errParseTime = errors.New("Time must be in the format HH:MM:SS")
 
 //NewTimeOfDay returns a newly initialized TimeOfDay
 func NewTimeOfDay(hour, minute, second int) TimeOfDay {
-	return TimeOfDay{hour, minute, second}
+	d := time.Duration(second)*time.Second +
+		time.Duration(minute)*time.Minute +
+		time.Duration(hour)*time.Hour
+
+	return TimeOfDay{hour: hour, minute: minute, second: second, d: d}
 }
 
 //ParseTimeOfDay parses a TimeOfDay from a string in the format HH:MM:SS
@@ -72,14 +71,12 @@ func NewWeekRangeInLocation(startTime, endTime TimeOfDay, startDay, endDay time.
 
 func (r *TimeRange) isInTimeRange(t time.Time) bool {
 	t = t.In(r.loc)
-	ts := NewTimeOfDay(t.Clock()).duration()
-	start := r.startTime.duration()
-	end := r.endTime.duration()
+	ts := NewTimeOfDay(t.Clock()).d
 
-	if start > end {
-		return !(end < ts && ts < start)
+	if r.startTime.d > r.endTime.d {
+		return !(r.endTime.d < ts && ts < r.startTime.d)
 	}
-	return start <= ts && ts <= end
+	return r.startTime.d <= ts && ts <= r.endTime.d
 }
 
 func (r *TimeRange) isInWeekRange(t time.Time) bool {
@@ -109,11 +106,11 @@ func (r *TimeRange) isInWeekRange(t time.Time) bool {
 	timeOfDay := NewTimeOfDay(t.Clock())
 
 	if day == *r.startDay {
-		return timeOfDay.duration() >= r.startTime.duration()
+		return timeOfDay.d >= r.startTime.d
 	}
 
 	if day == *r.endDay {
-		return timeOfDay.duration() <= r.endTime.duration()
+		return timeOfDay.d <= r.endTime.d
 	}
 
 	return true
@@ -130,7 +127,6 @@ func (r *TimeRange) IsInRange(t time.Time) bool {
 	}
 
 	return r.isInTimeRange(t)
-
 }
 
 //IsInSameRange determines if two points in time are in the same time range
@@ -152,7 +148,7 @@ func (r *TimeRange) IsInSameRange(t1, t2 time.Time) bool {
 	dayOffset := 0
 
 	if r.endDay == nil {
-		if r.startTime.duration() >= r.endTime.duration() && t1Time.duration() >= r.startTime.duration() {
+		if r.startTime.d >= r.endTime.d && t1Time.d >= r.startTime.d {
 			dayOffset = 1
 		}
 	} else {
@@ -161,7 +157,7 @@ func (r *TimeRange) IsInSameRange(t1, t2 time.Time) bool {
 			dayOffset = 7 + int(*(r.endDay)-t1.Weekday())
 
 		case t1.Weekday() == *r.endDay:
-			if r.endTime.duration() <= t1Time.duration() {
+			if r.endTime.d <= t1Time.d {
 				dayOffset = 7
 			}
 
