@@ -8,7 +8,7 @@ import (
 )
 
 type PendingTimeoutTestSuite struct {
-	SessionSuite
+	SessionSuiteRig
 }
 
 func TestPendingTimeoutTestSuite(t *testing.T) {
@@ -42,10 +42,10 @@ func (s *PendingTimeoutTestSuite) TestSessionTimeout() {
 	for _, state := range tests {
 		s.session.State = state
 
-		s.mockApp.On("OnLogout").Return(nil)
+		s.MockApp.On("OnLogout").Return(nil)
 		s.session.Timeout(s.session, internal.PeerTimeout)
 
-		s.mockApp.AssertExpectations(s.T())
+		s.MockApp.AssertExpectations(s.T())
 		s.State(latentState{})
 	}
 }
@@ -78,10 +78,10 @@ func (s *PendingTimeoutTestSuite) TestDisconnected() {
 		s.SetupTest()
 		s.session.State = state
 
-		s.mockApp.On("OnLogout").Return(nil)
+		s.MockApp.On("OnLogout").Return(nil)
 		s.session.Disconnected(s.session)
 
-		s.mockApp.AssertExpectations(s.T())
+		s.MockApp.AssertExpectations(s.T())
 		s.State(latentState{})
 	}
 }

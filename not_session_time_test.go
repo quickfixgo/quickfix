@@ -7,7 +7,7 @@ import (
 )
 
 type NotSessionTimeTestSuite struct {
-	SessionSuite
+	SessionSuiteRig
 }
 
 func TestNotSessionTime(t *testing.T) {

@@ -8,7 +8,7 @@ import (
 )
 
 type resendStateTestSuite struct {
-	SessionSuite
+	SessionSuiteRig
 }
 
 func TestResendStateTestSuite(t *testing.T) {
@@ -33,10 +33,10 @@ func (s *resendStateTestSuite) TestIsSessionTime() {
 }
 
 func (s *resendStateTestSuite) TestTimeoutPeerTimeout() {
-	s.mockApp.On("ToAdmin")
+	s.MockApp.On("ToAdmin")
 	s.session.Timeout(s.session, internal.PeerTimeout)
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(pendingTimeout{resendState{}})
 }
 
@@ -50,9 +50,9 @@ func (s *resendStateTestSuite) TestTimeoutUnchangedIgnoreLogonLogoutTimeout() {
 }
 
 func (s *resendStateTestSuite) TestTimeoutUnchangedNeedHeartbeat() {
-	s.mockApp.On("ToAdmin")
+	s.MockApp.On("ToAdmin")
 	s.session.Timeout(s.session, internal.NeedHeartbeat)
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(resendState{})
 }

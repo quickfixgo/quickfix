@@ -7,7 +7,7 @@ import (
 )
 
 type LatentStateTestSuite struct {
-	SessionSuite
+	SessionSuiteRig
 }
 
 func TestLatentStateTestSuite(t *testing.T) {
