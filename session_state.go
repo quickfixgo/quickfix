@@ -8,11 +8,20 @@ import (
 )
 
 type stateMachine struct {
-	State              sessionState
-	notifyOnDisconnect chan<- interface{}
+	State                 sessionState
+	pendingStop, stopped  bool
+	notifyOnInSessionTime chan interface{}
 }
 
-func (sm *stateMachine) Start(session *session) {
+func (sm *stateMachine) Start(s *session) {
+	sm.pendingStop = false
+	sm.stopped = false
+
+	sm.State = latentState{}
+	sm.CheckSessionTime(s, time.Now())
+}
+
+func (sm *stateMachine) Connect(session *session) {
 	if !sm.IsSessionTime() {
 		session.log.OnEvent("Not in session")
 		sm.handleDisconnectState(session)
@@ -30,9 +39,13 @@ func (sm *stateMachine) Start(session *session) {
 	sm.setState(session, logonState{})
 }
 
-func (sm *stateMachine) Stop(session *session, notifyOnDisconnect chan<- interface{}) {
-	sm.notifyOnDisconnect = notifyOnDisconnect
+func (sm *stateMachine) Stop(session *session) {
+	sm.pendingStop = true
 	sm.setState(session, sm.State.Stop(session))
+}
+
+func (sm *stateMachine) Stopped() bool {
+	return sm.stopped
 }
 
 func (sm *stateMachine) Disconnected(session *session) {
@@ -42,7 +55,12 @@ func (sm *stateMachine) Disconnected(session *session) {
 }
 
 func (sm *stateMachine) FixMsgIn(session *session, m Message) {
-	sm.setState(session, sm.State.FixMsgIn(session, m))
+	//force session time check
+	sm.CheckSessionTime(session, time.Now())
+
+	if sm.IsConnected() {
+		sm.setState(session, sm.State.FixMsgIn(session, m))
+	}
 }
 
 func (sm *stateMachine) Timeout(session *session, e internal.Event) {
@@ -53,10 +71,15 @@ func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 	if !session.sessionTime.IsInRange(now) {
 		sm.State.ShutdownNow(session)
 		sm.setState(session, notSessionTime{})
+
+		if sm.notifyOnInSessionTime == nil {
+			sm.notifyOnInSessionTime = make(chan interface{})
+		}
 		return
 	}
 
 	if !sm.IsSessionTime() {
+		sm.notifyInSessionTime()
 		sm.setState(session, latentState{})
 	}
 
@@ -75,13 +98,20 @@ func (sm *stateMachine) setState(session *session, nextState sessionState) {
 			sm.handleDisconnectState(session)
 		}
 
-		if sm.notifyOnDisconnect != nil {
-			close(sm.notifyOnDisconnect)
-			sm.notifyOnDisconnect = nil
+		if sm.pendingStop {
+			sm.stopped = true
+			sm.notifyInSessionTime()
 		}
 	}
 
 	sm.State = nextState
+}
+
+func (sm *stateMachine) notifyInSessionTime() {
+	if sm.notifyOnInSessionTime != nil {
+		close(sm.notifyOnInSessionTime)
+	}
+	sm.notifyOnInSessionTime = nil
 }
 
 func (sm *stateMachine) handleDisconnectState(s *session) {

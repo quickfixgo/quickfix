@@ -31,9 +31,6 @@ func (s *NotSessionTimeTestSuite) TestDisconnected() {
 }
 
 func (s *NotSessionTimeTestSuite) TestStop() {
-	notify := make(chan interface{})
-	s.session.Stop(s.session, notify)
-	s.State(notSessionTime{})
-	_, ok := <-notify
-	s.False(ok)
+	s.session.Stop(s.session)
+	s.Stopped()
 }

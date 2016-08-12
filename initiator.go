@@ -1,8 +1,10 @@
 package quickfix
 
 import (
+	"bufio"
 	"crypto/tls"
 	"fmt"
+	"net"
 	"sync"
 	"time"
 
@@ -19,6 +21,7 @@ type Initiator struct {
 	globalLog       Log
 	stopChan        chan interface{}
 	wg              sync.WaitGroup
+	sessions        map[SessionID]*session
 }
 
 //Start Initiator.
@@ -53,7 +56,7 @@ func (i *Initiator) Start() error {
 
 		i.wg.Add(1)
 		go func(sessID SessionID) {
-			handleInitiatorConnection(address, i.globalLog, sessID, time.Duration(reconnectInterval)*time.Second, tlsConfig, i.stopChan)
+			i.handleConnection(address, i.sessions[sessID], time.Duration(reconnectInterval)*time.Second, tlsConfig)
 			i.wg.Done()
 		}(sessionID)
 	}
@@ -64,16 +67,6 @@ func (i *Initiator) Start() error {
 //Stop Initiator.
 func (i *Initiator) Stop() {
 	close(i.stopChan)
-
-	for sessionID := range i.sessionSettings {
-		session, ok := lookupSession(sessionID)
-		if !ok {
-			i.globalLog.OnEventf("Session %v not found", sessionID)
-		} else {
-			go session.disconnect()
-		}
-	}
-
 	i.wg.Wait()
 }
 
@@ -85,6 +78,7 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 		settings:        appSettings,
 		sessionSettings: appSettings.SessionSettings(),
 		logFactory:      logFactory,
+		sessions:        make(map[SessionID]*session),
 	}
 
 	var err error
@@ -108,11 +102,117 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 			return nil, requiredConfigurationMissing(config.HeartBtInt)
 		}
 
-		err = createSession(sessionID, storeFactory, s, logFactory, app)
+		session, err := createSession(sessionID, storeFactory, s, logFactory, app)
 		if err != nil {
 			return nil, err
 		}
+
+		i.sessions[sessionID] = session
 	}
 
 	return i, nil
+}
+
+//waitForInSessionTime returns true if the session is in session, false if the handler should stop
+func (i *Initiator) waitForInSessionTime(session *session) bool {
+	inSessionTime := make(chan interface{})
+	go func() {
+		session.waitForInSessionTime()
+		close(inSessionTime)
+	}()
+
+	select {
+	case <-inSessionTime:
+	case <-i.stopChan:
+		return false
+	}
+
+	return true
+}
+
+//watiForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop
+func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bool {
+	select {
+	case <-time.After(reconnectInterval):
+	case <-i.stopChan:
+		return false
+	}
+
+	return true
+}
+
+func (i *Initiator) handleConnection(address string, session *session, reconnectInterval time.Duration, tlsConfig *tls.Config) {
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		session.run()
+		wg.Done()
+	}()
+
+	defer func() {
+		session.stop()
+		wg.Wait()
+	}()
+
+	for {
+		if !i.waitForInSessionTime(session) {
+			return
+		}
+
+		var disconnected chan interface{}
+		var msgIn chan fixIn
+		var msgOut chan []byte
+
+		var netConn net.Conn
+		if tlsConfig != nil {
+			tlsConn, err := tls.Dial("tcp", address, tlsConfig)
+			if err != nil {
+				session.log.OnEventf("Failed to connect: %v", err)
+				goto reconnect
+			}
+
+			err = tlsConn.Handshake()
+			if err != nil {
+				session.log.OnEventf("Failed handshake:%v", err)
+				goto reconnect
+			}
+			netConn = tlsConn
+		} else {
+			var err error
+			netConn, err = net.Dial("tcp", address)
+			if err != nil {
+				session.log.OnEventf("Failed to connect: %v", err)
+				goto reconnect
+			}
+		}
+
+		msgIn = make(chan fixIn)
+		msgOut = make(chan []byte)
+		if err := session.initiate(msgIn, msgOut); err != nil {
+			session.log.OnEventf("Failed to initiate: %v", err)
+			goto reconnect
+		}
+
+		go readLoop(newParser(bufio.NewReader(netConn)), msgIn)
+		disconnected = make(chan interface{})
+		go func() {
+			writeLoop(netConn, msgOut, session.log)
+			if err := netConn.Close(); err != nil {
+				session.log.OnEvent(err.Error())
+			}
+			close(disconnected)
+		}()
+
+		select {
+		case <-disconnected:
+		case <-i.stopChan:
+			return
+		}
+
+	reconnect:
+		session.log.OnEventf("%v Reconnecting in %v", session.sessionID, reconnectInterval)
+		if !i.waitForReconnectInterval(reconnectInterval) {
+			return
+		}
+	}
 }

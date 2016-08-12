@@ -122,14 +122,9 @@ func (s *LogonStateTestSuite) TestStop() {
 			s.mockApp.On("OnLogout")
 		}
 
-		notify := make(chan interface{})
-		s.session.Stop(s.session, notify)
-
+		s.session.Stop(s.session)
 		s.mockApp.AssertExpectations(s.T())
-		s.State(latentState{})
-
-		_, ok := <-notify
-		s.False(ok)
 		s.Disconnected()
+		s.Stopped()
 	}
 }

@@ -639,13 +639,12 @@ func (s *SessionAdminTestSuite) TestConnectNotInSession() {
 	}
 }
 
-func (s *SessionAdminTestSuite) TestDisconnect() {
+func (s *SessionAdminTestSuite) TestStop() {
 	s.session.State = logonState{}
 
-	req := make(disconnectReq)
-	go s.session.onAdmin(req)
-	_, ok := <-req
-	s.False(ok)
+	s.session.onAdmin(stopReq{})
+	s.Disconnected()
+	s.Stopped()
 }
 
 type SessionSendTestSuite struct {
