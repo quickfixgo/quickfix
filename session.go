@@ -504,17 +504,6 @@ func (s *session) dropQueued() {
 	s.toSend = s.toSend[:0]
 }
 
-func (s *session) sendOrDropAppMessages() {
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
-
-	if s.IsLoggedOn() {
-		s.sendQueued()
-	} else {
-		s.dropQueued()
-	}
-}
-
 func (s *session) sendBytes(msg []byte) {
 	s.log.OnOutgoing(string(msg))
 	s.messageOut <- msg
@@ -813,17 +802,6 @@ func (s *session) onDisconnect() {
 	s.messageIn = nil
 }
 
-func (s *session) onIncoming(m fixIn) {
-	s.log.OnIncoming(string(m.bytes))
-	if msg, err := ParseMessage(m.bytes); err != nil {
-		s.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), m.bytes)
-	} else {
-		msg.ReceiveTime = m.receiveTime
-		s.FixMsgIn(s, msg)
-	}
-	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.heartBtInt)))
-}
-
 func (s *session) onAdmin(msg interface{}) {
 	switch msg := msg.(type) {
 
@@ -862,11 +840,9 @@ func (s *session) onAdmin(msg interface{}) {
 func (s *session) run() {
 	s.Start(s)
 
-	ticker := time.NewTicker(time.Second)
 	defer func() {
 		s.stateTimer.Stop()
 		s.peerTimer.Stop()
-		ticker.Stop()
 	}()
 
 	for !s.Stopped() {
@@ -876,19 +852,19 @@ func (s *session) run() {
 			s.onAdmin(msg)
 
 		case <-s.messageEvent:
-			s.sendOrDropAppMessages()
+			s.SendAppMessages(s)
 
 		case fixIn, ok := <-s.messageIn:
 			if !ok {
 				s.Disconnected(s)
 			} else {
-				s.onIncoming(fixIn)
+				s.Incoming(s, fixIn)
 			}
 
 		case evt := <-s.sessionEvent:
 			s.Timeout(s, evt)
 
-		case now := <-ticker.C:
+		case now := <-time.After(time.Second):
 			s.CheckSessionTime(s, now)
 		}
 	}

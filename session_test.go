@@ -551,6 +551,143 @@ func (s *SessionSuite) TestCheckSessionTimeInRangeButNotSameRangeAsStore() {
 	}
 }
 
+func (s *SessionSuite) TestIncomingNotInSessionTime() {
+	var tests = []struct {
+		before           sessionState
+		initiateLogon    bool
+		expectOnLogout   bool
+		expectSendLogout bool
+	}{
+		{before: logonState{}},
+		{before: logonState{}, initiateLogon: true, expectOnLogout: true},
+		{before: logoutState{}, expectOnLogout: true},
+		{before: inSession{}, expectOnLogout: true, expectSendLogout: true},
+		{before: resendState{}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{resendState{}}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{inSession{}}, expectOnLogout: true, expectSendLogout: true},
+	}
+
+	for _, test := range tests {
+		s.SetupTest()
+
+		s.session.State = test.before
+		s.session.initiateLogon = test.initiateLogon
+		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
+		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
+
+		now := time.Now().UTC()
+		s.session.sessionTime = internal.NewUTCTimeRange(
+			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+		)
+		if test.expectOnLogout {
+			s.MockApp.On("OnLogout")
+		}
+		if test.expectSendLogout {
+			s.MockApp.On("ToAdmin")
+		}
+
+		msg := s.NewOrderSingle()
+		msg.Build()
+
+		s.session.Incoming(s.session, fixIn{bytes: msg.rawMessage})
+		s.MockApp.AssertExpectations(s.T())
+		s.State(notSessionTime{})
+	}
+}
+
+func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
+	var tests = []struct {
+		before           sessionState
+		initiateLogon    bool
+		expectOnLogout   bool
+		expectSendLogout bool
+	}{
+		{before: logonState{}},
+		{before: logonState{}, initiateLogon: true, expectOnLogout: true},
+		{before: logoutState{}, expectOnLogout: true},
+		{before: inSession{}, expectOnLogout: true, expectSendLogout: true},
+		{before: resendState{}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{resendState{}}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{inSession{}}, expectOnLogout: true, expectSendLogout: true},
+	}
+
+	for _, test := range tests {
+		s.SetupTest()
+
+		s.session.State = test.before
+		s.session.initiateLogon = test.initiateLogon
+		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
+		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
+
+		s.MockApp.On("ToApp").Return(nil)
+		s.queueForSend(s.NewOrderSingle())
+		s.MockApp.AssertExpectations(s.T())
+
+		now := time.Now().UTC()
+		s.session.sessionTime = internal.NewUTCTimeRange(
+			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+		)
+		if test.expectOnLogout {
+			s.MockApp.On("OnLogout")
+		}
+		if test.expectSendLogout {
+			s.MockApp.On("ToAdmin")
+		}
+
+		s.session.SendAppMessages(s.session)
+		s.MockApp.AssertExpectations(s.T())
+		s.State(notSessionTime{})
+	}
+}
+
+func (s *SessionSuite) TestTimeoutNotInSessionTime() {
+	var tests = []struct {
+		before           sessionState
+		initiateLogon    bool
+		expectOnLogout   bool
+		expectSendLogout bool
+	}{
+		{before: logonState{}},
+		{before: logonState{}, initiateLogon: true, expectOnLogout: true},
+		{before: logoutState{}, expectOnLogout: true},
+		{before: inSession{}, expectOnLogout: true, expectSendLogout: true},
+		{before: resendState{}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{resendState{}}, expectOnLogout: true, expectSendLogout: true},
+		{before: pendingTimeout{inSession{}}, expectOnLogout: true, expectSendLogout: true},
+	}
+
+	var events = []internal.Event{internal.PeerTimeout, internal.NeedHeartbeat, internal.LogonTimeout, internal.LogoutTimeout}
+
+	for _, test := range tests {
+		for _, event := range events {
+			s.SetupTest()
+
+			s.session.State = test.before
+			s.session.initiateLogon = test.initiateLogon
+			s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
+			s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
+
+			now := time.Now().UTC()
+			s.session.sessionTime = internal.NewUTCTimeRange(
+				internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+				internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+			)
+			if test.expectOnLogout {
+				s.MockApp.On("OnLogout")
+			}
+			if test.expectSendLogout {
+				s.MockApp.On("ToAdmin")
+			}
+
+			s.session.Timeout(s.session, event)
+			s.MockApp.AssertExpectations(s.T())
+			s.State(notSessionTime{})
+		}
+	}
+}
+
 func (s *SessionSuite) TestOnAdminConnectInitiateLogon() {
 	adminMsg := connect{
 		messageOut:    s.Receiver.sendChannel,
