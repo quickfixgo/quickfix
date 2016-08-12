@@ -173,11 +173,15 @@ Socket port for connecting to a session. Only used for initiators. Must be posit
 
 SocketConnectHost
 
-Host to connect to. Only used for initiators. Value must be valid IP address in the format of x.x.x.x or a domain name
+Host to connect to. Only used for initiators. Value must be a valid IPv4 or IPv6 address or a domain name
+
+SocketAcceptHost
+
+Socket host address for listening on incoming connections, only used for acceptors. By default acceptors listen on all available interfaces.
 
 SocketAcceptPort
 
-Socket port for listening to incoming connections, Only used with for acceptors. Value must be	positive integer, valid open socket port.
+Socket port for listening to incoming connections, only used for acceptors. Value must be a positive integer, valid open socket port.
 
 SocketPrivateKeyFile
 
