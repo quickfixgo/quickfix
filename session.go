@@ -77,6 +77,17 @@ var dayLookup = map[string]time.Weekday{
 	"Sat": time.Saturday,
 }
 
+var applVerIDLookup = map[string]string{
+	enum.BeginStringFIX40: "2",
+	enum.BeginStringFIX41: "3",
+	enum.BeginStringFIX42: "4",
+	enum.BeginStringFIX43: "5",
+	enum.BeginStringFIX44: "6",
+	"FIX.5.0":             "7",
+	"FIX.5.0SP1":          "8",
+	"FIX.5.0SP2":          "9",
+}
+
 func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) (*session, error) {
 	session := &session{sessionID: sessionID}
 
@@ -89,10 +100,12 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 	}
 
 	if sessionID.IsFIXT() {
-		if defaultApplVerID, err := settings.Setting(config.DefaultApplVerID); err == nil {
-			session.defaultApplVerID = defaultApplVerID
-		} else {
+		if session.defaultApplVerID, err = settings.Setting(config.DefaultApplVerID); err != nil {
 			return session, requiredConfigurationMissing(config.DefaultApplVerID)
+		}
+
+		if applVerID, ok := applVerIDLookup[session.defaultApplVerID]; ok {
+			session.defaultApplVerID = applVerID
 		}
 
 		//If the transport or app data dictionary setting is set, the other also needs to be set.
