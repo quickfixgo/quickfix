@@ -45,6 +45,7 @@ func (s *NewSessionTestSuite) TestDefaults() {
 	s.NotNil(session)
 
 	s.False(session.resetOnLogon)
+	s.False(session.refreshOnLogon)
 	s.False(session.resetOnLogout)
 	s.Nil(session.sessionTime, "By default, start and end time unset")
 	s.Equal("", session.defaultApplVerID)
@@ -64,6 +65,23 @@ func (s *NewSessionTestSuite) TestResetOnLogon() {
 		s.NotNil(session)
 
 		s.Equal(test.expected, session.resetOnLogon)
+	}
+}
+
+func (s *NewSessionTestSuite) TestRefreshOnLogon() {
+	var tests = []struct {
+		setting  string
+		expected bool
+	}{{"Y", true}, {"N", false}}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.RefreshOnLogon, test.setting)
+		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.refreshOnLogon)
 	}
 }
 
@@ -760,6 +778,29 @@ func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
 	s.LastToAdminMessageSent()
 	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagDefaultApplVerID, "8", s.MockApp.lastToAdmin.Body)
+}
+
+func (s *SessionSuite) TestOnAdminConnectRefreshOnLogon() {
+	var tests = []bool{true, false}
+
+	for _, doRefresh := range tests {
+		s.SetupTest()
+		s.session.refreshOnLogon = doRefresh
+
+		adminMsg := connect{
+			messageOut:    s.Receiver.sendChannel,
+			initiateLogon: true,
+		}
+		s.session.State = latentState{}
+
+		if doRefresh {
+			s.MockStore.On("Refresh").Return(nil)
+		}
+		s.MockApp.On("ToAdmin")
+		s.session.onAdmin(adminMsg)
+
+		s.MockStore.AssertExpectations(s.T())
+	}
 }
 
 func (s *SessionSuite) TestOnAdminConnectAccept() {

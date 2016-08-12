@@ -21,6 +21,7 @@ const (
 	TransportDataDictionary  string = "TransportDataDictionary"
 	AppDataDictionary        string = "AppDataDictionary"
 	ResetOnLogon             string = "ResetOnLogon"
+	RefreshOnLogon           string = "RefreshOnLogon"
 	ResetOnLogout            string = "ResetOnLogout"
 	ReconnectInterval        string = "ReconnectInterval"
 	HeartBtInt               string = "HeartBtInt"

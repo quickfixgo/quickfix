@@ -111,6 +111,28 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
 	s.NextSenderMsgSeqNum(2)
 }
 
+func (s *LogonStateTestSuite) TestFixMsgInLogonRefreshOnLogon() {
+	var tests = []bool{true, false}
+
+	for _, doRefresh := range tests {
+		s.SetupTest()
+		s.session.refreshOnLogon = doRefresh
+
+		logon := s.Logon()
+		logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+
+		if doRefresh {
+			s.MockStore.On("Refresh").Return(nil)
+		}
+		s.MockApp.On("FromAdmin").Return(nil)
+		s.MockApp.On("OnLogon")
+		s.MockApp.On("ToAdmin")
+		s.fixMsgIn(s.session, logon)
+
+		s.MockStore.AssertExpectations(s.T())
+	}
+}
+
 func (s *LogonStateTestSuite) TestStop() {
 	var tests = []bool{true, false}
 
