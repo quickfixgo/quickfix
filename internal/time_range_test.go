@@ -12,6 +12,7 @@ func TestNewTimeOfDay(t *testing.T) {
 	assert.Equal(t, 12, to.hour)
 	assert.Equal(t, 34, to.minute)
 	assert.Equal(t, 4, to.second)
+	assert.Equal(t, 45244*time.Second, to.d)
 }
 
 func TestParseTime(t *testing.T) {
@@ -67,6 +68,17 @@ func TestNewWeekRangeInLocation(t *testing.T) {
 	assert.Equal(t, time.Monday, *r.startDay)
 	assert.Equal(t, time.Wednesday, *r.endDay)
 	assert.Equal(t, time.Local, r.loc)
+}
+
+func BenchmarkInRange(b *testing.B) {
+	start := NewTimeOfDay(3, 0, 0)
+	end := NewTimeOfDay(18, 0, 0)
+	tr := NewUTCTimeRange(start, end)
+
+	now := time.Date(2016, time.August, 10, 10, 0, 0, 0, time.UTC)
+	for n := 0; n < b.N; n++ {
+		tr.IsInRange(now)
+	}
 }
 
 func TestTimeRangeIsInRange(t *testing.T) {
