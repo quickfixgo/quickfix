@@ -8,7 +8,7 @@ import (
 )
 
 type LogoutStateTestSuite struct {
-	SessionSuite
+	SessionSuiteRig
 }
 
 func TestLogoutStateTestSuite(t *testing.T) {
@@ -27,10 +27,10 @@ func (s *LogoutStateTestSuite) TestPreliminary() {
 }
 
 func (s *LogoutStateTestSuite) TestTimeoutLogoutTimeout() {
-	s.mockApp.On("OnLogout").Return(nil)
+	s.MockApp.On("OnLogout").Return(nil)
 	s.Timeout(s.session, internal.LogoutTimeout)
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 }
 
@@ -44,28 +44,28 @@ func (s *LogoutStateTestSuite) TestTimeoutNotLogoutTimeout() {
 }
 
 func (s *LogoutStateTestSuite) TestDisconnected() {
-	s.mockApp.On("OnLogout").Return(nil)
+	s.MockApp.On("OnLogout").Return(nil)
 	s.session.Disconnected(s.session)
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 }
 
 func (s *LogoutStateTestSuite) TestFixMsgInNotLogout() {
-	s.mockApp.On("FromApp").Return(nil)
+	s.MockApp.On("FromApp").Return(nil)
 	s.FixMsgIn(s.session, s.NewOrderSingle())
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(logoutState{})
 	s.NextTargetMsgSeqNum(2)
 }
 
 func (s *LogoutStateTestSuite) TestFixMsgInNotLogoutReject() {
-	s.mockApp.On("FromApp").Return(ConditionallyRequiredFieldMissing(Tag(11)))
-	s.mockApp.On("ToApp").Return(nil)
+	s.MockApp.On("FromApp").Return(ConditionallyRequiredFieldMissing(Tag(11)))
+	s.MockApp.On("ToApp").Return(nil)
 	s.FixMsgIn(s.session, s.NewOrderSingle())
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(logoutState{})
 	s.NextTargetMsgSeqNum(2)
 	s.NextSenderMsgSeqNum(2)
@@ -74,11 +74,11 @@ func (s *LogoutStateTestSuite) TestFixMsgInNotLogoutReject() {
 }
 
 func (s *LogoutStateTestSuite) TestFixMsgInLogout() {
-	s.mockApp.On("FromAdmin").Return(nil)
-	s.mockApp.On("OnLogout").Return(nil)
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogout").Return(nil)
 	s.FixMsgIn(s.session, s.Logout())
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 	s.NextTargetMsgSeqNum(2)
 	s.NextSenderMsgSeqNum(1)
@@ -88,15 +88,15 @@ func (s *LogoutStateTestSuite) TestFixMsgInLogout() {
 func (s *LogoutStateTestSuite) TestFixMsgInLogoutResetOnLogout() {
 	s.session.resetOnLogout = true
 
-	s.mockApp.On("ToApp").Return(nil)
+	s.MockApp.On("ToApp").Return(nil)
 	s.Nil(s.queueForSend(s.NewOrderSingle()))
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 
-	s.mockApp.On("FromAdmin").Return(nil)
-	s.mockApp.On("OnLogout").Return(nil)
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogout").Return(nil)
 	s.FixMsgIn(s.session, s.Logout())
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 	s.NextTargetMsgSeqNum(1)
 	s.NextSenderMsgSeqNum(1)

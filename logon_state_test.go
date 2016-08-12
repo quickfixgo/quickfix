@@ -10,7 +10,7 @@ import (
 )
 
 type LogonStateTestSuite struct {
-	SessionSuite
+	SessionSuiteRig
 }
 
 func TestLogonStateTestSuite(t *testing.T) {
@@ -36,10 +36,10 @@ func (s *LogonStateTestSuite) TestTimeoutLogonTimeout() {
 func (s *LogonStateTestSuite) TestTimeoutLogonTimeoutInitiatedLogon() {
 	s.session.initiateLogon = true
 
-	s.mockApp.On("OnLogout")
+	s.MockApp.On("OnLogout")
 	s.Timeout(s.session, internal.LogonTimeout)
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 }
 
@@ -60,32 +60,32 @@ func (s *LogonStateTestSuite) TestDisconnected() {
 func (s *LogonStateTestSuite) TestFixMsgInNotLogon() {
 	s.FixMsgIn(s.session, s.NewOrderSingle())
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 	s.NextTargetMsgSeqNum(1)
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.store.IncrNextSenderMsgSeqNum()
-	s.messageFactory.seqNum = 1
+	s.MessageFactory.seqNum = 1
 	s.store.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
 
-	s.mockApp.On("FromAdmin").Return(nil)
-	s.mockApp.On("OnLogon")
-	s.mockApp.On("ToAdmin")
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
 	s.FixMsgIn(s.session, logon)
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 
 	s.State(inSession{})
 	s.Equal(32*time.Second, s.session.heartBtInt)
 
 	s.LastToAdminMessageSent()
-	s.MessageType(enum.MsgType_LOGON, s.mockApp.lastToAdmin)
-	s.FieldEquals(tagHeartBtInt, 32, s.mockApp.lastToAdmin.Body)
+	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagHeartBtInt, 32, s.MockApp.lastToAdmin.Body)
 
 	s.NextTargetMsgSeqNum(3)
 	s.NextSenderMsgSeqNum(3)
@@ -94,17 +94,17 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
 	s.session.initiateLogon = true
 	s.store.IncrNextSenderMsgSeqNum()
-	s.messageFactory.seqNum = 1
+	s.MessageFactory.seqNum = 1
 	s.store.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
 
-	s.mockApp.On("FromAdmin").Return(nil)
-	s.mockApp.On("OnLogon")
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
 	s.FixMsgIn(s.session, logon)
 
-	s.mockApp.AssertExpectations(s.T())
+	s.MockApp.AssertExpectations(s.T())
 	s.State(inSession{})
 
 	s.NextTargetMsgSeqNum(3)
@@ -119,11 +119,11 @@ func (s *LogonStateTestSuite) TestStop() {
 		s.session.initiateLogon = doInitiateLogon
 
 		if doInitiateLogon {
-			s.mockApp.On("OnLogout")
+			s.MockApp.On("OnLogout")
 		}
 
 		s.session.Stop(s.session)
-		s.mockApp.AssertExpectations(s.T())
+		s.MockApp.AssertExpectations(s.T())
 		s.Disconnected()
 		s.Stopped()
 	}
