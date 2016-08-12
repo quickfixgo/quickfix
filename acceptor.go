@@ -26,7 +26,15 @@ type Acceptor struct {
 
 //Start accepting connections.
 func (a *Acceptor) Start() error {
-	port, err := a.settings.GlobalSettings().IntSetting(config.SocketAcceptPort)
+	socketAcceptHost := ""
+	if a.settings.GlobalSettings().HasSetting(config.SocketAcceptHost) {
+		var err error
+		if socketAcceptHost, err = a.settings.GlobalSettings().Setting(config.SocketAcceptHost); err != nil {
+			return err
+		}
+	}
+
+	socketAcceptPort, err := a.settings.GlobalSettings().IntSetting(config.SocketAcceptPort)
 	if err != nil {
 		return fmt.Errorf("error fetching required SocketAcceptPort: %v", err)
 	}
@@ -36,7 +44,7 @@ func (a *Acceptor) Start() error {
 		return err
 	}
 
-	address := ":" + strconv.Itoa(port)
+	address := net.JoinHostPort(socketAcceptHost, strconv.Itoa(socketAcceptPort))
 	if tlsConfig != nil {
 		if a.listener, err = tls.Listen("tcp", address, tlsConfig); err != nil {
 			return err

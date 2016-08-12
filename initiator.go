@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net"
+	"strconv"
 	"sync"
 	"time"
 
@@ -52,7 +53,7 @@ func (i *Initiator) Start() error {
 		if tlsConfig, err = loadTLSConfig(i.settings); err != nil {
 			return err
 		}
-		address := fmt.Sprintf("%v:%v", socketConnectHost, socketConnectPort)
+		address := net.JoinHostPort(socketConnectHost, strconv.Itoa(socketConnectPort))
 
 		i.wg.Add(1)
 		go func(sessID SessionID) {
