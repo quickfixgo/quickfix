@@ -29,6 +29,13 @@ func (sm *stateMachine) Connect(session *session) {
 	}
 
 	if session.initiateLogon {
+		if session.refreshOnLogon {
+			if err := session.store.Refresh(); err != nil {
+				session.logError(err)
+				return
+			}
+		}
+
 		session.log.OnEvent("Sending logon request")
 		if err := session.sendLogon(false, false); err != nil {
 			session.logError(err)

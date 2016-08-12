@@ -33,13 +33,14 @@ type session struct {
 	application  Application
 	validator
 	stateMachine
-	stateTimer    internal.EventTimer
-	peerTimer     internal.EventTimer
-	messageStash  map[int]Message
-	resetOnLogon  bool
-	resetOnLogout bool
-	initiateLogon bool
-	heartBtInt    time.Duration
+	stateTimer     internal.EventTimer
+	peerTimer      internal.EventTimer
+	messageStash   map[int]Message
+	resetOnLogon   bool
+	refreshOnLogon bool
+	resetOnLogout  bool
+	initiateLogon  bool
+	heartBtInt     time.Duration
 
 	//required on logon for FIX.T.1 messages
 	defaultApplVerID       string
@@ -143,6 +144,12 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 
 	if settings.HasSetting(config.ResetOnLogon) {
 		if session.resetOnLogon, err = settings.BoolSetting(config.ResetOnLogon); err != nil {
+			return session, err
+		}
+	}
+
+	if settings.HasSetting(config.RefreshOnLogon) {
+		if session.refreshOnLogon, err = settings.BoolSetting(config.RefreshOnLogon); err != nil {
 			return session, err
 		}
 	}
@@ -563,6 +570,12 @@ func (s *session) handleLogon(msg Message) error {
 	} else {
 		s.log.OnEvent("Received logon request")
 		resetStore = s.resetOnLogon
+
+		if s.refreshOnLogon {
+			if err := s.store.Refresh(); err != nil {
+				return err
+			}
+		}
 	}
 
 	var resetSeqNumFlag FIXBoolean

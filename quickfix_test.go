@@ -46,6 +46,16 @@ func (s *QuickFIXSuite) MessageEqualsBytes(msgBytes []byte, msg Message) {
 	s.Equal(string(msg.rawMessage), string(msgBytes))
 }
 
+//MockStore wraps a memory store and mocks Refresh for convenience
+type MockStore struct {
+	mock.Mock
+	memoryStore
+}
+
+func (s *MockStore) Refresh() error {
+	return s.Called().Error(0)
+}
+
 type MockApp struct {
 	mock.Mock
 
@@ -146,18 +156,20 @@ func (p *MockSessionReceiver) LastMessage() (msg []byte, ok bool) {
 type SessionSuiteRig struct {
 	QuickFIXSuite
 	MessageFactory
-	MockApp MockApp
+	MockApp   MockApp
+	MockStore MockStore
 	*session
 	Receiver MockSessionReceiver
 }
 
 func (s *SessionSuiteRig) Init() {
 	s.MockApp = MockApp{}
+	s.MockStore = MockStore{}
 	s.MessageFactory = MessageFactory{}
 	s.Receiver = newMockSessionReceiver()
 	s.session = &session{
 		sessionID:    SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"},
-		store:        new(memoryStore),
+		store:        &s.MockStore,
 		application:  &s.MockApp,
 		log:          nullLog{},
 		messageOut:   s.Receiver.sendChannel,
