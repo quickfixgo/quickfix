@@ -37,7 +37,7 @@ func (s *InSessionTestSuite) TestLogout() {
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("ToAdmin")
 	s.MockApp.On("OnLogout")
-	s.session.FixMsgIn(s.session, s.Logout())
+	s.session.fixMsgIn(s.session, s.Logout())
 
 	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
@@ -58,7 +58,7 @@ func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("ToAdmin")
 	s.MockApp.On("OnLogout")
-	s.session.FixMsgIn(s.session, s.Logout())
+	s.session.fixMsgIn(s.session, s.Logout())
 
 	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})

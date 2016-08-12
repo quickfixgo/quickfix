@@ -58,7 +58,7 @@ func (s *LogonStateTestSuite) TestDisconnected() {
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInNotLogon() {
-	s.FixMsgIn(s.session, s.NewOrderSingle())
+	s.fixMsgIn(s.session, s.NewOrderSingle())
 
 	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
@@ -76,7 +76,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("OnLogon")
 	s.MockApp.On("ToAdmin")
-	s.FixMsgIn(s.session, logon)
+	s.fixMsgIn(s.session, logon)
 
 	s.MockApp.AssertExpectations(s.T())
 
@@ -102,7 +102,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
 
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("OnLogon")
-	s.FixMsgIn(s.session, logon)
+	s.fixMsgIn(s.session, logon)
 
 	s.MockApp.AssertExpectations(s.T())
 	s.State(inSession{})

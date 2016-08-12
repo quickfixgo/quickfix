@@ -54,16 +54,41 @@ func (sm *stateMachine) Disconnected(session *session) {
 	}
 }
 
-func (sm *stateMachine) FixMsgIn(session *session, m Message) {
-	//force session time check
+func (sm *stateMachine) Incoming(session *session, m fixIn) {
+	sm.CheckSessionTime(session, time.Now())
+	if !sm.IsConnected() {
+		return
+	}
+
+	session.log.OnIncoming(string(m.bytes))
+	if msg, err := ParseMessage(m.bytes); err != nil {
+		session.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), m.bytes)
+	} else {
+		msg.ReceiveTime = m.receiveTime
+		sm.fixMsgIn(session, msg)
+	}
+	session.peerTimer.Reset(time.Duration(float64(1.2) * float64(session.heartBtInt)))
+}
+
+func (sm *stateMachine) fixMsgIn(session *session, m Message) {
+	sm.setState(session, sm.State.FixMsgIn(session, m))
+}
+
+func (sm *stateMachine) SendAppMessages(session *session) {
 	sm.CheckSessionTime(session, time.Now())
 
-	if sm.IsConnected() {
-		sm.setState(session, sm.State.FixMsgIn(session, m))
+	session.sendMutex.Lock()
+	defer session.sendMutex.Unlock()
+
+	if session.IsLoggedOn() {
+		session.sendQueued()
+	} else {
+		session.dropQueued()
 	}
 }
 
 func (sm *stateMachine) Timeout(session *session, e internal.Event) {
+	sm.CheckSessionTime(session, time.Now())
 	sm.setState(session, sm.State.Timeout(session, e))
 }
 
