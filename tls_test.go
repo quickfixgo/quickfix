@@ -26,26 +26,26 @@ func (s *TLSTestSuite) SetupTest() {
 }
 
 func (s *TLSTestSuite) TestLoadTLSNoSettings() {
-	tlsConfig, err := loadTLSConfig(s.settings)
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.Nil(tlsConfig)
 	s.Nil(err)
 }
 
 func (s *TLSTestSuite) TestLoadTLSMissingKeyOrCert() {
 	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
-	_, err := loadTLSConfig(s.settings)
+	_, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.NotNil(err)
 
 	s.SetupTest()
 	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
-	_, err = loadTLSConfig(s.settings)
+	_, err = loadTLSConfig(s.settings.GlobalSettings())
 	s.NotNil(err)
 }
 
 func (s *TLSTestSuite) TestLoadTLSInvalidKeyOrCert() {
 	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, "blah")
 	s.settings.GlobalSettings().Set(config.SocketCertificateFile, "foo")
-	_, err := loadTLSConfig(s.settings)
+	_, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.NotNil(err)
 }
 
@@ -53,7 +53,7 @@ func (s *TLSTestSuite) TestLoadTLSNoCA() {
 	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
 	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
 
-	tlsConfig, err := loadTLSConfig(s.settings)
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.Nil(err)
 	s.NotNil(tlsConfig)
 
@@ -68,7 +68,7 @@ func (s *TLSTestSuite) TestLoadTLSWithBadCA() {
 	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
 	s.settings.GlobalSettings().Set(config.SocketCAFile, "bar")
 
-	_, err := loadTLSConfig(s.settings)
+	_, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.NotNil(err)
 }
 
@@ -77,7 +77,7 @@ func (s *TLSTestSuite) TestLoadTLSWithCA() {
 	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
 	s.settings.GlobalSettings().Set(config.SocketCAFile, s.CAFile)
 
-	tlsConfig, err := loadTLSConfig(s.settings)
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.Nil(err)
 	s.NotNil(tlsConfig)
 

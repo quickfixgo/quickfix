@@ -9,17 +9,17 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 )
 
-func loadTLSConfig(settings *Settings) (tlsConfig *tls.Config, err error) {
-	if !settings.GlobalSettings().HasSetting(config.SocketPrivateKeyFile) && !settings.GlobalSettings().HasSetting(config.SocketCertificateFile) {
+func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error) {
+	if !settings.HasSetting(config.SocketPrivateKeyFile) && !settings.HasSetting(config.SocketCertificateFile) {
 		return
 	}
 
-	privateKeyFile, err := settings.GlobalSettings().Setting(config.SocketPrivateKeyFile)
+	privateKeyFile, err := settings.Setting(config.SocketPrivateKeyFile)
 	if err != nil {
 		return
 	}
 
-	certificateFile, err := settings.GlobalSettings().Setting(config.SocketCertificateFile)
+	certificateFile, err := settings.Setting(config.SocketCertificateFile)
 	if err != nil {
 		return
 	}
@@ -31,11 +31,11 @@ func loadTLSConfig(settings *Settings) (tlsConfig *tls.Config, err error) {
 		return
 	}
 
-	if !settings.GlobalSettings().HasSetting(config.SocketCAFile) {
+	if !settings.HasSetting(config.SocketCAFile) {
 		return
 	}
 
-	caFile, err := settings.GlobalSettings().Setting(config.SocketCAFile)
+	caFile, err := settings.Setting(config.SocketCAFile)
 	if err != nil {
 		return
 	}

@@ -28,8 +28,8 @@ func (sm *stateMachine) Connect(session *session) {
 		return
 	}
 
-	if session.initiateLogon {
-		if session.refreshOnLogon {
+	if session.InitiateLogon {
+		if session.RefreshOnLogon {
 			if err := session.store.Refresh(); err != nil {
 				session.logError(err)
 				return
@@ -74,7 +74,7 @@ func (sm *stateMachine) Incoming(session *session, m fixIn) {
 		msg.ReceiveTime = m.receiveTime
 		sm.fixMsgIn(session, msg)
 	}
-	session.peerTimer.Reset(time.Duration(float64(1.2) * float64(session.heartBtInt)))
+	session.peerTimer.Reset(time.Duration(float64(1.2) * float64(session.HeartBtInt)))
 }
 
 func (sm *stateMachine) fixMsgIn(session *session, m Message) {
@@ -100,7 +100,7 @@ func (sm *stateMachine) Timeout(session *session, e internal.Event) {
 }
 
 func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
-	if !session.sessionTime.IsInRange(now) {
+	if !session.SessionTime.IsInRange(now) {
 		sm.State.ShutdownNow(session)
 		sm.setState(session, notSessionTime{})
 
@@ -115,7 +115,7 @@ func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 		sm.setState(session, latentState{})
 	}
 
-	if !session.sessionTime.IsInSameRange(session.store.CreationTime(), now) {
+	if !session.SessionTime.IsInSameRange(session.store.CreationTime(), now) {
 		sm.State.ShutdownNow(session)
 		if err := session.dropAndReset(); err != nil {
 			session.logError(err)
@@ -153,7 +153,7 @@ func (sm *stateMachine) handleDisconnectState(s *session) {
 	case logoutState:
 		doOnLogout = true
 	case logonState:
-		if s.initiateLogon {
+		if s.InitiateLogon {
 			doOnLogout = true
 		}
 	}

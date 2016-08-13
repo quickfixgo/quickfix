@@ -86,7 +86,7 @@ func (s *LogoutStateTestSuite) TestFixMsgInLogout() {
 }
 
 func (s *LogoutStateTestSuite) TestFixMsgInLogoutResetOnLogout() {
-	s.session.resetOnLogout = true
+	s.session.ResetOnLogout = true
 
 	s.MockApp.On("ToApp").Return(nil)
 	s.Nil(s.queueForSend(s.NewOrderSingle()))

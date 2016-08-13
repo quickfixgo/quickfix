@@ -4,7 +4,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 
@@ -15,266 +14,6 @@ import (
 func newFIXString(val string) *FIXString {
 	s := FIXString(val)
 	return &s
-}
-
-type NewSessionTestSuite struct {
-	suite.Suite
-
-	SessionID
-	MessageStoreFactory
-	*SessionSettings
-	LogFactory
-	App *MockApp
-}
-
-func TestNewSessionTestSuite(t *testing.T) {
-	suite.Run(t, new(NewSessionTestSuite))
-}
-
-func (s *NewSessionTestSuite) SetupTest() {
-	s.SessionID = SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"}
-	s.MessageStoreFactory = NewMemoryStoreFactory()
-	s.SessionSettings = NewSessionSettings()
-	s.LogFactory = nullLogFactory{}
-	s.App = new(MockApp)
-}
-
-func (s *NewSessionTestSuite) TestDefaults() {
-	session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.Nil(err)
-	s.NotNil(session)
-
-	s.False(session.resetOnLogon)
-	s.False(session.refreshOnLogon)
-	s.False(session.resetOnLogout)
-	s.Nil(session.sessionTime, "By default, start and end time unset")
-	s.Equal("", session.defaultApplVerID)
-}
-
-func (s *NewSessionTestSuite) TestResetOnLogon() {
-	var tests = []struct {
-		setting  string
-		expected bool
-	}{{"Y", true}, {"N", false}}
-
-	for _, test := range tests {
-		s.SetupTest()
-		s.SessionSettings.Set(config.ResetOnLogon, test.setting)
-		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-		s.Nil(err)
-		s.NotNil(session)
-
-		s.Equal(test.expected, session.resetOnLogon)
-	}
-}
-
-func (s *NewSessionTestSuite) TestRefreshOnLogon() {
-	var tests = []struct {
-		setting  string
-		expected bool
-	}{{"Y", true}, {"N", false}}
-
-	for _, test := range tests {
-		s.SetupTest()
-		s.SessionSettings.Set(config.RefreshOnLogon, test.setting)
-		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-		s.Nil(err)
-		s.NotNil(session)
-
-		s.Equal(test.expected, session.refreshOnLogon)
-	}
-}
-
-func (s *NewSessionTestSuite) TestResetOnLogout() {
-	var tests = []struct {
-		setting  string
-		expected bool
-	}{{"Y", true}, {"N", false}}
-
-	for _, test := range tests {
-		s.SetupTest()
-		s.SessionSettings.Set(config.ResetOnLogout, test.setting)
-		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-		s.Nil(err)
-		s.NotNil(session)
-
-		s.Equal(test.expected, session.resetOnLogout)
-	}
-}
-
-func (s *NewSessionTestSuite) TestStartAndEndTime() {
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.Nil(err)
-	s.NotNil(session.sessionTime)
-
-	s.Equal(
-		*internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0)),
-		*session.sessionTime,
-	)
-}
-
-func (s *NewSessionTestSuite) TestStartAndEndTimeAndTimeZone() {
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	s.SessionSettings.Set(config.TimeZone, "Local")
-
-	session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.Nil(err)
-	s.NotNil(session.sessionTime)
-
-	s.Equal(
-		*internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), time.Local),
-		*session.sessionTime,
-	)
-}
-
-func (s *NewSessionTestSuite) TestStartAndEndTimeAndStartAndEndDay() {
-	var tests = []struct {
-		startDay, endDay string
-	}{
-		{"Sunday", "Thursday"},
-		{"Sun", "Thu"},
-	}
-
-	for _, test := range tests {
-		s.SetupTest()
-
-		s.SessionSettings.Set(config.StartTime, "12:00:00")
-		s.SessionSettings.Set(config.EndTime, "14:00:00")
-		s.SessionSettings.Set(config.StartDay, test.startDay)
-		s.SessionSettings.Set(config.EndDay, test.endDay)
-
-		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-		s.Nil(err)
-		s.NotNil(session.sessionTime)
-
-		s.Equal(
-			*internal.NewUTCWeekRange(
-				internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
-				time.Sunday, time.Thursday,
-			),
-			*session.sessionTime,
-		)
-	}
-}
-
-func (s *NewSessionTestSuite) TestStartAndEndTimeAndStartAndEndDayAndTimeZone() {
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	s.SessionSettings.Set(config.StartDay, "Sunday")
-	s.SessionSettings.Set(config.EndDay, "Thursday")
-	s.SessionSettings.Set(config.TimeZone, "Local")
-
-	session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.Nil(err)
-	s.NotNil(session.sessionTime)
-
-	s.Equal(
-		*internal.NewWeekRangeInLocation(
-			internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
-			time.Sunday, time.Thursday, time.Local,
-		),
-		*session.sessionTime,
-	)
-}
-
-func (s *NewSessionTestSuite) TestMissingStartOrEndTime() {
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-
-	s.SetupTest()
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-}
-
-func (s *NewSessionTestSuite) TestStartOrEndTimeParseError() {
-	s.SessionSettings.Set(config.StartTime, "1200:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-
-	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "")
-
-	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-}
-
-func (s *NewSessionTestSuite) TestInvalidTimeZone() {
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	s.SessionSettings.Set(config.TimeZone, "not valid")
-
-	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-}
-
-func (s *NewSessionTestSuite) TestMissingStartOrEndDay() {
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	s.SessionSettings.Set(config.StartDay, "Thursday")
-	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-
-	s.SetupTest()
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	s.SessionSettings.Set(config.EndDay, "Sunday")
-	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-}
-
-func (s *NewSessionTestSuite) TestStartOrEndDayParseError() {
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	s.SessionSettings.Set(config.StartDay, "notvalid")
-	s.SessionSettings.Set(config.EndDay, "Sunday")
-	_, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-
-	s.SetupTest()
-	s.SessionSettings.Set(config.StartTime, "12:00:00")
-	s.SessionSettings.Set(config.EndTime, "14:00:00")
-	s.SessionSettings.Set(config.StartDay, "Sunday")
-	s.SessionSettings.Set(config.EndDay, "blah")
-
-	_, err = newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.NotNil(err)
-}
-
-func (s *NewSessionTestSuite) TestDefaultApplVerID() {
-	s.SessionID = SessionID{BeginString: enum.BeginStringFIXT11, TargetCompID: "TW", SenderCompID: "ISLD"}
-
-	var tests = []struct{ expected, config string }{
-		{"2", "2"},
-		{"2", "FIX.4.0"},
-		{"3", "3"},
-		{"3", "FIX.4.1"},
-		{"4", "4"},
-		{"4", "FIX.4.2"},
-		{"5", "5"},
-		{"5", "FIX.4.3"},
-		{"6", "6"},
-		{"6", "FIX.4.4"},
-		{"7", "7"},
-		{"7", "FIX.5.0"},
-		{"8", "8"},
-		{"8", "FIX.5.0SP1"},
-		{"9", "9"},
-		{"9", "FIX.5.0SP2"},
-	}
-
-	for _, test := range tests {
-		s.SessionSettings.Set(config.DefaultApplVerID, test.config)
-		session, err := newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-		s.Nil(err)
-		s.Equal(test.expected, session.defaultApplVerID)
-	}
 }
 
 type SessionSuite struct {
@@ -433,7 +172,7 @@ func (s *SessionSuite) TestCheckSessionTimeNoStartTimeEndTime() {
 
 	for _, test := range tests {
 		s.SetupTest()
-		s.session.sessionTime = nil
+		s.session.SessionTime = nil
 		s.session.State = test.before
 
 		s.session.CheckSessionTime(s.session, time.Now())
@@ -475,7 +214,7 @@ func (s *SessionSuite) TestCheckSessionTimeInRange() {
 		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
-		s.session.sessionTime = internal.NewUTCTimeRange(
+		s.session.SessionTime = internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Clock()),
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 		)
@@ -517,12 +256,12 @@ func (s *SessionSuite) TestCheckSessionTimeNotInRange() {
 	for _, test := range tests {
 		s.SetupTest()
 		s.session.State = test.before
-		s.session.initiateLogon = test.initiateLogon
+		s.session.InitiateLogon = test.initiateLogon
 		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
 		now := time.Now().UTC()
-		s.session.sessionTime = internal.NewUTCTimeRange(
+		s.session.SessionTime = internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
 		)
@@ -570,13 +309,13 @@ func (s *SessionSuite) TestCheckSessionTimeInRangeButNotSameRangeAsStore() {
 	for _, test := range tests {
 		s.SetupTest()
 		s.session.State = test.before
-		s.session.initiateLogon = test.initiateLogon
+		s.session.InitiateLogon = test.initiateLogon
 		s.store.Reset()
 		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
 		now := time.Now().UTC()
-		s.session.sessionTime = internal.NewUTCTimeRange(
+		s.session.SessionTime = internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Add(time.Duration(-1)*time.Hour).Clock()),
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 		)
@@ -620,12 +359,12 @@ func (s *SessionSuite) TestIncomingNotInSessionTime() {
 		s.SetupTest()
 
 		s.session.State = test.before
-		s.session.initiateLogon = test.initiateLogon
+		s.session.InitiateLogon = test.initiateLogon
 		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
 		now := time.Now().UTC()
-		s.session.sessionTime = internal.NewUTCTimeRange(
+		s.session.SessionTime = internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
 		)
@@ -665,7 +404,7 @@ func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
 		s.SetupTest()
 
 		s.session.State = test.before
-		s.session.initiateLogon = test.initiateLogon
+		s.session.InitiateLogon = test.initiateLogon
 		s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 		s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
@@ -674,7 +413,7 @@ func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
 		s.MockApp.AssertExpectations(s.T())
 
 		now := time.Now().UTC()
-		s.session.sessionTime = internal.NewUTCTimeRange(
+		s.session.SessionTime = internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
 		)
@@ -714,12 +453,12 @@ func (s *SessionSuite) TestTimeoutNotInSessionTime() {
 			s.SetupTest()
 
 			s.session.State = test.before
-			s.session.initiateLogon = test.initiateLogon
+			s.session.InitiateLogon = test.initiateLogon
 			s.Nil(s.session.store.IncrNextSenderMsgSeqNum())
 			s.Nil(s.session.store.IncrNextTargetMsgSeqNum())
 
 			now := time.Now().UTC()
-			s.session.sessionTime = internal.NewUTCTimeRange(
+			s.session.SessionTime = internal.NewUTCTimeRange(
 				internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 				internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
 			)
@@ -739,18 +478,18 @@ func (s *SessionSuite) TestTimeoutNotInSessionTime() {
 
 func (s *SessionSuite) TestOnAdminConnectInitiateLogon() {
 	adminMsg := connect{
-		messageOut:    s.Receiver.sendChannel,
-		initiateLogon: true,
+		messageOut: s.Receiver.sendChannel,
 	}
 	s.session.State = latentState{}
-	s.session.heartBtInt = time.Duration(45) * time.Second
+	s.session.HeartBtInt = time.Duration(45) * time.Second
 	s.session.store.IncrNextSenderMsgSeqNum()
+	s.session.InitiateLogon = true
 
 	s.MockApp.On("ToAdmin")
 	s.session.onAdmin(adminMsg)
 
 	s.MockApp.AssertExpectations(s.T())
-	s.True(s.session.initiateLogon)
+	s.True(s.session.InitiateLogon)
 	s.State(logonState{})
 	s.LastToAdminMessageSent()
 	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
@@ -761,11 +500,11 @@ func (s *SessionSuite) TestOnAdminConnectInitiateLogon() {
 
 func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
 	s.session.sessionID.BeginString = enum.BeginStringFIXT11
-	s.session.defaultApplVerID = "8"
+	s.session.DefaultApplVerID = "8"
+	s.session.InitiateLogon = true
 
 	adminMsg := connect{
-		messageOut:    s.Receiver.sendChannel,
-		initiateLogon: true,
+		messageOut: s.Receiver.sendChannel,
 	}
 	s.session.State = latentState{}
 
@@ -773,7 +512,7 @@ func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
 	s.session.onAdmin(adminMsg)
 
 	s.MockApp.AssertExpectations(s.T())
-	s.True(s.session.initiateLogon)
+	s.True(s.session.InitiateLogon)
 	s.State(logonState{})
 	s.LastToAdminMessageSent()
 	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
@@ -785,13 +524,13 @@ func (s *SessionSuite) TestOnAdminConnectRefreshOnLogon() {
 
 	for _, doRefresh := range tests {
 		s.SetupTest()
-		s.session.refreshOnLogon = doRefresh
+		s.session.RefreshOnLogon = doRefresh
 
 		adminMsg := connect{
-			messageOut:    s.Receiver.sendChannel,
-			initiateLogon: true,
+			messageOut: s.Receiver.sendChannel,
 		}
 		s.session.State = latentState{}
+		s.session.InitiateLogon = true
 
 		if doRefresh {
 			s.MockStore.On("Refresh").Return(nil)
@@ -811,7 +550,7 @@ func (s *SessionSuite) TestOnAdminConnectAccept() {
 	s.session.store.IncrNextSenderMsgSeqNum()
 
 	s.session.onAdmin(adminMsg)
-	s.False(s.session.initiateLogon)
+	s.False(s.session.InitiateLogon)
 	s.State(logonState{})
 	s.NoMessageSent()
 	s.NextSenderMsgSeqNum(2)
@@ -824,10 +563,10 @@ func (s *SessionSuite) TestOnAdminConnectNotInSession() {
 		s.SetupTest()
 		s.session.State = notSessionTime{}
 		s.session.store.IncrNextSenderMsgSeqNum()
+		s.session.InitiateLogon = doInitiateLogon
 
 		adminMsg := connect{
-			messageOut:    s.Receiver.sendChannel,
-			initiateLogon: doInitiateLogon,
+			messageOut: s.Receiver.sendChannel,
 		}
 
 		s.session.onAdmin(adminMsg)

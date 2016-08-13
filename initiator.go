@@ -3,13 +3,9 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
-	"fmt"
 	"net"
-	"strconv"
 	"sync"
 	"time"
-
-	"github.com/quickfixgo/quickfix/config"
 )
 
 //Initiator initiates connections and processes messages for all sessions.
@@ -23,46 +19,28 @@ type Initiator struct {
 	stopChan        chan interface{}
 	wg              sync.WaitGroup
 	sessions        map[SessionID]*session
+	sessionFactory
 }
 
 //Start Initiator.
-func (i *Initiator) Start() error {
+func (i *Initiator) Start() (err error) {
 	i.stopChan = make(chan interface{})
 
-	for sessionID, s := range i.sessionSettings {
-		socketConnectHost, err := s.Setting(config.SocketConnectHost)
-		if err != nil {
-			return fmt.Errorf("error on SocketConnectHost: %v", err)
-		}
-
-		socketConnectPort, err := s.IntSetting(config.SocketConnectPort)
-		if err != nil {
-			return fmt.Errorf("error on SocketConnectPort: %v", err)
-		}
-
-		reconnectInterval := 30 // Default configuration (in seconds)
-		if s.HasSetting(config.ReconnectInterval) {
-			if reconnectInterval, err = s.IntSetting(config.ReconnectInterval); err != nil {
-				return fmt.Errorf("error on ReconnectInterval: %v", err)
-			} else if reconnectInterval <= 0 {
-				return fmt.Errorf("ReconnectInterval must be greater than zero")
-			}
-		}
-
+	for sessionID, settings := range i.sessionSettings {
+		//TODO: move into session factory
 		var tlsConfig *tls.Config
-		if tlsConfig, err = loadTLSConfig(i.settings); err != nil {
-			return err
+		if tlsConfig, err = loadTLSConfig(settings); err != nil {
+			return
 		}
-		address := net.JoinHostPort(socketConnectHost, strconv.Itoa(socketConnectPort))
 
 		i.wg.Add(1)
 		go func(sessID SessionID) {
-			i.handleConnection(address, i.sessions[sessID], time.Duration(reconnectInterval)*time.Second, tlsConfig)
+			i.handleConnection(i.sessions[sessID], tlsConfig)
 			i.wg.Done()
 		}(sessionID)
 	}
 
-	return nil
+	return
 }
 
 //Stop Initiator.
@@ -80,6 +58,7 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 		sessionSettings: appSettings.SessionSettings(),
 		logFactory:      logFactory,
 		sessions:        make(map[SessionID]*session),
+		sessionFactory:  sessionFactory{true},
 	}
 
 	var err error
@@ -89,21 +68,7 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 	}
 
 	for sessionID, s := range i.sessionSettings {
-
-		//fail fast
-		if _, err := s.Setting(config.SocketConnectHost); err != nil {
-			return nil, err
-		}
-
-		if _, err := s.Setting(config.SocketConnectPort); err != nil {
-			return nil, err
-		}
-
-		if _, err := s.IntSetting(config.HeartBtInt); err != nil {
-			return nil, err
-		}
-
-		session, err := createSession(sessionID, storeFactory, s, logFactory, app)
+		session, err := i.createSession(sessionID, storeFactory, s, logFactory, app)
 		if err != nil {
 			return nil, err
 		}
@@ -142,7 +107,7 @@ func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bo
 	return true
 }
 
-func (i *Initiator) handleConnection(address string, session *session, reconnectInterval time.Duration, tlsConfig *tls.Config) {
+func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -166,7 +131,7 @@ func (i *Initiator) handleConnection(address string, session *session, reconnect
 
 		var netConn net.Conn
 		if tlsConfig != nil {
-			tlsConn, err := tls.Dial("tcp", address, tlsConfig)
+			tlsConn, err := tls.Dial("tcp", session.SocketConnectAddress, tlsConfig)
 			if err != nil {
 				session.log.OnEventf("Failed to connect: %v", err)
 				goto reconnect
@@ -180,7 +145,7 @@ func (i *Initiator) handleConnection(address string, session *session, reconnect
 			netConn = tlsConn
 		} else {
 			var err error
-			netConn, err = net.Dial("tcp", address)
+			netConn, err = net.Dial("tcp", session.SocketConnectAddress)
 			if err != nil {
 				session.log.OnEventf("Failed to connect: %v", err)
 				goto reconnect
@@ -189,7 +154,7 @@ func (i *Initiator) handleConnection(address string, session *session, reconnect
 
 		msgIn = make(chan fixIn)
 		msgOut = make(chan []byte)
-		if err := session.initiate(msgIn, msgOut); err != nil {
+		if err := session.connect(msgIn, msgOut); err != nil {
 			session.log.OnEventf("Failed to initiate: %v", err)
 			goto reconnect
 		}
@@ -211,8 +176,8 @@ func (i *Initiator) handleConnection(address string, session *session, reconnect
 		}
 
 	reconnect:
-		session.log.OnEventf("%v Reconnecting in %v", session.sessionID, reconnectInterval)
-		if !i.waitForReconnectInterval(reconnectInterval) {
+		session.log.OnEventf("%v Reconnecting in %v", session.sessionID, session.ReconnectInterval)
+		if !i.waitForReconnectInterval(session.ReconnectInterval) {
 			return
 		}
 	}
