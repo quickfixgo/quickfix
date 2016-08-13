@@ -42,7 +42,7 @@ func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 
 	var err error
 	if logFactory.globalLogPath, err = settings.GlobalSettings().Setting(config.FileLogPath); err != nil {
-		return logFactory, requiredConfigurationMissing(config.FileLogPath)
+		return logFactory, err
 	}
 
 	logFactory.sessionLogPaths = make(map[SessionID]string)
@@ -50,7 +50,7 @@ func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 	for sid, sessionSettings := range settings.SessionSettings() {
 		logPath, err := sessionSettings.Setting(config.FileLogPath)
 		if err != nil {
-			return logFactory, requiredConfigurationMissing(config.FileLogPath)
+			return logFactory, err
 		}
 		logFactory.sessionLogPaths[sid] = logPath
 	}

@@ -102,7 +102,7 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 
 	if sessionID.IsFIXT() {
 		if session.defaultApplVerID, err = settings.Setting(config.DefaultApplVerID); err != nil {
-			return session, requiredConfigurationMissing(config.DefaultApplVerID)
+			return session, err
 		}
 
 		if applVerID, ok := applVerIDLookup[session.defaultApplVerID]; ok {
@@ -110,26 +110,28 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 		}
 
 		//If the transport or app data dictionary setting is set, the other also needs to be set.
-		hasTransportDataDictionary := settings.HasSetting(config.TransportDataDictionary)
-		hasAppDataDictionary := settings.HasSetting(config.AppDataDictionary)
-		if hasTransportDataDictionary && hasAppDataDictionary {
-			transportDataDictionaryPath, _ := settings.Setting(config.TransportDataDictionary)
+		if settings.HasSetting(config.TransportDataDictionary) || settings.HasSetting(config.AppDataDictionary) {
+			transportDataDictionaryPath, err := settings.Setting(config.TransportDataDictionary)
+			if err != nil {
+				return session, err
+			}
+
 			transportDataDictionary, err := datadictionary.Parse(transportDataDictionaryPath)
 			if err != nil {
 				return session, err
 			}
 
-			appDataDictionaryPath, _ := settings.Setting(config.AppDataDictionary)
+			appDataDictionaryPath, err := settings.Setting(config.AppDataDictionary)
+			if err != nil {
+				return session, err
+			}
+
 			appDataDictionary, err := datadictionary.Parse(appDataDictionaryPath)
 			if err != nil {
 				return session, err
 			}
 
 			session.validator = &fixtValidator{transportDataDictionary, appDataDictionary, validatorSettings}
-		} else if hasTransportDataDictionary {
-			return session, requiredConfigurationMissing(config.AppDataDictionary)
-		} else if hasAppDataDictionary {
-			return session, requiredConfigurationMissing(config.TransportDataDictionary)
 		}
 	} else {
 		var dataDictionary *datadictionary.DataDictionary
@@ -170,10 +172,7 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 		}
 	}
 
-	switch {
-	case !settings.HasSetting(config.StartTime) && !settings.HasSetting(config.EndTime):
-	//no session times
-	case settings.HasSetting(config.StartTime) && settings.HasSetting(config.EndTime):
+	if settings.HasSetting(config.StartTime) || settings.HasSetting(config.EndTime) {
 		var startTimeStr, endTimeStr string
 		if startTimeStr, err = settings.Setting(config.StartTime); err != nil {
 			return session, err
@@ -185,12 +184,12 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 
 		start, err := internal.ParseTimeOfDay(startTimeStr)
 		if err != nil {
-			return session, err
+			return session, IncorrectFormatForSetting{Setting: config.StartTime, Value: startTimeStr, Err: err}
 		}
 
 		end, err := internal.ParseTimeOfDay(endTimeStr)
 		if err != nil {
-			return session, err
+			return session, IncorrectFormatForSetting{Setting: config.EndTime, Value: endTimeStr, Err: err}
 		}
 
 		loc := time.UTC
@@ -202,15 +201,13 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 
 			loc, err = time.LoadLocation(locStr)
 			if err != nil {
-				return session, err
+				return session, IncorrectFormatForSetting{Setting: config.TimeZone, Value: locStr, Err: err}
 			}
 		}
 
-		switch {
-		case !settings.HasSetting(config.StartDay) && !settings.HasSetting(config.EndDay):
+		if !settings.HasSetting(config.StartDay) && !settings.HasSetting(config.EndDay) {
 			session.sessionTime = internal.NewTimeRangeInLocation(start, end, loc)
-
-		case settings.HasSetting(config.StartDay) && settings.HasSetting(config.EndDay):
+		} else {
 			var startDayStr, endDayStr string
 			if startDayStr, err = settings.Setting(config.StartDay); err != nil {
 				return session, err
@@ -220,35 +217,26 @@ func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings 
 				return session, err
 			}
 
-			parseDay := func(dayStr string) (day time.Weekday, err error) {
+			parseDay := func(setting, dayStr string) (day time.Weekday, err error) {
 				day, ok := dayLookup[dayStr]
 				if !ok {
-					err = fmt.Errorf("Cannot parse %v", dayStr)
+					return day, IncorrectFormatForSetting{Setting: setting, Value: dayStr}
 				}
 				return
 			}
 
-			startDay, err := parseDay(startDayStr)
+			startDay, err := parseDay(config.StartDay, startDayStr)
 			if err != nil {
 				return session, err
 			}
 
-			endDay, err := parseDay(endDayStr)
+			endDay, err := parseDay(config.EndDay, endDayStr)
 			if err != nil {
 				return session, err
 			}
 
 			session.sessionTime = internal.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
-		case settings.HasSetting(config.StartDay):
-			return session, requiredConfigurationMissing(config.EndDay)
-		case settings.HasSetting(config.EndDay):
-			return session, requiredConfigurationMissing(config.StartDay)
 		}
-
-	case settings.HasSetting(config.StartTime):
-		return session, requiredConfigurationMissing(config.EndTime)
-	case settings.HasSetting(config.EndTime):
-		return session, requiredConfigurationMissing(config.StartTime)
 	}
 
 	if session.log, err = logFactory.CreateSessionLog(session.sessionID); err != nil {

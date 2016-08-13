@@ -91,16 +91,16 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 	for sessionID, s := range i.sessionSettings {
 
 		//fail fast
-		if ok := s.HasSetting(config.SocketConnectHost); !ok {
-			return nil, requiredConfigurationMissing(config.SocketConnectHost)
+		if _, err := s.Setting(config.SocketConnectHost); err != nil {
+			return nil, err
 		}
 
-		if ok := s.HasSetting(config.SocketConnectPort); !ok {
-			return nil, requiredConfigurationMissing(config.SocketConnectPort)
+		if _, err := s.Setting(config.SocketConnectPort); err != nil {
+			return nil, err
 		}
 
-		if ok := s.HasSetting(config.HeartBtInt); !ok {
-			return nil, requiredConfigurationMissing(config.HeartBtInt)
+		if _, err := s.IntSetting(config.HeartBtInt); err != nil {
+			return nil, err
 		}
 
 		session, err := createSession(sessionID, storeFactory, s, logFactory, app)
