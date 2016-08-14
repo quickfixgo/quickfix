@@ -175,6 +175,14 @@ SocketConnectHost
 
 Host to connect to. Only used for initiators. Value must be a valid IPv4 or IPv6 address or a domain name
 
+SocketConnectPort<n>
+
+Alternate socket ports for connecting to a session for failover, where n is a positive integer. (i.e.) SocketConnectPort1, SocketConnectPort2... must be consecutive and have a matching SocketConnectHost[n]. Value must be a positive integer.
+
+SocketConnectHost<n>
+
+Alternate socket hosts for connecting to a session for failover, where n is a positive integer. (i.e.) SocketConnectHost1, SocketConnectHost2... must be consecutive and have a matching SocketConnectPort[n]. Value must be a valid IPv4 or IPv6 address or a domain name
+
 SocketAcceptHost
 
 Socket host address for listening on incoming connections, only used for acceptors. By default acceptors listen on all available interfaces.

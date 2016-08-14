@@ -120,6 +120,8 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config) {
 		wg.Wait()
 	}()
 
+	connectionAttempt := 0
+
 	for {
 		if !i.waitForInSessionTime(session) {
 			return
@@ -129,9 +131,12 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config) {
 		var msgIn chan fixIn
 		var msgOut chan []byte
 
+		address := session.SocketConnectAddress[connectionAttempt%len(session.SocketConnectAddress)]
+		session.log.OnEventf("Connecting to: %v", address)
+
 		var netConn net.Conn
 		if tlsConfig != nil {
-			tlsConn, err := tls.Dial("tcp", session.SocketConnectAddress, tlsConfig)
+			tlsConn, err := tls.Dial("tcp", address, tlsConfig)
 			if err != nil {
 				session.log.OnEventf("Failed to connect: %v", err)
 				goto reconnect
@@ -145,7 +150,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config) {
 			netConn = tlsConn
 		} else {
 			var err error
-			netConn, err = net.Dial("tcp", session.SocketConnectAddress)
+			netConn, err = net.Dial("tcp", address)
 			if err != nil {
 				session.log.OnEventf("Failed to connect: %v", err)
 				goto reconnect
@@ -176,7 +181,8 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config) {
 		}
 
 	reconnect:
-		session.log.OnEventf("%v Reconnecting in %v", session.sessionID, session.ReconnectInterval)
+		connectionAttempt++
+		session.log.OnEventf("Reconnecting in %v", session.ReconnectInterval)
 		if !i.waitForReconnectInterval(session.ReconnectInterval) {
 			return
 		}

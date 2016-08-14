@@ -3,6 +3,7 @@ package quickfix
 import (
 	"errors"
 	"net"
+	"strconv"
 	"time"
 
 	"github.com/quickfixgo/quickfix/config"
@@ -255,17 +256,36 @@ func (f sessionFactory) buildInitiatorSettings(session *session, settings *Sessi
 		session.ReconnectInterval = time.Duration(interval) * time.Second
 	}
 
-	socketConnectHost, err := settings.Setting(config.SocketConnectHost)
-	if err != nil {
-		return err
+	return f.configureSocketConnectAddress(session, settings)
+}
+
+func (f sessionFactory) configureSocketConnectAddress(session *session, settings *SessionSettings) (err error) {
+	session.SocketConnectAddress = []string{}
+
+	var socketConnectHost, socketConnectPort string
+	for i := 0; ; {
+
+		hostConfig := config.SocketConnectHost
+		portConfig := config.SocketConnectPort
+
+		if i > 0 {
+			hostConfig = hostConfig + strconv.Itoa(i)
+			portConfig = portConfig + strconv.Itoa(i)
+
+			if !(settings.HasSetting(hostConfig) || settings.HasSetting(portConfig)) {
+				return
+			}
+		}
+
+		if socketConnectHost, err = settings.Setting(hostConfig); err != nil {
+			return
+		}
+
+		if socketConnectPort, err = settings.Setting(portConfig); err != nil {
+			return
+		}
+
+		session.SocketConnectAddress = append(session.SocketConnectAddress, net.JoinHostPort(socketConnectHost, socketConnectPort))
+		i++
 	}
-
-	socketConnectPort, err := settings.Setting(config.SocketConnectPort)
-	if err != nil {
-		return err
-	}
-
-	session.SocketConnectAddress = net.JoinHostPort(socketConnectHost, socketConnectPort)
-
-	return nil
 }

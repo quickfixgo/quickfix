@@ -16,5 +16,5 @@ type SessionSettings struct {
 
 	//specific to initiators
 	ReconnectInterval    time.Duration
-	SocketConnectAddress string
+	SocketConnectAddress []string
 }
