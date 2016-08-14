@@ -284,7 +284,7 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiators() {
 	s.True(session.InitiateLogon)
 	s.Equal(34*time.Second, session.HeartBtInt)
 	s.Equal(30*time.Second, session.ReconnectInterval)
-	s.Equal("127.0.0.1:5000", session.SocketConnectAddress)
+	s.Equal("127.0.0.1:5000", session.SocketConnectAddress[0])
 }
 
 func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsValidHeartBtInt() {
@@ -330,40 +330,68 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsValidReconnectInterva
 	s.NotNil(err, "ReconnectInterval must be greater than zero")
 }
 
-func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsSocketConnectHostAndPort() {
-	s.sessionFactory.BuildInitiators = true
-
-	s.SessionSettings.Set(config.HeartBtInt, "34")
-
-	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+func (s *SessionFactorySuite) TestConfigureSocketConnectAddress() {
+	sess := new(session)
+	err := s.configureSocketConnectAddress(sess, s.SessionSettings)
 	s.NotNil(err, "SocketConnectHost and SocketConnectPort should be required")
 
 	s.SessionSettings.Set(config.SocketConnectHost, "127.0.0.1")
-	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	err = s.configureSocketConnectAddress(sess, s.SessionSettings)
 	s.NotNil(err, "SocketConnectHost and SocketConnectPort should be required")
 
 	s.SessionSettings = NewSessionSettings()
-	s.SessionSettings.Set(config.HeartBtInt, "34")
-
 	s.SessionSettings.Set(config.SocketConnectPort, "5000")
-	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	err = s.configureSocketConnectAddress(sess, s.SessionSettings)
 	s.NotNil(err, "SocketConnectHost and SocketConnectPort should be required")
 
+	var tests = []struct{ host, port, expected string }{
+		{"127.0.0.1", "3000", "127.0.0.1:3000"},
+		{"example.com", "5000", "example.com:5000"},
+		{"2001:db8:a0b:12f0::1", "3001", "[2001:db8:a0b:12f0::1]:3001"},
+	}
+
+	for _, test := range tests {
+		sess = new(session)
+		s.SessionSettings.Set(config.SocketConnectHost, test.host)
+		s.SessionSettings.Set(config.SocketConnectPort, test.port)
+		err = s.configureSocketConnectAddress(sess, s.SessionSettings)
+		s.Nil(err)
+		s.Len(sess.SocketConnectAddress, 1)
+		s.Equal(test.expected, sess.SocketConnectAddress[0])
+	}
+}
+
+func (s *SessionFactorySuite) TestConfigureSocketConnectAddressMulti() {
+	session := new(session)
 	s.SessionSettings.Set(config.SocketConnectHost, "127.0.0.1")
 	s.SessionSettings.Set(config.SocketConnectPort, "3000")
-	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.Nil(err)
-	s.Equal("127.0.0.1:3000", session.SocketConnectAddress)
 
-	s.SessionSettings.Set(config.SocketConnectHost, "example.com")
-	s.SessionSettings.Set(config.SocketConnectPort, "3000")
-	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.Nil(err)
-	s.Equal("example.com:3000", session.SocketConnectAddress)
+	s.SessionSettings.Set(config.SocketConnectHost+"1", "127.0.0.2")
+	s.SessionSettings.Set(config.SocketConnectPort+"1", "4000")
 
-	s.SessionSettings.Set(config.SocketConnectHost, "2001:db8:a0b:12f0::1")
-	s.SessionSettings.Set(config.SocketConnectPort, "3000")
-	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
-	s.Nil(err)
-	s.Equal("[2001:db8:a0b:12f0::1]:3000", session.SocketConnectAddress)
+	s.SessionSettings.Set(config.SocketConnectHost+"2", "127.0.0.3")
+	s.SessionSettings.Set(config.SocketConnectPort+"2", "5000")
+
+	err := s.configureSocketConnectAddress(session, s.SessionSettings)
+	s.Require().Nil(err)
+	s.Require().Len(session.SocketConnectAddress, 3)
+	var tests = []string{
+		"127.0.0.1:3000",
+		"127.0.0.2:4000",
+		"127.0.0.3:5000",
+	}
+
+	for i, expected := range tests {
+		s.Equal(expected, session.SocketConnectAddress[i])
+	}
+
+	s.SessionSettings.Set(config.SocketConnectHost+"3", "127.0.0.4")
+	err = s.configureSocketConnectAddress(session, s.SessionSettings)
+	s.NotNil(err, "must have both host and port to be valid")
+
+	s.SessionSettings.Set(config.SocketConnectPort+"3", "5000")
+	s.SessionSettings.Set(config.SocketConnectPort+"4", "5000")
+
+	err = s.configureSocketConnectAddress(session, s.SessionSettings)
+	s.NotNil(err, "must have both host and port to be valid")
 }
