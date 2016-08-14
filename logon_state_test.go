@@ -34,7 +34,7 @@ func (s *LogonStateTestSuite) TestTimeoutLogonTimeout() {
 }
 
 func (s *LogonStateTestSuite) TestTimeoutLogonTimeoutInitiatedLogon() {
-	s.session.initiateLogon = true
+	s.session.InitiateLogon = true
 
 	s.MockApp.On("OnLogout")
 	s.Timeout(s.session, internal.LogonTimeout)
@@ -81,7 +81,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.MockApp.AssertExpectations(s.T())
 
 	s.State(inSession{})
-	s.Equal(32*time.Second, s.session.heartBtInt)
+	s.Equal(32*time.Second, s.session.HeartBtInt)
 
 	s.LastToAdminMessageSent()
 	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
@@ -92,7 +92,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
-	s.session.initiateLogon = true
+	s.session.InitiateLogon = true
 	s.store.IncrNextSenderMsgSeqNum()
 	s.MessageFactory.seqNum = 1
 	s.store.IncrNextTargetMsgSeqNum()
@@ -116,7 +116,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonRefreshOnLogon() {
 
 	for _, doRefresh := range tests {
 		s.SetupTest()
-		s.session.refreshOnLogon = doRefresh
+		s.session.RefreshOnLogon = doRefresh
 
 		logon := s.Logon()
 		logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -138,7 +138,7 @@ func (s *LogonStateTestSuite) TestStop() {
 
 	for _, doInitiateLogon := range tests {
 		s.SetupTest()
-		s.session.initiateLogon = doInitiateLogon
+		s.session.InitiateLogon = doInitiateLogon
 
 		if doInitiateLogon {
 			s.MockApp.On("OnLogout")

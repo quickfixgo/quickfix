@@ -64,7 +64,7 @@ func (state inSession) Timeout(session *session, event internal.Event) (nextStat
 			return handleStateError(session, err)
 		}
 		session.log.OnEvent("Sent test request TEST")
-		session.peerTimer.Reset(time.Duration(float64(1.2) * float64(session.heartBtInt)))
+		session.peerTimer.Reset(time.Duration(float64(1.2) * float64(session.HeartBtInt)))
 		return pendingTimeout{state}
 	}
 
@@ -91,7 +91,7 @@ func (state inSession) handleLogout(session *session, msg Message) (nextState se
 		session.logError(err)
 	}
 
-	if session.resetOnLogout {
+	if session.ResetOnLogout {
 		if err := session.dropAndReset(); err != nil {
 			session.logError(err)
 		}

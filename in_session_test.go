@@ -49,7 +49,7 @@ func (s *InSessionTestSuite) TestLogout() {
 }
 
 func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
-	s.session.resetOnLogout = true
+	s.session.ResetOnLogout = true
 
 	s.MockApp.On("ToApp").Return(nil)
 	s.Nil(s.queueForSend(s.NewOrderSingle()))

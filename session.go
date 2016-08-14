@@ -6,8 +6,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 )
@@ -33,21 +31,14 @@ type session struct {
 	application  Application
 	validator
 	stateMachine
-	stateTimer     internal.EventTimer
-	peerTimer      internal.EventTimer
-	messageStash   map[int]Message
-	resetOnLogon   bool
-	refreshOnLogon bool
-	resetOnLogout  bool
-	initiateLogon  bool
-	heartBtInt     time.Duration
+	stateTimer   internal.EventTimer
+	peerTimer    internal.EventTimer
+	messageStash map[int]Message
 
-	//required on logon for FIX.T.1 messages
-	defaultApplVerID       string
 	targetDefaultApplVerID string
 
-	sessionTime *internal.TimeRange
-	admin       chan interface{}
+	admin chan interface{}
+	internal.SessionSettings
 }
 
 func (s *session) logError(err error) {
@@ -60,261 +51,20 @@ func (s *session) TargetDefaultApplicationVersionID() string {
 	return s.targetDefaultApplVerID
 }
 
-var dayLookup = map[string]time.Weekday{
-	"Sunday":    time.Sunday,
-	"Monday":    time.Monday,
-	"Tuesday":   time.Tuesday,
-	"Wednesday": time.Wednesday,
-	"Thursday":  time.Thursday,
-	"Friday":    time.Friday,
-	"Saturday":  time.Saturday,
-
-	"Sun": time.Sunday,
-	"Mon": time.Monday,
-	"Tue": time.Tuesday,
-	"Wed": time.Wednesday,
-	"Thu": time.Thursday,
-	"Fri": time.Friday,
-	"Sat": time.Saturday,
-}
-
-var applVerIDLookup = map[string]string{
-	enum.BeginStringFIX40: "2",
-	enum.BeginStringFIX41: "3",
-	enum.BeginStringFIX42: "4",
-	enum.BeginStringFIX43: "5",
-	enum.BeginStringFIX44: "6",
-	"FIX.5.0":             "7",
-	"FIX.5.0SP1":          "8",
-	"FIX.5.0SP2":          "9",
-}
-
-func newSession(sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory, application Application) (*session, error) {
-	session := &session{sessionID: sessionID}
-
-	var err error
-	var validatorSettings = defaultValidatorSettings
-	if settings.HasSetting(config.ValidateFieldsOutOfOrder) {
-		if validatorSettings.CheckFieldsOutOfOrder, err = settings.BoolSetting(config.ValidateFieldsOutOfOrder); err != nil {
-			return session, err
-		}
-	}
-
-	if sessionID.IsFIXT() {
-		if session.defaultApplVerID, err = settings.Setting(config.DefaultApplVerID); err != nil {
-			return session, requiredConfigurationMissing(config.DefaultApplVerID)
-		}
-
-		if applVerID, ok := applVerIDLookup[session.defaultApplVerID]; ok {
-			session.defaultApplVerID = applVerID
-		}
-
-		//If the transport or app data dictionary setting is set, the other also needs to be set.
-		hasTransportDataDictionary := settings.HasSetting(config.TransportDataDictionary)
-		hasAppDataDictionary := settings.HasSetting(config.AppDataDictionary)
-		if hasTransportDataDictionary && hasAppDataDictionary {
-			transportDataDictionaryPath, _ := settings.Setting(config.TransportDataDictionary)
-			transportDataDictionary, err := datadictionary.Parse(transportDataDictionaryPath)
-			if err != nil {
-				return session, err
-			}
-
-			appDataDictionaryPath, _ := settings.Setting(config.AppDataDictionary)
-			appDataDictionary, err := datadictionary.Parse(appDataDictionaryPath)
-			if err != nil {
-				return session, err
-			}
-
-			session.validator = &fixtValidator{transportDataDictionary, appDataDictionary, validatorSettings}
-		} else if hasTransportDataDictionary {
-			return session, requiredConfigurationMissing(config.AppDataDictionary)
-		} else if hasAppDataDictionary {
-			return session, requiredConfigurationMissing(config.TransportDataDictionary)
-		}
-	} else {
-		var dataDictionary *datadictionary.DataDictionary
-		if dataDictionaryPath, err := settings.Setting(config.DataDictionary); err == nil {
-			if dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
-				return session, err
-			}
-
-			session.validator = &fixValidator{dataDictionary, validatorSettings}
-		}
-	}
-
-	if settings.HasSetting(config.ResetOnLogon) {
-		if session.resetOnLogon, err = settings.BoolSetting(config.ResetOnLogon); err != nil {
-			return session, err
-		}
-	}
-
-	if settings.HasSetting(config.RefreshOnLogon) {
-		if session.refreshOnLogon, err = settings.BoolSetting(config.RefreshOnLogon); err != nil {
-			return session, err
-		}
-	}
-
-	if settings.HasSetting(config.ResetOnLogout) {
-		if session.resetOnLogout, err = settings.BoolSetting(config.ResetOnLogout); err != nil {
-			return session, err
-		}
-	}
-
-	if settings.HasSetting(config.HeartBtInt) {
-		if heartBtInt, err := settings.IntSetting(config.HeartBtInt); err != nil {
-			return session, err
-		} else if heartBtInt <= 0 {
-			return session, fmt.Errorf("Heartbeat must be greater than zero")
-		} else {
-			session.heartBtInt = time.Duration(heartBtInt) * time.Second
-		}
-	}
-
-	switch {
-	case !settings.HasSetting(config.StartTime) && !settings.HasSetting(config.EndTime):
-	//no session times
-	case settings.HasSetting(config.StartTime) && settings.HasSetting(config.EndTime):
-		var startTimeStr, endTimeStr string
-		if startTimeStr, err = settings.Setting(config.StartTime); err != nil {
-			return session, err
-		}
-
-		if endTimeStr, err = settings.Setting(config.EndTime); err != nil {
-			return session, err
-		}
-
-		start, err := internal.ParseTimeOfDay(startTimeStr)
-		if err != nil {
-			return session, err
-		}
-
-		end, err := internal.ParseTimeOfDay(endTimeStr)
-		if err != nil {
-			return session, err
-		}
-
-		loc := time.UTC
-		if settings.HasSetting(config.TimeZone) {
-			locStr, err := settings.Setting(config.TimeZone)
-			if err != nil {
-				return session, err
-			}
-
-			loc, err = time.LoadLocation(locStr)
-			if err != nil {
-				return session, err
-			}
-		}
-
-		switch {
-		case !settings.HasSetting(config.StartDay) && !settings.HasSetting(config.EndDay):
-			session.sessionTime = internal.NewTimeRangeInLocation(start, end, loc)
-
-		case settings.HasSetting(config.StartDay) && settings.HasSetting(config.EndDay):
-			var startDayStr, endDayStr string
-			if startDayStr, err = settings.Setting(config.StartDay); err != nil {
-				return session, err
-			}
-
-			if endDayStr, err = settings.Setting(config.EndDay); err != nil {
-				return session, err
-			}
-
-			parseDay := func(dayStr string) (day time.Weekday, err error) {
-				day, ok := dayLookup[dayStr]
-				if !ok {
-					err = fmt.Errorf("Cannot parse %v", dayStr)
-				}
-				return
-			}
-
-			startDay, err := parseDay(startDayStr)
-			if err != nil {
-				return session, err
-			}
-
-			endDay, err := parseDay(endDayStr)
-			if err != nil {
-				return session, err
-			}
-
-			session.sessionTime = internal.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
-		case settings.HasSetting(config.StartDay):
-			return session, requiredConfigurationMissing(config.EndDay)
-		case settings.HasSetting(config.EndDay):
-			return session, requiredConfigurationMissing(config.StartDay)
-		}
-
-	case settings.HasSetting(config.StartTime):
-		return session, requiredConfigurationMissing(config.EndTime)
-	case settings.HasSetting(config.EndTime):
-		return session, requiredConfigurationMissing(config.StartTime)
-	}
-
-	if session.log, err = logFactory.CreateSessionLog(session.sessionID); err != nil {
-		return session, err
-	}
-
-	if session.store, err = storeFactory.Create(session.sessionID); err != nil {
-		return session, err
-	}
-
-	session.sessionEvent = make(chan internal.Event)
-	session.messageEvent = make(chan bool, 1)
-	session.admin = make(chan interface{})
-	session.application = application
-	session.stateTimer = internal.EventTimer{Task: func() { session.sessionEvent <- internal.NeedHeartbeat }}
-	session.peerTimer = internal.EventTimer{Task: func() { session.sessionEvent <- internal.PeerTimeout }}
-	return session, nil
-}
-
-//Creates Session, associates with internal session registry
-func createSession(
-	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
-	logFactory LogFactory, application Application,
-) (session *session, err error) {
-
-	if session, err = newSession(sessionID, storeFactory, settings, logFactory, application); err != nil {
-		return
-	}
-
-	if err = registerSession(session); err != nil {
-		return
-	}
-	application.OnCreate(session.sessionID)
-	session.log.OnEvent("Created session")
-
-	return
-}
-
 type connect struct {
-	messageOut    chan<- []byte
-	messageIn     <-chan fixIn
-	initiateLogon bool
-	err           chan<- error
+	messageOut chan<- []byte
+	messageIn  <-chan fixIn
+	err        chan<- error
 }
 
-//kicks off session as an initiator
-func (s *session) initiate(msgIn <-chan fixIn, msgOut chan<- []byte) error {
-	rep := make(chan error)
-	s.admin <- connect{
-		messageOut:    msgOut,
-		messageIn:     msgIn,
-		initiateLogon: true,
-		err:           rep,
-	}
-
-	return <-rep
-}
-
-//kicks off session as an acceptor
-func (s *session) accept(msgIn chan fixIn, msgOut chan []byte) error {
+func (s *session) connect(msgIn <-chan fixIn, msgOut chan<- []byte) error {
 	rep := make(chan error)
 	s.admin <- connect{
 		messageOut: msgOut,
 		messageIn:  msgIn,
 		err:        rep,
 	}
+
 	return <-rep
 }
 
@@ -361,14 +111,14 @@ func (s *session) sendLogon(resetStore, setResetSeqNum bool) error {
 	logon.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
 	logon.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
 	logon.Body.SetField(tagEncryptMethod, FIXString("0"))
-	logon.Body.SetField(tagHeartBtInt, FIXInt(s.heartBtInt.Seconds()))
+	logon.Body.SetField(tagHeartBtInt, FIXInt(s.HeartBtInt.Seconds()))
 
 	if setResetSeqNum {
 		logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
 	}
 
-	if len(s.defaultApplVerID) > 0 {
-		logon.Body.SetField(tagDefaultApplVerID, FIXString(s.defaultApplVerID))
+	if len(s.DefaultApplVerID) > 0 {
+		logon.Body.SetField(tagDefaultApplVerID, FIXString(s.DefaultApplVerID))
 	}
 
 	if err := s.dropAndSend(logon, resetStore); err != nil {
@@ -527,7 +277,7 @@ func (s *session) dropQueued() {
 func (s *session) sendBytes(msg []byte) {
 	s.log.OnOutgoing(string(msg))
 	s.messageOut <- msg
-	s.stateTimer.Reset(s.heartBtInt)
+	s.stateTimer.Reset(s.HeartBtInt)
 }
 
 func (s *session) doTargetTooHigh(reject targetTooHigh) error {
@@ -565,13 +315,13 @@ func (s *session) handleLogon(msg Message) error {
 	}
 
 	resetStore := false
-	if s.initiateLogon {
+	if s.InitiateLogon {
 		s.log.OnEvent("Received logon response")
 	} else {
 		s.log.OnEvent("Received logon request")
-		resetStore = s.resetOnLogon
+		resetStore = s.ResetOnLogon
 
-		if s.refreshOnLogon {
+		if s.RefreshOnLogon {
 			if err := s.store.Refresh(); err != nil {
 				return err
 			}
@@ -596,10 +346,10 @@ func (s *session) handleLogon(msg Message) error {
 		return err
 	}
 
-	if !s.initiateLogon {
+	if !s.InitiateLogon {
 		var heartBtInt FIXInt
 		if err := msg.Body.GetField(tagHeartBtInt, &heartBtInt); err == nil {
-			s.heartBtInt = time.Duration(heartBtInt) * time.Second
+			s.HeartBtInt = time.Duration(heartBtInt) * time.Second
 		}
 
 		s.log.OnEvent("Responding to logon request")
@@ -608,7 +358,7 @@ func (s *session) handleLogon(msg Message) error {
 		}
 	}
 
-	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.heartBtInt)))
+	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.HeartBtInt)))
 	s.application.OnLogon(s.sessionID)
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
@@ -845,7 +595,6 @@ func (s *session) onAdmin(msg interface{}) {
 			close(msg.err)
 		}
 
-		s.initiateLogon = msg.initiateLogon
 		s.messageIn = msg.messageIn
 		s.messageOut = msg.messageOut
 		s.messageStash = make(map[int]Message)

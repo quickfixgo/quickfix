@@ -3,7 +3,6 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
-	"fmt"
 	"net"
 	"strconv"
 	"sync"
@@ -22,6 +21,7 @@ type Acceptor struct {
 	sessionGroup     sync.WaitGroup
 	listener         net.Listener
 	listenerShutdown sync.WaitGroup
+	sessionFactory
 }
 
 //Start accepting connections.
@@ -36,11 +36,11 @@ func (a *Acceptor) Start() error {
 
 	socketAcceptPort, err := a.settings.GlobalSettings().IntSetting(config.SocketAcceptPort)
 	if err != nil {
-		return fmt.Errorf("error fetching required SocketAcceptPort: %v", err)
+		return err
 	}
 
 	var tlsConfig *tls.Config
-	if tlsConfig, err = loadTLSConfig(a.settings); err != nil {
+	if tlsConfig, err = loadTLSConfig(a.settings.GlobalSettings()); err != nil {
 		return err
 	}
 
@@ -84,8 +84,8 @@ func (a *Acceptor) Stop() {
 }
 
 //NewAcceptor creates and initializes a new Acceptor.
-func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (*Acceptor, error) {
-	a := &Acceptor{
+func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (a *Acceptor, err error) {
+	a = &Acceptor{
 		app:          app,
 		storeFactory: storeFactory,
 		settings:     settings,
@@ -93,9 +93,8 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 		sessions:     make(map[SessionID]*session),
 	}
 
-	var err error
 	if a.globalLog, err = logFactory.Create(); err != nil {
-		return a, err
+		return
 	}
 
 	for sessionID, sessionSettings := range settings.SessionSettings() {
@@ -109,12 +108,12 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 			return a, errDuplicateSessionID
 		}
 
-		if a.sessions[sessID], err = createSession(sessionID, storeFactory, sessionSettings, logFactory, app); err != nil {
-			return a, err
+		if a.sessions[sessID], err = a.createSession(sessionID, storeFactory, sessionSettings, logFactory, app); err != nil {
+			return
 		}
 	}
 
-	return a, nil
+	return
 }
 
 func (a *Acceptor) listenForConnections() {
@@ -190,7 +189,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	msgIn := make(chan fixIn)
 	msgOut := make(chan []byte)
 
-	if err := session.accept(msgIn, msgOut); err != nil {
+	if err := session.connect(msgIn, msgOut); err != nil {
 		a.globalLog.OnEventf("Unable to accept %v", err.Error())
 		return
 	}

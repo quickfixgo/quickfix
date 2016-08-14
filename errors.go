@@ -145,8 +145,3 @@ func compIDProblem() MessageRejectError {
 func sendingTimeAccuracyProblem() MessageRejectError {
 	return NewMessageRejectError("SendingTime accuracy problem", rejectReasonSendingTimeAccuracyProblem, nil)
 }
-
-//requiredConfigurationMissing indicates a missing required conditional configuration option.
-func requiredConfigurationMissing(setting string) error {
-	return fmt.Errorf("missing configuration: %v", setting)
-}

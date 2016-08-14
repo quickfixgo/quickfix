@@ -1,7 +1,6 @@
 package quickfix
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"time"
@@ -10,6 +9,25 @@ import (
 //SessionSettings maps session settings to values with typed accessors.
 type SessionSettings struct {
 	settings map[string]string
+}
+
+//ConditionallyRequiredSetting indicates a missing setting
+type ConditionallyRequiredSetting struct {
+	Setting string
+}
+
+func (e ConditionallyRequiredSetting) Error() string {
+	return fmt.Sprintf("Conditionally Required Setting: %v", e.Setting)
+}
+
+//IncorrectFormatForSetting indicates a setting that is incorrectly formatted
+type IncorrectFormatForSetting struct {
+	Setting, Value string
+	Err            error
+}
+
+func (e IncorrectFormatForSetting) Error() string {
+	return fmt.Sprintf("%q is invalid for %s", e.Value, e.Setting)
 }
 
 //Init initializes or resets SessionSettings
@@ -45,24 +63,29 @@ func (s *SessionSettings) HasSetting(setting string) bool {
 func (s *SessionSettings) Setting(setting string) (string, error) {
 	val, ok := s.settings[setting]
 	if !ok {
-		return val, errors.New("setting not found")
+		return val, ConditionallyRequiredSetting{setting}
 	}
 
 	return val, nil
 }
 
 //IntSetting returns the requested setting parsed as an int.  Returns an errror if the setting is not set or cannot be parsed as an int.
-func (s *SessionSettings) IntSetting(setting string) (int, error) {
+func (s *SessionSettings) IntSetting(setting string) (val int, err error) {
 	stringVal, err := s.Setting(setting)
 
 	if err != nil {
-		return 0, err
+		return
 	}
 
-	return strconv.Atoi(stringVal)
+	if val, err = strconv.Atoi(stringVal); err != nil {
+		return val, IncorrectFormatForSetting{Setting: setting, Value: stringVal, Err: err}
+	}
+
+	return
 }
 
-//DurationSetting returns the requested setting parsed as a time.Duration.  Returns an error if the setting is not set or cannot be parsed as a time.Duration.
+//DurationSetting returns the requested setting parsed as a time.Duration.
+//Returns an error if the setting is not set or cannot be parsed as a time.Duration.
 func (s *SessionSettings) DurationSetting(setting string) (val time.Duration, err error) {
 	stringVal, err := s.Setting(setting)
 
@@ -70,7 +93,11 @@ func (s *SessionSettings) DurationSetting(setting string) (val time.Duration, er
 		return
 	}
 
-	return time.ParseDuration(stringVal)
+	if val, err = time.ParseDuration(stringVal); err != nil {
+		return val, IncorrectFormatForSetting{Setting: setting, Value: stringVal, Err: err}
+	}
+
+	return
 }
 
 //BoolSetting returns the requested setting parsed as a boolean.  Returns an errror if the setting is not set or cannot be parsed as a bool.
@@ -81,15 +108,14 @@ func (s SessionSettings) BoolSetting(setting string) (bool, error) {
 		return false, err
 	}
 
-	if stringVal == "Y" || stringVal == "y" {
+	switch stringVal {
+	case "Y", "y":
 		return true, nil
-	}
-
-	if stringVal == "N" || stringVal == "n" {
+	case "N", "n":
 		return false, nil
 	}
 
-	return false, fmt.Errorf("%v cannot be parsed as a bool", stringVal)
+	return false, IncorrectFormatForSetting{Setting: setting, Value: stringVal}
 }
 
 func (s *SessionSettings) overlay(overlay *SessionSettings) {
