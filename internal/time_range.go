@@ -73,10 +73,11 @@ func (r *TimeRange) isInTimeRange(t time.Time) bool {
 	t = t.In(r.loc)
 	ts := NewTimeOfDay(t.Clock()).d
 
-	if r.startTime.d > r.endTime.d {
-		return !(r.endTime.d < ts && ts < r.startTime.d)
+	if r.startTime.d < r.endTime.d {
+		return r.startTime.d <= ts && ts <= r.endTime.d
 	}
-	return r.startTime.d <= ts && ts <= r.endTime.d
+
+	return !(r.endTime.d < ts && ts < r.startTime.d)
 }
 
 func (r *TimeRange) isInWeekRange(t time.Time) bool {

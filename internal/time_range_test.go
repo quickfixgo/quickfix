@@ -126,6 +126,12 @@ func TestTimeRangeIsInRange(t *testing.T) {
 
 	now = time.Date(2016, time.August, 10, 3, 1, 0, 0, time.UTC)
 	assert.True(t, NewTimeRangeInLocation(start, end, loc).IsInRange(now))
+
+	start = NewTimeOfDay(0, 0, 0)
+	end = NewTimeOfDay(0, 0, 0)
+	now = time.Date(2016, time.August, 10, 18, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCTimeRange(start, end).IsInRange(now))
+
 }
 
 func TestTimeRangeIsInRangeWithDay(t *testing.T) {
@@ -299,6 +305,42 @@ func TestTimeRangeIsInSameRange(t *testing.T) {
 
 	var tr *TimeRange
 	assert.True(t, tr.IsInSameRange(time1, time2), "always in same range if time range is nil")
+
+	start = NewTimeOfDay(0, 0, 0)
+	end = NewTimeOfDay(0, 0, 0)
+	time1 = time.Date(2016, time.August, 10, 0, 0, 0, 0, time.UTC)
+	time2 = time.Date(2016, time.August, 11, 0, 0, 0, 0, time.UTC)
+	assert.False(t, NewTimeRangeInLocation(start, end, loc).IsInSameRange(time1, time2))
+	assert.False(t, NewTimeRangeInLocation(start, end, loc).IsInSameRange(time2, time1))
+
+	time1 = time.Date(2016, time.August, 10, 23, 59, 59, 0, time.UTC)
+	time2 = time.Date(2016, time.August, 11, 0, 0, 0, 0, time.UTC)
+	assert.False(t, NewUTCTimeRange(start, end).IsInSameRange(time1, time2))
+	assert.False(t, NewUTCTimeRange(start, end).IsInSameRange(time2, time1))
+
+	start = NewTimeOfDay(1, 49, 0)
+	end = NewTimeOfDay(1, 49, 0)
+	time1 = time.Date(2016, time.August, 16, 1, 48, 21, 0, time.UTC)
+	time2 = time.Date(2016, time.August, 16, 1, 49, 02, 0, time.UTC)
+
+	assert.False(t, NewUTCTimeRange(start, end).IsInSameRange(time1, time2))
+	assert.False(t, NewUTCTimeRange(start, end).IsInSameRange(time2, time1))
+
+	start = NewTimeOfDay(1, 49, 0)
+	end = NewTimeOfDay(1, 49, 0)
+	time1 = time.Date(2016, time.August, 16, 13, 48, 21, 0, time.UTC)
+	time2 = time.Date(2016, time.August, 16, 13, 49, 02, 0, time.UTC)
+
+	assert.True(t, NewUTCTimeRange(start, end).IsInSameRange(time1, time2))
+	assert.True(t, NewUTCTimeRange(start, end).IsInSameRange(time2, time1))
+
+	start = NewTimeOfDay(13, 49, 0)
+	end = NewTimeOfDay(13, 49, 0)
+	time1 = time.Date(2016, time.August, 16, 13, 48, 21, 0, time.UTC)
+	time2 = time.Date(2016, time.August, 16, 13, 49, 02, 0, time.UTC)
+
+	assert.False(t, NewUTCTimeRange(start, end).IsInSameRange(time1, time2))
+	assert.False(t, NewUTCTimeRange(start, end).IsInSameRange(time2, time1))
 }
 
 func TestTimeRangeIsInSameRangeWithDay(t *testing.T) {
