@@ -23,7 +23,7 @@ func (sm *stateMachine) Start(s *session) {
 
 func (sm *stateMachine) Connect(session *session) {
 	if !sm.IsSessionTime() {
-		session.log.OnEvent("Not in session")
+		session.log.OnEvent("Connection outside of session time")
 		sm.handleDisconnectState(session)
 		return
 	}
@@ -101,6 +101,10 @@ func (sm *stateMachine) Timeout(session *session, e internal.Event) {
 
 func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 	if !session.SessionTime.IsInRange(now) {
+		if sm.IsSessionTime() {
+			session.log.OnEvent("Not in session")
+		}
+
 		sm.State.ShutdownNow(session)
 		sm.setState(session, notSessionTime{})
 
@@ -111,11 +115,13 @@ func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 	}
 
 	if !sm.IsSessionTime() {
+		session.log.OnEvent("In session")
 		sm.notifyInSessionTime()
 		sm.setState(session, latentState{})
 	}
 
 	if !session.SessionTime.IsInSameRange(session.store.CreationTime(), now) {
+		session.log.OnEvent("Session reset")
 		sm.State.ShutdownNow(session)
 		if err := session.dropAndReset(); err != nil {
 			session.logError(err)
