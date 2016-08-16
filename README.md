@@ -32,11 +32,52 @@ See [examples](https://github.com/quickfixgo/examples) for some simple examples 
 Developing QuickFIX/Go
 ----------------------
 
-If you wish to work on QuickFIX/Go itself, you'll first need [Go](http://www.golang.org) installed on your machine.
+If you wish to work on QuickFIX/Go itself, you will first need [Go](http://www.golang.org) installed on your machine.
 
 ### Build and Test
 
 The default make target runs [go vet](https://godoc.org/golang.org/x/tools/cmd/vet) and unit tests.
+
+### Dependencies
+
+QuickFIX/Go stores its dependencies under `vendor/`, which Go 1.6+ automatically recognize and load.  We use [govendor](https://github.com/kardianos/govendor) to manage the vendored dependencies.
+
+
+If you are developing QuickFIX/Go, there are a few tasks you might need to perform.
+
+#### Adding a dependency
+
+If you are adding a dependency, you will need to vendor it in the same Pull Request as the code that depends on it. You should do this in a separate commit from your code, as this makes PR review easier and Git history simpler to read in the future.
+
+To add a dependency:
+
+Assuming your work is on a branch called `my-feature-branch`, the steps look like this:
+
+1. Add the new package to your GOPATH:
+
+    ```bash
+    go get github.com/quickfixgo/my-project
+    ```
+
+2.  Add the new package to your vendor/ directory:
+
+    ```bash
+    govendor add github.com/quickfixgo/my-project
+    ```
+
+3. Review the changes in git and commit them.
+
+#### Updating a dependency
+
+To update a dependency:
+
+1. Fetch the dependency:
+
+    ```bash
+    govendor fetch github.com/quickfixgo/my-project
+    ```
+
+2. Review the changes in git and commit them.
 
 ### Acceptance Tests
 

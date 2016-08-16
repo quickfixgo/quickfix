@@ -21,6 +21,5 @@ matrix:
     - go: tip
 
 install: 
-  - make get
 
 script: if [ -z "$FIX_TEST" ]; then make generate && make build && make; else make build_accept && make $FIX_TEST; fi
