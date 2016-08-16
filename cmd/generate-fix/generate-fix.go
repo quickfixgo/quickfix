@@ -66,7 +66,7 @@ func genHeader(pkg string, spec *datadictionary.DataDictionary) {
 		return
 	}
 
-	if err := internal.WriteFile(path.Join(pkg, "header.go"), writer.String()); err != nil {
+	if err := internal.WriteFile(path.Join(pkg, "header.generated.go"), writer.String()); err != nil {
 		errors <- err
 	}
 }
@@ -84,7 +84,7 @@ func genTrailer(pkg string, spec *datadictionary.DataDictionary) {
 		return
 	}
 
-	if err := internal.WriteFile(path.Join(pkg, "trailer.go"), writer.String()); err != nil {
+	if err := internal.WriteFile(path.Join(pkg, "trailer.generated.go"), writer.String()); err != nil {
 		errors <- err
 	}
 }
@@ -109,7 +109,7 @@ func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadic
 		return
 	}
 
-	if err := internal.WriteFile(path.Join(fixPkg, pkgName, msg.Name+".go"), writer.String()); err != nil {
+	if err := internal.WriteFile(path.Join(fixPkg, pkgName, msg.Name+".generated.go"), writer.String()); err != nil {
 		errors <- err
 	}
 }
@@ -123,7 +123,7 @@ func genTags() {
 		return
 	}
 
-	if err := internal.WriteFile("tag/tag_numbers.go", writer.String()); err != nil {
+	if err := internal.WriteFile("tag/tag_numbers.generated.go", writer.String()); err != nil {
 		errors <- err
 	}
 }
@@ -137,7 +137,7 @@ func genFields() {
 		return
 	}
 
-	if err := internal.WriteFile("field/fields.go", writer.String()); err != nil {
+	if err := internal.WriteFile("field/fields.generated.go", writer.String()); err != nil {
 		errors <- err
 	}
 }
@@ -151,7 +151,7 @@ func genEnums() {
 		return
 	}
 
-	if err := internal.WriteFile("enum/enums.go", writer.String()); err != nil {
+	if err := internal.WriteFile("enum/enums.generated.go", writer.String()); err != nil {
 		errors <- err
 	}
 }
