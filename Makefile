@@ -1,8 +1,5 @@
 all: vet test
 
-get:
-	go get -t -d ./...
-
 generate:
 	go run cmd/generate-fix/generate-fix.go spec/*.xml
 
@@ -10,19 +7,19 @@ fmt:
 	go fmt ./...
 
 vet:
-	go vet ./...
+	go vet $(go list ./... | grep -v /vendor)
 
 lint:
 	go get github.com/golang/lint/golint
 	golint .
 
-test: get
+test: 
 	go test -v -cover . ./datadictionary ./internal
 
-_build_all: get
+_build_all: 
 	go build -v ./...
 
-build_accept: get
+build_accept: 
 	cd _test; go build -o echo_server
 
 build: _build_all build_accept
