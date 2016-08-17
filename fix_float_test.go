@@ -51,6 +51,6 @@ func BenchmarkFloatRead(b *testing.B) {
 	val := []byte("15.1234")
 	for i := 0; i < b.N; i++ {
 		var field FIXFloat
-		field.Read(val)
+		_ = field.Read(val)
 	}
 }

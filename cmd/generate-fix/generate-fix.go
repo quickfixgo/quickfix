@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"text/template"
 
 	"github.com/quickfixgo/quickfix/cmd/generate-fix/internal"
 	"github.com/quickfixgo/quickfix/datadictionary"
@@ -53,48 +54,28 @@ type component struct {
 }
 
 func genHeader(pkg string, spec *datadictionary.DataDictionary) {
-	defer waitGroup.Done()
-	writer := new(bytes.Buffer)
 	c := component{
 		Package:    pkg,
 		Name:       "Header",
 		MessageDef: spec.Header,
 		FIXSpec:    spec,
 	}
-	if err := internal.HeaderTemplate.Execute(writer, c); err != nil {
-		errors <- err
-		return
-	}
-
-	if err := internal.WriteFile(path.Join(pkg, "header.generated.go"), writer.String()); err != nil {
-		errors <- err
-	}
+	gen(internal.HeaderTemplate, path.Join(pkg, "header.generated.go"), c)
 }
 
 func genTrailer(pkg string, spec *datadictionary.DataDictionary) {
-	defer waitGroup.Done()
-	writer := new(bytes.Buffer)
 	c := component{
 		Package:    pkg,
 		Name:       "Trailer",
 		MessageDef: spec.Trailer,
 	}
-	if err := internal.TrailerTemplate.Execute(writer, c); err != nil {
-		errors <- err
-		return
-	}
-
-	if err := internal.WriteFile(path.Join(pkg, "trailer.generated.go"), writer.String()); err != nil {
-		errors <- err
-	}
+	gen(internal.TrailerTemplate, path.Join(pkg, "trailer.generated.go"), c)
 }
 
 func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadictionary.MessageDef) {
-	defer waitGroup.Done()
 	pkgName := strings.ToLower(msg.Name)
 	transportPkg := getTransportPackageName(spec)
 
-	writer := new(bytes.Buffer)
 	c := component{
 		Package:          pkgName,
 		FIXPackage:       fixPkg,
@@ -104,54 +85,31 @@ func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadic
 		MessageDef:       msg,
 	}
 
-	if err := internal.MessageTemplate.Execute(writer, c); err != nil {
-		errors <- err
-		return
-	}
-
-	if err := internal.WriteFile(path.Join(fixPkg, pkgName, msg.Name+".generated.go"), writer.String()); err != nil {
-		errors <- err
-	}
+	gen(internal.MessageTemplate, path.Join(fixPkg, pkgName, msg.Name+".generated.go"), c)
 }
 
 func genTags() {
-	defer waitGroup.Done()
-	writer := new(bytes.Buffer)
-
-	if err := internal.TagTemplate.Execute(writer, internal.GlobalFieldTypes); err != nil {
-		errors <- err
-		return
-	}
-
-	if err := internal.WriteFile("tag/tag_numbers.generated.go", writer.String()); err != nil {
-		errors <- err
-	}
+	gen(internal.TagTemplate, "tag/tag_numbers.generated.go", internal.GlobalFieldTypes)
 }
 
 func genFields() {
-	defer waitGroup.Done()
-	writer := new(bytes.Buffer)
-
-	if err := internal.FieldTemplate.Execute(writer, internal.GlobalFieldTypes); err != nil {
-		errors <- err
-		return
-	}
-
-	if err := internal.WriteFile("field/fields.generated.go", writer.String()); err != nil {
-		errors <- err
-	}
+	gen(internal.FieldTemplate, "field/fields.generated.go", internal.GlobalFieldTypes)
 }
 
 func genEnums() {
+	gen(internal.EnumTemplate, "enum/enums.generated.go", internal.GlobalFieldTypes)
+}
+
+func gen(t *template.Template, fileOut string, data interface{}) {
 	defer waitGroup.Done()
 	writer := new(bytes.Buffer)
 
-	if err := internal.EnumTemplate.Execute(writer, internal.GlobalFieldTypes); err != nil {
+	if err := t.Execute(writer, data); err != nil {
 		errors <- err
 		return
 	}
 
-	if err := internal.WriteFile("enum/enums.generated.go", writer.String()); err != nil {
+	if err := internal.WriteFile(fileOut, writer.String()); err != nil {
 		errors <- err
 	}
 }
