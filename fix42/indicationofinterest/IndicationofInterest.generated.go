@@ -1,6 +1,7 @@
 package indicationofinterest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -101,8 +102,8 @@ func (m IndicationofInterest) SetIOITransType(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m IndicationofInterest) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m IndicationofInterest) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -181,8 +182,8 @@ func (m IndicationofInterest) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m IndicationofInterest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m IndicationofInterest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205
@@ -206,8 +207,8 @@ func (m IndicationofInterest) SetNoRoutingIDs(f NoRoutingIDsRepeatingGroup) {
 }
 
 //SetSpreadToBenchmark sets SpreadToBenchmark, Tag 218
-func (m IndicationofInterest) SetSpreadToBenchmark(v float64) {
-	m.Set(field.NewSpreadToBenchmark(v))
+func (m IndicationofInterest) SetSpreadToBenchmark(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSpreadToBenchmark(value, scale))
 }
 
 //SetBenchmark sets Benchmark, Tag 219
@@ -216,13 +217,13 @@ func (m IndicationofInterest) SetBenchmark(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m IndicationofInterest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m IndicationofInterest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m IndicationofInterest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m IndicationofInterest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetEncodedIssuerLen sets EncodedIssuerLen, Tag 348

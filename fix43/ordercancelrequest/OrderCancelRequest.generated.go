@@ -1,6 +1,7 @@
 package ordercancelrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -85,8 +86,8 @@ func (m OrderCancelRequest) SetOrderID(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m OrderCancelRequest) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m OrderCancelRequest) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrigClOrdID sets OrigClOrdID, Tag 41
@@ -140,8 +141,8 @@ func (m OrderCancelRequest) SetSecurityDesc(v string) {
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m OrderCancelRequest) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m OrderCancelRequest) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -155,8 +156,8 @@ func (m OrderCancelRequest) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m OrderCancelRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m OrderCancelRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -170,8 +171,8 @@ func (m OrderCancelRequest) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m OrderCancelRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m OrderCancelRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -190,18 +191,18 @@ func (m OrderCancelRequest) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m OrderCancelRequest) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m OrderCancelRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m OrderCancelRequest) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m OrderCancelRequest) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m OrderCancelRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m OrderCancelRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -280,8 +281,8 @@ func (m OrderCancelRequest) SetRoundingDirection(v string) {
 }
 
 //SetRoundingModulus sets RoundingModulus, Tag 469
-func (m OrderCancelRequest) SetRoundingModulus(v float64) {
-	m.Set(field.NewRoundingModulus(v))
+func (m OrderCancelRequest) SetRoundingModulus(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRoundingModulus(value, scale))
 }
 
 //SetCountryOfIssue sets CountryOfIssue, Tag 470
@@ -300,8 +301,8 @@ func (m OrderCancelRequest) SetLocaleOfIssue(v string) {
 }
 
 //SetOrderPercent sets OrderPercent, Tag 516
-func (m OrderCancelRequest) SetOrderPercent(v float64) {
-	m.Set(field.NewOrderPercent(v))
+func (m OrderCancelRequest) SetOrderPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderPercent(value, scale))
 }
 
 //SetSecondaryClOrdID sets SecondaryClOrdID, Tag 526

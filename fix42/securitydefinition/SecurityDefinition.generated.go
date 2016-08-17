@@ -1,6 +1,7 @@
 package securitydefinition
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -124,8 +125,8 @@ func (m SecurityDefinition) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m SecurityDefinition) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m SecurityDefinition) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205
@@ -144,13 +145,13 @@ func (m SecurityDefinition) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m SecurityDefinition) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m SecurityDefinition) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m SecurityDefinition) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m SecurityDefinition) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetSecurityReqID sets SecurityReqID, Tag 320
@@ -574,8 +575,8 @@ func (m NoRelatedSym) SetUnderlyingPutOrCall(v int) {
 }
 
 //SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
-func (m NoRelatedSym) SetUnderlyingStrikePrice(v float64) {
-	m.Set(field.NewUnderlyingStrikePrice(v))
+func (m NoRelatedSym) SetUnderlyingStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingStrikePrice(value, scale))
 }
 
 //SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
@@ -584,13 +585,13 @@ func (m NoRelatedSym) SetUnderlyingOptAttribute(v string) {
 }
 
 //SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
-func (m NoRelatedSym) SetUnderlyingContractMultiplier(v float64) {
-	m.Set(field.NewUnderlyingContractMultiplier(v))
+func (m NoRelatedSym) SetUnderlyingContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingContractMultiplier(value, scale))
 }
 
 //SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
-func (m NoRelatedSym) SetUnderlyingCouponRate(v float64) {
-	m.Set(field.NewUnderlyingCouponRate(v))
+func (m NoRelatedSym) SetUnderlyingCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCouponRate(value, scale))
 }
 
 //SetUnderlyingSecurityExchange sets UnderlyingSecurityExchange, Tag 308
@@ -629,8 +630,8 @@ func (m NoRelatedSym) SetEncodedUnderlyingSecurityDesc(v string) {
 }
 
 //SetRatioQty sets RatioQty, Tag 319
-func (m NoRelatedSym) SetRatioQty(v float64) {
-	m.Set(field.NewRatioQty(v))
+func (m NoRelatedSym) SetRatioQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRatioQty(value, scale))
 }
 
 //SetSide sets Side, Tag 54

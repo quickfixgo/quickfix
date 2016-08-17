@@ -1,6 +1,7 @@
 package quoterequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -68,8 +69,8 @@ func (m QuoteRequest) SetIDSource(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m QuoteRequest) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m QuoteRequest) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -118,8 +119,8 @@ func (m QuoteRequest) SetQuoteReqID(v string) {
 }
 
 //SetPrevClosePx sets PrevClosePx, Tag 140
-func (m QuoteRequest) SetPrevClosePx(v float64) {
-	m.Set(field.NewPrevClosePx(v))
+func (m QuoteRequest) SetPrevClosePx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrevClosePx(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -128,8 +129,8 @@ func (m QuoteRequest) SetSecurityType(v string) {
 }
 
 //SetOrderQty2 sets OrderQty2, Tag 192
-func (m QuoteRequest) SetOrderQty2(v float64) {
-	m.Set(field.NewOrderQty2(v))
+func (m QuoteRequest) SetOrderQty2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty2(value, scale))
 }
 
 //SetFutSettDate2 sets FutSettDate2, Tag 193
@@ -148,8 +149,8 @@ func (m QuoteRequest) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m QuoteRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m QuoteRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205

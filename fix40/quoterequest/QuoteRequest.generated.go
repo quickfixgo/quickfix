@@ -1,6 +1,7 @@
 package quoterequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -68,8 +69,8 @@ func (m QuoteRequest) SetIDSource(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m QuoteRequest) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m QuoteRequest) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -108,8 +109,8 @@ func (m QuoteRequest) SetQuoteReqID(v string) {
 }
 
 //SetPrevClosePx sets PrevClosePx, Tag 140
-func (m QuoteRequest) SetPrevClosePx(v float64) {
-	m.Set(field.NewPrevClosePx(v))
+func (m QuoteRequest) SetPrevClosePx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrevClosePx(value, scale))
 }
 
 //GetIDSource gets IDSource, Tag 22

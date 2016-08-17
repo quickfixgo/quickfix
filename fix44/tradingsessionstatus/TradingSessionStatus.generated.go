@@ -1,6 +1,7 @@
 package tradingsessionstatus
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -133,8 +134,8 @@ func (m TradingSessionStatus) SetEncodedText(v string) {
 }
 
 //SetTotalVolumeTraded sets TotalVolumeTraded, Tag 387
-func (m TradingSessionStatus) SetTotalVolumeTraded(v float64) {
-	m.Set(field.NewTotalVolumeTraded(v))
+func (m TradingSessionStatus) SetTotalVolumeTraded(value decimal.Decimal, scale int32) {
+	m.Set(field.NewTotalVolumeTraded(value, scale))
 }
 
 //SetTradSesStatusRejReason sets TradSesStatusRejReason, Tag 567

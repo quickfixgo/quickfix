@@ -1,6 +1,7 @@
 package quote
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -123,23 +124,23 @@ func (m Quote) SetQuoteReqID(v string) {
 }
 
 //SetBidPx sets BidPx, Tag 132
-func (m Quote) SetBidPx(v float64) {
-	m.Set(field.NewBidPx(v))
+func (m Quote) SetBidPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidPx(value, scale))
 }
 
 //SetOfferPx sets OfferPx, Tag 133
-func (m Quote) SetOfferPx(v float64) {
-	m.Set(field.NewOfferPx(v))
+func (m Quote) SetOfferPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferPx(value, scale))
 }
 
 //SetBidSize sets BidSize, Tag 134
-func (m Quote) SetBidSize(v float64) {
-	m.Set(field.NewBidSize(v))
+func (m Quote) SetBidSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidSize(value, scale))
 }
 
 //SetOfferSize sets OfferSize, Tag 135
-func (m Quote) SetOfferSize(v float64) {
-	m.Set(field.NewOfferSize(v))
+func (m Quote) SetOfferSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferSize(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -148,28 +149,28 @@ func (m Quote) SetSecurityType(v string) {
 }
 
 //SetBidSpotRate sets BidSpotRate, Tag 188
-func (m Quote) SetBidSpotRate(v float64) {
-	m.Set(field.NewBidSpotRate(v))
+func (m Quote) SetBidSpotRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidSpotRate(value, scale))
 }
 
 //SetBidForwardPoints sets BidForwardPoints, Tag 189
-func (m Quote) SetBidForwardPoints(v float64) {
-	m.Set(field.NewBidForwardPoints(v))
+func (m Quote) SetBidForwardPoints(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidForwardPoints(value, scale))
 }
 
 //SetOfferSpotRate sets OfferSpotRate, Tag 190
-func (m Quote) SetOfferSpotRate(v float64) {
-	m.Set(field.NewOfferSpotRate(v))
+func (m Quote) SetOfferSpotRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferSpotRate(value, scale))
 }
 
 //SetOfferForwardPoints sets OfferForwardPoints, Tag 191
-func (m Quote) SetOfferForwardPoints(v float64) {
-	m.Set(field.NewOfferForwardPoints(v))
+func (m Quote) SetOfferForwardPoints(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferForwardPoints(value, scale))
 }
 
 //SetOrderQty2 sets OrderQty2, Tag 192
-func (m Quote) SetOrderQty2(v float64) {
-	m.Set(field.NewOrderQty2(v))
+func (m Quote) SetOrderQty2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty2(value, scale))
 }
 
 //SetFutSettDate2 sets FutSettDate2, Tag 193
@@ -188,8 +189,8 @@ func (m Quote) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m Quote) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m Quote) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205

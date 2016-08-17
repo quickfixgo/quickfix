@@ -1,6 +1,7 @@
 package partydetailslistreport
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -769,8 +770,8 @@ func (m NoRiskLimits) SetRiskLimitType(v int) {
 }
 
 //SetRiskLimitAmount sets RiskLimitAmount, Tag 1531
-func (m NoRiskLimits) SetRiskLimitAmount(v float64) {
-	m.Set(field.NewRiskLimitAmount(v))
+func (m NoRiskLimits) SetRiskLimitAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRiskLimitAmount(value, scale))
 }
 
 //SetRiskLimitCurrency sets RiskLimitCurrency, Tag 1532
@@ -957,8 +958,8 @@ func (m NoRiskInstruments) SetRiskFlexibleIndicator(v bool) {
 }
 
 //SetRiskCouponRate sets RiskCouponRate, Tag 1555
-func (m NoRiskInstruments) SetRiskCouponRate(v float64) {
-	m.Set(field.NewRiskCouponRate(v))
+func (m NoRiskInstruments) SetRiskCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRiskCouponRate(value, scale))
 }
 
 //SetRiskSecurityExchange sets RiskSecurityExchange, Tag 1616
@@ -987,8 +988,8 @@ func (m NoRiskInstruments) SetRiskInstrumentSettlType(v string) {
 }
 
 //SetRiskInstrumentMultiplier sets RiskInstrumentMultiplier, Tag 1558
-func (m NoRiskInstruments) SetRiskInstrumentMultiplier(v float64) {
-	m.Set(field.NewRiskInstrumentMultiplier(v))
+func (m NoRiskInstruments) SetRiskInstrumentMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRiskInstrumentMultiplier(value, scale))
 }
 
 //GetRiskInstrumentOperator gets RiskInstrumentOperator, Tag 1535
@@ -1356,8 +1357,8 @@ type NoRiskWarningLevels struct {
 }
 
 //SetRiskWarningLevelPercent sets RiskWarningLevelPercent, Tag 1560
-func (m NoRiskWarningLevels) SetRiskWarningLevelPercent(v float64) {
-	m.Set(field.NewRiskWarningLevelPercent(v))
+func (m NoRiskWarningLevels) SetRiskWarningLevelPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRiskWarningLevelPercent(value, scale))
 }
 
 //SetRiskWarningLevelName sets RiskWarningLevelName, Tag 1561
@@ -1932,8 +1933,8 @@ func (m NoRelationshipRiskLimits) SetRelationshipRiskLimitType(v int) {
 }
 
 //SetRelationshipRiskLimitAmount sets RelationshipRiskLimitAmount, Tag 1584
-func (m NoRelationshipRiskLimits) SetRelationshipRiskLimitAmount(v float64) {
-	m.Set(field.NewRelationshipRiskLimitAmount(v))
+func (m NoRelationshipRiskLimits) SetRelationshipRiskLimitAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRelationshipRiskLimitAmount(value, scale))
 }
 
 //SetRelationshipRiskLimitCurrency sets RelationshipRiskLimitCurrency, Tag 1585
@@ -2120,8 +2121,8 @@ func (m NoRelationshipRiskInstruments) SetRelationshipRiskFlexibleIndicator(v bo
 }
 
 //SetRelationshipRiskCouponRate sets RelationshipRiskCouponRate, Tag 1608
-func (m NoRelationshipRiskInstruments) SetRelationshipRiskCouponRate(v float64) {
-	m.Set(field.NewRelationshipRiskCouponRate(v))
+func (m NoRelationshipRiskInstruments) SetRelationshipRiskCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRelationshipRiskCouponRate(value, scale))
 }
 
 //SetRelationshipRiskSecurityExchange sets RelationshipRiskSecurityExchange, Tag 1609
@@ -2150,8 +2151,8 @@ func (m NoRelationshipRiskInstruments) SetRelationshipRiskInstrumentSettlType(v 
 }
 
 //SetRelationshipRiskInstrumentMultiplier sets RelationshipRiskInstrumentMultiplier, Tag 1612
-func (m NoRelationshipRiskInstruments) SetRelationshipRiskInstrumentMultiplier(v float64) {
-	m.Set(field.NewRelationshipRiskInstrumentMultiplier(v))
+func (m NoRelationshipRiskInstruments) SetRelationshipRiskInstrumentMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRelationshipRiskInstrumentMultiplier(value, scale))
 }
 
 //GetRelationshipRiskInstrumentOperator gets RelationshipRiskInstrumentOperator, Tag 1588
@@ -2519,8 +2520,8 @@ type NoRelationshipRiskWarningLevels struct {
 }
 
 //SetRelationshipRiskWarningLevelPercent sets RelationshipRiskWarningLevelPercent, Tag 1614
-func (m NoRelationshipRiskWarningLevels) SetRelationshipRiskWarningLevelPercent(v float64) {
-	m.Set(field.NewRelationshipRiskWarningLevelPercent(v))
+func (m NoRelationshipRiskWarningLevels) SetRelationshipRiskWarningLevelPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRelationshipRiskWarningLevelPercent(value, scale))
 }
 
 //SetRelationshipRiskWarningLevelName sets RelationshipRiskWarningLevelName, Tag 1615

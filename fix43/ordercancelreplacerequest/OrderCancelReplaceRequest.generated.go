@@ -1,6 +1,7 @@
 package ordercancelreplacerequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -77,8 +78,8 @@ func (m OrderCancelReplaceRequest) SetClOrdID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m OrderCancelReplaceRequest) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m OrderCancelReplaceRequest) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -112,8 +113,8 @@ func (m OrderCancelReplaceRequest) SetOrderID(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m OrderCancelReplaceRequest) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m OrderCancelReplaceRequest) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -127,8 +128,8 @@ func (m OrderCancelReplaceRequest) SetOrigClOrdID(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m OrderCancelReplaceRequest) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m OrderCancelReplaceRequest) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetRule80A sets Rule80A, Tag 47
@@ -197,8 +198,8 @@ func (m OrderCancelReplaceRequest) SetNoAllocs(f NoAllocsRepeatingGroup) {
 }
 
 //SetStopPx sets StopPx, Tag 99
-func (m OrderCancelReplaceRequest) SetStopPx(v float64) {
-	m.Set(field.NewStopPx(v))
+func (m OrderCancelReplaceRequest) SetStopPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStopPx(value, scale))
 }
 
 //SetExDestination sets ExDestination, Tag 100
@@ -217,13 +218,13 @@ func (m OrderCancelReplaceRequest) SetSecurityDesc(v string) {
 }
 
 //SetMinQty sets MinQty, Tag 110
-func (m OrderCancelReplaceRequest) SetMinQty(v float64) {
-	m.Set(field.NewMinQty(v))
+func (m OrderCancelReplaceRequest) SetMinQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinQty(value, scale))
 }
 
 //SetMaxFloor sets MaxFloor, Tag 111
-func (m OrderCancelReplaceRequest) SetMaxFloor(v float64) {
-	m.Set(field.NewMaxFloor(v))
+func (m OrderCancelReplaceRequest) SetMaxFloor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxFloor(value, scale))
 }
 
 //SetLocateReqd sets LocateReqd, Tag 114
@@ -232,8 +233,8 @@ func (m OrderCancelReplaceRequest) SetLocateReqd(v bool) {
 }
 
 //SetNetMoney sets NetMoney, Tag 118
-func (m OrderCancelReplaceRequest) SetNetMoney(v float64) {
-	m.Set(field.NewNetMoney(v))
+func (m OrderCancelReplaceRequest) SetNetMoney(value decimal.Decimal, scale int32) {
+	m.Set(field.NewNetMoney(value, scale))
 }
 
 //SetSettlCurrency sets SettlCurrency, Tag 120
@@ -252,18 +253,18 @@ func (m OrderCancelReplaceRequest) SetExpireTime(v time.Time) {
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m OrderCancelReplaceRequest) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m OrderCancelReplaceRequest) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetAccruedInterestRate sets AccruedInterestRate, Tag 158
-func (m OrderCancelReplaceRequest) SetAccruedInterestRate(v float64) {
-	m.Set(field.NewAccruedInterestRate(v))
+func (m OrderCancelReplaceRequest) SetAccruedInterestRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAccruedInterestRate(value, scale))
 }
 
 //SetAccruedInterestAmt sets AccruedInterestAmt, Tag 159
-func (m OrderCancelReplaceRequest) SetAccruedInterestAmt(v float64) {
-	m.Set(field.NewAccruedInterestAmt(v))
+func (m OrderCancelReplaceRequest) SetAccruedInterestAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAccruedInterestAmt(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -277,8 +278,8 @@ func (m OrderCancelReplaceRequest) SetEffectiveTime(v time.Time) {
 }
 
 //SetOrderQty2 sets OrderQty2, Tag 192
-func (m OrderCancelReplaceRequest) SetOrderQty2(v float64) {
-	m.Set(field.NewOrderQty2(v))
+func (m OrderCancelReplaceRequest) SetOrderQty2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty2(value, scale))
 }
 
 //SetFutSettDate2 sets FutSettDate2, Tag 193
@@ -292,8 +293,8 @@ func (m OrderCancelReplaceRequest) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m OrderCancelReplaceRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m OrderCancelReplaceRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetCoveredOrUncovered sets CoveredOrUncovered, Tag 203
@@ -312,18 +313,18 @@ func (m OrderCancelReplaceRequest) SetSecurityExchange(v string) {
 }
 
 //SetMaxShow sets MaxShow, Tag 210
-func (m OrderCancelReplaceRequest) SetMaxShow(v float64) {
-	m.Set(field.NewMaxShow(v))
+func (m OrderCancelReplaceRequest) SetMaxShow(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxShow(value, scale))
 }
 
 //SetPegDifference sets PegDifference, Tag 211
-func (m OrderCancelReplaceRequest) SetPegDifference(v float64) {
-	m.Set(field.NewPegDifference(v))
+func (m OrderCancelReplaceRequest) SetPegDifference(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPegDifference(value, scale))
 }
 
 //SetSpread sets Spread, Tag 218
-func (m OrderCancelReplaceRequest) SetSpread(v float64) {
-	m.Set(field.NewSpread(v))
+func (m OrderCancelReplaceRequest) SetSpread(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSpread(value, scale))
 }
 
 //SetBenchmarkCurveCurrency sets BenchmarkCurveCurrency, Tag 220
@@ -342,8 +343,8 @@ func (m OrderCancelReplaceRequest) SetBenchmarkCurvePoint(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m OrderCancelReplaceRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m OrderCancelReplaceRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -362,13 +363,13 @@ func (m OrderCancelReplaceRequest) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m OrderCancelReplaceRequest) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m OrderCancelReplaceRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m OrderCancelReplaceRequest) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m OrderCancelReplaceRequest) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetTradeOriginationDate sets TradeOriginationDate, Tag 229
@@ -377,8 +378,8 @@ func (m OrderCancelReplaceRequest) SetTradeOriginationDate(v string) {
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m OrderCancelReplaceRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m OrderCancelReplaceRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetYieldType sets YieldType, Tag 235
@@ -387,8 +388,8 @@ func (m OrderCancelReplaceRequest) SetYieldType(v string) {
 }
 
 //SetYield sets Yield, Tag 236
-func (m OrderCancelReplaceRequest) SetYield(v float64) {
-	m.Set(field.NewYield(v))
+func (m OrderCancelReplaceRequest) SetYield(value decimal.Decimal, scale int32) {
+	m.Set(field.NewYield(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -457,8 +458,8 @@ func (m OrderCancelReplaceRequest) SetDiscretionInst(v string) {
 }
 
 //SetDiscretionOffset sets DiscretionOffset, Tag 389
-func (m OrderCancelReplaceRequest) SetDiscretionOffset(v float64) {
-	m.Set(field.NewDiscretionOffset(v))
+func (m OrderCancelReplaceRequest) SetDiscretionOffset(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDiscretionOffset(value, scale))
 }
 
 //SetPriceType sets PriceType, Tag 423
@@ -507,8 +508,8 @@ func (m OrderCancelReplaceRequest) SetRoundingDirection(v string) {
 }
 
 //SetRoundingModulus sets RoundingModulus, Tag 469
-func (m OrderCancelReplaceRequest) SetRoundingModulus(v float64) {
-	m.Set(field.NewRoundingModulus(v))
+func (m OrderCancelReplaceRequest) SetRoundingModulus(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRoundingModulus(value, scale))
 }
 
 //SetCountryOfIssue sets CountryOfIssue, Tag 470
@@ -557,8 +558,8 @@ func (m OrderCancelReplaceRequest) SetRegistID(v string) {
 }
 
 //SetOrderPercent sets OrderPercent, Tag 516
-func (m OrderCancelReplaceRequest) SetOrderPercent(v float64) {
-	m.Set(field.NewOrderPercent(v))
+func (m OrderCancelReplaceRequest) SetOrderPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderPercent(value, scale))
 }
 
 //SetSecondaryClOrdID sets SecondaryClOrdID, Tag 526
@@ -632,8 +633,8 @@ func (m OrderCancelReplaceRequest) SetClearingFeeIndicator(v string) {
 }
 
 //SetPrice2 sets Price2, Tag 640
-func (m OrderCancelReplaceRequest) SetPrice2(v float64) {
-	m.Set(field.NewPrice2(v))
+func (m OrderCancelReplaceRequest) SetPrice2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice2(value, scale))
 }
 
 //GetAccount gets Account, Tag 1
@@ -1915,8 +1916,8 @@ func (m NoAllocs) SetNoNestedPartyIDs(f NoNestedPartyIDsRepeatingGroup) {
 }
 
 //SetAllocQty sets AllocQty, Tag 80
-func (m NoAllocs) SetAllocQty(v float64) {
-	m.Set(field.NewAllocQty(v))
+func (m NoAllocs) SetAllocQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAllocQty(value, scale))
 }
 
 //GetAllocAccount gets AllocAccount, Tag 79

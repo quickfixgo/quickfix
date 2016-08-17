@@ -1,6 +1,7 @@
 package liststrikeprice
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -187,13 +188,13 @@ func (m NoStrikes) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m NoStrikes) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m NoStrikes) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m NoStrikes) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m NoStrikes) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetCreditRating sets CreditRating, Tag 255
@@ -227,8 +228,8 @@ func (m NoStrikes) SetRedemptionDate(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m NoStrikes) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m NoStrikes) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -237,13 +238,13 @@ func (m NoStrikes) SetOptAttribute(v string) {
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m NoStrikes) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m NoStrikes) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m NoStrikes) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m NoStrikes) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetSecurityExchange sets SecurityExchange, Tag 207
@@ -282,8 +283,8 @@ func (m NoStrikes) SetEncodedSecurityDesc(v string) {
 }
 
 //SetPrevClosePx sets PrevClosePx, Tag 140
-func (m NoStrikes) SetPrevClosePx(v float64) {
-	m.Set(field.NewPrevClosePx(v))
+func (m NoStrikes) SetPrevClosePx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrevClosePx(value, scale))
 }
 
 //SetClOrdID sets ClOrdID, Tag 11
@@ -302,8 +303,8 @@ func (m NoStrikes) SetSide(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m NoStrikes) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m NoStrikes) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetCurrency sets Currency, Tag 15

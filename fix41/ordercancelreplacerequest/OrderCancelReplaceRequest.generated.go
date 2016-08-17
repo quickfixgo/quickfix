@@ -1,6 +1,7 @@
 package ordercancelreplacerequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -77,8 +78,8 @@ func (m OrderCancelReplaceRequest) SetClOrdID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m OrderCancelReplaceRequest) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m OrderCancelReplaceRequest) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -112,8 +113,8 @@ func (m OrderCancelReplaceRequest) SetOrderID(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m OrderCancelReplaceRequest) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m OrderCancelReplaceRequest) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -127,8 +128,8 @@ func (m OrderCancelReplaceRequest) SetOrigClOrdID(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m OrderCancelReplaceRequest) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m OrderCancelReplaceRequest) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetRule80A sets Rule80A, Tag 47
@@ -192,8 +193,8 @@ func (m OrderCancelReplaceRequest) SetOpenClose(v string) {
 }
 
 //SetStopPx sets StopPx, Tag 99
-func (m OrderCancelReplaceRequest) SetStopPx(v float64) {
-	m.Set(field.NewStopPx(v))
+func (m OrderCancelReplaceRequest) SetStopPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStopPx(value, scale))
 }
 
 //SetExDestination sets ExDestination, Tag 100
@@ -217,13 +218,13 @@ func (m OrderCancelReplaceRequest) SetClientID(v string) {
 }
 
 //SetMinQty sets MinQty, Tag 110
-func (m OrderCancelReplaceRequest) SetMinQty(v float64) {
-	m.Set(field.NewMinQty(v))
+func (m OrderCancelReplaceRequest) SetMinQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinQty(value, scale))
 }
 
 //SetMaxFloor sets MaxFloor, Tag 111
-func (m OrderCancelReplaceRequest) SetMaxFloor(v float64) {
-	m.Set(field.NewMaxFloor(v))
+func (m OrderCancelReplaceRequest) SetMaxFloor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxFloor(value, scale))
 }
 
 //SetLocateReqd sets LocateReqd, Tag 114
@@ -247,8 +248,8 @@ func (m OrderCancelReplaceRequest) SetExpireTime(v time.Time) {
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m OrderCancelReplaceRequest) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m OrderCancelReplaceRequest) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -257,8 +258,8 @@ func (m OrderCancelReplaceRequest) SetSecurityType(v string) {
 }
 
 //SetOrderQty2 sets OrderQty2, Tag 192
-func (m OrderCancelReplaceRequest) SetOrderQty2(v float64) {
-	m.Set(field.NewOrderQty2(v))
+func (m OrderCancelReplaceRequest) SetOrderQty2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty2(value, scale))
 }
 
 //SetFutSettDate2 sets FutSettDate2, Tag 193
@@ -277,8 +278,8 @@ func (m OrderCancelReplaceRequest) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m OrderCancelReplaceRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m OrderCancelReplaceRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetCoveredOrUncovered sets CoveredOrUncovered, Tag 203
@@ -307,13 +308,13 @@ func (m OrderCancelReplaceRequest) SetSecurityExchange(v string) {
 }
 
 //SetMaxShow sets MaxShow, Tag 210
-func (m OrderCancelReplaceRequest) SetMaxShow(v float64) {
-	m.Set(field.NewMaxShow(v))
+func (m OrderCancelReplaceRequest) SetMaxShow(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxShow(value, scale))
 }
 
 //SetPegDifference sets PegDifference, Tag 211
-func (m OrderCancelReplaceRequest) SetPegDifference(v float64) {
-	m.Set(field.NewPegDifference(v))
+func (m OrderCancelReplaceRequest) SetPegDifference(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPegDifference(value, scale))
 }
 
 //GetAccount gets Account, Tag 1

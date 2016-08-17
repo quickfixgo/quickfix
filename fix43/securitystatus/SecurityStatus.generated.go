@@ -1,6 +1,7 @@
 package securitystatus
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -71,8 +72,8 @@ func (m SecurityStatus) SetSecurityIDSource(v string) {
 }
 
 //SetLastPx sets LastPx, Tag 31
-func (m SecurityStatus) SetLastPx(v float64) {
-	m.Set(field.NewLastPx(v))
+func (m SecurityStatus) SetLastPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastPx(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -121,8 +122,8 @@ func (m SecurityStatus) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m SecurityStatus) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m SecurityStatus) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -136,8 +137,8 @@ func (m SecurityStatus) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m SecurityStatus) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m SecurityStatus) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -156,18 +157,18 @@ func (m SecurityStatus) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m SecurityStatus) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m SecurityStatus) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m SecurityStatus) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m SecurityStatus) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m SecurityStatus) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m SecurityStatus) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -226,23 +227,23 @@ func (m SecurityStatus) SetDueToRelated(v bool) {
 }
 
 //SetBuyVolume sets BuyVolume, Tag 330
-func (m SecurityStatus) SetBuyVolume(v float64) {
-	m.Set(field.NewBuyVolume(v))
+func (m SecurityStatus) SetBuyVolume(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBuyVolume(value, scale))
 }
 
 //SetSellVolume sets SellVolume, Tag 331
-func (m SecurityStatus) SetSellVolume(v float64) {
-	m.Set(field.NewSellVolume(v))
+func (m SecurityStatus) SetSellVolume(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSellVolume(value, scale))
 }
 
 //SetHighPx sets HighPx, Tag 332
-func (m SecurityStatus) SetHighPx(v float64) {
-	m.Set(field.NewHighPx(v))
+func (m SecurityStatus) SetHighPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewHighPx(value, scale))
 }
 
 //SetLowPx sets LowPx, Tag 333
-func (m SecurityStatus) SetLowPx(v float64) {
-	m.Set(field.NewLowPx(v))
+func (m SecurityStatus) SetLowPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLowPx(value, scale))
 }
 
 //SetAdjustment sets Adjustment, Tag 334

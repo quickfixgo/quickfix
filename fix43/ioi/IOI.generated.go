@@ -1,6 +1,7 @@
 package ioi
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -100,8 +101,8 @@ func (m IOI) SetIOITransType(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m IOI) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m IOI) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -175,8 +176,8 @@ func (m IOI) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m IOI) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m IOI) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -195,8 +196,8 @@ func (m IOI) SetNoRoutingIDs(f NoRoutingIDsRepeatingGroup) {
 }
 
 //SetSpread sets Spread, Tag 218
-func (m IOI) SetSpread(v float64) {
-	m.Set(field.NewSpread(v))
+func (m IOI) SetSpread(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSpread(value, scale))
 }
 
 //SetBenchmark sets Benchmark, Tag 219
@@ -220,8 +221,8 @@ func (m IOI) SetBenchmarkCurvePoint(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m IOI) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m IOI) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -240,18 +241,18 @@ func (m IOI) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m IOI) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m IOI) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m IOI) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m IOI) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m IOI) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m IOI) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239

@@ -1,6 +1,7 @@
 package confirmationrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -308,18 +309,18 @@ func (m NoOrders) SetNoNested2PartyIDs(f NoNested2PartyIDsRepeatingGroup) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m NoOrders) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m NoOrders) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrderAvgPx sets OrderAvgPx, Tag 799
-func (m NoOrders) SetOrderAvgPx(v float64) {
-	m.Set(field.NewOrderAvgPx(v))
+func (m NoOrders) SetOrderAvgPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderAvgPx(value, scale))
 }
 
 //SetOrderBookingQty sets OrderBookingQty, Tag 800
-func (m NoOrders) SetOrderBookingQty(v float64) {
-	m.Set(field.NewOrderBookingQty(v))
+func (m NoOrders) SetOrderBookingQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderBookingQty(value, scale))
 }
 
 //GetClOrdID gets ClOrdID, Tag 11

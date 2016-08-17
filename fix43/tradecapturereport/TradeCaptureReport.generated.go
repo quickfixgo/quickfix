@@ -1,6 +1,7 @@
 package tradecapturereport
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -83,18 +84,18 @@ func (m TradeCaptureReport) SetLastMkt(v string) {
 }
 
 //SetLastPx sets LastPx, Tag 31
-func (m TradeCaptureReport) SetLastPx(v float64) {
-	m.Set(field.NewLastPx(v))
+func (m TradeCaptureReport) SetLastPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastPx(value, scale))
 }
 
 //SetLastQty sets LastQty, Tag 32
-func (m TradeCaptureReport) SetLastQty(v float64) {
-	m.Set(field.NewLastQty(v))
+func (m TradeCaptureReport) SetLastQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastQty(value, scale))
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m TradeCaptureReport) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m TradeCaptureReport) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -148,8 +149,8 @@ func (m TradeCaptureReport) SetExecType(v string) {
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m TradeCaptureReport) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m TradeCaptureReport) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -158,13 +159,13 @@ func (m TradeCaptureReport) SetSecurityType(v string) {
 }
 
 //SetLastSpotRate sets LastSpotRate, Tag 194
-func (m TradeCaptureReport) SetLastSpotRate(v float64) {
-	m.Set(field.NewLastSpotRate(v))
+func (m TradeCaptureReport) SetLastSpotRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastSpotRate(value, scale))
 }
 
 //SetLastForwardPoints sets LastForwardPoints, Tag 195
-func (m TradeCaptureReport) SetLastForwardPoints(v float64) {
-	m.Set(field.NewLastForwardPoints(v))
+func (m TradeCaptureReport) SetLastForwardPoints(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastForwardPoints(value, scale))
 }
 
 //SetMaturityMonthYear sets MaturityMonthYear, Tag 200
@@ -173,8 +174,8 @@ func (m TradeCaptureReport) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m TradeCaptureReport) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m TradeCaptureReport) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -188,8 +189,8 @@ func (m TradeCaptureReport) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m TradeCaptureReport) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m TradeCaptureReport) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -208,18 +209,18 @@ func (m TradeCaptureReport) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m TradeCaptureReport) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m TradeCaptureReport) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m TradeCaptureReport) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m TradeCaptureReport) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m TradeCaptureReport) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m TradeCaptureReport) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -283,8 +284,8 @@ func (m TradeCaptureReport) SetRoundingDirection(v string) {
 }
 
 //SetRoundingModulus sets RoundingModulus, Tag 469
-func (m TradeCaptureReport) SetRoundingModulus(v float64) {
-	m.Set(field.NewRoundingModulus(v))
+func (m TradeCaptureReport) SetRoundingModulus(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRoundingModulus(value, scale))
 }
 
 //SetCountryOfIssue sets CountryOfIssue, Tag 470
@@ -308,8 +309,8 @@ func (m TradeCaptureReport) SetTradeReportTransType(v int) {
 }
 
 //SetOrderPercent sets OrderPercent, Tag 516
-func (m TradeCaptureReport) SetOrderPercent(v float64) {
-	m.Set(field.NewOrderPercent(v))
+func (m TradeCaptureReport) SetOrderPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderPercent(value, scale))
 }
 
 //SetSecondaryExecID sets SecondaryExecID, Tag 527
@@ -1189,8 +1190,8 @@ func (m NoSides) SetTradingSessionSubID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m NoSides) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m NoSides) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -1209,8 +1210,8 @@ func (m NoSides) SetFundRenewWaiv(v string) {
 }
 
 //SetGrossTradeAmt sets GrossTradeAmt, Tag 381
-func (m NoSides) SetGrossTradeAmt(v float64) {
-	m.Set(field.NewGrossTradeAmt(v))
+func (m NoSides) SetGrossTradeAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewGrossTradeAmt(value, scale))
 }
 
 //SetNumDaysInterest sets NumDaysInterest, Tag 157
@@ -1224,33 +1225,33 @@ func (m NoSides) SetExDate(v string) {
 }
 
 //SetAccruedInterestRate sets AccruedInterestRate, Tag 158
-func (m NoSides) SetAccruedInterestRate(v float64) {
-	m.Set(field.NewAccruedInterestRate(v))
+func (m NoSides) SetAccruedInterestRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAccruedInterestRate(value, scale))
 }
 
 //SetAccruedInterestAmt sets AccruedInterestAmt, Tag 159
-func (m NoSides) SetAccruedInterestAmt(v float64) {
-	m.Set(field.NewAccruedInterestAmt(v))
+func (m NoSides) SetAccruedInterestAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAccruedInterestAmt(value, scale))
 }
 
 //SetConcession sets Concession, Tag 238
-func (m NoSides) SetConcession(v float64) {
-	m.Set(field.NewConcession(v))
+func (m NoSides) SetConcession(value decimal.Decimal, scale int32) {
+	m.Set(field.NewConcession(value, scale))
 }
 
 //SetTotalTakedown sets TotalTakedown, Tag 237
-func (m NoSides) SetTotalTakedown(v float64) {
-	m.Set(field.NewTotalTakedown(v))
+func (m NoSides) SetTotalTakedown(value decimal.Decimal, scale int32) {
+	m.Set(field.NewTotalTakedown(value, scale))
 }
 
 //SetNetMoney sets NetMoney, Tag 118
-func (m NoSides) SetNetMoney(v float64) {
-	m.Set(field.NewNetMoney(v))
+func (m NoSides) SetNetMoney(value decimal.Decimal, scale int32) {
+	m.Set(field.NewNetMoney(value, scale))
 }
 
 //SetSettlCurrAmt sets SettlCurrAmt, Tag 119
-func (m NoSides) SetSettlCurrAmt(v float64) {
-	m.Set(field.NewSettlCurrAmt(v))
+func (m NoSides) SetSettlCurrAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrAmt(value, scale))
 }
 
 //SetSettlCurrency sets SettlCurrency, Tag 120
@@ -1259,8 +1260,8 @@ func (m NoSides) SetSettlCurrency(v string) {
 }
 
 //SetSettlCurrFxRate sets SettlCurrFxRate, Tag 155
-func (m NoSides) SetSettlCurrFxRate(v float64) {
-	m.Set(field.NewSettlCurrFxRate(v))
+func (m NoSides) SetSettlCurrFxRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrFxRate(value, scale))
 }
 
 //SetSettlCurrFxRateCalc sets SettlCurrFxRateCalc, Tag 156
@@ -1949,8 +1950,8 @@ func (m NoContAmts) SetContAmtType(v int) {
 }
 
 //SetContAmtValue sets ContAmtValue, Tag 520
-func (m NoContAmts) SetContAmtValue(v float64) {
-	m.Set(field.NewContAmtValue(v))
+func (m NoContAmts) SetContAmtValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContAmtValue(value, scale))
 }
 
 //SetContAmtCurr sets ContAmtCurr, Tag 521
@@ -2020,8 +2021,8 @@ type NoMiscFees struct {
 }
 
 //SetMiscFeeAmt sets MiscFeeAmt, Tag 137
-func (m NoMiscFees) SetMiscFeeAmt(v float64) {
-	m.Set(field.NewMiscFeeAmt(v))
+func (m NoMiscFees) SetMiscFeeAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMiscFeeAmt(value, scale))
 }
 
 //SetMiscFeeCurr sets MiscFeeCurr, Tag 138

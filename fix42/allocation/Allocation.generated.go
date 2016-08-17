@@ -1,6 +1,7 @@
 package allocation
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -68,8 +69,8 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 }
 
 //SetAvgPx sets AvgPx, Tag 6
-func (m Allocation) SetAvgPx(v float64) {
-	m.Set(field.NewAvgPx(v))
+func (m Allocation) SetAvgPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAvgPx(value, scale))
 }
 
 //SetCurrency sets Currency, Tag 15
@@ -93,8 +94,8 @@ func (m Allocation) SetSecurityID(v string) {
 }
 
 //SetShares sets Shares, Tag 53
-func (m Allocation) SetShares(v float64) {
-	m.Set(field.NewShares(v))
+func (m Allocation) SetShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewShares(value, scale))
 }
 
 //SetSide sets Side, Tag 54
@@ -183,8 +184,8 @@ func (m Allocation) SetSecurityDesc(v string) {
 }
 
 //SetNetMoney sets NetMoney, Tag 118
-func (m Allocation) SetNetMoney(v float64) {
-	m.Set(field.NewNetMoney(v))
+func (m Allocation) SetNetMoney(value decimal.Decimal, scale int32) {
+	m.Set(field.NewNetMoney(value, scale))
 }
 
 //SetNoExecs sets NoExecs, Tag 124
@@ -198,8 +199,8 @@ func (m Allocation) SetNumDaysInterest(v int) {
 }
 
 //SetAccruedInterestRate sets AccruedInterestRate, Tag 158
-func (m Allocation) SetAccruedInterestRate(v float64) {
-	m.Set(field.NewAccruedInterestRate(v))
+func (m Allocation) SetAccruedInterestRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAccruedInterestRate(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -228,8 +229,8 @@ func (m Allocation) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m Allocation) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m Allocation) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205
@@ -248,13 +249,13 @@ func (m Allocation) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m Allocation) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m Allocation) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m Allocation) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m Allocation) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
@@ -293,8 +294,8 @@ func (m Allocation) SetEncodedText(v string) {
 }
 
 //SetGrossTradeAmt sets GrossTradeAmt, Tag 381
-func (m Allocation) SetGrossTradeAmt(v float64) {
-	m.Set(field.NewGrossTradeAmt(v))
+func (m Allocation) SetGrossTradeAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewGrossTradeAmt(value, scale))
 }
 
 //GetAvgPx gets AvgPx, Tag 6
@@ -925,13 +926,13 @@ func (m NoAllocs) SetAllocAccount(v string) {
 }
 
 //SetAllocPrice sets AllocPrice, Tag 366
-func (m NoAllocs) SetAllocPrice(v float64) {
-	m.Set(field.NewAllocPrice(v))
+func (m NoAllocs) SetAllocPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAllocPrice(value, scale))
 }
 
 //SetAllocShares sets AllocShares, Tag 80
-func (m NoAllocs) SetAllocShares(v float64) {
-	m.Set(field.NewAllocShares(v))
+func (m NoAllocs) SetAllocShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAllocShares(value, scale))
 }
 
 //SetProcessCode sets ProcessCode, Tag 81
@@ -980,8 +981,8 @@ func (m NoAllocs) SetClientID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m NoAllocs) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m NoAllocs) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -990,18 +991,18 @@ func (m NoAllocs) SetCommType(v string) {
 }
 
 //SetAllocAvgPx sets AllocAvgPx, Tag 153
-func (m NoAllocs) SetAllocAvgPx(v float64) {
-	m.Set(field.NewAllocAvgPx(v))
+func (m NoAllocs) SetAllocAvgPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAllocAvgPx(value, scale))
 }
 
 //SetAllocNetMoney sets AllocNetMoney, Tag 154
-func (m NoAllocs) SetAllocNetMoney(v float64) {
-	m.Set(field.NewAllocNetMoney(v))
+func (m NoAllocs) SetAllocNetMoney(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAllocNetMoney(value, scale))
 }
 
 //SetSettlCurrAmt sets SettlCurrAmt, Tag 119
-func (m NoAllocs) SetSettlCurrAmt(v float64) {
-	m.Set(field.NewSettlCurrAmt(v))
+func (m NoAllocs) SetSettlCurrAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrAmt(value, scale))
 }
 
 //SetSettlCurrency sets SettlCurrency, Tag 120
@@ -1010,8 +1011,8 @@ func (m NoAllocs) SetSettlCurrency(v string) {
 }
 
 //SetSettlCurrFxRate sets SettlCurrFxRate, Tag 155
-func (m NoAllocs) SetSettlCurrFxRate(v float64) {
-	m.Set(field.NewSettlCurrFxRate(v))
+func (m NoAllocs) SetSettlCurrFxRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrFxRate(value, scale))
 }
 
 //SetSettlCurrFxRateCalc sets SettlCurrFxRateCalc, Tag 156
@@ -1020,8 +1021,8 @@ func (m NoAllocs) SetSettlCurrFxRateCalc(v string) {
 }
 
 //SetAccruedInterestAmt sets AccruedInterestAmt, Tag 159
-func (m NoAllocs) SetAccruedInterestAmt(v float64) {
-	m.Set(field.NewAccruedInterestAmt(v))
+func (m NoAllocs) SetAccruedInterestAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAccruedInterestAmt(value, scale))
 }
 
 //SetSettlInstMode sets SettlInstMode, Tag 160
@@ -1294,8 +1295,8 @@ type NoMiscFees struct {
 }
 
 //SetMiscFeeAmt sets MiscFeeAmt, Tag 137
-func (m NoMiscFees) SetMiscFeeAmt(v float64) {
-	m.Set(field.NewMiscFeeAmt(v))
+func (m NoMiscFees) SetMiscFeeAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMiscFeeAmt(value, scale))
 }
 
 //SetMiscFeeCurr sets MiscFeeCurr, Tag 138
@@ -1393,8 +1394,8 @@ type NoExecs struct {
 }
 
 //SetLastShares sets LastShares, Tag 32
-func (m NoExecs) SetLastShares(v float64) {
-	m.Set(field.NewLastShares(v))
+func (m NoExecs) SetLastShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastShares(value, scale))
 }
 
 //SetExecID sets ExecID, Tag 17
@@ -1403,8 +1404,8 @@ func (m NoExecs) SetExecID(v string) {
 }
 
 //SetLastPx sets LastPx, Tag 31
-func (m NoExecs) SetLastPx(v float64) {
-	m.Set(field.NewLastPx(v))
+func (m NoExecs) SetLastPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastPx(value, scale))
 }
 
 //SetLastCapacity sets LastCapacity, Tag 29

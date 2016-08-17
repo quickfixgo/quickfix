@@ -1,6 +1,7 @@
 package advertisement
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -96,8 +97,8 @@ func (m Advertisement) SetIDSource(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m Advertisement) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m Advertisement) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -106,8 +107,8 @@ func (m Advertisement) SetSecurityID(v string) {
 }
 
 //SetShares sets Shares, Tag 53
-func (m Advertisement) SetShares(v float64) {
-	m.Set(field.NewShares(v))
+func (m Advertisement) SetShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewShares(value, scale))
 }
 
 //SetSymbol sets Symbol, Tag 55

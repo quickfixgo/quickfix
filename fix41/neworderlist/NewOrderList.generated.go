@@ -1,6 +1,7 @@
 package neworderlist
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -80,8 +81,8 @@ func (m NewOrderList) SetClOrdID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m NewOrderList) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m NewOrderList) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -110,8 +111,8 @@ func (m NewOrderList) SetIDSource(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m NewOrderList) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m NewOrderList) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -120,8 +121,8 @@ func (m NewOrderList) SetOrdType(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m NewOrderList) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m NewOrderList) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetRule80A sets Rule80A, Tag 47
@@ -205,8 +206,8 @@ func (m NewOrderList) SetProcessCode(v string) {
 }
 
 //SetStopPx sets StopPx, Tag 99
-func (m NewOrderList) SetStopPx(v float64) {
-	m.Set(field.NewStopPx(v))
+func (m NewOrderList) SetStopPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStopPx(value, scale))
 }
 
 //SetExDestination sets ExDestination, Tag 100
@@ -235,13 +236,13 @@ func (m NewOrderList) SetClientID(v string) {
 }
 
 //SetMinQty sets MinQty, Tag 110
-func (m NewOrderList) SetMinQty(v float64) {
-	m.Set(field.NewMinQty(v))
+func (m NewOrderList) SetMinQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinQty(value, scale))
 }
 
 //SetMaxFloor sets MaxFloor, Tag 111
-func (m NewOrderList) SetMaxFloor(v float64) {
-	m.Set(field.NewMaxFloor(v))
+func (m NewOrderList) SetMaxFloor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxFloor(value, scale))
 }
 
 //SetLocateReqd sets LocateReqd, Tag 114
@@ -265,8 +266,8 @@ func (m NewOrderList) SetExpireTime(v time.Time) {
 }
 
 //SetPrevClosePx sets PrevClosePx, Tag 140
-func (m NewOrderList) SetPrevClosePx(v float64) {
-	m.Set(field.NewPrevClosePx(v))
+func (m NewOrderList) SetPrevClosePx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrevClosePx(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -275,8 +276,8 @@ func (m NewOrderList) SetSecurityType(v string) {
 }
 
 //SetOrderQty2 sets OrderQty2, Tag 192
-func (m NewOrderList) SetOrderQty2(v float64) {
-	m.Set(field.NewOrderQty2(v))
+func (m NewOrderList) SetOrderQty2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty2(value, scale))
 }
 
 //SetFutSettDate2 sets FutSettDate2, Tag 193
@@ -295,8 +296,8 @@ func (m NewOrderList) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m NewOrderList) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m NewOrderList) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetCoveredOrUncovered sets CoveredOrUncovered, Tag 203
@@ -325,13 +326,13 @@ func (m NewOrderList) SetSecurityExchange(v string) {
 }
 
 //SetMaxShow sets MaxShow, Tag 210
-func (m NewOrderList) SetMaxShow(v float64) {
-	m.Set(field.NewMaxShow(v))
+func (m NewOrderList) SetMaxShow(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxShow(value, scale))
 }
 
 //SetPegDifference sets PegDifference, Tag 211
-func (m NewOrderList) SetPegDifference(v float64) {
-	m.Set(field.NewPegDifference(v))
+func (m NewOrderList) SetPegDifference(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPegDifference(value, scale))
 }
 
 //GetAccount gets Account, Tag 1

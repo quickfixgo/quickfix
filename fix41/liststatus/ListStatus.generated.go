@@ -1,6 +1,7 @@
 package liststatus
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -155,23 +156,23 @@ func (m NoOrders) SetClOrdID(v string) {
 }
 
 //SetCumQty sets CumQty, Tag 14
-func (m NoOrders) SetCumQty(v float64) {
-	m.Set(field.NewCumQty(v))
+func (m NoOrders) SetCumQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCumQty(value, scale))
 }
 
 //SetLeavesQty sets LeavesQty, Tag 151
-func (m NoOrders) SetLeavesQty(v float64) {
-	m.Set(field.NewLeavesQty(v))
+func (m NoOrders) SetLeavesQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLeavesQty(value, scale))
 }
 
 //SetCxlQty sets CxlQty, Tag 84
-func (m NoOrders) SetCxlQty(v float64) {
-	m.Set(field.NewCxlQty(v))
+func (m NoOrders) SetCxlQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCxlQty(value, scale))
 }
 
 //SetAvgPx sets AvgPx, Tag 6
-func (m NoOrders) SetAvgPx(v float64) {
-	m.Set(field.NewAvgPx(v))
+func (m NoOrders) SetAvgPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAvgPx(value, scale))
 }
 
 //GetClOrdID gets ClOrdID, Tag 11

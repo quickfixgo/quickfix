@@ -1,6 +1,7 @@
 package ordercancelreplacerequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -78,8 +79,8 @@ func (m OrderCancelReplaceRequest) SetClOrdID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m OrderCancelReplaceRequest) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m OrderCancelReplaceRequest) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -113,8 +114,8 @@ func (m OrderCancelReplaceRequest) SetOrderID(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m OrderCancelReplaceRequest) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m OrderCancelReplaceRequest) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -128,8 +129,8 @@ func (m OrderCancelReplaceRequest) SetOrigClOrdID(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m OrderCancelReplaceRequest) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m OrderCancelReplaceRequest) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetRule80A sets Rule80A, Tag 47
@@ -188,8 +189,8 @@ func (m OrderCancelReplaceRequest) SetExecBroker(v string) {
 }
 
 //SetStopPx sets StopPx, Tag 99
-func (m OrderCancelReplaceRequest) SetStopPx(v float64) {
-	m.Set(field.NewStopPx(v))
+func (m OrderCancelReplaceRequest) SetStopPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStopPx(value, scale))
 }
 
 //SetExDestination sets ExDestination, Tag 100
@@ -213,13 +214,13 @@ func (m OrderCancelReplaceRequest) SetClientID(v string) {
 }
 
 //SetMinQty sets MinQty, Tag 110
-func (m OrderCancelReplaceRequest) SetMinQty(v float64) {
-	m.Set(field.NewMinQty(v))
+func (m OrderCancelReplaceRequest) SetMinQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinQty(value, scale))
 }
 
 //SetMaxFloor sets MaxFloor, Tag 111
-func (m OrderCancelReplaceRequest) SetMaxFloor(v float64) {
-	m.Set(field.NewMaxFloor(v))
+func (m OrderCancelReplaceRequest) SetMaxFloor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxFloor(value, scale))
 }
 
 //SetSettlCurrency sets SettlCurrency, Tag 120

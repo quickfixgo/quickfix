@@ -1,6 +1,7 @@
 package dontknowtrade
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -74,13 +75,13 @@ func (m DontKnowTrade) SetIDSource(v string) {
 }
 
 //SetLastPx sets LastPx, Tag 31
-func (m DontKnowTrade) SetLastPx(v float64) {
-	m.Set(field.NewLastPx(v))
+func (m DontKnowTrade) SetLastPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastPx(value, scale))
 }
 
 //SetLastShares sets LastShares, Tag 32
-func (m DontKnowTrade) SetLastShares(v float64) {
-	m.Set(field.NewLastShares(v))
+func (m DontKnowTrade) SetLastShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastShares(value, scale))
 }
 
 //SetOrderID sets OrderID, Tag 37
@@ -89,8 +90,8 @@ func (m DontKnowTrade) SetOrderID(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m DontKnowTrade) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m DontKnowTrade) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -134,8 +135,8 @@ func (m DontKnowTrade) SetDKReason(v string) {
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m DontKnowTrade) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m DontKnowTrade) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -154,8 +155,8 @@ func (m DontKnowTrade) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m DontKnowTrade) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m DontKnowTrade) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205

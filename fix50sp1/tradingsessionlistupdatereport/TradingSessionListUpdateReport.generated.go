@@ -1,6 +1,7 @@
 package tradingsessionlistupdatereport
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -244,8 +245,8 @@ func (m NoTradingSessions) SetTradSesEndTime(v time.Time) {
 }
 
 //SetTotalVolumeTraded sets TotalVolumeTraded, Tag 387
-func (m NoTradingSessions) SetTotalVolumeTraded(v float64) {
-	m.Set(field.NewTotalVolumeTraded(v))
+func (m NoTradingSessions) SetTotalVolumeTraded(value decimal.Decimal, scale int32) {
+	m.Set(field.NewTotalVolumeTraded(value, scale))
 }
 
 //SetText sets Text, Tag 58

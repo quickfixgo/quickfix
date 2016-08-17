@@ -1,6 +1,7 @@
 package quote
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -67,8 +68,8 @@ func (m Quote) SetAccount(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m Quote) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m Quote) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -157,23 +158,23 @@ func (m Quote) SetQuoteReqID(v string) {
 }
 
 //SetBidPx sets BidPx, Tag 132
-func (m Quote) SetBidPx(v float64) {
-	m.Set(field.NewBidPx(v))
+func (m Quote) SetBidPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidPx(value, scale))
 }
 
 //SetOfferPx sets OfferPx, Tag 133
-func (m Quote) SetOfferPx(v float64) {
-	m.Set(field.NewOfferPx(v))
+func (m Quote) SetOfferPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferPx(value, scale))
 }
 
 //SetBidSize sets BidSize, Tag 134
-func (m Quote) SetBidSize(v float64) {
-	m.Set(field.NewBidSize(v))
+func (m Quote) SetBidSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidSize(value, scale))
 }
 
 //SetOfferSize sets OfferSize, Tag 135
-func (m Quote) SetOfferSize(v float64) {
-	m.Set(field.NewOfferSize(v))
+func (m Quote) SetOfferSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferSize(value, scale))
 }
 
 //SetSettlCurrFxRateCalc sets SettlCurrFxRateCalc, Tag 156
@@ -187,28 +188,28 @@ func (m Quote) SetSecurityType(v string) {
 }
 
 //SetBidSpotRate sets BidSpotRate, Tag 188
-func (m Quote) SetBidSpotRate(v float64) {
-	m.Set(field.NewBidSpotRate(v))
+func (m Quote) SetBidSpotRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidSpotRate(value, scale))
 }
 
 //SetBidForwardPoints sets BidForwardPoints, Tag 189
-func (m Quote) SetBidForwardPoints(v float64) {
-	m.Set(field.NewBidForwardPoints(v))
+func (m Quote) SetBidForwardPoints(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidForwardPoints(value, scale))
 }
 
 //SetOfferSpotRate sets OfferSpotRate, Tag 190
-func (m Quote) SetOfferSpotRate(v float64) {
-	m.Set(field.NewOfferSpotRate(v))
+func (m Quote) SetOfferSpotRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferSpotRate(value, scale))
 }
 
 //SetOfferForwardPoints sets OfferForwardPoints, Tag 191
-func (m Quote) SetOfferForwardPoints(v float64) {
-	m.Set(field.NewOfferForwardPoints(v))
+func (m Quote) SetOfferForwardPoints(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferForwardPoints(value, scale))
 }
 
 //SetOrderQty2 sets OrderQty2, Tag 192
-func (m Quote) SetOrderQty2(v float64) {
-	m.Set(field.NewOrderQty2(v))
+func (m Quote) SetOrderQty2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty2(value, scale))
 }
 
 //SetFutSettDate2 sets FutSettDate2, Tag 193
@@ -222,8 +223,8 @@ func (m Quote) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m Quote) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m Quote) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -237,8 +238,8 @@ func (m Quote) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m Quote) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m Quote) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -257,18 +258,18 @@ func (m Quote) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m Quote) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m Quote) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m Quote) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m Quote) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m Quote) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m Quote) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -392,63 +393,63 @@ func (m Quote) SetTradingSessionSubID(v string) {
 }
 
 //SetMidPx sets MidPx, Tag 631
-func (m Quote) SetMidPx(v float64) {
-	m.Set(field.NewMidPx(v))
+func (m Quote) SetMidPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMidPx(value, scale))
 }
 
 //SetBidYield sets BidYield, Tag 632
-func (m Quote) SetBidYield(v float64) {
-	m.Set(field.NewBidYield(v))
+func (m Quote) SetBidYield(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidYield(value, scale))
 }
 
 //SetMidYield sets MidYield, Tag 633
-func (m Quote) SetMidYield(v float64) {
-	m.Set(field.NewMidYield(v))
+func (m Quote) SetMidYield(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMidYield(value, scale))
 }
 
 //SetOfferYield sets OfferYield, Tag 634
-func (m Quote) SetOfferYield(v float64) {
-	m.Set(field.NewOfferYield(v))
+func (m Quote) SetOfferYield(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferYield(value, scale))
 }
 
 //SetBidForwardPoints2 sets BidForwardPoints2, Tag 642
-func (m Quote) SetBidForwardPoints2(v float64) {
-	m.Set(field.NewBidForwardPoints2(v))
+func (m Quote) SetBidForwardPoints2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidForwardPoints2(value, scale))
 }
 
 //SetOfferForwardPoints2 sets OfferForwardPoints2, Tag 643
-func (m Quote) SetOfferForwardPoints2(v float64) {
-	m.Set(field.NewOfferForwardPoints2(v))
+func (m Quote) SetOfferForwardPoints2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferForwardPoints2(value, scale))
 }
 
 //SetMktBidPx sets MktBidPx, Tag 645
-func (m Quote) SetMktBidPx(v float64) {
-	m.Set(field.NewMktBidPx(v))
+func (m Quote) SetMktBidPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMktBidPx(value, scale))
 }
 
 //SetMktOfferPx sets MktOfferPx, Tag 646
-func (m Quote) SetMktOfferPx(v float64) {
-	m.Set(field.NewMktOfferPx(v))
+func (m Quote) SetMktOfferPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMktOfferPx(value, scale))
 }
 
 //SetMinBidSize sets MinBidSize, Tag 647
-func (m Quote) SetMinBidSize(v float64) {
-	m.Set(field.NewMinBidSize(v))
+func (m Quote) SetMinBidSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinBidSize(value, scale))
 }
 
 //SetMinOfferSize sets MinOfferSize, Tag 648
-func (m Quote) SetMinOfferSize(v float64) {
-	m.Set(field.NewMinOfferSize(v))
+func (m Quote) SetMinOfferSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinOfferSize(value, scale))
 }
 
 //SetSettlCurrBidFxRate sets SettlCurrBidFxRate, Tag 656
-func (m Quote) SetSettlCurrBidFxRate(v float64) {
-	m.Set(field.NewSettlCurrBidFxRate(v))
+func (m Quote) SetSettlCurrBidFxRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrBidFxRate(value, scale))
 }
 
 //SetSettlCurrOfferFxRate sets SettlCurrOfferFxRate, Tag 657
-func (m Quote) SetSettlCurrOfferFxRate(v float64) {
-	m.Set(field.NewSettlCurrOfferFxRate(v))
+func (m Quote) SetSettlCurrOfferFxRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrOfferFxRate(value, scale))
 }
 
 //GetAccount gets Account, Tag 1
