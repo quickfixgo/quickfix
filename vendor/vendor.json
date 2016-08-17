@@ -21,6 +21,12 @@
 			"revisionTime": "2016-01-10T10:55:54Z"
 		},
 		{
+			"checksumSHA1": "/o4h+zapTyKGjeZqcNhUWeikF0M=",
+			"path": "github.com/shopspring/decimal",
+			"revision": "74d668a796fa3734c552fb907d9b83146d0bebee",
+			"revisionTime": "2016-03-11T12:45:26Z"
+		},
+		{
 			"checksumSHA1": "K0crHygPTP42i1nLKWphSlvOQJw=",
 			"path": "github.com/stretchr/objx",
 			"revision": "1a9d0bb9f541897e62256577b352fdbc1fb4fd94",

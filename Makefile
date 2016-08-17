@@ -7,7 +7,7 @@ fmt:
 	go fmt ./...
 
 vet:
-	go vet $(go list ./... | grep -v /vendor)
+	go vet `go list ./... | grep -v /vendor | grep -v fix4 | grep -v fix5 | grep -v fixt`
 
 lint:
 	go get github.com/golang/lint/golint
@@ -17,7 +17,7 @@ test:
 	go test -v -cover . ./datadictionary ./internal
 
 _build_all: 
-	go build -v ./...
+	go build -v `go list ./... | grep -v /vendor`
 
 build_accept: 
 	cd _test; go build -o echo_server
