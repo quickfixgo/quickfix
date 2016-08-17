@@ -1,6 +1,7 @@
 package marketdataincrementalrefresh
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -164,8 +165,8 @@ func (m NoMDEntries) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m NoMDEntries) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m NoMDEntries) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -174,13 +175,13 @@ func (m NoMDEntries) SetOptAttribute(v string) {
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m NoMDEntries) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m NoMDEntries) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m NoMDEntries) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m NoMDEntries) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetSecurityExchange sets SecurityExchange, Tag 207
@@ -229,8 +230,8 @@ func (m NoMDEntries) SetCorporateAction(v string) {
 }
 
 //SetMDEntryPx sets MDEntryPx, Tag 270
-func (m NoMDEntries) SetMDEntryPx(v float64) {
-	m.Set(field.NewMDEntryPx(v))
+func (m NoMDEntries) SetMDEntryPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMDEntryPx(value, scale))
 }
 
 //SetCurrency sets Currency, Tag 15
@@ -239,8 +240,8 @@ func (m NoMDEntries) SetCurrency(v string) {
 }
 
 //SetMDEntrySize sets MDEntrySize, Tag 271
-func (m NoMDEntries) SetMDEntrySize(v float64) {
-	m.Set(field.NewMDEntrySize(v))
+func (m NoMDEntries) SetMDEntrySize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMDEntrySize(value, scale))
 }
 
 //SetMDEntryDate sets MDEntryDate, Tag 272
@@ -314,8 +315,8 @@ func (m NoMDEntries) SetExpireTime(v time.Time) {
 }
 
 //SetMinQty sets MinQty, Tag 110
-func (m NoMDEntries) SetMinQty(v float64) {
-	m.Set(field.NewMinQty(v))
+func (m NoMDEntries) SetMinQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinQty(value, scale))
 }
 
 //SetExecInst sets ExecInst, Tag 18
@@ -359,8 +360,8 @@ func (m NoMDEntries) SetMDEntryPositionNo(v int) {
 }
 
 //SetTotalVolumeTraded sets TotalVolumeTraded, Tag 387
-func (m NoMDEntries) SetTotalVolumeTraded(v float64) {
-	m.Set(field.NewTotalVolumeTraded(v))
+func (m NoMDEntries) SetTotalVolumeTraded(value decimal.Decimal, scale int32) {
+	m.Set(field.NewTotalVolumeTraded(value, scale))
 }
 
 //SetText sets Text, Tag 58

@@ -1,6 +1,7 @@
 package newordersingle
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -77,8 +78,8 @@ func (m NewOrderSingle) SetClOrdID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m NewOrderSingle) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m NewOrderSingle) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -112,8 +113,8 @@ func (m NewOrderSingle) SetIOIid(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m NewOrderSingle) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m NewOrderSingle) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -122,8 +123,8 @@ func (m NewOrderSingle) SetOrdType(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m NewOrderSingle) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m NewOrderSingle) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetRule80A sets Rule80A, Tag 47
@@ -182,8 +183,8 @@ func (m NewOrderSingle) SetProcessCode(v string) {
 }
 
 //SetStopPx sets StopPx, Tag 99
-func (m NewOrderSingle) SetStopPx(v float64) {
-	m.Set(field.NewStopPx(v))
+func (m NewOrderSingle) SetStopPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStopPx(value, scale))
 }
 
 //SetExDestination sets ExDestination, Tag 100
@@ -207,13 +208,13 @@ func (m NewOrderSingle) SetClientID(v string) {
 }
 
 //SetMinQty sets MinQty, Tag 110
-func (m NewOrderSingle) SetMinQty(v float64) {
-	m.Set(field.NewMinQty(v))
+func (m NewOrderSingle) SetMinQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinQty(value, scale))
 }
 
 //SetMaxFloor sets MaxFloor, Tag 111
-func (m NewOrderSingle) SetMaxFloor(v float64) {
-	m.Set(field.NewMaxFloor(v))
+func (m NewOrderSingle) SetMaxFloor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxFloor(value, scale))
 }
 
 //SetLocateReqd sets LocateReqd, Tag 114
@@ -242,8 +243,8 @@ func (m NewOrderSingle) SetExpireTime(v time.Time) {
 }
 
 //SetPrevClosePx sets PrevClosePx, Tag 140
-func (m NewOrderSingle) SetPrevClosePx(v float64) {
-	m.Set(field.NewPrevClosePx(v))
+func (m NewOrderSingle) SetPrevClosePx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrevClosePx(value, scale))
 }
 
 //GetAccount gets Account, Tag 1

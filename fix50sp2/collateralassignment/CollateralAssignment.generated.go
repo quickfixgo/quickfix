@@ -1,6 +1,7 @@
 package collateralassignment
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -90,8 +91,8 @@ func (m CollateralAssignment) SetOrderID(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m CollateralAssignment) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m CollateralAssignment) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -100,8 +101,8 @@ func (m CollateralAssignment) SetSecurityID(v string) {
 }
 
 //SetQuantity sets Quantity, Tag 53
-func (m CollateralAssignment) SetQuantity(v float64) {
-	m.Set(field.NewQuantity(v))
+func (m CollateralAssignment) SetQuantity(value decimal.Decimal, scale int32) {
+	m.Set(field.NewQuantity(value, scale))
 }
 
 //SetSide sets Side, Tag 54
@@ -165,8 +166,8 @@ func (m CollateralAssignment) SetNoMiscFees(f NoMiscFeesRepeatingGroup) {
 }
 
 //SetAccruedInterestAmt sets AccruedInterestAmt, Tag 159
-func (m CollateralAssignment) SetAccruedInterestAmt(v float64) {
-	m.Set(field.NewAccruedInterestAmt(v))
+func (m CollateralAssignment) SetAccruedInterestAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAccruedInterestAmt(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -210,8 +211,8 @@ func (m CollateralAssignment) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m CollateralAssignment) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m CollateralAssignment) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -225,8 +226,8 @@ func (m CollateralAssignment) SetSecurityExchange(v string) {
 }
 
 //SetSpread sets Spread, Tag 218
-func (m CollateralAssignment) SetSpread(v float64) {
-	m.Set(field.NewSpread(v))
+func (m CollateralAssignment) SetSpread(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSpread(value, scale))
 }
 
 //SetBenchmarkCurveCurrency sets BenchmarkCurveCurrency, Tag 220
@@ -245,8 +246,8 @@ func (m CollateralAssignment) SetBenchmarkCurvePoint(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m CollateralAssignment) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m CollateralAssignment) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -265,18 +266,18 @@ func (m CollateralAssignment) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m CollateralAssignment) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m CollateralAssignment) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m CollateralAssignment) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m CollateralAssignment) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m CollateralAssignment) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m CollateralAssignment) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetNoStipulations sets NoStipulations, Tag 232
@@ -405,8 +406,8 @@ func (m CollateralAssignment) SetTradingSessionSubID(v string) {
 }
 
 //SetBenchmarkPrice sets BenchmarkPrice, Tag 662
-func (m CollateralAssignment) SetBenchmarkPrice(v float64) {
-	m.Set(field.NewBenchmarkPrice(v))
+func (m CollateralAssignment) SetBenchmarkPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBenchmarkPrice(value, scale))
 }
 
 //SetBenchmarkPriceType sets BenchmarkPriceType, Tag 663
@@ -515,23 +516,23 @@ func (m CollateralAssignment) SetNoTrades(f NoTradesRepeatingGroup) {
 }
 
 //SetMarginRatio sets MarginRatio, Tag 898
-func (m CollateralAssignment) SetMarginRatio(v float64) {
-	m.Set(field.NewMarginRatio(v))
+func (m CollateralAssignment) SetMarginRatio(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMarginRatio(value, scale))
 }
 
 //SetMarginExcess sets MarginExcess, Tag 899
-func (m CollateralAssignment) SetMarginExcess(v float64) {
-	m.Set(field.NewMarginExcess(v))
+func (m CollateralAssignment) SetMarginExcess(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMarginExcess(value, scale))
 }
 
 //SetTotalNetValue sets TotalNetValue, Tag 900
-func (m CollateralAssignment) SetTotalNetValue(v float64) {
-	m.Set(field.NewTotalNetValue(v))
+func (m CollateralAssignment) SetTotalNetValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewTotalNetValue(value, scale))
 }
 
 //SetCashOutstanding sets CashOutstanding, Tag 901
-func (m CollateralAssignment) SetCashOutstanding(v float64) {
-	m.Set(field.NewCashOutstanding(v))
+func (m CollateralAssignment) SetCashOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOutstanding(value, scale))
 }
 
 //SetCollAsgnID sets CollAsgnID, Tag 902
@@ -585,18 +586,18 @@ func (m CollateralAssignment) SetDeliveryType(v int) {
 }
 
 //SetEndAccruedInterestAmt sets EndAccruedInterestAmt, Tag 920
-func (m CollateralAssignment) SetEndAccruedInterestAmt(v float64) {
-	m.Set(field.NewEndAccruedInterestAmt(v))
+func (m CollateralAssignment) SetEndAccruedInterestAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewEndAccruedInterestAmt(value, scale))
 }
 
 //SetStartCash sets StartCash, Tag 921
-func (m CollateralAssignment) SetStartCash(v float64) {
-	m.Set(field.NewStartCash(v))
+func (m CollateralAssignment) SetStartCash(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStartCash(value, scale))
 }
 
 //SetEndCash sets EndCash, Tag 922
-func (m CollateralAssignment) SetEndCash(v float64) {
-	m.Set(field.NewEndCash(v))
+func (m CollateralAssignment) SetEndCash(value decimal.Decimal, scale int32) {
+	m.Set(field.NewEndCash(value, scale))
 }
 
 //SetStrikeCurrency sets StrikeCurrency, Tag 947
@@ -615,18 +616,18 @@ func (m CollateralAssignment) SetSettleOnOpenFlag(v string) {
 }
 
 //SetStrikeMultiplier sets StrikeMultiplier, Tag 967
-func (m CollateralAssignment) SetStrikeMultiplier(v float64) {
-	m.Set(field.NewStrikeMultiplier(v))
+func (m CollateralAssignment) SetStrikeMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikeMultiplier(value, scale))
 }
 
 //SetStrikeValue sets StrikeValue, Tag 968
-func (m CollateralAssignment) SetStrikeValue(v float64) {
-	m.Set(field.NewStrikeValue(v))
+func (m CollateralAssignment) SetStrikeValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikeValue(value, scale))
 }
 
 //SetMinPriceIncrement sets MinPriceIncrement, Tag 969
-func (m CollateralAssignment) SetMinPriceIncrement(v float64) {
-	m.Set(field.NewMinPriceIncrement(v))
+func (m CollateralAssignment) SetMinPriceIncrement(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinPriceIncrement(value, scale))
 }
 
 //SetPositionLimit sets PositionLimit, Tag 970
@@ -665,13 +666,13 @@ func (m CollateralAssignment) SetMaturityTime(v string) {
 }
 
 //SetMinPriceIncrementAmount sets MinPriceIncrementAmount, Tag 1146
-func (m CollateralAssignment) SetMinPriceIncrementAmount(v float64) {
-	m.Set(field.NewMinPriceIncrementAmount(v))
+func (m CollateralAssignment) SetMinPriceIncrementAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinPriceIncrementAmount(value, scale))
 }
 
 //SetUnitOfMeasureQty sets UnitOfMeasureQty, Tag 1147
-func (m CollateralAssignment) SetUnitOfMeasureQty(v float64) {
-	m.Set(field.NewUnitOfMeasureQty(v))
+func (m CollateralAssignment) SetUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnitOfMeasureQty(value, scale))
 }
 
 //SetSecurityGroup sets SecurityGroup, Tag 1151
@@ -700,8 +701,8 @@ func (m CollateralAssignment) SetPriceUnitOfMeasure(v string) {
 }
 
 //SetPriceUnitOfMeasureQty sets PriceUnitOfMeasureQty, Tag 1192
-func (m CollateralAssignment) SetPriceUnitOfMeasureQty(v float64) {
-	m.Set(field.NewPriceUnitOfMeasureQty(v))
+func (m CollateralAssignment) SetPriceUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPriceUnitOfMeasureQty(value, scale))
 }
 
 //SetSettlMethod sets SettlMethod, Tag 1193
@@ -715,8 +716,8 @@ func (m CollateralAssignment) SetExerciseStyle(v int) {
 }
 
 //SetOptPayoutAmount sets OptPayoutAmount, Tag 1195
-func (m CollateralAssignment) SetOptPayoutAmount(v float64) {
-	m.Set(field.NewOptPayoutAmount(v))
+func (m CollateralAssignment) SetOptPayoutAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOptPayoutAmount(value, scale))
 }
 
 //SetPriceQuoteMethod sets PriceQuoteMethod, Tag 1196
@@ -735,13 +736,13 @@ func (m CollateralAssignment) SetListMethod(v int) {
 }
 
 //SetCapPrice sets CapPrice, Tag 1199
-func (m CollateralAssignment) SetCapPrice(v float64) {
-	m.Set(field.NewCapPrice(v))
+func (m CollateralAssignment) SetCapPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCapPrice(value, scale))
 }
 
 //SetFloorPrice sets FloorPrice, Tag 1200
-func (m CollateralAssignment) SetFloorPrice(v float64) {
-	m.Set(field.NewFloorPrice(v))
+func (m CollateralAssignment) SetFloorPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFloorPrice(value, scale))
 }
 
 //SetProductComplex sets ProductComplex, Tag 1227
@@ -780,23 +781,23 @@ func (m CollateralAssignment) SetSeniority(v string) {
 }
 
 //SetNotionalPercentageOutstanding sets NotionalPercentageOutstanding, Tag 1451
-func (m CollateralAssignment) SetNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewNotionalPercentageOutstanding(v))
+func (m CollateralAssignment) SetNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewNotionalPercentageOutstanding(value, scale))
 }
 
 //SetOriginalNotionalPercentageOutstanding sets OriginalNotionalPercentageOutstanding, Tag 1452
-func (m CollateralAssignment) SetOriginalNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewOriginalNotionalPercentageOutstanding(v))
+func (m CollateralAssignment) SetOriginalNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOriginalNotionalPercentageOutstanding(value, scale))
 }
 
 //SetAttachmentPoint sets AttachmentPoint, Tag 1457
-func (m CollateralAssignment) SetAttachmentPoint(v float64) {
-	m.Set(field.NewAttachmentPoint(v))
+func (m CollateralAssignment) SetAttachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAttachmentPoint(value, scale))
 }
 
 //SetDetachmentPoint sets DetachmentPoint, Tag 1458
-func (m CollateralAssignment) SetDetachmentPoint(v float64) {
-	m.Set(field.NewDetachmentPoint(v))
+func (m CollateralAssignment) SetDetachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDetachmentPoint(value, scale))
 }
 
 //SetStrikePriceDeterminationMethod sets StrikePriceDeterminationMethod, Tag 1478
@@ -810,8 +811,8 @@ func (m CollateralAssignment) SetStrikePriceBoundaryMethod(v int) {
 }
 
 //SetStrikePriceBoundaryPrecision sets StrikePriceBoundaryPrecision, Tag 1480
-func (m CollateralAssignment) SetStrikePriceBoundaryPrecision(v float64) {
-	m.Set(field.NewStrikePriceBoundaryPrecision(v))
+func (m CollateralAssignment) SetStrikePriceBoundaryPrecision(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePriceBoundaryPrecision(value, scale))
 }
 
 //SetUnderlyingPriceDeterminationMethod sets UnderlyingPriceDeterminationMethod, Tag 1481
@@ -2805,8 +2806,8 @@ type NoMiscFees struct {
 }
 
 //SetMiscFeeAmt sets MiscFeeAmt, Tag 137
-func (m NoMiscFees) SetMiscFeeAmt(v float64) {
-	m.Set(field.NewMiscFeeAmt(v))
+func (m NoMiscFees) SetMiscFeeAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMiscFeeAmt(value, scale))
 }
 
 //SetMiscFeeCurr sets MiscFeeCurr, Tag 138
@@ -3245,13 +3246,13 @@ func (m NoLegs) SetLegRepurchaseTerm(v int) {
 }
 
 //SetLegRepurchaseRate sets LegRepurchaseRate, Tag 252
-func (m NoLegs) SetLegRepurchaseRate(v float64) {
-	m.Set(field.NewLegRepurchaseRate(v))
+func (m NoLegs) SetLegRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegRepurchaseRate(value, scale))
 }
 
 //SetLegFactor sets LegFactor, Tag 253
-func (m NoLegs) SetLegFactor(v float64) {
-	m.Set(field.NewLegFactor(v))
+func (m NoLegs) SetLegFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegFactor(value, scale))
 }
 
 //SetLegCreditRating sets LegCreditRating, Tag 257
@@ -3285,8 +3286,8 @@ func (m NoLegs) SetLegRedemptionDate(v string) {
 }
 
 //SetLegStrikePrice sets LegStrikePrice, Tag 612
-func (m NoLegs) SetLegStrikePrice(v float64) {
-	m.Set(field.NewLegStrikePrice(v))
+func (m NoLegs) SetLegStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegStrikePrice(value, scale))
 }
 
 //SetLegStrikeCurrency sets LegStrikeCurrency, Tag 942
@@ -3300,13 +3301,13 @@ func (m NoLegs) SetLegOptAttribute(v string) {
 }
 
 //SetLegContractMultiplier sets LegContractMultiplier, Tag 614
-func (m NoLegs) SetLegContractMultiplier(v float64) {
-	m.Set(field.NewLegContractMultiplier(v))
+func (m NoLegs) SetLegContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegContractMultiplier(value, scale))
 }
 
 //SetLegCouponRate sets LegCouponRate, Tag 615
-func (m NoLegs) SetLegCouponRate(v float64) {
-	m.Set(field.NewLegCouponRate(v))
+func (m NoLegs) SetLegCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegCouponRate(value, scale))
 }
 
 //SetLegSecurityExchange sets LegSecurityExchange, Tag 616
@@ -3345,8 +3346,8 @@ func (m NoLegs) SetEncodedLegSecurityDesc(v string) {
 }
 
 //SetLegRatioQty sets LegRatioQty, Tag 623
-func (m NoLegs) SetLegRatioQty(v float64) {
-	m.Set(field.NewLegRatioQty(v))
+func (m NoLegs) SetLegRatioQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegRatioQty(value, scale))
 }
 
 //SetLegSide sets LegSide, Tag 624
@@ -3390,13 +3391,13 @@ func (m NoLegs) SetLegTimeUnit(v string) {
 }
 
 //SetLegOptionRatio sets LegOptionRatio, Tag 1017
-func (m NoLegs) SetLegOptionRatio(v float64) {
-	m.Set(field.NewLegOptionRatio(v))
+func (m NoLegs) SetLegOptionRatio(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegOptionRatio(value, scale))
 }
 
 //SetLegPrice sets LegPrice, Tag 566
-func (m NoLegs) SetLegPrice(v float64) {
-	m.Set(field.NewLegPrice(v))
+func (m NoLegs) SetLegPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegPrice(value, scale))
 }
 
 //SetLegMaturityTime sets LegMaturityTime, Tag 1212
@@ -3415,8 +3416,8 @@ func (m NoLegs) SetLegExerciseStyle(v int) {
 }
 
 //SetLegUnitOfMeasureQty sets LegUnitOfMeasureQty, Tag 1224
-func (m NoLegs) SetLegUnitOfMeasureQty(v float64) {
-	m.Set(field.NewLegUnitOfMeasureQty(v))
+func (m NoLegs) SetLegUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegUnitOfMeasureQty(value, scale))
 }
 
 //SetLegPriceUnitOfMeasure sets LegPriceUnitOfMeasure, Tag 1421
@@ -3425,8 +3426,8 @@ func (m NoLegs) SetLegPriceUnitOfMeasure(v string) {
 }
 
 //SetLegPriceUnitOfMeasureQty sets LegPriceUnitOfMeasureQty, Tag 1422
-func (m NoLegs) SetLegPriceUnitOfMeasureQty(v float64) {
-	m.Set(field.NewLegPriceUnitOfMeasureQty(v))
+func (m NoLegs) SetLegPriceUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegPriceUnitOfMeasureQty(value, scale))
 }
 
 //SetLegContractMultiplierUnit sets LegContractMultiplierUnit, Tag 1436
@@ -4198,13 +4199,13 @@ func (m NoUnderlyings) SetUnderlyingRepurchaseTerm(v int) {
 }
 
 //SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
-func (m NoUnderlyings) SetUnderlyingRepurchaseRate(v float64) {
-	m.Set(field.NewUnderlyingRepurchaseRate(v))
+func (m NoUnderlyings) SetUnderlyingRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingRepurchaseRate(value, scale))
 }
 
 //SetUnderlyingFactor sets UnderlyingFactor, Tag 246
-func (m NoUnderlyings) SetUnderlyingFactor(v float64) {
-	m.Set(field.NewUnderlyingFactor(v))
+func (m NoUnderlyings) SetUnderlyingFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingFactor(value, scale))
 }
 
 //SetUnderlyingCreditRating sets UnderlyingCreditRating, Tag 256
@@ -4238,8 +4239,8 @@ func (m NoUnderlyings) SetUnderlyingRedemptionDate(v string) {
 }
 
 //SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
-func (m NoUnderlyings) SetUnderlyingStrikePrice(v float64) {
-	m.Set(field.NewUnderlyingStrikePrice(v))
+func (m NoUnderlyings) SetUnderlyingStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingStrikePrice(value, scale))
 }
 
 //SetUnderlyingStrikeCurrency sets UnderlyingStrikeCurrency, Tag 941
@@ -4253,13 +4254,13 @@ func (m NoUnderlyings) SetUnderlyingOptAttribute(v string) {
 }
 
 //SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
-func (m NoUnderlyings) SetUnderlyingContractMultiplier(v float64) {
-	m.Set(field.NewUnderlyingContractMultiplier(v))
+func (m NoUnderlyings) SetUnderlyingContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingContractMultiplier(value, scale))
 }
 
 //SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
-func (m NoUnderlyings) SetUnderlyingCouponRate(v float64) {
-	m.Set(field.NewUnderlyingCouponRate(v))
+func (m NoUnderlyings) SetUnderlyingCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCouponRate(value, scale))
 }
 
 //SetUnderlyingSecurityExchange sets UnderlyingSecurityExchange, Tag 308
@@ -4313,38 +4314,38 @@ func (m NoUnderlyings) SetUnderlyingCurrency(v string) {
 }
 
 //SetUnderlyingQty sets UnderlyingQty, Tag 879
-func (m NoUnderlyings) SetUnderlyingQty(v float64) {
-	m.Set(field.NewUnderlyingQty(v))
+func (m NoUnderlyings) SetUnderlyingQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingQty(value, scale))
 }
 
 //SetUnderlyingPx sets UnderlyingPx, Tag 810
-func (m NoUnderlyings) SetUnderlyingPx(v float64) {
-	m.Set(field.NewUnderlyingPx(v))
+func (m NoUnderlyings) SetUnderlyingPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingPx(value, scale))
 }
 
 //SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
-func (m NoUnderlyings) SetUnderlyingDirtyPrice(v float64) {
-	m.Set(field.NewUnderlyingDirtyPrice(v))
+func (m NoUnderlyings) SetUnderlyingDirtyPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingDirtyPrice(value, scale))
 }
 
 //SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
-func (m NoUnderlyings) SetUnderlyingEndPrice(v float64) {
-	m.Set(field.NewUnderlyingEndPrice(v))
+func (m NoUnderlyings) SetUnderlyingEndPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingEndPrice(value, scale))
 }
 
 //SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
-func (m NoUnderlyings) SetUnderlyingStartValue(v float64) {
-	m.Set(field.NewUnderlyingStartValue(v))
+func (m NoUnderlyings) SetUnderlyingStartValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingStartValue(value, scale))
 }
 
 //SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
-func (m NoUnderlyings) SetUnderlyingCurrentValue(v float64) {
-	m.Set(field.NewUnderlyingCurrentValue(v))
+func (m NoUnderlyings) SetUnderlyingCurrentValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCurrentValue(value, scale))
 }
 
 //SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
-func (m NoUnderlyings) SetUnderlyingEndValue(v float64) {
-	m.Set(field.NewUnderlyingEndValue(v))
+func (m NoUnderlyings) SetUnderlyingEndValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingEndValue(value, scale))
 }
 
 //SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
@@ -4353,8 +4354,8 @@ func (m NoUnderlyings) SetNoUnderlyingStips(f NoUnderlyingStipsRepeatingGroup) {
 }
 
 //SetUnderlyingAllocationPercent sets UnderlyingAllocationPercent, Tag 972
-func (m NoUnderlyings) SetUnderlyingAllocationPercent(v float64) {
-	m.Set(field.NewUnderlyingAllocationPercent(v))
+func (m NoUnderlyings) SetUnderlyingAllocationPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAllocationPercent(value, scale))
 }
 
 //SetUnderlyingSettlementType sets UnderlyingSettlementType, Tag 975
@@ -4363,8 +4364,8 @@ func (m NoUnderlyings) SetUnderlyingSettlementType(v int) {
 }
 
 //SetUnderlyingCashAmount sets UnderlyingCashAmount, Tag 973
-func (m NoUnderlyings) SetUnderlyingCashAmount(v float64) {
-	m.Set(field.NewUnderlyingCashAmount(v))
+func (m NoUnderlyings) SetUnderlyingCashAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCashAmount(value, scale))
 }
 
 //SetUnderlyingCashType sets UnderlyingCashType, Tag 974
@@ -4383,8 +4384,8 @@ func (m NoUnderlyings) SetUnderlyingTimeUnit(v string) {
 }
 
 //SetUnderlyingCapValue sets UnderlyingCapValue, Tag 1038
-func (m NoUnderlyings) SetUnderlyingCapValue(v float64) {
-	m.Set(field.NewUnderlyingCapValue(v))
+func (m NoUnderlyings) SetUnderlyingCapValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCapValue(value, scale))
 }
 
 //SetNoUndlyInstrumentParties sets NoUndlyInstrumentParties, Tag 1058
@@ -4398,13 +4399,13 @@ func (m NoUnderlyings) SetUnderlyingSettlMethod(v string) {
 }
 
 //SetUnderlyingAdjustedQuantity sets UnderlyingAdjustedQuantity, Tag 1044
-func (m NoUnderlyings) SetUnderlyingAdjustedQuantity(v float64) {
-	m.Set(field.NewUnderlyingAdjustedQuantity(v))
+func (m NoUnderlyings) SetUnderlyingAdjustedQuantity(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAdjustedQuantity(value, scale))
 }
 
 //SetUnderlyingFXRate sets UnderlyingFXRate, Tag 1045
-func (m NoUnderlyings) SetUnderlyingFXRate(v float64) {
-	m.Set(field.NewUnderlyingFXRate(v))
+func (m NoUnderlyings) SetUnderlyingFXRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingFXRate(value, scale))
 }
 
 //SetUnderlyingFXRateCalc sets UnderlyingFXRateCalc, Tag 1046
@@ -4428,8 +4429,8 @@ func (m NoUnderlyings) SetUnderlyingExerciseStyle(v int) {
 }
 
 //SetUnderlyingUnitOfMeasureQty sets UnderlyingUnitOfMeasureQty, Tag 1423
-func (m NoUnderlyings) SetUnderlyingUnitOfMeasureQty(v float64) {
-	m.Set(field.NewUnderlyingUnitOfMeasureQty(v))
+func (m NoUnderlyings) SetUnderlyingUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingUnitOfMeasureQty(value, scale))
 }
 
 //SetUnderlyingPriceUnitOfMeasure sets UnderlyingPriceUnitOfMeasure, Tag 1424
@@ -4438,8 +4439,8 @@ func (m NoUnderlyings) SetUnderlyingPriceUnitOfMeasure(v string) {
 }
 
 //SetUnderlyingPriceUnitOfMeasureQty sets UnderlyingPriceUnitOfMeasureQty, Tag 1425
-func (m NoUnderlyings) SetUnderlyingPriceUnitOfMeasureQty(v float64) {
-	m.Set(field.NewUnderlyingPriceUnitOfMeasureQty(v))
+func (m NoUnderlyings) SetUnderlyingPriceUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingPriceUnitOfMeasureQty(value, scale))
 }
 
 //SetUnderlyingContractMultiplierUnit sets UnderlyingContractMultiplierUnit, Tag 1437
@@ -4463,23 +4464,23 @@ func (m NoUnderlyings) SetUnderlyingSeniority(v string) {
 }
 
 //SetUnderlyingNotionalPercentageOutstanding sets UnderlyingNotionalPercentageOutstanding, Tag 1455
-func (m NoUnderlyings) SetUnderlyingNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewUnderlyingNotionalPercentageOutstanding(v))
+func (m NoUnderlyings) SetUnderlyingNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingNotionalPercentageOutstanding(value, scale))
 }
 
 //SetUnderlyingOriginalNotionalPercentageOutstanding sets UnderlyingOriginalNotionalPercentageOutstanding, Tag 1456
-func (m NoUnderlyings) SetUnderlyingOriginalNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewUnderlyingOriginalNotionalPercentageOutstanding(v))
+func (m NoUnderlyings) SetUnderlyingOriginalNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingOriginalNotionalPercentageOutstanding(value, scale))
 }
 
 //SetUnderlyingAttachmentPoint sets UnderlyingAttachmentPoint, Tag 1459
-func (m NoUnderlyings) SetUnderlyingAttachmentPoint(v float64) {
-	m.Set(field.NewUnderlyingAttachmentPoint(v))
+func (m NoUnderlyings) SetUnderlyingAttachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAttachmentPoint(value, scale))
 }
 
 //SetUnderlyingDetachmentPoint sets UnderlyingDetachmentPoint, Tag 1460
-func (m NoUnderlyings) SetUnderlyingDetachmentPoint(v float64) {
-	m.Set(field.NewUnderlyingDetachmentPoint(v))
+func (m NoUnderlyings) SetUnderlyingDetachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingDetachmentPoint(value, scale))
 }
 
 //SetCollAction sets CollAction, Tag 944
@@ -5729,8 +5730,8 @@ func (m NoEvents) SetEventDate(v string) {
 }
 
 //SetEventPx sets EventPx, Tag 867
-func (m NoEvents) SetEventPx(v float64) {
-	m.Set(field.NewEventPx(v))
+func (m NoEvents) SetEventPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewEventPx(value, scale))
 }
 
 //SetEventText sets EventText, Tag 868
@@ -6045,13 +6046,13 @@ func (m NoComplexEvents) SetComplexEventType(v int) {
 }
 
 //SetComplexOptPayoutAmount sets ComplexOptPayoutAmount, Tag 1485
-func (m NoComplexEvents) SetComplexOptPayoutAmount(v float64) {
-	m.Set(field.NewComplexOptPayoutAmount(v))
+func (m NoComplexEvents) SetComplexOptPayoutAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewComplexOptPayoutAmount(value, scale))
 }
 
 //SetComplexEventPrice sets ComplexEventPrice, Tag 1486
-func (m NoComplexEvents) SetComplexEventPrice(v float64) {
-	m.Set(field.NewComplexEventPrice(v))
+func (m NoComplexEvents) SetComplexEventPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewComplexEventPrice(value, scale))
 }
 
 //SetComplexEventPriceBoundaryMethod sets ComplexEventPriceBoundaryMethod, Tag 1487
@@ -6060,8 +6061,8 @@ func (m NoComplexEvents) SetComplexEventPriceBoundaryMethod(v int) {
 }
 
 //SetComplexEventPriceBoundaryPrecision sets ComplexEventPriceBoundaryPrecision, Tag 1488
-func (m NoComplexEvents) SetComplexEventPriceBoundaryPrecision(v float64) {
-	m.Set(field.NewComplexEventPriceBoundaryPrecision(v))
+func (m NoComplexEvents) SetComplexEventPriceBoundaryPrecision(value decimal.Decimal, scale int32) {
+	m.Set(field.NewComplexEventPriceBoundaryPrecision(value, scale))
 }
 
 //SetComplexEventPriceTimeType sets ComplexEventPriceTimeType, Tag 1489

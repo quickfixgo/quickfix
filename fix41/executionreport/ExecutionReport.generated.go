@@ -1,6 +1,7 @@
 package executionreport
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -79,8 +80,8 @@ func (m ExecutionReport) SetAccount(v string) {
 }
 
 //SetAvgPx sets AvgPx, Tag 6
-func (m ExecutionReport) SetAvgPx(v float64) {
-	m.Set(field.NewAvgPx(v))
+func (m ExecutionReport) SetAvgPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAvgPx(value, scale))
 }
 
 //SetClOrdID sets ClOrdID, Tag 11
@@ -89,8 +90,8 @@ func (m ExecutionReport) SetClOrdID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m ExecutionReport) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m ExecutionReport) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -99,8 +100,8 @@ func (m ExecutionReport) SetCommType(v string) {
 }
 
 //SetCumQty sets CumQty, Tag 14
-func (m ExecutionReport) SetCumQty(v float64) {
-	m.Set(field.NewCumQty(v))
+func (m ExecutionReport) SetCumQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCumQty(value, scale))
 }
 
 //SetCurrency sets Currency, Tag 15
@@ -144,13 +145,13 @@ func (m ExecutionReport) SetLastMkt(v string) {
 }
 
 //SetLastPx sets LastPx, Tag 31
-func (m ExecutionReport) SetLastPx(v float64) {
-	m.Set(field.NewLastPx(v))
+func (m ExecutionReport) SetLastPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastPx(value, scale))
 }
 
 //SetLastShares sets LastShares, Tag 32
-func (m ExecutionReport) SetLastShares(v float64) {
-	m.Set(field.NewLastShares(v))
+func (m ExecutionReport) SetLastShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastShares(value, scale))
 }
 
 //SetOrderID sets OrderID, Tag 37
@@ -159,8 +160,8 @@ func (m ExecutionReport) SetOrderID(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m ExecutionReport) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m ExecutionReport) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrdStatus sets OrdStatus, Tag 39
@@ -179,8 +180,8 @@ func (m ExecutionReport) SetOrigClOrdID(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m ExecutionReport) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m ExecutionReport) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetRule80A sets Rule80A, Tag 47
@@ -249,8 +250,8 @@ func (m ExecutionReport) SetExecBroker(v string) {
 }
 
 //SetStopPx sets StopPx, Tag 99
-func (m ExecutionReport) SetStopPx(v float64) {
-	m.Set(field.NewStopPx(v))
+func (m ExecutionReport) SetStopPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStopPx(value, scale))
 }
 
 //SetOrdRejReason sets OrdRejReason, Tag 103
@@ -279,8 +280,8 @@ func (m ExecutionReport) SetReportToExch(v bool) {
 }
 
 //SetSettlCurrAmt sets SettlCurrAmt, Tag 119
-func (m ExecutionReport) SetSettlCurrAmt(v float64) {
-	m.Set(field.NewSettlCurrAmt(v))
+func (m ExecutionReport) SetSettlCurrAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrAmt(value, scale))
 }
 
 //SetSettlCurrency sets SettlCurrency, Tag 120
@@ -299,13 +300,13 @@ func (m ExecutionReport) SetExecType(v string) {
 }
 
 //SetLeavesQty sets LeavesQty, Tag 151
-func (m ExecutionReport) SetLeavesQty(v float64) {
-	m.Set(field.NewLeavesQty(v))
+func (m ExecutionReport) SetLeavesQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLeavesQty(value, scale))
 }
 
 //SetSettlCurrFxRate sets SettlCurrFxRate, Tag 155
-func (m ExecutionReport) SetSettlCurrFxRate(v float64) {
-	m.Set(field.NewSettlCurrFxRate(v))
+func (m ExecutionReport) SetSettlCurrFxRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrFxRate(value, scale))
 }
 
 //SetSettlCurrFxRateCalc sets SettlCurrFxRateCalc, Tag 156
@@ -319,13 +320,13 @@ func (m ExecutionReport) SetSecurityType(v string) {
 }
 
 //SetLastSpotRate sets LastSpotRate, Tag 194
-func (m ExecutionReport) SetLastSpotRate(v float64) {
-	m.Set(field.NewLastSpotRate(v))
+func (m ExecutionReport) SetLastSpotRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastSpotRate(value, scale))
 }
 
 //SetLastForwardPoints sets LastForwardPoints, Tag 195
-func (m ExecutionReport) SetLastForwardPoints(v float64) {
-	m.Set(field.NewLastForwardPoints(v))
+func (m ExecutionReport) SetLastForwardPoints(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastForwardPoints(value, scale))
 }
 
 //SetSecondaryOrderID sets SecondaryOrderID, Tag 198
@@ -344,8 +345,8 @@ func (m ExecutionReport) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m ExecutionReport) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m ExecutionReport) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205
@@ -364,8 +365,8 @@ func (m ExecutionReport) SetSecurityExchange(v string) {
 }
 
 //SetPegDifference sets PegDifference, Tag 211
-func (m ExecutionReport) SetPegDifference(v float64) {
-	m.Set(field.NewPegDifference(v))
+func (m ExecutionReport) SetPegDifference(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPegDifference(value, scale))
 }
 
 //GetAccount gets Account, Tag 1

@@ -1,6 +1,7 @@
 package indicationofinterest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -106,8 +107,8 @@ func (m IndicationofInterest) SetIOITransType(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m IndicationofInterest) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m IndicationofInterest) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -186,8 +187,8 @@ func (m IndicationofInterest) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m IndicationofInterest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m IndicationofInterest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205

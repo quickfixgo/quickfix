@@ -1,6 +1,7 @@
 package marketdefinition
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -93,13 +94,13 @@ func (m MarketDefinition) SetPriceType(v int) {
 }
 
 //SetRoundLot sets RoundLot, Tag 561
-func (m MarketDefinition) SetRoundLot(v float64) {
-	m.Set(field.NewRoundLot(v))
+func (m MarketDefinition) SetRoundLot(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRoundLot(value, scale))
 }
 
 //SetMinTradeVol sets MinTradeVol, Tag 562
-func (m MarketDefinition) SetMinTradeVol(v float64) {
-	m.Set(field.NewMinTradeVol(v))
+func (m MarketDefinition) SetMinTradeVol(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinTradeVol(value, scale))
 }
 
 //SetExpirationCycle sets ExpirationCycle, Tag 827
@@ -108,13 +109,13 @@ func (m MarketDefinition) SetExpirationCycle(v int) {
 }
 
 //SetMaxTradeVol sets MaxTradeVol, Tag 1140
-func (m MarketDefinition) SetMaxTradeVol(v float64) {
-	m.Set(field.NewMaxTradeVol(v))
+func (m MarketDefinition) SetMaxTradeVol(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxTradeVol(value, scale))
 }
 
 //SetMaxPriceVariation sets MaxPriceVariation, Tag 1143
-func (m MarketDefinition) SetMaxPriceVariation(v float64) {
-	m.Set(field.NewMaxPriceVariation(v))
+func (m MarketDefinition) SetMaxPriceVariation(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxPriceVariation(value, scale))
 }
 
 //SetImpliedMarketIndicator sets ImpliedMarketIndicator, Tag 1144
@@ -123,18 +124,18 @@ func (m MarketDefinition) SetImpliedMarketIndicator(v int) {
 }
 
 //SetLowLimitPrice sets LowLimitPrice, Tag 1148
-func (m MarketDefinition) SetLowLimitPrice(v float64) {
-	m.Set(field.NewLowLimitPrice(v))
+func (m MarketDefinition) SetLowLimitPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLowLimitPrice(value, scale))
 }
 
 //SetHighLimitPrice sets HighLimitPrice, Tag 1149
-func (m MarketDefinition) SetHighLimitPrice(v float64) {
-	m.Set(field.NewHighLimitPrice(v))
+func (m MarketDefinition) SetHighLimitPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewHighLimitPrice(value, scale))
 }
 
 //SetTradingReferencePrice sets TradingReferencePrice, Tag 1150
-func (m MarketDefinition) SetTradingReferencePrice(v float64) {
-	m.Set(field.NewTradingReferencePrice(v))
+func (m MarketDefinition) SetTradingReferencePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewTradingReferencePrice(value, scale))
 }
 
 //SetApplID sets ApplID, Tag 1180
@@ -649,18 +650,18 @@ type NoTickRules struct {
 }
 
 //SetStartTickPriceRange sets StartTickPriceRange, Tag 1206
-func (m NoTickRules) SetStartTickPriceRange(v float64) {
-	m.Set(field.NewStartTickPriceRange(v))
+func (m NoTickRules) SetStartTickPriceRange(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStartTickPriceRange(value, scale))
 }
 
 //SetEndTickPriceRange sets EndTickPriceRange, Tag 1207
-func (m NoTickRules) SetEndTickPriceRange(v float64) {
-	m.Set(field.NewEndTickPriceRange(v))
+func (m NoTickRules) SetEndTickPriceRange(value decimal.Decimal, scale int32) {
+	m.Set(field.NewEndTickPriceRange(value, scale))
 }
 
 //SetTickIncrement sets TickIncrement, Tag 1208
-func (m NoTickRules) SetTickIncrement(v float64) {
-	m.Set(field.NewTickIncrement(v))
+func (m NoTickRules) SetTickIncrement(value decimal.Decimal, scale int32) {
+	m.Set(field.NewTickIncrement(value, scale))
 }
 
 //SetTickRuleType sets TickRuleType, Tag 1209
@@ -790,8 +791,8 @@ func (m NoLotTypeRules) SetLotType(v string) {
 }
 
 //SetMinLotSize sets MinLotSize, Tag 1231
-func (m NoLotTypeRules) SetMinLotSize(v float64) {
-	m.Set(field.NewMinLotSize(v))
+func (m NoLotTypeRules) SetMinLotSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinLotSize(value, scale))
 }
 
 //GetLotType gets LotType, Tag 1093

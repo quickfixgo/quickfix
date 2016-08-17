@@ -1,6 +1,7 @@
 package quote
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -109,23 +110,23 @@ func (m Quote) SetQuoteReqID(v string) {
 }
 
 //SetBidPx sets BidPx, Tag 132
-func (m Quote) SetBidPx(v float64) {
-	m.Set(field.NewBidPx(v))
+func (m Quote) SetBidPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidPx(value, scale))
 }
 
 //SetOfferPx sets OfferPx, Tag 133
-func (m Quote) SetOfferPx(v float64) {
-	m.Set(field.NewOfferPx(v))
+func (m Quote) SetOfferPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferPx(value, scale))
 }
 
 //SetBidSize sets BidSize, Tag 134
-func (m Quote) SetBidSize(v float64) {
-	m.Set(field.NewBidSize(v))
+func (m Quote) SetBidSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewBidSize(value, scale))
 }
 
 //SetOfferSize sets OfferSize, Tag 135
-func (m Quote) SetOfferSize(v float64) {
-	m.Set(field.NewOfferSize(v))
+func (m Quote) SetOfferSize(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOfferSize(value, scale))
 }
 
 //GetIDSource gets IDSource, Tag 22

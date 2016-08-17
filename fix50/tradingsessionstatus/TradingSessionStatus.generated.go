@@ -1,6 +1,7 @@
 package tradingsessionstatus
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -108,8 +109,8 @@ func (m TradingSessionStatus) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m TradingSessionStatus) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m TradingSessionStatus) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -123,8 +124,8 @@ func (m TradingSessionStatus) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m TradingSessionStatus) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m TradingSessionStatus) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -143,18 +144,18 @@ func (m TradingSessionStatus) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m TradingSessionStatus) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m TradingSessionStatus) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m TradingSessionStatus) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m TradingSessionStatus) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m TradingSessionStatus) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m TradingSessionStatus) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -258,8 +259,8 @@ func (m TradingSessionStatus) SetEncodedText(v string) {
 }
 
 //SetTotalVolumeTraded sets TotalVolumeTraded, Tag 387
-func (m TradingSessionStatus) SetTotalVolumeTraded(v float64) {
-	m.Set(field.NewTotalVolumeTraded(v))
+func (m TradingSessionStatus) SetTotalVolumeTraded(value decimal.Decimal, scale int32) {
+	m.Set(field.NewTotalVolumeTraded(value, scale))
 }
 
 //SetNoSecurityAltID sets NoSecurityAltID, Tag 454
@@ -368,18 +369,18 @@ func (m TradingSessionStatus) SetSettleOnOpenFlag(v string) {
 }
 
 //SetStrikeMultiplier sets StrikeMultiplier, Tag 967
-func (m TradingSessionStatus) SetStrikeMultiplier(v float64) {
-	m.Set(field.NewStrikeMultiplier(v))
+func (m TradingSessionStatus) SetStrikeMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikeMultiplier(value, scale))
 }
 
 //SetStrikeValue sets StrikeValue, Tag 968
-func (m TradingSessionStatus) SetStrikeValue(v float64) {
-	m.Set(field.NewStrikeValue(v))
+func (m TradingSessionStatus) SetStrikeValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikeValue(value, scale))
 }
 
 //SetMinPriceIncrement sets MinPriceIncrement, Tag 969
-func (m TradingSessionStatus) SetMinPriceIncrement(v float64) {
-	m.Set(field.NewMinPriceIncrement(v))
+func (m TradingSessionStatus) SetMinPriceIncrement(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinPriceIncrement(value, scale))
 }
 
 //SetPositionLimit sets PositionLimit, Tag 970
@@ -1277,8 +1278,8 @@ func (m NoEvents) SetEventDate(v string) {
 }
 
 //SetEventPx sets EventPx, Tag 867
-func (m NoEvents) SetEventPx(v float64) {
-	m.Set(field.NewEventPx(v))
+func (m NoEvents) SetEventPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewEventPx(value, scale))
 }
 
 //SetEventText sets EventText, Tag 868

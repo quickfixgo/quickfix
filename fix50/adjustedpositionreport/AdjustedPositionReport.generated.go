@@ -1,6 +1,7 @@
 package adjustedpositionreport
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -103,8 +104,8 @@ func (m AdjustedPositionReport) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m AdjustedPositionReport) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m AdjustedPositionReport) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -118,8 +119,8 @@ func (m AdjustedPositionReport) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m AdjustedPositionReport) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m AdjustedPositionReport) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -138,18 +139,18 @@ func (m AdjustedPositionReport) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m AdjustedPositionReport) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m AdjustedPositionReport) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m AdjustedPositionReport) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m AdjustedPositionReport) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m AdjustedPositionReport) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m AdjustedPositionReport) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -273,13 +274,13 @@ func (m AdjustedPositionReport) SetPosReqType(v int) {
 }
 
 //SetSettlPrice sets SettlPrice, Tag 730
-func (m AdjustedPositionReport) SetSettlPrice(v float64) {
-	m.Set(field.NewSettlPrice(v))
+func (m AdjustedPositionReport) SetSettlPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlPrice(value, scale))
 }
 
 //SetPriorSettlPrice sets PriorSettlPrice, Tag 734
-func (m AdjustedPositionReport) SetPriorSettlPrice(v float64) {
-	m.Set(field.NewPriorSettlPrice(v))
+func (m AdjustedPositionReport) SetPriorSettlPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPriorSettlPrice(value, scale))
 }
 
 //SetSecuritySubType sets SecuritySubType, Tag 762
@@ -328,18 +329,18 @@ func (m AdjustedPositionReport) SetSettleOnOpenFlag(v string) {
 }
 
 //SetStrikeMultiplier sets StrikeMultiplier, Tag 967
-func (m AdjustedPositionReport) SetStrikeMultiplier(v float64) {
-	m.Set(field.NewStrikeMultiplier(v))
+func (m AdjustedPositionReport) SetStrikeMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikeMultiplier(value, scale))
 }
 
 //SetStrikeValue sets StrikeValue, Tag 968
-func (m AdjustedPositionReport) SetStrikeValue(v float64) {
-	m.Set(field.NewStrikeValue(v))
+func (m AdjustedPositionReport) SetStrikeValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikeValue(value, scale))
 }
 
 //SetMinPriceIncrement sets MinPriceIncrement, Tag 969
-func (m AdjustedPositionReport) SetMinPriceIncrement(v float64) {
-	m.Set(field.NewMinPriceIncrement(v))
+func (m AdjustedPositionReport) SetMinPriceIncrement(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinPriceIncrement(value, scale))
 }
 
 //SetPositionLimit sets PositionLimit, Tag 970
@@ -1299,13 +1300,13 @@ func (m NoPositions) SetPosType(v string) {
 }
 
 //SetLongQty sets LongQty, Tag 704
-func (m NoPositions) SetLongQty(v float64) {
-	m.Set(field.NewLongQty(v))
+func (m NoPositions) SetLongQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLongQty(value, scale))
 }
 
 //SetShortQty sets ShortQty, Tag 705
-func (m NoPositions) SetShortQty(v float64) {
-	m.Set(field.NewShortQty(v))
+func (m NoPositions) SetShortQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewShortQty(value, scale))
 }
 
 //SetPosQtyStatus sets PosQtyStatus, Tag 706
@@ -1582,8 +1583,8 @@ func (m NoEvents) SetEventDate(v string) {
 }
 
 //SetEventPx sets EventPx, Tag 867
-func (m NoEvents) SetEventPx(v float64) {
-	m.Set(field.NewEventPx(v))
+func (m NoEvents) SetEventPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewEventPx(value, scale))
 }
 
 //SetEventText sets EventText, Tag 868

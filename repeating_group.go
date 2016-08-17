@@ -56,7 +56,7 @@ func (gt GroupTemplate) Clone() GroupTemplate {
 	return clone
 }
 
-//Group is a group of fields occuring in a repeating group
+//Group is a group of fields occurring in a repeating group
 type Group struct{ FieldMap }
 
 //RepeatingGroup is a FIX Repeating Group type

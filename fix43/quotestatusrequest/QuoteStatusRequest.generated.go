@@ -1,6 +1,7 @@
 package quotestatusrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -111,8 +112,8 @@ func (m QuoteStatusRequest) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m QuoteStatusRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m QuoteStatusRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -126,8 +127,8 @@ func (m QuoteStatusRequest) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m QuoteStatusRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m QuoteStatusRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -146,18 +147,18 @@ func (m QuoteStatusRequest) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m QuoteStatusRequest) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m QuoteStatusRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m QuoteStatusRequest) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m QuoteStatusRequest) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m QuoteStatusRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m QuoteStatusRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239

@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"flag"
 	"fmt"
 	"go/ast"
 	"go/parser"
@@ -11,6 +12,7 @@ import (
 )
 
 var (
+	useFloat    = flag.Bool("use-float", false, "By default, FIX float fields are represented as arbitrary-precision fixed-point decimal numbers.  Set to 'true' to instead generate FIX float fields as float64 values.")
 	tabWidth    = 8
 	printerMode = printer.UseSpaces | printer.TabIndent
 )

@@ -1,6 +1,7 @@
 package securitydefinitionrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -113,8 +114,8 @@ func (m SecurityDefinitionRequest) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m SecurityDefinitionRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m SecurityDefinitionRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -128,8 +129,8 @@ func (m SecurityDefinitionRequest) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m SecurityDefinitionRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m SecurityDefinitionRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -148,18 +149,18 @@ func (m SecurityDefinitionRequest) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m SecurityDefinitionRequest) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m SecurityDefinitionRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m SecurityDefinitionRequest) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m SecurityDefinitionRequest) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m SecurityDefinitionRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m SecurityDefinitionRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -888,13 +889,13 @@ func (m NoLegs) SetLegRepurchaseTerm(v int) {
 }
 
 //SetLegRepurchaseRate sets LegRepurchaseRate, Tag 252
-func (m NoLegs) SetLegRepurchaseRate(v float64) {
-	m.Set(field.NewLegRepurchaseRate(v))
+func (m NoLegs) SetLegRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegRepurchaseRate(value, scale))
 }
 
 //SetLegFactor sets LegFactor, Tag 253
-func (m NoLegs) SetLegFactor(v float64) {
-	m.Set(field.NewLegFactor(v))
+func (m NoLegs) SetLegFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegFactor(value, scale))
 }
 
 //SetLegCreditRating sets LegCreditRating, Tag 257
@@ -928,8 +929,8 @@ func (m NoLegs) SetLegRedemptionDate(v string) {
 }
 
 //SetLegStrikePrice sets LegStrikePrice, Tag 612
-func (m NoLegs) SetLegStrikePrice(v float64) {
-	m.Set(field.NewLegStrikePrice(v))
+func (m NoLegs) SetLegStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegStrikePrice(value, scale))
 }
 
 //SetLegOptAttribute sets LegOptAttribute, Tag 613
@@ -938,13 +939,13 @@ func (m NoLegs) SetLegOptAttribute(v string) {
 }
 
 //SetLegContractMultiplier sets LegContractMultiplier, Tag 614
-func (m NoLegs) SetLegContractMultiplier(v float64) {
-	m.Set(field.NewLegContractMultiplier(v))
+func (m NoLegs) SetLegContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegContractMultiplier(value, scale))
 }
 
 //SetLegCouponRate sets LegCouponRate, Tag 615
-func (m NoLegs) SetLegCouponRate(v float64) {
-	m.Set(field.NewLegCouponRate(v))
+func (m NoLegs) SetLegCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegCouponRate(value, scale))
 }
 
 //SetLegSecurityExchange sets LegSecurityExchange, Tag 616
@@ -983,8 +984,8 @@ func (m NoLegs) SetEncodedLegSecurityDesc(v string) {
 }
 
 //SetLegRatioQty sets LegRatioQty, Tag 623
-func (m NoLegs) SetLegRatioQty(v float64) {
-	m.Set(field.NewLegRatioQty(v))
+func (m NoLegs) SetLegRatioQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegRatioQty(value, scale))
 }
 
 //SetLegSide sets LegSide, Tag 624

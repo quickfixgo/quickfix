@@ -1,6 +1,7 @@
 package ordermasscancelrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -124,8 +125,8 @@ func (m OrderMassCancelRequest) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m OrderMassCancelRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m OrderMassCancelRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -139,8 +140,8 @@ func (m OrderMassCancelRequest) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m OrderMassCancelRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m OrderMassCancelRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -159,18 +160,18 @@ func (m OrderMassCancelRequest) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m OrderMassCancelRequest) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m OrderMassCancelRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m OrderMassCancelRequest) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m OrderMassCancelRequest) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m OrderMassCancelRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m OrderMassCancelRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -204,13 +205,13 @@ func (m OrderMassCancelRequest) SetUnderlyingRepurchaseTerm(v int) {
 }
 
 //SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
-func (m OrderMassCancelRequest) SetUnderlyingRepurchaseRate(v float64) {
-	m.Set(field.NewUnderlyingRepurchaseRate(v))
+func (m OrderMassCancelRequest) SetUnderlyingRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingRepurchaseRate(value, scale))
 }
 
 //SetUnderlyingFactor sets UnderlyingFactor, Tag 246
-func (m OrderMassCancelRequest) SetUnderlyingFactor(v float64) {
-	m.Set(field.NewUnderlyingFactor(v))
+func (m OrderMassCancelRequest) SetUnderlyingFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingFactor(value, scale))
 }
 
 //SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
@@ -274,8 +275,8 @@ func (m OrderMassCancelRequest) SetUnderlyingMaturityMonthYear(v string) {
 }
 
 //SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
-func (m OrderMassCancelRequest) SetUnderlyingStrikePrice(v float64) {
-	m.Set(field.NewUnderlyingStrikePrice(v))
+func (m OrderMassCancelRequest) SetUnderlyingStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingStrikePrice(value, scale))
 }
 
 //SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
@@ -339,13 +340,13 @@ func (m OrderMassCancelRequest) SetEncodedUnderlyingSecurityDesc(v string) {
 }
 
 //SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
-func (m OrderMassCancelRequest) SetUnderlyingCouponRate(v float64) {
-	m.Set(field.NewUnderlyingCouponRate(v))
+func (m OrderMassCancelRequest) SetUnderlyingCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCouponRate(value, scale))
 }
 
 //SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
-func (m OrderMassCancelRequest) SetUnderlyingContractMultiplier(v float64) {
-	m.Set(field.NewUnderlyingContractMultiplier(v))
+func (m OrderMassCancelRequest) SetUnderlyingContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingContractMultiplier(value, scale))
 }
 
 //SetNoSecurityAltID sets NoSecurityAltID, Tag 454

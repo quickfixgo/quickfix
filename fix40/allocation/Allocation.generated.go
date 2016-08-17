@@ -1,6 +1,7 @@
 package allocation
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -68,8 +69,8 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 }
 
 //SetAvgPx sets AvgPx, Tag 6
-func (m Allocation) SetAvgPx(v float64) {
-	m.Set(field.NewAvgPx(v))
+func (m Allocation) SetAvgPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAvgPx(value, scale))
 }
 
 //SetCurrency sets Currency, Tag 15
@@ -88,8 +89,8 @@ func (m Allocation) SetSecurityID(v string) {
 }
 
 //SetShares sets Shares, Tag 53
-func (m Allocation) SetShares(v float64) {
-	m.Set(field.NewShares(v))
+func (m Allocation) SetShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewShares(value, scale))
 }
 
 //SetSide sets Side, Tag 54
@@ -178,13 +179,13 @@ func (m Allocation) SetSecurityDesc(v string) {
 }
 
 //SetNetMoney sets NetMoney, Tag 118
-func (m Allocation) SetNetMoney(v float64) {
-	m.Set(field.NewNetMoney(v))
+func (m Allocation) SetNetMoney(value decimal.Decimal, scale int32) {
+	m.Set(field.NewNetMoney(value, scale))
 }
 
 //SetSettlCurrAmt sets SettlCurrAmt, Tag 119
-func (m Allocation) SetSettlCurrAmt(v float64) {
-	m.Set(field.NewSettlCurrAmt(v))
+func (m Allocation) SetSettlCurrAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSettlCurrAmt(value, scale))
 }
 
 //SetSettlCurrency sets SettlCurrency, Tag 120
@@ -606,8 +607,8 @@ func (m NoAllocs) SetAllocAccount(v string) {
 }
 
 //SetAllocShares sets AllocShares, Tag 80
-func (m NoAllocs) SetAllocShares(v float64) {
-	m.Set(field.NewAllocShares(v))
+func (m NoAllocs) SetAllocShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAllocShares(value, scale))
 }
 
 //SetProcessCode sets ProcessCode, Tag 81
@@ -626,8 +627,8 @@ func (m NoAllocs) SetClientID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m NoAllocs) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m NoAllocs) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -794,13 +795,13 @@ func (m NoExecs) SetExecID(v string) {
 }
 
 //SetLastShares sets LastShares, Tag 32
-func (m NoExecs) SetLastShares(v float64) {
-	m.Set(field.NewLastShares(v))
+func (m NoExecs) SetLastShares(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastShares(value, scale))
 }
 
 //SetLastPx sets LastPx, Tag 31
-func (m NoExecs) SetLastPx(v float64) {
-	m.Set(field.NewLastPx(v))
+func (m NoExecs) SetLastPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastPx(value, scale))
 }
 
 //SetLastMkt sets LastMkt, Tag 30
@@ -881,8 +882,8 @@ type NoMiscFees struct {
 }
 
 //SetMiscFeeAmt sets MiscFeeAmt, Tag 137
-func (m NoMiscFees) SetMiscFeeAmt(v float64) {
-	m.Set(field.NewMiscFeeAmt(v))
+func (m NoMiscFees) SetMiscFeeAmt(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMiscFeeAmt(value, scale))
 }
 
 //SetMiscFeeCurr sets MiscFeeCurr, Tag 138

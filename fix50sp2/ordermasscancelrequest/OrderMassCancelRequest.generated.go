@@ -1,6 +1,7 @@
 package ordermasscancelrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -129,8 +130,8 @@ func (m OrderMassCancelRequest) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m OrderMassCancelRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m OrderMassCancelRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -144,8 +145,8 @@ func (m OrderMassCancelRequest) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m OrderMassCancelRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m OrderMassCancelRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -164,18 +165,18 @@ func (m OrderMassCancelRequest) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m OrderMassCancelRequest) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m OrderMassCancelRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m OrderMassCancelRequest) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m OrderMassCancelRequest) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m OrderMassCancelRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m OrderMassCancelRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -209,13 +210,13 @@ func (m OrderMassCancelRequest) SetUnderlyingRepurchaseTerm(v int) {
 }
 
 //SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
-func (m OrderMassCancelRequest) SetUnderlyingRepurchaseRate(v float64) {
-	m.Set(field.NewUnderlyingRepurchaseRate(v))
+func (m OrderMassCancelRequest) SetUnderlyingRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingRepurchaseRate(value, scale))
 }
 
 //SetUnderlyingFactor sets UnderlyingFactor, Tag 246
-func (m OrderMassCancelRequest) SetUnderlyingFactor(v float64) {
-	m.Set(field.NewUnderlyingFactor(v))
+func (m OrderMassCancelRequest) SetUnderlyingFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingFactor(value, scale))
 }
 
 //SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
@@ -284,8 +285,8 @@ func (m OrderMassCancelRequest) SetUnderlyingPutOrCall(v int) {
 }
 
 //SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
-func (m OrderMassCancelRequest) SetUnderlyingStrikePrice(v float64) {
-	m.Set(field.NewUnderlyingStrikePrice(v))
+func (m OrderMassCancelRequest) SetUnderlyingStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingStrikePrice(value, scale))
 }
 
 //SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
@@ -354,13 +355,13 @@ func (m OrderMassCancelRequest) SetEncodedUnderlyingSecurityDesc(v string) {
 }
 
 //SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
-func (m OrderMassCancelRequest) SetUnderlyingCouponRate(v float64) {
-	m.Set(field.NewUnderlyingCouponRate(v))
+func (m OrderMassCancelRequest) SetUnderlyingCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCouponRate(value, scale))
 }
 
 //SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
-func (m OrderMassCancelRequest) SetUnderlyingContractMultiplier(v float64) {
-	m.Set(field.NewUnderlyingContractMultiplier(v))
+func (m OrderMassCancelRequest) SetUnderlyingContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingContractMultiplier(value, scale))
 }
 
 //SetNoPartyIDs sets NoPartyIDs, Tag 453
@@ -484,8 +485,8 @@ func (m OrderMassCancelRequest) SetUnderlyingSecuritySubType(v string) {
 }
 
 //SetUnderlyingPx sets UnderlyingPx, Tag 810
-func (m OrderMassCancelRequest) SetUnderlyingPx(v float64) {
-	m.Set(field.NewUnderlyingPx(v))
+func (m OrderMassCancelRequest) SetUnderlyingPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingPx(value, scale))
 }
 
 //SetNoEvents sets NoEvents, Tag 864
@@ -524,33 +525,33 @@ func (m OrderMassCancelRequest) SetUnderlyingCPRegType(v string) {
 }
 
 //SetUnderlyingQty sets UnderlyingQty, Tag 879
-func (m OrderMassCancelRequest) SetUnderlyingQty(v float64) {
-	m.Set(field.NewUnderlyingQty(v))
+func (m OrderMassCancelRequest) SetUnderlyingQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingQty(value, scale))
 }
 
 //SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
-func (m OrderMassCancelRequest) SetUnderlyingDirtyPrice(v float64) {
-	m.Set(field.NewUnderlyingDirtyPrice(v))
+func (m OrderMassCancelRequest) SetUnderlyingDirtyPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingDirtyPrice(value, scale))
 }
 
 //SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
-func (m OrderMassCancelRequest) SetUnderlyingEndPrice(v float64) {
-	m.Set(field.NewUnderlyingEndPrice(v))
+func (m OrderMassCancelRequest) SetUnderlyingEndPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingEndPrice(value, scale))
 }
 
 //SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
-func (m OrderMassCancelRequest) SetUnderlyingStartValue(v float64) {
-	m.Set(field.NewUnderlyingStartValue(v))
+func (m OrderMassCancelRequest) SetUnderlyingStartValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingStartValue(value, scale))
 }
 
 //SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
-func (m OrderMassCancelRequest) SetUnderlyingCurrentValue(v float64) {
-	m.Set(field.NewUnderlyingCurrentValue(v))
+func (m OrderMassCancelRequest) SetUnderlyingCurrentValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCurrentValue(value, scale))
 }
 
 //SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
-func (m OrderMassCancelRequest) SetUnderlyingEndValue(v float64) {
-	m.Set(field.NewUnderlyingEndValue(v))
+func (m OrderMassCancelRequest) SetUnderlyingEndValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingEndValue(value, scale))
 }
 
 //SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
@@ -579,18 +580,18 @@ func (m OrderMassCancelRequest) SetSettleOnOpenFlag(v string) {
 }
 
 //SetStrikeMultiplier sets StrikeMultiplier, Tag 967
-func (m OrderMassCancelRequest) SetStrikeMultiplier(v float64) {
-	m.Set(field.NewStrikeMultiplier(v))
+func (m OrderMassCancelRequest) SetStrikeMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikeMultiplier(value, scale))
 }
 
 //SetStrikeValue sets StrikeValue, Tag 968
-func (m OrderMassCancelRequest) SetStrikeValue(v float64) {
-	m.Set(field.NewStrikeValue(v))
+func (m OrderMassCancelRequest) SetStrikeValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikeValue(value, scale))
 }
 
 //SetMinPriceIncrement sets MinPriceIncrement, Tag 969
-func (m OrderMassCancelRequest) SetMinPriceIncrement(v float64) {
-	m.Set(field.NewMinPriceIncrement(v))
+func (m OrderMassCancelRequest) SetMinPriceIncrement(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinPriceIncrement(value, scale))
 }
 
 //SetPositionLimit sets PositionLimit, Tag 970
@@ -604,13 +605,13 @@ func (m OrderMassCancelRequest) SetNTPositionLimit(v int) {
 }
 
 //SetUnderlyingAllocationPercent sets UnderlyingAllocationPercent, Tag 972
-func (m OrderMassCancelRequest) SetUnderlyingAllocationPercent(v float64) {
-	m.Set(field.NewUnderlyingAllocationPercent(v))
+func (m OrderMassCancelRequest) SetUnderlyingAllocationPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAllocationPercent(value, scale))
 }
 
 //SetUnderlyingCashAmount sets UnderlyingCashAmount, Tag 973
-func (m OrderMassCancelRequest) SetUnderlyingCashAmount(v float64) {
-	m.Set(field.NewUnderlyingCashAmount(v))
+func (m OrderMassCancelRequest) SetUnderlyingCashAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCashAmount(value, scale))
 }
 
 //SetUnderlyingCashType sets UnderlyingCashType, Tag 974
@@ -649,8 +650,8 @@ func (m OrderMassCancelRequest) SetNoInstrumentParties(f NoInstrumentPartiesRepe
 }
 
 //SetUnderlyingCapValue sets UnderlyingCapValue, Tag 1038
-func (m OrderMassCancelRequest) SetUnderlyingCapValue(v float64) {
-	m.Set(field.NewUnderlyingCapValue(v))
+func (m OrderMassCancelRequest) SetUnderlyingCapValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCapValue(value, scale))
 }
 
 //SetUnderlyingSettlMethod sets UnderlyingSettlMethod, Tag 1039
@@ -659,13 +660,13 @@ func (m OrderMassCancelRequest) SetUnderlyingSettlMethod(v string) {
 }
 
 //SetUnderlyingAdjustedQuantity sets UnderlyingAdjustedQuantity, Tag 1044
-func (m OrderMassCancelRequest) SetUnderlyingAdjustedQuantity(v float64) {
-	m.Set(field.NewUnderlyingAdjustedQuantity(v))
+func (m OrderMassCancelRequest) SetUnderlyingAdjustedQuantity(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAdjustedQuantity(value, scale))
 }
 
 //SetUnderlyingFXRate sets UnderlyingFXRate, Tag 1045
-func (m OrderMassCancelRequest) SetUnderlyingFXRate(v float64) {
-	m.Set(field.NewUnderlyingFXRate(v))
+func (m OrderMassCancelRequest) SetUnderlyingFXRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingFXRate(value, scale))
 }
 
 //SetUnderlyingFXRateCalc sets UnderlyingFXRateCalc, Tag 1046
@@ -689,13 +690,13 @@ func (m OrderMassCancelRequest) SetMaturityTime(v string) {
 }
 
 //SetMinPriceIncrementAmount sets MinPriceIncrementAmount, Tag 1146
-func (m OrderMassCancelRequest) SetMinPriceIncrementAmount(v float64) {
-	m.Set(field.NewMinPriceIncrementAmount(v))
+func (m OrderMassCancelRequest) SetMinPriceIncrementAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinPriceIncrementAmount(value, scale))
 }
 
 //SetUnitOfMeasureQty sets UnitOfMeasureQty, Tag 1147
-func (m OrderMassCancelRequest) SetUnitOfMeasureQty(v float64) {
-	m.Set(field.NewUnitOfMeasureQty(v))
+func (m OrderMassCancelRequest) SetUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnitOfMeasureQty(value, scale))
 }
 
 //SetSecurityGroup sets SecurityGroup, Tag 1151
@@ -724,8 +725,8 @@ func (m OrderMassCancelRequest) SetPriceUnitOfMeasure(v string) {
 }
 
 //SetPriceUnitOfMeasureQty sets PriceUnitOfMeasureQty, Tag 1192
-func (m OrderMassCancelRequest) SetPriceUnitOfMeasureQty(v float64) {
-	m.Set(field.NewPriceUnitOfMeasureQty(v))
+func (m OrderMassCancelRequest) SetPriceUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPriceUnitOfMeasureQty(value, scale))
 }
 
 //SetSettlMethod sets SettlMethod, Tag 1193
@@ -739,8 +740,8 @@ func (m OrderMassCancelRequest) SetExerciseStyle(v int) {
 }
 
 //SetOptPayoutAmount sets OptPayoutAmount, Tag 1195
-func (m OrderMassCancelRequest) SetOptPayoutAmount(v float64) {
-	m.Set(field.NewOptPayoutAmount(v))
+func (m OrderMassCancelRequest) SetOptPayoutAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOptPayoutAmount(value, scale))
 }
 
 //SetPriceQuoteMethod sets PriceQuoteMethod, Tag 1196
@@ -759,13 +760,13 @@ func (m OrderMassCancelRequest) SetListMethod(v int) {
 }
 
 //SetCapPrice sets CapPrice, Tag 1199
-func (m OrderMassCancelRequest) SetCapPrice(v float64) {
-	m.Set(field.NewCapPrice(v))
+func (m OrderMassCancelRequest) SetCapPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCapPrice(value, scale))
 }
 
 //SetFloorPrice sets FloorPrice, Tag 1200
-func (m OrderMassCancelRequest) SetFloorPrice(v float64) {
-	m.Set(field.NewFloorPrice(v))
+func (m OrderMassCancelRequest) SetFloorPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFloorPrice(value, scale))
 }
 
 //SetUnderlyingMaturityTime sets UnderlyingMaturityTime, Tag 1213
@@ -804,8 +805,8 @@ func (m OrderMassCancelRequest) SetUnderlyingExerciseStyle(v int) {
 }
 
 //SetUnderlyingUnitOfMeasureQty sets UnderlyingUnitOfMeasureQty, Tag 1423
-func (m OrderMassCancelRequest) SetUnderlyingUnitOfMeasureQty(v float64) {
-	m.Set(field.NewUnderlyingUnitOfMeasureQty(v))
+func (m OrderMassCancelRequest) SetUnderlyingUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingUnitOfMeasureQty(value, scale))
 }
 
 //SetUnderlyingPriceUnitOfMeasure sets UnderlyingPriceUnitOfMeasure, Tag 1424
@@ -814,8 +815,8 @@ func (m OrderMassCancelRequest) SetUnderlyingPriceUnitOfMeasure(v string) {
 }
 
 //SetUnderlyingPriceUnitOfMeasureQty sets UnderlyingPriceUnitOfMeasureQty, Tag 1425
-func (m OrderMassCancelRequest) SetUnderlyingPriceUnitOfMeasureQty(v float64) {
-	m.Set(field.NewUnderlyingPriceUnitOfMeasureQty(v))
+func (m OrderMassCancelRequest) SetUnderlyingPriceUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingPriceUnitOfMeasureQty(value, scale))
 }
 
 //SetContractMultiplierUnit sets ContractMultiplierUnit, Tag 1435
@@ -849,13 +850,13 @@ func (m OrderMassCancelRequest) SetSeniority(v string) {
 }
 
 //SetNotionalPercentageOutstanding sets NotionalPercentageOutstanding, Tag 1451
-func (m OrderMassCancelRequest) SetNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewNotionalPercentageOutstanding(v))
+func (m OrderMassCancelRequest) SetNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewNotionalPercentageOutstanding(value, scale))
 }
 
 //SetOriginalNotionalPercentageOutstanding sets OriginalNotionalPercentageOutstanding, Tag 1452
-func (m OrderMassCancelRequest) SetOriginalNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewOriginalNotionalPercentageOutstanding(v))
+func (m OrderMassCancelRequest) SetOriginalNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOriginalNotionalPercentageOutstanding(value, scale))
 }
 
 //SetUnderlyingRestructuringType sets UnderlyingRestructuringType, Tag 1453
@@ -869,33 +870,33 @@ func (m OrderMassCancelRequest) SetUnderlyingSeniority(v string) {
 }
 
 //SetUnderlyingNotionalPercentageOutstanding sets UnderlyingNotionalPercentageOutstanding, Tag 1455
-func (m OrderMassCancelRequest) SetUnderlyingNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewUnderlyingNotionalPercentageOutstanding(v))
+func (m OrderMassCancelRequest) SetUnderlyingNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingNotionalPercentageOutstanding(value, scale))
 }
 
 //SetUnderlyingOriginalNotionalPercentageOutstanding sets UnderlyingOriginalNotionalPercentageOutstanding, Tag 1456
-func (m OrderMassCancelRequest) SetUnderlyingOriginalNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewUnderlyingOriginalNotionalPercentageOutstanding(v))
+func (m OrderMassCancelRequest) SetUnderlyingOriginalNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingOriginalNotionalPercentageOutstanding(value, scale))
 }
 
 //SetAttachmentPoint sets AttachmentPoint, Tag 1457
-func (m OrderMassCancelRequest) SetAttachmentPoint(v float64) {
-	m.Set(field.NewAttachmentPoint(v))
+func (m OrderMassCancelRequest) SetAttachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAttachmentPoint(value, scale))
 }
 
 //SetDetachmentPoint sets DetachmentPoint, Tag 1458
-func (m OrderMassCancelRequest) SetDetachmentPoint(v float64) {
-	m.Set(field.NewDetachmentPoint(v))
+func (m OrderMassCancelRequest) SetDetachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDetachmentPoint(value, scale))
 }
 
 //SetUnderlyingAttachmentPoint sets UnderlyingAttachmentPoint, Tag 1459
-func (m OrderMassCancelRequest) SetUnderlyingAttachmentPoint(v float64) {
-	m.Set(field.NewUnderlyingAttachmentPoint(v))
+func (m OrderMassCancelRequest) SetUnderlyingAttachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAttachmentPoint(value, scale))
 }
 
 //SetUnderlyingDetachmentPoint sets UnderlyingDetachmentPoint, Tag 1460
-func (m OrderMassCancelRequest) SetUnderlyingDetachmentPoint(v float64) {
-	m.Set(field.NewUnderlyingDetachmentPoint(v))
+func (m OrderMassCancelRequest) SetUnderlyingDetachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingDetachmentPoint(value, scale))
 }
 
 //SetNoTargetPartyIDs sets NoTargetPartyIDs, Tag 1461
@@ -914,8 +915,8 @@ func (m OrderMassCancelRequest) SetStrikePriceBoundaryMethod(v int) {
 }
 
 //SetStrikePriceBoundaryPrecision sets StrikePriceBoundaryPrecision, Tag 1480
-func (m OrderMassCancelRequest) SetStrikePriceBoundaryPrecision(v float64) {
-	m.Set(field.NewStrikePriceBoundaryPrecision(v))
+func (m OrderMassCancelRequest) SetStrikePriceBoundaryPrecision(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePriceBoundaryPrecision(value, scale))
 }
 
 //SetUnderlyingPriceDeterminationMethod sets UnderlyingPriceDeterminationMethod, Tag 1481
@@ -3145,8 +3146,8 @@ func (m NoEvents) SetEventDate(v string) {
 }
 
 //SetEventPx sets EventPx, Tag 867
-func (m NoEvents) SetEventPx(v float64) {
-	m.Set(field.NewEventPx(v))
+func (m NoEvents) SetEventPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewEventPx(value, scale))
 }
 
 //SetEventText sets EventText, Tag 868
@@ -3690,13 +3691,13 @@ func (m NoComplexEvents) SetComplexEventType(v int) {
 }
 
 //SetComplexOptPayoutAmount sets ComplexOptPayoutAmount, Tag 1485
-func (m NoComplexEvents) SetComplexOptPayoutAmount(v float64) {
-	m.Set(field.NewComplexOptPayoutAmount(v))
+func (m NoComplexEvents) SetComplexOptPayoutAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewComplexOptPayoutAmount(value, scale))
 }
 
 //SetComplexEventPrice sets ComplexEventPrice, Tag 1486
-func (m NoComplexEvents) SetComplexEventPrice(v float64) {
-	m.Set(field.NewComplexEventPrice(v))
+func (m NoComplexEvents) SetComplexEventPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewComplexEventPrice(value, scale))
 }
 
 //SetComplexEventPriceBoundaryMethod sets ComplexEventPriceBoundaryMethod, Tag 1487
@@ -3705,8 +3706,8 @@ func (m NoComplexEvents) SetComplexEventPriceBoundaryMethod(v int) {
 }
 
 //SetComplexEventPriceBoundaryPrecision sets ComplexEventPriceBoundaryPrecision, Tag 1488
-func (m NoComplexEvents) SetComplexEventPriceBoundaryPrecision(v float64) {
-	m.Set(field.NewComplexEventPriceBoundaryPrecision(v))
+func (m NoComplexEvents) SetComplexEventPriceBoundaryPrecision(value decimal.Decimal, scale int32) {
+	m.Set(field.NewComplexEventPriceBoundaryPrecision(value, scale))
 }
 
 //SetComplexEventPriceTimeType sets ComplexEventPriceTimeType, Tag 1489

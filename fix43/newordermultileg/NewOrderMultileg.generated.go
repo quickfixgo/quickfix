@@ -1,6 +1,7 @@
 package newordermultileg
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -76,8 +77,8 @@ func (m NewOrderMultileg) SetClOrdID(v string) {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m NewOrderMultileg) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m NewOrderMultileg) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -111,8 +112,8 @@ func (m NewOrderMultileg) SetIOIid(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m NewOrderMultileg) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m NewOrderMultileg) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -121,8 +122,8 @@ func (m NewOrderMultileg) SetOrdType(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m NewOrderMultileg) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m NewOrderMultileg) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -186,8 +187,8 @@ func (m NewOrderMultileg) SetProcessCode(v string) {
 }
 
 //SetStopPx sets StopPx, Tag 99
-func (m NewOrderMultileg) SetStopPx(v float64) {
-	m.Set(field.NewStopPx(v))
+func (m NewOrderMultileg) SetStopPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStopPx(value, scale))
 }
 
 //SetExDestination sets ExDestination, Tag 100
@@ -206,13 +207,13 @@ func (m NewOrderMultileg) SetSecurityDesc(v string) {
 }
 
 //SetMinQty sets MinQty, Tag 110
-func (m NewOrderMultileg) SetMinQty(v float64) {
-	m.Set(field.NewMinQty(v))
+func (m NewOrderMultileg) SetMinQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMinQty(value, scale))
 }
 
 //SetMaxFloor sets MaxFloor, Tag 111
-func (m NewOrderMultileg) SetMaxFloor(v float64) {
-	m.Set(field.NewMaxFloor(v))
+func (m NewOrderMultileg) SetMaxFloor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxFloor(value, scale))
 }
 
 //SetLocateReqd sets LocateReqd, Tag 114
@@ -226,8 +227,8 @@ func (m NewOrderMultileg) SetQuoteID(v string) {
 }
 
 //SetNetMoney sets NetMoney, Tag 118
-func (m NewOrderMultileg) SetNetMoney(v float64) {
-	m.Set(field.NewNetMoney(v))
+func (m NewOrderMultileg) SetNetMoney(value decimal.Decimal, scale int32) {
+	m.Set(field.NewNetMoney(value, scale))
 }
 
 //SetSettlCurrency sets SettlCurrency, Tag 120
@@ -246,13 +247,13 @@ func (m NewOrderMultileg) SetExpireTime(v time.Time) {
 }
 
 //SetPrevClosePx sets PrevClosePx, Tag 140
-func (m NewOrderMultileg) SetPrevClosePx(v float64) {
-	m.Set(field.NewPrevClosePx(v))
+func (m NewOrderMultileg) SetPrevClosePx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrevClosePx(value, scale))
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m NewOrderMultileg) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m NewOrderMultileg) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -271,8 +272,8 @@ func (m NewOrderMultileg) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m NewOrderMultileg) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m NewOrderMultileg) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetCoveredOrUncovered sets CoveredOrUncovered, Tag 203
@@ -291,18 +292,18 @@ func (m NewOrderMultileg) SetSecurityExchange(v string) {
 }
 
 //SetMaxShow sets MaxShow, Tag 210
-func (m NewOrderMultileg) SetMaxShow(v float64) {
-	m.Set(field.NewMaxShow(v))
+func (m NewOrderMultileg) SetMaxShow(value decimal.Decimal, scale int32) {
+	m.Set(field.NewMaxShow(value, scale))
 }
 
 //SetPegDifference sets PegDifference, Tag 211
-func (m NewOrderMultileg) SetPegDifference(v float64) {
-	m.Set(field.NewPegDifference(v))
+func (m NewOrderMultileg) SetPegDifference(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPegDifference(value, scale))
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m NewOrderMultileg) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m NewOrderMultileg) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -321,18 +322,18 @@ func (m NewOrderMultileg) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m NewOrderMultileg) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m NewOrderMultileg) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m NewOrderMultileg) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m NewOrderMultileg) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m NewOrderMultileg) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m NewOrderMultileg) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -401,8 +402,8 @@ func (m NewOrderMultileg) SetDiscretionInst(v string) {
 }
 
 //SetDiscretionOffset sets DiscretionOffset, Tag 389
-func (m NewOrderMultileg) SetDiscretionOffset(v float64) {
-	m.Set(field.NewDiscretionOffset(v))
+func (m NewOrderMultileg) SetDiscretionOffset(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDiscretionOffset(value, scale))
 }
 
 //SetPriceType sets PriceType, Tag 423
@@ -451,8 +452,8 @@ func (m NewOrderMultileg) SetRoundingDirection(v string) {
 }
 
 //SetRoundingModulus sets RoundingModulus, Tag 469
-func (m NewOrderMultileg) SetRoundingModulus(v float64) {
-	m.Set(field.NewRoundingModulus(v))
+func (m NewOrderMultileg) SetRoundingModulus(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRoundingModulus(value, scale))
 }
 
 //SetCountryOfIssue sets CountryOfIssue, Tag 470
@@ -501,8 +502,8 @@ func (m NewOrderMultileg) SetRegistID(v string) {
 }
 
 //SetOrderPercent sets OrderPercent, Tag 516
-func (m NewOrderMultileg) SetOrderPercent(v float64) {
-	m.Set(field.NewOrderPercent(v))
+func (m NewOrderMultileg) SetOrderPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderPercent(value, scale))
 }
 
 //SetSecondaryClOrdID sets SecondaryClOrdID, Tag 526
@@ -1734,8 +1735,8 @@ func (m NoAllocs) SetIndividualAllocID(v string) {
 }
 
 //SetAllocQty sets AllocQty, Tag 80
-func (m NoAllocs) SetAllocQty(v float64) {
-	m.Set(field.NewAllocQty(v))
+func (m NoAllocs) SetAllocQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAllocQty(value, scale))
 }
 
 //GetAllocAccount gets AllocAccount, Tag 79
@@ -2082,13 +2083,13 @@ func (m NoLegs) SetLegRepurchaseTerm(v int) {
 }
 
 //SetLegRepurchaseRate sets LegRepurchaseRate, Tag 252
-func (m NoLegs) SetLegRepurchaseRate(v float64) {
-	m.Set(field.NewLegRepurchaseRate(v))
+func (m NoLegs) SetLegRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegRepurchaseRate(value, scale))
 }
 
 //SetLegFactor sets LegFactor, Tag 253
-func (m NoLegs) SetLegFactor(v float64) {
-	m.Set(field.NewLegFactor(v))
+func (m NoLegs) SetLegFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegFactor(value, scale))
 }
 
 //SetLegCreditRating sets LegCreditRating, Tag 257
@@ -2122,8 +2123,8 @@ func (m NoLegs) SetLegRedemptionDate(v string) {
 }
 
 //SetLegStrikePrice sets LegStrikePrice, Tag 612
-func (m NoLegs) SetLegStrikePrice(v float64) {
-	m.Set(field.NewLegStrikePrice(v))
+func (m NoLegs) SetLegStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegStrikePrice(value, scale))
 }
 
 //SetLegOptAttribute sets LegOptAttribute, Tag 613
@@ -2132,13 +2133,13 @@ func (m NoLegs) SetLegOptAttribute(v string) {
 }
 
 //SetLegContractMultiplier sets LegContractMultiplier, Tag 614
-func (m NoLegs) SetLegContractMultiplier(v float64) {
-	m.Set(field.NewLegContractMultiplier(v))
+func (m NoLegs) SetLegContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegContractMultiplier(value, scale))
 }
 
 //SetLegCouponRate sets LegCouponRate, Tag 615
-func (m NoLegs) SetLegCouponRate(v float64) {
-	m.Set(field.NewLegCouponRate(v))
+func (m NoLegs) SetLegCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegCouponRate(value, scale))
 }
 
 //SetLegSecurityExchange sets LegSecurityExchange, Tag 616
@@ -2177,8 +2178,8 @@ func (m NoLegs) SetEncodedLegSecurityDesc(v string) {
 }
 
 //SetLegRatioQty sets LegRatioQty, Tag 623
-func (m NoLegs) SetLegRatioQty(v float64) {
-	m.Set(field.NewLegRatioQty(v))
+func (m NoLegs) SetLegRatioQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegRatioQty(value, scale))
 }
 
 //SetLegSide sets LegSide, Tag 624
@@ -2207,8 +2208,8 @@ func (m NoLegs) SetLegRefID(v string) {
 }
 
 //SetLegPrice sets LegPrice, Tag 566
-func (m NoLegs) SetLegPrice(v float64) {
-	m.Set(field.NewLegPrice(v))
+func (m NoLegs) SetLegPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLegPrice(value, scale))
 }
 
 //SetLegSettlmntTyp sets LegSettlmntTyp, Tag 587

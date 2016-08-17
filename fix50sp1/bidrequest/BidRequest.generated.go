@@ -1,6 +1,7 @@
 package bidrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -132,13 +133,13 @@ func (m BidRequest) SetNumTickets(v int) {
 }
 
 //SetSideValue1 sets SideValue1, Tag 396
-func (m BidRequest) SetSideValue1(v float64) {
-	m.Set(field.NewSideValue1(v))
+func (m BidRequest) SetSideValue1(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSideValue1(value, scale))
 }
 
 //SetSideValue2 sets SideValue2, Tag 397
-func (m BidRequest) SetSideValue2(v float64) {
-	m.Set(field.NewSideValue2(v))
+func (m BidRequest) SetSideValue2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewSideValue2(value, scale))
 }
 
 //SetNoBidDescriptors sets NoBidDescriptors, Tag 398
@@ -152,8 +153,8 @@ func (m BidRequest) SetLiquidityIndType(v int) {
 }
 
 //SetWtAverageLiquidity sets WtAverageLiquidity, Tag 410
-func (m BidRequest) SetWtAverageLiquidity(v float64) {
-	m.Set(field.NewWtAverageLiquidity(v))
+func (m BidRequest) SetWtAverageLiquidity(value decimal.Decimal, scale int32) {
+	m.Set(field.NewWtAverageLiquidity(value, scale))
 }
 
 //SetExchangeForPhysical sets ExchangeForPhysical, Tag 411
@@ -162,13 +163,13 @@ func (m BidRequest) SetExchangeForPhysical(v bool) {
 }
 
 //SetOutMainCntryUIndex sets OutMainCntryUIndex, Tag 412
-func (m BidRequest) SetOutMainCntryUIndex(v float64) {
-	m.Set(field.NewOutMainCntryUIndex(v))
+func (m BidRequest) SetOutMainCntryUIndex(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOutMainCntryUIndex(value, scale))
 }
 
 //SetCrossPercent sets CrossPercent, Tag 413
-func (m BidRequest) SetCrossPercent(v float64) {
-	m.Set(field.NewCrossPercent(v))
+func (m BidRequest) SetCrossPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCrossPercent(value, scale))
 }
 
 //SetProgRptReqs sets ProgRptReqs, Tag 414
@@ -553,8 +554,8 @@ func (m NoBidDescriptors) SetSideValueInd(v int) {
 }
 
 //SetLiquidityValue sets LiquidityValue, Tag 404
-func (m NoBidDescriptors) SetLiquidityValue(v float64) {
-	m.Set(field.NewLiquidityValue(v))
+func (m NoBidDescriptors) SetLiquidityValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLiquidityValue(value, scale))
 }
 
 //SetLiquidityNumSecurities sets LiquidityNumSecurities, Tag 441
@@ -563,33 +564,33 @@ func (m NoBidDescriptors) SetLiquidityNumSecurities(v int) {
 }
 
 //SetLiquidityPctLow sets LiquidityPctLow, Tag 402
-func (m NoBidDescriptors) SetLiquidityPctLow(v float64) {
-	m.Set(field.NewLiquidityPctLow(v))
+func (m NoBidDescriptors) SetLiquidityPctLow(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLiquidityPctLow(value, scale))
 }
 
 //SetLiquidityPctHigh sets LiquidityPctHigh, Tag 403
-func (m NoBidDescriptors) SetLiquidityPctHigh(v float64) {
-	m.Set(field.NewLiquidityPctHigh(v))
+func (m NoBidDescriptors) SetLiquidityPctHigh(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLiquidityPctHigh(value, scale))
 }
 
 //SetEFPTrackingError sets EFPTrackingError, Tag 405
-func (m NoBidDescriptors) SetEFPTrackingError(v float64) {
-	m.Set(field.NewEFPTrackingError(v))
+func (m NoBidDescriptors) SetEFPTrackingError(value decimal.Decimal, scale int32) {
+	m.Set(field.NewEFPTrackingError(value, scale))
 }
 
 //SetFairValue sets FairValue, Tag 406
-func (m NoBidDescriptors) SetFairValue(v float64) {
-	m.Set(field.NewFairValue(v))
+func (m NoBidDescriptors) SetFairValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFairValue(value, scale))
 }
 
 //SetOutsideIndexPct sets OutsideIndexPct, Tag 407
-func (m NoBidDescriptors) SetOutsideIndexPct(v float64) {
-	m.Set(field.NewOutsideIndexPct(v))
+func (m NoBidDescriptors) SetOutsideIndexPct(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOutsideIndexPct(value, scale))
 }
 
 //SetValueOfFutures sets ValueOfFutures, Tag 408
-func (m NoBidDescriptors) SetValueOfFutures(v float64) {
-	m.Set(field.NewValueOfFutures(v))
+func (m NoBidDescriptors) SetValueOfFutures(value decimal.Decimal, scale int32) {
+	m.Set(field.NewValueOfFutures(value, scale))
 }
 
 //GetBidDescriptorType gets BidDescriptorType, Tag 399

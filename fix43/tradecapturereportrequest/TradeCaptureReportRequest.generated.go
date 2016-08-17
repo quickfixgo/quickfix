@@ -1,6 +1,7 @@
 package tradecapturereportrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -128,8 +129,8 @@ func (m TradeCaptureReportRequest) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m TradeCaptureReportRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m TradeCaptureReportRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -143,8 +144,8 @@ func (m TradeCaptureReportRequest) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m TradeCaptureReportRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m TradeCaptureReportRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -163,18 +164,18 @@ func (m TradeCaptureReportRequest) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m TradeCaptureReportRequest) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m TradeCaptureReportRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m TradeCaptureReportRequest) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m TradeCaptureReportRequest) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m TradeCaptureReportRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m TradeCaptureReportRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239

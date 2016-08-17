@@ -1,6 +1,7 @@
 package crossordercancelrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -116,8 +117,8 @@ func (m CrossOrderCancelRequest) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m CrossOrderCancelRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m CrossOrderCancelRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -131,8 +132,8 @@ func (m CrossOrderCancelRequest) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m CrossOrderCancelRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m CrossOrderCancelRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -151,18 +152,18 @@ func (m CrossOrderCancelRequest) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m CrossOrderCancelRequest) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m CrossOrderCancelRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m CrossOrderCancelRequest) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m CrossOrderCancelRequest) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m CrossOrderCancelRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m CrossOrderCancelRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -813,18 +814,18 @@ func (m NoSides) SetTradeOriginationDate(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m NoSides) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m NoSides) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m NoSides) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m NoSides) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetOrderPercent sets OrderPercent, Tag 516
-func (m NoSides) SetOrderPercent(v float64) {
-	m.Set(field.NewOrderPercent(v))
+func (m NoSides) SetOrderPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderPercent(value, scale))
 }
 
 //SetRoundingDirection sets RoundingDirection, Tag 468
@@ -833,8 +834,8 @@ func (m NoSides) SetRoundingDirection(v string) {
 }
 
 //SetRoundingModulus sets RoundingModulus, Tag 469
-func (m NoSides) SetRoundingModulus(v float64) {
-	m.Set(field.NewRoundingModulus(v))
+func (m NoSides) SetRoundingModulus(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRoundingModulus(value, scale))
 }
 
 //SetComplianceID sets ComplianceID, Tag 376

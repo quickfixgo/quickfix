@@ -1,6 +1,7 @@
 package securitystatusrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -114,8 +115,8 @@ func (m SecurityStatusRequest) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m SecurityStatusRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m SecurityStatusRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205
@@ -134,13 +135,13 @@ func (m SecurityStatusRequest) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m SecurityStatusRequest) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m SecurityStatusRequest) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m SecurityStatusRequest) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m SecurityStatusRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263

@@ -1,6 +1,7 @@
 package dontknowtrade
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -75,13 +76,13 @@ func (m DontKnowTrade) SetSecurityIDSource(v string) {
 }
 
 //SetLastPx sets LastPx, Tag 31
-func (m DontKnowTrade) SetLastPx(v float64) {
-	m.Set(field.NewLastPx(v))
+func (m DontKnowTrade) SetLastPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastPx(value, scale))
 }
 
 //SetLastQty sets LastQty, Tag 32
-func (m DontKnowTrade) SetLastQty(v float64) {
-	m.Set(field.NewLastQty(v))
+func (m DontKnowTrade) SetLastQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewLastQty(value, scale))
 }
 
 //SetOrderID sets OrderID, Tag 37
@@ -90,8 +91,8 @@ func (m DontKnowTrade) SetOrderID(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m DontKnowTrade) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m DontKnowTrade) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetSecurityID sets SecurityID, Tag 48
@@ -135,8 +136,8 @@ func (m DontKnowTrade) SetDKReason(v string) {
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m DontKnowTrade) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m DontKnowTrade) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -150,8 +151,8 @@ func (m DontKnowTrade) SetMaturityMonthYear(v string) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m DontKnowTrade) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m DontKnowTrade) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -165,8 +166,8 @@ func (m DontKnowTrade) SetSecurityExchange(v string) {
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m DontKnowTrade) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m DontKnowTrade) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetCouponPaymentDate sets CouponPaymentDate, Tag 224
@@ -185,18 +186,18 @@ func (m DontKnowTrade) SetRepurchaseTerm(v int) {
 }
 
 //SetRepurchaseRate sets RepurchaseRate, Tag 227
-func (m DontKnowTrade) SetRepurchaseRate(v float64) {
-	m.Set(field.NewRepurchaseRate(v))
+func (m DontKnowTrade) SetRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
 //SetFactor sets Factor, Tag 228
-func (m DontKnowTrade) SetFactor(v float64) {
-	m.Set(field.NewFactor(v))
+func (m DontKnowTrade) SetFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFactor(value, scale))
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m DontKnowTrade) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m DontKnowTrade) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
@@ -265,8 +266,8 @@ func (m DontKnowTrade) SetRoundingDirection(v string) {
 }
 
 //SetRoundingModulus sets RoundingModulus, Tag 469
-func (m DontKnowTrade) SetRoundingModulus(v float64) {
-	m.Set(field.NewRoundingModulus(v))
+func (m DontKnowTrade) SetRoundingModulus(value decimal.Decimal, scale int32) {
+	m.Set(field.NewRoundingModulus(value, scale))
 }
 
 //SetCountryOfIssue sets CountryOfIssue, Tag 470
@@ -285,8 +286,8 @@ func (m DontKnowTrade) SetLocaleOfIssue(v string) {
 }
 
 //SetOrderPercent sets OrderPercent, Tag 516
-func (m DontKnowTrade) SetOrderPercent(v float64) {
-	m.Set(field.NewOrderPercent(v))
+func (m DontKnowTrade) SetOrderPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderPercent(value, scale))
 }
 
 //SetMaturityDate sets MaturityDate, Tag 541

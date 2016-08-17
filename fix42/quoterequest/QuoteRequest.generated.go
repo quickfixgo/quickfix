@@ -1,6 +1,7 @@
 package quoterequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -140,8 +141,8 @@ func (m NoRelatedSym) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m NoRelatedSym) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m NoRelatedSym) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206
@@ -150,13 +151,13 @@ func (m NoRelatedSym) SetOptAttribute(v string) {
 }
 
 //SetContractMultiplier sets ContractMultiplier, Tag 231
-func (m NoRelatedSym) SetContractMultiplier(v float64) {
-	m.Set(field.NewContractMultiplier(v))
+func (m NoRelatedSym) SetContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewContractMultiplier(value, scale))
 }
 
 //SetCouponRate sets CouponRate, Tag 223
-func (m NoRelatedSym) SetCouponRate(v float64) {
-	m.Set(field.NewCouponRate(v))
+func (m NoRelatedSym) SetCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCouponRate(value, scale))
 }
 
 //SetSecurityExchange sets SecurityExchange, Tag 207
@@ -195,8 +196,8 @@ func (m NoRelatedSym) SetEncodedSecurityDesc(v string) {
 }
 
 //SetPrevClosePx sets PrevClosePx, Tag 140
-func (m NoRelatedSym) SetPrevClosePx(v float64) {
-	m.Set(field.NewPrevClosePx(v))
+func (m NoRelatedSym) SetPrevClosePx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrevClosePx(value, scale))
 }
 
 //SetQuoteRequestType sets QuoteRequestType, Tag 303
@@ -215,8 +216,8 @@ func (m NoRelatedSym) SetSide(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m NoRelatedSym) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m NoRelatedSym) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetFutSettDate sets FutSettDate, Tag 64
@@ -235,8 +236,8 @@ func (m NoRelatedSym) SetFutSettDate2(v string) {
 }
 
 //SetOrderQty2 sets OrderQty2, Tag 192
-func (m NoRelatedSym) SetOrderQty2(v float64) {
-	m.Set(field.NewOrderQty2(v))
+func (m NoRelatedSym) SetOrderQty2(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty2(value, scale))
 }
 
 //SetExpireTime sets ExpireTime, Tag 126

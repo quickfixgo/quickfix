@@ -1,6 +1,7 @@
 package ordercancelrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -80,8 +81,8 @@ func (m OrderCancelRequest) SetOrderID(v string) {
 }
 
 //SetOrderQty sets OrderQty, Tag 38
-func (m OrderCancelRequest) SetOrderQty(v float64) {
-	m.Set(field.NewOrderQty(v))
+func (m OrderCancelRequest) SetOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewOrderQty(value, scale))
 }
 
 //SetOrigClOrdID sets OrigClOrdID, Tag 41
@@ -140,8 +141,8 @@ func (m OrderCancelRequest) SetClientID(v string) {
 }
 
 //SetCashOrderQty sets CashOrderQty, Tag 152
-func (m OrderCancelRequest) SetCashOrderQty(v float64) {
-	m.Set(field.NewCashOrderQty(v))
+func (m OrderCancelRequest) SetCashOrderQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCashOrderQty(value, scale))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
@@ -160,8 +161,8 @@ func (m OrderCancelRequest) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m OrderCancelRequest) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m OrderCancelRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetMaturityDay sets MaturityDay, Tag 205

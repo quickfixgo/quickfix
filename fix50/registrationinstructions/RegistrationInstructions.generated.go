@@ -1,6 +1,7 @@
 package registrationinstructions
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -732,8 +733,8 @@ func (m NoDistribInsts) SetDistribPaymentMethod(v int) {
 }
 
 //SetDistribPercentage sets DistribPercentage, Tag 512
-func (m NoDistribInsts) SetDistribPercentage(v float64) {
-	m.Set(field.NewDistribPercentage(v))
+func (m NoDistribInsts) SetDistribPercentage(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDistribPercentage(value, scale))
 }
 
 //SetCashDistribCurr sets CashDistribCurr, Tag 478

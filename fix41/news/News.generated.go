@@ -1,6 +1,7 @@
 package news
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -281,8 +282,8 @@ func (m NoRelatedSym) SetPutOrCall(v int) {
 }
 
 //SetStrikePrice sets StrikePrice, Tag 202
-func (m NoRelatedSym) SetStrikePrice(v float64) {
-	m.Set(field.NewStrikePrice(v))
+func (m NoRelatedSym) SetStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewStrikePrice(value, scale))
 }
 
 //SetOptAttribute sets OptAttribute, Tag 206

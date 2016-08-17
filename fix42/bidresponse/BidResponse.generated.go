@@ -1,6 +1,7 @@
 package bidresponse
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -115,8 +116,8 @@ type NoBidComponents struct {
 }
 
 //SetCommission sets Commission, Tag 12
-func (m NoBidComponents) SetCommission(v float64) {
-	m.Set(field.NewCommission(v))
+func (m NoBidComponents) SetCommission(value decimal.Decimal, scale int32) {
+	m.Set(field.NewCommission(value, scale))
 }
 
 //SetCommType sets CommType, Tag 13
@@ -140,8 +141,8 @@ func (m NoBidComponents) SetSide(v string) {
 }
 
 //SetPrice sets Price, Tag 44
-func (m NoBidComponents) SetPrice(v float64) {
-	m.Set(field.NewPrice(v))
+func (m NoBidComponents) SetPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewPrice(value, scale))
 }
 
 //SetPriceType sets PriceType, Tag 423
@@ -150,8 +151,8 @@ func (m NoBidComponents) SetPriceType(v int) {
 }
 
 //SetFairValue sets FairValue, Tag 406
-func (m NoBidComponents) SetFairValue(v float64) {
-	m.Set(field.NewFairValue(v))
+func (m NoBidComponents) SetFairValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewFairValue(value, scale))
 }
 
 //SetNetGrossInd sets NetGrossInd, Tag 430

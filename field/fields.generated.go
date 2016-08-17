@@ -3,7 +3,7 @@ package field
 import (
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/tag"
-
+	"github.com/shopspring/decimal"
 	"time"
 )
 
@@ -30,25 +30,25 @@ func NewAccountType(val int) AccountTypeField {
 }
 
 //AccruedInterestAmtField is a AMT field
-type AccruedInterestAmtField struct{ quickfix.FIXFloat }
+type AccruedInterestAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AccruedInterestAmt (159)
 func (f AccruedInterestAmtField) Tag() quickfix.Tag { return tag.AccruedInterestAmt }
 
-//NewAccruedInterestAmt returns a new AccruedInterestAmtField initialized with val
-func NewAccruedInterestAmt(val float64) AccruedInterestAmtField {
-	return AccruedInterestAmtField{quickfix.FIXFloat(val)}
+//NewAccruedInterestAmt returns a new AccruedInterestAmtField initialized with val and scale
+func NewAccruedInterestAmt(val decimal.Decimal, scale int32) AccruedInterestAmtField {
+	return AccruedInterestAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AccruedInterestRateField is a PERCENTAGE field
-type AccruedInterestRateField struct{ quickfix.FIXFloat }
+type AccruedInterestRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AccruedInterestRate (158)
 func (f AccruedInterestRateField) Tag() quickfix.Tag { return tag.AccruedInterestRate }
 
-//NewAccruedInterestRate returns a new AccruedInterestRateField initialized with val
-func NewAccruedInterestRate(val float64) AccruedInterestRateField {
-	return AccruedInterestRateField{quickfix.FIXFloat(val)}
+//NewAccruedInterestRate returns a new AccruedInterestRateField initialized with val and scale
+func NewAccruedInterestRate(val decimal.Decimal, scale int32) AccruedInterestRateField {
+	return AccruedInterestRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AcctIDSourceField is a INT field
@@ -250,14 +250,14 @@ func NewAllocAccountType(val int) AllocAccountTypeField {
 }
 
 //AllocAccruedInterestAmtField is a AMT field
-type AllocAccruedInterestAmtField struct{ quickfix.FIXFloat }
+type AllocAccruedInterestAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllocAccruedInterestAmt (742)
 func (f AllocAccruedInterestAmtField) Tag() quickfix.Tag { return tag.AllocAccruedInterestAmt }
 
-//NewAllocAccruedInterestAmt returns a new AllocAccruedInterestAmtField initialized with val
-func NewAllocAccruedInterestAmt(val float64) AllocAccruedInterestAmtField {
-	return AllocAccruedInterestAmtField{quickfix.FIXFloat(val)}
+//NewAllocAccruedInterestAmt returns a new AllocAccruedInterestAmtField initialized with val and scale
+func NewAllocAccruedInterestAmt(val decimal.Decimal, scale int32) AllocAccruedInterestAmtField {
+	return AllocAccruedInterestAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllocAcctIDSourceField is a INT field
@@ -272,14 +272,14 @@ func NewAllocAcctIDSource(val int) AllocAcctIDSourceField {
 }
 
 //AllocAvgPxField is a PRICE field
-type AllocAvgPxField struct{ quickfix.FIXFloat }
+type AllocAvgPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllocAvgPx (153)
 func (f AllocAvgPxField) Tag() quickfix.Tag { return tag.AllocAvgPx }
 
-//NewAllocAvgPx returns a new AllocAvgPxField initialized with val
-func NewAllocAvgPx(val float64) AllocAvgPxField {
-	return AllocAvgPxField{quickfix.FIXFloat(val)}
+//NewAllocAvgPx returns a new AllocAvgPxField initialized with val and scale
+func NewAllocAvgPx(val decimal.Decimal, scale int32) AllocAvgPxField {
+	return AllocAvgPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllocCancReplaceReasonField is a INT field
@@ -338,14 +338,14 @@ func NewAllocID(val string) AllocIDField {
 }
 
 //AllocInterestAtMaturityField is a AMT field
-type AllocInterestAtMaturityField struct{ quickfix.FIXFloat }
+type AllocInterestAtMaturityField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllocInterestAtMaturity (741)
 func (f AllocInterestAtMaturityField) Tag() quickfix.Tag { return tag.AllocInterestAtMaturity }
 
-//NewAllocInterestAtMaturity returns a new AllocInterestAtMaturityField initialized with val
-func NewAllocInterestAtMaturity(val float64) AllocInterestAtMaturityField {
-	return AllocInterestAtMaturityField{quickfix.FIXFloat(val)}
+//NewAllocInterestAtMaturity returns a new AllocInterestAtMaturityField initialized with val and scale
+func NewAllocInterestAtMaturity(val decimal.Decimal, scale int32) AllocInterestAtMaturityField {
+	return AllocInterestAtMaturityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllocIntermedReqTypeField is a INT field
@@ -393,14 +393,14 @@ func NewAllocMethod(val int) AllocMethodField {
 }
 
 //AllocNetMoneyField is a AMT field
-type AllocNetMoneyField struct{ quickfix.FIXFloat }
+type AllocNetMoneyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllocNetMoney (154)
 func (f AllocNetMoneyField) Tag() quickfix.Tag { return tag.AllocNetMoney }
 
-//NewAllocNetMoney returns a new AllocNetMoneyField initialized with val
-func NewAllocNetMoney(val float64) AllocNetMoneyField {
-	return AllocNetMoneyField{quickfix.FIXFloat(val)}
+//NewAllocNetMoney returns a new AllocNetMoneyField initialized with val and scale
+func NewAllocNetMoney(val decimal.Decimal, scale int32) AllocNetMoneyField {
+	return AllocNetMoneyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllocNoOrdersTypeField is a INT field
@@ -426,25 +426,25 @@ func NewAllocPositionEffect(val string) AllocPositionEffectField {
 }
 
 //AllocPriceField is a PRICE field
-type AllocPriceField struct{ quickfix.FIXFloat }
+type AllocPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllocPrice (366)
 func (f AllocPriceField) Tag() quickfix.Tag { return tag.AllocPrice }
 
-//NewAllocPrice returns a new AllocPriceField initialized with val
-func NewAllocPrice(val float64) AllocPriceField {
-	return AllocPriceField{quickfix.FIXFloat(val)}
+//NewAllocPrice returns a new AllocPriceField initialized with val and scale
+func NewAllocPrice(val decimal.Decimal, scale int32) AllocPriceField {
+	return AllocPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllocQtyField is a QTY field
-type AllocQtyField struct{ quickfix.FIXFloat }
+type AllocQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllocQty (80)
 func (f AllocQtyField) Tag() quickfix.Tag { return tag.AllocQty }
 
-//NewAllocQty returns a new AllocQtyField initialized with val
-func NewAllocQty(val float64) AllocQtyField {
-	return AllocQtyField{quickfix.FIXFloat(val)}
+//NewAllocQty returns a new AllocQtyField initialized with val and scale
+func NewAllocQty(val decimal.Decimal, scale int32) AllocQtyField {
+	return AllocQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllocRejCodeField is a INT field
@@ -492,14 +492,14 @@ func NewAllocReportType(val int) AllocReportTypeField {
 }
 
 //AllocSettlCurrAmtField is a AMT field
-type AllocSettlCurrAmtField struct{ quickfix.FIXFloat }
+type AllocSettlCurrAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllocSettlCurrAmt (737)
 func (f AllocSettlCurrAmtField) Tag() quickfix.Tag { return tag.AllocSettlCurrAmt }
 
-//NewAllocSettlCurrAmt returns a new AllocSettlCurrAmtField initialized with val
-func NewAllocSettlCurrAmt(val float64) AllocSettlCurrAmtField {
-	return AllocSettlCurrAmtField{quickfix.FIXFloat(val)}
+//NewAllocSettlCurrAmt returns a new AllocSettlCurrAmtField initialized with val and scale
+func NewAllocSettlCurrAmt(val decimal.Decimal, scale int32) AllocSettlCurrAmtField {
+	return AllocSettlCurrAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllocSettlCurrencyField is a CURRENCY field
@@ -525,14 +525,14 @@ func NewAllocSettlInstType(val int) AllocSettlInstTypeField {
 }
 
 //AllocSharesField is a QTY field
-type AllocSharesField struct{ quickfix.FIXFloat }
+type AllocSharesField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllocShares (80)
 func (f AllocSharesField) Tag() quickfix.Tag { return tag.AllocShares }
 
-//NewAllocShares returns a new AllocSharesField initialized with val
-func NewAllocShares(val float64) AllocSharesField {
-	return AllocSharesField{quickfix.FIXFloat(val)}
+//NewAllocShares returns a new AllocSharesField initialized with val and scale
+func NewAllocShares(val decimal.Decimal, scale int32) AllocSharesField {
+	return AllocSharesField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllocStatusField is a INT field
@@ -591,25 +591,25 @@ func NewAllowableOneSidednessCurr(val string) AllowableOneSidednessCurrField {
 }
 
 //AllowableOneSidednessPctField is a PERCENTAGE field
-type AllowableOneSidednessPctField struct{ quickfix.FIXFloat }
+type AllowableOneSidednessPctField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllowableOneSidednessPct (765)
 func (f AllowableOneSidednessPctField) Tag() quickfix.Tag { return tag.AllowableOneSidednessPct }
 
-//NewAllowableOneSidednessPct returns a new AllowableOneSidednessPctField initialized with val
-func NewAllowableOneSidednessPct(val float64) AllowableOneSidednessPctField {
-	return AllowableOneSidednessPctField{quickfix.FIXFloat(val)}
+//NewAllowableOneSidednessPct returns a new AllowableOneSidednessPctField initialized with val and scale
+func NewAllowableOneSidednessPct(val decimal.Decimal, scale int32) AllowableOneSidednessPctField {
+	return AllowableOneSidednessPctField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AllowableOneSidednessValueField is a AMT field
-type AllowableOneSidednessValueField struct{ quickfix.FIXFloat }
+type AllowableOneSidednessValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AllowableOneSidednessValue (766)
 func (f AllowableOneSidednessValueField) Tag() quickfix.Tag { return tag.AllowableOneSidednessValue }
 
-//NewAllowableOneSidednessValue returns a new AllowableOneSidednessValueField initialized with val
-func NewAllowableOneSidednessValue(val float64) AllowableOneSidednessValueField {
-	return AllowableOneSidednessValueField{quickfix.FIXFloat(val)}
+//NewAllowableOneSidednessValue returns a new AllowableOneSidednessValueField initialized with val and scale
+func NewAllowableOneSidednessValue(val decimal.Decimal, scale int32) AllowableOneSidednessValueField {
+	return AllowableOneSidednessValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AltMDSourceIDField is a STRING field
@@ -899,25 +899,25 @@ func NewAssignmentMethod(val string) AssignmentMethodField {
 }
 
 //AssignmentUnitField is a QTY field
-type AssignmentUnitField struct{ quickfix.FIXFloat }
+type AssignmentUnitField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AssignmentUnit (745)
 func (f AssignmentUnitField) Tag() quickfix.Tag { return tag.AssignmentUnit }
 
-//NewAssignmentUnit returns a new AssignmentUnitField initialized with val
-func NewAssignmentUnit(val float64) AssignmentUnitField {
-	return AssignmentUnitField{quickfix.FIXFloat(val)}
+//NewAssignmentUnit returns a new AssignmentUnitField initialized with val and scale
+func NewAssignmentUnit(val decimal.Decimal, scale int32) AssignmentUnitField {
+	return AssignmentUnitField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AttachmentPointField is a PERCENTAGE field
-type AttachmentPointField struct{ quickfix.FIXFloat }
+type AttachmentPointField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AttachmentPoint (1457)
 func (f AttachmentPointField) Tag() quickfix.Tag { return tag.AttachmentPoint }
 
-//NewAttachmentPoint returns a new AttachmentPointField initialized with val
-func NewAttachmentPoint(val float64) AttachmentPointField {
-	return AttachmentPointField{quickfix.FIXFloat(val)}
+//NewAttachmentPoint returns a new AttachmentPointField initialized with val and scale
+func NewAttachmentPoint(val decimal.Decimal, scale int32) AttachmentPointField {
+	return AttachmentPointField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AutoAcceptIndicatorField is a BOOLEAN field
@@ -932,14 +932,14 @@ func NewAutoAcceptIndicator(val bool) AutoAcceptIndicatorField {
 }
 
 //AvgParPxField is a PRICE field
-type AvgParPxField struct{ quickfix.FIXFloat }
+type AvgParPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AvgParPx (860)
 func (f AvgParPxField) Tag() quickfix.Tag { return tag.AvgParPx }
 
-//NewAvgParPx returns a new AvgParPxField initialized with val
-func NewAvgParPx(val float64) AvgParPxField {
-	return AvgParPxField{quickfix.FIXFloat(val)}
+//NewAvgParPx returns a new AvgParPxField initialized with val and scale
+func NewAvgParPx(val decimal.Decimal, scale int32) AvgParPxField {
+	return AvgParPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AvgPrxPrecisionField is a INT field
@@ -954,14 +954,14 @@ func NewAvgPrxPrecision(val int) AvgPrxPrecisionField {
 }
 
 //AvgPxField is a PRICE field
-type AvgPxField struct{ quickfix.FIXFloat }
+type AvgPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.AvgPx (6)
 func (f AvgPxField) Tag() quickfix.Tag { return tag.AvgPx }
 
-//NewAvgPx returns a new AvgPxField initialized with val
-func NewAvgPx(val float64) AvgPxField {
-	return AvgPxField{quickfix.FIXFloat(val)}
+//NewAvgPx returns a new AvgPxField initialized with val and scale
+func NewAvgPx(val decimal.Decimal, scale int32) AvgPxField {
+	return AvgPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //AvgPxIndicatorField is a INT field
@@ -998,14 +998,14 @@ func NewBasisFeatureDate(val string) BasisFeatureDateField {
 }
 
 //BasisFeaturePriceField is a PRICE field
-type BasisFeaturePriceField struct{ quickfix.FIXFloat }
+type BasisFeaturePriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BasisFeaturePrice (260)
 func (f BasisFeaturePriceField) Tag() quickfix.Tag { return tag.BasisFeaturePrice }
 
-//NewBasisFeaturePrice returns a new BasisFeaturePriceField initialized with val
-func NewBasisFeaturePrice(val float64) BasisFeaturePriceField {
-	return BasisFeaturePriceField{quickfix.FIXFloat(val)}
+//NewBasisFeaturePrice returns a new BasisFeaturePriceField initialized with val and scale
+func NewBasisFeaturePrice(val decimal.Decimal, scale int32) BasisFeaturePriceField {
+	return BasisFeaturePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BasisPxTypeField is a CHAR field
@@ -1086,14 +1086,14 @@ func NewBenchmarkCurvePoint(val string) BenchmarkCurvePointField {
 }
 
 //BenchmarkPriceField is a PRICE field
-type BenchmarkPriceField struct{ quickfix.FIXFloat }
+type BenchmarkPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BenchmarkPrice (662)
 func (f BenchmarkPriceField) Tag() quickfix.Tag { return tag.BenchmarkPrice }
 
-//NewBenchmarkPrice returns a new BenchmarkPriceField initialized with val
-func NewBenchmarkPrice(val float64) BenchmarkPriceField {
-	return BenchmarkPriceField{quickfix.FIXFloat(val)}
+//NewBenchmarkPrice returns a new BenchmarkPriceField initialized with val and scale
+func NewBenchmarkPrice(val decimal.Decimal, scale int32) BenchmarkPriceField {
+	return BenchmarkPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BenchmarkPriceTypeField is a INT field
@@ -1152,25 +1152,25 @@ func NewBidDescriptorType(val int) BidDescriptorTypeField {
 }
 
 //BidForwardPointsField is a PRICEOFFSET field
-type BidForwardPointsField struct{ quickfix.FIXFloat }
+type BidForwardPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BidForwardPoints (189)
 func (f BidForwardPointsField) Tag() quickfix.Tag { return tag.BidForwardPoints }
 
-//NewBidForwardPoints returns a new BidForwardPointsField initialized with val
-func NewBidForwardPoints(val float64) BidForwardPointsField {
-	return BidForwardPointsField{quickfix.FIXFloat(val)}
+//NewBidForwardPoints returns a new BidForwardPointsField initialized with val and scale
+func NewBidForwardPoints(val decimal.Decimal, scale int32) BidForwardPointsField {
+	return BidForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BidForwardPoints2Field is a PRICEOFFSET field
-type BidForwardPoints2Field struct{ quickfix.FIXFloat }
+type BidForwardPoints2Field struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BidForwardPoints2 (642)
 func (f BidForwardPoints2Field) Tag() quickfix.Tag { return tag.BidForwardPoints2 }
 
-//NewBidForwardPoints2 returns a new BidForwardPoints2Field initialized with val
-func NewBidForwardPoints2(val float64) BidForwardPoints2Field {
-	return BidForwardPoints2Field{quickfix.FIXFloat(val)}
+//NewBidForwardPoints2 returns a new BidForwardPoints2Field initialized with val and scale
+func NewBidForwardPoints2(val decimal.Decimal, scale int32) BidForwardPoints2Field {
+	return BidForwardPoints2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BidIDField is a STRING field
@@ -1185,14 +1185,14 @@ func NewBidID(val string) BidIDField {
 }
 
 //BidPxField is a PRICE field
-type BidPxField struct{ quickfix.FIXFloat }
+type BidPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BidPx (132)
 func (f BidPxField) Tag() quickfix.Tag { return tag.BidPx }
 
-//NewBidPx returns a new BidPxField initialized with val
-func NewBidPx(val float64) BidPxField {
-	return BidPxField{quickfix.FIXFloat(val)}
+//NewBidPx returns a new BidPxField initialized with val and scale
+func NewBidPx(val decimal.Decimal, scale int32) BidPxField {
+	return BidPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BidRequestTransTypeField is a CHAR field
@@ -1207,36 +1207,36 @@ func NewBidRequestTransType(val string) BidRequestTransTypeField {
 }
 
 //BidSizeField is a QTY field
-type BidSizeField struct{ quickfix.FIXFloat }
+type BidSizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BidSize (134)
 func (f BidSizeField) Tag() quickfix.Tag { return tag.BidSize }
 
-//NewBidSize returns a new BidSizeField initialized with val
-func NewBidSize(val float64) BidSizeField {
-	return BidSizeField{quickfix.FIXFloat(val)}
+//NewBidSize returns a new BidSizeField initialized with val and scale
+func NewBidSize(val decimal.Decimal, scale int32) BidSizeField {
+	return BidSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BidSpotRateField is a PRICE field
-type BidSpotRateField struct{ quickfix.FIXFloat }
+type BidSpotRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BidSpotRate (188)
 func (f BidSpotRateField) Tag() quickfix.Tag { return tag.BidSpotRate }
 
-//NewBidSpotRate returns a new BidSpotRateField initialized with val
-func NewBidSpotRate(val float64) BidSpotRateField {
-	return BidSpotRateField{quickfix.FIXFloat(val)}
+//NewBidSpotRate returns a new BidSpotRateField initialized with val and scale
+func NewBidSpotRate(val decimal.Decimal, scale int32) BidSpotRateField {
+	return BidSpotRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BidSwapPointsField is a PRICEOFFSET field
-type BidSwapPointsField struct{ quickfix.FIXFloat }
+type BidSwapPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BidSwapPoints (1065)
 func (f BidSwapPointsField) Tag() quickfix.Tag { return tag.BidSwapPoints }
 
-//NewBidSwapPoints returns a new BidSwapPointsField initialized with val
-func NewBidSwapPoints(val float64) BidSwapPointsField {
-	return BidSwapPointsField{quickfix.FIXFloat(val)}
+//NewBidSwapPoints returns a new BidSwapPointsField initialized with val and scale
+func NewBidSwapPoints(val decimal.Decimal, scale int32) BidSwapPointsField {
+	return BidSwapPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BidTradeTypeField is a CHAR field
@@ -1262,14 +1262,14 @@ func NewBidType(val int) BidTypeField {
 }
 
 //BidYieldField is a PERCENTAGE field
-type BidYieldField struct{ quickfix.FIXFloat }
+type BidYieldField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BidYield (632)
 func (f BidYieldField) Tag() quickfix.Tag { return tag.BidYield }
 
-//NewBidYield returns a new BidYieldField initialized with val
-func NewBidYield(val float64) BidYieldField {
-	return BidYieldField{quickfix.FIXFloat(val)}
+//NewBidYield returns a new BidYieldField initialized with val and scale
+func NewBidYield(val decimal.Decimal, scale int32) BidYieldField {
+	return BidYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //BodyLengthField is a LENGTH field
@@ -1350,14 +1350,14 @@ func NewBusinessRejectRefID(val string) BusinessRejectRefIDField {
 }
 
 //BuyVolumeField is a QTY field
-type BuyVolumeField struct{ quickfix.FIXFloat }
+type BuyVolumeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.BuyVolume (330)
 func (f BuyVolumeField) Tag() quickfix.Tag { return tag.BuyVolume }
 
-//NewBuyVolume returns a new BuyVolumeField initialized with val
-func NewBuyVolume(val float64) BuyVolumeField {
-	return BuyVolumeField{quickfix.FIXFloat(val)}
+//NewBuyVolume returns a new BuyVolumeField initialized with val and scale
+func NewBuyVolume(val decimal.Decimal, scale int32) BuyVolumeField {
+	return BuyVolumeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CFICodeField is a STRING field
@@ -1394,14 +1394,14 @@ func NewCPRegType(val string) CPRegTypeField {
 }
 
 //CalculatedCcyLastQtyField is a QTY field
-type CalculatedCcyLastQtyField struct{ quickfix.FIXFloat }
+type CalculatedCcyLastQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CalculatedCcyLastQty (1056)
 func (f CalculatedCcyLastQtyField) Tag() quickfix.Tag { return tag.CalculatedCcyLastQty }
 
-//NewCalculatedCcyLastQty returns a new CalculatedCcyLastQtyField initialized with val
-func NewCalculatedCcyLastQty(val float64) CalculatedCcyLastQtyField {
-	return CalculatedCcyLastQtyField{quickfix.FIXFloat(val)}
+//NewCalculatedCcyLastQty returns a new CalculatedCcyLastQtyField initialized with val and scale
+func NewCalculatedCcyLastQty(val decimal.Decimal, scale int32) CalculatedCcyLastQtyField {
+	return CalculatedCcyLastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CancellationRightsField is a CHAR field
@@ -1416,14 +1416,14 @@ func NewCancellationRights(val string) CancellationRightsField {
 }
 
 //CapPriceField is a PRICE field
-type CapPriceField struct{ quickfix.FIXFloat }
+type CapPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CapPrice (1199)
 func (f CapPriceField) Tag() quickfix.Tag { return tag.CapPrice }
 
-//NewCapPrice returns a new CapPriceField initialized with val
-func NewCapPrice(val float64) CapPriceField {
-	return CapPriceField{quickfix.FIXFloat(val)}
+//NewCapPrice returns a new CapPriceField initialized with val and scale
+func NewCapPrice(val decimal.Decimal, scale int32) CapPriceField {
+	return CapPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CardExpDateField is a LOCALMKTDATE field
@@ -1570,25 +1570,25 @@ func NewCashMargin(val string) CashMarginField {
 }
 
 //CashOrderQtyField is a QTY field
-type CashOrderQtyField struct{ quickfix.FIXFloat }
+type CashOrderQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CashOrderQty (152)
 func (f CashOrderQtyField) Tag() quickfix.Tag { return tag.CashOrderQty }
 
-//NewCashOrderQty returns a new CashOrderQtyField initialized with val
-func NewCashOrderQty(val float64) CashOrderQtyField {
-	return CashOrderQtyField{quickfix.FIXFloat(val)}
+//NewCashOrderQty returns a new CashOrderQtyField initialized with val and scale
+func NewCashOrderQty(val decimal.Decimal, scale int32) CashOrderQtyField {
+	return CashOrderQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CashOutstandingField is a AMT field
-type CashOutstandingField struct{ quickfix.FIXFloat }
+type CashOutstandingField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CashOutstanding (901)
 func (f CashOutstandingField) Tag() quickfix.Tag { return tag.CashOutstanding }
 
-//NewCashOutstanding returns a new CashOutstandingField initialized with val
-func NewCashOutstanding(val float64) CashOutstandingField {
-	return CashOutstandingField{quickfix.FIXFloat(val)}
+//NewCashOutstanding returns a new CashOutstandingField initialized with val and scale
+func NewCashOutstanding(val decimal.Decimal, scale int32) CashOutstandingField {
+	return CashOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CashSettlAgentAcctNameField is a STRING field
@@ -1658,14 +1658,14 @@ func NewCashSettlAgentName(val string) CashSettlAgentNameField {
 }
 
 //CcyAmtField is a AMT field
-type CcyAmtField struct{ quickfix.FIXFloat }
+type CcyAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CcyAmt (1157)
 func (f CcyAmtField) Tag() quickfix.Tag { return tag.CcyAmt }
 
-//NewCcyAmt returns a new CcyAmtField initialized with val
-func NewCcyAmt(val float64) CcyAmtField {
-	return CcyAmtField{quickfix.FIXFloat(val)}
+//NewCcyAmt returns a new CcyAmtField initialized with val and scale
+func NewCcyAmt(val decimal.Decimal, scale int32) CcyAmtField {
+	return CcyAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CheckSumField is a STRING field
@@ -1977,14 +1977,14 @@ func NewCommType(val string) CommTypeField {
 }
 
 //CommissionField is a AMT field
-type CommissionField struct{ quickfix.FIXFloat }
+type CommissionField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Commission (12)
 func (f CommissionField) Tag() quickfix.Tag { return tag.Commission }
 
-//NewCommission returns a new CommissionField initialized with val
-func NewCommission(val float64) CommissionField {
-	return CommissionField{quickfix.FIXFloat(val)}
+//NewCommission returns a new CommissionField initialized with val and scale
+func NewCommission(val decimal.Decimal, scale int32) CommissionField {
+	return CommissionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ComplexEventConditionField is a INT field
@@ -2026,14 +2026,14 @@ func NewComplexEventEndTime(val string) ComplexEventEndTimeField {
 }
 
 //ComplexEventPriceField is a PRICE field
-type ComplexEventPriceField struct{ quickfix.FIXFloat }
+type ComplexEventPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ComplexEventPrice (1486)
 func (f ComplexEventPriceField) Tag() quickfix.Tag { return tag.ComplexEventPrice }
 
-//NewComplexEventPrice returns a new ComplexEventPriceField initialized with val
-func NewComplexEventPrice(val float64) ComplexEventPriceField {
-	return ComplexEventPriceField{quickfix.FIXFloat(val)}
+//NewComplexEventPrice returns a new ComplexEventPriceField initialized with val and scale
+func NewComplexEventPrice(val decimal.Decimal, scale int32) ComplexEventPriceField {
+	return ComplexEventPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ComplexEventPriceBoundaryMethodField is a INT field
@@ -2050,16 +2050,16 @@ func NewComplexEventPriceBoundaryMethod(val int) ComplexEventPriceBoundaryMethod
 }
 
 //ComplexEventPriceBoundaryPrecisionField is a PERCENTAGE field
-type ComplexEventPriceBoundaryPrecisionField struct{ quickfix.FIXFloat }
+type ComplexEventPriceBoundaryPrecisionField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ComplexEventPriceBoundaryPrecision (1488)
 func (f ComplexEventPriceBoundaryPrecisionField) Tag() quickfix.Tag {
 	return tag.ComplexEventPriceBoundaryPrecision
 }
 
-//NewComplexEventPriceBoundaryPrecision returns a new ComplexEventPriceBoundaryPrecisionField initialized with val
-func NewComplexEventPriceBoundaryPrecision(val float64) ComplexEventPriceBoundaryPrecisionField {
-	return ComplexEventPriceBoundaryPrecisionField{quickfix.FIXFloat(val)}
+//NewComplexEventPriceBoundaryPrecision returns a new ComplexEventPriceBoundaryPrecisionField initialized with val and scale
+func NewComplexEventPriceBoundaryPrecision(val decimal.Decimal, scale int32) ComplexEventPriceBoundaryPrecisionField {
+	return ComplexEventPriceBoundaryPrecisionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ComplexEventPriceTimeTypeField is a INT field
@@ -2112,14 +2112,14 @@ func NewComplexEventType(val int) ComplexEventTypeField {
 }
 
 //ComplexOptPayoutAmountField is a AMT field
-type ComplexOptPayoutAmountField struct{ quickfix.FIXFloat }
+type ComplexOptPayoutAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ComplexOptPayoutAmount (1485)
 func (f ComplexOptPayoutAmountField) Tag() quickfix.Tag { return tag.ComplexOptPayoutAmount }
 
-//NewComplexOptPayoutAmount returns a new ComplexOptPayoutAmountField initialized with val
-func NewComplexOptPayoutAmount(val float64) ComplexOptPayoutAmountField {
-	return ComplexOptPayoutAmountField{quickfix.FIXFloat(val)}
+//NewComplexOptPayoutAmount returns a new ComplexOptPayoutAmountField initialized with val and scale
+func NewComplexOptPayoutAmount(val decimal.Decimal, scale int32) ComplexOptPayoutAmountField {
+	return ComplexOptPayoutAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ComplianceIDField is a STRING field
@@ -2134,14 +2134,14 @@ func NewComplianceID(val string) ComplianceIDField {
 }
 
 //ConcessionField is a AMT field
-type ConcessionField struct{ quickfix.FIXFloat }
+type ConcessionField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Concession (238)
 func (f ConcessionField) Tag() quickfix.Tag { return tag.Concession }
 
-//NewConcession returns a new ConcessionField initialized with val
-func NewConcession(val float64) ConcessionField {
-	return ConcessionField{quickfix.FIXFloat(val)}
+//NewConcession returns a new ConcessionField initialized with val and scale
+func NewConcession(val decimal.Decimal, scale int32) ConcessionField {
+	return ConcessionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ConfirmIDField is a STRING field
@@ -2244,14 +2244,14 @@ func NewContAmtType(val int) ContAmtTypeField {
 }
 
 //ContAmtValueField is a FLOAT field
-type ContAmtValueField struct{ quickfix.FIXFloat }
+type ContAmtValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ContAmtValue (520)
 func (f ContAmtValueField) Tag() quickfix.Tag { return tag.ContAmtValue }
 
-//NewContAmtValue returns a new ContAmtValueField initialized with val
-func NewContAmtValue(val float64) ContAmtValueField {
-	return ContAmtValueField{quickfix.FIXFloat(val)}
+//NewContAmtValue returns a new ContAmtValueField initialized with val and scale
+func NewContAmtValue(val decimal.Decimal, scale int32) ContAmtValueField {
+	return ContAmtValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ContIntRptIDField is a STRING field
@@ -2354,14 +2354,14 @@ func NewContraLegRefID(val string) ContraLegRefIDField {
 }
 
 //ContraTradeQtyField is a QTY field
-type ContraTradeQtyField struct{ quickfix.FIXFloat }
+type ContraTradeQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ContraTradeQty (437)
 func (f ContraTradeQtyField) Tag() quickfix.Tag { return tag.ContraTradeQty }
 
-//NewContraTradeQty returns a new ContraTradeQtyField initialized with val
-func NewContraTradeQty(val float64) ContraTradeQtyField {
-	return ContraTradeQtyField{quickfix.FIXFloat(val)}
+//NewContraTradeQty returns a new ContraTradeQtyField initialized with val and scale
+func NewContraTradeQty(val decimal.Decimal, scale int32) ContraTradeQtyField {
+	return ContraTradeQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ContraTradeTimeField is a UTCTIMESTAMP field
@@ -2392,14 +2392,14 @@ func NewContraTrader(val string) ContraTraderField {
 }
 
 //ContractMultiplierField is a FLOAT field
-type ContractMultiplierField struct{ quickfix.FIXFloat }
+type ContractMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ContractMultiplier (231)
 func (f ContractMultiplierField) Tag() quickfix.Tag { return tag.ContractMultiplier }
 
-//NewContractMultiplier returns a new ContractMultiplierField initialized with val
-func NewContractMultiplier(val float64) ContractMultiplierField {
-	return ContractMultiplierField{quickfix.FIXFloat(val)}
+//NewContractMultiplier returns a new ContractMultiplierField initialized with val and scale
+func NewContractMultiplier(val decimal.Decimal, scale int32) ContractMultiplierField {
+	return ContractMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ContractMultiplierUnitField is a INT field
@@ -2491,14 +2491,14 @@ func NewCouponPaymentDate(val string) CouponPaymentDateField {
 }
 
 //CouponRateField is a PERCENTAGE field
-type CouponRateField struct{ quickfix.FIXFloat }
+type CouponRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CouponRate (223)
 func (f CouponRateField) Tag() quickfix.Tag { return tag.CouponRate }
 
-//NewCouponRate returns a new CouponRateField initialized with val
-func NewCouponRate(val float64) CouponRateField {
-	return CouponRateField{quickfix.FIXFloat(val)}
+//NewCouponRate returns a new CouponRateField initialized with val and scale
+func NewCouponRate(val decimal.Decimal, scale int32) CouponRateField {
+	return CouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CoveredOrUncoveredField is a INT field
@@ -2535,14 +2535,14 @@ func NewCrossID(val string) CrossIDField {
 }
 
 //CrossPercentField is a PERCENTAGE field
-type CrossPercentField struct{ quickfix.FIXFloat }
+type CrossPercentField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CrossPercent (413)
 func (f CrossPercentField) Tag() quickfix.Tag { return tag.CrossPercent }
 
-//NewCrossPercent returns a new CrossPercentField initialized with val
-func NewCrossPercent(val float64) CrossPercentField {
-	return CrossPercentField{quickfix.FIXFloat(val)}
+//NewCrossPercent returns a new CrossPercentField initialized with val and scale
+func NewCrossPercent(val decimal.Decimal, scale int32) CrossPercentField {
+	return CrossPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CrossPrioritizationField is a INT field
@@ -2579,14 +2579,14 @@ func NewCstmApplVerID(val string) CstmApplVerIDField {
 }
 
 //CumQtyField is a QTY field
-type CumQtyField struct{ quickfix.FIXFloat }
+type CumQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CumQty (14)
 func (f CumQtyField) Tag() quickfix.Tag { return tag.CumQty }
 
-//NewCumQty returns a new CumQtyField initialized with val
-func NewCumQty(val float64) CumQtyField {
-	return CumQtyField{quickfix.FIXFloat(val)}
+//NewCumQty returns a new CumQtyField initialized with val and scale
+func NewCumQty(val decimal.Decimal, scale int32) CumQtyField {
+	return CumQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CurrencyField is a CURRENCY field
@@ -2601,14 +2601,14 @@ func NewCurrency(val string) CurrencyField {
 }
 
 //CurrencyRatioField is a FLOAT field
-type CurrencyRatioField struct{ quickfix.FIXFloat }
+type CurrencyRatioField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CurrencyRatio (1382)
 func (f CurrencyRatioField) Tag() quickfix.Tag { return tag.CurrencyRatio }
 
-//NewCurrencyRatio returns a new CurrencyRatioField initialized with val
-func NewCurrencyRatio(val float64) CurrencyRatioField {
-	return CurrencyRatioField{quickfix.FIXFloat(val)}
+//NewCurrencyRatio returns a new CurrencyRatioField initialized with val and scale
+func NewCurrencyRatio(val decimal.Decimal, scale int32) CurrencyRatioField {
+	return CurrencyRatioField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CustDirectedOrderField is a BOOLEAN field
@@ -2656,14 +2656,14 @@ func NewCustomerOrFirm(val int) CustomerOrFirmField {
 }
 
 //CxlQtyField is a QTY field
-type CxlQtyField struct{ quickfix.FIXFloat }
+type CxlQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.CxlQty (84)
 func (f CxlQtyField) Tag() quickfix.Tag { return tag.CxlQty }
 
-//NewCxlQty returns a new CxlQtyField initialized with val
-func NewCxlQty(val float64) CxlQtyField {
-	return CxlQtyField{quickfix.FIXFloat(val)}
+//NewCxlQty returns a new CxlQtyField initialized with val and scale
+func NewCxlQty(val decimal.Decimal, scale int32) CxlQtyField {
+	return CxlQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //CxlRejReasonField is a INT field
@@ -2733,14 +2733,14 @@ func NewDatedDate(val string) DatedDateField {
 }
 
 //DayAvgPxField is a PRICE field
-type DayAvgPxField struct{ quickfix.FIXFloat }
+type DayAvgPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DayAvgPx (426)
 func (f DayAvgPxField) Tag() quickfix.Tag { return tag.DayAvgPx }
 
-//NewDayAvgPx returns a new DayAvgPxField initialized with val
-func NewDayAvgPx(val float64) DayAvgPxField {
-	return DayAvgPxField{quickfix.FIXFloat(val)}
+//NewDayAvgPx returns a new DayAvgPxField initialized with val and scale
+func NewDayAvgPx(val decimal.Decimal, scale int32) DayAvgPxField {
+	return DayAvgPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DayBookingInstField is a CHAR field
@@ -2755,25 +2755,25 @@ func NewDayBookingInst(val string) DayBookingInstField {
 }
 
 //DayCumQtyField is a QTY field
-type DayCumQtyField struct{ quickfix.FIXFloat }
+type DayCumQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DayCumQty (425)
 func (f DayCumQtyField) Tag() quickfix.Tag { return tag.DayCumQty }
 
-//NewDayCumQty returns a new DayCumQtyField initialized with val
-func NewDayCumQty(val float64) DayCumQtyField {
-	return DayCumQtyField{quickfix.FIXFloat(val)}
+//NewDayCumQty returns a new DayCumQtyField initialized with val and scale
+func NewDayCumQty(val decimal.Decimal, scale int32) DayCumQtyField {
+	return DayCumQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DayOrderQtyField is a QTY field
-type DayOrderQtyField struct{ quickfix.FIXFloat }
+type DayOrderQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DayOrderQty (424)
 func (f DayOrderQtyField) Tag() quickfix.Tag { return tag.DayOrderQty }
 
-//NewDayOrderQty returns a new DayOrderQtyField initialized with val
-func NewDayOrderQty(val float64) DayOrderQtyField {
-	return DayOrderQtyField{quickfix.FIXFloat(val)}
+//NewDayOrderQty returns a new DayOrderQtyField initialized with val and scale
+func NewDayOrderQty(val decimal.Decimal, scale int32) DayOrderQtyField {
+	return DayOrderQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DealingCapacityField is a CHAR field
@@ -2788,25 +2788,25 @@ func NewDealingCapacity(val string) DealingCapacityField {
 }
 
 //DefBidSizeField is a QTY field
-type DefBidSizeField struct{ quickfix.FIXFloat }
+type DefBidSizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DefBidSize (293)
 func (f DefBidSizeField) Tag() quickfix.Tag { return tag.DefBidSize }
 
-//NewDefBidSize returns a new DefBidSizeField initialized with val
-func NewDefBidSize(val float64) DefBidSizeField {
-	return DefBidSizeField{quickfix.FIXFloat(val)}
+//NewDefBidSize returns a new DefBidSizeField initialized with val and scale
+func NewDefBidSize(val decimal.Decimal, scale int32) DefBidSizeField {
+	return DefBidSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DefOfferSizeField is a QTY field
-type DefOfferSizeField struct{ quickfix.FIXFloat }
+type DefOfferSizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DefOfferSize (294)
 func (f DefOfferSizeField) Tag() quickfix.Tag { return tag.DefOfferSize }
 
-//NewDefOfferSize returns a new DefOfferSizeField initialized with val
-func NewDefOfferSize(val float64) DefOfferSizeField {
-	return DefOfferSizeField{quickfix.FIXFloat(val)}
+//NewDefOfferSize returns a new DefOfferSizeField initialized with val and scale
+func NewDefOfferSize(val decimal.Decimal, scale int32) DefOfferSizeField {
+	return DefOfferSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DefaultApplExtIDField is a INT field
@@ -2955,25 +2955,25 @@ func NewDerivativeCFICode(val string) DerivativeCFICodeField {
 }
 
 //DerivativeCapPriceField is a PRICE field
-type DerivativeCapPriceField struct{ quickfix.FIXFloat }
+type DerivativeCapPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeCapPrice (1321)
 func (f DerivativeCapPriceField) Tag() quickfix.Tag { return tag.DerivativeCapPrice }
 
-//NewDerivativeCapPrice returns a new DerivativeCapPriceField initialized with val
-func NewDerivativeCapPrice(val float64) DerivativeCapPriceField {
-	return DerivativeCapPriceField{quickfix.FIXFloat(val)}
+//NewDerivativeCapPrice returns a new DerivativeCapPriceField initialized with val and scale
+func NewDerivativeCapPrice(val decimal.Decimal, scale int32) DerivativeCapPriceField {
+	return DerivativeCapPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeContractMultiplierField is a FLOAT field
-type DerivativeContractMultiplierField struct{ quickfix.FIXFloat }
+type DerivativeContractMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeContractMultiplier (1266)
 func (f DerivativeContractMultiplierField) Tag() quickfix.Tag { return tag.DerivativeContractMultiplier }
 
-//NewDerivativeContractMultiplier returns a new DerivativeContractMultiplierField initialized with val
-func NewDerivativeContractMultiplier(val float64) DerivativeContractMultiplierField {
-	return DerivativeContractMultiplierField{quickfix.FIXFloat(val)}
+//NewDerivativeContractMultiplier returns a new DerivativeContractMultiplierField initialized with val and scale
+func NewDerivativeContractMultiplier(val decimal.Decimal, scale int32) DerivativeContractMultiplierField {
+	return DerivativeContractMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeContractMultiplierUnitField is a INT field
@@ -3071,14 +3071,14 @@ func NewDerivativeEventDate(val string) DerivativeEventDateField {
 }
 
 //DerivativeEventPxField is a PRICE field
-type DerivativeEventPxField struct{ quickfix.FIXFloat }
+type DerivativeEventPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeEventPx (1290)
 func (f DerivativeEventPxField) Tag() quickfix.Tag { return tag.DerivativeEventPx }
 
-//NewDerivativeEventPx returns a new DerivativeEventPxField initialized with val
-func NewDerivativeEventPx(val float64) DerivativeEventPxField {
-	return DerivativeEventPxField{quickfix.FIXFloat(val)}
+//NewDerivativeEventPx returns a new DerivativeEventPxField initialized with val and scale
+func NewDerivativeEventPx(val decimal.Decimal, scale int32) DerivativeEventPxField {
+	return DerivativeEventPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeEventTextField is a STRING field
@@ -3131,14 +3131,14 @@ func NewDerivativeExerciseStyle(val string) DerivativeExerciseStyleField {
 }
 
 //DerivativeFloorPriceField is a PRICE field
-type DerivativeFloorPriceField struct{ quickfix.FIXFloat }
+type DerivativeFloorPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeFloorPrice (1322)
 func (f DerivativeFloorPriceField) Tag() quickfix.Tag { return tag.DerivativeFloorPrice }
 
-//NewDerivativeFloorPrice returns a new DerivativeFloorPriceField initialized with val
-func NewDerivativeFloorPrice(val float64) DerivativeFloorPriceField {
-	return DerivativeFloorPriceField{quickfix.FIXFloat(val)}
+//NewDerivativeFloorPrice returns a new DerivativeFloorPriceField initialized with val and scale
+func NewDerivativeFloorPrice(val decimal.Decimal, scale int32) DerivativeFloorPriceField {
+	return DerivativeFloorPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeFlowScheduleTypeField is a INT field
@@ -3352,27 +3352,27 @@ func NewDerivativeMaturityTime(val string) DerivativeMaturityTimeField {
 }
 
 //DerivativeMinPriceIncrementField is a FLOAT field
-type DerivativeMinPriceIncrementField struct{ quickfix.FIXFloat }
+type DerivativeMinPriceIncrementField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeMinPriceIncrement (1267)
 func (f DerivativeMinPriceIncrementField) Tag() quickfix.Tag { return tag.DerivativeMinPriceIncrement }
 
-//NewDerivativeMinPriceIncrement returns a new DerivativeMinPriceIncrementField initialized with val
-func NewDerivativeMinPriceIncrement(val float64) DerivativeMinPriceIncrementField {
-	return DerivativeMinPriceIncrementField{quickfix.FIXFloat(val)}
+//NewDerivativeMinPriceIncrement returns a new DerivativeMinPriceIncrementField initialized with val and scale
+func NewDerivativeMinPriceIncrement(val decimal.Decimal, scale int32) DerivativeMinPriceIncrementField {
+	return DerivativeMinPriceIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeMinPriceIncrementAmountField is a AMT field
-type DerivativeMinPriceIncrementAmountField struct{ quickfix.FIXFloat }
+type DerivativeMinPriceIncrementAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeMinPriceIncrementAmount (1268)
 func (f DerivativeMinPriceIncrementAmountField) Tag() quickfix.Tag {
 	return tag.DerivativeMinPriceIncrementAmount
 }
 
-//NewDerivativeMinPriceIncrementAmount returns a new DerivativeMinPriceIncrementAmountField initialized with val
-func NewDerivativeMinPriceIncrementAmount(val float64) DerivativeMinPriceIncrementAmountField {
-	return DerivativeMinPriceIncrementAmountField{quickfix.FIXFloat(val)}
+//NewDerivativeMinPriceIncrementAmount returns a new DerivativeMinPriceIncrementAmountField initialized with val and scale
+func NewDerivativeMinPriceIncrementAmount(val decimal.Decimal, scale int32) DerivativeMinPriceIncrementAmountField {
+	return DerivativeMinPriceIncrementAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeNTPositionLimitField is a INT field
@@ -3398,14 +3398,14 @@ func NewDerivativeOptAttribute(val string) DerivativeOptAttributeField {
 }
 
 //DerivativeOptPayAmountField is a AMT field
-type DerivativeOptPayAmountField struct{ quickfix.FIXFloat }
+type DerivativeOptPayAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeOptPayAmount (1225)
 func (f DerivativeOptPayAmountField) Tag() quickfix.Tag { return tag.DerivativeOptPayAmount }
 
-//NewDerivativeOptPayAmount returns a new DerivativeOptPayAmountField initialized with val
-func NewDerivativeOptPayAmount(val float64) DerivativeOptPayAmountField {
-	return DerivativeOptPayAmountField{quickfix.FIXFloat(val)}
+//NewDerivativeOptPayAmount returns a new DerivativeOptPayAmountField initialized with val and scale
+func NewDerivativeOptPayAmount(val decimal.Decimal, scale int32) DerivativeOptPayAmountField {
+	return DerivativeOptPayAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativePositionLimitField is a INT field
@@ -3442,16 +3442,16 @@ func NewDerivativePriceUnitOfMeasure(val string) DerivativePriceUnitOfMeasureFie
 }
 
 //DerivativePriceUnitOfMeasureQtyField is a QTY field
-type DerivativePriceUnitOfMeasureQtyField struct{ quickfix.FIXFloat }
+type DerivativePriceUnitOfMeasureQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativePriceUnitOfMeasureQty (1316)
 func (f DerivativePriceUnitOfMeasureQtyField) Tag() quickfix.Tag {
 	return tag.DerivativePriceUnitOfMeasureQty
 }
 
-//NewDerivativePriceUnitOfMeasureQty returns a new DerivativePriceUnitOfMeasureQtyField initialized with val
-func NewDerivativePriceUnitOfMeasureQty(val float64) DerivativePriceUnitOfMeasureQtyField {
-	return DerivativePriceUnitOfMeasureQtyField{quickfix.FIXFloat(val)}
+//NewDerivativePriceUnitOfMeasureQty returns a new DerivativePriceUnitOfMeasureQtyField initialized with val and scale
+func NewDerivativePriceUnitOfMeasureQty(val decimal.Decimal, scale int32) DerivativePriceUnitOfMeasureQtyField {
+	return DerivativePriceUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeProductField is a INT field
@@ -3692,36 +3692,36 @@ func NewDerivativeStrikeCurrency(val string) DerivativeStrikeCurrencyField {
 }
 
 //DerivativeStrikeMultiplierField is a FLOAT field
-type DerivativeStrikeMultiplierField struct{ quickfix.FIXFloat }
+type DerivativeStrikeMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeStrikeMultiplier (1263)
 func (f DerivativeStrikeMultiplierField) Tag() quickfix.Tag { return tag.DerivativeStrikeMultiplier }
 
-//NewDerivativeStrikeMultiplier returns a new DerivativeStrikeMultiplierField initialized with val
-func NewDerivativeStrikeMultiplier(val float64) DerivativeStrikeMultiplierField {
-	return DerivativeStrikeMultiplierField{quickfix.FIXFloat(val)}
+//NewDerivativeStrikeMultiplier returns a new DerivativeStrikeMultiplierField initialized with val and scale
+func NewDerivativeStrikeMultiplier(val decimal.Decimal, scale int32) DerivativeStrikeMultiplierField {
+	return DerivativeStrikeMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeStrikePriceField is a PRICE field
-type DerivativeStrikePriceField struct{ quickfix.FIXFloat }
+type DerivativeStrikePriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeStrikePrice (1261)
 func (f DerivativeStrikePriceField) Tag() quickfix.Tag { return tag.DerivativeStrikePrice }
 
-//NewDerivativeStrikePrice returns a new DerivativeStrikePriceField initialized with val
-func NewDerivativeStrikePrice(val float64) DerivativeStrikePriceField {
-	return DerivativeStrikePriceField{quickfix.FIXFloat(val)}
+//NewDerivativeStrikePrice returns a new DerivativeStrikePriceField initialized with val and scale
+func NewDerivativeStrikePrice(val decimal.Decimal, scale int32) DerivativeStrikePriceField {
+	return DerivativeStrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeStrikeValueField is a FLOAT field
-type DerivativeStrikeValueField struct{ quickfix.FIXFloat }
+type DerivativeStrikeValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeStrikeValue (1264)
 func (f DerivativeStrikeValueField) Tag() quickfix.Tag { return tag.DerivativeStrikeValue }
 
-//NewDerivativeStrikeValue returns a new DerivativeStrikeValueField initialized with val
-func NewDerivativeStrikeValue(val float64) DerivativeStrikeValueField {
-	return DerivativeStrikeValueField{quickfix.FIXFloat(val)}
+//NewDerivativeStrikeValue returns a new DerivativeStrikeValueField initialized with val and scale
+func NewDerivativeStrikeValue(val decimal.Decimal, scale int32) DerivativeStrikeValueField {
+	return DerivativeStrikeValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeSymbolField is a STRING field
@@ -3769,14 +3769,14 @@ func NewDerivativeUnitOfMeasure(val string) DerivativeUnitOfMeasureField {
 }
 
 //DerivativeUnitOfMeasureQtyField is a QTY field
-type DerivativeUnitOfMeasureQtyField struct{ quickfix.FIXFloat }
+type DerivativeUnitOfMeasureQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DerivativeUnitOfMeasureQty (1270)
 func (f DerivativeUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.DerivativeUnitOfMeasureQty }
 
-//NewDerivativeUnitOfMeasureQty returns a new DerivativeUnitOfMeasureQtyField initialized with val
-func NewDerivativeUnitOfMeasureQty(val float64) DerivativeUnitOfMeasureQtyField {
-	return DerivativeUnitOfMeasureQtyField{quickfix.FIXFloat(val)}
+//NewDerivativeUnitOfMeasureQty returns a new DerivativeUnitOfMeasureQtyField initialized with val and scale
+func NewDerivativeUnitOfMeasureQty(val decimal.Decimal, scale int32) DerivativeUnitOfMeasureQtyField {
+	return DerivativeUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DerivativeValuationMethodField is a STRING field
@@ -3846,14 +3846,14 @@ func NewDeskTypeSource(val int) DeskTypeSourceField {
 }
 
 //DetachmentPointField is a PERCENTAGE field
-type DetachmentPointField struct{ quickfix.FIXFloat }
+type DetachmentPointField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DetachmentPoint (1458)
 func (f DetachmentPointField) Tag() quickfix.Tag { return tag.DetachmentPoint }
 
-//NewDetachmentPoint returns a new DetachmentPointField initialized with val
-func NewDetachmentPoint(val float64) DetachmentPointField {
-	return DetachmentPointField{quickfix.FIXFloat(val)}
+//NewDetachmentPoint returns a new DetachmentPointField initialized with val and scale
+func NewDetachmentPoint(val decimal.Decimal, scale int32) DetachmentPointField {
+	return DetachmentPointField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DiscretionInstField is a CHAR field
@@ -3890,14 +3890,14 @@ func NewDiscretionMoveType(val int) DiscretionMoveTypeField {
 }
 
 //DiscretionOffsetField is a PRICEOFFSET field
-type DiscretionOffsetField struct{ quickfix.FIXFloat }
+type DiscretionOffsetField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DiscretionOffset (389)
 func (f DiscretionOffsetField) Tag() quickfix.Tag { return tag.DiscretionOffset }
 
-//NewDiscretionOffset returns a new DiscretionOffsetField initialized with val
-func NewDiscretionOffset(val float64) DiscretionOffsetField {
-	return DiscretionOffsetField{quickfix.FIXFloat(val)}
+//NewDiscretionOffset returns a new DiscretionOffsetField initialized with val and scale
+func NewDiscretionOffset(val decimal.Decimal, scale int32) DiscretionOffsetField {
+	return DiscretionOffsetField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DiscretionOffsetTypeField is a INT field
@@ -3912,25 +3912,25 @@ func NewDiscretionOffsetType(val int) DiscretionOffsetTypeField {
 }
 
 //DiscretionOffsetValueField is a FLOAT field
-type DiscretionOffsetValueField struct{ quickfix.FIXFloat }
+type DiscretionOffsetValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DiscretionOffsetValue (389)
 func (f DiscretionOffsetValueField) Tag() quickfix.Tag { return tag.DiscretionOffsetValue }
 
-//NewDiscretionOffsetValue returns a new DiscretionOffsetValueField initialized with val
-func NewDiscretionOffsetValue(val float64) DiscretionOffsetValueField {
-	return DiscretionOffsetValueField{quickfix.FIXFloat(val)}
+//NewDiscretionOffsetValue returns a new DiscretionOffsetValueField initialized with val and scale
+func NewDiscretionOffsetValue(val decimal.Decimal, scale int32) DiscretionOffsetValueField {
+	return DiscretionOffsetValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DiscretionPriceField is a PRICE field
-type DiscretionPriceField struct{ quickfix.FIXFloat }
+type DiscretionPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DiscretionPrice (845)
 func (f DiscretionPriceField) Tag() quickfix.Tag { return tag.DiscretionPrice }
 
-//NewDiscretionPrice returns a new DiscretionPriceField initialized with val
-func NewDiscretionPrice(val float64) DiscretionPriceField {
-	return DiscretionPriceField{quickfix.FIXFloat(val)}
+//NewDiscretionPrice returns a new DiscretionPriceField initialized with val and scale
+func NewDiscretionPrice(val decimal.Decimal, scale int32) DiscretionPriceField {
+	return DiscretionPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DiscretionRoundDirectionField is a INT field
@@ -3956,25 +3956,25 @@ func NewDiscretionScope(val int) DiscretionScopeField {
 }
 
 //DisplayHighQtyField is a QTY field
-type DisplayHighQtyField struct{ quickfix.FIXFloat }
+type DisplayHighQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DisplayHighQty (1086)
 func (f DisplayHighQtyField) Tag() quickfix.Tag { return tag.DisplayHighQty }
 
-//NewDisplayHighQty returns a new DisplayHighQtyField initialized with val
-func NewDisplayHighQty(val float64) DisplayHighQtyField {
-	return DisplayHighQtyField{quickfix.FIXFloat(val)}
+//NewDisplayHighQty returns a new DisplayHighQtyField initialized with val and scale
+func NewDisplayHighQty(val decimal.Decimal, scale int32) DisplayHighQtyField {
+	return DisplayHighQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DisplayLowQtyField is a QTY field
-type DisplayLowQtyField struct{ quickfix.FIXFloat }
+type DisplayLowQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DisplayLowQty (1085)
 func (f DisplayLowQtyField) Tag() quickfix.Tag { return tag.DisplayLowQty }
 
-//NewDisplayLowQty returns a new DisplayLowQtyField initialized with val
-func NewDisplayLowQty(val float64) DisplayLowQtyField {
-	return DisplayLowQtyField{quickfix.FIXFloat(val)}
+//NewDisplayLowQty returns a new DisplayLowQtyField initialized with val and scale
+func NewDisplayLowQty(val decimal.Decimal, scale int32) DisplayLowQtyField {
+	return DisplayLowQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DisplayMethodField is a CHAR field
@@ -3989,25 +3989,25 @@ func NewDisplayMethod(val string) DisplayMethodField {
 }
 
 //DisplayMinIncrField is a QTY field
-type DisplayMinIncrField struct{ quickfix.FIXFloat }
+type DisplayMinIncrField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DisplayMinIncr (1087)
 func (f DisplayMinIncrField) Tag() quickfix.Tag { return tag.DisplayMinIncr }
 
-//NewDisplayMinIncr returns a new DisplayMinIncrField initialized with val
-func NewDisplayMinIncr(val float64) DisplayMinIncrField {
-	return DisplayMinIncrField{quickfix.FIXFloat(val)}
+//NewDisplayMinIncr returns a new DisplayMinIncrField initialized with val and scale
+func NewDisplayMinIncr(val decimal.Decimal, scale int32) DisplayMinIncrField {
+	return DisplayMinIncrField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DisplayQtyField is a QTY field
-type DisplayQtyField struct{ quickfix.FIXFloat }
+type DisplayQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DisplayQty (1138)
 func (f DisplayQtyField) Tag() quickfix.Tag { return tag.DisplayQty }
 
-//NewDisplayQty returns a new DisplayQtyField initialized with val
-func NewDisplayQty(val float64) DisplayQtyField {
-	return DisplayQtyField{quickfix.FIXFloat(val)}
+//NewDisplayQty returns a new DisplayQtyField initialized with val and scale
+func NewDisplayQty(val decimal.Decimal, scale int32) DisplayQtyField {
+	return DisplayQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DisplayWhenField is a CHAR field
@@ -4033,25 +4033,25 @@ func NewDistribPaymentMethod(val int) DistribPaymentMethodField {
 }
 
 //DistribPercentageField is a PERCENTAGE field
-type DistribPercentageField struct{ quickfix.FIXFloat }
+type DistribPercentageField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DistribPercentage (512)
 func (f DistribPercentageField) Tag() quickfix.Tag { return tag.DistribPercentage }
 
-//NewDistribPercentage returns a new DistribPercentageField initialized with val
-func NewDistribPercentage(val float64) DistribPercentageField {
-	return DistribPercentageField{quickfix.FIXFloat(val)}
+//NewDistribPercentage returns a new DistribPercentageField initialized with val and scale
+func NewDistribPercentage(val decimal.Decimal, scale int32) DistribPercentageField {
+	return DistribPercentageField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DividendYieldField is a PERCENTAGE field
-type DividendYieldField struct{ quickfix.FIXFloat }
+type DividendYieldField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.DividendYield (1380)
 func (f DividendYieldField) Tag() quickfix.Tag { return tag.DividendYield }
 
-//NewDividendYield returns a new DividendYieldField initialized with val
-func NewDividendYield(val float64) DividendYieldField {
-	return DividendYieldField{quickfix.FIXFloat(val)}
+//NewDividendYield returns a new DividendYieldField initialized with val and scale
+func NewDividendYield(val decimal.Decimal, scale int32) DividendYieldField {
+	return DividendYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //DlvyInstField is a STRING field
@@ -4088,14 +4088,14 @@ func NewDueToRelated(val bool) DueToRelatedField {
 }
 
 //EFPTrackingErrorField is a PERCENTAGE field
-type EFPTrackingErrorField struct{ quickfix.FIXFloat }
+type EFPTrackingErrorField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.EFPTrackingError (405)
 func (f EFPTrackingErrorField) Tag() quickfix.Tag { return tag.EFPTrackingError }
 
-//NewEFPTrackingError returns a new EFPTrackingErrorField initialized with val
-func NewEFPTrackingError(val float64) EFPTrackingErrorField {
-	return EFPTrackingErrorField{quickfix.FIXFloat(val)}
+//NewEFPTrackingError returns a new EFPTrackingErrorField initialized with val and scale
+func NewEFPTrackingError(val decimal.Decimal, scale int32) EFPTrackingErrorField {
+	return EFPTrackingErrorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //EffectiveTimeField is a UTCTIMESTAMP field
@@ -4537,25 +4537,25 @@ func NewEncryptedPasswordMethod(val int) EncryptedPasswordMethodField {
 }
 
 //EndAccruedInterestAmtField is a AMT field
-type EndAccruedInterestAmtField struct{ quickfix.FIXFloat }
+type EndAccruedInterestAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.EndAccruedInterestAmt (920)
 func (f EndAccruedInterestAmtField) Tag() quickfix.Tag { return tag.EndAccruedInterestAmt }
 
-//NewEndAccruedInterestAmt returns a new EndAccruedInterestAmtField initialized with val
-func NewEndAccruedInterestAmt(val float64) EndAccruedInterestAmtField {
-	return EndAccruedInterestAmtField{quickfix.FIXFloat(val)}
+//NewEndAccruedInterestAmt returns a new EndAccruedInterestAmtField initialized with val and scale
+func NewEndAccruedInterestAmt(val decimal.Decimal, scale int32) EndAccruedInterestAmtField {
+	return EndAccruedInterestAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //EndCashField is a AMT field
-type EndCashField struct{ quickfix.FIXFloat }
+type EndCashField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.EndCash (922)
 func (f EndCashField) Tag() quickfix.Tag { return tag.EndCash }
 
-//NewEndCash returns a new EndCashField initialized with val
-func NewEndCash(val float64) EndCashField {
-	return EndCashField{quickfix.FIXFloat(val)}
+//NewEndCash returns a new EndCashField initialized with val and scale
+func NewEndCash(val decimal.Decimal, scale int32) EndCashField {
+	return EndCashField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //EndDateField is a LOCALMKTDATE field
@@ -4592,25 +4592,25 @@ func NewEndSeqNo(val int) EndSeqNoField {
 }
 
 //EndStrikePxRangeField is a PRICE field
-type EndStrikePxRangeField struct{ quickfix.FIXFloat }
+type EndStrikePxRangeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.EndStrikePxRange (1203)
 func (f EndStrikePxRangeField) Tag() quickfix.Tag { return tag.EndStrikePxRange }
 
-//NewEndStrikePxRange returns a new EndStrikePxRangeField initialized with val
-func NewEndStrikePxRange(val float64) EndStrikePxRangeField {
-	return EndStrikePxRangeField{quickfix.FIXFloat(val)}
+//NewEndStrikePxRange returns a new EndStrikePxRangeField initialized with val and scale
+func NewEndStrikePxRange(val decimal.Decimal, scale int32) EndStrikePxRangeField {
+	return EndStrikePxRangeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //EndTickPriceRangeField is a PRICE field
-type EndTickPriceRangeField struct{ quickfix.FIXFloat }
+type EndTickPriceRangeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.EndTickPriceRange (1207)
 func (f EndTickPriceRangeField) Tag() quickfix.Tag { return tag.EndTickPriceRange }
 
-//NewEndTickPriceRange returns a new EndTickPriceRangeField initialized with val
-func NewEndTickPriceRange(val float64) EndTickPriceRangeField {
-	return EndTickPriceRangeField{quickfix.FIXFloat(val)}
+//NewEndTickPriceRange returns a new EndTickPriceRangeField initialized with val and scale
+func NewEndTickPriceRange(val decimal.Decimal, scale int32) EndTickPriceRangeField {
+	return EndTickPriceRangeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //EventDateField is a LOCALMKTDATE field
@@ -4625,14 +4625,14 @@ func NewEventDate(val string) EventDateField {
 }
 
 //EventPxField is a PRICE field
-type EventPxField struct{ quickfix.FIXFloat }
+type EventPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.EventPx (867)
 func (f EventPxField) Tag() quickfix.Tag { return tag.EventPx }
 
-//NewEventPx returns a new EventPxField initialized with val
-func NewEventPx(val float64) EventPxField {
-	return EventPxField{quickfix.FIXFloat(val)}
+//NewEventPx returns a new EventPxField initialized with val and scale
+func NewEventPx(val decimal.Decimal, scale int32) EventPxField {
+	return EventPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //EventTextField is a STRING field
@@ -4795,14 +4795,14 @@ func NewExecInstValue(val string) ExecInstValueField {
 }
 
 //ExecPriceAdjustmentField is a FLOAT field
-type ExecPriceAdjustmentField struct{ quickfix.FIXFloat }
+type ExecPriceAdjustmentField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ExecPriceAdjustment (485)
 func (f ExecPriceAdjustmentField) Tag() quickfix.Tag { return tag.ExecPriceAdjustment }
 
-//NewExecPriceAdjustment returns a new ExecPriceAdjustmentField initialized with val
-func NewExecPriceAdjustment(val float64) ExecPriceAdjustmentField {
-	return ExecPriceAdjustmentField{quickfix.FIXFloat(val)}
+//NewExecPriceAdjustment returns a new ExecPriceAdjustmentField initialized with val and scale
+func NewExecPriceAdjustment(val decimal.Decimal, scale int32) ExecPriceAdjustmentField {
+	return ExecPriceAdjustmentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ExecPriceTypeField is a CHAR field
@@ -4899,14 +4899,14 @@ func NewExerciseStyle(val int) ExerciseStyleField {
 }
 
 //ExpQtyField is a QTY field
-type ExpQtyField struct{ quickfix.FIXFloat }
+type ExpQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ExpQty (983)
 func (f ExpQtyField) Tag() quickfix.Tag { return tag.ExpQty }
 
-//NewExpQty returns a new ExpQtyField initialized with val
-func NewExpQty(val float64) ExpQtyField {
-	return ExpQtyField{quickfix.FIXFloat(val)}
+//NewExpQty returns a new ExpQtyField initialized with val and scale
+func NewExpQty(val decimal.Decimal, scale int32) ExpQtyField {
+	return ExpQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ExpTypeField is a INT field
@@ -4970,36 +4970,36 @@ func NewExpireTimeNoMillis(val time.Time) ExpireTimeField {
 }
 
 //FactorField is a FLOAT field
-type FactorField struct{ quickfix.FIXFloat }
+type FactorField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Factor (228)
 func (f FactorField) Tag() quickfix.Tag { return tag.Factor }
 
-//NewFactor returns a new FactorField initialized with val
-func NewFactor(val float64) FactorField {
-	return FactorField{quickfix.FIXFloat(val)}
+//NewFactor returns a new FactorField initialized with val and scale
+func NewFactor(val decimal.Decimal, scale int32) FactorField {
+	return FactorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //FairValueField is a AMT field
-type FairValueField struct{ quickfix.FIXFloat }
+type FairValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.FairValue (406)
 func (f FairValueField) Tag() quickfix.Tag { return tag.FairValue }
 
-//NewFairValue returns a new FairValueField initialized with val
-func NewFairValue(val float64) FairValueField {
-	return FairValueField{quickfix.FIXFloat(val)}
+//NewFairValue returns a new FairValueField initialized with val and scale
+func NewFairValue(val decimal.Decimal, scale int32) FairValueField {
+	return FairValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //FeeMultiplierField is a FLOAT field
-type FeeMultiplierField struct{ quickfix.FIXFloat }
+type FeeMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.FeeMultiplier (1329)
 func (f FeeMultiplierField) Tag() quickfix.Tag { return tag.FeeMultiplier }
 
-//NewFeeMultiplier returns a new FeeMultiplierField initialized with val
-func NewFeeMultiplier(val float64) FeeMultiplierField {
-	return FeeMultiplierField{quickfix.FIXFloat(val)}
+//NewFeeMultiplier returns a new FeeMultiplierField initialized with val and scale
+func NewFeeMultiplier(val decimal.Decimal, scale int32) FeeMultiplierField {
+	return FeeMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //FillExecIDField is a STRING field
@@ -5025,25 +5025,25 @@ func NewFillLiquidityInd(val int) FillLiquidityIndField {
 }
 
 //FillPxField is a PRICE field
-type FillPxField struct{ quickfix.FIXFloat }
+type FillPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.FillPx (1364)
 func (f FillPxField) Tag() quickfix.Tag { return tag.FillPx }
 
-//NewFillPx returns a new FillPxField initialized with val
-func NewFillPx(val float64) FillPxField {
-	return FillPxField{quickfix.FIXFloat(val)}
+//NewFillPx returns a new FillPxField initialized with val and scale
+func NewFillPx(val decimal.Decimal, scale int32) FillPxField {
+	return FillPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //FillQtyField is a QTY field
-type FillQtyField struct{ quickfix.FIXFloat }
+type FillQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.FillQty (1365)
 func (f FillQtyField) Tag() quickfix.Tag { return tag.FillQty }
 
-//NewFillQty returns a new FillQtyField initialized with val
-func NewFillQty(val float64) FillQtyField {
-	return FillQtyField{quickfix.FIXFloat(val)}
+//NewFillQty returns a new FillQtyField initialized with val and scale
+func NewFillQty(val decimal.Decimal, scale int32) FillQtyField {
+	return FillQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //FinancialStatusField is a MULTIPLECHARVALUE field
@@ -5069,14 +5069,14 @@ func NewFirmTradeID(val string) FirmTradeIDField {
 }
 
 //FirstPxField is a PRICE field
-type FirstPxField struct{ quickfix.FIXFloat }
+type FirstPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.FirstPx (1025)
 func (f FirstPxField) Tag() quickfix.Tag { return tag.FirstPx }
 
-//NewFirstPx returns a new FirstPxField initialized with val
-func NewFirstPx(val float64) FirstPxField {
-	return FirstPxField{quickfix.FIXFloat(val)}
+//NewFirstPx returns a new FirstPxField initialized with val and scale
+func NewFirstPx(val decimal.Decimal, scale int32) FirstPxField {
+	return FirstPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //FlexProductEligibilityIndicatorField is a BOOLEAN field
@@ -5104,14 +5104,14 @@ func NewFlexibleIndicator(val bool) FlexibleIndicatorField {
 }
 
 //FloorPriceField is a PRICE field
-type FloorPriceField struct{ quickfix.FIXFloat }
+type FloorPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.FloorPrice (1200)
 func (f FloorPriceField) Tag() quickfix.Tag { return tag.FloorPrice }
 
-//NewFloorPrice returns a new FloorPriceField initialized with val
-func NewFloorPrice(val float64) FloorPriceField {
-	return FloorPriceField{quickfix.FIXFloat(val)}
+//NewFloorPrice returns a new FloorPriceField initialized with val and scale
+func NewFloorPrice(val decimal.Decimal, scale int32) FloorPriceField {
+	return FloorPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //FlowScheduleTypeField is a INT field
@@ -5203,14 +5203,14 @@ func NewGapFillFlag(val bool) GapFillFlagField {
 }
 
 //GrossTradeAmtField is a AMT field
-type GrossTradeAmtField struct{ quickfix.FIXFloat }
+type GrossTradeAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.GrossTradeAmt (381)
 func (f GrossTradeAmtField) Tag() quickfix.Tag { return tag.GrossTradeAmt }
 
-//NewGrossTradeAmt returns a new GrossTradeAmtField initialized with val
-func NewGrossTradeAmt(val float64) GrossTradeAmtField {
-	return GrossTradeAmtField{quickfix.FIXFloat(val)}
+//NewGrossTradeAmt returns a new GrossTradeAmtField initialized with val and scale
+func NewGrossTradeAmt(val decimal.Decimal, scale int32) GrossTradeAmtField {
+	return GrossTradeAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //HaltReasonCharField is a CHAR field
@@ -5269,25 +5269,25 @@ func NewHeartBtInt(val int) HeartBtIntField {
 }
 
 //HighLimitPriceField is a PRICE field
-type HighLimitPriceField struct{ quickfix.FIXFloat }
+type HighLimitPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.HighLimitPrice (1149)
 func (f HighLimitPriceField) Tag() quickfix.Tag { return tag.HighLimitPrice }
 
-//NewHighLimitPrice returns a new HighLimitPriceField initialized with val
-func NewHighLimitPrice(val float64) HighLimitPriceField {
-	return HighLimitPriceField{quickfix.FIXFloat(val)}
+//NewHighLimitPrice returns a new HighLimitPriceField initialized with val and scale
+func NewHighLimitPrice(val decimal.Decimal, scale int32) HighLimitPriceField {
+	return HighLimitPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //HighPxField is a PRICE field
-type HighPxField struct{ quickfix.FIXFloat }
+type HighPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.HighPx (332)
 func (f HighPxField) Tag() quickfix.Tag { return tag.HighPx }
 
-//NewHighPx returns a new HighPxField initialized with val
-func NewHighPx(val float64) HighPxField {
-	return HighPxField{quickfix.FIXFloat(val)}
+//NewHighPx returns a new HighPxField initialized with val and scale
+func NewHighPx(val decimal.Decimal, scale int32) HighPxField {
+	return HighPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //HopCompIDField is a STRING field
@@ -5648,14 +5648,14 @@ func NewInterestAccrualDate(val string) InterestAccrualDateField {
 }
 
 //InterestAtMaturityField is a AMT field
-type InterestAtMaturityField struct{ quickfix.FIXFloat }
+type InterestAtMaturityField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.InterestAtMaturity (738)
 func (f InterestAtMaturityField) Tag() quickfix.Tag { return tag.InterestAtMaturity }
 
-//NewInterestAtMaturity returns a new InterestAtMaturityField initialized with val
-func NewInterestAtMaturity(val float64) InterestAtMaturityField {
-	return InterestAtMaturityField{quickfix.FIXFloat(val)}
+//NewInterestAtMaturity returns a new InterestAtMaturityField initialized with val and scale
+func NewInterestAtMaturity(val decimal.Decimal, scale int32) InterestAtMaturityField {
+	return InterestAtMaturityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //InvestorCountryOfResidenceField is a COUNTRY field
@@ -5714,25 +5714,25 @@ func NewLastCapacity(val string) LastCapacityField {
 }
 
 //LastForwardPointsField is a PRICEOFFSET field
-type LastForwardPointsField struct{ quickfix.FIXFloat }
+type LastForwardPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LastForwardPoints (195)
 func (f LastForwardPointsField) Tag() quickfix.Tag { return tag.LastForwardPoints }
 
-//NewLastForwardPoints returns a new LastForwardPointsField initialized with val
-func NewLastForwardPoints(val float64) LastForwardPointsField {
-	return LastForwardPointsField{quickfix.FIXFloat(val)}
+//NewLastForwardPoints returns a new LastForwardPointsField initialized with val and scale
+func NewLastForwardPoints(val decimal.Decimal, scale int32) LastForwardPointsField {
+	return LastForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LastForwardPoints2Field is a PRICEOFFSET field
-type LastForwardPoints2Field struct{ quickfix.FIXFloat }
+type LastForwardPoints2Field struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LastForwardPoints2 (641)
 func (f LastForwardPoints2Field) Tag() quickfix.Tag { return tag.LastForwardPoints2 }
 
-//NewLastForwardPoints2 returns a new LastForwardPoints2Field initialized with val
-func NewLastForwardPoints2(val float64) LastForwardPoints2Field {
-	return LastForwardPoints2Field{quickfix.FIXFloat(val)}
+//NewLastForwardPoints2 returns a new LastForwardPoints2Field initialized with val and scale
+func NewLastForwardPoints2(val decimal.Decimal, scale int32) LastForwardPoints2Field {
+	return LastForwardPoints2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LastFragmentField is a BOOLEAN field
@@ -5791,36 +5791,36 @@ func NewLastNetworkResponseID(val string) LastNetworkResponseIDField {
 }
 
 //LastParPxField is a PRICE field
-type LastParPxField struct{ quickfix.FIXFloat }
+type LastParPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LastParPx (669)
 func (f LastParPxField) Tag() quickfix.Tag { return tag.LastParPx }
 
-//NewLastParPx returns a new LastParPxField initialized with val
-func NewLastParPx(val float64) LastParPxField {
-	return LastParPxField{quickfix.FIXFloat(val)}
+//NewLastParPx returns a new LastParPxField initialized with val and scale
+func NewLastParPx(val decimal.Decimal, scale int32) LastParPxField {
+	return LastParPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LastPxField is a PRICE field
-type LastPxField struct{ quickfix.FIXFloat }
+type LastPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LastPx (31)
 func (f LastPxField) Tag() quickfix.Tag { return tag.LastPx }
 
-//NewLastPx returns a new LastPxField initialized with val
-func NewLastPx(val float64) LastPxField {
-	return LastPxField{quickfix.FIXFloat(val)}
+//NewLastPx returns a new LastPxField initialized with val and scale
+func NewLastPx(val decimal.Decimal, scale int32) LastPxField {
+	return LastPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LastQtyField is a QTY field
-type LastQtyField struct{ quickfix.FIXFloat }
+type LastQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LastQty (32)
 func (f LastQtyField) Tag() quickfix.Tag { return tag.LastQty }
 
-//NewLastQty returns a new LastQtyField initialized with val
-func NewLastQty(val float64) LastQtyField {
-	return LastQtyField{quickfix.FIXFloat(val)}
+//NewLastQty returns a new LastQtyField initialized with val and scale
+func NewLastQty(val decimal.Decimal, scale int32) LastQtyField {
+	return LastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LastRptRequestedField is a BOOLEAN field
@@ -5835,36 +5835,36 @@ func NewLastRptRequested(val bool) LastRptRequestedField {
 }
 
 //LastSharesField is a QTY field
-type LastSharesField struct{ quickfix.FIXFloat }
+type LastSharesField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LastShares (32)
 func (f LastSharesField) Tag() quickfix.Tag { return tag.LastShares }
 
-//NewLastShares returns a new LastSharesField initialized with val
-func NewLastShares(val float64) LastSharesField {
-	return LastSharesField{quickfix.FIXFloat(val)}
+//NewLastShares returns a new LastSharesField initialized with val and scale
+func NewLastShares(val decimal.Decimal, scale int32) LastSharesField {
+	return LastSharesField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LastSpotRateField is a PRICE field
-type LastSpotRateField struct{ quickfix.FIXFloat }
+type LastSpotRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LastSpotRate (194)
 func (f LastSpotRateField) Tag() quickfix.Tag { return tag.LastSpotRate }
 
-//NewLastSpotRate returns a new LastSpotRateField initialized with val
-func NewLastSpotRate(val float64) LastSpotRateField {
-	return LastSpotRateField{quickfix.FIXFloat(val)}
+//NewLastSpotRate returns a new LastSpotRateField initialized with val and scale
+func NewLastSpotRate(val decimal.Decimal, scale int32) LastSpotRateField {
+	return LastSpotRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LastSwapPointsField is a PRICEOFFSET field
-type LastSwapPointsField struct{ quickfix.FIXFloat }
+type LastSwapPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LastSwapPoints (1071)
 func (f LastSwapPointsField) Tag() quickfix.Tag { return tag.LastSwapPoints }
 
-//NewLastSwapPoints returns a new LastSwapPointsField initialized with val
-func NewLastSwapPoints(val float64) LastSwapPointsField {
-	return LastSwapPointsField{quickfix.FIXFloat(val)}
+//NewLastSwapPoints returns a new LastSwapPointsField initialized with val and scale
+func NewLastSwapPoints(val decimal.Decimal, scale int32) LastSwapPointsField {
+	return LastSwapPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LastUpdateTimeField is a UTCTIMESTAMP field
@@ -5895,14 +5895,14 @@ func NewLateIndicator(val bool) LateIndicatorField {
 }
 
 //LeavesQtyField is a QTY field
-type LeavesQtyField struct{ quickfix.FIXFloat }
+type LeavesQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LeavesQty (151)
 func (f LeavesQtyField) Tag() quickfix.Tag { return tag.LeavesQty }
 
-//NewLeavesQty returns a new LeavesQtyField initialized with val
-func NewLeavesQty(val float64) LeavesQtyField {
-	return LeavesQtyField{quickfix.FIXFloat(val)}
+//NewLeavesQty returns a new LeavesQtyField initialized with val and scale
+func NewLeavesQty(val decimal.Decimal, scale int32) LeavesQtyField {
+	return LeavesQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegAllocAccountField is a STRING field
@@ -5939,14 +5939,14 @@ func NewLegAllocID(val string) LegAllocIDField {
 }
 
 //LegAllocQtyField is a QTY field
-type LegAllocQtyField struct{ quickfix.FIXFloat }
+type LegAllocQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegAllocQty (673)
 func (f LegAllocQtyField) Tag() quickfix.Tag { return tag.LegAllocQty }
 
-//NewLegAllocQty returns a new LegAllocQtyField initialized with val
-func NewLegAllocQty(val float64) LegAllocQtyField {
-	return LegAllocQtyField{quickfix.FIXFloat(val)}
+//NewLegAllocQty returns a new LegAllocQtyField initialized with val and scale
+func NewLegAllocQty(val decimal.Decimal, scale int32) LegAllocQtyField {
+	return LegAllocQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegAllocSettlCurrencyField is a CURRENCY field
@@ -5994,14 +5994,14 @@ func NewLegBenchmarkCurvePoint(val string) LegBenchmarkCurvePointField {
 }
 
 //LegBenchmarkPriceField is a PRICE field
-type LegBenchmarkPriceField struct{ quickfix.FIXFloat }
+type LegBenchmarkPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegBenchmarkPrice (679)
 func (f LegBenchmarkPriceField) Tag() quickfix.Tag { return tag.LegBenchmarkPrice }
 
-//NewLegBenchmarkPrice returns a new LegBenchmarkPriceField initialized with val
-func NewLegBenchmarkPrice(val float64) LegBenchmarkPriceField {
-	return LegBenchmarkPriceField{quickfix.FIXFloat(val)}
+//NewLegBenchmarkPrice returns a new LegBenchmarkPriceField initialized with val and scale
+func NewLegBenchmarkPrice(val decimal.Decimal, scale int32) LegBenchmarkPriceField {
+	return LegBenchmarkPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegBenchmarkPriceTypeField is a INT field
@@ -6016,25 +6016,25 @@ func NewLegBenchmarkPriceType(val int) LegBenchmarkPriceTypeField {
 }
 
 //LegBidForwardPointsField is a PRICEOFFSET field
-type LegBidForwardPointsField struct{ quickfix.FIXFloat }
+type LegBidForwardPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegBidForwardPoints (1067)
 func (f LegBidForwardPointsField) Tag() quickfix.Tag { return tag.LegBidForwardPoints }
 
-//NewLegBidForwardPoints returns a new LegBidForwardPointsField initialized with val
-func NewLegBidForwardPoints(val float64) LegBidForwardPointsField {
-	return LegBidForwardPointsField{quickfix.FIXFloat(val)}
+//NewLegBidForwardPoints returns a new LegBidForwardPointsField initialized with val and scale
+func NewLegBidForwardPoints(val decimal.Decimal, scale int32) LegBidForwardPointsField {
+	return LegBidForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegBidPxField is a PRICE field
-type LegBidPxField struct{ quickfix.FIXFloat }
+type LegBidPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegBidPx (681)
 func (f LegBidPxField) Tag() quickfix.Tag { return tag.LegBidPx }
 
-//NewLegBidPx returns a new LegBidPxField initialized with val
-func NewLegBidPx(val float64) LegBidPxField {
-	return LegBidPxField{quickfix.FIXFloat(val)}
+//NewLegBidPx returns a new LegBidPxField initialized with val and scale
+func NewLegBidPx(val decimal.Decimal, scale int32) LegBidPxField {
+	return LegBidPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegCFICodeField is a STRING field
@@ -6049,25 +6049,25 @@ func NewLegCFICode(val string) LegCFICodeField {
 }
 
 //LegCalculatedCcyLastQtyField is a QTY field
-type LegCalculatedCcyLastQtyField struct{ quickfix.FIXFloat }
+type LegCalculatedCcyLastQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegCalculatedCcyLastQty (1074)
 func (f LegCalculatedCcyLastQtyField) Tag() quickfix.Tag { return tag.LegCalculatedCcyLastQty }
 
-//NewLegCalculatedCcyLastQty returns a new LegCalculatedCcyLastQtyField initialized with val
-func NewLegCalculatedCcyLastQty(val float64) LegCalculatedCcyLastQtyField {
-	return LegCalculatedCcyLastQtyField{quickfix.FIXFloat(val)}
+//NewLegCalculatedCcyLastQty returns a new LegCalculatedCcyLastQtyField initialized with val and scale
+func NewLegCalculatedCcyLastQty(val decimal.Decimal, scale int32) LegCalculatedCcyLastQtyField {
+	return LegCalculatedCcyLastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegContractMultiplierField is a FLOAT field
-type LegContractMultiplierField struct{ quickfix.FIXFloat }
+type LegContractMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegContractMultiplier (614)
 func (f LegContractMultiplierField) Tag() quickfix.Tag { return tag.LegContractMultiplier }
 
-//NewLegContractMultiplier returns a new LegContractMultiplierField initialized with val
-func NewLegContractMultiplier(val float64) LegContractMultiplierField {
-	return LegContractMultiplierField{quickfix.FIXFloat(val)}
+//NewLegContractMultiplier returns a new LegContractMultiplierField initialized with val and scale
+func NewLegContractMultiplier(val decimal.Decimal, scale int32) LegContractMultiplierField {
+	return LegContractMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegContractMultiplierUnitField is a INT field
@@ -6115,14 +6115,14 @@ func NewLegCouponPaymentDate(val string) LegCouponPaymentDateField {
 }
 
 //LegCouponRateField is a PERCENTAGE field
-type LegCouponRateField struct{ quickfix.FIXFloat }
+type LegCouponRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegCouponRate (615)
 func (f LegCouponRateField) Tag() quickfix.Tag { return tag.LegCouponRate }
 
-//NewLegCouponRate returns a new LegCouponRateField initialized with val
-func NewLegCouponRate(val float64) LegCouponRateField {
-	return LegCouponRateField{quickfix.FIXFloat(val)}
+//NewLegCouponRate returns a new LegCouponRateField initialized with val and scale
+func NewLegCouponRate(val decimal.Decimal, scale int32) LegCouponRateField {
+	return LegCouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegCoveredOrUncoveredField is a INT field
@@ -6159,14 +6159,14 @@ func NewLegCurrency(val string) LegCurrencyField {
 }
 
 //LegCurrencyRatioField is a FLOAT field
-type LegCurrencyRatioField struct{ quickfix.FIXFloat }
+type LegCurrencyRatioField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegCurrencyRatio (1383)
 func (f LegCurrencyRatioField) Tag() quickfix.Tag { return tag.LegCurrencyRatio }
 
-//NewLegCurrencyRatio returns a new LegCurrencyRatioField initialized with val
-func NewLegCurrencyRatio(val float64) LegCurrencyRatioField {
-	return LegCurrencyRatioField{quickfix.FIXFloat(val)}
+//NewLegCurrencyRatio returns a new LegCurrencyRatioField initialized with val and scale
+func NewLegCurrencyRatio(val decimal.Decimal, scale int32) LegCurrencyRatioField {
+	return LegCurrencyRatioField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegDatedDateField is a LOCALMKTDATE field
@@ -6181,14 +6181,14 @@ func NewLegDatedDate(val string) LegDatedDateField {
 }
 
 //LegDividendYieldField is a PERCENTAGE field
-type LegDividendYieldField struct{ quickfix.FIXFloat }
+type LegDividendYieldField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegDividendYield (1381)
 func (f LegDividendYieldField) Tag() quickfix.Tag { return tag.LegDividendYield }
 
-//NewLegDividendYield returns a new LegDividendYieldField initialized with val
-func NewLegDividendYield(val float64) LegDividendYieldField {
-	return LegDividendYieldField{quickfix.FIXFloat(val)}
+//NewLegDividendYield returns a new LegDividendYieldField initialized with val and scale
+func NewLegDividendYield(val decimal.Decimal, scale int32) LegDividendYieldField {
+	return LegDividendYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegExecInstField is a MULTIPLECHARVALUE field
@@ -6214,14 +6214,14 @@ func NewLegExerciseStyle(val int) LegExerciseStyleField {
 }
 
 //LegFactorField is a FLOAT field
-type LegFactorField struct{ quickfix.FIXFloat }
+type LegFactorField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegFactor (253)
 func (f LegFactorField) Tag() quickfix.Tag { return tag.LegFactor }
 
-//NewLegFactor returns a new LegFactorField initialized with val
-func NewLegFactor(val float64) LegFactorField {
-	return LegFactorField{quickfix.FIXFloat(val)}
+//NewLegFactor returns a new LegFactorField initialized with val and scale
+func NewLegFactor(val decimal.Decimal, scale int32) LegFactorField {
+	return LegFactorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegFlowScheduleTypeField is a INT field
@@ -6247,14 +6247,14 @@ func NewLegFutSettDate(val string) LegFutSettDateField {
 }
 
 //LegGrossTradeAmtField is a AMT field
-type LegGrossTradeAmtField struct{ quickfix.FIXFloat }
+type LegGrossTradeAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegGrossTradeAmt (1075)
 func (f LegGrossTradeAmtField) Tag() quickfix.Tag { return tag.LegGrossTradeAmt }
 
-//NewLegGrossTradeAmt returns a new LegGrossTradeAmtField initialized with val
-func NewLegGrossTradeAmt(val float64) LegGrossTradeAmtField {
-	return LegGrossTradeAmtField{quickfix.FIXFloat(val)}
+//NewLegGrossTradeAmt returns a new LegGrossTradeAmtField initialized with val and scale
+func NewLegGrossTradeAmt(val decimal.Decimal, scale int32) LegGrossTradeAmtField {
+	return LegGrossTradeAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegIOIQtyField is a STRING field
@@ -6324,36 +6324,36 @@ func NewLegIssuer(val string) LegIssuerField {
 }
 
 //LegLastForwardPointsField is a PRICEOFFSET field
-type LegLastForwardPointsField struct{ quickfix.FIXFloat }
+type LegLastForwardPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegLastForwardPoints (1073)
 func (f LegLastForwardPointsField) Tag() quickfix.Tag { return tag.LegLastForwardPoints }
 
-//NewLegLastForwardPoints returns a new LegLastForwardPointsField initialized with val
-func NewLegLastForwardPoints(val float64) LegLastForwardPointsField {
-	return LegLastForwardPointsField{quickfix.FIXFloat(val)}
+//NewLegLastForwardPoints returns a new LegLastForwardPointsField initialized with val and scale
+func NewLegLastForwardPoints(val decimal.Decimal, scale int32) LegLastForwardPointsField {
+	return LegLastForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegLastPxField is a PRICE field
-type LegLastPxField struct{ quickfix.FIXFloat }
+type LegLastPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegLastPx (637)
 func (f LegLastPxField) Tag() quickfix.Tag { return tag.LegLastPx }
 
-//NewLegLastPx returns a new LegLastPxField initialized with val
-func NewLegLastPx(val float64) LegLastPxField {
-	return LegLastPxField{quickfix.FIXFloat(val)}
+//NewLegLastPx returns a new LegLastPxField initialized with val and scale
+func NewLegLastPx(val decimal.Decimal, scale int32) LegLastPxField {
+	return LegLastPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegLastQtyField is a QTY field
-type LegLastQtyField struct{ quickfix.FIXFloat }
+type LegLastQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegLastQty (1418)
 func (f LegLastQtyField) Tag() quickfix.Tag { return tag.LegLastQty }
 
-//NewLegLastQty returns a new LegLastQtyField initialized with val
-func NewLegLastQty(val float64) LegLastQtyField {
-	return LegLastQtyField{quickfix.FIXFloat(val)}
+//NewLegLastQty returns a new LegLastQtyField initialized with val and scale
+func NewLegLastQty(val decimal.Decimal, scale int32) LegLastQtyField {
+	return LegLastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegLocaleOfIssueField is a STRING field
@@ -6412,25 +6412,25 @@ func NewLegNumber(val int) LegNumberField {
 }
 
 //LegOfferForwardPointsField is a PRICEOFFSET field
-type LegOfferForwardPointsField struct{ quickfix.FIXFloat }
+type LegOfferForwardPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegOfferForwardPoints (1068)
 func (f LegOfferForwardPointsField) Tag() quickfix.Tag { return tag.LegOfferForwardPoints }
 
-//NewLegOfferForwardPoints returns a new LegOfferForwardPointsField initialized with val
-func NewLegOfferForwardPoints(val float64) LegOfferForwardPointsField {
-	return LegOfferForwardPointsField{quickfix.FIXFloat(val)}
+//NewLegOfferForwardPoints returns a new LegOfferForwardPointsField initialized with val and scale
+func NewLegOfferForwardPoints(val decimal.Decimal, scale int32) LegOfferForwardPointsField {
+	return LegOfferForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegOfferPxField is a PRICE field
-type LegOfferPxField struct{ quickfix.FIXFloat }
+type LegOfferPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegOfferPx (684)
 func (f LegOfferPxField) Tag() quickfix.Tag { return tag.LegOfferPx }
 
-//NewLegOfferPx returns a new LegOfferPxField initialized with val
-func NewLegOfferPx(val float64) LegOfferPxField {
-	return LegOfferPxField{quickfix.FIXFloat(val)}
+//NewLegOfferPx returns a new LegOfferPxField initialized with val and scale
+func NewLegOfferPx(val decimal.Decimal, scale int32) LegOfferPxField {
+	return LegOfferPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegOptAttributeField is a CHAR field
@@ -6445,25 +6445,25 @@ func NewLegOptAttribute(val string) LegOptAttributeField {
 }
 
 //LegOptionRatioField is a FLOAT field
-type LegOptionRatioField struct{ quickfix.FIXFloat }
+type LegOptionRatioField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegOptionRatio (1017)
 func (f LegOptionRatioField) Tag() quickfix.Tag { return tag.LegOptionRatio }
 
-//NewLegOptionRatio returns a new LegOptionRatioField initialized with val
-func NewLegOptionRatio(val float64) LegOptionRatioField {
-	return LegOptionRatioField{quickfix.FIXFloat(val)}
+//NewLegOptionRatio returns a new LegOptionRatioField initialized with val and scale
+func NewLegOptionRatio(val decimal.Decimal, scale int32) LegOptionRatioField {
+	return LegOptionRatioField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegOrderQtyField is a QTY field
-type LegOrderQtyField struct{ quickfix.FIXFloat }
+type LegOrderQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegOrderQty (685)
 func (f LegOrderQtyField) Tag() quickfix.Tag { return tag.LegOrderQty }
 
-//NewLegOrderQty returns a new LegOrderQtyField initialized with val
-func NewLegOrderQty(val float64) LegOrderQtyField {
-	return LegOrderQtyField{quickfix.FIXFloat(val)}
+//NewLegOrderQty returns a new LegOrderQtyField initialized with val and scale
+func NewLegOrderQty(val decimal.Decimal, scale int32) LegOrderQtyField {
+	return LegOrderQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegPoolField is a STRING field
@@ -6489,14 +6489,14 @@ func NewLegPositionEffect(val string) LegPositionEffectField {
 }
 
 //LegPriceField is a PRICE field
-type LegPriceField struct{ quickfix.FIXFloat }
+type LegPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegPrice (566)
 func (f LegPriceField) Tag() quickfix.Tag { return tag.LegPrice }
 
-//NewLegPrice returns a new LegPriceField initialized with val
-func NewLegPrice(val float64) LegPriceField {
-	return LegPriceField{quickfix.FIXFloat(val)}
+//NewLegPrice returns a new LegPriceField initialized with val and scale
+func NewLegPrice(val decimal.Decimal, scale int32) LegPriceField {
+	return LegPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegPriceTypeField is a INT field
@@ -6522,14 +6522,14 @@ func NewLegPriceUnitOfMeasure(val string) LegPriceUnitOfMeasureField {
 }
 
 //LegPriceUnitOfMeasureQtyField is a QTY field
-type LegPriceUnitOfMeasureQtyField struct{ quickfix.FIXFloat }
+type LegPriceUnitOfMeasureQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegPriceUnitOfMeasureQty (1422)
 func (f LegPriceUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.LegPriceUnitOfMeasureQty }
 
-//NewLegPriceUnitOfMeasureQty returns a new LegPriceUnitOfMeasureQtyField initialized with val
-func NewLegPriceUnitOfMeasureQty(val float64) LegPriceUnitOfMeasureQtyField {
-	return LegPriceUnitOfMeasureQtyField{quickfix.FIXFloat(val)}
+//NewLegPriceUnitOfMeasureQty returns a new LegPriceUnitOfMeasureQtyField initialized with val and scale
+func NewLegPriceUnitOfMeasureQty(val decimal.Decimal, scale int32) LegPriceUnitOfMeasureQtyField {
+	return LegPriceUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegProductField is a INT field
@@ -6555,25 +6555,25 @@ func NewLegPutOrCall(val int) LegPutOrCallField {
 }
 
 //LegQtyField is a QTY field
-type LegQtyField struct{ quickfix.FIXFloat }
+type LegQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegQty (687)
 func (f LegQtyField) Tag() quickfix.Tag { return tag.LegQty }
 
-//NewLegQty returns a new LegQtyField initialized with val
-func NewLegQty(val float64) LegQtyField {
-	return LegQtyField{quickfix.FIXFloat(val)}
+//NewLegQty returns a new LegQtyField initialized with val and scale
+func NewLegQty(val decimal.Decimal, scale int32) LegQtyField {
+	return LegQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegRatioQtyField is a FLOAT field
-type LegRatioQtyField struct{ quickfix.FIXFloat }
+type LegRatioQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegRatioQty (623)
 func (f LegRatioQtyField) Tag() quickfix.Tag { return tag.LegRatioQty }
 
-//NewLegRatioQty returns a new LegRatioQtyField initialized with val
-func NewLegRatioQty(val float64) LegRatioQtyField {
-	return LegRatioQtyField{quickfix.FIXFloat(val)}
+//NewLegRatioQty returns a new LegRatioQtyField initialized with val and scale
+func NewLegRatioQty(val decimal.Decimal, scale int32) LegRatioQtyField {
+	return LegRatioQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegRedemptionDateField is a LOCALMKTDATE field
@@ -6623,14 +6623,14 @@ func NewLegReportID(val string) LegReportIDField {
 }
 
 //LegRepurchaseRateField is a PERCENTAGE field
-type LegRepurchaseRateField struct{ quickfix.FIXFloat }
+type LegRepurchaseRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegRepurchaseRate (252)
 func (f LegRepurchaseRateField) Tag() quickfix.Tag { return tag.LegRepurchaseRate }
 
-//NewLegRepurchaseRate returns a new LegRepurchaseRateField initialized with val
-func NewLegRepurchaseRate(val float64) LegRepurchaseRateField {
-	return LegRepurchaseRateField{quickfix.FIXFloat(val)}
+//NewLegRepurchaseRate returns a new LegRepurchaseRateField initialized with val and scale
+func NewLegRepurchaseRate(val decimal.Decimal, scale int32) LegRepurchaseRateField {
+	return LegRepurchaseRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegRepurchaseTermField is a INT field
@@ -6832,14 +6832,14 @@ func NewLegStrikeCurrency(val string) LegStrikeCurrencyField {
 }
 
 //LegStrikePriceField is a PRICE field
-type LegStrikePriceField struct{ quickfix.FIXFloat }
+type LegStrikePriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegStrikePrice (612)
 func (f LegStrikePriceField) Tag() quickfix.Tag { return tag.LegStrikePrice }
 
-//NewLegStrikePrice returns a new LegStrikePriceField initialized with val
-func NewLegStrikePrice(val float64) LegStrikePriceField {
-	return LegStrikePriceField{quickfix.FIXFloat(val)}
+//NewLegStrikePrice returns a new LegStrikePriceField initialized with val and scale
+func NewLegStrikePrice(val decimal.Decimal, scale int32) LegStrikePriceField {
+	return LegStrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegSwapTypeField is a INT field
@@ -6898,25 +6898,25 @@ func NewLegUnitOfMeasure(val string) LegUnitOfMeasureField {
 }
 
 //LegUnitOfMeasureQtyField is a QTY field
-type LegUnitOfMeasureQtyField struct{ quickfix.FIXFloat }
+type LegUnitOfMeasureQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegUnitOfMeasureQty (1224)
 func (f LegUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.LegUnitOfMeasureQty }
 
-//NewLegUnitOfMeasureQty returns a new LegUnitOfMeasureQtyField initialized with val
-func NewLegUnitOfMeasureQty(val float64) LegUnitOfMeasureQtyField {
-	return LegUnitOfMeasureQtyField{quickfix.FIXFloat(val)}
+//NewLegUnitOfMeasureQty returns a new LegUnitOfMeasureQtyField initialized with val and scale
+func NewLegUnitOfMeasureQty(val decimal.Decimal, scale int32) LegUnitOfMeasureQtyField {
+	return LegUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegVolatilityField is a FLOAT field
-type LegVolatilityField struct{ quickfix.FIXFloat }
+type LegVolatilityField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LegVolatility (1379)
 func (f LegVolatilityField) Tag() quickfix.Tag { return tag.LegVolatility }
 
-//NewLegVolatility returns a new LegVolatilityField initialized with val
-func NewLegVolatility(val float64) LegVolatilityField {
-	return LegVolatilityField{quickfix.FIXFloat(val)}
+//NewLegVolatility returns a new LegVolatilityField initialized with val and scale
+func NewLegVolatility(val decimal.Decimal, scale int32) LegVolatilityField {
+	return LegVolatilityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LegalConfirmField is a BOOLEAN field
@@ -6964,36 +6964,36 @@ func NewLiquidityNumSecurities(val int) LiquidityNumSecuritiesField {
 }
 
 //LiquidityPctHighField is a PERCENTAGE field
-type LiquidityPctHighField struct{ quickfix.FIXFloat }
+type LiquidityPctHighField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LiquidityPctHigh (403)
 func (f LiquidityPctHighField) Tag() quickfix.Tag { return tag.LiquidityPctHigh }
 
-//NewLiquidityPctHigh returns a new LiquidityPctHighField initialized with val
-func NewLiquidityPctHigh(val float64) LiquidityPctHighField {
-	return LiquidityPctHighField{quickfix.FIXFloat(val)}
+//NewLiquidityPctHigh returns a new LiquidityPctHighField initialized with val and scale
+func NewLiquidityPctHigh(val decimal.Decimal, scale int32) LiquidityPctHighField {
+	return LiquidityPctHighField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LiquidityPctLowField is a PERCENTAGE field
-type LiquidityPctLowField struct{ quickfix.FIXFloat }
+type LiquidityPctLowField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LiquidityPctLow (402)
 func (f LiquidityPctLowField) Tag() quickfix.Tag { return tag.LiquidityPctLow }
 
-//NewLiquidityPctLow returns a new LiquidityPctLowField initialized with val
-func NewLiquidityPctLow(val float64) LiquidityPctLowField {
-	return LiquidityPctLowField{quickfix.FIXFloat(val)}
+//NewLiquidityPctLow returns a new LiquidityPctLowField initialized with val and scale
+func NewLiquidityPctLow(val decimal.Decimal, scale int32) LiquidityPctLowField {
+	return LiquidityPctLowField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LiquidityValueField is a AMT field
-type LiquidityValueField struct{ quickfix.FIXFloat }
+type LiquidityValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LiquidityValue (404)
 func (f LiquidityValueField) Tag() quickfix.Tag { return tag.LiquidityValue }
 
-//NewLiquidityValue returns a new LiquidityValueField initialized with val
-func NewLiquidityValue(val float64) LiquidityValueField {
-	return LiquidityValueField{quickfix.FIXFloat(val)}
+//NewLiquidityValue returns a new LiquidityValueField initialized with val and scale
+func NewLiquidityValue(val decimal.Decimal, scale int32) LiquidityValueField {
+	return LiquidityValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ListExecInstField is a STRING field
@@ -7162,14 +7162,14 @@ func NewLocationID(val string) LocationIDField {
 }
 
 //LongQtyField is a QTY field
-type LongQtyField struct{ quickfix.FIXFloat }
+type LongQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LongQty (704)
 func (f LongQtyField) Tag() quickfix.Tag { return tag.LongQty }
 
-//NewLongQty returns a new LongQtyField initialized with val
-func NewLongQty(val float64) LongQtyField {
-	return LongQtyField{quickfix.FIXFloat(val)}
+//NewLongQty returns a new LongQtyField initialized with val and scale
+func NewLongQty(val decimal.Decimal, scale int32) LongQtyField {
+	return LongQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LotTypeField is a CHAR field
@@ -7184,25 +7184,25 @@ func NewLotType(val string) LotTypeField {
 }
 
 //LowLimitPriceField is a PRICE field
-type LowLimitPriceField struct{ quickfix.FIXFloat }
+type LowLimitPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LowLimitPrice (1148)
 func (f LowLimitPriceField) Tag() quickfix.Tag { return tag.LowLimitPrice }
 
-//NewLowLimitPrice returns a new LowLimitPriceField initialized with val
-func NewLowLimitPrice(val float64) LowLimitPriceField {
-	return LowLimitPriceField{quickfix.FIXFloat(val)}
+//NewLowLimitPrice returns a new LowLimitPriceField initialized with val and scale
+func NewLowLimitPrice(val decimal.Decimal, scale int32) LowLimitPriceField {
+	return LowLimitPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //LowPxField is a PRICE field
-type LowPxField struct{ quickfix.FIXFloat }
+type LowPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.LowPx (333)
 func (f LowPxField) Tag() quickfix.Tag { return tag.LowPx }
 
-//NewLowPx returns a new LowPxField initialized with val
-func NewLowPx(val float64) LowPxField {
-	return LowPxField{quickfix.FIXFloat(val)}
+//NewLowPx returns a new LowPxField initialized with val and scale
+func NewLowPx(val decimal.Decimal, scale int32) LowPxField {
+	return LowPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MDBookTypeField is a INT field
@@ -7239,14 +7239,14 @@ func NewMDEntryDate(val string) MDEntryDateField {
 }
 
 //MDEntryForwardPointsField is a PRICEOFFSET field
-type MDEntryForwardPointsField struct{ quickfix.FIXFloat }
+type MDEntryForwardPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MDEntryForwardPoints (1027)
 func (f MDEntryForwardPointsField) Tag() quickfix.Tag { return tag.MDEntryForwardPoints }
 
-//NewMDEntryForwardPoints returns a new MDEntryForwardPointsField initialized with val
-func NewMDEntryForwardPoints(val float64) MDEntryForwardPointsField {
-	return MDEntryForwardPointsField{quickfix.FIXFloat(val)}
+//NewMDEntryForwardPoints returns a new MDEntryForwardPointsField initialized with val and scale
+func NewMDEntryForwardPoints(val decimal.Decimal, scale int32) MDEntryForwardPointsField {
+	return MDEntryForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MDEntryIDField is a STRING field
@@ -7283,14 +7283,14 @@ func NewMDEntryPositionNo(val int) MDEntryPositionNoField {
 }
 
 //MDEntryPxField is a PRICE field
-type MDEntryPxField struct{ quickfix.FIXFloat }
+type MDEntryPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MDEntryPx (270)
 func (f MDEntryPxField) Tag() quickfix.Tag { return tag.MDEntryPx }
 
-//NewMDEntryPx returns a new MDEntryPxField initialized with val
-func NewMDEntryPx(val float64) MDEntryPxField {
-	return MDEntryPxField{quickfix.FIXFloat(val)}
+//NewMDEntryPx returns a new MDEntryPxField initialized with val and scale
+func NewMDEntryPx(val decimal.Decimal, scale int32) MDEntryPxField {
+	return MDEntryPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MDEntryRefIDField is a STRING field
@@ -7316,25 +7316,25 @@ func NewMDEntrySeller(val string) MDEntrySellerField {
 }
 
 //MDEntrySizeField is a QTY field
-type MDEntrySizeField struct{ quickfix.FIXFloat }
+type MDEntrySizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MDEntrySize (271)
 func (f MDEntrySizeField) Tag() quickfix.Tag { return tag.MDEntrySize }
 
-//NewMDEntrySize returns a new MDEntrySizeField initialized with val
-func NewMDEntrySize(val float64) MDEntrySizeField {
-	return MDEntrySizeField{quickfix.FIXFloat(val)}
+//NewMDEntrySize returns a new MDEntrySizeField initialized with val and scale
+func NewMDEntrySize(val decimal.Decimal, scale int32) MDEntrySizeField {
+	return MDEntrySizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MDEntrySpotRateField is a FLOAT field
-type MDEntrySpotRateField struct{ quickfix.FIXFloat }
+type MDEntrySpotRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MDEntrySpotRate (1026)
 func (f MDEntrySpotRateField) Tag() quickfix.Tag { return tag.MDEntrySpotRate }
 
-//NewMDEntrySpotRate returns a new MDEntrySpotRateField initialized with val
-func NewMDEntrySpotRate(val float64) MDEntrySpotRateField {
-	return MDEntrySpotRateField{quickfix.FIXFloat(val)}
+//NewMDEntrySpotRate returns a new MDEntrySpotRateField initialized with val and scale
+func NewMDEntrySpotRate(val decimal.Decimal, scale int32) MDEntrySpotRateField {
+	return MDEntrySpotRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MDEntryTimeField is a UTCTIMEONLY field
@@ -7459,14 +7459,14 @@ func NewMDReqRejReason(val string) MDReqRejReasonField {
 }
 
 //MDSecSizeField is a QTY field
-type MDSecSizeField struct{ quickfix.FIXFloat }
+type MDSecSizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MDSecSize (1179)
 func (f MDSecSizeField) Tag() quickfix.Tag { return tag.MDSecSize }
 
-//NewMDSecSize returns a new MDSecSizeField initialized with val
-func NewMDSecSize(val float64) MDSecSizeField {
-	return MDSecSizeField{quickfix.FIXFloat(val)}
+//NewMDSecSize returns a new MDSecSizeField initialized with val and scale
+func NewMDSecSize(val decimal.Decimal, scale int32) MDSecSizeField {
+	return MDSecSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MDSecSizeTypeField is a INT field
@@ -7558,25 +7558,25 @@ func NewManualOrderIndicator(val bool) ManualOrderIndicatorField {
 }
 
 //MarginExcessField is a AMT field
-type MarginExcessField struct{ quickfix.FIXFloat }
+type MarginExcessField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MarginExcess (899)
 func (f MarginExcessField) Tag() quickfix.Tag { return tag.MarginExcess }
 
-//NewMarginExcess returns a new MarginExcessField initialized with val
-func NewMarginExcess(val float64) MarginExcessField {
-	return MarginExcessField{quickfix.FIXFloat(val)}
+//NewMarginExcess returns a new MarginExcessField initialized with val and scale
+func NewMarginExcess(val decimal.Decimal, scale int32) MarginExcessField {
+	return MarginExcessField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MarginRatioField is a PERCENTAGE field
-type MarginRatioField struct{ quickfix.FIXFloat }
+type MarginRatioField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MarginRatio (898)
 func (f MarginRatioField) Tag() quickfix.Tag { return tag.MarginRatio }
 
-//NewMarginRatio returns a new MarginRatioField initialized with val
-func NewMarginRatio(val float64) MarginRatioField {
-	return MarginRatioField{quickfix.FIXFloat(val)}
+//NewMarginRatio returns a new MarginRatioField initialized with val and scale
+func NewMarginRatio(val decimal.Decimal, scale int32) MarginRatioField {
+	return MarginRatioField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MarketDepthField is a INT field
@@ -7778,14 +7778,14 @@ func NewMatchAlgorithm(val string) MatchAlgorithmField {
 }
 
 //MatchIncrementField is a QTY field
-type MatchIncrementField struct{ quickfix.FIXFloat }
+type MatchIncrementField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MatchIncrement (1089)
 func (f MatchIncrementField) Tag() quickfix.Tag { return tag.MatchIncrement }
 
-//NewMatchIncrement returns a new MatchIncrementField initialized with val
-func NewMatchIncrement(val float64) MatchIncrementField {
-	return MatchIncrementField{quickfix.FIXFloat(val)}
+//NewMatchIncrement returns a new MatchIncrementField initialized with val and scale
+func NewMatchIncrement(val decimal.Decimal, scale int32) MatchIncrementField {
+	return MatchIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MatchStatusField is a CHAR field
@@ -7879,14 +7879,14 @@ func NewMaturityMonthYearIncrementUnits(val int) MaturityMonthYearIncrementUnits
 }
 
 //MaturityNetMoneyField is a AMT field
-type MaturityNetMoneyField struct{ quickfix.FIXFloat }
+type MaturityNetMoneyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MaturityNetMoney (890)
 func (f MaturityNetMoneyField) Tag() quickfix.Tag { return tag.MaturityNetMoney }
 
-//NewMaturityNetMoney returns a new MaturityNetMoneyField initialized with val
-func NewMaturityNetMoney(val float64) MaturityNetMoneyField {
-	return MaturityNetMoneyField{quickfix.FIXFloat(val)}
+//NewMaturityNetMoney returns a new MaturityNetMoneyField initialized with val and scale
+func NewMaturityNetMoney(val decimal.Decimal, scale int32) MaturityNetMoneyField {
+	return MaturityNetMoneyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MaturityRuleIDField is a STRING field
@@ -7912,14 +7912,14 @@ func NewMaturityTime(val string) MaturityTimeField {
 }
 
 //MaxFloorField is a QTY field
-type MaxFloorField struct{ quickfix.FIXFloat }
+type MaxFloorField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MaxFloor (111)
 func (f MaxFloorField) Tag() quickfix.Tag { return tag.MaxFloor }
 
-//NewMaxFloor returns a new MaxFloorField initialized with val
-func NewMaxFloor(val float64) MaxFloorField {
-	return MaxFloorField{quickfix.FIXFloat(val)}
+//NewMaxFloor returns a new MaxFloorField initialized with val and scale
+func NewMaxFloor(val decimal.Decimal, scale int32) MaxFloorField {
+	return MaxFloorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MaxMessageSizeField is a LENGTH field
@@ -7945,36 +7945,36 @@ func NewMaxPriceLevels(val int) MaxPriceLevelsField {
 }
 
 //MaxPriceVariationField is a FLOAT field
-type MaxPriceVariationField struct{ quickfix.FIXFloat }
+type MaxPriceVariationField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MaxPriceVariation (1143)
 func (f MaxPriceVariationField) Tag() quickfix.Tag { return tag.MaxPriceVariation }
 
-//NewMaxPriceVariation returns a new MaxPriceVariationField initialized with val
-func NewMaxPriceVariation(val float64) MaxPriceVariationField {
-	return MaxPriceVariationField{quickfix.FIXFloat(val)}
+//NewMaxPriceVariation returns a new MaxPriceVariationField initialized with val and scale
+func NewMaxPriceVariation(val decimal.Decimal, scale int32) MaxPriceVariationField {
+	return MaxPriceVariationField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MaxShowField is a QTY field
-type MaxShowField struct{ quickfix.FIXFloat }
+type MaxShowField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MaxShow (210)
 func (f MaxShowField) Tag() quickfix.Tag { return tag.MaxShow }
 
-//NewMaxShow returns a new MaxShowField initialized with val
-func NewMaxShow(val float64) MaxShowField {
-	return MaxShowField{quickfix.FIXFloat(val)}
+//NewMaxShow returns a new MaxShowField initialized with val and scale
+func NewMaxShow(val decimal.Decimal, scale int32) MaxShowField {
+	return MaxShowField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MaxTradeVolField is a QTY field
-type MaxTradeVolField struct{ quickfix.FIXFloat }
+type MaxTradeVolField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MaxTradeVol (1140)
 func (f MaxTradeVolField) Tag() quickfix.Tag { return tag.MaxTradeVol }
 
-//NewMaxTradeVol returns a new MaxTradeVolField initialized with val
-func NewMaxTradeVol(val float64) MaxTradeVolField {
-	return MaxTradeVolField{quickfix.FIXFloat(val)}
+//NewMaxTradeVol returns a new MaxTradeVolField initialized with val and scale
+func NewMaxTradeVol(val decimal.Decimal, scale int32) MaxTradeVolField {
+	return MaxTradeVolField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MessageEncodingField is a STRING field
@@ -8000,113 +8000,113 @@ func NewMessageEventSource(val string) MessageEventSourceField {
 }
 
 //MidPxField is a PRICE field
-type MidPxField struct{ quickfix.FIXFloat }
+type MidPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MidPx (631)
 func (f MidPxField) Tag() quickfix.Tag { return tag.MidPx }
 
-//NewMidPx returns a new MidPxField initialized with val
-func NewMidPx(val float64) MidPxField {
-	return MidPxField{quickfix.FIXFloat(val)}
+//NewMidPx returns a new MidPxField initialized with val and scale
+func NewMidPx(val decimal.Decimal, scale int32) MidPxField {
+	return MidPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MidYieldField is a PERCENTAGE field
-type MidYieldField struct{ quickfix.FIXFloat }
+type MidYieldField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MidYield (633)
 func (f MidYieldField) Tag() quickfix.Tag { return tag.MidYield }
 
-//NewMidYield returns a new MidYieldField initialized with val
-func NewMidYield(val float64) MidYieldField {
-	return MidYieldField{quickfix.FIXFloat(val)}
+//NewMidYield returns a new MidYieldField initialized with val and scale
+func NewMidYield(val decimal.Decimal, scale int32) MidYieldField {
+	return MidYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MinBidSizeField is a QTY field
-type MinBidSizeField struct{ quickfix.FIXFloat }
+type MinBidSizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MinBidSize (647)
 func (f MinBidSizeField) Tag() quickfix.Tag { return tag.MinBidSize }
 
-//NewMinBidSize returns a new MinBidSizeField initialized with val
-func NewMinBidSize(val float64) MinBidSizeField {
-	return MinBidSizeField{quickfix.FIXFloat(val)}
+//NewMinBidSize returns a new MinBidSizeField initialized with val and scale
+func NewMinBidSize(val decimal.Decimal, scale int32) MinBidSizeField {
+	return MinBidSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MinLotSizeField is a QTY field
-type MinLotSizeField struct{ quickfix.FIXFloat }
+type MinLotSizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MinLotSize (1231)
 func (f MinLotSizeField) Tag() quickfix.Tag { return tag.MinLotSize }
 
-//NewMinLotSize returns a new MinLotSizeField initialized with val
-func NewMinLotSize(val float64) MinLotSizeField {
-	return MinLotSizeField{quickfix.FIXFloat(val)}
+//NewMinLotSize returns a new MinLotSizeField initialized with val and scale
+func NewMinLotSize(val decimal.Decimal, scale int32) MinLotSizeField {
+	return MinLotSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MinOfferSizeField is a QTY field
-type MinOfferSizeField struct{ quickfix.FIXFloat }
+type MinOfferSizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MinOfferSize (648)
 func (f MinOfferSizeField) Tag() quickfix.Tag { return tag.MinOfferSize }
 
-//NewMinOfferSize returns a new MinOfferSizeField initialized with val
-func NewMinOfferSize(val float64) MinOfferSizeField {
-	return MinOfferSizeField{quickfix.FIXFloat(val)}
+//NewMinOfferSize returns a new MinOfferSizeField initialized with val and scale
+func NewMinOfferSize(val decimal.Decimal, scale int32) MinOfferSizeField {
+	return MinOfferSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MinPriceIncrementField is a FLOAT field
-type MinPriceIncrementField struct{ quickfix.FIXFloat }
+type MinPriceIncrementField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MinPriceIncrement (969)
 func (f MinPriceIncrementField) Tag() quickfix.Tag { return tag.MinPriceIncrement }
 
-//NewMinPriceIncrement returns a new MinPriceIncrementField initialized with val
-func NewMinPriceIncrement(val float64) MinPriceIncrementField {
-	return MinPriceIncrementField{quickfix.FIXFloat(val)}
+//NewMinPriceIncrement returns a new MinPriceIncrementField initialized with val and scale
+func NewMinPriceIncrement(val decimal.Decimal, scale int32) MinPriceIncrementField {
+	return MinPriceIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MinPriceIncrementAmountField is a AMT field
-type MinPriceIncrementAmountField struct{ quickfix.FIXFloat }
+type MinPriceIncrementAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MinPriceIncrementAmount (1146)
 func (f MinPriceIncrementAmountField) Tag() quickfix.Tag { return tag.MinPriceIncrementAmount }
 
-//NewMinPriceIncrementAmount returns a new MinPriceIncrementAmountField initialized with val
-func NewMinPriceIncrementAmount(val float64) MinPriceIncrementAmountField {
-	return MinPriceIncrementAmountField{quickfix.FIXFloat(val)}
+//NewMinPriceIncrementAmount returns a new MinPriceIncrementAmountField initialized with val and scale
+func NewMinPriceIncrementAmount(val decimal.Decimal, scale int32) MinPriceIncrementAmountField {
+	return MinPriceIncrementAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MinQtyField is a QTY field
-type MinQtyField struct{ quickfix.FIXFloat }
+type MinQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MinQty (110)
 func (f MinQtyField) Tag() quickfix.Tag { return tag.MinQty }
 
-//NewMinQty returns a new MinQtyField initialized with val
-func NewMinQty(val float64) MinQtyField {
-	return MinQtyField{quickfix.FIXFloat(val)}
+//NewMinQty returns a new MinQtyField initialized with val and scale
+func NewMinQty(val decimal.Decimal, scale int32) MinQtyField {
+	return MinQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MinTradeVolField is a QTY field
-type MinTradeVolField struct{ quickfix.FIXFloat }
+type MinTradeVolField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MinTradeVol (562)
 func (f MinTradeVolField) Tag() quickfix.Tag { return tag.MinTradeVol }
 
-//NewMinTradeVol returns a new MinTradeVolField initialized with val
-func NewMinTradeVol(val float64) MinTradeVolField {
-	return MinTradeVolField{quickfix.FIXFloat(val)}
+//NewMinTradeVol returns a new MinTradeVolField initialized with val and scale
+func NewMinTradeVol(val decimal.Decimal, scale int32) MinTradeVolField {
+	return MinTradeVolField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MiscFeeAmtField is a AMT field
-type MiscFeeAmtField struct{ quickfix.FIXFloat }
+type MiscFeeAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MiscFeeAmt (137)
 func (f MiscFeeAmtField) Tag() quickfix.Tag { return tag.MiscFeeAmt }
 
-//NewMiscFeeAmt returns a new MiscFeeAmtField initialized with val
-func NewMiscFeeAmt(val float64) MiscFeeAmtField {
-	return MiscFeeAmtField{quickfix.FIXFloat(val)}
+//NewMiscFeeAmt returns a new MiscFeeAmtField initialized with val and scale
+func NewMiscFeeAmt(val decimal.Decimal, scale int32) MiscFeeAmtField {
+	return MiscFeeAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MiscFeeBasisField is a INT field
@@ -8143,25 +8143,25 @@ func NewMiscFeeType(val string) MiscFeeTypeField {
 }
 
 //MktBidPxField is a PRICE field
-type MktBidPxField struct{ quickfix.FIXFloat }
+type MktBidPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MktBidPx (645)
 func (f MktBidPxField) Tag() quickfix.Tag { return tag.MktBidPx }
 
-//NewMktBidPx returns a new MktBidPxField initialized with val
-func NewMktBidPx(val float64) MktBidPxField {
-	return MktBidPxField{quickfix.FIXFloat(val)}
+//NewMktBidPx returns a new MktBidPxField initialized with val and scale
+func NewMktBidPx(val decimal.Decimal, scale int32) MktBidPxField {
+	return MktBidPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //MktOfferPxField is a PRICE field
-type MktOfferPxField struct{ quickfix.FIXFloat }
+type MktOfferPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.MktOfferPx (646)
 func (f MktOfferPxField) Tag() quickfix.Tag { return tag.MktOfferPx }
 
-//NewMktOfferPx returns a new MktOfferPxField initialized with val
-func NewMktOfferPx(val float64) MktOfferPxField {
-	return MktOfferPxField{quickfix.FIXFloat(val)}
+//NewMktOfferPx returns a new MktOfferPxField initialized with val and scale
+func NewMktOfferPx(val decimal.Decimal, scale int32) MktOfferPxField {
+	return MktOfferPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ModelTypeField is a INT field
@@ -8517,14 +8517,14 @@ func NewNestedPartySubIDType(val int) NestedPartySubIDTypeField {
 }
 
 //NetChgPrevDayField is a PRICEOFFSET field
-type NetChgPrevDayField struct{ quickfix.FIXFloat }
+type NetChgPrevDayField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.NetChgPrevDay (451)
 func (f NetChgPrevDayField) Tag() quickfix.Tag { return tag.NetChgPrevDay }
 
-//NewNetChgPrevDay returns a new NetChgPrevDayField initialized with val
-func NewNetChgPrevDay(val float64) NetChgPrevDayField {
-	return NetChgPrevDayField{quickfix.FIXFloat(val)}
+//NewNetChgPrevDay returns a new NetChgPrevDayField initialized with val and scale
+func NewNetChgPrevDay(val decimal.Decimal, scale int32) NetChgPrevDayField {
+	return NetChgPrevDayField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //NetGrossIndField is a INT field
@@ -8539,14 +8539,14 @@ func NewNetGrossInd(val int) NetGrossIndField {
 }
 
 //NetMoneyField is a AMT field
-type NetMoneyField struct{ quickfix.FIXFloat }
+type NetMoneyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.NetMoney (118)
 func (f NetMoneyField) Tag() quickfix.Tag { return tag.NetMoney }
 
-//NewNetMoney returns a new NetMoneyField initialized with val
-func NewNetMoney(val float64) NetMoneyField {
-	return NetMoneyField{quickfix.FIXFloat(val)}
+//NewNetMoney returns a new NetMoneyField initialized with val and scale
+func NewNetMoney(val decimal.Decimal, scale int32) NetMoneyField {
+	return NetMoneyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //NetworkRequestIDField is a STRING field
@@ -10122,16 +10122,16 @@ func NewNotifyBrokerOfCredit(val bool) NotifyBrokerOfCreditField {
 }
 
 //NotionalPercentageOutstandingField is a PERCENTAGE field
-type NotionalPercentageOutstandingField struct{ quickfix.FIXFloat }
+type NotionalPercentageOutstandingField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.NotionalPercentageOutstanding (1451)
 func (f NotionalPercentageOutstandingField) Tag() quickfix.Tag {
 	return tag.NotionalPercentageOutstanding
 }
 
-//NewNotionalPercentageOutstanding returns a new NotionalPercentageOutstandingField initialized with val
-func NewNotionalPercentageOutstanding(val float64) NotionalPercentageOutstandingField {
-	return NotionalPercentageOutstandingField{quickfix.FIXFloat(val)}
+//NewNotionalPercentageOutstanding returns a new NotionalPercentageOutstandingField initialized with val and scale
+func NewNotionalPercentageOutstanding(val decimal.Decimal, scale int32) NotionalPercentageOutstandingField {
+	return NotionalPercentageOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //NumBiddersField is a INT field
@@ -10190,80 +10190,80 @@ func NewOddLot(val bool) OddLotField {
 }
 
 //OfferForwardPointsField is a PRICEOFFSET field
-type OfferForwardPointsField struct{ quickfix.FIXFloat }
+type OfferForwardPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OfferForwardPoints (191)
 func (f OfferForwardPointsField) Tag() quickfix.Tag { return tag.OfferForwardPoints }
 
-//NewOfferForwardPoints returns a new OfferForwardPointsField initialized with val
-func NewOfferForwardPoints(val float64) OfferForwardPointsField {
-	return OfferForwardPointsField{quickfix.FIXFloat(val)}
+//NewOfferForwardPoints returns a new OfferForwardPointsField initialized with val and scale
+func NewOfferForwardPoints(val decimal.Decimal, scale int32) OfferForwardPointsField {
+	return OfferForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OfferForwardPoints2Field is a PRICEOFFSET field
-type OfferForwardPoints2Field struct{ quickfix.FIXFloat }
+type OfferForwardPoints2Field struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OfferForwardPoints2 (643)
 func (f OfferForwardPoints2Field) Tag() quickfix.Tag { return tag.OfferForwardPoints2 }
 
-//NewOfferForwardPoints2 returns a new OfferForwardPoints2Field initialized with val
-func NewOfferForwardPoints2(val float64) OfferForwardPoints2Field {
-	return OfferForwardPoints2Field{quickfix.FIXFloat(val)}
+//NewOfferForwardPoints2 returns a new OfferForwardPoints2Field initialized with val and scale
+func NewOfferForwardPoints2(val decimal.Decimal, scale int32) OfferForwardPoints2Field {
+	return OfferForwardPoints2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OfferPxField is a PRICE field
-type OfferPxField struct{ quickfix.FIXFloat }
+type OfferPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OfferPx (133)
 func (f OfferPxField) Tag() quickfix.Tag { return tag.OfferPx }
 
-//NewOfferPx returns a new OfferPxField initialized with val
-func NewOfferPx(val float64) OfferPxField {
-	return OfferPxField{quickfix.FIXFloat(val)}
+//NewOfferPx returns a new OfferPxField initialized with val and scale
+func NewOfferPx(val decimal.Decimal, scale int32) OfferPxField {
+	return OfferPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OfferSizeField is a QTY field
-type OfferSizeField struct{ quickfix.FIXFloat }
+type OfferSizeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OfferSize (135)
 func (f OfferSizeField) Tag() quickfix.Tag { return tag.OfferSize }
 
-//NewOfferSize returns a new OfferSizeField initialized with val
-func NewOfferSize(val float64) OfferSizeField {
-	return OfferSizeField{quickfix.FIXFloat(val)}
+//NewOfferSize returns a new OfferSizeField initialized with val and scale
+func NewOfferSize(val decimal.Decimal, scale int32) OfferSizeField {
+	return OfferSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OfferSpotRateField is a PRICE field
-type OfferSpotRateField struct{ quickfix.FIXFloat }
+type OfferSpotRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OfferSpotRate (190)
 func (f OfferSpotRateField) Tag() quickfix.Tag { return tag.OfferSpotRate }
 
-//NewOfferSpotRate returns a new OfferSpotRateField initialized with val
-func NewOfferSpotRate(val float64) OfferSpotRateField {
-	return OfferSpotRateField{quickfix.FIXFloat(val)}
+//NewOfferSpotRate returns a new OfferSpotRateField initialized with val and scale
+func NewOfferSpotRate(val decimal.Decimal, scale int32) OfferSpotRateField {
+	return OfferSpotRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OfferSwapPointsField is a PRICEOFFSET field
-type OfferSwapPointsField struct{ quickfix.FIXFloat }
+type OfferSwapPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OfferSwapPoints (1066)
 func (f OfferSwapPointsField) Tag() quickfix.Tag { return tag.OfferSwapPoints }
 
-//NewOfferSwapPoints returns a new OfferSwapPointsField initialized with val
-func NewOfferSwapPoints(val float64) OfferSwapPointsField {
-	return OfferSwapPointsField{quickfix.FIXFloat(val)}
+//NewOfferSwapPoints returns a new OfferSwapPointsField initialized with val and scale
+func NewOfferSwapPoints(val decimal.Decimal, scale int32) OfferSwapPointsField {
+	return OfferSwapPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OfferYieldField is a PERCENTAGE field
-type OfferYieldField struct{ quickfix.FIXFloat }
+type OfferYieldField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OfferYield (634)
 func (f OfferYieldField) Tag() quickfix.Tag { return tag.OfferYield }
 
-//NewOfferYield returns a new OfferYieldField initialized with val
-func NewOfferYield(val float64) OfferYieldField {
-	return OfferYieldField{quickfix.FIXFloat(val)}
+//NewOfferYield returns a new OfferYieldField initialized with val and scale
+func NewOfferYield(val decimal.Decimal, scale int32) OfferYieldField {
+	return OfferYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OnBehalfOfCompIDField is a STRING field
@@ -10349,14 +10349,14 @@ func NewOpenCloseSettleFlag(val string) OpenCloseSettleFlagField {
 }
 
 //OpenInterestField is a AMT field
-type OpenInterestField struct{ quickfix.FIXFloat }
+type OpenInterestField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OpenInterest (746)
 func (f OpenInterestField) Tag() quickfix.Tag { return tag.OpenInterest }
 
-//NewOpenInterest returns a new OpenInterestField initialized with val
-func NewOpenInterest(val float64) OpenInterestField {
-	return OpenInterestField{quickfix.FIXFloat(val)}
+//NewOpenInterest returns a new OpenInterestField initialized with val and scale
+func NewOpenInterest(val decimal.Decimal, scale int32) OpenInterestField {
+	return OpenInterestField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OptAttributeField is a CHAR field
@@ -10371,25 +10371,25 @@ func NewOptAttribute(val string) OptAttributeField {
 }
 
 //OptPayAmountField is a AMT field
-type OptPayAmountField struct{ quickfix.FIXFloat }
+type OptPayAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OptPayAmount (1195)
 func (f OptPayAmountField) Tag() quickfix.Tag { return tag.OptPayAmount }
 
-//NewOptPayAmount returns a new OptPayAmountField initialized with val
-func NewOptPayAmount(val float64) OptPayAmountField {
-	return OptPayAmountField{quickfix.FIXFloat(val)}
+//NewOptPayAmount returns a new OptPayAmountField initialized with val and scale
+func NewOptPayAmount(val decimal.Decimal, scale int32) OptPayAmountField {
+	return OptPayAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OptPayoutAmountField is a AMT field
-type OptPayoutAmountField struct{ quickfix.FIXFloat }
+type OptPayoutAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OptPayoutAmount (1195)
 func (f OptPayoutAmountField) Tag() quickfix.Tag { return tag.OptPayoutAmount }
 
-//NewOptPayoutAmount returns a new OptPayoutAmountField initialized with val
-func NewOptPayoutAmount(val float64) OptPayoutAmountField {
-	return OptPayoutAmountField{quickfix.FIXFloat(val)}
+//NewOptPayoutAmount returns a new OptPayoutAmountField initialized with val and scale
+func NewOptPayoutAmount(val decimal.Decimal, scale int32) OptPayoutAmountField {
+	return OptPayoutAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OptPayoutTypeField is a INT field
@@ -10448,25 +10448,25 @@ func NewOrdType(val string) OrdTypeField {
 }
 
 //OrderAvgPxField is a PRICE field
-type OrderAvgPxField struct{ quickfix.FIXFloat }
+type OrderAvgPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OrderAvgPx (799)
 func (f OrderAvgPxField) Tag() quickfix.Tag { return tag.OrderAvgPx }
 
-//NewOrderAvgPx returns a new OrderAvgPxField initialized with val
-func NewOrderAvgPx(val float64) OrderAvgPxField {
-	return OrderAvgPxField{quickfix.FIXFloat(val)}
+//NewOrderAvgPx returns a new OrderAvgPxField initialized with val and scale
+func NewOrderAvgPx(val decimal.Decimal, scale int32) OrderAvgPxField {
+	return OrderAvgPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OrderBookingQtyField is a QTY field
-type OrderBookingQtyField struct{ quickfix.FIXFloat }
+type OrderBookingQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OrderBookingQty (800)
 func (f OrderBookingQtyField) Tag() quickfix.Tag { return tag.OrderBookingQty }
 
-//NewOrderBookingQty returns a new OrderBookingQtyField initialized with val
-func NewOrderBookingQty(val float64) OrderBookingQtyField {
-	return OrderBookingQtyField{quickfix.FIXFloat(val)}
+//NewOrderBookingQty returns a new OrderBookingQtyField initialized with val and scale
+func NewOrderBookingQty(val decimal.Decimal, scale int32) OrderBookingQtyField {
+	return OrderBookingQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OrderCapacityField is a CHAR field
@@ -10481,14 +10481,14 @@ func NewOrderCapacity(val string) OrderCapacityField {
 }
 
 //OrderCapacityQtyField is a QTY field
-type OrderCapacityQtyField struct{ quickfix.FIXFloat }
+type OrderCapacityQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OrderCapacityQty (863)
 func (f OrderCapacityQtyField) Tag() quickfix.Tag { return tag.OrderCapacityQty }
 
-//NewOrderCapacityQty returns a new OrderCapacityQtyField initialized with val
-func NewOrderCapacityQty(val float64) OrderCapacityQtyField {
-	return OrderCapacityQtyField{quickfix.FIXFloat(val)}
+//NewOrderCapacityQty returns a new OrderCapacityQtyField initialized with val and scale
+func NewOrderCapacityQty(val decimal.Decimal, scale int32) OrderCapacityQtyField {
+	return OrderCapacityQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OrderCategoryField is a CHAR field
@@ -10558,36 +10558,36 @@ func NewOrderInputDevice(val string) OrderInputDeviceField {
 }
 
 //OrderPercentField is a PERCENTAGE field
-type OrderPercentField struct{ quickfix.FIXFloat }
+type OrderPercentField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OrderPercent (516)
 func (f OrderPercentField) Tag() quickfix.Tag { return tag.OrderPercent }
 
-//NewOrderPercent returns a new OrderPercentField initialized with val
-func NewOrderPercent(val float64) OrderPercentField {
-	return OrderPercentField{quickfix.FIXFloat(val)}
+//NewOrderPercent returns a new OrderPercentField initialized with val and scale
+func NewOrderPercent(val decimal.Decimal, scale int32) OrderPercentField {
+	return OrderPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OrderQtyField is a QTY field
-type OrderQtyField struct{ quickfix.FIXFloat }
+type OrderQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OrderQty (38)
 func (f OrderQtyField) Tag() quickfix.Tag { return tag.OrderQty }
 
-//NewOrderQty returns a new OrderQtyField initialized with val
-func NewOrderQty(val float64) OrderQtyField {
-	return OrderQtyField{quickfix.FIXFloat(val)}
+//NewOrderQty returns a new OrderQtyField initialized with val and scale
+func NewOrderQty(val decimal.Decimal, scale int32) OrderQtyField {
+	return OrderQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OrderQty2Field is a QTY field
-type OrderQty2Field struct{ quickfix.FIXFloat }
+type OrderQty2Field struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OrderQty2 (192)
 func (f OrderQty2Field) Tag() quickfix.Tag { return tag.OrderQty2 }
 
-//NewOrderQty2 returns a new OrderQty2Field initialized with val
-func NewOrderQty2(val float64) OrderQty2Field {
-	return OrderQty2Field{quickfix.FIXFloat(val)}
+//NewOrderQty2 returns a new OrderQty2Field initialized with val and scale
+func NewOrderQty2(val decimal.Decimal, scale int32) OrderQty2Field {
+	return OrderQty2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OrderRestrictionsField is a MULTIPLECHARVALUE field
@@ -10738,38 +10738,38 @@ func NewOrigTradeID(val string) OrigTradeIDField {
 }
 
 //OriginalNotionalPercentageOutstandingField is a PERCENTAGE field
-type OriginalNotionalPercentageOutstandingField struct{ quickfix.FIXFloat }
+type OriginalNotionalPercentageOutstandingField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OriginalNotionalPercentageOutstanding (1452)
 func (f OriginalNotionalPercentageOutstandingField) Tag() quickfix.Tag {
 	return tag.OriginalNotionalPercentageOutstanding
 }
 
-//NewOriginalNotionalPercentageOutstanding returns a new OriginalNotionalPercentageOutstandingField initialized with val
-func NewOriginalNotionalPercentageOutstanding(val float64) OriginalNotionalPercentageOutstandingField {
-	return OriginalNotionalPercentageOutstandingField{quickfix.FIXFloat(val)}
+//NewOriginalNotionalPercentageOutstanding returns a new OriginalNotionalPercentageOutstandingField initialized with val and scale
+func NewOriginalNotionalPercentageOutstanding(val decimal.Decimal, scale int32) OriginalNotionalPercentageOutstandingField {
+	return OriginalNotionalPercentageOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OutMainCntryUIndexField is a AMT field
-type OutMainCntryUIndexField struct{ quickfix.FIXFloat }
+type OutMainCntryUIndexField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OutMainCntryUIndex (412)
 func (f OutMainCntryUIndexField) Tag() quickfix.Tag { return tag.OutMainCntryUIndex }
 
-//NewOutMainCntryUIndex returns a new OutMainCntryUIndexField initialized with val
-func NewOutMainCntryUIndex(val float64) OutMainCntryUIndexField {
-	return OutMainCntryUIndexField{quickfix.FIXFloat(val)}
+//NewOutMainCntryUIndex returns a new OutMainCntryUIndexField initialized with val and scale
+func NewOutMainCntryUIndex(val decimal.Decimal, scale int32) OutMainCntryUIndexField {
+	return OutMainCntryUIndexField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OutsideIndexPctField is a PERCENTAGE field
-type OutsideIndexPctField struct{ quickfix.FIXFloat }
+type OutsideIndexPctField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.OutsideIndexPct (407)
 func (f OutsideIndexPctField) Tag() quickfix.Tag { return tag.OutsideIndexPct }
 
-//NewOutsideIndexPct returns a new OutsideIndexPctField initialized with val
-func NewOutsideIndexPct(val float64) OutsideIndexPctField {
-	return OutsideIndexPctField{quickfix.FIXFloat(val)}
+//NewOutsideIndexPct returns a new OutsideIndexPctField initialized with val and scale
+func NewOutsideIndexPct(val decimal.Decimal, scale int32) OutsideIndexPctField {
+	return OutsideIndexPctField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //OwnerTypeField is a INT field
@@ -10806,14 +10806,14 @@ func NewParentMktSegmID(val string) ParentMktSegmIDField {
 }
 
 //ParticipationRateField is a PERCENTAGE field
-type ParticipationRateField struct{ quickfix.FIXFloat }
+type ParticipationRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ParticipationRate (849)
 func (f ParticipationRateField) Tag() quickfix.Tag { return tag.ParticipationRate }
 
-//NewParticipationRate returns a new ParticipationRateField initialized with val
-func NewParticipationRate(val float64) ParticipationRateField {
-	return ParticipationRateField{quickfix.FIXFloat(val)}
+//NewParticipationRate returns a new ParticipationRateField initialized with val and scale
+func NewParticipationRate(val decimal.Decimal, scale int32) ParticipationRateField {
+	return ParticipationRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PartyAltIDField is a STRING field
@@ -11026,25 +11026,25 @@ func NewPaymentRemitterID(val string) PaymentRemitterIDField {
 }
 
 //PctAtRiskField is a PERCENTAGE field
-type PctAtRiskField struct{ quickfix.FIXFloat }
+type PctAtRiskField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PctAtRisk (869)
 func (f PctAtRiskField) Tag() quickfix.Tag { return tag.PctAtRisk }
 
-//NewPctAtRisk returns a new PctAtRiskField initialized with val
-func NewPctAtRisk(val float64) PctAtRiskField {
-	return PctAtRiskField{quickfix.FIXFloat(val)}
+//NewPctAtRisk returns a new PctAtRiskField initialized with val and scale
+func NewPctAtRisk(val decimal.Decimal, scale int32) PctAtRiskField {
+	return PctAtRiskField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PegDifferenceField is a PRICEOFFSET field
-type PegDifferenceField struct{ quickfix.FIXFloat }
+type PegDifferenceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PegDifference (211)
 func (f PegDifferenceField) Tag() quickfix.Tag { return tag.PegDifference }
 
-//NewPegDifference returns a new PegDifferenceField initialized with val
-func NewPegDifference(val float64) PegDifferenceField {
-	return PegDifferenceField{quickfix.FIXFloat(val)}
+//NewPegDifference returns a new PegDifferenceField initialized with val and scale
+func NewPegDifference(val decimal.Decimal, scale int32) PegDifferenceField {
+	return PegDifferenceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PegLimitTypeField is a INT field
@@ -11081,14 +11081,14 @@ func NewPegOffsetType(val int) PegOffsetTypeField {
 }
 
 //PegOffsetValueField is a FLOAT field
-type PegOffsetValueField struct{ quickfix.FIXFloat }
+type PegOffsetValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PegOffsetValue (211)
 func (f PegOffsetValueField) Tag() quickfix.Tag { return tag.PegOffsetValue }
 
-//NewPegOffsetValue returns a new PegOffsetValueField initialized with val
-func NewPegOffsetValue(val float64) PegOffsetValueField {
-	return PegOffsetValueField{quickfix.FIXFloat(val)}
+//NewPegOffsetValue returns a new PegOffsetValueField initialized with val and scale
+func NewPegOffsetValue(val decimal.Decimal, scale int32) PegOffsetValueField {
+	return PegOffsetValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PegPriceTypeField is a INT field
@@ -11169,25 +11169,25 @@ func NewPegSymbol(val string) PegSymbolField {
 }
 
 //PeggedPriceField is a PRICE field
-type PeggedPriceField struct{ quickfix.FIXFloat }
+type PeggedPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PeggedPrice (839)
 func (f PeggedPriceField) Tag() quickfix.Tag { return tag.PeggedPrice }
 
-//NewPeggedPrice returns a new PeggedPriceField initialized with val
-func NewPeggedPrice(val float64) PeggedPriceField {
-	return PeggedPriceField{quickfix.FIXFloat(val)}
+//NewPeggedPrice returns a new PeggedPriceField initialized with val and scale
+func NewPeggedPrice(val decimal.Decimal, scale int32) PeggedPriceField {
+	return PeggedPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PeggedRefPriceField is a PRICE field
-type PeggedRefPriceField struct{ quickfix.FIXFloat }
+type PeggedRefPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PeggedRefPrice (1095)
 func (f PeggedRefPriceField) Tag() quickfix.Tag { return tag.PeggedRefPrice }
 
-//NewPeggedRefPrice returns a new PeggedRefPriceField initialized with val
-func NewPeggedRefPrice(val float64) PeggedRefPriceField {
-	return PeggedRefPriceField{quickfix.FIXFloat(val)}
+//NewPeggedRefPrice returns a new PeggedRefPriceField initialized with val and scale
+func NewPeggedRefPrice(val decimal.Decimal, scale int32) PeggedRefPriceField {
+	return PeggedRefPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PoolField is a STRING field
@@ -11202,14 +11202,14 @@ func NewPool(val string) PoolField {
 }
 
 //PosAmtField is a AMT field
-type PosAmtField struct{ quickfix.FIXFloat }
+type PosAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PosAmt (708)
 func (f PosAmtField) Tag() quickfix.Tag { return tag.PosAmt }
 
-//NewPosAmt returns a new PosAmtField initialized with val
-func NewPosAmt(val float64) PosAmtField {
-	return PosAmtField{quickfix.FIXFloat(val)}
+//NewPosAmt returns a new PosAmtField initialized with val and scale
+func NewPosAmt(val decimal.Decimal, scale int32) PosAmtField {
+	return PosAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PosAmtTypeField is a STRING field
@@ -11433,14 +11433,14 @@ func NewPreallocMethod(val string) PreallocMethodField {
 }
 
 //PrevClosePxField is a PRICE field
-type PrevClosePxField struct{ quickfix.FIXFloat }
+type PrevClosePxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PrevClosePx (140)
 func (f PrevClosePxField) Tag() quickfix.Tag { return tag.PrevClosePx }
 
-//NewPrevClosePx returns a new PrevClosePxField initialized with val
-func NewPrevClosePx(val float64) PrevClosePxField {
-	return PrevClosePxField{quickfix.FIXFloat(val)}
+//NewPrevClosePx returns a new PrevClosePxField initialized with val and scale
+func NewPrevClosePx(val decimal.Decimal, scale int32) PrevClosePxField {
+	return PrevClosePxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PreviouslyReportedField is a BOOLEAN field
@@ -11455,47 +11455,47 @@ func NewPreviouslyReported(val bool) PreviouslyReportedField {
 }
 
 //PriceField is a PRICE field
-type PriceField struct{ quickfix.FIXFloat }
+type PriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Price (44)
 func (f PriceField) Tag() quickfix.Tag { return tag.Price }
 
-//NewPrice returns a new PriceField initialized with val
-func NewPrice(val float64) PriceField {
-	return PriceField{quickfix.FIXFloat(val)}
+//NewPrice returns a new PriceField initialized with val and scale
+func NewPrice(val decimal.Decimal, scale int32) PriceField {
+	return PriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //Price2Field is a PRICE field
-type Price2Field struct{ quickfix.FIXFloat }
+type Price2Field struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Price2 (640)
 func (f Price2Field) Tag() quickfix.Tag { return tag.Price2 }
 
-//NewPrice2 returns a new Price2Field initialized with val
-func NewPrice2(val float64) Price2Field {
-	return Price2Field{quickfix.FIXFloat(val)}
+//NewPrice2 returns a new Price2Field initialized with val and scale
+func NewPrice2(val decimal.Decimal, scale int32) Price2Field {
+	return Price2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PriceDeltaField is a FLOAT field
-type PriceDeltaField struct{ quickfix.FIXFloat }
+type PriceDeltaField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PriceDelta (811)
 func (f PriceDeltaField) Tag() quickfix.Tag { return tag.PriceDelta }
 
-//NewPriceDelta returns a new PriceDeltaField initialized with val
-func NewPriceDelta(val float64) PriceDeltaField {
-	return PriceDeltaField{quickfix.FIXFloat(val)}
+//NewPriceDelta returns a new PriceDeltaField initialized with val and scale
+func NewPriceDelta(val decimal.Decimal, scale int32) PriceDeltaField {
+	return PriceDeltaField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PriceImprovementField is a PRICEOFFSET field
-type PriceImprovementField struct{ quickfix.FIXFloat }
+type PriceImprovementField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PriceImprovement (639)
 func (f PriceImprovementField) Tag() quickfix.Tag { return tag.PriceImprovement }
 
-//NewPriceImprovement returns a new PriceImprovementField initialized with val
-func NewPriceImprovement(val float64) PriceImprovementField {
-	return PriceImprovementField{quickfix.FIXFloat(val)}
+//NewPriceImprovement returns a new PriceImprovementField initialized with val and scale
+func NewPriceImprovement(val decimal.Decimal, scale int32) PriceImprovementField {
+	return PriceImprovementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PriceLimitTypeField is a INT field
@@ -11554,25 +11554,25 @@ func NewPriceUnitOfMeasure(val string) PriceUnitOfMeasureField {
 }
 
 //PriceUnitOfMeasureQtyField is a QTY field
-type PriceUnitOfMeasureQtyField struct{ quickfix.FIXFloat }
+type PriceUnitOfMeasureQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PriceUnitOfMeasureQty (1192)
 func (f PriceUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.PriceUnitOfMeasureQty }
 
-//NewPriceUnitOfMeasureQty returns a new PriceUnitOfMeasureQtyField initialized with val
-func NewPriceUnitOfMeasureQty(val float64) PriceUnitOfMeasureQtyField {
-	return PriceUnitOfMeasureQtyField{quickfix.FIXFloat(val)}
+//NewPriceUnitOfMeasureQty returns a new PriceUnitOfMeasureQtyField initialized with val and scale
+func NewPriceUnitOfMeasureQty(val decimal.Decimal, scale int32) PriceUnitOfMeasureQtyField {
+	return PriceUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PriorSettlPriceField is a PRICE field
-type PriorSettlPriceField struct{ quickfix.FIXFloat }
+type PriorSettlPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.PriorSettlPrice (734)
 func (f PriorSettlPriceField) Tag() quickfix.Tag { return tag.PriorSettlPrice }
 
-//NewPriorSettlPrice returns a new PriorSettlPriceField initialized with val
-func NewPriorSettlPrice(val float64) PriorSettlPriceField {
-	return PriorSettlPriceField{quickfix.FIXFloat(val)}
+//NewPriorSettlPrice returns a new PriorSettlPriceField initialized with val and scale
+func NewPriorSettlPrice(val decimal.Decimal, scale int32) PriorSettlPriceField {
+	return PriorSettlPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //PriorSpreadIndicatorField is a BOOLEAN field
@@ -11697,14 +11697,14 @@ func NewQtyType(val int) QtyTypeField {
 }
 
 //QuantityField is a QTY field
-type QuantityField struct{ quickfix.FIXFloat }
+type QuantityField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Quantity (53)
 func (f QuantityField) Tag() quickfix.Tag { return tag.Quantity }
 
-//NewQuantity returns a new QuantityField initialized with val
-func NewQuantity(val float64) QuantityField {
-	return QuantityField{quickfix.FIXFloat(val)}
+//NewQuantity returns a new QuantityField initialized with val and scale
+func NewQuantity(val decimal.Decimal, scale int32) QuantityField {
+	return QuantityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //QuantityDateField is a LOCALMKTDATE field
@@ -12010,14 +12010,14 @@ func NewRateSourceType(val int) RateSourceTypeField {
 }
 
 //RatioQtyField is a QTY field
-type RatioQtyField struct{ quickfix.FIXFloat }
+type RatioQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RatioQty (319)
 func (f RatioQtyField) Tag() quickfix.Tag { return tag.RatioQty }
 
-//NewRatioQty returns a new RatioQtyField initialized with val
-func NewRatioQty(val float64) RatioQtyField {
-	return RatioQtyField{quickfix.FIXFloat(val)}
+//NewRatioQty returns a new RatioQtyField initialized with val and scale
+func NewRatioQty(val decimal.Decimal, scale int32) RatioQtyField {
+	return RatioQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RawDataField is a DATA field
@@ -12252,14 +12252,14 @@ func NewRefreshIndicator(val bool) RefreshIndicatorField {
 }
 
 //RefreshQtyField is a QTY field
-type RefreshQtyField struct{ quickfix.FIXFloat }
+type RefreshQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RefreshQty (1088)
 func (f RefreshQtyField) Tag() quickfix.Tag { return tag.RefreshQty }
 
-//NewRefreshQty returns a new RefreshQtyField initialized with val
-func NewRefreshQty(val float64) RefreshQtyField {
-	return RefreshQtyField{quickfix.FIXFloat(val)}
+//NewRefreshQty returns a new RefreshQtyField initialized with val and scale
+func NewRefreshQty(val decimal.Decimal, scale int32) RefreshQtyField {
+	return RefreshQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RegistAcctTypeField is a STRING field
@@ -12576,14 +12576,14 @@ func NewRelationshipRiskCFICode(val string) RelationshipRiskCFICodeField {
 }
 
 //RelationshipRiskCouponRateField is a PERCENTAGE field
-type RelationshipRiskCouponRateField struct{ quickfix.FIXFloat }
+type RelationshipRiskCouponRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RelationshipRiskCouponRate (1608)
 func (f RelationshipRiskCouponRateField) Tag() quickfix.Tag { return tag.RelationshipRiskCouponRate }
 
-//NewRelationshipRiskCouponRate returns a new RelationshipRiskCouponRateField initialized with val
-func NewRelationshipRiskCouponRate(val float64) RelationshipRiskCouponRateField {
-	return RelationshipRiskCouponRateField{quickfix.FIXFloat(val)}
+//NewRelationshipRiskCouponRate returns a new RelationshipRiskCouponRateField initialized with val and scale
+func NewRelationshipRiskCouponRate(val decimal.Decimal, scale int32) RelationshipRiskCouponRateField {
+	return RelationshipRiskCouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RelationshipRiskEncodedSecurityDescField is a DATA field
@@ -12626,16 +12626,16 @@ func NewRelationshipRiskFlexibleIndicator(val bool) RelationshipRiskFlexibleIndi
 }
 
 //RelationshipRiskInstrumentMultiplierField is a FLOAT field
-type RelationshipRiskInstrumentMultiplierField struct{ quickfix.FIXFloat }
+type RelationshipRiskInstrumentMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RelationshipRiskInstrumentMultiplier (1612)
 func (f RelationshipRiskInstrumentMultiplierField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskInstrumentMultiplier
 }
 
-//NewRelationshipRiskInstrumentMultiplier returns a new RelationshipRiskInstrumentMultiplierField initialized with val
-func NewRelationshipRiskInstrumentMultiplier(val float64) RelationshipRiskInstrumentMultiplierField {
-	return RelationshipRiskInstrumentMultiplierField{quickfix.FIXFloat(val)}
+//NewRelationshipRiskInstrumentMultiplier returns a new RelationshipRiskInstrumentMultiplierField initialized with val and scale
+func NewRelationshipRiskInstrumentMultiplier(val decimal.Decimal, scale int32) RelationshipRiskInstrumentMultiplierField {
+	return RelationshipRiskInstrumentMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RelationshipRiskInstrumentOperatorField is a INT field
@@ -12665,14 +12665,14 @@ func NewRelationshipRiskInstrumentSettlType(val string) RelationshipRiskInstrume
 }
 
 //RelationshipRiskLimitAmountField is a AMT field
-type RelationshipRiskLimitAmountField struct{ quickfix.FIXFloat }
+type RelationshipRiskLimitAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RelationshipRiskLimitAmount (1584)
 func (f RelationshipRiskLimitAmountField) Tag() quickfix.Tag { return tag.RelationshipRiskLimitAmount }
 
-//NewRelationshipRiskLimitAmount returns a new RelationshipRiskLimitAmountField initialized with val
-func NewRelationshipRiskLimitAmount(val float64) RelationshipRiskLimitAmountField {
-	return RelationshipRiskLimitAmountField{quickfix.FIXFloat(val)}
+//NewRelationshipRiskLimitAmount returns a new RelationshipRiskLimitAmountField initialized with val and scale
+func NewRelationshipRiskLimitAmount(val decimal.Decimal, scale int32) RelationshipRiskLimitAmountField {
+	return RelationshipRiskLimitAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RelationshipRiskLimitCurrencyField is a CURRENCY field
@@ -12942,16 +12942,16 @@ func NewRelationshipRiskWarningLevelName(val string) RelationshipRiskWarningLeve
 }
 
 //RelationshipRiskWarningLevelPercentField is a PERCENTAGE field
-type RelationshipRiskWarningLevelPercentField struct{ quickfix.FIXFloat }
+type RelationshipRiskWarningLevelPercentField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RelationshipRiskWarningLevelPercent (1614)
 func (f RelationshipRiskWarningLevelPercentField) Tag() quickfix.Tag {
 	return tag.RelationshipRiskWarningLevelPercent
 }
 
-//NewRelationshipRiskWarningLevelPercent returns a new RelationshipRiskWarningLevelPercentField initialized with val
-func NewRelationshipRiskWarningLevelPercent(val float64) RelationshipRiskWarningLevelPercentField {
-	return RelationshipRiskWarningLevelPercentField{quickfix.FIXFloat(val)}
+//NewRelationshipRiskWarningLevelPercent returns a new RelationshipRiskWarningLevelPercentField initialized with val and scale
+func NewRelationshipRiskWarningLevelPercent(val decimal.Decimal, scale int32) RelationshipRiskWarningLevelPercentField {
+	return RelationshipRiskWarningLevelPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RepoCollateralSecurityTypeField is a INT field
@@ -12977,14 +12977,14 @@ func NewReportToExch(val bool) ReportToExchField {
 }
 
 //ReportedPxField is a PRICE field
-type ReportedPxField struct{ quickfix.FIXFloat }
+type ReportedPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ReportedPx (861)
 func (f ReportedPxField) Tag() quickfix.Tag { return tag.ReportedPx }
 
-//NewReportedPx returns a new ReportedPxField initialized with val
-func NewReportedPx(val float64) ReportedPxField {
-	return ReportedPxField{quickfix.FIXFloat(val)}
+//NewReportedPx returns a new ReportedPxField initialized with val and scale
+func NewReportedPx(val decimal.Decimal, scale int32) ReportedPxField {
+	return ReportedPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ReportedPxDiffField is a BOOLEAN field
@@ -12999,14 +12999,14 @@ func NewReportedPxDiff(val bool) ReportedPxDiffField {
 }
 
 //RepurchaseRateField is a PERCENTAGE field
-type RepurchaseRateField struct{ quickfix.FIXFloat }
+type RepurchaseRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RepurchaseRate (227)
 func (f RepurchaseRateField) Tag() quickfix.Tag { return tag.RepurchaseRate }
 
-//NewRepurchaseRate returns a new RepurchaseRateField initialized with val
-func NewRepurchaseRate(val float64) RepurchaseRateField {
-	return RepurchaseRateField{quickfix.FIXFloat(val)}
+//NewRepurchaseRate returns a new RepurchaseRateField initialized with val and scale
+func NewRepurchaseRate(val decimal.Decimal, scale int32) RepurchaseRateField {
+	return RepurchaseRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RepurchaseTermField is a INT field
@@ -13109,14 +13109,14 @@ func NewRiskCFICode(val string) RiskCFICodeField {
 }
 
 //RiskCouponRateField is a PERCENTAGE field
-type RiskCouponRateField struct{ quickfix.FIXFloat }
+type RiskCouponRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RiskCouponRate (1555)
 func (f RiskCouponRateField) Tag() quickfix.Tag { return tag.RiskCouponRate }
 
-//NewRiskCouponRate returns a new RiskCouponRateField initialized with val
-func NewRiskCouponRate(val float64) RiskCouponRateField {
-	return RiskCouponRateField{quickfix.FIXFloat(val)}
+//NewRiskCouponRate returns a new RiskCouponRateField initialized with val and scale
+func NewRiskCouponRate(val decimal.Decimal, scale int32) RiskCouponRateField {
+	return RiskCouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RiskEncodedSecurityDescField is a DATA field
@@ -13153,25 +13153,25 @@ func NewRiskFlexibleIndicator(val bool) RiskFlexibleIndicatorField {
 }
 
 //RiskFreeRateField is a FLOAT field
-type RiskFreeRateField struct{ quickfix.FIXFloat }
+type RiskFreeRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RiskFreeRate (1190)
 func (f RiskFreeRateField) Tag() quickfix.Tag { return tag.RiskFreeRate }
 
-//NewRiskFreeRate returns a new RiskFreeRateField initialized with val
-func NewRiskFreeRate(val float64) RiskFreeRateField {
-	return RiskFreeRateField{quickfix.FIXFloat(val)}
+//NewRiskFreeRate returns a new RiskFreeRateField initialized with val and scale
+func NewRiskFreeRate(val decimal.Decimal, scale int32) RiskFreeRateField {
+	return RiskFreeRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RiskInstrumentMultiplierField is a FLOAT field
-type RiskInstrumentMultiplierField struct{ quickfix.FIXFloat }
+type RiskInstrumentMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RiskInstrumentMultiplier (1558)
 func (f RiskInstrumentMultiplierField) Tag() quickfix.Tag { return tag.RiskInstrumentMultiplier }
 
-//NewRiskInstrumentMultiplier returns a new RiskInstrumentMultiplierField initialized with val
-func NewRiskInstrumentMultiplier(val float64) RiskInstrumentMultiplierField {
-	return RiskInstrumentMultiplierField{quickfix.FIXFloat(val)}
+//NewRiskInstrumentMultiplier returns a new RiskInstrumentMultiplierField initialized with val and scale
+func NewRiskInstrumentMultiplier(val decimal.Decimal, scale int32) RiskInstrumentMultiplierField {
+	return RiskInstrumentMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RiskInstrumentOperatorField is a INT field
@@ -13197,14 +13197,14 @@ func NewRiskInstrumentSettlType(val string) RiskInstrumentSettlTypeField {
 }
 
 //RiskLimitAmountField is a AMT field
-type RiskLimitAmountField struct{ quickfix.FIXFloat }
+type RiskLimitAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RiskLimitAmount (1531)
 func (f RiskLimitAmountField) Tag() quickfix.Tag { return tag.RiskLimitAmount }
 
-//NewRiskLimitAmount returns a new RiskLimitAmountField initialized with val
-func NewRiskLimitAmount(val float64) RiskLimitAmountField {
-	return RiskLimitAmountField{quickfix.FIXFloat(val)}
+//NewRiskLimitAmount returns a new RiskLimitAmountField initialized with val and scale
+func NewRiskLimitAmount(val decimal.Decimal, scale int32) RiskLimitAmountField {
+	return RiskLimitAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RiskLimitCurrencyField is a CURRENCY field
@@ -13450,25 +13450,25 @@ func NewRiskWarningLevelName(val string) RiskWarningLevelNameField {
 }
 
 //RiskWarningLevelPercentField is a PERCENTAGE field
-type RiskWarningLevelPercentField struct{ quickfix.FIXFloat }
+type RiskWarningLevelPercentField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RiskWarningLevelPercent (1560)
 func (f RiskWarningLevelPercentField) Tag() quickfix.Tag { return tag.RiskWarningLevelPercent }
 
-//NewRiskWarningLevelPercent returns a new RiskWarningLevelPercentField initialized with val
-func NewRiskWarningLevelPercent(val float64) RiskWarningLevelPercentField {
-	return RiskWarningLevelPercentField{quickfix.FIXFloat(val)}
+//NewRiskWarningLevelPercent returns a new RiskWarningLevelPercentField initialized with val and scale
+func NewRiskWarningLevelPercent(val decimal.Decimal, scale int32) RiskWarningLevelPercentField {
+	return RiskWarningLevelPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RndPxField is a PRICE field
-type RndPxField struct{ quickfix.FIXFloat }
+type RndPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RndPx (991)
 func (f RndPxField) Tag() quickfix.Tag { return tag.RndPx }
 
-//NewRndPx returns a new RndPxField initialized with val
-func NewRndPx(val float64) RndPxField {
-	return RndPxField{quickfix.FIXFloat(val)}
+//NewRndPx returns a new RndPxField initialized with val and scale
+func NewRndPx(val decimal.Decimal, scale int32) RndPxField {
+	return RndPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RootPartyIDField is a STRING field
@@ -13527,14 +13527,14 @@ func NewRootPartySubIDType(val int) RootPartySubIDTypeField {
 }
 
 //RoundLotField is a QTY field
-type RoundLotField struct{ quickfix.FIXFloat }
+type RoundLotField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RoundLot (561)
 func (f RoundLotField) Tag() quickfix.Tag { return tag.RoundLot }
 
-//NewRoundLot returns a new RoundLotField initialized with val
-func NewRoundLot(val float64) RoundLotField {
-	return RoundLotField{quickfix.FIXFloat(val)}
+//NewRoundLot returns a new RoundLotField initialized with val and scale
+func NewRoundLot(val decimal.Decimal, scale int32) RoundLotField {
+	return RoundLotField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RoundingDirectionField is a CHAR field
@@ -13549,14 +13549,14 @@ func NewRoundingDirection(val string) RoundingDirectionField {
 }
 
 //RoundingModulusField is a FLOAT field
-type RoundingModulusField struct{ quickfix.FIXFloat }
+type RoundingModulusField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.RoundingModulus (469)
 func (f RoundingModulusField) Tag() quickfix.Tag { return tag.RoundingModulus }
 
-//NewRoundingModulus returns a new RoundingModulusField initialized with val
-func NewRoundingModulus(val float64) RoundingModulusField {
-	return RoundingModulusField{quickfix.FIXFloat(val)}
+//NewRoundingModulus returns a new RoundingModulusField initialized with val and scale
+func NewRoundingModulus(val decimal.Decimal, scale int32) RoundingModulusField {
+	return RoundingModulusField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //RoutingIDField is a STRING field
@@ -13659,14 +13659,14 @@ func NewSecondaryClOrdID(val string) SecondaryClOrdIDField {
 }
 
 //SecondaryDisplayQtyField is a QTY field
-type SecondaryDisplayQtyField struct{ quickfix.FIXFloat }
+type SecondaryDisplayQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SecondaryDisplayQty (1082)
 func (f SecondaryDisplayQtyField) Tag() quickfix.Tag { return tag.SecondaryDisplayQty }
 
-//NewSecondaryDisplayQty returns a new SecondaryDisplayQtyField initialized with val
-func NewSecondaryDisplayQty(val float64) SecondaryDisplayQtyField {
-	return SecondaryDisplayQtyField{quickfix.FIXFloat(val)}
+//NewSecondaryDisplayQty returns a new SecondaryDisplayQtyField initialized with val and scale
+func NewSecondaryDisplayQty(val decimal.Decimal, scale int32) SecondaryDisplayQtyField {
+	return SecondaryDisplayQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SecondaryExecIDField is a STRING field
@@ -13692,14 +13692,14 @@ func NewSecondaryFirmTradeID(val string) SecondaryFirmTradeIDField {
 }
 
 //SecondaryHighLimitPriceField is a PRICE field
-type SecondaryHighLimitPriceField struct{ quickfix.FIXFloat }
+type SecondaryHighLimitPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SecondaryHighLimitPrice (1230)
 func (f SecondaryHighLimitPriceField) Tag() quickfix.Tag { return tag.SecondaryHighLimitPrice }
 
-//NewSecondaryHighLimitPrice returns a new SecondaryHighLimitPriceField initialized with val
-func NewSecondaryHighLimitPrice(val float64) SecondaryHighLimitPriceField {
-	return SecondaryHighLimitPriceField{quickfix.FIXFloat(val)}
+//NewSecondaryHighLimitPrice returns a new SecondaryHighLimitPriceField initialized with val and scale
+func NewSecondaryHighLimitPrice(val decimal.Decimal, scale int32) SecondaryHighLimitPriceField {
+	return SecondaryHighLimitPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SecondaryIndividualAllocIDField is a STRING field
@@ -13714,14 +13714,14 @@ func NewSecondaryIndividualAllocID(val string) SecondaryIndividualAllocIDField {
 }
 
 //SecondaryLowLimitPriceField is a PRICE field
-type SecondaryLowLimitPriceField struct{ quickfix.FIXFloat }
+type SecondaryLowLimitPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SecondaryLowLimitPrice (1221)
 func (f SecondaryLowLimitPriceField) Tag() quickfix.Tag { return tag.SecondaryLowLimitPrice }
 
-//NewSecondaryLowLimitPrice returns a new SecondaryLowLimitPriceField initialized with val
-func NewSecondaryLowLimitPrice(val float64) SecondaryLowLimitPriceField {
-	return SecondaryLowLimitPriceField{quickfix.FIXFloat(val)}
+//NewSecondaryLowLimitPrice returns a new SecondaryLowLimitPriceField initialized with val and scale
+func NewSecondaryLowLimitPrice(val decimal.Decimal, scale int32) SecondaryLowLimitPriceField {
+	return SecondaryLowLimitPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SecondaryOrderIDField is a STRING field
@@ -13780,16 +13780,16 @@ func NewSecondaryTradeReportRefID(val string) SecondaryTradeReportRefIDField {
 }
 
 //SecondaryTradingReferencePriceField is a PRICE field
-type SecondaryTradingReferencePriceField struct{ quickfix.FIXFloat }
+type SecondaryTradingReferencePriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SecondaryTradingReferencePrice (1240)
 func (f SecondaryTradingReferencePriceField) Tag() quickfix.Tag {
 	return tag.SecondaryTradingReferencePrice
 }
 
-//NewSecondaryTradingReferencePrice returns a new SecondaryTradingReferencePriceField initialized with val
-func NewSecondaryTradingReferencePrice(val float64) SecondaryTradingReferencePriceField {
-	return SecondaryTradingReferencePriceField{quickfix.FIXFloat(val)}
+//NewSecondaryTradingReferencePrice returns a new SecondaryTradingReferencePriceField initialized with val and scale
+func NewSecondaryTradingReferencePrice(val decimal.Decimal, scale int32) SecondaryTradingReferencePriceField {
+	return SecondaryTradingReferencePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SecondaryTrdTypeField is a INT field
@@ -14215,14 +14215,14 @@ func NewSecurityXMLSchema(val string) SecurityXMLSchemaField {
 }
 
 //SellVolumeField is a QTY field
-type SellVolumeField struct{ quickfix.FIXFloat }
+type SellVolumeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SellVolume (331)
 func (f SellVolumeField) Tag() quickfix.Tag { return tag.SellVolume }
 
-//NewSellVolume returns a new SellVolumeField initialized with val
-func NewSellVolume(val float64) SellVolumeField {
-	return SellVolumeField{quickfix.FIXFloat(val)}
+//NewSellVolume returns a new SellVolumeField initialized with val and scale
+func NewSellVolume(val decimal.Decimal, scale int32) SellVolumeField {
+	return SellVolumeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SellerDaysField is a INT field
@@ -14341,36 +14341,36 @@ func NewSettlBrkrCode(val string) SettlBrkrCodeField {
 }
 
 //SettlCurrAmtField is a AMT field
-type SettlCurrAmtField struct{ quickfix.FIXFloat }
+type SettlCurrAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SettlCurrAmt (119)
 func (f SettlCurrAmtField) Tag() quickfix.Tag { return tag.SettlCurrAmt }
 
-//NewSettlCurrAmt returns a new SettlCurrAmtField initialized with val
-func NewSettlCurrAmt(val float64) SettlCurrAmtField {
-	return SettlCurrAmtField{quickfix.FIXFloat(val)}
+//NewSettlCurrAmt returns a new SettlCurrAmtField initialized with val and scale
+func NewSettlCurrAmt(val decimal.Decimal, scale int32) SettlCurrAmtField {
+	return SettlCurrAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SettlCurrBidFxRateField is a FLOAT field
-type SettlCurrBidFxRateField struct{ quickfix.FIXFloat }
+type SettlCurrBidFxRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SettlCurrBidFxRate (656)
 func (f SettlCurrBidFxRateField) Tag() quickfix.Tag { return tag.SettlCurrBidFxRate }
 
-//NewSettlCurrBidFxRate returns a new SettlCurrBidFxRateField initialized with val
-func NewSettlCurrBidFxRate(val float64) SettlCurrBidFxRateField {
-	return SettlCurrBidFxRateField{quickfix.FIXFloat(val)}
+//NewSettlCurrBidFxRate returns a new SettlCurrBidFxRateField initialized with val and scale
+func NewSettlCurrBidFxRate(val decimal.Decimal, scale int32) SettlCurrBidFxRateField {
+	return SettlCurrBidFxRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SettlCurrFxRateField is a FLOAT field
-type SettlCurrFxRateField struct{ quickfix.FIXFloat }
+type SettlCurrFxRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SettlCurrFxRate (155)
 func (f SettlCurrFxRateField) Tag() quickfix.Tag { return tag.SettlCurrFxRate }
 
-//NewSettlCurrFxRate returns a new SettlCurrFxRateField initialized with val
-func NewSettlCurrFxRate(val float64) SettlCurrFxRateField {
-	return SettlCurrFxRateField{quickfix.FIXFloat(val)}
+//NewSettlCurrFxRate returns a new SettlCurrFxRateField initialized with val and scale
+func NewSettlCurrFxRate(val decimal.Decimal, scale int32) SettlCurrFxRateField {
+	return SettlCurrFxRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SettlCurrFxRateCalcField is a CHAR field
@@ -14385,14 +14385,14 @@ func NewSettlCurrFxRateCalc(val string) SettlCurrFxRateCalcField {
 }
 
 //SettlCurrOfferFxRateField is a FLOAT field
-type SettlCurrOfferFxRateField struct{ quickfix.FIXFloat }
+type SettlCurrOfferFxRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SettlCurrOfferFxRate (657)
 func (f SettlCurrOfferFxRateField) Tag() quickfix.Tag { return tag.SettlCurrOfferFxRate }
 
-//NewSettlCurrOfferFxRate returns a new SettlCurrOfferFxRateField initialized with val
-func NewSettlCurrOfferFxRate(val float64) SettlCurrOfferFxRateField {
-	return SettlCurrOfferFxRateField{quickfix.FIXFloat(val)}
+//NewSettlCurrOfferFxRate returns a new SettlCurrOfferFxRateField initialized with val and scale
+func NewSettlCurrOfferFxRate(val decimal.Decimal, scale int32) SettlCurrOfferFxRateField {
+	return SettlCurrOfferFxRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SettlCurrencyField is a CURRENCY field
@@ -14693,14 +14693,14 @@ func NewSettlPartySubIDType(val int) SettlPartySubIDTypeField {
 }
 
 //SettlPriceField is a PRICE field
-type SettlPriceField struct{ quickfix.FIXFloat }
+type SettlPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SettlPrice (730)
 func (f SettlPriceField) Tag() quickfix.Tag { return tag.SettlPrice }
 
-//NewSettlPrice returns a new SettlPriceField initialized with val
-func NewSettlPrice(val float64) SettlPriceField {
-	return SettlPriceField{quickfix.FIXFloat(val)}
+//NewSettlPrice returns a new SettlPriceField initialized with val and scale
+func NewSettlPrice(val decimal.Decimal, scale int32) SettlPriceField {
+	return SettlPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SettlPriceTypeField is a INT field
@@ -14781,36 +14781,36 @@ func NewSettlmntTyp(val string) SettlmntTypField {
 }
 
 //SharedCommissionField is a AMT field
-type SharedCommissionField struct{ quickfix.FIXFloat }
+type SharedCommissionField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SharedCommission (858)
 func (f SharedCommissionField) Tag() quickfix.Tag { return tag.SharedCommission }
 
-//NewSharedCommission returns a new SharedCommissionField initialized with val
-func NewSharedCommission(val float64) SharedCommissionField {
-	return SharedCommissionField{quickfix.FIXFloat(val)}
+//NewSharedCommission returns a new SharedCommissionField initialized with val and scale
+func NewSharedCommission(val decimal.Decimal, scale int32) SharedCommissionField {
+	return SharedCommissionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SharesField is a QTY field
-type SharesField struct{ quickfix.FIXFloat }
+type SharesField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Shares (53)
 func (f SharesField) Tag() quickfix.Tag { return tag.Shares }
 
-//NewShares returns a new SharesField initialized with val
-func NewShares(val float64) SharesField {
-	return SharesField{quickfix.FIXFloat(val)}
+//NewShares returns a new SharesField initialized with val and scale
+func NewShares(val decimal.Decimal, scale int32) SharesField {
+	return SharesField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ShortQtyField is a QTY field
-type ShortQtyField struct{ quickfix.FIXFloat }
+type ShortQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ShortQty (705)
 func (f ShortQtyField) Tag() quickfix.Tag { return tag.ShortQty }
 
-//NewShortQty returns a new ShortQtyField initialized with val
-func NewShortQty(val float64) ShortQtyField {
-	return ShortQtyField{quickfix.FIXFloat(val)}
+//NewShortQty returns a new ShortQtyField initialized with val and scale
+func NewShortQty(val decimal.Decimal, scale int32) ShortQtyField {
+	return ShortQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //ShortSaleReasonField is a INT field
@@ -14880,14 +14880,14 @@ func NewSideFillStationCd(val string) SideFillStationCdField {
 }
 
 //SideGrossTradeAmtField is a AMT field
-type SideGrossTradeAmtField struct{ quickfix.FIXFloat }
+type SideGrossTradeAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SideGrossTradeAmt (1072)
 func (f SideGrossTradeAmtField) Tag() quickfix.Tag { return tag.SideGrossTradeAmt }
 
-//NewSideGrossTradeAmt returns a new SideGrossTradeAmtField initialized with val
-func NewSideGrossTradeAmt(val float64) SideGrossTradeAmtField {
-	return SideGrossTradeAmtField{quickfix.FIXFloat(val)}
+//NewSideGrossTradeAmt returns a new SideGrossTradeAmtField initialized with val and scale
+func NewSideGrossTradeAmt(val decimal.Decimal, scale int32) SideGrossTradeAmtField {
+	return SideGrossTradeAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SideLastQtyField is a INT field
@@ -15033,25 +15033,25 @@ func NewSideTrdSubTyp(val int) SideTrdSubTypField {
 }
 
 //SideValue1Field is a AMT field
-type SideValue1Field struct{ quickfix.FIXFloat }
+type SideValue1Field struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SideValue1 (396)
 func (f SideValue1Field) Tag() quickfix.Tag { return tag.SideValue1 }
 
-//NewSideValue1 returns a new SideValue1Field initialized with val
-func NewSideValue1(val float64) SideValue1Field {
-	return SideValue1Field{quickfix.FIXFloat(val)}
+//NewSideValue1 returns a new SideValue1Field initialized with val and scale
+func NewSideValue1(val decimal.Decimal, scale int32) SideValue1Field {
+	return SideValue1Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SideValue2Field is a AMT field
-type SideValue2Field struct{ quickfix.FIXFloat }
+type SideValue2Field struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SideValue2 (397)
 func (f SideValue2Field) Tag() quickfix.Tag { return tag.SideValue2 }
 
-//NewSideValue2 returns a new SideValue2Field initialized with val
-func NewSideValue2(val float64) SideValue2Field {
-	return SideValue2Field{quickfix.FIXFloat(val)}
+//NewSideValue2 returns a new SideValue2Field initialized with val and scale
+func NewSideValue2(val decimal.Decimal, scale int32) SideValue2Field {
+	return SideValue2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SideValueIndField is a INT field
@@ -15099,25 +15099,25 @@ func NewSolicitedFlag(val bool) SolicitedFlagField {
 }
 
 //SpreadField is a PRICEOFFSET field
-type SpreadField struct{ quickfix.FIXFloat }
+type SpreadField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Spread (218)
 func (f SpreadField) Tag() quickfix.Tag { return tag.Spread }
 
-//NewSpread returns a new SpreadField initialized with val
-func NewSpread(val float64) SpreadField {
-	return SpreadField{quickfix.FIXFloat(val)}
+//NewSpread returns a new SpreadField initialized with val and scale
+func NewSpread(val decimal.Decimal, scale int32) SpreadField {
+	return SpreadField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SpreadToBenchmarkField is a PRICEOFFSET field
-type SpreadToBenchmarkField struct{ quickfix.FIXFloat }
+type SpreadToBenchmarkField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SpreadToBenchmark (218)
 func (f SpreadToBenchmarkField) Tag() quickfix.Tag { return tag.SpreadToBenchmark }
 
-//NewSpreadToBenchmark returns a new SpreadToBenchmarkField initialized with val
-func NewSpreadToBenchmark(val float64) SpreadToBenchmarkField {
-	return SpreadToBenchmarkField{quickfix.FIXFloat(val)}
+//NewSpreadToBenchmark returns a new SpreadToBenchmarkField initialized with val and scale
+func NewSpreadToBenchmark(val decimal.Decimal, scale int32) SpreadToBenchmarkField {
+	return SpreadToBenchmarkField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StandInstDbIDField is a STRING field
@@ -15154,14 +15154,14 @@ func NewStandInstDbType(val int) StandInstDbTypeField {
 }
 
 //StartCashField is a AMT field
-type StartCashField struct{ quickfix.FIXFloat }
+type StartCashField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StartCash (921)
 func (f StartCashField) Tag() quickfix.Tag { return tag.StartCash }
 
-//NewStartCash returns a new StartCashField initialized with val
-func NewStartCash(val float64) StartCashField {
-	return StartCashField{quickfix.FIXFloat(val)}
+//NewStartCash returns a new StartCashField initialized with val and scale
+func NewStartCash(val decimal.Decimal, scale int32) StartCashField {
+	return StartCashField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StartDateField is a LOCALMKTDATE field
@@ -15187,25 +15187,25 @@ func NewStartMaturityMonthYear(val string) StartMaturityMonthYearField {
 }
 
 //StartStrikePxRangeField is a PRICE field
-type StartStrikePxRangeField struct{ quickfix.FIXFloat }
+type StartStrikePxRangeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StartStrikePxRange (1202)
 func (f StartStrikePxRangeField) Tag() quickfix.Tag { return tag.StartStrikePxRange }
 
-//NewStartStrikePxRange returns a new StartStrikePxRangeField initialized with val
-func NewStartStrikePxRange(val float64) StartStrikePxRangeField {
-	return StartStrikePxRangeField{quickfix.FIXFloat(val)}
+//NewStartStrikePxRange returns a new StartStrikePxRangeField initialized with val and scale
+func NewStartStrikePxRange(val decimal.Decimal, scale int32) StartStrikePxRangeField {
+	return StartStrikePxRangeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StartTickPriceRangeField is a PRICE field
-type StartTickPriceRangeField struct{ quickfix.FIXFloat }
+type StartTickPriceRangeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StartTickPriceRange (1206)
 func (f StartTickPriceRangeField) Tag() quickfix.Tag { return tag.StartTickPriceRange }
 
-//NewStartTickPriceRange returns a new StartTickPriceRangeField initialized with val
-func NewStartTickPriceRange(val float64) StartTickPriceRangeField {
-	return StartTickPriceRangeField{quickfix.FIXFloat(val)}
+//NewStartTickPriceRange returns a new StartTickPriceRangeField initialized with val and scale
+func NewStartTickPriceRange(val decimal.Decimal, scale int32) StartTickPriceRangeField {
+	return StartTickPriceRangeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StateOrProvinceOfIssueField is a STRING field
@@ -15275,14 +15275,14 @@ func NewStipulationValue(val string) StipulationValueField {
 }
 
 //StopPxField is a PRICE field
-type StopPxField struct{ quickfix.FIXFloat }
+type StopPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StopPx (99)
 func (f StopPxField) Tag() quickfix.Tag { return tag.StopPx }
 
-//NewStopPx returns a new StopPxField initialized with val
-func NewStopPx(val float64) StopPxField {
-	return StopPxField{quickfix.FIXFloat(val)}
+//NewStopPx returns a new StopPxField initialized with val and scale
+func NewStopPx(val decimal.Decimal, scale int32) StopPxField {
+	return StopPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StrategyParameterNameField is a STRING field
@@ -15407,36 +15407,36 @@ func NewStrikeExerciseStyle(val int) StrikeExerciseStyleField {
 }
 
 //StrikeIncrementField is a FLOAT field
-type StrikeIncrementField struct{ quickfix.FIXFloat }
+type StrikeIncrementField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StrikeIncrement (1204)
 func (f StrikeIncrementField) Tag() quickfix.Tag { return tag.StrikeIncrement }
 
-//NewStrikeIncrement returns a new StrikeIncrementField initialized with val
-func NewStrikeIncrement(val float64) StrikeIncrementField {
-	return StrikeIncrementField{quickfix.FIXFloat(val)}
+//NewStrikeIncrement returns a new StrikeIncrementField initialized with val and scale
+func NewStrikeIncrement(val decimal.Decimal, scale int32) StrikeIncrementField {
+	return StrikeIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StrikeMultiplierField is a FLOAT field
-type StrikeMultiplierField struct{ quickfix.FIXFloat }
+type StrikeMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StrikeMultiplier (967)
 func (f StrikeMultiplierField) Tag() quickfix.Tag { return tag.StrikeMultiplier }
 
-//NewStrikeMultiplier returns a new StrikeMultiplierField initialized with val
-func NewStrikeMultiplier(val float64) StrikeMultiplierField {
-	return StrikeMultiplierField{quickfix.FIXFloat(val)}
+//NewStrikeMultiplier returns a new StrikeMultiplierField initialized with val and scale
+func NewStrikeMultiplier(val decimal.Decimal, scale int32) StrikeMultiplierField {
+	return StrikeMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StrikePriceField is a PRICE field
-type StrikePriceField struct{ quickfix.FIXFloat }
+type StrikePriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StrikePrice (202)
 func (f StrikePriceField) Tag() quickfix.Tag { return tag.StrikePrice }
 
-//NewStrikePrice returns a new StrikePriceField initialized with val
-func NewStrikePrice(val float64) StrikePriceField {
-	return StrikePriceField{quickfix.FIXFloat(val)}
+//NewStrikePrice returns a new StrikePriceField initialized with val and scale
+func NewStrikePrice(val decimal.Decimal, scale int32) StrikePriceField {
+	return StrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StrikePriceBoundaryMethodField is a INT field
@@ -15451,14 +15451,14 @@ func NewStrikePriceBoundaryMethod(val int) StrikePriceBoundaryMethodField {
 }
 
 //StrikePriceBoundaryPrecisionField is a PERCENTAGE field
-type StrikePriceBoundaryPrecisionField struct{ quickfix.FIXFloat }
+type StrikePriceBoundaryPrecisionField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StrikePriceBoundaryPrecision (1480)
 func (f StrikePriceBoundaryPrecisionField) Tag() quickfix.Tag { return tag.StrikePriceBoundaryPrecision }
 
-//NewStrikePriceBoundaryPrecision returns a new StrikePriceBoundaryPrecisionField initialized with val
-func NewStrikePriceBoundaryPrecision(val float64) StrikePriceBoundaryPrecisionField {
-	return StrikePriceBoundaryPrecisionField{quickfix.FIXFloat(val)}
+//NewStrikePriceBoundaryPrecision returns a new StrikePriceBoundaryPrecisionField initialized with val and scale
+func NewStrikePriceBoundaryPrecision(val decimal.Decimal, scale int32) StrikePriceBoundaryPrecisionField {
+	return StrikePriceBoundaryPrecisionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //StrikePriceDeterminationMethodField is a INT field
@@ -15502,14 +15502,14 @@ func NewStrikeTimeNoMillis(val time.Time) StrikeTimeField {
 }
 
 //StrikeValueField is a FLOAT field
-type StrikeValueField struct{ quickfix.FIXFloat }
+type StrikeValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.StrikeValue (968)
 func (f StrikeValueField) Tag() quickfix.Tag { return tag.StrikeValue }
 
-//NewStrikeValue returns a new StrikeValueField initialized with val
-func NewStrikeValue(val float64) StrikeValueField {
-	return StrikeValueField{quickfix.FIXFloat(val)}
+//NewStrikeValue returns a new StrikeValueField initialized with val and scale
+func NewStrikeValue(val decimal.Decimal, scale int32) StrikeValueField {
+	return StrikeValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SubjectField is a STRING field
@@ -15535,14 +15535,14 @@ func NewSubscriptionRequestType(val string) SubscriptionRequestTypeField {
 }
 
 //SwapPointsField is a PRICEOFFSET field
-type SwapPointsField struct{ quickfix.FIXFloat }
+type SwapPointsField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.SwapPoints (1069)
 func (f SwapPointsField) Tag() quickfix.Tag { return tag.SwapPoints }
 
-//NewSwapPoints returns a new SwapPointsField initialized with val
-func NewSwapPoints(val float64) SwapPointsField {
-	return SwapPointsField{quickfix.FIXFloat(val)}
+//NewSwapPoints returns a new SwapPointsField initialized with val and scale
+func NewSwapPoints(val decimal.Decimal, scale int32) SwapPointsField {
+	return SwapPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //SymbolField is a STRING field
@@ -15656,14 +15656,14 @@ func NewTargetStrategyParameters(val string) TargetStrategyParametersField {
 }
 
 //TargetStrategyPerformanceField is a FLOAT field
-type TargetStrategyPerformanceField struct{ quickfix.FIXFloat }
+type TargetStrategyPerformanceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TargetStrategyPerformance (850)
 func (f TargetStrategyPerformanceField) Tag() quickfix.Tag { return tag.TargetStrategyPerformance }
 
-//NewTargetStrategyPerformance returns a new TargetStrategyPerformanceField initialized with val
-func NewTargetStrategyPerformance(val float64) TargetStrategyPerformanceField {
-	return TargetStrategyPerformanceField{quickfix.FIXFloat(val)}
+//NewTargetStrategyPerformance returns a new TargetStrategyPerformanceField initialized with val and scale
+func NewTargetStrategyPerformance(val decimal.Decimal, scale int32) TargetStrategyPerformanceField {
+	return TargetStrategyPerformanceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TargetSubIDField is a STRING field
@@ -15733,14 +15733,14 @@ func NewText(val string) TextField {
 }
 
 //ThresholdAmountField is a PRICEOFFSET field
-type ThresholdAmountField struct{ quickfix.FIXFloat }
+type ThresholdAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ThresholdAmount (834)
 func (f ThresholdAmountField) Tag() quickfix.Tag { return tag.ThresholdAmount }
 
-//NewThresholdAmount returns a new ThresholdAmountField initialized with val
-func NewThresholdAmount(val float64) ThresholdAmountField {
-	return ThresholdAmountField{quickfix.FIXFloat(val)}
+//NewThresholdAmount returns a new ThresholdAmountField initialized with val and scale
+func NewThresholdAmount(val decimal.Decimal, scale int32) ThresholdAmountField {
+	return ThresholdAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TickDirectionField is a CHAR field
@@ -15755,14 +15755,14 @@ func NewTickDirection(val string) TickDirectionField {
 }
 
 //TickIncrementField is a PRICE field
-type TickIncrementField struct{ quickfix.FIXFloat }
+type TickIncrementField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TickIncrement (1208)
 func (f TickIncrementField) Tag() quickfix.Tag { return tag.TickIncrement }
 
-//NewTickIncrement returns a new TickIncrementField initialized with val
-func NewTickIncrement(val float64) TickIncrementField {
-	return TickIncrementField{quickfix.FIXFloat(val)}
+//NewTickIncrement returns a new TickIncrementField initialized with val and scale
+func NewTickIncrement(val decimal.Decimal, scale int32) TickIncrementField {
+	return TickIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TickRuleTypeField is a INT field
@@ -15810,14 +15810,14 @@ func NewTimeInForce(val string) TimeInForceField {
 }
 
 //TimeToExpirationField is a FLOAT field
-type TimeToExpirationField struct{ quickfix.FIXFloat }
+type TimeToExpirationField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TimeToExpiration (1189)
 func (f TimeToExpirationField) Tag() quickfix.Tag { return tag.TimeToExpiration }
 
-//NewTimeToExpiration returns a new TimeToExpirationField initialized with val
-func NewTimeToExpiration(val float64) TimeToExpirationField {
-	return TimeToExpirationField{quickfix.FIXFloat(val)}
+//NewTimeToExpiration returns a new TimeToExpirationField initialized with val and scale
+func NewTimeToExpiration(val decimal.Decimal, scale int32) TimeToExpirationField {
+	return TimeToExpirationField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TimeUnitField is a STRING field
@@ -15997,14 +15997,14 @@ func NewTotQuoteEntries(val int) TotQuoteEntriesField {
 }
 
 //TotalAccruedInterestAmtField is a AMT field
-type TotalAccruedInterestAmtField struct{ quickfix.FIXFloat }
+type TotalAccruedInterestAmtField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TotalAccruedInterestAmt (540)
 func (f TotalAccruedInterestAmtField) Tag() quickfix.Tag { return tag.TotalAccruedInterestAmt }
 
-//NewTotalAccruedInterestAmt returns a new TotalAccruedInterestAmtField initialized with val
-func NewTotalAccruedInterestAmt(val float64) TotalAccruedInterestAmtField {
-	return TotalAccruedInterestAmtField{quickfix.FIXFloat(val)}
+//NewTotalAccruedInterestAmt returns a new TotalAccruedInterestAmtField initialized with val and scale
+func NewTotalAccruedInterestAmt(val decimal.Decimal, scale int32) TotalAccruedInterestAmtField {
+	return TotalAccruedInterestAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TotalAffectedOrdersField is a INT field
@@ -16019,14 +16019,14 @@ func NewTotalAffectedOrders(val int) TotalAffectedOrdersField {
 }
 
 //TotalNetValueField is a AMT field
-type TotalNetValueField struct{ quickfix.FIXFloat }
+type TotalNetValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TotalNetValue (900)
 func (f TotalNetValueField) Tag() quickfix.Tag { return tag.TotalNetValue }
 
-//NewTotalNetValue returns a new TotalNetValueField initialized with val
-func NewTotalNetValue(val float64) TotalNetValueField {
-	return TotalNetValueField{quickfix.FIXFloat(val)}
+//NewTotalNetValue returns a new TotalNetValueField initialized with val and scale
+func NewTotalNetValue(val decimal.Decimal, scale int32) TotalNetValueField {
+	return TotalNetValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TotalNumPosReportsField is a INT field
@@ -16063,25 +16063,25 @@ func NewTotalNumSecurityTypes(val int) TotalNumSecurityTypesField {
 }
 
 //TotalTakedownField is a AMT field
-type TotalTakedownField struct{ quickfix.FIXFloat }
+type TotalTakedownField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TotalTakedown (237)
 func (f TotalTakedownField) Tag() quickfix.Tag { return tag.TotalTakedown }
 
-//NewTotalTakedown returns a new TotalTakedownField initialized with val
-func NewTotalTakedown(val float64) TotalTakedownField {
-	return TotalTakedownField{quickfix.FIXFloat(val)}
+//NewTotalTakedown returns a new TotalTakedownField initialized with val and scale
+func NewTotalTakedown(val decimal.Decimal, scale int32) TotalTakedownField {
+	return TotalTakedownField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TotalVolumeTradedField is a QTY field
-type TotalVolumeTradedField struct{ quickfix.FIXFloat }
+type TotalVolumeTradedField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TotalVolumeTraded (387)
 func (f TotalVolumeTradedField) Tag() quickfix.Tag { return tag.TotalVolumeTraded }
 
-//NewTotalVolumeTraded returns a new TotalVolumeTradedField initialized with val
-func NewTotalVolumeTraded(val float64) TotalVolumeTradedField {
-	return TotalVolumeTradedField{quickfix.FIXFloat(val)}
+//NewTotalVolumeTraded returns a new TotalVolumeTradedField initialized with val and scale
+func NewTotalVolumeTraded(val decimal.Decimal, scale int32) TotalVolumeTradedField {
+	return TotalVolumeTradedField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TotalVolumeTradedDateField is a UTCDATEONLY field
@@ -16495,14 +16495,14 @@ func NewTradeType(val string) TradeTypeField {
 }
 
 //TradeVolumeField is a QTY field
-type TradeVolumeField struct{ quickfix.FIXFloat }
+type TradeVolumeField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TradeVolume (1020)
 func (f TradeVolumeField) Tag() quickfix.Tag { return tag.TradeVolume }
 
-//NewTradeVolume returns a new TradeVolumeField initialized with val
-func NewTradeVolume(val float64) TradeVolumeField {
-	return TradeVolumeField{quickfix.FIXFloat(val)}
+//NewTradeVolume returns a new TradeVolumeField initialized with val and scale
+func NewTradeVolume(val decimal.Decimal, scale int32) TradeVolumeField {
+	return TradeVolumeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TradedFlatSwitchField is a BOOLEAN field
@@ -16528,14 +16528,14 @@ func NewTradingCurrency(val string) TradingCurrencyField {
 }
 
 //TradingReferencePriceField is a PRICE field
-type TradingReferencePriceField struct{ quickfix.FIXFloat }
+type TradingReferencePriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TradingReferencePrice (1150)
 func (f TradingReferencePriceField) Tag() quickfix.Tag { return tag.TradingReferencePrice }
 
-//NewTradingReferencePrice returns a new TradingReferencePriceField initialized with val
-func NewTradingReferencePrice(val float64) TradingReferencePriceField {
-	return TradingReferencePriceField{quickfix.FIXFloat(val)}
+//NewTradingReferencePrice returns a new TradingReferencePriceField initialized with val and scale
+func NewTradingReferencePrice(val decimal.Decimal, scale int32) TradingReferencePriceField {
+	return TradingReferencePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TradingSessionDescField is a STRING field
@@ -16730,25 +16730,25 @@ func NewTriggerAction(val string) TriggerActionField {
 }
 
 //TriggerNewPriceField is a PRICE field
-type TriggerNewPriceField struct{ quickfix.FIXFloat }
+type TriggerNewPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TriggerNewPrice (1110)
 func (f TriggerNewPriceField) Tag() quickfix.Tag { return tag.TriggerNewPrice }
 
-//NewTriggerNewPrice returns a new TriggerNewPriceField initialized with val
-func NewTriggerNewPrice(val float64) TriggerNewPriceField {
-	return TriggerNewPriceField{quickfix.FIXFloat(val)}
+//NewTriggerNewPrice returns a new TriggerNewPriceField initialized with val and scale
+func NewTriggerNewPrice(val decimal.Decimal, scale int32) TriggerNewPriceField {
+	return TriggerNewPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TriggerNewQtyField is a QTY field
-type TriggerNewQtyField struct{ quickfix.FIXFloat }
+type TriggerNewQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TriggerNewQty (1112)
 func (f TriggerNewQtyField) Tag() quickfix.Tag { return tag.TriggerNewQty }
 
-//NewTriggerNewQty returns a new TriggerNewQtyField initialized with val
-func NewTriggerNewQty(val float64) TriggerNewQtyField {
-	return TriggerNewQtyField{quickfix.FIXFloat(val)}
+//NewTriggerNewQty returns a new TriggerNewQtyField initialized with val and scale
+func NewTriggerNewQty(val decimal.Decimal, scale int32) TriggerNewQtyField {
+	return TriggerNewQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TriggerOrderTypeField is a CHAR field
@@ -16763,14 +16763,14 @@ func NewTriggerOrderType(val string) TriggerOrderTypeField {
 }
 
 //TriggerPriceField is a PRICE field
-type TriggerPriceField struct{ quickfix.FIXFloat }
+type TriggerPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.TriggerPrice (1102)
 func (f TriggerPriceField) Tag() quickfix.Tag { return tag.TriggerPrice }
 
-//NewTriggerPrice returns a new TriggerPriceField initialized with val
-func NewTriggerPrice(val float64) TriggerPriceField {
-	return TriggerPriceField{quickfix.FIXFloat(val)}
+//NewTriggerPrice returns a new TriggerPriceField initialized with val and scale
+func NewTriggerPrice(val decimal.Decimal, scale int32) TriggerPriceField {
+	return TriggerPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //TriggerPriceDirectionField is a CHAR field
@@ -16895,36 +16895,36 @@ func NewURLLink(val string) URLLinkField {
 }
 
 //UnderlyingAdjustedQuantityField is a QTY field
-type UnderlyingAdjustedQuantityField struct{ quickfix.FIXFloat }
+type UnderlyingAdjustedQuantityField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingAdjustedQuantity (1044)
 func (f UnderlyingAdjustedQuantityField) Tag() quickfix.Tag { return tag.UnderlyingAdjustedQuantity }
 
-//NewUnderlyingAdjustedQuantity returns a new UnderlyingAdjustedQuantityField initialized with val
-func NewUnderlyingAdjustedQuantity(val float64) UnderlyingAdjustedQuantityField {
-	return UnderlyingAdjustedQuantityField{quickfix.FIXFloat(val)}
+//NewUnderlyingAdjustedQuantity returns a new UnderlyingAdjustedQuantityField initialized with val and scale
+func NewUnderlyingAdjustedQuantity(val decimal.Decimal, scale int32) UnderlyingAdjustedQuantityField {
+	return UnderlyingAdjustedQuantityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingAllocationPercentField is a PERCENTAGE field
-type UnderlyingAllocationPercentField struct{ quickfix.FIXFloat }
+type UnderlyingAllocationPercentField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingAllocationPercent (972)
 func (f UnderlyingAllocationPercentField) Tag() quickfix.Tag { return tag.UnderlyingAllocationPercent }
 
-//NewUnderlyingAllocationPercent returns a new UnderlyingAllocationPercentField initialized with val
-func NewUnderlyingAllocationPercent(val float64) UnderlyingAllocationPercentField {
-	return UnderlyingAllocationPercentField{quickfix.FIXFloat(val)}
+//NewUnderlyingAllocationPercent returns a new UnderlyingAllocationPercentField initialized with val and scale
+func NewUnderlyingAllocationPercent(val decimal.Decimal, scale int32) UnderlyingAllocationPercentField {
+	return UnderlyingAllocationPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingAttachmentPointField is a PERCENTAGE field
-type UnderlyingAttachmentPointField struct{ quickfix.FIXFloat }
+type UnderlyingAttachmentPointField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingAttachmentPoint (1459)
 func (f UnderlyingAttachmentPointField) Tag() quickfix.Tag { return tag.UnderlyingAttachmentPoint }
 
-//NewUnderlyingAttachmentPoint returns a new UnderlyingAttachmentPointField initialized with val
-func NewUnderlyingAttachmentPoint(val float64) UnderlyingAttachmentPointField {
-	return UnderlyingAttachmentPointField{quickfix.FIXFloat(val)}
+//NewUnderlyingAttachmentPoint returns a new UnderlyingAttachmentPointField initialized with val and scale
+func NewUnderlyingAttachmentPoint(val decimal.Decimal, scale int32) UnderlyingAttachmentPointField {
+	return UnderlyingAttachmentPointField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingCFICodeField is a STRING field
@@ -16961,25 +16961,25 @@ func NewUnderlyingCPRegType(val string) UnderlyingCPRegTypeField {
 }
 
 //UnderlyingCapValueField is a AMT field
-type UnderlyingCapValueField struct{ quickfix.FIXFloat }
+type UnderlyingCapValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingCapValue (1038)
 func (f UnderlyingCapValueField) Tag() quickfix.Tag { return tag.UnderlyingCapValue }
 
-//NewUnderlyingCapValue returns a new UnderlyingCapValueField initialized with val
-func NewUnderlyingCapValue(val float64) UnderlyingCapValueField {
-	return UnderlyingCapValueField{quickfix.FIXFloat(val)}
+//NewUnderlyingCapValue returns a new UnderlyingCapValueField initialized with val and scale
+func NewUnderlyingCapValue(val decimal.Decimal, scale int32) UnderlyingCapValueField {
+	return UnderlyingCapValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingCashAmountField is a AMT field
-type UnderlyingCashAmountField struct{ quickfix.FIXFloat }
+type UnderlyingCashAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingCashAmount (973)
 func (f UnderlyingCashAmountField) Tag() quickfix.Tag { return tag.UnderlyingCashAmount }
 
-//NewUnderlyingCashAmount returns a new UnderlyingCashAmountField initialized with val
-func NewUnderlyingCashAmount(val float64) UnderlyingCashAmountField {
-	return UnderlyingCashAmountField{quickfix.FIXFloat(val)}
+//NewUnderlyingCashAmount returns a new UnderlyingCashAmountField initialized with val and scale
+func NewUnderlyingCashAmount(val decimal.Decimal, scale int32) UnderlyingCashAmountField {
+	return UnderlyingCashAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingCashTypeField is a STRING field
@@ -16994,25 +16994,25 @@ func NewUnderlyingCashType(val string) UnderlyingCashTypeField {
 }
 
 //UnderlyingCollectAmountField is a AMT field
-type UnderlyingCollectAmountField struct{ quickfix.FIXFloat }
+type UnderlyingCollectAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingCollectAmount (986)
 func (f UnderlyingCollectAmountField) Tag() quickfix.Tag { return tag.UnderlyingCollectAmount }
 
-//NewUnderlyingCollectAmount returns a new UnderlyingCollectAmountField initialized with val
-func NewUnderlyingCollectAmount(val float64) UnderlyingCollectAmountField {
-	return UnderlyingCollectAmountField{quickfix.FIXFloat(val)}
+//NewUnderlyingCollectAmount returns a new UnderlyingCollectAmountField initialized with val and scale
+func NewUnderlyingCollectAmount(val decimal.Decimal, scale int32) UnderlyingCollectAmountField {
+	return UnderlyingCollectAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingContractMultiplierField is a FLOAT field
-type UnderlyingContractMultiplierField struct{ quickfix.FIXFloat }
+type UnderlyingContractMultiplierField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingContractMultiplier (436)
 func (f UnderlyingContractMultiplierField) Tag() quickfix.Tag { return tag.UnderlyingContractMultiplier }
 
-//NewUnderlyingContractMultiplier returns a new UnderlyingContractMultiplierField initialized with val
-func NewUnderlyingContractMultiplier(val float64) UnderlyingContractMultiplierField {
-	return UnderlyingContractMultiplierField{quickfix.FIXFloat(val)}
+//NewUnderlyingContractMultiplier returns a new UnderlyingContractMultiplierField initialized with val and scale
+func NewUnderlyingContractMultiplier(val decimal.Decimal, scale int32) UnderlyingContractMultiplierField {
+	return UnderlyingContractMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingContractMultiplierUnitField is a INT field
@@ -17051,14 +17051,14 @@ func NewUnderlyingCouponPaymentDate(val string) UnderlyingCouponPaymentDateField
 }
 
 //UnderlyingCouponRateField is a PERCENTAGE field
-type UnderlyingCouponRateField struct{ quickfix.FIXFloat }
+type UnderlyingCouponRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingCouponRate (435)
 func (f UnderlyingCouponRateField) Tag() quickfix.Tag { return tag.UnderlyingCouponRate }
 
-//NewUnderlyingCouponRate returns a new UnderlyingCouponRateField initialized with val
-func NewUnderlyingCouponRate(val float64) UnderlyingCouponRateField {
-	return UnderlyingCouponRateField{quickfix.FIXFloat(val)}
+//NewUnderlyingCouponRate returns a new UnderlyingCouponRateField initialized with val and scale
+func NewUnderlyingCouponRate(val decimal.Decimal, scale int32) UnderlyingCouponRateField {
+	return UnderlyingCouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingCreditRatingField is a STRING field
@@ -17084,69 +17084,69 @@ func NewUnderlyingCurrency(val string) UnderlyingCurrencyField {
 }
 
 //UnderlyingCurrentValueField is a AMT field
-type UnderlyingCurrentValueField struct{ quickfix.FIXFloat }
+type UnderlyingCurrentValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingCurrentValue (885)
 func (f UnderlyingCurrentValueField) Tag() quickfix.Tag { return tag.UnderlyingCurrentValue }
 
-//NewUnderlyingCurrentValue returns a new UnderlyingCurrentValueField initialized with val
-func NewUnderlyingCurrentValue(val float64) UnderlyingCurrentValueField {
-	return UnderlyingCurrentValueField{quickfix.FIXFloat(val)}
+//NewUnderlyingCurrentValue returns a new UnderlyingCurrentValueField initialized with val and scale
+func NewUnderlyingCurrentValue(val decimal.Decimal, scale int32) UnderlyingCurrentValueField {
+	return UnderlyingCurrentValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingDeliveryAmountField is a AMT field
-type UnderlyingDeliveryAmountField struct{ quickfix.FIXFloat }
+type UnderlyingDeliveryAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingDeliveryAmount (1037)
 func (f UnderlyingDeliveryAmountField) Tag() quickfix.Tag { return tag.UnderlyingDeliveryAmount }
 
-//NewUnderlyingDeliveryAmount returns a new UnderlyingDeliveryAmountField initialized with val
-func NewUnderlyingDeliveryAmount(val float64) UnderlyingDeliveryAmountField {
-	return UnderlyingDeliveryAmountField{quickfix.FIXFloat(val)}
+//NewUnderlyingDeliveryAmount returns a new UnderlyingDeliveryAmountField initialized with val and scale
+func NewUnderlyingDeliveryAmount(val decimal.Decimal, scale int32) UnderlyingDeliveryAmountField {
+	return UnderlyingDeliveryAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingDetachmentPointField is a PERCENTAGE field
-type UnderlyingDetachmentPointField struct{ quickfix.FIXFloat }
+type UnderlyingDetachmentPointField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingDetachmentPoint (1460)
 func (f UnderlyingDetachmentPointField) Tag() quickfix.Tag { return tag.UnderlyingDetachmentPoint }
 
-//NewUnderlyingDetachmentPoint returns a new UnderlyingDetachmentPointField initialized with val
-func NewUnderlyingDetachmentPoint(val float64) UnderlyingDetachmentPointField {
-	return UnderlyingDetachmentPointField{quickfix.FIXFloat(val)}
+//NewUnderlyingDetachmentPoint returns a new UnderlyingDetachmentPointField initialized with val and scale
+func NewUnderlyingDetachmentPoint(val decimal.Decimal, scale int32) UnderlyingDetachmentPointField {
+	return UnderlyingDetachmentPointField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingDirtyPriceField is a PRICE field
-type UnderlyingDirtyPriceField struct{ quickfix.FIXFloat }
+type UnderlyingDirtyPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingDirtyPrice (882)
 func (f UnderlyingDirtyPriceField) Tag() quickfix.Tag { return tag.UnderlyingDirtyPrice }
 
-//NewUnderlyingDirtyPrice returns a new UnderlyingDirtyPriceField initialized with val
-func NewUnderlyingDirtyPrice(val float64) UnderlyingDirtyPriceField {
-	return UnderlyingDirtyPriceField{quickfix.FIXFloat(val)}
+//NewUnderlyingDirtyPrice returns a new UnderlyingDirtyPriceField initialized with val and scale
+func NewUnderlyingDirtyPrice(val decimal.Decimal, scale int32) UnderlyingDirtyPriceField {
+	return UnderlyingDirtyPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingEndPriceField is a PRICE field
-type UnderlyingEndPriceField struct{ quickfix.FIXFloat }
+type UnderlyingEndPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingEndPrice (883)
 func (f UnderlyingEndPriceField) Tag() quickfix.Tag { return tag.UnderlyingEndPrice }
 
-//NewUnderlyingEndPrice returns a new UnderlyingEndPriceField initialized with val
-func NewUnderlyingEndPrice(val float64) UnderlyingEndPriceField {
-	return UnderlyingEndPriceField{quickfix.FIXFloat(val)}
+//NewUnderlyingEndPrice returns a new UnderlyingEndPriceField initialized with val and scale
+func NewUnderlyingEndPrice(val decimal.Decimal, scale int32) UnderlyingEndPriceField {
+	return UnderlyingEndPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingEndValueField is a AMT field
-type UnderlyingEndValueField struct{ quickfix.FIXFloat }
+type UnderlyingEndValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingEndValue (886)
 func (f UnderlyingEndValueField) Tag() quickfix.Tag { return tag.UnderlyingEndValue }
 
-//NewUnderlyingEndValue returns a new UnderlyingEndValueField initialized with val
-func NewUnderlyingEndValue(val float64) UnderlyingEndValueField {
-	return UnderlyingEndValueField{quickfix.FIXFloat(val)}
+//NewUnderlyingEndValue returns a new UnderlyingEndValueField initialized with val and scale
+func NewUnderlyingEndValue(val decimal.Decimal, scale int32) UnderlyingEndValueField {
+	return UnderlyingEndValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingExerciseStyleField is a INT field
@@ -17161,14 +17161,14 @@ func NewUnderlyingExerciseStyle(val int) UnderlyingExerciseStyleField {
 }
 
 //UnderlyingFXRateField is a FLOAT field
-type UnderlyingFXRateField struct{ quickfix.FIXFloat }
+type UnderlyingFXRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingFXRate (1045)
 func (f UnderlyingFXRateField) Tag() quickfix.Tag { return tag.UnderlyingFXRate }
 
-//NewUnderlyingFXRate returns a new UnderlyingFXRateField initialized with val
-func NewUnderlyingFXRate(val float64) UnderlyingFXRateField {
-	return UnderlyingFXRateField{quickfix.FIXFloat(val)}
+//NewUnderlyingFXRate returns a new UnderlyingFXRateField initialized with val and scale
+func NewUnderlyingFXRate(val decimal.Decimal, scale int32) UnderlyingFXRateField {
+	return UnderlyingFXRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingFXRateCalcField is a CHAR field
@@ -17183,14 +17183,14 @@ func NewUnderlyingFXRateCalc(val string) UnderlyingFXRateCalcField {
 }
 
 //UnderlyingFactorField is a FLOAT field
-type UnderlyingFactorField struct{ quickfix.FIXFloat }
+type UnderlyingFactorField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingFactor (246)
 func (f UnderlyingFactorField) Tag() quickfix.Tag { return tag.UnderlyingFactor }
 
-//NewUnderlyingFactor returns a new UnderlyingFactorField initialized with val
-func NewUnderlyingFactor(val float64) UnderlyingFactorField {
-	return UnderlyingFactorField{quickfix.FIXFloat(val)}
+//NewUnderlyingFactor returns a new UnderlyingFactorField initialized with val and scale
+func NewUnderlyingFactor(val decimal.Decimal, scale int32) UnderlyingFactorField {
+	return UnderlyingFactorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingFlowScheduleTypeField is a INT field
@@ -17312,25 +17312,25 @@ func NewUnderlyingIssuer(val string) UnderlyingIssuerField {
 }
 
 //UnderlyingLastPxField is a PRICE field
-type UnderlyingLastPxField struct{ quickfix.FIXFloat }
+type UnderlyingLastPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingLastPx (651)
 func (f UnderlyingLastPxField) Tag() quickfix.Tag { return tag.UnderlyingLastPx }
 
-//NewUnderlyingLastPx returns a new UnderlyingLastPxField initialized with val
-func NewUnderlyingLastPx(val float64) UnderlyingLastPxField {
-	return UnderlyingLastPxField{quickfix.FIXFloat(val)}
+//NewUnderlyingLastPx returns a new UnderlyingLastPxField initialized with val and scale
+func NewUnderlyingLastPx(val decimal.Decimal, scale int32) UnderlyingLastPxField {
+	return UnderlyingLastPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingLastQtyField is a QTY field
-type UnderlyingLastQtyField struct{ quickfix.FIXFloat }
+type UnderlyingLastQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingLastQty (652)
 func (f UnderlyingLastQtyField) Tag() quickfix.Tag { return tag.UnderlyingLastQty }
 
-//NewUnderlyingLastQty returns a new UnderlyingLastQtyField initialized with val
-func NewUnderlyingLastQty(val float64) UnderlyingLastQtyField {
-	return UnderlyingLastQtyField{quickfix.FIXFloat(val)}
+//NewUnderlyingLastQty returns a new UnderlyingLastQtyField initialized with val and scale
+func NewUnderlyingLastQty(val decimal.Decimal, scale int32) UnderlyingLastQtyField {
+	return UnderlyingLastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingLegCFICodeField is a STRING field
@@ -17496,14 +17496,14 @@ func NewUnderlyingLegSecurityType(val string) UnderlyingLegSecurityTypeField {
 }
 
 //UnderlyingLegStrikePriceField is a PRICE field
-type UnderlyingLegStrikePriceField struct{ quickfix.FIXFloat }
+type UnderlyingLegStrikePriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingLegStrikePrice (1340)
 func (f UnderlyingLegStrikePriceField) Tag() quickfix.Tag { return tag.UnderlyingLegStrikePrice }
 
-//NewUnderlyingLegStrikePrice returns a new UnderlyingLegStrikePriceField initialized with val
-func NewUnderlyingLegStrikePrice(val float64) UnderlyingLegStrikePriceField {
-	return UnderlyingLegStrikePriceField{quickfix.FIXFloat(val)}
+//NewUnderlyingLegStrikePrice returns a new UnderlyingLegStrikePriceField initialized with val and scale
+func NewUnderlyingLegStrikePrice(val decimal.Decimal, scale int32) UnderlyingLegStrikePriceField {
+	return UnderlyingLegStrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingLegSymbolField is a STRING field
@@ -17584,16 +17584,16 @@ func NewUnderlyingMaturityTime(val string) UnderlyingMaturityTimeField {
 }
 
 //UnderlyingNotionalPercentageOutstandingField is a PERCENTAGE field
-type UnderlyingNotionalPercentageOutstandingField struct{ quickfix.FIXFloat }
+type UnderlyingNotionalPercentageOutstandingField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingNotionalPercentageOutstanding (1455)
 func (f UnderlyingNotionalPercentageOutstandingField) Tag() quickfix.Tag {
 	return tag.UnderlyingNotionalPercentageOutstanding
 }
 
-//NewUnderlyingNotionalPercentageOutstanding returns a new UnderlyingNotionalPercentageOutstandingField initialized with val
-func NewUnderlyingNotionalPercentageOutstanding(val float64) UnderlyingNotionalPercentageOutstandingField {
-	return UnderlyingNotionalPercentageOutstandingField{quickfix.FIXFloat(val)}
+//NewUnderlyingNotionalPercentageOutstanding returns a new UnderlyingNotionalPercentageOutstandingField initialized with val and scale
+func NewUnderlyingNotionalPercentageOutstanding(val decimal.Decimal, scale int32) UnderlyingNotionalPercentageOutstandingField {
+	return UnderlyingNotionalPercentageOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingOptAttributeField is a CHAR field
@@ -17608,27 +17608,27 @@ func NewUnderlyingOptAttribute(val string) UnderlyingOptAttributeField {
 }
 
 //UnderlyingOriginalNotionalPercentageOutstandingField is a PERCENTAGE field
-type UnderlyingOriginalNotionalPercentageOutstandingField struct{ quickfix.FIXFloat }
+type UnderlyingOriginalNotionalPercentageOutstandingField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingOriginalNotionalPercentageOutstanding (1456)
 func (f UnderlyingOriginalNotionalPercentageOutstandingField) Tag() quickfix.Tag {
 	return tag.UnderlyingOriginalNotionalPercentageOutstanding
 }
 
-//NewUnderlyingOriginalNotionalPercentageOutstanding returns a new UnderlyingOriginalNotionalPercentageOutstandingField initialized with val
-func NewUnderlyingOriginalNotionalPercentageOutstanding(val float64) UnderlyingOriginalNotionalPercentageOutstandingField {
-	return UnderlyingOriginalNotionalPercentageOutstandingField{quickfix.FIXFloat(val)}
+//NewUnderlyingOriginalNotionalPercentageOutstanding returns a new UnderlyingOriginalNotionalPercentageOutstandingField initialized with val and scale
+func NewUnderlyingOriginalNotionalPercentageOutstanding(val decimal.Decimal, scale int32) UnderlyingOriginalNotionalPercentageOutstandingField {
+	return UnderlyingOriginalNotionalPercentageOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingPayAmountField is a AMT field
-type UnderlyingPayAmountField struct{ quickfix.FIXFloat }
+type UnderlyingPayAmountField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingPayAmount (985)
 func (f UnderlyingPayAmountField) Tag() quickfix.Tag { return tag.UnderlyingPayAmount }
 
-//NewUnderlyingPayAmount returns a new UnderlyingPayAmountField initialized with val
-func NewUnderlyingPayAmount(val float64) UnderlyingPayAmountField {
-	return UnderlyingPayAmountField{quickfix.FIXFloat(val)}
+//NewUnderlyingPayAmount returns a new UnderlyingPayAmountField initialized with val and scale
+func NewUnderlyingPayAmount(val decimal.Decimal, scale int32) UnderlyingPayAmountField {
+	return UnderlyingPayAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingPriceDeterminationMethodField is a INT field
@@ -17656,16 +17656,16 @@ func NewUnderlyingPriceUnitOfMeasure(val string) UnderlyingPriceUnitOfMeasureFie
 }
 
 //UnderlyingPriceUnitOfMeasureQtyField is a QTY field
-type UnderlyingPriceUnitOfMeasureQtyField struct{ quickfix.FIXFloat }
+type UnderlyingPriceUnitOfMeasureQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingPriceUnitOfMeasureQty (1425)
 func (f UnderlyingPriceUnitOfMeasureQtyField) Tag() quickfix.Tag {
 	return tag.UnderlyingPriceUnitOfMeasureQty
 }
 
-//NewUnderlyingPriceUnitOfMeasureQty returns a new UnderlyingPriceUnitOfMeasureQtyField initialized with val
-func NewUnderlyingPriceUnitOfMeasureQty(val float64) UnderlyingPriceUnitOfMeasureQtyField {
-	return UnderlyingPriceUnitOfMeasureQtyField{quickfix.FIXFloat(val)}
+//NewUnderlyingPriceUnitOfMeasureQty returns a new UnderlyingPriceUnitOfMeasureQtyField initialized with val and scale
+func NewUnderlyingPriceUnitOfMeasureQty(val decimal.Decimal, scale int32) UnderlyingPriceUnitOfMeasureQtyField {
+	return UnderlyingPriceUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingProductField is a INT field
@@ -17691,25 +17691,25 @@ func NewUnderlyingPutOrCall(val int) UnderlyingPutOrCallField {
 }
 
 //UnderlyingPxField is a PRICE field
-type UnderlyingPxField struct{ quickfix.FIXFloat }
+type UnderlyingPxField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingPx (810)
 func (f UnderlyingPxField) Tag() quickfix.Tag { return tag.UnderlyingPx }
 
-//NewUnderlyingPx returns a new UnderlyingPxField initialized with val
-func NewUnderlyingPx(val float64) UnderlyingPxField {
-	return UnderlyingPxField{quickfix.FIXFloat(val)}
+//NewUnderlyingPx returns a new UnderlyingPxField initialized with val and scale
+func NewUnderlyingPx(val decimal.Decimal, scale int32) UnderlyingPxField {
+	return UnderlyingPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingQtyField is a QTY field
-type UnderlyingQtyField struct{ quickfix.FIXFloat }
+type UnderlyingQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingQty (879)
 func (f UnderlyingQtyField) Tag() quickfix.Tag { return tag.UnderlyingQty }
 
-//NewUnderlyingQty returns a new UnderlyingQtyField initialized with val
-func NewUnderlyingQty(val float64) UnderlyingQtyField {
-	return UnderlyingQtyField{quickfix.FIXFloat(val)}
+//NewUnderlyingQty returns a new UnderlyingQtyField initialized with val and scale
+func NewUnderlyingQty(val decimal.Decimal, scale int32) UnderlyingQtyField {
+	return UnderlyingQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingRedemptionDateField is a LOCALMKTDATE field
@@ -17737,14 +17737,14 @@ func NewUnderlyingRepoCollateralSecurityType(val int) UnderlyingRepoCollateralSe
 }
 
 //UnderlyingRepurchaseRateField is a PERCENTAGE field
-type UnderlyingRepurchaseRateField struct{ quickfix.FIXFloat }
+type UnderlyingRepurchaseRateField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingRepurchaseRate (245)
 func (f UnderlyingRepurchaseRateField) Tag() quickfix.Tag { return tag.UnderlyingRepurchaseRate }
 
-//NewUnderlyingRepurchaseRate returns a new UnderlyingRepurchaseRateField initialized with val
-func NewUnderlyingRepurchaseRate(val float64) UnderlyingRepurchaseRateField {
-	return UnderlyingRepurchaseRateField{quickfix.FIXFloat(val)}
+//NewUnderlyingRepurchaseRate returns a new UnderlyingRepurchaseRateField initialized with val and scale
+func NewUnderlyingRepurchaseRate(val decimal.Decimal, scale int32) UnderlyingRepurchaseRateField {
+	return UnderlyingRepurchaseRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingRepurchaseTermField is a INT field
@@ -17882,14 +17882,14 @@ func NewUnderlyingSettlMethod(val string) UnderlyingSettlMethodField {
 }
 
 //UnderlyingSettlPriceField is a PRICE field
-type UnderlyingSettlPriceField struct{ quickfix.FIXFloat }
+type UnderlyingSettlPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingSettlPrice (732)
 func (f UnderlyingSettlPriceField) Tag() quickfix.Tag { return tag.UnderlyingSettlPrice }
 
-//NewUnderlyingSettlPrice returns a new UnderlyingSettlPriceField initialized with val
-func NewUnderlyingSettlPrice(val float64) UnderlyingSettlPriceField {
-	return UnderlyingSettlPriceField{quickfix.FIXFloat(val)}
+//NewUnderlyingSettlPrice returns a new UnderlyingSettlPriceField initialized with val and scale
+func NewUnderlyingSettlPrice(val decimal.Decimal, scale int32) UnderlyingSettlPriceField {
+	return UnderlyingSettlPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingSettlPriceTypeField is a INT field
@@ -17937,14 +17937,14 @@ func NewUnderlyingSettlementType(val int) UnderlyingSettlementTypeField {
 }
 
 //UnderlyingStartValueField is a AMT field
-type UnderlyingStartValueField struct{ quickfix.FIXFloat }
+type UnderlyingStartValueField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingStartValue (884)
 func (f UnderlyingStartValueField) Tag() quickfix.Tag { return tag.UnderlyingStartValue }
 
-//NewUnderlyingStartValue returns a new UnderlyingStartValueField initialized with val
-func NewUnderlyingStartValue(val float64) UnderlyingStartValueField {
-	return UnderlyingStartValueField{quickfix.FIXFloat(val)}
+//NewUnderlyingStartValue returns a new UnderlyingStartValueField initialized with val and scale
+func NewUnderlyingStartValue(val decimal.Decimal, scale int32) UnderlyingStartValueField {
+	return UnderlyingStartValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingStateOrProvinceOfIssueField is a STRING field
@@ -17994,14 +17994,14 @@ func NewUnderlyingStrikeCurrency(val string) UnderlyingStrikeCurrencyField {
 }
 
 //UnderlyingStrikePriceField is a PRICE field
-type UnderlyingStrikePriceField struct{ quickfix.FIXFloat }
+type UnderlyingStrikePriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingStrikePrice (316)
 func (f UnderlyingStrikePriceField) Tag() quickfix.Tag { return tag.UnderlyingStrikePrice }
 
-//NewUnderlyingStrikePrice returns a new UnderlyingStrikePriceField initialized with val
-func NewUnderlyingStrikePrice(val float64) UnderlyingStrikePriceField {
-	return UnderlyingStrikePriceField{quickfix.FIXFloat(val)}
+//NewUnderlyingStrikePrice returns a new UnderlyingStrikePriceField initialized with val and scale
+func NewUnderlyingStrikePrice(val decimal.Decimal, scale int32) UnderlyingStrikePriceField {
+	return UnderlyingStrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnderlyingSymbolField is a STRING field
@@ -18073,14 +18073,14 @@ func NewUnderlyingUnitOfMeasure(val string) UnderlyingUnitOfMeasureField {
 }
 
 //UnderlyingUnitOfMeasureQtyField is a QTY field
-type UnderlyingUnitOfMeasureQtyField struct{ quickfix.FIXFloat }
+type UnderlyingUnitOfMeasureQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnderlyingUnitOfMeasureQty (1423)
 func (f UnderlyingUnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.UnderlyingUnitOfMeasureQty }
 
-//NewUnderlyingUnitOfMeasureQty returns a new UnderlyingUnitOfMeasureQtyField initialized with val
-func NewUnderlyingUnitOfMeasureQty(val float64) UnderlyingUnitOfMeasureQtyField {
-	return UnderlyingUnitOfMeasureQtyField{quickfix.FIXFloat(val)}
+//NewUnderlyingUnitOfMeasureQty returns a new UnderlyingUnitOfMeasureQtyField initialized with val and scale
+func NewUnderlyingUnitOfMeasureQty(val decimal.Decimal, scale int32) UnderlyingUnitOfMeasureQtyField {
+	return UnderlyingUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UndlyInstrumentPartyIDField is a STRING field
@@ -18152,14 +18152,14 @@ func NewUnitOfMeasure(val string) UnitOfMeasureField {
 }
 
 //UnitOfMeasureQtyField is a QTY field
-type UnitOfMeasureQtyField struct{ quickfix.FIXFloat }
+type UnitOfMeasureQtyField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.UnitOfMeasureQty (1147)
 func (f UnitOfMeasureQtyField) Tag() quickfix.Tag { return tag.UnitOfMeasureQty }
 
-//NewUnitOfMeasureQty returns a new UnitOfMeasureQtyField initialized with val
-func NewUnitOfMeasureQty(val float64) UnitOfMeasureQtyField {
-	return UnitOfMeasureQtyField{quickfix.FIXFloat(val)}
+//NewUnitOfMeasureQty returns a new UnitOfMeasureQtyField initialized with val and scale
+func NewUnitOfMeasureQty(val decimal.Decimal, scale int32) UnitOfMeasureQtyField {
+	return UnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //UnsolicitedIndicatorField is a BOOLEAN field
@@ -18267,14 +18267,14 @@ func NewValuationMethod(val string) ValuationMethodField {
 }
 
 //ValueOfFuturesField is a AMT field
-type ValueOfFuturesField struct{ quickfix.FIXFloat }
+type ValueOfFuturesField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.ValueOfFutures (408)
 func (f ValueOfFuturesField) Tag() quickfix.Tag { return tag.ValueOfFutures }
 
-//NewValueOfFutures returns a new ValueOfFuturesField initialized with val
-func NewValueOfFutures(val float64) ValueOfFuturesField {
-	return ValueOfFuturesField{quickfix.FIXFloat(val)}
+//NewValueOfFutures returns a new ValueOfFuturesField initialized with val and scale
+func NewValueOfFutures(val decimal.Decimal, scale int32) ValueOfFuturesField {
+	return ValueOfFuturesField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //VenueTypeField is a CHAR field
@@ -18289,14 +18289,14 @@ func NewVenueType(val string) VenueTypeField {
 }
 
 //VolatilityField is a FLOAT field
-type VolatilityField struct{ quickfix.FIXFloat }
+type VolatilityField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Volatility (1188)
 func (f VolatilityField) Tag() quickfix.Tag { return tag.Volatility }
 
-//NewVolatility returns a new VolatilityField initialized with val
-func NewVolatility(val float64) VolatilityField {
-	return VolatilityField{quickfix.FIXFloat(val)}
+//NewVolatility returns a new VolatilityField initialized with val and scale
+func NewVolatility(val decimal.Decimal, scale int32) VolatilityField {
+	return VolatilityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //WaveNoField is a STRING field
@@ -18322,14 +18322,14 @@ func NewWorkingIndicator(val bool) WorkingIndicatorField {
 }
 
 //WtAverageLiquidityField is a PERCENTAGE field
-type WtAverageLiquidityField struct{ quickfix.FIXFloat }
+type WtAverageLiquidityField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.WtAverageLiquidity (410)
 func (f WtAverageLiquidityField) Tag() quickfix.Tag { return tag.WtAverageLiquidity }
 
-//NewWtAverageLiquidity returns a new WtAverageLiquidityField initialized with val
-func NewWtAverageLiquidity(val float64) WtAverageLiquidityField {
-	return WtAverageLiquidityField{quickfix.FIXFloat(val)}
+//NewWtAverageLiquidity returns a new WtAverageLiquidityField initialized with val and scale
+func NewWtAverageLiquidity(val decimal.Decimal, scale int32) WtAverageLiquidityField {
+	return WtAverageLiquidityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //XmlDataField is a DATA field
@@ -18355,14 +18355,14 @@ func NewXmlDataLen(val int) XmlDataLenField {
 }
 
 //YieldField is a PERCENTAGE field
-type YieldField struct{ quickfix.FIXFloat }
+type YieldField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.Yield (236)
 func (f YieldField) Tag() quickfix.Tag { return tag.Yield }
 
-//NewYield returns a new YieldField initialized with val
-func NewYield(val float64) YieldField {
-	return YieldField{quickfix.FIXFloat(val)}
+//NewYield returns a new YieldField initialized with val and scale
+func NewYield(val decimal.Decimal, scale int32) YieldField {
+	return YieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //YieldCalcDateField is a LOCALMKTDATE field
@@ -18388,14 +18388,14 @@ func NewYieldRedemptionDate(val string) YieldRedemptionDateField {
 }
 
 //YieldRedemptionPriceField is a PRICE field
-type YieldRedemptionPriceField struct{ quickfix.FIXFloat }
+type YieldRedemptionPriceField struct{ quickfix.FIXDecimal }
 
 //Tag returns tag.YieldRedemptionPrice (697)
 func (f YieldRedemptionPriceField) Tag() quickfix.Tag { return tag.YieldRedemptionPrice }
 
-//NewYieldRedemptionPrice returns a new YieldRedemptionPriceField initialized with val
-func NewYieldRedemptionPrice(val float64) YieldRedemptionPriceField {
-	return YieldRedemptionPriceField{quickfix.FIXFloat(val)}
+//NewYieldRedemptionPrice returns a new YieldRedemptionPriceField initialized with val and scale
+func NewYieldRedemptionPrice(val decimal.Decimal, scale int32) YieldRedemptionPriceField {
+	return YieldRedemptionPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
 //YieldRedemptionPriceTypeField is a INT field

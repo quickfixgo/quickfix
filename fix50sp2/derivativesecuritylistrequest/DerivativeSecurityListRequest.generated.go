@@ -1,6 +1,7 @@
 package derivativesecuritylistrequest
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -93,13 +94,13 @@ func (m DerivativeSecurityListRequest) SetUnderlyingRepurchaseTerm(v int) {
 }
 
 //SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
-func (m DerivativeSecurityListRequest) SetUnderlyingRepurchaseRate(v float64) {
-	m.Set(field.NewUnderlyingRepurchaseRate(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingRepurchaseRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingRepurchaseRate(value, scale))
 }
 
 //SetUnderlyingFactor sets UnderlyingFactor, Tag 246
-func (m DerivativeSecurityListRequest) SetUnderlyingFactor(v float64) {
-	m.Set(field.NewUnderlyingFactor(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingFactor(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingFactor(value, scale))
 }
 
 //SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
@@ -168,8 +169,8 @@ func (m DerivativeSecurityListRequest) SetUnderlyingPutOrCall(v int) {
 }
 
 //SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
-func (m DerivativeSecurityListRequest) SetUnderlyingStrikePrice(v float64) {
-	m.Set(field.NewUnderlyingStrikePrice(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingStrikePrice(value, scale))
 }
 
 //SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
@@ -223,13 +224,13 @@ func (m DerivativeSecurityListRequest) SetEncodedUnderlyingSecurityDesc(v string
 }
 
 //SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
-func (m DerivativeSecurityListRequest) SetUnderlyingCouponRate(v float64) {
-	m.Set(field.NewUnderlyingCouponRate(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingCouponRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCouponRate(value, scale))
 }
 
 //SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
-func (m DerivativeSecurityListRequest) SetUnderlyingContractMultiplier(v float64) {
-	m.Set(field.NewUnderlyingContractMultiplier(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingContractMultiplier(value, scale))
 }
 
 //SetNoUnderlyingSecurityAltID sets NoUnderlyingSecurityAltID, Tag 457
@@ -293,8 +294,8 @@ func (m DerivativeSecurityListRequest) SetUnderlyingSecuritySubType(v string) {
 }
 
 //SetUnderlyingPx sets UnderlyingPx, Tag 810
-func (m DerivativeSecurityListRequest) SetUnderlyingPx(v float64) {
-	m.Set(field.NewUnderlyingPx(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingPx(value, scale))
 }
 
 //SetUnderlyingCPProgram sets UnderlyingCPProgram, Tag 877
@@ -308,33 +309,33 @@ func (m DerivativeSecurityListRequest) SetUnderlyingCPRegType(v string) {
 }
 
 //SetUnderlyingQty sets UnderlyingQty, Tag 879
-func (m DerivativeSecurityListRequest) SetUnderlyingQty(v float64) {
-	m.Set(field.NewUnderlyingQty(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingQty(value, scale))
 }
 
 //SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
-func (m DerivativeSecurityListRequest) SetUnderlyingDirtyPrice(v float64) {
-	m.Set(field.NewUnderlyingDirtyPrice(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingDirtyPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingDirtyPrice(value, scale))
 }
 
 //SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
-func (m DerivativeSecurityListRequest) SetUnderlyingEndPrice(v float64) {
-	m.Set(field.NewUnderlyingEndPrice(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingEndPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingEndPrice(value, scale))
 }
 
 //SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
-func (m DerivativeSecurityListRequest) SetUnderlyingStartValue(v float64) {
-	m.Set(field.NewUnderlyingStartValue(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingStartValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingStartValue(value, scale))
 }
 
 //SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
-func (m DerivativeSecurityListRequest) SetUnderlyingCurrentValue(v float64) {
-	m.Set(field.NewUnderlyingCurrentValue(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingCurrentValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCurrentValue(value, scale))
 }
 
 //SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
-func (m DerivativeSecurityListRequest) SetUnderlyingEndValue(v float64) {
-	m.Set(field.NewUnderlyingEndValue(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingEndValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingEndValue(value, scale))
 }
 
 //SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
@@ -348,13 +349,13 @@ func (m DerivativeSecurityListRequest) SetUnderlyingStrikeCurrency(v string) {
 }
 
 //SetUnderlyingAllocationPercent sets UnderlyingAllocationPercent, Tag 972
-func (m DerivativeSecurityListRequest) SetUnderlyingAllocationPercent(v float64) {
-	m.Set(field.NewUnderlyingAllocationPercent(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingAllocationPercent(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAllocationPercent(value, scale))
 }
 
 //SetUnderlyingCashAmount sets UnderlyingCashAmount, Tag 973
-func (m DerivativeSecurityListRequest) SetUnderlyingCashAmount(v float64) {
-	m.Set(field.NewUnderlyingCashAmount(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingCashAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCashAmount(value, scale))
 }
 
 //SetUnderlyingCashType sets UnderlyingCashType, Tag 974
@@ -378,8 +379,8 @@ func (m DerivativeSecurityListRequest) SetUnderlyingTimeUnit(v string) {
 }
 
 //SetUnderlyingCapValue sets UnderlyingCapValue, Tag 1038
-func (m DerivativeSecurityListRequest) SetUnderlyingCapValue(v float64) {
-	m.Set(field.NewUnderlyingCapValue(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingCapValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingCapValue(value, scale))
 }
 
 //SetUnderlyingSettlMethod sets UnderlyingSettlMethod, Tag 1039
@@ -388,13 +389,13 @@ func (m DerivativeSecurityListRequest) SetUnderlyingSettlMethod(v string) {
 }
 
 //SetUnderlyingAdjustedQuantity sets UnderlyingAdjustedQuantity, Tag 1044
-func (m DerivativeSecurityListRequest) SetUnderlyingAdjustedQuantity(v float64) {
-	m.Set(field.NewUnderlyingAdjustedQuantity(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingAdjustedQuantity(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAdjustedQuantity(value, scale))
 }
 
 //SetUnderlyingFXRate sets UnderlyingFXRate, Tag 1045
-func (m DerivativeSecurityListRequest) SetUnderlyingFXRate(v float64) {
-	m.Set(field.NewUnderlyingFXRate(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingFXRate(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingFXRate(value, scale))
 }
 
 //SetUnderlyingFXRateCalc sets UnderlyingFXRateCalc, Tag 1046
@@ -438,8 +439,8 @@ func (m DerivativeSecurityListRequest) SetNoDerivativeSecurityAltID(f NoDerivati
 }
 
 //SetDerivativeOptPayAmount sets DerivativeOptPayAmount, Tag 1225
-func (m DerivativeSecurityListRequest) SetDerivativeOptPayAmount(v float64) {
-	m.Set(field.NewDerivativeOptPayAmount(v))
+func (m DerivativeSecurityListRequest) SetDerivativeOptPayAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeOptPayAmount(value, scale))
 }
 
 //SetDerivativeProductComplex sets DerivativeProductComplex, Tag 1228
@@ -528,8 +529,8 @@ func (m DerivativeSecurityListRequest) SetDerivativeLocaleOfIssue(v string) {
 }
 
 //SetDerivativeStrikePrice sets DerivativeStrikePrice, Tag 1261
-func (m DerivativeSecurityListRequest) SetDerivativeStrikePrice(v float64) {
-	m.Set(field.NewDerivativeStrikePrice(v))
+func (m DerivativeSecurityListRequest) SetDerivativeStrikePrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeStrikePrice(value, scale))
 }
 
 //SetDerivativeStrikeCurrency sets DerivativeStrikeCurrency, Tag 1262
@@ -538,13 +539,13 @@ func (m DerivativeSecurityListRequest) SetDerivativeStrikeCurrency(v string) {
 }
 
 //SetDerivativeStrikeMultiplier sets DerivativeStrikeMultiplier, Tag 1263
-func (m DerivativeSecurityListRequest) SetDerivativeStrikeMultiplier(v float64) {
-	m.Set(field.NewDerivativeStrikeMultiplier(v))
+func (m DerivativeSecurityListRequest) SetDerivativeStrikeMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeStrikeMultiplier(value, scale))
 }
 
 //SetDerivativeStrikeValue sets DerivativeStrikeValue, Tag 1264
-func (m DerivativeSecurityListRequest) SetDerivativeStrikeValue(v float64) {
-	m.Set(field.NewDerivativeStrikeValue(v))
+func (m DerivativeSecurityListRequest) SetDerivativeStrikeValue(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeStrikeValue(value, scale))
 }
 
 //SetDerivativeOptAttribute sets DerivativeOptAttribute, Tag 1265
@@ -553,18 +554,18 @@ func (m DerivativeSecurityListRequest) SetDerivativeOptAttribute(v string) {
 }
 
 //SetDerivativeContractMultiplier sets DerivativeContractMultiplier, Tag 1266
-func (m DerivativeSecurityListRequest) SetDerivativeContractMultiplier(v float64) {
-	m.Set(field.NewDerivativeContractMultiplier(v))
+func (m DerivativeSecurityListRequest) SetDerivativeContractMultiplier(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeContractMultiplier(value, scale))
 }
 
 //SetDerivativeMinPriceIncrement sets DerivativeMinPriceIncrement, Tag 1267
-func (m DerivativeSecurityListRequest) SetDerivativeMinPriceIncrement(v float64) {
-	m.Set(field.NewDerivativeMinPriceIncrement(v))
+func (m DerivativeSecurityListRequest) SetDerivativeMinPriceIncrement(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeMinPriceIncrement(value, scale))
 }
 
 //SetDerivativeMinPriceIncrementAmount sets DerivativeMinPriceIncrementAmount, Tag 1268
-func (m DerivativeSecurityListRequest) SetDerivativeMinPriceIncrementAmount(v float64) {
-	m.Set(field.NewDerivativeMinPriceIncrementAmount(v))
+func (m DerivativeSecurityListRequest) SetDerivativeMinPriceIncrementAmount(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeMinPriceIncrementAmount(value, scale))
 }
 
 //SetDerivativeUnitOfMeasure sets DerivativeUnitOfMeasure, Tag 1269
@@ -573,8 +574,8 @@ func (m DerivativeSecurityListRequest) SetDerivativeUnitOfMeasure(v string) {
 }
 
 //SetDerivativeUnitOfMeasureQty sets DerivativeUnitOfMeasureQty, Tag 1270
-func (m DerivativeSecurityListRequest) SetDerivativeUnitOfMeasureQty(v float64) {
-	m.Set(field.NewDerivativeUnitOfMeasureQty(v))
+func (m DerivativeSecurityListRequest) SetDerivativeUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeUnitOfMeasureQty(value, scale))
 }
 
 //SetDerivativeTimeUnit sets DerivativeTimeUnit, Tag 1271
@@ -683,8 +684,8 @@ func (m DerivativeSecurityListRequest) SetDerivativePriceUnitOfMeasure(v string)
 }
 
 //SetDerivativePriceUnitOfMeasureQty sets DerivativePriceUnitOfMeasureQty, Tag 1316
-func (m DerivativeSecurityListRequest) SetDerivativePriceUnitOfMeasureQty(v float64) {
-	m.Set(field.NewDerivativePriceUnitOfMeasureQty(v))
+func (m DerivativeSecurityListRequest) SetDerivativePriceUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativePriceUnitOfMeasureQty(value, scale))
 }
 
 //SetDerivativeSettlMethod sets DerivativeSettlMethod, Tag 1317
@@ -708,13 +709,13 @@ func (m DerivativeSecurityListRequest) SetDerivativeListMethod(v int) {
 }
 
 //SetDerivativeCapPrice sets DerivativeCapPrice, Tag 1321
-func (m DerivativeSecurityListRequest) SetDerivativeCapPrice(v float64) {
-	m.Set(field.NewDerivativeCapPrice(v))
+func (m DerivativeSecurityListRequest) SetDerivativeCapPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeCapPrice(value, scale))
 }
 
 //SetDerivativeFloorPrice sets DerivativeFloorPrice, Tag 1322
-func (m DerivativeSecurityListRequest) SetDerivativeFloorPrice(v float64) {
-	m.Set(field.NewDerivativeFloorPrice(v))
+func (m DerivativeSecurityListRequest) SetDerivativeFloorPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeFloorPrice(value, scale))
 }
 
 //SetDerivativePutOrCall sets DerivativePutOrCall, Tag 1323
@@ -728,8 +729,8 @@ func (m DerivativeSecurityListRequest) SetUnderlyingExerciseStyle(v int) {
 }
 
 //SetUnderlyingUnitOfMeasureQty sets UnderlyingUnitOfMeasureQty, Tag 1423
-func (m DerivativeSecurityListRequest) SetUnderlyingUnitOfMeasureQty(v float64) {
-	m.Set(field.NewUnderlyingUnitOfMeasureQty(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingUnitOfMeasureQty(value, scale))
 }
 
 //SetUnderlyingPriceUnitOfMeasure sets UnderlyingPriceUnitOfMeasure, Tag 1424
@@ -738,8 +739,8 @@ func (m DerivativeSecurityListRequest) SetUnderlyingPriceUnitOfMeasure(v string)
 }
 
 //SetUnderlyingPriceUnitOfMeasureQty sets UnderlyingPriceUnitOfMeasureQty, Tag 1425
-func (m DerivativeSecurityListRequest) SetUnderlyingPriceUnitOfMeasureQty(v float64) {
-	m.Set(field.NewUnderlyingPriceUnitOfMeasureQty(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingPriceUnitOfMeasureQty(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingPriceUnitOfMeasureQty(value, scale))
 }
 
 //SetUnderlyingContractMultiplierUnit sets UnderlyingContractMultiplierUnit, Tag 1437
@@ -773,23 +774,23 @@ func (m DerivativeSecurityListRequest) SetUnderlyingSeniority(v string) {
 }
 
 //SetUnderlyingNotionalPercentageOutstanding sets UnderlyingNotionalPercentageOutstanding, Tag 1455
-func (m DerivativeSecurityListRequest) SetUnderlyingNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewUnderlyingNotionalPercentageOutstanding(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingNotionalPercentageOutstanding(value, scale))
 }
 
 //SetUnderlyingOriginalNotionalPercentageOutstanding sets UnderlyingOriginalNotionalPercentageOutstanding, Tag 1456
-func (m DerivativeSecurityListRequest) SetUnderlyingOriginalNotionalPercentageOutstanding(v float64) {
-	m.Set(field.NewUnderlyingOriginalNotionalPercentageOutstanding(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingOriginalNotionalPercentageOutstanding(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingOriginalNotionalPercentageOutstanding(value, scale))
 }
 
 //SetUnderlyingAttachmentPoint sets UnderlyingAttachmentPoint, Tag 1459
-func (m DerivativeSecurityListRequest) SetUnderlyingAttachmentPoint(v float64) {
-	m.Set(field.NewUnderlyingAttachmentPoint(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingAttachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingAttachmentPoint(value, scale))
 }
 
 //SetUnderlyingDetachmentPoint sets UnderlyingDetachmentPoint, Tag 1460
-func (m DerivativeSecurityListRequest) SetUnderlyingDetachmentPoint(v float64) {
-	m.Set(field.NewUnderlyingDetachmentPoint(v))
+func (m DerivativeSecurityListRequest) SetUnderlyingDetachmentPoint(value decimal.Decimal, scale int32) {
+	m.Set(field.NewUnderlyingDetachmentPoint(value, scale))
 }
 
 //GetCurrency gets Currency, Tag 15
@@ -2758,8 +2759,8 @@ func (m NoDerivativeEvents) SetDerivativeEventTime(v time.Time) {
 }
 
 //SetDerivativeEventPx sets DerivativeEventPx, Tag 1290
-func (m NoDerivativeEvents) SetDerivativeEventPx(v float64) {
-	m.Set(field.NewDerivativeEventPx(v))
+func (m NoDerivativeEvents) SetDerivativeEventPx(value decimal.Decimal, scale int32) {
+	m.Set(field.NewDerivativeEventPx(value, scale))
 }
 
 //SetDerivativeEventText sets DerivativeEventText, Tag 1291

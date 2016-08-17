@@ -1,6 +1,7 @@
 package allocationreportack
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -354,8 +355,8 @@ func (m NoAllocs) SetAllocAcctIDSource(v int) {
 }
 
 //SetAllocPrice sets AllocPrice, Tag 366
-func (m NoAllocs) SetAllocPrice(v float64) {
-	m.Set(field.NewAllocPrice(v))
+func (m NoAllocs) SetAllocPrice(value decimal.Decimal, scale int32) {
+	m.Set(field.NewAllocPrice(value, scale))
 }
 
 //SetIndividualAllocID sets IndividualAllocID, Tag 467
