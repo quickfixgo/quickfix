@@ -128,7 +128,7 @@ func (s *session) sendLogon(resetStore, setResetSeqNum bool) error {
 	return nil
 }
 
-func (s *session) sendLogout(reason string) error {
+func (s *session) buildLogout(reason string) Message {
 	logout := NewMessage()
 	logout.Header.SetField(tagMsgType, FIXString("5"))
 	logout.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
@@ -137,6 +137,12 @@ func (s *session) sendLogout(reason string) error {
 	if reason != "" {
 		logout.Body.SetField(tagText, FIXString(reason))
 	}
+
+	return logout
+}
+
+func (s *session) sendLogout(reason string) error {
+	logout := s.buildLogout(reason)
 	return s.send(logout)
 }
 
