@@ -29,7 +29,7 @@ ToApp notifies you of application messages that you are being sent to a counterp
 
 	FromAdmin(message Message, sessionID SessionID) MessageRejectError
 
-FromAdmin notifies you when an administrative message is sent from a counterparty to your FIX engine. This can be usefull for doing extra validation on logon messages such as for checking passwords.
+FromAdmin notifies you when an administrative message is sent from a counterparty to your FIX engine. This can be useful for doing extra validation on logon messages such as for checking passwords.
 
 	FromApp(msg Message, sessionID SessionID) MessageRejectError
 

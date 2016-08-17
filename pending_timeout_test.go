@@ -21,8 +21,8 @@ func (s *PendingTimeoutTestSuite) SetupTest() {
 
 func (s *PendingTimeoutTestSuite) TestIsConnectedIsLoggedOn() {
 	tests := []pendingTimeout{
-		pendingTimeout{inSession{}},
-		pendingTimeout{resendState{}},
+		{inSession{}},
+		{resendState{}},
 	}
 
 	for _, state := range tests {
@@ -35,8 +35,8 @@ func (s *PendingTimeoutTestSuite) TestIsConnectedIsLoggedOn() {
 
 func (s *PendingTimeoutTestSuite) TestSessionTimeout() {
 	tests := []pendingTimeout{
-		pendingTimeout{inSession{}},
-		pendingTimeout{resendState{}},
+		{inSession{}},
+		{resendState{}},
 	}
 
 	for _, state := range tests {
@@ -52,8 +52,8 @@ func (s *PendingTimeoutTestSuite) TestSessionTimeout() {
 
 func (s *PendingTimeoutTestSuite) TestTimeoutUnchangedState() {
 	tests := []pendingTimeout{
-		pendingTimeout{inSession{}},
-		pendingTimeout{resendState{}},
+		{inSession{}},
+		{resendState{}},
 	}
 
 	testEvents := []internal.Event{internal.NeedHeartbeat, internal.LogonTimeout, internal.LogoutTimeout}
@@ -70,8 +70,8 @@ func (s *PendingTimeoutTestSuite) TestTimeoutUnchangedState() {
 
 func (s *PendingTimeoutTestSuite) TestDisconnected() {
 	tests := []pendingTimeout{
-		pendingTimeout{inSession{}},
-		pendingTimeout{resendState{}},
+		{inSession{}},
+		{resendState{}},
 	}
 
 	for _, state := range tests {
