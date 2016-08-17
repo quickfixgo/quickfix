@@ -1,12 +1,12 @@
-QuickFIX/Go [![GoDoc](https://godoc.org/github.com/quickfixgo/quickfix?status.png)](https://godoc.org/github.com/quickfixgo/quickfix) [![Build Status](https://travis-ci.org/quickfixgo/quickfix.svg?branch=master)](https://travis-ci.org/quickfixgo/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/quickfixgo/quickfix)](https://goreportcard.com/report/github.com/quickfixgo/quickfix)
+QuickFIX/Go
 ===========
+
+[![GoDoc](https://godoc.org/github.com/quickfixgo/quickfix?status.png)](https://godoc.org/github.com/quickfixgo/quickfix) [![Build Status](https://travis-ci.org/quickfixgo/quickfix.svg?branch=master)](https://travis-ci.org/quickfixgo/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/quickfixgo/quickfix)](https://goreportcard.com/report/github.com/quickfixgo/quickfix)
 
 - Website: http://www.quickfixgo.org
 - Mailing list: [Google Groups](https://groups.google.com/forum/#!forum/quickfixgo)
 
 Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in Go
-
-FIX versions 4.0-5.0
 
 Getting Started and Documentation
 ---------------------------------
@@ -32,9 +32,17 @@ See [examples](https://github.com/quickfixgo/examples) for some simple examples 
 Developing QuickFIX/Go
 ----------------------
 
-If you wish to work on QuickFIX/Go itself, you will first need [Go](http://www.golang.org) installed on your machine.
+If you wish to work on QuickFIX/Go itself, you will first need [Go](http://www.golang.org) installed on your machine (version 1.6+ is *required*).
+
+For local dev first make sure Go is properly installed, including setting up a [GOPATH](http://golang.org/doc/code.html#GOPATH).
+
+Next, using [Git](https://git-scm.com/), clone this repository into `$GOPATH/src/github.com/quickfixgo/quickfix`. All the necessary dependencies are either vendored, so you just need to type `make`. This will verify the code and run the unit tests. If this exits with exit status 0, then everything is working!
 
 ### Build and Test
+
+```sh
+$ make
+```
 
 The default make target runs [go vet](https://godoc.org/golang.org/x/tools/cmd/vet) and unit tests.
 
