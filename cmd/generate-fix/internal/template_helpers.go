@@ -6,6 +6,31 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
+func checkFieldDecimalRequired(f *datadictionary.FieldDef) (required bool, err error) {
+	var globalType *datadictionary.FieldType
+	if globalType, err = getGlobalFieldType(f); err != nil {
+		return
+	}
+
+	var t string
+	if t, err = quickfixType(globalType); err != nil {
+		return
+	}
+
+	if t == "FIXDecimal" {
+		required = true
+		return
+	}
+
+	for _, groupField := range f.Fields {
+		if required, err = checkFieldDecimalRequired(groupField); required || err != nil {
+			return
+		}
+	}
+
+	return
+}
+
 func checkFieldTimeRequired(f *datadictionary.FieldDef) (required bool, err error) {
 	var globalType *datadictionary.FieldType
 	if globalType, err = getGlobalFieldType(f); err != nil {
@@ -37,19 +62,37 @@ func checkFieldTimeRequired(f *datadictionary.FieldDef) (required bool, err erro
 }
 
 func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err error) {
-	//NOTE: the time package is the only extra import considered here
-	var timeRequired bool
+	var timeRequired, decimalRequired bool
 	for _, f := range m.Fields {
-		if timeRequired, err = checkFieldTimeRequired(f); timeRequired {
-			imports = []string{"time"}
-			break
-		} else if err != nil {
-			return
+		if !timeRequired {
+			if timeRequired, err = checkFieldTimeRequired(f); err != nil {
+				return
+			}
 		}
+
+		if !decimalRequired {
+			if decimalRequired, err = checkFieldDecimalRequired(f); err != nil {
+				return
+			}
+		}
+
+		if decimalRequired && timeRequired {
+			break
+		}
+	}
+
+	if timeRequired {
+		imports = append(imports, "time")
+	}
+
+	if decimalRequired {
+		imports = append(imports, "github.com/shopspring/decimal")
 	}
 
 	return
 }
+
+func useFloatType() bool { return *useFloat }
 
 func quickfixValueType(quickfixType string) (goType string, err error) {
 	switch quickfixType {
@@ -63,6 +106,8 @@ func quickfixValueType(quickfixType string) (goType string, err error) {
 		goType = "time.Time"
 	case "FIXFloat":
 		goType = "float64"
+	case "FIXDecimal":
+		goType = "decimal.Decimal"
 	default:
 		err = fmt.Errorf("Unknown QuickFIX Type: %v", quickfixType)
 	}
@@ -141,7 +186,11 @@ func quickfixType(field *datadictionary.FieldType) (quickfixType string, err err
 	case "PERCENTAGE":
 		fallthrough
 	case "FLOAT":
-		quickfixType = "FIXFloat"
+		if *useFloat {
+			quickfixType = "FIXFloat"
+		} else {
+			quickfixType = "FIXDecimal"
+		}
 
 	default:
 		err = fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag())

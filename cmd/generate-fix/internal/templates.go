@@ -25,6 +25,7 @@ func init() {
 		"quickfixValueType":   quickfixValueType,
 		"getGlobalFieldType":  getGlobalFieldType,
 		"collectExtraImports": collectExtraImports,
+		"useFloatType":        useFloatType,
 	}
 
 	baseTemplate := template.Must(template.New("Base").Funcs(tmplFuncs).Parse(`
@@ -33,10 +34,15 @@ func init() {
 {{ define "fieldsetter" -}}
 {{- $field_type := getGlobalFieldType . -}}
 {{- $qfix_type := quickfixType $field_type -}}
+{{- if eq $qfix_type "FIXDecimal" -}}
+Set{{ .Name }}(value decimal.Decimal, scale int32) {
+	{{ template "receiver" }}.Set(field.New{{ .Name }}(value, scale))
+}
+{{- else -}}
 Set{{ .Name }}(v {{ quickfixValueType $qfix_type }}) {
 	{{ template "receiver" }}.Set(field.New{{ .Name }}(v))
 }
-{{- end }}
+{{- end }}{{ end }}
 
 {{ define "groupsetter" -}}
 Set{{ .Name }}(f {{ .Name }}RepeatingGroup){
@@ -191,6 +197,9 @@ package {{ .Package }}
 
 import(
 	"time"
+	{{- range collectExtraImports .MessageDef }}
+	"{{ . }}"
+	{{- end }}
 
 	"github.com/quickfixgo/quickfix"
 	"{{ importRootPath }}/field"
@@ -275,7 +284,7 @@ package field
 import(
 	"github.com/quickfixgo/quickfix"
 	"{{ importRootPath }}/tag"
-
+{{ if eq useFloatType false}} "github.com/shopspring/decimal" {{ end }}
 	"time"
 )
 
@@ -298,6 +307,11 @@ func New{{ .Name }}NoMillis(val time.Time) {{ .Name }}Field {
 	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val, NoMillis: true } } 
 }
 
+{{ else if eq $base_type "FIXDecimal" }}
+//New{{ .Name }} returns a new {{ .Name }}Field initialized with val and scale
+func New{{ .Name }}(val decimal.Decimal, scale int32) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.FIXDecimal{ Decimal: val, Scale: scale} }
+}
 {{ else }}
 //New{{ .Name }} returns a new {{ .Name }}Field initialized with val
 func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
