@@ -6,6 +6,22 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
+func checkIfDecimalImportRequiredForFields(fTypes []*datadictionary.FieldType) (ok bool, err error) {
+	var t string
+	for _, fType := range fTypes {
+		t, err = quickfixType(fType)
+		if err != nil {
+			return
+		}
+
+		if t == "FIXDecimal" {
+			return true, nil
+		}
+	}
+
+	return
+}
+
 func checkFieldDecimalRequired(f *datadictionary.FieldDef) (required bool, err error) {
 	var globalType *datadictionary.FieldType
 	if globalType, err = getGlobalFieldType(f); err != nil {
@@ -91,8 +107,6 @@ func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err er
 
 	return
 }
-
-func useFloatType() bool { return *useFloat }
 
 func quickfixValueType(quickfixType string) (goType string, err error) {
 	switch quickfixType {

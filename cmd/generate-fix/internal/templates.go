@@ -16,16 +16,16 @@ var (
 
 func init() {
 	tmplFuncs := template.FuncMap{
-		"toLower":             strings.ToLower,
-		"requiredFields":      requiredFields,
-		"beginString":         beginString,
-		"routerBeginString":   routerBeginString,
-		"importRootPath":      getImportPathRoot,
-		"quickfixType":        quickfixType,
-		"quickfixValueType":   quickfixValueType,
-		"getGlobalFieldType":  getGlobalFieldType,
-		"collectExtraImports": collectExtraImports,
-		"useFloatType":        useFloatType,
+		"toLower":                               strings.ToLower,
+		"requiredFields":                        requiredFields,
+		"beginString":                           beginString,
+		"routerBeginString":                     routerBeginString,
+		"importRootPath":                        getImportPathRoot,
+		"quickfixType":                          quickfixType,
+		"quickfixValueType":                     quickfixValueType,
+		"getGlobalFieldType":                    getGlobalFieldType,
+		"collectExtraImports":                   collectExtraImports,
+		"checkIfDecimalImportRequiredForFields": checkIfDecimalImportRequiredForFields,
 	}
 
 	baseTemplate := template.Must(template.New("Base").Funcs(tmplFuncs).Parse(`
@@ -284,7 +284,7 @@ package field
 import(
 	"github.com/quickfixgo/quickfix"
 	"{{ importRootPath }}/tag"
-{{ if eq useFloatType false}} "github.com/shopspring/decimal" {{ end }}
+{{ if checkIfDecimalImportRequiredForFields . }} "github.com/shopspring/decimal" {{ end }}
 	"time"
 )
 
