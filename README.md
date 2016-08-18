@@ -11,7 +11,8 @@ Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in G
 Getting Started and Documentation
 ---------------------------------
 
-All documentation is available on [GoDoc](https://godoc.org/github.com/quickfixgo/quickfix).
+* [User Manual](http://quickfixgo.org/docs)
+* [API Documentation](https://godoc.org/github.com/quickfixgo/quickfix)
 
 ### Installation
 
