@@ -66,9 +66,9 @@ func (s *LogonStateTestSuite) TestFixMsgInNotLogon() {
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogon() {
-	s.store.IncrNextSenderMsgSeqNum()
+	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
 	s.MessageFactory.seqNum = 1
-	s.store.IncrNextTargetMsgSeqNum()
+	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -93,9 +93,9 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
 	s.session.InitiateLogon = true
-	s.store.IncrNextSenderMsgSeqNum()
+	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
 	s.MessageFactory.seqNum = 1
-	s.store.IncrNextTargetMsgSeqNum()
+	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -149,4 +149,28 @@ func (s *LogonStateTestSuite) TestStop() {
 		s.Disconnected()
 		s.Stopped()
 	}
+}
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonRejectLogon() {
+	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.MessageFactory.seqNum = 1
+	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+
+	s.MockApp.On("FromAdmin").Return(RejectLogon{"reject message"})
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+
+	s.State(latentState{})
+
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGOUT, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagText, "reject message", s.MockApp.lastToAdmin.Body)
+
+	s.NextTargetMsgSeqNum(3)
+	s.NextSenderMsgSeqNum(3)
 }

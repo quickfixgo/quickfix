@@ -611,8 +611,8 @@ func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
 }
 
 func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
-	suite.MockApp.On("ToApp").Return(DoNotSend)
-	suite.Equal(DoNotSend, suite.queueForSend(suite.NewOrderSingle()))
+	suite.MockApp.On("ToApp").Return(ErrDoNotSend)
+	suite.Equal(ErrDoNotSend, suite.queueForSend(suite.NewOrderSingle()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.NoMessagePersisted(1)
@@ -649,8 +649,8 @@ func (suite *SessionSendTestSuite) TestSendAppMessage() {
 }
 
 func (suite *SessionSendTestSuite) TestSendAppDoNotSendMessage() {
-	suite.MockApp.On("ToApp").Return(DoNotSend)
-	suite.Equal(DoNotSend, suite.send(suite.NewOrderSingle()))
+	suite.MockApp.On("ToApp").Return(ErrDoNotSend)
+	suite.Equal(ErrDoNotSend, suite.send(suite.NewOrderSingle()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.NextSenderMsgSeqNum(1)

@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-//DoNotSend is a convenience error to indicate a DoNotSend in ToApp
-var DoNotSend = errors.New("Do Not Send")
+//ErrDoNotSend is a convenience error to indicate a DoNotSend in ToApp
+var ErrDoNotSend = errors.New("Do Not Send")
 
 //rejectReason enum values.
 const (
@@ -36,6 +36,22 @@ type MessageRejectError interface {
 	RefTagID() *Tag
 	IsBusinessReject() bool
 }
+
+//RejectLogon indicates the application is rejecting permission to logon. Implements MessageRejectError
+type RejectLogon struct {
+	Text string
+}
+
+func (e RejectLogon) Error() string { return e.Text }
+
+//RefTagID implements MessageRejectError
+func (RejectLogon) RefTagID() *Tag { return nil }
+
+//RejectReason implements MessageRejectError
+func (RejectLogon) RejectReason() int { return 0 }
+
+//IsBusinessReject implements MessageRejectError
+func (RejectLogon) IsBusinessReject() bool { return false }
 
 type messageRejectError struct {
 	rejectReason     int
