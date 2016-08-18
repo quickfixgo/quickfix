@@ -17,8 +17,8 @@ All documentation is available on [GoDoc](https://godoc.org/github.com/quickfixg
 
 To install QuickFIX/Go, use `go get`:
 
-```
-go get github.com/quickfixgo/quickfix
+```sh
+$ go get github.com/quickfixgo/quickfix
 ```
 
 ### Staying up to date
@@ -42,15 +42,33 @@ If you wish to work on QuickFIX/Go itself, you will first need [Go](http://www.g
 
 For local dev first make sure Go is properly installed, including setting up a [GOPATH](http://golang.org/doc/code.html#GOPATH).
 
-Next, using [Git](https://git-scm.com/), clone this repository into `$GOPATH/src/github.com/quickfixgo/quickfix`. All the necessary dependencies are either vendored, so you just need to type `make`. This will verify the code and run the unit tests. If this exits with exit status 0, then everything is working!
+Next, using [Git](https://git-scm.com/), clone this repository into `$GOPATH/src/github.com/quickfixgo/quickfix`. 
+
+### Installing Dependencies
+
+QuickFIX/Go uses [govendor](https://github.com/kardianos/govendor) to manage the vendored dependencies. Install govendor with `go get`:
+
+```sh
+$ go get github.com/kardianos/govendor
+```
+
+Run `govendor sync` to install the correct versioned dependencies into `vendor/, which Go 1.6+ automatically recognizes and loads.
+
+```sh
+$ $GOPATH/bin/govendor sync
+```
+
+**Note:** No vendored dependencies are included in the QuickFIX/Go source.
 
 ### Build and Test
+
+The default make target runs [go vet](https://godoc.org/golang.org/x/tools/cmd/vet) and unit tests.
 
 ```sh
 $ make
 ```
 
-The default make target runs [go vet](https://godoc.org/golang.org/x/tools/cmd/vet) and unit tests.
+If this exits with exit status 0, then everything is working!
 
 ### Acceptance Tests
 
@@ -78,14 +96,11 @@ If you are making changes to the generated code, you will need to include the ge
 
 ### Dependencies
 
-QuickFIX/Go stores its dependencies under `vendor/`, which Go 1.6+ automatically recognize and load.  We use [govendor](https://github.com/kardianos/govendor) to manage the vendored dependencies.
-
-
-If you are developing QuickFIX/Go, there are a few tasks you might need to perform.
+If you are developing QuickFIX/Go, there are a few tasks you might need to perform related to dependencies.
 
 #### Adding a dependency
 
-If you are adding a dependency, you will need to vendor it in the same Pull Request as the code that depends on it. You should do this in a separate commit from your code, as this makes PR review easier and Git history simpler to read in the future.
+If you are adding a dependency, you will need update the govendor manifest in the same Pull Request as the code that depends on it. You should do this in a separate commit from your code, as this makes PR review easier and Git history simpler to read in the future.
 
 To add a dependency:
 

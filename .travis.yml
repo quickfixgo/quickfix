@@ -20,6 +20,8 @@ matrix:
   allow_failures:
     - go: tip
 
-install: 
+install:
+  - go get -u github.com/kardianos/govendor
+  - govendor sync
 
 script: if [ -z "$FIX_TEST" ]; then make generate && make build && make; else make build_accept && make $FIX_TEST; fi
