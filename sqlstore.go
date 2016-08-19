@@ -32,17 +32,17 @@ func (f sqlStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err
 	if !ok {
 		return nil, fmt.Errorf("unknown session: %v", sessionID)
 	}
-	sqlDriver, err := sessionSettings.Setting(config.SQLDriver)
+	sqlDriver, err := sessionSettings.Setting(config.SQLStoreDriver)
 	if err != nil {
 		return nil, err
 	}
-	sqlDataSourceName, err := sessionSettings.Setting(config.SQLDataSourceName)
+	sqlDataSourceName, err := sessionSettings.Setting(config.SQLStoreDataSourceName)
 	if err != nil {
 		return nil, err
 	}
 	sqlConnMaxLifetime := 0 * time.Second
-	if sessionSettings.HasSetting(config.SQLConnMaxLifetime) {
-		sqlConnMaxLifetime, err = sessionSettings.DurationSetting(config.SQLConnMaxLifetime)
+	if sessionSettings.HasSetting(config.SQLStoreConnMaxLifetime) {
+		sqlConnMaxLifetime, err = sessionSettings.DurationSetting(config.SQLStoreConnMaxLifetime)
 		if err != nil {
 			return nil, err
 		}
