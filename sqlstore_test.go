@@ -45,9 +45,9 @@ func (suite *SQLStoreTestSuite) SetupTest() {
 	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
 	settings, err := ParseSettings(strings.NewReader(fmt.Sprintf(`
 [DEFAULT]
-SQLDriver=%s
-SQLDataSourceName=%s
-SQLConnMaxLifetime=14400s
+SQLStoreDriver=%s
+SQLStoreDataSourceName=%s
+SQLStoreConnMaxLifetime=14400s
 
 [SESSION]
 BeginString=%s

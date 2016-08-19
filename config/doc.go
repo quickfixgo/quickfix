@@ -211,15 +211,15 @@ FileStorePath
 
 Directory to store sequence number and message files.  Only used with FileStoreFactory.
 
-SQLDriver
+SQLStoreDriver
 
 The name of the database driver to use (see https://github.com/golang/go/wiki/SQLDrivers for the list of available drivers).  Only used with SqlStoreFactory.
 
-SQLDataSourceName
+SQLStoreDataSourceName
 
 The driver-specific data source name of the database to use.  Only used with SqlStoreFactory.
 
-SQLConnMaxLifetime
+SQLStoreConnMaxLifetime
 
 SetConnMaxLifetime sets the maximum duration of time that a database connection may be reused (see https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime).  Defaults to zero, which causes connections to be reused forever.  Only used with SqlStoreFactory.
 
