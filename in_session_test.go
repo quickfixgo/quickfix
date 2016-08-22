@@ -19,17 +19,12 @@ func TestInSessionTestSuite(t *testing.T) {
 func (s *InSessionTestSuite) SetupTest() {
 	s.Init()
 	s.session.State = inSession{}
+	s.session.messageStash = make(map[int]Message)
 }
 
-func (s *InSessionTestSuite) TestIsLoggedOn() {
+func (s *InSessionTestSuite) TestPreliminary() {
 	s.True(s.session.IsLoggedOn())
-}
-
-func (s *InSessionTestSuite) TestIsConnected() {
 	s.True(s.session.IsConnected())
-}
-
-func (s *InSessionTestSuite) TestIsSessionTime() {
 	s.True(s.session.IsSessionTime())
 }
 
@@ -114,4 +109,27 @@ func (s *InSessionTestSuite) TestStop() {
 	s.MockApp.AssertExpectations(s.T())
 	s.Stopped()
 	s.Disconnected()
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
+	s.MessageFactory.seqNum = 5
+
+	s.MockApp.On("ToAdmin")
+	msgSeqNumTooHigh := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNumTooHigh)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
+
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(1)
+
+	stashedMsg, ok := s.session.messageStash[6]
+	s.True(ok)
+
+	rawMsg, _ := msgSeqNumTooHigh.Build()
+	stashedRawMsg, _ := stashedMsg.Build()
+	s.Equal(string(rawMsg), string(stashedRawMsg))
 }

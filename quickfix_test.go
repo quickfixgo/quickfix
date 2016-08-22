@@ -104,6 +104,10 @@ type MessageFactory struct {
 	seqNum int
 }
 
+func (m *MessageFactory) SetNextSeqNum(next int) {
+	m.seqNum = next - 1
+}
+
 func (m *MessageFactory) buildMessage(msgType string) Message {
 	m.seqNum++
 	msg := NewMessage()

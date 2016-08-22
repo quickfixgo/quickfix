@@ -3,6 +3,7 @@ package quickfix
 import (
 	"testing"
 
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
 )
@@ -18,6 +19,7 @@ func TestResendStateTestSuite(t *testing.T) {
 func (s *resendStateTestSuite) SetupTest() {
 	s.Init()
 	s.session.State = resendState{}
+	s.session.messageStash = make(map[int]Message)
 }
 
 func (s *resendStateTestSuite) TestIsLoggedOn() {
@@ -55,4 +57,41 @@ func (s *resendStateTestSuite) TestTimeoutUnchangedNeedHeartbeat() {
 
 	s.MockApp.AssertExpectations(s.T())
 	s.State(resendState{})
+}
+
+func (s *resendStateTestSuite) TestFixMsgIn() {
+	s.session.State = inSession{}
+
+	//in session expects seq number 1, send too high
+	s.MessageFactory.SetNextSeqNum(2)
+	s.MockApp.On("ToAdmin")
+
+	msgSeqNum2 := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNum2)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.State(resendState{})
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
+	s.NextTargetMsgSeqNum(1)
+
+	msgSeqNum3 := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNum3)
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(1)
+
+	msgSeqNum4 := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNum4)
+
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(1)
+
+	s.MessageFactory.SetNextSeqNum(1)
+	s.MockApp.On("FromApp").Return(nil)
+	s.fixMsgIn(s.session, s.NewOrderSingle())
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "FromApp", 4)
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(5)
 }
