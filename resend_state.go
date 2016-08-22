@@ -23,14 +23,22 @@ func (s resendState) Timeout(session *session, event internal.Event) (nextState 
 func (s resendState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	nextState = inSession{}.FixMsgIn(session, msg)
 
-	if !nextState.IsLoggedOn() || len(session.messageStash) == 0 {
+	if _, stillInResend := nextState.(resendState); stillInResend || !nextState.IsLoggedOn() {
 		return
 	}
 
-	targetSeqNum := session.store.NextTargetMsgSeqNum()
-	if msg, ok := session.messageStash[targetSeqNum]; ok {
+	for len(session.messageStash) > 0 {
+		targetSeqNum := session.store.NextTargetMsgSeqNum()
+		msg, ok := session.messageStash[targetSeqNum]
+		if !ok {
+			return s
+		}
 		delete(session.messageStash, targetSeqNum)
-		nextState = nextState.FixMsgIn(session, msg)
+
+		nextState = inSession{}.FixMsgIn(session, msg)
+		if !nextState.IsLoggedOn() {
+			return
+		}
 	}
 
 	return
