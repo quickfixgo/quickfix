@@ -133,3 +133,112 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
 	stashedRawMsg, _ := stashedMsg.Build()
 	s.Equal(string(rawMsg), string(stashedRawMsg))
 }
+
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestAllAdminExpectGapFill() {
+	s.MockApp.On("ToAdmin")
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
+	s.LastToAdminMessageSent()
+
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
+	s.LastToAdminMessageSent()
+
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
+	s.LastToAdminMessageSent()
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 3)
+	s.NextSenderMsgSeqNum(4)
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, s.ResendRequest(1))
+
+	s.MockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_SEQUENCE_RESET, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagMsgSeqNum, 1, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagPossDupFlag, true, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagNewSeqNo, 4, s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagGapFillFlag, true, s.MockApp.lastToAdmin.Body)
+
+	s.NextSenderMsgSeqNum(4)
+	s.State(inSession{})
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestAllAdminThenApp() {
+	s.MockApp.On("ToAdmin")
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
+	s.LastToAdminMessageSent()
+
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
+	s.LastToAdminMessageSent()
+
+	s.MockApp.On("ToApp").Return(nil)
+	s.session.send(s.NewOrderSingle())
+	s.LastToAppMessageSent()
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 2)
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+	s.NextSenderMsgSeqNum(4)
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("ToAdmin")
+	s.MockApp.On("ToApp").Return(nil)
+	s.fixMsgIn(s.session, s.ResendRequest(1))
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 3)
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 2)
+
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_SEQUENCE_RESET, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagMsgSeqNum, 1, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagPossDupFlag, true, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagNewSeqNo, 3, s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagGapFillFlag, true, s.MockApp.lastToAdmin.Body)
+
+	s.LastToAppMessageSent()
+	s.MessageType(enum.MsgType_ORDER_SINGLE, s.MockApp.lastToApp)
+	s.FieldEquals(tagMsgSeqNum, 3, s.MockApp.lastToApp.Header)
+	s.FieldEquals(tagPossDupFlag, true, s.MockApp.lastToApp.Header)
+
+	s.NextSenderMsgSeqNum(4)
+	s.State(inSession{})
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
+	s.MockApp.On("ToAdmin")
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
+	s.LastToAdminMessageSent()
+
+	s.MockApp.On("ToApp").Return(nil)
+	s.session.send(s.NewOrderSingle())
+	s.LastToAppMessageSent()
+
+	s.session.Timeout(s.session, internal.NeedHeartbeat)
+	s.LastToAdminMessageSent()
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 2)
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+	s.NextSenderMsgSeqNum(4)
+
+	//NOTE: a cheat here, need to reset mock
+	s.MockApp = MockApp{}
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("ToApp").Return(ErrDoNotSend)
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, s.ResendRequest(1))
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 1)
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_SEQUENCE_RESET, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagMsgSeqNum, 1, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagPossDupFlag, true, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagNewSeqNo, 4, s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagGapFillFlag, true, s.MockApp.lastToAdmin.Body)
+
+	s.NoMessageSent()
+
+	s.NextSenderMsgSeqNum(4)
+	s.State(inSession{})
+}

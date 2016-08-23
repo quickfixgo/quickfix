@@ -220,21 +220,31 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 			continue
 		}
 
+		if !session.resend(msg) {
+			nextSeqNum = sentMessageSeqNum + 1
+			continue
+		}
+
 		if seqNum != sentMessageSeqNum {
-			state.generateSequenceReset(session, seqNum, sentMessageSeqNum)
+			if err = state.generateSequenceReset(session, seqNum, sentMessageSeqNum); err != nil {
+				return err
+			}
 		}
 
 		session.log.OnEventf("Resending Message: %v", sentMessageSeqNum)
-		if err = session.resend(msg); err != nil {
-			return
+		if _, err := msg.Build(); err != nil {
+			return err
 		}
+		session.sendBytes(msg.rawMessage)
 
 		seqNum = sentMessageSeqNum + 1
 		nextSeqNum = seqNum
 	}
 
 	if seqNum != nextSeqNum { // gapfill for catch-up
-		state.generateSequenceReset(session, seqNum, nextSeqNum)
+		if err = state.generateSequenceReset(session, seqNum, nextSeqNum); err != nil {
+			return err
+		}
 	}
 
 	return
@@ -335,7 +345,7 @@ func (state inSession) doTargetTooLow(session *session, msg Message, rej targetT
 	return state
 }
 
-func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, endSeqNo int) {
+func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, endSeqNo int) (err error) {
 	sequenceReset := NewMessage()
 	session.fillDefaultHeader(sequenceReset)
 
@@ -350,9 +360,15 @@ func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, 
 		sequenceReset.Header.SetField(tagOrigSendingTime, origSendingTime)
 	}
 
-	//FIXME error check?
-	msgBytes, _ := sequenceReset.Build()
-	session.sendBytes(msgBytes)
+	session.application.ToAdmin(sequenceReset, session.sessionID)
 
+	msgBytes, err := sequenceReset.Build()
+	if err != nil {
+		return
+	}
+
+	session.sendBytes(msgBytes)
 	session.log.OnEventf("Sent SequenceReset TO: %v", endSeqNo)
+
+	return
 }

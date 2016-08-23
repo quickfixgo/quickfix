@@ -17,6 +17,7 @@ type KnowsFieldMap interface {
 	Has(Tag) bool
 	GetString(Tag) (string, MessageRejectError)
 	GetInt(Tag) (int, MessageRejectError)
+	GetField(Tag, FieldValueReader) MessageRejectError
 }
 
 func (s *QuickFIXSuite) MessageType(msgType string, msg Message) {
@@ -35,6 +36,11 @@ func (s *QuickFIXSuite) FieldEquals(tag Tag, expectedValue interface{}, fieldMap
 		val, err := fieldMap.GetInt(tag)
 		s.Nil(err)
 		s.Equal(expected, val)
+	case bool:
+		var val FIXBoolean
+		err := fieldMap.GetField(tag, &val)
+		s.Nil(err)
+		s.Equal(expected, val.Bool())
 	default:
 		s.FailNow("Field type not handled")
 	}
@@ -122,19 +128,27 @@ func (m *MessageFactory) buildMessage(msgType string) Message {
 }
 
 func (m *MessageFactory) Logout() Message {
-	return m.buildMessage("5")
+	return m.buildMessage(enum.MsgType_LOGOUT)
 }
 
 func (m *MessageFactory) NewOrderSingle() Message {
-	return m.buildMessage("D")
+	return m.buildMessage(enum.MsgType_ORDER_SINGLE)
 }
 
 func (m *MessageFactory) Heartbeat() Message {
-	return m.buildMessage("0")
+	return m.buildMessage(enum.MsgType_HEARTBEAT)
 }
 
 func (m *MessageFactory) Logon() Message {
-	return m.buildMessage("A")
+	return m.buildMessage(enum.MsgType_LOGON)
+}
+
+func (m *MessageFactory) ResendRequest(beginSeqNo int) Message {
+	msg := m.buildMessage(enum.MsgType_RESEND_REQUEST)
+	msg.Body.SetField(tagBeginSeqNo, FIXInt(beginSeqNo))
+	msg.Body.SetField(tagEndSeqNo, FIXInt(0))
+
+	return msg
 }
 
 type MockSessionReceiver struct {
@@ -216,7 +230,7 @@ func (s *SessionSuiteRig) Disconnected() {
 
 func (s *SessionSuiteRig) NoMessageSent() {
 	msg, _ := s.Receiver.LastMessage()
-	s.Nil(msg, "no message should be sent")
+	s.Nil(msg, "no message should be sent but got %s", msg)
 }
 
 func (s *SessionSuiteRig) NoMessageQueued() {
