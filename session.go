@@ -368,10 +368,7 @@ func (s *session) handleLogon(msg Message) error {
 	s.application.OnLogon(s.sessionID)
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
-		switch TypedError := err.(type) {
-		case targetTooHigh:
-			return s.doTargetTooHigh(TypedError)
-		}
+		return err
 	}
 
 	return s.store.IncrNextTargetMsgSeqNum()
