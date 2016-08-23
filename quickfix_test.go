@@ -151,6 +151,13 @@ func (m *MessageFactory) ResendRequest(beginSeqNo int) Message {
 	return msg
 }
 
+func (m *MessageFactory) SequenceReset(seqNo int) Message {
+	msg := m.buildMessage(enum.MsgType_SEQUENCE_RESET)
+	msg.Body.SetField(tagNewSeqNo, FIXInt(seqNo))
+
+	return msg
+}
+
 type MockSessionReceiver struct {
 	sendChannel chan []byte
 }
