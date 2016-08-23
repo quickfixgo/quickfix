@@ -146,7 +146,7 @@ func (s *session) sendLogout(reason string) error {
 	return s.send(logout)
 }
 
-func (s *session) resend(msg Message) error {
+func (s *session) resend(msg Message) bool {
 	msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
 
 	var origSendingTime FIXString
@@ -156,12 +156,7 @@ func (s *session) resend(msg Message) error {
 
 	s.insertSendingTime(msg.Header)
 
-	if _, err := msg.Build(); err != nil {
-		return err
-	}
-	s.sendBytes(msg.rawMessage)
-
-	return nil
+	return s.application.ToApp(msg, s.sessionID) == nil
 }
 
 //queueForSend will validate, persist, and queue the message for send
