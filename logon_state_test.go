@@ -174,3 +174,29 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonRejectLogon() {
 	s.NextTargetMsgSeqNum(3)
 	s.NextSenderMsgSeqNum(3)
 }
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
+	s.MessageFactory.SetNextSeqNum(6)
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(1)
+
+	//session should send logon, and then queues resend request for send
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 2)
+	msgBytesSent, ok := s.Receiver.LastMessage()
+	s.Require().True(ok)
+	sentMessage, err := ParseMessage(msgBytesSent)
+	s.Require().Nil(err)
+	s.MessageType(enum.MsgType_LOGON, sentMessage)
+
+	s.session.sendQueued()
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
+}
