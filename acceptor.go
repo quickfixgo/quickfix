@@ -83,6 +83,14 @@ func (a *Acceptor) Stop() {
 	a.sessionGroup.Wait()
 }
 
+func (a *Acceptor) GetSession(sessionID SessionID) *session {
+	if s, ok := a.sessions[sessionID]; ok {
+		return s
+	}
+
+	return nil
+}
+
 //NewAcceptor creates and initializes a new Acceptor.
 func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (a *Acceptor, err error) {
 	a = &Acceptor{
