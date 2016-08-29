@@ -113,6 +113,16 @@ func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
 	return m
 }
 
+//SetInt is a SetField wrapper for int fields
+func (m FieldMap) SetInt(tag Tag, value int) FieldMap {
+	return m.SetField(tag, FIXInt(value))
+}
+
+//SetString is a SetField wrapper for string fields
+func (m FieldMap) SetString(tag Tag, value string) FieldMap {
+	return m.SetField(tag, FIXString(value))
+}
+
 //Clear purges all fields from field map
 func (m *FieldMap) Clear() {
 	m.tagLookup = make(map[Tag]TagValues)
