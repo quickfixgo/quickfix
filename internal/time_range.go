@@ -89,9 +89,9 @@ func (r *TimeRange) isInWeekRange(t time.Time) bool {
 			return r.isInTimeRange(t)
 		}
 
-       if r.startTime.d < r.endTime.d {
-           return false
-       }
+		if r.startTime.d < r.endTime.d {
+			return false
+		}
 
 		return true
 	}
