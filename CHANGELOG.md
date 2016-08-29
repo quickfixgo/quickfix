@@ -1,3 +1,44 @@
+## 0.5.0 (Unreleased)
+
+FEATURES
+
+* Session Scheduling [GH 31, 195, 196, 197, 198, 200, 201, 202, 203, 204, 205, 211, 212, 218, 220]
+* TimeZone configuration [GH 206]
+* StartDay, EndDay for week long sessions [GH 207]
+* Support for connection over SSL [GH 63, 193]
+* SocketConnectHost/Port<n> [GH 65, 217]
+* ResetOnLogout Configuration enhancement [GH 67, 192]
+* SocketAcceptAddress, ipv6 support [GH 83, 215]
+* RefreshOnLogon [GH 214]
+
+ENHANCEMENTS
+
+* Reject Logon Support [GH 57, 225]
+* FIX Decimal [GH 114, 223, 224, 227, 228]
+* test refactoring, leveraging testify mock assertions [GH 186]
+* KISS on registry, session management [GH 208]
+* moving and renaming test jigs [GH 210]
+* Config Enhancements [GH 216]
+* travis uses go 1.7 [GH 219]
+* adds 'generated.go' suffix to generated source [GH 221]
+* vendored deps GH [GH 222, 226]
+* renames SQLStore config settings [GH 229]
+* Add FieldMap.{SetInt, SetString} [GH 236]
+
+
+BUG FIXES
+
+* DefaultApplVerID Configuration not translating enum names [GH 89, 213]
+* Dropped issues in logout state [GH 187, 188]
+* correctly increments in target seq num on logout for in session state [GH 189]
+* SendToTarget should return an error if toApp returns DoNotSend [GH 190, 191]
+* Logon fix [GH 194]
+* onlogout calls depend on session state [GH 199]
+* fixes bug in resend state where resend response is processed incomplete [GH 230]
+* fixes logic around logon message with sequence number too high [GH 231]
+* SequenceReset, Resent Messages not hitting ToAdmin/ToApp [GH 232, 233]
+
+
 ## 0.4.0 (August 1, 2016)
 
 FEATURES
