@@ -84,3 +84,37 @@ func TestFieldMap_Total(t *testing.T) {
 		t.Error("Total should includes all fields but checkSum- got ", fMap.total())
 	}
 }
+
+func TestFieldMap_TypedSetAndGet(t *testing.T) {
+	var fMap FieldMap
+	fMap.init()
+
+	fMap.SetString(1, "hello")
+	fMap.SetInt(2, 256)
+
+	s, err := fMap.GetString(1)
+	if err != nil {
+		t.Error("Unexpected Error", err)
+	} else if s != "hello" {
+		t.Errorf("Expected %v got %v", "hello", s)
+	}
+
+	i, err := fMap.GetInt(2)
+	if err != nil {
+		t.Error("Unexpected Error", err)
+	} else if i != 256 {
+		t.Errorf("Expected %v got %v", 256, i)
+	}
+
+	_, err = fMap.GetInt(1)
+	if err == nil {
+		t.Error("Type mismatch should occur error but nil")
+	}
+
+	s, err = fMap.GetString(2)
+	if err != nil {
+		t.Error("Type mismatch should occur error but nil")
+	} else if s != "256" {
+		t.Errorf("Expected %v got %v", "256", s)
+	}
+}
