@@ -11,6 +11,13 @@ import (
 
 func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error) {
 	if !settings.HasSetting(config.SocketPrivateKeyFile) && !settings.HasSetting(config.SocketCertificateFile) {
+		if settings.HasSetting(config.SocketTLSForTesting) {
+			if forTesting, err := settings.BoolSetting(config.SocketTLSForTesting); err == nil {
+				return &tls.Config{InsecureSkipVerify: true}, nil
+			} else if forTesting {
+				return nil, err
+			}
+		}
 		return
 	}
 
