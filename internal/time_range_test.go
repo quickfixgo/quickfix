@@ -204,6 +204,20 @@ func TestTimeRangeIsInRangeWithDay(t *testing.T) {
 
 	now = time.Date(2006, time.December, 4, 9, 0, 0, 0, time.UTC)
 	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	startTime = NewTimeOfDay(8, 59, 0)
+	endTime = NewTimeOfDay(9, 1, 0)
+	startDay = time.Sunday
+	endDay = time.Sunday
+
+	now = time.Date(2006, time.December, 3, 8, 59, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2006, time.December, 3, 9, 1, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
+
+	now = time.Date(2006, time.December, 4, 8, 59, 0, 0, time.UTC)
+	assert.False(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInRange(now))
 }
 
 func TestTimeRangeIsInSameRange(t *testing.T) {
