@@ -4,7 +4,7 @@ FEATURES
 
 * Session Scheduling [GH 31, 195, 196, 197, 198, 200, 201, 202, 203, 204, 205, 211, 212, 218, 220]
 * TimeZone configuration [GH 206]
-* StartDay, EndDay for week long sessions [GH 207]
+* StartDay, EndDay for week long sessions [GH 207, 239]
 * Support for connection over SSL [GH 63, 193]
 * SocketConnectHost/Port<n> [GH 65, 217]
 * ResetOnLogout Configuration enhancement [GH 67, 192]
