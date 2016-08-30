@@ -490,12 +490,41 @@ func (s *SessionSuite) TestOnAdminConnectInitiateLogon() {
 
 	s.MockApp.AssertExpectations(s.T())
 	s.True(s.session.InitiateLogon)
+	s.False(s.sentReset)
 	s.State(logonState{})
 	s.LastToAdminMessageSent()
 	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 45, s.MockApp.lastToAdmin.Body)
 	s.FieldEquals(tagMsgSeqNum, 2, s.MockApp.lastToAdmin.Header)
 	s.NextSenderMsgSeqNum(3)
+}
+
+func (s *SessionSuite) TestInitiateLogonResetSeqNumFlag() {
+	adminMsg := connect{
+		messageOut: s.Receiver.sendChannel,
+	}
+	s.session.State = latentState{}
+	s.session.HeartBtInt = time.Duration(45) * time.Second
+	s.session.store.IncrNextTargetMsgSeqNum()
+	s.session.store.IncrNextSenderMsgSeqNum()
+	s.session.InitiateLogon = true
+
+	s.MockApp.On("ToAdmin")
+	s.MockApp.decorateToAdmin = func(msg Message) {
+		msg.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
+	}
+	s.session.onAdmin(adminMsg)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.True(s.session.InitiateLogon)
+	s.True(s.sentReset)
+	s.State(logonState{})
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagMsgSeqNum, 1, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagResetSeqNumFlag, true, s.MockApp.lastToAdmin.Body)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(1)
 }
 
 func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
