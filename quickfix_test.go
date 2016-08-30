@@ -65,8 +65,9 @@ func (s *MockStore) Refresh() error {
 type MockApp struct {
 	mock.Mock
 
-	lastToAdmin Message
-	lastToApp   Message
+	decorateToAdmin func(Message)
+	lastToAdmin     Message
+	lastToApp       Message
 }
 
 func (e *MockApp) OnCreate(sessionID SessionID) {
@@ -90,6 +91,11 @@ func (e *MockApp) FromAdmin(msg Message, sessionID SessionID) (reject MessageRej
 
 func (e *MockApp) ToAdmin(msg Message, sessionID SessionID) {
 	e.Called()
+
+	if e.decorateToAdmin != nil {
+		e.decorateToAdmin(msg)
+	}
+
 	e.lastToAdmin = msg
 }
 

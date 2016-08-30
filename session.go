@@ -34,6 +34,7 @@ type session struct {
 	stateTimer   internal.EventTimer
 	peerTimer    internal.EventTimer
 	messageStash map[int]Message
+	sentReset    bool
 
 	targetDefaultApplVerID string
 
@@ -241,6 +242,26 @@ func (s *session) prepMessageForSend(msg *Message) error {
 
 	if isAdminMessageType(string(msgType)) {
 		s.application.ToAdmin(*msg, s.sessionID)
+
+		if msgType.String() == enum.MsgType_LOGON {
+			var resetSeqNumFlag FIXBoolean
+			if msg.Body.Has(tagResetSeqNumFlag) {
+				if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err != nil {
+					return err
+				}
+			}
+
+			if resetSeqNumFlag.Bool() {
+				if err := s.store.Reset(); err != nil {
+					return err
+				}
+
+				s.sentReset = true
+				seqNum = s.store.NextSenderMsgSeqNum()
+				msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
+			}
+
+		}
 	} else {
 		if err := s.application.ToApp(*msg, s.sessionID); err != nil {
 			return err
@@ -333,7 +354,9 @@ func (s *session) handleLogon(msg Message) error {
 	if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err == nil {
 		if resetSeqNumFlag {
 			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
-			resetStore = true
+			if !s.sentReset {
+				resetStore = true
+			}
 		}
 	}
 
@@ -358,6 +381,7 @@ func (s *session) handleLogon(msg Message) error {
 			return err
 		}
 	}
+	s.sentReset = false
 
 	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.HeartBtInt)))
 	s.application.OnLogon(s.sessionID)
@@ -596,6 +620,7 @@ func (s *session) onAdmin(msg interface{}) {
 		s.messageIn = msg.messageIn
 		s.messageOut = msg.messageOut
 		s.messageStash = make(map[int]Message)
+		s.sentReset = false
 
 		s.Connect(s)
 
