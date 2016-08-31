@@ -37,6 +37,7 @@ BUG FIXES
 * fixes bug in resend state where resend response is processed incomplete [GH 230]
 * fixes logic around logon message with sequence number too high [GH 231]
 * SequenceReset, Resent Messages not hitting ToAdmin/ToApp [GH 232, 233]
+* Next MsgSeqNo after received ResetSeqNumFlag=Y [GH 238, 240]
 
 
 ## 0.4.0 (August 1, 2016)
