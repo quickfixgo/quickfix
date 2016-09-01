@@ -1,4 +1,4 @@
-## 0.5.0 (Unreleased)
+## 0.5.0 (September 1, 2016)
 
 FEATURES
 
