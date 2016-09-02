@@ -259,7 +259,6 @@ func (state inSession) processReject(session *session, msg Message, rej MessageR
 		case resendState:
 			//assumes target too high reject already sent
 			nextState = currentState
-
 		default:
 			var err error
 			if nextState, err = session.doTargetTooHigh(TypedError); err != nil {
@@ -267,7 +266,12 @@ func (state inSession) processReject(session *session, msg Message, rej MessageR
 			}
 		}
 
+		if nextState.messageStash == nil {
+			nextState.messageStash = make(map[int]Message)
+		}
+
 		nextState.messageStash[TypedError.ReceivedTarget] = msg
+
 		return nextState
 
 	case targetTooLow:

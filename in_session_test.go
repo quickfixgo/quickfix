@@ -121,6 +121,7 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
 	s.LastToAdminMessageSent()
 	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagEndSeqNo, 0, s.MockApp.lastToAdmin.Body)
 
 	resendState, ok := s.session.State.(resendState)
 	s.True(ok)
@@ -132,6 +133,45 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
 	rawMsg, _ := msgSeqNumTooHigh.Build()
 	stashedRawMsg, _ := stashedMsg.Build()
 	s.Equal(string(rawMsg), string(stashedRawMsg))
+}
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooHighResendRequestChunkSize() {
+	var tests = []struct {
+		chunkSize        int
+		expectedEndSeqNo int
+	}{
+		{0, 0},
+		{10, 0},
+		{5, 0},
+		{2, 2},
+		{3, 3},
+	}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.MessageFactory.seqNum = 5
+		s.session.ResendRequestChunkSize = test.chunkSize
+
+		s.MockApp.On("ToAdmin")
+		msgSeqNumTooHigh := s.NewOrderSingle()
+		s.fixMsgIn(s.session, msgSeqNumTooHigh)
+
+		s.MockApp.AssertExpectations(s.T())
+		s.LastToAdminMessageSent()
+		s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
+		s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
+		s.FieldEquals(tagEndSeqNo, test.expectedEndSeqNo, s.MockApp.lastToAdmin.Body)
+
+		resendState, ok := s.session.State.(resendState)
+		s.True(ok)
+		s.NextTargetMsgSeqNum(1)
+
+		stashedMsg, ok := resendState.messageStash[6]
+		s.True(ok)
+
+		rawMsg, _ := msgSeqNumTooHigh.Build()
+		stashedRawMsg, _ := stashedMsg.Build()
+		s.Equal(string(rawMsg), string(stashedRawMsg))
+	}
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInResendRequestAllAdminExpectGapFill() {
