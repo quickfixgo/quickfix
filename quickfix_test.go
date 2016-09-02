@@ -209,7 +209,7 @@ func (s *SessionSuiteRig) Init() {
 }
 
 func (s *SessionSuiteRig) State(state sessionState) {
-	s.Equal(state, s.session.State, "session state should be %v", state)
+	s.IsType(state, s.session.State, "session state should be %v", state)
 }
 
 func (s *SessionSuiteRig) MessageSentEquals(msg Message) {

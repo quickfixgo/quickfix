@@ -37,11 +37,12 @@ func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionSt
 			return latentState{}
 
 		case targetTooHigh:
-			if err := session.doTargetTooHigh(err); err != nil {
-				return handleStateError(session, err)
+			var tooHighErr error
+			if nextState, tooHighErr = session.doTargetTooHigh(err); tooHighErr != nil {
+				return handleStateError(session, tooHighErr)
 			}
 
-			return resendState{}
+			return
 
 		default:
 			return handleStateError(session, err)
