@@ -31,10 +31,9 @@ type session struct {
 	application  Application
 	validator
 	stateMachine
-	stateTimer   internal.EventTimer
-	peerTimer    internal.EventTimer
-	messageStash map[int]Message
-	sentReset    bool
+	stateTimer internal.EventTimer
+	peerTimer  internal.EventTimer
+	sentReset  bool
 
 	targetDefaultApplVerID string
 
@@ -619,7 +618,6 @@ func (s *session) onAdmin(msg interface{}) {
 
 		s.messageIn = msg.messageIn
 		s.messageOut = msg.messageOut
-		s.messageStash = make(map[int]Message)
 		s.sentReset = false
 
 		s.Connect(s)

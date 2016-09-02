@@ -19,7 +19,6 @@ func TestInSessionTestSuite(t *testing.T) {
 func (s *InSessionTestSuite) SetupTest() {
 	s.Init()
 	s.session.State = inSession{}
-	s.session.messageStash = make(map[int]Message)
 }
 
 func (s *InSessionTestSuite) TestPreliminary() {
@@ -123,10 +122,11 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
 	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
 
-	s.State(resendState{})
+	resendState, ok := s.session.State.(resendState)
+	s.True(ok)
 	s.NextTargetMsgSeqNum(1)
 
-	stashedMsg, ok := s.session.messageStash[6]
+	stashedMsg, ok := resendState.messageStash[6]
 	s.True(ok)
 
 	rawMsg, _ := msgSeqNumTooHigh.Build()

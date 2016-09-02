@@ -19,7 +19,6 @@ func TestResendStateTestSuite(t *testing.T) {
 func (s *resendStateTestSuite) SetupTest() {
 	s.Init()
 	s.session.State = resendState{}
-	s.session.messageStash = make(map[int]Message)
 }
 
 func (s *resendStateTestSuite) TestIsLoggedOn() {

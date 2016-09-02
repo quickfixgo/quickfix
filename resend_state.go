@@ -2,7 +2,10 @@ package quickfix
 
 import "github.com/quickfixgo/quickfix/internal"
 
-type resendState struct{ loggedOn }
+type resendState struct {
+	loggedOn
+	messageStash map[int]Message
+}
 
 func (s resendState) String() string { return "Resend" }
 
@@ -27,13 +30,13 @@ func (s resendState) FixMsgIn(session *session, msg Message) (nextState sessionS
 		return
 	}
 
-	for len(session.messageStash) > 0 {
+	for len(s.messageStash) > 0 {
 		targetSeqNum := session.store.NextTargetMsgSeqNum()
-		msg, ok := session.messageStash[targetSeqNum]
+		msg, ok := s.messageStash[targetSeqNum]
 		if !ok {
 			return s
 		}
-		delete(session.messageStash, targetSeqNum)
+		delete(s.messageStash, targetSeqNum)
 
 		nextState = inSession{}.FixMsgIn(session, msg)
 		if !nextState.IsLoggedOn() {

@@ -250,21 +250,28 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	return
 }
 
-func (state inSession) processReject(session *session, msg Message, rej MessageRejectError) (nextState sessionState) {
+func (state inSession) processReject(session *session, msg Message, rej MessageRejectError) sessionState {
 	switch TypedError := rej.(type) {
 	case targetTooHigh:
 
-		switch session.State.(type) {
+		var nextState resendState
+		switch currentState := session.State.(type) {
+		case resendState:
+			//assumes target too high reject already sent
+			nextState = currentState
+
 		default:
 			if err := session.doTargetTooHigh(TypedError); err != nil {
 				return handleStateError(session, err)
 			}
-		case resendState:
-			//assumes target too high reject already sent
 		}
 
-		session.messageStash[TypedError.ReceivedTarget] = msg
-		return resendState{}
+		if nextState.messageStash == nil {
+			nextState.messageStash = make(map[int]Message)
+		}
+
+		nextState.messageStash[TypedError.ReceivedTarget] = msg
+		return nextState
 
 	case targetTooLow:
 		return state.doTargetTooLow(session, msg, TypedError)
