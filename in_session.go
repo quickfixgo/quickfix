@@ -261,13 +261,10 @@ func (state inSession) processReject(session *session, msg Message, rej MessageR
 			nextState = currentState
 
 		default:
-			if err := session.doTargetTooHigh(TypedError); err != nil {
+			var err error
+			if nextState, err = session.doTargetTooHigh(TypedError); err != nil {
 				return handleStateError(session, err)
 			}
-		}
-
-		if nextState.messageStash == nil {
-			nextState.messageStash = make(map[int]Message)
 		}
 
 		nextState.messageStash[TypedError.ReceivedTarget] = msg

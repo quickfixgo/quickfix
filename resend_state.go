@@ -4,7 +4,8 @@ import "github.com/quickfixgo/quickfix/internal"
 
 type resendState struct {
 	loggedOn
-	messageStash map[int]Message
+	messageStash   map[int]Message
+	resendRangeEnd int
 }
 
 func (s resendState) String() string { return "Resend" }
@@ -26,15 +27,19 @@ func (s resendState) Timeout(session *session, event internal.Event) (nextState 
 func (s resendState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
 	nextState = inSession{}.FixMsgIn(session, msg)
 
-	if _, stillInResend := nextState.(resendState); stillInResend || !nextState.IsLoggedOn() {
+	if !nextState.IsLoggedOn() {
 		return
+	}
+
+	if s.resendRangeEnd >= session.store.NextTargetMsgSeqNum() {
+		return s
 	}
 
 	for len(s.messageStash) > 0 {
 		targetSeqNum := session.store.NextTargetMsgSeqNum()
 		msg, ok := s.messageStash[targetSeqNum]
 		if !ok {
-			return s
+			break
 		}
 		delete(s.messageStash, targetSeqNum)
 

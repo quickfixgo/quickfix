@@ -266,4 +266,16 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	s.session.sendQueued()
 	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MessageFactory.SetNextSeqNum(1)
+	s.fixMsgIn(s.session, s.SequenceReset(3))
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(3)
+
+	s.MessageFactory.SetNextSeqNum(3)
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.fixMsgIn(s.session, s.SequenceReset(7))
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(7)
 }

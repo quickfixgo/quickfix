@@ -301,26 +301,28 @@ func (s *session) sendBytes(msg []byte) {
 	s.stateTimer.Reset(s.HeartBtInt)
 }
 
-func (s *session) doTargetTooHigh(reject targetTooHigh) error {
+func (s *session) doTargetTooHigh(reject targetTooHigh) (nextState resendState, err error) {
 	s.log.OnEventf("MsgSeqNum too high, expecting %v but received %v", reject.ExpectedTarget, reject.ReceivedTarget)
 
 	resend := NewMessage()
 	resend.Header.SetField(tagMsgType, FIXString("2"))
 	resend.Body.SetField(tagBeginSeqNo, FIXInt(reject.ExpectedTarget))
 
-	var endSeqNum = 0
+	var endSeqNum int
 	if s.sessionID.BeginString < enum.BeginStringFIX42 {
 		endSeqNum = 999999
 	}
 	resend.Body.SetField(tagEndSeqNo, FIXInt(endSeqNum))
 
-	if err := s.send(resend); err != nil {
-		return err
+	if err = s.send(resend); err != nil {
+		return
 	}
 
 	s.log.OnEventf("Sent ResendRequest FROM: %v TO: %v", reject.ExpectedTarget, endSeqNum)
+	nextState.messageStash = make(map[int]Message)
+	nextState.resendRangeEnd = reject.ReceivedTarget - 1
 
-	return nil
+	return
 }
 
 func (s *session) handleLogon(msg Message) error {
