@@ -140,6 +140,12 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.ResendRequestChunkSize) {
+		if s.ResendRequestChunkSize, err = settings.IntSetting(config.ResendRequestChunkSize); err != nil {
+			return
+		}
+	}
+
 	if settings.HasSetting(config.StartTime) || settings.HasSetting(config.EndTime) {
 		var startTimeStr, endTimeStr string
 		if startTimeStr, err = settings.Setting(config.StartTime); err != nil {

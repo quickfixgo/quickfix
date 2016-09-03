@@ -35,4 +35,5 @@ const (
 	SQLStoreDataSourceName   string = "SQLStoreDataSourceName"
 	SQLStoreConnMaxLifetime  string = "SQLStoreConnMaxLifetime"
 	ValidateFieldsOutOfOrder string = "ValidateFieldsOutOfOrder"
+	ResendRequestChunkSize   string = "ResendRequestChunkSize"
 )

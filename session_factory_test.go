@@ -45,6 +45,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.Nil(session.SessionTime, "By default, start and end time unset")
 	s.Equal("", session.DefaultApplVerID)
 	s.False(session.InitiateLogon)
+	s.Equal(0, session.ResendRequestChunkSize)
 }
 
 func (s *SessionFactorySuite) TestResetOnLogon() {
@@ -96,6 +97,18 @@ func (s *SessionFactorySuite) TestResetOnLogout() {
 
 		s.Equal(test.expected, session.ResetOnLogout)
 	}
+}
+
+func (s *SessionFactorySuite) TestResendRequestChunkSize() {
+	s.SessionSettings.Set(config.ResendRequestChunkSize, "2500")
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session)
+	s.Equal(2500, session.ResendRequestChunkSize)
+
+	s.SessionSettings.Set(config.ResendRequestChunkSize, "notanint")
+	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
 }
 
 func (s *SessionFactorySuite) TestStartAndEndTime() {
