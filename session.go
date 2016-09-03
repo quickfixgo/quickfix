@@ -303,24 +303,38 @@ func (s *session) sendBytes(msg []byte) {
 
 func (s *session) doTargetTooHigh(reject targetTooHigh) (nextState resendState, err error) {
 	s.log.OnEventf("MsgSeqNum too high, expecting %v but received %v", reject.ExpectedTarget, reject.ReceivedTarget)
+	return s.sendResendRequest(reject.ExpectedTarget, reject.ReceivedTarget-1)
+}
+
+func (s *session) sendResendRequest(beginSeq, endSeq int) (nextState resendState, err error) {
+	nextState.resendRangeEnd = endSeq
 
 	resend := NewMessage()
-	resend.Header.SetField(tagMsgType, FIXString("2"))
-	resend.Body.SetField(tagBeginSeqNo, FIXInt(reject.ExpectedTarget))
+	resend.Header.SetField(tagMsgType, FIXString(enum.MsgType_RESEND_REQUEST))
+	resend.Body.SetField(tagBeginSeqNo, FIXInt(beginSeq))
 
-	var endSeqNum int
-	if s.sessionID.BeginString < enum.BeginStringFIX42 {
-		endSeqNum = 999999
+	var endSeqNo int
+	if s.ResendRequestChunkSize != 0 {
+		endSeqNo = beginSeq + s.ResendRequestChunkSize - 1
+	} else {
+		endSeqNo = endSeq
 	}
-	resend.Body.SetField(tagEndSeqNo, FIXInt(endSeqNum))
+
+	if endSeqNo < endSeq {
+		nextState.currentResendRangeEnd = endSeqNo
+	} else {
+		if s.sessionID.BeginString < enum.BeginStringFIX42 {
+			endSeqNo = 999999
+		} else {
+			endSeqNo = 0
+		}
+	}
+	resend.Body.SetField(tagEndSeqNo, FIXInt(endSeqNo))
 
 	if err = s.send(resend); err != nil {
 		return
 	}
-
-	s.log.OnEventf("Sent ResendRequest FROM: %v TO: %v", reject.ExpectedTarget, endSeqNum)
-	nextState.messageStash = make(map[int]Message)
-	nextState.resendRangeEnd = reject.ReceivedTarget - 1
+	s.log.OnEventf("Sent ResendRequest FROM: %v TO: %v", beginSeq, endSeqNo)
 
 	return
 }

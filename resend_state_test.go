@@ -102,8 +102,8 @@ func (s *resendStateTestSuite) TestFixMsgInSequenceReset() {
 	s.MessageFactory.SetNextSeqNum(3)
 	s.MockApp.On("ToAdmin")
 
-	msgSeqNum2 := s.NewOrderSingle()
-	s.fixMsgIn(s.session, msgSeqNum2)
+	msgSeqNum3 := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNum3)
 
 	s.MockApp.AssertExpectations(s.T())
 	s.State(resendState{})
@@ -124,4 +124,53 @@ func (s *resendStateTestSuite) TestFixMsgInSequenceReset() {
 	s.MockApp.AssertNumberOfCalls(s.T(), "FromApp", 2)
 	s.NextTargetMsgSeqNum(4)
 	s.State(inSession{})
+}
+
+func (s *resendStateTestSuite) TestFixMsgInResendChunk() {
+	s.session.State = inSession{}
+	s.ResendRequestChunkSize = 2
+
+	//in session expects seq number 1, send too high
+	s.MessageFactory.SetNextSeqNum(4)
+	s.MockApp.On("ToAdmin")
+
+	msgSeqNum4 := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNum4)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.State(resendState{})
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagEndSeqNo, 2, s.MockApp.lastToAdmin.Body)
+	s.NextTargetMsgSeqNum(1)
+
+	msgSeqNum5 := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNum5)
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(1)
+
+	msgSeqNum6 := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNum6)
+
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(1)
+
+	s.MessageFactory.SetNextSeqNum(1)
+	s.MockApp.On("FromApp").Return(nil)
+	s.fixMsgIn(s.session, s.NewOrderSingle())
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "FromApp", 1)
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(2)
+
+	s.fixMsgIn(s.session, s.NewOrderSingle())
+	s.MockApp.AssertNumberOfCalls(s.T(), "FromApp", 2)
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(3)
+
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagBeginSeqNo, 3, s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagEndSeqNo, 0, s.MockApp.lastToAdmin.Body)
 }
