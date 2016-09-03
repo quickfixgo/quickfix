@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"testing"
+	"time"
 
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
@@ -281,4 +282,40 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 
 	s.NextSenderMsgSeqNum(4)
 	s.State(inSession{})
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {
+	s.session.store.IncrNextTargetMsgSeqNum()
+
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, s.NewOrderSingle())
+	s.MockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGOUT, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagText, "MsgSeqNum too low, expecting 2 but received 1", s.MockApp.lastToAdmin.Body)
+	s.State(logoutState{})
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooLowPossDup() {
+	s.session.store.IncrNextTargetMsgSeqNum()
+
+	s.MockApp.On("ToAdmin")
+	nos := s.NewOrderSingle()
+	nos.Header.SetField(tagPossDupFlag, FIXBoolean(true))
+
+	s.fixMsgIn(s.session, nos)
+	s.MockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_REJECT, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagText, "Required tag missing", s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagRefTagID, int(tagOrigSendingTime), s.MockApp.lastToAdmin.Body)
+	s.State(inSession{})
+
+	nos.Header.SetField(tagOrigSendingTime, FIXUTCTimestamp{Time: time.Now().Add(time.Duration(-1) * time.Minute)})
+	nos.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()})
+	s.fixMsgIn(s.session, nos)
+	s.MockApp.AssertExpectations(s.T())
+	s.NoMessageSent()
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(2)
 }

@@ -307,44 +307,46 @@ func (state inSession) processReject(session *session, msg Message, rej MessageR
 
 func (state inSession) doTargetTooLow(session *session, msg Message, rej targetTooLow) (nextState sessionState) {
 	var posDupFlag FIXBoolean
-	if err := msg.Header.GetField(tagPossDupFlag, &posDupFlag); err == nil && posDupFlag {
-
-		origSendingTime := new(FIXUTCTimestamp)
-		if err = msg.Header.GetField(tagOrigSendingTime, origSendingTime); err != nil {
-			if rejErr := session.doReject(msg, RequiredTagMissing(tagOrigSendingTime)); rejErr != nil {
+	if msg.Header.Has(tagPossDupFlag) {
+		if err := msg.Header.GetField(tagPossDupFlag, &posDupFlag); err != nil {
+			if rejErr := session.doReject(msg, err); rejErr != nil {
 				return handleStateError(session, rejErr)
 			}
 			return state
 		}
+	}
 
-		sendingTime := new(FIXUTCTimestamp)
-		if err = msg.Header.GetField(tagSendingTime, sendingTime); err != nil {
-			return state.processReject(session, msg, err)
-		}
-
-		if sendingTime.Before(origSendingTime.Time) {
-			if err := session.doReject(msg, sendingTimeAccuracyProblem()); err != nil {
-				return handleStateError(session, err)
-			}
-
-			if err := session.initiateLogout(""); err != nil {
-				return handleStateError(session, err)
-			}
-			return logoutState{}
-		}
-
-		if appReject := session.fromCallback(msg); appReject != nil {
-			if err := session.doReject(msg, appReject); err != nil {
-				return handleStateError(session, err)
-			}
-
-			if err := session.initiateLogout(""); err != nil {
-				return handleStateError(session, err)
-			}
-			return logoutState{}
-		}
-	} else {
+	if !posDupFlag.Bool() {
 		if err := session.initiateLogout(rej.Error()); err != nil {
+			return handleStateError(session, err)
+		}
+		return logoutState{}
+	}
+
+	if !msg.Header.Has(tagOrigSendingTime) {
+		session.doReject(msg, RequiredTagMissing(tagOrigSendingTime))
+		return state
+	}
+
+	var origSendingTime FIXUTCTimestamp
+	if err := msg.Header.GetField(tagOrigSendingTime, &origSendingTime); err != nil {
+		if rejErr := session.doReject(msg, err); rejErr != nil {
+			return handleStateError(session, rejErr)
+		}
+		return state
+	}
+
+	sendingTime := new(FIXUTCTimestamp)
+	if err := msg.Header.GetField(tagSendingTime, sendingTime); err != nil {
+		return state.processReject(session, msg, err)
+	}
+
+	if sendingTime.Before(origSendingTime.Time) {
+		if err := session.doReject(msg, sendingTimeAccuracyProblem()); err != nil {
+			return handleStateError(session, err)
+		}
+
+		if err := session.initiateLogout(""); err != nil {
 			return handleStateError(session, err)
 		}
 		return logoutState{}
