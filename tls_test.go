@@ -87,8 +87,8 @@ func (s *TLSTestSuite) TestLoadTLSWithCA() {
 	s.Equal(tls.RequireAndVerifyClientCert, tlsConfig.ClientAuth)
 }
 
-func (s *TLSTestSuite) TestTLSForTesting() {
-	s.settings.GlobalSettings().Set(config.SocketTLSForTesting, "Y")
+func (s *TLSTestSuite) TestInsecureSkipVerify() {
+	s.settings.GlobalSettings().Set(config.SocketInsecureSkipVerify, "Y")
 
 	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.Nil(err)
@@ -97,15 +97,15 @@ func (s *TLSTestSuite) TestTLSForTesting() {
 	s.True(tlsConfig.InsecureSkipVerify)
 }
 
-func (s *TLSTestSuite) TestTLSForTestingDisableIfCertPresented() {
+func (s *TLSTestSuite) TestInsecureSkipVerifyAndCerts() {
 	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
 	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
-	s.settings.GlobalSettings().Set(config.SocketTLSForTesting, "Y")
+	s.settings.GlobalSettings().Set(config.SocketInsecureSkipVerify, "Y")
 
 	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.Nil(err)
 	s.NotNil(tlsConfig)
 
-	s.False(tlsConfig.InsecureSkipVerify)
+	s.True(tlsConfig.InsecureSkipVerify)
 	s.Len(tlsConfig.Certificates, 1)
 }

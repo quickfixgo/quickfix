@@ -15,7 +15,7 @@ const (
 	SocketPrivateKeyFile     string = "SocketPrivateKeyFile"
 	SocketCertificateFile    string = "SocketCertificateFile"
 	SocketCAFile             string = "SocketCAFile"
-	SocketTLSForTesting      string = "SocketTLSForTesting"
+	SocketInsecureSkipVerify string = "SocketInsecureSkipVerify"
 	DefaultApplVerID         string = "DefaultApplVerID"
 	StartTime                string = "StartTime"
 	EndTime                  string = "EndTime"
