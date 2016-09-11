@@ -26,6 +26,7 @@ func init() {
 		"getGlobalFieldType":                    getGlobalFieldType,
 		"collectExtraImports":                   collectExtraImports,
 		"checkIfDecimalImportRequiredForFields": checkIfDecimalImportRequiredForFields,
+		"checkIfEnumImportRequired":             checkIfEnumImportRequired,
 	}
 
 	baseTemplate := template.Must(template.New("Base").Funcs(tmplFuncs).Parse(`
@@ -34,7 +35,11 @@ func init() {
 {{ define "fieldsetter" -}}
 {{- $field_type := getGlobalFieldType . -}}
 {{- $qfix_type := quickfixType $field_type -}}
-{{- if eq $qfix_type "FIXDecimal" -}}
+{{- if and ($field_type.Enums) (ne $qfix_type "FIXBoolean") -}}
+Set{{ .Name }}(v enum.{{ .Name }}) {
+	{{ template "receiver" }}.Set(field.New{{ .Name }}(v))
+}
+{{- else if eq $qfix_type "FIXDecimal" -}}
 Set{{ .Name }}(value decimal.Decimal, scale int32) {
 	{{ template "receiver" }}.Set(field.New{{ .Name }}(value, scale))
 }
@@ -144,6 +149,9 @@ import(
 
 
 	"github.com/quickfixgo/quickfix"
+	{{- if checkIfEnumImportRequired .MessageDef}}
+	"github.com/quickfixgo/quickfix/enum"
+	{{- end }}
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/tag"
 )
@@ -176,6 +184,9 @@ import(
 	{{- end }}
 
 	"github.com/quickfixgo/quickfix"
+	{{- if checkIfEnumImportRequired .MessageDef}}
+	"github.com/quickfixgo/quickfix/enum"
+	{{- end }}
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/tag"
 )
@@ -202,6 +213,9 @@ import(
 	{{- end }}
 
 	"github.com/quickfixgo/quickfix"
+	{{- if checkIfEnumImportRequired .MessageDef}}
+	"{{ importRootPath }}/enum"
+	{{- end }}
 	"{{ importRootPath }}/field"
 	"{{ importRootPath }}/{{ .TransportPackage }}"
 	"{{ importRootPath }}/tag"
@@ -237,7 +251,7 @@ func (m {{ .Name }}) ToMessage() quickfix.Message {
 }
 
 {{ $required_fields := requiredFields .MessageDef -}}
-//New returns a {{ .Name }} initialized with the required fields for {{ .Name }} 
+//New returns a {{ .Name }} initialized with the required fields for {{ .Name }}
 func New({{template "field_args" $required_fields }}) (m {{ .Name }}) {
 	m.Header = {{ .TransportPackage }}.NewHeader()
 	m.Init()
@@ -248,7 +262,7 @@ func New({{template "field_args" $required_fields }}) (m {{ .Name }}) {
 	m.Set({{ toLower .Name }})
 	{{- end }}
 
-	return 
+	return
 }
 
 //A RouteOut is the callback type that should be implemented for routing Message
@@ -283,6 +297,7 @@ const (
 package field
 import(
 	"github.com/quickfixgo/quickfix"
+	"{{ importRootPath }}/enum"
 	"{{ importRootPath }}/tag"
 {{ if checkIfDecimalImportRequiredForFields . }} "github.com/shopspring/decimal" {{ end }}
 	"time"
@@ -290,23 +305,33 @@ import(
 
 {{ range . }}
 {{- $base_type := quickfixType . -}}
+
+{{ if and .Enums (ne $base_type "FIXBoolean") }}
+//{{ .Name }}Field is a enum.{{ .Name }} field
+type {{ .Name }}Field struct { quickfix.FIXString }
+{{ else }}
 //{{ .Name }}Field is a {{ .Type }} field
 type {{ .Name }}Field struct { quickfix.{{ $base_type }} }
+{{ end }}
 
 //Tag returns tag.{{ .Name }} ({{ .Tag }})
 func (f {{ .Name }}Field) Tag() quickfix.Tag { return tag.{{ .Name }} }
 
-{{ if eq $base_type "FIXUTCTimestamp" }} 
+{{ if eq $base_type "FIXUTCTimestamp" }}
 //New{{ .Name }} returns a new {{ .Name }}Field initialized with val
 func New{{ .Name }}(val time.Time) {{ .Name }}Field {
-	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val } } 
+	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val } }
 }
 
 //New{{ .Name }}NoMillis returns a new {{ .Name }}Field initialized with val without millisecs
 func New{{ .Name }}NoMillis(val time.Time) {{ .Name }}Field {
-	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val, NoMillis: true } } 
+	return {{ .Name }}Field{ quickfix.FIXUTCTimestamp{ Time: val, NoMillis: true } }
 }
 
+{{ else if and  .Enums (ne $base_type "FIXBoolean") }}
+func New{{ .Name }}(val enum.{{ .Name }}) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.FIXString(val) }
+}
 {{ else if eq $base_type "FIXDecimal" }}
 //New{{ .Name }} returns a new {{ .Name }}Field initialized with val and scale
 func New{{ .Name }}(val decimal.Decimal, scale int32) {{ .Name }}Field {
@@ -323,11 +348,12 @@ func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
 	EnumTemplate = template.Must(template.New("Enum").Parse(`
 package enum
 {{ range $ft := . }}
-{{ if $ft.Enums }} 
+{{ if $ft.Enums }}
 //Enum values for {{ $ft.Name }}
+type {{ $ft.Name }} string
 const(
 {{ range $ft.Enums }}
-{{ $ft.Name }}_{{ .Description }} = "{{ .Value }}"
+{{ $ft.Name }}_{{ .Description }} {{ $ft.Name }} = "{{ .Value }}"
 {{- end }}
 )
 {{ end }}{{ end }}
