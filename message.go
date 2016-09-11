@@ -43,6 +43,23 @@ func (h *Header) Init() {
 	})
 }
 
+// GetMsgType returns MsgType (tag 35) field's value
+func (h *Header) GetMsgType() (msgType enum.MsgType, err MessageRejectError) {
+	var s string
+	if s, err = h.GetString(tagMsgType); err == nil {
+		msgType = enum.MsgType(s)
+	}
+	return
+}
+
+// HasMsgTypeOf returns true if the Header contains MsgType (tag 35) field and its value is the specified one.
+func (h *Header) HasMsgTypeOf(msgType enum.MsgType) bool {
+	if v, err := h.GetMsgType(); err == nil {
+		return v == msgType
+	}
+	return false
+}
+
 //Body is the primary application section of a FIX message
 type Body struct{ FieldMap }
 
