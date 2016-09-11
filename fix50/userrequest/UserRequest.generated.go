@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -89,7 +90,7 @@ func (m UserRequest) SetUserRequestID(v string) {
 }
 
 //SetUserRequestType sets UserRequestType, Tag 924
-func (m UserRequest) SetUserRequestType(v int) {
+func (m UserRequest) SetUserRequestType(v enum.UserRequestType) {
 	m.Set(field.NewUserRequestType(v))
 }
 
@@ -99,44 +100,65 @@ func (m UserRequest) SetNewPassword(v string) {
 }
 
 //GetRawDataLength gets RawDataLength, Tag 95
-func (m UserRequest) GetRawDataLength() (f field.RawDataLengthField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserRequest) GetRawDataLength() (v int, err quickfix.MessageRejectError) {
+	var f field.RawDataLengthField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRawData gets RawData, Tag 96
-func (m UserRequest) GetRawData() (f field.RawDataField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserRequest) GetRawData() (v string, err quickfix.MessageRejectError) {
+	var f field.RawDataField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUsername gets Username, Tag 553
-func (m UserRequest) GetUsername() (f field.UsernameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserRequest) GetUsername() (v string, err quickfix.MessageRejectError) {
+	var f field.UsernameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPassword gets Password, Tag 554
-func (m UserRequest) GetPassword() (f field.PasswordField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserRequest) GetPassword() (v string, err quickfix.MessageRejectError) {
+	var f field.PasswordField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUserRequestID gets UserRequestID, Tag 923
-func (m UserRequest) GetUserRequestID() (f field.UserRequestIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserRequest) GetUserRequestID() (v string, err quickfix.MessageRejectError) {
+	var f field.UserRequestIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUserRequestType gets UserRequestType, Tag 924
-func (m UserRequest) GetUserRequestType() (f field.UserRequestTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserRequest) GetUserRequestType() (v enum.UserRequestType, err quickfix.MessageRejectError) {
+	var f field.UserRequestTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNewPassword gets NewPassword, Tag 925
-func (m UserRequest) GetNewPassword() (f field.NewPasswordField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserRequest) GetNewPassword() (v string, err quickfix.MessageRejectError) {
+	var f field.NewPasswordField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

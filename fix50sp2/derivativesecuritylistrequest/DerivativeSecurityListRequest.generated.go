@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -114,7 +115,7 @@ func (m DerivativeSecurityListRequest) SetUnderlyingCreditRating(v string) {
 }
 
 //SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263
-func (m DerivativeSecurityListRequest) SetSubscriptionRequestType(v string) {
+func (m DerivativeSecurityListRequest) SetSubscriptionRequestType(v enum.SubscriptionRequestType) {
 	m.Set(field.NewSubscriptionRequestType(v))
 }
 
@@ -189,7 +190,7 @@ func (m DerivativeSecurityListRequest) SetSecurityReqID(v string) {
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
-func (m DerivativeSecurityListRequest) SetTradingSessionID(v string) {
+func (m DerivativeSecurityListRequest) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
@@ -254,7 +255,7 @@ func (m DerivativeSecurityListRequest) SetUnderlyingMaturityDate(v string) {
 }
 
 //SetSecurityListRequestType sets SecurityListRequestType, Tag 559
-func (m DerivativeSecurityListRequest) SetSecurityListRequestType(v int) {
+func (m DerivativeSecurityListRequest) SetSecurityListRequestType(v enum.SecurityListRequestType) {
 	m.Set(field.NewSecurityListRequestType(v))
 }
 
@@ -279,7 +280,7 @@ func (m DerivativeSecurityListRequest) SetUnderlyingInstrRegistry(v string) {
 }
 
 //SetTradingSessionSubID sets TradingSessionSubID, Tag 625
-func (m DerivativeSecurityListRequest) SetTradingSessionSubID(v string) {
+func (m DerivativeSecurityListRequest) SetTradingSessionSubID(v enum.TradingSessionSubID) {
 	m.Set(field.NewTradingSessionSubID(v))
 }
 
@@ -359,12 +360,12 @@ func (m DerivativeSecurityListRequest) SetUnderlyingCashAmount(value decimal.Dec
 }
 
 //SetUnderlyingCashType sets UnderlyingCashType, Tag 974
-func (m DerivativeSecurityListRequest) SetUnderlyingCashType(v string) {
+func (m DerivativeSecurityListRequest) SetUnderlyingCashType(v enum.UnderlyingCashType) {
 	m.Set(field.NewUnderlyingCashType(v))
 }
 
 //SetUnderlyingSettlementType sets UnderlyingSettlementType, Tag 975
-func (m DerivativeSecurityListRequest) SetUnderlyingSettlementType(v int) {
+func (m DerivativeSecurityListRequest) SetUnderlyingSettlementType(v enum.UnderlyingSettlementType) {
 	m.Set(field.NewUnderlyingSettlementType(v))
 }
 
@@ -399,7 +400,7 @@ func (m DerivativeSecurityListRequest) SetUnderlyingFXRate(value decimal.Decimal
 }
 
 //SetUnderlyingFXRateCalc sets UnderlyingFXRateCalc, Tag 1046
-func (m DerivativeSecurityListRequest) SetUnderlyingFXRateCalc(v string) {
+func (m DerivativeSecurityListRequest) SetUnderlyingFXRateCalc(v enum.UnderlyingFXRateCalc) {
 	m.Set(field.NewUnderlyingFXRateCalc(v))
 }
 
@@ -794,206 +795,313 @@ func (m DerivativeSecurityListRequest) SetUnderlyingDetachmentPoint(value decima
 }
 
 //GetCurrency gets Currency, Tag 15
-func (m DerivativeSecurityListRequest) GetCurrency() (f field.CurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.CurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m DerivativeSecurityListRequest) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCouponPaymentDate gets UnderlyingCouponPaymentDate, Tag 241
-func (m DerivativeSecurityListRequest) GetUnderlyingCouponPaymentDate() (f field.UnderlyingCouponPaymentDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCouponPaymentDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingIssueDate gets UnderlyingIssueDate, Tag 242
-func (m DerivativeSecurityListRequest) GetUnderlyingIssueDate() (f field.UnderlyingIssueDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingIssueDate() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingIssueDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingRepoCollateralSecurityType gets UnderlyingRepoCollateralSecurityType, Tag 243
-func (m DerivativeSecurityListRequest) GetUnderlyingRepoCollateralSecurityType() (f field.UnderlyingRepoCollateralSecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRepoCollateralSecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingRepurchaseTerm gets UnderlyingRepurchaseTerm, Tag 244
-func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseTerm() (f field.UnderlyingRepurchaseTermField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRepurchaseTermField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
-func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseRate() (f field.UnderlyingRepurchaseRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRepurchaseRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingFactor gets UnderlyingFactor, Tag 246
-func (m DerivativeSecurityListRequest) GetUnderlyingFactor() (f field.UnderlyingFactorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingFactorField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingRedemptionDate gets UnderlyingRedemptionDate, Tag 247
-func (m DerivativeSecurityListRequest) GetUnderlyingRedemptionDate() (f field.UnderlyingRedemptionDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingRedemptionDate() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRedemptionDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCreditRating gets UnderlyingCreditRating, Tag 256
-func (m DerivativeSecurityListRequest) GetUnderlyingCreditRating() (f field.UnderlyingCreditRatingField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCreditRating() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCreditRatingField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSubscriptionRequestType gets SubscriptionRequestType, Tag 263
-func (m DerivativeSecurityListRequest) GetSubscriptionRequestType() (f field.SubscriptionRequestTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetSubscriptionRequestType() (v enum.SubscriptionRequestType, err quickfix.MessageRejectError) {
+	var f field.SubscriptionRequestTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityIDSource gets UnderlyingSecurityIDSource, Tag 305
-func (m DerivativeSecurityListRequest) GetUnderlyingSecurityIDSource() (f field.UnderlyingSecurityIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSecurityIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingIssuer gets UnderlyingIssuer, Tag 306
-func (m DerivativeSecurityListRequest) GetUnderlyingIssuer() (f field.UnderlyingIssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingIssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityDesc gets UnderlyingSecurityDesc, Tag 307
-func (m DerivativeSecurityListRequest) GetUnderlyingSecurityDesc() (f field.UnderlyingSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityExchange gets UnderlyingSecurityExchange, Tag 308
-func (m DerivativeSecurityListRequest) GetUnderlyingSecurityExchange() (f field.UnderlyingSecurityExchangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSecurityExchange() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityExchangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityID gets UnderlyingSecurityID, Tag 309
-func (m DerivativeSecurityListRequest) GetUnderlyingSecurityID() (f field.UnderlyingSecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityType gets UnderlyingSecurityType, Tag 310
-func (m DerivativeSecurityListRequest) GetUnderlyingSecurityType() (f field.UnderlyingSecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSecurityType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSymbol gets UnderlyingSymbol, Tag 311
-func (m DerivativeSecurityListRequest) GetUnderlyingSymbol() (f field.UnderlyingSymbolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSymbol() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSymbolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSymbolSfx gets UnderlyingSymbolSfx, Tag 312
-func (m DerivativeSecurityListRequest) GetUnderlyingSymbolSfx() (f field.UnderlyingSymbolSfxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSymbolSfx() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSymbolSfxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingMaturityMonthYear gets UnderlyingMaturityMonthYear, Tag 313
-func (m DerivativeSecurityListRequest) GetUnderlyingMaturityMonthYear() (f field.UnderlyingMaturityMonthYearField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingMaturityMonthYearField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingPutOrCall gets UnderlyingPutOrCall, Tag 315
-func (m DerivativeSecurityListRequest) GetUnderlyingPutOrCall() (f field.UnderlyingPutOrCallField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingPutOrCall() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingPutOrCallField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
-func (m DerivativeSecurityListRequest) GetUnderlyingStrikePrice() (f field.UnderlyingStrikePriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStrikePriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingOptAttribute gets UnderlyingOptAttribute, Tag 317
-func (m DerivativeSecurityListRequest) GetUnderlyingOptAttribute() (f field.UnderlyingOptAttributeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingOptAttribute() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingOptAttributeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCurrency gets UnderlyingCurrency, Tag 318
-func (m DerivativeSecurityListRequest) GetUnderlyingCurrency() (f field.UnderlyingCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityReqID gets SecurityReqID, Tag 320
-func (m DerivativeSecurityListRequest) GetSecurityReqID() (f field.SecurityReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetSecurityReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradingSessionID gets TradingSessionID, Tag 336
-func (m DerivativeSecurityListRequest) GetTradingSessionID() (f field.TradingSessionIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m DerivativeSecurityListRequest) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m DerivativeSecurityListRequest) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedUnderlyingIssuerLen gets EncodedUnderlyingIssuerLen, Tag 362
-func (m DerivativeSecurityListRequest) GetEncodedUnderlyingIssuerLen() (f field.EncodedUnderlyingIssuerLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetEncodedUnderlyingIssuerLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedUnderlyingIssuerLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedUnderlyingIssuer gets EncodedUnderlyingIssuer, Tag 363
-func (m DerivativeSecurityListRequest) GetEncodedUnderlyingIssuer() (f field.EncodedUnderlyingIssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetEncodedUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedUnderlyingIssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedUnderlyingSecurityDescLen gets EncodedUnderlyingSecurityDescLen, Tag 364
-func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDescLen() (f field.EncodedUnderlyingSecurityDescLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDescLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedUnderlyingSecurityDescLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedUnderlyingSecurityDesc gets EncodedUnderlyingSecurityDesc, Tag 365
-func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDesc() (f field.EncodedUnderlyingSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedUnderlyingSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
-func (m DerivativeSecurityListRequest) GetUnderlyingCouponRate() (f field.UnderlyingCouponRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCouponRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
-func (m DerivativeSecurityListRequest) GetUnderlyingContractMultiplier() (f field.UnderlyingContractMultiplierField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingContractMultiplierField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
@@ -1005,122 +1113,189 @@ func (m DerivativeSecurityListRequest) GetNoUnderlyingSecurityAltID() (NoUnderly
 }
 
 //GetUnderlyingProduct gets UnderlyingProduct, Tag 462
-func (m DerivativeSecurityListRequest) GetUnderlyingProduct() (f field.UnderlyingProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingProduct() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCFICode gets UnderlyingCFICode, Tag 463
-func (m DerivativeSecurityListRequest) GetUnderlyingCFICode() (f field.UnderlyingCFICodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCFICode() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCFICodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingMaturityDate gets UnderlyingMaturityDate, Tag 542
-func (m DerivativeSecurityListRequest) GetUnderlyingMaturityDate() (f field.UnderlyingMaturityDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingMaturityDate() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingMaturityDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityListRequestType gets SecurityListRequestType, Tag 559
-func (m DerivativeSecurityListRequest) GetSecurityListRequestType() (f field.SecurityListRequestTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetSecurityListRequestType() (v enum.SecurityListRequestType, err quickfix.MessageRejectError) {
+	var f field.SecurityListRequestTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCountryOfIssue gets UnderlyingCountryOfIssue, Tag 592
-func (m DerivativeSecurityListRequest) GetUnderlyingCountryOfIssue() (f field.UnderlyingCountryOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCountryOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCountryOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingStateOrProvinceOfIssue gets UnderlyingStateOrProvinceOfIssue, Tag 593
-func (m DerivativeSecurityListRequest) GetUnderlyingStateOrProvinceOfIssue() (f field.UnderlyingStateOrProvinceOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStateOrProvinceOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingLocaleOfIssue gets UnderlyingLocaleOfIssue, Tag 594
-func (m DerivativeSecurityListRequest) GetUnderlyingLocaleOfIssue() (f field.UnderlyingLocaleOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingLocaleOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingInstrRegistry gets UnderlyingInstrRegistry, Tag 595
-func (m DerivativeSecurityListRequest) GetUnderlyingInstrRegistry() (f field.UnderlyingInstrRegistryField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingInstrRegistry() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingInstrRegistryField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradingSessionSubID gets TradingSessionSubID, Tag 625
-func (m DerivativeSecurityListRequest) GetTradingSessionSubID() (f field.TradingSessionSubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetTradingSessionSubID() (v enum.TradingSessionSubID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionSubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecuritySubType gets SecuritySubType, Tag 762
-func (m DerivativeSecurityListRequest) GetSecuritySubType() (f field.SecuritySubTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetSecuritySubType() (v string, err quickfix.MessageRejectError) {
+	var f field.SecuritySubTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecuritySubType gets UnderlyingSecuritySubType, Tag 763
-func (m DerivativeSecurityListRequest) GetUnderlyingSecuritySubType() (f field.UnderlyingSecuritySubTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSecuritySubType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecuritySubTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingPx gets UnderlyingPx, Tag 810
-func (m DerivativeSecurityListRequest) GetUnderlyingPx() (f field.UnderlyingPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingCPProgram gets UnderlyingCPProgram, Tag 877
-func (m DerivativeSecurityListRequest) GetUnderlyingCPProgram() (f field.UnderlyingCPProgramField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCPProgram() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCPProgramField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCPRegType gets UnderlyingCPRegType, Tag 878
-func (m DerivativeSecurityListRequest) GetUnderlyingCPRegType() (f field.UnderlyingCPRegTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCPRegType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCPRegTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingQty gets UnderlyingQty, Tag 879
-func (m DerivativeSecurityListRequest) GetUnderlyingQty() (f field.UnderlyingQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
-func (m DerivativeSecurityListRequest) GetUnderlyingDirtyPrice() (f field.UnderlyingDirtyPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingDirtyPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingDirtyPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
-func (m DerivativeSecurityListRequest) GetUnderlyingEndPrice() (f field.UnderlyingEndPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingEndPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingEndPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
-func (m DerivativeSecurityListRequest) GetUnderlyingStartValue() (f field.UnderlyingStartValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingStartValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStartValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
-func (m DerivativeSecurityListRequest) GetUnderlyingCurrentValue() (f field.UnderlyingCurrentValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCurrentValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCurrentValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
-func (m DerivativeSecurityListRequest) GetUnderlyingEndValue() (f field.UnderlyingEndValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingEndValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingEndValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
@@ -1132,74 +1307,115 @@ func (m DerivativeSecurityListRequest) GetNoUnderlyingStips() (NoUnderlyingStips
 }
 
 //GetUnderlyingStrikeCurrency gets UnderlyingStrikeCurrency, Tag 941
-func (m DerivativeSecurityListRequest) GetUnderlyingStrikeCurrency() (f field.UnderlyingStrikeCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingStrikeCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStrikeCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingAllocationPercent gets UnderlyingAllocationPercent, Tag 972
-func (m DerivativeSecurityListRequest) GetUnderlyingAllocationPercent() (f field.UnderlyingAllocationPercentField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingAllocationPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingAllocationPercentField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingCashAmount gets UnderlyingCashAmount, Tag 973
-func (m DerivativeSecurityListRequest) GetUnderlyingCashAmount() (f field.UnderlyingCashAmountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCashAmount() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCashAmountField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingCashType gets UnderlyingCashType, Tag 974
-func (m DerivativeSecurityListRequest) GetUnderlyingCashType() (f field.UnderlyingCashTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCashType() (v enum.UnderlyingCashType, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCashTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSettlementType gets UnderlyingSettlementType, Tag 975
-func (m DerivativeSecurityListRequest) GetUnderlyingSettlementType() (f field.UnderlyingSettlementTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSettlementType() (v enum.UnderlyingSettlementType, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSettlementTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingUnitOfMeasure gets UnderlyingUnitOfMeasure, Tag 998
-func (m DerivativeSecurityListRequest) GetUnderlyingUnitOfMeasure() (f field.UnderlyingUnitOfMeasureField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingUnitOfMeasure() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingUnitOfMeasureField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingTimeUnit gets UnderlyingTimeUnit, Tag 1000
-func (m DerivativeSecurityListRequest) GetUnderlyingTimeUnit() (f field.UnderlyingTimeUnitField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingTimeUnit() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingTimeUnitField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCapValue gets UnderlyingCapValue, Tag 1038
-func (m DerivativeSecurityListRequest) GetUnderlyingCapValue() (f field.UnderlyingCapValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingCapValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCapValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingSettlMethod gets UnderlyingSettlMethod, Tag 1039
-func (m DerivativeSecurityListRequest) GetUnderlyingSettlMethod() (f field.UnderlyingSettlMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSettlMethod() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSettlMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingAdjustedQuantity gets UnderlyingAdjustedQuantity, Tag 1044
-func (m DerivativeSecurityListRequest) GetUnderlyingAdjustedQuantity() (f field.UnderlyingAdjustedQuantityField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingAdjustedQuantity() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingAdjustedQuantityField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingFXRate gets UnderlyingFXRate, Tag 1045
-func (m DerivativeSecurityListRequest) GetUnderlyingFXRate() (f field.UnderlyingFXRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingFXRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingFXRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingFXRateCalc gets UnderlyingFXRateCalc, Tag 1046
-func (m DerivativeSecurityListRequest) GetUnderlyingFXRateCalc() (f field.UnderlyingFXRateCalcField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingFXRateCalc() (v enum.UnderlyingFXRateCalc, err quickfix.MessageRejectError) {
+	var f field.UnderlyingFXRateCalcField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1211,32 +1427,47 @@ func (m DerivativeSecurityListRequest) GetNoUndlyInstrumentParties() (NoUndlyIns
 }
 
 //GetUnderlyingMaturityTime gets UnderlyingMaturityTime, Tag 1213
-func (m DerivativeSecurityListRequest) GetUnderlyingMaturityTime() (f field.UnderlyingMaturityTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingMaturityTime() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingMaturityTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSymbol gets DerivativeSymbol, Tag 1214
-func (m DerivativeSecurityListRequest) GetDerivativeSymbol() (f field.DerivativeSymbolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSymbol() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSymbolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSymbolSfx gets DerivativeSymbolSfx, Tag 1215
-func (m DerivativeSecurityListRequest) GetDerivativeSymbolSfx() (f field.DerivativeSymbolSfxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSymbolSfx() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSymbolSfxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityID gets DerivativeSecurityID, Tag 1216
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityID() (f field.DerivativeSecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityIDSource gets DerivativeSecurityIDSource, Tag 1217
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityIDSource() (f field.DerivativeSecurityIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1248,260 +1479,397 @@ func (m DerivativeSecurityListRequest) GetNoDerivativeSecurityAltID() (NoDerivat
 }
 
 //GetDerivativeOptPayAmount gets DerivativeOptPayAmount, Tag 1225
-func (m DerivativeSecurityListRequest) GetDerivativeOptPayAmount() (f field.DerivativeOptPayAmountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeOptPayAmount() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeOptPayAmountField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeProductComplex gets DerivativeProductComplex, Tag 1228
-func (m DerivativeSecurityListRequest) GetDerivativeProductComplex() (f field.DerivativeProductComplexField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeProductComplex() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeProductComplexField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivFlexProductEligibilityIndicator gets DerivFlexProductEligibilityIndicator, Tag 1243
-func (m DerivativeSecurityListRequest) GetDerivFlexProductEligibilityIndicator() (f field.DerivFlexProductEligibilityIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivFlexProductEligibilityIndicator() (v bool, err quickfix.MessageRejectError) {
+	var f field.DerivFlexProductEligibilityIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeProduct gets DerivativeProduct, Tag 1246
-func (m DerivativeSecurityListRequest) GetDerivativeProduct() (f field.DerivativeProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeProduct() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityGroup gets DerivativeSecurityGroup, Tag 1247
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityGroup() (f field.DerivativeSecurityGroupField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityGroup() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityGroupField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeCFICode gets DerivativeCFICode, Tag 1248
-func (m DerivativeSecurityListRequest) GetDerivativeCFICode() (f field.DerivativeCFICodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeCFICode() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeCFICodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityType gets DerivativeSecurityType, Tag 1249
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityType() (f field.DerivativeSecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityType() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecuritySubType gets DerivativeSecuritySubType, Tag 1250
-func (m DerivativeSecurityListRequest) GetDerivativeSecuritySubType() (f field.DerivativeSecuritySubTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecuritySubType() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecuritySubTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeMaturityMonthYear gets DerivativeMaturityMonthYear, Tag 1251
-func (m DerivativeSecurityListRequest) GetDerivativeMaturityMonthYear() (f field.DerivativeMaturityMonthYearField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeMaturityMonthYearField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeMaturityDate gets DerivativeMaturityDate, Tag 1252
-func (m DerivativeSecurityListRequest) GetDerivativeMaturityDate() (f field.DerivativeMaturityDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeMaturityDate() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeMaturityDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeMaturityTime gets DerivativeMaturityTime, Tag 1253
-func (m DerivativeSecurityListRequest) GetDerivativeMaturityTime() (f field.DerivativeMaturityTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeMaturityTime() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeMaturityTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSettleOnOpenFlag gets DerivativeSettleOnOpenFlag, Tag 1254
-func (m DerivativeSecurityListRequest) GetDerivativeSettleOnOpenFlag() (f field.DerivativeSettleOnOpenFlagField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSettleOnOpenFlag() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSettleOnOpenFlagField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeInstrmtAssignmentMethod gets DerivativeInstrmtAssignmentMethod, Tag 1255
-func (m DerivativeSecurityListRequest) GetDerivativeInstrmtAssignmentMethod() (f field.DerivativeInstrmtAssignmentMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeInstrmtAssignmentMethod() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeInstrmtAssignmentMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityStatus gets DerivativeSecurityStatus, Tag 1256
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityStatus() (f field.DerivativeSecurityStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityStatus() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeInstrRegistry gets DerivativeInstrRegistry, Tag 1257
-func (m DerivativeSecurityListRequest) GetDerivativeInstrRegistry() (f field.DerivativeInstrRegistryField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeInstrRegistry() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeInstrRegistryField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeCountryOfIssue gets DerivativeCountryOfIssue, Tag 1258
-func (m DerivativeSecurityListRequest) GetDerivativeCountryOfIssue() (f field.DerivativeCountryOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeCountryOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeCountryOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeStateOrProvinceOfIssue gets DerivativeStateOrProvinceOfIssue, Tag 1259
-func (m DerivativeSecurityListRequest) GetDerivativeStateOrProvinceOfIssue() (f field.DerivativeStateOrProvinceOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeStateOrProvinceOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeLocaleOfIssue gets DerivativeLocaleOfIssue, Tag 1260
-func (m DerivativeSecurityListRequest) GetDerivativeLocaleOfIssue() (f field.DerivativeLocaleOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeLocaleOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeStrikePrice gets DerivativeStrikePrice, Tag 1261
-func (m DerivativeSecurityListRequest) GetDerivativeStrikePrice() (f field.DerivativeStrikePriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeStrikePriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeStrikeCurrency gets DerivativeStrikeCurrency, Tag 1262
-func (m DerivativeSecurityListRequest) GetDerivativeStrikeCurrency() (f field.DerivativeStrikeCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeStrikeCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeStrikeCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeStrikeMultiplier gets DerivativeStrikeMultiplier, Tag 1263
-func (m DerivativeSecurityListRequest) GetDerivativeStrikeMultiplier() (f field.DerivativeStrikeMultiplierField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeStrikeMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeStrikeMultiplierField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeStrikeValue gets DerivativeStrikeValue, Tag 1264
-func (m DerivativeSecurityListRequest) GetDerivativeStrikeValue() (f field.DerivativeStrikeValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeStrikeValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeStrikeValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeOptAttribute gets DerivativeOptAttribute, Tag 1265
-func (m DerivativeSecurityListRequest) GetDerivativeOptAttribute() (f field.DerivativeOptAttributeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeOptAttribute() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeOptAttributeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeContractMultiplier gets DerivativeContractMultiplier, Tag 1266
-func (m DerivativeSecurityListRequest) GetDerivativeContractMultiplier() (f field.DerivativeContractMultiplierField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeContractMultiplierField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeMinPriceIncrement gets DerivativeMinPriceIncrement, Tag 1267
-func (m DerivativeSecurityListRequest) GetDerivativeMinPriceIncrement() (f field.DerivativeMinPriceIncrementField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeMinPriceIncrement() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeMinPriceIncrementField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeMinPriceIncrementAmount gets DerivativeMinPriceIncrementAmount, Tag 1268
-func (m DerivativeSecurityListRequest) GetDerivativeMinPriceIncrementAmount() (f field.DerivativeMinPriceIncrementAmountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeMinPriceIncrementAmount() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeMinPriceIncrementAmountField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeUnitOfMeasure gets DerivativeUnitOfMeasure, Tag 1269
-func (m DerivativeSecurityListRequest) GetDerivativeUnitOfMeasure() (f field.DerivativeUnitOfMeasureField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeUnitOfMeasure() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeUnitOfMeasureField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeUnitOfMeasureQty gets DerivativeUnitOfMeasureQty, Tag 1270
-func (m DerivativeSecurityListRequest) GetDerivativeUnitOfMeasureQty() (f field.DerivativeUnitOfMeasureQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeUnitOfMeasureQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeUnitOfMeasureQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeTimeUnit gets DerivativeTimeUnit, Tag 1271
-func (m DerivativeSecurityListRequest) GetDerivativeTimeUnit() (f field.DerivativeTimeUnitField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeTimeUnit() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeTimeUnitField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityExchange gets DerivativeSecurityExchange, Tag 1272
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityExchange() (f field.DerivativeSecurityExchangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityExchange() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityExchangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativePositionLimit gets DerivativePositionLimit, Tag 1273
-func (m DerivativeSecurityListRequest) GetDerivativePositionLimit() (f field.DerivativePositionLimitField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativePositionLimit() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativePositionLimitField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeNTPositionLimit gets DerivativeNTPositionLimit, Tag 1274
-func (m DerivativeSecurityListRequest) GetDerivativeNTPositionLimit() (f field.DerivativeNTPositionLimitField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeNTPositionLimit() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeNTPositionLimitField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeIssuer gets DerivativeIssuer, Tag 1275
-func (m DerivativeSecurityListRequest) GetDerivativeIssuer() (f field.DerivativeIssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeIssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeIssueDate gets DerivativeIssueDate, Tag 1276
-func (m DerivativeSecurityListRequest) GetDerivativeIssueDate() (f field.DerivativeIssueDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeIssueDate() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeIssueDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeEncodedIssuerLen gets DerivativeEncodedIssuerLen, Tag 1277
-func (m DerivativeSecurityListRequest) GetDerivativeEncodedIssuerLen() (f field.DerivativeEncodedIssuerLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeEncodedIssuerLen() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeEncodedIssuerLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeEncodedIssuer gets DerivativeEncodedIssuer, Tag 1278
-func (m DerivativeSecurityListRequest) GetDerivativeEncodedIssuer() (f field.DerivativeEncodedIssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeEncodedIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeEncodedIssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityDesc gets DerivativeSecurityDesc, Tag 1279
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityDesc() (f field.DerivativeSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeEncodedSecurityDescLen gets DerivativeEncodedSecurityDescLen, Tag 1280
-func (m DerivativeSecurityListRequest) GetDerivativeEncodedSecurityDescLen() (f field.DerivativeEncodedSecurityDescLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeEncodedSecurityDescLen() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeEncodedSecurityDescLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeEncodedSecurityDesc gets DerivativeEncodedSecurityDesc, Tag 1281
-func (m DerivativeSecurityListRequest) GetDerivativeEncodedSecurityDesc() (f field.DerivativeEncodedSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeEncodedSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeEncodedSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityXMLLen gets DerivativeSecurityXMLLen, Tag 1282
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityXMLLen() (f field.DerivativeSecurityXMLLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityXMLLen() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityXMLLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityXML gets DerivativeSecurityXML, Tag 1283
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityXML() (f field.DerivativeSecurityXMLField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityXML() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityXMLField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityXMLSchema gets DerivativeSecurityXMLSchema, Tag 1284
-func (m DerivativeSecurityListRequest) GetDerivativeSecurityXMLSchema() (f field.DerivativeSecurityXMLSchemaField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSecurityXMLSchema() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityXMLSchemaField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeContractSettlMonth gets DerivativeContractSettlMonth, Tag 1285
-func (m DerivativeSecurityListRequest) GetDerivativeContractSettlMonth() (f field.DerivativeContractSettlMonthField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeContractSettlMonth() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeContractSettlMonthField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1520,158 +1888,245 @@ func (m DerivativeSecurityListRequest) GetNoDerivativeInstrumentParties() (NoDer
 }
 
 //GetDerivativeExerciseStyle gets DerivativeExerciseStyle, Tag 1299
-func (m DerivativeSecurityListRequest) GetDerivativeExerciseStyle() (f field.DerivativeExerciseStyleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeExerciseStyle() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeExerciseStyleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketSegmentID gets MarketSegmentID, Tag 1300
-func (m DerivativeSecurityListRequest) GetMarketSegmentID() (f field.MarketSegmentIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetMarketSegmentID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketSegmentIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketID gets MarketID, Tag 1301
-func (m DerivativeSecurityListRequest) GetMarketID() (f field.MarketIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetMarketID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativePriceUnitOfMeasure gets DerivativePriceUnitOfMeasure, Tag 1315
-func (m DerivativeSecurityListRequest) GetDerivativePriceUnitOfMeasure() (f field.DerivativePriceUnitOfMeasureField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativePriceUnitOfMeasure() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativePriceUnitOfMeasureField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativePriceUnitOfMeasureQty gets DerivativePriceUnitOfMeasureQty, Tag 1316
-func (m DerivativeSecurityListRequest) GetDerivativePriceUnitOfMeasureQty() (f field.DerivativePriceUnitOfMeasureQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativePriceUnitOfMeasureQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativePriceUnitOfMeasureQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeSettlMethod gets DerivativeSettlMethod, Tag 1317
-func (m DerivativeSecurityListRequest) GetDerivativeSettlMethod() (f field.DerivativeSettlMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeSettlMethod() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSettlMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativePriceQuoteMethod gets DerivativePriceQuoteMethod, Tag 1318
-func (m DerivativeSecurityListRequest) GetDerivativePriceQuoteMethod() (f field.DerivativePriceQuoteMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativePriceQuoteMethod() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativePriceQuoteMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeValuationMethod gets DerivativeValuationMethod, Tag 1319
-func (m DerivativeSecurityListRequest) GetDerivativeValuationMethod() (f field.DerivativeValuationMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeValuationMethod() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeValuationMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeListMethod gets DerivativeListMethod, Tag 1320
-func (m DerivativeSecurityListRequest) GetDerivativeListMethod() (f field.DerivativeListMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeListMethod() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeListMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeCapPrice gets DerivativeCapPrice, Tag 1321
-func (m DerivativeSecurityListRequest) GetDerivativeCapPrice() (f field.DerivativeCapPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeCapPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeCapPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeFloorPrice gets DerivativeFloorPrice, Tag 1322
-func (m DerivativeSecurityListRequest) GetDerivativeFloorPrice() (f field.DerivativeFloorPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeFloorPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeFloorPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativePutOrCall gets DerivativePutOrCall, Tag 1323
-func (m DerivativeSecurityListRequest) GetDerivativePutOrCall() (f field.DerivativePutOrCallField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativePutOrCall() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativePutOrCallField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingExerciseStyle gets UnderlyingExerciseStyle, Tag 1419
-func (m DerivativeSecurityListRequest) GetUnderlyingExerciseStyle() (f field.UnderlyingExerciseStyleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingExerciseStyle() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingExerciseStyleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingUnitOfMeasureQty gets UnderlyingUnitOfMeasureQty, Tag 1423
-func (m DerivativeSecurityListRequest) GetUnderlyingUnitOfMeasureQty() (f field.UnderlyingUnitOfMeasureQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingUnitOfMeasureQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingUnitOfMeasureQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingPriceUnitOfMeasure gets UnderlyingPriceUnitOfMeasure, Tag 1424
-func (m DerivativeSecurityListRequest) GetUnderlyingPriceUnitOfMeasure() (f field.UnderlyingPriceUnitOfMeasureField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingPriceUnitOfMeasure() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingPriceUnitOfMeasureField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingPriceUnitOfMeasureQty gets UnderlyingPriceUnitOfMeasureQty, Tag 1425
-func (m DerivativeSecurityListRequest) GetUnderlyingPriceUnitOfMeasureQty() (f field.UnderlyingPriceUnitOfMeasureQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingPriceUnitOfMeasureQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingPriceUnitOfMeasureQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingContractMultiplierUnit gets UnderlyingContractMultiplierUnit, Tag 1437
-func (m DerivativeSecurityListRequest) GetUnderlyingContractMultiplierUnit() (f field.UnderlyingContractMultiplierUnitField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingContractMultiplierUnit() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingContractMultiplierUnitField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeContractMultiplierUnit gets DerivativeContractMultiplierUnit, Tag 1438
-func (m DerivativeSecurityListRequest) GetDerivativeContractMultiplierUnit() (f field.DerivativeContractMultiplierUnitField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeContractMultiplierUnit() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeContractMultiplierUnitField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingFlowScheduleType gets UnderlyingFlowScheduleType, Tag 1441
-func (m DerivativeSecurityListRequest) GetUnderlyingFlowScheduleType() (f field.UnderlyingFlowScheduleTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingFlowScheduleType() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingFlowScheduleTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeFlowScheduleType gets DerivativeFlowScheduleType, Tag 1442
-func (m DerivativeSecurityListRequest) GetDerivativeFlowScheduleType() (f field.DerivativeFlowScheduleTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetDerivativeFlowScheduleType() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeFlowScheduleTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingRestructuringType gets UnderlyingRestructuringType, Tag 1453
-func (m DerivativeSecurityListRequest) GetUnderlyingRestructuringType() (f field.UnderlyingRestructuringTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingRestructuringType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRestructuringTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSeniority gets UnderlyingSeniority, Tag 1454
-func (m DerivativeSecurityListRequest) GetUnderlyingSeniority() (f field.UnderlyingSeniorityField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingSeniority() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSeniorityField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingNotionalPercentageOutstanding gets UnderlyingNotionalPercentageOutstanding, Tag 1455
-func (m DerivativeSecurityListRequest) GetUnderlyingNotionalPercentageOutstanding() (f field.UnderlyingNotionalPercentageOutstandingField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingNotionalPercentageOutstanding() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingNotionalPercentageOutstandingField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingOriginalNotionalPercentageOutstanding gets UnderlyingOriginalNotionalPercentageOutstanding, Tag 1456
-func (m DerivativeSecurityListRequest) GetUnderlyingOriginalNotionalPercentageOutstanding() (f field.UnderlyingOriginalNotionalPercentageOutstandingField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingOriginalNotionalPercentageOutstanding() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingOriginalNotionalPercentageOutstandingField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingAttachmentPoint gets UnderlyingAttachmentPoint, Tag 1459
-func (m DerivativeSecurityListRequest) GetUnderlyingAttachmentPoint() (f field.UnderlyingAttachmentPointField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingAttachmentPoint() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingAttachmentPointField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingDetachmentPoint gets UnderlyingDetachmentPoint, Tag 1460
-func (m DerivativeSecurityListRequest) GetUnderlyingDetachmentPoint() (f field.UnderlyingDetachmentPointField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m DerivativeSecurityListRequest) GetUnderlyingDetachmentPoint() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingDetachmentPointField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
@@ -2421,14 +2876,20 @@ func (m NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltIDSource(v string) {
 }
 
 //GetUnderlyingSecurityAltID gets UnderlyingSecurityAltID, Tag 458
-func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (f field.UnderlyingSecurityAltIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityAltIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityAltIDSource gets UnderlyingSecurityAltIDSource, Tag 459
-func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (f field.UnderlyingSecurityAltIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityAltIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2481,14 +2942,20 @@ func (m NoUnderlyingStips) SetUnderlyingStipValue(v string) {
 }
 
 //GetUnderlyingStipType gets UnderlyingStipType, Tag 888
-func (m NoUnderlyingStips) GetUnderlyingStipType() (f field.UnderlyingStipTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyingStips) GetUnderlyingStipType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStipTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingStipValue gets UnderlyingStipValue, Tag 889
-func (m NoUnderlyingStips) GetUnderlyingStipValue() (f field.UnderlyingStipValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyingStips) GetUnderlyingStipValue() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStipValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2551,20 +3018,29 @@ func (m NoUndlyInstrumentParties) SetNoUndlyInstrumentPartySubIDs(f NoUndlyInstr
 }
 
 //GetUnderlyingInstrumentPartyID gets UnderlyingInstrumentPartyID, Tag 1059
-func (m NoUndlyInstrumentParties) GetUnderlyingInstrumentPartyID() (f field.UnderlyingInstrumentPartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUndlyInstrumentParties) GetUnderlyingInstrumentPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingInstrumentPartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingInstrumentPartyIDSource gets UnderlyingInstrumentPartyIDSource, Tag 1060
-func (m NoUndlyInstrumentParties) GetUnderlyingInstrumentPartyIDSource() (f field.UnderlyingInstrumentPartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUndlyInstrumentParties) GetUnderlyingInstrumentPartyIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingInstrumentPartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingInstrumentPartyRole gets UnderlyingInstrumentPartyRole, Tag 1061
-func (m NoUndlyInstrumentParties) GetUnderlyingInstrumentPartyRole() (f field.UnderlyingInstrumentPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUndlyInstrumentParties) GetUnderlyingInstrumentPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingInstrumentPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2611,14 +3087,20 @@ func (m NoUndlyInstrumentPartySubIDs) SetUnderlyingInstrumentPartySubIDType(v in
 }
 
 //GetUnderlyingInstrumentPartySubID gets UnderlyingInstrumentPartySubID, Tag 1063
-func (m NoUndlyInstrumentPartySubIDs) GetUnderlyingInstrumentPartySubID() (f field.UnderlyingInstrumentPartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUndlyInstrumentPartySubIDs) GetUnderlyingInstrumentPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingInstrumentPartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingInstrumentPartySubIDType gets UnderlyingInstrumentPartySubIDType, Tag 1064
-func (m NoUndlyInstrumentPartySubIDs) GetUnderlyingInstrumentPartySubIDType() (f field.UnderlyingInstrumentPartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUndlyInstrumentPartySubIDs) GetUnderlyingInstrumentPartySubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingInstrumentPartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2694,14 +3176,20 @@ func (m NoDerivativeSecurityAltID) SetDerivativeSecurityAltIDSource(v string) {
 }
 
 //GetDerivativeSecurityAltID gets DerivativeSecurityAltID, Tag 1219
-func (m NoDerivativeSecurityAltID) GetDerivativeSecurityAltID() (f field.DerivativeSecurityAltIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeSecurityAltID) GetDerivativeSecurityAltID() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityAltIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeSecurityAltIDSource gets DerivativeSecurityAltIDSource, Tag 1220
-func (m NoDerivativeSecurityAltID) GetDerivativeSecurityAltIDSource() (f field.DerivativeSecurityAltIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeSecurityAltID) GetDerivativeSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeSecurityAltIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2769,32 +3257,48 @@ func (m NoDerivativeEvents) SetDerivativeEventText(v string) {
 }
 
 //GetDerivativeEventType gets DerivativeEventType, Tag 1287
-func (m NoDerivativeEvents) GetDerivativeEventType() (f field.DerivativeEventTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeEvents) GetDerivativeEventType() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeEventTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeEventDate gets DerivativeEventDate, Tag 1288
-func (m NoDerivativeEvents) GetDerivativeEventDate() (f field.DerivativeEventDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeEvents) GetDerivativeEventDate() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeEventDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeEventTime gets DerivativeEventTime, Tag 1289
-func (m NoDerivativeEvents) GetDerivativeEventTime() (f field.DerivativeEventTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeEvents) GetDerivativeEventTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.DerivativeEventTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeEventPx gets DerivativeEventPx, Tag 1290
-func (m NoDerivativeEvents) GetDerivativeEventPx() (f field.DerivativeEventPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeEvents) GetDerivativeEventPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DerivativeEventPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDerivativeEventText gets DerivativeEventText, Tag 1291
-func (m NoDerivativeEvents) GetDerivativeEventText() (f field.DerivativeEventTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeEvents) GetDerivativeEventText() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeEventTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2872,20 +3376,29 @@ func (m NoDerivativeInstrumentParties) SetNoDerivativeInstrumentPartySubIDs(f No
 }
 
 //GetDerivativeInstrumentPartyID gets DerivativeInstrumentPartyID, Tag 1293
-func (m NoDerivativeInstrumentParties) GetDerivativeInstrumentPartyID() (f field.DerivativeInstrumentPartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeInstrumentParties) GetDerivativeInstrumentPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeInstrumentPartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeInstrumentPartyIDSource gets DerivativeInstrumentPartyIDSource, Tag 1294
-func (m NoDerivativeInstrumentParties) GetDerivativeInstrumentPartyIDSource() (f field.DerivativeInstrumentPartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeInstrumentParties) GetDerivativeInstrumentPartyIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeInstrumentPartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeInstrumentPartyRole gets DerivativeInstrumentPartyRole, Tag 1295
-func (m NoDerivativeInstrumentParties) GetDerivativeInstrumentPartyRole() (f field.DerivativeInstrumentPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeInstrumentParties) GetDerivativeInstrumentPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeInstrumentPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2932,14 +3445,20 @@ func (m NoDerivativeInstrumentPartySubIDs) SetDerivativeInstrumentPartySubIDType
 }
 
 //GetDerivativeInstrumentPartySubID gets DerivativeInstrumentPartySubID, Tag 1297
-func (m NoDerivativeInstrumentPartySubIDs) GetDerivativeInstrumentPartySubID() (f field.DerivativeInstrumentPartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeInstrumentPartySubIDs) GetDerivativeInstrumentPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.DerivativeInstrumentPartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDerivativeInstrumentPartySubIDType gets DerivativeInstrumentPartySubIDType, Tag 1298
-func (m NoDerivativeInstrumentPartySubIDs) GetDerivativeInstrumentPartySubIDType() (f field.DerivativeInstrumentPartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDerivativeInstrumentPartySubIDs) GetDerivativeInstrumentPartySubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.DerivativeInstrumentPartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

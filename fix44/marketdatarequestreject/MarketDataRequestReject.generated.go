@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
 	"github.com/quickfixgo/quickfix/tag"
@@ -72,7 +73,7 @@ func (m MarketDataRequestReject) SetMDReqID(v string) {
 }
 
 //SetMDReqRejReason sets MDReqRejReason, Tag 281
-func (m MarketDataRequestReject) SetMDReqRejReason(v string) {
+func (m MarketDataRequestReject) SetMDReqRejReason(v enum.MDReqRejReason) {
 	m.Set(field.NewMDReqRejReason(v))
 }
 
@@ -92,32 +93,47 @@ func (m MarketDataRequestReject) SetNoAltMDSource(f NoAltMDSourceRepeatingGroup)
 }
 
 //GetText gets Text, Tag 58
-func (m MarketDataRequestReject) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDataRequestReject) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMDReqID gets MDReqID, Tag 262
-func (m MarketDataRequestReject) GetMDReqID() (f field.MDReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDataRequestReject) GetMDReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.MDReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMDReqRejReason gets MDReqRejReason, Tag 281
-func (m MarketDataRequestReject) GetMDReqRejReason() (f field.MDReqRejReasonField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDataRequestReject) GetMDReqRejReason() (v enum.MDReqRejReason, err quickfix.MessageRejectError) {
+	var f field.MDReqRejReasonField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m MarketDataRequestReject) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDataRequestReject) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m MarketDataRequestReject) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDataRequestReject) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -169,8 +185,11 @@ func (m NoAltMDSource) SetAltMDSourceID(v string) {
 }
 
 //GetAltMDSourceID gets AltMDSourceID, Tag 817
-func (m NoAltMDSource) GetAltMDSourceID() (f field.AltMDSourceIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAltMDSource) GetAltMDSourceID() (v string, err quickfix.MessageRejectError) {
+	var f field.AltMDSourceIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

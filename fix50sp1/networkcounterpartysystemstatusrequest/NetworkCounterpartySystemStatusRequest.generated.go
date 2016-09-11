@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -68,7 +69,7 @@ func (m NetworkCounterpartySystemStatusRequest) SetNetworkRequestID(v string) {
 }
 
 //SetNetworkRequestType sets NetworkRequestType, Tag 935
-func (m NetworkCounterpartySystemStatusRequest) SetNetworkRequestType(v int) {
+func (m NetworkCounterpartySystemStatusRequest) SetNetworkRequestType(v enum.NetworkRequestType) {
 	m.Set(field.NewNetworkRequestType(v))
 }
 
@@ -78,14 +79,20 @@ func (m NetworkCounterpartySystemStatusRequest) SetNoCompIDs(f NoCompIDsRepeatin
 }
 
 //GetNetworkRequestID gets NetworkRequestID, Tag 933
-func (m NetworkCounterpartySystemStatusRequest) GetNetworkRequestID() (f field.NetworkRequestIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NetworkCounterpartySystemStatusRequest) GetNetworkRequestID() (v string, err quickfix.MessageRejectError) {
+	var f field.NetworkRequestIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNetworkRequestType gets NetworkRequestType, Tag 935
-func (m NetworkCounterpartySystemStatusRequest) GetNetworkRequestType() (f field.NetworkRequestTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NetworkCounterpartySystemStatusRequest) GetNetworkRequestType() (v enum.NetworkRequestType, err quickfix.MessageRejectError) {
+	var f field.NetworkRequestTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -137,26 +144,38 @@ func (m NoCompIDs) SetDeskID(v string) {
 }
 
 //GetRefCompID gets RefCompID, Tag 930
-func (m NoCompIDs) GetRefCompID() (f field.RefCompIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoCompIDs) GetRefCompID() (v string, err quickfix.MessageRejectError) {
+	var f field.RefCompIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRefSubID gets RefSubID, Tag 931
-func (m NoCompIDs) GetRefSubID() (f field.RefSubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoCompIDs) GetRefSubID() (v string, err quickfix.MessageRejectError) {
+	var f field.RefSubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLocationID gets LocationID, Tag 283
-func (m NoCompIDs) GetLocationID() (f field.LocationIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoCompIDs) GetLocationID() (v string, err quickfix.MessageRejectError) {
+	var f field.LocationIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDeskID gets DeskID, Tag 284
-func (m NoCompIDs) GetDeskID() (f field.DeskIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoCompIDs) GetDeskID() (v string, err quickfix.MessageRejectError) {
+	var f field.DeskIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

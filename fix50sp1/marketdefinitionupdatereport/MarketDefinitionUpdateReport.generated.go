@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -89,7 +90,7 @@ func (m MarketDefinitionUpdateReport) SetEncodedText(v string) {
 }
 
 //SetPriceType sets PriceType, Tag 423
-func (m MarketDefinitionUpdateReport) SetPriceType(v int) {
+func (m MarketDefinitionUpdateReport) SetPriceType(v enum.PriceType) {
 	m.Set(field.NewPriceType(v))
 }
 
@@ -104,7 +105,7 @@ func (m MarketDefinitionUpdateReport) SetMinTradeVol(value decimal.Decimal, scal
 }
 
 //SetExpirationCycle sets ExpirationCycle, Tag 827
-func (m MarketDefinitionUpdateReport) SetExpirationCycle(v int) {
+func (m MarketDefinitionUpdateReport) SetExpirationCycle(v enum.ExpirationCycle) {
 	m.Set(field.NewExpirationCycle(v))
 }
 
@@ -119,7 +120,7 @@ func (m MarketDefinitionUpdateReport) SetMaxPriceVariation(value decimal.Decimal
 }
 
 //SetImpliedMarketIndicator sets ImpliedMarketIndicator, Tag 1144
-func (m MarketDefinitionUpdateReport) SetImpliedMarketIndicator(v int) {
+func (m MarketDefinitionUpdateReport) SetImpliedMarketIndicator(v enum.ImpliedMarketIndicator) {
 	m.Set(field.NewImpliedMarketIndicator(v))
 }
 
@@ -189,7 +190,7 @@ func (m MarketDefinitionUpdateReport) SetMarketID(v string) {
 }
 
 //SetPriceLimitType sets PriceLimitType, Tag 1306
-func (m MarketDefinitionUpdateReport) SetPriceLimitType(v int) {
+func (m MarketDefinitionUpdateReport) SetPriceLimitType(v enum.PriceLimitType) {
 	m.Set(field.NewPriceLimitType(v))
 }
 
@@ -209,12 +210,12 @@ func (m MarketDefinitionUpdateReport) SetApplResendFlag(v bool) {
 }
 
 //SetMultilegModel sets MultilegModel, Tag 1377
-func (m MarketDefinitionUpdateReport) SetMultilegModel(v int) {
+func (m MarketDefinitionUpdateReport) SetMultilegModel(v enum.MultilegModel) {
 	m.Set(field.NewMultilegModel(v))
 }
 
 //SetMultilegPriceMethod sets MultilegPriceMethod, Tag 1378
-func (m MarketDefinitionUpdateReport) SetMultilegPriceMethod(v int) {
+func (m MarketDefinitionUpdateReport) SetMultilegPriceMethod(v enum.MultilegPriceMethod) {
 	m.Set(field.NewMultilegPriceMethod(v))
 }
 
@@ -229,7 +230,7 @@ func (m MarketDefinitionUpdateReport) SetMarketReportID(v string) {
 }
 
 //SetMarketUpdateAction sets MarketUpdateAction, Tag 1395
-func (m MarketDefinitionUpdateReport) SetMarketUpdateAction(v string) {
+func (m MarketDefinitionUpdateReport) SetMarketUpdateAction(v enum.MarketUpdateAction) {
 	m.Set(field.NewMarketUpdateAction(v))
 }
 
@@ -249,104 +250,162 @@ func (m MarketDefinitionUpdateReport) SetEncodedMktSegmDesc(v string) {
 }
 
 //GetCurrency gets Currency, Tag 15
-func (m MarketDefinitionUpdateReport) GetCurrency() (f field.CurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.CurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m MarketDefinitionUpdateReport) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m MarketDefinitionUpdateReport) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m MarketDefinitionUpdateReport) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m MarketDefinitionUpdateReport) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPriceType gets PriceType, Tag 423
-func (m MarketDefinitionUpdateReport) GetPriceType() (f field.PriceTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetPriceType() (v enum.PriceType, err quickfix.MessageRejectError) {
+	var f field.PriceTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRoundLot gets RoundLot, Tag 561
-func (m MarketDefinitionUpdateReport) GetRoundLot() (f field.RoundLotField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetRoundLot() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.RoundLotField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetMinTradeVol gets MinTradeVol, Tag 562
-func (m MarketDefinitionUpdateReport) GetMinTradeVol() (f field.MinTradeVolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMinTradeVol() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.MinTradeVolField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetExpirationCycle gets ExpirationCycle, Tag 827
-func (m MarketDefinitionUpdateReport) GetExpirationCycle() (f field.ExpirationCycleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetExpirationCycle() (v enum.ExpirationCycle, err quickfix.MessageRejectError) {
+	var f field.ExpirationCycleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMaxTradeVol gets MaxTradeVol, Tag 1140
-func (m MarketDefinitionUpdateReport) GetMaxTradeVol() (f field.MaxTradeVolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMaxTradeVol() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.MaxTradeVolField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetMaxPriceVariation gets MaxPriceVariation, Tag 1143
-func (m MarketDefinitionUpdateReport) GetMaxPriceVariation() (f field.MaxPriceVariationField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMaxPriceVariation() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.MaxPriceVariationField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetImpliedMarketIndicator gets ImpliedMarketIndicator, Tag 1144
-func (m MarketDefinitionUpdateReport) GetImpliedMarketIndicator() (f field.ImpliedMarketIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetImpliedMarketIndicator() (v enum.ImpliedMarketIndicator, err quickfix.MessageRejectError) {
+	var f field.ImpliedMarketIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLowLimitPrice gets LowLimitPrice, Tag 1148
-func (m MarketDefinitionUpdateReport) GetLowLimitPrice() (f field.LowLimitPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetLowLimitPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.LowLimitPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetHighLimitPrice gets HighLimitPrice, Tag 1149
-func (m MarketDefinitionUpdateReport) GetHighLimitPrice() (f field.HighLimitPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetHighLimitPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.HighLimitPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetTradingReferencePrice gets TradingReferencePrice, Tag 1150
-func (m MarketDefinitionUpdateReport) GetTradingReferencePrice() (f field.TradingReferencePriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetTradingReferencePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.TradingReferencePriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetApplID gets ApplID, Tag 1180
-func (m MarketDefinitionUpdateReport) GetApplID() (f field.ApplIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetApplID() (v string, err quickfix.MessageRejectError) {
+	var f field.ApplIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplSeqNum gets ApplSeqNum, Tag 1181
-func (m MarketDefinitionUpdateReport) GetApplSeqNum() (f field.ApplSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetApplSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -386,92 +445,137 @@ func (m MarketDefinitionUpdateReport) GetNoTimeInForceRules() (NoTimeInForceRule
 }
 
 //GetTradingCurrency gets TradingCurrency, Tag 1245
-func (m MarketDefinitionUpdateReport) GetTradingCurrency() (f field.TradingCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetTradingCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.TradingCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketSegmentID gets MarketSegmentID, Tag 1300
-func (m MarketDefinitionUpdateReport) GetMarketSegmentID() (f field.MarketSegmentIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMarketSegmentID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketSegmentIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketID gets MarketID, Tag 1301
-func (m MarketDefinitionUpdateReport) GetMarketID() (f field.MarketIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMarketID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPriceLimitType gets PriceLimitType, Tag 1306
-func (m MarketDefinitionUpdateReport) GetPriceLimitType() (f field.PriceLimitTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetPriceLimitType() (v enum.PriceLimitType, err quickfix.MessageRejectError) {
+	var f field.PriceLimitTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetParentMktSegmID gets ParentMktSegmID, Tag 1325
-func (m MarketDefinitionUpdateReport) GetParentMktSegmID() (f field.ParentMktSegmIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetParentMktSegmID() (v string, err quickfix.MessageRejectError) {
+	var f field.ParentMktSegmIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplLastSeqNum gets ApplLastSeqNum, Tag 1350
-func (m MarketDefinitionUpdateReport) GetApplLastSeqNum() (f field.ApplLastSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetApplLastSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplLastSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplResendFlag gets ApplResendFlag, Tag 1352
-func (m MarketDefinitionUpdateReport) GetApplResendFlag() (f field.ApplResendFlagField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetApplResendFlag() (v bool, err quickfix.MessageRejectError) {
+	var f field.ApplResendFlagField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMultilegModel gets MultilegModel, Tag 1377
-func (m MarketDefinitionUpdateReport) GetMultilegModel() (f field.MultilegModelField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMultilegModel() (v enum.MultilegModel, err quickfix.MessageRejectError) {
+	var f field.MultilegModelField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMultilegPriceMethod gets MultilegPriceMethod, Tag 1378
-func (m MarketDefinitionUpdateReport) GetMultilegPriceMethod() (f field.MultilegPriceMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMultilegPriceMethod() (v enum.MultilegPriceMethod, err quickfix.MessageRejectError) {
+	var f field.MultilegPriceMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketReqID gets MarketReqID, Tag 1393
-func (m MarketDefinitionUpdateReport) GetMarketReqID() (f field.MarketReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMarketReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketReportID gets MarketReportID, Tag 1394
-func (m MarketDefinitionUpdateReport) GetMarketReportID() (f field.MarketReportIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMarketReportID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketReportIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketUpdateAction gets MarketUpdateAction, Tag 1395
-func (m MarketDefinitionUpdateReport) GetMarketUpdateAction() (f field.MarketUpdateActionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMarketUpdateAction() (v enum.MarketUpdateAction, err quickfix.MessageRejectError) {
+	var f field.MarketUpdateActionField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketSegmentDesc gets MarketSegmentDesc, Tag 1396
-func (m MarketDefinitionUpdateReport) GetMarketSegmentDesc() (f field.MarketSegmentDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetMarketSegmentDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketSegmentDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedMktSegmDescLen gets EncodedMktSegmDescLen, Tag 1397
-func (m MarketDefinitionUpdateReport) GetEncodedMktSegmDescLen() (f field.EncodedMktSegmDescLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetEncodedMktSegmDescLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedMktSegmDescLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedMktSegmDesc gets EncodedMktSegmDesc, Tag 1398
-func (m MarketDefinitionUpdateReport) GetEncodedMktSegmDesc() (f field.EncodedMktSegmDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionUpdateReport) GetEncodedMktSegmDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedMktSegmDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -681,31 +785,46 @@ func (m NoTickRules) SetTickIncrement(value decimal.Decimal, scale int32) {
 }
 
 //SetTickRuleType sets TickRuleType, Tag 1209
-func (m NoTickRules) SetTickRuleType(v int) {
+func (m NoTickRules) SetTickRuleType(v enum.TickRuleType) {
 	m.Set(field.NewTickRuleType(v))
 }
 
 //GetStartTickPriceRange gets StartTickPriceRange, Tag 1206
-func (m NoTickRules) GetStartTickPriceRange() (f field.StartTickPriceRangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTickRules) GetStartTickPriceRange() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.StartTickPriceRangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetEndTickPriceRange gets EndTickPriceRange, Tag 1207
-func (m NoTickRules) GetEndTickPriceRange() (f field.EndTickPriceRangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTickRules) GetEndTickPriceRange() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.EndTickPriceRangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetTickIncrement gets TickIncrement, Tag 1208
-func (m NoTickRules) GetTickIncrement() (f field.TickIncrementField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTickRules) GetTickIncrement() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.TickIncrementField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetTickRuleType gets TickRuleType, Tag 1209
-func (m NoTickRules) GetTickRuleType() (f field.TickRuleTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTickRules) GetTickRuleType() (v enum.TickRuleType, err quickfix.MessageRejectError) {
+	var f field.TickRuleTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -763,8 +882,11 @@ func (m NoExecInstRules) SetExecInstValue(v string) {
 }
 
 //GetExecInstValue gets ExecInstValue, Tag 1308
-func (m NoExecInstRules) GetExecInstValue() (f field.ExecInstValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoExecInstRules) GetExecInstValue() (v string, err quickfix.MessageRejectError) {
+	var f field.ExecInstValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -802,7 +924,7 @@ type NoLotTypeRules struct {
 }
 
 //SetLotType sets LotType, Tag 1093
-func (m NoLotTypeRules) SetLotType(v string) {
+func (m NoLotTypeRules) SetLotType(v enum.LotType) {
 	m.Set(field.NewLotType(v))
 }
 
@@ -812,14 +934,21 @@ func (m NoLotTypeRules) SetMinLotSize(value decimal.Decimal, scale int32) {
 }
 
 //GetLotType gets LotType, Tag 1093
-func (m NoLotTypeRules) GetLotType() (f field.LotTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoLotTypeRules) GetLotType() (v enum.LotType, err quickfix.MessageRejectError) {
+	var f field.LotTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMinLotSize gets MinLotSize, Tag 1231
-func (m NoLotTypeRules) GetMinLotSize() (f field.MinLotSizeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoLotTypeRules) GetMinLotSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.MinLotSizeField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
@@ -862,13 +991,16 @@ type NoOrdTypeRules struct {
 }
 
 //SetOrdType sets OrdType, Tag 40
-func (m NoOrdTypeRules) SetOrdType(v string) {
+func (m NoOrdTypeRules) SetOrdType(v enum.OrdType) {
 	m.Set(field.NewOrdType(v))
 }
 
 //GetOrdType gets OrdType, Tag 40
-func (m NoOrdTypeRules) GetOrdType() (f field.OrdTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrdTypeRules) GetOrdType() (v enum.OrdType, err quickfix.MessageRejectError) {
+	var f field.OrdTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -906,13 +1038,16 @@ type NoTimeInForceRules struct {
 }
 
 //SetTimeInForce sets TimeInForce, Tag 59
-func (m NoTimeInForceRules) SetTimeInForce(v string) {
+func (m NoTimeInForceRules) SetTimeInForce(v enum.TimeInForce) {
 	m.Set(field.NewTimeInForce(v))
 }
 
 //GetTimeInForce gets TimeInForce, Tag 59
-func (m NoTimeInForceRules) GetTimeInForce() (f field.TimeInForceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTimeInForceRules) GetTimeInForce() (v enum.TimeInForce, err quickfix.MessageRejectError) {
+	var f field.TimeInForceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

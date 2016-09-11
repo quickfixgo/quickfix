@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/tag"
 )
@@ -36,7 +37,7 @@ func (h Header) SetMsgSeqNum(v int) {
 }
 
 //SetMsgType sets MsgType, Tag 35
-func (h Header) SetMsgType(v string) {
+func (h Header) SetMsgType(v enum.MsgType) {
 	h.Set(field.NewMsgType(v))
 }
 
@@ -111,110 +112,164 @@ func (h Header) SetDeliverToSubID(v string) {
 }
 
 //GetBeginString gets BeginString, Tag 8
-func (h Header) GetBeginString() (f field.BeginStringField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetBeginString() (v string, err quickfix.MessageRejectError) {
+	var f field.BeginStringField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBodyLength gets BodyLength, Tag 9
-func (h Header) GetBodyLength() (f field.BodyLengthField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetBodyLength() (v int, err quickfix.MessageRejectError) {
+	var f field.BodyLengthField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMsgSeqNum gets MsgSeqNum, Tag 34
-func (h Header) GetMsgSeqNum() (f field.MsgSeqNumField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetMsgSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.MsgSeqNumField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMsgType gets MsgType, Tag 35
-func (h Header) GetMsgType() (f field.MsgTypeField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetMsgType() (v enum.MsgType, err quickfix.MessageRejectError) {
+	var f field.MsgTypeField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPossDupFlag gets PossDupFlag, Tag 43
-func (h Header) GetPossDupFlag() (f field.PossDupFlagField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetPossDupFlag() (v bool, err quickfix.MessageRejectError) {
+	var f field.PossDupFlagField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSenderCompID gets SenderCompID, Tag 49
-func (h Header) GetSenderCompID() (f field.SenderCompIDField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetSenderCompID() (v string, err quickfix.MessageRejectError) {
+	var f field.SenderCompIDField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSenderSubID gets SenderSubID, Tag 50
-func (h Header) GetSenderSubID() (f field.SenderSubIDField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetSenderSubID() (v string, err quickfix.MessageRejectError) {
+	var f field.SenderSubIDField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSendingTime gets SendingTime, Tag 52
-func (h Header) GetSendingTime() (f field.SendingTimeField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetSendingTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.SendingTimeField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTargetCompID gets TargetCompID, Tag 56
-func (h Header) GetTargetCompID() (f field.TargetCompIDField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetTargetCompID() (v string, err quickfix.MessageRejectError) {
+	var f field.TargetCompIDField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTargetSubID gets TargetSubID, Tag 57
-func (h Header) GetTargetSubID() (f field.TargetSubIDField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetTargetSubID() (v string, err quickfix.MessageRejectError) {
+	var f field.TargetSubIDField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecureDataLen gets SecureDataLen, Tag 90
-func (h Header) GetSecureDataLen() (f field.SecureDataLenField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetSecureDataLen() (v int, err quickfix.MessageRejectError) {
+	var f field.SecureDataLenField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecureData gets SecureData, Tag 91
-func (h Header) GetSecureData() (f field.SecureDataField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetSecureData() (v string, err quickfix.MessageRejectError) {
+	var f field.SecureDataField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPossResend gets PossResend, Tag 97
-func (h Header) GetPossResend() (f field.PossResendField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetPossResend() (v bool, err quickfix.MessageRejectError) {
+	var f field.PossResendField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOnBehalfOfCompID gets OnBehalfOfCompID, Tag 115
-func (h Header) GetOnBehalfOfCompID() (f field.OnBehalfOfCompIDField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetOnBehalfOfCompID() (v string, err quickfix.MessageRejectError) {
+	var f field.OnBehalfOfCompIDField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOnBehalfOfSubID gets OnBehalfOfSubID, Tag 116
-func (h Header) GetOnBehalfOfSubID() (f field.OnBehalfOfSubIDField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetOnBehalfOfSubID() (v string, err quickfix.MessageRejectError) {
+	var f field.OnBehalfOfSubIDField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrigSendingTime gets OrigSendingTime, Tag 122
-func (h Header) GetOrigSendingTime() (f field.OrigSendingTimeField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetOrigSendingTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.OrigSendingTimeField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDeliverToCompID gets DeliverToCompID, Tag 128
-func (h Header) GetDeliverToCompID() (f field.DeliverToCompIDField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetDeliverToCompID() (v string, err quickfix.MessageRejectError) {
+	var f field.DeliverToCompIDField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDeliverToSubID gets DeliverToSubID, Tag 129
-func (h Header) GetDeliverToSubID() (f field.DeliverToSubIDField, err quickfix.MessageRejectError) {
-	err = h.Get(&f)
+func (h Header) GetDeliverToSubID() (v string, err quickfix.MessageRejectError) {
+	var f field.DeliverToSubIDField
+	if err = h.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

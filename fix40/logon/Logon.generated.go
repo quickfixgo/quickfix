@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix40"
 	"github.com/quickfixgo/quickfix/tag"
@@ -73,7 +74,7 @@ func (m Logon) SetRawData(v string) {
 }
 
 //SetEncryptMethod sets EncryptMethod, Tag 98
-func (m Logon) SetEncryptMethod(v int) {
+func (m Logon) SetEncryptMethod(v enum.EncryptMethod) {
 	m.Set(field.NewEncryptMethod(v))
 }
 
@@ -83,26 +84,38 @@ func (m Logon) SetHeartBtInt(v int) {
 }
 
 //GetRawDataLength gets RawDataLength, Tag 95
-func (m Logon) GetRawDataLength() (f field.RawDataLengthField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetRawDataLength() (v int, err quickfix.MessageRejectError) {
+	var f field.RawDataLengthField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRawData gets RawData, Tag 96
-func (m Logon) GetRawData() (f field.RawDataField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetRawData() (v string, err quickfix.MessageRejectError) {
+	var f field.RawDataField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncryptMethod gets EncryptMethod, Tag 98
-func (m Logon) GetEncryptMethod() (f field.EncryptMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetEncryptMethod() (v enum.EncryptMethod, err quickfix.MessageRejectError) {
+	var f field.EncryptMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetHeartBtInt gets HeartBtInt, Tag 108
-func (m Logon) GetHeartBtInt() (f field.HeartBtIntField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetHeartBtInt() (v int, err quickfix.MessageRejectError) {
+	var f field.HeartBtIntField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

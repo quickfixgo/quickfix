@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -80,7 +81,7 @@ func (m OrderCancelReject) SetOrderID(v string) {
 }
 
 //SetOrdStatus sets OrdStatus, Tag 39
-func (m OrderCancelReject) SetOrdStatus(v string) {
+func (m OrderCancelReject) SetOrdStatus(v enum.OrdStatus) {
 	m.Set(field.NewOrdStatus(v))
 }
 
@@ -110,7 +111,7 @@ func (m OrderCancelReject) SetTradeDate(v string) {
 }
 
 //SetCxlRejReason sets CxlRejReason, Tag 102
-func (m OrderCancelReject) SetCxlRejReason(v int) {
+func (m OrderCancelReject) SetCxlRejReason(v enum.CxlRejReason) {
 	m.Set(field.NewCxlRejReason(v))
 }
 
@@ -135,7 +136,7 @@ func (m OrderCancelReject) SetEncodedText(v string) {
 }
 
 //SetCxlRejResponseTo sets CxlRejResponseTo, Tag 434
-func (m OrderCancelReject) SetCxlRejResponseTo(v string) {
+func (m OrderCancelReject) SetCxlRejResponseTo(v enum.CxlRejResponseTo) {
 	m.Set(field.NewCxlRejResponseTo(v))
 }
 
@@ -145,7 +146,7 @@ func (m OrderCancelReject) SetSecondaryClOrdID(v string) {
 }
 
 //SetAccountType sets AccountType, Tag 581
-func (m OrderCancelReject) SetAccountType(v int) {
+func (m OrderCancelReject) SetAccountType(v enum.AccountType) {
 	m.Set(field.NewAccountType(v))
 }
 
@@ -165,133 +166,196 @@ func (m OrderCancelReject) SetWorkingIndicator(v bool) {
 }
 
 //SetAcctIDSource sets AcctIDSource, Tag 660
-func (m OrderCancelReject) SetAcctIDSource(v int) {
+func (m OrderCancelReject) SetAcctIDSource(v enum.AcctIDSource) {
 	m.Set(field.NewAcctIDSource(v))
 }
 
 //GetAccount gets Account, Tag 1
-func (m OrderCancelReject) GetAccount() (f field.AccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClOrdID gets ClOrdID, Tag 11
-func (m OrderCancelReject) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrderID gets OrderID, Tag 37
-func (m OrderCancelReject) GetOrderID() (f field.OrderIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetOrderID() (v string, err quickfix.MessageRejectError) {
+	var f field.OrderIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrdStatus gets OrdStatus, Tag 39
-func (m OrderCancelReject) GetOrdStatus() (f field.OrdStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetOrdStatus() (v enum.OrdStatus, err quickfix.MessageRejectError) {
+	var f field.OrdStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrigClOrdID gets OrigClOrdID, Tag 41
-func (m OrderCancelReject) GetOrigClOrdID() (f field.OrigClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetOrigClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.OrigClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m OrderCancelReject) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m OrderCancelReject) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListID gets ListID, Tag 66
-func (m OrderCancelReject) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetListID() (v string, err quickfix.MessageRejectError) {
+	var f field.ListIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeDate gets TradeDate, Tag 75
-func (m OrderCancelReject) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetTradeDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCxlRejReason gets CxlRejReason, Tag 102
-func (m OrderCancelReject) GetCxlRejReason() (f field.CxlRejReasonField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetCxlRejReason() (v enum.CxlRejReason, err quickfix.MessageRejectError) {
+	var f field.CxlRejReasonField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecondaryOrderID gets SecondaryOrderID, Tag 198
-func (m OrderCancelReject) GetSecondaryOrderID() (f field.SecondaryOrderIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetSecondaryOrderID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecondaryOrderIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeOriginationDate gets TradeOriginationDate, Tag 229
-func (m OrderCancelReject) GetTradeOriginationDate() (f field.TradeOriginationDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetTradeOriginationDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeOriginationDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m OrderCancelReject) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m OrderCancelReject) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCxlRejResponseTo gets CxlRejResponseTo, Tag 434
-func (m OrderCancelReject) GetCxlRejResponseTo() (f field.CxlRejResponseToField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetCxlRejResponseTo() (v enum.CxlRejResponseTo, err quickfix.MessageRejectError) {
+	var f field.CxlRejResponseToField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecondaryClOrdID gets SecondaryClOrdID, Tag 526
-func (m OrderCancelReject) GetSecondaryClOrdID() (f field.SecondaryClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetSecondaryClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecondaryClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAccountType gets AccountType, Tag 581
-func (m OrderCancelReject) GetAccountType() (f field.AccountTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetAccountType() (v enum.AccountType, err quickfix.MessageRejectError) {
+	var f field.AccountTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClOrdLinkID gets ClOrdLinkID, Tag 583
-func (m OrderCancelReject) GetClOrdLinkID() (f field.ClOrdLinkIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetClOrdLinkID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdLinkIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrigOrdModTime gets OrigOrdModTime, Tag 586
-func (m OrderCancelReject) GetOrigOrdModTime() (f field.OrigOrdModTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetOrigOrdModTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.OrigOrdModTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetWorkingIndicator gets WorkingIndicator, Tag 636
-func (m OrderCancelReject) GetWorkingIndicator() (f field.WorkingIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetWorkingIndicator() (v bool, err quickfix.MessageRejectError) {
+	var f field.WorkingIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAcctIDSource gets AcctIDSource, Tag 660
-func (m OrderCancelReject) GetAcctIDSource() (f field.AcctIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m OrderCancelReject) GetAcctIDSource() (v enum.AcctIDSource, err quickfix.MessageRejectError) {
+	var f field.AcctIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

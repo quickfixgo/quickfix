@@ -27,20 +27,29 @@ func (t Trailer) SetSignatureLength(v int) {
 }
 
 //GetCheckSum gets CheckSum, Tag 10
-func (t Trailer) GetCheckSum() (f field.CheckSumField, err quickfix.MessageRejectError) {
-	err = t.Get(&f)
+func (t Trailer) GetCheckSum() (v string, err quickfix.MessageRejectError) {
+	var f field.CheckSumField
+	if err = t.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSignature gets Signature, Tag 89
-func (t Trailer) GetSignature() (f field.SignatureField, err quickfix.MessageRejectError) {
-	err = t.Get(&f)
+func (t Trailer) GetSignature() (v string, err quickfix.MessageRejectError) {
+	var f field.SignatureField
+	if err = t.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSignatureLength gets SignatureLength, Tag 93
-func (t Trailer) GetSignatureLength() (f field.SignatureLengthField, err quickfix.MessageRejectError) {
-	err = t.Get(&f)
+func (t Trailer) GetSignatureLength() (v int, err quickfix.MessageRejectError) {
+	var f field.SignatureLengthField
+	if err = t.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

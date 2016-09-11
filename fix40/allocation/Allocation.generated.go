@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix40"
 	"github.com/quickfixgo/quickfix/tag"
@@ -79,7 +80,7 @@ func (m Allocation) SetCurrency(v string) {
 }
 
 //SetIDSource sets IDSource, Tag 22
-func (m Allocation) SetIDSource(v string) {
+func (m Allocation) SetIDSource(v enum.IDSource) {
 	m.Set(field.NewIDSource(v))
 }
 
@@ -94,7 +95,7 @@ func (m Allocation) SetShares(value decimal.Decimal, scale int32) {
 }
 
 //SetSide sets Side, Tag 54
-func (m Allocation) SetSide(v string) {
+func (m Allocation) SetSide(v enum.Side) {
 	m.Set(field.NewSide(v))
 }
 
@@ -114,7 +115,7 @@ func (m Allocation) SetTransactTime(v time.Time) {
 }
 
 //SetSettlmntTyp sets SettlmntTyp, Tag 63
-func (m Allocation) SetSettlmntTyp(v string) {
+func (m Allocation) SetSettlmntTyp(v enum.SettlmntTyp) {
 	m.Set(field.NewSettlmntTyp(v))
 }
 
@@ -124,7 +125,7 @@ func (m Allocation) SetFutSettDate(v string) {
 }
 
 //SetSymbolSfx sets SymbolSfx, Tag 65
-func (m Allocation) SetSymbolSfx(v string) {
+func (m Allocation) SetSymbolSfx(v enum.SymbolSfx) {
 	m.Set(field.NewSymbolSfx(v))
 }
 
@@ -134,7 +135,7 @@ func (m Allocation) SetAllocID(v string) {
 }
 
 //SetAllocTransType sets AllocTransType, Tag 71
-func (m Allocation) SetAllocTransType(v string) {
+func (m Allocation) SetAllocTransType(v enum.AllocTransType) {
 	m.Set(field.NewAllocTransType(v))
 }
 
@@ -159,7 +160,7 @@ func (m Allocation) SetTradeDate(v string) {
 }
 
 //SetOpenClose sets OpenClose, Tag 77
-func (m Allocation) SetOpenClose(v string) {
+func (m Allocation) SetOpenClose(v enum.OpenClose) {
 	m.Set(field.NewOpenClose(v))
 }
 
@@ -204,92 +205,139 @@ func (m Allocation) SetNoMiscFees(f NoMiscFeesRepeatingGroup) {
 }
 
 //GetAvgPx gets AvgPx, Tag 6
-func (m Allocation) GetAvgPx() (f field.AvgPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetAvgPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.AvgPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCurrency gets Currency, Tag 15
-func (m Allocation) GetCurrency() (f field.CurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.CurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetIDSource gets IDSource, Tag 22
-func (m Allocation) GetIDSource() (f field.IDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetIDSource() (v enum.IDSource, err quickfix.MessageRejectError) {
+	var f field.IDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityID gets SecurityID, Tag 48
-func (m Allocation) GetSecurityID() (f field.SecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetShares gets Shares, Tag 53
-func (m Allocation) GetShares() (f field.SharesField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetShares() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.SharesField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetSide gets Side, Tag 54
-func (m Allocation) GetSide() (f field.SideField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetSide() (v enum.Side, err quickfix.MessageRejectError) {
+	var f field.SideField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSymbol gets Symbol, Tag 55
-func (m Allocation) GetSymbol() (f field.SymbolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetSymbol() (v string, err quickfix.MessageRejectError) {
+	var f field.SymbolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m Allocation) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m Allocation) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlmntTyp gets SettlmntTyp, Tag 63
-func (m Allocation) GetSettlmntTyp() (f field.SettlmntTypField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetSettlmntTyp() (v enum.SettlmntTyp, err quickfix.MessageRejectError) {
+	var f field.SettlmntTypField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetFutSettDate gets FutSettDate, Tag 64
-func (m Allocation) GetFutSettDate() (f field.FutSettDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetFutSettDate() (v string, err quickfix.MessageRejectError) {
+	var f field.FutSettDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSymbolSfx gets SymbolSfx, Tag 65
-func (m Allocation) GetSymbolSfx() (f field.SymbolSfxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetSymbolSfx() (v enum.SymbolSfx, err quickfix.MessageRejectError) {
+	var f field.SymbolSfxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocID gets AllocID, Tag 70
-func (m Allocation) GetAllocID() (f field.AllocIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetAllocID() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocTransType gets AllocTransType, Tag 71
-func (m Allocation) GetAllocTransType() (f field.AllocTransTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetAllocTransType() (v enum.AllocTransType, err quickfix.MessageRejectError) {
+	var f field.AllocTransTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRefAllocID gets RefAllocID, Tag 72
-func (m Allocation) GetRefAllocID() (f field.RefAllocIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetRefAllocID() (v string, err quickfix.MessageRejectError) {
+	var f field.RefAllocIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -301,20 +349,29 @@ func (m Allocation) GetNoOrders() (NoOrdersRepeatingGroup, quickfix.MessageRejec
 }
 
 //GetAvgPrxPrecision gets AvgPrxPrecision, Tag 74
-func (m Allocation) GetAvgPrxPrecision() (f field.AvgPrxPrecisionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetAvgPrxPrecision() (v int, err quickfix.MessageRejectError) {
+	var f field.AvgPrxPrecisionField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeDate gets TradeDate, Tag 75
-func (m Allocation) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetTradeDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOpenClose gets OpenClose, Tag 77
-func (m Allocation) GetOpenClose() (f field.OpenCloseField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetOpenClose() (v enum.OpenClose, err quickfix.MessageRejectError) {
+	var f field.OpenCloseField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -326,32 +383,49 @@ func (m Allocation) GetNoAllocs() (NoAllocsRepeatingGroup, quickfix.MessageRejec
 }
 
 //GetIssuer gets Issuer, Tag 106
-func (m Allocation) GetIssuer() (f field.IssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.IssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityDesc gets SecurityDesc, Tag 107
-func (m Allocation) GetSecurityDesc() (f field.SecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNetMoney gets NetMoney, Tag 118
-func (m Allocation) GetNetMoney() (f field.NetMoneyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetNetMoney() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.NetMoneyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetSettlCurrAmt gets SettlCurrAmt, Tag 119
-func (m Allocation) GetSettlCurrAmt() (f field.SettlCurrAmtField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetSettlCurrAmt() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.SettlCurrAmtField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetSettlCurrency gets SettlCurrency, Tag 120
-func (m Allocation) GetSettlCurrency() (f field.SettlCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Allocation) GetSettlCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.SettlCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -530,26 +604,38 @@ func (m NoOrders) SetWaveNo(v string) {
 }
 
 //GetClOrdID gets ClOrdID, Tag 11
-func (m NoOrders) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrderID gets OrderID, Tag 37
-func (m NoOrders) GetOrderID() (f field.OrderIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrderID() (v string, err quickfix.MessageRejectError) {
+	var f field.OrderIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListID gets ListID, Tag 66
-func (m NoOrders) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetListID() (v string, err quickfix.MessageRejectError) {
+	var f field.ListIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetWaveNo gets WaveNo, Tag 105
-func (m NoOrders) GetWaveNo() (f field.WaveNoField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetWaveNo() (v string, err quickfix.MessageRejectError) {
+	var f field.WaveNoField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -612,7 +698,7 @@ func (m NoAllocs) SetAllocShares(value decimal.Decimal, scale int32) {
 }
 
 //SetProcessCode sets ProcessCode, Tag 81
-func (m NoAllocs) SetProcessCode(v string) {
+func (m NoAllocs) SetProcessCode(v enum.ProcessCode) {
 	m.Set(field.NewProcessCode(v))
 }
 
@@ -632,7 +718,7 @@ func (m NoAllocs) SetCommission(value decimal.Decimal, scale int32) {
 }
 
 //SetCommType sets CommType, Tag 13
-func (m NoAllocs) SetCommType(v string) {
+func (m NoAllocs) SetCommType(v enum.CommType) {
 	m.Set(field.NewCommType(v))
 }
 
@@ -652,62 +738,94 @@ func (m NoAllocs) SetDlvyInst(v string) {
 }
 
 //GetAllocAccount gets AllocAccount, Tag 79
-func (m NoAllocs) GetAllocAccount() (f field.AllocAccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocAccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocShares gets AllocShares, Tag 80
-func (m NoAllocs) GetAllocShares() (f field.AllocSharesField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocShares() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.AllocSharesField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetProcessCode gets ProcessCode, Tag 81
-func (m NoAllocs) GetProcessCode() (f field.ProcessCodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetProcessCode() (v enum.ProcessCode, err quickfix.MessageRejectError) {
+	var f field.ProcessCodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetExecBroker gets ExecBroker, Tag 76
-func (m NoAllocs) GetExecBroker() (f field.ExecBrokerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetExecBroker() (v string, err quickfix.MessageRejectError) {
+	var f field.ExecBrokerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClientID gets ClientID, Tag 109
-func (m NoAllocs) GetClientID() (f field.ClientIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetClientID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClientIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCommission gets Commission, Tag 12
-func (m NoAllocs) GetCommission() (f field.CommissionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetCommission() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.CommissionField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCommType gets CommType, Tag 13
-func (m NoAllocs) GetCommType() (f field.CommTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetCommType() (v enum.CommType, err quickfix.MessageRejectError) {
+	var f field.CommTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNoDlvyInst gets NoDlvyInst, Tag 85
-func (m NoAllocs) GetNoDlvyInst() (f field.NoDlvyInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetNoDlvyInst() (v int, err quickfix.MessageRejectError) {
+	var f field.NoDlvyInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBrokerOfCredit gets BrokerOfCredit, Tag 92
-func (m NoAllocs) GetBrokerOfCredit() (f field.BrokerOfCreditField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetBrokerOfCredit() (v string, err quickfix.MessageRejectError) {
+	var f field.BrokerOfCreditField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDlvyInst gets DlvyInst, Tag 86
-func (m NoAllocs) GetDlvyInst() (f field.DlvyInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetDlvyInst() (v string, err quickfix.MessageRejectError) {
+	var f field.DlvyInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -810,26 +928,40 @@ func (m NoExecs) SetLastMkt(v string) {
 }
 
 //GetExecID gets ExecID, Tag 17
-func (m NoExecs) GetExecID() (f field.ExecIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoExecs) GetExecID() (v string, err quickfix.MessageRejectError) {
+	var f field.ExecIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLastShares gets LastShares, Tag 32
-func (m NoExecs) GetLastShares() (f field.LastSharesField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoExecs) GetLastShares() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.LastSharesField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetLastPx gets LastPx, Tag 31
-func (m NoExecs) GetLastPx() (f field.LastPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoExecs) GetLastPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.LastPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetLastMkt gets LastMkt, Tag 30
-func (m NoExecs) GetLastMkt() (f field.LastMktField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoExecs) GetLastMkt() (v string, err quickfix.MessageRejectError) {
+	var f field.LastMktField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -892,25 +1024,35 @@ func (m NoMiscFees) SetMiscFeeCurr(v string) {
 }
 
 //SetMiscFeeType sets MiscFeeType, Tag 139
-func (m NoMiscFees) SetMiscFeeType(v string) {
+func (m NoMiscFees) SetMiscFeeType(v enum.MiscFeeType) {
 	m.Set(field.NewMiscFeeType(v))
 }
 
 //GetMiscFeeAmt gets MiscFeeAmt, Tag 137
-func (m NoMiscFees) GetMiscFeeAmt() (f field.MiscFeeAmtField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoMiscFees) GetMiscFeeAmt() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.MiscFeeAmtField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetMiscFeeCurr gets MiscFeeCurr, Tag 138
-func (m NoMiscFees) GetMiscFeeCurr() (f field.MiscFeeCurrField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoMiscFees) GetMiscFeeCurr() (v string, err quickfix.MessageRejectError) {
+	var f field.MiscFeeCurrField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMiscFeeType gets MiscFeeType, Tag 139
-func (m NoMiscFees) GetMiscFeeType() (f field.MiscFeeTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoMiscFees) GetMiscFeeType() (v enum.MiscFeeType, err quickfix.MessageRejectError) {
+	var f field.MiscFeeTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

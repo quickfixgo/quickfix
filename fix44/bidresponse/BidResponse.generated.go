@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
 	"github.com/quickfixgo/quickfix/tag"
@@ -77,14 +78,20 @@ func (m BidResponse) SetNoBidComponents(f NoBidComponentsRepeatingGroup) {
 }
 
 //GetBidID gets BidID, Tag 390
-func (m BidResponse) GetBidID() (f field.BidIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidResponse) GetBidID() (v string, err quickfix.MessageRejectError) {
+	var f field.BidIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClientBidID gets ClientBidID, Tag 391
-func (m BidResponse) GetClientBidID() (f field.ClientBidIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidResponse) GetClientBidID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClientBidIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -121,7 +128,7 @@ func (m NoBidComponents) SetCommission(value decimal.Decimal, scale int32) {
 }
 
 //SetCommType sets CommType, Tag 13
-func (m NoBidComponents) SetCommType(v string) {
+func (m NoBidComponents) SetCommType(v enum.CommType) {
 	m.Set(field.NewCommType(v))
 }
 
@@ -131,7 +138,7 @@ func (m NoBidComponents) SetCommCurrency(v string) {
 }
 
 //SetFundRenewWaiv sets FundRenewWaiv, Tag 497
-func (m NoBidComponents) SetFundRenewWaiv(v string) {
+func (m NoBidComponents) SetFundRenewWaiv(v enum.FundRenewWaiv) {
 	m.Set(field.NewFundRenewWaiv(v))
 }
 
@@ -146,7 +153,7 @@ func (m NoBidComponents) SetCountry(v string) {
 }
 
 //SetSide sets Side, Tag 54
-func (m NoBidComponents) SetSide(v string) {
+func (m NoBidComponents) SetSide(v enum.Side) {
 	m.Set(field.NewSide(v))
 }
 
@@ -156,7 +163,7 @@ func (m NoBidComponents) SetPrice(value decimal.Decimal, scale int32) {
 }
 
 //SetPriceType sets PriceType, Tag 423
-func (m NoBidComponents) SetPriceType(v int) {
+func (m NoBidComponents) SetPriceType(v enum.PriceType) {
 	m.Set(field.NewPriceType(v))
 }
 
@@ -166,12 +173,12 @@ func (m NoBidComponents) SetFairValue(value decimal.Decimal, scale int32) {
 }
 
 //SetNetGrossInd sets NetGrossInd, Tag 430
-func (m NoBidComponents) SetNetGrossInd(v int) {
+func (m NoBidComponents) SetNetGrossInd(v enum.NetGrossInd) {
 	m.Set(field.NewNetGrossInd(v))
 }
 
 //SetSettlType sets SettlType, Tag 63
-func (m NoBidComponents) SetSettlType(v string) {
+func (m NoBidComponents) SetSettlType(v enum.SettlType) {
 	m.Set(field.NewSettlType(v))
 }
 
@@ -181,12 +188,12 @@ func (m NoBidComponents) SetSettlDate(v string) {
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
-func (m NoBidComponents) SetTradingSessionID(v string) {
+func (m NoBidComponents) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
 //SetTradingSessionSubID sets TradingSessionSubID, Tag 625
-func (m NoBidComponents) SetTradingSessionSubID(v string) {
+func (m NoBidComponents) SetTradingSessionSubID(v enum.TradingSessionSubID) {
 	m.Set(field.NewTradingSessionSubID(v))
 }
 
@@ -206,110 +213,167 @@ func (m NoBidComponents) SetEncodedText(v string) {
 }
 
 //GetCommission gets Commission, Tag 12
-func (m NoBidComponents) GetCommission() (f field.CommissionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetCommission() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.CommissionField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCommType gets CommType, Tag 13
-func (m NoBidComponents) GetCommType() (f field.CommTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetCommType() (v enum.CommType, err quickfix.MessageRejectError) {
+	var f field.CommTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCommCurrency gets CommCurrency, Tag 479
-func (m NoBidComponents) GetCommCurrency() (f field.CommCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetCommCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.CommCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetFundRenewWaiv gets FundRenewWaiv, Tag 497
-func (m NoBidComponents) GetFundRenewWaiv() (f field.FundRenewWaivField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetFundRenewWaiv() (v enum.FundRenewWaiv, err quickfix.MessageRejectError) {
+	var f field.FundRenewWaivField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListID gets ListID, Tag 66
-func (m NoBidComponents) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetListID() (v string, err quickfix.MessageRejectError) {
+	var f field.ListIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCountry gets Country, Tag 421
-func (m NoBidComponents) GetCountry() (f field.CountryField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetCountry() (v string, err quickfix.MessageRejectError) {
+	var f field.CountryField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSide gets Side, Tag 54
-func (m NoBidComponents) GetSide() (f field.SideField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetSide() (v enum.Side, err quickfix.MessageRejectError) {
+	var f field.SideField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPrice gets Price, Tag 44
-func (m NoBidComponents) GetPrice() (f field.PriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.PriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetPriceType gets PriceType, Tag 423
-func (m NoBidComponents) GetPriceType() (f field.PriceTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetPriceType() (v enum.PriceType, err quickfix.MessageRejectError) {
+	var f field.PriceTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetFairValue gets FairValue, Tag 406
-func (m NoBidComponents) GetFairValue() (f field.FairValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetFairValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.FairValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetNetGrossInd gets NetGrossInd, Tag 430
-func (m NoBidComponents) GetNetGrossInd() (f field.NetGrossIndField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetNetGrossInd() (v enum.NetGrossInd, err quickfix.MessageRejectError) {
+	var f field.NetGrossIndField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlType gets SettlType, Tag 63
-func (m NoBidComponents) GetSettlType() (f field.SettlTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetSettlType() (v enum.SettlType, err quickfix.MessageRejectError) {
+	var f field.SettlTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlDate gets SettlDate, Tag 64
-func (m NoBidComponents) GetSettlDate() (f field.SettlDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetSettlDate() (v string, err quickfix.MessageRejectError) {
+	var f field.SettlDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradingSessionID gets TradingSessionID, Tag 336
-func (m NoBidComponents) GetTradingSessionID() (f field.TradingSessionIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradingSessionSubID gets TradingSessionSubID, Tag 625
-func (m NoBidComponents) GetTradingSessionSubID() (f field.TradingSessionSubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetTradingSessionSubID() (v enum.TradingSessionSubID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionSubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m NoBidComponents) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m NoBidComponents) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m NoBidComponents) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix43"
 	"github.com/quickfixgo/quickfix/tag"
@@ -98,12 +99,12 @@ func (m ListStatus) SetRptSeq(v int) {
 }
 
 //SetListStatusType sets ListStatusType, Tag 429
-func (m ListStatus) SetListStatusType(v int) {
+func (m ListStatus) SetListStatusType(v enum.ListStatusType) {
 	m.Set(field.NewListStatusType(v))
 }
 
 //SetListOrderStatus sets ListOrderStatus, Tag 431
-func (m ListStatus) SetListOrderStatus(v int) {
+func (m ListStatus) SetListOrderStatus(v enum.ListOrderStatus) {
 	m.Set(field.NewListOrderStatus(v))
 }
 
@@ -123,20 +124,29 @@ func (m ListStatus) SetEncodedListStatusText(v string) {
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m ListStatus) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListID gets ListID, Tag 66
-func (m ListStatus) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetListID() (v string, err quickfix.MessageRejectError) {
+	var f field.ListIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTotNoOrders gets TotNoOrders, Tag 68
-func (m ListStatus) GetTotNoOrders() (f field.TotNoOrdersField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetTotNoOrders() (v int, err quickfix.MessageRejectError) {
+	var f field.TotNoOrdersField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -148,44 +158,65 @@ func (m ListStatus) GetNoOrders() (NoOrdersRepeatingGroup, quickfix.MessageRejec
 }
 
 //GetNoRpts gets NoRpts, Tag 82
-func (m ListStatus) GetNoRpts() (f field.NoRptsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetNoRpts() (v int, err quickfix.MessageRejectError) {
+	var f field.NoRptsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRptSeq gets RptSeq, Tag 83
-func (m ListStatus) GetRptSeq() (f field.RptSeqField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetRptSeq() (v int, err quickfix.MessageRejectError) {
+	var f field.RptSeqField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListStatusType gets ListStatusType, Tag 429
-func (m ListStatus) GetListStatusType() (f field.ListStatusTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetListStatusType() (v enum.ListStatusType, err quickfix.MessageRejectError) {
+	var f field.ListStatusTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListOrderStatus gets ListOrderStatus, Tag 431
-func (m ListStatus) GetListOrderStatus() (f field.ListOrderStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetListOrderStatus() (v enum.ListOrderStatus, err quickfix.MessageRejectError) {
+	var f field.ListOrderStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListStatusText gets ListStatusText, Tag 444
-func (m ListStatus) GetListStatusText() (f field.ListStatusTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetListStatusText() (v string, err quickfix.MessageRejectError) {
+	var f field.ListStatusTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedListStatusTextLen gets EncodedListStatusTextLen, Tag 445
-func (m ListStatus) GetEncodedListStatusTextLen() (f field.EncodedListStatusTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetEncodedListStatusTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedListStatusTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedListStatusText gets EncodedListStatusText, Tag 446
-func (m ListStatus) GetEncodedListStatusText() (f field.EncodedListStatusTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetEncodedListStatusText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedListStatusTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -265,7 +296,7 @@ func (m NoOrders) SetCumQty(value decimal.Decimal, scale int32) {
 }
 
 //SetOrdStatus sets OrdStatus, Tag 39
-func (m NoOrders) SetOrdStatus(v string) {
+func (m NoOrders) SetOrdStatus(v enum.OrdStatus) {
 	m.Set(field.NewOrdStatus(v))
 }
 
@@ -290,7 +321,7 @@ func (m NoOrders) SetAvgPx(value decimal.Decimal, scale int32) {
 }
 
 //SetOrdRejReason sets OrdRejReason, Tag 103
-func (m NoOrders) SetOrdRejReason(v int) {
+func (m NoOrders) SetOrdRejReason(v enum.OrdRejReason) {
 	m.Set(field.NewOrdRejReason(v))
 }
 
@@ -310,74 +341,114 @@ func (m NoOrders) SetEncodedText(v string) {
 }
 
 //GetClOrdID gets ClOrdID, Tag 11
-func (m NoOrders) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecondaryClOrdID gets SecondaryClOrdID, Tag 526
-func (m NoOrders) GetSecondaryClOrdID() (f field.SecondaryClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSecondaryClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecondaryClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCumQty gets CumQty, Tag 14
-func (m NoOrders) GetCumQty() (f field.CumQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCumQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.CumQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetOrdStatus gets OrdStatus, Tag 39
-func (m NoOrders) GetOrdStatus() (f field.OrdStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrdStatus() (v enum.OrdStatus, err quickfix.MessageRejectError) {
+	var f field.OrdStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetWorkingIndicator gets WorkingIndicator, Tag 636
-func (m NoOrders) GetWorkingIndicator() (f field.WorkingIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetWorkingIndicator() (v bool, err quickfix.MessageRejectError) {
+	var f field.WorkingIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLeavesQty gets LeavesQty, Tag 151
-func (m NoOrders) GetLeavesQty() (f field.LeavesQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetLeavesQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.LeavesQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCxlQty gets CxlQty, Tag 84
-func (m NoOrders) GetCxlQty() (f field.CxlQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCxlQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.CxlQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetAvgPx gets AvgPx, Tag 6
-func (m NoOrders) GetAvgPx() (f field.AvgPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetAvgPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.AvgPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetOrdRejReason gets OrdRejReason, Tag 103
-func (m NoOrders) GetOrdRejReason() (f field.OrdRejReasonField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrdRejReason() (v enum.OrdRejReason, err quickfix.MessageRejectError) {
+	var f field.OrdRejReasonField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m NoOrders) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m NoOrders) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m NoOrders) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

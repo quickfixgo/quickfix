@@ -72,14 +72,20 @@ func (m SequenceReset) SetGapFillFlag(v bool) {
 }
 
 //GetNewSeqNo gets NewSeqNo, Tag 36
-func (m SequenceReset) GetNewSeqNo() (f field.NewSeqNoField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SequenceReset) GetNewSeqNo() (v int, err quickfix.MessageRejectError) {
+	var f field.NewSeqNoField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetGapFillFlag gets GapFillFlag, Tag 123
-func (m SequenceReset) GetGapFillFlag() (f field.GapFillFlagField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SequenceReset) GetGapFillFlag() (v bool, err quickfix.MessageRejectError) {
+	var f field.GapFillFlagField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

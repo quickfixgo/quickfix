@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -63,7 +64,7 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 }
 
 //SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263
-func (m MarketDefinitionRequest) SetSubscriptionRequestType(v string) {
+func (m MarketDefinitionRequest) SetSubscriptionRequestType(v enum.SubscriptionRequestType) {
 	m.Set(field.NewSubscriptionRequestType(v))
 }
 
@@ -88,32 +89,47 @@ func (m MarketDefinitionRequest) SetMarketReqID(v string) {
 }
 
 //GetSubscriptionRequestType gets SubscriptionRequestType, Tag 263
-func (m MarketDefinitionRequest) GetSubscriptionRequestType() (f field.SubscriptionRequestTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionRequest) GetSubscriptionRequestType() (v enum.SubscriptionRequestType, err quickfix.MessageRejectError) {
+	var f field.SubscriptionRequestTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketSegmentID gets MarketSegmentID, Tag 1300
-func (m MarketDefinitionRequest) GetMarketSegmentID() (f field.MarketSegmentIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionRequest) GetMarketSegmentID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketSegmentIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketID gets MarketID, Tag 1301
-func (m MarketDefinitionRequest) GetMarketID() (f field.MarketIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionRequest) GetMarketID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetParentMktSegmID gets ParentMktSegmID, Tag 1325
-func (m MarketDefinitionRequest) GetParentMktSegmID() (f field.ParentMktSegmIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionRequest) GetParentMktSegmID() (v string, err quickfix.MessageRejectError) {
+	var f field.ParentMktSegmIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMarketReqID gets MarketReqID, Tag 1393
-func (m MarketDefinitionRequest) GetMarketReqID() (f field.MarketReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m MarketDefinitionRequest) GetMarketReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.MarketReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

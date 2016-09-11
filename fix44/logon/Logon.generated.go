@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
 	"github.com/quickfixgo/quickfix/tag"
@@ -73,7 +74,7 @@ func (m Logon) SetRawData(v string) {
 }
 
 //SetEncryptMethod sets EncryptMethod, Tag 98
-func (m Logon) SetEncryptMethod(v int) {
+func (m Logon) SetEncryptMethod(v enum.EncryptMethod) {
 	m.Set(field.NewEncryptMethod(v))
 }
 
@@ -118,38 +119,56 @@ func (m Logon) SetNextExpectedMsgSeqNum(v int) {
 }
 
 //GetRawDataLength gets RawDataLength, Tag 95
-func (m Logon) GetRawDataLength() (f field.RawDataLengthField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetRawDataLength() (v int, err quickfix.MessageRejectError) {
+	var f field.RawDataLengthField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRawData gets RawData, Tag 96
-func (m Logon) GetRawData() (f field.RawDataField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetRawData() (v string, err quickfix.MessageRejectError) {
+	var f field.RawDataField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncryptMethod gets EncryptMethod, Tag 98
-func (m Logon) GetEncryptMethod() (f field.EncryptMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetEncryptMethod() (v enum.EncryptMethod, err quickfix.MessageRejectError) {
+	var f field.EncryptMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetHeartBtInt gets HeartBtInt, Tag 108
-func (m Logon) GetHeartBtInt() (f field.HeartBtIntField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetHeartBtInt() (v int, err quickfix.MessageRejectError) {
+	var f field.HeartBtIntField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetResetSeqNumFlag gets ResetSeqNumFlag, Tag 141
-func (m Logon) GetResetSeqNumFlag() (f field.ResetSeqNumFlagField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetResetSeqNumFlag() (v bool, err quickfix.MessageRejectError) {
+	var f field.ResetSeqNumFlagField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMaxMessageSize gets MaxMessageSize, Tag 383
-func (m Logon) GetMaxMessageSize() (f field.MaxMessageSizeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetMaxMessageSize() (v int, err quickfix.MessageRejectError) {
+	var f field.MaxMessageSizeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -161,26 +180,38 @@ func (m Logon) GetNoMsgTypes() (NoMsgTypesRepeatingGroup, quickfix.MessageReject
 }
 
 //GetTestMessageIndicator gets TestMessageIndicator, Tag 464
-func (m Logon) GetTestMessageIndicator() (f field.TestMessageIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetTestMessageIndicator() (v bool, err quickfix.MessageRejectError) {
+	var f field.TestMessageIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUsername gets Username, Tag 553
-func (m Logon) GetUsername() (f field.UsernameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetUsername() (v string, err quickfix.MessageRejectError) {
+	var f field.UsernameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPassword gets Password, Tag 554
-func (m Logon) GetPassword() (f field.PasswordField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetPassword() (v string, err quickfix.MessageRejectError) {
+	var f field.PasswordField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNextExpectedMsgSeqNum gets NextExpectedMsgSeqNum, Tag 789
-func (m Logon) GetNextExpectedMsgSeqNum() (f field.NextExpectedMsgSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logon) GetNextExpectedMsgSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.NextExpectedMsgSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -250,19 +281,25 @@ func (m NoMsgTypes) SetRefMsgType(v string) {
 }
 
 //SetMsgDirection sets MsgDirection, Tag 385
-func (m NoMsgTypes) SetMsgDirection(v string) {
+func (m NoMsgTypes) SetMsgDirection(v enum.MsgDirection) {
 	m.Set(field.NewMsgDirection(v))
 }
 
 //GetRefMsgType gets RefMsgType, Tag 372
-func (m NoMsgTypes) GetRefMsgType() (f field.RefMsgTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoMsgTypes) GetRefMsgType() (v string, err quickfix.MessageRejectError) {
+	var f field.RefMsgTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMsgDirection gets MsgDirection, Tag 385
-func (m NoMsgTypes) GetMsgDirection() (f field.MsgDirectionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoMsgTypes) GetMsgDirection() (v enum.MsgDirection, err quickfix.MessageRejectError) {
+	var f field.MsgDirectionField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

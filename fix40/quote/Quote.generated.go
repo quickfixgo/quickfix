@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix40"
 	"github.com/quickfixgo/quickfix/tag"
@@ -65,7 +66,7 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 }
 
 //SetIDSource sets IDSource, Tag 22
-func (m Quote) SetIDSource(v string) {
+func (m Quote) SetIDSource(v enum.IDSource) {
 	m.Set(field.NewIDSource(v))
 }
 
@@ -85,7 +86,7 @@ func (m Quote) SetValidUntilTime(v time.Time) {
 }
 
 //SetSymbolSfx sets SymbolSfx, Tag 65
-func (m Quote) SetSymbolSfx(v string) {
+func (m Quote) SetSymbolSfx(v enum.SymbolSfx) {
 	m.Set(field.NewSymbolSfx(v))
 }
 
@@ -130,80 +131,123 @@ func (m Quote) SetOfferSize(value decimal.Decimal, scale int32) {
 }
 
 //GetIDSource gets IDSource, Tag 22
-func (m Quote) GetIDSource() (f field.IDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetIDSource() (v enum.IDSource, err quickfix.MessageRejectError) {
+	var f field.IDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityID gets SecurityID, Tag 48
-func (m Quote) GetSecurityID() (f field.SecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSymbol gets Symbol, Tag 55
-func (m Quote) GetSymbol() (f field.SymbolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetSymbol() (v string, err quickfix.MessageRejectError) {
+	var f field.SymbolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetValidUntilTime gets ValidUntilTime, Tag 62
-func (m Quote) GetValidUntilTime() (f field.ValidUntilTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetValidUntilTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.ValidUntilTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSymbolSfx gets SymbolSfx, Tag 65
-func (m Quote) GetSymbolSfx() (f field.SymbolSfxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetSymbolSfx() (v enum.SymbolSfx, err quickfix.MessageRejectError) {
+	var f field.SymbolSfxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetIssuer gets Issuer, Tag 106
-func (m Quote) GetIssuer() (f field.IssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.IssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityDesc gets SecurityDesc, Tag 107
-func (m Quote) GetSecurityDesc() (f field.SecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetQuoteID gets QuoteID, Tag 117
-func (m Quote) GetQuoteID() (f field.QuoteIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetQuoteID() (v string, err quickfix.MessageRejectError) {
+	var f field.QuoteIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetQuoteReqID gets QuoteReqID, Tag 131
-func (m Quote) GetQuoteReqID() (f field.QuoteReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetQuoteReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.QuoteReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBidPx gets BidPx, Tag 132
-func (m Quote) GetBidPx() (f field.BidPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetBidPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.BidPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetOfferPx gets OfferPx, Tag 133
-func (m Quote) GetOfferPx() (f field.OfferPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetOfferPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.OfferPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetBidSize gets BidSize, Tag 134
-func (m Quote) GetBidSize() (f field.BidSizeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetBidSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.BidSizeField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetOfferSize gets OfferSize, Tag 135
-func (m Quote) GetOfferSize() (f field.OfferSizeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Quote) GetOfferSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.OfferSizeField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 

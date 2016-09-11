@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -87,12 +88,12 @@ func (m ApplicationMessageRequestAck) SetApplReqID(v string) {
 }
 
 //SetApplReqType sets ApplReqType, Tag 1347
-func (m ApplicationMessageRequestAck) SetApplReqType(v int) {
+func (m ApplicationMessageRequestAck) SetApplReqType(v enum.ApplReqType) {
 	m.Set(field.NewApplReqType(v))
 }
 
 //SetApplResponseType sets ApplResponseType, Tag 1348
-func (m ApplicationMessageRequestAck) SetApplResponseType(v int) {
+func (m ApplicationMessageRequestAck) SetApplResponseType(v enum.ApplResponseType) {
 	m.Set(field.NewApplResponseType(v))
 }
 
@@ -112,20 +113,29 @@ func (m ApplicationMessageRequestAck) SetApplResponseID(v string) {
 }
 
 //GetText gets Text, Tag 58
-func (m ApplicationMessageRequestAck) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m ApplicationMessageRequestAck) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m ApplicationMessageRequestAck) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -137,26 +147,38 @@ func (m ApplicationMessageRequestAck) GetNoPartyIDs() (NoPartyIDsRepeatingGroup,
 }
 
 //GetApplReqID gets ApplReqID, Tag 1346
-func (m ApplicationMessageRequestAck) GetApplReqID() (f field.ApplReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.ApplReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplReqType gets ApplReqType, Tag 1347
-func (m ApplicationMessageRequestAck) GetApplReqType() (f field.ApplReqTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplReqType() (v enum.ApplReqType, err quickfix.MessageRejectError) {
+	var f field.ApplReqTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplResponseType gets ApplResponseType, Tag 1348
-func (m ApplicationMessageRequestAck) GetApplResponseType() (f field.ApplResponseTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplResponseType() (v enum.ApplResponseType, err quickfix.MessageRejectError) {
+	var f field.ApplResponseTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplTotalMessageCount gets ApplTotalMessageCount, Tag 1349
-func (m ApplicationMessageRequestAck) GetApplTotalMessageCount() (f field.ApplTotalMessageCountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplTotalMessageCount() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplTotalMessageCountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -168,8 +190,11 @@ func (m ApplicationMessageRequestAck) GetNoApplIDs() (NoApplIDsRepeatingGroup, q
 }
 
 //GetApplResponseID gets ApplResponseID, Tag 1353
-func (m ApplicationMessageRequestAck) GetApplResponseID() (f field.ApplResponseIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplResponseID() (v string, err quickfix.MessageRejectError) {
+	var f field.ApplResponseIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -234,12 +259,12 @@ func (m NoPartyIDs) SetPartyID(v string) {
 }
 
 //SetPartyIDSource sets PartyIDSource, Tag 447
-func (m NoPartyIDs) SetPartyIDSource(v string) {
+func (m NoPartyIDs) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
 //SetPartyRole sets PartyRole, Tag 452
-func (m NoPartyIDs) SetPartyRole(v int) {
+func (m NoPartyIDs) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
@@ -249,20 +274,29 @@ func (m NoPartyIDs) SetNoPartySubIDs(f NoPartySubIDsRepeatingGroup) {
 }
 
 //GetPartyID gets PartyID, Tag 448
-func (m NoPartyIDs) GetPartyID() (f field.PartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyIDSource gets PartyIDSource, Tag 447
-func (m NoPartyIDs) GetPartyIDSource() (f field.PartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
+	var f field.PartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyRole gets PartyRole, Tag 452
-func (m NoPartyIDs) GetPartyRole() (f field.PartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
+	var f field.PartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -304,19 +338,25 @@ func (m NoPartySubIDs) SetPartySubID(v string) {
 }
 
 //SetPartySubIDType sets PartySubIDType, Tag 803
-func (m NoPartySubIDs) SetPartySubIDType(v int) {
+func (m NoPartySubIDs) SetPartySubIDType(v enum.PartySubIDType) {
 	m.Set(field.NewPartySubIDType(v))
 }
 
 //GetPartySubID gets PartySubID, Tag 523
-func (m NoPartySubIDs) GetPartySubID() (f field.PartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartySubIDType gets PartySubIDType, Tag 803
-func (m NoPartySubIDs) GetPartySubIDType() (f field.PartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubIDType() (v enum.PartySubIDType, err quickfix.MessageRejectError) {
+	var f field.PartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -402,7 +442,7 @@ func (m NoApplIDs) SetRefApplLastSeqNum(v int) {
 }
 
 //SetApplResponseError sets ApplResponseError, Tag 1354
-func (m NoApplIDs) SetApplResponseError(v int) {
+func (m NoApplIDs) SetApplResponseError(v enum.ApplResponseError) {
 	m.Set(field.NewApplResponseError(v))
 }
 
@@ -417,32 +457,47 @@ func (m NoApplIDs) SetRefApplReqID(v string) {
 }
 
 //GetRefApplID gets RefApplID, Tag 1355
-func (m NoApplIDs) GetRefApplID() (f field.RefApplIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetRefApplID() (v string, err quickfix.MessageRejectError) {
+	var f field.RefApplIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplBegSeqNum gets ApplBegSeqNum, Tag 1182
-func (m NoApplIDs) GetApplBegSeqNum() (f field.ApplBegSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetApplBegSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplBegSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplEndSeqNum gets ApplEndSeqNum, Tag 1183
-func (m NoApplIDs) GetApplEndSeqNum() (f field.ApplEndSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetApplEndSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplEndSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRefApplLastSeqNum gets RefApplLastSeqNum, Tag 1357
-func (m NoApplIDs) GetRefApplLastSeqNum() (f field.RefApplLastSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetRefApplLastSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.RefApplLastSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplResponseError gets ApplResponseError, Tag 1354
-func (m NoApplIDs) GetApplResponseError() (f field.ApplResponseErrorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetApplResponseError() (v enum.ApplResponseError, err quickfix.MessageRejectError) {
+	var f field.ApplResponseErrorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -454,8 +509,11 @@ func (m NoApplIDs) GetNoNestedPartyIDs() (NoNestedPartyIDsRepeatingGroup, quickf
 }
 
 //GetRefApplReqID gets RefApplReqID, Tag 1433
-func (m NoApplIDs) GetRefApplReqID() (f field.RefApplReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetRefApplReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.RefApplReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -520,20 +578,29 @@ func (m NoNestedPartyIDs) SetNoNestedPartySubIDs(f NoNestedPartySubIDsRepeatingG
 }
 
 //GetNestedPartyID gets NestedPartyID, Tag 524
-func (m NoNestedPartyIDs) GetNestedPartyID() (f field.NestedPartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartyIDSource gets NestedPartyIDSource, Tag 525
-func (m NoNestedPartyIDs) GetNestedPartyIDSource() (f field.NestedPartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartyRole gets NestedPartyRole, Tag 538
-func (m NoNestedPartyIDs) GetNestedPartyRole() (f field.NestedPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.NestedPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -580,14 +647,20 @@ func (m NoNestedPartySubIDs) SetNestedPartySubIDType(v int) {
 }
 
 //GetNestedPartySubID gets NestedPartySubID, Tag 545
-func (m NoNestedPartySubIDs) GetNestedPartySubID() (f field.NestedPartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartySubIDs) GetNestedPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartySubIDType gets NestedPartySubIDType, Tag 805
-func (m NoNestedPartySubIDs) GetNestedPartySubIDType() (f field.NestedPartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartySubIDs) GetNestedPartySubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.NestedPartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

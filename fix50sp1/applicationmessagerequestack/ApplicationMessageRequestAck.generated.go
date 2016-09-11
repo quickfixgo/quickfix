@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -82,12 +83,12 @@ func (m ApplicationMessageRequestAck) SetApplReqID(v string) {
 }
 
 //SetApplReqType sets ApplReqType, Tag 1347
-func (m ApplicationMessageRequestAck) SetApplReqType(v int) {
+func (m ApplicationMessageRequestAck) SetApplReqType(v enum.ApplReqType) {
 	m.Set(field.NewApplReqType(v))
 }
 
 //SetApplResponseType sets ApplResponseType, Tag 1348
-func (m ApplicationMessageRequestAck) SetApplResponseType(v int) {
+func (m ApplicationMessageRequestAck) SetApplResponseType(v enum.ApplResponseType) {
 	m.Set(field.NewApplResponseType(v))
 }
 
@@ -107,44 +108,65 @@ func (m ApplicationMessageRequestAck) SetApplResponseID(v string) {
 }
 
 //GetText gets Text, Tag 58
-func (m ApplicationMessageRequestAck) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m ApplicationMessageRequestAck) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m ApplicationMessageRequestAck) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplReqID gets ApplReqID, Tag 1346
-func (m ApplicationMessageRequestAck) GetApplReqID() (f field.ApplReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.ApplReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplReqType gets ApplReqType, Tag 1347
-func (m ApplicationMessageRequestAck) GetApplReqType() (f field.ApplReqTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplReqType() (v enum.ApplReqType, err quickfix.MessageRejectError) {
+	var f field.ApplReqTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplResponseType gets ApplResponseType, Tag 1348
-func (m ApplicationMessageRequestAck) GetApplResponseType() (f field.ApplResponseTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplResponseType() (v enum.ApplResponseType, err quickfix.MessageRejectError) {
+	var f field.ApplResponseTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplTotalMessageCount gets ApplTotalMessageCount, Tag 1349
-func (m ApplicationMessageRequestAck) GetApplTotalMessageCount() (f field.ApplTotalMessageCountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplTotalMessageCount() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplTotalMessageCountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -156,8 +178,11 @@ func (m ApplicationMessageRequestAck) GetNoApplIDs() (NoApplIDsRepeatingGroup, q
 }
 
 //GetApplResponseID gets ApplResponseID, Tag 1353
-func (m ApplicationMessageRequestAck) GetApplResponseID() (f field.ApplResponseIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequestAck) GetApplResponseID() (v string, err quickfix.MessageRejectError) {
+	var f field.ApplResponseIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -232,37 +257,52 @@ func (m NoApplIDs) SetRefApplLastSeqNum(v int) {
 }
 
 //SetApplResponseError sets ApplResponseError, Tag 1354
-func (m NoApplIDs) SetApplResponseError(v int) {
+func (m NoApplIDs) SetApplResponseError(v enum.ApplResponseError) {
 	m.Set(field.NewApplResponseError(v))
 }
 
 //GetRefApplID gets RefApplID, Tag 1355
-func (m NoApplIDs) GetRefApplID() (f field.RefApplIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetRefApplID() (v string, err quickfix.MessageRejectError) {
+	var f field.RefApplIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplBegSeqNum gets ApplBegSeqNum, Tag 1182
-func (m NoApplIDs) GetApplBegSeqNum() (f field.ApplBegSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetApplBegSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplBegSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplEndSeqNum gets ApplEndSeqNum, Tag 1183
-func (m NoApplIDs) GetApplEndSeqNum() (f field.ApplEndSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetApplEndSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplEndSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRefApplLastSeqNum gets RefApplLastSeqNum, Tag 1357
-func (m NoApplIDs) GetRefApplLastSeqNum() (f field.RefApplLastSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetRefApplLastSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.RefApplLastSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplResponseError gets ApplResponseError, Tag 1354
-func (m NoApplIDs) GetApplResponseError() (f field.ApplResponseErrorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetApplResponseError() (v enum.ApplResponseError, err quickfix.MessageRejectError) {
+	var f field.ApplResponseErrorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

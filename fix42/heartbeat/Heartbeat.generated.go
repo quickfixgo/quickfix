@@ -66,8 +66,11 @@ func (m Heartbeat) SetTestReqID(v string) {
 }
 
 //GetTestReqID gets TestReqID, Tag 112
-func (m Heartbeat) GetTestReqID() (f field.TestReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Heartbeat) GetTestReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.TestReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

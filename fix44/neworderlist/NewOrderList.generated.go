@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
 	"github.com/quickfixgo/quickfix/tag"
@@ -105,12 +106,12 @@ func (m NewOrderList) SetClientBidID(v string) {
 }
 
 //SetBidType sets BidType, Tag 394
-func (m NewOrderList) SetBidType(v int) {
+func (m NewOrderList) SetBidType(v enum.BidType) {
 	m.Set(field.NewBidType(v))
 }
 
 //SetProgRptReqs sets ProgRptReqs, Tag 414
-func (m NewOrderList) SetProgRptReqs(v int) {
+func (m NewOrderList) SetProgRptReqs(v enum.ProgRptReqs) {
 	m.Set(field.NewProgRptReqs(v))
 }
 
@@ -120,17 +121,17 @@ func (m NewOrderList) SetProgPeriodInterval(v int) {
 }
 
 //SetListExecInstType sets ListExecInstType, Tag 433
-func (m NewOrderList) SetListExecInstType(v string) {
+func (m NewOrderList) SetListExecInstType(v enum.ListExecInstType) {
 	m.Set(field.NewListExecInstType(v))
 }
 
 //SetCancellationRights sets CancellationRights, Tag 480
-func (m NewOrderList) SetCancellationRights(v string) {
+func (m NewOrderList) SetCancellationRights(v enum.CancellationRights) {
 	m.Set(field.NewCancellationRights(v))
 }
 
 //SetMoneyLaunderingStatus sets MoneyLaunderingStatus, Tag 481
-func (m NewOrderList) SetMoneyLaunderingStatus(v string) {
+func (m NewOrderList) SetMoneyLaunderingStatus(v enum.MoneyLaunderingStatus) {
 	m.Set(field.NewMoneyLaunderingStatus(v))
 }
 
@@ -160,20 +161,29 @@ func (m NewOrderList) SetLastFragment(v bool) {
 }
 
 //GetListID gets ListID, Tag 66
-func (m NewOrderList) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetListID() (v string, err quickfix.MessageRejectError) {
+	var f field.ListIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTotNoOrders gets TotNoOrders, Tag 68
-func (m NewOrderList) GetTotNoOrders() (f field.TotNoOrdersField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetTotNoOrders() (v int, err quickfix.MessageRejectError) {
+	var f field.TotNoOrdersField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListExecInst gets ListExecInst, Tag 69
-func (m NewOrderList) GetListExecInst() (f field.ListExecInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetListExecInst() (v string, err quickfix.MessageRejectError) {
+	var f field.ListExecInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -185,92 +195,139 @@ func (m NewOrderList) GetNoOrders() (NoOrdersRepeatingGroup, quickfix.MessageRej
 }
 
 //GetEncodedListExecInstLen gets EncodedListExecInstLen, Tag 352
-func (m NewOrderList) GetEncodedListExecInstLen() (f field.EncodedListExecInstLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetEncodedListExecInstLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedListExecInstLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedListExecInst gets EncodedListExecInst, Tag 353
-func (m NewOrderList) GetEncodedListExecInst() (f field.EncodedListExecInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetEncodedListExecInst() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedListExecInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBidID gets BidID, Tag 390
-func (m NewOrderList) GetBidID() (f field.BidIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetBidID() (v string, err quickfix.MessageRejectError) {
+	var f field.BidIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClientBidID gets ClientBidID, Tag 391
-func (m NewOrderList) GetClientBidID() (f field.ClientBidIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetClientBidID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClientBidIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBidType gets BidType, Tag 394
-func (m NewOrderList) GetBidType() (f field.BidTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetBidType() (v enum.BidType, err quickfix.MessageRejectError) {
+	var f field.BidTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetProgRptReqs gets ProgRptReqs, Tag 414
-func (m NewOrderList) GetProgRptReqs() (f field.ProgRptReqsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetProgRptReqs() (v enum.ProgRptReqs, err quickfix.MessageRejectError) {
+	var f field.ProgRptReqsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetProgPeriodInterval gets ProgPeriodInterval, Tag 415
-func (m NewOrderList) GetProgPeriodInterval() (f field.ProgPeriodIntervalField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetProgPeriodInterval() (v int, err quickfix.MessageRejectError) {
+	var f field.ProgPeriodIntervalField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListExecInstType gets ListExecInstType, Tag 433
-func (m NewOrderList) GetListExecInstType() (f field.ListExecInstTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetListExecInstType() (v enum.ListExecInstType, err quickfix.MessageRejectError) {
+	var f field.ListExecInstTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCancellationRights gets CancellationRights, Tag 480
-func (m NewOrderList) GetCancellationRights() (f field.CancellationRightsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetCancellationRights() (v enum.CancellationRights, err quickfix.MessageRejectError) {
+	var f field.CancellationRightsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMoneyLaunderingStatus gets MoneyLaunderingStatus, Tag 481
-func (m NewOrderList) GetMoneyLaunderingStatus() (f field.MoneyLaunderingStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetMoneyLaunderingStatus() (v enum.MoneyLaunderingStatus, err quickfix.MessageRejectError) {
+	var f field.MoneyLaunderingStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistID gets RegistID, Tag 513
-func (m NewOrderList) GetRegistID() (f field.RegistIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetRegistID() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllowableOneSidednessPct gets AllowableOneSidednessPct, Tag 765
-func (m NewOrderList) GetAllowableOneSidednessPct() (f field.AllowableOneSidednessPctField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetAllowableOneSidednessPct() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.AllowableOneSidednessPctField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetAllowableOneSidednessValue gets AllowableOneSidednessValue, Tag 766
-func (m NewOrderList) GetAllowableOneSidednessValue() (f field.AllowableOneSidednessValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetAllowableOneSidednessValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.AllowableOneSidednessValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetAllowableOneSidednessCurr gets AllowableOneSidednessCurr, Tag 767
-func (m NewOrderList) GetAllowableOneSidednessCurr() (f field.AllowableOneSidednessCurrField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetAllowableOneSidednessCurr() (v string, err quickfix.MessageRejectError) {
+	var f field.AllowableOneSidednessCurrField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLastFragment gets LastFragment, Tag 893
-func (m NewOrderList) GetLastFragment() (f field.LastFragmentField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NewOrderList) GetLastFragment() (v bool, err quickfix.MessageRejectError) {
+	var f field.LastFragmentField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -395,7 +452,7 @@ func (m NoOrders) SetClOrdLinkID(v string) {
 }
 
 //SetSettlInstMode sets SettlInstMode, Tag 160
-func (m NoOrders) SetSettlInstMode(v string) {
+func (m NoOrders) SetSettlInstMode(v enum.SettlInstMode) {
 	m.Set(field.NewSettlInstMode(v))
 }
 
@@ -420,22 +477,22 @@ func (m NoOrders) SetAccount(v string) {
 }
 
 //SetAcctIDSource sets AcctIDSource, Tag 660
-func (m NoOrders) SetAcctIDSource(v int) {
+func (m NoOrders) SetAcctIDSource(v enum.AcctIDSource) {
 	m.Set(field.NewAcctIDSource(v))
 }
 
 //SetAccountType sets AccountType, Tag 581
-func (m NoOrders) SetAccountType(v int) {
+func (m NoOrders) SetAccountType(v enum.AccountType) {
 	m.Set(field.NewAccountType(v))
 }
 
 //SetDayBookingInst sets DayBookingInst, Tag 589
-func (m NoOrders) SetDayBookingInst(v string) {
+func (m NoOrders) SetDayBookingInst(v enum.DayBookingInst) {
 	m.Set(field.NewDayBookingInst(v))
 }
 
 //SetBookingUnit sets BookingUnit, Tag 590
-func (m NoOrders) SetBookingUnit(v string) {
+func (m NoOrders) SetBookingUnit(v enum.BookingUnit) {
 	m.Set(field.NewBookingUnit(v))
 }
 
@@ -445,7 +502,7 @@ func (m NoOrders) SetAllocID(v string) {
 }
 
 //SetPreallocMethod sets PreallocMethod, Tag 591
-func (m NoOrders) SetPreallocMethod(v string) {
+func (m NoOrders) SetPreallocMethod(v enum.PreallocMethod) {
 	m.Set(field.NewPreallocMethod(v))
 }
 
@@ -455,7 +512,7 @@ func (m NoOrders) SetNoAllocs(f NoAllocsRepeatingGroup) {
 }
 
 //SetSettlType sets SettlType, Tag 63
-func (m NoOrders) SetSettlType(v string) {
+func (m NoOrders) SetSettlType(v enum.SettlType) {
 	m.Set(field.NewSettlType(v))
 }
 
@@ -465,22 +522,22 @@ func (m NoOrders) SetSettlDate(v string) {
 }
 
 //SetCashMargin sets CashMargin, Tag 544
-func (m NoOrders) SetCashMargin(v string) {
+func (m NoOrders) SetCashMargin(v enum.CashMargin) {
 	m.Set(field.NewCashMargin(v))
 }
 
 //SetClearingFeeIndicator sets ClearingFeeIndicator, Tag 635
-func (m NoOrders) SetClearingFeeIndicator(v string) {
+func (m NoOrders) SetClearingFeeIndicator(v enum.ClearingFeeIndicator) {
 	m.Set(field.NewClearingFeeIndicator(v))
 }
 
 //SetHandlInst sets HandlInst, Tag 21
-func (m NoOrders) SetHandlInst(v string) {
+func (m NoOrders) SetHandlInst(v enum.HandlInst) {
 	m.Set(field.NewHandlInst(v))
 }
 
 //SetExecInst sets ExecInst, Tag 18
-func (m NoOrders) SetExecInst(v string) {
+func (m NoOrders) SetExecInst(v enum.ExecInst) {
 	m.Set(field.NewExecInst(v))
 }
 
@@ -495,7 +552,7 @@ func (m NoOrders) SetMaxFloor(value decimal.Decimal, scale int32) {
 }
 
 //SetExDestination sets ExDestination, Tag 100
-func (m NoOrders) SetExDestination(v string) {
+func (m NoOrders) SetExDestination(v enum.ExDestination) {
 	m.Set(field.NewExDestination(v))
 }
 
@@ -505,7 +562,7 @@ func (m NoOrders) SetNoTradingSessions(f NoTradingSessionsRepeatingGroup) {
 }
 
 //SetProcessCode sets ProcessCode, Tag 81
-func (m NoOrders) SetProcessCode(v string) {
+func (m NoOrders) SetProcessCode(v enum.ProcessCode) {
 	m.Set(field.NewProcessCode(v))
 }
 
@@ -515,7 +572,7 @@ func (m NoOrders) SetSymbol(v string) {
 }
 
 //SetSymbolSfx sets SymbolSfx, Tag 65
-func (m NoOrders) SetSymbolSfx(v string) {
+func (m NoOrders) SetSymbolSfx(v enum.SymbolSfx) {
 	m.Set(field.NewSymbolSfx(v))
 }
 
@@ -525,7 +582,7 @@ func (m NoOrders) SetSecurityID(v string) {
 }
 
 //SetSecurityIDSource sets SecurityIDSource, Tag 22
-func (m NoOrders) SetSecurityIDSource(v string) {
+func (m NoOrders) SetSecurityIDSource(v enum.SecurityIDSource) {
 	m.Set(field.NewSecurityIDSource(v))
 }
 
@@ -535,7 +592,7 @@ func (m NoOrders) SetNoSecurityAltID(f NoSecurityAltIDRepeatingGroup) {
 }
 
 //SetProduct sets Product, Tag 460
-func (m NoOrders) SetProduct(v int) {
+func (m NoOrders) SetProduct(v enum.Product) {
 	m.Set(field.NewProduct(v))
 }
 
@@ -545,7 +602,7 @@ func (m NoOrders) SetCFICode(v string) {
 }
 
 //SetSecurityType sets SecurityType, Tag 167
-func (m NoOrders) SetSecurityType(v string) {
+func (m NoOrders) SetSecurityType(v enum.SecurityType) {
 	m.Set(field.NewSecurityType(v))
 }
 
@@ -600,7 +657,7 @@ func (m NoOrders) SetCreditRating(v string) {
 }
 
 //SetInstrRegistry sets InstrRegistry, Tag 543
-func (m NoOrders) SetInstrRegistry(v string) {
+func (m NoOrders) SetInstrRegistry(v enum.InstrRegistry) {
 	m.Set(field.NewInstrRegistry(v))
 }
 
@@ -695,7 +752,7 @@ func (m NoOrders) SetContractSettlMonth(v string) {
 }
 
 //SetCPProgram sets CPProgram, Tag 875
-func (m NoOrders) SetCPProgram(v int) {
+func (m NoOrders) SetCPProgram(v enum.CPProgram) {
 	m.Set(field.NewCPProgram(v))
 }
 
@@ -730,12 +787,12 @@ func (m NoOrders) SetPrevClosePx(value decimal.Decimal, scale int32) {
 }
 
 //SetSide sets Side, Tag 54
-func (m NoOrders) SetSide(v string) {
+func (m NoOrders) SetSide(v enum.Side) {
 	m.Set(field.NewSide(v))
 }
 
 //SetSideValueInd sets SideValueInd, Tag 401
-func (m NoOrders) SetSideValueInd(v int) {
+func (m NoOrders) SetSideValueInd(v enum.SideValueInd) {
 	m.Set(field.NewSideValueInd(v))
 }
 
@@ -755,7 +812,7 @@ func (m NoOrders) SetNoStipulations(f NoStipulationsRepeatingGroup) {
 }
 
 //SetQtyType sets QtyType, Tag 854
-func (m NoOrders) SetQtyType(v int) {
+func (m NoOrders) SetQtyType(v enum.QtyType) {
 	m.Set(field.NewQtyType(v))
 }
 
@@ -775,7 +832,7 @@ func (m NoOrders) SetOrderPercent(value decimal.Decimal, scale int32) {
 }
 
 //SetRoundingDirection sets RoundingDirection, Tag 468
-func (m NoOrders) SetRoundingDirection(v string) {
+func (m NoOrders) SetRoundingDirection(v enum.RoundingDirection) {
 	m.Set(field.NewRoundingDirection(v))
 }
 
@@ -785,12 +842,12 @@ func (m NoOrders) SetRoundingModulus(value decimal.Decimal, scale int32) {
 }
 
 //SetOrdType sets OrdType, Tag 40
-func (m NoOrders) SetOrdType(v string) {
+func (m NoOrders) SetOrdType(v enum.OrdType) {
 	m.Set(field.NewOrdType(v))
 }
 
 //SetPriceType sets PriceType, Tag 423
-func (m NoOrders) SetPriceType(v int) {
+func (m NoOrders) SetPriceType(v enum.PriceType) {
 	m.Set(field.NewPriceType(v))
 }
 
@@ -815,7 +872,7 @@ func (m NoOrders) SetBenchmarkCurveCurrency(v string) {
 }
 
 //SetBenchmarkCurveName sets BenchmarkCurveName, Tag 221
-func (m NoOrders) SetBenchmarkCurveName(v string) {
+func (m NoOrders) SetBenchmarkCurveName(v enum.BenchmarkCurveName) {
 	m.Set(field.NewBenchmarkCurveName(v))
 }
 
@@ -845,7 +902,7 @@ func (m NoOrders) SetBenchmarkSecurityIDSource(v string) {
 }
 
 //SetYieldType sets YieldType, Tag 235
-func (m NoOrders) SetYieldType(v string) {
+func (m NoOrders) SetYieldType(v enum.YieldType) {
 	m.Set(field.NewYieldType(v))
 }
 
@@ -900,7 +957,7 @@ func (m NoOrders) SetQuoteID(v string) {
 }
 
 //SetTimeInForce sets TimeInForce, Tag 59
-func (m NoOrders) SetTimeInForce(v string) {
+func (m NoOrders) SetTimeInForce(v enum.TimeInForce) {
 	m.Set(field.NewTimeInForce(v))
 }
 
@@ -920,7 +977,7 @@ func (m NoOrders) SetExpireTime(v time.Time) {
 }
 
 //SetGTBookingInst sets GTBookingInst, Tag 427
-func (m NoOrders) SetGTBookingInst(v int) {
+func (m NoOrders) SetGTBookingInst(v enum.GTBookingInst) {
 	m.Set(field.NewGTBookingInst(v))
 }
 
@@ -930,7 +987,7 @@ func (m NoOrders) SetCommission(value decimal.Decimal, scale int32) {
 }
 
 //SetCommType sets CommType, Tag 13
-func (m NoOrders) SetCommType(v string) {
+func (m NoOrders) SetCommType(v enum.CommType) {
 	m.Set(field.NewCommType(v))
 }
 
@@ -940,22 +997,22 @@ func (m NoOrders) SetCommCurrency(v string) {
 }
 
 //SetFundRenewWaiv sets FundRenewWaiv, Tag 497
-func (m NoOrders) SetFundRenewWaiv(v string) {
+func (m NoOrders) SetFundRenewWaiv(v enum.FundRenewWaiv) {
 	m.Set(field.NewFundRenewWaiv(v))
 }
 
 //SetOrderCapacity sets OrderCapacity, Tag 528
-func (m NoOrders) SetOrderCapacity(v string) {
+func (m NoOrders) SetOrderCapacity(v enum.OrderCapacity) {
 	m.Set(field.NewOrderCapacity(v))
 }
 
 //SetOrderRestrictions sets OrderRestrictions, Tag 529
-func (m NoOrders) SetOrderRestrictions(v string) {
+func (m NoOrders) SetOrderRestrictions(v enum.OrderRestrictions) {
 	m.Set(field.NewOrderRestrictions(v))
 }
 
 //SetCustOrderCapacity sets CustOrderCapacity, Tag 582
-func (m NoOrders) SetCustOrderCapacity(v int) {
+func (m NoOrders) SetCustOrderCapacity(v enum.CustOrderCapacity) {
 	m.Set(field.NewCustOrderCapacity(v))
 }
 
@@ -970,7 +1027,7 @@ func (m NoOrders) SetSettlCurrency(v string) {
 }
 
 //SetBookingType sets BookingType, Tag 775
-func (m NoOrders) SetBookingType(v int) {
+func (m NoOrders) SetBookingType(v enum.BookingType) {
 	m.Set(field.NewBookingType(v))
 }
 
@@ -1005,12 +1062,12 @@ func (m NoOrders) SetPrice2(value decimal.Decimal, scale int32) {
 }
 
 //SetPositionEffect sets PositionEffect, Tag 77
-func (m NoOrders) SetPositionEffect(v string) {
+func (m NoOrders) SetPositionEffect(v enum.PositionEffect) {
 	m.Set(field.NewPositionEffect(v))
 }
 
 //SetCoveredOrUncovered sets CoveredOrUncovered, Tag 203
-func (m NoOrders) SetCoveredOrUncovered(v int) {
+func (m NoOrders) SetCoveredOrUncovered(v enum.CoveredOrUncovered) {
 	m.Set(field.NewCoveredOrUncovered(v))
 }
 
@@ -1025,32 +1082,32 @@ func (m NoOrders) SetPegOffsetValue(value decimal.Decimal, scale int32) {
 }
 
 //SetPegMoveType sets PegMoveType, Tag 835
-func (m NoOrders) SetPegMoveType(v int) {
+func (m NoOrders) SetPegMoveType(v enum.PegMoveType) {
 	m.Set(field.NewPegMoveType(v))
 }
 
 //SetPegOffsetType sets PegOffsetType, Tag 836
-func (m NoOrders) SetPegOffsetType(v int) {
+func (m NoOrders) SetPegOffsetType(v enum.PegOffsetType) {
 	m.Set(field.NewPegOffsetType(v))
 }
 
 //SetPegLimitType sets PegLimitType, Tag 837
-func (m NoOrders) SetPegLimitType(v int) {
+func (m NoOrders) SetPegLimitType(v enum.PegLimitType) {
 	m.Set(field.NewPegLimitType(v))
 }
 
 //SetPegRoundDirection sets PegRoundDirection, Tag 838
-func (m NoOrders) SetPegRoundDirection(v int) {
+func (m NoOrders) SetPegRoundDirection(v enum.PegRoundDirection) {
 	m.Set(field.NewPegRoundDirection(v))
 }
 
 //SetPegScope sets PegScope, Tag 840
-func (m NoOrders) SetPegScope(v int) {
+func (m NoOrders) SetPegScope(v enum.PegScope) {
 	m.Set(field.NewPegScope(v))
 }
 
 //SetDiscretionInst sets DiscretionInst, Tag 388
-func (m NoOrders) SetDiscretionInst(v string) {
+func (m NoOrders) SetDiscretionInst(v enum.DiscretionInst) {
 	m.Set(field.NewDiscretionInst(v))
 }
 
@@ -1060,32 +1117,32 @@ func (m NoOrders) SetDiscretionOffsetValue(value decimal.Decimal, scale int32) {
 }
 
 //SetDiscretionMoveType sets DiscretionMoveType, Tag 841
-func (m NoOrders) SetDiscretionMoveType(v int) {
+func (m NoOrders) SetDiscretionMoveType(v enum.DiscretionMoveType) {
 	m.Set(field.NewDiscretionMoveType(v))
 }
 
 //SetDiscretionOffsetType sets DiscretionOffsetType, Tag 842
-func (m NoOrders) SetDiscretionOffsetType(v int) {
+func (m NoOrders) SetDiscretionOffsetType(v enum.DiscretionOffsetType) {
 	m.Set(field.NewDiscretionOffsetType(v))
 }
 
 //SetDiscretionLimitType sets DiscretionLimitType, Tag 843
-func (m NoOrders) SetDiscretionLimitType(v int) {
+func (m NoOrders) SetDiscretionLimitType(v enum.DiscretionLimitType) {
 	m.Set(field.NewDiscretionLimitType(v))
 }
 
 //SetDiscretionRoundDirection sets DiscretionRoundDirection, Tag 844
-func (m NoOrders) SetDiscretionRoundDirection(v int) {
+func (m NoOrders) SetDiscretionRoundDirection(v enum.DiscretionRoundDirection) {
 	m.Set(field.NewDiscretionRoundDirection(v))
 }
 
 //SetDiscretionScope sets DiscretionScope, Tag 846
-func (m NoOrders) SetDiscretionScope(v int) {
+func (m NoOrders) SetDiscretionScope(v enum.DiscretionScope) {
 	m.Set(field.NewDiscretionScope(v))
 }
 
 //SetTargetStrategy sets TargetStrategy, Tag 847
-func (m NoOrders) SetTargetStrategy(v int) {
+func (m NoOrders) SetTargetStrategy(v enum.TargetStrategy) {
 	m.Set(field.NewTargetStrategy(v))
 }
 
@@ -1105,32 +1162,47 @@ func (m NoOrders) SetDesignation(v string) {
 }
 
 //GetClOrdID gets ClOrdID, Tag 11
-func (m NoOrders) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecondaryClOrdID gets SecondaryClOrdID, Tag 526
-func (m NoOrders) GetSecondaryClOrdID() (f field.SecondaryClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSecondaryClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecondaryClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListSeqNo gets ListSeqNo, Tag 67
-func (m NoOrders) GetListSeqNo() (f field.ListSeqNoField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetListSeqNo() (v int, err quickfix.MessageRejectError) {
+	var f field.ListSeqNoField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClOrdLinkID gets ClOrdLinkID, Tag 583
-func (m NoOrders) GetClOrdLinkID() (f field.ClOrdLinkIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetClOrdLinkID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdLinkIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlInstMode gets SettlInstMode, Tag 160
-func (m NoOrders) GetSettlInstMode() (f field.SettlInstModeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSettlInstMode() (v enum.SettlInstMode, err quickfix.MessageRejectError) {
+	var f field.SettlInstModeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1142,56 +1214,83 @@ func (m NoOrders) GetNoPartyIDs() (NoPartyIDsRepeatingGroup, quickfix.MessageRej
 }
 
 //GetTradeOriginationDate gets TradeOriginationDate, Tag 229
-func (m NoOrders) GetTradeOriginationDate() (f field.TradeOriginationDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetTradeOriginationDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeOriginationDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeDate gets TradeDate, Tag 75
-func (m NoOrders) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetTradeDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAccount gets Account, Tag 1
-func (m NoOrders) GetAccount() (f field.AccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAcctIDSource gets AcctIDSource, Tag 660
-func (m NoOrders) GetAcctIDSource() (f field.AcctIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetAcctIDSource() (v enum.AcctIDSource, err quickfix.MessageRejectError) {
+	var f field.AcctIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAccountType gets AccountType, Tag 581
-func (m NoOrders) GetAccountType() (f field.AccountTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetAccountType() (v enum.AccountType, err quickfix.MessageRejectError) {
+	var f field.AccountTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDayBookingInst gets DayBookingInst, Tag 589
-func (m NoOrders) GetDayBookingInst() (f field.DayBookingInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDayBookingInst() (v enum.DayBookingInst, err quickfix.MessageRejectError) {
+	var f field.DayBookingInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBookingUnit gets BookingUnit, Tag 590
-func (m NoOrders) GetBookingUnit() (f field.BookingUnitField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBookingUnit() (v enum.BookingUnit, err quickfix.MessageRejectError) {
+	var f field.BookingUnitField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocID gets AllocID, Tag 70
-func (m NoOrders) GetAllocID() (f field.AllocIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetAllocID() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPreallocMethod gets PreallocMethod, Tag 591
-func (m NoOrders) GetPreallocMethod() (f field.PreallocMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPreallocMethod() (v enum.PreallocMethod, err quickfix.MessageRejectError) {
+	var f field.PreallocMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1203,56 +1302,85 @@ func (m NoOrders) GetNoAllocs() (NoAllocsRepeatingGroup, quickfix.MessageRejectE
 }
 
 //GetSettlType gets SettlType, Tag 63
-func (m NoOrders) GetSettlType() (f field.SettlTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSettlType() (v enum.SettlType, err quickfix.MessageRejectError) {
+	var f field.SettlTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlDate gets SettlDate, Tag 64
-func (m NoOrders) GetSettlDate() (f field.SettlDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSettlDate() (v string, err quickfix.MessageRejectError) {
+	var f field.SettlDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCashMargin gets CashMargin, Tag 544
-func (m NoOrders) GetCashMargin() (f field.CashMarginField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCashMargin() (v enum.CashMargin, err quickfix.MessageRejectError) {
+	var f field.CashMarginField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClearingFeeIndicator gets ClearingFeeIndicator, Tag 635
-func (m NoOrders) GetClearingFeeIndicator() (f field.ClearingFeeIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetClearingFeeIndicator() (v enum.ClearingFeeIndicator, err quickfix.MessageRejectError) {
+	var f field.ClearingFeeIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetHandlInst gets HandlInst, Tag 21
-func (m NoOrders) GetHandlInst() (f field.HandlInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetHandlInst() (v enum.HandlInst, err quickfix.MessageRejectError) {
+	var f field.HandlInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetExecInst gets ExecInst, Tag 18
-func (m NoOrders) GetExecInst() (f field.ExecInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetExecInst() (v enum.ExecInst, err quickfix.MessageRejectError) {
+	var f field.ExecInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMinQty gets MinQty, Tag 110
-func (m NoOrders) GetMinQty() (f field.MinQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetMinQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.MinQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetMaxFloor gets MaxFloor, Tag 111
-func (m NoOrders) GetMaxFloor() (f field.MaxFloorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetMaxFloor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.MaxFloorField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetExDestination gets ExDestination, Tag 100
-func (m NoOrders) GetExDestination() (f field.ExDestinationField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetExDestination() (v enum.ExDestination, err quickfix.MessageRejectError) {
+	var f field.ExDestinationField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1264,32 +1392,47 @@ func (m NoOrders) GetNoTradingSessions() (NoTradingSessionsRepeatingGroup, quick
 }
 
 //GetProcessCode gets ProcessCode, Tag 81
-func (m NoOrders) GetProcessCode() (f field.ProcessCodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetProcessCode() (v enum.ProcessCode, err quickfix.MessageRejectError) {
+	var f field.ProcessCodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSymbol gets Symbol, Tag 55
-func (m NoOrders) GetSymbol() (f field.SymbolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSymbol() (v string, err quickfix.MessageRejectError) {
+	var f field.SymbolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSymbolSfx gets SymbolSfx, Tag 65
-func (m NoOrders) GetSymbolSfx() (f field.SymbolSfxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSymbolSfx() (v enum.SymbolSfx, err quickfix.MessageRejectError) {
+	var f field.SymbolSfxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityID gets SecurityID, Tag 48
-func (m NoOrders) GetSecurityID() (f field.SecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityIDSource gets SecurityIDSource, Tag 22
-func (m NoOrders) GetSecurityIDSource() (f field.SecurityIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSecurityIDSource() (v enum.SecurityIDSource, err quickfix.MessageRejectError) {
+	var f field.SecurityIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1301,206 +1444,313 @@ func (m NoOrders) GetNoSecurityAltID() (NoSecurityAltIDRepeatingGroup, quickfix.
 }
 
 //GetProduct gets Product, Tag 460
-func (m NoOrders) GetProduct() (f field.ProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetProduct() (v enum.Product, err quickfix.MessageRejectError) {
+	var f field.ProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCFICode gets CFICode, Tag 461
-func (m NoOrders) GetCFICode() (f field.CFICodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCFICode() (v string, err quickfix.MessageRejectError) {
+	var f field.CFICodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityType gets SecurityType, Tag 167
-func (m NoOrders) GetSecurityType() (f field.SecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSecurityType() (v enum.SecurityType, err quickfix.MessageRejectError) {
+	var f field.SecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecuritySubType gets SecuritySubType, Tag 762
-func (m NoOrders) GetSecuritySubType() (f field.SecuritySubTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSecuritySubType() (v string, err quickfix.MessageRejectError) {
+	var f field.SecuritySubTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMaturityMonthYear gets MaturityMonthYear, Tag 200
-func (m NoOrders) GetMaturityMonthYear() (f field.MaturityMonthYearField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
+	var f field.MaturityMonthYearField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMaturityDate gets MaturityDate, Tag 541
-func (m NoOrders) GetMaturityDate() (f field.MaturityDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetMaturityDate() (v string, err quickfix.MessageRejectError) {
+	var f field.MaturityDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCouponPaymentDate gets CouponPaymentDate, Tag 224
-func (m NoOrders) GetCouponPaymentDate() (f field.CouponPaymentDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
+	var f field.CouponPaymentDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetIssueDate gets IssueDate, Tag 225
-func (m NoOrders) GetIssueDate() (f field.IssueDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetIssueDate() (v string, err quickfix.MessageRejectError) {
+	var f field.IssueDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRepoCollateralSecurityType gets RepoCollateralSecurityType, Tag 239
-func (m NoOrders) GetRepoCollateralSecurityType() (f field.RepoCollateralSecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
+	var f field.RepoCollateralSecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRepurchaseTerm gets RepurchaseTerm, Tag 226
-func (m NoOrders) GetRepurchaseTerm() (f field.RepurchaseTermField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
+	var f field.RepurchaseTermField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRepurchaseRate gets RepurchaseRate, Tag 227
-func (m NoOrders) GetRepurchaseRate() (f field.RepurchaseRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.RepurchaseRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetFactor gets Factor, Tag 228
-func (m NoOrders) GetFactor() (f field.FactorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.FactorField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCreditRating gets CreditRating, Tag 255
-func (m NoOrders) GetCreditRating() (f field.CreditRatingField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCreditRating() (v string, err quickfix.MessageRejectError) {
+	var f field.CreditRatingField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetInstrRegistry gets InstrRegistry, Tag 543
-func (m NoOrders) GetInstrRegistry() (f field.InstrRegistryField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetInstrRegistry() (v enum.InstrRegistry, err quickfix.MessageRejectError) {
+	var f field.InstrRegistryField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCountryOfIssue gets CountryOfIssue, Tag 470
-func (m NoOrders) GetCountryOfIssue() (f field.CountryOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCountryOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.CountryOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStateOrProvinceOfIssue gets StateOrProvinceOfIssue, Tag 471
-func (m NoOrders) GetStateOrProvinceOfIssue() (f field.StateOrProvinceOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.StateOrProvinceOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLocaleOfIssue gets LocaleOfIssue, Tag 472
-func (m NoOrders) GetLocaleOfIssue() (f field.LocaleOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.LocaleOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRedemptionDate gets RedemptionDate, Tag 240
-func (m NoOrders) GetRedemptionDate() (f field.RedemptionDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetRedemptionDate() (v string, err quickfix.MessageRejectError) {
+	var f field.RedemptionDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m NoOrders) GetStrikePrice() (f field.StrikePriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.StrikePriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetStrikeCurrency gets StrikeCurrency, Tag 947
-func (m NoOrders) GetStrikeCurrency() (f field.StrikeCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetStrikeCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.StrikeCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOptAttribute gets OptAttribute, Tag 206
-func (m NoOrders) GetOptAttribute() (f field.OptAttributeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOptAttribute() (v string, err quickfix.MessageRejectError) {
+	var f field.OptAttributeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetContractMultiplier gets ContractMultiplier, Tag 231
-func (m NoOrders) GetContractMultiplier() (f field.ContractMultiplierField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.ContractMultiplierField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCouponRate gets CouponRate, Tag 223
-func (m NoOrders) GetCouponRate() (f field.CouponRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.CouponRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetSecurityExchange gets SecurityExchange, Tag 207
-func (m NoOrders) GetSecurityExchange() (f field.SecurityExchangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSecurityExchange() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityExchangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetIssuer gets Issuer, Tag 106
-func (m NoOrders) GetIssuer() (f field.IssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.IssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedIssuerLen gets EncodedIssuerLen, Tag 348
-func (m NoOrders) GetEncodedIssuerLen() (f field.EncodedIssuerLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEncodedIssuerLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedIssuerLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedIssuer gets EncodedIssuer, Tag 349
-func (m NoOrders) GetEncodedIssuer() (f field.EncodedIssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEncodedIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedIssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityDesc gets SecurityDesc, Tag 107
-func (m NoOrders) GetSecurityDesc() (f field.SecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedSecurityDescLen gets EncodedSecurityDescLen, Tag 350
-func (m NoOrders) GetEncodedSecurityDescLen() (f field.EncodedSecurityDescLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEncodedSecurityDescLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedSecurityDescLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedSecurityDesc gets EncodedSecurityDesc, Tag 351
-func (m NoOrders) GetEncodedSecurityDesc() (f field.EncodedSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEncodedSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPool gets Pool, Tag 691
-func (m NoOrders) GetPool() (f field.PoolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPool() (v string, err quickfix.MessageRejectError) {
+	var f field.PoolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetContractSettlMonth gets ContractSettlMonth, Tag 667
-func (m NoOrders) GetContractSettlMonth() (f field.ContractSettlMonthField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetContractSettlMonth() (v string, err quickfix.MessageRejectError) {
+	var f field.ContractSettlMonthField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCPProgram gets CPProgram, Tag 875
-func (m NoOrders) GetCPProgram() (f field.CPProgramField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCPProgram() (v enum.CPProgram, err quickfix.MessageRejectError) {
+	var f field.CPProgramField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCPRegType gets CPRegType, Tag 876
-func (m NoOrders) GetCPRegType() (f field.CPRegTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCPRegType() (v string, err quickfix.MessageRejectError) {
+	var f field.CPRegTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1512,14 +1762,20 @@ func (m NoOrders) GetNoEvents() (NoEventsRepeatingGroup, quickfix.MessageRejectE
 }
 
 //GetDatedDate gets DatedDate, Tag 873
-func (m NoOrders) GetDatedDate() (f field.DatedDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDatedDate() (v string, err quickfix.MessageRejectError) {
+	var f field.DatedDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetInterestAccrualDate gets InterestAccrualDate, Tag 874
-func (m NoOrders) GetInterestAccrualDate() (f field.InterestAccrualDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetInterestAccrualDate() (v string, err quickfix.MessageRejectError) {
+	var f field.InterestAccrualDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1531,32 +1787,48 @@ func (m NoOrders) GetNoUnderlyings() (NoUnderlyingsRepeatingGroup, quickfix.Mess
 }
 
 //GetPrevClosePx gets PrevClosePx, Tag 140
-func (m NoOrders) GetPrevClosePx() (f field.PrevClosePxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPrevClosePx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.PrevClosePxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetSide gets Side, Tag 54
-func (m NoOrders) GetSide() (f field.SideField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSide() (v enum.Side, err quickfix.MessageRejectError) {
+	var f field.SideField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSideValueInd gets SideValueInd, Tag 401
-func (m NoOrders) GetSideValueInd() (f field.SideValueIndField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSideValueInd() (v enum.SideValueInd, err quickfix.MessageRejectError) {
+	var f field.SideValueIndField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLocateReqd gets LocateReqd, Tag 114
-func (m NoOrders) GetLocateReqd() (f field.LocateReqdField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetLocateReqd() (v bool, err quickfix.MessageRejectError) {
+	var f field.LocateReqdField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m NoOrders) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1568,422 +1840,649 @@ func (m NoOrders) GetNoStipulations() (NoStipulationsRepeatingGroup, quickfix.Me
 }
 
 //GetQtyType gets QtyType, Tag 854
-func (m NoOrders) GetQtyType() (f field.QtyTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetQtyType() (v enum.QtyType, err quickfix.MessageRejectError) {
+	var f field.QtyTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrderQty gets OrderQty, Tag 38
-func (m NoOrders) GetOrderQty() (f field.OrderQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.OrderQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCashOrderQty gets CashOrderQty, Tag 152
-func (m NoOrders) GetCashOrderQty() (f field.CashOrderQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCashOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.CashOrderQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetOrderPercent gets OrderPercent, Tag 516
-func (m NoOrders) GetOrderPercent() (f field.OrderPercentField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrderPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.OrderPercentField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetRoundingDirection gets RoundingDirection, Tag 468
-func (m NoOrders) GetRoundingDirection() (f field.RoundingDirectionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetRoundingDirection() (v enum.RoundingDirection, err quickfix.MessageRejectError) {
+	var f field.RoundingDirectionField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRoundingModulus gets RoundingModulus, Tag 469
-func (m NoOrders) GetRoundingModulus() (f field.RoundingModulusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetRoundingModulus() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.RoundingModulusField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetOrdType gets OrdType, Tag 40
-func (m NoOrders) GetOrdType() (f field.OrdTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrdType() (v enum.OrdType, err quickfix.MessageRejectError) {
+	var f field.OrdTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPriceType gets PriceType, Tag 423
-func (m NoOrders) GetPriceType() (f field.PriceTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPriceType() (v enum.PriceType, err quickfix.MessageRejectError) {
+	var f field.PriceTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPrice gets Price, Tag 44
-func (m NoOrders) GetPrice() (f field.PriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.PriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetStopPx gets StopPx, Tag 99
-func (m NoOrders) GetStopPx() (f field.StopPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetStopPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.StopPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetSpread gets Spread, Tag 218
-func (m NoOrders) GetSpread() (f field.SpreadField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSpread() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.SpreadField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetBenchmarkCurveCurrency gets BenchmarkCurveCurrency, Tag 220
-func (m NoOrders) GetBenchmarkCurveCurrency() (f field.BenchmarkCurveCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBenchmarkCurveCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.BenchmarkCurveCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBenchmarkCurveName gets BenchmarkCurveName, Tag 221
-func (m NoOrders) GetBenchmarkCurveName() (f field.BenchmarkCurveNameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBenchmarkCurveName() (v enum.BenchmarkCurveName, err quickfix.MessageRejectError) {
+	var f field.BenchmarkCurveNameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBenchmarkCurvePoint gets BenchmarkCurvePoint, Tag 222
-func (m NoOrders) GetBenchmarkCurvePoint() (f field.BenchmarkCurvePointField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBenchmarkCurvePoint() (v string, err quickfix.MessageRejectError) {
+	var f field.BenchmarkCurvePointField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBenchmarkPrice gets BenchmarkPrice, Tag 662
-func (m NoOrders) GetBenchmarkPrice() (f field.BenchmarkPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBenchmarkPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.BenchmarkPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetBenchmarkPriceType gets BenchmarkPriceType, Tag 663
-func (m NoOrders) GetBenchmarkPriceType() (f field.BenchmarkPriceTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBenchmarkPriceType() (v int, err quickfix.MessageRejectError) {
+	var f field.BenchmarkPriceTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBenchmarkSecurityID gets BenchmarkSecurityID, Tag 699
-func (m NoOrders) GetBenchmarkSecurityID() (f field.BenchmarkSecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBenchmarkSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.BenchmarkSecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBenchmarkSecurityIDSource gets BenchmarkSecurityIDSource, Tag 761
-func (m NoOrders) GetBenchmarkSecurityIDSource() (f field.BenchmarkSecurityIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBenchmarkSecurityIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.BenchmarkSecurityIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetYieldType gets YieldType, Tag 235
-func (m NoOrders) GetYieldType() (f field.YieldTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetYieldType() (v enum.YieldType, err quickfix.MessageRejectError) {
+	var f field.YieldTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetYield gets Yield, Tag 236
-func (m NoOrders) GetYield() (f field.YieldField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetYield() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.YieldField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetYieldCalcDate gets YieldCalcDate, Tag 701
-func (m NoOrders) GetYieldCalcDate() (f field.YieldCalcDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetYieldCalcDate() (v string, err quickfix.MessageRejectError) {
+	var f field.YieldCalcDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetYieldRedemptionDate gets YieldRedemptionDate, Tag 696
-func (m NoOrders) GetYieldRedemptionDate() (f field.YieldRedemptionDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetYieldRedemptionDate() (v string, err quickfix.MessageRejectError) {
+	var f field.YieldRedemptionDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetYieldRedemptionPrice gets YieldRedemptionPrice, Tag 697
-func (m NoOrders) GetYieldRedemptionPrice() (f field.YieldRedemptionPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetYieldRedemptionPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.YieldRedemptionPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetYieldRedemptionPriceType gets YieldRedemptionPriceType, Tag 698
-func (m NoOrders) GetYieldRedemptionPriceType() (f field.YieldRedemptionPriceTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetYieldRedemptionPriceType() (v int, err quickfix.MessageRejectError) {
+	var f field.YieldRedemptionPriceTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCurrency gets Currency, Tag 15
-func (m NoOrders) GetCurrency() (f field.CurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.CurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetComplianceID gets ComplianceID, Tag 376
-func (m NoOrders) GetComplianceID() (f field.ComplianceIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetComplianceID() (v string, err quickfix.MessageRejectError) {
+	var f field.ComplianceIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSolicitedFlag gets SolicitedFlag, Tag 377
-func (m NoOrders) GetSolicitedFlag() (f field.SolicitedFlagField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSolicitedFlag() (v bool, err quickfix.MessageRejectError) {
+	var f field.SolicitedFlagField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetIOIID gets IOIID, Tag 23
-func (m NoOrders) GetIOIID() (f field.IOIIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetIOIID() (v string, err quickfix.MessageRejectError) {
+	var f field.IOIIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetQuoteID gets QuoteID, Tag 117
-func (m NoOrders) GetQuoteID() (f field.QuoteIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetQuoteID() (v string, err quickfix.MessageRejectError) {
+	var f field.QuoteIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTimeInForce gets TimeInForce, Tag 59
-func (m NoOrders) GetTimeInForce() (f field.TimeInForceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetTimeInForce() (v enum.TimeInForce, err quickfix.MessageRejectError) {
+	var f field.TimeInForceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEffectiveTime gets EffectiveTime, Tag 168
-func (m NoOrders) GetEffectiveTime() (f field.EffectiveTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEffectiveTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.EffectiveTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetExpireDate gets ExpireDate, Tag 432
-func (m NoOrders) GetExpireDate() (f field.ExpireDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetExpireDate() (v string, err quickfix.MessageRejectError) {
+	var f field.ExpireDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetExpireTime gets ExpireTime, Tag 126
-func (m NoOrders) GetExpireTime() (f field.ExpireTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetExpireTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.ExpireTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetGTBookingInst gets GTBookingInst, Tag 427
-func (m NoOrders) GetGTBookingInst() (f field.GTBookingInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetGTBookingInst() (v enum.GTBookingInst, err quickfix.MessageRejectError) {
+	var f field.GTBookingInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCommission gets Commission, Tag 12
-func (m NoOrders) GetCommission() (f field.CommissionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCommission() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.CommissionField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCommType gets CommType, Tag 13
-func (m NoOrders) GetCommType() (f field.CommTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCommType() (v enum.CommType, err quickfix.MessageRejectError) {
+	var f field.CommTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCommCurrency gets CommCurrency, Tag 479
-func (m NoOrders) GetCommCurrency() (f field.CommCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCommCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.CommCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetFundRenewWaiv gets FundRenewWaiv, Tag 497
-func (m NoOrders) GetFundRenewWaiv() (f field.FundRenewWaivField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetFundRenewWaiv() (v enum.FundRenewWaiv, err quickfix.MessageRejectError) {
+	var f field.FundRenewWaivField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrderCapacity gets OrderCapacity, Tag 528
-func (m NoOrders) GetOrderCapacity() (f field.OrderCapacityField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrderCapacity() (v enum.OrderCapacity, err quickfix.MessageRejectError) {
+	var f field.OrderCapacityField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrderRestrictions gets OrderRestrictions, Tag 529
-func (m NoOrders) GetOrderRestrictions() (f field.OrderRestrictionsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrderRestrictions() (v enum.OrderRestrictions, err quickfix.MessageRejectError) {
+	var f field.OrderRestrictionsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCustOrderCapacity gets CustOrderCapacity, Tag 582
-func (m NoOrders) GetCustOrderCapacity() (f field.CustOrderCapacityField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCustOrderCapacity() (v enum.CustOrderCapacity, err quickfix.MessageRejectError) {
+	var f field.CustOrderCapacityField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetForexReq gets ForexReq, Tag 121
-func (m NoOrders) GetForexReq() (f field.ForexReqField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetForexReq() (v bool, err quickfix.MessageRejectError) {
+	var f field.ForexReqField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlCurrency gets SettlCurrency, Tag 120
-func (m NoOrders) GetSettlCurrency() (f field.SettlCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSettlCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.SettlCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBookingType gets BookingType, Tag 775
-func (m NoOrders) GetBookingType() (f field.BookingTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetBookingType() (v enum.BookingType, err quickfix.MessageRejectError) {
+	var f field.BookingTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m NoOrders) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m NoOrders) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m NoOrders) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlDate2 gets SettlDate2, Tag 193
-func (m NoOrders) GetSettlDate2() (f field.SettlDate2Field, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetSettlDate2() (v string, err quickfix.MessageRejectError) {
+	var f field.SettlDate2Field
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrderQty2 gets OrderQty2, Tag 192
-func (m NoOrders) GetOrderQty2() (f field.OrderQty2Field, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetOrderQty2() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.OrderQty2Field
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetPrice2 gets Price2, Tag 640
-func (m NoOrders) GetPrice2() (f field.Price2Field, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPrice2() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.Price2Field
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetPositionEffect gets PositionEffect, Tag 77
-func (m NoOrders) GetPositionEffect() (f field.PositionEffectField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPositionEffect() (v enum.PositionEffect, err quickfix.MessageRejectError) {
+	var f field.PositionEffectField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCoveredOrUncovered gets CoveredOrUncovered, Tag 203
-func (m NoOrders) GetCoveredOrUncovered() (f field.CoveredOrUncoveredField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCoveredOrUncovered() (v enum.CoveredOrUncovered, err quickfix.MessageRejectError) {
+	var f field.CoveredOrUncoveredField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMaxShow gets MaxShow, Tag 210
-func (m NoOrders) GetMaxShow() (f field.MaxShowField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetMaxShow() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.MaxShowField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetPegOffsetValue gets PegOffsetValue, Tag 211
-func (m NoOrders) GetPegOffsetValue() (f field.PegOffsetValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPegOffsetValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.PegOffsetValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetPegMoveType gets PegMoveType, Tag 835
-func (m NoOrders) GetPegMoveType() (f field.PegMoveTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPegMoveType() (v enum.PegMoveType, err quickfix.MessageRejectError) {
+	var f field.PegMoveTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPegOffsetType gets PegOffsetType, Tag 836
-func (m NoOrders) GetPegOffsetType() (f field.PegOffsetTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPegOffsetType() (v enum.PegOffsetType, err quickfix.MessageRejectError) {
+	var f field.PegOffsetTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPegLimitType gets PegLimitType, Tag 837
-func (m NoOrders) GetPegLimitType() (f field.PegLimitTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPegLimitType() (v enum.PegLimitType, err quickfix.MessageRejectError) {
+	var f field.PegLimitTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPegRoundDirection gets PegRoundDirection, Tag 838
-func (m NoOrders) GetPegRoundDirection() (f field.PegRoundDirectionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPegRoundDirection() (v enum.PegRoundDirection, err quickfix.MessageRejectError) {
+	var f field.PegRoundDirectionField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPegScope gets PegScope, Tag 840
-func (m NoOrders) GetPegScope() (f field.PegScopeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetPegScope() (v enum.PegScope, err quickfix.MessageRejectError) {
+	var f field.PegScopeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDiscretionInst gets DiscretionInst, Tag 388
-func (m NoOrders) GetDiscretionInst() (f field.DiscretionInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDiscretionInst() (v enum.DiscretionInst, err quickfix.MessageRejectError) {
+	var f field.DiscretionInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDiscretionOffsetValue gets DiscretionOffsetValue, Tag 389
-func (m NoOrders) GetDiscretionOffsetValue() (f field.DiscretionOffsetValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDiscretionOffsetValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DiscretionOffsetValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDiscretionMoveType gets DiscretionMoveType, Tag 841
-func (m NoOrders) GetDiscretionMoveType() (f field.DiscretionMoveTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDiscretionMoveType() (v enum.DiscretionMoveType, err quickfix.MessageRejectError) {
+	var f field.DiscretionMoveTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDiscretionOffsetType gets DiscretionOffsetType, Tag 842
-func (m NoOrders) GetDiscretionOffsetType() (f field.DiscretionOffsetTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDiscretionOffsetType() (v enum.DiscretionOffsetType, err quickfix.MessageRejectError) {
+	var f field.DiscretionOffsetTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDiscretionLimitType gets DiscretionLimitType, Tag 843
-func (m NoOrders) GetDiscretionLimitType() (f field.DiscretionLimitTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDiscretionLimitType() (v enum.DiscretionLimitType, err quickfix.MessageRejectError) {
+	var f field.DiscretionLimitTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDiscretionRoundDirection gets DiscretionRoundDirection, Tag 844
-func (m NoOrders) GetDiscretionRoundDirection() (f field.DiscretionRoundDirectionField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDiscretionRoundDirection() (v enum.DiscretionRoundDirection, err quickfix.MessageRejectError) {
+	var f field.DiscretionRoundDirectionField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDiscretionScope gets DiscretionScope, Tag 846
-func (m NoOrders) GetDiscretionScope() (f field.DiscretionScopeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDiscretionScope() (v enum.DiscretionScope, err quickfix.MessageRejectError) {
+	var f field.DiscretionScopeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTargetStrategy gets TargetStrategy, Tag 847
-func (m NoOrders) GetTargetStrategy() (f field.TargetStrategyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetTargetStrategy() (v enum.TargetStrategy, err quickfix.MessageRejectError) {
+	var f field.TargetStrategyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTargetStrategyParameters gets TargetStrategyParameters, Tag 848
-func (m NoOrders) GetTargetStrategyParameters() (f field.TargetStrategyParametersField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetTargetStrategyParameters() (v string, err quickfix.MessageRejectError) {
+	var f field.TargetStrategyParametersField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetParticipationRate gets ParticipationRate, Tag 849
-func (m NoOrders) GetParticipationRate() (f field.ParticipationRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetParticipationRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.ParticipationRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetDesignation gets Designation, Tag 494
-func (m NoOrders) GetDesignation() (f field.DesignationField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetDesignation() (v string, err quickfix.MessageRejectError) {
+	var f field.DesignationField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2728,12 +3227,12 @@ func (m NoPartyIDs) SetPartyID(v string) {
 }
 
 //SetPartyIDSource sets PartyIDSource, Tag 447
-func (m NoPartyIDs) SetPartyIDSource(v string) {
+func (m NoPartyIDs) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
 //SetPartyRole sets PartyRole, Tag 452
-func (m NoPartyIDs) SetPartyRole(v int) {
+func (m NoPartyIDs) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
@@ -2743,20 +3242,29 @@ func (m NoPartyIDs) SetNoPartySubIDs(f NoPartySubIDsRepeatingGroup) {
 }
 
 //GetPartyID gets PartyID, Tag 448
-func (m NoPartyIDs) GetPartyID() (f field.PartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyIDSource gets PartyIDSource, Tag 447
-func (m NoPartyIDs) GetPartyIDSource() (f field.PartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
+	var f field.PartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyRole gets PartyRole, Tag 452
-func (m NoPartyIDs) GetPartyRole() (f field.PartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
+	var f field.PartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2798,19 +3306,25 @@ func (m NoPartySubIDs) SetPartySubID(v string) {
 }
 
 //SetPartySubIDType sets PartySubIDType, Tag 803
-func (m NoPartySubIDs) SetPartySubIDType(v int) {
+func (m NoPartySubIDs) SetPartySubIDType(v enum.PartySubIDType) {
 	m.Set(field.NewPartySubIDType(v))
 }
 
 //GetPartySubID gets PartySubID, Tag 523
-func (m NoPartySubIDs) GetPartySubID() (f field.PartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartySubIDType gets PartySubIDType, Tag 803
-func (m NoPartySubIDs) GetPartySubIDType() (f field.PartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubIDType() (v enum.PartySubIDType, err quickfix.MessageRejectError) {
+	var f field.PartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2906,26 +3420,38 @@ func (m NoAllocs) SetAllocQty(value decimal.Decimal, scale int32) {
 }
 
 //GetAllocAccount gets AllocAccount, Tag 79
-func (m NoAllocs) GetAllocAccount() (f field.AllocAccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocAccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocAcctIDSource gets AllocAcctIDSource, Tag 661
-func (m NoAllocs) GetAllocAcctIDSource() (f field.AllocAcctIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocAcctIDSource() (v int, err quickfix.MessageRejectError) {
+	var f field.AllocAcctIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocSettlCurrency gets AllocSettlCurrency, Tag 736
-func (m NoAllocs) GetAllocSettlCurrency() (f field.AllocSettlCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocSettlCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocSettlCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetIndividualAllocID gets IndividualAllocID, Tag 467
-func (m NoAllocs) GetIndividualAllocID() (f field.IndividualAllocIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetIndividualAllocID() (v string, err quickfix.MessageRejectError) {
+	var f field.IndividualAllocIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2937,8 +3463,12 @@ func (m NoAllocs) GetNoNestedPartyIDs() (NoNestedPartyIDsRepeatingGroup, quickfi
 }
 
 //GetAllocQty gets AllocQty, Tag 80
-func (m NoAllocs) GetAllocQty() (f field.AllocQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.AllocQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
@@ -2998,20 +3528,29 @@ func (m NoNestedPartyIDs) SetNoNestedPartySubIDs(f NoNestedPartySubIDsRepeatingG
 }
 
 //GetNestedPartyID gets NestedPartyID, Tag 524
-func (m NoNestedPartyIDs) GetNestedPartyID() (f field.NestedPartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartyIDSource gets NestedPartyIDSource, Tag 525
-func (m NoNestedPartyIDs) GetNestedPartyIDSource() (f field.NestedPartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartyRole gets NestedPartyRole, Tag 538
-func (m NoNestedPartyIDs) GetNestedPartyRole() (f field.NestedPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.NestedPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -3058,14 +3597,20 @@ func (m NoNestedPartySubIDs) SetNestedPartySubIDType(v int) {
 }
 
 //GetNestedPartySubID gets NestedPartySubID, Tag 545
-func (m NoNestedPartySubIDs) GetNestedPartySubID() (f field.NestedPartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartySubIDs) GetNestedPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartySubIDType gets NestedPartySubIDType, Tag 805
-func (m NoNestedPartySubIDs) GetNestedPartySubIDType() (f field.NestedPartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartySubIDs) GetNestedPartySubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.NestedPartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -3154,24 +3699,30 @@ type NoTradingSessions struct {
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
-func (m NoTradingSessions) SetTradingSessionID(v string) {
+func (m NoTradingSessions) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
 //SetTradingSessionSubID sets TradingSessionSubID, Tag 625
-func (m NoTradingSessions) SetTradingSessionSubID(v string) {
+func (m NoTradingSessions) SetTradingSessionSubID(v enum.TradingSessionSubID) {
 	m.Set(field.NewTradingSessionSubID(v))
 }
 
 //GetTradingSessionID gets TradingSessionID, Tag 336
-func (m NoTradingSessions) GetTradingSessionID() (f field.TradingSessionIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradingSessionSubID gets TradingSessionSubID, Tag 625
-func (m NoTradingSessions) GetTradingSessionSubID() (f field.TradingSessionSubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradingSessionSubID() (v enum.TradingSessionSubID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionSubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -3224,14 +3775,20 @@ func (m NoSecurityAltID) SetSecurityAltIDSource(v string) {
 }
 
 //GetSecurityAltID gets SecurityAltID, Tag 455
-func (m NoSecurityAltID) GetSecurityAltID() (f field.SecurityAltIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoSecurityAltID) GetSecurityAltID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityAltIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityAltIDSource gets SecurityAltIDSource, Tag 456
-func (m NoSecurityAltID) GetSecurityAltIDSource() (f field.SecurityAltIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoSecurityAltID) GetSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityAltIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -3274,7 +3831,7 @@ type NoEvents struct {
 }
 
 //SetEventType sets EventType, Tag 865
-func (m NoEvents) SetEventType(v int) {
+func (m NoEvents) SetEventType(v enum.EventType) {
 	m.Set(field.NewEventType(v))
 }
 
@@ -3294,26 +3851,39 @@ func (m NoEvents) SetEventText(v string) {
 }
 
 //GetEventType gets EventType, Tag 865
-func (m NoEvents) GetEventType() (f field.EventTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoEvents) GetEventType() (v enum.EventType, err quickfix.MessageRejectError) {
+	var f field.EventTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEventDate gets EventDate, Tag 866
-func (m NoEvents) GetEventDate() (f field.EventDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoEvents) GetEventDate() (v string, err quickfix.MessageRejectError) {
+	var f field.EventDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEventPx gets EventPx, Tag 867
-func (m NoEvents) GetEventPx() (f field.EventPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoEvents) GetEventPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.EventPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetEventText gets EventText, Tag 868
-func (m NoEvents) GetEventText() (f field.EventTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoEvents) GetEventText() (v string, err quickfix.MessageRejectError) {
+	var f field.EventTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -3596,26 +4166,38 @@ func (m NoUnderlyings) SetNoUnderlyingStips(f NoUnderlyingStipsRepeatingGroup) {
 }
 
 //GetUnderlyingSymbol gets UnderlyingSymbol, Tag 311
-func (m NoUnderlyings) GetUnderlyingSymbol() (f field.UnderlyingSymbolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingSymbol() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSymbolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSymbolSfx gets UnderlyingSymbolSfx, Tag 312
-func (m NoUnderlyings) GetUnderlyingSymbolSfx() (f field.UnderlyingSymbolSfxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingSymbolSfx() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSymbolSfxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityID gets UnderlyingSecurityID, Tag 309
-func (m NoUnderlyings) GetUnderlyingSecurityID() (f field.UnderlyingSecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityIDSource gets UnderlyingSecurityIDSource, Tag 305
-func (m NoUnderlyings) GetUnderlyingSecurityIDSource() (f field.UnderlyingSecurityIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingSecurityIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -3627,242 +4209,374 @@ func (m NoUnderlyings) GetNoUnderlyingSecurityAltID() (NoUnderlyingSecurityAltID
 }
 
 //GetUnderlyingProduct gets UnderlyingProduct, Tag 462
-func (m NoUnderlyings) GetUnderlyingProduct() (f field.UnderlyingProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingProduct() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCFICode gets UnderlyingCFICode, Tag 463
-func (m NoUnderlyings) GetUnderlyingCFICode() (f field.UnderlyingCFICodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCFICode() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCFICodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityType gets UnderlyingSecurityType, Tag 310
-func (m NoUnderlyings) GetUnderlyingSecurityType() (f field.UnderlyingSecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingSecurityType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecuritySubType gets UnderlyingSecuritySubType, Tag 763
-func (m NoUnderlyings) GetUnderlyingSecuritySubType() (f field.UnderlyingSecuritySubTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingSecuritySubType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecuritySubTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingMaturityMonthYear gets UnderlyingMaturityMonthYear, Tag 313
-func (m NoUnderlyings) GetUnderlyingMaturityMonthYear() (f field.UnderlyingMaturityMonthYearField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingMaturityMonthYearField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingMaturityDate gets UnderlyingMaturityDate, Tag 542
-func (m NoUnderlyings) GetUnderlyingMaturityDate() (f field.UnderlyingMaturityDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingMaturityDate() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingMaturityDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCouponPaymentDate gets UnderlyingCouponPaymentDate, Tag 241
-func (m NoUnderlyings) GetUnderlyingCouponPaymentDate() (f field.UnderlyingCouponPaymentDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCouponPaymentDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingIssueDate gets UnderlyingIssueDate, Tag 242
-func (m NoUnderlyings) GetUnderlyingIssueDate() (f field.UnderlyingIssueDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingIssueDate() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingIssueDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingRepoCollateralSecurityType gets UnderlyingRepoCollateralSecurityType, Tag 243
-func (m NoUnderlyings) GetUnderlyingRepoCollateralSecurityType() (f field.UnderlyingRepoCollateralSecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRepoCollateralSecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingRepurchaseTerm gets UnderlyingRepurchaseTerm, Tag 244
-func (m NoUnderlyings) GetUnderlyingRepurchaseTerm() (f field.UnderlyingRepurchaseTermField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRepurchaseTermField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
-func (m NoUnderlyings) GetUnderlyingRepurchaseRate() (f field.UnderlyingRepurchaseRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRepurchaseRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingFactor gets UnderlyingFactor, Tag 246
-func (m NoUnderlyings) GetUnderlyingFactor() (f field.UnderlyingFactorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingFactorField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingCreditRating gets UnderlyingCreditRating, Tag 256
-func (m NoUnderlyings) GetUnderlyingCreditRating() (f field.UnderlyingCreditRatingField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCreditRating() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCreditRatingField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingInstrRegistry gets UnderlyingInstrRegistry, Tag 595
-func (m NoUnderlyings) GetUnderlyingInstrRegistry() (f field.UnderlyingInstrRegistryField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingInstrRegistry() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingInstrRegistryField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCountryOfIssue gets UnderlyingCountryOfIssue, Tag 592
-func (m NoUnderlyings) GetUnderlyingCountryOfIssue() (f field.UnderlyingCountryOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCountryOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCountryOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingStateOrProvinceOfIssue gets UnderlyingStateOrProvinceOfIssue, Tag 593
-func (m NoUnderlyings) GetUnderlyingStateOrProvinceOfIssue() (f field.UnderlyingStateOrProvinceOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStateOrProvinceOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingLocaleOfIssue gets UnderlyingLocaleOfIssue, Tag 594
-func (m NoUnderlyings) GetUnderlyingLocaleOfIssue() (f field.UnderlyingLocaleOfIssueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingLocaleOfIssueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingRedemptionDate gets UnderlyingRedemptionDate, Tag 247
-func (m NoUnderlyings) GetUnderlyingRedemptionDate() (f field.UnderlyingRedemptionDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingRedemptionDate() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingRedemptionDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
-func (m NoUnderlyings) GetUnderlyingStrikePrice() (f field.UnderlyingStrikePriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStrikePriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingStrikeCurrency gets UnderlyingStrikeCurrency, Tag 941
-func (m NoUnderlyings) GetUnderlyingStrikeCurrency() (f field.UnderlyingStrikeCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingStrikeCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStrikeCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingOptAttribute gets UnderlyingOptAttribute, Tag 317
-func (m NoUnderlyings) GetUnderlyingOptAttribute() (f field.UnderlyingOptAttributeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingOptAttribute() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingOptAttributeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
-func (m NoUnderlyings) GetUnderlyingContractMultiplier() (f field.UnderlyingContractMultiplierField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingContractMultiplierField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
-func (m NoUnderlyings) GetUnderlyingCouponRate() (f field.UnderlyingCouponRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCouponRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingSecurityExchange gets UnderlyingSecurityExchange, Tag 308
-func (m NoUnderlyings) GetUnderlyingSecurityExchange() (f field.UnderlyingSecurityExchangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingSecurityExchange() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityExchangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingIssuer gets UnderlyingIssuer, Tag 306
-func (m NoUnderlyings) GetUnderlyingIssuer() (f field.UnderlyingIssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingIssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedUnderlyingIssuerLen gets EncodedUnderlyingIssuerLen, Tag 362
-func (m NoUnderlyings) GetEncodedUnderlyingIssuerLen() (f field.EncodedUnderlyingIssuerLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetEncodedUnderlyingIssuerLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedUnderlyingIssuerLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedUnderlyingIssuer gets EncodedUnderlyingIssuer, Tag 363
-func (m NoUnderlyings) GetEncodedUnderlyingIssuer() (f field.EncodedUnderlyingIssuerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetEncodedUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedUnderlyingIssuerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityDesc gets UnderlyingSecurityDesc, Tag 307
-func (m NoUnderlyings) GetUnderlyingSecurityDesc() (f field.UnderlyingSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedUnderlyingSecurityDescLen gets EncodedUnderlyingSecurityDescLen, Tag 364
-func (m NoUnderlyings) GetEncodedUnderlyingSecurityDescLen() (f field.EncodedUnderlyingSecurityDescLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetEncodedUnderlyingSecurityDescLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedUnderlyingSecurityDescLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedUnderlyingSecurityDesc gets EncodedUnderlyingSecurityDesc, Tag 365
-func (m NoUnderlyings) GetEncodedUnderlyingSecurityDesc() (f field.EncodedUnderlyingSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetEncodedUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedUnderlyingSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCPProgram gets UnderlyingCPProgram, Tag 877
-func (m NoUnderlyings) GetUnderlyingCPProgram() (f field.UnderlyingCPProgramField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCPProgram() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCPProgramField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCPRegType gets UnderlyingCPRegType, Tag 878
-func (m NoUnderlyings) GetUnderlyingCPRegType() (f field.UnderlyingCPRegTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCPRegType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCPRegTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingCurrency gets UnderlyingCurrency, Tag 318
-func (m NoUnderlyings) GetUnderlyingCurrency() (f field.UnderlyingCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingQty gets UnderlyingQty, Tag 879
-func (m NoUnderlyings) GetUnderlyingQty() (f field.UnderlyingQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingPx gets UnderlyingPx, Tag 810
-func (m NoUnderlyings) GetUnderlyingPx() (f field.UnderlyingPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
-func (m NoUnderlyings) GetUnderlyingDirtyPrice() (f field.UnderlyingDirtyPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingDirtyPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingDirtyPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
-func (m NoUnderlyings) GetUnderlyingEndPrice() (f field.UnderlyingEndPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingEndPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingEndPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
-func (m NoUnderlyings) GetUnderlyingStartValue() (f field.UnderlyingStartValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingStartValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStartValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
-func (m NoUnderlyings) GetUnderlyingCurrentValue() (f field.UnderlyingCurrentValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingCurrentValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingCurrentValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
-func (m NoUnderlyings) GetUnderlyingEndValue() (f field.UnderlyingEndValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyings) GetUnderlyingEndValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.UnderlyingEndValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
@@ -4119,14 +4833,20 @@ func (m NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltIDSource(v string) {
 }
 
 //GetUnderlyingSecurityAltID gets UnderlyingSecurityAltID, Tag 458
-func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (f field.UnderlyingSecurityAltIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityAltIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingSecurityAltIDSource gets UnderlyingSecurityAltIDSource, Tag 459
-func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (f field.UnderlyingSecurityAltIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingSecurityAltIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -4179,14 +4899,20 @@ func (m NoUnderlyingStips) SetUnderlyingStipValue(v string) {
 }
 
 //GetUnderlyingStipType gets UnderlyingStipType, Tag 888
-func (m NoUnderlyingStips) GetUnderlyingStipType() (f field.UnderlyingStipTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyingStips) GetUnderlyingStipType() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStipTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnderlyingStipValue gets UnderlyingStipValue, Tag 889
-func (m NoUnderlyingStips) GetUnderlyingStipValue() (f field.UnderlyingStipValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoUnderlyingStips) GetUnderlyingStipValue() (v string, err quickfix.MessageRejectError) {
+	var f field.UnderlyingStipValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -4252,7 +4978,7 @@ type NoStipulations struct {
 }
 
 //SetStipulationType sets StipulationType, Tag 233
-func (m NoStipulations) SetStipulationType(v string) {
+func (m NoStipulations) SetStipulationType(v enum.StipulationType) {
 	m.Set(field.NewStipulationType(v))
 }
 
@@ -4262,14 +4988,20 @@ func (m NoStipulations) SetStipulationValue(v string) {
 }
 
 //GetStipulationType gets StipulationType, Tag 233
-func (m NoStipulations) GetStipulationType() (f field.StipulationTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoStipulations) GetStipulationType() (v enum.StipulationType, err quickfix.MessageRejectError) {
+	var f field.StipulationTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStipulationValue gets StipulationValue, Tag 234
-func (m NoStipulations) GetStipulationValue() (f field.StipulationValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoStipulations) GetStipulationValue() (v string, err quickfix.MessageRejectError) {
+	var f field.StipulationValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

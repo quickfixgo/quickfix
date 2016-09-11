@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
 	"github.com/quickfixgo/quickfix/tag"
@@ -90,7 +91,7 @@ func (m ConfirmationAck) SetEncodedText(v string) {
 }
 
 //SetMatchStatus sets MatchStatus, Tag 573
-func (m ConfirmationAck) SetMatchStatus(v string) {
+func (m ConfirmationAck) SetMatchStatus(v enum.MatchStatus) {
 	m.Set(field.NewMatchStatus(v))
 }
 
@@ -100,66 +101,93 @@ func (m ConfirmationAck) SetConfirmID(v string) {
 }
 
 //SetConfirmRejReason sets ConfirmRejReason, Tag 774
-func (m ConfirmationAck) SetConfirmRejReason(v int) {
+func (m ConfirmationAck) SetConfirmRejReason(v enum.ConfirmRejReason) {
 	m.Set(field.NewConfirmRejReason(v))
 }
 
 //SetAffirmStatus sets AffirmStatus, Tag 940
-func (m ConfirmationAck) SetAffirmStatus(v int) {
+func (m ConfirmationAck) SetAffirmStatus(v enum.AffirmStatus) {
 	m.Set(field.NewAffirmStatus(v))
 }
 
 //GetText gets Text, Tag 58
-func (m ConfirmationAck) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m ConfirmationAck) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeDate gets TradeDate, Tag 75
-func (m ConfirmationAck) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetTradeDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m ConfirmationAck) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m ConfirmationAck) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMatchStatus gets MatchStatus, Tag 573
-func (m ConfirmationAck) GetMatchStatus() (f field.MatchStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetMatchStatus() (v enum.MatchStatus, err quickfix.MessageRejectError) {
+	var f field.MatchStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetConfirmID gets ConfirmID, Tag 664
-func (m ConfirmationAck) GetConfirmID() (f field.ConfirmIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetConfirmID() (v string, err quickfix.MessageRejectError) {
+	var f field.ConfirmIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetConfirmRejReason gets ConfirmRejReason, Tag 774
-func (m ConfirmationAck) GetConfirmRejReason() (f field.ConfirmRejReasonField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetConfirmRejReason() (v enum.ConfirmRejReason, err quickfix.MessageRejectError) {
+	var f field.ConfirmRejReasonField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAffirmStatus gets AffirmStatus, Tag 940
-func (m ConfirmationAck) GetAffirmStatus() (f field.AffirmStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ConfirmationAck) GetAffirmStatus() (v enum.AffirmStatus, err quickfix.MessageRejectError) {
+	var f field.AffirmStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

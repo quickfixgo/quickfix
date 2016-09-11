@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix42"
 	"github.com/quickfixgo/quickfix/tag"
@@ -89,12 +90,12 @@ func (m AllocationACK) SetExecBroker(v string) {
 }
 
 //SetAllocStatus sets AllocStatus, Tag 87
-func (m AllocationACK) SetAllocStatus(v int) {
+func (m AllocationACK) SetAllocStatus(v enum.AllocStatus) {
 	m.Set(field.NewAllocStatus(v))
 }
 
 //SetAllocRejCode sets AllocRejCode, Tag 88
-func (m AllocationACK) SetAllocRejCode(v int) {
+func (m AllocationACK) SetAllocRejCode(v enum.AllocRejCode) {
 	m.Set(field.NewAllocRejCode(v))
 }
 
@@ -114,62 +115,92 @@ func (m AllocationACK) SetEncodedText(v string) {
 }
 
 //GetText gets Text, Tag 58
-func (m AllocationACK) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m AllocationACK) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocID gets AllocID, Tag 70
-func (m AllocationACK) GetAllocID() (f field.AllocIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetAllocID() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeDate gets TradeDate, Tag 75
-func (m AllocationACK) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetTradeDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetExecBroker gets ExecBroker, Tag 76
-func (m AllocationACK) GetExecBroker() (f field.ExecBrokerField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetExecBroker() (v string, err quickfix.MessageRejectError) {
+	var f field.ExecBrokerField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocStatus gets AllocStatus, Tag 87
-func (m AllocationACK) GetAllocStatus() (f field.AllocStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetAllocStatus() (v enum.AllocStatus, err quickfix.MessageRejectError) {
+	var f field.AllocStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocRejCode gets AllocRejCode, Tag 88
-func (m AllocationACK) GetAllocRejCode() (f field.AllocRejCodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetAllocRejCode() (v enum.AllocRejCode, err quickfix.MessageRejectError) {
+	var f field.AllocRejCodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClientID gets ClientID, Tag 109
-func (m AllocationACK) GetClientID() (f field.ClientIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetClientID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClientIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m AllocationACK) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m AllocationACK) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationACK) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

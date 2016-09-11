@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -83,48 +84,66 @@ func (m StreamAssignmentReportACK) SetStreamAsgnRptID(v string) {
 }
 
 //SetStreamAsgnRejReason sets StreamAsgnRejReason, Tag 1502
-func (m StreamAssignmentReportACK) SetStreamAsgnRejReason(v int) {
+func (m StreamAssignmentReportACK) SetStreamAsgnRejReason(v enum.StreamAsgnRejReason) {
 	m.Set(field.NewStreamAsgnRejReason(v))
 }
 
 //SetStreamAsgnAckType sets StreamAsgnAckType, Tag 1503
-func (m StreamAssignmentReportACK) SetStreamAsgnAckType(v int) {
+func (m StreamAssignmentReportACK) SetStreamAsgnAckType(v enum.StreamAsgnAckType) {
 	m.Set(field.NewStreamAsgnAckType(v))
 }
 
 //GetText gets Text, Tag 58
-func (m StreamAssignmentReportACK) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m StreamAssignmentReportACK) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m StreamAssignmentReportACK) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m StreamAssignmentReportACK) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m StreamAssignmentReportACK) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m StreamAssignmentReportACK) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStreamAsgnRptID gets StreamAsgnRptID, Tag 1501
-func (m StreamAssignmentReportACK) GetStreamAsgnRptID() (f field.StreamAsgnRptIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m StreamAssignmentReportACK) GetStreamAsgnRptID() (v string, err quickfix.MessageRejectError) {
+	var f field.StreamAsgnRptIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStreamAsgnRejReason gets StreamAsgnRejReason, Tag 1502
-func (m StreamAssignmentReportACK) GetStreamAsgnRejReason() (f field.StreamAsgnRejReasonField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m StreamAssignmentReportACK) GetStreamAsgnRejReason() (v enum.StreamAsgnRejReason, err quickfix.MessageRejectError) {
+	var f field.StreamAsgnRejReasonField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStreamAsgnAckType gets StreamAsgnAckType, Tag 1503
-func (m StreamAssignmentReportACK) GetStreamAsgnAckType() (f field.StreamAsgnAckTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m StreamAssignmentReportACK) GetStreamAsgnAckType() (v enum.StreamAsgnAckType, err quickfix.MessageRejectError) {
+	var f field.StreamAsgnAckTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

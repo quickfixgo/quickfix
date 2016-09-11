@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix40"
 	"github.com/quickfixgo/quickfix/tag"
@@ -94,7 +95,7 @@ func (m Email) SetText(v string) {
 }
 
 //SetEmailType sets EmailType, Tag 94
-func (m Email) SetEmailType(v string) {
+func (m Email) SetEmailType(v enum.EmailType) {
 	m.Set(field.NewEmailType(v))
 }
 
@@ -109,56 +110,83 @@ func (m Email) SetRawData(v string) {
 }
 
 //GetClOrdID gets ClOrdID, Tag 11
-func (m Email) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLinesOfText gets LinesOfText, Tag 33
-func (m Email) GetLinesOfText() (f field.LinesOfTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetLinesOfText() (v int, err quickfix.MessageRejectError) {
+	var f field.LinesOfTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrderID gets OrderID, Tag 37
-func (m Email) GetOrderID() (f field.OrderIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetOrderID() (v string, err quickfix.MessageRejectError) {
+	var f field.OrderIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrigTime gets OrigTime, Tag 42
-func (m Email) GetOrigTime() (f field.OrigTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetOrigTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.OrigTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatdSym gets RelatdSym, Tag 46
-func (m Email) GetRelatdSym() (f field.RelatdSymField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetRelatdSym() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatdSymField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m Email) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEmailType gets EmailType, Tag 94
-func (m Email) GetEmailType() (f field.EmailTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetEmailType() (v enum.EmailType, err quickfix.MessageRejectError) {
+	var f field.EmailTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRawDataLength gets RawDataLength, Tag 95
-func (m Email) GetRawDataLength() (f field.RawDataLengthField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetRawDataLength() (v int, err quickfix.MessageRejectError) {
+	var f field.RawDataLengthField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRawData gets RawData, Tag 96
-func (m Email) GetRawData() (f field.RawDataField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Email) GetRawData() (v string, err quickfix.MessageRejectError) {
+	var f field.RawDataField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

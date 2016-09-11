@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix43"
 	"github.com/quickfixgo/quickfix/tag"
@@ -90,7 +91,7 @@ func (m RegistrationInstructions) SetRegistAcctType(v string) {
 }
 
 //SetTaxAdvantageType sets TaxAdvantageType, Tag 495
-func (m RegistrationInstructions) SetTaxAdvantageType(v int) {
+func (m RegistrationInstructions) SetTaxAdvantageType(v enum.TaxAdvantageType) {
 	m.Set(field.NewTaxAdvantageType(v))
 }
 
@@ -110,24 +111,30 @@ func (m RegistrationInstructions) SetRegistID(v string) {
 }
 
 //SetRegistTransType sets RegistTransType, Tag 514
-func (m RegistrationInstructions) SetRegistTransType(v string) {
+func (m RegistrationInstructions) SetRegistTransType(v enum.RegistTransType) {
 	m.Set(field.NewRegistTransType(v))
 }
 
 //SetOwnershipType sets OwnershipType, Tag 517
-func (m RegistrationInstructions) SetOwnershipType(v string) {
+func (m RegistrationInstructions) SetOwnershipType(v enum.OwnershipType) {
 	m.Set(field.NewOwnershipType(v))
 }
 
 //GetAccount gets Account, Tag 1
-func (m RegistrationInstructions) GetAccount() (f field.AccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructions) GetAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClOrdID gets ClOrdID, Tag 11
-func (m RegistrationInstructions) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructions) GetClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -146,20 +153,29 @@ func (m RegistrationInstructions) GetNoRegistDtls() (NoRegistDtlsRepeatingGroup,
 }
 
 //GetRegistAcctType gets RegistAcctType, Tag 493
-func (m RegistrationInstructions) GetRegistAcctType() (f field.RegistAcctTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructions) GetRegistAcctType() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistAcctTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTaxAdvantageType gets TaxAdvantageType, Tag 495
-func (m RegistrationInstructions) GetTaxAdvantageType() (f field.TaxAdvantageTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructions) GetTaxAdvantageType() (v enum.TaxAdvantageType, err quickfix.MessageRejectError) {
+	var f field.TaxAdvantageTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistRefID gets RegistRefID, Tag 508
-func (m RegistrationInstructions) GetRegistRefID() (f field.RegistRefIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructions) GetRegistRefID() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistRefIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -171,20 +187,29 @@ func (m RegistrationInstructions) GetNoDistribInsts() (NoDistribInstsRepeatingGr
 }
 
 //GetRegistID gets RegistID, Tag 513
-func (m RegistrationInstructions) GetRegistID() (f field.RegistIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructions) GetRegistID() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistTransType gets RegistTransType, Tag 514
-func (m RegistrationInstructions) GetRegistTransType() (f field.RegistTransTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructions) GetRegistTransType() (v enum.RegistTransType, err quickfix.MessageRejectError) {
+	var f field.RegistTransTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOwnershipType gets OwnershipType, Tag 517
-func (m RegistrationInstructions) GetOwnershipType() (f field.OwnershipTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructions) GetOwnershipType() (v enum.OwnershipType, err quickfix.MessageRejectError) {
+	var f field.OwnershipTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -254,12 +279,12 @@ func (m NoPartyIDs) SetPartyID(v string) {
 }
 
 //SetPartyIDSource sets PartyIDSource, Tag 447
-func (m NoPartyIDs) SetPartyIDSource(v string) {
+func (m NoPartyIDs) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
 //SetPartyRole sets PartyRole, Tag 452
-func (m NoPartyIDs) SetPartyRole(v int) {
+func (m NoPartyIDs) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
@@ -269,26 +294,38 @@ func (m NoPartyIDs) SetPartySubID(v string) {
 }
 
 //GetPartyID gets PartyID, Tag 448
-func (m NoPartyIDs) GetPartyID() (f field.PartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyIDSource gets PartyIDSource, Tag 447
-func (m NoPartyIDs) GetPartyIDSource() (f field.PartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
+	var f field.PartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyRole gets PartyRole, Tag 452
-func (m NoPartyIDs) GetPartyRole() (f field.PartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
+	var f field.PartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartySubID gets PartySubID, Tag 523
-func (m NoPartyIDs) GetPartySubID() (f field.PartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -366,7 +403,7 @@ func (m NoRegistDtls) SetNoNestedPartyIDs(f NoNestedPartyIDsRepeatingGroup) {
 }
 
 //SetOwnerType sets OwnerType, Tag 522
-func (m NoRegistDtls) SetOwnerType(v int) {
+func (m NoRegistDtls) SetOwnerType(v enum.OwnerType) {
 	m.Set(field.NewOwnerType(v))
 }
 
@@ -381,26 +418,38 @@ func (m NoRegistDtls) SetInvestorCountryOfResidence(v string) {
 }
 
 //GetRegistDetls gets RegistDetls, Tag 509
-func (m NoRegistDtls) GetRegistDetls() (f field.RegistDetlsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRegistDtls) GetRegistDetls() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistDetlsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistEmail gets RegistEmail, Tag 511
-func (m NoRegistDtls) GetRegistEmail() (f field.RegistEmailField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRegistDtls) GetRegistEmail() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistEmailField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMailingDtls gets MailingDtls, Tag 474
-func (m NoRegistDtls) GetMailingDtls() (f field.MailingDtlsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRegistDtls) GetMailingDtls() (v string, err quickfix.MessageRejectError) {
+	var f field.MailingDtlsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMailingInst gets MailingInst, Tag 482
-func (m NoRegistDtls) GetMailingInst() (f field.MailingInstField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRegistDtls) GetMailingInst() (v string, err quickfix.MessageRejectError) {
+	var f field.MailingInstField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -412,20 +461,29 @@ func (m NoRegistDtls) GetNoNestedPartyIDs() (NoNestedPartyIDsRepeatingGroup, qui
 }
 
 //GetOwnerType gets OwnerType, Tag 522
-func (m NoRegistDtls) GetOwnerType() (f field.OwnerTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRegistDtls) GetOwnerType() (v enum.OwnerType, err quickfix.MessageRejectError) {
+	var f field.OwnerTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDateOfBirth gets DateOfBirth, Tag 486
-func (m NoRegistDtls) GetDateOfBirth() (f field.DateOfBirthField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRegistDtls) GetDateOfBirth() (v string, err quickfix.MessageRejectError) {
+	var f field.DateOfBirthField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetInvestorCountryOfResidence gets InvestorCountryOfResidence, Tag 475
-func (m NoRegistDtls) GetInvestorCountryOfResidence() (f field.InvestorCountryOfResidenceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRegistDtls) GetInvestorCountryOfResidence() (v string, err quickfix.MessageRejectError) {
+	var f field.InvestorCountryOfResidenceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -495,26 +553,38 @@ func (m NoNestedPartyIDs) SetNestedPartySubID(v string) {
 }
 
 //GetNestedPartyID gets NestedPartyID, Tag 524
-func (m NoNestedPartyIDs) GetNestedPartyID() (f field.NestedPartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartyIDSource gets NestedPartyIDSource, Tag 525
-func (m NoNestedPartyIDs) GetNestedPartyIDSource() (f field.NestedPartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartyRole gets NestedPartyRole, Tag 538
-func (m NoNestedPartyIDs) GetNestedPartyRole() (f field.NestedPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.NestedPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNestedPartySubID gets NestedPartySubID, Tag 545
-func (m NoNestedPartyIDs) GetNestedPartySubID() (f field.NestedPartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoNestedPartyIDs) GetNestedPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.NestedPartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -590,7 +660,7 @@ type NoDistribInsts struct {
 }
 
 //SetDistribPaymentMethod sets DistribPaymentMethod, Tag 477
-func (m NoDistribInsts) SetDistribPaymentMethod(v int) {
+func (m NoDistribInsts) SetDistribPaymentMethod(v enum.DistribPaymentMethod) {
 	m.Set(field.NewDistribPaymentMethod(v))
 }
 
@@ -625,44 +695,66 @@ func (m NoDistribInsts) SetCashDistribPayRef(v string) {
 }
 
 //GetDistribPaymentMethod gets DistribPaymentMethod, Tag 477
-func (m NoDistribInsts) GetDistribPaymentMethod() (f field.DistribPaymentMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDistribInsts) GetDistribPaymentMethod() (v enum.DistribPaymentMethod, err quickfix.MessageRejectError) {
+	var f field.DistribPaymentMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetDistribPercentage gets DistribPercentage, Tag 512
-func (m NoDistribInsts) GetDistribPercentage() (f field.DistribPercentageField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDistribInsts) GetDistribPercentage() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.DistribPercentageField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetCashDistribCurr gets CashDistribCurr, Tag 478
-func (m NoDistribInsts) GetCashDistribCurr() (f field.CashDistribCurrField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDistribInsts) GetCashDistribCurr() (v string, err quickfix.MessageRejectError) {
+	var f field.CashDistribCurrField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCashDistribAgentName gets CashDistribAgentName, Tag 498
-func (m NoDistribInsts) GetCashDistribAgentName() (f field.CashDistribAgentNameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDistribInsts) GetCashDistribAgentName() (v string, err quickfix.MessageRejectError) {
+	var f field.CashDistribAgentNameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCashDistribAgentCode gets CashDistribAgentCode, Tag 499
-func (m NoDistribInsts) GetCashDistribAgentCode() (f field.CashDistribAgentCodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDistribInsts) GetCashDistribAgentCode() (v string, err quickfix.MessageRejectError) {
+	var f field.CashDistribAgentCodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCashDistribAgentAcctNumber gets CashDistribAgentAcctNumber, Tag 500
-func (m NoDistribInsts) GetCashDistribAgentAcctNumber() (f field.CashDistribAgentAcctNumberField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDistribInsts) GetCashDistribAgentAcctNumber() (v string, err quickfix.MessageRejectError) {
+	var f field.CashDistribAgentAcctNumberField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCashDistribPayRef gets CashDistribPayRef, Tag 501
-func (m NoDistribInsts) GetCashDistribPayRef() (f field.CashDistribPayRefField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoDistribInsts) GetCashDistribPayRef() (v string, err quickfix.MessageRejectError) {
+	var f field.CashDistribPayRefField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

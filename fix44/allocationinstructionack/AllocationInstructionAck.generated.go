@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
 	"github.com/quickfixgo/quickfix/tag"
@@ -90,17 +91,17 @@ func (m AllocationInstructionAck) SetNoAllocs(f NoAllocsRepeatingGroup) {
 }
 
 //SetAllocStatus sets AllocStatus, Tag 87
-func (m AllocationInstructionAck) SetAllocStatus(v int) {
+func (m AllocationInstructionAck) SetAllocStatus(v enum.AllocStatus) {
 	m.Set(field.NewAllocStatus(v))
 }
 
 //SetAllocRejCode sets AllocRejCode, Tag 88
-func (m AllocationInstructionAck) SetAllocRejCode(v int) {
+func (m AllocationInstructionAck) SetAllocRejCode(v enum.AllocRejCode) {
 	m.Set(field.NewAllocRejCode(v))
 }
 
 //SetSecurityType sets SecurityType, Tag 167
-func (m AllocationInstructionAck) SetSecurityType(v string) {
+func (m AllocationInstructionAck) SetSecurityType(v enum.SecurityType) {
 	m.Set(field.NewSecurityType(v))
 }
 
@@ -120,17 +121,17 @@ func (m AllocationInstructionAck) SetNoPartyIDs(f NoPartyIDsRepeatingGroup) {
 }
 
 //SetProduct sets Product, Tag 460
-func (m AllocationInstructionAck) SetProduct(v int) {
+func (m AllocationInstructionAck) SetProduct(v enum.Product) {
 	m.Set(field.NewProduct(v))
 }
 
 //SetMatchStatus sets MatchStatus, Tag 573
-func (m AllocationInstructionAck) SetMatchStatus(v string) {
+func (m AllocationInstructionAck) SetMatchStatus(v enum.MatchStatus) {
 	m.Set(field.NewMatchStatus(v))
 }
 
 //SetAllocType sets AllocType, Tag 626
-func (m AllocationInstructionAck) SetAllocType(v int) {
+func (m AllocationInstructionAck) SetAllocType(v enum.AllocType) {
 	m.Set(field.NewAllocType(v))
 }
 
@@ -140,31 +141,43 @@ func (m AllocationInstructionAck) SetSecondaryAllocID(v string) {
 }
 
 //SetAllocIntermedReqType sets AllocIntermedReqType, Tag 808
-func (m AllocationInstructionAck) SetAllocIntermedReqType(v int) {
+func (m AllocationInstructionAck) SetAllocIntermedReqType(v enum.AllocIntermedReqType) {
 	m.Set(field.NewAllocIntermedReqType(v))
 }
 
 //GetText gets Text, Tag 58
-func (m AllocationInstructionAck) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m AllocationInstructionAck) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocID gets AllocID, Tag 70
-func (m AllocationInstructionAck) GetAllocID() (f field.AllocIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetAllocID() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeDate gets TradeDate, Tag 75
-func (m AllocationInstructionAck) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetTradeDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -176,32 +189,47 @@ func (m AllocationInstructionAck) GetNoAllocs() (NoAllocsRepeatingGroup, quickfi
 }
 
 //GetAllocStatus gets AllocStatus, Tag 87
-func (m AllocationInstructionAck) GetAllocStatus() (f field.AllocStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetAllocStatus() (v enum.AllocStatus, err quickfix.MessageRejectError) {
+	var f field.AllocStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocRejCode gets AllocRejCode, Tag 88
-func (m AllocationInstructionAck) GetAllocRejCode() (f field.AllocRejCodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetAllocRejCode() (v enum.AllocRejCode, err quickfix.MessageRejectError) {
+	var f field.AllocRejCodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityType gets SecurityType, Tag 167
-func (m AllocationInstructionAck) GetSecurityType() (f field.SecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetSecurityType() (v enum.SecurityType, err quickfix.MessageRejectError) {
+	var f field.SecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m AllocationInstructionAck) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m AllocationInstructionAck) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -213,32 +241,47 @@ func (m AllocationInstructionAck) GetNoPartyIDs() (NoPartyIDsRepeatingGroup, qui
 }
 
 //GetProduct gets Product, Tag 460
-func (m AllocationInstructionAck) GetProduct() (f field.ProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetProduct() (v enum.Product, err quickfix.MessageRejectError) {
+	var f field.ProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetMatchStatus gets MatchStatus, Tag 573
-func (m AllocationInstructionAck) GetMatchStatus() (f field.MatchStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetMatchStatus() (v enum.MatchStatus, err quickfix.MessageRejectError) {
+	var f field.MatchStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocType gets AllocType, Tag 626
-func (m AllocationInstructionAck) GetAllocType() (f field.AllocTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetAllocType() (v enum.AllocType, err quickfix.MessageRejectError) {
+	var f field.AllocTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecondaryAllocID gets SecondaryAllocID, Tag 793
-func (m AllocationInstructionAck) GetSecondaryAllocID() (f field.SecondaryAllocIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetSecondaryAllocID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecondaryAllocIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocIntermedReqType gets AllocIntermedReqType, Tag 808
-func (m AllocationInstructionAck) GetAllocIntermedReqType() (f field.AllocIntermedReqTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m AllocationInstructionAck) GetAllocIntermedReqType() (v enum.AllocIntermedReqType, err quickfix.MessageRejectError) {
+	var f field.AllocIntermedReqTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -368,50 +411,75 @@ func (m NoAllocs) SetEncodedAllocText(v string) {
 }
 
 //GetAllocAccount gets AllocAccount, Tag 79
-func (m NoAllocs) GetAllocAccount() (f field.AllocAccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocAccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocAcctIDSource gets AllocAcctIDSource, Tag 661
-func (m NoAllocs) GetAllocAcctIDSource() (f field.AllocAcctIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocAcctIDSource() (v int, err quickfix.MessageRejectError) {
+	var f field.AllocAcctIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocPrice gets AllocPrice, Tag 366
-func (m NoAllocs) GetAllocPrice() (f field.AllocPriceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+	var f field.AllocPriceField
+	if err = m.Get(&f); err == nil {
+		v = f.Decimal
+		scale = f.Scale
+	}
 	return
 }
 
 //GetIndividualAllocID gets IndividualAllocID, Tag 467
-func (m NoAllocs) GetIndividualAllocID() (f field.IndividualAllocIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetIndividualAllocID() (v string, err quickfix.MessageRejectError) {
+	var f field.IndividualAllocIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetIndividualAllocRejCode gets IndividualAllocRejCode, Tag 776
-func (m NoAllocs) GetIndividualAllocRejCode() (f field.IndividualAllocRejCodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetIndividualAllocRejCode() (v int, err quickfix.MessageRejectError) {
+	var f field.IndividualAllocRejCodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocText gets AllocText, Tag 161
-func (m NoAllocs) GetAllocText() (f field.AllocTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetAllocText() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedAllocTextLen gets EncodedAllocTextLen, Tag 360
-func (m NoAllocs) GetEncodedAllocTextLen() (f field.EncodedAllocTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetEncodedAllocTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedAllocTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedAllocText gets EncodedAllocText, Tag 361
-func (m NoAllocs) GetEncodedAllocText() (f field.EncodedAllocTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoAllocs) GetEncodedAllocText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedAllocTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -489,12 +557,12 @@ func (m NoPartyIDs) SetPartyID(v string) {
 }
 
 //SetPartyIDSource sets PartyIDSource, Tag 447
-func (m NoPartyIDs) SetPartyIDSource(v string) {
+func (m NoPartyIDs) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
 //SetPartyRole sets PartyRole, Tag 452
-func (m NoPartyIDs) SetPartyRole(v int) {
+func (m NoPartyIDs) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
@@ -504,20 +572,29 @@ func (m NoPartyIDs) SetNoPartySubIDs(f NoPartySubIDsRepeatingGroup) {
 }
 
 //GetPartyID gets PartyID, Tag 448
-func (m NoPartyIDs) GetPartyID() (f field.PartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyIDSource gets PartyIDSource, Tag 447
-func (m NoPartyIDs) GetPartyIDSource() (f field.PartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
+	var f field.PartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyRole gets PartyRole, Tag 452
-func (m NoPartyIDs) GetPartyRole() (f field.PartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
+	var f field.PartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -559,19 +636,25 @@ func (m NoPartySubIDs) SetPartySubID(v string) {
 }
 
 //SetPartySubIDType sets PartySubIDType, Tag 803
-func (m NoPartySubIDs) SetPartySubIDType(v int) {
+func (m NoPartySubIDs) SetPartySubIDType(v enum.PartySubIDType) {
 	m.Set(field.NewPartySubIDType(v))
 }
 
 //GetPartySubID gets PartySubID, Tag 523
-func (m NoPartySubIDs) GetPartySubID() (f field.PartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartySubIDType gets PartySubIDType, Tag 803
-func (m NoPartySubIDs) GetPartySubIDType() (f field.PartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubIDType() (v enum.PartySubIDType, err quickfix.MessageRejectError) {
+	var f field.PartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
