@@ -280,7 +280,7 @@ func (s *SessionSuite) TestCheckSessionTimeNotInRange() {
 		s.NextTargetMsgSeqNum(2)
 		if test.expectSendLogout {
 			s.LastToAdminMessageSent()
-			s.MessageType(enum.MsgType_LOGOUT, s.MockApp.lastToAdmin)
+			s.MessageType(string(enum.MsgType_LOGOUT), s.MockApp.lastToAdmin)
 			s.NextSenderMsgSeqNum(3)
 		} else {
 			s.NextSenderMsgSeqNum(2)
@@ -332,7 +332,7 @@ func (s *SessionSuite) TestCheckSessionTimeInRangeButNotSameRangeAsStore() {
 		s.State(latentState{})
 		if test.expectSendLogout {
 			s.LastToAdminMessageSent()
-			s.MessageType(enum.MsgType_LOGOUT, s.MockApp.lastToAdmin)
+			s.MessageType(string(enum.MsgType_LOGOUT), s.MockApp.lastToAdmin)
 			s.FieldEquals(tagMsgSeqNum, 2, s.MockApp.lastToAdmin.Header)
 		}
 		s.ExpectStoreReset()
@@ -493,7 +493,7 @@ func (s *SessionSuite) TestOnAdminConnectInitiateLogon() {
 	s.False(s.sentReset)
 	s.State(logonState{})
 	s.LastToAdminMessageSent()
-	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.MessageType(string(enum.MsgType_LOGON), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 45, s.MockApp.lastToAdmin.Body)
 	s.FieldEquals(tagMsgSeqNum, 2, s.MockApp.lastToAdmin.Header)
 	s.NextSenderMsgSeqNum(3)
@@ -520,7 +520,7 @@ func (s *SessionSuite) TestInitiateLogonResetSeqNumFlag() {
 	s.True(s.sentReset)
 	s.State(logonState{})
 	s.LastToAdminMessageSent()
-	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.MessageType(string(enum.MsgType_LOGON), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagMsgSeqNum, 1, s.MockApp.lastToAdmin.Header)
 	s.FieldEquals(tagResetSeqNumFlag, true, s.MockApp.lastToAdmin.Body)
 	s.NextSenderMsgSeqNum(2)
@@ -528,7 +528,7 @@ func (s *SessionSuite) TestInitiateLogonResetSeqNumFlag() {
 }
 
 func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
-	s.session.sessionID.BeginString = enum.BeginStringFIXT11
+	s.session.sessionID.BeginString = string(enum.BeginStringFIXT11)
 	s.session.DefaultApplVerID = "8"
 	s.session.InitiateLogon = true
 
@@ -544,7 +544,7 @@ func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
 	s.True(s.session.InitiateLogon)
 	s.State(logonState{})
 	s.LastToAdminMessageSent()
-	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.MessageType(string(enum.MsgType_LOGON), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagDefaultApplVerID, "8", s.MockApp.lastToAdmin.Body)
 }
 
@@ -760,7 +760,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	suite.MockApp.AssertExpectations(suite.T())
 
 	msg := suite.MockApp.lastToAdmin
-	suite.MessageType(enum.MsgType_LOGON, msg)
+	suite.MessageType(string(enum.MsgType_LOGON), msg)
 	suite.FieldEquals(tagMsgSeqNum, 3, msg.Header)
 
 	//only one message sent
@@ -781,7 +781,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.MockApp.AssertExpectations(suite.T())
 	msg := suite.MockApp.lastToAdmin
 
-	suite.MessageType(enum.MsgType_LOGON, msg)
+	suite.MessageType(string(enum.MsgType_LOGON), msg)
 	suite.FieldEquals(tagMsgSeqNum, 1, msg.Header)
 
 	//only one message sent

@@ -242,7 +242,7 @@ func (s *session) prepMessageForSend(msg *Message) error {
 	if isAdminMessageType(string(msgType)) {
 		s.application.ToAdmin(*msg, s.sessionID)
 
-		if msgType.String() == enum.MsgType_LOGON {
+		if enum.MsgType(msgType) == enum.MsgType_LOGON {
 			var resetSeqNumFlag FIXBoolean
 			if msg.Body.Has(tagResetSeqNumFlag) {
 				if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err != nil {

@@ -15,7 +15,7 @@ func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionSt
 		return handleStateError(session, err)
 	}
 
-	if string(msgType) != enum.MsgType_LOGON {
+	if enum.MsgType(msgType) != enum.MsgType_LOGON {
 		session.log.OnEventf("Invalid Session State: Received Msg %s while waiting for Logon", msg)
 		return latentState{}
 	}
