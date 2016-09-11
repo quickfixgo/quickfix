@@ -68,6 +68,29 @@ Get{{ .Name }}() (f field.{{ .Name }}Field, err quickfix.MessageRejectError) {
 }
 {{- end }}
 
+{{ define "fieldvaluegetter" -}}
+{{- $ft := getGlobalFieldType . -}}
+{{- $bt := quickfixType $ft -}}
+{{- if and $ft.Enums (ne $bt "FIXBoolean") -}}
+Get{{ .Name }}() (v enum.{{ .Name }}, err quickfix.MessageRejectError) {
+{{- else if eq $bt "FIXDecimal" -}}
+Get{{ .Name }}() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+{{- else -}}
+Get{{ .Name }}() (v {{ quickfixValueType $bt }}, err quickfix.MessageRejectError) {
+{{- end }}
+	var f field.{{ .Name }}Field
+	if err = {{ template "receiver" }}.Get(&f); err == nil {
+{{ if eq $bt "FIXDecimal" -}}
+		v = f.Decimal
+		scale = f.Scale
+{{ else -}}
+		v = f.Value()
+{{ end -}}
+	}
+	return
+}
+{{- end }}
+
 {{ define "groupgetter" -}}
 Get{{ .Name }}() ({{ .Name }}RepeatingGroup, quickfix.MessageRejectError) {
 	f := New{{ .Name }}RepeatingGroup()
@@ -80,7 +103,7 @@ Get{{ .Name }}() ({{ .Name }}RepeatingGroup, quickfix.MessageRejectError) {
 {{ define "getters" }}
 {{ range .Fields }}
 //Get{{ .Name }} gets {{ .Name }}, Tag {{ .Tag }}
-func ({{ template "receiver" }} {{ $.Name }}) {{if .IsGroup}}{{ template "groupgetter" . }}{{ else }}{{ template "fieldgetter" .}}{{ end }}
+func ({{ template "receiver" }} {{ $.Name }}) {{if .IsGroup}}{{ template "groupgetter" . }}{{ else }}{{ template "fieldvaluegetter" .}}{{ end }}
 {{ end }}{{ end }}
 
 {{ define "hasers" }}
@@ -342,7 +365,27 @@ func New{{ .Name }}(val decimal.Decimal, scale int32) {{ .Name }}Field {
 func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
 	return {{ .Name }}Field{ quickfix.{{ $base_type }}(val) }
 }
-{{ end }}{{ end }}
+{{ end }}
+
+{{ if and  .Enums (ne $base_type "FIXBoolean") }}
+func (f {{ .Name }}Field) Value() enum.{{ .Name }} { return enum.{{ .Name }}(f.String()) }
+{{ else if eq $base_type "FIXDecimal" }}
+func (f {{ .Name }}Field) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+{{ else }}
+func (f {{ .Name }}Field) Value() ({{ quickfixValueType $base_type }}) {
+{{- if eq $base_type "FIXString" -}}
+ return f.String() }
+{{- else if eq $base_type "FIXBoolean" -}}
+ return f.Bool() }
+{{- else if eq $base_type "FIXInt" -}}
+ return f.Int() }
+{{- else if eq $base_type "FIXUTCTimestamp" -}}
+ return f.Time }
+{{- else if eq $base_type "FIXFloat" -}}
+ return f.Float() }
+{{- else -}}
+ TEMPLATE ERROR: Value() for {{ $base_type }}
+{{ end }}{{ end }}{{ end }}
 `))
 
 	EnumTemplate = template.Must(template.New("Enum").Parse(`
