@@ -118,3 +118,32 @@ func TestFieldMap_TypedSetAndGet(t *testing.T) {
 		t.Errorf("Expected %v got %v", "256", s)
 	}
 }
+
+func TestFieldMap_BoolTypedSetAndGet(t *testing.T) {
+	var fMap FieldMap
+	fMap.init()
+
+	fMap.SetBool(1, true)
+	v, err := fMap.GetBool(1)
+	if err != nil {
+		t.Error("Unexpected Error", err)
+	} else if !v {
+		t.Errorf("Expected %v got %v", true, v)
+	}
+	s, _ := fMap.GetString(1)
+	if s != "Y" {
+		t.Errorf("Expected %v got %v", "Y", s)
+	}
+
+	fMap.SetBool(2, false)
+	v, err = fMap.GetBool(2)
+	if err != nil {
+		t.Error("Unexpected Error", err)
+	} else if v {
+		t.Errorf("Expected %v got %v", false, v)
+	}
+	s, _ = fMap.GetString(2)
+	if s != "N" {
+		t.Errorf("Expected %v got %v", "N", s)
+	}
+}
