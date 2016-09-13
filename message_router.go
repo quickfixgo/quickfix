@@ -67,11 +67,14 @@ func (c MessageRouter) tryRoute(beginString string, msgType string, msg Message,
 		}
 	}
 
-	route, ok := c.routes[routeKey{fixVersion, msgType}]
-
-	if !ok {
-		return UnsupportedMessageType()
+	if route, ok := c.routes[routeKey{fixVersion, msgType}]; ok {
+		return route(msg, sessionID)
 	}
 
-	return route(msg, sessionID)
+	switch {
+	case isAdminMessageType(msgType) || msgType == "j":
+		return nil
+	}
+
+	return UnsupportedMessageType()
 }

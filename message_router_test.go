@@ -45,11 +45,11 @@ func (suite *MessageRouterTestSuite) givenTheMessage(msgBytes []byte) {
 	suite.msg = msg
 
 	var beginString FIXString
-	msg.Header.GetField(tagBeginString, &beginString)
+	suite.Require().Nil(msg.Header.GetField(tagBeginString, &beginString))
 	var senderCompID FIXString
-	msg.Header.GetField(tagSenderCompID, &senderCompID)
+	suite.Require().Nil(msg.Header.GetField(tagSenderCompID, &senderCompID))
 	var targetCompID FIXString
-	msg.Header.GetField(tagTargetCompID, &targetCompID)
+	suite.Require().Nil(msg.Header.GetField(tagTargetCompID, &targetCompID))
 	suite.sessionID = SessionID{BeginString: string(beginString), SenderCompID: string(targetCompID), TargetCompID: string(senderCompID)}
 }
 
@@ -107,6 +107,21 @@ func (suite *MessageRouterTestSuite) TestNoRoute() {
 	rej := suite.Route(suite.msg, suite.sessionID)
 	suite.verifyMessageNotRouted()
 	suite.Equal(NewBusinessMessageRejectError("Unsupported Message Type", 3, nil), rej)
+}
+
+func (suite *MessageRouterTestSuite) TestNoRouteWhitelistedMessageTypes() {
+	var tests = []string{"0", "A", "1", "2", "3", "4", "5", "j"}
+
+	for _, test := range tests {
+		suite.SetupTest()
+
+		msg := fmt.Sprintf("8=FIX.4.39=8735=%v49=TW34=356=ISLD52=20160421-14:43:5040=160=20160421-14:43:5054=121=311=id10=235", test)
+		suite.givenTheMessage([]byte(msg))
+
+		rej := suite.Route(suite.msg, suite.sessionID)
+		suite.verifyMessageNotRouted()
+		suite.Nil(rej, "Message type '%v' should not be rejected by the MessageRouter", test)
+	}
 }
 
 func (suite *MessageRouterTestSuite) TestSimpleRoute() {
